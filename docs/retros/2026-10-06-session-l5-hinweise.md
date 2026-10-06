@@ -21,5 +21,12 @@
 - `pgrep -f <muster>` im selben Bash-Aufruf trifft die eigene Shell (wie schon bei `pkill` bekannt).
 - `jsonb ? 'x'` ist auch für Arrays wahr; ein Entwurf als Array umging die Prüfung (Consensus-Check).
 
+## Nachtrag (Entscheidungen Rasit 06.10.)
+- Beanstanden/Zurücksetzen einer freigegebenen Aufgabe → Hinweise entwurf: Trigger `tasks_hinweise_bei_ruecknahme`
+  (`20261008110500`), pgTAP Abschnitt 9 (84 gesamt).
+- Merge von X0b und H6; Entscheidungs- und Admin-Leiste rücken in der Hülle über `spalte:`/`voll:` und
+  `--container-leiste*` ein (die Admin-Prüfansicht ist Fokusseite ohne Hülle und bleibt volle Breite).
+- Eingespielt am 06.10. (`20261008110100`–`110500`), Schema-Abzug aus Prod = Neuaufbau aus allen Migrationen.
+
 ## Offen
-Siehe `docs/session/offene-punkte-l5.md`. Einspielen erst nach „L5 einspielen“.
+Siehe `docs/session/offene-punkte-l5.md`.

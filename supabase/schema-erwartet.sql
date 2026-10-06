@@ -2315,21 +2315,27 @@ CREATE FUNCTION public.freigabe_zuruecknehmen(p_skill_key text) RETURNS integer
     SET search_path TO 'public'
     AS $$
 declare
-  v_n integer;
+  v_n   integer;
+  v_ids uuid[];
 begin
   if public.get_my_role() is distinct from 'admin' then
     raise exception 'A21: nur die fachliche Freigabe (admin) darf Freigaben zuruecknehmen'
       using errcode = '42501';
   end if;
 
-  update public.tasks
-     set status      = 'draft',
-         reviewed_by = null,
-         reviewed_at = null
-   where skill_key = p_skill_key
-     and status    = 'ready';
+  with z as (
+    update public.tasks
+       set status      = 'draft',
+           reviewed_by = null,
+           reviewed_at = null
+     where skill_key = p_skill_key
+       and status    = 'ready'
+    returning id)
+  select array_agg(id) into v_ids from z;
 
-  get diagnostics v_n = row_count;
+  v_n := coalesce(cardinality(v_ids), 0);
+  -- L5 Entscheidung 2: die Ruecknahme setzt die Kinder-Hinweise zurueck auf entwurf.
+  perform public.pruef_hinweise_setzen(x, 'entwurf') from unnest(coalesce(v_ids, '{}')) x;
   return v_n;
 end $$;
 
@@ -2435,7 +2441,14 @@ begin
   if p_status is null or p_status not in ('entwurf', 'geprueft') then
     raise exception 'hinweis_status_setzen: Status entwurf oder geprueft' using errcode = '22023';
   end if;
+  -- L5 Entscheidung 2: Kinder-Hinweise werden mit der Aufgabe freigegeben (pruef_admin_freigeben,
+  -- pruef_rueckfrage_klaeren, pruef_sammel) oder bei freigegebenen Aufgaben per hinweise_bestaetigen.
+  if p_status = 'geprueft' then
+    raise exception 'hinweis_status_setzen: geprueft nur ueber die Freigabe der Aufgabe' using errcode = '42501';
+  end if;
 
+  -- Sperrreihenfolge wie die Freigabewege: erst tasks, dann task_solutions (Consensus-Check L5, Befund 5).
+  perform 1 from public.tasks where id = p_task_id for update;
   select hints into v_hints from public.task_solutions where task_id = p_task_id for update;
   if v_hints is null or not exists (select 1 from jsonb_array_elements(v_hints) h
                                      where (h ->> 'level')::int = p_level) then
@@ -2454,6 +2467,46 @@ begin
   perform set_config('edvance.hinweis_status', '', true);
   return v_hints;
 end;
+$$;
+
+
+--
+-- Name: hinweise_bestaetigen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hinweise_bestaetigen(p_task_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks;
+  v_aend jsonb;
+begin
+  perform public.pruef_nur_admin('hinweise_bestaetigen');
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'hinweise_bestaetigen: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.status <> 'ready' then perform public.pruef_fehler('nicht_freigegeben'); end if;
+  if not public.hinweise_offen(p_task_id) then perform public.pruef_fehler('keine_hinweise_offen'); end if;
+  v_aend := public.pruef_hinweise_setzen(p_task_id, 'geprueft');
+  perform public.pruef_protokoll(p_task_id, 'hinweise_bestaetigen', v_aend, null, false);
+  return jsonb_build_object('status', t.status, 'aenderungen', v_aend);
+end;
+$$;
+
+
+--
+-- Name: hinweise_offen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hinweise_offen(p_task_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.task_solutions s,
+                        jsonb_array_elements(case when jsonb_typeof(s.hints) = 'array' then s.hints else '[]' end) h
+                  where s.task_id = p_task_id and coalesce(h ->> 'status', 'entwurf') <> 'geprueft')
 $$;
 
 
@@ -6771,6 +6824,7 @@ begin
   end if;
   if t.status = 'ready' then perform public.pruef_fehler('freigegeben'); end if;
   perform public.task_status_set(p_task_id, 'ready');
+  perform public.pruef_hinweise_setzen(p_task_id, 'geprueft');  -- L5 Entscheidung 2
   perform public.pruef_protokoll(p_task_id, 'freigeben', '[]', null, false);
   return jsonb_build_object('status', 'ready');
 end $$;
@@ -6785,7 +6839,8 @@ CREATE FUNCTION public.pruef_admin_gruende() RETURNS text[]
     AS $$
   select array['aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen',
                'passt_nicht_in_lsa', 'sonstiges', 'fehlbild_falsch', 'fehlbild_unrealistisch',
-               'zahlen_unguenstig', 'formulierung', 'didaktisch', 'kontext', 'loesung_passt_nicht']
+               'zahlen_unguenstig', 'formulierung', 'didaktisch', 'kontext', 'loesung_passt_nicht',
+               'hinweis_verraet_loesung', 'hinweis_passt_nicht']
 $$;
 
 
@@ -6793,7 +6848,7 @@ $$;
 -- Name: pruef_admin_liste(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_admin_liste() RETURNS TABLE(task_id uuid, lena_status text, ausschluss text, pilot boolean, entscheidung text, gruende text[], notiz text, aenderungen jsonb, aenderung_grund text, dauer_sek integer, geprueft_von text, geprueft_am timestamp with time zone, antwort text, beantwortet_am timestamp with time zone, geaendert boolean, ausschluss_grund text, ausschluss_von text, ausschluss_am timestamp with time zone)
+CREATE FUNCTION public.pruef_admin_liste() RETURNS TABLE(task_id uuid, lena_status text, ausschluss text, pilot boolean, entscheidung text, gruende text[], notiz text, aenderungen jsonb, aenderung_grund text, dauer_sek integer, geprueft_von text, geprueft_am timestamp with time zone, antwort text, beantwortet_am timestamp with time zone, geaendert boolean, ausschluss_grund text, ausschluss_von text, ausschluss_am timestamp with time zone, hinweise integer, hinweise_ungeprueft integer)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -6806,14 +6861,21 @@ begin
          lp.entscheidung, lp.gruende, lp.notiz, lp.aenderungen, lp.aenderung_grund, lp.dauer_sek,
          pr.full_name, lp.geprueft_am, lp.antwort, lp.beantwortet_am,
          coalesce(jsonb_array_length(lp.aenderungen) > 0, false),
-         h.grund, hv.full_name, h.am
+         h.grund, hv.full_name, h.am,
+         coalesce(hz.n, 0), coalesce(hz.offen, 0)
     from public.tasks t
     left join lateral (select p.* from public.task_pruefungen p where p.task_id = t.id
                         order by p.geprueft_am desc limit 1) lp on true
     left join public.profiles pr on pr.id = lp.geprueft_von
     left join public.task_pruef_ausschluss h on h.task_id = t.id
-    left join public.profiles hv on hv.id = h.von;
-end $$;
+    left join public.profiles hv on hv.id = h.von
+    left join lateral (select count(*)::int n,
+                              (count(*) filter (where coalesce(x ->> 'status', 'entwurf') <> 'geprueft'))::int offen
+                         from public.task_solutions s,
+                              jsonb_array_elements(case when jsonb_typeof(s.hints) = 'array' then s.hints else '[]' end) x
+                        where s.task_id = t.id) hz on true;
+end;
+$$;
 
 
 --
@@ -6859,6 +6921,15 @@ CREATE FUNCTION public.pruef_aenderungen(p_vorher jsonb, p_nachher jsonb) RETURN
            from jsonb_array_elements(coalesce(p_vorher -> 'werte', '[]')) w),
   wn as (select (w ->> 'teil')::int teil, coalesce((select jsonb_agg(x ->> 'wert') from jsonb_array_elements(w -> 'werte') x), '[]') l
            from jsonb_array_elements(coalesce(p_nachher -> 'werte', '[]')) w),
+  -- L5: Hinweise nur vergleichen, wenn beide Fassungen sie tragen.
+  hv as (select (h ->> 'stufe')::int stufe, h ->> 'text' txt
+           from jsonb_array_elements(case when jsonb_typeof(p_vorher -> 'hinweise') = 'array'
+                                           and jsonb_typeof(p_nachher -> 'hinweise') = 'array'
+                                          then p_vorher -> 'hinweise' else '[]' end) h),
+  hn as (select (h ->> 'stufe')::int stufe, h ->> 'text' txt
+           from jsonb_array_elements(case when jsonb_typeof(p_vorher -> 'hinweise') = 'array'
+                                           and jsonb_typeof(p_nachher -> 'hinweise') = 'array'
+                                          then p_nachher -> 'hinweise' else '[]' end) h),
   rv as (select nullif(p_vorher -> 'regel', 'null') r), rn as (select nullif(p_nachher -> 'regel', 'null') r),
   fv as (select f ->> 'slug' slug, f - 'slug' || jsonb_build_object('werte', (select jsonb_agg(x order by x ->> 'teil', x ->> 'wert') from jsonb_array_elements(f -> 'werte') x)) f
            from jsonb_array_elements(coalesce(p_vorher -> 'fehler', '[]')) f),
@@ -6894,7 +6965,12 @@ CREATE FUNCTION public.pruef_aenderungen(p_vorher jsonb, p_nachher jsonb) RETURN
     union all
     select 6, jsonb_build_object('feld', 'anforderungsbereich', 'teil', null,
              'vorher', p_vorher -> 'afb', 'nachher', p_nachher -> 'afb')
-     where p_vorher -> 'afb' is distinct from p_nachher -> 'afb')
+     where p_vorher -> 'afb' is distinct from p_nachher -> 'afb'
+    union all
+    select 7, jsonb_build_object('feld', 'hinweis', 'teil', coalesce(hv.stufe, hn.stufe),
+             'vorher', to_jsonb(hv.txt), 'nachher', to_jsonb(hn.txt))
+      from hv full join hn on hv.stufe = hn.stufe
+     where hv.txt is distinct from hn.txt)
   select coalesce(jsonb_agg(e order by n, e ->> 'teil', e -> 'vorher' ->> 'slug', e -> 'nachher' ->> 'slug'), '[]') from l
 $$;
 
@@ -7183,6 +7259,7 @@ begin
                           from jsonb_array_elements(sicht -> 'fehler') f
                           left join public.fehlbild_labels fl on fl.slug = f ->> 'slug'), '[]'),
     'weitere_hinweise', sicht -> 'weitere_hinweise',
+    'hinweise', coalesce(sicht -> 'hinweise', '[]'),
     'flach_regel', sicht -> 'flach_regel', 'ohne_erkennung', sicht -> 'ohne_erkennung',
     'loesungsweg', s.solution,
     'fertigkeit', (select jsonb_build_object('key', k.skill_key, 'label', k.label, 'thema_key', x.thema_key,
@@ -7362,7 +7439,8 @@ begin
   else
     if cardinality(gruende) = 0 then perform public.pruef_fehler('grund_fehlt'); end if;
     if exists (select 1 from unnest(gruende) x where x not in ('aufgabe_fehlerhaft', 'aufgabe_unklar',
-                 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa', 'sonstiges')) then
+                 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa', 'sonstiges',
+                 'hinweis_verraet_loesung', 'hinweis_passt_nicht')) then
       perform public.pruef_fehler('grund_unbekannt');
     end if;
     if 'sonstiges' = any (gruende) and notiz is null then perform public.pruef_fehler('notiz_fehlt'); end if;
@@ -7586,7 +7664,8 @@ CREATE FUNCTION public.pruef_fassung(p_task_id uuid) RETURNS jsonb
   select jsonb_build_object(
     'skill_key', t.skill_key, 'afb', t.afb, 'sondierrang', t.sondierrang,
     'correct_answers', coalesce(s.correct_answers, '[]'), 'acceptance', s.acceptance,
-    'typical_errors', coalesce(s.typical_errors, '[]'))
+    'typical_errors', coalesce(s.typical_errors, '[]'),
+    'hints', coalesce(s.hints, '[]'))
   from public.tasks t left join public.task_solutions s on s.task_id = t.id
   where t.id = p_task_id
 $$;
@@ -7703,6 +7782,7 @@ begin
   end if;
   if t.status <> 'ready' then perform public.pruef_fehler('nicht_freigegeben'); end if;
   perform public.task_status_set(p_task_id, 'draft');
+  perform public.pruef_hinweise_setzen(p_task_id, 'entwurf');  -- L5 Entscheidung 2
   perform public.pruef_protokoll(p_task_id, 'freigabe_zurueck', '[]', null, false);
   return jsonb_build_object('status', 'draft');
 end $$;
@@ -7745,6 +7825,105 @@ begin
   end loop;
   return g;
 end $$;
+
+
+--
+-- Name: pruef_hinweise_anwenden(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_hinweise_anwenden(p_jetzt jsonb, p_entwurf jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  alt jsonb := case when jsonb_typeof(p_jetzt -> 'hints') = 'array' then p_jetzt -> 'hints' else '[]' end;
+  e   jsonb := coalesce(p_entwurf, '{}');
+  neu jsonb;
+  n   int;
+begin
+  if jsonb_typeof(e) <> 'object' then
+    perform public.pruef_fehler('hinweis_ungueltig');
+  end if;
+  if not (e ? 'hinweise') then
+    return alt;
+  end if;
+  if jsonb_typeof(e -> 'hinweise') <> 'array'
+     or exists (select 1 from jsonb_array_elements(e -> 'hinweise') h
+                 where jsonb_typeof(h) <> 'object' or jsonb_typeof(h -> 'stufe') <> 'number'
+                    or (h ->> 'stufe')::numeric not in (1, 2, 3)
+                    or (h ? 'text' and jsonb_typeof(h -> 'text') not in ('string', 'null')))
+     or (select count(*) <> count(distinct (h ->> 'stufe')::numeric) from jsonb_array_elements(e -> 'hinweise') h) then
+    perform public.pruef_fehler('hinweis_ungueltig');
+  end if;
+  if exists (select 1 from jsonb_array_elements(e -> 'hinweise') h where length(btrim(h ->> 'text')) > 500) then
+    perform public.pruef_fehler('hinweis_zu_lang');
+  end if;
+
+  select coalesce(jsonb_agg(case when btrim(a.h ->> 'text') = x.txt then a.h
+                                 else (coalesce(a.h, '{}'::jsonb) - 'status') || jsonb_build_object('level', x.stufe, 'text', x.txt)
+                            end order by x.stufe), '[]'),
+         count(*)
+    into neu, n
+    from (select (h ->> 'stufe')::numeric::int stufe, btrim(h ->> 'text') txt
+            from jsonb_array_elements(e -> 'hinweise') h
+           where coalesce(btrim(h ->> 'text'), '') <> '') x
+    left join lateral (select o.h from jsonb_array_elements(alt) o(h)
+                        where (o.h ->> 'level')::int = x.stufe limit 1) a on true;
+  -- Das Kind bekommt Stufe n erst nach Stufe n-1: keine Luecken.
+  if n > 0 and (select max((h ->> 'level')::int) from jsonb_array_elements(neu) h) <> n then
+    perform public.pruef_fehler('hinweis_luecke');
+  end if;
+  -- Unveraenderte Hinweise byte-gleich lassen, damit kein Speichern ohne Aenderung schreibt.
+  if (select coalesce(jsonb_agg(jsonb_build_object('l', (h ->> 'level')::int, 't', h ->> 'text') order by (h ->> 'level')::int), '[]')
+        from jsonb_array_elements(neu) h)
+     = (select coalesce(jsonb_agg(jsonb_build_object('l', (h ->> 'level')::int, 't', btrim(h ->> 'text')) order by (h ->> 'level')::int), '[]')
+          from jsonb_array_elements(alt) h) then
+    return alt;
+  end if;
+  return neu;
+end;
+$$;
+
+
+--
+-- Name: pruef_hinweise_setzen(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_hinweise_setzen(p_task_id uuid, p_status text) RETURNS jsonb
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_hints jsonb;
+  v_aend  jsonb;
+begin
+  if p_status is null or p_status not in ('entwurf', 'geprueft') then
+    raise exception 'pruef_hinweise_setzen: Status entwurf oder geprueft' using errcode = '22023';
+  end if;
+  select hints into v_hints from public.task_solutions where task_id = p_task_id for update;
+  if jsonb_typeof(v_hints) is distinct from 'array' then
+    return '[]'::jsonb;
+  end if;
+  select coalesce(jsonb_agg(jsonb_build_object('feld', 'hinweis_status', 'teil', (h ->> 'level')::int,
+                                               'vorher', coalesce(h ->> 'status', 'entwurf'), 'nachher', p_status)
+                            order by (h ->> 'level')::int), '[]')
+    into v_aend
+    from jsonb_array_elements(v_hints) h
+   where coalesce(h ->> 'status', 'entwurf') <> p_status;
+  if v_aend = '[]'::jsonb then
+    return v_aend;
+  end if;
+
+  perform set_config('edvance.hinweis_status', 'setzen', true);
+  update public.task_solutions
+     set hints = (select jsonb_agg(h || jsonb_build_object('status', p_status) order by ord)
+                    from jsonb_array_elements(v_hints) with ordinality as e(h, ord)),
+         updated_at = now()
+   where task_id = p_task_id;
+  perform set_config('edvance.hinweis_status', '', true);
+  return v_aend;
+end;
+$$;
 
 
 --
@@ -7977,6 +8156,7 @@ begin
 
   if p_aktion = 'freigeben' then
     perform public.task_status_set(p_task_id, 'ready');
+    perform public.pruef_hinweise_setzen(p_task_id, 'geprueft');  -- L5 Entscheidung 2
   elsif p_aktion = 'zurueckweisen' then
     if cardinality(gruende) = 0 then perform public.pruef_fehler('grund_fehlt'); end if;
     if not gruende <@ public.pruef_admin_gruende() then perform public.pruef_fehler('grund_unbekannt'); end if;
@@ -8046,7 +8226,7 @@ declare
 begin
   perform public.pruef_nur_admin('pruef_sammel');
   if p_aktion is null or p_aktion not in ('freigeben', 'an_lena', 'pilot_an', 'pilot_aus', 'ausschliessen',
-                                          'aufnehmen', 'fertigkeit', 'afb') then
+                                          'aufnehmen', 'fertigkeit', 'afb', 'hinweise_bestaetigen') then
     raise exception 'pruef_sammel: unbekannte Aktion %', p_aktion using errcode = '22023';
   end if;
   -- Eingaben, ohne die die Aktion fuer keine Aufgabe Sinn ergibt: Fehler fuer den ganzen Aufruf.
@@ -8126,6 +8306,9 @@ begin
     if not public.pruef_freigabe_erlaubt(t.id) then return jsonb_build_object('grund', 'geaendert'); end if;
     gate := public.freigabe_gate_fehler(t.id);
     if gate is not null then return jsonb_build_object('grund', 'befund', 'text', gate); end if;
+  elsif p_aktion = 'hinweise_bestaetigen' then
+    if t.status <> 'ready' then return jsonb_build_object('grund', 'nicht_freigegeben'); end if;
+    if not public.hinweise_offen(t.id) then return jsonb_build_object('grund', 'keine_hinweise_offen'); end if;
   elsif p_aktion = 'an_lena' then
     if t.status = 'ready' then return jsonb_build_object('grund', 'freigegeben'); end if;
     if aus is not null then return jsonb_build_object('grund', 'nicht_bei_lena', 'text', aus); end if;
@@ -8185,7 +8368,11 @@ declare
 begin
   if p_aktion = 'freigeben' then
     perform public.task_status_set(t.id, 'ready');
+    perform public.pruef_hinweise_setzen(t.id, 'geprueft');  -- L5 Entscheidung 2
     perform public.pruef_protokoll(t.id, 'freigeben', '[]', grund, true);
+  elsif p_aktion = 'hinweise_bestaetigen' then
+    perform public.pruef_protokoll(t.id, 'hinweise_bestaetigen', public.pruef_hinweise_setzen(t.id, 'geprueft'),
+                                   grund, true);
   elsif p_aktion = 'an_lena' then
     perform public.pruef_an_lena_schreiben(t.id, p_werte ->> 'nachricht', grund, true);
   elsif p_aktion in ('pilot_an', 'pilot_aus') then
@@ -8308,6 +8495,12 @@ begin
                group by fg.slug) f), '[]') end,
     'weitere_hinweise', coalesce((select jsonb_agg(e) from jsonb_array_elements(te) e
                                    where coalesce(e ->> 'fehlbild', '') = ''), '[]'),
+    -- L5: Kinder-Hinweise in Stufenreihenfolge. Eine Fassung ohne hints (vor L5) liefert null.
+    'hinweise', case when jsonb_typeof(p_fassung -> 'hints') = 'array' then coalesce((
+      select jsonb_agg(jsonb_build_object('stufe', (h ->> 'level')::int, 'text', h ->> 'text',
+                                          'status', coalesce(h ->> 'status', 'entwurf'))
+                       order by (h ->> 'level')::int)
+        from jsonb_array_elements(p_fassung -> 'hints') h), '[]') end,
     'skill_key', p_fassung ->> 'skill_key',
     'afb', p_fassung ->> 'afb',
     'flach_regel', flach,
@@ -8323,13 +8516,14 @@ CREATE FUNCTION public.pruef_speichern(p_task_id uuid, p_version bigint, p_entwu
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-declare t public.tasks; aus jsonb; jetzt jsonb; neu jsonb; os jsonb; sol text;
+declare t public.tasks; aus jsonb; jetzt jsonb; neu jsonb; os jsonb; sol text; nh jsonb;
 begin
   t := public.pruef_sperren(p_task_id, p_version);
   aus := public.pruef_ausgang_sichern(p_task_id);
   jetzt := public.pruef_fassung(p_task_id);
   select option_scores, solution into os, sol from public.task_solutions where task_id = p_task_id;
   neu := public.pruef_entwurf_anwenden(t, jetzt, aus, p_entwurf, os);
+  nh := public.pruef_hinweise_anwenden(jetzt, p_entwurf);
 
   if (neu -> 'correct_answers', neu -> 'acceptance', neu -> 'typical_errors')
      is distinct from (jetzt -> 'correct_answers', jetzt -> 'acceptance', jetzt -> 'typical_errors') then
@@ -8338,6 +8532,12 @@ begin
     on conflict (task_id) do update
       set correct_answers = excluded.correct_answers, acceptance = excluded.acceptance,
           typical_errors = excluded.typical_errors, updated_at = now();
+  end if;
+  -- L5: Hinweise im Entwurf. Der Trigger hinweise_status_folgt_text setzt geaenderte Texte auf entwurf.
+  if nh is distinct from coalesce(jetzt -> 'hints', '[]') then
+    insert into public.task_solutions as x (task_id, hints, updated_at)
+    values (p_task_id, nh, now())
+    on conflict (task_id) do update set hints = excluded.hints, updated_at = now();
   end if;
   if (neu ->> 'skill_key', neu ->> 'afb', neu -> 'sondierrang')
      is distinct from (jetzt ->> 'skill_key', jetzt ->> 'afb', jetzt -> 'sondierrang') then
@@ -8349,6 +8549,7 @@ begin
   select * into t from public.tasks where id = p_task_id;
   return jsonb_build_object(
     'pruef_version', t.pruef_version,
+    'hinweise', coalesce(public.pruef_sicht(t, public.pruef_fassung(p_task_id)) -> 'hinweise', '[]'),
     'auffaelligkeiten', public.pruef_auffaelligkeiten(t, neu -> 'correct_answers', neu -> 'acceptance', sol),
     'aenderungen', public.pruef_aenderungen(public.pruef_sicht(t, aus), public.pruef_sicht(t, public.pruef_fassung(p_task_id))));
 end $$;
@@ -10675,6 +10876,21 @@ begin
 
   return jsonb_build_object('ok', true, 'task_id', p_task_id, 'status', p_status);
 end $$;
+
+
+--
+-- Name: tasks_hinweise_bei_ruecknahme(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.tasks_hinweise_bei_ruecknahme() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  perform public.pruef_hinweise_setzen(new.id, 'entwurf');
+  return null;
+end;
+$$;
 
 
 --
@@ -13486,7 +13702,7 @@ CREATE TABLE public.task_admin_protokoll (
     von uuid,
     am timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT task_admin_protokoll_aenderungen_check CHECK ((jsonb_typeof(aenderungen) = 'array'::text)),
-    CONSTRAINT task_admin_protokoll_aktion_check CHECK ((aktion = ANY (ARRAY['freigeben'::text, 'an_lena'::text, 'zurueckweisen'::text, 'freigabe_zurueck'::text, 'ausschliessen'::text, 'aufnehmen'::text, 'pilot_an'::text, 'pilot_aus'::text, 'fertigkeit'::text, 'afb'::text, 'rueckfrage_freigeben'::text, 'rueckfrage_an_lena'::text, 'rueckfrage_zurueckweisen'::text])))
+    CONSTRAINT task_admin_protokoll_aktion_check CHECK ((aktion = ANY (ARRAY['freigeben'::text, 'an_lena'::text, 'zurueckweisen'::text, 'freigabe_zurueck'::text, 'ausschliessen'::text, 'aufnehmen'::text, 'pilot_an'::text, 'pilot_aus'::text, 'fertigkeit'::text, 'afb'::text, 'rueckfrage_freigeben'::text, 'rueckfrage_an_lena'::text, 'rueckfrage_zurueckweisen'::text, 'hinweise_bestaetigen'::text])))
 );
 
 
@@ -13581,7 +13797,7 @@ CREATE TABLE public.task_reviews (
     notiz text,
     geprueft_von uuid,
     geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT task_reviews_kategorie_check CHECK ((kategorie = ANY (ARRAY['fehlbild_falsch'::text, 'fehlbild_unrealistisch'::text, 'zahlen_unguenstig'::text, 'formulierung'::text, 'didaktisch'::text, 'kontext'::text, 'loesung_passt_nicht'::text, 'aufgabe_fehlerhaft'::text, 'aufgabe_unklar'::text, 'bild_falsch'::text, 'sprache_zu_schwer'::text, 'tablet_umbauen'::text, 'passt_nicht_in_lsa'::text, 'sonstiges'::text])))
+    CONSTRAINT task_reviews_kategorie_check CHECK ((kategorie = ANY (ARRAY['fehlbild_falsch'::text, 'fehlbild_unrealistisch'::text, 'zahlen_unguenstig'::text, 'formulierung'::text, 'didaktisch'::text, 'kontext'::text, 'loesung_passt_nicht'::text, 'aufgabe_fehlerhaft'::text, 'aufgabe_unklar'::text, 'bild_falsch'::text, 'sprache_zu_schwer'::text, 'tablet_umbauen'::text, 'passt_nicht_in_lsa'::text, 'sonstiges'::text, 'hinweis_verraet_loesung'::text, 'hinweis_passt_nicht'::text])))
 );
 
 
@@ -16077,6 +16293,13 @@ CREATE TRIGGER task_solutions_term_acceptance BEFORE INSERT OR UPDATE OF accepta
 --
 
 CREATE TRIGGER task_solutions_zahlen_guard BEFORE UPDATE OF correct_answers, acceptance ON public.task_solutions FOR EACH ROW EXECUTE FUNCTION public.task_solutions_zahlen_guard();
+
+
+--
+-- Name: tasks tasks_hinweise_bei_ruecknahme; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tasks_hinweise_bei_ruecknahme AFTER UPDATE OF status ON public.tasks FOR EACH ROW WHEN (((old.status = 'ready'::text) AND (new.status IS DISTINCT FROM 'ready'::text))) EXECUTE FUNCTION public.tasks_hinweise_bei_ruecknahme();
 
 
 --
