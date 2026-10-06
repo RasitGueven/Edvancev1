@@ -32,6 +32,12 @@ vi.mock('@/lib/supabase/akte', () => ({
 vi.mock('@/lib/supabase/heute', () => ({
   countAufgabenFuerAdmin: vi.fn(() => Promise.resolve({ data: 12, error: null })),
 }))
+vi.mock('@/lib/supabase/freigabe', () => ({
+  getDarfPruefen: vi.fn(() => Promise.resolve({ data: false, error: null })),
+}))
+vi.mock('@/lib/supabase/sessions', () => ({
+  listSessionsForCoach: vi.fn(() => Promise.resolve({ data: [], error: null })),
+}))
 
 import { AdminLayout } from '@/components/edvance/admin/AdminLayout'
 
@@ -134,8 +140,16 @@ describe('AdminLayout', () => {
     expect(screen.getByRole('link', { name: /Item-Pflege/ }).textContent).toContain('12')
   })
 
-  it('Coach: keine Leiste, nur die Seite', async () => {
+  it('Coach: Coach-Hülle statt Admin-Leiste (H6)', async () => {
     auth.rolle = 'coach'
+    await zeige()
+    expect(screen.getByRole('navigation', { name: 'Hauptnavigation' })).toBeTruthy()
+    expect(screen.queryByRole('link', { name: /Leads/ })).toBeNull()
+    expect(screen.getByText('Seite')).toBeTruthy()
+  })
+
+  it('Eltern/Schüler: keine Leiste, nur die Seite', async () => {
+    auth.rolle = 'parent'
     await zeige()
     expect(screen.queryByRole('navigation', { name: 'Hauptnavigation' })).toBeNull()
     expect(screen.getByText('Seite')).toBeTruthy()

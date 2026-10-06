@@ -1,5 +1,7 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { AppShell } from '@/components/edvance/shell/AppShell'
+import { CoachLayout } from '@/components/edvance/coach/CoachLayout'
+import { istFokusSeite } from '@/components/edvance/coach/coachNav'
 import { useAuth } from '@/hooks/useAuth'
 import { ADMIN_NAV } from './adminNav'
 import { useAdminZaehler } from './useAdminZaehler'
@@ -14,12 +16,17 @@ function AdminHuelle(): JSX.Element {
 }
 
 /**
- * Layout-Route der Admin-Seiten. Nur die Rolle admin bekommt die Hülle; jede
- * andere Rolle sieht die Seite wie bisher (Coach auf /admin/akten bis zur
- * Coach-Sicht, Entscheidung 12). Die Zugriffsprüfung bleibt in der
- * ProtectedRoute jeder Kind-Route.
+ * Layout-Route der Admin- und der Coach-Seiten: die Rolle entscheidet die
+ * Hülle (Entscheidung 12, Coach-Sicht H6). Auf geteilten Routen (Akten,
+ * Prüfen, Content-Gesundheit, Eltern-Report) sieht ein Admin die Admin-Hülle,
+ * ein Coach die Coach-Hülle. Fokus-Seiten und andere Rollen bekommen nur die
+ * Seite. Die Zugriffsprüfung bleibt in der ProtectedRoute jeder Kind-Route.
  */
 export function AdminLayout(): JSX.Element {
   const { role } = useAuth()
-  return role === 'admin' ? <AdminHuelle /> : <Outlet />
+  const { pathname } = useLocation()
+  if (istFokusSeite(pathname)) return <Outlet />
+  if (role === 'admin') return <AdminHuelle />
+  if (role === 'coach') return <CoachLayout />
+  return <Outlet />
 }

@@ -3,7 +3,6 @@ import { Navigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EdvanceBadge, EdvanceCard, LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
-import { useImShell } from '@/components/edvance/shell/shellContext'
 import { useAuth } from '@/hooks/useAuth'
 import { datum } from '@/lib/akte/format'
 import {
@@ -24,7 +23,6 @@ import type {
   SchuelerNotiz,
   WortlisteEintrag,
 } from '@/types'
-import { AltRahmen, type AltKopf } from './AltRahmen'
 import { FortschrittKachel } from './FortschrittKachel'
 import type { BoardHinweis } from './BoardPage'
 import { EinheitenKachel } from './EinheitenKachel'
@@ -56,7 +54,6 @@ export function AktePage(): JSX.Element {
   const { role } = useAuth()
   const { studentId = '' } = useParams()
   const istAdmin = role === 'admin'
-  const imShell = useImShell()
 
   const [akte, setAkte] = useState<Schuelerakte | null>(null)
   const [daten, setDaten] = useState<Daten>(LEER)
@@ -111,18 +108,18 @@ export function AktePage(): JSX.Element {
   const ruhend = akte?.zustand === 'ruhend'
 
   const geladen = status !== 'laedt' && akte !== null
-  const kopf: AltKopf | null = geladen
-    ? {
-        eyebrow: [akte.klasse !== null ? t('kopf.klasse', { klasse: akte.klasse }) : null, akte.schule]
-          .filter(Boolean)
-          .join(' · '),
-        title: akte.name ?? '—',
-        description: akte.akte_seit ? t('kopf.akteSeit', { datum: datum(akte.akte_seit, lang) }) : undefined,
-        backTo: '/admin/akten',
-        backLabel: t('kopf.zurueck'),
-        actions: <EdvanceBadge variant={ruhend ? 'muted' : 'strength'}>{t(`kopf.zustand.${akte.zustand}`)}</EdvanceBadge>,
-      }
-    : null
+  const kopf = geladen ? (
+    <PageHeader
+      rubrik={[akte.klasse !== null ? t('kopf.klasse', { klasse: akte.klasse }) : null, akte.schule]
+        .filter(Boolean)
+        .join(' · ')}
+      titel={akte.name ?? '—'}
+      satz={akte.akte_seit ? t('kopf.akteSeit', { datum: datum(akte.akte_seit, lang) }) : undefined}
+      aktionen={<EdvanceBadge variant={ruhend ? 'muted' : 'strength'}>{t(`kopf.zustand.${akte.zustand}`)}</EdvanceBadge>}
+      zurueckZu="/admin/akten"
+      zurueckLabel={t('kopf.zurueck')}
+    />
+  ) : null
 
   const inhalt = !geladen ? (
     error ? (
@@ -165,26 +162,9 @@ export function AktePage(): JSX.Element {
     </>
   )
 
-  if (!imShell) {
-    return (
-      <AltRahmen untertitel={t('board.titel')} breite="max-w-5xl" kopf={kopf}>
-        {inhalt}
-      </AltRahmen>
-    )
-  }
-
   return (
     <>
-      {kopf && (
-        <PageHeader
-          rubrik={kopf.eyebrow}
-          titel={kopf.title}
-          satz={kopf.description}
-          aktionen={kopf.actions}
-          zurueckZu={kopf.backTo}
-          zurueckLabel={kopf.backLabel}
-        />
-      )}
+      {kopf}
       {inhalt}
     </>
   )

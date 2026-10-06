@@ -3,8 +3,6 @@
     "titel": "Schüler",
     "eyebrow": "Schülerakte",
     "beschreibung": "Alle Akten nach Klassenstufe — Einheiten-Stand, letzte Session, schnell auffindbar.",
-    "zurueckAdmin": "Admin",
-    "zurueckCoach": "Coach-Dashboard",
     "sucheGlobal": "Suche über alle Klassen (Name oder Schule)",
     "sucheGlobalTreffer_one": "{{count}} Treffer",
     "sucheGlobalTreffer_other": "{{count}} Treffer",
