@@ -23,8 +23,8 @@ revoke insert, update, delete on public.student_progress from anon, authenticate
 
 drop policy if exists student_badges_admin_write on public.student_badges;
 create policy student_badges_admin_write on public.student_badges
-  for all using (public.get_my_role() = 'admin')
-  with check (public.get_my_role() = 'admin');
+  for all using (coalesce(public.get_my_role(), '') = 'admin')
+  with check (coalesce(public.get_my_role(), '') = 'admin');
 
 -- Kern ohne Rechtepruefung — nur fuer andere Server-Funktionen.
 create function public.xp_buchen_intern(

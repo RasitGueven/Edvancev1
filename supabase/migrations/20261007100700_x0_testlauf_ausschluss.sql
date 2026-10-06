@@ -19,7 +19,7 @@ CREATE OR REPLACE FUNCTION public.akte_basis()
  SET search_path TO 'public', 'pg_temp'
 AS $function$
   with ich as (
-    select public.get_my_role() as rolle
+    select coalesce(public.get_my_role(), '') as rolle
   ),
   vertrag as (
     select v.student_id,
@@ -120,7 +120,7 @@ CREATE OR REPLACE FUNCTION public.akte_sessions(p_student_id uuid)
  SET search_path TO 'public', 'pg_temp'
 AS $function$
 declare
-  v_rolle text := public.get_my_role();
+  v_rolle text := coalesce(public.get_my_role(), '');
   v_seit  date;
 begin
   if v_rolle = 'admin' then
@@ -207,7 +207,7 @@ declare
   v_lead_id uuid;
   v_n       int;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'lsa_uebernahme: nur Coach/Admin' using errcode = '42501';
   end if;
 
@@ -220,7 +220,7 @@ begin
     raise exception 'lsa_uebernahme: Testlauf wird nicht uebernommen' using errcode = '22023';
   end if;
   -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
-  if public.get_my_role() = 'coach' and not public.akte_aktiv(v_session.student_id) then
+  if coalesce(public.get_my_role(), '') = 'coach' and not public.akte_aktiv(v_session.student_id) then
     raise exception 'lsa_uebernahme: keine aktive Akte' using errcode = '42501';
   end if;
 
@@ -287,7 +287,7 @@ declare
   v_clusters uuid[];
   v_written  integer := 0;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'LSA: Lernpfad-Freigabe nur durch Coach (FernUSG)' using errcode = '42501';
   end if;
 
@@ -300,7 +300,7 @@ begin
     raise exception 'LSA: Testlauf wird nicht uebernommen' using errcode = '22023';
   end if;
   -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
-  if public.get_my_role() = 'coach' and not public.akte_aktiv(v_session.student_id) then
+  if coalesce(public.get_my_role(), '') = 'coach' and not public.akte_aktiv(v_session.student_id) then
     raise exception 'LSA: keine aktive Akte' using errcode = '42501';
   end if;
   if v_session.status <> 'completed' then

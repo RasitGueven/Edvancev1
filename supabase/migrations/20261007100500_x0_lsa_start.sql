@@ -23,7 +23,7 @@ stable
 security definer
 set search_path = public, pg_temp
 as $$
-  select public.get_my_role() = 'coach'
+  select coalesce(public.get_my_role(), '') = 'coach'
      and public.akte_aktiv(p_student_id)
      and exists (
        select 1
@@ -200,7 +200,7 @@ declare
   v_student_id uuid;
   v_result     jsonb;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'lead_lsa_freigeben: nur Admin' using errcode = '42501';
   end if;
 

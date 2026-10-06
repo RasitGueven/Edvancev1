@@ -15,6 +15,9 @@ Stand 06.10.2026 · Branch `feat/rasit-session-x0-sicherheit` · Bauauftrag `doc
 5. **`is_active`** zählt im Pool streng (`coalesce(is_active, false)`). Der feste Modus nahm bisher `coalesce(…, true)`. In Prod gibt es keine NULL-Werte (dbread: 0 von 1183).
 6. **`xp_buchen`** darf nur der Admin oder ein Systemaufruf ausführen. Der Betrag liegt zwischen 1 und 1000. Je Kind bucht ein Buchungsschlüssel genau einmal (neue Spalte `xp_events.buchungs_schluessel`, unique auf `(student_id, buchungs_schluessel)`). Die Grenze 1000 ist eine Annahme, keine Stellschraube.
 
+7. **NULL-Rollen (Nachtrag Rasit, 06.10.):** Alle Rollenprüfungen in den X0-Migrationen laufen über `coalesce(public.get_my_role(), '')`. `lsa_may_act_for` liefert nie mehr NULL: Der Vergleich `get_my_student_id() = p_student_id` war ohne Schülerzeile NULL, und `if not lsa_may_act_for(…)` hätte das durchgelassen. Laut dbread haben 11 von 30 `auth.users` keine Zeile in `profiles`. pgTAP 9 prüft „angemeldet ohne Profil → 42501“ je Funktion.
+8. **Entscheidungen Rasit (06.10.):** Zugangscode ohne Spaltenrechte bleibt. Report-Ausblick für Coaches nur lesend: bestätigt. Test-Leads laufen normal durch und zählen nicht: bestätigt. Die Coach-Selbstbuchung schließt R1.
+
 ## Was weiter auf stillgelegte Objekte zeigt (nicht gelöscht)
 
 | Objekt | Zeigt darauf | Wirkung ab X0 |

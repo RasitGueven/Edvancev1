@@ -9,19 +9,22 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(79);
+select plan(93);
 
 -- --- Konten ----------------------------------------------------------------
 \set admin_uid   '0c000000-0000-4000-8000-00000000000a'
 \set coach_uid   '0c000000-0000-4000-8000-00000000000c'
 \set coach2_uid  '0c000000-0000-4000-8000-0000000000c2'
 \set kind_uid    '0c000000-0000-4000-8000-00000000000d'
+\set ohne_uid    '0c000000-0000-4000-8000-0000000000ff'
 
 insert into auth.users (id, email, instance_id, aud, role) values
   (:'admin_uid',  'x0-admin@test.local',  '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
   (:'coach_uid',  'x0-coach@test.local',  '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
   (:'coach2_uid', 'x0-coach2@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
-  (:'kind_uid',   'x0-kind@test.local',   '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
+  (:'kind_uid',   'x0-kind@test.local',   '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
+  -- angemeldet, aber ohne Profil: get_my_role() liefert NULL
+  (:'ohne_uid',   'x0-ohne@test.local',   '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
 insert into profiles (id, email, role, full_name) values
   (:'admin_uid',  'x0-admin@test.local',  'admin',   'X0 Admin'),
   (:'coach_uid',  'x0-coach@test.local',  'coach',   'X0 Coach'),
@@ -355,6 +358,21 @@ select throws_ok(format('select public.lsa_uebernahme(%L, %L)', :'lsa_test', :'a
 select throws_ok(format('select public.lsa_confirm_focus(%L, %L::uuid[])', :'lsa_test', '{}'), '22023', null,
   '8: Testlauf geht nicht in den Lernpfad (lsa_confirm_focus)');
 
+-- A1-17: lernpfad_aus_lsa uebernimmt keine LSA mit testlauf = true.
+select skill_key as a17_skill from skills
+ where skill_key not in (:'irgendein_skill', :'pool_skill', :'test_skill') order by skill_key limit 1 \gset
+insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt)
+values (:'lsa_test', :'a17_skill', 'traegt_nicht', true)
+on conflict (session_id, skill_key) do update set zustand = 'traegt_nicht', belegt_direkt = true;
+select pg_temp.act_as(:'admin_uid');
+select public.lernpfad_aus_lsa(:'a');
+select is((select count(*)::int from lernpfad where student_id = :'a' and lsa_session_id = :'lsa_test'), 0,
+  '8 (A1-17): lernpfad_aus_lsa uebernimmt nichts aus einem Testlauf');
+select is((select count(*)::int from lernpfad where student_id = :'a' and skill_key = :'a17_skill'), 0,
+  '8 (A1-17): der Skill aus dem Testlauf steht nicht im Lernpfad');
+select ok((select count(*) from lernpfad where student_id = :'a' and lsa_session_id = :'lsa_a') > 0,
+  '8 (A1-17): die echte LSA wird uebernommen');
+
 -- Lead-Trichter: Testlauf nur mit Test-Lead; ein Kind erbt ist_test vom Lead.
 insert into leads (id, full_name, first_name, contact_email, status, ist_test)
 values (:'lt', 'X0 Testlead', 'Tom', 'x0t@example.invalid', 'lsa_freigegeben', true);
@@ -364,6 +382,32 @@ select is((select ist_test from students where id = :'t_kind'), true, '8: Kind e
 update leads set consent_dsgvo_at = now() where id = :'ll';
 select throws_ok(format('select public.lead_lsa_freigeben(%L, 9, %L, p_testlauf => true)', :'ll', 'Mathematik'), '22023', null,
   '8: Testlauf mit echtem Lead → abgelehnt');
+
+-- ============================================================================
+-- 9 · Angemeldet ohne Profil (get_my_role() = NULL) → 42501 an jeder Rollenpruefung
+-- ============================================================================
+select pg_temp.act_as(:'ohne_uid');
+select throws_ok(format('select public.lsa_start(%L, 9, %L)', :'a', 'Mathematik'), '42501', null,
+  '9: ohne Profil → lsa_start 42501');
+select throws_ok(format('select public.lead_lsa_freigeben(%L, 9, %L)', :'ll', 'Mathematik'), '42501', null,
+  '9: ohne Profil → lead_lsa_freigeben 42501');
+select throws_ok(format('select public.lsa_uebernahme(%L, %L)', :'lsa_a', :'a'), '42501', null,
+  '9: ohne Profil → lsa_uebernahme 42501');
+select throws_ok(format('select public.lsa_confirm_focus(%L, %L::uuid[])', :'lsa_a', '{}'), '42501', null,
+  '9: ohne Profil → lsa_confirm_focus 42501');
+select throws_ok(format('select public.xp_buchen(%L, 10, %L, %L)', :'a', 'ohne', 'x0:ohne'), '42501', null,
+  '9: ohne Profil → xp_buchen 42501');
+select throws_ok(format($$select public.testkonto_setzen('student', %L, true)$$, :'c'), '42501', null,
+  '9: ohne Profil → testkonto_setzen 42501');
+select throws_ok(format('select public.session_testlauf_setzen(%L, true)', :'platz_session'), '42501', null,
+  '9: ohne Profil → session_testlauf_setzen 42501');
+select throws_ok(format('select public.eltern_report_eintragen(%L, %L, p_lsa_session_id => %L)', :'a', 'lernstandsanalyse', :'lsa_a'),
+  '42501', null, '9: ohne Profil → eltern_report_eintragen 42501');
+select is(public.lsa_may_act_for(:'a'), false, '9: ohne Profil → lsa_may_act_for false');
+set local role authenticated;
+select is((select count(*)::int from lsa_sessions where student_id = :'a'), 0, '9: ohne Profil liest keine LSA');
+select is((select count(*)::int from xp_events where student_id = :'a'), 0, '9: ohne Profil liest keine XP');
+reset role;
 
 select * from finish();
 rollback;
