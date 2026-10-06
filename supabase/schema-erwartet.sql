@@ -502,7 +502,7 @@ begin
   end if;
   -- SECURITY DEFINER haengt an dieser Zeile: ohne sie duerfte jeder Angemeldete
   -- beliebige Eintraege ins Protokoll schreiben und es damit unbrauchbar machen.
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'audit_log_schreiben: nur Admin' using errcode = '42501';
   end if;
 
@@ -1369,7 +1369,7 @@ begin
   end if;
 
   if new.mastered and not v_was_mastered then
-    if public.get_my_role() not in ('coach','admin') then
+    if coalesce(public.get_my_role(), '') not in ('coach','admin') then
       raise exception 'Mastered darf nur durch Coach gesetzt werden (FernUSG)';
     end if;
     new.mastered_by := auth.uid();
@@ -2577,7 +2577,7 @@ CREATE FUNCTION public.lead_assessment_upsert(p_lead_id uuid, p_source text, p_n
 declare
   v_id uuid;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'lead_assessment_upsert: nur Coach/Admin' using errcode = '42501';
   end if;
 
@@ -2612,7 +2612,7 @@ CREATE FUNCTION public.lead_delete(p_lead_id uuid) RETURNS jsonb
 declare
   v_lead leads%rowtype;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'lead_delete: nur Admin' using errcode = '42501';
   end if;
 
@@ -6070,7 +6070,7 @@ declare
   v_treffer text;
   v_id     uuid;
 begin
-  if auth.uid() is null or v_rolle not in ('admin', 'coach') then
+  if auth.uid() is null or coalesce(v_rolle, '') not in ('admin', 'coach') then
     raise exception 'notiz_anlegen: nur Admin oder Coach' using errcode = '42501';
   end if;
   if not exists (select 1 from public.vertraege_aktuell v where v.student_id = p_student_id) then
@@ -6336,7 +6336,7 @@ declare
   v_id      uuid;
   v_expires timestamptz;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'platz_assign: nur Admin' using errcode = '42501';
   end if;
 
@@ -6566,7 +6566,7 @@ CREATE FUNCTION public.platz_release(p_assignment_id uuid) RETURNS jsonb
 declare
   v_count integer;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'platz_release: nur Admin' using errcode = '42501';
   end if;
 
@@ -10126,7 +10126,7 @@ declare
   v_belegt integer;
   v_id     uuid;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'slot_assign: nur Coach oder Admin' using errcode = '42501';
   end if;
 
@@ -10193,7 +10193,7 @@ CREATE FUNCTION public.slot_release(p_assignment_id uuid) RETURNS jsonb
 declare
   v_count integer;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'slot_release: nur Coach oder Admin' using errcode = '42501';
   end if;
 
@@ -10407,7 +10407,7 @@ declare
 begin
   -- Das Tor, das der Builder selbst nicht hat. Ein Schueler kommt hier nicht durch
   -- — auch nicht fuer sein eigenes Item, auch nicht ohne Entwurf.
-  if public.get_my_role() not in ('coach', 'admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach', 'admin') then
     raise exception 'task_preview_payload: nur Coach/Admin' using errcode = '42501';
   end if;
 
@@ -10494,7 +10494,7 @@ CREATE FUNCTION public.task_solution_get(p_task_id uuid) RETURNS jsonb
 declare
   v_row task_solutions%rowtype;
 begin
-  if public.get_my_role() not in ('coach', 'admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach', 'admin') then
     raise exception 'task_solution_get: nur Coach/Admin' using errcode = '42501';
   end if;
 
