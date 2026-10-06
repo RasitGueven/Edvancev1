@@ -357,3 +357,11 @@ export type {
   SessionAbschlussErgebnis,
   OffenesFlag,
 } from './sessionLive'
+export type {
+  SchrittArt,
+  SchrittModus,
+  SessionSchritt,
+  MasteryKandidatLive,
+  ErklaersequenzLive,
+  SchrittLive,
+} from './sessionSchritt'
