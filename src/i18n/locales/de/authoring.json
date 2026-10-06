@@ -286,8 +286,6 @@
   "health": {
     "eyebrow": "Autoren-Tool",
     "title": "Content-Gesundheit",
-    "subtitle": "Wo im Bestand die Arbeit liegt",
-    "back": "Zurück",
     "count": "{{shown}} von {{total}} Items",
     "loadError": "Der Bestand konnte nicht geladen werden.",
     "errorTitle": "Der Bestand konnte nicht geladen werden",
@@ -495,7 +493,8 @@
     "weitereAktionen": "Weitere Aktionen",
     "zurueckweisenMenue": "Zurückweisen …",
     "zurueckweisenGruende": "Warum zurückweisen? Mindestens ein Grund.",
-    "abbrechen": "Abbrechen"
+    "abbrechen": "Abbrechen",
+    "filterHinweise": "Hinweise ungeprüft"
   },
   "editor": {
     "zurueckPruefen": "Zurück zur Prüfansicht",

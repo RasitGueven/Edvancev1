@@ -20,12 +20,15 @@
     "schon_gesetzt": "hat diesen Wert schon",
     "nicht_erlaubt": "Fertigkeit passt nicht zum Thema der Aufgabe",
     "nicht_gefunden": "Aufgabe nicht gefunden",
-    "fehler": "Fehler: {{text}}"
+    "fehler": "Fehler: {{text}}",
+    "nicht_freigegeben": "nicht freigegeben, Hinweise kommen mit der Freigabe",
+    "keine_hinweise_offen": "keine ungeprüften Hinweise"
   },
   "fehler": {
     "erst_an_lena": "Erst überarbeiten, dann zurück an Lena. Freigeben geht hier nicht.",
     "nicht_freigegeben": "Die Aufgabe ist nicht freigegeben.",
-    "wert_fehlt": "Bitte zuerst einen Wert wählen."
+    "wert_fehlt": "Bitte zuerst einen Wert wählen.",
+    "keine_hinweise_offen": "Alle Hinweise dieser Aufgabe sind schon geprüft."
   },
   "herkunft": {
     "liste": "Expertenliste",
@@ -111,7 +114,8 @@
       "afb": "Anforderungsbereich gesetzt",
       "rueckfrage_freigeben": "Rückfrage: freigegeben",
       "rueckfrage_an_lena": "Rückfrage: zurück an Lena",
-      "rueckfrage_zurueckweisen": "Rückfrage: zurückgewiesen"
+      "rueckfrage_zurueckweisen": "Rückfrage: zurückgewiesen",
+      "hinweise_bestaetigen": "Hinweise bestätigt"
     }
   },
   "leiste": {
@@ -209,7 +213,8 @@
       "ausschliessen": "Aus Lenas Liste nehmen",
       "aufnehmen": "Wieder in Lenas Liste",
       "fertigkeit": "Fertigkeit ändern",
-      "afb": "Anforderungsbereich setzen"
+      "afb": "Anforderungsbereich setzen",
+      "hinweise_bestaetigen": "Hinweise bestätigen"
     },
     "titel": {
       "freigeben_one": "{{count}} Aufgabe freigeben?",
@@ -227,7 +232,9 @@
       "fertigkeit_one": "Fertigkeit für {{count}} Aufgabe ändern?",
       "fertigkeit_other": "Fertigkeit für {{count}} Aufgaben ändern?",
       "afb_one": "Anforderungsbereich für {{count}} Aufgabe setzen?",
-      "afb_other": "Anforderungsbereich für {{count}} Aufgaben setzen?"
+      "afb_other": "Anforderungsbereich für {{count}} Aufgaben setzen?",
+      "hinweise_bestaetigen_one": "Hinweise für {{count}} Aufgabe bestätigen?",
+      "hinweise_bestaetigen_other": "Hinweise für {{count}} Aufgaben bestätigen?"
     },
     "lead": {
       "freigeben": "Freigegeben wird nur, was Lena unverändert mit „Passt“ bewertet hat und keinen Befund hat. Alles andere gibst du einzeln in der Prüfansicht frei.",
@@ -237,7 +244,8 @@
       "ausschliessen": "Lena sieht die Aufgaben nicht mehr. Im LSA-Pool ändert sich nichts.",
       "aufnehmen": "Hebt nur den Ausschluss von Hand auf. Berechnete Gründe (zum Beispiel keine richtige Antwort) bleiben.",
       "fertigkeit": "Zur Wahl stehen Fertigkeiten im Thema der Aufgaben und ihre Voraussetzungen. Jede Aufgabe bekommt die Änderung vorher → nachher im Protokoll.",
-      "afb": "Jede Aufgabe bekommt die Änderung vorher → nachher im Protokoll."
+      "afb": "Jede Aufgabe bekommt die Änderung vorher → nachher im Protokoll.",
+      "hinweise_bestaetigen": "Nur für freigegebene Aufgaben. Alle Kinder-Hinweise dieser Aufgaben gelten danach als geprüft, und die Kinder bekommen sie. Jede Aufgabe bekommt eine Zeile im Protokoll."
     },
     "knopf": {
       "freigeben_one": "{{count}} freigeben",
@@ -255,7 +263,9 @@
       "fertigkeit_one": "Bei {{count}} ändern",
       "fertigkeit_other": "Bei {{count}} ändern",
       "afb_one": "Bei {{count}} setzen",
-      "afb_other": "Bei {{count}} setzen"
+      "afb_other": "Bei {{count}} setzen",
+      "hinweise_bestaetigen_one": "Hinweise für {{count}} bestätigen",
+      "hinweise_bestaetigen_other": "Hinweise für {{count}} bestätigen"
     },
     "ergebnis": {
       "freigeben": "{{count}} freigegeben, {{ausgelassen}} ausgelassen.",
@@ -287,5 +297,12 @@
     "afb": "Anforderungsbereich",
     "bitteWaehlen": "Bitte wählen",
     "erstWaehlen": "Die Vorschau erscheint, sobald du eine Auswahl getroffen hast."
+  },
+  "hinweise": {
+    "bestaetigen": "Hinweise bestätigen",
+    "offen_one": "{{count}} Hinweis ist ungeprüft. Das Kind bekommt ihn erst nach der Bestätigung.",
+    "offen_other": "{{count}} Hinweise sind ungeprüft. Das Kind bekommt sie erst nach der Bestätigung.",
+    "bestaetigt": "Hinweise bestätigt: {{titel}}",
+    "mitFreigabe": "Mit der Freigabe gelten alle Hinweise als geprüft."
   }
 }

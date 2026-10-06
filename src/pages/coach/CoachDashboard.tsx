@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
@@ -17,7 +17,7 @@ import {
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
 import { berlinYMD, isoWeek } from '@/lib/datetime'
-import { CalendarDays, Users, Clock, ClipboardList, ClipboardCheck, FlaskConical, FolderOpen } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardCheck, FlaskConical, FolderOpen } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { getDarfPruefen } from '@/lib/supabase/freigabe'
 import { HINWEIS_KEIN_PRUEFRECHT } from '@/components/edvance/ProtectedRoute'
@@ -213,12 +213,10 @@ export function CoachDashboard(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <EdvanceNavbar subtitle="Coach-Dashboard" sticky />
-      <main className="mx-auto max-w-4xl px-4 py-8">
+    <>
+      <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground">Guten Tag 👋</h1>
-          <p className="mt-0.5 text-sm text-muted">{formatDateLongDe()}</p>
+          <PageHeader titel={t('dashboard.titel')} satz={formatDateLongDe()} />
         </div>
 
         {keinPruefrecht && (
@@ -248,22 +246,10 @@ export function CoachDashboard(): JSX.Element {
                 description: t('tiles.schueler.description'),
               },
               {
-                to: '/coach/intake',
-                icon: <ClipboardList className="h-5 w-5" />,
-                title: t('tiles.intake.title'),
-                description: t('tiles.intake.description'),
-              },
-              {
                 to: '/screening?view=coach',
                 icon: <FlaskConical className="h-5 w-5" />,
                 title: t('tiles.screening.title'),
                 description: t('tiles.screening.description'),
-              },
-              {
-                to: '/coach/screening-results',
-                icon: <ClipboardList className="h-5 w-5" />,
-                title: t('tiles.ergebnisse.title'),
-                description: t('tiles.ergebnisse.description'),
               },
             ]}
           />
@@ -334,7 +320,7 @@ export function CoachDashboard(): JSX.Element {
             ))}
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </>
   )
 }

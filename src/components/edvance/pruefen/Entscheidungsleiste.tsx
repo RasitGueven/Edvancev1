@@ -9,9 +9,12 @@ import { Button } from '@/components/ui'
 import type { PasstNichtGrund, PruefAufgabe } from '@/types'
 import { InfoTip, Taste } from './InfoTip'
 import { teilLabel } from './RichtigeAntwort'
+import { useImShell } from '@/components/edvance/shell/shellContext'
+import { leisteLinks, meldungMitte } from './leistenRand'
 
 export const GRUENDE: PasstNichtGrund[] = [
-  'aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa', 'sonstiges',
+  'aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa',
+  'hinweis_verraet_loesung', 'hinweis_passt_nicht', 'sonstiges',
 ]
 
 export type Panel = 'nicht' | 'unsicher' | null
@@ -47,6 +50,7 @@ type LeisteProps = {
 
 export function Entscheidungsleiste(p: LeisteProps): JSX.Element {
   const { t } = useTranslation('pruefen')
+  const imShell = useImShell()
   const [gruende, setGruende] = useState<PasstNichtGrund[]>([])
   const [notiz, setNotiz] = useState('')
   const [frage, setFrage] = useState('')
@@ -72,7 +76,7 @@ export function Entscheidungsleiste(p: LeisteProps): JSX.Element {
   const meldung = lokal ?? p.fehler
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 pb-[calc(12px+env(safe-area-inset-bottom,0px))] pt-3 shadow-lg">
+    <div className={`fixed right-0 ${leisteLinks(imShell)} bottom-0 z-30 border-t border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 pb-[calc(12px+env(safe-area-inset-bottom,0px))] pt-3 shadow-lg`}>
       <div className="mx-auto flex max-w-6xl flex-col gap-3">
         {p.panel === 'nicht' && (
           <div className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
@@ -151,8 +155,9 @@ export function EntscheidungsMeldung({ text, onRueckgaengig, onZu, aktionLabel }
   aktionLabel?: string
 }): JSX.Element {
   const { t } = useTranslation('pruefen')
+  const imShell = useImShell()
   return (
-    <div role="status" className="fixed bottom-36 left-1/2 z-40 flex max-w-[calc(100%-32px)] -translate-x-1/2 items-center gap-3 rounded-[var(--radius-md)] bg-[var(--color-navy-deep)] py-2 pl-4 pr-2 text-sm text-[var(--color-stage-text)] shadow-lg animate-scale-in sm:bottom-28">
+    <div role="status" className={`fixed bottom-36 ${meldungMitte(imShell)} z-40 flex max-w-[calc(100%-32px)] -translate-x-1/2 items-center gap-3 rounded-[var(--radius-md)] bg-[var(--color-navy-deep)] py-2 pl-4 pr-2 text-sm text-[var(--color-stage-text)] shadow-lg animate-scale-in sm:bottom-28`}>
       <span>{text}</span>
       {onRueckgaengig && (
         <button type="button" onClick={onRueckgaengig} className="min-h-[44px] rounded-[var(--radius-sm)] border border-[var(--color-stage-text)] px-3 text-sm">

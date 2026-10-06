@@ -54,6 +54,9 @@ export const BEKANNTE_HINWEISE = [
   'nicht_bewertet',
   'keine_rueckfrage',
   'team_beanstandet',
+  'hinweis_ungueltig',
+  'hinweis_zu_lang',
+  'hinweis_luecke',
 ] as const
 
 /** i18n-Schluessel (Namespace pruefen) zu einem Fehler aus einem pruef_*-Aufruf. */

@@ -10,11 +10,11 @@ export const AUSLASS_GRUENDE: readonly SammelGrund[] = [
   'schon_freigegeben', 'vera8', 'rueckfrage_offen', 'team_beanstandet', 'lena_passt_nicht', 'noch_nicht_bewertet',
   'geaendert', 'befund', 'freigegeben', 'nicht_bei_lena', 'schon_offen', 'schon_im_pilot', 'nicht_im_pilot',
   'schon_ausgeschlossen', 'nicht_von_hand', 'schon_drin', 'ausgeschlossen', 'schon_gesetzt', 'nicht_erlaubt',
-  'nicht_gefunden', 'fehler',
+  'nicht_gefunden', 'nicht_freigegeben', 'keine_hinweise_offen', 'fehler',
 ]
 
 /** Neue ED422-HINTs der Admin-Funktionen (Migrationen 20261005131059 … 131306). */
-export const ADMIN_HINWEISE = ['erst_an_lena', 'nicht_freigegeben', 'wert_fehlt'] as const
+export const ADMIN_HINWEISE = ['erst_an_lena', 'nicht_freigegeben', 'wert_fehlt', 'keine_hinweise_offen'] as const
 
 /** Gruende, deren text ein Ausschluss-Schluessel ist (pruef_ausschluss) — uebersetzt ueber authoring:lena.ausschluss.*. */
 const MIT_AUSSCHLUSS = new Set(['nicht_bei_lena', 'schon_ausgeschlossen', 'nicht_von_hand', 'ausgeschlossen'])

@@ -94,6 +94,9 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Session P1 · L5 Kinder-Hinweise prüfen und freigeben** (Retro `2026-10-06-session-l5-hinweise.md`, Branch
+  `feat/rasit-session-l5-hinweise`): Lena sieht und ändert die Hinweise, die Freigabe prüft sie, „Hinweise
+  bestätigen“ für schon freigegebene Aufgaben. Eingespielt 06.10. **Offen:** `docs/session/offene-punkte-l5.md`.
 - **Klasse 10: Exponentialfunktionen, Trigonometrie, Sinusfunktion (W4-k10-rest)** (Retro
   `2026-10-03-k10-rest.md`, Branch `feat/k10-rest`, Befunde `docs/k10-rest/befunde.md`): 15 neue Knoten
   (Tiefe 7–12), 16 neue Fehlbilder, 90 Aufgaben (draft), 6 Einstiege für 3 Themen, Heimat-Themen.
@@ -440,6 +443,12 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   `AdminWidgetGrid`, `LsaTodayCard` und die `.admin-*`-Klassen sind entfernt.
   „Inhalte freigeben“ zeigt Lenas Rückfragen (Nachtrag H3-N), der Leisten-Zähler
   zählt review + rueckfrage. **Offen:** Absagen in „Heute im Betrieb“ (Slots-Feature).
+
+- **Coach-Hülle H6** (Branch `feat/rasit-coach-h6-huelle`, Retro
+  `docs/retros/2026-10-06-coach-h6-huelle.md`): Coaches arbeiten in derselben Hülle wie
+  Admins, mit eigener Leiste (Heute, Schüler, Aufgaben prüfen, Content-Gesundheit). Die Rolle
+  entscheidet die Hülle auf geteilten Routen. `AltRahmen` entfernt. **Offen:**
+  `docs/admin-huelle/offene-punkte-h6.md`.
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

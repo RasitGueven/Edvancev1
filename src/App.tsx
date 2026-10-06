@@ -28,8 +28,6 @@ import { VertraegeMenuePage } from '@/pages/admin/VertraegeMenuePage'
 import { VertragDetailPage } from '@/pages/admin/VertragDetailPage'
 import { VertragPage } from '@/pages/admin/VertragPage'
 import { VertragUnterlagenPage } from '@/pages/admin/VertragUnterlagenPage'
-import { IntakePage } from '@/pages/coach/IntakePage'
-import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { PruefenUebersichtPage } from '@/pages/coach/pruefen/PruefenUebersichtPage'
 import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
@@ -77,47 +75,42 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/coach"
-          element={
-            <ProtectedRoute allowedRoles={['coach']}>
-              <CoachDashboard />
-            </ProtectedRoute>
-          }
-        />
-        {/* Aufgaben pruefen (Lena-Board): admin und coach, jeweils nur mit Pruefrecht. */}
-        <Route
-          path="/coach/pruefen"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
-              <PruefenUebersichtPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/coach/pruefen/:taskId"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
-              <PruefansichtPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/coach/intake"
-          element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
-              <IntakePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/coach/screening-results"
-          element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
-              <ScreeningResultsPage />
-            </ProtectedRoute>
-          }
-        />
+        {/* Coach-Hülle (H6): dieselbe Rollenweiche wie die Admin-Seiten — Admin
+            sieht die Admin-Hülle, Coach die Coach-Hülle. Fokus-Seiten ohne Leiste
+            (Live-Sicht /coach/session/*) stehen außerhalb jeder Layout-Route;
+            AdminLayout lässt sie auch innerhalb ohne Leiste (istFokusSeite). */}
+        <Route element={<AdminLayout />}>
+          <Route
+            path="/coach"
+            element={
+              <ProtectedRoute allowedRoles={['coach']}>
+                <CoachDashboard />
+              </ProtectedRoute>
+            }
+          />
+          {/* Aufgaben pruefen (Lena-Board): admin und coach, jeweils nur mit Pruefrecht. */}
+          <Route
+            path="/coach/pruefen"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <PruefenUebersichtPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/pruefen/:taskId"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <PruefansichtPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        {/* Erstgespräch und Screening-Ergebnisse stillgelegt (H6, keine Daten): alte
+            Links landen auf /coach. Die Seiten-Dateien sind Altlast (offene-punkte-h6.md). */}
+        <Route path="/coach/intake" element={<Navigate to="/coach" replace />} />
+        <Route path="/coach/screening-results" element={<Navigate to="/coach" replace />} />
+        {/* Elternreport-Altseite mit eigenem Rahmen, nur Admin, nicht in der Leiste. */}
         <Route
           path="/coach/reports"
           element={

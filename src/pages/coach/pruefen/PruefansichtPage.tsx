@@ -6,13 +6,13 @@ import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { Button } from '@/components/ui'
 import { Kinderansicht } from '@/components/edvance/pruefen/Kinderansicht'
 import { PruefKopf } from '@/components/edvance/pruefen/PruefKopf'
 import { RichtigeAntwort } from '@/components/edvance/pruefen/RichtigeAntwort'
 import { AntwortTesten, Loesungsweg, RegelBlock } from '@/components/edvance/pruefen/RegelUndTesten'
 import { TypischeFehler } from '@/components/edvance/pruefen/TypischeFehler'
+import { KinderHinweise } from '@/components/edvance/pruefen/KinderHinweise'
 import { AenderungenBox, Einordnung } from '@/components/edvance/pruefen/Einordnung'
 import {
   Auffaelligkeiten, EntscheidungsMeldung, Entscheidungsleiste, type Panel,
@@ -168,9 +168,8 @@ export function PruefansichtPage(): JSX.Element {
   const bewertet = a && !team && a.aufgabe.lena_status !== 'offen' && a.aufgabe.lena_status !== 'freigegeben'
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)]">
-      <EdvanceNavbar subtitle={t('kopf.titel')} sticky />
-      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-56 pt-6">
+    <>
+      <div className="flex flex-col gap-6 pb-56">
         {s.laedt && <LoadingPulse type="card" />}
         {!s.laedt && !a && (
           <EmptyState icon="🔎" title={t('ansicht.ladeFehler')} description={t(fehlerSchluessel(s.ladeFehler) ?? 'fehlermeldung.allgemein')}
@@ -215,6 +214,8 @@ export function PruefansichtPage(): JSX.Element {
                 </section>
                 <TypischeFehler aufgabe={a} b={s.b} fehlbilder={fehlbilder} geaendert={felder.has('fehler')} lesend={lesend}
                   onChange={s.aendern} onZurueck={() => zuruecksetzen('fehler')} />
+                <KinderHinweise geladen={a.hinweise} b={s.b} geaendert={felder.has('hinweise')} lesend={lesend}
+                  onChange={s.aendern} onZurueck={() => zuruecksetzen('hinweise')} />
                 <Einordnung aufgabe={a} b={s.b} ausgang={s.ausgang} fertigkeitGeaendert={felder.has('fertigkeit')}
                   afbGeaendert={felder.has('afb')} lesend={lesend} onChange={s.aendern} onZurueck={zuruecksetzen} />
                 <AenderungenBox aenderungen={aenderungen} namen={namen} mc={a.aufgabe.input_type === 'MC'}
@@ -231,7 +232,7 @@ export function PruefansichtPage(): JSX.Element {
             </div>
           </>
         )}
-      </main>
+      </div>
       {a && s.b && (
         <Entscheidungsleiste key={taskId} panel={panel} setPanel={setPanel} info={info}
           passtGesperrt={sperre ? t(`leiste.sperre.${sperre}`) : null} arbeitet={arbeitet}
@@ -241,6 +242,6 @@ export function PruefansichtPage(): JSX.Element {
           onUnsicher={(f) => void entscheide('unsicher', undefined, f)} />
       )}
       {meldung && <EntscheidungsMeldung text={meldung.text} onRueckgaengig={meldung.rueckgaengig} onZu={() => setMeldung(null)} />}
-    </div>
+    </>
   )
 }

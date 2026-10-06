@@ -9,17 +9,9 @@
       "description": "Aktive Akten nach Klassenstufe: Einheiten-Stand, Sessions und Notizen"
     },
     "schnellzugriff": "Schnellzugriff",
-    "intake": {
-      "title": "Erstgespräch-Protokoll",
-      "description": "Strukturiertes Erstgespräch erfassen und finalisieren"
-    },
     "screening": {
       "title": "Screening (Coach-Sicht)",
       "description": "Lernstand-Diagnose begleiten und bewerten"
-    },
-    "ergebnisse": {
-      "title": "Screening-Ergebnisse",
-      "description": "Abgeschlossene Lernstand-Diagnosen einsehen"
     },
     "pruefen": {
       "title": "Aufgaben prüfen",
@@ -30,6 +22,23 @@
     "aktiveSchueler": "Aktive Schüler",
     "naechsteSession": "Nächste Session",
     "naechsteHeute": "{{zeit}} Uhr",
-    "naechsteAm": "{{datum}}, {{zeit}} Uhr"
+    "naechsteAm": "{{datum}}, {{zeit}} Uhr",
+    "titel": "Guten Tag 👋"
+  },
+  "nav": {
+    "rolle": "Coach",
+    "heute": "Heute",
+    "schueler": "Schüler",
+    "pruefen": "Aufgaben prüfen",
+    "contentGesundheit": "Content-Gesundheit",
+    "gruppe": {
+      "arbeit": "Arbeit"
+    },
+    "kurz": {
+      "heute": "Heute",
+      "schueler": "Schüler",
+      "pruefen": "Prüfen",
+      "contentGesundheit": "Content"
+    }
   }
 }

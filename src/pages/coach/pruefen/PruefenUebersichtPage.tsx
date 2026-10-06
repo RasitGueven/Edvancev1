@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { Abschluss, AlsNaechstes, Themenliste } from '@/components/edvance/pruefen/Uebersicht'
 import { useAuth } from '@/hooks/useAuth'
@@ -72,9 +72,8 @@ export function PruefenUebersichtPage(): JSX.Element {
   }, [naechsteId, abschluss, navigate])
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)]">
-      <EdvanceNavbar subtitle={t('kopf.titel')} sticky />
-      <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
+    <>
+      <div className="flex flex-col gap-6">
         {!board && !fehler && <LoadingPulse type="card" />}
         {fehler && (
           <EmptyState icon="🔒" title={t('kopf.titel')} description={t(fehlerSchluessel(fehler) ?? 'fehlermeldung.allgemein')} />
@@ -85,10 +84,7 @@ export function PruefenUebersichtPage(): JSX.Element {
         )}
         {board && !abschluss && (
           <>
-            <div className="flex flex-col gap-2">
-              <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{t('kopf.titel')}</h1>
-              <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-text-secondary)]">{t('kopf.text')}</p>
-            </div>
+            <PageHeader titel={t('kopf.titel')} satz={t('kopf.text')} />
             {board.length === 0 ? (
               <EmptyState icon="📋" title={t('themen.leer')} description={t('themen.leerText')} />
             ) : (
@@ -116,8 +112,8 @@ export function PruefenUebersichtPage(): JSX.Element {
             )}
           </>
         )}
-      </main>
+      </div>
       {pausiert && <EntscheidungsMeldung text={t('pausiert')} onZu={() => setPausiert(false)} />}
-    </div>
+    </>
   )
 }

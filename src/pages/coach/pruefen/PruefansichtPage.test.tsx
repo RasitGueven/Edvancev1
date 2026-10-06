@@ -27,7 +27,7 @@ vi.mock('@/hooks/useAuth', () => ({
 }))
 
 import {
-  getFehlbilder, getPruefAufgabe, getPruefBoard, getPruefEinstellungen, pruefEntscheiden,
+  getFehlbilder, getPruefAufgabe, getPruefBoard, getPruefEinstellungen, pruefEntscheiden, pruefSpeichern,
 } from '@/lib/supabase/pruefung'
 import { PruefansichtPage } from './PruefansichtPage'
 
@@ -43,6 +43,7 @@ const sicht = {
   regel: { art: 'wert' as const, mitte: null, toleranz: null, einheit_pflicht: false, einheit: 'm', einheit_am_feld: true },
   fehler: [{ slug: 'pi_vergessen', werte: [{ teil: null, wert: '7,2' }], text: 'π weggelassen.', klartext: 'Lässt π weg.' }],
   weitere_hinweise: [],
+  hinweise: [{ stufe: 1, text: 'Was gehört in die Formel?', status: 'entwurf' as const }],
   skill_key: 'geo_kreis_umfang',
   afb: 'II' as const,
   flach_regel: true,
@@ -93,6 +94,18 @@ describe('PruefansichtPage', () => {
     expect(screen.getByText('mittel sicher')).toBeTruthy()
     expect(screen.getByText('Alles ist vorbefüllt. Wenn es stimmt: „Passt“.')).toBeTruthy()
     expect(document.body.textContent).not.toMatch(/Item|Stamm|NUMERIC|Mängel|Fehlbild/)
+  })
+
+  it('zeigt die Hinweise fuer das Kind und speichert Aenderungen im Entwurf (L5)', async () => {
+    vi.mocked(pruefSpeichern).mockResolvedValue({ data: { pruef_version: 4, auffaelligkeiten: [], aenderungen: [] }, error: null })
+    zeige()
+    const feld = await screen.findByLabelText('Hinweis Stufe 1')
+    expect(screen.getByText('Hinweise für das Kind')).toBeTruthy()
+    expect(screen.getByText('Entwurf')).toBeTruthy()
+    fireEvent.change(feld, { target: { value: 'Welche Formel gilt für den Umfang?' } })
+    await waitFor(() => expect(pruefSpeichern).toHaveBeenCalledWith('t1', 3, expect.objectContaining({
+      hinweise: [{ stufe: 1, text: 'Welche Formel gilt für den Umfang?' }],
+    })), { timeout: 2000 })
   })
 
   it('"Passt nicht" verlangt einen Grund', async () => {
