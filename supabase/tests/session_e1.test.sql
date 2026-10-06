@@ -9,7 +9,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(37);
+select plan(38);
 
 \ir session_e1_fixture.sql
 
@@ -158,10 +158,13 @@ select throws_ok($$insert into erklaer_kernidee (skill_key, nr, titel) values ('
   '42501', null, '9d Kind: direkter Insert in erklaer_kernidee -> 42501');
 reset role;
 
--- Loeschen per Kaskade (Session geloescht) ist erlaubt, direktes Loeschen nicht (5c).
-delete from coaching_sessions where id = :'session_id';
-select is((select count(*)::int from erklaer_fortschritt where session_id = :'session_id'), 0,
-          '5d Kaskade beim Loeschen der Session entfernt den Fortschritt');
+-- Session mit Lernverlauf: nicht loeschbar. Kind geloescht: Fortschritt geht per Kaskade mit.
+select throws_ok(format($f$delete from coaching_sessions where id = %L$f$, :'session_id'),
+  '23001', null, '5d Session mit Lernverlauf ist nicht loeschbar (restrict)');
+delete from lsa_sessions where student_id = :'kind_id';
+delete from students where id = :'kind_id';
+select is((select count(*)::int from erklaer_fortschritt where student_id = :'kind_id'), 0,
+          '5e Kind geloescht: Fortschritt per Kaskade entfernt');
 
 select * from finish();
 rollback;

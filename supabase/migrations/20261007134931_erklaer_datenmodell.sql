@@ -91,7 +91,8 @@ comment on table public.erklaer_check is
 
 create table public.erklaer_fortschritt (
   id            bigint generated always as identity primary key,
-  session_id    uuid not null references public.coaching_sessions (id) on delete cascade,
+  -- Eine Session mit Lernverlauf darf nicht geloescht werden (Entscheidung Rasit 06.10.).
+  session_id    uuid not null references public.coaching_sessions (id) on delete restrict,
   student_id    uuid not null references public.students (id) on delete cascade,
   kernidee_id   uuid not null references public.erklaer_kernidee (id),
   runde         integer not null check (runde >= 1),
@@ -115,7 +116,7 @@ create index erklaer_schritt_kernidee_idx on public.erklaer_schritt (kernidee_id
 create index erklaer_check_task_idx on public.erklaer_check (task_id);
 
 -- Append-only wie behavior_snapshots (CLAUDE.md §6): kein Update, kein Delete.
--- Ausnahme: das Loeschen per Kaskade (Session oder Kind wird geloescht, z. B. DSGVO).
+-- Ausnahme: das Loeschen per Kaskade, wenn das Kind geloescht wird (z. B. DSGVO).
 -- Das laeuft ueber die Fremdschluessel-Trigger, also mit pg_trigger_depth() > 1.
 create function public.erklaer_fortschritt_nur_anhaengen() returns trigger
 language plpgsql

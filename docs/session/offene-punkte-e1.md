@@ -44,19 +44,18 @@ Stand 06.10.2026, Branch `feat/rasit-session-e1-erklaersequenz`. Verdrahtung mit
     (E2a). Anders als `task_figures` gibt es keine getrennten Dateien für dunkel und hell.
 13. **Bilder mit `svg_hash`** werden unter `task-assets/erklaer/bilder/<hash>.svg` erwartet. Einen Generator dafür gibt es
     noch nicht; bisher gibt es nur die Pfadregel in `erklaer_schritt_json`.
-14. **`tools/formeln-svg.mjs` lokal nicht bis zum DB-Eintrag gelaufen**: Trockenlauf und Uploads gegen einen Schein-Storage
-    sind belegt. Den Eintrag lehnt `erklaer_formeln_setzen` in der Wegwerf-DB mit 42501 ab, weil `auth.role()` dort
-    `'anon'` liefert und nicht NULL (`supabase/test-grundlage.sql:61`). In Prod läuft das Werkzeug als `postgres` ohne
-    JWT und gilt damit als Systemaufruf (`ist_systemaufruf`). Den Aufruf im Werkzeug ausdrücklich als Systemaufruf zu
-    markieren (`set_config('request.jwt.claim.role', 'service_role', true)`, Muster aus #182) habe ich nicht eingebaut:
-    Diese Änderung wurde in der Session vom Rechte-Prüfer abgelehnt. Rasit entscheidet.
-
+14. **`tools/formeln-svg.mjs` beim ersten echten Inhalt (E2b)**: Entscheidung Rasit 06.10.: keine eigene
+    Systemaufruf-Markierung; in Prod läuft das Werkzeug als `postgres` ohne JWT (`ist_systemaufruf`). Lokal sind
+    Trockenlauf und Uploads gegen einen Schein-Storage belegt. Den Eintrag lehnt die Wegwerf-DB mit 42501 ab, weil
+    `auth.role()` dort `'anon'` liefert (`supabase/test-grundlage.sql:61`). Beim ersten echten Inhalt in E2b: einmal
+    `--dry-run`, dann echt, und das Ergebnis per dbread prüfen (`formeln` gefüllt, SVGs im Bucket).
 ## Sonstiges
 
-15. **Das Kind sieht „falsch“ indirekt**: `aktion = 'variante'` heißt, dass der Check nicht gereicht hat (E0, Frage 5).
-    So verlangt es der Bauauftrag; Urteil und Fehlbild selbst gehen nie ans Kind.
-16. **Löschen per Kaskade**: `erklaer_fortschritt` ist append-only, lässt aber das Löschen per Kaskade zu (Session oder
-    Kind wird gelöscht, z. B. DSGVO; `pg_trigger_depth() > 1`). Rasit bestätigt, ob das so gewollt ist.
+15. **Das Kind sieht „noch nicht“**: `aktion = 'variante'` sagt dem Kind, dass es noch nicht stimmt. Rasit hat das
+    am 06.10. bestätigt: so gewollt, nur ohne Lösung, Urteil und Fehlbild.
+16. **Löschen**: Rasit hat am 06.10. entschieden:
+    - Wird ein Kind gelöscht (DSGVO), geht der Fortschritt per Kaskade mit (`pg_trigger_depth() > 1`, Test 5e).
+    - Eine Session mit Lernverlauf ist nicht löschbar (`on delete restrict`, 23001, Test 5d).
 17. **Freigabe nach Änderung**: Ändern sich die Checks einer Kernidee, fällt sie auf entwurf. Ändern sich die
     Formel-Hashes eines freigegebenen Schritts, fällt er auf geprueft und braucht eine neue Freigabe.
 18. **`bild.url`** muss mit `https://` beginnen (`erklaer_bild_gueltig`).
