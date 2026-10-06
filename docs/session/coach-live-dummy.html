@@ -1,0 +1,987 @@
+<title>Edvance Coach-Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Dummy-Leiste oben, darunter ein iPad-Rahmen (quer oder hoch) oder die ganze Breite.
+   Darin die Coach-Live-Sicht als Fokus-Seite ohne Leiste: Kopf mit Uhr, Phasenleiste, darunter je Zeitpunkt eine Ansicht.
+   Coach-Sprache = Eltern-Sprache des Design-Systems: flach, kein Glas, 150 ms ease-out, heller Grund.
+   Bewusst nur hell wie die Admin-Hülle. Farben aus edvance-app/src/design/tokens.ts und dem Design-System. */
+:root{
+  --navy:#334D7A; --navy-hover:#253D6A; --navy-light:#EEF2F8; --navy-line:#D3DCEA; --on-cream:#1A2E4A;
+  --cream:#F7F5EE; --gold:#D4A843;
+  --bg:#F7F7F5; --surface:#FFFFFF; --subtle:#EFEFED; --hover:#FAFAF8; --border:#E8E8E5; --line:#DCDCD8;
+  --t1:#1A1A18; --t2:#4A4A47; --t3:#888884;
+  --ok:#2A8A4A; --ok-bg:#EAF5EE; --right:#27AE60; --wrong:#C03030; --wrong-bg:#FADEDC;
+  --warn:#C87E00; --warn-bg:#FEF3E2; --warn-line:#F0D29A;
+  --hint-bg:#FBF6EA; --hint-line:#D4A843; --hint-ink:#7A5610;
+  --stage:#E3E6EB; --bezel:#0B111F; --scrim:rgba(11,17,31,.42);
+  --sh-xs:0 1px 3px rgba(51,77,122,.06); --sh-md:0 4px 12px rgba(51,77,122,.10);
+  --sh-lg:0 8px 24px rgba(51,77,122,.15); --sh-xl:0 8px 32px rgba(51,77,122,.35);
+  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px;
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:var(--t1);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.sm{width:16px;height:16px}
+.muted{color:var(--t3)}
+.small{font-size:13px}
+.num{font-variant-numeric:tabular-nums}
+.lab{display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3)}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sp{flex:1}
+
+/* ========== Dummy-Leiste (nicht Teil der App) ========== */
+.dbar{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;padding-inline:16px;padding-block:10px;background:var(--surface);border-bottom:1px solid var(--border);position:relative;z-index:5}
+.dbar .tt{display:flex;flex-direction:column;line-height:1.25;margin-right:auto;min-width:0}
+.dbar .tt b{font-family:var(--f-display);font-weight:600;font-size:17px}
+.dbar .tt span{font-size:12.5px;color:var(--t3)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--t3);flex-wrap:wrap}
+.sgrp{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface);flex-wrap:wrap}
+.sgrp button{border:none;border-left:1px solid var(--line);background:none;padding:7px 11px;font-size:13px;color:var(--t2);cursor:pointer;white-space:nowrap}
+.sgrp button:first-child{border-left:none}
+.sgrp button:hover{background:var(--subtle)}
+.sgrp button[aria-pressed="true"]{background:var(--navy);color:var(--cream);font-weight:600}
+.sw{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px 4px 4px;font-size:13px;color:var(--t2);cursor:pointer}
+.sw .knob{width:28px;height:16px;border-radius:999px;background:var(--line);position:relative;flex:none}
+.sw .knob::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--surface);transition:left .15s var(--ease)}
+.sw[aria-pressed="true"]{border-color:var(--hint-line);color:var(--hint-ink)}
+.sw[aria-pressed="true"] .knob{background:var(--hint-line)}
+.sw[aria-pressed="true"] .knob::after{left:14px}
+
+/* ========== Bühne und Gerät ========== */
+.stage{display:flex;flex-direction:column;align-items:center;padding-inline:16px;padding-block:20px 28px}
+.stage.full{padding:0}
+.frame{position:relative}
+.device{position:absolute;top:0;left:0;transform-origin:top left;background:var(--bg);overflow:hidden}
+.stage.full .frame{width:100%}
+.stage.full .device{position:relative}
+.device.ipad{border-radius:26px;box-shadow:0 0 0 12px var(--bezel),0 24px 60px rgba(11,17,31,.35)}
+.devlabel{font-size:12.5px;color:var(--t3);margin-top:22px;text-align:center}
+.stage.full .devlabel{display:none}
+
+/* ========== App: Fokus-Seite ========== */
+.app{position:relative;display:flex;flex-direction:column;height:100%;background:var(--bg)}
+.top{flex:none;display:flex;align-items:center;gap:12px 16px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.back{display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:0 10px 0 4px;border:none;background:none;border-radius:var(--r-md);color:var(--navy);font-weight:600;font-size:14px;cursor:pointer}
+.back:hover{background:var(--navy-light)}
+.top .tt{display:flex;flex-direction:column;line-height:1.25;min-width:0;flex:1}
+.top .tt b{font-family:var(--f-display);font-weight:500;font-size:21px;letter-spacing:-.005em}
+.top .tt span{font-size:13px;color:var(--t3)}
+.clock{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15;text-align:right}
+.clock b{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.clock span{font-size:12.5px;color:var(--t3)}
+
+.tline{flex:none;padding:10px 20px 10px;background:var(--surface);border-bottom:1px solid var(--border)}
+.tbar{position:relative;display:flex;gap:3px;height:32px}
+.pseg{display:flex;align-items:center;justify-content:center;min-width:0;padding:0 4px;border-radius:8px;background:var(--subtle);color:var(--t2);font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pseg.done{background:var(--navy-line);color:var(--navy)}
+.pseg.now{background:var(--navy);color:var(--cream)}
+.tdur{display:flex;gap:3px;margin-top:4px}
+.tdur span{min-width:0;text-align:center;font-size:11.5px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nowmark{position:absolute;top:-7px;bottom:-7px;width:3px;margin-left:-1.5px;border-radius:2px;background:linear-gradient(to bottom,var(--gold) 0 7px,transparent 7px calc(100% - 7px),var(--gold) calc(100% - 7px))}
+
+.body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
+.inner{container:inner / inline-size;max-width:1400px;margin-inline:auto;padding:20px 20px 40px;display:flex;flex-direction:column;gap:18px}
+
+/* Bausteine */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-xs)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.sh h2{margin:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.sh span{font-size:13px;color:var(--t3)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:var(--r-md);border:1px solid var(--navy);background:var(--navy);color:var(--cream);font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s var(--ease)}
+.btn:hover:not(:disabled){background:var(--navy-hover)}
+.btn.ghost{background:var(--surface);color:var(--t1);border-color:var(--line)}
+.btn.ghost:hover:not(:disabled){background:var(--subtle)}
+.btn.okb{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.btn.okb:hover:not(:disabled){background:#23753F}
+.btn.sm{min-height:36px;padding:0 12px;font-size:13.5px}
+.btn.wide{width:100%}
+.link{display:inline-flex;align-items:center;gap:6px;min-height:40px;border:none;background:none;padding:0;color:var(--navy);font-size:14px;font-weight:600;cursor:pointer}
+.link:hover{text-decoration:underline;text-underline-offset:3px}
+.link.sm{font-size:13px;min-height:32px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap;background:var(--subtle);color:var(--t2)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--wrong-bg);color:var(--wrong)}
+.pill.navy{background:var(--navy-light);color:var(--navy)}
+.pill.solid{background:var(--navy);color:var(--cream)}
+.av{width:40px;height:40px;border-radius:50%;background:var(--navy-light);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;flex:none}
+.seatno{width:24px;height:24px;border-radius:7px;background:var(--subtle);color:var(--t2);display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:none;font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13.5px;color:var(--t2);cursor:pointer}
+.chip:hover{border-color:var(--navy);color:var(--navy)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--cream);font-weight:600}
+dl.kv{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 12px;margin:0;font-size:14px}
+dl.kv dt{color:var(--t3);font-size:13px;padding-top:1px}
+dl.kv dd{margin:0;min-width:0}
+
+/* Hinweise und Stellschrauben (Dummy) */
+.hint{display:none;border:1.5px dashed var(--hint-line);background:var(--hint-bg);border-radius:var(--r-md);padding:10px 13px;font-size:13px;line-height:1.55;color:var(--t2)}
+.hint b{color:var(--hint-ink);font-weight:600;margin-right:4px}
+.hint code{font-size:12px;background:rgba(212,168,67,.16);border-radius:4px;padding:0 4px}
+body.hints .hint{display:block}
+body.scmode .sc{background:var(--hint-bg);color:var(--hint-ink);box-shadow:inset 0 -2px 0 var(--hint-line);border-radius:3px;padding:0 2px;cursor:help}
+.pseg .sc,.tile .sc{color:inherit}
+body.scmode .pseg.now .sc{background:transparent;color:var(--cream);box-shadow:inset 0 -2px 0 var(--gold)}
+.scp{padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-color:var(--hint-line);background:var(--hint-bg)}
+.scp .sh{margin:0}
+.scp .sh h2{color:var(--hint-ink)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);padding:8px 10px;border-bottom:1px solid var(--warn-line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--warn-line)}
+tr:last-child td{border-bottom:none}
+
+/* ========== Vorher ========== */
+.brief{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@container inner (max-width:899px){.brief{grid-template-columns:minmax(0,1fr)}}
+.blist{list-style:none;margin:0;padding:0}
+.bk{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:14px 16px}
+.bk+.bk{border-top:1px solid var(--subtle)}
+.bkm{display:flex;flex-direction:column;gap:8px;min-width:0}
+.bkh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bkh b{font-size:16px;font-weight:600}
+.look{padding:6px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.look ul{list-style:none;margin:0;padding:0}
+.lk{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--subtle)}
+.lk .li{width:36px;height:36px;border-radius:var(--r-md);display:inline-flex;align-items:center;justify-content:center;background:var(--navy-light);color:var(--navy)}
+.lk .li.warn{background:var(--warn-bg);color:var(--warn)}
+.lk b{display:block;font-size:14.5px;font-weight:600;line-height:1.35}
+.lk span{display:block;font-size:13px;color:var(--t2);line-height:1.45}
+
+/* ========== Check-in ========== */
+.room{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.seat{min-height:112px;border:1.5px dashed var(--line);border-radius:var(--r-lg);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px;text-align:center}
+.seat.taken{border-style:solid;border-color:var(--navy-line);box-shadow:var(--sh-xs)}
+.seat .sn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
+.seat b{font-size:16px;font-weight:600}
+.arrs{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.arr{display:flex;align-items:center;gap:12px;padding:12px 14px;flex-wrap:wrap}
+.arr .am{display:flex;flex-direction:column;min-width:0;flex:1 1 140px;line-height:1.35}
+.arr .am b{font-weight:600}
+.arr .am span{font-size:13px}
+.arr .aa{display:flex;gap:6px;flex-wrap:wrap}
+.cilist{display:flex;flex-direction:column}
+.cirow{display:grid;grid-template-columns:180px 120px minmax(0,1fr) minmax(0,1.4fr);gap:10px 16px;align-items:start;padding:14px 16px}
+.cirow+.cirow{border-top:1px solid var(--subtle)}
+.cirow .cn{display:flex;align-items:center;gap:8px;font-weight:600}
+.cirow .cv{font-size:14px;min-width:0}
+.cirow .cv .lab{margin-bottom:2px}
+.cirow .cf{grid-column:2/-1;display:flex;flex-direction:column;gap:8px}
+@container inner (max-width:1000px){.cirow{grid-template-columns:repeat(3,minmax(0,1fr))}.cirow .cn{grid-column:1/-1}.cirow .cf{grid-column:1/-1}}
+.ziel{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--t2)}
+.ziel b{color:var(--t1);font-weight:600}
+.tpick{grid-column:1/-1;display:flex;flex-direction:column;gap:8px;background:var(--bg);border:1px solid var(--warn-line);border-radius:var(--r-md);padding:12px}
+.tin{width:100%;min-height:44px;border:1px solid var(--line);border-radius:var(--r-md);padding:0 12px;font-size:15px;background:var(--surface)}
+.tlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px}
+.tlist:empty{display:none}
+.tres{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:52px;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);text-align:left;cursor:pointer}
+.tres:hover{border-color:var(--navy)}
+.tres b{font-size:14.5px;font-weight:600;line-height:1.3}
+.tres span{font-size:12.5px;color:var(--t3)}
+.tnone{font-size:13.5px;color:var(--t2);padding:4px 2px}
+ul.zl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.zl li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;align-items:start}
+.zl i{width:12px;height:12px;border-radius:50%;margin-top:5px;box-shadow:inset 0 0 0 1.5px var(--line)}
+.zl .zs-ok i{background:var(--navy);box-shadow:none}
+.zl .zs-run i{background:var(--navy-line);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.zl .zs-kand i{background:var(--navy);box-shadow:0 0 0 3px var(--navy-light)}
+.zl .zs-nns i{background:var(--warn);box-shadow:none}
+.zl .zs-gem i{background:var(--ok);box-shadow:none}
+.zl div{display:flex;flex-direction:column;line-height:1.35}
+.zl b{font-size:14.5px;font-weight:600}
+.zl span{font-size:13px;color:var(--t2)}
+.mood{display:inline-flex;align-items:center;gap:6px}
+.mood i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.mood.ok i{background:var(--right)}
+.mood.warn i{background:var(--warn)}
+.fseg{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;flex-wrap:wrap}
+.fseg button{min-height:36px;border:none;border-left:1px solid var(--line);background:var(--surface);padding:0 10px;font-size:13px;color:var(--t2);cursor:pointer;position:relative}
+.fseg button:first-child{border-left:none}
+.fseg button[aria-pressed="true"]{background:var(--navy);color:var(--cream);font-weight:600}
+.fseg button .sg{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:6px;vertical-align:middle}
+
+/* ========== Live ========== */
+.live{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px;align-items:start}
+@container inner (max-width:899px){.live{grid-template-columns:minmax(0,1fr)}.qsec{order:-1}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px}
+.tile{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-xs);padding:0 0 12px;cursor:pointer;overflow:hidden;min-height:178px;transition:box-shadow .15s var(--ease)}
+.tile:hover{box-shadow:var(--sh-md)}
+.tile.sel{outline:2px solid var(--navy);outline-offset:1px}
+.tband{display:flex;align-items:center;gap:6px;min-height:32px;padding:6px 14px;font-size:12.5px;font-weight:600;background:var(--hover);color:var(--t3);border-bottom:1px solid var(--subtle)}
+.tile.s-hang,.tile.s-dec{border-color:var(--warn-line)}
+.tile.s-hang .tband,.tile.s-dec .tband{background:var(--warn-bg);color:var(--warn);border-bottom-color:var(--warn-line)}
+.tile.s-kand{border-color:var(--navy-line)}
+.tile.s-kand .tband{background:var(--navy);color:var(--cream);border-bottom-color:var(--navy)}
+.tile.s-info .tband{background:var(--navy-light);color:var(--navy)}
+.tile.s-ok{border-color:#BFE0CB}
+.tile.s-ok .tband{background:var(--ok-bg);color:var(--ok)}
+.thd{display:flex;align-items:center;gap:8px;padding:6px 14px 0}
+.thd b{font-size:16px;font-weight:600}
+.thd .kl{margin-left:auto;font-size:12.5px;color:var(--t3)}
+.tph{padding:0 14px;font-size:12.5px;color:var(--t3)}
+.tsk{padding:0 14px;font-size:14.5px;font-weight:500;line-height:1.35}
+.tprog{display:flex;align-items:center;gap:8px;padding:2px 14px 0;font-size:12.5px;color:var(--t2)}
+.dots{display:inline-flex;gap:4px;align-items:center}
+.dots i{width:10px;height:10px;border-radius:50%}
+.dots i.r{background:var(--right)}
+.dots i.w{background:var(--wrong)}
+.dots i.h{background:linear-gradient(90deg,var(--right) 50%,var(--surface) 50%);box-shadow:inset 0 0 0 1.5px var(--right)}
+.dots i.n{box-shadow:inset 0 0 0 1.5px var(--line)}
+.seqbar{display:flex;gap:4px;flex:1;max-width:120px}
+.seqbar i{flex:1;height:7px;border-radius:4px;background:var(--subtle)}
+.seqbar i.ok{background:var(--navy)}
+.seqbar i.run{background:var(--navy-line)}
+.tmeta{padding:0 14px;font-size:12.5px;color:var(--t3);margin-top:auto}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--t3);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.queue{list-style:none;margin:0;padding:6px}
+.queue li+li{border-top:1px solid var(--subtle)}
+.qb{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;min-height:62px;padding:8px 10px;border:none;background:none;border-radius:var(--r-md);text-align:left;cursor:pointer}
+.qb:hover{background:var(--hover)}
+.qn{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:var(--subtle);color:var(--t2)}
+.qb.p0 .qn{background:var(--navy);color:var(--cream)}
+.qb.p1 .qn,.qb.p2 .qn{background:var(--warn-bg);color:var(--warn)}
+.qb.p3 .qn{background:var(--navy-light);color:var(--navy)}
+.qt{min-width:0}
+.qt b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
+.qt span{display:block;font-size:13px;color:var(--t3);line-height:1.4}
+.age{font-size:12.5px;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap;align-self:start;padding-top:4px}
+.qempty{display:flex;align-items:center;gap:8px;padding:16px 12px;color:var(--ok);font-size:14px;font-weight:500}
+.kcount{font-size:13px;color:var(--t3);margin-top:10px}
+
+/* ========== Detail (Schublade) ========== */
+.scrim{position:absolute;inset:0;background:var(--scrim);z-index:20}
+.sheet{position:absolute;top:0;right:0;bottom:0;width:min(580px,100%);background:var(--bg);z-index:21;display:flex;flex-direction:column;box-shadow:var(--sh-xl);border-radius:var(--r-xl) 0 0 var(--r-xl);overflow:hidden}
+.app[data-w="narrow"] .sheet{top:auto;left:0;width:100%;height:90%;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.shd{flex:none;display:flex;align-items:center;gap:12px;padding:12px 12px 12px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.shd .tt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.shd .tt b{font-family:var(--f-display);font-weight:500;font-size:21px}
+.shd .tt span{font-size:13px;color:var(--t3)}
+.ibtn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:none;background:none;border-radius:var(--r-md);color:var(--t2);cursor:pointer;flex:none}
+.ibtn:hover{background:var(--subtle);color:var(--t1)}
+.sbody{flex:1;overflow:auto;padding:16px 20px 32px;display:flex;flex-direction:column;gap:14px}
+.blk{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.blk h3{margin:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.blk .bh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.blk p{margin:0;font-size:14.5px}
+.blk.kand{border-color:var(--navy-line);box-shadow:0 0 0 3px var(--navy-light)}
+.blk.dec{border-color:var(--warn-line);box-shadow:0 0 0 3px var(--warn-bg)}
+.blk.info{background:var(--navy-light);border-color:var(--navy-line)}
+.mk b{display:block;font-family:var(--f-display);font-weight:500;font-size:19px;line-height:1.25}
+ul.ev{margin:0;padding-left:18px;font-size:14px;color:var(--t2);display:flex;flex-direction:column;gap:2px}
+.pq{border-left:3px solid var(--navy);background:var(--bg);border-radius:0 var(--r-md) var(--r-md) 0;padding:10px 14px}
+.pq p{margin:4px 0 0;font-size:15.5px;line-height:1.5}
+.msteps{display:flex;flex-direction:column;gap:4px}
+.mst{display:flex;align-items:center;gap:10px;min-height:44px;border:none;background:none;padding:0;text-align:left;cursor:pointer;font-size:14.5px}
+.mst .bx{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--line);display:inline-flex;align-items:center;justify-content:center;color:var(--surface);flex:none}
+.mst[aria-pressed="true"] .bx{background:var(--navy);border-color:var(--navy)}
+.res{display:flex;align-items:center;gap:12px}
+.res.ok{color:var(--ok)}
+.res div{display:flex;flex-direction:column;line-height:1.35}
+.res b{font-weight:600;font-size:15px}
+.res span{font-size:13px;color:var(--t3)}
+.kidscreen{background:var(--bg);border:1px solid var(--subtle);border-radius:var(--r-md);padding:12px 14px;font-size:16px;line-height:1.5}
+.sol{background:var(--navy-light);border-radius:var(--r-md);padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.sol .lkd{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--navy);letter-spacing:.02em}
+.sol ol{margin:0;padding-left:20px;font-size:14.5px}
+.last{display:flex;align-items:baseline;gap:10px;font-size:14px;flex-wrap:wrap}
+.last .lab{display:inline}
+ul.att{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+ul.att li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;align-items:baseline;font-size:14px}
+ul.att code{font-family:var(--f-body);font-weight:600;font-size:14.5px;color:var(--wrong)}
+ul.att .fb{grid-column:2;color:var(--t2);font-size:13.5px}
+ol.kis{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ki{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.ki .kn{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:var(--subtle);color:var(--t3)}
+.ki.ok .kn{background:var(--navy);color:var(--cream)}
+.ki.run .kn{background:var(--navy-light);color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.ki div{display:flex;flex-direction:column;line-height:1.4}
+.ki b{font-size:14.5px;font-weight:600}
+.ki span{font-size:13px;color:var(--t2)}
+.sees{background:var(--bg);border:1px solid var(--subtle);border-radius:var(--r-md);padding:10px 14px}
+.sees p{margin:4px 0 0;font-size:14.5px}
+.lad{display:flex;flex-direction:column;gap:6px}
+.lr{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;min-height:56px;padding:8px 10px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);text-align:left;cursor:pointer}
+.lr:hover{background:var(--hover)}
+.lr.rec{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy-light)}
+.lr .ln{width:30px;height:30px;border-radius:50%;background:var(--subtle);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px;color:var(--t2)}
+.lr.rec .ln{background:var(--navy);color:var(--cream)}
+.lr b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
+.lr span{display:block;font-size:13px;color:var(--t2);line-height:1.4}
+.logl{font-size:13px;color:var(--t2);display:flex;flex-direction:column;gap:2px}
+
+/* ========== Check-out ========== */
+.cog{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.coc{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.coc.said{border-color:#BFE0CB}
+.coh{display:flex;align-items:center;gap:8px}
+.coh b{font-size:16px;font-weight:600;flex:1;min-width:0}
+textarea.say{width:100%;min-height:76px;resize:vertical;border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;font-size:15px;line-height:1.45;background:var(--surface)}
+input.note{width:100%;min-height:44px;border:1px solid var(--line);border-radius:var(--r-md);padding:0 12px;font-size:14.5px;background:var(--surface)}
+.qline{display:flex;align-items:flex-start;gap:6px;font-size:14px;color:var(--t2)}
+.qline .ic{margin-top:2px}
+.qline b{color:var(--t1);font-weight:600}
+
+/* ========== Danach ========== */
+.after{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
+@container inner (max-width:899px){.after{grid-template-columns:minmax(0,1fr)}}
+.open{list-style:none;margin:0;padding:0}
+.op{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 16px}
+.op+.op{border-top:1px solid var(--subtle)}
+.op .li{width:36px;height:36px;border-radius:var(--r-md);display:inline-flex;align-items:center;justify-content:center;background:var(--navy-light);color:var(--navy)}
+.op .li.warn{background:var(--warn-bg);color:var(--warn)}
+.op b{display:block;font-size:14.5px;font-weight:600;line-height:1.35}
+.op span{display:block;font-size:13px;color:var(--t2)}
+.akte{padding:6px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.akte dl.kv{grid-template-columns:minmax(0,1fr) auto;font-size:14px}
+.akte dl.kv dt{font-size:14px;color:var(--t2);padding:8px 0;border-bottom:1px solid var(--subtle)}
+.akte dl.kv dd{text-align:right;font-weight:600;padding:8px 0;border-bottom:1px solid var(--subtle);font-variant-numeric:tabular-nums}
+.closed{display:flex;align-items:center;gap:10px;color:var(--ok);font-weight:600;font-size:14.5px;padding:8px 0}
+
+/* Toast */
+.toast{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;background:var(--on-cream);color:var(--cream);border-radius:var(--r-md);padding:10px 16px;font-size:14px;box-shadow:var(--sh-lg);max-width:calc(100% - 32px);text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="dbar">
+  <div class="tt"><b>Coach-Live · Klick-Dummy</b><span>Edvancev1 · Coach-Sicht während der Session · Beispieldaten · Stand 06.10.2026</span></div>
+  <div class="ctl"><span>Zeitpunkt</span><div class="sgrp" role="group" aria-label="Zeitpunkt" id="steps"></div></div>
+  <div class="ctl"><span>Ansicht</span>
+    <div class="sgrp" role="group" aria-label="Gerät">
+      <button type="button" id="m-ipadQ" onclick="setMode('ipadQ')">iPad quer</button>
+      <button type="button" id="m-ipadH" onclick="setMode('ipadH')">iPad hoch</button>
+      <button type="button" id="m-full" onclick="setMode('full')">Ganze Breite</button>
+    </div></div>
+  <button type="button" class="sw" id="sw-hints" aria-pressed="false" onclick="S.hints=!S.hints;render()"><span class="knob"></span>Hinweise</button>
+  <button type="button" class="sw" id="sw-sc" aria-pressed="false" onclick="S.sc=!S.sc;render()"><span class="knob"></span>Stellschrauben</button>
+</header>
+
+<div class="stage" id="stage">
+  <div class="frame" id="frame">
+    <div class="device" id="device">
+      <div class="app" id="app" data-w="wide">
+        <header class="top" id="top"></header>
+        <div class="tline" id="tline"></div>
+        <div class="body" id="body"><main class="inner" id="inner"></main></div>
+        <div class="scrim" id="scrim" hidden onclick="closeKid()"></div>
+        <aside class="sheet" id="sheet" hidden aria-label="Kind im Detail"></aside>
+        <div class="toast" id="toast" role="status" hidden></div>
+      </div>
+    </div>
+  </div>
+  <div class="devlabel" id="devlabel"></div>
+</div>
+
+<script>
+/* ================= Symbole ================= */
+const P={
+  back:'<path d="M15 18l-6-6 6-6"/>',
+  x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  checkc:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+  flag:'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>',
+  tablet:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M11 18h2"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  award:'<circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/>',
+  path:'<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/>',
+  cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  note:'<path d="M12 20h9"/><path d="M16.4 3.6a1 1 0 0 1 3 3L7.4 18.6a2 2 0 0 1-.9.5l-2.9.8a.5.5 0 0 1-.6-.6l.8-2.9a2 2 0 0 1 .5-.9z"/>',
+  home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>'
+};
+const I=(n,c="")=>`<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+
+/* ================= Stellschrauben (Werte aus der Vision, Fassung 2) ================= */
+const SC={
+  checkin:{n:"Dauer Check-in",v:"5 Min",r:"3–8 Min"},
+  warmup:{n:"Dauer Warm-up",v:"10 Min",r:"5–15 Min"},
+  kern:{n:"Dauer Kernarbeit",v:"Rest der 60 Min",r:"ergibt sich"},
+  checkout:{n:"Dauer Check-out",v:"5 Min",r:"3–10 Min"},
+  wuN:{n:"Aufgaben im Warm-up",v:"3",r:"1–5"},
+  quote:{n:"Ziel-Erfolgsquote",v:"80 %",r:"60–90 %"},
+  misch:{n:"Anteil älterer Aufgaben in der Kernarbeit",v:"30 %",r:"0–50 %"},
+  kaTage:{n:"Ältere Themen pausieren bei Klassenarbeit in",v:"7 Tagen",r:"0–14 Tage"},
+  fehl:{n:"Signal an Coach nach Fehlversuchen in Folge",v:"2",r:"1–4"},
+  zeit:{n:"Signal an Coach nach Zeit ohne Fortschritt",v:"3 Min",r:"1–10 Min"},
+  kernideen:{n:"Kernideen pro Skill",v:"2–3",r:"1–5"},
+  runden:{n:"Erklärrunden bis Coach-Signal",v:"2",r:"1–3"},
+  abstand:{n:"Abstand bis Mastery-Kandidat",v:"frühestens nächste Session",r:"1–3 Sessions"},
+  kand:{n:"Mastery-Prüfungen je Raum und Session",v:"3",r:"1–5"},
+  mikro:{n:"Mikro-Erklärung höchstens",v:"2 Min",r:"1–5 Min"},
+  exitN:{n:"Exit-Aufgaben",v:"2",r:"1–3"}
+};
+
+/* ================= Beispieldaten ================= */
+const STEPS=[["vorher","Vorher","16:20",-10],["checkin","Check-in","16:32",2],["warmup","Warm-up","16:41",11],["kern","Kernarbeit","17:02",32],["checkout","Check-out","17:27",57],["danach","Danach","17:34",64]];
+const PH=[["checkin","Check-in",5],["warmup","Warm-up",10],["kern","Kernarbeit",40],["checkout","Check-out",5]];
+const KIDS=[{id:"mila",name:"Mila Krämer",kl:9},{id:"emir",name:"Emir Şahin",kl:8},{id:"jonas",name:"Jonas Vogt",kl:8},{id:"lea",name:"Lea Schulz",kl:10},{id:"deniz",name:"Deniz Arslan",kl:9}];
+const KID=Object.fromEntries(KIDS.map(k=>[k.id,k]));
+const DEFSEAT={mila:1,emir:2,jonas:3,lea:4,deniz:5};
+const FALL=[["klassenarbeit","Klassenarbeit"],["schulthema","Schulthema"],["lernpfad","Lernpfad"]];
+
+const BRIEF={
+  mila:{tags:[["navy","Mastery-Prüfung fällig"]],thema:"Satz des Pythagoras · Schulthema seit 15.09.",plan:"Kathete berechnen (neu)",watch:"Hypotenuse berechnen saß am 29.09. ohne Hinweis. Heute prüfen, ob es hält.",note:"Arbeitet zügig und erklärt gern laut, was sie rechnet.",quests:"2 von 2 erledigt"},
+  emir:{tags:[["warn","3 Signale am 29.09."]],thema:"Terme und Gleichungen · Schulthema seit 22.09.",plan:"Klammern ausmultiplizieren (weiter)",watch:"Zweimal dasselbe Fehlbild: Minus vor der Klammer nur beim ersten Summanden.",note:"Beim Vorzeichen braucht er einen Moment. Nicht vorrechnen.",quests:"1 von 2 erledigt"},
+  jonas:{tags:[["warn","Schulthema 4 Wochen alt"]],thema:"Proportionale Zuordnungen · Stand Erstgespräch 08.09.",plan:"Proportionale Zuordnungen festigen",watch:"Das Schulthema ist seit dem Erstgespräch nicht bestätigt. Im Check-in nachfragen.",note:"Liest Aufgaben schnell, manchmal zu schnell.",quests:"2 von 2 erledigt"},
+  lea:{tags:[["warn","Klassenarbeit Do 08.10."]],thema:"Quadratische Gleichungen · Klassenarbeit Do 08.10.",plan:"Vorbereitung: p-q-Formel",watch:"Von Lea am 29.09. angekündigt.",note:"Wird vor Arbeiten nervös. Erfolge laut benennen.",quests:"2 von 2 erledigt"},
+  deniz:{tags:[["navy","erste Session nach der LSA"]],thema:"Lernpfad aus der LSA: Prozentrechnung",plan:"Grundwert berechnen",watch:"LSA am 22.09.: Prozentwert sicher, Grundwert noch nicht sicher. Ziel aus dem Report unter „Wie es weitergeht“.",note:"",quests:"noch keine"}
+};
+const LOOK=[
+  ["award","","Mastery-Prüfung: Mila","Hypotenuse berechnen · saß am 29.09. ohne Hinweis, Abstand {abstand:7 Tage}"],
+  ["cal","warn","Klassenarbeit: Lea, Do 08.10.","Quadratische Gleichungen · Fall Klassenarbeit, ältere Themen pausieren (Klassenarbeit in {kaTage:2 Tagen})"],
+  ["alert","warn","Wiederholtes Fehlbild: Emir","Minus vor der Klammer nur beim ersten Summanden · am 29.09. zweimal"],
+  ["user","","Erste Session nach der LSA: Deniz","LSA vom 22.09.: Prozentwert sicher, Grundwert noch nicht sicher"]
+];
+/* Check-in am Tablet. said: was das Kind zum Schulthema sagt. thema: gespeichertes Schulthema (lead_themen „aktuell“). */
+const CI={
+  mila:{mood:["ok","gut"],ka:"nein",said:"noch dran",thema:"pyth",fall:"schulthema"},
+  emir:{mood:["","geht so"],ka:"in 3 Wochen, Termin offen",said:"noch dran",thema:"terme",fall:"schulthema"},
+  jonas:{mood:["ok","gut"],ka:"nein",said:"neues Thema: „Steigung“",thema:"propzu",neu:true,fall:"schulthema"},
+  lea:{mood:["warn","angespannt"],ka:"Do 08.10.: Quadratische Gleichungen",said:"Klassenarbeit am Do",thema:"quad",fall:"klassenarbeit"},
+  deniz:{mood:["","geht so"],ka:"nein",said:"–",thema:"kreis",fall:"lernpfad",lsa:"Prozentrechnung: Grundwert"}
+};
+/* Themenkatalog wie in der Suche des Erstgesprächs: Name plus Schlagworte, Stufe nach Kernlehrplan NRW G9 */
+const THEMEN=[
+  {k:"terme",l:"Terme und Gleichungen",st:"7/8",kw:["klammer","ausmultiplizieren","ausklammern","term","vereinfachen"]},
+  {k:"linfkt",l:"Lineare Funktionen",st:"7/8",kw:["steigung","gerade","funktion","achsenabschnitt","graph"]},
+  {k:"lgs",l:"Lineare Gleichungssysteme",st:"7/8",kw:["gleichungssystem","einsetzungsverfahren","additionsverfahren"]},
+  {k:"prozent",l:"Prozent- und Zinsrechnung",st:"7/8",kw:["prozent","zinsen","grundwert","prozentsatz","rabatt"]},
+  {k:"propzu",l:"Proportionale Zuordnungen",st:"7/8",kw:["dreisatz","proportional","antiproportional","zuordnung"]},
+  {k:"pyth",l:"Satz des Pythagoras",st:"9/10",kw:["pythagoras","hypotenuse","kathete","rechtwinklig"]},
+  {k:"kreis",l:"Kreis: Umfang und Fläche",st:"9/10",kw:["pi","kreis","radius","durchmesser","umfang"]},
+  {k:"koerper",l:"Zylinder, Kegel und Kugel",st:"9/10",kw:["pi","zylinder","kegel","kugel","volumen"]},
+  {k:"quad",l:"Quadratische Gleichungen",st:"9/10",kw:["p-q-formel","pq","quadratisch","nullstelle"]},
+  {k:"parabel",l:"Quadratische Funktionen",st:"9/10",kw:["parabel","scheitelpunkt"]},
+  {k:"trigo",l:"Trigonometrie",st:"9/10",kw:["sinus","cosinus","tangens","winkel","pi","bogenmaß"]}
+];
+const TH=Object.fromEntries(THEMEN.map(t=>[t.k,t]));
+const STUFE={mila:"9/10",emir:"7/8",jonas:"7/8",lea:"9/10",deniz:"9/10"};
+/* Ziel der Stunde: die Fertigkeiten des Themas mit Stand. sicher, run (heute dran), kand, nns (noch nicht sicher), open */
+const ZIEL={
+  mila:[["Quadrieren und Wurzelziehen","sicher","Voraussetzung"],["Hypotenuse berechnen","kand","Mastery-Prüfung fällig"],["Kathete berechnen","run","heute 5 von 5"],["Pythagoras in Figuren und Körpern","open","als Nächstes"]],
+  emir:[["Minus vor der Klammer (Kl. 7)","nns","Voraussetzung · im Warm-up 1 von 3"],["Klammern ausmultiplizieren","run","heute 2 von 4"],["Ausklammern","open",""],["Binomische Formeln","open",""]],
+  jonas:[["Proportionale Zuordnungen","sicher","Voraussetzung · im Warm-up 2 von 3"],["Steigung aus dem Graphen","run","Erklärsequenz, Kernidee 2 von 3"],["y-Achsenabschnitt ablesen","open",""],["Funktionsgleichung aufstellen","open",""]],
+  lea:[["Binomische Formeln","sicher","Voraussetzung · im Warm-up 3 von 3"],["Quadratische Ergänzung","sicher","am 29.09."],["p-q-Formel anwenden","run","heute 5 von 6"],["Textaufgaben mit quadratischen Gleichungen","open","bis Donnerstag noch dran"]],
+  deniz:[["Prozentwert berechnen","sicher","in der LSA"],["Grundwert berechnen","run","heute 1 von 2"],["Prozentsatz berechnen","open",""],["Vermehrter und verminderter Grundwert","open",""]]
+};
+const ZST={sicher:["sicher","zs-ok"],run:["heute dran","zs-run"],kand:["Mastery-Kandidat","zs-kand"],nns:["noch nicht sicher","zs-nns"],open:["offen","zs-open"],gem:["gemeistert","zs-gem"]};
+
+/* Kacheln je Zeitpunkt. st: Zustand (kand, dec, hang, info, ok oder leer), dots: r richtig, w falsch, h mit Hinweis, n aktuelle */
+const LIVE={
+  warmup:{
+    mila:{st:"kand",stt:"Mastery-Prüfung möglich",ph:"Warm-up · Abruf 2 von {wuN:3}",sk:"Hypotenuse berechnen (vom 29.09.)",dots:"rrn",meta:"beide ohne Hinweis"},
+    emir:{st:"dec",stt:"Vorschlag: eine Stufe tiefer",ph:"Warm-up fertig",sk:"Minus vor der Klammer (Kl. 7)",dots:"wrw",meta:"1 von 3 richtig"},
+    jonas:{st:"",stt:"",ph:"Warm-up · Abruf 2 von {wuN:3}",sk:"Proportionale Zuordnungen",dots:"rhn",meta:"1 Hinweis"},
+    lea:{st:"info",stt:"Check-in: angespannt",ph:"Warm-up fertig",sk:"Binomische Formeln",dots:"rrr",meta:"3 von 3 richtig"},
+    deniz:{st:"",stt:"",ph:"Check-in am Tablet",sk:"kam 16:36, sechs Minuten später",dots:"",meta:"danach Warm-up mit Themen aus der LSA"}
+  },
+  kern:{
+    mila:{st:"kand",stt:"Mastery-Prüfung fällig",ph:"Schulthema · Üben",sk:"Pythagoras: Kathete berechnen",dots:"rrhrrn",n:"Aufgabe 6",meta:"5 von 5 richtig · über Ziel {quote:80 %}"},
+    emir:{st:"hang",stt:"hängt · {fehl:2 Fehlversuche}",ph:"Schulthema · Üben",sk:"Klammern ausmultiplizieren",dots:"rhwwn",n:"Aufgabe 5",meta:"2 Hinweise genutzt"},
+    jonas:{st:"",stt:"",ph:"Schulthema · Erklärsequenz, Kernidee 2 von {kernideen:3}",sk:"Steigung aus dem Graphen (neu)",seq:["ok","run",""],meta:"eine Extrarunde mit Variante B"},
+    lea:{st:"",stt:"",ph:"Klassenarbeit Do · Üben",sk:"p-q-Formel anwenden",dots:"rrwrrrn",n:"Aufgabe 7",meta:"ältere Themen pausiert bis Donnerstag"},
+    deniz:{st:"hang",stt:"4 Min ohne Eingabe",ph:"Lernpfad · Üben",sk:"Prozentrechnung: Grundwert",dots:"rwn",n:"Aufgabe 3",meta:"keine Hinweise genutzt"}
+  },
+  kernEmirT:{st:"",stt:"",ph:"Schulthema · eine Stufe tiefer",sk:"Minus vor der Klammer (Kl. 7)",dots:"wrrn",n:"Aufgabe 4",meta:"Pfad tiefer gesetzt von Sara"}
+};
+const QW={
+  mila:{p:0,t:"Mastery-Prüfung möglich",s:"Hypotenuse berechnen · im Warm-up ohne Hinweis",age:"gerade"},
+  emir:{p:1,t:"Entscheidung: Pfad",s:"Warm-up 1 von 3 · Vorschlag eine Stufe tiefer",age:"1 Min"},
+  lea:{p:3,t:"Kurz ansprechen",s:"Check-in: angespannt · Klassenarbeit Do",age:"8 Min"}
+};
+const QK={
+  mila:{p:0,t:"Mastery-Prüfung",s:"Hypotenuse berechnen · Abstand {abstand:7 Tage}",age:"seit 16:42"},
+  emir:{p:2,t:"hängt",s:"{fehl:2 Fehlversuche} bei Aufgabe 5",age:"1 Min"},
+  deniz:{p:2,t:"hängt",s:"4 Min ohne Eingabe · Signal ab {zeit:3 Min}",age:"1 Min"}
+};
+const QTYPE=["Mastery-Prüfung","Entscheidung","Signal","Hinweis"];
+
+const MASTERY={skill:"Hypotenuse berechnen",sub:"Satz des Pythagoras · Klasse 9",
+  evid:["29.09.: 4 von 4 richtig, ohne Hinweis","heute im Warm-up: 2 von 2 richtig, ohne Hinweis","Abstand zur letzten Übung: {abstand:7 Tage}"],
+  frage:"Ein Schrank ist 2,40 m hoch und 0,80 m tief. Er liegt auf dem Rücken und soll aufgerichtet werden. Die Decke ist 2,50 m hoch. Klappt das? Erklär mir, wie du vorgehst.",
+  erw:"Sieht das rechtwinklige Dreieck aus Höhe und Tiefe und nimmt die Diagonale als Hypotenuse: 2,40² + 0,80² = 6,40, also etwa 2,53 m. Antwort: Es klappt nicht, der Schrank stößt an.",
+  krit:"Richtig gelöst und den Weg ohne Hilfe erklärt.",
+  gruende:["Rechnung richtig, Weg nicht erklärt","Ging nur mit Hilfe","Fehler in der Rechnung","Heute nicht prüfbar"]};
+
+const LADDER=[
+  [1,"Nähe suchen","Lange Pause: hingehen, Blickkontakt, nicht sprechen."],
+  [2,"Nachfragen","Wiederholter Fehlversuch: „Zeig mir, was du bis hier gemacht hast.“ Fragen statt sagen."],
+  [3,"Mikro-Erklärung","Falsches Modell: an einem anderen Beispiel erklären, höchstens {mikro:2 Min}, dann zurück ans Tablet."],
+  [4,"Pfad tiefer","Voraussetzung fehlt: eine Stufe tiefer setzen, Fehlbild notieren."]
+];
+
+const DET={
+  warmup:{
+    mila:{task:{title:"Warm-up 2 von 3 · Hypotenuse",text:"Ein rechtwinkliges Dreieck hat die Katheten 6 cm und 8 cm. Wie lang ist die Hypotenuse?",sol:["c² = 6² + 8² = 36 + 64 = 100","c = 10 cm"],last:"10 cm · richtig"},today:[["Warm-up","Hypotenuse berechnen · 2 von 2 ohne Hinweis"]],ladder:0},
+    emir:{task:{title:"Warm-up 3 von 3 · Minus vor der Klammer",text:"Löse die Klammer auf: −(3a − 2b)",sol:["Minus vor der Klammer ändert jedes Vorzeichen in der Klammer","−3a + 2b"],last:"−3a − 2b · falsch"},
+      att:[{r:"Warm-up 1",a:"−x − 4",fb:"Nur das erste Vorzeichen geändert"},{r:"Warm-up 3",a:"−3a − 2b",fb:"Nur das erste Vorzeichen geändert"}],today:[["Warm-up","Minus vor der Klammer · 1 von 3"]],ladder:0},
+    jonas:{task:{title:"Warm-up 2 von 3 · Proportionale Zuordnungen",text:"3 Hefte kosten 4,50 €. Was kosten 7 Hefte?",sol:["1 Heft kostet 4,50 € : 3 = 1,50 €","7 Hefte kosten 7 · 1,50 € = 10,50 €"],last:"10,50 € · richtig nach Hinweis 1"},hints:["Stufe 1: Was kostet ein Heft?"],today:[["Warm-up","Proportionale Zuordnungen · 2 von 2, 1 Hinweis"]],ladder:0},
+    lea:{info:"Im Check-in: angespannt. Klassenarbeit am Donnerstag. Kurz ansprechen, ein Satz reicht.",ack:true,task:{title:"Warm-up 3 von 3 · Binomische Formeln",text:"Schreibe als Summe: (x − 3)²",sol:["(x − 3)² = x² − 2 · 3 · x + 3²","x² − 6x + 9"],last:"x² − 6x + 9 · richtig"},today:[["Warm-up","Binomische Formeln · 3 von 3"]],ladder:0},
+    deniz:{info:"Kam um 16:36. Der Check-in läuft am Tablet, danach beginnt das Warm-up mit Themen, die in der LSA sicher waren.",today:[["Ankommen","16:36 · sechs Minuten nach Beginn"]],ladder:0}
+  },
+  kern:{
+    mila:{task:{title:"Aufgabe 6 · Kathete berechnen",text:"Ein Rechteck ist 12 cm lang, seine Diagonale misst 13 cm. Wie breit ist es?",sol:["Die Diagonale ist die Hypotenuse: 13² = 12² + b²","b² = 169 − 144 = 25","b = 5 cm"],last:"noch keine Eingabe"},
+      note:"Über der Ziel-Erfolgsquote ({quote:80 %}): Die nächsten Aufgaben werden schwerer.",
+      today:[["Warm-up","Hypotenuse berechnen · 2 von 2 ohne Hinweis"],["Kernarbeit","Kathete berechnen · 4 von 4, 1 Hinweis"],["Eingemischt","Lineare Gleichungen (Kl. 8) · 1 von 1 · Anteil {misch:30 %}"]],ladder:0},
+    emir:{task:{title:"Aufgabe 5 · Klammern ausmultiplizieren",text:"Multipliziere aus: −3(2x − 5)",sol:["−3 · 2x = −6x","−3 · (−5) = +15","Ergebnis: −6x + 15"],last:"6x + 15 · falsch"},
+      att:[{r:"Versuch 1",a:"−6x − 15",fb:"Minus nur auf den ersten Summanden angewendet"},{r:"Versuch 2",a:"6x + 15",fb:"Vorzeichen des Faktors verloren"}],
+      hints:["Stufe 1: Womit multiplizierst du jeden Summanden in der Klammer?","Stufe 2: Rechne zuerst −3 · 2x. Was ergibt dann −3 · (−5)?"],
+      fb:"Vorzeichenfehler bei Minus vor der Klammer, auch am 29.09. (zweimal)",
+      today:[["Warm-up","Minus vor der Klammer · 1 von 3"],["Kernarbeit","Klammern ausmultiplizieren · 2 von 4"]],ladder:2},
+    jonas:{seq:{ki:[{st:"ok",t:"Steigung: wie viel es pro Schritt nach rechts hoch- oder runtergeht",n:"Check in Runde 1 richtig"},{st:"run",t:"Steigungsdreieck: Δy durch Δx",n:"Runde 1 falsch: Δx und Δy vertauscht. Variante B gezeigt, Check in Runde 2 läuft."},{st:"",t:"Negative Steigung: Der Graph fällt",n:"noch offen"}],
+        v:"Variante B · Treppenbild",sees:"Geh vom linken Punkt nach rechts, bis du unter dem rechten Punkt stehst. Das ist Δx. Dann geh hoch bis zum Punkt. Das ist Δy. Die Steigung ist Δy geteilt durch Δx."},
+      task:{title:"Check zu Kernidee 2 · Runde 2",text:"Die Gerade geht durch (0|1) und (4|3). Bestimme die Steigung mit dem Steigungsdreieck.",sol:["Δx = 4 − 0 = 4","Δy = 3 − 1 = 2","m = Δy : Δx = 2 : 4 = 0,5"],last:"noch keine Eingabe"},
+      att:[{r:"Runde 1",a:"2",fb:"Δx und Δy vertauscht (4 : 2 statt 2 : 4)"}],
+      today:[["Warm-up","Proportionale Zuordnungen · 2 von 3, 1 Hinweis"],["Erklärsequenz","Kernidee 1 sicher · Kernidee 2 in Runde 2"]],ladder:0},
+    lea:{info:"Klassenarbeit Do 08.10. Ältere Themen sind pausiert, bis die Arbeit geschrieben ist (Klassenarbeit in {kaTage:2 Tagen}). Im Check-in: angespannt.",
+      task:{title:"Aufgabe 7 · p-q-Formel",text:"Löse: x² + 4x − 12 = 0",sol:["p = 4, q = −12","x = −2 ± √(4 + 12) = −2 ± 4","x₁ = 2, x₂ = −6"],last:"noch keine Eingabe"},
+      today:[["Warm-up","Binomische Formeln · 3 von 3"],["Kernarbeit","p-q-Formel · 5 von 6"]],ladder:0},
+    deniz:{task:{title:"Aufgabe 3 · Grundwert berechnen",text:"30 % eines Betrags sind 12 €. Wie groß ist der ganze Betrag?",sol:["12 € entsprechen 30 %","1 % sind 12 € : 30 = 0,40 €","100 % sind 40 €"],last:"keine Eingabe seit 4 Min"},
+      att:[{r:"Aufgabe 2",a:"3,60 €",fb:"Prozentwert statt Grundwert gerechnet (30 % von 12 €)"}],
+      fb:"Prozentwert statt Grundwert gerechnet",
+      today:[["Warm-up","Prozentwert · 3 von 3 (in der LSA sicher)"],["Kernarbeit","Grundwert · 1 von 2"]],ladder:1}
+  },
+  kernEmirT:{task:{title:"Aufgabe 4 · Minus vor der Klammer",text:"Löse die Klammer auf: −(4x − 7)",sol:["Minus vor der Klammer ändert jedes Vorzeichen in der Klammer","−4x + 7"],last:"noch keine Eingabe"},
+    att:[{r:"Aufgabe 1",a:"−2x − 5",fb:"Nur das erste Vorzeichen geändert"}],fb:"Vorzeichenfehler bei Minus vor der Klammer",
+    today:[["Warm-up","Minus vor der Klammer · 1 von 3"],["Kernarbeit","Minus vor der Klammer · 2 von 3 · eine Stufe tiefer"]],ladder:0}
+};
+
+const CO={
+  mila:{exit:"2 von 2",exitOk:true,sum:"8 Aufgaben, 7 ohne Hilfe richtig · Kathete neu begonnen",quest:"Do 08.10. · 17:00",
+    say:["Du rechnest die Kathete schon fast allein. Nächstes Mal schauen wir, ob es ohne Hinweis sitzt.","Du hast heute fünf von fünf Kathetenaufgaben gelöst. Als Nächstes kommen die schwereren."],
+    sayOk:["Du hast heute gezeigt, dass du die Hypotenuse auch in einer neuen Aufgabe sicher berechnest. Das ist jetzt gemeistert.","Die Schrank-Aufgabe hast du selbst durchschaut. Die Hypotenuse sitzt, das ist gemeistert."]},
+  emir:{exit:"1 von 2",exitOk:false,sum:"6 Aufgaben, 3 richtig · 2 Eingriffe",quest:"Mi 07.10. · 18:30",
+    say:["Beim Minus vor der Klammer hast du heute den Dreh gefunden: Jedes Vorzeichen in der Klammer ändert sich.","Du hast heute zweimal selbst gemerkt, wo das Vorzeichen kippt. Daran arbeiten wir weiter."]},
+  jonas:{exit:"2 von 2",exitOk:true,sum:"Erklärsequenz Steigung: 3 von 3 Kernideen · 4 Aufgaben",quest:"Mi 07.10. · 16:00",
+    say:["Du kannst jetzt die Steigung aus einem Graphen ablesen. Mit dem Treppenbild hat es geklappt.","Erst Δx, dann Δy: Das Steigungsdreieck sitzt jetzt bei dir."]},
+  lea:{exit:"2 von 2",exitOk:true,sum:"9 Aufgaben, 8 richtig · p-q-Formel",quest:"Mi 07.10. · 19:00 · Paket Klassenarbeit",
+    say:["Die p-q-Formel sitzt, auch mit negativem q. Das nimmst du mit in die Arbeit am Donnerstag.","Acht von neun Gleichungen richtig, auch die schweren. Du bist vorbereitet."]},
+  deniz:{exit:"1 von 2",exitOk:false,sum:"5 Aufgaben, 3 richtig · erste Session",quest:"Fr 09.10. · 15:00",
+    say:["Den Prozentwert rechnest du sicher. Beim Grundwert weißt du jetzt, wo du ansetzt: erst ein Prozent ausrechnen.","Guter Start. Beim Grundwert hilft dir der Weg über ein Prozent."]}
+};
+
+/* ================= Zustand ================= */
+const MODES={ipadQ:[1180,820,"iPad Air quer · 1180 × 820"],ipadH:[820,1180,"iPad Air hoch · 820 × 1180"],full:null};
+const S={step:"kern",mode:"ipadQ",hints:false,sc:false,sel:null,
+  seats:{1:"mila",2:"emir",3:"jonas",4:null,5:null},arrived:{lea:true,deniz:false},
+  fall:{},thema:{},tq:{jonas:"steigung"},pick:{},emirPfad:null,done:new Set(),log:[],mastery:{},mchk:{frage:false,erkl:false},vopen:false,vgrund:null,
+  say:{},sayIdx:{},said:new Set(),notes:{mila:"Arbeitet zügig, Kathete fast allein.",emir:"",jonas:"Treppenbild (Variante B) hat geholfen.",lea:"Vor der Arbeit angespannt, nach der Session ruhiger.",deniz:""},
+  flags:{},closed:false};
+try{const m=localStorage.getItem("cl-mode");if(m&&m in MODES)S.mode=m;}catch(e){}
+
+/* ================= Hilfen ================= */
+const USED=new Set();
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ini=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
+const first=id=>KID[id].name.split(" ")[0];
+const hint=t=>`<div class="hint"><b>Hinweis</b>${t}</div>`;
+const stepTime=()=>STEPS.find(s=>s[0]===S.step)[2];
+function sc(k,t){USED.add(k);return `<span class="sc" data-k="${k}">${t}</span>`;}
+const fmt=s=>String(s).replace(/\{(\w+):([^}]+)\}/g,(m,k,t)=>sc(k,t));
+function seatOf(id){for(let i=1;i<=5;i++)if(S.seats[i]===id)return i;return DEFSEAT[id];}
+const bySeat=()=>[...KIDS].sort((a,b)=>seatOf(a.id)-seatOf(b.id));
+function dots(s){return s?`<span class="dots" aria-hidden="true">${[...s].map(c=>`<i class="${c}"></i>`).join("")}</span>`:"";}
+
+/* ================= Schulthema und Ziel ================= */
+const fold=s=>String(s).toLowerCase().replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss");
+function searchThemen(q,st){
+  const ws=fold(q).split(/\s+/).filter(Boolean);if(!ws.length)return [];
+  const hit=(words,w)=>words.some(x=>x.startsWith(w));
+  return THEMEN.map(t=>{const lw=fold(t.l).split(/[\s:,]+/),kw=t.kw.map(fold);
+      const rank=ws.every(w=>hit(lw,w))?0:ws.every(w=>hit(lw,w)||hit(kw,w))?1:null;
+      return rank===null?null:{...t,rank};}).filter(Boolean)
+    .sort((a,b)=>a.rank-b.rank||(a.st===st?0:1)-(b.st===st?0:1)).slice(0,6);
+}
+function themaOf(id){return S.thema[id]||(CI[id].neu?null:CI[id].thema);}
+function themaLive(id){return themaOf(id)||"linfkt";}
+function fallOf(id){return S.fall[id]||CI[id].fall;}
+function fallLabel(id){return FALL.find(f=>f[0]===fallOf(id))[1];}
+function zielText(id,live){
+  const f=fallOf(id),c=CI[id],th=live?themaLive(id):themaOf(id);
+  if(f==="klassenarbeit")return c.ka!=="nein"?`${TH[c.thema].l} für die Klassenarbeit`:"Klassenarbeit: Thema und Datum fehlen";
+  if(f==="schulthema")return th?`${TH[th].l} durchdringen`:"erst Schulthema wählen";
+  return c.lsa?`${c.lsa}, aus der LSA`:"nächste Lücke im Lernpfad";
+}
+function picker(id){
+  const q=S.tq[id]??"",res=searchThemen(q,STUFE[id]);
+  const list=!q.trim()?"":res.length?res.map(t=>`<button type="button" class="tres" onclick="pickThema('${id}','${t.k}')"><b>${t.l}</b><span>Stufe ${t.st}${t.st===STUFE[id]?" · Stufe des Kindes":""}</span></button>`).join("")
+    :`<div class="tnone">Kein passendes Thema. Bitte mit dem Mathe-Heft abgleichen.</div>`;
+  return `<div class="tpick"><label class="lab" for="tq-${id}">Schulthema für ${first(id)} suchen</label>
+    <input id="tq-${id}" class="tin" type="search" autocomplete="off" value="${esc(q)}" placeholder="Stichwort aus dem Heft, z. B. pi, Zinsen, Parabel" oninput="S.tq['${id}']=this.value;render('tq-${id}')">
+    <div class="tlist">${list}</div></div>`;
+}
+function zielBlk(id){
+  const rows=ZIEL[id].map(r=>[...r]);
+  if(id==="emir"&&S.emirPfad==="tiefer"){rows[0]=["Minus vor der Klammer (Kl. 7)","run","eine Stufe tiefer gesetzt"];rows[1]=["Klammern ausmultiplizieren","open","danach"];}
+  const m=S.mastery.mila;
+  if(id==="mila"&&m&&m.res)rows[1]=m.res==="ok"?["Hypotenuse berechnen","gem","bestätigt um "+m.t]:["Hypotenuse berechnen","sicher","Prüfung vertagt"];
+  return `<section class="blk"><div class="bh"><h3>Ziel der Stunde</h3><span class="pill">${fallLabel(id)}</span></div>
+    <p><b>${zielText(id,true)}</b></p>
+    <ul class="zl">${rows.map(([t,s,n])=>`<li class="${ZST[s][1]}"><i></i><div><b>${t}</b><span>${ZST[s][0]}${n?" · "+n:""}</span></div></li>`).join("")}</ul>
+    ${hint(`Die Fertigkeiten des Themas aus <code>skill_thema</code>, darüber die Voraussetzungen aus <code>skill_kante</code>, mit dem Stand aus dem Lernpfad. „Sicher“ ist ein Beleg des Systems, „gemeistert“ nur nach Bestätigung durch den Coach.`)}</section>`;
+}
+
+/* ================= Kopf und Phasenleiste ================= */
+function renderTop(){
+  const st=STEPS.find(s=>s[0]===S.step),m=st[3];
+  const sub=m<0?`beginnt in ${-m} Min`:m>60?`seit ${m-60} Min vorbei`:`Minute ${m} von 60`;
+  return `<button type="button" class="back" onclick="toast('Zurück zur Coach-Startseite „Heute“.')">${I("back")}Heute</button>
+    <div class="tt"><b>Session 16:30 · Raum 1</b><span>Mathematik · Klasse 8 bis 10 · Coach Sara Özdemir</span></div>
+    <div class="clock"><b>${st[2]}</b><span>${sub}</span></div>`;
+}
+function renderTimeline(){
+  const m=STEPS.find(s=>s[0]===S.step)[3];
+  let acc=0;
+  const segs=PH.map(([k,l,d])=>{const a=acc;acc+=d;const cls=m>=acc?"done":m>=a?"now":"";return `<div class="pseg ${cls}" style="flex:${d}">${l}</div>`;}).join("");
+  const durs=PH.map(([k,l,d])=>`<span style="flex:${d}">${sc(k,k==="kern"?d+" Min":d+" Min")}</span>`).join("");
+  const mark=m>=0&&m<=60?`<span class="nowmark" style="left:${(m/60*100).toFixed(2)}%" aria-hidden="true"></span>`:"";
+  return `<div class="tbar" aria-label="Phasen der Session">${segs}${mark}</div><div class="tdur">${durs}</div>`;
+}
+
+/* ================= Vorher ================= */
+function vVorher(){
+  const rows=bySeat().map(k=>{const b=BRIEF[k.id];
+    return `<li class="bk"><span class="av">${ini(k.name)}</span><div class="bkm">
+      <div class="bkh"><b>${k.name}</b><span class="muted small">Kl. ${k.kl}</span>${b.tags.map(([c,t])=>`<span class="pill ${c}">${t}</span>`).join("")}</div>
+      <dl class="kv"><dt>Thema</dt><dd>${b.thema}</dd><dt>Plan</dt><dd>${b.plan}</dd>${b.watch?`<dt>Im Blick</dt><dd>${b.watch}</dd>`:""}
+      <dt>Notiz</dt><dd>${b.note?`„${b.note}“ <span class="muted small">Sara, 29.09.</span>`:`<span class="muted">noch keine Notiz</span>`}</dd>
+      <dt>Quests</dt><dd>${b.quests}</dd></dl></div></li>`;}).join("");
+  const look=LOOK.map(([ic,c,t,s])=>`<li class="lk"><span class="li ${c}">${I(ic)}</span><div><b>${t}</b><span>${fmt(s)}</span></div></li>`).join("");
+  return `${hint(`Fokus-Seite ohne Leiste, wie die Vertrags-Unterschrift und Lenas Prüfansicht. Gebaut fürs iPad quer, hoch muss ebenfalls gehen; alle Bedienelemente mindestens 44 px. Die Zeitpunkte in der Dummy-Leiste ersetzen die Uhr, im Produkt wechselt die Ansicht selbst.`)}
+  <div class="brief">
+    <section><div class="sh"><h2>Wer kommt</h2><span>5 von 5 Plätzen gebucht</span></div><ul class="card blist">${rows}</ul></section>
+    <aside><div class="sh"><h2>Heute im Blick</h2></div>
+      <section class="card look"><ul>${look}</ul>
+        <button type="button" class="btn wide" onclick="setStep('checkin')">Check-in starten</button>
+        <span class="muted small">Ab 16:25 möglich. Die Tablets stehen im Kiosk-Modus bereit.</span></section>
+    </aside>
+  </div>
+  ${hint(`Erscheint 30 Minuten vor Beginn. Das Thema kommt aus <code>lead_themen</code> (Status „aktuell“, gesetzt im Erstgespräch oder im letzten Check-in). Ist es älter als drei Wochen, markiert das Briefing es zum Nachfragen. Weitere Quellen: letzte Coach-Notiz aus der Akte, Mastery-Vorschlag des Systems (eigener Zustand, getrennt von der Bestätigung), angekündigte Klassenarbeit aus dem letzten Check-in, LSA-Befund in der Sprache „sicher / noch nicht sicher“. Quests nur als „erledigt“, kommt mit Paket Q. Keine Vertrags-, Eltern- oder Gesundheitsdaten (Entscheidung Schülerakte 25.09.).`)}`;
+}
+
+/* ================= Check-in ================= */
+function vCheckin(){
+  const free=[1,2,3,4,5].filter(i=>!S.seats[i]);
+  const seated=[1,2,3,4,5].map(i=>S.seats[i]).filter(Boolean);
+  const room=[1,2,3,4,5].map(i=>{const id=S.seats[i];
+    return id?`<div class="seat taken"><span class="sn">${I("tablet","sm")}Tablet ${i}</span><b>${first(id)}</b><span class="muted small">Kl. ${KID[id].kl}</span><button type="button" class="link sm" onclick="unseat(${i})">Platz lösen</button></div>`
+      :`<div class="seat"><span class="sn">${I("tablet","sm")}Tablet ${i}</span><span class="muted">frei</span></div>`;}).join("");
+  const waiting=KIDS.filter(k=>!seated.includes(k.id));
+  const arr=waiting.length?`<div class="arrs">${waiting.map(k=>{const da=S.arrived[k.id];
+    return `<div class="card arr"><span class="av">${ini(k.name)}</span><div class="am"><b>${k.name}</b><span class="muted">${da?"ist da, noch ohne Platz":"erwartet · noch nicht da"}</span></div>
+      <div class="aa">${da?free.map(i=>`<button type="button" class="btn sm" onclick="seat('${k.id}',${i})">Platz ${i}</button>`).join(""):`<button type="button" class="btn sm ghost" onclick="arrive('${k.id}')">Ist da</button>`}</div></div>`;}).join("")}</div>`
+    :`<div class="card qempty">${I("checkc")} Alle fünf haben einen Platz.</div>`;
+  const rows=seated.map(id=>{const c=CI[id];const late=id==="deniz";
+    const cur=fallOf(id),th=themaOf(id),open=S.pick[id]||(c.neu&&!S.thema[id]);
+    const fseg=FALL.map(([k,l])=>`<button type="button" aria-pressed="${cur===k}" onclick="setFall('${id}','${k}')" title="${c.fall===k?"Vorschlag des Systems":""}">${l}${c.fall===k?`<span class="sg" aria-label="Vorschlag"></span>`:""}</button>`).join("");
+    const st=late?`<span class="pill">füllt aus am Tablet</span>`:`<span class="pill ok">${I("check","sm")}fertig · Warm-up</span>`;
+    const thema=th?`<b>${TH[th].l}</b>`:c.neu?`<span style="color:var(--warn)">bisher ${TH[c.thema].l}, neues Thema wählen</span>`:"–";
+    return `<div class="cirow"><div class="cn"><span class="seatno">${seatOf(id)}</span>${KID[id].name}</div>
+      <div class="cv"><span class="lab">Stimmung</span>${late?"–":`<span class="mood ${c.mood[0]}"><i></i>${c.mood[1]}</span>`}${c.mood[0]==="warn"&&!late?`<div class="small" style="color:var(--warn)">kurz ansprechen</div>`:""}</div>
+      <div class="cv"><span class="lab">Klassenarbeit</span>${late?"–":c.ka}</div>
+      <div class="cv"><span class="lab">Schulthema · ${first(id)} sagt: ${late?"–":c.said}</span><div class="row">${thema}${th&&!open?`<button type="button" class="link sm" onclick="togglePick('${id}')">Ändern</button>`:""}</div></div>
+      ${open?picker(id):""}
+      <div class="cv cf"><span class="lab">Fall${S.fall[id]&&S.fall[id]!==c.fall?" · von dir geändert":""}</span><div class="row"><div class="fseg" role="group" aria-label="Fall für ${first(id)}">${fseg}</div>${st}</div>
+        <div class="ziel">${I("flag","sm")}<span>Ziel der Stunde: <b>${zielText(id)}</b></span></div></div></div>`;}).join("");
+  return `<section><div class="sh"><h2>Raum 1 · Plätze</h2><span>${seated.length} von 5 belegt</span></div><div class="room">${room}</div></section>
+  ${waiting.length?`<section><div class="sh"><h2>Ankommen</h2><span>Kind antippen, dann Platz wählen</span></div>${arr}</section>`:arr}
+  ${hint(`Zwei Arten von Platz (R0): Der Session-Platz ist die Buchung in <code>session_students</code> (Admin bzw. Slots, Vertragsprüfung per Trigger ZG001) und steht hier schon fest. Hier weist der Coach das Tablet zu. Das gibt es heute nur für die LSA (<code>platz_assignments</code> → <code>lsa_sessions</code>) und muss auf <code>coaching_sessions</code> erweitert werden. Das Kind meldet sich nicht an: Mit dem Tablet weiß das System, wer davor sitzt. Die Zuweisung setzt die Anwesenheit auf „anwesend“. Offen aus R0: Antworten laufen am Kiosk noch unter dem Konto, das zugewiesen hat.`)}
+  <section><div class="sh"><h2>Check-in am Tablet</h2><span>Das Warm-up startet von selbst, sobald ein Kind fertig ist</span></div><div class="card cilist">${rows||`<div class="qempty muted">Noch niemand im Raum.</div>`}</div></section>
+  ${hint(`Stimmung, Klassenarbeit und „Macht ihr noch dasselbe Thema?“ beantwortet das Kind am Tablet (neu in R1). Nennt es ein neues Thema, wählt der Coach es mit derselben Suche wie im Erstgespräch: Name und Schlagworte, Stufe des Kindes zuerst, höchstens sechs Vorschläge, kein Freitext. Gespeichert wird es in <code>lead_themen</code> als „aktuell“, das alte Thema wird „behandelt“. Keine Hausaufgaben in der Session (Entscheidung 06.10.).`)}
+  ${hint(`Der Fall legt das Ziel der Stunde fest, Rangfolge Klassenarbeit vor Schulthema vor Lernpfad; der goldene Punkt markiert den Vorschlag des Systems. Eine Klassenarbeit zählt erst, wenn sie nah genug ist (bei Emir in drei Wochen, deshalb Schulthema). Ziel heißt: Das Kind durchdringt dieses Thema. Die Auswahl arbeitet wie die LSA vom Einstieg des Themas (<code>thema_einstieg</code>) abwärts zu fehlenden Voraussetzungen (<code>skill_kante</code>). Das Warm-up fragt die Voraussetzungen ab, die Exit-Aufgaben prüfen das Thema. Das Ziel bleibt über Sessions bestehen, bis sich das Thema ändert. Ändert der Coach den Fall, wird das getrennt vom Vorschlag gespeichert.`)}`;
+}
+
+/* ================= Live (Warm-up und Kernarbeit) ================= */
+function tileData(id,st){
+  let d={...(id==="emir"&&st==="kern"&&S.emirPfad==="tiefer"?LIVE.kernEmirT:LIVE[st][id])};
+  if(id==="emir"&&st==="warmup"&&S.emirPfad){d.st="";d.stt="";d.meta=S.emirPfad==="tiefer"?"Kernarbeit beginnt eine Stufe tiefer":"Kernarbeit bleibt beim Plan";}
+  if(id==="mila"){const m=S.mastery.mila;
+    if(m&&m.res==="ok"){d.st="ok";d.stt="gemeistert: Hypotenuse berechnen";}
+    else if(m&&m.res==="vertagt"){d.st="";d.stt="";d.meta="Mastery-Prüfung vertagt";}}
+  if(S.done.has(id)&&(d.st==="hang"||d.st==="info")){d.st="";d.stt="";d.meta=id==="lea"?"angesprochen":"Signal erledigt";}
+  return d;
+}
+function tile(id,st){
+  const k=KID[id],d=tileData(id,st);
+  const band=d.stt?fmt(d.stt):"läuft";
+  const prog=d.seq?`<span class="seqbar" aria-hidden="true">${d.seq.map(s=>`<i class="${s}"></i>`).join("")}</span>`:dots(d.dots);
+  return `<button type="button" class="tile s-${d.st||"run"}${S.sel===id?" sel":""}" onclick="openKid('${id}')" aria-label="${k.name} öffnen">
+    <span class="tband">${d.st==="kand"?I("award","sm"):d.st==="hang"||d.st==="dec"?I("alert","sm"):d.st==="ok"?I("checkc","sm"):""}${band}</span>
+    <span class="thd"><span class="seatno">${seatOf(id)}</span><b>${first(id)}</b><span class="kl">Kl. ${k.kl}</span></span>
+    <span class="tph">${fmt(d.ph)}</span>
+    <span class="tsk">${d.sk}</span>
+    <span class="tprog">${prog}${d.n?`<span>${d.n}</span>`:""}</span>
+    <span class="tmeta">${fmt(d.meta||"")}</span>
+  </button>`;
+}
+function queue(st){
+  const Q=st==="warmup"?QW:QK;
+  return Object.entries(Q).filter(([id])=>{
+    if(S.done.has(id))return false;
+    if(id==="mila"&&S.mastery.mila&&S.mastery.mila.res)return false;
+    if(id==="emir"&&st==="warmup"&&S.emirPfad)return false;
+    if(id==="emir"&&st==="kern"&&S.emirPfad==="tiefer")return false;
+    return true;}).sort((a,b)=>a[1].p-b[1].p).map(([id,q])=>({id,...q}));
+}
+function vLive(){
+  const st=S.step,q=queue(st);
+  const tiles=bySeat().map(k=>tile(k.id,st)).join("");
+  const decided=Object.values(S.mastery).filter(m=>m.res).length;
+  const ql=q.length?`<ol class="queue">${q.map((x,i)=>`<li><button type="button" class="qb p${x.p}" onclick="openKid('${x.id}')"><span class="qn">${i+1}</span><span class="qt"><b>${first(x.id)} · ${x.t}</b><span>${fmt(x.s)}</span></span><span class="age">${x.age}</span></button></li>`).join("")}</ol>`
+    :`<div class="qempty">${I("checkc")} Nichts offen. Alle arbeiten.</div>`;
+  return `<div class="live">
+    <section><div class="sh"><h2>Raum 1 · ${st==="warmup"?"Warm-up":"Kernarbeit"}</h2><span>Kind antippen für Details</span></div>
+      <div class="tiles">${tiles}</div>
+      <div class="legend"><span>${dots("r")}richtig</span><span>${dots("w")}falsch</span><span>${dots("h")}richtig mit Hinweis</span><span>${dots("n")}aktuelle Aufgabe</span></div>
+      ${hint(`Statusfarbe nur aus Zuständen: neutral läuft, Bernstein hängt oder braucht eine Entscheidung, Navy Mastery-Prüfung. Grün erscheint erst, wenn der Coach bestätigt hat (Regel 6 des Design-Systems). Wer produktiv ringt, erzeugt kein Signal: Erst die Schwellen aus den Stellschrauben lösen eines aus. Realtime ist nicht eingerichtet (C0: <code>pg_publication_tables</code> leer). Vorschlag: eine Lesefunktion für den ganzen Raum, alle paar Sekunden abgefragt. Antworten, Versuche und Hinweisnutzung für Sessions werden heute nirgends gespeichert (R0, C0) und kommen mit R1.`)}
+    </section>
+    <aside class="qsec"><div class="sh"><h2>Als Nächstes</h2><span>${q.length} offen</span></div>
+      <div class="card">${ql}</div>
+      <div class="kcount">Mastery-Prüfungen in dieser Session: ${decided} von ${sc("kand","3")}</div>
+      ${hint(`Reihenfolge: Mastery-Prüfungen vor Entscheidungen vor Kindern, die hängen, vor Hinweisen; bei gleicher Art das älteste Signal zuerst. So wird die Prüfung nicht zur Formalität, wenn es voll wird. Ein erledigtes Signal verschwindet, der Eingriff bleibt im Verlauf.`)}
+    </aside>
+  </div>`;
+}
+
+/* ================= Detail ================= */
+function inQueue(id){return queue(S.step).some(x=>x.id===id);}
+function masteryBlk(){
+  const m=S.mastery.mila||{},M=MASTERY;
+  if(m.res==="ok")return `<section class="blk kand"><div class="bh"><h3>Mastery-Prüfung</h3></div>
+    <div class="res ok">${I("checkc")}<div><b>Gemeistert: ${M.skill}</b><span>bestätigt von Sara um ${m.t}</span></div></div>
+    <p class="muted small">Mila sieht das Abzeichen jetzt auf ihrem Tablet.</p>
+    <div class="row"><button type="button" class="link sm" onclick="undoM()">Rückgängig</button></div></section>`;
+  if(m.res==="vertagt")return `<section class="blk"><div class="bh"><h3>Mastery-Prüfung</h3></div>
+    <div class="res">${I("clock")}<div><b>Vertagt: ${M.skill}</b><span>${m.grund} · ${m.t}</span></div></div>
+    <p class="muted small">Der Skill wird in einer späteren Session wieder vorgeschlagen.</p>
+    <div class="row"><button type="button" class="link sm" onclick="undoM()">Rückgängig</button></div></section>`;
+  const steps=[["frage","Prüffrage gestellt"],["erkl","Mila hat ihren Weg selbst erklärt"]].map(([k,l])=>`<button type="button" class="mst" aria-pressed="${S.mchk[k]}" onclick="S.mchk.${k}=!S.mchk.${k};render()"><span class="bx">${S.mchk[k]?I("check","sm"):""}</span>${l}</button>`).join("");
+  const vt=S.vopen?`<div class="msteps"><span class="lab">Grund fürs Vertagen</span><div class="chips">${M.gruende.map((g,i)=>`<button type="button" class="chip" aria-pressed="${S.vgrund===g}" onclick="setGrund(${i})">${g}</button>`).join("")}</div>
+    <div class="row"><button type="button" class="btn sm" ${S.vgrund?"":"disabled"} onclick="decide('vertagt')">Vertagen</button><button type="button" class="btn sm ghost" onclick="S.vopen=false;S.vgrund=null;render()">Abbrechen</button></div></div>`:"";
+  return `<section class="blk kand"><div class="bh"><h3>Mastery-Prüfung</h3><span class="pill navy">Vorschlag des Systems</span></div>
+    <div class="mk"><b>${M.skill}</b><span class="muted small">${M.sub}</span></div>
+    <ul class="ev">${M.evid.map(e=>`<li>${fmt(e)}</li>`).join("")}</ul>
+    <div class="pq"><span class="lab">Prüffrage · anderer Kontext als die geübten Aufgaben</span><p>${M.frage}</p></div>
+    <dl class="kv"><dt>Erwartung</dt><dd>${M.erw}</dd><dt>Kriterium</dt><dd>${M.krit}</dd></dl>
+    <div class="msteps">${steps}</div>
+    <div class="row"><button type="button" class="btn okb" onclick="decide('ok')">${I("checkc","sm")}Gemeistert bestätigen</button><button type="button" class="btn ghost" onclick="S.vopen=true;render()">Vertagen</button></div>${vt}
+    ${hint(`Prüffrage, Erwartung und Kriterium hängen am Skill, damit die Prüfung nicht an der Tagesform des Coaches hängt (neu, Pakete A und E). Bestätigen schreibt den Coach-Zustand „gemeistert“ neben den Vorschlag des Systems. Erst dann erscheinen Grün und das Abzeichen beim Kind; die Animation „Coach-Badge“ kommt später. Vertagen braucht einen Grund. Heute hängt Mastery an Microskills statt an <code>skill_key</code>, und Kandidat, Bestätigt und Vertagt gibt es als Zustände nicht (A0).`)}</section>`;
+}
+function decisionBlk(){
+  const p=S.emirPfad;
+  if(p)return `<section class="blk"><div class="bh"><h3>Pfad für die Kernarbeit</h3></div>
+    <div class="res">${I("path")}<div><b>${p==="tiefer"?"Eine Stufe tiefer: Minus vor der Klammer (Kl. 7)":"Beim Plan: Klammern ausmultiplizieren"}</b><span>entschieden von Sara um ${stepTime()}</span></div></div>
+    <div class="row"><button type="button" class="link sm" onclick="S.emirPfad=null;render()">Ändern</button></div></section>`;
+  return `<section class="blk dec"><div class="bh"><h3>Entscheidung</h3><span class="pill warn">Vorschlag des Systems</span></div>
+    <p><b>Kernarbeit eine Stufe tiefer beginnen?</b> Statt „Klammern ausmultiplizieren“ zuerst „Minus vor der Klammer“ aus Klasse 7.</p>
+    <ul class="ev"><li>Warm-up: Minus vor der Klammer 1 von 3</li><li>Gleiches Fehlbild wie am 29.09.: nur das erste Vorzeichen geändert</li><li>Das Schulthema Terme und Gleichungen baut darauf auf</li></ul>
+    <div class="row"><button type="button" class="btn" onclick="setPfad('tiefer')">Eine Stufe tiefer</button><button type="button" class="btn ghost" onclick="setPfad('plan')">Beim Plan bleiben</button></div>
+    ${hint(`Das System schlägt vor, der Coach entscheidet. Beide Zustände werden getrennt gespeichert. Ohne Entscheidung bleibt der Plan.`)}</section>`;
+}
+function seqBlk(s){
+  return `<section class="blk"><div class="bh"><h3>Erklärsequenz</h3><span class="pill">Kernidee 2 von 3</span></div>
+    <ol class="kis">${s.ki.map((x,i)=>`<li class="ki ${x.st}"><span class="kn">${x.st==="ok"?I("check","sm"):i+1}</span><div><b>${x.t}</b><span>${x.n}</span></div></li>`).join("")}</ol>
+    <div class="sees"><span class="lab">Jonas sieht gerade · ${s.v}</span><p>${s.sees}</p></div>
+    <p class="muted small">${fmt("Nach {runden:2 Runden} ohne Erfolg bei einer Kernidee kommt ein Signal zu dir.")}</p>
+    ${hint(`Daten aus der Erklärsequenz (Paket E1): Kernidee, Runde, gezeigte Variante und das Fehlbild der Check-Antwort. Der Coach sieht, was das Kind gerade sieht. Ein bestandener Check ist kein Mastery-Signal.`)}</section>`;
+}
+function taskBlk(t){
+  return `<section class="blk"><div class="bh"><h3>${t.title}</h3></div>
+    <div class="kidscreen">${t.text}</div>
+    <div class="sol"><span class="lkd">${I("lock","sm")}Musterlösung · nur auf deinem Gerät</span><ol>${t.sol.map(x=>`<li>${x}</li>`).join("")}</ol></div>
+    <div class="last"><span class="lab">Letzte Eingabe</span><span>${t.last}</span></div></section>`;
+}
+function ladderBlk(id,d){
+  const rec=d.ladder,logs=S.log.filter(l=>l.id===id);
+  const rows=LADDER.map(([n,t,x])=>`<button type="button" class="lr${n===rec?" rec":""}" onclick="logStep('${id}',${n})"><span class="ln">${n}</span><span><b>${t}</b><span>${fmt(x)}</span></span>${n===rec?`<span class="pill navy">passt jetzt</span>`:""}</button>`).join("");
+  return `<section class="blk"><div class="bh"><h3>Eingreifen</h3>${rec===0?`<span class="pill">Stufe 0: kein Signal, nichts tun</span>`:""}</div>
+    <div class="lad">${rows}</div>
+    ${d.fb?`<p class="small"><span class="lab">Fehlbild für Stufe 3 und 4</span>${d.fb} · vorbelegt aus dem letzten Versuch</p>`:""}
+    ${logs.length?`<div class="logl"><span class="lab">Notiert</span>${logs.map(l=>`<span>Stufe ${l.n} · ${l.t}</span>`).join("")}</div>`:""}
+    ${inQueue(id)&&(QK[id]||QW[id]||{}).p===2?`<div class="row"><button type="button" class="btn ghost sm" onclick="doneSignal('${id}')">${I("check","sm")}Signal erledigt</button></div>`:""}
+    ${hint(`Antippen notiert den Eingriff. Stufe 1 und 2 zählen nur, ab Stufe 3 geht der Eingriff mit Fehlbild in die Akte. Stufe 4 setzt den Pfad sofort eine Stufe tiefer.`)}</section>`;
+}
+function sheetHtml(){
+  if(!S.sel||(S.step!=="warmup"&&S.step!=="kern"))return "";
+  const id=S.sel,k=KID[id],st=S.step;
+  const d=id==="emir"&&st==="kern"&&S.emirPfad==="tiefer"?DET.kernEmirT:DET[st][id];
+  const td=tileData(id,st);
+  const parts=[];
+  if(id==="mila")parts.push(masteryBlk());
+  if(id==="emir"&&st==="warmup")parts.push(decisionBlk());
+  if(d.info)parts.push(`<section class="blk info"><p>${fmt(d.info)}</p>${d.ack&&!S.done.has(id)?`<div class="row"><button type="button" class="btn sm" onclick="doneSignal('${id}')">Angesprochen</button></div>`:""}</section>`);
+  parts.push(zielBlk(id));
+  if(d.seq)parts.push(seqBlk(d.seq));
+  if(d.task)parts.push(taskBlk(d.task));
+  if(d.note)parts.push(`<p class="small muted">${fmt(d.note)}</p>`);
+  if(d.att)parts.push(`<section class="blk"><div class="bh"><h3>Falsche Antworten</h3></div><ul class="att">${d.att.map(a=>`<li><span class="pill bad">${a.r}</span><code>${a.a}</code><span class="fb">Fehlbild: ${a.fb}</span></li>`).join("")}</ul></section>`);
+  if(d.hints)parts.push(`<section class="blk"><div class="bh"><h3>Genutzte Hinweise</h3></div><ul class="ev">${d.hints.map(h=>`<li>${h}</li>`).join("")}</ul></section>`);
+  if(d.task||d.seq)parts.push(ladderBlk(id,d));
+  parts.push(`<section class="blk"><div class="bh"><h3>Heute</h3></div><dl class="kv">${d.today.map(([a,b])=>`<dt>${a}</dt><dd>${fmt(b)}</dd>`).join("")}</dl></section>`);
+  parts.push(hint(`Musterlösung liegt in <code>task_solutions</code> und ist über <code>task_solution_get</code> für Coaches lesbar (C0). Für Schülerkonten muss der Zugriff ausgeschlossen und belegt sein. Fehlbilder kommen aus der Zuordnung „falsche Antwort → Fehlbild“ an der Aufgabe (Paket E1). Nur Kinder dieser Session, keine Vertrags- oder Elterndaten.`));
+  return `<header class="shd"><span class="av">${ini(k.name)}</span><div class="tt"><b>${k.name}</b><span>Platz ${seatOf(id)} · Kl. ${k.kl} · ${fmt(td.ph)}</span></div>
+    <button type="button" class="ibtn" aria-label="Schließen" onclick="closeKid()">${I("x")}</button></header>
+    <div class="sbody" id="sbody">${parts.join("")}</div>`;
+}
+
+/* ================= Check-out ================= */
+function sayOptions(id){const c=CO[id];return id==="mila"&&S.mastery.mila&&S.mastery.mila.res==="ok"?c.sayOk:c.say;}
+function vCheckout(){
+  const cards=bySeat().map(k=>{const id=k.id,c=CO[id],opts=sayOptions(id),val=S.say[id]??opts[(S.sayIdx[id]||0)%opts.length];
+    const fl=S.flags[id]||{},said=S.said.has(id);
+    return `<article class="card coc${said?" said":""}">
+      <header class="coh"><span class="seatno">${seatOf(id)}</span><b>${k.name}</b><span class="pill ${c.exitOk?"ok":""}">Exit ${c.exit.replace(/von (\d)/,(m,n)=>"von "+sc("exitN",n))}</span></header>
+      <span class="small muted">${c.sum}</span>
+      <label class="lab" for="say-${id}">Satz für ${first(id)} · aus Bausteinen</label>
+      <textarea id="say-${id}" class="say" oninput="S.say['${id}']=this.value">${esc(val)}</textarea>
+      <div class="row"><button type="button" class="link sm" onclick="nextSay('${id}')">Anderer Vorschlag</button><span class="sp"></span>
+        <button type="button" class="btn sm ${said?"okb":"ghost"}" onclick="toggleSaid('${id}')">${said?I("check","sm")+"Gesagt":"Als gesagt markieren"}</button></div>
+      <div class="qline">${I("home","sm")}<span>Quests: <b>${c.quest}</b> <span class="muted">(von ${first(id)} gewählt)</span></span></div>
+      <label class="lab" for="note-${id}">Notiz für die Akte · intern</label>
+      <input id="note-${id}" class="note" value="${esc(S.notes[id])}" oninput="S.notes['${id}']=this.value" placeholder="Ein Satz reicht">
+      <div class="chips"><button type="button" class="chip" aria-pressed="${!!fl.eltern}" onclick="toggleFlag('${id}','eltern')">Elternkontakt nötig</button><button type="button" class="chip" aria-pressed="${!!fl.pfad}" onclick="toggleFlag('${id}','pfad')">Pfad passt nicht</button></div>
+    </article>`;}).join("");
+  return `<div class="sh"><h2>Check-out · ein konkreter Satz je Kind</h2><span>„Gut gemacht“ zählt nicht</span></div>
+  <div class="cog">${cards}</div>
+  ${hint(`Satzvorschläge kommen aus einem festen Bausteinkatalog wie beim Report, nie als freier KI-Text ans Kind. Die Exit-Aufgaben löst das Kind vor dem Check-out am Tablet; sie zählen wie normale Aufgaben in den Verlauf. Den Quest-Termin wählt das Kind am Tablet, der Coach sieht ihn nur (Paket Q). Die Notiz ist intern und steht im nächsten Briefing. Flags erscheinen bei den Admins.`)}`;
+}
+
+/* ================= Danach ================= */
+function vDanach(){
+  const items=[];
+  const noNote=bySeat().filter(k=>!S.notes[k.id].trim()).map(k=>first(k.id));
+  if(noNote.length)items.push(["note","warn",`Notiz fehlt: ${noNote.join(", ")}`,"Ein Satz pro Kind für das nächste Briefing",`<button type="button" class="btn sm ghost" onclick="setStep('checkout')">Nachtragen</button>`]);
+  const m=S.mastery.mila;
+  if(!m||!m.res)items.push(["award","",`Mastery-Prüfung offen: Mila`,"Hypotenuse berechnen · der Vorschlag bleibt für die nächste Session",""]);
+  else if(m.res==="vertagt")items.push(["award","",`Vertagt: Mila · Hypotenuse berechnen`,m.grund,""]);
+  else items.push(["checkc","",`Gemeistert: Mila · Hypotenuse berechnen`,`bestätigt um ${m.t}`,""]);
+  if(S.emirPfad==="tiefer")items.push(["path","",`Pfad geändert: Emir eine Stufe tiefer`,"Minus vor der Klammer (Kl. 7) · steht in der Akte",""]);
+  bySeat().forEach(k=>{const f=S.flags[k.id]||{};
+    if(f.eltern)items.push(["flag","warn",`Elternkontakt: ${first(k.id)}`,"erscheint bei den Admins auf „Heute“",""]);
+    if(f.pfad)items.push(["flag","warn",`Pfad passt nicht: ${first(k.id)}`,"geht an die Admins zur Prüfung",""]);});
+  const ein=S.log.filter(l=>l.n>=3).length;
+  const said=S.said.size;
+  const open=items.map(([ic,c,t,s,a])=>`<li class="op"><span class="li ${c}">${I(ic)}</span><div><b>${t}</b><span>${s}</span></div>${a||"<span></span>"}</li>`).join("");
+  const mOk=m&&m.res==="ok"?1:0,mV=m&&m.res==="vertagt"?1:0;
+  return `<div class="after">
+    <section><div class="sh"><h2>Vor dem Abschluss</h2><span>${items.length} Punkte</span></div><ul class="card open">${open}</ul>
+      ${hint(`Offene Mastery-Prüfungen gehen nicht verloren: Der Vorschlag des Systems bleibt bestehen und erscheint im nächsten Briefing. Fehlende Notizen blockieren den Abschluss nicht, stehen aber im Briefing als „noch keine Notiz“.`)}</section>
+    <aside><div class="sh"><h2>Geht in die Akten</h2></div>
+      <section class="card akte"><dl class="kv">
+        <dt>Anwesend</dt><dd>5 von 5</dd>
+        <dt>Einheit verbraucht</dt><dd>5</dd>
+        <dt>Aufgaben bearbeitet</dt><dd>36</dd>
+        <dt>Eingriffe ab Stufe 3</dt><dd>${ein}</dd>
+        <dt>Mastery bestätigt / vertagt</dt><dd>${mOk} / ${mV}</dd>
+        <dt>Erklärsequenzen abgeschlossen</dt><dd>1</dd>
+        <dt>Satz gesagt</dt><dd>${said} von 5</dd>
+        <dt>Notizen</dt><dd>${5-noNote.length} von 5</dd>
+        <dt>Quest-Termine</dt><dd>5 von 5</dd></dl>
+        ${S.closed?`<div class="closed">${I("checkc")}Abgeschlossen um 17:35</div>`:`<button type="button" class="btn wide" onclick="closeSession()">Session abschließen</button>`}
+      </section>
+      ${hint(`Der Abschluss schreibt Anwesenheit (verbraucht die Einheit, <code>einheit_verbraucht</code>), Eingriffe ab Stufe 3, Mastery-Entscheidungen, Notizen und Flags in die Akten. Mit welchen Stellschrauben die Session lief, wird mitgespeichert.`)}
+    </aside>
+  </div>`;
+}
+
+/* ================= Stellschrauben-Liste ================= */
+function scPanel(){
+  if(!S.sc||!USED.size)return "";
+  const rows=[...USED].map(k=>SC[k]).map(d=>`<tr><td>${d.n}</td><td class="num">${d.v}</td><td class="num">${d.r}</td></tr>`).join("");
+  return `<section class="card scp"><div class="sh"><h2>Auf dieser Ansicht einstellbar</h2><span>${USED.size} Stellschrauben</span></div>
+    <div class="tw"><table><thead><tr><th>Stellschraube</th><th>Startwert</th><th>Spanne</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <span class="small">Gold markierte Werte sind Einstellungen mit Startwert. Admins ändern sie ohne Deployment, jede Session speichert, mit welchen Werten sie lief. Antippen zeigt Startwert und Spanne.</span></section>`;
+}
+
+/* ================= Rendern ================= */
+function renderSteps(){
+  document.getElementById("steps").innerHTML=STEPS.map(([k,l])=>`<button type="button" aria-pressed="${S.step===k}" onclick="setStep('${k}')">${l}</button>`).join("");
+}
+function render(keepFocus){
+  document.body.classList.toggle("hints",S.hints);
+  document.body.classList.toggle("scmode",S.sc);
+  document.getElementById("sw-hints").setAttribute("aria-pressed",String(S.hints));
+  document.getElementById("sw-sc").setAttribute("aria-pressed",String(S.sc));
+  for(const m in MODES)document.getElementById("m-"+m).setAttribute("aria-pressed",String(S.mode===m));
+  renderSteps();
+  USED.clear();
+  const sheet=document.getElementById("sheet"),sb=document.getElementById("sbody"),keep=sb?sb.scrollTop:0;
+  const sh=sheetHtml();
+  sheet.innerHTML=sh;sheet.hidden=!sh;document.getElementById("scrim").hidden=!sh;
+  if(sh){const nb=document.getElementById("sbody");if(nb)nb.scrollTop=keep;}
+  document.getElementById("top").innerHTML=renderTop();
+  document.getElementById("tline").innerHTML=renderTimeline();
+  const view={vorher:vVorher,checkin:vCheckin,warmup:vLive,kern:vLive,checkout:vCheckout,danach:vDanach}[S.step]();
+  document.getElementById("inner").innerHTML=view+scPanel();
+  if(keepFocus){const el=document.getElementById(keepFocus);if(el){el.focus();try{const v=el.value;el.setSelectionRange(v.length,v.length);}catch(e){}}}
+}
+
+/* ================= Aktionen ================= */
+function setStep(s){S.step=s;S.sel=null;render();document.getElementById("body").scrollTop=0;}
+function openKid(id){S.sel=id;S.vopen=false;S.vgrund=null;render();const nb=document.getElementById("sbody");if(nb)nb.scrollTop=0;}
+function closeKid(){S.sel=null;render();}
+function seat(id,i){S.seats[i]=id;toast(`${first(id)} sitzt an Tablet ${i}. Das Tablet zeigt jetzt den Check-in.`);render();}
+function unseat(i){S.seats[i]=null;render();}
+function arrive(id){S.arrived[id]=true;render();}
+function setFall(id,f){S.fall[id]=f;render();}
+function togglePick(id){S.pick[id]=!S.pick[id];S.tq[id]=S.tq[id]||"";render(S.pick[id]?"tq-"+id:null);}
+function pickThema(id,k){S.thema[id]=k;S.pick[id]=false;S.tq[id]="";toast(`Schulthema für ${first(id)}: ${TH[k].l}. Ziel der Stunde gesetzt.`);render();}
+function setPfad(p){S.emirPfad=p;toast(p==="tiefer"?"Entschieden: Emir beginnt die Kernarbeit eine Stufe tiefer.":"Entschieden: Emir bleibt beim Plan.");render();}
+function setGrund(i){S.vgrund=MASTERY.gruende[i];render();}
+function decide(r){S.mastery.mila={res:r,grund:S.vgrund,t:stepTime()};S.vopen=false;
+  toast(r==="ok"?"Gebucht: Hypotenuse berechnen ist gemeistert.":"Vertagt. Der Skill kommt in einer späteren Session wieder.");render();}
+function undoM(){delete S.mastery.mila;S.mchk={frage:false,erkl:false};S.vgrund=null;render();}
+function logStep(id,n){S.log.push({id,n,t:stepTime()});
+  if(n===4&&id==="emir"&&S.step==="kern"){S.emirPfad="tiefer";toast("Stufe 4 notiert. Emir arbeitet jetzt eine Stufe tiefer: Minus vor der Klammer.");}
+  else toast(n>=3?`Stufe ${n} notiert, mit Fehlbild für die Akte.`:`Stufe ${n} notiert.`);
+  render();}
+function doneSignal(id){S.done.add(id);toast(id==="lea"?"Als angesprochen markiert.":"Signal erledigt.");render();}
+function nextSay(id){S.sayIdx[id]=(S.sayIdx[id]||0)+1;delete S.say[id];render();}
+function toggleSaid(id){S.said.has(id)?S.said.delete(id):S.said.add(id);render();}
+function toggleFlag(id,f){S.flags[id]=S.flags[id]||{};S.flags[id][f]=!S.flags[id][f];render();}
+function closeSession(){S.closed=true;toast("Abgeschlossen. Anwesenheit, Entscheidungen und Notizen stehen in den Akten.");render();}
+function setMode(m){S.mode=m;try{localStorage.setItem("cl-mode",m);}catch(e){}layout();render();}
+let TT=null;
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.hidden=false;clearTimeout(TT);TT=setTimeout(()=>{t.hidden=true;},2800);}
+
+document.addEventListener("click",e=>{
+  if(!S.sc)return;const el=e.target.closest(".sc");if(!el)return;
+  e.preventDefault();e.stopPropagation();const d=SC[el.dataset.k];
+  toast(`Stellschraube · ${d.n}: Startwert ${d.v}, Spanne ${d.r}`);
+},true);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&S.sel)closeKid();});
+
+/* ================= Gerät und Breiten ================= */
+function layout(){
+  const stage=document.getElementById("stage"),frame=document.getElementById("frame"),dev=document.getElementById("device"),label=document.getElementById("devlabel");
+  const dbarH=document.querySelector(".dbar").offsetHeight;
+  dev.classList.remove("ipad");
+  if(S.mode==="full"){
+    stage.classList.add("full");frame.style.width="";frame.style.height="";
+    dev.style.width="100%";dev.style.height=Math.max(560,window.innerHeight-dbarH)+"px";dev.style.transform="";label.textContent="";
+  }else{
+    const [w,h,txt]=MODES[S.mode];stage.classList.remove("full");dev.classList.add("ipad");
+    const avail=Math.max(280,stage.clientWidth-32-24),s=Math.min(1,avail/w);
+    dev.style.width=w+"px";dev.style.height=h+"px";dev.style.transform=s<1?`scale(${s})`:"";
+    frame.style.width=(w*s)+"px";frame.style.height=(h*s)+"px";
+    label.textContent=txt+(s<1?` · verkleinert auf ${Math.round(s*100)} %`:"");
+  }
+  document.getElementById("app").dataset.w=dev.offsetWidth<1000?"narrow":"wide";
+}
+window.addEventListener("resize",layout);
+layout();render();
+</script>
