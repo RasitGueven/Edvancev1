@@ -156,7 +156,7 @@ create policy erklaer_check_pruefer_lesen on public.erklaer_check
 
 create policy erklaer_fortschritt_admin_coach_lesen on public.erklaer_fortschritt
   for select to authenticated
-  using (public.get_my_role() = 'admin'
+  using (coalesce(public.get_my_role(), '') = 'admin'
          or exists (select 1 from public.coaching_sessions cs
                      where cs.id = erklaer_fortschritt.session_id
                        and cs.coach_id = auth.uid()));
