@@ -11,8 +11,8 @@
 -- Thema, Lernpfad -> offen bis A1 (naechste_luecke, offener Punkt).
 
 create table public.session_checkin (
-  session_id              uuid not null,
-  student_id              uuid not null,
+  session_id              uuid not null references public.coaching_sessions(id) on delete restrict,
+  student_id              uuid not null references public.students(id) on delete cascade,
   stimmung                text check (stimmung in ('gut', 'geht_so', 'angespannt')),
   klassenarbeit_datum     date,
   klassenarbeit_thema_key text references public.themen(thema_key),
@@ -25,8 +25,9 @@ create table public.session_checkin (
   coach_am                timestamptz,
   coach_von               uuid references public.profiles(id) on delete set null,
   primary key (session_id, student_id),
+  -- nur gebuchte Kinder (no action: eine Buchung mit Verlauf bleibt)
   foreign key (session_id, student_id)
-    references public.session_students(session_id, student_id) on delete cascade,
+    references public.session_students(session_id, student_id),
   constraint session_checkin_stichwort_nur_bei_neu check (thema_stichwort is null or thema_antwort = 'neu')
 );
 

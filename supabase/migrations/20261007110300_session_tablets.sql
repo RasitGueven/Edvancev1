@@ -26,17 +26,17 @@ update public.platz_devices
 
 create table public.session_tablets (
   id             uuid primary key default gen_random_uuid(),
-  session_id     uuid not null,
-  student_id     uuid not null,
+  session_id     uuid not null references public.coaching_sessions(id) on delete restrict,
+  student_id     uuid not null references public.students(id) on delete cascade,
   tablet_nr      smallint not null check (tablet_nr between 1 and 5),
   geraet_id      uuid not null references public.platz_devices(profile_id) on delete cascade,
   zugewiesen_von uuid references public.profiles(id) on delete set null,
   zugewiesen_am  timestamptz not null default clock_timestamp(),
   geloest_am     timestamptz,
   geloest_von    uuid references public.profiles(id) on delete set null,
-  -- nur gebuchte Kinder dieser Session
+  -- nur gebuchte Kinder dieser Session (no action: eine Buchung mit Verlauf bleibt)
   foreign key (session_id, student_id)
-    references public.session_students(session_id, student_id) on delete cascade
+    references public.session_students(session_id, student_id)
 );
 
 create unique index session_tablets_kind_aktiv on public.session_tablets (session_id, student_id)

@@ -66,7 +66,7 @@ create trigger coaching_sessions_laufzustand_trg
 -- Ereignisprotokoll, nur anhaengen (Entscheidung 13/14/15, R0 Frage 4).
 create table public.session_ereignisse (
   id         bigint generated always as identity primary key,
-  session_id uuid not null references public.coaching_sessions(id) on delete cascade,
+  session_id uuid not null references public.coaching_sessions(id) on delete restrict,
   student_id uuid references public.students(id) on delete cascade,
   typ        text not null check (typ in ('phase_wechsel', 'hinweis', 'erklaerschritt', 'check', 'signal',
                                           'signal_erledigt', 'eingriff', 'entscheidung_pfad')),
@@ -80,8 +80,11 @@ create index session_ereignisse_kind_idx on public.session_ereignisse (session_i
 comment on table public.session_ereignisse is
   'R1: Ereignisse einer Session (append-only). Schreiben nur ueber Session-Funktionen; Lesen nur ueber coach_raum_live/coach_kind_detail.';
 
--- Nur anhaengen: kein UPDATE, kein direktes DELETE. Kaskaden beim Loeschen der
--- Session oder des Kindes (DSGVO) laufen ueber RI-Trigger, also mit Tiefe > 1.
+-- Loeschregel (wie E1): Der Lernverlauf haengt an der Session mit on delete
+-- restrict (eine Session mit Verlauf ist nicht loeschbar) und am Kind mit on
+-- delete cascade (DSGVO-Loeschung des Kindes nimmt seinen Verlauf mit).
+-- Nur anhaengen: kein UPDATE, kein direktes DELETE. Die Kaskade beim Loeschen des
+-- Kindes laeuft ueber RI-Trigger, also mit Tiefe > 1.
 create function public.session_nur_anhaengen()
 returns trigger
 language plpgsql
@@ -223,10 +226,10 @@ comment on function public.session_starten(uuid) is
   'R1: Coach der Session oder Admin startet eine geplante Session (upcoming -> active) und friert die Stellschrauben ein.';
 
 -- Consensus-Check Befund 1: Die bestehenden Regeln coaching_sessions_coach_rw
--- und session_students_coach_rw (FOR ALL) erlauben dem Coach DELETE. Ueber die
--- Kaskade wuerden sonst Antworten und Ereignisse verschwinden. Deshalb loeschen
--- eine Session mit Rohdaten nur Admin oder Systemaufruf (z. B. DSGVO-Loeschung).
--- Den Schutz fuer session_students legt 20261007110500 an (braucht session_antworten).
+-- und session_students_coach_rw (FOR ALL) erlauben dem Coach DELETE. Eine
+-- gestartete Session loescht nur Admin oder Systemaufruf; hat sie Verlauf, haelt
+-- sie zusaetzlich der Fremdschluessel (restrict) fest. Den Schutz fuer
+-- session_students legt 20261007110500 an (braucht session_antworten).
 create function public.coaching_sessions_loeschschutz()
 returns trigger
 language plpgsql

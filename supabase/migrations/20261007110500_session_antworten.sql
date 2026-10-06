@@ -13,22 +13,23 @@
 
 create table public.session_ausgegeben (
   id          uuid primary key default gen_random_uuid(),
-  session_id  uuid not null,
-  student_id  uuid not null,
+  session_id  uuid not null references public.coaching_sessions(id) on delete restrict,
+  student_id  uuid not null references public.students(id) on delete cascade,
   task_id     uuid not null references public.tasks(id),
   phase       text check (phase in ('checkin', 'warmup', 'kern', 'checkout')),
   eingemischt boolean not null default false,
   zeit        timestamptz not null default clock_timestamp(),
   von         uuid references public.profiles(id) on delete set null,
+  -- nur gebuchte Kinder (no action: eine Buchung mit Verlauf bleibt)
   foreign key (session_id, student_id)
-    references public.session_students(session_id, student_id) on delete cascade
+    references public.session_students(session_id, student_id)
 );
 create index session_ausgegeben_kind_idx on public.session_ausgegeben (session_id, student_id, zeit desc);
 
 create table public.session_antworten (
   id               uuid primary key default gen_random_uuid(),
-  session_id       uuid not null,
-  student_id       uuid not null,
+  session_id       uuid not null references public.coaching_sessions(id) on delete restrict,
+  student_id       uuid not null references public.students(id) on delete cascade,
   task_id          uuid not null references public.tasks(id),
   teil             int,
   versuch_nr       int not null check (versuch_nr >= 1),
@@ -42,8 +43,9 @@ create table public.session_antworten (
   zeit             timestamptz not null default clock_timestamp(),
   geraet_id        uuid references public.platz_devices(profile_id) on delete set null,
   angemeldet_als   uuid references public.profiles(id) on delete set null,
+  -- nur gebuchte Kinder (no action: eine Buchung mit Verlauf bleibt)
   foreign key (session_id, student_id)
-    references public.session_students(session_id, student_id) on delete cascade,
+    references public.session_students(session_id, student_id),
   unique nulls not distinct (session_id, student_id, task_id, teil, versuch_nr)
 );
 create index session_antworten_kind_idx on public.session_antworten (session_id, student_id, zeit);

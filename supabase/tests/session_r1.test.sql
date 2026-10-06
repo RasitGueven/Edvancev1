@@ -22,7 +22,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(74);
+select plan(81);
 
 \set admin 'eeeeeeee-0001-4000-8000-000000000001'
 \set coach_a 'eeeeeeee-0001-4000-8000-000000000002'
@@ -156,8 +156,14 @@ select throws_ok(format($$select checkin_kind_speichern(%L, 'gut', null, null, '
   '4 Tablet nur fuer den eigenen Platz');
 select pg_temp.act_as(pg_temp.tablet(3));
 select checkin_kind_speichern(:'s', 'geht_so', null, null, 'neu', 'Steigung');
+select pg_temp.act_as(pg_temp.tablet(4));
+select checkin_kind_speichern(:'s', 'gut', (now() at time zone 'Europe/Berlin')::date + 7, 'zz_r1_neu', 'noch_dran');
+select pg_temp.act_as(pg_temp.tablet(5));
+select checkin_kind_speichern(:'s', 'gut', (now() at time zone 'Europe/Berlin')::date + 8, 'zz_r1_neu', 'noch_dran');
 select pg_temp.act_as(:'coach_a');
 select is(fall_vorschlag(:'s', :'k2'), 'klassenarbeit', '4 Klassenarbeit in 2 Tagen -> klassenarbeit');
+select is(fall_vorschlag(:'s', :'k4'), 'klassenarbeit', '4 Klassenarbeit in genau ka_tage (7) Tagen zaehlt (einschliesslich)');
+select is(fall_vorschlag(:'s', :'k5'), 'lernpfad', '4 Klassenarbeit in 8 Tagen zaehlt nicht');
 select is(fall_vorschlag(:'s', :'k1'), 'schulthema', '4 Klassenarbeit in 21 Tagen mit Thema -> schulthema');
 select is(fall_vorschlag(:'s', :'k3'), 'lernpfad', '4 ohne Thema -> lernpfad');
 select results_eq(format($$select fall_vorschlag, ziel_thema_key, thema_stichwort from session_checkin
@@ -292,6 +298,35 @@ select is((select count(*)::int from session_tablets where session_id = :'s' and
 select pg_temp.act_as(:'admin');
 select results_eq('select student_id, flag from session_flags_offen()',
   format($$values (%L::uuid, 'eltern'::text)$$, :'k1'), '11 offenes Flag fuer die Admin-Startseite');
+
+-- ── Loeschregel (wie E1): Session restrict, Kind cascade ────────────────────
+select results_eq($$
+  select c.conrelid::regclass::text, c.confrelid::regclass::text, c.confdeltype::text
+    from pg_constraint c
+   where c.contype = 'f' and c.confrelid in ('coaching_sessions'::regclass, 'students'::regclass)
+     and c.conrelid::regclass::text in ('session_ereignisse', 'session_tablets', 'session_checkin',
+                                        'session_ausgegeben', 'session_antworten', 'session_kind_abschluss')
+   order by 1, 2$$,
+  $$values ('session_antworten', 'coaching_sessions', 'r'), ('session_antworten', 'students', 'c'),
+           ('session_ausgegeben', 'coaching_sessions', 'r'), ('session_ausgegeben', 'students', 'c'),
+           ('session_checkin', 'coaching_sessions', 'r'), ('session_checkin', 'students', 'c'),
+           ('session_ereignisse', 'coaching_sessions', 'r'), ('session_ereignisse', 'students', 'c'),
+           ('session_kind_abschluss', 'coaching_sessions', 'r'), ('session_kind_abschluss', 'students', 'c'),
+           ('session_tablets', 'coaching_sessions', 'r'), ('session_tablets', 'students', 'c')$$,
+  'Loeschregel: Lernverlauf an der Session restrict, am Kind cascade');
+select throws_ok(format('delete from coaching_sessions where id = %L', :'s'), '23001', null,
+  'Loeschregel: auch ein Admin loescht keine Session mit Verlauf');
+select throws_ok(format('delete from session_students where session_id = %L and student_id = %L', :'s', :'k3'), '23503', null,
+  'Loeschregel: eine Buchung mit Verlauf bleibt');
+delete from vertraege where student_id = :'k3';
+delete from students where id = :'k3';
+select is((select count(*)::int from session_antworten where student_id = :'k3')
+        + (select count(*)::int from session_ereignisse where student_id = :'k3')
+        + (select count(*)::int from session_kind_abschluss where student_id = :'k3'), 0,
+  'Loeschregel: Loeschen des Kindes nimmt seinen Verlauf mit');
+select ok((select count(*) from session_antworten where session_id = :'s') > 0
+          and exists (select 1 from coaching_sessions where id = :'s'),
+  'Loeschregel: der Verlauf der anderen Kinder und die Session bleiben');
 
 select * from finish();
 rollback;

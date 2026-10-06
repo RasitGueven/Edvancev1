@@ -11,8 +11,8 @@
 -- Start an coaching_sessions.einstellungen.
 
 create table public.session_kind_abschluss (
-  session_id             uuid not null,
-  student_id             uuid not null,
+  session_id             uuid not null references public.coaching_sessions(id) on delete restrict,
+  student_id             uuid not null references public.students(id) on delete cascade,
   satz_text              text check (satz_text is null or nullif(btrim(satz_text), '') is not null),
   satz_gesagt            boolean not null default false,
   notiz                  text check (notiz is null or nullif(btrim(notiz), '') is not null),
@@ -32,8 +32,9 @@ create table public.session_kind_abschluss (
   aktualisiert_am        timestamptz not null default clock_timestamp(),
   aktualisiert_von       uuid references public.profiles(id) on delete set null,
   primary key (session_id, student_id),
+  -- nur gebuchte Kinder (no action: eine Buchung mit Verlauf bleibt)
   foreign key (session_id, student_id)
-    references public.session_students(session_id, student_id) on delete cascade
+    references public.session_students(session_id, student_id)
 );
 
 comment on table public.session_kind_abschluss is

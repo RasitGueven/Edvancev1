@@ -8,7 +8,7 @@ Stand 06.10.2026, Branch `feat/rasit-session-r1-datenmodell`. Jeder Punkt: was, 
    „bestehende Werte erhalten“. dbread 06.10.: done 65, upcoming 7, active 0. Gelesen werden die Werte in
    `src/types/session.ts:14` und `src/lib/coachKennzahlen.ts:15`. R1 benutzt sie mit der Bedeutung
    upcoming = geplant, active = laeuft, done = abgeschlossen (Kommentar in `20261007110200_session_ablauf.sql`).
-   Umbenennen nur, wenn Rasit das will; dann mit Datenmigration und den beiden Lesern.
+   **Entschieden (Rasit, 06.10.):** so lassen; angezeigt als geplant / läuft / abgeschlossen.
 2. **Migrationsversionen** stehen im Bauauftrag-Bereich `2026100711xxxx`. Das widerspricht CLAUDE.md §10
    (`date -u`, keine Zukunftsversionen; heute ist der 06.10.). Der Bauauftrag ist maßgeblich und hält die Pakete
    X0 → R1 → A1 → E1 → Q1 auseinander. Folge: Eine Migration, die nach R1 laufen muss, braucht eine Version ab
@@ -18,7 +18,8 @@ Stand 06.10.2026, Branch `feat/rasit-session-r1-datenmodell`. Jeder Punkt: was, 
    „aktuell“ und ist nur für Admins. R1 ruft ihn deshalb nicht, sondern schreibt in `checkin_coach_setzen`
    denselben Upsert auf `(lead_id, thema_key)` mit `quelle = 'gespraech'` und stellt das alte auf „behandelt“.
    `lead_themen_quelle_check` kennt keine Quelle „session“; eine eigene Quelle wäre eine Constraint-Änderung.
-   Zu klären: Soll auch das Erstgespräch das alte Thema auf „behandelt“ setzen statt es zu löschen?
+   **Entschieden (Rasit, 06.10.):** so lassen. Im Erstgespräch ersetzt ein neues Thema das alte (Korrektur),
+   in der Session wird das alte „behandelt“ (Fortschritt). `lead_thema_setzen` bleibt unverändert.
 4. **Fach.** `coaching_sessions` hat kein Fach. Das Schulthema eines Kindes ist das jüngste „aktuell“ über alle
    Fächer; beim Schreiben kommt das Fach aus `themen.fach`. In Prod gibt es nur `mathematik` (dbread 06.10.).
 5. **Kind → Lead:** `coalesce(students.lead_id, leads.converted_student_id)`. dbread 06.10.: 14 Kinder über
@@ -27,7 +28,9 @@ Stand 06.10.2026, Branch `feat/rasit-session-r1-datenmodell`. Jeder Punkt: was, 
 6. **Abschluss setzt `planned` → `unexcused`.** Wer bis zum Abschluss kein Tablet bekam, gilt als nicht
    erschienen und verbraucht nach `einheit_verbraucht` die Einheit (Schülerakte, Entscheidung 4/5). Abgesagte
    Kinder müssen vorher auf `cancelled`/`cancelled_by_us` stehen; dafür gibt es weiter keinen Schreiber (R0
-   Frage 5). **Bitte bestätigen.**
+   Frage 5). **Entschieden (Rasit, 06.10.):** so lassen; betrifft nur Kinder ohne rechtzeitige Absage
+   (`cancelled`/`cancelled_by_us` bleiben unberührt). **Offen für C2:** Vor dem Abschließen zeigt die Oberfläche
+   die Kinder ohne Tablet, der Coach bestätigt „nicht erschienen“.
 7. **Flags und Notiz in der Akte** gehen über `notiz_anlegen` (Wortliste, Coach nur in aktive Akten, audit_log).
    Die Flag-Notiz hat einen festen Text („Session TT.MM.JJJJ: Elternkontakt nötig“ / „…: Pfad passt nicht“).
    Das ist Datenbank-Inhalt, kein Frontend-String. Der offene Zustand der Flags steht in
@@ -85,8 +88,9 @@ Behoben im selben PR: Kaskaden-Löschen von Rohdaten durch den Coach (Lösch-Tri
 
 Offen:
 
-24. **`ka_tage` mit `<=`:** Eine Klassenarbeit genau `ka_tage` Tage nach der Session zählt noch (bei 0: nur am
-    selben Tag). Die Tabelle sagt „näher liegt als“. Bitte bestätigen oder auf `<` stellen.
+24. **`ka_tage` einschließlich (`<=`), entschieden (Rasit, 06.10.):** Eine Klassenarbeit in genau `ka_tage`
+    Tagen zählt (bei 0: nur am selben Tag). Beschreibung im Bauauftrag und in `session_einstellungen` angepasst,
+    Test 4 prüft 7 und 8 Tage.
 25. **Mehrere Kandidaten je Kind** werden in `raum_signale` auf das älteste Signal zusammengefasst
     (`distinct on (student_id, art)`). A1/P2 fächert nach `skill_key` auf.
 26. **Snapshot sichtbar:** Schüler und Eltern lesen `coaching_sessions` über die bestehenden Policies mit
@@ -95,3 +99,13 @@ Offen:
     keine Mengenbegrenzung für Ereignisse und Eingaben. Für P2 prüfen.
 28. **Hinweis-Status-Schreibweise:** R1 erwartet `status = 'geprueft'` im Hinweis-Objekt. E1 muss genau diese
     Schreibweise setzen.
+
+## Löschregel (Rasit, 06.10., wie E1)
+
+29. Der Lernverlauf (`session_antworten`, `session_ereignisse`, `session_ausgegeben`, `session_tablets`,
+    `session_checkin`, `session_kind_abschluss`; `raum_signale` wird daraus berechnet) hängt an der Session mit
+    `on delete restrict` und am Kind mit `on delete cascade`. Der Verweis auf die Buchung (`session_students`) hat
+    `no action`: Eine Buchung mit Verlauf bleibt, das Löschen des Kindes nimmt alles mit. Eine Session mit Verlauf
+    löscht auch ein Admin nicht. Der Test prüft die Fremdschlüssel in `pg_constraint` und das Verhalten.
+    Hinweis: `vertraege.student_id` ist `on delete restrict`; ein Kind mit Vertrag lässt sich also ohnehin erst
+    nach dem Vertrag löschen.

@@ -74,7 +74,7 @@ select k, b, t, w, w, mi, ma, g, ws, e
     ('warmup_leichter_stufen', 'Warm-up leichter als Kernarbeit um', 'zahl', '1', 0, 2, true, null, 'stufen'),
     ('ziel_erfolgsquote', 'Ziel-Erfolgsquote', 'zahl', '0.80', 0.60, 0.90, false, null, 'anteil'),
     ('mischanteil', 'Anteil älterer Aufgaben in der Kernarbeit', 'zahl', '0.30', 0, 0.50, false, null, 'anteil'),
-    ('ka_tage', 'Klassenarbeit zählt und Mischen pausiert, wenn sie näher liegt als (Tage)', 'zahl', '7', 0, 14, true, null, 'tage'),
+    ('ka_tage', 'Klassenarbeit zählt und Mischen pausiert, wenn sie höchstens so viele Tage entfernt ist (einschließlich)', 'zahl', '7', 0, 14, true, null, 'tage'),
     ('hinweisstufen', 'Hinweisstufen je Aufgabe', 'zahl', '3', 0, 3, true, null, 'stufen'),
     ('signal_fehlversuche', 'Signal nach Fehlversuchen in Folge', 'zahl', '2', 1, 4, true, null, 'anzahl'),
     ('signal_minuten_ohne_fortschritt', 'Signal nach Minuten ohne Eingabe', 'zahl', '3', 1, 10, true, null, 'minuten'),
