@@ -7,9 +7,8 @@ Stand 06.10.2026, Branch `feat/rasit-session-e1-erklaersequenz`. Verdrahtung mit
 1. **`erklaerrunden_bis_signal`**: `session_einstellungen` kommt mit R1. Bis dahin liefert
    `erklaer_runden_bis_signal()` den Startwert 2 (`20261007135151_erklaer_ablauf.sql`). In P2 auf die Einstellung
    bzw. den Session-Snapshot umstellen.
-2. **Einsatz `check` (X0)**: Check-Aufgaben sind normale `tasks` mit Status `ready`. Bekommt eine davon ein `skill_key`,
-   bevor X0 eingespielt ist und `einsatz = '{check}'` gesetzt wird, zieht die LSA-Auswahl sie mit. Den Einsatz in P2 beim
-   Anlegen der Inhalte setzen.
+2. **Einsatz `check` (X0)**: `tasks.einsatz` gibt es seit X0. `erklaer_checks` filtert noch nicht auf `'check'`. In P2
+   beim Anlegen der Inhalte `einsatz = '{check}'` setzen und den Filter ergänzen.
 3. **Testmodus (Entscheidung 27)**: `erklaer_*` und `lsa_hint` kennen `coaching_sessions.testlauf` noch nicht (kommt mit
    X0). Bis dahin gilt auch im Testlauf: nur freigegeben bzw. geprüft.
 4. **Signal an den Coach**: E1 schreibt das Signal nur als Zeile `ergebnis = 'signal'` in `erklaer_fortschritt`.
@@ -60,5 +59,5 @@ Stand 06.10.2026, Branch `feat/rasit-session-e1-erklaersequenz`. Verdrahtung mit
     Formel-Hashes eines freigegebenen Schritts, fällt er auf geprueft und braucht eine neue Freigabe.
 18. **`bild.url`** muss mit `https://` beginnen (`erklaer_bild_gueltig`).
 19. **`erklaer_nachlesen`** ist nicht auf Skills beschränkt, die das Kind in einer Session schon begonnen hat.
-20. **Schema-Abzug**: `supabase/schema-erwartet.sql` bleibt nach Leitplanke unverändert. Der CI-Job `neuaufbau` ist rot,
-    bis ein neuer Abzug vorliegt.
+20. **Schema-Abzug**: erledigt. E1 ist am 06.10. eingespielt; `supabase/schema-erwartet.sql` kommt aus Prod und stimmt
+    mit dem Neuaufbau aus allen Migrationen überein.
