@@ -17,7 +17,7 @@ import {
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
 import { berlinYMD, isoWeek } from '@/lib/datetime'
-import { CalendarDays, Users, Clock, ClipboardList, ClipboardCheck, FlaskConical, FolderOpen } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardCheck, FlaskConical, FolderOpen } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { getDarfPruefen } from '@/lib/supabase/freigabe'
 import { HINWEIS_KEIN_PRUEFRECHT } from '@/components/edvance/ProtectedRoute'
@@ -246,22 +246,10 @@ export function CoachDashboard(): JSX.Element {
                 description: t('tiles.schueler.description'),
               },
               {
-                to: '/coach/intake',
-                icon: <ClipboardList className="h-5 w-5" />,
-                title: t('tiles.intake.title'),
-                description: t('tiles.intake.description'),
-              },
-              {
                 to: '/screening?view=coach',
                 icon: <FlaskConical className="h-5 w-5" />,
                 title: t('tiles.screening.title'),
                 description: t('tiles.screening.description'),
-              },
-              {
-                to: '/coach/screening-results',
-                icon: <ClipboardList className="h-5 w-5" />,
-                title: t('tiles.ergebnisse.title'),
-                description: t('tiles.ergebnisse.description'),
               },
             ]}
           />

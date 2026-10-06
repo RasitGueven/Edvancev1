@@ -28,8 +28,6 @@ import { VertraegeMenuePage } from '@/pages/admin/VertraegeMenuePage'
 import { VertragDetailPage } from '@/pages/admin/VertragDetailPage'
 import { VertragPage } from '@/pages/admin/VertragPage'
 import { VertragUnterlagenPage } from '@/pages/admin/VertragUnterlagenPage'
-import { IntakePage } from '@/pages/coach/IntakePage'
-import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { PruefenUebersichtPage } from '@/pages/coach/pruefen/PruefenUebersichtPage'
 import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
@@ -107,24 +105,11 @@ export default function App(): JSX.Element {
             }
           />
         </Route>
-        {/* Altseiten mit eigenem Rahmen, nicht in der Leiste (offene-punkte-h6.md):
-            Erstgespräch und Screening-Ergebnisse ohne Daten, Elternreport-Altseite nur Admin. */}
-        <Route
-          path="/coach/intake"
-          element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
-              <IntakePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/coach/screening-results"
-          element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
-              <ScreeningResultsPage />
-            </ProtectedRoute>
-          }
-        />
+        {/* Erstgespräch und Screening-Ergebnisse stillgelegt (H6, keine Daten): alte
+            Links landen auf /coach. Die Seiten-Dateien sind Altlast (offene-punkte-h6.md). */}
+        <Route path="/coach/intake" element={<Navigate to="/coach" replace />} />
+        <Route path="/coach/screening-results" element={<Navigate to="/coach" replace />} />
+        {/* Elternreport-Altseite mit eigenem Rahmen, nur Admin, nicht in der Leiste. */}
         <Route
           path="/coach/reports"
           element={

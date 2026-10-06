@@ -2,11 +2,12 @@
 
 **Stand:** 06.10.2026 · Branch `feat/rasit-coach-h6-huelle`
 
-1. **Erstgespräch und Screening-Ergebnisse nicht in der Leiste.** `intake_sessions` und
-   `screening_tests` haben auf Prod 0 Zeilen (dbread, 06.10.2026); C0 nennt beide nur als
-   Routen. `/coach/intake` und `/coach/screening-results` bleiben bestehen, außerhalb der
-   Layout-Route, mit eigenem Rahmen (`EdvanceNavbar`, harte deutsche Texte). Die Kacheln im
-   Coach-Dashboard verlinken sie weiter. Entscheiden: löschen oder in die Hülle holen.
+1. **Altlast löschen: Erstgespräch und Screening-Ergebnisse.** Stillgelegt (Entscheidung Rasit
+   06.10.2026): `intake_sessions` und `screening_tests` haben auf Prod 0 Zeilen. Die Kacheln im
+   Coach-Dashboard sind entfernt, `/coach/intake` und `/coach/screening-results` leiten auf
+   `/coach` um. Noch zu löschen: `src/pages/coach/IntakePage.tsx`,
+   `src/pages/coach/ScreeningResultsPage.tsx` und die nur von dort genutzten Wrapper
+   (`src/lib/supabase/intake.ts`, Screening-Lesefunktionen prüfen) samt Typen.
 2. **`/coach/reports` (ReportsPage)** ist seit X0 nur Admin, nicht in der Coach-Leiste und
    nicht in der Admin-Leiste („Eltern-Reports“ ist dort „bald“). Bleibt außerhalb der
    Layout-Route mit `EdvanceNavbar`. Offen aus X0: Fällt die Altseite neben `eltern_reports` weg?
@@ -22,8 +23,8 @@
 5. **`AdminHeader.tsx` bleibt.** `VertragPage` (Fokus-Seite Vertragsabschluss, nur Admin) nutzt
    ihn noch, ebenso `EdvanceNavbar`. Die Seite ist nicht Teil der Coach-Sicht.
 6. **`EdvanceNavbar`** steht noch auf Schüler-/Eltern-Seiten (gewollt), `ScreeningSession`
-   (Schüler, Coach als Beobachter), `VertragPage` (mit Eltern am iPad) und den Altseiten aus 1
-   und 2.
+   (Schüler, Coach als Beobachter), `VertragPage` (mit Eltern am iPad) und der Altseite aus 2
+   (die Dateien aus 1 sind nicht mehr erreichbar).
 7. **Live-Sicht `/coach/session/*`** gibt es auf dev noch nicht (C1). Die Regel steht:
    `istFokusSeite` in `coachNav.ts`, ausgewertet in der Rollenweiche (`AdminLayout`). Hängt C1
    die Route außerhalb jeder Layout-Route ein, greift sie ohnehin nicht.
