@@ -4,7 +4,7 @@ Stand 06.10.2026 · Branch `feat/rasit-session-a2-engine` · Entscheidungen A bi
 
 ## Annahmen für Fatih
 
-Als Annahme markiert waren G und H. Die übrigen Punkte hat A2 selbst festgelegt, weil die Entscheidungen sie offen
+Die Annahmen bleiben für Fatih offen (Rasit 06.10.). Als Annahme markiert waren G und H. Die übrigen Punkte hat A2 selbst festgelegt, weil die Entscheidungen sie offen
 lassen. Jeder Punkt nennt die Stelle im Code.
 
 | Nr. | Annahme | Wo |
@@ -23,22 +23,22 @@ lassen. Jeder Punkt nennt die Stelle im Code.
 | F12 | **Ein Beispiel ist gesehen**, sobald das Tablet den nächsten Schritt holt. Ein Beispiel-Item kommt bei diesem Kind nie als Aufgabe, auch nicht in späteren Sessions. | `session_plan_kern`, `session_aufgabe_waehlen` |
 | F13 | **Mischen:** Kandidaten sind sichere Skills aus dem Lernpfad (in der ersten Session die LSA-Urteile „trägt“), Voraussetzungen des Ziels zuerst, dann die am längsten nicht geübten. Einführungsaufgaben nach einem Beispiel zählen nicht im Zähler. Findet sich kein Kandidat mit Aufgabe, bekommt der Platz eine normale Aufgabe. | `session_misch_kandidaten`, `session_plan_kern` |
 | F14 | **Exit-Aufgaben:** zum zuletzt in der Kernarbeit geübten Skill (nicht eingemischt), sonst zum aktuellen Skill. Ergebnis = Exit-Aufgaben mit richtiger Antwort von allen gegebenen. | `session_plan_checkout` |
+| F16 | **Schwierigkeit aus dem AFB (Rasit 06.10.):** In der Auswahl gilt `coalesce(difficulty, AFB I → 2, II → 3, III → 4, sonst 2)`. Die Daten bleiben unverändert. dbread 06.10.: `difficulty` bei 0 von 1.183 gefüllt, `afb` bei 1.018 (86 %). Auch das Startniveau (F2) rechnet so. | `session_schwierigkeit` |
 | F15 | **Lernpfad-Fall:** Das Ziel ist genau ein Skill (`naechste_luecke`). `ziel_thema_key` zeigt nur zur Anzeige dessen Thema. | `session_zielliste`, `session_checkin_ableiten` |
 
 ## Widersprüche und Befunde
 
-1. **`tasks.difficulty` ist in Prod überall leer.** dbread 06.10.: 1.183 von 1.183 Aufgaben ohne `difficulty`.
-   Die Steuerung (H) zählt die Stufe weiter mit und zeigt sie dem Coach. Für die Wahl der Aufgabe gelten Aufgaben ohne
-   Schwierigkeit aber als passend. Wirksam wird die Steuerung erst mit gepflegten Schwierigkeiten. Ein möglicher
-   Rückfall wäre `afb` (I/II/III, dbread: 491/442/85, 165 leer). Das ist nicht umgesetzt; Entscheidung Rasit/Fatih.
+1. **`tasks.difficulty` ist in Prod überall leer.** dbread 06.10.: 1.183 von 1.183 Aufgaben ohne `difficulty`,
+   `afb` bei 1.018 gefüllt (I 491, II 442, III 85). **Entschieden (Rasit 06.10.):** Rückfall auf den AFB in der
+   Auswahl (F16). 165 Aufgaben ohne AFB zählen als Stufe 2; Pflege der Schwierigkeiten bleibt Inhaltsarbeit.
 2. **In Prod gibt es keine freigegebene Session-Aufgabe mit Skill.** dbread 06.10.: 13 Aufgaben `ready`, alle ohne
    `skill_key`. 870 Entwürfe haben einen Skill. Außerhalb des Testlaufs antwortet die Engine deshalb mit
    `warten` / `pool_leer`. Im Testlauf laufen Entwürfe mit leerem `pruef_ausschluss`.
 3. **Keine Erklärsequenz in Prod** (dbread: 0 Kernideen). Bis Inhalte freigegeben sind, beginnt jeder neue Skill mit
    Beispiel und Aufgabe, und der Grund nennt „keine Erklärung vorhanden“.
-4. **`ka_tage` und Mischen.** Die Beschreibung der Stellschraube sagt „Mischen pausiert“. Entscheidung I sagt: im
-   Fall Klassenarbeit nur aus ihrem Thema mischen. Umgesetzt ist I. Den Text in `session_einstellungen` hat A2 nicht
-   geändert (Daten aus R1); bitte bestätigen und dann den Text anpassen.
+4. **`ka_tage` und Mischen. Erledigt (Rasit 06.10.):** Text in `session_einstellungen`
+   (`20261008124415_a2_ka_tage_text.sql`) und in der Stellschrauben-Tabelle des Bauauftrags: „Klassenarbeit zählt, wenn
+   sie höchstens so viele Tage entfernt ist (einschließlich); gemischt wird dann nur im Thema der Klassenarbeit“.
 5. **`phase_setzen` durch den Coach** schreibt weiter ein Phasen-Ereignis. Die Engine richtet sich beim nächsten
    Schritt aber nach der Uhr (C). Ob der Coach die Phase eines Kindes übersteuern darf, ist nicht entschieden.
 6. **`tablet_stand`** zeigt beim Beispiel noch die vorige Aufgabe, weil ein Beispiel keine Ausgabe in
@@ -103,14 +103,14 @@ Vorschau schreibt nichts, Lösungen nur beim Beispiel. Befunde und Umgang:
 | r1-27 Tablet wechselt die Phase selbst | R1 | erledigt (`phase_setzen` nur Coach/Admin) |
 | a1-1 Stellschrauben aus R1 | A1 | erledigt (`lernpfad_stellschraube` über `session_wert`) |
 | a1-3 Session-Verdrahtung | A1 | erledigt |
-| a1-4 Badges bei „gemeistert“ | A1 | offen: welches Abzeichen, ist nicht entschieden (C2) |
+| a1-4 Badges bei „gemeistert“ | A1 | entschieden (Rasit 06.10.): vorerst kein Abzeichen; offener Punkt für das Badge-System |
 | a1-9 Akte und Eltern auf `stand_coach` | A1 | offen: Funktionen der Schülerakte, nicht Session-Pakete |
 | a1-10 Kind am Tablet (`mein_lernpfad`) | A1 | erledigt |
-| a1-15 Session-Status bei Coach-Entscheidungen | A1 | offen: würde Entscheidungen nach `session_abschliessen` sperren; Entscheidung Rasit |
+| a1-15 Session-Status bei Coach-Entscheidungen | A1 | erledigt (Rasit 06.10.): `mastery_entscheiden`, `pfad_tiefer` und Eingriff Stufe 4 nur in der laufenden Session des Kindes oder am selben Tag nach dem Abschluss (`lernpfad_coach_der_session`, `eingriff_notieren`); pgTAP N, A1-Fixture angepasst |
 | a1-17 Test: LSA-Testlauf erzeugt keine Lernpfad-Zeile | A1 | offen: kein Bestandteil dieses Auftrags, Filter greift laut A1 seit X0 |
 | e1-1 `erklaerrunden_bis_signal` | E1 | erledigt (Snapshot) |
 | e1-2 Einsatz `check` | E1 | erledigt (Filter in `erklaer_checks`, E1-Fixture angepasst) |
-| e1-3 Testlauf für Erklärinhalte | E1 | offen: nicht entschieden, ob ungeprüfte Erklärschritte im Testlauf laufen dürfen |
+| e1-3 Testlauf für Erklärinhalte | E1 | erledigt (Rasit 06.10.): im Testlauf auch entwurf/geprueft, Check-Aufgaben wie Aufgaben ohne `pruef_ausschluss`; sonst nie (`20261008124414_a2_erklaer_testlauf.sql`, pgTAP N) |
 | e1-4 Signal an den Coach | E1 | erledigt |
 | e1-5 Nach dem Signal | E1 | erledigt: Kind wartet, bis der Coach das Signal „hängt“ erledigt (Annahme, F9-artig) |
 | e1-6 Tablet-Zugang, Session läuft | E1 | erledigt |
@@ -120,13 +120,12 @@ Vorschau schreibt nichts, Lösungen nur beim Beispiel. Befunde und Umgang:
 | q1-5 Tablet setzt den Quest-Termin | Q1 | erledigt |
 | q1-6 Mischen aus dem Lernpfad | Q1 | offen für Q2: wirkt erst mit `quest_erzeugen` |
 | q1-9 Zwei `quest_termin_setzen` | Q1 | offen für Q2 |
-| X0b-Befunde (`erklaer_nachlesen`, `erklaer_zugang`, `lernpfad_coach_der_session`) | A1/E1 | erledigt, pgTAP X. Ausnahmeliste im Wächter: erst nach dem Merge von #219 (siehe unten) |
+| X0b-Befunde (`erklaer_nachlesen`, `erklaer_zugang`, `lernpfad_coach_der_session`) | A1/E1 | erledigt, pgTAP X; A2-Ausnahmen im Wächter gestrichen |
 
 ## X0b-Wächter
 
-Der Wächter (`supabase/tests/session_x0b.test.sql`, PR #219) ist noch nicht in `dev`. Seine Ausnahmen gelten Familien
-(`erklaer_`, `lernpfad_`, …). Sobald #219 gemergt ist: auf `origin/dev` rebasen und die A2-Familien aus
-`pg_temp.ausgenommen` streichen. Spätestens beim Einspielen.
+**Erledigt:** #219 ist in `dev` und hereingemergt. Die A2-Familien sind aus `pg_temp.ausgenommen` gestrichen; es
+bleiben nur die L5-Familien. `session_x0b.test.sql` lokal 28/28 grün, Diagnose „ausgenommen (L5, noch offen): keine“.
 
 Probe 06.10. (Abfrage `pg_temp.unsichere_rollenpruefungen` aus #219 gegen die Wegwerf-DB mit allen A2-Migrationen,
 ohne die X0b-Migrationen): 11 Treffer, alle außerhalb der A2-Familien und genau die Funktionen, die X0b selbst

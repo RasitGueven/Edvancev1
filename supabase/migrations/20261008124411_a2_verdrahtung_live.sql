@@ -65,7 +65,9 @@ as $$
        select jsonb_build_object('skill_key', ek.skill_key, 'label', public.session_label(ek.skill_key),
                 'kernidee_nr', ek.nr, 'kernidee_titel', ek.titel,
                 'kernideen', (select count(*) from public.erklaer_kernidee k2
-                               where k2.skill_key = ek.skill_key and k2.status = 'freigegeben'),
+                               where k2.skill_key = ek.skill_key
+                                 and public.erklaer_status_ok(k2.status, (select cs.testlauf from public.coaching_sessions cs
+                                                                           where cs.id = p_session_id))),
                 'kernideen_fertig', (select count(distinct f2.kernidee_id) from public.erklaer_fortschritt f2
                                       join public.erklaer_kernidee k3 on k3.id = f2.kernidee_id
                                      where f2.session_id = p_session_id and f2.student_id = ss.student_id

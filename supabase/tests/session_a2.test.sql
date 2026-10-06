@@ -23,7 +23,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(97);
+select plan(111);
 
 \ir session_a2_fixture.sql
 
@@ -323,6 +323,69 @@ select session_abschliessen(:'s9');
 select is((select count(*)::int from schueler_notizen where student_id = :'k_tim'), 0, 'V Testlauf: keine Notiz in der Akte');
 select pg_temp.act_as(:'admin');
 select is((select count(*)::int from session_flags_offen() where session_id = :'s9'), 0, 'V Testlauf: keine offenen Flags');
+
+-- ── Entscheidungen Rasit 06.10. (Nachtrag) ───────────────────────────────
+-- Coach-Entscheidungen nur in laufender Session oder am selben Tag nach dem Abschluss.
+select pg_temp.als_system();
+insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am, beendet_am)
+values (:'coach_a', 'ZZ A2 gestern', now() - interval '1 day', 'done', now() - interval '1 day', now() - interval '1 day')
+returning id as s_gestern \gset
+insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am, beendet_am)
+values (:'coach_a', 'ZZ A2 heute', now() - interval '2 hours', 'done', now() - interval '2 hours', now() - interval '1 hour')
+returning id as s_heute \gset
+insert into coaching_sessions (coach_id, room, scheduled_at) values (:'coach_a', 'ZZ A2 morgen', now() + interval '1 day')
+returning id as s_morgen \gset
+insert into session_students (session_id, student_id, attendance)
+select x, :'k_gross', 'present' from unnest(array[:'s_gestern', :'s_heute', :'s_morgen']::uuid[]) x;
+select set_config('request.jwt.claims', '', true);
+select pg_temp.act_as(:'coach_a');
+select ok(lernpfad_coach_der_session(:'s15', :'k_gross'), 'N laufende Session: Coach darf entscheiden');
+select ok(lernpfad_coach_der_session(:'s_heute', :'k_gross'), 'N am selben Tag nach dem Abschluss: Coach darf entscheiden');
+select ok(not lernpfad_coach_der_session(:'s_gestern', :'k_gross'), 'N Abschluss gestern: nicht mehr');
+select ok(not lernpfad_coach_der_session(:'s_morgen', :'k_gross'), 'N geplante Session: noch nicht');
+select throws_ok(format($$select pfad_tiefer(%L, 'zz_a2_g1', %L)$$, :'k_gross', :'s_gestern'), '42501', null,
+                 'N pfad_tiefer nach dem Tag des Abschlusses -> 42501');
+select throws_ok(format($$select mastery_entscheiden(%L, 'zz_a2_v1', 'gemeistert', null, %L)$$, :'k_gross', :'s_morgen'), '42501', null,
+                 'N mastery_entscheiden in einer geplanten Session -> 42501');
+select throws_ok(format($$select eingriff_notieren(%L, %L, 4, 'zz_a2_fb')$$, :'s_gestern', :'k_gross'), '42501', null,
+                 'N Eingriff Stufe 4 nach dem Tag des Abschlusses -> 42501');
+select lives_ok(format($$select eingriff_notieren(%L, %L, 2)$$, :'s_gestern', :'k_gross'), 'N Stufe 1/2 notiert der Coach weiter');
+
+-- Schwierigkeit fuer die Auswahl: difficulty, sonst AFB (I 2, II 3, III 4), sonst 2.
+select is(array[session_schwierigkeit(null, 'I'), session_schwierigkeit(null, 'II'), session_schwierigkeit(null, 'III'),
+                session_schwierigkeit(null, null), session_schwierigkeit(5, 'I')], array[2, 3, 4, 2, 5],
+          'N Schwierigkeit: AFB-Rueckfall nur ohne difficulty');
+
+-- Ungepruefte Erklaerinhalte nur im Testlauf.
+insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe) values ('zz_a2_n2', 'ZZ Achsenabschnitt', 8, 1);
+insert into themen (thema_key, fach, klasse, stufe, label, sort) values ('zz_a2_n2t', 'mathematik', 8, 'erste', 'ZZ Achsen', 9207);
+insert into thema_einstieg (thema_key, skill_key) values ('zz_a2_n2t', 'zz_a2_n2');
+insert into skill_thema (skill_key, thema_key) values ('zz_a2_n2', 'zz_a2_n2t');
+select pg_temp.aufgaben('zz_a2_n2', 5);
+select pg_temp.aufgaben('zz_a2_n2', 1, 'draft', '{check}', 'a2-check2');
+select pg_temp.act_as(:'admin');
+select erklaer_kernidee_speichern(null, 'zz_a2_n2', 1, 'ZZ Achsenabschnitt ablesen', 'ki') as kern_n2 \gset
+select erklaer_schritt_speichern(:'kern_n2', 'A', 'erklaerung', 'ZZ A2 Entwurf', null, '{}');
+select erklaer_check_setzen(:'kern_n2', (select id from tasks where source_ref = 'a2-check2-1'), 1);
+select pg_temp.kind_mit('ZZ Test N2', 'zz_a2_n2t', '{}', '{}', true) as k_tn2,
+       pg_temp.kind_mit('ZZ Echt N2', 'zz_a2_n2t', '{}', '{}') as k_en2
+\gset
+select pg_temp.neue_session(array[:'k_tn2']::uuid[], 20, true) as s_tn2 \gset
+select pg_temp.checkin(:'s_tn2', 1);
+select is(pg_temp.schritt(:'s_tn2', 1) ->> 'art', 'erklaerung', 'N Testlauf: Entwurf der Erklaersequenz laeuft');
+select pg_temp.act_as(pg_temp.tablet(1));
+select is((erklaer_start(:'s_tn2', :'k_tn2', 'zz_a2_n2')) ->> 'aktion', 'start', 'N Testlauf: erklaer_start liefert den Entwurf');
+select pg_temp.neue_session(array[:'k_en2']::uuid[], 20) as s_en2 \gset
+select pg_temp.checkin(:'s_en2', 1);
+select ok(pg_temp.schritt(:'s_en2', 1) ->> 'grund' like '%keine Erklärung vorhanden%', 'N ohne Testlauf: Entwurf nie');
+select pg_temp.act_as(pg_temp.tablet(1));
+select throws_ok(format($$select erklaer_start(%L, %L, 'zz_a2_n2')$$, :'s_en2', :'k_en2'), 'P0002', null,
+                 'N ohne Testlauf: erklaer_start liefert keinen Entwurf');
+
+-- Beschreibung ka_tage nach Entscheidung I.
+select is((select beschreibung from session_einstellungen where schluessel = 'ka_tage'),
+          'Klassenarbeit zählt, wenn sie höchstens so viele Tage entfernt ist (einschließlich); gemischt wird dann nur im Thema der Klassenarbeit',
+          'N ka_tage: Text passt zu Entscheidung I');
 
 select * from finish();
 rollback;

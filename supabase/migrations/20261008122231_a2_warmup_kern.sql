@@ -158,7 +158,7 @@ declare
   v_angeb  int := public.session_wert_zahl(p_session_id, 'erklaerung_anbieten_nach_fehlversuchen')::int;
   v_misch  numeric := public.session_wert_zahl(p_session_id, 'mischanteil');
   v_vorg   boolean := public.session_wert(p_session_id, 'erklaerung_bei_neuem_skill') #>> '{}' = 'vorgeschaltet';
-  v_seq    boolean := (public.erklaer_naechste_kernidee(p_aktuell, 0)).id is not null;
+  v_seq    boolean := (public.erklaer_naechste_kernidee(p_aktuell, 0, p_testlauf)).id is not null;
   e        record;
   niv      record := public.session_niveau(p_session_id, p_student_id, p_aktuell);
   v_sig    jsonb := '[]';
@@ -226,7 +226,7 @@ begin
             jsonb_build_object('signale', v_sig));
         end if;
       else
-        select t.difficulty, s.schwierigkeit into v_bsp
+        select public.session_schwierigkeit(t.difficulty, t.afb) as difficulty, s.schwierigkeit into v_bsp
           from public.session_schritte s left join public.tasks t on t.id = s.task_id
          where s.session_id = p_session_id and s.student_id = p_student_id and s.skill_key = p_aktuell
            and s.art = 'beispiel'

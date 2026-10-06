@@ -162,8 +162,9 @@ select is((select mastered_by from student_competency_mastery where student_id =
 
 -- ============================================================================
 -- 4 · Waechter: keine unsichere Rollenpruefung in pg_proc
--- Ausnahmen: Familien von L5 (Lena-Board) und A2 (Session-Pakete), bis sie
--- umgestellt sind. Eintraege hier nur loeschen, nicht ergaenzen.
+-- Ausnahmen: Familien von L5 (Lena-Board), bis sie umgestellt sind. Die A2-Familien
+-- (Session-Pakete) sind seit A2 umgestellt und gestrichen. Eintraege hier nur loeschen,
+-- nicht ergaenzen.
 -- ============================================================================
 create function pg_temp.unsichere_rollenpruefungen()
 returns table (sig text, proname text, muster text) language sql stable as $w$
@@ -194,11 +195,6 @@ $w$;
 
 create function pg_temp.ausgenommen(p_name text) returns boolean language sql immutable as $a$
   select p_name ~ '^(pruef_|freigabe_|lena_)' or p_name = 'darf_pruefen'                        -- L5
-      or p_name ~ '^(session_|tablet_|checkin_|lernpfad_|mastery_|skill_pruefung|erklaer_|quest_|push_token_)'
-      or p_name in ('antwort_abgeben', 'hinweis_abrufen', 'raum_signale', 'signal_erledigen',
-                    'eingriff_notieren', 'coach_raum_live', 'coach_kind_detail', 'einstellung_setzen',
-                    'ziel_fertigkeiten', 'naechste_luecke', 'pfad_tiefer', 'hinweis_status_setzen',
-                    'eltern_quest_wochenstand')                                                    -- A2
 $a$;
 
 select is(array(select sig || ' [' || muster || ']' from pg_temp.unsichere_rollenpruefungen()
@@ -206,7 +202,7 @@ select is(array(select sig || ' [' || muster || ']' from pg_temp.unsichere_rolle
           '{}'::text[],
           'Waechter: keine Rollenpruefung, die bei get_my_role() = NULL offen bleibt');
 
-select diag('ausgenommen (L5/A2, noch offen): ' || coalesce(string_agg(sig || ' [' || muster || ']', ', ' order by sig), 'keine'))
+select diag('ausgenommen (L5, noch offen): ' || coalesce(string_agg(sig || ' [' || muster || ']', ', ' order by sig), 'keine'))
   from pg_temp.unsichere_rollenpruefungen() where pg_temp.ausgenommen(proname);
 
 -- Gegenprobe: der Waechter erkennt ein frisch angelegtes unsicheres Tor.

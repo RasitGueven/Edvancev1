@@ -13,6 +13,18 @@
 --   session_sichere_skills  sichere Skills (Lernpfad), in der ersten Session die LSA-Urteile (E).
 --   session_erklaer_stand   Stand der Erklaersequenz eines Skills in dieser Session (F).
 
+-- Schwierigkeit einer Aufgabe fuer die Auswahl (Rasit 06.10., Annahme fuer Fatih): tasks.difficulty,
+-- ohne Wert aus dem Anforderungsbereich (AFB I -> 2, II -> 3, III -> 4), sonst 2. Die Daten bleiben
+-- unveraendert (dbread 06.10.: difficulty bei 0 von 1.183 gefuellt, afb bei 1.018).
+create function public.session_schwierigkeit(p_difficulty int, p_afb text)
+returns int
+language sql
+immutable
+set search_path = public, pg_temp
+as $$
+  select coalesce(p_difficulty, case p_afb when 'I' then 2 when 'II' then 3 when 'III' then 4 else 2 end)
+$$;
+
 create function public.session_aufgabe_stand(p_session_id uuid, p_student_id uuid, p_task_id uuid,
   out erledigt boolean, out erfolg boolean, out richtig boolean, out zeit timestamptz)
 language sql
@@ -56,17 +68,17 @@ declare
   r      record;
 begin
   select x.difficulty into start from (
-    select t.difficulty, a.zeit
+    select public.session_schwierigkeit(t.difficulty, t.afb) as difficulty, a.zeit
       from public.session_antworten a join public.tasks t on t.id = a.task_id
      where a.student_id = p_student_id and a.session_id <> p_session_id and t.skill_key = p_skill_key
-       and a.ergebnis = 'richtig' and t.difficulty is not null
+       and a.ergebnis = 'richtig'
     union all
-    select t.difficulty, lr.created_at
+    select public.session_schwierigkeit(t.difficulty, t.afb), lr.created_at
       from public.lsa_responses lr
       join public.lsa_sessions ls on ls.id = lr.session_id
       join public.tasks t on t.id = lr.task_id
      where (ls.student_id = p_student_id or ls.uebernommen_zu_student_id = p_student_id)
-       and not ls.testlauf and lr.correct and t.skill_key = p_skill_key and t.difficulty is not null
+       and not ls.testlauf and lr.correct and t.skill_key = p_skill_key
   ) x order by x.zeit desc limit 1;
   start := coalesce(start, 2);
   niveau := start;
@@ -117,8 +129,7 @@ as $$
   then 'selbststaendig' else 'gefuehrt' end
 $$;
 
--- p_schwierigkeit: gewuenschte Stufe. Aufgaben ohne tasks.difficulty (heute alle in Prod)
--- gelten als passend, aber nach Aufgaben mit genau der Stufe (offene-punkte-a2.md).
+-- p_schwierigkeit: gewuenschte Stufe; verglichen wird mit session_schwierigkeit (difficulty, sonst AFB).
 create function public.session_aufgabe_waehlen(p_session_id uuid, p_student_id uuid, p_skill_key text,
   p_schwierigkeit int, p_testlauf boolean, p_mit_loesungsweg boolean default false,
   out task_id uuid, out difficulty int)
@@ -142,7 +153,7 @@ as $$
       select s.task_id, s.zeit from public.session_schritte s where s.student_id = p_student_id and s.task_id is not null
     ) x group by x.task_id
   )
-  select t.id, t.difficulty
+  select t.id, public.session_schwierigkeit(t.difficulty, t.afb)
     from public.tasks t
     left join gesehen g on g.task_id = t.id
    where t.skill_key = p_skill_key
@@ -151,7 +162,7 @@ as $$
      and (not p_mit_loesungsweg
           or exists (select 1 from public.task_solutions ts where ts.task_id = t.id
                       and nullif(btrim(ts.solution), '') is not null))
-   order by abs(coalesce(t.difficulty, p_schwierigkeit) - p_schwierigkeit), (t.difficulty is null),
+   order by abs(public.session_schwierigkeit(t.difficulty, t.afb) - p_schwierigkeit),
             (g.zuletzt is not null), g.zuletzt, t.id
    limit 1
 $$;
@@ -174,6 +185,14 @@ as $$
    where u.zustand = 'traegt' and not exists (select 1 from lp)
 $$;
 
+-- Erklaerinhalt sichtbar? freigegeben; im Testlauf auch entwurf und geprueft (Rasit 06.10., wie Aufgaben).
+create function public.erklaer_status_ok(p_status text, p_testlauf boolean default false)
+returns boolean
+language sql
+immutable
+set search_path = public, pg_temp
+as $$ select p_status = 'freigegeben' or (coalesce(p_testlauf, false) and p_status in ('entwurf', 'geprueft')) $$;
+
 -- Stand der Erklaersequenz: null (nicht begonnen), laeuft (offener Check), fertig, signal
 -- (Coach-Signal offen) oder signal_erledigt (Coach hat das haengt-Signal erledigt).
 create function public.session_erklaer_stand(p_session_id uuid, p_student_id uuid, p_skill_key text,
@@ -192,7 +211,8 @@ as $$
                   and e.payload ->> 'art' = 'haengt' and e.zeit > f.zeit) then 'signal_erledigt' else 'signal' end
            else 'laeuft' end,
          k.nr,
-         (select count(*)::int from public.erklaer_kernidee k2 where k2.skill_key = p_skill_key and k2.status = 'freigegeben'),
+         (select count(*)::int from public.erklaer_kernidee k2 where k2.skill_key = p_skill_key
+           and public.erklaer_status_ok(k2.status, (select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id))),
          f.runde, f.variante,
          (select f2.fehlbild_slug from public.erklaer_fortschritt f2 where f2.session_id = p_session_id
            and f2.student_id = p_student_id and f2.kernidee_id = f.kernidee_id and f2.ergebnis = 'falsch'
@@ -255,7 +275,7 @@ as $$
 $$;
 
 revoke all on function
-  public.session_aufgabe_stand(uuid, uuid, uuid), public.session_niveau(uuid, uuid, text),
+  public.session_schwierigkeit(int, text), public.erklaer_status_ok(text, boolean), public.session_aufgabe_stand(uuid, uuid, uuid), public.session_niveau(uuid, uuid, text),
   public.session_modus(uuid, text), public.session_aufgabe_waehlen(uuid, uuid, text, int, boolean, boolean),
   public.session_sichere_skills(uuid), public.session_erklaer_stand(uuid, uuid, text),
   public.session_misch_kandidaten(uuid, uuid, text, text[], text), public.session_kandidat_signale(uuid, uuid)

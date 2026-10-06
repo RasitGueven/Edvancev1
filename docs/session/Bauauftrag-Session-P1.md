@@ -65,7 +65,7 @@ P1 baut die Datenmodelle und Server-Funktionen für die Session. Oberflächen ko
 | `warmup_leichter_stufen` | Warm-up leichter als Kernarbeit um | 1 | 0–2 |
 | `ziel_erfolgsquote` | Ziel-Erfolgsquote | 0,80 | 0,60–0,90 |
 | `mischanteil` | Anteil älterer Aufgaben in der Kernarbeit | 0,30 | 0–0,50 |
-| `ka_tage` | Klassenarbeit zählt und Mischen pausiert, wenn sie höchstens so viele Tage entfernt ist (einschließlich) | 7 | 0–14 |
+| `ka_tage` | Klassenarbeit zählt, wenn sie höchstens so viele Tage entfernt ist (einschließlich); gemischt wird dann nur im Thema der Klassenarbeit | 7 | 0–14 |
 | `hinweisstufen` | Hinweisstufen je Aufgabe | 3 | 0–3 |
 | `signal_fehlversuche` | Signal nach Fehlversuchen in Folge | 2 | 1–4 |
 | `signal_minuten_ohne_fortschritt` | Signal nach Minuten ohne Eingabe | 3 | 1–10 |
