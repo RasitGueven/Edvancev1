@@ -62,7 +62,7 @@ export function KinderHinweise({ geladen, b, geaendert, lesend, onChange, onZuru
                 <span className="text-xs font-semibold text-[var(--color-text-secondary)]">{t('hinweise.stufe', { stufe })}</span>
                 <StatusPille status={hinweisStatus(geladen, stufe, text)} />
                 {!lesend && (
-                  <Button variant="ghost" size="sm" className="ml-auto" aria-label={t('hinweise.entfernenLabel', { stufe })}
+                  <Button variant="ghost" size="sm" className="ml-auto min-h-[44px]" aria-label={t('hinweise.entfernenLabel', { stufe })}
                     onClick={() => onChange({ ...b, hinweise: hinweisEntfernen(texte, i) })}>
                     {t('hinweise.entfernen')}
                   </Button>

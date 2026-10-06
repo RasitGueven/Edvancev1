@@ -33,7 +33,7 @@ export function HinweiseAdmin({ aufgabe, b, onBestaetigt, onFehler }: Props): JS
   }
 
   const knopf = freigegeben && offen > 0
-    ? <Button size="sm" disabled={arbeitet} onClick={() => void bestaetigen()}>{t('hinweise.bestaetigen')}</Button>
+    ? <Button size="sm" className="min-h-[44px]" disabled={arbeitet} onClick={() => void bestaetigen()}>{t('hinweise.bestaetigen')}</Button>
     : undefined
   const fuss = offen === 0 ? null : (
     <p role="status" className="text-sm text-[var(--color-text-secondary)]">
