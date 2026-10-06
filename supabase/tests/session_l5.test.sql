@@ -1,6 +1,6 @@
 -- ============================================================================
 -- Session-Rahmen P1, Paket L5: Kinder-Hinweise pruefen und mit der Aufgabe freigeben
--- (Migrationen 20261008110100 … 20261008110400).
+-- (Migrationen 20261008110100 … 20261008110500).
 --   1  pruef_aufgabe liefert Hinweise mit Status; ohne Pruefrecht 42501; Konto ohne Profil 42501.
 --      pruef_speichern nimmt Hinweise im Entwurf an; Beanstandungsgruende fuer Hinweise.
 --   2  Freigabe (einzeln, nach Rueckfrage, gesammelt) setzt alle Hinweise auf geprueft;
@@ -11,12 +11,13 @@
 --   6  Sammelaktion: Vorschau aendert nichts; Ausfuehrung setzt genau die gewaehlten Aufgaben.
 --   7  Lena (Pruefrecht, kein Admin) kann Hinweise nicht auf geprueft setzen.
 --   8  Rollenpruefungen aller ersetzten Funktionen der Familie NULL-sicher (Konto ohne Profil).
+--   9  Beanstanden oder Zuruecksetzen einer freigegebenen Aufgabe setzt die Hinweise auf entwurf.
 -- Eigene Fixtures (Quelle 'l5_test'), alles in einer Transaktion, am Ende rollback.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(77);
+select plan(84);
 
 -- --- Fixtures --------------------------------------------------------------
 \set admin_uid  '15000000-0000-4000-8000-00000000000a'
@@ -305,6 +306,30 @@ select is(pg_temp.fehler('select count(*) from pruef_admin_liste()'), '42501:', 
 select is(pg_temp.fehler(format('select hinweise_bestaetigen(%L)', :'alt3')), '42501:', '8 hinweise_bestaetigen');
 select is(pg_temp.fehler(format($$select hinweis_status_setzen(%L, 1, 'entwurf')$$, :'alt3')), '42501:', '8 hinweis_status_setzen');
 select is(pg_temp.hs(:'alt3'), 'entwurf,entwurf', '8 nichts geaendert');
+
+-- ============================================================================
+-- 9  Beanstanden oder Zuruecksetzen einer freigegebenen Aufgabe -> entwurf (Entscheidung Rasit 06.10.)
+-- ============================================================================
+reset role;
+select pg_temp.aufgabe('l5-bean', 'ready') as bean, pg_temp.aufgabe('l5-editor', 'ready') as editor,
+       pg_temp.aufgabe('l5-direkt', 'ready') as direkt, pg_temp.aufgabe('l5-muster', 'ready') as muster,
+       pg_temp.aufgabe('l5-bleibt', 'ready') as bleibt
+\gset
+select pg_temp.act_as(:'admin_uid');
+select hinweise_bestaetigen(t) from unnest(array[:'bean', :'editor', :'direkt', :'muster', :'bleibt']::uuid[]) t;
+select is(pg_temp.hs(:'bean') || '|' || pg_temp.hs(:'muster'), 'geprueft,geprueft|geprueft,geprueft', '9 Fixture: Hinweise geprueft');
+select lena_beanstande(:'bean', 'formulierung', 'L5');
+select is(pg_temp.hs(:'bean'), 'entwurf,entwurf', '9 lena_beanstande einer freigegebenen Aufgabe -> entwurf');
+select task_status_set(:'editor', 'draft');
+select is(pg_temp.hs(:'editor'), 'entwurf,entwurf', '9 task_status_set ready -> draft (Editor) -> entwurf');
+update tasks set status = 'review' where id = :'direkt';
+select is(pg_temp.hs(:'direkt'), 'entwurf,entwurf', '9 direktes UPDATE ready -> review -> entwurf');
+update tasks set afb = 'I' where id = :'bleibt';
+select is(pg_temp.hs(:'bleibt'), 'geprueft,geprueft', '9 Aenderung ohne Statuswechsel laesst geprueft');
+select cmp_ok(lena_beanstande_muster('geo_kreis_umfang', 'pi_vergessen', 'fehlbild_falsch', 'L5'), '>=', 2,
+              '9 lena_beanstande_muster trifft die Aufgaben');
+select is(pg_temp.hs(:'muster') || '|' || pg_temp.hs(:'bleibt'), 'entwurf,entwurf|entwurf,entwurf',
+          '9 lena_beanstande_muster: freigegebene Aufgaben -> entwurf');
 
 select * from finish();
 rollback;

@@ -1,33 +1,37 @@
 # Offene Punkte L5 (Kinder-Hinweise prüfen und freigeben)
 
-Stand 06.10.2026, Branch `feat/rasit-session-l5-hinweise`. Nicht eingespielt; Einspielen erst nach „L5 einspielen“.
+Stand 06.10.2026, Branch `feat/rasit-session-l5-hinweise`.
 
 ## Fachlich zu entscheiden
 
-1. **Beanstanden einer freigegebenen Aufgabe lässt die Hinweise auf geprüft** (Consensus-Check, Befund 1).
-   `lena_beanstande` / `lena_beanstande_muster` setzen auch `ready`-Aufgaben auf `beanstandet`, und `task_status_set`
-   aus dem Editor setzt `ready` auf `draft`/`review`, ohne die Hinweise anzufassen. `lsa_hint` prüft den Aufgabenstatus
-   nicht; ein mit „Hinweis verrät die Lösung“ beanstandeter Hinweis bliebe für laufende LSAs abrufbar.
-   Entscheidung 2 nennt nur die Rücknahme der Freigabe; L5 ändert deshalb nur `pruef_freigabe_zuruecknehmen` und
-   `freigabe_zuruecknehmen`. Vorschlag: in den beiden Beanstandungswegen bei vorher `ready`
-   `pruef_hinweise_setzen(id, 'entwurf')` aufrufen (je eine Zeile).
-2. **Weitere Freigabewege setzen die Hinweise nicht auf geprüft**: Editor (`task_status_set` → `ready`),
-   `freigabe_thema`, `freigabe_cluster`, `freigabe_muster`. Entscheidung 2 nennt Einzelfreigabe, Freigabe nach
-   Rückfrage und Sammelfreigabe; nur dort sieht der Admin die Hinweise vorher (Entscheidung 4). Über die anderen
-   Wege freigegebene Aufgaben holt „Hinweise bestätigen“ (einzeln oder gesammelt) nach; der Filter
-   „Hinweise ungeprüft“ in der Expertenliste findet sie.
+1. **Erledigt (Entscheidung Rasit 06.10.):** Beanstandung oder Zurücksetzen einer freigegebenen Aufgabe setzt ihre
+   Hinweise auf entwurf. Umgesetzt als Trigger `tasks_hinweise_bei_ruecknahme` (Migration `20261008110500`), der beim
+   Verlassen von `ready` `pruef_hinweise_setzen(id, 'entwurf')` ruft: `lena_beanstande`, `lena_beanstande_muster`,
+   `task_status_set` aus dem Editor, direktes Admin-UPDATE und die beiden Rücknahmen. pgTAP Abschnitt 9.
+2. **Weitere Freigabewege setzen die Hinweise nicht auf geprüft** (Entscheidung Rasit 06.10.: so lassen, Nachholen über
+   „Hinweise bestätigen“ und den Filter „Hinweise ungeprüft“). Repo-Suche 06.10. (nach Merge von H6/X0b), in der
+   Oberfläche noch erreichbar:
+   - **Editor**: `/admin/authoring/:id`, `ReleaseGate` → `setTaskStatus` → `task_status_set(…, 'ready')`
+     (`src/pages/admin/AuthoringEditorPage.tsx:196`).
+   - **Thema**: Item-Pflege `/admin/authoring`, Themenzeile „Freigeben“ (nur Admin) → `freigabe_thema`
+     (`src/components/edvance/authoring/board/Arbeitsbereich.tsx:82`, `ThemaZeile.tsx:86`).
+   - **Muster**: Expertenliste `/admin/authoring/liste`, Sortierung nach Fertigkeit, Gruppenknopf „Freigeben“ →
+     `freigabe_muster` (`src/pages/admin/AuthoringItemsPage.tsx:232`, Knopf `:337`).
+   - **Cluster**: nicht mehr erreichbar. `freigabe_cluster` hat keinen Aufrufer in `src/` (nur ein Kommentar in
+     `src/lib/authoring/vera8.ts:8`).
 3. **Protokoll der Freigabe**: `pruef_admin_freigeben` und die Sammelfreigabe schreiben wie bisher `aenderungen = []`.
    Die Statuswechsel der Hinweise stehen nur bei `hinweise_bestaetigen` im Protokoll (`feld: 'hinweis_status'`).
    Falls gewünscht, kann die Freigabe die Liste aus `pruef_hinweise_setzen` mitschreiben.
 
 ## Technisch
 
-4. **Migrationsversionen 20261008110100–110400** liegen in der Zukunft und sind rund. Das widerspricht CLAUDE.md §10,
+4. **Migrationsversionen 20261008110100–110500** liegen in der Zukunft und sind rund. Das widerspricht CLAUDE.md §10,
    ist aber der Bereich aus dem Auftrag (nach E1/Q1, höchste Prod-Version 20261007141356). In Prod und
    `git log --all` frei (dbread 06.10.).
-5. **Alle vier Migrationen in einem Zug einspielen.** Einzeln geht es auch; der Nachtrag der Ausgangsfassungen steht
+5. **Alle fünf Migrationen in einem Zug einspielen.** Einzeln geht es auch; der Nachtrag der Ausgangsfassungen steht
    deshalb in Teil 2 hinter `pruef_fassung` (Consensus-Check, Befund 4).
-6. **Kinder-Oberfläche für Hinweise gibt es noch nicht** (weder in diesem Repo noch in `edvance-app`). Die Prüfansicht
+6. **Kinder-Oberfläche für Hinweise gibt es noch nicht** (Entscheidung Rasit 06.10.: reiner Text in Ordnung, die
+   Kinderansicht kommt mit E2a) (weder in diesem Repo noch in `edvance-app`). Die Prüfansicht
    zeigt die Hinweise so, wie `lsa_hint` / `hinweis_abrufen` sie liefern: Stufe für Stufe als reiner Text. In Prod
    enthält kein Hinweis Formel- oder Markdown-Zeichen (dbread 06.10.); kommen Formeln dazu, muss die Darstellung
    mitziehen.
