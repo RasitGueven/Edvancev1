@@ -25,6 +25,7 @@ vi.mock('@/lib/supabase/pruefungAdmin', () => ({
   pruefAdminZurueckweisen: vi.fn(),
   pruefFreigabeZuruecknehmen: vi.fn(),
   setzePilot: vi.fn(),
+  hinweiseBestaetigen: vi.fn(),
 }))
 vi.mock('@/lib/supabase/taskAuthoring', () => ({
   getAuthoringTask: vi.fn(),
@@ -92,7 +93,7 @@ const aufgabe = (status: string, lena: PruefAufgabe['aufgabe']['lena_status'], t
     team_beanstandet: team, parts: [], optionen: [], bild_vorhanden: false },
   werte: [{ teil: null, werte: [{ wert: '22,62', schreibweisen: ['22,62'] }] }], mc: null,
   regel: { art: 'wert', mitte: null, toleranz: null, einheit_pflicht: false, einheit: 'm', einheit_am_feld: true },
-  fehler: [], weitere_hinweise: [], flach_regel: true, ohne_erkennung: false, loesungsweg: 'U = 2 · π · 3,6 m',
+  fehler: [], weitere_hinweise: [], hinweise: [{ stufe: 1, text: 'Was gehört in die Formel?', status: 'entwurf' }], flach_regel: true, ohne_erkennung: false, loesungsweg: 'U = 2 · π · 3,6 m',
   fertigkeit: { key: 'geo_kreis_umfang', label: 'Umfang des Kreises', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', stufe: 'zweite', voraussetzungen: [] },
   fertigkeit_optionen: [{ key: 'geo_kreis_umfang', label: 'Umfang des Kreises', gruppe: 'thema' }],
   afb: 'II', afb_sicher: null, ausgang: null, aenderungen: [], letzte_pruefung: null, auffaelligkeiten: [],

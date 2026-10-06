@@ -9,6 +9,8 @@ import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { GRUENDE } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { InfoTip, Taste } from '@/components/edvance/pruefen/InfoTip'
+import { leisteLinks } from '@/components/edvance/pruefen/leistenRand'
+import { useImShell } from '@/components/edvance/shell/shellContext'
 import { cn } from '@/lib/utils'
 import type { LeistenAktion, LeistenKnoepfe } from '@/lib/pruefung/leiste'
 import type { PasstNichtGrund } from '@/types'
@@ -41,6 +43,7 @@ const FELD = 'w-full rounded-[var(--radius-md)] border border-[var(--color-borde
 const PANEL = 'flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4'
 
 export function AdminLeiste(p: Props): JSX.Element {
+  const imShell = useImShell()
   const { t } = useTranslation('pruefenAdmin')
   const { t: tp } = useTranslation('pruefen')
   const [menue, setMenue] = useState(false)
@@ -102,7 +105,7 @@ export function AdminLeiste(p: Props): JSX.Element {
 
   const meldung = lokal ?? p.fehler
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 pb-[calc(12px+env(safe-area-inset-bottom,0px))] pt-3 shadow-elevation-lg">
+    <div className={`fixed right-0 ${leisteLinks(imShell)} bottom-0 z-30 border-t border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 pb-[calc(12px+env(safe-area-inset-bottom,0px))] pt-3 shadow-elevation-lg`}>
       <div className="mx-auto flex max-w-6xl flex-col gap-3">
         {p.rueckfrage && p.panel === null && (
           <div className={PANEL}>

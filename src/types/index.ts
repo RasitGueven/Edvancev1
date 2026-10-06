@@ -272,6 +272,7 @@ export type {
   PruefFehlerWert,
   PruefFehler,
   PruefHinweis,
+  KinderHinweis,
   PruefSicht,
   PruefAenderungFeld,
   PruefAenderung,

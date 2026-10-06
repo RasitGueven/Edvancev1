@@ -112,8 +112,15 @@ select public.erklaer_schritt_speichern(
          (select id from erklaer_kernidee where skill_key = 'fkt_linear_steigung_nur_entwurf'),
          'A', 'erklaerung', 'ENTWURF-E1 Text', null, '{}');
 
--- Hinweis Stufe 2 von check1 geprueft, Stufe 1 bleibt Entwurf.
-select public.hinweis_status_setzen(:'check1', 2, 'geprueft');
+-- Hinweis Stufe 2 von check1 geprueft, Stufe 1 bleibt Entwurf. Seit L5 gibt hinweis_status_setzen
+-- kein geprueft mehr her (nur Freigabe/hinweise_bestaetigen); die Fixture setzt den Schalter wie R1.
+select set_config('edvance.hinweis_status', 'setzen', true);
+update task_solutions
+   set hints = (select jsonb_agg(case when (h ->> 'level')::int = 2 then h || '{"status":"geprueft"}' else h end
+                                 order by o)
+                  from jsonb_array_elements(hints) with ordinality x(h, o))
+ where task_id = :'check1';
+select set_config('edvance.hinweis_status', '', true);
 
 select set_config('request.jwt.claims', '', false);
 \o

@@ -94,6 +94,9 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Session P1 · L5 Kinder-Hinweise prüfen und freigeben** (Retro `2026-10-06-session-l5-hinweise.md`, Branch
+  `feat/rasit-session-l5-hinweise`): Lena sieht und ändert die Hinweise, die Freigabe prüft sie, „Hinweise
+  bestätigen“ für schon freigegebene Aufgaben. Eingespielt 06.10. **Offen:** `docs/session/offene-punkte-l5.md`.
 - **Klasse 10: Exponentialfunktionen, Trigonometrie, Sinusfunktion (W4-k10-rest)** (Retro
   `2026-10-03-k10-rest.md`, Branch `feat/k10-rest`, Befunde `docs/k10-rest/befunde.md`): 15 neue Knoten
   (Tiefe 7–12), 16 neue Fehlbilder, 90 Aufgaben (draft), 6 Einstiege für 3 Themen, Heimat-Themen.

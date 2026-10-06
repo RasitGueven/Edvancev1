@@ -219,7 +219,11 @@
     "herkunft": {
       "lena": "Lena",
       "team": "Team"
-    }
+    },
+    "hinweis": "Hinweis Stufe {{stufe}}: „{{vorher}}“ → „{{nachher}}“",
+    "hinweisNeu": "Hinweis Stufe {{stufe}} ergänzt: „{{nachher}}“",
+    "hinweisWeg": "Hinweis Stufe {{stufe}} entfernt: „{{vorher}}“",
+    "hinweisStatus": "Hinweis Stufe {{stufe}}: {{vorher}} → {{nachher}}"
   },
   "leiste": {
     "allesVorbefuellt": "Alles ist vorbefüllt. Wenn es stimmt: „Passt“.",
@@ -253,6 +257,8 @@
     "sprache_zu_schwer": "Sprachlich zu schwer für Kinder",
     "tablet_umbauen": "Am Tablet so nicht beantwortbar, bitte umbauen",
     "passt_nicht_in_lsa": "Passt nicht in eine Lernstandsanalyse",
+    "hinweis_verraet_loesung": "Ein Hinweis verrät die Lösung",
+    "hinweis_passt_nicht": "Ein Hinweis passt nicht zur Aufgabe",
     "sonstiges": "Sonstiges"
   },
   "meldung": {
@@ -288,7 +294,10 @@
     "grund_unbekannt": "Diesen Grund gibt es nicht.",
     "nicht_bewertet": "Die Aufgabe ist noch nicht bewertet.",
     "keine_rueckfrage": "Zu dieser Aufgabe gibt es keine Rückfrage.",
-    "team_beanstandet": "Vom Team beanstandet, wird überarbeitet."
+    "team_beanstandet": "Vom Team beanstandet, wird überarbeitet.",
+    "hinweis_ungueltig": "Diesen Hinweis kann das System so nicht speichern.",
+    "hinweis_zu_lang": "Ein Hinweis darf höchstens 500 Zeichen haben.",
+    "hinweis_luecke": "Die Hinweise brauchen Stufe 1, 2, 3 ohne Lücke."
   },
   "info": {
     "erklaerung": "Erklärung: {{was}}",
@@ -419,6 +428,36 @@
       "testen": "Antwort ausprobieren",
       "hilfsmittel": "Hilfsmittel",
       "entscheidung": "Was passiert nach der Bewertung?"
+    },
+    "hinweise": [
+      {
+        "t": "Das Kind holt sich einen Hinweis selbst, Stufe für Stufe. Stufe 1 gibt einen kleinen Anstoß, jede weitere hilft etwas mehr. Die Lösung steht in keinem Hinweis."
+      },
+      {
+        "t": "Verrät ein Hinweis die Lösung oder passt er nicht zur Aufgabe: ändern oder bei „Passt nicht“ den Grund wählen. Geänderte Hinweise sind Entwurf, bis die Aufgabe freigegeben wird."
+      }
+    ]
+  },
+  "hinweise": {
+    "titel": "Hinweise für das Kind",
+    "sub": "So bekommt das Kind sie: erst Stufe 1, auf Wunsch Stufe 2 und dann 3. Jede Stufe hilft ein Stück weiter, keine verrät die Lösung.",
+    "keine": "Für diese Aufgabe gibt es noch keine Hinweise.",
+    "keineLesend": "Für diese Aufgabe gibt es keine Hinweise.",
+    "stufe": "Stufe {{stufe}}",
+    "feld": "Hinweis Stufe {{stufe}}",
+    "platzhalter": "Was hilft dem Kind beim nächsten Schritt?",
+    "zeichen": "{{count}} von {{max}} Zeichen",
+    "entfernen": "Entfernen",
+    "entfernenLabel": "Hinweis Stufe {{stufe}} entfernen",
+    "ergaenzen": "+ Hinweis Stufe {{stufe}} ergänzen",
+    "voll": "Mehr als drei Stufen gibt es nicht.",
+    "status": {
+      "entwurf": "Entwurf",
+      "geprueft": "Geprüft"
+    },
+    "statusInfo": {
+      "entwurf": "Das Kind bekommt diesen Hinweis noch nicht. Er wird mit der Freigabe der Aufgabe geprüft.",
+      "geprueft": "Geprüft: Das Kind bekommt diesen Hinweis."
     }
   }
 }

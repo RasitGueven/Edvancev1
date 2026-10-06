@@ -40,6 +40,8 @@ export type FilterState = {
   table: TriFilter
   /** 'nicht' = nur Aufgaben, die nicht bei Lena erscheinen (pruef_ausschluss, Lena-Board). */
   lena: 'all' | 'nicht'
+  /** 'ungeprueft' = nur Aufgaben mit Kinder-Hinweisen, die nicht geprueft sind (pruef_admin_liste, L5). */
+  hinweise: 'all' | 'ungeprueft'
   sort: SortKey
 }
 
@@ -61,6 +63,7 @@ export const EMPTY_FILTERS: FilterState = {
   asset: 'all',
   table: 'all',
   lena: 'all',
+  hinweise: 'all',
   sort: 'flags',
 }
 
@@ -281,6 +284,18 @@ export function AuthoringFilters({
             {t('lena.filterNichtBeiLena')}: {t('filter.all')}
           </option>
           <option value="nicht">{t('lena.filterNichtBeiLena')}</option>
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.hinweise}
+          aria-label={t('lena.filterHinweise')}
+          onChange={(e) => set('hinweise', e.target.value as FilterState['hinweise'])}
+        >
+          <option value="all">
+            {t('lena.filterHinweise')}: {t('filter.all')}
+          </option>
+          <option value="ungeprueft">{t('lena.filterHinweise')}</option>
         </select>
 
         <select

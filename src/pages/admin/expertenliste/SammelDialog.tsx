@@ -123,7 +123,7 @@ export function SammelDialog({ aktion, ids, zeile, lena, fertigkeiten, onClose, 
             ))}
           </div>
         )}
-        {(aktion === 'fertigkeit' || aktion === 'afb' || aktion === 'ausschliessen') && (
+        {(aktion === 'fertigkeit' || aktion === 'afb' || aktion === 'ausschliessen' || aktion === 'hinweise_bestaetigen') && (
           <label className="flex flex-col gap-2 text-sm font-semibold">
             {t(aktion === 'ausschliessen' ? 'sammel.grundPflichtLabel' : 'sammel.grundOptional')}
             <input className={FELD} value={werte.grund ?? ''} placeholder={aktion === 'ausschliessen' ? t('sammel.grundPlatzhalter') : undefined}
