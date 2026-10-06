@@ -8,6 +8,7 @@ import { useImShell } from '@/components/edvance/shell/shellContext'
 import { ReportBody } from '@/components/edvance/report/ReportBody'
 import { ReportOutlook } from '@/components/edvance/report/ReportOutlook'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/hooks/useAuth'
 import { getReportData } from '@/lib/supabase/lsaReport'
 import {
   EMPTY_NOTES,
@@ -21,7 +22,8 @@ import { AltRahmen } from './akten/AltRahmen'
  * Eltern-Report zu einer LSA-Sitzung (/admin/report/:sessionId).
  *
  * Read-only gegenüber den Sitzungsdaten — geschrieben werden ausschließlich die
- * zwei Coach-Freitexte im Ausblick. Die Bewertung richtig/falsch stammt aus
+ * zwei Freitexte im Ausblick, seit X0 nur vom Admin (Entscheidung 26: Coaches
+ * lesen Reports, schreiben sie nicht). Die Bewertung richtig/falsch stammt aus
  * lsa_responses.correct (serverseitig gesetzt); Lösungen erreichen den Client
  * nie.
  */
@@ -29,6 +31,7 @@ export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { t } = useTranslation('report')
   const imShell = useImShell()
+  const { role } = useAuth()
 
   const [data, setData] = useState<ReportData | null>(null)
   const [notes, setNotes] = useState<ReportNotes>(EMPTY_NOTES)
@@ -125,6 +128,7 @@ export function ReportPage(): JSX.Element {
               saving={saving}
               saved={saved}
               unavailable={notesUnavailable}
+              nurLesen={role !== 'admin'}
             />
           </>
         )

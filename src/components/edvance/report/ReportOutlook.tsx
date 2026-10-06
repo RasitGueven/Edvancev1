@@ -18,6 +18,8 @@ interface ReportOutlookProps {
   saved: boolean
   /** true, solange die Ablage-Migration fehlt — Felder bleiben lesbar. */
   unavailable: boolean
+  /** Coach: liest den Ausblick, schreibt ihn nicht (Entscheidung 26). */
+  nurLesen?: boolean
 }
 
 export function ReportOutlook({
@@ -28,6 +30,7 @@ export function ReportOutlook({
   saving,
   saved,
   unavailable,
+  nurLesen = false,
 }: ReportOutlookProps): JSX.Element {
   const { t } = useTranslation('report')
 
@@ -57,7 +60,7 @@ export function ReportOutlook({
           id="report-zielbild"
           className={fieldClass}
           value={notes.zielbild}
-          disabled={unavailable}
+          disabled={unavailable || nurLesen}
           placeholder={t('outlook.goalPlaceholder', { name })}
           onChange={(e) => onChange({ ...notes, zielbild: e.target.value })}
         />
@@ -74,7 +77,7 @@ export function ReportOutlook({
           id="report-empfehlung"
           className={fieldClass}
           value={notes.empfehlung}
-          disabled={unavailable}
+          disabled={unavailable || nurLesen}
           placeholder={t('outlook.recommendationPlaceholder')}
           onChange={(e) => onChange({ ...notes, empfehlung: e.target.value })}
         />
@@ -91,7 +94,7 @@ export function ReportOutlook({
               <button
                 key={paket}
                 type="button"
-                disabled={unavailable}
+                disabled={unavailable || nurLesen}
                 aria-pressed={active}
                 onClick={() =>
                   onChange({ ...notes, paket: active ? null : paket })
@@ -114,16 +117,18 @@ export function ReportOutlook({
         )}
       </div>
 
-      <div className="print-hide flex items-center gap-3">
-        <Button type="button" onClick={onSave} disabled={unavailable || saving}>
-          {saving ? t('outlook.saving') : t('outlook.save')}
-        </Button>
-        {saved && !saving && (
-          <span className="text-xs font-medium text-[var(--color-success)]">
-            {t('outlook.saved')}
-          </span>
-        )}
-      </div>
+      {!nurLesen && (
+        <div className="print-hide flex items-center gap-3">
+          <Button type="button" onClick={onSave} disabled={unavailable || saving}>
+            {saving ? t('outlook.saving') : t('outlook.save')}
+          </Button>
+          {saved && !saving && (
+            <span className="text-xs font-medium text-[var(--color-success)]">
+              {t('outlook.saved')}
+            </span>
+          )}
+        </div>
+      )}
     </section>
   )
 }
