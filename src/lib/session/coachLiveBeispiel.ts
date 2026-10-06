@@ -142,7 +142,7 @@ export const BEISPIEL_THEMA_LIVE = 'linfkt'
 export const BEISPIEL_BRIEFING: Record<string, LiveBriefing> = {
   mila: {
     tags: [{ art: 'mastery' }],
-    thema: { label: 'Satz des Pythagoras', quelle: 'schulthema', seit: uhr('16:30', 15) },
+    thema: { label: 'Satz des Pythagoras', quelle: 'schulthema', seit: '2026-09-15' },
     plan: { skill: 'Kathete berechnen', art: 'neu' },
     imBlick: 'Hypotenuse berechnen saß am 29.09. ohne Hinweis. Heute prüfen, ob es hält.',
     notiz: { text: 'Arbeitet zügig und erklärt gern laut, was sie rechnet.', von: 'Sara', am: '2026-09-29' },
@@ -150,7 +150,7 @@ export const BEISPIEL_BRIEFING: Record<string, LiveBriefing> = {
   },
   emir: {
     tags: [{ art: 'signale', anzahl: 3, am: '2026-09-29' }],
-    thema: { label: 'Terme und Gleichungen', quelle: 'schulthema', seit: uhr('16:30', 22) },
+    thema: { label: 'Terme und Gleichungen', quelle: 'schulthema', seit: '2026-09-22' },
     plan: { skill: 'Klammern ausmultiplizieren', art: 'weiter' },
     imBlick: 'Zweimal dasselbe Fehlbild: Minus vor der Klammer nur beim ersten Summanden.',
     notiz: { text: 'Beim Vorzeichen braucht er einen Moment. Nicht vorrechnen.', von: 'Sara', am: '2026-09-29' },
@@ -158,7 +158,7 @@ export const BEISPIEL_BRIEFING: Record<string, LiveBriefing> = {
   },
   jonas: {
     tags: [],
-    thema: { label: 'Proportionale Zuordnungen', quelle: 'erstgespraech', seit: uhr('16:30', 8) },
+    thema: { label: 'Proportionale Zuordnungen', quelle: 'erstgespraech', seit: '2026-09-08' },
     plan: { skill: 'Proportionale Zuordnungen', art: 'festigen' },
     imBlick: 'Das Schulthema ist seit dem Erstgespräch nicht bestätigt. Im Check-in nachfragen.',
     notiz: { text: 'Liest Aufgaben schnell, manchmal zu schnell.', von: 'Sara', am: '2026-09-29' },

@@ -88,37 +88,42 @@ export function DanachAnsicht(): JSX.Element {
     ['quests', von(z.questTermine, z.anwesend)],
   ]
 
+  // Kinder ohne Tablet zuerst, solange etwas zu bestaetigen ist; sonst wie im Dummy nach den offenen Punkten.
+  const ohneTabletAbschnitt = (
+    <Abschnitt titel={tx.t('danach.ohneTablet')} zusatz={ohneTablet.length > 0 ? tx.t('danach.ohneTabletHilfe') : undefined}>
+      <EdvanceCard className="p-0 hover:shadow-xs">
+        {ohneTablet.length === 0 ? (
+          <p className="flex items-center gap-2 px-4 py-4 text-sm font-medium text-[var(--color-success)]">
+            <CheckCircle2 className="h-5 w-5" aria-hidden />
+            {tx.t('danach.alleMitTablet')}
+          </p>
+        ) : (
+          <ul className="divide-y divide-[var(--color-bg-subtle)]" data-testid="ohne-tablet">
+            {ohneTablet.map((k) => (
+              <Zeile
+                key={k.id}
+                p={{
+                  icon: Tablet, warn: !k.nichtErschienen, titel: k.name, text: tx.t('raster.klasse', { klasse: k.klasse }),
+                  aktion: k.nichtErschienen ? (
+                    <Pille>{tx.t('danach.bestaetigt')}</Pille>
+                  ) : (
+                    <Button size="md" variant="outline" disabled={!!fertig} onClick={() => void ausfuehren(nichtErschienenBestaetigen(sessionId, k.id))}>
+                      {tx.t('danach.bestaetigen')}
+                    </Button>
+                  ),
+                }}
+              />
+            ))}
+          </ul>
+        )}
+      </EdvanceCard>
+    </Abschnitt>
+  )
+
   return (
     <div className="grid items-start gap-6 @min-[900px]:grid-cols-[minmax(0,1fr)_360px]">
       <div className="flex min-w-0 flex-col gap-6">
-        <Abschnitt titel={tx.t('danach.ohneTablet')} zusatz={ohneTablet.length > 0 ? tx.t('danach.ohneTabletHilfe') : undefined}>
-          <EdvanceCard className="p-0 hover:shadow-xs" >
-            {ohneTablet.length === 0 ? (
-              <p className="flex items-center gap-2 px-4 py-4 text-sm font-medium text-[var(--color-success)]">
-                <CheckCircle2 className="h-5 w-5" aria-hidden />
-                {tx.t('danach.alleMitTablet')}
-              </p>
-            ) : (
-              <ul className="divide-y divide-[var(--color-bg-subtle)]" data-testid="ohne-tablet">
-                {ohneTablet.map((k) => (
-                  <Zeile
-                    key={k.id}
-                    p={{
-                      icon: Tablet, warn: !k.nichtErschienen, titel: k.name, text: tx.t('raster.klasse', { klasse: k.klasse }),
-                      aktion: k.nichtErschienen ? (
-                        <Pille>{tx.t('danach.bestaetigt')}</Pille>
-                      ) : (
-                        <Button size="md" variant="outline" disabled={!!fertig} onClick={() => void ausfuehren(nichtErschienenBestaetigen(sessionId, k.id))}>
-                          {tx.t('danach.bestaetigen')}
-                        </Button>
-                      ),
-                    }}
-                  />
-                ))}
-              </ul>
-            )}
-          </EdvanceCard>
-        </Abschnitt>
+        {ohneTablet.length > 0 && ohneTabletAbschnitt}
         <Abschnitt titel={tx.t('danach.vorAbschluss')} zusatz={tx.t('danach.punkte', { count: punkte.length })}>
           <EdvanceCard className="p-0 hover:shadow-xs">
             <ul className="divide-y divide-[var(--color-bg-subtle)]">
@@ -128,6 +133,7 @@ export function DanachAnsicht(): JSX.Element {
             </ul>
           </EdvanceCard>
         </Abschnitt>
+        {ohneTablet.length === 0 && ohneTabletAbschnitt}
       </div>
       <aside>
         <Abschnitt titel={tx.t('danach.akte')}>

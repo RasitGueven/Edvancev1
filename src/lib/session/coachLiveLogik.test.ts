@@ -14,6 +14,7 @@ import {
 import {
   eingriffAbsendbar,
   sortiereWarteschlange,
+  themaAltWochen,
   vertagenAbsendbar,
   zeitleisteAusSnapshot,
   zielSatz,
@@ -112,5 +113,14 @@ describe('4 nicht absendbar', () => {
     expect(res.error).toBe('grundPflicht')
     const raum = (await ladeRaumLive('s1')).data
     expect(raum?.kinder.find((k) => k.id === 'mila')?.masteryKandidat?.entscheidung).toBeNull()
+  })
+})
+
+describe('Briefing: Schulthema zum Nachfragen markieren', () => {
+  it('erst wenn es älter als thema_alt_tage ist', () => {
+    const jetzt = '2026-10-06T14:20:00.000Z'
+    expect(themaAltWochen('2026-09-08', jetzt, 21)).toBe(4)
+    expect(themaAltWochen('2026-09-15', jetzt, 21)).toBeNull()
+    expect(themaAltWochen(null, jetzt, 21)).toBeNull()
   })
 })
