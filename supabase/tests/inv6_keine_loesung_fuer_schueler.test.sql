@@ -66,7 +66,7 @@ insert into task_solutions (task_id, correct_answers, solution, hints, typical_e
   (:'tid',
    format('["%s"]', :'sentinel')::jsonb,
    :'sentinel',
-   '[{"level":1,"text":"Denk an die Einheit."}]'::jsonb,
+   '[{"level":1,"text":"Denk an die Einheit.","status":"geprueft"}]'::jsonb,
    '[]'::jsonb);
 
 create or replace function pg_temp.act_as(uid uuid) returns void language plpgsql as $$
