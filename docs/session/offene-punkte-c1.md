@@ -38,6 +38,9 @@ Stand 06.10.2026, Branch `feat/rasit-session-c1-coach-live`. Jeder Punkt: was, w
     `abgeschlossen` (i18n `coachLive:fehler.*`). R1/A1 liefern SQLSTATE (22023, 42501, …). Wer: C2 bildet sie ab.
 11. **Zurück-Knopf „Heute“** führt Coaches nach `/coach`, Admins nach `/admin`. Ein Link von der Coach-Startseite
     in die Live-Sicht fehlt noch. Wer: H6 (Coach-Hülle) bzw. C2.
+    Stand nach H6 (#220): Die Route steht außerhalb jeder Layout-Route; `istFokusSeite` (`/coach/session/`) hält sie
+    zusätzlich ohne Leiste, falls sie einmal hineinwandert. Ein Link aus Coach-Startseite oder Leiste fehlt weiter.
+    `coachLiveRoute.test.tsx` prüft das gegen die echte Routentabelle aus `App.tsx`.
 12. **Gemeinsame Komponente angepasst.** `src/pages/admin/intake/ThemaSuche.tsx` hat zwei optionale Props bekommen
     (`startEingabe`, `inputId`), damit die Suche im Check-in mit dem Stichwort des Kindes öffnet. Das Erstgespräch
     verhält sich unverändert.
