@@ -54,7 +54,7 @@ Stand 06.10.2026, Branch `feat/rasit-session-e1-erklaersequenz`. Verdrahtung mit
     am 06.10. bestätigt: so gewollt, nur ohne Lösung, Urteil und Fehlbild.
 16. **Löschen**: Rasit hat am 06.10. entschieden:
     - Wird ein Kind gelöscht (DSGVO), geht der Fortschritt per Kaskade mit (`pg_trigger_depth() > 1`, Test 5e).
-    - Eine Session mit Lernverlauf ist nicht löschbar (`on delete restrict`, 23001, Test 5d).
+    - Eine Session mit Lernverlauf ist nicht löschbar (`on delete restrict`, Test 5d).
 17. **Freigabe nach Änderung**: Ändern sich die Checks einer Kernidee, fällt sie auf entwurf. Ändern sich die
     Formel-Hashes eines freigegebenen Schritts, fällt er auf geprueft und braucht eine neue Freigabe.
 18. **`bild.url`** muss mit `https://` beginnen (`erklaer_bild_gueltig`).

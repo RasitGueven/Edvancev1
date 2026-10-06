@@ -159,8 +159,9 @@ select throws_ok($$insert into erklaer_kernidee (skill_key, nr, titel) values ('
 reset role;
 
 -- Session mit Lernverlauf: nicht loeschbar. Kind geloescht: Fortschritt geht per Kaskade mit.
-select throws_ok(format($f$delete from coaching_sessions where id = %L$f$, :'session_id'),
-  '23001', null, '5d Session mit Lernverlauf ist nicht loeschbar (restrict)');
+-- Postgres 16 (CI) meldet 23503, ab 18 kommt 23001: deshalb der Constraint-Name statt des Codes.
+select throws_matching(format($f$delete from coaching_sessions where id = %L$f$, :'session_id'),
+  'erklaer_fortschritt_session_id_fkey', '5d Session mit Lernverlauf ist nicht loeschbar (restrict)');
 delete from lsa_sessions where student_id = :'kind_id';
 delete from students where id = :'kind_id';
 select is((select count(*)::int from erklaer_fortschritt where student_id = :'kind_id'), 0,
