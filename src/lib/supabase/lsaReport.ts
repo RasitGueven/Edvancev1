@@ -35,10 +35,11 @@ type SessionRow = {
   started_at: string | null
   completed_at: string | null
   created_at: string
+  testlauf: boolean
 }
 
 const SESSION_COLS =
-  'id, student_id, subject, grade, status, item_ids, started_at, completed_at, created_at'
+  'id, student_id, subject, grade, status, item_ids, started_at, completed_at, created_at, testlauf'
 
 // Was der Report vom Lead braucht — ohne Kontaktdaten.
 type LeadKontext = {
@@ -107,6 +108,8 @@ export async function listTodaysLsaSessions(): Promise<
       .from('lsa_sessions')
       .select(SESSION_COLS)
       .gte('created_at', since.toISOString())
+      // Testlaeufe zaehlen in keiner Kennzahl (Entscheidung 27).
+      .eq('testlauf', false)
       .order('created_at', { ascending: false })
     if (error) return { data: null, error: error.message }
 
@@ -272,6 +275,7 @@ export async function getReportData(
         subject: row.subject,
         status: row.status,
         analysedAt: row.completed_at ?? row.started_at ?? row.created_at,
+        testlauf: row.testlauf === true,
         aufgaben,
         naechstesThema: await naechstesThemaAus(kontext),
         parentAssessment,

@@ -34,7 +34,7 @@ import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { PruefenUebersichtPage } from '@/pages/coach/pruefen/PruefenUebersichtPage'
 import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
 import { ClusterView } from '@/pages/student/ClusterView'
-import { TaskPlayer } from '@/pages/student/TaskPlayer'
+import { TaskPlayerStillgelegt } from '@/pages/student/TaskPlayerStillgelegt'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
 import { AdminLayout } from '@/components/edvance/admin/AdminLayout'
 import { ThemePanel } from '@/components/edvance/ThemePanel'
@@ -71,7 +71,8 @@ export default function App(): JSX.Element {
           path="/student/task/:taskId"
           element={
             <ProtectedRoute allowedRoles={['student']}>
-              <TaskPlayer />
+              {/* Web-TaskPlayer stillgelegt (Session-Rahmen P1, Entscheidung 24). */}
+              <TaskPlayerStillgelegt />
             </ProtectedRoute>
           }
         />
@@ -119,7 +120,8 @@ export default function App(): JSX.Element {
         <Route
           path="/coach/reports"
           element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+            // Eltern-Reports schreibt nur der Admin (S2b, Entscheidung 26).
+            <ProtectedRoute allowedRoles={['admin']}>
               <ReportsPage />
             </ProtectedRoute>
           }

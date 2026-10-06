@@ -64,7 +64,8 @@
     "terminAt": "{{date}} · {{location}}",
     "editTermin": "Termin ändern",
     "terminBestaetigung": "Terminbestätigung senden",
-    "rejectedReason": "Abgelehnt: {{reason}}"
+    "rejectedReason": "Abgelehnt: {{reason}}",
+    "testkonto": "Testkonto · zählt nicht"
   },
   "termin": {
     "title": "Termin vereinbaren",

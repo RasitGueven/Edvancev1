@@ -41,6 +41,8 @@ export async function listSessionsHeute(now: Date = new Date()): Promise<Supabas
       .select('id, scheduled_at, room, coach_id, coach:profiles!coaching_sessions_coach_id_fkey(full_name), session_students(attendance)')
       .gte('scheduled_at', von)
       .lt('scheduled_at', bis)
+      // Testlaeufe zaehlen in keiner Kennzahl (Entscheidung 27).
+      .eq('testlauf', false)
       .order('scheduled_at', { ascending: true })
     if (error) return { data: null, error: error.message }
     type Coach = { full_name: string | null }

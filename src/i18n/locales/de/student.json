@@ -175,5 +175,10 @@
       "doneTitle": "Quest übernommen",
       "doneSubtitle": "Bis bald — wir sehen uns nächste Session."
     }
+  },
+  "taskPlayerStillgelegt": {
+    "title": "Hier geht es nicht mehr weiter",
+    "body": "Aufgaben bearbeitest du jetzt in deiner Session am Tablet, zusammen mit deinem Coach.",
+    "back": "Zur Übersicht"
   }
 }
