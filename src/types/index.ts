@@ -308,6 +308,25 @@ export type {
 } from './pruefungAdmin'
 
 export type {
+  LernpfadStandSystem,
+  LernpfadStandCoach,
+  LernpfadQuelle,
+  BelegErgebnis,
+  LernpfadSessionBeleg,
+  LernpfadEintrag,
+  ZielRolle,
+  ZielStand,
+  ZielFertigkeit,
+  NaechsteLuecke,
+  SkillPruefung,
+  MeinLernpfadEintrag,
+  LernpfadUebernahme,
+  MasteryEntscheidung,
+  PfadAnlass,
+  MasteryVorschlag,
+} from './lernpfad'
+
+export type {
   SessionPhase,
   SessionFall,
   Stimmung,

@@ -171,6 +171,8 @@ export type ReportData = {
   erzaehlung: ReportErzaehlung
   /** Aufgaben, nicht Antwortzeilen: zwei Teilaufgaben eines Items sind eine. */
   aufgaben: number
+  /** LSA als Testlauf (Entscheidung 27) — der Report zeigt ein Banner. */
+  testlauf: boolean
   /** leads.next_exam_topic — das Thema, an dem die Analyse angesetzt hat. */
   naechstesThema: string | null
 }

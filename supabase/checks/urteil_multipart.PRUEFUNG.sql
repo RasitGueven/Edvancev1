@@ -33,8 +33,10 @@ begin
   -- ══ Testdaten ═════════════════════════════════════════════════════════════
 
   insert into auth.users (id, email) values (v_coach, 'af7-coach@edvance.test');
+  -- Seit X0 (Entscheidung 26) liest ein Coach LSA-Daten nur bei laufendem
+  -- Vertrag; das Probe-Kind hat keinen. Gepruefte Rolle daher Admin.
   insert into public.profiles (id, email, role)
-    values (v_coach, 'af7-coach@edvance.test', 'coach');
+    values (v_coach, 'af7-coach@edvance.test', 'admin');
   perform set_config('request.jwt.claim.sub', v_coach::text, true);
 
   -- Eigener Skill je Item, damit sich die Urteile nicht ueberlagern.

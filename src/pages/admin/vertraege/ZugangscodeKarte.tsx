@@ -2,6 +2,7 @@ import { KeyRound } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
 import { formatDateOnly } from '@/lib/datetime'
+import { ZugangscodeFeld } from './ZugangscodeFeld'
 
 type ZugangscodeKarteProps = {
   code: string
@@ -12,7 +13,8 @@ type ZugangscodeKarteProps = {
 /**
  * Der Zugangscode entsteht im Moment des Abschlusses, nie vorher
  * (Anforderung E.15). Er steht hier gross, weil er vorgelesen oder
- * abgeschrieben wird — das Alphabet kennt kein O, I, L, 0 und 1.
+ * abgeschrieben wird — das Alphabet kennt kein O, I, L, 0 und 1. Angezeigt
+ * wird er maskiert wie die IBAN, voll erst auf Klick (Entscheidung 25).
  */
 export function ZugangscodeKarte({ code, erzeugtAm, gesperrtAm }: ZugangscodeKarteProps): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
@@ -24,9 +26,7 @@ export function ZugangscodeKarte({ code, erzeugtAm, gesperrtAm }: ZugangscodeKar
           {t('code.title')}
         </h2>
       </div>
-      <p className="font-mono text-3xl font-bold tracking-widest text-[var(--color-text-primary)]">
-        {code}
-      </p>
+      <ZugangscodeFeld code={code} />
       {gesperrtAm ? (
         <p className="text-sm text-[var(--color-error-exam)]">
           {t('code.blocked', { date: formatDateOnly(gesperrtAm, i18n.language) })}

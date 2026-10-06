@@ -54,6 +54,14 @@ describe('heuteModel', () => {
     expect(r.map((l) => l.id)).toEqual(['fertig', 'frei'])
   })
 
+  it('Test-Leads zählen nicht (Entscheidung 27)', () => {
+    const r = lsaLeads([
+      lead('echt', { status: 'lsa_fertig', lsa_fertig_at: '2026-10-04T08:00:00Z' }),
+      lead('test', { status: 'lsa_fertig', lsa_fertig_at: '2026-10-03T08:00:00Z', ist_test: true }),
+    ])
+    expect(r.map((l) => l.id)).toEqual(['echt'])
+  })
+
   it('offene Anträge ohne abgelehnte und abgeschlossene', () => {
     const v = (id: string, status: string): VertragMitLead => ({ id, status, created_at: '2026-10-01' }) as VertragMitLead
     const r = offeneAntraege([v('a', 'in_vorbereitung'), v('b', 'abgelehnt'), v('c', 'unterschrift_ausstehend'), v('d', 'abgeschlossen')])
