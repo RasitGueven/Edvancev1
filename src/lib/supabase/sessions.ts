@@ -139,19 +139,20 @@ export async function listUpcomingSessionsForStudent(
 
 // Anwesenheit in der Session setzen: nur 'present' oder 'unexcused'
 // ("nicht erschienen"). Neue Teilnahmen starten als 'planned' (DB-Default).
+// Seit R1 schreibt ein Coach session_students nicht mehr direkt (RLS nur
+// SELECT), sondern ueber die RPC anwesenheit_setzen (abgesagte Buchungen
+// aendert nur ein Admin).
 export async function setAttendance(
   sessionId: string,
   studentId: string,
   attendance: SessionAttendance,
 ): Promise<SupabaseResult<SessionStudent>> {
   try {
-    const { data, error } = await supabase
-      .from('session_students')
-      .update({ attendance })
-      .eq('session_id', sessionId)
-      .eq('student_id', studentId)
-      .select('*')
-      .single()
+    const { data, error } = await supabase.rpc('anwesenheit_setzen', {
+      p_session_id: sessionId,
+      p_student_id: studentId,
+      p_attendance: attendance,
+    })
     if (error) return { data: null, error: error.message }
     return { data: data as SessionStudent, error: null }
   } catch (err) {

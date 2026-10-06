@@ -160,6 +160,9 @@ reset role;
 
 -- Session mit Lernverlauf: nicht loeschbar. Kind geloescht: Fortschritt geht per Kaskade mit.
 -- Postgres 16 (CI) meldet 23503, ab 18 kommt 23001: deshalb der Constraint-Name statt des Codes.
+-- Als Systemaufruf: Seit R1 (20261007110200, coaching_sessions_loeschschutz) loescht eine
+-- gestartete Session nur Admin oder System; geprueft wird hier der Fremdschluessel dahinter.
+select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
 select throws_matching(format($f$delete from coaching_sessions where id = %L$f$, :'session_id'),
   'erklaer_fortschritt_session_id_fkey', '5d Session mit Lernverlauf ist nicht loeschbar (restrict)');
 delete from lsa_sessions where student_id = :'kind_id';
