@@ -212,6 +212,7 @@ export function AuthoringItemsPage(): JSX.Element {
     filters.status !== 'all' ? t(`status.${filters.status}`) : null,
     filters.thema !== 'all' ? themen.find((th) => th.key === filters.thema)?.label ?? null : null,
     filters.lena === 'nicht' ? t('lena.filterNichtBeiLena') : null,
+    filters.hinweise === 'ungeprueft' ? t('lena.filterHinweise') : null,
     filters.search.trim() ? `„${filters.search.trim()}“` : null,
   ].filter(Boolean).join(' · ')
   const pruefen = (ids: string[], auswahlReihe: boolean, startId?: string): void => {

@@ -17,6 +17,8 @@ export type PasstNichtGrund =
   | 'sprache_zu_schwer'
   | 'tablet_umbauen'
   | 'passt_nicht_in_lsa'
+  | 'hinweis_verraet_loesung'
+  | 'hinweis_passt_nicht'
   | 'sonstiges'
 
 /** Eine Zeile aus pruef_board(), in der Reihenfolge aus Entscheidung 14. */
@@ -61,6 +63,9 @@ export type PruefFehler = {
 
 export type PruefHinweis = { error: string; socratic_question?: string }
 
+/** Ein Kinder-Hinweis (task_solutions.hints) in Stufenreihenfolge, mit Pruefstatus (E1, L5). */
+export type KinderHinweis = { stufe: number; text: string; status: 'entwurf' | 'geprueft' }
+
 /** pruef_sicht: eine Fassung so, wie Lena sie sieht. */
 export type PruefSicht = {
   werte: PruefWerteTeil[]
@@ -68,6 +73,8 @@ export type PruefSicht = {
   regel: PruefRegel | null
   fehler: PruefFehler[]
   weitere_hinweise: PruefHinweis[]
+  /** null bei einer Ausgangsfassung von vor L5 (ohne hints). */
+  hinweise?: KinderHinweis[] | null
   skill_key: string | null
   afb: Afb | null
   flach_regel: boolean
@@ -81,6 +88,8 @@ export type PruefAenderungFeld =
   | 'typischer_fehler'
   | 'fertigkeit'
   | 'anforderungsbereich'
+  | 'hinweis'
+  | 'hinweis_status'
 
 /** Ein Eintrag aus task_pruefungen.aenderungen. vorher/nachher je nach Feld. */
 export type PruefAenderung = {
@@ -155,6 +164,8 @@ export type PruefAufgabe = {
   regel: PruefRegel | null
   fehler: PruefFehler[]
   weitere_hinweise: PruefHinweis[]
+  /** Kinder-Hinweise in Stufenreihenfolge, wie das Kind sie bekommt (L5). */
+  hinweise: KinderHinweis[]
   flach_regel: boolean
   ohne_erkennung: boolean
   loesungsweg: string | null
@@ -183,10 +194,13 @@ export type PruefEntwurf = {
   fehler: { slug: string; werte: PruefFehlerWert[]; text: string | null }[]
   skill_key: string | null
   afb: Afb | null
+  /** Kinder-Hinweise; leerer Text fehlt. Ohne Schluessel bleiben die Hinweise, wie sie sind. */
+  hinweise?: { stufe: number; text: string }[]
 }
 
 export type PruefSpeichernAntwort = {
   pruef_version: number
+  hinweise?: KinderHinweis[]
   auffaelligkeiten: PruefAuffaelligkeit[]
   aenderungen: PruefAenderung[]
 }
@@ -230,6 +244,9 @@ export type PruefAdminZeile = {
   ausschluss_grund: string | null
   ausschluss_von: string | null
   ausschluss_am: string | null
+  /** Kinder-Hinweise der Aufgabe und davon nicht geprueft (L5, Filter „Hinweise ungeprüft“). */
+  hinweise: number
+  hinweise_ungeprueft: number
 }
 
 export type Fehlbild = { slug: string; klartext: string | null }

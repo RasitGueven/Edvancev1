@@ -12,6 +12,7 @@ import { PruefKopf } from '@/components/edvance/pruefen/PruefKopf'
 import { RichtigeAntwort } from '@/components/edvance/pruefen/RichtigeAntwort'
 import { AntwortTesten, Loesungsweg, RegelBlock } from '@/components/edvance/pruefen/RegelUndTesten'
 import { TypischeFehler } from '@/components/edvance/pruefen/TypischeFehler'
+import { KinderHinweise } from '@/components/edvance/pruefen/KinderHinweise'
 import { AenderungenBox, Einordnung } from '@/components/edvance/pruefen/Einordnung'
 import {
   Auffaelligkeiten, EntscheidungsMeldung, Entscheidungsleiste, type Panel,
@@ -213,6 +214,8 @@ export function PruefansichtPage(): JSX.Element {
                 </section>
                 <TypischeFehler aufgabe={a} b={s.b} fehlbilder={fehlbilder} geaendert={felder.has('fehler')} lesend={lesend}
                   onChange={s.aendern} onZurueck={() => zuruecksetzen('fehler')} />
+                <KinderHinweise geladen={a.hinweise} b={s.b} geaendert={felder.has('hinweise')} lesend={lesend}
+                  onChange={s.aendern} onZurueck={() => zuruecksetzen('hinweise')} />
                 <Einordnung aufgabe={a} b={s.b} ausgang={s.ausgang} fertigkeitGeaendert={felder.has('fertigkeit')}
                   afbGeaendert={felder.has('afb')} lesend={lesend} onChange={s.aendern} onZurueck={zuruecksetzen} />
                 <AenderungenBox aenderungen={aenderungen} namen={namen} mc={a.aufgabe.input_type === 'MC'}

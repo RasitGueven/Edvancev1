@@ -11,6 +11,7 @@ import type {
   PruefFehlerWert,
   PruefSicht,
 } from '@/types'
+import { hinweisAenderungen, hinweiseFuerEntwurf, hinweiseGleich } from './hinweise'
 
 export type FehlerZeile = {
   slug: string
@@ -29,11 +30,13 @@ export type Bearbeitung = {
   fehler: FehlerZeile[]
   skill_key: string | null
   afb: Afb | null
+  /** Kinder-Hinweise als Texte in Stufenreihenfolge (L5, lib/pruefung/hinweise). */
+  hinweise: string[]
 }
 
-export type Feld = 'antwort' | 'regel' | 'fehler' | 'fertigkeit' | 'afb'
+export type Feld = 'antwort' | 'regel' | 'fehler' | 'fertigkeit' | 'afb' | 'hinweise'
 
-type SichtTeil = Pick<PruefSicht, 'werte' | 'mc' | 'regel' | 'fehler' | 'skill_key' | 'afb'>
+type SichtTeil = Pick<PruefSicht, 'werte' | 'mc' | 'regel' | 'fehler' | 'skill_key' | 'afb' | 'hinweise'>
 
 export function bearbeitungAus(s: SichtTeil): Bearbeitung {
   return {
@@ -50,12 +53,14 @@ export function bearbeitungAus(s: SichtTeil): Bearbeitung {
     fehler: s.fehler.map((f) => ({ slug: f.slug, werte: f.werte, text: f.text, raus: false, neu: false })),
     skill_key: s.skill_key,
     afb: s.afb,
+    hinweise: (s.hinweise ?? []).map((h) => h.text),
   }
 }
 
 /** Die Ausgangsfassung als Bearbeitung; ohne gespeicherte Ausgangsfassung der jetzige Stand. */
 export function ausgangAus(a: PruefAufgabe): Bearbeitung {
-  return bearbeitungAus(a.ausgang ?? { ...a, skill_key: a.fertigkeit?.key ?? null })
+  const ausgang = a.ausgang ? { ...a.ausgang, hinweise: a.ausgang.hinweise ?? a.hinweise } : null
+  return bearbeitungAus(ausgang ?? { ...a, skill_key: a.fertigkeit?.key ?? null })
 }
 
 /** Entfernte Zeilen fallen weg, Zeilen mit demselben Fehlbild werden zusammengefuehrt. */
@@ -86,6 +91,7 @@ export function zuEntwurf(b: Bearbeitung): PruefEntwurf {
     fehler: fehlerFuerEntwurf(b.fehler),
     skill_key: b.skill_key,
     afb: b.afb,
+    hinweise: hinweiseFuerEntwurf(b.hinweise),
   }
 }
 
@@ -119,6 +125,7 @@ export function geaenderteFelder(ausgang: Bearbeitung, jetzt: Bearbeitung): Set<
   if (fehlerSchluessel(ausgang) !== fehlerSchluessel(jetzt)) felder.add('fehler')
   if (aus.skill_key !== neu.skill_key) felder.add('fertigkeit')
   if (aus.afb !== neu.afb) felder.add('afb')
+  if (!hinweiseGleich(ausgang.hinweise, jetzt.hinweise)) felder.add('hinweise')
   return felder
 }
 
@@ -152,7 +159,7 @@ export function lokaleAenderungen(ausgang: Bearbeitung, jetzt: Bearbeitung): Pru
   }
   if (aus.skill_key !== neu.skill_key) liste.push({ feld: 'fertigkeit', teil: null, vorher: aus.skill_key, nachher: neu.skill_key })
   if (aus.afb !== neu.afb) liste.push({ feld: 'anforderungsbereich', teil: null, vorher: aus.afb, nachher: neu.afb })
-  return liste
+  return [...liste, ...hinweisAenderungen(ausgang.hinweise, jetzt.hinweise)]
 }
 
 /** ↺: ein Feld auf die Ausgangsfassung zuruecksetzen. */
@@ -169,6 +176,8 @@ export function feldZuruecksetzen(jetzt: Bearbeitung, ausgang: Bearbeitung, feld
       return { ...jetzt, skill_key: ausgang.skill_key }
     case 'afb':
       return { ...jetzt, afb: ausgang.afb }
+    case 'hinweise':
+      return { ...jetzt, hinweise: [...ausgang.hinweise] }
   }
 }
 

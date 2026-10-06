@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 export type InfoSchluessel =
   | 'antwort' | 'teile' | 'mc' | 'regel' | 'weg' | 'fehler' | 'fert' | 'afb' | 'sicher' | 'testen'
-  | 'hilfsmittel' | 'entscheidung'
+  | 'hilfsmittel' | 'entscheidung' | 'hinweise'
 
 type Absatz = { b?: string; t: string }
 

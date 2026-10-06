@@ -60,5 +60,13 @@ export function aenderungText(t: T, a: PruefAenderung, namen: Namen, mc = false)
       return t('aenderungen.fertigkeit', { vorher: namen.fertigkeit(String(a.vorher ?? '')), nachher: namen.fertigkeit(String(a.nachher ?? '')) })
     case 'anforderungsbereich':
       return t('aenderungen.afb', { vorher: String(a.vorher ?? ''), nachher: String(a.nachher ?? '') })
+    case 'hinweis':
+      if (a.vorher === null) return t('aenderungen.hinweisNeu', { stufe: a.teil, nachher: String(a.nachher ?? '') })
+      if (a.nachher === null) return t('aenderungen.hinweisWeg', { stufe: a.teil, vorher: String(a.vorher) })
+      return t('aenderungen.hinweis', { stufe: a.teil, vorher: String(a.vorher), nachher: String(a.nachher) })
+    case 'hinweis_status':
+      return t('aenderungen.hinweisStatus', {
+        stufe: a.teil, vorher: t(`hinweise.status.${String(a.vorher)}`), nachher: t(`hinweise.status.${String(a.nachher)}`),
+      })
   }
 }

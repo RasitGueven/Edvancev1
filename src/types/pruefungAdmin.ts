@@ -13,6 +13,7 @@ export type SammelAktion =
   | 'aufnehmen'
   | 'fertigkeit'
   | 'afb'
+  | 'hinweise_bestaetigen'
 
 /** Feste Auslass-Schluessel von pruef_sammel; die Texte uebersetzt das Frontend (pruefenAdmin.ausgelassen.*). */
 export type SammelGrund =
@@ -36,6 +37,8 @@ export type SammelGrund =
   | 'schon_gesetzt'
   | 'nicht_erlaubt'
   | 'nicht_gefunden'
+  | 'nicht_freigegeben'
+  | 'keine_hinweise_offen'
   | 'fehler'
 
 export type SammelAusgelassen = { task_id: string; grund: SammelGrund | string; text: string | null }
