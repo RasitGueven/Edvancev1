@@ -1,0 +1,11 @@
+{
+  "ziel": {
+    "klassenarbeit": "{{thema}} für die Klassenarbeit",
+    "klassenarbeitFehlt": "Klassenarbeit: Thema und Datum fehlen",
+    "schulthema": "{{thema}} durchdringen",
+    "schulthemaFehlt": "erst Schulthema wählen",
+    "lernpfadLsa": "{{luecke}}, aus der LSA",
+    "lernpfad": "nächste Lücke im Lernpfad",
+    "offen": "noch kein Fall gewählt"
+  }
+}
