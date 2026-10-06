@@ -69,6 +69,12 @@ lassen. Jeder Punkt nennt die Stelle im Code.
     F12). Lädt die App neu, bevor das Kind das Beispiel gesehen hat, ist es übersprungen. Ein eigener
     Bestätigungsaufruf wäre robuster; Entscheidung mit R2.
 
+16. **Zeitbindung der Coach-Entscheidungen (zweiter Consensus-Check, Commit 40e97ce, kein Blocker).**
+    - Eine Session, die nie abgeschlossen wird (`active`), bleibt unbegrenzt entscheidbar; es gibt keinen Timeout, der
+      sie schließt. Vorschlag: automatischer Abschluss oder Bindung auch an den Tag des Starts (C2/R1).
+    - `lernpfad_beleg` (manueller Beleg durch den Coach) hängt an derselben Bindung.
+    - `erklaer_nachlesen` zeigt auch am Tablet im Testlauf nur freigegebene Inhalte (zuhause-Funktion, bewusst so).
+
 ## Consensus-Check (CLAUDE.md §8)
 
 Zweite, unabhängige Instanz (Review-Agent, statisch über `git diff origin/dev..HEAD -- supabase/migrations`).
