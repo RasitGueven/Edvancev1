@@ -4,14 +4,16 @@
 -- Zusagen (Nummern wie im Bauauftrag):
 --   1) quest_erzeugen legt A und B mit den richtigen Tagen an; mit Klassenarbeit vor
 --      der naechsten Session ein KA-Paket statt B, mit Klassenarbeit danach B.
---   2) Aufgaben nur freigegeben, aktiv, mit Loesungsweg; Summe <= quest_minuten.
+--   2) Aufgaben nur aus dem Quest-Pool (Einsatz quest, weder lsa noch session), freigegeben,
+--      aktiv, mit Loesungsweg; Summe <= quest_minuten.
 --   3) quest_inhalt fuer ein fremdes Kind (und einen Coach) -> 42501.
 --   4) quest_erledigt bucht XP genau einmal; der zweite Aufruf bucht nichts.
 --   5) Zeilenzahlen in lsa_*, session_antworten, lernpfad, student_task_progress,
 --      behavior_snapshots und Report-Tabellen sind vor und nach quest_erledigt gleich.
 --   6) quest_erinnerungen_faellig liefert nur offene Quests mit Termin im Fenster.
 --   7) eltern_quest_wochenstand fuer Schuelerkonto oder Coach -> 42501.
--- Dazu: Rechte von quest_erzeugen und quest_termin_setzen, Wochenserie, Push-Token.
+-- Dazu: Rechte von quest_erzeugen und quest_termin_setzen, Wochenserie, Push-Token,
+-- XP ueber xp_buchen_intern (Schluessel quest:<id>), Testlaeufe (X0) ohne Erinnerung und Wochenstand.
 --
 -- Fixture-Hinweis: session_students prueft per Trigger einen laufenden Vertrag (ZG001).
 -- Die Fixtures schalten ihn transaktionslokal ab; alles wird zurueckgerollt.
@@ -19,7 +21,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(49);
+select plan(54);
 
 \set admin_uid  'dddddddd-0071-4000-8000-000000000001'
 \set coach_uid  'dddddddd-0071-4000-8000-000000000002'
@@ -27,22 +29,26 @@ select plan(49);
 \set kind1_uid  'dddddddd-0071-4000-8000-000000000004'
 \set kind2_uid  'dddddddd-0071-4000-8000-000000000005'
 \set kind3_uid  'dddddddd-0071-4000-8000-000000000006'
+\set kind4_uid  'dddddddd-0071-4000-8000-000000000007'
 
 insert into auth.users (id, email, instance_id, aud, role)
 select u, 'q1-' || n || '@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'
   from (values (:'admin_uid'::uuid, 'admin'), (:'coach_uid'::uuid, 'coach'), (:'coach2_uid'::uuid, 'coach2'),
-               (:'kind1_uid'::uuid, 'kind1'), (:'kind2_uid'::uuid, 'kind2'), (:'kind3_uid'::uuid, 'kind3')) v(u, n);
+               (:'kind1_uid'::uuid, 'kind1'), (:'kind2_uid'::uuid, 'kind2'), (:'kind3_uid'::uuid, 'kind3'), (:'kind4_uid'::uuid, 'kind4')) v(u, n);
 insert into profiles (id, email, role, full_name) values
   (:'admin_uid',  'q1-admin@test.local',  'admin',   'Q1 Admin'),
   (:'coach_uid',  'q1-coach@test.local',  'coach',   'Q1 Coach'),
   (:'coach2_uid', 'q1-coach2@test.local', 'coach',   'Q1 Coach Zwei'),
   (:'kind1_uid',  'q1-kind1@test.local',  'student', 'Q1 Kind Eins'),
   (:'kind2_uid',  'q1-kind2@test.local',  'student', 'Q1 Kind Zwei'),
-  (:'kind3_uid',  'q1-kind3@test.local',  'student', 'Q1 Kind Drei');
-insert into students (profile_id, class_level) values (:'kind1_uid', 8), (:'kind2_uid', 8), (:'kind3_uid', 9);
+  (:'kind3_uid',  'q1-kind3@test.local',  'student', 'Q1 Kind Drei'),
+  (:'kind4_uid',  'q1-kind4@test.local',  'student', 'Q1 Testkind');
+insert into students (profile_id, class_level, ist_test) values
+  (:'kind1_uid', 8, false), (:'kind2_uid', 8, false), (:'kind3_uid', 9, false), (:'kind4_uid', 8, true);
 select (select id from students where profile_id = :'kind1_uid') as k1,
        (select id from students where profile_id = :'kind2_uid') as k2,
-       (select id from students where profile_id = :'kind3_uid') as k3 \gset
+       (select id from students where profile_id = :'kind3_uid') as k3,
+       (select id from students where profile_id = :'kind4_uid') as k4 \gset
 
 -- Kind 1 hat einen laufenden Vertrag (hat_zugang), Kind 2 und 3 nicht.
 insert into leads (full_name, status) values ('Q1 Lead Kind Eins', 'vertrag');
@@ -61,8 +67,10 @@ insert into skills (skill_key, label, fundament_tiefe, klasse_herkunft) values
 insert into themen (thema_key, fach, klasse, stufe, label, sort) values ('zz_q1_thema', 'mathematik', 9, 'erste', 'Q1 Thema', 9101);
 insert into skill_thema (skill_key, thema_key) values ('zz_q1_ka', 'zz_q1_thema');
 
-insert into tasks (content_type, input_type, status, is_active, question, skill_key, est_duration_sec, source, source_ref)
-select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skill, x.dauer, 'test', x.ref
+insert into tasks (content_type, input_type, status, is_active, question, skill_key, est_duration_sec, source, source_ref, einsatz)
+select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skill, x.dauer, 'test', x.ref,
+       case x.ref when 'q1-neu-lsa' then '{lsa,session}'::text[] when 'q1-neu-gemischt' then '{quest,session}'::text[]
+                  else '{quest}'::text[] end
   from (values
     ('q1-neu-1', 'zz_q1_neu', 180, 'ready', true), ('q1-neu-2', 'zz_q1_neu', 180, 'ready', true),
     ('q1-neu-3', 'zz_q1_neu', 180, 'ready', true), ('q1-neu-4', 'zz_q1_neu', 180, 'ready', true),
@@ -70,6 +78,8 @@ select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skil
     ('q1-neu-draft',        'zz_q1_neu', 60, 'draft', true),
     ('q1-neu-inaktiv',      'zz_q1_neu', 60, 'ready', false),
     ('q1-neu-ohne-dauer',   'zz_q1_neu', null, 'ready', true),
+    ('q1-neu-lsa',          'zz_q1_neu', 60, 'ready', true),
+    ('q1-neu-gemischt',     'zz_q1_neu', 60, 'ready', true),
     ('q1-alt-1', 'zz_q1_alt', 120, 'ready', true), ('q1-alt-2', 'zz_q1_alt', 120, 'ready', true),
     ('q1-ka-1', 'zz_q1_ka', 200, 'ready', true), ('q1-ka-2', 'zz_q1_ka', 200, 'ready', true),
     ('q1-ka-3', 'zz_q1_ka', 200, 'ready', true), ('q1-ka-4', 'zz_q1_ka', 200, 'ready', true)
@@ -163,6 +173,10 @@ select is_empty($$
      and (t.status <> 'ready' or not t.is_active or nullif(btrim(coalesce(s.solution, '')), '') is null)$$,
   '2: nur freigegebene, aktive Aufgaben mit Loesungsweg');
 select is_empty($$
+  select t.source_ref from quest_aufgaben qa join tasks t on t.id = qa.task_id
+   where not ('quest' = any (t.einsatz)) or t.einsatz && array['lsa', 'session']$$,
+  '2: nur Quest-Pool: Einsatz quest, weder lsa noch session');
+select is_empty($$
   select qa.quest_id from quest_aufgaben qa join tasks t on t.id = qa.task_id
    group by qa.quest_id having sum(t.est_duration_sec) > 600$$, '2: Summe est_duration_sec hoechstens quest_minuten');
 select is((select sum(t.est_duration_sec)::int from quest_aufgaben qa join erg_k1 e on e.quest_id = qa.quest_id
@@ -245,6 +259,8 @@ select is((select count(*) from xp_events where student_id = :'k1') - (select xp
 select is((select coalesce(sum(xp), 0) from xp_events where student_id = :'k1') - (select xp_sum from fern_vorher), 100::bigint,
   '4: zusammen 100 XP');
 select is((select xp_gebucht from quests where id = :'qa1'), 50, '4: xp_gebucht steht an der Quest');
+select results_eq(format($f$select reason, xp from xp_events where buchungs_schluessel = 'quest:' || %L$f$, :'qa1'),
+  $$values ('home_quest'::text, 50)$$, '4: gebucht ueber xp_buchen mit Schluessel quest:<id>');
 select is(pg_temp.fern_zeilen(), (select z from fern_vorher), '5: lsa_*, Lernpfad, Fortschritt, Snapshots, Reports unveraendert');
 select is_empty($$
   select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
@@ -285,6 +301,23 @@ select throws_ok($$select * from eltern_quest_wochenstand('2026-09-01')$$, '4250
 select pg_temp.act_as(:'admin_uid');
 select results_eq(format($f$select erledigt, offen, eltern_email from eltern_quest_wochenstand('2026-09-03') where student_id = %L$f$, :'k1'),
   $$values (1, 0, 'q1-eltern@edvance.invalid'::text)$$, '7: Admin sieht je Kind erledigt und offen der Woche');
+
+-- --- Testlauf (X0): angelegt, aber ohne Erinnerung und ohne Wochenstand --------
+reset role;
+select pg_temp.act_as(:'admin_uid');
+insert into coaching_sessions (coach_id, room, scheduled_at, status, testlauf)
+values (:'coach_uid', 'Q1-TEST', '2026-09-01 16:00+02', 'done', true);
+select id as st from coaching_sessions where room = 'Q1-TEST' \gset
+insert into session_students (session_id, student_id, attendance) values (:'st', :'k4', 'present');
+select pg_temp.als_system();
+select is((select count(*)::int from quest_erzeugen(:'st', :'k4', array['zz_q1_neu'])), 2, 'Testlauf: Quests werden angelegt');
+update quests set termin = '2026-09-04 17:00+02' where session_id = :'st' and art = 'A';
+set local role authenticated;
+select pg_temp.act_as(:'admin_uid');
+select is((select count(*)::int from quest_erinnerungen_faellig('2026-09-05 00:00+02', '2026-09-01 00:00+02') f
+            join quests q on q.id = f.quest_id where q.student_id = :'k4'), 0, 'Testlauf: keine Erinnerung');
+select is((select count(*)::int from eltern_quest_wochenstand('2026-09-03') where student_id = :'k4'), 0,
+  'Testlauf: kein Eltern-Wochenstand');
 
 -- --- Push-Token ---------------------------------------------------------------
 select pg_temp.act_as(:'coach_uid');

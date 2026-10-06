@@ -29,8 +29,8 @@ begin
   select cs.coach_id into v_coach from public.coaching_sessions cs where cs.id = v_quest.session_id;
 
   -- coalesce: ein null-Vergleich (kein Profil, kein Schuelerkonto) darf nie durchlassen.
-  if not coalesce(public.get_my_role() = 'admin'
-                  or (public.get_my_role() = 'coach' and v_coach = auth.uid()
+  if not coalesce(coalesce(public.get_my_role(), '') = 'admin'
+                  or (coalesce(public.get_my_role(), '') = 'coach' and v_coach = auth.uid()
                       and public.hat_zugang(v_quest.student_id))
                   or public.get_my_student_id() = v_quest.student_id, false) then
     raise exception 'quest_termin_setzen: nur Coach der Session, Admin oder das Kind' using errcode = '42501';
@@ -134,17 +134,18 @@ begin
     raise exception 'quest_erledigt: Quest ist erst ab % abrufbar', v_quest.faellig_ab using errcode = '55000';
   end if;
 
-  -- XP fuers Bearbeiten, nie fuers Richtig-Haben. Bis X0 xp_buchen liefert, bucht diese
-  -- Funktion als Definer direkt in xp_events (Trigger apply_xp_event summiert).
-  v_xp := greatest(public.quest_einstellung_zahl('quest_xp', 50)::integer, 0);
+  -- XP fuers Bearbeiten, nie fuers Richtig-Haben. Gebucht wird ueber den Kern von xp_buchen
+  -- (X0); der Schluessel quest:<id> bucht je Quest genau einmal, auch neben xp_gebucht.
+  v_xp := least(greatest(public.quest_einstellung_zahl('quest_xp', 50)::integer, 0), 1000);
 
   update public.quests
      set status = 'erledigt', erledigt_am = now(), xp_gebucht = v_xp
    where id = p_quest_id;
 
-  if v_xp > 0 then
-    insert into public.xp_events (student_id, task_id, xp, reason)
-    values (v_quest.student_id, null, v_xp, 'home_quest');
+  if v_xp > 0 and not public.xp_buchen_intern(v_quest.student_id, v_xp, 'home_quest', 'quest:' || p_quest_id) then
+    -- Schluessel schon gebucht (darf bei xp_gebucht = null nicht vorkommen): nichts doppelt.
+    v_xp := 0;
+    update public.quests set xp_gebucht = 0 where id = p_quest_id;
   end if;
 
   -- Wochenserie: jede Kalenderwoche (Europe/Berlin) mit mindestens einer erledigten

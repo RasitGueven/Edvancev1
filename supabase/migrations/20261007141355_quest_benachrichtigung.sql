@@ -3,6 +3,9 @@
 --   push_token_registrieren     das Konto des Kindes meldet ein Geraete-Token an
 --   quest_erinnerungen_faellig  Admin oder System: offene Quests mit Termin im Fenster,
 --                               fuer den spaeteren Versand (Scheduler fehlt, offener Punkt)
+--
+-- Quests aus einem Testlauf (coaching_sessions.testlauf, X0) erscheinen in keiner der beiden
+-- Lesefunktionen: keine Erinnerung und keine Eltern-Nachricht aus einem Testlauf (Entscheidung 27).
 --   eltern_quest_wochenstand    Admin oder System: je Kind erledigt und offen einer Woche,
 --                               mit der Eltern-Adresse des laufenden Vertrags. Den Versand
 --                               ueber graph_mail.ts baut P2.
@@ -59,7 +62,7 @@ security definer
 set search_path = public, pg_temp
 as $$
 begin
-  if not coalesce(public.ist_systemaufruf() or public.get_my_role() = 'admin', false) then
+  if not coalesce(public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin', false) then
     raise exception 'quest_erinnerungen_faellig: nur Admin oder Systemaufruf' using errcode = '42501';
   end if;
   if p_bis is null or p_von is null or p_bis < p_von then
@@ -69,6 +72,7 @@ begin
   return query
     select q.student_id, q.id, q.termin
       from public.quests q
+      join public.coaching_sessions cs on cs.id = q.session_id and not cs.testlauf
      where q.status = 'offen'
        and q.termin is not null
        and q.termin >  p_von
@@ -90,7 +94,7 @@ as $$
 declare
   v_montag date;
 begin
-  if not coalesce(public.ist_systemaufruf() or public.get_my_role() = 'admin', false) then
+  if not coalesce(public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin', false) then
     raise exception 'eltern_quest_wochenstand: nur Admin oder Systemaufruf' using errcode = '42501';
   end if;
   if p_woche is null then
@@ -107,6 +111,7 @@ begin
              where va.student_id = q.student_id and va.wirksamer_status in ('im_widerruf', 'aktiv')
              order by va.vertragsbeginn desc nulls last limit 1)
       from public.quests q
+      join public.coaching_sessions cs on cs.id = q.session_id and not cs.testlauf
      where q.faellig_ab >= v_montag and q.faellig_ab < v_montag + 7
      group by q.student_id
      order by q.student_id;

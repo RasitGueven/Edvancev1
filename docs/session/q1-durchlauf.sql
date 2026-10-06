@@ -6,8 +6,9 @@
 --
 -- Die Session liegt drei Tage zurueck, die naechste in vier Tagen; so ist Quest A
 -- heute schon abrufbar. session_students prueft einen laufenden Vertrag (ZG001); fuer
--- das Testkind ist der Trigger transaktionslokal aus. Testkonten (students.ist_test)
--- kommen mit X0.
+-- das Testkind ist der Trigger transaktionslokal aus. Das Kind ist ein Testkonto
+-- (students.ist_test, X0); die Session ist kein Testlauf, sonst kaemen weder Erinnerung
+-- noch Wochenstand. Die Aufgaben gehoeren zum Quest-Pool (einsatz = {quest}).
 \pset pager off
 \pset footer off
 begin;
@@ -24,12 +25,12 @@ insert into profiles (id, email, role, full_name) values
   (:'coach_uid', 'q1d-coach@test.local', 'coach',   'Durchlauf Coach'),
   (:'admin_uid', 'q1d-admin@test.local', 'admin',   'Durchlauf Admin'),
   (:'kind_uid',  'q1d-kind@test.local',  'student', 'Durchlauf Testkind');
-insert into students (profile_id, class_level) values (:'kind_uid', 8);
+insert into students (profile_id, class_level, ist_test) values (:'kind_uid', 8, true);
 select id as kind from students where profile_id = :'kind_uid' \gset
 
 insert into skills (skill_key, label, fundament_tiefe, klasse_herkunft) values ('zz_q1d_prozent', 'Grundwert berechnen', 1, 7);
-insert into tasks (content_type, input_type, status, question, skill_key, est_duration_sec, source, source_ref)
-select 'exercise', 'SHORT_TEXT', 'ready', 'Durchlauf Aufgabe ' || n, 'zz_q1d_prozent', 150, 'test', 'q1d-' || n
+insert into tasks (content_type, input_type, status, question, skill_key, est_duration_sec, source, source_ref, einsatz)
+select 'exercise', 'SHORT_TEXT', 'ready', 'Durchlauf Aufgabe ' || n, 'zz_q1d_prozent', 150, 'test', 'q1d-' || n, '{quest}'
   from generate_series(1, 5) n;
 insert into task_solutions (task_id, correct_answers, solution)
 select id, '["1"]'::jsonb, 'Loesungsweg: G = W / p (' || source_ref || ')' from tasks where source_ref like 'q1d-%';
@@ -87,6 +88,7 @@ select reihenfolge, aufgabe ->> 'prompt' as aufgabe, loesungsweg, dauer_sec from
 select * from quest_erledigt(:'qa');
 select * from quest_erledigt(:'qa');
 select xp_total, home_streak_sessions from student_progress where student_id = :'kind';
+select reason, xp, buchungs_schluessel = 'quest:' || :'qa' as schluessel_quest_id from xp_events where student_id = :'kind';
 
 \echo '== 7. eltern_quest_wochenstand (Admin) fuer die Woche von Quest A und B'
 select pg_temp.act_as(:'admin_uid');

@@ -6,8 +6,10 @@
 -- KA:      Steht eine Klassenarbeit vor der naechsten Session an, ersetzt ein Paket zum
 --          Thema der Klassenarbeit die Quest B (ohne Mischen, wie ka_tage in der Session).
 --
--- Aufgaben: status ready, aktiv, kein Tutorial, Uebung, mit Loesungsweg
--- (task_solutions.solution), mit skill_key und est_duration_sec. Summe est_duration_sec
+-- Aufgaben: eigener Quest-Pool (Entscheidung Rasit 06.10.: 'quest' im Einsatz, weder 'lsa'
+-- noch 'session', damit kein Loesungsweg aus LSA oder Session nach Hause geht), status ready,
+-- aktiv, kein Tutorial, Uebung, mit Loesungsweg (task_solutions.solution), mit skill_key und
+-- est_duration_sec. Summe est_duration_sec
 -- hoechstens quest_minuten * 60. "Aelteres" sind bis zum Lernpfad (A1) die Skills aus
 -- frueheren Quests des Kindes (offener Punkt).
 --
@@ -55,6 +57,8 @@ begin
         from public.tasks t
         join public.task_solutions s on s.task_id = t.id
        where t.status = 'ready'
+         and 'quest' = any (t.einsatz)
+         and not (t.einsatz && array['lsa', 'session']::text[])
          and t.is_active
          and not t.is_tutorial
          and t.content_type = 'exercise'
@@ -87,7 +91,7 @@ end;
 $$;
 
 comment on function public.quest_aufgaben_waehlen(uuid, uuid, text[], boolean) is
-  'Waehlt die Aufgaben einer Quest (freigegeben, aktiv, mit Loesungsweg, Summe est_duration_sec <= quest_minuten). Intern.';
+  'Waehlt die Aufgaben einer Quest (nur Einsatz quest ohne lsa/session, freigegeben, aktiv, mit Loesungsweg, Summe est_duration_sec <= quest_minuten). Intern.';
 
 revoke all on function public.quest_aufgaben_waehlen(uuid, uuid, text[], boolean) from public, anon, authenticated;
 
@@ -121,7 +125,7 @@ begin
   select * into v_session from public.coaching_sessions where id = p_session_id;
   if not found then
     -- Nur Admin und System erfahren, dass es die Session nicht gibt (kein Existenz-Orakel).
-    if coalesce(public.ist_systemaufruf() or public.get_my_role() = 'admin', false) then
+    if coalesce(public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin', false) then
       raise exception 'quest_erzeugen: Session unbekannt' using errcode = '22023';
     end if;
     raise exception 'quest_erzeugen: kein Zugriff' using errcode = '42501';
@@ -129,8 +133,8 @@ begin
 
   -- coalesce: ohne Profil liefert get_my_role() null, und "not null" liesse durch.
   if not coalesce(public.ist_systemaufruf()
-                  or public.get_my_role() = 'admin'
-                  or (public.get_my_role() = 'coach' and v_session.coach_id = auth.uid()
+                  or coalesce(public.get_my_role(), '') = 'admin'
+                  or (coalesce(public.get_my_role(), '') = 'coach' and v_session.coach_id = auth.uid()
                       and public.hat_zugang(p_student_id)), false) then
     raise exception 'quest_erzeugen: nur Coach der Session (bei laufendem Vertrag), Admin oder Systemaufruf' using errcode = '42501';
   end if;

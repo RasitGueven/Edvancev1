@@ -81,13 +81,13 @@ create policy quests_select_own on public.quests
 create policy quests_select_parent on public.quests
   for select to authenticated using (public.is_parent_of_student(student_id));
 create policy quests_select_admin on public.quests
-  for select to authenticated using (public.get_my_role() = 'admin');
+  for select to authenticated using (coalesce(public.get_my_role(), '') = 'admin');
 create policy quests_select_coach on public.quests
-  for select to authenticated using (public.get_my_role() = 'coach' and public.hat_zugang(student_id));
+  for select to authenticated using (coalesce(public.get_my_role(), '') = 'coach' and public.hat_zugang(student_id));
 
 -- quest_aufgaben: nur Admin direkt; das Kind bekommt seine Aufgaben ueber quest_inhalt.
 create policy quest_aufgaben_select_admin on public.quest_aufgaben
-  for select to authenticated using (public.get_my_role() = 'admin');
+  for select to authenticated using (coalesce(public.get_my_role(), '') = 'admin');
 
 -- ---------------------------------------------------------------------------
 -- Stellschrauben. Die Tabelle session_einstellungen baut R1. Solange sie fehlt (oder
