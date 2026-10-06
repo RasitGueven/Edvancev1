@@ -873,6 +873,705 @@ $$;
 
 
 --
+-- Name: erklaer_bewerten(uuid, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_bewerten(p_task_id uuid, p_eingabe jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_task    public.tasks;
+  v_sol     public.task_solutions;
+  v_richtig boolean;
+  v_fb      text;
+begin
+  select * into v_task from public.tasks where id = p_task_id;
+  select * into v_sol from public.task_solutions where task_id = p_task_id;
+
+  if v_task.input_type = 'MULTI_PART' then
+    select coalesce(bool_and(t.ok), false),
+           (array_agg(t.fb order by t.nr) filter (where not t.ok and t.fb is not null))[1]
+      into v_richtig, v_fb
+      from (select (p ->> 'nr')::int as nr,
+                   coalesce(public.lsa_is_correct(
+                     case when p ->> 'kind' = 'mc' then 'MC' else 'SHORT_TEXT' end,
+                     case when jsonb_typeof(v_sol.correct_answers -> (p ->> 'nr')) = 'array'
+                          then v_sol.correct_answers -> (p ->> 'nr') else '[]'::jsonb end,
+                     public.lsa_part_answer(p ->> 'kind', p_eingabe -> (p ->> 'nr'))), false) as ok,
+                   public.lsa_fehlbild_match(p ->> 'kind',
+                     v_sol.acceptance -> (p ->> 'nr') -> 'known_errors',
+                     public.lsa_part_answer(p ->> 'kind', p_eingabe -> (p ->> 'nr'))) as fb
+              from jsonb_array_elements(v_task.parts) as e(p)) t;
+  else
+    v_richtig := coalesce(public.lsa_is_correct(v_task.input_type, v_sol.correct_answers, p_eingabe), false);
+    if not v_richtig then
+      v_fb := public.lsa_fehlbild_match(lower(v_task.input_type), v_sol.acceptance -> 'known_errors',
+                public.lsa_part_answer(lower(v_task.input_type), p_eingabe));
+    end if;
+  end if;
+
+  return jsonb_build_object('richtig', v_richtig,
+                            'fehlbild', case when v_fb = '__known__' then null else v_fb end);
+end;
+$$;
+
+
+--
+-- Name: erklaer_bild_gueltig(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_bild_gueltig(p_bild jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+  select p_bild is null
+      or (jsonb_typeof(p_bild) = 'object'
+          and coalesce(btrim(p_bild ->> 'alt'), '') <> ''
+          and ((p_bild ? 'url') <> (p_bild ? 'svg_hash'))
+          and coalesce(p_bild ->> 'svg_hash', 'a') ~ '^[0-9a-f]+$'
+          and coalesce(p_bild ->> 'url', 'https://') ~ '^https://'
+          and not exists (select 1 from jsonb_object_keys(p_bild) k
+                           where k not in ('url', 'svg_hash', 'alt')))
+$_$;
+
+
+--
+-- Name: erklaer_check_abgeben(uuid, uuid, uuid, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_check_abgeben(p_session_id uuid, p_student_id uuid, p_check_task_id uuid, p_eingabe jsonb) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_letzt    public.erklaer_fortschritt;
+  v_k        public.erklaer_kernidee;
+  v_naechste public.erklaer_kernidee;
+  v_urteil   jsonb;
+  v_fb       text;
+  v_var      text[];
+  v_gezeigt  text[];
+  v_wahl     text;
+begin
+  perform public.erklaer_zugang(p_session_id, p_student_id);
+  perform public.erklaer_sperren(p_session_id, p_student_id);
+
+  select * into v_letzt from public.erklaer_fortschritt
+   where session_id = p_session_id and student_id = p_student_id
+   order by id desc limit 1;
+  if v_letzt.id is null or v_letzt.ergebnis <> 'gezeigt'
+     or v_letzt.check_task_id is distinct from p_check_task_id then
+    raise exception 'erklaer_check_abgeben: nicht der offene Check' using errcode = 'P0001';
+  end if;
+  select * into v_k from public.erklaer_kernidee where id = v_letzt.kernidee_id;
+  if v_k.status <> 'freigegeben' or not (p_check_task_id = any (public.erklaer_checks(v_k.id))) then
+    raise exception 'erklaer_check_abgeben: Check inzwischen nicht mehr freigegeben' using errcode = 'P0002';
+  end if;
+
+  v_urteil := public.erklaer_bewerten(p_check_task_id, p_eingabe);
+  v_fb := v_urteil ->> 'fehlbild';
+  insert into public.erklaer_fortschritt
+    (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis, fehlbild_slug)
+  values (p_session_id, p_student_id, v_k.id, v_letzt.runde, v_letzt.variante, p_check_task_id,
+          case when (v_urteil ->> 'richtig')::boolean then 'richtig' else 'falsch' end, v_fb);
+
+  -- Richtig: naechste Kernidee, sonst Uebergang ins Ueben. Kein Mastery-Signal.
+  if (v_urteil ->> 'richtig')::boolean then
+    v_naechste := public.erklaer_naechste_kernidee(v_k.skill_key, v_k.nr);
+    if v_naechste.id is null then
+      return jsonb_build_object('aktion', 'weiter', 'uebergang', 'ueben');
+    end if;
+    return public.erklaer_zeigen(p_session_id, p_student_id, v_naechste,
+                                 (public.erklaer_varianten(v_naechste.id))[1], 1, 'weiter');
+  end if;
+
+  -- Falsch: nach erklaerrunden_bis_signal Runden ein Signal an den Coach.
+  if (select count(*) from public.erklaer_fortschritt
+       where session_id = p_session_id and student_id = p_student_id
+         and kernidee_id = v_k.id and ergebnis = 'falsch') >= public.erklaer_runden_bis_signal() then
+    insert into public.erklaer_fortschritt
+      (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis, fehlbild_slug)
+    values (p_session_id, p_student_id, v_k.id, v_letzt.runde, v_letzt.variante, p_check_task_id,
+            'signal', v_fb);
+    return jsonb_build_object('aktion', 'signal');
+  end if;
+
+  -- Sonst eine andere Variante: passend zum Fehlbild, sonst die naechste ungezeigte.
+  v_var := public.erklaer_varianten(v_k.id);
+  select coalesce(array_agg(distinct variante), '{}') into v_gezeigt
+    from public.erklaer_fortschritt
+   where session_id = p_session_id and student_id = p_student_id
+     and kernidee_id = v_k.id and ergebnis = 'gezeigt';
+
+  select s.variante into v_wahl from public.erklaer_schritt s
+   where s.kernidee_id = v_k.id and s.art = 'erklaerung' and s.status = 'freigegeben'
+     and s.variante <> v_letzt.variante and v_fb is not null and v_fb = any (s.fehlbild_slugs)
+   order by (s.variante = any (v_gezeigt)), s.variante limit 1;
+  if v_wahl is null then
+    select v into v_wahl from unnest(v_var) v
+     where v <> v_letzt.variante
+     order by (v = any (v_gezeigt)), (v < v_letzt.variante), v limit 1;
+  end if;
+
+  return public.erklaer_zeigen(p_session_id, p_student_id, v_k,
+                               coalesce(v_wahl, v_letzt.variante), v_letzt.runde + 1, 'variante');
+end;
+$$;
+
+
+--
+-- Name: erklaer_check_setzen(uuid, uuid, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_check_setzen(p_kernidee_id uuid, p_task_id uuid, p_reihenfolge integer) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  perform public.erklaer_darf_schreiben('erklaer_check_setzen');
+  if p_reihenfolge is null then
+    delete from public.erklaer_check where kernidee_id = p_kernidee_id and task_id = p_task_id;
+  else
+    insert into public.erklaer_check (kernidee_id, task_id, reihenfolge)
+    values (p_kernidee_id, p_task_id, p_reihenfolge)
+    on conflict (kernidee_id, task_id) do update set reihenfolge = excluded.reihenfolge;
+  end if;
+  -- Andere Checks heissen neu pruefen: die Kernidee faellt auf entwurf.
+  update public.erklaer_kernidee set status = 'entwurf' where id = p_kernidee_id;
+  perform public.erklaer_version_hoch(p_kernidee_id);
+end;
+$$;
+
+
+--
+-- Name: erklaer_checks(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_checks(p_kernidee_id uuid) RETURNS uuid[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(array_agg(c.task_id order by c.reihenfolge), '{}')
+    from public.erklaer_check c
+    join public.tasks t on t.id = c.task_id
+   where c.kernidee_id = p_kernidee_id and t.status = 'ready' and coalesce(t.is_active, true)
+$$;
+
+
+--
+-- Name: erklaer_darf_schreiben(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_darf_schreiben(p_fn text) RETURNS void
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (public.darf_pruefen() or public.ist_systemaufruf()) then
+    raise exception '%: nur Pruefer oder Admin', p_fn using errcode = '42501';
+  end if;
+end;
+$$;
+
+
+--
+-- Name: erklaer_formel_anzahl(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_formel_anzahl(p_inhalt text) RETURNS integer
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+  select count(*)::int from regexp_matches(coalesce(p_inhalt, ''), '\$[^$]+\$', 'g')
+$_$;
+
+
+--
+-- Name: erklaer_formeln_setzen(uuid, text, text[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_formeln_setzen(p_schritt_id uuid, p_inhalt text, p_formeln text[]) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  v_schritt public.erklaer_schritt;
+begin
+  perform public.erklaer_darf_schreiben('erklaer_formeln_setzen');
+  select * into v_schritt from public.erklaer_schritt where id = p_schritt_id for update;
+  if v_schritt.id is null then
+    raise exception 'erklaer_formeln_setzen: Schritt nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v_schritt.inhalt is distinct from p_inhalt then
+    perform public.pruef_fehler('veraltet', 'erklaer_formeln_setzen: Text hat sich geaendert');
+  end if;
+  if cardinality(p_formeln) <> public.erklaer_formel_anzahl(p_inhalt)
+     or exists (select 1 from unnest(p_formeln) h where h is null or h !~ '^[0-9a-f]{64}$') then
+    raise exception 'erklaer_formeln_setzen: Anzahl oder Form der Hashes passt nicht' using errcode = '22023';
+  end if;
+  -- Neue SVGs an einem freigegebenen Schritt gehen erst nach erneuter Freigabe ans Kind.
+  update public.erklaer_schritt
+     set formeln = p_formeln,
+         status  = case when status = 'freigegeben' and formeln is distinct from p_formeln
+                        then 'geprueft' else status end
+   where id = p_schritt_id;
+end;
+$_$;
+
+
+--
+-- Name: erklaer_fortschritt_nur_anhaengen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_fortschritt_nur_anhaengen() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1 then
+    return old;
+  end if;
+  raise exception 'erklaer_fortschritt ist append-only' using errcode = '42501';
+end;
+$$;
+
+
+--
+-- Name: erklaer_kernidee_speichern(uuid, text, integer, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_kernidee_speichern(p_id uuid, p_skill_key text, p_nr integer, p_titel text, p_quelle text DEFAULT 'ki'::text) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  perform public.erklaer_darf_schreiben('erklaer_kernidee_speichern');
+  if p_id is null then
+    insert into public.erklaer_kernidee (skill_key, nr, titel, quelle)
+    values (p_skill_key, p_nr, btrim(p_titel), p_quelle)
+    returning id into v_id;
+    return v_id;
+  end if;
+
+  update public.erklaer_kernidee
+     set skill_key = p_skill_key, nr = p_nr, titel = btrim(p_titel), quelle = p_quelle,
+         status = 'entwurf', pruef_version = pruef_version + 1, geaendert_am = now()
+   where id = p_id
+     and (skill_key, nr, titel, quelle) is distinct from (p_skill_key, p_nr, btrim(p_titel), p_quelle)
+  returning id into v_id;
+  if v_id is null and not exists (select 1 from public.erklaer_kernidee where id = p_id) then
+    raise exception 'erklaer_kernidee_speichern: Kernidee nicht gefunden' using errcode = 'P0002';
+  end if;
+  return p_id;
+end;
+$$;
+
+
+--
+-- Name: erklaer_nachlesen(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_nachlesen(p_student_id uuid, p_skill_key text) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (coalesce(public.get_my_role(), '') = 'admin'
+          or public.get_my_student_id() = p_student_id
+          or exists (select 1 from public.session_students ss
+                       join public.coaching_sessions cs on cs.id = ss.session_id
+                      where ss.student_id = p_student_id and cs.coach_id = auth.uid())) then
+    raise exception 'erklaer_nachlesen: kein Zugriff' using errcode = '42501';
+  end if;
+
+  return jsonb_build_object(
+    'skill_key', p_skill_key,
+    'kernideen', (select coalesce(jsonb_agg(jsonb_build_object(
+                           'nr', k.nr, 'titel', k.titel,
+                           'schritte', public.erklaer_schritte_json(k.id, 'A')) order by k.nr), '[]')
+                    from public.erklaer_kernidee k
+                   where k.skill_key = p_skill_key and k.status = 'freigegeben'
+                     and 'A' = any (public.erklaer_varianten(k.id))));
+end;
+$$;
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: erklaer_kernidee; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.erklaer_kernidee (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    skill_key text NOT NULL,
+    nr integer NOT NULL,
+    titel text NOT NULL,
+    status text DEFAULT 'entwurf'::text NOT NULL,
+    quelle text DEFAULT 'ki'::text NOT NULL,
+    pruef_version bigint DEFAULT 1 NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT erklaer_kernidee_nr_check CHECK (((nr >= 1) AND (nr <= 9))),
+    CONSTRAINT erklaer_kernidee_quelle_check CHECK ((quelle = ANY (ARRAY['ki'::text, 'mensch'::text]))),
+    CONSTRAINT erklaer_kernidee_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'geprueft'::text, 'freigegeben'::text]))),
+    CONSTRAINT erklaer_kernidee_titel_check CHECK ((btrim(titel) <> ''::text))
+);
+
+
+--
+-- Name: erklaer_naechste_kernidee(text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_naechste_kernidee(p_skill_key text, p_nach_nr integer) RETURNS public.erklaer_kernidee
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select k.* from public.erklaer_kernidee k
+   where k.skill_key = p_skill_key and k.nr > p_nach_nr and k.status = 'freigegeben'
+     and cardinality(public.erklaer_varianten(k.id)) > 0
+     and cardinality(public.erklaer_checks(k.id)) > 0
+   order by k.nr limit 1
+$$;
+
+
+--
+-- Name: erklaer_runden_bis_signal(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_runden_bis_signal() RETURNS integer
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select 2 $$;
+
+
+--
+-- Name: erklaer_schritt; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.erklaer_schritt (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    kernidee_id uuid NOT NULL,
+    variante text NOT NULL,
+    art text NOT NULL,
+    inhalt text NOT NULL,
+    formeln text[] DEFAULT '{}'::text[] NOT NULL,
+    bild jsonb,
+    fehlbild_slugs text[] DEFAULT '{}'::text[] NOT NULL,
+    status text DEFAULT 'entwurf'::text NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT erklaer_schritt_art_check CHECK ((art = ANY (ARRAY['erklaerung'::text, 'beispiel'::text]))),
+    CONSTRAINT erklaer_schritt_bild_check CHECK (public.erklaer_bild_gueltig(bild)),
+    CONSTRAINT erklaer_schritt_formeln_check CHECK ((array_position(formeln, NULL::text) IS NULL)),
+    CONSTRAINT erklaer_schritt_inhalt_check CHECK ((btrim(inhalt) <> ''::text)),
+    CONSTRAINT erklaer_schritt_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'geprueft'::text, 'freigegeben'::text]))),
+    CONSTRAINT erklaer_schritt_variante_check CHECK ((variante = ANY (ARRAY['A'::text, 'B'::text, 'C'::text])))
+);
+
+
+--
+-- Name: erklaer_schritt_json(public.erklaer_schritt); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_schritt_json(s public.erklaer_schritt) RETURNS jsonb
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_strip_nulls(jsonb_build_object(
+    'art',     s.art,
+    'inhalt',  s.inhalt,
+    'formeln', (select coalesce(jsonb_agg(public.lsa_storage_base() || 'erklaer/formeln/' || h || '.svg'
+                                          order by o), '[]')
+                  from unnest(s.formeln) with ordinality as f(h, o)),
+    'bild',    case when s.bild ? 'svg_hash' then jsonb_build_object(
+                      'url', public.lsa_storage_base() || 'erklaer/bilder/' || (s.bild ->> 'svg_hash') || '.svg',
+                      'alt', s.bild ->> 'alt', 'content_type', 'image/svg+xml')
+                    else s.bild end))
+$$;
+
+
+--
+-- Name: erklaer_schritt_speichern(uuid, text, text, text, jsonb, text[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_schritt_speichern(p_kernidee_id uuid, p_variante text, p_art text, p_inhalt text, p_bild jsonb DEFAULT NULL::jsonb, p_fehlbild_slugs text[] DEFAULT '{}'::text[]) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_alt public.erklaer_schritt;
+  v_id  uuid;
+begin
+  perform public.erklaer_darf_schreiben('erklaer_schritt_speichern');
+  if exists (select 1 from unnest(coalesce(p_fehlbild_slugs, '{}')) s(slug)
+              where not exists (select 1 from public.fehlbild_labels l where l.slug = s.slug)) then
+    perform public.pruef_fehler('fehlbild_unbekannt');
+  end if;
+
+  select * into v_alt from public.erklaer_schritt
+   where kernidee_id = p_kernidee_id and variante = p_variante and art = p_art
+   for update;
+
+  if v_alt.id is null then
+    insert into public.erklaer_schritt (kernidee_id, variante, art, inhalt, bild, fehlbild_slugs)
+    values (p_kernidee_id, p_variante, p_art, p_inhalt, p_bild, coalesce(p_fehlbild_slugs, '{}'))
+    returning id into v_id;
+  elsif (v_alt.inhalt, v_alt.bild, v_alt.fehlbild_slugs)
+        is distinct from (p_inhalt, p_bild, coalesce(p_fehlbild_slugs, '{}')) then
+    update public.erklaer_schritt
+       set inhalt = p_inhalt, bild = p_bild, fehlbild_slugs = coalesce(p_fehlbild_slugs, '{}'),
+           -- Neuer Text heisst neue Formeln: tools/formeln-svg.mjs erzeugt sie neu.
+           formeln = case when inhalt = p_inhalt then formeln else '{}' end,
+           status = 'entwurf', geaendert_am = now()
+     where id = v_alt.id
+    returning id into v_id;
+  else
+    return v_alt.id;
+  end if;
+
+  perform public.erklaer_version_hoch(p_kernidee_id);
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: erklaer_schritte_json(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_schritte_json(p_kernidee_id uuid, p_variante text) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(jsonb_agg(public.erklaer_schritt_json(s)
+                            order by case s.art when 'erklaerung' then 1 else 2 end), '[]')
+    from public.erklaer_schritt s
+   where s.kernidee_id = p_kernidee_id and s.variante = p_variante and s.status = 'freigegeben'
+$$;
+
+
+--
+-- Name: erklaer_sperren(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_sperren(p_session_id uuid, p_student_id uuid) RETURNS void
+    LANGUAGE sql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select pg_advisory_xact_lock(hashtext('erklaer:' || p_session_id::text || ':' || p_student_id::text))
+$$;
+
+
+--
+-- Name: erklaer_start(uuid, uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_start(p_session_id uuid, p_student_id uuid, p_skill_key text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_letzt public.erklaer_fortschritt;
+  v_k     public.erklaer_kernidee;
+begin
+  perform public.erklaer_zugang(p_session_id, p_student_id);
+  perform public.erklaer_sperren(p_session_id, p_student_id);
+
+  select f.* into v_letzt from public.erklaer_fortschritt f
+    join public.erklaer_kernidee k on k.id = f.kernidee_id
+   where f.session_id = p_session_id and f.student_id = p_student_id and k.skill_key = p_skill_key
+   order by f.id desc limit 1;
+
+  if v_letzt.id is not null then
+    -- Wiederaufnahme: dasselbe Paket, derselbe offene Check, ohne neue Zeile.
+    select * into v_k from public.erklaer_kernidee where id = v_letzt.kernidee_id;
+    if v_letzt.ergebnis = 'signal' then
+      return jsonb_build_object('aktion', 'signal');
+    elsif v_letzt.ergebnis = 'richtig' then
+      return jsonb_build_object('aktion', 'weiter', 'uebergang', 'ueben');
+    end if;
+    -- Inzwischen nicht mehr freigegeben (Kernidee, Variante oder Check): nicht ausliefern.
+    if v_k.status <> 'freigegeben'
+       or not (v_letzt.variante = any (public.erklaer_varianten(v_k.id)))
+       or not (v_letzt.check_task_id = any (public.erklaer_checks(v_k.id))) then
+      raise exception 'erklaer_start: Erklaerung inzwischen nicht mehr freigegeben' using errcode = 'P0002';
+    end if;
+    return jsonb_build_object(
+      'aktion', 'start',
+      'kernidee', jsonb_build_object('nr', v_k.nr, 'titel', v_k.titel,
+                    'von', (select count(*) from public.erklaer_kernidee k
+                             where k.skill_key = p_skill_key and k.status = 'freigegeben')),
+      'variante', v_letzt.variante, 'runde', v_letzt.runde,
+      'schritte', public.erklaer_schritte_json(v_k.id, v_letzt.variante),
+      'check', jsonb_build_object('task_id', v_letzt.check_task_id,
+                                  'aufgabe', public.lsa_question_payload(v_letzt.check_task_id)));
+  end if;
+
+  v_k := public.erklaer_naechste_kernidee(p_skill_key, 0);
+  if v_k.id is null then
+    raise exception 'erklaer_start: keine freigegebene Erklaerung fuer %', p_skill_key using errcode = 'P0002';
+  end if;
+  return public.erklaer_zeigen(p_session_id, p_student_id, v_k,
+                               (public.erklaer_varianten(v_k.id))[1], 1, 'start');
+end;
+$$;
+
+
+--
+-- Name: erklaer_status_setzen(text, uuid, text, bigint); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_status_setzen(p_objekt text, p_id uuid, p_status text, p_pruef_version bigint) RETURNS bigint
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_kernidee public.erklaer_kernidee;
+  v_schritt  public.erklaer_schritt;
+  v_alt      text;
+begin
+  perform public.erklaer_darf_schreiben('erklaer_status_setzen');
+  if p_status not in ('entwurf', 'geprueft', 'freigegeben') or p_objekt not in ('kernidee', 'schritt') then
+    raise exception 'erklaer_status_setzen: ungueltiger Status oder Objekt' using errcode = '22023';
+  end if;
+
+  if p_objekt = 'schritt' then
+    select * into v_schritt from public.erklaer_schritt where id = p_id for update;
+    if v_schritt.id is null then
+      raise exception 'erklaer_status_setzen: Schritt nicht gefunden' using errcode = 'P0002';
+    end if;
+    select * into v_kernidee from public.erklaer_kernidee where id = v_schritt.kernidee_id for update;
+    v_alt := v_schritt.status;
+  else
+    select * into v_kernidee from public.erklaer_kernidee where id = p_id for update;
+    if v_kernidee.id is null then
+      raise exception 'erklaer_status_setzen: Kernidee nicht gefunden' using errcode = 'P0002';
+    end if;
+    v_alt := v_kernidee.status;
+  end if;
+
+  if v_kernidee.pruef_version is distinct from p_pruef_version then
+    perform public.pruef_fehler('veraltet', 'erklaer_status_setzen: inzwischen geaendert, neu laden');
+  end if;
+  if p_status = 'freigegeben' then
+    if coalesce(public.get_my_role(), '') <> 'admin' and not public.ist_systemaufruf() then
+      raise exception 'erklaer_status_setzen: freigeben nur Admin' using errcode = '42501';
+    end if;
+    if v_alt <> 'geprueft' then
+      perform public.pruef_fehler('erst_pruefen', 'erklaer_status_setzen: erst pruefen, dann freigeben');
+    end if;
+    if p_objekt = 'schritt'
+       and cardinality(v_schritt.formeln) <> public.erklaer_formel_anzahl(v_schritt.inhalt) then
+      perform public.pruef_fehler('formeln_fehlen', 'erklaer_status_setzen: Formeln noch nicht als SVG erzeugt');
+    end if;
+  end if;
+
+  if p_objekt = 'schritt' then
+    update public.erklaer_schritt set status = p_status, geaendert_am = now() where id = p_id;
+  else
+    update public.erklaer_kernidee set status = p_status where id = p_id;
+  end if;
+  return public.erklaer_version_hoch(v_kernidee.id);
+end;
+$$;
+
+
+--
+-- Name: erklaer_varianten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_varianten(p_kernidee_id uuid) RETURNS text[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(array_agg(s.variante order by s.variante), '{}')
+    from public.erklaer_schritt s
+   where s.kernidee_id = p_kernidee_id and s.art = 'erklaerung' and s.status = 'freigegeben'
+$$;
+
+
+--
+-- Name: erklaer_version_hoch(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_version_hoch(p_kernidee_id uuid) RETURNS bigint
+    LANGUAGE sql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  update public.erklaer_kernidee
+     set pruef_version = pruef_version + 1, geaendert_am = now()
+   where id = p_kernidee_id
+  returning pruef_version
+$$;
+
+
+--
+-- Name: erklaer_zeigen(uuid, uuid, public.erklaer_kernidee, text, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_zeigen(p_session_id uuid, p_student_id uuid, p_kernidee public.erklaer_kernidee, p_variante text, p_runde integer, p_aktion text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_checks uuid[] := public.erklaer_checks(p_kernidee.id);
+  v_check  uuid;
+begin
+  if cardinality(v_checks) = 0 or p_variante is null then
+    raise exception 'erklaer: Kernidee % hat keine freigegebene Variante oder Check-Aufgabe', p_kernidee.nr
+      using errcode = 'P0002';
+  end if;
+  v_check := v_checks[((p_runde - 1) % cardinality(v_checks)) + 1];
+  insert into public.erklaer_fortschritt
+    (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis)
+  values (p_session_id, p_student_id, p_kernidee.id, p_runde, p_variante, v_check, 'gezeigt');
+
+  return jsonb_build_object(
+    'aktion',   p_aktion,
+    'kernidee', jsonb_build_object(
+                  'nr', p_kernidee.nr, 'titel', p_kernidee.titel,
+                  'von', (select count(*) from public.erklaer_kernidee k
+                           where k.skill_key = p_kernidee.skill_key and k.status = 'freigegeben')),
+    'variante', p_variante,
+    'runde',    p_runde,
+    'schritte', public.erklaer_schritte_json(p_kernidee.id, p_variante),
+    'check',    jsonb_build_object('task_id', v_check,
+                                   'aufgabe', public.lsa_question_payload(v_check)));
+end;
+$$;
+
+
+--
+-- Name: erklaer_zugang(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_zugang(p_session_id uuid, p_student_id uuid) RETURNS void
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (coalesce(public.get_my_role(), '') = 'admin'
+          or exists (select 1 from public.coaching_sessions cs
+                      where cs.id = p_session_id and cs.coach_id = auth.uid())
+          or public.get_my_student_id() = p_student_id) then
+    raise exception 'erklaer: kein Zugriff auf diese Session' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.session_students ss
+                  where ss.session_id = p_session_id and ss.student_id = p_student_id
+                    and ss.attendance in ('planned', 'present')) then
+    raise exception 'erklaer: Kind ist in dieser Session nicht gebucht' using errcode = '42501';
+  end if;
+end;
+$$;
+
+
+--
 -- Name: fortschritt(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1154,6 +1853,93 @@ CREATE FUNCTION public.hat_zugang(p_student_id uuid, p_datum date DEFAULT CURREN
            ) in ('im_widerruf', 'aktiv')
   )
   or public.vertrag_bruecke(p_student_id, p_datum);
+$$;
+
+
+--
+-- Name: hinweis_status_setzen(uuid, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hinweis_status_setzen(p_task_id uuid, p_level integer, p_status text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_hints jsonb;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'hinweis_status_setzen: nur Pruefer oder Admin' using errcode = '42501';
+  end if;
+  if p_status is null or p_status not in ('entwurf', 'geprueft') then
+    raise exception 'hinweis_status_setzen: Status entwurf oder geprueft' using errcode = '22023';
+  end if;
+
+  select hints into v_hints from public.task_solutions where task_id = p_task_id for update;
+  if v_hints is null or not exists (select 1 from jsonb_array_elements(v_hints) h
+                                     where (h ->> 'level')::int = p_level) then
+    raise exception 'hinweis_status_setzen: Hinweis nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  perform set_config('edvance.hinweis_status', 'setzen', true);
+  update public.task_solutions
+     set hints = (select jsonb_agg(case when (h ->> 'level')::int = p_level
+                                        then h || jsonb_build_object('status', p_status)
+                                        else h end order by ord)
+                    from jsonb_array_elements(v_hints) with ordinality as e(h, ord)),
+         updated_at = now()
+   where task_id = p_task_id
+  returning hints into v_hints;
+  perform set_config('edvance.hinweis_status', '', true);
+  return v_hints;
+end;
+$$;
+
+
+--
+-- Name: hinweise_status_folgt_text(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hinweise_status_folgt_text() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_setzen boolean := coalesce(current_setting('edvance.hinweis_status', true), '') = 'setzen';
+  v_alt    jsonb   := case when tg_op = 'UPDATE' and jsonb_typeof(old.hints) = 'array' then old.hints else '[]' end;
+begin
+  if jsonb_typeof(new.hints) <> 'array' or (tg_op = 'UPDATE' and new.hints is not distinct from old.hints) then
+    return new;
+  end if;
+  new.hints := coalesce((
+    select jsonb_agg(
+             case
+               when v_setzen and n.h ? 'status' then n.h
+               when a.h is null or a.h ->> 'text' is distinct from n.h ->> 'text'
+                 then n.h || '{"status":"entwurf"}'
+               else n.h || jsonb_build_object('status', coalesce(a.h -> 'status', '"entwurf"'))
+             end order by n.ord)
+      from jsonb_array_elements(new.hints) with ordinality as n(h, ord)
+      left join lateral (
+        select o.h from jsonb_array_elements(v_alt) as o(h)
+         where o.h ->> 'level' = n.h ->> 'level'
+         limit 1) a on true), '[]'::jsonb);
+  return new;
+end;
+$$;
+
+
+--
+-- Name: hinweise_status_gueltig(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hinweise_status_gueltig(p_hints jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_typeof(p_hints) <> 'array'
+      or not exists (select 1 from jsonb_array_elements(p_hints) h
+                      where h ? 'status'
+                        and coalesce(h ->> 'status', '') not in ('entwurf', 'geprueft'))
 $$;
 
 
@@ -2677,12 +3463,14 @@ begin
     raise exception 'LSA: Item gehoert nicht zu dieser Session' using errcode = 'P0001';
   end if;
 
+  -- Entscheidung 20: nur geprueft. Ohne Status gilt ein Hinweis als entwurf.
   select h
     into v_hint
     from task_solutions s,
          lateral jsonb_array_elements(s.hints) as e(h)
    where s.task_id = p_task_id
      and (h ->> 'level')::int = p_level
+     and h ->> 'status' = 'geprueft'
    limit 1;
 
   if v_hint is null then
@@ -5011,10 +5799,6 @@ begin
 end;
 $$;
 
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
 
 --
 -- Name: platz_assignments; Type: TABLE; Schema: public; Owner: -
@@ -9374,6 +10158,53 @@ CREATE TABLE public.eltern_reports (
 
 
 --
+-- Name: erklaer_check; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.erklaer_check (
+    kernidee_id uuid NOT NULL,
+    task_id uuid NOT NULL,
+    reihenfolge integer NOT NULL,
+    CONSTRAINT erklaer_check_reihenfolge_check CHECK ((reihenfolge >= 1))
+);
+
+
+--
+-- Name: erklaer_fortschritt; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.erklaer_fortschritt (
+    id bigint NOT NULL,
+    session_id uuid NOT NULL,
+    student_id uuid NOT NULL,
+    kernidee_id uuid NOT NULL,
+    runde integer NOT NULL,
+    variante text,
+    check_task_id uuid,
+    ergebnis text NOT NULL,
+    fehlbild_slug text,
+    zeit timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT erklaer_fortschritt_ergebnis_check CHECK ((ergebnis = ANY (ARRAY['gezeigt'::text, 'richtig'::text, 'falsch'::text, 'signal'::text]))),
+    CONSTRAINT erklaer_fortschritt_runde_check CHECK ((runde >= 1)),
+    CONSTRAINT erklaer_fortschritt_variante_check CHECK ((variante = ANY (ARRAY['A'::text, 'B'::text, 'C'::text])))
+);
+
+
+--
+-- Name: erklaer_fortschritt_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.erklaer_fortschritt ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.erklaer_fortschritt_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: fehlbild_familien; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10531,6 +11362,7 @@ CREATE TABLE public.task_solutions (
     CONSTRAINT task_solutions_coach_hints_check CHECK (((jsonb_typeof(coach_hints) = 'array'::text) AND (jsonb_array_length(coach_hints) <= 3))),
     CONSTRAINT task_solutions_correct_answers_check CHECK (public.lsa_answers_valid(correct_answers)),
     CONSTRAINT task_solutions_hints_check CHECK ((jsonb_typeof(hints) = 'array'::text)),
+    CONSTRAINT task_solutions_hints_status_check CHECK (public.hinweise_status_gueltig(hints)),
     CONSTRAINT task_solutions_option_scores_check CHECK (((option_scores IS NULL) OR public.lsa_option_scores_valid(option_scores))),
     CONSTRAINT task_solutions_typical_errors_check CHECK ((jsonb_typeof(typical_errors) = 'array'::text))
 );
@@ -11063,6 +11895,62 @@ ALTER TABLE ONLY public.eltern_reports
 
 ALTER TABLE ONLY public.eltern_reports
     ADD CONSTRAINT eltern_reports_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: erklaer_check erklaer_check_kernidee_id_reihenfolge_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_check
+    ADD CONSTRAINT erklaer_check_kernidee_id_reihenfolge_key UNIQUE (kernidee_id, reihenfolge);
+
+
+--
+-- Name: erklaer_check erklaer_check_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_check
+    ADD CONSTRAINT erklaer_check_pkey PRIMARY KEY (kernidee_id, task_id);
+
+
+--
+-- Name: erklaer_fortschritt erklaer_fortschritt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_fortschritt
+    ADD CONSTRAINT erklaer_fortschritt_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: erklaer_kernidee erklaer_kernidee_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_kernidee
+    ADD CONSTRAINT erklaer_kernidee_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: erklaer_kernidee erklaer_kernidee_skill_key_nr_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_kernidee
+    ADD CONSTRAINT erklaer_kernidee_skill_key_nr_key UNIQUE (skill_key, nr);
+
+
+--
+-- Name: erklaer_schritt erklaer_schritt_kernidee_id_variante_art_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_schritt
+    ADD CONSTRAINT erklaer_schritt_kernidee_id_variante_art_key UNIQUE (kernidee_id, variante, art);
+
+
+--
+-- Name: erklaer_schritt erklaer_schritt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_schritt
+    ADD CONSTRAINT erklaer_schritt_pkey PRIMARY KEY (id);
 
 
 --
@@ -11904,6 +12792,34 @@ CREATE UNIQUE INDEX eltern_reports_lsa_einmal ON public.eltern_reports USING btr
 
 
 --
+-- Name: erklaer_check_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX erklaer_check_task_idx ON public.erklaer_check USING btree (task_id);
+
+
+--
+-- Name: erklaer_fortschritt_ergebnis_einmal; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX erklaer_fortschritt_ergebnis_einmal ON public.erklaer_fortschritt USING btree (session_id, student_id, kernidee_id, runde, ergebnis) WHERE (ergebnis <> 'gezeigt'::text);
+
+
+--
+-- Name: erklaer_fortschritt_kind_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX erklaer_fortschritt_kind_idx ON public.erklaer_fortschritt USING btree (session_id, student_id, id);
+
+
+--
+-- Name: erklaer_schritt_kernidee_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX erklaer_schritt_kernidee_idx ON public.erklaer_schritt USING btree (kernidee_id);
+
+
+--
 -- Name: ferien_nrw_bis_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12555,6 +13471,13 @@ CREATE TRIGGER eltern_reports_guard_trg BEFORE UPDATE ON public.eltern_reports F
 
 
 --
+-- Name: erklaer_fortschritt erklaer_fortschritt_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER erklaer_fortschritt_nur_anhaengen BEFORE DELETE OR UPDATE ON public.erklaer_fortschritt FOR EACH ROW EXECUTE FUNCTION public.erklaer_fortschritt_nur_anhaengen();
+
+
+--
 -- Name: leads leads_ist_test_schuetzen_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -12650,6 +13573,13 @@ CREATE TRIGGER subscriptions_guard_provisional_trg BEFORE INSERT OR UPDATE OF st
 --
 
 CREATE TRIGGER task_pruefungen_nur_anhaengen BEFORE UPDATE ON public.task_pruefungen FOR EACH ROW EXECUTE FUNCTION public.task_pruefungen_nur_anhaengen();
+
+
+--
+-- Name: task_solutions task_solutions_hinweise_status; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER task_solutions_hinweise_status BEFORE INSERT OR UPDATE OF hints ON public.task_solutions FOR EACH ROW EXECUTE FUNCTION public.hinweise_status_folgt_text();
 
 
 --
@@ -12830,6 +13760,70 @@ ALTER TABLE ONLY public.eltern_reports
 
 ALTER TABLE ONLY public.eltern_reports
     ADD CONSTRAINT eltern_reports_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: erklaer_check erklaer_check_kernidee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_check
+    ADD CONSTRAINT erklaer_check_kernidee_id_fkey FOREIGN KEY (kernidee_id) REFERENCES public.erklaer_kernidee(id) ON DELETE CASCADE;
+
+
+--
+-- Name: erklaer_check erklaer_check_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_check
+    ADD CONSTRAINT erklaer_check_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id);
+
+
+--
+-- Name: erklaer_fortschritt erklaer_fortschritt_check_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_fortschritt
+    ADD CONSTRAINT erklaer_fortschritt_check_task_id_fkey FOREIGN KEY (check_task_id) REFERENCES public.tasks(id);
+
+
+--
+-- Name: erklaer_fortschritt erklaer_fortschritt_kernidee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_fortschritt
+    ADD CONSTRAINT erklaer_fortschritt_kernidee_id_fkey FOREIGN KEY (kernidee_id) REFERENCES public.erklaer_kernidee(id);
+
+
+--
+-- Name: erklaer_fortschritt erklaer_fortschritt_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_fortschritt
+    ADD CONSTRAINT erklaer_fortschritt_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: erklaer_fortschritt erklaer_fortschritt_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_fortschritt
+    ADD CONSTRAINT erklaer_fortschritt_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: erklaer_kernidee erklaer_kernidee_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_kernidee
+    ADD CONSTRAINT erklaer_kernidee_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON UPDATE CASCADE;
+
+
+--
+-- Name: erklaer_schritt erklaer_schritt_kernidee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.erklaer_schritt
+    ADD CONSTRAINT erklaer_schritt_kernidee_id_fkey FOREIGN KEY (kernidee_id) REFERENCES public.erklaer_kernidee(id) ON DELETE CASCADE;
 
 
 --
@@ -14253,6 +15247,60 @@ CREATE POLICY eltern_reports_admin_update ON public.eltern_reports FOR UPDATE US
 --
 
 CREATE POLICY eltern_reports_coach_select ON public.eltern_reports FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.akte_aktiv(student_id)));
+
+
+--
+-- Name: erklaer_check; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.erklaer_check ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: erklaer_check erklaer_check_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY erklaer_check_pruefer_lesen ON public.erklaer_check FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: erklaer_fortschritt; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.erklaer_fortschritt ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: erklaer_fortschritt erklaer_fortschritt_admin_coach_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY erklaer_fortschritt_admin_coach_lesen ON public.erklaer_fortschritt FOR SELECT TO authenticated USING (((COALESCE(public.get_my_role(), ''::text) = 'admin'::text) OR (EXISTS ( SELECT 1
+   FROM public.coaching_sessions cs
+  WHERE ((cs.id = erklaer_fortschritt.session_id) AND (cs.coach_id = auth.uid()))))));
+
+
+--
+-- Name: erklaer_kernidee; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.erklaer_kernidee ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: erklaer_kernidee erklaer_kernidee_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY erklaer_kernidee_pruefer_lesen ON public.erklaer_kernidee FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: erklaer_schritt; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.erklaer_schritt ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: erklaer_schritt erklaer_schritt_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY erklaer_schritt_pruefer_lesen ON public.erklaer_schritt FOR SELECT TO authenticated USING (public.darf_pruefen());
 
 
 --
