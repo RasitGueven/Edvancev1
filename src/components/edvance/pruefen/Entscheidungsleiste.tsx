@@ -11,7 +11,8 @@ import { InfoTip, Taste } from './InfoTip'
 import { teilLabel } from './RichtigeAntwort'
 
 export const GRUENDE: PasstNichtGrund[] = [
-  'aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa', 'sonstiges',
+  'aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa',
+  'hinweis_verraet_loesung', 'hinweis_passt_nicht', 'sonstiges',
 ]
 
 export type Panel = 'nicht' | 'unsicher' | null

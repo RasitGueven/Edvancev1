@@ -26,6 +26,7 @@ import {
 import { setzePilot } from '@/lib/supabase/pruefungAdmin'
 import { AdminKopf } from './AdminKopf'
 import { AdminLeiste, type LeistenPanel } from './AdminLeiste'
+import { HinweiseAdmin } from './HinweiseAdmin'
 import { EditorLink, Verlauf, VorFreigabeKlaeren } from './KarteZusatz'
 import { LenasErgebnis } from './LenasErgebnis'
 import { useAdminAktionen } from './useAdminAktionen'
@@ -184,6 +185,10 @@ export function AdminPruefansichtPage(): JSX.Element {
                   </section>
                   <TypischeFehler aufgabe={a} b={s.b} fehlbilder={p.fehlbilder} geaendert={felder.has('fehler')} lesend={lesend}
                     onChange={s.aendern} onZurueck={() => zuruecksetzen('fehler')} kopfAktion={link('antwort')} />
+                  <HinweiseAdmin aufgabe={a} b={s.b} onFehler={x.zeigeFehler} onBestaetigt={() => {
+                    x.setMeldung({ text: t('hinweise.bestaetigt', { titel: a.kopf.kurztitel }) })
+                    p.neuLaden()
+                  }} />
                   <Einordnung aufgabe={a} b={s.b} ausgang={s.ausgang} fertigkeitGeaendert={felder.has('fertigkeit')}
                     afbGeaendert={felder.has('afb')} lesend={lesend} onChange={s.aendern} onZurueck={zuruecksetzen}
                     kopfAktion={link('einordnung')} />

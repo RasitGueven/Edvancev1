@@ -66,6 +66,7 @@ export function filtereUndSortiere(rows: ItemRowData[], filters: FilterState, k:
     if (filters.table === 'yes' && !row.hasTable) return false
     if (filters.table === 'no' && row.hasTable) return false
     if (filters.lena === 'nicht' && !lena.get(task.id)?.ausschluss) return false
+    if (filters.hinweise === 'ungeprueft' && !lena.get(task.id)?.hinweise_ungeprueft) return false
     return true
   })
 

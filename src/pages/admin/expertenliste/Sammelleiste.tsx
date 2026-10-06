@@ -9,7 +9,7 @@ import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { SammelAktion } from '@/types'
 
-const MEHR: SammelAktion[] = ['pilot_an', 'pilot_aus', 'ausschliessen', 'aufnehmen', 'fertigkeit', 'afb']
+const MEHR: SammelAktion[] = ['pilot_an', 'pilot_aus', 'ausschliessen', 'aufnehmen', 'fertigkeit', 'afb', 'hinweise_bestaetigen']
 
 type Props = {
   anzahl: number

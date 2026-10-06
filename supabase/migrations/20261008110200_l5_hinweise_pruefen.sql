@@ -8,6 +8,7 @@
 --   - Neu: pruef_hinweise_anwenden. pruef_aufgabe und pruef_speichern (Teil 3) nehmen Hinweise im Entwurf an
 --     (Schluessel 'hinweise': [{stufe, text}], leerer Text = Stufe entfaellt).
 --     Teil 3: pruef_entscheiden kennt die Gruende hinweis_verraet_loesung und hinweis_passt_nicht.
+--   - Ausgangsfassungen ohne hints bekommen den heutigen Stand nachgetragen (am Ende der Datei).
 -- Status setzt hier niemand: der Trigger aus E1 laesst unveraenderte Hinweise, wie sie sind, und setzt
 -- geaenderte auf entwurf. Lena (Pruefrecht, kein Admin) kommt so nie an geprueft.
 
@@ -165,7 +166,7 @@ AS $function$
 $function$;
 
 -- Hinweise aus Lenas Entwurf. p_jetzt ist pruef_fassung. Ohne Schluessel 'hinweise' bleibt alles.
--- Unveraenderte Stufen behalten ihr Objekt samt Status; der Trigger entscheidet den Rest.
+-- Unveraenderte Stufen (Text nach btrim gleich) behalten ihr Objekt samt Status; der Trigger entscheidet den Rest.
 create function public.pruef_hinweise_anwenden(p_jetzt jsonb, p_entwurf jsonb)
 returns jsonb
 language plpgsql
@@ -178,6 +179,9 @@ declare
   neu jsonb;
   n   int;
 begin
+  if jsonb_typeof(e) <> 'object' then
+    perform public.pruef_fehler('hinweis_ungueltig');
+  end if;
   if not (e ? 'hinweise') then
     return alt;
   end if;
@@ -193,11 +197,12 @@ begin
     perform public.pruef_fehler('hinweis_zu_lang');
   end if;
 
-  select coalesce(jsonb_agg(coalesce(a.h, '{}'::jsonb)
-                              || jsonb_build_object('level', x.stufe, 'text', x.txt) order by x.stufe), '[]'),
+  select coalesce(jsonb_agg(case when btrim(a.h ->> 'text') = x.txt then a.h
+                                 else (coalesce(a.h, '{}'::jsonb) - 'status') || jsonb_build_object('level', x.stufe, 'text', x.txt)
+                            end order by x.stufe), '[]'),
          count(*)
     into neu, n
-    from (select (h ->> 'stufe')::int stufe, btrim(h ->> 'text') txt
+    from (select (h ->> 'stufe')::numeric::int stufe, btrim(h ->> 'text') txt
             from jsonb_array_elements(e -> 'hinweise') h
            where coalesce(btrim(h ->> 'text'), '') <> '') x
     left join lateral (select o.h from jsonb_array_elements(alt) o(h)
@@ -209,12 +214,22 @@ begin
   -- Unveraenderte Hinweise byte-gleich lassen, damit kein Speichern ohne Aenderung schreibt.
   if (select coalesce(jsonb_agg(jsonb_build_object('l', (h ->> 'level')::int, 't', h ->> 'text') order by (h ->> 'level')::int), '[]')
         from jsonb_array_elements(neu) h)
-     = (select coalesce(jsonb_agg(jsonb_build_object('l', (h ->> 'level')::int, 't', h ->> 'text') order by (h ->> 'level')::int), '[]')
+     = (select coalesce(jsonb_agg(jsonb_build_object('l', (h ->> 'level')::int, 't', btrim(h ->> 'text')) order by (h ->> 'level')::int), '[]')
           from jsonb_array_elements(alt) h) then
     return alt;
   end if;
   return neu;
 end;
 $$;
+
+-- Ausgangsfassungen (task_pruefung_ausgang) bekommen die Hinweise nachgetragen, damit Lenas Aenderungen an
+-- Hinweisen im Vergleich erscheinen. Steht hier (nicht in Teil 1), damit ab jetzt jede neue Ausgangsfassung
+-- ueber pruef_fassung die hints traegt (Consensus-Check L5, Befund 4). Vor L5 hat niemand Hinweise ueber das
+-- Board geaendert; der jetzige Stand ist also der Ausgang (dbread 06.10.: 3 Zeilen, keine mit hints).
+update public.task_pruefung_ausgang a
+   set ausgang = a.ausgang || jsonb_build_object('hints', coalesce(s.hints, '[]'::jsonb))
+  from public.tasks t
+  left join public.task_solutions s on s.task_id = t.id
+ where t.id = a.task_id and not (a.ausgang ? 'hints');
 
 revoke all on function public.pruef_hinweise_anwenden(jsonb, jsonb) from public, anon, authenticated;

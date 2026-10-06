@@ -54,6 +54,11 @@ export function pruefFreigabeZuruecknehmen(taskId: string): Promise<PruefResult<
   return rufe('pruef_freigabe_zuruecknehmen', { p_task_id: taskId })
 }
 
+/** Kinder-Hinweise einer freigegebenen Aufgabe bestaetigen (L5): alle auf geprueft, protokolliert. */
+export function hinweiseBestaetigen(taskId: string): Promise<PruefResult<{ status: string; aenderungen: unknown[] }>> {
+  return rufe('hinweise_bestaetigen', { p_task_id: taskId })
+}
+
 /** Zurueckweisen (G5): beanstandet, je Grund eine task_reviews-Zeile. */
 export function pruefAdminZurueckweisen(
   taskId: string,

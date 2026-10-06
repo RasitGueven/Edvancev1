@@ -16,7 +16,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(72);
+select plan(77);
 
 -- --- Fixtures --------------------------------------------------------------
 \set admin_uid  '15000000-0000-4000-8000-00000000000a'
@@ -130,6 +130,11 @@ select is(pg_temp.fehler(format($$select pruef_speichern(%L, %s, '{"hinweise":[{
 select is(pg_temp.fehler(format($$select pruef_speichern(%L, %s, %L)$$, :'lena_t', pg_temp.v(:'lena_t'),
           jsonb_build_object('hinweise', jsonb_build_array(jsonb_build_object('stufe', 1, 'text', repeat('x', 501)))))),
           'ED422:hinweis_zu_lang', '1 zu langer Hinweis abgelehnt');
+select is(pg_temp.fehler(format($$select pruef_speichern(%L, %s, '["hinweise"]')$$, :'lena_t', pg_temp.v(:'lena_t'))),
+          'ED422:hinweis_ungueltig', '1 Entwurf als Array abgelehnt (Consensus-Check Befund 2)');
+select is(pg_temp.fehler(format($$select pruef_speichern(%L, %s, '{"hinweise":[{"stufe":"1","text":"a"}]}')$$,
+          :'lena_t', pg_temp.v(:'lena_t'))), 'ED422:hinweis_ungueltig', '1 Stufe als Text abgelehnt');
+select is(jsonb_array_length((select hints from task_solutions where task_id = :'lena_t')), 3, '1 abgelehnte Entwuerfe aendern nichts');
 select pg_temp.v(:'lena_t') as v1 \gset
 select pruef_speichern(:'lena_t', :'v1', '{"afb":"II"}');
 select is(pg_temp.v(:'lena_t'), :'v1'::bigint, '1 Speichern ohne Hinweis-Schluessel laesst die Hinweise (keine neue Version)');
@@ -275,6 +280,15 @@ select results_eq(format($$select sammel, grund from task_admin_protokoll where 
 select is((select hinweise_ungeprueft from pruef_admin_liste() where task_id = :'alt3'), 2, '6 Admin-Liste: alt3 hat 2 ungepruefte');
 select is((select hinweise_ungeprueft || '/' || hinweise from pruef_admin_liste() where task_id = :'alt2'), '0/2',
           '6 Admin-Liste: alt2 0 von 2 ungeprueft');
+
+select ok(not has_function_privilege('authenticated', 'public.pruef_hinweise_setzen(uuid,text)', 'execute')
+      and not has_function_privilege('authenticated', 'public.pruef_hinweise_anwenden(jsonb,jsonb)', 'execute')
+      and not has_function_privilege('authenticated', 'public.hinweise_offen(uuid)', 'execute')
+      and not has_function_privilege('anon', 'public.hinweise_bestaetigen(uuid)', 'execute'),
+   '7 interne Funktionen nicht fuer Clients, hinweise_bestaetigen nicht fuer anon');
+select ok(has_function_privilege('authenticated', 'public.hinweise_bestaetigen(uuid)', 'execute')
+      and has_function_privilege('authenticated', 'public.pruef_admin_liste()', 'execute'),
+   '7 hinweise_bestaetigen und pruef_admin_liste fuer authenticated (Rolle prueft die Funktion)');
 
 -- ============================================================================
 -- 8  Rollenpruefungen NULL-sicher: Konto ohne Profil

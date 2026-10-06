@@ -11,9 +11,6 @@
 --     (Entscheidung 2). Zurueck auf entwurf darf weiter jeder mit Pruefrecht.
 --   - hinweise_offen(task_id) und pruef_admin_liste mit den Spalten hinweise / hinweise_ungeprueft
 --     (Filter "Hinweise ungeprueft" in der Admin-Liste).
---   - Ausgangsfassungen (task_pruefung_ausgang) bekommen die Hinweise nachgetragen, damit Lenas
---     Aenderungen an Hinweisen im Vergleich erscheinen. Vor L5 hat niemand Hinweise ueber das Board
---     geaendert; der jetzige Stand ist also der Ausgang (dbread 06.10.: 3 Zeilen, keine mit hints).
 
 alter table public.task_reviews drop constraint task_reviews_kategorie_check;
 alter table public.task_reviews add constraint task_reviews_kategorie_check
@@ -104,6 +101,8 @@ begin
     raise exception 'hinweis_status_setzen: geprueft nur ueber die Freigabe der Aufgabe' using errcode = '42501';
   end if;
 
+  -- Sperrreihenfolge wie die Freigabewege: erst tasks, dann task_solutions (Consensus-Check L5, Befund 5).
+  perform 1 from public.tasks where id = p_task_id for update;
   select hints into v_hints from public.task_solutions where task_id = p_task_id for update;
   if v_hints is null or not exists (select 1 from jsonb_array_elements(v_hints) h
                                      where (h ->> 'level')::int = p_level) then
@@ -127,11 +126,6 @@ $$;
 comment on function public.hinweis_status_setzen(uuid, integer, text) is
   'Setzt einen Hinweis zurueck auf entwurf (darf_pruefen). geprueft nur ueber die Freigabe der Aufgabe (L5).';
 
-update public.task_pruefung_ausgang a
-   set ausgang = a.ausgang || jsonb_build_object('hints', coalesce(s.hints, '[]'::jsonb))
-  from public.tasks t
-  left join public.task_solutions s on s.task_id = t.id
- where t.id = a.task_id and not (a.ausgang ? 'hints');
 
 -- Hat die Aufgabe Kinder-Hinweise, die nicht geprueft sind?
 create function public.hinweise_offen(p_task_id uuid)
@@ -146,7 +140,7 @@ as $$
 $$;
 
 -- pruef_admin_liste: zwei Spalten mehr (Filter "Hinweise ungeprueft"). Rueckgabetyp aendert sich, deshalb
--- drop + create; Aufrufer: src/lib/supabase/pruefungAdmin.ts (getPruefAdminListe). Rest wie Prod.
+-- drop + create; Aufrufer: src/lib/supabase/pruefung.ts (getPruefAdminListe). Rest wie Prod.
 drop function public.pruef_admin_liste();
 create function public.pruef_admin_liste()
 returns table(task_id uuid, lena_status text, ausschluss text, pilot boolean, entscheidung text, gruende text[],
