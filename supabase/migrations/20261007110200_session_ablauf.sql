@@ -115,7 +115,7 @@ stable
 security definer
 set search_path = public, pg_temp
 as $$
-  select case public.get_my_role()
+  select case coalesce(public.get_my_role(), '')
     when 'admin' then exists (select 1 from public.coaching_sessions where id = p_session_id)
     when 'coach' then exists (select 1 from public.coaching_sessions
                                where id = p_session_id and coach_id = auth.uid())

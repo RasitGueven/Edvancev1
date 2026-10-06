@@ -22,7 +22,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(81);
+select plan(90);
 
 \set admin 'eeeeeeee-0001-4000-8000-000000000001'
 \set coach_a 'eeeeeeee-0001-4000-8000-000000000002'
@@ -102,10 +102,14 @@ select null, 'exercise', 'SHORT_TEXT', st, 'Wie viel ist 2 * 5?',
   from (values ('ready', 'r1-ready'), ('draft', 'r1-draft')) v(st, ref);
 select (select id from tasks where source_ref = 'r1-ready') as t1, (select id from tasks where source_ref = 'r1-draft') as t2
 \gset
+-- Gepruefter Hinweis als Fixture: E1 (20261007135106_hinweis_status) setzt den Status nur
+-- mit diesem Schalter, sonst faellt ein neuer Hinweis auf entwurf. Ohne E1 wirkungslos.
+select set_config('edvance.hinweis_status', 'setzen', true);
 insert into task_solutions (task_id, correct_answers, solution, hints, acceptance)
 values (:'t1', '["10"]', 'ZZ-Musterloesung: 2 * 5 = 10',
         '[{"level":1,"text":"ZZ Hinweis ungeprueft"},{"level":2,"text":"ZZ Hinweis geprueft","status":"geprueft"}]',
         '{"canonical":"10","known_errors":{"14":"zz_r1_fb"}}');
+select set_config('edvance.hinweis_status', '', true);
 
 -- ── 1) Stellschrauben ──────────────────────────────────────────────────────
 select is((select count(*)::int from session_einstellungen), 28, '1 alle 28 Stellschrauben mit Startwert');
@@ -273,6 +277,38 @@ select ok(jsonb_array_length((:'live'::jsonb) -> 'kinder') = 6 and :'live' not l
   '10 Live: alle sechs gebuchten Kinder, keine Musterloesung');
 select is((coach_kind_detail(:'s', :'k3')) -> 'aufgabe_detail' ->> 'musterloesung', 'ZZ-Musterloesung: 2 * 5 = 10',
   '10 Detail: Musterloesung fuer den Coach');
+
+-- ── Coach-Rechte: keine eigenen Sessions/Buchungen, Anwesenheit nur ueber RPC ──
+grant usage on schema extensions to authenticated;
+select pg_temp.act_as(:'coach_a');
+set local role authenticated;
+select throws_ok($$insert into coaching_sessions (coach_id, scheduled_at) values (auth.uid(), now())$$, '42501', null,
+  'Coach legt keine Session an');
+select throws_ok(format('insert into session_students (session_id, student_id) values (%L, %L)', :'s', :'k7'), '42501', null,
+  'Coach bucht kein Kind');
+select is((select count(*)::int from coaching_sessions where id = :'s'), 1, 'Coach liest seine Session weiter');
+reset role;
+select is((select count(*)::int from (select 1 from session_students where session_id = :'s') x), 6, 'Buchungen unveraendert');
+select pg_temp.act_as(:'coach_a');
+set local role authenticated;
+update session_students set attendance = 'present' where session_id = :'s' and student_id = :'k6';
+reset role;
+select is((select attendance from session_students where session_id = :'s' and student_id = :'k6'), 'planned',
+  'Coach aendert die Anwesenheit nicht direkt');
+select is((anwesenheit_setzen(:'s', :'k6', 'unexcused')).attendance, 'unexcused', 'anwesenheit_setzen: Coach setzt nicht erschienen');
+select throws_ok(format($$select anwesenheit_setzen(%L, %L, 'cancelled')$$, :'s', :'k6'), '22023', null,
+  'anwesenheit_setzen: Coach sagt nicht ab');
+select pg_temp.act_as(:'admin');
+select anwesenheit_setzen(:'s', :'k6', 'cancelled');
+select pg_temp.act_as(:'coach_a');
+select throws_ok(format($$select anwesenheit_setzen(%L, %L, 'present')$$, :'s', :'k6'), '42501', null,
+  'anwesenheit_setzen: abgesagte Buchung aendert nur ein Admin');
+select pg_temp.act_as(:'coach_b');
+select throws_ok(format($$select anwesenheit_setzen(%L, %L, 'present')$$, :'s', :'k1'), '42501', null,
+  'anwesenheit_setzen: fremder Coach abgelehnt');
+select pg_temp.act_as(:'admin');
+select anwesenheit_setzen(:'s', :'k6', 'planned');
+select pg_temp.act_as(:'coach_a');
 
 -- ── 11) Abschluss ──────────────────────────────────────────────────────────
 select throws_ok(format($$select abschluss_setzen(%L, %L, p_notiz => 'braucht Therapie')$$, :'s', :'k1'), '22023', null,

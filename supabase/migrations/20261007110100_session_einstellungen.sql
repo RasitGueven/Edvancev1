@@ -120,7 +120,7 @@ alter table public.session_einstellungen_protokoll enable row level security;
 create policy session_einstellungen_lesen on public.session_einstellungen
   for select to authenticated using (true);
 create policy session_einstellungen_protokoll_admin on public.session_einstellungen_protokoll
-  for select to authenticated using (public.get_my_role() = 'admin');
+  for select to authenticated using (coalesce(public.get_my_role(), '') = 'admin');
 
 revoke all on public.session_einstellungen, public.session_einstellungen_protokoll
   from public, anon, authenticated;

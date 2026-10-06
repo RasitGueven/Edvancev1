@@ -54,10 +54,12 @@ insert into tasks (content_type, input_type, status, question, question_payload,
 values ('exercise', 'SHORT_TEXT', 'ready', 'Löse die Klammer auf: −(3a − 2b)',
         '{"input_type":"SHORT_TEXT","kind":"short_input","prompt":"Löse die Klammer auf: −(3a − 2b)"}', 'I',
         'Terme und Gleichungen', 60, 8, 'test', 'zz-dl') returning id as aufgabe \gset
+select set_config('edvance.hinweis_status', 'setzen', true);  -- gepruefter Hinweis (E1)
 insert into task_solutions (task_id, correct_answers, solution, hints, acceptance)
 values (:'aufgabe', '["-3a+2b"]', 'Minus vor der Klammer ändert jedes Vorzeichen: −3a + 2b',
         '[{"level":1,"text":"Womit multiplizierst du jeden Summanden?","status":"geprueft"}]',
         '{"canonical":"-3a+2b","known_errors":{"-3a-2b":"zz_dl_minus"}}');
+select set_config('edvance.hinweis_status', '', true);
 insert into coaching_sessions (coach_id, room, scheduled_at) values (:'sara', 'Raum 1', now()) returning id as s \gset
 insert into session_students (session_id, student_id) select :'s', k from unnest(array[:'mila', :'emir', :'lea']::uuid[]) k;
 
