@@ -274,6 +274,8 @@ export type CoachLiveKind = {
   erklaersequenz: LiveErklaersequenz | null
   masteryKandidat: LiveMasteryKandidat | null
   pfadVorschlag: PfadVorschlag | null
+  /** Entscheidung „eine Stufe tiefer“ bzw. „beim Plan“ in dieser Session (Warm-up oder Stufe 4). */
+  pfadEntscheidung: { art: 'tiefer' | 'plan'; zeit: string } | null
   info: { inhalt: LiveInfo; quittierbar: boolean } | null
   eingreifen: LiveEingreifen
   heute: HeuteZeile[]

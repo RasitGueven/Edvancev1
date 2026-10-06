@@ -162,6 +162,7 @@ function baueKind(basis: (typeof BEISPIEL_KINDER)[number], z: BeispielZustand): 
     pfadVorschlag: pfadBasis && z.zeitpunkt === 'warmup'
       ? { ...pfadBasis, entscheidung: pfad ? { ...pfad, von: BEISPIEL_SESSION.coachVorname } : null }
       : null,
+    pfadEntscheidung: pfad ?? null,
     info: live?.info ? { inhalt: live.info, quittierbar: signale.some((s) => s.art === 'hinweis') } : null,
     eingreifen: {
       empfohlen: live?.empfohlen ?? 0,
