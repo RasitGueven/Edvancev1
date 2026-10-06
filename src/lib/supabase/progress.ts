@@ -21,30 +21,29 @@ export async function getStudentProgress(
   }
 }
 
-// Vergibt XP (append-only). Der Trigger apply_xp_event aktualisiert
-// student_progress serverseitig – Client kann Totals nicht faelschen.
+// Vergibt XP ueber die RPC xp_buchen (X0, Entscheidung 24): kein Client
+// schreibt xp_events direkt. Der Buchungsschluessel macht die Buchung
+// idempotent — derselbe Schluessel bucht genau einmal. Nur Admin oder
+// Systemaufruf; ein Schuelerkonto bekommt 42501.
 export async function awardXp(
   studentId: string,
   xp: number,
   reason: string,
+  schluessel: string,
   taskId?: string | null,
-): Promise<SupabaseResult<{ id: string }>> {
+): Promise<SupabaseResult<{ gebucht: boolean }>> {
   try {
-    const { data, error } = await supabase
-      .from('xp_events')
-      .insert({
-        student_id: studentId,
-        xp,
-        reason,
-        task_id: taskId ?? null,
-      })
-      .select('id')
-      .single()
+    const { data, error } = await supabase.rpc('xp_buchen', {
+      p_student_id: studentId,
+      p_xp: xp,
+      p_grund: reason,
+      p_schluessel: schluessel,
+      p_task_id: taskId ?? null,
+    })
     if (error) return { data: null, error: error.message }
-    return { data: { id: data.id as string }, error: null }
+    return { data: { gebucht: data === true }, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'XP konnte nicht vergeben werden'
     return { data: null, error: message }
   }
 }
-

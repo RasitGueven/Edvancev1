@@ -29,7 +29,7 @@ const TERMIN_STATUS: LeadStatus[] = ['contacted', 'onboarding_scheduled']
 export function erstgespraeche(leads: Lead[], tagesBeginn: string): Lead[] {
   const ab = zeit(tagesBeginn)
   return leads
-    .filter((l) => TERMIN_STATUS.includes(l.status) && l.erstgespraech_at !== null && zeit(l.erstgespraech_at) >= ab)
+    .filter((l) => l.ist_test !== true && TERMIN_STATUS.includes(l.status) && l.erstgespraech_at !== null && zeit(l.erstgespraech_at) >= ab)
     .sort((a, b) => zeit(a.erstgespraech_at) - zeit(b.erstgespraech_at))
 }
 
@@ -38,7 +38,8 @@ export function lsaLeads(leads: Lead[]): Lead[] {
   const rang = (l: Lead): number => (l.status === 'lsa_fertig' ? 0 : 1)
   const seit = (l: Lead): number => zeit(l.status === 'lsa_fertig' ? l.lsa_fertig_at : l.lsa_freigegeben_at) || zeit(l.created_at)
   return leads
-    .filter((l) => l.status === 'lsa_fertig' || l.status === 'lsa_freigegeben')
+    // Test-Leads zaehlen nicht (Entscheidung 27).
+    .filter((l) => l.ist_test !== true && (l.status === 'lsa_fertig' || l.status === 'lsa_freigegeben'))
     .sort((a, b) => rang(a) - rang(b) || seit(a) - seit(b))
 }
 

@@ -95,6 +95,8 @@ export function LeadCard({
         <CardMenu items={menuItems} />
       </div>
 
+      {lead.ist_test && <EdvanceBadge variant="warning">{t('card.testkonto')}</EdvanceBadge>}
+
       <AgeLine age={age} followUp={followUp} />
 
       {meta.length > 0 && (

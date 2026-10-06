@@ -13,6 +13,8 @@ type BoardColumnsProps<T> = {
   maxFitting: number
   itemKey: (item: T) => string
   renderItem: (item: T, columnKey: string) => ReactNode
+  /** Zaehlt ein Eintrag in der Spaltenzahl? Testkonten nicht (Entscheidung 27). */
+  zaehlt?: (item: T) => boolean
 }
 
 /**
@@ -29,6 +31,7 @@ export function BoardColumns<T>({
   maxFitting,
   itemKey,
   renderItem,
+  zaehlt = () => true,
 }: BoardColumnsProps<T>): JSX.Element {
   const teilt = columns.length <= maxFitting
   const reihe = [
@@ -53,7 +56,7 @@ export function BoardColumns<T>({
                 sie nicht wie der Anfang der naechsten Spalte wirkt. */}
             <h2 className="flex min-w-0 items-baseline gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
               <span className="truncate">{column.title}</span>
-              <span className="text-[var(--color-text-tertiary)]">{column.items.length}</span>
+              <span className="text-[var(--color-text-tertiary)]">{column.items.filter(zaehlt).length}</span>
             </h2>
             {column.items.length === 0 ? (
               <p className="text-xs text-[var(--color-text-tertiary)]">{column.emptyHint}</p>
