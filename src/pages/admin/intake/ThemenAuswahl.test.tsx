@@ -48,6 +48,10 @@ vi.mock('@/lib/supabase/tasks', () => ({
     Promise.resolve({ data: { id: 'ZZ_cluster', name: 'ZZ Bruchrechnung (alt)' }, error: null }),
   ),
 }))
+vi.mock('@/lib/supabase/testmodus', () => ({
+  getStudentIstTest: vi.fn(() => Promise.resolve({ data: false, error: null })),
+  testkontoSetzen: vi.fn(() => Promise.resolve({ data: true, error: null })),
+}))
 vi.mock('@/lib/supabase/schulen', () => ({
   listSchulenAuswahl: vi.fn(() => Promise.resolve({ data: [], error: null })),
 }))
@@ -193,7 +197,7 @@ describe('LSA-Freigabe ohne aktuelles Thema', () => {
     await waitFor(() => expect(knopf).toBeEnabled())
     expect(screen.queryByText(HINWEIS)).not.toBeInTheDocument()
     fireEvent.click(knopf)
-    await waitFor(() => expect(leadLsaFreigeben).toHaveBeenCalledWith('ZZ_lead', 8, 'Mathematik'))
+    await waitFor(() => expect(leadLsaFreigeben).toHaveBeenCalledWith('ZZ_lead', 8, 'Mathematik', false))
   })
 
   it('ohne Thema: Hinweis, primaer "Thema wählen", Freigabe erst nach bewusstem Klick', async () => {
@@ -204,7 +208,7 @@ describe('LSA-Freigabe ohne aktuelles Thema', () => {
     expect(document.activeElement?.id).toBe('thema-suche')
     expect(leadLsaFreigeben).not.toHaveBeenCalled()
     fireEvent.click(screen.getByRole('button', { name: 'Ohne Thema freigeben' }))
-    await waitFor(() => expect(leadLsaFreigeben).toHaveBeenCalledWith('ZZ_lead', 8, 'Mathematik'))
+    await waitFor(() => expect(leadLsaFreigeben).toHaveBeenCalledWith('ZZ_lead', 8, 'Mathematik', false))
   })
 
   it('Deutsch (kein Katalog): keine Bestaetigung', async () => {

@@ -316,6 +316,8 @@ Deno.serve(async (req: Request) => {
       .from('session_students')
       .select('attendance, coaching_sessions!inner(scheduled_at)')
       .eq('student_id', sId)
+      // Testlaeufe gehoeren in keinen Report (Entscheidung 27).
+      .eq('coaching_sessions.testlauf', false)
       .gte('coaching_sessions.scheduled_at', body.period_start)
       .lte('coaching_sessions.scheduled_at', body.period_end),
     admin

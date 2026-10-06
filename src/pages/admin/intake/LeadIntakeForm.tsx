@@ -8,6 +8,7 @@ import { createLead, setLeadConsent, updateLead } from '@/lib/supabase/leads'
 import { leadAssessmentUpsert, leadLsaFreigeben } from '@/lib/supabase/leadLsa'
 import type { Lead, LeadStatus } from '@/types'
 import { SectionLead } from './SectionLead'
+import { TestmodusLead } from '../testmodus/TestmodusLead'
 import { SectionErstgespraech } from './SectionErstgespraech'
 import { CONSENT_DOCUMENT_VERSION } from './consentDocument'
 import type { ConsentState } from './ConsentBlock'
@@ -39,7 +40,7 @@ export function LeadIntakeForm({
   onClose,
 }: LeadIntakeFormProps): JSX.Element {
   const { t } = useTranslation('admin')
-  const { user } = useAuthContext()
+  const { user, role } = useAuthContext()
   const [form, setForm] = useState<IntakeFormState>(
     existingLead ? intakeFromLead(existingLead) : EMPTY_INTAKE,
   )
@@ -62,6 +63,9 @@ export function LeadIntakeForm({
   const [consentSaving, setConsentSaving] = useState(false)
   const [freigebenLoading, setFreigebenLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // Testmodus (Entscheidung 27): nur Admins, Testlauf nur bei Test-Leads.
+  const [istTest, setIstTest] = useState(existingLead?.ist_test === true)
+  const [testlauf, setTestlauf] = useState(false)
 
   const patch = (next: Partial<IntakeFormState>): void => setForm((f) => ({ ...f, ...next }))
 
@@ -175,7 +179,7 @@ export function LeadIntakeForm({
       }
     }
     setFreigebenLoading(true)
-    const { error: err } = await leadLsaFreigeben(id, form.class_level, subject)
+    const { error: err } = await leadLsaFreigeben(id, form.class_level, subject, testlauf)
     setFreigebenLoading(false)
     if (err) {
       setError(err ?? t('intake.wizard.freigabeFailed'))
@@ -264,6 +268,18 @@ export function LeadIntakeForm({
           onSign={sign}
           consentByLabel={consent.by === user?.id ? (user?.email ?? null) : null}
           consentDisabled={leadId === null}
+        />
+      )}
+
+      {step === 1 && leadId && (
+        <TestmodusLead
+          leadId={leadId}
+          istAdmin={role === 'admin'}
+          istTest={istTest}
+          onIstTest={setIstTest}
+          testlauf={testlauf}
+          onTestlauf={setTestlauf}
+          onFehler={setError}
         />
       )}
 

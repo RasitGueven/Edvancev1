@@ -85,6 +85,7 @@ function baueDaten(fall: SucheEingabe = FALL_A): ReportData {
     subject: 'Mathematik',
     status: 'completed',
     analysedAt: '2026-08-16T13:01:38.000Z',
+    testlauf: false,
     aufgaben: 25,
     naechstesThema: 'Lineare Gleichungen',
     parentAssessment: { note: null, weakTopics: ['Textverständnis', 'Grundlagen fehlen'] },

@@ -10,21 +10,26 @@ export type LeadLsaFreigabe = {
   session_id: string
   student_id: string
   total_items: number
+  /** true, wenn die LSA als Testlauf laeuft (Entscheidung 27). */
+  testlauf?: boolean
 }
 
 // LSA-Freigabe für einen Lead (nur Admin). Legt idempotent den provisorischen
 // Schüler an und startet die Session über lsa_start. Verweigert ohne
-// DSGVO-Einwilligung (consent_dsgvo_at).
+// DSGVO-Einwilligung (consent_dsgvo_at). testlauf: nur Admin, nur Testkonto
+// (prueft lsa_start); ein Testlauf bewegt den Lead nicht im Trichter.
 export async function leadLsaFreigeben(
   leadId: string,
   grade: number,
   subject: string,
+  testlauf = false,
 ): Promise<SupabaseResult<LeadLsaFreigabe>> {
   try {
     const { data, error } = await supabase.rpc('lead_lsa_freigeben', {
       p_lead_id: leadId,
       p_grade: grade,
       p_subject: subject,
+      p_testlauf: testlauf,
     })
     if (error) return { data: null, error: error.message }
     return { data: data as LeadLsaFreigabe, error: null }

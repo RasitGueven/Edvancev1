@@ -17,6 +17,7 @@ import {
 } from '@/lib/supabase/reportNotes'
 import type { ReportData, ReportNotes } from '@/types'
 import { AltRahmen } from './akten/AltRahmen'
+import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
 /**
  * Eltern-Report zu einer LSA-Sitzung (/admin/report/:sessionId).
@@ -116,6 +117,7 @@ export function ReportPage(): JSX.Element {
                 {t('page.notFinished', { name })}
               </p>
             )}
+            {data.testlauf && <TestlaufBanner />}
             <ReportBody data={data} />
             <ReportOutlook
               name={name}
