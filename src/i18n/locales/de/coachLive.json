@@ -1,0 +1,467 @@
+{
+  "kopf": {
+    "zurueck": "Heute",
+    "titel": "Session {{uhrzeit}} · {{raum}}",
+    "untertitel": "{{fach}} · Klasse {{von}} bis {{bis}} · Coach {{coach}}",
+    "beginntIn": "beginnt in {{count}} Min",
+    "minute": "Minute {{minute}} von {{dauer}}",
+    "vorbei": "seit {{count}} Min vorbei",
+    "stand": "Stand {{uhrzeit}}",
+    "zeitleiste": "Phasen der Session",
+    "dauer": "{{count}} Min"
+  },
+  "phase": {
+    "checkin": "Check-in",
+    "warmup": "Warm-up",
+    "kern": "Kernarbeit",
+    "checkout": "Check-out"
+  },
+  "zeitpunkt": {
+    "vorher": "Vorher",
+    "checkin": "Check-in",
+    "warmup": "Warm-up",
+    "kern": "Kernarbeit",
+    "checkout": "Check-out",
+    "danach": "Danach"
+  },
+  "beispiel": {
+    "titel": "Beispieldaten",
+    "zeitpunkt": "Zeitpunkt",
+    "hinweis": "Die Seite zeigt Beispieldaten. Diese Leiste verschwindet, sobald echte Daten angeschlossen sind."
+  },
+  "laden": {
+    "fehler": "Die Live-Daten konnten nicht geladen werden.",
+    "erneut": "Erneut laden"
+  },
+  "fall": {
+    "klassenarbeit": "Klassenarbeit",
+    "schulthema": "Schulthema",
+    "lernpfad": "Lernpfad",
+    "klassenarbeitTag": "Klassenarbeit {{tag}}",
+    "vorschlag": "Vorschlag des Systems"
+  },
+  "ziel": {
+    "titel": "Ziel der Stunde",
+    "satz": "Ziel der Stunde:",
+    "klassenarbeit": "{{thema}} für die Klassenarbeit",
+    "klassenarbeitFehlt": "Klassenarbeit: Thema und Datum fehlen",
+    "schulthema": "{{thema}} durchdringen",
+    "schulthemaFehlt": "erst Schulthema wählen",
+    "lernpfadLsa": "{{luecke}}, aus der LSA",
+    "lernpfad": "nächste Lücke im Lernpfad",
+    "offen": "noch kein Fall gewählt"
+  },
+  "stand": {
+    "offen": "offen",
+    "aktiv": "heute dran",
+    "sicher": "sicher",
+    "noch_nicht_sicher": "noch nicht sicher",
+    "kandidat": "Mastery-Kandidat",
+    "gemeistert": "gemeistert"
+  },
+  "zielNotiz": {
+    "voraussetzung": "Voraussetzung",
+    "heute": "heute {{richtig}} von {{von}}",
+    "warmup": "im Warm-up {{richtig}} von {{von}}",
+    "pruefungFaellig": "Mastery-Prüfung fällig",
+    "alsNaechstes": "als Nächstes",
+    "erklaerung": "Erklärsequenz, Kernidee {{kernidee}} von {{von}}",
+    "am": "am {{datum}}",
+    "inLsa": "in der LSA",
+    "bisKlassenarbeit": "bis zur Klassenarbeit noch dran",
+    "tieferGesetzt": "eine Stufe tiefer gesetzt",
+    "danach": "danach",
+    "bestaetigt": "bestätigt um {{zeit}}",
+    "vertagt": "Prüfung vertagt"
+  },
+  "raster": {
+    "titel": "{{raum}} · {{phase}}",
+    "tippen": "Kind antippen für Details",
+    "oeffnen": "{{name}} öffnen",
+    "klasse": "Kl. {{klasse}}",
+    "aufgabe": "Aufgabe {{nr}}"
+  },
+  "legende": {
+    "richtig": "richtig",
+    "falsch": "falsch",
+    "hinweis": "richtig mit Hinweis",
+    "aktuell": "aktuelle Aufgabe"
+  },
+  "band": {
+    "laeuft": "läuft",
+    "kandidat_warmup": "Mastery-Prüfung möglich",
+    "kandidat_kern": "Mastery-Prüfung fällig",
+    "warmup_luecke": "Vorschlag: eine Stufe tiefer",
+    "fehlversuche_one": "hängt · 1 Fehlversuch",
+    "fehlversuche_other": "hängt · {{count}} Fehlversuche",
+    "ohne_eingabe": "{{count}} Min ohne Eingabe",
+    "erklaerrunden": "{{count}} Erklärrunden ohne Erfolg",
+    "stimmung": "Check-in: angespannt",
+    "gemeistert": "gemeistert: {{skill}}"
+  },
+  "taetigkeit": {
+    "checkin": "Check-in am Tablet",
+    "warmup": "Warm-up · Abruf {{nr}} von {{von}}",
+    "warmupFertig": "Warm-up fertig",
+    "ueben": "{{fall}} · Üben",
+    "erklaerung": "{{fall}} · Erklärsequenz, Kernidee {{kernidee}} von {{von}}",
+    "tiefer": "{{fall}} · eine Stufe tiefer",
+    "ankunft": "kam {{zeit}}, {{count}} Minuten später"
+  },
+  "meta": {
+    "ohneHinweis_one": "ohne Hinweis",
+    "ohneHinweis_other": "{{count}} ohne Hinweis",
+    "richtig": "{{richtig}} von {{von}} richtig",
+    "richtigUeberZiel": "{{richtig}} von {{von}} richtig · über Ziel {{quote}}",
+    "hinweise_zero": "keine Hinweise genutzt",
+    "hinweise_one": "1 Hinweis",
+    "hinweise_other": "{{count}} Hinweise genutzt",
+    "extrarunde": "eine Extrarunde mit Variante {{variante}}",
+    "pausiert": "ältere Themen pausiert bis zur Klassenarbeit",
+    "lsaWarmup": "danach Warm-up mit Themen aus der LSA",
+    "pfadTiefer": "Pfad tiefer gesetzt von {{von}}",
+    "kernTiefer": "Kernarbeit beginnt eine Stufe tiefer",
+    "kernPlan": "Kernarbeit bleibt beim Plan",
+    "signalErledigt": "Signal erledigt",
+    "angesprochen": "angesprochen",
+    "vertagt": "Mastery-Prüfung vertagt"
+  },
+  "queue": {
+    "titel": "Als Nächstes",
+    "offen": "{{count}} offen",
+    "leer": "Nichts offen. Alle arbeiten.",
+    "mastery": "Mastery-Prüfungen in dieser Session: {{entschieden}} von {{max}}",
+    "gerade": "gerade",
+    "alter": "{{count}} Min",
+    "zeile": "{{name}} · {{titel}}",
+    "art": {
+      "kandidat_warmup": "Mastery-Prüfung möglich",
+      "kandidat_kern": "Mastery-Prüfung",
+      "entscheidung": "Entscheidung: Pfad",
+      "haengt": "hängt",
+      "hinweis": "Kurz ansprechen"
+    },
+    "grund": {
+      "kandidat": "{{skill}} · Abstand {{count}} Tage",
+      "warmup_luecke": "Warm-up {{count}} von {{von}} · Vorschlag eine Stufe tiefer",
+      "fehlversuche": "{{count}} Fehlversuche bei Aufgabe {{nr}}",
+      "ohne_eingabe": "{{count}} Min ohne Eingabe · Signal ab {{schwelle}} Min",
+      "erklaerrunden": "{{count}} Erklärrunden ohne Erfolg",
+      "stimmung": "Check-in: angespannt"
+    }
+  },
+  "schublade": {
+    "label": "Kind im Detail",
+    "schliessen": "Schließen",
+    "kopf": "Platz {{tablet}} · Kl. {{klasse}} · {{taetigkeit}}",
+    "aufgabeKopf": {
+      "warmup": "Warm-up {{nr}} von {{von}} · {{skill}}",
+      "aufgabe": "Aufgabe {{nr}} · {{skill}}",
+      "check": "Check zu Kernidee {{kernidee}} · Runde {{runde}}"
+    },
+    "musterloesung": "Musterlösung · nur auf deinem Gerät",
+    "letzteEingabe": "Letzte Eingabe",
+    "eingabe": "{{eingabe}} · {{ergebnis}}",
+    "ergebnis": {
+      "richtig": "richtig",
+      "falsch": "falsch",
+      "teilweise": "teilweise richtig"
+    },
+    "nachHinweis": "richtig nach Hinweis {{stufe}}",
+    "keineEingabe": "noch keine Eingabe",
+    "ohneEingabe": "keine Eingabe seit {{count}} Min",
+    "falscheAntworten": "Falsche Antworten",
+    "fehlbild": "Fehlbild: {{fehlbild}}",
+    "versuchKopf": {
+      "versuch": "Versuch {{nr}}",
+      "runde": "Runde {{nr}}",
+      "aufgabe": "Aufgabe {{nr}}",
+      "warmup": "Warm-up {{nr}}"
+    },
+    "hinweise": "Genutzte Hinweise",
+    "hinweisStufe": "Stufe {{stufe}}: {{text}}",
+    "heute": "Heute",
+    "heuteAbschnitt": {
+      "ankommen": "Ankommen",
+      "warmup": "Warm-up",
+      "kern": "Kernarbeit",
+      "eingemischt": "Eingemischt",
+      "erklaerung": "Erklärsequenz"
+    },
+    "heuteZeile": {
+      "richtig": "{{richtig}} von {{von}}",
+      "ohneHinweis": "ohne Hinweis",
+      "hinweise_one": "1 Hinweis",
+      "hinweise_other": "{{count}} Hinweise",
+      "mischanteil": "Anteil {{anteil}}",
+      "lsaSicher": "in der LSA sicher",
+      "tiefer": "eine Stufe tiefer",
+      "kernideen": "Kernidee {{sicher}} sicher · Kernidee {{aktuell}} in Runde {{runde}}",
+      "ankunft": "{{zeit}} · {{count}} Minuten nach Beginn"
+    },
+    "grund": {
+      "ueberQuote": "Über der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden schwerer.",
+      "unterQuote": "Unter der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden leichter.",
+      "eingemischt": "Ältere Aufgabe eingemischt (Anteil {{anteil}}).",
+      "tiefer": "Eine Stufe tiefer gesetzt."
+    },
+    "info": {
+      "stimmung": "Im Check-in: angespannt. Kurz ansprechen, ein Satz reicht.",
+      "spaet": "Kam um {{zeit}}. Der Check-in läuft am Tablet, danach beginnt das Warm-up mit Themen, die in der LSA sicher waren.",
+      "klassenarbeit": "Klassenarbeit {{datum}}. Ältere Themen sind pausiert, bis die Arbeit geschrieben ist (Klassenarbeit in {{count}} Tagen).",
+      "angesprochen": "Angesprochen"
+    }
+  },
+  "sequenz": {
+    "titel": "Erklärsequenz",
+    "kernidee": "Kernidee {{aktuell}} von {{von}}",
+    "sicher": "Check in Runde {{runde}} richtig",
+    "laeuft": "Runde {{vorher}} falsch: {{fehlbild}}. Variante {{variante}} gezeigt, Check in Runde {{runde}} läuft.",
+    "laeuftOhne": "Runde {{runde}} läuft",
+    "offen": "noch offen",
+    "sieht": "{{name}} sieht gerade · Variante {{variante}}",
+    "signal": "Nach {{count}} Runden ohne Erfolg bei einer Kernidee kommt ein Signal zu dir."
+  },
+  "mastery": {
+    "titel": "Mastery-Prüfung",
+    "vorschlag": "Vorschlag des Systems",
+    "unterzeile": "{{thema}} · Klasse {{klasse}}",
+    "beleg": {
+      "session": "{{datum}}: {{richtig}} von {{von}} richtig, ohne Hinweis",
+      "warmupHeute": "heute im Warm-up: {{richtig}} von {{von}} richtig, ohne Hinweis",
+      "abstand": "Abstand zur letzten Übung: {{count}} Tage"
+    },
+    "frage": "Prüffrage · anderer Kontext als die geübten Aufgaben",
+    "erwartung": "Erwartung",
+    "kriterium": "Kriterium",
+    "schrittFrage": "Prüffrage gestellt",
+    "schrittErklaert": "{{name}} hat den Weg selbst erklärt",
+    "bestaetigen": "Gemeistert bestätigen",
+    "bestaetigenGesperrt": "Erst die Prüffrage stellen und den Weg erklären lassen.",
+    "vertagen": "Vertagen",
+    "grundLabel": "Grund fürs Vertagen",
+    "vertagenGesperrt": "Bitte einen Grund wählen.",
+    "abbrechen": "Abbrechen",
+    "gemeistert": "Gemeistert: {{skill}}",
+    "bestaetigtVon": "bestätigt von {{von}} um {{zeit}}",
+    "siehtAbzeichen": "{{name}} sieht das Abzeichen jetzt auf dem Tablet.",
+    "vertagt": "Vertagt: {{skill}}",
+    "vertagtGrund": "{{grund}} · {{zeit}}",
+    "wiederVorgeschlagen": "Der Skill wird in einer späteren Session wieder vorgeschlagen.",
+    "gruende": {
+      "wegNichtErklaert": "Rechnung richtig, Weg nicht erklärt",
+      "nurMitHilfe": "Ging nur mit Hilfe",
+      "rechenfehler": "Fehler in der Rechnung",
+      "nichtPruefbar": "Heute nicht prüfbar"
+    }
+  },
+  "pfad": {
+    "titel": "Entscheidung",
+    "titelErledigt": "Pfad für die Kernarbeit",
+    "frage": "Kernarbeit eine Stufe tiefer beginnen?",
+    "erklaerung": "Statt „{{plan}}“ zuerst „{{tiefer}}“ aus Klasse {{klasse}}.",
+    "belegWarmup": "Warm-up: {{skill}} {{richtig}} von {{von}}",
+    "belegFehlbild": "Gleiches Fehlbild wie am {{datum}}: {{fehlbild}}",
+    "belegThema": "Das Schulthema {{thema}} baut darauf auf",
+    "tiefer": "Eine Stufe tiefer",
+    "plan": "Beim Plan bleiben",
+    "entschiedenTiefer": "Eine Stufe tiefer: {{skill}} (Kl. {{klasse}})",
+    "entschiedenPlan": "Beim Plan: {{skill}}",
+    "entschiedenVon": "entschieden von {{von}} um {{zeit}}",
+    "aendern": "Ändern"
+  },
+  "leiter": {
+    "titel": "Eingreifen",
+    "stufe0": "Stufe 0: kein Signal, nichts tun",
+    "passt": "passt jetzt",
+    "titel1": "Nähe suchen",
+    "text1": "Lange Pause: hingehen, Blickkontakt, nicht sprechen.",
+    "titel2": "Nachfragen",
+    "text2": "Wiederholter Fehlversuch: „Zeig mir, was du bis hier gemacht hast.“ Fragen statt sagen.",
+    "titel3": "Mikro-Erklärung",
+    "text3": "Falsches Modell: an einem anderen Beispiel erklären, höchstens {{count}} Min, dann zurück ans Tablet.",
+    "titel4": "Pfad tiefer",
+    "text4": "Voraussetzung fehlt: eine Stufe tiefer setzen, Fehlbild notieren.",
+    "fehlbild": "Fehlbild für Stufe 3 und 4",
+    "fehlbildVorbelegt": "{{fehlbild}} · vorbelegt aus dem letzten Versuch",
+    "ohneFehlbild": "Für Stufe 3 und 4 fehlt ein Fehlbild aus einem Versuch.",
+    "notiert": "Notiert",
+    "eintrag": "Stufe {{stufe}} · {{zeit}}",
+    "signalErledigt": "Signal erledigt"
+  },
+  "toast": {
+    "stufe": "Stufe {{stufe}} notiert.",
+    "stufeAkte": "Stufe {{stufe}} notiert, mit Fehlbild für die Akte.",
+    "stufe4": "Stufe 4 notiert. {{name}} arbeitet jetzt eine Stufe tiefer.",
+    "gemeistert": "Gebucht: {{skill}} ist gemeistert.",
+    "vertagt": "Vertagt. Der Skill kommt in einer späteren Session wieder.",
+    "pfadTiefer": "Entschieden: {{name}} beginnt die Kernarbeit eine Stufe tiefer.",
+    "pfadPlan": "Entschieden: {{name}} bleibt beim Plan.",
+    "signalErledigt": "Signal erledigt.",
+    "angesprochen": "Als angesprochen markiert.",
+    "tablet": "{{name}} sitzt an Tablet {{nr}}. Das Tablet zeigt jetzt den Check-in.",
+    "thema": "Schulthema für {{name}}: {{thema}}. Ziel der Stunde gesetzt.",
+    "quest": "Quest-Termin für {{name}} eingetragen.",
+    "abgeschlossen": "Abgeschlossen. Anwesenheit, Entscheidungen und Notizen stehen in den Akten."
+  },
+  "fehler": {
+    "fehlbildPflicht": "Ab Stufe 3 braucht der Eingriff ein Fehlbild.",
+    "grundPflicht": "Vertagen braucht einen Grund.",
+    "ohneTabletOffen": "Erst „nicht erschienen“ für alle Kinder ohne Tablet bestätigen.",
+    "tabletBelegt": "Dieses Tablet ist schon vergeben.",
+    "abgeschlossen": "Die Session ist schon abgeschlossen.",
+    "allgemein": "Das hat nicht geklappt."
+  },
+  "vorher": {
+    "werKommt": "Wer kommt",
+    "gebucht": "{{count}} von {{plaetze}} Plätzen gebucht",
+    "imBlick": "Heute im Blick",
+    "starten": "Check-in starten",
+    "startenAb": "Ab {{zeit}} möglich. Die Tablets stehen im Kiosk-Modus bereit.",
+    "feld": {
+      "thema": "Thema",
+      "plan": "Plan",
+      "imBlick": "Im Blick",
+      "notiz": "Notiz",
+      "quests": "Quests"
+    },
+    "notiz": "„{{text}}“",
+    "notizVon": "{{von}}, {{datum}}",
+    "keineNotiz": "noch keine Notiz",
+    "quests": "{{erledigt}} von {{von}} erledigt",
+    "keineQuests": "noch keine",
+    "thema": {
+      "schulthema": "{{label}} · Schulthema seit {{datum}}",
+      "erstgespraech": "{{label}} · Stand Erstgespräch {{datum}}",
+      "klassenarbeit": "{{label}} · Klassenarbeit {{datum}}",
+      "lsa": "Lernpfad aus der LSA: {{label}}"
+    },
+    "plan": {
+      "neu": "{{skill}} (neu)",
+      "weiter": "{{skill}} (weiter)",
+      "festigen": "{{skill}} festigen",
+      "vorbereitung": "Vorbereitung: {{skill}}",
+      "ohne": "{{skill}}"
+    },
+    "tag": {
+      "mastery": "Mastery-Prüfung fällig",
+      "signale": "{{count}} Signale am {{datum}}",
+      "themaAlt": "Schulthema {{count}} Wochen alt",
+      "klassenarbeit": "Klassenarbeit {{datum}}",
+      "ersteNachLsa": "erste Session nach der LSA"
+    },
+    "blick": {
+      "mastery": "Mastery-Prüfung: {{name}}",
+      "klassenarbeit": "Klassenarbeit: {{name}}, {{datum}}",
+      "fehlbild": "Wiederholtes Fehlbild: {{name}}",
+      "lsa": "Erste Session nach der LSA: {{name}}"
+    }
+  },
+  "checkin": {
+    "plaetze": "{{raum}} · Plätze",
+    "belegt": "{{count}} von {{plaetze}} belegt",
+    "tablet": "Tablet {{nr}}",
+    "frei": "frei",
+    "loesen": "Platz lösen",
+    "ankommen": "Ankommen",
+    "ankommenHilfe": "Kind antippen, dann Platz wählen",
+    "istDa": "Ist da",
+    "istDaOhnePlatz": "ist da, noch ohne Platz",
+    "erwartet": "erwartet · noch nicht da",
+    "platz": "Platz {{nr}}",
+    "alleDa": "Alle haben einen Platz.",
+    "amTablet": "Check-in am Tablet",
+    "amTabletHilfe": "Das Warm-up startet von selbst, sobald ein Kind fertig ist",
+    "niemand": "Noch niemand im Raum.",
+    "stimmung": "Stimmung",
+    "stimmungWert": {
+      "gut": "gut",
+      "geht_so": "geht so",
+      "angespannt": "angespannt"
+    },
+    "ansprechen": "kurz ansprechen",
+    "klassenarbeit": "Klassenarbeit",
+    "kaNein": "nein",
+    "kaWert": "{{datum}}: {{thema}}",
+    "kaTage": "in {{count}} Tagen",
+    "kaOhneDatum": "Termin offen",
+    "schulthemaSagt": "Schulthema · {{name}} sagt: {{antwort}}",
+    "antwort": {
+      "noch_dran": "noch dran",
+      "neu": "neues Thema: „{{stichwort}}“",
+      "leer": "–"
+    },
+    "aendern": "Ändern",
+    "neuWaehlen": "bisher {{thema}}, neues Thema wählen",
+    "suchen": "Schulthema für {{name}} suchen",
+    "fall": "Fall",
+    "fallGeaendert": "Fall · von dir geändert",
+    "fallFuer": "Fall für {{name}}",
+    "fertig": "fertig · Warm-up",
+    "fuelltAus": "füllt aus am Tablet"
+  },
+  "checkout": {
+    "titel": "Check-out · ein konkreter Satz je Kind",
+    "hinweis": "„Gut gemacht“ zählt nicht",
+    "exit": "Exit {{richtig}} von {{gesamt}}",
+    "zusammenfassung": "{{aufgaben}} Aufgaben, {{richtig}} richtig · {{schwerpunkt}}",
+    "eingriffe_one": "1 Eingriff",
+    "eingriffe_other": "{{count}} Eingriffe",
+    "satz": "Satz für {{name}} · aus Bausteinen",
+    "andererVorschlag": "Anderer Vorschlag",
+    "gesagt": "Gesagt",
+    "alsGesagt": "Als gesagt markieren",
+    "questA": "Quest A: {{termin}}",
+    "questAVon": "von {{name}} gewählt",
+    "questACoach": "von dir eingetragen",
+    "questAOffen": "Quest A: noch kein Termin",
+    "questAWaehlen": "Termin für {{name}} eintragen",
+    "questB": "Quest B: {{termin}} · vorbelegt",
+    "questBPaket": "Paket Klassenarbeit: {{termin}} · vorbelegt",
+    "notiz": "Notiz für die Akte · intern",
+    "notizPlatzhalter": "Ein Satz reicht",
+    "flagEltern": "Elternkontakt nötig",
+    "flagPfad": "Pfad passt nicht"
+  },
+  "danach": {
+    "vorAbschluss": "Vor dem Abschluss",
+    "punkte_one": "1 Punkt",
+    "punkte_other": "{{count}} Punkte",
+    "ohneTablet": "Ohne Tablet",
+    "ohneTabletHilfe": "Diese Kinder hatten kein Tablet. Bitte bestätigen; dann zählen sie als nicht erschienen.",
+    "bestaetigen": "Nicht erschienen bestätigen",
+    "bestaetigt": "nicht erschienen · bestätigt",
+    "alleMitTablet": "Alle Kinder hatten ein Tablet.",
+    "notizFehlt": "Notiz fehlt: {{namen}}",
+    "notizFehltHilfe": "Ein Satz pro Kind für das nächste Briefing",
+    "nachtragen": "Nachtragen",
+    "masteryOffen": "Mastery-Prüfung offen: {{name}}",
+    "masteryOffenHilfe": "{{skill}} · der Vorschlag bleibt für die nächste Session",
+    "vertagt": "Vertagt: {{name}} · {{skill}}",
+    "gemeistert": "Gemeistert: {{name}} · {{skill}}",
+    "bestaetigtUm": "bestätigt um {{zeit}}",
+    "pfadGeaendert": "Pfad geändert: {{name}} eine Stufe tiefer",
+    "pfadGeaendertHilfe": "steht in der Akte",
+    "flagEltern": "Elternkontakt: {{name}}",
+    "flagElternHilfe": "erscheint bei den Admins auf „Heute“",
+    "flagPfad": "Pfad passt nicht: {{name}}",
+    "flagPfadHilfe": "geht an die Admins zur Prüfung",
+    "akte": "Geht in die Akten",
+    "zeile": {
+      "anwesend": "Anwesend",
+      "einheit": "Einheit verbraucht",
+      "aufgaben": "Aufgaben bearbeitet",
+      "eingriffe": "Eingriffe ab Stufe 3",
+      "mastery": "Mastery bestätigt / vertagt",
+      "sequenzen": "Erklärsequenzen abgeschlossen",
+      "satz": "Satz gesagt",
+      "notizen": "Notizen",
+      "quests": "Quest-Termine"
+    },
+    "vonGesamt": "{{anzahl}} von {{gesamt}}",
+    "paar": "{{a}} / {{b}}",
+    "abschliessen": "Session abschließen",
+    "abschliessenGesperrt": "Erst die Kinder ohne Tablet bestätigen.",
+    "abgeschlossen": "Abgeschlossen um {{zeit}}"
+  }
+}
