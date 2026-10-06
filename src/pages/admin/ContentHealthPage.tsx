@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next'
 import { Play } from 'lucide-react'
 import { EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
-import { useImShell } from '@/components/edvance/shell/shellContext'
 import { Button } from '@/components/ui/button'
 import { HealthOverview, type HealthFilter } from '@/components/edvance/authoring/HealthOverview'
 import { HealthItemRow, type HealthItem } from '@/components/edvance/authoring/HealthItemRow'
@@ -38,7 +37,6 @@ import {
 } from '@/lib/supabase/taskAuthoring'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringTask, TaskStatus } from '@/types'
-import { AltRahmen } from './akten/AltRahmen'
 
 const EMPTY_STATUS_COUNTS: Record<TaskStatus, number> = {
   draft: 0,
@@ -69,7 +67,6 @@ export function ContentHealthPage(): JSX.Element {
   const navigate = useNavigate()
   const { role } = useAuth()
   const canWrite = role === 'admin'
-  const imShell = useImShell()
 
   const [items, setItems] = useState<HealthItem[]>([])
   const [hasStoffanker, setHasStoffanker] = useState(false)
@@ -232,26 +229,14 @@ export function ContentHealthPage(): JSX.Element {
     </>
   )
 
-  // Coach: bisheriger Rahmen außerhalb der Hülle (Entscheidung 12).
-  if (!imShell) {
-    return (
-      <AltRahmen
-        untertitel={t('health.subtitle')}
-        breite="max-w-5xl"
-        kopf={{ eyebrow: t('health.eyebrow'), title: t('health.title'), description: satz, backTo: '/admin', backLabel: t('health.back') }}
-      >
-        {inhalt}
-      </AltRahmen>
-    )
-  }
-
   return (
     <>
       <PageHeader
         rubrik={t('health.eyebrow')}
         titel={t('health.title')}
         satz={satz}
-        zurueckZu="/admin/authoring"
+        // Coach: eigener Leisten-Eintrag, die Item-Pflege ist nur Admin.
+        zurueckZu={canWrite ? '/admin/authoring' : undefined}
         zurueckLabel={t('page.backToList')}
       />
       {inhalt}

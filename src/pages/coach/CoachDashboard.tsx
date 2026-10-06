@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
@@ -213,12 +213,10 @@ export function CoachDashboard(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <EdvanceNavbar subtitle="Coach-Dashboard" sticky />
-      <main className="mx-auto max-w-4xl px-4 py-8">
+    <>
+      <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground">Guten Tag 👋</h1>
-          <p className="mt-0.5 text-sm text-muted">{formatDateLongDe()}</p>
+          <PageHeader titel={t('dashboard.titel')} satz={formatDateLongDe()} />
         </div>
 
         {keinPruefrecht && (
@@ -334,7 +332,7 @@ export function CoachDashboard(): JSX.Element {
             ))}
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </>
   )
 }

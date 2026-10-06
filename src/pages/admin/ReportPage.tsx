@@ -4,7 +4,6 @@ import { Printer, Mail } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
-import { useImShell } from '@/components/edvance/shell/shellContext'
 import { ReportBody } from '@/components/edvance/report/ReportBody'
 import { ReportOutlook } from '@/components/edvance/report/ReportOutlook'
 import { Button } from '@/components/ui/button'
@@ -16,7 +15,6 @@ import {
   saveReportNotes,
 } from '@/lib/supabase/reportNotes'
 import type { ReportData, ReportNotes } from '@/types'
-import { AltRahmen } from './akten/AltRahmen'
 import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
 /**
@@ -31,7 +29,6 @@ import { TestlaufBanner } from './testmodus/TestlaufBanner'
 export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { t } = useTranslation('report')
-  const imShell = useImShell()
   const { role } = useAuth()
 
   const [data, setData] = useState<ReportData | null>(null)
@@ -137,20 +134,6 @@ export function ReportPage(): JSX.Element {
       )}
     </>
   )
-
-  // Coach: bisheriger Rahmen außerhalb der Hülle (Entscheidung 12).
-  if (!imShell) {
-    return (
-      <AltRahmen
-        untertitel={t('page.untertitel')}
-        breite="max-w-3xl"
-        blatt
-        kopf={{ eyebrow: t('page.eyebrow'), title: titel, backTo: '/admin/leads', backLabel: t('page.back'), actions: aktionen }}
-      >
-        {inhalt}
-      </AltRahmen>
-    )
-  }
 
   // Ein Dokument: Lesebreite wie das Druckblatt, links im Inhaltsbereich.
   return (

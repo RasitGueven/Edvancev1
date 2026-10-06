@@ -76,31 +76,39 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/coach"
-          element={
-            <ProtectedRoute allowedRoles={['coach']}>
-              <CoachDashboard />
-            </ProtectedRoute>
-          }
-        />
-        {/* Aufgaben pruefen (Lena-Board): admin und coach, jeweils nur mit Pruefrecht. */}
-        <Route
-          path="/coach/pruefen"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
-              <PruefenUebersichtPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/coach/pruefen/:taskId"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
-              <PruefansichtPage />
-            </ProtectedRoute>
-          }
-        />
+        {/* Coach-Hülle (H6): dieselbe Rollenweiche wie die Admin-Seiten — Admin
+            sieht die Admin-Hülle, Coach die Coach-Hülle. Fokus-Seiten ohne Leiste
+            (Live-Sicht /coach/session/*) stehen außerhalb jeder Layout-Route;
+            AdminLayout lässt sie auch innerhalb ohne Leiste (istFokusSeite). */}
+        <Route element={<AdminLayout />}>
+          <Route
+            path="/coach"
+            element={
+              <ProtectedRoute allowedRoles={['coach']}>
+                <CoachDashboard />
+              </ProtectedRoute>
+            }
+          />
+          {/* Aufgaben pruefen (Lena-Board): admin und coach, jeweils nur mit Pruefrecht. */}
+          <Route
+            path="/coach/pruefen"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <PruefenUebersichtPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/pruefen/:taskId"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <PruefansichtPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        {/* Altseiten mit eigenem Rahmen, nicht in der Leiste (offene-punkte-h6.md):
+            Erstgespräch und Screening-Ergebnisse ohne Daten, Elternreport-Altseite nur Admin. */}
         <Route
           path="/coach/intake"
           element={

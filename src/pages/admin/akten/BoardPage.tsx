@@ -5,13 +5,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
-import { useImShell } from '@/components/edvance/shell/shellContext'
 import { useAuth } from '@/hooks/useAuth'
 import { SELECT_MD } from '@/lib/formStyles'
 import { listBoardSchueler } from '@/lib/supabase/akte'
 import { baueSpalten, type BoardSortierung, type ZustandFilter } from '@/lib/akte/board'
 import type { BoardSchueler } from '@/types'
-import { AltRahmen } from './AltRahmen'
 import { BoardSpalte } from './BoardSpalte'
 
 export type BoardHinweis = 'ruhendCoach' | 'nichtGefunden'
@@ -28,7 +26,6 @@ export function BoardPage(): JSX.Element {
   const location = useLocation()
   const hinweis = (location.state as { hinweis?: BoardHinweis } | null)?.hinweis ?? null
   const istAdmin = role === 'admin'
-  const imShell = useImShell()
 
   const [liste, setListe] = useState<BoardSchueler[]>([])
   const [loading, setLoading] = useState(true)
@@ -124,28 +121,10 @@ export function BoardPage(): JSX.Element {
     </>
   )
 
-  if (imShell) {
-    return (
-      <>
-        <PageHeader rubrik={t('board.eyebrow')} titel={t('board.titel')} satz={t('board.beschreibung')} />
-        {inhalt}
-      </>
-    )
-  }
-
   return (
-    <AltRahmen
-      untertitel={t('board.titel')}
-      breite="max-w-7xl"
-      kopf={{
-        eyebrow: t('board.eyebrow'),
-        title: t('board.titel'),
-        description: t('board.beschreibung'),
-        backTo: istAdmin ? '/admin' : '/coach',
-        backLabel: istAdmin ? t('board.zurueckAdmin') : t('board.zurueckCoach'),
-      }}
-    >
+    <>
+      <PageHeader rubrik={t('board.eyebrow')} titel={t('board.titel')} satz={t('board.beschreibung')} />
       {inhalt}
-    </AltRahmen>
+    </>
   )
 }
