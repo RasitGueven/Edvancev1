@@ -322,4 +322,6 @@ export type {
   MeinLernpfadEintrag,
   LernpfadUebernahme,
   MasteryEntscheidung,
+  PfadAnlass,
+  MasteryVorschlag,
 } from './lernpfad'

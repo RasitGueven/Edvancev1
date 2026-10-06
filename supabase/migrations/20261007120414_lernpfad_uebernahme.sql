@@ -92,8 +92,8 @@ begin
     returning l.skill_key, l.stand_system, l.lsa_session_id, (xmax = 0) as angelegt
   ),
   protokolliert as (
-    insert into public.lernpfad_protokoll (student_id, skill_key, aktion, neu, von)
-    select p_student_id, g.skill_key, 'uebernahme',
+    insert into public.lernpfad_protokoll (student_id, skill_key, aktion, anlass, neu, von)
+    select p_student_id, g.skill_key, 'uebernahme', 'lsa',
            jsonb_build_object('stand_system', g.stand_system, 'lsa_session_id', g.lsa_session_id,
                               'angelegt', g.angelegt),
            auth.uid()

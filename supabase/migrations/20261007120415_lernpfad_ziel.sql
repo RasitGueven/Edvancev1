@@ -24,7 +24,8 @@ returns table (
   rolle           text,
   stand_system    text,
   stand_coach     text,
-  stand           text
+  stand           text,
+  pruefung_faellig boolean
 )
 language plpgsql
 stable
@@ -83,7 +84,8 @@ begin
            li.skill_key, s.label, s.klasse_herkunft, li.rolle,
            l.stand_system, l.stand_coach,
            case when l.stand_coach = 'gemeistert' then 'gemeistert'
-                else coalesce(l.stand_system, 'offen') end
+                else coalesce(l.stand_system, 'offen') end,
+           public.lernpfad_pruefung_faellig(p_student_id, li.skill_key)
       from liste li
       join public.skills s on s.skill_key = li.skill_key
       left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = li.skill_key
@@ -92,13 +94,14 @@ end;
 $$;
 
 comment on function public.ziel_fertigkeiten(uuid, text) is
-  'Ziel der Stunde: Fertigkeiten des Themas, fehlende Voraussetzungen (skill_kante) und sichere direkte Voraussetzungen, in Graph-Reihenfolge, mit Stand aus dem Lernpfad. Admin oder Coach bei laufendem Vertrag.';
+  'Ziel der Stunde: Fertigkeiten des Themas, fehlende Voraussetzungen (skill_kante) und sichere direkte Voraussetzungen, in Graph-Reihenfolge, je Zeile mit Stand und pruefung_faellig (A2 filtert). Admin oder Coach bei laufendem Vertrag.';
 
 create function public.pfad_tiefer(
   p_student_id    uuid,
   p_skill_key     text,
   p_session_id    uuid default null,
-  p_voraussetzung text default null
+  p_voraussetzung text default null,
+  p_anlass        text default 'warmup'
 )
 returns text
 language plpgsql
@@ -114,6 +117,9 @@ begin
           or coalesce(public.get_my_role(), '') = 'admin'
           or public.lernpfad_coach_der_session(p_session_id, p_student_id)) then
     raise exception 'pfad_tiefer: nur Coach der Session oder Admin' using errcode = '42501';
+  end if;
+  if p_anlass is null or p_anlass not in ('warmup', 'eingriff') then
+    raise exception 'pfad_tiefer: Anlass muss warmup oder eingriff sein' using errcode = '22023';
   end if;
   if not exists (select 1 from public.skills where skill_key = p_skill_key) then
     raise exception 'pfad_tiefer: Skill % unbekannt', p_skill_key using errcode = 'P0002';
@@ -168,8 +174,9 @@ begin
          aktualisiert      = now()
    where public.lernpfad.stand_system = 'aktiv';
 
-  insert into public.lernpfad_protokoll (student_id, skill_key, aktion, alt, neu, von, session_id)
-  values (p_student_id, v_ziel, 'pfad_tiefer',
+  -- Jeder Aufruf wird protokolliert: wer, wann, Session, Anlass (Rasit 06.10.).
+  insert into public.lernpfad_protokoll (student_id, skill_key, aktion, anlass, alt, neu, von, session_id)
+  values (p_student_id, v_ziel, 'pfad_tiefer', p_anlass,
           jsonb_build_object('stand_system', v_alt.stand_system),
           jsonb_build_object('stand_system', 'aktiv', 'statt', p_skill_key),
           auth.uid(), p_session_id);
@@ -178,10 +185,10 @@ begin
 end;
 $$;
 
-comment on function public.pfad_tiefer(uuid, text, uuid, text) is
-  'Eine Stufe tiefer: setzt die passende (oder die genannte) Voraussetzung auf aktiv, der bisherige Skill wartet. Coach der Session oder Admin; protokolliert.';
+comment on function public.pfad_tiefer(uuid, text, uuid, text, text) is
+  'Eine Stufe tiefer: setzt die passende (oder die genannte) Voraussetzung auf aktiv, der bisherige Skill wartet. Anlass warmup (Warm-up-Entscheidung) oder eingriff (Stufe 4). Coach der Session oder Admin; jeder Aufruf mit wer, wann, Session und Anlass im Protokoll.';
 
 revoke all on function public.ziel_fertigkeiten(uuid, text) from public, anon, authenticated;
-revoke all on function public.pfad_tiefer(uuid, text, uuid, text) from public, anon, authenticated;
+revoke all on function public.pfad_tiefer(uuid, text, uuid, text, text) from public, anon, authenticated;
 grant execute on function public.ziel_fertigkeiten(uuid, text) to authenticated;
-grant execute on function public.pfad_tiefer(uuid, text, uuid, text) to authenticated;
+grant execute on function public.pfad_tiefer(uuid, text, uuid, text, text) to authenticated;

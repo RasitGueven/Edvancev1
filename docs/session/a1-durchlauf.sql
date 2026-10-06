@@ -89,7 +89,7 @@ select public.lernpfad_aus_lsa(:'kind') as ergebnis;
 select skill_key, stand_system, stand_coach, quelle from lernpfad where student_id = :'kind' order by skill_key;
 
 \echo '== 3. Ziel der Stunde fuer das Thema Zinsrechnung'
-select reihenfolge, skill_key, label, rolle, stand from public.ziel_fertigkeiten(:'kind', 'zinsrechnung');
+select reihenfolge, skill_key, label, rolle, stand, pruefung_faellig from public.ziel_fertigkeiten(:'kind', 'zinsrechnung');
 
 \echo '== 4. Session 1 (vor 7 Tagen): Grundwert 1× falsch, 1× richtig mit Hinweis, 2× richtig ohne Hinweis'
 select public.lernpfad_beleg(:'kind', 'prozent_grundwert', :'s1', 'falsch',  false) as stand_nach_beleg;
@@ -107,13 +107,14 @@ select skill_key, stand_system, stand_coach, belege from lernpfad
 select pg_temp.als(:'kind_uid') \g /dev/null
 select * from public.mein_lernpfad() where skill_key = 'prozent_grundwert';
 
-\echo '== 7. Coach: Pruefgespraech (nur freigegeben) und Entscheidung „gemeistert“'
+\echo '== 7. Coach: Vorschlag, Pruefgespraech (nur freigegeben) und Entscheidung „gemeistert“'
 select pg_temp.als(:'coach_uid') \g /dev/null
+select skill_key, label, stand_coach from public.mastery_vorschlaege(:'kind');
 select frage, kriterium from public.skill_pruefung_lesen('prozent_grundwert');
 select public.mastery_entscheiden(:'kind', 'prozent_grundwert', 'gemeistert', null, :'s2') as ergebnis;
 select skill_key, stand_system, stand_coach, coach_session_id = :'s2' as in_session_2 from lernpfad
  where student_id = :'kind' and skill_key = 'prozent_grundwert';
-select aktion, skill_key, alt, neu from lernpfad_protokoll
+select aktion, anlass, skill_key, alt, neu from lernpfad_protokoll
  where student_id = :'kind' and aktion <> 'uebernahme' order by am;
 
 \echo '== 8. Das Kind sieht jetzt „gemeistert“'

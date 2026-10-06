@@ -59,8 +59,14 @@ describe('lernpfadBeleg und pfadTiefer', () => {
     rpc.mockResolvedValue({ data: 'zz_vor', error: null })
     await pfadTiefer({ studentId: 'kind', skillKey: 'zz', sessionId: 's1' })
     expect(rpc).toHaveBeenCalledWith('pfad_tiefer', {
-      p_student_id: 'kind', p_skill_key: 'zz', p_session_id: 's1', p_voraussetzung: null,
+      p_student_id: 'kind', p_skill_key: 'zz', p_session_id: 's1', p_voraussetzung: null, p_anlass: 'warmup',
     })
+  })
+
+  it('pfadTiefer reicht den Anlass Eingriff durch', async () => {
+    rpc.mockResolvedValue({ data: 'zz_vor', error: null })
+    await pfadTiefer({ studentId: 'kind', skillKey: 'zz', sessionId: 's1', anlass: 'eingriff' })
+    expect(rpc).toHaveBeenCalledWith('pfad_tiefer', expect.objectContaining({ p_anlass: 'eingriff' }))
   })
 
   it('faengt einen geworfenen Fehler ab', async () => {

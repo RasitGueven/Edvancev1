@@ -5,10 +5,15 @@
 --                         (Entscheidung 16): der Coach bucht „gemeistert“ oder
 --                         „vertagt“ (mit Grund). Nur der Coach einer Session, in
 --                         der das Kind gebucht ist, oder ein Admin; nur bei
---                         stand_system = 'kandidat'. Schreibt ausschliesslich
+--                         vorgeschlagenem Kandidaten (lernpfad_pruefung_faellig:
+--                         nach „vertagt“ erst wieder mit neuen Belegen aus einer
+--                         spaeteren Session). „Gemeistert“ ist endgueltig; eine
+--                         Ruecknahme durch den Coach kommt mit C2. Schreibt ausschliesslich
 --                         stand_coach und die coach_*-Spalten, nie stand_system
 --                         (Entscheidung 3). Protokoll in lernpfad_protokoll.
 --                         Badges koppelt P2 an (offener Punkt A1-4).
+--   mastery_vorschlaege   die zur Pruefung vorgeschlagenen Kandidaten eines Kindes
+--                         (fuer die Warteschlange im Raum, P2).
 --   skill_pruefung_lesen  Pruefgespraeche eines Skills, nur 'freigegeben', nur
 --                         fuer Coach und Admin (die Erwartung ist Coach-Wissen).
 --   mein_lernpfad         der eigene Stand fuer das Kind. „gemeistert“ nur aus
@@ -50,6 +55,10 @@ begin
   if v_alt.stand_coach = 'gemeistert' then
     raise exception 'mastery_entscheiden: % ist bereits gemeistert', p_skill_key using errcode = 'P0001';
   end if;
+  if not public.lernpfad_pruefung_faellig(p_student_id, p_skill_key) then
+    raise exception 'mastery_entscheiden: % ist vertagt; neu vorgeschlagen erst mit neuen Belegen aus einer spaeteren Session',
+      p_skill_key using errcode = 'P0001';
+  end if;
   if p_entscheidung = 'vertagt' and nullif(btrim(coalesce(p_grund, '')), '') is null then
     raise exception 'mastery_entscheiden: Vertagen braucht einen Grund' using errcode = '22023';
   end if;
@@ -58,13 +67,13 @@ begin
      set stand_coach      = p_entscheidung,
          coach_grund      = nullif(btrim(coalesce(p_grund, '')), ''),
          coach_von        = auth.uid(),
-         coach_am         = now(),
+         coach_am         = clock_timestamp(),
          coach_session_id = p_session_id,
          aktualisiert     = now()
    where id = v_alt.id;
 
-  insert into public.lernpfad_protokoll (student_id, skill_key, aktion, alt, neu, grund, von, session_id)
-  values (p_student_id, p_skill_key, 'mastery',
+  insert into public.lernpfad_protokoll (student_id, skill_key, aktion, anlass, alt, neu, grund, von, session_id)
+  values (p_student_id, p_skill_key, 'mastery', 'pruefung',
           jsonb_build_object('stand_system', v_alt.stand_system, 'stand_coach', v_alt.stand_coach),
           jsonb_build_object('stand_coach', p_entscheidung),
           nullif(btrim(coalesce(p_grund, '')), ''), auth.uid(), p_session_id);
@@ -75,7 +84,32 @@ end;
 $$;
 
 comment on function public.mastery_entscheiden(uuid, text, text, text, uuid) is
-  'Coach-Entscheidung zur Mastery (gemeistert | vertagt mit Grund). Nur Coach der Session mit gebuchtem Kind oder Admin, nur bei stand_system = kandidat. Aendert stand_system nie.';
+  'Coach-Entscheidung zur Mastery (gemeistert | vertagt mit Grund). Nur Coach der Session mit gebuchtem Kind oder Admin, nur bei vorgeschlagenem Kandidaten (lernpfad_pruefung_faellig). Aendert stand_system nie; gemeistert ist endgueltig.';
+
+create function public.mastery_vorschlaege(p_student_id uuid)
+returns table (skill_key text, label text, stand_coach text, coach_grund text, letzte_uebung_am timestamptz)
+language plpgsql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+#variable_conflict use_column
+begin
+  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+    raise exception 'mastery_vorschlaege: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
+  end if;
+  return query
+    select l.skill_key, s.label, l.stand_coach, l.coach_grund, l.letzte_uebung_am
+      from public.lernpfad l
+      join public.skills s on s.skill_key = l.skill_key
+     where l.student_id = p_student_id
+       and public.lernpfad_pruefung_faellig(l.student_id, l.skill_key)
+     order by l.stand_system_seit, l.skill_key;
+end;
+$$;
+
+comment on function public.mastery_vorschlaege(uuid) is
+  'Zur Mastery-Pruefung vorgeschlagene Kandidaten eines Kindes (ohne Entscheidung, oder vertagt mit neuen Belegen aus einer spaeteren Session). Admin oder Coach bei laufendem Vertrag.';
 
 create function public.skill_pruefung_lesen(p_skill_key text)
 returns table (id uuid, skill_key text, frage text, erwartung text, kriterium text, quelle text)
@@ -132,8 +166,10 @@ comment on function public.mein_lernpfad() is
   'Eigener Lernpfad des Kindes. gemeistert nur mit stand_coach; Mastery-Kandidat erscheint als sicher (Entscheidung 6).';
 
 revoke all on function public.mastery_entscheiden(uuid, text, text, text, uuid) from public, anon, authenticated;
+revoke all on function public.mastery_vorschlaege(uuid) from public, anon, authenticated;
 revoke all on function public.skill_pruefung_lesen(text) from public, anon, authenticated;
 revoke all on function public.mein_lernpfad() from public, anon, authenticated;
 grant execute on function public.mastery_entscheiden(uuid, text, text, text, uuid) to authenticated;
+grant execute on function public.mastery_vorschlaege(uuid) to authenticated;
 grant execute on function public.skill_pruefung_lesen(text) to authenticated;
 grant execute on function public.mein_lernpfad() to authenticated;

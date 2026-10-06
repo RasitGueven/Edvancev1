@@ -69,7 +69,9 @@ create table public.lernpfad_belege (
   session_id      uuid not null references public.coaching_sessions(id) on delete restrict,
   ergebnis        text not null check (ergebnis in ('richtig', 'teilweise', 'falsch')),
   hinweis_genutzt boolean not null,
-  zeit            timestamptz not null default now()
+  -- clock_timestamp: Reihenfolge zu einer Coach-Entscheidung auch innerhalb
+  -- einer Transaktion eindeutig (Vorschlag nach „vertagt“).
+  zeit            timestamptz not null default clock_timestamp()
 );
 
 comment on table public.lernpfad_belege is
@@ -82,16 +84,17 @@ create table public.lernpfad_protokoll (
   student_id uuid not null references public.students(id) on delete cascade,
   skill_key  text not null references public.skills(skill_key),
   aktion     text not null check (aktion in ('mastery', 'pfad_tiefer', 'uebernahme')),
+  anlass     text not null check (anlass in ('lsa', 'pruefung', 'warmup', 'eingriff')),
   alt        jsonb,
   neu        jsonb,
   grund      text,
   von        uuid references public.profiles(id) on delete set null,
   session_id uuid references public.coaching_sessions(id) on delete set null,
-  am         timestamptz not null default now()
+  am         timestamptz not null default clock_timestamp()
 );
 
 comment on table public.lernpfad_protokoll is
-  'Wer hat wann am Lernpfad entschieden (Mastery, Pfad tiefer, Uebernahme). Nur anhaengen.';
+  'Wer (von), wann (am), in welcher Session und aus welchem Anlass am Lernpfad entschieden wurde (Mastery, Pfad tiefer, Uebernahme). Nur anhaengen.';
 
 create index lernpfad_protokoll_student_idx on public.lernpfad_protokoll (student_id, am);
 

@@ -30,7 +30,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(45);
+select plan(59);
 
 \set admin_uid  'a1a1a1a1-0001-4000-8000-000000000001'
 \set coach_uid  'a1a1a1a1-0001-4000-8000-000000000002'
@@ -43,6 +43,7 @@ select plan(45);
 \set s2         'a1a1a1a1-0005-4000-8000-000000000002'
 \set sf         'a1a1a1a1-0005-4000-8000-000000000003'
 \set s3         'a1a1a1a1-0005-4000-8000-000000000004'
+\set s4         'a1a1a1a1-0005-4000-8000-000000000005'
 \set ohne       'a1a1a1a1-0003-4000-8000-000000000002'
 
 insert into auth.users (id, email, instance_id, aud, role) values
@@ -63,7 +64,8 @@ insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe) va
   ('zz_a1_einstieg',  'A1 Einstieg',  'mathematik', 9, 3),
   ('zz_a1_thema2',    'A1 Thema2',    'mathematik', 9, 4),
   ('zz_a1_fokus',     'A1 Fokus',     'mathematik', 5, 1),
-  ('zz_a1_verworfen', 'A1 Verworfen', 'mathematik', 5, 1);
+  ('zz_a1_verworfen', 'A1 Verworfen', 'mathematik', 5, 1),
+  ('zz_a1_vertag',    'A1 Vertagt',   'mathematik', 6, 1);
 insert into skill_kante (skill_key, voraussetzt_skill_key) values
   ('zz_a1_vor', 'zz_a1_basis'), ('zz_a1_sicher', 'zz_a1_basis'),
   ('zz_a1_einstieg', 'zz_a1_vor'), ('zz_a1_einstieg', 'zz_a1_sicher'),
@@ -96,9 +98,10 @@ insert into coaching_sessions (id, coach_id, scheduled_at, status) values
   (:'s1', :'coach_uid', now() - interval '7 days', 'done'),
   (:'s2', :'coach_uid', now(), 'upcoming'),
   (:'sf', :'fremd_uid', now(), 'upcoming'),
-  (:'s3', :'coach_uid', now() + interval '7 days', 'upcoming');
+  (:'s3', :'coach_uid', now() + interval '7 days', 'upcoming'),
+  (:'s4', :'coach_uid', now() + interval '14 days', 'upcoming');
 insert into session_students (session_id, student_id, attendance) values
-  (:'s1', :'kind', 'present'), (:'s2', :'kind', 'present'), (:'s3', :'kind', 'planned');
+  (:'s1', :'kind', 'present'), (:'s2', :'kind', 'present'), (:'s3', :'kind', 'planned'), (:'s4', :'kind', 'present');
 set local session_replication_role = origin;
 
 insert into lsa_sessions (id, student_id, subject, grade, status, completed_at, modus)
@@ -182,8 +185,12 @@ select results_eq(
   format($f$select skill_key, stand_system from lernpfad where student_id = %L and skill_key in ('zz_a1_vor','zz_a1_einstieg') order by 1$f$, :'kind'),
   $$values ('zz_a1_einstieg'::text, 'offen'::text), ('zz_a1_vor', 'aktiv')$$,
   '6: Voraussetzung aktiv, bisheriger Skill wartet');
-select is((select count(*)::int from lernpfad_protokoll where student_id = :'kind' and aktion = 'pfad_tiefer'), 1,
-  '6: Pfad-Entscheidung protokolliert');
+select results_eq(
+  format($f$select von, session_id, anlass, (am is not null) from lernpfad_protokoll where student_id = %L and aktion = 'pfad_tiefer'$f$, :'kind'),
+  format($f$values (%L::uuid, %L::uuid, 'warmup'::text, true)$f$, :'coach_uid', :'s1'),
+  '6: Pfad-Entscheidung protokolliert: wer, wann, Session, Anlass');
+select throws_ok(format($f$select public.pfad_tiefer(%L, 'zz_a1_thema2', %L, null, 'irgendwas')$f$, :'kind', :'s1'),
+  '22023', NULL, '6: unbekannter Anlass → abgelehnt, nichts protokolliert');
 select results_eq(
   format($f$select skill_key, quelle from public.naechste_luecke(%L)$f$, :'kind'),
   $$values ('zz_a1_vor'::text, 'lsa'::text)$$,
@@ -238,8 +245,50 @@ select results_eq(
   format($f$select stand_system, stand_coach, coach_von, coach_session_id from lernpfad where student_id = %L and skill_key = 'zz_a1_vor'$f$, :'kind'),
   format($f$values ('kandidat'::text, 'gemeistert'::text, %L::uuid, %L::uuid)$f$, :'coach_uid', :'s2'),
   '4: stand_coach gesetzt, stand_system unveraendert');
-select is((select count(*)::int from lernpfad_protokoll where student_id = :'kind' and aktion = 'mastery'), 1,
-  '4: Entscheidung protokolliert');
+select results_eq(
+  format($f$select anlass, von, session_id from lernpfad_protokoll where student_id = %L and aktion = 'mastery'$f$, :'kind'),
+  format($f$values ('pruefung'::text, %L::uuid, %L::uuid)$f$, :'coach_uid', :'s2'),
+  '4: Entscheidung protokolliert (Anlass pruefung)');
+
+-- 4b) Vertagen und neuer Vorschlag (Rasit 06.10.) ------------------------------
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s1', 'richtig', false) \g /dev/null
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s1', 'richtig', false) \g /dev/null
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s2', 'richtig', false) \g /dev/null
+select is(public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s2', 'richtig', false), 'kandidat', '4b: Kandidat erreicht');
+select results_eq(format($f$select skill_key from public.mastery_vorschlaege(%L)$f$, :'kind'),
+  $$values ('zz_a1_vertag'::text)$$, '4b: Kandidat ohne Entscheidung ist vorgeschlagen (gemeisterter fehlt)');
+select lives_ok(format($f$select public.mastery_entscheiden(%L, 'zz_a1_vertag', 'vertagt', 'Ging nur mit Hilfe', %L)$f$, :'kind', :'s2'),
+  '4b: Coach vertagt mit Grund');
+select is((select stand_system from lernpfad where student_id = :'kind' and skill_key = 'zz_a1_vertag'), 'kandidat',
+  '4b: nach vertagt bleibt der Kandidat Kandidat');
+select is((select count(*)::int from public.mastery_vorschlaege(:'kind')), 0, '4b: nach vertagt nicht mehr vorgeschlagen');
+select throws_ok(format($f$select public.mastery_entscheiden(%L, 'zz_a1_vertag', 'gemeistert', null, %L)$f$, :'kind', :'s2'),
+  'P0001', NULL, '4b: ohne neuen Vorschlag keine erneute Entscheidung');
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s2', 'richtig', false) \g /dev/null
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s2', 'richtig', false) \g /dev/null
+select ok(not public.lernpfad_pruefung_faellig(:'kind', 'zz_a1_vertag'),
+  '4b: weitere Belege in derselben Session schlagen nicht neu vor');
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s4', 'richtig', true) \g /dev/null
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s4', 'falsch', false) \g /dev/null
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s4', 'richtig', false) \g /dev/null
+select ok(not public.lernpfad_pruefung_faellig(:'kind', 'zz_a1_vertag'),
+  '4b: spaetere Session mit nur einem Beleg ohne Hinweis (einer mit Hinweis) → noch kein Vorschlag');
+select is((select stand_system from lernpfad where student_id = :'kind' and skill_key = 'zz_a1_vertag'), 'kandidat',
+  '4b: ein Fehlversuch nimmt den Kandidaten nicht zurueck');
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s4', 'richtig', false) \g /dev/null
+select results_eq(format($f$select skill_key, stand_coach from public.mastery_vorschlaege(%L)$f$, :'kind'),
+  $$values ('zz_a1_vertag'::text, 'vertagt'::text)$$,
+  '4b: neue Belege nach Entscheidung 16 in einer spaeteren Session → wieder vorgeschlagen');
+select lives_ok(format($f$select public.mastery_entscheiden(%L, 'zz_a1_vertag', 'gemeistert', null, %L)$f$, :'kind', :'s4'),
+  '4b: Coach bestaetigt in der spaeteren Session');
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s4', 'falsch', false) \g /dev/null
+select public.lernpfad_beleg(:'kind', 'zz_a1_vertag', :'s4', 'falsch', false) \g /dev/null
+select results_eq(
+  format($f$select stand_system, stand_coach from lernpfad where student_id = %L and skill_key = 'zz_a1_vertag'$f$, :'kind'),
+  $$values ('kandidat'::text, 'gemeistert'::text)$$,
+  '4b: gemeistert nimmt das System nie zurueck, auch nicht nach Fehlversuchen');
+select throws_ok(format($f$select public.mastery_entscheiden(%L, 'zz_a1_vertag', 'vertagt', 'x', %L)$f$, :'kind', :'s4'),
+  'P0001', NULL, '4b: gemeistert ist endgueltig (Ruecknahme kommt mit C2)');
 
 -- Kind liest den eigenen Stand: gemeistert nur aus stand_coach, nie „kandidat“
 select pg_temp.act_as(:'kind_uid');
@@ -252,7 +301,7 @@ select is((select count(*)::int from lernpfad), 0, '9: Kind liest die Tabelle le
 reset role;
 select pg_temp.act_as(:'coach_uid');
 set local role authenticated;
-select is((select count(*)::int from lernpfad where student_id = :'kind'), 5,
+select is((select count(*)::int from lernpfad where student_id = :'kind'), 6,
   '9: Coach liest den Lernpfad eines Kindes mit laufendem Vertrag direkt (RLS)');
 select is((select count(*)::int from lernpfad where student_id = :'ohne'), 0,
   '9: Coach liest keinen Lernpfad eines Kindes ohne laufenden Vertrag (RLS)');
@@ -280,12 +329,14 @@ select ok(not bool_or(has_function_privilege(r, f, 'execute')),
        unnest(array['public.lernpfad_beleg_core(uuid,text,uuid,text,boolean)',
                     'public.lernpfad_stellschraube(text,uuid)',
                     'public.lernpfad_coach_der_session(uuid,uuid)',
-                    'public.lernpfad_lsa_urteile(uuid)']) f;
+                    'public.lernpfad_lsa_urteile(uuid)',
+                    'public.lernpfad_pruefung_faellig(uuid,text)']) f;
 select ok(not bool_or(has_function_privilege('anon', f, 'execute')),
   'Rechte: anon ruft keine Lernpfad-Funktion auf')
   from unnest(array['public.lernpfad_beleg(uuid,text,uuid,text,boolean)',
                     'public.lernpfad_aus_lsa(uuid)', 'public.naechste_luecke(uuid)',
-                    'public.ziel_fertigkeiten(uuid,text)', 'public.pfad_tiefer(uuid,text,uuid,text)',
+                    'public.ziel_fertigkeiten(uuid,text)', 'public.pfad_tiefer(uuid,text,uuid,text,text)',
+                    'public.mastery_vorschlaege(uuid)',
                     'public.mastery_entscheiden(uuid,text,text,text,uuid)',
                     'public.skill_pruefung_lesen(text)', 'public.mein_lernpfad()',
                     'public.lernpfad_darf_lesen(uuid)']) f;

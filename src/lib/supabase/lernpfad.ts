@@ -12,7 +12,9 @@ import type {
   LernpfadStandSystem,
   LernpfadUebernahme,
   MasteryEntscheidung,
+  MasteryVorschlag,
   MeinLernpfadEintrag,
+  PfadAnlass,
   NaechsteLuecke,
   SkillPruefung,
   SupabaseResult,
@@ -93,6 +95,7 @@ export function pfadTiefer(args: {
   skillKey: string
   sessionId: string | null
   voraussetzung?: string | null
+  anlass?: PfadAnlass
 }): Promise<SupabaseResult<string>> {
   return rufe(
     'pfad_tiefer',
@@ -101,9 +104,15 @@ export function pfadTiefer(args: {
       p_skill_key: args.skillKey,
       p_session_id: args.sessionId,
       p_voraussetzung: args.voraussetzung ?? null,
+      p_anlass: args.anlass ?? 'warmup',
     },
     'Could not set path one level deeper',
   )
+}
+
+/** Zur Mastery-Pruefung vorgeschlagene Kandidaten eines Kindes. */
+export function masteryVorschlaege(studentId: string): Promise<SupabaseResult<MasteryVorschlag[]>> {
+  return rufe('mastery_vorschlaege', { p_student_id: studentId }, 'Could not load mastery proposals')
 }
 
 /** Freigegebene Pruefgespraeche eines Skills (Coach, Admin). */

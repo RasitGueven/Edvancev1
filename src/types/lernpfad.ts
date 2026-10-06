@@ -55,6 +55,19 @@ export type ZielFertigkeit = {
   stand_system: LernpfadStandSystem | null
   stand_coach: LernpfadStandCoach | null
   stand: ZielStand
+  /** Kandidat zur Mastery-Pruefung vorgeschlagen (nach „vertagt“ erst mit neuen Belegen). */
+  pruefung_faellig: boolean
+}
+
+/** Anlass einer Pfad-Entscheidung: Warm-up oder Interventionsstufe 4. */
+export type PfadAnlass = 'warmup' | 'eingriff'
+
+export type MasteryVorschlag = {
+  skill_key: string
+  label: string
+  stand_coach: 'vertagt' | null
+  coach_grund: string | null
+  letzte_uebung_am: string | null
 }
 
 export type NaechsteLuecke = {

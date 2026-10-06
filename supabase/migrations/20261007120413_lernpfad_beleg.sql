@@ -152,6 +152,53 @@ $$;
 comment on function public.lernpfad_beleg(uuid, text, uuid, text, boolean) is
   'Bucht einen Session-Beleg (Coach der Session, Admin oder Systemaufruf) und liefert den neuen stand_system.';
 
+-- Ist der Kandidat zur Mastery-Pruefung vorgeschlagen? (Entscheidung 16,
+-- Rasit 06.10.: ein Kandidat bleibt Kandidat; nach „vertagt“ wird er erst
+-- wieder vorgeschlagen, wenn eine spaetere Session neue Belege nach
+-- Entscheidung 16 bringt.)
+--   kandidat, keine Entscheidung              → ja
+--   kandidat, vertagt                         → ja, wenn eine Session nach der
+--                                               Vertagung (spaeter angesetzt als
+--                                               deren Session, Belege nach
+--                                               coach_am) mindestens
+--                                               mastery_richtig_ohne_hinweis
+--                                               Belege ohne Hinweis hat
+--   gemeistert oder kein Kandidat             → nein
+-- Belege gibt es nur von anwesenden Kindern (lernpfad_beleg_core).
+create function public.lernpfad_pruefung_faellig(p_student_id uuid, p_skill_key text)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+  select coalesce((
+    select case
+             when l.stand_system <> 'kandidat' or l.stand_coach = 'gemeistert' then false
+             when l.stand_coach is null then true
+             else exists (
+               select 1
+                 from public.lernpfad_belege b
+                 join public.coaching_sessions cs on cs.id = b.session_id
+                where b.student_id = l.student_id
+                  and b.skill_key = l.skill_key
+                  and b.zeit > l.coach_am
+                  and b.session_id is distinct from l.coach_session_id
+                  and (l.coach_session_id is null
+                       or cs.scheduled_at > (select c2.scheduled_at from public.coaching_sessions c2
+                                              where c2.id = l.coach_session_id))
+                group by b.session_id
+               having count(*) filter (where b.ergebnis = 'richtig' and not b.hinweis_genutzt)
+                      >= public.lernpfad_stellschraube('mastery_richtig_ohne_hinweis', b.session_id))
+           end
+      from public.lernpfad l
+     where l.student_id = p_student_id and l.skill_key = p_skill_key), false);
+$$;
+
+comment on function public.lernpfad_pruefung_faellig(uuid, text) is
+  'true, wenn der Kandidat zur Mastery-Pruefung vorgeschlagen ist: ohne Entscheidung sofort, nach vertagt erst mit neuen Belegen nach Entscheidung 16 aus einer spaeteren Session.';
+
+revoke all on function public.lernpfad_pruefung_faellig(uuid, text) from public, anon, authenticated;
 revoke all on function public.lernpfad_beleg_core(uuid, text, uuid, text, boolean)
   from public, anon, authenticated;
 revoke all on function public.lernpfad_beleg(uuid, text, uuid, text, boolean)
