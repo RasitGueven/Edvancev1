@@ -49,7 +49,7 @@ insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild
 values ('fc1eb325-4a07-47fe-8c92-ed8d4a58c646'::uuid, 'e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, 'B', 'erklaerung',
   '# Erst hoch, dann durch rüber.
 
-Die Zahl für oben steht oben im Bruch. Die Zahl für rechts steht unten.
+Wie weit es nach oben geht, steht oben im Bruch. Wie weit es nach rechts geht, steht unten.
 
 Von C nach D: 3 nach rechts, 6 nach oben. Also $m = \frac{6}{3} = 2$.
 
@@ -64,11 +64,13 @@ insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild
 values ('55a49da6-afc7-42ae-9dfd-19276cdd4820'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'A', 'erklaerung',
   '# Rechnen statt zählen
 
-Hoch ist der Unterschied der y-Werte. Rüber ist der Unterschied der x-Werte.
+Hoch = y von B minus y von A. Rüber = x von B minus x von A.
 
-Fang oben und unten mit demselben Punkt an. Fällt die Gerade, wird hoch negativ und $m$ auch.
+A(-2|0) und B(2|2): $m = \frac{2 - 0}{2 - (-2)} = \frac{2}{4}$, also 0,5.
 
-> $m = \frac{y_B - y_A}{x_B - x_A}$',
+Fällt die Gerade, wird hoch negativ und $m$ auch.
+
+> $m = \dfrac{y_B - y_A}{x_B - x_A}$',
   '{"svg_hash":"7735f0ca14ed7fba7c6c02bf880a171295e1e4a5eb25af2920b296b08fb081c7","alt":"Flach steigende Gerade mit den Punkten A und B."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
@@ -88,7 +90,7 @@ insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild
 values ('6e73778f-f342-41aa-8fb4-90d126d27fa7'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'B', 'erklaerung',
   '# Passt das Vorzeichen?
 
-Schau zuerst aufs Bild. Steigt die Gerade, ist $m$ positiv. Fällt sie, ist $m$ negativ.
+Steigt die Gerade, ist $m$ positiv. Fällt sie, ist $m$ negativ. Ohne Bild: Wird y mit x größer, steigt sie.
 
 Rechne oben und unten in derselben Reihenfolge: erst Q, dann P.
 
@@ -103,10 +105,10 @@ values ('85a03240-9f46-4451-8965-74e24bdb0727'::uuid, 'daac561b-bc6e-4e80-be21-0
 
 Im Bruch stehen oben die y-Werte und unten die x-Werte. So bleibt es: hoch durch rüber.
 
-A(1|1) und B(4|7): $m = \frac{7 - 1}{4 - 1} = \frac{6}{3} = 2$.
+A(0|-3) und B(2|5): $m = \frac{5 - (-3)}{2 - 0} = \frac{8}{2} = 4$.
 
-Umgekehrt käme $\frac{3}{6}$ heraus. Das passt nicht zur steilen Geraden.',
-  '{"svg_hash":"9d5bcf3eadadfb8ba8333414e8b05e634360b004e5e2678174e3e0232bb38dc5","alt":"Steile Gerade mit den Punkten A und B."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
+Umgekehrt käme $\frac{2}{8}$ heraus. Das passt nicht zur steilen Geraden.',
+  '{"svg_hash":"d369263e8bfb33d3ae9e20c29ae18b697a42a0f07180732576955b8ed45f8325","alt":"Sehr steile Gerade mit den Punkten A und B."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 3 · Variante A · erklaerung
@@ -114,7 +116,7 @@ insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild
 values ('e1758016-20c1-4e66-a891-802d27c3e289'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'A', 'erklaerung',
   '# Jeder Schritt bringt m dazu.
 
-Die Steigung sagt dir: So viel geht es bei einem Schritt nach rechts nach oben.
+Ein Schritt heißt: 1 nach rechts. Bei jedem Schritt geht es um $m$ nach oben.
 
 Gehst du mehrere Schritte, kommt $m$ für jeden Schritt einmal dazu.
 
@@ -140,7 +142,7 @@ values ('61343c38-a91a-4a28-9c1b-469e5eb846df'::uuid, 'cee436c7-dd3b-4304-87cf-e
 
 Die Steigung gilt für einen Schritt nach rechts. Bei 4 Schritten kommt sie 4-mal dazu.
 
-Von P nach Q mit $m = 2$: $4 \cdot 2 = 8$ nach oben, nicht nur 2.',
+P(0|-4), $m = 2$, 4 Schritte: $-4 + 4 \cdot 2 = 4$, also Q(4|4). Nicht $-4 + 2 = -2$.',
   '{"svg_hash":"e9695a558ee821e15d8ea9d50c2b819397352147511e5a516a16e289cdd9b803","alt":"Steigende Gerade mit den Punkten P und Q."}'::jsonb, '{nur_einmal_addiert}'::text[], 'entwurf')
 on conflict do nothing;
 
@@ -149,12 +151,12 @@ insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild
 values ('fc4d1a08-a24d-4c21-b905-1acab8de237d'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'C', 'erklaerung',
   '# Starte beim Punkt, nicht im Ursprung.
 
-Diese Gerade schneidet die y-Achse nicht im Ursprung. Darum reicht $m \cdot x$ nicht.
+Diese Gerade geht nicht durch den Ursprung. Steigung mal x allein reicht deshalb nicht.
 
 Starte beim y-Wert des Punktes und zähl die Schritte dazu.
 
-P(1|5), $m = 2$, gesucht y bei x = 3: $5 + 2 \cdot 2 = 9$, nicht $2 \cdot 3 = 6$.',
-  '{"svg_hash":"cb77fa681a85473db06fd1f95822103df9019251a7c4636d8b1e11320d812b61","alt":"Steigende Gerade, die die y-Achse oberhalb des Ursprungs schneidet, mit den Punkten P und Q."}'::jsonb, '{b_ignoriert}'::text[], 'entwurf')
+P(1|5), $m = 3$, gesucht y bei x = 3: 2 Schritte, $5 + 2 \cdot 3 = 11$. Nicht $3 \cdot 3 = 9$.',
+  '{"svg_hash":"ce60ee0af9ab10fa5848a032d13371a0073d6c30f691539ab643ee7dd9048117","alt":"Steigende Gerade, die die y-Achse oberhalb des Ursprungs schneidet, mit den Punkten P und Q."}'::jsonb, '{b_ignoriert}'::text[], 'entwurf')
 on conflict do nothing;
 
 insert into public.erklaer_check (kernidee_id, task_id, reihenfolge) values

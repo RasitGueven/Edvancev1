@@ -45,7 +45,7 @@ export const KERNIDEEN = [
         fehlbilder: ['steigung_kehrwert'],
         erklaerung: {
           inhalt: '# Erst hoch, dann durch rüber.\n\n'
-            + 'Die Zahl für oben steht oben im Bruch. Die Zahl für rechts steht unten.\n\n'
+            + 'Wie weit es nach oben geht, steht oben im Bruch. Wie weit es nach rechts geht, steht unten.\n\n'
             + 'Von C nach D: 3 nach rechts, 6 nach oben. Also $m = \\frac{6}{3} = 2$.\n\n'
             + 'Umgekehrt wäre $\\frac{3}{6}$ viel zu flach.\n\n'
             + '> Steigung = hoch : rüber',
@@ -74,11 +74,12 @@ export const KERNIDEEN = [
       A: {
         erklaerung: {
           inhalt: '# Rechnen statt zählen\n\n'
-            + 'Hoch ist der Unterschied der y-Werte. Rüber ist der Unterschied der x-Werte.\n\n'
-            + 'Fang oben und unten mit demselben Punkt an. Fällt die Gerade, wird hoch negativ und $m$ auch.\n\n'
+            + 'Hoch = y von B minus y von A. Rüber = x von B minus x von A.\n\n'
+            + 'A(-2|0) und B(2|2): $m = \\frac{2 - 0}{2 - (-2)} = \\frac{2}{4}$, also 0,5.\n\n'
+            + 'Fällt die Gerade, wird hoch negativ und $m$ auch.\n\n'
             + '> $m = \\dfrac{y_B - y_A}{x_B - x_A}$',
           bild: bild([-3, 3, -1, 4], 0.5, 1, [['A', -2, 0], ['B', 2, 2]], 'Flach steigende Gerade mit den Punkten A und B.'),
-          rechnungen: [],
+          rechnungen: [['2-0', '2'], ['2-(-2)', '4'], ['2/4', '0,5']],
         },
         beispiel: {
           inhalt: '# Die Gerade geht durch A(-1|3) und B(2|-3).\n\n'
@@ -93,7 +94,7 @@ export const KERNIDEEN = [
         fehlbilder: ['seiten_verwechselt'],
         erklaerung: {
           inhalt: '# Passt das Vorzeichen?\n\n'
-            + 'Schau zuerst aufs Bild. Steigt die Gerade, ist $m$ positiv. Fällt sie, ist $m$ negativ.\n\n'
+            + 'Steigt die Gerade, ist $m$ positiv. Fällt sie, ist $m$ negativ. Ohne Bild: Wird y mit x größer, steigt sie.\n\n'
             + 'Rechne oben und unten in derselben Reihenfolge: erst Q, dann P.\n\n'
             + 'P(-2|4) und Q(2|0): $m = \\frac{0 - 4}{2 - (-2)} = \\frac{-4}{4} = -1$.',
           bild: bild([-3, 3, -2, 5], -1, 2, [['P', -2, 4], ['Q', 2, 0]], 'Fallende Gerade mit den Punkten P und Q.'),
@@ -105,10 +106,10 @@ export const KERNIDEEN = [
         erklaerung: {
           inhalt: '# Die y-Werte gehören nach oben.\n\n'
             + 'Im Bruch stehen oben die y-Werte und unten die x-Werte. So bleibt es: hoch durch rüber.\n\n'
-            + 'A(1|1) und B(4|7): $m = \\frac{7 - 1}{4 - 1} = \\frac{6}{3} = 2$.\n\n'
-            + 'Umgekehrt käme $\\frac{3}{6}$ heraus. Das passt nicht zur steilen Geraden.',
-          bild: bild([0, 5, -1, 8], 2, -1, [['A', 1, 1], ['B', 4, 7]], 'Steile Gerade mit den Punkten A und B.'),
-          rechnungen: [['7-1', '6'], ['4-1', '3'], ['6/3', '2'], ['3/6', '1/2', 'falsch']],
+            + 'A(0|-3) und B(2|5): $m = \\frac{5 - (-3)}{2 - 0} = \\frac{8}{2} = 4$.\n\n'
+            + 'Umgekehrt käme $\\frac{2}{8}$ heraus. Das passt nicht zur steilen Geraden.',
+          bild: bild([-1, 3, -4, 6], 4, -3, [['A', 0, -3], ['B', 2, 5]], 'Sehr steile Gerade mit den Punkten A und B.'),
+          rechnungen: [['5-(-3)', '8'], ['2-0', '2'], ['8/2', '4'], ['2/8', '1/4', 'falsch']],
         },
       },
     },
@@ -132,7 +133,7 @@ export const KERNIDEEN = [
       A: {
         erklaerung: {
           inhalt: '# Jeder Schritt bringt m dazu.\n\n'
-            + 'Die Steigung sagt dir: So viel geht es bei einem Schritt nach rechts nach oben.\n\n'
+            + 'Ein Schritt heißt: 1 nach rechts. Bei jedem Schritt geht es um $m$ nach oben.\n\n'
             + 'Gehst du mehrere Schritte, kommt $m$ für jeden Schritt einmal dazu.\n\n'
             + '> neuer y-Wert = alter y-Wert + Schritte · m',
           bild: bild([-1, 4, -3, 4], 2, -2, [['P', 0, -2], ['Q', 1, 0], ['R', 2, 2]], 'Steigende Gerade mit drei Punkten P, Q und R im Abstand von je einem Kästchen nach rechts.'),
@@ -152,20 +153,20 @@ export const KERNIDEEN = [
         erklaerung: {
           inhalt: '# Zähl die Schritte mit.\n\n'
             + 'Die Steigung gilt für einen Schritt nach rechts. Bei 4 Schritten kommt sie 4-mal dazu.\n\n'
-            + 'Von P nach Q mit $m = 2$: $4 \\cdot 2 = 8$ nach oben, nicht nur 2.',
+            + 'P(0|-4), $m = 2$, 4 Schritte: $-4 + 4 \\cdot 2 = 4$, also Q(4|4). Nicht $-4 + 2 = -2$.',
           bild: bild([-1, 5, -5, 5], 2, -4, [['P', 0, -4], ['Q', 4, 4]], 'Steigende Gerade mit den Punkten P und Q.'),
-          rechnungen: [['4-0', '4'], ['4*2', '8'], ['-4+8', '4']],
+          rechnungen: [['4-0', '4'], ['4*2', '8'], ['-4+4*2', '4'], ['-4+2', '-2', 'falsch']],
         },
       },
       C: {
         fehlbilder: ['b_ignoriert'],
         erklaerung: {
           inhalt: '# Starte beim Punkt, nicht im Ursprung.\n\n'
-            + 'Diese Gerade schneidet die y-Achse nicht im Ursprung. Darum reicht $m \\cdot x$ nicht.\n\n'
+            + 'Diese Gerade geht nicht durch den Ursprung. Steigung mal x allein reicht deshalb nicht.\n\n'
             + 'Starte beim y-Wert des Punktes und zähl die Schritte dazu.\n\n'
-            + 'P(1|5), $m = 2$, gesucht y bei x = 3: $5 + 2 \\cdot 2 = 9$, nicht $2 \\cdot 3 = 6$.',
-          bild: bild([-1, 4, -1, 11], 2, 3, [['P', 1, 5], ['Q', 3, 9]], 'Steigende Gerade, die die y-Achse oberhalb des Ursprungs schneidet, mit den Punkten P und Q.'),
-          rechnungen: [['3-1', '2'], ['5+2*2', '9'], ['2*3', '6', 'falsch']],
+            + 'P(1|5), $m = 3$, gesucht y bei x = 3: 2 Schritte, $5 + 2 \\cdot 3 = 11$. Nicht $3 \\cdot 3 = 9$.',
+          bild: bild([-1, 4, -1, 13], 3, 2, [['P', 1, 5], ['Q', 3, 11]], 'Steigende Gerade, die die y-Achse oberhalb des Ursprungs schneidet, mit den Punkten P und Q.'),
+          rechnungen: [['3-1', '2'], ['5+2*3', '11'], ['3*3', '9', 'falsch']],
         },
       },
     },

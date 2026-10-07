@@ -60,5 +60,8 @@ Aufgaben: 3 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen:
 - ok  #3 Check · Punkt aus Steigung und Punkt: 3*5 = 15 (soll 15)
 - ok  #3 Check · Punkt aus Steigung und Punkt: 1+(5-2)/3 = 2 (soll 2)
 
-## Blind-Abgleich (kein Loeser)
+## Blind-Abgleich (docs/prefill/erklaer-k8-linfkt-checks-blind.json)
 
+- ok  #1 Check · Steigung am Graphen ablesen: Loeser 4 · gespeichert ["4","+4"]
+- ok  #2 Check · Steigung aus zwei Punkten · negative Koordinaten: Loeser 1.5 · gespeichert ["3/2","+3/2","1,5","+1,5","1.5","+1.5"]
+- ok  #3 Check · Punkt aus Steigung und Punkt: Loeser 10 · gespeichert ["10","+10"]
