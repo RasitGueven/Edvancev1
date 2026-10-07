@@ -2,6 +2,7 @@
 // Werte sind Datenbank-Konstanten; Anzeige-Texte kommen in P2 ueber i18n.
 
 import type { ErklaersequenzLive, MasteryKandidatLive, SchrittLive } from './sessionSchritt'
+import type { PruefungAufTablet, TabletBestaetigt, TabletPruefung } from './sessionTablet'
 
 export type SessionPhase = 'checkin' | 'warmup' | 'kern' | 'checkout'
 export type SessionFall = 'klassenarbeit' | 'schulthema' | 'lernpfad'
@@ -106,6 +107,8 @@ export type KindLive = {
   erklaersequenz: ErklaersequenzLive | null
   /** A2: letzter Schritt der Engine mit Grund. */
   schritt: SchrittLive | null
+  /** A2b: Pruefrage auf dem Tablet des Kindes. */
+  pruefung_auf_tablet: PruefungAufTablet | null
 }
 
 export type RaumLive = {
@@ -162,7 +165,10 @@ export type TabletStand =
       vorname: string | null
       phase: SessionPhase | null
       checkin_fertig: boolean
+      /** Nicht zur Anzeige: die App nimmt den Schritt aus session_naechster_schritt. */
       aufgabe: Record<string, unknown> | null
+      pruefung: TabletPruefung | null
+      bestaetigt: TabletBestaetigt[]
     }
 
 export type AntwortRueckmeldung = {
