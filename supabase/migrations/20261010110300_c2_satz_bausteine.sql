@@ -54,8 +54,7 @@ insert into public.session_satz_bausteine (anlass, reihenfolge, text) values
   ('geuebt', 1, 'Du hast heute konzentriert an {skill} gearbeitet. Das bringt dich weiter.'),
   ('geuebt', 2, '{anzahl} Aufgaben zu {skill} in einer Stunde: Da steckt viel Arbeit drin.'),
   ('allgemein', 1, 'Du hast heute gut mitgearbeitet, {vorname}. Ich freue mich auf das nächste Mal.'),
-  ('allgemein', 2, 'Du warst heute konzentriert bei der Sache. Das merkt man an deiner Arbeit.'),
-  ('allgemein', 3, 'Du hast heute deinen Rechenweg aufgeschrieben. So kann man gut sehen, wie du denkst.');
+  ('allgemein', 2, 'Du warst heute konzentriert bei der Sache. Das merkt man an deiner Arbeit.');
 
 create function public.satz_vorschlaege(p_session_id uuid, p_student_id uuid)
 returns jsonb

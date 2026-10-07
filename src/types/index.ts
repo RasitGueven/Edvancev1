@@ -384,4 +384,5 @@ export type {
   SatzAnlass,
   SatzVorschlag,
   OffeneSession,
+  NichtGestarteteSession,
 } from './sessionC2'

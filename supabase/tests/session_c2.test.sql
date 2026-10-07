@@ -7,7 +7,8 @@
 --      Vertrag fehlt; Thema ueber thema_alt_tage ist markiert; Quests nur erledigt/offen.
 --   2) satz_vorschlaege: zwei Vorschlaege aus aktiven Bausteinen; Platzhalter ersetzt; inaktive nie;
 --      Testlauf erlaubt.
---   3) sessions_offen: genau die ueber der Grenze und nicht abgeschlossenen.
+--   3) sessions_offen: genau die gestarteten ueber der Grenze und nicht abgeschlossenen; nie gestartete nur in
+--      sessions_nicht_gestartet (nur Admin).
 --   4) X0b-Waechter: laeuft in session_x0b.test.sql ueber alle Funktionen (auch die neuen); hier
 --      zusaetzlich der Katalog: neue Funktionen sind SECURITY DEFINER mit festem search_path.
 --   L) coach_raum_live: testlauf, abschluss, eingriffe, pfad_entscheidung je Kind.
@@ -15,7 +16,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(43);
+select plan(47);
 
 \ir session_a2_fixture.sql
 
@@ -137,37 +138,46 @@ select is(:'brt'::jsonb -> 'letzte_session', 'null'::jsonb, '1 Testlauf erschein
 select is(:'brt'::jsonb -> 'flags_offen', '[]'::jsonb, '1 Flag aus dem Testlauf erscheint nicht');
 select is(:'brt'::jsonb ->> 'erste_session', 'true', '1 Testlauf zaehlt nicht als fruehere Session');
 
--- ── 3) sessions_offen ─────────────────────────────────────────────────────
+-- ── 3) sessions_offen / sessions_nicht_gestartet ──────────────────────────
 select pg_temp.act_as(:'admin');
 insert into coaching_sessions (coach_id, room, scheduled_at) values
   (:'coach_a', 'ZZ C2 offen alt', now() - interval '2 hours'),
+  (:'coach_a', 'ZZ C2 nie', now() - interval '2 hours'),
   (:'coach_a', 'ZZ C2 knapp', now() - interval '80 minutes'),
   (:'coach_a', 'ZZ C2 fertig', now() - interval '3 hours'),
   (:'coach_b', 'ZZ C2 fremd', now() - interval '2 hours');
 select set_config('edvance.session_rpc', '1', true);
 update coaching_sessions set status = 'done' where room = 'ZZ C2 fertig';
-update coaching_sessions set status = 'active', gestartet_am = scheduled_at where room = 'ZZ C2 fremd';
+update coaching_sessions set status = 'active', gestartet_am = scheduled_at
+ where room in ('ZZ C2 fremd', 'ZZ C2 offen alt', 'ZZ C2 knapp');
 select set_config('edvance.session_rpc', '', true);
 select is((select array_agg(room order by room) from sessions_offen() where room like 'ZZ C2%'),
-          array['ZZ C2 fremd', 'ZZ C2 offen alt'], '3 Admin: genau die ueber der Grenze und nicht abgeschlossenen');
+          array['ZZ C2 fremd', 'ZZ C2 offen alt'], '3 Admin: genau die gestarteten ueber der Grenze, nicht abgeschlossen');
+select is((select array_agg(room order by room) from sessions_nicht_gestartet() where room like 'ZZ C2%'),
+          array['ZZ C2 nie'], '3 nie gestartet: eigene Liste, nicht unter offen');
 select pg_temp.act_as(:'coach_a');
 select is((select array_agg(room order by room) from sessions_offen() where room like 'ZZ C2%'),
-          array['ZZ C2 offen alt'], '3 Coach: nur die eigenen');
+          array['ZZ C2 offen alt'], '3 Coach: nur die eigenen gestarteten');
+select throws_ok('select * from sessions_nicht_gestartet()', '42501', null, '3 nie gestartet: Coach -> 42501');
 select pg_temp.act_as(:'schueler');
 select throws_ok('select * from sessions_offen()', '42501', null, '3 Schuelerkonto -> 42501');
 select pg_temp.act_as(:'ohne');
 select throws_ok('select * from sessions_offen()', '42501', null, '3 Konto ohne Profil -> 42501');
+select throws_ok('select * from sessions_nicht_gestartet()', '42501', null, '3 nie gestartet: Konto ohne Profil -> 42501');
+select pg_temp.act_as(:'admin');
+select is((select count(*)::int from session_satz_bausteine), 16, '2 Startkatalog: 16 Bausteine');
 
 -- ── 4) Katalog ────────────────────────────────────────────────────────────
 select is((select count(*)::int from pg_proc p
             where p.pronamespace = 'public'::regnamespace
-              and p.proname in ('session_briefing', 'satz_vorschlaege', 'sessions_offen', 'coach_raum_live')
-              and p.prosecdef and array_to_string(p.proconfig, ',') like 'search_path=%'), 4,
+              and p.proname in ('session_briefing', 'satz_vorschlaege', 'sessions_offen', 'sessions_nicht_gestartet', 'coach_raum_live')
+              and p.prosecdef and array_to_string(p.proconfig, ',') like 'search_path=%'), 5,
           '4 neue Funktionen: SECURITY DEFINER mit festem search_path');
 select ok(:'brt'::jsonb is not null, '4 Briefing im echten Lauf geladen');
 select ok(not has_function_privilege('anon', 'public.session_briefing(uuid)', 'execute')
           and not has_function_privilege('anon', 'public.satz_vorschlaege(uuid, uuid)', 'execute')
-          and not has_function_privilege('anon', 'public.sessions_offen()', 'execute'), '4 anon darf nichts ausfuehren');
+          and not has_function_privilege('anon', 'public.sessions_offen()', 'execute')
+          and not has_function_privilege('anon', 'public.sessions_nicht_gestartet()', 'execute'), '4 anon darf nichts ausfuehren');
 
 select * from finish();
 rollback;

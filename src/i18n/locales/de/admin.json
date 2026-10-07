@@ -105,18 +105,18 @@
     },
     "offeneSessions": {
       "titel": "Offen geblieben",
-      "unterzeile": "Sessions, die nach ihrem Ende nicht abgeschlossen wurden",
+      "unterzeile": "Gestartet, aber nach ihrem Ende nicht abgeschlossen",
       "fehler": "Offene Sessions konnten nicht geladen werden.",
       "zeile": "{{zeit}} · {{raum}}",
       "status": {
-        "upcoming_one": "nie gestartet · {{coach}} · {{count}} Kind",
-        "upcoming_other": "nie gestartet · {{coach}} · {{count}} Kinder",
         "active_one": "läuft noch · {{coach}} · {{count}} Kind",
         "active_other": "läuft noch · {{coach}} · {{count}} Kinder"
       },
       "testlauf": "Testlauf",
       "oeffnen": "Live-Sicht",
-      "leer": "Alle Sessions sind abgeschlossen"
+      "leer": "Alle Sessions sind abgeschlossen",
+      "nichtGestartet": "Nicht gestartet ({{count}})",
+      "nichtGestartetText": "vergangen, nie gestartet · im Stundenplan ansehen"
     }
   },
   "schedule": {

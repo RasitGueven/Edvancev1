@@ -74,14 +74,23 @@ export type SatzAnlass =
 /** satz_vorschlaege: zwei Saetze aus dem Bausteinkatalog. */
 export type SatzVorschlag = { baustein_id: string; anlass: SatzAnlass; text: string }
 
-/** sessions_offen: nach scheduled_at + 60 + 30 Minuten nicht abgeschlossen. */
+/** sessions_offen: gestartet und nach scheduled_at + 60 + 30 Minuten nicht abgeschlossen. */
 export type OffeneSession = {
   session_id: string
   scheduled_at: string
   room: string | null
-  status: 'upcoming' | 'active'
+  status: 'active'
   coach_id: string | null
   coach_name: string | null
+  testlauf: boolean
+  kinder: number
+}
+
+/** sessions_nicht_gestartet (nur Admin): vergangen, nie gestartet; nur als Zahl gezeigt, keine Aktion. */
+export type NichtGestarteteSession = {
+  session_id: string
+  scheduled_at: string
+  room: string | null
   testlauf: boolean
   kinder: number
 }

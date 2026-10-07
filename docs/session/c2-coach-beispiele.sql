@@ -76,7 +76,8 @@ select pg_temp.neue_session(array[:'kt']::uuid[], 20, true) as st \gset
 select pg_temp.act_as(:'coach_a');
 select pg_temp.zeig('raum_testlauf', public.coach_raum_live(:'st'));
 select pg_temp.act_as(:'admin');
-select pg_temp.zeig('offen_admin', (select jsonb_agg(to_jsonb(o)) from public.sessions_offen() o));
+select pg_temp.zeig('offen_admin', coalesce((select jsonb_agg(to_jsonb(o)) from public.sessions_offen() o), '[]'));
+select pg_temp.zeig('nicht_gestartet_admin', coalesce((select jsonb_agg(to_jsonb(o)) from public.sessions_nicht_gestartet() o), '[]'));
 
 -- Fehler, wie PostgREST sie meldet (code = SQLSTATE, hint = Hinweis-Code).
 select pg_temp.act_as(:'coach_b');

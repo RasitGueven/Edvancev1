@@ -6,19 +6,20 @@ Stand 07.10.2026, Branch `feat/rasit-session-c2-coach-live`. Jeder Punkt: was, w
 
 | Herkunft | Punkt | Wie |
 |---|---|---|
-| c1-3, r1-12 | Bausteinkatalog für den Satz | `session_satz_bausteine` + `satz_vorschlaege` (17 Bausteine, Liste im PR) |
+| c1-3, r1-12 | Bausteinkatalog für den Satz | `session_satz_bausteine` + `satz_vorschlaege` (16 Bausteine, Liste im PR) |
 | c1-8, r1-19 | Briefing („Vorher“) | `session_briefing` |
 | c1-9 | Detail nur für die offene Schublade | `ladeRaumLive(sessionId, kindId)`; Vitest 6 |
 | c1-10 | Fehler-Codes | `coachLiveFehler.ts`: Hinweis-Code vor SQLSTATE, Unbekanntes `allgemein` |
 | c1-11 | Einstieg von der Coach-Startseite | `SessionsLive` auf `/coach` (Live-Sicht öffnen, Session starten) |
-| a2-16, a2b-18 | Offene Sessions | `sessions_offen`, Admin-Startseite und Coach-Startseite |
+| a2-16, a2b-18 | Offene Sessions | `sessions_offen` (nur gestartete), Admin- und Coach-Startseite; nie gestartete nur als Zahl (`sessions_nicht_gestartet`) |
 | a2b-7 | Prüffrage-Knopf nur bei Kandidaten | Knopf sitzt in der Mastery-Prüfung, die es nur für Kandidaten gibt; Vitest 7 |
 | a2b-17 | Prüffrage am Coach | `pruefung_aufs_tablet` / `pruefung_vom_tablet`, Zustand aus `pruefung_auf_tablet` |
 | Entscheidung 34 | Satz „… sieht das Abzeichen jetzt auf dem Tablet“ | entfernt (Schlüssel `mastery.siehtAbzeichen` gelöscht) |
 
 ## Offen
 
-1. **Bausteine prüfen (Rasit, Fatih).** Die 17 Bausteine sind ein Vorschlag (Liste im PR). Ein CHECK verbietet
+1. **Bausteine prüfen (Rasit, Fatih).** Die 16 Bausteine sind der Startkatalog (Liste im PR). allgemein/3
+   („Rechenweg aufgeschrieben“) ist gestrichen (Rasit 07.10.): Das System weiß davon nichts. Ein CHECK verbietet
    Ziffern, `%`, „Prozent“, „richtig“, „falsch“ und „Fehler“ im Text; Zahlen kommen nur über `{anzahl}`. Ob
    „{anzahl} Aufgaben zu {skill} …“ (Anzahl, keine Quote) und der Mastery-Wortlaut („wirklich verstanden“) so
    bleiben sollen, entscheiden Rasit und Fatih. Eine Pflegeseite für den Katalog gibt es nicht; Änderungen gehen
@@ -47,11 +48,11 @@ Stand 07.10.2026, Branch `feat/rasit-session-c2-coach-live`. Jeder Punkt: was, w
    Minuten „Danach“). Die Phasen im Kopf sind antippbar, „Abschluss“ springt nach „Danach“, „Live folgen“ zurück.
    Damit ersetzt eine kleine Ansichtswahl die Beispielleiste; der Coach kann Check-out und Abschluss vorziehen. Die
    Phasen der Kinder setzt weiter das Tablet. Wer: Rasit bestätigt beim Durchlauf.
-9. **Offene Sessions in Prod.** dbread 07.10.: 7 Sessions mit `status = upcoming` zwischen 04.09. und 01.10., keine
-   davon gestartet. Sie erscheinen nach dem Einspielen sofort unter „Offen geblieben“. Abschließen geht nur über
-   Start und Abschluss (`session_abschliessen` verlangt `active`); dabei werden geplante Kinder „nicht erschienen“
-   und verbrauchen eine Einheit. Wer: Rasit entscheidet, ob ein Admin diese Altfälle anders schließt (z. B. Status
-   per SQL auf `done` ohne Anwesenheit). Nicht in diesem Paket.
+9. **Nie gestartete Sessions (Rasit 07.10.).** „Offen geblieben“ zeigt nur gestartete Sessions (`active`) nach
+   geplantem Ende plus 30 Minuten. Vergangene, nie gestartete Sessions zwingen niemanden zum Abschließen (das würde
+   Einheiten verbrauchen); sie stehen nur auf der Admin-Startseite als Zeile „Nicht gestartet (n)“ mit Link zum
+   Stundenplan, ohne Aktion (`sessions_nicht_gestartet`, nur Admin). dbread 07.10.: 7 Altfälle, Liste im PR. Was mit
+   ihnen passiert, entscheidet Rasit.
 10. **Testläufe unter „Offen geblieben“** erscheinen mit Kennzeichen; ein vergessener Testlauf muss auch
     abgeschlossen werden. Entscheidung 27 betrifft Akten, Reports und Kennzahlen, nicht diese Arbeitsliste.
 11. **Quests der Woche im Briefing** zählen `verfallen` als „offen“ (Eltern sehen nur „erledigt“ oder „offen“,
