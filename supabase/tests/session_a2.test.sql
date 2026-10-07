@@ -23,7 +23,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(116);
+select plan(118);
 
 \ir session_a2_fixture.sql
 
@@ -262,17 +262,43 @@ select pg_temp.kind_mit('ZZ Gross A2', 'zz_a2_gross', '{zz_a2_v1,zz_a2_v2}', '{z
 select pg_temp.neue_session(array[:'k_gross']::uuid[], 20) as s15 \gset
 select pg_temp.checkin(:'s15', 1);
 select pg_temp.loese(:'s15', 1, true);
+-- Gemessen wird nur session_naechster_schritt, wie das Tablet ihn ruft (Rolle des Geraets, ohne Kind).
+-- Ein Aufwaermaufruf zaehlt nicht, danach fuenf Messungen mit clock_timestamp(). Jeder Aufruf laeuft in
+-- einem Unterblock, der per Ausnahme zurueckgerollt wird: alle starten vom selben Stand, obwohl der
+-- Aufruf vom Tablet bucht (session_schritte, session_ausgegeben, Ereignisse).
 select set_config('a2.s15', :'s15', true);
-create temp table t15 (ms numeric);
+select (select count(*) from session_schritte where session_id = :'s15') as n15_schritte,
+       (select count(*) from session_ausgegeben where session_id = :'s15') as n15_ausgegeben \gset
+select pg_temp.act_as(pg_temp.tablet(1));
+create temp table t15 (nr int, ms numeric);
 do $$
-declare t0 timestamptz;
+declare
+  v_s  uuid := current_setting('a2.s15')::uuid;
+  t0   timestamptz;
+  v_ms numeric;
+  i    int;
 begin
-  t0 := clock_timestamp();
-  perform pg_temp.loese((select id from coaching_sessions where id = current_setting('a2.s15')::uuid), 1, true);
-  insert into t15 values (extract(epoch from clock_timestamp() - t0) * 1000);
+  for i in 0 .. 5 loop
+    begin
+      t0 := clock_timestamp();
+      perform public.session_naechster_schritt(v_s, null);
+      v_ms := extract(epoch from clock_timestamp() - t0) * 1000;
+      raise exception using errcode = 'P0099';
+    exception when sqlstate 'P0099' then
+      if i > 0 then insert into t15 values (i, v_ms); end if;
+    end;
+  end loop;
 end $$;
-select cmp_ok((select ms from t15), '<', 200::numeric, '15 session_naechster_schritt mit 2.000 Aufgaben im Pool unter 200 ms');
-select diag('15 Laufzeit: ' || round((select ms from t15), 1) || ' ms');
+select set_config('request.jwt.claims', '', true);
+select is((select count(*)::int from t15), 5, '15 fuenf gemessene Aufrufe (nach einem Aufwaermaufruf)');
+select cmp_ok((select percentile_cont(0.5) within group (order by ms) from t15)::numeric, '<', 200::numeric,
+              '15 Median von session_naechster_schritt (Tablet, 2.000 Aufgaben im Pool) unter 200 ms');
+select diag('15 Median session_naechster_schritt: '
+            || round((select percentile_cont(0.5) within group (order by ms) from t15)::numeric, 1) || ' ms (Einzelwerte: '
+            || (select string_agg(round(ms, 1)::text, ', ' order by nr) from t15) || ')');
+select is(array[(select count(*) from session_schritte where session_id = :'s15'),
+                (select count(*) from session_ausgegeben where session_id = :'s15')]::int[],
+          array[:n15_schritte, :n15_ausgegeben]::int[], '15 jeder Messaufruf startet vom selben Stand (zurueckgerollt)');
 
 -- ── X) Befunde X0b ────────────────────────────────────────────────────────
 select pg_temp.act_as(:'ohne');
