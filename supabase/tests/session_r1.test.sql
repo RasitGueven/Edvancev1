@@ -99,8 +99,9 @@ insert into tasks (cluster_id, content_type, input_type, status, question, quest
 select null, 'exercise', 'SHORT_TEXT', st, 'Wie viel ist 2 * 5?',
        '{"input_type":"SHORT_TEXT","kind":"short_input","prompt":"Wie viel ist 2 * 5?"}'::jsonb,
        'I', 'Terme und Gleichungen', 60, 8, 'test', ref
-  from (values ('ready', 'r1-ready'), ('draft', 'r1-draft')) v(st, ref);
-select (select id from tasks where source_ref = 'r1-ready') as t1, (select id from tasks where source_ref = 'r1-draft') as t2
+  from (values ('ready', 'r1-ready'), ('draft', 'r1-draft'), ('ready', 'r1-ready-3'), ('ready', 'r1-ready-4')) v(st, ref);
+select (select id from tasks where source_ref = 'r1-ready') as t1, (select id from tasks where source_ref = 'r1-draft') as t2,
+       (select id from tasks where source_ref = 'r1-ready-3') as t3, (select id from tasks where source_ref = 'r1-ready-4') as t4
 \gset
 -- Gepruefter Hinweis als Fixture: E1 (20261007135106_hinweis_status) setzt den Status nur
 -- mit diesem Schalter, sonst faellt ein neuer Hinweis auf entwurf. Ohne E1 wirkungslos.
@@ -109,10 +110,14 @@ insert into task_solutions (task_id, correct_answers, solution, hints, acceptanc
 values (:'t1', '["10"]', 'ZZ-Musterloesung: 2 * 5 = 10',
         '[{"level":1,"text":"ZZ Hinweis ungeprueft"},{"level":2,"text":"ZZ Hinweis geprueft","status":"geprueft"}]',
         '{"canonical":"10","known_errors":{"14":"zz_r1_fb"}}');
+-- A2b: ein Versuch je Aufgabe (Entscheidung 29). Hinweis- und Signaltests bekommen eigene Aufgaben mit derselben Loesung.
+insert into task_solutions (task_id, correct_answers, solution, hints, acceptance)
+select t, s.correct_answers, s.solution, s.hints, s.acceptance
+  from task_solutions s, unnest(array[:'t3', :'t4']::uuid[]) t where s.task_id = :'t1';
 select set_config('edvance.hinweis_status', '', true);
 
 -- ── 1) Stellschrauben ──────────────────────────────────────────────────────
-select is((select count(*)::int from session_einstellungen), 28, '1 alle 28 Stellschrauben mit Startwert');
+select is((select count(*)::int from session_einstellungen), 29, '1 alle 29 Stellschrauben mit Startwert (A2b: session_xp_je_aufgabe)');
 select pg_temp.act_as(:'coach_a');
 select throws_ok($$select einstellung_setzen('quest_xp', '60', 'Test')$$, '42501', null, '1 Coach darf nicht setzen');
 select pg_temp.act_as(:'admin');
@@ -213,19 +218,23 @@ select throws_ok(format($$select antwort_abgeben(%L, %L, null, '"10"')$$, :'s', 
   '6 Schuelerkonto ohne Platz abgelehnt');
 
 -- ── 7) Hinweise ────────────────────────────────────────────────────────────
+-- Seit A2b nur vor dem Abgeben (Entscheidung 32): eine neue Aufgabe t3 fuer k3 und k4.
+select pg_temp.act_as(:'coach_a');
+select aufgabe_ausgeben(:'s', k, :'t3') from unnest(array[:'k3', :'k4']::uuid[]) k;
 select pg_temp.act_as(pg_temp.tablet(3));
-select results_eq(format('select hinweis_abrufen(%L, %L, 1)', :'s', :'t1'),
+select results_eq(format('select hinweis_abrufen(%L, %L, 1)', :'s', :'t3'),
   $$values ('{"stufe":1,"text":null,"verfuegbar":false}'::jsonb)$$, '7 Hinweis ohne Pruefstatus wird nicht geliefert');
-select is((hinweis_abrufen(:'s', :'t1', 2)) ->> 'text', 'ZZ Hinweis geprueft', '7 gepruefter Hinweis wird geliefert');
-select throws_ok(format('select hinweis_abrufen(%L, %L, 4)', :'s', :'t1'), '22023', null, '7 Stufe ueber hinweisstufen abgelehnt');
+select is((hinweis_abrufen(:'s', :'t3', 2)) ->> 'text', 'ZZ Hinweis geprueft', '7 gepruefter Hinweis wird geliefert');
+select throws_ok(format('select hinweis_abrufen(%L, %L, 4)', :'s', :'t3'), '22023', null, '7 Stufe ueber hinweisstufen abgelehnt');
 select pg_temp.act_as(pg_temp.tablet(4));
-select throws_ok(format('select hinweis_abrufen(%L, %L, 2)', :'s', :'t1'), '22023', null, '7 Stufe 2 erst nach Stufe 1');
+select throws_ok(format('select hinweis_abrufen(%L, %L, 2)', :'s', :'t3'), '22023', null, '7 Stufe 2 erst nach Stufe 1');
 select pg_temp.act_as(pg_temp.tablet(3));
 select is((select count(*)::int from session_ereignisse where session_id = :'s' and typ = 'hinweis'), 2, '7 beide Abrufe protokolliert');
 
 -- ── 8) Signale ─────────────────────────────────────────────────────────────
-select antwort_abgeben(:'s', :'t1', null, '"15"');
-select is((select hinweisstufe_max from session_antworten where session_id = :'s' and student_id = :'k3' and versuch_nr = 2), 2,
+-- Zweiter Fehlversuch von k3 auf einer anderen Aufgabe (t3): Fehlversuche in Folge zaehlen ueber Aufgaben.
+select antwort_abgeben(:'s', :'t3', null, '"15"');
+select is((select hinweisstufe_max from session_antworten where session_id = :'s' and student_id = :'k3' and task_id = :'t3'), 2,
   '8 Hinweisstufe an der Antwort');
 select pg_temp.act_as(:'coach_a');
 select is((select count(*)::int from raum_signale(:'s') where student_id = :'k3' and art = 'haengt'), 1,
@@ -240,8 +249,10 @@ select results_eq(format('select art from raum_signale(%L)', :'s'),
   $$values ('kandidat'::text), ('entscheidung'), ('haengt'), ('hinweis')$$, '8 Reihenfolge kandidat, entscheidung, haengt, hinweis');
 select signal_erledigen(:'s', :'k3', 'haengt');
 select is((select count(*)::int from raum_signale(:'s') where student_id = :'k3'), 0, '8 nach signal_erledigen weg');
+select pg_temp.act_as(:'coach_a');
+select aufgabe_ausgeben(:'s', :'k3', :'t4');
 select pg_temp.act_as(pg_temp.tablet(3));
-select antwort_abgeben(:'s', :'t1', null, '"16"');
+select antwort_abgeben(:'s', :'t4', null, '"16"');
 select pg_temp.act_as(:'coach_a');
 select is((select count(*)::int from raum_signale(:'s') where student_id = :'k3'), 0, '8 ein neuer Fehlversuch allein loest noch nichts aus');
 

@@ -366,3 +366,13 @@ export type {
   ErklaersequenzLive,
   SchrittLive,
 } from './sessionSchritt'
+export type {
+  TabletPruefung,
+  TabletBestaetigt,
+  SessionKindKontext,
+  KindZielFertigkeit,
+  SessionZielKind,
+  SessionAbschlussKind,
+  PruefungAufTablet,
+  PruefungTabletAntwort,
+} from './sessionTablet'
