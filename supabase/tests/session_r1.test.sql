@@ -112,7 +112,7 @@ values (:'t1', '["10"]', 'ZZ-Musterloesung: 2 * 5 = 10',
 select set_config('edvance.hinweis_status', '', true);
 
 -- ── 1) Stellschrauben ──────────────────────────────────────────────────────
-select is((select count(*)::int from session_einstellungen), 28, '1 alle 28 Stellschrauben mit Startwert');
+select is((select count(*)::int from session_einstellungen), 29, '1 alle 29 Stellschrauben mit Startwert (A2b: session_xp_je_aufgabe)');
 select pg_temp.act_as(:'coach_a');
 select throws_ok($$select einstellung_setzen('quest_xp', '60', 'Test')$$, '42501', null, '1 Coach darf nicht setzen');
 select pg_temp.act_as(:'admin');
