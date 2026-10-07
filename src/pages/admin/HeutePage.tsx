@@ -13,6 +13,7 @@ import { vertragStarten } from '@/lib/supabase/vertraege'
 import { auslaufende, imVerzug, summen } from '@/lib/vertrag/menue'
 import type { Lead } from '@/types'
 import { HeuteImBetrieb } from './heute/HeuteImBetrieb'
+import { OffeneSessionsListe } from './heute/OffeneSessionsListe'
 import { KennzahlenLeiste, type Kennzahl } from './heute/KennzahlenLeiste'
 import { InhalteListe, RueckstandListe, VertraegeListe } from './heute/ListenBetrieb'
 import { ErstgespraecheListe, LsaListe, NeueLeadsListe } from './heute/ListenVertrieb'
@@ -209,6 +210,7 @@ export function HeutePage(): JSX.Element {
                 {t('heute.betrieb.titel')}
               </h2>
               <HeuteImBetrieb sessions={daten.sessions} lsa={daten.lsaHeute} />
+              <OffeneSessionsListe />
             </aside>
           </div>
         </>

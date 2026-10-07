@@ -1,7 +1,7 @@
 // BEISPIELDATEN (Mock, CLAUDE.md §6) der Coach-Live-Sicht: die fuenf Kinder aus
 // docs/session/coach-live-dummy.html, ausserhalb der Arbeitsphasen. Alle Texte
 // hier stehen fuer Datenbank-Inhalte (Namen, Skill-Labels, Notizen, Bausteine)
-// und gehoeren deshalb nicht in i18n. Nur ueber src/lib/session/coachLive.ts lesen.
+// und gehoeren deshalb nicht in i18n. NUR FUER TESTS: gelesen ueber coachLiveBeispielQuelle.ts (C2).
 
 import type {
   BlickPunkt,
@@ -266,7 +266,7 @@ export const BEISPIEL_PFAD: Record<string, Omit<PfadVorschlag, 'entscheidung'>> 
   },
 }
 
-type CheckoutBasis = Omit<LiveCheckout, 'satz' | 'gesagt' | 'flags' | 'questAVorschlaege'> & { satzNachMastery?: string[] }
+type CheckoutBasis = Omit<LiveCheckout, 'satz' | 'gesagt' | 'flags' | 'questAVorschlaege' | 'questsAktiv'> & { satzNachMastery?: string[] }
 
 /** Check-out: Exit, Zusammenfassung, Satzbausteine, Quests, Notiz (Dummy: CO). */
 export const BEISPIEL_CHECKOUT: Record<string, CheckoutBasis> = {

@@ -70,7 +70,7 @@ export function SequenzBlock({ kind, seq }: { kind: CoachLiveKind; seq: LiveErkl
               {k.stand === 'sicher' ? <Check className="h-4 w-4" aria-hidden /> : i + 1}
             </span>
             <span className="flex flex-col leading-snug">
-              <b className="text-sm font-semibold text-[var(--color-text-primary)]">{k.text}</b>
+              <b className="text-sm font-semibold text-[var(--color-text-primary)]">{k.text ?? tx.t('sequenz.kernideeNr', { nr: i + 1 })}</b>
               <span className="text-xs text-[var(--color-text-secondary)]">{notiz(k)}</span>
             </span>
           </li>

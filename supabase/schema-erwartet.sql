@@ -829,6 +829,7 @@ declare
   s        public.coaching_sessions := public.session_coach_pruefen(p_session_id, 'coach_raum_live');
   v_sig    jsonb;
   v_kinder jsonb;
+  v_quests boolean := coalesce(public.home_quests_aktiv(p_session_id), false);
 begin
   select coalesce(jsonb_agg(to_jsonb(x) order by x.rang, x.seit), '[]') into v_sig
     from public.session_signale_intern(p_session_id) x;
@@ -839,7 +840,40 @@ begin
                                  from jsonb_to_recordset(v_sig) as x(student_id uuid, art text, rang int, seit timestamptz)
                                 where x.student_id = k.student_id order by x.rang, x.seit limit 1), 'laeuft'),
            'signale', coalesce((select jsonb_agg(z) from jsonb_array_elements(v_sig) z
-                                 where (z ->> 'student_id')::uuid = k.student_id), '[]'))
+                                 where (z ->> 'student_id')::uuid = k.student_id), '[]'),
+           -- C2: Check-out je Kind. quest_von: 'kind' (Tablet) oder 'coach' (Coach oder Admin hat nachgetragen).
+           'abschluss', (select jsonb_build_object(
+                'satz_text', a.satz_text, 'satz_gesagt', a.satz_gesagt, 'notiz', a.notiz,
+                'flag_eltern', a.flag_eltern, 'flag_pfad', a.flag_pfad, 'exit_ergebnis', a.exit_ergebnis,
+                'quest_termin', a.quest_termin,
+                'quest_von', case when a.quest_termin is null then null
+                                  when exists (select 1 from public.profiles p where p.id = a.quest_termin_von
+                                                and p.role in ('coach', 'admin')) then 'coach'
+                                  else 'kind' end)
+              from public.session_kind_abschluss a
+             where a.session_id = p_session_id and a.student_id = k.student_id),
+           -- C2: Quest B wie session_kind_kontext (Tag vor der naechsten gebuchten Session), nur mit Home Quests.
+           'quest_b', case when v_quests then (
+                select (min(cs.scheduled_at) at time zone 'Europe/Berlin')::date - 1
+                  from public.session_students x join public.coaching_sessions cs on cs.id = x.session_id
+                 where x.student_id = k.student_id and x.attendance = 'planned' and cs.scheduled_at > s.scheduled_at) end,
+           'eingriffe', coalesce((select jsonb_agg(jsonb_build_object('stufe', (e.payload ->> 'stufe')::int, 'zeit', e.zeit)
+                                          order by e.zeit)
+                                    from public.session_ereignisse e
+                                   where e.session_id = p_session_id and e.student_id = k.student_id
+                                     and e.typ = 'eingriff'), '[]'),
+           'pfad_entscheidung', (select jsonb_build_object('entscheidung', e.payload ->> 'entscheidung', 'zeit', e.zeit)
+                                   from public.session_ereignisse e
+                                  where e.session_id = p_session_id and e.student_id = k.student_id
+                                    and e.typ = 'entscheidung_pfad'
+                                  order by e.zeit desc limit 1),
+           'mastery_heute', coalesce((select jsonb_agg(jsonb_build_object(
+                                'skill_key', p.skill_key, 'label', public.session_label(p.skill_key),
+                                'stand_coach', p.neu ->> 'stand_coach', 'grund', p.grund, 'am', p.am,
+                                'von', (select pr.full_name from public.profiles pr where pr.id = p.von)) order by p.am)
+                                       from public.lernpfad_protokoll p
+                                      where p.session_id = p_session_id and p.student_id = k.student_id
+                                        and p.aktion = 'mastery'), '[]'))
            order by (k.j ->> 'tablet_nr')::int nulls last, k.j ->> 'name'), '[]')
     into v_kinder
     from (select ss.student_id, public.session_kind_live(p_session_id, ss.student_id) as j
@@ -848,7 +882,7 @@ begin
   return jsonb_build_object(
     'session', jsonb_build_object(
       'id', s.id, 'status', s.status, 'scheduled_at', s.scheduled_at, 'gestartet_am', s.gestartet_am,
-      'beendet_am', s.beendet_am, 'room', s.room,
+      'beendet_am', s.beendet_am, 'room', s.room, 'testlauf', s.testlauf,
       'coach_name', (select p.full_name from public.profiles p where p.id = s.coach_id),
       'einstellungen', coalesce(s.einstellungen,
                         (select jsonb_object_agg(e.schluessel, e.wert) from public.session_einstellungen e)),
@@ -9429,6 +9463,112 @@ $$;
 
 
 --
+-- Name: satz_vorschlaege(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.satz_vorschlaege(p_session_id uuid, p_student_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_skill    text;
+  v_label    text;
+  v_vorname  text;
+  v_anzahl   int;
+  v_hinweise int;
+  v_anlaesse text[] := '{}';
+  v_versatz  bigint := abs(hashtext(p_session_id::text || p_student_id::text)::bigint);
+  v_erg      jsonb := '[]';
+  v_mastery  text;
+  v_a        text;
+  b          record;
+begin
+  perform public.session_kind_pruefen(p_session_id, p_student_id, 'satz_vorschlaege');
+
+  -- Meistgeuebter Skill der Kernarbeit (ohne eingemischte Aufgaben), sonst des ganzen Tages.
+  select t.skill_key into v_skill
+    from public.session_antworten r join public.tasks t on t.id = r.task_id
+   where r.session_id = p_session_id and r.student_id = p_student_id and t.skill_key is not null
+   group by t.skill_key
+   order by count(*) filter (where r.phase = 'kern' and not r.eingemischt) desc, count(*) desc, t.skill_key
+   limit 1;
+  v_label := case when v_skill is not null then public.session_label(v_skill) end;
+  v_vorname := (select coalesce(nullif(btrim(l.first_name), ''), nullif(split_part(btrim(l.full_name), ' ', 1), ''))
+                  from public.leads l
+                 where l.id = public.session_lead_von_kind(p_student_id));
+  select count(distinct r.task_id) into v_anzahl
+    from public.session_antworten r where r.session_id = p_session_id and r.student_id = p_student_id;
+  select count(*) into v_hinweise
+    from public.session_ereignisse e
+   where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'hinweis'
+     and (e.payload ->> 'geliefert')::boolean;
+
+  -- Anlaesse in Rangfolge. Mastery mit dem bestaetigten Skill.
+  select public.session_label(p.skill_key) into v_mastery
+    from public.lernpfad_protokoll p
+   where p.session_id = p_session_id and p.student_id = p_student_id and p.aktion = 'mastery'
+     and p.neu ->> 'stand_coach' = 'gemeistert'
+   order by p.am desc limit 1;
+  if v_mastery is not null then
+    v_anlaesse := array_append(v_anlaesse, 'mastery');
+    v_label := v_mastery;
+  end if;
+  if exists (select 1 from public.erklaer_fortschritt f where f.session_id = p_session_id
+              and f.student_id = p_student_id and f.ergebnis = 'richtig') then
+    v_anlaesse := array_append(v_anlaesse, 'erklaerung');
+    if v_mastery is null then
+      v_label := (select public.session_label(k.skill_key) from public.erklaer_fortschritt f
+                    join public.erklaer_kernidee k on k.id = f.kernidee_id
+                   where f.session_id = p_session_id and f.student_id = p_student_id order by f.id desc limit 1);
+    end if;
+  end if;
+  -- Nach einer falschen Antwort spaeter am selben Skill wieder richtig.
+  if exists (select 1 from public.session_antworten f join public.tasks tf on tf.id = f.task_id
+               join public.session_antworten r on r.session_id = f.session_id and r.student_id = f.student_id
+                                              and r.zeit > f.zeit and r.ergebnis = 'richtig'
+               join public.tasks tr on tr.id = r.task_id and tr.skill_key = tf.skill_key
+              where f.session_id = p_session_id and f.student_id = p_student_id and f.ergebnis = 'falsch') then
+    v_anlaesse := array_append(v_anlaesse, 'dran_geblieben');
+  end if;
+  if v_hinweise > 0 then
+    v_anlaesse := array_append(v_anlaesse, 'hinweise');
+  elsif v_anzahl > 0 then
+    v_anlaesse := array_append(v_anlaesse, 'selbststaendig');
+  end if;
+  if exists (select 1 from public.session_antworten r where r.session_id = p_session_id
+              and r.student_id = p_student_id and r.phase = 'checkout') then
+    v_anlaesse := array_append(v_anlaesse, 'exit');
+  end if;
+  if v_anzahl > 0 then
+    v_anlaesse := array_append(v_anlaesse, 'geuebt');
+  end if;
+  v_anlaesse := v_anlaesse || array['allgemein', 'allgemein'];
+
+  foreach v_a in array v_anlaesse loop
+    exit when jsonb_array_length(v_erg) >= 2;
+    select x.id, x.anlass, x.text into b
+      from (select z.*, count(*) over () as n, row_number() over (order by z.reihenfolge) - 1 as i
+              from public.session_satz_bausteine z
+             where z.aktiv and z.anlass = v_a
+               and (v_label is not null or z.text not like '%{skill}%')
+               and (v_vorname is not null or z.text not like '%{vorname}%')
+               and not exists (select 1 from jsonb_array_elements(v_erg) e where (e ->> 'baustein_id')::uuid = z.id)
+               and (v_a = 'allgemein' or not exists (select 1 from jsonb_array_elements(v_erg) e
+                                                       where e ->> 'anlass' = v_a))) x
+     where x.i = v_versatz % x.n;
+    if found then
+      v_erg := v_erg || jsonb_build_array(jsonb_build_object(
+        'baustein_id', b.id, 'anlass', b.anlass,
+        'text', replace(replace(replace(b.text, '{skill}', coalesce(v_label, '')), '{vorname}', coalesce(v_vorname, '')),
+                        '{anzahl}', v_anzahl::text)));
+    end if;
+  end loop;
+  return v_erg;
+end;
+$$;
+
+
+--
 -- Name: schueler_notizen_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9751,6 +9891,115 @@ begin
     fehlbild_slug := public.lsa_fehlbild_match(v_kind, v_acc, v_resp);
   end if;
 end;
+$$;
+
+
+--
+-- Name: session_briefing(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_briefing(p_session_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  s       public.coaching_sessions := public.session_coach_pruefen(p_session_id, 'session_briefing');
+  v_alt   int := coalesce(public.session_wert(p_session_id, 'thema_alt_tage') #>> '{}', '21')::int;
+  v_heute date := (now() at time zone 'Europe/Berlin')::date;
+begin
+  return coalesce((
+    select jsonb_agg(b.j order by b.j ->> 'name')
+      from (
+        select jsonb_build_object(
+          'student_id', ss.student_id,
+          'name', public.session_kind_name(ss.student_id),
+          'klasse', st.class_level,
+          'letzte_session', (
+            select jsonb_build_object(
+                     'session_id', cs.id, 'am', cs.scheduled_at,
+                     'fall', coalesce(c.fall_coach, c.fall_vorschlag),
+                     'ziel_thema_key', c.ziel_thema_key,
+                     'ziel_thema_label', (select th.label from public.themen th where th.thema_key = c.ziel_thema_key),
+                     'exit_ergebnis', a.exit_ergebnis,
+                     'notiz', a.notiz,
+                     'coach_name', (select p.full_name from public.profiles p where p.id = cs.coach_id),
+                     'signale', (select count(*) from public.session_ereignisse e
+                                  where e.session_id = cs.id and e.student_id = ss.student_id and e.typ = 'signal'))
+              from public.session_students x
+              join public.coaching_sessions cs on cs.id = x.session_id
+              left join public.session_checkin c on c.session_id = cs.id and c.student_id = x.student_id
+              left join public.session_kind_abschluss a on a.session_id = cs.id and a.student_id = x.student_id
+             where x.student_id = ss.student_id and cs.id <> s.id and cs.status = 'done'
+               and cs.scheduled_at < s.scheduled_at and (s.testlauf or not cs.testlauf)
+             order by cs.scheduled_at desc limit 1),
+          'schulthema', (
+            select jsonb_build_object(
+                     'thema_key', lt.thema_key,
+                     'label', (select th.label from public.themen th where th.thema_key = lt.thema_key),
+                     'seit', lt.angelegt,
+                     'tage', v_heute - (lt.angelegt at time zone 'Europe/Berlin')::date,
+                     'nachfragen', v_heute - (lt.angelegt at time zone 'Europe/Berlin')::date > v_alt)
+              from public.lead_themen lt
+             where lt.lead_id = public.session_lead_von_kind(ss.student_id) and lt.status = 'aktuell'
+             order by lt.angelegt desc limit 1),
+          'klassenarbeit', (
+            select jsonb_build_object(
+                     'datum', c.klassenarbeit_datum, 'thema_key', c.klassenarbeit_thema_key,
+                     'label', (select th.label from public.themen th where th.thema_key = c.klassenarbeit_thema_key))
+              from public.session_checkin c
+              join public.coaching_sessions cs on cs.id = c.session_id
+             where c.student_id = ss.student_id and c.klassenarbeit_datum >= v_heute
+               and (s.testlauf or not cs.testlauf)
+             order by c.kind_am desc nulls last, cs.scheduled_at desc limit 1),
+          'pruefungen_faellig', coalesce((
+            select jsonb_agg(jsonb_build_object('skill_key', l.skill_key, 'label', public.session_label(l.skill_key))
+                             order by l.skill_key)
+              from public.lernpfad l
+             where l.student_id = ss.student_id and public.lernpfad_pruefung_faellig(ss.student_id, l.skill_key)), '[]'),
+          'flags_offen', coalesce((
+            select jsonb_agg(f.j order by f.am) from (
+              select jsonb_build_object('flag', 'eltern', 'session_id', cs.id, 'am', cs.scheduled_at) j, cs.scheduled_at am
+                from public.session_kind_abschluss a join public.coaching_sessions cs on cs.id = a.session_id
+               where a.student_id = ss.student_id and a.flag_eltern and a.flag_eltern_erledigt_am is null
+                 and cs.id <> s.id and (s.testlauf or not cs.testlauf)
+              union all
+              select jsonb_build_object('flag', 'pfad', 'session_id', cs.id, 'am', cs.scheduled_at), cs.scheduled_at
+                from public.session_kind_abschluss a join public.coaching_sessions cs on cs.id = a.session_id
+               where a.student_id = ss.student_id and a.flag_pfad and a.flag_pfad_erledigt_am is null
+                 and cs.id <> s.id and (s.testlauf or not cs.testlauf)) f), '[]'),
+          -- Nur Zahlen, nie Aufgaben oder Antworten (Entscheidung 4, FernUSG).
+          'quests_woche', (
+            select jsonb_build_object('erledigt', count(*) filter (where q.status = 'erledigt'),
+                                      'offen', count(*) filter (where q.status <> 'erledigt'))
+              from public.quests q
+             where q.student_id = ss.student_id
+               and coalesce(q.termin, q.faellig_ab::timestamptz) between now() - interval '7 days' and now()),
+          'naechste_luecke', (
+            select jsonb_build_object('skill_key', n.skill_key, 'label', n.label, 'quelle', n.quelle)
+              from public.naechste_luecke_core(ss.student_id) n limit 1),
+          'erste_session', not exists (
+            select 1 from public.session_students x join public.coaching_sessions cs on cs.id = x.session_id
+             where x.student_id = ss.student_id and cs.id <> s.id and cs.status = 'done'
+               and (s.testlauf or not cs.testlauf))) as j
+          from public.session_students ss
+          join public.students st on st.id = ss.student_id
+         where ss.session_id = p_session_id and public.akte_aktiv(ss.student_id)
+      ) b), '[]'::jsonb);
+end;
+$$;
+
+
+--
+-- Name: session_c2_zaehlt(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_c2_zaehlt(p_session_id uuid, p_testlauf boolean) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select not coalesce(p_testlauf, false)
+     and exists (select 1 from public.session_students ss join public.students st on st.id = ss.student_id
+                  where ss.session_id = p_session_id and not st.ist_test)
 $$;
 
 
@@ -11670,6 +11919,59 @@ begin
              not public.session_heute_sicher(p_session_id, p_student_id, n.skill_key)
         from public.naechste_luecke_core(p_student_id) n;
   end if;
+end;
+$$;
+
+
+--
+-- Name: sessions_nicht_gestartet(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.sessions_nicht_gestartet() RETURNS TABLE(session_id uuid, scheduled_at timestamp with time zone, room text, testlauf boolean, kinder integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'sessions_nicht_gestartet: nur Admin' using errcode = '42501';
+  end if;
+  return query
+    select cs.id, cs.scheduled_at, cs.room, cs.testlauf,
+           (select count(*)::int from public.session_students ss where ss.session_id = cs.id)
+      from public.coaching_sessions cs
+     where cs.status = 'upcoming'
+       and now() > cs.scheduled_at + interval '60 minutes' + interval '30 minutes'
+       and public.session_c2_zaehlt(cs.id, cs.testlauf)
+     order by cs.scheduled_at;
+end;
+$$;
+
+
+--
+-- Name: sessions_offen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.sessions_offen() RETURNS TABLE(session_id uuid, scheduled_at timestamp with time zone, room text, status text, coach_id uuid, coach_name text, testlauf boolean, kinder integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := coalesce(public.get_my_role(), '');
+begin
+  if v_rolle not in ('admin', 'coach') then
+    raise exception 'sessions_offen: nur Admin oder Coach' using errcode = '42501';
+  end if;
+  return query
+    select cs.id, cs.scheduled_at, cs.room, cs.status, cs.coach_id,
+           (select p.full_name from public.profiles p where p.id = cs.coach_id),
+           cs.testlauf,
+           (select count(*)::int from public.session_students ss where ss.session_id = cs.id)
+      from public.coaching_sessions cs
+     where cs.status = 'active'
+       and now() > cs.scheduled_at + interval '60 minutes' + interval '30 minutes'
+       and public.session_c2_zaehlt(cs.id, cs.testlauf)
+       and (v_rolle = 'admin' or cs.coach_id = auth.uid())
+     order by cs.scheduled_at;
 end;
 $$;
 
@@ -14876,6 +15178,26 @@ CREATE TABLE public.session_kind_abschluss (
 
 
 --
+-- Name: session_satz_bausteine; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.session_satz_bausteine (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    anlass text NOT NULL,
+    text text NOT NULL,
+    aktiv boolean DEFAULT true NOT NULL,
+    reihenfolge integer DEFAULT 1 NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    geaendert_am timestamp with time zone,
+    CONSTRAINT session_satz_bausteine_anlass_check CHECK ((anlass = ANY (ARRAY['mastery'::text, 'erklaerung'::text, 'dran_geblieben'::text, 'hinweise'::text, 'selbststaendig'::text, 'exit'::text, 'geuebt'::text, 'allgemein'::text]))),
+    CONSTRAINT session_satz_bausteine_ohne_quote CHECK (((text !~ '[0-9%]'::text) AND (text !~* '(prozent|\mrichtig|\mfalsch|\mfehler)'::text))),
+    CONSTRAINT session_satz_bausteine_platzhalter CHECK ((regexp_replace(text, '\{(vorname|skill|anzahl)\}'::text, ''::text, 'g'::text) !~ '[{}]'::text)),
+    CONSTRAINT session_satz_bausteine_reihenfolge_check CHECK ((reihenfolge >= 1)),
+    CONSTRAINT session_satz_bausteine_text_check CHECK (((length(btrim(text)) >= 10) AND (length(btrim(text)) <= 300)))
+);
+
+
+--
 -- Name: session_schritte_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -16373,6 +16695,22 @@ ALTER TABLE ONLY public.session_ereignisse
 
 ALTER TABLE ONLY public.session_kind_abschluss
     ADD CONSTRAINT session_kind_abschluss_pkey PRIMARY KEY (session_id, student_id);
+
+
+--
+-- Name: session_satz_bausteine session_satz_bausteine_eindeutig; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_satz_bausteine
+    ADD CONSTRAINT session_satz_bausteine_eindeutig UNIQUE (anlass, reihenfolge);
+
+
+--
+-- Name: session_satz_bausteine session_satz_bausteine_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_satz_bausteine
+    ADD CONSTRAINT session_satz_bausteine_pkey PRIMARY KEY (id);
 
 
 --
@@ -20824,6 +21162,19 @@ ALTER TABLE public.session_ereignisse ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.session_kind_abschluss ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: session_satz_bausteine; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.session_satz_bausteine ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: session_satz_bausteine session_satz_bausteine_admin; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY session_satz_bausteine_admin ON public.session_satz_bausteine USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
 
 --
 -- Name: session_schritte; Type: ROW SECURITY; Schema: public; Owner: -

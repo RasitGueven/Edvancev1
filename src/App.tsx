@@ -20,6 +20,7 @@ import { SlotPickerPage } from '@/pages/admin/SlotPickerPage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
+import { StellschraubenPage } from '@/pages/admin/stellschrauben/StellschraubenPage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { ReportPage } from '@/pages/admin/ReportPage'
 import { BoardPage as AktenBoardPage } from '@/pages/admin/akten/BoardPage'
@@ -244,6 +245,14 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin', 'coach']}>
                 <ReportPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/stellschrauben"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <StellschraubenPage />
               </ProtectedRoute>
             }
           />

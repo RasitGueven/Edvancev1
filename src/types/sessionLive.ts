@@ -3,6 +3,7 @@
 
 import type { ErklaersequenzLive, MasteryKandidatLive, SchrittLive } from './sessionSchritt'
 import type { PruefungAufTablet, TabletBestaetigt, TabletPruefung } from './sessionTablet'
+import type { KindRaum } from './sessionC2'
 
 export type SessionPhase = 'checkin' | 'warmup' | 'kern' | 'checkout'
 export type SessionFall = 'klassenarbeit' | 'schulthema' | 'lernpfad'
@@ -119,12 +120,14 @@ export type RaumLive = {
     gestartet_am: string | null
     beendet_am: string | null
     room: string | null
+    /** C2: Testlauf (Entscheidung 27), Kennzeichen in Kopf und Raster. */
+    testlauf: boolean
     coach_name: string | null
     einstellungen: Record<string, StellschraubeWert>
     mastery_bestaetigt: number
   }
   stand: string
-  kinder: KindLive[]
+  kinder: KindRaum[]
   signale: RaumSignal[]
 }
 

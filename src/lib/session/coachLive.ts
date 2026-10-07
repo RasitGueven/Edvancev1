@@ -1,107 +1,161 @@
-// Session-Rahmen C1: die EINZIGE Datenquelle der Coach-Live-Sicht.
+// Session-Rahmen C2: die EINZIGE Datenquelle der Coach-Live-Sicht, jetzt mit echten Daten.
 //
-// C1 liefert Beispieldaten (coachLiveBeispiel*.ts, die fuenf Kinder des Dummys in
-// allen sechs Zeitpunkten). Die Aktionen tragen die Namen der R1- und A1-Funktionen
-// und aendern in C1 nur den lokalen Zustand. C2 ersetzt beides in GENAU DIESER
-// Datei durch die echten Aufrufe (siehe ausServer unten); die Seite bleibt gleich.
-// Keine Supabase-Aufrufe in C1 (Auftrag: keine neuen Datenbank-Aufrufe).
+// Lesen: coach_raum_live fuer den Raum alle LIVE_ABFRAGE_MS; coach_kind_detail (mit Ziel,
+// Pruefgespraech und Lernpfad-Belegen) nur fuer das Kind mit offener Schublade (offene-punkte-c1
+// Nr. 9); session_briefing und satz_vorschlaege seltener (Zwischenspeicher). Die Abbildung auf das
+// Ansichtsmodell steht in coachLiveAbbildung.ts, die Fehlerabbildung in coachLiveFehler.ts.
+// Handeln: die R1-, A1- und A2b-Funktionen. Jede Aktion liefert null oder einen Fehler-Code.
+// Die Beispieldaten aus C1 gibt es nur noch in Tests (coachLiveBeispielQuelle.ts).
 
-import type { CoachLiveRaum, LiveZeitpunkt } from '@/types/coachLive'
-import type { KindDetail, RaumLive } from '@/types/sessionLive'
-import type { EingriffStufe, PfadEntscheidung, SessionFall, SignalArt } from '@/types/sessionLive'
+import { listLernpfad, masteryEntscheiden as masteryEntscheidenRpc, skillPruefungen, zielFertigkeiten } from '@/lib/supabase/lernpfad'
+import * as rpc from '@/lib/supabase/sessionCoach'
+import { satzVorschlaege, sessionBriefing } from '@/lib/supabase/sessionC2'
+import { pruefungAufsTablet as aufsTablet, pruefungVomTablet as vomTablet } from '@/lib/supabase/sessionPruefung'
+import { listThemen } from '@/lib/supabase/themen'
+import type { CoachLiveRaum } from '@/types/coachLive'
 import type { LernpfadStandCoach } from '@/types/lernpfad'
+import type { BriefingKind, SatzVorschlag } from '@/types/sessionC2'
+import type { AbschlussEingabe, EingriffStufe, PfadEntscheidung, RaumLive, SessionFall, SignalArt } from '@/types/sessionLive'
 import type { Thema } from '@/types/themen'
 import type { SupabaseResult } from '@/types/ui'
-import { BEISPIEL_KATALOG, BEISPIEL_ZEIT } from './coachLiveBeispiel'
-import { baueBeispielRaum, neuerBeispielZustand, type BeispielZustand } from './coachLiveBeispielBau'
+import { raumAus, type LiveZusatz } from './coachLiveAbbildung'
+import { alsAktion, fehlerCode, type CoachLiveFehler } from './coachLiveFehler'
 import { abschlussMoeglich, eingriffAbsendbar, vertagenAbsendbar } from './coachLiveLogik'
+import { zeitpunktAus } from './coachLiveTeile'
+
+export type { CoachLiveFehler }
 
 /** Abfrage-Takt der Live-Sicht (Entscheidung 17: Lesefunktion fuer den Raum, kein Realtime). */
 export const LIVE_ABFRAGE_MS = 4000
+/** Briefing und Satzvorschlaege aendern sich selten: hoechstens einmal je Minute neu laden. */
+const ZWISCHENSPEICHER_MS = 60_000
 
-/** Fehler-Codes wie in R1/A1; die Seite uebersetzt sie ueber i18n (fehler.<code>). */
-export type CoachLiveFehler = 'fehlbildPflicht' | 'grundPflicht' | 'ohneTabletOffen' | 'tabletBelegt' | 'abgeschlossen'
+type Gespeichert<T> = { am: number; wert: T }
+type SessionZustand = {
+  nichtErschienen: Set<string>
+  pfadGeoeffnet: Record<string, string>
+  briefing: Gespeichert<BriefingKind[]> | null
+  satz: Record<string, Gespeichert<SatzVorschlag[]>>
+  letzterRaum: CoachLiveRaum | null
+}
 
-// ── Beispielmodus ─────────────────────────────────────────────────────────
+const zustaende = new Map<string, SessionZustand>()
+let themenCache: Map<string, string> | null = null
 
-const zustaende = new Map<string, BeispielZustand>()
-
-function zustand(sessionId: string): BeispielZustand {
+function zustand(sessionId: string): SessionZustand {
   let z = zustaende.get(sessionId)
   if (!z) {
-    z = neuerBeispielZustand()
+    z = { nichtErschienen: new Set(), pfadGeoeffnet: {}, briefing: null, satz: {}, letzterRaum: null }
     zustaende.set(sessionId, z)
   }
   return z
 }
 
+const frisch = <T>(g: Gespeichert<T> | null | undefined): boolean => !!g && Date.now() - g.am < ZWISCHENSPEICHER_MS
 const ok = (): SupabaseResult<null> => ({ data: null, error: null })
 const fehler = (code: CoachLiveFehler): SupabaseResult<null> => ({ data: null, error: code })
-const jetzt = (z: BeispielZustand): string => BEISPIEL_ZEIT[z.zeitpunkt]
-const VON = 'Sara'
 
-/** Nur fuer Tests: Beispielzustand verwerfen. */
-export function beispielZuruecksetzen(): void {
+/** Nur fuer Tests: Zwischenspeicher und Client-Zustand verwerfen. */
+export function liveZuruecksetzen(): void {
   zustaende.clear()
+  themenCache = null
 }
 
-/** Nur im Beispielmodus: Zeitpunkt der Beispielleiste umschalten. */
-export async function beispielZeitpunktSetzen(sessionId: string, z: LiveZeitpunkt): Promise<SupabaseResult<null>> {
-  zustand(sessionId).zeitpunkt = z
-  return ok()
+async function themenLabels(): Promise<Map<string, string>> {
+  if (themenCache) return themenCache
+  const res = await listThemen('mathematik')
+  if (res.data) themenCache = new Map(res.data.map((t) => [t.thema_key, t.label]))
+  return themenCache ?? new Map()
 }
 
-// ── Lesen ─────────────────────────────────────────────────────────────────
-
-/** Der ganze Raum in einer Abfrage (C2: coach_raum_live + coach_kind_detail + A1/E1/Q1). */
-export async function ladeRaumLive(sessionId: string): Promise<SupabaseResult<CoachLiveRaum>> {
-  return { data: baueBeispielRaum(sessionId, zustand(sessionId)), error: null }
+/** Schublade: Detail, Ziel der Stunde, Pruefgespraech und Belege nur fuer dieses Kind. */
+async function ladeDetail(sessionId: string, raum: RaumLive, kindId: string): Promise<LiveZusatz['detail']> {
+  const kind = raum.kinder.find((k) => k.student_id === kindId)
+  if (!kind) return null
+  const themaKey = kind.ziel_thema_key ?? kind.schulthema_key
+  const skill = kind.mastery_kandidat?.skill_key ?? kind.mastery_heute.at(-1)?.skill_key ?? null
+  const [detail, ziel, pruefung, lernpfad] = await Promise.all([
+    rpc.kindDetail(sessionId, kindId),
+    themaKey ? zielFertigkeiten(kindId, themaKey) : Promise.resolve({ data: [], error: null }),
+    skill ? skillPruefungen(skill) : Promise.resolve({ data: [], error: null }),
+    skill ? listLernpfad(kindId) : Promise.resolve({ data: [], error: null }),
+  ])
+  if (!detail.data) return null
+  return {
+    kindId,
+    detail: detail.data,
+    ziel: ziel.data ?? [],
+    // Wie das Tablet: die erste freigegebene Pruefung des Skills (offene-punkte-a2b Nr. 6).
+    pruefung: pruefung.data?.[0] ?? null,
+    lernpfad: lernpfad.data?.find((l) => l.skill_key === skill) ?? null,
+  }
 }
 
-/** Themenkatalog fuer die Themensuche im Check-in (C2: listThemen aus lib/supabase/themen). */
-export async function themenKatalog(): Promise<SupabaseResult<Thema[]>> {
-  return { data: BEISPIEL_KATALOG, error: null }
+async function ladeSaetze(sessionId: string, z: SessionZustand, raum: RaumLive): Promise<Record<string, SatzVorschlag[]>> {
+  const kinder = raum.kinder.filter((k) => k.tablet_nr !== null && !frisch(z.satz[k.student_id]))
+  await Promise.all(
+    kinder.map(async (k) => {
+      const res = await satzVorschlaege(sessionId, k.student_id)
+      if (res.data) z.satz[k.student_id] = { am: Date.now(), wert: res.data }
+    }),
+  )
+  return Object.fromEntries(Object.entries(z.satz).map(([id, g]) => [id, g.wert]))
 }
 
-// ── Aktionen (Namen wie in R1 sessionCoach.ts und A1 lernpfad.ts) ─────────
-
-export async function sessionStarten(sessionId: string): Promise<SupabaseResult<null>> {
-  zustand(sessionId).zeitpunkt = 'checkin'
-  return ok()
-}
-
-export async function tabletZuweisen(sessionId: string, studentId: string, tabletNr: number): Promise<SupabaseResult<null>> {
+/** Der ganze Raum; `kindId` ist das Kind mit offener Schublade (sonst null). */
+export async function ladeRaumLive(sessionId: string, kindId: string | null = null): Promise<SupabaseResult<CoachLiveRaum>> {
   const z = zustand(sessionId)
-  const raum = baueBeispielRaum(sessionId, z)
-  if (raum.kinder.some((k) => k.id !== studentId && k.tablet === tabletNr)) return fehler('tabletBelegt')
-  z.tablets[studentId] = tabletNr
-  z.nichtErschienen = z.nichtErschienen.filter((id) => id !== studentId)
-  return ok()
+  const res = await rpc.raumLive(sessionId)
+  if (res.error !== null) return { data: null, error: fehlerCode(res) }
+  if (!res.data?.session) return { data: null, error: 'allgemein' }
+  const raum = res.data
+  const zeitpunkt = zeitpunktAus(raum.session, raum.stand)
+
+  const [detail, themen] = await Promise.all([kindId ? ladeDetail(sessionId, raum, kindId) : Promise.resolve(null), themenLabels()])
+  const bisher = z.briefing
+  if (!frisch(bisher) && (zeitpunkt === 'vorher' || bisher === null)) {
+    const b = await sessionBriefing(sessionId)
+    z.briefing = { am: Date.now(), wert: b.data ?? bisher?.wert ?? [] }
+  }
+  const satz = zeitpunkt === 'checkout' || zeitpunkt === 'danach' ? await ladeSaetze(sessionId, z, raum) : {}
+
+  const ansicht = raumAus(raum, {
+    detail, briefing: z.briefing?.wert ?? [], satz, themen, nichtErschienen: z.nichtErschienen, pfadGeoeffnet: z.pfadGeoeffnet,
+  })
+  z.letzterRaum = ansicht
+  return { data: ansicht, error: null }
 }
 
-export async function tabletLoesen(sessionId: string, studentId: string): Promise<SupabaseResult<null>> {
-  zustand(sessionId).tablets[studentId] = null
-  return ok()
+/** Themenkatalog fuer die Themensuche im Check-in. */
+export async function themenKatalog(): Promise<SupabaseResult<Thema[]>> {
+  const res = await listThemen('mathematik')
+  return res.data ? { data: res.data, error: null } : { data: null, error: 'allgemein' }
 }
+
+// ── Aktionen ──────────────────────────────────────────────────────────────
+
+export const sessionStarten = async (sessionId: string): Promise<SupabaseResult<null>> =>
+  alsAktion(await rpc.sessionStarten(sessionId))
+
+export const tabletZuweisen = async (sessionId: string, studentId: string, tabletNr: number): Promise<SupabaseResult<null>> => {
+  const res = alsAktion(await rpc.tabletZuweisen(sessionId, studentId, tabletNr))
+  if (res.error === null) zustand(sessionId).nichtErschienen.delete(studentId)
+  return res
+}
+
+export const tabletLoesen = async (sessionId: string, studentId: string): Promise<SupabaseResult<null>> =>
+  alsAktion(await rpc.tabletLoesen(sessionId, studentId))
 
 /** Fall waehlen und/oder ein neues Schulthema setzen (altes wird „behandelt“). */
-export async function checkinCoachSetzen(
+export const checkinCoachSetzen = async (
   sessionId: string,
   studentId: string,
   fall: SessionFall | null,
   themaKey: string | null = null,
-): Promise<SupabaseResult<null>> {
-  const z = zustand(sessionId)
-  if (fall) z.fall[studentId] = fall
-  if (themaKey) z.thema[studentId] = themaKey
-  return ok()
-}
+): Promise<SupabaseResult<null>> => alsAktion(await rpc.checkinCoachSetzen(sessionId, studentId, fall, themaKey))
 
-export async function signalErledigen(sessionId: string, studentId: string, art: SignalArt): Promise<SupabaseResult<null>> {
-  const z = zustand(sessionId)
-  z.erledigt = [...z.erledigt.filter((e) => e !== `${studentId}:${art}`), `${studentId}:${art}`]
-  return ok()
-}
+export const signalErledigen = async (sessionId: string, studentId: string, art: SignalArt): Promise<SupabaseResult<null>> =>
+  alsAktion(await rpc.signalErledigen(sessionId, studentId, art))
 
 /** Ab Stufe 3 Fehlbild Pflicht; Stufe 4 setzt den Pfad sofort tiefer (Entscheidung 14). */
 export async function eingriffNotieren(
@@ -111,21 +165,23 @@ export async function eingriffNotieren(
   fehlbildSlug: string | null = null,
 ): Promise<SupabaseResult<null>> {
   if (!eingriffAbsendbar(stufe, fehlbildSlug)) return fehler('fehlbildPflicht')
-  const z = zustand(sessionId)
-  z.eingriffe = [...z.eingriffe, { kindId: studentId, stufe, zeit: jetzt(z) }]
-  if (stufe === 4) z.pfad[studentId] = { art: 'tiefer', zeit: jetzt(z) }
-  return ok()
+  return alsAktion(await rpc.eingriffNotieren(sessionId, studentId, stufe, fehlbildSlug), { '22023': 'fehlbildPflicht' })
 }
 
+/** null oeffnet die Entscheidung wieder (nur Ansicht); der Server kennt kein Zuruecknehmen. */
 export async function pfadEntscheiden(
   sessionId: string,
   studentId: string,
   entscheidung: PfadEntscheidung | null,
 ): Promise<SupabaseResult<null>> {
   const z = zustand(sessionId)
-  if (entscheidung === null) delete z.pfad[studentId]
-  else z.pfad[studentId] = { art: entscheidung, zeit: jetzt(z) }
-  return ok()
+  if (entscheidung === null) {
+    z.pfadGeoeffnet[studentId] = new Date().toISOString()
+    return ok()
+  }
+  const res = alsAktion(await rpc.pfadEntscheiden(sessionId, studentId, entscheidung))
+  if (res.error === null) delete z.pfadGeoeffnet[studentId]
+  return res
 }
 
 /** Mastery-Entscheidung des Coaches; „vertagt“ braucht einen Grund (A1). */
@@ -138,70 +194,36 @@ export async function masteryEntscheiden(args: {
 }): Promise<SupabaseResult<null>> {
   if (args.entscheidung === 'vertagt' && !vertagenAbsendbar(args.grund)) return fehler('grundPflicht')
   const z = zustand(args.sessionId)
-  z.mastery[args.studentId] = { art: args.entscheidung, grund: args.grund, zeit: jetzt(z), von: VON }
-  return ok()
+  delete z.satz[args.studentId]
+  return alsAktion(await masteryEntscheidenRpc(args), { '22023': 'grundPflicht' })
 }
 
 /** Check-out je Kind; nicht gesetzte Felder bleiben unveraendert (R1 abschluss_setzen). */
-export async function abschlussSetzen(
-  sessionId: string,
-  studentId: string,
-  e: { satzText?: string; satzGesagt?: boolean; notiz?: string; flagEltern?: boolean; flagPfad?: boolean },
-): Promise<SupabaseResult<null>> {
-  const z = zustand(sessionId)
-  if (e.satzText !== undefined) z.satz[studentId] = e.satzText
-  if (e.satzGesagt !== undefined) {
-    z.gesagt = z.gesagt.filter((id) => id !== studentId)
-    if (e.satzGesagt) z.gesagt.push(studentId)
-  }
-  if (e.notiz !== undefined) z.notiz[studentId] = e.notiz
-  if (e.flagEltern !== undefined || e.flagPfad !== undefined) {
-    const f = z.flags[studentId] ?? { eltern: false, pfad: false }
-    z.flags[studentId] = { eltern: e.flagEltern ?? f.eltern, pfad: e.flagPfad ?? f.pfad }
-  }
-  return ok()
-}
+export const abschlussSetzen = async (sessionId: string, studentId: string, e: AbschlussEingabe): Promise<SupabaseResult<null>> =>
+  alsAktion(await rpc.abschlussSetzen(sessionId, studentId, e), { P0001: 'abgeschlossen' })
 
-export async function questTerminSetzenCoach(sessionId: string, studentId: string, terminIso: string): Promise<SupabaseResult<null>> {
-  zustand(sessionId).questA[studentId] = terminIso
-  return ok()
-}
+export const questTerminSetzenCoach = async (sessionId: string, studentId: string, terminIso: string): Promise<SupabaseResult<null>> =>
+  alsAktion(await rpc.questTerminSetzenCoach(sessionId, studentId, terminIso))
+
+/** A2b: Pruefrage aufs Tablet des Kindes legen bzw. wieder wegnehmen (Entscheidung 31). */
+export const pruefungAufsTablet = async (sessionId: string, studentId: string, skillKey: string): Promise<SupabaseResult<null>> =>
+  alsAktion(await aufsTablet(sessionId, studentId, skillKey))
+
+export const pruefungVomTablet = async (sessionId: string, studentId: string): Promise<SupabaseResult<null>> =>
+  alsAktion(await vomTablet(sessionId, studentId))
 
 /**
  * Kein eigener Server-Aufruf: R1 setzt beim Abschluss jedes Kind ohne Tablet auf
  * „nicht erschienen“ (offene-punkte-r1 Nr. 6). Die Bestaetigung bleibt im Client.
  */
 export async function nichtErschienenBestaetigen(sessionId: string, studentId: string): Promise<SupabaseResult<null>> {
-  const z = zustand(sessionId)
-  if (!z.nichtErschienen.includes(studentId)) z.nichtErschienen.push(studentId)
+  zustand(sessionId).nichtErschienen.add(studentId)
   return ok()
 }
 
 export async function sessionAbschliessen(sessionId: string): Promise<SupabaseResult<null>> {
   const z = zustand(sessionId)
-  if (z.abgeschlossen) return fehler('abgeschlossen')
-  if (!abschlussMoeglich(baueBeispielRaum(sessionId, z).kinder)) return fehler('ohneTabletOffen')
-  z.abgeschlossen = jetzt(z)
-  return ok()
-}
-
-// ── C2: Abbildung der echten Funktionen ───────────────────────────────────
-
-/**
- * TODO(C2): ladeRaumLive auf die echten Funktionen umstellen und hier abbilden.
- * Herkunft je Feld (vollstaendige Liste im PR von C1):
- * - session.*            coach_raum_live.session (R1); klassen/fach aus den Kindern bzw. themen.fach
- * - einstellungen        coaching_sessions.einstellungen (Snapshot, R1 session_starten)
- * - zeitleiste           zeitleisteAusSnapshot(einstellungen)
- * - kinder[].tablet/phase/stimmung/fall/ziel/ergebnisfolge/status/signale   coach_raum_live.kinder (R1)
- * - kinder[].aufgabe/versuche/hinweise/eingreifen.eingriffe                 coach_kind_detail (R1)
- * - kinder[].zielFertigkeiten     ziel_fertigkeiten (A1); ziel.lsaLuecke naechste_luecke (A1)
- * - kinder[].masteryKandidat      mastery_vorschlaege + skill_pruefung_lesen (A1)
- * - kinder[].erklaersequenz       erklaer_fortschritt (E1)
- * - kinder[].checkout.questA/B    Quest-Termine (Q1); satzVorschlaege: Bausteinkatalog (offen, C2)
- * - kinder[].briefing, imBlick    keine Funktion (offene-punkte-r1 Nr. 19): lead_themen, schueler_notizen, Q1
- * - signale                       raum_signale (R1)
- */
-export function ausServer(_raum: RaumLive, _details: KindDetail[]): CoachLiveRaum | null {
-  return null
+  if (z.letzterRaum?.session.abgeschlossen) return fehler('abgeschlossen')
+  if (z.letzterRaum && !abschlussMoeglich(z.letzterRaum.kinder)) return fehler('ohneTabletOffen')
+  return alsAktion(await rpc.sessionAbschliessen(sessionId), { P0001: 'abgeschlossen' })
 }

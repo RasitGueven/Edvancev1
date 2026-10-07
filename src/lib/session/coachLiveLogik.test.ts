@@ -10,7 +10,7 @@ import {
   eingriffNotieren,
   ladeRaumLive,
   masteryEntscheiden,
-} from './coachLive'
+} from './coachLiveBeispielQuelle'
 import {
   eingriffAbsendbar,
   sortiereWarteschlange,

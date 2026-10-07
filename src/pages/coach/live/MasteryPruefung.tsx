@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Check, CheckCircle2, Clock } from 'lucide-react'
+import { Check, CheckCircle2, Clock, Tablet } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { masteryEntscheiden } from '@/lib/session/coachLive'
+import { masteryEntscheiden, pruefungAufsTablet, pruefungVomTablet } from '@/lib/session/coachLive'
 import { vertagenAbsendbar } from '@/lib/session/coachLiveLogik'
 import { cn } from '@/lib/utils'
 import type { CoachLiveKind, LiveMasteryKandidat, MasteryBeleg } from '@/types/coachLive'
@@ -10,6 +10,36 @@ import { useLive } from './LiveKontext'
 import { useLiveTexte } from './useLiveTexte'
 
 const GRUENDE = ['wegNichtErklaert', 'nurMitHilfe', 'rechenfehler', 'nichtPruefbar'] as const
+
+/**
+ * A2b (Entscheidung 31): Der Coach legt die Pruefrage aufs Tablet des Kindes und nimmt sie wieder
+ * weg. Nur bei Mastery-Kandidaten (diese Komponente erscheint nur dann; offene-punkte-a2b Nr. 7).
+ */
+function PruefungTablet({ kind, m }: { kind: CoachLiveKind; m: LiveMasteryKandidat }): JSX.Element {
+  const { sessionId, ausfuehren } = useLive()
+  const tx = useLiveTexte()
+  if (!m.frage) return <p className="text-xs text-[var(--color-text-tertiary)]">{tx.t('mastery.keineFrage')}</p>
+  const liegt = kind.pruefungAufTablet
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Button
+        size="md"
+        variant="outline"
+        data-testid="pruefung-tablet"
+        onClick={() =>
+          void ausfuehren(
+            liegt ? pruefungVomTablet(sessionId, kind.id) : pruefungAufsTablet(sessionId, kind.id, m.skillKey),
+            liegt ? tx.t('toast.vomTablet') : tx.t('toast.aufsTablet', { name: kind.vorname }),
+          )
+        }
+      >
+        <Tablet className="h-4 w-4" aria-hidden />
+        {liegt ? tx.t('mastery.vomTablet') : tx.t('mastery.aufsTablet')}
+      </Button>
+      {liegt && <span className="text-xs text-[var(--color-text-secondary)]">{tx.t('mastery.liegtAufTablet', { name: kind.vorname })}</span>}
+    </div>
+  )
+}
 
 /**
  * Mastery-Pruefung in vier Schritten (Entscheidung 16): Prueffrage stellen, das Kind
@@ -41,7 +71,6 @@ export function MasteryPruefung({ kind, m }: { kind: CoachLiveKind; m: LiveMaste
             <span className="text-xs text-[var(--color-text-tertiary)]">{tx.t('mastery.bestaetigtVon', { von: e.von, zeit: tx.uhrzeit(e.zeit) })}</span>
           </span>
         </div>
-        <p className="text-xs text-[var(--color-text-tertiary)]">{tx.t('mastery.siehtAbzeichen', { name: kind.vorname })}</p>
       </Block>
     )
   }
@@ -96,6 +125,7 @@ export function MasteryPruefung({ kind, m }: { kind: CoachLiveKind; m: LiveMaste
         <Feldname>{tx.t('mastery.frage')}</Feldname>
         <p className="mt-1 text-base leading-relaxed text-[var(--color-text-primary)]">{m.frage}</p>
       </div>
+      <PruefungTablet kind={kind} m={m} />
       <dl className="grid grid-cols-[96px_minmax(0,1fr)] gap-x-3 gap-y-1 text-sm">
         <dt className="text-xs text-[var(--color-text-tertiary)]">{tx.t('mastery.erwartung')}</dt>
         <dd className="text-[var(--color-text-primary)]">{m.erwartung}</dd>

@@ -1,7 +1,7 @@
 import { AlertTriangle, Award, CheckCircle2, Flag, PencilLine, Route, Tablet, type LucideIcon } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance/EdvanceCard'
 import { Button } from '@/components/ui/button'
-import { beispielZeitpunktSetzen, nichtErschienenBestaetigen, sessionAbschliessen } from '@/lib/session/coachLive'
+import { nichtErschienenBestaetigen, sessionAbschliessen } from '@/lib/session/coachLive'
 import { abschlussMoeglich, akteZahlen, kinderOhneTablet } from '@/lib/session/coachLiveLogik'
 import { cn } from '@/lib/utils'
 import { Abschnitt, Pille } from './bausteine'
@@ -33,7 +33,7 @@ function Zeile({ p }: { p: Punkt }): JSX.Element {
 
 /** Danach: offene Punkte, Kinder ohne Tablet bestaetigen, „Geht in die Akten“ und Abschluss. */
 export function DanachAnsicht(): JSX.Element {
-  const { raum, sessionId, ausfuehren } = useLive()
+  const { raum, sessionId, ausfuehren, zeigeZeitpunkt } = useLive()
   const tx = useLiveTexte()
   const kinder = raum.kinder
   const ohneTablet = kinderOhneTablet(kinder)
@@ -49,11 +49,11 @@ export function DanachAnsicht(): JSX.Element {
       icon: PencilLine, warn: true,
       titel: tx.t('danach.notizFehlt', { namen: ohneNotiz.join(', ') }),
       text: tx.t('danach.notizFehltHilfe'),
-      aktion: raum.beispiel ? (
-        <Button size="md" variant="outline" onClick={() => void ausfuehren(beispielZeitpunktSetzen(sessionId, 'checkout'))}>
+      aktion: fertig ? undefined : (
+        <Button size="md" variant="outline" onClick={() => zeigeZeitpunkt('checkout')}>
           {tx.t('danach.nachtragen')}
         </Button>
-      ) : undefined,
+      ),
     })
   }
   for (const k of kinder) {

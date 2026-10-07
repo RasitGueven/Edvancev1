@@ -13,9 +13,11 @@ vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { email: 'coach@edvance.de' }, role: auth.rolle, loading: false, signOut: vi.fn() }),
 }))
 vi.mock('@/lib/supabase/freigabe', () => ({ getDarfPruefen: vi.fn() }))
+// C2: Die App liest echte Daten; diese Tests laufen mit der Beispielquelle aus C1.
+vi.mock('@/lib/session/coachLive', () => import('@/lib/session/coachLiveBeispielQuelle'))
 
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
-import { beispielZeitpunktSetzen, beispielZuruecksetzen, sessionAbschliessen, tabletLoesen } from '@/lib/session/coachLive'
+import { beispielZeitpunktSetzen, beispielZuruecksetzen, sessionAbschliessen, tabletLoesen } from '@/lib/session/coachLiveBeispielQuelle'
 import { COACH_LIVE_ROLLEN, CoachLivePage } from './CoachLivePage'
 
 function zeige(): void {
@@ -111,22 +113,47 @@ describe('7 Abschluss nur nach Bestätigung der Kinder ohne Tablet', () => {
   })
 })
 
-describe('Beispielleiste', () => {
-  it('schaltet alle sechs Zeitpunkte durch', async () => {
+describe('C2: Phasen im Kopf statt Beispielleiste', () => {
+  it('zeigt keine Beispielleiste und schaltet die Ansicht über die Phasen im Kopf', async () => {
     zeige()
     await screen.findByText('Session 16:30 · Raum 1')
-    const leiste = screen.getByTestId('beispiel-leiste')
+    expect(screen.queryByTestId('beispiel-leiste')).toBeNull()
+    const leiste = screen.getByRole('group', { name: 'Phasen der Session' })
     const erwartet: [string, string][] = [
-      ['Vorher', 'Wer kommt'],
       ['Check-in', 'Check-in am Tablet'],
       ['Warm-up', 'Raum 1 · Warm-up'],
-      ['Kernarbeit', 'Raum 1 · Kernarbeit'],
       ['Check-out', 'Check-out · ein konkreter Satz je Kind'],
-      ['Danach', 'Geht in die Akten'],
+      ['Kernarbeit', 'Raum 1 · Kernarbeit'],
     ]
     for (const [knopf, titel] of erwartet) {
       fireEvent.click(within(leiste).getByRole('button', { name: knopf }))
       expect(await screen.findByText(titel)).toBeTruthy()
     }
+    fireEvent.click(screen.getByRole('button', { name: 'Abschluss' }))
+    expect(await screen.findByText('Geht in die Akten')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'Live folgen' }))
+    expect(await screen.findByText('Raum 1 · Kernarbeit')).toBeTruthy()
+  })
+})
+
+describe('C2 Test 7: Prüffrage-Knopf nur bei Mastery-Kandidaten', () => {
+  it('Kandidatin Mila: aufs Tablet legen, Zustand „liegt auf dem Tablet“, wieder wegnehmen', async () => {
+    zeige()
+    await screen.findByText('Session 16:30 · Raum 1')
+    fireEvent.click(screen.getByRole('button', { name: 'Mila Krämer öffnen' }))
+    const schublade = await screen.findByRole('dialog', { name: 'Kind im Detail' })
+    fireEvent.click(within(schublade).getByRole('button', { name: 'Prüffrage aufs Tablet' }))
+    expect(await within(schublade).findByText('Die Prüffrage steht gerade auf dem Tablet von Mila.')).toBeTruthy()
+    fireEvent.click(within(schublade).getByRole('button', { name: 'Vom Tablet nehmen' }))
+    await waitFor(() => expect(within(schublade).getByRole('button', { name: 'Prüffrage aufs Tablet' })).toBeTruthy())
+    expect(within(schublade).queryByText(/sieht das Abzeichen/)).toBeNull()
+  })
+
+  it('kein Knopf bei einem Kind ohne Kandidatur', async () => {
+    zeige()
+    await screen.findByText('Session 16:30 · Raum 1')
+    fireEvent.click(screen.getByRole('button', { name: 'Emir Şahin öffnen' }))
+    const schublade = await screen.findByRole('dialog', { name: 'Kind im Detail' })
+    expect(within(schublade).queryByTestId('pruefung-tablet')).toBeNull()
   })
 })
