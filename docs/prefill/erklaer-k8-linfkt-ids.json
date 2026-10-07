@@ -1,0 +1,19 @@
+{
+ "kernidee:fkt_linear_steigung:1": "e2dfaac6-3e13-4b38-b759-34f0e8e43552",
+ "schritt:fkt_linear_steigung:1:A:erklaerung": "3dbc87cd-0ff1-4eed-837b-66d7bf465f40",
+ "schritt:fkt_linear_steigung:1:A:beispiel": "886947f3-227b-4532-8d99-37fbba5390dc",
+ "schritt:fkt_linear_steigung:1:B:erklaerung": "fc1eb325-4a07-47fe-8c92-ed8d4a58c646",
+ "task:erklaer-steigung-k1-c1": "439fc7f8-ec08-40bb-807a-d2df30c5ec73",
+ "kernidee:fkt_linear_steigung:2": "daac561b-bc6e-4e80-be21-0281b2cd01c7",
+ "schritt:fkt_linear_steigung:2:A:erklaerung": "55a49da6-afc7-42ae-9dfd-19276cdd4820",
+ "schritt:fkt_linear_steigung:2:A:beispiel": "27994093-f1ef-480a-aa56-ad4e12c5abd2",
+ "schritt:fkt_linear_steigung:2:B:erklaerung": "6e73778f-f342-41aa-8fb4-90d126d27fa7",
+ "schritt:fkt_linear_steigung:2:C:erklaerung": "85a03240-9f46-4451-8965-74e24bdb0727",
+ "task:erklaer-steigung-k2-c1": "a84e26a2-a6d2-4224-905f-a6a26f9eae56",
+ "kernidee:fkt_linear_steigung:3": "cee436c7-dd3b-4304-87cf-e31193d2e3af",
+ "schritt:fkt_linear_steigung:3:A:erklaerung": "e1758016-20c1-4e66-a891-802d27c3e289",
+ "schritt:fkt_linear_steigung:3:A:beispiel": "7ef3f867-06f5-4ac4-9d37-734176225c1f",
+ "schritt:fkt_linear_steigung:3:B:erklaerung": "61343c38-a91a-4a28-9c1b-469e5eb846df",
+ "schritt:fkt_linear_steigung:3:C:erklaerung": "fc4d1a08-a24d-4c21-b905-1acab8de237d",
+ "task:erklaer-steigung-k3-c1": "196e845f-909a-4b77-a5c9-45c02428dd4f"
+}

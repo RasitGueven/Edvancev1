@@ -1,0 +1,609 @@
+{
+ "batch": "erklaer-k8-linfkt",
+ "thema_key": "lineare_funktionen",
+ "einstellungen": {
+  "kernideen_max": 3,
+  "check_aufgaben_je_kernidee": 1
+ },
+ "bestand": "docs/prefill/erklaer-k8-linfkt-bestand.json",
+ "aufgaben_charge": "docs/prefill/k8-linfkt.json",
+ "check_charge": "docs/prefill/erklaer-k8-linfkt-checks.json",
+ "kernideen": [
+  {
+   "id": "e2dfaac6-3e13-4b38-b759-34f0e8e43552",
+   "skill_key": "fkt_linear_steigung",
+   "nr": 1,
+   "titel": "Steigung: hoch durch rüber",
+   "schritte": [
+    {
+     "id": "3dbc87cd-0ff1-4eed-837b-66d7bf465f40",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Wie steil ist die Gerade?\n\nGeh auf der Geraden von A nach B. Zähl die Kästchen nach rechts und die Kästchen nach oben.\n\nDann teilst du: hoch durch rüber. Das Ergebnis heißt Steigung $m$.\n\n> Steigung = hoch : rüber",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 4,
+       "y_min": -2,
+       "y_max": 6,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 1,
+         "y": 1,
+         "label": "A"
+        },
+        {
+         "x": 3,
+         "y": 5,
+         "label": "B"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit den Punkten A und B im Gitter.",
+      "svg_hash": "c7ae41a03f07aceaa34775e22f05bae9088d00ac71d50978aceea1f2e4857a20"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": []
+    },
+    {
+     "id": "886947f3-227b-4532-8d99-37fbba5390dc",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Die Gerade geht durch A(0|-1) und B(2|5).\n\n1. Von A nach B geht es 2 nach rechts.\n2. Dabei geht es 6 nach oben.\n3. Hoch durch rüber: $m = \\frac{6}{2} = 3$.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -2,
+       "x_max": 4,
+       "y_min": -2,
+       "y_max": 7,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 3,
+         "b": -1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -1,
+         "label": "A"
+        },
+        {
+         "x": 2,
+         "y": 5,
+         "label": "B"
+        }
+       ]
+      },
+      "alt": "Steile Gerade durch die Punkte A und B.",
+      "svg_hash": "747344299311b2b5c0a01732a5791b9e0ce5bd931d583766260c79f36e7d9077"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "2-0",
+       "2"
+      ],
+      [
+       "5-(-1)",
+       "6"
+      ],
+      [
+       "6/2",
+       "3"
+      ]
+     ]
+    },
+    {
+     "id": "fc1eb325-4a07-47fe-8c92-ed8d4a58c646",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Erst hoch, dann durch rüber.\n\nDie Zahl für oben steht oben im Bruch. Die Zahl für rechts steht unten.\n\nVon C nach D: 3 nach rechts, 6 nach oben. Also $m = \\frac{6}{3} = 2$.\n\nUmgekehrt wäre $\\frac{3}{6}$ viel zu flach.\n\n> Steigung = hoch : rüber",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -2,
+       "x_max": 3,
+       "y_min": -4,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -1
+        }
+       ],
+       "punkte": [
+        {
+         "x": -1,
+         "y": -3,
+         "label": "C"
+        },
+        {
+         "x": 2,
+         "y": 3,
+         "label": "D"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit den Punkten C und D im Gitter.",
+      "svg_hash": "3ffc0cbbe2e893df2c85a195d933e80994d9718c425e3ca7db28de098b073ec3"
+     },
+     "fehlbild_slugs": [
+      "steigung_kehrwert"
+     ],
+     "rechnungen": [
+      [
+       "2-(-1)",
+       "3"
+      ],
+      [
+       "3-(-3)",
+       "6"
+      ],
+      [
+       "6/3",
+       "2"
+      ],
+      [
+       "3/6",
+       "1/2",
+       "falsch"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "439fc7f8-ec08-40bb-807a-d2df30c5ec73",
+     "ref": "erklaer-steigung-k1-c1",
+     "reihenfolge": 1
+    }
+   ]
+  },
+  {
+   "id": "daac561b-bc6e-4e80-be21-0281b2cd01c7",
+   "skill_key": "fkt_linear_steigung",
+   "nr": 2,
+   "titel": "Steigung aus zwei Punkten berechnen",
+   "schritte": [
+    {
+     "id": "55a49da6-afc7-42ae-9dfd-19276cdd4820",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Rechnen statt zählen\n\nHoch ist der Unterschied der y-Werte. Rüber ist der Unterschied der x-Werte.\n\nFang oben und unten mit demselben Punkt an. Fällt die Gerade, wird hoch negativ und $m$ auch.\n\n> $m = \\frac{y_B - y_A}{x_B - x_A}$",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 3,
+       "y_min": -1,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 0.5,
+         "b": 1
+        }
+       ],
+       "punkte": [
+        {
+         "x": -2,
+         "y": 0,
+         "label": "A"
+        },
+        {
+         "x": 2,
+         "y": 2,
+         "label": "B"
+        }
+       ]
+      },
+      "alt": "Flach steigende Gerade mit den Punkten A und B.",
+      "svg_hash": "7735f0ca14ed7fba7c6c02bf880a171295e1e4a5eb25af2920b296b08fb081c7"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": []
+    },
+    {
+     "id": "27994093-f1ef-480a-aa56-ad4e12c5abd2",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Die Gerade geht durch A(-1|3) und B(2|-3).\n\n1. Hoch: $-3 - 3 = -6$. Es geht nach unten.\n2. Rüber: $2 - (-1) = 3$.\n3. $m = \\frac{-6}{3} = -2$. Die Gerade fällt.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -2,
+       "x_max": 3,
+       "y_min": -4,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -2,
+         "b": 1
+        }
+       ],
+       "punkte": [
+        {
+         "x": -1,
+         "y": 3,
+         "label": "A"
+        },
+        {
+         "x": 2,
+         "y": -3,
+         "label": "B"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade durch die Punkte A und B.",
+      "svg_hash": "edea91f0c472dc400b211140a51731c4e2aa53f94ea463b5aa69c13ecc6fa8cf"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "-3-3",
+       "-6"
+      ],
+      [
+       "2-(-1)",
+       "3"
+      ],
+      [
+       "-6/3",
+       "-2"
+      ]
+     ]
+    },
+    {
+     "id": "6e73778f-f342-41aa-8fb4-90d126d27fa7",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Passt das Vorzeichen?\n\nSchau zuerst aufs Bild. Steigt die Gerade, ist $m$ positiv. Fällt sie, ist $m$ negativ.\n\nRechne oben und unten in derselben Reihenfolge: erst Q, dann P.\n\nP(-2|4) und Q(2|0): $m = \\frac{0 - 4}{2 - (-2)} = \\frac{-4}{4} = -1$.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 3,
+       "y_min": -2,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -1,
+         "b": 2
+        }
+       ],
+       "punkte": [
+        {
+         "x": -2,
+         "y": 4,
+         "label": "P"
+        },
+        {
+         "x": 2,
+         "y": 0,
+         "label": "Q"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade mit den Punkten P und Q.",
+      "svg_hash": "00aaed52234395c63ed2c763aa09b63029d3eca3d4a40af971536f1588d4d2b2"
+     },
+     "fehlbild_slugs": [
+      "seiten_verwechselt"
+     ],
+     "rechnungen": [
+      [
+       "0-4",
+       "-4"
+      ],
+      [
+       "2-(-2)",
+       "4"
+      ],
+      [
+       "-4/4",
+       "-1"
+      ]
+     ]
+    },
+    {
+     "id": "85a03240-9f46-4451-8965-74e24bdb0727",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Die y-Werte gehören nach oben.\n\nIm Bruch stehen oben die y-Werte und unten die x-Werte. So bleibt es: hoch durch rüber.\n\nA(1|1) und B(4|7): $m = \\frac{7 - 1}{4 - 1} = \\frac{6}{3} = 2$.\n\nUmgekehrt käme $\\frac{3}{6}$ heraus. Das passt nicht zur steilen Geraden.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 5,
+       "y_min": -1,
+       "y_max": 8,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 1,
+         "y": 1,
+         "label": "A"
+        },
+        {
+         "x": 4,
+         "y": 7,
+         "label": "B"
+        }
+       ]
+      },
+      "alt": "Steile Gerade mit den Punkten A und B.",
+      "svg_hash": "9d5bcf3eadadfb8ba8333414e8b05e634360b004e5e2678174e3e0232bb38dc5"
+     },
+     "fehlbild_slugs": [
+      "steigung_kehrwert"
+     ],
+     "rechnungen": [
+      [
+       "7-1",
+       "6"
+      ],
+      [
+       "4-1",
+       "3"
+      ],
+      [
+       "6/3",
+       "2"
+      ],
+      [
+       "3/6",
+       "1/2",
+       "falsch"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "a84e26a2-a6d2-4224-905f-a6a26f9eae56",
+     "ref": "erklaer-steigung-k2-c1",
+     "reihenfolge": 1
+    }
+   ]
+  },
+  {
+   "id": "cee436c7-dd3b-4304-87cf-e31193d2e3af",
+   "skill_key": "fkt_linear_steigung",
+   "nr": 3,
+   "titel": "Mit der Steigung weiterrechnen",
+   "ohne_variante": {
+    "steigung_kehrwert": "Der Kehrwert hat seine Varianten in Kernidee 1 (B) und 2 (C). Hier nimmt die Engine die nächste ungezeigte Variante (B)."
+   },
+   "schritte": [
+    {
+     "id": "e1758016-20c1-4e66-a891-802d27c3e289",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Jeder Schritt bringt m dazu.\n\nDie Steigung sagt dir: So viel geht es bei einem Schritt nach rechts nach oben.\n\nGehst du mehrere Schritte, kommt $m$ für jeden Schritt einmal dazu.\n\n> neuer y-Wert = alter y-Wert + Schritte · m",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 4,
+       "y_min": -3,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -2
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -2,
+         "label": "P"
+        },
+        {
+         "x": 1,
+         "y": 0,
+         "label": "Q"
+        },
+        {
+         "x": 2,
+         "y": 2,
+         "label": "R"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit drei Punkten P, Q und R im Abstand von je einem Kästchen nach rechts.",
+      "svg_hash": "f928fb6c8a1a64d896708ad9ce28cc71b29dfba0d43f16c1351b17ab57ccfc0c"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": []
+    },
+    {
+     "id": "7ef3f867-06f5-4ac4-9d37-734176225c1f",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Von P(1|-1) mit m = 2 bis x = 4\n\n1. Von x = 1 bis x = 4 sind es 3 Schritte.\n2. Jeder Schritt bringt 2 nach oben: $3 \\cdot 2 = 6$.\n3. $-1 + 6 = 5$. Der Punkt heißt Q(4|5).",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 5,
+       "y_min": -4,
+       "y_max": 6,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -3
+        }
+       ],
+       "punkte": [
+        {
+         "x": 1,
+         "y": -1,
+         "label": "P"
+        },
+        {
+         "x": 4,
+         "y": 5,
+         "label": "Q"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit den Punkten P und Q.",
+      "svg_hash": "f3ec01142dbefc08aaba3bfbf8bc6dfb8e66f62403b36b9dfb09991341ab04c8"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "4-1",
+       "3"
+      ],
+      [
+       "3*2",
+       "6"
+      ],
+      [
+       "-1+6",
+       "5"
+      ]
+     ]
+    },
+    {
+     "id": "61343c38-a91a-4a28-9c1b-469e5eb846df",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Zähl die Schritte mit.\n\nDie Steigung gilt für einen Schritt nach rechts. Bei 4 Schritten kommt sie 4-mal dazu.\n\nVon P nach Q mit $m = 2$: $4 \\cdot 2 = 8$ nach oben, nicht nur 2.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 5,
+       "y_min": -5,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -4
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -4,
+         "label": "P"
+        },
+        {
+         "x": 4,
+         "y": 4,
+         "label": "Q"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit den Punkten P und Q.",
+      "svg_hash": "e9695a558ee821e15d8ea9d50c2b819397352147511e5a516a16e289cdd9b803"
+     },
+     "fehlbild_slugs": [
+      "nur_einmal_addiert"
+     ],
+     "rechnungen": [
+      [
+       "4-0",
+       "4"
+      ],
+      [
+       "4*2",
+       "8"
+      ],
+      [
+       "-4+8",
+       "4"
+      ]
+     ]
+    },
+    {
+     "id": "fc4d1a08-a24d-4c21-b905-1acab8de237d",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Starte beim Punkt, nicht im Ursprung.\n\nDiese Gerade schneidet die y-Achse nicht im Ursprung. Darum reicht $m \\cdot x$ nicht.\n\nStarte beim y-Wert des Punktes und zähl die Schritte dazu.\n\nP(1|5), $m = 2$, gesucht y bei x = 3: $5 + 2 \\cdot 2 = 9$, nicht $2 \\cdot 3 = 6$.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 4,
+       "y_min": -1,
+       "y_max": 11,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 3
+        }
+       ],
+       "punkte": [
+        {
+         "x": 1,
+         "y": 5,
+         "label": "P"
+        },
+        {
+         "x": 3,
+         "y": 9,
+         "label": "Q"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die y-Achse oberhalb des Ursprungs schneidet, mit den Punkten P und Q.",
+      "svg_hash": "cb77fa681a85473db06fd1f95822103df9019251a7c4636d8b1e11320d812b61"
+     },
+     "fehlbild_slugs": [
+      "b_ignoriert"
+     ],
+     "rechnungen": [
+      [
+       "3-1",
+       "2"
+      ],
+      [
+       "5+2*2",
+       "9"
+      ],
+      [
+       "2*3",
+       "6",
+       "falsch"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "196e845f-909a-4b77-a5c9-45c02428dd4f",
+     "ref": "erklaer-steigung-k3-c1",
+     "reihenfolge": 1
+    }
+   ]
+  }
+ ]
+}

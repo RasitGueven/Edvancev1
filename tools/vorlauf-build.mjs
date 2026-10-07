@@ -24,6 +24,9 @@
  *   jede Loesung in einem eigenen do-Block mit transaktionslokaler Systemrolle (CI ohne Klammer).
  * MC: basis.options [{id, label}] -> question_payload; MULTI_PART-Teile mit kind 'mc' tragen options.
  * Figur: basis.figur.generator ('koordinatensystem' | 'winkel'), ohne Angabe koordinatensystem.
+ * einsatz: optionales Charge-Feld (z. B. ['check'] fuer Check-Aufgaben der Erklaersequenz, E2b);
+ *   ohne das Feld greift der Spalten-Default {lsa,session} wie bisher.
+ * ohne_sondierrang_grund: optionaler Text fuer den Kopf, wenn ohne_sondierrang nicht "Auffuellung" heisst.
  */
 
 import fs from 'node:fs';
@@ -38,6 +41,12 @@ if (!chargePfad || !/^\d{14}$/.test(version ?? '') || !name) {
 const charge = JSON.parse(fs.readFileSync(chargePfad, 'utf8'));
 const basisPfad = chargePfad.replace(/\.json$/, '');
 const fehler = [];
+const EINSATZ = ['lsa', 'session', 'check', 'quest'];
+if (charge.einsatz && !(charge.einsatz.length && charge.einsatz.every((e) => EINSATZ.includes(e)))) {
+  fehler.push(`einsatz ${JSON.stringify(charge.einsatz)}: nur ${EINSATZ.join(', ')}`);
+}
+const einsatzSpalte = charge.einsatz ? ', einsatz' : '';
+const einsatzWert = charge.einsatz ? `, '{${charge.einsatz.join(',')}}'::text[]` : '';
 
 // ── Rohzustand (Snapshot) aus basis ──
 const roh = (a) => {
@@ -96,7 +105,8 @@ for (const [skill, posten] of proSkill) {
   // Auffuell-Skills (Charge-Feld ohne_sondierrang): Rang 1 und 2 tragen dort schon
   // freigegebene Aufgaben; neue Entwuerfe bleiben NULL.
   if ((charge.ohne_sondierrang ?? []).includes(skill)) {
-    begruendung[skill] = 'kein Rang: Auffuellung, Rang 1 und 2 liegen auf freigegebenen Bestandsaufgaben';
+    begruendung[skill] = charge.ohne_sondierrang_grund
+      ?? 'kein Rang: Auffuellung, Rang 1 und 2 liegen auf freigegebenen Bestandsaufgaben';
     continue;
   }
   const [r1, r2, grund] = waehle(posten);
@@ -170,14 +180,14 @@ for (const a of charge.aufgaben) {
   sql.push(`insert into public.tasks (\n  id, content_type, title, question, question_payload, input_type, skill_key,\n` +
     `  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,\n` +
     `  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,\n` +
-    `  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am)\n` +
+    `  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am${einsatzSpalte})\n` +
     `values (\n  ${q(a.id)}::uuid, 'exercise', ${q(a.titel)}, ${q(b.frage)},\n` +
     `  ${task.question_payload ? j(task.question_payload) : 'null'}, ${q(b.input_type)}, ${q(b.skill_key)},\n` +
     `  ${charge.class_level ?? 'null'}, ${task.curriculum_grade},\n` +
     `  (select c.id from public.skill_clusters c where c.id = ${q(task.cluster_id)}::uuid),\n` +
     `  ${q(task.afb)}, ${q(task.competency_content)}, ${q(task.competency_process)},\n` +
     `  ${task.est_duration_sec}, ${q(task.unit)}, ${task.needs_image}, ${rang.get(a.id) ?? 'null'}, 'draft', ${q(charge.source)}, ${q(b.source_ref)},\n` +
-    `  false, true, false, false, ${j(mp ? parts : [])}, '[]'::jsonb,\n  ${j(vb)}, now())\n` +
+    `  false, true, false, false, ${j(mp ? parts : [])}, '[]'::jsonb,\n  ${j(vb)}, now()${einsatzWert})\n` +
     `on conflict do nothing;`);
   const upsert = `public.task_solution_upsert(\n  p_task_id         => ${q(a.id)}::uuid,\n` +
     `  p_correct_answers => ${j(ca)},\n  p_solution        => ${q(sol.solution)},\n` +
