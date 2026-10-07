@@ -190,7 +190,7 @@ select is(:'ea'::jsonb, '{"gespeichert": true, "versuch_nr": 1}'::jsonb, 'R Exit
 select pg_temp.loese(:'s7', 1, true);
 select is((select count(*)::int from xp_events where student_id = :'k_jonas'), 0, '7 vor "fertig" nichts gebucht');
 select is(pg_temp.schritt(:'s7', 1) ->> 'art', 'fertig', '7 fertig');
-select (select count(*) from session_schritte x where x.session_id = :'s7' and x.student_id = :'k_jonas'
+select (select count(distinct x.task_id) from session_schritte x where x.session_id = :'s7' and x.student_id = :'k_jonas'
           and x.art in ('aufgabe', 'exit')) * 10 as xp_soll \gset
 select results_eq(format($$select xp, reason, buchungs_schluessel from xp_events where student_id = %L$$, :'k_jonas'),
                   format($$values (%s, 'session'::text, %L::text)$$, :'xp_soll', 'session:' || :'s7'),

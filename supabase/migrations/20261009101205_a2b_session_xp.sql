@@ -27,7 +27,8 @@ begin
   if coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), true) or v_wert <= 0 then
     return 0;
   end if;
-  select count(*) into v_n
+  -- je Aufgabe, nicht je Schrittzeile (Consensus-Check A2b)
+  select count(distinct x.task_id) into v_n
     from public.session_schritte x
    where x.session_id = p_session_id and x.student_id = p_student_id and x.art in ('aufgabe', 'exit')
      and coalesce((public.session_aufgabe_stand(p_session_id, p_student_id, x.task_id)).erledigt, false);

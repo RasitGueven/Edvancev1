@@ -171,11 +171,10 @@ export type TabletStand =
       bestaetigt: TabletBestaetigt[]
     }
 
-export type AntwortRueckmeldung = {
-  ergebnis: AntwortErgebnis
-  versuch_nr: number
-  fehlbild_klartext: string | null
-}
+/** A2b (Entscheidung 29): Aufgaben mit Ergebnis und Fehlbild-Klartext, Exit-Aufgaben nur neutral. */
+export type AntwortRueckmeldung =
+  | { gespeichert: true; ergebnis: AntwortErgebnis; versuch_nr: number; fehlbild_klartext: string | null }
+  | { gespeichert: true; versuch_nr: number }
 
 export type HinweisAntwort = { stufe: number; text: string | null; verfuegbar: boolean }
 

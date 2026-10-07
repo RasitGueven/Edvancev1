@@ -48,6 +48,27 @@ Stand 07.10.2026 · Branch `feat/rasit-session-a2b-tablet` · Entscheidungen 29 
 12. **Vorname des Coaches** ist das erste Wort aus `profiles.full_name` (dieselbe Quelle wie `coach_raum_live`).
 13. **`tablet_stand.aufgabe`** bleibt im Ergebnis (R1). Laut Vertrag ist es nicht zur Anzeige da (Befund 6 aus A2).
 
+## Consensus-Check (CLAUDE.md §8)
+
+Zweite, unabhängige Instanz (Review-Agent, statisch über `git diff origin/dev..HEAD -- supabase/migrations`). Kein
+Blocker, kein Rechte-Leck. Geprüft wurden:
+- die Rechte der Tablet- und Coach-Funktionen sowie die NULL-Sicherheit;
+- dass Prüffrage, Exit-Antwort und Schritt sparsam ans Tablet gehen;
+- dass XP nur einmal gebucht werden (Schlüssel, Testlauf);
+- dass in den ersetzten Funktionen außer den kommentierten Ergänzungen nichts verloren ging (diff gegen R1/A2);
+- die Constraint-Änderung (Obermenge).
+
+Befunde:
+
+| Befund | Umgang |
+|---|---|
+| XP zählten Schrittzeilen statt Aufgaben (mittel) | behoben: `count(distinct task_id)` |
+| Nach dem ersten „fertig“ erledigte Aufgaben werden nicht nachgebucht (niedrig) | so gewollt: gebucht wird einmal am Ende (Entscheidung 30); nach „fertig“ gibt die Engine keine Aufgabe mehr |
+| `session_abschluss_kind` nach `session_abschliessen` 42501 (mittel) | Punkt 8; R2 hält den Abschluss, solange `fertig` steht |
+| Prüffrage auch ohne Kandidatenstatus (niedrig) | Punkt 7, Entscheidung C2 |
+| Sessions ohne Snapshot-Schlüssel nehmen den Live-Wert (niedrig) | Punkt 9 |
+| Drop/Add des Check-Constraints sperrt kurz (niedrig) | in einer Transaktion, 0 laufende Sessions in Prod |
+
 ## Folgen für bestehende Dateien
 
 14. **`docs/session/a2-durchlauf.sql`:** Ein Hinweis im Warm-up ist nach Entscheidung 32 nicht mehr möglich; die
