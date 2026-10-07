@@ -85,7 +85,7 @@ export function ErklaerDetailPage({ modus }: { modus: ErklaerModus }): JSX.Eleme
             onZuruecknehmen={(grund) => void d.zuruecknehmen(grund).then((ok) => ok && setMeldung('zurueck'))}
             onAntworten={(antwort) => void d.antworten(antwort).then((ok) => ok && setMeldung('antwort'))} />
         )}
-        <VariantenAnsicht detail={detail} gesperrt={k.status === 'freigegeben' ? t('editor.gesperrtFreigegeben') : null}
+        <VariantenAnsicht detail={detail} gesperrt={k.status === 'freigegeben' && !admin ? t('editor.gesperrtFreigegeben') : null}
           onSpeichern={async (s, inhalt, slugs) => {
             const fehler = await d.schrittSpeichern(s, inhalt, slugs)
             return fehler ? t(fehler) : null

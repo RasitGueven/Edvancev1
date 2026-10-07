@@ -82,7 +82,7 @@
     "formelnOffen": "Formeln als Bild: {{ist}} von {{soll}}. Nach dem Speichern werden sie neu erzeugt.",
     "fehlbilder": "Variante {{variante}} ist gedacht für",
     "keineFehlbilder": "Zu dieser Fertigkeit sind noch keine Denkfehler hinterlegt.",
-    "gesperrtFreigegeben": "Freigegeben. Ändern geht erst, wenn ein Admin die Freigabe zurücknimmt."
+    "gesperrtFreigegeben": "Freigegeben. Ändern kann nur ein Admin; melde es sonst als „Unsicher“."
   },
   "checks": {
     "titel": "Mini-Checks",
@@ -237,6 +237,7 @@
     "keine_rueckfrage": "Zu dieser Kernidee gibt es keine offene Rückfrage.",
     "fehlbild_unbekannt": "Diesen Denkfehler gibt es nicht.",
     "erst_pruefen": "Erst prüfen, dann freigeben.",
-    "formeln_fehlen": "Die Formeln sind noch nicht als Bild erzeugt."
+    "formeln_fehlen": "Die Formeln sind noch nicht als Bild erzeugt.",
+    "freigegeben_nur_admin": "Freigegebene Erklärungen ändert nur ein Admin. Melde es bitte als „Unsicher“."
   }
 }

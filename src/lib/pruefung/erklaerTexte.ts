@@ -27,7 +27,7 @@ export function erklaerFehlerSchluessel(err: ErklaerFehler | null): string {
     const hint = err.hint ?? ''
     return (ERKLAER_HINWEISE as readonly string[]).includes(hint) ? `fehlermeldung.${hint}` : 'fehlermeldung.eingabe'
   }
-  if (err.code === '42501') return 'fehlermeldung.kein_recht'
+  if (err.code === '42501') return err.hint === 'freigegeben_nur_admin' ? 'fehlermeldung.freigegeben_nur_admin' : 'fehlermeldung.kein_recht'
   if (err.code === 'P0002') return 'fehlermeldung.nicht_gefunden'
   return 'fehlermeldung.allgemein'
 }

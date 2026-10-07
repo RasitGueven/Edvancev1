@@ -1,6 +1,7 @@
 -- ============================================================================
 -- Session-P1 Paket L6: Erklaersequenzen pruefen und freigeben (Tests 1 bis 7).
 --
+-- Test 8: freigegebene Inhalte aendert nur ein Admin (Entscheidung Rasit 07.10., Migration 20261010121018).
 -- Fixture: session_e1_fixture.sql (Konten, Session mit Jonas, Steigung aus dem Graphen),
 -- dazu ein eigener Skill fkt_l6_achsenabschnitt mit einer Kernidee im Entwurf (KI), Lena als
 -- Coach mit Pruefrecht, ein Konto ohne Profil und zwei Check-Aufgaben (eine ready, eine draft).
@@ -9,7 +10,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(61);
+select plan(70);
 
 \ir session_e1_fixture.sql
 
@@ -201,6 +202,32 @@ select pg_temp.act_as(:'kind_uid');
 select is((erklaer_start(:'session_id', :'kind_id', 'fkt_l6_achsenabschnitt')) -> 'check' ->> 'task_id', :'chk_ready',
           '4b nach der Freigabe: erklaer_start liefert die Sequenz mit der freigegebenen Check-Aufgabe');
 
+-- --- 8  Freigegebene Inhalte aendert nur ein Admin (Entscheidung Rasit 07.10.) -----------------
+select pg_temp.act_as(:'lena_uid');
+select is(pg_temp.fehler(format('select erklaer_kernidee_speichern(%L, ''fkt_l6_achsenabschnitt'', 1, ''Neuer Titel'', ''ki'')', :'kid')),
+          '42501:freigegeben_nur_admin', '8a Lena: Titel einer freigegebenen Kernidee -> 42501');
+select is(pg_temp.fehler(format($q$select erklaer_schritt_speichern(%L, 'A', 'beispiel', 'Anderer Text', null, '{steigung_kehrwert}')$q$, :'kid')),
+          '42501:freigegeben_nur_admin', '8b Lena: Text eines Schritts -> 42501');
+select is(pg_temp.fehler(format($q$select erklaer_schritt_speichern(%L, 'A', 'erklaerung', s.inhalt, null, '{steigung_kehrwert}')
+                                     from erklaer_schritt s where s.kernidee_id = %L and s.variante = 'A' and s.art = 'erklaerung'$q$, :'kid', :'kid')),
+          '42501:freigegeben_nur_admin', '8c Lena: Fehlbild-Zuordnung -> 42501');
+select is(pg_temp.fehler(format('select erklaer_schritt_speichern(%L, ''B'', ''erklaerung'', ''Neue Variante'', null, ''{}'')', :'kid')),
+          '42501:freigegeben_nur_admin', '8d Lena: neue Variante -> 42501');
+select is(pg_temp.fehler(format('select erklaer_check_setzen(%L, %L, null)', :'kid', :'chk_draft')),
+          '42501:freigegeben_nur_admin', '8e Lena: Checks -> 42501');
+select is(pg_temp.fehler(format($q$select erklaer_formeln_setzen(s.id, s.inhalt, array[repeat('b', 64)])
+                                     from erklaer_schritt s where s.kernidee_id = %L and s.art = 'erklaerung'$q$, :'kid')),
+          '42501:freigegeben_nur_admin', '8f Lena: Formeln -> 42501');
+select is((erklaer_pruefen(:'kid', 'unsicher', null, 'Das Beispiel nennt den Punkt (0|3) nicht.', pg_temp.v(:'kid'))) ->> 'stand',
+          'freigegeben', '8g Lena meldet es als Rueckfrage, die Kernidee bleibt freigegeben');
+select ok((select rueckfrage from erklaer_pruef_liste() where kernidee_id = :'kid')
+          and (select notiz from erklaer_pruefungen where kernidee_id = :'kid' order by id desc limit 1) = 'Das Beispiel nennt den Punkt (0|3) nicht.',
+          '8h Rueckfrage im Protokoll und im Admin-Filter');
+select pg_temp.act_as(:'admin_uid');
+select lives_ok(format($q$select erklaer_schritt_speichern(%L, 'A', 'beispiel', s.inhalt, null, '{steigung_kehrwert,koordinate_vorzeichen_verloren}')
+                            from erklaer_schritt s where s.kernidee_id = %L and s.variante = 'A' and s.art = 'beispiel'$q$, :'kid', :'kid'),
+                '8i Admin darf eine freigegebene Kernidee aendern');
+
 -- --- 6  Ruecknahme mit Grund ---------------------------------------------------------------
 select pg_temp.act_as(:'lena_uid');
 select is(pg_temp.fehler(format('select erklaer_freigabe_zuruecknehmen(%L, ''x'', %s)', :'kid', pg_temp.v(:'kid'))),
@@ -221,7 +248,7 @@ select throws_ok(format($f$select erklaer_start(%L, %L, 'fkt_l6_achsenabschnitt'
 -- --- Protokoll: jede Pflege- und Statusaenderung eine Zeile -------------------------------
 select pg_temp.act_as(:'lena_uid');
 select is((select array_agg(entscheidung order by id) from erklaer_pruefungen where kernidee_id = :'kid'),
-          '{geaendert,geaendert,geaendert,geaendert,passt_nicht,geaendert,passt,unsicher,passt,geaendert,geaendert,passt,freigegeben,freigabe_zurueck}'::text[],
+          '{geaendert,geaendert,geaendert,geaendert,passt_nicht,geaendert,passt,unsicher,passt,geaendert,geaendert,passt,freigegeben,unsicher,geaendert,freigabe_zurueck}'::text[],
           'P Protokoll vollstaendig und in Reihenfolge');
 select is(pg_temp.fehler(format('update erklaer_pruefungen set notiz = ''x'' where kernidee_id = %L', :'kid')),
           '42501', 'P Protokoll nicht aenderbar');

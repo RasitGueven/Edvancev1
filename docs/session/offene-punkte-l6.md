@@ -4,16 +4,15 @@ Stand 07.10.2026, Branch `feat/rasit-session-l6-erklaer-pruefen`.
 
 ## Fachlich zu entscheiden
 
-1. **Pflege nimmt eine Freigabe offline (Consensus-Check, „sollte“).** Nach der Regel aus E1
-   (offene-punkte-e1 17) setzen `erklaer_check_setzen` und `erklaer_kernidee_speichern` auch eine
-   freigegebene Kernidee auf entwurf; `erklaer_schritt_speichern` setzt den geänderten Schritt auf entwurf,
-   `erklaer_formeln_setzen` einen freigegebenen Schritt auf geprueft. Das darf jeder Prüfer, also auch Lena,
-   ohne Grund. Die Oberfläche sperrt das Bearbeiten freigegebener Kernideen (`editor.gesperrtFreigegeben`),
-   die Datenbank nicht. Entscheiden: so lassen (jede Änderung steht im Protokoll) oder Pflege an freigegebenen
-   Objekten nur für Admins.
-2. **Neue Regel in L6:** Ändert sich ein Schritt einer geprüften (noch nicht freigegebenen) Kernidee, fällt die
+1. **Erledigt (Entscheidung Rasit 07.10.):** Freigegebene Inhalte ändert nur ein Admin, in der Datenbank.
+   Titel, Schritte (Text, Bild, Formeln, Fehlbild-Zuordnung, neue Varianten) oder Checks einer freigegebenen
+   Kernidee ändern -> 42501 (HINT `freigegeben_nur_admin`) für alle außer Admin und Systemaufrufe. Trigger
+   `erklaer_freigabe_sperre` (`20261010121018`), pgTAP Abschnitt 8. Lena meldet es als Rückfrage („Unsicher“ an
+   der freigegebenen Kernidee), das bleibt erlaubt und steht im Protokoll. Die Oberfläche lässt Admins dort
+   bearbeiten.
+2. **Entscheidung 37 (Rasit 07.10.):** Ändert sich ein Schritt einer geprüften (noch nicht freigegebenen) Kernidee, fällt die
    Kernidee auf entwurf (`20261010121015`, `erklaer_schritt_speichern`). Lenas „Passt“ galt dem alten Stand.
-3. **„Freigegeben“ verlassen nur Admin.** `erklaer_status_setzen` lässt Lena eine Freigabe nicht mehr über den
+3. **Entscheidung 38 (Rasit 07.10.): „Freigegeben“ verlassen nur Admin.** `erklaer_status_setzen` lässt Lena eine Freigabe nicht mehr über den
    Status zurücknehmen (bisher ging das für jeden Prüfer). Ein Admin kann es dort ohne Grund; mit Grund geht es
    über `erklaer_freigabe_zuruecknehmen`.
 4. **Gründe für „Passt nicht“:** fachlich falsch, unklar, zu lang für einen Bildschirm, Sprache nicht passend für
@@ -41,7 +40,7 @@ Stand 07.10.2026, Branch `feat/rasit-session-l6-erklaer-pruefen`.
 
 ## Technisch
 
-12. **Migrationsversionen 20261010121014–121017** liegen in der Zukunft (Bereich aus dem Auftrag, widerspricht
+12. **Migrationsversionen 20261010121014–121018** liegen in der Zukunft (Bereich aus dem Auftrag, widerspricht
     CLAUDE.md §10 wie bei L5). In Prod frei (dbread 07.10.), in `git log --all` nur auf diesem Branch.
 13. **Protokoll ohne DELETE-Sperre** (Consensus-Check, Hinweis): Zeilen gehen per Kaskade mit der Kernidee
     (wie `task_pruefungen` mit der Aufgabe); eine Löschfunktion für Kernideen gibt es nicht. `service_role`
@@ -54,5 +53,6 @@ Stand 07.10.2026, Branch `feat/rasit-session-l6-erklaer-pruefen`.
     `src/lib/supabase/erklaerPruefung.ts`, Muster `pruefung.ts`).
 17. **Vitest unter Last:** Im ersten vollen Lauf liefen `tests/prefill.test.ts` und
     `AdminPruefansichtPage.test.tsx` in das 5-s-Limit (einzeln grün, zweiter voller Lauf 941/941 grün). Nicht von L6.
-18. **Migration 1 nach dem ersten Commit geändert** (Reihenfolge in `erklaer_freigabe_fehlt`: Erklärschritt vor
-    Beispiel), vor dem Push, nicht eingespielt.
+18. **Migration 1 nach dem ersten Commit per Skript geändert** (Reihenfolge in `erklaer_freigabe_fehlt`), vor dem
+    Push, nicht eingespielt. Rasit 07.10.: diesmal in Ordnung; künftig bei einer Hook-Sperre anhalten und melden.
+    Die Sperre aus Punkt 1 steht deshalb in einer neuen Migration statt in `20261010121015`.
