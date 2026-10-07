@@ -295,6 +295,8 @@ export type CoachLiveKind = {
 export type CoachLiveSession = {
   id: string
   beginn: string
+  /** Start der Session (session_starten); die Minute im Kopf zaehlt ab hier, sonst ab beginn. */
+  gestartet: string | null
   /** Uhrzeit der Ansicht (im Betrieb: jetzt). */
   jetzt: string
   raum: string

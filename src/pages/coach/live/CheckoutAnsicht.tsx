@@ -27,13 +27,14 @@ function CheckoutKarte({ kind }: { kind: CoachLiveKind }): JSX.Element {
     setzen({ satzText: neu })
   }
 
-  const exitOk = c.exit.richtig === c.exit.gesamt
+  const exitOffen = c.exit.gesamt === 0
+  const exitOk = !exitOffen && c.exit.richtig === c.exit.gesamt
   return (
     <EdvanceCard className={cn('flex flex-col gap-2.5 px-4 py-4 hover:shadow-xs', c.gesagt && 'border-[var(--color-success)]/30')}>
       <header className="flex items-center gap-2">
         <Platz nr={kind.tablet} />
         <b className="min-w-0 flex-1 text-base font-semibold">{kind.name}</b>
-        <Pille ton={exitOk ? 'ok' : 'neutral'}>{tx.t('checkout.exit', c.exit)}</Pille>
+        <Pille ton={exitOk ? 'ok' : 'neutral'}>{exitOffen ? tx.t('checkout.exitOffen') : tx.t('checkout.exit', c.exit)}</Pille>
       </header>
       <span className="text-xs text-[var(--color-text-tertiary)]">
         {tx.t('checkout.zusammenfassung', { aufgaben: c.aufgaben, richtig: c.richtig, schwerpunkt: c.schwerpunkt })}

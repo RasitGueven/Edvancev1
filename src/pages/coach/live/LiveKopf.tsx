@@ -20,7 +20,7 @@ type KopfProps = {
 export function LiveKopf({ raum, eigeneAnsicht, onZeige, onZurueck }: KopfProps): JSX.Element {
   const { t, uhrzeit } = useLiveTexte()
   const s = raum.session
-  const minute = minuteImAblauf(s.beginn, s.jetzt)
+  const minute = minuteImAblauf(s.gestartet ?? s.beginn, s.jetzt)
   const unterzeile =
     minute < 0
       ? t('kopf.beginntIn', { count: -minute })

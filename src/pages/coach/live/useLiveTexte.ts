@@ -70,7 +70,10 @@ export function useLiveTexte() {
     const s = k.signale.find((x) => x.art === k.status)
     if (!s) return t('band.laeuft')
     if (s.grund === 'kandidat') return t(`band.kandidat_${zeitpunkt === 'warmup' ? 'warmup' : 'kern'}`)
-    return t(`band.${s.grund}`, { count: s.wert ?? 0 })
+    // C2: Ohne Zahl vom Server (z. B. gemeldetes Signal „haengt“) kein „0 Fehlversuche“.
+    return s.wert === null && s.grund !== 'stimmung' && s.grund !== 'warmup_luecke'
+      ? t(`band.${s.grund}_ohneZahl`)
+      : t(`band.${s.grund}`, { count: s.wert ?? 0 })
   }
 
   const meta = (m: KachelMeta | null): string => {
@@ -95,8 +98,13 @@ export function useLiveTexte() {
   const signalTitel = (s: LiveSignal, zeitpunkt: LiveZeitpunkt): string =>
     s.art === 'kandidat' ? t(`queue.art.kandidat_${zeitpunkt === 'warmup' ? 'warmup' : 'kern'}`) : t(`queue.art.${s.art}`)
 
+  const grundKey = (s: LiveSignal): string => {
+    if (s.wert === null && s.grund !== 'stimmung') return `${s.grund}_ohneZahl`
+    return s.grund === 'fehlversuche' && s.aufgabeNr === null ? 'fehlversuche_ohneNr' : s.grund
+  }
+
   const signalGrund = (s: LiveSignal, einstellungen: Record<string, StellschraubeWert>): string =>
-    t(`queue.grund.${s.grund}`, {
+    t(`queue.grund.${grundKey(s)}`, {
       count: s.wert ?? 0,
       skill: s.skill ?? '',
       nr: s.aufgabeNr ?? '',

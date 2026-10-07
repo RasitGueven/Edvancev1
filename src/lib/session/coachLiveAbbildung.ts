@@ -232,6 +232,7 @@ export function raumAus(raum: RaumLive, z: LiveZusatz): CoachLiveRaum {
     session: {
       id: raum.session.id,
       beginn: raum.session.scheduled_at,
+      gestartet: raum.session.gestartet_am,
       jetzt: raum.stand,
       raum: raum.session.room ?? '',
       coachName: raum.session.coach_name ?? '',

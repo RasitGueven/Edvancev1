@@ -198,6 +198,7 @@ export function baueBeispielRaum(sessionId: string, z: BeispielZustand): CoachLi
     session: {
       id: sessionId,
       beginn: BEISPIEL_SESSION.beginn,
+      gestartet: null,
       jetzt: BEISPIEL_ZEIT[z.zeitpunkt],
       raum: BEISPIEL_SESSION.raum,
       coachName: BEISPIEL_SESSION.coachName,

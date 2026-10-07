@@ -97,7 +97,10 @@
     "ohne_eingabe": "{{count}} Min ohne Eingabe",
     "erklaerrunden": "{{count}} Erklärrunden ohne Erfolg",
     "stimmung": "Check-in: angespannt",
-    "gemeistert": "gemeistert: {{skill}}"
+    "gemeistert": "gemeistert: {{skill}}",
+    "fehlversuche_ohneZahl": "hängt",
+    "ohne_eingabe_ohneZahl": "ohne Eingabe",
+    "erklaerrunden_ohneZahl": "Erklärrunden ohne Erfolg"
   },
   "taetigkeit": {
     "checkin": "Check-in am Tablet",
@@ -147,7 +150,13 @@
       "fehlversuche": "{{count}} Fehlversuche bei Aufgabe {{nr}}",
       "ohne_eingabe": "{{count}} Min ohne Eingabe · Signal ab {{schwelle}} Min",
       "erklaerrunden": "{{count}} Erklärrunden ohne Erfolg",
-      "stimmung": "Check-in: angespannt"
+      "stimmung": "Check-in: angespannt",
+      "kandidat_ohneZahl": "{{skill}}",
+      "warmup_luecke_ohneZahl": "Vorschlag eine Stufe tiefer",
+      "fehlversuche_ohneZahl": "hängt bei der aktuellen Aufgabe",
+      "fehlversuche_ohneNr": "{{count}} Fehlversuche in Folge",
+      "ohne_eingabe_ohneZahl": "ohne Eingabe · Signal ab {{schwelle}} Min",
+      "erklaerrunden_ohneZahl": "Erklärrunden ohne Erfolg"
     }
   },
   "schublade": {
@@ -441,7 +450,8 @@
     "notiz": "Notiz für die Akte · intern",
     "notizPlatzhalter": "Ein Satz reicht",
     "flagEltern": "Elternkontakt nötig",
-    "flagPfad": "Pfad passt nicht"
+    "flagPfad": "Pfad passt nicht",
+    "exitOffen": "Exit offen"
   },
   "danach": {
     "vorAbschluss": "Vor dem Abschluss",

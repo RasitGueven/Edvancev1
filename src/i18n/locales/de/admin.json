@@ -446,6 +446,7 @@
     "verlauf": "Verlauf",
     "verlaufLeer": "Noch keine Änderung",
     "verlaufLeerText": "Der Wert steht seit dem Start auf dem Startwert.",
-    "verlaufZeile": "{{alt}} → {{neu}}"
+    "verlaufZeile": "{{alt}} → {{neu}}",
+    "anteilHinweis": "Als Dezimalzahl, zum Beispiel 0,8 für 80 %."
   }
 }

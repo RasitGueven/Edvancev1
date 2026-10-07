@@ -74,6 +74,7 @@ export function StellschraubeBearbeiten({ s, onGespeichert, onFehler }: Props): 
           ) : (
             <Input inputMode="decimal" value={String(roh)} onChange={(e) => setRoh(e.target.value)} />
           )}
+          {s.einheit === 'anteil' && <span className="text-xs text-[var(--color-text-tertiary)]">{t('stellschrauben.anteilHinweis')}</span>}
         </label>
         <label className="flex flex-col gap-2 text-sm">
           <span className="font-semibold">{t('stellschrauben.grund')}</span>
