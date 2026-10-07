@@ -29,6 +29,34 @@
  },
  {
   "task": {
+   "id": "7adc816d-5a5e-4fc2-9515-66c3314096ec",
+   "title": "Check · Steigung am Graphen ablesen · Bruch",
+   "question": "In der Abbildung siehst du eine Gerade mit den Punkten A und B.\n\nWie groß ist die Steigung m dieser Geraden?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In der Abbildung siehst du eine Gerade mit den Punkten A und B.\n\nWie groß ist die Steigung m dieser Geraden?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-steigung-k1-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
    "id": "a84e26a2-a6d2-4224-905f-a6a26f9eae56",
    "title": "Check · Steigung aus zwei Punkten · negative Koordinaten",
    "question": "Eine Gerade geht durch die Punkte A(-3 | -2) und B(1 | 4).\n\nBerechne die Steigung m der Geraden.",
@@ -57,6 +85,34 @@
  },
  {
   "task": {
+   "id": "ddb0a7df-2c8b-4c51-84c9-1c1a8e0a05cd",
+   "title": "Check · Steigung aus zwei Punkten · fallend",
+   "question": "Eine Gerade geht durch die Punkte A(-2 | 4) und B(1 | -5).\n\nBerechne die Steigung m der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(-2 | 4) und B(1 | -5).\n\nBerechne die Steigung m der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-steigung-k2-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
    "id": "196e845f-909a-4b77-a5c9-45c02428dd4f",
    "title": "Check · Punkt aus Steigung und Punkt",
    "question": "Eine Gerade hat die Steigung 3 und geht durch den Punkt P(2 | 1).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 5?",
@@ -71,6 +127,34 @@
    "status": "draft",
    "source": "edvance_erklaer_k8_linfkt",
    "source_ref": "erklaer-steigung-k3-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "eb9da0e1-e2c6-4e7e-bc06-fc2d42a3931c",
+   "title": "Check · Punkt aus Steigung und Punkt · größere Steigung",
+   "question": "Eine Gerade hat die Steigung 4 und geht durch den Punkt P(1 | 2).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 4?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade hat die Steigung 4 und geht durch den Punkt P(1 | 2).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 4?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-steigung-k3-c2",
    "created_at": null,
    "afb": null,
    "est_duration_sec": null,

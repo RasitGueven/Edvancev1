@@ -1,5 +1,5 @@
 -- Erklärsequenzen lineare_funktionen (E2b), Migration 2 von 2 — 3 Kernideen, 11 Schritte,
--- 3 Checks zu fkt_linear_steigung.
+-- 6 Checks zu fkt_linear_steigung.
 -- Erzeugt von tools/erklaer-build.mjs aus docs/prefill/erklaer-k8-linfkt.json — nicht von Hand editieren.
 --
 -- Einspiel-Reihenfolge: nach der Check-Migration (erklaer_check verweist auf die Check-Aufgaben).
@@ -27,10 +27,10 @@ values ('3dbc87cd-0ff1-4eed-837b-66d7bf465f40'::uuid, 'e2dfaac6-3e13-4b38-b759-3
 
 Geh auf der Geraden von A nach B. Zähl die Kästchen nach rechts und die Kästchen nach oben.
 
-Dann teilst du: hoch durch rüber. Das Ergebnis heißt Steigung $m$.
+Dann teilst du: hoch durch rüber. Das Ergebnis heißt Steigung $m$. Hier: $4 : 2 = 2$.
 
 > Steigung = hoch : rüber',
-  '{"svg_hash":"c7ae41a03f07aceaa34775e22f05bae9088d00ac71d50978aceea1f2e4857a20","alt":"Steigende Gerade mit den Punkten A und B im Gitter."}'::jsonb, '{}'::text[], 'entwurf')
+  '{"svg_hash":"9aacb25371418d17b50bc281924199681c9516122e95bc57f0355204f2277e0a","alt":"Steigende Gerade mit den Punkten A und B im Gitter. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 1 · Variante A · beispiel
@@ -41,7 +41,7 @@ values ('886947f3-227b-4532-8d99-37fbba5390dc'::uuid, 'e2dfaac6-3e13-4b38-b759-3
 1. Von A nach B geht es 2 nach rechts.
 2. Dabei geht es 6 nach oben.
 3. Hoch durch rüber: $m = \frac{6}{2} = 3$.',
-  '{"svg_hash":"747344299311b2b5c0a01732a5791b9e0ce5bd931d583766260c79f36e7d9077","alt":"Steile Gerade durch die Punkte A und B."}'::jsonb, '{}'::text[], 'entwurf')
+  '{"svg_hash":"57ba92d9b34155753000ffa4cb2e79b5cf021fc782d7a84775210e1a8b443bad","alt":"Steile Gerade durch die Punkte A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 1 · Variante B · erklaerung
@@ -56,7 +56,7 @@ Von C nach D: 3 nach rechts, 6 nach oben. Also $m = \frac{6}{3} = 2$.
 Umgekehrt wäre $\frac{3}{6}$ viel zu flach.
 
 > Steigung = hoch : rüber',
-  '{"svg_hash":"3ffc0cbbe2e893df2c85a195d933e80994d9718c425e3ca7db28de098b073ec3","alt":"Steigende Gerade mit den Punkten C und D im Gitter."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
+  '{"svg_hash":"3a1e6f580fc25bb0c2a478a12d0fb220b100fea3df4cb2b459b3f898bbc3793e","alt":"Steigende Gerade mit den Punkten C und D im Gitter. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 2 · Variante A · erklaerung
@@ -66,23 +66,23 @@ values ('55a49da6-afc7-42ae-9dfd-19276cdd4820'::uuid, 'daac561b-bc6e-4e80-be21-0
 
 Hoch = y von B minus y von A. Rüber = x von B minus x von A.
 
-A(-2|0) und B(2|2): $m = \frac{2 - 0}{2 - (-2)} = \frac{2}{4}$, also 0,5.
+A(-3|1) und B(1|3): $m = \frac{3 - 1}{1 - (-3)} = \frac{2}{4}$, also 0,5.
 
 Fällt die Gerade, wird hoch negativ und $m$ auch.
 
 > $m = \dfrac{y_B - y_A}{x_B - x_A}$',
-  '{"svg_hash":"7735f0ca14ed7fba7c6c02bf880a171295e1e4a5eb25af2920b296b08fb081c7","alt":"Flach steigende Gerade mit den Punkten A und B."}'::jsonb, '{}'::text[], 'entwurf')
+  '{"svg_hash":"20666b23d9fed3fed3c617a87b917a5df460b2636cef390d4c3aafbe70a78c5a","alt":"Flach steigende Gerade mit den Punkten A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 2 · Variante A · beispiel
 insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
 values ('27994093-f1ef-480a-aa56-ad4e12c5abd2'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'A', 'beispiel',
-  '# Die Gerade geht durch A(-1|3) und B(2|-3).
+  '# Die Gerade geht durch A(2|5) und B(5|-1).
 
-1. Hoch: $-3 - 3 = -6$. Es geht nach unten.
-2. Rüber: $2 - (-1) = 3$.
+1. Hoch: $-1 - 5 = -6$. Es geht nach unten.
+2. Rüber: $5 - 2 = 3$.
 3. $m = \frac{-6}{3} = -2$. Die Gerade fällt.',
-  '{"svg_hash":"edea91f0c472dc400b211140a51731c4e2aa53f94ea463b5aa69c13ecc6fa8cf","alt":"Fallende Gerade durch die Punkte A und B."}'::jsonb, '{}'::text[], 'entwurf')
+  '{"svg_hash":"4e22a983355386d814f7bcc6ea480439f24be354cc1ace86ad0ffdbcae5f9f8b","alt":"Fallende Gerade durch die Punkte A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 2 · Variante B · erklaerung
@@ -94,8 +94,8 @@ Steigt die Gerade, ist $m$ positiv. Fällt sie, ist $m$ negativ. Ohne Bild: Wird
 
 Rechne oben und unten in derselben Reihenfolge: erst Q, dann P.
 
-P(-2|4) und Q(2|0): $m = \frac{0 - 4}{2 - (-2)} = \frac{-4}{4} = -1$.',
-  '{"svg_hash":"00aaed52234395c63ed2c763aa09b63029d3eca3d4a40af971536f1588d4d2b2","alt":"Fallende Gerade mit den Punkten P und Q."}'::jsonb, '{seiten_verwechselt}'::text[], 'entwurf')
+P(-1|5) und Q(3|1): $m = \frac{1 - 5}{3 - (-1)} = \frac{-4}{4} = -1$.',
+  '{"svg_hash":"6efb0f94373b77bd16d6a505a8ff0d26c51609749b9b2d357b1c67035605531b","alt":"Fallende Gerade mit den Punkten P und Q. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{seiten_verwechselt}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 2 · Variante C · erklaerung
@@ -108,7 +108,7 @@ Im Bruch stehen oben die y-Werte und unten die x-Werte. So bleibt es: hoch durch
 A(0|-3) und B(2|5): $m = \frac{5 - (-3)}{2 - 0} = \frac{8}{2} = 4$.
 
 Umgekehrt käme $\frac{2}{8}$ heraus. Das passt nicht zur steilen Geraden.',
-  '{"svg_hash":"d369263e8bfb33d3ae9e20c29ae18b697a42a0f07180732576955b8ed45f8325","alt":"Sehr steile Gerade mit den Punkten A und B."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
+  '{"svg_hash":"7ce6458bc01b32c13082683f5503e30a4ad31f427111cb7bccaf7160fa93f23b","alt":"Sehr steile Gerade mit den Punkten A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 3 · Variante A · erklaerung
@@ -116,12 +116,12 @@ insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild
 values ('e1758016-20c1-4e66-a891-802d27c3e289'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'A', 'erklaerung',
   '# Jeder Schritt bringt m dazu.
 
-Ein Schritt heißt: 1 nach rechts. Bei jedem Schritt geht es um $m$ nach oben.
+Ein Schritt heißt: 1 nach rechts. Bei jedem Schritt geht es um $m$ nach oben. Ist $m$ negativ, geht es nach unten.
 
 Gehst du mehrere Schritte, kommt $m$ für jeden Schritt einmal dazu.
 
 > neuer y-Wert = alter y-Wert + Schritte · m',
-  '{"svg_hash":"f928fb6c8a1a64d896708ad9ce28cc71b29dfba0d43f16c1351b17ab57ccfc0c","alt":"Steigende Gerade mit drei Punkten P, Q und R im Abstand von je einem Kästchen nach rechts."}'::jsonb, '{}'::text[], 'entwurf')
+  '{"svg_hash":"358fea42920248661b1151ae9c8dc03c69bcd66b96508c3892cd758646164f9a","alt":"Steigende Gerade mit vier Punkten P, Q, R und S im Abstand von je einem Kästchen nach rechts. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 3 · Variante A · beispiel
@@ -132,7 +132,7 @@ values ('7ef3f867-06f5-4ac4-9d37-734176225c1f'::uuid, 'cee436c7-dd3b-4304-87cf-e
 1. Von x = 1 bis x = 4 sind es 3 Schritte.
 2. Jeder Schritt bringt 2 nach oben: $3 \cdot 2 = 6$.
 3. $-1 + 6 = 5$. Der Punkt heißt Q(4|5).',
-  '{"svg_hash":"f3ec01142dbefc08aaba3bfbf8bc6dfb8e66f62403b36b9dfb09991341ab04c8","alt":"Steigende Gerade mit den Punkten P und Q."}'::jsonb, '{}'::text[], 'entwurf')
+  '{"svg_hash":"787587f9a1f37756e8c26e885bfb8db14c4868915c54d5693ec261db69c4d5d8","alt":"Steigende Gerade mit den Punkten P und Q. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 3 · Variante B · erklaerung
@@ -142,8 +142,8 @@ values ('61343c38-a91a-4a28-9c1b-469e5eb846df'::uuid, 'cee436c7-dd3b-4304-87cf-e
 
 Die Steigung gilt für einen Schritt nach rechts. Bei 4 Schritten kommt sie 4-mal dazu.
 
-P(0|-4), $m = 2$, 4 Schritte: $-4 + 4 \cdot 2 = 4$, also Q(4|4). Nicht $-4 + 2 = -2$.',
-  '{"svg_hash":"e9695a558ee821e15d8ea9d50c2b819397352147511e5a516a16e289cdd9b803","alt":"Steigende Gerade mit den Punkten P und Q."}'::jsonb, '{nur_einmal_addiert}'::text[], 'entwurf')
+P(0|-2), $m = 2$, 4 Schritte: $-2 + 4 \cdot 2 = 6$, also Q(4|6). Nicht $-2 + 2 = 0$.',
+  '{"svg_hash":"d409706d50eea0d0a1c6283829823ca0607c1b847e8c9c1ffc63e9d014b96a20","alt":"Steigende Gerade mit den Punkten P und Q. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{nur_einmal_addiert}'::text[], 'entwurf')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 3 · Variante C · erklaerung
@@ -155,17 +155,23 @@ Diese Gerade geht nicht durch den Ursprung. Steigung mal x allein reicht deshalb
 
 Starte beim y-Wert des Punktes und zähl die Schritte dazu.
 
-P(1|5), $m = 3$, gesucht y bei x = 3: 2 Schritte, $5 + 2 \cdot 3 = 11$. Nicht $3 \cdot 3 = 9$.',
-  '{"svg_hash":"ce60ee0af9ab10fa5848a032d13371a0073d6c30f691539ab643ee7dd9048117","alt":"Steigende Gerade, die die y-Achse oberhalb des Ursprungs schneidet, mit den Punkten P und Q."}'::jsonb, '{b_ignoriert}'::text[], 'entwurf')
+P(2|3), $m = 3$, gesucht y bei x = 4: 2 Schritte, $3 + 2 \cdot 3 = 9$. Nicht $3 \cdot 4 = 12$.',
+  '{"svg_hash":"76d94746a2372be37816001a21db75fd12600e5862305212f37de4ebf66e6ede","alt":"Steigende Gerade, die nicht durch den Ursprung geht, mit den Punkten P und Q. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{b_ignoriert}'::text[], 'entwurf')
 on conflict do nothing;
 
 insert into public.erklaer_check (kernidee_id, task_id, reihenfolge) values
   -- erklaer-steigung-k1-c1
   ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, '439fc7f8-ec08-40bb-807a-d2df30c5ec73'::uuid, 1),
+  -- erklaer-steigung-k1-c2
+  ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, '7adc816d-5a5e-4fc2-9515-66c3314096ec'::uuid, 2),
   -- erklaer-steigung-k2-c1
   ('daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'a84e26a2-a6d2-4224-905f-a6a26f9eae56'::uuid, 1),
+  -- erklaer-steigung-k2-c2
+  ('daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'ddb0a7df-2c8b-4c51-84c9-1c1a8e0a05cd'::uuid, 2),
   -- erklaer-steigung-k3-c1
-  ('cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, '196e845f-909a-4b77-a5c9-45c02428dd4f'::uuid, 1)
+  ('cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, '196e845f-909a-4b77-a5c9-45c02428dd4f'::uuid, 1),
+  -- erklaer-steigung-k3-c2
+  ('cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'eb9da0e1-e2c6-4e7e-bc06-fc2d42a3931c'::uuid, 2)
 on conflict do nothing;
 
 -- Prüfungen: Fehlbilder im Katalog, Checks nur mit Einsatz check.

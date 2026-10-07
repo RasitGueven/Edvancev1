@@ -20,8 +20,10 @@
  *            R9 kein Schritt des Skills nennt alle Punkte eines Checks (verrät ihn nicht), kein
  *            Lösungsbeispiel rechnet mit den Punkten eines Checks; R10 kein Check wiederholt
  *            die Zahlen einer Aufgabe des Themas; R11 Einsatz nur check, Status draft.
- *   Umfang   R12 2 bis kernideen_max Kernideen je Skill, check_aufgaben_je_kernidee Checks je
- *            Kernidee, Variante A mit Erklärung und Beispiel, B/C nur Erklärung.
+ *   Umfang   R12 2 bis kernideen_max Kernideen je Skill, checks_je_kernidee (mindestens die Stellschraube
+ *            check_aufgaben_je_kernidee) Checks je Kernidee, Variante A mit Erklärung und Beispiel, B/C nur Erklärung.
+ *   Bild     R4b jedes Steigungsdreieck liegt mit beiden Ecken auf der Geraden (hoch : rüber = m), seine
+ *            Zahlen gelten als belegt; Check-Figuren tragen nie ein Steigungsdreieck.
  *   Sprache  R13 ein Bildschirm: Überschrift ≤ 50 Zeichen, Lesetext ≤ 330 Zeichen, ≤ 5 Blöcke;
  *            Sätze ≤ 16 Wörter; Du-Form (kein "Sie"); keine Mastery-Sprache.
  */
@@ -42,6 +44,7 @@ function belegt(s) {
   const p = s.bild?.params;
   for (const f of p?.funktionen ?? []) out.push(qAus(f.m), qAus(f.b));
   for (const pt of p?.punkte ?? []) out.push(qAus(pt.x), qAus(pt.y));
+  for (const d of p?.steigungsdreiecke ?? []) out.push(qAus(d.dx), qAus(d.dy));
   return out;
 }
 
@@ -59,6 +62,29 @@ function pruefeSchritt(s, wo, f) {
   for (const p of bildpunkte) {
     if (gerade && !aufGerade(gerade, p.x, p.y)) f.push(`${wo}: Bildpunkt ${p.label}(${p.x}|${p.y}) liegt nicht auf der Geraden`);
     if (/\d/.test(p.label)) f.push(`${wo}: Bildpunkt ${p.label} trägt Ziffern (nur Buchstaben)`);
+  }
+  // Steigungsdreieck: Start- und Endecke auf der Geraden, also hoch : rüber = m. Die Beschriftung
+  // („rüber dx“, „hoch dy“) schreibt der Generator aus dx und dy; pruefe_koordinatensystem (f) vergleicht sie.
+  for (const [i, d] of (s.bild?.params?.steigungsdreiecke ?? []).entries()) {
+    const x = qAus(d.x), y = qAus(d.y), dx = qAus(d.dx), dy = qAus(d.dy);
+    if (!gerade || !aufGerade(gerade, x, y) || !aufGerade(gerade, x.add(dx), y.add(dy))) {
+      f.push(`${wo}: Steigungsdreieck ${i + 1} (${x}|${y}) +${dx}/+${dy} liegt nicht mit beiden Ecken auf der Geraden`);
+    } else if (!dy.div(dx).eq(qAus(gerade.m))) f.push(`${wo}: Steigungsdreieck ${i + 1}: hoch : rüber ≠ m`);
+    // Platz für die Beschriftung (Näherung in Einheiten): neben „hoch“ 1,5 bis zum Rand, „rüber“
+    // nicht auf der x-Achse und 1 bis zum Rand, die Mitte von „hoch“ nicht auf Höhe der x-Achse.
+    const p = s.bild.params, xe = d.x + d.dx, mitte = d.y + d.dy / 2;
+    if ((d.dx > 0 ? p.x_max - xe : xe - p.x_min) < 1.5) f.push(`${wo}: Steigungsdreieck ${i + 1}: kein Platz für „hoch“ am Rand`);
+    if (d.y === 0 || Math.abs(mitte) < 0.5) f.push(`${wo}: Steigungsdreieck ${i + 1}: Beschriftung auf der x-Achse`);
+    if ((d.dy > 0 ? d.y - p.y_min : p.y_max - d.y) < 1) f.push(`${wo}: Steigungsdreieck ${i + 1}: kein Platz für „rüber“`);
+    // „rüber …“ ist etwa 1,4 Einheiten breit und steht mittig unter bzw. über der Waagerechten:
+    // nicht über der y-Achse und nicht über dem senkrechten Schenkel eines anderen Dreiecks.
+    const mx = d.x + d.dx / 2;
+    if (p.x_min < 0 && Math.abs(mx) < 0.75) f.push(`${wo}: Steigungsdreieck ${i + 1}: „rüber“ liegt auf der y-Achse`);
+    for (const e of p.steigungsdreiecke) {
+      if (e !== d && Math.abs(e.x + e.dx - mx) < 0.75 && Math.min(e.y, e.y + e.dy) <= d.y + 1 && Math.max(e.y, e.y + e.dy) >= d.y - 1) {
+        f.push(`${wo}: Steigungsdreieck ${i + 1}: „rüber“ kreuzt ein anderes Dreieck`);
+      }
+    }
   }
   for (const p of punkteImText(s.inhalt)) {
     const b = bildpunkte.find((x) => x.label === p.label);
@@ -147,12 +173,15 @@ export function pruefeCharge(charge, checks, bestand, themaAufgaben) {
           variantSlugs.set(slug, s.variante);
         }
       }
-      if (k.checks.length !== cJe) f.push(`${wo}: ${k.checks.length} Checks, Stellschraube check_aufgaben_je_kernidee = ${cJe}`);
+      const soll = charge.checks_je_kernidee ?? cJe;
+      if (soll < cJe) f.push(`${wo}: checks_je_kernidee ${soll} unter der Stellschraube ${cJe}`);
+      if (k.checks.length !== soll) f.push(`${wo}: ${k.checks.length} Checks, verlangt ${soll}`);
       const checkSlugs = new Set();
       for (const c of k.checks) {
         const a = aufgabeVon.get(c.task_id);
         if (!a) { f.push(`${wo}: Check ${c.ref} fehlt in der Check-Charge`); continue; }
         if (a.basis.skill_key !== skill) f.push(`${wo}: Check ${c.ref} hat Skill ${a.basis.skill_key}`);
+        if (a.basis.figur?.params?.steigungsdreiecke) f.push(`${wo}: Check ${c.ref} mit Steigungsdreieck (verrät die Lösung)`);
         const antwort = zahl(punkt(a.pruefung[0].antwort));
         for (const slug of new Set(Object.values(a.basis.known_errors))) {
           checkSlugs.add(slug);

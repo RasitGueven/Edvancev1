@@ -122,13 +122,15 @@ for (const skill of skills) {
         a.basis.figur ? svgVon.get(a.id) : '', '<span class="btn">Abgeben</span>')}`);
       const ke = new Map();
       for (const [wert, slug] of Object.entries(a.basis.known_errors)) { if (!ke.has(slug)) ke.set(slug, []); ke.get(slug).push(wert); }
+      // Ab dem zweiten Check (Runde 2) heißt falsch: Signal (erklaerrunden_bis_signal = 2).
+      const zweiter = c.reihenfolge >= 2;
       const zeilen = [...ke].map(([slug, werte]) => {
-        const n = varianteNach(k, slug);
-        return `<tr><td>${werte.map(esc).join(' · ')}</td><td><b>${slug}</b><br><small>${esc(klartext.get(slug) ?? '')}</small></td><td>Variante ${n.variante} <small>(${n.grund})</small></td></tr>`;
+        const n = zweiter ? { variante: '–', grund: 'Signal an den Coach, Fehlbild wird gespeichert' } : varianteNach(k, slug);
+        return `<tr><td>${werte.map(esc).join(' · ')}</td><td><b>${slug}</b><br><small>${esc(klartext.get(slug) ?? '')}</small></td><td>${n.variante === '–' ? '' : `Variante ${n.variante} `}<small>(${n.grund})</small></td></tr>`;
       });
-      const ohne = varianteNach(k, null);
-      zeilen.push(`<tr><td>jede andere falsche Antwort</td><td>kein Fehlbild</td><td>Variante ${ohne.variante} <small>(${ohne.grund})</small></td></tr>`);
-      teile.push(`<div class="pruefer"><div class="vkopf">Nur für Prüfer · ${esc(c.ref)} · ${esc(a.titel)}</div>
+      const ohne = zweiter ? { variante: '–', grund: 'Signal an den Coach' } : varianteNach(k, null);
+      zeilen.push(`<tr><td>jede andere falsche Antwort</td><td>kein Fehlbild</td><td>${ohne.variante === '–' ? '' : `Variante ${ohne.variante} `}<small>(${ohne.grund})</small></td></tr>`);
+      teile.push(`<div class="pruefer"><div class="vkopf">Nur für Prüfer · Runde ${c.reihenfolge} · ${esc(c.ref)} · ${esc(a.titel)}</div>
         <p><b>Richtig:</b> ${a.loesung.correct_answers.wert.slice(0, 6).map(esc).join(' · ')} …</p>
         <p><b>Lösungsweg:</b> ${esc(a.loesung.solution.wert).replace(/\n/g, '<br>')}</p>
         <table><tr><th>Falsche Antwort</th><th>Fehlbild</th><th>danach</th></tr>${zeilen.join('')}</table>

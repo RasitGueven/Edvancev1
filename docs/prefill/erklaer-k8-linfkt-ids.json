@@ -15,5 +15,8 @@
  "schritt:fkt_linear_steigung:3:A:beispiel": "7ef3f867-06f5-4ac4-9d37-734176225c1f",
  "schritt:fkt_linear_steigung:3:B:erklaerung": "61343c38-a91a-4a28-9c1b-469e5eb846df",
  "schritt:fkt_linear_steigung:3:C:erklaerung": "fc4d1a08-a24d-4c21-b905-1acab8de237d",
- "task:erklaer-steigung-k3-c1": "196e845f-909a-4b77-a5c9-45c02428dd4f"
+ "task:erklaer-steigung-k3-c1": "196e845f-909a-4b77-a5c9-45c02428dd4f",
+ "task:erklaer-steigung-k1-c2": "7adc816d-5a5e-4fc2-9515-66c3314096ec",
+ "task:erklaer-steigung-k2-c2": "ddb0a7df-2c8b-4c51-84c9-1c1a8e0a05cd",
+ "task:erklaer-steigung-k3-c2": "eb9da0e1-e2c6-4e7e-bc06-fc2d42a3931c"
 }

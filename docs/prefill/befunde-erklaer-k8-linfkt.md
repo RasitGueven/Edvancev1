@@ -27,6 +27,7 @@ node tools/verify-tasks.mjs --prefill docs/prefill/erklaer-k8-linfkt-checks.json
      --snapshot docs/prefill/erklaer-k8-linfkt-checks-snapshot.json \
      --blind docs/prefill/erklaer-k8-linfkt-checks-blind.json --bericht docs/prefill/erklaer-k8-linfkt-checks-verifikation.md
 node tools/erklaer-vorschau.mjs docs/prefill/erklaer-k8-linfkt.json docs/prefill/erklaer-k8-linfkt-vorschau.html
+python3 scripts/figures/test_koordinatensystem.py && python3 scripts/figures/pruefe_koordinatensystem.py
 ```
 
 ## Regeln, die das Nachrechen-Skript durchsetzt (`tools/erklaer-rechnen.mjs`)
@@ -36,21 +37,29 @@ der Geraden). Keine Zahlwörter. Jeder Bildpunkt liegt auf der Geraden, jeder Pu
 nur aus den known_errors der Aufgaben desselben Skills (Bestand). Jedes Fehlbild eines Checks hat eine Variante oder ist
 begründet ohne. Kein Schritt nennt die Antwort eines Checks seiner Kernidee als Ergebnis; kein Schritt des Skills nennt
 alle Punkte eines Checks; kein Lösungsbeispiel rechnet mit einem Punkt eines Checks. Kein Check wiederholt die Zahlen einer
-Aufgabe des Themas. 2 bis `kernideen_max` Kernideen, `check_aufgaben_je_kernidee` Checks. Ein Bildschirm: Überschrift
+Aufgabe des Themas. 2 bis `kernideen_max` Kernideen, zwei Checks je Kernidee. Steigungsdreiecke liegen auf der
+Geraden, haben Platz für ihre Beschriftung und stehen nie in einer Check-Figur. Ein Bildschirm: Überschrift
 ≤ 50 Zeichen, Lesetext ≤ 330 Zeichen, ≤ 5 Blöcke, Sätze ≤ 16 Wörter, Du-Form, keine Mastery-Sprache.
 
 ## Offene Punkte
 
-1. **Ein Check je Kernidee heißt: in Runde 2 derselbe Check.** `check_aufgaben_je_kernidee` steht in Prod auf 1 (dbread).
-   Die Engine liest die Stellschraube nicht, sie nimmt reihum die vorhandenen Checks
-   (`erklaer_zeigen`: `v_checks[((p_runde - 1) % cardinality(v_checks)) + 1]`,
-   `supabase/migrations/20261008124414_a2_erklaer_testlauf.sql`). Mit einem Check sieht das Kind nach Variante B
-   dieselbe Aufgabe noch einmal; Entscheidung 18 sagt „dann ein neuer Check“. **Frage an Rasit:** 2 Checks je Kernidee
-   (Spanne 1–3)? Das Werkzeug kann das ohne Umbau (Stellschraube in `tools/erklaer-k8-linfkt-charge.mjs`).
-2. **Kein Steigungsdreieck im Bild.** Der Generator `koordinatensystem` zeichnet Geraden und Punkte, aber keine Dreiecke
-   oder Pfeile (`scripts/figures/pruefungen.py`: erlaubte Schlüssel). Der Schüler-Dummy zeigt eins. Die Bilder hier
-   zeigen die zwei Punkte mit Buchstaben; „hoch“ und „rüber“ stehen im Text. Eine Erweiterung des Generators gehört nicht
-   in E2b (nur Daten und tools/).
+1. **Zwei Checks je Kernidee, die Engine liest die Stellschraube nicht.** Entscheidung Rasit 07.10.: je Kernidee zwei
+   Checks, damit Runde 2 einen neuen Check bekommt (Entscheidung 18); `check_aufgaben_je_kernidee` bleibt auf 1 als
+   Mindestzahl für die Freigabe in L6 (`CHECKS_JE_KERNIDEE` in `tools/erklaer-k8-linfkt-charge.mjs`, das
+   Nachrechen-Skript verlangt mindestens die Stellschraube). **Offen:** Die Engine liest die Stellschraube nicht; sie
+   nimmt die vorhandenen Checks reihum (`erklaer_zeigen`: `v_checks[((p_runde - 1) % cardinality(v_checks)) + 1]`,
+   `supabase/migrations/20261008124414_a2_erklaer_testlauf.sql`). Ob L6 oder die Freigabe die Mindestzahl prüfen, ist
+   dort zu entscheiden. Der zweite Check kommt nur nach einem falschen ersten; ist er auch falsch, folgt das Signal
+   (`erklaerrunden_bis_signal` = 2), seine Fehlbilder werden nur gespeichert.
+2. **Steigungsdreieck im Generator (erledigt, Entscheidung Rasit 07.10.).** `scripts/figures/koordinatensystem.py` hat den
+   optionalen Parameter `steigungsdreiecke` (`[{x, y, dx, dy}]`), gezeichnet in `scripts/figures/steigungsdreieck.py`,
+   geprüft in `pruefe_koordinatensystem.py` (f: Schenkel am Pixelort, Beschriftung „rüber dx“ / „hoch dy“, dazu eine
+   fünfte Negativkontrolle). Ohne den Parameter ist die Ausgabe byte-gleich: 53 bestehende Koordinatensystem-Figuren
+   (Prod `task_figures` per dbread und alle Chargen unter `docs/prefill/`) in beiden Themes, 106 SVGs, vorher und
+   nachher derselbe sha256. Das Nachrechen-Skript prüft, dass beide Ecken auf der Geraden liegen (hoch : rüber = m),
+   dass genug Platz für die Beschriftung bleibt, und dass keine Check-Figur ein Dreieck trägt (es wäre die Lösung).
+   `koordinatensystem.py` (vorher 418, jetzt 429 Zeilen) und `pruefe_koordinatensystem.py` (vorher 450, jetzt 481)
+   lagen schon vorher über 400 Zeilen; das Zeichnen steht deshalb in einer eigenen Datei.
 3. **Ein Bild, ein Theme.** `erklaer_schritt_json` liefert je Bild eine URL (`erklaer/bilder/<hash>.svg`). Die Bilder
    sind im Theme `dunkel` gezeichnet (wie `lsa_task_assets` für die Bühne). Für hellen Grund bräuchte es eine zweite
    Datei (siehe offene-punkte-e1 12 zu Formeln).
@@ -59,9 +68,10 @@ Aufgabe des Themas. 2 bis `kernideen_max` Kernideen, `check_aufgaben_je_kernidee
    ist (Dummy-Klassen `.merk`, `.worked`).
 5. **Formeln erst nach `tools/formeln-svg.mjs`.** Bis dahin ist `formeln` leer und `erklaer_schritt_json` liefert keine
    Formel-URLs. Deshalb gehört der Lauf direkt hinter das Einspielen (offene-punkte-e1 14).
-6. **Check-Figur braucht den Upload.** Der Check zu Kernidee 1 hat eine Abbildung (`task_figures`). Ohne `svg_hash`
+6. **Check-Figuren brauchen den Upload.** Die beiden Checks zu Kernidee 1 haben je eine Abbildung (`task_figures`). Ohne `svg_hash`
    meldet `pruef_ausschluss` `bild_fehlt`; dann fehlt der Check auch im Testlauf und `erklaer_naechste_kernidee`
-   überspringt Kernidee 1. `scripts/figures/upload_figures.py` muss nach dem Einspielen laufen (laut Kopf von Rasit).
+   überspringt Kernidee 1. `scripts/figures/upload_figures.py` läuft beim Einspielen (Entscheidung Rasit 07.10.: übernehme
+   ich, wenn die Zugangsdaten in der Umgebung liegen, sonst führt Rasit den Befehl aus).
 7. **`betrag_fehler` ohne Variante bei Steigung.** Bei einer fallenden Geraden liefern „Vorzeichen vergessen“
    (`betrag_fehler`) und „Reihenfolge gemischt“ (`seiten_verwechselt`) denselben falschen Wert; `known_errors` kann ihm
    nur einen Slug geben. Der Check zu Kernidee 2 nimmt deshalb eine steigende Gerade, dort ist `seiten_verwechselt`
@@ -92,3 +102,6 @@ Aufgabe des Themas. 2 bis `kernideen_max` Kernideen, `check_aufgaben_je_kernidee
     oder einen allgemeineren Klartext legt Lena im Fehlbild-Katalog fest (Zweitprüfung Befund 1).
 16. **Kein Fehlbild für Zählfehler am Gitter.** Die Zweitprüfung wünscht eine Variante für Zählfehler über die Achse
     (Befund 10). Der Bestand kennt dafür keinen Slug; ohne Slug wählt die Engine die nächste ungezeigte Variante.
+17. **Punktnamen im Bild.** Der Generator setzt Namen über den Punkt (mit Steigungsdreieck von oben: darunter). Liegen
+    Punkte auf der y-Achse oder an Achsenzahlen, wird es eng (Zweitprüfung Runde 2, Befund 6, „kann“). Eine Regel
+    „Name auf die von der Geraden abgewandte Seite“ wäre eine weitere Generator-Änderung; bewusst nicht in diesem Schritt.

@@ -41,3 +41,39 @@ und Bild** (alle Punkte liegen an der genannten Stelle) und **keinen Schritt, de
 
 Nach den Änderungen: Nachrechnung grün (`node tools/erklaer-rechnen.mjs`), pgTAP `session_e2b` 43/43, Vorschau ohne
 überlaufenden Bildschirm. Die Check-Aufgaben haben sich nicht geändert, daher gilt das Ergebnis aus Teil 1 weiter.
+
+## Runde 2 (07.10.2026): zweiter Check je Kernidee und Steigungsdreieck
+
+Nach Rasits Entscheidung (zwei Checks je Kernidee, Steigungsdreieck im Bild) prüfte ein **neuer** frischer Subagent:
+Teil 1 blind die drei neuen Checks (`…-k1-c2`, `…-k2-c2`, `…-k3-c2`), Teil 2 alle elf geänderten Bilder mit ihrem Text.
+
+### Teil 1: Blind-Löser
+
+| Check | Löser | hinterlegt |
+|---|---|---|
+| erklaer-steigung-k1-c2 | 1.5 | 3/2, 1,5 |
+| erklaer-steigung-k2-c2 | -3 | -3 |
+| erklaer-steigung-k3-c2 | 14 | 14 |
+
+Alle sechs Checks zusammen: `verify-tasks --from-file … --answers-from docs/prefill/erklaer-k8-linfkt-checks-blind.json
+--min-pass 1.0` → **6/6 = 100 %**, Struktur 6 ok. Im ersten Lauf meldete die Strukturprüfung „wortgleiche Dublette“
+(k1-c1 und k1-c2 hatten denselben Text, nur die Abbildung unterschied sich); k1-c2 ist umformuliert („In der Abbildung
+siehst du … Wie groß ist die Steigung m dieser Geraden?“), Inhalt und Lösung unverändert.
+
+### Teil 2: Bilder
+
+Der Prüfer fand in allen elf Bildern das Dreieck richtig (Start und Ende auf der Geraden, „rüber“ und „hoch“ passend zu
+Gitter, Text und Rechnung), keine Rechen- oder Vorzeichenfehler und keinen verratenen Check.
+
+| Nr | Ort | Art · Gewicht | Befund | Erledigt |
+|---|---|---|---|---|
+| 1 | K3 C | Widerspruch · sollte | Klartext von `b_ignoriert` passt nicht (wie Runde 1, Befund 1). | Begründet, offener Punkt 15. |
+| 2 | K3 A | Lesbarkeit · sollte | Zweites „rüber 1“ wird von der Geraden und der Senkrechten des ersten Dreiecks geschnitten. | **Behoben:** Die Dreiecke liegen nicht mehr nebeneinander (P→Q und R→S, vier Punkte). Neue Regel im Nachrechen-Skript: „rüber“ kreuzt kein anderes Dreieck. |
+| 3 | K2 A Beispiel, K2 B | Lesbarkeit · sollte | Die Senkrechte läuft durch den Buchstaben des Endpunkts; „rüber 3“ beginnt auf der y-Achse. | **Behoben:** Der Generator setzt den Namen eines Punkts, an dem ein Dreieck von oben ankommt, unter den Punkt (nur mit Dreieck, sonst byte-gleich; Test in `test_koordinatensystem.py`). Neue Regel: „rüber“ nicht auf der y-Achse; K2 A, K2 Beispiel und K2 B haben neue Punkte, Text und Rechnung zogen mit. |
+| 4 | K3 A | fachlich · kann | „geht es um m nach oben“ stimmt nur für positives m. | **Behoben:** „Ist m negativ, geht es nach unten.“ |
+| 5 | K1 A | Widerspruch · kann | Das Bild zeigt rüber 2 / hoch 4, der Text rechnet nicht. | **Behoben:** „Hier: 4 : 2 = 2.“ |
+| 6 | mehrere | Lesbarkeit · kann | Punktnamen auf oder dicht an Achsen und Geraden. | **Offen** (Generator: Namen auf die von der Geraden abgewandte Seite), offener Punkt 17. Lesbar ist es laut Prüfer. |
+| 7 | K3 C | Lesbarkeit · kann | y-Achse bis 13, Bild sehr hochkant. | **Behoben:** P(2\|3), m = 3, x = 4 (y bis 10). |
+
+Danach: Nachrechnung grün, Byte-Gleichheit der 53 bestehenden Figuren weiter belegt, pgTAP `session_e2b` 45/45,
+Vorschau ohne überlaufenden Bildschirm.

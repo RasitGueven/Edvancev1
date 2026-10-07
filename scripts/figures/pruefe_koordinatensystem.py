@@ -23,6 +23,7 @@ Parametern:
   c) je Parabel durch Scheitel und zwei weitere Stellen
   d) je Punkt liegt der Kreis am Pixelort der Koordinate
   e) die Gitterlinien sitzen auf ganzzahligen Werten
+  f) je Steigungsdreieck (optional) beide Schenkel am Pixelort, Beschriftung „rüber dx“ und „hoch dy“
 
 Die Einheit wird NIE aus den Eingabeparametern uebernommen — immer aus dem SVG
 zurueckgerechnet (Plot-Breite / Anzahl Einheiten). Nur so schlaegt ein
@@ -313,6 +314,29 @@ def pruefe_gitter(svg: str, params: dict) -> list[str]:
     return befunde
 
 
+def pruefe_steigungsdreiecke(svg: str, params: dict) -> list[str]:
+    """f) Je Steigungsdreieck: beide Schenkel am Pixelort, Beschriftung „rüber dx“ und „hoch dy“."""
+    from figures.pruefungen import dreieck_text
+
+    dreiecke = params.get('steigungsdreiecke') or []
+    if not dreiecke:
+        return []
+    ab = Abbild(svg, params['x_min'], params['x_max'], params['y_min'], params['y_max'])
+    linien = _linien(svg)
+    texte = re.findall(r'<text[^>]*>([^<]*)</text>', svg)
+    befunde = []
+    for i, d in enumerate(dreiecke):
+        x0, y0 = ab.px(d['x']), ab.py(d['y'])
+        x1, y1 = ab.px(d['x'] + d['dx']), ab.py(d['y'] + d['dy'])
+        for name, soll in (('waagerecht', (x0, y0, x1, y0)), ('senkrecht', (x1, y0, x1, y1))):
+            if not any(all(abs(a - b) < EPS_EXAKT for a, b in zip(l, soll)) for l in linien):
+                befunde.append(f'f) steigungsdreiecke[{i}]: {name}er Schenkel fehlt am Pixelort.')
+        for soll in (f"rüber {dreieck_text(d['dx'])}", f"hoch {dreieck_text(d['dy'])}"):
+            if soll not in texte:
+                befunde.append(f'f) steigungsdreiecke[{i}]: Beschriftung „{soll}“ fehlt.')
+    return befunde
+
+
 def _mengen_gleich(a: list[float], b: list[float]) -> bool:
     if len(a) != len(b):
         return False
@@ -328,6 +352,7 @@ _ALLE = (
     pruefe_parabeln,
     pruefe_punkte,
     pruefe_gitter,
+    pruefe_steigungsdreiecke,
 )
 
 
@@ -393,7 +418,7 @@ def _erste_gerade_verbiegen(svg: str, dy: float) -> str:
 
 def negativkontrolle() -> list[tuple[str, bool, list[str]]]:
     """
-    Vier Verletzungen an korrekten SVGs. Rueckgabe je Fall:
+    Fuenf Verletzungen an korrekten SVGs. Rueckgabe je Fall:
     (Name, hat_angeschlagen, Befunde). hat_angeschlagen == False ist ein Versagen
     der Pruefung selbst.
     """
@@ -404,6 +429,10 @@ def negativkontrolle() -> list[tuple[str, bool, list[str]]]:
     mit_gerade = dict(x_min=-4, x_max=4, y_min=-4, y_max=4,
                       funktionen=[{'typ': 'linear', 'm': 1, 'b': 0, 'label': 'f'}])
 
+    mit_dreieck = dict(x_min=-1, x_max=4, y_min=-2, y_max=6,
+                       funktionen=[{'typ': 'linear', 'm': 3, 'b': -1}],
+                       steigungsdreiecke=[{'x': 0, 'y': -1, 'dx': 2, 'dy': 6}])
+
     faelle = [
         ('1 px Versatz (Punkt verschoben)',
          _erste_kreis_cx(koordinatensystem(**mit_punkt), 1.0), mit_punkt),
@@ -413,6 +442,8 @@ def negativkontrolle() -> list[tuple[str, bool, list[str]]]:
          _erste_gerade_verbiegen(koordinatensystem(**mit_gerade), 60.0), mit_gerade),
         ('Punkt ausserhalb der viewBox',
          _erste_kreis_cx(koordinatensystem(**mit_punkt), 9000.0), mit_punkt),
+        ('Steigungsdreieck falsch beschriftet',
+         koordinatensystem(**mit_dreieck).replace('>hoch 6<', '>hoch 5<'), mit_dreieck),
     ]
 
     ergebnis = []
@@ -442,7 +473,7 @@ def _main() -> int:
     if not alle_gut:
         print('FEHLER: mindestens eine Verletzung blieb unentdeckt.')
         return 1
-    print('Alle vier Verletzungen wurden erkannt.')
+    print('Alle fuenf Verletzungen wurden erkannt.')
     return 0
 
 

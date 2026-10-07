@@ -13,7 +13,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(43);
+select plan(45);
 
 \ir session_a2_fixture.sql
 
@@ -73,7 +73,10 @@ select is((select count(*) from tasks where source = 'edvance_erklaer_k8_linfkt'
 -- ── 3) Testlauf: Start, Fehlbild -> Variante, außerhalb nichts ─────────────
 select (select id from tasks where source_ref = 'erklaer-steigung-k1-c1') as c1,
        (select id from tasks where source_ref = 'erklaer-steigung-k2-c1') as c2,
-       (select id from tasks where source_ref = 'erklaer-steigung-k3-c1') as c3 \gset
+       (select id from tasks where source_ref = 'erklaer-steigung-k3-c1') as c3,
+       (select id from tasks where source_ref = 'erklaer-steigung-k1-c2') as c1b,
+       (select id from tasks where source_ref = 'erklaer-steigung-k2-c2') as c2b,
+       (select id from tasks where source_ref = 'erklaer-steigung-k3-c2') as c3b \gset
 create or replace function pg_temp.ab(p_s uuid, p_k uuid, p_c uuid, p_text text) returns jsonb language plpgsql as $$
 begin
   perform pg_temp.act_as(pg_temp.tablet(1));
@@ -82,38 +85,43 @@ end $$;
 create or replace function pg_temp.kurz(x jsonb) returns text language sql as $$
   select concat_ws(' ', x ->> 'aktion', 'K' || (x -> 'kernidee' ->> 'nr'), x ->> 'variante', x ->> 'uebergang')
 $$;
+select is((select count(*) from erklaer_check c join erklaer_kernidee k on k.id = c.kernidee_id
+            where k.skill_key = 'fkt_linear_steigung' group by c.kernidee_id order by 1 limit 1), 2::bigint,
+          '3 jede Kernidee hat zwei Checks (Runde 1 und Runde 2)');
 
--- Kind 1: K1 Kehrwert -> B, richtig; K2 Seiten verwechselt -> B, richtig; K3 b_ignoriert -> C, dann Signal.
+-- Kind 1: K1 Kehrwert -> B mit neuem Check; K2 Seiten verwechselt -> B; K3 b_ignoriert -> C, dann Signal.
 select pg_temp.kind('ZZ E2b Eins', true) as k1 \gset
 select pg_temp.neue_session(array[:'k1']::uuid[], 20, true) as s1 \gset
 select pg_temp.act_as(pg_temp.tablet(1));
 select erklaer_start(:'s1', :'k1', 'fkt_linear_steigung') as st \gset
 select is(pg_temp.kurz(:'st'), 'start K1 A', '3 Testlauf: erklaer_start beginnt mit Kernidee 1, Variante A');
-select is((:'st'::jsonb -> 'check' ->> 'task_id')::uuid, :'c1'::uuid, '3 der offene Check ist der Check der Kernidee 1');
+select is((:'st'::jsonb -> 'check' ->> 'task_id')::uuid, :'c1'::uuid, '3 der offene Check ist der erste Check der Kernidee 1');
 select is(jsonb_array_length(:'st'::jsonb -> 'schritte'), 2, '3 Variante A: Erklärung und Beispiel');
 select ok(:'st'::jsonb -> 'schritte' -> 0 -> 'bild' ->> 'url' ~ 'erklaer/bilder/[0-9a-f]{64}\.svg$', '3 Bild-URL nach der Pfadregel aus E1');
 select is((:'st'::jsonb -> 'kernidee' ->> 'von')::int, 3, '3 Steigung hat 3 Kernideen');
-select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c1', '1/4')), 'variante K1 B', '3 K1 falsch mit steigung_kehrwert -> Variante B');
+select pg_temp.ab(:'s1', :'k1', :'c1', '1/4') as r2 \gset
+select is(pg_temp.kurz(:'r2'), 'variante K1 B', '3 K1 falsch mit steigung_kehrwert -> Variante B');
+select is((:'r2'::jsonb -> 'check' ->> 'task_id')::uuid, :'c1b'::uuid, '3 Runde 2 bekommt einen neuen Check (Entscheidung 18)');
 select is((select fehlbild_slug from erklaer_fortschritt where session_id = :'s1' and ergebnis = 'falsch' order by id desc limit 1),
           'steigung_kehrwert', '3 Fehlbild steigung_kehrwert im Fortschritt');
-select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c1', '4')), 'weiter K2 A', '3 K1 richtig -> Kernidee 2');
+select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c1b', '1,5')), 'weiter K2 A', '3 K1 Runde 2 richtig -> Kernidee 2');
 select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c2', '-1,5')), 'variante K2 B', '3 K2 falsch mit seiten_verwechselt -> Variante B');
-select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c2', '1,5')), 'weiter K3 A', '3 K2 richtig -> Kernidee 3');
+select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c2b', '-3')), 'weiter K3 A', '3 K2 Runde 2 richtig -> Kernidee 3');
 select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c3', '15')), 'variante K3 C', '3 K3 falsch mit b_ignoriert -> Variante C');
-select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c3', '4')), 'signal', '3 K3 zweimal falsch -> Signal an den Coach');
+select is(pg_temp.kurz(pg_temp.ab(:'s1', :'k1', :'c3b', '6')), 'signal', '3 K3 zweimal falsch -> Signal an den Coach');
 select ok(not exists (select 1 from erklaer_fortschritt f join tasks t on t.id = f.check_task_id
                        where f.session_id = :'s1' and t.source <> 'edvance_erklaer_k8_linfkt'), '3 nur Checks dieser Charge');
 
--- Kind 2: K2 Kehrwert -> C, K3 nur_einmal_addiert -> B, K3 richtig -> Üben.
+-- Kind 2: K2 Kehrwert -> C, K3 nur_einmal_addiert -> B, K3 Runde 2 richtig -> Üben.
 select pg_temp.kind('ZZ E2b Zwei', true) as k2 \gset
 select pg_temp.neue_session(array[:'k2']::uuid[], 20, true) as s2 \gset
 select pg_temp.act_as(pg_temp.tablet(1));
 select ok(erklaer_start(:'s2', :'k2', 'fkt_linear_steigung') ->> 'aktion' = 'start', '3 Kind 2: Start');
 select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c1', '4')), 'weiter K2 A', '3 Kind 2: K1 richtig');
 select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c2', '2/3')), 'variante K2 C', '3 K2 falsch mit steigung_kehrwert -> Variante C');
-select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c2', '3/2')), 'weiter K3 A', '3 Kind 2: K2 richtig (Bruch)');
+select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c2b', '-3')), 'weiter K3 A', '3 Kind 2: K2 Runde 2 richtig');
 select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c3', '4')), 'variante K3 B', '3 K3 falsch mit nur_einmal_addiert -> Variante B');
-select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c3', '10')), 'weiter ueben', '3 K3 richtig -> Übergang ins Üben');
+select is(pg_temp.kurz(pg_temp.ab(:'s2', :'k2', :'c3b', '14')), 'weiter ueben', '3 K3 Runde 2 richtig -> Übergang ins Üben');
 
 -- Kind 3: K3 Kehrwert hat dort keine eigene Variante -> nächste ungezeigte (B).
 select pg_temp.kind('ZZ E2b Drei', true) as k3 \gset

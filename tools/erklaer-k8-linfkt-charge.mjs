@@ -27,6 +27,9 @@ const ALGEBRA_FUNKTIONEN = 'edbb548a-54d9-4a8f-8be4-3052f9025524'; // wie tools/
 const ZEIT = { I: 45, II: 60, III: 90 };
 // Startwerte der Stellschrauben (Bauauftrag F, 20261007110100_session_einstellungen.sql:82-83).
 const EINSTELLUNGEN = { kernideen_max: 3, check_aufgaben_je_kernidee: 1 };
+// Entscheidung Rasit 07.10.: zwei Checks je Kernidee, damit Runde 2 einen neuen Check bekommt
+// (Entscheidung 18; erklaer_zeigen nimmt die Checks reihum). Die Stellschraube bleibt 1 (Mindestzahl).
+const CHECKS_JE_KERNIDEE = 2;
 
 // Schreibweisen wie tools/k8-linfkt-charge.mjs (formen): lsa_is_correct vergleicht Text,
 // das Unicode-Minus und ein führendes "+" normalisiert es nicht.
@@ -134,7 +137,7 @@ const checkCharge = {
     '',
     'Einspiel-Reihenfolge: vor der Erklär-Migration (erklaer_check verweist auf diese Aufgaben).',
   ],
-  auswahl: 'Je Kernidee check_aufgaben_je_kernidee (1) Check-Aufgabe, NUMERIC, mit known_errors, die auf die Varianten der Kernidee zeigen. Keine Hinweise, kein Sondierrang, Einsatz nur check (Entscheidung 28).',
+  auswahl: 'Je Kernidee zwei Check-Aufgaben (Runde 1 und Runde 2), NUMERIC, mit known_errors, die auf die Varianten der Kernidee zeigen. Keine Hinweise, kein Sondierrang, Einsatz nur check (Entscheidung 28).',
   source: 'edvance_erklaer_k8_linfkt',
   einsatz: ['check'],
   ohne_transaktion: true,
@@ -145,6 +148,7 @@ const checkCharge = {
 };
 const charge = {
   batch: 'erklaer-k8-linfkt', thema_key: bestand.thema_key, einstellungen: EINSTELLUNGEN,
+  checks_je_kernidee: CHECKS_JE_KERNIDEE,
   bestand: BESTAND, aufgaben_charge: AUFGABEN, check_charge: `${PFAD}-checks.json`,
   kernideen,
 };

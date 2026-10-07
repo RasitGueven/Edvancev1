@@ -1,13 +1,13 @@
 {
  "batch": "erklaer-k8-linfkt-checks",
  "kopf": [
-  "Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 3 Check-Aufgaben, nur Einsatz check.",
+  "Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 6 Check-Aufgaben, nur Einsatz check.",
   "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:",
   "tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.",
   "",
   "Einspiel-Reihenfolge: vor der Erklär-Migration (erklaer_check verweist auf diese Aufgaben)."
  ],
- "auswahl": "Je Kernidee check_aufgaben_je_kernidee (1) Check-Aufgabe, NUMERIC, mit known_errors, die auf die Varianten der Kernidee zeigen. Keine Hinweise, kein Sondierrang, Einsatz nur check (Entscheidung 28).",
+ "auswahl": "Je Kernidee zwei Check-Aufgaben (Runde 1 und Runde 2), NUMERIC, mit known_errors, die auf die Varianten der Kernidee zeigen. Keine Hinweise, kein Sondierrang, Einsatz nur check (Entscheidung 28).",
  "source": "edvance_erklaer_k8_linfkt",
  "einsatz": [
   "check"
@@ -158,6 +158,131 @@
   },
   {
    "nr": 2,
+   "id": "7adc816d-5a5e-4fc2-9515-66c3314096ec",
+   "titel": "Check · Steigung am Graphen ablesen · Bruch",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "erklaer-steigung-k1-c2",
+    "input_type": "NUMERIC",
+    "frage": "In der Abbildung siehst du eine Gerade mit den Punkten A und B.\n\nWie groß ist die Steigung m dieser Geraden?",
+    "known_errors": {
+     "2/3": "steigung_kehrwert",
+     "+2/3": "steigung_kehrwert"
+    },
+    "figur": {
+     "generator": "koordinatensystem",
+     "params": {
+      "x_min": -3,
+      "x_max": 3,
+      "y_min": -3,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 1.5,
+        "b": 1
+       }
+      ],
+      "punkte": [
+       {
+        "x": -2,
+        "y": -2,
+        "label": "A"
+       },
+       {
+        "x": 2,
+        "y": 4,
+        "label": "B"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter und einer steigenden Geraden durch die Punkte A und B."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: am Gitter abzählen, Ergebnis als Bruch bzw. Dezimalzahl."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung nicht lösbar (Generator koordinatensystem)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3/2",
+      "+3/2",
+      "1,5",
+      "+1,5",
+      "1.5",
+      "+1.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "Von A(-2 | -2) nach B(2 | 4): 4 nach rechts, 6 nach oben.\nm = 6 / 4 = 3/2 = 1,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Rüber durch hoch geteilt: 4 / 6 = 2/3.",
+       "socratic_question": "Welche Zahl gehört nach oben in den Bruch: die Kästchen nach oben oder nach rechts?",
+       "fehlbild": "steigung_kehrwert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(4-(-2))/(2-(-2))",
+     "antwort": "3/2"
+    },
+    {
+     "rechnung": "(2-(-2))/(4-(-2))",
+     "antwort": "2/3",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 3,
    "id": "a84e26a2-a6d2-4224-905f-a6a26f9eae56",
    "titel": "Check · Steigung aus zwei Punkten · negative Koordinaten",
    "basis": {
@@ -277,7 +402,113 @@
    ]
   },
   {
-   "nr": 3,
+   "nr": 4,
+   "id": "ddb0a7df-2c8b-4c51-84c9-1c1a8e0a05cd",
+   "titel": "Check · Steigung aus zwei Punkten · fallend",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "erklaer-steigung-k2-c2",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(-2 | 4) und B(1 | -5).\n\nBerechne die Steigung m der Geraden.",
+    "known_errors": {
+     "3": "seiten_verwechselt",
+     "+3": "seiten_verwechselt",
+     "-1/3": "steigung_kehrwert",
+     "−1/3": "steigung_kehrwert",
+     "- 1/3": "steigung_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: fallende Gerade, Differenzen mit negativen Koordinaten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-3",
+      "−3",
+      "- 3"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "m = (-5 - 4) / (1 - (-2)) = -9 / 3 = -3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Oben B minus A, unten A minus B gerechnet: -9 / (-3) = 3.",
+       "socratic_question": "Fällt die Gerade von A nach B oder steigt sie? Passt dein Vorzeichen dazu?",
+       "fehlbild": "seiten_verwechselt"
+      },
+      {
+       "error": "Rüber durch hoch geteilt: 3 / (-9) = -1/3.",
+       "socratic_question": "Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?",
+       "fehlbild": "steigung_kehrwert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(-5-4)/(1-(-2))",
+     "antwort": "-3"
+    },
+    {
+     "rechnung": "(-5-4)/(-2-1)",
+     "antwort": "3",
+     "rolle": "fehlbild:seiten_verwechselt"
+    },
+    {
+     "rechnung": "(1-(-2))/(-5-4)",
+     "antwort": "-1/3",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 5,
    "id": "196e845f-909a-4b77-a5c9-45c02428dd4f",
    "titel": "Check · Punkt aus Steigung und Punkt",
    "basis": {
@@ -388,6 +619,131 @@
     {
      "rechnung": "1+(5-2)/3",
      "antwort": "2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "eb9da0e1-e2c6-4e7e-bc06-fc2d42a3931c",
+   "titel": "Check · Punkt aus Steigung und Punkt · größere Steigung",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "erklaer-steigung-k3-c2",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade hat die Steigung 4 und geht durch den Punkt P(1 | 2).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 4?",
+    "known_errors": {
+     "6": "nur_einmal_addiert",
+     "16": "b_ignoriert",
+     "+6": "nur_einmal_addiert",
+     "+16": "b_ignoriert",
+     "11/4": "steigung_kehrwert",
+     "+11/4": "steigung_kehrwert",
+     "2,75": "steigung_kehrwert",
+     "+2,75": "steigung_kehrwert",
+     "2.75": "steigung_kehrwert",
+     "+2.75": "steigung_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in Rückrichtung: Schritte zählen, Steigung mehrfach addieren, beim Punkt starten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "14",
+      "+14"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "Von x = 1 bis x = 4 sind es 3 Schritte nach rechts.\nJeder Schritt bringt 4 nach oben: 2 + 3 · 4 = 14.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Steigung nur einmal addiert: 2 + 4 = 6.",
+       "socratic_question": "Wie viele Schritte nach rechts liegen zwischen x = 1 und x = 4?",
+       "fehlbild": "nur_einmal_addiert"
+      },
+      {
+       "error": "Wie bei einer Ursprungsgeraden gerechnet: 4 · 4 = 16.",
+       "socratic_question": "Geht die Gerade durch den Ursprung? Prüfe es mit dem Punkt P.",
+       "fehlbild": "b_ignoriert"
+      },
+      {
+       "error": "Mit dem Kehrwert der Steigung gerechnet: 2 + 3 · 1/4 = 2,75.",
+       "socratic_question": "Wie viel geht es bei einem Schritt nach rechts nach oben?",
+       "fehlbild": "steigung_kehrwert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2+4*(4-1)",
+     "antwort": "14"
+    },
+    {
+     "rechnung": "2+4",
+     "antwort": "6",
+     "rolle": "fehlbild:nur_einmal_addiert"
+    },
+    {
+     "rechnung": "4*4",
+     "antwort": "16",
+     "rolle": "fehlbild:b_ignoriert"
+    },
+    {
+     "rechnung": "2+(4-1)/4",
+     "antwort": "11/4",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "2+3/4",
+     "antwort": "2,75",
      "rolle": "fehlbild:steigung_kehrwert"
     }
    ]
