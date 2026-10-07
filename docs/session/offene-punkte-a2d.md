@@ -68,3 +68,12 @@ Die Zahlen sind der Stand beim ersten Melden des Signals. Sie werden danach nich
 - **c)** Gezählt wird je Voraussetzung, nicht über das ganze Warm-up. Liegt das Warm-up auf mehreren Skills, sieht der Coach die Zahlen nur für die Voraussetzung, an der das Signal hängt. Soll C2 auch die Gesamtzahl bekommen, ist das ein weiteres Feld.
 - **d)** Die Typen der Coach-Seite (`src/types/coachLive.ts`, C2) kennen die Felder noch nicht. Das Nachziehen gehört C2.
 - **e)** Ein Signal, das vor dem Einspielen entstanden ist, hat die Felder nicht (`session_ereignisse` ist append-only).
+
+## 3. Schema-Abzug, wenn Prod dem dev-Stand voraus ist (gelöst)
+
+- **Fall:** Beim Einspielen von A2d trug Prod schon L6 (`20261010121014`–`121018`), das noch nicht auf `dev` war. Der reine Prod-Abzug hätte den CI-Vergleich auf diesem Branch rot gemacht.
+- **Zwischenlösung:** Committet wurde der Neuaufbau `dev` + A2d (`fbaf43e`). Belegt war: Prod-Abzug = Neuaufbau `dev` + A2d + L6-Migrationen, gefiltert wie in der CI.
+- **Gelöst** (07.10.2026), nachdem L6 (#226) in `dev` gemergt war:
+  - `origin/dev` eingemischt; jede Prod-Migration ab A2c hat jetzt eine Datei auf dem Branch.
+  - `tools/schema-snapshot.sh` neu aus Prod gezogen (Prod hat A2c, C2, L6 und A2d).
+  - Der Abzug ist gefiltert gleich dem Neuaufbau aus allen 236 Migrationen; gegenüber dem eingemischten Stand ändert sich nur der Dateikopf.
