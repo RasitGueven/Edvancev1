@@ -8,7 +8,11 @@
     "vorbei": "seit {{count}} Min vorbei",
     "stand": "Stand {{uhrzeit}}",
     "zeitleiste": "Phasen der Session",
-    "dauer": "{{count}} Min"
+    "dauer": "{{count}} Min",
+    "testlauf": "Testlauf",
+    "ansicht": "Ansicht wählen",
+    "liveFolgen": "Live folgen",
+    "abschluss": "Abschluss"
   },
   "phase": {
     "checkin": "Check-in",
@@ -23,11 +27,6 @@
     "kern": "Kernarbeit",
     "checkout": "Check-out",
     "danach": "Danach"
-  },
-  "beispiel": {
-    "titel": "Beispieldaten",
-    "zeitpunkt": "Zeitpunkt",
-    "hinweis": "Die Seite zeigt Beispieldaten. Diese Leiste verschwindet, sobald echte Daten angeschlossen sind."
   },
   "laden": {
     "fehler": "Die Live-Daten konnten nicht geladen werden.",
@@ -79,7 +78,8 @@
     "tippen": "Kind antippen für Details",
     "oeffnen": "{{name}} öffnen",
     "klasse": "Kl. {{klasse}}",
-    "aufgabe": "Aufgabe {{nr}}"
+    "aufgabe": "Aufgabe {{nr}}",
+    "testlauf": "Testlauf · zählt nicht in Akten"
   },
   "legende": {
     "richtig": "richtig",
@@ -97,7 +97,10 @@
     "ohne_eingabe": "{{count}} Min ohne Eingabe",
     "erklaerrunden": "{{count}} Erklärrunden ohne Erfolg",
     "stimmung": "Check-in: angespannt",
-    "gemeistert": "gemeistert: {{skill}}"
+    "gemeistert": "gemeistert: {{skill}}",
+    "fehlversuche_ohneZahl": "hängt",
+    "ohne_eingabe_ohneZahl": "ohne Eingabe",
+    "erklaerrunden_ohneZahl": "Erklärrunden ohne Erfolg"
   },
   "taetigkeit": {
     "checkin": "Check-in am Tablet",
@@ -147,7 +150,13 @@
       "fehlversuche": "{{count}} Fehlversuche bei Aufgabe {{nr}}",
       "ohne_eingabe": "{{count}} Min ohne Eingabe · Signal ab {{schwelle}} Min",
       "erklaerrunden": "{{count}} Erklärrunden ohne Erfolg",
-      "stimmung": "Check-in: angespannt"
+      "stimmung": "Check-in: angespannt",
+      "kandidat_ohneZahl": "{{skill}}",
+      "warmup_luecke_ohneZahl": "Vorschlag eine Stufe tiefer",
+      "fehlversuche_ohneZahl": "hängt bei der aktuellen Aufgabe",
+      "fehlversuche_ohneNr": "{{count}} Fehlversuche in Folge",
+      "ohne_eingabe_ohneZahl": "ohne Eingabe · Signal ab {{schwelle}} Min",
+      "erklaerrunden_ohneZahl": "Erklärrunden ohne Erfolg"
     }
   },
   "schublade": {
@@ -220,7 +229,8 @@
     "laeuftOhne": "Runde {{runde}} läuft",
     "offen": "noch offen",
     "sieht": "{{name}} sieht gerade · Variante {{variante}}",
-    "signal": "Nach {{count}} Runden ohne Erfolg bei einer Kernidee kommt ein Signal zu dir."
+    "signal": "Nach {{count}} Runden ohne Erfolg bei einer Kernidee kommt ein Signal zu dir.",
+    "kernideeNr": "Kernidee {{nr}}"
   },
   "mastery": {
     "titel": "Mastery-Prüfung",
@@ -244,7 +254,6 @@
     "abbrechen": "Abbrechen",
     "gemeistert": "Gemeistert: {{skill}}",
     "bestaetigtVon": "bestätigt von {{von}} um {{zeit}}",
-    "siehtAbzeichen": "{{name}} sieht das Abzeichen jetzt auf dem Tablet.",
     "vertagt": "Vertagt: {{skill}}",
     "vertagtGrund": "{{grund}} · {{zeit}}",
     "wiederVorgeschlagen": "Der Skill wird in einer späteren Session wieder vorgeschlagen.",
@@ -253,7 +262,11 @@
       "nurMitHilfe": "Ging nur mit Hilfe",
       "rechenfehler": "Fehler in der Rechnung",
       "nichtPruefbar": "Heute nicht prüfbar"
-    }
+    },
+    "aufsTablet": "Prüffrage aufs Tablet",
+    "vomTablet": "Vom Tablet nehmen",
+    "liegtAufTablet": "Die Prüffrage steht gerade auf dem Tablet von {{name}}.",
+    "keineFrage": "Für diese Fertigkeit gibt es noch keine freigegebene Prüffrage."
   },
   "pfad": {
     "titel": "Entscheidung",
@@ -302,7 +315,9 @@
     "tablet": "{{name}} sitzt an Tablet {{nr}}. Das Tablet zeigt jetzt den Check-in.",
     "thema": "Schulthema für {{name}}: {{thema}}. Ziel der Stunde gesetzt.",
     "quest": "Quest-Termin für {{name}} eingetragen.",
-    "abgeschlossen": "Abgeschlossen. Anwesenheit, Entscheidungen und Notizen stehen in den Akten."
+    "abgeschlossen": "Abgeschlossen. Anwesenheit, Entscheidungen und Notizen stehen in den Akten.",
+    "aufsTablet": "Prüffrage liegt auf dem Tablet von {{name}}.",
+    "vomTablet": "Prüffrage vom Tablet genommen."
   },
   "fehler": {
     "fehlbildPflicht": "Ab Stufe 3 braucht der Eingriff ein Fehlbild.",
@@ -310,7 +325,21 @@
     "ohneTabletOffen": "Erst „nicht erschienen“ für alle Kinder ohne Tablet bestätigen.",
     "tabletBelegt": "Dieses Tablet ist schon vergeben.",
     "abgeschlossen": "Die Session ist schon abgeschlossen.",
-    "allgemein": "Das hat nicht geklappt."
+    "allgemein": "Das hat nicht geklappt.",
+    "keinRecht": "Dafür fehlt dir das Recht. Live-Daten gibt es nur für die eigene Session.",
+    "nichtGefunden": "Das gibt es nicht (mehr). Bitte neu laden.",
+    "nichtGebucht": "Dieses Kind ist in dieser Session nicht gebucht.",
+    "keinTablet": "Das Kind hat noch kein Tablet.",
+    "keinePruefung": "Für diese Fertigkeit gibt es keine freigegebene Prüffrage.",
+    "keinePruefungAktiv": "Auf dem Tablet liegt gerade keine Prüffrage.",
+    "raumVoll": "Der Raum ist voll: höchstens fünf Kinder.",
+    "schonZugewiesen": "Das Kind sitzt schon an einem Tablet.",
+    "tabletUnbekannt": "Dieses Tablet ist nicht eingerichtet.",
+    "keinLead": "Zu diesem Kind fehlt die Zuordnung zum Erstgespräch. Das Schulthema lässt sich nicht ändern.",
+    "gesundheitsbegriff": "Die Notiz klingt nach einer Gesundheitsangabe. Bitte umformulieren.",
+    "spanne": "Der Wert liegt außerhalb der erlaubten Spanne.",
+    "eingabe": "Die Eingabe passt nicht. Bitte prüfen.",
+    "zustand": "Das geht im jetzigen Stand der Session nicht."
   },
   "vorher": {
     "werKommt": "Wer kommt",
@@ -421,7 +450,8 @@
     "notiz": "Notiz für die Akte · intern",
     "notizPlatzhalter": "Ein Satz reicht",
     "flagEltern": "Elternkontakt nötig",
-    "flagPfad": "Pfad passt nicht"
+    "flagPfad": "Pfad passt nicht",
+    "exitOffen": "Exit offen"
   },
   "danach": {
     "vorAbschluss": "Vor dem Abschluss",
@@ -463,5 +493,8 @@
     "abschliessen": "Session abschließen",
     "abschliessenGesperrt": "Erst die Kinder ohne Tablet bestätigen.",
     "abgeschlossen": "Abgeschlossen um {{zeit}}"
+  },
+  "fach": {
+    "mathematik": "Mathe"
   }
 }

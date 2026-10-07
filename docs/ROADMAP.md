@@ -94,6 +94,10 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Session P1 · C2 Coach-Live-Sicht mit echten Daten** (Retro `2026-10-07-session-c2-coach-live.md`, Branch
+  `feat/rasit-session-c2-coach-live`): Live-Sicht über `coach_raum_live`/`coach_kind_detail`, Briefing,
+  Satz-Bausteine im Check-out, Prüffrage aufs Tablet, Einstieg und offene Sessions auf den Startseiten,
+  Stellschrauben-Seite. Noch nicht eingespielt. **Offen:** `docs/session/offene-punkte-c2.md`.
 - **Session P1 · L5 Kinder-Hinweise prüfen und freigeben** (Retro `2026-10-06-session-l5-hinweise.md`, Branch
   `feat/rasit-session-l5-hinweise`): Lena sieht und ändert die Hinweise, die Freigabe prüft sie, „Hinweise
   bestätigen“ für schon freigegebene Aufgaben. Eingespielt 06.10. **Offen:** `docs/session/offene-punkte-l5.md`.

@@ -4,9 +4,11 @@ import type { CoachLiveRaum } from '@/types/coachLive'
 
 /**
  * Coach-Live-Sicht: fragt die Datenquelle alle LIVE_ABFRAGE_MS ab (Entscheidung 17,
- * kein Realtime). `neuLaden` holt sofort nach einer Aktion.
+ * kein Realtime). `kindId` ist das Kind mit offener Schublade: nur dessen Detail wird
+ * mitgeladen (C2). `neuLaden` holt sofort nach einer Aktion. `fehler` ist ein Fehler-Code
+ * der Seite (coachLive:fehler.<code>).
  */
-export function useRaumLive(sessionId: string | undefined): {
+export function useRaumLive(sessionId: string | undefined, kindId: string | null = null): {
   raum: CoachLiveRaum | null
   fehler: string | null
   laedt: boolean
@@ -19,7 +21,7 @@ export function useRaumLive(sessionId: string | undefined): {
 
   const neuLaden = useCallback(async () => {
     if (!sessionId) return
-    const res = await ladeRaumLive(sessionId)
+    const res = await ladeRaumLive(sessionId, kindId)
     if (!aktiv.current) return
     if (res.error !== null) setFehler(res.error)
     else {
@@ -27,7 +29,7 @@ export function useRaumLive(sessionId: string | undefined): {
       setRaum(res.data)
     }
     setLaedt(false)
-  }, [sessionId])
+  }, [sessionId, kindId])
 
   useEffect(() => {
     aktiv.current = true
