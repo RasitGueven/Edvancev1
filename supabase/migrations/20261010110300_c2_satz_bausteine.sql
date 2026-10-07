@@ -22,6 +22,9 @@ create table public.session_satz_bausteine (
   geaendert_am timestamptz,
   constraint session_satz_bausteine_platzhalter check (
     regexp_replace(text, '\{(vorname|skill|anzahl)\}', '', 'g') !~ '[{}]'),
+  -- Keine Quoten und kein Lob fuers Richtig-Haben (Entscheidung 12); Zahlen nur ueber {anzahl}.
+  constraint session_satz_bausteine_ohne_quote check (
+    text !~ '[0-9%]' and text !~* '(prozent|\mrichtig|\mfalsch|\mfehler)'),
   constraint session_satz_bausteine_eindeutig unique (anlass, reihenfolge)
 );
 
@@ -49,7 +52,7 @@ insert into public.session_satz_bausteine (anlass, reihenfolge, text) values
   ('exit', 1, 'Bei den Abschlussaufgaben hast du dir Zeit genommen und sauber gearbeitet.'),
   ('exit', 2, 'Du hast die Abschlussaufgaben konzentriert bearbeitet, auch am Ende der Stunde noch.'),
   ('geuebt', 1, 'Du hast heute konzentriert an {skill} gearbeitet. Das bringt dich weiter.'),
-  ('geuebt', 2, '{anzahl} Aufgaben zu {skill} in einer Stunde: Da steckt richtig Arbeit drin.'),
+  ('geuebt', 2, '{anzahl} Aufgaben zu {skill} in einer Stunde: Da steckt viel Arbeit drin.'),
   ('allgemein', 1, 'Du hast heute gut mitgearbeitet, {vorname}. Ich freue mich auf das nächste Mal.'),
   ('allgemein', 2, 'Du warst heute konzentriert bei der Sache. Das merkt man an deiner Arbeit.'),
   ('allgemein', 3, 'Du hast heute deinen Rechenweg aufgeschrieben. So kann man gut sehen, wie du denkst.');
@@ -68,8 +71,9 @@ declare
   v_anzahl   int;
   v_hinweise int;
   v_anlaesse text[] := '{}';
-  v_versatz  int := abs(hashtext(p_session_id::text || p_student_id::text));
+  v_versatz  bigint := abs(hashtext(p_session_id::text || p_student_id::text)::bigint);
   v_erg      jsonb := '[]';
+  v_mastery  text;
   v_a        text;
   b          record;
 begin
@@ -83,7 +87,8 @@ begin
    order by count(*) filter (where r.phase = 'kern' and not r.eingemischt) desc, count(*) desc, t.skill_key
    limit 1;
   v_label := case when v_skill is not null then public.session_label(v_skill) end;
-  v_vorname := (select coalesce(l.first_name, split_part(l.full_name, ' ', 1)) from public.leads l
+  v_vorname := (select coalesce(nullif(btrim(l.first_name), ''), nullif(split_part(btrim(l.full_name), ' ', 1), ''))
+                  from public.leads l
                  where l.id = public.session_lead_von_kind(p_student_id));
   select count(distinct r.task_id) into v_anzahl
     from public.session_antworten r where r.session_id = p_session_id and r.student_id = p_student_id;
@@ -93,19 +98,19 @@ begin
      and (e.payload ->> 'geliefert')::boolean;
 
   -- Anlaesse in Rangfolge. Mastery mit dem bestaetigten Skill.
-  select public.session_label(p.skill_key) into v_a
+  select public.session_label(p.skill_key) into v_mastery
     from public.lernpfad_protokoll p
    where p.session_id = p_session_id and p.student_id = p_student_id and p.aktion = 'mastery'
      and p.neu ->> 'stand_coach' = 'gemeistert'
    order by p.am desc limit 1;
-  if v_a is not null then
+  if v_mastery is not null then
     v_anlaesse := array_append(v_anlaesse, 'mastery');
-    v_label := v_a;
+    v_label := v_mastery;
   end if;
   if exists (select 1 from public.erklaer_fortschritt f where f.session_id = p_session_id
               and f.student_id = p_student_id and f.ergebnis = 'richtig') then
     v_anlaesse := array_append(v_anlaesse, 'erklaerung');
-    if v_a is null then
+    if v_mastery is null then
       v_label := (select public.session_label(k.skill_key) from public.erklaer_fortschritt f
                     join public.erklaer_kernidee k on k.id = f.kernidee_id
                    where f.session_id = p_session_id and f.student_id = p_student_id order by f.id desc limit 1);

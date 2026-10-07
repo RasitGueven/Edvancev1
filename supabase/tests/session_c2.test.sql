@@ -15,7 +15,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(38);
+select plan(42);
 
 \ir session_a2_fixture.sql
 
@@ -123,6 +123,15 @@ select pg_temp.neue_session(array[:'k_tim']::uuid[], 20, true) as st \gset
 select pg_temp.act_as(:'coach_a');
 select is(jsonb_array_length(satz_vorschlaege(:'st', :'k_tim')), 2, '2 Testlauf erlaubt');
 select is((coach_raum_live(:'st')) -> 'session' ->> 'testlauf', 'true', 'L Testlauf im Kopf');
+-- Testlauf mit Flag abschliessen: im Briefing einer echten Session taucht er nicht auf (Entscheidung 27).
+select abschluss_setzen(:'st', :'k_tim', null, null, 'ZZ Testnotiz', null, true);
+select session_abschliessen(:'st');
+select pg_temp.neue_session(array[:'k_tim']::uuid[], 0) as sr \gset
+select pg_temp.act_as(:'coach_a');
+select session_briefing(:'sr') -> 0 as brt \gset
+select is(:'brt'::jsonb -> 'letzte_session', 'null'::jsonb, '1 Testlauf erscheint nicht als letzte Session');
+select is(:'brt'::jsonb -> 'flags_offen', '[]'::jsonb, '1 Flag aus dem Testlauf erscheint nicht');
+select is(:'brt'::jsonb ->> 'erste_session', 'true', '1 Testlauf zaehlt nicht als fruehere Session');
 
 -- ── 3) sessions_offen ─────────────────────────────────────────────────────
 select pg_temp.act_as(:'admin');
@@ -151,6 +160,7 @@ select is((select count(*)::int from pg_proc p
               and p.proname in ('session_briefing', 'satz_vorschlaege', 'sessions_offen', 'coach_raum_live')
               and p.prosecdef and array_to_string(p.proconfig, ',') like 'search_path=%'), 4,
           '4 neue Funktionen: SECURITY DEFINER mit festem search_path');
+select ok(:'brt'::jsonb is not null, '4 Briefing im echten Lauf geladen');
 select ok(not has_function_privilege('anon', 'public.session_briefing(uuid)', 'execute')
           and not has_function_privilege('anon', 'public.satz_vorschlaege(uuid, uuid)', 'execute')
           and not has_function_privilege('anon', 'public.sessions_offen()', 'execute'), '4 anon darf nichts ausfuehren');
