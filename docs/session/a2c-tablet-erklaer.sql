@@ -24,8 +24,8 @@ create function pg_temp.zeig(p_titel text, p_j jsonb) returns void language sql 
 -- selbst ist neu. Testlauf: die Aufgaben zur Steigung stehen im Bestand noch als draft.
 select pg_temp.kind_mit('Jonas Beispiel', 'lineare_funktionen',
                         '{geo_koordinaten,vorzeichen_mult_div,bruch_kuerzen,proportionalitaet}', '{}', true) as k \gset
--- Mit den Bestandsaufgaben zur Steigung (draft, ohne difficulty) sprang der Planer nach der Sequenz auf
--- fkt_linear_yabschnitt mit pool_leer (offene-punkte-a2c 3). Deshalb 15 ZZ-Aufgaben zur Steigung, ready, mit Loesungsweg.
+-- Die Bestandsaufgaben zur Steigung haben in der Wegwerf-DB keinen Cluster (Freigabe-Gate: nicht im Pool; in Prod
+-- haben sie einen). Deshalb 15 ZZ-Aufgaben zur Steigung, ready, mit Loesungsweg (offene-punkte-a2d 1).
 select pg_temp.aufgaben('fkt_linear_steigung', 15);
 select pg_temp.neue_session(array[:'k']::uuid[], 1, true) as s \gset
 select pg_temp.checkin(:'s', 1);
