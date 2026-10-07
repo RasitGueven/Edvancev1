@@ -86,6 +86,7 @@ P1 baut die Datenmodelle und Server-Funktionen für die Session. Oberflächen ko
 | `quest_a_abstand_tage` | Quest A nach der Session (Tage) | 2 | 1–3 |
 | `quest_xp` | XP je erledigter Quest | 50 | 10–100 |
 | `home_quests_aktiv` | Home Quests eingeschaltet | aus | an / aus |
+| `session_xp_je_aufgabe` | XP je bearbeitete Aufgabe in der Session (0 = keine Buchung; Nachtrag A2b) | 10 | 0–30 |
 
 ### G. Lernpfad und Mastery
 
@@ -98,6 +99,22 @@ P1 baut die Datenmodelle und Server-Funktionen für die Session. Oberflächen ko
 26. Coach-Rechte: Ein Coach liest Akten-Daten (LSA-Antworten, Urteile, Reports, Lernpfad, XP, Badges) nur von Kindern mit laufendem Vertrag, wie bei der Akte entschieden (25.09.), nie von Leads ohne Vertrag oder ruhenden Akten. Live-Daten nur für die eigene Session. Das schließt S1b.
 27. Testmodus statt Sammelfreigabe: Ein Admin startet eine LSA oder Session als Testlauf, nur mit Testkonten. Im Testlauf kommen zusätzlich nicht freigegebene Aufgaben dran, wenn sie dieselbe Prüfung bestehen wie im Lena-Board (`pruef_ausschluss` ist leer). Testläufe tauchen nie in Akte, Report, Kennzahlen oder im Lernpfad echter Kinder auf und sind sichtbar als „Testlauf“ markiert. Die bestehenden Schüler in Prod sind Testdaten.
 28. Aufgaben bekommen einen Einsatz (`lsa`, `session`, `check`, `quest`). Bestehende Aufgaben: `lsa` und `session`. Check-Aufgaben der Erklärsequenz nur `check`. Die LSA-Auswahl filtert zusätzlich auf aktiv, kein Tutorial, Inhaltstyp Übung, vorhandene Lösung und Einsatz `lsa`.
+
+### I. Nachtrag: Session am Tablet (Rasit, 06./07.10.2026, Paket A2b)
+
+29. Rückmeldung in der Session: richtig in Gold, falsch mit Fehlbild-Satz und dem Fehler-Rand der App. Exit-Aufgaben
+    bekommen nur eine neutrale Rückmeldung („Gespeichert“). Kein zweiter Versuch an derselben Aufgabe (A2, F4). Die LSA
+    bleibt ohne Richtig und Falsch.
+30. XP in der Session pauschal je bearbeitete Aufgabe, nie fürs Richtig-Haben; gebucht und sichtbar erst am Ende;
+    Testlauf nie (Stellschraube `session_xp_je_aufgabe`).
+31. Die Prüffrage der Mastery-Prüfung steht auf dem Tablet des Kindes; der Coach legt sie per Knopf dorthin. Erwartung
+    und Kriterium sieht nur der Coach.
+32. Hinweise gibt es nur in der Kernarbeit und nur vor dem Abgeben, nicht im Warm-up und nicht bei Exit-Aufgaben.
+33. Der Satz des Coaches im Check-out steht nicht auf dem Tablet.
+34. Bei „gemeistert“ vorerst kein Abzeichen (06.10., a1-4). Grün und das Wort sieht das Kind erst nach der Bestätigung.
+35. Ziel der Stunde am Tablet: höchstens drei Fertigkeiten, ohne Stand, Prozent oder Farbe für sicher bzw. gemeistert.
+36. Klassenarbeit im Check-in: Datum und Thema als Auswahl (aktuelles Schulthema, anderes Thema, weiß ich nicht), kein
+    Freitext. Bei „anderes“ oder „weiß ich nicht“ bleibt `klassenarbeit_thema_key` leer; das Thema wählt der Coach.
 
 ---
 

@@ -61,7 +61,7 @@ Lies vor jeder Aufgabe die relevanten Dateien in docs/:
 ## 6. Behavior-Tracking & Diagnosedaten
 
 - Rohdaten sind append-only: BehaviorSnapshots werden niemals überschrieben oder gelöscht
-- Kind-seitig: Niemals visuelles Feedback ob Antwort richtig/falsch
+- Kind-seitig: Niemals visuelles Feedback ob Antwort richtig/falsch (LSA und Diagnose; in der Session gilt Entscheidung 29 des Session-Bauauftrags)
 - Analyse-Logik: Ausschließlich in src/lib/behaviorAnalysis.ts
 - Timestamps: Immer als Millisekunden speichern, nie als formatierte Strings
 - Mock vs. Real: Mock-Daten in src/lib/mockData.ts – immer klar kennzeichnen

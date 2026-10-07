@@ -68,7 +68,7 @@ select pg_temp.checkin(:'s', 1, current_date + 2, 'zz_a2_quad'), pg_temp.checkin
 
 -- 16:32 bis 16:40 Warm-up. Deniz bekommt um 16:36 sein Tablet.
 select pg_temp.dl(:'s', 2, 1), pg_temp.dl(:'s', 2, 2);
-select pg_temp.dl(:'s', 4, 1), pg_temp.dl(:'s', 4, 2, true, true);
+select pg_temp.dl(:'s', 4, 1), pg_temp.dl(:'s', 4, 2);  -- kein Hinweis im Warm-up (Entscheidung 32)
 select pg_temp.act_as(:'coach_a');
 select public.tablet_zuweisen(:'s', :'deniz', 3);
 select pg_temp.uhr(:'s', 6);
