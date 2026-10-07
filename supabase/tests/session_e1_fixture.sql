@@ -38,9 +38,10 @@ insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe)
 values ('fkt_linear_steigung_nur_entwurf', 'E1 nur Entwurf', 8, 1);
 
 -- Drei Check-Aufgaben, freigegeben (ready). Antworten mit Fehlbild in known_errors.
+-- Einsatz nur 'check' (Entscheidung 28); erklaer_checks filtert seit A2 darauf.
 insert into tasks (cluster_id, content_type, input_type, status, question, afb,
-                   competency_content, est_duration_sec, class_level, source, source_ref)
-select c.id, 'exercise', 'NUMERIC', 'ready', q.frage, 'I', 'Funktionen', 120, 8, 'test', q.ref
+                   competency_content, est_duration_sec, class_level, source, source_ref, einsatz)
+select c.id, 'exercise', 'NUMERIC', 'ready', q.frage, 'I', 'Funktionen', 120, 8, 'test', q.ref, '{check}'
   from (select id from skill_clusters order by sort_order limit 1) c,
        (values ('e1-check-1', 'Die Gerade geht durch (0|0) und (1|2). Um wie viel steigt sie pro Schritt nach rechts?'),
                ('e1-check-2', 'Die Gerade geht durch (0|1) und (4|3). Bestimme die Steigung mit dem Steigungsdreieck.'),

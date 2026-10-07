@@ -94,12 +94,15 @@ values (:'lead_id', :'kind', 'abgeschlossen', 'aktiv',
         (date_trunc('month', current_date) - interval '1 month')::date,
         (date_trunc('month', current_date) + interval '11 months')::date - 1,
         (date_trunc('month', current_date) - interval '1 month')::date + 14);
-insert into coaching_sessions (id, coach_id, scheduled_at, status) values
-  (:'s1', :'coach_uid', now() - interval '7 days', 'done'),
-  (:'s2', :'coach_uid', now(), 'upcoming'),
-  (:'sf', :'fremd_uid', now(), 'upcoming'),
-  (:'s3', :'coach_uid', now() + interval '7 days', 'upcoming'),
-  (:'s4', :'coach_uid', now() + interval '14 days', 'upcoming');
+-- Seit A2 entscheidet ein Coach nur in der laufenden Session oder am selben Tag nach ihrem
+-- Abschluss (Rasit 06.10.). Deshalb: s1 heute abgeschlossen, s2 bis s4 laufen; die Reihenfolge
+-- der Sessions fuer die Belege bleibt scheduled_at.
+insert into coaching_sessions (id, coach_id, scheduled_at, status, gestartet_am, beendet_am) values
+  (:'s1', :'coach_uid', now() - interval '7 days', 'done', now() - interval '2 hours', now() - interval '1 hour'),
+  (:'s2', :'coach_uid', now(), 'active', now(), null),
+  (:'sf', :'fremd_uid', now(), 'active', now(), null),
+  (:'s3', :'coach_uid', now() + interval '7 days', 'active', now(), null),
+  (:'s4', :'coach_uid', now() + interval '14 days', 'active', now(), null);
 insert into session_students (session_id, student_id, attendance) values
   (:'s1', :'kind', 'present'), (:'s2', :'kind', 'present'), (:'s3', :'kind', 'planned'), (:'s4', :'kind', 'present');
 set local session_replication_role = origin;

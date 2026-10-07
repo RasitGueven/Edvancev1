@@ -1,6 +1,8 @@
 // Session-Rahmen R1: Typen der Server-Funktionen (Migrationen 20261007110100–110800).
 // Werte sind Datenbank-Konstanten; Anzeige-Texte kommen in P2 ueber i18n.
 
+import type { ErklaersequenzLive, MasteryKandidatLive, SchrittLive } from './sessionSchritt'
+
 export type SessionPhase = 'checkin' | 'warmup' | 'kern' | 'checkout'
 export type SessionFall = 'klassenarbeit' | 'schulthema' | 'lernpfad'
 export type Stimmung = 'gut' | 'geht_so' | 'angespannt'
@@ -98,10 +100,12 @@ export type KindLive = {
   letzte_eingabe_am: string | null
   status: KindStatus
   signale: RaumSignal[]
-  /** Platzhalter, gefuellt in P2 aus A1. */
-  mastery_kandidat: null
-  /** Platzhalter, gefuellt in P2 aus E1. */
-  erklaersequenz: null
+  /** A2: signalisierter, zur Pruefung faelliger Mastery-Kandidat (A1). */
+  mastery_kandidat: MasteryKandidatLive | null
+  /** A2: Stand der Erklaersequenz in dieser Session (E1). */
+  erklaersequenz: ErklaersequenzLive | null
+  /** A2: letzter Schritt der Engine mit Grund. */
+  schritt: SchrittLive | null
 }
 
 export type RaumLive = {

@@ -164,7 +164,8 @@ reset role;
 -- gestartete Session nur Admin oder System; geprueft wird hier der Fremdschluessel dahinter.
 select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
 select throws_matching(format($f$delete from coaching_sessions where id = %L$f$, :'session_id'),
-  'erklaer_fortschritt_session_id_fkey', '5d Session mit Lernverlauf ist nicht loeschbar (restrict)');
+  -- Seit A2 schreibt erklaer_check_abgeben auch session_ereignisse; welcher restrict-Schluessel zuerst greift, ist offen.
+  '(erklaer_fortschritt|session_ereignisse)_session_id_fkey', '5d Session mit Lernverlauf ist nicht loeschbar (restrict)');
 delete from lsa_sessions where student_id = :'kind_id';
 delete from students where id = :'kind_id';
 select is((select count(*)::int from erklaer_fortschritt where student_id = :'kind_id'), 0,
