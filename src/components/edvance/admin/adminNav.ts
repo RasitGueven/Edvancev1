@@ -80,6 +80,7 @@ export const ADMIN_NAV: NavKonfiguration = {
             '/admin/qs',
             '/admin/diagnostics',
             '/admin/report/*',
+            '/admin/pruefen/erklaerungen*',
           ],
           nameKey: 'nav.itemPflege',
           kurzKey: 'nav.kurz.itemPflege',

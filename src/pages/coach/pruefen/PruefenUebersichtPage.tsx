@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { ErklaerEinstieg } from '@/components/edvance/pruefen/erklaer/ErklaerEinstieg'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { Abschluss, AlsNaechstes, Themenliste } from '@/components/edvance/pruefen/Uebersicht'
@@ -85,6 +86,7 @@ export function PruefenUebersichtPage(): JSX.Element {
         {board && !abschluss && (
           <>
             <PageHeader titel={t('kopf.titel')} satz={t('kopf.text')} />
+            <ErklaerEinstieg />
             {board.length === 0 ? (
               <EmptyState icon="📋" title={t('themen.leer')} description={t('themen.leerText')} />
             ) : (

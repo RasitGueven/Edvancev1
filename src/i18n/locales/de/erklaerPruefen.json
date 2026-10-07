@@ -1,0 +1,242 @@
+{
+  "einstieg": {
+    "titel": "Erklärungen",
+    "text": "Kernideen mit Erklärschritt, Lösungsbeispiel, Varianten und Mini-Checks prüfen.",
+    "oeffnen": "Erklärungen prüfen",
+    "adminOeffnen": "Erklärungen freigeben"
+  },
+  "liste": {
+    "titel": "Erklärungen prüfen",
+    "satz": "Je Kernidee: Erklärschritt und Beispiel in allen Varianten, Denkfehler-Zuordnung und Mini-Checks. Offene stehen oben.",
+    "adminTitel": "Erklärungen freigeben",
+    "adminSatz": "Lena prüft jede Kernidee als Ganzes, hier gibst du sie für die Kinder frei.",
+    "zurueck": "Aufgaben prüfen",
+    "zurueckAdmin": "Item-Pflege",
+    "naechste": "Nächste offene prüfen",
+    "leer": "Noch keine Erklärungen",
+    "leerText": "Sobald die ersten Entwürfe da sind, erscheinen sie hier nach Thema sortiert.",
+    "filterLeer": "Hier ist gerade nichts",
+    "filterLeerText": {
+      "alle": "Es gibt noch keine Erklärungen.",
+      "bereit": "Keine Kernidee wartet auf die Freigabe.",
+      "rueckfragen": "Lena hat gerade keine offene Rückfrage."
+    },
+    "ohneThema": "Ohne Thema",
+    "offen_one": "{{count}} offen",
+    "offen_other": "{{count}} offen",
+    "kernidee": "Kernidee {{nr}}: {{titel}}",
+    "zeile": "{{skill}} · Varianten {{varianten}} · Checks {{ist}}/{{soll}}"
+  },
+  "filter": {
+    "label": "Filter",
+    "alle": "Alle",
+    "bereit": "Bereit zur Freigabe",
+    "rueckfragen": "Rückfragen"
+  },
+  "stand": {
+    "offen": "Offen",
+    "unsicher": "Unsicher",
+    "passt_nicht": "Passt nicht",
+    "passt": "Passt",
+    "freigegeben": "Freigegeben",
+    "rueckfrage": "Rückfrage",
+    "bereit": "Bereit zur Freigabe"
+  },
+  "status": {
+    "entwurf": "Entwurf",
+    "geprueft": "Geprüft",
+    "freigegeben": "Freigegeben"
+  },
+  "art": {
+    "erklaerung": "Erklärschritt",
+    "beispiel": "Lösungsbeispiel"
+  },
+  "detail": {
+    "rubrik": "{{skill}} · Kernidee {{nr}} von {{von}}",
+    "satz": "{{quelle}} · {{stand}}",
+    "quelle": {
+      "ki": "KI-Entwurf",
+      "mensch": "Von Hand geschrieben"
+    },
+    "zurueck": "Alle Erklärungen",
+    "fehlerTitel": "Erklärung",
+    "varianten": "Varianten",
+    "variante": "Variante {{variante}}",
+    "fuerFehlbilder_one": "für {{count}} Denkfehler",
+    "fuerFehlbilder_other": "für {{count}} Denkfehler",
+    "keineSchritte": "Zu dieser Kernidee gibt es noch keinen Erklärschritt."
+  },
+  "kind": {
+    "kopf": "Kernidee {{nr}} von {{von}} · {{art}}",
+    "dachErst": "Neu für dich",
+    "dachAnders": "Anders erklärt",
+    "dachBeispiel": "So geht's",
+    "formelFehlt": "Diese Formel ist noch nicht als Bild erzeugt. Das Kind sieht sie erst nach der Erzeugung.",
+    "formelnFehlen_one": "Eine Formel ist noch nicht als Bild erzeugt; hier steht der Quelltext.",
+    "formelnFehlen_other": "{{count}} Formeln sind noch nicht als Bild erzeugt; hier steht der Quelltext."
+  },
+  "editor": {
+    "speichern": "Schritt speichern",
+    "verwerfen": "Verwerfen",
+    "leer": "Der Schritt braucht einen Text.",
+    "formelnOffen": "Formeln als Bild: {{ist}} von {{soll}}. Nach dem Speichern werden sie neu erzeugt.",
+    "fehlbilder": "Variante {{variante}} ist gedacht für",
+    "keineFehlbilder": "Zu dieser Fertigkeit sind noch keine Denkfehler hinterlegt.",
+    "gesperrtFreigegeben": "Freigegeben. Ändern geht erst, wenn ein Admin die Freigabe zurücknimmt."
+  },
+  "checks": {
+    "titel": "Mini-Checks",
+    "soll": "Freigegeben {{ist}} von mindestens {{soll}}",
+    "leer": "Noch keine Check-Aufgabe zugeordnet.",
+    "nr": "Check {{nr}}: {{titel}}",
+    "zaehlt": "Zählt für die Freigabe",
+    "nichtFrei": "Aufgabe noch nicht freigegeben",
+    "ohneEinsatz": "Nicht als Check-Aufgabe markiert",
+    "inaktiv": "Aufgabe inaktiv",
+    "zurPruefung": "Diese Aufgabe prüfen",
+    "lena": {
+      "offen": "Aufgabe offen",
+      "passt": "Aufgabe: passt",
+      "unsicher": "Aufgabe: unsicher",
+      "passt_nicht": "Aufgabe: passt nicht",
+      "freigegeben": "Aufgabe freigegeben"
+    }
+  },
+  "fehlbilder": {
+    "titel": "Denkfehler zu dieser Fertigkeit",
+    "leer": "In den Aufgaben dieser Fertigkeit ist noch kein Denkfehler hinterlegt.",
+    "aufgaben_one": "in {{count}} Aufgabe",
+    "aufgaben_other": "in {{count}} Aufgaben",
+    "variante": "Variante {{varianten}}",
+    "ohneVariante": "keine Variante"
+  },
+  "leiste": {
+    "passtNicht": "Passt nicht",
+    "unsicher": "Unsicher",
+    "passt": "✓ Passt",
+    "nichtTitel": "Was stimmt nicht?",
+    "nichtWas": "Was genau? (optional, bei „Sonstiges“ bitte ausfüllen)",
+    "nichtSpeichern": "Als „Passt nicht“ speichern",
+    "unsicherTitel": "Was ist dir unklar?",
+    "unsicherPlatzhalter": "z. B. Ist Variante B wirklich für den Kehrwert-Fehler gedacht?",
+    "unsicherSpeichern": "Als „Unsicher“ speichern",
+    "abbrechen": "Abbrechen",
+    "fehltGrund": "Bitte mindestens einen Grund wählen.",
+    "fehltSonstiges": "Bei „Sonstiges“ bitte kurz beschreiben, was nicht stimmt.",
+    "fehltFrage": "Bitte kurz schreiben, was dir unklar ist.",
+    "keineErklaerung": "Ohne Erklärschritt gibt es nichts zu prüfen.",
+    "gesperrtFreigegeben": "Schon freigegeben, es gibt keinen neuen Entwurf zu prüfen.",
+    "nichtFreigegeben": "Schon freigegeben. Bei Zweifeln „Unsicher“ wählen, dann prüft ein Admin.",
+    "info": {
+      "offen": "Prüf alle Varianten und die Mini-Checks. „Passt“ gilt für die ganze Kernidee.",
+      "unsicher": "Deine Rückfrage liegt beim Admin.",
+      "passt_nicht": "Als „Passt nicht“ markiert. Sobald der Entwurf überarbeitet ist, kommt er wieder.",
+      "passt": "Geprüft. Jetzt gibt ein Admin die Kernidee frei.",
+      "freigegeben": "Freigegeben: Kinder sehen diese Erklärung."
+    }
+  },
+  "gruende": {
+    "fachlich_falsch": "Fachlich falsch",
+    "unklar": "Unklar oder mehrdeutig",
+    "zu_lang": "Zu lang für einen Bildschirm",
+    "sprache_klassenstufe": "Sprache nicht passend für die Klassenstufe",
+    "formel_bild_fehlerhaft": "Formel oder Bild fehlerhaft",
+    "variante_fehlbild": "Variante passt nicht zum Fehlbild",
+    "check_passt_nicht": "Mini-Check passt nicht zur Kernidee",
+    "sonstiges": "Sonstiges"
+  },
+  "meldung": {
+    "passt": "Als „Passt“ gespeichert.",
+    "unsicher": "Rückfrage an den Admin gestellt.",
+    "passt_nicht": "Als „Passt nicht“ gespeichert.",
+    "zurueckgenommen": "Zurückgenommen, die Kernidee ist wieder offen.",
+    "freigegeben": "Freigegeben. Kinder sehen diese Erklärung ab jetzt.",
+    "zurueck": "Freigabe zurückgenommen, die Kernidee liegt wieder bei Lena.",
+    "antwort": "Antwort an Lena geschickt."
+  },
+  "admin": {
+    "lena": "Lenas Ergebnis",
+    "lenaOffen": "Lena hat diese Kernidee noch nicht geprüft.",
+    "fehltTitel": "Für die Freigabe fehlt noch:",
+    "fehltTip": "Erst wenn nichts mehr fehlt, lässt sich freigeben.",
+    "schonFrei": "Schon freigegeben.",
+    "freigeben": "Freigeben",
+    "zuruecknehmenOeffnen": "Freigabe zurücknehmen",
+    "zuruecknehmen": "Zurücknehmen",
+    "grundTitel": "Warum nimmst du die Freigabe zurück?",
+    "grundPlatzhalter": "z. B. Beispiel passt nicht zu Klasse 8.",
+    "antworten": "Rückfrage beantworten",
+    "antwortTitel": "Deine Antwort an Lena",
+    "antwortPlatzhalter": "z. B. Ja, Variante B ist für den Kehrwert gedacht.",
+    "antwortSenden": "Antwort an Lena",
+    "textFehlt": "Bitte erst einen Text eingeben."
+  },
+  "fehlt": {
+    "kernidee_ungeprueft": "Lena hat die Kernidee noch nicht als „Passt“ geprüft.",
+    "keine_erklaerung": "Es gibt noch keinen Erklärschritt.",
+    "schritt_ungeprueft": "Variante {{variante}}, {{art}}: noch nicht geprüft.",
+    "schritt_nicht_freigegeben": "Variante {{variante}}, {{art}}: noch nicht freigegeben.",
+    "formeln_fehlen": "Variante {{variante}}, {{art}}: Formeln noch nicht als Bild erzeugt.",
+    "checks_one": "Mini-Checks: {{ist}} von {{soll}} freigegeben, es fehlt {{count}} freigegebene Check-Aufgabe.",
+    "checks_other": "Mini-Checks: {{ist}} von {{soll}} freigegeben, es fehlen {{count}} freigegebene Check-Aufgaben."
+  },
+  "protokoll": {
+    "titel": "Protokoll",
+    "leer": "Noch keine Einträge.",
+    "wer": "{{von}}, {{am}}",
+    "system": "System",
+    "notiz": "Notiz: {{notiz}}",
+    "antwort": "Antwort von {{von}}: {{antwort}}",
+    "aenderungen_one": "{{count}} Änderung",
+    "aenderungen_other": "{{count}} Änderungen",
+    "vorherNachher": "vorher: {{vorher}} → nachher: {{nachher}}",
+    "art": {
+      "passt": "Passt",
+      "unsicher": "Unsicher (Rückfrage)",
+      "passt_nicht": "Passt nicht",
+      "zurueckgenommen": "Rückgängig gemacht",
+      "freigegeben": "Freigegeben",
+      "freigabe_zurueck": "Freigabe zurückgenommen",
+      "geaendert": "Geändert",
+      "status": "Status gesetzt"
+    },
+    "wo": {
+      "kernidee": "Kernidee",
+      "check": "Mini-Check",
+      "schritt": "Variante {{variante}}, {{art}}"
+    },
+    "feld": {
+      "angelegt": "angelegt",
+      "titel": "Titel",
+      "nr": "Nummer",
+      "skill_key": "Fertigkeit",
+      "quelle": "Quelle",
+      "status": "Status",
+      "inhalt": "Text",
+      "bild": "Bild",
+      "fehlbild_slugs": "Denkfehler",
+      "formeln": "Formeln",
+      "reihenfolge": "Reihenfolge"
+    }
+  },
+  "fehlermeldung": {
+    "veraltet": "Die Erklärung wurde inzwischen geändert. Bitte neu laden.",
+    "eingabe": "Diese Eingabe kann so nicht gespeichert werden.",
+    "kein_recht": "Dafür fehlt dir das Recht.",
+    "nicht_gefunden": "Diese Erklärung gibt es nicht mehr.",
+    "allgemein": "Das hat nicht geklappt. Bitte versuch es noch einmal.",
+    "grund_fehlt": "Bitte einen Grund angeben.",
+    "grund_unbekannt": "Diesen Grund gibt es nicht.",
+    "notiz_fehlt": "Bitte kurz beschreiben, worum es geht.",
+    "nicht_bewertet": "Die Kernidee ist noch nicht bewertet.",
+    "freigegeben": "Die Kernidee ist schon freigegeben.",
+    "nicht_freigegeben": "Die Kernidee ist nicht freigegeben.",
+    "keine_erklaerung": "Ohne Erklärschritt gibt es nichts zu prüfen.",
+    "freigabe_unvollstaendig": "Für die Freigabe fehlt noch etwas (siehe Liste).",
+    "antwort_fehlt": "Bitte eine Antwort eingeben.",
+    "keine_rueckfrage": "Zu dieser Kernidee gibt es keine offene Rückfrage.",
+    "fehlbild_unbekannt": "Diesen Denkfehler gibt es nicht.",
+    "erst_pruefen": "Erst prüfen, dann freigeben.",
+    "formeln_fehlen": "Die Formeln sind noch nicht als Bild erzeugt."
+  }
+}
