@@ -51,10 +51,13 @@ Stand 07.10.2026, Branch `feat/rasit-session-c2-coach-live`. Jeder Punkt: was, w
 9. **Nie gestartete Sessions (Rasit 07.10.).** „Offen geblieben“ zeigt nur gestartete Sessions (`active`) nach
    geplantem Ende plus 30 Minuten. Vergangene, nie gestartete Sessions zwingen niemanden zum Abschließen (das würde
    Einheiten verbrauchen); sie stehen nur auf der Admin-Startseite als Zeile „Nicht gestartet (n)“ mit Link zum
-   Stundenplan, ohne Aktion (`sessions_nicht_gestartet`, nur Admin). dbread 07.10.: 7 Altfälle, Liste im PR. Was mit
-   ihnen passiert, entscheidet Rasit.
-10. **Testläufe unter „Offen geblieben“** erscheinen mit Kennzeichen; ein vergessener Testlauf muss auch
-    abgeschlossen werden. Entscheidung 27 betrifft Akten, Reports und Kennzahlen, nicht diese Arbeitsliste.
+   Stundenplan, ohne Aktion (`sessions_nicht_gestartet`, nur Admin).
+   **Testlauf-Regel (Rasit 07.10., wie X0 für die Zähler der Admin-Startseite):** Beide Listen lassen Sessions weg,
+   die `testlauf = true` haben, kein gebuchtes Kind haben oder nur Testkonten (`ist_test`) gebucht haben; das gilt
+   auch für die Coach-Startseite. Eine Session mit einem echten und einem Testkind zählt. **Die 7 Altfälle sind damit
+   erledigt:** dbread 07.10. nach dieser Regel 0 (alle gebuchten Kinder sind Testkonten, eine Session ist leer).
+10. **Testläufe** erscheinen weder unter „Offen geblieben“ noch unter „Nicht gestartet“ (Punkt 9). Einen
+    vergessenen Testlauf sieht man nur im Stundenplan bzw. über den Link der Coach-Startseite am selben Tag.
 11. **Quests der Woche im Briefing** zählen `verfallen` als „offen“ (Eltern sehen nur „erledigt“ oder „offen“,
     Entscheidung 21). Fenster: Termin bzw. Fälligkeit in den letzten sieben Tagen bis jetzt.
 12. **Briefing ohne laufenden Vertrag** gilt auch für Admins: Das Briefing ist Akten-Lesen (Entscheidung 26). Ein

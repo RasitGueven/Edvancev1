@@ -1,14 +1,14 @@
 {
     "satz": [
         {
-            "text": "Du hast mir ZZ Proportionale Zuordnung heute ganz allein erklärt. Das zeigt, dass du es wirklich verstanden hast.",
+            "text": "Wie du deinen Weg bei ZZ Proportionale Zuordnung erklärt hast, war klar und ruhig. Darauf kannst du bauen.",
             "anlass": "mastery",
-            "baustein_id": "f808c646-8835-4633-bd7f-370a5c25e79c"
+            "baustein_id": "c469784b-7123-4483-b372-3b7db22527a5"
         },
         {
-            "text": "Als es bei ZZ Proportionale Zuordnung gehakt hat, hast du nicht aufgegeben, sondern einen neuen Anlauf genommen.",
+            "text": "Du bist heute drangeblieben, auch als es schwierig wurde. Das bringt dich am meisten weiter.",
             "anlass": "dran_geblieben",
-            "baustein_id": "4d6a2679-203c-4d8e-8290-4dd3a19b9f83"
+            "baustein_id": "7a2e0ff9-3424-4a6a-9d6f-d8bb296144c9"
         }
     ],
     "briefing": [
@@ -16,13 +16,13 @@
             "name": "Deniz Beispiel",
             "klasse": 8,
             "schulthema": {
-                "seit": "2026-09-07T14:09:11.950556+02:00",
+                "seit": "2026-09-07T14:23:32.69626+02:00",
                 "tage": 30,
                 "label": "ZZ Lineare Funktionen",
                 "thema_key": "zz_a2_linear",
                 "nachfragen": true
             },
-            "student_id": "861c1606-4e71-4b2f-8b4e-32e2cae4a1b2",
+            "student_id": "83b1a1fe-9ca9-417c-ab11-316836eb806e",
             "flags_offen": [
             ],
             "quests_woche": {
@@ -40,13 +40,13 @@
             "name": "Emir Beispiel",
             "klasse": 8,
             "schulthema": {
-                "seit": "2026-10-07T14:09:11.950556+02:00",
+                "seit": "2026-10-07T14:23:32.69626+02:00",
                 "tage": 0,
                 "label": "ZZ Terme",
                 "thema_key": "zz_a2_terme",
                 "nachfragen": false
             },
-            "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+            "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
             "flags_offen": [
             ],
             "quests_woche": {
@@ -66,7 +66,7 @@
         }
     ],
     "raum_kern": {
-        "stand": "2026-10-07T14:09:12.109028+02:00",
+        "stand": "2026-10-07T14:23:32.917766+02:00",
         "kinder": [
             {
                 "fall": "schulthema",
@@ -75,16 +75,16 @@
                 "klasse": 8,
                 "status": "kandidat",
                 "aufgabe": {
-                    "seit": "2026-10-07T14:09:12.10387+02:00",
+                    "seit": "2026-10-07T14:23:32.910393+02:00",
                     "phase": "kern",
                     "payload": {
                         "kind": "short_input",
                         "assets": [
                         ],
-                        "prompt": "ZZ A2 zz_a2_s1 Nr 22: Wie viel ist 3 + 4?",
-                        "task_id": "2e29616f-fc96-4716-a758-817d878f5032"
+                        "prompt": "ZZ A2 zz_a2_s1 Nr 7: Wie viel ist 3 + 4?",
+                        "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2"
                     },
-                    "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                    "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                     "skill_key": "zz_a2_s1",
                     "eingemischt": false,
                     "nr_in_phase": 3
@@ -92,11 +92,11 @@
                 "quest_b": "2026-10-13",
                 "schritt": {
                     "art": "aufgabe",
-                    "zeit": "2026-10-07T14:09:12.103679+02:00",
+                    "zeit": "2026-10-07T14:23:32.910243+02:00",
                     "grund": "Kernarbeit: ZZ Klammern ausmultiplizieren, Stufe 2, geführt",
                     "modus": "gefuehrt",
                     "phase": "kern",
-                    "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                    "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                     "skill_key": "zz_a2_s1",
                     "grund_code": "kern",
                     "eingemischt": false,
@@ -107,7 +107,7 @@
                     {
                         "art": "kandidat",
                         "rang": 0,
-                        "seit": "2026-10-07T14:09:12.084425+02:00",
+                        "seit": "2026-10-07T14:23:32.87544+02:00",
                         "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                         "details": {
                             "art": "kandidat",
@@ -116,28 +116,28 @@
                             "skill_key": "zz_a2_v2",
                             "grund_code": "mastery_kandidat"
                         },
-                        "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                        "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
                     }
                 ],
                 "stimmung": "gut",
                 "abschluss": null,
                 "eingriffe": [
                     {
-                        "zeit": "2026-10-07T14:09:12.104838+02:00",
+                        "zeit": "2026-10-07T14:23:32.9124+02:00",
                         "stufe": 3
                     }
                 ],
                 "tablet_nr": 1,
                 "fall_coach": "schulthema",
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
                 "anwesenheit": "present",
-                "tablet_seit": "2026-10-07T14:09:12.069886+02:00",
+                "tablet_seit": "2026-10-07T14:23:32.853678+02:00",
                 "ergebnisfolge": [
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.088122+02:00",
+                        "zeit": "2026-10-07T14:23:32.879129+02:00",
                         "phase": "kern",
-                        "task_id": "0576bee9-2243-4351-994b-f0655d2121c6",
+                        "task_id": "04c4401d-dc10-4cf4-847e-11d78b0a673f",
                         "ergebnis": "falsch",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -145,9 +145,9 @@
                     },
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.099335+02:00",
+                        "zeit": "2026-10-07T14:23:32.90555+02:00",
                         "phase": "kern",
-                        "task_id": "23e995e1-d479-45f9-bd3c-b9a844c5b057",
+                        "task_id": "2bba93f9-a4f7-4155-95bc-1a2bb4a7e7e8",
                         "ergebnis": "richtig",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -165,18 +165,18 @@
                 "thema_stichwort": null,
                 "hinweise_genutzt": 1,
                 "mastery_kandidat": {
-                    "seit": "2026-10-07T14:09:12.084425+02:00",
+                    "seit": "2026-10-07T14:23:32.87544+02:00",
                     "label": "ZZ Proportionale Zuordnung",
                     "skill_key": "zz_a2_v2",
                     "stand_coach": null,
                     "pruefung_vorhanden": true
                 },
                 "ziel_thema_label": "ZZ Terme",
-                "letzte_eingabe_am": "2026-10-07T14:09:12.099335+02:00",
+                "letzte_eingabe_am": "2026-10-07T14:23:32.90555+02:00",
                 "pfad_entscheidung": null,
                 "klassenarbeit_datum": null,
                 "pruefung_auf_tablet": {
-                    "seit": "2026-10-07T14:09:12.105322+02:00",
+                    "seit": "2026-10-07T14:23:32.91348+02:00",
                     "skill_key": "zz_a2_v2"
                 }
             },
@@ -197,7 +197,7 @@
                 ],
                 "tablet_nr": null,
                 "fall_coach": null,
-                "student_id": "861c1606-4e71-4b2f-8b4e-32e2cae4a1b2",
+                "student_id": "83b1a1fe-9ca9-417c-ab11-316836eb806e",
                 "anwesenheit": "planned",
                 "tablet_seit": null,
                 "ergebnisfolge": [
@@ -221,14 +221,14 @@
             }
         ],
         "session": {
-            "id": "3946f109-cbbf-4bae-b26c-b8ec17f8765e",
+            "id": "5f7b5d60-9f6d-4896-84e7-6287826d8712",
             "room": "Raum 1",
             "status": "active",
             "testlauf": false,
             "beendet_am": null,
             "coach_name": "A2 Coach A",
-            "gestartet_am": "2026-10-07T13:49:11.950556+02:00",
-            "scheduled_at": "2026-10-07T14:09:11.950556+02:00",
+            "gestartet_am": "2026-10-07T14:03:32.69626+02:00",
+            "scheduled_at": "2026-10-07T14:23:32.69626+02:00",
             "einstellungen": {
                 "ka_tage": 7,
                 "quest_xp": 50,
@@ -266,7 +266,7 @@
             {
                 "art": "kandidat",
                 "rang": 0,
-                "seit": "2026-10-07T14:09:12.084425+02:00",
+                "seit": "2026-10-07T14:23:32.87544+02:00",
                 "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                 "details": {
                     "art": "kandidat",
@@ -275,7 +275,7 @@
                     "skill_key": "zz_a2_v2",
                     "grund_code": "mastery_kandidat"
                 },
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
             }
         ]
     },
@@ -331,27 +331,27 @@
         "phase": "kern",
         "klasse": 8,
         "aufgabe": {
-            "seit": "2026-10-07T14:09:12.10387+02:00",
+            "seit": "2026-10-07T14:23:32.910393+02:00",
             "phase": "kern",
             "payload": {
                 "kind": "short_input",
                 "assets": [
                 ],
-                "prompt": "ZZ A2 zz_a2_s1 Nr 22: Wie viel ist 3 + 4?",
-                "task_id": "2e29616f-fc96-4716-a758-817d878f5032"
+                "prompt": "ZZ A2 zz_a2_s1 Nr 7: Wie viel ist 3 + 4?",
+                "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2"
             },
-            "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+            "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
             "skill_key": "zz_a2_s1",
             "eingemischt": false,
             "nr_in_phase": 3
         },
         "schritt": {
             "art": "aufgabe",
-            "zeit": "2026-10-07T14:09:12.103679+02:00",
+            "zeit": "2026-10-07T14:23:32.910243+02:00",
             "grund": "Kernarbeit: ZZ Klammern ausmultiplizieren, Stufe 2, geführt",
             "modus": "gefuehrt",
             "phase": "kern",
-            "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+            "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
             "skill_key": "zz_a2_s1",
             "grund_code": "kern",
             "eingemischt": false,
@@ -362,7 +362,7 @@
             {
                 "art": "kandidat",
                 "rang": 0,
-                "seit": "2026-10-07T14:09:12.084425+02:00",
+                "seit": "2026-10-07T14:23:32.87544+02:00",
                 "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                 "details": {
                     "art": "kandidat",
@@ -371,25 +371,25 @@
                     "skill_key": "zz_a2_v2",
                     "grund_code": "mastery_kandidat"
                 },
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
             }
         ],
         "hinweise": [
             {
                 "text": "ZZ Hinweis: Zaehle weiter.",
-                "zeit": "2026-10-07T14:09:12.098736+02:00",
+                "zeit": "2026-10-07T14:23:32.904967+02:00",
                 "stufe": 1,
-                "task_id": "23e995e1-d479-45f9-bd3c-b9a844c5b057"
+                "task_id": "2bba93f9-a4f7-4155-95bc-1a2bb4a7e7e8"
             }
         ],
         "stimmung": "gut",
         "versuche": [
             {
                 "teil": null,
-                "zeit": "2026-10-07T14:09:12.088122+02:00",
+                "zeit": "2026-10-07T14:23:32.879129+02:00",
                 "phase": "kern",
                 "eingabe": "0",
-                "task_id": "0576bee9-2243-4351-994b-f0655d2121c6",
+                "task_id": "04c4401d-dc10-4cf4-847e-11d78b0a673f",
                 "dauer_ms": null,
                 "ergebnis": "falsch",
                 "versuch_nr": 1,
@@ -399,10 +399,10 @@
             },
             {
                 "teil": null,
-                "zeit": "2026-10-07T14:09:12.099335+02:00",
+                "zeit": "2026-10-07T14:23:32.90555+02:00",
                 "phase": "kern",
                 "eingabe": "7",
-                "task_id": "23e995e1-d479-45f9-bd3c-b9a844c5b057",
+                "task_id": "2bba93f9-a4f7-4155-95bc-1a2bb4a7e7e8",
                 "dauer_ms": null,
                 "ergebnis": "richtig",
                 "versuch_nr": 1,
@@ -414,7 +414,7 @@
         "eingriffe": [
             {
                 "von": "a2a2a2a2-0001-4000-8000-000000000002",
-                "zeit": "2026-10-07T14:09:12.104838+02:00",
+                "zeit": "2026-10-07T14:23:32.9124+02:00",
                 "stufe": 3,
                 "fehlbild_slug": "zz_a2_vz",
                 "fehlbild_klartext": "Nur das erste Vorzeichen geändert"
@@ -422,15 +422,15 @@
         ],
         "tablet_nr": 1,
         "fall_coach": "schulthema",
-        "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+        "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
         "anwesenheit": "present",
-        "tablet_seit": "2026-10-07T14:09:12.069886+02:00",
+        "tablet_seit": "2026-10-07T14:23:32.853678+02:00",
         "ergebnisfolge": [
             {
                 "teil": null,
-                "zeit": "2026-10-07T14:09:12.088122+02:00",
+                "zeit": "2026-10-07T14:23:32.879129+02:00",
                 "phase": "kern",
-                "task_id": "0576bee9-2243-4351-994b-f0655d2121c6",
+                "task_id": "04c4401d-dc10-4cf4-847e-11d78b0a673f",
                 "ergebnis": "falsch",
                 "versuch_nr": 1,
                 "eingemischt": false,
@@ -438,9 +438,9 @@
             },
             {
                 "teil": null,
-                "zeit": "2026-10-07T14:09:12.099335+02:00",
+                "zeit": "2026-10-07T14:23:32.90555+02:00",
                 "phase": "kern",
-                "task_id": "23e995e1-d479-45f9-bd3c-b9a844c5b057",
+                "task_id": "2bba93f9-a4f7-4155-95bc-1a2bb4a7e7e8",
                 "ergebnis": "richtig",
                 "versuch_nr": 1,
                 "eingemischt": false,
@@ -453,10 +453,10 @@
                 "kind": "short_input",
                 "assets": [
                 ],
-                "prompt": "ZZ A2 zz_a2_s1 Nr 22: Wie viel ist 3 + 4?",
-                "task_id": "2e29616f-fc96-4716-a758-817d878f5032"
+                "prompt": "ZZ A2 zz_a2_s1 Nr 7: Wie viel ist 3 + 4?",
+                "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2"
             },
-            "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+            "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
             "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
             "letzte_eingabe": null,
             "correct_answers": [
@@ -473,45 +473,45 @@
         "thema_stichwort": null,
         "hinweise_genutzt": 1,
         "mastery_kandidat": {
-            "seit": "2026-10-07T14:09:12.084425+02:00",
+            "seit": "2026-10-07T14:23:32.87544+02:00",
             "label": "ZZ Proportionale Zuordnung",
             "skill_key": "zz_a2_v2",
             "stand_coach": null,
             "pruefung_vorhanden": true
         },
         "ziel_thema_label": "ZZ Terme",
-        "letzte_eingabe_am": "2026-10-07T14:09:12.099335+02:00",
+        "letzte_eingabe_am": "2026-10-07T14:23:32.90555+02:00",
         "klassenarbeit_datum": null,
         "pruefung_auf_tablet": {
-            "seit": "2026-10-07T14:09:12.105322+02:00",
+            "seit": "2026-10-07T14:23:32.91348+02:00",
             "skill_key": "zz_a2_v2"
         }
     },
     "lernpfad_v2": {
-        "id": "34a2a28d-029b-411c-bc08-bb9db3a78b04",
+        "id": "08795c0d-8e12-49c0-9bc5-d54dbad29672",
         "belege": [
         ],
         "quelle": "lsa",
-        "angelegt": "2026-10-07T14:09:11.950556+02:00",
+        "angelegt": "2026-10-07T14:23:32.69626+02:00",
         "coach_am": null,
         "coach_von": null,
         "skill_key": "zz_a2_v2",
-        "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+        "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
         "coach_grund": null,
         "stand_coach": null,
-        "aktualisiert": "2026-10-07T14:09:11.950556+02:00",
+        "aktualisiert": "2026-10-07T14:23:32.69626+02:00",
         "stand_system": "kandidat",
         "lsa_session_id": null,
         "coach_session_id": null,
-        "letzte_uebung_am": "2026-09-17T14:09:11.950556+02:00",
+        "letzte_uebung_am": "2026-09-17T14:23:32.69626+02:00",
         "letzte_session_id": null,
-        "stand_system_seit": "2026-10-07T14:09:11.950556+02:00"
+        "stand_system_seit": "2026-10-07T14:23:32.69626+02:00"
     },
     "offen_admin": [
     ],
     "pruefung_v2": [
         {
-            "id": "1bc2b8db-a527-4234-ac6d-fcba58d7bfdb",
+            "id": "3249465e-6a23-47f9-b31f-c969680c077e",
             "frage": "3 Hefte kosten 4,50 €. Erklär mir, wie du den Preis für 7 Hefte findest.",
             "quelle": "mensch",
             "erwartung": "Erst der Preis für ein Heft, dann mal 7.",
@@ -520,7 +520,7 @@
         }
     ],
     "raum_vorher": {
-        "stand": "2026-10-07T14:09:12.067537+02:00",
+        "stand": "2026-10-07T14:23:32.848911+02:00",
         "kinder": [
             {
                 "fall": null,
@@ -539,7 +539,7 @@
                 ],
                 "tablet_nr": null,
                 "fall_coach": null,
-                "student_id": "861c1606-4e71-4b2f-8b4e-32e2cae4a1b2",
+                "student_id": "83b1a1fe-9ca9-417c-ab11-316836eb806e",
                 "anwesenheit": "planned",
                 "tablet_seit": null,
                 "ergebnisfolge": [
@@ -578,7 +578,7 @@
                 ],
                 "tablet_nr": null,
                 "fall_coach": null,
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
                 "anwesenheit": "planned",
                 "tablet_seit": null,
                 "ergebnisfolge": [
@@ -602,14 +602,14 @@
             }
         ],
         "session": {
-            "id": "3946f109-cbbf-4bae-b26c-b8ec17f8765e",
+            "id": "5f7b5d60-9f6d-4896-84e7-6287826d8712",
             "room": "Raum 1",
             "status": "upcoming",
             "testlauf": false,
             "beendet_am": null,
             "coach_name": "A2 Coach A",
             "gestartet_am": null,
-            "scheduled_at": "2026-10-07T14:09:11.950556+02:00",
+            "scheduled_at": "2026-10-07T14:23:32.69626+02:00",
             "einstellungen": {
                 "ka_tage": 7,
                 "quest_xp": 50,
@@ -647,7 +647,7 @@
         ]
     },
     "raum_checkout": {
-        "stand": "2026-10-07T14:09:12.125485+02:00",
+        "stand": "2026-10-07T14:23:32.943796+02:00",
         "kinder": [
             {
                 "fall": "schulthema",
@@ -656,16 +656,16 @@
                 "klasse": 8,
                 "status": "kandidat",
                 "aufgabe": {
-                    "seit": "2026-10-07T14:09:12.10387+02:00",
+                    "seit": "2026-10-07T14:23:32.910393+02:00",
                     "phase": "kern",
                     "payload": {
                         "kind": "short_input",
                         "assets": [
                         ],
-                        "prompt": "ZZ A2 zz_a2_s1 Nr 22: Wie viel ist 3 + 4?",
-                        "task_id": "2e29616f-fc96-4716-a758-817d878f5032"
+                        "prompt": "ZZ A2 zz_a2_s1 Nr 7: Wie viel ist 3 + 4?",
+                        "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2"
                     },
-                    "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                    "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                     "skill_key": "zz_a2_s1",
                     "eingemischt": false,
                     "nr_in_phase": 3
@@ -673,11 +673,11 @@
                 "quest_b": "2026-10-13",
                 "schritt": {
                     "art": "aufgabe",
-                    "zeit": "2026-10-07T14:09:12.103679+02:00",
+                    "zeit": "2026-10-07T14:23:32.910243+02:00",
                     "grund": "Kernarbeit: ZZ Klammern ausmultiplizieren, Stufe 2, geführt",
                     "modus": "gefuehrt",
                     "phase": "kern",
-                    "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                    "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                     "skill_key": "zz_a2_s1",
                     "grund_code": "kern",
                     "eingemischt": false,
@@ -688,7 +688,7 @@
                     {
                         "art": "kandidat",
                         "rang": 0,
-                        "seit": "2026-10-07T14:09:12.084425+02:00",
+                        "seit": "2026-10-07T14:23:32.87544+02:00",
                         "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                         "details": {
                             "art": "kandidat",
@@ -697,7 +697,7 @@
                             "skill_key": "zz_a2_v2",
                             "grund_code": "mastery_kandidat"
                         },
-                        "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                        "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
                     }
                 ],
                 "stimmung": "gut",
@@ -713,21 +713,21 @@
                 },
                 "eingriffe": [
                     {
-                        "zeit": "2026-10-07T14:09:12.104838+02:00",
+                        "zeit": "2026-10-07T14:23:32.9124+02:00",
                         "stufe": 3
                     }
                 ],
                 "tablet_nr": 1,
                 "fall_coach": "schulthema",
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
                 "anwesenheit": "present",
-                "tablet_seit": "2026-10-07T14:09:12.069886+02:00",
+                "tablet_seit": "2026-10-07T14:23:32.853678+02:00",
                 "ergebnisfolge": [
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.088122+02:00",
+                        "zeit": "2026-10-07T14:23:32.879129+02:00",
                         "phase": "kern",
-                        "task_id": "0576bee9-2243-4351-994b-f0655d2121c6",
+                        "task_id": "04c4401d-dc10-4cf4-847e-11d78b0a673f",
                         "ergebnis": "falsch",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -735,9 +735,9 @@
                     },
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.099335+02:00",
+                        "zeit": "2026-10-07T14:23:32.90555+02:00",
                         "phase": "kern",
-                        "task_id": "23e995e1-d479-45f9-bd3c-b9a844c5b057",
+                        "task_id": "2bba93f9-a4f7-4155-95bc-1a2bb4a7e7e8",
                         "ergebnis": "richtig",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -745,9 +745,9 @@
                     },
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.121654+02:00",
+                        "zeit": "2026-10-07T14:23:32.938329+02:00",
                         "phase": "kern",
-                        "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                        "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                         "ergebnis": "richtig",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -756,7 +756,7 @@
                 ],
                 "mastery_heute": [
                     {
-                        "am": "2026-10-07T14:09:12.117755+02:00",
+                        "am": "2026-10-07T14:23:32.933058+02:00",
                         "von": "A2 Coach A",
                         "grund": null,
                         "label": "ZZ Proportionale Zuordnung",
@@ -774,7 +774,7 @@
                 "hinweise_genutzt": 1,
                 "mastery_kandidat": null,
                 "ziel_thema_label": "ZZ Terme",
-                "letzte_eingabe_am": "2026-10-07T14:09:12.121654+02:00",
+                "letzte_eingabe_am": "2026-10-07T14:23:32.938329+02:00",
                 "pfad_entscheidung": null,
                 "klassenarbeit_datum": null,
                 "pruefung_auf_tablet": null
@@ -796,7 +796,7 @@
                 ],
                 "tablet_nr": null,
                 "fall_coach": null,
-                "student_id": "861c1606-4e71-4b2f-8b4e-32e2cae4a1b2",
+                "student_id": "83b1a1fe-9ca9-417c-ab11-316836eb806e",
                 "anwesenheit": "planned",
                 "tablet_seit": null,
                 "ergebnisfolge": [
@@ -820,14 +820,14 @@
             }
         ],
         "session": {
-            "id": "3946f109-cbbf-4bae-b26c-b8ec17f8765e",
+            "id": "5f7b5d60-9f6d-4896-84e7-6287826d8712",
             "room": "Raum 1",
             "status": "active",
             "testlauf": false,
             "beendet_am": null,
             "coach_name": "A2 Coach A",
-            "gestartet_am": "2026-10-07T13:13:11.950556+02:00",
-            "scheduled_at": "2026-10-07T14:09:11.950556+02:00",
+            "gestartet_am": "2026-10-07T13:27:32.69626+02:00",
+            "scheduled_at": "2026-10-07T14:23:32.69626+02:00",
             "einstellungen": {
                 "ka_tage": 7,
                 "quest_xp": 50,
@@ -865,7 +865,7 @@
             {
                 "art": "kandidat",
                 "rang": 0,
-                "seit": "2026-10-07T14:09:12.084425+02:00",
+                "seit": "2026-10-07T14:23:32.87544+02:00",
                 "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                 "details": {
                     "art": "kandidat",
@@ -874,12 +874,12 @@
                     "skill_key": "zz_a2_v2",
                     "grund_code": "mastery_kandidat"
                 },
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
             }
         ]
     },
     "raum_testlauf": {
-        "stand": "2026-10-07T14:09:12.131218+02:00",
+        "stand": "2026-10-07T14:23:32.94899+02:00",
         "kinder": [
             {
                 "fall": null,
@@ -898,9 +898,9 @@
                 ],
                 "tablet_nr": 1,
                 "fall_coach": null,
-                "student_id": "8734be32-11fa-4cc1-86c4-90d8beb480a5",
+                "student_id": "eeff869a-faa9-43e5-8ab2-be16a81c4371",
                 "anwesenheit": "present",
-                "tablet_seit": "2026-10-07T14:09:12.128781+02:00",
+                "tablet_seit": "2026-10-07T14:23:32.947011+02:00",
                 "ergebnisfolge": [
                 ],
                 "mastery_heute": [
@@ -922,14 +922,14 @@
             }
         ],
         "session": {
-            "id": "c830bdf6-1698-46fa-8461-673349a0bc92",
+            "id": "4bcc7310-b6f1-4ee4-b311-e9c70c70075d",
             "room": "ZZ A2",
             "status": "active",
             "testlauf": true,
             "beendet_am": null,
             "coach_name": "A2 Coach A",
-            "gestartet_am": "2026-10-07T13:49:11.950556+02:00",
-            "scheduled_at": "2026-10-07T14:09:11.950556+02:00",
+            "gestartet_am": "2026-10-07T14:03:32.69626+02:00",
+            "scheduled_at": "2026-10-07T14:23:32.69626+02:00",
             "einstellungen": {
                 "ka_tage": 7,
                 "quest_xp": 50,
@@ -967,7 +967,7 @@
         ]
     },
     "raum_gemeistert": {
-        "stand": "2026-10-07T14:09:12.120401+02:00",
+        "stand": "2026-10-07T14:23:32.936082+02:00",
         "kinder": [
             {
                 "fall": "schulthema",
@@ -976,16 +976,16 @@
                 "klasse": 8,
                 "status": "kandidat",
                 "aufgabe": {
-                    "seit": "2026-10-07T14:09:12.10387+02:00",
+                    "seit": "2026-10-07T14:23:32.910393+02:00",
                     "phase": "kern",
                     "payload": {
                         "kind": "short_input",
                         "assets": [
                         ],
-                        "prompt": "ZZ A2 zz_a2_s1 Nr 22: Wie viel ist 3 + 4?",
-                        "task_id": "2e29616f-fc96-4716-a758-817d878f5032"
+                        "prompt": "ZZ A2 zz_a2_s1 Nr 7: Wie viel ist 3 + 4?",
+                        "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2"
                     },
-                    "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                    "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                     "skill_key": "zz_a2_s1",
                     "eingemischt": false,
                     "nr_in_phase": 3
@@ -993,11 +993,11 @@
                 "quest_b": "2026-10-13",
                 "schritt": {
                     "art": "aufgabe",
-                    "zeit": "2026-10-07T14:09:12.103679+02:00",
+                    "zeit": "2026-10-07T14:23:32.910243+02:00",
                     "grund": "Kernarbeit: ZZ Klammern ausmultiplizieren, Stufe 2, geführt",
                     "modus": "gefuehrt",
                     "phase": "kern",
-                    "task_id": "2e29616f-fc96-4716-a758-817d878f5032",
+                    "task_id": "47a24cc4-e99b-4311-a3a5-35218a76e0e2",
                     "skill_key": "zz_a2_s1",
                     "grund_code": "kern",
                     "eingemischt": false,
@@ -1008,7 +1008,7 @@
                     {
                         "art": "kandidat",
                         "rang": 0,
-                        "seit": "2026-10-07T14:09:12.084425+02:00",
+                        "seit": "2026-10-07T14:23:32.87544+02:00",
                         "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                         "details": {
                             "art": "kandidat",
@@ -1017,28 +1017,28 @@
                             "skill_key": "zz_a2_v2",
                             "grund_code": "mastery_kandidat"
                         },
-                        "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                        "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
                     }
                 ],
                 "stimmung": "gut",
                 "abschluss": null,
                 "eingriffe": [
                     {
-                        "zeit": "2026-10-07T14:09:12.104838+02:00",
+                        "zeit": "2026-10-07T14:23:32.9124+02:00",
                         "stufe": 3
                     }
                 ],
                 "tablet_nr": 1,
                 "fall_coach": "schulthema",
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2",
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab",
                 "anwesenheit": "present",
-                "tablet_seit": "2026-10-07T14:09:12.069886+02:00",
+                "tablet_seit": "2026-10-07T14:23:32.853678+02:00",
                 "ergebnisfolge": [
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.088122+02:00",
+                        "zeit": "2026-10-07T14:23:32.879129+02:00",
                         "phase": "kern",
-                        "task_id": "0576bee9-2243-4351-994b-f0655d2121c6",
+                        "task_id": "04c4401d-dc10-4cf4-847e-11d78b0a673f",
                         "ergebnis": "falsch",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -1046,9 +1046,9 @@
                     },
                     {
                         "teil": null,
-                        "zeit": "2026-10-07T14:09:12.099335+02:00",
+                        "zeit": "2026-10-07T14:23:32.90555+02:00",
                         "phase": "kern",
-                        "task_id": "23e995e1-d479-45f9-bd3c-b9a844c5b057",
+                        "task_id": "2bba93f9-a4f7-4155-95bc-1a2bb4a7e7e8",
                         "ergebnis": "richtig",
                         "versuch_nr": 1,
                         "eingemischt": false,
@@ -1057,7 +1057,7 @@
                 ],
                 "mastery_heute": [
                     {
-                        "am": "2026-10-07T14:09:12.117755+02:00",
+                        "am": "2026-10-07T14:23:32.933058+02:00",
                         "von": "A2 Coach A",
                         "grund": null,
                         "label": "ZZ Proportionale Zuordnung",
@@ -1075,7 +1075,7 @@
                 "hinweise_genutzt": 1,
                 "mastery_kandidat": null,
                 "ziel_thema_label": "ZZ Terme",
-                "letzte_eingabe_am": "2026-10-07T14:09:12.099335+02:00",
+                "letzte_eingabe_am": "2026-10-07T14:23:32.90555+02:00",
                 "pfad_entscheidung": null,
                 "klassenarbeit_datum": null,
                 "pruefung_auf_tablet": null
@@ -1097,7 +1097,7 @@
                 ],
                 "tablet_nr": null,
                 "fall_coach": null,
-                "student_id": "861c1606-4e71-4b2f-8b4e-32e2cae4a1b2",
+                "student_id": "83b1a1fe-9ca9-417c-ab11-316836eb806e",
                 "anwesenheit": "planned",
                 "tablet_seit": null,
                 "ergebnisfolge": [
@@ -1121,14 +1121,14 @@
             }
         ],
         "session": {
-            "id": "3946f109-cbbf-4bae-b26c-b8ec17f8765e",
+            "id": "5f7b5d60-9f6d-4896-84e7-6287826d8712",
             "room": "Raum 1",
             "status": "active",
             "testlauf": false,
             "beendet_am": null,
             "coach_name": "A2 Coach A",
-            "gestartet_am": "2026-10-07T13:49:11.950556+02:00",
-            "scheduled_at": "2026-10-07T14:09:11.950556+02:00",
+            "gestartet_am": "2026-10-07T14:03:32.69626+02:00",
+            "scheduled_at": "2026-10-07T14:23:32.69626+02:00",
             "einstellungen": {
                 "ka_tage": 7,
                 "quest_xp": 50,
@@ -1166,7 +1166,7 @@
             {
                 "art": "kandidat",
                 "rang": 0,
-                "seit": "2026-10-07T14:09:12.084425+02:00",
+                "seit": "2026-10-07T14:23:32.87544+02:00",
                 "grund": "Mastery-Prüfung möglich: ZZ Proportionale Zuordnung",
                 "details": {
                     "art": "kandidat",
@@ -1175,7 +1175,7 @@
                     "skill_key": "zz_a2_v2",
                     "grund_code": "mastery_kandidat"
                 },
-                "student_id": "743ae5cb-481a-4b21-a5cd-1dc3ca4d62f2"
+                "student_id": "0c2d7ff7-502a-4222-8a15-eda4a09d4aab"
             }
         ]
     },
@@ -1190,19 +1190,5 @@
         "message": "tablet_zuweisen: Kind ist in dieser Session nicht gebucht"
     },
     "nicht_gestartet_admin": [
-        {
-            "room": "ZZ A2 alt",
-            "kinder": 0,
-            "testlauf": false,
-            "session_id": "874217d8-f139-4918-be97-391a24d407eb",
-            "scheduled_at": "2026-09-30T14:09:11.950556+02:00"
-        },
-        {
-            "room": "Raum 2",
-            "kinder": 0,
-            "testlauf": false,
-            "session_id": "2c3fb314-d73f-4b8b-a045-0b67c089d83a",
-            "scheduled_at": "2026-10-06T14:09:11.950556+02:00"
-        }
     ]
 }

@@ -8,7 +8,8 @@
 --   2) satz_vorschlaege: zwei Vorschlaege aus aktiven Bausteinen; Platzhalter ersetzt; inaktive nie;
 --      Testlauf erlaubt.
 --   3) sessions_offen: genau die gestarteten ueber der Grenze und nicht abgeschlossenen; nie gestartete nur in
---      sessions_nicht_gestartet (nur Admin).
+--      sessions_nicht_gestartet (nur Admin). Testlauf, ohne Kinder, nur Testkonten erscheinen nicht; ein echtes
+--      und ein Testkind erscheint.
 --   4) X0b-Waechter: laeuft in session_x0b.test.sql ueber alle Funktionen (auch die neuen); hier
 --      zusaetzlich der Katalog: neue Funktionen sind SECURITY DEFINER mit festem search_path.
 --   L) coach_raum_live: testlauf, abschluss, eingriffe, pfad_entscheidung je Kind.
@@ -139,25 +140,40 @@ select is(:'brt'::jsonb -> 'flags_offen', '[]'::jsonb, '1 Flag aus dem Testlauf 
 select is(:'brt'::jsonb ->> 'erste_session', 'true', '1 Testlauf zaehlt nicht als fruehere Session');
 
 -- ── 3) sessions_offen / sessions_nicht_gestartet ──────────────────────────
+-- Testlauf-Regel (X0): ohne Testlauf, ohne leere Sessions, ohne Sessions nur mit Testkonten.
 select pg_temp.act_as(:'admin');
 insert into coaching_sessions (coach_id, room, scheduled_at) values
   (:'coach_a', 'ZZ C2 offen alt', now() - interval '2 hours'),
   (:'coach_a', 'ZZ C2 nie', now() - interval '2 hours'),
   (:'coach_a', 'ZZ C2 knapp', now() - interval '80 minutes'),
   (:'coach_a', 'ZZ C2 fertig', now() - interval '3 hours'),
-  (:'coach_b', 'ZZ C2 fremd', now() - interval '2 hours');
+  (:'coach_b', 'ZZ C2 fremd', now() - interval '2 hours'),
+  (:'coach_a', 'ZZ C2 testlauf', now() - interval '2 hours'),
+  (:'coach_a', 'ZZ C2 leer', now() - interval '2 hours'),
+  (:'coach_a', 'ZZ C2 nur test', now() - interval '2 hours'),
+  (:'coach_a', 'ZZ C2 nie test', now() - interval '2 hours'),
+  (:'coach_a', 'ZZ C2 nie leer', now() - interval '2 hours');
+insert into session_students (session_id, student_id)
+select cs.id, k.k
+  from coaching_sessions cs
+  join (values ('ZZ C2 offen alt', :'k_deniz'::uuid), ('ZZ C2 offen alt', :'k_tim'::uuid), ('ZZ C2 nie', :'k_deniz'::uuid),
+               ('ZZ C2 knapp', :'k_deniz'::uuid), ('ZZ C2 fertig', :'k_deniz'::uuid), ('ZZ C2 fremd', :'k_deniz'::uuid),
+               ('ZZ C2 testlauf', :'k_tim'::uuid), ('ZZ C2 nur test', :'k_tim'::uuid), ('ZZ C2 nie test', :'k_tim'::uuid)) k(raum, k)
+    on k.raum = cs.room;
 select set_config('edvance.session_rpc', '1', true);
 update coaching_sessions set status = 'done' where room = 'ZZ C2 fertig';
 update coaching_sessions set status = 'active', gestartet_am = scheduled_at
- where room in ('ZZ C2 fremd', 'ZZ C2 offen alt', 'ZZ C2 knapp');
+ where room in ('ZZ C2 fremd', 'ZZ C2 offen alt', 'ZZ C2 knapp', 'ZZ C2 testlauf', 'ZZ C2 leer', 'ZZ C2 nur test');
+update coaching_sessions set testlauf = true where room = 'ZZ C2 testlauf';
 select set_config('edvance.session_rpc', '', true);
 select is((select array_agg(room order by room) from sessions_offen() where room like 'ZZ C2%'),
-          array['ZZ C2 fremd', 'ZZ C2 offen alt'], '3 Admin: genau die gestarteten ueber der Grenze, nicht abgeschlossen');
+          array['ZZ C2 fremd', 'ZZ C2 offen alt'],
+          '3 Admin: gestartet, ueber der Grenze, nicht abgeschlossen; echtes + Testkind ja, Testlauf/leer/nur Testkonten nein');
 select is((select array_agg(room order by room) from sessions_nicht_gestartet() where room like 'ZZ C2%'),
-          array['ZZ C2 nie'], '3 nie gestartet: eigene Liste, nicht unter offen');
+          array['ZZ C2 nie'], '3 nie gestartet: eigene Liste; ohne Kinder und nur Testkonten nicht');
 select pg_temp.act_as(:'coach_a');
 select is((select array_agg(room order by room) from sessions_offen() where room like 'ZZ C2%'),
-          array['ZZ C2 offen alt'], '3 Coach: nur die eigenen gestarteten');
+          array['ZZ C2 offen alt'], '3 Coach: nur die eigenen, gleiche Regel');
 select throws_ok('select * from sessions_nicht_gestartet()', '42501', null, '3 nie gestartet: Coach -> 42501');
 select pg_temp.act_as(:'schueler');
 select throws_ok('select * from sessions_offen()', '42501', null, '3 Schuelerkonto -> 42501');
