@@ -34,6 +34,7 @@ import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayerStillgelegt } from '@/pages/student/TaskPlayerStillgelegt'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
+import { COACH_LIVE_ROLLEN, CoachLivePage } from '@/pages/coach/live/CoachLivePage'
 import { AdminLayout } from '@/components/edvance/admin/AdminLayout'
 import { ThemePanel } from '@/components/edvance/ThemePanel'
 import { DiagnosisProvider } from '@/context/DiagnosisContext'
@@ -316,6 +317,16 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <VertragUnterlagenPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Coach-Live-Sicht einer Session (Session-Rahmen C1): Fokus-Seite ohne Leiste,
+            ausserhalb jeder Layout-Route; Coach und Admin, keine Schuelerkonten. */}
+        <Route
+          path="/coach/session/:id/live"
+          element={
+            <ProtectedRoute allowedRoles={COACH_LIVE_ROLLEN}>
+              <CoachLivePage />
             </ProtectedRoute>
           }
         />

@@ -13,6 +13,10 @@ type ThemaSucheProps = {
   aktuell: string | null
   disabled: boolean
   onWaehle: (themaKey: string) => void
+  /** Vorbelegung, z. B. das Stichwort aus dem Check-in des Kindes. */
+  startEingabe?: string
+  /** Eigene id, wenn mehrere Suchen auf einer Seite stehen. */
+  inputId?: string
 }
 
 /**
@@ -26,9 +30,11 @@ export function ThemaSuche({
   aktuell,
   disabled,
   onWaehle,
+  startEingabe = '',
+  inputId = 'thema-suche',
 }: ThemaSucheProps): JSX.Element {
   const { t } = useTranslation('admin')
-  const [eingabe, setEingabe] = useState('')
+  const [eingabe, setEingabe] = useState(startEingabe)
   const [andereOffen, setAndereOffen] = useState(false)
 
   const treffer = sucheThemen(katalog, eingabe)
@@ -55,7 +61,7 @@ export function ThemaSuche({
           aria-hidden
         />
         <Input
-          id="thema-suche"
+          id={inputId}
           className="h-12 pl-9"
           value={eingabe}
           onChange={(e) => setEingabe(e.target.value)}
