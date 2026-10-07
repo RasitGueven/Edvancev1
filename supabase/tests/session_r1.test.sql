@@ -223,7 +223,7 @@ select pg_temp.act_as(:'coach_a');
 select aufgabe_ausgeben(:'s', k, :'t3') from unnest(array[:'k3', :'k4']::uuid[]) k;
 select pg_temp.act_as(pg_temp.tablet(3));
 select results_eq(format('select hinweis_abrufen(%L, %L, 1)', :'s', :'t3'),
-  $$values ('{"stufe":1,"text":null,"verfuegbar":false}'::jsonb)$$, '7 Hinweis ohne Pruefstatus wird nicht geliefert');
+  $$values ('{"stufe":1,"text":null,"verfuegbar":false,"weitere":true}'::jsonb)$$, '7 Hinweis ohne Pruefstatus wird nicht geliefert');  -- A2c: weitere
 select is((hinweis_abrufen(:'s', :'t3', 2)) ->> 'text', 'ZZ Hinweis geprueft', '7 gepruefter Hinweis wird geliefert');
 select throws_ok(format('select hinweis_abrufen(%L, %L, 4)', :'s', :'t3'), '22023', null, '7 Stufe ueber hinweisstufen abgelehnt');
 select pg_temp.act_as(pg_temp.tablet(4));
