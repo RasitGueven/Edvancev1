@@ -160,7 +160,7 @@ export type KindDetail = Omit<KindLive, 'status'> & {
 }
 
 export type TabletStand =
-  | { zugewiesen: false }
+  | { zugewiesen: false; tablet_nr?: number | null }  // tablet_nr nur fuer Platz-Konten (A2c)
   | {
       zugewiesen: true
       session_id: string
@@ -179,7 +179,8 @@ export type AntwortRueckmeldung =
   | { gespeichert: true; ergebnis: AntwortErgebnis; versuch_nr: number; fehlbild_klartext: string | null }
   | { gespeichert: true; versuch_nr: number }
 
-export type HinweisAntwort = { stufe: number; text: string | null; verfuegbar: boolean }
+/** weitere: es gibt eine naechste Stufe (A2c, hinweisstufen sieht das Tablet sonst nicht). */
+export type HinweisAntwort = { stufe: number; text: string | null; verfuegbar: boolean; weitere: boolean }
 
 export type CheckinKind = {
   stimmung: Stimmung
