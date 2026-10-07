@@ -20,7 +20,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(65);
+select plan(70);
 
 \ir session_a2_fixture.sql
 
@@ -229,6 +229,48 @@ select pg_temp.loese(:'s9', 1, true), pg_temp.loese(:'s9', 1, true);
 select pg_temp.act_as(:'coach_a');
 select session_abschliessen(:'s9');
 select is((select count(*)::int from xp_events where student_id = :'k_tim'), 0, '7 Testlauf bucht nie');
+
+-- ── E) Ein Versuch je Aufgabe, Hinweise nur vor dem Abgeben (Rasit 07.10.) ──
+create or replace function pg_temp.fehler(p_sql text) returns text language plpgsql as $f$
+declare v_state text; v_hint text;
+begin
+  execute p_sql;
+  return 'kein Fehler';
+exception when others then
+  get stacked diagnostics v_state = returned_sqlstate, v_hint = pg_exception_hint;
+  return v_state || ':' || coalesce(v_hint, '');
+end $f$;
+select pg_temp.kind_mit('ZZ Lina A2b', 'zz_a2_linear', '{zz_a2_v2}') as k_lina \gset
+select pg_temp.neue_session(array[:'k_lina']::uuid[], 20) as s10 \gset
+select pg_temp.checkin(:'s10', 1);
+select pg_temp.schritt(:'s10', 1);
+select pg_temp.act_as(pg_temp.tablet(1));
+select (erklaer_start(:'s10', :'k_lina', 'zz_a2_n1')) -> 'check' ->> 'task_id' as chk10 \gset
+select pg_temp.act_as(pg_temp.tablet(1));
+select erklaer_check_abgeben(:'s10', :'k_lina', :'chk10', '{"text":"7"}');
+select pg_temp.schritt(:'s10', 1);                         -- Beispiel
+select pg_temp.schritt_tablet(:'s10', 1) ->> 'task_id' as a10 \gset
+select pg_temp.antwort(:'s10', 1, false);
+select (select count(*) from session_antworten where session_id = :'s10') as n_antw,
+       (select count(*) from lernpfad_belege where session_id = :'s10') as n_beleg,
+       (select count(*) from session_ereignisse where session_id = :'s10') as n_ereig \gset
+select pg_temp.act_as(pg_temp.tablet(1));
+select is(pg_temp.fehler(format($$select antwort_abgeben(%L, %L, null, '"7"')$$, :'s10', :'a10')), 'P0001:schon_beantwortet',
+          'E zweite Antwort zur selben Ausgabe -> P0001 schon_beantwortet (auch nach falscher erster)');
+select is(array[(select count(*) from session_antworten where session_id = :'s10'),
+                (select count(*) from lernpfad_belege where session_id = :'s10'),
+                (select count(*) from session_ereignisse where session_id = :'s10')]::int[],
+          array[:n_antw, :n_beleg, :n_ereig]::int[], 'E abgelehnte Antwort bucht nichts (Antwort, Beleg, Ereignis)');
+select is(pg_temp.fehler(format($$select hinweis_abrufen(%L, %L, 1)$$, :'s10', :'a10')), 'P0001:hinweis_nach_antwort',
+          'E Hinweis nach der Antwort -> P0001 hinweis_nach_antwort');
+-- Zweiter Fehlversuch in Folge auf der naechsten Aufgabe: Signal und "nochmal erklaeren" (F6) loesen aus.
+select pg_temp.loese(:'s10', 1, false);
+select pg_temp.act_as(:'coach_a');
+select is((select count(*)::int from raum_signale(:'s10') where art = 'haengt' and grund = 'fehlversuche'), 1,
+          'E zwei Fehlversuche in Folge ueber zwei Aufgaben -> Signal haengt');
+select pg_temp.schritt_tablet(:'s10', 1) as ang \gset
+select is(:'ang'::jsonb ->> 'art' || '/' || (:'ang'::jsonb ->> 'erklaerung_weg'), 'erklaerung_angebot/nachlesen',
+          'E danach "nochmal erklaeren" angeboten (F6), Weg nachlesen');
 
 select * from finish();
 rollback;

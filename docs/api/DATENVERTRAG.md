@@ -570,19 +570,21 @@ Das Tablet übergibt `p_student_id = null`.
   - `falsch` mit dem Fehlbild-Satz (`fehlbild_klartext`, falls vorhanden) und dem Fehler-Rand der App.
   - Bei Exit nur „Gespeichert“.
   - Die LSA bleibt ohne Richtig und Falsch.
-- **Kein zweiter Versuch:** Nach der Antwort ruft die App `session_naechster_schritt` und bietet keinen zweiten Versuch an. Der Server lehnt einen zweiten Versuch heute nicht ab (offene-punkte-a2b.md).
+- **Kein zweiter Versuch:** Nach der Antwort ruft die App `session_naechster_schritt` und bietet keinen zweiten Versuch an. Der Server lehnt jede zweite Antwort zur selben Ausgabe und demselben Teil ab, auch nach einer falschen ersten; dabei wird nichts gespeichert oder gebucht.
 - **Fehler:**
   - 42501: kein Platz.
-  - P0001: Aufgabe nicht gegeben, oder schon richtig gelöst.
+  - P0001: Aufgabe nicht gegeben.
+  - P0001 mit Hinweis `schon_beantwortet`: zu dieser Ausgabe und diesem Teil liegt schon eine Antwort vor.
   - 22023: leere Eingabe oder unbekannter Teil.
 
 #### `hinweis_abrufen(p_session_id, p_task_id, p_stufe) → { stufe: number; text: string | null; verfuegbar: boolean }`
-- **Wann:** nur bei `hinweise_erlaubt = true`, also bei Aufgaben der Kernarbeit (Entscheidung 32), und nur vor dem Abgeben.
+- **Wann:** nur bei `hinweise_erlaubt = true`, also bei Aufgaben der Kernarbeit (Entscheidung 32), und nur vor dem Abgeben. Hinweise hängen an der Aufgabe, nicht am Teil: Bei `multi_part` gibt es nach der ersten Teil-Antwort keinen Hinweis mehr.
 - **Stufen** der Reihe nach, ab 1, höchstens `hinweisstufen`.
 - **`verfuegbar: false`:** Zu dieser Stufe gibt es keinen geprüften Hinweis.
 - **Fehler:**
   - 42501: kein Platz.
   - P0001: Aufgabe nicht gegeben.
+  - P0001 mit Hinweis `hinweis_nach_antwort`: zu dieser Ausgabe liegt schon eine Antwort vor.
   - 22023, Hinweis nennt den Grund: Stufe nicht freigeschaltet; `hinweis_reihenfolge`; `exit_ohne_hinweis`; `warmup_ohne_hinweis`.
 
 #### `erklaer_start(p_session_id, p_student_id, p_skill_key)` / `erklaer_check_abgeben(p_session_id, p_student_id, p_check_task_id, p_eingabe)`

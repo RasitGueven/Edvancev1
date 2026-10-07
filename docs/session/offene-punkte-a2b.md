@@ -2,22 +2,19 @@
 
 Stand 07.10.2026 · Branch `feat/rasit-session-a2b-tablet` · Entscheidungen 29 bis 36 (Rasit, 06./07.10.)
 
-## Widersprüche zwischen Code und Entscheidung (nicht still umgangen)
+## Widersprüche zwischen Code und Entscheidung
 
-1. **„Kein zweiter Versuch an derselben Aufgabe“ (29) prüft der Server nicht.** Die Engine gibt nach der ersten
-   vollständigen Antwort die nächste Aufgabe (A2, F4). `antwort_abgeben` nimmt aber eine zweite Antwort zur selben
-   Aufgabe noch an (`versuch_nr` 2). Sie wird nur abgelehnt, wenn die Aufgabe schon richtig gelöst ist
-   (`20261007110500_session_antworten.sql`, `antwort_abgeben`).
-   - Die R1-Tests 6 bis 8 (`supabase/tests/session_r1.test.sql:194–244`) bauen auf Wiederholungsversuchen auf.
-   - Der Datenvertrag sagt der App, dass sie keinen zweiten Versuch anbietet.
-   - Vorschlag: `antwort_abgeben` lehnt jede zweite Antwort je (Aufgabe, Teil) mit P0001 ab; die R1-Tests bekommen
-     eigene Aufgaben je Versuch. Entscheidung Rasit.
-2. **„Hinweise nur vor dem Abgeben“ (32) prüft der Server ebenfalls nicht.**
-   - Umgesetzt ist: keine Hinweise zu Warm-up- und Exit-Aufgaben (`20261009103015_a2b_regeln.sql`), und
-     `hinweise_erlaubt` gilt nur für Aufgaben der Kernarbeit.
-   - Ein Hinweis nach einer Antwort geht weiter. R1-Test 7 ruft Hinweise nach einer Antwort ab
-     (`session_r1.test.sql:217–224`).
-   - Vorschlag wie in Punkt 1.
+1. **Erledigt (Rasit 07.10.): „Kein zweiter Versuch an derselben Aufgabe“ (29) erzwingt der Server.**
+   `antwort_abgeben` lehnt jede zweite Antwort zu derselben Ausgabe und demselben Teil mit P0001 ab (Hinweis
+   `schon_beantwortet`), auch nach einer falschen ersten. Die Prüfung steht vor der Bewertung, es entsteht keine
+   Antwort, kein Beleg und kein Ereignis (`20261009104120_a2b_ein_versuch.sql`, pgTAP E).
+   - Die R1-Tests 6 bis 8 haben jetzt je Versuch eine eigene Aufgabe (t3, t4). Sie prüfen weiter Fehlbild-Klartext,
+     Hinweisstufen der Reihe nach und das Signal nach Fehlversuchen in Folge, jetzt über Aufgaben hinweg.
+   - Das Signal „hängt“ und „nochmal erklären“ (F6) lösen auch über Aufgaben hinweg aus (pgTAP E).
+2. **Erledigt (Rasit 07.10.): „Hinweise nur vor dem Abgeben“ (32) erzwingt der Server.** `hinweis_abrufen` lehnt mit
+   P0001 ab (Hinweis `hinweis_nach_antwort`), sobald zu dieser Ausgabe eine Antwort vorliegt. Hinweise hängen in
+   `task_solutions.hints` an der Aufgabe, nicht am Teil. Deshalb zählt bei MULTI_PART die erste Antwort auf
+   irgendeinen Teil. „Dieselbe Ausgabe“ ist die jüngste Zeile in `session_ausgegeben` für Kind und Aufgabe.
 
 ## Auslegungen
 
