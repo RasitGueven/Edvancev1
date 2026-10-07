@@ -1515,6 +1515,10 @@ declare
   v_wahl     text;
   v_tl       boolean;
 begin
+  -- A2c: ohne Kind das Kind des Tablets (42501 ohne Platz).
+  if p_student_id is null then
+    p_student_id := (public.session_tablet_platz(p_session_id, 'erklaer_check_abgeben')).student_id;
+  end if;
   perform public.erklaer_zugang(p_session_id, p_student_id);
   perform public.erklaer_sperren(p_session_id, p_student_id);
   v_tl := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
@@ -1750,6 +1754,16 @@ CREATE FUNCTION public.erklaer_nachlesen(p_student_id uuid, p_skill_key text) RE
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
+  -- A2c: ohne Kind das Kind des aufrufenden Tablets in seiner laufenden Session (wie tablet_stand).
+  if p_student_id is null then
+    select st.student_id into p_student_id
+      from public.session_tablets st
+      join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+     where st.geraet_id = auth.uid() and st.geloest_am is null;
+    if p_student_id is null then
+      raise exception 'erklaer_nachlesen: kein zugewiesener Platz an diesem Tablet' using errcode = '42501';
+    end if;
+  end if;
   -- A2: NULL-sicher (Befund X0b); zusaetzlich das Tablet des Kindes in einer laufenden Session.
   if not coalesce(coalesce(public.get_my_role(), '') = 'admin'
           or public.get_my_student_id() = p_student_id
@@ -1953,6 +1967,10 @@ declare
   v_k     public.erklaer_kernidee;
   v_tl    boolean;
 begin
+  -- A2c: ohne Kind das Kind des Tablets (42501 ohne Platz).
+  if p_student_id is null then
+    p_student_id := (public.session_tablet_platz(p_session_id, 'erklaer_start')).student_id;
+  end if;
   perform public.erklaer_zugang(p_session_id, p_student_id);
   perform public.erklaer_sperren(p_session_id, p_student_id);
   v_tl := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
@@ -2507,7 +2525,8 @@ begin
     raise exception 'hinweis_abrufen: im Warm-up keine Hinweise' using errcode = '22023', hint = 'warmup_ohne_hinweis';
   end if;
   if p_stufe is null or p_stufe < 1 or p_stufe > public.session_wert_zahl(p_session_id, 'hinweisstufen') then
-    raise exception 'hinweis_abrufen: Stufe % ist nicht freigeschaltet', p_stufe using errcode = '22023';
+    raise exception 'hinweis_abrufen: Stufe % ist nicht freigeschaltet', p_stufe using errcode = '22023',
+      hint = 'stufe_gesperrt';
   end if;
   -- Prinzip der minimalen Hilfe (Entscheidung 11): Stufe n erst nach Stufe n-1.
   if p_stufe > 1 and not exists (select 1 from public.session_ereignisse e
@@ -2524,7 +2543,9 @@ begin
 
   perform public.session_ereignis(p_session_id, t.student_id, 'hinweis',
     jsonb_build_object('task_id', p_task_id, 'stufe', p_stufe, 'geliefert', v_text is not null));
-  return jsonb_build_object('stufe', p_stufe, 'text', v_text, 'verfuegbar', v_text is not null);
+  -- A2c: weitere = es gibt eine naechste Stufe (hinweisstufen sieht das Tablet sonst nicht).
+  return jsonb_build_object('stufe', p_stufe, 'text', v_text, 'verfuegbar', v_text is not null,
+                            'weitere', p_stufe < public.session_wert_zahl(p_session_id, 'hinweisstufen'));
 end;
 $$;
 
@@ -11948,7 +11969,11 @@ begin
     join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
    where st.geraet_id = auth.uid() and st.geloest_am is null;
   if not found then
-    return jsonb_build_object('zugewiesen', false);
+    -- A2c (Nachtrag R2): ein Platz-Konto ohne Zuweisung bekommt die Nummer des eigenen Geraets fuer den
+    -- Warte-Bildschirm (null, wenn das Geraet keine hat). Alle anderen Konten: nur zugewiesen = false.
+    return jsonb_build_object('zugewiesen', false)
+           || coalesce((select jsonb_build_object('tablet_nr', pd.tablet_nr)
+                          from public.platz_devices pd where pd.profile_id = auth.uid()), '{}'::jsonb);
   end if;
   a := public.session_aktuelle_ausgabe(t.session_id, t.student_id);
   select * into pa from public.session_pruefung_aktiv(t.session_id, t.student_id);

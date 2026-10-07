@@ -19,9 +19,8 @@ Stand 07.10.2026, Branch `feat/rasit-session-a2c-tablet`. Belege: `supabase/test
 1. **Kein Default für `p_student_id`.** Der Auftrag wollte „nur ein Default null“. Das geht nicht: Nach
    `p_student_id` folgen Parameter ohne Default (`p_skill_key`, `p_check_task_id`, `p_eingabe`). Ein Default
    würde Defaults für alle folgenden Parameter verlangen, und das würde die Signatur ändern. Das Tablet schickt
-   deshalb `p_student_id: null` ausdrücklich mit, wie schon bei `quest_termin_setzen`. Entscheidung Rasit:
-   Reicht das, oder soll später eine Tablet-Fassung ohne den Parameter kommen (eine neue Überladung)? Vorsicht
-   dabei: siehe Memory „RPC-Name vorher prüfen“, eine Überladung macht bestehende Aufrufe mehrdeutig.
+   deshalb `p_student_id: null` ausdrücklich mit, wie schon bei `quest_termin_setzen`.
+   **Entschieden (Rasit, 07.10.2026):** Es bleibt dabei. Eine eigene Tablet-Fassung gibt es nicht. Erledigt.
 2. **`verfuegbar: false` zählt als abgerufen.** Eine Stufe ohne geprüften Hinweis bucht trotzdem das Ereignis.
    Die nächste Stufe ist also frei. A2c dokumentiert das nur (Vertrag 8.2). Ob eine leere Stufe übersprungen
    werden soll, entscheidet die Pädagogik.
