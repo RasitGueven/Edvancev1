@@ -6,8 +6,37 @@
 -- session_schwierigkeit faellt auf den AFB zurück (Test D).
 -- Fix: Die Sequenz kommt nur, wenn session_aufgabe_waehlen fuer den Skill eine Aufgabe findet. Eine laufende
 -- Sequenz und das Angebot "nochmal erklaeren" bleiben unberuehrt.
+--
+-- Regel (Rasit, 07.10.2026): Steht zu einem neuen Skill nur noch eine Aufgabe im Pool, entfaellt das
+-- Loesungsbeispiel, diese Aufgabe kommt als Aufgabe (grund_code neu_aufgabe_ohne_beispiel). Ab zwei Aufgaben
+-- bleibt es bei Beispiel, dann Aufgabe. Gilt mit und ohne Erklaersequenz. Gezaehlt wird mit
+-- session_pool_anzahl (neu, intern): dieselbe Pool- und "schon benutzt"-Regel wie session_aufgabe_waehlen.
 -- Grundlage: Prod-Definition (pg_get_functiondef, 07.10.2026) aus 20261008122231_a2_warmup_kern.
--- Signatur und Rechte bleiben (create or replace).
+-- Signatur und Rechte von session_plan_kern bleiben (create or replace).
+
+-- Zahl der Aufgaben eines Skills, die session_aufgabe_waehlen fuer dieses Kind in dieser Session noch waehlen kann.
+create function public.session_pool_anzahl(p_session_id uuid, p_student_id uuid, p_skill_key text, p_testlauf boolean)
+returns int
+language sql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+  with benutzt as (
+    select a.task_id from public.session_ausgegeben a
+     where a.session_id = p_session_id and a.student_id = p_student_id
+    union
+    select s.task_id from public.session_schritte s
+     where s.student_id = p_student_id and s.task_id is not null
+       and (s.session_id = p_session_id or s.art = 'beispiel')
+  )
+  select count(*)::int
+    from public.tasks t
+   where t.skill_key = p_skill_key
+     and t.id not in (select b.task_id from benutzt b)
+     and public.session_im_pool(t.id, p_testlauf)
+$$;
+revoke all on function public.session_pool_anzahl(uuid, uuid, text, boolean) from public, anon, authenticated;
 
 CREATE OR REPLACE FUNCTION public.session_plan_kern(p_session_id uuid, p_student_id uuid, p_testlauf boolean, p_aktuell text, p_vertiefung boolean, p_ziel_skills text[], p_ziel_label text, p_fall text, p_thema text, p_letzt session_schritte)
  RETURNS jsonb
@@ -84,6 +113,15 @@ begin
      where s.session_id = p_session_id and s.student_id = p_student_id and s.skill_key = p_aktuell;
     if v_a < v_l then
       if v_b <= v_a then
+        -- A2d (Rasit 07.10.): nur noch eine Aufgabe im Pool -> kein Loesungsbeispiel, sie kommt als Aufgabe.
+        -- nach_beispiel = true: zaehlt als Einfuehrungsaufgabe (v_a), danach normale Kernarbeit.
+        if public.session_pool_anzahl(p_session_id, p_student_id, p_aktuell, p_testlauf) = 1 then
+          select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf);
+          return public.session_schritt('aufgabe', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,
+            coalesce(w.difficulty, niv.niveau),
+            'Neuer Skill ' || v_lab || ': nur eine Aufgabe im Pool, Lösungsbeispiel entfällt',
+            'neu_aufgabe_ohne_beispiel', jsonb_build_object('signale', v_sig, 'nach_beispiel', true));
+        end if;
         select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf, true);
         if w.task_id is not null then
           return public.session_schritt('beispiel', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,

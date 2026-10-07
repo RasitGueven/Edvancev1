@@ -32,11 +32,12 @@ Stand 07.10.2026, Branch `feat/rasit-session-a2d-engine`. Beweis: `supabase/test
 - Test P war vor dem Fix rot (3 Zusicherungen: Erklärung statt `pool_leer`, Eintrag in `session_schritte`, Coach-Vorschau) und ist nach dem Fix grün.
 - Das A2c-Beispiel läuft unverändert, `a2b-tablet-beispiele.md` 24 bis 35 stimmen weiter.
 
-**Restfall (Consensus-Check, Hinweis 1):**
-- Steht genau eine Aufgabe mit Lösungsweg im Pool und ist `loesungsbeispiele_vor_aufgabe` mindestens 1, kommt die Sequenz trotzdem.
-- Das Beispiel verbraucht die Aufgabe, für die ähnliche Aufgabe bleibt nichts, und es folgt `pool_leer`. Das Kind sieht Erklärung und Beispiel, übt aber nicht selbst.
-- Bewusst nicht mitbehoben: Die Bedingung müsste die Zahl der Beispiele plus eine Übungsaufgabe zählen. Das ist eine Frage an die Pädagogik: Lieber kein Skill oder lieber Erklärung und Beispiel ohne Übung?
-- Offen, Entscheidung Rasit.
+**Nur eine Aufgabe im Pool (Entscheidung Rasit, 07.10.2026; vorher Restfall aus dem Consensus-Check):**
+- Steht zu einem neuen Skill nur noch eine Aufgabe im Pool, entfällt das Lösungsbeispiel. Diese Aufgabe kommt als Aufgabe (`grund_code = neu_aufgabe_ohne_beispiel`).
+- Ab zwei Aufgaben bleibt es bei Beispiel, dann Aufgabe. Das gilt mit und ohne Erklärsequenz.
+- Gezählt wird mit der neuen internen Funktion `session_pool_anzahl`. Sie nutzt dieselbe Pool- und „schon benutzt“-Regel wie `session_aufgabe_waehlen`.
+- Die Aufgabe zählt als Einführungsaufgabe (`nach_beispiel = true`); danach läuft die Kernarbeit normal.
+- Belege: Test E1 (mit Sequenz), E2 (ohne), F (genau zwei). Datenvertrag 8.2 hat den neuen `grund_code`.
 
 **Prod heute:** Es gibt noch keine Erklärsequenz (`erklaer_kernidee` leer, dbread 07.10.2026). Der Fix wirkt vorbeugend für den Durchstich.
 

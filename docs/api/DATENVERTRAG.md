@@ -409,8 +409,8 @@ eigenen Lauf aus dem DOCX nach. Erst der Vertrag, dann die Daten.
 ## 8. Session am Tablet (Session-Rahmen A2/A2b)
 
 **Stand:** 2026-10-07 · **Migrationen:** `20261007110100`–`…110900` (R1), `20261008121014`–`…124415` (A2),
-`20261009100412`–`…103015` (A2b), `20261010100426`–`…100855` (A2c) · **Beweis:** `supabase/tests/session_r1.test.sql`,
-`session_a2.test.sql`, `session_a2b.test.sql`, `session_a2c.test.sql` · **Beispiele mit echtem JSON:**
+`20261009100412`–`…103015` (A2b), `20261010100426`–`…100855` (A2c), `20261010101318` (A2d) · **Beweis:** `supabase/tests/session_r1.test.sql`,
+`session_a2.test.sql`, `session_a2b.test.sql`, `session_a2c.test.sql`, `session_a2d.test.sql` · **Beispiele mit echtem JSON:**
 `docs/session/a2b-tablet-beispiele.md`
 
 Gilt für das Tablet des Kindes in einer Coaching-Session (edvance-app, Paket R2). Das Gerät meldet sich mit
@@ -546,6 +546,7 @@ Das Tablet übergibt `p_student_id = null`.
 | `erklaerung_angebot` | nach Fehlversuchen „nochmal erklären“ angeboten |
 | `neu_beispiel` | Lösungsbeispiel nach der Erklärung |
 | `neu_beispiel_ohne_erklaerung` | Lösungsbeispiel, es gibt keine Erklärung |
+| `neu_aufgabe_ohne_beispiel` | neuer Skill mit nur noch einer Aufgabe im Pool: kein Lösungsbeispiel, die Aufgabe kommt gleich als Aufgabe (`art = aufgabe`, mit oder ohne Erklärsequenz davor; A2d) |
 | `neu_aehnliche_aufgabe` | Aufgabe nach dem Beispiel |
 | `kern` | Aufgabe zum aktuellen Skill |
 | `gemischt` | ältere Aufgabe eingemischt (`eingemischt: true`) |
