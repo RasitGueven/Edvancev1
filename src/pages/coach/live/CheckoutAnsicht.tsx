@@ -48,9 +48,11 @@ function CheckoutKarte({ kind }: { kind: CoachLiveKind }): JSX.Element {
         className={cn(FELD, 'min-h-[76px] resize-y py-2.5 text-base leading-snug')}
       />
       <div className="flex flex-wrap items-center gap-2">
-        <button type="button" onClick={andererVorschlag} className="min-h-[44px] text-sm font-semibold text-[var(--color-primary)] hover:underline">
-          {tx.t('checkout.andererVorschlag')}
-        </button>
+        {c.satzVorschlaege.length > 1 && (
+          <button type="button" onClick={andererVorschlag} className="min-h-[44px] text-sm font-semibold text-[var(--color-primary)] hover:underline">
+            {tx.t('checkout.andererVorschlag')}
+          </button>
+        )}
         <span className="flex-1" />
         <Button
           size="md"
@@ -62,6 +64,7 @@ function CheckoutKarte({ kind }: { kind: CoachLiveKind }): JSX.Element {
           {c.gesagt ? tx.t('checkout.gesagt') : tx.t('checkout.alsGesagt')}
         </Button>
       </div>
+      {c.questsAktiv && (
       <div className="flex items-start gap-1.5 text-sm text-[var(--color-text-secondary)]">
         <Home className="mt-0.5 h-4 w-4 flex-none" aria-hidden />
         <div className="flex flex-col gap-1">
@@ -89,13 +92,16 @@ function CheckoutKarte({ kind }: { kind: CoachLiveKind }): JSX.Element {
               </span>
             </>
           )}
-          <span>
-            {c.questB.paketKlassenarbeit
-              ? tx.t('checkout.questBPaket', { termin: tx.termin(c.questB.termin) })
-              : tx.t('checkout.questB', { termin: tx.termin(c.questB.termin) })}
-          </span>
+          {c.questB && (
+            <span>
+              {c.questB.paketKlassenarbeit
+                ? tx.t('checkout.questBPaket', { termin: tx.tagDatum(c.questB.termin) })
+                : tx.t('checkout.questB', { termin: tx.tagDatum(c.questB.termin) })}
+            </span>
+          )}
         </div>
       </div>
+      )}
       <Feldname htmlFor={`notiz-${kind.id}`}>{tx.t('checkout.notiz')}</Feldname>
       <input
         id={`notiz-${kind.id}`}

@@ -8,6 +8,8 @@
 --                             Quest-Termin mit Herkunft, Exit-Ergebnis) und Quest B wie session_kind_kontext
 --   kinder[].eingriffe        Eingriffe dieser Session (Stufe, Zeit) fuer Kachel und Zaehler ab Stufe 3
 --   kinder[].pfad_entscheidung  juengste Pfad-Entscheidung (Warm-up oder Stufe 4)
+--   kinder[].mastery_heute    Mastery-Entscheidungen dieser Session (gemeistert/vertagt) aus lernpfad_protokoll;
+--                             mastery_kandidat verschwindet nach der Entscheidung (nicht mehr faellig)
 -- coach_kind_detail bleibt unveraendert; die Seite fragt es nur fuer die offene Schublade ab.
 --
 -- Rechte unveraendert: session_coach_pruefen (Coach der Session oder Admin, NULL-sicher ueber
@@ -61,7 +63,14 @@ begin
                                    from public.session_ereignisse e
                                   where e.session_id = p_session_id and e.student_id = k.student_id
                                     and e.typ = 'entscheidung_pfad'
-                                  order by e.zeit desc limit 1))
+                                  order by e.zeit desc limit 1),
+           'mastery_heute', coalesce((select jsonb_agg(jsonb_build_object(
+                                'skill_key', p.skill_key, 'label', public.session_label(p.skill_key),
+                                'stand_coach', p.neu ->> 'stand_coach', 'grund', p.grund, 'am', p.am,
+                                'von', (select pr.full_name from public.profiles pr where pr.id = p.von)) order by p.am)
+                                       from public.lernpfad_protokoll p
+                                      where p.session_id = p_session_id and p.student_id = k.student_id
+                                        and p.aktion = 'mastery'), '[]'))
            order by (k.j ->> 'tablet_nr')::int nulls last, k.j ->> 'name'), '[]')
     into v_kinder
     from (select ss.student_id, public.session_kind_live(p_session_id, ss.student_id) as j
@@ -84,4 +93,4 @@ end;
 $$;
 
 comment on function public.coach_raum_live(uuid) is
-  'R1/A2/A2b/C2: der ganze Raum in einer Abfrage (Coach der Session oder Admin). C2: testlauf, abschluss, quest_b, eingriffe, pfad_entscheidung je Kind.';
+  'R1/A2/A2b/C2: der ganze Raum in einer Abfrage (Coach der Session oder Admin). C2: testlauf, abschluss, quest_b, eingriffe, pfad_entscheidung, mastery_heute je Kind.';

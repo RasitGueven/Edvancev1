@@ -5,6 +5,7 @@
 // RPC — die Tabellen haben fuer authenticated kein INSERT/UPDATE/DELETE.
 
 import { supabase } from '@/lib/supabase/client'
+import { sessionRpc, type RpcResult } from '@/lib/supabase/sessionRpc'
 import type {
   BelegErgebnis,
   LernpfadEintrag,
@@ -24,14 +25,9 @@ import type {
 const fehler = (err: unknown, fallback: string): string =>
   err instanceof Error ? err.message : fallback
 
-async function rufe<T>(fn: string, args: Record<string, unknown>, fallback: string): Promise<SupabaseResult<T>> {
-  try {
-    const { data, error } = await supabase.rpc(fn, args)
-    if (error) return { data: null, error: error.message }
-    return { data: data as T, error: null }
-  } catch (err) {
-    return { data: null, error: fehler(err, fallback) }
-  }
+// C2: ueber sessionRpc, damit SQLSTATE und Hinweis bei Fehlern mitgehen.
+function rufe<T>(fn: string, args: Record<string, unknown>, fallback: string): Promise<RpcResult<T>> {
+  return sessionRpc<T>(fn, args, fallback)
 }
 
 /** Lernpfad eines Kindes (Coach bei laufendem Vertrag oder Admin). */
@@ -127,7 +123,7 @@ export function masteryEntscheiden(args: {
   entscheidung: LernpfadStandCoach
   grund: string | null
   sessionId: string | null
-}): Promise<SupabaseResult<MasteryEntscheidung>> {
+}): Promise<RpcResult<MasteryEntscheidung>> {
   return rufe(
     'mastery_entscheiden',
     {

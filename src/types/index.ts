@@ -376,3 +376,12 @@ export type {
   PruefungAufTablet,
   PruefungTabletAntwort,
 } from './sessionTablet'
+export type {
+  KindAbschlussLive,
+  MasteryHeute,
+  KindRaum,
+  BriefingKind,
+  SatzAnlass,
+  SatzVorschlag,
+  OffeneSession,
+} from './sessionC2'

@@ -15,7 +15,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(42);
+select plan(43);
 
 \ir session_a2_fixture.sql
 
@@ -108,6 +108,10 @@ select ok((select bool_and(v ->> 'text' !~ '[{}]') from jsonb_array_elements(:'s
 select isnt(:'sv'::jsonb -> 0 ->> 'anlass', :'sv'::jsonb -> 1 ->> 'anlass', '2 zwei verschiedene Anlaesse');
 select ok((select bool_and(v ->> 'text' !~ '[0-9]+ ?(%|Prozent)') from jsonb_array_elements(:'sv'::jsonb) v),
           '2 keine Quoten im Satz');
+update lernpfad set stand_system = 'kandidat' where student_id = :'k_emir' and skill_key = 'zz_a2_v1';
+select mastery_entscheiden(:'k_emir', 'zz_a2_v1', 'vertagt', 'ZZ Grund', :'s');
+select is((select k -> 'mastery_heute' -> 0 ->> 'stand_coach' from jsonb_array_elements((coach_raum_live(:'s')) -> 'kinder') k
+            where k ->> 'student_id' = :'k_emir'), 'vertagt', 'L mastery_heute: Entscheidung dieser Session');
 -- Alle Bausteine der gewaehlten Anlaesse deaktivieren: sie kommen nie mehr.
 update session_satz_bausteine set aktiv = false
  where anlass in (select v ->> 'anlass' from jsonb_array_elements(:'sv'::jsonb) v) and anlass <> 'allgemein';

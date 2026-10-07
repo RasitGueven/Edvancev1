@@ -1,6 +1,6 @@
 // Session-Rahmen C1: Ansichtsmodell der Coach-Live-Sicht, abgeleitet aus
 // docs/session/coach-live-dummy.html. Die Seite kennt nur dieses Modell; woher
-// die Felder kommen (Beispieldaten in C1, R1/A1/E1/Q1 ab C2), entscheidet allein
+// die Felder kommen (R1/A1/A2/A2b/E1/Q1 und C2; Beispieldaten nur in Tests), entscheidet allein
 // src/lib/session/coachLive.ts. Texte, die ein Mensch liest, sind Inhalte (Namen,
 // Skill-Labels, Aufgaben, Bausteine); alles andere sind Werte, die die Seite ueber
 // i18n in Saetze bringt.
@@ -114,7 +114,8 @@ export type VersuchKopf = { art: 'versuch' | 'runde' | 'aufgabe' | 'warmup'; nr:
 export type LiveVersuch = { kopf: VersuchKopf; eingabe: string; fehlbild: string }
 
 export type Kernidee = {
-  text: string
+  /** Titel der Kernidee; null, wenn der Server ihn nicht liefert (nur die aktuelle kommt mit). */
+  text: string | null
   stand: 'sicher' | 'laeuft' | 'offen'
   runde: number
   /** Fehlbild der letzten falschen Check-Antwort. */
@@ -217,12 +218,14 @@ export type LiveCheckout = {
   satzVorschlaege: string[]
   satz: string
   gesagt: boolean
+  /** home_quests_aktiv im Snapshot; sonst gibt es keine Quest-Termine. */
+  questsAktiv: boolean
   /** Quest A waehlt das Kind am Tablet; der Coach kann nachtragen. */
   questA: { termin: string | null; von: 'kind' | 'coach' | null }
   /** Termine, die der Coach fuer Quest A nachtragen kann, falls das Kind keinen gewaehlt hat. */
   questAVorschlaege: string[]
-  /** Quest B ist vorbelegt (kurz vor der naechsten Session). */
-  questB: { termin: string; paketKlassenarbeit: boolean }
+  /** Quest B ist vorbelegt (Tag vor der naechsten Session, YYYY-MM-DD); null ohne naechste Session. */
+  questB: { termin: string; paketKlassenarbeit: boolean } | null
   notiz: string
   flags: { eltern: boolean; pfad: boolean }
 }
@@ -275,6 +278,8 @@ export type CoachLiveKind = {
   hinweise: { stufe: number; text: string }[]
   erklaersequenz: LiveErklaersequenz | null
   masteryKandidat: LiveMasteryKandidat | null
+  /** A2b: die Pruefrage liegt gerade auf dem Tablet des Kindes. */
+  pruefungAufTablet: boolean
   pfadVorschlag: PfadVorschlag | null
   /** Entscheidung „eine Stufe tiefer“ bzw. „beim Plan“ in dieser Session (Warm-up oder Stufe 4). */
   pfadEntscheidung: { art: 'tiefer' | 'plan'; zeit: string } | null
@@ -298,11 +303,12 @@ export type CoachLiveSession = {
   klassen: [number, number]
   plaetze: number
   abgeschlossen: string | null
+  status: 'upcoming' | 'active' | 'done'
+  /** Testlauf (Entscheidung 27): Kennzeichen in Kopf und Raster. */
+  testlauf: boolean
 }
 
 export type CoachLiveRaum = {
-  /** true, solange die Datenquelle Beispieldaten liefert (Beispielleiste sichtbar). */
-  beispiel: boolean
   zeitpunkt: LiveZeitpunkt
   session: CoachLiveSession
   einstellungen: Record<string, StellschraubeWert>

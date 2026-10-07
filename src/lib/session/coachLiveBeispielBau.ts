@@ -1,4 +1,4 @@
-// BEISPIELMODUS: baut aus den Beispieldaten und dem lokalen Zustand (Entscheidungen
+// NUR FUER TESTS (C2): baut aus den Beispieldaten und dem lokalen Zustand (Entscheidungen
 // des Coaches in dieser Sitzung) das Ansichtsmodell. Entspricht tileData, queue und
 // zielBlk im Dummy. Faellt mit C2 weg; die Seite merkt davon nichts.
 
@@ -54,12 +54,14 @@ export type BeispielZustand = {
   questA: Record<string, string>
   nichtErschienen: string[]
   abgeschlossen: string | null
+  /** Pruefrage liegt auf dem Tablet (A2b). */
+  pruefung: Record<string, boolean>
 }
 
 export function neuerBeispielZustand(): BeispielZustand {
   return {
     zeitpunkt: 'kern', tablets: {}, fall: {}, thema: {}, pfad: {}, mastery: {}, erledigt: [], eingriffe: [],
-    satz: {}, gesagt: [], notiz: {}, flags: {}, questA: {}, nichtErschienen: [], abgeschlossen: null,
+    satz: {}, gesagt: [], notiz: {}, flags: {}, questA: {}, nichtErschienen: [], abgeschlossen: null, pruefung: {},
   }
 }
 
@@ -160,6 +162,7 @@ function baueKind(basis: (typeof BEISPIEL_KINDER)[number], z: BeispielZustand): 
     hinweise: live?.hinweise ?? [],
     erklaersequenz: live?.erklaersequenz ?? null,
     masteryKandidat: mastery,
+    pruefungAufTablet: z.pruefung[id] === true,
     pfadVorschlag: pfadBasis && z.zeitpunkt === 'warmup'
       ? { ...pfadBasis, entscheidung: pfad ? { ...pfad, von: BEISPIEL_SESSION.coachVorname } : null }
       : null,
@@ -180,6 +183,7 @@ function baueKind(basis: (typeof BEISPIEL_KINDER)[number], z: BeispielZustand): 
       gesagt: z.gesagt.includes(id),
       questA: z.questA[id] ? { termin: z.questA[id], von: 'coach' } : co.questA,
       questAVorschlaege: BEISPIEL_QUEST_TERMINE,
+      questsAktiv: true,
       notiz: z.notiz[id] ?? co.notiz,
       flags: z.flags[id] ?? { eltern: false, pfad: false },
     },
@@ -190,7 +194,6 @@ function baueKind(basis: (typeof BEISPIEL_KINDER)[number], z: BeispielZustand): 
 export function baueBeispielRaum(sessionId: string, z: BeispielZustand): CoachLiveRaum {
   const kinder = BEISPIEL_KINDER.map((k) => baueKind(k, z))
   return {
-    beispiel: true,
     zeitpunkt: z.zeitpunkt,
     session: {
       id: sessionId,
@@ -202,6 +205,8 @@ export function baueBeispielRaum(sessionId: string, z: BeispielZustand): CoachLi
       klassen: BEISPIEL_SESSION.klassen,
       plaetze: BEISPIEL_SESSION.plaetze,
       abgeschlossen: z.abgeschlossen,
+      status: z.abgeschlossen ? 'done' : z.zeitpunkt === 'vorher' ? 'upcoming' : 'active',
+      testlauf: false,
     },
     einstellungen: BEISPIEL_EINSTELLUNGEN,
     zeitleiste: zeitleisteAusSnapshot(BEISPIEL_EINSTELLUNGEN),
