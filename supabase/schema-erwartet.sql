@@ -11573,9 +11573,13 @@ begin
                       and b.skill_key = p_aktuell and b.session_id <> p_session_id)
      and not exists (select 1 from public.session_antworten a join public.tasks t on t.id = a.task_id
                       where a.student_id = p_student_id and a.session_id <> p_session_id and t.skill_key = p_aktuell) then
+    -- A2d: Sequenz nur, wenn es danach etwas zu ueben gibt (eine Aufgabe im Pool). Sonst faellt der Skill
+    -- unten auf pool_leer, und session_schritt_planen weicht auf den naechsten offenen Skill aus.
     if v_seq and not exists (select 1 from public.session_schritte s where s.session_id = p_session_id
                               and s.student_id = p_student_id and s.skill_key = p_aktuell
-                              and s.art in ('erklaerung', 'erklaerung_angebot')) then
+                              and s.art in ('erklaerung', 'erklaerung_angebot'))
+       and (public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf)).task_id
+           is not null then
       return public.session_schritt(case when v_vorg then 'erklaerung' else 'erklaerung_angebot' end, 'kern',
         p_aktuell, null, 'gefuehrt', false, null,
         'Neuer Skill ' || v_lab || ': ' || case when v_vorg then 'Erklärsequenz vorgeschaltet' else 'Erklärung angeboten' end,
@@ -11588,6 +11592,15 @@ begin
      where s.session_id = p_session_id and s.student_id = p_student_id and s.skill_key = p_aktuell;
     if v_a < v_l then
       if v_b <= v_a then
+        -- A2d (Rasit 07.10.): nur noch eine Aufgabe im Pool -> kein Loesungsbeispiel, sie kommt als Aufgabe.
+        -- nach_beispiel = true: zaehlt als Einfuehrungsaufgabe (v_a), danach normale Kernarbeit.
+        if public.session_pool_anzahl(p_session_id, p_student_id, p_aktuell, p_testlauf) = 1 then
+          select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf);
+          return public.session_schritt('aufgabe', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,
+            coalesce(w.difficulty, niv.niveau),
+            'Neuer Skill ' || v_lab || ': nur eine Aufgabe im Pool, Lösungsbeispiel entfällt',
+            'neu_aufgabe_ohne_beispiel', jsonb_build_object('signale', v_sig, 'nach_beispiel', true));
+        end if;
         select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf, true);
         if w.task_id is not null then
           return public.session_schritt('beispiel', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,
@@ -11701,11 +11714,16 @@ begin
                      cross join lateral public.lsa_abschluss(z.sk) a);
 
   -- Signal: Fehlversuche auf einer Voraussetzung des aktuellen Skills.
+  -- A2d: je Skill auch die Zahl der Warm-up-Aufgaben und davon richtig (alle Teile richtig) fuer den Coach.
   for c in
-    select t.skill_key, count(*) filter (where a.ergebnis <> 'richtig') as fehl
-      from public.session_antworten a join public.tasks t on t.id = a.task_id
-     where a.session_id = p_session_id and a.student_id = p_student_id and a.phase = 'warmup'
-     group by t.skill_key
+    select x.skill_key, sum(x.fehl)::int as fehl, count(*)::int as aufgaben,
+           (count(*) filter (where x.alle_richtig))::int as richtig
+      from (select t.skill_key, a.task_id, count(*) filter (where a.ergebnis <> 'richtig') as fehl,
+                   bool_and(a.ergebnis = 'richtig') as alle_richtig
+              from public.session_antworten a join public.tasks t on t.id = a.task_id
+             where a.session_id = p_session_id and a.student_id = p_student_id and a.phase = 'warmup'
+             group by t.skill_key, a.task_id) x
+     group by x.skill_key
   loop
     if c.fehl >= v_fehl and p_aktuell is not null
        and c.skill_key in (select a.skill_key from public.lsa_abschluss(p_aktuell) a)
@@ -11714,7 +11732,11 @@ begin
                           and e.payload ->> 'art' = 'entscheidung' and e.payload ->> 'skill_key' = c.skill_key) then
       v_sig := v_sig || jsonb_build_object('art', 'entscheidung', 'skill_key', c.skill_key, 'ziel_skill_key', p_aktuell,
         'grund', 'Entscheidung: eine Stufe tiefer? ' || c.fehl || ' Fehlversuche bei ' || public.session_label(c.skill_key)
-                 || ' im Warm-up', 'grund_code', 'entscheidung_tiefer');
+                 || ' im Warm-up', 'grund_code', 'entscheidung_tiefer',
+        -- A2d (aus C2): Zahlen fuer den Coach. Nur im Signal (session_ereignisse -> raum_signale,
+        -- coach_raum_live), nie am Tablet: session_schritt_oeffentlich gibt keine Signale weiter.
+        'voraussetzung_skill_key', c.skill_key, 'voraussetzung_label', public.session_label(c.skill_key),
+        'warmup_aufgaben', c.aufgaben, 'warmup_richtig', c.richtig);
     end if;
   end loop;
 
@@ -11870,6 +11892,30 @@ begin
 
   return new;
 end;
+$$;
+
+
+--
+-- Name: session_pool_anzahl(uuid, uuid, text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_pool_anzahl(p_session_id uuid, p_student_id uuid, p_skill_key text, p_testlauf boolean) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with benutzt as (
+    select a.task_id from public.session_ausgegeben a
+     where a.session_id = p_session_id and a.student_id = p_student_id
+    union
+    select s.task_id from public.session_schritte s
+     where s.student_id = p_student_id and s.task_id is not null
+       and (s.session_id = p_session_id or s.art = 'beispiel')
+  )
+  select count(*)::int
+    from public.tasks t
+   where t.skill_key = p_skill_key
+     and t.id not in (select b.task_id from benutzt b)
+     and public.session_im_pool(t.id, p_testlauf)
 $$;
 
 

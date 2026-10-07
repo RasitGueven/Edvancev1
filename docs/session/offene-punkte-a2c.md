@@ -24,12 +24,9 @@ Stand 07.10.2026, Branch `feat/rasit-session-a2c-tablet`. Belege: `supabase/test
 2. **`verfuegbar: false` zählt als abgerufen.** Eine Stufe ohne geprüften Hinweis bucht trotzdem das Ereignis.
    Die nächste Stufe ist also frei. A2c dokumentiert das nur (Vertrag 8.2). Ob eine leere Stufe übersprungen
    werden soll, entscheidet die Pädagogik.
-3. **Planer im Testlauf mit Bestandsaufgaben zur Steigung.** Im Beispiel sprang `session_naechster_schritt`
-   nach der fertigen Sequenz zu `fkt_linear_steigung` nicht zum Lösungsbeispiel. Stattdessen kam
-   `fkt_linear_yabschnitt` mit `pool_leer`. Die 12 Bestandsaufgaben zur Steigung sind `draft`, ohne
-   `difficulty`. Mit 15 ZZ-Aufgaben (`ready`) kommt wie erwartet `neu_beispiel`. Die Ursache ist nicht
-   untersucht; sie liegt in der Engine (`session_plan_kern`), nicht auf der Tablet-Seite. Für einen ehrlichen
-   Testlauf mit echten Inhalten sollte das vor E2a geklärt sein.
+3. **Planer im Testlauf mit Bestandsaufgaben zur Steigung.** Erledigt in A2d (`offene-punkte-a2d.md` 1). Die
+   Ursache war nicht die fehlende `difficulty`. Der Planer schaltete die Sequenz auch einem Skill ohne Aufgabe im
+   Pool vor; in der Wegwerf-DB fehlte den Bestandsaufgaben der Cluster.
 4. **Edvancev1-Wrapper für die Erklärsequenz fehlen.** `src/lib/supabase/sessionTablet.ts` hat
    `hinweisAbrufen` (Typ jetzt mit `weitere`), aber keine Wrapper für `erklaer_start`, `erklaer_check_abgeben`
    und `erklaer_nachlesen`. Die App (edvance-app, R2/E2a) ruft direkt; in Edvancev1 braucht sie heute keine
