@@ -32,6 +32,8 @@ import { VertragUnterlagenPage } from '@/pages/admin/VertragUnterlagenPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { PruefenUebersichtPage } from '@/pages/coach/pruefen/PruefenUebersichtPage'
 import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
+import { ErklaerDetailPage } from '@/pages/coach/pruefen/erklaer/ErklaerDetailPage'
+import { ErklaerListePage } from '@/pages/coach/pruefen/erklaer/ErklaerListePage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayerStillgelegt } from '@/pages/student/TaskPlayerStillgelegt'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
@@ -103,6 +105,39 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
                 <PruefansichtPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Erklaersequenzen pruefen (L6): Lena prueft je Kernidee, ein Admin gibt unter /admin frei. */}
+          <Route
+            path="/coach/pruefen/erklaerungen"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <ErklaerListePage modus="lena" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/pruefen/erklaerungen/:kernideeId"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <ErklaerDetailPage modus="lena" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/pruefen/erklaerungen"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/pruefen/erklaerungen' }}>
+                <ErklaerListePage modus="admin" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/pruefen/erklaerungen/:kernideeId"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/pruefen/erklaerungen' }}>
+                <ErklaerDetailPage modus="admin" />
               </ProtectedRoute>
             }
           />
