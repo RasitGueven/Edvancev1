@@ -102,6 +102,21 @@
       "leerTitel": "Heute ist es ruhig",
       "leerText": "Für heute sind keine Sessions und keine Lernstandsanalysen geplant.",
       "fuss": "Zum Stundenplan"
+    },
+    "offeneSessions": {
+      "titel": "Offen geblieben",
+      "unterzeile": "Sessions, die nach ihrem Ende nicht abgeschlossen wurden",
+      "fehler": "Offene Sessions konnten nicht geladen werden.",
+      "zeile": "{{zeit}} · {{raum}}",
+      "status": {
+        "upcoming_one": "nie gestartet · {{coach}} · {{count}} Kind",
+        "upcoming_other": "nie gestartet · {{coach}} · {{count}} Kinder",
+        "active_one": "läuft noch · {{coach}} · {{count}} Kind",
+        "active_other": "läuft noch · {{coach}} · {{count}} Kinder"
+      },
+      "testlauf": "Testlauf",
+      "oeffnen": "Live-Sicht",
+      "leer": "Alle Sessions sind abgeschlossen"
     }
   },
   "schedule": {

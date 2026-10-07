@@ -45,6 +45,13 @@ vi.mock('@/lib/supabase/heute', async (orig) => ({
     Promise.resolve({ data: [{ id: 'cs1', scheduled_at: heute, room: 'A1', coach_id: 'c1', coach_name: 'ZZ_Coach', belegt: 3 }], error: null }),
   ),
 }))
+vi.mock('@/lib/supabase/sessionC2', () => ({
+  sessionsOffen: vi.fn().mockResolvedValue({
+    data: [{ session_id: 'zz-s', scheduled_at: '2026-10-06T14:00:00.000Z', room: 'ZZ Raum', status: 'upcoming', coach_id: 'c1',
+             coach_name: 'ZZ Coach', testlauf: true, kinder: 2 }],
+    error: null,
+  }),
+}))
 vi.mock('@/lib/supabase/leads', () => ({
   listLeads: vi.fn(() =>
     Promise.resolve({
@@ -142,6 +149,15 @@ describe('HeutePage', () => {
     expect(await screen.findByText('Raum A1')).toBeTruthy()
     expect(screen.getByText('ZZ_Coach')).toBeTruthy()
     expect(screen.getByLabelText('3 von 5 Plätzen belegt')).toBeTruthy()
+  })
+
+  it('C2: Offen geblieben zeigt nicht abgeschlossene Sessions mit Testlauf und Link in die Live-Sicht', async () => {
+    setup()
+    expect(await screen.findByText('Offen geblieben')).toBeTruthy()
+    expect(await screen.findByText(/ZZ Raum/)).toBeTruthy()
+    expect(screen.getByText('nie gestartet · ZZ Coach · 2 Kinder')).toBeTruthy()
+    expect(screen.getByText('Testlauf')).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Live-Sicht' }).getAttribute('href')).toBe('/coach/session/zz-s/live')
   })
 
   it('„Termin“ öffnet den Termin-Dialog, „Neuer Lead“ führt ins Formular', async () => {
