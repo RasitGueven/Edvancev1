@@ -32,14 +32,9 @@ import {
   type SessionVM,
 } from '@/pages/coach/SessionCard'
 import type { Intervention, SessionAttendance } from '@/types'
+import { SessionsLive } from '@/pages/coach/SessionsLive'
 
 type RangeFilter = 'today' | 'week' | 'all'
-
-const RANGE_LABEL: Record<RangeFilter, string> = {
-  today: 'Heute',
-  week: 'Diese Woche',
-  all: 'Alle',
-}
 
 function inRange(
   iso: string,
@@ -142,7 +137,7 @@ export function CoachDashboard(): JSX.Element {
         (students ?? []).map((st) => [
           st.id,
           {
-            name: st.full_name ?? 'Unbenannt',
+            name: st.full_name ?? t('dashboard.unbenannt'),
             classLevel: st.class_level,
             schoolName: st.school_name,
             schoolType: st.school_type,
@@ -160,7 +155,7 @@ export function CoachDashboard(): JSX.Element {
           session,
           students: (links ?? []).map((l) => ({
             student_id: l.student_id,
-            name: nameMap.get(l.student_id)?.name ?? 'Unbenannt',
+            name: nameMap.get(l.student_id)?.name ?? t('dashboard.unbenannt'),
             classLevel: nameMap.get(l.student_id)?.classLevel ?? null,
             schoolName: nameMap.get(l.student_id)?.schoolName ?? null,
             schoolType: nameMap.get(l.student_id)?.schoolType ?? null,
@@ -255,9 +250,11 @@ export function CoachDashboard(): JSX.Element {
           />
         </div>
 
+        {!loading && <SessionsLive sessions={vms.map((v) => v.session)} />}
+
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <DashStatCard
-            label="Sessions heute"
+            label={t('dashboard.sessionsHeute')}
             value={todayCount}
             icon={<CalendarDays className="h-5 w-5 text-primary" />}
             iconCls="bg-[color-mix(in_srgb,var(--color-primary)_12%,transparent)]"
@@ -278,7 +275,7 @@ export function CoachDashboard(): JSX.Element {
 
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-            Deine Sessions · {RANGE_LABEL[range]}
+            {t('dashboard.deineSessions', { zeitraum: t(`dashboard.zeitraum.${range}`) })}
           </h2>
           <div className="flex flex-wrap gap-2">
             {(['today', 'week', 'all'] as RangeFilter[]).map((r) => (
@@ -288,7 +285,7 @@ export function CoachDashboard(): JSX.Element {
                 variant={range === r ? 'default' : 'outline'}
                 onClick={() => setRange(r)}
               >
-                {RANGE_LABEL[r]}
+                {t(`dashboard.zeitraum.${r}`)}
               </Button>
             ))}
           </div>
@@ -299,11 +296,11 @@ export function CoachDashboard(): JSX.Element {
         ) : filteredVms.length === 0 ? (
           <EmptyState
             icon="📅"
-            title="Keine Sessions"
+            title={t('dashboard.keineSessions')}
             description={
               range === 'all'
-                ? 'Es sind noch keine Sessions für dich angelegt.'
-                : `Keine Sessions im Zeitraum „${RANGE_LABEL[range]}".`
+                ? t('dashboard.keineSessionsAlle')
+                : t('dashboard.keineSessionsZeitraum', { zeitraum: t(`dashboard.zeitraum.${range}`) })
             }
           />
         ) : (

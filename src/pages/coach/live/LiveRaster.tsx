@@ -3,7 +3,7 @@ import { sortiereWarteschlange, SIGNAL_RANG } from '@/lib/session/coachLiveLogik
 import { EdvanceCard } from '@/components/edvance/EdvanceCard'
 import { cn } from '@/lib/utils'
 import type { CoachLiveKind, KachelStatus } from '@/types/coachLive'
-import { Abschnitt, Platz, Punkte, Sequenzbalken } from './bausteine'
+import { Abschnitt, Pille, Platz, Punkte, Sequenzbalken } from './bausteine'
 import { useLive } from './LiveKontext'
 import { useLiveTexte } from './useLiveTexte'
 
@@ -84,6 +84,11 @@ export function LiveRaster({ gewaehlt }: { gewaehlt: string | null }): JSX.Eleme
   return (
     <div className="grid items-start gap-6 @min-[900px]:grid-cols-[minmax(0,1fr)_310px]">
       <Abschnitt titel={tx.t('raster.titel', { raum: raum.session.raum, phase: tx.t(`phase.${raum.zeitpunkt}`) })} zusatz={tx.t('raster.tippen')}>
+        {raum.session.testlauf && (
+          <div data-testid="testlauf-raster">
+            <Pille ton="warn">{tx.t('raster.testlauf')}</Pille>
+          </div>
+        )}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(232px,1fr))] gap-3">
           {kinder.map((k) => (
             <KindKachel key={k.id} kind={k} gewaehlt={gewaehlt === k.id} />

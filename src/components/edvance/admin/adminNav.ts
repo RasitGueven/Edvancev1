@@ -6,6 +6,7 @@ import {
   Inbox,
   PenLine,
   ScrollText,
+  SlidersHorizontal,
   Sun,
   Users,
 } from 'lucide-react'
@@ -62,6 +63,13 @@ export const ADMIN_NAV: NavKonfiguration = {
           kurzKey: 'nav.kurz.vertraege',
           icon: ScrollText,
           zaehler: 'vertraege',
+        },
+        {
+          id: 'stellschrauben',
+          route: '/admin/stellschrauben',
+          nameKey: 'nav.stellschrauben',
+          kurzKey: 'nav.kurz.stellschrauben',
+          icon: SlidersHorizontal,
         },
         { id: 'elternReports', nameKey: 'nav.elternReports', kurzKey: 'nav.kurz.elternReports', icon: FileText, bald: true },
         { id: 'lsaErgebnisse', nameKey: 'nav.lsaErgebnisse', kurzKey: 'nav.kurz.lsaErgebnisse', icon: ClipboardCheck, bald: true },

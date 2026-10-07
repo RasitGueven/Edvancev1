@@ -3,6 +3,7 @@
 
 import type { ErklaersequenzLive, MasteryKandidatLive, SchrittLive } from './sessionSchritt'
 import type { PruefungAufTablet, TabletBestaetigt, TabletPruefung } from './sessionTablet'
+import type { KindRaum } from './sessionC2'
 
 export type SessionPhase = 'checkin' | 'warmup' | 'kern' | 'checkout'
 export type SessionFall = 'klassenarbeit' | 'schulthema' | 'lernpfad'
@@ -119,12 +120,14 @@ export type RaumLive = {
     gestartet_am: string | null
     beendet_am: string | null
     room: string | null
+    /** C2: Testlauf (Entscheidung 27), Kennzeichen in Kopf und Raster. */
+    testlauf: boolean
     coach_name: string | null
     einstellungen: Record<string, StellschraubeWert>
     mastery_bestaetigt: number
   }
   stand: string
-  kinder: KindLive[]
+  kinder: KindRaum[]
   signale: RaumSignal[]
 }
 
@@ -157,7 +160,7 @@ export type KindDetail = Omit<KindLive, 'status'> & {
 }
 
 export type TabletStand =
-  | { zugewiesen: false }
+  | { zugewiesen: false; tablet_nr?: number | null }  // tablet_nr nur fuer Platz-Konten (A2c)
   | {
       zugewiesen: true
       session_id: string
@@ -176,7 +179,8 @@ export type AntwortRueckmeldung =
   | { gespeichert: true; ergebnis: AntwortErgebnis; versuch_nr: number; fehlbild_klartext: string | null }
   | { gespeichert: true; versuch_nr: number }
 
-export type HinweisAntwort = { stufe: number; text: string | null; verfuegbar: boolean }
+/** weitere: es gibt eine naechste Stufe (A2c, hinweisstufen sieht das Tablet sonst nicht). */
+export type HinweisAntwort = { stufe: number; text: string | null; verfuegbar: boolean; weitere: boolean }
 
 export type CheckinKind = {
   stimmung: Stimmung

@@ -23,7 +23,18 @@
     "naechsteSession": "Nächste Session",
     "naechsteHeute": "{{zeit}} Uhr",
     "naechsteAm": "{{datum}}, {{zeit}} Uhr",
-    "titel": "Guten Tag 👋"
+    "titel": "Guten Tag 👋",
+    "sessionsHeute": "Sessions heute",
+    "deineSessions": "Deine Sessions · {{zeitraum}}",
+    "zeitraum": {
+      "today": "Heute",
+      "week": "Diese Woche",
+      "all": "Alle"
+    },
+    "unbenannt": "Unbenannt",
+    "keineSessions": "Keine Sessions",
+    "keineSessionsAlle": "Es sind noch keine Sessions für dich angelegt.",
+    "keineSessionsZeitraum": "Keine Sessions im Zeitraum „{{zeitraum}}“."
   },
   "nav": {
     "rolle": "Coach",
@@ -40,5 +51,25 @@
       "pruefen": "Prüfen",
       "contentGesundheit": "Content"
     }
+  },
+  "live": {
+    "titel": "Heute im Raum",
+    "zeile": "{{zeit}} · {{raum}}",
+    "status": {
+      "upcoming": "geplant",
+      "active": "läuft",
+      "done": "abgeschlossen"
+    },
+    "testlauf": "Testlauf",
+    "starten": "Session starten",
+    "vorbereiten": "Briefing ansehen",
+    "oeffnen": "Live-Sicht öffnen",
+    "startFehler": "Die Session ließ sich nicht starten. Bitte die Seite neu laden.",
+    "leerTitel": "Heute keine Session",
+    "leerText": "Für heute ist keine Session für dich geplant.",
+    "offenTitel_one": "{{count}} Session ist noch offen",
+    "offenTitel_other": "{{count}} Sessions sind noch offen",
+    "offenText": "Diese Sessions sind vorbei, aber nicht abgeschlossen. Erst nach dem Abschluss stehen Anwesenheit und Notizen in den Akten.",
+    "abschliessen": "Zum Abschluss"
   }
 }
