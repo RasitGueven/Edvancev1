@@ -22,3 +22,9 @@
 
 ## Offen
 Siehe `docs/session/offene-punkte-l6.md`.
+
+## Nachtrag (07.10.)
+- Entscheidung Rasit: freigegebene Inhalte ändert nur ein Admin (Trigger `20261010121018`); Entscheidungen 37 und 38
+  im Bauauftrag. Hook-Sperren künftig melden statt umgehen.
+- origin/dev (A2c, C2) eingemischt, alle Tests erneut grün; eingespielt am 07.10. (`20261010121014`–`121018`),
+  Schema-Abzug aus Prod = Neuaufbau aus allen Migrationen.
