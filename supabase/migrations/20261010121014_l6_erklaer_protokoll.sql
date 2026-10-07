@@ -104,7 +104,7 @@ language sql stable
 security definer
 set search_path = public, pg_temp
 as $$
-  select coalesce(jsonb_agg(x order by o, x ->> 'variante', x ->> 'art'), '[]')
+  select coalesce(jsonb_agg(x order by o, x ->> 'variante', x ->> 'art' desc), '[]')
     from (
       select 1 as o, jsonb_build_object('was', 'kernidee_ungeprueft') as x
         from public.erklaer_kernidee k where k.id = p_kernidee_id and k.status = 'entwurf'

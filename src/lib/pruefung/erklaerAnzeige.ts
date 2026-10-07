@@ -45,7 +45,7 @@ export function variantenVon(schritte: ErklaerSchritt[]): ErklaerVariante[] {
 
 export type ThemenGruppe = { key: string; label: string | null; zeilen: ErklaerListenZeile[] }
 
-/** Gruppen nach Thema in der Reihenfolge des ersten Auftretens (der Server sortiert offen zuerst). */
+/** Gruppen nach Thema in der Reihenfolge des ersten Auftretens; innen bleibt die Server-Reihenfolge (offen zuerst). */
 export function nachThema(zeilen: ErklaerListenZeile[]): ThemenGruppe[] {
   const gruppen = new Map<string, ThemenGruppe>()
   for (const z of zeilen) {
@@ -53,9 +53,6 @@ export function nachThema(zeilen: ErklaerListenZeile[]): ThemenGruppe[] {
     const g = gruppen.get(key) ?? { key, label: z.thema_label, zeilen: [] }
     g.zeilen.push(z)
     gruppen.set(key, g)
-  }
-  for (const g of gruppen.values()) {
-    g.zeilen.sort((a, b) => a.skill_key.localeCompare(b.skill_key) || a.nr - b.nr)
   }
   return [...gruppen.values()]
 }

@@ -19,10 +19,16 @@ function Formel({ src, alt }: { src?: string; alt?: string }): JSX.Element {
       </code>
     )
   }
-  return <img src={src} alt={alt} data-testid="formel-svg" className="inline-block h-[1.6em] align-middle" />
+  return <img src={src} alt={alt} data-testid="formel-svg" className="inline-block align-middle" />
 }
 
+const UEBERSCHRIFT = 'text-base font-bold text-[var(--color-text-primary)]'
+
 const TEILE: Components = {
+  // E2b-Entwuerfe beginnen mit einer Ueberschrift (# …): auf dem Tablet der Titel des Bildschirms.
+  h1: ({ node: _n, ...props }) => <h3 className={UEBERSCHRIFT} {...props} />,
+  h2: ({ node: _n, ...props }) => <h3 className={UEBERSCHRIFT} {...props} />,
+  h3: ({ node: _n, ...props }) => <h3 className={UEBERSCHRIFT} {...props} />,
   p: ({ node: _n, ...props }) => <p className="text-base leading-relaxed text-[var(--color-text-primary)]" {...props} />,
   strong: ({ node: _n, ...props }) => <strong className="font-semibold" {...props} />,
   ol: ({ node: _n, ...props }) => <ol className="ml-6 flex list-decimal flex-col gap-2 text-base" {...props} />,
