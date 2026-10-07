@@ -16,6 +16,7 @@ import deAkte from './locales/de/akte.json'
 import dePruefen from './locales/de/pruefen.json'
 import dePruefenAdmin from './locales/de/pruefenAdmin.json'
 import deCoachLive from './locales/de/coachLive.json'
+import deErklaerPruefen from './locales/de/erklaerPruefen.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -36,6 +37,7 @@ void i18n.use(initReactI18next).init({
       pruefen: dePruefen,
       pruefenAdmin: dePruefenAdmin,
       coachLive: deCoachLive,
+      erklaerPruefen: deErklaerPruefen,
     },
   },
   lng: 'de',
@@ -58,6 +60,7 @@ void i18n.use(initReactI18next).init({
     'pruefen',
     'pruefenAdmin',
     'coachLive',
+    'erklaerPruefen',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,
