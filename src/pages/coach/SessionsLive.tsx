@@ -96,7 +96,7 @@ export function SessionsLive({ sessions }: { sessions: CoachingSession[] }): JSX
         heute.map((s) => <HeuteKarte key={s.id} s={s} onFehler={setFehler} />)
       )}
       {offen.length > 0 && (
-        <EdvanceCard className="flex flex-col gap-2 p-6" data-testid="offene-sessions">
+        <EdvanceCard className="flex flex-col gap-2 p-6">
           <b className="text-base font-semibold">{t('live.offenTitel', { count: offen.length })}</b>
           <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{t('live.offenText')}</p>
           <ul className="flex flex-col">

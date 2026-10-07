@@ -304,8 +304,10 @@
       "vertraege": "Verträge",
       "elternReports": "Reports",
       "lsaErgebnisse": "LSA",
-      "itemPflege": "Inhalte"
-    }
+      "itemPflege": "Inhalte",
+      "stellschrauben": "Werte"
+    },
+    "stellschrauben": "Stellschrauben"
   },
   "coaches": {
     "rubrik": "Team",
@@ -375,5 +377,75 @@
       },
       "fehler": "Der Testkonto-Haken konnte nicht gespeichert werden."
     }
+  },
+  "stellschrauben": {
+    "titel": "Stellschrauben",
+    "satz": "Die pädagogischen Werte der Session. Jede Änderung braucht einen Grund und steht im Verlauf.",
+    "hinweisSnapshot": "Eine Änderung wirkt ab der nächsten gestarteten Session. Jede Session speichert beim Start ihre Werte (Snapshot); laufende Sessions bleiben unverändert.",
+    "ladeFehler": "Die Stellschrauben konnten nicht geladen werden.",
+    "leer": "Keine Stellschrauben gefunden",
+    "leerText": "Sobald die Session-Werte angelegt sind, stehen sie hier.",
+    "waehlen": "Stellschraube wählen",
+    "waehlenText": "Tippe eine Zeile an, um den Wert zu ändern und den Verlauf zu sehen.",
+    "spalte": {
+      "name": "Stellschraube",
+      "wert": "Wert",
+      "start": "Startwert",
+      "spanne": "Spanne",
+      "einheit": "Einheit",
+      "geaendert": "Geändert"
+    },
+    "spanneZahl": "{{min}} bis {{max}}",
+    "spanneSchalter": "an / aus",
+    "schalter": {
+      "an": "an",
+      "aus": "aus"
+    },
+    "auswahl": {
+      "vorgeschaltet": "vorgeschaltet",
+      "angeboten": "angeboten"
+    },
+    "einheit": {
+      "minuten_one": "{{wert}} Minute",
+      "minuten_other": "{{wert}} Minuten",
+      "anzahl_one": "{{wert}}",
+      "anzahl_other": "{{wert}}",
+      "stufen_one": "{{wert}} Stufe",
+      "stufen_other": "{{wert}} Stufen",
+      "tage_one": "{{wert}} Tag",
+      "tage_other": "{{wert}} Tage",
+      "sessions_one": "{{wert}} Session",
+      "sessions_other": "{{wert}} Sessions",
+      "xp_one": "{{wert}} XP",
+      "xp_other": "{{wert}} XP",
+      "anteil_one": "{{wert}}",
+      "anteil_other": "{{wert}}"
+    },
+    "einheitName": {
+      "minuten": "Minuten",
+      "anzahl": "Anzahl",
+      "stufen": "Stufen",
+      "anteil": "Anteil",
+      "tage": "Tage",
+      "sessions": "Sessions",
+      "xp": "XP"
+    },
+    "aktuell": "Jetzt {{wert}} · Startwert {{start}} · erlaubt {{spanne}}",
+    "neuerWert": "Neuer Wert",
+    "grund": "Grund der Änderung",
+    "grundPlatzhalter": "Warum ändern wir den Wert? Der Grund steht im Verlauf.",
+    "sperre": {
+      "grundFehlt": "Ohne Grund lässt sich nicht speichern.",
+      "ausserhalb": "Der Wert liegt außerhalb der erlaubten Spanne.",
+      "unveraendert": "Der Wert ist unverändert."
+    },
+    "speichern": "Wert speichern",
+    "gespeichert": "Gespeichert: {{name}}. Gilt ab der nächsten Session.",
+    "fehlerSpanne": "Die Datenbank hat den Wert abgelehnt: außerhalb der Spanne oder ohne Grund.",
+    "fehlerAllgemein": "Speichern hat nicht geklappt. Bitte neu laden.",
+    "verlauf": "Verlauf",
+    "verlaufLeer": "Noch keine Änderung",
+    "verlaufLeerText": "Der Wert steht seit dem Start auf dem Startwert.",
+    "verlaufZeile": "{{alt}} → {{neu}}"
   }
 }
