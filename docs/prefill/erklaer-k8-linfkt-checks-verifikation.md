@@ -1,22 +1,22 @@
 # Verifikation erklaer-k8-linfkt-checks
 
-Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
+Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
 
 ## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)
 
 | Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |
 |---|---|---|---|---|
-| hints | 0 | 0 | 0 | 18 |
-| afb | 18 | 0 | 0 | 0 |
-| est_duration_sec | 18 | 0 | 0 | 0 |
-| curriculum_grade | 18 | 0 | 0 | 0 |
-| cluster_id | 18 | 0 | 0 | 0 |
-| competency_content | 18 | 0 | 0 | 0 |
-| competency_process | 18 | 0 | 0 | 0 |
-| needs_image | 18 | 0 | 0 | 0 |
-| correct_answers | 18 | 0 | 0 | 0 |
-| solution | 18 | 0 | 0 | 0 |
-| typical_errors | 18 | 0 | 0 | 0 |
+| hints | 0 | 0 | 0 | 24 |
+| afb | 24 | 0 | 0 | 0 |
+| est_duration_sec | 24 | 0 | 0 | 0 |
+| curriculum_grade | 24 | 0 | 0 | 0 |
+| cluster_id | 24 | 0 | 0 | 0 |
+| competency_content | 24 | 0 | 0 | 0 |
+| competency_process | 24 | 0 | 0 | 0 |
+| needs_image | 24 | 0 | 0 | 0 |
+| correct_answers | 24 | 0 | 0 | 0 |
+| solution | 24 | 0 | 0 | 0 |
+| typical_errors | 24 | 0 | 0 | 0 |
 
 ## Ueberschreibungen (alt → neu)
 
@@ -26,17 +26,17 @@ Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 
 | Feld | vorher leer | jetzt befuellt | bewusst leer | ungeklaert |
 |---|---|---|---|---|
-| tasks.afb | 18 | 18 | 0 | 0 |
-| tasks.est_duration_sec | 18 | 18 | 0 | 0 |
-| tasks.curriculum_grade | 18 | 18 | 0 | 0 |
-| tasks.cluster_id | 18 | 18 | 0 | 0 |
-| tasks.needs_image | 18 | 18 | 0 | 0 |
-| task_solutions.solution | 18 | 18 | 0 | 0 |
-| task_solutions.hints | 18 | 0 | 18 | 0 |
-| task_solutions.typical_errors | 18 | 18 | 0 | 0 |
-| tasks.competency_content | 18 | 18 | 0 | 0 |
-| tasks.competency_process | 18 | 18 | 0 | 0 |
-| task_solutions.correct_answers | 18 | 18 | 0 | 0 |
+| tasks.afb | 24 | 24 | 0 | 0 |
+| tasks.est_duration_sec | 24 | 24 | 0 | 0 |
+| tasks.curriculum_grade | 24 | 24 | 0 | 0 |
+| tasks.cluster_id | 24 | 24 | 0 | 0 |
+| tasks.needs_image | 24 | 24 | 0 | 0 |
+| task_solutions.solution | 24 | 24 | 0 | 0 |
+| task_solutions.hints | 24 | 0 | 24 | 0 |
+| task_solutions.typical_errors | 24 | 24 | 0 | 0 |
+| tasks.competency_content | 24 | 24 | 0 | 0 |
+| tasks.competency_process | 24 | 24 | 0 | 0 |
+| task_solutions.correct_answers | 24 | 24 | 0 | 0 |
 
 ## Charge-Fehler (Gate)
 
@@ -110,6 +110,30 @@ Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: 15*6+20 = 110 (soll 110)
 - ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: 20*6+15 = 135 (soll 135)
 - ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: 15*6 = 90 (soll 90)
+- ok  #19 Check · y-Achsenabschnitt am Graphen ablesen: 2*0-3 = -3 (soll -3)
+- ok  #19 Check · y-Achsenabschnitt am Graphen ablesen: 2 = 2 (soll 2)
+- ok  #19 Check · y-Achsenabschnitt am Graphen ablesen: 0-(-3) = 3 (soll 3)
+- ok  #19 Check · y-Achsenabschnitt am Graphen ablesen: 3/2 = 3/2 (soll 3/2)
+- ok  #19 Check · y-Achsenabschnitt am Graphen ablesen: 3/2 = 3/2 (soll 3/2)
+- ok  #20 Check · Steigung am Graphen ablesen · fallend: (-1-1)/(1-0) = -2 (soll -2)
+- ok  #20 Check · Steigung am Graphen ablesen · fallend: 2/1 = 2 (soll 2)
+- ok  #20 Check · Steigung am Graphen ablesen · fallend: 1/(-2) = -1/2 (soll -1/2)
+- ok  #20 Check · Steigung am Graphen ablesen · fallend: 1/(-2) = -1/2 (soll -1/2)
+- ok  #20 Check · Steigung am Graphen ablesen · fallend: 1 = 1 (soll 1)
+- ok  #21 Check · y-Wert am Graphen ablesen: 2*1-4 = -2 (soll -2)
+- ok  #21 Check · y-Wert am Graphen ablesen: 0-(-2) = 2 (soll 2)
+- ok  #21 Check · y-Wert am Graphen ablesen: (1+4)/2 = 5/2 (soll 5/2)
+- ok  #21 Check · y-Wert am Graphen ablesen: (1+4)/2 = 5/2 (soll 5/2)
+- ok  #22 Check · Stelle x am Graphen ablesen: (-1-1)/(-0.5) = 4 (soll 4)
+- ok  #22 Check · Stelle x am Graphen ablesen: -1 = -1 (soll -1)
+- ok  #22 Check · Stelle x am Graphen ablesen: -0.5*(-1)+1 = 3/2 (soll 3/2)
+- ok  #22 Check · Stelle x am Graphen ablesen: -0.5*(-1)+1 = 3/2 (soll 3/2)
+- ok  #23 Check · Graph im Sachzusammenhang · Taxi: (7-4)/1 = 3 (soll 3)
+- ok  #23 Check · Graph im Sachzusammenhang · Taxi: 4 = 4 (soll 4)
+- ok  #23 Check · Graph im Sachzusammenhang · Taxi: 1/3 = 1/3 (soll 1/3)
+- ok  #24 Check · Graph im Sachzusammenhang · Paket: (5-4)/2 = 1/2 (soll 1/2)
+- ok  #24 Check · Graph im Sachzusammenhang · Paket: 4 = 4 (soll 4)
+- ok  #24 Check · Graph im Sachzusammenhang · Paket: 2/1 = 2 (soll 2)
 
 ## Blind-Abgleich (docs/prefill/erklaer-k8-linfkt-checks-blind.json)
 
@@ -131,3 +155,9 @@ Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #16 Check · Gleichung aus zwei Punkten · einsetzen: Loeser 7 · gespeichert ["7","+7"]
 - ok  #17 Check · Gleichung im Sachzusammenhang · Abnahme: Loeser 30 · gespeichert ["30","+30"]
 - ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: Loeser 110 · gespeichert ["110","+110"]
+- ok  #19 Check · y-Achsenabschnitt am Graphen ablesen: Loeser -3 · gespeichert ["-3","−3","- 3"]
+- ok  #20 Check · Steigung am Graphen ablesen · fallend: Loeser -2 · gespeichert ["-2","−2","- 2"]
+- ok  #21 Check · y-Wert am Graphen ablesen: Loeser -2 · gespeichert ["-2","−2","- 2"]
+- ok  #22 Check · Stelle x am Graphen ablesen: Loeser 4 · gespeichert ["4","+4"]
+- ok  #23 Check · Graph im Sachzusammenhang · Taxi: Loeser 3 · gespeichert ["3","+3"]
+- ok  #24 Check · Graph im Sachzusammenhang · Paket: Loeser 0.5 · gespeichert ["1/2","+1/2","0,5","+0,5","0.5","+0.5"]

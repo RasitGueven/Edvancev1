@@ -152,3 +152,56 @@ Keine fachlichen Fehler, alle Punkte und Dreiecke an der genannten Stelle, kein 
 | 12 | Bilder | Lesbarkeit · kann | Namen S und P auf der Geraden. | **Offen**, offener Punkt 17. |
 
 Danach: Nachrechnung grün (mit R15), Vorschau ohne überlaufenden Bildschirm.
+
+## Skill fkt_linear_graph
+
+Prüfer Runde 1: neuer frischer Subagent (kein Fork), 08.10.2026, Ablauf wie oben; Teil 1 mit den sechs Check-Abbildungen.
+
+### Teil 1: Blind-Löser
+
+→ **6/6 = 100 %**, 0 Abweichungen, 0 unsicher. Alle Check-Abbildungen laut Löser eindeutig auf ganzen Gitterpunkten ablesbar.
+
+| Check | Löser | hinterlegt |
+|---|---|---|
+| erklaer-graph-k1-c1 (b ablesen) | -3 | -3 |
+| erklaer-graph-k1-c2 (m ablesen) | -2 | -2 |
+| erklaer-graph-k2-c1 (y bei x = 1) | -2 | -2 |
+| erklaer-graph-k2-c2 (x bei y = -1) | 4 | 4 |
+| erklaer-graph-k3-c1 (Taxi, je km) | 3 | 3 |
+| erklaer-graph-k3-c2 (Paket, je kg) | 0,5 | 1/2, 0,5 |
+
+### Teil 2, Runde 1: Befunde und was daraus wurde
+
+Keine fachlichen Fehler, alle Punkte und Dreiecke an der genannten Stelle.
+
+| Nr | Ort | Art · Gewicht | Befund | Erledigt |
+|---|---|---|---|---|
+| 1 | K2 A | Lücke · muss | Nur „x gegeben → y“, Check 2 fragt x zu gegebenem y. | **Behoben:** „Ist y gegeben: Geh umgekehrt, von y auf der y-Achse waagerecht zur Geraden, dann senkrecht zur x-Achse.“ |
+| 2 | K3 A | Lücke · muss | Paket-Check (m = 0,5): Punkt bei x = 1 nicht auf dem Gitter, „hoch durch rüber“ fehlt in K3 A. | **Behoben:** „Trifft die Gerade bei 1 nach rechts keine Kästchenecke, geh weiter, bis sie eine trifft. Dann: hoch durch rüber.“ (Wortlaut nach Runde 2) |
+| 3 | K1 C | Variante passt nicht · sollte | Am ersten Check (b) entsteht `betrag_fehler` bei b, C erklärt nur das Minus von m. | **Behoben** (in Runde 2 nachgeschärft): S(0\|-1), „also $b = -1$, nicht 1“. |
+| 4 | K1 C | Widerspruch · sollte | „Nicht 4/(-2)“ = -2 ist die richtige Lösung des nächsten Checks. | **Behoben:** Beispiel rüber 4, hoch -1: $m = -0,25$, „Nicht $\frac{4}{-1} = -4$“. |
+| 5 | K2 B | Sprache · sollte | „Geh bei 4 waagerecht“: wo liegt die 4? | **Behoben:** „Dafür startest du auf der y-Achse bei 4 …“ |
+| 6 | K1 A Beispiel | Widerspruch · kann | Text „3 nach unten“, Bild „hoch -3“. | **Behoben:** „3 nach unten, also hoch -3.“ |
+| 7 | K1 B | Lücke · kann | „Steigung nur 0,5“ ohne Begründung; „Stelle“ meint sonst x. | **Behoben:** „b ist ein Wert auf der y-Achse“, „Die Steigung ist 0,5, sie gehört nicht zu b.“ |
+| 8 | K2 A Bild | Lesbarkeit · kann | Keine Hilfslinien für den Ableseweg. | **Offen**, offener Punkt 20 (Generator ohne Ablese-Hilfslinien); P(2\|3) steht jetzt im Text. |
+| 9 | K3 B | Sprache · kann | „Nicht umgekehrt“ unklar. | **Behoben:** „Die 6 ist der Start, nicht der Betrag pro Einheit.“ |
+| 10 | Bilder | Lesbarkeit · kann | Label S dicht an Achsenzahlen. | **Offen**, offener Punkt 17. |
+
+### Teil 2, Runde 2 (geänderte Stellen, neuer frischer Subagent)
+
+Die überarbeiteten Stellen sind fachlich richtig. Der Prüfer sah die Check-Abbildungen nicht (der `--export` enthält sie
+bewusst nicht, sie gehören zu Teil 1) und meldete das als „muss“; das ist eine Eigenschaft des Prüfaufbaus, nicht der
+Charge: In Runde 1 lagen alle sechs Abbildungen vor und wurden blind richtig gelöst.
+
+| Nr | Ort | Art · Gewicht | Befund | Erledigt |
+|---|---|---|---|---|
+| 1 | Checks | Vollständigkeit · muss | Keine Abbildung im Export. | **Begründet:** siehe oben, Teil 1 hatte die Abbildungen. |
+| 2 | K3 Beispiel | Lösung verraten? · muss, falls zutreffend | Taxi-Beispiel im selben Kontext wie der Taxi-Check. | **Behoben:** Beispiel jetzt Handytarif. Werte waren schon verschieden (Beispiel 5 € + 2 €/km, Check 4 € + 3 €/km). |
+| 3, 4 | K3 A | Lücke, Sprache · sollte | Satz „Punkt nicht auf der Gitterlinie“ ungenau. | **Behoben:** „Kästchenecke“-Wortlaut (siehe Runde 1 Nr. 2). Ein ausgerechnetes Dreieck mit rüber 2 zeigen B (1,5) und C (2,5); A bleibt im Rahmen eines Bildschirms. |
+| 5 | K1 A | Lücke · sollte | Wie weit nach rechts? | **Behoben:** „Geh nach rechts, bis die Gerade genau eine Kästchenecke trifft.“ |
+| 6 | K1 C | Variante passt · sollte | Bild mit positivem b. | **Behoben:** Gerade $y = -0,25x - 1$, S(0\|-1), P(4\|-2). |
+| 7 | K2 B | Variante passt · sollte | Zeigt nur „x gesucht“, der Fehler entsteht bei „y gesucht“. | **Behoben:** beide Richtungen am selben Q(2\|4). |
+| 8 | K2 A | Lücke · sollte | Rückrichtung nur als Satz. | **Behoben:** „Umgekehrt gehört zu y = 3 die Stelle x = 2.“ |
+| 9 | K1 B | Passung · kann | m zum Vergleich fehlt. | **Behoben** mit Runde 1 Nr. 7. |
+| 10 | K3 B | Sprache · kann | „bei jedem Schritt“ vs. rüber 2. | **Behoben:** „je Kästchen nach rechts“. |
+| 11 | K1 B, K2 C | Form · kann | Überschriften mit Punkt. | **Keine Änderung:** wie im abgenommenen Muster (z. B. „Erst hoch, dann durch rüber.“). |

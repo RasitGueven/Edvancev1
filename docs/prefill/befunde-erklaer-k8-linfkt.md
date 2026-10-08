@@ -115,3 +115,5 @@ Geraden, haben Platz für ihre Beschriftung und stehen nie in einer Check-Figur.
 19. **„hoch -4“ statt „runter 4“.** Der Generator beschriftet fallende Dreiecke mit „hoch“ und negativem Wert, wie im
     abgenommenen Muster („Hoch: -1 - 5 = -6“). Die Zweitprüfung y-Abschnitt findet „hoch -4“ holprig. Eine Beschriftung
     „runter 4“ wäre eine Generator-Änderung mit neuer Byte-Gleichheitsprüfung; die Texte sagen dazu „nach unten“.
+20. **Keine Ablese-Hilfslinien.** Beim Ablesen von Punkten (Graph K2) würden gestrichelte Linien von der Achse zum
+    Punkt helfen (Zweitprüfung Graph Nr. 8). Der Generator hat sie nicht; die Texte beschreiben den Weg in Worten.

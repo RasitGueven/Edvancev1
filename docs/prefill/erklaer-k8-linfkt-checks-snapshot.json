@@ -502,5 +502,173 @@
    "vorbefuellt": {}
   },
   "sol": null
+ },
+ {
+  "task": {
+   "id": "d5eabf2b-3603-4510-9ce7-3c5ae2688969",
+   "title": "Check · y-Achsenabschnitt am Graphen ablesen",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nLies den y-Achsenabschnitt b ab.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nLies den y-Achsenabschnitt b ab."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-graph-k1-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6438c86f-ee39-4e7e-a9c1-971be7e06069",
+   "title": "Check · Steigung am Graphen ablesen · fallend",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nLies die Steigung m ab.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nLies die Steigung m ab."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-graph-k1-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "91d726e8-4888-4275-ad51-36bc9a077543",
+   "title": "Check · y-Wert am Graphen ablesen",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nWelchen y-Wert hat der Graph an der Stelle x = 1?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nWelchen y-Wert hat der Graph an der Stelle x = 1?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-graph-k2-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ee23f394-6d4a-4c7b-bd94-179c203cc08c",
+   "title": "Check · Stelle x am Graphen ablesen",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x hat der Graph den y-Wert -1?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x hat der Graph den y-Wert -1?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-graph-k2-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6b821b19-4285-48f0-93ea-0174c96c1c43",
+   "title": "Check · Graph im Sachzusammenhang · Taxi",
+   "question": "Der Graph zeigt die Kosten y in Euro für eine Taxifahrt in Abhängigkeit von der Strecke x in km.\n\nWie viel Euro kostet jeder weitere Kilometer?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Graph zeigt die Kosten y in Euro für eine Taxifahrt in Abhängigkeit von der Strecke x in km.\n\nWie viel Euro kostet jeder weitere Kilometer?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-graph-k3-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f96fd8ba-b402-4297-99df-c77b0651c824",
+   "title": "Check · Graph im Sachzusammenhang · Paket",
+   "question": "Der Graph zeigt die Kosten y in Euro für den Versand eines Pakets in Abhängigkeit vom Gewicht x in kg.\n\nWie viel Euro kostet jedes weitere Kilogramm?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Graph zeigt die Kosten y in Euro für den Versand eines Pakets in Abhängigkeit vom Gewicht x in kg.\n\nWie viel Euro kostet jedes weitere Kilogramm?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-graph-k3-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
  }
 ]

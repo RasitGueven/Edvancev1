@@ -20,8 +20,9 @@ import { pruefeCharge } from './erklaer-rechnen.mjs';
 import * as steigung from './erklaer-k8-linfkt/steigung.mjs';
 import * as yabschnitt from './erklaer-k8-linfkt/yabschnitt.mjs';
 import * as gleichung from './erklaer-k8-linfkt/gleichung.mjs';
+import * as graph from './erklaer-k8-linfkt/graph.mjs';
 
-const MODULE = [steigung, yabschnitt, gleichung];
+const MODULE = [steigung, yabschnitt, gleichung, graph];
 const PFAD = 'docs/prefill/erklaer-k8-linfkt';
 const BESTAND = `${PFAD}-bestand.json`;
 const AUFGABEN = 'docs/prefill/k8-linfkt.json';

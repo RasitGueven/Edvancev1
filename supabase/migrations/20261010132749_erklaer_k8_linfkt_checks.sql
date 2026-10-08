@@ -1,4 +1,4 @@
--- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 18 Check-Aufgaben, nur Einsatz check.
+-- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 24 Check-Aufgaben, nur Einsatz check.
 -- Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:
 -- tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.
 --
@@ -30,6 +30,7 @@
 --   fkt_linear_steigung: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --   fkt_linear_yabschnitt: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --   fkt_linear_gleichung: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
+--   fkt_linear_graph: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --
 -- Idempotent: on conflict do nothing; die Loesung nur, wenn noch keine Zeile besteht.
 -- Kein begin/commit in der Datei: mig spielt sie mit psql -1 in EINER Transaktion ein,
@@ -684,3 +685,240 @@ K(6) = 15 · 6 + 20 = 90 + 20 = 110.',
   end if;
 end
 $loesung$;
+
+-- #19 erklaer-graph-k1-c1 · Check · y-Achsenabschnitt am Graphen ablesen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'd5eabf2b-3603-4510-9ce7-3c5ae2688969'::uuid, 'exercise', 'Check · y-Achsenabschnitt am Graphen ablesen', 'Die Abbildung zeigt den Graphen einer linearen Funktion.
+
+Lies den y-Achsenabschnitt b ab.',
+  '{"kind":"short_input","prompt":"Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nLies den y-Achsenabschnitt b ab."}'::jsonb, 'NUMERIC', 'fkt_linear_graph',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-graph-k1-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: Schnittpunkt mit der y-Achse ablesen, negatives b.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'd5eabf2b-3603-4510-9ce7-3c5ae2688969'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'd5eabf2b-3603-4510-9ce7-3c5ae2688969'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'd5eabf2b-3603-4510-9ce7-3c5ae2688969'::uuid,
+  p_correct_answers => '["-3","−3","- 3"]'::jsonb,
+  p_solution        => 'Die Gerade schneidet die y-Achse bei (0 | -3). Also b = -3.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Steigung 2 abgelesen statt b.","socratic_question":"Wo schneidet die Gerade die y-Achse?","fehlbild":"m_b_vertauscht"},{"error":"Das Minus vergessen: 3 statt -3.","socratic_question":"Liegt der Schnittpunkt über oder unter der x-Achse?","fehlbild":"betrag_fehler"},{"error":"Den Schnitt mit der x-Achse abgelesen: 1,5.","socratic_question":"Auf welcher Achse liegt der y-Achsenabschnitt?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-3","known_errors":{"2":"m_b_vertauscht","3":"betrag_fehler","+2":"m_b_vertauscht","+3":"betrag_fehler","1,5":"achsenabschnitt_verwechselt","+1,5":"achsenabschnitt_verwechselt","1.5":"achsenabschnitt_verwechselt","+1.5":"achsenabschnitt_verwechselt","3/2":"achsenabschnitt_verwechselt","+3/2":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select 'd5eabf2b-3603-4510-9ce7-3c5ae2688969'::uuid, 'koordinatensystem', '{"x_min":-3,"x_max":4,"y_min":-5,"y_max":5,"funktionen":[{"typ":"linear","m":2,"b":-3}],"punkte":[]}'::jsonb, 'Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion.'
+ where exists (select 1 from public.tasks t where t.id = 'd5eabf2b-3603-4510-9ce7-3c5ae2688969'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #20 erklaer-graph-k1-c2 · Check · Steigung am Graphen ablesen · fallend
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '6438c86f-ee39-4e7e-a9c1-971be7e06069'::uuid, 'exercise', 'Check · Steigung am Graphen ablesen · fallend', 'Die Abbildung zeigt den Graphen einer linearen Funktion.
+
+Lies die Steigung m ab.',
+  '{"kind":"short_input","prompt":"Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nLies die Steigung m ab."}'::jsonb, 'NUMERIC', 'fkt_linear_graph',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-graph-k1-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: Steigung am Gitter ablesen, fallende Gerade.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '6438c86f-ee39-4e7e-a9c1-971be7e06069'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '6438c86f-ee39-4e7e-a9c1-971be7e06069'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '6438c86f-ee39-4e7e-a9c1-971be7e06069'::uuid,
+  p_correct_answers => '["-2","−2","- 2"]'::jsonb,
+  p_solution        => 'Von (0 | 1) geht es 1 nach rechts und 2 nach unten zu (1 | -1).
+m = -2 / 1 = -2.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Das Minus vergessen: 2 statt -2.","socratic_question":"Steigt die Gerade oder fällt sie?","fehlbild":"betrag_fehler"},{"error":"Rüber durch hoch geteilt: 1 / (-2) = -1/2.","socratic_question":"Welche Zahl gehört nach oben in den Bruch: hoch oder rüber?","fehlbild":"steigung_kehrwert"},{"error":"Den y-Achsenabschnitt 1 abgelesen statt m.","socratic_question":"Was sagt dir, wie steil die Gerade ist?","fehlbild":"m_b_vertauscht"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-2","known_errors":{"1":"m_b_vertauscht","2":"betrag_fehler","+2":"betrag_fehler","-1/2":"steigung_kehrwert","−1/2":"steigung_kehrwert","- 1/2":"steigung_kehrwert","-0,5":"steigung_kehrwert","−0,5":"steigung_kehrwert","- 0,5":"steigung_kehrwert","-0.5":"steigung_kehrwert","−0.5":"steigung_kehrwert","- 0.5":"steigung_kehrwert","+1":"m_b_vertauscht"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select '6438c86f-ee39-4e7e-a9c1-971be7e06069'::uuid, 'koordinatensystem', '{"x_min":-3,"x_max":3,"y_min":-4,"y_max":5,"funktionen":[{"typ":"linear","m":-2,"b":1}],"punkte":[]}'::jsonb, 'Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion.'
+ where exists (select 1 from public.tasks t where t.id = '6438c86f-ee39-4e7e-a9c1-971be7e06069'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #21 erklaer-graph-k2-c1 · Check · y-Wert am Graphen ablesen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '91d726e8-4888-4275-ad51-36bc9a077543'::uuid, 'exercise', 'Check · y-Wert am Graphen ablesen', 'Die Abbildung zeigt den Graphen einer linearen Funktion.
+
+Welchen y-Wert hat der Graph an der Stelle x = 1?',
+  '{"kind":"short_input","prompt":"Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nWelchen y-Wert hat der Graph an der Stelle x = 1?"}'::jsonb, 'NUMERIC', 'fkt_linear_graph',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-graph-k2-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: zu gegebenem x den y-Wert ablesen, Ergebnis negativ.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '91d726e8-4888-4275-ad51-36bc9a077543'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '91d726e8-4888-4275-ad51-36bc9a077543'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '91d726e8-4888-4275-ad51-36bc9a077543'::uuid,
+  p_correct_answers => '["-2","−2","- 2"]'::jsonb,
+  p_solution        => 'Bei x = 1 senkrecht zur Geraden: Punkt (1 | -2). Der y-Wert ist -2.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Richtig abgelesen, aber das Minus fehlt: 2 statt -2.","socratic_question":"Liegt der Punkt über oder unter der x-Achse?","fehlbild":"koordinate_vorzeichen_verloren"},{"error":"x und y vertauscht: die Stelle x mit y = 1 abgelesen, 2,5.","socratic_question":"Ist x = 1 gegeben oder y = 1?","fehlbild":"koordinaten_vertauscht"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-2","known_errors":{"2":"koordinate_vorzeichen_verloren","+2":"koordinate_vorzeichen_verloren","2,5":"koordinaten_vertauscht","+2,5":"koordinaten_vertauscht","2.5":"koordinaten_vertauscht","+2.5":"koordinaten_vertauscht","5/2":"koordinaten_vertauscht","+5/2":"koordinaten_vertauscht"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select '91d726e8-4888-4275-ad51-36bc9a077543'::uuid, 'koordinatensystem', '{"x_min":-2,"x_max":5,"y_min":-5,"y_max":5,"funktionen":[{"typ":"linear","m":2,"b":-4}],"punkte":[]}'::jsonb, 'Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion.'
+ where exists (select 1 from public.tasks t where t.id = '91d726e8-4888-4275-ad51-36bc9a077543'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #22 erklaer-graph-k2-c2 · Check · Stelle x am Graphen ablesen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'ee23f394-6d4a-4c7b-bd94-179c203cc08c'::uuid, 'exercise', 'Check · Stelle x am Graphen ablesen', 'Die Abbildung zeigt den Graphen einer linearen Funktion.
+
+An welcher Stelle x hat der Graph den y-Wert -1?',
+  '{"kind":"short_input","prompt":"Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x hat der Graph den y-Wert -1?"}'::jsonb, 'NUMERIC', 'fkt_linear_graph',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-graph-k2-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: zu gegebenem y die Stelle x ablesen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'ee23f394-6d4a-4c7b-bd94-179c203cc08c'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'ee23f394-6d4a-4c7b-bd94-179c203cc08c'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'ee23f394-6d4a-4c7b-bd94-179c203cc08c'::uuid,
+  p_correct_answers => '["4","+4"]'::jsonb,
+  p_solution        => 'Bei y = -1 waagerecht zur Geraden: Punkt (4 | -1). Die Stelle ist x = 4.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Den gegebenen y-Wert als Antwort genommen.","socratic_question":"Ist x oder y gesucht?","fehlbild":"falsche_groesse_beantwortet"},{"error":"x und y vertauscht: den y-Wert an der Stelle x = -1 abgelesen, 1,5.","socratic_question":"Gehst du bei -1 auf der x-Achse oder auf der y-Achse los?","fehlbild":"koordinaten_vertauscht"}]'::jsonb,
+  p_acceptance      => '{"canonical":"4","known_errors":{"-1":"falsche_groesse_beantwortet","−1":"falsche_groesse_beantwortet","- 1":"falsche_groesse_beantwortet","1,5":"koordinaten_vertauscht","+1,5":"koordinaten_vertauscht","1.5":"koordinaten_vertauscht","+1.5":"koordinaten_vertauscht","3/2":"koordinaten_vertauscht","+3/2":"koordinaten_vertauscht"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select 'ee23f394-6d4a-4c7b-bd94-179c203cc08c'::uuid, 'koordinatensystem', '{"x_min":-3,"x_max":6,"y_min":-3,"y_max":4,"funktionen":[{"typ":"linear","m":-0.5,"b":1}],"punkte":[]}'::jsonb, 'Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion.'
+ where exists (select 1 from public.tasks t where t.id = 'ee23f394-6d4a-4c7b-bd94-179c203cc08c'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #23 erklaer-graph-k3-c1 · Check · Graph im Sachzusammenhang · Taxi
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid, 'exercise', 'Check · Graph im Sachzusammenhang · Taxi', 'Der Graph zeigt die Kosten y in Euro für eine Taxifahrt in Abhängigkeit von der Strecke x in km.
+
+Wie viel Euro kostet jeder weitere Kilometer?',
+  '{"kind":"short_input","prompt":"Der Graph zeigt die Kosten y in Euro für eine Taxifahrt in Abhängigkeit von der Strecke x in km.\n\nWie viel Euro kostet jeder weitere Kilometer?"}'::jsonb, 'NUMERIC', 'fkt_linear_graph',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-graph-k3-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: Steigung im Sachzusammenhang als Preis pro Kilometer deuten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid,
+  p_correct_answers => '["3","+3"]'::jsonb,
+  p_solution        => 'Start bei 4 Euro. Pro Kilometer geht es 3 hoch, zum Beispiel von (0 | 4) nach (1 | 7).
+Jeder weitere Kilometer kostet 3 Euro.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Grundgebühr abgelesen statt des Preises pro Kilometer.","socratic_question":"Welcher Betrag kommt für jeden Kilometer neu dazu?","fehlbild":"groessen_vertauscht"},{"error":"Rüber durch hoch geteilt: 1 / 3.","socratic_question":"Wie weit geht es hoch, wenn du 1 nach rechts gehst?","fehlbild":"steigung_kehrwert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"3","known_errors":{"4":"groessen_vertauscht","+4":"groessen_vertauscht","1/3":"steigung_kehrwert","+1/3":"steigung_kehrwert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid, 'koordinatensystem', '{"x_min":0,"x_max":3,"y_min":0,"y_max":13,"funktionen":[{"typ":"linear","m":3,"b":4}],"punkte":[]}'::jsonb, 'Koordinatensystem im ersten Quadranten mit Gitter und einer steigenden Geraden.'
+ where exists (select 1 from public.tasks t where t.id = '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #24 erklaer-graph-k3-c2 · Check · Graph im Sachzusammenhang · Paket
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid, 'exercise', 'Check · Graph im Sachzusammenhang · Paket', 'Der Graph zeigt die Kosten y in Euro für den Versand eines Pakets in Abhängigkeit vom Gewicht x in kg.
+
+Wie viel Euro kostet jedes weitere Kilogramm?',
+  '{"kind":"short_input","prompt":"Der Graph zeigt die Kosten y in Euro für den Versand eines Pakets in Abhängigkeit vom Gewicht x in kg.\n\nWie viel Euro kostet jedes weitere Kilogramm?"}'::jsonb, 'NUMERIC', 'fkt_linear_graph',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-graph-k3-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: Steigung kleiner als 1 im Sachzusammenhang deuten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid,
+  p_correct_answers => '["1/2","+1/2","0,5","+0,5","0.5","+0.5"]'::jsonb,
+  p_solution        => 'Start bei 4 Euro. Von (0 | 4) nach (2 | 5): rüber 2, hoch 1.
+m = 1 / 2 = 0,5. Jedes weitere Kilogramm kostet 0,50 Euro.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Den Startpreis abgelesen statt des Preises pro Kilogramm.","socratic_question":"Welcher Betrag kommt für jedes Kilogramm neu dazu?","fehlbild":"groessen_vertauscht"},{"error":"Rüber durch hoch geteilt: 2 / 1 = 2.","socratic_question":"Wie weit geht es hoch, wenn du 1 nach rechts gehst?","fehlbild":"steigung_kehrwert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"1/2","known_errors":{"2":"steigung_kehrwert","4":"groessen_vertauscht","+4":"groessen_vertauscht","+2":"steigung_kehrwert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid, 'koordinatensystem', '{"x_min":0,"x_max":8,"y_min":0,"y_max":9,"funktionen":[{"typ":"linear","m":0.5,"b":4}],"punkte":[]}'::jsonb, 'Koordinatensystem im ersten Quadranten mit Gitter und einer flach steigenden Geraden.'
+ where exists (select 1 from public.tasks t where t.id = 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
