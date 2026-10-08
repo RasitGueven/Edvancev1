@@ -55,7 +55,10 @@ describe('Umstieg auf die Admin-Pruefansicht', () => {
 
   it('Lenas Pruefansicht: der Admin-Link heisst „In Admin-Prüfansicht öffnen“ und zeigt auf /admin/pruefen/:id', async () => {
     zeige('/coach/pruefen/t1')
-    const link = await screen.findByRole('link', { name: 'In Admin-Prüfansicht öffnen' })
+    // Erst auf das Ereignis warten (Text da), dann einmal nach Rolle fragen: findByRole
+    // berechnet bei jedem Versuch die Namen der ganzen App und schafft unter Last in 1 s kaum einen.
+    await screen.findByText('In Admin-Prüfansicht öffnen')
+    const link = screen.getByRole('link', { name: 'In Admin-Prüfansicht öffnen' })
     expect(link.getAttribute('href')).toBe('/admin/pruefen/t1')
   })
 })
