@@ -1,11 +1,12 @@
 // Session-Rahmen C2: echte Antworten (coach_raum_live, coach_kind_detail, session_briefing,
 // satz_vorschlaege, A1) → Ansichtsmodell der Coach-Live-Sicht. Rein und testbar; die Seite
 // bleibt wie in C1. Was der Server (noch) nicht liefert, bleibt leer statt erfunden.
+// C3: Pfad-Vorschlag, Heute, Grund mit Zahl, alle Kernideen und der Warm-up-Beleg aus coach_kind_detail
+// (coachLiveSchublade.ts); sie gibt es nur fuer das Kind mit offener Schublade.
 
 import type {
   CoachLiveKind,
   CoachLiveRaum,
-  GrundLetzterSchritt,
   KachelMeta,
   LiveAufgabeDetail,
   LiveInfo,
@@ -30,6 +31,7 @@ import {
   vornameAus,
   zeitpunktAus,
 } from './coachLiveTeile'
+import { grundAus, heuteAus, pfadVorschlagAus, sequenzMitKernideen, warmupBelegAus } from './coachLiveSchublade'
 
 /** Was neben coach_raum_live geladen wurde. Detail nur fuer das Kind mit offener Schublade. */
 export type LiveZusatz = {
@@ -130,26 +132,18 @@ function aufgabeAus(k: KindRaum, d: KindDetail, c: Kontext): LiveAufgabeDetail |
   }
 }
 
-function grundAus(k: KindRaum, c: Kontext): GrundLetzterSchritt | null {
-  const g = k.schritt?.grund_code ?? ''
-  const quote = Number(c.e.ziel_erfolgsquote ?? 0.8)
-  if (g.includes('ueber')) return { art: 'ueberQuote', quote }
-  if (g.includes('unter')) return { art: 'unterQuote', quote }
-  if (k.schritt?.eingemischt) return { art: 'eingemischt', anteil: Number(c.e.mischanteil ?? 0.3) }
-  return g.includes('tiefer') ? { art: 'tiefer' } : null
-}
-
 function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
   const name = k.name ?? ''
   const klasse = k.klasse ?? 0
   const d = c.z.detail?.kindId === k.student_id ? c.z.detail : null
-  const mastery = masteryAus(k, d?.pruefung ?? null, d?.lernpfad ?? null, c.raum.stand)
+  const heute = d?.detail.heute ?? []
+  const mastery = masteryAus(k, d?.pruefung ?? null, d?.lernpfad ?? null, c.raum.stand, (sk) => warmupBelegAus(heute, sk))
   const signale = k.signale.map((s) => signalAus(s, c.label))
   const geoeffnet = c.z.pfadGeoeffnet[k.student_id]
   const pfad = k.pfad_entscheidung && (!geoeffnet || Date.parse(k.pfad_entscheidung.zeit) > Date.parse(geoeffnet))
     ? { art: k.pfad_entscheidung.entscheidung, zeit: k.pfad_entscheidung.zeit }
     : null
-  const seq = sequenzAus(k)
+  const seq = sequenzMitKernideen(sequenzAus(k), d?.detail.erklaer_kernideen ?? [])
   const letzterFehler = d?.detail.versuche.filter((v) => v.fehlbild_slug).at(-1)
   const themaKey = k.ziel_thema_key ?? k.schulthema_key
   const schulthema = k.schulthema_key ? (c.z.themen.get(k.schulthema_key) ?? k.schulthema_key) : null
@@ -190,8 +184,7 @@ function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
     erklaersequenz: seq,
     masteryKandidat: mastery,
     pruefungAufTablet: k.pruefung_auf_tablet !== null,
-    // Den Vorschlag „eine Stufe tiefer“ mit Zahlen aus dem Warm-up liefert der Server noch nicht (offene Punkte).
-    pfadVorschlag: null,
+    pfadVorschlag: pfadVorschlagAus(d?.detail.pfad_vorschlag, k.pfad_entscheidung, geoeffnet),
     pfadEntscheidung: pfad,
     info: infoAus(k, c),
     eingreifen: {
@@ -199,8 +192,8 @@ function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
       fehlbild: letzterFehler?.fehlbild_slug ? { slug: letzterFehler.fehlbild_slug, klartext: letzterFehler.fehlbild_klartext ?? '' } : null,
       eingriffe: k.eingriffe,
     },
-    heute: [],
-    grundLetzterSchritt: grundAus(k, c),
+    heute: heuteAus(heute),
+    grundLetzterSchritt: grundAus(k, d?.detail.schritt_details ?? null, c.e),
     checkin: {
       fertig: k.checkin_fertig,
       stimmung: k.stimmung,

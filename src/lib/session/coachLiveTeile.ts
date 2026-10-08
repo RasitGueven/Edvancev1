@@ -102,6 +102,7 @@ export function masteryAus(
   pruefung: SkillPruefung | null,
   lernpfad: LernpfadEintrag | null,
   jetzt: string,
+  warmupHeute: (skillKey: string) => MasteryBeleg | null = () => null,
 ): LiveMasteryKandidat | null {
   const heute = k.mastery_heute.at(-1) ?? null
   const kandidat = k.mastery_kandidat
@@ -110,6 +111,9 @@ export function masteryAus(
   const belege: MasteryBeleg[] = (lernpfad?.skill_key === skillKey ? lernpfad.belege : [])
     .slice(-3)
     .map((b) => ({ art: 'session', datum: b.am, richtig: b.richtig_ohne_hinweis, von: b.gesamt }))
+  // C3: Warm-up von heute, wenn der Skill heute im Warm-up dran war (nur mit offener Schublade).
+  const warmup = warmupHeute(skillKey)
+  if (warmup) belege.push(warmup)
   const erster = lernpfad?.skill_key === skillKey ? lernpfad.belege[0] : undefined
   if (erster) belege.push({ art: 'abstand', tage: Math.floor((Date.parse(jetzt) - Date.parse(erster.am)) / 86_400_000) })
   return {

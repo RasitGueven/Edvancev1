@@ -149,15 +149,19 @@ export type LiveMasteryKandidat = {
   entscheidung: MasteryEntscheidungLive | null
 }
 
+/** C3: Felder, die der Server nicht belegen kann, sind null; die Seite laesst die Zeile dann weg. */
 export type PfadVorschlag = {
   skillPlan: string
   skillTiefer: string
-  klasseTiefer: number
-  warmupRichtig: number
-  warmupVon: number
-  fehlbild: string
+  klasseTiefer: number | null
+  /** Warm-up-Zahlen auf der Voraussetzung (A2d); null bei einem Signal von vor A2d. */
+  warmupRichtig: number | null
+  warmupVon: number | null
+  /** Letztes Fehlbild auf der Voraussetzung in dieser Session (Klartext, nur Coach). */
+  fehlbild: string | null
+  /** Letzte fruehere Session mit demselben Fehlbild. */
   fehlbildAm: string | null
-  themaLabel: string
+  themaLabel: string | null
   entscheidung: { art: 'tiefer' | 'plan'; zeit: string; von: string } | null
 }
 
@@ -189,10 +193,10 @@ export type HeuteZeile = {
   zeit: string | null
 }
 
-/** Warum die Auswahl den letzten Schritt gemacht hat (A1). */
+/** Warum die Auswahl den letzten Schritt gemacht hat (A1). C3: quote = Ziel, richtig/von = ausgewertetes Fenster. */
 export type GrundLetzterSchritt =
-  | { art: 'ueberQuote'; quote: number }
-  | { art: 'unterQuote'; quote: number }
+  | { art: 'ueberQuote'; quote: number; richtig: number | null; von: number | null }
+  | { art: 'unterQuote'; quote: number; richtig: number | null; von: number | null }
   | { art: 'eingemischt'; anteil: number }
   | { art: 'tiefer' }
 

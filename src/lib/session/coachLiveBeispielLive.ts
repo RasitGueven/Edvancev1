@@ -148,7 +148,7 @@ export const BEISPIEL_KERN: Record<string, BeispielLive> = {
       musterloesung: ['Die Diagonale ist die Hypotenuse: 13² = 12² + b²', 'b² = 169 − 144 = 25', 'b = 5 cm'],
       letzteEingabe: null, ohneEingabeMin: null,
     },
-    grund: { art: 'ueberQuote', quote: 0.8 },
+    grund: { art: 'ueberQuote', quote: 0.8, richtig: 5, von: 5 },
     heute: [
       heute('warmup', { skill: 'Hypotenuse berechnen', richtig: 2, von: 2, hinweise: 0 }),
       heute('kern', { skill: 'Kathete berechnen', richtig: 4, von: 4, hinweise: 1 }),

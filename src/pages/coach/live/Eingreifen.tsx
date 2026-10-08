@@ -103,7 +103,9 @@ export function PfadEntscheidung({ kind, p }: { kind: CoachLiveKind; p: PfadVors
           <span className="flex flex-col">
             <b className="text-sm font-semibold text-[var(--color-text-primary)]">
               {e.art === 'tiefer'
-                ? tx.t('pfad.entschiedenTiefer', { skill: p.skillTiefer, klasse: p.klasseTiefer })
+                ? p.klasseTiefer !== null
+                  ? tx.t('pfad.entschiedenTiefer', { skill: p.skillTiefer, klasse: p.klasseTiefer })
+                  : tx.t('pfad.entschiedenTieferOhneKlasse', { skill: p.skillTiefer })
                 : tx.t('pfad.entschiedenPlan', { skill: p.skillPlan })}
             </b>
             <span className="text-xs text-[var(--color-text-tertiary)]">{tx.t('pfad.entschiedenVon', { von: e.von, zeit: tx.uhrzeit(e.zeit) })}</span>
@@ -126,12 +128,22 @@ export function PfadEntscheidung({ kind, p }: { kind: CoachLiveKind; p: PfadVors
     <Block titel={tx.t('pfad.titel')} ton="entscheidung" rechts={<Pille ton="warn">{tx.t('mastery.vorschlag')}</Pille>}>
       <p className="text-sm text-[var(--color-text-primary)]">
         <b className="font-semibold">{tx.t('pfad.frage')}</b>{' '}
-        {tx.t('pfad.erklaerung', { plan: p.skillPlan, tiefer: p.skillTiefer, klasse: p.klasseTiefer })}
+        {p.klasseTiefer !== null
+          ? tx.t('pfad.erklaerung', { plan: p.skillPlan, tiefer: p.skillTiefer, klasse: p.klasseTiefer })
+          : tx.t('pfad.erklaerungOhneKlasse', { plan: p.skillPlan, tiefer: p.skillTiefer })}
       </p>
       <ul className="flex list-disc flex-col gap-0.5 pl-5 text-sm text-[var(--color-text-secondary)]">
-        <li>{tx.t('pfad.belegWarmup', { skill: p.skillTiefer, richtig: p.warmupRichtig, von: p.warmupVon })}</li>
-        {p.fehlbildAm && <li>{tx.t('pfad.belegFehlbild', { datum: tx.datum(p.fehlbildAm), fehlbild: p.fehlbild })}</li>}
-        <li>{tx.t('pfad.belegThema', { thema: p.themaLabel })}</li>
+        {p.warmupRichtig !== null && p.warmupVon !== null && (
+          <li>{tx.t('pfad.belegWarmup', { skill: p.skillTiefer, richtig: p.warmupRichtig, von: p.warmupVon })}</li>
+        )}
+        {p.fehlbild && (
+          <li>
+            {p.fehlbildAm
+              ? tx.t('pfad.belegFehlbild', { datum: tx.datum(p.fehlbildAm), fehlbild: p.fehlbild })
+              : tx.t('pfad.belegFehlbildHeute', { fehlbild: p.fehlbild })}
+          </li>
+        )}
+        {p.themaLabel && <li>{tx.t('pfad.belegThema', { thema: p.themaLabel })}</li>}
       </ul>
       <div className="flex flex-wrap gap-2">
         <Button size="md" onClick={() => entscheiden('tiefer')}>

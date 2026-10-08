@@ -138,8 +138,12 @@ export function useLiveTexte() {
       const spaet = Math.round((Date.parse(h.zeit) - Date.parse(beginn)) / 60_000)
       return t('schublade.heuteZeile.ankunft', { zeit: uhrzeit(h.zeit), count: spaet })
     }
-    if (h.kernideen) return t('schublade.heuteZeile.kernideen', h.kernideen)
     const teile: string[] = []
+    if (h.kernideen) {
+      if (h.skill) teile.push(h.skill)
+      teile.push(t(h.kernideen.sicher > 0 ? 'schublade.heuteZeile.kernideen' : 'schublade.heuteZeile.kernideenOhneSicher', h.kernideen))
+      return teile.join(' · ')
+    }
     if (h.skill) teile.push(h.skill)
     if (h.richtig !== null && h.von !== null) teile.push(t('schublade.heuteZeile.richtig', { richtig: h.richtig, von: h.von }))
     if (h.hinweise === 0) teile.push(t('schublade.heuteZeile.ohneHinweis'))

@@ -25,7 +25,9 @@ export function Schublade({ kind, onSchliessen }: { kind: CoachLiveKind; onSchli
   const grund = kind.grundLetzterSchritt
   const grundText = grund
     ? grund.art === 'ueberQuote' || grund.art === 'unterQuote'
-      ? tx.t(`schublade.grund.${grund.art}`, { quote: tx.prozent(grund.quote) })
+      ? grund.richtig !== null && grund.von !== null
+        ? tx.t(`schublade.grund.${grund.art}Zahl`, { quote: tx.prozent(grund.quote), richtig: grund.richtig, von: grund.von })
+        : tx.t(`schublade.grund.${grund.art}`, { quote: tx.prozent(grund.quote) })
       : grund.art === 'eingemischt'
         ? tx.t('schublade.grund.eingemischt', { anteil: tx.prozent(grund.anteil) })
         : tx.t('schublade.grund.tiefer')
