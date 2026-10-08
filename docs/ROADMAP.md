@@ -97,7 +97,7 @@
 - **Session P1 · C3 Schublade der Coach-Live-Sicht** (Retro `2026-10-08-session-c3-schublade.md`, Branch
   `feat/rasit-session-c3-schublade`): Pfad-Vorschlag mit Warm-up-Zahlen und Fehlbild, „Heute“ je Kind, Grund des
   letzten Schritts mit Zahl (`session_schritte.details`), alle Kernideen der Erklärsequenz, Warm-up-Beleg für die
-  Mastery-Prüfung. Noch nicht eingespielt. **Offen:** `docs/session/offene-punkte-c3.md`.
+  Mastery-Prüfung. Eingespielt 08.10. **Offen:** `docs/session/offene-punkte-c3.md`.
 - **Session P1 · C2 Coach-Live-Sicht mit echten Daten** (Retro `2026-10-07-session-c2-coach-live.md`, Branch
   `feat/rasit-session-c2-coach-live`): Live-Sicht über `coach_raum_live`/`coach_kind_detail`, Briefing,
   Satz-Bausteine im Check-out, Prüffrage aufs Tablet, Einstieg und offene Sessions auf den Startseiten,

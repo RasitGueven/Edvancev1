@@ -1,6 +1,6 @@
 # Offene Punkte C3 (Schublade der Coach-Live-Sicht: Pfad-Vorschlag, Heute, Grund mit Zahl)
 
-Stand 08.10.2026, Branch `feat/rasit-session-c3-schublade`. Beweis: `supabase/tests/session_c3.test.sql`,
+Stand 08.10.2026, Branch `feat/rasit-session-c3-schublade`. **Eingespielt 08.10.2026** (`20261011100100`, `20261011100200`). Beweis: `supabase/tests/session_c3.test.sql`,
 `src/lib/session/coachLiveSchublade.test.ts`, `src/pages/coach/live/SchubladeC3.test.tsx`.
 
 ## Erledigt aus den Vorgängern
@@ -39,8 +39,9 @@ Stand 08.10.2026, Branch `feat/rasit-session-c3-schublade`. Beweis: `supabase/te
    (heute 08.10.; CLAUDE.md §10 verlangt `date -u`). Per dbread am 08.10. geprüft: beide frei, Prod-Maximum
    `20261010121018`. Die ersetzten Funktionen (`session_plan_kern`, `session_naechster_schritt`, `coach_kind_detail`)
    haben in Prod dieselbe Definition wie im Neuaufbau (md5 von `pg_get_functiondef` gleich).
-2. **Schema-Abzug.** `supabase/schema-erwartet.sql`, `schema.sql` und `schema_content.sql` sind laut Auftrag nicht
-   angefasst. Der CI-Schemavergleich ist rot, bis nach dem Einspielen der Abzug kommt (wie C2 Nr. 15).
+2. **Schema-Abzug (erledigt 08.10.).** Nach dem Einspielen `tools/schema-snapshot.sh` aus Prod gezogen; gefiltert wie
+   in CI gleich dem Neuaufbau aus allen 238 Migrationen. `schema.sql`/`schema_content.sql` pflegt seit #130 kein
+   Session-Paket mehr (Quelle ist `schema-erwartet.sql`), deshalb nicht angefasst.
 3. **Grund im Zielbereich (entschieden, Rasit 08.10.).** Bleibt die Stufe nach dem Fenster (`aenderung = 0`), zeigt
    die Schublade „{richtig} von {von} ohne Hinweis richtig, im Zielbereich um {ziel}, gleiche Stufe.“ Kein Fehlbild,
    keine Wertung (`schublade.grund.imZiel` in `coachLive.json`, dem Namensraum der Live-Sicht). pgTAP 1G, Vitest.

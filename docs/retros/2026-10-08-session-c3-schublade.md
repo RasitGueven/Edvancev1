@@ -16,5 +16,9 @@
 - Der Pfad-Vorschlag erscheint nur bei offenem Signal oder nach „Ändern“. Danach gilt die Entscheidung wie in C2.
 - Gibt es einen Warm-up-Beleg von heute, entfällt der Session-Beleg derselben Session (sonst doppelt gezählt).
 
+**Eingespielt** 08.10.2026: beide Migrationen über `~/bin/mig`, Abzug aus Prod gleich dem Neuaufbau, dbread-Prüfung
+(Historie, Spalte, md5 der drei Funktionen, Rechte, Trigger).
+Nachgereicht: Grund „im Zielbereich, gleiche Stufe“ (Rasit 08.10.).
+
 **Offen:** `docs/session/offene-punkte-c3.md` (Schema-Abzug nach dem Einspielen, Grund im Zielbereich,
 Fehlbild-Datum über alle Skills).

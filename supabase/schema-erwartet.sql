@@ -776,10 +776,121 @@ CREATE FUNCTION public.coach_kind_detail(p_session_id uuid, p_student_id uuid) R
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  a public.session_ausgegeben;
+  a        public.session_ausgegeben;
+  v_sig    public.session_ereignisse;
+  v_vor    text;
+  v_fb     record;
+  v_pfad   jsonb;
+  v_heute  jsonb;
+  v_seq    jsonb;
+  v_ef     record;
+  v_test   boolean;
 begin
   perform public.session_kind_pruefen(p_session_id, p_student_id, 'coach_kind_detail');
   a := public.session_aktuelle_ausgabe(p_session_id, p_student_id);
+  select cs.testlauf into v_test from public.coaching_sessions cs where cs.id = p_session_id;
+
+  -- C3: Pfad-Vorschlag aus dem juengsten Entscheidungssignal.
+  select * into v_sig from public.session_ereignisse e
+   where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'signal'
+     and e.payload ->> 'art' = 'entscheidung'
+   order by e.zeit desc, e.id desc limit 1;
+  if v_sig.id is not null then
+    v_vor := coalesce(v_sig.payload ->> 'voraussetzung_skill_key', v_sig.payload ->> 'skill_key');
+    select r.fehlbild_slug as slug, fl.klartext, r.zeit into v_fb
+      from public.session_antworten r
+      join public.tasks t on t.id = r.task_id
+      join public.fehlbild_labels fl on fl.slug = r.fehlbild_slug and nullif(btrim(fl.klartext), '') is not null
+     where r.session_id = p_session_id and r.student_id = p_student_id and t.skill_key = v_vor
+     order by r.zeit desc limit 1;
+    v_pfad := jsonb_build_object(
+      'seit', v_sig.zeit,
+      'offen', not exists (select 1 from public.session_ereignisse x
+                            where x.session_id = p_session_id and x.student_id = p_student_id
+                              and x.typ = 'signal_erledigt' and x.payload ->> 'art' = 'entscheidung'
+                              and x.zeit > v_sig.zeit),
+      'skill_key', v_vor,
+      'label', coalesce(v_sig.payload ->> 'voraussetzung_label', public.session_label(v_vor)),
+      'klasse', (select s.klasse_herkunft from public.skills s where s.skill_key = v_vor),
+      'ziel_skill_key', v_sig.payload ->> 'ziel_skill_key',
+      'ziel_label', case when v_sig.payload ? 'ziel_skill_key'
+                         then public.session_label(v_sig.payload ->> 'ziel_skill_key') end,
+      'warmup_aufgaben', (v_sig.payload ->> 'warmup_aufgaben')::int,
+      'warmup_richtig', (v_sig.payload ->> 'warmup_richtig')::int,
+      'fehlbild', v_fb.klartext,
+      'fehlbild_am', case when v_fb.slug is not null then (
+          select max(r.zeit) from public.session_antworten r
+           where r.student_id = p_student_id and r.session_id <> p_session_id and r.fehlbild_slug = v_fb.slug
+             and r.zeit < v_fb.zeit) end,
+      'thema_label', (select th.label from public.session_checkin c join public.themen th on th.thema_key = c.ziel_thema_key
+                       where c.session_id = p_session_id and c.student_id = p_student_id));
+  end if;
+
+  -- C3: "Heute" je Abschnitt und Skill. Exit (checkout) gehoert zum Check-out, nicht hierher.
+  with ausg as (
+    select x.task_id, x.zeit, t.skill_key,
+           case when x.phase = 'warmup' then 'warmup' when x.eingemischt then 'eingemischt' else 'kern' end as abschnitt,
+           st.erledigt, st.erfolg,
+           (select count(*) from public.session_ereignisse e where e.session_id = p_session_id
+               and e.student_id = p_student_id and e.typ = 'hinweis' and (e.payload ->> 'geliefert')::boolean
+               and e.payload ->> 'task_id' = x.task_id::text) as hinweise
+      from public.session_ausgegeben x
+      join public.tasks t on t.id = x.task_id
+      cross join lateral public.session_aufgabe_stand(p_session_id, p_student_id, x.task_id) st
+     where x.session_id = p_session_id and x.student_id = p_student_id and x.phase in ('warmup', 'kern')
+  ),
+  zeilen as (
+    select 0 as rang, min(tb.zugewiesen_am) as ab,
+           jsonb_build_object('abschnitt', 'ankommen', 'zeit', min(tb.zugewiesen_am)) as z
+      from public.session_tablets tb
+     where tb.session_id = p_session_id and tb.student_id = p_student_id
+    having min(tb.zugewiesen_am) is not null
+    union all
+    select case when g.abschnitt = 'warmup' then 1 else 2 end, min(g.zeit), jsonb_build_object('abschnitt', g.abschnitt, 'skill_key', g.skill_key,
+             'label', public.session_label(g.skill_key),
+             'richtig', count(*) filter (where g.erledigt and g.erfolg), 'von', count(*) filter (where g.erledigt),
+             'hinweise', sum(g.hinweise))
+      from ausg g group by g.abschnitt, g.skill_key
+    union all
+    select 2, min(f.zeit), jsonb_build_object('abschnitt', 'erklaerung', 'skill_key', k.skill_key,
+             'label', public.session_label(k.skill_key),
+             'sicher', count(distinct f.kernidee_id) filter (where f.ergebnis = 'richtig'),
+             'aktuell', (array_agg(k.nr order by f.id desc))[1],
+             'runde', (array_agg(f.runde order by f.id desc))[1])
+      from public.erklaer_fortschritt f join public.erklaer_kernidee k on k.id = f.kernidee_id
+     where f.session_id = p_session_id and f.student_id = p_student_id
+     group by k.skill_key
+  )
+  select coalesce(jsonb_agg(z.z order by z.rang, z.ab), '[]') into v_heute from zeilen z;
+
+  -- C3: alle Kernideen der laufenden Erklaersequenz (Skill der juengsten Zeile in erklaer_fortschritt).
+  select f.kernidee_id, k.skill_key into v_ef
+    from public.erklaer_fortschritt f join public.erklaer_kernidee k on k.id = f.kernidee_id
+   where f.session_id = p_session_id and f.student_id = p_student_id
+   order by f.id desc limit 1;
+  if v_ef.skill_key is not null then
+    select coalesce(jsonb_agg(jsonb_build_object(
+             'nr', k.nr, 'titel', k.titel,
+             'stand', case when exists (select 1 from public.erklaer_fortschritt f where f.session_id = p_session_id
+                                          and f.student_id = p_student_id and f.kernidee_id = k.id
+                                          and f.ergebnis = 'richtig') then 'sicher'
+                           when k.id = v_ef.kernidee_id then 'laeuft' else 'offen' end,
+             'runde', (select max(f.runde) from public.erklaer_fortschritt f where f.session_id = p_session_id
+                        and f.student_id = p_student_id and f.kernidee_id = k.id),
+             'variante', (select f.variante from public.erklaer_fortschritt f where f.session_id = p_session_id
+                           and f.student_id = p_student_id and f.kernidee_id = k.id order by f.id desc limit 1),
+             'fehlbild', (select fl.klartext from public.erklaer_fortschritt f
+                            join public.fehlbild_labels fl on fl.slug = f.fehlbild_slug
+                           where f.session_id = p_session_id and f.student_id = p_student_id
+                             and f.kernidee_id = k.id and f.ergebnis = 'falsch'
+                           order by f.id desc limit 1)) order by k.nr), '[]')
+      into v_seq
+      from public.erklaer_kernidee k
+     where k.skill_key = v_ef.skill_key
+       and (public.erklaer_status_ok(k.status, coalesce(v_test, false))
+            or exists (select 1 from public.erklaer_fortschritt f where f.session_id = p_session_id
+                        and f.student_id = p_student_id and f.kernidee_id = k.id));
+  end if;
 
   return public.session_kind_live(p_session_id, p_student_id) || jsonb_build_object(
     'aufgabe_detail', case when a.id is null then null else (
@@ -812,7 +923,14 @@ begin
        from public.session_ereignisse e where e.session_id = p_session_id and e.student_id = p_student_id
         and e.typ = 'entscheidung_pfad'), '[]'),
     'signale', coalesce((select jsonb_agg(to_jsonb(x) order by x.rang, x.seit)
-       from public.session_signale_intern(p_session_id) x where x.student_id = p_student_id), '[]'));
+       from public.session_signale_intern(p_session_id) x where x.student_id = p_student_id), '[]'),
+    -- C3
+    'pfad_vorschlag', v_pfad,
+    'heute', v_heute,
+    'erklaer_kernideen', coalesce(v_seq, '[]'),
+    'schritt_details', coalesce((select x.details from public.session_schritte x
+                                  where x.session_id = p_session_id and x.student_id = p_student_id
+                                  order by x.id desc limit 1), '{}'));
 end;
 $$;
 
@@ -11296,11 +11414,13 @@ begin
           and v_letzt.grund_code = v ->> 'grund_code'
           and v_letzt.skill_key is not distinct from v ->> 'skill_key') then
     insert into public.session_schritte (session_id, student_id, art, phase, skill_key, task_id, modus, eingemischt,
-           nach_beispiel, schwierigkeit, grund, grund_code)
+           nach_beispiel, schwierigkeit, grund, grund_code, details)
     values (p_session_id, t.student_id, v ->> 'art', v ->> 'phase', v ->> 'skill_key', (v ->> 'task_id')::uuid,
             v ->> 'modus', coalesce((v ->> 'eingemischt')::boolean, false),
             coalesce((v ->> 'nach_beispiel')::boolean, false), (v ->> 'schwierigkeit')::int,
-            v ->> 'grund', v ->> 'grund_code');
+            v ->> 'grund', v ->> 'grund_code',
+            -- C3: Zahlen zum Grund (nur Coach; session_schritt_oeffentlich gibt sie nicht weiter).
+            coalesce(v -> 'details', '{}'::jsonb));
   end if;
 
   if v ->> 'art' in ('aufgabe', 'exit') then
@@ -11507,7 +11627,9 @@ CREATE TABLE public.session_schritte (
     grund text NOT NULL,
     grund_code text NOT NULL,
     zeit timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    details jsonb DEFAULT '{}'::jsonb NOT NULL,
     CONSTRAINT session_schritte_art_check CHECK ((art = ANY (ARRAY['erklaerung'::text, 'beispiel'::text, 'aufgabe'::text, 'erklaerung_angebot'::text, 'exit'::text, 'termin'::text, 'fertig'::text, 'warten'::text]))),
+    CONSTRAINT session_schritte_details_check CHECK ((jsonb_typeof(details) = 'object'::text)),
     CONSTRAINT session_schritte_grund_check CHECK ((NULLIF(btrim(grund), ''::text) IS NOT NULL)),
     CONSTRAINT session_schritte_modus_check CHECK ((modus = ANY (ARRAY['gefuehrt'::text, 'selbststaendig'::text]))),
     CONSTRAINT session_schritte_phase_check CHECK ((phase = ANY (ARRAY['checkin'::text, 'warmup'::text, 'kern'::text, 'checkout'::text]))),
@@ -11529,6 +11651,8 @@ declare
   v_l      int := public.session_wert_zahl(p_session_id, 'loesungsbeispiele_vor_aufgabe')::int;
   v_angeb  int := public.session_wert_zahl(p_session_id, 'erklaerung_anbieten_nach_fehlversuchen')::int;
   v_misch  numeric := public.session_wert_zahl(p_session_id, 'mischanteil');
+  -- C3: Ziel-Erfolgsquote fuer details (nur Coach).
+  v_ziel   numeric := public.session_wert_zahl(p_session_id, 'ziel_erfolgsquote');
   v_vorg   boolean := public.session_wert(p_session_id, 'erklaerung_bei_neuem_skill') #>> '{}' = 'vorgeschaltet';
   v_seq    boolean := (public.erklaer_naechste_kernidee(p_aktuell, 0, p_testlauf)).id is not null;
   e        record;
@@ -11666,7 +11790,9 @@ begin
             || case when c.zuletzt is null then ', noch nicht in einer Session geübt'
                     else ', länger nicht geübt' end
             || case when c.voraussetzung then ' (Voraussetzung von ' || coalesce(p_ziel_label, v_lab) || ')' else '' end,
-          'gemischt', jsonb_build_object('signale', v_sig));
+          'gemischt', jsonb_build_object('signale', v_sig,
+            -- C3: Mischanteil fuer den Coach (session_schritte.details, nie am Tablet).
+            'details', jsonb_build_object('mischanteil', v_misch)));
       end if;
     end loop;
   end if;
@@ -11684,7 +11810,14 @@ begin
                           else '' end
     || ', ' || case v_modus when 'gefuehrt' then 'geführt' else 'selbstständig' end;
   return public.session_schritt('aufgabe', 'kern', p_aktuell, w.task_id, v_modus, false, niv.niveau, v_grund,
-    case when p_vertiefung then 'vertiefung' else 'kern' end, jsonb_build_object('signale', v_sig));
+    case when p_vertiefung then 'vertiefung' else 'kern' end,
+    jsonb_build_object('signale', v_sig)
+    -- C3: Fenster gerade ausgewertet (niv.quote = 'n von 5', session_niveau): Zahlen fuer den Coach
+    -- (session_schritte.details, nie am Tablet). aenderung 1 = schwerer, -1 = leichter, -2 = bleibt auf Stufe 1,
+    -- 0 = im Zielbereich.
+    || case when niv.quote is not null then jsonb_build_object('details', jsonb_build_object(
+         'richtig', split_part(niv.quote, ' von ', 1)::int, 'von', split_part(niv.quote, ' von ', 2)::int,
+         'ziel', v_ziel, 'aenderung', niv.aenderung)) else '{}'::jsonb end);
 end;
 $$;
 
