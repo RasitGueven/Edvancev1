@@ -6,6 +6,7 @@
 #   2. je Kind: Schritte nach art, Antworten nach Phase und Ergebnis, Ereignisse nach typ, Check-in, Abschluss
 #   3. Prüfliste ok / nicht ok:
 #      Testlauf gesetzt · nur Testkonten · keine XP · kein Lernpfad · keine Mastery · keine Einheit · nichts in der Akte
+#      · home_quests_aktiv wieder aus (Stellschraube gilt für alle Sessions, Trockenlauf schaltet sie an)
 #
 # Aufruf: tools/trockenlauf-pruefen.sh <session_id>
 # Exit:   0 alles ok · 1 mindestens ein „nicht ok“ · 2 Aufruf- oder Verbindungsfehler
@@ -104,6 +105,10 @@ with s as (
   union all
   select 9, 'nichts in die Akte übernommen (session_kind_abschluss.in_akte_am)',
          (select count(*) from public.session_kind_abschluss where session_id = :'sid' and in_akte_am is not null)
+  union all
+  select 10, 'home_quests_aktiv ist wieder aus',
+         (select count(*) from public.session_einstellungen
+           where schluessel = 'home_quests_aktiv' and wert is distinct from 'false'::jsonb)
 )
 select 'PRUEF' || ' | ' || case when (select count(*) from s) = 0 then 'nicht ok' when anzahl = 0 then 'ok' else 'nicht ok' end
        || ' | ' || nr || '. ' || titel || case when anzahl > 0 and nr > 1 then ' (' || anzahl || ' Zeilen)' else '' end

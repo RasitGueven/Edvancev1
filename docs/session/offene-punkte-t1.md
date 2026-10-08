@@ -29,27 +29,44 @@ Stand 08.10.2026 · Branch `feat/rasit-session-t1-trockenlauf` · Anleitung `doc
    nur die gebuchten. XP, Lernpfad und Mastery ohne `session_id` prüft es im Zeitfenster Start bis Ende plus 10 Minuten.
    Das ist streng: Eine fremde Buchung desselben Testkinds im Fenster würde als „nicht ok“ erscheinen.
 
+## Angelegt (08.10.2026, nach „Plätze anlegen“)
+
+- Aufruf aus `~/Edvancev1` (liest die `.env` dort, Key nie ausgegeben): erst `--dry-run 2-5` (4 × „würde anlegen“), dann echt
+  (`{"angelegt":4,"uebersprungen":0,"konflikt":0}`).
+- dbread danach: 5 Platz-Konten, `tablet_nr` 1–5; Tablet 2 bis 5 je Rolle `student`, ohne Namen, keine `students`-Zeile,
+  bestätigt, Anbieter `email`, `profiles.email` gleich Auth-Adresse; Label „Tablet n“. Wie „Platz 1“.
+- Zugangsdatei `~/platz-konten/zugaenge.txt`: 4 Zeilen, Datei 600, Ordner 700.
+- Zweiter `--dry-run 2-5`: 4 × übersprungen (idempotent).
+- Noch offen: Rasit meldet sich auf einem Tablet an und sieht den Warte-Bildschirm mit der Nummer.
+
 ## Befunde
 
 1. **Kein Testlauf-Schalter für Coaching-Sessions.** `session_testlauf_setzen` gibt es, eine Oberfläche nicht
    (offene-punkte-x0, Offen 3). Der Trigger `coaching_sessions_testlauf_pruefen` verlangt Admin-Rolle, auch im SQL-Editor.
-   Ohne Testlauf bucht der Abschluss XP und verbraucht Einheiten.
+   **Rasit 08.10.:** für den Trockenlauf im SQL-Editor mit Admin-Claims (Snippet in `trockenlauf.md`, Schritt 6, read-only
+   gegen Prod geprüft). Den Schalter im Stundenplan baut **T2** (nach X0c), nicht T1.
 2. **Prüffrage im Trockenlauf nicht erreichbar.** Ohne Kandidat kein Knopf; der Lernpfad ist leer, und im Testlauf schreibt
-   `antwort_abgeben` keine Belege.
+   `antwort_abgeben` keine Belege. **Rasit 08.10.:** so stehen lassen; abgedeckt über die App-Vorschau (`/session/vorschau`)
+   und pgTAP `session_a2b`.
 3. **`mastery_entscheiden`, `pfad_tiefer`, `pfad_entscheiden` und `eingriff_notieren` prüfen `testlauf` nicht.** Sie schreiben
    in `lernpfad` bzw. `lernpfad_protokoll` mit der `session_id`. Heute ohne Wirkung (kein Kandidat, nur Testkinder), aber
    „Tiefer gehen“ oder ein Eingriff im Trockenlauf kann eine Lernpfad-Zeile erzeugen. Das Prüfskript meldet das als
-   „nicht ok“ (Punkte 5 und 6). Ob die Funktionen den Testlauf ausschließen sollen, gehört in ein Schema-Paket (Entscheidung 27).
+   „nicht ok“ (Punkte 5 und 6). **Rasit 08.10.:** Ausschluss kommt mit **T2**; die Anleitung sagt „nicht drücken“.
 4. **Reihenfolge der Zielliste in Prod** beginnt mit der Steigung, weil keine Voraussetzung als sicher gilt (offene-punkte-a2d 1 a
    beschreibt den Fall mit vier sicheren Voraussetzungen). Welcher Skill die Kernarbeit eröffnet, entscheidet der Planer;
-   das zeigt erst der Trockenlauf.
+   das zeigt erst der Trockenlauf (Anleitung, Schritt 5: notieren).
+5. **Buchbare Testkinder in Klasse 8:** Buchen verlangt einen laufenden Vertrag (`session_platz_zugang`). Von 16 Testkindern
+   der Klasse 8 haben genau drei einen (TESTLEAD Drittmann, Test Test `964738af…`, ZZ_S2B Mia Plan). Alle drei haben
+   `akte_aktiv`, der Test-Coach sieht also ihre Akten-Daten (Entscheidung 26).
+6. **Home Quests:** `home_quests_aktiv` gilt für alle Sessions. Die Anleitung schaltet sie vor dem Start an und als letzten
+   Schritt wieder aus; das Prüfskript hat dafür Punkt 10.
 
-## Fragen an Rasit
+## Entscheidungen Rasit (08.10.2026)
 
-1. Welche Tablet-Nummern (Vorschlag 2 bis 5)?
-2. Prod-URL von Edvancev1 und URL bzw. Build der edvance-app für die Tablets?
-3. Coach-Seite als Admin oder als Test-Coach?
-4. Welche drei Testkinder?
-5. Wie wird die Session zum Testlauf (SQL-Editor mit Admin-Claims oder ein kleines Folgepaket mit Schalter)?
-6. Quest-Termin mittesten (`home_quests_aktiv` vorübergehend an)?
-7. Prüffrage getrennt testen (Wegwerf-DB) oder Befund 2 so stehen lassen?
+1. Tablet-Nummern 2 bis 5 (angelegt). Im Trockenlauf Tablet 2, 3, 4; 5 ist Reserve.
+2. URLs: kamen als Platzhalter `<URL EINTRAGEN>` an. **Offen:** in `trockenlauf.md`, Abschnitt 2, eintragen.
+3. Coach-Seite als Test-Coach („ZZ Test Coach“), der Coach der Session ist.
+4. Drei Testkinder aus Klasse 8 (Befund 5).
+5. Testlauf per SQL-Editor mit Admin-Claims; Schalter und Testlauf-Ausschluss (Befund 3) in T2.
+6. Quest-Termin mittesten.
+7. Prüffrage: Befund 2 bleibt.
