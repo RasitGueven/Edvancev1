@@ -3,9 +3,15 @@
 Stand 08.10.2026 · Paket T1 · Werkzeuge: `tools/platz-konten.mjs`, `tools/trockenlauf-pruefen.sh`
 
 Ein Laptop als Test-Coach, drei Tablets mit je einem Testkind. Danach belegt das Prüfskript, dass nichts Echtes berührt
-wurde. Entscheidungen von Rasit (08.10.) sind eingearbeitet; offen ist nur noch, was mit **OFFEN** markiert ist.
+wurde. Entscheidungen von Rasit (08.10.) sind eingearbeitet.
 
 ## Vorher
+
+### 0. Vercel: Production Branch prüfen
+
+In Vercel bei **beiden** Projekten (Edvancev1 und edvance-app) unter Settings → Git prüfen, dass der Production Branch
+**`dev`** ist und das letzte Production-Deployment vom aktuellen `dev`-Stand kommt. Sonst läuft dort ein alter Stand:
+edvance-app ohne Session-Ablauf, Edvancev1 ohne C2/C3 (Coach-Live-Sicht, Briefing, Schublade). Ist es nicht `dev`: anhalten.
 
 ### 1. Tablets
 
@@ -19,10 +25,8 @@ wurde. Entscheidungen von Rasit (08.10.) sind eingearbeitet; offen ist nur noch,
 
 | Gerät | App | Adresse | Anmeldung |
 |---|---|---|---|
-| Laptop | Edvancev1 (Test-Coach) | **OFFEN:** `<URL EINTRAGEN>` | Konto „ZZ Test Coach“ |
-| Tablet 2, 3, 4 | edvance-app | **OFFEN:** `<URL EINTRAGEN>` | E-Mail und Passwort aus der Zugangsdatei, Zeile „Tablet n“ |
-
-Die beiden URLs kamen in der Antwort vom 08.10. als Platzhalter an. Bitte hier eintragen.
+| Laptop | Edvancev1 (Test-Coach; Admin für Stundenplan und Stellschrauben) | https://edvancev1.vercel.app/ | „ZZ Test Coach“ für die Session; Admin-Konto für Stundenplan und Stellschrauben |
+| Tablet 2, 3, 4 | edvance-app | https://edvance-app.vercel.app/ | E-Mail und Passwort aus der Zugangsdatei, Zeile „Tablet n“ |
 
 - Nach der Anmeldung entscheidet die App selbst: Platz-Konto → Warte-Bildschirm mit der Nummer des Geräts
   (`tablet_stand()` liefert `{ zugewiesen: false, tablet_nr }`, Datenvertrag 8.2).

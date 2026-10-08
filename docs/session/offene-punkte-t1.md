@@ -64,7 +64,8 @@ Stand 08.10.2026 · Branch `feat/rasit-session-t1-trockenlauf` · Anleitung `doc
 ## Entscheidungen Rasit (08.10.2026)
 
 1. Tablet-Nummern 2 bis 5 (angelegt). Im Trockenlauf Tablet 2, 3, 4; 5 ist Reserve.
-2. URLs: kamen als Platzhalter `<URL EINTRAGEN>` an. **Offen:** in `trockenlauf.md`, Abschnitt 2, eintragen.
+2. URLs: Edvancev1 https://edvancev1.vercel.app/ (Coach und Admin), edvance-app https://edvance-app.vercel.app/ (Tablets).
+   Vorher in Vercel prüfen, dass bei beiden der Production Branch `dev` ist (Anleitung, Schritt 0).
 3. Coach-Seite als Test-Coach („ZZ Test Coach“), der Coach der Session ist.
 4. Drei Testkinder aus Klasse 8 (Befund 5).
 5. Testlauf per SQL-Editor mit Admin-Claims; Schalter und Testlauf-Ausschluss (Befund 3) in T2.
