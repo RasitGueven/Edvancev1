@@ -41,26 +41,32 @@ Stand 08.10.2026, Branch `feat/rasit-session-c3-schublade`. Beweis: `supabase/te
    haben in Prod dieselbe Definition wie im Neuaufbau (md5 von `pg_get_functiondef` gleich).
 2. **Schema-Abzug.** `supabase/schema-erwartet.sql`, `schema.sql` und `schema_content.sql` sind laut Auftrag nicht
    angefasst. Der CI-Schemavergleich ist rot, bis nach dem Einspielen der Abzug kommt (wie C2 Nr. 15).
-3. **Grund im Zielbereich.** Wird das Fenster ausgewertet und bleibt die Stufe (`aenderung = 0`), steht die Zahl in
-   `details`, die Schublade zeigt aber keinen Grund: Das Ansichtsmodell kennt nur über/unter der Quote. Ein Satz
-   „im Zielbereich, Stufe bleibt“ wäre ein neuer Text. Wer: Rasit/Fatih, ob gewünscht.
-4. **Testabdeckung der Fenster-Richtungen.** pgTAP prüft `aenderung = -1` und den Mischanteil. Fünf richtige
-   Antworten machen den Skill im Test sicher, danach wechselt die Engine in die Vertiefung eines anderen Skills ohne
-   Fenster. Darum gibt es keinen Fall für `+1`. Der Code-Pfad ist derselbe (Consensus-Check, niedrig).
-5. **Fehlbild-Datum über alle Skills.** `fehlbildAm` sucht denselben Slug in früheren Sessions auf jedem Skill,
-   nicht nur auf der Voraussetzung (Fehlbilder hängen am Denkfehler, nicht am Skill). Antworten ohne Klartext
-   zählen für `fehlbild` nicht. Wer: Fatih, ob das so gelesen werden soll.
+3. **Grund im Zielbereich (entschieden, Rasit 08.10.).** Bleibt die Stufe nach dem Fenster (`aenderung = 0`), zeigt
+   die Schublade „{richtig} von {von} ohne Hinweis richtig, im Zielbereich um {ziel}, gleiche Stufe.“ Kein Fehlbild,
+   keine Wertung (`schublade.grund.imZiel` in `coachLive.json`, dem Namensraum der Live-Sicht). pgTAP 1G, Vitest.
+4. **Testabdeckung der Fenster-Richtungen.** pgTAP prüft `aenderung = -1` (0 von 5), `0` (3 von 5 bei Ziel 0,6;
+   dafür braucht „sicher“ im Test sechs richtige, sonst wechselt die Engine nach zwei den Skill) und den Mischanteil.
+   Für `+1` gibt es keinen Fall: Fünf Erfolge machen den Skill sicher, bevor das Fenster voll ist. Der Code-Pfad ist
+   derselbe.
+5. **Fehlbild-Datum: Frage an Fatih (Rasit 08.10.: so lassen).** `fehlbildAm` sucht denselben Fehlbild-Slug in
+   früheren Sessions auf jedem Skill, nicht nur auf der Voraussetzung. Fehlbilder hängen am Denkfehler, nicht am Skill.
+   Antworten ohne Klartext zählen für `fehlbild` nicht. **Frage an Fatih:** Soll „Gleiches Fehlbild wie am …“ nur
+   frühere Fehler auf derselben Voraussetzung zählen?
 6. **Erklär-Signal.** Hängt das Kind an einer Kernidee (Stand `signal`), zeigt die Liste die Kernidee als „läuft“.
    Das Signal selbst steht in der Warteschlange. Die Liste gilt für die jüngste Sequenz dieser Session; eine
    fertige frühere Sequenz bleibt sichtbar, bis eine neue beginnt (die Kachel blendet fertige Sequenzen wie in C2 aus).
-7. **Doppelter Beleg vermieden.** Mit dem Warm-up-Beleg von heute fällt der Session-Beleg derselben Session aus
-   `lernpfad.belege` weg. Er enthält dieselben Antworten und sonst zählte die Arbeit doppelt. „Abstand zur
-   letzten Übung“ rechnet unverändert ab dem ersten Beleg (C2) und zeigt beim ersten Beleg von heute „0 Tage“.
-   Wer: Rasit, ob der Abstand nur frühere Sessions zählen soll.
+7. **Doppelter Beleg (entschieden, Rasit 08.10.: so wie gebaut).** Mit dem Warm-up-Beleg von heute fällt der
+   Session-Beleg derselben Session aus `lernpfad.belege` weg. „Abstand zur letzten Übung“ rechnet unverändert ab dem
+   ersten Beleg (C2) und zeigt beim ersten Beleg von heute „0 Tage“.
 8. **„Heute“ ohne Exit.** Die Exit-Aufgaben (Check-out) gehören zum Check-out-Block und stehen nicht in „Heute“.
    Die Zusätze `lsaSicher` und `tiefer` aus C1 bleiben leer, weil der Server sie nicht je Zeile belegt.
 9. **Warm-up-Zahlen je Voraussetzung.** Wie in A2d (offene-punkte-a2d 2 c) zählen die Warm-up-Zahlen nur auf der
    Voraussetzung, an der das Signal hängt.
+
+10. **X0c-Ausnahmeliste.** `session_x0c.test.sql` nimmt die C3-Funktionen namentlich vom NULL-Wächter aus, „bis
+    C3 sie übernimmt“ (offene-punkte-x0c, Für C3 Nr. 2: streichen, sobald C3 gemergt ist). Mit C3 ist `session_x0c`
+    grün. Die Liste gehört X0c und ist hier nicht angefasst. Wer: nach dem Merge von C3 X0c oder Rasit; die Liste darf
+    nur schrumpfen.
 
 ## Consensus-Check (CLAUDE.md §8)
 

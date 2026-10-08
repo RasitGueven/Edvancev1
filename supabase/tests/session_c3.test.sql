@@ -18,7 +18,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(54);
+select plan(56);
 
 \ir session_a2_fixture.sql
 
@@ -126,6 +126,27 @@ select throws_ok(format('update session_schritte set details = %L where session_
                  null, null, '3 Append-only-Sperre gilt auch fuer details');
 select is((select tgname::text from pg_trigger where tgrelid = 'public.session_schritte'::regclass and not tgisinternal),
           'session_schritte_nur_anhaengen', '3 Trigger unveraendert');
+
+-- ── 1G im Zielbereich (Rasit 08.10.) ─────────────────────────────────────
+-- Stufe bleibt: Ziel 0,6 (Band 0,5 bis 0,7), richtig/falsch im Wechsel -> 3 von 5, aenderung 0. Damit s1 dabei
+-- offen bleibt, braucht "sicher" hier sechs richtige ohne Hinweis (sonst wechselt die Engine nach zwei den Skill).
+select pg_temp.stell('mischanteil', '0'), pg_temp.stell('ziel_erfolgsquote', '0.6'),
+       pg_temp.stell('mastery_richtig_ohne_hinweis', '6');
+select pg_temp.kind_mit('ZZ Ben C3', 'zz_a2_terme', '{zz_a2_v1,zz_a2_v2}', '{zz_a2_s1}') as k_b \gset
+select pg_temp.neue_session(array[:'k_b']::uuid[], 1) as s_b \gset
+select pg_temp.checkin(:'s_b', 1);
+select pg_temp.act_as(:'coach_a');
+select checkin_coach_setzen(:'s_b', :'k_b', 'schulthema');
+select pg_temp.uhr(:'s_b', 20);
+select count(*) from (select pg_temp.loese(:'s_b', 1, n % 2 = 1) from generate_series(1, 5) n) x;
+select pg_temp.schritt(:'s_b', 1) as b6 \gset
+select pg_temp.act_as(:'coach_a');
+select is(coach_kind_detail(:'s_b', :'k_b') -> 'schritt_details',
+          '{"richtig": 3, "von": 5, "ziel": 0.6, "aenderung": 0}'::jsonb, '1G Fenster im Zielbereich: 3 von 5, Stufe bleibt');
+select is((:'b6'::jsonb ->> 'skill_key') || ':' || (:'b6'::jsonb ->> 'grund_code'), 'zz_a2_s1:kern',
+          '1G im Zielbereich: selber Skill, grund_code unveraendert');
+select pg_temp.stell('mischanteil', '0.3'), pg_temp.stell('ziel_erfolgsquote', '0.8'),
+       pg_temp.stell('mastery_richtig_ohne_hinweis', '2');
 
 -- ── 1X) Erklaersequenz mit zwei Kernideen ──────────────────────────────────
 -- n1 bekommt Variante B fuer Kernidee 1 und eine zweite Kernidee; der Check kennt das Fehlbild.
