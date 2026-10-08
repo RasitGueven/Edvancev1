@@ -73,9 +73,19 @@ declare k uuid;
 begin
   perform pg_temp.act_as('a2a2a2a2-0001-4000-8000-000000000002');
   perform pg_temp.zeig('raum_' || p_name, public.coach_raum_live(p_s));
+  perform pg_temp.zeig('briefing_' || p_name, public.session_briefing(p_s));
   foreach k in array p_kinder loop
     perform pg_temp.zeig('detail_' || p_name || '_' || (select split_part(full_name, ' ', 1) from leads
                                                           where converted_student_id = k), public.coach_kind_detail(p_s, k));
+  end loop;
+  -- Fuer die Bildschirmfotos: Ziel der Stunde, Pruefgespraech und Lernpfad (wie ladeDetail in coachLive.ts).
+  for k in select ss.student_id from session_students ss where ss.session_id = p_s loop
+    perform pg_temp.zeig('ziel_' || k, coalesce((select jsonb_agg(to_jsonb(x)) from public.ziel_fertigkeiten(k,
+      coalesce((select c.ziel_thema_key from session_checkin c where c.session_id = p_s and c.student_id = k),
+               public.session_schulthema(k))) x), '[]'))
+      where not exists (select 1 from aus where name = 'ziel_' || k);
+    perform pg_temp.zeig('lernpfad_' || k, coalesce((select jsonb_agg(to_jsonb(l)) from lernpfad l where l.student_id = k), '[]'))
+      where not exists (select 1 from aus where name = 'lernpfad_' || k);
   end loop;
 end $$;
 
@@ -127,6 +137,8 @@ values (:'s_l', :'k_l', 'signal', '{"art": "entscheidung", "skill_key": "zz_a2_v
         "grund": "Entscheidung: eine Stufe tiefer?", "grund_code": "entscheidung_tiefer"}');
 select pg_temp.act_as(:'coach_a');
 select pg_temp.zeig('detail_alt_signal', public.coach_kind_detail(:'s_l', :'k_l'));
+
+select pg_temp.zeig('pruefung_zz_a2_v1', (select jsonb_agg(to_jsonb(x)) from public.skill_pruefung_lesen('zz_a2_v1') x));
 
 \unset QUIET
 select jsonb_pretty(jsonb_object_agg(name, j)) from aus;

@@ -115,6 +115,20 @@ describe('C3 Mastery-Beleg', () => {
     expect(kindMit('kern', 'Mila').masteryKandidat?.belege).toContainEqual({ art: 'warmupHeute', richtig: 3, von: 3 })
   })
 
+  it('der Session-Beleg von heute fällt dann weg, frühere bleiben', () => {
+    const r = raum('kern')
+    const mila = r.kinder.find((k) => k.name?.startsWith('Mila'))
+    const lernpfad = (F[`lernpfad_${mila?.student_id}`] as unknown as { skill_key: string; belege: { session_id: string }[] }[])
+      .find((l) => l.skill_key === mila?.mastery_kandidat?.skill_key)
+    expect(lernpfad?.belege.some((b) => b.session_id === r.session.id)).toBe(true)
+    const k = kindMit('kern', 'Mila', undefined, {})
+    const mitLernpfad = raumAus(r, {
+      detail: { kindId: k.id, detail: detail('kern_Mila'), ziel: [], pruefung: null, lernpfad: lernpfad as never },
+      briefing: [], satz: {}, themen: new Map(), nichtErschienen: new Set(), pfadGeoeffnet: {},
+    }).kinder.find((x) => x.id === k.id)
+    expect(mitLernpfad?.masteryKandidat?.belege.filter((b) => b.art !== 'abstand')).toEqual([{ art: 'warmupHeute', richtig: 3, von: 3 }])
+  })
+
   it('ohne Warm-up auf dem Skill kein Beleg', () => {
     const d = { ...detail('kern_Mila'), heute: [] }
     expect(kindMit('kern', 'Mila', d).masteryKandidat?.belege.some((b) => b.art === 'warmupHeute')).toBe(false)

@@ -5,16 +5,17 @@
 -- sonst unveraendert:
 --   pfad_vorschlag     juengstes Signal entscheidung (A2d-Felder) mit offen (kein signal_erledigt danach),
 --                      Klassenstufe der Voraussetzung (skills.klasse_herkunft), letztes Fehlbild auf ihr in dieser
---                      Session (Klartext) und der letzte Tag einer frueheren Session mit demselben Fehlbild.
---                      Signal vor A2d: warmup_* null.
+--                      Session (Klartext; Antworten ohne Klartext zaehlen nicht) und die letzte fruehere
+--                      Session mit demselben Fehlbild-Slug (ueber alle Skills). Signal vor A2d: warmup_* null.
 --   heute              ankommen (erste Tablet-Zuweisung), je Skill warmup/kern/eingemischt mit richtig, von,
 --                      hinweise; erklaerung je Skill mit Kernideen sicher, aktueller Kernidee und Runde.
 --                      Reihenfolge: ankommen, Warm-up, dann Kernarbeit, Eingemischtes und Erklaerung nach Zeit.
 --                      Gezaehlt wie die Engine (session_aufgabe_stand, offene-punkte-a2 F4): von = erledigte
 --                      Aufgaben, richtig = davon Erfolg (alle Teile beim ersten Versuch richtig ohne Hinweis);
 --                      hinweise = gelieferte Hinweise zu den Aufgaben des Abschnitts.
---   erklaer_kernideen  alle Kernideen der laufenden Erklaersequenz in Reihenfolge mit Titel, Stand, Runde,
---                      Variante und dem Fehlbild der letzten falschen Runde als Klartext.
+--   erklaer_kernideen  alle Kernideen der juengsten Erklaersequenz dieser Session in Reihenfolge mit Titel, Stand,
+--                      Runde, Variante und dem Fehlbild der letzten falschen Runde als Klartext. Ein offenes
+--                      Erklaer-Signal steht als 'laeuft' (das Signal selbst zeigt die Warteschlange).
 --   schritt_details    session_schritte.details des letzten Schritts (C3.1; alte Zeilen '{}').
 --
 -- Rechte unveraendert: session_kind_pruefen (Coach der Session oder Admin; Konto ohne Profil 42501).

@@ -137,7 +137,7 @@ function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
   const klasse = k.klasse ?? 0
   const d = c.z.detail?.kindId === k.student_id ? c.z.detail : null
   const heute = d?.detail.heute ?? []
-  const mastery = masteryAus(k, d?.pruefung ?? null, d?.lernpfad ?? null, c.raum.stand, (sk) => warmupBelegAus(heute, sk))
+  const mastery = masteryAus(k, d?.pruefung ?? null, d?.lernpfad ?? null, c.raum.stand, (sk) => warmupBelegAus(heute, sk), c.raum.session.id)
   const signale = k.signale.map((s) => signalAus(s, c.label))
   const geoeffnet = c.z.pfadGeoeffnet[k.student_id]
   const pfad = k.pfad_entscheidung && (!geoeffnet || Date.parse(k.pfad_entscheidung.zeit) > Date.parse(geoeffnet))
