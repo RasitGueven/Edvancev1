@@ -29,6 +29,7 @@
  *   Markdown R14 "# " nur als erste Zeile, "> " Merksatz, "1. " nummerierte Schritte, $…$ Formeln,
  *            sonst Absätze aus einer Zeile; kein Fett, keine Aufzählungspunkte, keine anderen
  *            Markdown-Zeichen (erklaer-lib markdownFehler; der Player in E2a stellt genau das dar).
+ *   Engine   R15 jede Variante B/C hat ein Fehlbild des ersten Checks (nur Runde 1 führt zu einer Variante).
  */
 
 import fs from 'node:fs';
@@ -209,6 +210,13 @@ export function pruefeCharge(charge, checks, bestand, themaAufgaben) {
         }
       }
       for (const [slug, v] of variantSlugs) if (!checkSlugs.has(slug)) f.push(`${wo} ${v}: Fehlbild ${slug} kommt in keinem Check vor`);
+      // R15 Runde 1 zeigt immer den ersten Check (erklaer_zeigen nimmt die Checks reihum), eine Variante
+      // gibt es nur nach einem falschen Check in Runde 1: Jede Variante B/C braucht ein Fehlbild des ersten Checks.
+      const erster = aufgabeVon.get([...k.checks].sort((x, y) => x.reihenfolge - y.reihenfolge)[0]?.task_id);
+      const ersteSlugs = new Set(Object.values(erster?.basis.known_errors ?? {}));
+      for (const s of k.schritte.filter((x) => x.art === 'erklaerung' && x.variante !== 'A')) {
+        if (!s.fehlbild_slugs.some((slug) => ersteSlugs.has(slug))) f.push(`${wo} ${s.variante}: kein Fehlbild der Variante im ersten Check (R15, nie per Fehlbild erreichbar)`);
+      }
       for (const slug of Object.keys(k.ohne_variante ?? {})) if (!checkSlugs.has(slug)) f.push(`${wo}: ohne_variante ${slug} kommt in keinem Check vor`);
     }
   }

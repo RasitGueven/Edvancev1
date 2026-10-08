@@ -166,5 +166,173 @@
    "vorbefuellt": {}
   },
   "sol": null
+ },
+ {
+  "task": {
+   "id": "9a7cc9ef-d806-45b3-b17e-c60364fc2fa3",
+   "title": "Check · y-Achsenabschnitt aus der Gleichung",
+   "question": "Gegeben ist die Funktion f(x) = -2x + 6.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = -2x + 6.\n\nGib den y-Achsenabschnitt des Graphen von f an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-yabschnitt-k1-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "31b05259-95e6-4f67-a5db-6d75c546029e",
+   "title": "Check · y-Achsenabschnitt · negatives b",
+   "question": "Gegeben ist die Funktion f(x) = 5x - 4.\n\nAn welcher Stelle schneidet der Graph von f die y-Achse? Gib den y-Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 5x - 4.\n\nAn welcher Stelle schneidet der Graph von f die y-Achse? Gib den y-Wert an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-yabschnitt-k1-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5bb6895e-1e3e-4cc5-8ff5-05424673198c",
+   "title": "Check · b aus Steigung und Punkt",
+   "question": "Eine Gerade hat die Steigung 3 und geht durch den Punkt P(2 | 5).\n\nBestimme den y-Achsenabschnitt b der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade hat die Steigung 3 und geht durch den Punkt P(2 | 5).\n\nBestimme den y-Achsenabschnitt b der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-yabschnitt-k2-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8361e4fe-9f16-466e-979b-4b8d36388c4a",
+   "title": "Check · b aus Steigung und Punkt · fallend",
+   "question": "Eine Gerade hat die Steigung -2 und geht durch den Punkt P(3 | 1).\n\nBestimme den y-Achsenabschnitt b der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade hat die Steigung -2 und geht durch den Punkt P(3 | 1).\n\nBestimme den y-Achsenabschnitt b der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-yabschnitt-k2-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7d2e7681-e25f-449b-86ee-879fad3fdd41",
+   "title": "Check · Startwert im Sachzusammenhang · Taxi",
+   "question": "Ein Taxi berechnet für eine Fahrt von x km den Preis P(x) = 2x + 4 in Euro.\n\nWie hoch ist die Grundgebühr in Euro?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Taxi berechnet für eine Fahrt von x km den Preis P(x) = 2x + 4 in Euro.\n\nWie hoch ist die Grundgebühr in Euro?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-yabschnitt-k3-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "58e43502-1bd9-43da-a51d-89e129e11a3a",
+   "title": "Check · Startwert im Sachzusammenhang · Kerze",
+   "question": "Eine Kerze brennt gleichmäßig ab. Ihre Höhe in cm nach x Stunden ist h(x) = -3x + 15.\n\nWie hoch ist die Kerze zu Beginn, in cm?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Kerze brennt gleichmäßig ab. Ihre Höhe in cm nach x Stunden ist h(x) = -3x + 15.\n\nWie hoch ist die Kerze zu Beginn, in cm?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-yabschnitt-k3-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
  }
 ]

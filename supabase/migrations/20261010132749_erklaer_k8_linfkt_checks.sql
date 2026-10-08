@@ -1,4 +1,4 @@
--- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 6 Check-Aufgaben, nur Einsatz check.
+-- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 12 Check-Aufgaben, nur Einsatz check.
 -- Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:
 -- tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.
 --
@@ -28,6 +28,7 @@
 -- Sondierrang (Verfahren docs/sondierrang_vorschlag.md, Profil = Menge der Slugs,
 -- bei MULTI_PART ueber alle Teile):
 --   fkt_linear_steigung: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
+--   fkt_linear_yabschnitt: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --
 -- Idempotent: on conflict do nothing; die Loesung nur, wenn noch keine Zeile besteht.
 -- Kein begin/commit in der Datei: mig spielt sie mit psql -1 in EINER Transaktion ein,
@@ -252,6 +253,217 @@ Jeder Schritt bringt 4 nach oben: 2 + 3 · 4 = 14.',
   p_coach_hints     => '[]'::jsonb,
   p_typical_errors  => '[{"error":"Die Steigung nur einmal addiert: 2 + 4 = 6.","socratic_question":"Wie viele Schritte nach rechts liegen zwischen x = 1 und x = 4?","fehlbild":"nur_einmal_addiert"},{"error":"Wie bei einer Ursprungsgeraden gerechnet: 4 · 4 = 16.","socratic_question":"Geht die Gerade durch den Ursprung? Prüfe es mit dem Punkt P.","fehlbild":"b_ignoriert"},{"error":"Mit dem Kehrwert der Steigung gerechnet: 2 + 3 · 1/4 = 2,75.","socratic_question":"Wie viel geht es bei einem Schritt nach rechts nach oben?","fehlbild":"steigung_kehrwert"}]'::jsonb,
   p_acceptance      => '{"canonical":"14","known_errors":{"6":"nur_einmal_addiert","16":"b_ignoriert","+6":"nur_einmal_addiert","+16":"b_ignoriert","11/4":"steigung_kehrwert","+11/4":"steigung_kehrwert","2,75":"steigung_kehrwert","+2,75":"steigung_kehrwert","2.75":"steigung_kehrwert","+2.75":"steigung_kehrwert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #7 erklaer-yabschnitt-k1-c1 · Check · y-Achsenabschnitt aus der Gleichung
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '9a7cc9ef-d806-45b3-b17e-c60364fc2fa3'::uuid, 'exercise', 'Check · y-Achsenabschnitt aus der Gleichung', 'Gegeben ist die Funktion f(x) = -2x + 6.
+
+Gib den y-Achsenabschnitt des Graphen von f an.',
+  '{"kind":"short_input","prompt":"Gegeben ist die Funktion f(x) = -2x + 6.\n\nGib den y-Achsenabschnitt des Graphen von f an."}'::jsonb, 'NUMERIC', 'fkt_linear_yabschnitt',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-yabschnitt-k1-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: b direkt aus der Normalform ablesen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '9a7cc9ef-d806-45b3-b17e-c60364fc2fa3'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '9a7cc9ef-d806-45b3-b17e-c60364fc2fa3'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '9a7cc9ef-d806-45b3-b17e-c60364fc2fa3'::uuid,
+  p_correct_answers => '["6","+6"]'::jsonb,
+  p_solution        => 'Der y-Achsenabschnitt ist die Zahl ohne x: b = 6.
+Probe: f(0) = -2 · 0 + 6 = 6.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Steigung -2 angegeben statt b.","socratic_question":"Welche Zahl steht in f(x) = mx + b allein, ohne x?","fehlbild":"m_b_vertauscht"},{"error":"Die Nullstelle angegeben: -2x + 6 = 0 bei x = 3.","socratic_question":"Liegt der y-Achsenabschnitt auf der x-Achse oder auf der y-Achse?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"6","known_errors":{"3":"achsenabschnitt_verwechselt","-2":"m_b_vertauscht","−2":"m_b_vertauscht","- 2":"m_b_vertauscht","+3":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #8 erklaer-yabschnitt-k1-c2 · Check · y-Achsenabschnitt · negatives b
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '31b05259-95e6-4f67-a5db-6d75c546029e'::uuid, 'exercise', 'Check · y-Achsenabschnitt · negatives b', 'Gegeben ist die Funktion f(x) = 5x - 4.
+
+An welcher Stelle schneidet der Graph von f die y-Achse? Gib den y-Wert an.',
+  '{"kind":"short_input","prompt":"Gegeben ist die Funktion f(x) = 5x - 4.\n\nAn welcher Stelle schneidet der Graph von f die y-Achse? Gib den y-Wert an."}'::jsonb, 'NUMERIC', 'fkt_linear_yabschnitt',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-yabschnitt-k1-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: b mit Vorzeichen aus der Normalform ablesen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '31b05259-95e6-4f67-a5db-6d75c546029e'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '31b05259-95e6-4f67-a5db-6d75c546029e'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '31b05259-95e6-4f67-a5db-6d75c546029e'::uuid,
+  p_correct_answers => '["-4","−4","- 4"]'::jsonb,
+  p_solution        => 'Bei x = 0 fällt 5x weg: f(0) = 5 · 0 - 4 = -4.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Steigung 5 angegeben statt b.","socratic_question":"Welche Zahl steht in f(x) = mx + b allein, ohne x?","fehlbild":"m_b_vertauscht"},{"error":"Das Minus von b weggelassen: 4 statt -4.","socratic_question":"Gehört das Minus vor der 4 zu b dazu?","fehlbild":"betrag_fehler"},{"error":"Die Nullstelle angegeben: 5x - 4 = 0 bei x = 0,8.","socratic_question":"Liegt der y-Achsenabschnitt auf der x-Achse oder auf der y-Achse?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-4","known_errors":{"4":"betrag_fehler","5":"m_b_vertauscht","+5":"m_b_vertauscht","+4":"betrag_fehler","0,8":"achsenabschnitt_verwechselt","+0,8":"achsenabschnitt_verwechselt","0.8":"achsenabschnitt_verwechselt","+0.8":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #9 erklaer-yabschnitt-k2-c1 · Check · b aus Steigung und Punkt
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '5bb6895e-1e3e-4cc5-8ff5-05424673198c'::uuid, 'exercise', 'Check · b aus Steigung und Punkt', 'Eine Gerade hat die Steigung 3 und geht durch den Punkt P(2 | 5).
+
+Bestimme den y-Achsenabschnitt b der Geraden.',
+  '{"kind":"short_input","prompt":"Eine Gerade hat die Steigung 3 und geht durch den Punkt P(2 | 5).\n\nBestimme den y-Achsenabschnitt b der Geraden."}'::jsonb, 'NUMERIC', 'fkt_linear_yabschnitt',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-yabschnitt-k2-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: b = y - m · x mit einem Punkt, Ergebnis negativ.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '5bb6895e-1e3e-4cc5-8ff5-05424673198c'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '5bb6895e-1e3e-4cc5-8ff5-05424673198c'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '5bb6895e-1e3e-4cc5-8ff5-05424673198c'::uuid,
+  p_correct_answers => '["-1","−1","- 1"]'::jsonb,
+  p_solution        => 'b = 5 - 3 · 2 = 5 - 6 = -1.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Steigung mal x addiert statt abgezogen: 5 + 3 · 2 = 11.","socratic_question":"Gehst du von P zur y-Achse nach rechts oder nach links?","fehlbild":"addiert_statt_subtrahiert"},{"error":"Vorzeichen gekippt: 1 statt -1.","socratic_question":"Liegt der Schnittpunkt mit der y-Achse über oder unter der x-Achse?","fehlbild":"betrag_fehler"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-1","known_errors":{"1":"betrag_fehler","11":"addiert_statt_subtrahiert","+11":"addiert_statt_subtrahiert","+1":"betrag_fehler"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #10 erklaer-yabschnitt-k2-c2 · Check · b aus Steigung und Punkt · fallend
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '8361e4fe-9f16-466e-979b-4b8d36388c4a'::uuid, 'exercise', 'Check · b aus Steigung und Punkt · fallend', 'Eine Gerade hat die Steigung -2 und geht durch den Punkt P(3 | 1).
+
+Bestimme den y-Achsenabschnitt b der Geraden.',
+  '{"kind":"short_input","prompt":"Eine Gerade hat die Steigung -2 und geht durch den Punkt P(3 | 1).\n\nBestimme den y-Achsenabschnitt b der Geraden."}'::jsonb, 'NUMERIC', 'fkt_linear_yabschnitt',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-yabschnitt-k2-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: b = y - m · x mit negativer Steigung (Minus vor Minus).","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '8361e4fe-9f16-466e-979b-4b8d36388c4a'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '8361e4fe-9f16-466e-979b-4b8d36388c4a'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '8361e4fe-9f16-466e-979b-4b8d36388c4a'::uuid,
+  p_correct_answers => '["7","+7"]'::jsonb,
+  p_solution        => 'b = 1 - (-2) · 3 = 1 + 6 = 7.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Steigung mal x addiert statt abgezogen: 1 + (-2) · 3 = -5.","socratic_question":"Gehst du von P zur y-Achse nach rechts oder nach links?","fehlbild":"addiert_statt_subtrahiert"},{"error":"Vorzeichen gekippt: -7 statt 7.","socratic_question":"Die Gerade fällt. Liegt sie links von P höher oder tiefer?","fehlbild":"betrag_fehler"}]'::jsonb,
+  p_acceptance      => '{"canonical":"7","known_errors":{"-5":"addiert_statt_subtrahiert","−5":"addiert_statt_subtrahiert","- 5":"addiert_statt_subtrahiert","-7":"betrag_fehler","−7":"betrag_fehler","- 7":"betrag_fehler"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #11 erklaer-yabschnitt-k3-c1 · Check · Startwert im Sachzusammenhang · Taxi
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '7d2e7681-e25f-449b-86ee-879fad3fdd41'::uuid, 'exercise', 'Check · Startwert im Sachzusammenhang · Taxi', 'Ein Taxi berechnet für eine Fahrt von x km den Preis P(x) = 2x + 4 in Euro.
+
+Wie hoch ist die Grundgebühr in Euro?',
+  '{"kind":"short_input","prompt":"Ein Taxi berechnet für eine Fahrt von x km den Preis P(x) = 2x + 4 in Euro.\n\nWie hoch ist die Grundgebühr in Euro?"}'::jsonb, 'NUMERIC', 'fkt_linear_yabschnitt',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-yabschnitt-k3-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: den Startwert b im Sachzusammenhang deuten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '7d2e7681-e25f-449b-86ee-879fad3fdd41'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '7d2e7681-e25f-449b-86ee-879fad3fdd41'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '7d2e7681-e25f-449b-86ee-879fad3fdd41'::uuid,
+  p_correct_answers => '["4","+4"]'::jsonb,
+  p_solution        => 'Die Grundgebühr ist der Preis bei x = 0: P(0) = 2 · 0 + 4 = 4.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Den Preis pro Kilometer angegeben statt der Grundgebühr.","socratic_question":"Welcher Betrag kommt für jeden Kilometer neu dazu, welcher ist von Anfang an da?","fehlbild":"groessen_vertauscht"},{"error":"Die Nullstelle angegeben: 2x + 4 = 0 bei x = -2.","socratic_question":"Wie viel kostet die Fahrt, bevor ein Kilometer gefahren ist?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"4","known_errors":{"2":"groessen_vertauscht","+2":"groessen_vertauscht","-2":"achsenabschnitt_verwechselt","−2":"achsenabschnitt_verwechselt","- 2":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #12 erklaer-yabschnitt-k3-c2 · Check · Startwert im Sachzusammenhang · Kerze
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '58e43502-1bd9-43da-a51d-89e129e11a3a'::uuid, 'exercise', 'Check · Startwert im Sachzusammenhang · Kerze', 'Eine Kerze brennt gleichmäßig ab. Ihre Höhe in cm nach x Stunden ist h(x) = -3x + 15.
+
+Wie hoch ist die Kerze zu Beginn, in cm?',
+  '{"kind":"short_input","prompt":"Eine Kerze brennt gleichmäßig ab. Ihre Höhe in cm nach x Stunden ist h(x) = -3x + 15.\n\nWie hoch ist die Kerze zu Beginn, in cm?"}'::jsonb, 'NUMERIC', 'fkt_linear_yabschnitt',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-yabschnitt-k3-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: den Startwert b bei fallender Größe deuten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '58e43502-1bd9-43da-a51d-89e129e11a3a'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '58e43502-1bd9-43da-a51d-89e129e11a3a'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '58e43502-1bd9-43da-a51d-89e129e11a3a'::uuid,
+  p_correct_answers => '["15","+15"]'::jsonb,
+  p_solution        => 'Zu Beginn ist x = 0: h(0) = -3 · 0 + 15 = 15.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Änderung pro Stunde angegeben statt der Anfangshöhe.","socratic_question":"Welche Zahl sagt, wie hoch die Kerze ist, bevor sie brennt?","fehlbild":"groessen_vertauscht"},{"error":"Die Nullstelle angegeben: Nach 5 Stunden ist die Kerze abgebrannt.","socratic_question":"Ist nach dem Anfang oder nach dem Ende gefragt?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"15","known_errors":{"5":"achsenabschnitt_verwechselt","-3":"groessen_vertauscht","−3":"groessen_vertauscht","- 3":"groessen_vertauscht","+5":"achsenabschnitt_verwechselt"}}'::jsonb);
   end if;
 end
 $loesung$;

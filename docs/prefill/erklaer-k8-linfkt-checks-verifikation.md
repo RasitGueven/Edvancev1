@@ -1,22 +1,22 @@
 # Verifikation erklaer-k8-linfkt-checks
 
-Aufgaben: 6 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
+Aufgaben: 12 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
 
 ## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)
 
 | Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |
 |---|---|---|---|---|
-| hints | 0 | 0 | 0 | 6 |
-| afb | 6 | 0 | 0 | 0 |
-| est_duration_sec | 6 | 0 | 0 | 0 |
-| curriculum_grade | 6 | 0 | 0 | 0 |
-| cluster_id | 6 | 0 | 0 | 0 |
-| competency_content | 6 | 0 | 0 | 0 |
-| competency_process | 6 | 0 | 0 | 0 |
-| needs_image | 6 | 0 | 0 | 0 |
-| correct_answers | 6 | 0 | 0 | 0 |
-| solution | 6 | 0 | 0 | 0 |
-| typical_errors | 6 | 0 | 0 | 0 |
+| hints | 0 | 0 | 0 | 12 |
+| afb | 12 | 0 | 0 | 0 |
+| est_duration_sec | 12 | 0 | 0 | 0 |
+| curriculum_grade | 12 | 0 | 0 | 0 |
+| cluster_id | 12 | 0 | 0 | 0 |
+| competency_content | 12 | 0 | 0 | 0 |
+| competency_process | 12 | 0 | 0 | 0 |
+| needs_image | 12 | 0 | 0 | 0 |
+| correct_answers | 12 | 0 | 0 | 0 |
+| solution | 12 | 0 | 0 | 0 |
+| typical_errors | 12 | 0 | 0 | 0 |
 
 ## Ueberschreibungen (alt → neu)
 
@@ -26,17 +26,17 @@ Aufgaben: 6 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen:
 
 | Feld | vorher leer | jetzt befuellt | bewusst leer | ungeklaert |
 |---|---|---|---|---|
-| tasks.afb | 6 | 6 | 0 | 0 |
-| tasks.est_duration_sec | 6 | 6 | 0 | 0 |
-| tasks.curriculum_grade | 6 | 6 | 0 | 0 |
-| tasks.cluster_id | 6 | 6 | 0 | 0 |
-| tasks.needs_image | 6 | 6 | 0 | 0 |
-| task_solutions.solution | 6 | 6 | 0 | 0 |
-| task_solutions.hints | 6 | 0 | 6 | 0 |
-| task_solutions.typical_errors | 6 | 6 | 0 | 0 |
-| tasks.competency_content | 6 | 6 | 0 | 0 |
-| tasks.competency_process | 6 | 6 | 0 | 0 |
-| task_solutions.correct_answers | 6 | 6 | 0 | 0 |
+| tasks.afb | 12 | 12 | 0 | 0 |
+| tasks.est_duration_sec | 12 | 12 | 0 | 0 |
+| tasks.curriculum_grade | 12 | 12 | 0 | 0 |
+| tasks.cluster_id | 12 | 12 | 0 | 0 |
+| tasks.needs_image | 12 | 12 | 0 | 0 |
+| task_solutions.solution | 12 | 12 | 0 | 0 |
+| task_solutions.hints | 12 | 0 | 12 | 0 |
+| task_solutions.typical_errors | 12 | 12 | 0 | 0 |
+| tasks.competency_content | 12 | 12 | 0 | 0 |
+| tasks.competency_process | 12 | 12 | 0 | 0 |
+| task_solutions.correct_answers | 12 | 12 | 0 | 0 |
 
 ## Charge-Fehler (Gate)
 
@@ -69,6 +69,25 @@ Aufgaben: 6 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen:
 - ok  #6 Check · Punkt aus Steigung und Punkt · größere Steigung: 4*4 = 16 (soll 16)
 - ok  #6 Check · Punkt aus Steigung und Punkt · größere Steigung: 2+(4-1)/4 = 11/4 (soll 11/4)
 - ok  #6 Check · Punkt aus Steigung und Punkt · größere Steigung: 2+3/4 = 11/4 (soll 11/4)
+- ok  #7 Check · y-Achsenabschnitt aus der Gleichung: -2*0+6 = 6 (soll 6)
+- ok  #7 Check · y-Achsenabschnitt aus der Gleichung: -2 = -2 (soll -2)
+- ok  #7 Check · y-Achsenabschnitt aus der Gleichung: 6/2 = 3 (soll 3)
+- ok  #8 Check · y-Achsenabschnitt · negatives b: 5*0-4 = -4 (soll -4)
+- ok  #8 Check · y-Achsenabschnitt · negatives b: 5 = 5 (soll 5)
+- ok  #8 Check · y-Achsenabschnitt · negatives b: 0-(-4) = 4 (soll 4)
+- ok  #8 Check · y-Achsenabschnitt · negatives b: 4/5 = 4/5 (soll 4/5)
+- ok  #9 Check · b aus Steigung und Punkt: 5-3*2 = -1 (soll -1)
+- ok  #9 Check · b aus Steigung und Punkt: 5+3*2 = 11 (soll 11)
+- ok  #9 Check · b aus Steigung und Punkt: -(5-3*2) = 1 (soll 1)
+- ok  #10 Check · b aus Steigung und Punkt · fallend: 1-(-2)*3 = 7 (soll 7)
+- ok  #10 Check · b aus Steigung und Punkt · fallend: 1+(-2)*3 = -5 (soll -5)
+- ok  #10 Check · b aus Steigung und Punkt · fallend: -(1-(-2)*3) = -7 (soll -7)
+- ok  #11 Check · Startwert im Sachzusammenhang · Taxi: 2*0+4 = 4 (soll 4)
+- ok  #11 Check · Startwert im Sachzusammenhang · Taxi: 2 = 2 (soll 2)
+- ok  #11 Check · Startwert im Sachzusammenhang · Taxi: -4/2 = -2 (soll -2)
+- ok  #12 Check · Startwert im Sachzusammenhang · Kerze: -3*0+15 = 15 (soll 15)
+- ok  #12 Check · Startwert im Sachzusammenhang · Kerze: -3 = -3 (soll -3)
+- ok  #12 Check · Startwert im Sachzusammenhang · Kerze: 15/3 = 5 (soll 5)
 
 ## Blind-Abgleich (docs/prefill/erklaer-k8-linfkt-checks-blind.json)
 
@@ -78,3 +97,9 @@ Aufgaben: 6 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen:
 - ok  #4 Check · Steigung aus zwei Punkten · fallend: Loeser -3 · gespeichert ["-3","−3","- 3"]
 - ok  #5 Check · Punkt aus Steigung und Punkt: Loeser 10 · gespeichert ["10","+10"]
 - ok  #6 Check · Punkt aus Steigung und Punkt · größere Steigung: Loeser 14 · gespeichert ["14","+14"]
+- ok  #7 Check · y-Achsenabschnitt aus der Gleichung: Loeser 6 · gespeichert ["6","+6"]
+- ok  #8 Check · y-Achsenabschnitt · negatives b: Loeser -4 · gespeichert ["-4","−4","- 4"]
+- ok  #9 Check · b aus Steigung und Punkt: Loeser -1 · gespeichert ["-1","−1","- 1"]
+- ok  #10 Check · b aus Steigung und Punkt · fallend: Loeser 7 · gespeichert ["7","+7"]
+- ok  #11 Check · Startwert im Sachzusammenhang · Taxi: Loeser 4 · gespeichert ["4","+4"]
+- ok  #12 Check · Startwert im Sachzusammenhang · Kerze: Loeser 15 · gespeichert ["15","+15"]

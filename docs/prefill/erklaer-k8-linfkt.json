@@ -742,6 +742,600 @@
      "reihenfolge": 2
     }
    ]
+  },
+  {
+   "id": "af7337eb-f87c-4a1b-b90c-2331ee37d68d",
+   "skill_key": "fkt_linear_yabschnitt",
+   "nr": 1,
+   "titel": "b ist der Schnitt mit der y-Achse",
+   "schritte": [
+    {
+     "id": "766259d6-0394-41f5-a51b-03eb435c9a0d",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Wo trifft die Gerade die y-Achse?\n\nIn $y = mx + b$ ist m die Steigung. Die y-Achse liegt bei x = 0. Dort fällt $m \\cdot x$ weg.\n\nÜbrig bleibt b. Bei $y = 2x + 1$ ist das 1, der Punkt S(0|1).\n\n> Der y-Achsenabschnitt ist b, die Zahl ohne x.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 3,
+       "y_min": -3,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 1,
+         "label": "S"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die y-Achse im Punkt S schneidet.",
+      "svg_hash": "38c8c670f784698f24fee85440c3a646b83f1b2ef422aa9a54fc9ba2a24e14ac"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "2*0+1",
+       "1"
+      ]
+     ]
+    },
+    {
+     "id": "cd117773-6f5f-47a7-bd74-42c26a68cf33",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Beispiel: f(x) = 3x - 5\n\n1. Die Zahl ohne x ist -5. Das Minus davor gehört dazu.\n2. Probe mit x = 0: $3 \\cdot 0 - 5 = -5$.\n3. Der Graph trifft die y-Achse in S(0|-5). Der y-Achsenabschnitt ist -5.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -2,
+       "x_max": 4,
+       "y_min": -7,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 3,
+         "b": -5
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -5,
+         "label": "S"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die y-Achse unterhalb der x-Achse im Punkt S schneidet.",
+      "svg_hash": "c477e709f1cb474c974b3be9015adfb7c3cd645d8d99649f4d5cf925ee976b4d"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "3*0-5",
+       "-5"
+      ]
+     ]
+    },
+    {
+     "id": "99d39321-c8d8-4ef6-b757-2fa9249389a3",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Welche Zahl ist b?\n\nIn $y = mx + b$ steht m direkt vor dem x. b steht allein, ohne x.\n\nDas Vorzeichen gehört zu b. Bei $y = 2x - 3$ ist $b = -3$, nicht 2 und nicht 3.\n\nIm Bild trifft die Gerade die y-Achse unterhalb der x-Achse, in S(0|-3).",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 4,
+       "y_min": -5,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -3
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -3,
+         "label": "S"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die y-Achse unterhalb der x-Achse im Punkt S schneidet.",
+      "svg_hash": "3aa4e9e4b6e07b59bd025dfefa31a74332b94a127944a00e7a82a9ca1b7edeb2"
+     },
+     "fehlbild_slugs": [
+      "m_b_vertauscht",
+      "betrag_fehler"
+     ],
+     "rechnungen": [
+      [
+       "2*0-3",
+       "-3"
+      ]
+     ]
+    },
+    {
+     "id": "ec36f387-ebf4-4d14-ab68-791e31893c7c",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# y-Achse, nicht x-Achse\n\nDer y-Achsenabschnitt liegt auf der y-Achse, also bei x = 0.\n\nWo die Gerade die x-Achse trifft, ist y = 0. Das ist die Nullstelle, etwas anderes.\n\nBei $y = 2x - 2$: S(0|-2) auf der y-Achse, N(1|0) auf der x-Achse.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 4,
+       "y_min": -4,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -2
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -2,
+         "label": "S"
+        },
+        {
+         "x": 1,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit dem Punkt S auf der y-Achse und dem Punkt N auf der x-Achse.",
+      "svg_hash": "891e3be2490c77205cb44d37c6b1dc04fb79c03a0708cbc81db23e0ef65cc14c"
+     },
+     "fehlbild_slugs": [
+      "achsenabschnitt_verwechselt"
+     ],
+     "rechnungen": [
+      [
+       "2*1-2",
+       "0"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "9a7cc9ef-d806-45b3-b17e-c60364fc2fa3",
+     "ref": "erklaer-yabschnitt-k1-c1",
+     "reihenfolge": 1
+    },
+    {
+     "task_id": "31b05259-95e6-4f67-a5db-6d75c546029e",
+     "ref": "erklaer-yabschnitt-k1-c2",
+     "reihenfolge": 2
+    }
+   ]
+  },
+  {
+   "id": "6e2b6a04-9cec-4388-a92c-25db953337d0",
+   "skill_key": "fkt_linear_yabschnitt",
+   "nr": 2,
+   "titel": "b aus Steigung und Punkt berechnen",
+   "schritte": [
+    {
+     "id": "9b560487-f5b1-4eef-b90d-b2dd13e13df0",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Zurück zur y-Achse\n\nKennst du m und einen Punkt P, gehst du von P zurück bis x = 0. Jeder Schritt nach links nimmt m einmal weg.\n\nP(3|7), $m = 2$: $b = 7 - 2 \\cdot 3 = 1$, also S(0|1).\n\n> $b = y_P - m \\cdot x_P$",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -2,
+       "x_max": 5,
+       "y_min": -2,
+       "y_max": 8,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 1,
+         "label": "S"
+        },
+        {
+         "x": 3,
+         "y": 7,
+         "label": "P"
+        }
+       ],
+       "steigungsdreiecke": [
+        {
+         "x": 0,
+         "y": 1,
+         "dx": 3,
+         "dy": 6
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit dem Punkt P und dem Punkt S auf der y-Achse. Ein Steigungsdreieck reicht von S bis P.",
+      "svg_hash": "fb45e18bb1662a7f5744ccdc14668d86dae676ffb0581bbb2c4fc4676db2c826"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "7-2*3",
+       "1"
+      ]
+     ]
+    },
+    {
+     "id": "015be76a-1a62-4699-b8d4-3749b93727e8",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# m = -1, die Gerade geht durch P(4|1).\n\n1. Von P bis x = 0 sind es 4 Schritte nach links.\n2. $b = 1 - (-1) \\cdot 4 = 1 + 4 = 5$.\n3. Die Gerade trifft die y-Achse in S(0|5). Das Dreieck zeigt denselben Weg von S aus: rüber 4, hoch -4.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 6,
+       "y_min": -1,
+       "y_max": 7,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -1,
+         "b": 5
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 5,
+         "label": "S"
+        },
+        {
+         "x": 4,
+         "y": 1,
+         "label": "P"
+        }
+       ],
+       "steigungsdreiecke": [
+        {
+         "x": 0,
+         "y": 5,
+         "dx": 4,
+         "dy": -4
+        }
+       ]
+      },
+      "alt": "Fallende Gerade mit dem Punkt P und dem Punkt S auf der y-Achse. Ein Steigungsdreieck reicht von S bis P.",
+      "svg_hash": "b4f43f84340355fe11db2c9caad39f896a6573f710b86f2783ee0868e923137b"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "4-0",
+       "4"
+      ],
+      [
+       "1-(-1)*4",
+       "5"
+      ],
+      [
+       "1+4",
+       "5"
+      ]
+     ]
+    },
+    {
+     "id": "9e22644c-6e2c-4dd2-a081-cff7ed0e83ce",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Zurück heißt: abziehen.\n\nVon P zur y-Achse gehst du nach links. Dabei nimmst du m für jeden Schritt weg.\n\nP(1|5), $m = 4$: $b = 5 - 4 \\cdot 1 = 1$. Nicht $5 + 4 \\cdot 1 = 9$.\n\nDie Gerade steigt, also liegt S(0|1) tiefer als P.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 3,
+       "y_min": -1,
+       "y_max": 7,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 4,
+         "b": 1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 1,
+         "label": "S"
+        },
+        {
+         "x": 1,
+         "y": 5,
+         "label": "P"
+        }
+       ]
+      },
+      "alt": "Steile Gerade mit dem Punkt P und dem tiefer liegenden Punkt S auf der y-Achse.",
+      "svg_hash": "5dc8956cb2d9e554b36c7c00c83edcf5f0b11dafadf841f7c543622f96fa7d8a"
+     },
+     "fehlbild_slugs": [
+      "addiert_statt_subtrahiert"
+     ],
+     "rechnungen": [
+      [
+       "5-4*1",
+       "1"
+      ],
+      [
+       "5+4*1",
+       "9",
+       "falsch"
+      ]
+     ]
+    },
+    {
+     "id": "5cda40fd-5936-4357-9dd3-3e6221011cd6",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Passt das Vorzeichen von b?\n\nÜber der x-Achse ist b positiv, darunter negativ. Ohne Bild: Rechne Schritt für Schritt und schreib jedes Minus mit.\n\nP(3|2), $m = 2$: $b = 2 - 2 \\cdot 3 = -4$. S(0|-4) liegt unter der x-Achse.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 5,
+       "y_min": -6,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": -4
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": -4,
+         "label": "S"
+        },
+        {
+         "x": 3,
+         "y": 2,
+         "label": "P"
+        }
+       ],
+       "steigungsdreiecke": [
+        {
+         "x": 0,
+         "y": -4,
+         "dx": 3,
+         "dy": 6
+        }
+       ]
+      },
+      "alt": "Steigende Gerade mit dem Punkt P über und dem Punkt S unter der x-Achse. Ein Steigungsdreieck reicht von S bis P.",
+      "svg_hash": "9d65a006e65d23c8ccef85c3d68b522113a28ecfd337f8e09d0c4f32d888109d"
+     },
+     "fehlbild_slugs": [
+      "betrag_fehler"
+     ],
+     "rechnungen": [
+      [
+       "2-2*3",
+       "-4"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "5bb6895e-1e3e-4cc5-8ff5-05424673198c",
+     "ref": "erklaer-yabschnitt-k2-c1",
+     "reihenfolge": 1
+    },
+    {
+     "task_id": "8361e4fe-9f16-466e-979b-4b8d36388c4a",
+     "ref": "erklaer-yabschnitt-k2-c2",
+     "reihenfolge": 2
+    }
+   ]
+  },
+  {
+   "id": "d22f7f2c-1295-48ce-ad14-6fdd13ce5c3a",
+   "skill_key": "fkt_linear_yabschnitt",
+   "nr": 3,
+   "titel": "b ist der Startwert",
+   "schritte": [
+    {
+     "id": "b48bbd1e-5ac6-471a-9d6e-91c6a2092d87",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Der Startwert ist b.\n\nIn Sachaufgaben steht x oft für eine Zeit oder eine Menge. Bei x = 0 ist noch nichts passiert.\n\nDann bleibt nur b übrig. Das ist der Startwert, zum Beispiel ein Grundpreis. Hier startet die Gerade bei 3.\n\n> Startwert = Wert bei x = 0 = b",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 4,
+       "y_min": 0,
+       "y_max": 10,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 3
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 3,
+         "label": "S"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade im ersten Quadranten. Der Punkt S auf der y-Achse markiert den Startwert.",
+      "svg_hash": "25acda1241a72a3feb00585cd6b1863b163fcddd8ed8c8b9907b93e1737c1530"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": []
+    },
+    {
+     "id": "dbb8567c-5cba-43ba-9ec6-ad5cf2eafc73",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Ein Abo kostet K(x) = 2x + 5 Euro für x Filme.\n\n1. Ohne Film ist x = 0.\n2. $K(0) = 2 \\cdot 0 + 5 = 5$.\n3. Der Grundpreis ist 5 Euro. Pro Film kommen 2 Euro dazu.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 4,
+       "y_min": 0,
+       "y_max": 12,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 5
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 5,
+         "label": "S"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade im ersten Quadranten mit dem Punkt S auf der y-Achse.",
+      "svg_hash": "f10c55a5ac01ea081333dd48e84fdf455fdd6052506455ead240700f270f5c5a"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "2*0+5",
+       "5"
+      ]
+     ]
+    },
+    {
+     "id": "3b4c35c5-1bb4-4359-9e6f-cc9839b8d830",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Fest oder pro Stück?\n\nDie Zahl vor dem x kommt bei jedem Stück neu dazu. Das ist die Rate m.\n\nDie Zahl ohne x ist von Anfang an da. Das ist der Grundbetrag b.\n\nBei $K(x) = 2x + 6$ ist der Grundbetrag 6 Euro, nicht 2 Euro.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 4,
+       "y_min": 0,
+       "y_max": 14,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 6
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 6,
+         "label": "S"
+        }
+       ],
+       "steigungsdreiecke": [
+        {
+         "x": 1,
+         "y": 8,
+         "dx": 1,
+         "dy": 2
+        }
+       ]
+      },
+      "alt": "Steigende Gerade im ersten Quadranten mit dem Punkt S auf der y-Achse. Ein Steigungsdreieck zeigt den Zuwachs pro Stück.",
+      "svg_hash": "23f350a9ae6baeac44036d7879fb15e325fc122d6a713c103e5520dfb5f098df"
+     },
+     "fehlbild_slugs": [
+      "groessen_vertauscht"
+     ],
+     "rechnungen": []
+    },
+    {
+     "id": "4455afbf-c741-458e-b163-2e06e6e61504",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Gesucht ist der Anfang.\n\nDer Startwert ist der Wert bei x = 0. Er liegt auf der y-Achse.\n\nWann der Wert 0 erreicht, ist eine andere Frage. Das ist die Nullstelle.\n\nEin Tank hat $h(x) = -2x + 8$ Liter. Zu Beginn sind 8 Liter drin. Leer ist er erst bei x = 4.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 5,
+       "y_min": 0,
+       "y_max": 9,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -2,
+         "b": 8
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 8,
+         "label": "S"
+        },
+        {
+         "x": 4,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade mit dem Startpunkt S auf der y-Achse und dem Punkt N auf der x-Achse.",
+      "svg_hash": "a3a024e77bf53d4217ee173696f241e81879c07a33c66b82dd0832f258ce47b7"
+     },
+     "fehlbild_slugs": [
+      "achsenabschnitt_verwechselt"
+     ],
+     "rechnungen": [
+      [
+       "-2*0+8",
+       "8"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "7d2e7681-e25f-449b-86ee-879fad3fdd41",
+     "ref": "erklaer-yabschnitt-k3-c1",
+     "reihenfolge": 1
+    },
+    {
+     "task_id": "58e43502-1bd9-43da-a51d-89e129e11a3a",
+     "ref": "erklaer-yabschnitt-k3-c2",
+     "reihenfolge": 2
+    }
+   ]
   }
  ]
 }

@@ -99,9 +99,19 @@ Geraden, haben Platz für ihre Beschriftung und stehen nie in einer Check-Figur.
 15. **Klartext von `b_ignoriert` passt nicht zur Steigung.** Der Katalog beschreibt „Teilt sofort, ohne die Konstante
     vorher wegzurechnen“ (Gleichungen). Bei Steigung steht der Slug im Bestand für „wie bei einer Ursprungsgeraden
     gerechnet“ (`linfkt-steigung-06`, Wert 8). Variante C von Kernidee 3 spricht diesen Fehler an. Einen eigenen Slug
-    oder einen allgemeineren Klartext legt Lena im Fehlbild-Katalog fest (Zweitprüfung Befund 1).
+    oder einen allgemeineren Klartext legt Lena im Fehlbild-Katalog fest (Zweitprüfung Befund 1). Dasselbe gilt bei
+    `fkt_linear_gleichung` (Bestand `linfkt-gleichung-05`: 6 = 0,30 · 20, „Grundgebühr vergessen“), Variante K3 B.
 16. **Kein Fehlbild für Zählfehler am Gitter.** Die Zweitprüfung wünscht eine Variante für Zählfehler über die Achse
     (Befund 10). Der Bestand kennt dafür keinen Slug; ohne Slug wählt die Engine die nächste ungezeigte Variante.
 17. **Punktnamen im Bild.** Der Generator setzt Namen über den Punkt (mit Steigungsdreieck von oben: darunter). Liegen
     Punkte auf der y-Achse oder an Achsenzahlen, wird es eng (Zweitprüfung Runde 2, Befund 6, „kann“). Eine Regel
     „Name auf die von der Geraden abgewandte Seite“ wäre eine weitere Generator-Änderung; bewusst nicht in diesem Schritt.
+    Die Zweitprüfungen von y-Abschnitt und Gleichung melden dasselbe: S auf der y-Achse verdeckt die Achsenzahl an seiner
+    Stelle, Namen liegen auf steilen Geraden („kann“).
+18. **Varianten nur über den ersten Check erreichbar (R15).** `erklaer_zeigen` gibt in Runde 1 immer den ersten Check;
+    eine Variante folgt nur auf einen falschen Check in Runde 1, in Runde 2 folgt das Signal. Ein Fehlbild, das nur im
+    zweiten Check steht, wählt deshalb nie eine Variante. Das Nachrechen-Skript verlangt jetzt für jede Variante B/C ein
+    Fehlbild des ersten Checks; bei Gleichung K2 und K3 wurden die Checks dafür umgestellt (Zweitprüfung Gleichung).
+19. **„hoch -4“ statt „runter 4“.** Der Generator beschriftet fallende Dreiecke mit „hoch“ und negativem Wert, wie im
+    abgenommenen Muster („Hoch: -1 - 5 = -6“). Die Zweitprüfung y-Abschnitt findet „hoch -4“ holprig. Eine Beschriftung
+    „runter 4“ wäre eine Generator-Änderung mit neuer Byte-Gleichheitsprüfung; die Texte sagen dazu „nach unten“.

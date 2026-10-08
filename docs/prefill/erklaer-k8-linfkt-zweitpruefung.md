@@ -77,3 +77,39 @@ Gitter, Text und Rechnung), keine Rechen- oder Vorzeichenfehler und keinen verra
 
 Danach: Nachrechnung grün, Byte-Gleichheit der 53 bestehenden Figuren weiter belegt, pgTAP `session_e2b` 45/45,
 Vorschau ohne überlaufenden Bildschirm.
+
+## Skill fkt_linear_yabschnitt
+
+Prüfer: neuer frischer Subagent (kein Fork), 08.10.2026, Ablauf wie oben. Teil 1 sah nur `aufgaben.json` der sechs
+y-Abschnitt-Checks (`exportiere.mjs` auf eine gefilterte Check-Charge), Teil 2 den `--export` ohne Lösungen.
+
+### Teil 1: Blind-Löser
+
+`verify-tasks --from-file <y-Abschnitt-Checks> --answers-from docs/prefill/erklaer-k8-linfkt-checks-blind.json --min-pass 1.0`
+→ **6/6 = 100 %**, 0 Abweichungen, 0 unsicher.
+
+| Check | Löser | hinterlegt |
+|---|---|---|
+| erklaer-yabschnitt-k1-c1 | 6 | 6 |
+| erklaer-yabschnitt-k1-c2 | -4 | -4 |
+| erklaer-yabschnitt-k2-c1 | -1 | -1 |
+| erklaer-yabschnitt-k2-c2 | 7 | 7 |
+| erklaer-yabschnitt-k3-c1 | 4 | 4 |
+| erklaer-yabschnitt-k3-c2 | 15 | 15 |
+
+### Teil 2: Befunde und was daraus wurde
+
+Keine fachlichen Fehler, alle Punkte an der genannten Stelle, kein Schritt verrät einen Check.
+
+| Nr | Ort | Art · Gewicht | Befund | Erledigt |
+|---|---|---|---|---|
+| 1 | K1 A | Lücke · sollte | Nur positive b; „die Zahl ohne x“ kann bei 5x − 4 zu 4 führen. | **Behoben:** Beispiel jetzt f(x) = 3x − 5: „Die Zahl ohne x ist -5. Das Minus davor gehört dazu.“ |
+| 2 | K1 A | Sprache · sollte | Die Form y = mx + b fehlt in A. | **Behoben:** „In $y = mx + b$ ist m die Steigung.“ |
+| 3 | Bild 14, 15 | Lesbarkeit · kann | Punkt S verdeckt die Achsenzahl an seiner Stelle. | **Offen**, offener Punkt 17 (Namen und Achsenzahlen im Generator). |
+| 4 | K2 A Beispiel | Widerspruch · kann | Text geht von P nach links, das Dreieck von S nach rechts mit „hoch -4“. | **Behoben im Text:** „Das Dreieck zeigt denselben Weg von S aus: rüber 4, hoch -4.“ Die Beschriftung „hoch -4“ ist die Konvention des abgenommenen Musters (Steigung K2: „Hoch: -1 - 5 = -6“); „runter 4“ wäre eine Generator-Änderung, offener Punkt 19. |
+| 5 | K2 B | Variante passt teilweise · kann | „S tiefer als P“ gilt nur für steigende Geraden. | **Behoben:** „Die Gerade steigt, also liegt S(0\|1) tiefer als P.“ |
+| 6 | K2 C | Lücke · kann | Variante prüft am Bild, die Checks haben keins. | **Behoben:** „Ohne Bild: Rechne Schritt für Schritt und schreib jedes Minus mit.“ |
+| 7 | K3 C | Sprache · sollte | „Leer“ ohne Sachkontext. | **Behoben:** „Ein Tank hat $h(x) = -2x + 8$ Liter. Zu Beginn sind 8 Liter drin.“ |
+| 8 | K3 A | Lücke · kann | Bild zeigt S bei 3, der Text nennt keinen Wert. | **Behoben:** „Hier startet die Gerade bei 3.“ |
+
+Danach: Nachrechnung grün, Blind-Abgleich unverändert (Checks unverändert), Vorschau ohne überlaufenden Bildschirm.
