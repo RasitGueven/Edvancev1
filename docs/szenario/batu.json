@@ -1,0 +1,117 @@
+{
+  "stand": "2026-10-08",
+  "status": "entwurf",
+  "paket": "F1/B2",
+  "kind": {
+    "student_id": "5737b689-8add-49f5-ac26-89bd40387b0f",
+    "anzeige": "TESTLEAD Zweitmann (spielt Batu)",
+    "klasse": 9,
+    "ist_test": true,
+    "lead_ist_test": false
+  },
+  "lsa": {
+    "thema_key": "reelle_zahlen",
+    "grade": 9,
+    "subject": "mathematik",
+    "modus": "adaptiv",
+    "testlauf": false,
+    "start_vor_minuten": 12,
+    "sekunden_je_antwort": 55,
+    "ende": "lsa_finish beim ersten Item ausserhalb des Musters"
+  },
+  "skills": {
+    "zahl_wurzel_teilweise": {
+      "proben": [
+        "falsch",
+        "falsch"
+      ],
+      "fehlbild": "faktor_ohne_wurzel",
+      "urteil": "traegt_nicht"
+    },
+    "zahl_wurzel_irrational": {
+      "proben": [
+        "falsch",
+        "richtig"
+      ],
+      "fehlbild": "irrational_verwechselt",
+      "urteil": "traegt_teilweise"
+    },
+    "zahl_wurzel_naeherung": {
+      "proben": [
+        "falsch",
+        "falsch"
+      ],
+      "fehlbild": "abgeschnitten",
+      "urteil": "traegt_nicht"
+    },
+    "zahl_wurzel_gesetze": {
+      "proben": [
+        "falsch",
+        "richtig"
+      ],
+      "fehlbild": "wurzel_gliedweise",
+      "urteil": "traegt_teilweise"
+    },
+    "zahl_wurzel_quadrat": {
+      "proben": [
+        "richtig"
+      ],
+      "fehlbild": null,
+      "urteil": "traegt"
+    },
+    "runden_ueberschlag": {
+      "proben": [
+        "falsch",
+        "falsch"
+      ],
+      "fehlbild": "abgeschnitten",
+      "urteil": "traegt_nicht"
+    }
+  },
+  "erwartet": {
+    "mitbelegt_traegt": [
+      "potenzen",
+      "dezimal_mult",
+      "dezimal_add_sub",
+      "vorzeichen_mult_div",
+      "vorzeichen_add_sub"
+    ],
+    "antworten": 11,
+    "lernpfad": {
+      "sicher": [
+        "zahl_wurzel_quadrat",
+        "potenzen",
+        "dezimal_mult",
+        "dezimal_add_sub",
+        "vorzeichen_mult_div",
+        "vorzeichen_add_sub"
+      ],
+      "noch_nicht_sicher": [
+        "zahl_wurzel_teilweise",
+        "zahl_wurzel_irrational",
+        "zahl_wurzel_naeherung",
+        "zahl_wurzel_gesetze",
+        "runden_ueberschlag"
+      ]
+    },
+    "session": {
+      "thema_key": "quadratische_gleichungen",
+      "zielliste": [
+        "zahl_wurzel_quadrat",
+        "gleichung_quadr_faktor",
+        "gleichung_quadr_wurzel",
+        "gleichung_quadr_formel",
+        "gleichung_quadr_anzahl"
+      ],
+      "warmup_skill": "dezimal_add_sub",
+      "warmup_gewuenscht": "zahl_wurzel_quadrat",
+      "kern_erster_skill": "gleichung_quadr_faktor",
+      "erklaersequenz": "Platzhalter (B4), nur Testlauf"
+    }
+  },
+  "offen": [
+    "E1 kein Lead mit ist_test",
+    "E2 ohne Testlauf leerer Pool, im Testlauf kein Lernpfad",
+    "E3 Warm-up-Reihenfolge alphabetisch"
+  ]
+}
