@@ -109,5 +109,13 @@ Ausnahmen (namentlich, bis C3 sie übernimmt): `coach_raum_live`, `coach_kind_de
    `return`-Ausdrücke in booleschen plpgsql-Funktionen und keine Tore in `case`. Diese Formen kommen in Prod nicht in
    einer Prüfung vor (Durchsicht oben). Die Muster sind Textmuster; wer eine sichere Form außerhalb von `coalesce`/
    `exists` schreibt (z. B. eigene Hilfe), kann ein falsches Rot bekommen. Dann die Form umstellen, nicht die Regel lockern.
-5. **Rechte der Konten nicht geprüft:** X0c prüft nur NULL-Durchlass, nicht, ob die Rechte selbst richtig gesetzt sind
+5. **NULL im Parameter statt in der Identität (Consensus-Check, kein Zugangsbefund):**
+   - `erklaer_status_setzen`: `p_status not in (…)` lässt `p_status = null` durch, danach ist auch das Admin-Tor
+     `(p_status = 'freigegeben' or …) and not v_admin` NULL. Ein Prüfer ohne Admin-Rolle käme bis zum
+     `update … set status = null`, das an `not null` auf `erklaer_kernidee.status`/`erklaer_schritt.status` scheitert
+     (23502, alles zurückgerollt). Heute ohne Wirkung. Härtung für den Eigentümer der Erklär-Familie:
+     `p_status is null or` voranstellen. Nicht geändert, weil der Auftrag nur Identitäts-NULL umfasst.
+   - `lsa_uebernahme`: `v_session.student_id <> p_student_id` lässt `p_student_id = null` durch. Der Aufrufer ist
+     davor schon als Admin oder Coach mit aktiver Akte geprüft. Folge wäre nur Datenintegrität, kein Zugriff. Nicht geändert.
+6. **Rechte der Konten nicht geprüft:** X0c prüft nur NULL-Durchlass, nicht, ob die Rechte selbst richtig gesetzt sind
    (z. B. `dokument_fassungen` für jedes angemeldete Konto lesbar).
