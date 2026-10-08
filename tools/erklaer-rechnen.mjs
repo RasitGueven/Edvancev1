@@ -26,12 +26,15 @@
  *            Zahlen gelten als belegt; Check-Figuren tragen nie ein Steigungsdreieck.
  *   Sprache  R13 ein Bildschirm: Überschrift ≤ 50 Zeichen, Lesetext ≤ 330 Zeichen, ≤ 5 Blöcke;
  *            Sätze ≤ 16 Wörter; Du-Form (kein "Sie"); keine Mastery-Sprache.
+ *   Markdown R14 "# " nur als erste Zeile, "> " Merksatz, "1. " nummerierte Schritte, $…$ Formeln,
+ *            sonst Absätze aus einer Zeile; kein Fett, keine Aufzählungspunkte, keine anderen
+ *            Markdown-Zeichen (erklaer-lib markdownFehler; der Player in E2a stellt genau das dar).
  */
 
 import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { zahl } from './prefill-rechnen.mjs';
-import { ZAHLWORT, aufGerade, bloecke, lesetext, punkteImText, qAus, zahlen } from './erklaer-lib.mjs';
+import { ZAHLWORT, aufGerade, bloecke, lesetext, markdownFehler, punkteImText, qAus, zahlen } from './erklaer-lib.mjs';
 
 const punkt = (s) => String(s).replace(',', '.');
 const enthalten = (liste, q) => liste.some((x) => x.eq(q));
@@ -91,7 +94,8 @@ function pruefeSchritt(s, wo, f) {
     if (!b || !b.x.eq(p.x) || !b.y.eq(p.y)) f.push(`${wo}: Punkt ${p.label}(${p.x}|${p.y}) im Text fehlt im Bild oder weicht ab`);
   }
   if (s.bild && /\d/.test(s.bild.alt)) f.push(`${wo}: Alt-Text mit Ziffer`);
-  // R13 Sprache und Bildschirm
+  // R13 Sprache und Bildschirm; R14 Markdown nur in den Formen, die der Player darstellt
+  for (const m of markdownFehler(s.inhalt)) f.push(`${wo}: Markdown: ${m}`);
   const bl = bloecke(s.inhalt);
   if (bl[0]?.art !== 'titel') f.push(`${wo}: erster Block muss die Überschrift sein ("# …")`);
   if (bl.filter((b) => b.art === 'titel').length !== 1) f.push(`${wo}: genau eine Überschrift`);
@@ -114,9 +118,11 @@ function checkPunkte(aufgabe) {
   return [...ausText, ...ausFigur].map(schluessel);
 }
 
-/** Zahlen der Fragestellung eines Checks (Text und Figurpunkte), sortiert als Profil. */
+/** Zahlen der Fragestellung eines Checks (Text, Figurpunkte, m und b der Figur), sortiert als Profil. */
 function profil(aufgabe) {
-  const z = [...zahlen(aufgabe.basis.frage), ...(aufgabe.basis.figur?.params?.punkte ?? []).flatMap((p) => [qAus(p.x), qAus(p.y)])];
+  const fp = aufgabe.basis.figur?.params;
+  const z = [...zahlen(aufgabe.basis.frage), ...(fp?.punkte ?? []).flatMap((p) => [qAus(p.x), qAus(p.y)]),
+    ...(fp?.funktionen ?? []).flatMap((f) => [qAus(f.m), qAus(f.b)])];
   return z.map(String).sort().join(',');
 }
 

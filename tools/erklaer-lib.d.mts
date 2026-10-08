@@ -14,6 +14,7 @@ export function bilderPython(
   theme?: string | null,
 ): { hash: string; svg?: string; ok?: boolean; meldung?: string }[]
 export function bloecke(inhalt: string): Block[]
+export function markdownFehler(inhalt: string): string[]
 export function formeln(text: string): string[]
 export function zahlen(text: string): Q[]
 export function punkteImText(text: string): { label: string; x: Q; y: Q }[]

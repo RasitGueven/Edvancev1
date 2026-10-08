@@ -59,6 +59,33 @@ export function bloecke(inhalt) {
   });
 }
 
+/**
+ * Markdown-Regel (E2b, der Player in E2a stellt genau diese Formen dar): "# " nur als erste
+ * Zeile, "> " für Merksätze (eine Zeile), "1. " für nummerierte Schritte (1, 2, 3 …), Formeln in
+ * $…$, sonst nur Absätze aus einer Zeile. Kein Fett, keine Aufzählungspunkte, keine anderen
+ * Markdown-Zeichen. Liefert die Verstöße als Text.
+ */
+export function markdownFehler(inhalt) {
+  const f = [];
+  const roh = String(inhalt);
+  if ((roh.match(/\$/g) ?? []).length % 2) f.push('ungerade Zahl von "$"');
+  if (!roh.startsWith('# ')) f.push('erste Zeile ist keine Überschrift "# "');
+  roh.split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean).forEach((b, i) => {
+    const zeilen = b.split('\n');
+    if (zeilen.length > 1 && !zeilen.every((z) => /^\d+\. /.test(z))) f.push(`Block ${i + 1}: Zeilenumbruch nur in nummerierten Schritten`);
+    if (zeilen.every((z) => /^\d+\. /.test(z))) {
+      zeilen.forEach((z, j) => { if (!z.startsWith(`${j + 1}. `)) f.push(`Block ${i + 1}: Nummer ${z.split('.')[0]} statt ${j + 1}`); });
+    }
+    if (i > 0 && b.startsWith('#')) f.push(`Block ${i + 1}: "#" nur in der ersten Zeile`);
+    for (const z of zeilen) {
+      const text = z.replace(/^(# |> |\d+\. )/, '').replace(/\$[^$]*\$/g, 'F');
+      const zeichen = text.match(/\*\*|__|[*_`#>~\\[\]<]|^\s*[-+•]\s/);
+      if (zeichen) f.push(`Block ${i + 1}: Zeichen "${zeichen[0].trim()}" außerhalb einer Formel`);
+    }
+  });
+  return f;
+}
+
 /** Formeln $…$ wie erklaer_formel_anzahl (SQL) und formeln-svg.mjs. */
 export const formeln = (text) => [...String(text).matchAll(/\$([^$]+)\$/g)].map((m) => m[1]);
 

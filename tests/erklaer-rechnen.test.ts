@@ -3,7 +3,7 @@
 
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { bloecke, punkteImText, zahlen } from '../tools/erklaer-lib.mjs'
+import { bloecke, markdownFehler, punkteImText, zahlen } from '../tools/erklaer-lib.mjs'
 import { ladeUndPruefe, pruefeCharge, varianteNach } from '../tools/erklaer-rechnen.mjs'
 
 const PFAD = 'docs/prefill/erklaer-k8-linfkt.json'
@@ -26,6 +26,19 @@ describe('erklaer-lib', () => {
   it('findet Punkte und Bloecke', () => {
     expect(punkteImText('A(-1|3) und B(2 | -3)').map((p) => `${p.label}${p.x}|${p.y}`)).toEqual(['A-1|3', 'B2|-3'])
     expect(bloecke('# T\n\nText\n\n1. a\n2. b\n\n> M').map((b) => b.art)).toEqual(['titel', 'absatz', 'schritte', 'merk'])
+  })
+
+  it('laesst nur die Markdown-Formen des Players zu', () => {
+    expect(markdownFehler('# T\n\nA(1|-2) und $y_B > 0$.\n\n1. a\n2. b\n\n> M')).toEqual([])
+    const f = (t: string) => markdownFehler(t).join(' ')
+    expect(f('# T\n\nDas ist **fett**.')).toContain('"**"')
+    expect(f('# T\n\n- eins\n- zwei')).toContain('Zeilenumbruch')
+    expect(f('# T\n\n- eins')).toContain('"-"')
+    expect(f('# T\n\n## Zwischentitel')).toContain('"#" nur in der ersten Zeile')
+    expect(f('# T\n\n1. a\n3. b')).toContain('Nummer 3 statt 2')
+    expect(f('# T\n\nZeile\numgebrochen')).toContain('Zeilenumbruch')
+    expect(f('Ohne Titel')).toContain('Überschrift')
+    expect(f('# T\n\nPreis $5.')).toContain('"$"')
   })
 })
 
