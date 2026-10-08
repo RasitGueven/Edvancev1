@@ -13,6 +13,11 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['src/test/setup.ts'],
+    // Mehrere Agenten lassen die Suite auf derselben Maschine (10 Kerne, 7,7 GB) parallel laufen.
+    // Mit dem Standard (Kerne - 1 = 9 jsdom-Forks, je ~200 MB) liefen drei gleichzeitige Läufe in
+    // den Swap; Forks starteten nicht mehr, Tests liefen in das 5-s-Limit. 4 Forks: 48 s statt 45 s,
+    // halber Speicher (Messung in docs/offene-punkte-v1.md).
+    maxWorkers: 4,
     // Dummy-Env, NICHT als Ersatz fuer die Mocks: Fehlt irgendwo ein Wrapper-Mock,
     // soll createClient() in supabase/client.ts nicht schon beim IMPORT sterben und
     // den Worker mitreissen (das faerbt fremde Suiten rot, an der falschen Stelle).
