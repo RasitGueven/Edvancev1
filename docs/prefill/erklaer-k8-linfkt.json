@@ -2626,6 +2626,579 @@
      "reihenfolge": 2
     }
    ]
+  },
+  {
+   "id": "525ef0b8-dd71-4ce4-bbb7-d49f498b5c12",
+   "skill_key": "fkt_linear_nullstelle",
+   "nr": 1,
+   "titel": "Nullstelle: Schnitt mit der x-Achse",
+   "schritte": [
+    {
+     "id": "60796899-1c44-4a2f-ac45-528733587178",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Wo trifft die Gerade die x-Achse?\n\nAuf der x-Achse ist y = 0. Die Stelle x, an der die Gerade die x-Achse trifft, heißt Nullstelle.\n\nHier trifft sie die x-Achse in N(2|0). Die Nullstelle ist x = 2.\n\n> Nullstelle: die Stelle x mit y = 0",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 5,
+       "y_min": -3,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 1,
+         "b": -2
+        }
+       ],
+       "punkte": [
+        {
+         "x": 2,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die x-Achse im Punkt N schneidet.",
+      "svg_hash": "7b42b675e0504bb99e3d21b0538aad0c612f710b731e2eb054710dbd55d0aee3"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": []
+    },
+    {
+     "id": "baaabcfb-3483-4f49-993f-30660858c66d",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Beispiel: Lies die Nullstelle ab.\n\n1. Die Gerade gehört zu $f(x) = -2x - 2$. Such die Stelle, an der sie die x-Achse trifft.\n2. Das ist N(-1|0). Dort ist y = 0.\n3. Die Nullstelle ist x = -1. Probe: $-2 \\cdot (-1) - 2 = 0$.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -4,
+       "x_max": 3,
+       "y_min": -4,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -2,
+         "b": -2
+        }
+       ],
+       "punkte": [
+        {
+         "x": -1,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade, die die x-Achse links vom Ursprung im Punkt N schneidet.",
+      "svg_hash": "66ea12fbee4539cd0943a0b4071f7e94daa015cebd3e8f4f570704793f1f1f32"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "-2*(-1)-2",
+       "0"
+      ]
+     ]
+    },
+    {
+     "id": "50afea36-726a-432d-b022-81669886418b",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# x-Achse, nicht y-Achse\n\nDie Nullstelle liegt auf der x-Achse. Der Punkt auf der y-Achse gehört zum y-Achsenabschnitt.\n\nHier: N(2|0) ist die Nullstelle, also x = 2. S(0|1) gehört zum y-Achsenabschnitt, nicht zur Nullstelle.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -3,
+       "x_max": 4,
+       "y_min": -2,
+       "y_max": 3,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -0.5,
+         "b": 1
+        }
+       ],
+       "punkte": [
+        {
+         "x": 2,
+         "y": 0,
+         "label": "N"
+        },
+        {
+         "x": 0,
+         "y": 1,
+         "label": "S"
+        }
+       ]
+      },
+      "alt": "Flach fallende Gerade mit dem Punkt N auf der x-Achse und dem Punkt S auf der y-Achse.",
+      "svg_hash": "c31e94e077940a096d9ae8a5a8c499c8fae02a38dcda2d6415e410876815ef6f"
+     },
+     "fehlbild_slugs": [
+      "achsenabschnitt_verwechselt"
+     ],
+     "rechnungen": []
+    },
+    {
+     "id": "b1a1dc40-3ddf-44a7-974c-1ad13704df97",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Links vom Ursprung ist x negativ.\n\nTrifft die Gerade die x-Achse links vom Ursprung, ist die Nullstelle negativ.\n\nHier: N(-2|0). Die Nullstelle ist -2, nicht 2.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -4,
+       "x_max": 2,
+       "y_min": -2,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 1.5,
+         "b": 3
+        }
+       ],
+       "punkte": [
+        {
+         "x": -2,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die x-Achse links vom Ursprung im Punkt N schneidet.",
+      "svg_hash": "8abf861f2d17d54d26286b0f7e4b065f78e5e84257cfa5f9dc0c73388c6c51db"
+     },
+     "fehlbild_slugs": [
+      "betrag_fehler"
+     ],
+     "rechnungen": [
+      [
+       "0-(-2)",
+       "2",
+       "falsch"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "985685e5-40db-479c-b16f-f18936be6239",
+     "ref": "erklaer-nullstelle-k1-c1",
+     "reihenfolge": 1
+    },
+    {
+     "task_id": "823a8ccd-87da-47bf-84c1-11c37cff55ef",
+     "ref": "erklaer-nullstelle-k1-c2",
+     "reihenfolge": 2
+    }
+   ]
+  },
+  {
+   "id": "0e6523ee-a135-4f5c-9882-cc121bd0bf55",
+   "skill_key": "fkt_linear_nullstelle",
+   "nr": 2,
+   "titel": "Nullstelle berechnen",
+   "ohne_variante": {
+    "achsenabschnitt_verwechselt": "Die Verwechslung mit dem y-Achsenabschnitt hat ihre Variante in Kernidee 1 (B). Hier nimmt die Engine die nächste ungezeigte Variante (B)."
+   },
+   "schritte": [
+    {
+     "id": "46109547-49c1-49c4-83aa-2f25cfe7d75d",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# f(x) = 0 setzen und umstellen\n\nSetz $f(x) = 0$. Rechne b mit der Gegenrechnung auf die andere Seite. Teile dann durch m.\n\nBei $f(x) = 3x - 9$: $3x - 9 = 0$. Plus 9 auf beiden Seiten: $3x = 9$. Durch 3: $x = 3$.\n\n> Nullstelle: $mx + b = 0$ nach x umstellen",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -1,
+       "x_max": 5,
+       "y_min": -10,
+       "y_max": 4,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 3,
+         "b": -9
+        }
+       ],
+       "punkte": [
+        {
+         "x": 3,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Steile Gerade, die die x-Achse im Punkt N schneidet.",
+      "svg_hash": "e2758b8749d220b9e97fea28db5b01f44eb54826b3ed2943d573f7a645e28ed4"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "0+9",
+       "9"
+      ],
+      [
+       "9/3",
+       "3"
+      ]
+     ]
+    },
+    {
+     "id": "110256d7-6c34-4420-baec-7582cc611ae4",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Nullstelle von f(x) = -3x + 3\n\n1. $-3x + 3 = 0$.\n2. Minus 3 auf beiden Seiten: $-3x = -3$.\n3. Durch -3 teilen: $x = 1$. Probe: $-3 \\cdot 1 + 3 = 0$.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -2,
+       "x_max": 3,
+       "y_min": -3,
+       "y_max": 5,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -3,
+         "b": 3
+        }
+       ],
+       "punkte": [
+        {
+         "x": 1,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade, die die x-Achse im Punkt N schneidet.",
+      "svg_hash": "b7bffd215d53bf999fcde96546d288511fc46f8423a28d61f98e328a3d29ec10"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "0-3",
+       "-3"
+      ],
+      [
+       "-3/(-3)",
+       "1"
+      ],
+      [
+       "-3*1+3",
+       "0"
+      ]
+     ]
+    },
+    {
+     "id": "ba35a67f-9188-4cd9-95a5-723e9e296478",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Zum Schluss durch m teilen\n\nRechne jeden Schritt rückwärts: Aus minus wird plus, aus mal wird geteilt.\n\nNach dem Umstellen steht dort noch $m \\cdot x$. Teile durch m, dann steht x allein.\n\n$2x - 10 = 0$. Plus 10: $2x = 10$. Durch 2: $x = 5$. Nicht 10 und nicht $10 \\cdot 2 = 20$.",
+     "fehlbild_slugs": [
+      "division_vergessen",
+      "falsche_gegenoperation"
+     ],
+     "rechnungen": [
+      [
+       "0+10",
+       "10"
+      ],
+      [
+       "10/2",
+       "5"
+      ],
+      [
+       "2*5-10",
+       "0"
+      ],
+      [
+       "10*2",
+       "20",
+       "falsch"
+      ]
+     ]
+    },
+    {
+     "id": "b95956d2-7e56-496c-8c78-c62b8397e7a8",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Passt das Vorzeichen?\n\nMach die Probe: Setz dein Ergebnis in f ein. Es muss 0 herauskommen.\n\n$f(x) = 2x + 8$: $x = -4$, denn $2 \\cdot (-4) + 8 = 0$. Mit 4 käme 16 heraus.\n\nIst m negativ: $-2x + 6 = 0$, $-2x = -6$, $x = 3$. Minus durch Minus gibt Plus.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": -6,
+       "x_max": 2,
+       "y_min": -3,
+       "y_max": 10,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": 2,
+         "b": 8
+        }
+       ],
+       "punkte": [
+        {
+         "x": -4,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Steigende Gerade, die die x-Achse links vom Ursprung im Punkt N schneidet.",
+      "svg_hash": "fa8145de0f2f204b91848d75bfa04a00b82c284e545324ad5ecd435ab735374c"
+     },
+     "fehlbild_slugs": [
+      "betrag_fehler",
+      "vorzeichen_beim_umstellen"
+     ],
+     "rechnungen": [
+      [
+       "-8/2",
+       "-4"
+      ],
+      [
+       "2*(-4)+8",
+       "0"
+      ],
+      [
+       "2*4+8",
+       "16",
+       "falsch"
+      ],
+      [
+       "0-6",
+       "-6"
+      ],
+      [
+       "-6/(-2)",
+       "3"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "ed40914f-4971-4e7a-9073-ede80153d7da",
+     "ref": "erklaer-nullstelle-k2-c1",
+     "reihenfolge": 1
+    },
+    {
+     "task_id": "f6702b76-d1f0-4f84-925d-9326b665f02d",
+     "ref": "erklaer-nullstelle-k2-c2",
+     "reihenfolge": 2
+    }
+   ]
+  },
+  {
+   "id": "ed384522-ec0a-4e86-be88-283c2c6cbb85",
+   "skill_key": "fkt_linear_nullstelle",
+   "nr": 3,
+   "titel": "Nullstelle im Sachzusammenhang",
+   "schritte": [
+    {
+     "id": "3bea9285-6950-41ef-b1e8-c7839e394235",
+     "variante": "A",
+     "art": "erklaerung",
+     "inhalt": "# Wann ist es leer?\n\nIn Sachaufgaben fragt die Nullstelle: Wann ist der Wert 0? Zum Beispiel: Wann ist der Tank leer?\n\nSetz den Term gleich 0 und stell nach x um.\n\n> leer, verbraucht, aufgebraucht: Wert = 0",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 5,
+       "y_min": 0,
+       "y_max": 8,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -2,
+         "b": 6
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 6,
+         "label": "S"
+        },
+        {
+         "x": 3,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse.",
+      "svg_hash": "4fbb0109cd13b3be63900e3b359d10a621da4fc3fa6155bb09e7a1d952516197"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": []
+    },
+    {
+     "id": "bb3a5f70-92f8-4663-83d7-8a3ac52a0f7e",
+     "variante": "A",
+     "art": "beispiel",
+     "inhalt": "# Ein Tank: V(x) = -3x + 12 Liter nach x Minuten\n\n1. Leer heißt $V(x) = 0$: $-3x + 12 = 0$.\n2. $-3x = -12$, also $x = 4$.\n3. Nach 4 Minuten ist der Tank leer.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 5,
+       "y_min": 0,
+       "y_max": 13,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -3,
+         "b": 12
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 12,
+         "label": "S"
+        },
+        {
+         "x": 4,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse.",
+      "svg_hash": "63b9c449dd8f582864c898610cb077bf6f3ac116a3ba35d623d7d2ce3c5ac4e8"
+     },
+     "fehlbild_slugs": [],
+     "rechnungen": [
+      [
+       "0-12",
+       "-12"
+      ],
+      [
+       "-12/(-3)",
+       "4"
+      ]
+     ]
+    },
+    {
+     "id": "3ac1a488-87e0-4d40-bc77-a070e7c4f4d2",
+     "variante": "B",
+     "art": "erklaerung",
+     "inhalt": "# Gesucht ist das Ende, nicht der Start.\n\nDer Wert bei x = 0 ist der Start. Die Nullstelle ist der Zeitpunkt, an dem nichts mehr da ist.\n\n$V(x) = -2x + 10$: Am Start sind 10 Liter drin. Leer: $-2x + 10 = 0$, $-2x = -10$, also nach 5 Minuten.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 6,
+       "y_min": 0,
+       "y_max": 11,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -2,
+         "b": 10
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 10,
+         "label": "S"
+        },
+        {
+         "x": 5,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse.",
+      "svg_hash": "ded44c9a13a51fbe7ac21c19b3585cebe7de36016e2d9ed5355d763b95708cf3"
+     },
+     "fehlbild_slugs": [
+      "achsenabschnitt_verwechselt"
+     ],
+     "rechnungen": [
+      [
+       "0-10",
+       "-10"
+      ],
+      [
+       "-10/(-2)",
+       "5"
+      ]
+     ]
+    },
+    {
+     "id": "66a3a2a5-57d1-4aac-93d3-c8979b6dc809",
+     "variante": "C",
+     "art": "erklaerung",
+     "inhalt": "# Eine Zeit ist nie negativ.\n\nKommt bei einer Zeit ein Minus heraus, prüf das Umstellen.\n\n$-4x + 8 = 0$, also $-4x = -8$. Durch -4 teilen: $x = 2$. Minus durch Minus gibt Plus.",
+     "bild": {
+      "generator": "koordinatensystem",
+      "params": {
+       "x_min": 0,
+       "x_max": 4,
+       "y_min": 0,
+       "y_max": 9,
+       "funktionen": [
+        {
+         "typ": "linear",
+         "m": -4,
+         "b": 8
+        }
+       ],
+       "punkte": [
+        {
+         "x": 0,
+         "y": 8,
+         "label": "S"
+        },
+        {
+         "x": 2,
+         "y": 0,
+         "label": "N"
+        }
+       ]
+      },
+      "alt": "Steil fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse.",
+      "svg_hash": "a70cdf16cc71635deb2e4c6dd66f7d76212f6de7adb64998407bf567457ccd6c"
+     },
+     "fehlbild_slugs": [
+      "vorzeichen_beim_umstellen"
+     ],
+     "rechnungen": [
+      [
+       "0-8",
+       "-8"
+      ],
+      [
+       "-8/(-4)",
+       "2"
+      ]
+     ]
+    }
+   ],
+   "checks": [
+    {
+     "task_id": "0ae0e101-66a5-4911-a6fc-d01c78303f63",
+     "ref": "erklaer-nullstelle-k3-c1",
+     "reihenfolge": 1
+    },
+    {
+     "task_id": "a56dc93d-8b1c-4f22-bede-b8195d0c71a0",
+     "ref": "erklaer-nullstelle-k3-c2",
+     "reihenfolge": 2
+    }
+   ]
   }
  ]
 }

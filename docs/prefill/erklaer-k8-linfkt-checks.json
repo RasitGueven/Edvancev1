@@ -1,7 +1,7 @@
 {
  "batch": "erklaer-k8-linfkt-checks",
  "kopf": [
-  "Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 24 Check-Aufgaben, nur Einsatz check.",
+  "Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 30 Check-Aufgaben, nur Einsatz check.",
   "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:",
   "tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.",
   "",
@@ -17,7 +17,8 @@
   "fkt_linear_steigung",
   "fkt_linear_yabschnitt",
   "fkt_linear_gleichung",
-  "fkt_linear_graph"
+  "fkt_linear_graph",
+  "fkt_linear_nullstelle"
  ],
  "ohne_sondierrang_grund": "kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)",
  "zeitregel": {
@@ -2868,6 +2869,711 @@
      "rechnung": "2/1",
      "antwort": "2",
      "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "985685e5-40db-479c-b16f-f18936be6239",
+   "titel": "Check · Nullstelle am Graphen ablesen · negativ",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "erklaer-nullstelle-k1-c1",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x schneidet der Graph die x-Achse?",
+    "known_errors": {
+     "2": "achsenabschnitt_verwechselt",
+     "4": "betrag_fehler",
+     "+2": "achsenabschnitt_verwechselt",
+     "+4": "betrag_fehler"
+    },
+    "figur": {
+     "generator": "koordinatensystem",
+     "params": {
+      "x_min": -6,
+      "x_max": 3,
+      "y_min": -2,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 0.5,
+        "b": 2
+       }
+      ],
+      "punkte": []
+     },
+     "alt_text": "Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Schnitt mit der x-Achse ablesen, links vom Ursprung."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung nicht lösbar (Generator koordinatensystem)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-4",
+      "−4",
+      "- 4"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "Die Gerade schneidet die x-Achse bei (-4 | 0). Die Nullstelle ist x = -4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Schnitt mit der y-Achse abgelesen: 2.",
+       "socratic_question": "Liegt die Nullstelle auf der x-Achse oder auf der y-Achse?",
+       "fehlbild": "achsenabschnitt_verwechselt"
+      },
+      {
+       "error": "Das Minus vergessen: 4 statt -4.",
+       "socratic_question": "Liegt der Schnittpunkt links oder rechts vom Ursprung?",
+       "fehlbild": "betrag_fehler"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-2/0.5",
+     "antwort": "-4"
+    },
+    {
+     "rechnung": "0.5*0+2",
+     "antwort": "2",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    },
+    {
+     "rechnung": "0-(-4)",
+     "antwort": "4",
+     "rolle": "fehlbild:betrag_fehler"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "823a8ccd-87da-47bf-84c1-11c37cff55ef",
+   "titel": "Check · Nullstelle am Graphen ablesen",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "erklaer-nullstelle-k1-c2",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nBestimme die Nullstelle der Funktion.",
+    "known_errors": {
+     "-6": "achsenabschnitt_verwechselt",
+     "−6": "achsenabschnitt_verwechselt",
+     "- 6": "achsenabschnitt_verwechselt",
+     "-3": "betrag_fehler",
+     "−3": "betrag_fehler",
+     "- 3": "betrag_fehler"
+    },
+    "figur": {
+     "generator": "koordinatensystem",
+     "params": {
+      "x_min": -2,
+      "x_max": 5,
+      "y_min": -7,
+      "y_max": 4,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 2,
+        "b": -6
+       }
+      ],
+      "punkte": []
+     },
+     "alt_text": "Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Schnitt mit der x-Achse ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung nicht lösbar (Generator koordinatensystem)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3",
+      "+3"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "Die Gerade schneidet die x-Achse bei (3 | 0). Die Nullstelle ist x = 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Schnitt mit der y-Achse abgelesen: -6.",
+       "socratic_question": "Liegt die Nullstelle auf der x-Achse oder auf der y-Achse?",
+       "fehlbild": "achsenabschnitt_verwechselt"
+      },
+      {
+       "error": "Vorzeichen gekippt: -3 statt 3.",
+       "socratic_question": "Liegt der Schnittpunkt links oder rechts vom Ursprung?",
+       "fehlbild": "betrag_fehler"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "6/2",
+     "antwort": "3"
+    },
+    {
+     "rechnung": "2*0-6",
+     "antwort": "-6",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    },
+    {
+     "rechnung": "-(6/2)",
+     "antwort": "-3",
+     "rolle": "fehlbild:betrag_fehler"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "ed40914f-4971-4e7a-9073-ede80153d7da",
+   "titel": "Check · Nullstelle berechnen",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "erklaer-nullstelle-k2-c1",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 3x - 12.\n\nBerechne die Nullstelle von f.",
+    "known_errors": {
+     "12": "division_vergessen",
+     "36": "falsche_gegenoperation",
+     "+12": "division_vergessen",
+     "+36": "falsche_gegenoperation",
+     "-4": "betrag_fehler",
+     "−4": "betrag_fehler",
+     "- 4": "betrag_fehler",
+     "-12": "achsenabschnitt_verwechselt",
+     "−12": "achsenabschnitt_verwechselt",
+     "- 12": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: f(x) = 0 setzen, b wegrechnen, durch m teilen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "+4"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "3x - 12 = 0, also 3x = 12 und x = 12 : 3 = 4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nach 3x = 12 nicht durch 3 geteilt.",
+       "socratic_question": "Steht nach dem Umstellen schon x allein da?",
+       "fehlbild": "division_vergessen"
+      },
+      {
+       "error": "Mit 3 malgenommen statt durch 3 geteilt: 36.",
+       "socratic_question": "Wie machst du „mal 3“ rückgängig?",
+       "fehlbild": "falsche_gegenoperation"
+      },
+      {
+       "error": "Vorzeichen gekippt: -4 statt 4.",
+       "socratic_question": "Setz dein Ergebnis in f ein. Kommt 0 heraus?",
+       "fehlbild": "betrag_fehler"
+      },
+      {
+       "error": "Den y-Achsenabschnitt angegeben: -12.",
+       "socratic_question": "Ist die Stelle gesucht, an der f(x) = 0 ist, oder der Wert bei x = 0?",
+       "fehlbild": "achsenabschnitt_verwechselt"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "12/3",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "12",
+     "antwort": "12",
+     "rolle": "fehlbild:division_vergessen"
+    },
+    {
+     "rechnung": "12*3",
+     "antwort": "36",
+     "rolle": "fehlbild:falsche_gegenoperation"
+    },
+    {
+     "rechnung": "-12/3",
+     "antwort": "-4",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "3*0-12",
+     "antwort": "-12",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "f6702b76-d1f0-4f84-925d-9326b665f02d",
+   "titel": "Check · Nullstelle berechnen · fallend",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "erklaer-nullstelle-k2-c2",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = -5x + 10.\n\nBerechne die Nullstelle von f.",
+    "known_errors": {
+     "10": "achsenabschnitt_verwechselt",
+     "-2": "vorzeichen_beim_umstellen",
+     "−2": "vorzeichen_beim_umstellen",
+     "- 2": "vorzeichen_beim_umstellen",
+     "-10": "division_vergessen",
+     "−10": "division_vergessen",
+     "- 10": "division_vergessen",
+     "+10": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: negativer Koeffizient beim Umstellen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2",
+      "+2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "-5x + 10 = 0, also -5x = -10 und x = -10 : (-5) = 2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Minus von -5 bleibt am Ergebnis hängen: -2.",
+       "socratic_question": "Setz dein Ergebnis in f ein. Kommt 0 heraus?",
+       "fehlbild": "vorzeichen_beim_umstellen"
+      },
+      {
+       "error": "Nach -5x = -10 nicht durch -5 geteilt.",
+       "socratic_question": "Steht nach dem Umstellen schon x allein da?",
+       "fehlbild": "division_vergessen"
+      },
+      {
+       "error": "Den y-Achsenabschnitt angegeben: 10.",
+       "socratic_question": "Ist die Stelle gesucht, an der f(x) = 0 ist, oder der Wert bei x = 0?",
+       "fehlbild": "achsenabschnitt_verwechselt"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-10/(-5)",
+     "antwort": "2"
+    },
+    {
+     "rechnung": "10/(-5)",
+     "antwort": "-2",
+     "rolle": "fehlbild:vorzeichen_beim_umstellen"
+    },
+    {
+     "rechnung": "-10",
+     "antwort": "-10",
+     "rolle": "fehlbild:division_vergessen"
+    },
+    {
+     "rechnung": "-5*0+10",
+     "antwort": "10",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "0ae0e101-66a5-4911-a6fc-d01c78303f63",
+   "titel": "Check · Nullstelle im Sachzusammenhang · Tank",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "erklaer-nullstelle-k3-c1",
+    "input_type": "NUMERIC",
+    "frage": "Ein Wassertank wird gleichmäßig geleert. Die Wassermenge in Litern nach x Minuten ist W(x) = -5x + 40.\n\nNach wie vielen Minuten ist der Tank leer?",
+    "known_errors": {
+     "40": "achsenabschnitt_verwechselt",
+     "+40": "achsenabschnitt_verwechselt",
+     "-8": "vorzeichen_beim_umstellen",
+     "−8": "vorzeichen_beim_umstellen",
+     "- 8": "vorzeichen_beim_umstellen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Nullstelle im Sachzusammenhang als Zeitpunkt deuten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8",
+      "+8"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "Leer heißt W(x) = 0: -5x + 40 = 0, also -5x = -40 und x = 8.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Anfangsmenge angegeben statt des Zeitpunkts.",
+       "socratic_question": "Ist nach dem Anfang oder nach dem Ende gefragt?",
+       "fehlbild": "achsenabschnitt_verwechselt"
+      },
+      {
+       "error": "Das Minus von -5 bleibt am Ergebnis hängen: -8.",
+       "socratic_question": "Kann eine Zeit negativ sein?",
+       "fehlbild": "vorzeichen_beim_umstellen"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-40/(-5)",
+     "antwort": "8"
+    },
+    {
+     "rechnung": "-5*0+40",
+     "antwort": "40",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    },
+    {
+     "rechnung": "40/(-5)",
+     "antwort": "-8",
+     "rolle": "fehlbild:vorzeichen_beim_umstellen"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "a56dc93d-8b1c-4f22-bede-b8195d0c71a0",
+   "titel": "Check · Nullstelle im Sachzusammenhang · Guthaben",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "erklaer-nullstelle-k3-c2",
+    "input_type": "NUMERIC",
+    "frage": "Ein Handyguthaben wird jede Woche kleiner. Das Guthaben in Euro nach x Wochen ist G(x) = -2x + 30.\n\nNach wie vielen Wochen ist das Guthaben aufgebraucht?",
+    "known_errors": {
+     "30": "achsenabschnitt_verwechselt",
+     "+30": "achsenabschnitt_verwechselt",
+     "-15": "vorzeichen_beim_umstellen",
+     "−15": "vorzeichen_beim_umstellen",
+     "- 15": "vorzeichen_beim_umstellen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Nullstelle im Sachzusammenhang als Zeitpunkt deuten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15",
+      "+15"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "Aufgebraucht heißt G(x) = 0: -2x + 30 = 0, also -2x = -30 und x = 15.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Anfangsguthaben angegeben statt des Zeitpunkts.",
+       "socratic_question": "Ist nach dem Anfang oder nach dem Ende gefragt?",
+       "fehlbild": "achsenabschnitt_verwechselt"
+      },
+      {
+       "error": "Das Minus von -2 bleibt am Ergebnis hängen: -15.",
+       "socratic_question": "Kann eine Zeit negativ sein?",
+       "fehlbild": "vorzeichen_beim_umstellen"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-30/(-2)",
+     "antwort": "15"
+    },
+    {
+     "rechnung": "-2*0+30",
+     "antwort": "30",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    },
+    {
+     "rechnung": "30/(-2)",
+     "antwort": "-15",
+     "rolle": "fehlbild:vorzeichen_beim_umstellen"
     }
    ]
   }

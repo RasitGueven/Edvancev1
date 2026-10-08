@@ -1,6 +1,6 @@
 # Befunde und offene Punkte: Erklärsequenzen Lineare Funktionen (E2b)
 
-Stand 07.10.2026, Branch `feat/rasit-session-e2b-inhalte`. Alles ist KI-Entwurf; freigegeben wird nichts.
+Stand 08.10.2026 (alle fünf Skills), Branch `feat/rasit-session-e2b-inhalte`. Alles ist KI-Entwurf; freigegeben wird nichts.
 
 ## Dateien
 
@@ -95,7 +95,8 @@ Geraden, haben Platz für ihre Beschriftung und stehen nie in einer Check-Figur.
 13. **Längenregel ist eine Näherung.** Die Grenzen (50 / 330 Zeichen, 16 Wörter) und der 1194 × 834-Rahmen der Vorschau
     stammen aus dem Schüler-Dummy (`.seq`, Schriftgrößen). Ob es in der echten App ohne Scrollen passt, zeigt erst E2a.
 14. **Versionen.** Der Bereich 20261010130000–135959 ist vorgegeben; innerhalb des Bereichs stehen Minute und Sekunde
-    der Erzeugung (`date -u`). Vor dem Einspielen per dbread geprüft: keine Version `20261010%` in Prod.
+    der Erzeugung (`date -u`). Per dbread am 08.10. geprüft: `20261010132749` und `20261010132750` sind frei; in Prod
+    stehen inzwischen 14 andere Versionen `20261010%` (A2c, A2d, C2, L6, alle vor 1213). Vor dem Einspielen erneut prüfen.
 15. **Klartext von `b_ignoriert` passt nicht zur Steigung.** Der Katalog beschreibt „Teilt sofort, ohne die Konstante
     vorher wegzurechnen“ (Gleichungen). Bei Steigung steht der Slug im Bestand für „wie bei einer Ursprungsgeraden
     gerechnet“ (`linfkt-steigung-06`, Wert 8). Variante C von Kernidee 3 spricht diesen Fehler an. Einen eigenen Slug
@@ -117,3 +118,12 @@ Geraden, haben Platz für ihre Beschriftung und stehen nie in einer Check-Figur.
     „runter 4“ wäre eine Generator-Änderung mit neuer Byte-Gleichheitsprüfung; die Texte sagen dazu „nach unten“.
 20. **Keine Ablese-Hilfslinien.** Beim Ablesen von Punkten (Graph K2) würden gestrichelte Linien von der Achse zum
     Punkt helfen (Zweitprüfung Graph Nr. 8). Der Generator hat sie nicht; die Texte beschreiben den Weg in Worten.
+21. **L6: Merksatz „>“ nicht als Merksatz erkennbar.** Bildschirmfoto der Prüfseite (Coach-Route
+    `/coach/pruefen/erklaerungen/:id`, Kinderansicht `ErklaerKindSchritt`) mit Daten aus der Wegwerf-DB
+    (`erklaer_pruef_detail` als Admin, fiktive Profile, kein Prod): „#“ erscheint als Überschrift, „1.“ als
+    nummerierte Liste, beides lesbar. „>“ wird als `<blockquote>` ohne eigene Gestaltung gezeigt (kein Rand, kein
+    Einzug), sieht also aus wie ein normaler Absatz; lesbar, aber Lena erkennt den Merksatz nicht. `TEILE` in
+    `ErklaerKindSchritt.tsx` hat für `blockquote` keinen Eintrag. Offener Punkt für L6, hier nicht geändert.
+22. **L6: dunkle Bilder auf weißer Karte.** Dieselbe Kinderansicht zeigt das Bild (Theme `dunkel`, offener Punkt 3)
+    auf heller Kartenfläche: Gitter und Achsen sind kaum zu sehen, nur Gerade und Dreieck. Für Lenas Prüfung
+    braucht L6 entweder einen dunklen Bildgrund oder eine helle Bildfassung. Offener Punkt für L6.

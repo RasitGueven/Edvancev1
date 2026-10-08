@@ -205,3 +205,40 @@ Charge: In Runde 1 lagen alle sechs Abbildungen vor und wurden blind richtig gel
 | 9 | K1 B | Passung · kann | m zum Vergleich fehlt. | **Behoben** mit Runde 1 Nr. 7. |
 | 10 | K3 B | Sprache · kann | „bei jedem Schritt“ vs. rüber 2. | **Behoben:** „je Kästchen nach rechts“. |
 | 11 | K1 B, K2 C | Form · kann | Überschriften mit Punkt. | **Keine Änderung:** wie im abgenommenen Muster (z. B. „Erst hoch, dann durch rüber.“). |
+
+## Skill fkt_linear_nullstelle
+
+Prüfer: neuer frischer Subagent (kein Fork), 08.10.2026, Ablauf wie oben; Teil 1 mit den zwei Check-Abbildungen.
+
+### Teil 1: Blind-Löser
+
+→ **6/6 = 100 %**, 0 Abweichungen, 0 unsicher.
+
+| Check | Löser | hinterlegt |
+|---|---|---|
+| erklaer-nullstelle-k1-c1 (Abbildung) | -4 | -4 |
+| erklaer-nullstelle-k1-c2 (Abbildung) | 3 | 3 |
+| erklaer-nullstelle-k2-c1 (3x - 12) | 4 | 4 |
+| erklaer-nullstelle-k2-c2 (-5x + 10) | 2 | 2 |
+| erklaer-nullstelle-k3-c1 (Tank) | 8 | 8 |
+| erklaer-nullstelle-k3-c2 (Guthaben) | 15 | 15 |
+
+Alle 30 Checks zusammen: `verify-tasks --from-file docs/prefill/erklaer-k8-linfkt-checks.json --answers-from
+docs/prefill/erklaer-k8-linfkt-checks-blind.json --min-pass 1.0` → **30/30 = 100 %**.
+
+### Teil 2: Befunde und was daraus wurde
+
+Keine fachlichen Fehler, alle Punkte an der genannten Stelle, kein Schritt verrät einen Check.
+
+| Nr | Ort | Art · Gewicht | Befund | Erledigt |
+|---|---|---|---|---|
+| 1 | K1 A Beispiel | Lücke · sollte | Probe mit einem Term, den der Text nie nennt. | **Behoben:** „Die Gerade gehört zu $f(x) = -2x - 2$.“ |
+| 2 | K2 A | Lücke · sollte | Sprung von 2x − 6 = 0 auf 2x = 6. | **Behoben:** „Plus 9 auf beiden Seiten: $3x = 9$. Durch 3: $x = 3$.“ (neue Gerade, siehe Nr. 7) |
+| 3 | K2 B | Variante passt teilweise · sollte | `falsche_gegenoperation` auch beim b-Schritt. | **Behoben:** „Rechne jeden Schritt rückwärts: Aus minus wird plus, aus mal wird geteilt.“ und „Plus 10: $2x = 10$“. |
+| 4 | K2 C | Variante passt teilweise · sollte | Kein Beispiel mit negativem m für `vorzeichen_beim_umstellen`. | **Behoben:** „Ist m negativ: $-2x + 6 = 0$, $-2x = -6$, $x = 3$. Minus durch Minus gibt Plus.“ |
+| 5 | K1 B | Sprache · kann | „b“ nicht eingeführt. | **Behoben:** „gehört zum y-Achsenabschnitt“. |
+| 6 | K3 B | Methode · kann | Abkürzung 10 : 2. | **Behoben:** „$-2x + 10 = 0$, $-2x = -10$, also nach 5 Minuten.“ |
+| 7 | K2 A | Wiederholung · kann | Gerade 2x − 6 wie in Check K1 c2. | **Behoben:** K2 A nimmt $f(x) = 3x - 9$. |
+| 8 | Bilder | Lesbarkeit · kann | Gerade läuft über Achsenzahlen, alles lesbar. | **Offen**, offener Punkt 17. |
+
+Danach: Nachrechnung grün, Vorschau ohne überlaufenden Bildschirm.

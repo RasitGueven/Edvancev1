@@ -13,7 +13,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(45);
+select plan(60);
 
 \ir session_a2_fixture.sql
 
@@ -85,9 +85,13 @@ end $$;
 create or replace function pg_temp.kurz(x jsonb) returns text language sql as $$
   select concat_ws(' ', x ->> 'aktion', 'K' || (x -> 'kernidee' ->> 'nr'), x ->> 'variante', x ->> 'uebergang')
 $$;
-select is((select count(*) from erklaer_check c join erklaer_kernidee k on k.id = c.kernidee_id
-            where k.skill_key = 'fkt_linear_steigung' group by c.kernidee_id order by 1 limit 1), 2::bigint,
-          '3 jede Kernidee hat zwei Checks (Runde 1 und Runde 2)');
+select is((select array_agg(distinct n) from (select count(*) n from erklaer_check c join erklaer_kernidee k on k.id = c.kernidee_id
+            where k.skill_key like 'fkt_linear_%' group by c.kernidee_id) d), array[2::bigint],
+          '3 jede Kernidee aller fünf Skills hat zwei Checks (Runde 1 und Runde 2)');
+select is((select array_agg(skill_key order by skill_key) from (select distinct skill_key from erklaer_kernidee
+            where skill_key like 'fkt_linear_%') d),
+          array['fkt_linear_gleichung', 'fkt_linear_graph', 'fkt_linear_nullstelle', 'fkt_linear_steigung', 'fkt_linear_yabschnitt'],
+          '3 Sequenzen für alle fünf Skills des Themas');
 
 -- Kind 1: K1 Kehrwert -> B mit neuem Check; K2 Seiten verwechselt -> B; K3 b_ignoriert -> C, dann Signal.
 select pg_temp.kind('ZZ E2b Eins', true) as k1 \gset
@@ -132,12 +136,54 @@ select pg_temp.ab(:'s3', :'k3', :'c1', '4') is not null as k1_ok \gset
 select pg_temp.ab(:'s3', :'k3', :'c2', '1.5') is not null as k2_ok \gset
 select is(pg_temp.kurz(pg_temp.ab(:'s3', :'k3', :'c3', '2')), 'variante K3 B', '3 K3 Kehrwert (ohne_variante) -> nächste ungezeigte B');
 
+-- Alle fünf Skills, datengetrieben: Start mit K1 A; je Kernidee und Variante B/C ein frisches Kind, das die
+-- Kernideen davor richtig löst und dann den ersten Check mit einem Fehlbild der Variante falsch beantwortet.
+create or replace function pg_temp.check_von(p_k uuid, p_nr int) returns uuid language sql as $$
+  select c.task_id from erklaer_check c where c.kernidee_id = p_k order by c.reihenfolge limit 1 offset p_nr - 1
+$$;
+create or replace function pg_temp.varianten_pfade(p_skill text) returns text language plpgsql as $$
+declare
+  v_ziel record; v_vor record; v_kind uuid; v_s uuid; v_wert text; v_ist text; v_fehler text[] := '{}';
+begin
+  for v_ziel in select k.id, k.nr, s.variante, s.fehlbild_slugs from erklaer_kernidee k
+                  join erklaer_schritt s on s.kernidee_id = k.id and s.art = 'erklaerung' and s.variante <> 'A'
+                 where k.skill_key = p_skill order by k.nr, s.variante loop
+    v_kind := pg_temp.kind(format('ZZ E2b %s %s %s', p_skill, v_ziel.nr, v_ziel.variante), true);
+    v_s := pg_temp.neue_session(array[v_kind], 20, true);
+    perform pg_temp.act_as(pg_temp.tablet(1));
+    perform erklaer_start(v_s, v_kind, p_skill);
+    for v_vor in select id from erklaer_kernidee where skill_key = p_skill and nr < v_ziel.nr order by nr loop
+      perform pg_temp.ab(v_s, v_kind, pg_temp.check_von(v_vor.id, 1),
+        (select correct_answers ->> 0 from task_solutions where task_id = pg_temp.check_von(v_vor.id, 1)));
+    end loop;
+    select e.key into v_wert from task_solutions t, jsonb_each_text(t.acceptance -> 'known_errors') e
+     where t.task_id = pg_temp.check_von(v_ziel.id, 1) and e.value = any (v_ziel.fehlbild_slugs) order by e.key limit 1;
+    v_ist := pg_temp.kurz(pg_temp.ab(v_s, v_kind, pg_temp.check_von(v_ziel.id, 1), v_wert));
+    if v_ist is distinct from format('variante K%s %s', v_ziel.nr, v_ziel.variante) then
+      v_fehler := v_fehler || format('K%s %s: %s -> %s', v_ziel.nr, v_ziel.variante, v_wert, v_ist);
+    end if;
+  end loop;
+  return array_to_string(v_fehler, '; ');
+end $$;
+create or replace function pg_temp.start_von(p_skill text) returns text language plpgsql as $$
+declare v_kind uuid := pg_temp.kind('ZZ E2b Start ' || p_skill, true); v_s uuid;
+begin
+  v_s := pg_temp.neue_session(array[v_kind], 20, true);
+  perform pg_temp.act_as(pg_temp.tablet(1));
+  return pg_temp.kurz(erklaer_start(v_s, v_kind, p_skill));
+end $$;
+select is(pg_temp.start_von(x), 'start K1 A', format('3 %s: erklaer_start beginnt mit Kernidee 1, Variante A', x))
+  from unnest(array['fkt_linear_steigung', 'fkt_linear_yabschnitt', 'fkt_linear_gleichung', 'fkt_linear_graph', 'fkt_linear_nullstelle']) x;
+select is(pg_temp.varianten_pfade(x), '', format('3 %s: jedes Fehlbild einer Variante B/C im ersten Check führt zu ihr', x))
+  from unnest(array['fkt_linear_steigung', 'fkt_linear_yabschnitt', 'fkt_linear_gleichung', 'fkt_linear_graph', 'fkt_linear_nullstelle']) x;
+
 -- Außerhalb des Testlaufs: nichts freigegeben -> keine Erklärung.
 select pg_temp.kind('ZZ E2b Echt', false) as k4 \gset
 select pg_temp.neue_session(array[:'k4']::uuid[], 20) as s4 \gset
 select pg_temp.act_as(pg_temp.tablet(1));
-select throws_ok(format($$select erklaer_start(%L, %L, 'fkt_linear_steigung')$$, :'s4', :'k4'), 'P0002', null,
-                 '3 ohne Testlauf: erklaer_start liefert keinen Entwurf');
+select throws_ok(format($$select erklaer_start(%L, %L, %L)$$, :'s4', :'k4', x), 'P0002', null,
+                 format('3 ohne Testlauf: erklaer_start liefert für %s keinen Entwurf', x))
+  from unnest(array['fkt_linear_steigung', 'fkt_linear_yabschnitt', 'fkt_linear_gleichung', 'fkt_linear_graph', 'fkt_linear_nullstelle']) x;
 select is((select count(*) from erklaer_fortschritt where session_id = :'s4'), 0::bigint, '3 ohne Testlauf: kein Fortschritt');
 select set_config('request.jwt.claims', '', true) is not null as zurueck \gset
 

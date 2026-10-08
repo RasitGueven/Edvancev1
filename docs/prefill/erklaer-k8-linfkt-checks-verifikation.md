@@ -1,22 +1,22 @@
 # Verifikation erklaer-k8-linfkt-checks
 
-Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
+Aufgaben: 30 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
 
 ## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)
 
 | Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |
 |---|---|---|---|---|
-| hints | 0 | 0 | 0 | 24 |
-| afb | 24 | 0 | 0 | 0 |
-| est_duration_sec | 24 | 0 | 0 | 0 |
-| curriculum_grade | 24 | 0 | 0 | 0 |
-| cluster_id | 24 | 0 | 0 | 0 |
-| competency_content | 24 | 0 | 0 | 0 |
-| competency_process | 24 | 0 | 0 | 0 |
-| needs_image | 24 | 0 | 0 | 0 |
-| correct_answers | 24 | 0 | 0 | 0 |
-| solution | 24 | 0 | 0 | 0 |
-| typical_errors | 24 | 0 | 0 | 0 |
+| hints | 0 | 0 | 0 | 30 |
+| afb | 30 | 0 | 0 | 0 |
+| est_duration_sec | 30 | 0 | 0 | 0 |
+| curriculum_grade | 30 | 0 | 0 | 0 |
+| cluster_id | 30 | 0 | 0 | 0 |
+| competency_content | 30 | 0 | 0 | 0 |
+| competency_process | 30 | 0 | 0 | 0 |
+| needs_image | 30 | 0 | 0 | 0 |
+| correct_answers | 30 | 0 | 0 | 0 |
+| solution | 30 | 0 | 0 | 0 |
+| typical_errors | 30 | 0 | 0 | 0 |
 
 ## Ueberschreibungen (alt → neu)
 
@@ -26,17 +26,17 @@ Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 
 | Feld | vorher leer | jetzt befuellt | bewusst leer | ungeklaert |
 |---|---|---|---|---|
-| tasks.afb | 24 | 24 | 0 | 0 |
-| tasks.est_duration_sec | 24 | 24 | 0 | 0 |
-| tasks.curriculum_grade | 24 | 24 | 0 | 0 |
-| tasks.cluster_id | 24 | 24 | 0 | 0 |
-| tasks.needs_image | 24 | 24 | 0 | 0 |
-| task_solutions.solution | 24 | 24 | 0 | 0 |
-| task_solutions.hints | 24 | 0 | 24 | 0 |
-| task_solutions.typical_errors | 24 | 24 | 0 | 0 |
-| tasks.competency_content | 24 | 24 | 0 | 0 |
-| tasks.competency_process | 24 | 24 | 0 | 0 |
-| task_solutions.correct_answers | 24 | 24 | 0 | 0 |
+| tasks.afb | 30 | 30 | 0 | 0 |
+| tasks.est_duration_sec | 30 | 30 | 0 | 0 |
+| tasks.curriculum_grade | 30 | 30 | 0 | 0 |
+| tasks.cluster_id | 30 | 30 | 0 | 0 |
+| tasks.needs_image | 30 | 30 | 0 | 0 |
+| task_solutions.solution | 30 | 30 | 0 | 0 |
+| task_solutions.hints | 30 | 0 | 30 | 0 |
+| task_solutions.typical_errors | 30 | 30 | 0 | 0 |
+| tasks.competency_content | 30 | 30 | 0 | 0 |
+| tasks.competency_process | 30 | 30 | 0 | 0 |
+| task_solutions.correct_answers | 30 | 30 | 0 | 0 |
 
 ## Charge-Fehler (Gate)
 
@@ -134,6 +134,27 @@ Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #24 Check · Graph im Sachzusammenhang · Paket: (5-4)/2 = 1/2 (soll 1/2)
 - ok  #24 Check · Graph im Sachzusammenhang · Paket: 4 = 4 (soll 4)
 - ok  #24 Check · Graph im Sachzusammenhang · Paket: 2/1 = 2 (soll 2)
+- ok  #25 Check · Nullstelle am Graphen ablesen · negativ: -2/0.5 = -4 (soll -4)
+- ok  #25 Check · Nullstelle am Graphen ablesen · negativ: 0.5*0+2 = 2 (soll 2)
+- ok  #25 Check · Nullstelle am Graphen ablesen · negativ: 0-(-4) = 4 (soll 4)
+- ok  #26 Check · Nullstelle am Graphen ablesen: 6/2 = 3 (soll 3)
+- ok  #26 Check · Nullstelle am Graphen ablesen: 2*0-6 = -6 (soll -6)
+- ok  #26 Check · Nullstelle am Graphen ablesen: -(6/2) = -3 (soll -3)
+- ok  #27 Check · Nullstelle berechnen: 12/3 = 4 (soll 4)
+- ok  #27 Check · Nullstelle berechnen: 12 = 12 (soll 12)
+- ok  #27 Check · Nullstelle berechnen: 12*3 = 36 (soll 36)
+- ok  #27 Check · Nullstelle berechnen: -12/3 = -4 (soll -4)
+- ok  #27 Check · Nullstelle berechnen: 3*0-12 = -12 (soll -12)
+- ok  #28 Check · Nullstelle berechnen · fallend: -10/(-5) = 2 (soll 2)
+- ok  #28 Check · Nullstelle berechnen · fallend: 10/(-5) = -2 (soll -2)
+- ok  #28 Check · Nullstelle berechnen · fallend: -10 = -10 (soll -10)
+- ok  #28 Check · Nullstelle berechnen · fallend: -5*0+10 = 10 (soll 10)
+- ok  #29 Check · Nullstelle im Sachzusammenhang · Tank: -40/(-5) = 8 (soll 8)
+- ok  #29 Check · Nullstelle im Sachzusammenhang · Tank: -5*0+40 = 40 (soll 40)
+- ok  #29 Check · Nullstelle im Sachzusammenhang · Tank: 40/(-5) = -8 (soll -8)
+- ok  #30 Check · Nullstelle im Sachzusammenhang · Guthaben: -30/(-2) = 15 (soll 15)
+- ok  #30 Check · Nullstelle im Sachzusammenhang · Guthaben: -2*0+30 = 30 (soll 30)
+- ok  #30 Check · Nullstelle im Sachzusammenhang · Guthaben: 30/(-2) = -15 (soll -15)
 
 ## Blind-Abgleich (docs/prefill/erklaer-k8-linfkt-checks-blind.json)
 
@@ -161,3 +182,9 @@ Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #22 Check · Stelle x am Graphen ablesen: Loeser 4 · gespeichert ["4","+4"]
 - ok  #23 Check · Graph im Sachzusammenhang · Taxi: Loeser 3 · gespeichert ["3","+3"]
 - ok  #24 Check · Graph im Sachzusammenhang · Paket: Loeser 0.5 · gespeichert ["1/2","+1/2","0,5","+0,5","0.5","+0.5"]
+- ok  #25 Check · Nullstelle am Graphen ablesen · negativ: Loeser -4 · gespeichert ["-4","−4","- 4"]
+- ok  #26 Check · Nullstelle am Graphen ablesen: Loeser 3 · gespeichert ["3","+3"]
+- ok  #27 Check · Nullstelle berechnen: Loeser 4 · gespeichert ["4","+4"]
+- ok  #28 Check · Nullstelle berechnen · fallend: Loeser 2 · gespeichert ["2","+2"]
+- ok  #29 Check · Nullstelle im Sachzusammenhang · Tank: Loeser 8 · gespeichert ["8","+8"]
+- ok  #30 Check · Nullstelle im Sachzusammenhang · Guthaben: Loeser 15 · gespeichert ["15","+15"]

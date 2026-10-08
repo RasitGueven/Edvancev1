@@ -1,5 +1,5 @@
--- Erklärsequenzen lineare_funktionen (E2b), Migration 2 von 2 — 12 Kernideen, 47 Schritte,
--- 24 Checks zu fkt_linear_steigung, fkt_linear_yabschnitt, fkt_linear_gleichung, fkt_linear_graph.
+-- Erklärsequenzen lineare_funktionen (E2b), Migration 2 von 2 — 15 Kernideen, 59 Schritte,
+-- 30 Checks zu fkt_linear_steigung, fkt_linear_yabschnitt, fkt_linear_gleichung, fkt_linear_graph, fkt_linear_nullstelle.
 -- Erzeugt von tools/erklaer-build.mjs aus docs/prefill/erklaer-k8-linfkt.json — nicht von Hand editieren.
 --
 -- Einspiel-Reihenfolge: nach der Check-Migration (erklaer_check verweist auf die Check-Aufgaben).
@@ -26,7 +26,10 @@ insert into public.erklaer_kernidee (id, skill_key, nr, titel, status, quelle) v
   ('8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'fkt_linear_gleichung', 3, 'Gleichung im Sachzusammenhang', 'entwurf', 'ki'),
   ('4a1c8d85-5c33-4014-8ade-4f1b0dd0adb1'::uuid, 'fkt_linear_graph', 1, 'b und m am Graphen ablesen', 'entwurf', 'ki'),
   ('ec19354a-b80f-4d56-82bd-71a8fd10ac46'::uuid, 'fkt_linear_graph', 2, 'Punkte am Graphen ablesen', 'entwurf', 'ki'),
-  ('e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid, 'fkt_linear_graph', 3, 'Graph im Sachzusammenhang', 'entwurf', 'ki')
+  ('e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid, 'fkt_linear_graph', 3, 'Graph im Sachzusammenhang', 'entwurf', 'ki'),
+  ('525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, 'fkt_linear_nullstelle', 1, 'Nullstelle: Schnitt mit der x-Achse', 'entwurf', 'ki'),
+  ('0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'fkt_linear_nullstelle', 2, 'Nullstelle berechnen', 'entwurf', 'ki'),
+  ('ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, 'fkt_linear_nullstelle', 3, 'Nullstelle im Sachzusammenhang', 'entwurf', 'ki')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 1 · Variante A · erklaerung
@@ -618,6 +621,148 @@ Hier: rüber 2, hoch 5. $5 : 2 = 2,5$ pro Einheit. Nicht $2 : 5 = 0,4$.',
   '{"svg_hash":"4875726b3def140c3c62d3814c948d57a22f58a565e386930fa5587431daf3be","alt":"Steile Gerade im ersten Quadranten mit dem Startpunkt S. Ein Steigungsdreieck zeigt den Zuwachs."}'::jsonb, '{steigung_kehrwert}'::text[], 'entwurf')
 on conflict do nothing;
 
+-- fkt_linear_nullstelle · Kernidee 1 · Variante A · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('60796899-1c44-4a2f-ac45-528733587178'::uuid, '525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, 'A', 'erklaerung',
+  '# Wo trifft die Gerade die x-Achse?
+
+Auf der x-Achse ist y = 0. Die Stelle x, an der die Gerade die x-Achse trifft, heißt Nullstelle.
+
+Hier trifft sie die x-Achse in N(2|0). Die Nullstelle ist x = 2.
+
+> Nullstelle: die Stelle x mit y = 0',
+  '{"svg_hash":"7b42b675e0504bb99e3d21b0538aad0c612f710b731e2eb054710dbd55d0aee3","alt":"Steigende Gerade, die die x-Achse im Punkt N schneidet."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 1 · Variante A · beispiel
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('baaabcfb-3483-4f49-993f-30660858c66d'::uuid, '525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, 'A', 'beispiel',
+  '# Beispiel: Lies die Nullstelle ab.
+
+1. Die Gerade gehört zu $f(x) = -2x - 2$. Such die Stelle, an der sie die x-Achse trifft.
+2. Das ist N(-1|0). Dort ist y = 0.
+3. Die Nullstelle ist x = -1. Probe: $-2 \cdot (-1) - 2 = 0$.',
+  '{"svg_hash":"66ea12fbee4539cd0943a0b4071f7e94daa015cebd3e8f4f570704793f1f1f32","alt":"Fallende Gerade, die die x-Achse links vom Ursprung im Punkt N schneidet."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 1 · Variante B · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('50afea36-726a-432d-b022-81669886418b'::uuid, '525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, 'B', 'erklaerung',
+  '# x-Achse, nicht y-Achse
+
+Die Nullstelle liegt auf der x-Achse. Der Punkt auf der y-Achse gehört zum y-Achsenabschnitt.
+
+Hier: N(2|0) ist die Nullstelle, also x = 2. S(0|1) gehört zum y-Achsenabschnitt, nicht zur Nullstelle.',
+  '{"svg_hash":"c31e94e077940a096d9ae8a5a8c499c8fae02a38dcda2d6415e410876815ef6f","alt":"Flach fallende Gerade mit dem Punkt N auf der x-Achse und dem Punkt S auf der y-Achse."}'::jsonb, '{achsenabschnitt_verwechselt}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 1 · Variante C · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('b1a1dc40-3ddf-44a7-974c-1ad13704df97'::uuid, '525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, 'C', 'erklaerung',
+  '# Links vom Ursprung ist x negativ.
+
+Trifft die Gerade die x-Achse links vom Ursprung, ist die Nullstelle negativ.
+
+Hier: N(-2|0). Die Nullstelle ist -2, nicht 2.',
+  '{"svg_hash":"8abf861f2d17d54d26286b0f7e4b065f78e5e84257cfa5f9dc0c73388c6c51db","alt":"Steigende Gerade, die die x-Achse links vom Ursprung im Punkt N schneidet."}'::jsonb, '{betrag_fehler}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 2 · Variante A · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('46109547-49c1-49c4-83aa-2f25cfe7d75d'::uuid, '0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'A', 'erklaerung',
+  '# f(x) = 0 setzen und umstellen
+
+Setz $f(x) = 0$. Rechne b mit der Gegenrechnung auf die andere Seite. Teile dann durch m.
+
+Bei $f(x) = 3x - 9$: $3x - 9 = 0$. Plus 9 auf beiden Seiten: $3x = 9$. Durch 3: $x = 3$.
+
+> Nullstelle: $mx + b = 0$ nach x umstellen',
+  '{"svg_hash":"e2758b8749d220b9e97fea28db5b01f44eb54826b3ed2943d573f7a645e28ed4","alt":"Steile Gerade, die die x-Achse im Punkt N schneidet."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 2 · Variante A · beispiel
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('110256d7-6c34-4420-baec-7582cc611ae4'::uuid, '0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'A', 'beispiel',
+  '# Nullstelle von f(x) = -3x + 3
+
+1. $-3x + 3 = 0$.
+2. Minus 3 auf beiden Seiten: $-3x = -3$.
+3. Durch -3 teilen: $x = 1$. Probe: $-3 \cdot 1 + 3 = 0$.',
+  '{"svg_hash":"b7bffd215d53bf999fcde96546d288511fc46f8423a28d61f98e328a3d29ec10","alt":"Fallende Gerade, die die x-Achse im Punkt N schneidet."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 2 · Variante B · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('ba35a67f-9188-4cd9-95a5-723e9e296478'::uuid, '0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'B', 'erklaerung',
+  '# Zum Schluss durch m teilen
+
+Rechne jeden Schritt rückwärts: Aus minus wird plus, aus mal wird geteilt.
+
+Nach dem Umstellen steht dort noch $m \cdot x$. Teile durch m, dann steht x allein.
+
+$2x - 10 = 0$. Plus 10: $2x = 10$. Durch 2: $x = 5$. Nicht 10 und nicht $10 \cdot 2 = 20$.',
+  null, '{division_vergessen,falsche_gegenoperation}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 2 · Variante C · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('b95956d2-7e56-496c-8c78-c62b8397e7a8'::uuid, '0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'C', 'erklaerung',
+  '# Passt das Vorzeichen?
+
+Mach die Probe: Setz dein Ergebnis in f ein. Es muss 0 herauskommen.
+
+$f(x) = 2x + 8$: $x = -4$, denn $2 \cdot (-4) + 8 = 0$. Mit 4 käme 16 heraus.
+
+Ist m negativ: $-2x + 6 = 0$, $-2x = -6$, $x = 3$. Minus durch Minus gibt Plus.',
+  '{"svg_hash":"fa8145de0f2f204b91848d75bfa04a00b82c284e545324ad5ecd435ab735374c","alt":"Steigende Gerade, die die x-Achse links vom Ursprung im Punkt N schneidet."}'::jsonb, '{betrag_fehler,vorzeichen_beim_umstellen}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 3 · Variante A · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('3bea9285-6950-41ef-b1e8-c7839e394235'::uuid, 'ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, 'A', 'erklaerung',
+  '# Wann ist es leer?
+
+In Sachaufgaben fragt die Nullstelle: Wann ist der Wert 0? Zum Beispiel: Wann ist der Tank leer?
+
+Setz den Term gleich 0 und stell nach x um.
+
+> leer, verbraucht, aufgebraucht: Wert = 0',
+  '{"svg_hash":"4fbb0109cd13b3be63900e3b359d10a621da4fc3fa6155bb09e7a1d952516197","alt":"Fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 3 · Variante A · beispiel
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('bb3a5f70-92f8-4663-83d7-8a3ac52a0f7e'::uuid, 'ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, 'A', 'beispiel',
+  '# Ein Tank: V(x) = -3x + 12 Liter nach x Minuten
+
+1. Leer heißt $V(x) = 0$: $-3x + 12 = 0$.
+2. $-3x = -12$, also $x = 4$.
+3. Nach 4 Minuten ist der Tank leer.',
+  '{"svg_hash":"63b9c449dd8f582864c898610cb077bf6f3ac116a3ba35d623d7d2ce3c5ac4e8","alt":"Fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 3 · Variante B · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('3ac1a488-87e0-4d40-bc77-a070e7c4f4d2'::uuid, 'ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, 'B', 'erklaerung',
+  '# Gesucht ist das Ende, nicht der Start.
+
+Der Wert bei x = 0 ist der Start. Die Nullstelle ist der Zeitpunkt, an dem nichts mehr da ist.
+
+$V(x) = -2x + 10$: Am Start sind 10 Liter drin. Leer: $-2x + 10 = 0$, $-2x = -10$, also nach 5 Minuten.',
+  '{"svg_hash":"ded44c9a13a51fbe7ac21c19b3585cebe7de36016e2d9ed5355d763b95708cf3","alt":"Fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse."}'::jsonb, '{achsenabschnitt_verwechselt}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_nullstelle · Kernidee 3 · Variante C · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('66a3a2a5-57d1-4aac-93d3-c8979b6dc809'::uuid, 'ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, 'C', 'erklaerung',
+  '# Eine Zeit ist nie negativ.
+
+Kommt bei einer Zeit ein Minus heraus, prüf das Umstellen.
+
+$-4x + 8 = 0$, also $-4x = -8$. Durch -4 teilen: $x = 2$. Minus durch Minus gibt Plus.',
+  '{"svg_hash":"a70cdf16cc71635deb2e4c6dd66f7d76212f6de7adb64998407bf567457ccd6c","alt":"Steil fallende Gerade im ersten Quadranten vom Startpunkt S bis zum Punkt N auf der x-Achse."}'::jsonb, '{vorzeichen_beim_umstellen}'::text[], 'entwurf')
+on conflict do nothing;
+
 insert into public.erklaer_check (kernidee_id, task_id, reihenfolge) values
   -- erklaer-steigung-k1-c1
   ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, '439fc7f8-ec08-40bb-807a-d2df30c5ec73'::uuid, 1),
@@ -666,18 +811,30 @@ insert into public.erklaer_check (kernidee_id, task_id, reihenfolge) values
   -- erklaer-graph-k3-c1
   ('e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid, '6b821b19-4285-48f0-93ea-0174c96c1c43'::uuid, 1),
   -- erklaer-graph-k3-c2
-  ('e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid, 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid, 2)
+  ('e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid, 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid, 2),
+  -- erklaer-nullstelle-k1-c1
+  ('525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, '985685e5-40db-479c-b16f-f18936be6239'::uuid, 1),
+  -- erklaer-nullstelle-k1-c2
+  ('525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid, 2),
+  -- erklaer-nullstelle-k2-c1
+  ('0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'ed40914f-4971-4e7a-9073-ede80153d7da'::uuid, 1),
+  -- erklaer-nullstelle-k2-c2
+  ('0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'f6702b76-d1f0-4f84-925d-9326b665f02d'::uuid, 2),
+  -- erklaer-nullstelle-k3-c1
+  ('ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, '0ae0e101-66a5-4911-a6fc-d01c78303f63'::uuid, 1),
+  -- erklaer-nullstelle-k3-c2
+  ('ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid, 'a56dc93d-8b1c-4f22-bede-b8195d0c71a0'::uuid, 2)
 on conflict do nothing;
 
 -- Prüfungen: Fehlbilder im Katalog, Checks nur mit Einsatz check.
 do $pruefung$
 begin
-  if exists (select 1 from unnest('{achsenabschnitt_verwechselt,addiert_statt_subtrahiert,b_ignoriert,betrag_fehler,falsche_groesse_beantwortet,groessen_vertauscht,koordinate_vorzeichen_verloren,koordinaten_vertauscht,m_b_vertauscht,nur_einmal_addiert,seiten_verwechselt,steigung_kehrwert,vorzeichen_ignoriert}'::text[]) s(slug)
+  if exists (select 1 from unnest('{achsenabschnitt_verwechselt,addiert_statt_subtrahiert,b_ignoriert,betrag_fehler,division_vergessen,falsche_gegenoperation,falsche_groesse_beantwortet,groessen_vertauscht,koordinate_vorzeichen_verloren,koordinaten_vertauscht,m_b_vertauscht,nur_einmal_addiert,seiten_verwechselt,steigung_kehrwert,vorzeichen_beim_umstellen,vorzeichen_ignoriert}'::text[]) s(slug)
               where not exists (select 1 from public.fehlbild_labels l where l.slug = s.slug)) then
     raise exception 'erklaer: Fehlbild fehlt in fehlbild_labels';
   end if;
   if exists (select 1 from public.erklaer_check c join public.tasks t on t.id = c.task_id
-              where c.kernidee_id in ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'af7337eb-f87c-4a1b-b90c-2331ee37d68d'::uuid, '6e2b6a04-9cec-4388-a92c-25db953337d0'::uuid, 'd22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, '4a1c8d85-5c33-4014-8ade-4f1b0dd0adb1'::uuid, 'ec19354a-b80f-4d56-82bd-71a8fd10ac46'::uuid, 'e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid)
+              where c.kernidee_id in ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'af7337eb-f87c-4a1b-b90c-2331ee37d68d'::uuid, '6e2b6a04-9cec-4388-a92c-25db953337d0'::uuid, 'd22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, '4a1c8d85-5c33-4014-8ade-4f1b0dd0adb1'::uuid, 'ec19354a-b80f-4d56-82bd-71a8fd10ac46'::uuid, 'e1d94c8d-dd53-4161-94fb-5c608c52cd6f'::uuid, '525ef0b8-dd71-4ce4-bbb7-d49f498b5c12'::uuid, '0e6523ee-a135-4f5c-9882-cc121bd0bf55'::uuid, 'ed384522-ec0a-4e86-be88-283c2c6cbb85'::uuid)
                 and t.einsatz is distinct from '{check}'::text[]) then
     raise exception 'erklaer: Check-Aufgabe mit anderem Einsatz als check';
   end if;

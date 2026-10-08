@@ -670,5 +670,173 @@
    "vorbefuellt": {}
   },
   "sol": null
+ },
+ {
+  "task": {
+   "id": "985685e5-40db-479c-b16f-f18936be6239",
+   "title": "Check · Nullstelle am Graphen ablesen · negativ",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x schneidet der Graph die x-Achse?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x schneidet der Graph die x-Achse?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-nullstelle-k1-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "823a8ccd-87da-47bf-84c1-11c37cff55ef",
+   "title": "Check · Nullstelle am Graphen ablesen",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nBestimme die Nullstelle der Funktion.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nBestimme die Nullstelle der Funktion."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-nullstelle-k1-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ed40914f-4971-4e7a-9073-ede80153d7da",
+   "title": "Check · Nullstelle berechnen",
+   "question": "Gegeben ist die Funktion f(x) = 3x - 12.\n\nBerechne die Nullstelle von f.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 3x - 12.\n\nBerechne die Nullstelle von f."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-nullstelle-k2-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f6702b76-d1f0-4f84-925d-9326b665f02d",
+   "title": "Check · Nullstelle berechnen · fallend",
+   "question": "Gegeben ist die Funktion f(x) = -5x + 10.\n\nBerechne die Nullstelle von f.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = -5x + 10.\n\nBerechne die Nullstelle von f."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-nullstelle-k2-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0ae0e101-66a5-4911-a6fc-d01c78303f63",
+   "title": "Check · Nullstelle im Sachzusammenhang · Tank",
+   "question": "Ein Wassertank wird gleichmäßig geleert. Die Wassermenge in Litern nach x Minuten ist W(x) = -5x + 40.\n\nNach wie vielen Minuten ist der Tank leer?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Wassertank wird gleichmäßig geleert. Die Wassermenge in Litern nach x Minuten ist W(x) = -5x + 40.\n\nNach wie vielen Minuten ist der Tank leer?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-nullstelle-k3-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a56dc93d-8b1c-4f22-bede-b8195d0c71a0",
+   "title": "Check · Nullstelle im Sachzusammenhang · Guthaben",
+   "question": "Ein Handyguthaben wird jede Woche kleiner. Das Guthaben in Euro nach x Wochen ist G(x) = -2x + 30.\n\nNach wie vielen Wochen ist das Guthaben aufgebraucht?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Handyguthaben wird jede Woche kleiner. Das Guthaben in Euro nach x Wochen ist G(x) = -2x + 30.\n\nNach wie vielen Wochen ist das Guthaben aufgebraucht?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-nullstelle-k3-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
  }
 ]

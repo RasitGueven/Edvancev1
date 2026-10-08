@@ -1,4 +1,4 @@
--- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 24 Check-Aufgaben, nur Einsatz check.
+-- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 30 Check-Aufgaben, nur Einsatz check.
 -- Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:
 -- tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.
 --
@@ -31,6 +31,7 @@
 --   fkt_linear_yabschnitt: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --   fkt_linear_gleichung: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --   fkt_linear_graph: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
+--   fkt_linear_nullstelle: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --
 -- Idempotent: on conflict do nothing; die Loesung nur, wenn noch keine Zeile besteht.
 -- Kein begin/commit in der Datei: mig spielt sie mit psql -1 in EINER Transaktion ein,
@@ -922,3 +923,221 @@ insert into public.task_figures (task_id, generator, params, alt_text)
 select 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid, 'koordinatensystem', '{"x_min":0,"x_max":8,"y_min":0,"y_max":9,"funktionen":[{"typ":"linear","m":0.5,"b":4}],"punkte":[]}'::jsonb, 'Koordinatensystem im ersten Quadranten mit Gitter und einer flach steigenden Geraden.'
  where exists (select 1 from public.tasks t where t.id = 'f96fd8ba-b402-4297-99df-c77b0651c824'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
 on conflict (task_id) do nothing;
+
+-- #25 erklaer-nullstelle-k1-c1 · Check · Nullstelle am Graphen ablesen · negativ
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '985685e5-40db-479c-b16f-f18936be6239'::uuid, 'exercise', 'Check · Nullstelle am Graphen ablesen · negativ', 'Die Abbildung zeigt den Graphen einer linearen Funktion.
+
+An welcher Stelle x schneidet der Graph die x-Achse?',
+  '{"kind":"short_input","prompt":"Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nAn welcher Stelle x schneidet der Graph die x-Achse?"}'::jsonb, 'NUMERIC', 'fkt_linear_nullstelle',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-nullstelle-k1-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: Schnitt mit der x-Achse ablesen, links vom Ursprung.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '985685e5-40db-479c-b16f-f18936be6239'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '985685e5-40db-479c-b16f-f18936be6239'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '985685e5-40db-479c-b16f-f18936be6239'::uuid,
+  p_correct_answers => '["-4","−4","- 4"]'::jsonb,
+  p_solution        => 'Die Gerade schneidet die x-Achse bei (-4 | 0). Die Nullstelle ist x = -4.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Den Schnitt mit der y-Achse abgelesen: 2.","socratic_question":"Liegt die Nullstelle auf der x-Achse oder auf der y-Achse?","fehlbild":"achsenabschnitt_verwechselt"},{"error":"Das Minus vergessen: 4 statt -4.","socratic_question":"Liegt der Schnittpunkt links oder rechts vom Ursprung?","fehlbild":"betrag_fehler"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-4","known_errors":{"2":"achsenabschnitt_verwechselt","4":"betrag_fehler","+2":"achsenabschnitt_verwechselt","+4":"betrag_fehler"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select '985685e5-40db-479c-b16f-f18936be6239'::uuid, 'koordinatensystem', '{"x_min":-6,"x_max":3,"y_min":-2,"y_max":5,"funktionen":[{"typ":"linear","m":0.5,"b":2}],"punkte":[]}'::jsonb, 'Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion.'
+ where exists (select 1 from public.tasks t where t.id = '985685e5-40db-479c-b16f-f18936be6239'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #26 erklaer-nullstelle-k1-c2 · Check · Nullstelle am Graphen ablesen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid, 'exercise', 'Check · Nullstelle am Graphen ablesen', 'Die Abbildung zeigt den Graphen einer linearen Funktion.
+
+Bestimme die Nullstelle der Funktion.',
+  '{"kind":"short_input","prompt":"Die Abbildung zeigt den Graphen einer linearen Funktion.\n\nBestimme die Nullstelle der Funktion."}'::jsonb, 'NUMERIC', 'fkt_linear_nullstelle',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, true, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-nullstelle-k1-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: Schnitt mit der x-Achse ablesen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Ohne Abbildung nicht lösbar (Generator koordinatensystem).","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid,
+  p_correct_answers => '["3","+3"]'::jsonb,
+  p_solution        => 'Die Gerade schneidet die x-Achse bei (3 | 0). Die Nullstelle ist x = 3.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Den Schnitt mit der y-Achse abgelesen: -6.","socratic_question":"Liegt die Nullstelle auf der x-Achse oder auf der y-Achse?","fehlbild":"achsenabschnitt_verwechselt"},{"error":"Vorzeichen gekippt: -3 statt 3.","socratic_question":"Liegt der Schnittpunkt links oder rechts vom Ursprung?","fehlbild":"betrag_fehler"}]'::jsonb,
+  p_acceptance      => '{"canonical":"3","known_errors":{"-6":"achsenabschnitt_verwechselt","−6":"achsenabschnitt_verwechselt","- 6":"achsenabschnitt_verwechselt","-3":"betrag_fehler","−3":"betrag_fehler","- 3":"betrag_fehler"}}'::jsonb);
+  end if;
+end
+$loesung$;
+insert into public.task_figures (task_id, generator, params, alt_text)
+select '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid, 'koordinatensystem', '{"x_min":-2,"x_max":5,"y_min":-7,"y_max":4,"funktionen":[{"typ":"linear","m":2,"b":-6}],"punkte":[]}'::jsonb, 'Koordinatensystem mit Gitter und dem Graphen einer linearen Funktion.'
+ where exists (select 1 from public.tasks t where t.id = '823a8ccd-87da-47bf-84c1-11c37cff55ef'::uuid and t.source = 'edvance_erklaer_k8_linfkt')
+on conflict (task_id) do nothing;
+
+-- #27 erklaer-nullstelle-k2-c1 · Check · Nullstelle berechnen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'ed40914f-4971-4e7a-9073-ede80153d7da'::uuid, 'exercise', 'Check · Nullstelle berechnen', 'Gegeben ist die Funktion f(x) = 3x - 12.
+
+Berechne die Nullstelle von f.',
+  '{"kind":"short_input","prompt":"Gegeben ist die Funktion f(x) = 3x - 12.\n\nBerechne die Nullstelle von f."}'::jsonb, 'NUMERIC', 'fkt_linear_nullstelle',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-nullstelle-k2-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: f(x) = 0 setzen, b wegrechnen, durch m teilen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'ed40914f-4971-4e7a-9073-ede80153d7da'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'ed40914f-4971-4e7a-9073-ede80153d7da'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'ed40914f-4971-4e7a-9073-ede80153d7da'::uuid,
+  p_correct_answers => '["4","+4"]'::jsonb,
+  p_solution        => '3x - 12 = 0, also 3x = 12 und x = 12 : 3 = 4.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Nach 3x = 12 nicht durch 3 geteilt.","socratic_question":"Steht nach dem Umstellen schon x allein da?","fehlbild":"division_vergessen"},{"error":"Mit 3 malgenommen statt durch 3 geteilt: 36.","socratic_question":"Wie machst du „mal 3“ rückgängig?","fehlbild":"falsche_gegenoperation"},{"error":"Vorzeichen gekippt: -4 statt 4.","socratic_question":"Setz dein Ergebnis in f ein. Kommt 0 heraus?","fehlbild":"betrag_fehler"},{"error":"Den y-Achsenabschnitt angegeben: -12.","socratic_question":"Ist die Stelle gesucht, an der f(x) = 0 ist, oder der Wert bei x = 0?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"4","known_errors":{"12":"division_vergessen","36":"falsche_gegenoperation","+12":"division_vergessen","+36":"falsche_gegenoperation","-4":"betrag_fehler","−4":"betrag_fehler","- 4":"betrag_fehler","-12":"achsenabschnitt_verwechselt","−12":"achsenabschnitt_verwechselt","- 12":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #28 erklaer-nullstelle-k2-c2 · Check · Nullstelle berechnen · fallend
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'f6702b76-d1f0-4f84-925d-9326b665f02d'::uuid, 'exercise', 'Check · Nullstelle berechnen · fallend', 'Gegeben ist die Funktion f(x) = -5x + 10.
+
+Berechne die Nullstelle von f.',
+  '{"kind":"short_input","prompt":"Gegeben ist die Funktion f(x) = -5x + 10.\n\nBerechne die Nullstelle von f."}'::jsonb, 'NUMERIC', 'fkt_linear_nullstelle',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-nullstelle-k2-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: negativer Koeffizient beim Umstellen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'f6702b76-d1f0-4f84-925d-9326b665f02d'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'f6702b76-d1f0-4f84-925d-9326b665f02d'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'f6702b76-d1f0-4f84-925d-9326b665f02d'::uuid,
+  p_correct_answers => '["2","+2"]'::jsonb,
+  p_solution        => '-5x + 10 = 0, also -5x = -10 und x = -10 : (-5) = 2.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Das Minus von -5 bleibt am Ergebnis hängen: -2.","socratic_question":"Setz dein Ergebnis in f ein. Kommt 0 heraus?","fehlbild":"vorzeichen_beim_umstellen"},{"error":"Nach -5x = -10 nicht durch -5 geteilt.","socratic_question":"Steht nach dem Umstellen schon x allein da?","fehlbild":"division_vergessen"},{"error":"Den y-Achsenabschnitt angegeben: 10.","socratic_question":"Ist die Stelle gesucht, an der f(x) = 0 ist, oder der Wert bei x = 0?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
+  p_acceptance      => '{"canonical":"2","known_errors":{"10":"achsenabschnitt_verwechselt","-2":"vorzeichen_beim_umstellen","−2":"vorzeichen_beim_umstellen","- 2":"vorzeichen_beim_umstellen","-10":"division_vergessen","−10":"division_vergessen","- 10":"division_vergessen","+10":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #29 erklaer-nullstelle-k3-c1 · Check · Nullstelle im Sachzusammenhang · Tank
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '0ae0e101-66a5-4911-a6fc-d01c78303f63'::uuid, 'exercise', 'Check · Nullstelle im Sachzusammenhang · Tank', 'Ein Wassertank wird gleichmäßig geleert. Die Wassermenge in Litern nach x Minuten ist W(x) = -5x + 40.
+
+Nach wie vielen Minuten ist der Tank leer?',
+  '{"kind":"short_input","prompt":"Ein Wassertank wird gleichmäßig geleert. Die Wassermenge in Litern nach x Minuten ist W(x) = -5x + 40.\n\nNach wie vielen Minuten ist der Tank leer?"}'::jsonb, 'NUMERIC', 'fkt_linear_nullstelle',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-nullstelle-k3-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: Nullstelle im Sachzusammenhang als Zeitpunkt deuten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '0ae0e101-66a5-4911-a6fc-d01c78303f63'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '0ae0e101-66a5-4911-a6fc-d01c78303f63'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '0ae0e101-66a5-4911-a6fc-d01c78303f63'::uuid,
+  p_correct_answers => '["8","+8"]'::jsonb,
+  p_solution        => 'Leer heißt W(x) = 0: -5x + 40 = 0, also -5x = -40 und x = 8.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Anfangsmenge angegeben statt des Zeitpunkts.","socratic_question":"Ist nach dem Anfang oder nach dem Ende gefragt?","fehlbild":"achsenabschnitt_verwechselt"},{"error":"Das Minus von -5 bleibt am Ergebnis hängen: -8.","socratic_question":"Kann eine Zeit negativ sein?","fehlbild":"vorzeichen_beim_umstellen"}]'::jsonb,
+  p_acceptance      => '{"canonical":"8","known_errors":{"40":"achsenabschnitt_verwechselt","+40":"achsenabschnitt_verwechselt","-8":"vorzeichen_beim_umstellen","−8":"vorzeichen_beim_umstellen","- 8":"vorzeichen_beim_umstellen"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #30 erklaer-nullstelle-k3-c2 · Check · Nullstelle im Sachzusammenhang · Guthaben
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'a56dc93d-8b1c-4f22-bede-b8195d0c71a0'::uuid, 'exercise', 'Check · Nullstelle im Sachzusammenhang · Guthaben', 'Ein Handyguthaben wird jede Woche kleiner. Das Guthaben in Euro nach x Wochen ist G(x) = -2x + 30.
+
+Nach wie vielen Wochen ist das Guthaben aufgebraucht?',
+  '{"kind":"short_input","prompt":"Ein Handyguthaben wird jede Woche kleiner. Das Guthaben in Euro nach x Wochen ist G(x) = -2x + 30.\n\nNach wie vielen Wochen ist das Guthaben aufgebraucht?"}'::jsonb, 'NUMERIC', 'fkt_linear_nullstelle',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-nullstelle-k3-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: Nullstelle im Sachzusammenhang als Zeitpunkt deuten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'a56dc93d-8b1c-4f22-bede-b8195d0c71a0'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'a56dc93d-8b1c-4f22-bede-b8195d0c71a0'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'a56dc93d-8b1c-4f22-bede-b8195d0c71a0'::uuid,
+  p_correct_answers => '["15","+15"]'::jsonb,
+  p_solution        => 'Aufgebraucht heißt G(x) = 0: -2x + 30 = 0, also -2x = -30 und x = 15.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Das Anfangsguthaben angegeben statt des Zeitpunkts.","socratic_question":"Ist nach dem Anfang oder nach dem Ende gefragt?","fehlbild":"achsenabschnitt_verwechselt"},{"error":"Das Minus von -2 bleibt am Ergebnis hängen: -15.","socratic_question":"Kann eine Zeit negativ sein?","fehlbild":"vorzeichen_beim_umstellen"}]'::jsonb,
+  p_acceptance      => '{"canonical":"15","known_errors":{"30":"achsenabschnitt_verwechselt","+30":"achsenabschnitt_verwechselt","-15":"vorzeichen_beim_umstellen","−15":"vorzeichen_beim_umstellen","- 15":"vorzeichen_beim_umstellen"}}'::jsonb);
+  end if;
+end
+$loesung$;
