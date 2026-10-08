@@ -72,7 +72,7 @@ export function grundAus(k: KindRaum, details: SchrittDetails | null, e: Record<
     const zahl = { quote: details.ziel, richtig: details.richtig ?? null, von: details.von ?? null }
     if (details.aenderung > 0) return { art: 'ueberQuote', ...zahl }
     if (details.aenderung < 0) return { art: 'unterQuote', ...zahl }
-    return null
+    return zahl.richtig !== null && zahl.von !== null ? { art: 'imZiel', quote: zahl.quote, richtig: zahl.richtig, von: zahl.von } : null
   }
   if (details && typeof details.mischanteil === 'number') return { art: 'eingemischt', anteil: details.mischanteil }
   const g = k.schritt?.grund_code ?? ''

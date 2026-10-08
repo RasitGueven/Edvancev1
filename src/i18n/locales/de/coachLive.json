@@ -214,6 +214,7 @@
       "ueberQuoteZahl": "{{richtig}} von {{von}} ohne Hinweis richtig, über der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden schwerer.",
       "unterQuote": "Unter der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden leichter.",
       "unterQuoteZahl": "{{richtig}} von {{von}} ohne Hinweis richtig, unter der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden leichter.",
+      "imZiel": "{{richtig}} von {{von}} ohne Hinweis richtig, im Zielbereich um {{quote}}, gleiche Stufe.",
       "eingemischt": "Ältere Aufgabe eingemischt (Anteil {{anteil}}).",
       "tiefer": "Eine Stufe tiefer gesetzt."
     },

@@ -18,11 +18,11 @@ import { Schublade } from './Schublade'
 
 const F = fixtures as unknown as Record<string, RaumLive | KindDetail>
 
-function szene(name: string, vorname: string): { raum: CoachLiveRaum; kind: CoachLiveKind } {
+function szene(name: string, vorname: string, aendern: Partial<KindDetail> = {}): { raum: CoachLiveRaum; kind: CoachLiveKind } {
   const r = F[`raum_${name}`] as RaumLive
   const kindId = r.kinder.find((k) => k.name?.startsWith(vorname))?.student_id ?? ''
   const raum = raumAus(r, {
-    detail: { kindId, detail: F[`detail_${name}_${vorname}`] as KindDetail, ziel: [], pruefung: null, lernpfad: null },
+    detail: { kindId, detail: { ...(F[`detail_${name}_${vorname}`] as KindDetail), ...aendern }, ziel: [], pruefung: null, lernpfad: null },
     briefing: [], satz: {}, themen: new Map(), nichtErschienen: new Set(), pfadGeoeffnet: {},
   })
   const kind = raum.kinder.find((k) => k.id === kindId)
@@ -77,6 +77,12 @@ describe('C3 Heute und Grund in der Schublade', () => {
     zeige(raum, <Schublade kind={kind} onSchliessen={vi.fn()} />)
     expect(screen.getByText(/^0 von 5 ohne Hinweis richtig, unter der Ziel-Erfolgsquote \(80\s?%\)/)).toBeTruthy()
     expect(screen.getByText('Klammern ausmultiplizieren · 0 von 5 · ohne Hinweis')).toBeTruthy()
+  })
+
+  it('Stufe bleibt: im Zielbereich, ohne Wertung', () => {
+    const { raum, kind } = szene('grund', 'Lea', { schritt_details: { richtig: 4, von: 5, ziel: 0.8, aenderung: 0 } })
+    zeige(raum, <Schublade kind={kind} onSchliessen={vi.fn()} />)
+    expect(screen.getByText(/^4 von 5 ohne Hinweis richtig, im Zielbereich um 80\s?%, gleiche Stufe\.$/)).toBeTruthy()
   })
 
   it('Emir: eingemischt mit Anteil, Kernarbeit mit Hinweis', () => {

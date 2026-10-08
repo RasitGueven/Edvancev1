@@ -197,6 +197,8 @@ export type HeuteZeile = {
 export type GrundLetzterSchritt =
   | { art: 'ueberQuote'; quote: number; richtig: number | null; von: number | null }
   | { art: 'unterQuote'; quote: number; richtig: number | null; von: number | null }
+  /** C3 (Rasit 08.10.): Fenster im Zielbereich, Stufe bleibt; nur mit Zahl aus details. */
+  | { art: 'imZiel'; quote: number; richtig: number; von: number }
   | { art: 'eingemischt'; anteil: number }
   | { art: 'tiefer' }
 

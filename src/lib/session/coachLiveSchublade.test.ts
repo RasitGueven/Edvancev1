@@ -97,7 +97,7 @@ describe('C3 Grund mit Zahl', () => {
   it('ältere Zeile ohne details: grob wie bisher', () => {
     const k = raum('kern').kinder[0]
     expect(grundAus({ ...k, schritt: k.schritt && { ...k.schritt, eingemischt: false, grund_code: 'tiefer_gesetzt' } }, {}, {})).toEqual({ art: 'tiefer' })
-    expect(grundAus(k, { richtig: 4, von: 5, ziel: 0.8, aenderung: 0 }, {})).toBeNull()
+    expect(grundAus(k, { richtig: 4, von: 5, ziel: 0.8, aenderung: 0 }, {})).toEqual({ art: 'imZiel', quote: 0.8, richtig: 4, von: 5 })
   })
 })
 
