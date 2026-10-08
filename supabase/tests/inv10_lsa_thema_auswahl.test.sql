@@ -42,6 +42,8 @@ select plan(33);
 update tasks set skill_key = null where skill_key is not null;
 delete from thema_einstieg;
 delete from skill_kante;
+-- Erklaersequenzen haengen per FK an skills (seit E2b mit echten Daten fuer fkt_linear_*).
+delete from erklaer_kernidee;
 delete from skills;
 
 -- --- Graph -------------------------------------------------------------------

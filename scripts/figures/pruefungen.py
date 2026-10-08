@@ -24,6 +24,7 @@ FUNKTIONS_SCHLUESSEL = {
 }
 FUNKTIONS_PFLICHT = {'linear': ('m', 'b'), 'quadratisch': ('a', 'b', 'c')}
 PUNKT_SCHLUESSEL = {'x', 'y', 'label', 'betont'}
+DREIECK_SCHLUESSEL = {'x', 'y', 'dx', 'dy'}
 
 
 # ── Prüfungen ────────────────────────────────────────────────────────────────
@@ -117,3 +118,36 @@ def pruefe_punkt(roh: object, index: int, grenzen: tuple[int, int, int, int]) ->
         'betont': wahrheitswert(roh.get('betont', False), f'{stelle}[\'betont\']'),
     }
 
+
+
+def pruefe_steigungsdreieck(roh: object, index: int, grenzen: tuple[int, int, int, int]) -> dict:
+    """
+    Steigungsdreieck ab (x|y): dx nach rechts (bzw. links), dann dy nach oben (bzw. unten).
+    Beide Ecken auf der Geraden liegen zu lassen ist Sache des Aufrufers (das Nachrechen-
+    Skript der Erklaersequenzen prueft das); hier zaehlt nur, dass es darstellbar ist.
+    """
+    stelle = f'steigungsdreiecke[{index}]'
+    if not isinstance(roh, dict):
+        raise ValueError(f'{stelle} muss ein dict sein, nicht {roh!r}.')
+    unbekannt = set(roh) - DREIECK_SCHLUESSEL
+    if unbekannt:
+        namen = ', '.join(repr(s) for s in sorted(unbekannt))
+        raise ValueError(f'{stelle}: unbekannte Schluessel: {namen}.')
+    for pflicht in sorted(DREIECK_SCHLUESSEL):
+        if pflicht not in roh:
+            raise ValueError(f'{stelle}: braucht {pflicht!r}.')
+    werte = {k: reelle_zahl(roh[k], f'{stelle}[{k!r}]') for k in ('x', 'y', 'dx', 'dy')}
+    if werte['dx'] == 0 or werte['dy'] == 0:
+        raise ValueError(f'{stelle}: dx und dy duerfen nicht 0 sein.')
+    x_min, x_max, y_min, y_max = grenzen
+    for ex, ey in ((werte['x'], werte['y']), (werte['x'] + werte['dx'], werte['y']),
+                   (werte['x'] + werte['dx'], werte['y'] + werte['dy'])):
+        if not (x_min <= ex <= x_max and y_min <= ey <= y_max):
+            raise ValueError(f'{stelle}: Ecke ({zahl(ex)}|{zahl(ey)}) liegt ausserhalb des Fensters.')
+    return werte
+
+
+def dreieck_text(wert: float) -> str:
+    """Zahl fuer die Beschriftung am Dreieck: ganz ohne Komma, sonst Dezimalkomma, Minus als U+2212."""
+    text = str(int(wert)) if float(wert).is_integer() else zahl(wert).replace('.', ',')
+    return text.replace('-', '\u2212')

@@ -65,6 +65,9 @@ insert into task_solutions (task_id, correct_answers, solution, acceptance, hint
 select set_config('request.jwt.claims',
                   json_build_object('sub', :'admin_uid', 'role', 'authenticated')::text, false);
 
+-- Isolation: E2b spielt echte Entwuerfe fuer fkt_linear_steigung ein (Kernideen 1 bis 3).
+delete from erklaer_kernidee where skill_key = 'fkt_linear_steigung';
+
 create temp table e1_k (nr int primary key, id uuid);
 insert into e1_k
 select n, public.erklaer_kernidee_speichern(null, 'fkt_linear_steigung', n, t, 'ki')

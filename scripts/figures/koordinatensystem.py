@@ -32,6 +32,7 @@ from .pruefungen import (
     ganzzahl,
     pruefe_funktion,
     pruefe_punkt,
+    pruefe_steigungsdreieck,
     text_oder_none,
     wahrheitswert,
 )
@@ -45,6 +46,7 @@ from .svg_basis import (
     polylinie,
     zahl,
 )
+from .steigungsdreieck import label_unten, steigungsdreiecke_svg
 from .tokens import SCHRIFT, palette
 
 # px pro Einheit. Bei -5..5 in beiden Richtungen ergibt das 400 x 400 px Flaeche
@@ -162,6 +164,7 @@ def koordinatensystem(
     theme: str = 'dunkel',
     einheit: int = EINHEIT_STANDARD,
     id_praefix: str = '',
+    steigungsdreiecke: list[dict] | None = None,
 ) -> str:
     """
     Baut ein vollstaendiges SVG als String.
@@ -175,6 +178,9 @@ def koordinatensystem(
                  unterdrueckt sie.
     theme      — 'dunkel' (Buehne) oder 'hell' (Eltern-Report, Druck).
     einheit    — px pro Einheit, fuer BEIDE Achsen. Der einzige Skalenfaktor.
+    steigungsdreiecke — optional [{'x':…, 'y':…, 'dx':…, 'dy':…}]: ab (x|y) eine Strecke dx
+                 waagerecht, dann dy senkrecht, beschriftet mit „rüber dx“ und „hoch dy“.
+                 Ohne Angabe (Default) ist die Ausgabe byteidentisch zu vorher.
     id_praefix — vor die clipPath-ID gestellt. Default '' — dann byteidentisch zu
                  vorher. Nur noetig, wenn mehrere SVGs INLINE in EIN HTML-Dokument
                  gelegt werden und gleiche IDs sonst kollidierten (z.B. ein
@@ -221,6 +227,7 @@ def koordinatensystem(
     geprueft_f = [pruefe_funktion(f, i) for i, f in enumerate(funktionen or [])]
     grenzen = (x_min, x_max, y_min, y_max)
     geprueft_p = [pruefe_punkt(p, i, grenzen) for i, p in enumerate(punkte or [])]
+    geprueft_d = [pruefe_steigungsdreieck(d, i, grenzen) for i, d in enumerate(steigungsdreiecke or [])]
 
     # ── Masse ────────────────────────────────────────────────────────────────
     breite_plot = (x_max - x_min) * einheit
@@ -377,6 +384,10 @@ def koordinatensystem(
     if label_teile:
         inhalt.append(element('g', [], ''.join(label_teile)))
 
+    # ── Steigungsdreiecke (optional, steigungsdreieck.py) ─────────────────────
+    if geprueft_d:
+        inhalt.append(steigungsdreiecke_svg(geprueft_d, px, py, farben, skala, schriftgroesse))
+
     # ── Punkte ───────────────────────────────────────────────────────────────
     punkt_teile: list[str] = []
     for punkt in geprueft_p:
@@ -384,8 +395,10 @@ def koordinatensystem(
         radius = (5.5 if punkt['betont'] else 4) * skala
         punkt_teile.append(kreis(px(punkt['x']), py(punkt['y']), radius, farbe))
         if punkt['label']:
+            # Kommt ein Steigungsdreieck von oben an diesen Punkt, steht der Name darunter.
+            unten = label_unten(geprueft_d, punkt)
             punkt_teile.append(beschriftung(
-                px(punkt['x']), py(punkt['y']) - radius - schriftgroesse * 0.8,
+                px(punkt['x']), py(punkt['y']) + (1 if unten else -1) * (radius + schriftgroesse * 0.8),
                 punkt['label'], farbe, schriftgroesse, SCHRIFT,
                 anker='middle', grundlinie='middle', fett=True,
             ))
@@ -404,7 +417,7 @@ def zeichne(params: dict, theme: str) -> str:
 
     Der Vertrag ist bewusst duenn: `params` traegt genau die Schluesselwort-
     Argumente von `koordinatensystem` (x_min, x_max, y_min, y_max, funktionen,
-    punkte, gitter, achsen, einheit, id_praefix). `theme` kommt getrennt, weil der
+    punkte, gitter, achsen, einheit, id_praefix, steigungsdreiecke). `theme` kommt getrennt, weil der
     Aufrufer beide Themes aus DENSELBEN params erzeugt; ein 'theme' IN params
     waere doppelt vergeben und wird darum abgewiesen.
     """

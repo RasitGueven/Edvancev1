@@ -255,6 +255,26 @@ ABSOLUT_POSITIV: list[tuple[str, dict]] = [
     ('ohne-gitter', dict(x_min=-5, x_max=5, y_min=-5, y_max=5, gitter=False,
                          funktionen=[{'typ': 'linear', 'm': -2, 'b': 3, 'label': 'f'}])),
 ]
+# ── Steigungsdreieck (E2b) ───────────────────────────────────────────────────
+DREIECK = dict(x_min=-2, x_max=3, y_min=-4, y_max=4,
+               funktionen=[{'typ': 'linear', 'm': -2, 'b': 1}],
+               steigungsdreiecke=[{'x': -1, 'y': 3, 'dx': 3, 'dy': -6}])
+svg_d = koordinatensystem(**DREIECK)
+pruefe('>rüber 3<' in svg_d and '>hoch \u22126<' in svg_d, 'Steigungsdreieck: Beschriftung rüber 3 / hoch −6')
+pruefe(svg_d == koordinatensystem(**DREIECK), 'Steigungsdreieck: deterministisch')
+pruefe(koordinatensystem(**{**DREIECK, 'steigungsdreiecke': None})
+       == koordinatensystem(**{k: v for k, v in DREIECK.items() if k != 'steigungsdreiecke'}),
+       'ohne Steigungsdreieck byteidentisch zum Aufruf ohne Parameter')
+erwarte_fehler('Steigungsdreieck ausserhalb des Fensters', **{**DREIECK, 'steigungsdreiecke': [{'x': 2, 'y': 3, 'dx': 3, 'dy': -6}]})
+erwarte_fehler('Steigungsdreieck mit dx = 0', **{**DREIECK, 'steigungsdreiecke': [{'x': -1, 'y': 3, 'dx': 0, 'dy': -6}]})
+erwarte_fehler('Steigungsdreieck mit unbekanntem Schluessel', **{**DREIECK, 'steigungsdreiecke': [{'x': -1, 'y': 3, 'dx': 3, 'dy': -6, 'farbe': 'rot'}]})
+MIT_PUNKT = {**DREIECK, 'punkte': [{'x': 2, 'y': -3, 'label': 'B'}]}
+ohne_dreieck = koordinatensystem(**{k: v for k, v in MIT_PUNKT.items() if k != 'steigungsdreiecke'})
+y_label = lambda svg: float(re.search(r'<text x="[\d.-]+" y="([\d.-]+)"[^>]*>B</text>', svg).group(1))
+pruefe(y_label(koordinatensystem(**MIT_PUNKT)) > y_label(ohne_dreieck),
+       'Steigungsdreieck von oben: Name des Endpunkts steht darunter, ohne Dreieck darueber')
+ABSOLUT_POSITIV.append(('steigungsdreieck', DREIECK))
+
 for name, params in ABSOLUT_POSITIV:
     befunde = pruefe_geometrie(koordinatensystem(**params), params)
     pruefe(not befunde, f'Absolutpruefung meldet auf korrektem {name!r}: {befunde}')

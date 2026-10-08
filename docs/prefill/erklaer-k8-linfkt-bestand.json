@@ -1,0 +1,207 @@
+{
+    "stand": "2026-10-07",
+    "quelle": "dbread Prod, ziel_fertigkeiten + acceptance.known_errors + fehlbild_labels",
+    "skills": [
+        {
+            "label": "Steigung einer linearen Funktion",
+            "klasse": 8,
+            "skill_key": "fkt_linear_steigung",
+            "fehlbilder": [
+                {
+                    "slug": "steigung_kehrwert",
+                    "aufgaben": 6,
+                    "klartext": "Teilt die waagerechte durch die senkrechte Änderung – die Steigung steht auf dem Kopf."
+                },
+                {
+                    "slug": "seiten_verwechselt",
+                    "aufgaben": 3,
+                    "klartext": "Subtrahiert in umgekehrter Reihenfolge, Ergebnis mit falschem Vorzeichen."
+                },
+                {
+                    "slug": "b_ignoriert",
+                    "aufgaben": 2,
+                    "klartext": "Teilt sofort, ohne die Konstante vorher wegzurechnen."
+                },
+                {
+                    "slug": "betrag_fehler",
+                    "aufgaben": 1,
+                    "klartext": "Betrag richtig, Vorzeichen des Ergebnisses gekippt."
+                },
+                {
+                    "slug": "nur_einmal_addiert",
+                    "aufgaben": 1,
+                    "klartext": "Ein Betrag wurde nur einmal dazugezählt, obwohl er mehrfach vorkommt."
+                }
+            ],
+            "reihenfolge": 1
+        },
+        {
+            "label": "y-Achsenabschnitt einer linearen Funktion",
+            "klasse": 8,
+            "skill_key": "fkt_linear_yabschnitt",
+            "fehlbilder": [
+                {
+                    "slug": "achsenabschnitt_verwechselt",
+                    "aufgaben": 4,
+                    "klartext": "Gibt die Nullstelle als y-Achsenabschnitt an oder umgekehrt."
+                },
+                {
+                    "slug": "m_b_vertauscht",
+                    "aufgaben": 3,
+                    "klartext": "Liest Steigung und y-Achsenabschnitt vertauscht aus der Gleichung ab."
+                },
+                {
+                    "slug": "betrag_fehler",
+                    "aufgaben": 2,
+                    "klartext": "Betrag richtig, Vorzeichen des Ergebnisses gekippt."
+                },
+                {
+                    "slug": "groessen_vertauscht",
+                    "aufgaben": 2,
+                    "klartext": "Vertauscht Grundbetrag und Rate beim Aufstellen."
+                },
+                {
+                    "slug": "addiert_statt_subtrahiert",
+                    "aufgaben": 1,
+                    "klartext": "Addiert die Konstante auf beiden Seiten statt sie abzuziehen."
+                }
+            ],
+            "reihenfolge": 2
+        },
+        {
+            "label": "Funktionsgleichung y = mx + b aufstellen",
+            "klasse": 8,
+            "skill_key": "fkt_linear_gleichung",
+            "fehlbilder": [
+                {
+                    "slug": "m_b_vertauscht",
+                    "aufgaben": 3,
+                    "klartext": "Liest Steigung und y-Achsenabschnitt vertauscht aus der Gleichung ab."
+                },
+                {
+                    "slug": "vorzeichen_ignoriert",
+                    "aufgaben": 2,
+                    "klartext": "Lässt die Minuszeichen weg und addiert die Beträge."
+                },
+                {
+                    "slug": "addiert_statt_subtrahiert",
+                    "aufgaben": 1,
+                    "klartext": "Addiert die Konstante auf beiden Seiten statt sie abzuziehen."
+                },
+                {
+                    "slug": "b_ignoriert",
+                    "aufgaben": 1,
+                    "klartext": "Teilt sofort, ohne die Konstante vorher wegzurechnen."
+                },
+                {
+                    "slug": "betrag_fehler",
+                    "aufgaben": 1,
+                    "klartext": "Betrag richtig, Vorzeichen des Ergebnisses gekippt."
+                },
+                {
+                    "slug": "falsche_groesse_beantwortet",
+                    "aufgaben": 1,
+                    "klartext": "Rechnet richtig, gibt aber die andere gesuchte Größe an."
+                },
+                {
+                    "slug": "groessen_vertauscht",
+                    "aufgaben": 1,
+                    "klartext": "Vertauscht Grundbetrag und Rate beim Aufstellen."
+                },
+                {
+                    "slug": "seiten_verwechselt",
+                    "aufgaben": 1,
+                    "klartext": "Subtrahiert in umgekehrter Reihenfolge, Ergebnis mit falschem Vorzeichen."
+                },
+                {
+                    "slug": "steigung_kehrwert",
+                    "aufgaben": 1,
+                    "klartext": "Teilt die waagerechte durch die senkrechte Änderung – die Steigung steht auf dem Kopf."
+                }
+            ],
+            "reihenfolge": 3
+        },
+        {
+            "label": "Graph einer linearen Funktion",
+            "klasse": 8,
+            "skill_key": "fkt_linear_graph",
+            "fehlbilder": [
+                {
+                    "slug": "m_b_vertauscht",
+                    "aufgaben": 3,
+                    "klartext": "Liest Steigung und y-Achsenabschnitt vertauscht aus der Gleichung ab."
+                },
+                {
+                    "slug": "koordinaten_vertauscht",
+                    "aufgaben": 2,
+                    "klartext": "Liest x- und y-Koordinate in vertauschter Reihenfolge ab."
+                },
+                {
+                    "slug": "steigung_kehrwert",
+                    "aufgaben": 2,
+                    "klartext": "Teilt die waagerechte durch die senkrechte Änderung – die Steigung steht auf dem Kopf."
+                },
+                {
+                    "slug": "achsenabschnitt_verwechselt",
+                    "aufgaben": 1,
+                    "klartext": "Gibt die Nullstelle als y-Achsenabschnitt an oder umgekehrt."
+                },
+                {
+                    "slug": "betrag_fehler",
+                    "aufgaben": 1,
+                    "klartext": "Betrag richtig, Vorzeichen des Ergebnisses gekippt."
+                },
+                {
+                    "slug": "falsche_groesse_beantwortet",
+                    "aufgaben": 1,
+                    "klartext": "Rechnet richtig, gibt aber die andere gesuchte Größe an."
+                },
+                {
+                    "slug": "groessen_vertauscht",
+                    "aufgaben": 1,
+                    "klartext": "Vertauscht Grundbetrag und Rate beim Aufstellen."
+                },
+                {
+                    "slug": "koordinate_vorzeichen_verloren",
+                    "aufgaben": 1,
+                    "klartext": "Koordinate richtig abgelesen, aber das Minus fehlt."
+                }
+            ],
+            "reihenfolge": 4
+        },
+        {
+            "label": "Nullstelle einer linearen Funktion",
+            "klasse": 8,
+            "skill_key": "fkt_linear_nullstelle",
+            "fehlbilder": [
+                {
+                    "slug": "achsenabschnitt_verwechselt",
+                    "aufgaben": 4,
+                    "klartext": "Gibt die Nullstelle als y-Achsenabschnitt an oder umgekehrt."
+                },
+                {
+                    "slug": "betrag_fehler",
+                    "aufgaben": 4,
+                    "klartext": "Betrag richtig, Vorzeichen des Ergebnisses gekippt."
+                },
+                {
+                    "slug": "division_vergessen",
+                    "aufgaben": 2,
+                    "klartext": "Umformung richtig, der letzte Schritt (Division durch den Koeffizienten) fehlt."
+                },
+                {
+                    "slug": "vorzeichen_beim_umstellen",
+                    "aufgaben": 2,
+                    "klartext": "Betrag richtig, das Minus des Koeffizienten bleibt am Ergebnis hängen."
+                },
+                {
+                    "slug": "falsche_gegenoperation",
+                    "aufgaben": 1,
+                    "klartext": "Wiederholt die im Term sichtbare Rechenart statt sie umzukehren."
+                }
+            ],
+            "reihenfolge": 5
+        }
+    ],
+    "thema_key": "lineare_funktionen"
+}
