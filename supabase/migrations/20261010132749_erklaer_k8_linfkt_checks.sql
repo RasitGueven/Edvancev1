@@ -1,4 +1,4 @@
--- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 12 Check-Aufgaben, nur Einsatz check.
+-- Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 18 Check-Aufgaben, nur Einsatz check.
 -- Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:
 -- tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.
 --
@@ -29,6 +29,7 @@
 -- bei MULTI_PART ueber alle Teile):
 --   fkt_linear_steigung: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --   fkt_linear_yabschnitt: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
+--   fkt_linear_gleichung: kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)
 --
 -- Idempotent: on conflict do nothing; die Loesung nur, wenn noch keine Zeile besteht.
 -- Kein begin/commit in der Datei: mig spielt sie mit psql -1 in EINER Transaktion ein,
@@ -464,6 +465,222 @@ begin
   p_coach_hints     => '[]'::jsonb,
   p_typical_errors  => '[{"error":"Die Änderung pro Stunde angegeben statt der Anfangshöhe.","socratic_question":"Welche Zahl sagt, wie hoch die Kerze ist, bevor sie brennt?","fehlbild":"groessen_vertauscht"},{"error":"Die Nullstelle angegeben: Nach 5 Stunden ist die Kerze abgebrannt.","socratic_question":"Ist nach dem Anfang oder nach dem Ende gefragt?","fehlbild":"achsenabschnitt_verwechselt"}]'::jsonb,
   p_acceptance      => '{"canonical":"15","known_errors":{"5":"achsenabschnitt_verwechselt","-3":"groessen_vertauscht","−3":"groessen_vertauscht","- 3":"groessen_vertauscht","+5":"achsenabschnitt_verwechselt"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #13 erklaer-gleichung-k1-c1 · Check · Gleichung aus m und b · negatives b
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb'::uuid, 'exercise', 'Check · Gleichung aus m und b · negatives b', 'Eine lineare Funktion f hat die Steigung 4 und den y-Achsenabschnitt -3.
+
+Stelle die Funktionsgleichung auf und berechne damit f(3).',
+  '{"kind":"short_input","prompt":"Eine lineare Funktion f hat die Steigung 4 und den y-Achsenabschnitt -3.\n\nStelle die Funktionsgleichung auf und berechne damit f(3)."}'::jsonb, 'NUMERIC', 'fkt_linear_gleichung',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-gleichung-k1-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: m und b einsetzen, einmal auswerten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb'::uuid,
+  p_correct_answers => '["9","+9"]'::jsonb,
+  p_solution        => 'f(x) = 4x - 3.
+f(3) = 4 · 3 - 3 = 12 - 3 = 9.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Steigung und Abschnitt vertauscht: f(x) = -3x + 4, f(3) = -5.","socratic_question":"Welche Zahl gehört direkt vor das x?","fehlbild":"m_b_vertauscht"},{"error":"Das Minus von b weggelassen: 4 · 3 + 3 = 15.","socratic_question":"Ist der y-Achsenabschnitt positiv oder negativ?","fehlbild":"vorzeichen_ignoriert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"9","known_errors":{"15":"vorzeichen_ignoriert","-5":"m_b_vertauscht","−5":"m_b_vertauscht","- 5":"m_b_vertauscht","+15":"vorzeichen_ignoriert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #14 erklaer-gleichung-k1-c2 · Check · Gleichung aus m und b · fallend
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '8cd6769f-a01b-4c39-a21d-b43a98be7a1a'::uuid, 'exercise', 'Check · Gleichung aus m und b · fallend', 'Eine lineare Funktion f hat die Steigung -4 und schneidet die y-Achse bei y = 3.
+
+Stelle die Funktionsgleichung auf und berechne damit f(2).',
+  '{"kind":"short_input","prompt":"Eine lineare Funktion f hat die Steigung -4 und schneidet die y-Achse bei y = 3.\n\nStelle die Funktionsgleichung auf und berechne damit f(2)."}'::jsonb, 'NUMERIC', 'fkt_linear_gleichung',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'I', 'funktionen', 'Operieren',
+  45, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-gleichung-k1-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Reproduzieren: m und b einsetzen, negative Steigung.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '8cd6769f-a01b-4c39-a21d-b43a98be7a1a'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '8cd6769f-a01b-4c39-a21d-b43a98be7a1a'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '8cd6769f-a01b-4c39-a21d-b43a98be7a1a'::uuid,
+  p_correct_answers => '["-5","−5","- 5"]'::jsonb,
+  p_solution        => 'f(x) = -4x + 3.
+f(2) = -4 · 2 + 3 = -8 + 3 = -5.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Steigung und Abschnitt vertauscht: f(x) = 3x - 4, f(2) = 2.","socratic_question":"Welche Zahl gehört direkt vor das x?","fehlbild":"m_b_vertauscht"},{"error":"Betrag richtig, Vorzeichen gekippt: 5 statt -5.","socratic_question":"Die Gerade fällt. Liegt f(2) über oder unter der x-Achse?","fehlbild":"betrag_fehler"},{"error":"Das Minus der Steigung weggelassen: 4 · 2 + 3 = 11.","socratic_question":"Ist die Steigung positiv oder negativ?","fehlbild":"vorzeichen_ignoriert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"-5","known_errors":{"2":"m_b_vertauscht","5":"betrag_fehler","11":"vorzeichen_ignoriert","+2":"m_b_vertauscht","+5":"betrag_fehler","+11":"vorzeichen_ignoriert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #15 erklaer-gleichung-k2-c1 · Check · Gleichung aus zwei Punkten · b bestimmen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '111cb005-dd01-42e5-82c7-b170c2f2b16e'::uuid, 'exercise', 'Check · Gleichung aus zwei Punkten · b bestimmen', 'Eine Gerade geht durch die Punkte A(1 | 3) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.
+
+Welchen Wert hat b?',
+  '{"kind":"short_input","prompt":"Eine Gerade geht durch die Punkte A(1 | 3) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?"}'::jsonb, 'NUMERIC', 'fkt_linear_gleichung',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-gleichung-k2-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: m aus zwei Punkten, dann b durch Einsetzen und Umstellen.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '111cb005-dd01-42e5-82c7-b170c2f2b16e'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '111cb005-dd01-42e5-82c7-b170c2f2b16e'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '111cb005-dd01-42e5-82c7-b170c2f2b16e'::uuid,
+  p_correct_answers => '["1","+1"]'::jsonb,
+  p_solution        => 'm = (7 - 3) / (3 - 1) = 4 / 2 = 2.
+A einsetzen: 3 = 2 · 1 + b, also b = 3 - 2 = 1.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Beim Umstellen addiert statt abgezogen: b = 3 + 2 = 5.","socratic_question":"Was musst du auf beiden Seiten tun, damit b allein steht?","fehlbild":"addiert_statt_subtrahiert"},{"error":"Die Steigung m = 2 angegeben statt b.","socratic_question":"Welche der beiden Zahlen in y = mx + b ist gesucht?","fehlbild":"falsche_groesse_beantwortet"},{"error":"Mit dem Kehrwert m = 1/2 gerechnet: b = 3 - 1/2 = 5/2.","socratic_question":"Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?","fehlbild":"steigung_kehrwert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"1","known_errors":{"2":"falsche_groesse_beantwortet","5":"addiert_statt_subtrahiert","+5":"addiert_statt_subtrahiert","+2":"falsche_groesse_beantwortet","5/2":"steigung_kehrwert","+5/2":"steigung_kehrwert","2,5":"steigung_kehrwert","+2,5":"steigung_kehrwert","2.5":"steigung_kehrwert","+2.5":"steigung_kehrwert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #16 erklaer-gleichung-k2-c2 · Check · Gleichung aus zwei Punkten · einsetzen
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'ca204655-57c3-46fa-8c0f-9e9ba76298f0'::uuid, 'exercise', 'Check · Gleichung aus zwei Punkten · einsetzen', 'Eine Gerade geht durch die Punkte A(0 | -1) und B(3 | 5).
+
+Bestimme die Funktionsgleichung und berechne damit f(4).',
+  '{"kind":"short_input","prompt":"Eine Gerade geht durch die Punkte A(0 | -1) und B(3 | 5).\n\nBestimme die Funktionsgleichung und berechne damit f(4)."}'::jsonb, 'NUMERIC', 'fkt_linear_gleichung',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Operieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-gleichung-k2-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: m aus zwei Punkten, b aus dem Punkt auf der y-Achse, dann auswerten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'ca204655-57c3-46fa-8c0f-9e9ba76298f0'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'ca204655-57c3-46fa-8c0f-9e9ba76298f0'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'ca204655-57c3-46fa-8c0f-9e9ba76298f0'::uuid,
+  p_correct_answers => '["7","+7"]'::jsonb,
+  p_solution        => 'm = (5 - (-1)) / (3 - 0) = 6 / 3 = 2, b = -1 (A liegt auf der y-Achse).
+f(x) = 2x - 1, f(4) = 2 · 4 - 1 = 7.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Oben B minus A, unten A minus B: m = -2, f(4) = -2 · 4 - 1 = -9.","socratic_question":"Hast du oben und unten mit demselben Punkt angefangen?","fehlbild":"seiten_verwechselt"},{"error":"Rüber durch hoch: m = 1/2, f(4) = 1/2 · 4 - 1 = 1.","socratic_question":"Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?","fehlbild":"steigung_kehrwert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"7","known_errors":{"1":"steigung_kehrwert","-9":"seiten_verwechselt","−9":"seiten_verwechselt","- 9":"seiten_verwechselt","+1":"steigung_kehrwert"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #17 erklaer-gleichung-k3-c1 · Check · Gleichung im Sachzusammenhang · Abnahme
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  '9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3'::uuid, 'exercise', 'Check · Gleichung im Sachzusammenhang · Abnahme', 'In einem Becken stehen 50 cm Wasser. Pro Stunde sinkt der Wasserstand gleichmäßig um 4 cm.
+
+Stelle eine Funktionsgleichung für den Wasserstand nach x Stunden auf. Wie hoch steht das Wasser nach 5 Stunden, in cm?',
+  '{"kind":"short_input","prompt":"In einem Becken stehen 50 cm Wasser. Pro Stunde sinkt der Wasserstand gleichmäßig um 4 cm.\n\nStelle eine Funktionsgleichung für den Wasserstand nach x Stunden auf. Wie hoch steht das Wasser nach 5 Stunden, in cm?"}'::jsonb, 'NUMERIC', 'fkt_linear_gleichung',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-gleichung-k3-c1',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: abnehmende Größe, negative Steigung, dann auswerten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = '9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = '9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => '9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3'::uuid,
+  p_correct_answers => '["30","+30"]'::jsonb,
+  p_solution        => 'h(x) = -4x + 50.
+h(5) = -4 · 5 + 50 = -20 + 50 = 30.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Die Abnahme addiert: 4 · 5 + 50 = 70.","socratic_question":"Wird das Wasser mehr oder weniger?","fehlbild":"vorzeichen_ignoriert"},{"error":"Startwert und Abnahme pro Stunde vertauscht: 50 · 5 - 4 = 246.","socratic_question":"Welche Zahl ist der Wasserstand am Anfang, welche die Änderung pro Stunde?","fehlbild":"groessen_vertauscht"},{"error":"Die Abnahme angegeben statt des Wasserstands: 4 · 5 = 20.","socratic_question":"Ist gefragt, wie viel abgeflossen ist, oder wie hoch das Wasser noch steht?","fehlbild":"falsche_groesse_beantwortet"}]'::jsonb,
+  p_acceptance      => '{"canonical":"30","known_errors":{"20":"falsche_groesse_beantwortet","70":"vorzeichen_ignoriert","246":"groessen_vertauscht","+70":"vorzeichen_ignoriert","+246":"groessen_vertauscht","+20":"falsche_groesse_beantwortet"}}'::jsonb);
+  end if;
+end
+$loesung$;
+
+-- #18 erklaer-gleichung-k3-c2 · Check · Gleichung im Sachzusammenhang · Kosten
+insert into public.tasks (
+  id, content_type, title, question, question_payload, input_type, skill_key,
+  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,
+  est_duration_sec, unit, needs_image, sondierrang, status, source, source_ref,
+  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am, einsatz)
+values (
+  'c370761f-1548-4e76-b0e6-a8037d67c5af'::uuid, 'exercise', 'Check · Gleichung im Sachzusammenhang · Kosten', 'Ein Fitnessstudio verlangt einmalig 20 € Aufnahmegebühr und 15 € pro Monat.
+
+Stelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für 6 Monate.',
+  '{"kind":"short_input","prompt":"Ein Fitnessstudio verlangt einmalig 20 € Aufnahmegebühr und 15 € pro Monat.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für 6 Monate."}'::jsonb, 'NUMERIC', 'fkt_linear_gleichung',
+  null, 8,
+  (select c.id from public.skill_clusters c where c.id = 'edbb548a-54d9-4a8f-8be4-3052f9025524'::uuid),
+  'II', 'funktionen', 'Modellieren',
+  60, null, false, null, 'draft', 'edvance_erklaer_k8_linfkt', 'erklaer-gleichung-k3-c2',
+  false, true, false, false, '[]'::jsonb, '[]'::jsonb,
+  '{"afb":{"art":"neu","grund":"Anwenden: Grundbetrag und Rate zuordnen, dann auswerten.","charge":"erklaer-k8-linfkt-checks"},"est_duration_sec":{"art":"neu","grund":"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext.","charge":"erklaer-k8-linfkt-checks"},"curriculum_grade":{"art":"neu","grund":"skills.klasse_herkunft = 8 (Bestand, dbread).","charge":"erklaer-k8-linfkt-checks"},"cluster_id":{"art":"neu","grund":"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt.","charge":"erklaer-k8-linfkt-checks"},"competency_content":{"art":"neu","grund":"Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).","charge":"erklaer-k8-linfkt-checks"},"competency_process":{"art":"neu","grund":"Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.","charge":"erklaer-k8-linfkt-checks"},"needs_image":{"art":"neu","grund":"Alle Angaben stehen im Text.","charge":"erklaer-k8-linfkt-checks"},"correct_answers":{"art":"neu","grund":"Begruendung in der Charge-CSV (docs/prefill)","charge":"erklaer-k8-linfkt-checks"},"solution":{"art":"neu","grund":"Nachgerechnet.","charge":"erklaer-k8-linfkt-checks"},"typical_errors":{"art":"neu","grund":"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee.","charge":"erklaer-k8-linfkt-checks"},"hints":{"art":"leer","grund":"Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).","charge":"erklaer-k8-linfkt-checks"}}'::jsonb, now(), '{check}'::text[])
+on conflict do nothing;
+do $loesung$
+begin
+  if exists (select 1 from public.tasks t where t.id = 'c370761f-1548-4e76-b0e6-a8037d67c5af'::uuid and t.status = 'draft' and t.source = 'edvance_erklaer_k8_linfkt')
+   and not exists (select 1 from public.task_solutions s where s.task_id = 'c370761f-1548-4e76-b0e6-a8037d67c5af'::uuid) then
+    perform set_config('request.jwt.claim.role', 'service_role', true);
+    perform public.task_solution_upsert(
+  p_task_id         => 'c370761f-1548-4e76-b0e6-a8037d67c5af'::uuid,
+  p_correct_answers => '["110","+110"]'::jsonb,
+  p_solution        => 'K(x) = 15x + 20.
+K(6) = 15 · 6 + 20 = 90 + 20 = 110.',
+  p_hints           => '[]'::jsonb,
+  p_coach_hints     => '[]'::jsonb,
+  p_typical_errors  => '[{"error":"Grundbetrag und Rate vertauscht: 20 · 6 + 15 = 135.","socratic_question":"Welcher Betrag kommt jeden Monat neu dazu, welcher nur einmal?","fehlbild":"groessen_vertauscht"},{"error":"Die Aufnahmegebühr vergessen: 15 · 6 = 90.","socratic_question":"Hast du alles bezahlt, was beim Start fällig ist?","fehlbild":"b_ignoriert"}]'::jsonb,
+  p_acceptance      => '{"canonical":"110","known_errors":{"90":"b_ignoriert","135":"groessen_vertauscht","+135":"groessen_vertauscht","+90":"b_ignoriert"}}'::jsonb);
   end if;
 end
 $loesung$;

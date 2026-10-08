@@ -113,3 +113,42 @@ Keine fachlichen Fehler, alle Punkte an der genannten Stelle, kein Schritt verr�
 | 8 | K3 A | Lücke · kann | Bild zeigt S bei 3, der Text nennt keinen Wert. | **Behoben:** „Hier startet die Gerade bei 3.“ |
 
 Danach: Nachrechnung grün, Blind-Abgleich unverändert (Checks unverändert), Vorschau ohne überlaufenden Bildschirm.
+
+## Skill fkt_linear_gleichung
+
+Prüfer: neuer frischer Subagent (kein Fork), 08.10.2026, Ablauf wie oben.
+
+### Teil 1: Blind-Löser
+
+→ **6/6 = 100 %**, 0 Abweichungen, 0 unsicher. Die Checks von K2 und K3 wurden danach umgestellt (Befund 1, R15);
+Wortlaut und Lösungen sind gleich geblieben, die ids wandern mit dem Inhalt mit, der Abgleich gilt weiter.
+
+| Check (nach der Umstellung) | Löser | hinterlegt |
+|---|---|---|
+| erklaer-gleichung-k1-c1 | 9 | 9 |
+| erklaer-gleichung-k1-c2 | -5 | -5 |
+| erklaer-gleichung-k2-c1 (b bestimmen) | 1 | 1 |
+| erklaer-gleichung-k2-c2 (f(4)) | 7 | 7 |
+| erklaer-gleichung-k3-c1 (Becken) | 30 | 30 |
+| erklaer-gleichung-k3-c2 (Fitnessstudio) | 110 | 110 |
+
+### Teil 2: Befunde und was daraus wurde
+
+Keine fachlichen Fehler, alle Punkte und Dreiecke an der genannten Stelle, kein Schritt verrät einen Check.
+
+| Nr | Ort | Art · Gewicht | Befund | Erledigt |
+|---|---|---|---|---|
+| 1 | K3 C | Variante passt nicht · sollte | Beide Fehlbilder entstehen nur im zweiten Check (Becken). | **Behoben:** Becken ist jetzt der erste Check und hat zusätzlich `groessen_vertauscht` (50 · 5 − 4 = 246), damit auch B erreichbar bleibt. Neue Regel R15 (offener Punkt 18). |
+| 2 | K3 B | Variante passt nicht · sollte | Klartext von `b_ignoriert` („Teilt sofort …“) passt nicht zu „Grundgebühr vergessen“. | **Begründet:** Der Bestand nutzt den Slug genau dafür (`linfkt-gleichung-05`, 6 = 0,30 · 20). Katalogfrage, offener Punkt 15. |
+| 3 | K2 C | Variante passt nicht · sollte | „Gefragt ist b, nicht m“ passt nur zum b-Check. | **Behoben:** „Lies genau, was gefragt ist: m oder b.“ Der b-Check ist jetzt der erste Check (R15: `addiert_statt_subtrahiert` und `falsche_groesse_beantwortet` stehen nur dort). |
+| 4 | K1 C | Variante passt nicht · sollte | Nur negatives m, Check 1 hat negatives b. | **Behoben:** „y-Achsenabschnitt -3: $y = 2x - 3$. Bei x = 2: $4 - 3 = 1$. Nicht $4 + 3 = 7$.“ Dazu „Prüf dein Ergebnis am Bild: über oder unter der x-Achse?“ (betrag_fehler). |
+| 5 | K1 A | Lücke · sollte | f(x) = y nicht gesagt; kein negatives b. | **Behoben:** „Statt y schreibt man auch f(x).“ Beispiel mit $b = -1$, „Ein Minus schreibst du mit.“ |
+| 6 | K2 A Beispiel | Lücke · sollte | Kein Minus vor Minus, Check verlangt 5 − (−1). | **Behoben:** Beispiel A(1\|-2), B(3\|4): $\frac{4 - (-2)}{3 - 1}$, „Minus Minus heißt plus.“ |
+| 7 | K2 A Bild | Lücke · kann | Dreieck rüber 2, hoch 2 zeigt nicht, was oben steht. | **Behoben:** A(1\|2), B(3\|6), rüber 2, hoch 4. |
+| 8 | K3 A | Lücke · kann | Fallender Fall nur ein Satz. | **Behoben:** „15 cm, pro Stunde 2 cm weniger, $h(x) = -2x + 15$.“ |
+| 9 | K1 C | Sprache · kann | „passt nicht zur fallenden Geraden“ setzt etwas voraus. | **Behoben** mit Nr. 4 (Satz entfällt). |
+| 10 | K1 B/C, K3 B | Sprache · kann | „Abschnitt“ und „Rate“ nicht eingeführt. | **Behoben:** „y-Achsenabschnitt“ ausgeschrieben, „Betrag pro Stück“ statt „Rate“. |
+| 11 | K2 A Merksatz | Sprache · kann | Indizes $y_B - y_A$ evtl. neu. | **Begründet, keine Änderung:** derselbe Merksatz wie im abgenommenen Muster (Steigung K2), „hoch durch rüber“ steht im Text. |
+| 12 | Bilder | Lesbarkeit · kann | Namen S und P auf der Geraden. | **Offen**, offener Punkt 17. |
+
+Danach: Nachrechnung grün (mit R15), Vorschau ohne überlaufenden Bildschirm.

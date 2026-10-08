@@ -1,22 +1,22 @@
 # Verifikation erklaer-k8-linfkt-checks
 
-Aufgaben: 12 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
+Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
 
 ## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)
 
 | Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |
 |---|---|---|---|---|
-| hints | 0 | 0 | 0 | 12 |
-| afb | 12 | 0 | 0 | 0 |
-| est_duration_sec | 12 | 0 | 0 | 0 |
-| curriculum_grade | 12 | 0 | 0 | 0 |
-| cluster_id | 12 | 0 | 0 | 0 |
-| competency_content | 12 | 0 | 0 | 0 |
-| competency_process | 12 | 0 | 0 | 0 |
-| needs_image | 12 | 0 | 0 | 0 |
-| correct_answers | 12 | 0 | 0 | 0 |
-| solution | 12 | 0 | 0 | 0 |
-| typical_errors | 12 | 0 | 0 | 0 |
+| hints | 0 | 0 | 0 | 18 |
+| afb | 18 | 0 | 0 | 0 |
+| est_duration_sec | 18 | 0 | 0 | 0 |
+| curriculum_grade | 18 | 0 | 0 | 0 |
+| cluster_id | 18 | 0 | 0 | 0 |
+| competency_content | 18 | 0 | 0 | 0 |
+| competency_process | 18 | 0 | 0 | 0 |
+| needs_image | 18 | 0 | 0 | 0 |
+| correct_answers | 18 | 0 | 0 | 0 |
+| solution | 18 | 0 | 0 | 0 |
+| typical_errors | 18 | 0 | 0 | 0 |
 
 ## Ueberschreibungen (alt → neu)
 
@@ -26,17 +26,17 @@ Aufgaben: 12 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 
 | Feld | vorher leer | jetzt befuellt | bewusst leer | ungeklaert |
 |---|---|---|---|---|
-| tasks.afb | 12 | 12 | 0 | 0 |
-| tasks.est_duration_sec | 12 | 12 | 0 | 0 |
-| tasks.curriculum_grade | 12 | 12 | 0 | 0 |
-| tasks.cluster_id | 12 | 12 | 0 | 0 |
-| tasks.needs_image | 12 | 12 | 0 | 0 |
-| task_solutions.solution | 12 | 12 | 0 | 0 |
-| task_solutions.hints | 12 | 0 | 12 | 0 |
-| task_solutions.typical_errors | 12 | 12 | 0 | 0 |
-| tasks.competency_content | 12 | 12 | 0 | 0 |
-| tasks.competency_process | 12 | 12 | 0 | 0 |
-| task_solutions.correct_answers | 12 | 12 | 0 | 0 |
+| tasks.afb | 18 | 18 | 0 | 0 |
+| tasks.est_duration_sec | 18 | 18 | 0 | 0 |
+| tasks.curriculum_grade | 18 | 18 | 0 | 0 |
+| tasks.cluster_id | 18 | 18 | 0 | 0 |
+| tasks.needs_image | 18 | 18 | 0 | 0 |
+| task_solutions.solution | 18 | 18 | 0 | 0 |
+| task_solutions.hints | 18 | 0 | 18 | 0 |
+| task_solutions.typical_errors | 18 | 18 | 0 | 0 |
+| tasks.competency_content | 18 | 18 | 0 | 0 |
+| tasks.competency_process | 18 | 18 | 0 | 0 |
+| task_solutions.correct_answers | 18 | 18 | 0 | 0 |
 
 ## Charge-Fehler (Gate)
 
@@ -88,6 +88,28 @@ Aufgaben: 12 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #12 Check · Startwert im Sachzusammenhang · Kerze: -3*0+15 = 15 (soll 15)
 - ok  #12 Check · Startwert im Sachzusammenhang · Kerze: -3 = -3 (soll -3)
 - ok  #12 Check · Startwert im Sachzusammenhang · Kerze: 15/3 = 5 (soll 5)
+- ok  #13 Check · Gleichung aus m und b · negatives b: 4*3+(-3) = 9 (soll 9)
+- ok  #13 Check · Gleichung aus m und b · negatives b: -3*3+4 = -5 (soll -5)
+- ok  #13 Check · Gleichung aus m und b · negatives b: 4*3+3 = 15 (soll 15)
+- ok  #14 Check · Gleichung aus m und b · fallend: -4*2+3 = -5 (soll -5)
+- ok  #14 Check · Gleichung aus m und b · fallend: 3*2+(-4) = 2 (soll 2)
+- ok  #14 Check · Gleichung aus m und b · fallend: -(-4*2+3) = 5 (soll 5)
+- ok  #14 Check · Gleichung aus m und b · fallend: 4*2+3 = 11 (soll 11)
+- ok  #15 Check · Gleichung aus zwei Punkten · b bestimmen: 3-(7-3)/(3-1)*1 = 1 (soll 1)
+- ok  #15 Check · Gleichung aus zwei Punkten · b bestimmen: 3+2*1 = 5 (soll 5)
+- ok  #15 Check · Gleichung aus zwei Punkten · b bestimmen: (7-3)/(3-1) = 2 (soll 2)
+- ok  #15 Check · Gleichung aus zwei Punkten · b bestimmen: 3-1/2*1 = 5/2 (soll 5/2)
+- ok  #15 Check · Gleichung aus zwei Punkten · b bestimmen: 3-1/2 = 5/2 (soll 5/2)
+- ok  #16 Check · Gleichung aus zwei Punkten · einsetzen: (5-(-1))/(3-0)*4+(-1) = 7 (soll 7)
+- ok  #16 Check · Gleichung aus zwei Punkten · einsetzen: (5-(-1))/(0-3)*4-1 = -9 (soll -9)
+- ok  #16 Check · Gleichung aus zwei Punkten · einsetzen: 3/6*4-1 = 1 (soll 1)
+- ok  #17 Check · Gleichung im Sachzusammenhang · Abnahme: -4*5+50 = 30 (soll 30)
+- ok  #17 Check · Gleichung im Sachzusammenhang · Abnahme: 4*5+50 = 70 (soll 70)
+- ok  #17 Check · Gleichung im Sachzusammenhang · Abnahme: 50*5-4 = 246 (soll 246)
+- ok  #17 Check · Gleichung im Sachzusammenhang · Abnahme: 4*5 = 20 (soll 20)
+- ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: 15*6+20 = 110 (soll 110)
+- ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: 20*6+15 = 135 (soll 135)
+- ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: 15*6 = 90 (soll 90)
 
 ## Blind-Abgleich (docs/prefill/erklaer-k8-linfkt-checks-blind.json)
 
@@ -103,3 +125,9 @@ Aufgaben: 12 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #10 Check · b aus Steigung und Punkt · fallend: Loeser 7 · gespeichert ["7","+7"]
 - ok  #11 Check · Startwert im Sachzusammenhang · Taxi: Loeser 4 · gespeichert ["4","+4"]
 - ok  #12 Check · Startwert im Sachzusammenhang · Kerze: Loeser 15 · gespeichert ["15","+15"]
+- ok  #13 Check · Gleichung aus m und b · negatives b: Loeser 9 · gespeichert ["9","+9"]
+- ok  #14 Check · Gleichung aus m und b · fallend: Loeser -5 · gespeichert ["-5","−5","- 5"]
+- ok  #15 Check · Gleichung aus zwei Punkten · b bestimmen: Loeser 1 · gespeichert ["1","+1"]
+- ok  #16 Check · Gleichung aus zwei Punkten · einsetzen: Loeser 7 · gespeichert ["7","+7"]
+- ok  #17 Check · Gleichung im Sachzusammenhang · Abnahme: Loeser 30 · gespeichert ["30","+30"]
+- ok  #18 Check · Gleichung im Sachzusammenhang · Kosten: Loeser 110 · gespeichert ["110","+110"]

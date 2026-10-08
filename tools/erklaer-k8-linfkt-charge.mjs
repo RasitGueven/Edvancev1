@@ -19,8 +19,9 @@ import { bilderPython } from './erklaer-lib.mjs';
 import { pruefeCharge } from './erklaer-rechnen.mjs';
 import * as steigung from './erklaer-k8-linfkt/steigung.mjs';
 import * as yabschnitt from './erklaer-k8-linfkt/yabschnitt.mjs';
+import * as gleichung from './erklaer-k8-linfkt/gleichung.mjs';
 
-const MODULE = [steigung, yabschnitt];
+const MODULE = [steigung, yabschnitt, gleichung];
 const PFAD = 'docs/prefill/erklaer-k8-linfkt';
 const BESTAND = `${PFAD}-bestand.json`;
 const AUFGABEN = 'docs/prefill/k8-linfkt.json';

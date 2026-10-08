@@ -1,5 +1,5 @@
--- Erklärsequenzen lineare_funktionen (E2b), Migration 2 von 2 — 6 Kernideen, 23 Schritte,
--- 12 Checks zu fkt_linear_steigung, fkt_linear_yabschnitt.
+-- Erklärsequenzen lineare_funktionen (E2b), Migration 2 von 2 — 9 Kernideen, 35 Schritte,
+-- 18 Checks zu fkt_linear_steigung, fkt_linear_yabschnitt, fkt_linear_gleichung.
 -- Erzeugt von tools/erklaer-build.mjs aus docs/prefill/erklaer-k8-linfkt.json — nicht von Hand editieren.
 --
 -- Einspiel-Reihenfolge: nach der Check-Migration (erklaer_check verweist auf die Check-Aufgaben).
@@ -20,7 +20,10 @@ insert into public.erklaer_kernidee (id, skill_key, nr, titel, status, quelle) v
   ('cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'fkt_linear_steigung', 3, 'Mit der Steigung weiterrechnen', 'entwurf', 'ki'),
   ('af7337eb-f87c-4a1b-b90c-2331ee37d68d'::uuid, 'fkt_linear_yabschnitt', 1, 'b ist der Schnitt mit der y-Achse', 'entwurf', 'ki'),
   ('6e2b6a04-9cec-4388-a92c-25db953337d0'::uuid, 'fkt_linear_yabschnitt', 2, 'b aus Steigung und Punkt berechnen', 'entwurf', 'ki'),
-  ('d22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, 'fkt_linear_yabschnitt', 3, 'b ist der Startwert', 'entwurf', 'ki')
+  ('d22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, 'fkt_linear_yabschnitt', 3, 'b ist der Startwert', 'entwurf', 'ki'),
+  ('9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'fkt_linear_gleichung', 1, 'Gleichung aus m und b, dann einsetzen', 'entwurf', 'ki'),
+  ('e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, 'fkt_linear_gleichung', 2, 'Gleichung aus zwei Punkten', 'entwurf', 'ki'),
+  ('8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'fkt_linear_gleichung', 3, 'Gleichung im Sachzusammenhang', 'entwurf', 'ki')
 on conflict do nothing;
 
 -- fkt_linear_steigung · Kernidee 1 · Variante A · erklaerung
@@ -310,6 +313,158 @@ Ein Tank hat $h(x) = -2x + 8$ Liter. Zu Beginn sind 8 Liter drin. Leer ist er er
   '{"svg_hash":"a3a024e77bf53d4217ee173696f241e81879c07a33c66b82dd0832f258ce47b7","alt":"Fallende Gerade mit dem Startpunkt S auf der y-Achse und dem Punkt N auf der x-Achse."}'::jsonb, '{achsenabschnitt_verwechselt}'::text[], 'entwurf')
 on conflict do nothing;
 
+-- fkt_linear_gleichung · Kernidee 1 · Variante A · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('3c8d474e-0de6-4d22-8511-4e6c03f1d856'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'A', 'erklaerung',
+  '# m und b einsetzen
+
+Eine lineare Funktion hat die Form $y = mx + b$. Statt y schreibt man auch f(x).
+
+Für m setzt du die Steigung ein, für b den y-Achsenabschnitt. Ein Minus schreibst du mit.
+
+Bei $m = 2$ und $b = -1$ heißt sie $y = 2x - 1$.
+
+> $f(x) = mx + b$',
+  '{"svg_hash":"c920d82c69938878bb9ba3b56c939a953d31be903bf53814a7168db8a6dc2c12","alt":"Steigende Gerade mit dem Punkt S auf der y-Achse. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 1 · Variante A · beispiel
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('137437c6-c0e8-473e-b3bb-f5a0b19913b1'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'A', 'beispiel',
+  '# m = -3 und b = 5. Wie groß ist f(2)?
+
+1. Die Gleichung heißt $f(x) = -3x + 5$.
+2. Setz x = 2 ein: $f(2) = -3 \cdot 2 + 5$.
+3. $-6 + 5 = -1$. Also ist f(2) = -1, der Punkt P(2|-1).',
+  '{"svg_hash":"440df1a5468d40b1596e9c6d5a256f05d6487d85cb15a39b03cd3e61c0702ed6","alt":"Fallende Gerade mit dem Punkt S auf der y-Achse und dem Punkt P unterhalb der x-Achse."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 1 · Variante B · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('7765d314-250d-4dcc-a973-ddb836da20a9'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'B', 'erklaerung',
+  '# m steht vor dem x.
+
+Die Steigung gehört direkt vor das x. Der y-Achsenabschnitt steht allein am Ende.
+
+Steigung 3, y-Achsenabschnitt 1: $y = 3x + 1$. Nicht $y = 1x + 3$.
+
+Im Bild startet die Gerade bei S(0|1) und steigt steil.',
+  '{"svg_hash":"37e425537704be9eeb6f5d7d0f089e04a731587a8fb02ad163abd63629faf836","alt":"Steile Gerade mit dem Punkt S auf der y-Achse. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{m_b_vertauscht}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 1 · Variante C · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('70458d07-c30d-46a5-afab-a3f07276db40'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'C', 'erklaerung',
+  '# Das Minus gehört zur Zahl.
+
+Ist m oder b negativ, schreibst du das Minus mit in die Gleichung.
+
+Steigung 2, y-Achsenabschnitt -3: $y = 2x - 3$. Bei x = 2: $4 - 3 = 1$. Nicht $4 + 3 = 7$.
+
+Prüf dein Ergebnis am Bild: Liegt der Punkt über oder unter der x-Achse?',
+  '{"svg_hash":"5a6484f4efc29e27f7b36ad83bff2b36bbe8af7a47afd8c7a85964c5b5455f84","alt":"Steigende Gerade mit dem Punkt S unterhalb der x-Achse auf der y-Achse und dem Punkt P darüber."}'::jsonb, '{vorzeichen_ignoriert,betrag_fehler}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 2 · Variante A · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('80809fb2-761a-451d-990d-29b93787b835'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, 'A', 'erklaerung',
+  '# Erst m, dann b
+
+Aus den Punkten A und B rechnest du zuerst die Steigung: hoch durch rüber.
+
+Dann setzt du einen Punkt ein und rechnest b aus: $b = y - m \cdot x$.
+
+> erst $m = \dfrac{y_B - y_A}{x_B - x_A}$, dann b',
+  '{"svg_hash":"1dfe1d691ee49beae9ee9d18a234cbec86f87a791ceed2259f2025de7a49b8fd","alt":"Steigende Gerade mit den Punkten A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 2 · Variante A · beispiel
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('83537d37-3665-48dd-8975-be30e6c30394'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, 'A', 'beispiel',
+  '# Die Gerade geht durch A(1|-2) und B(3|4).
+
+1. $m = \frac{4 - (-2)}{3 - 1} = \frac{6}{2} = 3$. Minus Minus heißt plus.
+2. A einsetzen: $b = -2 - 3 \cdot 1 = -5$.
+3. Die Gleichung heißt $y = 3x - 5$.',
+  '{"svg_hash":"6a1940703c040f567d6318135bb5574877422c076348d4212290086edfd4f662","alt":"Steigende Gerade mit den Punkten A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 2 · Variante B · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('2681c224-76aa-4f29-85d3-e5be4fa3546b'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, 'B', 'erklaerung',
+  '# Hoch durch rüber, gleiche Reihenfolge
+
+Oben stehen die y-Werte, unten die x-Werte. Fang oben und unten mit demselben Punkt an.
+
+A(1|2) und B(4|8): $m = \frac{8 - 2}{4 - 1} = \frac{6}{3} = 2$.
+
+Nicht $\frac{3}{6}$ und nicht $\frac{8 - 2}{1 - 4} = -2$.',
+  '{"svg_hash":"dab3374fae80e7865b241cca5a830b6a149cfe27a7c33725fcffaabd5a5dee66","alt":"Steigende Gerade mit den Punkten A und B. Ein Steigungsdreieck zeigt, wie weit es rüber und hoch geht."}'::jsonb, '{steigung_kehrwert,seiten_verwechselt}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 2 · Variante C · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('325dbd65-9fe5-4490-b1ee-a853241a8a3c'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, 'C', 'erklaerung',
+  '# Für b wird abgezogen.
+
+Setz einen Punkt in $y = mx + b$ ein. Dann ziehst du $m \cdot x$ auf beiden Seiten ab.
+
+P(2|9) und $m = 3$: $9 = 3 \cdot 2 + b$, also $b = 9 - 6 = 3$.
+
+Nicht $9 + 6 = 15$. Lies genau, was gefragt ist: m oder b.',
+  '{"svg_hash":"a5b4bd8ea2d362aa69f9f375e6acc8a6dfe5234071545b8994d2a5106a845a1d","alt":"Steile Gerade mit dem Punkt P und dem Punkt S auf der y-Achse."}'::jsonb, '{addiert_statt_subtrahiert,falsche_groesse_beantwortet}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 3 · Variante A · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('43a1657b-bf9e-4b87-a89a-61f603da099b'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'A', 'erklaerung',
+  '# Was ist m, was ist b?
+
+Der feste Betrag am Anfang ist b. Was pro Stück, Stunde oder Kilometer dazukommt, ist m.
+
+Nimmt etwas ab, ist m negativ: 15 cm, pro Stunde 2 cm weniger, $h(x) = -2x + 15$.
+
+> Wert = m · Menge + Startwert b',
+  '{"svg_hash":"64b0affda37084274c3f889c538d9c325a498184c32aee535c6d70225d4aeb9f","alt":"Steigende Gerade im ersten Quadranten mit dem Startpunkt S auf der y-Achse. Ein Steigungsdreieck zeigt den Zuwachs pro Einheit."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 3 · Variante A · beispiel
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('a41f8cc9-340a-4dc8-a684-284f12483588'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'A', 'beispiel',
+  '# Eintritt: 3 Euro Grundpreis, 2 Euro pro Stunde
+
+1. Grundpreis $b = 3$, pro Stunde $m = 2$.
+2. Die Gleichung heißt $K(x) = 2x + 3$.
+3. Für 4 Stunden: $K(4) = 2 \cdot 4 + 3 = 11$ Euro.',
+  '{"svg_hash":"f8af467a9c46f0c6b08f24b2815d8b46fce27f3d88df5a10b3782ab9e51ae18d","alt":"Steigende Gerade im ersten Quadranten mit dem Startpunkt S und dem Punkt P."}'::jsonb, '{}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 3 · Variante B · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('f8ebcde5-0352-4ac5-a34b-b6c6d16b5282'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'B', 'erklaerung',
+  '# Grundbetrag einmal, Betrag pro Stück jedes Mal
+
+Der Grundbetrag kommt nur einmal dazu. Der Betrag pro Stück kommt für jedes Stück dazu.
+
+5 Euro Grundgebühr, 2 Euro pro km, 3 km: $2 \cdot 3 + 5 = 11$ Euro.
+
+Nicht $5 \cdot 3 + 2 = 17$. Und nicht nur $2 \cdot 3 = 6$, dann fehlt die Grundgebühr.',
+  '{"svg_hash":"3ddab4de751286f27f3d811fccfbf8191bc15bf70163feee3a0cf7d4d833c03f","alt":"Steigende Gerade im ersten Quadranten mit dem Startpunkt S und dem Punkt P."}'::jsonb, '{groessen_vertauscht,b_ignoriert}'::text[], 'entwurf')
+on conflict do nothing;
+
+-- fkt_linear_gleichung · Kernidee 3 · Variante C · erklaerung
+insert into public.erklaer_schritt (id, kernidee_id, variante, art, inhalt, bild, fehlbild_slugs, status)
+values ('887a710b-9f77-47dd-b419-3644ce5178b5'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'C', 'erklaerung',
+  '# Nimmt es ab, ist m negativ.
+
+Ein Tank hat 12 Liter. Pro Minute fließen 2 Liter ab. Also $V(x) = -2x + 12$.
+
+Nach 4 Minuten: $-2 \cdot 4 + 12 = 4$ Liter. Nicht $2 \cdot 4 + 12 = 20$.
+
+Gefragt ist, was noch drin ist. Nicht die $2 \cdot 4 = 8$ Liter, die abgeflossen sind.',
+  '{"svg_hash":"6cabd7c811739859697efc0dfaadf3b62f66ab9204a585865c3fa1ed61cba7db","alt":"Fallende Gerade im ersten Quadranten mit dem Startpunkt S und dem Punkt P."}'::jsonb, '{vorzeichen_ignoriert,falsche_groesse_beantwortet}'::text[], 'entwurf')
+on conflict do nothing;
+
 insert into public.erklaer_check (kernidee_id, task_id, reihenfolge) values
   -- erklaer-steigung-k1-c1
   ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, '439fc7f8-ec08-40bb-807a-d2df30c5ec73'::uuid, 1),
@@ -334,18 +489,30 @@ insert into public.erklaer_check (kernidee_id, task_id, reihenfolge) values
   -- erklaer-yabschnitt-k3-c1
   ('d22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, '7d2e7681-e25f-449b-86ee-879fad3fdd41'::uuid, 1),
   -- erklaer-yabschnitt-k3-c2
-  ('d22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, '58e43502-1bd9-43da-a51d-89e129e11a3a'::uuid, 2)
+  ('d22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, '58e43502-1bd9-43da-a51d-89e129e11a3a'::uuid, 2),
+  -- erklaer-gleichung-k1-c1
+  ('9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb'::uuid, 1),
+  -- erklaer-gleichung-k1-c2
+  ('9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, '8cd6769f-a01b-4c39-a21d-b43a98be7a1a'::uuid, 2),
+  -- erklaer-gleichung-k2-c1
+  ('e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, '111cb005-dd01-42e5-82c7-b170c2f2b16e'::uuid, 1),
+  -- erklaer-gleichung-k2-c2
+  ('e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, 'ca204655-57c3-46fa-8c0f-9e9ba76298f0'::uuid, 2),
+  -- erklaer-gleichung-k3-c1
+  ('8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, '9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3'::uuid, 1),
+  -- erklaer-gleichung-k3-c2
+  ('8c60d046-68e0-4b63-b06c-23157d216f33'::uuid, 'c370761f-1548-4e76-b0e6-a8037d67c5af'::uuid, 2)
 on conflict do nothing;
 
 -- Prüfungen: Fehlbilder im Katalog, Checks nur mit Einsatz check.
 do $pruefung$
 begin
-  if exists (select 1 from unnest('{achsenabschnitt_verwechselt,addiert_statt_subtrahiert,b_ignoriert,betrag_fehler,groessen_vertauscht,m_b_vertauscht,nur_einmal_addiert,seiten_verwechselt,steigung_kehrwert}'::text[]) s(slug)
+  if exists (select 1 from unnest('{achsenabschnitt_verwechselt,addiert_statt_subtrahiert,b_ignoriert,betrag_fehler,falsche_groesse_beantwortet,groessen_vertauscht,m_b_vertauscht,nur_einmal_addiert,seiten_verwechselt,steigung_kehrwert,vorzeichen_ignoriert}'::text[]) s(slug)
               where not exists (select 1 from public.fehlbild_labels l where l.slug = s.slug)) then
     raise exception 'erklaer: Fehlbild fehlt in fehlbild_labels';
   end if;
   if exists (select 1 from public.erklaer_check c join public.tasks t on t.id = c.task_id
-              where c.kernidee_id in ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'af7337eb-f87c-4a1b-b90c-2331ee37d68d'::uuid, '6e2b6a04-9cec-4388-a92c-25db953337d0'::uuid, 'd22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid)
+              where c.kernidee_id in ('e2dfaac6-3e13-4b38-b759-34f0e8e43552'::uuid, 'daac561b-bc6e-4e80-be21-0281b2cd01c7'::uuid, 'cee436c7-dd3b-4304-87cf-e31193d2e3af'::uuid, 'af7337eb-f87c-4a1b-b90c-2331ee37d68d'::uuid, '6e2b6a04-9cec-4388-a92c-25db953337d0'::uuid, 'd22f7f2c-1295-48ce-ad14-6fdd13ce5c3a'::uuid, '9549c4e4-3b2c-44b1-b827-73a727f497d9'::uuid, 'e07a31ff-e639-4836-8c0b-da67e8749aab'::uuid, '8c60d046-68e0-4b63-b06c-23157d216f33'::uuid)
                 and t.einsatz is distinct from '{check}'::text[]) then
     raise exception 'erklaer: Check-Aufgabe mit anderem Einsatz als check';
   end if;

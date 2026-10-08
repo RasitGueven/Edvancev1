@@ -334,5 +334,173 @@
    "vorbefuellt": {}
   },
   "sol": null
+ },
+ {
+  "task": {
+   "id": "e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb",
+   "title": "Check · Gleichung aus m und b · negatives b",
+   "question": "Eine lineare Funktion f hat die Steigung 4 und den y-Achsenabschnitt -3.\n\nStelle die Funktionsgleichung auf und berechne damit f(3).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine lineare Funktion f hat die Steigung 4 und den y-Achsenabschnitt -3.\n\nStelle die Funktionsgleichung auf und berechne damit f(3)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-gleichung-k1-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8cd6769f-a01b-4c39-a21d-b43a98be7a1a",
+   "title": "Check · Gleichung aus m und b · fallend",
+   "question": "Eine lineare Funktion f hat die Steigung -4 und schneidet die y-Achse bei y = 3.\n\nStelle die Funktionsgleichung auf und berechne damit f(2).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine lineare Funktion f hat die Steigung -4 und schneidet die y-Achse bei y = 3.\n\nStelle die Funktionsgleichung auf und berechne damit f(2)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-gleichung-k1-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "111cb005-dd01-42e5-82c7-b170c2f2b16e",
+   "title": "Check · Gleichung aus zwei Punkten · b bestimmen",
+   "question": "Eine Gerade geht durch die Punkte A(1 | 3) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(1 | 3) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-gleichung-k2-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ca204655-57c3-46fa-8c0f-9e9ba76298f0",
+   "title": "Check · Gleichung aus zwei Punkten · einsetzen",
+   "question": "Eine Gerade geht durch die Punkte A(0 | -1) und B(3 | 5).\n\nBestimme die Funktionsgleichung und berechne damit f(4).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(0 | -1) und B(3 | 5).\n\nBestimme die Funktionsgleichung und berechne damit f(4)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-gleichung-k2-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3",
+   "title": "Check · Gleichung im Sachzusammenhang · Abnahme",
+   "question": "In einem Becken stehen 50 cm Wasser. Pro Stunde sinkt der Wasserstand gleichmäßig um 4 cm.\n\nStelle eine Funktionsgleichung für den Wasserstand nach x Stunden auf. Wie hoch steht das Wasser nach 5 Stunden, in cm?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einem Becken stehen 50 cm Wasser. Pro Stunde sinkt der Wasserstand gleichmäßig um 4 cm.\n\nStelle eine Funktionsgleichung für den Wasserstand nach x Stunden auf. Wie hoch steht das Wasser nach 5 Stunden, in cm?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-gleichung-k3-c1",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c370761f-1548-4e76-b0e6-a8037d67c5af",
+   "title": "Check · Gleichung im Sachzusammenhang · Kosten",
+   "question": "Ein Fitnessstudio verlangt einmalig 20 € Aufnahmegebühr und 15 € pro Monat.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für 6 Monate.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Fitnessstudio verlangt einmalig 20 € Aufnahmegebühr und 15 € pro Monat.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für 6 Monate."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_erklaer_k8_linfkt",
+   "source_ref": "erklaer-gleichung-k3-c2",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
  }
 ]

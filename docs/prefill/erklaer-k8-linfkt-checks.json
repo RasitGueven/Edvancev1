@@ -1,7 +1,7 @@
 {
  "batch": "erklaer-k8-linfkt-checks",
  "kopf": [
-  "Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 12 Check-Aufgaben, nur Einsatz check.",
+  "Erklärsequenzen Lineare Funktionen (E2b), Migration 1 von 2 — 18 Check-Aufgaben, nur Einsatz check.",
   "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/erklaer-k8-linfkt-checks.json (Quelle:",
   "tools/erklaer-k8-linfkt/*.mjs und tools/erklaer-k8-linfkt-charge.mjs) — nicht von Hand editieren.",
   "",
@@ -15,7 +15,8 @@
  "ohne_transaktion": true,
  "ohne_sondierrang": [
   "fkt_linear_steigung",
-  "fkt_linear_yabschnitt"
+  "fkt_linear_yabschnitt",
+  "fkt_linear_gleichung"
  ],
  "ohne_sondierrang_grund": "kein Rang: Check-Aufgaben der Erklaersequenz sondieren nie (Einsatz nur check)",
  "zeitregel": {
@@ -1391,6 +1392,678 @@
      "rechnung": "15/3",
      "antwort": "5",
      "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb",
+   "titel": "Check · Gleichung aus m und b · negatives b",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "erklaer-gleichung-k1-c1",
+    "input_type": "NUMERIC",
+    "frage": "Eine lineare Funktion f hat die Steigung 4 und den y-Achsenabschnitt -3.\n\nStelle die Funktionsgleichung auf und berechne damit f(3).",
+    "known_errors": {
+     "15": "vorzeichen_ignoriert",
+     "-5": "m_b_vertauscht",
+     "−5": "m_b_vertauscht",
+     "- 5": "m_b_vertauscht",
+     "+15": "vorzeichen_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: m und b einsetzen, einmal auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "+9"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "f(x) = 4x - 3.\nf(3) = 4 · 3 - 3 = 12 - 3 = 9.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Steigung und Abschnitt vertauscht: f(x) = -3x + 4, f(3) = -5.",
+       "socratic_question": "Welche Zahl gehört direkt vor das x?",
+       "fehlbild": "m_b_vertauscht"
+      },
+      {
+       "error": "Das Minus von b weggelassen: 4 · 3 + 3 = 15.",
+       "socratic_question": "Ist der y-Achsenabschnitt positiv oder negativ?",
+       "fehlbild": "vorzeichen_ignoriert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*3+(-3)",
+     "antwort": "9"
+    },
+    {
+     "rechnung": "-3*3+4",
+     "antwort": "-5",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "4*3+3",
+     "antwort": "15",
+     "rolle": "fehlbild:vorzeichen_ignoriert"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "8cd6769f-a01b-4c39-a21d-b43a98be7a1a",
+   "titel": "Check · Gleichung aus m und b · fallend",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "erklaer-gleichung-k1-c2",
+    "input_type": "NUMERIC",
+    "frage": "Eine lineare Funktion f hat die Steigung -4 und schneidet die y-Achse bei y = 3.\n\nStelle die Funktionsgleichung auf und berechne damit f(2).",
+    "known_errors": {
+     "2": "m_b_vertauscht",
+     "5": "betrag_fehler",
+     "11": "vorzeichen_ignoriert",
+     "+2": "m_b_vertauscht",
+     "+5": "betrag_fehler",
+     "+11": "vorzeichen_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: m und b einsetzen, negative Steigung."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-5",
+      "−5",
+      "- 5"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "f(x) = -4x + 3.\nf(2) = -4 · 2 + 3 = -8 + 3 = -5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Steigung und Abschnitt vertauscht: f(x) = 3x - 4, f(2) = 2.",
+       "socratic_question": "Welche Zahl gehört direkt vor das x?",
+       "fehlbild": "m_b_vertauscht"
+      },
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: 5 statt -5.",
+       "socratic_question": "Die Gerade fällt. Liegt f(2) über oder unter der x-Achse?",
+       "fehlbild": "betrag_fehler"
+      },
+      {
+       "error": "Das Minus der Steigung weggelassen: 4 · 2 + 3 = 11.",
+       "socratic_question": "Ist die Steigung positiv oder negativ?",
+       "fehlbild": "vorzeichen_ignoriert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-4*2+3",
+     "antwort": "-5"
+    },
+    {
+     "rechnung": "3*2+(-4)",
+     "antwort": "2",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "-(-4*2+3)",
+     "antwort": "5",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "4*2+3",
+     "antwort": "11",
+     "rolle": "fehlbild:vorzeichen_ignoriert"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "111cb005-dd01-42e5-82c7-b170c2f2b16e",
+   "titel": "Check · Gleichung aus zwei Punkten · b bestimmen",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "erklaer-gleichung-k2-c1",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(1 | 3) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?",
+    "known_errors": {
+     "2": "falsche_groesse_beantwortet",
+     "5": "addiert_statt_subtrahiert",
+     "+5": "addiert_statt_subtrahiert",
+     "+2": "falsche_groesse_beantwortet",
+     "5/2": "steigung_kehrwert",
+     "+5/2": "steigung_kehrwert",
+     "2,5": "steigung_kehrwert",
+     "+2,5": "steigung_kehrwert",
+     "2.5": "steigung_kehrwert",
+     "+2.5": "steigung_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: m aus zwei Punkten, dann b durch Einsetzen und Umstellen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1",
+      "+1"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "m = (7 - 3) / (3 - 1) = 4 / 2 = 2.\nA einsetzen: 3 = 2 · 1 + b, also b = 3 - 2 = 1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Beim Umstellen addiert statt abgezogen: b = 3 + 2 = 5.",
+       "socratic_question": "Was musst du auf beiden Seiten tun, damit b allein steht?",
+       "fehlbild": "addiert_statt_subtrahiert"
+      },
+      {
+       "error": "Die Steigung m = 2 angegeben statt b.",
+       "socratic_question": "Welche der beiden Zahlen in y = mx + b ist gesucht?",
+       "fehlbild": "falsche_groesse_beantwortet"
+      },
+      {
+       "error": "Mit dem Kehrwert m = 1/2 gerechnet: b = 3 - 1/2 = 5/2.",
+       "socratic_question": "Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?",
+       "fehlbild": "steigung_kehrwert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3-(7-3)/(3-1)*1",
+     "antwort": "1"
+    },
+    {
+     "rechnung": "3+2*1",
+     "antwort": "5",
+     "rolle": "fehlbild:addiert_statt_subtrahiert"
+    },
+    {
+     "rechnung": "(7-3)/(3-1)",
+     "antwort": "2",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    },
+    {
+     "rechnung": "3-1/2*1",
+     "antwort": "5/2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "3-1/2",
+     "antwort": "2,5",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "ca204655-57c3-46fa-8c0f-9e9ba76298f0",
+   "titel": "Check · Gleichung aus zwei Punkten · einsetzen",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "erklaer-gleichung-k2-c2",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(0 | -1) und B(3 | 5).\n\nBestimme die Funktionsgleichung und berechne damit f(4).",
+    "known_errors": {
+     "1": "steigung_kehrwert",
+     "-9": "seiten_verwechselt",
+     "−9": "seiten_verwechselt",
+     "- 9": "seiten_verwechselt",
+     "+1": "steigung_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: m aus zwei Punkten, b aus dem Punkt auf der y-Achse, dann auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "m = (5 - (-1)) / (3 - 0) = 6 / 3 = 2, b = -1 (A liegt auf der y-Achse).\nf(x) = 2x - 1, f(4) = 2 · 4 - 1 = 7.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Oben B minus A, unten A minus B: m = -2, f(4) = -2 · 4 - 1 = -9.",
+       "socratic_question": "Hast du oben und unten mit demselben Punkt angefangen?",
+       "fehlbild": "seiten_verwechselt"
+      },
+      {
+       "error": "Rüber durch hoch: m = 1/2, f(4) = 1/2 · 4 - 1 = 1.",
+       "socratic_question": "Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?",
+       "fehlbild": "steigung_kehrwert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(5-(-1))/(3-0)*4+(-1)",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "(5-(-1))/(0-3)*4-1",
+     "antwort": "-9",
+     "rolle": "fehlbild:seiten_verwechselt"
+    },
+    {
+     "rechnung": "3/6*4-1",
+     "antwort": "1",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3",
+   "titel": "Check · Gleichung im Sachzusammenhang · Abnahme",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "erklaer-gleichung-k3-c1",
+    "input_type": "NUMERIC",
+    "frage": "In einem Becken stehen 50 cm Wasser. Pro Stunde sinkt der Wasserstand gleichmäßig um 4 cm.\n\nStelle eine Funktionsgleichung für den Wasserstand nach x Stunden auf. Wie hoch steht das Wasser nach 5 Stunden, in cm?",
+    "known_errors": {
+     "20": "falsche_groesse_beantwortet",
+     "70": "vorzeichen_ignoriert",
+     "246": "groessen_vertauscht",
+     "+70": "vorzeichen_ignoriert",
+     "+246": "groessen_vertauscht",
+     "+20": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: abnehmende Größe, negative Steigung, dann auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "30",
+      "+30"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "h(x) = -4x + 50.\nh(5) = -4 · 5 + 50 = -20 + 50 = 30.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Abnahme addiert: 4 · 5 + 50 = 70.",
+       "socratic_question": "Wird das Wasser mehr oder weniger?",
+       "fehlbild": "vorzeichen_ignoriert"
+      },
+      {
+       "error": "Startwert und Abnahme pro Stunde vertauscht: 50 · 5 - 4 = 246.",
+       "socratic_question": "Welche Zahl ist der Wasserstand am Anfang, welche die Änderung pro Stunde?",
+       "fehlbild": "groessen_vertauscht"
+      },
+      {
+       "error": "Die Abnahme angegeben statt des Wasserstands: 4 · 5 = 20.",
+       "socratic_question": "Ist gefragt, wie viel abgeflossen ist, oder wie hoch das Wasser noch steht?",
+       "fehlbild": "falsche_groesse_beantwortet"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-4*5+50",
+     "antwort": "30"
+    },
+    {
+     "rechnung": "4*5+50",
+     "antwort": "70",
+     "rolle": "fehlbild:vorzeichen_ignoriert"
+    },
+    {
+     "rechnung": "50*5-4",
+     "antwort": "246",
+     "rolle": "fehlbild:groessen_vertauscht"
+    },
+    {
+     "rechnung": "4*5",
+     "antwort": "20",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "c370761f-1548-4e76-b0e6-a8037d67c5af",
+   "titel": "Check · Gleichung im Sachzusammenhang · Kosten",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "erklaer-gleichung-k3-c2",
+    "input_type": "NUMERIC",
+    "frage": "Ein Fitnessstudio verlangt einmalig 20 € Aufnahmegebühr und 15 € pro Monat.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für 6 Monate.",
+    "known_errors": {
+     "90": "b_ignoriert",
+     "135": "groessen_vertauscht",
+     "+135": "groessen_vertauscht",
+     "+90": "b_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Grundbetrag und Rate zuordnen, dann auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "skills.klasse_herkunft = 8 (Bestand, dbread)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "110",
+      "+110"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+    },
+    "solution": {
+     "wert": "K(x) = 15x + 20.\nK(6) = 15 · 6 + 20 = 90 + 20 = 110.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Grundbetrag und Rate vertauscht: 20 · 6 + 15 = 135.",
+       "socratic_question": "Welcher Betrag kommt jeden Monat neu dazu, welcher nur einmal?",
+       "fehlbild": "groessen_vertauscht"
+      },
+      {
+       "error": "Die Aufnahmegebühr vergessen: 15 · 6 = 90.",
+       "socratic_question": "Hast du alles bezahlt, was beim Start fällig ist?",
+       "fehlbild": "b_ignoriert"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+    }
+   },
+   "leer": {
+    "hints": "Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32)."
+   },
+   "pruefung": [
+    {
+     "rechnung": "15*6+20",
+     "antwort": "110"
+    },
+    {
+     "rechnung": "20*6+15",
+     "antwort": "135",
+     "rolle": "fehlbild:groessen_vertauscht"
+    },
+    {
+     "rechnung": "15*6",
+     "antwort": "90",
+     "rolle": "fehlbild:b_ignoriert"
     }
    ]
   }

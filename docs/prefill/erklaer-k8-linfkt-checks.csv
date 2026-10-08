@@ -150,3 +150,81 @@ Probe: f(0) = -2 · 0 + 6 = 6.",neu,hoch,Nachgerechnet.
 58e43502-1bd9-43da-a51d-89e129e11a3a,erklaer-yabschnitt-k3-c2,,typical_errors,"[{""error"":""Die Änderung pro Stunde angegeben statt der Anfangshöhe."",""socratic_question"":""Welche Zahl sagt, wie hoch die Kerze ist, bevor sie brennt?"",""fehlbild"":""groessen_vertauscht""},{""error"":""Die Nullstelle angegeben: Nach 5 Stunden ist die Kerze abgebrannt."",""socratic_question"":""Ist nach dem Anfang oder nach dem Ende gefragt?"",""fehlbild"":""achsenabschnitt_verwechselt""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
 58e43502-1bd9-43da-a51d-89e129e11a3a,erklaer-yabschnitt-k3-c2,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
 58e43502-1bd9-43da-a51d-89e129e11a3a,erklaer-yabschnitt-k3-c2,,acceptance.known_errors (keine UI),"{""5"":""achsenabschnitt_verwechselt"",""-3"":""groessen_vertauscht"",""−3"":""groessen_vertauscht"",""- 3"":""groessen_vertauscht"",""+5"":""achsenabschnitt_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,afb,I,neu,mittel,"Reproduzieren: m und b einsetzen, einmal auswerten."
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,est_duration_sec,45,neu,mittel,"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,curriculum_grade,8,neu,hoch,"skills.klasse_herkunft = 8 (Bestand, dbread)."
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,competency_content,funktionen,neu,hoch,Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,competency_process,Operieren,neu,mittel,Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,needs_image,false,neu,hoch,Alle Angaben stehen im Text.
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,correct_answers,"[""9"",""+9""]",neu,hoch,"Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,solution,"f(x) = 4x - 3.
+f(3) = 4 · 3 - 3 = 12 - 3 = 9.",neu,hoch,Nachgerechnet.
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,typical_errors,"[{""error"":""Steigung und Abschnitt vertauscht: f(x) = -3x + 4, f(3) = -5."",""socratic_question"":""Welche Zahl gehört direkt vor das x?"",""fehlbild"":""m_b_vertauscht""},{""error"":""Das Minus von b weggelassen: 4 · 3 + 3 = 15."",""socratic_question"":""Ist der y-Achsenabschnitt positiv oder negativ?"",""fehlbild"":""vorzeichen_ignoriert""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
+e84865b2-c51d-4ddc-8bda-ea4c7ffe28bb,erklaer-gleichung-k1-c1,,acceptance.known_errors (keine UI),"{""15"":""vorzeichen_ignoriert"",""-5"":""m_b_vertauscht"",""−5"":""m_b_vertauscht"",""- 5"":""m_b_vertauscht"",""+15"":""vorzeichen_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,afb,I,neu,mittel,"Reproduzieren: m und b einsetzen, negative Steigung."
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,est_duration_sec,45,neu,mittel,"Zeitregel wie k8-linfkt: AFB I, kein Sachkontext."
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,curriculum_grade,8,neu,hoch,"skills.klasse_herkunft = 8 (Bestand, dbread)."
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,competency_content,funktionen,neu,hoch,Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,competency_process,Operieren,neu,mittel,Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,needs_image,false,neu,hoch,Alle Angaben stehen im Text.
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,correct_answers,"[""-5"",""−5"",""- 5""]",neu,hoch,"Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,solution,"f(x) = -4x + 3.
+f(2) = -4 · 2 + 3 = -8 + 3 = -5.",neu,hoch,Nachgerechnet.
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,typical_errors,"[{""error"":""Steigung und Abschnitt vertauscht: f(x) = 3x - 4, f(2) = 2."",""socratic_question"":""Welche Zahl gehört direkt vor das x?"",""fehlbild"":""m_b_vertauscht""},{""error"":""Betrag richtig, Vorzeichen gekippt: 5 statt -5."",""socratic_question"":""Die Gerade fällt. Liegt f(2) über oder unter der x-Achse?"",""fehlbild"":""betrag_fehler""},{""error"":""Das Minus der Steigung weggelassen: 4 · 2 + 3 = 11."",""socratic_question"":""Ist die Steigung positiv oder negativ?"",""fehlbild"":""vorzeichen_ignoriert""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
+8cd6769f-a01b-4c39-a21d-b43a98be7a1a,erklaer-gleichung-k1-c2,,acceptance.known_errors (keine UI),"{""2"":""m_b_vertauscht"",""5"":""betrag_fehler"",""11"":""vorzeichen_ignoriert"",""+2"":""m_b_vertauscht"",""+5"":""betrag_fehler"",""+11"":""vorzeichen_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,afb,II,neu,mittel,"Anwenden: m aus zwei Punkten, dann b durch Einsetzen und Umstellen."
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,est_duration_sec,60,neu,mittel,"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,curriculum_grade,8,neu,hoch,"skills.klasse_herkunft = 8 (Bestand, dbread)."
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,competency_content,funktionen,neu,hoch,Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,competency_process,Operieren,neu,mittel,Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,needs_image,false,neu,hoch,Alle Angaben stehen im Text.
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,correct_answers,"[""1"",""+1""]",neu,hoch,"Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,solution,"m = (7 - 3) / (3 - 1) = 4 / 2 = 2.
+A einsetzen: 3 = 2 · 1 + b, also b = 3 - 2 = 1.",neu,hoch,Nachgerechnet.
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,typical_errors,"[{""error"":""Beim Umstellen addiert statt abgezogen: b = 3 + 2 = 5."",""socratic_question"":""Was musst du auf beiden Seiten tun, damit b allein steht?"",""fehlbild"":""addiert_statt_subtrahiert""},{""error"":""Die Steigung m = 2 angegeben statt b."",""socratic_question"":""Welche der beiden Zahlen in y = mx + b ist gesucht?"",""fehlbild"":""falsche_groesse_beantwortet""},{""error"":""Mit dem Kehrwert m = 1/2 gerechnet: b = 3 - 1/2 = 5/2."",""socratic_question"":""Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?"",""fehlbild"":""steigung_kehrwert""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
+111cb005-dd01-42e5-82c7-b170c2f2b16e,erklaer-gleichung-k2-c1,,acceptance.known_errors (keine UI),"{""2"":""falsche_groesse_beantwortet"",""5"":""addiert_statt_subtrahiert"",""+5"":""addiert_statt_subtrahiert"",""+2"":""falsche_groesse_beantwortet"",""5/2"":""steigung_kehrwert"",""+5/2"":""steigung_kehrwert"",""2,5"":""steigung_kehrwert"",""+2,5"":""steigung_kehrwert"",""2.5"":""steigung_kehrwert"",""+2.5"":""steigung_kehrwert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,afb,II,neu,mittel,"Anwenden: m aus zwei Punkten, b aus dem Punkt auf der y-Achse, dann auswerten."
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,est_duration_sec,60,neu,mittel,"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,curriculum_grade,8,neu,hoch,"skills.klasse_herkunft = 8 (Bestand, dbread)."
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,competency_content,funktionen,neu,hoch,Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,competency_process,Operieren,neu,mittel,Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,needs_image,false,neu,hoch,Alle Angaben stehen im Text.
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,correct_answers,"[""7"",""+7""]",neu,hoch,"Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,solution,"m = (5 - (-1)) / (3 - 0) = 6 / 3 = 2, b = -1 (A liegt auf der y-Achse).
+f(x) = 2x - 1, f(4) = 2 · 4 - 1 = 7.",neu,hoch,Nachgerechnet.
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,typical_errors,"[{""error"":""Oben B minus A, unten A minus B: m = -2, f(4) = -2 · 4 - 1 = -9."",""socratic_question"":""Hast du oben und unten mit demselben Punkt angefangen?"",""fehlbild"":""seiten_verwechselt""},{""error"":""Rüber durch hoch: m = 1/2, f(4) = 1/2 · 4 - 1 = 1."",""socratic_question"":""Welche Werte gehören nach oben in den Bruch: die x-Werte oder die y-Werte?"",""fehlbild"":""steigung_kehrwert""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
+ca204655-57c3-46fa-8c0f-9e9ba76298f0,erklaer-gleichung-k2-c2,,acceptance.known_errors (keine UI),"{""1"":""steigung_kehrwert"",""-9"":""seiten_verwechselt"",""−9"":""seiten_verwechselt"",""- 9"":""seiten_verwechselt"",""+1"":""steigung_kehrwert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,afb,II,neu,mittel,"Anwenden: abnehmende Größe, negative Steigung, dann auswerten."
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,est_duration_sec,60,neu,mittel,"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,curriculum_grade,8,neu,hoch,"skills.klasse_herkunft = 8 (Bestand, dbread)."
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,competency_content,funktionen,neu,hoch,Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,competency_process,Modellieren,neu,mittel,Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,needs_image,false,neu,hoch,Alle Angaben stehen im Text.
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,correct_answers,"[""30"",""+30""]",neu,hoch,"Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,solution,"h(x) = -4x + 50.
+h(5) = -4 · 5 + 50 = -20 + 50 = 30.",neu,hoch,Nachgerechnet.
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,typical_errors,"[{""error"":""Die Abnahme addiert: 4 · 5 + 50 = 70."",""socratic_question"":""Wird das Wasser mehr oder weniger?"",""fehlbild"":""vorzeichen_ignoriert""},{""error"":""Startwert und Abnahme pro Stunde vertauscht: 50 · 5 - 4 = 246."",""socratic_question"":""Welche Zahl ist der Wasserstand am Anfang, welche die Änderung pro Stunde?"",""fehlbild"":""groessen_vertauscht""},{""error"":""Die Abnahme angegeben statt des Wasserstands: 4 · 5 = 20."",""socratic_question"":""Ist gefragt, wie viel abgeflossen ist, oder wie hoch das Wasser noch steht?"",""fehlbild"":""falsche_groesse_beantwortet""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
+9ea9a1bf-a20b-4ec7-8c57-d0db00b0fdd3,erklaer-gleichung-k3-c1,,acceptance.known_errors (keine UI),"{""20"":""falsche_groesse_beantwortet"",""70"":""vorzeichen_ignoriert"",""246"":""groessen_vertauscht"",""+70"":""vorzeichen_ignoriert"",""+246"":""groessen_vertauscht"",""+20"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,afb,II,neu,mittel,"Anwenden: Grundbetrag und Rate zuordnen, dann auswerten."
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,est_duration_sec,60,neu,mittel,"Zeitregel wie k8-linfkt: AFB II, kein Sachkontext."
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,curriculum_grade,8,neu,hoch,"skills.klasse_herkunft = 8 (Bestand, dbread)."
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Aufgaben der Charge k8-linfkt."
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,competency_content,funktionen,neu,hoch,Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7).
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,competency_process,Modellieren,neu,mittel,Check der Erklärsequenz: das Verfahren der Kernidee einmal anwenden.
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,needs_image,false,neu,hoch,Alle Angaben stehen im Text.
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,correct_answers,"[""110"",""+110""]",neu,hoch,"Nachgerechnet; Komma/Punkt und Minus/Plus-Formen wie k8-linfkt."
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,solution,"K(x) = 15x + 20.
+K(6) = 15 · 6 + 20 = 90 + 20 = 110.",neu,hoch,Nachgerechnet.
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,typical_errors,"[{""error"":""Grundbetrag und Rate vertauscht: 20 · 6 + 15 = 135."",""socratic_question"":""Welcher Betrag kommt jeden Monat neu dazu, welcher nur einmal?"",""fehlbild"":""groessen_vertauscht""},{""error"":""Die Aufnahmegebühr vergessen: 15 · 6 = 90."",""socratic_question"":""Hast du alles bezahlt, was beim Start fällig ist?"",""fehlbild"":""b_ignoriert""}]",neu,hoch,"Aus acceptance.known_errors; jedes Fehlbild zeigt auf eine Variante der Kernidee."
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,hints,,bewusst leer,,Check der Erklärsequenz: Hinweise gibt es nur in der Kernarbeit (Entscheidung 32).
+c370761f-1548-4e76-b0e6-a8037d67c5af,erklaer-gleichung-k3-c2,,acceptance.known_errors (keine UI),"{""90"":""b_ignoriert"",""135"":""groessen_vertauscht"",""+135"":""groessen_vertauscht"",""+90"":""b_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
