@@ -206,11 +206,15 @@
       "lsaSicher": "in der LSA sicher",
       "tiefer": "eine Stufe tiefer",
       "kernideen": "Kernidee {{sicher}} sicher · Kernidee {{aktuell}} in Runde {{runde}}",
+      "kernideenOhneSicher": "Kernidee {{aktuell}} in Runde {{runde}}",
       "ankunft": "{{zeit}} · {{count}} Minuten nach Beginn"
     },
     "grund": {
       "ueberQuote": "Über der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden schwerer.",
+      "ueberQuoteZahl": "{{richtig}} von {{von}} ohne Hinweis richtig, über der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden schwerer.",
       "unterQuote": "Unter der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden leichter.",
+      "unterQuoteZahl": "{{richtig}} von {{von}} ohne Hinweis richtig, unter der Ziel-Erfolgsquote ({{quote}}): Die nächsten Aufgaben werden leichter.",
+      "imZiel": "{{richtig}} von {{von}} ohne Hinweis richtig, im Zielbereich um {{quote}}, gleiche Stufe.",
       "eingemischt": "Ältere Aufgabe eingemischt (Anteil {{anteil}}).",
       "tiefer": "Eine Stufe tiefer gesetzt."
     },
@@ -273,12 +277,15 @@
     "titelErledigt": "Pfad für die Kernarbeit",
     "frage": "Kernarbeit eine Stufe tiefer beginnen?",
     "erklaerung": "Statt „{{plan}}“ zuerst „{{tiefer}}“ aus Klasse {{klasse}}.",
+    "erklaerungOhneKlasse": "Statt „{{plan}}“ zuerst „{{tiefer}}“.",
     "belegWarmup": "Warm-up: {{skill}} {{richtig}} von {{von}}",
     "belegFehlbild": "Gleiches Fehlbild wie am {{datum}}: {{fehlbild}}",
+    "belegFehlbildHeute": "Fehlbild heute: {{fehlbild}}",
     "belegThema": "Das Schulthema {{thema}} baut darauf auf",
     "tiefer": "Eine Stufe tiefer",
     "plan": "Beim Plan bleiben",
     "entschiedenTiefer": "Eine Stufe tiefer: {{skill}} (Kl. {{klasse}})",
+    "entschiedenTieferOhneKlasse": "Eine Stufe tiefer: {{skill}}",
     "entschiedenPlan": "Beim Plan: {{skill}}",
     "entschiedenVon": "entschieden von {{von}} um {{zeit}}",
     "aendern": "Ändern"

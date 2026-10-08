@@ -1,0 +1,3161 @@
+{
+    "raum_kern": {
+        "stand": "2026-10-08T10:37:30.736896+02:00",
+        "kinder": [
+            {
+                "fall": "schulthema",
+                "name": "Emir Beispiel",
+                "phase": "kern",
+                "klasse": 8,
+                "status": "laeuft",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.72596+02:00",
+                    "phase": "kern",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_v2 Nr 7: Wie viel ist 3 + 4?",
+                        "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d"
+                    },
+                    "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+                    "skill_key": "zz_a2_v2",
+                    "eingemischt": true,
+                    "nr_in_phase": 4
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "aufgabe",
+                    "zeit": "2026-10-08T10:37:30.725905+02:00",
+                    "grund": "Eingemischt: Proportionale Zuordnung, länger nicht geübt (Voraussetzung von Terme und Gleichungen)",
+                    "modus": "gefuehrt",
+                    "phase": "kern",
+                    "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+                    "skill_key": "zz_a2_v2",
+                    "grund_code": "gemischt",
+                    "eingemischt": true,
+                    "skill_label": "Proportionale Zuordnung",
+                    "schwierigkeit": 2
+                },
+                "signale": [
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 1,
+                "fall_coach": null,
+                "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.57142+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.602792+02:00",
+                        "phase": "warmup",
+                        "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.615206+02:00",
+                        "phase": "warmup",
+                        "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.647687+02:00",
+                        "phase": "warmup",
+                        "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.716307+02:00",
+                        "phase": "kern",
+                        "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.720278+02:00",
+                        "phase": "kern",
+                        "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 1
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.723363+02:00",
+                        "phase": "kern",
+                        "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.726215+02:00",
+                        "phase": "kern",
+                        "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": true,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": null,
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_terme",
+                "ziel_thema_key": "zz_a2_terme",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 1,
+                "mastery_kandidat": null,
+                "ziel_thema_label": "Terme und Gleichungen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.726215+02:00",
+                "pfad_entscheidung": {
+                    "zeit": "2026-10-08T10:37:30.711788+02:00",
+                    "entscheidung": "plan"
+                },
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            },
+            {
+                "fall": "schulthema",
+                "name": "Mila Beispiel",
+                "phase": "kern",
+                "klasse": 8,
+                "status": "kandidat",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.67445+02:00",
+                    "phase": "kern",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_s1 Nr 12: Wie viel ist 3 + 4?",
+                        "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a"
+                    },
+                    "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                    "skill_key": "zz_a2_s1",
+                    "eingemischt": false,
+                    "nr_in_phase": 1
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "aufgabe",
+                    "zeit": "2026-10-08T10:37:30.67437+02:00",
+                    "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 2, geführt",
+                    "modus": "gefuehrt",
+                    "phase": "kern",
+                    "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                    "skill_key": "zz_a2_s1",
+                    "grund_code": "kern",
+                    "eingemischt": false,
+                    "skill_label": "Klammern ausmultiplizieren",
+                    "schwierigkeit": 2
+                },
+                "signale": [
+                    {
+                        "art": "kandidat",
+                        "rang": 0,
+                        "seit": "2026-10-08T10:37:30.6745+02:00",
+                        "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                        "details": {
+                            "art": "kandidat",
+                            "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                            "label": "Minus vor der Klammer",
+                            "skill_key": "zz_a2_v1",
+                            "grund_code": "mastery_kandidat"
+                        },
+                        "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34"
+                    }
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 2,
+                "fall_coach": null,
+                "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.572674+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.656522+02:00",
+                        "phase": "warmup",
+                        "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.663193+02:00",
+                        "phase": "warmup",
+                        "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.667424+02:00",
+                        "phase": "warmup",
+                        "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": null,
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_terme",
+                "ziel_thema_key": "zz_a2_terme",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 0,
+                "mastery_kandidat": {
+                    "seit": "2026-10-08T10:37:30.6745+02:00",
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1",
+                    "stand_coach": null,
+                    "pruefung_vorhanden": true
+                },
+                "ziel_thema_label": "Terme und Gleichungen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.667424+02:00",
+                "pfad_entscheidung": null,
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            },
+            {
+                "fall": "schulthema",
+                "name": "Jonas Beispiel",
+                "phase": "kern",
+                "klasse": 8,
+                "status": "laeuft",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.681808+02:00",
+                    "phase": "warmup",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_v2 Nr 1: Wie viel ist 3 + 4?",
+                        "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e"
+                    },
+                    "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                    "skill_key": "zz_a2_v2",
+                    "eingemischt": false,
+                    "nr_in_phase": 3
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "erklaerung",
+                    "zeit": "2026-10-08T10:37:30.728857+02:00",
+                    "grund": "Neuer Skill Steigung: Erklärsequenz vorgeschaltet",
+                    "modus": "gefuehrt",
+                    "phase": "kern",
+                    "task_id": null,
+                    "skill_key": "zz_a2_n1",
+                    "grund_code": "neu_erklaerung",
+                    "eingemischt": false,
+                    "skill_label": "Steigung",
+                    "schwierigkeit": null
+                },
+                "signale": [
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 3,
+                "fall_coach": "schulthema",
+                "student_id": "f51d59f4-14d1-4057-907f-d76314714aa7",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.573206+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.677629+02:00",
+                        "phase": "warmup",
+                        "task_id": "34d54295-900e-488f-a96a-e8b5eafaee45",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.680183+02:00",
+                        "phase": "warmup",
+                        "task_id": "650ec0fb-7e1b-4093-bdd4-a0309c13d8ca",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.682077+02:00",
+                        "phase": "warmup",
+                        "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": {
+                    "zeit": "2026-10-08T10:37:30.475503+02:00",
+                    "label": "Steigung",
+                    "runde": 2,
+                    "stand": "gezeigt",
+                    "variante": "B",
+                    "kernideen": 2,
+                    "skill_key": "zz_a2_n1",
+                    "kernidee_nr": 1,
+                    "fehlbild_slug": "zz_c3_vz",
+                    "kernidee_titel": "Steigung pro Schritt nach rechts",
+                    "kernideen_fertig": 0
+                },
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_linear",
+                "ziel_thema_key": "zz_a2_linear",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 0,
+                "mastery_kandidat": null,
+                "ziel_thema_label": "Lineare Funktionen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.682077+02:00",
+                "pfad_entscheidung": null,
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            }
+        ],
+        "session": {
+            "id": "da09355f-6abb-4167-89cd-ca71abea5587",
+            "room": "Raum 1",
+            "status": "active",
+            "testlauf": false,
+            "beendet_am": null,
+            "coach_name": "A2 Coach A",
+            "gestartet_am": "2026-10-08T10:17:30.475503+02:00",
+            "scheduled_at": "2026-10-08T10:37:30.475503+02:00",
+            "einstellungen": {
+                "ka_tage": 7,
+                "quest_xp": 50,
+                "mischanteil": 0.30,
+                "exit_aufgaben": 2,
+                "hinweisstufen": 3,
+                "kernideen_max": 3,
+                "quest_minuten": 10,
+                "thema_alt_tage": 21,
+                "warmup_aufgaben": 3,
+                "phase_warmup_min": 10,
+                "quests_pro_woche": 2,
+                "home_quests_aktiv": false,
+                "phase_checkin_min": 5,
+                "ziel_erfolgsquote": 0.80,
+                "phase_checkout_min": 5,
+                "signal_fehlversuche": 2,
+                "mikro_erklaerung_min": 2,
+                "quest_a_abstand_tage": 2,
+                "session_xp_je_aufgabe": 10,
+                "warmup_leichter_stufen": 1,
+                "erklaerrunden_bis_signal": 2,
+                "mastery_abstand_sessions": 1,
+                "check_aufgaben_je_kernidee": 1,
+                "erklaerung_bei_neuem_skill": "vorgeschaltet",
+                "mastery_kandidaten_je_raum": 3,
+                "mastery_richtig_ohne_hinweis": 2,
+                "loesungsbeispiele_vor_aufgabe": 1,
+                "signal_minuten_ohne_fortschritt": 3,
+                "erklaerung_anbieten_nach_fehlversuchen": 2
+            },
+            "mastery_bestaetigt": 0
+        },
+        "signale": [
+            {
+                "art": "kandidat",
+                "rang": 0,
+                "seit": "2026-10-08T10:37:30.6745+02:00",
+                "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                "details": {
+                    "art": "kandidat",
+                    "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1",
+                    "grund_code": "mastery_kandidat"
+                },
+                "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34"
+            }
+        ]
+    },
+    "raum_grund": {
+        "stand": "2026-10-08T10:37:30.782052+02:00",
+        "kinder": [
+            {
+                "fall": "schulthema",
+                "name": "Lea Beispiel",
+                "phase": "kern",
+                "klasse": 8,
+                "status": "haengt",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.779424+02:00",
+                    "phase": "kern",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_s1 Nr 1: Wie viel ist 3 + 4?",
+                        "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9"
+                    },
+                    "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+                    "skill_key": "zz_a2_s1",
+                    "eingemischt": false,
+                    "nr_in_phase": 6
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "aufgabe",
+                    "zeit": "2026-10-08T10:37:30.779316+02:00",
+                    "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 1, eine Stufe leichter (0 von 5 ohne Hinweis richtig), geführt",
+                    "modus": "gefuehrt",
+                    "phase": "kern",
+                    "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+                    "skill_key": "zz_a2_s1",
+                    "grund_code": "kern",
+                    "eingemischt": false,
+                    "skill_label": "Klammern ausmultiplizieren",
+                    "schwierigkeit": 1
+                },
+                "signale": [
+                    {
+                        "art": "haengt",
+                        "rang": 2,
+                        "seit": "2026-10-08T10:37:30.764186+02:00",
+                        "grund": "fehlversuche",
+                        "details": {
+                            "anzahl": 5,
+                            "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74"
+                        },
+                        "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4"
+                    }
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 1,
+                "fall_coach": "schulthema",
+                "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.751467+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.760275+02:00",
+                        "phase": "kern",
+                        "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.764186+02:00",
+                        "phase": "kern",
+                        "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.768442+02:00",
+                        "phase": "kern",
+                        "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.772137+02:00",
+                        "phase": "kern",
+                        "task_id": "7b2e91a3-3e24-4409-9ea8-558020190b1d",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.775513+02:00",
+                        "phase": "kern",
+                        "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": null,
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_terme",
+                "ziel_thema_key": "zz_a2_terme",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 0,
+                "mastery_kandidat": null,
+                "ziel_thema_label": "Terme und Gleichungen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.775513+02:00",
+                "pfad_entscheidung": null,
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            }
+        ],
+        "session": {
+            "id": "a31c1fe5-1d4b-4196-8f63-b01bc34796f2",
+            "room": "Raum 2",
+            "status": "active",
+            "testlauf": false,
+            "beendet_am": null,
+            "coach_name": "A2 Coach A",
+            "gestartet_am": "2026-10-08T10:17:30.475503+02:00",
+            "scheduled_at": "2026-10-08T10:37:30.475503+02:00",
+            "einstellungen": {
+                "ka_tage": 7,
+                "quest_xp": 50,
+                "mischanteil": 0,
+                "exit_aufgaben": 2,
+                "hinweisstufen": 3,
+                "kernideen_max": 3,
+                "quest_minuten": 10,
+                "thema_alt_tage": 21,
+                "warmup_aufgaben": 3,
+                "phase_warmup_min": 10,
+                "quests_pro_woche": 2,
+                "home_quests_aktiv": false,
+                "phase_checkin_min": 5,
+                "ziel_erfolgsquote": 0.80,
+                "phase_checkout_min": 5,
+                "signal_fehlversuche": 2,
+                "mikro_erklaerung_min": 2,
+                "quest_a_abstand_tage": 2,
+                "session_xp_je_aufgabe": 10,
+                "warmup_leichter_stufen": 1,
+                "erklaerrunden_bis_signal": 2,
+                "mastery_abstand_sessions": 1,
+                "check_aufgaben_je_kernidee": 1,
+                "erklaerung_bei_neuem_skill": "vorgeschaltet",
+                "mastery_kandidaten_je_raum": 3,
+                "mastery_richtig_ohne_hinweis": 2,
+                "loesungsbeispiele_vor_aufgabe": 1,
+                "signal_minuten_ohne_fortschritt": 3,
+                "erklaerung_anbieten_nach_fehlversuchen": 2
+            },
+            "mastery_bestaetigt": 0
+        },
+        "signale": [
+            {
+                "art": "haengt",
+                "rang": 2,
+                "seit": "2026-10-08T10:37:30.764186+02:00",
+                "grund": "fehlversuche",
+                "details": {
+                    "anzahl": 5,
+                    "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74"
+                },
+                "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4"
+            }
+        ]
+    },
+    "raum_warmup": {
+        "stand": "2026-10-08T10:37:30.692742+02:00",
+        "kinder": [
+            {
+                "fall": "schulthema",
+                "name": "Emir Beispiel",
+                "phase": "warmup",
+                "klasse": 8,
+                "status": "entscheidung",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.646438+02:00",
+                    "phase": "warmup",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_v1 Nr 6: Wie viel ist 3 + 4?",
+                        "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564"
+                    },
+                    "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                    "skill_key": "zz_a2_v1",
+                    "eingemischt": false,
+                    "nr_in_phase": 3
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "warten",
+                    "zeit": "2026-10-08T10:37:30.65074+02:00",
+                    "grund": "Warm-up fertig: Entscheidung des Coaches offen (eine Stufe tiefer?)",
+                    "modus": null,
+                    "phase": "warmup",
+                    "task_id": null,
+                    "skill_key": "zz_a2_s1",
+                    "grund_code": "warten_entscheidung",
+                    "eingemischt": false,
+                    "skill_label": "Klammern ausmultiplizieren",
+                    "schwierigkeit": null
+                },
+                "signale": [
+                    {
+                        "art": "entscheidung",
+                        "rang": 1,
+                        "seit": "2026-10-08T10:37:30.650867+02:00",
+                        "grund": "Entscheidung: eine Stufe tiefer? 2 Fehlversuche bei Minus vor der Klammer im Warm-up",
+                        "details": {
+                            "art": "entscheidung",
+                            "grund": "Entscheidung: eine Stufe tiefer? 2 Fehlversuche bei Minus vor der Klammer im Warm-up",
+                            "skill_key": "zz_a2_v1",
+                            "grund_code": "entscheidung_tiefer",
+                            "warmup_richtig": 1,
+                            "ziel_skill_key": "zz_a2_s1",
+                            "warmup_aufgaben": 3,
+                            "voraussetzung_label": "Minus vor der Klammer",
+                            "voraussetzung_skill_key": "zz_a2_v1"
+                        },
+                        "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0"
+                    }
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 1,
+                "fall_coach": null,
+                "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.57142+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.602792+02:00",
+                        "phase": "warmup",
+                        "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.615206+02:00",
+                        "phase": "warmup",
+                        "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.647687+02:00",
+                        "phase": "warmup",
+                        "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                        "ergebnis": "falsch",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": null,
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_terme",
+                "ziel_thema_key": "zz_a2_terme",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 0,
+                "mastery_kandidat": null,
+                "ziel_thema_label": "Terme und Gleichungen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.647687+02:00",
+                "pfad_entscheidung": null,
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            },
+            {
+                "fall": "schulthema",
+                "name": "Mila Beispiel",
+                "phase": "kern",
+                "klasse": 8,
+                "status": "kandidat",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.67445+02:00",
+                    "phase": "kern",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_s1 Nr 12: Wie viel ist 3 + 4?",
+                        "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a"
+                    },
+                    "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                    "skill_key": "zz_a2_s1",
+                    "eingemischt": false,
+                    "nr_in_phase": 1
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "aufgabe",
+                    "zeit": "2026-10-08T10:37:30.67437+02:00",
+                    "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 2, geführt",
+                    "modus": "gefuehrt",
+                    "phase": "kern",
+                    "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                    "skill_key": "zz_a2_s1",
+                    "grund_code": "kern",
+                    "eingemischt": false,
+                    "skill_label": "Klammern ausmultiplizieren",
+                    "schwierigkeit": 2
+                },
+                "signale": [
+                    {
+                        "art": "kandidat",
+                        "rang": 0,
+                        "seit": "2026-10-08T10:37:30.6745+02:00",
+                        "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                        "details": {
+                            "art": "kandidat",
+                            "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                            "label": "Minus vor der Klammer",
+                            "skill_key": "zz_a2_v1",
+                            "grund_code": "mastery_kandidat"
+                        },
+                        "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34"
+                    }
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 2,
+                "fall_coach": null,
+                "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.572674+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.656522+02:00",
+                        "phase": "warmup",
+                        "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.663193+02:00",
+                        "phase": "warmup",
+                        "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.667424+02:00",
+                        "phase": "warmup",
+                        "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": null,
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_terme",
+                "ziel_thema_key": "zz_a2_terme",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 0,
+                "mastery_kandidat": {
+                    "seit": "2026-10-08T10:37:30.6745+02:00",
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1",
+                    "stand_coach": null,
+                    "pruefung_vorhanden": true
+                },
+                "ziel_thema_label": "Terme und Gleichungen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.667424+02:00",
+                "pfad_entscheidung": null,
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            },
+            {
+                "fall": "schulthema",
+                "name": "Jonas Beispiel",
+                "phase": "warmup",
+                "klasse": 8,
+                "status": "laeuft",
+                "aufgabe": {
+                    "seit": "2026-10-08T10:37:30.681808+02:00",
+                    "phase": "warmup",
+                    "payload": {
+                        "kind": "short_input",
+                        "assets": [
+                        ],
+                        "prompt": "ZZ A2 zz_a2_v2 Nr 1: Wie viel ist 3 + 4?",
+                        "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e"
+                    },
+                    "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                    "skill_key": "zz_a2_v2",
+                    "eingemischt": false,
+                    "nr_in_phase": 3
+                },
+                "quest_b": null,
+                "schritt": {
+                    "art": "aufgabe",
+                    "zeit": "2026-10-08T10:37:30.681746+02:00",
+                    "grund": "Warm-up 3 von 3: Voraussetzung von Lineare Funktionen, eine Stufe leichter",
+                    "modus": "selbststaendig",
+                    "phase": "warmup",
+                    "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                    "skill_key": "zz_a2_v2",
+                    "grund_code": "warmup_voraussetzung",
+                    "eingemischt": false,
+                    "skill_label": "Proportionale Zuordnung",
+                    "schwierigkeit": 1
+                },
+                "signale": [
+                ],
+                "stimmung": "gut",
+                "abschluss": null,
+                "eingriffe": [
+                ],
+                "tablet_nr": 3,
+                "fall_coach": "schulthema",
+                "student_id": "f51d59f4-14d1-4057-907f-d76314714aa7",
+                "anwesenheit": "present",
+                "tablet_seit": "2026-10-08T10:37:30.573206+02:00",
+                "ergebnisfolge": [
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.677629+02:00",
+                        "phase": "warmup",
+                        "task_id": "34d54295-900e-488f-a96a-e8b5eafaee45",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.680183+02:00",
+                        "phase": "warmup",
+                        "task_id": "650ec0fb-7e1b-4093-bdd4-a0309c13d8ca",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    },
+                    {
+                        "teil": null,
+                        "zeit": "2026-10-08T10:37:30.682077+02:00",
+                        "phase": "warmup",
+                        "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                        "ergebnis": "richtig",
+                        "versuch_nr": 1,
+                        "eingemischt": false,
+                        "hinweisstufe_max": 0
+                    }
+                ],
+                "mastery_heute": [
+                ],
+                "thema_antwort": "noch_dran",
+                "checkin_fertig": true,
+                "erklaersequenz": null,
+                "fall_vorschlag": "schulthema",
+                "schulthema_key": "zz_a2_linear",
+                "ziel_thema_key": "zz_a2_linear",
+                "thema_stichwort": null,
+                "hinweise_genutzt": 0,
+                "mastery_kandidat": null,
+                "ziel_thema_label": "Lineare Funktionen",
+                "letzte_eingabe_am": "2026-10-08T10:37:30.682077+02:00",
+                "pfad_entscheidung": null,
+                "klassenarbeit_datum": null,
+                "pruefung_auf_tablet": null
+            }
+        ],
+        "session": {
+            "id": "da09355f-6abb-4167-89cd-ca71abea5587",
+            "room": "Raum 1",
+            "status": "active",
+            "testlauf": false,
+            "beendet_am": null,
+            "coach_name": "A2 Coach A",
+            "gestartet_am": "2026-10-08T10:31:30.475503+02:00",
+            "scheduled_at": "2026-10-08T10:37:30.475503+02:00",
+            "einstellungen": {
+                "ka_tage": 7,
+                "quest_xp": 50,
+                "mischanteil": 0.30,
+                "exit_aufgaben": 2,
+                "hinweisstufen": 3,
+                "kernideen_max": 3,
+                "quest_minuten": 10,
+                "thema_alt_tage": 21,
+                "warmup_aufgaben": 3,
+                "phase_warmup_min": 10,
+                "quests_pro_woche": 2,
+                "home_quests_aktiv": false,
+                "phase_checkin_min": 5,
+                "ziel_erfolgsquote": 0.80,
+                "phase_checkout_min": 5,
+                "signal_fehlversuche": 2,
+                "mikro_erklaerung_min": 2,
+                "quest_a_abstand_tage": 2,
+                "session_xp_je_aufgabe": 10,
+                "warmup_leichter_stufen": 1,
+                "erklaerrunden_bis_signal": 2,
+                "mastery_abstand_sessions": 1,
+                "check_aufgaben_je_kernidee": 1,
+                "erklaerung_bei_neuem_skill": "vorgeschaltet",
+                "mastery_kandidaten_je_raum": 3,
+                "mastery_richtig_ohne_hinweis": 2,
+                "loesungsbeispiele_vor_aufgabe": 1,
+                "signal_minuten_ohne_fortschritt": 3,
+                "erklaerung_anbieten_nach_fehlversuchen": 2
+            },
+            "mastery_bestaetigt": 0
+        },
+        "signale": [
+            {
+                "art": "kandidat",
+                "rang": 0,
+                "seit": "2026-10-08T10:37:30.6745+02:00",
+                "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                "details": {
+                    "art": "kandidat",
+                    "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1",
+                    "grund_code": "mastery_kandidat"
+                },
+                "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34"
+            },
+            {
+                "art": "entscheidung",
+                "rang": 1,
+                "seit": "2026-10-08T10:37:30.650867+02:00",
+                "grund": "Entscheidung: eine Stufe tiefer? 2 Fehlversuche bei Minus vor der Klammer im Warm-up",
+                "details": {
+                    "art": "entscheidung",
+                    "grund": "Entscheidung: eine Stufe tiefer? 2 Fehlversuche bei Minus vor der Klammer im Warm-up",
+                    "skill_key": "zz_a2_v1",
+                    "grund_code": "entscheidung_tiefer",
+                    "warmup_richtig": 1,
+                    "ziel_skill_key": "zz_a2_s1",
+                    "warmup_aufgaben": 3,
+                    "voraussetzung_label": "Minus vor der Klammer",
+                    "voraussetzung_skill_key": "zz_a2_v1"
+                },
+                "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0"
+            }
+        ]
+    },
+    "briefing_kern": [
+        {
+            "name": "Emir Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Terme und Gleichungen",
+                "thema_key": "zz_a2_terme",
+                "nachfragen": false
+            },
+            "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": {
+                "label": "Klammern ausmultiplizieren",
+                "quelle": "lernpfad",
+                "skill_key": "zz_a2_s1"
+            },
+            "pruefungen_faellig": [
+            ]
+        },
+        {
+            "name": "Jonas Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Lineare Funktionen",
+                "thema_key": "zz_a2_linear",
+                "nachfragen": false
+            },
+            "student_id": "f51d59f4-14d1-4057-907f-d76314714aa7",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": null,
+            "pruefungen_faellig": [
+            ]
+        },
+        {
+            "name": "Mila Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Terme und Gleichungen",
+                "thema_key": "zz_a2_terme",
+                "nachfragen": false
+            },
+            "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": null,
+            "pruefungen_faellig": [
+                {
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1"
+                }
+            ]
+        }
+    ],
+    "briefing_grund": [
+        {
+            "name": "Lea Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Terme und Gleichungen",
+                "thema_key": "zz_a2_terme",
+                "nachfragen": false
+            },
+            "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": {
+                "label": "Klammern ausmultiplizieren",
+                "quelle": "lernpfad",
+                "skill_key": "zz_a2_s1"
+            },
+            "pruefungen_faellig": [
+            ]
+        }
+    ],
+    "briefing_warmup": [
+        {
+            "name": "Emir Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Terme und Gleichungen",
+                "thema_key": "zz_a2_terme",
+                "nachfragen": false
+            },
+            "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": {
+                "label": "Minus vor der Klammer",
+                "quelle": "lernpfad",
+                "skill_key": "zz_a2_v1"
+            },
+            "pruefungen_faellig": [
+            ]
+        },
+        {
+            "name": "Jonas Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Lineare Funktionen",
+                "thema_key": "zz_a2_linear",
+                "nachfragen": false
+            },
+            "student_id": "f51d59f4-14d1-4057-907f-d76314714aa7",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": null,
+            "pruefungen_faellig": [
+            ]
+        },
+        {
+            "name": "Mila Beispiel",
+            "klasse": 8,
+            "schulthema": {
+                "seit": "2026-10-08T10:37:30.475503+02:00",
+                "tage": 0,
+                "label": "Terme und Gleichungen",
+                "thema_key": "zz_a2_terme",
+                "nachfragen": false
+            },
+            "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+            "flags_offen": [
+            ],
+            "quests_woche": {
+                "offen": 0,
+                "erledigt": 0
+            },
+            "erste_session": true,
+            "klassenarbeit": null,
+            "letzte_session": null,
+            "naechste_luecke": null,
+            "pruefungen_faellig": [
+                {
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1"
+                }
+            ]
+        }
+    ],
+    "detail_grund_Lea": {
+        "fall": "schulthema",
+        "name": "Lea Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.751467+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 5,
+                "label": "Klammern ausmultiplizieren",
+                "richtig": 0,
+                "hinweise": 0,
+                "abschnitt": "kern",
+                "skill_key": "zz_a2_s1"
+            }
+        ],
+        "phase": "kern",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.779424+02:00",
+            "phase": "kern",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 1: Wie viel ist 3 + 4?",
+                "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9"
+            },
+            "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+            "skill_key": "zz_a2_s1",
+            "eingemischt": false,
+            "nr_in_phase": 6
+        },
+        "schritt": {
+            "art": "aufgabe",
+            "zeit": "2026-10-08T10:37:30.779316+02:00",
+            "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 1, eine Stufe leichter (0 von 5 ohne Hinweis richtig), geführt",
+            "modus": "gefuehrt",
+            "phase": "kern",
+            "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+            "skill_key": "zz_a2_s1",
+            "grund_code": "kern",
+            "eingemischt": false,
+            "skill_label": "Klammern ausmultiplizieren",
+            "schwierigkeit": 1
+        },
+        "signale": [
+            {
+                "art": "haengt",
+                "rang": 2,
+                "seit": "2026-10-08T10:37:30.764186+02:00",
+                "grund": "fehlversuche",
+                "details": {
+                    "anzahl": 5,
+                    "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74"
+                },
+                "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4"
+            }
+        ],
+        "hinweise": [
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.760275+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.764186+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.768442+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.772137+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "7b2e91a3-3e24-4409-9ea8-558020190b1d",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.775513+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 1,
+        "fall_coach": "schulthema",
+        "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.751467+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.760275+02:00",
+                "phase": "kern",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.764186+02:00",
+                "phase": "kern",
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.768442+02:00",
+                "phase": "kern",
+                "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.772137+02:00",
+                "phase": "kern",
+                "task_id": "7b2e91a3-3e24-4409-9ea8-558020190b1d",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.775513+02:00",
+                "phase": "kern",
+                "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 1: Wie viel ist 3 + 4?",
+                "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9"
+            },
+            "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": null,
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+        ],
+        "erklaersequenz": null,
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": null,
+        "schulthema_key": "zz_a2_terme",
+        "ziel_thema_key": "zz_a2_terme",
+        "schritt_details": {
+            "von": 5,
+            "ziel": 0.80,
+            "richtig": 0,
+            "aenderung": -1
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 0,
+        "mastery_kandidat": null,
+        "ziel_thema_label": "Terme und Gleichungen",
+        "erklaer_kernideen": [
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.775513+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "detail_kern_Emir": {
+        "fall": "schulthema",
+        "name": "Emir Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.57142+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 3,
+                "label": "Minus vor der Klammer",
+                "richtig": 1,
+                "hinweise": 0,
+                "abschnitt": "warmup",
+                "skill_key": "zz_a2_v1"
+            },
+            {
+                "von": 3,
+                "label": "Klammern ausmultiplizieren",
+                "richtig": 1,
+                "hinweise": 1,
+                "abschnitt": "kern",
+                "skill_key": "zz_a2_s1"
+            },
+            {
+                "von": 1,
+                "label": "Proportionale Zuordnung",
+                "richtig": 1,
+                "hinweise": 0,
+                "abschnitt": "eingemischt",
+                "skill_key": "zz_a2_v2"
+            }
+        ],
+        "phase": "kern",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.72596+02:00",
+            "phase": "kern",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_v2 Nr 7: Wie viel ist 3 + 4?",
+                "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d"
+            },
+            "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+            "skill_key": "zz_a2_v2",
+            "eingemischt": true,
+            "nr_in_phase": 4
+        },
+        "schritt": {
+            "art": "aufgabe",
+            "zeit": "2026-10-08T10:37:30.725905+02:00",
+            "grund": "Eingemischt: Proportionale Zuordnung, länger nicht geübt (Voraussetzung von Terme und Gleichungen)",
+            "modus": "gefuehrt",
+            "phase": "kern",
+            "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+            "skill_key": "zz_a2_v2",
+            "grund_code": "gemischt",
+            "eingemischt": true,
+            "skill_label": "Proportionale Zuordnung",
+            "schwierigkeit": 2
+        },
+        "signale": [
+        ],
+        "hinweise": [
+            {
+                "text": "ZZ Hinweis: Zaehle weiter.",
+                "zeit": "2026-10-08T10:37:30.720021+02:00",
+                "stufe": 1,
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965"
+            }
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.602792+02:00",
+                "phase": "warmup",
+                "eingabe": "0",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": "zz_c3_vz",
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": "Nur das erste Vorzeichen geändert"
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.615206+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.647687+02:00",
+                "phase": "warmup",
+                "eingabe": "0",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": "zz_c3_vz",
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": "Nur das erste Vorzeichen geändert"
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.716307+02:00",
+                "phase": "kern",
+                "eingabe": "7",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.720278+02:00",
+                "phase": "kern",
+                "eingabe": "7",
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 1,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.723363+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.726215+02:00",
+                "phase": "kern",
+                "eingabe": "7",
+                "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 1,
+        "fall_coach": null,
+        "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.57142+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.602792+02:00",
+                "phase": "warmup",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.615206+02:00",
+                "phase": "warmup",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.647687+02:00",
+                "phase": "warmup",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.716307+02:00",
+                "phase": "kern",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.720278+02:00",
+                "phase": "kern",
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 1
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.723363+02:00",
+                "phase": "kern",
+                "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.726215+02:00",
+                "phase": "kern",
+                "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": true,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_v2 Nr 7: Wie viel ist 3 + 4?",
+                "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d"
+            },
+            "task_id": "2b6bc500-7311-484f-a4d5-461c618c543d",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": "7",
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+            {
+                "von": "a2a2a2a2-0001-4000-8000-000000000002",
+                "zeit": "2026-10-08T10:37:30.711788+02:00",
+                "quelle": "coach",
+                "entscheidung": "plan"
+            }
+        ],
+        "erklaersequenz": null,
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": {
+            "seit": "2026-10-08T10:37:30.650867+02:00",
+            "label": "Minus vor der Klammer",
+            "offen": false,
+            "klasse": 7,
+            "fehlbild": "Nur das erste Vorzeichen geändert",
+            "skill_key": "zz_a2_v1",
+            "ziel_label": "Klammern ausmultiplizieren",
+            "fehlbild_am": "2026-09-29T10:37:30.475503+02:00",
+            "thema_label": "Terme und Gleichungen",
+            "warmup_richtig": 1,
+            "ziel_skill_key": "zz_a2_s1",
+            "warmup_aufgaben": 3
+        },
+        "schulthema_key": "zz_a2_terme",
+        "ziel_thema_key": "zz_a2_terme",
+        "schritt_details": {
+            "mischanteil": 0.30
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 1,
+        "mastery_kandidat": null,
+        "ziel_thema_label": "Terme und Gleichungen",
+        "erklaer_kernideen": [
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.726215+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "detail_kern_Mila": {
+        "fall": "schulthema",
+        "name": "Mila Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.572674+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 3,
+                "label": "Minus vor der Klammer",
+                "richtig": 3,
+                "hinweise": 0,
+                "abschnitt": "warmup",
+                "skill_key": "zz_a2_v1"
+            },
+            {
+                "von": 0,
+                "label": "Klammern ausmultiplizieren",
+                "richtig": 0,
+                "hinweise": 0,
+                "abschnitt": "kern",
+                "skill_key": "zz_a2_s1"
+            }
+        ],
+        "phase": "kern",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.67445+02:00",
+            "phase": "kern",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 12: Wie viel ist 3 + 4?",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a"
+            },
+            "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+            "skill_key": "zz_a2_s1",
+            "eingemischt": false,
+            "nr_in_phase": 1
+        },
+        "schritt": {
+            "art": "aufgabe",
+            "zeit": "2026-10-08T10:37:30.67437+02:00",
+            "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 2, geführt",
+            "modus": "gefuehrt",
+            "phase": "kern",
+            "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+            "skill_key": "zz_a2_s1",
+            "grund_code": "kern",
+            "eingemischt": false,
+            "skill_label": "Klammern ausmultiplizieren",
+            "schwierigkeit": 2
+        },
+        "signale": [
+            {
+                "art": "kandidat",
+                "rang": 0,
+                "seit": "2026-10-08T10:37:30.6745+02:00",
+                "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                "details": {
+                    "art": "kandidat",
+                    "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1",
+                    "grund_code": "mastery_kandidat"
+                },
+                "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34"
+            }
+        ],
+        "hinweise": [
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.656522+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.663193+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.667424+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 2,
+        "fall_coach": null,
+        "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.572674+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.656522+02:00",
+                "phase": "warmup",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.663193+02:00",
+                "phase": "warmup",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.667424+02:00",
+                "phase": "warmup",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 12: Wie viel ist 3 + 4?",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a"
+            },
+            "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": null,
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+        ],
+        "erklaersequenz": null,
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": null,
+        "schulthema_key": "zz_a2_terme",
+        "ziel_thema_key": "zz_a2_terme",
+        "schritt_details": {
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 0,
+        "mastery_kandidat": {
+            "seit": "2026-10-08T10:37:30.6745+02:00",
+            "label": "Minus vor der Klammer",
+            "skill_key": "zz_a2_v1",
+            "stand_coach": null,
+            "pruefung_vorhanden": true
+        },
+        "ziel_thema_label": "Terme und Gleichungen",
+        "erklaer_kernideen": [
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.667424+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "detail_alt_signal": {
+        "fall": "schulthema",
+        "name": "Lea Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.751467+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 5,
+                "label": "Klammern ausmultiplizieren",
+                "richtig": 0,
+                "hinweise": 0,
+                "abschnitt": "kern",
+                "skill_key": "zz_a2_s1"
+            }
+        ],
+        "phase": "kern",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.779424+02:00",
+            "phase": "kern",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 1: Wie viel ist 3 + 4?",
+                "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9"
+            },
+            "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+            "skill_key": "zz_a2_s1",
+            "eingemischt": false,
+            "nr_in_phase": 6
+        },
+        "schritt": {
+            "art": "aufgabe",
+            "zeit": "2026-10-08T10:37:30.779316+02:00",
+            "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 1, eine Stufe leichter (0 von 5 ohne Hinweis richtig), geführt",
+            "modus": "gefuehrt",
+            "phase": "kern",
+            "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+            "skill_key": "zz_a2_s1",
+            "grund_code": "kern",
+            "eingemischt": false,
+            "skill_label": "Klammern ausmultiplizieren",
+            "schwierigkeit": 1
+        },
+        "signale": [
+            {
+                "art": "entscheidung",
+                "rang": 1,
+                "seit": "2026-10-08T10:37:30.78925+02:00",
+                "grund": "Entscheidung: eine Stufe tiefer?",
+                "details": {
+                    "art": "entscheidung",
+                    "grund": "Entscheidung: eine Stufe tiefer?",
+                    "skill_key": "zz_a2_v2",
+                    "grund_code": "entscheidung_tiefer",
+                    "ziel_skill_key": "zz_a2_s1"
+                },
+                "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4"
+            },
+            {
+                "art": "haengt",
+                "rang": 2,
+                "seit": "2026-10-08T10:37:30.764186+02:00",
+                "grund": "fehlversuche",
+                "details": {
+                    "anzahl": 5,
+                    "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74"
+                },
+                "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4"
+            }
+        ],
+        "hinweise": [
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.760275+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.764186+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.768442+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.772137+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "7b2e91a3-3e24-4409-9ea8-558020190b1d",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.775513+02:00",
+                "phase": "kern",
+                "eingabe": "0",
+                "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 1,
+        "fall_coach": "schulthema",
+        "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.751467+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.760275+02:00",
+                "phase": "kern",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.764186+02:00",
+                "phase": "kern",
+                "task_id": "61bd914b-70fc-4cb8-bd80-68d1d0843965",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.768442+02:00",
+                "phase": "kern",
+                "task_id": "6a16f58f-18cc-464a-86ac-5f91e25301af",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.772137+02:00",
+                "phase": "kern",
+                "task_id": "7b2e91a3-3e24-4409-9ea8-558020190b1d",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.775513+02:00",
+                "phase": "kern",
+                "task_id": "8e622ad6-2712-4e92-a0a1-b2d2dbd7ff74",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 1: Wie viel ist 3 + 4?",
+                "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9"
+            },
+            "task_id": "000e0373-4517-4070-a168-bfc4be3f18d9",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": null,
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+        ],
+        "erklaersequenz": null,
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": {
+            "seit": "2026-10-08T10:37:30.78925+02:00",
+            "label": "Proportionale Zuordnung",
+            "offen": true,
+            "klasse": 7,
+            "fehlbild": null,
+            "skill_key": "zz_a2_v2",
+            "ziel_label": "Klammern ausmultiplizieren",
+            "fehlbild_am": null,
+            "thema_label": "Terme und Gleichungen",
+            "warmup_richtig": null,
+            "ziel_skill_key": "zz_a2_s1",
+            "warmup_aufgaben": null
+        },
+        "schulthema_key": "zz_a2_terme",
+        "ziel_thema_key": "zz_a2_terme",
+        "schritt_details": {
+            "von": 5,
+            "ziel": 0.80,
+            "richtig": 0,
+            "aenderung": -1
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 0,
+        "mastery_kandidat": null,
+        "ziel_thema_label": "Terme und Gleichungen",
+        "erklaer_kernideen": [
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.775513+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "detail_kern_Jonas": {
+        "fall": "schulthema",
+        "name": "Jonas Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.573206+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 3,
+                "label": "Proportionale Zuordnung",
+                "richtig": 3,
+                "hinweise": 0,
+                "abschnitt": "warmup",
+                "skill_key": "zz_a2_v2"
+            },
+            {
+                "label": "Steigung",
+                "runde": 2,
+                "sicher": 0,
+                "aktuell": 1,
+                "abschnitt": "erklaerung",
+                "skill_key": "zz_a2_n1"
+            }
+        ],
+        "phase": "kern",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.681808+02:00",
+            "phase": "warmup",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_v2 Nr 1: Wie viel ist 3 + 4?",
+                "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e"
+            },
+            "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+            "skill_key": "zz_a2_v2",
+            "eingemischt": false,
+            "nr_in_phase": 3
+        },
+        "schritt": {
+            "art": "erklaerung",
+            "zeit": "2026-10-08T10:37:30.728857+02:00",
+            "grund": "Neuer Skill Steigung: Erklärsequenz vorgeschaltet",
+            "modus": "gefuehrt",
+            "phase": "kern",
+            "task_id": null,
+            "skill_key": "zz_a2_n1",
+            "grund_code": "neu_erklaerung",
+            "eingemischt": false,
+            "skill_label": "Steigung",
+            "schwierigkeit": null
+        },
+        "signale": [
+        ],
+        "hinweise": [
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.677629+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "34d54295-900e-488f-a96a-e8b5eafaee45",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.680183+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "650ec0fb-7e1b-4093-bdd4-a0309c13d8ca",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.682077+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 3,
+        "fall_coach": "schulthema",
+        "student_id": "f51d59f4-14d1-4057-907f-d76314714aa7",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.573206+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.677629+02:00",
+                "phase": "warmup",
+                "task_id": "34d54295-900e-488f-a96a-e8b5eafaee45",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.680183+02:00",
+                "phase": "warmup",
+                "task_id": "650ec0fb-7e1b-4093-bdd4-a0309c13d8ca",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.682077+02:00",
+                "phase": "warmup",
+                "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_v2 Nr 1: Wie viel ist 3 + 4?",
+                "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e"
+            },
+            "task_id": "e412b54f-b7b7-481f-83d7-d857b951406e",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": "7",
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+        ],
+        "erklaersequenz": {
+            "zeit": "2026-10-08T10:37:30.475503+02:00",
+            "label": "Steigung",
+            "runde": 2,
+            "stand": "gezeigt",
+            "variante": "B",
+            "kernideen": 2,
+            "skill_key": "zz_a2_n1",
+            "kernidee_nr": 1,
+            "fehlbild_slug": "zz_c3_vz",
+            "kernidee_titel": "Steigung pro Schritt nach rechts",
+            "kernideen_fertig": 0
+        },
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": null,
+        "schulthema_key": "zz_a2_linear",
+        "ziel_thema_key": "zz_a2_linear",
+        "schritt_details": {
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 0,
+        "mastery_kandidat": null,
+        "ziel_thema_label": "Lineare Funktionen",
+        "erklaer_kernideen": [
+            {
+                "nr": 1,
+                "runde": 2,
+                "stand": "laeuft",
+                "titel": "Steigung pro Schritt nach rechts",
+                "fehlbild": "Nur das erste Vorzeichen geändert",
+                "variante": "B"
+            },
+            {
+                "nr": 2,
+                "runde": null,
+                "stand": "offen",
+                "titel": "y-Achsenabschnitt ablesen",
+                "fehlbild": null,
+                "variante": null
+            }
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.682077+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "pruefung_zz_a2_v1": [
+        {
+            "id": "d70020ee-08b5-4385-97fd-0767064887b3",
+            "frage": "Rechne −(3x − 5) aus und erklär mir, was mit jedem Vorzeichen passiert.",
+            "quelle": "mensch",
+            "erwartung": "Jedes Vorzeichen in der Klammer dreht sich: −3x + 5.",
+            "kriterium": "Richtig gerechnet und den Weg ohne Hilfe erklärt",
+            "skill_key": "zz_a2_v1"
+        }
+    ],
+    "detail_warmup_Emir": {
+        "fall": "schulthema",
+        "name": "Emir Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.57142+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 3,
+                "label": "Minus vor der Klammer",
+                "richtig": 1,
+                "hinweise": 0,
+                "abschnitt": "warmup",
+                "skill_key": "zz_a2_v1"
+            }
+        ],
+        "phase": "warmup",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.646438+02:00",
+            "phase": "warmup",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_v1 Nr 6: Wie viel ist 3 + 4?",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564"
+            },
+            "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+            "skill_key": "zz_a2_v1",
+            "eingemischt": false,
+            "nr_in_phase": 3
+        },
+        "schritt": {
+            "art": "warten",
+            "zeit": "2026-10-08T10:37:30.65074+02:00",
+            "grund": "Warm-up fertig: Entscheidung des Coaches offen (eine Stufe tiefer?)",
+            "modus": null,
+            "phase": "warmup",
+            "task_id": null,
+            "skill_key": "zz_a2_s1",
+            "grund_code": "warten_entscheidung",
+            "eingemischt": false,
+            "skill_label": "Klammern ausmultiplizieren",
+            "schwierigkeit": null
+        },
+        "signale": [
+            {
+                "art": "entscheidung",
+                "rang": 1,
+                "seit": "2026-10-08T10:37:30.650867+02:00",
+                "grund": "Entscheidung: eine Stufe tiefer? 2 Fehlversuche bei Minus vor der Klammer im Warm-up",
+                "details": {
+                    "art": "entscheidung",
+                    "grund": "Entscheidung: eine Stufe tiefer? 2 Fehlversuche bei Minus vor der Klammer im Warm-up",
+                    "skill_key": "zz_a2_v1",
+                    "grund_code": "entscheidung_tiefer",
+                    "warmup_richtig": 1,
+                    "ziel_skill_key": "zz_a2_s1",
+                    "warmup_aufgaben": 3,
+                    "voraussetzung_label": "Minus vor der Klammer",
+                    "voraussetzung_skill_key": "zz_a2_v1"
+                },
+                "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0"
+            }
+        ],
+        "hinweise": [
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.602792+02:00",
+                "phase": "warmup",
+                "eingabe": "0",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": "zz_c3_vz",
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": "Nur das erste Vorzeichen geändert"
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.615206+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.647687+02:00",
+                "phase": "warmup",
+                "eingabe": "0",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "dauer_ms": null,
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "fehlbild_slug": "zz_c3_vz",
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": "Nur das erste Vorzeichen geändert"
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 1,
+        "fall_coach": null,
+        "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.57142+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.602792+02:00",
+                "phase": "warmup",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.615206+02:00",
+                "phase": "warmup",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.647687+02:00",
+                "phase": "warmup",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "ergebnis": "falsch",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_v1 Nr 6: Wie viel ist 3 + 4?",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564"
+            },
+            "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": "0",
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+        ],
+        "erklaersequenz": null,
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": {
+            "seit": "2026-10-08T10:37:30.650867+02:00",
+            "label": "Minus vor der Klammer",
+            "offen": true,
+            "klasse": 7,
+            "fehlbild": "Nur das erste Vorzeichen geändert",
+            "skill_key": "zz_a2_v1",
+            "ziel_label": "Klammern ausmultiplizieren",
+            "fehlbild_am": "2026-09-29T10:37:30.475503+02:00",
+            "thema_label": "Terme und Gleichungen",
+            "warmup_richtig": 1,
+            "ziel_skill_key": "zz_a2_s1",
+            "warmup_aufgaben": 3
+        },
+        "schulthema_key": "zz_a2_terme",
+        "ziel_thema_key": "zz_a2_terme",
+        "schritt_details": {
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 0,
+        "mastery_kandidat": null,
+        "ziel_thema_label": "Terme und Gleichungen",
+        "erklaer_kernideen": [
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.647687+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "detail_warmup_Mila": {
+        "fall": "schulthema",
+        "name": "Mila Beispiel",
+        "heute": [
+            {
+                "zeit": "2026-10-08T10:37:30.572674+02:00",
+                "abschnitt": "ankommen"
+            },
+            {
+                "von": 3,
+                "label": "Minus vor der Klammer",
+                "richtig": 3,
+                "hinweise": 0,
+                "abschnitt": "warmup",
+                "skill_key": "zz_a2_v1"
+            },
+            {
+                "von": 0,
+                "label": "Klammern ausmultiplizieren",
+                "richtig": 0,
+                "hinweise": 0,
+                "abschnitt": "kern",
+                "skill_key": "zz_a2_s1"
+            }
+        ],
+        "phase": "kern",
+        "klasse": 8,
+        "aufgabe": {
+            "seit": "2026-10-08T10:37:30.67445+02:00",
+            "phase": "kern",
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 12: Wie viel ist 3 + 4?",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a"
+            },
+            "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+            "skill_key": "zz_a2_s1",
+            "eingemischt": false,
+            "nr_in_phase": 1
+        },
+        "schritt": {
+            "art": "aufgabe",
+            "zeit": "2026-10-08T10:37:30.67437+02:00",
+            "grund": "Kernarbeit: Klammern ausmultiplizieren, Stufe 2, geführt",
+            "modus": "gefuehrt",
+            "phase": "kern",
+            "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+            "skill_key": "zz_a2_s1",
+            "grund_code": "kern",
+            "eingemischt": false,
+            "skill_label": "Klammern ausmultiplizieren",
+            "schwierigkeit": 2
+        },
+        "signale": [
+            {
+                "art": "kandidat",
+                "rang": 0,
+                "seit": "2026-10-08T10:37:30.6745+02:00",
+                "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                "details": {
+                    "art": "kandidat",
+                    "grund": "Mastery-Prüfung möglich: Minus vor der Klammer",
+                    "label": "Minus vor der Klammer",
+                    "skill_key": "zz_a2_v1",
+                    "grund_code": "mastery_kandidat"
+                },
+                "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34"
+            }
+        ],
+        "hinweise": [
+        ],
+        "stimmung": "gut",
+        "versuche": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.656522+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.663193+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.667424+02:00",
+                "phase": "warmup",
+                "eingabe": "7",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "dauer_ms": null,
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "fehlbild_slug": null,
+                "hinweisstufe_max": 0,
+                "fehlbild_klartext": null
+            }
+        ],
+        "eingriffe": [
+        ],
+        "tablet_nr": 2,
+        "fall_coach": null,
+        "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+        "anwesenheit": "present",
+        "tablet_seit": "2026-10-08T10:37:30.572674+02:00",
+        "ergebnisfolge": [
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.656522+02:00",
+                "phase": "warmup",
+                "task_id": "3207c7c2-3b2f-4015-a3c5-7af5bad3c394",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.663193+02:00",
+                "phase": "warmup",
+                "task_id": "c37e6d40-9297-455f-bb97-f11810ba3ff5",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            },
+            {
+                "teil": null,
+                "zeit": "2026-10-08T10:37:30.667424+02:00",
+                "phase": "warmup",
+                "task_id": "f9df4507-0de6-486c-b7f0-00c0b4a97564",
+                "ergebnis": "richtig",
+                "versuch_nr": 1,
+                "eingemischt": false,
+                "hinweisstufe_max": 0
+            }
+        ],
+        "thema_antwort": "noch_dran",
+        "aufgabe_detail": {
+            "payload": {
+                "kind": "short_input",
+                "assets": [
+                ],
+                "prompt": "ZZ A2 zz_a2_s1 Nr 12: Wie viel ist 3 + 4?",
+                "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a"
+            },
+            "task_id": "3f05f126-a046-4fab-9c9f-ff34525f715a",
+            "musterloesung": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+            "letzte_eingabe": null,
+            "correct_answers": [
+                "7"
+            ]
+        },
+        "checkin_fertig": true,
+        "entscheidungen": [
+        ],
+        "erklaersequenz": null,
+        "fall_vorschlag": "schulthema",
+        "pfad_vorschlag": null,
+        "schulthema_key": "zz_a2_terme",
+        "ziel_thema_key": "zz_a2_terme",
+        "schritt_details": {
+        },
+        "thema_stichwort": null,
+        "hinweise_genutzt": 0,
+        "mastery_kandidat": {
+            "seit": "2026-10-08T10:37:30.6745+02:00",
+            "label": "Minus vor der Klammer",
+            "skill_key": "zz_a2_v1",
+            "stand_coach": null,
+            "pruefung_vorhanden": true
+        },
+        "ziel_thema_label": "Terme und Gleichungen",
+        "erklaer_kernideen": [
+        ],
+        "letzte_eingabe_am": "2026-10-08T10:37:30.667424+02:00",
+        "klassenarbeit_datum": null,
+        "pruefung_auf_tablet": null
+    },
+    "ziel_031270c7-74c2-4732-9dd5-3311d85ddc34": [
+        {
+            "label": "Minus vor der Klammer",
+            "rolle": "voraussetzung_sicher",
+            "stand": "kandidat",
+            "skill_key": "zz_a2_v1",
+            "reihenfolge": 1,
+            "stand_coach": null,
+            "stand_system": "kandidat",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": true
+        },
+        {
+            "label": "Proportionale Zuordnung",
+            "rolle": "voraussetzung_sicher",
+            "stand": "sicher",
+            "skill_key": "zz_a2_v2",
+            "reihenfolge": 2,
+            "stand_coach": null,
+            "stand_system": "sicher",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Klammern ausmultiplizieren",
+            "rolle": "einstieg",
+            "stand": "offen",
+            "skill_key": "zz_a2_s1",
+            "reihenfolge": 3,
+            "stand_coach": null,
+            "stand_system": null,
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Ausklammern",
+            "rolle": "thema",
+            "stand": "offen",
+            "skill_key": "zz_a2_s2",
+            "reihenfolge": 4,
+            "stand_coach": null,
+            "stand_system": null,
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        }
+    ],
+    "ziel_0686a974-13c2-4a3e-bb36-4b2ec249f1b4": [
+        {
+            "label": "Minus vor der Klammer",
+            "rolle": "voraussetzung_sicher",
+            "stand": "sicher",
+            "skill_key": "zz_a2_v1",
+            "reihenfolge": 1,
+            "stand_coach": null,
+            "stand_system": "sicher",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Proportionale Zuordnung",
+            "rolle": "voraussetzung_sicher",
+            "stand": "sicher",
+            "skill_key": "zz_a2_v2",
+            "reihenfolge": 2,
+            "stand_coach": null,
+            "stand_system": "sicher",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Klammern ausmultiplizieren",
+            "rolle": "einstieg",
+            "stand": "aktiv",
+            "skill_key": "zz_a2_s1",
+            "reihenfolge": 3,
+            "stand_coach": null,
+            "stand_system": "aktiv",
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Ausklammern",
+            "rolle": "thema",
+            "stand": "offen",
+            "skill_key": "zz_a2_s2",
+            "reihenfolge": 4,
+            "stand_coach": null,
+            "stand_system": null,
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        }
+    ],
+    "ziel_8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0": [
+        {
+            "label": "Minus vor der Klammer",
+            "rolle": "voraussetzung",
+            "stand": "aktiv",
+            "skill_key": "zz_a2_v1",
+            "reihenfolge": 1,
+            "stand_coach": null,
+            "stand_system": "aktiv",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Proportionale Zuordnung",
+            "rolle": "voraussetzung_sicher",
+            "stand": "sicher",
+            "skill_key": "zz_a2_v2",
+            "reihenfolge": 2,
+            "stand_coach": null,
+            "stand_system": "sicher",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Klammern ausmultiplizieren",
+            "rolle": "einstieg",
+            "stand": "offen",
+            "skill_key": "zz_a2_s1",
+            "reihenfolge": 3,
+            "stand_coach": null,
+            "stand_system": null,
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Ausklammern",
+            "rolle": "thema",
+            "stand": "offen",
+            "skill_key": "zz_a2_s2",
+            "reihenfolge": 4,
+            "stand_coach": null,
+            "stand_system": null,
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        }
+    ],
+    "ziel_f51d59f4-14d1-4057-907f-d76314714aa7": [
+        {
+            "label": "Proportionale Zuordnung",
+            "rolle": "voraussetzung_sicher",
+            "stand": "sicher",
+            "skill_key": "zz_a2_v2",
+            "reihenfolge": 1,
+            "stand_coach": null,
+            "stand_system": "sicher",
+            "klasse_herkunft": 7,
+            "pruefung_faellig": false
+        },
+        {
+            "label": "Steigung",
+            "rolle": "einstieg",
+            "stand": "offen",
+            "skill_key": "zz_a2_n1",
+            "reihenfolge": 2,
+            "stand_coach": null,
+            "stand_system": null,
+            "klasse_herkunft": 8,
+            "pruefung_faellig": false
+        }
+    ],
+    "lernpfad_031270c7-74c2-4732-9dd5-3311d85ddc34": [
+        {
+            "id": "c08cf020-590b-44a7-bc75-4899d7e2c235",
+            "belege": [
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v2",
+            "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "sicher",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-09-18T10:37:30.475503+02:00",
+            "letzte_session_id": null,
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        },
+        {
+            "id": "5bd186c2-45c0-4140-b3fb-cddff2ab9bec",
+            "belege": [
+                {
+                    "am": "2026-10-08T10:37:30.656777+02:00",
+                    "gesamt": 3,
+                    "session_id": "da09355f-6abb-4167-89cd-ca71abea5587",
+                    "richtig_ohne_hinweis": 3
+                }
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v1",
+            "student_id": "031270c7-74c2-4732-9dd5-3311d85ddc34",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "kandidat",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-10-08T10:37:30.475503+02:00",
+            "letzte_session_id": "da09355f-6abb-4167-89cd-ca71abea5587",
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        }
+    ],
+    "lernpfad_0686a974-13c2-4a3e-bb36-4b2ec249f1b4": [
+        {
+            "id": "cb22d67b-0336-41c1-877f-43f6ef87c187",
+            "belege": [
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v1",
+            "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "sicher",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-09-18T10:37:30.475503+02:00",
+            "letzte_session_id": null,
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        },
+        {
+            "id": "95d4b20b-edc9-45ff-8205-b52309d1ce91",
+            "belege": [
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v2",
+            "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "sicher",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-09-18T10:37:30.475503+02:00",
+            "letzte_session_id": null,
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        },
+        {
+            "id": "f3fb3f5c-112d-4699-ab57-0dcba27c171a",
+            "belege": [
+                {
+                    "am": "2026-10-08T10:37:30.561998+02:00",
+                    "gesamt": 1,
+                    "session_id": "11319169-1cc4-4892-8b2e-196f5c6301d4",
+                    "richtig_ohne_hinweis": 0
+                },
+                {
+                    "am": "2026-10-08T10:37:30.760439+02:00",
+                    "gesamt": 5,
+                    "session_id": "a31c1fe5-1d4b-4196-8f63-b01bc34796f2",
+                    "richtig_ohne_hinweis": 0
+                }
+            ],
+            "quelle": "session",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_s1",
+            "student_id": "0686a974-13c2-4a3e-bb36-4b2ec249f1b4",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "aktiv",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-10-08T10:37:30.475503+02:00",
+            "letzte_session_id": "a31c1fe5-1d4b-4196-8f63-b01bc34796f2",
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        }
+    ],
+    "lernpfad_8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0": [
+        {
+            "id": "17932f03-f2b0-438e-8b0e-c0404081a235",
+            "belege": [
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v2",
+            "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "sicher",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-09-18T10:37:30.475503+02:00",
+            "letzte_session_id": null,
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        },
+        {
+            "id": "ac25aa55-91e1-48e5-bc3a-ae8da0c9c770",
+            "belege": [
+                {
+                    "am": "2026-10-08T10:37:30.603476+02:00",
+                    "gesamt": 3,
+                    "session_id": "da09355f-6abb-4167-89cd-ca71abea5587",
+                    "richtig_ohne_hinweis": 1
+                }
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v1",
+            "student_id": "8b8d417c-bc8b-44cc-b8c8-dfbdf4ab72b0",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "aktiv",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-10-08T10:37:30.475503+02:00",
+            "letzte_session_id": "da09355f-6abb-4167-89cd-ca71abea5587",
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        }
+    ],
+    "lernpfad_f51d59f4-14d1-4057-907f-d76314714aa7": [
+        {
+            "id": "10f3b77b-e05a-463d-8d6d-343a1a49978e",
+            "belege": [
+                {
+                    "am": "2026-10-08T10:37:30.677721+02:00",
+                    "gesamt": 3,
+                    "session_id": "da09355f-6abb-4167-89cd-ca71abea5587",
+                    "richtig_ohne_hinweis": 3
+                }
+            ],
+            "quelle": "lsa",
+            "angelegt": "2026-10-08T10:37:30.475503+02:00",
+            "coach_am": null,
+            "coach_von": null,
+            "skill_key": "zz_a2_v2",
+            "student_id": "f51d59f4-14d1-4057-907f-d76314714aa7",
+            "coach_grund": null,
+            "stand_coach": null,
+            "aktualisiert": "2026-10-08T10:37:30.475503+02:00",
+            "stand_system": "sicher",
+            "lsa_session_id": null,
+            "coach_session_id": null,
+            "letzte_uebung_am": "2026-10-08T10:37:30.475503+02:00",
+            "letzte_session_id": "da09355f-6abb-4167-89cd-ca71abea5587",
+            "stand_system_seit": "2026-10-08T10:37:30.475503+02:00"
+        }
+    ]
+}

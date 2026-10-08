@@ -157,6 +157,56 @@ export type KindDetail = Omit<KindLive, 'status'> & {
   hinweise: { task_id: string; stufe: number; zeit: string; text: string | null }[]
   eingriffe: { stufe: EingriffStufe; fehlbild_slug?: string; fehlbild_klartext: string | null; zeit: string; von: string | null }[]
   entscheidungen: { entscheidung: PfadEntscheidung; quelle: string; skill_key?: string; zeit: string; von: string | null }[]
+  /** C3 (Migration 20261011100200): juengstes Signal „eine Stufe tiefer?“; null ohne Signal. */
+  pfad_vorschlag: PfadVorschlagLive | null
+  heute: HeuteLive[]
+  /** C3: alle Kernideen der laufenden Erklaersequenz; leer ohne Sequenz. */
+  erklaer_kernideen: KernideeLive[]
+  /** C3: session_schritte.details des letzten Schritts; {} bei alten Zeilen. */
+  schritt_details: SchrittDetails
+}
+
+export type PfadVorschlagLive = {
+  seit: string
+  /** Kein signal_erledigt danach: der Coach hat noch nicht entschieden. */
+  offen: boolean
+  skill_key: string | null
+  label: string | null
+  klasse: number | null
+  ziel_skill_key: string | null
+  ziel_label: string | null
+  /** null bei einem Signal von vor A2d. */
+  warmup_aufgaben: number | null
+  warmup_richtig: number | null
+  /** Klartext des letzten Fehlbilds auf der Voraussetzung in dieser Session. */
+  fehlbild: string | null
+  /** Letzte fruehere Session mit demselben Fehlbild. */
+  fehlbild_am: string | null
+  thema_label: string | null
+}
+
+/** Zeile „Heute“: gezaehlt wie die Engine (Erfolg = alle Teile beim ersten Versuch richtig ohne Hinweis). */
+export type HeuteLive =
+  | { abschnitt: 'ankommen'; zeit: string }
+  | { abschnitt: 'warmup' | 'kern' | 'eingemischt'; skill_key: string; label: string; richtig: number; von: number; hinweise: number }
+  | { abschnitt: 'erklaerung'; skill_key: string; label: string; sicher: number; aktuell: number; runde: number }
+
+export type KernideeLive = {
+  nr: number
+  titel: string
+  stand: 'sicher' | 'laeuft' | 'offen'
+  runde: number | null
+  variante: string | null
+  fehlbild: string | null
+}
+
+/** Fenster ausgewertet (aenderung 1 schwerer, -1 leichter, -2 bleibt auf Stufe 1, 0 im Zielbereich) bzw. eingemischt. */
+export type SchrittDetails = {
+  richtig?: number
+  von?: number
+  ziel?: number
+  aenderung?: -2 | -1 | 0 | 1
+  mischanteil?: number
 }
 
 export type TabletStand =

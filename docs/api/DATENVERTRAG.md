@@ -629,3 +629,21 @@ Bei `art = fertig`.
 ```
 - **XP:** pauschal je bearbeitete Aufgabe, nie fürs Richtig-Haben. Sie sind erst ab dem ersten `fertig` gebucht und im Testlauf immer 0.
 - **Fehler:** 42501. Nach `session_abschliessen` ist der Platz frei, dann ebenfalls 42501. Die App zeigt den Abschluss also, solange `fertig` steht.
+
+## 9. Coach-Live: Zahlen zum Schritt (nur Coach, Session-Rahmen C3)
+
+Nicht Teil von Abschnitt 8: Nichts hiervon erreicht das Tablet.
+
+### `session_schritte.details` (jsonb, Standard `{}`)
+Die Engine legt beim Planen Zahlen zum Grund ab, `session_naechster_schritt` speichert sie mit dem Schritt.
+```ts
+type SchrittDetails =
+  | { richtig: number; von: number; ziel: number; aenderung: -2 | -1 | 0 | 1 }  // Fenster ausgewertet (Kernarbeit/Vertiefung)
+  | { mischanteil: number }                                                     // Aufgabe eingemischt
+  | {}                                                                          // sonst, und alle Zeilen vor C3
+```
+- `aenderung`: 1 schwerer, -1 leichter, -2 bleibt auf Stufe 1, 0 im Zielbereich. `ziel` = Stellschraube `ziel_erfolgsquote`.
+- **Lesen:** nur über `coach_kind_detail(...).schritt_details` (Coach der Session oder Admin). Die Tabelle hat
+  keine Rechte für `anon`/`authenticated`; sie bleibt append-only.
+- **Tablet:** `session_schritt_oeffentlich` ist eine Whitelist ohne `details`; `session_naechster_schritt` und
+  `tablet_stand` tragen das Feld nie (pgTAP `session_c3` 3).
