@@ -88,6 +88,8 @@ export type ZielNotiz =
   | { art: 'danach' }
   | { art: 'bestaetigt'; zeit: string }
   | { art: 'vertagt' }
+  /** F1: die Engine zaehlt den Skill heute als sicher und ist weitergerueckt (offene-punkte-a2 F7). */
+  | { art: 'heuteSicher' }
 
 export type ZielZeile = { skillKey: string; label: string; stand: ZielStand; notizen: ZielNotiz[] }
 
@@ -110,8 +112,8 @@ export type LiveAufgabeDetail = {
 
 export type VersuchKopf = { art: 'versuch' | 'runde' | 'aufgabe' | 'warmup'; nr: number }
 
-/** Falsche Antwort mit Fehlbild-Klartext (nur Coach). */
-export type LiveVersuch = { kopf: VersuchKopf; eingabe: string; fehlbild: string }
+/** Falsche Antwort zur aktuellen Aufgabe, Eingabe lesbar (F1); Fehlbild-Klartext nur, wenn bekannt (nur Coach). */
+export type LiveVersuch = { kopf: VersuchKopf; eingabe: string; fehlbild: string | null }
 
 export type Kernidee = {
   /** Titel der Kernidee; null, wenn der Server ihn nicht liefert (nur die aktuelle kommt mit). */
@@ -268,6 +270,12 @@ export type CoachLiveKind = {
   /** Coach hat bestaetigt: ohne Tablet = nicht erschienen. */
   nichtErschienen: boolean
   phase: SessionPhase | null
+  /** F1: juengster Phasenwechsel des Kindes (nicht die Uhr der Session). */
+  phaseSeit: string | null
+  /** F1: Kind steht ohne Warm-up in der Kernarbeit: kein Warm-up-Stoff bzw. Warm-up-Zeit vorbei. */
+  warmupEntfallen: 'keinStoff' | 'zeit' | null
+  /** F1: Kind wartet, weil die Engine kein Ziel bzw. keine Aufgabe findet; der Coach waehlt ein Thema. */
+  wartet: 'kein_ziel' | 'pool_leer' | null
   status: KachelStatus
   taetigkeit: Taetigkeit
   skill: string

@@ -4,7 +4,7 @@ import { AvatarInitials } from '@/components/edvance/AvatarInitials'
 import type { CoachLiveKind } from '@/types/coachLive'
 import { Interventionsleiter, PfadEntscheidung } from './Eingreifen'
 import { MasteryPruefung } from './MasteryPruefung'
-import { AufgabeBlock, HeuteBlock, HinweiseBlock, InfoBlock, SequenzBlock, VersucheBlock, ZielBlock } from './SchubladeBloecke'
+import { AufgabeBlock, HeuteBlock, HinweiseBlock, InfoBlock, SequenzBlock, VersucheBlock, WartetBlock, ZielBlock } from './SchubladeBloecke'
 import { useLiveTexte } from './useLiveTexte'
 
 /**
@@ -62,6 +62,7 @@ export function Schublade({ kind, onSchliessen }: { kind: CoachLiveKind; onSchli
           </button>
         </header>
         <div className="flex flex-1 flex-col gap-4 overflow-auto px-5 pb-8 pt-4">
+          {kind.wartet && <WartetBlock kind={kind} />}
           {kind.masteryKandidat && <MasteryPruefung key={kind.id} kind={kind} m={kind.masteryKandidat} />}
           {kind.pfadVorschlag && <PfadEntscheidung kind={kind} p={kind.pfadVorschlag} />}
           <InfoBlock kind={kind} />

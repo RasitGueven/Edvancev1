@@ -2,6 +2,7 @@ import { ChevronLeft } from 'lucide-react'
 import { minuteImAblauf, segmentZustand, SESSION_MINUTEN } from '@/lib/session/coachLiveLogik'
 import { cn } from '@/lib/utils'
 import type { CoachLiveRaum, LiveZeitpunkt } from '@/types/coachLive'
+import type { SessionPhase } from '@/types/sessionLive'
 import { Pille } from './bausteine'
 import { useLiveTexte } from './useLiveTexte'
 
@@ -56,6 +57,7 @@ export function LiveKopf({ raum, eigeneAnsicht, onZeige, onZurueck }: KopfProps)
         </div>
       </div>
       <Zeitleiste raum={raum} minute={minute} onZeige={onZeige} />
+      <KinderPhasen raum={raum} onZeige={onZeige} />
       {s.status === 'active' && (
         <div className="flex flex-wrap items-center justify-end gap-2 px-5 pb-2">
           {eigeneAnsicht && (
@@ -74,6 +76,35 @@ export function LiveKopf({ raum, eigeneAnsicht, onZeige, onZurueck }: KopfProps)
         </div>
       )}
     </header>
+  )
+}
+
+/**
+ * F1 (Trockenlauf, Befund A4): in welcher Phase die Kinder wirklich sind (Phasenwechsel vom Tablet),
+ * neben der Uhr. Antippen zeigt die Ansicht dieser Phase.
+ */
+function KinderPhasen({ raum, onZeige }: { raum: CoachLiveRaum; onZeige: (z: LiveZeitpunkt) => void }): JSX.Element | null {
+  const { t } = useLiveTexte()
+  if (raum.session.status !== 'active') return null
+  const zahl = new Map<SessionPhase, number>()
+  for (const k of raum.kinder) if (k.tablet !== null && k.phase) zahl.set(k.phase, (zahl.get(k.phase) ?? 0) + 1)
+  const phasen = raum.zeitleiste.map((z) => z.phase).filter((p) => zahl.has(p))
+  if (phasen.length === 0) return null
+  return (
+    <div className="flex flex-wrap items-center gap-2 px-5 pb-2 text-xs text-[var(--color-text-tertiary)]" data-testid="kinder-phasen">
+      {t('kopf.kinderPhasen')}
+      {phasen.map((p) => (
+        <button
+          key={p}
+          type="button"
+          onClick={() => onZeige(p)}
+          aria-pressed={raum.zeitpunkt === p}
+          className="min-h-[44px] rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-subtle)]"
+        >
+          {t('kopf.kinderPhase', { phase: t(`phase.${p}`), count: zahl.get(p) })}
+        </button>
+      ))}
+    </div>
   )
 }
 

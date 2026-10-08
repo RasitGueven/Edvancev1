@@ -12,7 +12,9 @@
     "testlauf": "Testlauf",
     "ansicht": "Ansicht wählen",
     "liveFolgen": "Live folgen",
-    "abschluss": "Abschluss"
+    "abschluss": "Abschluss",
+    "kinderPhasen": "Kinder gerade",
+    "kinderPhase": "{{phase}}: {{count}}"
   },
   "phase": {
     "checkin": "Check-in",
@@ -71,7 +73,8 @@
     "tieferGesetzt": "eine Stufe tiefer gesetzt",
     "danach": "danach",
     "bestaetigt": "bestätigt um {{zeit}}",
-    "vertagt": "Prüfung vertagt"
+    "vertagt": "Prüfung vertagt",
+    "heuteSicher": "heute sicher, weiter zum nächsten Skill"
   },
   "raster": {
     "titel": "{{raum}} · {{phase}}",
@@ -434,7 +437,8 @@
     "fallGeaendert": "Fall · von dir geändert",
     "fallFuer": "Fall für {{name}}",
     "fertig": "fertig · Warm-up",
-    "fuelltAus": "füllt aus am Tablet"
+    "fuelltAus": "füllt aus am Tablet",
+    "themaWaehlen": "Thema wählen"
   },
   "checkout": {
     "titel": "Check-out · ein konkreter Satz je Kind",
@@ -503,5 +507,19 @@
   },
   "fach": {
     "mathematik": "Mathe"
+  },
+  "phaseKind": {
+    "seit": "{{phase}} seit {{zeit}}",
+    "ohneWarmup": {
+      "keinStoff": "ohne Warm-up: kein Warm-up-Stoff (kein sicherer Skill und keine Voraussetzung mit Aufgaben)",
+      "zeit": "ohne Warm-up: Kernarbeit erst nach der Warm-up-Zeit begonnen"
+    }
+  },
+  "thema": {
+    "abNaechster": "Ein neues Thema gilt ab der nächsten Aufgabe; die offene Aufgabe bleibt.",
+    "wartet": {
+      "kein_ziel": "{{name}} wartet: Es gibt kein Thema und keine Lücke im Lernpfad. Wähle ein Thema.",
+      "pool_leer": "{{name}} wartet: Zu diesem Ziel gibt es keine passende Aufgabe mehr. Wähle ein anderes Thema."
+    }
   }
 }

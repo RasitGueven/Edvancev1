@@ -32,6 +32,7 @@ import {
   zeitpunktAus,
 } from './coachLiveTeile'
 import { grundAus, heuteAus, pfadVorschlagAus, sequenzMitKernideen, warmupBelegAus } from './coachLiveSchublade'
+import { eingabeDerAufgabe, falscheZurAufgabe } from './coachLiveEingabe'
 
 /** Was neben coach_raum_live geladen wurde. Detail nur fuer das Kind mit offener Schublade. */
 export type LiveZusatz = {
@@ -89,18 +90,26 @@ function infoAus(k: KindRaum, c: Kontext): CoachLiveKind['info'] {
   return null
 }
 
-function zielZeilen(k: KindRaum, ziel: ZielFertigkeit[]): ZielZeile[] {
-  const aktuell = k.schritt?.skill_key ?? k.aufgabe?.skill_key ?? null
+// F1 (A6): „heute n von m“ je Skill aus coach_kind_detail.heute (Kernarbeit und Eingemischtes dieses Skills),
+// nicht mehr alle Kern-Antworten am aktuellen Skill; „heute sicher“ wie die Engine (heute_sicher).
+function zielZeilen(k: KindRaum, d: KindDetail, ziel: ZielFertigkeit[]): ZielZeile[] {
+  const sicher = new Set(d.heute_sicher ?? [])
   return ziel.map((f) => {
     const notizen: ZielNotiz[] = []
     if (f.rolle === 'voraussetzung' || f.rolle === 'voraussetzung_sicher') notizen.push({ art: 'voraussetzung' })
     if (f.pruefung_faellig) notizen.push({ art: 'pruefungFaellig' })
     const heute = k.mastery_heute.find((m) => m.skill_key === f.skill_key)
     if (heute) notizen.push(heute.stand_coach === 'gemeistert' ? { art: 'bestaetigt', zeit: heute.am } : { art: 'vertagt' })
-    if (f.skill_key === aktuell) {
-      const folge = k.ergebnisfolge.filter((p) => p.phase === 'kern')
-      if (folge.length > 0) notizen.push({ art: 'heute', richtig: folge.filter((p) => p.ergebnis === 'richtig').length, von: folge.length })
+    let richtig = 0
+    let von = 0
+    for (const h of d.heute ?? []) {
+      if ((h.abschnitt === 'kern' || h.abschnitt === 'eingemischt') && h.skill_key === f.skill_key) {
+        richtig += h.richtig
+        von += h.von
+      }
     }
+    if (von > 0) notizen.push({ art: 'heute', richtig, von })
+    if (sicher.has(f.skill_key) && !heute) notizen.push({ art: 'heuteSicher' })
     return { skillKey: f.skill_key, label: f.label, stand: heute?.stand_coach === 'gemeistert' ? 'gemeistert' : f.stand, notizen }
   })
 }
@@ -111,22 +120,18 @@ const text = (payload: Record<string, unknown> | undefined): string => {
   return ''
 }
 
-const eingabeText = (eingabe: unknown): string =>
-  typeof eingabe === 'string' ? eingabe : eingabe === null || eingabe === undefined ? '' : JSON.stringify(eingabe)
-
 function aufgabeAus(k: KindRaum, d: KindDetail, c: Kontext): LiveAufgabeDetail | null {
   const a = d.aufgabe_detail
   if (!a) return null
   const nr = k.aufgabe?.nr_in_phase ?? 1
-  const versuche = d.versuche.filter((v) => v.task_id === a.task_id)
-  const letzte = versuche.at(-1)
+  const letzte = eingabeDerAufgabe(d.versuche.filter((v) => v.task_id === a.task_id), a.payload)
   return {
     kopf: k.aufgabe?.phase === 'warmup' ? { art: 'warmup', nr, von: Number(c.e.warmup_aufgaben ?? 3) } : { art: 'aufgabe', nr },
     skill: k.schritt?.skill_label ?? (k.aufgabe?.skill_key ? (c.label(k.aufgabe.skill_key) ?? '') : ''),
     text: text(a.payload),
     musterloesung: (a.musterloesung ?? '').split('\n').map((z) => z.trim()).filter(Boolean),
     letzteEingabe: letzte
-      ? { eingabe: eingabeText(letzte.eingabe), ergebnis: letzte.ergebnis, nachHinweis: letzte.hinweisstufe_max > 0 ? letzte.hinweisstufe_max : null }
+      ? { eingabe: letzte.eingabe, ergebnis: letzte.ergebnis, nachHinweis: letzte.hinweisstufe > 0 ? letzte.hinweisstufe : null }
       : null,
     ohneEingabeMin: null,
   }
@@ -157,6 +162,9 @@ function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
     tabletSeit: k.tablet_seit,
     nichtErschienen: c.z.nichtErschienen.has(k.student_id),
     phase: k.phase,
+    phaseSeit: k.phase_seit ?? null,
+    warmupEntfallen: k.warmup_entfallen === 'kein_stoff' ? 'keinStoff' : k.warmup_entfallen === 'zeit' ? 'zeit' : null,
+    wartet: k.schritt?.art === 'warten' && (k.schritt.grund_code === 'kein_ziel' || k.schritt.grund_code === 'pool_leer') ? k.schritt.grund_code : null,
     status: mastery?.entscheidung?.art === 'gemeistert' ? 'gemeistert' : k.status,
     taetigkeit: taetigkeitAus(k, c),
     skill: k.schritt?.skill_label ?? seq?.siehtGerade ?? '',
@@ -173,11 +181,11 @@ function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
       klassenarbeit: k.klassenarbeit_datum ? { datum: k.klassenarbeit_datum, themaLabel: null } : null,
       lsaLuecke: c.z.briefing.find((b) => b.student_id === k.student_id)?.naechste_luecke?.label ?? null,
     },
-    zielFertigkeiten: d ? zielZeilen(k, d.ziel) : [],
+    zielFertigkeiten: d ? zielZeilen(k, d.detail, d.ziel) : [],
     aufgabe: d ? aufgabeAus(k, d.detail, c) : null,
-    versuche: (d?.detail.versuche ?? [])
-      .filter((v) => v.ergebnis !== 'richtig' && v.fehlbild_klartext)
-      .map((v, i) => ({ kopf: { art: 'versuch', nr: i + 1 }, eingabe: eingabeText(v.eingabe), fehlbild: v.fehlbild_klartext ?? '' })),
+    // F1 (A3): nur zur aktuellen Aufgabe, wie die Hinweise; fruehere Fehler stehen in „Heute“.
+    versuche: falscheZurAufgabe(d?.detail.versuche ?? [], d?.detail.aufgabe_detail?.task_id, d?.detail.aufgabe_detail?.payload)
+      .map((v, i) => ({ kopf: { art: 'versuch', nr: i + 1 }, eingabe: v.eingabe, fehlbild: v.fehlbild })),
     hinweise: (d?.detail.hinweise ?? [])
       .filter((h) => h.task_id === k.aufgabe?.task_id)
       .map((h) => ({ stufe: h.stufe, text: h.text ?? '' })),

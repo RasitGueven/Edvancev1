@@ -33,6 +33,10 @@ export type KindRaum = KindLive & {
   eingriffe: { stufe: 1 | 2 | 3 | 4; zeit: string }[]
   pfad_entscheidung: { entscheidung: PfadEntscheidung; zeit: string } | null
   mastery_heute: MasteryHeute[]
+  /** F1 (Migration 20261011140000): juengster Phasenwechsel; fehlt vor F1. */
+  phase_seit?: string | null
+  /** F1: Warm-up entfallen (kein Warm-up-Schritt, aber Kernarbeit/Check-out); fehlt vor F1. */
+  warmup_entfallen?: 'kein_stoff' | 'zeit' | null
 }
 
 /** session_briefing: je gebuchtes Kind mit laufendem Vertrag. */
