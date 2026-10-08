@@ -1,4 +1,4 @@
-// BEISPIELDATEN (Mock, CLAUDE.md §6) der Arbeitsphasen: Kacheln und Schublade je
+// BEISPIELDATEN, NUR FUER TESTS (Mock, CLAUDE.md §6): Kernarbeit und Warm-up der fuenf Kinder.
 // Kind im Warm-up und in der Kernarbeit (Dummy: LIVE, DET, QW, QK). Inhalte wie
 // Aufgabentexte, Musterloesungen und Fehlbilder stehen fuer Datenbank-Inhalte.
 

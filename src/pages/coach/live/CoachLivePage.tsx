@@ -6,12 +6,10 @@ import { ToastBanner } from '@/components/edvance/ToastBanner'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 import { useRaumLive } from '@/hooks/useRaumLive'
-import { beispielZeitpunktSetzen } from '@/lib/session/coachLive'
 import { istArbeitsphase } from '@/lib/session/coachLiveLogik'
 import type { UserRole } from '@/types'
 import type { LiveZeitpunkt } from '@/types/coachLive'
 import type { SupabaseResult } from '@/types/ui'
-import { BeispielLeiste } from './BeispielLeiste'
 import { CheckinAnsicht } from './CheckinAnsicht'
 import { CheckoutAnsicht } from './CheckoutAnsicht'
 import { DanachAnsicht } from './DanachAnsicht'
@@ -44,8 +42,12 @@ export function CoachLivePage(): JSX.Element {
   const navigate = useNavigate()
   const { role } = useAuth()
   const tx = useLiveTexte()
-  const { raum, fehler, laedt, neuLaden } = useRaumLive(id)
   const [gewaehlt, setGewaehlt] = useState<string | null>(null)
+  const { raum: geladen, fehler, laedt, neuLaden } = useRaumLive(id, gewaehlt)
+  // Der Coach kann eine andere Phase ansehen (z. B. vorzeitig Check-out oder Abschluss);
+  // null folgt der Uhr der Session.
+  const [ansicht, setAnsicht] = useState<LiveZeitpunkt | null>(null)
+  const raum = useMemo(() => (geladen && ansicht ? { ...geladen, zeitpunkt: ansicht } : geladen), [geladen, ansicht])
   const [meldung, setMeldung] = useState<Meldung | null>(null)
 
   const ausfuehren = useCallback(
@@ -70,15 +72,14 @@ export function CoachLivePage(): JSX.Element {
         raum,
         ausfuehren,
         oeffneKind: setGewaehlt,
+        zeigeZeitpunkt: (z: LiveZeitpunkt | null) => {
+          setGewaehlt(null)
+          setAnsicht(z)
+        },
         kind: (kindId: string) => raum.kinder.find((k) => k.id === kindId) ?? raum.kinder[0],
       },
     [raum, id, ausfuehren],
   )
-
-  const zeitpunktSetzen = async (z: LiveZeitpunkt): Promise<void> => {
-    setGewaehlt(null)
-    await ausfuehren(beispielZeitpunktSetzen(id, z))
-  }
 
   if (laedt && !raum) {
     return (
@@ -93,7 +94,7 @@ export function CoachLivePage(): JSX.Element {
         <EmptyState
           icon="📡"
           title={tx.t('laden.fehler')}
-          description={fehler ?? ''}
+          description={fehler ? tx.t(`fehler.${fehler}`, { defaultValue: tx.t('fehler.allgemein') }) : ''}
           action={<Button onClick={() => void neuLaden()}>{tx.t('laden.erneut')}</Button>}
         />
       </div>
@@ -105,8 +106,12 @@ export function CoachLivePage(): JSX.Element {
   return (
     <LiveKontext.Provider value={kontext}>
       <div className="flex h-dvh flex-col bg-[var(--color-bg-app)] text-[var(--color-text-primary)]">
-        {raum.beispiel && <BeispielLeiste zeitpunkt={raum.zeitpunkt} onWaehle={(z) => void zeitpunktSetzen(z)} />}
-        <LiveKopf raum={raum} onZurueck={() => navigate(role === 'admin' ? '/admin' : '/coach')} />
+        <LiveKopf
+          raum={raum}
+          eigeneAnsicht={ansicht !== null}
+          onZeige={kontext.zeigeZeitpunkt}
+          onZurueck={() => navigate(role === 'admin' ? '/admin' : '/coach')}
+        />
         <main className="flex-1 overflow-auto">
           <div className="@container mx-auto flex max-w-[1400px] flex-col gap-6 px-5 pb-10 pt-5">
             <Ansicht zeitpunkt={raum.zeitpunkt} gewaehlt={gewaehlt} />

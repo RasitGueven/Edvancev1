@@ -136,9 +136,14 @@ export function ItemBoardPage(): JSX.Element {
         satz={t(`board.ebene.${fach ? 'arbeit' : klasse != null ? 'fach' : bereich ? 'klasse' : 'bereich'}`)}
         aktionen={
           !bereich ? (
-            <Link to={`${BASIS}/liste`} className={buttonVariants({ variant: 'outline', size: 'sm' })}>
-              {t('board.expertenliste')}
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              <Link to={`${BASIS}/liste`} className={buttonVariants({ variant: 'outline', size: 'sm' })}>
+                {t('board.expertenliste')}
+              </Link>
+              <Link to="/admin/pruefen/erklaerungen" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
+                {t('einstieg.adminOeffnen', { ns: 'erklaerPruefen' })}
+              </Link>
+            </div>
           ) : undefined
         }
       />

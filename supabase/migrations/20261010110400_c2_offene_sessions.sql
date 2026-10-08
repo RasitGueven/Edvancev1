@@ -1,0 +1,95 @@
+-- C2.3 Offene Sessions (offene-punkte-a2 Befund 16, Rasit 06./07.10.).
+--
+-- sessions_offen(): gestartete Sessions (status = 'active'), die nach ihrem geplanten Ende
+-- (scheduled_at + 60 Minuten, Entscheidung 1) plus 30 Minuten Nachbereitung noch nicht abgeschlossen sind.
+-- Dieselbe Grenze wie die Zeitbindung der Coach-Entscheidungen (20261008124412_a2_verdrahtung_a1_e1.sql).
+-- Gezeigt auf der Admin-Startseite und der Coach-Startseite mit Link zur Live-Sicht. Admin alle, Coach nur die
+-- eigenen; sonst 42501 (NULL-sicher, Konto ohne Profil 42501).
+--
+-- sessions_nicht_gestartet(): vergangene Sessions (ueber derselben Grenze), die nie gestartet wurden
+-- (status = 'upcoming'). Rasit 07.10.: Sie zwingen niemanden zum Abschliessen (das verbraucht Einheiten) und
+-- erscheinen nur auf der Admin-Startseite als Zahl mit Link zum Stundenplan, ohne Aktion. Nur Admin.
+--
+-- Testlauf-Regel aus X0 (Zaehler der Admin-Startseite ohne Testlaeufe und Testkonten, Rasit 07.10.): beide
+-- Funktionen lassen Sessions weg, die testlauf = true haben, kein gebuchtes Kind haben oder nur Testkonten
+-- (students.ist_test) gebucht haben. Das gilt auch fuer die Coach-Startseite. session_c2_zaehlt(...) ist die
+-- gemeinsame Bedingung.
+
+create function public.session_c2_zaehlt(p_session_id uuid, p_testlauf boolean)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+  select not coalesce(p_testlauf, false)
+     and exists (select 1 from public.session_students ss join public.students st on st.id = ss.student_id
+                  where ss.session_id = p_session_id and not st.ist_test)
+$$;
+
+comment on function public.session_c2_zaehlt(uuid, boolean) is
+  'C2: Session zaehlt fuer offene/nie gestartete Sessions (kein Testlauf, mindestens ein gebuchtes Kind ohne Testkonto).';
+
+revoke all on function public.session_c2_zaehlt(uuid, boolean) from public, anon, authenticated;
+
+create function public.sessions_offen()
+returns table (session_id uuid, scheduled_at timestamptz, room text, status text, coach_id uuid,
+               coach_name text, testlauf boolean, kinder int)
+language plpgsql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_rolle text := coalesce(public.get_my_role(), '');
+begin
+  if v_rolle not in ('admin', 'coach') then
+    raise exception 'sessions_offen: nur Admin oder Coach' using errcode = '42501';
+  end if;
+  return query
+    select cs.id, cs.scheduled_at, cs.room, cs.status, cs.coach_id,
+           (select p.full_name from public.profiles p where p.id = cs.coach_id),
+           cs.testlauf,
+           (select count(*)::int from public.session_students ss where ss.session_id = cs.id)
+      from public.coaching_sessions cs
+     where cs.status = 'active'
+       and now() > cs.scheduled_at + interval '60 minutes' + interval '30 minutes'
+       and public.session_c2_zaehlt(cs.id, cs.testlauf)
+       and (v_rolle = 'admin' or cs.coach_id = auth.uid())
+     order by cs.scheduled_at;
+end;
+$$;
+
+comment on function public.sessions_offen() is
+  'C2: gestartete Sessions nach scheduled_at + 60 + 30 Minuten, die nicht abgeschlossen sind. Admin alle, Coach eigene.';
+
+revoke all on function public.sessions_offen() from public, anon, authenticated;
+grant execute on function public.sessions_offen() to authenticated;
+
+create function public.sessions_nicht_gestartet()
+returns table (session_id uuid, scheduled_at timestamptz, room text, testlauf boolean, kinder int)
+language plpgsql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'sessions_nicht_gestartet: nur Admin' using errcode = '42501';
+  end if;
+  return query
+    select cs.id, cs.scheduled_at, cs.room, cs.testlauf,
+           (select count(*)::int from public.session_students ss where ss.session_id = cs.id)
+      from public.coaching_sessions cs
+     where cs.status = 'upcoming'
+       and now() > cs.scheduled_at + interval '60 minutes' + interval '30 minutes'
+       and public.session_c2_zaehlt(cs.id, cs.testlauf)
+     order by cs.scheduled_at;
+end;
+$$;
+
+comment on function public.sessions_nicht_gestartet() is
+  'C2: vergangene Sessions, die nie gestartet wurden (nur Zahl auf der Admin-Startseite, keine Aktion). Nur Admin.';
+
+revoke all on function public.sessions_nicht_gestartet() from public, anon, authenticated;
+grant execute on function public.sessions_nicht_gestartet() to authenticated;

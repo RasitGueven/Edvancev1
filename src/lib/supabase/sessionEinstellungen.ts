@@ -2,7 +2,7 @@
 // Grund und Spannen-Pruefung) und offene Flags aus dem Check-out (nur Admin).
 
 import { supabase } from '@/lib/supabase/client'
-import { sessionRpc } from '@/lib/supabase/sessionRpc'
+import { sessionRpc, type RpcResult } from '@/lib/supabase/sessionRpc'
 import type {
   OffenesFlag,
   SessionFlag,
@@ -45,13 +45,13 @@ export const stellschraubeSetzen = (
   schluessel: string,
   wert: StellschraubeWert,
   grund: string,
-): Promise<SupabaseResult<null>> =>
+): Promise<RpcResult<null>> =>
   sessionRpc('einstellung_setzen', { p_schluessel: schluessel, p_wert: wert, p_grund: grund },
     'Could not save setting')
 
-export const listOffeneFlags = (): Promise<SupabaseResult<OffenesFlag[]>> =>
+export const listOffeneFlags = (): Promise<RpcResult<OffenesFlag[]>> =>
   sessionRpc('session_flags_offen', {}, 'Could not load open flags')
 
-export const flagErledigen = (sessionId: string, studentId: string, flag: SessionFlag): Promise<SupabaseResult<null>> =>
+export const flagErledigen = (sessionId: string, studentId: string, flag: SessionFlag): Promise<RpcResult<null>> =>
   sessionRpc('session_flag_erledigen', { p_session_id: sessionId, p_student_id: studentId, p_flag: flag },
     'Could not resolve flag')

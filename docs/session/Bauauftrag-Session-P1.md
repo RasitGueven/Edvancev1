@@ -115,6 +115,10 @@ P1 baut die Datenmodelle und Server-Funktionen für die Session. Oberflächen ko
 35. Ziel der Stunde am Tablet: höchstens drei Fertigkeiten, ohne Stand, Prozent oder Farbe für sicher bzw. gemeistert.
 36. Klassenarbeit im Check-in: Datum und Thema als Auswahl (aktuelles Schulthema, anderes Thema, weiß ich nicht), kein
     Freitext. Bei „anderes“ oder „weiß ich nicht“ bleibt `klassenarbeit_thema_key` leer; das Thema wählt der Coach.
+37. Erklärsequenz (Rasit 07.10., Paket L6): Eine Änderung an einer geprüften, noch nicht freigegebenen Kernidee
+    (Titel, Schritt, Check) setzt sie auf Entwurf zurück; Lenas „Passt“ galt dem alten Stand.
+38. Erklärsequenz (Rasit 07.10., Paket L6): „Freigegeben“ zurücknehmen kann nur ein Admin, mit Grund über
+    `erklaer_freigabe_zuruecknehmen` (oder über `erklaer_status_setzen`). Danach liegt die Kernidee wieder bei Lena.
 
 ---
 

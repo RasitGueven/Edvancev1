@@ -409,8 +409,9 @@ eigenen Lauf aus dem DOCX nach. Erst der Vertrag, dann die Daten.
 ## 8. Session am Tablet (Session-Rahmen A2/A2b)
 
 **Stand:** 2026-10-07 · **Migrationen:** `20261007110100`–`…110900` (R1), `20261008121014`–`…124415` (A2),
-`20261009100412`–`…103015` (A2b) · **Beweis:** `supabase/tests/session_r1.test.sql`, `session_a2.test.sql`,
-`session_a2b.test.sql` · **Beispiele mit echtem JSON:** `docs/session/a2b-tablet-beispiele.md`
+`20261009100412`–`…103015` (A2b), `20261010100426`–`…100855` (A2c), `20261010101318` (A2d) · **Beweis:** `supabase/tests/session_r1.test.sql`,
+`session_a2.test.sql`, `session_a2b.test.sql`, `session_a2c.test.sql`, `session_a2d.test.sql` · **Beispiele mit echtem JSON:**
+`docs/session/a2b-tablet-beispiele.md`
 
 Gilt für das Tablet des Kindes in einer Coaching-Session (edvance-app, Paket R2). Das Gerät meldet sich mit
 seinem Platz-Konto an (`platz_devices`, Rolle `student`). Das Kind steht nie als Parameter im Aufruf: Der Server
@@ -439,13 +440,15 @@ laufenden Session endet mit **42501**. Das gilt auch für Schülerkonten, Coache
    - Erklärung fertig;
    - Angebot angenommen oder abgelehnt.
 4. **Ein Beispiel gilt als gesehen**, sobald das Kind Weiter tippt. Einen eigenen Bestätigungsaufruf gibt es nicht (Befund 15). Lädt die App neu, bevor das Kind Weiter tippt, kommt das Beispiel nicht noch einmal.
+5. **Ein Erklärungsangebot gilt als abgelehnt**, sobald die App `session_naechster_schritt` ruft, ohne vorher `erklaer_start` zu rufen. Auch ein Neuladen zählt so. Nachlesen (`erklaer_nachlesen`) bucht nichts, danach ruft die App wie beim Ablehnen `session_naechster_schritt`.
+6. **Eine laufende Erklärsequenz** kommt nach einem Neuladen wieder als `art = erklaerung` (`grund_code = erklaerung_laeuft`). `erklaer_start` setzt dann an derselben Stelle fort, mit demselben offenen Check.
 
 ### 8.2 Aufrufe
 
 #### `tablet_stand() → TabletStand`
 ```ts
 type TabletStand =
-  | { zugewiesen: false }
+  | { zugewiesen: false; tablet_nr?: number | null }   // tablet_nr nur fuer Platz-Konten (A2c)
   | { zugewiesen: true; session_id: string; tablet_nr: number; vorname: string | null;
       phase: 'checkin' | 'warmup' | 'kern' | 'checkout' | null; checkin_fertig: boolean;
       aufgabe: QuestionPayload | null;                    // nicht anzeigen, siehe 8.1
@@ -454,7 +457,8 @@ type TabletStand =
 ```
 - **`pruefung`:** steht, solange der Coach die Frage aufs Tablet gelegt und weder zurückgenommen noch entschieden hat. Die App zeigt sie über dem aktuellen Schritt.
 - **`bestaetigt`:** Skills, die der Coach in dieser Session als gemeistert gebucht hat. Erst dann zeigt die App Grün und das Wort (Entscheidung 6/34). Ein Abzeichen gibt es vorerst nicht. „Vertagt“ erscheint nie.
-- **Fehler:** keine. Ohne Zuweisung kommt `zugewiesen: false`.
+- **Ohne Zuweisung** (A2c, Nachtrag R2): Ein Platz-Konto (`platz_devices`) bekommt `{ zugewiesen: false, tablet_nr }`. Das ist die Nummer des eigenen Geräts für den Warte-Bildschirm, bei einem Gerät ohne Nummer `null`. Alle anderen Konten (Schülerkonto, Coach, Admin, ohne Profil) bekommen nur `{ zugewiesen: false }`, ohne den Schlüssel.
+- **Fehler:** keine.
 
 #### `session_kind_kontext(p_session_id) → SessionKindKontext`
 Einmal nach der Zuweisung, für die Check-in-Fragen.
@@ -542,6 +546,7 @@ Das Tablet übergibt `p_student_id = null`.
 | `erklaerung_angebot` | nach Fehlversuchen „nochmal erklären“ angeboten |
 | `neu_beispiel` | Lösungsbeispiel nach der Erklärung |
 | `neu_beispiel_ohne_erklaerung` | Lösungsbeispiel, es gibt keine Erklärung |
+| `neu_aufgabe_ohne_beispiel` | neuer Skill mit nur noch einer Aufgabe im Pool: kein Lösungsbeispiel, die Aufgabe kommt gleich als Aufgabe (`art = aufgabe`, mit oder ohne Erklärsequenz davor; A2d) |
 | `neu_aehnliche_aufgabe` | Aufgabe nach dem Beispiel |
 | `kern` | Aufgabe zum aktuellen Skill |
 | `gemischt` | ältere Aufgabe eingemischt (`eingemischt: true`) |
@@ -577,18 +582,19 @@ Das Tablet übergibt `p_student_id = null`.
   - P0001 mit Hinweis `schon_beantwortet`: zu dieser Ausgabe und diesem Teil liegt schon eine Antwort vor.
   - 22023: leere Eingabe oder unbekannter Teil.
 
-#### `hinweis_abrufen(p_session_id, p_task_id, p_stufe) → { stufe: number; text: string | null; verfuegbar: boolean }`
+#### `hinweis_abrufen(p_session_id, p_task_id, p_stufe) → { stufe: number; text: string | null; verfuegbar: boolean; weitere: boolean }`
 - **Wann:** nur bei `hinweise_erlaubt = true`, also bei Aufgaben der Kernarbeit (Entscheidung 32), und nur vor dem Abgeben. Hinweise hängen an der Aufgabe, nicht am Teil: Bei `multi_part` gibt es nach der ersten Teil-Antwort keinen Hinweis mehr.
 - **Stufen** der Reihe nach, ab 1, höchstens `hinweisstufen`.
 - **`verfuegbar: false`:** Zu dieser Stufe gibt es keinen geprüften Hinweis.
+- **`weitere`** (A2c): `true`, solange es eine nächste Stufe gibt (`p_stufe < hinweisstufen`). Erst dann bietet die App „noch ein Hinweis“ an. Die Obergrenze selbst sieht das Tablet nicht. Eine Stufe mit `verfuegbar: false` zählt trotzdem als abgerufen, die nächste ist also frei.
 - **Fehler:**
   - 42501: kein Platz.
   - P0001: Aufgabe nicht gegeben.
   - P0001 mit Hinweis `hinweis_nach_antwort`: zu dieser Ausgabe liegt schon eine Antwort vor.
-  - 22023, Hinweis nennt den Grund: Stufe nicht freigeschaltet; `hinweis_reihenfolge`; `exit_ohne_hinweis`; `warmup_ohne_hinweis`.
+  - 22023, Hinweis nennt den Grund: `stufe_gesperrt` (Stufe außerhalb 1 bis `hinweisstufen`); `hinweis_reihenfolge`; `exit_ohne_hinweis`; `warmup_ohne_hinweis`.
 
 #### `erklaer_start(p_session_id, p_student_id, p_skill_key)` / `erklaer_check_abgeben(p_session_id, p_student_id, p_check_task_id, p_eingabe)`
-- **Parameter:** `p_student_id` ist das Kind des Tablets. Der Server prüft die Zuweisung; ein anderes Kind gibt 42501.
+- **Parameter:** Das Tablet übergibt `p_student_id = null` (A2c). Der Server nimmt das Kind aus der Tablet-Zuweisung (`session_tablet_platz`). Der Parameter muss ausdrücklich als `null` mitgehen: Weil nach ihm Parameter ohne Default folgen, hat er selbst keinen. Nennt der Aufrufer ein Kind, prüft der Server wie bisher (`erklaer_zugang`): Ein anderes Kind als das des Tablets gibt 42501. Dieser Weg ist für den Coach der Session und den Admin da.
 - **Antwort:** `{ aktion: 'start' | 'weiter' | 'variante' | 'signal', kernidee: { nr, titel, von }, variante, runde, schritte: [{ art: 'erklaerung' | 'beispiel', inhalt, formeln: string[], bild }], check: { task_id, aufgabe: QuestionPayload } }`.
   - `aktion = weiter` mit `uebergang = 'ueben'`: Die Sequenz ist durch.
   - `signal`: Die Sequenz steht, der Coach kommt.
@@ -601,10 +607,14 @@ Das Tablet übergibt `p_student_id = null`.
   - P0002: keine freigegebene Erklärung.
 
 #### `erklaer_nachlesen(p_student_id, p_skill_key) → { skill_key, kernideen: [{ nr, titel, schritte }] }`
-Nur bei `erklaerung_angebot` mit `erklaerung_weg = nachlesen`. Variante A ohne Checks, nur freigegebene Inhalte. Fehler: 42501.
+Nur bei `erklaerung_angebot` mit `erklaerung_weg = nachlesen`. Variante A ohne Checks, nur freigegebene Inhalte (auch im Testlauf).
+- **Parameter:** Das Tablet übergibt `p_student_id = null` (A2c). Dann gilt das Kind des aufrufenden Tablets in seiner laufenden Session. Das Schülerkonto zuhause übergibt seine eigene id, wie bisher.
+- **Fehler:** 42501, auch ohne aktive Zuweisung oder nach dem Lösen des Platzes.
 
 #### `quest_termin_setzen(p_session_id, p_student_id = null, p_termin) → void`
 - **Fassung:** Das Tablet ruft **die R1-Fassung mit drei Argumenten** für Quest A (offene-punkte-q1 9). Quest B setzt das System auf den Tag vor der nächsten Session.
+- **`p_student_id`:** ausdrücklich `null` mitschicken. Ohne den Parameter passt keine der beiden Fassungen (die zweite heißt `quest_termin_setzen(p_quest_id, p_termin)`).
+- **Tage:** Bei `art = termin` lädt die App `session_kind_kontext` neu. Hat der Coach die Home Quests erst nach der Zuweisung eingeschaltet, sind die Tage vom ersten Abruf sonst `null`. Gesendet wird der Tag mit einer festen Uhrzeit in Europe/Berlin. Der Server prüft nur „in den nächsten 14 Tagen“.
 - **Termin:** innerhalb der nächsten 14 Tage. Angeboten werden die Tage aus `session_kind_kontext.quest_termine`.
 - **Fehler:**
   - 42501: kein Platz.

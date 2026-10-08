@@ -26,6 +26,8 @@ vi.mock('@/lib/supabase/client', () => {
   })
   return { supabase: kette }
 })
+// C2: Die Live-Sicht liest echte Daten; hier reichen die Beispieldaten aus C1.
+vi.mock('@/lib/session/coachLive', () => import('@/lib/session/coachLiveBeispielQuelle'))
 // Das Dashboard rendert mit leeren Fake-Daten endlos neu; hier zählt nur die Hülle um die Route.
 vi.mock('@/pages/coach/CoachDashboard', () => ({ CoachDashboard: () => <p>Coach-Startseite</p> }))
 

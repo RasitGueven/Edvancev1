@@ -20,6 +20,8 @@ export type CoachingSession = {
   room: string | null
   scheduled_at: string
   status: SessionStatus
+  /** X0: Testlauf (nur Testkonten, nie in Akten). */
+  testlauf?: boolean
 }
 
 export type SessionStudent = {

@@ -19,8 +19,13 @@ nächsten Tablet-Aufruf.
 
 ## 1. tablet_stand() — Tablet ohne Zuweisung
 
+Seit A2c (Nachtrag R2) mit der Nummer des eigenen Geräts für den Warte-Bildschirm. Ein Gerät ohne Nummer bekommt
+`"tablet_nr": null`. Schülerkonto, Coach und Konto ohne Profil bekommen nur `{"zugewiesen": false}`
+(`session_a2c.test.sql`, Block T).
+
 ```json
 {
+    "tablet_nr": 1,
     "zugewiesen": false
 }
 ```
@@ -206,6 +211,7 @@ nächsten Tablet-Aufruf.
 {
     "text": "ZZ Hinweis: Zaehle weiter.",
     "stufe": 1,
+    "weitere": true,
     "verfuegbar": true
 }
 ```
@@ -387,6 +393,400 @@ null
 ```json
 {
     "message": "session_ziel_kind: kein zugewiesener Platz an diesem Tablet",
+    "sqlstate": "42501"
+}
+```
+
+## Erklärsequenz im Testlauf (A2c)
+
+Ein zweites Kind („Jonas“, Testkonto) in einer Testlauf-Session, Aufruf für Aufruf vom Tablet, immer mit
+`p_student_id = null`. Erzeugt mit `docs/session/a2c-tablet-erklaer.sql` (gleiche Wegwerf-DB, 07.10.2026). Die
+Inhalte der Erklärsequenz kommen aus der Fixture von `session_e1` („Steigung aus dem Graphen“: drei Kernideen, je
+Variante A und B, Formeln als SVG-URL, ein Bild). Die Aufgaben zur Steigung sind ZZ-Testdaten.
+
+Ablauf:
+- Schulthema „Lineare Funktionen“; die Voraussetzungen sind sicher, die Steigung ist neu. Der Coach wählt Schulthema, die Uhr steht in der Kernarbeit.
+- `session_naechster_schritt` schaltet die Erklärsequenz vor; die App ruft `erklaer_start`.
+- Check 1 falsch (`variante`, Variante B), dann richtig (`weiter`, Kernidee 2); Kernidee 2 und 3 richtig, danach `uebergang = ueben`.
+- Übergang ins Üben: Lösungsbeispiel, dann die erste Aufgabe mit Hinweis (`weitere`, A2c).
+- `erklaer_nachlesen` ohne Kind; zum Schluss ein Tablet ohne Platz.
+
+## 24. session_naechster_schritt(session_id, null) — Erklärsequenz vorgeschaltet
+
+```json
+{
+    "art": "erklaerung",
+    "modus": "gefuehrt",
+    "phase": "kern",
+    "aufgabe": null,
+    "task_id": null,
+    "skill_key": "fkt_linear_steigung",
+    "grund_code": "neu_erklaerung",
+    "eingemischt": false,
+    "skill_label": "Steigung einer linearen Funktion",
+    "erklaerung_weg": "sequenz",
+    "hinweise_erlaubt": false
+}
+```
+
+## 25. erklaer_start(session_id, null, 'fkt_linear_steigung')
+
+```json
+{
+    "check": {
+        "aufgabe": {
+            "kind": "short_input",
+            "assets": [
+            ],
+            "prompt": "Die Gerade geht durch (0|0) und (1|2). Um wie viel steigt sie pro Schritt nach rechts?",
+            "task_id": "aed4fa60-f3fc-4bdd-99e3-c8fe09973330"
+        },
+        "task_id": "aed4fa60-f3fc-4bdd-99e3-c8fe09973330"
+    },
+    "runde": 1,
+    "aktion": "start",
+    "kernidee": {
+        "nr": 1,
+        "von": 3,
+        "titel": "Steigung: wie viel es pro Schritt nach rechts hoch- oder runtergeht"
+    },
+    "schritte": [
+        {
+            "art": "erklaerung",
+            "bild": {
+                "alt": "Steigungsdreieck an einer Geraden",
+                "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                "content_type": "image/svg+xml"
+            },
+            "inhalt": "Kernidee 1, Variante A, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/c4d30e056e72b3d62cc0cfa351e07875c3bc243a2517bf049d7dcb261e86c79b.svg"
+            ]
+        },
+        {
+            "art": "beispiel",
+            "inhalt": "Kernidee 1, Variante A, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/f47a90bd7afee52869a870ad8400c663c1dc7f19ee9fcf30f7a256310545557c.svg"
+            ]
+        }
+    ],
+    "variante": "A"
+}
+```
+
+## 26. session_naechster_schritt — Sequenz läuft (App lädt neu)
+
+```json
+{
+    "art": "erklaerung",
+    "modus": "gefuehrt",
+    "phase": "kern",
+    "aufgabe": null,
+    "task_id": null,
+    "skill_key": "fkt_linear_steigung",
+    "grund_code": "erklaerung_laeuft",
+    "eingemischt": false,
+    "skill_label": "Steigung einer linearen Funktion",
+    "hinweise_erlaubt": false
+}
+```
+
+## 27. erklaer_check_abgeben(session_id, null, check_task_id, '{"text":"7"}') — falsch
+
+```json
+{
+    "check": {
+        "aufgabe": {
+            "kind": "short_input",
+            "assets": [
+            ],
+            "prompt": "Die Gerade geht durch (0|0) und (1|2). Um wie viel steigt sie pro Schritt nach rechts?",
+            "task_id": "aed4fa60-f3fc-4bdd-99e3-c8fe09973330"
+        },
+        "task_id": "aed4fa60-f3fc-4bdd-99e3-c8fe09973330"
+    },
+    "runde": 2,
+    "aktion": "variante",
+    "kernidee": {
+        "nr": 1,
+        "von": 3,
+        "titel": "Steigung: wie viel es pro Schritt nach rechts hoch- oder runtergeht"
+    },
+    "schritte": [
+        {
+            "art": "erklaerung",
+            "bild": {
+                "alt": "Steigungsdreieck an einer Geraden",
+                "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                "content_type": "image/svg+xml"
+            },
+            "inhalt": "Kernidee 1, Variante B, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/ae14e699bacee2fa2256dbc3d3866f8a2bf9388f4a148359d4a26ee162be65b9.svg"
+            ]
+        },
+        {
+            "art": "beispiel",
+            "inhalt": "Kernidee 1, Variante B, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/f3adff34b9f7115a707e6cdac4bdca51317f242523e4ab69050171fac6609d4b.svg"
+            ]
+        }
+    ],
+    "variante": "B"
+}
+```
+
+## 28. erklaer_check_abgeben(…, '{"text":"2"}') — richtig, nächste Kernidee
+
+```json
+{
+    "check": {
+        "aufgabe": {
+            "kind": "short_input",
+            "assets": [
+            ],
+            "prompt": "Die Gerade geht durch (0|1) und (4|3). Bestimme die Steigung mit dem Steigungsdreieck.",
+            "task_id": "ca71a9f6-ae39-45a3-a218-b249a4b87d2e"
+        },
+        "task_id": "ca71a9f6-ae39-45a3-a218-b249a4b87d2e"
+    },
+    "runde": 1,
+    "aktion": "weiter",
+    "kernidee": {
+        "nr": 2,
+        "von": 3,
+        "titel": "Steigungsdreieck: Δy durch Δx"
+    },
+    "schritte": [
+        {
+            "art": "erklaerung",
+            "bild": {
+                "alt": "Steigungsdreieck an einer Geraden",
+                "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                "content_type": "image/svg+xml"
+            },
+            "inhalt": "Kernidee 2, Variante A, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/a7388b00c7b109d15f9d6795b7717e7b6507d75c0d980714bc1390c0366b6510.svg"
+            ]
+        },
+        {
+            "art": "beispiel",
+            "inhalt": "Kernidee 2, Variante A, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/ade5dd5c4e61163f1aea7e3122284e81861fff1eed88d5c63fc360802add78bc.svg"
+            ]
+        }
+    ],
+    "variante": "A"
+}
+```
+
+## 29. erklaer_check_abgeben(…, '{"text":"0,5"}') — richtig, nächste Kernidee
+
+```json
+{
+    "check": {
+        "aufgabe": {
+            "kind": "short_input",
+            "assets": [
+            ],
+            "prompt": "Die Gerade geht durch (0|4) und (2|0). Bestimme die Steigung.",
+            "task_id": "eec5de50-acad-4f62-9d7a-fc6e3769d9c8"
+        },
+        "task_id": "eec5de50-acad-4f62-9d7a-fc6e3769d9c8"
+    },
+    "runde": 1,
+    "aktion": "weiter",
+    "kernidee": {
+        "nr": 3,
+        "von": 3,
+        "titel": "Negative Steigung: Der Graph fällt"
+    },
+    "schritte": [
+        {
+            "art": "erklaerung",
+            "bild": {
+                "alt": "Steigungsdreieck an einer Geraden",
+                "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                "content_type": "image/svg+xml"
+            },
+            "inhalt": "Kernidee 3, Variante A, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/6dc910a2f4c4a11cd583181780acdf71938a52aef5478bd5c8c685b489e11da7.svg"
+            ]
+        },
+        {
+            "art": "beispiel",
+            "inhalt": "Kernidee 3, Variante A, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+            "formeln": [
+                "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/8a1a6d5a07b3af24fa69240f5adc7858982df31629dceeb51c42dc137a89bd67.svg"
+            ]
+        }
+    ],
+    "variante": "A"
+}
+```
+
+## 30. erklaer_check_abgeben(…, '{"text":"-2"}') — richtig, Sequenz durch
+
+```json
+{
+    "aktion": "weiter",
+    "uebergang": "ueben"
+}
+```
+
+## 31. session_naechster_schritt — Übergang ins Üben
+
+```json
+{
+    "art": "beispiel",
+    "modus": "gefuehrt",
+    "phase": "kern",
+    "aufgabe": {
+        "kind": "short_input",
+        "assets": [
+        ],
+        "prompt": "ZZ A2 fkt_linear_steigung Nr 7: Wie viel ist 3 + 4?",
+        "task_id": "7b508e78-dbd3-483a-af16-f923b8a2f0e5"
+    },
+    "task_id": "7b508e78-dbd3-483a-af16-f923b8a2f0e5",
+    "skill_key": "fkt_linear_steigung",
+    "grund_code": "neu_beispiel",
+    "eingemischt": false,
+    "loesungsweg": "ZZ-LOESUNGSWEG: 3 + 4 = 7",
+    "skill_label": "Steigung einer linearen Funktion",
+    "hinweise_erlaubt": false
+}
+```
+
+## 32. session_naechster_schritt — nach Weiter: Aufgabe zur Steigung
+
+```json
+{
+    "art": "aufgabe",
+    "modus": "gefuehrt",
+    "phase": "kern",
+    "aufgabe": {
+        "kind": "short_input",
+        "assets": [
+        ],
+        "prompt": "ZZ A2 fkt_linear_steigung Nr 12: Wie viel ist 3 + 4?",
+        "task_id": "cb2d34df-404b-4b2f-bc87-9bf1f5580cab"
+    },
+    "task_id": "cb2d34df-404b-4b2f-bc87-9bf1f5580cab",
+    "skill_key": "fkt_linear_steigung",
+    "grund_code": "neu_aehnliche_aufgabe",
+    "eingemischt": false,
+    "skill_label": "Steigung einer linearen Funktion",
+    "hinweise_erlaubt": true
+}
+```
+
+## 33. hinweis_abrufen(session_id, task_id, 1) — mit weitere (A2c)
+
+```json
+{
+    "text": "ZZ Hinweis: Zaehle weiter.",
+    "stufe": 1,
+    "weitere": true,
+    "verfuegbar": true
+}
+```
+
+## 34. erklaer_nachlesen(null, 'fkt_linear_steigung')
+
+```json
+{
+    "kernideen": [
+        {
+            "nr": 1,
+            "titel": "Steigung: wie viel es pro Schritt nach rechts hoch- oder runtergeht",
+            "schritte": [
+                {
+                    "art": "erklaerung",
+                    "bild": {
+                        "alt": "Steigungsdreieck an einer Geraden",
+                        "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                        "content_type": "image/svg+xml"
+                    },
+                    "inhalt": "Kernidee 1, Variante A, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+                    "formeln": [
+                        "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/c4d30e056e72b3d62cc0cfa351e07875c3bc243a2517bf049d7dcb261e86c79b.svg"
+                    ]
+                },
+                {
+                    "art": "beispiel",
+                    "inhalt": "Kernidee 1, Variante A, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+                    "formeln": [
+                        "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/f47a90bd7afee52869a870ad8400c663c1dc7f19ee9fcf30f7a256310545557c.svg"
+                    ]
+                }
+            ]
+        },
+        {
+            "nr": 2,
+            "titel": "Steigungsdreieck: Δy durch Δx",
+            "schritte": [
+                {
+                    "art": "erklaerung",
+                    "bild": {
+                        "alt": "Steigungsdreieck an einer Geraden",
+                        "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                        "content_type": "image/svg+xml"
+                    },
+                    "inhalt": "Kernidee 2, Variante A, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+                    "formeln": [
+                        "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/a7388b00c7b109d15f9d6795b7717e7b6507d75c0d980714bc1390c0366b6510.svg"
+                    ]
+                },
+                {
+                    "art": "beispiel",
+                    "inhalt": "Kernidee 2, Variante A, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+                    "formeln": [
+                        "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/ade5dd5c4e61163f1aea7e3122284e81861fff1eed88d5c63fc360802add78bc.svg"
+                    ]
+                }
+            ]
+        },
+        {
+            "nr": 3,
+            "titel": "Negative Steigung: Der Graph fällt",
+            "schritte": [
+                {
+                    "art": "erklaerung",
+                    "bild": {
+                        "alt": "Steigungsdreieck an einer Geraden",
+                        "url": "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/bilder/ab12.svg",
+                        "content_type": "image/svg+xml"
+                    },
+                    "inhalt": "Kernidee 3, Variante A, erklaerung: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+                    "formeln": [
+                        "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/6dc910a2f4c4a11cd583181780acdf71938a52aef5478bd5c8c685b489e11da7.svg"
+                    ]
+                },
+                {
+                    "art": "beispiel",
+                    "inhalt": "Kernidee 3, Variante A, beispiel: Die Steigung ist $m = \\frac{\\Delta y}{\\Delta x}$.",
+                    "formeln": [
+                        "https://ztcppihxqcphlqaguhma.supabase.co/storage/v1/object/public/task-assets/erklaer/formeln/8a1a6d5a07b3af24fa69240f5adc7858982df31629dceeb51c42dc137a89bd67.svg"
+                    ]
+                }
+            ]
+        }
+    ],
+    "skill_key": "fkt_linear_steigung"
+}
+```
+
+## 35. Fehler: erklaer_start von einem Tablet ohne Platz in dieser Session
+
+```json
+{
+    "message": "erklaer_start: kein zugewiesener Platz an diesem Tablet",
     "sqlstate": "42501"
 }
 ```

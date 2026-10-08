@@ -1,14 +1,26 @@
 import { ChevronLeft } from 'lucide-react'
 import { minuteImAblauf, segmentZustand, SESSION_MINUTEN } from '@/lib/session/coachLiveLogik'
 import { cn } from '@/lib/utils'
-import type { CoachLiveRaum } from '@/types/coachLive'
+import type { CoachLiveRaum, LiveZeitpunkt } from '@/types/coachLive'
+import { Pille } from './bausteine'
 import { useLiveTexte } from './useLiveTexte'
 
-/** Kopf der Fokus-Seite: zurueck, Session, Uhr, darunter die Phasen aus dem Snapshot. */
-export function LiveKopf({ raum, onZurueck }: { raum: CoachLiveRaum; onZurueck: () => void }): JSX.Element {
+type KopfProps = {
+  raum: CoachLiveRaum
+  /** true, wenn der Coach eine andere Phase ansieht als die Uhr. */
+  eigeneAnsicht: boolean
+  onZeige: (z: LiveZeitpunkt | null) => void
+  onZurueck: () => void
+}
+
+/**
+ * Kopf der Fokus-Seite: zurueck, Session (mit Testlauf-Kennzeichen), Uhr, darunter die Phasen
+ * aus dem Snapshot. Die Phasen sind antippbar: der Coach kann vorziehen (z. B. Check-out).
+ */
+export function LiveKopf({ raum, eigeneAnsicht, onZeige, onZurueck }: KopfProps): JSX.Element {
   const { t, uhrzeit } = useLiveTexte()
   const s = raum.session
-  const minute = minuteImAblauf(s.beginn, s.jetzt)
+  const minute = minuteImAblauf(s.gestartet ?? s.beginn, s.jetzt)
   const unterzeile =
     minute < 0
       ? t('kopf.beginntIn', { count: -minute })
@@ -28,11 +40,14 @@ export function LiveKopf({ raum, onZurueck }: { raum: CoachLiveRaum; onZurueck: 
           {t('kopf.zurueck')}
         </button>
         <div className="flex min-w-0 flex-1 flex-col">
-          <h1 className="truncate font-serif text-xl font-medium text-[var(--color-text-primary)]">
-            {t('kopf.titel', { uhrzeit: uhrzeit(s.beginn), raum: s.raum })}
-          </h1>
+          <span className="flex min-w-0 items-center gap-2">
+            <h1 className="truncate font-serif text-xl font-medium text-[var(--color-text-primary)]">
+              {t('kopf.titel', { uhrzeit: uhrzeit(s.beginn), raum: s.raum })}
+            </h1>
+            {s.testlauf && <Pille ton="warn">{t('kopf.testlauf')}</Pille>}
+          </span>
           <span className="truncate text-xs text-[var(--color-text-tertiary)]">
-            {t('kopf.untertitel', { fach: s.fach, von: s.klassen[0], bis: s.klassen[1], coach: s.coachName })}
+            {t('kopf.untertitel', { fach: t(`fach.${s.fach}`, { defaultValue: s.fach }), von: s.klassen[0], bis: s.klassen[1], coach: s.coachName })}
           </span>
         </div>
         <div className="flex flex-col items-end text-right">
@@ -40,35 +55,57 @@ export function LiveKopf({ raum, onZurueck }: { raum: CoachLiveRaum; onZurueck: 
           <span className="text-xs text-[var(--color-text-tertiary)]">{unterzeile}</span>
         </div>
       </div>
-      <Zeitleiste raum={raum} minute={minute} />
+      <Zeitleiste raum={raum} minute={minute} onZeige={onZeige} />
+      {s.status === 'active' && (
+        <div className="flex flex-wrap items-center justify-end gap-2 px-5 pb-2">
+          {eigeneAnsicht && (
+            <button type="button" onClick={() => onZeige(null)} className="min-h-[44px] rounded-[var(--radius-md)] px-3 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-light)]">
+              {t('kopf.liveFolgen')}
+            </button>
+          )}
+          <button
+            type="button"
+            aria-pressed={raum.zeitpunkt === 'danach'}
+            onClick={() => onZeige('danach')}
+            className="min-h-[44px] rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-subtle)]"
+          >
+            {t('kopf.abschluss')}
+          </button>
+        </div>
+      )}
     </header>
   )
 }
 
-function Zeitleiste({ raum, minute }: { raum: CoachLiveRaum; minute: number }): JSX.Element {
+function Zeitleiste({ raum, minute, onZeige }: { raum: CoachLiveRaum; minute: number; onZeige: (z: LiveZeitpunkt) => void }): JSX.Element {
+  const waehlbar = raum.session.status === 'active'
   const { t } = useLiveTexte()
   const gesamt = raum.zeitleiste.reduce((s, z) => s + z.minuten, 0) || SESSION_MINUTEN
   return (
     <div className="border-t border-[var(--color-border)] px-5 py-2">
-      <div className="relative flex h-8 gap-1" role="list" aria-label={t('kopf.zeitleiste')}>
+      <div className="relative flex h-11 gap-1" role="group" aria-label={t('kopf.zeitleiste')} title={t('kopf.ansicht')}>
         {raum.zeitleiste.map((z, i) => {
           const zustand = segmentZustand(raum.zeitleiste, i, minute)
           return (
-            <div
+            <button
+              type="button"
+              disabled={!waehlbar}
+              onClick={() => onZeige(z.phase)}
               key={z.phase}
-              role="listitem"
               aria-current={zustand === 'jetzt' ? 'step' : undefined}
+              aria-pressed={raum.zeitpunkt === z.phase}
               // flex-grow ist dynamisch (Minuten aus dem Snapshot).
               style={{ flexGrow: z.minuten, flexBasis: 0 }}
               className={cn(
-                'flex min-w-0 items-center justify-center truncate rounded-lg px-1 text-xs font-semibold',
+                'flex min-w-0 items-center justify-center truncate rounded-lg px-1 text-xs font-semibold disabled:cursor-default',
+                raum.zeitpunkt === z.phase && 'ring-2 ring-inset ring-[var(--color-gold-altgold)]',
                 zustand === 'vorbei' && 'bg-primary/20 text-[var(--color-primary)]',
                 zustand === 'jetzt' && 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]',
                 zustand === 'kommt' && 'bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)]',
               )}
             >
               {t(`phase.${z.phase}`)}
-            </div>
+            </button>
           )
         })}
         {minute >= 0 && minute <= gesamt && (
