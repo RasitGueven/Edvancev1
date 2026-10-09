@@ -17,7 +17,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(29);
+select plan(33);
 
 \ir session_a2_fixture.sql
 
@@ -149,8 +149,13 @@ select ok((select x ->> 'skill_key' = 'gleichung_quadr_faktor' and x ->> 'art' i
 -- ── R) Rechte und Tablet ───────────────────────────────────────────────────
 select pg_temp.act_as(:'ohne');
 select throws_ok(format('select coach_raum_live(%L)', :'s1'), '42501', null, 'R Konto ohne Profil: 42501');
+select throws_ok(format('select coach_kind_detail(%L, %L)', :'s1', :'k_i'), '42501', null, 'R Konto ohne Profil: coach_kind_detail 42501');
+select pg_temp.act_as(:'coach_b');
+select throws_ok(format('select coach_raum_live(%L)', :'s1'), '42501', null, 'R fremder Coach: coach_raum_live 42501');
+select throws_ok(format('select coach_kind_detail(%L, %L)', :'s1', :'k_i'), '42501', null, 'R fremder Coach: coach_kind_detail 42501');
 select pg_temp.act_as(pg_temp.tablet(1));
-select ok(not (tablet_stand() ?| array['phase_seit', 'warmup_entfallen', 'heute_sicher']), 'R Tablet sieht die neuen Felder nicht');
+select throws_ok(format('select coach_raum_live(%L)', :'s7'), '42501', null, 'R Tablet: coach_raum_live 42501');
+select ok(tablet_stand()::text !~ '(phase_seit|warmup_entfallen|heute_sicher)', 'R Tablet-Stand enthaelt die neuen Felder nirgends');
 
 select * from finish();
 rollback;

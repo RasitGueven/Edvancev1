@@ -1,56 +1,21 @@
 # Szenario „Batu“: LSA-Muster und Erwartung für die erste Session
 
-Stand 08.10.2026 · Paket F1, Umfang B2 · **Entwurf, wartet auf „Muster Batu ok“** · Maschinenlesbar: `batu.json`
+Stand 09.10.2026 · Paket F1, Umfang B2 · **abgenommen („Muster Batu ok“, Rasit 08.10.)** · Maschinenlesbar: `batu.json`
 
 Belege: dbread 08.10.2026, Abfragen unter `/tmp/claude-1000/f1/b1/` und `/tmp/claude-1000/f1/b2*.sql`;
 Funktionen aus `supabase/schema-erwartet.sql` (Stand Prod).
 
-## 0. Vor der Abnahme zu entscheiden
+## 0. Entscheidungen (Rasit, 08.10.2026)
 
-Drei Befunde aus B1 betreffen das Werkzeug (B3). Sie gehören vor das Muster, weil sie bestimmen, ob das Muster
-überhaupt so ankommen kann.
+Die Befunde aus dem Entwurf (Herleitung in der Git-Historie dieser Datei) und wie sie entschieden sind:
 
-**E1 Testkind.** Es gibt kein Testkind, das alle Bedingungen erfüllt:
-- Klasse 9 gibt es 5 Testkinder (`students.ist_test`), davon 4 mit laufendem Vertrag. Alle 5 haben einen leeren Lernpfad.
-- **Kein Lead in Prod hat `ist_test = true`** (0 von allen). „An einem Testlead“ erfüllt also niemand.
-- Am nächsten kommt **TESTLEAD Zweitmann** (`5737b689…`): Vertrag aktiv bis 30.04.2027, keine LSA, kein Thema, keine
-  Buchung. Lead `converted`, Klasse 9, `ist_test = false`.
-- Das provisorische Kind „Batu Demirel“ hat keinen Vertrag und kein Profil. Es kommt nicht in Frage (kein Vertrag bauen).
-- **Vorschlag:** Zweitmann spielt „Batu“. Dass sein Lead kein Testlead ist, stört keine der Funktionen auf dem Weg
-  (`lsa_start` prüft im Testlauf nur `students.ist_test`; ohne Testlauf gar nichts dazu). Den Lead als Test markieren
-  wäre eine Datenänderung, die ich nicht vornehme.
+| | Befund | Entscheidung |
+|---|---|---|
+| **E1** | Kein Lead in Prod hat `ist_test`; kein Testkind erfüllt „Testlead“. | **TESTLEAD Zweitmann** (`5737b689…`, Klasse 9, Vertrag aktiv, Lernpfad leer) spielt Batu. |
+| **E2** | Ohne Testlauf ist der LSA-Pool für diese Skills leer (kein Item `ready`); ein Testlauf-LSA erzeugt keinen Lernpfad. | **Vorschlag A:** Testkonten bekommen in der LSA-Auswahl auch ohne Testlauf den Testlauf-Pool (Migration `20261011140200`). `session_im_pool`, Hinweise, Anzeige und Entscheidung 27 unverändert. |
+| **E3** | Das Warm-up wählte bei Gleichstand alphabetisch (Batu: `dezimal_add_sub`). | **Option iii:** neue Reihenfolge in `session_plan_warmup` (Migration `20261011140300`, Annahme F17 in offene-punkte-a2). Kandidatenmenge bleibt. |
 
-**E2 LSA-Weg (Blocker).** Der verlangte Weg „echte LSA, nicht als Testlauf, damit Lernpfad und Report entstehen“ geht
-mit dem Bestand nicht:
-- **Ohne Testlauf ist der Pool leer.** `lsa_im_pool(task, false)` verlangt `status = 'ready'`. Von den 22 Skills des
-  Szenarios (Wurzel-Thema, seine Fundamente, quadratische Themen) ist **kein einziges Item `ready`**, alle sind `draft`
-  (dbread). `lsa_start` fände in Phase T nichts.
-- **Im Testlauf entsteht kein Lernpfad.** `lernpfad_lsa_urteile` filtert Testlauf-LSAs heraus. Darauf bauen
-  `lernpfad_aus_lsa` (Lernpfad) und `session_sichere_skills` (Warm-up) auf. `lsa_uebernahme` wirft bei einem Testlauf
-  einen Fehler. Ein Testlauf-LSA erzeugt nur den Report (`lsa_finish` → `result_summary`).
-- Optionen (Entscheidung Rasit):
-  - **A (Vorschlag):** Testkonten (`students.ist_test`) bekommen auch außerhalb eines Testlaufs den Testlauf-Pool
-    (`lsa_im_pool`: Entwürfe ohne `pruef_ausschluss`).
-    - Das ist eine Migration an der LSA-Auswahl, gilt aber nur für Testkonten. Echte Kinder sehen weiter nur `ready`.
-    - Entscheidung 27 bleibt unberührt: Diese LSA ist kein Testlauf, sie hinterlässt bewusst Spuren am Testkonto.
-    - Danach laufen `lsa_start`, `lsa_submit`, `lsa_finish` und `lernpfad_aus_lsa` unverändert.
-  - **B:** Testlauf-LSA. Dazu ein eigener Admin-Schritt „Szenario übernehmen“, der für Testkonten auch
-    Testlauf-Urteile in den Lernpfad schreibt. Das weicht die Testlauf-Regel auf, deshalb nicht empfohlen.
-  - **C:** Die Items der beteiligten Skills werden `ready` gesetzt. Das ist Inhaltsarbeit und kein Teil von F1.
-- Direkt in `lsa_skill_urteil` oder `lernpfad` zu schreiben, schließe ich aus: Dafür gibt es Funktionen.
-
-**E3 Warm-up (Befund, Engine unverändert).** Mit diesem Muster kommt im Warm-up **nicht** die Wurzel, sondern
-„Dezimalzahlen addieren/subtrahieren“ (Klasse 5). Die Herleitung steht unter 3. Ursache ist die Reihenfolge in
-`session_plan_warmup`:
-- Unter den sicheren Voraussetzungen gibt es keinen Vorrang für direkt belegte oder zielnahe Skills.
-- Bei Gleichstand entscheidet der `skill_key`, also das Alphabet.
-- Die Mitbelegung (`lsa_mitbelegung`) macht mit „Wurzel ziehen trägt“ auch alle Fundamente darunter sicher.
-
-Die Engine darf ich laut Auftrag nur ändern, wenn A6 einen Fehler belegt; das tut A6 nicht. Optionen:
-- **(i)** so lassen und im Ablauf (B5) ehrlich beschreiben;
-- **(ii)** Folgepaket: Tie-Break im Warm-up, zum Beispiel direkt belegte Skills vor mitbelegten und höhere
-  `fundament_tiefe` zuerst;
-- **(iii)** Freigabe für (ii) schon in F1, mit Test vorher rot und nachher grün.
+Kernarbeit ab `gleichung_quadr_faktor` ist gewollt; die Platzhalter-Sequenz (B4) hängt am ersten offenen Ziel-Skill.
 
 ## 1. Lage des Kindes
 
@@ -149,11 +114,25 @@ Batu schneidet Nachkommastellen ab, statt zu runden. Das zieht sich durch Näher
 
   Sortiert wird nach der Zahl der Voraussetzungen in der Liste, dann Klasse, dann `fundament_tiefe`. quadrat (0, Tiefe 5)
   steht vor faktor (0, Tiefe 8); wurzel hat 1, formel 2, anzahl 3. **Erster offener Skill ist faktor**, nicht wurzel.
-- **Warm-up** (`session_plan_warmup`, 3 Aufgaben, eine Stufe leichter):
-  - Alle sechs sicheren Skills sind Voraussetzungen des Ziels (`lsa_abschluss`).
-  - Bei Gleichstand gewinnt das Alphabet, also **dezimal_add_sub ×3** (E3).
-  - `potenzen` hätte keine Aufgabe; `zahl_wurzel_quadrat` käme erst danach.
-  - Gewünscht ist das Warm-up auf `zahl_wurzel_quadrat`. Das kommt erst mit E3 (ii) oder (iii).
+- **Warm-up mit der neuen Regel (F17):** **vorzeichen_add_sub** („Negative Zahlen addieren/subtrahieren“, Kl. 7), drei
+  Aufgaben, eine Stufe leichter. Warum:
+  - Kandidaten sind die sechs sicheren Skills (zahl_wurzel_quadrat direkt, fünf mitbelegt). Alle sind Voraussetzungen
+    des Ziels (`lsa_abschluss` der Ziel-Skills).
+  - (1) Alle haben einen bekannten Stand (Lernpfad aus der LSA). (2) Alle sind sicher.
+  - (3) Abstand zum ersten offenen Ziel-Skill **gleichung_quadr_faktor** (dbread `skill_kante`): vorzeichen_add_sub 2,
+    vorzeichen_mult_div und dezimal_mult 3, dezimal_add_sub 4. zahl_wurzel_quadrat und potenzen sind von faktor
+    aus **nicht erreichbar** (Ausklammern braucht keine Wurzel), sie kommen zuletzt.
+  - Im Testlauf-Pool hat vorzeichen_add_sub 7 Aufgaben (dbread). Das Warm-up bleibt bei ihm (Fokus, F9).
+- **Die Verbindung LSA → Session** zeigt sich bei Batu deshalb nicht im Warm-up, solange keine Kante von den
+  Einstiegen der quadratischen Gleichungen zu einem Wurzel-Skill führt (offener Punkt an die Inhaltspflege,
+  offene-punkte-f1). Sie zeigt sich
+  - im **LSA-Report** (Urteile zu den Wurzel-Skills, Runden als fehlendes Fundament),
+  - in der **Zielliste** (zahl_wurzel_quadrat als „Voraussetzung · sicher“) und
+  - beim **Einmischen** (F13): eingemischt werden sichere Voraussetzungen des Ziels, darunter zahl_wurzel_quadrat.
+    Einschränkung: Auch hier entscheidet bei Gleichstand das Alphabet (`session_misch_kandidaten`: Voraussetzung,
+    zuletzt geübt, dann skill_key). Vor zahl_wurzel_quadrat kommen dezimal_add_sub, dezimal_mult und
+    vorzeichen_mult_div (potenzen hat keine Aufgabe); die Wurzel ist also etwa die vierte eingemischte Aufgabe
+    (Mischanteil 30 %, Einführungsaufgaben zählen nicht). Offener Punkt, nicht geändert.
 - **Kernarbeit:** gleichung_quadr_faktor ist neu.
   - Im Testlauf kommt zuerst die **Platzhalter-Erklärsequenz** (B4, Status `entwurf`, nur im Testlauf sichtbar).
   - Danach ein Lösungsbeispiel und eine ähnliche Aufgabe (`neu_aehnliche_aufgabe`).
@@ -168,19 +147,32 @@ Batu schneidet Nachkommastellen ab, statt zu runden. Das zieht sich durch Näher
   - zahl_wurzel_quadrat stünde nicht in der Zielliste: Es ist keine direkte Voraussetzung.
   - Darum der Vorschlag Quadratische Gleichungen.
 
-## 4. Was das Werkzeug schreibt (B3, erst nach Abnahme und Entscheidung E2)
+## 4. Was das Werkzeug schreibt (B3)
 
-Nacheinander, jeder Schritt in `--dry-run` sichtbar:
-1. `lead_thema_setzen`: Thema reelle_zahlen an den Lead.
-2. `lsa_start(kind, 9, 'mathematik', 'adaptiv', jetzt − 12 min, false)`.
-3. `lsa_submit` je Item nach Muster.
-4. `lsa_finish`.
-5. `lernpfad_aus_lsa`.
+`tools/szenario-lsa.mjs` (gemeinsame Teile in `tools/szenario-lib.mjs`). Alles in **einer** Transaktion, als Admin
+(Claims transaktionslokal wie trockenlauf.md Schritt 6), über die Funktionen einer echten LSA:
+1. `lead_thema_setzen`: Thema reelle_zahlen als aktuelles Schulthema des Leads (nur, wenn es nicht schon so ist).
+2. `lsa_start(kind, 9, 'Mathematik', 'adaptiv', jetzt − 12 min, false)` (kein Testlauf, E2).
+3. `lsa_submit` je Item, das der Server ausgibt, mit der Antwort nach `batu.json`; Zeitpunkt je Antwort +55 s.
+4. `lsa_finish` (Report), sobald kein Item mehr kommt oder eins zu einem Skill außerhalb des Musters.
+5. `lernpfad_aus_lsa` (Lernpfad).
 
-`szenario-zuruecksetzen.mjs` entfernt in umgekehrter Reihenfolge, was das Werkzeug angelegt hat:
-- Lernpfad-Zeilen und Protokoll der `lsa`-Übernahme,
-- die LSA-Session mit Antworten, Urteilen und Ausgaben,
-- das gesetzte Lead-Thema.
+- `--dry-run` zeigt jeden Schreibschritt mit Ergebnis (Urteil je Antwort, Lernpfad) und rollt zurück.
+- Abbruch, wenn das Kind kein Testkonto ist, schon eine andere LSA oder einen Lernpfad hat.
+- Ein zweiter Lauf findet die abgeschlossene Szenario-LSA und tut nichts.
+- Das Ergebnis (Session-ID, Lead, Lead-Thema vorher) steht in `~/szenario/batu-<kind>.json` (chmod 600).
 
-Grundlage ist eine Liste der IDs, die das Werkzeug bei jedem Lauf schreibt (`~/szenario/batu-<kind>.json`).
-`lernpfad_protokoll` ist append-only; ob das Zurücksetzen dort löschen darf, klärt B3 mit dir.
+`tools/szenario-zuruecksetzen.mjs --protokoll <datei>` entfernt genau das wieder:
+- `lernpfad_protokoll`: die 11 Übernahme-Zeilen dieser LSA. Die Tabelle hat keine Lösch-Sperre; gelöscht werden nur
+  Zeilen mit `aktion = 'uebernahme'` und `neu.lsa_session_id` = Szenario-LSA. **Abbruch**, sobald es für das Kind
+  andere Protokollzeilen, Belege oder eine Coach-Entscheidung gibt (dann wurde mit dem Lernpfad gearbeitet).
+- `lernpfad`: die Zeilen dieser LSA.
+- `lsa_sessions`: die Session; Antworten, Urteile und Ausgaben hängen per Cascade daran. Abbruch bei einem Eltern-Report.
+- `lead_themen`: das gesetzte Thema; ein vorheriges Thema setzt es wieder.
+
+**Beleg (Wegwerf-DB, `docs/szenario/b3-wegwerf.sql`, 09.10.):** 11 Antworten genau nach Muster, Urteile wie in der
+Tabelle, 11 Lernpfad-Zeilen (6 sicher, 5 noch nicht sicher), `result_summary` vorhanden, `testlauf = false`. Zweiter
+Lauf: keine Änderung. Zurücksetzen: alle Zähler wie vorher. Nicht-Testkonto: Abbruch, nichts geschrieben. In der
+Wegwerf-DB kam nach runden_ueberschlag kein weiteres Item (kleiner Pool); in Prod endet die LSA beim ersten Item der
+Breite. `lsa_skill_urteil` trägt zusätzlich Zeilen `ungeprueft` für den Rest des Themenraums (35 in der Wegwerf-DB);
+sie gehen nicht in den Lernpfad.

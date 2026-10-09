@@ -1,6 +1,6 @@
 {
-  "stand": "2026-10-08",
-  "status": "entwurf",
+  "stand": "2026-10-09",
+  "status": "abgenommen (Muster Batu ok, Rasit 08.10.)",
   "paket": "F1/B2",
   "kind": {
     "student_id": "5737b689-8add-49f5-ac26-89bd40387b0f",
@@ -12,7 +12,7 @@
   "lsa": {
     "thema_key": "reelle_zahlen",
     "grade": 9,
-    "subject": "mathematik",
+    "subject": "Mathematik",
     "modus": "adaptiv",
     "testlauf": false,
     "start_vor_minuten": 12,
@@ -103,15 +103,19 @@
         "gleichung_quadr_formel",
         "gleichung_quadr_anzahl"
       ],
-      "warmup_skill": "dezimal_add_sub",
-      "warmup_gewuenscht": "zahl_wurzel_quadrat",
+      "warmup_skill": "vorzeichen_add_sub",
       "kern_erster_skill": "gleichung_quadr_faktor",
-      "erklaersequenz": "Platzhalter (B4), nur Testlauf"
+      "erklaersequenz": "Platzhalter (B4), nur Testlauf",
+      "warmup_grund": "F17: alle Kandidaten sicher und bekannt; geringster Abstand zu gleichung_quadr_faktor (2)"
     }
   },
   "offen": [
-    "E1 kein Lead mit ist_test",
-    "E2 ohne Testlauf leerer Pool, im Testlauf kein Lernpfad",
-    "E3 Warm-up-Reihenfolge alphabetisch"
-  ]
+    "Kante von den Einstiegen QG zu Wurzel-Skills (offene-punkte-f1 10)",
+    "Einmischen alphabetisch (offene-punkte-f1 11)"
+  ],
+  "entscheidungen": {
+    "E1": "Zweitmann spielt Batu",
+    "E2": "Testlauf-Pool fuer Testkonten in der LSA-Auswahl",
+    "E3": "Warm-up-Reihenfolge F17"
+  }
 }

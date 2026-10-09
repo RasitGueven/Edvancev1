@@ -69,7 +69,8 @@ begin
            -- F1 (A4): seit wann das Kind in seiner Phase ist (juengster Phasenwechsel) und ob das Warm-up
            -- entfallen ist: kein Warm-up-Schritt, aber schon Kernarbeit/Check-out. kein_stoff = Kernarbeit begann,
            -- solange die Uhr noch Check-in oder Warm-up zeigte (session_plan_warmup fand keinen Skill mit
-           -- Aufgabe); zeit = Kernarbeit erst nach dem Warm-up laut Uhr (spaet angekommen).
+           -- Aufgabe); zeit = Kernarbeit erst nach dem Warm-up laut Uhr (spaet angekommen). Fehlt ein Zeitpunkt: null.
+           -- Ein Phasenwechsel durch den Coach (phase_setzen) zaehlt wie einer vom Tablet (offene-punkte-f1).
            'phase_seit', (select max(e.zeit) from public.session_ereignisse e
                            where e.session_id = p_session_id and e.student_id = k.student_id
                              and e.typ = 'phase_wechsel'),
@@ -78,13 +79,14 @@ begin
                and not exists (select 1 from public.session_schritte x
                                 where x.session_id = p_session_id and x.student_id = k.student_id
                                   and x.phase = 'warmup')
-              then case when (select min(e.zeit) from public.session_ereignisse e
-                               where e.session_id = p_session_id and e.student_id = k.student_id
-                                 and e.typ = 'phase_wechsel' and e.payload ->> 'phase' = 'kern')
-                             < s.gestartet_am + (public.session_wert_zahl(p_session_id, 'phase_checkin_min')
-                                                 + public.session_wert_zahl(p_session_id, 'phase_warmup_min'))
-                                                * interval '1 minute'
-                        then 'kein_stoff' else 'zeit' end end)
+              then (select case when x.kern_ab < x.warmup_ende then 'kein_stoff'
+                                when x.kern_ab >= x.warmup_ende then 'zeit' end
+                      from (select (select min(e.zeit) from public.session_ereignisse e
+                                     where e.session_id = p_session_id and e.student_id = k.student_id
+                                       and e.typ = 'phase_wechsel' and e.payload ->> 'phase' = 'kern') as kern_ab,
+                                   s.gestartet_am + (public.session_wert_zahl(p_session_id, 'phase_checkin_min')
+                                                     + public.session_wert_zahl(p_session_id, 'phase_warmup_min'))
+                                                    * interval '1 minute' as warmup_ende) x) end)
            order by (k.j ->> 'tablet_nr')::int nulls last, k.j ->> 'name'), '[]')
     into v_kinder
     from (select ss.student_id, public.session_kind_live(p_session_id, ss.student_id) as j
