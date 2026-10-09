@@ -8,12 +8,16 @@
 --        gilt ab der naechsten.
 --   3  A4 coach_raum_live: phase_seit und warmup_entfallen (kein_stoff, zeit, null mit Warm-up).
 --   6' A6 coach_kind_detail.heute_sicher: der Skill, bei dem die Engine weitergerueckt ist.
+--   E3 Warm-up-Reihenfolge (Rasit 08.10.): Fokus, Voraussetzung, dann (1) bekannter Stand, (2) noch nicht sicher,
+--        (3) geringster Abstand zum ersten offenen Ziel-Skill, (4) alphabetisch. Kandidatenmenge unveraendert.
+--   6  B4 Platzhalter-Erklaersequenz zu gleichung_quadr_faktor (Migration 20261011140400): startet im Testlauf,
+--        ausserhalb nicht (Status entwurf, Entscheidung 27).
 --   R  Rechte und Tablet unveraendert: Konto ohne Profil 42501, das Tablet sieht die neuen Felder nicht.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(20);
+select plan(29);
 
 \ir session_a2_fixture.sql
 
@@ -86,6 +90,61 @@ select pg_temp.schritt(:'s3', 1);
 select pg_temp.act_as(:'coach_a');
 select is((select k ->> 'warmup_entfallen' from jsonb_array_elements(coach_raum_live(:'s3') -> 'kinder') k), 'zeit',
           '3 spaet: Warm-up-Zeit vorbei');
+
+-- ── E3) Warm-up-Reihenfolge ───────────────────────────────────────────────
+-- Eigene Kette z -> c -> b -> a (Einstieg z): Abstand zu z (erster offener Ziel-Skill) c = 1, b = 2, a = 3. Sicher
+-- sind a und b, beide Voraussetzungen des Ziels, gleich lange nicht geuebt. Alphabetisch kaeme a, mit Regel (3) b.
+insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe) values
+  ('zz_f1_a', 'ZZ F1 Grundrechnen', 5, 1), ('zz_f1_b', 'ZZ F1 Bruchrechnen', 6, 2),
+  ('zz_f1_c', 'ZZ F1 Terme', 7, 3), ('zz_f1_z', 'ZZ F1 Gleichungen', 8, 4);
+insert into skill_kante (skill_key, voraussetzt_skill_key) values
+  ('zz_f1_z', 'zz_f1_c'), ('zz_f1_c', 'zz_f1_b'), ('zz_f1_b', 'zz_f1_a');
+insert into themen (thema_key, fach, klasse, stufe, label, sort) values ('zz_f1_thema', 'mathematik', 8, 'erste', 'ZZ F1 Gleichungen', 9301);
+insert into thema_einstieg (thema_key, skill_key) values ('zz_f1_thema', 'zz_f1_z');
+insert into skill_thema (skill_key, thema_key) values
+  ('zz_f1_a', 'zz_a2_basis'), ('zz_f1_b', 'zz_a2_basis'), ('zz_f1_c', 'zz_a2_basis'), ('zz_f1_z', 'zz_f1_thema');
+select pg_temp.aufgaben('zz_f1_a', 6), pg_temp.aufgaben('zz_f1_b', 6), pg_temp.aufgaben('zz_f1_z', 6);
+select pg_temp.kind_mit('ZZ Ole F1', 'zz_f1_thema', '{zz_f1_a,zz_f1_b}') as k_o \gset
+select pg_temp.neue_session(array[:'k_o']::uuid[], 6) as s4 \gset
+select pg_temp.checkin(:'s4', 1);
+select pg_temp.schritt(:'s4', 1) as w1 \gset
+select is(:'w1'::jsonb ->> 'skill_key', 'zz_f1_b', 'E3 (3) geringerer Abstand zum Ziel-Skill vor alphabetisch');
+select is(:'w1'::jsonb ->> 'grund_code', 'warmup_voraussetzung', 'E3 Voraussetzung des Ziels');
+select pg_temp.antwort(:'s4', 1, true);
+select is(pg_temp.schritt(:'s4', 1) ->> 'skill_key', 'zz_f1_b', 'E3 Fokus: das Warm-up bleibt beim Skill der vorigen Aufgabe (F9)');
+
+-- (4) Gleicher Abstand: alphabetisch. Sicher v1 und v2 (beide Abstand 1 zu s1): v1 vor v2.
+select pg_temp.kind_mit('ZZ Pia F1', 'zz_a2_terme', '{zz_a2_v2,zz_a2_v1}') as k_p \gset
+select pg_temp.neue_session(array[:'k_p']::uuid[], 6) as s5 \gset
+select pg_temp.checkin(:'s5', 1);
+select is(pg_temp.schritt(:'s5', 1) ->> 'skill_key', 'zz_a2_v1', 'E3 (4) gleicher Abstand: alphabetisch');
+
+-- ── 6) B4 Platzhalter-Sequenz ─────────────────────────────────────────────
+-- Im Neuaufbau haben die Bestandsaufgaben keinen Cluster (offene-punkte-a2d 1 b): fuer den Test setzen.
+update tasks set cluster_id = (select id from skill_clusters where name = 'ZZ A2 Cluster')
+ where skill_key = 'gleichung_quadr_faktor';
+-- Wie Batu: Wurzel ziehen sicher, Thema Quadratische Gleichungen; spaet (Minute 20), damit es gleich in die Kernarbeit geht.
+select pg_temp.kind_mit('ZZ Batu F1', 'quadratische_gleichungen', '{zahl_wurzel_quadrat}', '{}', true) as k_b \gset
+select pg_temp.neue_session(array[:'k_b']::uuid[], 20, true) as s6 \gset
+select pg_temp.checkin(:'s6', 1);
+select pg_temp.schritt(:'s6', 1) as b1 \gset
+select is(:'b1'::jsonb ->> 'skill_key', 'gleichung_quadr_faktor', '6 erster offener Ziel-Skill: gleichung_quadr_faktor');
+select is(:'b1'::jsonb ->> 'art', 'erklaerung', '6 im Testlauf kommt die Erklaersequenz');
+select pg_temp.act_as(pg_temp.tablet(1));
+select erklaer_start(:'s6', null, 'gleichung_quadr_faktor') as e1 \gset
+select ok(:'e1'::jsonb -> 'kernidee' ->> 'titel' like 'Platzhalter:%', '6 die Kernidee ist als Platzhalter erkennbar');
+select is(:'e1'::jsonb -> 'check' ->> 'task_id', 'a368a0d0-25fd-4cc9-a873-541afbb9e864', '6 mit dem Platzhalter-Check');
+
+-- Ausserhalb eines Testlaufs: eine Aufgabe ready, damit der Pool nicht leer ist; die Sequenz (Entwurf) kommt nicht.
+update tasks set status = 'ready'
+ where id = (select id from tasks where skill_key = 'gleichung_quadr_faktor' and source <> 'edvance_f1_platzhalter'
+              and 'session' = any (einsatz) order by source_ref limit 1);
+select pg_temp.kind_mit('ZZ Echt Batu F1', 'quadratische_gleichungen', '{zahl_wurzel_quadrat}') as k_eb \gset
+select pg_temp.neue_session(array[:'k_eb']::uuid[], 20) as s7 \gset
+select pg_temp.checkin(:'s7', 1);
+select ok((select x ->> 'skill_key' = 'gleichung_quadr_faktor' and x ->> 'art' in ('beispiel', 'aufgabe')
+             from (select pg_temp.schritt(:'s7', 1) as x) y),
+          '6 ausserhalb des Testlaufs keine Erklaersequenz (Entwurf)');
 
 -- ── R) Rechte und Tablet ───────────────────────────────────────────────────
 select pg_temp.act_as(:'ohne');
