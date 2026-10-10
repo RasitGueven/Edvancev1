@@ -2,6 +2,7 @@
 // mit Musterloesung (nur hier), falsche Antworten mit Fehlbild (nur hier), Hinweise,
 // Heute, Info. Alles nur fuer den Coach (Entscheidung 17).
 
+import { useState } from 'react'
 import { Check, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { geltenderFall } from '@/lib/session/coachLiveLogik'
@@ -10,6 +11,7 @@ import { cn } from '@/lib/utils'
 import type { CoachLiveKind, LiveAufgabeDetail, LiveErklaersequenz, ZielZeile } from '@/types/coachLive'
 import { Block, Feldname, Pille } from './bausteine'
 import { useLive } from './LiveKontext'
+import { ThemaWahl } from './ThemaWahl'
 import { useLiveTexte } from './useLiveTexte'
 
 const ZIEL_PUNKT: Record<ZielZeile['stand'], string> = {
@@ -21,12 +23,34 @@ const ZIEL_PUNKT: Record<ZielZeile['stand'], string> = {
   gemeistert: 'bg-[var(--color-success)]',
 }
 
+/** F1 (A1): Kind wartet ohne Ziel bzw. ohne Aufgabe — Grund in Klartext und gleich „Thema waehlen“. */
+export function WartetBlock({ kind }: { kind: CoachLiveKind }): JSX.Element {
+  const tx = useLiveTexte()
+  return (
+    <Block ton="info">
+      <p className="text-sm font-semibold text-[var(--color-text-primary)]" data-testid="wartet-grund">
+        {tx.t(`thema.wartet.${kind.wartet}`, { name: kind.vorname })}
+      </p>
+      <ThemaWahl kind={kind} />
+    </Block>
+  )
+}
+
 export function ZielBlock({ kind }: { kind: CoachLiveKind }): JSX.Element {
   const tx = useLiveTexte()
   const fall = geltenderFall(kind.ziel)
+  const [wahl, setWahl] = useState(false)
   return (
     <Block titel={tx.t('ziel.titel')} rechts={fall && <Pille>{tx.t(`fall.${fall}`)}</Pille>}>
-      <p className="text-sm font-semibold text-[var(--color-text-primary)]">{tx.ziel(kind)}</p>
+      <p className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
+        {tx.ziel(kind)}
+        {!kind.wartet && !wahl && (
+          <button type="button" onClick={() => setWahl(true)} className="min-h-[44px] text-sm font-semibold text-[var(--color-primary)] hover:underline">
+            {kind.ziel.themaLabel ? tx.t('checkin.aendern') : tx.t('checkin.themaWaehlen')}
+          </button>
+        )}
+      </p>
+      {wahl && <ThemaWahl kind={kind} onFertig={() => setWahl(false)} />}
       <ul className="flex flex-col gap-2">
         {kind.zielFertigkeiten.map((z) => (
           <li key={z.skillKey} className="grid grid-cols-[14px_minmax(0,1fr)] items-start gap-2.5">
@@ -136,7 +160,7 @@ export function VersucheBlock({ kind }: { kind: CoachLiveKind }): JSX.Element {
           <li key={i} className="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-2.5 gap-y-0.5 text-sm">
             <Pille ton="bad">{tx.t(`schublade.versuchKopf.${v.kopf.art}`, { nr: v.kopf.nr })}</Pille>
             <code className="font-sans text-sm font-semibold text-[var(--color-error-gap)]">{v.eingabe}</code>
-            <span className="col-start-2 text-xs text-[var(--color-text-secondary)]">{tx.t('schublade.fehlbild', { fehlbild: v.fehlbild })}</span>
+            {v.fehlbild && <span className="col-start-2 text-xs text-[var(--color-text-secondary)]">{tx.t('schublade.fehlbild', { fehlbild: v.fehlbild })}</span>}
           </li>
         ))}
       </ul>

@@ -63,6 +63,11 @@ function KindKachel({ kind, gewaehlt }: { kind: CoachLiveKind; gewaehlt: boolean
         <span className="ml-auto text-xs text-[var(--color-text-tertiary)]">{tx.t('raster.klasse', { klasse: kind.klasse })}</span>
       </span>
       <span className="px-4 text-xs text-[var(--color-text-tertiary)]">{tx.taetigkeit(kind)}</span>
+      {tx.phaseZeile(kind) && (
+        <span className="px-4 text-xs text-[var(--color-text-secondary)]" data-testid="kachel-phase">
+          {tx.phaseZeile(kind)}
+        </span>
+      )}
       <span className="px-4 text-sm font-medium leading-snug text-[var(--color-text-primary)]">{zeile}</span>
       <span className="flex items-center gap-2 px-4 pt-0.5 text-xs text-[var(--color-text-secondary)]">
         {kind.sequenzBalken ? <Sequenzbalken staende={kind.sequenzBalken} /> : <Punkte folge={kind.ergebnisfolge} />}

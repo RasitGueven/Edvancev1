@@ -164,6 +164,8 @@ export type KindDetail = Omit<KindLive, 'status'> & {
   erklaer_kernideen: KernideeLive[]
   /** C3: session_schritte.details des letzten Schritts; {} bei alten Zeilen. */
   schritt_details: SchrittDetails
+  /** F1 (Migration 20261011140100): Skills des Ziels, die die Engine heute als sicher zaehlt; fehlt vor F1. */
+  heute_sicher?: string[]
 }
 
 export type PfadVorschlagLive = {

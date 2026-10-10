@@ -94,7 +94,8 @@ describe('5 Abbildung je Feld aus echten Antworten', () => {
     const emir = raumAus(F.raum_kern, { ...leer, detail }).kinder[0]
     expect(emir.aufgabe).toMatchObject({ kopf: { art: 'aufgabe', nr: 3 }, musterloesung: ['ZZ-LOESUNGSWEG: 3 + 4 = 7'] })
     expect(emir.aufgabe?.text).toContain('Wie viel ist 3 + 4?')
-    expect(emir.versuche).toEqual([{ kopf: { art: 'versuch', nr: 1 }, eingabe: '0', fehlbild: 'Nur das erste Vorzeichen geändert' }])
+    // F1 (A3): Der falsche Versuch gehoert zu einer frueheren Aufgabe; die Schublade zeigt nur die aktuelle.
+    expect(emir.versuche).toEqual([])
     expect(emir.eingreifen.fehlbild).toEqual({ slug: 'zz_a2_vz', klartext: 'Nur das erste Vorzeichen geändert' })
     expect(emir.zielFertigkeiten.map((z) => z.skillKey)).toEqual(['zz_a2_v1', 'zz_a2_v2', 'zz_a2_s1', 'zz_a2_s2'])
     expect(emir.zielFertigkeiten[1].notizen).toContainEqual({ art: 'pruefungFaellig' })

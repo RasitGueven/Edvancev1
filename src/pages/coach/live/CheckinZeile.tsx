@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Check, Flag } from 'lucide-react'
-import { ThemaSuche } from '@/pages/admin/intake/ThemaSuche'
 import { checkinCoachSetzen } from '@/lib/session/coachLive'
 import { geltenderFall, tageBis } from '@/lib/session/coachLiveLogik'
 import { cn } from '@/lib/utils'
@@ -9,6 +8,7 @@ import type { SessionFall } from '@/types/sessionLive'
 import type { Thema } from '@/types/themen'
 import { Feldname, Pille, Platz } from './bausteine'
 import { useLive } from './LiveKontext'
+import { ThemaWahl } from './ThemaWahl'
 import { useLiveTexte } from './useLiveTexte'
 
 const FAELLE: SessionFall[] = ['klassenarbeit', 'schulthema', 'lernpfad']
@@ -18,6 +18,7 @@ const STIMMUNG_PUNKT = { gut: 'bg-[var(--color-success-answer)]', geht_so: 'bg-[
 /**
  * Eine Zeile „Check-in am Tablet“: Antworten des Kindes live, Fall-Vorschlag (goldener
  * Punkt) getrennt von der Wahl des Coaches, Themensuche wie im Erstgespraech (kein Freitext).
+ * F1: „Thema waehlen“ bzw. „Aendern“ immer, auch ohne Schulthema; ist das Kind schon weiter, steht seine Phase dabei.
  */
 export function CheckinZeile({ kind, katalog }: { kind: CoachLiveKind; katalog: Thema[] }): JSX.Element {
   const { sessionId, raum, ausfuehren } = useLive()
@@ -41,13 +42,6 @@ export function CheckinZeile({ kind, katalog }: { kind: CoachLiveKind; katalog: 
     : ka === null
       ? tx.t('checkin.kaNein')
       : tx.t('checkin.kaWert', { datum: ka.datum ? tx.tagDatum(ka.datum) : tx.t('checkin.kaOhneDatum'), thema: ka.themaLabel ?? '' })
-
-  const waehleThema = (key: string): void => {
-    const label = katalog.find((t) => t.thema_key === key)?.label ?? key
-    void ausfuehren(checkinCoachSetzen(sessionId, kind.id, null, key), tx.t('toast.thema', { name: kind.vorname, thema: label })).then(
-      (ok) => ok && setSuche(false),
-    )
-  }
 
   return (
     <div className="grid grid-cols-3 items-start gap-x-4 gap-y-2.5 px-4 py-4 @min-[1000px]:grid-cols-[180px_120px_minmax(0,1fr)_minmax(0,1.4fr)]">
@@ -86,24 +80,21 @@ export function CheckinZeile({ kind, katalog }: { kind: CoachLiveKind; katalog: 
           ) : (
             tx.t('checkin.antwort.leer')
           )}
-          {kind.ziel.themaLabel && !offen && (
+          {!offen && (
             <button type="button" onClick={() => setSuche(true)} className="min-h-[44px] text-sm font-semibold text-[var(--color-primary)] hover:underline">
-              {tx.t('checkin.aendern')}
+              {kind.ziel.themaLabel ? tx.t('checkin.aendern') : tx.t('checkin.themaWaehlen')}
             </button>
           )}
         </div>
+        {tx.phaseZeile(kind) && <div className="text-xs text-[var(--color-text-tertiary)]">{tx.phaseZeile(kind)}</div>}
       </div>
       {offen && (
-        <div className="col-span-full flex flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-gold-warning)]/40 bg-[var(--color-bg-app)] p-3">
-          <Feldname htmlFor={`thema-${kind.id}`}>{tx.t('checkin.suchen', { name: kind.vorname })}</Feldname>
-          <ThemaSuche
+        <div className="col-span-full">
+          <ThemaWahl
+            kind={kind}
             katalog={katalog}
-            stufe={kind.stufe}
-            aktuell={kind.ziel.themaKey}
-            disabled={false}
-            onWaehle={waehleThema}
             startEingabe={c.themaAntwort === 'neu' ? (c.stichwort ?? '') : ''}
-            inputId={`thema-${kind.id}`}
+            onFertig={() => setSuche(false)}
           />
         </div>
       )}
