@@ -25,6 +25,7 @@ lassen. Jeder Punkt nennt die Stelle im Code.
 | F14 | **Exit-Aufgaben:** zum zuletzt in der Kernarbeit geübten Skill (nicht eingemischt), sonst zum aktuellen Skill. Ergebnis = Exit-Aufgaben mit richtiger Antwort von allen gegebenen. | `session_plan_checkout` |
 | F16 | **Schwierigkeit aus dem AFB (Rasit 06.10.):** In der Auswahl gilt `coalesce(difficulty, AFB I → 2, II → 3, III → 4, sonst 2)`. Die Daten bleiben unverändert. dbread 06.10.: `difficulty` bei 0 von 1.183 gefüllt, `afb` bei 1.018 (86 %). Auch das Startniveau (F2) rechnet so. | `session_schwierigkeit` |
 | F15 | **Lernpfad-Fall:** Das Ziel ist genau ein Skill (`naechste_luecke`). `ziel_thema_key` zeigt nur zur Anzeige dessen Thema. | `session_zielliste`, `session_checkin_ableiten` |
+| F17 | **Warm-up-Reihenfolge (Rasit 08.10., Paket F1/E3):** Kandidaten bleiben die sicheren Skills und die Skills, die heute schon im Warm-up dran waren. Gewählt wird in dieser Reihenfolge: Fokus (Skill der vorigen Warm-up-Aufgabe, F9), Voraussetzung des Ziels, dann (1) bekannter Stand (Lernpfad oder LSA-Urteil) vor unbekanntem, (2) noch nicht sicher vor sicher, (3) geringster Abstand im Skill-Graphen zum ersten offenen Ziel-Skill, (4) alphabetisch. „Zuletzt geübt“ entfällt im Warm-up. Vorher gewann nach einer LSA oft das alphabetisch erste mitbelegte Fundament. | `session_plan_warmup` (Migration `20261011140300`) |
 
 ## Widersprüche und Befunde
 

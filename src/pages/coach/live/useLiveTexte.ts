@@ -65,6 +65,15 @@ export function useLiveTexte() {
     return spaet > 0 ? t('taetigkeit.ankunft', { zeit: uhrzeit(k.tabletSeit), count: spaet }) : null
   }
 
+  /** F1 (A4): Phase des Kindes (nicht die Uhr) mit Zeitpunkt; ohne Warm-up mit Grund. */
+  const phaseZeile = (k: CoachLiveKind): string | null => {
+    if (!k.phase || k.tablet === null) return null
+    const phase = t(`phase.${k.phase}`)
+    const teile = [k.phaseSeit ? t('phaseKind.seit', { phase, zeit: uhrzeit(k.phaseSeit) }) : phase]
+    if (k.warmupEntfallen) teile.push(t(`phaseKind.ohneWarmup.${k.warmupEntfallen}`))
+    return teile.join(' · ')
+  }
+
   const band = (k: CoachLiveKind, zeitpunkt: LiveZeitpunkt): string => {
     if (k.status === 'gemeistert') return t('band.gemeistert', { skill: k.masteryKandidat?.label ?? '' })
     const s = k.signale.find((x) => x.art === k.status)
@@ -157,7 +166,7 @@ export function useLiveTexte() {
   }
 
   return {
-    t, uhrzeit, datum, tagDatum, termin, prozent, fallKurz, ziel, taetigkeit, ankunft, band, meta,
+    t, uhrzeit, datum, tagDatum, termin, prozent, fallKurz, ziel, taetigkeit, ankunft, phaseZeile, band, meta,
     signalTitel, signalGrund, alter, zielNotiz, heuteText, heuteZusatz,
   }
 }
