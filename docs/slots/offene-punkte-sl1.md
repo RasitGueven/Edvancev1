@@ -39,11 +39,9 @@ Weitere Zahlen:
    Stammplatz vergeben …“ hat damit in Prod kein einziges Kind. Gebaut ist die Regel genau an einer Stelle
    (`slots_kind_zugelassen`), damit sie sich mit einer Migration umstellen lässt, falls Rasit für die Abnahme
    Testkonten zulassen will. Entscheidung offen.
-2. **F1 liegt in Prod, aber nicht in dev.** Prod trägt `20261011140000`–`140400` (F1, PR #234 offen), darunter
-   `coach_raum_live`. SL1 ändert in `coach_raum_live` nur die Suche nach dem nächsten Termin und nimmt laut
-   Leitplanke den Prod-Stand als Ausgangspunkt. Mergt SL1 vor F1, bringt die SL1-Migration den F1-Stand von
-   `coach_raum_live` mit; die spätere F1-Migration (kleinere Version) läuft im Neuaufbau davor und wird von SL1
-   überschrieben, das Ergebnis ist gleich. Siehe Diff im PR.
+2. **F1 und `coach_raum_live` — erledigt.** Beim Ist-Abgleich trug Prod schon F1 (`20261011140000`–`140400`), dev
+   noch nicht. Inzwischen ist F1 (#234) in dev; nach dem Einmischen von `origin/dev` sind die Ausgangsfassungen aller
+   fünf umgestellten Funktionen in dev und Prod gleich (`pg_get_functiondef` verglichen). Der Diff im PR gilt für beide.
 3. **`vertraege.fach` ist in 5 von 10 Verträgen leer.** Die Raumzuteilung (Entscheidung 15) gruppiert leere Fächer
    als eigene Gruppe „ohne Fach“; die Oberfläche zeigt dann kein Kürzel.
 4. **Versionen der Migrationen.** Der Bauauftrag gibt den Bereich `20261013100000`–`135959` vor; CLAUDE.md §10 verlangt
