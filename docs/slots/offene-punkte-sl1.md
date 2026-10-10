@@ -78,3 +78,9 @@ Weitere Zahlen:
     laufen alle pgTAP-Dateien in der Wegwerf-DB (Postgres 18); CI nutzt Postgres 16.
 16. **Coach am Vortag** (Entscheidung 14): `coach_hat_platz` bleibt unverändert; vor dem Festschreiben liest ein Coach die
     Akte seiner Kinder nicht. Bewusst so belassen.
+17. **Consensus-Check** (zweite Instanz, 10.10.): Befunde 1–9 und 12 sind in `20261013125413_slots_nachbesserung.sql`
+    behoben und in `slots_nachbesserung.test.sql` abgesichert. Bewusst offen:
+    - **Befund 10:** „künftig“ heißt in der Planung `datum >= heute`. Ein heutiger Termin ohne Session gilt bis
+      Mitternacht als beweglich. Der Abgleich löscht ihn nur, wenn er nicht mehr im Plan steht (z. B. Stammplatz am selben
+      Tag geändert). Eine Umstellung auf `Beginn > jetzt` beträfe sieben Funktionen; Entscheidung bei Rasit.
+    - **Befund 11:** wie Punkt 11 oben (Quest-B-Stellen zählen jetzt alles außer abgesagt).

@@ -652,9 +652,9 @@ type SchrittDetails =
 
 ## 10. Slots (Admin, Coach, Eltern; Bauauftrag Slots, Paket SL1)
 
-**Stand:** 2026-10-10 · **Migrationen:** `20261013100318`–`20261013123311` (SL1) · **Beweis:**
+**Stand:** 2026-10-10 · **Migrationen:** `20261013100318`–`20261013125413` (SL1) · **Beweis:**
 `supabase/tests/slots_kontrollwerte.test.sql`, `slots_abnahme`, `slots_abgleich`, `slots_festschreiben`, `slots_verbrauch`,
-`slots_kalender`, `slots_rechte`, `slots_naechster` (pgTAP), `tools/slots-parallel-test.sh` · **Typen:**
+`slots_kalender`, `slots_rechte`, `slots_naechster`, `slots_nachbesserung` (pgTAP), `tools/slots-parallel-test.sh` · **Typen:**
 `src/types/slotplan.ts` · **Aufrufe:** `src/lib/supabase/slotplan.ts` · **Beispiele mit echtem JSON:**
 `docs/slots/datenvertrag-beispiele.md`
 
