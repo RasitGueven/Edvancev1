@@ -1,6 +1,6 @@
 # Offene Punkte F1 (Coach-Sicht aus dem Trockenlauf, Szenario Batu)
 
-Stand 08.10.2026, Branch `feat/rasit-session-f1-trockenlauf`. Beweis: `supabase/tests/session_f1.test.sql`,
+Stand 10.10.2026, Branch `feat/rasit-session-f1-trockenlauf`. **Eingespielt 10.10.2026.** Beweis: `supabase/tests/session_f1.test.sql`,
 `src/lib/session/coachLiveEingabe.test.ts`, `src/hooks/useRaumLive.test.ts`, `src/pages/coach/live/CoachLiveF1.test.tsx`.
 
 ## A6 Kernarbeit beim y-Achsenabschnitt, Steigung „offen“ (gewollt, Anzeige behoben)
@@ -60,7 +60,10 @@ Stand 08.10.2026, Branch `feat/rasit-session-f1-trockenlauf`. Beweis: `supabase/
    - Das Tempo-Problem im Trockenlauf kam aus der überlappenden Abfrage (A5, behoben), nicht aus der Datenbank.
 6. **Migrationsversionen** `20261011140000`, `20261011140100` liegen im Auftragsbereich, also in der Zukunft
    (CLAUDE.md §10 verlangt `date -u`). Per dbread am 08.10. geprüft: frei; Prod-Maximum `20261011100200`.
-7. **Schema-Abzug** erst nach dem Einspielen (Auftrag). Bis dahin ist der CI-Schemavergleich rot.
+7. **Eingespielt 10.10.2026** (`20261011140000`–`…140400`, `~/bin/mig`, je eine Transaktion; vorher per dbread: Versionen
+   frei, die vier ersetzten Funktionen in Prod md5-gleich dem dev-Neuaufbau). Danach `tools/schema-snapshot.sh` aus Prod:
+   gefiltert wie in der CI gleich dem Neuaufbau aus allen Migrationen (14 618 Zeilen); die vier Funktionen in Prod
+   md5-gleich dem Neuaufbau des Branches.
 
 ## Szenario Batu (B)
 

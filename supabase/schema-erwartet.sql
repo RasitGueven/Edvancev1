@@ -930,7 +930,12 @@ begin
     'erklaer_kernideen', coalesce(v_seq, '[]'),
     'schritt_details', coalesce((select x.details from public.session_schritte x
                                   where x.session_id = p_session_id and x.student_id = p_student_id
-                                  order by x.id desc limit 1), '{}'));
+                                  order by x.id desc limit 1), '{}'),
+    -- F1 (A6): Skills des Ziels, die die Engine heute als sicher zaehlt (session_heute_sicher, offene-punkte-a2
+    -- F7) und deshalb weitergerueckt ist. Der Lernpfad-Stand bleibt davon unberuehrt (im Testlauf ohne Belege).
+    'heute_sicher', coalesce((select jsonb_agg(z.skill_key order by z.reihenfolge)
+                                from public.session_zielliste(p_session_id, p_student_id) z
+                               where public.session_heute_sicher(p_session_id, p_student_id, z.skill_key)), '[]'));
 end;
 $$;
 
@@ -991,7 +996,28 @@ begin
                                 'von', (select pr.full_name from public.profiles pr where pr.id = p.von)) order by p.am)
                                        from public.lernpfad_protokoll p
                                       where p.session_id = p_session_id and p.student_id = k.student_id
-                                        and p.aktion = 'mastery'), '[]'))
+                                        and p.aktion = 'mastery'), '[]'),
+           -- F1 (A4): seit wann das Kind in seiner Phase ist (juengster Phasenwechsel) und ob das Warm-up
+           -- entfallen ist: kein Warm-up-Schritt, aber schon Kernarbeit/Check-out. kein_stoff = Kernarbeit begann,
+           -- solange die Uhr noch Check-in oder Warm-up zeigte (session_plan_warmup fand keinen Skill mit
+           -- Aufgabe); zeit = Kernarbeit erst nach dem Warm-up laut Uhr (spaet angekommen). Fehlt ein Zeitpunkt: null.
+           -- Ein Phasenwechsel durch den Coach (phase_setzen) zaehlt wie einer vom Tablet (offene-punkte-f1).
+           'phase_seit', (select max(e.zeit) from public.session_ereignisse e
+                           where e.session_id = p_session_id and e.student_id = k.student_id
+                             and e.typ = 'phase_wechsel'),
+           'warmup_entfallen', case
+              when k.j ->> 'phase' in ('kern', 'checkout')
+               and not exists (select 1 from public.session_schritte x
+                                where x.session_id = p_session_id and x.student_id = k.student_id
+                                  and x.phase = 'warmup')
+              then (select case when x.kern_ab < x.warmup_ende then 'kein_stoff'
+                                when x.kern_ab >= x.warmup_ende then 'zeit' end
+                      from (select (select min(e.zeit) from public.session_ereignisse e
+                                     where e.session_id = p_session_id and e.student_id = k.student_id
+                                       and e.typ = 'phase_wechsel' and e.payload ->> 'phase' = 'kern') as kern_ab,
+                                   s.gestartet_am + (public.session_wert_zahl(p_session_id, 'phase_checkin_min')
+                                                     + public.session_wert_zahl(p_session_id, 'phase_warmup_min'))
+                                                    * interval '1 minute' as warmup_ende) x) end)
            order by (k.j ->> 'tablet_nr')::int nulls last, k.j ->> 'name'), '[]')
     into v_kinder
     from (select ss.student_id, public.session_kind_live(p_session_id, ss.student_id) as j
@@ -5690,6 +5716,7 @@ declare
   c_tiefe_bis constant interval := interval '12 minutes';
 
   v_sess    lsa_sessions;
+  v_pool    boolean;  -- F1 (E2): Testlauf-Pool fuer Testlauf oder Testkonto
   v_open    text;
   v_prefer_nonmc boolean;
   v_desc    text;
@@ -5709,6 +5736,12 @@ begin
     return null;
   end if;
 
+  -- F1 (E2, Rasit 08.10.2026): Testkonten (students.ist_test) bekommen auch ausserhalb eines Testlaufs den
+  -- Testlauf-Pool. lsa_sessions.testlauf bleibt, wie es ist: Eine solche LSA ist kein Testlauf und wird wie
+  -- jede echte LSA in Lernpfad und Report uebernommen. Echte Kinder sehen weiter nur 'ready'.
+  v_pool := coalesce(v_sess.testlauf, false)
+            or coalesce((select s.ist_test from students s where s.id = v_sess.student_id), false);
+
   v_beginn := coalesce(v_sess.started_at, v_sess.created_at);
   if p_jetzt > v_beginn + interval '19 minutes' then
     return null;
@@ -5723,7 +5756,7 @@ begin
   -- gebrochenen Knoten, ohne Zeitgrenze, keine Breite a.
   v_mit_thema := exists (
     select 1 from thema_einstieg te join tasks t on t.skill_key = te.skill_key
-     where te.thema_key = v_sess.thema_key and public.lsa_im_pool(t.id, v_sess.testlauf));
+     where te.thema_key = v_sess.thema_key and public.lsa_im_pool(t.id, v_pool));
 
   if v_mit_thema then
     v_einstieg := array(
@@ -5757,7 +5790,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_open
-         and public.lsa_im_pool(t.id, v_sess.testlauf)
+         and public.lsa_im_pool(t.id, v_pool)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -5793,7 +5826,7 @@ begin
          and exists (
                select 1 from tasks t
                 where t.skill_key = s.skill_key
-                  and public.lsa_im_pool(t.id, v_sess.testlauf)
+                  and public.lsa_im_pool(t.id, v_pool)
                   and t.id not in (
                         select task_id from lsa_ausgegeben where session_id = p_session_id
                         union
@@ -5806,7 +5839,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and public.lsa_im_pool(t.id, v_sess.testlauf)
+         and public.lsa_im_pool(t.id, v_pool)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -5844,7 +5877,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_desc
-         and public.lsa_im_pool(t.id, v_sess.testlauf)
+         and public.lsa_im_pool(t.id, v_pool)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -5892,7 +5925,7 @@ begin
          and exists (
                select 1 from tasks t
                 where t.skill_key = te.skill_key
-                  and public.lsa_im_pool(t.id, v_sess.testlauf)
+                  and public.lsa_im_pool(t.id, v_pool)
                   and t.id not in (
                         select task_id from lsa_ausgegeben where session_id = p_session_id
                         union
@@ -5905,7 +5938,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and public.lsa_im_pool(t.id, v_sess.testlauf)
+         and public.lsa_im_pool(t.id, v_pool)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -5937,7 +5970,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and public.lsa_im_pool(t.id, v_sess.testlauf)
+         and public.lsa_im_pool(t.id, v_pool)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -5958,7 +5991,7 @@ begin
       from tasks t
       join skills s on s.skill_key = t.skill_key
      where s.klasse_herkunft <= v_sess.grade
-       and public.lsa_im_pool(t.id, v_sess.testlauf)
+       and public.lsa_im_pool(t.id, v_pool)
        and t.id not in (
              select task_id from lsa_ausgegeben where session_id = p_session_id
              union
@@ -11896,7 +11929,19 @@ begin
 
   -- Kandidaten: sichere Skills und die Skills, die heute schon im Warm-up dran waren (ein Fehler im
   -- Warm-up macht einen Skill im Lernpfad unsicher; das Warm-up bleibt trotzdem bei ihm).
+  -- F1 (E3, Rasit 08.10.2026; offene-punkte-a2 F17): Reihenfolge Fokus (Skill der vorigen Warm-up-Aufgabe, F9),
+  -- Voraussetzung des Ziels, dann (1) bekannter Stand (Lernpfad oder LSA-Urteil) vor unbekanntem, (2) noch nicht
+  -- sicher vor sicher, (3) geringster Abstand im Graphen zum ersten offenen Ziel-Skill (p_aktuell), (4) skill_key.
+  -- Die Kandidatenmenge bleibt unveraendert.
   for c in
+    with recursive abstand(sk, n) as (
+      select p_aktuell, 0 where p_aktuell is not null
+      union
+      select k.voraussetzt_skill_key, a.n + 1
+        from public.skill_kante k join abstand a on k.skill_key = a.sk
+       where a.n < 20
+    ),
+    lsa as (select u.skill_key, u.zustand from public.lernpfad_lsa_urteile(p_student_id) u)
     select s.skill_key, s.quelle, s.zuletzt, s.skill_key = any (v_voraus) as voraus
       from (select distinct on (u.skill_key) u.* from (
               select ss.skill_key, ss.quelle, ss.zuletzt from public.session_sichere_skills(p_student_id) ss
@@ -11905,11 +11950,17 @@ begin
                where x.session_id = p_session_id and x.student_id = p_student_id and x.phase = 'warmup'
                  and x.art = 'aufgabe') u
             order by u.skill_key, u.zuletzt nulls last) s
+      left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = s.skill_key
+      left join lsa on lsa.skill_key = s.skill_key
      where s.skill_key is distinct from p_aktuell
      order by (s.skill_key = v_letzt) desc, (s.skill_key = any (v_voraus)) desc,
-              exists (select 1 from public.skill_kante k where k.skill_key = p_aktuell
-                       and k.voraussetzt_skill_key = s.skill_key) desc,
-              s.zuletzt nulls first, s.skill_key
+              (l.skill_key is not null or lsa.skill_key is not null) desc,
+              (case when l.skill_key is not null
+                    then l.stand_system in ('offen', 'aktiv', 'noch_nicht_sicher')
+                         and l.stand_coach is distinct from 'gemeistert'
+                    else coalesce(lsa.zustand <> 'traegt', false) end) desc,
+              (select min(a.n) from abstand a where a.sk = s.skill_key) nulls last,
+              s.skill_key
   loop
     v_niv := greatest(1, (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau - v_leicht);
     select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, c.skill_key, v_niv, p_testlauf);
