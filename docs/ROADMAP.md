@@ -94,6 +94,12 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Slots SL1 · Datenmodell, Planung und Regeln** (Retro `2026-10-10-slots-sl1.md`, Branch
+  `feat/rasit-slots-sl1-datenmodell`): sieben Tabellen (Uhrzeiten, Räume, Stammschichten, Abweichungen, Rhythmus,
+  Stammplätze, Kind-Termine), Abgleich `termine_planen`, Planbilanz, Raumzuteilung, Schreib- und Lesefunktionen je
+  Bildschirm, Festschreiben als Session, `naechster_termin`, Datenvertrag Abschnitt 10, `src/lib/supabase/slotplan.ts`
+  und die Bausteine PlatzPunkte, Reiterleiste, KennzahlenLeiste, WochenNavigation. Noch nicht eingespielt. Danach SL2
+  (Admin-Oberfläche) und SL3 (Coach, Heute, Akte) parallel. **Offen:** `docs/slots/offene-punkte-sl1.md`.
 - **Session P1 · C3 Schublade der Coach-Live-Sicht** (Retro `2026-10-08-session-c3-schublade.md`, Branch
   `feat/rasit-session-c3-schublade`): Pfad-Vorschlag mit Warm-up-Zahlen und Fehlbild, „Heute“ je Kind, Grund des
   letzten Schritts mit Zahl (`session_schritte.details`), alle Kernideen der Erklärsequenz, Warm-up-Beleg für die

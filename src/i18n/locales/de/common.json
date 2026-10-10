@@ -34,5 +34,17 @@
     "baldHinweis": "{{name}} kommt bald — noch nicht verfügbar.",
     "zaehlerLabel_one": "{{count}} offen",
     "zaehlerLabel_other": "{{count}} offen"
+  },
+  "platzPunkte": {
+    "belegt": "{{belegt}} von {{max}} Plätzen belegt",
+    "ueberhang_one": "{{count}} Kind ohne Platz",
+    "ueberhang_other": "{{count}} Kinder ohne Platz"
+  },
+  "wochenNavigation": {
+    "label": "Woche wählen",
+    "vorige": "Vorige Woche",
+    "naechste": "Nächste Woche",
+    "dieseWoche": "Diese Woche",
+    "kwSpanne": "KW {{kw}} · {{spanne}}"
   }
 }
