@@ -647,3 +647,162 @@ type SchrittDetails =
   keine Rechte für `anon`/`authenticated`; sie bleibt append-only.
 - **Tablet:** `session_schritt_oeffentlich` ist eine Whitelist ohne `details`; `session_naechster_schritt` und
   `tablet_stand` tragen das Feld nie (pgTAP `session_c3` 3).
+
+---
+
+## 10. Slots (Admin, Coach, Eltern; Bauauftrag Slots, Paket SL1)
+
+**Stand:** 2026-10-10 · **Migrationen:** `20261013100318`–`20261013123311` (SL1) · **Beweis:**
+`supabase/tests/slots_kontrollwerte.test.sql`, `slots_abnahme`, `slots_abgleich`, `slots_festschreiben`, `slots_verbrauch`,
+`slots_kalender`, `slots_rechte`, `slots_naechster` (pgTAP), `tools/slots-parallel-test.sh` · **Typen:**
+`src/types/slotplan.ts` · **Aufrufe:** `src/lib/supabase/slotplan.ts` · **Beispiele mit echtem JSON:**
+`docs/slots/datenvertrag-beispiele.md`
+
+Die Entscheidungen 1–25 in `docs/slots/Bauauftrag-Slots.md` sind maßgeblich; hier steht, was die Oberfläche
+(SL2, SL3) sich darauf verlassen darf.
+
+### 10.1 Grundregeln
+
+- **Nur über Funktionen.** Die Tabellen `slot_zeiten`, `raeume`, `stammschichten`, `schicht_abweichungen`,
+  `slot_rhythmus`, `stammplaetze` und `kind_termine` liest nur ein Admin direkt (RLS); geschrieben wird nie
+  direkt. Jede Funktion prüft die Rolle selbst, auch bei der direkten Adresse. `anon` hat auf keine Funktion
+  EXECUTE, `authenticated` nur auf die hier genannten.
+- **Rollen.** Alles in 10.2–10.4 nur Admin. `meine_einsaetze` nur Coach, `termin_session_anlegen` Admin oder
+  Coach (nur der eingeteilte Coach des Raums), `naechste_termine` Admin oder Eltern des Kindes. Sonst **42501**.
+- **Fertiges jsonb.** Jede Lesefunktion liefert alles, was ein Bildschirm braucht. Die Oberfläche rechnet nichts
+  nach, was der Server entscheidet: Kapazität, Wochengrenze, Planbilanz, Raumzuteilung, 10-Uhr-Regel. Die Regel
+  darf sie als Vorschau anzeigen (Eingang in Berlin vor `datum + 10:00` = rechtzeitig), gesendet wird der Eingang.
+- **Zeit.** Datumswerte `YYYY-MM-DD` und Uhrzeiten `HH:MM` sind Berliner Ortszeit; Zeitpunkte (`absage_eingang`,
+  `beginn` in `naechste_termine`) ISO mit Zeitzone. A-Woche = ungerade ISO-Kalenderwoche (Server maßgeblich).
+- **`p_jetzt`.** Jede Funktion hat `p_jetzt timestamptz default now()` als letzten Parameter, nur für Tests. Er wirkt
+  nur für Admin und Systemaufrufe; die Oberfläche übergibt ihn **nie**.
+- **Fehler.** Regelverstöße kommen mit eigenem SQLSTATE (`SL001`–`SL012`, Hinweis = Code). Die Oberfläche zeigt
+  `t(slotsFehlerSchluessel(res))` aus `src/lib/slots/fehler.ts`, nie den Rohtext. Weitere: `42501` Rechte,
+  `P0002` nicht gefunden, `22023` Eingabe (Hinweise `nur_am_tag`, `testkonto`, `eingang`, `zustand`,
+  `name_doppelt`, `zeit_doppelt`, `kein_coach`, `kein_vorschlag`).
+
+| Code | Bedeutung |
+|---|---|
+| SL001 | Slot voll |
+| SL002 | kein Raum mit Coach |
+| SL003 | schon ein Termin an dem Tag |
+| SL004 | Wochengrenze erreicht (Rhythmus der Woche + 2) |
+| SL005 | keine offenen Einheiten |
+| SL006 | außerhalb des Vertrags |
+| SL007 | Vergangenheit |
+| SL008 | zwei Stammplätze am selben Tag |
+| SL009 | Schicht doppelt (Raum oder Coach) |
+| SL010 | Rücknahme nicht möglich (Platz vergeben oder Termin begonnen) |
+| SL011 | Termin vergangen oder begonnen, nur Ansicht |
+| SL012 | jenseits der Ferientabelle |
+
+- **Wer vorkommt.** Kinder mit laufendem oder kommendem Vertrag, keine Testkonten (Entscheidung 8). Einzel-Sessions
+  und Testläufe laufen weiter über `/admin/schedule`; Buchungen ohne Kind-Termin zählen für Budget, Tagessperre,
+  Wochengrenze und Verbrauch mit (Entscheidung 9, 11, 13).
+- **Belegt** sind Kind-Termine `planned` und `present`. Eine späte Absage (`unexcused`) macht den Platz frei,
+  verbraucht aber die Einheit und zählt für die Wochengrenze.
+
+### 10.2 Lesen (Admin)
+
+| Funktion | Typ | Bildschirm |
+|---|---|---|
+| `slots_woche(p_montag date)` | `SlotsWoche` | Wochenplan; `p_montag` darf ein beliebiger Tag der Woche sein |
+| `slots_termin(p_datum date, p_zeit_id uuid)` | `SlotsTermin` | Termin |
+| `slots_kinder()` | `SlotsKinderZeile[]` | Reiter Kinder (Reihenfolge nach Namen; sortieren nach Handlungsbedarf tut die Oberfläche) |
+| `slots_kind(p_student_id uuid)` | `SlotsKind` | Kind |
+| `slots_coaches(p_montag date)` | `SlotsCoaches` | Reiter Coaches |
+| `slots_einstellungen()` | `SlotsEinstellungen` | Reiter Einstellungen |
+| `slots_tag(p_datum date)` | `SlotsTag` | „Heute im Betrieb“, „Absagen heute“ |
+| `slots_zaehler()` | `SlotsZaehler` | Zähler der Leiste |
+| `slots_frei(p_takt text, p_ab date, p_student_id uuid default null)` | `SlotsFrei` | Stammplatz-Dialog, rechte Spalte |
+| `slots_planbilanz_vorschau(p_student_id uuid, p_zeilen jsonb, p_ab date, p_ersetzt uuid[] default null)` | `PlanbilanzVorschau` | Stammplatz-Dialog, Vorschau und Sperrgründe |
+| `slots_ziele(p_student_id uuid, p_ausser_termin_id uuid, p_eingang timestamptz, p_ab date, p_wochen int default 4)` | `SlotsZiele` | Umbuchen, Zusatztermin |
+| `slots_kandidaten(p_datum date, p_zeit_id uuid)` | `SlotsKandidat[]` | Termin → Kind hinzufügen |
+
+- **`slots_woche`:** Zellen nur für Tage mit Betrieb und aktive Uhrzeiten. `kapazitaet` = geöffnete Räume × 5,
+  `ohne_raum` = Kinder, die die Zuteilung nicht unterbringt, `coach_fehlt` = Räume mit Stammschicht, deren Coach
+  ausfällt. Tage ohne Betrieb haben `anlass` (Feiertag vor Ferien). `kopf.ohne_stammplatz` zählt alle Kinder mit
+  laufendem oder kommendem Vertrag ohne aktiven Stammplatz (mit offenen Einheiten), `ohne_stammplatz_laufend` nur
+  die, deren Vertrag schon läuft (rot). `erster_ohne_raum` ist das Sprungziel.
+- **`slots_termin`:** `raeume` enthält jeden Raum mit Stammschicht oder Abweichung, auch geschlossene
+  (`offen: false`, `stamm_coach_name` für „Geschlossen · Stammschicht …“). Die Kinder je Raum und `ohne_raum`
+  kommen aus der Zuteilung (Entscheidung 15) und können sich bis zum Festschreiben verschieben.
+  `nicht_dabei` = abgesagt, unentschuldigt, ausgefallen; `zuruecknehmbar` nur mit Absage-Eingang und vor Beginn.
+  `raeume_schliessbar` = aktive Räume ohne Coach in diesem Termin (für „Raum öffnen“), `coaches[].raum_id` = Raum,
+  in dem der Coach zu dieser Zeit schon ist (nicht wählbar, sonst SL009).
+- **`slots_kinder` / `slots_kind`:** `planbilanz` nach Entscheidung 12, Art in dieser Reihenfolge: `kein_stammplatz`,
+  `aufgebraucht`, `reicht_bis` (`datum` = letzter Termin, `zahl` = U), `ohne_termin` (`zahl` = O), `passt`
+  (`abweichung` innerhalb der Toleranz). `letzter_termin` ist immer gesetzt, wenn es einen gibt. `hinweis: 'SL012'`
+  heißt: der Stichtag liegt hinter der Ferientabelle, geplant ist bis dorthin. `weiterfuehren` ist der Vorschlag für
+  einen Folgevertrag (Stammplätze des Vorgängers ab Beginn des Folgevertrags), sonst `null`.
+- **`slots_planbilanz_vorschau`:** `p_zeilen` = `[{wochentag 1–5, slot_zeit_id, takt}]`, alle Stammplätze ab `p_ab`.
+  `p_ersetzt` = Stammplätze, die mit `p_ab` enden (Ändern); `null` = alle, die an `p_ab` noch gelten. `gruende` leer
+  heißt speicherbar. `uebersprungen` (volle Daten nach den ersten sechs) sperrt nicht.
+- **`slots_frei`:** je Wochentag × Uhrzeit der kleinste freie Wert der nächsten sechs Termine ab `p_ab` im Takt;
+  `raum: false` = mindestens einer der sechs ohne Raum mit Coach, `voll` = Raum da, aber kein Platz.
+- **`slots_ziele`:** nur Ziele, die alle Regeln erfüllen (freier Platz, kein anderer Termin am Tag, Wochengrenze,
+  Vertrag, Budget). Mit `p_ausser_termin_id` und einem Eingang vor 10 Uhr zählt der alte Termin nicht mehr; nach
+  10 Uhr ist `alt_verbraucht: true` und `verdraengt` nennt den Termin, der für die zusätzliche Einheit wegfällt.
+
+### 10.3 Schreiben (Admin)
+
+Jede Funktion nimmt zuerst eine Sperre (zwei Admins auf denselben letzten Platz: der zweite bekommt SL001), prüft
+die Regeln und gleicht am Ende die Termine aller betroffenen Kinder ab (`termine_planen`, Entscheidung 11).
+
+| Funktion | Ergebnis | Fehler |
+|---|---|---|
+| `stammplatz_vergeben(p_student_id, p_zeilen jsonb, p_ab date)` | `{ stammplatz_ids, planbilanz }` | SL001, SL002, SL006, SL007, SL008, SL012, 22023 `testkonto` |
+| `stammplatz_aendern(p_id, p_ab, p_wochentag, p_slot_zeit_id, p_takt)` | `{ stammplatz_id, planbilanz }` | wie oben; alter endet am Vortag |
+| `stammplatz_beenden(p_id, p_ab)` | `{ ok, planbilanz }` | SL007; ab `p_ab` keine Termine mehr |
+| `stammplaetze_weiterfuehren(p_student_id)` | `{ stammplatz_ids, planbilanz }` | P0002 `kein_vorschlag`, sonst wie Vergeben |
+| `termin_absagen(p_termin_id, p_eingang timestamptz)` | `{ termin_id, zustand, rechtzeitig }` | SL011, 22023 `eingang`/`zustand` |
+| `termin_umbuchen(p_termin_id, p_eingang, p_ziel_datum, p_ziel_zeit_id)` | `{ termin_id, alt_zustand, rechtzeitig, verdraengt[] }` | Absage + wie Zusatztermin |
+| `absage_zuruecknehmen(p_termin_id)` | `{ termin_id, zustand, umbuchung_entfernt }` | SL010 |
+| `zusatztermin_buchen(p_student_id, p_datum, p_zeit_id)` | `{ termin_id, verdraengt[], ausgelassen }` | SL001–SL007, SL012 |
+| `termin_ausgefallen(p_termin_id)` | `{ termin_id, zustand }` | SL011 |
+| `termin_faellt_aus(p_datum, p_zeit_id)` | `{ betroffen }` | SL011 |
+| `termin_raum_setzen(p_termin_id, p_raum_id)` (`null` = Stift lösen) | `{ termin_id, raum_id }` | SL001, SL002, SL011 |
+| `termin_coach_setzen(p_datum, p_zeit_id, p_raum_id, p_coach_id)` (`null` = fällt aus) | `{ art }` | SL009, SL011, 22023 |
+| `termin_raum_oeffnen(p_datum, p_zeit_id, p_raum_id, p_coach_id)` | `{ art }` | SL009, SL011 |
+| `stammschicht_anlegen(p_coach_id, p_wochentag, p_slot_zeit_id, p_raum_id, p_gueltig_ab default heute)` | `uuid` | SL007, SL009, 22023 |
+| `stammschicht_beenden(p_id, p_ab)` | – | SL007 |
+| `raum_anlegen(p_name, p_aktiv_ab default heute)` · `raum_deaktivieren(p_id, p_ab)` | `uuid` · – | SL007, 22023 `name_doppelt` |
+| `slot_zeit_anlegen(p_beginn time, p_aktiv_ab default heute)` · `slot_zeit_deaktivieren(p_id, p_ab)` | `uuid` · – | SL007, 22023 `zeit_doppelt` |
+
+- **10-Uhr-Regel:** Eingang in Berlin vor `datum + 10:00` → `cancelled` (Einheit offen), sonst `unexcused`
+  (verbraucht, Platz frei). Ein Eingang in der Zukunft wird abgelehnt.
+- **Verdrängen:** Sind alle Einheiten verplant, kostet ein Zusatztermin den letzten Stammplatz-Termin vor dem
+  Stichtag; `verdraengt` nennt sein Datum. Vorher zeigen `slots_ziele`/`slots_kandidaten` dasselbe Datum.
+- **Nach dem Festschreiben:** Absage, Ausfall und Rücknahme ziehen `session_students` mit. Raum, Coach und Ausfall
+  eines Raums sind gesperrt, sobald dessen Session gestartet ist (SL011); eine Absage geht dann noch. „fällt aus“
+  löscht eine noch nicht gestartete Session ohne Session-Daten, die Kinder gehen in die Zuteilung zurück.
+
+### 10.4 Coach, Eltern, Festschreiben
+
+#### `termin_session_anlegen(p_datum, p_zeit_id, p_raum_id) → SessionAnlegenErgebnis`
+Knopf „Session öffnen“ (Coach: Meine Einsätze; Admin: Termin). Nur am Tag des Termins (Berlin; sonst 22023
+`nur_am_tag`), Coach nur für den eigenen Raum (42501), Raum muss geöffnet sein (SL002). Idempotent: zweimal gerufen,
+dieselbe `session_id` (`neu: false`). Die Session trägt `coach_id`, `room` (= Raumname) und `scheduled_at`
+(Datum + Beginn, Berlin); die Kinder der Zuteilung stehen in `session_students`. Ein Kind ohne Zugang an dem Tag
+(ZG001) steht in `ausgelassen` und ist „ausgefallen durch uns“. Danach weiter wie bisher zur Live-Sicht
+(`/coach/session/:id/live`).
+
+#### `meine_einsaetze(p_montag) → MeineEinsaetze` (nur Coach)
+Eigene geöffnete Raum-Termine der Woche mit den Kindern im Raum (Name, Klasse, Fach), `session_id` sobald
+festgeschrieben, `heute` aus `now()`. Kein Zustand, keine Absage, kein Vertrag, keine Planbilanz (Anforderung I 54).
+
+#### `naechste_termine(p_student_id, p_anzahl default 3) → NaechsterTermin[]` (Admin, Eltern des Kindes)
+Die nächsten Termine ab `now()`, auch vor dem Festschreiben (`festgeschrieben: false`), abgesagte nicht. Quelle ist
+dieselbe wie bei `naechster_termin`, den `quest_erzeugen`, `session_kind_kontext`, `coach_raum_live` und
+`session_abschluss_kind` seit SL1 benutzen.
+
+### 10.5 Was sich für bestehende Aufrufer ändert
+
+- **`einheiten_stand`** (Akte, Board) zählt verbraucht = `kind_termine` (present, unexcused) + Buchungen ohne
+  Kind-Termin; jede Buchung einmal, Testläufe nie. Signatur und Rückgabe unverändert.
+- **`session_abschluss_kind.naechste_session`** und Quest B (`session_kind_kontext`, `coach_raum_live`,
+  `quest_erzeugen`) finden den nächsten Slot-Termin auch, solange er noch keine Session ist.
+- **`coaching_sessions`** hat `raum_id` und `slot_zeit_id` (beide gesetzt = aus einem Slot-Termin festgeschrieben,
+  beide `null` = Einzel-Session oder Testlauf). Pro Raum und Zeitpunkt gibt es höchstens eine Session.
+- **Anwesenheit:** Was der Coach in der Session setzt („anwesend“, „nicht erschienen“), steht danach auch im
+  Kind-Termin (Spiegel-Trigger); ein anderer Schreiber für `kind_termine.zustand` aus der Session existiert nicht.

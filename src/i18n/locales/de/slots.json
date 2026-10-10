@@ -108,5 +108,32 @@
       "assigned": "Slot fest zugewiesen.",
       "released": "Zuweisung gelöst."
     }
+  },
+  "fehler": {
+    "SL001": "Dieser Termin ist voll.",
+    "SL002": "In diesem Termin ist kein Raum mit Coach geöffnet.",
+    "SL003": "Das Kind hat an diesem Tag schon einen Termin.",
+    "SL004": "Die Wochengrenze des Kindes ist erreicht.",
+    "SL005": "Das Kind hat keine offenen Einheiten mehr.",
+    "SL006": "Der Termin liegt außerhalb des Vertrags.",
+    "SL007": "Das Datum liegt in der Vergangenheit.",
+    "SL008": "Zwei Stammplätze fallen auf denselben Tag.",
+    "SL009": "Raum oder Coach ist zu dieser Zeit schon eingeteilt.",
+    "SL010": "Die Absage lässt sich nicht mehr zurücknehmen: Der Platz ist vergeben oder der Termin hat begonnen.",
+    "SL011": "Der Termin ist vergangen oder hat begonnen und lässt sich nur noch ansehen.",
+    "SL012": "Das Datum liegt hinter der Ferientabelle. Geplant wird erst, wenn die Ferien eingetragen sind.",
+    "nurAmTag": "Eine Session lässt sich nur am Tag des Termins öffnen.",
+    "testkonto": "Testkonten kommen in den Slots nicht vor.",
+    "eingang": "Der Eingang der Absage fehlt oder liegt in der Zukunft.",
+    "zustand": "Dieser Termin ist nicht mehr geplant.",
+    "nameDoppelt": "Einen Raum mit diesem Namen gibt es schon.",
+    "zeitDoppelt": "Diese Uhrzeit gibt es schon.",
+    "keinCoach": "Dieses Konto ist kein Coach.",
+    "keinVorschlag": "Für dieses Kind gibt es keinen Folgevertrag mit früheren Stammplätzen.",
+    "keinRecht": "Dafür fehlen dir die Rechte.",
+    "nichtGefunden": "Das gibt es nicht mehr. Lade die Seite neu.",
+    "eingabe": "Die Eingabe ist unvollständig.",
+    "keinZugang": "Das Kind hat an diesem Tag keinen laufenden Vertrag.",
+    "allgemein": "Das hat nicht geklappt. Versuch es bitte noch einmal."
   }
 }
