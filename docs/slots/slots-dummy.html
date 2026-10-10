@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slots — Klick-Dummy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#102038; --navy-2:#1B2A4A; --primary:#334D7A; --primary-hover:#253D6A;
+    --primary-light:#EEF2F8; --bg:#F7F7F5; --surface:#FFFFFF; --subtle:#EFEFED;
+    --border:#E8E8E5; --t1:#1A1A18; --t2:#4A4A47; --t3:#888884;
+    --warn-t:#C87E00; --warn-bg:#FEF3E2; --ok-t:#2A8A4A; --ok-bg:#EAF5EE;
+    --bad-t:#B91C1C; --bad-bg:#FEF2F2; --gold:#DA9721;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--t1);
+    font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:15px;line-height:1.55}
+  .topbar{display:flex;align-items:center;gap:20px;padding:11px 20px;
+    border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap}
+  .logo{font-family:Fraunces,serif;font-size:20px;color:var(--primary)}
+  .nav{display:flex;gap:4px}
+  .nav button{border:none;background:none;font:inherit;font-size:14px;color:var(--t2);
+    padding:6px 13px;border-radius:999px;cursor:pointer}
+  .nav button[aria-current="true"]{background:var(--primary-light);color:var(--primary);font-weight:500}
+  .topbar .who{margin-left:auto;font-size:13px;color:var(--t3)}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 90px}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:14px;
+    padding:18px 24px;color:#fff;margin-bottom:18px}
+  .hero h1{font-family:Fraunces,serif;font-weight:600;font-size:24px;margin:0 0 3px}
+  .hero p{margin:0;font-size:13px;opacity:.75}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+  .tab{border:1px solid var(--border);background:var(--surface);border-radius:999px;
+    padding:8px 16px;font:inherit;font-size:14px;color:var(--t2);cursor:pointer}
+  .tab:hover{border-color:var(--primary);color:var(--primary)}
+  .tab[aria-selected="true"]{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:500}
+  .tab b{font-weight:500;opacity:.8;margin-left:5px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:18px 20px;margin-bottom:16px}
+  .card.bad{border-color:#F3C7C7;background:var(--bad-bg)}
+  .card.warn{border-color:#F4DDB3;background:var(--warn-bg)}
+  h2{font-family:Fraunces,serif;font-weight:600;font-size:19px;margin:0 0 4px}
+  h3{font-family:Fraunces,serif;font-weight:600;font-size:17px;margin:0 0 10px}
+  .sub{font-size:13px;color:var(--t2);margin:0 0 14px}
+  .lbl{font-size:12px;color:var(--t3);font-weight:500;margin:0 0 9px}
+  .note{font-size:12px;color:var(--t3);margin-top:9px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-weight:500;font-size:12px;color:var(--t3);
+    padding:0 10px 8px 0;border-bottom:1px solid var(--border)}
+  td{padding:10px 10px 10px 0;border-bottom:1px solid var(--subtle);vertical-align:top}
+  tr.row{cursor:pointer}
+  tr.row:hover td{background:var(--primary-light)}
+  .nm{font-weight:500}
+  .muted{color:var(--t2);font-size:13px}
+  .tag{display:inline-block;border-radius:6px;padding:2px 9px;font-size:11px;font-weight:500;white-space:nowrap}
+  .tag-ok{background:var(--ok-bg);color:var(--ok-t)}
+  .tag-warn{background:var(--warn-bg);color:var(--warn-t)}
+  .tag-bad{background:var(--bad-bg);color:var(--bad-t)}
+  .tag-info{background:var(--primary-light);color:var(--primary)}
+  .tag-mut{background:var(--subtle);color:var(--t3)}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:999px;
+    padding:9px 18px;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+  .btn:hover{background:var(--primary-hover)}
+  .btn:disabled{background:#B8B8B4;cursor:not-allowed}
+  .btn-ghost{background:var(--surface);color:var(--t2);border:1px solid var(--border)}
+  .btn-ghost:hover{background:var(--subtle);color:var(--t1)}
+  .btn-bad{background:var(--surface);color:var(--bad-t);border:1px solid #F3C7C7}
+  .btn-bad:hover{background:var(--bad-bg)}
+  .btn-sm{padding:5px 13px;font-size:13px}
+  .btn-xs{padding:3px 10px;font-size:12px}
+  .sumline{display:flex;gap:26px;flex-wrap:wrap;background:var(--primary-light);
+    border-radius:10px;padding:11px 16px;margin-bottom:14px}
+  .sumline div span{display:block;font-size:12px;color:var(--t2)}
+  .sumline div b{font-family:Fraunces,serif;font-size:19px;font-weight:600;color:var(--primary)}
+  .sumline div.bad b{color:var(--bad-t)}
+  .sumline a{color:var(--primary);cursor:pointer;text-decoration:underline}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  select,input[type=text],input[type=date],input[type=time]{padding:7px 10px;border:1px solid var(--border);
+    border-radius:10px;font:inherit;font-size:14px;background:var(--surface);color:var(--t1)}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:13px;color:var(--t2);margin-bottom:4px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid2{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;align-items:start}
+  .dl{display:grid;grid-template-columns:130px 1fr;gap:6px 12px;font-size:14px}
+  .dl dt{color:var(--t2);font-size:13px}
+  .dl dd{margin:0}
+  .back{font-size:13px;color:var(--primary);cursor:pointer;display:inline-block;margin-bottom:12px}
+  .back:hover{text-decoration:underline}
+  .flash{background:var(--ok-bg);color:var(--ok-t);border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:15px}
+  .warnbox{background:var(--warn-bg);color:var(--warn-t);border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:12px}
+  .badbox{background:var(--bad-bg);color:var(--bad-t);border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:12px}
+  .okbox{background:var(--ok-bg);color:var(--ok-t);border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:12px}
+  .infobox{background:var(--primary-light);color:var(--primary);border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:12px}
+  .empty{color:var(--t3);font-size:14px;padding:12px 0}
+  .hidden{display:none !important}
+
+  /* Wochenplan */
+  .weekbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .weekbar h2{margin:0 8px 0 0}
+  .plan{table-layout:fixed}
+  .plan th{text-align:center;padding:0 4px 8px}
+  .plan th.today{color:var(--primary)}
+  .plan th small{display:block;font-weight:400}
+  .plan td{padding:4px;border-bottom:none}
+  .plan td.zeit{font-size:12px;color:var(--t3);width:74px;vertical-align:middle;padding-right:8px}
+  .cell{border:1px solid var(--border);border-radius:10px;padding:8px 9px;cursor:pointer;background:var(--surface);min-height:74px}
+  .cell:hover{border-color:var(--primary)}
+  .cell b{font-family:Fraunces,serif;font-size:17px;font-weight:600}
+  .cell .cap{font-size:12px;color:var(--t3)}
+  .cell .bar{height:4px;border-radius:2px;background:var(--subtle);margin:5px 0 6px;overflow:hidden}
+  .cell .bar i{display:block;height:100%;background:var(--primary);border-radius:2px}
+  .cell .meta{font-size:11px;color:var(--t2);line-height:1.4}
+  .cell.warn{background:var(--warn-bg);border-color:#F4DDB3}.cell.warn .bar i{background:var(--warn-t)}
+  .cell.bad{background:var(--bad-bg);border-color:#F3C7C7}.cell.bad .bar i{background:var(--bad-t)}
+  .cell.bad b{color:var(--bad-t)}
+  .cell.leer{background:var(--bg);border-style:dashed;color:var(--t3);font-size:12px;cursor:default}
+  .cell.past{opacity:.62}
+  .cell.today{box-shadow:inset 3px 0 0 var(--primary)}
+  .zu{background:var(--subtle);border-radius:10px;color:var(--t3);font-size:13px;text-align:center;vertical-align:middle !important}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--t2);margin-top:12px}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--surface);border:1px solid var(--border)}
+  .legend .l-warn::before{background:var(--warn-bg);border-color:#F4DDB3}
+  .legend .l-bad::before{background:var(--bad-bg);border-color:#F3C7C7}
+  .legend .l-leer::before{background:var(--bg);border-style:dashed}
+
+  /* Termin */
+  .sbar{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:14px;padding:16px 22px;color:#fff;margin-bottom:18px}
+  .sbar .row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .sbar h2{margin:0;color:#fff}
+  .sbar small{opacity:.72;font-size:12px}
+  .sbar .pos{font-family:Fraunces,serif;font-size:17px}
+  .rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:14px;margin-bottom:16px}
+  .room{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+  .room.zu2{background:var(--bg);border-style:dashed}
+  .room-h{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+  .room-h h4{font-family:Fraunces,serif;font-size:16px;margin:0}
+  .room-h .cnt{margin-left:auto;font-size:12px;color:var(--t3)}
+  .kid{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--subtle);flex-wrap:wrap}
+  .kid .nm{font-size:14px}
+  .kid .acts{margin-left:auto;display:flex;gap:5px;align-items:center}
+  .kid select{padding:3px 6px;font-size:12px;border-radius:8px}
+  .fach{display:inline-block;border-radius:5px;padding:1px 7px;font-size:11px;font-weight:500;background:var(--subtle);color:var(--t2)}
+  .fach-M{background:#E7EDF7;color:#334D7A}
+  .fach-D{background:#F6EEDD;color:#8A5A00}
+  .fach-E{background:#E6F2EC;color:#2A6A45}
+
+  /* Kind */
+  .sp{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--subtle);flex-wrap:wrap}
+  .sp:last-child{border-bottom:none}
+  .sp .when{font-weight:500}
+  .sp .acts{margin-left:auto;display:flex;gap:6px}
+  .sp.alt{opacity:.55}
+  .tl{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--subtle);font-size:14px;flex-wrap:wrap}
+  .tl:last-child{border-bottom:none}
+  .tl .d{width:150px}
+  .tl .acts{margin-left:auto;display:flex;gap:5px}
+  .units{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+  .units div{background:var(--bg);border-radius:10px;padding:9px 11px}
+  .units span{display:block;font-size:12px;color:var(--t2)}
+  .units b{font-family:Fraunces,serif;font-size:20px;font-weight:600;color:var(--primary)}
+
+  /* Dialog */
+  .modal{position:fixed;inset:0;background:rgba(16,32,56,.45);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;z-index:50;overflow:auto}
+  .mbox{background:var(--surface);border-radius:16px;max-width:640px;width:100%;padding:22px 24px}
+  .mbox.wide{max-width:780px}
+  .mfoot{display:flex;gap:9px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+  .opts{max-height:300px;overflow:auto;border:1px solid var(--border);border-radius:10px}
+  .opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--subtle);cursor:pointer;font-size:14px}
+  .opt:last-child{border-bottom:none}
+  .opt:hover{background:var(--primary-light)}
+  .opt.sel{background:var(--primary-light);box-shadow:inset 3px 0 0 var(--primary)}
+  .opt .r{margin-left:auto}
+  .matrix{table-layout:fixed;margin-top:4px}
+  .matrix th{text-align:center;padding:0 3px 6px}
+  .matrix td{padding:3px;border-bottom:none;text-align:center}
+  .matrix td.zeit{font-size:12px;color:var(--t3);text-align:left;width:92px}
+  .mc{border:1px solid var(--border);border-radius:8px;padding:6px 2px;font-size:13px;cursor:pointer;background:var(--surface)}
+  .mc:hover{border-color:var(--primary)}
+  .mc.voll{background:var(--bad-bg);color:var(--bad-t);border-color:#F3C7C7;cursor:not-allowed}
+  .mc.knapp{background:var(--warn-bg);color:var(--warn-t)}
+  .mc.na{background:var(--bg);color:var(--t3);border-style:dashed;cursor:not-allowed}
+  .mc.gew{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:500}
+  .srow{display:grid;grid-template-columns:22px 1fr 1fr 1.6fr;gap:8px;align-items:center;margin-bottom:8px}
+  .srow select{width:100%}
+  .srow.akt{background:var(--primary-light);border-radius:10px;padding:6px}
+  @media (max-width:820px){.grid2{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">edvance</span>
+  <div class="nav">
+    <button onclick="alert('Eigener Dummy (Verträge).')">Verträge</button>
+    <button onclick="alert('Eigener Dummy (Schülerakte).')">Schüler</button>
+    <button aria-current="true">Slots</button>
+  </div>
+  <span class="who">Klick-Dummy · heute ist Montag, 13.03.2028, 09:12 Uhr</span>
+  <select id="rolle" onchange="rolleWechseln()"></select>
+</div>
+
+<div class="wrap">
+  <section id="s-main">
+    <div class="hero"><h1>Slots</h1><p>Wochenplan, Stammplätze der Kinder, Einsatzplanung der Coaches</p></div>
+    <div class="tabs" id="tabs">
+      <button class="tab" data-t="woche" aria-selected="true" onclick="tab('woche')">Wochenplan</button>
+      <button class="tab" data-t="kinder" onclick="tab('kinder')">Kinder <b id="n-kinder"></b></button>
+      <button class="tab" data-t="coaches" onclick="tab('coaches')">Coaches</button>
+      <button class="tab" data-t="einst" onclick="tab('einst')">Einstellungen</button>
+    </div>
+    <div id="panel"></div>
+  </section>
+  <section id="s-termin" class="hidden"></section>
+  <section id="s-kind" class="hidden"></section>
+  <section id="s-coach" class="hidden"></section>
+</div>
+
+<div id="modal" class="modal hidden" onclick="if(event.target===this)zu()"><div class="mbox" id="mbox"></div></div>
+
+<script>
+/* ================= Grunddaten ================= */
+const HEUTE=new Date(2028,2,13);            // Montag
+const JETZT="09:12";
+const ZEITEN=["14:00","15:00","16:00","17:00","18:00","19:00"];   // Platzhalter
+const zeitText=i=>ZEITEN[i]+"–"+(15+i)+":00";
+const TAG=["So","Mo","Di","Mi","Do","Fr","Sa"];
+const TAGLANG=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+const MAXPROSLOT=5;
+
+function addTage(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);}
+function addMonate(d,n){return new Date(d.getFullYear(),d.getMonth()+n,d.getDate());}
+function iso(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function vonIso(s){const p=s.split("-").map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function dstr(d){return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear();}
+function dk(d){return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+".";}
+function montag(d){return addTage(d,-((d.getDay()+6)%7));}
+function kw(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const w=t.getUTCDay()||7;
+  t.setUTCDate(t.getUTCDate()+4-w);const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil(((t-y0)/86400000+1)/7);}
+function rnd(a,b){const x=Math.sin(a*12.9898+b*78.233)*43758.5453;return x-Math.floor(x);}
+let nid=1000;
+
+/* Ferien NRW (wie im Vertrags-Dummy) */
+const FERIEN=[
+  ["2027-07-19","2027-08-31","Sommerferien"],["2027-10-23","2027-11-06","Herbstferien"],
+  ["2027-12-24","2028-01-08","Weihnachtsferien"],["2028-04-10","2028-04-22","Osterferien"],
+  ["2028-07-10","2028-08-22","Sommerferien"],["2028-10-23","2028-11-04","Herbstferien"],
+  ["2028-12-21","2029-01-05","Weihnachtsferien"],["2029-03-26","2029-04-07","Osterferien"],
+  ["2029-07-02","2029-08-14","Sommerferien"]
+].map(f=>({von:vonIso(f[0]),bis:vonIso(f[1]),name:f[2]}));
+function inFerien(d){return FERIEN.find(f=>d>=f.von&&d<=f.bis);}
+
+/* Feiertage NRW und Pfingsten — kein Betrieb */
+function ostern(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),
+  g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
+  return new Date(y,Math.floor((h+l-7*m+114)/31)-1,((h+l-7*m+114)%31)+1);}
+const FREI={};
+for(let y=2027;y<=2029;y++){
+  const o=ostern(y);
+  [[new Date(y,0,1),"Neujahr"],[addTage(o,-2),"Karfreitag"],[addTage(o,1),"Ostermontag"],[new Date(y,4,1),"Tag der Arbeit"],
+   [addTage(o,39),"Christi Himmelfahrt"],[addTage(o,50),"Pfingstmontag"],[addTage(o,51),"Pfingsten (Ferientag)"],
+   [addTage(o,60),"Fronleichnam"],[new Date(y,9,3),"Tag der Deutschen Einheit"],[new Date(y,10,1),"Allerheiligen"],
+   [new Date(y,11,25),"1. Weihnachtstag"],[new Date(y,11,26),"2. Weihnachtstag"]].forEach(([d,n])=>FREI[iso(d)]=n);
+}
+function ohneBetrieb(d){
+  if(d.getDay()===0||d.getDay()===6) return "Wochenende";
+  const f=inFerien(d); if(f) return f.name;
+  return FREI[iso(d)]||null;
+}
+
+/* Tarife und Vertragsende (wie Dokument 2) */
+const PAKETE={Basic:{jahr:38,halb:19},Standard:{jahr:57,halb:29},Premium:{jahr:76,halb:38}};
+/* Rhythmus je Paket und Laufzeit — so, dass Termine und Einheiten möglichst aufgehen */
+const RHY={jahr:{Basic:["W"],Standard:["W","14"],Premium:["W","W"]},halb:{Basic:["W"],Standard:["W"],Premium:["W","14"]}};
+const RTXT={W:"1× pro Woche",W14:"1× pro Woche + 14-täglich",WW:"2× pro Woche"};
+const rhythmus=k=>RHY[k.jahr?"jahr":"halb"][k.paket];
+const rhyText=k=>RTXT[rhythmus(k).join("")];
+function ferienTage(a,b){let t=0;FERIEN.forEach(f=>{const lo=Math.max(a,f.von),hi=Math.min(b,f.bis);if(lo<=hi)t+=Math.round((hi-lo)/86400000)+1;});return t;}
+function aufrunden(d){return d.getDate()<15?new Date(d.getFullYear(),d.getMonth(),15):new Date(d.getFullYear(),d.getMonth()+1,0);}
+function stichtag(beginn,jahr){
+  const nominal=addTage(addMonate(beginn,jahr?12:6),-1);
+  if(jahr) return nominal;
+  let ende=nominal;
+  for(let i=0;i<50;i++){const n=addTage(nominal,ferienTage(beginn,ende));if(+n===+ende)break;ende=n;}
+  ende=aufrunden(ende);
+  while(inFerien(ende)) ende=aufrunden(addTage(ende,1));
+  return ende;
+}
+
+/* ================= Räume, Coaches, Stammschichten ================= */
+const RAEUME=[
+  {id:1,name:"Raum 1",ab:new Date(2027,8,1),bis:null},
+  {id:2,name:"Raum 2",ab:new Date(2027,8,1),bis:null},
+  {id:3,name:"Raum 3",ab:new Date(2028,1,1),bis:null}
+];
+function raumAktiv(r,d){return d>=r.ab&&(!r.bis||d<=r.bis);}
+const COACHES=[{id:1,name:"Jana Keller"},{id:2,name:"Murat Aksoy"},{id:3,name:"Lea Schmitz"},
+  {id:4,name:"Tim Brandt"},{id:5,name:"Selin Yıldız"}];
+const coachName=id=>(COACHES.find(c=>c.id===id)||{name:"—"}).name;
+const SCHICHTEN=[];
+for(let tag=1;tag<=5;tag++){
+  const mitte=tag>=2&&tag<=4;
+  [[1,[1]],[2,mitte?[1,2]:[1]],[3,tag===3?[1,2,3]:mitte?[1,2]:[1]],[4,[1]]].forEach(([zeit,rr])=>
+    rr.forEach(raum=>SCHICHTEN.push({id:nid++,tag,zeit,raum,coach:COACHES[(tag*2+raum+(zeit>=3?1:0))%5].id})));
+}
+const COACH_ABW={};   // "iso|zeit|raum" -> coachId, 0 = fällt aus
+
+/* ================= Kinder ================= */
+const VN=["Efe","Mia","Paul","Emil","Elif","Ben","Nora","Leon","Lina","Hannah","Can","Sofia","Luca","Emma","Finn","Zeynep",
+  "Noah","Lea","Ali","Clara","Tim","Ida","Yusuf","Marie","Jan","Lotta","Deniz","Frieda","Moritz","Amira","Felix","Greta",
+  "Arda","Leni","Oskar","Nele","Samir","Pia","Anton","Rosa","Kerem","Mila","Jakob","Ella","Ole","Selin","Theo","Ronja"];
+const NN=["Wenzel","Ritter","Sauer","Yilmaz","Lindner","Hanke","Brehm","Schulz","Aydın","Becker","Kaya","Hoffmann","Wagner",
+  "Özdemir","Krüger","Neumann","Schwarz","Arslan","Wolf","Braun","Zimmermann","Şahin","Hartmann","Lange"];
+const BEGINNE=[new Date(2027,8,1),new Date(2027,9,1),new Date(2027,10,1),new Date(2028,0,1),new Date(2028,1,1),new Date(2028,2,1)];
+const KINDER=[];
+for(let i=0;i<48;i++){
+  const r1=rnd(i,1),r2=rnd(i,2),r3=rnd(i,3),r4=rnd(i,4);
+  const paket=r2<.3?"Basic":r2<.75?"Standard":"Premium", jahr=r3>.45;
+  const beginn=BEGINNE[Math.floor(r4*BEGINNE.length)];
+  KINDER.push({id:i+1,name:VN[i]+" "+NN[(i*7)%NN.length],klasse:8+(i%3),
+    fach:r1<.6?"Mathematik":r1<.8?"Deutsch":"Englisch",paket,jahr,beginn,
+    stichtag:stichtag(beginn,jahr),einheiten:PAKETE[paket][jahr?"jahr":"halb"],stamm:[]});
+}
+[["Efe Demir",8,"Mathematik","Standard",true,new Date(2028,3,1)],
+ ["Mara Kowalski",10,"Englisch","Premium",false,new Date(2028,3,1)],
+ ["Jonas Köhler",8,"Mathematik","Basic",false,new Date(2028,2,1)]].forEach((n,j)=>
+  KINDER.push({id:100+j,name:n[0],klasse:n[1],fach:n[2],paket:n[3],jahr:n[4],beginn:n[5],
+    stichtag:stichtag(n[5],n[4]),einheiten:PAKETE[n[3]][n[4]?"jahr":"halb"],stamm:[]}));
+const kind=id=>KINDER.find(k=>k.id===id);
+const fachK=f=>f[0];
+
+/* Stammplätze für die Ausgangslage verteilen */
+(function verteilen(){
+  const load={};
+  const kap=(tag,zeit)=>SCHICHTEN.filter(s=>s.tag===tag&&s.zeit===zeit).length*MAXPROSLOT;
+  const frei=(tag,zeit,takt)=>Math.min(...(takt==="W"?["A","B"]:[takt]).map(p=>kap(tag,zeit)-(load[tag+"|"+zeit+"|"+p]||0)));
+  const lade=(tag,zeit,takt)=>(takt==="W"?["A","B"]:[takt]).forEach(p=>{const k=tag+"|"+zeit+"|"+p;load[k]=(load[k]||0)+1;});
+  KINDER.filter(k=>k.id<100).forEach((k,i)=>{
+    const kand=[];
+    for(let tag=1;tag<=5;tag++)for(let zeit=1;zeit<=4;zeit++)
+      kand.push({tag,zeit,s:{2:0,3:.1,1:.3,4:.4}[zeit]+rnd(i*31+tag,zeit)*1.1});
+    kand.sort((a,b)=>a.s-b.s);
+    const tage=[];
+    rhythmus(k).forEach((art,j)=>{
+      const takte=art==="W"?["W"]:(i%2?["A","B"]:["B","A"]);
+      for(const t of takte){
+        const c=kand.find(c=>!tage.includes(c.tag)&&frei(c.tag,c.zeit,t)>0);
+        if(c){lade(c.tag,c.zeit,t);tage.push(c.tag);
+          k.stamm.push({id:nid++,tag:c.tag,zeit:c.zeit,takt:t,ab:k.beginn,bis:null});break;}
+      }
+    });
+  });
+  // Beispiel Stundenplanwechsel zum Halbjahr
+  const h=KINDER.find(k=>k.id<100&&k.beginn<new Date(2027,11,1)&&k.stamm.length===1);
+  if(h){const neu=h.stamm[0];
+    h.stamm.unshift({id:nid++,tag:neu.tag===1?4:1,zeit:1,takt:"W",ab:h.beginn,bis:new Date(2028,0,31)});
+    neu.ab=new Date(2028,1,1);}
+})();
+
+/* ================= Termine berechnen ================= */
+const AUS={};        // "kind|iso|zeit" -> {art, eingang}
+const ZUSATZ=[];     // {id, kind, iso, zeit, von}
+const RAUMWAHL={};   // "kind|iso|zeit" -> raumId
+const tkey=t=>t.kind.id+"|"+t.iso+"|"+t.zeit;
+function passt(sp,d){
+  if(d.getDay()!==sp.tag||d<sp.ab||(sp.bis&&d>sp.bis)) return false;
+  return sp.takt==="W"||((kw(d)%2===1)===(sp.takt==="A"));
+}
+function pastStatus(k,t){const r=rnd(k.id*7+t.datum.getDate(),t.datum.getMonth()*13+t.zeit);
+  return r<.05?"abgesagt":r<.09?"unentschuldigt":"anwesend";}
+const verbrauchend=s=>s==="anwesend"||s==="unentschuldigt";
+const belegend=s=>s==="geplant"||s==="anwesend";
+
+function berechneKind(k,stamm){
+  stamm=stamm||k.stamm;
+  const out=[];
+  if(stamm.length) for(let d=new Date(k.beginn);d<=k.stichtag;d=addTage(d,1)){
+    if(ohneBetrieb(d)) continue;
+    stamm.forEach(sp=>{if(passt(sp,d)) out.push({kind:k,datum:d,iso:iso(d),zeit:sp.zeit,quelle:"stamm"});});
+  }
+  ZUSATZ.filter(z=>z.kind===k.id).forEach(z=>out.push({kind:k,datum:vonIso(z.iso),iso:z.iso,zeit:z.zeit,
+    quelle:z.von?"umgebucht":"zusatz",zid:z.id,von:z.von}));
+  out.sort((a,b)=>a.datum-b.datum||a.zeit-b.zeit);
+  let used=0;
+  out.forEach(t=>{
+    const a=AUS[tkey(t)];
+    if(a){t.status=a.art;t.eingang=a.eingang;}
+    else t.status=t.datum<HEUTE?pastStatus(k,t):"geplant";
+    if(verbrauchend(t.status)||t.status==="geplant"){
+      if(used>=k.einheiten) t.status="ohneEinheit"; else used++;
+    }
+  });
+  const verbraucht=out.filter(t=>verbrauchend(t.status)).length;
+  const geplant=out.filter(t=>t.status==="geplant");
+  return {termine:out.filter(t=>t.status!=="ohneEinheit"),verbraucht,geplant:geplant.length,
+    offen:k.einheiten-verbraucht,unverplant:k.einheiten-verbraucht-geplant.length,
+    ohne:out.filter(t=>t.status==="ohneEinheit"&&t.datum>=HEUTE).length,
+    letzter:geplant.length?geplant[geplant.length-1].datum:null};
+}
+let DATA={},INDEX={};
+function rebuild(){
+  DATA={};INDEX={};
+  KINDER.forEach(k=>{const r=berechneKind(k);DATA[k.id]=r;
+    r.termine.forEach(t=>{const x=t.iso+"|"+t.zeit;(INDEX[x]=INDEX[x]||[]).push(t);});});
+}
+function aktiveStamm(k,stamm){return (stamm||k.stamm).filter(sp=>!sp.bis||sp.bis>=HEUTE);}
+function bilanz(k,r,stamm){
+  if(HEUTE>k.stichtag) return {cls:"mut",text:"Vertrag beendet"};
+  if(r.offen<=0) return {cls:"mut",text:"Einheiten aufgebraucht"};
+  if(!aktiveStamm(k,stamm).length&&!r.geplant) return {cls:"bad",text:"kein Stammplatz"};
+  if(r.ohne>2) return {cls:"warn",text:"reicht bis "+dk(r.letzter)};
+  if(r.unverplant>2) return {cls:"info",text:r.unverplant+" ohne Termin"};
+  return {cls:"ok",text:"passt"};
+}
+function bilanzText(k,r,stamm){
+  const b=bilanz(k,r,stamm);
+  if(b.text==="kein Stammplatz") return "Ohne Stammplatz entstehen keine Termine. "+r.offen+" Einheiten sind offen.";
+  if(b.cls==="mut") return "Alle Einheiten sind verbraucht. Es entstehen keine Termine mehr.";
+  if(b.cls==="warn") return "Der Stammplatz erzeugt bis zum Stichtag "+r.ohne+" Termin"+(r.ohne===1?"":"e")+" mehr, als Einheiten offen sind. Die Einheiten reichen bis zum "+dstr(r.letzter)+", danach entstehen keine Termine mehr. Wer strecken will, lässt einzelne Wochen aus.";
+  if(b.cls==="info") return "Bis zum Stichtag bleiben "+r.unverplant+" Einheit"+(r.unverplant===1?"":"en")+" ohne Termin. Sie können flexibel als Zusatztermine gebucht werden.";
+  if(r.unverplant>0) return "Geplante Termine und offene Einheiten gehen bis zum Stichtag fast auf. "+r.unverplant+" Einheit"+(r.unverplant===1?" bleibt":"en bleiben")+" ohne Termin und kann als Zusatztermin gebucht werden.";
+  if(r.ohne>0) return "Geplante Termine und offene Einheiten gehen bis zum Stichtag fast auf. Die Einheiten reichen bis zum "+dstr(r.letzter)+", "+r.ohne+" Stammplatz-Termin"+(r.ohne===1?"":"e")+" kurz vor dem Stichtag entfällt.";
+  return "Geplante Termine und offene Einheiten gehen bis zum Stichtag genau auf.";
+}
+
+/* Räume und Belegung eines Termins */
+function raeumeAlle(d,zeit){
+  const is=iso(d),res=[];
+  RAEUME.filter(r=>raumAktiv(r,d)).forEach(r=>{
+    const x=is+"|"+zeit+"|"+r.id, s=SCHICHTEN.find(s=>s.tag===d.getDay()&&s.zeit===zeit&&s.raum===r.id);
+    const abw=x in COACH_ABW, coach=abw?COACH_ABW[x]:(s?s.coach:0);
+    if(s||abw) res.push({raum:r,coach,abw,stamm:s?s.coach:0});
+  });
+  return res;
+}
+function terminInfo(is,zeit){
+  const d=vonIso(is), alle=INDEX[is+"|"+zeit]||[];
+  const aktiv=alle.filter(t=>belegend(t.status)), rest=alle.filter(t=>!belegend(t.status));
+  const raeume=raeumeAlle(d,zeit), offen=raeume.filter(r=>r.coach);
+  const cap=offen.length*MAXPROSLOT, bel={}, ohneRaum=[], fachN={};
+  offen.forEach(r=>bel[r.raum.id]=[]);
+  aktiv.forEach(t=>fachN[t.kind.fach]=(fachN[t.kind.fach]||0)+1);
+  const man=aktiv.filter(t=>bel[RAUMWAHL[tkey(t)]]&&bel[RAUMWAHL[tkey(t)]].length<MAXPROSLOT);
+  man.forEach(t=>bel[RAUMWAHL[tkey(t)]].push(t));
+  aktiv.filter(t=>!man.includes(t))
+    .sort((a,b)=>(fachN[b.kind.fach]-fachN[a.kind.fach])||a.kind.fach.localeCompare(b.kind.fach)||a.kind.name.localeCompare(b.kind.name))
+    .forEach(t=>{
+      const frei=r=>bel[r.raum.id].length<MAXPROSLOT;
+      const z=offen.find(r=>frei(r)&&bel[r.raum.id].some(x=>x.kind.fach===t.kind.fach))
+        ||offen.find(r=>bel[r.raum.id].length===0)||offen.find(frei);
+      if(z) bel[z.raum.id].push(t); else ohneRaum.push(t);
+    });
+  return {d,iso:is,zeit,alle,aktiv,rest,raeume,cap,bel,ohneRaum,fachN};
+}
+
+/* Regeln für Umbuchen und Zusatztermin */
+function rhythmusWoche(k,d){
+  const mo=montag(d);let n=0;
+  k.stamm.forEach(sp=>{const t=addTage(mo,sp.tag-1);if(passt(sp,t))n++;});
+  return n;
+}
+function pruefe(k,d,zeit,ignore){
+  if(d<HEUTE) return "vergangen";
+  if(d<k.beginn||d>k.stichtag) return "außerhalb der Laufzeit";
+  if(ohneBetrieb(d)) return "kein Betrieb";
+  const is=iso(d), mine=DATA[k.id].termine.filter(t=>tkey(t)!==ignore&&belegend(t.status));
+  if(mine.some(t=>t.iso===is)) return "schon ein Termin an dem Tag";
+  const mo=montag(d),so=addTage(mo,6);
+  if(mine.filter(t=>t.datum>=mo&&t.datum<=so).length+1>rhythmusWoche(k,d)+2) return "Wochengrenze erreicht";
+  const ti=terminInfo(is,zeit);
+  if(ti.aktiv.filter(t=>tkey(t)!==ignore).length>=ti.cap) return "voll";
+  return null;
+}
+function kandidaten(k,ignore,tage){
+  const res=[];
+  for(let i=0;i<(tage||28);i++){
+    const d=addTage(HEUTE,i);
+    if(ohneBetrieb(d)) continue;
+    ZEITEN.forEach((z,zeit)=>{if(!pruefe(k,d,zeit,ignore)){
+      const ti=terminInfo(iso(d),zeit);res.push({d,zeit,frei:ti.cap-ti.aktiv.length});}});
+  }
+  return res;
+}
+
+/* ================= Ausgangslage dieser Woche ================= */
+(function seed(){
+  rebuild();
+  const tagIso=n=>iso(addTage(HEUTE,n));
+  const doZeit=[2,3].sort((a,b)=>(INDEX[tagIso(3)+"|"+b]||[]).length-(INDEX[tagIso(3)+"|"+a]||[]).length)[0];
+  COACH_ABW[tagIso(3)+"|"+doZeit+"|2"]=0;        // Donnerstag, Raum 2: Coach krank
+  const mo=(INDEX[tagIso(0)+"|2"]||[]).find(t=>t.status==="geplant");
+  if(mo) AUS[tkey(mo)]={art:"abgesagt",eingang:tagIso(0)+"T07:55"};
+  rebuild();
+  for(const zeit of [3,2]){
+    const di=(INDEX[tagIso(1)+"|"+zeit]||[]).find(t=>t.status==="geplant"&&t.kind.stamm.length===1);
+    if(!di) continue;
+    const ziel=[3,2,1,4].map(z=>({z,d:addTage(HEUTE,2)})).find(o=>!pruefe(di.kind,o.d,o.z,tkey(di)));
+    if(ziel){AUS[tkey(di)]={art:"abgesagt",eingang:tagIso(-3)+"T16:20"};
+      ZUSATZ.push({id:nid++,kind:di.kind.id,iso:iso(ziel.d),zeit:ziel.z,von:tkey(di)});break;}
+  }
+  rebuild();
+  const zk=KINDER.find(k=>DATA[k.id].unverplant>0&&k.stamm.length&&!pruefe(k,addTage(HEUTE,4),4));
+  if(zk) ZUSATZ.push({id:nid++,kind:zk.id,iso:tagIso(4),zeit:4});
+  rebuild();
+})();
+
+/* ================= Navigation ================= */
+let AKTIV="woche", WOCHE=montag(HEUTE), FLASH="", ROLLE=0, TERMIN=null, KIND=null, COACHSEL=1;
+let FILTER={q:"",b:"alle"};
+function go(id){["s-main","s-termin","s-kind","s-coach"].forEach(s=>document.getElementById(s).classList.toggle("hidden",s!==id));window.scrollTo(0,0);}
+function tab(t){AKTIV=t;document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t?"true":"false"));render();go("s-main");}
+function flashHtml(){const f=FLASH?'<div class="flash">'+FLASH+'</div>':"";FLASH="";return f;}
+function neuZeichnen(){
+  if(ROLLE){renderCoachSicht();return;}
+  if(!document.getElementById("s-termin").classList.contains("hidden")&&TERMIN) oeffneTermin(TERMIN.iso,TERMIN.zeit,true);
+  else if(!document.getElementById("s-kind").classList.contains("hidden")&&KIND) oeffneKind(KIND,true);
+  else render();
+}
+function rolleWechseln(){
+  ROLLE=+document.getElementById("rolle").value;
+  if(ROLLE){renderCoachSicht();go("s-coach");} else tab(AKTIV);
+}
+function ohneStammplatz(){return KINDER.filter(k=>HEUTE<=k.stichtag&&!aktiveStamm(k).length&&DATA[k.id].offen>0);}
+
+function render(){
+  document.getElementById("n-kinder").textContent=ohneStammplatz().length?ohneStammplatz().length+" ohne Stammplatz":"";
+  document.getElementById("panel").innerHTML=flashHtml()+({woche:pWoche,kinder:pKinder,coaches:pCoaches,einst:pEinst}[AKTIV])();
+  if(AKTIV==="kinder") kinderTabelle();
+}
+
+/* ================= Wochenplan ================= */
+function woche(n){WOCHE=n===0?montag(HEUTE):addTage(WOCHE,7*n);render();}
+function pWoche(){
+  const tage=[0,1,2,3,4].map(i=>addTage(WOCHE,i));
+  let cap=0,bel=0,ueber=0;
+  const infos={};
+  tage.forEach(d=>{if(ohneBetrieb(d))return;ZEITEN.forEach((z,zeit)=>{
+    const ti=terminInfo(iso(d),zeit);infos[iso(d)+"|"+zeit]=ti;cap+=ti.cap;bel+=ti.aktiv.length;ueber+=ti.ohneRaum.length;});});
+  const osp=ohneStammplatz().length;
+  let html=`<div class="card">
+    <div class="weekbar"><h2>KW ${kw(WOCHE)} · ${dk(tage[0])} – ${dstr(tage[4])}</h2>
+      <button class="btn btn-ghost btn-sm" onclick="woche(-1)">‹ Woche</button>
+      <button class="btn btn-ghost btn-sm" onclick="woche(0)">Diese Woche</button>
+      <button class="btn btn-ghost btn-sm" onclick="woche(1)">Woche ›</button></div>
+    <div class="sumline">
+      <div><span>Plätze in besetzten Räumen</span><b>${cap}</b></div>
+      <div><span>Belegt</span><b>${bel}</b></div>
+      <div><span>Auslastung</span><b>${cap?Math.round(bel/cap*100):0} %</b></div>
+      <div class="${ueber?"bad":""}"><span>Kinder ohne Raum</span><b>${ueber}</b></div>
+      <div class="${osp?"bad":""}"><span>Kinder ohne Stammplatz</span><b>${osp}</b>${osp?' <a onclick="FILTER.b=\'kein Stammplatz\';tab(\'kinder\')">ansehen</a>':""}</div>
+    </div>
+    <div style="overflow-x:auto"><table class="plan" style="min-width:720px"><thead><tr><th style="width:74px"></th>${tage.map(d=>`<th class="${+d===+HEUTE?"today":""}">${TAG[d.getDay()]} ${dk(d)}${+d===+HEUTE?"<small>heute</small>":""}</th>`).join("")}</tr></thead><tbody>`;
+  ZEITEN.forEach((z,zeit)=>{
+    html+=`<tr><td class="zeit">${zeitText(zeit)}</td>`;
+    tage.forEach(d=>{
+      const grund=ohneBetrieb(d);
+      if(grund){if(zeit===0) html+=`<td rowspan="${ZEITEN.length}" class="zu">${grund}<br><small>kein Betrieb</small></td>`;return;}
+      const ti=infos[iso(d)+"|"+zeit], n=ti.aktiv.length;
+      const zus=(+d===+HEUTE?" today":"")+(d<HEUTE?" past":"");
+      if(!ti.cap&&!n){html+=`<td><div class="cell leer${zus}" onclick="oeffneTermin('${ti.iso}',${zeit})">kein Raum besetzt</div></td>`;return;}
+      const cls=(n>ti.cap?"bad":n>=ti.cap*.9?"warn":"")+zus;
+      const mix=Object.entries(ti.fachN).map(([f,c])=>fachK(f)+" "+c).join(" · ");
+      const raumZahl=ti.raeume.filter(r=>r.coach).length;
+      const fehlt=ti.raeume.some(r=>!r.coach);
+      html+=`<td><div class="cell ${cls}" onclick="oeffneTermin('${ti.iso}',${zeit})">
+        <b>${n}</b><span class="cap"> / ${ti.cap}</span>
+        <div class="bar"><i style="width:${ti.cap?Math.min(100,n/ti.cap*100):100}%"></i></div>
+        <div class="meta">${raumZahl} Raum${raumZahl===1?"":"e"}${fehlt?' · <span style="color:var(--bad-t)">Coach fehlt</span>':""}${mix?"<br>"+mix:""}</div></div></td>`;
+    });
+    html+="</tr>";
+  });
+  html+=`</tbody></table></div>
+    <div class="legend"><span>im Plan</span><span class="l-warn">ab 90 % belegt</span><span class="l-bad">mehr Kinder als Plätze</span><span class="l-leer">kein Raum besetzt</span><span>M · D · E = Fächer im Slot</span></div>
+    <p class="note">Uhrzeiten sind Platzhalter. Kapazität = besetzte Räume × 5. Ein Raum zählt nur, wenn ein Coach eingeteilt ist.</p></div>`;
+  return html;
+}
+
+/* ================= Termin ================= */
+function statusTag(t){
+  return {anwesend:'<span class="tag tag-ok">anwesend</span>',abgesagt:'<span class="tag tag-mut">abgesagt</span>',
+    unentschuldigt:'<span class="tag tag-bad">unentschuldigt</span>',ausgefallen:'<span class="tag tag-warn">ausgefallen (durch uns)</span>',
+    geplant:'<span class="tag tag-info">geplant</span>'}[t.status]||"";
+}
+function herkunftTag(t){
+  if(t.quelle==="umgebucht") return '<span class="tag tag-info">umgebucht</span>';
+  if(t.quelle==="zusatz") return '<span class="tag tag-info">Zusatztermin</span>';
+  return "";
+}
+const fachTag=f=>`<span class="fach fach-${fachK(f)}">${f}</span>`;
+function eingangText(e){if(!e)return"";const [a,b]=e.split("T");return "Eingang "+dk(vonIso(a))+" "+b;}
+
+function oeffneTermin(is,zeit,still){
+  TERMIN={iso:is,zeit};
+  const ti=terminInfo(is,zeit), d=ti.d, vorbei=d<HEUTE, grund=ohneBetrieb(d);
+  const belegte=ti.aktiv.length;
+  const freieRaeume=RAEUME.filter(r=>raumAktiv(r,d)&&!ti.raeume.some(x=>x.raum.id===r.id&&x.coach));
+  const coachIm=ti.raeume.filter(r=>r.coach).map(r=>r.coach);
+  const freieCoaches=COACHES.filter(c=>!coachIm.includes(c.id));
+  let html=`<span class="back" onclick="tab('woche')">← Zurück zum Wochenplan</span>${flashHtml()}
+    <div class="sbar"><div class="row"><div><h2>${TAGLANG[d.getDay()]}, ${dstr(d)}</h2><small>${zeitText(zeit)} · Slot</small></div>
+    <div class="pos">${belegte} von ${ti.cap} Plätzen</div></div></div>`;
+  if(grund) html+=`<div class="warnbox">${grund}: an diesem Tag findet kein Betrieb statt.</div>`;
+  if(vorbei) html+=`<div class="infobox">Vergangener Termin. Die Anwesenheit hat der Coach in der Session erfasst. Hier nur zur Ansicht.</div>`;
+  if(ti.ohneRaum.length&&!vorbei) html+=`<div class="badbox">${ti.ohneRaum.length} Kind${ti.ohneRaum.length===1?" hat":"er haben"} keinen Raum. Umbuchen, als „ausgefallen (durch uns)“ markieren oder einen Raum mit Coach öffnen.</div>`;
+  html+='<div class="rooms">';
+  ti.raeume.forEach(r=>{
+    const kids=r.coach?ti.bel[r.raum.id]:[];
+    const faecher=[...new Set(kids.map(t=>t.kind.fach))];
+    const opts=[`<option value="0"${!r.coach?" selected":""}>— fällt aus —</option>`].concat(
+      COACHES.filter(c=>c.id===r.coach||!coachIm.includes(c.id)).map(c=>`<option value="${c.id}"${c.id===r.coach?" selected":""}>${c.name}</option>`)).join("");
+    html+=`<div class="room ${r.coach?"":"zu2"}"><div class="room-h"><h4>${r.raum.name}</h4>
+      ${vorbei?`<span class="muted">${r.coach?coachName(r.coach):"kein Coach"}</span>`:`<select onchange="coachSetzen('${is}',${zeit},${r.raum.id},this.value)">${opts}</select>`}
+      ${r.abw&&r.coach?'<span class="tag tag-warn">Vertretung</span>':""}
+      ${faecher.length>1?'<span class="tag tag-warn">gemischt</span>':""}
+      <span class="cnt">${kids.length} / 5</span></div>`;
+    if(!r.coach) html+=`<div class="muted">${r.stamm?"Stammschicht: "+coachName(r.stamm)+". ":""}Ohne Coach ist der Raum geschlossen.</div>`;
+    else if(!kids.length) html+='<div class="empty">Noch kein Kind in diesem Raum.</div>';
+    kids.forEach(t=>html+=kindZeile(t,ti,vorbei));
+    html+="</div>";
+  });
+  if(!ti.raeume.length) html+='<div class="room zu2"><div class="muted">In diesem Slot ist kein Raum besetzt.</div></div>';
+  html+="</div>";
+  if(ti.ohneRaum.length){
+    html+=`<div class="card bad"><h3>Ohne Raum</h3>${ti.ohneRaum.map(t=>`<div class="kid"><span class="nm">${t.kind.name}</span>
+      <span class="muted">Kl. ${t.kind.klasse}</span>${fachTag(t.kind.fach)}${herkunftTag(t)}
+      ${vorbei?"":`<span class="acts"><button class="btn btn-sm" onclick="dlgAbsage('${tkey(t)}',true)">Umbuchen</button>
+      <button class="btn btn-bad btn-sm" onclick="ausgefallen('${tkey(t)}')">Ausgefallen (durch uns)</button></span>`}</div>`).join("")}</div>`;
+  }
+  if(ti.rest.length){
+    html+=`<div class="card"><h3>Nicht dabei</h3>${ti.rest.map(t=>`<div class="kid"><span class="nm">${t.kind.name}</span>
+      ${fachTag(t.kind.fach)}${statusTag(t)}<span class="muted">${eingangText(t.eingang)}</span>
+      ${t.von===undefined&&AUS[tkey(t)]&&ZUSATZ.find(z=>z.von===tkey(t))?'<span class="muted">→ umgebucht auf '+umbuchZiel(tkey(t))+'</span>':""}
+      ${!vorbei&&AUS[tkey(t)]?`<span class="acts"><button class="btn btn-ghost btn-xs" onclick="zuruecknehmen('${tkey(t)}')">Zurücknehmen</button></span>`:""}</div>`).join("")}</div>`;
+  }
+  if(!vorbei&&!grund){
+    html+=`<div class="card"><h3>Aktionen</h3><div style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="btn btn-sm" onclick="dlgZusatzTermin('${is}',${zeit})">+ Kind hinzufügen (Zusatztermin)</button>
+      ${freieRaeume.length&&freieCoaches.length?`<button class="btn btn-ghost btn-sm" onclick="dlgRaumOeffnen('${is}',${zeit})">+ Raum öffnen</button>`:""}
+      ${belegte?`<button class="btn btn-bad btn-sm" onclick="terminFaelltAus('${is}',${zeit})">Ganzer Termin fällt aus</button>`:""}
+      </div><p class="note">Absagen bis 10:00 Uhr am Session-Tag gelten als rechtzeitig, die Einheit bleibt offen. Danach gilt der Termin als unentschuldigt und die Einheit ist verbraucht.</p></div>`;
+  }
+  document.getElementById("s-termin").innerHTML=html;
+  if(!still) go("s-termin");
+}
+function umbuchZiel(key){const z=ZUSATZ.find(z=>z.von===key);return z?TAG[vonIso(z.iso).getDay()]+" "+dk(vonIso(z.iso))+", "+ZEITEN[z.zeit]:"";}
+function kindZeile(t,ti,vorbei){
+  const raumOpts=ti.raeume.filter(r=>r.coach).map(r=>`<option value="${r.raum.id}"${ti.bel[r.raum.id].includes(t)?" selected":""}>${r.raum.name}</option>`).join("");
+  return `<div class="kid"><span class="nm" style="cursor:pointer" onclick="oeffneKind(${t.kind.id})">${t.kind.name}</span>
+    <span class="muted">Kl. ${t.kind.klasse}</span>${fachTag(t.kind.fach)}${herkunftTag(t)}${vorbei?statusTag(t):""}
+    ${vorbei?"":`<span class="acts"><select title="Raum" onchange="raumWaehlen('${tkey(t)}',this.value)">${raumOpts}</select>
+    <button class="btn btn-ghost btn-xs" onclick="dlgAbsage('${tkey(t)}',false)">Absage</button>
+    <button class="btn btn-ghost btn-xs" onclick="dlgAbsage('${tkey(t)}',true)">Umbuchen</button></span>`}</div>`;
+}
+function findeTermin(key){const [kid,is,z]=key.split("|");return DATA[+kid].termine.find(t=>t.iso===is&&t.zeit===+z);}
+function coachSetzen(is,zeit,raum,val){
+  COACH_ABW[is+"|"+zeit+"|"+raum]=+val;
+  const s=SCHICHTEN.find(s=>s.tag===vonIso(is).getDay()&&s.zeit===zeit&&s.raum===raum);
+  if(s&&s.coach===+val) delete COACH_ABW[is+"|"+zeit+"|"+raum];
+  rebuild();
+  FLASH=+val?coachName(+val)+" ist für diesen Termin in "+RAEUME.find(r=>r.id===raum).name+" eingeteilt. Die Stammschicht bleibt unverändert."
+    :"Coach fällt für diesen Termin aus. Der Raum ist geschlossen, die Kapazität sinkt um 5.";
+  oeffneTermin(is,zeit,true);
+}
+function raumWaehlen(key,val){RAUMWAHL[key]=+val;rebuild();oeffneTermin(TERMIN.iso,TERMIN.zeit,true);}
+function ausgefallen(key){AUS[key]={art:"ausgefallen"};rebuild();FLASH="Als ausgefallen (durch uns) markiert. Die Einheit bleibt offen.";neuZeichnen();}
+function zuruecknehmen(key){
+  delete AUS[key];
+  const z=ZUSATZ.findIndex(z=>z.von===key); if(z>-1) ZUSATZ.splice(z,1);
+  rebuild();FLASH="Zurückgenommen. Der Termin ist wieder geplant.";neuZeichnen();
+}
+function terminFaelltAus(is,zeit){
+  const ti=terminInfo(is,zeit);
+  if(!confirm("Alle "+ti.aktiv.length+" Kinder als „ausgefallen (durch uns)“ markieren? Die Einheiten bleiben offen."))return;
+  ti.aktiv.forEach(t=>AUS[tkey(t)]={art:"ausgefallen"});
+  rebuild();FLASH="Termin fällt aus. "+ti.aktiv.length+" Einheiten bleiben offen und können nachgeholt werden.";oeffneTermin(is,zeit,true);
+}
+
+/* ================= Dialoge ================= */
+let DLG=null;
+function modal(html,wide){const b=document.getElementById("mbox");b.className="mbox"+(wide?" wide":"");b.innerHTML=html;document.getElementById("modal").classList.remove("hidden");}
+function zu(){document.getElementById("modal").classList.add("hidden");DLG=null;}
+
+/* Absage und Umbuchen */
+function dlgAbsage(key,umbuchen){
+  const t=findeTermin(key);
+  DLG={typ:"absage",key,t,umbuchen,datum:iso(HEUTE),uhr:JETZT,ziel:null};
+  zeichneAbsage();
+}
+function rechtzeitig(){const [y,m,d]=DLG.datum.split("-").map(Number),[h,mi]=DLG.uhr.split(":").map(Number);
+  return new Date(y,m-1,d,h,mi)<new Date(DLG.t.datum.getFullYear(),DLG.t.datum.getMonth(),DLG.t.datum.getDate(),10,0);}
+function zeichneAbsage(){
+  const t=DLG.t,k=t.kind,ok=rechtzeitig(),r=DATA[k.id];
+  let html=`<h3>${DLG.umbuchen?"Umbuchen":"Absage erfassen"}</h3>
+    <p class="sub">${k.name} · ${TAGLANG[t.datum.getDay()]}, ${dstr(t.datum)}, ${zeitText(t.zeit)}</p>
+    <div class="two"><div class="field"><label>Absage eingegangen am</label><input type="date" value="${DLG.datum}" onchange="DLG.datum=this.value;zeichneAbsage()"></div>
+    <div class="field"><label>um</label><input type="time" value="${DLG.uhr}" onchange="DLG.uhr=this.value;zeichneAbsage()"></div></div>
+    ${ok?`<div class="okbox">Rechtzeitig, vor 10:00 Uhr am Session-Tag. Der Termin gilt als abgesagt, die Einheit bleibt offen.</div>`
+        :`<div class="badbox">Nach 10:00 Uhr am Session-Tag. Der Termin gilt als unentschuldigt, die Einheit ist verbraucht. Der Platz wird trotzdem frei.</div>`}`;
+  if(DLG.umbuchen){
+    const kand=kandidaten(k,DLG.key);
+    html+=`<p class="lbl" style="margin-top:6px">Neuer Termin <span style="font-weight:400">— nächste vier Wochen, nur mit freiem Platz, höchstens einer pro Tag, höchstens ${"zwei"} mehr als der eigene Rhythmus pro Woche</span></p>`;
+    if(!ok&&r.offen-1<=0) html+='<div class="warnbox">Mit der verbrauchten Einheit sind keine Einheiten mehr offen.</div>';
+    else if(!ok) html+='<div class="warnbox">Der neue Termin braucht eine weitere Einheit, weil der alte als unentschuldigt verbraucht ist.</div>';
+    html+=kand.length?`<div class="opts">${kand.map((c,i)=>`<div class="opt${DLG.ziel===i?" sel":""}" onclick="DLG.ziel=${i};zeichneAbsage()">
+      <b>${TAG[c.d.getDay()]} ${dk(c.d)}</b> ${zeitText(c.zeit)}<span class="r muted">${c.frei} frei</span></div>`).join("")}</div>`
+      :'<div class="empty">Kein passender freier Termin in den nächsten vier Wochen.</div>';
+    DLG.kand=kand;
+  }
+  html+=`<div class="mfoot"><button class="btn btn-ghost" onclick="zu()">Abbrechen</button>
+    ${DLG.umbuchen?`<button class="btn btn-ghost" onclick="DLG.umbuchen=false;zeichneAbsage()">Nur absagen</button>
+      <button class="btn" ${DLG.ziel===null?"disabled":""} onclick="absageSpeichern()">Umbuchen</button>`
+      :`<button class="btn btn-ghost" onclick="DLG.umbuchen=true;zeichneAbsage()">Absagen und umbuchen …</button>
+      <button class="btn" onclick="absageSpeichern()">Absage speichern</button>`}</div>`;
+  modal(html);
+}
+function absageSpeichern(){
+  const ok=rechtzeitig(),k=DLG.t.kind;
+  AUS[DLG.key]={art:ok?"abgesagt":"unentschuldigt",eingang:DLG.datum+"T"+DLG.uhr};
+  let txt=k.name+": "+(ok?"abgesagt, die Einheit bleibt offen.":"unentschuldigt, die Einheit ist verbraucht.");
+  if(DLG.umbuchen&&DLG.ziel!==null){const c=DLG.kand[DLG.ziel];
+    ZUSATZ.push({id:nid++,kind:k.id,iso:iso(c.d),zeit:c.zeit,von:DLG.key});
+    txt+=" Umgebucht auf "+TAGLANG[c.d.getDay()]+", "+dstr(c.d)+", "+zeitText(c.zeit)+".";}
+  rebuild();FLASH=txt;zu();neuZeichnen();
+}
+
+/* Zusatztermin vom Kind aus */
+function budgetHinweis(k){
+  const r=DATA[k.id];
+  if(r.unverplant>0) return `<div class="okbox">${r.unverplant} Einheit${r.unverplant===1?"":"en"} ohne Termin. Der Zusatztermin nutzt eine davon.</div>`;
+  return `<div class="warnbox">Alle offenen Einheiten sind schon verplant. Ein Zusatztermin verdrängt den letzten Stammplatz-Termin${r.letzter?" am "+dstr(r.letzter):""}.</div>`;
+}
+function dlgZusatzKind(kid){
+  const k=kind(kid);DLG={typ:"zusatz",k,ziel:null,kand:kandidaten(k,null)};
+  zeichneZusatzKind();
+}
+function zeichneZusatzKind(){
+  const k=DLG.k;
+  modal(`<h3>Zusatztermin buchen</h3><p class="sub">${k.name} · ${k.paket}, ${rhyText(k)}</p>${budgetHinweis(k)}
+    ${DLG.kand.length?`<div class="opts">${DLG.kand.map((c,i)=>`<div class="opt${DLG.ziel===i?" sel":""}" onclick="DLG.ziel=${i};zeichneZusatzKind()">
+    <b>${TAG[c.d.getDay()]} ${dk(c.d)}</b> ${zeitText(c.zeit)}<span class="r muted">${c.frei} frei</span></div>`).join("")}</div>`
+    :'<div class="empty">Kein passender freier Termin in den nächsten vier Wochen.</div>'}
+    <p class="note">Nur Termine mit freiem Platz. Höchstens ein Termin pro Tag, höchstens zwei mehr als der eigene Rhythmus pro Woche.</p>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="zu()">Abbrechen</button>
+    <button class="btn" ${DLG.ziel===null?"disabled":""} onclick="zusatzSpeichern(DLG.k.id,DLG.kand[DLG.ziel].d,DLG.kand[DLG.ziel].zeit)">Buchen</button></div>`);
+}
+function zusatzSpeichern(kid,d,zeit){
+  ZUSATZ.push({id:nid++,kind:kid,iso:iso(d),zeit});
+  rebuild();FLASH=kind(kid).name+": Zusatztermin am "+TAGLANG[d.getDay()]+", "+dstr(d)+", "+zeitText(zeit)+" gebucht.";zu();neuZeichnen();
+}
+
+/* Zusatztermin vom Termin aus */
+function dlgZusatzTermin(is,zeit){
+  const d=vonIso(is);
+  const moegl=KINDER.filter(k=>!pruefe(k,d,zeit,null)).sort((a,b)=>a.name.localeCompare(b.name));
+  DLG={typ:"zusatzT",is,zeit,d,moegl,kid:null};
+  zeichneZusatzTermin();
+}
+function zeichneZusatzTermin(){
+  const k=DLG.kid?kind(DLG.kid):null;
+  modal(`<h3>Kind hinzufügen</h3><p class="sub">${TAGLANG[DLG.d.getDay()]}, ${dstr(DLG.d)}, ${zeitText(DLG.zeit)} · Zusatztermin</p>
+    <div class="field"><label>Kind</label><select onchange="DLG.kid=+this.value||null;zeichneZusatzTermin()">
+      <option value="">— auswählen —</option>${DLG.moegl.map(k=>`<option value="${k.id}"${k.id===DLG.kid?" selected":""}>${k.name} · Kl. ${k.klasse} · ${k.fach}</option>`).join("")}</select></div>
+    ${k?budgetHinweis(k):""}
+    <p class="note">Angeboten werden nur Kinder mit laufendem Vertrag, für die an diesem Tag noch kein Termin besteht und deren Wochengrenze nicht erreicht ist.</p>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="zu()">Abbrechen</button>
+    <button class="btn" ${k?"":"disabled"} onclick="zusatzSpeichern(DLG.kid,DLG.d,DLG.zeit)">Hinzufügen</button></div>`);
+}
+
+/* Raum öffnen */
+function dlgRaumOeffnen(is,zeit){
+  const d=vonIso(is), ti=terminInfo(is,zeit);
+  const raeume=RAEUME.filter(r=>raumAktiv(r,d)&&!ti.raeume.some(x=>x.raum.id===r.id&&x.coach));
+  const belegt=ti.raeume.filter(r=>r.coach).map(r=>r.coach);
+  const coaches=COACHES.filter(c=>!belegt.includes(c.id));
+  modal(`<h3>Raum öffnen</h3><p class="sub">${TAGLANG[d.getDay()]}, ${dstr(d)}, ${zeitText(zeit)} · nur für diesen Termin</p>
+    <div class="two"><div class="field"><label>Raum</label><select id="ro-raum">${raeume.map(r=>`<option value="${r.id}">${r.name}</option>`).join("")}</select></div>
+    <div class="field"><label>Coach</label><select id="ro-coach">${coaches.map(c=>`<option value="${c.id}">${c.name}</option>`).join("")}</select></div></div>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="zu()">Abbrechen</button>
+    <button class="btn" onclick="coachSetzen('${is}',${zeit},+document.getElementById('ro-raum').value,document.getElementById('ro-coach').value);zu()">Öffnen</button></div>`);
+}
+
+/* Stammplatz vergeben oder ändern */
+function naechsterMontag(){return addTage(montag(HEUTE),7);}
+function dlgStamm(kid,altId){
+  const k=kind(kid), alt=altId?k.stamm.find(s=>s.id===altId):null;
+  let rows;
+  if(alt) rows=[{tag:alt.tag,zeit:alt.zeit,takt:alt.takt}];
+  else{
+    const vorhanden=aktiveStamm(k).map(s=>s.takt==="W"?"W":"14");
+    rows=[];
+    rhythmus(k).forEach(r=>{const i=vorhanden.indexOf(r);if(i>-1)vorhanden.splice(i,1);else rows.push({tag:null,zeit:null,takt:r==="W"?"W":"A"});});
+    if(!rows.length) rows=[{tag:null,zeit:null,takt:"W"}];
+  }
+  const ab=alt?naechsterMontag():(k.beginn>HEUTE?k.beginn:HEUTE);
+  DLG={typ:"stamm",k,alt,rows,aktiv:0,ab:iso(ab)};
+  zeichneStamm();
+}
+function freiStamm(k,tag,zeit,takt,ab){
+  const sp={tag,zeit,takt,ab,bis:null};let min=null,n=0;
+  for(let d=new Date(ab);n<6&&d<=addTage(ab,120);d=addTage(d,1)){
+    if(ohneBetrieb(d)||!passt(sp,d)) continue;
+    const ti=terminInfo(iso(d),zeit);n++;
+    if(!ti.cap) return null;
+    const f=ti.cap-ti.aktiv.filter(t=>t.kind.id!==k.id).length;
+    min=min===null?f:Math.min(min,f);
+  }
+  return min;
+}
+function simStamm(){
+  const k=DLG.k, ab=vonIso(DLG.ab);
+  const basis=k.stamm.map(s=>DLG.alt&&s.id===DLG.alt.id?Object.assign({},s,{bis:addTage(ab,-1)}):s);
+  return basis.concat(DLG.rows.filter(r=>r.tag&&r.zeit!==null).map(r=>({tag:r.tag,zeit:r.zeit,takt:r.takt,ab,bis:null})));
+}
+function zeichneStamm(){
+  const k=DLG.k, ab=vonIso(DLG.ab), row=DLG.rows[DLG.aktiv];
+  const fehler=[];
+  const andereTage=aktiveStamm(k).filter(s=>!DLG.alt||s.id!==DLG.alt.id).map(s=>s.tag);
+  DLG.rows.forEach((r,i)=>{
+    if(!r.tag||r.zeit===null){fehler.push("Zeile "+(i+1)+": Slot wählen.");return;}
+    const f=freiStamm(k,r.tag,r.zeit,r.takt,ab);
+    if(f===null||f<=0) fehler.push("Zeile "+(i+1)+": "+TAG[r.tag]+" "+ZEITEN[r.zeit]+" ist voll oder hat keinen Raum.");
+    if(andereTage.includes(r.tag)||DLG.rows.some((x,j)=>j<i&&x.tag===r.tag)) fehler.push("Zeile "+(i+1)+": höchstens ein Termin pro Tag.");
+  });
+  if(ab<k.beginn) fehler.push("Gültig ab liegt vor dem Vertragsbeginn.");
+  if(ab<HEUTE) fehler.push("Gültig ab liegt in der Vergangenheit.");
+  const sim=simStamm(), r=berechneKind(k,sim), b=bilanz(k,r,sim);
+  const taktOpt=t=>[["W","wöchentlich"],["A","14-täglich, A-Woche (ungerade KW)"],["B","14-täglich, B-Woche (gerade KW)"]]
+    .map(([v,l])=>`<option value="${v}"${v===t?" selected":""}>${l}</option>`).join("");
+  let html=`<h3>${DLG.alt?"Stammplatz ändern":"Stammplatz vergeben"}</h3>
+    <p class="sub">${k.name} · Kl. ${k.klasse} · ${k.fach} · ${k.paket} ${k.jahr?"Jahr":"Halbjahr"} · Rhythmus: <b>${rhyText(k)}</b></p>
+    ${DLG.alt?`<div class="infobox">Der bisherige Stammplatz (${TAG[DLG.alt.tag]} ${ZEITEN[DLG.alt.zeit]}) endet am Tag vor „gültig ab“. Vergangene Termine bleiben.</div>`:""}`;
+  DLG.rows.forEach((r,i)=>{
+    html+=`<div class="srow${i===DLG.aktiv?" akt":""}"><input type="radio" name="akt" ${i===DLG.aktiv?"checked":""} onclick="DLG.aktiv=${i};zeichneStamm()" title="In der Übersicht unten wählen">
+      <select onchange="DLG.rows[${i}].tag=+this.value||null;zeichneStamm()"><option value="">Tag</option>${[1,2,3,4,5].map(t=>`<option value="${t}"${r.tag===t?" selected":""}>${TAGLANG[t]}</option>`).join("")}</select>
+      <select onchange="DLG.rows[${i}].zeit=this.value===''?null:+this.value;zeichneStamm()"><option value="">Uhrzeit</option>${ZEITEN.map((z,j)=>`<option value="${j}"${r.zeit===j?" selected":""}>${zeitText(j)}</option>`).join("")}</select>
+      <select onchange="DLG.rows[${i}].takt=this.value;zeichneStamm()">${taktOpt(r.takt)}</select></div>`;
+  });
+  html+=`<div class="field" style="max-width:220px;margin-top:10px"><label>Gültig ab</label><input type="date" value="${DLG.ab}" onchange="DLG.ab=this.value;zeichneStamm()"></div>
+    <p class="lbl">Freie Plätze für Zeile ${DLG.aktiv+1} (${row.takt==="W"?"wöchentlich":"14-täglich"}) — kleinster Wert der nächsten sechs Termine, Klick übernimmt</p>
+    <table class="matrix"><thead><tr><th></th>${[1,2,3,4,5].map(t=>`<th>${TAG[t]}</th>`).join("")}</tr></thead><tbody>`;
+  ZEITEN.forEach((z,zeit)=>{
+    html+=`<tr><td class="zeit">${zeitText(zeit)}</td>`;
+    [1,2,3,4,5].forEach(tag=>{
+      const f=freiStamm(k,tag,zeit,row.takt,ab);
+      const gew=DLG.rows.findIndex(r=>r.tag===tag&&r.zeit===zeit);
+      const cls=gew>-1?"gew":f===null?"na":f<=0?"voll":f<=1?"knapp":"";
+      const txt=gew>-1?"Zeile "+(gew+1):f===null?"—":f<=0?"voll":f+" frei";
+      html+=`<td><div class="mc ${cls}" ${(f!==null&&f>0)||gew>-1?`onclick="DLG.rows[DLG.aktiv].tag=${tag};DLG.rows[DLG.aktiv].zeit=${zeit};zeichneStamm()"`:""}>${txt}</div></td>`;
+    });
+    html+="</tr>";
+  });
+  html+=`</tbody></table><p class="note">„—“ heißt: kein Raum mit Coach in diesem Slot.</p>
+    <p class="lbl" style="margin-top:14px">Planbilanz mit diesem Stammplatz</p>
+    <div class="${{ok:"okbox",info:"infobox",warn:"warnbox",bad:"badbox",mut:"infobox"}[b.cls]}"><b>${b.text.replace(/\.$/,"")}.</b> ${bilanzText(k,r,sim)}</div>
+    ${fehler.length?`<div class="badbox">${fehler.join("<br>")}</div>`:""}
+    <div class="mfoot"><button class="btn btn-ghost" onclick="zu()">Abbrechen</button>
+    <button class="btn" ${fehler.length?"disabled":""} onclick="stammSpeichern()">Speichern</button></div>`;
+  modal(html,true);
+}
+function stammSpeichern(){
+  const k=DLG.k, ab=vonIso(DLG.ab);
+  if(DLG.alt){DLG.alt.bis=addTage(ab,-1);if(DLG.alt.bis<DLG.alt.ab)k.stamm.splice(k.stamm.indexOf(DLG.alt),1);}
+  DLG.rows.forEach(r=>k.stamm.push({id:nid++,tag:r.tag,zeit:r.zeit,takt:r.takt,ab,bis:null}));
+  rebuild();
+  FLASH=k.name+": Stammplatz "+(DLG.alt?"geändert":"vergeben")+", gültig ab "+dstr(ab)+". Die Termine sind erzeugt.";
+  zu();neuZeichnen();
+}
+function dlgBeenden(kid,spId){
+  const k=kind(kid),sp=k.stamm.find(s=>s.id===spId);
+  modal(`<h3>Stammplatz beenden</h3><p class="sub">${k.name} · ${TAGLANG[sp.tag]} ${zeitText(sp.zeit)}</p>
+    <div class="field" style="max-width:220px"><label>Letzter Termin am oder vor</label><input type="date" id="be-d" value="${iso(addTage(naechsterMontag(),-1))}"></div>
+    <p class="note">Danach entstehen aus diesem Stammplatz keine Termine mehr. Offene Einheiten bleiben erhalten.</p>
+    <div class="mfoot"><button class="btn btn-ghost" onclick="zu()">Abbrechen</button>
+    <button class="btn btn-bad" onclick="beenden(${kid},${spId})">Beenden</button></div>`);
+}
+function beenden(kid,spId){
+  const k=kind(kid),sp=k.stamm.find(s=>s.id===spId),d=vonIso(document.getElementById("be-d").value);
+  if(d<addTage(HEUTE,-1)){alert("Das Datum darf nicht in der Vergangenheit liegen.");return;}
+  sp.bis=d; if(sp.bis<sp.ab) k.stamm.splice(k.stamm.indexOf(sp),1);
+  rebuild();FLASH=k.name+": Stammplatz endet am "+dstr(d)+".";zu();neuZeichnen();
+}
+
+/* ================= Kinder ================= */
+function spText(sp){return `${TAGLANG[sp.tag]} ${zeitText(sp.zeit)} · ${sp.takt==="W"?"wöchentlich":"14-täglich, "+sp.takt+"-Woche"}`;}
+function spKurz(sp){return TAG[sp.tag]+" "+ZEITEN[sp.zeit]+(sp.takt==="W"?"":" ("+sp.takt+")");}
+function pKinder(){
+  const osp=ohneStammplatz();
+  let html="";
+  if(osp.length){
+    html+=`<div class="card bad"><h3>Ohne Stammplatz</h3><p class="sub">Kinder mit Vertrag, für die noch keine Termine entstehen.</p>
+      ${osp.map(k=>`<div class="kid"><span class="nm">${k.name}</span><span class="muted">Kl. ${k.klasse}</span>${fachTag(k.fach)}
+      <span class="muted">${k.paket} ${k.jahr?"Jahr":"Halbjahr"} · ${rhyText(k)}</span>
+      ${k.beginn<=HEUTE?`<span class="tag tag-bad">läuft seit ${dk(k.beginn)}</span>`:`<span class="tag tag-info">beginnt am ${dk(k.beginn)}</span>`}
+      <span class="acts"><button class="btn btn-sm" onclick="dlgStamm(${k.id})">Stammplatz vergeben</button></span></div>`).join("")}</div>`;
+  }
+  html+=`<div class="card"><h2>Kinder mit laufendem Vertrag</h2><p class="sub">Stammplätze, Einheiten und Planbilanz bis zum Stichtag.</p>
+    <div class="filters"><input type="text" placeholder="Kind suchen" value="${FILTER.q}" oninput="FILTER.q=this.value;kinderTabelle()" style="min-width:220px">
+    <select onchange="FILTER.b=this.value;kinderTabelle()">${["alle","kein Stammplatz","ohne Termin","reicht bis","passt","Einheiten aufgebraucht"].map(o=>
+      `<option value="${o}"${FILTER.b===o?" selected":""}>Planbilanz: ${o==="ohne Termin"?"Einheiten ohne Termin":o==="reicht bis"?"reicht nicht bis Stichtag":o}</option>`).join("")}</select></div>
+    <table><thead><tr><th>Kind</th><th>Paket</th><th>Stammplätze</th><th>Einheiten</th><th>Stichtag</th><th>Planbilanz</th></tr></thead><tbody id="ktab"></tbody></table>
+    <p class="note">Zeile anklicken öffnet das Kind. Verbraucht = anwesend + unentschuldigt.</p></div>`;
+  return html;
+}
+function kinderTabelle(){
+  const tb=document.getElementById("ktab"); if(!tb) return;
+  const rows=KINDER.filter(k=>HEUTE<=k.stichtag).filter(k=>{
+    const b=bilanz(k,DATA[k.id]);
+    if(FILTER.q&&!k.name.toLowerCase().includes(FILTER.q.toLowerCase())) return false;
+    if(FILTER.b==="alle") return true;
+    return b.text.includes(FILTER.b);
+  }).sort((a,b)=>a.name.localeCompare(b.name));
+  tb.innerHTML=rows.map(k=>{const r=DATA[k.id],b=bilanz(k,r);return `<tr class="row" onclick="oeffneKind(${k.id})">
+    <td><div class="nm">${k.name}</div><div class="muted">Kl. ${k.klasse} · ${k.fach}</div></td>
+    <td>${k.paket}<div class="muted">${k.jahr?"Jahr":"Halbjahr"} · ${rhyText(k)}</div></td>
+    <td>${aktiveStamm(k).map(spKurz).join("<br>")||'<span class="muted">—</span>'}</td>
+    <td>${r.verbraucht} / ${k.einheiten}<div class="muted">${r.geplant} geplant</div></td>
+    <td class="muted">${dstr(k.stichtag)}</td>
+    <td><span class="tag tag-${b.cls}">${b.text}</span></td></tr>`;}).join("")||'<tr><td colspan="6" class="empty">Kein Kind passt zum Filter.</td></tr>';
+}
+function oeffneKind(id,still){
+  KIND=id;
+  const k=kind(id), r=DATA[id], b=bilanz(k,r);
+  const zukunft=r.termine.filter(t=>t.datum>=HEUTE).slice(0,12);
+  const vergangen=r.termine.filter(t=>t.datum<HEUTE).slice(-6).reverse();
+  const fehlend=rhythmus(k).length>aktiveStamm(k).length;
+  let html=`<span class="back" onclick="tab('kinder')">← Zurück zu Kinder</span>${flashHtml()}
+    <div class="hero"><h1>${k.name}</h1><p>Klasse ${k.klasse} · ${k.fach} · ${k.paket} ${k.jahr?"Jahr":"Halbjahr"}</p></div>
+    <div class="grid2"><div>
+    <div class="card"><h3>Stammplätze</h3>
+      ${k.stamm.length?k.stamm.map(sp=>{const alt=sp.bis&&sp.bis<HEUTE;return `<div class="sp${alt?" alt":""}">
+        <span class="when">${spText(sp)}</span><span class="muted">${alt?"vom "+dk(sp.ab)+" bis "+dstr(sp.bis):sp.ab>HEUTE?"ab "+dstr(sp.ab):"seit "+dstr(sp.ab)}${!alt&&sp.bis?" · endet "+dstr(sp.bis):""}</span>
+        ${alt?"":`<span class="acts"><button class="btn btn-ghost btn-xs" onclick="dlgStamm(${k.id},${sp.id})">Ändern ab …</button>
+        <button class="btn btn-ghost btn-xs" onclick="dlgBeenden(${k.id},${sp.id})">Beenden</button></span>`}</div>`;}).join("")
+      :'<div class="empty">Noch kein Stammplatz.</div>'}
+      ${fehlend?`<div style="margin-top:10px"><button class="btn btn-sm" onclick="dlgStamm(${k.id})">+ Stammplatz vergeben</button>
+        <span class="muted" style="margin-left:8px">Rhythmus ${rhyText(k)}</span></div>`:""}
+    </div>
+    <div class="card"><h3>Nächste Termine</h3>
+      ${zukunft.length?zukunft.map(t=>`<div class="tl"><span class="d"><b>${TAG[t.datum.getDay()]} ${dk(t.datum)}</b> ${ZEITEN[t.zeit]}</span>
+        ${statusTag(t)}${herkunftTag(t)}<span class="muted">${eingangText(t.eingang)}</span>
+        <span class="acts">${t.status==="geplant"?`<button class="btn btn-ghost btn-xs" onclick="dlgAbsage('${tkey(t)}',false)">Absage</button>
+        <button class="btn btn-ghost btn-xs" onclick="dlgAbsage('${tkey(t)}',true)">Umbuchen</button>`
+        :AUS[tkey(t)]?`<button class="btn btn-ghost btn-xs" onclick="zuruecknehmen('${tkey(t)}')">Zurücknehmen</button>`:""}</span></div>`).join("")
+      :'<div class="empty">Keine geplanten Termine.</div>'}
+      ${r.offen>0&&HEUTE<=k.stichtag?`<div style="margin-top:10px"><button class="btn btn-sm" onclick="dlgZusatzKind(${k.id})">+ Zusatztermin buchen</button></div>`:""}
+    </div>
+    <div class="card"><h3>Letzte Termine</h3>
+      ${vergangen.length?vergangen.map(t=>`<div class="tl"><span class="d"><b>${TAG[t.datum.getDay()]} ${dk(t.datum)}</b> ${ZEITEN[t.zeit]}</span>${statusTag(t)}${herkunftTag(t)}</div>`).join("")
+      :'<div class="empty">Noch keine vergangenen Termine.</div>'}
+      <p class="note">Die Anwesenheit erfasst der Coach in der Session.</p></div>
+    </div><div>
+    <div class="card"><h3>Einheiten</h3>
+      <div class="units"><div><span>verbraucht</span><b>${r.verbraucht}</b></div><div><span>geplant</span><b>${r.geplant}</b></div><div><span>von</span><b>${k.einheiten}</b></div></div>
+      <p class="lbl">Planbilanz <span class="tag tag-${b.cls}">${b.text}</span></p>
+      <p class="muted" style="margin:0">${bilanzText(k,r)}</p></div>
+    <div class="card"><h3>Aus dem Vertrag</h3><dl class="dl">
+      <dt>Paket</dt><dd>${k.paket} · ${k.einheiten} Einheiten</dd><dt>Laufzeit</dt><dd>${k.jahr?"Jahr":"Halbjahr"}</dd>
+      <dt>Beginn</dt><dd>${dstr(k.beginn)}</dd><dt>Stichtag</dt><dd>${dstr(k.stichtag)}</dd><dt>Rhythmus</dt><dd>${rhyText(k)}</dd></dl>
+      <p class="note">Nur zur Orientierung. Vertragsdaten werden unter Verträge gepflegt.</p></div>
+    </div></div>`;
+  document.getElementById("s-kind").innerHTML=html;
+  if(!still) go("s-kind");
+}
+
+/* ================= Coaches ================= */
+function pCoaches(){
+  const mo=montag(HEUTE),so=addTage(mo,4);
+  const abwZahl=id=>Object.entries(COACH_ABW).filter(([x,c])=>{const [is,z,r]=x.split("|"),d=vonIso(is);
+    if(d<mo||d>so) return false;const s=SCHICHTEN.find(s=>s.tag===d.getDay()&&s.zeit===+z&&s.raum===+r);
+    return c===id||(s&&s.coach===id&&c!==id);}).length;
+  const c=COACHES.find(c=>c.id===COACHSEL);
+  const eig=SCHICHTEN.filter(s=>s.coach===COACHSEL).sort((a,b)=>a.tag-b.tag||a.zeit-b.zeit);
+  return `<div class="card"><h2>Coaches</h2><p class="sub">Stammschichten gelten jede Betriebswoche. Abweichungen werden direkt im Termin gesetzt.</p>
+    <table><thead><tr><th>Coach</th><th>Stammschichten</th><th>Stunden pro Woche</th><th>Abweichungen diese Woche</th></tr></thead><tbody>
+    ${COACHES.map(c=>{const s=SCHICHTEN.filter(s=>s.coach===c.id);const a=abwZahl(c.id);return `<tr class="row" onclick="COACHSEL=${c.id};render()" ${c.id===COACHSEL?'style="background:var(--primary-light)"':""}>
+      <td class="nm">${c.name}</td><td class="muted">${[...new Set(s.map(x=>TAG[x.tag]))].join(", ")}</td><td>${s.length} h</td>
+      <td>${a?`<span class="tag tag-warn">${a}</span>`:'<span class="muted">—</span>'}</td></tr>`;}).join("")}</tbody></table></div>
+    <div class="card"><h3>${c.name} · Stammschichten</h3>
+      ${eig.length?eig.map(s=>`<div class="sp"><span class="when">${TAGLANG[s.tag]} ${zeitText(s.zeit)}</span><span class="muted">${RAEUME.find(r=>r.id===s.raum).name}</span>
+        <span class="acts"><button class="btn btn-ghost btn-xs" onclick="schichtWeg(${s.id})">Entfernen</button></span></div>`).join(""):'<div class="empty">Keine Stammschicht.</div>'}
+      <p class="lbl" style="margin-top:14px">Stammschicht hinzufügen</p>
+      <div class="filters"><select id="ns-tag">${[1,2,3,4,5].map(t=>`<option value="${t}">${TAGLANG[t]}</option>`).join("")}</select>
+      <select id="ns-zeit">${ZEITEN.map((z,i)=>`<option value="${i}">${zeitText(i)}</option>`).join("")}</select>
+      <select id="ns-raum">${RAEUME.filter(r=>!r.bis||r.bis>=HEUTE).map(r=>`<option value="${r.id}">${r.name}</option>`).join("")}</select>
+      <button class="btn btn-sm" onclick="schichtNeu()">Hinzufügen</button></div>
+      <p class="note">Gilt ab sofort in jeder Betriebswoche. Ein Raum hat pro Slot genau einen Coach.</p></div>`;
+}
+function schichtNeu(){
+  const tag=+document.getElementById("ns-tag").value,zeit=+document.getElementById("ns-zeit").value,raum=+document.getElementById("ns-raum").value;
+  const belegt=SCHICHTEN.find(s=>s.tag===tag&&s.zeit===zeit&&s.raum===raum);
+  if(belegt){alert(RAEUME.find(r=>r.id===raum).name+" ist zu dieser Zeit schon mit "+coachName(belegt.coach)+" besetzt.");return;}
+  if(SCHICHTEN.find(s=>s.tag===tag&&s.zeit===zeit&&s.coach===COACHSEL)){alert(coachName(COACHSEL)+" ist zu dieser Zeit schon in einem anderen Raum.");return;}
+  SCHICHTEN.push({id:nid++,tag,zeit,raum,coach:COACHSEL});rebuild();
+  FLASH="Stammschicht angelegt: "+coachName(COACHSEL)+", "+TAGLANG[tag]+" "+zeitText(zeit)+", "+RAEUME.find(r=>r.id===raum).name+". Die Kapazität des Slots steigt um 5.";render();
+}
+function schichtWeg(id){
+  const s=SCHICHTEN.find(s=>s.id===id);
+  if(!confirm("Stammschicht "+TAGLANG[s.tag]+" "+zeitText(s.zeit)+" entfernen? Der Raum ist dann in diesem Slot nicht mehr besetzt."))return;
+  SCHICHTEN.splice(SCHICHTEN.indexOf(s),1);rebuild();
+  FLASH="Stammschicht entfernt. Prüfe im Wochenplan, ob Kinder ohne Raum sind.";render();
+}
+
+/* ================= Einstellungen ================= */
+function pEinst(){
+  const bisSJ=new Date(2028,7,31);
+  const zu=[];
+  FERIEN.filter(f=>f.bis>=HEUTE&&f.von<=bisSJ).forEach(f=>zu.push({von:f.von,bis:f.bis,name:f.name}));
+  Object.entries(FREI).forEach(([is,n])=>{const d=vonIso(is);if(d>=HEUTE&&d<=bisSJ&&d.getDay()>0&&d.getDay()<6&&!inFerien(d))zu.push({von:d,bis:d,name:n});});
+  zu.sort((a,b)=>a.von-b.von);
+  return `<div class="card"><h2>Räume</h2><p class="sub">Räume werden nicht gelöscht, sondern ab einem Datum deaktiviert. Die Historie bleibt erhalten.</p>
+    <table><thead><tr><th>Raum</th><th>Aktiv ab</th><th>Inaktiv ab</th><th>Stammschichten</th><th></th></tr></thead><tbody>
+    ${RAEUME.map(r=>`<tr><td class="nm">${r.name}</td><td>${dstr(r.ab)}</td><td>${r.bis?dstr(addTage(r.bis,1)):'<span class="muted">—</span>'}</td>
+      <td>${SCHICHTEN.filter(s=>s.raum===r.id).length}</td>
+      <td style="text-align:right">${r.bis?"":`<button class="btn btn-ghost btn-xs" onclick="raumAus(${r.id})">Deaktivieren ab …</button>`}</td></tr>`).join("")}
+    </tbody></table>
+    <div style="margin-top:12px"><button class="btn btn-sm" onclick="raumNeu()">+ Raum hinzufügen</button></div></div>
+    <div class="card"><h2>Uhrzeiten der Slots</h2><p class="sub">Platzhalter. Sie werden geschärft, sobald die Uhrzeiten feststehen. Eine Einheit dauert 60 Minuten.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${ZEITEN.map((z,i)=>`<span class="tag tag-info" style="font-size:13px">${zeitText(i)}</span>`).join("")}</div></div>
+    <div class="card"><h2>Tage ohne Betrieb bis Ende des Schuljahrs</h2><p class="sub">Ferien, Feiertage und Pfingsten nach NRW-Kalender. An diesen Tagen entstehen keine Termine, es wird keine Einheit verbraucht.</p>
+      <table><thead><tr><th>Zeitraum</th><th>Anlass</th></tr></thead><tbody>
+      ${zu.map(z=>`<tr><td>${+z.von===+z.bis?TAG[z.von.getDay()]+" "+dstr(z.von):dstr(z.von)+" – "+dstr(z.bis)}</td><td>${z.name}</td></tr>`).join("")}</tbody></table>
+      <p class="note">Beim Vertragsende zählen weiterhin nur die Ferien (Dokument 2). Feiertage und Pfingsten verschieben das Ende nicht.</p></div>`;
+}
+function raumNeu(){
+  const n=prompt("Name des Raums","Raum "+(RAEUME.length+1)); if(!n) return;
+  const d=prompt("Aktiv ab (TT.MM.JJJJ)",dstr(HEUTE)); if(!d) return;
+  const [t,m,y]=d.split(".").map(Number);
+  RAEUME.push({id:RAEUME.length+1,name:n,ab:new Date(y,m-1,t),bis:null});
+  FLASH=n+" angelegt. Er zählt im Wochenplan, sobald ein Coach eingeteilt ist (Coaches → Stammschicht hinzufügen).";render();
+}
+function raumAus(id){
+  const r=RAEUME.find(r=>r.id===id);
+  const d=prompt("Inaktiv ab (TT.MM.JJJJ)",dstr(naechsterMontag())); if(!d) return;
+  const [t,m,y]=d.split(".").map(Number), ab=new Date(y,m-1,t);
+  r.bis=addTage(ab,-1);rebuild();
+  const n=SCHICHTEN.filter(s=>s.raum===id).length;
+  FLASH=r.name+" ist ab "+dstr(ab)+" inaktiv. "+(n?n+" Stammschichten in diesem Raum greifen ab dann nicht mehr. Prüfe im Wochenplan, ob Kinder ohne Raum sind.":"");render();
+}
+
+/* ================= Coach-Sicht ================= */
+function renderCoachSicht(){
+  const tage=[0,1,2,3,4].map(i=>addTage(WOCHE,i));
+  let html=`<div class="hero"><h1>Meine Einsätze</h1><p>${coachName(ROLLE)} · Coach-Ansicht</p></div>
+    <div class="card"><div class="weekbar"><h2>KW ${kw(WOCHE)} · ${dk(tage[0])} – ${dstr(tage[4])}</h2>
+      <button class="btn btn-ghost btn-sm" onclick="WOCHE=addTage(WOCHE,-7);renderCoachSicht()">‹ Woche</button>
+      <button class="btn btn-ghost btn-sm" onclick="WOCHE=montag(HEUTE);renderCoachSicht()">Diese Woche</button>
+      <button class="btn btn-ghost btn-sm" onclick="WOCHE=addTage(WOCHE,7);renderCoachSicht()">Woche ›</button></div>
+      <p class="sub">Welche Kinder in deinem Raum sind. Absagen, Umbuchungen und Stammplätze pflegt der Admin.</p></div>`;
+  let n=0;
+  tage.forEach(d=>{
+    if(ohneBetrieb(d)) return;
+    ZEITEN.forEach((z,zeit)=>{
+      const ti=terminInfo(iso(d),zeit), r=ti.raeume.find(r=>r.coach===ROLLE);
+      if(!r) return; n++;
+      const kids=ti.bel[r.raum.id];
+      html+=`<div class="card"><div class="room-h"><h4>${TAGLANG[d.getDay()]}, ${dk(d)} · ${zeitText(zeit)}</h4><span class="muted">${r.raum.name}</span>
+        ${r.abw?'<span class="tag tag-warn">Vertretung</span>':""}<span class="cnt">${kids.length} / 5</span></div>
+        ${kids.length?kids.map(t=>`<div class="kid"><span class="nm">${t.kind.name}</span><span class="muted">Kl. ${t.kind.klasse}</span>${fachTag(t.kind.fach)}${d<HEUTE?statusTag(t):""}</div>`).join(""):'<div class="empty">Kein Kind eingeplant.</div>'}
+        <div style="margin-top:10px"><button class="btn btn-sm" ${d<HEUTE?"disabled":""} onclick="alert('Öffnet die Session. Dort erfasst der Coach die Anwesenheit.')">Session öffnen</button></div></div>`;
+    });
+  });
+  if(!n) html+='<div class="card"><div class="empty">In dieser Woche keine Einsätze.</div></div>';
+  document.getElementById("s-coach").innerHTML=html;
+}
+
+/* ================= Start ================= */
+document.getElementById("rolle").innerHTML='<option value="0">Ansicht: Admin</option>'+COACHES.map(c=>`<option value="${c.id}">Ansicht: Coach ${c.name}</option>`).join("");
+render();
+</script>
+</body>
+</html>
