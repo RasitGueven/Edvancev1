@@ -14,7 +14,7 @@ import { auslaufende, imVerzug, summen } from '@/lib/vertrag/menue'
 import type { Lead } from '@/types'
 import { HeuteImBetrieb } from './heute/HeuteImBetrieb'
 import { OffeneSessionsListe } from './heute/OffeneSessionsListe'
-import { KennzahlenLeiste, type Kennzahl } from './heute/KennzahlenLeiste'
+import { KennzahlenLeiste, type Kennzahl } from '@/components/edvance/admin/KennzahlenLeiste'
 import { InhalteListe, RueckstandListe, VertraegeListe } from './heute/ListenBetrieb'
 import { ErstgespraecheListe, LsaListe, NeueLeadsListe } from './heute/ListenVertrieb'
 import {
@@ -181,7 +181,7 @@ export function HeutePage(): JSX.Element {
         <LoadingPulse type="list" lines={6} />
       ) : (
         <>
-          <KennzahlenLeiste zahlen={zahlen} />
+          <KennzahlenLeiste zahlen={zahlen} label={t('heute.kpi.label')} />
 
           <div className="grid grid-cols-1 items-start gap-6 @heute-spalte:grid-cols-[minmax(0,1fr)_var(--container-heute-betrieb)]">
             <section className="@container flex min-w-0 flex-col gap-2" aria-labelledby="heute-listen">

@@ -25,6 +25,8 @@
   --container-heute-listen:   640px;
   --container-heute-spalte:   980px;
   --container-heute-betrieb:  340px;
+  /* Slots (SL1): Kennzahlen des Wochenplans nebeneinander (KennzahlenLeiste breite="slots-kpi"). */
+  --container-slots-kpi:      700px;
 }
 
 /* ─── Tailwind v4: map CSS variables to utility classes ───────────────────────── */

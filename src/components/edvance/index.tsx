@@ -16,3 +16,10 @@ export { StreakPill } from './StreakPill'
 export type { StreakVariant } from './StreakPill'
 export { RarityBadge } from './RarityBadge'
 export type { BadgeRarity, BadgeForm } from './RarityBadge'
+
+// Slots SL1: gemeinsame Bausteine (Heute, Verträge, Slots, Coach).
+export { PlatzPunkte, PLAETZE_JE_RAUM } from './PlatzPunkte'
+export type { PlatzPunkteProps } from './PlatzPunkte'
+export { Reiterleiste } from './Reiterleiste'
+export type { Reiter, ReiterTon } from './Reiterleiste'
+export { WochenNavigation } from './WochenNavigation'
