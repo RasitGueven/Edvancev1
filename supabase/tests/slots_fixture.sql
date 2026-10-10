@@ -1,7 +1,7 @@
 -- Gemeinsame Ausgangslage der slots_*.test.sql (Paket SL1). Wird per \ir eingebunden, läuft in der
 -- Transaktion des Tests (begin … rollback). Alle Namen erfunden.
 --
---   Konten: Admin, Coaches A–D, Elternteil, Schülerkonto, Konto ohne Profil
+--   Konten: Admin, Coaches A–D, Elternteil, Schülerkonto, Konto ohne Profil, Tablet 1
 --   Räume:  Raum 1, Raum 2, Raum 3 (aktiv ab 01.01.2026)
 --   Stammschichten: Coach A in Raum 1 und Coach B in Raum 2, Mo–Fr, 14–20 Uhr (Raum 3 ohne Schicht)
 --   Hilfen: pg_temp.als(uid), pg_temp.als_system(), pg_temp.zeit(stunde), pg_temp.raum(name),
@@ -15,11 +15,13 @@
 \set eltern  'eeeeeeee-5100-4000-8000-000000000006'
 \set schueler 'eeeeeeee-5100-4000-8000-000000000007'
 \set ohne_profil 'eeeeeeee-5100-4000-8000-000000000008'
+\set tablet  'eeeeeeee-5100-4000-8000-000000000009'
 
 insert into auth.users (id, email, instance_id, aud, role)
 select u, 'sl1-' || n || '@test.local', '00000000-0000-0000-0000-000000000000'::uuid, 'authenticated', 'authenticated'
   from (values (:'admin'::uuid, 'admin'), (:'coach_a', 'coach-a'), (:'coach_b', 'coach-b'), (:'coach_c', 'coach-c'),
-               (:'coach_d', 'coach-d'), (:'eltern', 'eltern'), (:'schueler', 'schueler'), (:'ohne_profil', 'ohne')) v(u, n);
+               (:'coach_d', 'coach-d'), (:'eltern', 'eltern'), (:'schueler', 'schueler'), (:'ohne_profil', 'ohne'),
+               (:'tablet', 'tablet')) v(u, n);
 
 insert into profiles (id, email, role, full_name) values
   (:'admin', 'sl1-admin@test.local', 'admin', 'ZZ Admin'),
@@ -28,7 +30,9 @@ insert into profiles (id, email, role, full_name) values
   (:'coach_c', 'sl1-coach-c@test.local', 'coach', 'Coach Cem'),
   (:'coach_d', 'sl1-coach-d@test.local', 'coach', 'Coach Dana'),
   (:'eltern', 'sl1-eltern@test.local', 'parent', 'ZZ Eltern'),
-  (:'schueler', 'sl1-schueler@test.local', 'student', 'ZZ Schüler');
+  (:'schueler', 'sl1-schueler@test.local', 'student', 'ZZ Schüler'),
+  (:'tablet', 'sl1-tablet@test.local', 'student', 'ZZ Tablet 1');
+insert into platz_devices (profile_id, label, tablet_nr) values (:'tablet', 'ZZ SL1 Tablet 1', 1);
 
 create or replace function pg_temp.als(uid uuid) returns void language plpgsql as $$
 begin
