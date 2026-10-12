@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { SELECT_MD } from '@/lib/formStyles'
 import { CardMenu, type CardMenuItem } from '@/pages/admin/leads/CardMenu'
 import type { NichtDabei, SlotsTermin, TerminKind, TerminRaum, TerminZustand } from '@/types/slotplan'
-import { datumKurz, fachKuerzel, zeitpunktKurz } from '../slotsFormat'
+import { datumKurz, zeitpunktKurz } from '../slotsFormat'
+import { KlasseFach } from '../KlasseFach'
 
 export type KindAktion = 'absage' | 'umbuchen' | 'ausgefallen' | { raum: string }
 
@@ -23,7 +24,7 @@ function KindKopf({ kind }: { kind: { student_id: string; name: string | null; k
       <Link to={`/admin/slots/kind/${kind.student_id}`} className="truncate text-sm font-semibold text-[var(--color-text-primary)] hover:underline">
         {kind.name ?? t('kind.ohneName')}
       </Link>
-      <span className="text-xs text-[var(--color-text-tertiary)]">{t('kind.klasseFach', { klasse: kind.klasse, fach: fachKuerzel(kind.fach) })}</span>
+      <KlasseFach klasse={kind.klasse} fach={kind.fach} />
     </span>
   )
 }
@@ -153,7 +154,12 @@ export function RaumKarte({
               <span className="flex min-w-0 flex-wrap items-center gap-2">
                 <KindKopf kind={k} />
                 <Herkunft kind={k} />
-                {ansicht && <ZustandBadge zustand={k.zustand} />}
+                {ansicht &&
+                  (k.zustand === 'planned' ? (
+                    <EdvanceBadge variant="warning">{t('termin.anwesenheitOffen')}</EdvanceBadge>
+                  ) : (
+                    <ZustandBadge zustand={k.zustand} />
+                  ))}
               </span>
               <CardMenu items={menu(k)} />
             </div>

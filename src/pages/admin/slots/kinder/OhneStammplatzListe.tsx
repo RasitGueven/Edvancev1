@@ -4,8 +4,9 @@ import { EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
 import { CardMenu } from '@/pages/admin/leads/CardMenu'
 import type { SlotsKinderZeile } from '@/types/slotplan'
-import { datumKurz, fachKuerzel, wochentagName } from '../slotsFormat'
+import { datumTagMonat, wochentagName } from '../slotsFormat'
 import { paketText, rhythmusText } from './KinderSpalten'
+import { KlasseFach } from '../KlasseFach'
 
 /**
  * "Ohne Stammplatz" im Stil der Arbeitslisten auf Heute: läuft der Vertrag schon, steht das Datum in der
@@ -46,15 +47,12 @@ export function OhneStammplatzListe({
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="flex min-w-0 flex-col">
                   <span className="truncate text-sm font-semibold">{k.name ?? t('kind.ohneName')}</span>
-                  <span className="text-xs text-[var(--color-text-tertiary)]">
-                    {[
-                      t('kind.klasseFach', { klasse: k.klasse, fach: fachKuerzel(k.fach) }),
-                      paketText(k, t),
-                      rhythmusText(k.rhythmus, t),
-                    ].join(' · ')}
+                  <span className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
+                    <KlasseFach klasse={k.klasse} fach={k.fach} />
+                    <span>{[paketText(k, t), rhythmusText(k.rhythmus, t)].join(' · ')}</span>
                   </span>
                   <span className={`text-xs font-semibold ${k.vertrag_laeuft ? 'text-[var(--color-error-coach)]' : 'text-[var(--color-text-secondary)]'}`}>
-                    {t(k.vertrag_laeuft ? 'kinder.ohne.laeuftSeit' : 'kinder.ohne.beginntAm', { datum: datumKurz(k.beginn, i18n.language) })}
+                    {t(k.vertrag_laeuft ? 'kinder.ohne.laeuftSeit' : 'kinder.ohne.beginntAm', { datum: datumTagMonat(k.beginn, i18n.language) })}
                   </span>
                 </span>
                 <span className="flex items-center gap-2">

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { EdvanceBadge } from '@/components/edvance'
 import type { Planbilanz } from '@/types/slotplan'
-import { datumKurz, datumVoll } from '../slotsFormat'
+import { datumKurz, datumTagMonat, datumVoll } from '../slotsFormat'
 import { planbilanzVariante } from '../slots.model'
 
 /**
@@ -29,7 +29,7 @@ export function PlanbilanzBadge({ planbilanz, vertragLaeuft }: { planbilanz: Pic
   return (
     <EdvanceBadge variant={planbilanzVariante(planbilanz.art, vertragLaeuft)}>
       {t(`planbilanz.art.${planbilanz.art}`, {
-        datum: planbilanz.datum ? datumKurz(planbilanz.datum, i18n.language) : '',
+        datum: planbilanz.datum ? datumTagMonat(planbilanz.datum, i18n.language) : '',
         count: planbilanz.zahl ?? 0,
       })}
     </EdvanceBadge>

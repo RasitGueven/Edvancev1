@@ -5,7 +5,7 @@ import { EdvanceBadge, EdvanceCard, EmptyState } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
 import { CardMenu, type CardMenuItem } from '@/pages/admin/leads/CardMenu'
 import type { KindLetzterTermin, KindNaechsterTermin, SlotsKind, Stammplatz } from '@/types/slotplan'
-import { datumKurz, datumVoll } from '../slotsFormat'
+import { datumKurz, datumTagMonat, datumVoll } from '../slotsFormat'
 import { EinheitenBalken, PlanbilanzBadge, planbilanzSatz } from '../kinder/Einheiten'
 import { paketText, rhythmusText, stammplatzText } from '../kinder/KinderSpalten'
 import { ZustandBadge } from '../termin/TerminKarten'
@@ -85,7 +85,7 @@ export function StammplaetzeKarte({
   const { t, i18n } = useTranslation('slots')
   const [beenden, setBeenden] = useState<{ id: string; ab: string } | null>(null)
   const zeit = (s: Stammplatz): string =>
-    s.gueltig_ab > heute ? t('kind.stamm.ab', { datum: datumKurz(s.gueltig_ab, i18n.language) }) : t('kind.stamm.seit', { datum: datumKurz(s.gueltig_ab, i18n.language) })
+    s.gueltig_ab > heute ? t('kind.stamm.ab', { datum: datumTagMonat(s.gueltig_ab, i18n.language) }) : t('kind.stamm.seit', { datum: datumTagMonat(s.gueltig_ab, i18n.language) })
 
   return (
     <EdvanceCard className="flex flex-col gap-2 p-6">
@@ -105,7 +105,7 @@ export function StammplaetzeKarte({
                 <span className="flex flex-col">
                   <span className="text-sm font-semibold tabular-nums">{stammplatzText(s, i18n.language, t)}</span>
                   <span className="text-xs text-[var(--color-text-tertiary)]">
-                    {[zeit(s), s.gueltig_bis ? t('kind.stamm.bis', { datum: datumKurz(s.gueltig_bis, i18n.language) }) : null].filter(Boolean).join(' · ')}
+                    {[zeit(s), s.gueltig_bis ? t('kind.stamm.bis', { datum: datumTagMonat(s.gueltig_bis, i18n.language) }) : null].filter(Boolean).join(' · ')}
                   </span>
                 </span>
                 <span className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export function NaechsteKarte({
             <li key={x.termin_id} className="flex flex-col border-t border-[var(--color-border)]">
               <div className="flex min-h-[44px] items-center justify-between gap-2">
                 <span className="flex flex-wrap items-center gap-2">
-                  <span className="w-28 text-sm font-semibold tabular-nums">{`${datumKurz(x.datum, i18n.language)} ${x.beginn}`}</span>
+                  <span className="whitespace-nowrap text-sm font-semibold tabular-nums">{`${datumKurz(x.datum, i18n.language)} · ${x.beginn}`}</span>
                   {x.zustand !== 'planned' && <ZustandBadge zustand={x.zustand} />}
                   {x.umgebucht_von && <EdvanceBadge variant="primary">{t('termin.umgebuchtVon', { datum: datumKurz(x.umgebucht_von, i18n.language) })}</EdvanceBadge>}
                   {!x.umgebucht_von && x.herkunft === 'zusatz' && <EdvanceBadge variant="primary">{t('termin.zusatz')}</EdvanceBadge>}
@@ -214,7 +214,7 @@ export function LetzteKarte({ termine }: { termine: KindLetzterTermin[] }): JSX.
         <ul className="flex flex-col">
           {termine.slice(0, NAECHSTE).map((x, i) => (
             <li key={x.termin_id ?? `${x.datum}-${i}`} className="flex min-h-[44px] items-center gap-2 border-t border-[var(--color-border)]">
-              <span className="w-28 text-sm tabular-nums">{`${datumKurz(x.datum, i18n.language)} ${x.beginn}`}</span>
+              <span className="whitespace-nowrap text-sm tabular-nums">{`${datumKurz(x.datum, i18n.language)} · ${x.beginn}`}</span>
               <ZustandBadge zustand={x.zustand} />
               {x.herkunft === 'einzel' && <span className="text-xs text-[var(--color-text-tertiary)]">{t('kind.einzelSession')}</span>}
             </li>

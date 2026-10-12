@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import type { Spalte } from '@/components/edvance/EdvanceTable'
 import type { Rhythmus, SlotsKinderZeile, Stammplatz } from '@/types/slotplan'
-import { datumVoll, fachKuerzel, wochentagName } from '../slotsFormat'
+import { datumVoll, wochentagName } from '../slotsFormat'
 import { EinheitenBalken, PlanbilanzBadge } from './Einheiten'
+import { KlasseFach } from '../KlasseFach'
 
 type T = (k: string, o?: Record<string, unknown>) => string
 
@@ -34,7 +35,7 @@ function Kind({ k }: { k: SlotsKinderZeile }): JSX.Element {
   return (
     <span className="flex min-w-0 flex-col">
       <span className="truncate text-sm font-semibold text-[var(--color-text-primary)]">{k.name ?? t('kind.ohneName')}</span>
-      <span className="text-xs text-[var(--color-text-tertiary)]">{t('kind.klasseFach', { klasse: k.klasse, fach: fachKuerzel(k.fach) })}</span>
+      <KlasseFach klasse={k.klasse} fach={k.fach} />
     </span>
   )
 }

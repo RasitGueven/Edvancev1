@@ -5,11 +5,12 @@ import type { WocheZelle } from '@/types/slotplan'
 import { fachKuerzel } from '../slotsFormat'
 import { raumBelegung, zellZustand } from '../slots.model'
 
+/** Fläche und 3-px-Streifen links nur bei einem Zustand (Entscheidung 28); der Streifen ist ein Inset-Schatten. */
 const FLAECHE = {
-  leer: 'border-transparent bg-[var(--color-bg-surface)]',
-  normal: 'border-transparent bg-[var(--color-bg-surface)] hover:bg-[var(--color-bg-subtle)]',
-  achtung: 'border-[var(--color-gold-warning)] bg-[var(--color-gold-warning-light)]',
-  handeln: 'border-[var(--color-error-coach)] bg-[var(--color-error-coach-light)]',
+  leer: 'bg-[var(--color-bg-surface)]',
+  normal: 'bg-[var(--color-bg-surface)] hover:bg-[var(--color-bg-subtle)]',
+  achtung: 'bg-[var(--color-gold-warning-light)] shadow-[inset_3px_0_0_var(--color-gold-warning)]',
+  handeln: 'bg-[var(--color-error-coach-light)] shadow-[inset_3px_0_0_var(--color-error-coach)]',
 } as const
 
 /**
@@ -43,8 +44,8 @@ export function WochenZelle({ zelle, ziel }: { zelle: WocheZelle; ziel: string }
   return (
     <Link
       to={ziel}
-      aria-label={t('woche.zelleLabel', { belegt: zelle.belegt, kapazitaet: zelle.kapazitaet })}
-      className={`flex min-h-[44px] h-full flex-col gap-2 rounded-[var(--radius-md)] border-l-[3px] px-2 py-2 transition-colors duration-150 ease-out ${FLAECHE[zustand]} ${vergangen}`}
+      aria-label={[t('woche.zelleLabel', { belegt: zelle.belegt, kapazitaet: zelle.kapazitaet }), ...hinweise].join(', ')}
+      className={`flex min-h-[44px] h-full flex-col gap-2 rounded-[var(--radius-md)] py-2 pl-3 pr-2 transition-colors duration-150 ease-out ${FLAECHE[zustand]} ${vergangen}`}
     >
       <span className="flex items-baseline justify-between gap-2">
         <span className="text-sm tabular-nums">

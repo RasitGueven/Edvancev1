@@ -20,15 +20,15 @@ function RasterSkelett(): JSX.Element {
 
 function Legende(): JSX.Element {
   const { t } = useTranslation('slots')
-  const punkt = 'inline-block h-3 w-3 rounded-sm border-l-[3px]'
+  const punkt = 'inline-block h-4 w-4 rounded-sm'
   return (
     <ul className="flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-tertiary)]">
       <li className="flex items-center gap-2">
-        <span aria-hidden="true" className={`${punkt} border-[var(--color-gold-warning)] bg-[var(--color-gold-warning-light)]`} />
+        <span aria-hidden="true" className={`${punkt} bg-[var(--color-gold-warning-light)] shadow-[inset_3px_0_0_var(--color-gold-warning)]`} />
         {t('woche.legende.achtung')}
       </li>
       <li className="flex items-center gap-2">
-        <span aria-hidden="true" className={`${punkt} border-[var(--color-error-coach)] bg-[var(--color-error-coach-light)]`} />
+        <span aria-hidden="true" className={`${punkt} bg-[var(--color-error-coach-light)] shadow-[inset_3px_0_0_var(--color-error-coach)]`} />
         {t('woche.legende.handeln')}
       </li>
       <li className="flex items-center gap-2">

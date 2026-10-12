@@ -113,7 +113,8 @@
     "hinweisFestschreiben": "Die Raumzuteilung wird beim Öffnen der Session festgeschrieben.",
     "hinweisZuteilung": "Die Räume teilt das System zu. Bis die Session geöffnet ist, kann eine neue Buchung die Zuteilung verschieben.",
     "keineRaeumeTitel": "Kein Raum besetzt",
-    "keineRaeumeText": "In diesem Termin hat noch kein Raum einen Coach. Öffne einen Raum, damit Kinder kommen können."
+    "keineRaeumeText": "In diesem Termin hat noch kein Raum einen Coach. Öffne einen Raum, damit Kinder kommen können.",
+    "anwesenheitOffen": "Anwesenheit fehlt"
   },
   "aktion": {
     "absage": "Absage",
@@ -214,7 +215,7 @@
     "akte": "Akte",
     "ohneName": "ohne Namen",
     "klasse": "Klasse {{klasse}}",
-    "klasseFach": "Kl. {{klasse}} · {{fach}}",
+    "klasseKurz": "Kl. {{klasse}}",
     "einheiten": "Einheiten",
     "naechste": "Nächste Termine",
     "letzte": "Letzte Termine",

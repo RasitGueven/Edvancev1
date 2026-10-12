@@ -31,7 +31,7 @@
      Kind zweispaltig, Coaches Liste neben Raster, Stammplatz-Dialog zweispaltig. */
   --container-slots-woche:    760px;
   --container-slots-raeume:   720px;
-  --container-slots-tabelle:  720px;
+  --container-slots-tabelle:  900px;
   --container-slots-kind:     900px;
   --container-slots-coaches:  900px;
   --container-slots-dialog:   720px;

@@ -31,6 +31,12 @@ export function datumKurz(isoTag: string, sprache: string): string {
   return `${wochentagKurz(isoTag, sprache)} ${p.day}.${p.month}.`
 }
 
+/** "16.03." ohne Wochentag (Fristen, "läuft seit", "reicht bis"). */
+export function datumTagMonat(isoTag: string, sprache: string): string {
+  const p = teile(utc(isoTag), sprache, { day: '2-digit', month: '2-digit' })
+  return `${p.day}.${p.month}.`
+}
+
 /** "16.03.2028" */
 export function datumVoll(isoTag: string, sprache: string): string {
   return new Intl.DateTimeFormat(sprache, { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(utc(isoTag))

@@ -7,7 +7,8 @@ import { SELECT_MD } from '@/lib/formStyles'
 import { ladeKandidaten, terminFaelltAus, terminRaumOeffnen, zusatzterminBuchen } from '@/lib/supabase/slotplan'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
 import type { SlotsKandidat, SlotsTermin } from '@/types/slotplan'
-import { datumKurz, datumLang, fachKuerzel } from '../slotsFormat'
+import { datumKurz, datumLang } from '../slotsFormat'
+import { KlasseFach } from '../KlasseFach'
 
 type Props = { termin: SlotsTermin; onClose: () => void; onGespeichert: (meldung: string) => void }
 
@@ -91,9 +92,9 @@ export function KindHinzufuegenDialog({ termin, onClose, onGespeichert }: Props)
                   >
                     <span className="flex min-w-0 flex-col">
                       <span className="truncate text-sm font-semibold">{k.name}</span>
-                      <span className="text-xs text-[var(--color-text-tertiary)]">
-                        {t('kind.klasseFach', { klasse: k.klasse, fach: fachKuerzel(k.fach) })}
-                        {k.verdraengt && ` · ${t('dialog.ziele.verdraengtKurz', { datum: datumKurz(k.verdraengt, i18n.language) })}`}
+                      <span className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
+                        <KlasseFach klasse={k.klasse} fach={k.fach} />
+                        {k.verdraengt && t('dialog.ziele.verdraengtKurz', { datum: datumKurz(k.verdraengt, i18n.language) })}
                       </span>
                     </span>
                     <span className="shrink-0 text-xs tabular-nums text-[var(--color-text-secondary)]">{t('dialog.hinzufuegen.offen', { count: k.offen })}</span>
