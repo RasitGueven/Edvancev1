@@ -31,6 +31,7 @@ import { ReportsKachel } from './ReportsKachel'
 import { SessionsKachel } from './SessionsKachel'
 import { StammdatenKachel } from './StammdatenKachel'
 import { TestkontoAkte } from '../testmodus/TestkontoAkte'
+import { useAktePlanbilanz } from './useAktePlanbilanz'
 
 type Daten = {
   stand: EinheitenStand | null
@@ -54,6 +55,8 @@ export function AktePage(): JSX.Element {
   const { role } = useAuth()
   const { studentId = '' } = useParams()
   const istAdmin = role === 'admin'
+  // Slots SL3: Planbilanz und "Termine planen" nur für Admins.
+  const planbilanz = useAktePlanbilanz(studentId, istAdmin)
 
   const [akte, setAkte] = useState<Schuelerakte | null>(null)
   const [daten, setDaten] = useState<Daten>(LEER)
@@ -145,8 +148,8 @@ export function AktePage(): JSX.Element {
       <TestkontoAkte studentId={studentId} istAdmin={istAdmin} onFehler={setError} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {!ruhend && <EinheitenKachel stand={daten.stand} />}
-        <SessionsKachel sessions={daten.sessions} />
+        {!ruhend && <EinheitenKachel stand={daten.stand} planbilanz={planbilanz} />}
+        <SessionsKachel sessions={daten.sessions} planenZu={istAdmin ? `/admin/slots/kind/${studentId}` : undefined} />
         <NotizenKachel
           studentId={studentId}
           notizen={daten.notizen}

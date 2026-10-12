@@ -49,8 +49,10 @@
       "heute": "Heute",
       "schueler": "Schüler",
       "pruefen": "Prüfen",
-      "contentGesundheit": "Content"
-    }
+      "contentGesundheit": "Content",
+      "einsaetze": "Einsätze"
+    },
+    "einsaetze": "Einsätze"
   },
   "live": {
     "titel": "Heute im Raum",
@@ -70,6 +72,27 @@
     "offenTitel_one": "{{count}} Session ist noch offen",
     "offenTitel_other": "{{count}} Sessions sind noch offen",
     "offenText": "Diese Sessions sind vorbei, aber nicht abgeschlossen. Erst nach dem Abschluss stehen Anwesenheit und Notizen in den Akten.",
-    "abschliessen": "Zum Abschluss"
+    "abschliessen": "Zum Abschluss",
+    "einzel": "Einzel-Session"
+  },
+  "einsaetze": {
+    "rubrik": "Arbeit",
+    "titel": "Meine Einsätze",
+    "kw": "KW {{kw}}",
+    "anzahl_one": "{{count}} Einsatz",
+    "anzahl_other": "{{count}} Einsätze",
+    "kinder_one": "{{count}} Kind",
+    "kinder_other": "{{count}} Kinder",
+    "heute": "heute",
+    "zeitspanne": "{{beginn}}–{{ende}}",
+    "bis": "bis {{ende}}",
+    "karteLabel": "Einsatz {{beginn}}, {{raum}}",
+    "keineKinder": "Noch keine Kinder in deinem Raum.",
+    "oeffnen": "Session öffnen",
+    "amTag": "Öffnen am Tag des Einsatzes",
+    "leerTitel": "Diese Woche hast du keine Einsätze.",
+    "leerText": "Sobald du einem Raum zugeteilt bist, stehen deine Einsätze hier. Blättere zur nächsten Woche, um weiter vorn zu schauen.",
+    "ausPlan": "aus dem Plan",
+    "zuDenEinsaetzen": "Alle Einsätze der Woche"
   }
 }

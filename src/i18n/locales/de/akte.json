@@ -64,7 +64,8 @@
     "satz": "Um alle offenen Einheiten bis zum Stichtag zu nutzen, braucht es ab jetzt {{noetig}} Einheiten pro Betriebswoche — gleichmäßig verteilt wären es {{gleichmaessig}}.",
     "startet": "Startet am {{beginn}}, dann {{einheiten}} Einheiten bis Stichtag {{stichtag}}.",
     "keiner": "Kein laufender Vertrag — kein Einheiten-Stand.",
-    "balkenLabel": "{{verbraucht}} von {{einheiten}} Einheiten verbraucht, Soll heute {{soll}}"
+    "balkenLabel": "{{verbraucht}} von {{einheiten}} Einheiten verbraucht, Soll heute {{soll}}",
+    "planbilanz": "Planbilanz aus den Slots"
   },
   "sessions": {
     "titel": "Sessions und Anwesenheit",
@@ -84,7 +85,8 @@
     "fach": "Fach",
     "gearbeitet": "woran gearbeitet",
     "kommtMitSlots": "kommt mit Slots",
-    "kommtMitSlotsHinweis": "Fach und „woran gearbeitet“: kommt mit Slots."
+    "kommtMitSlotsHinweis": "Fach und „woran gearbeitet“: kommt mit Slots.",
+    "planen": "Termine planen"
   },
   "notizen": {
     "titel": "Notizen",

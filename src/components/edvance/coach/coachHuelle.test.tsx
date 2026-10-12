@@ -33,6 +33,16 @@ vi.mock('@/lib/supabase/pruefung', () => ({
 }))
 vi.mock('@/lib/supabase/slotplan', () => ({
   ladeZaehler: vi.fn(() => Promise.resolve({ data: { ohne_stammplatz: 0, ohne_raum: 0, gesamt: 0 }, error: null })),
+  // Slots SL3: ein Einsatz von heute aus dem Plan, noch nicht festgeschrieben, zählt in „Heute“ mit.
+  ladeMeineEinsaetze: vi.fn(() =>
+    Promise.resolve({
+      data: {
+        montag: '2026-10-12', kw: 42, heute: '2026-10-12',
+        einsaetze: [{ datum: '2026-10-12', zeit_id: 'z1', beginn: '23:58', ende: '23:59', raum_id: 'r1', raum_name: 'ZZ Raum 1', heute: true, session_id: null, kinder: [] }],
+      },
+      error: null,
+    }),
+  ),
 }))
 vi.mock('@/lib/supabase/adminStats', () => ({
   getAdminStats: vi.fn(() => Promise.resolve({ data: { leadsNew: 0 }, error: null })),
@@ -83,13 +93,14 @@ describe('Rollenweiche auf geteilten Routen', () => {
     expect(screen.getByText('Seite')).toBeTruthy()
   })
 
-  it('Coach-Leiste: Reihenfolge, „Schüler“ aktiv auf der Akte, Sessions heute gezählt', async () => {
+  it('Coach-Leiste: Reihenfolge, „Schüler“ aktiv auf der Akte, Sessions und Einsätze heute gezählt', async () => {
     auth.darfPruefen = true
     await zeige('/admin/akten/s1')
     const namen = within(leiste()).getAllByRole('link').map((a) => a.getAttribute('href'))
-    expect(namen).toEqual(['/coach', '/admin/akten', '/coach/pruefen', '/admin/content-gesundheit'])
+    expect(namen).toEqual(['/coach', '/coach/einsaetze', '/admin/akten', '/coach/pruefen', '/admin/content-gesundheit'])
     expect(within(leiste()).getByRole('link', { name: /Schüler/ }).getAttribute('aria-current')).toBe('page')
-    expect(within(leiste()).getByRole('link', { name: /Heute/ }).textContent).toContain('1')
+    // eine Session von heute + ein Einsatz aus dem Plan
+    expect(within(leiste()).getByRole('link', { name: /Heute/ }).textContent).toContain('2')
     expect(within(leiste()).getByRole('link', { name: /Aufgaben prüfen/ }).textContent).toContain('2')
   })
 })
