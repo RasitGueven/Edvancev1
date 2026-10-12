@@ -69,8 +69,8 @@ describe('5 Abbildung je Feld aus echten Antworten', () => {
     expect(r.session).toMatchObject({ raum: 'Raum 1', coachName: 'A2 Coach A', klassen: [8, 8], plaetze: 5, testlauf: false, status: 'active' })
     expect(r.zeitleiste.map((z) => z.minuten)).toEqual([5, 10, 40, 5])
     expect(raumAus(F.raum_vorher, leer).zeitpunkt).toBe('vorher')
-    // F2: Die Uhr zeigt Check-out (Minute 56), Emir ist noch in der Kernarbeit: der Kopf folgt ihm.
-    expect(raumAus(F.raum_checkout, leer).zeitpunkt).toBe('kern')
+    // F2 (Rasit 12.10.): Die Uhr zeigt Check-out (Minute 56), Emir ist noch in der Kernarbeit: der Kopf folgt der Uhr.
+    expect(raumAus(F.raum_checkout, leer).zeitpunkt).toBe('checkout')
     expect(raumAus(imCheckout(F.raum_checkout), leer).zeitpunkt).toBe('checkout')
     expect(raumAus(F.raum_testlauf, leer).session.testlauf).toBe(true)
   })

@@ -36,16 +36,19 @@ export const vornameAus = (name: string): string => name.trim().split(/\s+/)[0] 
 /**
  * Zeitpunkt der Ansicht: vor dem Start „vorher“, nach dem Abschluss „danach“. Dazwischen folgt sie den Kindern
  * (F2, phaseDerKinder: Mehrheit der Kinder mit Tablet, bei Gleichstand die fruehere Phase, ohne Kind Check-in);
- * die Uhr zaehlt nur noch fuers Ende: nach 60 Minuten „danach“.
+ * die Uhr zaehlt nur noch fuers Ende: Check-out ab `phase_checkout_min` vor Schluss (Rasit 12.10.: die einzige Phase
+ * an der Uhr, der Coach muss dann abschliessen), nach 60 Minuten „danach“.
  */
 export function zeitpunktAus(
-  r: { status: string; gestartet_am: string | null },
+  r: { status: string; gestartet_am: string | null; einstellungen?: Record<string, StellschraubeWert> | null },
   jetzt: string,
   kinder: { tablet_nr: number | null; phase: SessionPhase | null }[],
 ): LiveZeitpunkt {
   if (r.status === 'upcoming' || r.gestartet_am === null) return r.status === 'done' ? 'danach' : 'vorher'
   if (r.status === 'done') return 'danach'
-  if ((Date.parse(jetzt) - Date.parse(r.gestartet_am)) / 60_000 >= SESSION_MINUTEN) return 'danach'
+  const minute = (Date.parse(jetzt) - Date.parse(r.gestartet_am)) / 60_000
+  if (minute >= SESSION_MINUTEN) return 'danach'
+  if (minute >= SESSION_MINUTEN - zahl(r.einstellungen ?? {}, 'phase_checkout_min', 5)) return 'checkout'
   return phaseDerKinder(kinder.map((k) => ({ tablet: k.tablet_nr, phase: k.phase })))
 }
 

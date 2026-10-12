@@ -51,6 +51,16 @@ describe('F2 1 Phase des Kopfs', () => {
     expect(zeitpunktAus(aktiv, minute(61), roh('checkout'))).toBe('danach')
   })
 
+  it('zeitpunktAus: Check-out folgt der Uhr, auch wenn die Kinder noch in der Kernarbeit sind', () => {
+    expect(zeitpunktAus(aktiv, minute(54), roh('kern', 'kern'))).toBe('kern')
+    expect(zeitpunktAus(aktiv, minute(55), roh('kern', 'kern'))).toBe('checkout')
+    expect(zeitpunktAus(aktiv, minute(59), roh('warmup'))).toBe('checkout')
+    // phase_checkout_min aus dem Snapshot
+    const zehn = { ...aktiv, einstellungen: { phase_checkout_min: 10 } }
+    expect(zeitpunktAus(zehn, minute(50), roh('kern'))).toBe('checkout')
+    expect(zeitpunktAus(zehn, minute(49), roh('kern'))).toBe('kern')
+  })
+
   it('Restzeit haengt nur an der Uhr', () => {
     expect(restMinuten(START, minute(0))).toBe(60)
     expect(restMinuten(START, minute(18))).toBe(42)

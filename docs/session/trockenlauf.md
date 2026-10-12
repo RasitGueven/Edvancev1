@@ -107,7 +107,8 @@ Weitere Stellschrauben in Prod (nur ansehen):
 Laptop als Test-Coach: `/coach` → „Briefing ansehen“ → „Session starten“ → Live-Sicht (`/coach/session/<id>/live`).
 
 Die Live-Sicht folgt den Kindern, nicht der Uhr: Der Kopf zeigt die Phase, in der die meisten Kinder mit Tablet gerade
-sind (Gleichstand: die frühere), daneben die Restzeit der Session (F2, offene-punkte-f2).
+sind (Gleichstand: die frühere), daneben die Restzeit der Session. Nur der Check-out folgt der Uhr: In den letzten
+`phase_checkout_min` Minuten zeigt der Kopf Check-out (F2, offene-punkte-f2).
 
 | # | Schritt | Wer tut was | Was man sehen muss |
 |---|---|---|---|

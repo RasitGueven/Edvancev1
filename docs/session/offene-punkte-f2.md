@@ -87,14 +87,19 @@ Alle `session_*.test.sql` grün (18 Dateien, 1 046 Zusicherungen).
    um 14:28:52.578 ohne Schritt) und die Nachstellung in der Wegwerf-DB (kein_ziel als erster Schritt: 0 Zeilen in
    `session_schritte`, Phasenwechsel bis kern). Folge: Der Coach sieht für dieses Warten keinen Grund, und die Zeitleiste
    der Analyse hat eine Lücke. **Vorschlag** (nicht gebaut, Funktion gesperrt wegen SL1/T2/T3):
-   `if v_letzt.id is null or not (…)`. **Wer:** Rasit, nach T2/T3.
-2. **Session `c9465abe…` läuft seit dem 10.10.** Status `active`, Tablet 1 ist weiter zugewiesen (dbread 12.10.: 1 Tablet
-   ohne `geloest_am`). Tablet 1 ist damit für neue Sessions belegt. Abschließen über die Live-Sicht („Abschluss“ →
-   „Session abschließen“). Nicht von F2 geändert (nur lesen). **Wer:** Rasit.
-3. **Check-out im Kopf.** Der Kopf folgt streng der Mehrheit. Zeigt die Uhr schon Check-out und ein Kind löst noch die
-   letzte Aufgabe, bleibt der Kopf bei der Kernarbeit, bis das Tablet den nächsten Schritt holt (Fixture `raum_checkout`:
-   Minute 56, Kind in kern → Kopf Kernarbeit). Der Coach kann über den Phasenreiter vorziehen. Ob der Check-out im Kopf der
-   Uhr folgen soll, so wie er für die Kinder an der Uhr hängt (P1), entscheidet Rasit.
+   `if v_letzt.id is null or not (…)`. **Wer:** T4 (Rasit 12.10.), hier nicht gebaut.
+2. **Session `c9465abe…` abgeschlossen (erledigt 12.10.).** Einmalige Ausnahme von „kein Schreiben in Prod“ (Rasit 12.10.).
+   Vorher per dbread: Status `active`, `testlauf = false`, ein gebuchtes Kind (Testkonto TESTLEAD Drittmann, `present`),
+   Tablet 1 ohne `geloest_am`, einziges offenes Tablet und einzige aktive Session in Prod. Aufgerufen wurde genau die
+   Funktion der Live-Sicht (`sessionAbschliessen` → `session_abschliessen`), einmal, mit Admin-Claims wie in
+   trockenlauf.md Schritt 6, in einer Transaktion, kein direktes UPDATE. Ergebnis
+   `{"kinder": 1, "anwesend": 1, "nicht_in_akte": [], "einheit_verbraucht": 1}`. Nachher per dbread: Status `done`,
+   `beendet_am` 12.10. 11:30:15, Tablet 1 `geloest_am` gesetzt, 0 offene Tablets, 0 aktive Sessions. Sonst nur, was die
+   Funktion immer schreibt: eine Zeile `session_kind_abschluss` (ohne Notiz, ohne Flags, Zusammenfassung 0 Aufgaben).
+   Kein XP (keine gelöste Aufgabe), keine Notiz, Schritte 2, Ereignisse 4, Antworten 0 unverändert.
+3. **Check-out im Kopf (entschieden 12.10.).** Zeigt die Uhr Check-out (`phase_checkout_min` vor Schluss), zeigt auch der
+   Kopf Check-out, egal wo die Kinder sind. Er ist die einzige Phase an der Uhr, und der Coach muss dann abschließen
+   (`zeitpunktAus`; Fixture `raum_checkout`: Minute 56, Kind in kern → Kopf Check-out).
 4. **Phasenreiter.** Die gefüllte Phase und die goldene Marke der Zeitleiste zeigen weiter die Uhr. Der Rahmen
    (`aria-pressed`) zeigt die Ansicht, also jetzt die Phase der Kinder. Beides kann auseinanderfallen. So gewollt (Uhr als
    Restzeit), beim nächsten Trockenlauf ansehen.

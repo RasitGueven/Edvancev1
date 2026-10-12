@@ -54,7 +54,7 @@ export function CoachLivePage(): JSX.Element {
   const [gewaehlt, setGewaehlt] = useState<string | null>(null)
   const { raum: geladen, fehler, laedt, neuLaden } = useRaumLive(id, gewaehlt)
   // Der Coach kann eine andere Phase ansehen (z. B. vorzeitig Check-out oder Abschluss);
-  // null folgt den Kindern (F2: Phase der meisten Kinder, nicht die Uhr).
+  // null folgt den Kindern (F2: Phase der meisten Kinder; nur der Check-out folgt der Uhr).
   const [ansicht, setAnsicht] = useState<LiveZeitpunkt | null>(null)
   const raum = useMemo(() => (geladen && ansicht ? { ...geladen, zeitpunkt: ansicht } : geladen), [geladen, ansicht])
   const [meldung, setMeldung] = useState<Meldung | null>(null)
