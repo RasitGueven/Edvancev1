@@ -36,7 +36,7 @@ offene-punkte-x0c „Weitere offene Punkte“ 2 und 5
 
 ## Offene Punkte
 
-1. **An T4 (Rasit 12.10.).** **„Tiefer gehen“ ändert im Testlauf den nächsten Schritt nicht.** Der Planer liest die Entscheidung aus dem
+1. **Erledigt mit T4** (`20261013160412`, offene-punkte-t4). **An T4 (Rasit 12.10.).** **„Tiefer gehen“ ändert im Testlauf den nächsten Schritt nicht.** Der Planer liest die Entscheidung aus dem
    Lernpfad, nicht aus der Session: `session_zielliste` → `ziel_fertigkeiten_core(p_student_id, …)` liest
    `lernpfad.stand_system`, dazu prüft `session_zielliste` `lernpfad_protokoll` (`aktion = 'pfad_tiefer'` und
    `session_id`). Ohne diese Zeilen bleibt der Plan beim bisherigen Skill. Beleg pgTAP `session_t2` 2a:
@@ -44,12 +44,12 @@ offene-punkte-x0c „Weitere offene Punkte“ 2 und 5
    Planer umgebaut ist). Laut Auftrag nicht umgebaut; `session_zielliste` und die Planer-Hilfen gehören F1/C3.
    Vorschlag: Im Testlauf die jüngste `entscheidung_pfad` aus `session_ereignisse` als Ersatz für die Lernpfad-Zeile
    lesen.
-2. **An T4 (Rasit 12.10.).** **Sperre nach dem Start gilt nur für den RPC.** Admins dürfen `coaching_sessions` per RLS (`coaching_sessions_admin_all`)
+2. **Erledigt mit T4** (`20261013162108`). **An T4 (Rasit 12.10.).** **Sperre nach dem Start gilt nur für den RPC.** Admins dürfen `coaching_sessions` per RLS (`coaching_sessions_admin_all`)
    direkt schreiben; ein `update … set testlauf = …` nach dem Start geht am neuen Check vorbei (der Trigger
    `coaching_sessions_testlauf_pruefen` prüft nur Rolle und Testkonten). Die Oberfläche nutzt nur den RPC. Wer die
    Regel auch dort will: Startprüfung in den Trigger (gehört nicht zu T2; `session_c2.test.sql` setzt `testlauf` heute
    direkt nach dem Start und müsste dann angepasst werden).
-3. **An T4 (Rasit 12.10.).** **`lernpfad_beleg` prüft `testlauf` nicht.** Der Coach-RPC bucht über `lernpfad_beleg_core` Belege und Stand in den
+3. **Erledigt mit T4** (`20261013162108`). **An T4 (Rasit 12.10.).** **`lernpfad_beleg` prüft `testlauf` nicht.** Der Coach-RPC bucht über `lernpfad_beleg_core` Belege und Stand in den
    Lernpfad, auch mit einer Testlauf-Session. Heute ohne Wirkung: Der Wrapper `lernpfadBeleg` (`src/lib/supabase/lernpfad.ts`)
    wird von keiner Seite aufgerufen; `antwort_abgeben` prüft `testlauf` selbst. Nicht in der T2-Liste.
 4. ~~CI-Schemavergleich bis zum Einspielen rot.~~ Erledigt mit dem Einspielen (Abzug unten).
