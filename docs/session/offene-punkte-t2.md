@@ -36,21 +36,37 @@ offene-punkte-x0c „Weitere offene Punkte“ 2 und 5
 
 ## Offene Punkte
 
-1. **„Tiefer gehen“ ändert im Testlauf den nächsten Schritt nicht.** Der Planer liest die Entscheidung aus dem
+1. **An T4 (Rasit 12.10.).** **„Tiefer gehen“ ändert im Testlauf den nächsten Schritt nicht.** Der Planer liest die Entscheidung aus dem
    Lernpfad, nicht aus der Session: `session_zielliste` → `ziel_fertigkeiten_core(p_student_id, …)` liest
    `lernpfad.stand_system`, dazu prüft `session_zielliste` `lernpfad_protokoll` (`aktion = 'pfad_tiefer'` und
    `session_id`). Ohne diese Zeilen bleibt der Plan beim bisherigen Skill. Beleg pgTAP `session_t2` 2a:
    echt `zz_a2_v1`, Testlauf `zz_a2_s1` (Zusicherung „bleibt beim bisherigen Skill (offener Punkt T2-1)“, kippt, sobald der
    Planer umgebaut ist). Laut Auftrag nicht umgebaut; `session_zielliste` und die Planer-Hilfen gehören F1/C3.
    Vorschlag: Im Testlauf die jüngste `entscheidung_pfad` aus `session_ereignisse` als Ersatz für die Lernpfad-Zeile
-   lesen. **Bitte entscheiden, wer das baut.**
-2. **Sperre nach dem Start gilt nur für den RPC.** Admins dürfen `coaching_sessions` per RLS (`coaching_sessions_admin_all`)
+   lesen.
+2. **An T4 (Rasit 12.10.).** **Sperre nach dem Start gilt nur für den RPC.** Admins dürfen `coaching_sessions` per RLS (`coaching_sessions_admin_all`)
    direkt schreiben; ein `update … set testlauf = …` nach dem Start geht am neuen Check vorbei (der Trigger
    `coaching_sessions_testlauf_pruefen` prüft nur Rolle und Testkonten). Die Oberfläche nutzt nur den RPC. Wer die
    Regel auch dort will: Startprüfung in den Trigger (gehört nicht zu T2; `session_c2.test.sql` setzt `testlauf` heute
    direkt nach dem Start und müsste dann angepasst werden).
-3. **`lernpfad_beleg` prüft `testlauf` nicht.** Der Coach-RPC bucht über `lernpfad_beleg_core` Belege und Stand in den
+3. **An T4 (Rasit 12.10.).** **`lernpfad_beleg` prüft `testlauf` nicht.** Der Coach-RPC bucht über `lernpfad_beleg_core` Belege und Stand in den
    Lernpfad, auch mit einer Testlauf-Session. Heute ohne Wirkung: Der Wrapper `lernpfadBeleg` (`src/lib/supabase/lernpfad.ts`)
    wird von keiner Seite aufgerufen; `antwort_abgeben` prüft `testlauf` selbst. Nicht in der T2-Liste.
-4. **CI-Schemavergleich bis zum Einspielen rot.** Laut Auftrag wird `supabase/schema-erwartet.sql` erst nach dem
-   Einspielen angefasst; bis dahin weicht der Neuaufbau in drei Funktionen ab.
+4. ~~CI-Schemavergleich bis zum Einspielen rot.~~ Erledigt mit dem Einspielen (Abzug unten).
+
+## Eingespielt (12.10.2026, nach „T2 einspielen“)
+
+- `origin/dev` eingemischt: schon aktuell (kein neuer Commit seit dem PR). Tests erneut auf frisch aufgebauter
+  Wegwerf-DB (alle Migrationen inkl. T2, `seed.sql`): pgTAP 41 grün, rot genau die acht aus `bekannt-rot.txt`,
+  `session_t2` 54, `session_x0b` 28, `session_x0c` 39; `npm run typecheck`, `lint`, `test` grün (1054).
+- Vorher per dbread: alle drei Versionen frei, höchste Version `20261013125413`; Prod-Texte der fünf Funktionen
+  unverändert gegenüber dem PR-Stand.
+- Je Migration `~/bin/mig` (Muster CLAUDE.md §10: DB-Check, Versionscheck, eine Transaktion, Historien-Eintrag):
+  `20261013140830 t2_testlauf_schalter`, `20261013140852 t2_lernpfad_testlauf`, `20261013140911 t2_haertungen`, je „OK“.
+- Danach per dbread: drei Zeilen in `schema_migrations`; `pg_get_functiondef` aller acht T2-Funktionen in Prod
+  byte-gleich mit dem Neuaufbau; `proacl` von `authoring_review_meta` `{postgres=X,authenticated=X,service_role=X}`,
+  `has_function_privilege('anon', …)` = false, `authenticated` = true; übrige Grants unverändert.
+- `tools/schema-snapshot.sh` (read-only aus Prod): Abzug ändert nur die fünf T2-Funktionen; gefiltert wie in der CI
+  gegen einen Neuaufbau verglichen: gleich.
+- `schema.sql`/`schema_content.sql` nicht angefasst: werden seit #130 nicht mehr gepflegt, Stand ist
+  `schema-erwartet.sql`.
