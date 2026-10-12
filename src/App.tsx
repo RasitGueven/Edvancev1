@@ -4,6 +4,7 @@ import { DesignShowcase } from '@/pages/DesignShowcase'
 import { MockSession } from '@/pages/mock/session/MockSession'
 import { StudentDashboard } from '@/pages/student/StudentDashboard'
 import { CoachDashboard } from '@/pages/coach/CoachDashboard'
+import { MeineEinsaetzePage } from '@/pages/coach/einsaetze/MeineEinsaetzePage'
 import { ParentDashboard } from '@/pages/parent/ParentDashboard'
 import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent/ScreeningReportPage'
 import { HeutePage } from '@/pages/admin/HeutePage'
@@ -89,6 +90,15 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['coach']}>
                 <CoachDashboard />
+              </ProtectedRoute>
+            }
+          />
+          {/* Meine Einsätze (Slots SL3): nur Coach; ein Admin plant im Wochenplan. */}
+          <Route
+            path="/coach/einsaetze"
+            element={
+              <ProtectedRoute allowedRoles={['coach']} umleitungFuer={{ admin: '/admin/slots' }}>
+                <MeineEinsaetzePage />
               </ProtectedRoute>
             }
           />

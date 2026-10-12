@@ -161,10 +161,11 @@ select cs.id, k.k
                ('ZZ C2 testlauf', :'k_tim'::uuid), ('ZZ C2 nur test', :'k_tim'::uuid), ('ZZ C2 nie test', :'k_tim'::uuid)) k(raum, k)
     on k.raum = cs.room;
 select set_config('edvance.session_rpc', '1', true);
+-- T4: testlauf nur vor dem Start (Trigger), deshalb vor dem Statuswechsel.
+update coaching_sessions set testlauf = true where room = 'ZZ C2 testlauf';
 update coaching_sessions set status = 'done' where room = 'ZZ C2 fertig';
 update coaching_sessions set status = 'active', gestartet_am = scheduled_at
  where room in ('ZZ C2 fremd', 'ZZ C2 offen alt', 'ZZ C2 knapp', 'ZZ C2 testlauf', 'ZZ C2 leer', 'ZZ C2 nur test');
-update coaching_sessions set testlauf = true where room = 'ZZ C2 testlauf';
 select set_config('edvance.session_rpc', '', true);
 select is((select array_agg(room order by room) from sessions_offen() where room like 'ZZ C2%'),
           array['ZZ C2 fremd', 'ZZ C2 offen alt'],

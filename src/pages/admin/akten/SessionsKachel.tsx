@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { CalendarDays } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
@@ -23,9 +25,10 @@ const BADGE: Record<AttendanceStatus, EdvanceBadgeVariant> = {
  * Sessions und Anwesenheit (Anforderung E): Summe je Zustand, letzte 8, Rest
  * aufklappbar. Quelle akte_sessions (alle Sessions seit Beginn der Akte, auch
  * fuer Coaches). Fach und "woran gearbeitet" gibt es noch nicht — "—" mit
- * Hinweis, kommt mit Slots.
+ * Hinweis, kommt mit Slots. Slots SL3: "Termine planen" führt einen Admin in die
+ * Termin-Übersicht des Kindes (planenZu); Coaches bekommen den Link nicht.
  */
-export function SessionsKachel({ sessions }: { sessions: AkteSession[] }): JSX.Element {
+export function SessionsKachel({ sessions, planenZu }: { sessions: AkteSession[]; planenZu?: string }): JSX.Element {
   const { t, i18n } = useTranslation('akte')
   const [alle, setAlle] = useState(false)
   const summe = summeJeZustand(sessions.map((s) => s.attendance))
@@ -34,9 +37,20 @@ export function SessionsKachel({ sessions }: { sessions: AkteSession[] }): JSX.E
 
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-        {t('sessions.titel')}
-      </h2>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+          {t('sessions.titel')}
+        </h2>
+        {planenZu && (
+          <Link
+            to={planenZu}
+            className="inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-[var(--color-text-link)] hover:underline"
+          >
+            <CalendarDays aria-hidden="true" className="h-4 w-4" />
+            {t('sessions.planen')}
+          </Link>
+        )}
+      </div>
 
       {sessions.length === 0 ? (
         <p className="text-sm text-[var(--color-text-secondary)]">{t('sessions.leer')}</p>

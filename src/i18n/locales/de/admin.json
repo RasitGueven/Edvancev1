@@ -93,14 +93,18 @@
       "lsaAnzahl_zero": "keine Lernstandsanalyse",
       "lsaAnzahl_one": "dazu {{count}} Lernstandsanalyse",
       "lsaAnzahl_other": "dazu {{count}} Lernstandsanalysen",
-      "raum": "Raum {{raum}}",
       "session": "Session",
       "ohneCoach": "ohne Coach",
       "lsa": "LSA",
       "lsaMeta": "Klasse {{klasse}} · {{fach}}",
       "leerTitel": "Heute ist es ruhig",
       "leerText": "Für heute sind keine Sessions und keine Lernstandsanalysen geplant.",
-      "fuss": "Zum Stundenplan"
+      "fuss": "Zum Stundenplan",
+      "faelltAus": "Coach fällt aus",
+      "testlauf": "Testlauf",
+      "einzel": "Einzel-Session",
+      "keinBetrieb": "Heute kein Betrieb: {{anlass}}",
+      "fussWochenplan": "Zum Wochenplan"
     },
     "offeneSessions": {
       "titel": "Offen geblieben",
@@ -116,6 +120,13 @@
       "leer": "Alle Sessions sind abgeschlossen",
       "nichtGestartet": "Nicht gestartet ({{count}})",
       "nichtGestartetText": "vergangen, nie gestartet · im Stundenplan ansehen"
+    },
+    "absagen": {
+      "titel": "Absagen heute",
+      "zeile": "{{beginn}} · abgesagt um {{eingang}}",
+      "rechtzeitig": "rechtzeitig",
+      "unentschuldigt": "unentschuldigt",
+      "regel": "Bis 10 Uhr am Session-Tag gilt eine Absage als rechtzeitig, danach verbraucht sie die Einheit."
     }
   },
   "schedule": {

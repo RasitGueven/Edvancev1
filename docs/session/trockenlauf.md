@@ -118,16 +118,18 @@ sind (Gleichstand: die frühere), daneben die Restzeit der Session. Nur der Chec
 | 11 | Check-out | Coach | Je Kind zwei Satzvorschläge, „Als gesagt markieren“. Der Satz steht **nicht** auf dem Tablet (**E33**). |
 | 12 | Abschluss | Coach: „Abschluss“, dann „Session abschließen“ | Tablet zeigt das Ende. XP: im Testlauf keine Buchung (**E30**); was das Tablet am Ende zeigt, notieren. Danach sollten die Tablets wieder den Warte-Bildschirm zeigen. |
 
-**„Eine Stufe tiefer“ und Eingriffe (seit T2):** Im Testlauf schreiben sie nichts mehr in den Lernpfad; das
-Session-Ereignis entsteht wie sonst. Aber: Der nächste Schritt geht im Testlauf **nicht** eine Stufe tiefer, weil der
-Planer die Entscheidung aus dem Lernpfad liest (offene-punkte-t2, Punkt 1). Wer es ausprobiert: notieren, nicht als Fehler
-melden. Das Prüfskript bleibt bei Punkt 5 und 6 auf „ok“.
+**„Eine Stufe tiefer“ und Eingriffe (seit T2, Plan seit T4):** Im Testlauf schreiben sie nichts in den Lernpfad; das
+Session-Ereignis entsteht wie sonst. Seit T4 liest der Planer die Entscheidung im Testlauf aus der Session: Der nächste
+Schritt geht wie in einer echten Session eine Stufe tiefer (offene-punkte-t4). Das Prüfskript bleibt bei Punkt 5 und 6
+auf „ok“.
 
 **Prüffrage (Schritt 7):** Sie gibt es nur für einen Skill im Stand `kandidat`. Der Lernpfad in Prod ist leer, und ein
-Testlauf schreibt keine Belege (`antwort_abgeben` prüft `testlauf`). Im Trockenlauf entsteht also kein Kandidat, der Knopf
+Testlauf schreibt keine Belege (`antwort_abgeben` prüft `testlauf`, `lernpfad_beleg` seit T4 ebenso). Im Trockenlauf
+entsteht also kein Kandidat, der Knopf
 „Prüffrage aufs Tablet“ erscheint nicht (**E31**, **E34** bleiben hier ungetestet). Abgedeckt ist der Ablauf über die
 App-Vorschau (`/session/vorschau` in edvance-app) und pgTAP `supabase/tests/session_a2b.test.sql` (Teil 2 und 3:
-`pruefung_aufs_tablet`, `tablet_stand.pruefung`).
+`pruefung_aufs_tablet`, `tablet_stand.pruefung`). Seit T4 gilt im Testlauf jede Prüffrage wie freigegeben
+(`session_t4.test.sql`, Teil 2).
 
 ## Danach
 

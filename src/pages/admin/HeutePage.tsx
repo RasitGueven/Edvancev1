@@ -30,6 +30,7 @@ import {
   vorname,
 } from './heute/heuteModel'
 import { useHeuteDaten } from './heute/useHeuteDaten'
+import { coachesImEinsatz } from './heute/betriebModel'
 import { TerminModal, type TerminInput } from './leads/TerminModal'
 import { formatEuro } from './vertraege/VertragForm'
 
@@ -80,7 +81,8 @@ export function HeutePage(): JSX.Element {
 
   const summe = summen(daten.vertraege)
   const monat = new Intl.DateTimeFormat(lang, { timeZone: 'Europe/Berlin', month: 'long' }).format(jetzt)
-  const coachesHeute = new Set(daten.sessions.map((s) => s.coach_id).filter(Boolean)).size
+  // Slots SL3: „heute im Einsatz“ zählt die Coaches der geöffneten Raum-Termine.
+  const coachesHeute = coachesImEinsatz(daten.tag)
 
   const zahlen: Kennzahl[] = [
     {
@@ -209,7 +211,7 @@ export function HeutePage(): JSX.Element {
               <h2 id="heute-betrieb" className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
                 {t('heute.betrieb.titel')}
               </h2>
-              <HeuteImBetrieb sessions={daten.sessions} lsa={daten.lsaHeute} />
+              <HeuteImBetrieb tag={daten.tag} lsa={daten.lsaHeute} tagFehler={daten.tagFehler} />
               <OffeneSessionsListe />
             </aside>
           </div>
