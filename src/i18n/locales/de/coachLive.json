@@ -10,6 +10,7 @@
     "zeitleiste": "Phasen der Session",
     "dauer": "{{count}} Min",
     "testlauf": "Testlauf",
+    "testlaufHinweis": "Testlauf: Inhalte können ungeprüft sein.",
     "ansicht": "Ansicht wählen",
     "liveFolgen": "Live folgen",
     "abschluss": "Abschluss",
