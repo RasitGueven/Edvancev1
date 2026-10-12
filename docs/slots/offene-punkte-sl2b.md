@@ -15,7 +15,8 @@ Stand: 12.10.2026 · Paket SL2b · Branch `feat/rasit-slots-sl2b-testkonten` (ab
 
 ## Offene Punkte
 
-1. **Coach kann einen reinen Testtermin nicht festschreiben.** Der Trigger `coaching_sessions_testlauf_pruefen`
+1. **Coach kann einen reinen Testtermin nicht festschreiben.** Entschieden (Rasit, 12.10.): nicht in SL2b, kommt
+   in T5; für die Abnahme öffnet der Admin. Der Trigger `coaching_sessions_testlauf_pruefen`
    erlaubt `testlauf = true` beim Anlegen nur dem Admin (auch in der T4-Fassung). Den Trigger fasst SL2b laut
    Leitplanke nicht an. `termin_session_anlegen` fängt seine Ablehnung ab und meldet 42501 mit Hinweis
    `testlauf_nur_admin` (Text in `de/slots.json`: „… Die Session als Testlauf öffnet die Verwaltung.“). Ändert T4 den
@@ -60,9 +61,9 @@ Stand: 12.10.2026 · Paket SL2b · Branch `feat/rasit-slots-sl2b-testkonten` (ab
     Session an. `testkonto_setzen` gehört nicht zu SL2b. Bis eine Sperre dort kommt (Vorschlag: kein Wechsel, solange
     das Kind einen laufenden Stammplatz oder künftige geplante Termine hat), gilt: erst räumen bzw. Stammplatz beenden,
     dann umstellen.
-11. **CI bis zum Einspielen rot (Consensus-Befund 2).** `schema-erwartet.sql` wird laut Leitplanke erst nach dem
-    Einspielen neu erzeugt. Bis dahin scheitert der CI-Job `neuaufbau` am Schema-Vergleich (wie bei SL1, Punkt 15);
-    die pgTAP-Dateien laufen lokal alle grün (Wegwerf-DB, Postgres 18).
+11. **CI bis zum Einspielen rot (Consensus-Befund 2).** Erledigt: Beide Migrationen sind am 12.10. nach dem Merge
+    von #242 in Prod eingespielt (mit Historie, per dbread geprüft), `schema-erwartet.sql` ist neu abgezogen und
+    gleich dem Schema aus allen Migrationen.
 12. **Liste „Ohne Stammplatz“ und Zähler (Consensus-Befund 8).** Die Liste im Reiter Kinder zählt Testkonten mit (mit
     Kennzeichen), Leiste und Kopf nicht. Gewollt nach Entscheidung 3; falls es stört, kann die Liste „davon n Test“
     nennen.
