@@ -2929,7 +2929,9 @@ declare
   v_admin    boolean := coalesce(public.get_my_role(), '') = 'admin' or public.ist_systemaufruf();
 begin
   perform public.erklaer_darf_schreiben('erklaer_status_setzen');
-  if p_status not in ('entwurf', 'geprueft', 'freigegeben') or p_objekt not in ('kernidee', 'schritt') then
+  -- T2: NULL fiel bisher durch beide not in (offene-punkte-x0c, Weiteres 5) und erst an not null.
+  if p_status is null or p_objekt is null
+     or p_status not in ('entwurf', 'geprueft', 'freigegeben') or p_objekt not in ('kernidee', 'schritt') then
     raise exception 'erklaer_status_setzen: ungueltiger Status oder Objekt' using errcode = '22023';
   end if;
 
@@ -6591,6 +6593,10 @@ begin
   if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'lsa_uebernahme: nur Coach/Admin' using errcode = '42501';
   end if;
+  -- T2: ohne Schueler lief NULL am Vergleich unten vorbei (offene-punkte-x0c, Weiteres 5).
+  if p_student_id is null then
+    raise exception 'lsa_uebernahme: Schueler fehlt' using errcode = '22023';
+  end if;
 
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
@@ -6938,6 +6944,8 @@ CREATE FUNCTION public.mastery_entscheiden(p_student_id uuid, p_skill_key text, 
     AS $$
 declare
   v_alt public.lernpfad;
+  -- T2: im Testlauf schreibt die Entscheidung nichts in lernpfad/lernpfad_protokoll.
+  v_test boolean := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
 begin
   -- Kein Systemaufruf: „gemeistert“ entsteht nur durch einen Menschen (FernUSG).
   if not (coalesce(public.get_my_role(), '') = 'admin'
@@ -6963,6 +6971,11 @@ begin
   end if;
   if p_entscheidung = 'vertagt' and nullif(btrim(coalesce(p_grund, '')), '') is null then
     raise exception 'mastery_entscheiden: Vertagen braucht einen Grund' using errcode = '22023';
+  end if;
+
+  if v_test then
+    return jsonb_build_object('ok', true, 'skill_key', p_skill_key,
+                              'stand_system', v_alt.stand_system, 'stand_coach', p_entscheidung);
   end if;
 
   update public.lernpfad
@@ -7424,6 +7437,8 @@ CREATE FUNCTION public.pfad_tiefer(p_student_id uuid, p_skill_key text, p_sessio
 declare
   v_ziel     text;
   v_alt      public.lernpfad;
+  -- T2: im Testlauf bleibt der Lernpfad unberuehrt; geprueft und gewaehlt wird wie sonst.
+  v_test     boolean := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
 begin
   if not (public.ist_systemaufruf()
           or coalesce(public.get_my_role(), '') = 'admin'
@@ -7467,6 +7482,10 @@ begin
    for update;
   if v_alt.stand_system = 'kandidat' or v_alt.stand_coach = 'gemeistert' then
     raise exception 'pfad_tiefer: % ist Mastery-Kandidat oder gemeistert', v_ziel using errcode = 'P0001';
+  end if;
+
+  if v_test then
+    return v_ziel;
   end if;
 
   insert into public.lernpfad (student_id, skill_key, stand_system, quelle)
@@ -12813,14 +12832,22 @@ CREATE FUNCTION public.session_testlauf_setzen(p_session_id uuid, p_testlauf boo
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
+declare
+  v_sess public.coaching_sessions;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'session_testlauf_setzen: nur Admin' using errcode = '42501';
   end if;
-  update public.coaching_sessions set testlauf = coalesce(p_testlauf, false) where id = p_session_id;
+  -- T2: Zeile sperren, damit kein Start zwischen Pruefung und Update faellt.
+  select * into v_sess from public.coaching_sessions where id = p_session_id for update;
   if not found then
     raise exception 'session_testlauf_setzen: Session nicht gefunden' using errcode = 'P0002';
   end if;
+  if v_sess.gestartet_am is not null or v_sess.status is distinct from 'upcoming' then
+    raise exception 'session_testlauf_setzen: Session ist schon gestartet' using errcode = '55000',
+      hint = 'session_gestartet';
+  end if;
+  update public.coaching_sessions set testlauf = coalesce(p_testlauf, false) where id = p_session_id;
 end;
 $$;
 

@@ -22,6 +22,8 @@ export type CoachingSession = {
   status: SessionStatus
   /** X0: Testlauf (nur Testkonten, nie in Akten). */
   testlauf?: boolean
+  /** Start der Session (session_starten); leer, solange sie nicht laeuft. */
+  gestartet_am?: string | null
 }
 
 export type SessionStudent = {

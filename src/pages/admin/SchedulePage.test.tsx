@@ -10,6 +10,9 @@ import '@/i18n'
 
 vi.mock('@/lib/supabase/sessions', () => ({
   KEIN_PLATZ_ZUGANG: 'ZG001',
+  TESTLAUF_GESTARTET: '55000',
+  TESTLAUF_NUR_TESTKONTEN: '22023',
+  setSessionTestlauf: vi.fn(),
   createSession: vi.fn(),
   listSessionsForCoach: vi.fn(() =>
     Promise.resolve({
@@ -50,7 +53,7 @@ vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { email: 'admin@edvance.de' }, role: 'admin', signOut: vi.fn() }),
 }))
 
-import { addStudentToSession, listPlatzKandidaten } from '@/lib/supabase/sessions'
+import { addStudentToSession, listPlatzKandidaten, setSessionTestlauf } from '@/lib/supabase/sessions'
 import { SchedulePage } from './SchedulePage'
 
 async function sessionOeffnen(): Promise<HTMLSelectElement> {
@@ -68,6 +71,7 @@ async function sessionOeffnen(): Promise<HTMLSelectElement> {
 beforeEach(() => {
   vi.mocked(addStudentToSession).mockReset()
   vi.mocked(listPlatzKandidaten).mockClear()
+  vi.mocked(setSessionTestlauf).mockReset()
 })
 
 describe('SchedulePage — Platz nur mit laufendem Vertrag', () => {
@@ -120,5 +124,30 @@ describe('SchedulePage — Platz nur mit laufendem Vertrag', () => {
       await screen.findByText('Kein weiteres Kind hat an diesem Datum einen laufenden Vertrag.'),
     ).toBeTruthy()
     expect(screen.queryByLabelText('Schüler auswählen')).toBeNull()
+  })
+})
+
+// T2: Testlauf-Schalter in der Session-Karte (session_testlauf_setzen).
+describe('SchedulePage — Testlauf', () => {
+  it('setzt den Testlauf und zeigt das Kennzeichen in der Karte', async () => {
+    vi.mocked(setSessionTestlauf).mockResolvedValue({ data: null, error: null })
+    await sessionOeffnen()
+    // Vorher nur die Beschriftung des Schalters, danach auch das Kennzeichen in der Karte.
+    expect(screen.getAllByText('Testlauf').length).toBe(1)
+    fireEvent.click(screen.getByRole('switch', { name: /Testlauf/ }))
+    await waitFor(() => expect(setSessionTestlauf).toHaveBeenCalledWith('ZZ_session', true))
+    expect((await screen.findByRole('switch', { name: /Testlauf/ }) as HTMLInputElement).checked).toBe(true)
+    expect(screen.getAllByText('Testlauf').length).toBe(2)
+  })
+
+  it('zeigt im Testlauf eine ruhige Meldung, wenn ein echtes Kind gebucht werden soll', async () => {
+    vi.mocked(setSessionTestlauf).mockResolvedValue({ data: null, error: null })
+    vi.mocked(addStudentToSession).mockResolvedValue({ data: null, error: 'Testlauf: nur Testkonten', code: '22023' })
+    const auswahl = await sessionOeffnen()
+    fireEvent.click(screen.getByRole('switch', { name: /Testlauf/ }))
+    await waitFor(() => expect(screen.getAllByText('Testlauf').length).toBe(2))
+    fireEvent.change(auswahl, { target: { value: 'ZZ_mit' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Zuweisen' }))
+    expect(await screen.findByText('Im Testlauf sind nur Testkonten buchbar.')).toBeTruthy()
   })
 })

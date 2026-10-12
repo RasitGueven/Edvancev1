@@ -32,8 +32,8 @@ Einheit.
 
 ### 3. Testlauf setzen (vor dem Start)
 
-Wie trockenlauf.md Schritt 6 (SQL-Editor, `session_testlauf_setzen` mit Admin-Claims), danach die Kontrolle per dbread
-(`t|t`). Ohne Testlauf startet das Szenario **nicht**.
+Wie trockenlauf.md Schritt 6: auf `/admin/schedule` in der Karte der Session den Schalter „Testlauf“ einschalten (seit
+T2, kein SQL-Editor mehr), danach die Kontrolle per dbread (`t|t`). Ohne Testlauf startet das Szenario **nicht**.
 
 Warum Testlauf: Die Aufgaben der quadratischen Gleichungen und die Erklärsequenz sind Entwürfe. Außerhalb eines
 Testlaufs stünden sie nicht im Session-Pool (`session_im_pool` verlangt `ready`; E2 gilt nur für die LSA), und die
@@ -67,7 +67,7 @@ Laptop: `/coach` → Session → „Session starten“ → Live-Sicht.
 - Steht das Kind ohne Ziel oder ohne Aufgabe (`kein_ziel`, `pool_leer`), steht oben der Grund in Klartext mit der
   Themensuche (A1).
 
-**Nicht drücken:** „Eine Stufe tiefer“ und Eingriffe (trockenlauf.md, bis T2).
+**„Eine Stufe tiefer“ und Eingriffe:** schreiben seit T2 im Testlauf nichts in den Lernpfad; der nächste Schritt geht im Testlauf aber nicht tiefer (trockenlauf.md, offene-punkte-t2 Punkt 1).
 
 ## Danach
 
