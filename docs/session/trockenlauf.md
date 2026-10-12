@@ -106,7 +106,7 @@ Laptop als Test-Coach: `/coach` → „Briefing ansehen“ → „Session starte
 | 3 | Fall wählen | Coach wählt Fall „Schulthema“, Thema Lineare Funktionen | Tablet zeigt das Ziel der Stunde: höchstens drei Fertigkeiten, ohne Stand, Prozent oder Farbe (**E35**). |
 | 4 | Warm-up | Kind löst drei Aufgaben | Keine Hinweise (**E32**). Richtig in Gold, falsch mit Fehlbild-Satz und Fehler-Rand, kein zweiter Versuch (**E29**). |
 | 5 | Kernarbeit | Kind bekommt Lösungsbeispiel, dann Aufgabe | Beispiel mit Lösungsweg, Weiter → Aufgabe. Coach-Kachel füllt sich alle 4 s, Musterlösung nur in der Schublade. Notieren, mit welchem Skill die Kernarbeit beginnt (Steigung erwartet). |
-| 6 | Hinweis | Kind tippt „Hinweis“ vor dem Abgeben | Hinweise nur in der Kernarbeit und nur vor dem Abgeben (**E32**). Im Warm-up und bei Exit fehlt der Knopf. |
+| 6 | Hinweis | Kind tippt „Hinweis“ vor dem Abgeben | Hinweise nur in der Kernarbeit und nur vor dem Abgeben (**E32**). Im Warm-up und bei Exit fehlt der Knopf. Hinweise, Musterlösungen und Fehlbilder erscheinen im Testlauf auch ungeprüft (T3); die Coach-Sicht sagt das im Kopf („Testlauf: Inhalte können ungeprüft sein.“). Eine Aufgabe ohne Hinweis bleibt „nicht verfügbar“. |
 | 7 | Prüffrage | – | **Erscheint im Trockenlauf nicht** (siehe unten). |
 | 8 | Erklärsequenz | nur falls E2b eingespielt | In Prod gibt es keine Kernidee (dbread 08.10.: 0), E2b ist nicht eingespielt. Dann entfällt der Schritt. Mit E2b: Kernideen und Checks, danach Beispiel und Aufgabe zum selben Skill (offene-punkte-a2d 1). Freigabe-Regeln: **E37**, **E38**. |
 | 9 | Exit | Kind löst zwei Exit-Aufgaben | Ohne Hinweise, nur „Gespeichert“ (**E29**). |

@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import type { CoachLiveRaum, LiveZeitpunkt } from '@/types/coachLive'
 import type { SessionPhase } from '@/types/sessionLive'
 import { Pille } from './bausteine'
+import { TestlaufUngeprueft } from './TestlaufUngeprueft'
 import { useLiveTexte } from './useLiveTexte'
 
 type KopfProps = {
@@ -56,6 +57,7 @@ export function LiveKopf({ raum, eigeneAnsicht, onZeige, onZurueck }: KopfProps)
           <span className="text-xs text-[var(--color-text-tertiary)]">{unterzeile}</span>
         </div>
       </div>
+      {s.testlauf && <TestlaufUngeprueft />}
       <Zeitleiste raum={raum} minute={minute} onZeige={onZeige} />
       <KinderPhasen raum={raum} onZeige={onZeige} />
       {s.status === 'active' && (

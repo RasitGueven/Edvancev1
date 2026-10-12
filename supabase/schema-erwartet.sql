@@ -418,7 +418,13 @@ begin
     'ergebnis', b.ergebnis,
     'versuch_nr', v_nr,
     'fehlbild_klartext', (select fl.klartext from public.fehlbild_labels fl
-                           where fl.slug = b.fehlbild_slug and fl.freigegeben_am is not null));
+                           where fl.slug = b.fehlbild_slug
+                             and (fl.freigegeben_am is not null
+                                  -- T3: im Testlauf jeder Klartext, wenn die Aufgabe die Pruefung besteht.
+                                  or (coalesce((select cs.testlauf from public.coaching_sessions cs
+                                                 where cs.id = p_session_id), false)
+                                      and nullif(btrim(fl.klartext), '') is not null
+                                      and public.testlauf_inhalt_sichtbar(p_task_id)))));
 end;
 $$;
 
@@ -2302,6 +2308,8 @@ CREATE FUNCTION public.erklaer_nachlesen(p_student_id uuid, p_skill_key text) RE
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
+declare
+  v_tl boolean;
 begin
   -- A2c: ohne Kind das Kind des aufrufenden Tablets in seiner laufenden Session (wie tablet_stand).
   if p_student_id is null then
@@ -2325,15 +2333,21 @@ begin
           false) then
     raise exception 'erklaer_nachlesen: kein Zugriff' using errcode = '42501';
   end if;
+  -- T3: Am Tablet des Kindes in seiner laufenden Testlauf-Session auch Kernideen im Entwurf (wie erklaer_start).
+  -- Schuelerkonto, Coach und Admin sehen weiter nur Freigegebenes.
+  v_tl := exists (select 1 from public.session_tablets st
+                    join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+                   where st.student_id = p_student_id and st.geraet_id = auth.uid() and st.geloest_am is null
+                     and cs.testlauf);
 
   return jsonb_build_object(
     'skill_key', p_skill_key,
     'kernideen', (select coalesce(jsonb_agg(jsonb_build_object(
                            'nr', k.nr, 'titel', k.titel,
-                           'schritte', public.erklaer_schritte_json(k.id, 'A')) order by k.nr), '[]')
+                           'schritte', public.erklaer_schritte_json(k.id, 'A', v_tl)) order by k.nr), '[]')
                     from public.erklaer_kernidee k
-                   where k.skill_key = p_skill_key and k.status = 'freigegeben'
-                     and 'A' = any (public.erklaer_varianten(k.id))));
+                   where k.skill_key = p_skill_key and public.erklaer_status_ok(k.status, v_tl)
+                     and 'A' = any (public.erklaer_varianten(k.id, v_tl))));
 end;
 $$;
 
@@ -3413,6 +3427,8 @@ CREATE FUNCTION public.hinweis_abrufen(p_session_id uuid, p_task_id uuid, p_stuf
 declare
   t      public.session_tablets := public.session_tablet_platz(p_session_id, 'hinweis_abrufen');
   v_text text;
+  -- T3: Testlauf nur aus der Session, nach der Platz-Pruefung oben.
+  v_tl   boolean := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
 begin
   if not exists (select 1 from public.session_ausgegeben where session_id = p_session_id
                   and student_id = t.student_id and task_id = p_task_id) then
@@ -3450,8 +3466,11 @@ begin
 
   select h ->> 'text' into v_text
     from public.task_solutions s, jsonb_array_elements(s.hints) as e(h)
-   where s.task_id = p_task_id and h ->> 'level' = p_stufe::text and h ->> 'status' = 'geprueft'
-   order by h ->> 'text'
+   where s.task_id = p_task_id and h ->> 'level' = p_stufe::text
+     and (h ->> 'status' = 'geprueft'
+          -- T3: im Testlauf jeder Hinweis mit Text, wenn die Aufgabe die Pruefung des Lena-Boards besteht.
+          or (v_tl and nullif(btrim(h ->> 'text'), '') is not null and public.testlauf_inhalt_sichtbar(p_task_id)))
+   order by coalesce(h ->> 'status' = 'geprueft', false) desc, h ->> 'text'
    limit 1;
 
   perform public.session_ereignis(p_session_id, t.student_id, 'hinweis',
@@ -4709,7 +4728,8 @@ CREATE FUNCTION public.lsa_fehlbild_report(p_session_id uuid) RETURNS TABLE(skil
     AS $$
   with falsch as (
     select t.skill_key     as sk,
-           r.fehlbild_slug as slug
+           r.fehlbild_slug as slug,
+           r.task_id       as task_id
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
@@ -4739,7 +4759,11 @@ CREATE FUNCTION public.lsa_fehlbild_report(p_session_id uuid) RETURNS TABLE(skil
          -- ist kein Klartext ueber ein Kind, sondern ein Befund ueber die
          -- Registry — genau die Luecke, die Lena sehen muss (AF2).
          case when g.slug is null then 'nicht zugeordnet'
-              when l.freigegeben_am is null then null
+              -- T3: fuer ein Testkonto jeder Klartext, wenn eine der Aufgaben die Pruefung des Lena-Boards besteht.
+              when l.freigegeben_am is null
+               and not (public.lsa_testinhalte(p_session_id) and nullif(btrim(l.klartext), '') is not null
+                        and exists (select 1 from falsch f where f.sk is not distinct from g.sk and f.slug = g.slug
+                                       and public.testlauf_inhalt_sichtbar(f.task_id))) then null
               else l.klartext end,
          g.n,
          -- Anteil als Bruchteil 0..1, auf 4 Stellen gerundet. Gerundete
@@ -5119,7 +5143,11 @@ begin
          lateral jsonb_array_elements(s.hints) as e(h)
    where s.task_id = p_task_id
      and (h ->> 'level')::int = p_level
-     and h ->> 'status' = 'geprueft'
+     and (h ->> 'status' = 'geprueft'
+          -- T3: fuer ein Testkonto jeder Hinweis mit Text, wenn die Aufgabe die Pruefung des Lena-Boards besteht.
+          or (public.lsa_testinhalte(p_session_id) and nullif(btrim(h ->> 'text'), '') is not null
+              and public.testlauf_inhalt_sichtbar(p_task_id)))
+   order by coalesce(h ->> 'status' = 'geprueft', false) desc
    limit 1;
 
   if v_hint is null then
@@ -6551,6 +6579,20 @@ begin
   end if;
   return new;
 end;
+$$;
+
+
+--
+-- Name: lsa_testinhalte(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_testinhalte(p_session_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select coalesce(l.testlauf, false) or coalesce(s.ist_test, false)
+                     from public.lsa_sessions l left join public.students s on s.id = l.student_id
+                    where l.id = p_session_id), false)
 $$;
 
 
@@ -16467,6 +16509,20 @@ begin
     raise exception 'testkonto_setzen: nicht gefunden' using errcode = 'P0002';
   end if;
 end;
+$$;
+
+
+--
+-- Name: testlauf_inhalt_sichtbar(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.testlauf_inhalt_sichtbar(p_task_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select t.status in ('ready', 'draft', 'review', 'rueckfrage')
+                          and public.pruef_ausschluss(t.id) is null
+                     from public.tasks t where t.id = p_task_id), false)
 $$;
 
 

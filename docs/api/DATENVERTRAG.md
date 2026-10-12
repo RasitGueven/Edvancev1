@@ -193,7 +193,9 @@ anzeigen, weil es nichts darüber erfährt.
 
 ### `lsa_hint(session_id, task_id, level) → { level, text, available }`
 
-Genau der angefragte Hinweis-Level. `available: false`, wenn es ihn nicht gibt.
+Genau der angefragte Hinweis-Level. `available: false`, wenn es ihn nicht gibt. Sonst nur Hinweise mit Status
+`geprueft`; in der LSA eines Testkontos (Testlauf oder `students.ist_test`) jeder Hinweis mit Text, wenn die Aufgabe die
+Prüfung des Lena-Boards besteht (`pruef_ausschluss` leer). Ein geprüfter Hinweis derselben Stufe geht vor (T3).
 
 ### `lsa_finish(session_id) → result_summary`
 
@@ -573,6 +575,8 @@ Das Tablet übergibt `p_student_id = null`.
 - **Darstellung** (Entscheidung 29):
   - `richtig` in Gold.
   - `falsch` mit dem Fehlbild-Satz (`fehlbild_klartext`, falls vorhanden) und dem Fehler-Rand der App.
+    `fehlbild_klartext` kommt nur freigegeben (`fehlbild_labels.freigegeben_am`); im Testlauf jeder Klartext, wenn die
+    Aufgabe die Prüfung des Lena-Boards besteht (T3).
   - Bei Exit nur „Gespeichert“.
   - Die LSA bleibt ohne Richtig und Falsch.
 - **Kein zweiter Versuch:** Nach der Antwort ruft die App `session_naechster_schritt` und bietet keinen zweiten Versuch an. Der Server lehnt jede zweite Antwort zur selben Ausgabe und demselben Teil ab, auch nach einer falschen ersten; dabei wird nichts gespeichert oder gebucht.
@@ -585,7 +589,8 @@ Das Tablet übergibt `p_student_id = null`.
 #### `hinweis_abrufen(p_session_id, p_task_id, p_stufe) → { stufe: number; text: string | null; verfuegbar: boolean; weitere: boolean }`
 - **Wann:** nur bei `hinweise_erlaubt = true`, also bei Aufgaben der Kernarbeit (Entscheidung 32), und nur vor dem Abgeben. Hinweise hängen an der Aufgabe, nicht am Teil: Bei `multi_part` gibt es nach der ersten Teil-Antwort keinen Hinweis mehr.
 - **Stufen** der Reihe nach, ab 1, höchstens `hinweisstufen`.
-- **`verfuegbar: false`:** Zu dieser Stufe gibt es keinen geprüften Hinweis.
+- **`verfuegbar: false`:** Zu dieser Stufe gibt es keinen geprüften Hinweis. Im Testlauf (`coaching_sessions.testlauf`) zählt
+  jeder Hinweis mit Text, wenn die Aufgabe die Prüfung des Lena-Boards besteht; ein geprüfter derselben Stufe geht vor (T3).
 - **`weitere`** (A2c): `true`, solange es eine nächste Stufe gibt (`p_stufe < hinweisstufen`). Erst dann bietet die App „noch ein Hinweis“ an. Die Obergrenze selbst sieht das Tablet nicht. Eine Stufe mit `verfuegbar: false` zählt trotzdem als abgerufen, die nächste ist also frei.
 - **Fehler:**
   - 42501: kein Platz.
@@ -607,7 +612,8 @@ Das Tablet übergibt `p_student_id = null`.
   - P0002: keine freigegebene Erklärung.
 
 #### `erklaer_nachlesen(p_student_id, p_skill_key) → { skill_key, kernideen: [{ nr, titel, schritte }] }`
-Nur bei `erklaerung_angebot` mit `erklaerung_weg = nachlesen`. Variante A ohne Checks, nur freigegebene Inhalte (auch im Testlauf).
+Nur bei `erklaerung_angebot` mit `erklaerung_weg = nachlesen`. Variante A ohne Checks, nur freigegebene Inhalte. Am Tablet
+in einer Testlauf-Session auch Kernideen und Schritte im Entwurf, wie bei `erklaer_start` (T3).
 - **Parameter:** Das Tablet übergibt `p_student_id = null` (A2c). Dann gilt das Kind des aufrufenden Tablets in seiner laufenden Session. Das Schülerkonto zuhause übergibt seine eigene id, wie bisher.
 - **Fehler:** 42501, auch ohne aktive Zuweisung oder nach dem Lösen des Platzes.
 
