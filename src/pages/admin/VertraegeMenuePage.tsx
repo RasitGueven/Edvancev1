@@ -26,8 +26,10 @@ import { ReiterAntraege } from './vertraege/menue/ReiterAntraege'
 import { ReiterAuslaufend } from './vertraege/menue/ReiterAuslaufend'
 import { ReiterUebersicht } from './vertraege/menue/ReiterUebersicht'
 import { ReiterVerzug } from './vertraege/menue/ReiterVerzug'
-import { Reiterleiste, type ReiterKey } from './vertraege/menue/Reiterleiste'
+import { Reiterleiste } from '@/components/edvance/Reiterleiste'
 import { kindName } from './vertraege/vertragModel'
+
+type ReiterKey = 'antraege' | 'uebersicht' | 'auslaufend' | 'verzug'
 
 /** Eine offene Rueckfrage: ein Feld, ein Knopf, eine Wirkung. */
 type Frage =

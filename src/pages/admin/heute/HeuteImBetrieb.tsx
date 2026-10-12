@@ -2,32 +2,10 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceBadge, EdvanceCard, EmptyState } from '@/components/edvance'
+import { PlatzPunkte } from '@/components/edvance/PlatzPunkte'
 import type { SessionHeute } from '@/lib/supabase/heute'
 import type { LsaSessionListItem } from '@/types'
 import { berlinZeit } from './ListenVertrieb'
-
-/** Plätze je Raum: höchstens fünf Kinder (Kleingruppe). */
-const PLAETZE = 5
-
-function Plaetze({ belegt }: { belegt: number }): JSX.Element {
-  const { t } = useTranslation('admin')
-  return (
-    <span className="inline-flex items-center gap-1" aria-label={t('heute.betrieb.plaetze', { belegt, max: PLAETZE })}>
-      {Array.from({ length: PLAETZE }, (_, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className={`h-2 w-2 rounded-full ${
-            i < belegt ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-bg-subtle)] ring-1 ring-[var(--color-border)]'
-          }`}
-        />
-      ))}
-      <span aria-hidden="true" className="ml-1 text-xs tabular-nums text-[var(--color-text-tertiary)]">
-        {belegt}/{PLAETZE}
-      </span>
-    </span>
-  )
-}
 
 type Eintrag = { key: string; zeit: string; sortier: number; titel: string; unterzeile: string; rechts: JSX.Element }
 
@@ -47,7 +25,7 @@ export function HeuteImBetrieb({ sessions, lsa }: { sessions: SessionHeute[]; ls
       sortier: new Date(s.scheduled_at).getTime(),
       titel: s.room ? t('heute.betrieb.raum', { raum: s.room }) : t('heute.betrieb.session'),
       unterzeile: s.coach_name ?? t('heute.betrieb.ohneCoach'),
-      rechts: <Plaetze belegt={s.belegt} />,
+      rechts: <PlatzPunkte raeume={[s.belegt]} mitZahl />,
     })),
     ...lsa.map((l) => {
       const zeitpunkt = l.started_at ?? l.completed_at
