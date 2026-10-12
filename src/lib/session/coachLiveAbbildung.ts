@@ -218,7 +218,7 @@ function kindAus(k: KindRaum, c: Kontext): CoachLiveKind {
 /** Der ganze Raum. `jetzt` ist die Serverzeit der Abfrage (coach_raum_live.stand). */
 export function raumAus(raum: RaumLive, z: LiveZusatz): CoachLiveRaum {
   const e = raum.session.einstellungen ?? {}
-  const zeitpunkt = zeitpunktAus(raum.session, raum.stand)
+  const zeitpunkt = zeitpunktAus(raum.session, raum.stand, raum.kinder)
   const labels = new Map<string, string>()
   for (const k of raum.kinder) {
     if (k.schritt?.skill_key && k.schritt.skill_label) labels.set(k.schritt.skill_key, k.schritt.skill_label)

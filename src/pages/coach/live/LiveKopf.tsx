@@ -1,5 +1,5 @@
 import { ChevronLeft } from 'lucide-react'
-import { minuteImAblauf, segmentZustand, SESSION_MINUTEN } from '@/lib/session/coachLiveLogik'
+import { minuteImAblauf, restMinuten, segmentZustand, SESSION_MINUTEN } from '@/lib/session/coachLiveLogik'
 import { cn } from '@/lib/utils'
 import type { CoachLiveRaum, LiveZeitpunkt } from '@/types/coachLive'
 import type { SessionPhase } from '@/types/sessionLive'
@@ -9,26 +9,28 @@ import { useLiveTexte } from './useLiveTexte'
 
 type KopfProps = {
   raum: CoachLiveRaum
-  /** true, wenn der Coach eine andere Phase ansieht als die Uhr. */
+  /** true, wenn der Coach eine andere Phase ansieht als die, in der die meisten Kinder sind. */
   eigeneAnsicht: boolean
   onZeige: (z: LiveZeitpunkt | null) => void
   onZurueck: () => void
 }
 
 /**
- * Kopf der Fokus-Seite: zurueck, Session (mit Testlauf-Kennzeichen), Uhr, darunter die Phasen
+ * Kopf der Fokus-Seite: zurueck, Session (mit Testlauf-Kennzeichen), Uhr mit Restzeit, darunter die Phasen
  * aus dem Snapshot. Die Phasen sind antippbar: der Coach kann vorziehen (z. B. Check-out).
+ * F2: Die Ansicht folgt den Kindern (phaseDerKinder); die Uhr steht nur noch als Restzeit der Session daneben.
  */
 export function LiveKopf({ raum, eigeneAnsicht, onZeige, onZurueck }: KopfProps): JSX.Element {
   const { t, uhrzeit } = useLiveTexte()
   const s = raum.session
-  const minute = minuteImAblauf(s.gestartet ?? s.beginn, s.jetzt)
+  const beginn = s.gestartet ?? s.beginn
+  const minute = minuteImAblauf(beginn, s.jetzt)
   const unterzeile =
     minute < 0
       ? t('kopf.beginntIn', { count: -minute })
       : minute > SESSION_MINUTEN
         ? t('kopf.vorbei', { count: minute - SESSION_MINUTEN })
-        : t('kopf.minute', { minute, dauer: SESSION_MINUTEN })
+        : t('kopf.rest', { count: restMinuten(beginn, s.jetzt) })
 
   return (
     <header className="flex-none border-b border-[var(--color-border)] bg-[var(--color-bg-surface)]">

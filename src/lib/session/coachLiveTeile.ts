@@ -17,9 +17,9 @@ import type {
 } from '@/types/coachLive'
 import type { LernpfadEintrag, SkillPruefung } from '@/types/lernpfad'
 import type { BriefingKind, KindRaum, SatzVorschlag } from '@/types/sessionC2'
-import type { ErgebnisPunkt, RaumSignal, StellschraubeWert } from '@/types/sessionLive'
+import type { ErgebnisPunkt, RaumSignal, SessionPhase, StellschraubeWert } from '@/types/sessionLive'
 import type { Stufe } from '@/types/themen'
-import { SESSION_MINUTEN, zeitleisteAusSnapshot } from './coachLiveLogik'
+import { phaseDerKinder, SESSION_MINUTEN } from './coachLiveLogik'
 
 const zahl = (e: Record<string, StellschraubeWert>, k: string, standard: number): number => {
   const w = e[k]
@@ -34,19 +34,22 @@ export function stufeAusKlasse(klasse: number): Stufe {
 export const vornameAus = (name: string): string => name.trim().split(/\s+/)[0] ?? ''
 
 /**
- * Zeitpunkt der Ansicht: vor dem Start „vorher“, nach dem Abschluss „danach“. Dazwischen nach der
- * Uhr wie session_uhr_phase (Start + Phasen aus dem Snapshot); nach 60 Minuten „danach“.
+ * Zeitpunkt der Ansicht: vor dem Start „vorher“, nach dem Abschluss „danach“. Dazwischen folgt sie den Kindern
+ * (F2, phaseDerKinder: Mehrheit der Kinder mit Tablet, bei Gleichstand die fruehere Phase, ohne Kind Check-in);
+ * die Uhr zaehlt nur noch fuers Ende: Check-out ab `phase_checkout_min` vor Schluss (Rasit 12.10.: die einzige Phase
+ * an der Uhr, der Coach muss dann abschliessen), nach 60 Minuten „danach“.
  */
-export function zeitpunktAus(r: { status: string; gestartet_am: string | null; einstellungen: Record<string, StellschraubeWert> }, jetzt: string): LiveZeitpunkt {
+export function zeitpunktAus(
+  r: { status: string; gestartet_am: string | null; einstellungen?: Record<string, StellschraubeWert> | null },
+  jetzt: string,
+  kinder: { tablet_nr: number | null; phase: SessionPhase | null }[],
+): LiveZeitpunkt {
   if (r.status === 'upcoming' || r.gestartet_am === null) return r.status === 'done' ? 'danach' : 'vorher'
   if (r.status === 'done') return 'danach'
   const minute = (Date.parse(jetzt) - Date.parse(r.gestartet_am)) / 60_000
-  let ende = 0
-  for (const seg of zeitleisteAusSnapshot(r.einstellungen)) {
-    ende += seg.minuten
-    if (minute < ende) return seg.phase
-  }
-  return minute < SESSION_MINUTEN ? 'checkout' : 'danach'
+  if (minute >= SESSION_MINUTEN) return 'danach'
+  if (minute >= SESSION_MINUTEN - zahl(r.einstellungen ?? {}, 'phase_checkout_min', 5)) return 'checkout'
+  return phaseDerKinder(kinder.map((k) => ({ tablet: k.tablet_nr, phase: k.phase })))
 }
 
 /** Punkte der Kachel: je Antwort richtig/falsch, Hinweis vor der Antwort, dazu die offene Aufgabe. */

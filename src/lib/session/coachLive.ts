@@ -11,6 +11,7 @@ import { listLernpfad, masteryEntscheiden as masteryEntscheidenRpc, skillPruefun
 import * as rpc from '@/lib/supabase/sessionCoach'
 import { satzVorschlaege, sessionBriefing } from '@/lib/supabase/sessionC2'
 import { pruefungAufsTablet as aufsTablet, pruefungVomTablet as vomTablet } from '@/lib/supabase/sessionPruefung'
+import { getStudentIstTest } from '@/lib/supabase/testmodus'
 import { listThemen } from '@/lib/supabase/themen'
 import type { CoachLiveRaum } from '@/types/coachLive'
 import type { LernpfadStandCoach } from '@/types/lernpfad'
@@ -41,6 +42,8 @@ type SessionZustand = {
 
 const zustaende = new Map<string, SessionZustand>()
 let themenCache: Map<string, string> | null = null
+/** F2: Testkonto je Kind; aendert sich in einer Session nicht, also einmal je Kind. */
+const testkonten = new Map<string, boolean>()
 
 function zustand(sessionId: string): SessionZustand {
   let z = zustaende.get(sessionId)
@@ -59,6 +62,23 @@ const fehler = (code: CoachLiveFehler): SupabaseResult<null> => ({ data: null, e
 export function liveZuruecksetzen(): void {
   zustaende.clear()
   themenCache = null
+  testkonten.clear()
+}
+
+/**
+ * F2 (Hinweis „kein Testlauf“): ob die Kinder Testkonten sind (students.ist_test; der Coach liest nur Kinder mit
+ * aktiver Akte, sonst gilt das Kind als kein Testkonto). Kinder, deren Abfrage scheitert, fehlen in der Antwort.
+ */
+export async function testkontenLaden(kindIds: string[]): Promise<Map<string, boolean>> {
+  await Promise.all(
+    kindIds
+      .filter((id) => !testkonten.has(id))
+      .map(async (id) => {
+        const res = await getStudentIstTest(id)
+        if (res.data !== null) testkonten.set(id, res.data)
+      }),
+  )
+  return new Map(kindIds.filter((id) => testkonten.has(id)).map((id) => [id, testkonten.get(id) === true]))
 }
 
 async function themenLabels(): Promise<Map<string, string>> {
@@ -109,7 +129,7 @@ export async function ladeRaumLive(sessionId: string, kindId: string | null = nu
   if (res.error !== null) return { data: null, error: fehlerCode(res) }
   if (!res.data?.session) return { data: null, error: 'allgemein' }
   const raum = res.data
-  const zeitpunkt = zeitpunktAus(raum.session, raum.stand)
+  const zeitpunkt = zeitpunktAus(raum.session, raum.stand, raum.kinder)
 
   const [detail, themen] = await Promise.all([kindId ? ladeDetail(sessionId, raum, kindId) : Promise.resolve(null), themenLabels()])
   const bisher = z.briefing
