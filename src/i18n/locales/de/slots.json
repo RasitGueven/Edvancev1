@@ -12,8 +12,10 @@
     "SL010": "Die Absage lässt sich nicht mehr zurücknehmen: Der Platz ist vergeben oder der Termin hat begonnen.",
     "SL011": "Der Termin ist vergangen oder hat begonnen und lässt sich nur noch ansehen.",
     "SL012": "Das Datum liegt hinter der Ferientabelle. Geplant wird erst, wenn die Ferien eingetragen sind.",
+    "SL013": "Testkonten und echte Kinder sitzen nie im selben Termin. Wähle einen anderen Termin.",
     "nurAmTag": "Eine Session lässt sich nur am Tag des Termins öffnen.",
     "testkonto": "Testkonten kommen in den Slots nicht vor.",
+    "testlaufNurAdmin": "In diesem Termin sitzen nur Testkonten. Die Session als Testlauf öffnet die Verwaltung.",
     "eingang": "Der Eingang der Absage fehlt oder liegt in der Zukunft.",
     "zustand": "Dieser Termin ist nicht mehr geplant.",
     "nameDoppelt": "Einen Raum mit diesem Namen gibt es schon.",
@@ -73,7 +75,9 @@
       "ohneRaumKeiner": "alle haben einen Raum",
       "ohneStammplatz": "Ohne Stammplatz",
       "ohneStammplatzSub_one": "{{count}} Vertrag läuft schon",
-      "ohneStammplatzSub_other": "{{count}} Verträge laufen schon"
+      "ohneStammplatzSub_other": "{{count}} Verträge laufen schon",
+      "belegtSubOhneTest_one": "ohne {{count}} Testkonto",
+      "belegtSubOhneTest_other": "ohne {{count}} Testkonten"
     }
   },
   "termin": {
@@ -440,7 +444,14 @@
       "aendernHinweis": "Der bisherige Stammplatz endet am Tag vor „gültig ab“. Vergangene Termine bleiben.",
       "vergeben": "{{name}}: Stammplatz ab {{ab}} vergeben. Die Termine sind geplant.",
       "geaendert": "{{name}}: Stammplatz ab {{ab}} geändert.",
-      "zeitOhneRaum": "an keinem Tag ein Raum"
+      "zeitOhneRaum": "an keinem Tag ein Raum",
+      "artKonflikt": "getrennt",
+      "artKonfliktTitel": "Hier sitzen schon Kinder der anderen Art (Testkonto oder echt). Beide sitzen nie im selben Termin."
     }
+  },
+  "test": {
+    "kennzeichen": "Test",
+    "titel": "Testkonto: zählt in den Kennzahlen nicht mit",
+    "kindHinweis": "Testkonto. Es zählt in den Kennzahlen nicht mit und sitzt nie mit echten Kindern in einem Termin."
   }
 }

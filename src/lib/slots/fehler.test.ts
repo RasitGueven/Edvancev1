@@ -30,7 +30,7 @@ describe('slotsFehlerSchluessel', () => {
   })
 
   it('hat für jeden möglichen Schlüssel einen Text', () => {
-    const hinweise = ['nur_am_tag', 'testkonto', 'eingang', 'zustand', 'name_doppelt', 'zeit_doppelt', 'kein_coach', 'kein_vorschlag']
+    const hinweise = ['nur_am_tag', 'testkonto', 'testlauf_nur_admin', 'eingang', 'zustand', 'name_doppelt', 'zeit_doppelt', 'kein_coach', 'kein_vorschlag']
     const codes = ['42501', 'P0002', '22023', 'ZG001', 'XX000']
     for (const h of hinweise) expect(typeof text(slotsFehlerSchluessel({ code: '22023', hint: h }))).toBe('string')
     for (const c of codes) expect(typeof text(slotsFehlerSchluessel({ code: c }))).toBe('string')
@@ -38,7 +38,8 @@ describe('slotsFehlerSchluessel', () => {
 
   it('erkennt SL-Codes', () => {
     expect(istSlotsCode('SL012')).toBe(true)
-    expect(istSlotsCode('SL013')).toBe(false)
+    expect(istSlotsCode('SL013')).toBe(true)
+    expect(istSlotsCode('SL014')).toBe(false)
     expect(istSlotsCode(undefined)).toBe(false)
   })
 })

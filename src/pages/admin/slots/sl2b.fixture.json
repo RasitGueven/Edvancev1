@@ -1,0 +1,630 @@
+{
+ "_hinweis": "SL2b: Ausgabe der Slot-Funktionen aus einer Wegwerf-DB, erfundene Namen, Uhr Mo 13.03.2028 09:12.",
+ "woche": {
+  "kw": 11,
+  "kopf": {
+   "belegt": 7,
+   "plaetze": 300,
+   "ohne_raum": 0,
+   "auslastung": 0.023,
+   "ohne_stammplatz": 1,
+   "erster_ohne_raum": null,
+   "ohne_stammplatz_laufend": 1
+  },
+  "tage": [
+   {
+    "datum": "2028-03-13",
+    "heute": true,
+    "anlass": null,
+    "betrieb": true,
+    "vergangen": false,
+    "wochentag": 1
+   },
+   {
+    "datum": "2028-03-14",
+    "heute": false,
+    "anlass": null,
+    "betrieb": true,
+    "vergangen": false,
+    "wochentag": 2
+   },
+   {
+    "datum": "2028-03-15",
+    "heute": false,
+    "anlass": null,
+    "betrieb": true,
+    "vergangen": false,
+    "wochentag": 3
+   },
+   {
+    "datum": "2028-03-16",
+    "heute": false,
+    "anlass": null,
+    "betrieb": true,
+    "vergangen": false,
+    "wochentag": 4
+   },
+   {
+    "datum": "2028-03-17",
+    "heute": false,
+    "anlass": null,
+    "betrieb": true,
+    "vergangen": false,
+    "wochentag": 5
+   }
+  ],
+  "heute": "2028-03-13",
+  "montag": "2028-03-13",
+  "zeiten": [
+   {
+    "id": "dccfc2b2-a45e-4699-b9a1-ad1e0f198459",
+    "ende": "15:00",
+    "beginn": "14:00"
+   },
+   {
+    "id": "bd866b28-4135-43b7-8172-fabd14dac379",
+    "ende": "16:00",
+    "beginn": "15:00"
+   },
+   {
+    "id": "97fae320-c776-4b1d-a391-004667c7f8bb",
+    "ende": "17:00",
+    "beginn": "16:00"
+   },
+   {
+    "id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+    "ende": "18:00",
+    "beginn": "17:00"
+   },
+   {
+    "id": "77bea702-50eb-4283-9b27-4baf03ec71a8",
+    "ende": "19:00",
+    "beginn": "18:00"
+   },
+   {
+    "id": "cab1f0a2-dd05-484d-a90f-bd60b7b06154",
+    "ende": "20:00",
+    "beginn": "19:00"
+   }
+  ],
+  "zellen": [
+   {
+    "test": 0,
+    "datum": "2028-03-13",
+    "belegt": 3,
+    "raeume": [
+     {
+      "art": "stamm",
+      "name": "Raum 1",
+      "offen": true,
+      "belegt": 2,
+      "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000002"
+     },
+     {
+      "art": "stamm",
+      "name": "Raum 2",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000003"
+     }
+    ],
+    "faecher": [
+     {
+      "fach": "Mathematik",
+      "zahl": 2
+     },
+     {
+      "fach": "Deutsch",
+      "zahl": 1
+     }
+    ],
+    "zeit_id": "bd866b28-4135-43b7-8172-fabd14dac379",
+    "ohne_raum": 0,
+    "vergangen": false,
+    "kapazitaet": 10,
+    "coach_fehlt": 0,
+    "test_ohne_raum": 0
+   },
+   {
+    "test": 1,
+    "datum": "2028-03-13",
+    "belegt": 1,
+    "raeume": [
+     {
+      "art": "stamm",
+      "name": "Raum 1",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000002"
+     },
+     {
+      "art": "stamm",
+      "name": "Raum 2",
+      "offen": true,
+      "belegt": 0,
+      "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000003"
+     }
+    ],
+    "faecher": [
+     {
+      "fach": "Mathematik",
+      "zahl": 1
+     }
+    ],
+    "zeit_id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+    "ohne_raum": 0,
+    "vergangen": false,
+    "kapazitaet": 10,
+    "coach_fehlt": 0,
+    "test_ohne_raum": 0
+   },
+   {
+    "test": 0,
+    "datum": "2028-03-14",
+    "belegt": 2,
+    "raeume": [
+     {
+      "art": "stamm",
+      "name": "Raum 1",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000002"
+     },
+     {
+      "art": "stamm",
+      "name": "Raum 2",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000003"
+     }
+    ],
+    "faecher": [
+     {
+      "fach": "Englisch",
+      "zahl": 1
+     },
+     {
+      "fach": "Mathematik",
+      "zahl": 1
+     }
+    ],
+    "zeit_id": "97fae320-c776-4b1d-a391-004667c7f8bb",
+    "ohne_raum": 0,
+    "vergangen": false,
+    "kapazitaet": 10,
+    "coach_fehlt": 0,
+    "test_ohne_raum": 0
+   },
+   {
+    "test": 0,
+    "datum": "2028-03-15",
+    "belegt": 1,
+    "raeume": [
+     {
+      "art": "stamm",
+      "name": "Raum 1",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000002"
+     },
+     {
+      "art": "stamm",
+      "name": "Raum 2",
+      "offen": true,
+      "belegt": 0,
+      "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000003"
+     }
+    ],
+    "faecher": [
+     {
+      "fach": "Mathematik",
+      "zahl": 1
+     }
+    ],
+    "zeit_id": "97fae320-c776-4b1d-a391-004667c7f8bb",
+    "ohne_raum": 0,
+    "vergangen": false,
+    "kapazitaet": 10,
+    "coach_fehlt": 0,
+    "test_ohne_raum": 0
+   },
+   {
+    "test": 0,
+    "datum": "2028-03-16",
+    "belegt": 1,
+    "raeume": [
+     {
+      "art": "stamm",
+      "name": "Raum 1",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000002"
+     },
+     {
+      "art": "stamm",
+      "name": "Raum 2",
+      "offen": true,
+      "belegt": 0,
+      "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000003"
+     }
+    ],
+    "faecher": [
+     {
+      "fach": "Deutsch",
+      "zahl": 1
+     }
+    ],
+    "zeit_id": "bd866b28-4135-43b7-8172-fabd14dac379",
+    "ohne_raum": 0,
+    "vergangen": false,
+    "kapazitaet": 10,
+    "coach_fehlt": 0,
+    "test_ohne_raum": 0
+   },
+   {
+    "test": 3,
+    "datum": "2028-03-16",
+    "belegt": 3,
+    "raeume": [
+     {
+      "art": "stamm",
+      "name": "Raum 1",
+      "offen": true,
+      "belegt": 2,
+      "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000002"
+     },
+     {
+      "art": "stamm",
+      "name": "Raum 2",
+      "offen": true,
+      "belegt": 1,
+      "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+      "coach_id": "eeeeeeee-5100-4000-8000-000000000003"
+     }
+    ],
+    "faecher": [
+     {
+      "fach": "Mathematik",
+      "zahl": 2
+     },
+     {
+      "fach": "Englisch",
+      "zahl": 1
+     }
+    ],
+    "zeit_id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+    "ohne_raum": 0,
+    "vergangen": false,
+    "kapazitaet": 10,
+    "coach_fehlt": 0,
+    "test_ohne_raum": 0
+   }
+  ],
+  "a_woche": true
+ },
+ "termin_test": {
+  "kw": 11,
+  "zeit": {
+   "id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+   "ende": "18:00",
+   "beginn": "17:00"
+  },
+  "datum": "2028-03-16",
+  "heute": false,
+  "anlass": null,
+  "belegt": 3,
+  "raeume": [
+   {
+    "art": "stamm",
+    "name": "Raum 1",
+    "offen": true,
+    "kinder": [
+     {
+      "fach": "Mathematik",
+      "name": "Test Anton",
+      "klasse": 8,
+      "zustand": "planned",
+      "herkunft": "stammplatz",
+      "ist_test": true,
+      "raum_fest": false,
+      "termin_id": "8d870f6e-a371-467d-ac68-f1db4951d976",
+      "session_id": null,
+      "student_id": "651a2c69-1236-4785-9ae8-83cdd5ebe515",
+      "umgebucht_von": null
+     },
+     {
+      "fach": "Mathematik",
+      "name": "Test Berta",
+      "klasse": 8,
+      "zustand": "planned",
+      "herkunft": "stammplatz",
+      "ist_test": true,
+      "raum_fest": false,
+      "termin_id": "9cc9349c-e3bc-4331-9a94-7dec97b3bd10",
+      "session_id": null,
+      "student_id": "8e8f7881-4c55-4c78-be8b-60b2fb40720b",
+      "umgebucht_von": null
+     }
+    ],
+    "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66",
+    "coach_id": "eeeeeeee-5100-4000-8000-000000000002",
+    "gemischt": false,
+    "gestartet": false,
+    "coach_name": "Tom Berg",
+    "session_id": null,
+    "vertretung": false,
+    "stamm_coach_id": "eeeeeeee-5100-4000-8000-000000000002",
+    "stamm_coach_name": "Tom Berg"
+   },
+   {
+    "art": "stamm",
+    "name": "Raum 2",
+    "offen": true,
+    "kinder": [
+     {
+      "fach": "Englisch",
+      "name": "Test Carla",
+      "klasse": 8,
+      "zustand": "planned",
+      "herkunft": "stammplatz",
+      "ist_test": true,
+      "raum_fest": false,
+      "termin_id": "6385e395-0109-4313-b84b-ba8384d1d80d",
+      "session_id": null,
+      "student_id": "a2c98462-04d4-4f57-a661-e84045d1c0dd",
+      "umgebucht_von": null
+     }
+    ],
+    "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede",
+    "coach_id": "eeeeeeee-5100-4000-8000-000000000003",
+    "gemischt": false,
+    "gestartet": false,
+    "coach_name": "Jana Keller",
+    "session_id": null,
+    "vertretung": false,
+    "stamm_coach_id": "eeeeeeee-5100-4000-8000-000000000003",
+    "stamm_coach_name": "Jana Keller"
+   }
+  ],
+  "betrieb": true,
+  "coaches": [
+   {
+    "id": "eeeeeeee-5100-4000-8000-000000000004",
+    "name": "Coach Cem",
+    "raum_id": null
+   },
+   {
+    "id": "eeeeeeee-5100-4000-8000-000000000005",
+    "name": "Coach Dana",
+    "raum_id": null
+   },
+   {
+    "id": "eeeeeeee-5100-4000-8000-000000000003",
+    "name": "Jana Keller",
+    "raum_id": "88ad0e5f-3309-41ec-9356-a5aa503a5ede"
+   },
+   {
+    "id": "eeeeeeee-5100-4000-8000-000000000002",
+    "name": "Tom Berg",
+    "raum_id": "396dbdc1-2404-4a52-af35-b7bd10638a66"
+   }
+  ],
+  "begonnen": false,
+  "ohne_raum": [],
+  "vergangen": false,
+  "kapazitaet": 10,
+  "nicht_dabei": [],
+  "festgeschrieben": false,
+  "anwesenheit_fehlt": false,
+  "raeume_schliessbar": [
+   {
+    "name": "Raum 3",
+    "raum_id": "97028f13-de83-4c5b-9326-7e8b0fb186d3"
+   }
+  ]
+ },
+ "kinder": [
+  {
+   "fach": "Mathematik",
+   "name": "Mila Schröder",
+   "paket": "Standard",
+   "beginn": "2028-02-01",
+   "klasse": 8,
+   "geplant": 33,
+   "ist_test": false,
+   "rhythmus": {
+    "woechentlich": 1,
+    "vierzehntaeglich": 1
+   },
+   "stichtag": "2029-01-31",
+   "einheiten": 57,
+   "planbilanz": {
+    "art": "ohne_termin",
+    "zahl": 24,
+    "datum": null,
+    "geplant": 33,
+    "hinweis": null,
+    "toleranz": 2,
+    "einheiten": 57,
+    "abweichung": null,
+    "terminzahl": 33,
+    "verbraucht": 0,
+    "ohne_termin": 24,
+    "ohne_einheit": 0,
+    "letzter_termin": "2029-01-29",
+    "jenseits_ferientabelle": false
+   },
+   "student_id": "94f8c74d-d23a-4015-b24b-973f3969fa24",
+   "verbraucht": 0,
+   "vertrag_id": "bafbe1c0-8836-4834-8bc8-78194e0cbdd9",
+   "stammplaetze": [
+    {
+     "id": "162f80e4-cd66-426f-9f3c-6d238d946128",
+     "takt": "woechentlich",
+     "beginn": "15:00",
+     "zeit_id": "bd866b28-4135-43b7-8172-fabd14dac379",
+     "wochentag": 1,
+     "gueltig_ab": "2028-03-06",
+     "gueltig_bis": null,
+     "vorgaenger_id": null
+    }
+   ],
+   "weiterfuehren": null,
+   "gekuendigt_zum": null,
+   "vertrag_laeuft": true,
+   "folgevertrag_ab": null,
+   "laufzeit_monate": 12,
+   "ohne_stammplatz": false
+  },
+  {
+   "fach": "Mathematik",
+   "name": "Test Anton",
+   "paket": "Standard",
+   "beginn": "2028-02-01",
+   "klasse": 8,
+   "geplant": 32,
+   "ist_test": true,
+   "rhythmus": {
+    "woechentlich": 1,
+    "vierzehntaeglich": 1
+   },
+   "stichtag": "2029-01-31",
+   "einheiten": 57,
+   "planbilanz": {
+    "art": "ohne_termin",
+    "zahl": 25,
+    "datum": null,
+    "geplant": 32,
+    "hinweis": null,
+    "toleranz": 2,
+    "einheiten": 57,
+    "abweichung": null,
+    "terminzahl": 32,
+    "verbraucht": 0,
+    "ohne_termin": 25,
+    "ohne_einheit": 0,
+    "letzter_termin": "2029-01-25",
+    "jenseits_ferientabelle": false
+   },
+   "student_id": "651a2c69-1236-4785-9ae8-83cdd5ebe515",
+   "verbraucht": 0,
+   "vertrag_id": "b0e47d9e-22b1-46bb-a724-2f04a8cdfbc5",
+   "stammplaetze": [
+    {
+     "id": "48f72d5b-618a-4189-a2fa-6b8d3e7a5214",
+     "takt": "woechentlich",
+     "beginn": "17:00",
+     "zeit_id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+     "wochentag": 4,
+     "gueltig_ab": "2028-03-06",
+     "gueltig_bis": null,
+     "vorgaenger_id": null
+    }
+   ],
+   "weiterfuehren": null,
+   "gekuendigt_zum": null,
+   "vertrag_laeuft": true,
+   "folgevertrag_ab": null,
+   "laufzeit_monate": 12,
+   "ohne_stammplatz": false
+  }
+ ],
+ "kind_test": {
+  "kind": {
+   "fach": "Mathematik",
+   "name": "Test Anton",
+   "klasse": 8,
+   "ist_test": true,
+   "student_id": "651a2c69-1236-4785-9ae8-83cdd5ebe515"
+  },
+  "letzte": [],
+  "vertrag": {
+   "paket": "Standard",
+   "beginn": "2028-02-01",
+   "rhythmus": {
+    "woechentlich": 1,
+    "vierzehntaeglich": 1
+   },
+   "stichtag": "2029-01-31",
+   "einheiten": 57,
+   "vertrag_id": "b0e47d9e-22b1-46bb-a724-2f04a8cdfbc5",
+   "gekuendigt_zum": null,
+   "laufzeit_monate": 12
+  },
+  "naechste": [
+   {
+    "ende": "18:00",
+    "datum": "2028-03-16",
+    "beginn": "17:00",
+    "zeit_id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+    "zustand": "planned",
+    "herkunft": "stammplatz",
+    "termin_id": "8d870f6e-a371-467d-ac68-f1db4951d976",
+    "umgebucht_von": null,
+    "absage_eingang": null,
+    "festgeschrieben": false
+   },
+   {
+    "ende": "18:00",
+    "datum": "2028-03-23",
+    "beginn": "17:00",
+    "zeit_id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+    "zustand": "planned",
+    "herkunft": "stammplatz",
+    "termin_id": "fa6f4cce-fee7-485a-a756-a8086d22e691",
+    "umgebucht_von": null,
+    "absage_eingang": null,
+    "festgeschrieben": false
+   }
+  ],
+  "einheiten": {
+   "gesamt": 57,
+   "geplant": 32,
+   "verbraucht": 0
+  },
+  "planbilanz": {
+   "art": "ohne_termin",
+   "zahl": 25,
+   "datum": null,
+   "geplant": 32,
+   "hinweis": null,
+   "toleranz": 2,
+   "einheiten": 57,
+   "abweichung": null,
+   "terminzahl": 32,
+   "verbraucht": 0,
+   "ohne_termin": 25,
+   "ohne_einheit": 0,
+   "uebersprungen": [],
+   "letzter_termin": "2029-01-25",
+   "jenseits_ferientabelle": false
+  },
+  "zugelassen": true,
+  "stammplaetze": [
+   {
+    "id": "48f72d5b-618a-4189-a2fa-6b8d3e7a5214",
+    "takt": "woechentlich",
+    "beginn": "17:00",
+    "zeit_id": "cc6c57df-1b14-4791-8f60-88ad384b63ff",
+    "wochentag": 4,
+    "gueltig_ab": "2028-03-06",
+    "gueltig_bis": null,
+    "vorgaenger_id": null
+   }
+  ],
+  "weiterfuehren": null,
+  "vertrag_laeuft": true,
+  "fruehere_stammplaetze": []
+ }
+}

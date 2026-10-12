@@ -57,6 +57,14 @@ export function FreiRaster({
                 </span>
               )
             }
+            if (zelle?.raum && !zelle.voll && zelle.art_konflikt) {
+              // SL2b (Entscheidung 4): Testkonto und echtes Kind nie im selben Termin; wie "voll" nicht wählbar.
+              return (
+                <span key={w} role="gridcell" title={t('dialog.stamm.artKonfliktTitel')} className="flex min-h-[44px] items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)] text-xs text-[var(--color-text-tertiary)]">
+                  {t('dialog.stamm.artKonflikt')}
+                </span>
+              )
+            }
             if (!zelle || !zelle.raum || zelle.voll) {
               return (
                 <span key={w} role="gridcell" className="flex min-h-[44px] items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)] text-xs text-[var(--color-text-tertiary)]">

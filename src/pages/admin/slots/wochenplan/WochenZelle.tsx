@@ -4,6 +4,7 @@ import { PlatzPunkte } from '@/components/edvance'
 import type { WocheZelle } from '@/types/slotplan'
 import { fachKuerzel } from '../slotsFormat'
 import { raumBelegung, zellZustand } from '../slots.model'
+import { TestKennzeichen } from '../TestKennzeichen'
 
 /** Fläche und 3-px-Streifen links nur bei einem Zustand (Entscheidung 28); der Streifen ist ein Inset-Schatten. */
 const FLAECHE = {
@@ -43,7 +44,11 @@ export function WochenZelle({ zelle, ziel }: { zelle: WocheZelle; ziel: string }
   return (
     <Link
       to={ziel}
-      aria-label={[t('woche.zelleLabel', { belegt: zelle.belegt, kapazitaet: zelle.kapazitaet }), ...hinweise].join(', ')}
+      aria-label={[
+        t('woche.zelleLabel', { belegt: zelle.belegt, kapazitaet: zelle.kapazitaet }),
+        (zelle.test ?? 0) > 0 ? t('test.kennzeichen') : null,
+        ...hinweise,
+      ].filter(Boolean).join(', ')}
       className={`flex min-h-[44px] h-full flex-col gap-2 rounded-[var(--radius-md)] py-2 pl-3 pr-2 transition-colors duration-150 ease-out ${FLAECHE[zustand]} ${vergangen}`}
     >
       <span className="flex items-baseline justify-between gap-2">
@@ -51,8 +56,9 @@ export function WochenZelle({ zelle, ziel }: { zelle: WocheZelle; ziel: string }
           <span className="font-semibold text-[var(--color-text-primary)]">{zelle.belegt}</span>
           <span className="text-[var(--color-text-tertiary)]"> / {zelle.kapazitaet}</span>
         </span>
-        {zelle.faecher.length > 0 && (
+        {(zelle.faecher.length > 0 || (zelle.test ?? 0) > 0) && (
           <span className="flex min-w-0 flex-wrap justify-end gap-1">
+            {(zelle.test ?? 0) > 0 && <TestKennzeichen />}
             {zelle.faecher.map((f) => (
               <span key={f.fach ?? '-'} title={f.fach ?? undefined} className="inline-flex h-5 items-center gap-1 rounded-[var(--radius-full)] border border-[var(--color-border)] px-1 text-xs tabular-nums text-[var(--color-text-secondary)]">
                 <span className="font-semibold">{fachKuerzel(f.fach) || '–'}</span>

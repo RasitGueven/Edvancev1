@@ -78,6 +78,9 @@ Windows-Downloads. SL1 holt sie in Schritt 0 nach `docs/slots/`.
 7. **Uhrzeiten** (Frage 15): Die Platzhalter 14–20 Uhr stündlich kommen als Startinhalt in die pflegbare Liste.
 8. **Wer in den Slots vorkommt:** Kinder mit laufendem oder kommendem Vertrag. Testkonten (`ist_test`) und Testläufe
    bleiben außen vor. Einzel-Sessions und Testläufe laufen weiter über `/admin/schedule`.
+   *Geändert am 12.10.2026 (Paket SL2b):* Testkonten mit laufendem Vertrag dürfen für die Abnahme in die Slots,
+   gekennzeichnet, ohne Kennzahlen, nie mit echten Kindern im selben Termin (SL013); ihre Sessions entstehen als
+   Testlauf. Geräumt wird mit `tools/slots-testkonten-raeumen.mjs`. Siehe `docs/slots/offene-punkte-sl2b.md`.
 9. **Übergang:** Sessions, die vor den Slots von Hand angelegt wurden (zum Beispiel der erste echte Fall Ende Oktober),
    zählen weiter. Sie werden nicht nachträglich in Slot-Termine umgewandelt.
 

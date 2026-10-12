@@ -35,7 +35,7 @@ function Kind({ k }: { k: SlotsKinderZeile }): JSX.Element {
   return (
     <span className="flex min-w-0 flex-col">
       <span className="truncate text-sm font-semibold text-[var(--color-text-primary)]">{k.name ?? t('kind.ohneName')}</span>
-      <KlasseFach klasse={k.klasse} fach={k.fach} />
+      <KlasseFach klasse={k.klasse} fach={k.fach} test={k.ist_test} />
     </span>
   )
 }
