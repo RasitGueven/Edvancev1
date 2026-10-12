@@ -56,20 +56,21 @@ Zweitprüfung (CLAUDE.md §8, unabhängige Instanz, nur lesend): „freigeben“
    Szenario Batu bleibt „Hinweis“ deshalb „nicht verfügbar“. Die Einspiel-Prüfung „für die Aufgaben von
    gleichung_quadr_faktor liefert hinweis_abrufen Text“ kann so nicht grün werden; belegt wird stattdessen an einer
    Aufgabe mit Hinweisen (93 in Prod, alle ungeprüft, PR-Text). Wer: Inhaltspflege (Hinweise schreiben).
+   **Rasit 12.10.:** Einspiel-Prüfung an einer Aufgabe mit Hinweisen belegen.
 2. **Die Regel steht noch an vier Stellen inline.** `session_im_pool`, `lsa_im_pool`, `erklaer_checks`
    (`status = 'ready' or (p_testlauf and status in (…) and pruef_ausschluss is null)`) und `lsa_select_next_core`
    (`v_pool := testlauf or ist_test`) bleiben unverändert, weil der Auftrag die Auswahl ausnimmt. Gleichwertig wäre
-   `status = 'ready' or (p_testlauf and testlauf_inhalt_sichtbar(t.id))` bzw. `v_pool := lsa_testinhalte(id)`. Wer:
-   Rasit, bei der nächsten Änderung an der Auswahl.
+   `status = 'ready' or (p_testlauf and testlauf_inhalt_sichtbar(t.id))` bzw. `v_pool := lsa_testinhalte(id)`.
+   **Rasit 12.10.: geht an T4.**
 3. **Prüffragen (`skill_pruefung`) nur freigegeben, auch im Testlauf.** `tablet_stand.pruefung`,
    `session_kind_live.pruefung_vorhanden`, `pruefung_aufs_tablet`. Prüffragen stehen nicht in der Liste der
    Entscheidung, das Lena-Board prüft sie nicht, und sie hängen am Mastery-Weg (T2). Wer: Rasit, falls die Prüffrage
-   im Testlauf auch ungeprüft kommen soll.
+   im Testlauf auch ungeprüft kommen soll. **Rasit 12.10.: Prüffragen im Testlauf wie freigegeben, geht an T4.**
 4. **Quest-Aufgaben im Testlauf nur `ready`.** `quest_aufgaben_waehlen` ist Auswahl, und Home Quests sind aus
-   (FernUSG). Wer: Rasit, wenn Home Quests im Testlauf geprobt werden.
+   (FernUSG). **Rasit 12.10.: bleibt bei „nur freigegeben“.**
 5. **Elternreport: Familien-Elterntext und Report-Bausteine nur freigegeben**, auch für Testkonten
    (`lsa_fehlbild_auswertung`, `reportBausteine.ts`). Beides ist Elterntext ohne Bezug zur Aufgabenprüfung und steht
-   nicht in der Entscheidung. Wer: Rasit.
+   nicht in der Entscheidung. **Rasit 12.10.: bleibt bei „nur freigegeben“.**
 6. **Coach-Sicht: Hinweistext bei zwei Hinweisen derselben Stufe.** `coach_kind_detail` nimmt den ersten Hinweis der
    Stufe ohne Reihenfolge, `hinweis_abrufen` den geprüften, sonst den alphabetisch ersten. Bei zwei Hinweisen auf
    einer Stufe könnte der Coach einen anderen Text sehen als das Tablet. Prod: 0 Aufgaben mit doppelter Stufe
