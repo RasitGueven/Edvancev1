@@ -100,12 +100,10 @@ select is((select count(*)::int from lernpfad_protokoll where session_id = :'s_p
 select is(pg_temp.ereignis(:'s_pt', 'entscheidung_pfad'), :'pe_ev'::jsonb, '2a Testlauf: dasselbe Ereignis entscheidung_pfad');
 select is(pg_temp.ereignis(:'s_pt', 'signal_erledigt'), pg_temp.ereignis(:'s_pe', 'signal_erledigt'),
           '2a Testlauf: dasselbe Ereignis signal_erledigt');
--- Offener Punkt T2-1: Der Planer liest „tiefer“ aus lernpfad/lernpfad_protokoll. Ohne Zeile
--- bleibt der naechste Schritt im Testlauf beim bisherigen Skill. Haelt den Stand fest; kippt,
--- sobald der Planer die Entscheidung aus der Session liest (dann Erwartung auf zz_a2_v1).
+-- Offener Punkt T2-1, erledigt mit T4: Der Planer liest „tiefer“ im Testlauf aus der Session
+-- (lernpfad_sicht), der naechste Schritt geht wie echt eine Stufe tiefer (session_t4 1a).
 select pg_temp.schritt(:'s_pt', 1) ->> 'skill_key' as pt_next \gset
-select diag('2a Testlauf: naechster Schritt nach „tiefer“ = ' || coalesce(:'pt_next', 'NULL') || ' (echt: ' || :'pe_next' || ')');
-select is(:'pt_next'::text, 'zz_a2_s1', '2a Testlauf: naechster Schritt bleibt beim bisherigen Skill (offener Punkt T2-1)');
+select is(:'pt_next'::text, 'zz_a2_v1', '2a Testlauf: naechster Schritt eine Stufe tiefer wie echt (T4)');
 
 -- ── 2b) Eingriff Stufe 4 (eingriff_notieren -> pfad_tiefer) ────────────────
 insert into fehlbild_labels (slug, klartext, freigegeben_am) values ('zz_t2_fb', 'ZZ T2 Fehlbild', now());

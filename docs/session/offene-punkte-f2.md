@@ -87,7 +87,7 @@ Alle `session_*.test.sql` grün (18 Dateien, 1 046 Zusicherungen).
    um 14:28:52.578 ohne Schritt) und die Nachstellung in der Wegwerf-DB (kein_ziel als erster Schritt: 0 Zeilen in
    `session_schritte`, Phasenwechsel bis kern). Folge: Der Coach sieht für dieses Warten keinen Grund, und die Zeitleiste
    der Analyse hat eine Lücke. **Vorschlag** (nicht gebaut, Funktion gesperrt wegen SL1/T2/T3):
-   `if v_letzt.id is null or not (…)`. **Wer:** T4 (Rasit 12.10.), hier nicht gebaut.
+   `if v_letzt.id is null or not (…)`. **Wer:** T4 (Rasit 12.10.), hier nicht gebaut. **Erledigt mit T4** (`20261013162641`).
 2. **Session `c9465abe…` abgeschlossen (erledigt 12.10.).** Einmalige Ausnahme von „kein Schreiben in Prod“ (Rasit 12.10.).
    Vorher per dbread: Status `active`, `testlauf = false`, ein gebuchtes Kind (Testkonto TESTLEAD Drittmann, `present`),
    Tablet 1 ohne `geloest_am`, einziges offenes Tablet und einzige aktive Session in Prod. Aufgerufen wurde genau die
