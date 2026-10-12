@@ -19,7 +19,9 @@ import {
   addStudentToSession,
   listPlatzKandidaten,
   KEIN_PLATZ_ZUGANG,
+  TESTLAUF_NUR_TESTKONTEN,
 } from '@/lib/supabase/sessions'
+import { SessionTestlaufSchalter } from './schedule/SessionTestlaufSchalter'
 import { formatSessionDate } from '@/lib/datetime'
 import { SELECT_MD as SELECT_CLASS } from '@/lib/formStyles'
 import { studentSelectLabel } from '@/lib/utils'
@@ -52,6 +54,9 @@ function SessionRow({
   const [pick, setPick] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [testlauf, setTestlauf] = useState(Boolean(session.testlauf))
+  // Neu geladene Liste gewinnt ueber den lokalen Stand.
+  useEffect(() => setTestlauf(Boolean(session.testlauf)), [session.testlauf])
 
   const load = (): void => {
     setLoading(true)
@@ -85,7 +90,13 @@ function SessionRow({
     const { error: err, code } = await addStudentToSession(session.id, pick)
     setBusy(false)
     if (err) {
-      setError(code === KEIN_PLATZ_ZUGANG ? t('schedule.keinZugang', { datum: sessionDatum }) : err)
+      setError(
+        code === KEIN_PLATZ_ZUGANG
+          ? t('schedule.keinZugang', { datum: sessionDatum })
+          : testlauf && code === TESTLAUF_NUR_TESTKONTEN
+            ? t('schedule.testlauf.nurTestkontenBuchen')
+            : err,
+      )
       return
     }
     setPick('')
@@ -100,15 +111,20 @@ function SessionRow({
         <span className="text-base font-semibold text-[var(--color-text-primary)]">
           {t('schedule.zeitpunkt', { zeit: formatSessionDate(session.scheduled_at) })}
         </span>
-        <EdvanceBadge variant={STATUS_VARIANT[session.status]}>
-          {t(`schedule.status.${session.status}`)}
-        </EdvanceBadge>
+        <div className="flex flex-wrap items-center gap-2">
+          {testlauf && <EdvanceBadge variant="warning">{t('schedule.testlauf.kennzeichen')}</EdvanceBadge>}
+          <EdvanceBadge variant={STATUS_VARIANT[session.status]}>
+            {t(`schedule.status.${session.status}`)}
+          </EdvanceBadge>
+        </div>
       </div>
       {session.room && (
         <span className="text-sm text-[var(--color-text-secondary)]">
           {t('schedule.raumAnzeige', { raum: session.room })}
         </span>
       )}
+
+      <SessionTestlaufSchalter session={session} wert={testlauf} onGeaendert={setTestlauf} />
 
       <div className="flex flex-col gap-2">
         <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">

@@ -59,22 +59,15 @@ einen laufenden Vertrag (`session_platz_zugang`). dbread 08.10.:
 
 ### 6. Testlauf setzen (vor dem Start)
 
-Einen Schalter gibt es noch nicht (kommt mit T2). Im Supabase-SQL-Editor, `<SESSION_ID>` ersetzen, alles auf einmal ausführen:
+Auf `/admin/schedule` (als Admin) den Coach wählen und in der Karte der Session den Schalter **„Testlauf“** einschalten
+(seit T2). Danach steht „Testlauf“ als Kennzeichen oben in der Karte.
 
-```sql
-begin;
-select set_config('request.jwt.claims',
-  json_build_object('sub', (select id from public.profiles where role = 'admin' and full_name = 'Rasit Güven'),
-                    'role', 'authenticated')::text, true);
-select public.session_testlauf_setzen('<SESSION_ID>'::uuid, true);
-commit;
-```
-
-- `set_config(…, true)` gilt nur in dieser Transaktion. Danach ist der SQL-Editor wieder ohne Claims.
-- Der Trigger `coaching_sessions_testlauf_pruefen` lehnt ab, wenn ein gebuchtes Kind kein Testkonto ist (22023). Dann
-  anhalten.
-- Gegen Prod read-only geprüft (08.10.): Mit diesen Claims liefert `get_my_role()` `admin`, und der Aufruf kommt an der Admin-Prüfung vorbei.
-  Ohne Claims kommt „session_testlauf_setzen: nur Admin“.
+- Umschalten geht nur, solange die Session nicht gestartet ist. Danach ist der Schalter gesperrt und sagt warum; die
+  Datenbank lehnt es auch selbst ab (`session_testlauf_setzen`, 55000).
+- Ist ein gebuchtes Kind kein Testkonto, bleibt der Schalter aus und darunter steht „Ein gebuchtes Kind ist kein
+  Testkonto …“ (Trigger `coaching_sessions_testlauf_pruefen`, 22023). Dann anhalten.
+- Im Testlauf lassen sich nur Testkonten buchen; ein echtes Kind lehnt die Karte mit „Im Testlauf sind nur Testkonten
+  buchbar.“ ab.
 
 **Kontrolle per dbread** (muss `t|t` zeigen: Testlauf an, nur Testkonten gebucht):
 
@@ -121,8 +114,10 @@ Laptop als Test-Coach: `/coach` → „Briefing ansehen“ → „Session starte
 | 11 | Check-out | Coach | Je Kind zwei Satzvorschläge, „Als gesagt markieren“. Der Satz steht **nicht** auf dem Tablet (**E33**). |
 | 12 | Abschluss | Coach: „Abschluss“, dann „Session abschließen“ | Tablet zeigt das Ende. XP: im Testlauf keine Buchung (**E30**); was das Tablet am Ende zeigt, notieren. Danach sollten die Tablets wieder den Warte-Bildschirm zeigen. |
 
-**Nicht drücken:** „Eine Stufe tiefer“ und Eingriffe schreiben auch im Testlauf in den Lernpfad (offene-punkte-t1, Befund 3;
-Ausschluss kommt mit T2). Wer es trotzdem ausprobiert: Das Prüfskript meldet es als „nicht ok“ (Punkte 5 und 6).
+**„Eine Stufe tiefer“ und Eingriffe (seit T2):** Im Testlauf schreiben sie nichts mehr in den Lernpfad; das
+Session-Ereignis entsteht wie sonst. Aber: Der nächste Schritt geht im Testlauf **nicht** eine Stufe tiefer, weil der
+Planer die Entscheidung aus dem Lernpfad liest (offene-punkte-t2, Punkt 1). Wer es ausprobiert: notieren, nicht als Fehler
+melden. Das Prüfskript bleibt bei Punkt 5 und 6 auf „ok“.
 
 **Prüffrage (Schritt 7):** Sie gibt es nur für einen Skill im Stand `kandidat`. Der Lernpfad in Prod ist leer, und ein
 Testlauf schreibt keine Belege (`antwort_abgeben` prüft `testlauf`). Im Trockenlauf entsteht also kein Kandidat, der Knopf

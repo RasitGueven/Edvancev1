@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
+import { sessionRpc, type RpcResult } from '@/lib/supabase/sessionRpc'
 import type {
   CoachingSession,
   SessionAttendance,
@@ -159,4 +160,21 @@ export async function setAttendance(
     const message = err instanceof Error ? err.message : 'Anwesenheit konnte nicht gesetzt werden'
     return { data: null, error: message }
   }
+}
+
+// T2: Testlauf-Schalter im Stundenplan. Die Datenbank entscheidet; `code` traegt
+// den SQLSTATE: 42501 nur Admin, 55000 schon gestartet, 22023 ein gebuchtes Kind
+// ist kein Testkonto (Trigger coaching_sessions_testlauf_pruefen).
+export const TESTLAUF_GESTARTET = '55000'
+export const TESTLAUF_NUR_TESTKONTEN = '22023'
+
+export async function setSessionTestlauf(
+  sessionId: string,
+  testlauf: boolean,
+): Promise<RpcResult<null>> {
+  return sessionRpc<null>(
+    'session_testlauf_setzen',
+    { p_session_id: sessionId, p_testlauf: testlauf },
+    'Testlauf konnte nicht gesetzt werden',
+  )
 }
