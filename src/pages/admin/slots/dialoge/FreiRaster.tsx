@@ -26,7 +26,23 @@ export function FreiRaster({
       {[1, 2, 3, 4, 5].map((w) => (
         <span key={w} role="columnheader" className="px-1 text-xs font-semibold text-[var(--color-text-tertiary)]">{wochentagName(w, i18n.language)}</span>
       ))}
-      {frei.zeiten.map((zeit) => (
+      {frei.zeiten.map((zeit) => {
+        // Eine Uhrzeit ohne Raum an allen Tagen wird eine schmale Zeile statt fünf "kein Raum"-Zellen.
+        const ohneRaum = [1, 2, 3, 4, 5].every((w) => {
+          const c = frei.zellen.find((x) => x.wochentag === w && x.zeit_id === zeit.id)
+          return (!c || !c.raum) && !zeilen.some((z) => z.wochentag === w && z.zeit_id === zeit.id)
+        })
+        if (ohneRaum) {
+          return (
+            <div key={zeit.id} role="row" className="contents">
+              <span role="rowheader" className="px-1 text-xs tabular-nums text-[var(--color-text-tertiary)]">{zeit.beginn}</span>
+              <span role="gridcell" className="col-span-5 border-t border-dashed border-[var(--color-border)] px-1 text-xs text-[var(--color-text-tertiary)]">
+                {t('dialog.stamm.zeitOhneRaum')}
+              </span>
+            </div>
+          )
+        }
+        return (
         <div key={zeit.id} role="row" className="contents">
           <span role="rowheader" className="flex min-h-[44px] items-center px-1 text-xs font-semibold tabular-nums text-[var(--color-text-secondary)]">{zeit.beginn}</span>
           {[1, 2, 3, 4, 5].map((w) => {
@@ -61,7 +77,8 @@ export function FreiRaster({
             )
           })}
         </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

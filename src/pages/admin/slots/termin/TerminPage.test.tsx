@@ -80,7 +80,9 @@ describe('Termin', () => {
       raeume: [{ ...termin().raeume[0], kinder: [kind(1, { zustand: 'present' }), kind(2, { zustand: 'planned' })] }],
       nicht_dabei: [{ ...termin().nicht_dabei[0], zustand: 'unexcused', zuruecknehmbar: false }],
     }))
-    expect(screen.getByText(/Bei mindestens einem Kind fehlt die Anwesenheit/)).toBeTruthy()
+    expect(screen.getByText(/Vergangener Termin: nur Ansicht/)).toBeTruthy()
+    // einmal im Kopf, einmal am Kind ohne Anwesenheit
+    expect(screen.getAllByText('Anwesenheit fehlt')).toHaveLength(2)
     expect(screen.getByText('anwesend')).toBeTruthy()
     expect(screen.queryByRole('button', { name: 'Kind hinzufügen' })).toBeNull()
     expect(screen.queryByRole('button', { name: 'Weitere Aktionen' })).toBeNull()

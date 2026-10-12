@@ -5,7 +5,7 @@ import { datumKurz, datumTagMonat, datumVoll } from '../slotsFormat'
 import { planbilanzVariante } from '../slots.model'
 
 /**
- * Einheiten als Stapelbalken: verbraucht (primary), geplant (primary-light), frei (nur Rand).
+ * Einheiten als Stapelbalken: verbraucht (primary), geplant (primary, aufgehellt), frei (nur Spur).
  * Die Breiten sind berechnet und stehen deshalb als Inline-Style (CLAUDE.md §11).
  */
 export function EinheitenBalken({ verbraucht, geplant, gesamt }: { verbraucht: number; geplant: number; gesamt: number }): JSX.Element {
@@ -18,7 +18,7 @@ export function EinheitenBalken({ verbraucht, geplant, gesamt }: { verbraucht: n
       className="flex h-2 w-full overflow-hidden rounded-[var(--radius-full)] border border-[var(--color-border)] bg-[var(--color-bg-surface)]"
     >
       <span className="h-full bg-[var(--color-primary)]" style={{ width: anteil(verbraucht) }} />
-      <span className="h-full bg-[var(--color-primary-light)]" style={{ width: anteil(geplant) }} />
+      <span className="h-full bg-[color-mix(in_srgb,var(--color-primary)_35%,var(--color-bg-surface))]" style={{ width: anteil(geplant) }} />
     </div>
   )
 }

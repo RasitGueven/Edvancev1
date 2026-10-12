@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { EdvanceCard, EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
+import { EdvanceBadge, EdvanceCard, EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { Button } from '@/components/ui/button'
 import { montagVon } from '@/components/edvance/wochenNavigation.model'
@@ -107,8 +107,9 @@ export function TerminPage(): JSX.Element {
 
       {!d.betrieb && <p className="text-sm text-[var(--color-text-secondary)]">{t('termin.keinBetrieb', { anlass: d.anlass ?? '' })}</p>}
       {ansicht && (
-        <p className={`text-sm ${d.anwesenheit_fehlt ? 'text-[var(--color-gold-warning)]' : 'text-[var(--color-text-secondary)]'}`}>
-          {t(d.anwesenheit_fehlt ? 'termin.anwesenheitFehlt' : 'termin.ansicht')}
+        <p className="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)]">
+          {t('termin.ansicht')}
+          {d.anwesenheit_fehlt && <EdvanceBadge variant="warning">{t('termin.anwesenheitOffen')}</EdvanceBadge>}
         </p>
       )}
       {termin.fehler && <p role="alert" className="text-sm text-[var(--color-error-coach)]">{t(termin.fehler)}</p>}

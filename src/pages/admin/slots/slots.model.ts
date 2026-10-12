@@ -73,7 +73,11 @@ const RANG: Record<PlanbilanzArt, number> = { kein_stammplatz: 0, reicht_bis: 1,
 
 export function kinderSortiert(kinder: SlotsKinderZeile[]): SlotsKinderZeile[] {
   return [...kinder].sort(
-    (a, b) => RANG[a.planbilanz.art] - RANG[b.planbilanz.art] || (a.name ?? '').localeCompare(b.name ?? '', 'de'),
+    (a, b) =>
+      RANG[a.planbilanz.art] - RANG[b.planbilanz.art] ||
+      Number(b.vertrag_laeuft) - Number(a.vertrag_laeuft) ||
+      a.beginn.localeCompare(b.beginn) ||
+      (a.name ?? '').localeCompare(b.name ?? '', 'de'),
   )
 }
 

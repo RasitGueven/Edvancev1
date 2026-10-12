@@ -84,7 +84,6 @@
     "satz": "{{kinder}} Kinder · {{plaetze}} Plätze · {{offen}} von {{raeume}} Räumen geöffnet",
     "keinBetrieb": "{{anlass}}: an diesem Tag ist kein Betrieb.",
     "ansicht": "Vergangener Termin: nur Ansicht. Die Anwesenheit kommt aus der Session.",
-    "anwesenheitFehlt": "Vergangener Termin: Bei mindestens einem Kind fehlt die Anwesenheit aus der Session.",
     "anwesenheitAusSession": "Anwesenheit aus der Session.",
     "ohneRaum": {
       "titel_one": "Ohne Raum: {{count}} Kind",
@@ -377,7 +376,8 @@
       "verdraengt": "Dafür fällt der Stammplatz-Termin am {{datum}} weg.",
       "verdraengtKurz": "verdrängt {{datum}}",
       "weitereEinheit": "Die Absage kam nach 10 Uhr: Der neue Termin braucht eine weitere Einheit.",
-      "regeln": "Nur Termine mit freiem Platz, höchstens einer pro Tag und nicht mehr als zwei über dem eigenen Rhythmus pro Woche."
+      "regeln": "Nur Termine mit freiem Platz, höchstens einer pro Tag und nicht mehr als zwei über dem eigenen Rhythmus pro Woche.",
+      "tagLeer": "kein Ziel"
     },
     "zusatz": {
       "titel": "Zusatztermin buchen",
@@ -439,7 +439,8 @@
       "gruende": "Warum Speichern noch nicht geht",
       "aendernHinweis": "Der bisherige Stammplatz endet am Tag vor „gültig ab“. Vergangene Termine bleiben.",
       "vergeben": "{{name}}: Stammplatz ab {{ab}} vergeben. Die Termine sind geplant.",
-      "geaendert": "{{name}}: Stammplatz ab {{ab}} geändert."
+      "geaendert": "{{name}}: Stammplatz ab {{ab}} geändert.",
+      "zeitOhneRaum": "an keinem Tag ein Raum"
     }
   }
 }

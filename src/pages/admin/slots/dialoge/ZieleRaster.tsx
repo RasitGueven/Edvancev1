@@ -3,6 +3,12 @@ import { montagVon } from '@/components/edvance/wochenNavigation.model'
 import type { SlotsZiel } from '@/types/slotplan'
 import { datumKurz, wochentagName } from '../slotsFormat'
 
+/** ISO-Tag `mo` plus `n` Tage. */
+function tagNach(mo: string, n: number): string {
+  const [y, m, d] = mo.split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10)
+}
+
 export const zielKey = (z: { datum: string; zeit_id: string }): string => `${z.datum}|${z.zeit_id}`
 
 /**
@@ -36,10 +42,11 @@ export function ZieleRaster({
         <div key={mo} className="grid grid-cols-5 gap-1">
           {[0, 1, 2, 3, 4].map((i) => {
             const tagZiele = ziele.filter((z) => montagVon(z.datum) === mo && new Date(`${z.datum}T00:00:00Z`).getUTCDay() === i + 1)
-            const datum = tagZiele[0]?.datum
+            const datum = tagZiele[0]?.datum ?? tagNach(mo, i)
             return (
               <div key={i} className="flex min-w-0 flex-col gap-1 rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)] p-1">
-                {datum && <span className="px-1 text-xs tabular-nums text-[var(--color-text-tertiary)]">{datumKurz(datum, i18n.language)}</span>}
+                <span className="px-1 text-xs tabular-nums text-[var(--color-text-tertiary)]">{datumKurz(datum, i18n.language)}</span>
+                {tagZiele.length === 0 && <span className="px-1 text-xs text-[var(--color-text-tertiary)]">{t('dialog.ziele.tagLeer')}</span>}
                 {tagZiele.map((z) => {
                   const an = gewaehlt === zielKey(z)
                   return (
@@ -56,7 +63,7 @@ export function ZieleRaster({
                       }`}
                     >
                       <span className="text-sm font-semibold tabular-nums">{z.beginn}</span>
-                      <span className={`text-xs tabular-nums ${an ? '' : 'text-[var(--color-text-tertiary)]'}`}>
+                      <span className={`text-xs tabular-nums ${an ? '' : z.frei <= 1 ? 'font-semibold text-[var(--color-gold-warning)]' : 'text-[var(--color-text-tertiary)]'}`}>
                         {t('dialog.ziele.frei', { count: z.frei })}
                       </span>
                     </button>

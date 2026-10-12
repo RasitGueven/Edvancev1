@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { LoadingPulse } from '@/components/edvance'
 import { Modal } from '@/components/edvance/Modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -74,7 +75,9 @@ export function KindHinzufuegenDialog({ termin, onClose, onGespeichert }: Props)
     >
       <div className="flex flex-col gap-4">
         <Input autoFocus type="search" value={suche} onChange={(e) => setSuche(e.target.value)} placeholder={t('dialog.hinzufuegen.suche')} aria-label={t('dialog.hinzufuegen.suche')} />
-        {kandidaten !== null && liste.length === 0 ? (
+        {kandidaten === null ? (
+          <LoadingPulse lines={3} />
+        ) : liste.length === 0 ? (
           <p className="text-sm text-[var(--color-text-secondary)]">{t('dialog.hinzufuegen.keine')}</p>
         ) : (
           <ul className="flex max-h-80 flex-col overflow-y-auto">

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { ladeKinder, stammplaetzeWeiterfuehren } from '@/lib/supabase/slotplan'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
 import type { SlotsKinderZeile } from '@/types/slotplan'
-import { KINDER_FILTER, anzahlJeFilter, filterAusSuche, kinderGefiltert, type KinderFilter } from '../slots.model'
+import { KINDER_FILTER, anzahlJeFilter, filterAusSuche, kinderGefiltert, kinderSortiert, type KinderFilter } from '../slots.model'
 import { useSlotsLaden } from '../useSlotsLaden'
 import { StammplatzDialog } from '../dialoge/StammplatzDialog'
 import { OhneStammplatzListe } from './OhneStammplatzListe'
@@ -51,7 +51,7 @@ export function KinderReiter(): JSX.Element {
   const alle = kinder.daten
   const liste = kinderGefiltert(alle, filter, q)
   const zahl = anzahlJeFilter(alle)
-  const ohne = alle.filter((k) => k.ohne_stammplatz)
+  const ohne = kinderSortiert(alle).filter((k) => k.ohne_stammplatz)
 
   const chip = (an: boolean): string =>
     `min-h-[44px] rounded-[var(--radius-full)] px-4 text-sm font-semibold transition-colors duration-150 ease-out ${

@@ -53,14 +53,19 @@ describe('leere Zeitzeilen fallen zusammen', () => {
   })
 })
 
-const kind = (name: string, art: SlotsKinderZeile['planbilanz']['art']): SlotsKinderZeile =>
-  ({ student_id: name, name, planbilanz: { art } } as unknown as SlotsKinderZeile)
+const kind = (name: string, art: SlotsKinderZeile['planbilanz']['art'], vertrag_laeuft = true, beginn = '2028-03-01'): SlotsKinderZeile =>
+  ({ student_id: name, name, planbilanz: { art }, vertrag_laeuft, beginn } as unknown as SlotsKinderZeile)
 
 describe('Kinder: Sortierung nach Handlungsbedarf, Filter, Suche', () => {
   const kinder = [kind('Zoe', 'passt'), kind('Ali', 'passt'), kind('Mia', 'kein_stammplatz'), kind('Ben', 'reicht_bis'),
     kind('Ida', 'aufgebraucht'), kind('Eva', 'ohne_termin')]
   it('kein Stammplatz, reicht bis, ohne Termin, aufgebraucht, passt — dann nach Namen', () => {
     expect(kinderSortiert(kinder).map((k) => k.name)).toEqual(['Mia', 'Ben', 'Eva', 'Ida', 'Ali', 'Zoe'])
+  })
+  it('gleiche Stufe: laufender Vertrag vor kommendem, dann frühester Beginn', () => {
+    const ohne = [kind('Efe', 'kein_stammplatz', false, '2028-04-01'), kind('Mara', 'kein_stammplatz', false, '2028-03-20'),
+      kind('Jonas', 'kein_stammplatz', true, '2028-03-01')]
+    expect(kinderSortiert(ohne).map((k) => k.name)).toEqual(['Jonas', 'Mara', 'Efe'])
   })
   it('Filter-Chips und Suche', () => {
     expect(kinderGefiltert(kinder, 'reicht_nicht', '').map((k) => k.name)).toEqual(['Ben'])

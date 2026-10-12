@@ -25,6 +25,7 @@ export function SlotsPage(): JSX.Element {
   const coaches = useSlotsLaden(() => ladeCoaches(montag), montag)
   const kopf = woche.daten?.montag === montag ? woche.daten.kopf : null
   const abweichungen = coaches.daten?.coaches.reduce((n, c) => n + c.abweichungen.length, 0)
+  const ausfall = coaches.daten?.coaches.some((c) => c.abweichungen.some((a) => a.art === 'faellt_aus')) ?? false
 
   const setWoche = (m: string): void => {
     const neu = new URLSearchParams(suche)
@@ -41,7 +42,7 @@ export function SlotsPage(): JSX.Element {
       anzahl: kopf?.ohne_stammplatz,
       ton: kopf && kopf.ohne_stammplatz_laufend > 0 ? 'handeln' : 'neutral',
     },
-    { key: 'coaches', titel: t('reiter.coaches'), anzahl: abweichungen },
+    { key: 'coaches', titel: t('reiter.coaches'), anzahl: abweichungen, ton: ausfall ? 'handeln' : 'neutral' },
     { key: 'einstellungen', titel: t('reiter.einstellungen') },
   ]
 

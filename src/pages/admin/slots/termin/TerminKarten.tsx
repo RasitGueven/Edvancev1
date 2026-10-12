@@ -118,6 +118,9 @@ export function RaumKarte({
     >
       <header className="flex flex-wrap items-center gap-2">
         <h2 className={`text-base font-semibold ${raum.offen ? '' : 'text-[var(--color-text-tertiary)]'}`}>{raum.name}</h2>
+        {!raum.offen && raum.stamm_coach_id && termin.ohne_raum.length > 0 && (
+          <EdvanceBadge variant="coach-emergency">{t('woche.coachFehlt')}</EdvanceBadge>
+        )}
         {raum.vertretung && <EdvanceBadge variant="warning">{t('termin.vertretung')}</EdvanceBadge>}
         {raum.gemischt && <EdvanceBadge variant="warning">{t('termin.gemischt')}</EdvanceBadge>}
         <span className="ml-auto flex items-center gap-2">

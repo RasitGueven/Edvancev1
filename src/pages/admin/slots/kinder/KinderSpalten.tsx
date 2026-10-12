@@ -96,7 +96,7 @@ export function KindZellen({ kind: k }: { kind: SlotsKinderZeile }): JSX.Element
       </span>
       <span className="grid grid-cols-2 gap-2">
         <Paket k={k} />
-        <Stammplaetze k={k} />
+        {k.stammplaetze.length > 0 && <Stammplaetze k={k} />}
       </span>
       <Einheiten k={k} />
       <span className="text-xs text-[var(--color-text-tertiary)]">{t('kinder.stichtag', { datum: datumVoll(k.stichtag, i18n.language) })}</span>

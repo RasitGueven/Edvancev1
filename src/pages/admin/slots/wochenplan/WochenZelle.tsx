@@ -39,7 +39,6 @@ export function WochenZelle({ zelle, ziel }: { zelle: WocheZelle; ziel: string }
     zelle.coach_fehlt > 0 ? t('woche.coachFehlt') : null,
     zelle.ohne_raum > 0 ? t('woche.ohneRaum', { count: zelle.ohne_raum }) : null,
   ].filter(Boolean)
-  const mix = zelle.faecher.map((f) => `${fachKuerzel(f.fach) || '–'} ${f.zahl}`).join(' · ')
 
   return (
     <Link
@@ -52,7 +51,16 @@ export function WochenZelle({ zelle, ziel }: { zelle: WocheZelle; ziel: string }
           <span className="font-semibold text-[var(--color-text-primary)]">{zelle.belegt}</span>
           <span className="text-[var(--color-text-tertiary)]"> / {zelle.kapazitaet}</span>
         </span>
-        {mix && <span className="truncate text-xs tabular-nums text-[var(--color-text-tertiary)]">{mix}</span>}
+        {zelle.faecher.length > 0 && (
+          <span className="flex min-w-0 flex-wrap justify-end gap-1">
+            {zelle.faecher.map((f) => (
+              <span key={f.fach ?? '-'} title={f.fach ?? undefined} className="inline-flex h-5 items-center gap-1 rounded-[var(--radius-full)] border border-[var(--color-border)] px-1 text-xs tabular-nums text-[var(--color-text-secondary)]">
+                <span className="font-semibold">{fachKuerzel(f.fach) || '–'}</span>
+                {f.zahl}
+              </span>
+            ))}
+          </span>
+        )}
       </span>
       {zelle.kapazitaet > 0 || zelle.ohne_raum > 0 ? (
         <PlatzPunkte raeume={raumBelegung(zelle)} ueberhang={zelle.ohne_raum} className="flex-wrap" />
