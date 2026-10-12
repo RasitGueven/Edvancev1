@@ -7,6 +7,8 @@
 export type SlotsCode =
   | 'SL001' | 'SL002' | 'SL003' | 'SL004' | 'SL005' | 'SL006'
   | 'SL007' | 'SL008' | 'SL009' | 'SL010' | 'SL011' | 'SL012'
+  /** SL2b: Testkonto und echtes Kind im selben Termin. */
+  | 'SL013'
 
 /** Gleiche Codes wie session_students.attendance. */
 export type TerminZustand = 'planned' | 'present' | 'cancelled' | 'unexcused' | 'cancelled_by_us'
@@ -24,6 +26,8 @@ export type KindKurz = {
   klasse: number | null
   /** Fach aus dem Vertrag (z. B. 'Mathematik'); null = ohne Fach. */
   fach: string | null
+  /** SL2b: Testkonto (Kennzeichen „Test“, zählt in den Kennzahlen nicht). */
+  ist_test?: boolean
 }
 
 /** Planbilanz (Entscheidung 12), gerechnet, nie gespeichert. */
@@ -85,6 +89,10 @@ export type WocheZelle = {
   raeume: ZelleRaum[]
   faecher: { fach: string | null; zahl: number }[]
   vergangen: boolean
+  /** SL2b: davon Testkonten (in belegt enthalten, im Kopf nicht). */
+  test?: number
+  /** SL2b: davon Testkonten ohne Raum. */
+  test_ohne_raum?: number
 }
 
 export type SlotsWoche = {
@@ -353,7 +361,16 @@ export type SlotsFrei = {
   ab: string
   zeiten: SlotZeit[]
   /** Kleinster Wert der nächsten sechs Termine; raum = alle sechs haben einen Raum mit Coach. */
-  zellen: { wochentag: number; zeit_id: string; frei: number; raum: boolean; voll: boolean; termine: number }[]
+  zellen: {
+    wochentag: number
+    zeit_id: string
+    frei: number
+    raum: boolean
+    voll: boolean
+    termine: number
+    /** SL2b: einer der nächsten sechs Termine scheitert an einem Kind der anderen Art (SL013). */
+    art_konflikt?: boolean
+  }[]
 }
 
 export type Sperrgrund = { code: SlotsCode; zeile: number | null; datum?: string }

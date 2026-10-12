@@ -658,9 +658,10 @@ type SchrittDetails =
 
 ## 10. Slots (Admin, Coach, Eltern; Bauauftrag Slots, Paket SL1)
 
-**Stand:** 2026-10-10 · **Migrationen:** `20261013100318`–`20261013125413` (SL1) · **Beweis:**
+**Stand:** 2026-10-12 · **Migrationen:** `20261013100318`–`20261013125413` (SL1), `20261013181427`, `20261013183052`
+(SL2b, Testkonten) · **Beweis:**
 `supabase/tests/slots_kontrollwerte.test.sql`, `slots_abnahme`, `slots_abgleich`, `slots_festschreiben`, `slots_verbrauch`,
-`slots_kalender`, `slots_rechte`, `slots_naechster`, `slots_nachbesserung` (pgTAP), `tools/slots-parallel-test.sh` · **Typen:**
+`slots_kalender`, `slots_rechte`, `slots_naechster`, `slots_nachbesserung`, `slots_sl2b` (pgTAP), `tools/slots-parallel-test.sh` · **Typen:**
 `src/types/slotplan.ts` · **Aufrufe:** `src/lib/supabase/slotplan.ts` · **Beispiele mit echtem JSON:**
 `docs/slots/datenvertrag-beispiele.md`
 
@@ -682,10 +683,10 @@ Die Entscheidungen 1–25 in `docs/slots/Bauauftrag-Slots.md` sind maßgeblich; 
   `beginn` in `naechste_termine`) ISO mit Zeitzone. A-Woche = ungerade ISO-Kalenderwoche (Server maßgeblich).
 - **`p_jetzt`.** Jede Funktion hat `p_jetzt timestamptz default now()` als letzten Parameter, nur für Tests. Er wirkt
   nur für Admin und Systemaufrufe; die Oberfläche übergibt ihn **nie**.
-- **Fehler.** Regelverstöße kommen mit eigenem SQLSTATE (`SL001`–`SL012`, Hinweis = Code). Die Oberfläche zeigt
+- **Fehler.** Regelverstöße kommen mit eigenem SQLSTATE (`SL001`–`SL013`, Hinweis = Code). Die Oberfläche zeigt
   `t(slotsFehlerSchluessel(res))` aus `src/lib/slots/fehler.ts`, nie den Rohtext. Weitere: `42501` Rechte,
   `P0002` nicht gefunden, `22023` Eingabe (Hinweise `nur_am_tag`, `testkonto`, `eingang`, `zustand`,
-  `name_doppelt`, `zeit_doppelt`, `kein_coach`, `kein_vorschlag`).
+  `name_doppelt`, `zeit_doppelt`, `kein_coach`, `kein_vorschlag`); `42501` mit Hinweis `testlauf_nur_admin` (10.4).
 
 | Code | Bedeutung |
 |---|---|
@@ -701,12 +702,18 @@ Die Entscheidungen 1–25 in `docs/slots/Bauauftrag-Slots.md` sind maßgeblich; 
 | SL010 | Rücknahme nicht möglich (Platz vergeben oder Termin begonnen) |
 | SL011 | Termin vergangen oder begonnen, nur Ansicht |
 | SL012 | jenseits der Ferientabelle |
+| SL013 | Testkonto und echtes Kind im selben Termin (SL2b) |
 
-- **Wer vorkommt.** Kinder mit laufendem oder kommendem Vertrag, keine Testkonten (Entscheidung 8). Einzel-Sessions
+- **Wer vorkommt.** Kinder mit laufendem oder kommendem Vertrag, seit SL2b auch Testkonten (`ist_test`; Entscheidung 8
+  ist damit für die Abnahme geändert). Jedes Kind-Objekt (`KindKurz`: Termin, Kinder, Kind, Kandidaten, Absagen,
+  Einsätze) trägt `ist_test`. Ein Testkonto und ein echtes Kind sitzen nie im selben Termin (Datum + Uhrzeit, alle
+  Räume): Buchen in dieser Kombination ergibt SL013, die Planung überspringt solche Daten wie einen vollen Slot.
+  Eine Session des Termins zählt dabei mit ihrer Art (`testlauf`), auch ohne Kinder. Einzel-Sessions
   und Testläufe laufen weiter über `/admin/schedule`; Buchungen ohne Kind-Termin zählen für Budget, Tagessperre,
   Wochengrenze und Verbrauch mit (Entscheidung 9, 11, 13).
 - **Belegt** sind Kind-Termine `planned` und `present`. Eine späte Absage (`unexcused`) macht den Platz frei,
-  verbraucht aber die Einheit und zählt für die Wochengrenze.
+  verbraucht aber die Einheit und zählt für die Wochengrenze. Testkonten belegen ihren Platz wie jedes Kind; nur die
+  Kennzahlen (Kopf von `slots_woche`, `slots_zaehler`) zählen sie nicht.
 
 ### 10.2 Lesen (Admin)
 
@@ -729,7 +736,10 @@ Die Entscheidungen 1–25 in `docs/slots/Bauauftrag-Slots.md` sind maßgeblich; 
   `ohne_raum` = Kinder, die die Zuteilung nicht unterbringt, `coach_fehlt` = Räume mit Stammschicht, deren Coach
   ausfällt. Tage ohne Betrieb haben `anlass` (Feiertag vor Ferien). `kopf.ohne_stammplatz` zählt alle Kinder mit
   laufendem oder kommendem Vertrag ohne aktiven Stammplatz (mit offenen Einheiten), `ohne_stammplatz_laufend` nur
-  die, deren Vertrag schon läuft (rot). `erster_ohne_raum` ist das Sprungziel.
+  die, deren Vertrag schon läuft (rot). `erster_ohne_raum` ist das Sprungziel. Seit SL2b: Jede Zelle hat `test`
+  und `test_ohne_raum` (davon Testkonten; in `belegt` und `ohne_raum` enthalten). Der Kopf (`belegt`, `auslastung`,
+  `ohne_raum`, `erster_ohne_raum`, `ohne_stammplatz*`) zählt Testkonten nicht, `plaetze` bleibt die Kapazität.
+  `slots_zaehler` zählt Testkonten ebenfalls nicht.
 - **`slots_termin`:** `raeume` enthält jeden Raum mit Stammschicht oder Abweichung, auch geschlossene
   (`offen: false`, `stamm_coach_name` für „Geschlossen · Stammschicht …“). Die Kinder je Raum und `ohne_raum`
   kommen aus der Zuteilung (Entscheidung 15) und können sich bis zum Festschreiben verschieben.
@@ -746,6 +756,7 @@ Die Entscheidungen 1–25 in `docs/slots/Bauauftrag-Slots.md` sind maßgeblich; 
   heißt speicherbar. `uebersprungen` (volle Daten nach den ersten sechs) sperrt nicht.
 - **`slots_frei`:** je Wochentag × Uhrzeit der kleinste freie Wert der nächsten sechs Termine ab `p_ab` im Takt;
   `raum: false` = mindestens einer der sechs ohne Raum mit Coach, `voll` = Raum da, aber kein Platz.
+  `art_konflikt` (SL2b, nur mit `p_student_id`): einer der sechs scheitert an einem Kind der anderen Art (SL013).
 - **`slots_ziele`:** nur Ziele, die alle Regeln erfüllen (freier Platz, kein anderer Termin am Tag, Wochengrenze,
   Vertrag, Budget). Mit `p_ausser_termin_id` und einem Eingang vor 10 Uhr zählt der alte Termin nicht mehr; nach
   10 Uhr ist `alt_verbraucht: true` und `verdraengt` nennt den Termin, der für die zusätzliche Einheit wegfällt.
@@ -757,14 +768,14 @@ die Regeln und gleicht am Ende die Termine aller betroffenen Kinder ab (`termine
 
 | Funktion | Ergebnis | Fehler |
 |---|---|---|
-| `stammplatz_vergeben(p_student_id, p_zeilen jsonb, p_ab date)` | `{ stammplatz_ids, planbilanz }` | SL001, SL002, SL006, SL007, SL008, SL012, 22023 `testkonto` |
+| `stammplatz_vergeben(p_student_id, p_zeilen jsonb, p_ab date)` | `{ stammplatz_ids, planbilanz }` | SL001, SL002, SL006, SL007, SL008, SL012, SL013 |
 | `stammplatz_aendern(p_id, p_ab, p_wochentag, p_slot_zeit_id, p_takt)` | `{ stammplatz_id, planbilanz }` | wie oben; alter endet am Vortag |
 | `stammplatz_beenden(p_id, p_ab)` | `{ ok, planbilanz }` | SL007; ab `p_ab` keine Termine mehr |
 | `stammplaetze_weiterfuehren(p_student_id)` | `{ stammplatz_ids, planbilanz }` | P0002 `kein_vorschlag`, sonst wie Vergeben |
 | `termin_absagen(p_termin_id, p_eingang timestamptz)` | `{ termin_id, zustand, rechtzeitig }` | SL011, 22023 `eingang`/`zustand` |
 | `termin_umbuchen(p_termin_id, p_eingang, p_ziel_datum, p_ziel_zeit_id)` | `{ termin_id, alt_zustand, rechtzeitig, verdraengt[] }` | Absage + wie Zusatztermin |
-| `absage_zuruecknehmen(p_termin_id)` | `{ termin_id, zustand, umbuchung_entfernt }` | SL010 |
-| `zusatztermin_buchen(p_student_id, p_datum, p_zeit_id)` | `{ termin_id, verdraengt[], ausgelassen }` | SL001–SL007, SL012 |
+| `absage_zuruecknehmen(p_termin_id)` | `{ termin_id, zustand, umbuchung_entfernt }` | SL010, SL013 |
+| `zusatztermin_buchen(p_student_id, p_datum, p_zeit_id)` | `{ termin_id, verdraengt[], ausgelassen }` | SL001–SL007, SL012, SL013 |
 | `termin_ausgefallen(p_termin_id)` | `{ termin_id, zustand }` | SL011 |
 | `termin_faellt_aus(p_datum, p_zeit_id)` | `{ betroffen }` | SL011 |
 | `termin_raum_setzen(p_termin_id, p_raum_id)` (`null` = Stift lösen) | `{ termin_id, raum_id }` | SL001, SL002, SL011 |
@@ -791,10 +802,12 @@ Knopf „Session öffnen“ (Coach: Meine Einsätze; Admin: Termin). Nur am Tag 
 dieselbe `session_id` (`neu: false`). Die Session trägt `coach_id`, `room` (= Raumname) und `scheduled_at`
 (Datum + Beginn, Berlin); die Kinder der Zuteilung stehen in `session_students`. Ein Kind ohne Zugang an dem Tag
 (ZG001) steht in `ausgelassen` und ist „ausgefallen durch uns“. Danach weiter wie bisher zur Live-Sicht
-(`/coach/session/:id/live`).
+(`/coach/session/:id/live`). Seit SL2b: Sitzen im Termin nur Testkonten (ohne Kinder: wie die übrigen Sessions des
+Termins), entsteht die Session mit `testlauf = true`. Das darf beim Anlegen nur der Admin (Trigger
+`coaching_sessions_testlauf_pruefen`); ein Coach bekommt vorher 42501 mit Hinweis `testlauf_nur_admin`.
 
 #### `meine_einsaetze(p_montag) → MeineEinsaetze` (nur Coach)
-Eigene geöffnete Raum-Termine der Woche mit den Kindern im Raum (Name, Klasse, Fach), `session_id` sobald
+Eigene geöffnete Raum-Termine der Woche mit den Kindern im Raum (Name, Klasse, Fach, seit SL2b `ist_test`), `session_id` sobald
 festgeschrieben, `heute` aus `now()`. Kein Zustand, keine Absage, kein Vertrag, keine Planbilanz (Anforderung I 54).
 
 #### `naechste_termine(p_student_id, p_anzahl default 3) → NaechsterTermin[]` (Admin, Eltern des Kindes)

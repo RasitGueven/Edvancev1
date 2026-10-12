@@ -12,6 +12,7 @@ import { datumKurz } from '../slotsFormat'
 import { useSlotsLaden } from '../useSlotsLaden'
 import { paketText, rhythmusText } from '../kinder/KinderSpalten'
 import { AbsageDialog, type AbsageTermin } from '../dialoge/AbsageDialog'
+import { TestKennzeichen } from '../TestKennzeichen'
 import { StammplatzDialog } from '../dialoge/StammplatzDialog'
 import { ZusatzterminDialog } from '../dialoge/ZusatzterminDialog'
 import { EinheitenKarte, LetzteKarte, NaechsteKarte, StammplaetzeKarte, VertragKarte } from './KindKarten'
@@ -94,6 +95,12 @@ export function KindPage(): JSX.Element {
         }
       />
       {!k.zugelassen && <p className="text-sm text-[var(--color-text-secondary)]">{t('fehler.testkonto')}</p>}
+      {k.kind.ist_test && (
+        <p className="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)]">
+          <TestKennzeichen />
+          {t('test.kindHinweis')}
+        </p>
+      )}
       {k.weiterfuehren && k.weiterfuehren.zeilen.length > 0 && k.stammplaetze.length === 0 && (
         <p className="text-sm text-[var(--color-text-secondary)]">{t('kind.weiterfuehrenHinweis')}</p>
       )}

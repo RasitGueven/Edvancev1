@@ -96,7 +96,7 @@ export function KindHinzufuegenDialog({ termin, onClose, onGespeichert }: Props)
                     <span className="flex min-w-0 flex-col">
                       <span className="truncate text-sm font-semibold">{k.name}</span>
                       <span className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
-                        <KlasseFach klasse={k.klasse} fach={k.fach} />
+                        <KlasseFach klasse={k.klasse} fach={k.fach} test={k.ist_test} />
                         {k.verdraengt && t('dialog.ziele.verdraengtKurz', { datum: datumKurz(k.verdraengt, i18n.language) })}
                       </span>
                     </span>

@@ -92,8 +92,8 @@ select ok(not exists (select 1 from jsonb_array_elements(:'me'::jsonb -> 'einsae
 select ok(not exists (select 1 from jsonb_array_elements(:'me'::jsonb -> 'einsaetze') e, jsonb_array_elements(e -> 'kinder') k
                        where e ->> 'datum' = '2028-03-15' and k ->> 'student_id' = :'kr'), '11 meine_einsaetze: keine Absage (Mi abgesagt)');
 select is((select count(*)::int from jsonb_array_elements(:'me'::jsonb -> 'einsaetze') e, jsonb_array_elements(e -> 'kinder') k,
-                  jsonb_object_keys(k) key where key not in ('student_id', 'name', 'klasse', 'fach')), 0,
-          '11 meine_einsaetze: je Kind nur Name, Klasse, Fach (kein Vertrag, kein Zustand)');
+                  jsonb_object_keys(k) key where key not in ('student_id', 'name', 'klasse', 'fach', 'ist_test')), 0,
+          '11 meine_einsaetze: je Kind nur Name, Klasse, Fach, Test-Kennzeichen (kein Vertrag, kein Zustand)');
 select throws_ok(format($$select termin_session_anlegen('2028-03-14', %L, %L, '2028-03-14 12:00 Europe/Berlin')$$,
                         pg_temp.zeit(16), pg_temp.raum('Raum 1')),
                  '22023', null, '11 Coach mit p_jetzt eines anderen Tages kann keine Session festschreiben');
