@@ -11,7 +11,8 @@ wird in L5 (Lena), freigegeben vom Admin. Nichts wird automatisch geprüft oder 
 | `tools/hinweise-e3-lib.mjs` | Nachrechnung (exakt, über `tools/prefill-rechnen.mjs`), ohne DB und ohne LLM |
 | `tools/hinweise-e3.mjs` | `pruefen`, `vorschau`, `migration`, `fixture` (nur Wegwerf-DB) |
 | `tests/hinweise-e3.test.ts` | Gate: echte Quellen grün, gezielt verdorbene Kopien rot |
-| `supabase/migrations/20261013175427_hinweise_e3_batu.sql` | Daten-Migration (erzeugt, nicht von Hand ändern) |
+| `supabase/migrations/20261013173601_lsa_ohne_hinweise.sql` | Riegel: `lsa_hint` liefert nie einen Hinweis (Entscheidung Rasit 12.10.) |
+| `supabase/migrations/20261013175427_hinweise_e3_batu.sql` | Daten-Migration: Hinweise und Kennzeichen (erzeugt, nicht von Hand ändern) |
 | `supabase/tests/session_e3_hinweise.test.sql` | pgTAP: Entwurf, kein Überschreiben, zweiter Lauf, `hinweis_abrufen` |
 | `tools/hinweise-e3-wegwerf-db.sh`, `tools/hinweise-e3-abgleich.sql` | Wegwerf-DB (Port 55453) und Abgleich vor/nach der Migration |
 | `hinweise-e3-snapshot.json` | Bestand der Aufgaben per dbread (Prod, nur gelesen) |
@@ -152,32 +153,68 @@ alle sechs Aufgaben ist zulässig).
    `term_ausklammern` und `vorzeichen_add_sub` stehen in keiner Migration und nicht in `seed.sql`. In der CI greift
    die Migration für sie ins Leere (kein Fehler); der Abgleich über alle 49 läuft in der Wegwerf-DB mit einer
    Fixture aus dem Prod-Snapshot (`node tools/hinweise-e3.mjs fixture`).
-2. **`tasks.vorbefuellt.hints` sagt „leer“.** Bei den 24 Aufgaben `gleichung_quadr_*` steht in Prod
-   `{"art": "leer", "grund": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."}`. E3 setzt jetzt
-   Hinweise für den Einsatz in der Session; das Kennzeichen bleibt unverändert (E3 ändert `tasks` nicht). Lena sieht
-   in L5 also „bewusst leer“ neben drei Hinweisen. Wer: Rasit (Kennzeichen anpassen oder so lassen).
-3. **LSA der Testkonten.** Seit T3 liefert `lsa_hint` für Testkonten auch ungeprüfte Hinweise. Batus LSA zeigt also
-   ab dem Einspielen diese Entwürfe, ein echtes Kind nicht (nur geprüfte).
+2. **`tasks.vorbefuellt.hints` sagte „leer“ (erledigt, Entscheidung Rasit 12.10.).** Bei den 24 Aufgaben
+   `gleichung_quadr_*` stand `{"art": "leer", "grund": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."}`.
+   Die E3-Migration setzt dort `{"art": "neu", "grund": "E3: drei Hinweisstufen für die Session. In der LSA gibt es
+   keine Hinweise (lsa_hint gesperrt)."}` und `vorbefuellt_am = now()`, nur wo „leer“ steht und die drei Hinweise
+   gesetzt sind. Die 25 Fundament-Aufgaben haben kein Kennzeichen und bleiben ohne.
+3. **LSA ohne Hinweise (erledigt, Entscheidung Rasit 12.10.).** Siehe nächster Abschnitt.
 4. **Gate in der Wegwerf-DB.** Dort fehlt den Aufgaben der Cluster (Prod: gesetzt, `pruef_ausschluss` leer für alle
    49, dbread 12.10.). Der pgTAP-Test setzt ihn transaktionslokal für `quadrgl-faktor-03`.
 5. **Versionen.** Bereich 20261013170000–175959 vorgegeben; Minute und Sekunde aus `date -u` (17:54:27 → `…175427`).
    Per dbread am 12.10. frei; in Prod stehen bereits T4 (`2026101316…`) und SL2b (`20261013181427`, `…183052`), die
    noch nicht auf dev sind. Vor dem Einspielen erneut prüfen.
 
+## LSA ohne Hinweise (Entscheidung Rasit 12.10.2026)
+
+Die Aufgaben haben Einsatz `lsa` und `session`; `lsa_hint` hätte geprüfte Hinweise auch in einer echten LSA geliefert,
+für Testkonten (T3) sogar Entwürfe. Entscheidung: Die LSA läuft ohne Hinweise, für echte Kinder und für Testkonten.
+
+- **Riegel** `20261013173601_lsa_ohne_hinweise.sql` (vor der Hinweis-Migration): `lsa_hint` liefert immer
+  `{"level": p_level, "text": null, "available": false}`. Session- (P0002), Zugriffs- (42501) und Item-Prüfung
+  (P0001) bleiben unverändert davor; Signatur, `SECURITY DEFINER`, `search_path` und Rechte unverändert.
+  `schema-erwartet.sql`: nur der `lsa_hint`-Block (gefiltert gleich dem Neuaufbau).
+- **Aufrufer** (12.10.): keine andere Funktion in Prod (`pg_proc.prosrc`), kein Aufruf in `src/` oder
+  `supabase/functions`; `scripts/sql/verify_p01.sql` liest nur die Rechte. Tests: `session_t3`, `session_l5`,
+  `session_e1`, `inv2_lsa_datenvertrag`, `inv6_keine_loesung_fuer_schueler` umgestellt (Zusagen erhalten, Erwartung
+  jetzt „kein Hinweis“), `s9_platz_mechanik` (42501) unverändert. `inv2`, `inv6` stehen in `bekannt-rot.txt` und
+  brechen vorher an `lsa_start` ab; ihre umgestellten Zeilen laufen erst, wenn diese Tests wieder grün sind.
+- **edvance-app (nur gelesen, Explore-Agent):** Der LSA-Player ruft `lsa_hint` nirgends auf (alle 75 Branches,
+  `git grep`); es gibt keinen Hinweis-Knopf. Der einzige Knopf ist Eddie mit „Ich weiß es nicht“
+  (`src/components/lsa/Eddie.tsx:21-24`: „WAS EDDIE HIER NIEMALS TUT: einen inhaltlichen Hinweis geben …“,
+  `:194`, `LsaAufgabe.tsx:212-213` → `dont_know`). `available=false` läuft also nirgends ins Leere.
+  `lsa_submit`/`platz_submit` melden keine Hinweisnutzung; `lsa_responses` hat keine Hinweis-Spalte; keine
+  Urteils-, Auswertungs- oder Lernpfad-Funktion der LSA liest Hinweise (`hinweis_genutzt` gibt es nur im
+  Session-Pfad, `lernpfad_belege`). `lsa_hint` steht in der App nur in `src/types/database.ts:2044`,
+  `docs/DATENVERTRAG.md:55, 149` („Hinweise kommen einzeln auf Anfrage über `lsa_hint`“, jetzt veraltet) und
+  `docs/lsa-rpc-referenz.sql`.
+- **Nebenbefund:** Die alte Fassung hätte bei adaptiven LSA-Sitzungen (Standard, `item_ids = '{}'`) ohnehin mit
+  P0001 abgebrochen, weil sie `item_ids` prüft, `lsa_submit` dagegen `lsa_ausgegeben`. Der Riegel behält die Prüfung
+  unverändert (Auftrag); bei adaptiven Sitzungen bleibt es also bei P0001.
+- **Web-Frontend:** kein LSA-Player mit `lsa_hint`; der alte Web-TaskPlayer (lokaler Hinweis-Knopf, `hint_used` in
+  `behavior_snapshots`) ist stillgelegt (`src/App.tsx:77-78`).
+
+## Einspielen (nach „E3 einspielen“)
+
+Reihenfolge: erst der Riegel `20261013173601_lsa_ohne_hinweise`, dbread-Kontrolle (`pg_get_functiondef`,
+`proacl`), dann `20261013175427_hinweise_e3_batu`, dbread-Kontrolle (Hinweise je Skill, alle entwurf, Kennzeichen),
+danach `tools/schema-snapshot.sh`.
+
 ## Test (Schritt 5)
 
-Wegwerf-DB: eigener Cluster Port 55453, `~/wegwerf-db-e3`, 262 Migrationen + `seed.sql` wie in der CI, dann
-Fixture, E3-Migration zweimal. Ausgabe von `tools/hinweise-e3-wegwerf-db.sh e3_test --tests` (12.10.2026):
+Wegwerf-DB: eigener Cluster Port 55453, `~/wegwerf-db-e3`, 263 Migrationen (mit Riegel) + `seed.sql` wie in der
+CI, dann Fixture, E3-Migration zweimal. Ausgabe von `tools/hinweise-e3-wegwerf-db.sh e3_test --tests` (12.10.2026):
 
 ```
 ok  Bestand: 49 Aufgaben (Session, ohne Hinweise, nicht VERA8)
 ok  geändert: genau diese 49 task_solutions-Zeilen, nur Spalte hints
 ok  je Aufgabe Stufe 1–3 mit Text, alle entwurf; geprüft: 0
 ok  563 andere task_solutions-Zeilen unverändert
-ok  tasks: nur pruef_version der 49 Aufgaben hochgezählt
+ok  tasks: pruef_version der 49 Aufgaben hochgezählt, sonst unverändert
+ok  Kennzeichen vorbefuellt.hints leer → neu: 24 Aufgaben (gleichung_quadr_anzahl, gleichung_quadr_faktor, gleichung_quadr_formel, gleichung_quadr_wurzel)
 ok  zweiter Lauf: keine Änderung
 je Skill: gleichung_einschrittig 6, gleichung_quadr_anzahl 6, gleichung_quadr_faktor 6, gleichung_quadr_formel 6, gleichung_quadr_wurzel 6, gleichung_zweischrittig 6, term_ausklammern 6, vorzeichen_add_sub 7
-1..14
+1..22
 ok 1 - 1 Vorbedingung: die Session-Aufgaben gleichung_quadr_* stehen in der DB
 ok 2 - 1 jede Aufgabe hat genau Stufe 1, 2 und 3
 ok 3 - 1 jeder Hinweis hat Text und steht auf entwurf (keiner geprüft)
@@ -192,9 +229,38 @@ ok 11 - 3 Testlauf: Stufe 3 kommt
 ok 12 - 3 echte Session: Entwurf Stufe 1 nicht verfügbar
 ok 13 - 3 echte Session: Entwurf Stufe 2 nicht verfügbar
 ok 14 - 3 echte Session: Entwurf Stufe 3 nicht verfügbar
+ok 15 - 4 vorbefuellt.hints der Aufgaben gleichung_quadr_* steht auf neu
+ok 16 - 4 vorbefuellt_am ist gesetzt
+ok 17 - 5 Vorbedingung: Stufe 1 von quadrgl-faktor-03 ist geprüft
+ok 18 - 5 lsa_hint echtes Kind: auch der geprüfte Hinweis kommt nicht
+ok 19 - 5 lsa_hint Testkonto: kein Hinweis (auch nicht im Testmodus)
+ok 20 - 5 lsa_hint Testkonto: Stufe 2 ebenso
+ok 21 - 5 lsa_hint: fremdes Item weiter P0001
+ok 22 - 5 lsa_hint: unbekannte Session weiter P0002
 ```
 
-Gegenproben: Ohne E3-Migration ist `session_e3_hinweise` rot (Zusage 2: „have 24, want 0“). Alle 52 pgTAP-Dateien
-gegen die CI-gleiche DB mit E3: 44 grün, 8 rot — genau die 8 aus `supabase/tests/bekannt-rot.txt`, ohne E3
-identisch rot; einziger Unterschied ist `session_e3_hinweise`. Vitest: 128 Dateien, 1105 Tests grün. Typecheck und
-Lint grün. Kein DDL → `schema-erwartet.sql` unverändert.
+Gegenproben:
+- Ohne E3-Migration ist `session_e3_hinweise` rot (Zusage 2: „have 24, want 0“).
+- Mit der alten `lsa_hint`-Fassung (T3-Migration erneut eingespielt) sind genau Zusage 18 und 19 rot.
+- Alle 52 pgTAP-Dateien gegen die CI-gleiche DB mit Riegel und E3: 44 grün, 8 rot — genau die 8 aus
+  `supabase/tests/bekannt-rot.txt`, keiner davon wegen Hinweisen; ohne E3 dieselben 8.
+- Vitest 128 Dateien / 1105 Tests, Typecheck, Lint grün.
+- `schema-erwartet.sql`: nur der `lsa_hint`-Block, gefiltert gleich dem Neuaufbau (`pg_dump` wie in der CI).
+
+## Konsensprüfung Riegel (CLAUDE.md §8)
+
+Zweite unabhängige Instanz (Reviewer-Agent, nur lesend, mit dbread gegen Prod), 12.10.2026: **freigeben mit Hinweisen.**
+
+- `lsa_hint` neu gegen Prod: Signatur samt `DEFAULT 1`, `RETURNS`, `SECURITY DEFINER`, `search_path`, drei Prüfungen in
+  derselben Reihenfolge mit denselben Codes gleich; ACL `postgres, authenticated, service_role` bleibt (kein DROP,
+  kein GRANT/REVOKE). Aufrufer: keine. Testzusagen: Anzahl `is()` und `plan()` je Datei vorher = nachher.
+  `schema-erwartet.sql`: nur der `lsa_hint`-Block. Hinweis-Migration: kein Recht, keine Auth, keine RLS.
+- Übernommen: `session_l5` prüft jetzt das volle JSON statt nur `text = null`; `docs/api/DATENVERTRAG.md` (`:82`,
+  `:194`) beschreibt die LSA ohne Hinweise; Riegel-Migration mit im Commit.
+- Beim Einspielen zu erledigen: `origin/dev` einmischen (T4 #242 und SL3 #241 sind inzwischen auf dev, T4 berührt
+  `schema-erwartet.sql`), dann `schema-erwartet.sql` erneut gegen den Neuaufbau prüfen; beide Versionen liegen unter
+  dem Prod-Maximum (`20261013183052`, SL2b) und werden nachträglich eingetragen — die CI prüft keine Reihenfolge,
+  CLAUDE.md §10 prüft nur, dass die Version frei ist.
+- Nur genannt, nicht geändert (veraltete Beschreibungen von `lsa_hint`): `docs/session/Bauauftrag-Session-P1.md`
+  (Entscheidung 20, E1.2), `docs/session/offene-punkte-t3.md`, `offene-punkte-l5.md`, `offene-punkte-e1.md`,
+  `docs/retros/2026-10-06-session-e1.md`; in edvance-app `docs/DATENVERTRAG.md:55, 149` (App-Seite übernimmt Rasit).

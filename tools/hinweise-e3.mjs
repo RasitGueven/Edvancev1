@@ -19,6 +19,8 @@ const WURZEL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const QUELLEN = path.join(WURZEL, 'tools/hinweise-e3');
 const SNAPSHOT = path.join(WURZEL, 'docs/prefill/hinweise-e3-snapshot.json');
 const VERA8 = 'VERA8_IQB';
+/** Kennzeichen für Lena (L5), Entscheidung Rasit 12.10.2026: nur wo die k9-Charge „leer“ eingetragen hat. */
+const KENNZEICHEN = { art: 'neu', grund: 'E3: drei Hinweisstufen für die Session. In der LSA gibt es keine Hinweise (lsa_hint gesperrt).' };
 
 export async function ladeQuellen(skills) {
   const dateien = fs.readdirSync(QUELLEN).filter((f) => f.endsWith('.mjs')).sort();
@@ -87,6 +89,7 @@ function vorschau(liste) {
 const sql = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
 function migration(liste, version, name) {
+  const quadr = liste.filter(({ t }) => t.skill_key.startsWith('gleichung_quadr_'));
   const zeilen = liste.map(({ t, e }, i) =>
     `  (${sql(t.id)}::uuid, ${sql(JSON.stringify(alsHints(e)))}::jsonb)${i < liste.length - 1 ? ',' : ''} -- ${t.skill_key} ${t.source_ref}`);
   return `-- E3 (Session-Rahmen): Hinweise als KI-Entwurf für die Session-Aufgaben aus dem Szenario Batu.
@@ -99,6 +102,12 @@ function migration(liste, version, name) {
 -- hinweise_status_folgt_text macht jeden neuen Text ohnehin zum Entwurf. Aufgabe, Lösung, Status und
 -- known_errors bleiben unverändert. Ein zweiter Lauf ändert nichts (Bedingung hints = []).
 -- Nebenwirkung: task_solutions_pruef_version zählt tasks.pruef_version der ${liste.length} Aufgaben hoch (gewollt: L5 sieht neuen Stand).
+--
+-- Zweite Anweisung (Entscheidung Rasit 12.10.2026): Bei den ${quadr.length} Aufgaben gleichung_quadr_* steht in
+-- tasks.vorbefuellt.hints noch „leer“ (Charge k9-quadrgl: „ohne Hilfe lösbar (LSA), keine Hinweise“). Das Kennzeichen
+-- wird auf „neu“ gesetzt, vorbefuellt_am = now() wie bei jeder Vorbefüllung; nur wo es „leer“ ist und die drei
+-- Hinweise stehen. pruef_version zählt dabei noch einmal hoch (in Ordnung). Ein zweiter Lauf ändert nichts.
+-- Läuft nach 20261013173601_lsa_ohne_hinweise (lsa_hint liefert in der LSA keine Hinweise).
 
 update public.task_solutions s
    set hints = v.hints
@@ -111,6 +120,17 @@ ${zeilen.join('\n')}
                 where t.id = s.task_id
                   and 'session' = any (t.einsatz)
                   and t.source is distinct from '${VERA8}');
+
+update public.tasks t
+   set vorbefuellt = t.vorbefuellt || jsonb_build_object('hints', ${sql(JSON.stringify(KENNZEICHEN))}::jsonb),
+       vorbefuellt_am = now()
+ where t.id in (
+${quadr.map(({ t: a }, i) => `  ${sql(a.id)}::uuid${i < quadr.length - 1 ? ',' : ''} -- ${a.source_ref}`).join('\n')}
+       )
+   and t.vorbefuellt -> 'hints' ->> 'art' = 'leer'
+   and 'session' = any (t.einsatz)
+   and t.source is distinct from '${VERA8}'
+   and exists (select 1 from public.task_solutions s where s.task_id = t.id and jsonb_array_length(s.hints) = 3);
 `;
 }
 

@@ -8,6 +8,12 @@
 -- hinweise_status_folgt_text macht jeden neuen Text ohnehin zum Entwurf. Aufgabe, Lösung, Status und
 -- known_errors bleiben unverändert. Ein zweiter Lauf ändert nichts (Bedingung hints = []).
 -- Nebenwirkung: task_solutions_pruef_version zählt tasks.pruef_version der 49 Aufgaben hoch (gewollt: L5 sieht neuen Stand).
+--
+-- Zweite Anweisung (Entscheidung Rasit 12.10.2026): Bei den 24 Aufgaben gleichung_quadr_* steht in
+-- tasks.vorbefuellt.hints noch „leer“ (Charge k9-quadrgl: „ohne Hilfe lösbar (LSA), keine Hinweise“). Das Kennzeichen
+-- wird auf „neu“ gesetzt, vorbefuellt_am = now() wie bei jeder Vorbefüllung; nur wo es „leer“ ist und die drei
+-- Hinweise stehen. pruef_version zählt dabei noch einmal hoch (in Ordnung). Ein zweiter Lauf ändert nichts.
+-- Läuft nach 20261013173601_lsa_ohne_hinweise (lsa_hint liefert in der LSA keine Hinweise).
 
 update public.task_solutions s
    set hints = v.hints
@@ -68,3 +74,37 @@ update public.task_solutions s
                 where t.id = s.task_id
                   and 'session' = any (t.einsatz)
                   and t.source is distinct from 'VERA8_IQB');
+
+update public.tasks t
+   set vorbefuellt = t.vorbefuellt || jsonb_build_object('hints', '{"art":"neu","grund":"E3: drei Hinweisstufen für die Session. In der LSA gibt es keine Hinweise (lsa_hint gesperrt)."}'::jsonb),
+       vorbefuellt_am = now()
+ where t.id in (
+  '0c3d2396-131a-4cba-bd07-4597d92500cf'::uuid, -- quadrgl-anzahl-04
+  'a549083d-c72d-44d6-9aba-a138ad6d2dc0'::uuid, -- quadrgl-anzahl-01
+  '95077a87-7e8a-4463-83b0-dbbf6facc879'::uuid, -- quadrgl-anzahl-05
+  'ef911123-949d-4ea9-a61d-beef95cc8dc0'::uuid, -- quadrgl-anzahl-03
+  '9f9ab204-2b5e-49d7-aaab-28ddc96ea8b5'::uuid, -- quadrgl-anzahl-02
+  '56540a88-7b9e-4935-8702-26f9415e9d14'::uuid, -- quadrgl-anzahl-06
+  'd7d81e80-6776-4308-a690-29675f7882d4'::uuid, -- quadrgl-faktor-03
+  'b47ef7d3-1933-416f-8fe8-edcbc8fe8929'::uuid, -- quadrgl-faktor-01
+  '1c4a31af-20bc-4348-b8d9-cd83b273ff38'::uuid, -- quadrgl-faktor-02
+  '9879542e-bb69-41c6-a77f-3916a26ffad1'::uuid, -- quadrgl-faktor-05
+  'c3be2e88-1087-479f-bf95-9dbd732efa56'::uuid, -- quadrgl-faktor-04
+  '90635757-ba7c-4bde-bd7c-04bd79bf8c35'::uuid, -- quadrgl-faktor-06
+  '1f2a206f-1f63-4866-b446-c8305de6b725'::uuid, -- quadrgl-formel-03
+  '1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee'::uuid, -- quadrgl-formel-05
+  '5b36238f-c64c-4578-bd63-55249f185c78'::uuid, -- quadrgl-formel-06
+  'b6e77404-2577-4e03-b4ce-cb61a5f6a5f9'::uuid, -- quadrgl-formel-01
+  '725448a1-10e2-4e88-beb8-fe57f6e54d06'::uuid, -- quadrgl-formel-04
+  '43f39bc1-e7b4-48e6-8b77-ff8e41e77142'::uuid, -- quadrgl-formel-02
+  '504bbd98-9c80-4124-a66a-9dc7b6651bb9'::uuid, -- quadrgl-wurzel-03
+  '4d1a2438-3610-4dc9-b5be-8d35cb5199bd'::uuid, -- quadrgl-wurzel-02
+  'cd6693f5-cc93-4628-baf9-f45436706641'::uuid, -- quadrgl-wurzel-04
+  '3a42b89c-7f8a-4b64-94ff-d1d4ac576c32'::uuid, -- quadrgl-wurzel-06
+  'bc0cdfe9-2416-4d02-a623-feb820083f07'::uuid, -- quadrgl-wurzel-05
+  '9264f90a-1f7b-4170-97da-198c1acc89a3'::uuid -- quadrgl-wurzel-01
+       )
+   and t.vorbefuellt -> 'hints' ->> 'art' = 'leer'
+   and 'session' = any (t.einsatz)
+   and t.source is distinct from 'VERA8_IQB'
+   and exists (select 1 from public.task_solutions s where s.task_id = t.id and jsonb_array_length(s.hints) = 3);

@@ -186,11 +186,12 @@ select lives_ok(
   'lsa_submit: MC-Antwort wird angenommen'
 );
 
--- Hinweise kommen einzeln auf Anfrage — und nur der angefragte Level.
+-- E3 (Entscheidung Rasit 12.10.2026): die LSA laeuft ohne Hinweise; lsa_hint meldet den angefragten Level als
+-- nicht verfuegbar, auch fuer einen geprueften Hinweis.
 select is(
-  (select public.lsa_hint(:'lsa_sid', :'t_short', 1) ->> 'text'),
-  'Denk an die Einheit.',
-  'lsa_hint liefert genau den angefragten Hinweis-Level'
+  (select public.lsa_hint(:'lsa_sid', :'t_short', 1)),
+  '{"level":1,"text":null,"available":false}'::jsonb,
+  'lsa_hint: angefragter Level, kein Hinweis (LSA ohne Hinweise)'
 );
 
 -- ============================================================================

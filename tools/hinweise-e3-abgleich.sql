@@ -43,17 +43,30 @@ begin
       or exists (select 1 from jsonb_array_elements(s.hints) h
                   where h ->> 'status' is distinct from 'entwurf' or nullif(btrim(h ->> 'text'), '') is null);
   if v_n <> 0 then raise exception '% Aufgaben ohne drei Entwurfs-Hinweise', v_n; end if;
-  -- tasks: nur pruef_version der 49 Aufgaben (Trigger task_solutions_pruef_version), sonst nichts
+  -- tasks: pruef_version der 49 Aufgaben (Trigger task_solutions_pruef_version); bei den 24 gleichung_quadr_*
+  -- dazu vorbefuellt.hints „leer“ → „neu“ und vorbefuellt_am (Entscheidung Rasit 12.10.2026); sonst nichts
   select count(*) into v_n from public.tasks n join e3_vorher.tasks v using (id)
-   where to_jsonb(n) - 'pruef_version' is distinct from to_jsonb(v) - 'pruef_version';
-  if v_n <> 0 then raise exception '% tasks-Zeilen geändert (außer pruef_version)', v_n; end if;
+   where to_jsonb(n) - 'pruef_version' - 'vorbefuellt' - 'vorbefuellt_am'
+         is distinct from to_jsonb(v) - 'pruef_version' - 'vorbefuellt' - 'vorbefuellt_am'
+      or n.vorbefuellt - 'hints' is distinct from v.vorbefuellt - 'hints';
+  if v_n <> 0 then raise exception '% tasks-Zeilen geändert (außer pruef_version und Kennzeichen hints)', v_n; end if;
+  select count(*) into v_n from public.tasks n join e3_vorher.tasks v using (id)
+   where (n.vorbefuellt -> 'hints' is distinct from v.vorbefuellt -> 'hints'
+          or n.vorbefuellt_am is distinct from v.vorbefuellt_am)
+     and not (n.skill_key like 'gleichung_quadr\_%' and n.id in (select id from e3_soll)
+              and v.vorbefuellt -> 'hints' ->> 'art' = 'leer'
+              and n.vorbefuellt -> 'hints' = '{"art":"neu","grund":"E3: drei Hinweisstufen für die Session. In der LSA gibt es keine Hinweise (lsa_hint gesperrt)."}'::jsonb);
+  if v_n <> 0 then raise exception '% tasks mit unerwartetem Kennzeichen hints', v_n; end if;
   select count(*) into v_n from public.tasks n join e3_vorher.tasks v using (id)
    where n.pruef_version is distinct from v.pruef_version and n.id not in (select id from e3_soll);
   if v_n <> 0 then raise exception '% fremde tasks mit neuer pruef_version', v_n; end if;
-  -- zweiter Lauf ändert nichts
+  -- zweiter Lauf ändert nichts, weder task_solutions noch tasks
   select count(*) into v_n from public.task_solutions n join e3_vorher.ts_nach1 v using (task_id)
    where to_jsonb(n) is distinct from to_jsonb(v);
   if v_n <> 0 then raise exception 'zweiter Lauf hat % Zeilen geändert', v_n; end if;
+  select count(*) into v_n from public.tasks n join e3_vorher.tasks_nach1 v using (id)
+   where to_jsonb(n) is distinct from to_jsonb(v);
+  if v_n <> 0 then raise exception 'zweiter Lauf hat % tasks-Zeilen geändert', v_n; end if;
 end $$;
 
 select 'ok  Bestand: ' || count(*) || ' Aufgaben (Session, ohne Hinweise, nicht VERA8)' from e3_soll;
@@ -62,8 +75,11 @@ select 'ok  je Aufgabe Stufe 1–3 mit Text, alle entwurf; geprüft: '
        || count(*) filter (where h ->> 'status' = 'geprueft')
   from public.task_solutions s join e3_soll on e3_soll.id = s.task_id, jsonb_array_elements(s.hints) h;
 select 'ok  ' || count(*) || ' andere task_solutions-Zeilen unverändert' from public.task_solutions where task_id not in (select id from e3_soll);
-select 'ok  tasks: nur pruef_version der ' || count(*) || ' Aufgaben hochgezählt'
+select 'ok  tasks: pruef_version der ' || count(*) || ' Aufgaben hochgezählt, sonst unverändert'
   from public.tasks n join e3_vorher.tasks v using (id) where n.pruef_version is distinct from v.pruef_version;
+select 'ok  Kennzeichen vorbefuellt.hints leer → neu: ' || count(*) || ' Aufgaben (' ||
+       string_agg(distinct n.skill_key, ', ') || ')'
+  from public.tasks n join e3_vorher.tasks v using (id) where n.vorbefuellt -> 'hints' is distinct from v.vorbefuellt -> 'hints';
 select 'ok  zweiter Lauf: keine Änderung';
 select 'je Skill: ' || string_agg(t.skill_key || ' ' || n, ', ' order by t.skill_key)
   from (select t.skill_key, count(*) n from public.tasks t join e3_soll on e3_soll.id = t.id group by 1) t;

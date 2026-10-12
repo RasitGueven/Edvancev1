@@ -3,7 +3,7 @@
 --
 -- Zusagen (Nummern wie im Auftrag):
 --   1) Testlauf-Session bzw. LSA eines Testkontos: hinweis_abrufen, antwort_abgeben (Fehlbild-Satz),
---      erklaer_nachlesen, lsa_hint, lsa_fehlbild_report liefern ungepruefte Inhalte; in einer echten Session bzw.
+--      erklaer_nachlesen, lsa_fehlbild_report liefern ungepruefte Inhalte (lsa_hint seit E3 nie, s. u.); in einer echten Session bzw.
 --      der LSA eines echten Kindes mit denselben Aufgaben unveraendert nichts bzw. "nicht verfuegbar".
 --   2) Inhalt einer Aufgabe, die die Pruefung des Lena-Boards nicht besteht (pruef_ausschluss), bleibt auch im
 --      Testlauf unsichtbar. Ein Hinweis ohne Text bleibt "nicht verfuegbar".
@@ -212,17 +212,18 @@ select is((select count(*)::int from lsa_responses where session_id in (:'l_test
           'Vorbedingung: vier falsche LSA-Antworten mit Fehlbild');
 
 select pg_temp.act_as(:'admin');
-select is(public.lsa_hint(:'l_test', :'d', 1), '{"level":1,"text":"ZZ-T3-D-ENTWURF-1","available":true}'::jsonb,
-          '1 lsa_hint Testkonto: Hinweis im Entwurf');
-select is(public.lsa_hint(:'l_tl', :'d', 1) ->> 'text', 'ZZ-T3-D-ENTWURF-1', '1 lsa_hint Testlauf-LSA: Hinweis im Entwurf');
-select is(public.lsa_hint(:'l_test', :'r', 1) ->> 'text', 'ZZ-T3-B-GEPRUEFT', '1 lsa_hint Testkonto: gepruefter geht vor');
+-- E3 (Entscheidung Rasit 12.10.2026, Migration 20261013173601): die LSA laeuft ohne Hinweise, auch fuer Testkonten.
+select is(public.lsa_hint(:'l_test', :'d', 1), '{"level":1,"text":null,"available":false}'::jsonb,
+          '1 lsa_hint Testkonto: auch der Entwurf kommt nicht (E3: LSA ohne Hinweise)');
+select is(public.lsa_hint(:'l_tl', :'d', 1) ->> 'available', 'false', '1 lsa_hint Testlauf-LSA: kein Hinweis (E3)');
+select is(public.lsa_hint(:'l_test', :'r', 1) ->> 'available', 'false', '1 lsa_hint Testkonto: auch der gepruefte kommt nicht (E3)');
 select is(public.lsa_hint(:'l_test', :'d', 2), '{"level":2,"text":null,"available":false}'::jsonb,
           '2 lsa_hint Testkonto: Hinweis ohne Text nicht verfuegbar');
 select is(public.lsa_hint(:'l_test', :'x', 1), '{"level":1,"text":null,"available":false}'::jsonb,
           '2 lsa_hint Testkonto: Aufgabe mit pruef_ausschluss nicht verfuegbar');
 select is(public.lsa_hint(:'l_echt', :'d', 1), '{"level":1,"text":null,"available":false}'::jsonb,
           '4 lsa_hint echtes Kind: Entwurf nicht verfuegbar (unveraendert)');
-select is(public.lsa_hint(:'l_echt', :'r', 1) ->> 'text', 'ZZ-T3-B-GEPRUEFT', '4 lsa_hint echtes Kind: gepruefter wie bisher');
+select is(public.lsa_hint(:'l_echt', :'r', 1) ->> 'available', 'false', '4 lsa_hint echtes Kind: auch der gepruefte kommt nicht (E3)');
 select is((select klartext from public.lsa_fehlbild_report(:'l_test') where fehlbild_slug = 'zz_t3_fb'), 'ZZ-T3-FEHLBILD',
           '1 lsa_fehlbild_report Testkonto: Klartext ohne Freigabe');
 select is((select count(*)::int from public.lsa_fehlbild_report(:'l_test') where fehlbild_slug = 'zz_t3_fb_x' and klartext is null), 1,

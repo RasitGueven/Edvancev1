@@ -46,9 +46,10 @@ psql -q -X "$URL" -v ON_ERROR_STOP=1 -c "create schema e3_vorher;
   create table e3_vorher.ts as select * from public.task_solutions;
   create table e3_vorher.tasks as select * from public.tasks;" >/dev/null
 spiele "supabase/migrations/$E3" "$DB"
-psql -q -X "$URL" -v ON_ERROR_STOP=1 -c "create table e3_vorher.ts_nach1 as select * from public.task_solutions;" >/dev/null
+psql -q -X "$URL" -v ON_ERROR_STOP=1 -c "create table e3_vorher.ts_nach1 as select * from public.task_solutions;
+  create table e3_vorher.tasks_nach1 as select * from public.tasks;" >/dev/null
 spiele "supabase/migrations/$E3" "$DB"
-psql -X -tA "$URL" -v ON_ERROR_STOP=1 -f tools/hinweise-e3-abgleich.sql
+psql -q -X -tA "$URL" -v ON_ERROR_STOP=1 -f tools/hinweise-e3-abgleich.sql
 
 if [ "${1:-}" = "--tests" ]; then
   : "${PGTAP_SQL:?PGTAP_SQL zeigt nicht auf pgtap--1.3.4.sql}"

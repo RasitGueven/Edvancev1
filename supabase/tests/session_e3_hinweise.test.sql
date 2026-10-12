@@ -7,15 +7,28 @@
 --      25 Fundament-Aufgaben gibt es nur in Prod. Den Abgleich mit allen 49 macht tools/hinweise-e3-wegwerf-db.sh.)
 --   2) Die Migration überschreibt keinen vorhandenen Hinweis und ändert beim zweiten Lauf nichts.
 --   3) hinweis_abrufen liefert die Hinweise im Testlauf (T3), in einer echten Session nicht (nur geprüfte).
+--   4) Kennzeichen: tasks.vorbefuellt.hints der Aufgaben gleichung_quadr_* steht auf „neu“ (Entscheidung Rasit 12.10.).
+--   5) LSA ohne Hinweise (Migration 20261013173601): lsa_hint liefert nie einen Hinweis, auch keinen geprüften und
+--      auch nicht für ein Testkonto; die Fehlercodes der Prüfungen davor bleiben.
 -- Eigene Fixtures (session_a2_fixture), alles in einer Transaktion, am Ende rollback.
 -- Lauf: npx supabase test db  (lokal: bash tools/hinweise-e3-wegwerf-db.sh <db> --tests)
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(14);
+select plan(22);
 
 \ir session_a2_fixture.sql
+
+create or replace function pg_temp.fehler(p_sql text) returns text language plpgsql as $f$
+declare v_state text;
+begin
+  execute p_sql;
+  return 'kein Fehler';
+exception when others then
+  get stacked diagnostics v_state = returned_sqlstate;
+  return v_state;
+end $f$;
 
 create temp table e3_aufgaben as
   select t.id, t.skill_key from tasks t
@@ -82,6 +95,40 @@ select is(public.hinweis_abrufen(:'s_echt', :'f3', 2) - 'weitere', '{"stufe":2,"
           '3 echte Session: Entwurf Stufe 2 nicht verfügbar');
 select is(public.hinweis_abrufen(:'s_echt', :'f3', 3) - 'weitere', '{"stufe":3,"text":null,"verfuegbar":false}'::jsonb,
           '3 echte Session: Entwurf Stufe 3 nicht verfügbar');
+select set_config('request.jwt.claims', '', true);
+
+-- ── 4) Kennzeichen für Lena ─────────────────────────────────────────────────
+select is((select count(*)::int from tasks t join e3_aufgaben a on a.id = t.id
+            where a.skill_key like 'gleichung_quadr\_%'
+              and t.vorbefuellt -> 'hints' is distinct from
+                  '{"art":"neu","grund":"E3: drei Hinweisstufen für die Session. In der LSA gibt es keine Hinweise (lsa_hint gesperrt)."}'::jsonb),
+          0, '4 vorbefuellt.hints der Aufgaben gleichung_quadr_* steht auf neu');
+select is((select count(*)::int from tasks t join e3_aufgaben a on a.id = t.id
+            where a.skill_key like 'gleichung_quadr\_%' and t.vorbefuellt_am is null),
+          0, '4 vorbefuellt_am ist gesetzt');
+
+-- ── 5) LSA ohne Hinweise ────────────────────────────────────────────────────
+-- Stufe 1 von f3 als geprüft (wie nach Lenas Freigabe); je eine LSA für das Testkonto und das echte Kind.
+select set_config('edvance.hinweis_status', 'setzen', true);
+update task_solutions set hints = jsonb_set(hints, '{0,status}', '"geprueft"') where task_id = :'f3';
+select set_config('edvance.hinweis_status', '', true);
+insert into lsa_sessions (student_id, subject, grade, item_ids) values (:'k_test', 'Mathematik', 9, array[:'f3'::uuid])
+returning id as l_test \gset
+insert into lsa_sessions (student_id, subject, grade, item_ids) values (:'k_echt', 'Mathematik', 9, array[:'f3'::uuid])
+returning id as l_echt \gset
+select is((select hints -> 0 ->> 'status' from task_solutions where task_id = :'f3'), 'geprueft',
+          '5 Vorbedingung: Stufe 1 von quadrgl-faktor-03 ist geprüft');
+select pg_temp.act_as(:'admin');
+select is(public.lsa_hint(:'l_echt', :'f3', 1), '{"level":1,"text":null,"available":false}'::jsonb,
+          '5 lsa_hint echtes Kind: auch der geprüfte Hinweis kommt nicht');
+select is(public.lsa_hint(:'l_test', :'f3', 1), '{"level":1,"text":null,"available":false}'::jsonb,
+          '5 lsa_hint Testkonto: kein Hinweis (auch nicht im Testmodus)');
+select is(public.lsa_hint(:'l_test', :'f3', 2), '{"level":2,"text":null,"available":false}'::jsonb,
+          '5 lsa_hint Testkonto: Stufe 2 ebenso');
+select is(pg_temp.fehler(format('select lsa_hint(%L, %L, 1)', :'l_echt', :'f1')), 'P0001',
+          '5 lsa_hint: fremdes Item weiter P0001');
+select is(pg_temp.fehler(format('select lsa_hint(%L, %L, 1)', gen_random_uuid(), :'f3')), 'P0002',
+          '5 lsa_hint: unbekannte Session weiter P0002');
 select set_config('request.jwt.claims', '', true);
 
 select * from finish();
