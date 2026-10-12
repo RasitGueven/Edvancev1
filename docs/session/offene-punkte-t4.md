@@ -41,6 +41,7 @@ im PR, aus `pg_get_functiondef` Prod gegen Neuaufbau, inklusive `proacl`). Die f
    Ohne Testlauf bleibt es bei `freigegeben` in der bisherigen Reihenfolge (`angelegt`, `id`). `session_pruefung_frage`
    selbst bleibt unverändert; die drei Aufrufer nutzen die neue Hilfe mit der Session.
    „Ungeprüft, aber sichtbar“ aus dem Auftrag (Test 2) ist hier eine Prüffrage im Status `entwurf`.
+   **Bestätigt (Rasit, 12.10.):** Entwurf = ungeprüft, aber sichtbar; Reihenfolge freigegeben → geprüft → Entwurf bleibt.
 4. **`lernpfad_beleg`: Sperre im Kern.** Die Prüfung sitzt in `lernpfad_beleg_core` nach den bisherigen Prüfungen
    (Ergebnis, Hinweis, Skill, anwesend), damit Fehlercodes gleich bleiben und jeder Aufrufer geschützt ist.
    `antwort_abgeben` ruft den Kern im Testlauf ohnehin nicht. Rückgabe im Testlauf: der unveränderte
@@ -75,7 +76,7 @@ niedrige Befunde stehen unten (3 bis 5).
    `src/lib/supabase/lernpfad.ts`) kennt keine Session und liefert weiter nur `freigegeben`. Im Testlauf steht dann eine
    Entwurfsfrage auf dem Tablet, die Schublade zeigt aber keine Erwartung. Signatur durfte sich nicht ändern; eine
    Session-Variante bräuchte einen neuen RPC und eine Änderung in `src/pages/coach/**` (Coach-Fenster).
-   **Wer:** Rasit, ob gewünscht; dann Foundation (RPC) und Coach-Fenster.
+   **Entschieden (Rasit, 12.10.):** nicht in T4, kommt als eigenes Paket T5.
 2. **Nur „tiefer“ wird nachgebildet, keine Belege.** Ein Testlauf schreibt keine Belege (T2), also ändert sich der
    Lernpfad im Testlauf nicht durch Antworten. Vor „tiefer“ kann die Zielliste deshalb anders aussehen als echt (im Test
    1a ist `zz_a2_v1` echt nach vier falschen Warm-up-Antworten `aktiv`, im Testlauf `sicher`). Nach „tiefer“ ist sie
@@ -90,5 +91,19 @@ niedrige Befunde stehen unten (3 bis 5).
    Coach ausdrücklich eine schon sichere Voraussetzung wählt (die Standardwahl nimmt nur nicht sichere). Nicht geändert.
 5. **Trigger nur bei UPDATE.** Ein INSERT mit `testlauf = true` und schon gestartetem Status geht wie vorher durch
    (Admin-Tor und Testkonten greifen weiter). Nicht Teil der Entscheidung 5.
-6. **CI-Schemavergleich bis zum Einspielen rot.** Laut Auftrag wird `supabase/schema-erwartet.sql` erst nach dem
-   Einspielen angefasst (wie T2 Punkt 4).
+6. ~~**CI-Schemavergleich bis zum Einspielen rot.**~~ Erledigt mit dem Einspielen am 12.10. (siehe unten).
+
+## Eingespielt (12.10.2026)
+
+Vorher origin/dev eingemischt (nur Frontend, #241), Wegwerf-DB neu aufgebaut: alle `session_*` und `slots_*` grün (30/30).
+Je Migration `~/bin/mig` (CLAUDE.md §10: DB-Check, Versionscheck, eine Transaktion, History-Eintrag), in dieser Reihenfolge:
+`20261013160412`, `…160957`, `…161533`, `…162108`, `…162641`, alle ohne Fehler.
+Prüfung per dbread:
+- Alle fünf Versionen stehen in `supabase_migrations.schema_migrations`.
+- Die 18 betroffenen Funktionen sind in Prod identisch mit dem Neuaufbau (md5 von `pg_get_functiondef`, `prosecdef`,
+  `proconfig`, `proacl`, `prorows`); die fünf Hilfen nur `{postgres=X/postgres}`; Trigger `coaching_sessions_testlauf_trg` aktiv.
+- `lernpfad_sicht(kind, null)` weicht für kein Kind mit Lernpfad von `lernpfad` ab (0 Zeilen).
+- `session_zielliste` läuft lesend für alle Session-Kind-Paare durch (echt 10 Paare / 21 Zeilen, Testlauf 2 / 10).
+  `session_t4` selbst schreibt und läuft deshalb nicht gegen Prod.
+`supabase/schema-erwartet.sql` per `tools/schema-snapshot.sh` neu erzeugt; gegen den lokalen Neuaufbau aus allen
+Migrationen (Filter wie in der CI) ohne Unterschied.
