@@ -6,7 +6,7 @@ import { ToastBanner } from '@/components/edvance/ToastBanner'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 import { useRaumLive } from '@/hooks/useRaumLive'
-import { istArbeitsphase } from '@/lib/session/coachLiveLogik'
+import { imCheckin, istArbeitsphase } from '@/lib/session/coachLiveLogik'
 import type { UserRole } from '@/types'
 import type { LiveZeitpunkt } from '@/types/coachLive'
 import type { SupabaseResult } from '@/types/ui'
@@ -17,6 +17,7 @@ import { LiveKontext, type LiveKontextWert } from './LiveKontext'
 import { LiveKopf } from './LiveKopf'
 import { LiveRaster } from './LiveRaster'
 import { Schublade } from './Schublade'
+import { TestlaufHinweis } from './TestlaufHinweis'
 import { useLiveTexte } from './useLiveTexte'
 import { VorherAnsicht } from './VorherAnsicht'
 
@@ -25,8 +26,16 @@ export const COACH_LIVE_ROLLEN: UserRole[] = ['coach', 'admin']
 
 type Meldung = { art: 'success' | 'error'; text: string; id: number }
 
-function Ansicht({ zeitpunkt, gewaehlt }: { zeitpunkt: LiveZeitpunkt; gewaehlt: string | null }): JSX.Element | null {
-  if (istArbeitsphase(zeitpunkt)) return <LiveRaster gewaehlt={gewaehlt} />
+function Ansicht({ zeitpunkt, gewaehlt, checkinOffen }: { zeitpunkt: LiveZeitpunkt; gewaehlt: string | null; checkinOffen: boolean }): JSX.Element | null {
+  // F2: Die Aufgaben des Check-ins bleiben sichtbar, solange ein Kind noch im Check-in ist.
+  if (istArbeitsphase(zeitpunkt)) {
+    return (
+      <>
+        {checkinOffen && <CheckinAnsicht nurOffene />}
+        <LiveRaster gewaehlt={gewaehlt} />
+      </>
+    )
+  }
   if (zeitpunkt === 'vorher') return <VorherAnsicht />
   if (zeitpunkt === 'checkin') return <CheckinAnsicht />
   if (zeitpunkt === 'checkout') return <CheckoutAnsicht />
@@ -45,7 +54,7 @@ export function CoachLivePage(): JSX.Element {
   const [gewaehlt, setGewaehlt] = useState<string | null>(null)
   const { raum: geladen, fehler, laedt, neuLaden } = useRaumLive(id, gewaehlt)
   // Der Coach kann eine andere Phase ansehen (z. B. vorzeitig Check-out oder Abschluss);
-  // null folgt der Uhr der Session.
+  // null folgt den Kindern (F2: Phase der meisten Kinder, nicht die Uhr).
   const [ansicht, setAnsicht] = useState<LiveZeitpunkt | null>(null)
   const raum = useMemo(() => (geladen && ansicht ? { ...geladen, zeitpunkt: ansicht } : geladen), [geladen, ansicht])
   const [meldung, setMeldung] = useState<Meldung | null>(null)
@@ -114,7 +123,8 @@ export function CoachLivePage(): JSX.Element {
         />
         <main className="flex-1 overflow-auto">
           <div className="@container mx-auto flex max-w-[1400px] flex-col gap-6 px-5 pb-10 pt-5">
-            <Ansicht zeitpunkt={raum.zeitpunkt} gewaehlt={gewaehlt} />
+            <TestlaufHinweis />
+            <Ansicht zeitpunkt={raum.zeitpunkt} gewaehlt={gewaehlt} checkinOffen={raum.kinder.some(imCheckin)} />
           </div>
         </main>
         {kind && <Schublade kind={kind} onSchliessen={() => setGewaehlt(null)} />}

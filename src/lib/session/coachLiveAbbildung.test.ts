@@ -41,6 +41,11 @@ const F = fixtures as unknown as {
 }
 const EMIR = F.raum_kern.kinder[0].student_id
 const DENIZ = F.raum_kern.kinder[1].student_id
+/** F2: derselbe Raum, die Kinder mit Tablet schon im Check-out (Phasenwechsel vom Tablet). */
+const imCheckout = (r: RaumLive): RaumLive => ({
+  ...r,
+  kinder: r.kinder.map((k) => (k.tablet_nr !== null ? { ...k, phase: 'checkout' as const } : k)),
+})
 const leer = { detail: null, briefing: [], satz: {}, themen: new Map<string, string>(), nichtErschienen: new Set<string>(), pfadGeoeffnet: {} }
 const ok = <T>(data: T) => Promise.resolve({ data, error: null })
 
@@ -58,13 +63,15 @@ beforeEach(() => {
 })
 
 describe('5 Abbildung je Feld aus echten Antworten', () => {
-  it('Session-Kopf: Zeitpunkt nach der Uhr, Raum, Coach, Klassen, Testlauf, Snapshot', () => {
+  it('Session-Kopf: Zeitpunkt nach den Kindern (F2), Raum, Coach, Klassen, Testlauf, Snapshot', () => {
     const r = raumAus(F.raum_kern, leer)
     expect(r.zeitpunkt).toBe('kern')
     expect(r.session).toMatchObject({ raum: 'Raum 1', coachName: 'A2 Coach A', klassen: [8, 8], plaetze: 5, testlauf: false, status: 'active' })
     expect(r.zeitleiste.map((z) => z.minuten)).toEqual([5, 10, 40, 5])
     expect(raumAus(F.raum_vorher, leer).zeitpunkt).toBe('vorher')
-    expect(raumAus(F.raum_checkout, leer).zeitpunkt).toBe('checkout')
+    // F2: Die Uhr zeigt Check-out (Minute 56), Emir ist noch in der Kernarbeit: der Kopf folgt ihm.
+    expect(raumAus(F.raum_checkout, leer).zeitpunkt).toBe('kern')
+    expect(raumAus(imCheckout(F.raum_checkout), leer).zeitpunkt).toBe('checkout')
     expect(raumAus(F.raum_testlauf, leer).session.testlauf).toBe(true)
   })
 
@@ -173,7 +180,7 @@ describe('6 Fehlerabbildung und Detail nur fuer die offene Schublade', () => {
     await ladeRaumLive('s1')
     expect(rpc.sessionBriefing).toHaveBeenCalledTimes(1)
     expect(rpc.satzVorschlaege).not.toHaveBeenCalled()
-    rpc.raumLive.mockImplementation(() => ok(F.raum_checkout))
+    rpc.raumLive.mockImplementation(() => ok(imCheckout(F.raum_checkout)))
     await ladeRaumLive('s1')
     expect(rpc.satzVorschlaege).toHaveBeenCalledWith('s1', EMIR)
     expect(rpc.satzVorschlaege).toHaveBeenCalledTimes(1)

@@ -2,7 +2,7 @@
 // React; die Seite und die Datenquelle rufen sie, die Tests pruefen sie.
 
 import type { CoachLiveKind, LiveSignal, LiveZiel, LiveZeitpunkt, ZeitleistenSegment } from '@/types/coachLive'
-import type { EingriffStufe, SessionFall, SignalArt, StellschraubeWert } from '@/types/sessionLive'
+import type { EingriffStufe, SessionFall, SessionPhase, SignalArt, StellschraubeWert } from '@/types/sessionLive'
 
 /** Eine Session dauert 60 Minuten (Entscheidung 1). */
 export const SESSION_MINUTEN = 60
@@ -55,6 +55,47 @@ export function zeitleisteAusSnapshot(
 /** Minute im Ablauf (negativ vor Beginn, ueber 60 danach). */
 export function minuteImAblauf(beginn: string, jetzt: string): number {
   return Math.floor((Date.parse(jetzt) - Date.parse(beginn)) / 60_000)
+}
+
+/** Restzeit der Session in ganzen Minuten (0 nach dem Ende); haengt nur an der Uhr, nicht an den Kindern. */
+export function restMinuten(beginn: string, jetzt: string, dauer = SESSION_MINUTEN): number {
+  return Math.max(0, dauer - minuteImAblauf(beginn, jetzt))
+}
+
+const PHASEN_FOLGE: SessionPhase[] = ['checkin', 'warmup', 'kern', 'checkout']
+
+/**
+ * F2 (Rasit 10./12.10.2026): Die Coach-Ansicht folgt den Kindern, nicht der Uhr. Gezaehlt werden Kinder mit
+ * Tablet und Phase; es gilt die Phase der meisten, bei Gleichstand die fruehere. Ohne Kind mit Tablet: Check-in.
+ */
+export function phaseDerKinder(kinder: { tablet: number | null; phase: SessionPhase | null }[]): SessionPhase {
+  const zahl = PHASEN_FOLGE.map((p) => kinder.filter((k) => k.tablet !== null && k.phase === p).length)
+  const max = Math.max(...zahl)
+  return max === 0 ? 'checkin' : PHASEN_FOLGE[zahl.indexOf(max)]
+}
+
+/**
+ * F2: Kind braucht noch die Check-in-Aufgaben des Coaches (Tablet zuweisen, Fall waehlen): ohne Tablet und nicht
+ * als „nicht erschienen“ bestaetigt, oder am Tablet noch im Check-in.
+ */
+export function imCheckin(k: Pick<CoachLiveKind, 'tablet' | 'phase' | 'nichtErschienen'>): boolean {
+  return k.tablet === null ? !k.nichtErschienen : k.phase === null || k.phase === 'checkin'
+}
+
+/**
+ * F2 (Trockenlauf 10.10.): Hinweis, wenn ein Kind ohne Ziel oder ohne Aufgabe wartet, die Session kein Testlauf
+ * ist und alle gebuchten Kinder Testkonten sind. Testkonten bekommen dann nur freigegebene Aufgaben.
+ * `testkonto` liefert undefined, solange es nicht geladen ist (dann kein Hinweis).
+ */
+export function testlaufHinweis(
+  raum: { session: { testlauf: boolean }; kinder: Pick<CoachLiveKind, 'id' | 'wartet'>[] },
+  testkonto: (kindId: string) => boolean | undefined,
+): boolean {
+  return (
+    !raum.session.testlauf &&
+    raum.kinder.some((k) => k.wartet !== null) &&
+    raum.kinder.every((k) => testkonto(k.id) === true)
+  )
 }
 
 /** Segment-Zustand fuer die Zeitleiste. */

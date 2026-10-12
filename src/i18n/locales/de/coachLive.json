@@ -4,7 +4,7 @@
     "titel": "Session {{uhrzeit}} · {{raum}}",
     "untertitel": "{{fach}} · Klasse {{von}} bis {{bis}} · Coach {{coach}}",
     "beginntIn": "beginnt in {{count}} Min",
-    "minute": "Minute {{minute}} von {{dauer}}",
+    "rest": "noch {{count}} Min",
     "vorbei": "seit {{count}} Min vorbei",
     "stand": "Stand {{uhrzeit}}",
     "zeitleiste": "Phasen der Session",
@@ -14,7 +14,8 @@
     "liveFolgen": "Live folgen",
     "abschluss": "Abschluss",
     "kinderPhasen": "Kinder gerade",
-    "kinderPhase": "{{phase}}: {{count}}"
+    "kinderPhase": "{{phase}}: {{count}}",
+    "keinTestlauf": "Diese Session ist kein Testlauf. Testkonten bekommen hier nur freigegebene Aufgaben."
   },
   "phase": {
     "checkin": "Check-in",
@@ -410,6 +411,7 @@
     "platz": "Platz {{nr}}",
     "alleDa": "Alle haben einen Platz.",
     "amTablet": "Check-in am Tablet",
+    "nochImCheckin": "Noch im Check-in",
     "amTabletHilfe": "Das Warm-up startet von selbst, sobald ein Kind fertig ist",
     "niemand": "Noch niemand im Raum.",
     "stimmung": "Stimmung",

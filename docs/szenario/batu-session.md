@@ -43,6 +43,9 @@ Sequenz käme nicht (Status `entwurf`).
 
 Laptop: `/coach` → Session → „Session starten“ → Live-Sicht.
 
+Die Live-Sicht folgt Batu, nicht der Uhr: Sobald er den Check-in gespeichert hat, zeigt der Kopf das Warm-up, danach
+die Kernarbeit; die Uhr steht nur als Restzeit daneben (F2).
+
 | # | Schritt | Wer tut was | Was man sehen muss |
 |---|---|---|---|
 | 1 | Tablet zuweisen | Coach: Batu → Tablet 2 | „… sitzt an Tablet 2“; das Tablet wechselt in den Check-in. |
