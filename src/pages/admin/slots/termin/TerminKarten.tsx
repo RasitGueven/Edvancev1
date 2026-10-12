@@ -17,14 +17,14 @@ export function ZustandBadge({ zustand }: { zustand: TerminZustand }): JSX.Eleme
   return <EdvanceBadge variant={variante[zustand]}>{t(`zustand.${zustand}`)}</EdvanceBadge>
 }
 
-function KindKopf({ kind }: { kind: { student_id: string; name: string | null; klasse: number | null; fach: string | null } }): JSX.Element {
+function KindKopf({ kind }: { kind: { student_id: string; name: string | null; klasse: number | null; fach: string | null; ist_test?: boolean } }): JSX.Element {
   const { t } = useTranslation('slots')
   return (
     <span className="flex min-w-0 flex-col">
       <Link to={`/admin/slots/kind/${kind.student_id}`} className="truncate text-sm font-semibold text-[var(--color-text-primary)] hover:underline">
         {kind.name ?? t('kind.ohneName')}
       </Link>
-      <KlasseFach klasse={kind.klasse} fach={kind.fach} />
+      <KlasseFach klasse={kind.klasse} fach={kind.fach} test={kind.ist_test} />
     </span>
   )
 }

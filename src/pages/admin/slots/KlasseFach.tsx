@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { fachKuerzel } from './slotsFormat'
+import { TestKennzeichen } from './TestKennzeichen'
 
 /**
  * "Kl. 8" und das Fach-Kürzel als neutraler Chip (Entscheidung 28: Fächer bekommen keine Farbe).
- * Der volle Fachname steht für Screenreader und beim Darüberfahren.
+ * Der volle Fachname steht für Screenreader und beim Darüberfahren. Testkonten tragen dahinter „Test“ (SL2b).
  */
-export function KlasseFach({ klasse, fach }: { klasse: number | null; fach: string | null }): JSX.Element {
+export function KlasseFach({ klasse, fach, test = false }: { klasse: number | null; fach: string | null; test?: boolean }): JSX.Element {
   const { t } = useTranslation('slots')
   const kuerzel = fachKuerzel(fach)
   return (
@@ -17,6 +18,7 @@ export function KlasseFach({ klasse, fach }: { klasse: number | null; fach: stri
           <span className="sr-only">{fach}</span>
         </span>
       )}
+      {test && <TestKennzeichen />}
     </span>
   )
 }

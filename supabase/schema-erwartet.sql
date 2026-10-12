@@ -91,6 +91,10 @@ begin
     end if;
   end if;
 
+  -- SL2b (Entscheidung 4): Inzwischen sitzt dort ein Kind der anderen Art (Testkonto/echt).
+  if public.slots_art_konflikt(kt.student_id, kt.datum, kt.slot_zeit_id) then
+    perform public.slots_code_werfen('SL013', 'absage_zuruecknehmen');
+  end if;
   -- Platz inzwischen vergeben oder schon ein anderer Termin an dem Tag: keine Rücknahme.
   if public.slot_belegt(kt.datum, kt.slot_zeit_id, kt.student_id) >= public.slot_kapazitaet(kt.datum, kt.slot_zeit_id)
      or exists (select 1 from public.kind_termine x
@@ -13805,6 +13809,30 @@ $$;
 
 
 --
+-- Name: slots_art_konflikt(uuid, date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_art_konflikt(p_student_id uuid, p_datum date, p_slot_zeit_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with ich as (
+    select coalesce((select s.ist_test from public.students s where s.id = p_student_id), false) as test
+  )
+  select exists (select 1 from public.kind_termine kt
+                   join public.students s on s.id = kt.student_id
+                  where kt.datum = p_datum and kt.slot_zeit_id = p_slot_zeit_id
+                    and kt.zustand in ('planned', 'present')
+                    and kt.student_id <> p_student_id
+                    and s.ist_test <> (select ich.test from ich))
+      or exists (select 1 from public.coaching_sessions cs
+                  where cs.slot_zeit_id = p_slot_zeit_id
+                    and cs.scheduled_at = public.slots_termin_beginn(p_datum, p_slot_zeit_id)
+                    and cs.testlauf <> (select ich.test from ich));
+$$;
+
+
+--
 -- Name: slots_berlin_tag(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -13912,6 +13940,7 @@ begin
     when 'SL010' then 'Rücknahme nicht möglich'
     when 'SL011' then 'Termin vergangen oder begonnen, nur Ansicht'
     when 'SL012' then 'jenseits der Ferientabelle'
+    when 'SL013' then 'Testkonto und echtes Kind im selben Termin'
     else p_code end);
 end;
 $$;
@@ -14071,12 +14100,16 @@ begin
       select jsonb_agg(jsonb_build_object(
                'wochentag', w, 'zeit_id', z.id,
                'frei', greatest(f.frei, 0), 'raum', f.kap_min > 0,
-               'voll', f.kap_min > 0 and f.frei <= 0, 'termine', f.n)
+               'voll', f.kap_min > 0 and f.frei <= 0, 'termine', f.n,
+               -- SL2b (Entscheidung 4): dieselbe Regel wie SL013 in slots_stammplatz_gruende.
+               'art_konflikt', coalesce(f.konflikt, false))
              order by w, z.beginn)
         from generate_series(1, 5) w
         cross join public.slot_zeiten z
         cross join lateral (
-          select min(x.kapazitaet - x.belegt) as frei, min(x.kapazitaet) as kap_min, count(*) as n
+          select min(x.kapazitaet - x.belegt) as frei, min(x.kapazitaet) as kap_min, count(*) as n,
+                 bool_or(public.slots_art_konflikt(p_student_id, x.datum, z.id)) filter (where p_student_id is not null)
+                   as konflikt
             from public.slots_naechste_termine_frei(w, z.id, p_takt, v_ab, p_student_id) x
         ) f
        where public.slots_zeit_aktiv(z.id, v_ab)), '[]'));
@@ -14105,6 +14138,7 @@ begin
       when 'SL007' then 'gültig ab liegt in der Vergangenheit'
       when 'SL008' then 'zwei Stammplätze am selben Tag'
       when 'SL012' then 'jenseits der Ferientabelle'
+      when 'SL013' then 'Testkonto und echtes Kind im selben Termin'
       else 'Stammplatz nicht möglich' end,
     g::text);
 end;
@@ -14240,7 +14274,9 @@ CREATE FUNCTION public.slots_kind_info(p_student_id uuid, p_vertrag_id uuid) RET
            'student_id', s.id,
            'name', coalesce(nullif(btrim(p.full_name), ''), nullif(btrim(concat_ws(' ', v.kind_vorname, v.kind_nachname)), '')),
            'klasse', coalesce(s.class_level, v.klasse),
-           'fach', nullif(btrim(v.fach), ''))
+           'fach', nullif(btrim(v.fach), ''),
+           -- SL2b (Entscheidung 2): Kennzeichen "Test" in allen Slot-Ansichten.
+           'ist_test', s.ist_test)
     from public.students s
     left join public.profiles p on p.id = s.profile_id
     left join public.vertraege v on v.id = p_vertrag_id
@@ -14256,7 +14292,9 @@ CREATE FUNCTION public.slots_kind_zugelassen(p_student_id uuid) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select coalesce((select not s.ist_test from public.students s where s.id = p_student_id), false);
+  -- SL2b (Entscheidung 1): Testkonten sind zugelassen. Ob ein Kind eingeplant wird, entscheidet der Vertrag
+  -- (slots_vertrag_am, slots_kinder_basis); hier zählt nur noch, dass es das Kind gibt.
+  select exists (select 1 from public.students s where s.id = p_student_id);
 $$;
 
 
@@ -14304,7 +14342,7 @@ CREATE FUNCTION public.slots_kinder_basis(p_heute date) RETURNS TABLE(student_id
   with v as (
     select distinct on (x.student_id) x.student_id, x.id, x.vertragsbeginn, x.vertrag_ende, x.einheiten
       from public.vertraege x
-      join public.students s on s.id = x.student_id and not s.ist_test
+      join public.students s on s.id = x.student_id and public.slots_kind_zugelassen(s.id)
      where x.status = 'abgeschlossen'
        and x.einheiten is not null and x.vertragsbeginn is not null and x.vertrag_ende is not null
        and x.vertrag_ende >= p_heute
@@ -14462,7 +14500,9 @@ begin
       ergebnis := 'ohne_budget';
     elsif c.da then
       ergebnis := 'vorhanden'; v_rest := v_rest - 1;
-    elsif public.slot_kapazitaet(c.d, c.z) - public.slot_belegt(c.d, c.z, v.student_id) > 0 then
+    -- SL2b (Entscheidung 4): ein Termin mit Kindern der anderen Art zählt wie ein voller Slot.
+    elsif public.slot_kapazitaet(c.d, c.z) - public.slot_belegt(c.d, c.z, v.student_id) > 0
+          and not public.slots_art_konflikt(v.student_id, c.d, c.z) then
       ergebnis := 'neu'; v_rest := v_rest - 1;
     else
       ergebnis := 'uebersprungen';
@@ -14737,12 +14777,16 @@ begin
     end loop;
 
     -- SL002 / SL001: einer der nächsten sechs Termine ab "gültig ab" ohne Raum oder voll.
+    -- SL2b (Entscheidung 4): SL013, wenn dort schon ein Kind der anderen Art sitzt (vor SL001).
     for f in
       select * from public.slots_naechste_termine_frei(z.w, z.sz, z.t, greatest(p_ab, p_heute), p_student_id)
        order by datum
     loop
       if f.kapazitaet = 0 then
         v_out := v_out || jsonb_build_object('code', 'SL002', 'zeile', z.i, 'datum', f.datum);
+        exit;
+      elsif public.slots_art_konflikt(p_student_id, f.datum, z.sz) then
+        v_out := v_out || jsonb_build_object('code', 'SL013', 'zeile', z.i, 'datum', f.datum);
         exit;
       elsif f.belegt >= f.kapazitaet then
         v_out := v_out || jsonb_build_object('code', 'SL001', 'zeile', z.i, 'datum', f.datum);
@@ -15147,10 +15191,12 @@ begin
     join public.slot_zeiten z on z.aktiv_ab <= g::date and (z.inaktiv_ab is null or g::date < z.inaktiv_ab)
    where public.betriebstag(g::date);
 
+  -- SL2b (Entscheidung 3): Die Kennzahlen zählen Testkonten nicht mit.
   select jsonb_build_object('ohne_stammplatz', count(*) filter (where b.ohne_stammplatz),
                             'ohne_stammplatz_laufend', count(*) filter (where b.ohne_stammplatz and b.laeuft))
     into v_kinder
-    from public.slots_kinder_basis(v_heute) b;
+    from public.slots_kinder_basis(v_heute) b
+    join public.students s on s.id = b.student_id and not s.ist_test;
 
   return jsonb_build_object(
     'montag', v_mo, 'kw', extract(week from v_mo)::int, 'a_woche', extract(week from v_mo)::int % 2 = 1,
@@ -15158,14 +15204,16 @@ begin
     'tage', v_tage, 'zeiten', v_zeiten, 'zellen', v_zellen,
     'kopf', jsonb_build_object(
       'plaetze', (select coalesce(sum((c ->> 'kapazitaet')::int), 0) from jsonb_array_elements(v_zellen) c),
-      'belegt', (select coalesce(sum((c ->> 'belegt')::int), 0) from jsonb_array_elements(v_zellen) c),
+      'belegt', (select coalesce(sum((c ->> 'belegt')::int - (c ->> 'test')::int), 0) from jsonb_array_elements(v_zellen) c),
       'auslastung', (select case when sum((c ->> 'kapazitaet')::int) > 0
-                                 then round(sum((c ->> 'belegt')::int)::numeric / sum((c ->> 'kapazitaet')::int), 3) end
+                                 then round(sum((c ->> 'belegt')::int - (c ->> 'test')::int)::numeric
+                                            / sum((c ->> 'kapazitaet')::int), 3) end
                        from jsonb_array_elements(v_zellen) c),
-      'ohne_raum', (select coalesce(sum((c ->> 'ohne_raum')::int), 0) from jsonb_array_elements(v_zellen) c),
+      'ohne_raum', (select coalesce(sum((c ->> 'ohne_raum')::int - (c ->> 'test_ohne_raum')::int), 0)
+                      from jsonb_array_elements(v_zellen) c),
       'erster_ohne_raum', (select jsonb_build_object('datum', c -> 'datum', 'zeit_id', c -> 'zeit_id')
                              from jsonb_array_elements(v_zellen) with ordinality x(c, o)
-                            where (c ->> 'ohne_raum')::int > 0 order by o limit 1),
+                            where (c ->> 'ohne_raum')::int - (c ->> 'test_ohne_raum')::int > 0 order by o limit 1),
       'ohne_stammplatz', v_kinder -> 'ohne_stammplatz',
       'ohne_stammplatz_laufend', v_kinder -> 'ohne_stammplatz_laufend'));
 end;
@@ -15233,10 +15281,14 @@ declare
   v_ohne_r  integer;
 begin
   perform public.slots_admin_pruefen('slots_zaehler');
+  -- SL2b (Entscheidung 3): Testkonten zählen nicht mit.
   select count(*) into v_ohne_st from public.slots_kinder_basis(v_heute) b
+    join public.students s on s.id = b.student_id and not s.ist_test
    where b.ohne_stammplatz and b.beginn <= v_heute + 14;
   select coalesce(sum(x.n), 0) into v_ohne_r
-    from (select (select count(*) from public.slot_zuteilung(g::date, z.id) t where t.raum_id is null) as n
+    from (select (select count(*) from public.slot_zuteilung(g::date, z.id) t
+                    join public.students s on s.id = t.student_id and not s.ist_test
+                   where t.raum_id is null) as n
             from generate_series(v_heute, v_heute + 6, interval '1 day') g
             join public.slot_zeiten z on z.aktiv_ab <= g::date and (z.inaktiv_ab is null or g::date < z.inaktiv_ab)
            where public.betriebstag(g::date)
@@ -15270,13 +15322,17 @@ CREATE FUNCTION public.slots_zelle(p_datum date, p_zeit_id uuid) RETURNS jsonb
     AS $$
   with r as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id),
   t as (
-    select t.*, kt.vertrag_id from public.slot_zuteilung(p_datum, p_zeit_id) t
+    select t.*, kt.vertrag_id, s.ist_test from public.slot_zuteilung(p_datum, p_zeit_id) t
       join public.kind_termine kt on kt.id = t.termin_id
+      join public.students s on s.id = t.student_id
   )
   select jsonb_build_object(
     'kapazitaet', 5 * (select count(*) from r where r.offen),
     'belegt', (select count(*) from t),
     'ohne_raum', (select count(*) from t where t.raum_id is null),
+    -- SL2b (Entscheidungen 2 und 3): davon Testkonten. belegt zählt sie mit, der Platz ist belegt.
+    'test', (select count(*) from t where t.ist_test),
+    'test_ohne_raum', (select count(*) from t where t.ist_test and t.raum_id is null),
     'coach_fehlt', (select count(*) from r where r.art = 'faellt_aus' and r.stamm_coach_id is not null),
     'raeume', coalesce((select jsonb_agg(jsonb_build_object(
                  'raum_id', r.raum_id, 'name', r.raum_name, 'offen', r.offen, 'art', r.art,
@@ -15378,6 +15434,10 @@ begin
   end if;
   if public.slots_woche_aktiv(p_student_id, p_datum, p_ausser) + 1 > public.slots_wochengrenze(p_student_id, p_datum) then
     return 'SL004';
+  end if;
+  -- SL2b (Entscheidung 4): Testkonto und echtes Kind nie im selben Termin.
+  if public.slots_art_konflikt(p_student_id, p_datum, p_slot_zeit_id) then
+    return 'SL013';
   end if;
   if public.slot_belegt(p_datum, p_slot_zeit_id, p_student_id) >= v_kap then
     return 'SL001';
@@ -16464,6 +16524,7 @@ declare
   v_neu   boolean := false;
   v_aus   jsonb;
   v_x     jsonb;
+  v_test  boolean;
 begin
   if not public.ist_systemaufruf() and v_rolle not in ('admin', 'coach') then
     raise exception 'termin_session_anlegen: nur Admin oder Coach' using errcode = '42501';
@@ -16486,9 +16547,28 @@ begin
     if r.raum_id is null or not r.offen then
       perform public.slots_fehler('SL002', 'termin_session_anlegen: kein Raum mit Coach');
     end if;
-    insert into public.coaching_sessions (coach_id, room, scheduled_at, status, raum_id, slot_zeit_id)
-    values (r.coach_id, r.raum_name, public.slots_termin_beginn(p_datum, p_zeit_id), 'upcoming', p_raum_id, p_zeit_id)
-    returning * into v_sess;
+    -- SL2b (Entscheidung 5): Sitzen im Termin nur Testkonten, entsteht die Session als Testlauf (beim Anlegen,
+    -- also vor dem Start). Ohne Kinder richtet sie sich nach den übrigen Sessions des Termins.
+    select bool_and(s.ist_test) into v_test
+      from public.slot_zuteilung(p_datum, p_zeit_id) t join public.students s on s.id = t.student_id;
+    if v_test is null then
+      select bool_and(cs.testlauf) into v_test from public.coaching_sessions cs
+       where cs.slot_zeit_id = p_zeit_id and cs.scheduled_at = public.slots_termin_beginn(p_datum, p_zeit_id);
+    end if;
+    v_test := coalesce(v_test, false);
+    begin
+      insert into public.coaching_sessions (coach_id, room, scheduled_at, status, raum_id, slot_zeit_id, testlauf)
+      values (r.coach_id, r.raum_name, public.slots_termin_beginn(p_datum, p_zeit_id), 'upcoming', p_raum_id, p_zeit_id,
+              v_test)
+      returning * into v_sess;
+    exception when insufficient_privilege then
+      -- Wer testlauf beim Anlegen setzen darf, entscheidet der Trigger coaching_sessions_testlauf_pruefen (T4);
+      -- hier bekommt seine Ablehnung nur einen Hinweis, den die Oberfläche übersetzt.
+      if not v_test then
+        raise;
+      end if;
+      raise exception 'termin_session_anlegen: Testtermin, nur Admin' using errcode = '42501', hint = 'testlauf_nur_admin';
+    end;
     v_neu := true;
   end if;
 

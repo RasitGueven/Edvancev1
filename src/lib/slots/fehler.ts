@@ -6,13 +6,14 @@ import type { RpcFehler } from '@/lib/supabase/sessionRpc'
 import type { SlotsCode } from '@/types/slotplan'
 
 export const SLOTS_CODES: readonly SlotsCode[] = [
-  'SL001', 'SL002', 'SL003', 'SL004', 'SL005', 'SL006', 'SL007', 'SL008', 'SL009', 'SL010', 'SL011', 'SL012',
+  'SL001', 'SL002', 'SL003', 'SL004', 'SL005', 'SL006', 'SL007', 'SL008', 'SL009', 'SL010', 'SL011', 'SL012', 'SL013',
 ] as const
 
 /** Hinweise (hint) der Slot-Funktionen, die mehr sagen als ihr SQLSTATE. */
 const HINWEIS: Record<string, string> = {
   nur_am_tag: 'nurAmTag',
   testkonto: 'testkonto',
+  testlauf_nur_admin: 'testlaufNurAdmin',
   eingang: 'eingang',
   zustand: 'zustand',
   name_doppelt: 'nameDoppelt',

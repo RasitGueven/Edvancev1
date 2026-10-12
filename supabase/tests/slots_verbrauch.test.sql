@@ -44,9 +44,10 @@ insert into coaching_sessions (coach_id, room, scheduled_at, testlauf) values (:
 returning id as st \gset
 insert into session_students (session_id, student_id, attendance) values (:'st', :'kt', 'present');
 select is((select verbraucht from einheiten_stand(:'kt', '2027-12-01')), 0, '8 Testlauf zählt nie');
-select is((select count(*)::int from kind_termine where student_id = :'kt'), 0, '8 Testkonten bekommen keine Slot-Termine');
+select is((select count(*)::int from kind_termine where student_id = :'kt'), 0, '8 Testkonto ohne Stammplatz hat keine Slot-Termine');
+-- SL2b (Entscheidung 1 und 4): Testkonten dürfen in die Slots, aber nicht in einen Termin mit echten Kindern.
 select throws_ok(format($f$select stammplatz_vergeben(%L, %L, '2027-11-01', '2027-11-01 08:00 Europe/Berlin')$f$,
-                        :'kt', pg_temp.zeilen('2:16:woechentlich')), '22023', null, '8 Testkonto: kein Stammplatz (Entscheidung 8)');
+                        :'kt', pg_temp.zeilen('2:16:woechentlich')), 'SL013', null, '8 Testkonto: nicht zu echten Kindern (SL2b)');
 
 -- ── 9) Widerruf ──────────────────────────────────────────────────────────────
 -- Beginn 01.12.2027, Widerrufsfrist bis 14.12. Session am Di 14.12. ist festgeschrieben, Widerruf am 10.12.

@@ -53,11 +53,18 @@ export function WochenplanReiter({
   const [leereZeigen, setLeereZeigen] = useState(false)
   const w = woche.daten && woche.daten.montag === montag ? woche.daten : null
   const kopf = w?.kopf
+  // SL2b (Entscheidung 3): Der Kopf zählt Testkonten nicht; die Zahl sagt, wie viele in der Woche fehlen.
+  const testkonten = w ? w.zellen.reduce((s, z) => s + (z.test ?? 0), 0) : 0
 
   const zahlen: Kennzahl[] = kopf
     ? [
         { key: 'plaetze', label: t('woche.kpi.plaetze'), wert: String(kopf.plaetze), unterzeile: t('woche.kpi.plaetzeSub') },
-        { key: 'belegt', label: t('woche.kpi.belegt'), wert: String(kopf.belegt), unterzeile: t('woche.kpi.belegtSub') },
+        {
+          key: 'belegt',
+          label: t('woche.kpi.belegt'),
+          wert: String(kopf.belegt),
+          unterzeile: testkonten > 0 ? t('woche.kpi.belegtSubOhneTest', { count: testkonten }) : t('woche.kpi.belegtSub'),
+        },
         {
           key: 'auslastung',
           label: t('woche.kpi.auslastung'),

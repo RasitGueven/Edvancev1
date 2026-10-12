@@ -48,7 +48,7 @@ export function OhneStammplatzListe({
                 <span className="flex min-w-0 flex-col">
                   <span className="truncate text-sm font-semibold">{k.name ?? t('kind.ohneName')}</span>
                   <span className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
-                    <KlasseFach klasse={k.klasse} fach={k.fach} />
+                    <KlasseFach klasse={k.klasse} fach={k.fach} test={k.ist_test} />
                     <span>{[paketText(k, t), rhythmusText(k.rhythmus, t)].join(' · ')}</span>
                   </span>
                   <span className={`text-xs font-semibold ${k.vertrag_laeuft ? 'text-[var(--color-error-coach)]' : 'text-[var(--color-text-secondary)]'}`}>
