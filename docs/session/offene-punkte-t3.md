@@ -56,7 +56,8 @@ Zweitprüfung (CLAUDE.md §8, unabhängige Instanz, nur lesend): „freigeben“
    Szenario Batu bleibt „Hinweis“ deshalb „nicht verfügbar“. Die Einspiel-Prüfung „für die Aufgaben von
    gleichung_quadr_faktor liefert hinweis_abrufen Text“ kann so nicht grün werden; belegt wird stattdessen an einer
    Aufgabe mit Hinweisen (93 in Prod, alle ungeprüft, PR-Text). Wer: Inhaltspflege (Hinweise schreiben).
-   **Rasit 12.10.:** Einspiel-Prüfung an einer Aufgabe mit Hinweisen belegen.
+   **Rasit 12.10.:** Einspiel-Prüfung an einer Aufgabe mit Hinweisen belegen. Ausnahme bei Batu: eingemischte
+   Aufgaben zu `dezimal_add_sub` (3 von 11 mit Hinweis) und `dezimal_mult` (2 von 9) zeigen im Testlauf Text.
 2. **Die Regel steht noch an vier Stellen inline.** `session_im_pool`, `lsa_im_pool`, `erklaer_checks`
    (`status = 'ready' or (p_testlauf and status in (…) and pruef_ausschluss is null)`) und `lsa_select_next_core`
    (`v_pool := testlauf or ist_test`) bleiben unverändert, weil der Auftrag die Auswahl ausnimmt. Gleichwertig wäre
@@ -80,6 +81,16 @@ Zweitprüfung (CLAUDE.md §8, unabhängige Instanz, nur lesend): „freigeben“
 8. **Kennzeichen.** Die Live-Sicht zeigt den Satz im Kopf (`LiveKopf`, alle Phasen) im Stil von
    `TestlaufBanner`. `TestlaufBanner` selbst ist Admin-Fläche mit eigenem Text („Zählt in keiner Kennzahl …“) und
    bleibt unverändert; die Pille im Raster („Testlauf · zählt nicht in Akten“) ebenso. Am Tablet nichts.
-9. **Grants der Hilfen in Prod.** Lokal sind `testlauf_inhalt_sichtbar` und `lsa_testinhalte` nur für `postgres`
-   ausführbar. Prod vergibt für neue Funktionen ggf. per Default Rechte an `service_role`; nach dem Einspielen per
-   dbread prüfen (`proacl`), `anon`/`authenticated` dürfen nicht darin stehen.
+9. ~~Grants der Hilfen in Prod.~~ Erledigt: nach dem Einspielen per dbread `proacl = {postgres=X/postgres}` für
+   beide Hilfen, gleich dem Neuaufbau.
+
+## Eingespielt (12.10.2026)
+
+Nach dem Merge von T2 (#237) origin/dev eingemischt, Tests erneut grün (`session_t3` 60, `session_t2` 54; rot nur
+`bekannt-rot.txt`; Frontend 1056). Je Migration nach CLAUDE.md §10 (`~/bin/mig`): `20261013151236`, `…151305`,
+`…151404`, jede `OK`. Per dbread: drei Einträge in `schema_migrations`; Definitionen und Grants der sieben Funktionen
+gleich dem Neuaufbau; `tools/schema-snapshot.sh` gleich dem Neuaufbau (CI-Vergleich).
+
+Einspiel-Prüfung (lesend, an einer Aufgabe mit Hinweisen statt `gleichung_quadr_faktor`): 93 Session-Aufgaben mit
+Hinweisen, 91 davon bestehen die Prüfung. Für `20321d30-…` (`dezimal_add_sub`, draft) liefert die Auswahl aus
+`hinweis_abrufen` Stufe 1 mit Testlauf „Überlege zuerst: Musst du addieren oder subtrahieren?“, ohne Testlauf nichts.
