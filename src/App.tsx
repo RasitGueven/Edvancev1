@@ -15,8 +15,9 @@ import { ReiheEndePage } from '@/pages/admin/pruefen/ReiheEndePage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
-import { SlotsManagePage } from '@/pages/admin/SlotsManagePage'
-import { SlotPickerPage } from '@/pages/admin/SlotPickerPage'
+import { SlotsPage } from '@/pages/admin/slots/SlotsPage'
+import { TerminPage as SlotsTerminPage } from '@/pages/admin/slots/termin/TerminPage'
+import { KindPage as SlotsKindPage } from '@/pages/admin/slots/kind/KindPage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
@@ -219,22 +220,37 @@ export default function App(): JSX.Element {
               </ProtectedRoute>
             }
           />
-          {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters und die
-              iPad-Ansicht fuers Elterngespraech — seit Schuelerakte S1 beides nur
-              Admin, weil die Auswahl leads liest (coach_rls). */}
+          {/* Slots (Bauauftrag Slots, SL2): nur Admins; ein Coach landet auch über die direkte Adresse in
+              seinen Einsätzen (Abnahmefall 14). /admin/slot-auswahl (S10) leitet in die Kinder-Liste. */}
           <Route
             path="/admin/slots"
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <SlotsManagePage />
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/einsaetze' }}>
+                <SlotsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/slots/termin/:datum/:zeitId"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/einsaetze' }}>
+                <SlotsTerminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/slots/kind/:studentId"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/einsaetze' }}>
+                <SlotsKindPage />
               </ProtectedRoute>
             }
           />
           <Route
             path="/admin/slot-auswahl"
             element={
-              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-                <SlotPickerPage />
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/einsaetze' }}>
+                <Navigate to="/admin/slots?reiter=kinder" replace />
               </ProtectedRoute>
             }
           />

@@ -119,7 +119,7 @@
     }
   },
   "schedule": {
-    "titel": "Stundenplan",
+    "titel": "Einzel-Sessions und Testläufe",
     "eyebrow": "Betrieb",
     "beschreibung": "Präsenz-Sessions anlegen und Schüler einem Coach-Termin zuweisen.",
     "neueSession": "Neue Session",
@@ -281,7 +281,7 @@
     "rolle": "Admin",
     "heute": "Heute",
     "leads": "Leads",
-    "stundenplan": "Stundenplan",
+    "slots": "Slots",
     "schueler": "Schüler",
     "coaches": "Coaches",
     "vertraege": "Verträge",
@@ -297,7 +297,7 @@
     "kurz": {
       "heute": "Heute",
       "leads": "Leads",
-      "stundenplan": "Plan",
+      "slots": "Slots",
       "schueler": "Schüler",
       "coaches": "Coaches",
       "vertraege": "Verträge",

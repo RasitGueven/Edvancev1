@@ -1,114 +1,4 @@
 {
-  "weekday": {
-    "0": "Montag",
-    "1": "Dienstag",
-    "2": "Mittwoch",
-    "3": "Donnerstag",
-    "4": "Freitag",
-    "5": "Samstag",
-    "6": "Sonntag"
-  },
-  "weekdayShort": {
-    "0": "Mo",
-    "1": "Di",
-    "2": "Mi",
-    "3": "Do",
-    "4": "Fr",
-    "5": "Sa",
-    "6": "So"
-  },
-  "manage": {
-    "eyebrow": "Edvance · Verwaltung",
-    "title": "Slots verwalten",
-    "description": "Wochen-Zeitraster der Kleingruppen: Wochentag, Uhrzeit, Raum und Kapazität.",
-    "rasterHint": "Zeitraster in Abstimmung — die hier angelegten Slots sind Beispiele, bis Tolunay das finale Raster festlegt.",
-    "form": {
-      "legend": "Neuen Slot anlegen",
-      "weekday": "Wochentag",
-      "startTime": "Uhrzeit",
-      "room": "Raum",
-      "roomPlaceholder": "z. B. Raum 1",
-      "capacity": "Kapazität",
-      "submit": "Slot anlegen",
-      "submitting": "Wird angelegt …"
-    },
-    "list": {
-      "heading": "Angelegte Slots",
-      "capacity": "{{capacity}} Plätze",
-      "load": "{{belegt}}/{{capacity}} belegt",
-      "ended": "Beendet",
-      "end": "Slot beenden"
-    },
-    "empty": {
-      "title": "Noch keine Slots",
-      "description": "Lege den ersten Wochen-Slot an — Wochentag, Uhrzeit und Raum genügen."
-    },
-    "error": {
-      "load": "Slots konnten nicht geladen werden.",
-      "roomRequired": "Bitte einen Raum angeben.",
-      "timeRequired": "Bitte eine Uhrzeit angeben."
-    },
-    "toast": {
-      "created": "Slot angelegt.",
-      "ended": "Slot beendet."
-    }
-  },
-  "picker": {
-    "eyebrow": "Erstgespräch",
-    "title": "Slot-Auswahl",
-    "description": "Wochenkalender für das Elterngespräch: Favoriten antippen, optional direkt fest zuweisen.",
-    "leadLabel": "Kind / Lead",
-    "leadPlaceholder": "Lead wählen …",
-    "noLead": {
-      "title": "Zuerst einen Lead wählen",
-      "description": "Wähle oben das Kind aus, für das Favoriten festgehalten werden sollen."
-    },
-    "noSlots": {
-      "title": "Keine aktiven Slots",
-      "description": "Lege zuerst unter „Slots verwalten“ das Wochen-Zeitraster an."
-    },
-    "legend": {
-      "heading": "Auslastung",
-      "free": "Plätze frei",
-      "almost": "Letzter Platz",
-      "full": "Ausgebucht"
-    },
-    "card": {
-      "load": "{{belegt}}/{{capacity}}",
-      "room": "Raum {{room}}",
-      "full": "Ausgebucht",
-      "rank": "Favorit {{rang}}",
-      "select": "Als Favorit wählen",
-      "deselect": "Favorit entfernen"
-    },
-    "wishes": {
-      "heading": "Favoriten",
-      "hint": "Bis zu drei Favoriten — die Reihenfolge der Auswahl ist der Rang.",
-      "empty": "Noch keine Favoriten gewählt.",
-      "save": "Favoriten speichern",
-      "saving": "Wird gespeichert …",
-      "assign": "Fest zuweisen",
-      "assigning": "Wird zugewiesen …"
-    },
-    "assignment": {
-      "heading": "Feste Zuweisung",
-      "current": "{{weekday}} {{time}} Uhr · Raum {{room}}",
-      "release": "Zuweisung lösen",
-      "releasing": "Wird gelöst …",
-      "none": "Noch kein fester Slot."
-    },
-    "error": {
-      "load": "Slots konnten nicht geladen werden.",
-      "leads": "Leads konnten nicht geladen werden.",
-      "maxWishes": "Es sind höchstens drei Favoriten möglich.",
-      "assignFull": "Dieser Slot ist ausgebucht."
-    },
-    "toast": {
-      "wishesSaved": "Favoriten gespeichert.",
-      "assigned": "Slot fest zugewiesen.",
-      "released": "Zuweisung gelöst."
-    }
-  },
   "fehler": {
     "SL001": "Dieser Termin ist voll.",
     "SL002": "In diesem Termin ist kein Raum mit Coach geöffnet.",
@@ -135,5 +25,420 @@
     "eingabe": "Die Eingabe ist unvollständig.",
     "keinZugang": "Das Kind hat an diesem Tag keinen laufenden Vertrag.",
     "allgemein": "Das hat nicht geklappt. Versuch es bitte noch einmal."
+  },
+  "seite": {
+    "rubrik": "Betrieb",
+    "titel": "Slots",
+    "reiterLabel": "Bereiche der Slots",
+    "kw": "KW {{kw}}",
+    "belegt": "{{belegt}} von {{plaetze}} Plätzen belegt",
+    "ohneStammplatz_one": "{{count}} Kind ohne Stammplatz",
+    "ohneStammplatz_other": "{{count}} Kinder ohne Stammplatz"
+  },
+  "reiter": {
+    "wochenplan": "Wochenplan",
+    "kinder": "Kinder",
+    "coaches": "Coaches",
+    "einstellungen": "Einstellungen"
+  },
+  "woche": {
+    "titel": "Woche",
+    "heute": "heute",
+    "keinBetrieb": "kein Betrieb",
+    "keinBetriebTag": "{{anlass}}: an diesem Tag ist kein Betrieb.",
+    "keinRaum": "kein Raum besetzt",
+    "coachFehlt": "Coach fehlt",
+    "ohneRaum_one": "{{count}} ohne Raum",
+    "ohneRaum_other": "{{count}} ohne Raum",
+    "zelleLabel": "{{belegt}} von {{kapazitaet}} Plätzen belegt",
+    "tagWaehlen": "Tag wählen",
+    "leereZeigen": "leere Zeiten zeigen",
+    "leerTitel": "Noch keine Uhrzeiten",
+    "leerText": "Lege unter Einstellungen die Uhrzeiten der Slots an.",
+    "legende": {
+      "achtung": "ab 90 % belegt",
+      "handeln": "mehr Kinder als Plätze oder Coach fehlt",
+      "faecher": "M · D · E = Fächer im Slot"
+    },
+    "kpi": {
+      "label": "Kennzahlen der Woche",
+      "plaetze": "Plätze",
+      "plaetzeSub": "in besetzten Räumen",
+      "belegt": "Belegt",
+      "belegtSub": "Kinder mit Termin",
+      "auslastung": "Auslastung",
+      "auslastungSub": "belegt von Plätzen",
+      "ohneRaum": "Kinder ohne Raum",
+      "ohneRaumErster": "zuerst {{datum}}",
+      "ohneRaumKeiner": "alle haben einen Raum",
+      "ohneStammplatz": "Ohne Stammplatz",
+      "ohneStammplatzSub_one": "{{count}} Vertrag läuft schon",
+      "ohneStammplatzSub_other": "{{count}} Verträge laufen schon"
+    }
+  },
+  "termin": {
+    "rubrik": "Slots · KW {{kw}}",
+    "titel": "{{datum}} · {{beginn}}–{{ende}}",
+    "titelLaedt": "Termin",
+    "zurueck": "Wochenplan",
+    "satz": "{{kinder}} Kinder · {{plaetze}} Plätze · {{offen}} von {{raeume}} Räumen geöffnet",
+    "keinBetrieb": "{{anlass}}: an diesem Tag ist kein Betrieb.",
+    "ansicht": "Vergangener Termin: nur Ansicht. Die Anwesenheit kommt aus der Session.",
+    "anwesenheitFehlt": "Vergangener Termin: Bei mindestens einem Kind fehlt die Anwesenheit aus der Session.",
+    "anwesenheitAusSession": "Anwesenheit aus der Session.",
+    "ohneRaum": {
+      "titel_one": "Ohne Raum: {{count}} Kind",
+      "titel_other": "Ohne Raum: {{count}} Kinder",
+      "satz": "Für diese Kinder ist kein Platz in einem geöffneten Raum. Umbuchen, als ausgefallen markieren oder oben einen Raum öffnen.",
+      "vergangen": "Diese Kinder hatten keinen Raum."
+    },
+    "raeume": "Räume",
+    "vertretung": "Vertretung",
+    "gemischt": "gemischt",
+    "keinCoach": "kein Coach",
+    "coachNurHier": "Coach nur für diesen Termin",
+    "geschlossen": "Geschlossen · Stammschicht {{coach}}",
+    "faelltAus": "fällt aus",
+    "vertretungWaehlen": "Vertretung wählen",
+    "gestartet": "Die Session läuft: Coach und Raum bleiben.",
+    "raumLeer": "Noch kein Kind in diesem Raum.",
+    "umgebuchtVon": "umgebucht von {{datum}}",
+    "zusatz": "Zusatz",
+    "nichtDabei": "Nicht dabei",
+    "rechtzeitig": "rechtzeitig",
+    "nichtRechtzeitig": "nach 10 Uhr",
+    "eingang": "Eingang {{wann}}",
+    "sessionOeffnen": "Session öffnen",
+    "liveSicht": "Zur Live-Sicht",
+    "hinweisFestschreiben": "Die Raumzuteilung wird beim Öffnen der Session festgeschrieben.",
+    "hinweisZuteilung": "Die Räume teilt das System zu. Bis die Session geöffnet ist, kann eine neue Buchung die Zuteilung verschieben.",
+    "keineRaeumeTitel": "Kein Raum besetzt",
+    "keineRaeumeText": "In diesem Termin hat noch kein Raum einen Coach. Öffne einen Raum, damit Kinder kommen können."
+  },
+  "aktion": {
+    "absage": "Absage",
+    "umbuchen": "Umbuchen",
+    "ausgefallen": "Ausgefallen (durch uns)",
+    "inRaum": "In {{raum}} verschieben",
+    "zuruecknehmen": "Zurücknehmen",
+    "kindHinzufuegen": "Kind hinzufügen",
+    "raumOeffnen": "Raum öffnen",
+    "faelltAus": "Ganzer Termin fällt aus",
+    "stammplatzVergeben": "Stammplatz vergeben",
+    "aendernAb": "Ändern ab …",
+    "beenden": "Beenden",
+    "zusatzBuchen": "Zusatztermin buchen"
+  },
+  "meldung": {
+    "ausgefallen": "{{name}}: ausgefallen (durch uns). Die Einheit bleibt offen.",
+    "verschoben": "{{name}} sitzt jetzt in {{raum}}.",
+    "coach": "{{coach}} ist für diesen Termin in {{raum}}. Die Stammschicht bleibt unverändert.",
+    "coachFaelltAus": "{{raum}} ist für diesen Termin geschlossen. Die Kapazität sinkt um fünf.",
+    "sessionOffen": "Session für {{raum}} geöffnet.",
+    "zurueckgenommen": "{{name}}: Absage zurückgenommen, der Termin ist wieder geplant.",
+    "stammBeendet": "Stammplatz endet. Ab {{ab}} entstehen keine Termine mehr."
+  },
+  "zustand": {
+    "planned": "geplant",
+    "present": "anwesend",
+    "cancelled": "abgesagt",
+    "unexcused": "unentschuldigt",
+    "cancelled_by_us": "ausgefallen"
+  },
+  "raumArt": {
+    "vertretung": "Vertretung",
+    "zusatz": "Raum zusätzlich",
+    "faellt_aus": "fällt aus"
+  },
+  "takt": {
+    "woechentlich": "wöchentlich",
+    "a_woche": "A-Woche",
+    "b_woche": "B-Woche"
+  },
+  "taktKurz": {
+    "a_woche": "A",
+    "b_woche": "B"
+  },
+  "laufzeit": {
+    "6": "Halbjahr",
+    "12": "Jahr"
+  },
+  "rhythmus": {
+    "woechentlich_one": "{{count}}× pro Woche",
+    "woechentlich_other": "{{count}}× pro Woche",
+    "vierzehntaeglich_one": "14-täglich",
+    "vierzehntaeglich_other": "{{count}}× 14-täglich"
+  },
+  "einheiten": {
+    "balkenLabel": "{{verbraucht}} verbraucht, {{geplant}} geplant von {{gesamt}} Einheiten",
+    "vonGesamt": "{{verbraucht}} / {{gesamt}}",
+    "geplant_one": "{{count}} geplant",
+    "geplant_other": "{{count}} geplant",
+    "verbrauchtLabel": "verbraucht",
+    "geplantLabel": "geplant",
+    "gesamtLabel": "gesamt"
+  },
+  "planbilanz": {
+    "art": {
+      "kein_stammplatz": "kein Stammplatz",
+      "aufgebraucht": "aufgebraucht",
+      "reicht_bis": "reicht bis {{datum}}",
+      "ohne_termin_one": "{{count}} ohne Termin",
+      "ohne_termin_other": "{{count}} ohne Termin",
+      "passt": "passt"
+    },
+    "satz": {
+      "kein_stammplatz_one": "{{count}} Einheit ist offen, aber es gibt keinen Stammplatz. Ohne Stammplatz entstehen keine Termine.",
+      "kein_stammplatz_other": "{{count}} Einheiten sind offen, aber es gibt keinen Stammplatz. Ohne Stammplatz entstehen keine Termine.",
+      "aufgebraucht": "Die Einheiten sind aufgebraucht. Bis zum Stichtag gibt es keine weiteren Termine.",
+      "reicht_bis_one": "{{count}} Stammplatz-Termin vor dem Stichtag hat keine Einheit mehr. Der letzte Termin ist am {{datum}}. Wer einzelne Wochen auslässt, streckt die Einheiten.",
+      "reicht_bis_other": "{{count}} Stammplatz-Termine vor dem Stichtag haben keine Einheit mehr. Der letzte Termin ist am {{datum}}. Wer einzelne Wochen auslässt, streckt die Einheiten.",
+      "ohne_termin_one": "{{count}} offene Einheit hat bis zum Stichtag keinen Termin. Sie kann als Zusatztermin gebucht werden.",
+      "ohne_termin_other": "{{count}} offene Einheiten haben bis zum Stichtag keinen Termin. Sie können als Zusatztermine gebucht werden.",
+      "passt": "Termine und Einheiten gehen auf. Der letzte Termin ist am {{datum}}.",
+      "passtOhneDatum": "Termine und Einheiten gehen auf.",
+      "abweichung": {
+        "ohne_termin_one": "{{count}} Einheit bleibt ohne Termin.",
+        "ohne_termin_other": "{{count}} Einheiten bleiben ohne Termin.",
+        "ohne_einheit_one": "{{count}} Stammplatz-Termin hat keine Einheit mehr.",
+        "ohne_einheit_other": "{{count}} Stammplatz-Termine haben keine Einheit mehr."
+      },
+      "uebersprungen": "Übersprungen, weil voll oder ohne Raum: {{daten}}.",
+      "ferientabelle": "Der Stichtag liegt hinter der Ferientabelle. Geplant ist bis zu ihrem Ende."
+    }
+  },
+  "kind": {
+    "rubrik": "Slots · Kinder",
+    "titelLaedt": "Kind",
+    "zurueck": "Kinder",
+    "akte": "Akte",
+    "ohneName": "ohne Namen",
+    "klasse": "Klasse {{klasse}}",
+    "klasseFach": "Kl. {{klasse}} · {{fach}}",
+    "einheiten": "Einheiten",
+    "naechste": "Nächste Termine",
+    "letzte": "Letzte Termine",
+    "keineNaechsten": "Keine geplanten Termine.",
+    "keineLetzten": "Noch keine vergangenen Termine.",
+    "alleZeigen_one": "alle zeigen ({{count}})",
+    "alleZeigen_other": "alle zeigen ({{count}})",
+    "weniger": "weniger zeigen",
+    "festgeschrieben": "Session offen",
+    "einzelSession": "Einzel-Session",
+    "weiterfuehrenHinweis": "Es gibt einen Folgevertrag. In der Kinder-Liste lassen sich die bisherigen Stammplätze weiterführen.",
+    "stamm": {
+      "titel": "Stammplätze",
+      "ab": "ab {{datum}}",
+      "seit": "seit {{datum}}",
+      "bis": "endet {{datum}}",
+      "leerTitel": "Noch kein Stammplatz",
+      "leerText": "Mit einem Stammplatz entstehen die Termine bis zum Stichtag von selbst.",
+      "beendenAb": "Keine Termine mehr ab",
+      "beendenSatz": "Danach entstehen aus diesem Stammplatz keine Termine mehr. Offene Einheiten bleiben.",
+      "frueher_one": "Frühere Stammplätze ({{count}})",
+      "frueher_other": "Frühere Stammplätze ({{count}})",
+      "zeitraum": "{{von}} – {{bis}}"
+    },
+    "vertrag": {
+      "titel": "Aus dem Vertrag",
+      "paket": "Paket",
+      "rhythmus": "Rhythmus",
+      "einheiten": "Einheiten",
+      "beginn": "Beginn",
+      "stichtag": "Stichtag",
+      "oeffnen": "Vertrag öffnen"
+    }
+  },
+  "kinder": {
+    "liste": "Kinder mit Vertrag",
+    "filterLabel": "Nach Planbilanz filtern",
+    "suche": "Kind suchen",
+    "stichtag": "Stichtag {{datum}}",
+    "weitergefuehrt": "{{name}}: Stammplätze wie bisher weitergeführt.",
+    "leerTitel": "Noch keine Kinder mit Vertrag",
+    "leerText": "Sobald ein Vertrag abgeschlossen ist, steht das Kind hier und bekommt seinen Stammplatz.",
+    "keinTrefferTitel": "Kein Kind passt",
+    "keinTrefferText": "Setze den Filter zurück oder suche nach einem anderen Namen.",
+    "filter": {
+      "alle": "Alle",
+      "kein_stammplatz": "Kein Stammplatz",
+      "reicht_nicht": "Reicht nicht",
+      "einheiten_uebrig": "Einheiten übrig",
+      "aufgebraucht": "Aufgebraucht",
+      "passt": "Passt"
+    },
+    "spalte": {
+      "kind": "Kind",
+      "paket": "Paket",
+      "stammplaetze": "Stammplätze",
+      "einheiten": "Einheiten",
+      "stichtag": "Stichtag",
+      "planbilanz": "Planbilanz"
+    },
+    "ohne": {
+      "titel": "Ohne Stammplatz",
+      "unterzeile": "Kinder mit Vertrag, für die noch keine Termine entstehen",
+      "laeuftSeit": "läuft seit {{datum}}",
+      "beginntAm": "beginnt am {{datum}}",
+      "weiterfuehren": "Wie bisher weiterführen ({{slot}})"
+    }
+  },
+  "coaches": {
+    "liste": "Coaches",
+    "leerTitel": "Noch keine Coaches",
+    "leerText": "Lege unter Coaches in der Leiste einen Coach an, dann bekommt er hier Stammschichten.",
+    "stunden_one": "{{count}} h pro Woche",
+    "stunden_other": "{{count}} h pro Woche",
+    "abweichungenAnzahl_one": "{{count}} Abweichung",
+    "abweichungenAnzahl_other": "{{count}} Abweichungen",
+    "raster": "Stammschichten · {{coach}}",
+    "neuLabel": "Stammschicht anlegen: {{tag}} {{beginn}}",
+    "schichtLabel": "Stammschicht {{tag}} {{beginn}} in {{raum}} entfernen",
+    "neuFrage": "{{tag}} {{beginn}}: in welchem Raum?",
+    "wegFrage": "Stammschicht {{tag}} {{beginn}} in {{raum}} ab heute entfernen?",
+    "anlegen": "Anlegen",
+    "entfernen": "Entfernen",
+    "angelegt": "Stammschicht für {{coach}} angelegt.",
+    "entfernt": "Stammschicht von {{coach}} entfernt.",
+    "keineRaeume": "Es gibt noch keinen Raum. Lege ihn unter Einstellungen an.",
+    "hinweis": "Eine Stammschicht gilt in jeder Betriebswoche. Abweichungen für einen Termin setzt du direkt im Termin.",
+    "abweichungen": "Abweichungen diese Woche",
+    "keineAbweichungen": "Keine Abweichungen in dieser Woche."
+  },
+  "einst": {
+    "aktivAb": "aktiv ab",
+    "inaktivAb": "inaktiv ab",
+    "deaktivieren": "Deaktivieren ab …",
+    "deaktivierenKnopf": "Deaktivieren",
+    "raeume": {
+      "titel": "Räume",
+      "satz": "Räume werden nicht gelöscht, sondern ab einem Datum deaktiviert.",
+      "neu": "Raum hinzufügen",
+      "name": "Name",
+      "schichten": "Stammschichten",
+      "anlegen": "Anlegen",
+      "nameFehlt": "Gib dem Raum einen Namen.",
+      "angelegt": "{{name}} angelegt.",
+      "deaktiviert": "Raum ist ab {{datum}} inaktiv.",
+      "leerTitel": "Noch keine Räume",
+      "leerText": "Lege den ersten Raum an. Er zählt, sobald ein Coach eingeteilt ist."
+    },
+    "zeiten": {
+      "titel": "Uhrzeiten",
+      "satz": "Ein Slot dauert 60 Minuten. Tippe auf eine Uhrzeit, um sie ab einem Datum zu deaktivieren.",
+      "neu": "Uhrzeit hinzufügen",
+      "beginn": "Beginn",
+      "anlegen": "Anlegen",
+      "beginnFehlt": "Wähle den Beginn.",
+      "angelegt": "Uhrzeit {{beginn}} angelegt.",
+      "deaktiviert": "Uhrzeit ist ab {{datum}} inaktiv.",
+      "deaktivierenLabel": "{{beginn}} ab einem Datum deaktivieren",
+      "inaktivLabel": "{{beginn}}, inaktiv ab {{datum}}"
+    },
+    "tage": {
+      "titel": "Tage ohne Betrieb bis Ende des Schuljahrs",
+      "satz": "Ferien und Feiertage in NRW bis {{datum}}. An diesen Tagen entstehen keine Termine.",
+      "vertragsende": "Für das Vertragsende zählen nur die Ferien. Feiertage und der Pfingstferientag verschieben es nicht."
+    },
+    "einzel": {
+      "titel": "Einzel-Sessions und Testläufe",
+      "satz": "Sessions außerhalb der Slots, etwa Testläufe, legst du weiterhin einzeln an.",
+      "link": "Einzel-Sessions öffnen"
+    }
+  },
+  "dialog": {
+    "abbrechen": "Abbrechen",
+    "absage": {
+      "titel": "Absage erfassen",
+      "titelUmbuchen": "Umbuchen",
+      "wer": "{{name}} · {{datum}}, {{beginn}}",
+      "eingang": "Absage eingegangen",
+      "eingangDatum": "Datum des Eingangs",
+      "eingangUhr": "Uhrzeit des Eingangs",
+      "eingangFehlt": "Datum und Uhrzeit des Eingangs fehlen.",
+      "rechtzeitig": "Rechtzeitig, die Einheit bleibt offen.",
+      "spaet": "Nach 10:00 Uhr: unentschuldigt, die Einheit ist verbraucht.",
+      "speichern": "Absage speichern",
+      "umbuchen": "Umbuchen",
+      "gespeichertRechtzeitig": "{{name}}: abgesagt, die Einheit bleibt offen.",
+      "gespeichertSpaet": "{{name}}: unentschuldigt, die Einheit ist verbraucht.",
+      "umgebucht": "{{name}}: umgebucht auf {{datum}}, {{beginn}}."
+    },
+    "ziele": {
+      "titel": "Neuer Termin in den nächsten vier Wochen",
+      "label": "Mögliche Termine",
+      "keine": "In den nächsten vier Wochen gibt es keinen passenden freien Termin.",
+      "frei_one": "{{count}} frei",
+      "frei_other": "{{count}} frei",
+      "chipLabel_one": "{{datum}}, {{beginn}}, {{count}} Platz frei",
+      "chipLabel_other": "{{datum}}, {{beginn}}, {{count}} Plätze frei",
+      "waehlen": "Wähle einen Termin.",
+      "verdraengt": "Dafür fällt der Stammplatz-Termin am {{datum}} weg.",
+      "verdraengtKurz": "verdrängt {{datum}}",
+      "weitereEinheit": "Die Absage kam nach 10 Uhr: Der neue Termin braucht eine weitere Einheit.",
+      "regeln": "Nur Termine mit freiem Platz, höchstens einer pro Tag und nicht mehr als zwei über dem eigenen Rhythmus pro Woche."
+    },
+    "zusatz": {
+      "titel": "Zusatztermin buchen",
+      "wer": "{{name}}",
+      "buchen": "Buchen",
+      "gebucht": "{{name}}: Zusatztermin am {{datum}}, {{beginn}}."
+    },
+    "hinzufuegen": {
+      "titel": "Kind hinzufügen",
+      "suche": "Kind suchen",
+      "keine": "Kein Kind erfüllt hier alle Regeln.",
+      "waehlen": "Wähle ein Kind.",
+      "offen_one": "{{count}} Einheit offen",
+      "offen_other": "{{count}} Einheiten offen",
+      "speichern": "Hinzufügen",
+      "gebucht": "{{name}} ist als Zusatztermin dabei."
+    },
+    "raum": {
+      "titel": "Raum öffnen",
+      "nurDieser": "Raum und Coach nur für diesen Termin",
+      "raum": "Raum",
+      "coach": "Coach",
+      "speichern": "Öffnen",
+      "keinRaum": "Alle aktiven Räume sind schon geöffnet.",
+      "keinCoach": "Alle Coaches sind zu dieser Zeit schon eingeteilt.",
+      "geoeffnet": "{{raum}} ist für diesen Termin geöffnet."
+    },
+    "faelltAus": {
+      "titel": "Ganzer Termin fällt aus",
+      "frage_one": "{{count}} Kind wird als „ausgefallen (durch uns)“ markiert.",
+      "frage_other": "{{count}} Kinder werden als „ausgefallen (durch uns)“ markiert.",
+      "einheiten": "Die Einheiten bleiben offen.",
+      "speichern": "Termin fällt aus",
+      "gespeichert_one": "Termin fällt aus. {{count}} Einheit bleibt offen.",
+      "gespeichert_other": "Termin fällt aus. {{count}} Einheiten bleiben offen."
+    },
+    "stamm": {
+      "titel": "Stammplatz vergeben",
+      "titelAendern": "Stammplatz ändern",
+      "speichern": "Speichern",
+      "zeilen": "Stammplätze",
+      "zeile": "Zeile {{zeile}}",
+      "offen": "noch offen",
+      "tag": "Tag",
+      "uhrzeit": "Uhrzeit",
+      "takt": "Takt",
+      "ab": "gültig ab",
+      "frei": "Freie Plätze für Zeile {{zeile}}",
+      "rasterLabel": "Freie Plätze je Wochentag und Uhrzeit",
+      "keinRaum": "kein Raum",
+      "voll": "voll",
+      "freiLabel_one": "{{tag}} {{beginn}}: {{count}} Platz frei",
+      "freiLabel_other": "{{tag}} {{beginn}}: {{count}} Plätze frei",
+      "vorschau": "Planbilanz mit diesem Stammplatz",
+      "vorschauLeer": "Wähle Tag und Uhrzeit, dann erscheint die Planbilanz.",
+      "uebersprungen": "Übersprungen, weil voll oder ohne Raum: {{daten}}. Die Termine rücken nach.",
+      "zeileWaehlen": "Zeile {{zeile}}: Tag und Uhrzeit wählen.",
+      "zeileGrund": "Zeile {{zeile}}: {{grund}}",
+      "gruende": "Warum Speichern noch nicht geht",
+      "aendernHinweis": "Der bisherige Stammplatz endet am Tag vor „gültig ab“. Vergangene Termine bleiben.",
+      "vergeben": "{{name}}: Stammplatz ab {{ab}} vergeben. Die Termine sind geplant.",
+      "geaendert": "{{name}}: Stammplatz ab {{ab}} geändert."
+    }
   }
 }
