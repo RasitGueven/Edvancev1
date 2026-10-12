@@ -75,7 +75,18 @@ vi.mock('@/lib/supabase/schulen', () => ({
   schuleAnlegen: vi.fn(),
 }))
 
+// Slots SL3: Planbilanz aus slots_kind, nur für Admins.
+vi.mock('@/lib/supabase/slotplan', () => ({
+  ladeKind: vi.fn(() =>
+    Promise.resolve({
+      data: { vertrag_laeuft: true, planbilanz: { art: 'reicht_bis', datum: '2028-03-28', zahl: 8 } },
+      error: null,
+    }),
+  ),
+}))
+
 import { listBoardSchueler, stammdatenSpeichern } from '@/lib/supabase/akte'
+import { ladeKind } from '@/lib/supabase/slotplan'
 import { BoardPage } from './BoardPage'
 import { AktePage } from './AktePage'
 
@@ -188,6 +199,23 @@ describe('Akte', () => {
     zeige('/admin/akten/k1')
     expect(await screen.findByText('Fach und „woran gearbeitet“: kommt mit Slots.')).toBeTruthy()
     expect(screen.getAllByText('Fach: —')).toHaveLength(3)
+  })
+
+  it('Slots SL3, Admin: „Termine planen“ führt in die Slots des Kindes, Planbilanz-Abzeichen an den Einheiten', async () => {
+    zeige('/admin/akten/k1')
+    const link = await screen.findByRole('link', { name: 'Termine planen' })
+    expect(link.getAttribute('href')).toBe('/admin/slots/kind/k1')
+    expect((await screen.findByTestId('planbilanz')).textContent).toBe('reicht bis 28.03.')
+  })
+
+  it('Slots SL3, Coach: kein „Termine planen“, keine Planbilanz, slots_kind wird nicht gerufen', async () => {
+    auth.rolle = 'coach'
+    vi.mocked(ladeKind).mockClear()
+    zeige('/admin/akten/k1')
+    await screen.findByText('leicht im Rückstand')
+    expect(screen.queryByRole('link', { name: 'Termine planen' })).toBeNull()
+    expect(screen.queryByTestId('planbilanz')).toBeNull()
+    expect(ladeKind).not.toHaveBeenCalled()
   })
 
   it('Coach: Stammdaten nur lesend', async () => {

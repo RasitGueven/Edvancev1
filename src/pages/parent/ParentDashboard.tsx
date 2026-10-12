@@ -8,9 +8,11 @@ import { useAuth } from '@/hooks/useAuth'
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { listReportsForStudent } from '@/lib/supabase/parentReports'
 import { listUpcomingSessionsForStudent } from '@/lib/supabase/sessions'
+import { ladeNaechsteTermine } from '@/lib/supabase/slotplan'
 import { formatSessionDate } from '@/lib/datetime'
 import { studentSelectLabel } from '@/lib/utils'
-import type { CoachingSession, ParentReport, StudentWithName } from '@/types'
+import type { ParentReport, StudentWithName } from '@/types'
+import { naechsteSessionEltern, type NaechsteSessionEltern } from './naechsteSession'
 
 /**
  * Eltern-Dashboard.
@@ -26,7 +28,7 @@ import type { CoachingSession, ParentReport, StudentWithName } from '@/types'
 type ChildVM = {
   student: StudentWithName
   reports: ParentReport[]
-  nextSession: CoachingSession | null
+  nextSession: NaechsteSessionEltern | null
 }
 
 const REPORT_SECTIONS = [
@@ -65,14 +67,17 @@ export function ParentDashboard(): JSX.Element {
       for (const student of students ?? []) {
         // getStudentProgress ist hier bewusst NICHT mehr geladen: der einzige
         // Konsument waren XP/Level/Streak.
-        const [{ data: reports }, { data: sessions }] = await Promise.all([
+        // Slots SL3: der nächste Termin aus naechste_termine, auch vor dem
+        // Festschreiben; die Session liefert nur noch den Raum.
+        const [{ data: reports }, { data: sessions }, { data: termine }] = await Promise.all([
           listReportsForStudent(student.id),
           listUpcomingSessionsForStudent(student.id),
+          ladeNaechsteTermine(student.id, 1),
         ])
         vms.push({
           student,
           reports: reports ?? [],
-          nextSession: sessions && sessions.length > 0 ? sessions[0] : null,
+          nextSession: naechsteSessionEltern(termine, sessions ?? []),
         })
       }
       if (!cancelled) {
@@ -138,7 +143,7 @@ export function ParentDashboard(): JSX.Element {
                 </p>
                 {nextSession ? (
                   <p className="text-sm text-[var(--color-text-secondary)]">
-                    {formatSessionDate(nextSession.scheduled_at)}
+                    {formatSessionDate(nextSession.beginn)}
                     {nextSession.room
                       ? ` · ${t('nextSession.room', { room: nextSession.room })}`
                       : ''}

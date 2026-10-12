@@ -8,6 +8,10 @@ import { amSelbenBerlinerTag } from '@/lib/coachKennzahlen'
 import { sessionStarten } from '@/lib/supabase/sessionCoach'
 import { sessionsOffen } from '@/lib/supabase/sessionC2'
 import type { CoachingSession, OffeneSession } from '@/types'
+import type { MeinEinsatz } from '@/types/slotplan'
+import { EinsatzKarte } from '@/pages/coach/einsaetze/EinsatzKarte'
+import { heuteEintraege } from '@/pages/coach/einsaetze/einsaetze.model'
+import { useSessionOeffnen } from '@/pages/coach/einsaetze/useSessionOeffnen'
 
 const zeit = (iso: string, lang: string, mitDatum = false): string =>
   new Intl.DateTimeFormat(lang, {
@@ -39,7 +43,7 @@ function HeuteKarte({ s, onFehler }: { s: CoachingSession; onFehler: (f: string)
     <EdvanceCard className="flex flex-wrap items-center gap-4 p-6">
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         <span className="flex flex-wrap items-center gap-2">
-          <b className="text-base font-semibold">{t('live.zeile', { zeit: zeit(s.scheduled_at, i18n.language), raum: s.room ?? '–' })}</b>
+          <b className="text-base font-semibold">{t('live.zeile', { zeit: zeit(s.scheduled_at, i18n.language), raum: s.room ?? t('live.einzel') })}</b>
           <EdvanceBadge variant={s.status === 'active' ? 'success' : 'primary'}>{t(`live.status.${s.status}`)}</EdvanceBadge>
           {s.testlauf && <EdvanceBadge variant="warning">{t('live.testlauf')}</EdvanceBadge>}
         </span>
@@ -65,14 +69,17 @@ function HeuteKarte({ s, onFehler }: { s: CoachingSession; onFehler: (f: string)
 /**
  * Coach-Startseite (C2): die Sessions von heute mit „Live-Sicht öffnen“ bzw. „Session starten“
  * (session_starten, offene-punkte-c1 Nr. 11) und die eigenen Sessions, die nach ihrem Ende nicht
- * abgeschlossen sind (offene-punkte-a2 Befund 16).
+ * abgeschlossen sind (offene-punkte-a2 Befund 16). Slots SL3: dazu die Einsätze von heute aus dem
+ * Plan mit „Session öffnen“; eine Session-ID steht nur einmal da (heuteEintraege).
  */
-export function SessionsLive({ sessions }: { sessions: CoachingSession[] }): JSX.Element {
+export function SessionsLive({ sessions, einsaetze = [] }: { sessions: CoachingSession[]; einsaetze?: MeinEinsatz[] }): JSX.Element {
   const { t, i18n } = useTranslation('coach')
+  const { t: tSlots } = useTranslation('slots')
   const [offen, setOffen] = useState<OffeneSession[]>([])
   const [fehler, setFehler] = useState<string | null>(null)
+  const { oeffnen, laeuft, fehler: oeffnenFehler } = useSessionOeffnen()
   const jetzt = new Date().toISOString()
-  const heute = sessions.filter((s) => amSelbenBerlinerTag(s.scheduled_at, jetzt))
+  const heute = heuteEintraege(einsaetze, sessions.filter((s) => amSelbenBerlinerTag(s.scheduled_at, jetzt)))
 
   useEffect(() => {
     let aktiv = true
@@ -90,10 +97,17 @@ export function SessionsLive({ sessions }: { sessions: CoachingSession[] }): JSX
         {t('live.titel')}
       </h2>
       {fehler && <p className="text-sm text-[var(--color-error-exam)]">{fehler}</p>}
+      {oeffnenFehler && <p role="alert" className="text-sm text-[var(--color-error-coach)]">{tSlots(oeffnenFehler)}</p>}
       {heute.length === 0 ? (
         <EmptyState icon="☀️" title={t('live.leerTitel')} description={t('live.leerText')} />
       ) : (
-        heute.map((s) => <HeuteKarte key={s.id} s={s} onFehler={setFehler} />)
+        heute.map((h) =>
+          h.art === 'session' ? (
+            <HeuteKarte key={h.key} s={h.session} onFehler={setFehler} />
+          ) : (
+            <EinsatzKarte key={h.key} e={h.einsatz} oeffnet={laeuft === h.einsatz.key} onOeffnen={(e) => void oeffnen(e)} />
+          ),
+        )
       )}
       {offen.length > 0 && (
         <EdvanceCard className="flex flex-col gap-2 p-6">
