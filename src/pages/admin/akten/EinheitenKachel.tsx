@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import { datum, zahl1 } from '@/lib/akte/format'
 import type { EinheitenStand } from '@/types'
+import type { Planbilanz } from '@/types/slotplan'
+import { PlanbilanzBadge } from '@/pages/admin/slots/kinder/Einheiten'
 import { AMPEL_BADGE } from './ampel'
 
 const KACHEL_TITEL = 'text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]'
@@ -10,8 +12,16 @@ const KACHEL_TITEL = 'text-xs font-semibold uppercase tracking-widest text-[var(
  * Einheiten-Stand (Anforderung D). Alle Werte kommen aus einheiten_stand();
  * hier wird nur dargestellt. Die Balkenbreiten sind die einzigen berechneten
  * Werte (Anteil an den Einheiten) und deshalb dynamische Inline-Styles.
+ * Slots SL3: planbilanz (aus slots_kind) übergibt die Akte nur einem Admin; dann steht das
+ * Planbilanz-Abzeichen neben der Ampel. Coaches sehen keine Planbilanz (Anforderung I 54).
  */
-export function EinheitenKachel({ stand }: { stand: EinheitenStand | null }): JSX.Element {
+export function EinheitenKachel({
+  stand,
+  planbilanz = null,
+}: {
+  stand: EinheitenStand | null
+  planbilanz?: { pb: Planbilanz; vertragLaeuft: boolean } | null
+}): JSX.Element {
   const { t, i18n } = useTranslation('akte')
   const lang = i18n.language
 
@@ -50,7 +60,14 @@ export function EinheitenKachel({ stand }: { stand: EinheitenStand | null }): JS
     <EdvanceCard className="flex flex-col gap-4 p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className={KACHEL_TITEL}>{t('einheiten.titel')}</h2>
-        {stand.ampel && <EdvanceBadge variant={AMPEL_BADGE[stand.ampel]}>{t(`ampel.${stand.ampel}`)}</EdvanceBadge>}
+        <span className="flex flex-wrap items-center gap-2">
+          {planbilanz && (
+            <span title={t('einheiten.planbilanz')} data-testid="planbilanz">
+              <PlanbilanzBadge planbilanz={planbilanz.pb} vertragLaeuft={planbilanz.vertragLaeuft} />
+            </span>
+          )}
+          {stand.ampel && <EdvanceBadge variant={AMPEL_BADGE[stand.ampel]}>{t(`ampel.${stand.ampel}`)}</EdvanceBadge>}
+        </span>
       </div>
 
       <p className="text-sm text-[var(--color-text-secondary)]">

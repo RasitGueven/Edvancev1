@@ -3,30 +3,59 @@ import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceBadge, EdvanceCard, EmptyState } from '@/components/edvance'
 import { PlatzPunkte } from '@/components/edvance/PlatzPunkte'
-import type { SessionHeute } from '@/lib/supabase/heute'
 import type { LsaSessionListItem } from '@/types'
+import type { SlotsTag } from '@/types/slotplan'
+import { AbsagenHeute } from './AbsagenHeute'
+import { betriebKinder, betriebZeilen } from './betriebModel'
 import { berlinZeit } from './ListenVertrieb'
 
-type Eintrag = { key: string; zeit: string; sortier: number; titel: string; unterzeile: string; rechts: JSX.Element }
+type Eintrag = { key: string; zeit: string; sortier: number; titel: string; marke?: JSX.Element; unterzeile: string; rechts: JSX.Element }
+
+type Props = {
+  tag: SlotsTag | null
+  lsa: LsaSessionListItem[]
+  /** i18n-Schlüssel im Namespace slots, wenn slots_tag scheitert. */
+  tagFehler?: string | null
+}
 
 /**
- * Was heute im Haus passiert: Sessions aus coaching_sessions (Berliner Tag)
- * und die Lernstandsanalysen von heute. Absagen kommen mit dem Slots-Feature.
+ * Was heute im Haus passiert (Slots SL3): die Raum-Termine aus slots_tag (Zeit, Raum, Coach,
+ * Platz-Punkte), die Einzel-Sessions und Testläufe ohne Raum-Termin (gekennzeichnet), die
+ * Lernstandsanalysen von heute und darunter die Absagen des Tages. Jede Session steht genau einmal da.
  */
-export function HeuteImBetrieb({ sessions, lsa }: { sessions: SessionHeute[]; lsa: LsaSessionListItem[] }): JSX.Element {
+export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Element {
   const { t, i18n } = useTranslation('admin')
+  const { t: tSlots } = useTranslation('slots')
   const lang = i18n.language
-  const kinder = sessions.reduce((summe, s) => summe + s.belegt, 0)
+  const zeilen = betriebZeilen(tag)
+  const kinder = betriebKinder(zeilen)
 
   const eintraege: Eintrag[] = [
-    ...sessions.map((s) => ({
-      key: `s-${s.id}`,
-      zeit: berlinZeit(s.scheduled_at, lang, false),
-      sortier: new Date(s.scheduled_at).getTime(),
-      titel: s.room ? t('heute.betrieb.raum', { raum: s.room }) : t('heute.betrieb.session'),
-      unterzeile: s.coach_name ?? t('heute.betrieb.ohneCoach'),
-      rechts: <PlatzPunkte raeume={[s.belegt]} mitZahl />,
-    })),
+    ...zeilen.map((z): Eintrag =>
+      z.art === 'raum'
+        ? {
+            key: z.key,
+            zeit: z.t.beginn,
+            sortier: z.sortier,
+            titel: z.t.raum_name,
+            unterzeile: z.t.art === 'faellt_aus' ? t('heute.betrieb.faelltAus') : (z.t.coach_name ?? t('heute.betrieb.ohneCoach')),
+            rechts: <PlatzPunkte raeume={[z.t.belegt]} mitZahl />,
+          }
+        : {
+            key: z.key,
+            zeit: berlinZeit(z.s.scheduled_at, lang, false),
+            sortier: z.sortier,
+            // room ist frei (Stundenplan) bzw. der Raumname einer Slot-Session; so, wie er ist.
+            titel: z.s.room ?? t('heute.betrieb.session'),
+            marke: (
+              <EdvanceBadge variant={z.s.testlauf ? 'warning' : 'primary'}>
+                {t(z.s.testlauf ? 'heute.betrieb.testlauf' : 'heute.betrieb.einzel')}
+              </EdvanceBadge>
+            ),
+            unterzeile: z.s.coach_name ?? t('heute.betrieb.ohneCoach'),
+            rechts: <PlatzPunkte raeume={[z.s.kinder]} mitZahl />,
+          },
+    ),
     ...lsa.map((l) => {
       const zeitpunkt = l.started_at ?? l.completed_at
       return {
@@ -43,9 +72,13 @@ export function HeuteImBetrieb({ sessions, lsa }: { sessions: SessionHeute[]; ls
   return (
     <EdvanceCard className="flex flex-col gap-2 p-4">
       <h3 className="font-serif text-2xl font-semibold">
-        {[t('heute.betrieb.sessions', { count: sessions.length }), t('heute.betrieb.kinder', { count: kinder })].join(' · ')}
+        {[t('heute.betrieb.sessions', { count: zeilen.length }), t('heute.betrieb.kinder', { count: kinder })].join(' · ')}
       </h3>
       <p className="text-xs text-[var(--color-text-tertiary)]">{t('heute.betrieb.lsaAnzahl', { count: lsa.length })}</p>
+      {tagFehler && <p role="alert" className="text-xs text-[var(--color-error-coach)]">{tSlots(tagFehler)}</p>}
+      {tag && !tag.betrieb && tag.anlass && (
+        <p className="text-xs text-[var(--color-text-tertiary)]">{t('heute.betrieb.keinBetrieb', { anlass: tag.anlass })}</p>
+      )}
 
       {eintraege.length === 0 ? (
         <EmptyState icon="🌤️" title={t('heute.betrieb.leerTitel')} description={t('heute.betrieb.leerText')} />
@@ -59,7 +92,10 @@ export function HeuteImBetrieb({ sessions, lsa }: { sessions: SessionHeute[]; ls
               <time className="text-sm font-semibold tabular-nums">{e.zeit}</time>
               <div className="flex min-w-0 flex-col">
                 <span className="truncate text-sm font-semibold">{e.titel}</span>
-                <span className="truncate text-xs text-[var(--color-text-tertiary)]">{e.unterzeile}</span>
+                <span className="flex min-w-0 flex-wrap items-center gap-2">
+                  <span className="truncate text-xs text-[var(--color-text-tertiary)]">{e.unterzeile}</span>
+                  {e.marke}
+                </span>
               </div>
               {e.rechts}
             </li>
@@ -67,12 +103,14 @@ export function HeuteImBetrieb({ sessions, lsa }: { sessions: SessionHeute[]; ls
         </ol>
       )}
 
+      <AbsagenHeute absagen={tag?.absagen ?? []} />
+
       <div className="flex justify-end border-t border-[var(--color-border)] pt-1">
         <Link
-          to="/admin/schedule"
+          to="/admin/slots"
           className="inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-[var(--color-text-link)] hover:underline"
         >
-          {t('heute.betrieb.fuss')}
+          {t('heute.betrieb.fussWochenplan')}
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </Link>
       </div>

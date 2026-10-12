@@ -23,7 +23,9 @@ import { getDarfPruefen } from '@/lib/supabase/freigabe'
 import { HINWEIS_KEIN_PRUEFRECHT } from '@/components/edvance/ProtectedRoute'
 import { useTranslation } from 'react-i18next'
 import { datum } from '@/lib/akte/format'
-import { amSelbenBerlinerTag, naechsteSession } from '@/lib/coachKennzahlen'
+import { amSelbenBerlinerTag } from '@/lib/coachKennzahlen'
+import { heuteEintraege, naechsterBeginn } from '@/pages/coach/einsaetze/einsaetze.model'
+import { useEinsaetzeAbHeute } from '@/pages/coach/einsaetze/useEinsaetzeAbHeute'
 import { zaehleAktiveAkten } from '@/lib/supabase/akte'
 import {
   SessionCard,
@@ -96,21 +98,26 @@ export function CoachDashboard(): JSX.Element {
     void getDarfPruefen().then((res) => setDarfPruefen(res.data === true))
   }, [])
 
+  // Slots SL3: Einsätze aus dem Plan (diese und nächste Woche), auch vor dem Festschreiben.
+  const einsaetze = useEinsaetzeAbHeute(!!user, user?.id)
+
   // "Sessions heute" zaehlt nach Berliner Kalendertag (berlinYMD fuer jetzt
-  // und fuer die Session) — war schon vor S2b so (Prod-Beleg im PR).
+  // und fuer die Session) — war schon vor S2b so (Prod-Beleg im PR). Seit SL3
+  // zaehlen die Einsaetze von heute mit, jede Session-ID einmal.
   const jetztIso = new Date().toISOString()
   const now = berlinYMD(jetztIso)
-  const todayCount = vms.filter((v) =>
-    inRange(v.session.scheduled_at, 'today', now),
+  const todayCount = heuteEintraege(
+    einsaetze,
+    vms.map((v) => v.session).filter((s) => inRange(s.scheduled_at, 'today', now)),
   ).length
-  const naechste = naechsteSession(vms.map((v) => v.session), Date.now())
+  const naechste = naechsterBeginn(einsaetze, vms.map((v) => v.session), Date.now())
   const naechsteAnzeige = !naechste
     ? PLACEHOLDER_DASH
-    : amSelbenBerlinerTag(naechste.scheduled_at, jetztIso)
-      ? t('dashboard.naechsteHeute', { zeit: sessionTime(naechste.scheduled_at) })
+    : amSelbenBerlinerTag(naechste, jetztIso)
+      ? t('dashboard.naechsteHeute', { zeit: sessionTime(naechste) })
       : t('dashboard.naechsteAm', {
-          datum: datum(naechste.scheduled_at, i18n.language),
-          zeit: sessionTime(naechste.scheduled_at),
+          datum: datum(naechste, i18n.language),
+          zeit: sessionTime(naechste),
         })
 
   useEffect(() => {
@@ -250,7 +257,7 @@ export function CoachDashboard(): JSX.Element {
           />
         </div>
 
-        {!loading && <SessionsLive sessions={vms.map((v) => v.session)} />}
+        {!loading && <SessionsLive sessions={vms.map((v) => v.session)} einsaetze={einsaetze} />}
 
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <DashStatCard

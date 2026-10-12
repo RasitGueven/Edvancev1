@@ -105,6 +105,11 @@
   (Absage, Umbuchen, Zusatztermin, Stammplatz, Kind hinzufügen, Raum öffnen, fällt aus). S10-Altcode entfernt,
   `/admin/slot-auswahl` leitet um, Coach landet auf `/coach/einsaetze`. Reine Oberfläche, keine Migration.
   **Offen:** `docs/slots/offene-punkte-sl2.md`.
+- **Slots SL3 · Coach-Sicht, „Heute“ und Akte** (Retro `2026-10-12-slots-sl3.md`, Branch
+  `feat/rasit-slots-sl3-coach-heute`): Coach „Meine Einsätze“ mit „Session öffnen“ am Tag, Coach-„Heute“ mit Plan-Einsätzen
+  ohne Doppelung, Admin-„Heute im Betrieb“ und „Absagen heute“ aus `slots_tag`, Akte mit „Termine planen“ und Planbilanz
+  (nur Admin), nächste Session bei Coach und Eltern vor dem Festschreiben. Reine Oberfläche, keine Migration.
+  **Offen:** `docs/slots/offene-punkte-sl3.md`.
 - **Session P1 · C3 Schublade der Coach-Live-Sicht** (Retro `2026-10-08-session-c3-schublade.md`, Branch
   `feat/rasit-session-c3-schublade`): Pfad-Vorschlag mit Warm-up-Zahlen und Fehlbild, „Heute“ je Kind, Grund des
   letzten Schritts mit Zahl (`session_schritte.details`), alle Kernideen der Erklärsequenz, Warm-up-Beleg für die
@@ -461,7 +466,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Lesefunktionen in `src/lib/supabase/heute.ts`. `AdminDashboard`,
   `AdminWidgetGrid`, `LsaTodayCard` und die `.admin-*`-Klassen sind entfernt.
   „Inhalte freigeben“ zeigt Lenas Rückfragen (Nachtrag H3-N), der Leisten-Zähler
-  zählt review + rueckfrage. **Offen:** Absagen in „Heute im Betrieb“ (Slots-Feature).
+  zählt review + rueckfrage. **Offen:** ~~Absagen in „Heute im Betrieb“~~ (erledigt mit Slots SL3).
 
 - **Coach-Hülle H6** (Branch `feat/rasit-coach-h6-huelle`, Retro
   `docs/retros/2026-10-06-coach-h6-huelle.md`): Coaches arbeiten in derselben Hülle wie
