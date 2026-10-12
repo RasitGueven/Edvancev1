@@ -264,3 +264,35 @@ Zweite unabhängige Instanz (Reviewer-Agent, nur lesend, mit dbread gegen Prod),
 - Nur genannt, nicht geändert (veraltete Beschreibungen von `lsa_hint`): `docs/session/Bauauftrag-Session-P1.md`
   (Entscheidung 20, E1.2), `docs/session/offene-punkte-t3.md`, `offene-punkte-l5.md`, `offene-punkte-e1.md`,
   `docs/retros/2026-10-06-session-e1.md`; in edvance-app `docs/DATENVERTRAG.md:55, 149` (App-Seite übernimmt Rasit).
+
+## Eingespielt (12.10.2026)
+
+Nach „E3 einspielen“: `origin/dev` eingemischt (T4 #242, SL3 #241, ohne Konflikt), Test erneut (Wegwerf-DB 268
+Migrationen: Abgleich ok, pgTAP 22/22; alle 53 pgTAP-Dateien: 45 grün, 8 rot = `bekannt-rot.txt`; Vitest 132 Dateien /
+1128 Tests, Typecheck, Lint grün; `schema-erwartet.sql` gefiltert gleich dem Neuaufbau). Dann per `~/bin/mig` (Muster
+CLAUDE.md §10: DB-Check, Versionsprüfung, eine Transaktion, History):
+
+1. `20261013173601_lsa_ohne_hinweise` → `CREATE FUNCTION`, History-Eintrag. dbread: `lsa_hint` wie in der Migration,
+   `SECURITY DEFINER`, `search_path=public`, ACL `postgres, authenticated, service_role` unverändert.
+2. Vorher per dbread: 49 Aufgaben ohne Hinweise, 24 mit Kennzeichen „leer“, alle `draft` (gleich dem Snapshot).
+   `20261013175427_hinweise_e3_batu` → `UPDATE 49`, `UPDATE 24`, History-Eintrag.
+
+dbread danach:
+
+| Skill | Session-Aufgaben | mit Stufe 1–3 | nicht entwurf | Kennzeichen neu | Status |
+|---|---|---|---|---|---|
+| `gleichung_einschrittig` | 6 | 6 | 0 | 0 | draft |
+| `gleichung_quadr_anzahl` | 6 | 6 | 0 | 6 | draft |
+| `gleichung_quadr_faktor` | 6 | 6 | 0 | 6 | draft |
+| `gleichung_quadr_formel` | 6 | 6 | 0 | 6 | draft |
+| `gleichung_quadr_wurzel` | 6 | 6 | 0 | 6 | draft |
+| `gleichung_zweischrittig` | 6 | 6 | 0 | 0 | draft |
+| `term_ausklammern` | 6 | 6 | 0 | 0 | draft |
+| `vorzeichen_add_sub` | 7 | 7 | 0 | 0 | draft |
+
+147 Hinweise, 0 geprüft. Texte feldweise (Stufe, Text, Status) gleich der Quelle: 49 von 49.
+
+Schema-Abzug: `tools/schema-snapshot.sh` aus Prod weicht vom Neuaufbau nur in Slots-Funktionen ab. Prod trägt SL2b
+(`20261013181427`, `…183052`), das noch nicht auf dev ist. Neuaufbau + E3 + SL2b-Migrationen (aus `febc4d6`) ist
+gefiltert gleich dem Prod-Abzug, Prod ist also sauber. Committet bleibt der Neuaufbau ohne SL2b (sonst wäre der
+CI-Vergleich rot); `lsa_hint` ist darin wie in Prod.
