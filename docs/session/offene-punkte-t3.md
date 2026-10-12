@@ -62,11 +62,11 @@ Zweitprüfung (CLAUDE.md §8, unabhängige Instanz, nur lesend): „freigeben“
    (`status = 'ready' or (p_testlauf and status in (…) and pruef_ausschluss is null)`) und `lsa_select_next_core`
    (`v_pool := testlauf or ist_test`) bleiben unverändert, weil der Auftrag die Auswahl ausnimmt. Gleichwertig wäre
    `status = 'ready' or (p_testlauf and testlauf_inhalt_sichtbar(t.id))` bzw. `v_pool := lsa_testinhalte(id)`.
-   **Rasit 12.10.: geht an T4.**
+   **Rasit 12.10.: geht an T4.** Erledigt mit T4 (`20261013161533`).
 3. **Prüffragen (`skill_pruefung`) nur freigegeben, auch im Testlauf.** `tablet_stand.pruefung`,
    `session_kind_live.pruefung_vorhanden`, `pruefung_aufs_tablet`. Prüffragen stehen nicht in der Liste der
    Entscheidung, das Lena-Board prüft sie nicht, und sie hängen am Mastery-Weg (T2). Wer: Rasit, falls die Prüffrage
-   im Testlauf auch ungeprüft kommen soll. **Rasit 12.10.: Prüffragen im Testlauf wie freigegeben, geht an T4.**
+   im Testlauf auch ungeprüft kommen soll. **Rasit 12.10.: Prüffragen im Testlauf wie freigegeben, geht an T4.** Erledigt mit T4 (`20261013160957`).
 4. **Quest-Aufgaben im Testlauf nur `ready`.** `quest_aufgaben_waehlen` ist Auswahl, und Home Quests sind aus
    (FernUSG). **Rasit 12.10.: bleibt bei „nur freigegeben“.**
 5. **Elternreport: Familien-Elterntext und Report-Bausteine nur freigegeben**, auch für Testkonten

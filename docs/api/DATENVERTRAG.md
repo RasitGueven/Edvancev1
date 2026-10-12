@@ -460,7 +460,7 @@ type TabletStand =
       pruefung: { skill_label: string; frage: string | null } | null;   // Entscheidung 31
       bestaetigt: { skill_key: string; skill_label: string; am: string }[] }  // Entscheidung 34
 ```
-- **`pruefung`:** steht, solange der Coach die Frage aufs Tablet gelegt und weder zurückgenommen noch entschieden hat. Die App zeigt sie über dem aktuellen Schritt.
+- **`pruefung`:** steht, solange der Coach die Frage aufs Tablet gelegt und weder zurückgenommen noch entschieden hat. Die App zeigt sie über dem aktuellen Schritt. `frage` ist die freigegebene Prüffrage des Skills; in einer Testlauf-Session (`coaching_sessions.testlauf`) gilt jede Prüffrage wie freigegeben, eine freigegebene geht vor, dann eine geprüfte (T4).
 - **`bestaetigt`:** Skills, die der Coach in dieser Session als gemeistert gebucht hat. Erst dann zeigt die App Grün und das Wort (Entscheidung 6/34). Ein Abzeichen gibt es vorerst nicht. „Vertagt“ erscheint nie.
 - **Ohne Zuweisung** (A2c, Nachtrag R2): Ein Platz-Konto (`platz_devices`) bekommt `{ zugewiesen: false, tablet_nr }`. Das ist die Nummer des eigenen Geräts für den Warte-Bildschirm, bei einem Gerät ohne Nummer `null`. Alle anderen Konten (Schülerkonto, Coach, Admin, ohne Profil) bekommen nur `{ zugewiesen: false }`, ohne den Schlüssel.
 - **Fehler:** keine.

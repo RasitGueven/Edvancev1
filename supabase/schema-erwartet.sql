@@ -1178,6 +1178,12 @@ begin
     if coalesce(public.get_my_role(), '') <> 'admin' then
       raise exception 'Testlauf: nur Admin' using errcode = '42501';
     end if;
+    -- T4: nach dem Start nicht mehr, auch nicht ueber direkte Zeilenrechte (wie session_testlauf_setzen).
+    if tg_op = 'UPDATE'
+       and (old.gestartet_am is not null or old.status is distinct from 'upcoming'
+            or new.gestartet_am is not null or new.status is distinct from 'upcoming') then
+      raise exception 'Testlauf: Session ist schon gestartet' using errcode = '55000', hint = 'session_gestartet';
+    end if;
     if new.testlauf and exists (
       select 1 from public.session_students ss
         join public.students s on s.id = ss.student_id
@@ -1925,8 +1931,7 @@ CREATE FUNCTION public.erklaer_checks(p_kernidee_id uuid, p_testlauf boolean DEF
     join public.tasks t on t.id = c.task_id
    where c.kernidee_id = p_kernidee_id and coalesce(t.is_active, true)
      and (t.status = 'ready'
-          or (coalesce(p_testlauf, false) and t.status in ('draft', 'review', 'rueckfrage')
-              and public.pruef_ausschluss(t.id) is null))
+          or (coalesce(p_testlauf, false) and public.testlauf_inhalt_sichtbar(t.id)))
      and 'check' = any (t.einsatz)
 $$;
 
@@ -4114,6 +4119,11 @@ begin
                     and ss.attendance = 'present') then
     raise exception 'lernpfad_beleg: Kind ist in dieser Session nicht anwesend' using errcode = 'P0001';
   end if;
+  -- T4: im Testlauf keine Zeile in lernpfad_belege oder lernpfad (Entscheidung 27).
+  if coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false) then
+    return coalesce((select l.stand_system from public.lernpfad l
+                      where l.student_id = p_student_id and l.skill_key = p_skill_key), 'offen');
+  end if;
 
   insert into public.lernpfad_belege (student_id, skill_key, session_id, ergebnis, hinweis_genutzt)
   values (p_student_id, p_skill_key, p_session_id, p_ergebnis, p_hinweis_genutzt);
@@ -4271,6 +4281,87 @@ CREATE FUNCTION public.lernpfad_pruefung_faellig(p_student_id uuid, p_skill_key 
            end
       from public.lernpfad l
      where l.student_id = p_student_id and l.skill_key = p_skill_key), false);
+$$;
+
+
+--
+-- Name: lernpfad; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lernpfad (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    skill_key text NOT NULL,
+    stand_system text DEFAULT 'offen'::text NOT NULL,
+    stand_system_seit timestamp with time zone DEFAULT now() NOT NULL,
+    stand_coach text,
+    coach_grund text,
+    coach_von uuid,
+    coach_am timestamp with time zone,
+    coach_session_id uuid,
+    quelle text NOT NULL,
+    lsa_session_id uuid,
+    letzte_uebung_am timestamp with time zone,
+    letzte_session_id uuid,
+    belege jsonb DEFAULT '[]'::jsonb NOT NULL,
+    angelegt timestamp with time zone DEFAULT now() NOT NULL,
+    aktualisiert timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lernpfad_coach_vollstaendig CHECK (((stand_coach IS NULL) OR (coach_am IS NOT NULL))),
+    CONSTRAINT lernpfad_quelle_check CHECK ((quelle = ANY (ARRAY['lsa'::text, 'session'::text, 'coach'::text]))),
+    CONSTRAINT lernpfad_stand_coach_check CHECK ((stand_coach = ANY (ARRAY['gemeistert'::text, 'vertagt'::text]))),
+    CONSTRAINT lernpfad_stand_system_check CHECK ((stand_system = ANY (ARRAY['offen'::text, 'aktiv'::text, 'sicher'::text, 'noch_nicht_sicher'::text, 'kandidat'::text]))),
+    CONSTRAINT lernpfad_vertagt_braucht_grund CHECK (((stand_coach IS DISTINCT FROM 'vertagt'::text) OR (NULLIF(btrim(coach_grund), ''::text) IS NOT NULL)))
+);
+
+
+--
+-- Name: lernpfad_sicht(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_sicht(p_student_id uuid, p_session_id uuid) RETURNS SETOF public.lernpfad
+    LANGUAGE plpgsql STABLE ROWS 30
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v   jsonb;
+  d   record;
+  alt jsonb;
+begin
+  if p_session_id is null
+     or not coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false) then
+    return query select * from public.lernpfad l where l.student_id = p_student_id;
+    return;
+  end if;
+
+  select coalesce(jsonb_object_agg(l.skill_key, to_jsonb(l)), '{}'::jsonb) into v
+    from public.lernpfad l where l.student_id = p_student_id;
+
+  -- Wie pfad_tiefer: Voraussetzung aktiv (seit bleibt, wenn sie schon aktiv war), bisheriger Skill aktiv -> offen.
+  for d in select * from public.session_tiefer_entscheidungen(p_session_id, p_student_id) t
+            order by t.zeit, t.ereignis_id loop
+    alt := v -> d.ziel;
+    v := v || jsonb_build_object(d.ziel, coalesce(alt, jsonb_build_object(
+           'student_id', p_student_id, 'skill_key', d.ziel, 'quelle', 'coach', 'belege', '[]'::jsonb,
+           'angelegt', d.zeit)) || jsonb_build_object(
+           'stand_system', 'aktiv',
+           'stand_system_seit', case when alt ->> 'stand_system' = 'aktiv' then alt -> 'stand_system_seit'
+                                     else to_jsonb(d.zeit) end,
+           'aktualisiert', d.zeit));
+    if d.statt is not null then
+      alt := v -> d.statt;
+      if alt is null then
+        v := v || jsonb_build_object(d.statt, jsonb_build_object(
+               'student_id', p_student_id, 'skill_key', d.statt, 'quelle', 'coach', 'belege', '[]'::jsonb,
+               'stand_system', 'offen', 'stand_system_seit', d.zeit, 'angelegt', d.zeit, 'aktualisiert', d.zeit));
+      elsif alt ->> 'stand_system' = 'aktiv' then
+        v := v || jsonb_build_object(d.statt, alt || jsonb_build_object(
+               'stand_system', 'offen', 'stand_system_seit', d.zeit, 'aktualisiert', d.zeit));
+      end if;
+    end if;
+  end loop;
+
+  return query select (jsonb_populate_record(null::public.lernpfad, x.value)).* from jsonb_each(v) x;
+end;
 $$;
 
 
@@ -5162,9 +5253,7 @@ CREATE FUNCTION public.lsa_im_pool(p_task_id uuid, p_testlauf boolean DEFAULT fa
                     where s.task_id = t.id
                       and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers))
        and (t.status = 'ready'
-            or (coalesce(p_testlauf, false)
-                and t.status in ('draft', 'review', 'rueckfrage')
-                and public.pruef_ausschluss(t.id) is null))
+            or (coalesce(p_testlauf, false) and public.testlauf_inhalt_sichtbar(t.id)))
   )
 $$;
 
@@ -5821,8 +5910,8 @@ begin
   -- F1 (E2, Rasit 08.10.2026): Testkonten (students.ist_test) bekommen auch ausserhalb eines Testlaufs den
   -- Testlauf-Pool. lsa_sessions.testlauf bleibt, wie es ist: Eine solche LSA ist kein Testlauf und wird wie
   -- jede echte LSA in Lernpfad und Report uebernommen. Echte Kinder sehen weiter nur 'ready'.
-  v_pool := coalesce(v_sess.testlauf, false)
-            or coalesce((select s.ist_test from students s where s.id = v_sess.student_id), false);
+  -- T4: dieselbe Regel ueber lsa_testinhalte (Testlauf oder Testkonto).
+  v_pool := public.lsa_testinhalte(p_session_id);
 
   v_beginn := coalesce(v_sess.started_at, v_sess.created_at);
   if p_jetzt > v_beginn + interval '19 minutes' then
@@ -7183,15 +7272,30 @@ CREATE FUNCTION public.naechste_luecke_core(p_student_id uuid) RETURNS TABLE(ski
     AS $$
 #variable_conflict use_column
 begin
+  -- T4: Rumpf in naechste_luecke_sitzung; ohne Session ist die Sicht genau lernpfad.
+  return query select * from public.naechste_luecke_sitzung(p_student_id, null);
+end;
+$$;
+
+
+--
+-- Name: naechste_luecke_sitzung(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.naechste_luecke_sitzung(p_student_id uuid, p_session_id uuid) RETURNS TABLE(skill_key text, label text, thema_key text, stand_system text, quelle text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
 
   return query
     select l.skill_key, s.label, st.thema_key, l.stand_system,
            case when l.quelle = 'lsa' and l.belege = '[]'::jsonb then 'lsa' else 'lernpfad' end
-      from public.lernpfad l
+      from public.lernpfad_sicht(p_student_id, p_session_id) l
       join public.skills s on s.skill_key = l.skill_key
       left join public.skill_thema st on st.skill_key = l.skill_key
-     where l.student_id = p_student_id
-       and l.stand_system = 'aktiv'
+     where l.stand_system = 'aktiv'
        and l.stand_coach is distinct from 'gemeistert'
      order by l.stand_system_seit desc, l.skill_key
      limit 1;
@@ -7202,9 +7306,8 @@ begin
   return query
     with luecke as (
       select l.skill_key, l.stand_system, l.quelle, l.belege
-        from public.lernpfad l
-       where l.student_id = p_student_id
-         and l.stand_system = 'noch_nicht_sicher'
+        from public.lernpfad_sicht(p_student_id, p_session_id) l
+       where l.stand_system = 'noch_nicht_sicher'
          and l.stand_coach is distinct from 'gemeistert'
     )
     select g.skill_key, s.label, st.thema_key, g.stand_system,
@@ -7221,7 +7324,7 @@ begin
   end if;
 
   -- Erste Session nach der LSA, Lernpfad noch nicht uebernommen.
-  if not exists (select 1 from public.lernpfad l where l.student_id = p_student_id) then
+  if not exists (select 1 from public.lernpfad_sicht(p_student_id, p_session_id) l) then
     return query
       with luecke as (
         select u.skill_key from public.lernpfad_lsa_urteile(p_student_id) u where u.zustand <> 'traegt'
@@ -9901,7 +10004,8 @@ CREATE FUNCTION public.pruefung_aufs_tablet(p_session_id uuid, p_student_id uuid
     AS $$
 begin
   perform public.session_pruefung_recht(p_session_id, p_student_id, 'pruefung_aufs_tablet');
-  if public.session_pruefung_frage(p_skill_key) is null then
+  -- T4: im Testlauf gilt jede Pruefrage wie freigegeben.
+  if public.session_pruefung_frage_sitzung(p_session_id, p_skill_key) is null then
     raise exception 'pruefung_aufs_tablet: keine freigegebene Pruefrage fuer %', p_skill_key
       using errcode = 'P0002', hint = 'keine_pruefung';
   end if;
@@ -11363,9 +11467,7 @@ CREATE FUNCTION public.session_im_pool(p_task_id uuid, p_testlauf boolean DEFAUL
                     where s.task_id = t.id
                       and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers))
        and (t.status = 'ready'
-            or (coalesce(p_testlauf, false)
-                and t.status in ('draft', 'review', 'rueckfrage')
-                and public.pruef_ausschluss(t.id) is null))
+            or (coalesce(p_testlauf, false) and public.testlauf_inhalt_sichtbar(t.id)))
   )
 $$;
 
@@ -11490,8 +11592,8 @@ CREATE FUNCTION public.session_kind_live(p_session_id uuid, p_student_id uuid) R
        select jsonb_build_object('skill_key', e.payload ->> 'skill_key',
                 'label', public.session_label(e.payload ->> 'skill_key'), 'seit', e.zeit,
                 'stand_coach', l.stand_coach,
-                'pruefung_vorhanden', exists (select 1 from public.skill_pruefung p
-                                               where p.skill_key = e.payload ->> 'skill_key' and p.status = 'freigegeben'))
+                -- T4: im Testlauf gilt jede Pruefrage wie freigegeben.
+                'pruefung_vorhanden', public.session_pruefung_frage_sitzung(p_session_id, e.payload ->> 'skill_key') is not null)
          from public.session_ereignisse e
          left join public.lernpfad l on l.student_id = ss.student_id and l.skill_key = e.payload ->> 'skill_key'
         where e.session_id = p_session_id and e.student_id = ss.student_id and e.typ = 'signal'
@@ -11683,7 +11785,8 @@ begin
   select * into v_letzt from public.session_schritte x
    where x.session_id = p_session_id and x.student_id = t.student_id order by x.id desc limit 1;
   -- Wiederholtes Warten bzw. dieselbe laufende Erklaerung wird nicht erneut eingetragen.
-  if not (v ->> 'art' in ('warten', 'erklaerung') and v_letzt.art = v ->> 'art'
+  -- T4: ohne vorigen Schritt immer eintragen (sonst blieb der Vergleich bei skill_key null ohne Ergebnis).
+  if v_letzt.id is null or not (v ->> 'art' in ('warten', 'erklaerung') and v_letzt.art = v ->> 'art'
           and v_letzt.grund_code = v ->> 'grund_code'
           and v_letzt.skill_key is not distinct from v ->> 'skill_key') then
     insert into public.session_schritte (session_id, student_id, art, phase, skill_key, task_id, modus, eingemischt,
@@ -12377,6 +12480,22 @@ $$;
 
 
 --
+-- Name: session_pruefung_frage_sitzung(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_pruefung_frage_sitzung(p_session_id uuid, p_skill_key text) RETURNS text
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select p.frage from public.skill_pruefung p
+   where p.skill_key = p_skill_key
+     and (p.status = 'freigegeben'
+          or coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false))
+   order by (p.status = 'freigegeben') desc, (p.status = 'geprueft') desc, p.angelegt, p.id limit 1
+$$;
+
+
+--
 -- Name: session_pruefung_recht(uuid, uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -12874,6 +12993,29 @@ $$;
 
 
 --
+-- Name: session_tiefer_entscheidungen(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_tiefer_entscheidungen(p_session_id uuid, p_student_id uuid) RETURNS TABLE(zeit timestamp with time zone, ereignis_id bigint, ziel text, statt text)
+    LANGUAGE sql STABLE ROWS 5
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  -- pfad_entscheiden: skill_key = neues Ziel, statt = bisheriger Skill.
+  -- eingriff_notieren: skill_key = bisheriger Skill, voraussetzung = neues Ziel (fehlt, wenn pfad_tiefer scheiterte).
+  select x.zeit, x.id, x.ziel, x.statt
+    from (select e.zeit, e.id,
+                 case when e.payload ->> 'quelle' = 'eingriff' then e.payload ->> 'voraussetzung'
+                      else e.payload ->> 'skill_key' end as ziel,
+                 case when e.payload ->> 'quelle' = 'eingriff' then e.payload ->> 'skill_key'
+                      else e.payload ->> 'statt' end as statt
+            from public.session_ereignisse e
+           where e.session_id = p_session_id and e.student_id = p_student_id
+             and e.typ = 'entscheidung_pfad' and e.payload ->> 'entscheidung' = 'tiefer') x
+   where x.ziel is not null
+$$;
+
+
+--
 -- Name: session_uhr_phase(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -13037,6 +13179,9 @@ CREATE FUNCTION public.session_zielliste(p_session_id uuid, p_student_id uuid) R
 declare
   f       record := public.session_fall(p_session_id, p_student_id);
   v_start timestamptz := (select gestartet_am from public.coaching_sessions where id = p_session_id);
+  -- T4: im Testlauf liest der Plan „tiefer“ aus dieser Session (lernpfad_sicht), sonst lernpfad wie bisher.
+  v_test  boolean := coalesce((select testlauf from public.coaching_sessions where id = p_session_id), false);
+  v_sitz  uuid := case when v_test then p_session_id end;
 begin
   if f.fall in ('klassenarbeit', 'schulthema') then
     return query
@@ -13046,16 +13191,18 @@ begin
                       and l.stand_system_seit >= v_start
                       and not exists (select 1 from public.lernpfad_protokoll p
                                        where p.student_id = p_student_id and p.skill_key = z.skill_key
-                                         and p.aktion = 'pfad_tiefer' and p.session_id = p_session_id))
+                                         and p.aktion = 'pfad_tiefer' and p.session_id = p_session_id)
+                      and not (v_test and exists (select 1 from public.session_tiefer_entscheidungen(p_session_id, p_student_id) t
+                                                   where t.ziel = z.skill_key)))
                   or public.session_heute_sicher(p_session_id, p_student_id, z.skill_key), false)
-        from public.ziel_fertigkeiten_core(p_student_id, f.thema_key) z
-        left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = z.skill_key
+        from public.ziel_fertigkeiten_sitzung(p_student_id, f.thema_key, v_sitz) z
+        left join public.lernpfad_sicht(p_student_id, v_sitz) l on l.skill_key = z.skill_key
        order by z.reihenfolge;
   else
     return query
       select 1, n.skill_key, n.label, 'luecke'::text, coalesce(n.stand_system, 'noch_nicht_sicher'),
              not public.session_heute_sicher(p_session_id, p_student_id, n.skill_key)
-        from public.naechste_luecke_core(p_student_id) n;
+        from public.naechste_luecke_sitzung(p_student_id, v_sitz) n;
   end if;
 end;
 $$;
@@ -15588,9 +15735,10 @@ begin
                                and c.student_id = t.student_id and c.kind_am is not null),
     'aufgabe', case when a.id is null then null else public.lsa_question_payload(a.task_id) end,
     -- A2b (Entscheidung 31): nur Label und Frage, nie Erwartung oder Kriterium.
+    -- T4: im Testlauf gilt jede Pruefrage wie freigegeben (session_pruefung_frage_sitzung).
     'pruefung', case when pa.skill_key is null then null else jsonb_build_object(
         'skill_label', public.session_label(pa.skill_key),
-        'frage', public.session_pruefung_frage(pa.skill_key)) end,
+        'frage', public.session_pruefung_frage_sitzung(t.session_id, pa.skill_key)) end,
     -- A2b (Entscheidung 34): gemeistert erst nach der Bestaetigung des Coaches in dieser Session.
     'bestaetigt', coalesce((select jsonb_agg(jsonb_build_object('skill_key', l.skill_key,
                     'skill_label', public.session_label(l.skill_key), 'am', l.coach_am) order by l.coach_am)
@@ -17714,12 +17862,31 @@ CREATE FUNCTION public.ziel_fertigkeiten_core(p_student_id uuid, p_thema_key tex
     AS $$
 #variable_conflict use_column
 begin
+  -- T4: Rumpf in ziel_fertigkeiten_sitzung; ohne Session ist die Sicht genau lernpfad.
+  return query select * from public.ziel_fertigkeiten_sitzung(p_student_id, p_thema_key, null);
+end;
+$$;
+
+
+--
+-- Name: ziel_fertigkeiten_sitzung(uuid, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ziel_fertigkeiten_sitzung(p_student_id uuid, p_thema_key text, p_session_id uuid) RETURNS TABLE(reihenfolge integer, skill_key text, label text, klasse_herkunft integer, rolle text, stand_system text, stand_coach text, stand text, pruefung_faellig boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
   if not exists (select 1 from public.themen t where t.thema_key = p_thema_key) then
     raise exception 'ziel_fertigkeiten: Thema % unbekannt', p_thema_key using errcode = 'P0002';
   end if;
 
   return query
-    with thema as (
+    with lp as materialized (
+      select * from public.lernpfad_sicht(p_student_id, p_session_id)
+    ),
+    thema as (
       select te.skill_key, 'einstieg'::text as rolle
         from public.thema_einstieg te where te.thema_key = p_thema_key
       union
@@ -17745,7 +17912,7 @@ begin
              case when l.stand_coach = 'gemeistert' or l.stand_system in ('sicher', 'kandidat')
                   then 'voraussetzung_sicher' else 'voraussetzung' end as rolle
         from darunter d
-        join public.lernpfad l on l.student_id = p_student_id and l.skill_key = d.skill_key
+        join lp l on l.skill_key = d.skill_key
        where (l.stand_system in ('offen', 'aktiv', 'noch_nicht_sicher') and l.stand_coach is distinct from 'gemeistert')
           or d.skill_key in (select skill_key from direkt)
     ),
@@ -17765,7 +17932,7 @@ begin
            public.lernpfad_pruefung_faellig(p_student_id, li.skill_key)
       from liste li
       join public.skills s on s.skill_key = li.skill_key
-      left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = li.skill_key
+      left join lp l on l.skill_key = li.skill_key
      order by 1;
 end;
 $$;
@@ -18230,36 +18397,6 @@ CREATE TABLE public.leads (
     CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
     CONSTRAINT leads_status_check CHECK ((status = ANY (ARRAY['new'::text, 'contacted'::text, 'onboarding_scheduled'::text, 'converted'::text, 'rejected'::text, 'lsa_freigegeben'::text, 'lsa_fertig'::text, 'vertrag'::text]))),
     CONSTRAINT leads_struggling_since_check CHECK (((struggling_since IS NULL) OR (struggling_since = ANY (ARRAY['dieses_halbjahr'::text, 'letztes_schuljahr'::text, 'laenger'::text]))))
-);
-
-
---
--- Name: lernpfad; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lernpfad (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    student_id uuid NOT NULL,
-    skill_key text NOT NULL,
-    stand_system text DEFAULT 'offen'::text NOT NULL,
-    stand_system_seit timestamp with time zone DEFAULT now() NOT NULL,
-    stand_coach text,
-    coach_grund text,
-    coach_von uuid,
-    coach_am timestamp with time zone,
-    coach_session_id uuid,
-    quelle text NOT NULL,
-    lsa_session_id uuid,
-    letzte_uebung_am timestamp with time zone,
-    letzte_session_id uuid,
-    belege jsonb DEFAULT '[]'::jsonb NOT NULL,
-    angelegt timestamp with time zone DEFAULT now() NOT NULL,
-    aktualisiert timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT lernpfad_coach_vollstaendig CHECK (((stand_coach IS NULL) OR (coach_am IS NOT NULL))),
-    CONSTRAINT lernpfad_quelle_check CHECK ((quelle = ANY (ARRAY['lsa'::text, 'session'::text, 'coach'::text]))),
-    CONSTRAINT lernpfad_stand_coach_check CHECK ((stand_coach = ANY (ARRAY['gemeistert'::text, 'vertagt'::text]))),
-    CONSTRAINT lernpfad_stand_system_check CHECK ((stand_system = ANY (ARRAY['offen'::text, 'aktiv'::text, 'sicher'::text, 'noch_nicht_sicher'::text, 'kandidat'::text]))),
-    CONSTRAINT lernpfad_vertagt_braucht_grund CHECK (((stand_coach IS DISTINCT FROM 'vertagt'::text) OR (NULLIF(btrim(coach_grund), ''::text) IS NOT NULL)))
 );
 
 
