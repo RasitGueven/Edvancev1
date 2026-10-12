@@ -159,8 +159,12 @@ select set_config('request.jwt.claims', '', true);
 -- Echte Session mit denselben Aufgaben. D darf hier nicht ausgegeben werden (Pool); fuer die Probe der
 -- Lesefunktionen wird D direkt eingetragen.
 select pg_temp.neue_session(array[:'k_echt']::uuid[], 20) as s_echt \gset
+-- Noch nicht gestartet (T2: eine gestartete Session lehnt session_testlauf_setzen schon vorher mit 55000 ab).
 select pg_temp.act_as(:'admin');
-select is(pg_temp.fehler(format('select session_testlauf_setzen(%L, true)', :'s_echt')), '22023',
+insert into coaching_sessions (coach_id, room, scheduled_at) values (:'coach_a', 'ZZ T3 echt', now() + interval '1 day')
+returning id as s_echt_neu \gset
+insert into session_students (session_id, student_id) values (:'s_echt_neu', :'k_echt');
+select is(pg_temp.fehler(format('select session_testlauf_setzen(%L, true)', :'s_echt_neu')), '22023',
           '4 Trigger: Session mit echtem Kind kann kein Testlauf werden -> 22023');
 select pg_temp.als_system();
 select is(pg_temp.fehler(format('select aufgabe_ausgeben(%L, %L, %L)', :'s_echt', :'k_echt', :'d')), 'P0001',
