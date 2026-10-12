@@ -27,6 +27,14 @@
   --container-heute-betrieb:  340px;
   /* Slots (SL1): Kennzahlen des Wochenplans nebeneinander (KennzahlenLeiste breite="slots-kpi"). */
   --container-slots-kpi:      700px;
+  /* Slots SL2: Wochenraster statt Tagesansicht, Räume zweispaltig, Kinder als Tabelle statt Karten,
+     Kind zweispaltig, Coaches Liste neben Raster, Stammplatz-Dialog zweispaltig. */
+  --container-slots-woche:    760px;
+  --container-slots-raeume:   720px;
+  --container-slots-tabelle:  900px;
+  --container-slots-kind:     900px;
+  --container-slots-coaches:  900px;
+  --container-slots-dialog:   720px;
 }
 
 /* ─── Tailwind v4: map CSS variables to utility classes ───────────────────────── */

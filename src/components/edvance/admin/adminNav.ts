@@ -33,12 +33,14 @@ export const ADMIN_NAV: NavKonfiguration = {
       titelKey: 'nav.gruppe.betrieb',
       eintraege: [
         {
-          id: 'stundenplan',
-          route: '/admin/schedule',
-          aktivBei: ['/admin/schedule', '/admin/slots', '/admin/slot-auswahl'],
-          nameKey: 'nav.stundenplan',
-          kurzKey: 'nav.kurz.stundenplan',
+          id: 'slots',
+          route: '/admin/slots',
+          // Einzel-Sessions und Testläufe (/admin/schedule) erreicht man über die Einstellungen der Slots.
+          aktivBei: ['/admin/slots*', '/admin/schedule', '/admin/slot-auswahl'],
+          nameKey: 'nav.slots',
+          kurzKey: 'nav.kurz.slots',
           icon: CalendarClock,
+          zaehler: 'slots',
         },
         { id: 'schueler', route: '/admin/akten', aktivBei: ['/admin/akten*'], nameKey: 'nav.schueler', kurzKey: 'nav.kurz.schueler', icon: FolderOpen },
         {

@@ -35,6 +35,9 @@ vi.mock('@/lib/supabase/heute', () => ({
 vi.mock('@/lib/supabase/freigabe', () => ({
   getDarfPruefen: vi.fn(() => Promise.resolve({ data: false, error: null })),
 }))
+vi.mock('@/lib/supabase/slotplan', () => ({
+  ladeZaehler: vi.fn(() => Promise.resolve({ data: { ohne_stammplatz: 2, ohne_raum: 3, gesamt: 5 }, error: null })),
+}))
 vi.mock('@/lib/supabase/sessions', () => ({
   listSessionsForCoach: vi.fn(() => Promise.resolve({ data: [], error: null })),
 }))
@@ -64,8 +67,17 @@ describe('ShellSidebar', () => {
 
   it('markiert den aktiven Eintrag auch auf Unterseiten', () => {
     zeige('/admin/slot-auswahl')
-    expect(screen.getByRole('link', { name: /Stundenplan/ }).getAttribute('aria-current')).toBe('page')
+    expect(screen.getByRole('link', { name: /Slots/ }).getAttribute('aria-current')).toBe('page')
     expect(screen.getByRole('link', { name: /Leads/ }).getAttribute('aria-current')).toBeNull()
+  })
+
+  it('Slots ist aktiv auf allen Slots-Seiten und auf den Einzel-Sessions (/admin/schedule)', () => {
+    for (const pfad of ['/admin/slots', '/admin/slots/termin/2028-03-16/z1', '/admin/slots/kind/k1', '/admin/schedule']) {
+      const { unmount } = zeige(pfad)
+      expect(screen.getByRole('link', { name: /Slots/ }).getAttribute('aria-current')).toBe('page')
+      expect(screen.getByRole('link', { name: /Slots/ }).getAttribute('href')).toBe('/admin/slots')
+      unmount()
+    }
   })
 
   it('zeigt Zähler über null, „bald“-Einträge sind kein Link', () => {
@@ -79,7 +91,7 @@ describe('ShellSidebar', () => {
   it('schmale Spalte: Kurzname, Zähler im Namen der Ansage', () => {
     zeige('/admin', 'schmal')
     expect(screen.getByRole('link', { name: 'Leads · 3 offen' })).toBeTruthy()
-    expect(screen.getByText('Plan')).toBeTruthy()
+    expect(screen.getAllByText('Slots').length).toBeGreaterThan(0)
   })
 })
 
@@ -138,6 +150,7 @@ describe('AdminLayout', () => {
     expect(screen.getByRole('link', { name: /Leads/ }).textContent).toContain('3')
     expect(screen.getByRole('link', { name: /Verträge/ }).textContent).toContain('2')
     expect(screen.getByRole('link', { name: /Item-Pflege/ }).textContent).toContain('12')
+    expect(screen.getByRole('link', { name: /Slots/ }).textContent).toContain('5')
   })
 
   it('Coach: Coach-Hülle statt Admin-Leiste (H6)', async () => {

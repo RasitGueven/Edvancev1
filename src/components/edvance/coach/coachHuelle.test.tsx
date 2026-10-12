@@ -31,6 +31,9 @@ vi.mock('@/lib/supabase/pruefung', () => ({
     Promise.resolve({ data: [{ lena_status: 'offen' }, { lena_status: 'offen' }, { lena_status: 'passt' }], error: null }),
   ),
 }))
+vi.mock('@/lib/supabase/slotplan', () => ({
+  ladeZaehler: vi.fn(() => Promise.resolve({ data: { ohne_stammplatz: 0, ohne_raum: 0, gesamt: 0 }, error: null })),
+}))
 vi.mock('@/lib/supabase/adminStats', () => ({
   getAdminStats: vi.fn(() => Promise.resolve({ data: { leadsNew: 0 }, error: null })),
 }))
