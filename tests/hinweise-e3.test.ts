@@ -17,7 +17,7 @@ const gut = (): Eintrag => ({
   stufen: [
     { text: 'Gesucht sind alle x, für die beide Seiten gleich sind. Bring alles auf eine Seite.' },
     { text: 'Bring 12x auf die linke Seite: 3x² − 12x = 0.', belege: [['gl', '3x² = 12x', '3x² − 12x = 0', '1']] },
-    { text: 'Wir klammern 3x aus: 3x · (x − 4) = 0. Setze jeden Faktor gleich null.', belege: [['≡', '3x² − 12x', '3x · (x − 4)']] },
+    { text: 'Wir klammern 3x aus: 3x · (x − 4) = 0. Setze jeden Faktor gleich null und trag die kleinere Lösung zuerst ein.', belege: [['≡', '3x² − 12x', '3x · (x − 4)']] },
   ],
 })
 const befunde = (e: Eintrag, ref = 'quadrgl-faktor-03') => pruefeAufgabe(aufgabe(ref), e).fehler
@@ -46,6 +46,9 @@ describe('hinweise-e3-lib', () => {
     fall(mit(0, { text: 'Das ist nicht falsch. Bring alles auf eine Seite.' }), /Wort „falsch“/)
     fall(mit(0, { text: 'Eins. Zwei. Drei.' }), /3 Sätze/)
     fall(mit(1, { text: 'Bring 12x auf die linke Seite: 3x² - 12x = 0.', belege: [] }), /Schreibweise/)
+    fall(mit(2, { text: 'Wir klammern 3x aus: 3x · (x − 4) = 0. Setze jeden Faktor gleich null.' }), /kleinere Lösung zuerst/)
+    fall(mit(0, { text: 'Achte auf loesung_null_verloren. Bring alles auf eine Seite.' }), /Slug im Text/)
+    fall(mit(0, { text: 'Achte auf division vergessen (Teil 2_). Bring alles auf eine Seite.' }), /Slug im Text/)
     fall(mit(0, { fehlbild: 'gibt_es_nicht' }), /Fehlbild gibt_es_nicht/)
     fall({ stufen: gut().stufen.slice(0, 2) }, /2 Stufen statt 3/)
     fall(mit(1, { text: 'x'.repeat(201) + '.' }), /Zeichen/)
@@ -58,6 +61,28 @@ describe('hinweise-e3-lib', () => {
     const t: Eintrag = { var: 't', stufen: [
       { text: 'Am Boden ist h null.' }, { text: 'Setze h = 0.' }, { text: 'Also ist t = 4.' }] }
     expect(befunde(t, 'quadrgl-faktor-05').join('\n')).toMatch(/Ergebnis t = 4/)
+  })
+})
+
+describe('weitere Regeln', () => {
+  const e = (t3: string, belege: unknown[] = []): Eintrag => ({ stufen: [
+    { text: 'Ausklammern heißt: Du suchst eine Zahl.' }, { text: 'Suche die größte Zahl.' }, { text: t3, belege }] })
+  it('MC: nennt nie die richtige Option, ggT wird nachgerechnet', () => {
+    // term-ausklammern-01: 4x + 8, richtig ist d = 4(x + 2)
+    expect(befunde(e('Wir klammern 4 aus.', [['ggT', '4, 8', '4']]), 'term-ausklammern-01')).toEqual([])
+    expect(befunde(e('Es ist 4(x + 2).'), 'term-ausklammern-01').join('\n')).toMatch(/richtige Option/)
+    expect(befunde(e('Wir klammern 2 aus.', [['ggT', '4, 8', '2']]), 'term-ausklammern-01').join('\n')).toMatch(/Beleg stimmt nicht/)
+  })
+  it('Rundung wie in der Aufgabe, Wurzel-Beleg, begründete Zahl', () => {
+    const w: Eintrag = { stufen: [{ text: 'Bring x² allein.' }, { text: 'Teile durch 3.' },
+      { text: 'Runde auf zwei Stellen und trag die kleinere Lösung zuerst ein.' }] }
+    expect(befunde(w, 'quadrgl-wurzel-04').join('\n')).toMatch(/Stellen nach dem Komma/)
+    const r: Eintrag = { stufen: [{ text: 'Welche Zahlen ergeben quadriert 25?' }, { text: 'Zieh die Wurzel: 6.', belege: [['√', '25', '6']] },
+      { text: 'Rechne + 2 und trag die kleinere Lösung zuerst ein.' }] }
+    expect(befunde(r, 'quadrgl-wurzel-03').join('\n')).toMatch(/Beleg stimmt nicht/)
+    const b: Eintrag = { stufen: [{ text: 'Nenne die Breite x.' }, { text: 'Die Länge ist 2x.', belege: [['begr', '2', 'kurz']] },
+      { text: 'Zieh die Wurzel.' }] }
+    expect(befunde(b, 'quadrgl-wurzel-05').join('\n')).toMatch(/Grund fehlt/)
   })
 })
 

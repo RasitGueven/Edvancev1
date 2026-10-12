@@ -6,6 +6,10 @@
  *   ['≡', a, b]           b steht wörtlich im Text und ist als Term gleichwertig zu a (exakt, prefill-rechnen)
  *   ['gl', von, nach, k]  Umformung einer Gleichung: (L−R) von nach ist das k-Fache von (L−R) von von
  *   ['=', ausdruck, wert] wert steht im Text und ist exakt der Wert des Ausdrucks
+ *   ['√', radikand, wurzel] wurzel steht im Text, wurzel² = radikand, wurzel ≥ 0
+ *   ['ggT', 'a, b', g]    g steht im Text und ist der größte gemeinsame Teiler von a und b
+ *   ['begr', zahl, grund] Zahl aus dem Wortlaut der Aufgabe („doppelt“ → 2); der Grund steht in der Quelle
+ * Ein Zwischenwert, der zufällig wie eine Lösung lautet, braucht frei: [[zahl, grund]] am Eintrag der Stufe.
  * Die Zahlen von a, von und ausdruck müssen selbst belegt sein (Aufgabentext oder ein früherer Beleg).
  * Mit vars (z. B. { b: ['7', '-2'] }) wird ein Term mit weiteren Buchstaben für jeden Wert geprüft;
  * var: 't' heißt, die Unbekannte der Aufgabe ist t (wird für den Rechner zu x).
@@ -34,7 +38,10 @@ const hat = (liste, q) => liste.some((p) => p.eq(q));
 const absQ = (q) => (q.n < 0n ? q.neg() : q);
 
 /** Unbekannte der Aufgabe für den Rechner zu x machen (nur in Belegen, nie im Text). */
-const alsX = (t, v) => (v && v !== 'x' ? String(t).replaceAll(v, 'x') : String(t));
+const alsX = (t, v) => {
+  const s = String(t).replace(/(\d),(\d)/g, '$1.$2');
+  return v && v !== 'x' ? s.replaceAll(v, 'x') : s;
+};
 
 function termGleich(a, b, var_, vars) {
   const belegungen = Object.entries(vars ?? {});
@@ -65,6 +72,15 @@ export function antworten(aufgabe) {
   return { werte, texte };
 }
 
+const ohneLeer = (t) => String(t).replace(/\s/g, '').replace(/[−–]/g, '-');
+
+/** MC: Texte der richtigen Optionen aus question_payload.options. */
+export function richtigeOptionen(aufgabe) {
+  if (aufgabe.input_type !== 'MC') return [];
+  const ids = new Set([].concat(aufgabe.correct_answers ?? []).map(String));
+  return (aufgabe.question_payload?.options ?? []).filter((o) => ids.has(String(o.id))).map((o) => o.label);
+}
+
 /** Fehlbild-Slugs aus acceptance.known_errors (oberste Ebene und je Teil). */
 export function fehlbilder(aufgabe) {
   const acc = aufgabe.acceptance ?? {};
@@ -74,6 +90,10 @@ export function fehlbilder(aufgabe) {
   for (const v of Object.values(acc)) if (v && typeof v === 'object') nimm(v.known_errors);
   return s;
 }
+
+/** MULTI_PART mit den Teilen „kleinere Lösung“ und „größere Lösung“. */
+export const istKleinerGroesser = (aufgabe) =>
+  aufgabe.input_type === 'MULTI_PART' && (aufgabe.parts ?? []).some((p) => /kleinere Lösung/i.test(p.prompt ?? ''));
 
 /**
  * Prüft die drei Stufen einer Aufgabe. Liefert { fehler: string[], belegt: string[] }.
@@ -106,8 +126,14 @@ export function pruefeAufgabe(aufgabe, eintrag) {
     for (const b of st.belege ?? []) {
       try {
         const [art, a, z, k] = b;
-        const eingang = art === '=' ? a : a;
-        for (const n of zahlen(eingang)) {
+        if (art === 'begr') {
+          // Zahl aus dem Wortlaut (z. B. „doppelt“ → 2); Grund ist Pflicht und wird mitgeprüft
+          if (!(typeof z === 'string' && z.trim().length >= 8)) throw new Error('Grund fehlt');
+          if (!zahlen(text).some((n) => n.betrag.eq(Q.von(a)))) fehler.push(`${wo(i)}: begründete Zahl ${a} steht nicht im Text`);
+          belegt.push(Q.von(a));
+          continue;
+        }
+        for (const n of zahlen(a)) {
           if (!hat(belegt, n.betrag)) fehler.push(`${wo(i)}: Beleg ${JSON.stringify(b)} rechnet mit unbelegter Zahl ${n.roh}`);
         }
         if (!text.includes(z)) fehler.push(`${wo(i)}: „${z}“ steht nicht wörtlich im Text`);
@@ -115,10 +141,16 @@ export function pruefeAufgabe(aufgabe, eintrag) {
         if (art === '≡') ok = termGleich(a, z, eintrag.var, eintrag.vars);
         else if (art === 'gl') ok = termGleich(seiten(z), `(${k ?? '1'}) * (${seiten(a)})`, eintrag.var, eintrag.vars);
         else if (art === '=') ok = zahl(alsX(a, eintrag.var), {}).eq(Q.von(z.replace(/[−–]/g, '-')));
+        else if (art === 'ggT') {
+          const [x, y] = String(a).split(',').map((t) => BigInt(t.trim()));
+          let [u, w] = [x, y]; while (w) [u, w] = [w, u % w];
+          ok = String(u) === String(z);
+        }
+        else if (art === '√') { const w = Q.von(z); ok = w.n >= 0n && w.mul(w).eq(zahl(alsX(a), {})); }
         else throw new Error(`unbekannte Belegart ${art}`);
         if (!ok) { fehler.push(`${wo(i)}: Beleg stimmt nicht: ${JSON.stringify(b)}`); continue; }
         for (const n of zahlen(z)) belegt.push(n.betrag);
-        if (art !== '=') termeImText.push(z);
+        if (art === '≡' || art === 'gl') termeImText.push(z);
       } catch (e) {
         fehler.push(`${wo(i)}: Beleg ${JSON.stringify(b)} nicht rechenbar: ${e.message}`);
       }
@@ -144,16 +176,35 @@ export function pruefeAufgabe(aufgabe, eintrag) {
         fehler.push(`${wo(i)}: nennt das Ergebnis ${zuweisung[2]} = ${n.roh}`);
       }
     }
+    // Zwischenwert, der wie eine Lösung lautet (z. B. q = −3 unter der Wurzel): nur mit Grund in frei
+    const frei = (st.frei ?? []).map(([zahl, grund]) => {
+      if (!(typeof grund === 'string' && grund.trim().length >= 8)) fehler.push(`${wo(i)}: frei ${zahl} ohne Grund`);
+      return Q.von(zahl);
+    });
     for (const n of zahlen(rest)) {
-      if (hat(loes.map(absQ), n.betrag) && !hat(frageZahlen, n.betrag) && !n.betrag.istNull()) {
+      if (hat(loes.map(absQ), n.betrag) && !hat(frageZahlen, n.betrag) && !n.betrag.istNull() && !hat(frei, n.betrag)) {
         fehler.push(`${wo(i)}: Lösungszahl ${n.roh} steht frei im Text`);
       }
     }
     if (/(Lösung|Ergebnis)(en)?\s+(ist|sind|lautet|lauten|heißt|heißen)\s*[−-]?\d/.test(text)) {
       fehler.push(`${wo(i)}: nennt eine Lösung als Zahl`);
     }
+    // MC: die richtige Option (Text der Option) steht nie im Hinweis
+    for (const o of richtigeOptionen(aufgabe)) {
+      if (ohneLeer(text).includes(ohneLeer(o))) fehler.push(`${wo(i)}: nennt die richtige Option „${o}“`);
+    }
     for (const lt of loesTexte) if (lt.length > 2 && text.includes(lt)) fehler.push(`${wo(i)}: nennt die Antwort „${lt}“`);
 
+    // Rundung so wie in der Aufgabe: „auf zwei Stellen nach dem Komma“, nicht nur „zwei Stellen“
+    if (/Stellen/.test(text) && /nach dem Komma/.test(aufgabe.question) && !/Stellen nach dem Komma/.test(text)) {
+      fehler.push(`${wo(i)}: Rundung nicht wie in der Aufgabe („Stellen nach dem Komma“)`);
+    }
+    // Das Kind sieht nur den Text: kein Fehlbild-Slug, kein Unterstrich, keine Anmerkung in Klammern
+    if (/_/.test(text) || [...slugs].some((f) => text.includes(f))) fehler.push(`${wo(i)}: Fehlbild-Slug im Text`);
+    // Reihenfolge (Rasit 12.10.): Teile „kleinere/größere Lösung“ → Stufe 3 erinnert an die Reihenfolge
+    if (i === 2 && istKleinerGroesser(aufgabe) && !/kleinere Lösung zuerst/.test(text)) {
+      fehler.push(`${wo(i)}: erinnert nicht daran, die kleinere Lösung zuerst einzutragen`);
+    }
     for (const f of [].concat(st.fehlbild ?? [])) {
       if (!slugs.has(f)) fehler.push(`${wo(i)}: Fehlbild ${f} steht nicht in known_errors der Aufgabe`);
     }

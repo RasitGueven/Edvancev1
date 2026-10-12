@@ -4,6 +4,7 @@
  *   node tools/hinweise-e3.mjs pruefen   [skill…]                 Exit 1 bei jedem Befund
  *   node tools/hinweise-e3.mjs vorschau  <datei.md> [skill…]
  *   node tools/hinweise-e3.mjs migration <version> <name> [skill…]  schreibt supabase/migrations/<v>_<n>.sql
+ *   node tools/hinweise-e3.mjs fixture   [skill…]                 SQL nur für die Wegwerf-DB (fehlende Aufgaben)
  *
  * Quelle: tools/hinweise-e3/<skill>.mjs (Schlüssel tasks.source_ref). Bestand: docs/prefill/hinweise-e3-snapshot.json
  * (Prod per dbread, nur gelesen). Ohne Skill-Liste gelten alle Quellen im Ordner. Keine DB, kein LLM.
@@ -74,6 +75,7 @@ function vorschau(liste) {
     const antwort = Array.isArray(t.correct_answers) ? t.correct_answers[0] : Object.entries(t.correct_answers ?? {}).map(([k, v]) => `${k}: ${v[0]}`).join(' · ');
     z.push(`### ${t.source_ref} · ${t.title}`, '',
       `Aufgabe (\`${t.input_type}\`, \`${t.id}\`): ${md(t.question)}`, '',
+      ...(t.question_payload?.options ? [`Optionen: ${t.question_payload.options.map((o) => `${o.id}) ${md(o.label)}`).join(' · ')}`, ''] : []),
       `Antwort: ${md(antwort)} · Fehlbilder (known_errors): ${ke}`, '',
       '| Lösungsweg | Stufe 1 · Denkanstoß | Stufe 2 · erster Schritt | Stufe 3 · bis kurz vor das Ergebnis |',
       '|---|---|---|---|',
@@ -112,6 +114,23 @@ ${zeilen.join('\n')}
 `;
 }
 
+/** Nur Wegwerf-DB: Aufgaben aus dem Bestand anlegen, die dort fehlen (Fundament kam nicht per Migration nach Prod). */
+function fixture(liste) {
+  const z = ['-- Wegwerf-DB E3: fehlende Aufgaben aus docs/prefill/hinweise-e3-snapshot.json (hints leer). Nie in Prod.'];
+  for (const { t } of liste) {
+    const j = (v) => (v == null ? 'null' : `${sql(JSON.stringify(v))}::jsonb`);
+    const neu = `where not exists (select 1 from public.tasks where id = ${sql(t.id)})`;
+    z.push(`insert into public.tasks (id, skill_key, title, status, einsatz, source, source_ref, input_type, question, parts, question_payload, content_type)
+  select ${sql(t.id)}, ${sql(t.skill_key)}, ${sql(t.title)}, ${sql(t.status)}, ${sql(`{${t.einsatz.join(',')}}`)}, ${sql(t.source)}, ${sql(t.source_ref)},
+         ${sql(t.input_type)}, ${sql(t.question)}, ${j(t.parts ?? [])}, ${j(t.question_payload)}, 'exercise'
+  ${neu};`);
+    z.push(`insert into public.task_solutions (task_id, correct_answers, solution, hints, acceptance)
+  select ${sql(t.id)}, ${j(t.correct_answers)}, ${t.solution == null ? 'null' : sql(t.solution)}, '[]', ${j(t.acceptance)}
+  where not exists (select 1 from public.task_solutions where task_id = ${sql(t.id)});`);
+  }
+  return z.join('\n') + '\n';
+}
+
 async function main() {
   const [cmd, ...rest] = process.argv.slice(2);
   if (cmd === 'pruefen') {
@@ -137,6 +156,11 @@ async function main() {
     const datei = path.join(WURZEL, `supabase/migrations/${version}_${name}.sql`);
     fs.writeFileSync(datei, migration(liste, version, name));
     console.log(`${path.relative(WURZEL, datei)}: ${liste.length} Aufgaben`);
+    return;
+  }
+  if (cmd === 'fixture') {
+    const { liste } = paare(await ladeQuellen(rest));
+    process.stdout.write(fixture(liste));
     return;
   }
   console.error('Aufruf: pruefen | vorschau <datei> | migration <version> <name>  [skill…]');
