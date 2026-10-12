@@ -176,3 +176,18 @@ Lauf: keine Änderung. Zurücksetzen: alle Zähler wie vorher. Nicht-Testkonto: 
 Wegwerf-DB kam nach runden_ueberschlag kein weiteres Item (kleiner Pool); in Prod endet die LSA beim ersten Item der
 Breite. `lsa_skill_urteil` trägt zusätzlich Zeilen `ungeprueft` für den Rest des Themenraums (35 in der Wegwerf-DB);
 sie gehen nicht in den Lernpfad.
+
+## 5. Angelegt in Prod (12.10.2026)
+
+`cd ~/Edvancev1 && node ../Edvancev1-f1/tools/szenario-lsa.mjs`, zuerst `--dry-run`, dann echt. Protokoll:
+`~/szenario/batu-5737b689-8add-49f5-ac26-89bd40387b0f.json`. Per dbread mit dem Muster verglichen, alles wie erwartet:
+- LSA `09cf8baa…`: `completed`, kein Testlauf, adaptiv, Thema reelle_zahlen, 11 Antworten (3 richtig, 8 mit Fehlbild),
+  `result_summary` mit `proposal` und `themenraum`. Ende beim ersten Item außerhalb des Musters (`geo_koerper_kegel`).
+- Urteile genau nach Tabelle 2: quadrat trägt (1 Probe); gesetze und irrational trägt teilweise; teilweise,
+  naeherung und runden_ueberschlag trägt nicht (je 2 Proben); 5 Fundamente mitbelegt.
+- Lernpfad 11 Zeilen, Quelle `lsa`: 6 sicher, 5 noch nicht sicher (wie in 3); 11 Übernahme-Zeilen im Protokoll.
+- `ziel_fertigkeiten_core(…, 'quadratische_gleichungen')`: zahl_wurzel_quadrat (Voraussetzung, sicher), faktor, wurzel,
+  formel, anzahl, wie in 3 vorhergesagt.
+- **Abweichung vom Bestand aus B1:** Am 10.10. war Zweitmann in einer echten Session (`d3e7510f…`, kein Testlauf, keine
+  Antworten, keine Belege). Dort wurde „Zinsrechnung“ als aktuelles Schulthema gesetzt. Das Werkzeug hat es durch
+  reelle_zahlen ersetzt; das Protokoll hält `zinsrechnung` fest, das Zurücksetzen setzt es wieder.
