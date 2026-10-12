@@ -52,6 +52,76 @@ CREATE TYPE public.badge_rarity AS ENUM (
 
 
 --
+-- Name: absage_zuruecknehmen(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.absage_zuruecknehmen(p_termin_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  kt      public.kind_termine;
+  neu     public.kind_termine;
+begin
+  perform public.slots_admin_pruefen('absage_zuruecknehmen');
+  perform public.slots_sperren();
+  select * into kt from public.kind_termine where id = p_termin_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'absage_zuruecknehmen: Termin nicht gefunden');
+  end if;
+  if kt.absage_eingang is null or kt.zustand not in ('cancelled', 'unexcused')
+     or public.slots_termin_beginn(kt.datum, kt.slot_zeit_id) <= v_jetzt
+     or exists (select 1 from public.coaching_sessions cs where cs.id = kt.session_id and cs.gestartet_am is not null) then
+    perform public.slots_code_werfen('SL010', 'absage_zuruecknehmen');
+  end if;
+
+  select * into neu from public.kind_termine where umgebucht_von = kt.id for update;
+  if found then
+    if neu.zustand <> 'planned'
+       or exists (select 1 from public.coaching_sessions cs where cs.id = neu.session_id and cs.gestartet_am is not null) then
+      perform public.slots_code_werfen('SL010', 'absage_zuruecknehmen');
+    end if;
+    if neu.session_id is not null then
+      -- Festgeschrieben: nicht löschen (Entscheidung 10), sondern ausfallen lassen (Consensus-Befund 4).
+      update public.kind_termine set zustand = 'cancelled_by_us' where id = neu.id;
+      perform public.slots_buchung_setzen(neu.id);
+    else
+      delete from public.kind_termine where id = neu.id;
+    end if;
+  end if;
+
+  -- Platz inzwischen vergeben oder schon ein anderer Termin an dem Tag: keine Rücknahme.
+  if public.slot_belegt(kt.datum, kt.slot_zeit_id, kt.student_id) >= public.slot_kapazitaet(kt.datum, kt.slot_zeit_id)
+     or exists (select 1 from public.kind_termine x
+                 where x.student_id = kt.student_id and x.datum = kt.datum and x.id <> kt.id
+                   and x.zustand in ('planned', 'present', 'unexcused')
+                   and not (x.herkunft = 'stammplatz' and x.session_id is null))
+     -- Nachbesserung (Consensus-Befund 2): Einzel-Session am Tag, Wochengrenze, Budget.
+     or exists (select 1 from public.slots_einzelbuchungen(kt.student_id) e
+                 where e.datum = kt.datum and e.attendance in ('planned', 'present', 'unexcused'))
+     or public.slots_woche_aktiv(kt.student_id, kt.datum, kt.id) + 1 > public.slots_wochengrenze(kt.student_id, kt.datum)
+     or (select v.einheiten from public.vertraege v where v.id = kt.vertrag_id)
+        - public.slots_fest_belegt(kt.vertrag_id, public.slots_berlin_tag(v_jetzt), kt.id) < 1 then
+    perform public.slots_code_werfen('SL010', 'absage_zuruecknehmen');
+  end if;
+  -- Ein beweglicher Stammplatz-Termin, den die Planung inzwischen auf den Tag gelegt hat, weicht.
+  delete from public.kind_termine x
+   where x.student_id = kt.student_id and x.datum = kt.datum and x.id <> kt.id
+     and x.herkunft = 'stammplatz' and x.zustand = 'planned' and x.session_id is null;
+
+  update public.kind_termine
+     set zustand = 'planned', absage_eingang = null, absage_erfasst_von = null, absage_erfasst_am = null
+   where id = kt.id;
+  perform public.slots_buchung_setzen(kt.id);
+  perform public.slots_festschreibung_nachziehen(kt.datum, kt.slot_zeit_id);
+  perform public.termine_planen(kt.student_id, v_jetzt);
+  return jsonb_build_object('termin_id', kt.id, 'zustand', 'planned', 'umbuchung_entfernt', neu.id);
+end;
+$$;
+
+
+--
 -- Name: abschluss_setzen(uuid, uuid, text, boolean, text, boolean, boolean, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -977,9 +1047,8 @@ begin
              where a.session_id = p_session_id and a.student_id = k.student_id),
            -- C2: Quest B wie session_kind_kontext (Tag vor der naechsten gebuchten Session), nur mit Home Quests.
            'quest_b', case when v_quests then (
-                select (min(cs.scheduled_at) at time zone 'Europe/Berlin')::date - 1
-                  from public.session_students x join public.coaching_sessions cs on cs.id = x.session_id
-                 where x.student_id = k.student_id and x.attendance = 'planned' and cs.scheduled_at > s.scheduled_at) end,
+                -- SL1 (Entscheidung 14): naechster Termin auch vor dem Festschreiben.
+                select public.slots_berlin_tag(public.naechster_termin(k.student_id, s.scheduled_at)) - 1) end,
            'eingriffe', coalesce((select jsonb_agg(jsonb_build_object('stufe', (e.payload ->> 'stufe')::int, 'zeit', e.zeit)
                                           order by e.zeit)
                                     from public.session_ereignisse e
@@ -1387,15 +1456,19 @@ CREATE FUNCTION public.einheiten_stand_intern(p_student_id uuid, p_heute date) R
               v.vertragsbeginn asc
      limit 1
   ),
+  -- SL1 (Entscheidung 13): kind_termine ist die eine Wahrheit; dazu Buchungen ohne Kind-Termin
+  -- (Einzel-Sessions, Uebergang). Keine Buchung doppelt, Testlaeufe nie (slots_einzelbuchungen).
   zaehlung as (
-    select count(*)::integer as verbraucht
+    select (select count(*)::integer
+              from public.kind_termine kt
+             where kt.student_id = p_student_id
+               and public.einheit_verbraucht(kt.zustand)
+               and kt.datum between vt.vertragsbeginn and vt.vertrag_ende)
+         + (select count(*)::integer
+              from public.slots_einzelbuchungen(p_student_id) eb
+             where public.einheit_verbraucht(eb.attendance)
+               and eb.datum between vt.vertragsbeginn and vt.vertrag_ende) as verbraucht
       from vertrag vt
-      join public.session_students ss on ss.student_id = p_student_id
-      join public.coaching_sessions cs on cs.id = ss.session_id
-     where public.einheit_verbraucht(ss.attendance)
-       and not cs.testlauf
-       and (cs.scheduled_at at time zone 'Europe/Berlin')::date
-           between vt.vertragsbeginn and vt.vertrag_ende
   )
   select coalesce(r.art, 'keiner'),
          vt.einheiten,
@@ -7014,6 +7087,42 @@ $$;
 
 
 --
+-- Name: meine_einsaetze(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.meine_einsaetze(p_montag date) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_mo    date := p_montag - (extract(isodow from p_montag)::int - 1);
+  v_heute date := public.slots_berlin_tag(now());
+begin
+  if coalesce(public.get_my_role(), '') <> 'coach' then
+    raise exception 'meine_einsaetze: nur Coach' using errcode = '42501';
+  end if;
+  return jsonb_build_object(
+    'montag', v_mo, 'kw', extract(week from v_mo)::int, 'heute', v_heute,
+    'einsaetze', coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'datum', r.datum, 'zeit_id', r.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn),
+               'ende', public.slots_hhmm(z.ende), 'raum_id', r.raum_id, 'raum_name', r.raum_name,
+               'heute', r.datum = v_heute, 'session_id', s.id,
+               'kinder', coalesce((select jsonb_agg(public.slots_kind_info(t.student_id, kt.vertrag_id)
+                                                    order by public.slots_kind_info(t.student_id, kt.vertrag_id) ->> 'name')
+                                     from public.slot_zuteilung(r.datum, r.slot_zeit_id) t
+                                     join public.kind_termine kt on kt.id = t.termin_id
+                                    where t.raum_id = r.raum_id), '[]'))
+             order by r.datum, z.beginn)
+        from public.slot_raeume(v_mo, v_mo + 4) r
+        join public.slot_zeiten z on z.id = r.slot_zeit_id
+        left join lateral (select * from public.slots_session(r.datum, r.slot_zeit_id, r.raum_id)) s on true
+       where r.offen and r.coach_id = auth.uid()), '[]'));
+end;
+$$;
+
+
+--
 -- Name: naechste_luecke(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -7093,6 +7202,43 @@ begin
        limit 1;
   end if;
 end;
+$$;
+
+
+--
+-- Name: naechste_termine(uuid, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.naechste_termine(p_student_id uuid, p_anzahl integer DEFAULT 3) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.ist_systemaufruf() and coalesce(public.get_my_role(), '') <> 'admin'
+     and not (coalesce(public.get_my_role(), '') = 'parent' and public.is_parent_of_student(p_student_id)) then
+    raise exception 'naechste_termine: keine Berechtigung' using errcode = '42501';
+  end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object(
+             'beginn', t.beginn, 'datum', t.datum,
+             'uhrzeit', to_char(t.beginn at time zone 'Europe/Berlin', 'HH24:MI'),
+             'ende', to_char((t.beginn + interval '60 minutes') at time zone 'Europe/Berlin', 'HH24:MI'),
+             'festgeschrieben', t.festgeschrieben, 'session_id', t.session_id) order by t.beginn)
+      from (select * from public.slots_kommende_termine(p_student_id, now())
+             order by beginn limit greatest(coalesce(p_anzahl, 3), 1)) t), '[]');
+end;
+$$;
+
+
+--
+-- Name: naechster_termin(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.naechster_termin(p_student_id uuid, p_nach timestamp with time zone) RETURNS timestamp with time zone
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select min(t.beginn) from public.slots_kommende_termine(p_student_id, p_nach) t;
 $$;
 
 
@@ -10084,13 +10230,8 @@ begin
 
   v_tag := (v_session.scheduled_at at time zone 'Europe/Berlin')::date;
 
-  select min((cs.scheduled_at at time zone 'Europe/Berlin')::date) into v_naechste
-    from public.coaching_sessions cs
-    join public.session_students ss on ss.session_id = cs.id
-   where ss.student_id = p_student_id
-     and cs.id <> p_session_id
-     and cs.scheduled_at > v_session.scheduled_at
-     and ss.attendance not in ('cancelled', 'cancelled_by_us');
+  -- SL1 (Entscheidung 14): naechster Termin auch vor dem Festschreiben (Slot-Termin ohne Session).
+  v_naechste := public.slots_berlin_tag(public.naechster_termin(p_student_id, v_session.scheduled_at));
 
   -- Ohne naechste Buchung gilt der Wochenrhythmus (offener Punkt).
   v_b_tag := coalesce(v_naechste, v_tag + 7) - 1;
@@ -10254,6 +10395,65 @@ begin
   on conflict (session_id, student_id) do update
      set quest_termin = excluded.quest_termin, quest_termin_von = excluded.quest_termin_von,
          aktualisiert_am = clock_timestamp(), aktualisiert_von = auth.uid();
+end;
+$$;
+
+
+--
+-- Name: raum_anlegen(text, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.raum_anlegen(p_name text, p_aktiv_ab date DEFAULT NULL::date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_id    uuid;
+begin
+  perform public.slots_admin_pruefen('raum_anlegen');
+  perform public.slots_sperren();
+  if nullif(btrim(coalesce(p_name, '')), '') is null then
+    perform public.slots_fehler('22023', 'raum_anlegen: Name fehlt');
+  end if;
+  if exists (select 1 from public.raeume r where lower(r.name) = lower(btrim(p_name))) then
+    perform public.slots_fehler('22023', 'raum_anlegen: Name gibt es schon', 'name_doppelt');
+  end if;
+  if coalesce(p_aktiv_ab, v_heute) < v_heute then
+    perform public.slots_fehler('SL007', 'raum_anlegen: aktiv ab liegt in der Vergangenheit');
+  end if;
+  insert into public.raeume (name, aktiv_ab, angelegt_von)
+  values (btrim(p_name), coalesce(p_aktiv_ab, v_heute), auth.uid())
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: raum_deaktivieren(uuid, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.raum_deaktivieren(p_id uuid, p_ab date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  r       public.raeume;
+begin
+  perform public.slots_admin_pruefen('raum_deaktivieren');
+  perform public.slots_sperren();
+  select * into r from public.raeume where id = p_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'raum_deaktivieren: Raum nicht gefunden');
+  end if;
+  if p_ab is null or p_ab < v_heute then
+    perform public.slots_fehler('SL007', 'raum_deaktivieren: Datum liegt in der Vergangenheit');
+  end if;
+  update public.raeume set inaktiv_ab = greatest(p_ab, r.aktiv_ab) where id = p_id;
+  -- Kapazität sinkt ab dann (Anforderung H 52); betroffene Kinder erscheinen "ohne Raum".
+  perform public.slots_planen_slot(null, null, public.slots_jetzt(p_jetzt));
 end;
 $$;
 
@@ -10550,10 +10750,9 @@ begin
                                  group by x.skill_key order by min(x.id) limit 3) g), '[]'::jsonb),
     'xp', coalesce((select sum(e.xp) from public.xp_events e
                      where e.student_id = t.student_id and e.buchungs_schluessel = 'session:' || p_session_id), 0),
-    'naechste_session', (select min(cs.scheduled_at)
-                           from public.session_students ss join public.coaching_sessions cs on cs.id = ss.session_id
-                          where ss.student_id = t.student_id and ss.attendance = 'planned'
-                            and cs.scheduled_at > (select scheduled_at from public.coaching_sessions where id = p_session_id)));
+    -- SL1 (Entscheidung 14): naechster Termin auch vor dem Festschreiben.
+    'naechste_session', public.naechster_termin(
+                          t.student_id, (select scheduled_at from public.coaching_sessions where id = p_session_id)));
 end;
 $$;
 
@@ -10854,7 +11053,10 @@ CREATE TABLE public.coaching_sessions (
     gestartet_am timestamp with time zone,
     beendet_am timestamp with time zone,
     einstellungen jsonb,
+    raum_id uuid,
+    slot_zeit_id uuid,
     CONSTRAINT coaching_sessions_einstellungen_objekt CHECK (((einstellungen IS NULL) OR (jsonb_typeof(einstellungen) = 'object'::text))),
+    CONSTRAINT coaching_sessions_raum_termin_check CHECK (((raum_id IS NULL) = (slot_zeit_id IS NULL))),
     CONSTRAINT coaching_sessions_status_check CHECK ((status = ANY (ARRAY['upcoming'::text, 'active'::text, 'done'::text])))
 );
 
@@ -11197,10 +11399,8 @@ begin
     'quest_termine', case when not coalesce(public.home_quests_aktiv(p_session_id), false) then null
       else jsonb_build_object(
         'quest_a', jsonb_build_array(v_tag + v_ab, v_tag + v_ab + 1),
-        'quest_b', (select (min(cs.scheduled_at) at time zone 'Europe/Berlin')::date - 1
-                      from public.session_students ss join public.coaching_sessions cs on cs.id = ss.session_id
-                     where ss.student_id = t.student_id and ss.attendance = 'planned'
-                       and cs.scheduled_at > s.scheduled_at)) end);
+        -- SL1 (Entscheidung 14): naechster Termin auch vor dem Festschreiben.
+        'quest_b', public.slots_berlin_tag(public.naechster_termin(t.student_id, s.scheduled_at)) - 1) end);
 end;
 $$;
 
@@ -13030,6 +13230,70 @@ $$;
 
 
 --
+-- Name: slot_belegt(date, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slot_belegt(p_datum date, p_slot_zeit_id uuid, p_ohne_student uuid DEFAULT NULL::uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select count(*)::int from public.kind_termine kt
+   where kt.datum = p_datum and kt.slot_zeit_id = p_slot_zeit_id
+     and kt.zustand in ('planned', 'present')
+     and kt.student_id is distinct from p_ohne_student;
+$$;
+
+
+--
+-- Name: slot_kapazitaet(date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slot_kapazitaet(p_datum date, p_slot_zeit_id uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select 5 * count(*)::int from public.slot_raeume(p_datum, p_datum) r
+   where r.slot_zeit_id = p_slot_zeit_id and r.offen;
+$$;
+
+
+--
+-- Name: slot_raeume(date, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slot_raeume(p_von date, p_bis date) RETURNS TABLE(datum date, slot_zeit_id uuid, raum_id uuid, raum_name text, coach_id uuid, stamm_coach_id uuid, art text, offen boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with tage as (
+    select g::date as d from generate_series(p_von, p_bis, interval '1 day') g
+     where public.betriebstag(g::date)
+  ),
+  basis as (
+    select t.d, z.id as z, r.id as r, r.name
+      from tage t
+      join public.slot_zeiten z on z.aktiv_ab <= t.d and (z.inaktiv_ab is null or t.d < z.inaktiv_ab)
+      join public.raeume r on r.aktiv_ab <= t.d and (r.inaktiv_ab is null or t.d < r.inaktiv_ab)
+  )
+  select b.d, b.z, b.r, b.name,
+         case when a.art = 'faellt_aus' then null when a.art is not null then a.coach_id else s.coach_id end,
+         s.coach_id,
+         coalesce(a.art, 'stamm'),
+         case when a.art = 'faellt_aus' then false when a.art is not null then true else s.coach_id is not null end
+    from basis b
+    left join lateral (
+      select x.coach_id from public.stammschichten x
+       where x.raum_id = b.r and x.slot_zeit_id = b.z and x.wochentag = extract(isodow from b.d)
+         and x.gueltig_ab <= b.d and (x.gueltig_bis is null or b.d <= x.gueltig_bis)
+       order by x.gueltig_ab desc
+       limit 1
+    ) s on true
+    left join public.schicht_abweichungen a on a.datum = b.d and a.slot_zeit_id = b.z and a.raum_id = b.r
+   where s.coach_id is not null or a.id is not null;
+$$;
+
+
+--
 -- Name: slot_release(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -13063,6 +13327,2102 @@ begin
     'assignment_id', p_assignment_id,
     'released',      v_count = 1
   );
+end;
+$$;
+
+
+--
+-- Name: slot_zeit_anlegen(time without time zone, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slot_zeit_anlegen(p_beginn time without time zone, p_aktiv_ab date DEFAULT NULL::date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_id    uuid;
+begin
+  perform public.slots_admin_pruefen('slot_zeit_anlegen');
+  perform public.slots_sperren();
+  if p_beginn is null or p_beginn < time '06:00' or p_beginn > time '22:00' then
+    perform public.slots_fehler('22023', 'slot_zeit_anlegen: Beginn zwischen 06:00 und 22:00');
+  end if;
+  -- Nachbesserung (Consensus-Befund 12): auch eine Uhrzeit, die erst künftig endet, ist doppelt.
+  if exists (select 1 from public.slot_zeiten z where z.beginn = p_beginn
+              and (z.inaktiv_ab is null or z.inaktiv_ab > coalesce(p_aktiv_ab, v_heute))) then
+    perform public.slots_fehler('22023', 'slot_zeit_anlegen: Uhrzeit gibt es schon', 'zeit_doppelt');
+  end if;
+  if coalesce(p_aktiv_ab, v_heute) < v_heute then
+    perform public.slots_fehler('SL007', 'slot_zeit_anlegen: aktiv ab liegt in der Vergangenheit');
+  end if;
+  insert into public.slot_zeiten (beginn, aktiv_ab, angelegt_von)
+  values (p_beginn, coalesce(p_aktiv_ab, v_heute), auth.uid())
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: slot_zeit_deaktivieren(uuid, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slot_zeit_deaktivieren(p_id uuid, p_ab date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  z       public.slot_zeiten;
+begin
+  perform public.slots_admin_pruefen('slot_zeit_deaktivieren');
+  perform public.slots_sperren();
+  select * into z from public.slot_zeiten where id = p_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'slot_zeit_deaktivieren: Uhrzeit nicht gefunden');
+  end if;
+  if p_ab is null or p_ab < v_heute then
+    perform public.slots_fehler('SL007', 'slot_zeit_deaktivieren: Datum liegt in der Vergangenheit');
+  end if;
+  update public.slot_zeiten set inaktiv_ab = greatest(p_ab, z.aktiv_ab) where id = p_id;
+  perform public.slots_planen_slot(null, p_id, public.slots_jetzt(p_jetzt));
+end;
+$$;
+
+
+--
+-- Name: slot_zuteilung(date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slot_zuteilung(p_datum date, p_slot_zeit_id uuid) RETURNS TABLE(termin_id uuid, student_id uuid, raum_id uuid, fach text, grund text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  r_ids   uuid[] := '{}';
+  r_zahl  int[]  := '{}';
+  r_fach  text[] := '{}';
+  k       record;
+  i       int;
+  v_wahl  int;
+  v_fach  text;
+begin
+  select coalesce(array_agg(x.raum_id order by x.raum_name), '{}') into r_ids
+    from public.slot_raeume(p_datum, p_datum) x
+   where x.slot_zeit_id = p_slot_zeit_id and x.offen;
+  r_zahl := array_fill(0, array[greatest(cardinality(r_ids), 1)]);
+  r_fach := array_fill(''::text, array[greatest(cardinality(r_ids), 1)]);
+
+  -- Festgeschriebene Räume kommen dazu, auch wenn sie inzwischen nicht mehr als geöffnet gelten.
+  for k in
+    select distinct cs.raum_id from public.kind_termine kt join public.coaching_sessions cs on cs.id = kt.session_id
+     where kt.datum = p_datum and kt.slot_zeit_id = p_slot_zeit_id and cs.raum_id is not null
+       and not cs.raum_id = any (r_ids)
+  loop
+    r_ids := r_ids || k.raum_id; r_zahl := r_zahl || 0; r_fach := r_fach || ''::text;
+  end loop;
+
+  for k in
+    select kt.id, kt.student_id, kt.raum_id as stift, kt.raum_fest, cs.raum_id as sess_raum,
+           coalesce(nullif(btrim(v.fach), ''), '') as f,
+           count(*) over (partition by coalesce(nullif(btrim(v.fach), ''), '')) as gruppe,
+           kt.angelegt_am
+      from public.kind_termine kt
+      join public.vertraege v on v.id = kt.vertrag_id
+      left join public.coaching_sessions cs on cs.id = kt.session_id
+     where kt.datum = p_datum and kt.slot_zeit_id = p_slot_zeit_id and kt.zustand in ('planned', 'present')
+     order by (cs.raum_id is not null) desc, (kt.raum_fest and kt.raum_id = any (r_ids)) desc,
+              count(*) over (partition by coalesce(nullif(btrim(v.fach), ''), '')) desc,
+              coalesce(nullif(btrim(v.fach), ''), ''), kt.angelegt_am, kt.id
+  loop
+    v_wahl := null; grund := null;
+    v_fach := '|' || k.f || '|';
+    if k.sess_raum is not null then
+      v_wahl := array_position(r_ids, k.sess_raum); grund := 'session';
+    elsif k.raum_fest and k.stift = any (r_ids) and r_zahl[array_position(r_ids, k.stift)] < 5 then
+      v_wahl := array_position(r_ids, k.stift); grund := 'stift';
+    else
+      for i in 1 .. cardinality(r_ids) loop
+        if r_zahl[i] < 5 and strpos(r_fach[i], v_fach) > 0 then v_wahl := i; exit; end if;
+      end loop;
+      if v_wahl is null then
+        for i in 1 .. cardinality(r_ids) loop
+          if r_zahl[i] = 0 then v_wahl := i; exit; end if;
+        end loop;
+      end if;
+      if v_wahl is null then
+        for i in 1 .. cardinality(r_ids) loop
+          if r_zahl[i] < 5 then v_wahl := i; exit; end if;
+        end loop;
+      end if;
+    end if;
+
+    termin_id := k.id; student_id := k.student_id; fach := nullif(k.f, '');
+    if v_wahl is null then
+      raum_id := null;
+    else
+      raum_id := r_ids[v_wahl];
+      r_zahl[v_wahl] := r_zahl[v_wahl] + 1;
+      if strpos(r_fach[v_wahl], v_fach) = 0 then r_fach[v_wahl] := r_fach[v_wahl] || v_fach; end if;
+    end if;
+    return next;
+  end loop;
+end;
+$$;
+
+
+--
+-- Name: kind_termine; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kind_termine (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    vertrag_id uuid NOT NULL,
+    datum date NOT NULL,
+    slot_zeit_id uuid NOT NULL,
+    herkunft text NOT NULL,
+    stammplatz_id uuid,
+    umgebucht_von uuid,
+    zustand text DEFAULT 'planned'::text NOT NULL,
+    absage_eingang timestamp with time zone,
+    absage_erfasst_von uuid,
+    absage_erfasst_am timestamp with time zone,
+    raum_id uuid,
+    raum_fest boolean DEFAULT false NOT NULL,
+    session_id uuid,
+    angelegt_am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    angelegt_von uuid,
+    CONSTRAINT kind_termine_absage_check CHECK (((absage_eingang IS NULL) OR (zustand = ANY (ARRAY['cancelled'::text, 'unexcused'::text])))),
+    CONSTRAINT kind_termine_herkunft_check CHECK ((herkunft = ANY (ARRAY['stammplatz'::text, 'zusatz'::text]))),
+    CONSTRAINT kind_termine_raum_fest_check CHECK (((NOT raum_fest) OR (raum_id IS NOT NULL))),
+    CONSTRAINT kind_termine_stammplatz_check CHECK (((herkunft = 'stammplatz'::text) = (stammplatz_id IS NOT NULL))),
+    CONSTRAINT kind_termine_umgebucht_check CHECK (((umgebucht_von IS NULL) OR (herkunft = 'zusatz'::text))),
+    CONSTRAINT kind_termine_zustand_check CHECK ((zustand = ANY (ARRAY['planned'::text, 'present'::text, 'cancelled'::text, 'unexcused'::text, 'cancelled_by_us'::text])))
+);
+
+
+--
+-- Name: slots_absage_intern(uuid, timestamp with time zone, timestamp with time zone, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_absage_intern(p_termin_id uuid, p_eingang timestamp with time zone, p_jetzt timestamp with time zone, p_wer text) RETURNS public.kind_termine
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  kt public.kind_termine;
+begin
+  select * into kt from public.kind_termine where id = p_termin_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', p_wer || ': Termin nicht gefunden');
+  end if;
+  if kt.datum < public.slots_berlin_tag(p_jetzt) then
+    perform public.slots_code_werfen('SL011', p_wer);
+  end if;
+  if kt.zustand <> 'planned' then
+    perform public.slots_fehler('22023', p_wer || ': Termin ist nicht geplant', 'zustand:' || kt.zustand);
+  end if;
+  if p_eingang is null or p_eingang > p_jetzt then
+    perform public.slots_fehler('22023', p_wer || ': Eingang fehlt oder liegt in der Zukunft', 'eingang');
+  end if;
+  update public.kind_termine
+     set zustand = case when (p_eingang at time zone 'Europe/Berlin') < (kt.datum + time '10:00')
+                        then 'cancelled' else 'unexcused' end,
+         absage_eingang = p_eingang, absage_erfasst_von = auth.uid(), absage_erfasst_am = now()
+   where id = p_termin_id
+  returning * into kt;
+  perform public.slots_buchung_setzen(kt.id);
+  return kt;
+end;
+$$;
+
+
+--
+-- Name: slots_admin_pruefen(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_admin_pruefen(p_wer text) RETURNS void
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.ist_systemaufruf() and coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception '%: nur Admin', p_wer using errcode = '42501';
+  end if;
+end;
+$$;
+
+
+--
+-- Name: slots_anlass(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_anlass(p_datum date) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select f.name from public.feiertage_nrw f where f.datum = p_datum),
+                  (select f.name from public.ferien_nrw f where p_datum between f.von and f.bis order by f.von limit 1));
+$$;
+
+
+--
+-- Name: slots_anwesenheit_spiegeln(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_anwesenheit_spiegeln() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n integer;
+begin
+  perform public.slots_sperren();
+  -- Nachbesserung (Consensus-Befund 7): Buchung umgehängt (andere Session oder anderes Kind).
+  if tg_op = 'UPDATE' and (new.session_id is distinct from old.session_id or new.student_id is distinct from old.student_id) then
+    update public.kind_termine set session_id = null
+     where session_id = old.session_id and student_id = old.student_id;
+    return null;
+  end if;
+  if tg_op = 'DELETE' then
+    update public.kind_termine set session_id = null
+     where session_id = old.session_id and student_id = old.student_id;
+    return null;
+  end if;
+  update public.kind_termine kt
+     set zustand = new.attendance,
+         absage_eingang = case when new.attendance in ('cancelled', 'unexcused') then kt.absage_eingang end,
+         absage_erfasst_von = case when new.attendance in ('cancelled', 'unexcused') then kt.absage_erfasst_von end,
+         absage_erfasst_am = case when new.attendance in ('cancelled', 'unexcused') then kt.absage_erfasst_am end
+   where kt.session_id = new.session_id and kt.student_id = new.student_id
+     and kt.zustand is distinct from new.attendance;
+  get diagnostics v_n = row_count;
+  -- Belegt der Termin danach eine Einheit anders (z. B. Admin setzt "abgesagt"), gleicht die Planung ab.
+  if v_n > 0 and (old.attendance in ('cancelled', 'cancelled_by_us')) <> (new.attendance in ('cancelled', 'cancelled_by_us')) then
+    perform public.termine_planen(new.student_id);
+  end if;
+  return null;
+end;
+$$;
+
+
+--
+-- Name: slots_berlin_tag(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_berlin_tag(p_zeit timestamp with time zone) RETURNS date
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select (p_zeit at time zone 'Europe/Berlin')::date;
+$$;
+
+
+--
+-- Name: slots_beweglich(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_beweglich(p_student_id uuid, p_heute date) RETURNS date[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(array_agg(kt.datum order by kt.datum), '{}') from public.kind_termine kt
+   where kt.student_id = p_student_id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
+     and kt.session_id is null and kt.datum >= p_heute;
+$$;
+
+
+--
+-- Name: slots_buchung_setzen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_buchung_setzen(p_termin_id uuid) RETURNS void
+    LANGUAGE sql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  update public.session_students ss set attendance = kt.zustand
+    from public.kind_termine kt
+   where kt.id = p_termin_id and kt.session_id is not null
+     and ss.session_id = kt.session_id and ss.student_id = kt.student_id
+     and ss.attendance is distinct from kt.zustand;
+$$;
+
+
+--
+-- Name: slots_coaches(date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_coaches(p_montag date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_mo date := p_montag - (extract(isodow from p_montag)::int - 1);
+begin
+  perform public.slots_admin_pruefen('slots_coaches');
+  return jsonb_build_object(
+    'montag', v_mo, 'kw', extract(week from v_mo)::int,
+    'coaches', coalesce((select jsonb_agg(c.j order by c.name) from (
+      select p.full_name as name, jsonb_build_object(
+        'id', p.id, 'name', p.full_name,
+        'stammschichten', coalesce((select jsonb_agg(jsonb_build_object(
+              'id', s.id, 'wochentag', s.wochentag, 'zeit_id', s.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn),
+              'raum_id', s.raum_id, 'raum_name', r.name, 'gueltig_ab', s.gueltig_ab, 'gueltig_bis', s.gueltig_bis)
+            order by s.wochentag, z.beginn)
+            from public.stammschichten s
+            join public.slot_zeiten z on z.id = s.slot_zeit_id join public.raeume r on r.id = s.raum_id
+           where s.coach_id = p.id and coalesce(s.gueltig_bis, 'infinity'::date) >= v_mo
+             and s.gueltig_bis is distinct from s.gueltig_ab - 1), '[]'),
+        'stunden_pro_woche', (select count(*) from public.stammschichten s
+                               where s.coach_id = p.id and s.gueltig_ab <= v_mo + 4
+                                 and coalesce(s.gueltig_bis, 'infinity'::date) >= v_mo),
+        'abweichungen', coalesce((select jsonb_agg(jsonb_build_object(
+              'datum', r.datum, 'zeit_id', r.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn),
+              'raum_id', r.raum_id, 'raum_name', r.raum_name, 'art', r.art)
+            order by r.datum, z.beginn)
+            from public.slot_raeume(v_mo, v_mo + 4) r join public.slot_zeiten z on z.id = r.slot_zeit_id
+           where r.art <> 'stamm' and (r.coach_id = p.id or r.stamm_coach_id = p.id)), '[]')) as j
+        from public.profiles p where p.role = 'coach') c), '[]'),
+    'raeume', coalesce((select jsonb_agg(jsonb_build_object('id', r.id, 'name', r.name) order by r.name)
+                          from public.raeume r where r.inaktiv_ab is null or r.inaktiv_ab > v_mo), '[]'),
+    'zeiten', coalesce((select jsonb_agg(jsonb_build_object('id', z.id, 'beginn', public.slots_hhmm(z.beginn),
+                                                            'ende', public.slots_hhmm(z.ende)) order by z.beginn)
+                          from public.slot_zeiten z
+                         where z.aktiv_ab <= v_mo + 4 and (z.inaktiv_ab is null or z.inaktiv_ab > v_mo)), '[]'));
+end;
+$$;
+
+
+--
+-- Name: slots_code_werfen(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_code_werfen(p_code text, p_wer text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+begin
+  if p_code is null then
+    return;
+  end if;
+  perform public.slots_fehler(p_code, p_wer || ': ' || case p_code
+    when 'SL001' then 'Slot voll'
+    when 'SL002' then 'kein Raum mit Coach'
+    when 'SL003' then 'schon ein Termin an dem Tag'
+    when 'SL004' then 'Wochengrenze erreicht'
+    when 'SL005' then 'keine offenen Einheiten'
+    when 'SL006' then 'außerhalb des Vertrags'
+    when 'SL007' then 'Vergangenheit'
+    when 'SL010' then 'Rücknahme nicht möglich'
+    when 'SL011' then 'Termin vergangen oder begonnen, nur Ansicht'
+    when 'SL012' then 'jenseits der Ferientabelle'
+    else p_code end);
+end;
+$$;
+
+
+--
+-- Name: slots_einstellungen(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_einstellungen(p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  -- Ende des Schuljahrs: Ende der nächsten Sommerferien (bzw. der laufenden).
+  v_bis   date := coalesce((select min(f.bis) from public.ferien_nrw f where f.art = 'sommer' and f.bis >= v_heute),
+                           public.slots_planungsgrenze());
+begin
+  perform public.slots_admin_pruefen('slots_einstellungen');
+  return jsonb_build_object(
+    'heute', v_heute, 'schuljahr_bis', v_bis, 'planungsgrenze', public.slots_planungsgrenze(),
+    'raeume', coalesce((select jsonb_agg(jsonb_build_object(
+                 'id', r.id, 'name', r.name, 'aktiv_ab', r.aktiv_ab, 'inaktiv_ab', r.inaktiv_ab,
+                 'stammschichten', (select count(*) from public.stammschichten s
+                                     where s.raum_id = r.id and coalesce(s.gueltig_bis, 'infinity'::date) >= v_heute))
+               order by r.name) from public.raeume r), '[]'),
+    'zeiten', coalesce((select jsonb_agg(jsonb_build_object(
+                 'id', z.id, 'beginn', public.slots_hhmm(z.beginn), 'ende', public.slots_hhmm(z.ende),
+                 'aktiv_ab', z.aktiv_ab, 'inaktiv_ab', z.inaktiv_ab) order by z.beginn, z.aktiv_ab)
+               from public.slot_zeiten z), '[]'),
+    'ferien', coalesce((select jsonb_agg(jsonb_build_object('art', f.art, 'name', f.name, 'von', f.von, 'bis', f.bis)
+                                         order by f.von)
+                          from public.ferien_nrw f where f.bis >= v_heute and f.von <= v_bis), '[]'),
+    'feiertage', coalesce((select jsonb_agg(jsonb_build_object('datum', f.datum, 'name', f.name, 'art', f.art)
+                                            order by f.datum)
+                             from public.feiertage_nrw f
+                            where f.datum between v_heute and v_bis and extract(isodow from f.datum) between 1 and 5
+                              and not exists (select 1 from public.ferien_nrw x where f.datum between x.von and x.bis)), '[]'));
+end;
+$$;
+
+
+--
+-- Name: slots_einzelbuchungen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_einzelbuchungen(p_student_id uuid) RETURNS TABLE(session_id uuid, datum date, beginn timestamp with time zone, attendance text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select cs.id, public.slots_berlin_tag(cs.scheduled_at), cs.scheduled_at, ss.attendance
+    from public.session_students ss
+    join public.coaching_sessions cs on cs.id = ss.session_id
+   where ss.student_id = p_student_id
+     and not cs.testlauf
+     and not exists (select 1 from public.kind_termine kt
+                      where kt.session_id = ss.session_id and kt.student_id = ss.student_id);
+$$;
+
+
+--
+-- Name: slots_fehler(text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_fehler(p_code text, p_text text, p_hint text DEFAULT NULL::text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+begin
+  raise exception '%', p_text using errcode = p_code, hint = coalesce(p_hint, p_code);
+end;
+$$;
+
+
+--
+-- Name: slots_fest_belegt(uuid, date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_fest_belegt(p_vertrag_id uuid, p_heute date, p_ausser uuid DEFAULT NULL::uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select (select count(*)::int from public.kind_termine kt
+           where kt.vertrag_id = p_vertrag_id and kt.zustand in ('planned', 'present', 'unexcused')
+             and kt.id is distinct from p_ausser
+             and not (kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null
+                      and kt.datum >= p_heute))
+       + (select count(*)::int from public.vertraege v, public.slots_einzelbuchungen(v.student_id) e
+           where v.id = p_vertrag_id and e.datum between v.vertragsbeginn and v.vertrag_ende
+             and e.attendance in ('planned', 'present', 'unexcused'));
+$$;
+
+
+--
+-- Name: slots_festschreibung_nachziehen(date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_festschreibung_nachziehen(p_datum date, p_slot_zeit_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  z        record;
+  v_sess   uuid;
+  v_aus    jsonb := '[]';
+begin
+  if not exists (select 1 from public.coaching_sessions cs
+                  where cs.slot_zeit_id = p_slot_zeit_id
+                    and cs.scheduled_at = public.slots_termin_beginn(p_datum, p_slot_zeit_id)) then
+    return v_aus;
+  end if;
+  for z in
+    select t.termin_id, t.student_id, t.raum_id from public.slot_zuteilung(p_datum, p_slot_zeit_id) t
+      join public.kind_termine kt on kt.id = t.termin_id
+     where t.raum_id is not null and kt.session_id is null
+  loop
+    v_sess := (public.slots_session(p_datum, p_slot_zeit_id, z.raum_id)).id;
+    continue when v_sess is null;
+    if public.session_platz_zugang(z.student_id, p_datum) then
+      insert into public.session_students (session_id, student_id, attendance)
+      values (v_sess, z.student_id, 'planned')
+      on conflict (session_id, student_id) do update set attendance = 'planned';
+      update public.kind_termine set session_id = v_sess where id = z.termin_id;
+    else
+      update public.kind_termine set zustand = 'cancelled_by_us' where id = z.termin_id;
+      v_aus := v_aus || jsonb_build_object('termin_id', z.termin_id, 'student_id', z.student_id, 'grund', 'ZG001');
+      -- Nachbesserung (Consensus-Befund 3): jedes ausgelassene Kind wird neu geplant.
+      perform public.termine_planen(z.student_id);
+    end if;
+  end loop;
+  return v_aus;
+end;
+$$;
+
+
+--
+-- Name: slots_frei(text, date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_frei(p_takt text, p_ab date, p_student_id uuid DEFAULT NULL::uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_ab date := greatest(p_ab, public.slots_berlin_tag(public.slots_jetzt(p_jetzt)));
+begin
+  perform public.slots_admin_pruefen('slots_frei');
+  if p_takt not in ('woechentlich', 'a_woche', 'b_woche') then
+    perform public.slots_fehler('22023', 'slots_frei: unbekannter Takt');
+  end if;
+  return jsonb_build_object(
+    'takt', p_takt, 'ab', v_ab,
+    'zeiten', coalesce((select jsonb_agg(jsonb_build_object('id', z.id, 'beginn', public.slots_hhmm(z.beginn),
+                                                            'ende', public.slots_hhmm(z.ende)) order by z.beginn)
+                          from public.slot_zeiten z where public.slots_zeit_aktiv(z.id, v_ab)), '[]'),
+    'zellen', coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'wochentag', w, 'zeit_id', z.id,
+               'frei', greatest(f.frei, 0), 'raum', f.kap_min > 0,
+               'voll', f.kap_min > 0 and f.frei <= 0, 'termine', f.n)
+             order by w, z.beginn)
+        from generate_series(1, 5) w
+        cross join public.slot_zeiten z
+        cross join lateral (
+          select min(x.kapazitaet - x.belegt) as frei, min(x.kapazitaet) as kap_min, count(*) as n
+            from public.slots_naechste_termine_frei(w, z.id, p_takt, v_ab, p_student_id) x
+        ) f
+       where public.slots_zeit_aktiv(z.id, v_ab)), '[]'));
+end;
+$$;
+
+
+--
+-- Name: slots_gruende_werfen(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_gruende_werfen(p_gruende jsonb) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+declare
+  g jsonb := p_gruende -> 0;
+begin
+  if g is null then
+    return;
+  end if;
+  perform public.slots_fehler(g ->> 'code',
+    case g ->> 'code'
+      when 'SL001' then 'Slot voll'
+      when 'SL002' then 'kein Raum mit Coach'
+      when 'SL006' then 'außerhalb des Vertrags'
+      when 'SL007' then 'gültig ab liegt in der Vergangenheit'
+      when 'SL008' then 'zwei Stammplätze am selben Tag'
+      when 'SL012' then 'jenseits der Ferientabelle'
+      else 'Stammplatz nicht möglich' end,
+    g::text);
+end;
+$$;
+
+
+--
+-- Name: slots_hhmm(time without time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_hhmm(p_zeit time without time zone) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select to_char(p_zeit, 'HH24:MI');
+$$;
+
+
+--
+-- Name: slots_jetzt(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_jetzt(p_jetzt timestamp with time zone) RETURNS timestamp with time zone
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin'
+              then coalesce(p_jetzt, now()) else now() end;
+$$;
+
+
+--
+-- Name: slots_kandidaten(date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kandidaten(p_datum date, p_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+begin
+  perform public.slots_admin_pruefen('slots_kandidaten');
+  return coalesce((
+    select jsonb_agg(k.j order by k.j ->> 'name')
+      from (
+        select public.slots_kind_info(b.student_id, v.id) || jsonb_build_object(
+                 'offen', greatest(public.slots_offen(v.id, v_heute), 0),
+                 'verdraengt', public.slots_verdraengt(v.id, v_heute)) as j
+          from public.slots_kinder_basis(v_heute) b
+          join public.vertraege v on v.id = public.slots_vertrag_am(b.student_id, p_datum)
+         where public.slots_zusatz_code(b.student_id, p_datum, p_zeit_id, v_jetzt) is null
+      ) k), '[]');
+end;
+$$;
+
+
+--
+-- Name: slots_kind(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kind(p_student_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt   timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute   date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_vertrag uuid;
+  v_pb      jsonb;
+begin
+  perform public.slots_admin_pruefen('slots_kind');
+  if not exists (select 1 from public.students s where s.id = p_student_id) then
+    perform public.slots_fehler('P0002', 'slots_kind: Kind nicht gefunden');
+  end if;
+  v_vertrag := public.slots_vertrag(p_student_id, v_heute);
+  v_pb := case when v_vertrag is not null then public.slots_planbilanz(v_vertrag, v_heute) end;
+
+  return jsonb_build_object(
+    'kind', public.slots_kind_info(p_student_id, coalesce(v_vertrag, (
+              select v.id from public.vertraege v where v.student_id = p_student_id and v.status = 'abgeschlossen'
+               order by v.vertragsbeginn desc nulls last limit 1))),
+    'zugelassen', public.slots_kind_zugelassen(p_student_id),
+    'vertrag', public.slots_vertrag_json(v_vertrag),
+    'vertrag_laeuft', (select v.vertragsbeginn <= v_heute from public.vertraege v where v.id = v_vertrag),
+    'stammplaetze', public.slots_stammplaetze_aktiv(v_vertrag, v_heute),
+    'fruehere_stammplaetze', coalesce((
+      select jsonb_agg(public.slots_stammplatz_json(s.id) order by s.gueltig_ab desc, s.wochentag)
+        from public.stammplaetze s
+       where s.student_id = p_student_id
+         and least(coalesce(s.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(s.vertrag_id))
+             < greatest(v_heute, s.gueltig_ab)
+         and s.gueltig_bis is distinct from s.gueltig_ab - 1), '[]'),
+    'naechste', coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'termin_id', kt.id, 'datum', kt.datum, 'zeit_id', kt.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn),
+               'ende', public.slots_hhmm(z.ende), 'zustand', kt.zustand, 'herkunft', kt.herkunft,
+               'umgebucht_von', (select a.datum from public.kind_termine a where a.id = kt.umgebucht_von),
+               'absage_eingang', kt.absage_eingang, 'festgeschrieben', kt.session_id is not null)
+             order by kt.datum, z.beginn)
+        from public.kind_termine kt join public.slot_zeiten z on z.id = kt.slot_zeit_id
+       where kt.student_id = p_student_id and public.slots_termin_beginn(kt.datum, kt.slot_zeit_id) > v_jetzt), '[]'),
+    'letzte', coalesce((
+      select jsonb_agg(x.j order by x.t desc) from (
+        select public.slots_termin_beginn(kt.datum, kt.slot_zeit_id) as t, jsonb_build_object(
+                 'termin_id', kt.id, 'datum', kt.datum, 'beginn', public.slots_hhmm(z.beginn), 'zustand', kt.zustand,
+                 'herkunft', kt.herkunft, 'session_id', kt.session_id) as j
+          from public.kind_termine kt join public.slot_zeiten z on z.id = kt.slot_zeit_id
+         where kt.student_id = p_student_id and public.slots_termin_beginn(kt.datum, kt.slot_zeit_id) <= v_jetzt
+        union all
+        select e.beginn, jsonb_build_object('termin_id', null, 'datum', e.datum,
+                 'beginn', to_char(e.beginn at time zone 'Europe/Berlin', 'HH24:MI'), 'zustand', e.attendance,
+                 'herkunft', 'einzel', 'session_id', e.session_id)
+          from public.slots_einzelbuchungen(p_student_id) e where e.beginn <= v_jetzt
+      ) x), '[]'),
+    'einheiten', case when v_pb is not null then jsonb_build_object(
+                   'gesamt', v_pb -> 'einheiten', 'verbraucht', v_pb -> 'verbraucht', 'geplant', v_pb -> 'geplant') end,
+    'planbilanz', v_pb,
+    'weiterfuehren', public.slots_weiterfuehren_vorschlag(p_student_id, v_heute));
+end;
+$$;
+
+
+--
+-- Name: slots_kind_info(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kind_info(p_student_id uuid, p_vertrag_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+           'student_id', s.id,
+           'name', coalesce(nullif(btrim(p.full_name), ''), nullif(btrim(concat_ws(' ', v.kind_vorname, v.kind_nachname)), '')),
+           'klasse', coalesce(s.class_level, v.klasse),
+           'fach', nullif(btrim(v.fach), ''))
+    from public.students s
+    left join public.profiles p on p.id = s.profile_id
+    left join public.vertraege v on v.id = p_vertrag_id
+   where s.id = p_student_id;
+$$;
+
+
+--
+-- Name: slots_kind_zugelassen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kind_zugelassen(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select not s.ist_test from public.students s where s.id = p_student_id), false);
+$$;
+
+
+--
+-- Name: slots_kinder(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kinder(p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+begin
+  perform public.slots_admin_pruefen('slots_kinder');
+  return coalesce((
+    select jsonb_agg(x.j order by x.name)
+      from (
+        select k ->> 'name' as name,
+               k || public.slots_vertrag_json(b.vertrag_id) || jsonb_build_object(
+                 'vertrag_id', b.vertrag_id, 'vertrag_laeuft', b.laeuft, 'ohne_stammplatz', b.ohne_stammplatz,
+                 'stammplaetze', public.slots_stammplaetze_aktiv(b.vertrag_id, v_heute),
+                 'verbraucht', pb -> 'verbraucht', 'geplant', pb -> 'geplant',
+                 'planbilanz', pb - 'uebersprungen',
+                 'folgevertrag_ab', (select min(f.vertragsbeginn) from public.vertraege f
+                                      where f.student_id = b.student_id and f.status = 'abgeschlossen'
+                                        and f.widerrufen_am is null and f.vertragsbeginn > b.stichtag),
+                 'weiterfuehren', public.slots_weiterfuehren_vorschlag(b.student_id, v_heute)) as j
+          from public.slots_kinder_basis(v_heute) b
+          cross join lateral public.slots_kind_info(b.student_id, b.vertrag_id) k
+          cross join lateral public.slots_planbilanz(b.vertrag_id, v_heute) pb
+      ) x), '[]');
+end;
+$$;
+
+
+--
+-- Name: slots_kinder_basis(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kinder_basis(p_heute date) RETURNS TABLE(student_id uuid, vertrag_id uuid, beginn date, stichtag date, laeuft boolean, ohne_stammplatz boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with v as (
+    select distinct on (x.student_id) x.student_id, x.id, x.vertragsbeginn, x.vertrag_ende, x.einheiten
+      from public.vertraege x
+      join public.students s on s.id = x.student_id and not s.ist_test
+     where x.status = 'abgeschlossen'
+       and x.einheiten is not null and x.vertragsbeginn is not null and x.vertrag_ende is not null
+       and x.vertrag_ende >= p_heute
+       and public.vertrag_wirksamer_status(x.widerrufen_am, x.gekuendigt_zum, x.vertrag_ende, x.widerruf_bis, p_heute)
+           in ('aktiv', 'im_widerruf')
+     order by x.student_id, (x.vertragsbeginn <= p_heute) desc, x.vertragsbeginn
+  )
+  select v.student_id, v.id, v.vertragsbeginn, v.vertrag_ende, v.vertragsbeginn <= p_heute,
+         not exists (select 1 from public.stammplaetze sp
+                      where sp.vertrag_id = v.id
+                        and least(coalesce(sp.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(v.id))
+                            >= greatest(p_heute, sp.gueltig_ab))
+         and v.einheiten - public.slots_fest_belegt(v.id, p_heute) > 0
+    from v;
+$$;
+
+
+--
+-- Name: slots_kommende_termine(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kommende_termine(p_student_id uuid, p_nach timestamp with time zone) RETURNS TABLE(beginn timestamp with time zone, datum date, slot_zeit_id uuid, session_id uuid, festgeschrieben boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.slots_termin_beginn(kt.datum, kt.slot_zeit_id), kt.datum, kt.slot_zeit_id, null::uuid, false
+    from public.kind_termine kt
+   where kt.student_id = p_student_id and kt.zustand = 'planned' and kt.session_id is null
+     and public.slots_termin_beginn(kt.datum, kt.slot_zeit_id) > p_nach
+  union all
+  select cs.scheduled_at, public.slots_berlin_tag(cs.scheduled_at), cs.slot_zeit_id, cs.id, true
+    from public.session_students ss
+    join public.coaching_sessions cs on cs.id = ss.session_id
+   where ss.student_id = p_student_id and ss.attendance not in ('cancelled', 'cancelled_by_us')
+     and cs.scheduled_at > p_nach;
+$$;
+
+
+--
+-- Name: slots_naechste_termine_frei(integer, uuid, text, date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_naechste_termine_frei(p_wochentag integer, p_slot_zeit_id uuid, p_takt text, p_ab date, p_ohne_student uuid DEFAULT NULL::uuid) RETURNS TABLE(datum date, kapazitaet integer, belegt integer)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select d.d, public.slot_kapazitaet(d.d, p_slot_zeit_id), public.slot_belegt(d.d, p_slot_zeit_id, p_ohne_student)
+    from (
+      select g::date as d from generate_series(p_ab, p_ab + 7 * 60, interval '1 day') g
+       where extract(isodow from g) = p_wochentag
+         and public.slots_takt_passt(p_takt, g::date)
+         and g::date <= public.slots_planungsgrenze()
+         and public.betriebstag(g::date)
+       order by g
+       limit 6
+    ) d;
+$$;
+
+
+--
+-- Name: slots_offen(uuid, date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_offen(p_vertrag_id uuid, p_heute date, p_ausser uuid DEFAULT NULL::uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select v.einheiten - public.slots_fest_belegt(v.id, p_heute, p_ausser)
+         - (select count(*)::int from public.kind_termine kt
+             where kt.vertrag_id = v.id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
+               and kt.session_id is null and kt.datum >= p_heute and kt.id is distinct from p_ausser)
+    from public.vertraege v where v.id = p_vertrag_id;
+$$;
+
+
+--
+-- Name: slots_plan_rechnen(uuid, date, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_plan_rechnen(p_vertrag_id uuid, p_heute date, p_stammplaetze jsonb DEFAULT NULL::jsonb) RETURNS TABLE(datum date, slot_zeit_id uuid, stammplatz_id uuid, ergebnis text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v       public.vertraege;
+  v_ende  date;
+  v_bis   date;
+  v_von   date;
+  v_rest  integer;
+  c       record;
+  v_tag   date := null;
+begin
+  select * into v from public.vertraege where id = p_vertrag_id;
+  if not found or v.einheiten is null or v.vertragsbeginn is null or v.vertrag_ende is null then
+    return;
+  end if;
+  v_ende := public.slots_vertrag_planende(v.id);
+  v_bis  := least(v_ende, public.slots_planungsgrenze());
+  v_von  := greatest(v.vertragsbeginn, p_heute);
+
+  v_rest := v.einheiten
+    - (select count(*)::int from public.kind_termine kt
+        where kt.vertrag_id = v.id
+          and kt.zustand in ('planned', 'present', 'unexcused')
+          and not (kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null
+                   and kt.datum >= p_heute))
+    - (select count(*)::int from public.slots_einzelbuchungen(v.student_id) e
+        where e.datum between v.vertragsbeginn and v.vertrag_ende
+          and e.attendance in ('planned', 'present', 'unexcused'));
+
+  for c in
+    with sp as (
+      select s.id, s.wochentag, s.slot_zeit_id, s.takt, s.gueltig_ab, s.gueltig_bis
+        from public.stammplaetze s
+       where p_stammplaetze is null and s.vertrag_id = v.id
+      union all
+      select (x ->> 'stammplatz_id')::uuid, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid,
+             x ->> 'takt', (x ->> 'gueltig_ab')::date, (x ->> 'gueltig_bis')::date
+        from jsonb_array_elements(coalesce(p_stammplaetze, '[]'::jsonb)) x
+    ),
+    gesperrt as (
+      select kt.datum from public.kind_termine kt
+       where kt.student_id = v.student_id
+         and not (kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null
+                  and kt.datum >= p_heute)
+      union
+      select e.datum from public.slots_einzelbuchungen(v.student_id) e
+       where e.attendance in ('planned', 'present', 'unexcused')
+    ),
+    kand as (
+      select g::date as d, sp.slot_zeit_id as z, sp.id as sp_id, z.beginn
+        from sp
+        join public.slot_zeiten z on z.id = sp.slot_zeit_id
+        cross join lateral generate_series(greatest(v_von, sp.gueltig_ab),
+                                           least(v_bis, coalesce(sp.gueltig_bis, v_bis)), interval '1 day') g
+       where extract(isodow from g) = sp.wochentag
+         and public.slots_takt_passt(sp.takt, g::date)
+         and public.betriebstag(g::date)
+         and public.slots_zeit_aktiv(sp.slot_zeit_id, g::date)
+         and g::date not in (select gesperrt.datum from gesperrt)
+    )
+    select k.d, k.z, k.sp_id,
+           exists (select 1 from public.kind_termine kt
+                    where kt.student_id = v.student_id and kt.datum = k.d and kt.slot_zeit_id = k.z
+                      and kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null
+                      and kt.datum >= p_heute) as da
+      from kand k
+     order by k.d, k.beginn
+  loop
+    continue when c.d = v_tag;          -- höchstens ein Termin pro Tag
+    v_tag := c.d;
+    datum := c.d; slot_zeit_id := c.z; stammplatz_id := c.sp_id;
+    if v_rest <= 0 then
+      ergebnis := 'ohne_budget';
+    elsif c.da then
+      ergebnis := 'vorhanden'; v_rest := v_rest - 1;
+    elsif public.slot_kapazitaet(c.d, c.z) - public.slot_belegt(c.d, c.z, v.student_id) > 0 then
+      ergebnis := 'neu'; v_rest := v_rest - 1;
+    else
+      ergebnis := 'uebersprungen';
+    end if;
+    return next;
+  end loop;
+end;
+$$;
+
+
+--
+-- Name: slots_planbilanz(uuid, date, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_planbilanz(p_vertrag_id uuid, p_heute date, p_stammplaetze jsonb DEFAULT NULL::jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v        public.vertraege;
+  v_tol    integer := public.slots_toleranz();
+  v_grenze date := public.slots_planungsgrenze();
+  v_v      integer;  v_g integer;  v_o integer;  v_u integer;
+  v_zahl   integer;  v_letzter date;  v_kuenftig boolean;  v_stamm boolean;
+  v_ueber  jsonb;    v_art text;  v_abw jsonb := null;  v_plan jsonb;
+begin
+  select * into v from public.vertraege where id = p_vertrag_id;
+  if not found then
+    return null;
+  end if;
+
+  -- Einmal rechnen, als jsonb festhalten (STABLE: keine temporäre Tabelle).
+  select coalesce(jsonb_agg(to_jsonb(r)), '[]') into v_plan
+    from public.slots_plan_rechnen(v.id, p_heute, p_stammplaetze) r;
+
+  -- Feste Zeilen und Einzelbuchungen des Vertrags; gewählte Plan-Termine kommen dazu.
+  with plan as (
+    select * from jsonb_to_recordset(v_plan) as x(datum date, slot_zeit_id uuid, stammplatz_id uuid, ergebnis text)
+  ),
+  fest as (
+    select kt.datum, kt.zustand, kt.herkunft from public.kind_termine kt
+     where kt.vertrag_id = v.id
+       and not (kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null
+                and kt.datum >= p_heute)
+    union all
+    select e.datum, e.attendance, 'einzel' from public.slots_einzelbuchungen(v.student_id) e
+     where e.datum between v.vertragsbeginn and v.vertrag_ende
+    union all
+    select p.datum, 'planned', 'stammplatz' from plan p where p.ergebnis in ('vorhanden', 'neu')
+  )
+  select count(*) filter (where public.einheit_verbraucht(f.zustand)),
+         count(*) filter (where f.zustand = 'planned'),
+         count(*) filter (where f.herkunft = 'stammplatz'),
+         max(f.datum) filter (where f.zustand in ('planned', 'present', 'unexcused')),
+         coalesce(bool_or(f.zustand = 'planned' and f.datum >= p_heute), false),
+         (select count(*) from plan p where p.ergebnis = 'ohne_budget'),
+         (select coalesce(jsonb_agg(p.datum order by p.datum), '[]') from plan p where p.ergebnis = 'uebersprungen')
+    into v_v, v_g, v_zahl, v_letzter, v_kuenftig, v_u, v_ueber
+    from fest f;
+
+  v_zahl := v_zahl + v_u;
+  v_o := v.einheiten - v_v - v_g;
+
+  if p_stammplaetze is null then
+    select exists (select 1 from public.stammplaetze s
+                    where s.vertrag_id = v.id
+                      and coalesce(s.gueltig_bis, 'infinity'::date) >= greatest(p_heute, s.gueltig_ab))
+      into v_stamm;
+  else
+    select exists (select 1 from jsonb_array_elements(p_stammplaetze) x
+                    where coalesce((x ->> 'gueltig_bis')::date, 'infinity'::date)
+                          >= greatest(p_heute, (x ->> 'gueltig_ab')::date))
+      into v_stamm;
+  end if;
+
+  v_art := case
+    when v_o > 0 and not v_stamm then 'kein_stammplatz'
+    when not v_kuenftig and v_o <= 0 then 'aufgebraucht'
+    when v_u > v_tol then 'reicht_bis'
+    when v_o > v_tol then 'ohne_termin'
+    else 'passt'
+  end;
+  if v_art = 'passt' and v_u between 1 and v_tol then
+    v_abw := jsonb_build_object('art', 'ohne_einheit', 'zahl', v_u);
+  elsif v_art = 'passt' and v_o between 1 and v_tol then
+    v_abw := jsonb_build_object('art', 'ohne_termin', 'zahl', v_o);
+  end if;
+
+  return jsonb_build_object(
+    'art', v_art,
+    'einheiten', v.einheiten, 'verbraucht', v_v, 'geplant', v_g, 'ohne_termin', v_o, 'ohne_einheit', v_u,
+    'terminzahl', v_zahl, 'letzter_termin', v_letzter,
+    'datum', case when v_art = 'reicht_bis' then v_letzter end,
+    'zahl', case v_art when 'ohne_termin' then v_o when 'reicht_bis' then v_u end,
+    'abweichung', v_abw,
+    'uebersprungen', v_ueber,
+    'jenseits_ferientabelle', v.vertrag_ende > v_grenze,
+    'hinweis', case when v.vertrag_ende > v_grenze then 'SL012' end,
+    'toleranz', v_tol);
+end;
+$$;
+
+
+--
+-- Name: slots_planbilanz_vorschau(uuid, jsonb, date, uuid[], timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_planbilanz_vorschau(p_student_id uuid, p_zeilen jsonb, p_ab date, p_ersetzt uuid[] DEFAULT NULL::uuid[], p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute   date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_vertrag uuid := coalesce(public.slots_vertrag_am(p_student_id, p_ab), public.slots_vertrag(p_student_id, v_heute));
+  v_ersetzt uuid[];
+  v_sp      jsonb;
+  v_pb      jsonb;
+begin
+  perform public.slots_admin_pruefen('slots_planbilanz_vorschau');
+  select coalesce(p_ersetzt, array_agg(s.id)) into v_ersetzt
+    from public.stammplaetze s
+   where s.vertrag_id = v_vertrag
+     and least(coalesce(s.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(v_vertrag)) >= p_ab;
+
+  select coalesce(jsonb_agg(jsonb_build_object(
+           'stammplatz_id', s.id, 'wochentag', s.wochentag, 'slot_zeit_id', s.slot_zeit_id, 'takt', s.takt,
+           'gueltig_ab', s.gueltig_ab,
+           'gueltig_bis', case when s.id = any (coalesce(v_ersetzt, '{}'))
+                               then greatest(s.gueltig_ab - 1, p_ab - 1) else s.gueltig_bis end)), '[]')
+    into v_sp
+    from public.stammplaetze s where s.vertrag_id = v_vertrag;
+  select v_sp || coalesce(jsonb_agg(jsonb_build_object(
+           'stammplatz_id', null, 'wochentag', (x ->> 'wochentag')::int, 'slot_zeit_id', x ->> 'slot_zeit_id',
+           'takt', x ->> 'takt', 'gueltig_ab', p_ab, 'gueltig_bis', null)), '[]')
+    into v_sp
+    from jsonb_array_elements(coalesce(p_zeilen, '[]')) x;
+
+  v_pb := case when v_vertrag is not null then public.slots_planbilanz(v_vertrag, v_heute, v_sp) end;
+  return jsonb_build_object(
+    'planbilanz', v_pb,
+    'terminzahl', v_pb -> 'terminzahl', 'letzter_termin', v_pb -> 'letzter_termin',
+    'uebersprungen', coalesce(v_pb -> 'uebersprungen', '[]'),
+    'gruende', public.slots_stammplatz_gruende(p_student_id, p_zeilen, p_ab, v_heute, coalesce(v_ersetzt, '{}')));
+end;
+$$;
+
+
+--
+-- Name: slots_planen_slot(integer, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_planen_slot(p_wochentag integer, p_slot_zeit_id uuid, p_jetzt timestamp with time zone) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_st uuid;
+begin
+  for v_st in
+    select distinct s.student_id from public.stammplaetze s
+     where (p_wochentag is null or s.wochentag = p_wochentag)
+       and (p_slot_zeit_id is null or s.slot_zeit_id = p_slot_zeit_id)
+       and coalesce(s.gueltig_bis, 'infinity'::date) >= public.slots_berlin_tag(p_jetzt)
+  loop
+    perform public.termine_planen(v_st, p_jetzt);
+  end loop;
+end;
+$$;
+
+
+--
+-- Name: slots_planungsgrenze(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_planungsgrenze() RETURNS date
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select max(f.bis) from public.ferien_nrw f;
+$$;
+
+
+--
+-- Name: slots_session(date, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_session(p_datum date, p_slot_zeit_id uuid, p_raum_id uuid) RETURNS public.coaching_sessions
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select cs.* from public.coaching_sessions cs
+   where cs.raum_id = p_raum_id and cs.slot_zeit_id = p_slot_zeit_id
+     and cs.scheduled_at = public.slots_termin_beginn(p_datum, p_slot_zeit_id);
+$$;
+
+
+--
+-- Name: slots_sperren(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_sperren() RETURNS void
+    LANGUAGE sql
+    AS $$
+  select pg_advisory_xact_lock(hashtext('slots'));
+$$;
+
+
+--
+-- Name: slots_stammplaetze_aktiv(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_stammplaetze_aktiv(p_vertrag_id uuid, p_heute date) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(jsonb_agg(public.slots_stammplatz_json(s.id) order by s.wochentag, z.beginn), '[]')
+    from public.stammplaetze s join public.slot_zeiten z on z.id = s.slot_zeit_id
+   where s.vertrag_id = p_vertrag_id
+     and least(coalesce(s.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(p_vertrag_id))
+         >= greatest(p_heute, s.gueltig_ab);
+$$;
+
+
+--
+-- Name: slots_stammplatz_gruende(uuid, jsonb, date, date, uuid[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_stammplatz_gruende(p_student_id uuid, p_zeilen jsonb, p_ab date, p_heute date, p_ausser uuid[] DEFAULT '{}'::uuid[]) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_vertrag uuid := public.slots_vertrag_am(p_student_id, p_ab);
+  v_out     jsonb := '[]';
+  z         record;
+  y         record;
+  f         record;
+begin
+  if p_ab is null or p_ab < p_heute then
+    v_out := v_out || jsonb_build_object('code', 'SL007', 'zeile', null);
+  end if;
+  if v_vertrag is null then
+    v_out := v_out || jsonb_build_object('code', 'SL006', 'zeile', null);
+  end if;
+  if p_ab > public.slots_planungsgrenze() then
+    v_out := v_out || jsonb_build_object('code', 'SL012', 'zeile', null);
+  end if;
+
+  for z in
+    select (x.o - 1)::int as i, (x.v ->> 'wochentag')::int as w, (x.v ->> 'slot_zeit_id')::uuid as sz, x.v ->> 'takt' as t
+      from jsonb_array_elements(coalesce(p_zeilen, '[]')) with ordinality x(v, o)
+  loop
+    if z.w is null or z.w not between 1 and 5 or z.t is null or z.t not in ('woechentlich', 'a_woche', 'b_woche')
+       or z.sz is null or not public.slots_zeit_aktiv(z.sz, coalesce(p_ab, p_heute)) then
+      perform public.slots_fehler('22023', 'Stammplatz: Zeile ' || (z.i + 1) || ' ist unvollständig oder die Uhrzeit ist nicht aktiv');
+    end if;
+
+    -- SL008: zwei Stammplätze, die auf denselben Tag fallen können (gleicher Wochentag, Takte überlappen).
+    for y in
+      select (x.o - 1)::int as i, (x.v ->> 'wochentag')::int as w, x.v ->> 'takt' as t
+        from jsonb_array_elements(p_zeilen) with ordinality x(v, o)
+       where (x.o - 1) < z.i
+      union all
+      select null, s.wochentag, s.takt from public.stammplaetze s
+       where s.student_id = p_student_id and not s.id = any (coalesce(p_ausser, '{}'))
+         and least(coalesce(s.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(s.vertrag_id)) >= p_ab
+    loop
+      if y.w = z.w and (y.t = 'woechentlich' or z.t = 'woechentlich' or y.t = z.t) then
+        v_out := v_out || jsonb_build_object('code', 'SL008', 'zeile', z.i);
+        exit;
+      end if;
+    end loop;
+
+    -- SL002 / SL001: einer der nächsten sechs Termine ab "gültig ab" ohne Raum oder voll.
+    for f in
+      select * from public.slots_naechste_termine_frei(z.w, z.sz, z.t, greatest(p_ab, p_heute), p_student_id)
+       order by datum
+    loop
+      if f.kapazitaet = 0 then
+        v_out := v_out || jsonb_build_object('code', 'SL002', 'zeile', z.i, 'datum', f.datum);
+        exit;
+      elsif f.belegt >= f.kapazitaet then
+        v_out := v_out || jsonb_build_object('code', 'SL001', 'zeile', z.i, 'datum', f.datum);
+        exit;
+      end if;
+    end loop;
+  end loop;
+  return v_out;
+end;
+$$;
+
+
+--
+-- Name: slots_stammplatz_json(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_stammplatz_json(p_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object('id', s.id, 'wochentag', s.wochentag, 'zeit_id', s.slot_zeit_id,
+                            'beginn', public.slots_hhmm(z.beginn), 'takt', s.takt,
+                            'gueltig_ab', s.gueltig_ab, 'gueltig_bis', s.gueltig_bis, 'vorgaenger_id', s.vorgaenger_id)
+    from public.stammplaetze s join public.slot_zeiten z on z.id = s.slot_zeit_id
+   where s.id = p_id;
+$$;
+
+
+--
+-- Name: slots_tag(date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_tag(p_datum date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  perform public.slots_admin_pruefen('slots_tag');
+  return jsonb_build_object(
+    'datum', p_datum,
+    'betrieb', public.betriebstag(p_datum), 'anlass', public.slots_anlass(p_datum),
+    'raum_termine', coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'zeit_id', r.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn), 'ende', public.slots_hhmm(z.ende),
+               'raum_id', r.raum_id, 'raum_name', r.raum_name,
+               'coach_id', r.coach_id, 'coach_name', (select p.full_name from public.profiles p where p.id = r.coach_id),
+               'art', r.art, 'kapazitaet', 5,
+               'belegt', (select count(*) from public.slot_zuteilung(p_datum, r.slot_zeit_id) t where t.raum_id = r.raum_id),
+               'session_id', s.id, 'gestartet', s.gestartet_am is not null, 'status', s.status)
+             order by z.beginn, r.raum_name)
+        from public.slot_raeume(p_datum, p_datum) r
+        join public.slot_zeiten z on z.id = r.slot_zeit_id
+        left join lateral (select * from public.slots_session(p_datum, r.slot_zeit_id, r.raum_id)) s on true
+       where r.offen or s.id is not null), '[]'),
+    -- Sessions ohne Raum-Termin: Einzel-Sessions und Testläufe, jede genau einmal.
+    'sessions_ohne_raum', coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'session_id', cs.id, 'scheduled_at', cs.scheduled_at, 'room', cs.room, 'status', cs.status,
+               'coach_id', cs.coach_id, 'coach_name', (select p.full_name from public.profiles p where p.id = cs.coach_id),
+               'testlauf', cs.testlauf, 'gestartet', cs.gestartet_am is not null,
+               'kinder', (select count(*) from public.session_students ss
+                           where ss.session_id = cs.id and ss.attendance not in ('cancelled', 'cancelled_by_us')))
+             order by cs.scheduled_at, cs.room)
+        from public.coaching_sessions cs
+       where cs.raum_id is null and public.slots_berlin_tag(cs.scheduled_at) = p_datum), '[]'),
+    'absagen', coalesce((
+      select jsonb_agg(public.slots_kind_info(kt.student_id, kt.vertrag_id) || jsonb_build_object(
+               'termin_id', kt.id, 'beginn', public.slots_hhmm(z.beginn), 'zustand', kt.zustand,
+               'absage_eingang', kt.absage_eingang, 'rechtzeitig', kt.zustand = 'cancelled')
+             order by z.beginn, kt.absage_eingang)
+        from public.kind_termine kt join public.slot_zeiten z on z.id = kt.slot_zeit_id
+       where kt.datum = p_datum and kt.absage_eingang is not null and kt.zustand in ('cancelled', 'unexcused')), '[]'));
+end;
+$$;
+
+
+--
+-- Name: slots_takt_passt(text, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_takt_passt(p_takt text, p_datum date) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case p_takt
+           when 'woechentlich' then true
+           when 'a_woche' then extract(week from p_datum)::int % 2 = 1
+           when 'b_woche' then extract(week from p_datum)::int % 2 = 0
+           else false
+         end;
+$$;
+
+
+--
+-- Name: slots_termin(date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_termin(p_datum date, p_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt  timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute  date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  z        public.slot_zeiten;
+  v_beginn timestamptz;
+  v_raeume jsonb;
+  v_ohne   jsonb;
+  v_nicht  jsonb;
+begin
+  perform public.slots_admin_pruefen('slots_termin');
+  select * into z from public.slot_zeiten where id = p_zeit_id;
+  if not found then
+    perform public.slots_fehler('P0002', 'slots_termin: Uhrzeit nicht gefunden');
+  end if;
+  v_beginn := public.slots_termin_beginn(p_datum, p_zeit_id);
+
+  with t as (
+    select t.termin_id, t.raum_id, t.grund,
+           public.slots_kind_info(kt.student_id, kt.vertrag_id) || jsonb_build_object(
+             'termin_id', kt.id, 'herkunft', kt.herkunft, 'zustand', kt.zustand, 'raum_fest', kt.raum_fest,
+             'session_id', kt.session_id,
+             'umgebucht_von', (select jsonb_build_object('termin_id', a.id, 'datum', a.datum,
+                                                         'beginn', public.slots_hhmm(az.beginn))
+                                 from public.kind_termine a join public.slot_zeiten az on az.id = a.slot_zeit_id
+                                where a.id = kt.umgebucht_von)) as kind
+      from public.slot_zuteilung(p_datum, p_zeit_id) t
+      join public.kind_termine kt on kt.id = t.termin_id
+  ),
+  r as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id)
+  select coalesce(jsonb_agg(jsonb_build_object(
+           'raum_id', r.raum_id, 'name', r.raum_name, 'offen', r.offen, 'art', r.art,
+           'coach_id', r.coach_id, 'coach_name', (select p.full_name from public.profiles p where p.id = r.coach_id),
+           'stamm_coach_id', r.stamm_coach_id,
+           'stamm_coach_name', (select p.full_name from public.profiles p where p.id = r.stamm_coach_id),
+           'vertretung', r.art = 'vertretung',
+           'session_id', s.id, 'gestartet', s.gestartet_am is not null,
+           'gemischt', (select count(distinct coalesce(t.kind ->> 'fach', '')) from t where t.raum_id = r.raum_id) > 1,
+           'kinder', coalesce((select jsonb_agg(t.kind order by t.kind ->> 'name') from t where t.raum_id = r.raum_id), '[]'))
+         order by r.raum_name), '[]'),
+         coalesce((select jsonb_agg(t.kind order by t.kind ->> 'name') from t where t.raum_id is null), '[]')
+    into v_raeume, v_ohne
+    from r
+    left join lateral (select * from public.slots_session(p_datum, p_zeit_id, r.raum_id)) s on true;
+
+  select coalesce(jsonb_agg(public.slots_kind_info(kt.student_id, kt.vertrag_id) || jsonb_build_object(
+           'termin_id', kt.id, 'zustand', kt.zustand, 'herkunft', kt.herkunft,
+           'absage_eingang', kt.absage_eingang,
+           'rechtzeitig', case when kt.absage_eingang is not null then kt.zustand = 'cancelled' end,
+           'zuruecknehmbar', kt.absage_eingang is not null and v_beginn > v_jetzt
+                             and not exists (select 1 from public.coaching_sessions cs
+                                              where cs.id = kt.session_id and cs.gestartet_am is not null))
+         order by kt.absage_eingang nulls last, kt.id), '[]')
+    into v_nicht
+    from public.kind_termine kt
+   where kt.datum = p_datum and kt.slot_zeit_id = p_zeit_id
+     and kt.zustand in ('cancelled', 'unexcused', 'cancelled_by_us');
+
+  return jsonb_build_object(
+    'datum', p_datum, 'kw', extract(week from p_datum)::int,
+    'zeit', jsonb_build_object('id', z.id, 'beginn', public.slots_hhmm(z.beginn), 'ende', public.slots_hhmm(z.ende)),
+    'betrieb', public.betriebstag(p_datum), 'anlass', public.slots_anlass(p_datum),
+    'heute', p_datum = v_heute, 'vergangen', p_datum < v_heute, 'begonnen', v_beginn <= v_jetzt,
+    'festgeschrieben', exists (select 1 from public.coaching_sessions cs
+                                where cs.slot_zeit_id = p_zeit_id and cs.scheduled_at = v_beginn),
+    'kapazitaet', public.slot_kapazitaet(p_datum, p_zeit_id),
+    'belegt', public.slot_belegt(p_datum, p_zeit_id),
+    'raeume', v_raeume, 'ohne_raum', v_ohne, 'nicht_dabei', v_nicht,
+    'anwesenheit_fehlt', p_datum < v_heute and exists (select 1 from public.kind_termine kt
+                                                        where kt.datum = p_datum and kt.slot_zeit_id = p_zeit_id
+                                                          and kt.zustand = 'planned'),
+    'raeume_schliessbar', coalesce((select jsonb_agg(jsonb_build_object('raum_id', x.id, 'name', x.name) order by x.name)
+                             from public.raeume x
+                            where x.aktiv_ab <= p_datum and (x.inaktiv_ab is null or p_datum < x.inaktiv_ab)
+                              and not exists (select 1 from public.slot_raeume(p_datum, p_datum) y
+                                               where y.slot_zeit_id = p_zeit_id and y.raum_id = x.id and y.offen)), '[]'),
+    'coaches', coalesce((select jsonb_agg(jsonb_build_object(
+                 'id', p.id, 'name', p.full_name,
+                 'raum_id', (select y.raum_id from public.slot_raeume(p_datum, p_datum) y
+                              where y.slot_zeit_id = p_zeit_id and y.coach_id = p.id limit 1))
+               order by p.full_name) from public.profiles p where p.role = 'coach'), '[]'));
+end;
+$$;
+
+
+--
+-- Name: slots_termin_beginn(date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_termin_beginn(p_datum date, p_slot_zeit_id uuid) RETURNS timestamp with time zone
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select ((p_datum + z.beginn)::timestamp at time zone 'Europe/Berlin')
+    from public.slot_zeiten z where z.id = p_slot_zeit_id;
+$$;
+
+
+--
+-- Name: slots_toleranz(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_toleranz() RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select (e.wert #>> '{}')::integer from public.session_einstellungen e
+                    where e.schluessel = 'slots_planbilanz_toleranz'), 2);
+$$;
+
+
+--
+-- Name: slots_verdraengt(uuid, date, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_verdraengt(p_vertrag_id uuid, p_heute date, p_ausser uuid DEFAULT NULL::uuid, p_alt uuid DEFAULT NULL::uuid) RETURNS date
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when public.slots_offen(p_vertrag_id, p_heute, p_ausser) < 1 then
+           (select max(kt.datum) from public.kind_termine kt
+             where kt.vertrag_id = p_vertrag_id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
+               and kt.session_id is null and kt.datum >= p_heute
+               and kt.id is distinct from coalesce(p_ausser, p_alt)) end;
+$$;
+
+
+--
+-- Name: slots_vertrag(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_vertrag(p_student_id uuid, p_heute date) RETURNS uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select v.id
+    from public.vertraege v
+   where v.student_id = p_student_id
+     and v.status = 'abgeschlossen'
+     and v.einheiten is not null and v.vertragsbeginn is not null and v.vertrag_ende is not null
+     and v.vertrag_ende >= p_heute
+     and public.vertrag_wirksamer_status(v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_heute)
+         in ('aktiv', 'im_widerruf')
+   order by (v.vertragsbeginn <= p_heute) desc, v.vertragsbeginn
+   limit 1;
+$$;
+
+
+--
+-- Name: slots_vertrag_am(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_vertrag_am(p_student_id uuid, p_datum date) RETURNS uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select v.id
+    from public.vertraege v
+   where v.student_id = p_student_id
+     and v.status = 'abgeschlossen'
+     and v.einheiten is not null and v.vertragsbeginn is not null and v.vertrag_ende is not null
+     and p_datum between v.vertragsbeginn and public.slots_vertrag_planende(v.id)
+   order by v.vertragsbeginn desc
+   limit 1;
+$$;
+
+
+--
+-- Name: slots_vertrag_geaendert(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_vertrag_geaendert() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_ende date;
+begin
+  if new.student_id is null then
+    return null;
+  end if;
+  perform public.slots_sperren();
+  if new.widerrufen_am is not null then
+    v_ende := new.widerrufen_am;
+  elsif new.gekuendigt_zum is not null then
+    v_ende := new.gekuendigt_zum - 1;
+  end if;
+  if v_ende is not null then
+    update public.stammplaetze s
+       set gueltig_bis = greatest(s.gueltig_ab - 1, v_ende),
+           beendet_am = coalesce(s.beendet_am, now()), beendet_von = coalesce(s.beendet_von, auth.uid())
+     where s.vertrag_id = new.id
+       and coalesce(s.gueltig_bis, 'infinity'::date) > v_ende;
+  end if;
+  perform public.termine_planen(new.student_id);
+  return null;
+end;
+$$;
+
+
+--
+-- Name: slots_vertrag_json(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_vertrag_json(p_vertrag_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+           'vertrag_id', v.id, 'paket', t.name, 'laufzeit_monate', v.laufzeit_monate, 'einheiten', v.einheiten,
+           'beginn', v.vertragsbeginn, 'stichtag', v.vertrag_ende, 'gekuendigt_zum', v.gekuendigt_zum,
+           'rhythmus', (select jsonb_build_object('woechentlich', r.woechentlich, 'vierzehntaeglich', r.vierzehntaeglich)
+                          from public.slot_rhythmus r where r.tier_id = v.tier_id and r.laufzeit_monate = v.laufzeit_monate))
+    from public.vertraege v left join public.tiers t on t.id = v.tier_id
+   where v.id = p_vertrag_id;
+$$;
+
+
+--
+-- Name: slots_vertrag_planende(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_vertrag_planende(p_vertrag_id uuid) RETURNS date
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when v.widerrufen_am is not null then v.widerrufen_am - 1
+              else least(v.vertrag_ende, v.gekuendigt_zum - 1) end
+    from public.vertraege v where v.id = p_vertrag_id;
+$$;
+
+
+--
+-- Name: slots_weiterfuehren_vorschlag(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_weiterfuehren_vorschlag(p_student_id uuid, p_heute date) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with neu as (
+    select v.id, v.vorgaenger_id, greatest(v.vertragsbeginn, p_heute) as ab
+      from public.vertraege v
+     where v.student_id = p_student_id and v.status = 'abgeschlossen' and v.widerrufen_am is null
+       and v.vorgaenger_id is not null and v.vertrag_ende >= p_heute
+       and not exists (select 1 from public.stammplaetze s where s.vertrag_id = v.id)
+     order by v.vertragsbeginn
+     limit 1
+  )
+  select jsonb_build_object(
+           'vertrag_id', n.id, 'ab', n.ab,
+           'zeilen', coalesce((select jsonb_agg(jsonb_build_object('vorgaenger_id', s.id, 'wochentag', s.wochentag,
+                                                                    'slot_zeit_id', s.slot_zeit_id, 'takt', s.takt,
+                                                                    'beginn', z.beginn)
+                                                order by s.wochentag, z.beginn)
+                                 from public.stammplaetze s join public.slot_zeiten z on z.id = s.slot_zeit_id
+                                where s.vertrag_id = n.vorgaenger_id
+                                  and s.gueltig_ab <= public.slots_vertrag_planende(n.vorgaenger_id)
+                                  and coalesce(s.gueltig_bis, 'infinity'::date) >= public.slots_vertrag_planende(n.vorgaenger_id)),
+                              '[]'))
+    from neu n;
+$$;
+
+
+--
+-- Name: slots_woche(date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_woche(p_montag date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_mo    date := p_montag - (extract(isodow from p_montag)::int - 1);
+  v_tage  jsonb;
+  v_zeiten jsonb;
+  v_zellen jsonb;
+  v_kinder jsonb;
+begin
+  perform public.slots_admin_pruefen('slots_woche');
+
+  select jsonb_agg(jsonb_build_object(
+           'datum', g::date, 'wochentag', extract(isodow from g)::int, 'betrieb', public.betriebstag(g::date),
+           'anlass', case when not public.betriebstag(g::date) then public.slots_anlass(g::date) end,
+           'heute', g::date = v_heute, 'vergangen', g::date < v_heute) order by g)
+    into v_tage
+    from generate_series(v_mo, v_mo + 4, interval '1 day') g;
+
+  select coalesce(jsonb_agg(jsonb_build_object('id', z.id, 'beginn', public.slots_hhmm(z.beginn),
+                                               'ende', public.slots_hhmm(z.ende)) order by z.beginn), '[]')
+    into v_zeiten
+    from public.slot_zeiten z
+   where z.aktiv_ab <= v_mo + 4 and (z.inaktiv_ab is null or z.inaktiv_ab > v_mo);
+
+  select coalesce(jsonb_agg(public.slots_zelle(g::date, z.id)
+                            || jsonb_build_object('datum', g::date, 'zeit_id', z.id,
+                                                  'vergangen', public.slots_termin_beginn(g::date, z.id) <= v_jetzt)
+                            order by g, z.beginn), '[]')
+    into v_zellen
+    from generate_series(v_mo, v_mo + 4, interval '1 day') g
+    join public.slot_zeiten z on z.aktiv_ab <= g::date and (z.inaktiv_ab is null or g::date < z.inaktiv_ab)
+   where public.betriebstag(g::date);
+
+  select jsonb_build_object('ohne_stammplatz', count(*) filter (where b.ohne_stammplatz),
+                            'ohne_stammplatz_laufend', count(*) filter (where b.ohne_stammplatz and b.laeuft))
+    into v_kinder
+    from public.slots_kinder_basis(v_heute) b;
+
+  return jsonb_build_object(
+    'montag', v_mo, 'kw', extract(week from v_mo)::int, 'a_woche', extract(week from v_mo)::int % 2 = 1,
+    'heute', v_heute,
+    'tage', v_tage, 'zeiten', v_zeiten, 'zellen', v_zellen,
+    'kopf', jsonb_build_object(
+      'plaetze', (select coalesce(sum((c ->> 'kapazitaet')::int), 0) from jsonb_array_elements(v_zellen) c),
+      'belegt', (select coalesce(sum((c ->> 'belegt')::int), 0) from jsonb_array_elements(v_zellen) c),
+      'auslastung', (select case when sum((c ->> 'kapazitaet')::int) > 0
+                                 then round(sum((c ->> 'belegt')::int)::numeric / sum((c ->> 'kapazitaet')::int), 3) end
+                       from jsonb_array_elements(v_zellen) c),
+      'ohne_raum', (select coalesce(sum((c ->> 'ohne_raum')::int), 0) from jsonb_array_elements(v_zellen) c),
+      'erster_ohne_raum', (select jsonb_build_object('datum', c -> 'datum', 'zeit_id', c -> 'zeit_id')
+                             from jsonb_array_elements(v_zellen) with ordinality x(c, o)
+                            where (c ->> 'ohne_raum')::int > 0 order by o limit 1),
+      'ohne_stammplatz', v_kinder -> 'ohne_stammplatz',
+      'ohne_stammplatz_laufend', v_kinder -> 'ohne_stammplatz_laufend'));
+end;
+$$;
+
+
+--
+-- Name: slots_woche_aktiv(uuid, date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_woche_aktiv(p_student_id uuid, p_datum date, p_ausser uuid DEFAULT NULL::uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with woche as (select (p_datum - (extract(isodow from p_datum)::int - 1)) as mo)
+  select (select count(*)::int from public.kind_termine kt, woche w
+           where kt.student_id = p_student_id and kt.datum between w.mo and w.mo + 6
+             and kt.zustand in ('planned', 'present', 'unexcused') and kt.id is distinct from p_ausser)
+       + (select count(*)::int from public.slots_einzelbuchungen(p_student_id) e, woche w
+           where e.datum between w.mo and w.mo + 6 and e.attendance in ('planned', 'present', 'unexcused'));
+$$;
+
+
+--
+-- Name: slots_wochengrenze(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_wochengrenze(p_student_id uuid, p_datum date) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with woche as (
+    select (p_datum - (extract(isodow from p_datum)::int - 1)) as mo
+  ),
+  stamm as (
+    select count(*)::int as n
+      from public.stammplaetze s, woche w
+     where s.student_id = p_student_id
+       and s.gueltig_ab <= w.mo + 4
+       and least(coalesce(s.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(s.vertrag_id)) >= w.mo
+       and public.slots_takt_passt(s.takt, w.mo)
+  ),
+  paket as (
+    select r.woechentlich + case when extract(week from p_datum)::int % 2 = 1 then r.vierzehntaeglich else 0 end as n
+      from public.vertraege v
+      join public.slot_rhythmus r on r.tier_id = v.tier_id and r.laufzeit_monate = v.laufzeit_monate
+     where v.id = public.slots_vertrag_am(p_student_id, p_datum)
+  )
+  select case when (select n from stamm) > 0 then (select n from stamm)
+              else coalesce((select n from paket), 1) end + 2;
+$$;
+
+
+--
+-- Name: slots_zaehler(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_zaehler(p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_ohne_st integer;
+  v_ohne_r  integer;
+begin
+  perform public.slots_admin_pruefen('slots_zaehler');
+  select count(*) into v_ohne_st from public.slots_kinder_basis(v_heute) b
+   where b.ohne_stammplatz and b.beginn <= v_heute + 14;
+  select coalesce(sum(x.n), 0) into v_ohne_r
+    from (select (select count(*) from public.slot_zuteilung(g::date, z.id) t where t.raum_id is null) as n
+            from generate_series(v_heute, v_heute + 6, interval '1 day') g
+            join public.slot_zeiten z on z.aktiv_ab <= g::date and (z.inaktiv_ab is null or g::date < z.inaktiv_ab)
+           where public.betriebstag(g::date)
+             and exists (select 1 from public.kind_termine kt where kt.datum = g::date and kt.slot_zeit_id = z.id)) x;
+  return jsonb_build_object('ohne_stammplatz', v_ohne_st, 'ohne_raum', v_ohne_r, 'gesamt', v_ohne_st + v_ohne_r);
+end;
+$$;
+
+
+--
+-- Name: slots_zeit_aktiv(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_zeit_aktiv(p_slot_zeit_id uuid, p_datum date) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.slot_zeiten z
+                  where z.id = p_slot_zeit_id and z.aktiv_ab <= p_datum
+                    and (z.inaktiv_ab is null or p_datum < z.inaktiv_ab));
+$$;
+
+
+--
+-- Name: slots_zelle(date, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_zelle(p_datum date, p_zeit_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with r as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id),
+  t as (
+    select t.*, kt.vertrag_id from public.slot_zuteilung(p_datum, p_zeit_id) t
+      join public.kind_termine kt on kt.id = t.termin_id
+  )
+  select jsonb_build_object(
+    'kapazitaet', 5 * (select count(*) from r where r.offen),
+    'belegt', (select count(*) from t),
+    'ohne_raum', (select count(*) from t where t.raum_id is null),
+    'coach_fehlt', (select count(*) from r where r.art = 'faellt_aus' and r.stamm_coach_id is not null),
+    'raeume', coalesce((select jsonb_agg(jsonb_build_object(
+                 'raum_id', r.raum_id, 'name', r.raum_name, 'offen', r.offen, 'art', r.art,
+                 'coach_id', r.coach_id, 'belegt', (select count(*) from t where t.raum_id = r.raum_id))
+               order by r.raum_name) from r), '[]'),
+    'faecher', coalesce((select jsonb_agg(jsonb_build_object('fach', f.fach, 'zahl', f.n) order by f.n desc, f.fach)
+                           from (select t.fach, count(*) as n from t group by t.fach) f), '[]'));
+$$;
+
+
+--
+-- Name: slots_ziele(uuid, uuid, timestamp with time zone, date, integer, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_ziele(p_student_id uuid, p_ausser_termin_id uuid, p_eingang timestamp with time zone, p_ab date, p_wochen integer DEFAULT 4, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt   timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute   date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_ab      date := greatest(coalesce(p_ab, v_heute), v_heute);
+  v_alt     public.kind_termine;
+  v_frei    uuid;
+  v_spaet   boolean := false;
+  v_extra   integer := 0;
+  v_budget  integer;
+begin
+  perform public.slots_admin_pruefen('slots_ziele');
+  if p_ausser_termin_id is not null then
+    select * into v_alt from public.kind_termine where id = p_ausser_termin_id and student_id = p_student_id;
+    if not found then
+      perform public.slots_fehler('P0002', 'slots_ziele: Termin nicht gefunden');
+    end if;
+    v_spaet := p_eingang is not null and (p_eingang at time zone 'Europe/Berlin') >= (v_alt.datum + time '10:00');
+    v_frei := case when v_spaet then null else v_alt.id end;
+    -- Zu spät abgesagt: ein beweglicher alter Termin wird fest ("unentschuldigt") und belegt dann neben
+    -- dem neuen Termin eine eigene Einheit (Anforderung G 42).
+    if v_spaet and v_alt.herkunft = 'stammplatz' and v_alt.zustand = 'planned' and v_alt.session_id is null
+       and v_alt.datum >= v_heute then
+      v_extra := 1;
+    end if;
+  end if;
+  select v.einheiten - public.slots_fest_belegt(v.id, v_heute, v_frei) - 1 - v_extra into v_budget
+    from public.vertraege v where v.id = coalesce(v_alt.vertrag_id, public.slots_vertrag(p_student_id, v_heute));
+
+  return jsonb_build_object(
+    'ab', v_ab, 'wochen', coalesce(p_wochen, 4),
+    'alt_verbraucht', v_spaet,
+    'ziele', coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'datum', g::date, 'zeit_id', z.id, 'beginn', public.slots_hhmm(z.beginn), 'ende', public.slots_hhmm(z.ende),
+               'frei', public.slot_kapazitaet(g::date, z.id) - public.slot_belegt(g::date, z.id, p_student_id),
+               'verdraengt', public.slots_verdraengt(public.slots_vertrag_am(p_student_id, g::date), v_heute,
+                                                     v_frei, v_alt.id))
+             order by g, z.beginn)
+        from generate_series(v_ab, v_ab + 7 * coalesce(p_wochen, 4) - 1, interval '1 day') g
+        join public.slot_zeiten z on z.aktiv_ab <= g::date and (z.inaktiv_ab is null or g::date < z.inaktiv_ab)
+       where extract(isodow from g) between 1 and 5
+         and (v_alt.id is null or not (g::date = v_alt.datum and z.id = v_alt.slot_zeit_id))
+         and public.slots_zusatz_code(p_student_id, g::date, z.id, v_jetzt, v_frei) is null
+         and (v_extra = 0 or coalesce(v_budget, -1) >= 0)), '[]'),
+    'kein_budget', coalesce(v_budget, -1) < 0);
+end;
+$$;
+
+
+--
+-- Name: slots_zusatz_code(uuid, date, uuid, timestamp with time zone, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_zusatz_code(p_student_id uuid, p_datum date, p_slot_zeit_id uuid, p_jetzt timestamp with time zone, p_ausser uuid DEFAULT NULL::uuid) RETURNS text
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_vertrag uuid := public.slots_vertrag_am(p_student_id, p_datum);
+  v_kap     integer;
+begin
+  if v_vertrag is null or not public.slots_kind_zugelassen(p_student_id) then
+    return 'SL006';
+  end if;
+  if p_datum > public.slots_planungsgrenze() then
+    return 'SL012';
+  end if;
+  if public.slots_termin_beginn(p_datum, p_slot_zeit_id) <= p_jetzt then
+    return 'SL007';
+  end if;
+  v_kap := public.slot_kapazitaet(p_datum, p_slot_zeit_id);
+  if v_kap = 0 then
+    return 'SL002';
+  end if;
+  if exists (select 1 from public.kind_termine kt
+              where kt.student_id = p_student_id and kt.datum = p_datum and kt.id is distinct from p_ausser
+                and kt.zustand in ('planned', 'present', 'unexcused'))
+     or exists (select 1 from public.slots_einzelbuchungen(p_student_id) e
+                 where e.datum = p_datum and e.attendance in ('planned', 'present', 'unexcused')) then
+    return 'SL003';
+  end if;
+  if public.slots_woche_aktiv(p_student_id, p_datum, p_ausser) + 1 > public.slots_wochengrenze(p_student_id, p_datum) then
+    return 'SL004';
+  end if;
+  if public.slot_belegt(p_datum, p_slot_zeit_id, p_student_id) >= v_kap then
+    return 'SL001';
+  end if;
+  if (select v.einheiten from public.vertraege v where v.id = v_vertrag)
+     - public.slots_fest_belegt(v_vertrag, public.slots_berlin_tag(p_jetzt), p_ausser) < 1 then
+    return 'SL005';
+  end if;
+  return null;
+end;
+$$;
+
+
+--
+-- Name: stammplaetze_weiterfuehren(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammplaetze_weiterfuehren(p_student_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_vor   jsonb;
+  v_ids   uuid[];
+begin
+  perform public.slots_admin_pruefen('stammplaetze_weiterfuehren');
+  perform public.slots_sperren();
+  v_vor := public.slots_weiterfuehren_vorschlag(p_student_id, v_heute);
+  if v_vor is null or jsonb_array_length(v_vor -> 'zeilen') = 0 then
+    perform public.slots_fehler('P0002', 'stammplaetze_weiterfuehren: kein Folgevertrag mit Vorschlag', 'kein_vorschlag');
+  end if;
+  perform public.slots_gruende_werfen(
+    public.slots_stammplatz_gruende(p_student_id, v_vor -> 'zeilen', (v_vor ->> 'ab')::date, v_heute));
+
+  with neu as (
+    insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, vorgaenger_id, angelegt_von)
+    select p_student_id, (v_vor ->> 'vertrag_id')::uuid, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid,
+           x ->> 'takt', (v_vor ->> 'ab')::date, (x ->> 'vorgaenger_id')::uuid, auth.uid()
+      from jsonb_array_elements(v_vor -> 'zeilen') x
+    returning id
+  )
+  select array_agg(id) into v_ids from neu;
+
+  perform public.termine_planen(p_student_id, v_jetzt);
+  return jsonb_build_object('stammplatz_ids', to_jsonb(v_ids),
+                            'planbilanz', public.slots_planbilanz((v_vor ->> 'vertrag_id')::uuid, v_heute));
+end;
+$$;
+
+
+--
+-- Name: stammplatz_aendern(uuid, date, integer, uuid, text, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammplatz_aendern(p_id uuid, p_ab date, p_wochentag integer, p_slot_zeit_id uuid, p_takt text, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  s       public.stammplaetze;
+  v_zeile jsonb := jsonb_build_array(jsonb_build_object('wochentag', p_wochentag, 'slot_zeit_id', p_slot_zeit_id, 'takt', p_takt));
+  v_id    uuid;
+begin
+  perform public.slots_admin_pruefen('stammplatz_aendern');
+  perform public.slots_sperren();
+  select * into s from public.stammplaetze where id = p_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'stammplatz_aendern: Stammplatz nicht gefunden');
+  end if;
+  if coalesce(s.gueltig_bis, 'infinity'::date) < p_ab then
+    perform public.slots_fehler('22023', 'stammplatz_aendern: Stammplatz ist zu diesem Datum schon beendet');
+  end if;
+  perform public.slots_gruende_werfen(
+    public.slots_stammplatz_gruende(s.student_id, v_zeile, p_ab, v_heute, array[p_id]));
+
+  -- Der alte endet am Vortag (Anforderung E 31), der neue übernimmt sein Ende.
+  update public.stammplaetze
+     set gueltig_bis = greatest(s.gueltig_ab - 1, p_ab - 1), beendet_am = now(), beendet_von = auth.uid()
+   where id = p_id;
+  insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, gueltig_bis,
+                                   vorgaenger_id, angelegt_von)
+  values (s.student_id, coalesce(public.slots_vertrag_am(s.student_id, p_ab), s.vertrag_id), p_wochentag,
+          p_slot_zeit_id, p_takt, p_ab, s.gueltig_bis, p_id, auth.uid())
+  returning id into v_id;
+
+  perform public.termine_planen(s.student_id, v_jetzt);
+  return jsonb_build_object('stammplatz_id', v_id,
+                            'planbilanz', public.slots_planbilanz(public.slots_vertrag(s.student_id, v_heute), v_heute));
+end;
+$$;
+
+
+--
+-- Name: stammplatz_beenden(uuid, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammplatz_beenden(p_id uuid, p_ab date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  s       public.stammplaetze;
+begin
+  perform public.slots_admin_pruefen('stammplatz_beenden');
+  perform public.slots_sperren();
+  select * into s from public.stammplaetze where id = p_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'stammplatz_beenden: Stammplatz nicht gefunden');
+  end if;
+  if p_ab is null or p_ab < v_heute then
+    perform public.slots_fehler('SL007', 'stammplatz_beenden: Datum liegt in der Vergangenheit');
+  end if;
+  -- Ab p_ab entstehen keine Termine mehr (Anforderung E 32); offene Einheiten bleiben.
+  update public.stammplaetze
+     set gueltig_bis = greatest(s.gueltig_ab - 1, least(coalesce(s.gueltig_bis, 'infinity'::date), p_ab - 1)),
+         beendet_am = now(), beendet_von = auth.uid()
+   where id = p_id;
+  perform public.termine_planen(s.student_id, v_jetzt);
+  return jsonb_build_object('ok', true,
+                            'planbilanz', public.slots_planbilanz(public.slots_vertrag(s.student_id, v_heute), v_heute));
+end;
+$$;
+
+
+--
+-- Name: stammplatz_vergeben(uuid, jsonb, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammplatz_vergeben(p_student_id uuid, p_zeilen jsonb, p_ab date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_vertrag uuid;
+  v_ids   uuid[];
+begin
+  perform public.slots_admin_pruefen('stammplatz_vergeben');
+  perform public.slots_sperren();
+  if not public.slots_kind_zugelassen(p_student_id) then
+    perform public.slots_fehler('22023', 'stammplatz_vergeben: Testkonten kommen in den Slots nicht vor', 'testkonto');
+  end if;
+  if jsonb_typeof(p_zeilen) is distinct from 'array' or jsonb_array_length(p_zeilen) = 0 then
+    perform public.slots_fehler('22023', 'stammplatz_vergeben: keine Zeilen');
+  end if;
+  perform public.slots_gruende_werfen(public.slots_stammplatz_gruende(p_student_id, p_zeilen, p_ab, v_heute));
+  v_vertrag := public.slots_vertrag_am(p_student_id, p_ab);
+
+  with neu as (
+    insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, angelegt_von)
+    select p_student_id, v_vertrag, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid, x ->> 'takt', p_ab, auth.uid()
+      from jsonb_array_elements(p_zeilen) x
+    returning id
+  )
+  select array_agg(id) into v_ids from neu;
+
+  perform public.termine_planen(p_student_id, v_jetzt);
+  return jsonb_build_object('stammplatz_ids', to_jsonb(v_ids),
+                            'planbilanz', public.slots_planbilanz(v_vertrag, v_heute));
+end;
+$$;
+
+
+--
+-- Name: stammschicht_anlegen(uuid, integer, uuid, uuid, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammschicht_anlegen(p_coach_id uuid, p_wochentag integer, p_slot_zeit_id uuid, p_raum_id uuid, p_gueltig_ab date DEFAULT NULL::date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_ab    date := coalesce(p_gueltig_ab, public.slots_berlin_tag(public.slots_jetzt(p_jetzt)));
+  v_id    uuid;
+begin
+  perform public.slots_admin_pruefen('stammschicht_anlegen');
+  perform public.slots_sperren();
+  if not exists (select 1 from public.profiles p where p.id = p_coach_id and p.role = 'coach') then
+    perform public.slots_fehler('22023', 'stammschicht_anlegen: kein Coach', 'kein_coach');
+  end if;
+  if p_wochentag is null or p_wochentag not between 1 and 5 then
+    perform public.slots_fehler('22023', 'stammschicht_anlegen: Wochentag 1–5');
+  end if;
+  if v_ab < public.slots_berlin_tag(v_jetzt) then
+    perform public.slots_fehler('SL007', 'stammschicht_anlegen: gültig ab liegt in der Vergangenheit');
+  end if;
+  if not public.slots_zeit_aktiv(p_slot_zeit_id, v_ab)
+     or not exists (select 1 from public.raeume r where r.id = p_raum_id
+                     and (r.inaktiv_ab is null or v_ab < r.inaktiv_ab)) then
+    perform public.slots_fehler('22023', 'stammschicht_anlegen: Uhrzeit oder Raum nicht aktiv');
+  end if;
+  if exists (select 1 from public.stammschichten s
+              where s.wochentag = p_wochentag and s.slot_zeit_id = p_slot_zeit_id
+                and (s.raum_id = p_raum_id or s.coach_id = p_coach_id)
+                and coalesce(s.gueltig_bis, 'infinity'::date) >= v_ab) then
+    perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach)');
+  end if;
+  insert into public.stammschichten (coach_id, wochentag, slot_zeit_id, raum_id, gueltig_ab, angelegt_von)
+  values (p_coach_id, p_wochentag, p_slot_zeit_id, p_raum_id, v_ab, auth.uid())
+  returning id into v_id;
+  perform public.slots_planen_slot(p_wochentag, p_slot_zeit_id, v_jetzt);
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: stammschicht_beenden(uuid, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammschicht_beenden(p_id uuid, p_ab date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  s       public.stammschichten;
+begin
+  perform public.slots_admin_pruefen('stammschicht_beenden');
+  perform public.slots_sperren();
+  select * into s from public.stammschichten where id = p_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'stammschicht_beenden: Stammschicht nicht gefunden');
+  end if;
+  if p_ab is null or p_ab < public.slots_berlin_tag(v_jetzt) then
+    perform public.slots_fehler('SL007', 'stammschicht_beenden: Datum liegt in der Vergangenheit');
+  end if;
+  update public.stammschichten
+     set gueltig_bis = greatest(s.gueltig_ab - 1, least(coalesce(s.gueltig_bis, 'infinity'::date), p_ab - 1)),
+         beendet_am = now(), beendet_von = auth.uid()
+   where id = p_id;
+  perform public.slots_planen_slot(s.wochentag, s.slot_zeit_id, v_jetzt);
 end;
 $$;
 
@@ -13626,6 +15986,428 @@ begin
   end if;
   return new;
 end $$;
+
+
+--
+-- Name: termin_absagen(uuid, timestamp with time zone, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_absagen(p_termin_id uuid, p_eingang timestamp with time zone, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  kt      public.kind_termine;
+begin
+  perform public.slots_admin_pruefen('termin_absagen');
+  perform public.slots_sperren();
+  kt := public.slots_absage_intern(p_termin_id, p_eingang, v_jetzt, 'termin_absagen');
+  perform public.termine_planen(kt.student_id, v_jetzt);
+  return jsonb_build_object('termin_id', kt.id, 'zustand', kt.zustand, 'rechtzeitig', kt.zustand = 'cancelled');
+end;
+$$;
+
+
+--
+-- Name: termin_ausgefallen(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_ausgefallen(p_termin_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  kt      public.kind_termine;
+begin
+  perform public.slots_admin_pruefen('termin_ausgefallen');
+  perform public.slots_sperren();
+  select * into kt from public.kind_termine where id = p_termin_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'termin_ausgefallen: Termin nicht gefunden');
+  end if;
+  if kt.datum < public.slots_berlin_tag(v_jetzt)
+     or exists (select 1 from public.coaching_sessions cs where cs.id = kt.session_id and cs.gestartet_am is not null) then
+    perform public.slots_code_werfen('SL011', 'termin_ausgefallen');
+  end if;
+  if kt.zustand <> 'planned' then
+    perform public.slots_fehler('22023', 'termin_ausgefallen: Termin ist nicht geplant', 'zustand:' || kt.zustand);
+  end if;
+  update public.kind_termine set zustand = 'cancelled_by_us' where id = kt.id;
+  perform public.slots_buchung_setzen(kt.id);
+  perform public.termine_planen(kt.student_id, v_jetzt);
+  return jsonb_build_object('termin_id', kt.id, 'zustand', 'cancelled_by_us');
+end;
+$$;
+
+
+--
+-- Name: termin_coach_setzen(date, uuid, uuid, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_coach_setzen(p_datum date, p_zeit_id uuid, p_raum_id uuid, p_coach_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_stamm uuid;
+  v_sess  public.coaching_sessions;
+  v_raum  public.raeume;
+begin
+  perform public.slots_admin_pruefen('termin_coach_setzen');
+  perform public.slots_sperren();
+  if p_datum < public.slots_berlin_tag(v_jetzt) then
+    perform public.slots_code_werfen('SL011', 'termin_coach_setzen');
+  end if;
+  if p_datum > public.slots_planungsgrenze() then
+    perform public.slots_code_werfen('SL012', 'termin_coach_setzen');
+  end if;
+  select * into v_raum from public.raeume r
+   where r.id = p_raum_id and r.aktiv_ab <= p_datum and (r.inaktiv_ab is null or p_datum < r.inaktiv_ab);
+  if not found or not public.betriebstag(p_datum) or not public.slots_zeit_aktiv(p_zeit_id, p_datum) then
+    perform public.slots_fehler('22023', 'termin_coach_setzen: Raum, Tag oder Uhrzeit nicht aktiv');
+  end if;
+  v_sess := public.slots_session(p_datum, p_zeit_id, p_raum_id);
+  if v_sess.gestartet_am is not null then
+    perform public.slots_code_werfen('SL011', 'termin_coach_setzen');
+  end if;
+  if p_coach_id is not null then
+    if not exists (select 1 from public.profiles p where p.id = p_coach_id and p.role = 'coach') then
+      perform public.slots_fehler('22023', 'termin_coach_setzen: kein Coach', 'kein_coach');
+    end if;
+    if exists (select 1 from public.slot_raeume(p_datum, p_datum) r
+                where r.slot_zeit_id = p_zeit_id and r.coach_id = p_coach_id and r.raum_id <> p_raum_id) then
+      perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach)');
+    end if;
+  end if;
+
+  select s.coach_id into v_stamm from public.stammschichten s
+   where s.raum_id = p_raum_id and s.slot_zeit_id = p_zeit_id and s.wochentag = extract(isodow from p_datum)
+     and s.gueltig_ab <= p_datum and (s.gueltig_bis is null or p_datum <= s.gueltig_bis)
+   order by s.gueltig_ab desc limit 1;
+
+  if p_coach_id is not distinct from v_stamm then
+    delete from public.schicht_abweichungen where datum = p_datum and slot_zeit_id = p_zeit_id and raum_id = p_raum_id;
+  else
+    insert into public.schicht_abweichungen (datum, slot_zeit_id, raum_id, art, coach_id, erfasst_von)
+    values (p_datum, p_zeit_id, p_raum_id,
+            case when p_coach_id is null then 'faellt_aus' when v_stamm is null then 'zusatz' else 'vertretung' end,
+            p_coach_id, auth.uid())
+    on conflict (datum, slot_zeit_id, raum_id) do update
+       set art = excluded.art, coach_id = excluded.coach_id, erfasst_von = excluded.erfasst_von, erfasst_am = now();
+  end if;
+
+  -- Nach dem Festschreiben (Entscheidung 14): coach_id nachziehen, bei "fällt aus" die Session löschen,
+  -- solange sie keine Session-Daten hat; ihre Kinder gehen in die Zuteilung zurück.
+  if v_sess.id is not null then
+    if p_coach_id is not null then
+      update public.coaching_sessions set coach_id = p_coach_id where id = v_sess.id;
+    else
+      -- Nachbesserung: nur eine Session ohne jede Session-Daten. interventions und quests hängen per
+      -- CASCADE, lernpfad/lernpfad_protokoll per SET NULL an coaching_sessions; ohne diese Prüfung gingen
+      -- sie still verloren (Consensus-Befund 1).
+      if v_sess.status <> 'upcoming'
+         or exists (select 1 from public.interventions i where i.session_id = v_sess.id)
+         or exists (select 1 from public.quests q where q.session_id = v_sess.id)
+         or exists (select 1 from public.lernpfad l where l.coach_session_id = v_sess.id or l.letzte_session_id = v_sess.id)
+         or exists (select 1 from public.lernpfad_protokoll l where l.session_id = v_sess.id)
+         or exists (select 1 from public.session_ereignisse e where e.session_id = v_sess.id) then
+        perform public.slots_code_werfen('SL011', 'termin_coach_setzen');
+      end if;
+      begin
+        update public.kind_termine set session_id = null where session_id = v_sess.id;
+        delete from public.coaching_sessions where id = v_sess.id;
+      exception when foreign_key_violation or restrict_violation then
+        perform public.slots_code_werfen('SL011', 'termin_coach_setzen');
+      end;
+    end if;
+  end if;
+  perform public.slots_festschreibung_nachziehen(p_datum, p_zeit_id);
+  perform public.slots_planen_slot(extract(isodow from p_datum)::int, p_zeit_id, v_jetzt);
+  return jsonb_build_object('art', (select a.art from public.schicht_abweichungen a
+                                     where a.datum = p_datum and a.slot_zeit_id = p_zeit_id and a.raum_id = p_raum_id));
+end;
+$$;
+
+
+--
+-- Name: termin_faellt_aus(date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_faellt_aus(p_datum date, p_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_ids   uuid[];
+  v_st    uuid;
+begin
+  perform public.slots_admin_pruefen('termin_faellt_aus');
+  perform public.slots_sperren();
+  if p_datum < public.slots_berlin_tag(v_jetzt)
+     or exists (select 1 from public.coaching_sessions cs
+                 where cs.slot_zeit_id = p_zeit_id and cs.scheduled_at = public.slots_termin_beginn(p_datum, p_zeit_id)
+                   and cs.gestartet_am is not null) then
+    perform public.slots_code_werfen('SL011', 'termin_faellt_aus');
+  end if;
+  if p_datum > public.slots_planungsgrenze() then
+    perform public.slots_code_werfen('SL012', 'termin_faellt_aus');
+  end if;
+  with weg as (
+    update public.kind_termine kt set zustand = 'cancelled_by_us'
+     where kt.datum = p_datum and kt.slot_zeit_id = p_zeit_id and kt.zustand = 'planned'
+    returning kt.id, kt.student_id
+  )
+  select array_agg(weg.id) into v_ids from weg;
+  update public.session_students ss set attendance = 'cancelled_by_us'
+    from public.kind_termine kt
+   where kt.id = any (coalesce(v_ids, '{}')) and ss.session_id = kt.session_id and ss.student_id = kt.student_id;
+  for v_st in select distinct kt.student_id from public.kind_termine kt where kt.id = any (coalesce(v_ids, '{}')) loop
+    perform public.termine_planen(v_st, v_jetzt);
+  end loop;
+  return jsonb_build_object('betroffen', coalesce(cardinality(v_ids), 0));
+end;
+$$;
+
+
+--
+-- Name: termin_raum_oeffnen(date, uuid, uuid, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_raum_oeffnen(p_datum date, p_zeit_id uuid, p_raum_id uuid, p_coach_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  perform public.slots_admin_pruefen('termin_raum_oeffnen');
+  perform public.slots_sperren();
+  if p_coach_id is null then
+    perform public.slots_fehler('22023', 'termin_raum_oeffnen: Coach fehlt');
+  end if;
+  if exists (select 1 from public.slot_raeume(p_datum, p_datum) r
+              where r.slot_zeit_id = p_zeit_id and r.raum_id = p_raum_id and r.offen) then
+    perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach)');
+  end if;
+  return public.termin_coach_setzen(p_datum, p_zeit_id, p_raum_id, p_coach_id, p_jetzt);
+end;
+$$;
+
+
+--
+-- Name: termin_raum_setzen(uuid, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_raum_setzen(p_termin_id uuid, p_raum_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  kt      public.kind_termine;
+  v_ziel  public.coaching_sessions;
+begin
+  perform public.slots_admin_pruefen('termin_raum_setzen');
+  perform public.slots_sperren();
+  select * into kt from public.kind_termine where id = p_termin_id for update;
+  if not found then
+    perform public.slots_fehler('P0002', 'termin_raum_setzen: Termin nicht gefunden');
+  end if;
+  if kt.datum < public.slots_berlin_tag(v_jetzt)
+     or exists (select 1 from public.coaching_sessions cs where cs.id = kt.session_id and cs.gestartet_am is not null) then
+    perform public.slots_code_werfen('SL011', 'termin_raum_setzen');
+  end if;
+  if kt.zustand not in ('planned', 'present') then
+    perform public.slots_fehler('22023', 'termin_raum_setzen: Termin ist nicht geplant', 'zustand:' || kt.zustand);
+  end if;
+
+  if p_raum_id is null then
+    update public.kind_termine set raum_fest = false where id = kt.id;
+  else
+    if not exists (select 1 from public.slot_raeume(kt.datum, kt.datum) r
+                    where r.slot_zeit_id = kt.slot_zeit_id and r.raum_id = p_raum_id and r.offen) then
+      perform public.slots_code_werfen('SL002', 'termin_raum_setzen');
+    end if;
+    v_ziel := public.slots_session(kt.datum, kt.slot_zeit_id, p_raum_id);
+    if v_ziel.gestartet_am is not null then
+      perform public.slots_code_werfen('SL011', 'termin_raum_setzen');
+    end if;
+    if (select count(*) from public.slot_zuteilung(kt.datum, kt.slot_zeit_id) t
+         where t.raum_id = p_raum_id and t.termin_id <> kt.id) >= 5 then
+      perform public.slots_code_werfen('SL001', 'termin_raum_setzen');
+    end if;
+    -- Nach dem Festschreiben: Zeile in Session A löschen, in Session B anlegen (Entscheidung 14).
+    if kt.session_id is not null and kt.session_id is distinct from v_ziel.id then
+      delete from public.session_students where session_id = kt.session_id and student_id = kt.student_id;
+      update public.kind_termine set session_id = null where id = kt.id;
+    end if;
+    update public.kind_termine set raum_id = p_raum_id, raum_fest = true where id = kt.id;
+  end if;
+  perform public.slots_festschreibung_nachziehen(kt.datum, kt.slot_zeit_id);
+  perform public.termine_planen(kt.student_id, v_jetzt);
+  return jsonb_build_object('termin_id', kt.id, 'raum_id', p_raum_id);
+end;
+$$;
+
+
+--
+-- Name: termin_session_anlegen(date, uuid, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_session_anlegen(p_datum date, p_zeit_id uuid, p_raum_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := coalesce(public.get_my_role(), '');
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  r       record;
+  v_sess  public.coaching_sessions;
+  v_neu   boolean := false;
+  v_aus   jsonb;
+  v_x     jsonb;
+begin
+  if not public.ist_systemaufruf() and v_rolle not in ('admin', 'coach') then
+    raise exception 'termin_session_anlegen: nur Admin oder Coach' using errcode = '42501';
+  end if;
+  perform public.slots_sperren();
+
+  select * into r from public.slot_raeume(p_datum, p_datum) x
+   where x.slot_zeit_id = p_zeit_id and x.raum_id = p_raum_id;
+  -- Coach: nur der eingeteilte Coach dieses Raums (Entscheidung 20), auch über die direkte Adresse.
+  if v_rolle = 'coach' and not public.ist_systemaufruf()
+     and (r.raum_id is null or r.coach_id is distinct from auth.uid()) then
+    raise exception 'termin_session_anlegen: nur der eingeteilte Coach dieses Raums' using errcode = '42501';
+  end if;
+  if p_datum <> public.slots_berlin_tag(v_jetzt) then
+    perform public.slots_fehler('22023', 'termin_session_anlegen: nur am Tag des Termins', 'nur_am_tag');
+  end if;
+
+  v_sess := public.slots_session(p_datum, p_zeit_id, p_raum_id);
+  if v_sess.id is null then
+    if r.raum_id is null or not r.offen then
+      perform public.slots_fehler('SL002', 'termin_session_anlegen: kein Raum mit Coach');
+    end if;
+    insert into public.coaching_sessions (coach_id, room, scheduled_at, status, raum_id, slot_zeit_id)
+    values (r.coach_id, r.raum_name, public.slots_termin_beginn(p_datum, p_zeit_id), 'upcoming', p_raum_id, p_zeit_id)
+    returning * into v_sess;
+    v_neu := true;
+  end if;
+
+  v_aus := public.slots_festschreibung_nachziehen(p_datum, p_zeit_id);
+  for v_x in select * from jsonb_array_elements(v_aus) loop
+    perform public.termine_planen((v_x ->> 'student_id')::uuid, v_jetzt);
+  end loop;
+
+  return jsonb_build_object(
+    'session_id', v_sess.id, 'neu', v_neu,
+    'ausgelassen', coalesce((select jsonb_agg(x || public.slots_kind_info((x ->> 'student_id')::uuid,
+                                                (select kt.vertrag_id from public.kind_termine kt
+                                                  where kt.id = (x ->> 'termin_id')::uuid)))
+                               from jsonb_array_elements(v_aus) x), '[]'));
+end;
+$$;
+
+
+--
+-- Name: termin_umbuchen(uuid, timestamp with time zone, date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termin_umbuchen(p_termin_id uuid, p_eingang timestamp with time zone, p_ziel_datum date, p_ziel_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  kt      public.kind_termine;
+  v_vorher date[];
+  v_id    uuid;
+begin
+  perform public.slots_admin_pruefen('termin_umbuchen');
+  perform public.slots_sperren();
+  kt := public.slots_absage_intern(p_termin_id, p_eingang, v_jetzt, 'termin_umbuchen');
+  perform public.slots_code_werfen(public.slots_zusatz_code(kt.student_id, p_ziel_datum, p_ziel_zeit_id, v_jetzt),
+                                   'termin_umbuchen');
+  v_vorher := public.slots_beweglich(kt.student_id, v_heute);
+  insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, umgebucht_von, angelegt_von)
+  values (kt.student_id, public.slots_vertrag_am(kt.student_id, p_ziel_datum), p_ziel_datum, p_ziel_zeit_id,
+          'zusatz', kt.id, auth.uid())
+  returning id into v_id;
+  perform public.slots_festschreibung_nachziehen(p_ziel_datum, p_ziel_zeit_id);
+  perform public.termine_planen(kt.student_id, v_jetzt);
+  return jsonb_build_object('termin_id', v_id, 'alt_zustand', kt.zustand, 'rechtzeitig', kt.zustand = 'cancelled',
+    'verdraengt', (select to_jsonb(coalesce(array_agg(d order by d), '{}')) from unnest(v_vorher) d
+                    where d <> all (public.slots_beweglich(kt.student_id, v_heute))));
+end;
+$$;
+
+
+--
+-- Name: termine_planen(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.termine_planen(p_student_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v       record;
+begin
+  perform public.slots_sperren();
+  if not public.slots_kind_zugelassen(p_student_id) then
+    return;
+  end if;
+
+  for v in
+    select x.id, public.slots_vertrag_planende(x.id) as ende
+      from public.vertraege x
+     where x.student_id = p_student_id and x.status = 'abgeschlossen'
+       and x.vertrag_ende is not null
+       -- Nachbesserung (Consensus-Befund 6): auch ein vorverlegter Stichtag räumt künftige Zeilen ab.
+       and (x.vertrag_ende >= v_heute
+            or exists (select 1 from public.kind_termine k where k.vertrag_id = x.id and k.datum >= v_heute))
+  loop
+    -- Künftige Termine hinter dem Planende (Widerruf, Kündigung): geplante ohne Session fallen weg,
+    -- festgeschriebene werden "ausgefallen durch uns" (Entscheidung 22).
+    delete from public.kind_termine kt
+     where kt.vertrag_id = v.id and kt.datum >= v_heute and kt.datum > v.ende
+       and kt.zustand = 'planned' and kt.session_id is null;
+    with weg as (
+      update public.kind_termine kt set zustand = 'cancelled_by_us'
+       where kt.vertrag_id = v.id and kt.datum >= v_heute and kt.datum > v.ende
+         and kt.zustand = 'planned' and kt.session_id is not null
+      returning kt.session_id, kt.student_id
+    )
+    update public.session_students ss set attendance = 'cancelled_by_us'
+      from weg where ss.session_id = weg.session_id and ss.student_id = weg.student_id;
+
+    if to_regclass('pg_temp.slots_plan_tmp') is null then
+      create temp table slots_plan_tmp (datum date, slot_zeit_id uuid, stammplatz_id uuid, ergebnis text) on commit drop;
+    end if;
+    truncate slots_plan_tmp;
+    insert into slots_plan_tmp select * from public.slots_plan_rechnen(v.id, v_heute)
+     where ergebnis in ('vorhanden', 'neu');
+
+    -- Bewegliche Zeilen ohne Platz im Plan fallen weg; die übrigen behalten id und Raum-Stift.
+    delete from public.kind_termine kt
+     where kt.vertrag_id = v.id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
+       and kt.session_id is null and kt.datum >= v_heute
+       and not exists (select 1 from slots_plan_tmp p where p.datum = kt.datum and p.slot_zeit_id = kt.slot_zeit_id);
+    update public.kind_termine kt set stammplatz_id = p.stammplatz_id
+      from slots_plan_tmp p
+     where kt.vertrag_id = v.id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
+       and kt.session_id is null and kt.datum = p.datum and kt.slot_zeit_id = p.slot_zeit_id
+       and kt.stammplatz_id is distinct from p.stammplatz_id;
+    insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, stammplatz_id, angelegt_von)
+    select p_student_id, v.id, p.datum, p.slot_zeit_id, 'stammplatz', p.stammplatz_id, auth.uid()
+      from slots_plan_tmp p where p.ergebnis = 'neu';
+  end loop;
+end;
+$$;
 
 
 --
@@ -14964,6 +17746,39 @@ $$;
 
 
 --
+-- Name: zusatztermin_buchen(uuid, date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.zusatztermin_buchen(p_student_id uuid, p_datum date, p_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_vorher date[];
+  v_id    uuid;
+  v_aus   jsonb;
+begin
+  perform public.slots_admin_pruefen('zusatztermin_buchen');
+  perform public.slots_sperren();
+  perform public.slots_code_werfen(public.slots_zusatz_code(p_student_id, p_datum, p_zeit_id, v_jetzt),
+                                   'zusatztermin_buchen');
+  v_vorher := public.slots_beweglich(p_student_id, v_heute);
+  insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, angelegt_von)
+  values (p_student_id, public.slots_vertrag_am(p_student_id, p_datum), p_datum, p_zeit_id, 'zusatz', auth.uid())
+  returning id into v_id;
+  v_aus := public.slots_festschreibung_nachziehen(p_datum, p_zeit_id);
+  perform public.termine_planen(p_student_id, v_jetzt);
+  return jsonb_build_object('termin_id', v_id,
+    'verdraengt', (select to_jsonb(coalesce(array_agg(d order by d), '{}')) from unnest(v_vorher) d
+                    where d <> all (public.slots_beweglich(p_student_id, v_heute))),
+    'ausgelassen', v_aus);
+end;
+$$;
+
+
+--
 -- Name: akte_einstellungen; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -15683,6 +18498,22 @@ CREATE TABLE public.quests (
 
 
 --
+-- Name: raeume; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.raeume (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name text NOT NULL,
+    aktiv_ab date NOT NULL,
+    inaktiv_ab date,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    angelegt_von uuid,
+    CONSTRAINT raeume_name_nicht_leer CHECK ((NULLIF(btrim(name), ''::text) IS NOT NULL)),
+    CONSTRAINT raeume_zeitraum_check CHECK (((inaktiv_ab IS NULL) OR (inaktiv_ab >= aktiv_ab)))
+);
+
+
+--
 -- Name: report_anlass_zuordnung; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -15711,6 +18542,24 @@ CREATE TABLE public.report_bausteine (
     entwurf text,
     CONSTRAINT report_bausteine_entwurf_check CHECK (((entwurf IS NULL) OR ((btrim(entwurf) <> ''::text) AND (entwurf <> text)))),
     CONSTRAINT report_bausteine_variante_check CHECK ((variante = ANY (ARRAY['a'::text, 'b'::text])))
+);
+
+
+--
+-- Name: schicht_abweichungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schicht_abweichungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    datum date NOT NULL,
+    slot_zeit_id uuid NOT NULL,
+    raum_id uuid NOT NULL,
+    art text NOT NULL,
+    coach_id uuid,
+    erfasst_am timestamp with time zone DEFAULT now() NOT NULL,
+    erfasst_von uuid,
+    CONSTRAINT schicht_abweichungen_art_check CHECK ((art = ANY (ARRAY['vertretung'::text, 'faellt_aus'::text, 'zusatz'::text]))),
+    CONSTRAINT schicht_abweichungen_coach_check CHECK (((art = 'faellt_aus'::text) = (coach_id IS NULL)))
 );
 
 
@@ -16213,6 +19062,20 @@ CREATE TABLE public.slot_assignments (
 
 
 --
+-- Name: slot_rhythmus; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.slot_rhythmus (
+    tier_id uuid NOT NULL,
+    laufzeit_monate integer NOT NULL,
+    woechentlich smallint NOT NULL,
+    vierzehntaeglich smallint NOT NULL,
+    CONSTRAINT slot_rhythmus_laufzeit_check CHECK ((laufzeit_monate = ANY (ARRAY[6, 12]))),
+    CONSTRAINT slot_rhythmus_werte_check CHECK (((woechentlich >= 0) AND (vierzehntaeglich >= 0) AND ((woechentlich + vierzehntaeglich) > 0)))
+);
+
+
+--
 -- Name: slot_wishes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -16223,6 +19086,23 @@ CREATE TABLE public.slot_wishes (
     slot_id uuid NOT NULL,
     rang smallint NOT NULL,
     CONSTRAINT slot_wishes_rang_check CHECK (((rang >= 1) AND (rang <= 3)))
+);
+
+
+--
+-- Name: slot_zeiten; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.slot_zeiten (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    beginn time without time zone NOT NULL,
+    ende time without time zone GENERATED ALWAYS AS ((beginn + '01:00:00'::interval)) STORED,
+    aktiv_ab date NOT NULL,
+    inaktiv_ab date,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    angelegt_von uuid,
+    CONSTRAINT slot_zeiten_beginn_check CHECK (((beginn >= '06:00:00'::time without time zone) AND (beginn <= '22:00:00'::time without time zone))),
+    CONSTRAINT slot_zeiten_zeitraum_check CHECK (((inaktiv_ab IS NULL) OR (inaktiv_ab >= aktiv_ab)))
 );
 
 
@@ -16248,6 +19128,51 @@ CREATE TABLE public.slots (
     CONSTRAINT slots_laufzeit_check CHECK (((valid_until IS NULL) OR (valid_until >= valid_from))),
     CONSTRAINT slots_room_check CHECK ((length(btrim(room)) > 0)),
     CONSTRAINT slots_weekday_check CHECK (((weekday >= 0) AND (weekday <= 6)))
+);
+
+
+--
+-- Name: stammplaetze; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stammplaetze (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    vertrag_id uuid NOT NULL,
+    wochentag smallint NOT NULL,
+    slot_zeit_id uuid NOT NULL,
+    takt text NOT NULL,
+    gueltig_ab date NOT NULL,
+    gueltig_bis date,
+    vorgaenger_id uuid,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    angelegt_von uuid,
+    beendet_am timestamp with time zone,
+    beendet_von uuid,
+    CONSTRAINT stammplaetze_takt_check CHECK ((takt = ANY (ARRAY['woechentlich'::text, 'a_woche'::text, 'b_woche'::text]))),
+    CONSTRAINT stammplaetze_wochentag_check CHECK (((wochentag >= 1) AND (wochentag <= 5))),
+    CONSTRAINT stammplaetze_zeitraum_check CHECK (((gueltig_bis IS NULL) OR (gueltig_bis >= (gueltig_ab - 1))))
+);
+
+
+--
+-- Name: stammschichten; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stammschichten (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    coach_id uuid NOT NULL,
+    wochentag smallint NOT NULL,
+    slot_zeit_id uuid NOT NULL,
+    raum_id uuid NOT NULL,
+    gueltig_ab date NOT NULL,
+    gueltig_bis date,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    angelegt_von uuid,
+    beendet_am timestamp with time zone,
+    beendet_von uuid,
+    CONSTRAINT stammschichten_wochentag_check CHECK (((wochentag >= 1) AND (wochentag <= 5))),
+    CONSTRAINT stammschichten_zeitraum_check CHECK (((gueltig_bis IS NULL) OR (gueltig_bis >= (gueltig_ab - 1))))
 );
 
 
@@ -17194,6 +20119,14 @@ ALTER TABLE ONLY public.interventions
 
 
 --
+-- Name: kind_termine kind_termine_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: lead_assessments lead_assessments_one_per_source; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17450,6 +20383,22 @@ ALTER TABLE ONLY public.quests
 
 
 --
+-- Name: raeume raeume_name_eindeutig; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.raeume
+    ADD CONSTRAINT raeume_name_eindeutig UNIQUE (name);
+
+
+--
+-- Name: raeume raeume_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.raeume
+    ADD CONSTRAINT raeume_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: report_anlass_zuordnung report_anlass_zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17471,6 +20420,22 @@ ALTER TABLE ONLY public.report_bausteine
 
 ALTER TABLE ONLY public.report_bausteine
     ADD CONSTRAINT report_bausteine_slot_fall_variante_key UNIQUE (slot, fall, variante);
+
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_eindeutig; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schicht_abweichungen
+    ADD CONSTRAINT schicht_abweichungen_eindeutig UNIQUE (datum, slot_zeit_id, raum_id);
+
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schicht_abweichungen
+    ADD CONSTRAINT schicht_abweichungen_pkey PRIMARY KEY (id);
 
 
 --
@@ -17706,6 +20671,14 @@ ALTER TABLE ONLY public.slot_assignments
 
 
 --
+-- Name: slot_rhythmus slot_rhythmus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.slot_rhythmus
+    ADD CONSTRAINT slot_rhythmus_pkey PRIMARY KEY (tier_id, laufzeit_monate);
+
+
+--
 -- Name: slot_wishes slot_wishes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17714,11 +20687,35 @@ ALTER TABLE ONLY public.slot_wishes
 
 
 --
+-- Name: slot_zeiten slot_zeiten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.slot_zeiten
+    ADD CONSTRAINT slot_zeiten_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: slots slots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.slots
     ADD CONSTRAINT slots_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stammplaetze stammplaetze_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stammschichten stammschichten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammschichten
+    ADD CONSTRAINT stammschichten_pkey PRIMARY KEY (id);
 
 
 --
@@ -18100,6 +21097,13 @@ CREATE INDEX coaching_sessions_coach_idx ON public.coaching_sessions USING btree
 
 
 --
+-- Name: coaching_sessions_raum_termin_uniq; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX coaching_sessions_raum_termin_uniq ON public.coaching_sessions USING btree (raum_id, scheduled_at) WHERE (raum_id IS NOT NULL);
+
+
+--
 -- Name: coaching_sessions_scheduled_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18195,6 +21199,55 @@ CREATE INDEX interventions_session_idx ON public.interventions USING btree (sess
 --
 
 CREATE INDEX interventions_student_idx ON public.interventions USING btree (student_id);
+
+
+--
+-- Name: kind_termine_ein_aktiver_je_tag; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX kind_termine_ein_aktiver_je_tag ON public.kind_termine USING btree (student_id, datum) WHERE (zustand = ANY (ARRAY['planned'::text, 'present'::text, 'unexcused'::text]));
+
+
+--
+-- Name: kind_termine_session_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_termine_session_idx ON public.kind_termine USING btree (session_id) WHERE (session_id IS NOT NULL);
+
+
+--
+-- Name: kind_termine_slot_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_termine_slot_idx ON public.kind_termine USING btree (datum, slot_zeit_id);
+
+
+--
+-- Name: kind_termine_stammplatz_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_termine_stammplatz_idx ON public.kind_termine USING btree (stammplatz_id) WHERE (stammplatz_id IS NOT NULL);
+
+
+--
+-- Name: kind_termine_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_termine_student_idx ON public.kind_termine USING btree (student_id, datum);
+
+
+--
+-- Name: kind_termine_umgebucht_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_termine_umgebucht_idx ON public.kind_termine USING btree (umgebucht_von) WHERE (umgebucht_von IS NOT NULL);
+
+
+--
+-- Name: kind_termine_vertrag_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_termine_vertrag_idx ON public.kind_termine USING btree (vertrag_id);
 
 
 --
@@ -18653,6 +21706,13 @@ CREATE INDEX slot_wishes_slot_idx ON public.slot_wishes USING btree (slot_id);
 
 
 --
+-- Name: slot_zeiten_beginn_aktiv_uniq; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX slot_zeiten_beginn_aktiv_uniq ON public.slot_zeiten USING btree (beginn) WHERE (inaktiv_ab IS NULL);
+
+
+--
 -- Name: slots_laufend_coord_unique; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18664,6 +21724,41 @@ CREATE UNIQUE INDEX slots_laufend_coord_unique ON public.slots USING btree (week
 --
 
 CREATE INDEX slots_weekday_idx ON public.slots USING btree (weekday, start_time);
+
+
+--
+-- Name: stammplaetze_slot_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX stammplaetze_slot_idx ON public.stammplaetze USING btree (wochentag, slot_zeit_id);
+
+
+--
+-- Name: stammplaetze_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX stammplaetze_student_idx ON public.stammplaetze USING btree (student_id);
+
+
+--
+-- Name: stammplaetze_vertrag_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX stammplaetze_vertrag_idx ON public.stammplaetze USING btree (vertrag_id);
+
+
+--
+-- Name: stammschichten_coach_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX stammschichten_coach_idx ON public.stammschichten USING btree (coach_id);
+
+
+--
+-- Name: stammschichten_slot_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX stammschichten_slot_idx ON public.stammschichten USING btree (wochentag, slot_zeit_id);
 
 
 --
@@ -19038,6 +22133,13 @@ CREATE TRIGGER session_students_loeschschutz_trg BEFORE DELETE ON public.session
 
 
 --
+-- Name: session_students session_students_slots_spiegel_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_students_slots_spiegel_trg AFTER DELETE OR UPDATE OF attendance, session_id, student_id ON public.session_students FOR EACH ROW EXECUTE FUNCTION public.slots_anwesenheit_spiegeln();
+
+
+--
 -- Name: session_students session_students_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -19178,6 +22280,13 @@ CREATE TRIGGER vertraege_guard_trg BEFORE UPDATE ON public.vertraege FOR EACH RO
 
 
 --
+-- Name: vertraege vertraege_slots_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER vertraege_slots_trg AFTER UPDATE OF status, widerrufen_am, gekuendigt_zum, vertrag_ende, vertragsbeginn, einheiten ON public.vertraege FOR EACH ROW EXECUTE FUNCTION public.slots_vertrag_geaendert();
+
+
+--
 -- Name: vertrag_bankdaten vertrag_bankdaten_maskieren_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -19240,11 +22349,27 @@ ALTER TABLE ONLY public.coaching_sessions
 
 
 --
+-- Name: coaching_sessions coaching_sessions_raum_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coaching_sessions
+    ADD CONSTRAINT coaching_sessions_raum_id_fkey FOREIGN KEY (raum_id) REFERENCES public.raeume(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: coaching_sessions coaching_sessions_slot_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.coaching_sessions
     ADD CONSTRAINT coaching_sessions_slot_id_fkey FOREIGN KEY (slot_id) REFERENCES public.slots(id) ON DELETE SET NULL;
+
+
+--
+-- Name: coaching_sessions coaching_sessions_slot_zeit_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coaching_sessions
+    ADD CONSTRAINT coaching_sessions_slot_zeit_id_fkey FOREIGN KEY (slot_zeit_id) REFERENCES public.slot_zeiten(id) ON DELETE RESTRICT;
 
 
 --
@@ -19445,6 +22570,78 @@ ALTER TABLE ONLY public.interventions
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT interventions_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: kind_termine kind_termine_absage_erfasst_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_absage_erfasst_von_fkey FOREIGN KEY (absage_erfasst_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: kind_termine kind_termine_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: kind_termine kind_termine_raum_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_raum_id_fkey FOREIGN KEY (raum_id) REFERENCES public.raeume(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: kind_termine kind_termine_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE SET NULL;
+
+
+--
+-- Name: kind_termine kind_termine_slot_zeit_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_slot_zeit_id_fkey FOREIGN KEY (slot_zeit_id) REFERENCES public.slot_zeiten(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: kind_termine kind_termine_stammplatz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_stammplatz_id_fkey FOREIGN KEY (stammplatz_id) REFERENCES public.stammplaetze(id) ON DELETE CASCADE;
+
+
+--
+-- Name: kind_termine kind_termine_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: kind_termine kind_termine_umgebucht_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_umgebucht_von_fkey FOREIGN KEY (umgebucht_von) REFERENCES public.kind_termine(id) ON DELETE SET NULL;
+
+
+--
+-- Name: kind_termine kind_termine_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_termine
+    ADD CONSTRAINT kind_termine_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
 
 
 --
@@ -19840,11 +23037,51 @@ ALTER TABLE ONLY public.quests
 
 
 --
+-- Name: raeume raeume_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.raeume
+    ADD CONSTRAINT raeume_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
 -- Name: report_bausteine report_bausteine_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.report_bausteine
     ADD CONSTRAINT report_bausteine_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_coach_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schicht_abweichungen
+    ADD CONSTRAINT schicht_abweichungen_coach_id_fkey FOREIGN KEY (coach_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_erfasst_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schicht_abweichungen
+    ADD CONSTRAINT schicht_abweichungen_erfasst_von_fkey FOREIGN KEY (erfasst_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_raum_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schicht_abweichungen
+    ADD CONSTRAINT schicht_abweichungen_raum_id_fkey FOREIGN KEY (raum_id) REFERENCES public.raeume(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_slot_zeit_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schicht_abweichungen
+    ADD CONSTRAINT schicht_abweichungen_slot_zeit_id_fkey FOREIGN KEY (slot_zeit_id) REFERENCES public.slot_zeiten(id) ON DELETE RESTRICT;
 
 
 --
@@ -20448,6 +23685,14 @@ ALTER TABLE ONLY public.slot_assignments
 
 
 --
+-- Name: slot_rhythmus slot_rhythmus_tier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.slot_rhythmus
+    ADD CONSTRAINT slot_rhythmus_tier_id_fkey FOREIGN KEY (tier_id) REFERENCES public.tiers(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: slot_wishes slot_wishes_lead_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20461,6 +23706,102 @@ ALTER TABLE ONLY public.slot_wishes
 
 ALTER TABLE ONLY public.slot_wishes
     ADD CONSTRAINT slot_wishes_slot_id_fkey FOREIGN KEY (slot_id) REFERENCES public.slots(id) ON DELETE CASCADE;
+
+
+--
+-- Name: slot_zeiten slot_zeiten_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.slot_zeiten
+    ADD CONSTRAINT slot_zeiten_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammplaetze stammplaetze_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammplaetze stammplaetze_beendet_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_beendet_von_fkey FOREIGN KEY (beendet_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammplaetze stammplaetze_slot_zeit_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_slot_zeit_id_fkey FOREIGN KEY (slot_zeit_id) REFERENCES public.slot_zeiten(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: stammplaetze stammplaetze_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: stammplaetze stammplaetze_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
+
+
+--
+-- Name: stammplaetze stammplaetze_vorgaenger_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_vorgaenger_id_fkey FOREIGN KEY (vorgaenger_id) REFERENCES public.stammplaetze(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammschichten stammschichten_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammschichten
+    ADD CONSTRAINT stammschichten_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammschichten stammschichten_beendet_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammschichten
+    ADD CONSTRAINT stammschichten_beendet_von_fkey FOREIGN KEY (beendet_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammschichten stammschichten_coach_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammschichten
+    ADD CONSTRAINT stammschichten_coach_id_fkey FOREIGN KEY (coach_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: stammschichten stammschichten_raum_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammschichten
+    ADD CONSTRAINT stammschichten_raum_id_fkey FOREIGN KEY (raum_id) REFERENCES public.raeume(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: stammschichten stammschichten_slot_zeit_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammschichten
+    ADD CONSTRAINT stammschichten_slot_zeit_id_fkey FOREIGN KEY (slot_zeit_id) REFERENCES public.slot_zeiten(id) ON DELETE RESTRICT;
 
 
 --
@@ -21345,6 +24686,19 @@ CREATE POLICY interventions_parent_read ON public.interventions FOR SELECT USING
 
 
 --
+-- Name: kind_termine; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.kind_termine ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: kind_termine kind_termine_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY kind_termine_admin_read ON public.kind_termine FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
 -- Name: lead_assessments; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -21805,6 +25159,19 @@ CREATE POLICY quests_select_parent ON public.quests FOR SELECT TO authenticated 
 
 
 --
+-- Name: raeume; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.raeume ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: raeume raeume_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY raeume_admin_read ON public.raeume FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
 -- Name: tasks read_tasks_by_role; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -21835,6 +25202,19 @@ ALTER TABLE public.report_bausteine ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY report_bausteine_read ON public.report_bausteine FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: schicht_abweichungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.schicht_abweichungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: schicht_abweichungen schicht_abweichungen_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schicht_abweichungen_admin_read ON public.schicht_abweichungen FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
@@ -22291,6 +25671,19 @@ CREATE POLICY slot_assignments_coach_admin_all ON public.slot_assignments USING 
 
 
 --
+-- Name: slot_rhythmus; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.slot_rhythmus ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: slot_rhythmus slot_rhythmus_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY slot_rhythmus_admin_read ON public.slot_rhythmus FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
 -- Name: slot_wishes; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -22304,6 +25697,19 @@ CREATE POLICY slot_wishes_coach_admin_all ON public.slot_wishes USING ((public.g
 
 
 --
+-- Name: slot_zeiten; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.slot_zeiten ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: slot_zeiten slot_zeiten_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY slot_zeiten_admin_read ON public.slot_zeiten FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
 -- Name: slots; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -22314,6 +25720,32 @@ ALTER TABLE public.slots ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY slots_coach_admin_all ON public.slots USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+
+
+--
+-- Name: stammplaetze; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.stammplaetze ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: stammplaetze stammplaetze_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY stammplaetze_admin_read ON public.stammplaetze FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: stammschichten; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.stammschichten ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: stammschichten stammschichten_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY stammschichten_admin_read ON public.stammschichten FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
