@@ -18,7 +18,8 @@
 - **Edge Functions:**
   - PDF der Pilotvereinbarung ohne Mandat. Bündel und Mails je Vertragsart, eigene Mailtexte.
   - `vertrag_buendel.ts` ausgelagert.
-- **Kennzahlen:** `summen`, `imVerzug` und `buendelVollstaendig` lassen Pilots aus bzw. verlangen bei ihnen kein Mandat.
+- **Kennzahlen:** `summen` zählt Pilots im Betrieb als laufend („davon x Pilot“, Entscheidung Rasit 14.10.), nie bei
+  Abbuchung und Widerruf. `imVerzug` lässt sie aus, `buendelVollstaendig` verlangt bei ihnen kein Mandat.
 
 ## Entscheidungen beim Bauen
 - **Dokumente je Vertragsart als Spalte am Dokument, nicht als Sonderfall im Code.**
@@ -42,7 +43,7 @@
 - Schema-Abzug aus der Wegwerf-DB. Gegenüber dem dev-Stand weichen nur die eigenen Objekte ab.
 - Zweitprüfung durch eine frische Instanz, keine Blocker. Umgesetzt: Ein Pilot speichert keine IBAN mehr, Versand
   und Abschluss löschen vorhandene Bankdaten, die Wochenzählung ist zeitzonenunabhängig, die Hinweistexte im
-  Assistenten haben Pilot-Fassungen. Offen als Rückfrage: ob ein Pilot als „laufender Vertrag“ zählt.
+  Assistenten haben Pilot-Fassungen. Die Rückfrage, ob ein Pilot als „laufender Vertrag“ zählt, ist entschieden: ja, im Betrieb.
 - Browser: fünf Ansichten per Vite-Harness mit erfundenen Daten (Formular Pilot und Regulär, Übersicht, Detail,
   Slots-Kind). Kein Konsolenfehler. Danach auf der Detailseite Widerruf und Zahlung beim Pilot ausgeblendet.
 

@@ -10,7 +10,11 @@ import type { VertragAktuell, Vertragsart, WirksamerStatus, Zahlungsstatus } fro
 export const LAUFEND: WirksamerStatus[] = ['aktiv', 'im_widerruf']
 
 export type Summen = {
+  /** Laufende Vertraege inkl. Pilot (Betrieb, kein Geld — Entscheidung Rasit 14.10.2026). */
   laufend: number
+  /** Davon Pilotvereinbarungen, ausgewiesen als "davon x Pilot". */
+  davonPilot: number
+  /** Nur regulaere Vertraege — ein Pilot traegt keinen Beitrag. */
   abbuchungCents: number
   imWiderruf: number
 }
@@ -22,12 +26,13 @@ export type Summen = {
  * ausgelaufener Vertrag traegt seinen letzten Beitrag sonst ewig weiter.
  */
 export function summen(vertraege: VertragAktuell[]): Summen {
-  // V5 (Entscheidung 8): Pilotvereinbarungen zaehlen in keiner Vertrags- oder Beitragskennzahl.
+  // V5: Ein Pilot zaehlt im Betrieb als laufender Vertrag ("davon x Pilot"), nie beim Geld.
+  const laufend = vertraege.filter((v) => LAUFEND.includes(v.wirksamer_status))
   const regulaer = vertraege.filter(istRegulaer)
-  const laufend = regulaer.filter((v) => LAUFEND.includes(v.wirksamer_status))
   return {
     laufend: laufend.length,
-    abbuchungCents: laufend.reduce((s, v) => s + v.beitrag_diesen_monat_cents, 0),
+    davonPilot: laufend.filter((v) => !istRegulaer(v)).length,
+    abbuchungCents: laufend.filter(istRegulaer).reduce((s, v) => s + v.beitrag_diesen_monat_cents, 0),
     imWiderruf: regulaer.filter((v) => v.wirksamer_status === 'im_widerruf').length,
   }
 }

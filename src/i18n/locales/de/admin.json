@@ -24,6 +24,8 @@
       "vertraege": "Laufende Verträge",
       "vertraegeSub_one": "davon {{count}} im Widerruf",
       "vertraegeSub_other": "davon {{count}} im Widerruf",
+      "vertraegePilot_one": "davon {{count}} Pilot",
+      "vertraegePilot_other": "davon {{count}} Pilot",
       "abbuchung": "Abbuchung {{monat}}",
       "abbuchungSub": "Summe der laufenden Verträge",
       "coaches": "Coaches",

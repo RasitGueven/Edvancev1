@@ -870,7 +870,8 @@ laufenden Vertrag (Zugangscode, Akte, Slots, Session, Reports). Migration `20261
 
 ### 11.3 Frontend
 
-- **Kennzahlen:** `summen()` und `imVerzug()` in `src/lib/vertrag/menue.ts` lassen Pilotverträge aus.
+- **Kennzahlen:** `summen()` zählt einen Pilot im Betrieb als laufend (`davonPilot`, Anzeige „davon x Pilot“), aber
+  nicht bei Abbuchung und Widerruf. `imVerzug()` lässt Pilots aus.
   `buendelVollstaendig(arten, vertragsart)` verlangt beim Pilot kein SEPA-Mandat.
 - **Kennzeichen „Pilot“:** `PilotKennzeichen` (`src/pages/admin/vertraege/`) steht im Vertragsmenü (Spalte Paket),
   im Detail und im Assistenten (Kopf), im Verlauf, im Kopf der Schülerakte (Admin) und in den Slots (Kinder-Liste,

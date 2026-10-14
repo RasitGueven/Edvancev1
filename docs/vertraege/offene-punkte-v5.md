@@ -20,9 +20,8 @@ Stand: PR offen, Migration `20261014110412_vertrag_pilot.sql` noch nicht eingesp
 
 ## Für Batu (erster Fall)
 
-5. **Der Lead muss auf „Analyse abgeschlossen“ stehen.** `vertrag_starten` verlangt `leads.status = 'lsa_fertig'`.
-   Batus Leads stehen in Prod auf `rejected` (Stand 14.10., read-only geprüft). Das gehört vermutlich in den
-   parallelen Batu-Tab (Altleads). V5 ändert diese Regel nicht.
+5. **Lead (entschieden 14.10.).** Batus alter Lead bleibt `rejected` und gilt als Testdaten. Batu bekommt am 31.10.
+   einen frischen Lead; in V5 ist dafür nichts zu tun.
 6. **Vorschlag für Beginn 01.11.2026:** Ende Fr 16.07.2027, 34 Einheiten. Gezählt werden die Wochen ab 02.11.2026 mit
    mindestens einem Schultag, ohne die volle Weihnachtswoche und die beiden Osterwochen. Beides ist im Formular
    änderbar.
@@ -33,13 +32,11 @@ Stand: PR offen, Migration `20261014110412_vertrag_pilot.sql` noch nicht eingesp
    kennt er nicht. Eine Woche mit einem Schultag zählt voll, auch eine Teilwoche wie der 21./22.12.
 8. **Das Ende wird erst beim Versand bzw. Abschluss geprüft** (nicht in den Ferien, nicht nach dem letzten gepflegten
    Ferientag). Das Formular speichert ein Ende in den Ferien noch; die Meldung kommt dann aus der RPC.
-9. **Rückfrage: Zählt ein Pilot als „laufender Vertrag“?** Gebaut ist: nein. `summen()` lässt Pilots aus allen drei
-   Zahlen weg (laufend, im Widerruf, Abbuchung), also auch aus der Kachel „Verträge“ auf „Heute“. Entscheidung 8 nennt
-   nur Umsatz-, Beitrags- und Founders-Kennzahlen. Sollen Pilots als laufende Verträge mitzählen, reicht ein Filter
-   allein auf `abbuchungCents` (`src/lib/vertrag/menue.ts`).
+9. **Pilot als laufender Vertrag (entschieden 14.10.).** Im Betrieb zählt ein Pilot als laufender Vertrag: in der
+   Kachel „Verträge“ auf „Heute“ und in der Summenzeile der Übersicht, ausgewiesen als „davon x Pilot“. Beitrag,
+   Abbuchung, „im Widerruf“ und Verzug bleiben ohne Pilot (`summen()`, `imVerzug()`).
    **Reiter-Zähler im Vertragsmenü.** Der Zähler am Reiter „Übersicht“ zählt Pilotverträge mit, weil sie in der Liste
-   stehen (mit Kennzeichen). Die Kennzahlen „laufende Verträge“, „im Widerruf“ und „Abbuchung“ sowie der Verzug
-   zählen sie nicht. „Auslaufend“ zeigt einen Pilot bewusst, denn von dort startet der Folgevertrag.
+   stehen (mit Kennzeichen). „Auslaufend“ zeigt einen Pilot bewusst, denn von dort startet der Folgevertrag.
 10. **„Aktive Schüler“ auf „Heute“** (`adminStats`, zählt aktive Akten) zählt ein Pilotkind mit. Das ist keine Umsatz-
     oder Beitragskennzahl und blieb deshalb unverändert.
 11. **Kennzeichen in der Schülerakte nur für Admins.** Es kommt aus `slots_kind`, das Coaches nicht aufrufen

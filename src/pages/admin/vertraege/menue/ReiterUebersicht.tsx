@@ -129,6 +129,12 @@ export function ReiterUebersicht({ vertraege, tiers, filter, onFilter, onZeile }
               {t(`menue.summe.${k}`)}
             </span>
             <span className="text-3xl font-bold text-[var(--color-text-primary)]">{wert}</span>
+            {/* V5: Pilots zaehlen als laufend und werden ausgewiesen. */}
+            {k === 'laufend' && s.davonPilot > 0 && (
+              <span className="text-xs text-[var(--color-text-tertiary)]">
+                {t('menue.summe.davonPilot', { count: s.davonPilot })}
+              </span>
+            )}
           </div>
         ))}
       </div>

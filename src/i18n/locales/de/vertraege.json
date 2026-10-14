@@ -272,6 +272,8 @@
     },
     "summe": {
       "laufend": "Laufende Verträge",
+      "davonPilot_one": "davon {{count}} Pilot",
+      "davonPilot_other": "davon {{count}} Pilot",
       "abbuchung": "Abbuchung diesen Monat",
       "widerruf": "Im Widerruf"
     },
