@@ -48,6 +48,19 @@
     "leer": "Keine Aufgaben zum Prüfen",
     "leerText": "Sobald Aufgaben vorbefüllt sind, erscheinen sie hier."
   },
+  "soll": {
+    "reiterRest_one": "noch {{count}} zu prüfen",
+    "reiterRest_other": "noch {{count}} zu prüfen",
+    "themaNoetig": "{{x}} von {{y}} nötig",
+    "themaReicht": "reicht für die LSA",
+    "knotenZahl": "Soll {{soll}} · {{gezaehlt}} gezählt",
+    "ohneMcErfuellt_one": "mind. {{count}} ohne Multiple Choice: erfüllt",
+    "ohneMcErfuellt_other": "mind. {{count}} ohne Multiple Choice: erfüllt",
+    "ohneMcOffen_one": "mind. {{count}} ohne Multiple Choice: offen",
+    "ohneMcOffen_other": "mind. {{count}} ohne Multiple Choice: offen",
+    "knotenReicht": "reicht",
+    "knotenLeer": "Keine Aufgabe in deiner Liste."
+  },
   "pausiert": "Pausiert. Dein Stand ist gespeichert.",
   "abschluss": {
     "titel": "Alle Aufgaben bewertet",

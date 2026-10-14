@@ -37,6 +37,28 @@ export type PruefBoardZeile = {
   letzte_dauer_sek: number | null
 }
 
+/**
+ * Eine Zeile aus pruef_board_soll() (P2): Sollzahl und Lenas Fortschritt je Knoten. gezaehlt = Aufgaben auf
+ * passt oder freigegeben; rest = was bis "reicht" noch fehlt (Soll und mindestens min_ohne_mc ohne Multiple Choice).
+ */
+export type PruefSollZeile = {
+  skill_key: string
+  skill_label: string
+  thema_key: string | null
+  thema_label: string | null
+  thema_sort: number | null
+  stufe: Stufe | null
+  sort: number
+  anlaesse: string[]
+  soll: number
+  min_ohne_mc: number
+  im_board: number
+  gezaehlt: number
+  gezaehlt_ohne_mc: number
+  rest: number
+  reicht: boolean
+}
+
 export type PruefWert = { wert: string; schreibweisen: string[] }
 
 /** Richtige Werte eines Teils; teil null = einteilige Aufgabe. */

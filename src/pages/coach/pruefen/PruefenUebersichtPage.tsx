@@ -13,8 +13,8 @@ import { Abschluss, AlsNaechstes, Themenliste } from '@/components/edvance/pruef
 import { useAuth } from '@/hooks/useAuth'
 import { ersteImThema, naechsteOffene, positionImThema, stufenMitAufgaben } from '@/lib/pruefung/reihenfolge'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
-import { getMeineDauer, getPruefBoard } from '@/lib/supabase/pruefung'
-import type { PruefBoardZeile, PruefFehlerInfo, Stufe } from '@/types'
+import { getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
+import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
 
 export function PruefenUebersichtPage(): JSX.Element {
@@ -23,6 +23,7 @@ export function PruefenUebersichtPage(): JSX.Element {
   const { user } = useAuth()
   const [params] = useSearchParams()
   const [board, setBoard] = useState<PruefBoardZeile[] | null>(null)
+  const [soll, setSoll] = useState<PruefSollZeile[]>([])
   const [fehler, setFehler] = useState<PruefFehlerInfo | null>(null)
   const [schnitt, setSchnitt] = useState<number | null>(null)
   const [reiter, setReiter] = useState<Stufe | null>(null)
@@ -34,6 +35,11 @@ export function PruefenUebersichtPage(): JSX.Element {
     void getPruefBoard().then((r) => {
       setBoard(r.data)
       setFehler(r.error)
+    })
+    // Sollzahlen sind Zusatz: fehlen sie, bleibt das Board wie vor P2.
+    void getPruefSoll().then((r) => {
+      if (r.data) setSoll(r.data)
+      else if (r.error) console.warn('pruef_board_soll failed', r.error.message)
     })
   }, [])
 
@@ -99,7 +105,7 @@ export function PruefenUebersichtPage(): JSX.Element {
                     <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
                       {t(`stufe.${aktiv}`)}
                     </h2>
-                    <Themenliste board={board} stufen={stufen} aktiv={aktiv} offen={offen} onReiter={setReiter}
+                    <Themenliste board={board} soll={soll} stufen={stufen} aktiv={aktiv} offen={offen} onReiter={setReiter}
                       onThema={(k) => setOffen((o) => {
                         const n = new Set(o)
                         if (n.has(k)) n.delete(k)

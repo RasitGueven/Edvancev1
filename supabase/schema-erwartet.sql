@@ -8730,6 +8730,47 @@ end $$;
 
 
 --
+-- Name: pruef_board_soll(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_board_soll() RETURNS TABLE(skill_key text, skill_label text, thema_key text, thema_label text, thema_sort integer, stufe text, sort integer, anlaesse text[], soll integer, min_ohne_mc integer, im_board integer, gezaehlt integer, gezaehlt_ohne_mc integer, rest integer, reicht boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruef_board_soll: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  with s as (
+    select p.skill_key sk, max(p.soll) so, max(p.min_ohne_mc) mo, min(p.sort) srt,
+           array_agg(p.anlass order by p.sort, p.anlass) an
+      from public.pruef_soll p
+     where p.aktiv
+     group by p.skill_key),
+  b as (
+    select z.skill_key sk, count(*)::int n,
+           count(*) filter (where z.lena_status in ('passt', 'freigegeben'))::int g,
+           count(*) filter (where z.lena_status in ('passt', 'freigegeben')
+                              and t.input_type is distinct from 'MC')::int g_ohne
+      from public.pruef_board() z
+      join public.tasks t on t.id = z.task_id
+     group by z.skill_key)
+  select s.sk, k.label, th.thema_key, th.label, th.sort, th.stufe, s.srt, s.an, s.so, s.mo,
+         coalesce(b.n, 0), coalesce(b.g, 0), coalesce(b.g_ohne, 0),
+         greatest(s.so - coalesce(b.g, 0), s.mo - coalesce(b.g_ohne, 0), 0),
+         coalesce(b.g, 0) >= s.so and coalesce(b.g_ohne, 0) >= s.mo
+    from s
+    join public.skills k on k.skill_key = s.sk
+    left join public.skill_thema st on st.skill_key = s.sk
+    left join public.themen th on th.thema_key = st.thema_key
+    left join b on b.sk = s.sk
+   order by s.srt, s.sk;
+end $$;
+
+
+--
 -- Name: pruef_einheit(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -18995,6 +19036,24 @@ CREATE TABLE public.pruef_einstellungen (
 
 
 --
+-- Name: pruef_soll; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pruef_soll (
+    skill_key text NOT NULL,
+    anlass text NOT NULL,
+    soll integer NOT NULL,
+    min_ohne_mc integer DEFAULT 0 NOT NULL,
+    sort integer NOT NULL,
+    aktiv boolean DEFAULT true NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT pruef_soll_anlass_check CHECK ((anlass ~ '^[a-z][a-z0-9_]*$'::text)),
+    CONSTRAINT pruef_soll_check CHECK (((min_ohne_mc >= 0) AND (min_ohne_mc <= soll))),
+    CONSTRAINT pruef_soll_soll_check CHECK ((soll > 0))
+);
+
+
+--
 -- Name: push_tokens; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -20899,6 +20958,14 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.pruef_einstellungen
     ADD CONSTRAINT pruef_einstellungen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pruef_soll pruef_soll_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruef_soll
+    ADD CONSTRAINT pruef_soll_pkey PRIMARY KEY (anlass, skill_key);
 
 
 --
@@ -23571,6 +23638,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: pruef_soll pruef_soll_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruef_soll
+    ADD CONSTRAINT pruef_soll_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: push_tokens push_tokens_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25690,6 +25765,26 @@ CREATE POLICY pruef_einstellungen_admin ON public.pruef_einstellungen FOR UPDATE
 --
 
 CREATE POLICY pruef_einstellungen_lesen ON public.pruef_einstellungen FOR SELECT TO authenticated USING (true);
+
+
+--
+-- Name: pruef_soll; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.pruef_soll ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: pruef_soll pruef_soll_admin; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruef_soll_admin ON public.pruef_soll TO authenticated USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: pruef_soll pruef_soll_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruef_soll_lesen ON public.pruef_soll FOR SELECT TO authenticated USING (public.darf_pruefen());
 
 
 --

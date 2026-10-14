@@ -11,6 +11,7 @@ import type {
   PruefFehlerInfo,
   PruefResult,
   PruefRueckfrageAktion,
+  PruefSollZeile,
   PruefSpeichernAntwort,
   PruefWertung,
 } from '@/types'
@@ -51,6 +52,11 @@ export async function getPruefBoard(): Promise<PruefResult<PruefBoardZeile[]>> {
   const res = await rufe<PruefBoardZeile[]>('pruef_board')
   if (res.data) res.data = [...res.data].sort((a, b) => a.reihenfolge - b.reihenfolge)
   return res
+}
+
+/** Sollzahlen und Fortschritt je Knoten (P2), in der Reihenfolge von pruef_soll.sort. */
+export function getPruefSoll(): Promise<PruefResult<PruefSollZeile[]>> {
+  return rufe<PruefSollZeile[]>('pruef_board_soll')
 }
 
 /** Pruefkarte einer Aufgabe. Legt beim ersten Oeffnen die Ausgangsfassung an. */
