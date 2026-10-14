@@ -284,6 +284,7 @@ export type {
   PruefEinstellungen,
   PruefRueckfrageAktion,
   PruefAdminZeile,
+  PruefSollZeile,
   Fehlbild,
 } from './pruefung'
 export type {

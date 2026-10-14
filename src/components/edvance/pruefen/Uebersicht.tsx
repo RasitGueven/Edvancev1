@@ -1,16 +1,19 @@
 // Uebersicht "Aufgaben pruefen" (Entscheidung 29): Karte "Als Naechstes", Reiter je Stufe,
 // Themenliste mit Balken und "x / y"; ein Thema klappt auf und zeigt seine Aufgaben. Dazu der
-// Abschluss (Anforderung G 52).
+// Abschluss (Anforderung G 52). Mit Sollzahlen (P2): Restbedarf im Reiter, "X von Y noetig" je Thema,
+// aufgeklappt nach Knoten gruppiert.
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ChevronRight } from 'lucide-react'
-import { EdvanceCard } from '@/components/edvance'
+import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { stand, themenDerStufe, type Stand } from '@/lib/pruefung/reihenfolge'
-import type { LenaStatus, PruefBoardZeile, Stufe } from '@/types'
+import { knotenDesThemas, restDerStufe, sollDesThemas, sortiereThemen } from '@/lib/pruefung/soll'
+import type { LenaStatus, PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
 import { Taste } from './InfoTip'
+import { KnotenListe } from './KnotenListe'
 
 const STATUS_FARBE: Record<LenaStatus, string> = {
   offen: 'text-[var(--color-text-tertiary)]',
@@ -75,6 +78,8 @@ export function AlsNaechstes({ board, naechste, position, onWeiter }: NaechstesP
 
 type ListeProps = {
   board: PruefBoardZeile[]
+  /** Sollzahlen je Knoten (pruef_board_soll); leer = Ansicht wie vor P2. */
+  soll?: PruefSollZeile[]
   stufen: Stufe[]
   aktiv: Stufe
   offen: Set<string>
@@ -84,7 +89,7 @@ type ListeProps = {
   onAufgabe: (id: string) => void
 }
 
-export function Themenliste({ board, stufen, aktiv, offen, onReiter, onThema, onPruefen, onAufgabe }: ListeProps): JSX.Element {
+export function Themenliste({ board, soll = [], stufen, aktiv, offen, onReiter, onThema, onPruefen, onAufgabe }: ListeProps): JSX.Element {
   const { t } = useTranslation('pruefen')
   const statusText = (z: PruefBoardZeile): string =>
     z.lena_status === 'passt' && z.geaendert ? t('status.passtGeaendert') : t(`status.${z.lena_status}`)
@@ -93,19 +98,23 @@ export function Themenliste({ board, stufen, aktiv, offen, onReiter, onThema, on
       <div role="tablist" className="flex flex-wrap gap-2">
         {stufen.map((s) => {
           const st = stand(board.filter((z) => z.stufe === s))
+          const rest = restDerStufe(soll, s)
           return (
             <button key={s} type="button" role="tab" aria-selected={s === aktiv} onClick={() => onReiter(s)}
               className={cn('min-h-[44px] rounded-[var(--radius-full)] border px-4 text-sm',
                 s === aktiv ? 'border-[var(--color-primary)] bg-[var(--color-primary)] font-semibold text-white'
                   : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}>
-              {t(`stufe.${s}`)} <span className="ml-1 opacity-75">{t('themen.reiterZahl', { x: st.geprueft, y: st.gesamt })}</span>
+              {t(`stufe.${s}`)} <span className="ml-1 opacity-75">
+                {rest === null ? t('themen.reiterZahl', { x: st.geprueft, y: st.gesamt }) : t('soll.reiterRest', { count: rest })}
+              </span>
             </button>
           )
         })}
       </div>
       <div className="flex flex-col gap-2">
-        {themenDerStufe(board, aktiv).map((g) => {
+        {sortiereThemen(themenDerStufe(board, aktiv), soll).map((g) => {
           const st = stand(g.zeilen)
+          const ts = sollDesThemas(soll, g.thema_key)
           const auf = offen.has(g.thema_key)
           const anteil = (n: number): string => `${(n / Math.max(st.gesamt, 1)) * 100}%`
           return (
@@ -115,8 +124,12 @@ export function Themenliste({ board, stufen, aktiv, offen, onReiter, onThema, on
                   aria-label={t(auf ? 'themen.zuklappen' : 'themen.aufklappen', { thema: g.label })}
                   className="flex min-h-[44px] min-w-0 flex-1 items-center gap-2 text-left">
                   <ChevronRight className={cn('h-4 w-4 shrink-0 text-[var(--color-text-tertiary)] transition-transform', auf && 'rotate-90')} aria-hidden="true" />
-                  <span className="min-w-0 text-sm font-semibold text-[var(--color-text-primary)]">{g.label}</span>
+                  <span className="flex min-w-0 flex-col">
+                    <span className="text-sm font-semibold text-[var(--color-text-primary)]">{g.label}</span>
+                    {ts && <span className="text-xs text-[var(--color-text-secondary)]">{t('soll.themaNoetig', { x: ts.gezaehlt, y: ts.noetig })}</span>}
+                  </span>
                 </button>
+                {ts?.reicht && <EdvanceBadge variant="success">{t('soll.themaReicht')}</EdvanceBadge>}
                 <div className="hidden h-1.5 w-36 overflow-hidden rounded-[var(--radius-full)] bg-[var(--color-bg-subtle)] sm:flex" aria-hidden="true">
                   <span className="h-full bg-[var(--color-success)]" style={{ width: anteil(st.passt + st.freigegeben) }} />
                   <span className="h-full bg-[var(--color-warning)]" style={{ width: anteil(st.unsicher) }} />
@@ -125,7 +138,11 @@ export function Themenliste({ board, stufen, aktiv, offen, onReiter, onThema, on
                 <span className="w-14 text-right text-sm text-[var(--color-text-secondary)]">{t('themen.zaehler', { x: st.geprueft, y: st.gesamt })}</span>
                 <Button variant="secondary" size="sm" onClick={() => onPruefen(g.thema_key)}>{t('themen.pruefen')}</Button>
               </div>
-              {auf && (
+              {auf && ts && (
+                <KnotenListe knoten={knotenDesThemas(g, soll)} statusText={statusText} statusFarbe={STATUS_FARBE} onAufgabe={onAufgabe}
+                  nummer={(id) => g.zeilen.findIndex((z) => z.task_id === id) + 1} />
+              )}
+              {auf && !ts && (
                 <ul className="flex flex-col border-t border-[var(--color-border)]">
                   {g.zeilen.map((z, i) => (
                     <li key={z.task_id}>
