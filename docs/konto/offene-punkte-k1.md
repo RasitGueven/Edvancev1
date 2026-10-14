@@ -101,6 +101,19 @@ Stand 14.10.2026 · Branch `feat/rasit-konto-k1` · Migration `20261014121000_ko
     und Auth-Einstellungen in Prod sind nicht geändert. Laut CLAUDE.md §4 braucht das Rasits ausdrückliche Bestätigung
     vor dem Einspielen.
 
+## Beim Einspielen (14.10.2026)
+
+- **Hook-Block in `config.toml` ist im Repo aus** (`enabled = false`). Die CLI prüft den Block auch bei `functions
+  deploy`. Mit `enabled = true` und ohne gesetztes `SEND_EMAIL_HOOK_SECRET` brach jeder Deploy mit „Invalid hook config“
+  ab, auch für fremde Functions.
+  - Für einen lokalen Durchlauf mit Mails: auf `true` setzen und `supabase/.env` anlegen.
+  - In Prod schaltet das Dashboard den Hook.
+- **`APP_URL` fehlte in den Prod-Secrets** (Stand 10:52; `SEND_EMAIL_HOOK_SECRET` und `MS_*` sind gesetzt). Ohne
+  `APP_URL` gilt:
+  - `auth_mail` nimmt den Ursprung der Site URL.
+  - `coach_einladen` nimmt den Ursprung des Browsers.
+  - Beides geht, aber `APP_URL` ist die vorgesehene feste Quelle.
+
 ## Nach dem Einspielen prüfen
 
 - `select version from supabase_migrations.schema_migrations where version = '20261014121000'` (dbread).

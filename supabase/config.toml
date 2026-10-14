@@ -289,8 +289,12 @@ max_frequency = "5s"
 # sie per AUTH_MAIL_TESTVERSAND_URL an Mailpit statt ueber Graph. Secret im Format
 # "v1,whsec_<base64>" in supabase/.env (SEND_EMAIL_HOOK_SECRET) und
 # supabase/functions/.env — beide nicht im Repo.
+# Im Repo AUS: Die CLI prueft den Block auch bei "functions deploy", und ohne gesetztes
+# SEND_EMAIL_HOOK_SECRET bricht dann jeder Deploy ab ("Invalid hook config"). Fuer einen
+# lokalen Durchlauf mit Mails auf true setzen und die beiden .env-Dateien anlegen.
+# In Prod schaltet den Hook das Dashboard ein (Authentication -> Hooks), nicht diese Datei.
 [auth.hook.send_email]
-enabled = true
+enabled = false
 uri = "http://host.docker.internal:54321/functions/v1/auth_mail"
 secrets = "env(SEND_EMAIL_HOOK_SECRET)"
 
