@@ -1179,7 +1179,13 @@ CREATE FUNCTION public.coaching_sessions_testlauf_pruefen() RETURNS trigger
 begin
   if (tg_op = 'INSERT' and new.testlauf)
      or (tg_op = 'UPDATE' and new.testlauf is distinct from old.testlauf) then
-    if coalesce(public.get_my_role(), '') <> 'admin' then
+    -- T5: Ausnahme nur beim Anlegen ueber den Systemweg aus termin_session_anlegen, nur fuer den eingeteilten Coach.
+    -- NULL-sicher: Ist ein Teil unbekannt (z. B. auth.uid() leer), gilt die Ausnahme nicht.
+    if coalesce(public.get_my_role(), '') <> 'admin'
+       and not coalesce(tg_op = 'INSERT'
+                        and current_setting('edvance.testlauf_anlegen', true) = '1'
+                        and new.raum_id is not null and new.slot_zeit_id is not null
+                        and public.get_my_role() = 'coach' and new.coach_id = auth.uid(), false) then
       raise exception 'Testlauf: nur Admin' using errcode = '42501';
     end if;
     -- T4: nach dem Start nicht mehr, auch nicht ueber direkte Zeilenrechte (wie session_testlauf_setzen).
@@ -13360,6 +13366,28 @@ $$;
 
 
 --
+-- Name: skill_pruefung_session(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.skill_pruefung_session(p_session_id uuid, p_skill_key text) RETURNS TABLE(id uuid, skill_key text, frage text, erwartung text, kriterium text, quelle text, freigegeben boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_test boolean := (public.session_coach_pruefen(p_session_id, 'skill_pruefung_session')).testlauf;
+begin
+  return query
+    select p.id, p.skill_key, p.frage, p.erwartung, p.kriterium, p.quelle, p.status = 'freigegeben'
+      from public.skill_pruefung p
+     where p.skill_key = p_skill_key
+       and (p.status = 'freigegeben' or coalesce(v_test, false))
+     order by (p.status = 'freigegeben') desc, (p.status = 'geprueft') desc, p.angelegt, p.id;
+end;
+$$;
+
+
+--
 -- Name: slot_assign(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -16557,13 +16585,16 @@ begin
     end if;
     v_test := coalesce(v_test, false);
     begin
+      -- T5: Systemweg fuer den Trigger, nur fuer dieses INSERT (scheitert es, nimmt der Blockabbruch ihn zurueck).
+      perform set_config('edvance.testlauf_anlegen', '1', true);
       insert into public.coaching_sessions (coach_id, room, scheduled_at, status, raum_id, slot_zeit_id, testlauf)
       values (r.coach_id, r.raum_name, public.slots_termin_beginn(p_datum, p_zeit_id), 'upcoming', p_raum_id, p_zeit_id,
               v_test)
       returning * into v_sess;
+      perform set_config('edvance.testlauf_anlegen', '', true);
     exception when insufficient_privilege then
-      -- Wer testlauf beim Anlegen setzen darf, entscheidet der Trigger coaching_sessions_testlauf_pruefen (T4);
-      -- hier bekommt seine Ablehnung nur einen Hinweis, den die Oberfläche übersetzt.
+      -- Wer testlauf beim Anlegen setzen darf, entscheidet der Trigger coaching_sessions_testlauf_pruefen (T4, T5:
+      -- Admin oder der eingeteilte Coach ueber den Systemweg); hier bekommt seine Ablehnung nur einen Hinweis.
       if not v_test then
         raise;
       end if;

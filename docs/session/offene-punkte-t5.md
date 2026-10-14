@@ -84,10 +84,9 @@ pgTAP konnte die Prüfinstanz nicht laden, die Läufe stehen im PR.
    Feiertag springt `tagc` auf den 02.11. (Herbstferien dazwischen), alle 52 Zusicherungen grün.
 5. **`slots_sl2b` Zusicherung 58 umgestellt.** Sie erwartete für den eingeteilten Coach 42501 `testlauf_nur_admin` und
    erwartet jetzt Erfolg (gewollte Änderung nach Entscheidung 4); Anzahl unverändert (67).
-6. **CI-Schemavergleich bis zum Einspielen rot.** `supabase/schema-erwartet.sql` fasst T5 laut Leitplanke erst nach dem
-   Einspielen an (wie T4 und SL2b).
+6. ~~**CI-Schemavergleich bis zum Einspielen rot.**~~ Erledigt mit dem Einspielen am 14.10. (siehe unten).
 7. **Abweichungen Prod gegen Neuaufbau, nicht von T5.** `lsa_hint` kommt aus E3 (#244, in Prod, nach dem Abzweig dieses
-   Branches in dev); erledigt sich mit dem Einmischen von `origin/dev`. `lsa_fehlbild_match` unterscheidet sich nur im
+   Branches in dev); nach dem Einmischen von `origin/dev` gleich (dbread 14.10.). `lsa_fehlbild_match` unterscheidet sich nur im
    ACL (Prod mit ausdrücklichen Grants an authenticated/service_role, Neuaufbau ohne). Altbestand, nicht angefasst.
 8. ~~**Ein Aufruf mehr im Testlauf.**~~ Entfällt mit `freigegeben` vom Server (ein RPC je Takt, auch im Testlauf).
 9. **„Keine freigegebene Prüffrage“.** Der Text `mastery.keineFrage` passt im Testlauf nur halb (dort fehlt jede
@@ -95,3 +94,19 @@ pgTAP konnte die Prüfinstanz nicht laden, die Läufe stehen im PR.
 10. **Regel gegen künftige Lücken (Zweitprüfung Befund 3).** Entscheidung 6 hängt daran, dass PostgREST nur `public`
     und `graphql_public` ausliefert und keine `public`-Funktion einen Einstellungsnamen aus Parametern setzt. Vorschlag:
     ein Wächter-Test, der `set_config(` mit nicht konstantem ersten Argument in `public` meldet. Nicht Teil von T5.
+
+## Eingespielt (14.10.2026)
+
+Vorher `origin/dev` eingemischt (E3 #244, Batu #245; konfliktfrei), Wegwerf-DB neu aus allen 274 Migrationen: alle
+pgTAP-Dateien grün außer den 8 aus `bekannt-rot.txt` (`session_t5` 52, `slots_sl2b` 67, `session_x0b` 28,
+`session_x0c` 39, `session_e3_hinweise` 22); Frontend typecheck, lint, test grün (135 Dateien, 1142 Tests).
+Je Migration `~/bin/mig` (CLAUDE.md §10: DB-Check, Versionscheck, eine Transaktion, History-Eintrag), in dieser
+Reihenfolge: `20261014104355`, `20261014104412`, beide `OK`.
+Prüfung per dbread:
+- Beide Versionen stehen in `supabase_migrations.schema_migrations`.
+- `skill_pruefung_session`, `skill_pruefung_lesen`, `termin_session_anlegen`, `coaching_sessions_testlauf_pruefen`:
+  md5 von `pg_get_functiondef`, `prosecdef`, `proconfig`, `proacl` gleich dem Neuaufbau; Trigger
+  `coaching_sessions_testlauf_trg` aktiv.
+- Alle `public`-Funktionen gegen den Neuaufbau: einzige Abweichung `lsa_fehlbild_match` (nur ACL, Punkt 7).
+`supabase/schema-erwartet.sql` per `tools/schema-snapshot.sh` neu erzeugt (nur die drei T5-Objekte geändert); gegen
+den lokalen Neuaufbau mit dem CI-Filter ohne Unterschied.
