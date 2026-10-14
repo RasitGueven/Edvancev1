@@ -7,7 +7,7 @@
 --
 
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -641,6 +641,25 @@ begin
   insert into public.session_ausgegeben (session_id, student_id, task_id, phase, eingemischt, von)
   values (p_session_id, p_student_id, p_task_id, public.session_phase(p_session_id, p_student_id),
           coalesce(p_eingemischt, false), auth.uid())
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: auth_mail_protokollieren(text, text, uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.auth_mail_protokollieren(p_art text, p_empfaenger text, p_user_id uuid DEFAULT NULL::uuid, p_fehler text DEFAULT NULL::text) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  insert into public.auth_mail_versand (art, empfaenger, user_id, fehler)
+  values (p_art, p_empfaenger, p_user_id, nullif(btrim(coalesce(p_fehler, '')), ''))
   returning id into v_id;
   return v_id;
 end;
@@ -3689,6 +3708,22 @@ begin
   end if;
   return new;
 end;
+$$;
+
+
+--
+-- Name: konto_email_vorhanden(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.konto_email_vorhanden(p_email text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1 from auth.users u where lower(u.email) = lower(btrim(p_email))
+  ) or exists (
+    select 1 from public.profiles p where lower(p.email) = lower(btrim(p_email))
+  );
 $$;
 
 
@@ -7251,6 +7286,28 @@ begin
         join public.slot_zeiten z on z.id = r.slot_zeit_id
         left join lateral (select * from public.slots_session(r.datum, r.slot_zeit_id, r.raum_id)) s on true
        where r.offen and r.coach_id = auth.uid()), '[]'));
+end;
+$$;
+
+
+--
+-- Name: mitarbeiter_konto_stand(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mitarbeiter_konto_stand() RETURNS TABLE(id uuid, eingeladen_at timestamp with time zone, bestaetigt_at timestamp with time zone, zuletzt_angemeldet_at timestamp with time zone)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'mitarbeiter_konto_stand: nur Admin' using errcode = '42501';
+  end if;
+
+  return query
+    select u.id, u.invited_at, u.email_confirmed_at, u.last_sign_in_at
+      from auth.users u
+      join public.profiles p on p.id = u.id
+     where p.role in ('coach', 'admin');
 end;
 $$;
 
@@ -18332,6 +18389,21 @@ CREATE TABLE public.audit_log (
 
 
 --
+-- Name: auth_mail_versand; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.auth_mail_versand (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    art text NOT NULL,
+    empfaenger text NOT NULL,
+    user_id uuid,
+    fehler text,
+    erfolgt_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT auth_mail_versand_art_check CHECK ((art = ANY (ARRAY['invite'::text, 'recovery'::text, 'signup'::text, 'email_change'::text, 'reauthentication'::text, 'magiclink'::text, 'unbekannt'::text])))
+);
+
+
+--
 -- Name: badge_catalog; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -20438,6 +20510,14 @@ ALTER TABLE ONLY public.audit_log
 
 
 --
+-- Name: auth_mail_versand auth_mail_versand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_mail_versand
+    ADD CONSTRAINT auth_mail_versand_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: badge_catalog badge_catalog_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -21553,6 +21633,13 @@ CREATE INDEX audit_log_actor_idx ON public.audit_log USING btree (actor, created
 --
 
 CREATE INDEX audit_log_objekt_idx ON public.audit_log USING btree (objekt_typ, objekt_id, created_at DESC);
+
+
+--
+-- Name: auth_mail_versand_zeit_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX auth_mail_versand_zeit_idx ON public.auth_mail_versand USING btree (erfolgt_at DESC);
 
 
 --
@@ -24847,6 +24934,19 @@ ALTER TABLE public.audit_log ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY audit_log_admin_read ON public.audit_log FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: auth_mail_versand; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.auth_mail_versand ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: auth_mail_versand auth_mail_versand_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY auth_mail_versand_admin_select ON public.auth_mail_versand FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --

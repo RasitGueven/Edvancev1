@@ -97,7 +97,8 @@ describe('Rollenweiche auf geteilten Routen', () => {
     auth.darfPruefen = true
     await zeige('/admin/akten/s1')
     const namen = within(leiste()).getAllByRole('link').map((a) => a.getAttribute('href'))
-    expect(namen).toEqual(['/coach', '/coach/einsaetze', '/admin/akten', '/coach/pruefen', '/admin/content-gesundheit'])
+    // Zuletzt der Fuss: „Mein Konto“ (K1).
+    expect(namen).toEqual(['/coach', '/coach/einsaetze', '/admin/akten', '/coach/pruefen', '/admin/content-gesundheit', '/konto'])
     expect(within(leiste()).getByRole('link', { name: /Schüler/ }).getAttribute('aria-current')).toBe('page')
     // eine Session von heute + ein Einsatz aus dem Plan
     expect(within(leiste()).getByRole('link', { name: /Heute/ }).textContent).toContain('2')

@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent, type JSX } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Sparkles } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
@@ -7,16 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { EdvanceCard } from '@/components/edvance'
 import { EdvanceSymbol } from '@/components/brand/EdvanceLogo'
-import type { UserRole } from '@/types'
-
-const ROLE_ROUTES: Record<UserRole, string> = {
-  student: '/student',
-  parent: '/parent',
-  coach: '/coach',
-  admin: '/admin',
-}
-
-const ERROR_INVALID_CREDENTIALS = 'E-Mail oder Passwort falsch.'
+import { ROLLEN_START as ROLE_ROUTES } from '@/pages/auth/AuthRahmen'
 
 /* Verstreute Sterne: [x, y, r, opacity] im 1440×900-Raster. */
 const STARS: Array<[number, number, number, number]> = [
@@ -102,6 +94,7 @@ function ConstellationPath(): JSX.Element {
 }
 
 export function Login(): JSX.Element {
+  const { t } = useTranslation('konto')
   const { signIn, role, loading } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState<string>('')
@@ -121,7 +114,7 @@ export function Login(): JSX.Element {
     setSubmitting(true)
     const { error: signInError } = await signIn(email, password)
     setSubmitting(false)
-    if (signInError) setError(ERROR_INVALID_CREDENTIALS)
+    if (signInError) setError(t('login.falsch'))
   }
 
   return (
@@ -140,7 +133,7 @@ export function Login(): JSX.Element {
             Edvance
           </h1>
           <p className="text-sm text-[var(--color-gold-champagner)] md:text-base md:leading-relaxed">
-            Hybride Lernakademie · Kleingruppen · Tablet-Lernpfad
+            {t('login.markeZeile')}
           </p>
         </aside>
 
@@ -151,23 +144,23 @@ export function Login(): JSX.Element {
         >
           <div className="mb-8">
             <h2 className="font-serif text-2xl font-semibold text-[var(--color-bg-app)]">
-              Willkommen zurück
+              {t('login.titel')}
             </h2>
             <p className="mt-2 text-sm text-white/70">
-              Melde dich an, um weiterzulernen
+              {t('login.satz')}
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="email" className="text-[var(--color-bg-app)]">
-                E-Mail
+                {t('login.email')}
               </Label>
               <Input
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="name@beispiel.de"
+                placeholder={t('login.emailPlatzhalter')}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required
@@ -177,7 +170,7 @@ export function Login(): JSX.Element {
 
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="password" className="text-[var(--color-bg-app)]">
-                Passwort
+                {t('login.passwort')}
               </Label>
               <Input
                 id="password"
@@ -203,13 +196,20 @@ export function Login(): JSX.Element {
               className="mt-2 w-full bg-[var(--color-bg-app)] text-[var(--color-primary)] hover:brightness-105"
               loading={submitting}
             >
-              {submitting ? 'Anmelden…' : 'Anmelden'}
+              {submitting ? t('login.meldetAn') : t('login.anmelden')}
             </Button>
           </form>
 
+          <Link
+            to="/auth/passwort-vergessen"
+            className="mt-4 inline-flex min-h-[44px] items-center text-sm font-medium text-[var(--color-gold-champagner)] hover:underline"
+          >
+            {t('login.vergessen')}
+          </Link>
+
           <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-gold-champagner)]">
             <Sparkles className="h-3.5 w-3.5 text-[var(--color-accent)]" />
-            <span>Klasse 5 – 13 · Köln · Pre-Launch</span>
+            <span>{t('login.fuss')}</span>
           </div>
         </EdvanceCard>
       </div>

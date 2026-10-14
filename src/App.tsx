@@ -1,5 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from '@/pages/Login'
+import { TokenSeite } from '@/pages/auth/TokenSeite'
+import { PasswortVergessenPage } from '@/pages/auth/PasswortVergessenPage'
+import { MeinKontoPage } from '@/pages/konto/MeinKontoPage'
 import { DesignShowcase } from '@/pages/DesignShowcase'
 import { MockSession } from '@/pages/mock/session/MockSession'
 import { StudentDashboard } from '@/pages/student/StudentDashboard'
@@ -54,6 +57,12 @@ export default function App(): JSX.Element {
     <DiagnosisProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
+        {/* Konto K1: Ziele der Auth-Mails und „Passwort vergessen“. Oeffentlich, der
+            Token aus der Mail wird erst nach einem Klick eingeloest. */}
+        <Route path="/auth/einladung" element={<TokenSeite art="einladung" />} />
+        <Route path="/auth/neues-passwort" element={<TokenSeite art="neuesPasswort" />} />
+        <Route path="/auth/bestaetigen" element={<TokenSeite art="bestaetigen" />} />
+        <Route path="/auth/passwort-vergessen" element={<PasswortVergessenPage />} />
 
         <Route
           path="/student"
@@ -85,6 +94,15 @@ export default function App(): JSX.Element {
             (Live-Sicht /coach/session/*) stehen außerhalb jeder Layout-Route;
             AdminLayout lässt sie auch innerhalb ohne Leiste (istFokusSeite). */}
         <Route element={<AdminLayout />}>
+          {/* Mein Konto (K1): Admin und Coach, jeweils in der eigenen Hülle. */}
+          <Route
+            path="/konto"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']}>
+                <MeinKontoPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/coach"
             element={

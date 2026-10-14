@@ -337,19 +337,37 @@
   "coaches": {
     "rubrik": "Team",
     "titel": "Coaches",
-    "satz": "Coach-Accounts anlegen und Zugangsdaten vergeben.",
-    "pflichtfelder": "Name, E-Mail und Passwort (min. 6 Zeichen) erforderlich.",
-    "angelegt": "Coach „{{name}}“ angelegt. Zugangsdaten persönlich mitteilen.",
-    "neu": "Neuer Coach",
-    "name": "Name *",
+    "satz": "Coaches per Mail einladen. Das Passwort legt jede:r selbst fest.",
+    "neu": "Coach einladen",
+    "vorname": "Vorname *",
+    "nachname": "Nachname *",
     "email": "E-Mail *",
-    "passwort": "Passwort (min. 6 Zeichen) *",
-    "legtAn": "Legt an …",
-    "anlegen": "Coach anlegen",
+    "hinweis": "Die Einladung kommt von hello@ und gilt 24 Stunden. Mit dem Link legt der Coach sein Passwort fest.",
+    "pflichtfelder": "Vorname, Nachname und E-Mail eintragen.",
+    "einladen": "Einladung senden",
+    "laedtEin": "Sendet …",
+    "eingeladen": "Einladung an {{email}} ist unterwegs.",
+    "erneutGesendet": "Einladung an {{name}} ist erneut unterwegs.",
     "bestehende": "Bestehende Coaches",
+    "stand": {
+      "eingeladen": "eingeladen am {{datum}}",
+      "aktiv": "aktiv seit {{datum}}",
+      "unbekannt": "Stand unbekannt"
+    },
+    "erneut": "Einladung erneut senden",
+    "sendetErneut": "Sendet …",
+    "fehler": {
+      "email_vergeben": "Mit dieser Adresse gibt es schon ein Konto. Es wurde kein zweites angelegt.",
+      "schon_aktiv": "Die Einladung ist schon angenommen.",
+      "nicht_gefunden": "Dieses Coach-Konto gibt es nicht mehr.",
+      "eingabe": "Bitte Vorname, Nachname und eine gültige E-Mail eintragen.",
+      "kein_admin": "Nur Admins dürfen Coaches einladen.",
+      "unbekannt": "Die Einladung ist nicht rausgegangen. Bitte später noch einmal versuchen.",
+      "stand": "Der Stand der Konten konnte nicht geladen werden."
+    },
     "leer": {
       "titel": "Noch keine Coaches",
-      "beschreibung": "Lege oben den ersten Coach an."
+      "beschreibung": "Lade oben den ersten Coach ein."
     },
     "unbenannt": "Unbenannt",
     "rolle": "Coach"
