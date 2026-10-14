@@ -1,6 +1,6 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { LogOut, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import { LogOut, PanelLeftClose, PanelLeftOpen, UserRound } from 'lucide-react'
 import { EdvanceLogo, EdvanceSymbol } from '@/components/brand/EdvanceLogo'
 import { AvatarInitials } from '@/components/edvance/AvatarInitials'
 import { useAuth } from '@/hooks/useAuth'
@@ -106,6 +106,10 @@ export function ShellSidebar({
             </div>
           </div>
         )}
+        <Link to="/konto" aria-current={pathname === '/konto' ? 'page' : undefined} className={fussKnopf}>
+          <UserRound aria-hidden="true" className="h-5 w-5" />
+          <span className={schmal ? 'text-[11px] leading-tight' : ''}>{tc('shell.meinKonto')}</span>
+        </Link>
         <button type="button" onClick={() => void signOut()} className={fussKnopf}>
           <LogOut aria-hidden="true" className="h-5 w-5" />
           <span className={schmal ? 'text-[11px] leading-tight' : ''}>{tc('shell.abmelden')}</span>

@@ -1,0 +1,82 @@
+{
+  "login": {
+    "markeZeile": "Hybride Lernakademie · Kleingruppen · Tablet-Lernpfad",
+    "titel": "Willkommen zurück",
+    "satz": "Melde dich an, um weiterzulernen",
+    "email": "E-Mail",
+    "emailPlatzhalter": "name@beispiel.de",
+    "passwort": "Passwort",
+    "falsch": "E-Mail oder Passwort falsch.",
+    "anmelden": "Anmelden",
+    "meldetAn": "Anmelden…",
+    "vergessen": "Passwort vergessen?",
+    "fuss": "Klasse 5 – 13 · Köln · Pre-Launch"
+  },
+  "passwort": {
+    "neu": "Neues Passwort",
+    "wiederholen": "Neues Passwort wiederholen",
+    "alt": "Bisheriges Passwort",
+    "hinweis": "Mindestens {{min}} Zeichen. Länge schützt mehr als Sonderzeichen: Ein Satz aus vier, fünf Wörtern ist leicht zu merken und schwer zu erraten.",
+    "fehler": {
+      "zu_kurz": "Das Passwort braucht mindestens {{min}} Zeichen.",
+      "ungleich": "Die beiden Eingaben sind nicht gleich.",
+      "gleich": "Das neue Passwort ist dasselbe wie das bisherige.",
+      "altes_falsch": "Das bisherige Passwort stimmt nicht.",
+      "unbekannt": "Das hat nicht geklappt. Bitte noch einmal versuchen."
+    }
+  },
+  "link": {
+    "weiter": "Weiter",
+    "prueft": "Prüft …",
+    "ungueltigTitel": "Dieser Link gilt nicht mehr",
+    "ohneToken": "Der Link ist unvollständig. Bitte öffne ihn direkt aus der Mail.",
+    "zurAnmeldung": "Zur Anmeldung",
+    "neuerLink": "Neuen Link anfordern"
+  },
+  "einladung": {
+    "titel": "Willkommen bei Edvance",
+    "satz": "Mit einem Klick auf „Weiter“ nimmst du die Einladung an. Danach legst du dein Passwort fest.",
+    "passwortTitel": "Passwort festlegen",
+    "passwortSatz": "Damit meldest du dich künftig an. Deine E-Mail-Adresse ist jetzt bestätigt.",
+    "speichern": "Passwort festlegen",
+    "ungueltig": "Die Einladung ist abgelaufen oder wurde schon benutzt. Bitte frage im Team nach einer neuen Einladung."
+  },
+  "neuesPasswort": {
+    "titel": "Neues Passwort",
+    "satz": "Mit einem Klick auf „Weiter“ öffnest du das Formular für dein neues Passwort.",
+    "passwortTitel": "Neues Passwort festlegen",
+    "passwortSatz": "Danach gilt nur noch das neue Passwort.",
+    "speichern": "Passwort speichern",
+    "ungueltig": "Der Link ist abgelaufen oder wurde schon benutzt. Fordere einfach einen neuen an."
+  },
+  "bestaetigen": {
+    "titel": "E-Mail bestätigen",
+    "satz": "Mit einem Klick auf „Weiter“ bestätigst du die Anfrage aus der Mail.",
+    "ungueltig": "Der Link ist abgelaufen oder wurde schon benutzt."
+  },
+  "fertig": {
+    "titel": "Gespeichert",
+    "satz": "Du wirst gleich weitergeleitet.",
+    "weiter": "Weiter zur Startseite"
+  },
+  "vergessen": {
+    "titel": "Passwort vergessen",
+    "satz": "Gib die E-Mail-Adresse deines Kontos ein. Wir schicken dir einen Link, mit dem du ein neues Passwort festlegst.",
+    "email": "E-Mail",
+    "senden": "Link anfordern",
+    "sendet": "Sendet …",
+    "antwort": "Wenn es ein Konto mit dieser Adresse gibt, ist eine Mail unterwegs.",
+    "antwortSatz": "Der Link gilt 24 Stunden. Schau auch im Spam-Ordner nach.",
+    "zurueck": "Zurück zur Anmeldung"
+  },
+  "meinKonto": {
+    "rubrik": "Konto",
+    "titel": "Mein Konto",
+    "satz": "Dein Zugang zu Edvance.",
+    "email": "Angemeldet als",
+    "passwortTitel": "Passwort ändern",
+    "aendern": "Passwort ändern",
+    "aendert": "Ändert …",
+    "geaendert": "Passwort geändert. Auf anderen Geräten bist du jetzt abgemeldet."
+  }
+}

@@ -76,13 +76,17 @@ function base64(bytes: Uint8Array): string {
  * Eine Mail aus dem Postfach hello@ verschicken.
  *
  * saveToSentItems bleibt an: was an Eltern rausgeht, soll im Postfach stehen
- * und nicht nur in unserer Datenbank.
+ * und nicht nur in unserer Datenbank. Ausnahme speichern: false — die
+ * Auth-Mails (auth_mail) tragen einen gueltigen Einladungs- oder Passwort-
+ * Link; in "Gesendete Elemente" koennte ihn jeder mit Zugriff auf hello@
+ * benutzen.
  */
 export async function mailSenden(opts: {
   an: string
   betreff: string
   text: string
   anhaenge?: Anhang[]
+  speichern?: boolean
 }): Promise<void> {
   const zugriff = await zugriffstoken()
 
@@ -98,7 +102,7 @@ export async function mailSenden(opts: {
         contentBytes: base64(a.bytes),
       })),
     },
-    saveToSentItems: true,
+    saveToSentItems: opts.speichern ?? true,
   }
 
   const antwort = await fetch(

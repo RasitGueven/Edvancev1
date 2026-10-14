@@ -1,0 +1,64 @@
+# Offene Punkte K1 (Konten für Mitarbeitende)
+
+Stand 14.10.2026 · Branch `feat/rasit-konto-k1` · Migration `20261014121000_konto_k1`
+
+## Entscheidungen, die ich treffen musste
+
+1. **Vorprüfung der Adresse über `konto_email_vorhanden`** (nur `service_role`). `inviteUserByEmail` lehnt eine
+   schon vorhandene, aber noch nicht bestätigte Adresse nicht ab, sondern schickt still eine neue Einladung. Ohne
+   Vorprüfung hätte „neu“ ein fremdes, offenes Konto (in Prod: 6 Eltern ohne Bestätigung, dbread 14.10.) per
+   Profil-Upsert zum Coach gemacht. Jetzt: 409 `email_vergeben`, keine Mail, kein Upsert. Schlägt die Prüfung
+   selbst fehl, gilt die Adresse als vergeben (fail-closed). Beleg: `einladen_test.ts` „doppelte Mail“, pgTAP C5/C6.
+2. **Mailtexte in `supabase/functions/auth_mail/texte.ts`, nicht in `src/i18n`.** Diese Mails haben keine Vorschau in
+   der Oberfläche; eine Doppelung mit Wachhund wie bei den Vertragsmails wäre reiner Aufwand.
+3. **Kein „Gesendete Elemente“ für Auth-Mails** (`mailSenden({ speichern: false })`). Die Mails tragen einen gültigen
+   Einladungs- oder Passwort-Link; in hello@ könnte ihn jeder mit Postfachzugriff benutzen. Die übrigen Mails
+   (`mail_senden`) speichern weiter.
+4. **Link-Basis `APP_URL`, sonst `site_url`.** Der Hook baut die Links selbst und nimmt `redirect_to` nicht, damit ein
+   manipuliertes `redirect_to` den Link nicht auf eine fremde Seite lenken kann.
+5. **Gültigkeit 24 Stunden** (`otp_expiry = 86400`). Mit dem Standard (1 Stunde) wäre eine Einladung, die abends
+   kommt, am Morgen tot. Die Einstellung gilt in Supabase für alle Mail-Links, also auch für „Passwort vergessen“.
+6. **`provision_coach` antwortet 410** (Entscheidung 10). Bestandsaufnahme der Aufrufer: nur
+   `src/pages/admin/CoachesPage.tsx` über `src/lib/supabase/provisionCoach.ts`; keine Tests, Werkzeuge, Skripte,
+   Seeds (`git grep -n 'provision_coach\|provisionCoach'`, Ausgabe im PR). Die Lib-Datei ist gelöscht.
+7. **Login-Texte nach i18n ausgelagert** (§12 Punkt 4, Namespace `konto`), weil `Login.tsx` für den Link ohnehin
+   angefasst wurde. Verhalten unverändert (Vitest „Login (auch Tablet/Kiosk) unverändert“).
+8. **Unbekannte Mailart → 400** mit `unbekannte Mailart: <art>`, protokolliert als `unbekannt`. Das betrifft heute nur
+   die Art `email` (Code-Login per OTP), die Edvance nicht nutzt. Wer sie einschaltet, sieht den Fehler sofort.
+
+## Befunde
+
+1. **`[auth.email] enable_signup = false` schaltet den ganzen E-Mail-Login ab.** Lokal geprüft: `POST
+   /auth/v1/token?grant_type=password` → 422 `email_provider_disabled`. Die Registrierung sperrt allein
+   `[auth] enable_signup = false` (→ `/auth/v1/signup` 422 `signup_disabled`, Einladung per Admin-API geht weiter).
+   Im Dashboard deshalb **nur** „Allow new users to sign up“ ausschalten, den E-Mail-Provider **anlassen**.
+2. **`email_change`: Ein Klick genügt.** Lokal (GoTrue v2.192.0, `double_confirm_changes = true`): Beide Adressen
+   bekommen je eine Mail mit eigenem Link. Wer *einen* der beiden Links einlöst (`verifyOtp` mit `token_hash`), schließt
+   die Änderung ab; der andere ist danach ungültig. Probiert in beiden Reihenfolgen. Das ist Supabase-Verhalten, nicht
+   K1. Folge: Wer eine Sitzung hat, kann die Adresse ändern, indem er nur den Link an die neue Adresse klickt. Edvance
+   bietet keine Adressänderung an, der Weg ist nur per API mit gültiger Sitzung erreichbar. Vorschlag: vor einer
+   Adressänderung in der Oberfläche klären; bis dahin ggf. `email_change` im Hook ablehnen (Rasit).
+3. **Zeitliches Ausspähen bleibt auf API-Ebene möglich.** Die Seite „Passwort vergessen“ antwortet immer gleich. Supabase
+   ruft den Hook aber nur für vorhandene Adressen; die Antwortzeit von `/auth/v1/recover` ist für sie länger (Versand über
+   Graph). Wer die API direkt misst, kann daraus schließen. Nicht in unserer Hand; Rate-Limits begrenzen es.
+4. **`provision_student` lädt Eltern weiter per `inviteUserByEmail` ein.** Die Function hat keinen Aufrufer mehr in der
+   Oberfläche (Verträge legen Konten per `createUser` an), ist aber deployt. Mit aktivem Hook bekämen Eltern die
+   neutrale Einladung („Sie wurden zu Edvance eingeladen“) und landen nach dem Passwort auf `/parent`. Nach Entscheidung 11
+   nicht angefasst. Vorschlag: wie `provision_coach` stilllegen (Rasit).
+5. **„Passwort vergessen“ steht auf der gemeinsamen Login-Seite** und funktioniert damit für jedes Konto mit echter
+   Adresse, auch Eltern. Eine Einschränkung auf Mitarbeitende ginge nur mit einer Aussage, ob die Adresse einem
+   Mitarbeiter gehört — genau das darf die Seite nicht verraten. Tablet-Konten haben Adressen, an die keine Mail geht.
+6. **Einladung eingelöst, Passwort nicht gesetzt:** Wer „Weiter“ klickt und dann abbricht, ist bestätigt, hat aber kein
+   Passwort. Die Coach-Liste zeigt „aktiv seit …“, „erneut senden“ gibt es dann nicht mehr. Weg: „Passwort vergessen“.
+7. **Repo-`config.toml` und Supabase-CLI 2.99.0:** Der Abschnitt `[local_smtp]` lässt `supabase start` mit „failed to
+   parse config“ scheitern (auch auf `origin/dev`, ohne K1). Für den lokalen Durchlauf lief eine Kopie unter
+   `C:\Users\rasit\k1-lokal` mit `[inbucket]`, eigenen Ports (544xx) und ohne Realtime/Studio/Analytics.
+8. **Kein Löschen alter Protokollzeilen** in `auth_mail_versand` und keine Oberfläche dafür; lesen kann ein Admin per SQL.
+9. **Dateigröße:** `src/App.tsx` hat jetzt 474 Zeilen (vorher 456, schon über §4). Die Konto-Routen sind 25 Zeilen davon.
+10. **Umfang:** Das Paket liegt über den 300 Zeilen aus §4; es ist laut Auftrag ein PR.
+
+## Nach dem Einspielen prüfen
+
+- `select version from supabase_migrations.schema_migrations where version = '20261014121000'` (dbread).
+- `tools/schema-snapshot.sh` gegen Prod: nur der Kopf darf sich gegenüber `supabase/schema-erwartet.sql` ändern.
+- Echte Einladung an eine Test-Adresse mit Rasit (Mail von hello@, Link auf studio.edvanceacademy.de).
