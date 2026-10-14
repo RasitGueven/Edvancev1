@@ -1,6 +1,7 @@
 # Offene Punkte — V5 Pilotvereinbarung (14.10.2026)
 
-Stand: PR offen, Migration `20261014110412_vertrag_pilot.sql` noch nicht eingespielt.
+Stand: Migration `20261014110412_vertrag_pilot.sql` am 14.10.2026 in Prod eingespielt, Edge Functions `vertrag_pdf`,
+`mail_senden` und `vertrag_abschluss` deployt. PR noch nicht gemergt.
 
 ## Für Tolunay (Recht)
 
@@ -65,5 +66,5 @@ Stand: PR offen, Migration `20261014110412_vertrag_pilot.sql` noch nicht eingesp
     `VertragDetailPage.tsx` steht bei 389, der Partnerblock ist ausgelagert.
 18. **Deno-Tests** (`supabase/functions/_shared/vertrag_pdf_test.ts`, 13 grün) laufen lokal per `npx deno`, nicht in
     der CI.
-19. **Edge Functions neu deployen** nach dem Einspielen: `vertrag_pdf`, `mail_senden`, `vertrag_abschluss` (geteilter
-    Code in `_shared/`).
+19. **Edge Functions** `vertrag_pdf`, `mail_senden` und `vertrag_abschluss` am 14.10. vom Branch deployt (geteilter Code
+    in `_shared/`). Wird der PR nicht gemergt, laufen sie trotzdem in dieser Fassung.

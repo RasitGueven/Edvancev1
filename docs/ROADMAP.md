@@ -99,7 +99,7 @@
   festes Ende und feste Einheiten mit Vorschlag (`vertrag_pilot_vorschlag`), Status ab Abschluss `aktiv`.
   Dokumente je Vertragsart (`vertrag_dokumente.vertragsarten`), Vorlage `pilotvereinbarung.md`, PDF ohne Mandat.
   Kennzeichen „Pilot“ in Menü, Detail, Akte und Slots, Pilot in keiner Kennzahl. Erster Fall: Batu Demirel ab
-  01.11.2026. PR offen, noch nicht eingespielt. **Offen:** `docs/vertraege/offene-punkte-v5.md`.
+  01.11.2026. Eingespielt und deployt 14.10. (PR #247). **Offen:** `docs/vertraege/offene-punkte-v5.md`.
 - **Slots SL1 · Datenmodell, Planung und Regeln** (Retro `2026-10-10-slots-sl1.md`, Branch
   `feat/rasit-slots-sl1-datenmodell`): sieben Tabellen (Uhrzeiten, Räume, Stammschichten, Abweichungen, Rhythmus,
   Stammplätze, Kind-Termine), Abgleich `termine_planen`, Planbilanz, Raumzuteilung, Schreib- und Lesefunktionen je

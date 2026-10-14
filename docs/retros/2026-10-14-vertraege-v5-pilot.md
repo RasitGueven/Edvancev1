@@ -47,5 +47,13 @@
 - Browser: fünf Ansichten per Vite-Harness mit erfundenen Daten (Formular Pilot und Regulär, Übersicht, Detail,
   Slots-Kind). Kein Konsolenfehler. Danach auf der Detailseite Widerruf und Zahlung beim Pilot ausgeblendet.
 
+## Eingespielt (14.10.2026)
+- Vorher `origin/dev` (#245, Batu-Altleads) eingemischt, Wegwerf-DB neu aufgebaut, alle Tests erneut grün.
+- Migration nach §10 über `~/bin/mig`. dbread: eingetragen; alle 11 Bestandsverträge `regulaer`, Fingerabdruck ohne
+  die neue Spalte vor und nach identisch; Dokumente bis auf `vertragsarten` und die neue Zeile unverändert.
+- Prod-Abzug = Neuaufbau aus dev + V5 + den zwei T5-Migrationen, die Prod schon trägt. Committet bleibt der Abzug
+  ohne T5, weil die CI ihn so neu aufbaut.
+- Edge Functions `vertrag_pdf` (v5), `mail_senden` (v5), `vertrag_abschluss` (v7) deployt.
+
 ## Offen
 `docs/vertraege/offene-punkte-v5.md`
