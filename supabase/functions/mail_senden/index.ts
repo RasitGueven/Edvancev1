@@ -37,7 +37,7 @@ type Anlass = 'bestaetigung' | 'unterlagen' | 'zugangscode' | 'terminbestaetigun
 const VERSAND_SPALTEN = `
   id, status, eltern_vorname, eltern_nachname, eltern_email, kind_vorname,
   kind_nachname, vertragsbeginn, vertrag_ende, widerruf_bis, rueckmeldung_bis,
-  zugangscode
+  zugangscode, vertragsart
 `
 
 function json(status: number, payload: unknown): Response {
@@ -168,8 +168,11 @@ Deno.serve(async (req: Request) => {
     return json(400, { error: 'Dieser Vertrag hat keinen Zugangscode' })
   }
 
-  const betreff = einsetzen(MAIL[`${anlass}Betreff`], werte)
-  const text = einsetzen(MAIL[`${anlass}Text`], werte)
+  // V5: Eine Pilotvereinbarung hat weder Widerruf noch SEPA-Mandat — eigene Texte.
+  const vorlage =
+    v.vertragsart === 'pilot' && (anlass === 'bestaetigung' || anlass === 'unterlagen') ? `${anlass}Pilot` : anlass
+  const betreff = einsetzen(MAIL[`${vorlage}Betreff`], werte)
+  const text = einsetzen(MAIL[`${vorlage}Text`], werte)
 
   // ---- Versenden und protokollieren ---------------------------------------
   // Das Protokoll wird in BEIDEN Faellen geschrieben. Die Zeile mit gefuelltem

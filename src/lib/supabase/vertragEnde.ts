@@ -55,3 +55,21 @@ export async function berechneWiderrufBis(beginn: string): Promise<SupabaseResul
     return { data: null, error: message }
   }
 }
+
+/** V5: Vorschlag fuer eine Pilotvereinbarung — letzter Schultag vor den Sommerferien, Schulwochen. */
+export type PilotVorschlag = { ende: string; einheiten: number }
+
+export async function pilotVorschlag(beginn: string): Promise<SupabaseResult<PilotVorschlag>> {
+  try {
+    const { data, error } = await supabase
+      .rpc('vertrag_pilot_vorschlag', { p_beginn: beginn })
+      .maybeSingle()
+    if (error) return { data: null, error: error.message }
+    if (!data) return { data: null, error: null }
+    const row = data as PilotVorschlag
+    return { data: { ende: row.ende, einheiten: row.einheiten }, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Pilot-Vorschlag konnte nicht geladen werden'
+    return { data: null, error: message }
+  }
+}

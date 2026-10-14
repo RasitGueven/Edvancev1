@@ -11,9 +11,12 @@ type AktionenKarteProps = {
   elternEmail: string | null
   zugangscode: string | null
   widerrufMoeglich: boolean
+  /** V5: Pilot — Bündel ohne SEPA-Mandat. */
+  pilot?: boolean
   onFolgevertrag: () => void
   onVersenden: (anlass: Versandanlass) => void
-  onWiderruf: () => void
+  /** Fehlt beim Pilot (V5): kein Widerrufsrecht, also kein Knopf. */
+  onWiderruf?: () => void
   onKuendigung: () => void
 }
 
@@ -29,6 +32,7 @@ export function AktionenKarte({
   elternEmail,
   zugangscode,
   widerrufMoeglich,
+  pilot = false,
   onFolgevertrag,
   onVersenden,
   onWiderruf,
@@ -37,7 +41,7 @@ export function AktionenKarte({
   const { t } = useTranslation('vertraege')
 
   const versandGrund = !buendelDa
-    ? t('detailansicht.versandBraucht')
+    ? t(pilot ? 'detailansicht.versandBrauchtPilot' : 'detailansicht.versandBraucht')
     : !elternEmail
       ? t('detailansicht.keineAdresse')
       : undefined
@@ -82,16 +86,18 @@ export function AktionenKarte({
         </Button>
       </span>
 
-      <span title={widerrufMoeglich ? undefined : t('detailansicht.widerrufVorbei')}>
-        <Button
-          variant="outline"
-          className="w-full"
-          disabled={!widerrufMoeglich || busy}
-          onClick={onWiderruf}
-        >
-          {t('detailansicht.widerrufErfassen')}
-        </Button>
-      </span>
+      {onWiderruf && (
+        <span title={widerrufMoeglich ? undefined : t('detailansicht.widerrufVorbei')}>
+          <Button
+            variant="outline"
+            className="w-full"
+            disabled={!widerrufMoeglich || busy}
+            onClick={onWiderruf}
+          >
+            {t('detailansicht.widerrufErfassen')}
+          </Button>
+        </span>
+      )}
 
       <Button
         variant="ghost"

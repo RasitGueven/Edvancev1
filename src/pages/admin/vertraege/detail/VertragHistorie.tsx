@@ -45,8 +45,8 @@ export function VertragHistorie({ historie, aktuellerId, tiers }: Props): JSX.El
               {' – '}
               {v.vertrag_ende ? formatDateOnly(v.vertrag_ende, lang) : '—'}
               {' · '}
-              {tiers.find((x) => x.id === v.tier_id)?.name ?? '—'}
-              {v.preis_cents !== null && ` · ${formatEuro(v.preis_cents, lang)}`}
+              {v.vertragsart === 'pilot' ? t('pilot.kennzeichen') : (tiers.find((x) => x.id === v.tier_id)?.name ?? '—')}
+              {v.vertragsart !== 'pilot' && v.preis_cents !== null && ` · ${formatEuro(v.preis_cents, lang)}`}
             </span>
             <EdvanceBadge variant={STATUS_FARBE[v.wirksamer_status]}>
               {t(`menue.wirksam.${v.wirksamer_status}`)}

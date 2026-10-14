@@ -25,6 +25,8 @@ Stand: 12.10.2026 · Paket SL2b · Branch `feat/rasit-slots-sl2b-testkonten` (ab
    führen. Soll der Coach das selbst können, braucht der Trigger eine Ausnahme (z. B. INSERT mit `testlauf` erlaubt,
    wenn `raum_id`/`slot_zeit_id` gesetzt sind und der Aufrufer der eingeteilte Coach ist). Das gehört zu T4 bzw. ins
    Foundation-Fenster. Ob die Coach-Seiten (SL3) den Hinweis über `src/lib/slots/fehler.ts` übersetzen, entscheidet SL3.
+   **Erledigt mit T5** (`20261014104412`): Der eingeteilte Coach legt den Testtermin selbst als Testlauf an (Systemweg
+   im Trigger, offene-punkte-t5).
 2. **Eine Session gibt dem Termin seine Art, auch leer.** Öffnet jemand einen Raum ohne Kinder, entsteht eine Session
    wie die übrigen Sessions des Termins, sonst eine echte. Danach kommt kein Testkonto mehr in diesen Termin (SL013),
    umgekehrt kommt in einen Termin mit Testlauf-Session kein echtes Kind, auch wenn alle Testkonten abgesagt haben.

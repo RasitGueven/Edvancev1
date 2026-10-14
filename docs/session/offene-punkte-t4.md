@@ -76,7 +76,8 @@ niedrige Befunde stehen unten (3 bis 5).
    `src/lib/supabase/lernpfad.ts`) kennt keine Session und liefert weiter nur `freigegeben`. Im Testlauf steht dann eine
    Entwurfsfrage auf dem Tablet, die Schublade zeigt aber keine Erwartung. Signatur durfte sich nicht ändern; eine
    Session-Variante bräuchte einen neuen RPC und eine Änderung in `src/pages/coach/**` (Coach-Fenster).
-   **Entschieden (Rasit, 12.10.):** nicht in T4, kommt als eigenes Paket T5.
+   **Entschieden (Rasit, 12.10.):** nicht in T4, kommt als eigenes Paket T5. Erledigt mit T5 (`skill_pruefung_session`,
+   `20261014104355`; offene-punkte-t5).
 2. **Nur „tiefer“ wird nachgebildet, keine Belege.** Ein Testlauf schreibt keine Belege (T2), also ändert sich der
    Lernpfad im Testlauf nicht durch Antworten. Vor „tiefer“ kann die Zielliste deshalb anders aussehen als echt (im Test
    1a ist `zz_a2_v1` echt nach vier falschen Warm-up-Antworten `aktiv`, im Testlauf `sicher`). Nach „tiefer“ ist sie

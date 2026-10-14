@@ -6,6 +6,7 @@ import { formatDateOnly } from '@/lib/datetime'
 import type { TierPlan, VertragMitLead } from '@/types'
 import { kindName } from '../vertragModel'
 import { ANTRAG_FARBE } from './statusFarben'
+import { PilotKennzeichen } from '../PilotKennzeichen'
 
 type Props = {
   antraege: VertragMitLead[]
@@ -57,7 +58,12 @@ export function ReiterAntraege({
     {
       key: 'paket',
       kopf: t('field.tier_id'),
-      zelle: (v) => tiers.find((x) => x.id === v.tier_id)?.name ?? '—',
+      zelle: (v) =>
+        v.vertragsart === 'pilot' ? (
+          <PilotKennzeichen art={v.vertragsart} />
+        ) : (
+          (tiers.find((x) => x.id === v.tier_id)?.name ?? '—')
+        ),
     },
     {
       key: 'status',

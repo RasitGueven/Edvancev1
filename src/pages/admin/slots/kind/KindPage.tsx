@@ -16,6 +16,7 @@ import { TestKennzeichen } from '../TestKennzeichen'
 import { StammplatzDialog } from '../dialoge/StammplatzDialog'
 import { ZusatzterminDialog } from '../dialoge/ZusatzterminDialog'
 import { EinheitenKarte, LetzteKarte, NaechsteKarte, StammplaetzeKarte, VertragKarte } from './KindKarten'
+import { PilotKennzeichen } from '../../vertraege/PilotKennzeichen'
 
 type Dialog =
   | { art: 'absage' | 'umbuchen'; termin: AbsageTermin }
@@ -91,6 +92,7 @@ export function KindPage(): JSX.Element {
               {t('kind.akte')}
             </Link>
             {kannBuchen && <Button type="button" onClick={() => setDialog({ art: 'zusatz' })}>{t('aktion.zusatzBuchen')}</Button>}
+            <PilotKennzeichen art={k.vertrag?.vertragsart} />
           </>
         }
       />

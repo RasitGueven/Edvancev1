@@ -25,12 +25,11 @@ import {
   vertragWiderrufErfassen,
   vertragZugangscodeNeu,
 } from '@/lib/supabase/vertraegeMenue'
-import { buendelVollstaendig, kind, vertragspartner } from '@/lib/vertrag/menue'
+import { buendelVollstaendig, kind } from '@/lib/vertrag/menue'
 import type { TierPlan, VertragAktuell, VertragDokument } from '@/types'
 import { AktionenKarte } from './vertraege/detail/AktionenKarte'
 import { ArchivListe } from './vertraege/detail/ArchivListe'
 import { Datenblock } from './vertraege/detail/Datenblock'
-import { IbanFeld } from './vertraege/detail/IbanFeld'
 import { ZugangscodeFeld } from './vertraege/ZugangscodeFeld'
 import { KuendigungDialog } from './vertraege/detail/KuendigungDialog'
 import { VertragHistorie } from './vertraege/detail/VertragHistorie'
@@ -38,6 +37,8 @@ import { EingabeDialog } from './vertraege/menue/EingabeDialog'
 import { STATUS_FARBE, ZAHLUNG_FARBE } from './vertraege/menue/statusFarben'
 import { formatEuro } from './vertraege/VertragForm'
 import { openUnterlagen } from './vertraege/vertragUi'
+import { PilotKennzeichen } from './vertraege/PilotKennzeichen'
+import { PartnerBlock } from './vertraege/detail/PartnerBlock'
 
 type Daten = {
   vertrag: VertragAktuell | null
@@ -120,7 +121,7 @@ export function VertragDetailPage(): JSX.Element {
 
   const v = d.vertrag
 
-  const buendelDa = buendelVollstaendig(d.erzeugte.map((e) => e.art))
+  const buendelDa = buendelVollstaendig(d.erzeugte.map((e) => e.art), v?.vertragsart)
 
   const versenden = async (anlass: Versandanlass): Promise<void> => {
     if (!v) return
@@ -144,6 +145,7 @@ export function VertragDetailPage(): JSX.Element {
   const paket = d.tiers.find((x) => x.id === v.tier_id)?.name ?? '—'
   const datum = (ymd: string | null): string => (ymd ? formatDateOnly(ymd, lang) : '—')
   const widerrufMoeglich = v.wirksamer_status === 'im_widerruf'
+  const pilot = v.vertragsart === 'pilot'
 
   const folgevertrag = async (): Promise<void> => {
     setBusy(true)
@@ -164,11 +166,14 @@ export function VertragDetailPage(): JSX.Element {
         zurueckLabel={t('detail.back')}
         rubrik={t('detail.eyebrow')}
         titel={kind(v) || '—'}
-        satz={t('detail.mandate', { ref: v.mandatsreferenz })}
+        satz={v.vertragsart === 'pilot' ? undefined : t('detail.mandate', { ref: v.mandatsreferenz })}
         aktionen={
-          <EdvanceBadge variant={STATUS_FARBE[v.wirksamer_status]}>
-            {t(`menue.wirksam.${v.wirksamer_status}`)}
-          </EdvanceBadge>
+          <>
+            <PilotKennzeichen art={v.vertragsart} />
+            <EdvanceBadge variant={STATUS_FARBE[v.wirksamer_status]}>
+              {t(`menue.wirksam.${v.wirksamer_status}`)}
+            </EdvanceBadge>
+          </>
         }
       />
 
@@ -180,25 +185,7 @@ export function VertragDetailPage(): JSX.Element {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
         {/* ---- links: wer, was, seit wann ---------------------------- */}
         <div className="flex flex-col gap-6">
-          <Datenblock
-            titel={t('form.parent')}
-            zeilen={[
-              { label: t('menue.spalte.partner'), wert: vertragspartner(v) || '—' },
-              {
-                label: t('field.strasse'),
-                wert: [v.strasse, v.hausnummer].filter(Boolean).join(' ') || '—',
-              },
-              { label: t('field.ort'), wert: [v.plz, v.ort].filter(Boolean).join(' ') || '—' },
-              { label: t('field.eltern_email'), wert: v.eltern_email ?? '—' },
-              { label: t('field.eltern_telefon'), wert: v.eltern_telefon ?? '—' },
-              { label: t('field.kontoinhaber'), wert: v.kontoinhaber ?? '—' },
-              {
-                label: t('field.iban'),
-                wert: <IbanFeld vertragId={v.id} maskiert={v.iban_masked} onFehler={setError} />,
-              },
-              { label: t('field.mandatsreferenz'), wert: v.mandatsreferenz },
-            ]}
-          />
+          <PartnerBlock v={v} onFehler={setError} />
 
           <Datenblock
             titel={t('form.child')}
@@ -214,7 +201,7 @@ export function VertragDetailPage(): JSX.Element {
           <Datenblock
             titel={t('form.contract')}
             zeilen={[
-              { label: t('field.tier_id'), wert: paket },
+              { label: t('field.tier_id'), wert: v.vertragsart === 'pilot' ? <PilotKennzeichen art="pilot" /> : paket },
               {
                 label: t('field.laufzeit_monate'),
                 wert: v.laufzeit_monate ? t(`form.laufzeitOption.${v.laufzeit_monate}`) : '—',
@@ -238,16 +225,21 @@ export function VertragDetailPage(): JSX.Element {
                   </span>
                 ),
               },
-              { label: t('detailansicht.widerrufBis'), wert: datum(v.widerruf_bis) },
+              // V5: Ein Pilot hat weder Widerruf noch Zahlung — die Zeilen entfallen.
+              ...(pilot ? [] : [{ label: t('detailansicht.widerrufBis'), wert: datum(v.widerruf_bis) }]),
               { label: t('detailansicht.abgeschlossenAm'), wert: datum(v.abgeschlossen_am) },
-              {
-                label: t('menue.spalte.zahlung'),
-                wert: (
-                  <EdvanceBadge variant={ZAHLUNG_FARBE[v.zahlungsstatus]}>
-                    {t(`menue.zahlung.${v.zahlungsstatus}`)}
-                  </EdvanceBadge>
-                ),
-              },
+              ...(pilot
+                ? []
+                : [
+                    {
+                      label: t('menue.spalte.zahlung'),
+                      wert: (
+                        <EdvanceBadge variant={ZAHLUNG_FARBE[v.zahlungsstatus]}>
+                          {t(`menue.zahlung.${v.zahlungsstatus}`)}
+                        </EdvanceBadge>
+                      ),
+                    },
+                  ]),
               ...(v.abweichung_vermerk
                 ? [{ label: t('einpflegen.vermerk'), wert: v.abweichung_vermerk }]
                 : []),
@@ -353,9 +345,10 @@ export function VertragDetailPage(): JSX.Element {
             elternEmail={v.eltern_email}
             zugangscode={v.zugangscode}
             widerrufMoeglich={widerrufMoeglich}
+            pilot={pilot}
             onFolgevertrag={() => void folgevertrag()}
             onVersenden={(anlass) => void versenden(anlass)}
-            onWiderruf={() => setWiderruf(true)}
+            onWiderruf={pilot ? undefined : () => setWiderruf(true)}
             onKuendigung={() => setKuendigung(true)}
           />
         </div>

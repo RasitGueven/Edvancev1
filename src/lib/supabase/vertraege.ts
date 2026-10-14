@@ -101,7 +101,7 @@ export async function listVertragDokumente(): Promise<SupabaseResult<VertragDoku
   try {
     const { data, error } = await supabase
       .from('vertrag_dokumente')
-      .select('schluessel, version, titel, pflicht, sort_order')
+      .select('schluessel, version, titel, pflicht, sort_order, vertragsarten')
       .eq('aktiv', true)
       .order('sort_order', { ascending: true })
     if (error) return { data: null, error: error.message }
@@ -204,7 +204,7 @@ export type AbschlussVorOrt = {
   weg: 'vor_ort'
   zustimmungen: Zustimmung[]
   signaturVertrag: string
-  signaturSepa: string
+  signaturSepa: string | null
 }
 
 /** Einpflegen eines Ruecklaufs. Es gilt, was auf dem Papier steht. */

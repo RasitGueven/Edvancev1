@@ -8,6 +8,7 @@ import type { Vertrag, VertragDokument } from '@/types'
 import { DokumentText } from './DokumentText'
 import { DOKUMENTE, fillDokument } from './dokumente'
 import { dokumentWerte } from './dokumentWerte'
+import { vertragsDokument } from './vertragsart'
 import { openUnterlagen } from './vertragUi'
 
 type Schritt2Props = {
@@ -35,8 +36,11 @@ export function Schritt2Dokument({
   ende,
 }: Schritt2Props): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
-  const vorlage = DOKUMENTE.vertrag
-  const aktiv = dokumente.find((d) => d.schluessel === 'vertrag')
+  // V5: Beim Pilot ist das Vertragsdokument die Pilotvereinbarung, ihr Ende steht schon am Vertrag.
+  const schluessel = vertragsDokument(vertrag.vertragsart)
+  const vorlage = DOKUMENTE[schluessel]
+  const aktiv = dokumente.find((d) => d.schluessel === schluessel)
+  const endeTag = vertrag.vertragsart === 'pilot' ? vertrag.vertrag_ende : (ende?.ende ?? null)
 
   const werte = {
     ...dokumentWerte({ vertrag, iban, paket, glaeubigerId, locale: i18n.language, t }),
@@ -53,7 +57,7 @@ export function Schritt2Dokument({
             tage: ende?.ferientage ?? 0,
           })
         : t('doc.keineFerienklausel'),
-    vertragsende: ende ? formatDateOnly(ende.ende, i18n.language) : null,
+    vertragsende: endeTag ? formatDateOnly(endeTag, i18n.language) : null,
   }
 
   const versionPasst = aktiv === undefined || aktiv.version === vorlage.version

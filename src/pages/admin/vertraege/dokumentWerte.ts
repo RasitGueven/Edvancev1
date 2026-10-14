@@ -42,6 +42,9 @@ export function dokumentWerte({ vertrag: v, iban, paket, glaeubigerId, locale, t
         : null,
     einheiten: v.einheiten !== null ? String(v.einheiten) : null,
     vertragsbeginn: datum(v.vertragsbeginn),
+    // V5: Das Ende einer Pilotvereinbarung gibt der Admin vor — es steht am Vertrag.
+    // Beim regulaeren Vertrag setzt Schritt 2 es aus der Ferienrechnung ein.
+    vertragsende: v.vertragsart === 'pilot' ? datum(v.vertrag_ende) : null,
     kontoinhaber: v.kontoinhaber ?? eltern,
     iban: iban ? formatIban(iban) : null,
     mandatsreferenz: v.mandatsreferenz,

@@ -103,7 +103,13 @@ export function HeutePage(): JSX.Element {
       key: 'vertraege',
       label: t('heute.kpi.vertraege'),
       wert: String(summe.laufend),
-      unterzeile: t('heute.kpi.vertraegeSub', { count: summe.imWiderruf }),
+      // V5: Pilots zaehlen im Betrieb mit und werden ausgewiesen.
+      unterzeile: [
+        t('heute.kpi.vertraegeSub', { count: summe.imWiderruf }),
+        summe.davonPilot > 0 ? t('heute.kpi.vertraegePilot', { count: summe.davonPilot }) : null,
+      ]
+        .filter(Boolean)
+        .join(' · '),
       ziel: '/admin/vertraege',
     },
     {

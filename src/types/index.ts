@@ -70,6 +70,7 @@ export type {
 
 export type {
   VertragStatus,
+  Vertragsart,
   VertragAbschlussWeg,
   VertragLebenStatus,
   WirksamerStatus,
@@ -311,6 +312,7 @@ export type {
   ZielFertigkeit,
   NaechsteLuecke,
   SkillPruefung,
+  SkillPruefungSession,
   MeinLernpfadEintrag,
   LernpfadUebernahme,
   MasteryEntscheidung,

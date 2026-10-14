@@ -197,7 +197,8 @@ begin
   assert v_d = (now() at time zone 'Europe/Berlin')::date + 14,
     'Rueckmeldefrist nicht heute+14: ' || coalesce(v_d::text, 'null');
   select count(*) into v_n from vertrag_zustimmungen where vertrag_id = v2;
-  assert v_n = (select count(*) from vertrag_dokumente where aktiv),
+  -- V5: das Buendel der eigenen Vertragsart (vertrag_dokumente.vertragsarten).
+  assert v_n = (select count(*) from vertrag_dokumente where aktiv and 'regulaer' = any(vertragsarten)),
     'Nicht alle Fassungen festgehalten: ' || v_n;
   raise notice '10 ok  Abnahmefall 6: versendet, kein Vertrag, Fassungen festgehalten';
 

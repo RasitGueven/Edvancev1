@@ -9,6 +9,8 @@ type Schritt3Props = {
   wahl: AbschlussWahl | null
   onWahl: (wahl: AbschlussWahl) => void
   disabled: boolean
+  /** V5: Pilot — anderes Unterlagenbündel (ohne SEPA, AGB, Widerruf). */
+  pilot?: boolean
 }
 
 const WEGE: { key: AbschlussWahl; Icon: typeof PenLine }[] = [
@@ -24,7 +26,7 @@ const WEGE: { key: AbschlussWahl; Icon: typeof PenLine }[] = [
  * Bei jedem der drei Wege gehen dieselben fuenf Unterlagen mit. Deshalb steht
  * der Satz darunter und nicht nur an einem der drei Knoepfe.
  */
-export function Schritt3Weg({ wahl, onWahl, disabled }: Schritt3Props): JSX.Element {
+export function Schritt3Weg({ wahl, onWahl, disabled, pilot = false }: Schritt3Props): JSX.Element {
   const { t } = useTranslation('vertraege')
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
@@ -55,7 +57,7 @@ export function Schritt3Weg({ wahl, onWahl, disabled }: Schritt3Props): JSX.Elem
         })}
       </div>
       <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-        {t('wizard.wegHint')}
+        {t(pilot ? 'wizard.wegHintPilot' : 'wizard.wegHint')}
       </p>
       {wahl === null && (
         <p className="text-sm text-[var(--color-text-tertiary)]">{t('wizard.wegMissing')}</p>

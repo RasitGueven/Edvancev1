@@ -57,6 +57,7 @@ function vertrag(over: Partial<VertragMitLead> & { id: string }): VertragMitLead
     zugangscode_erzeugt_am: null,
     zugangscode_gesperrt_am: null,
     scan_pfad: null,
+    vertragsart: 'regulaer',
     eltern_vorname: 'ZZ_Anna',
     eltern_nachname: 'Muster',
     strasse: 'Teststr.',
@@ -186,6 +187,9 @@ const vollesFormular: VertragFormState = {
   klasse: '8',
   laufzeit_monate: '6',
   iban: '',
+  vertragsart: 'regulaer',
+  vertrag_ende: '',
+  einheiten: '',
 }
 
 describe('fehlendeFormAngaben', () => {
@@ -214,5 +218,49 @@ describe('fehlendeFormAngaben', () => {
     expect(
       fehlendeFormAngaben({ ...vollesFormular, eltern_telefon: '', schule: '', schule_id: '' }, true),
     ).toEqual([])
+  })
+})
+
+// V5: Pilotvereinbarung — ohne Paket, Laufzeit, Kontoinhaber und IBAN; mit Ende und Einheiten.
+describe('Pflichtangaben der Pilotvereinbarung', () => {
+  const pilotFormular: VertragFormState = {
+    ...vollesFormular,
+    vertragsart: 'pilot',
+    tier_id: '',
+    laufzeit_monate: '',
+    kontoinhaber: '',
+    vertrag_ende: '2027-07-16',
+    einheiten: '34',
+  }
+
+  it('braucht weder Paket noch Laufzeit noch Bankdaten', () => {
+    expect(fehlendeFormAngaben(pilotFormular, false)).toEqual([])
+  })
+
+  it('verlangt Vertragsende und Einheiten', () => {
+    expect(fehlendeFormAngaben({ ...pilotFormular, vertrag_ende: '', einheiten: '' }, false)).toEqual([
+      'vertrag_ende',
+      'einheiten',
+    ])
+  })
+
+  it('nimmt 0 oder Bruchzahlen nicht als Einheiten', () => {
+    expect(fehlendeFormAngaben({ ...pilotFormular, einheiten: '0' }, false)).toEqual(['einheiten'])
+    expect(fehlendeFormAngaben({ ...pilotFormular, einheiten: '2.5' }, false)).toEqual(['einheiten'])
+  })
+
+  it('prueft den gespeicherten Pilot ebenso', () => {
+    const v = vertrag({
+      id: 'p',
+      vertragsart: 'pilot',
+      tier_id: null,
+      laufzeit_monate: null,
+      preis_cents: 0,
+      kontoinhaber: null,
+      einheiten: null,
+      vertrag_ende: null,
+    })
+    expect(fehlendeAngaben(v, false)).toEqual(['vertrag_ende', 'einheiten'])
+    expect(fehlendeAngaben({ ...v, einheiten: 34, vertrag_ende: '2027-07-16' }, false)).toEqual([])
   })
 })

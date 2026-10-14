@@ -1198,7 +1198,13 @@ CREATE FUNCTION public.coaching_sessions_testlauf_pruefen() RETURNS trigger
 begin
   if (tg_op = 'INSERT' and new.testlauf)
      or (tg_op = 'UPDATE' and new.testlauf is distinct from old.testlauf) then
-    if coalesce(public.get_my_role(), '') <> 'admin' then
+    -- T5: Ausnahme nur beim Anlegen ueber den Systemweg aus termin_session_anlegen, nur fuer den eingeteilten Coach.
+    -- NULL-sicher: Ist ein Teil unbekannt (z. B. auth.uid() leer), gilt die Ausnahme nicht.
+    if coalesce(public.get_my_role(), '') <> 'admin'
+       and not coalesce(tg_op = 'INSERT'
+                        and current_setting('edvance.testlauf_anlegen', true) = '1'
+                        and new.raum_id is not null and new.slot_zeit_id is not null
+                        and public.get_my_role() = 'coach' and new.coach_id = auth.uid(), false) then
       raise exception 'Testlauf: nur Admin' using errcode = '42501';
     end if;
     -- T4: nach dem Start nicht mehr, auch nicht ueber direkte Zeilenrechte (wie session_testlauf_setzen).
@@ -13417,6 +13423,28 @@ $$;
 
 
 --
+-- Name: skill_pruefung_session(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.skill_pruefung_session(p_session_id uuid, p_skill_key text) RETURNS TABLE(id uuid, skill_key text, frage text, erwartung text, kriterium text, quelle text, freigegeben boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_test boolean := (public.session_coach_pruefen(p_session_id, 'skill_pruefung_session')).testlauf;
+begin
+  return query
+    select p.id, p.skill_key, p.frage, p.erwartung, p.kriterium, p.quelle, p.status = 'freigegeben'
+      from public.skill_pruefung p
+     where p.skill_key = p_skill_key
+       and (p.status = 'freigegeben' or coalesce(v_test, false))
+     order by (p.status = 'freigegeben') desc, (p.status = 'geprueft') desc, p.angelegt, p.id;
+end;
+$$;
+
+
+--
 -- Name: slot_assign(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -15154,8 +15182,12 @@ CREATE FUNCTION public.slots_vertrag_json(p_vertrag_id uuid) RETURNS jsonb
   select jsonb_build_object(
            'vertrag_id', v.id, 'paket', t.name, 'laufzeit_monate', v.laufzeit_monate, 'einheiten', v.einheiten,
            'beginn', v.vertragsbeginn, 'stichtag', v.vertrag_ende, 'gekuendigt_zum', v.gekuendigt_zum,
-           'rhythmus', (select jsonb_build_object('woechentlich', r.woechentlich, 'vierzehntaeglich', r.vierzehntaeglich)
-                          from public.slot_rhythmus r where r.tier_id = v.tier_id and r.laufzeit_monate = v.laufzeit_monate))
+           'rhythmus', case when v.vertragsart = 'pilot'
+                            then jsonb_build_object('woechentlich', 1, 'vierzehntaeglich', 0)
+                            else (select jsonb_build_object('woechentlich', r.woechentlich, 'vierzehntaeglich', r.vierzehntaeglich)
+                                    from public.slot_rhythmus r where r.tier_id = v.tier_id and r.laufzeit_monate = v.laufzeit_monate)
+                       end,
+           'vertragsart', v.vertragsart)
     from public.vertraege v left join public.tiers t on t.id = v.tier_id
    where v.id = p_vertrag_id;
 $$;
@@ -16614,13 +16646,16 @@ begin
     end if;
     v_test := coalesce(v_test, false);
     begin
+      -- T5: Systemweg fuer den Trigger, nur fuer dieses INSERT (scheitert es, nimmt der Blockabbruch ihn zurueck).
+      perform set_config('edvance.testlauf_anlegen', '1', true);
       insert into public.coaching_sessions (coach_id, room, scheduled_at, status, raum_id, slot_zeit_id, testlauf)
       values (r.coach_id, r.raum_name, public.slots_termin_beginn(p_datum, p_zeit_id), 'upcoming', p_raum_id, p_zeit_id,
               v_test)
       returning * into v_sess;
+      perform set_config('edvance.testlauf_anlegen', '', true);
     exception when insufficient_privilege then
-      -- Wer testlauf beim Anlegen setzen darf, entscheidet der Trigger coaching_sessions_testlauf_pruefen (T4);
-      -- hier bekommt seine Ablehnung nur einen Hinweis, den die Oberfläche übersetzt.
+      -- Wer testlauf beim Anlegen setzen darf, entscheidet der Trigger coaching_sessions_testlauf_pruefen (T4, T5:
+      -- Admin oder der eingeteilte Coach ueber den Systemweg); hier bekommt seine Ablehnung nur einen Hinweis.
       if not v_test then
         raise;
       end if;
@@ -16811,11 +16846,23 @@ begin
   if new.vertrag_status is distinct from old.vertrag_status then
     raise exception 'vertraege: vertrag_status nur ueber vertrag_*-RPCs aendern' using errcode = '42501';
   end if;
+  if new.vertragsart is distinct from old.vertragsart and new.status <> 'in_vorbereitung' then
+    raise exception 'vertraege: Vertragsart nur in der Vorbereitung aendern' using errcode = '42501';
+  end if;
+
+  -- V5: Pilot — Einheiten und Ende gibt der Admin vor, ohne Tarif und ohne Preis.
+  if new.status = 'in_vorbereitung' and new.vertragsart = 'pilot' then
+    new.tier_id         := null;
+    new.laufzeit_monate := null;
+    new.preis_cents     := 0;
+    return new;
+  end if;
 
   -- Preis und Einheiten folgen aus (Paket, Laufzeit) — nie aus dem Formular.
   if new.status = 'in_vorbereitung'
      and (new.tier_id is distinct from old.tier_id
-          or new.laufzeit_monate is distinct from old.laufzeit_monate) then
+          or new.laufzeit_monate is distinct from old.laufzeit_monate
+          or new.vertragsart is distinct from old.vertragsart) then
     new.preis_cents := null;
     new.einheiten   := null;
     select tl.preis_cents, tl.einheiten
@@ -16823,6 +16870,10 @@ begin
       from public.tier_laufzeiten tl
      where tl.tier_id = new.tier_id
        and tl.laufzeit_monate = new.laufzeit_monate;
+    -- Das Ende eines regulären Vertrags rechnet der Abschluss; ein Pilot-Ende gilt nicht weiter.
+    if old.vertragsart = 'pilot' then
+      new.vertrag_ende := null;
+    end if;
   else
     new.preis_cents := old.preis_cents;
     new.einheiten   := old.einheiten;
@@ -16900,6 +16951,7 @@ declare
   v_subject    uuid;
   v_erstvertrag boolean;
   v_lsa        uuid;
+  v_pilot      boolean;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_abschliessen: nur Admin' using errcode = '42501';
@@ -16925,23 +16977,41 @@ begin
     raise exception 'vertrag_abschliessen: Vertrag ist abgelehnt' using errcode = 'P0001';
   end if;
 
+  v_pilot := v.vertragsart = 'pilot';
+
   -- -------------------------------------------------------- Konditionen
   -- Auf dem Papierweg gilt, was unterschrieben wurde, nicht was versendet war.
-  v_tier     := coalesce(p_tier_id,         v.tier_id);
-  v_laufzeit := coalesce(p_laufzeit_monate, v.laufzeit_monate);
   v_beginn   := coalesce(p_vertragsbeginn,  v.vertragsbeginn);
 
-  if v_tier is null or v_laufzeit is null or v_beginn is null then
-    raise exception 'vertrag_abschliessen: Paket, Laufzeit oder Vertragsbeginn fehlt'
-      using errcode = 'P0001';
-  end if;
+  if v_pilot then
+    -- V5: kein Paket, keine Laufzeit, Preis 0; Ende und Einheiten gibt der Admin vor.
+    if p_tier_id is not null or p_laufzeit_monate is not null then
+      raise exception 'vertrag_abschliessen: eine Pilotvereinbarung hat kein Paket und keine Laufzeit'
+        using errcode = 'P0001';
+    end if;
+    perform public.vertrag_pilot_pruefen(v_beginn, v.vertrag_ende, v.einheiten);
+    -- Entscheidung 2: keine Bankdaten (auch keine uebernommenen oder vorher erfassten).
+    delete from public.vertrag_bankdaten where vertrag_id = p_vertrag_id;
+    v_tier      := null;
+    v_laufzeit  := null;
+    v_preis     := 0;
+    v_einheiten := v.einheiten;
+  else
+    v_tier     := coalesce(p_tier_id,         v.tier_id);
+    v_laufzeit := coalesce(p_laufzeit_monate, v.laufzeit_monate);
 
-  select tl.preis_cents, tl.einheiten into v_preis, v_einheiten
-    from public.tier_laufzeiten tl
-   where tl.tier_id = v_tier and tl.laufzeit_monate = v_laufzeit;
-  if v_preis is null then
-    raise exception 'vertrag_abschliessen: kein Tarif fuer Paket und Laufzeit %', v_laufzeit
-      using errcode = 'P0001';
+    if v_tier is null or v_laufzeit is null or v_beginn is null then
+      raise exception 'vertrag_abschliessen: Paket, Laufzeit oder Vertragsbeginn fehlt'
+        using errcode = 'P0001';
+    end if;
+
+    select tl.preis_cents, tl.einheiten into v_preis, v_einheiten
+      from public.tier_laufzeiten tl
+     where tl.tier_id = v_tier and tl.laufzeit_monate = v_laufzeit;
+    if v_preis is null then
+      raise exception 'vertrag_abschliessen: kein Tarif fuer Paket und Laufzeit %', v_laufzeit
+        using errcode = 'P0001';
+    end if;
   end if;
 
   -- -------------------------------------------------------- Weg A: vor Ort
@@ -16950,16 +17020,19 @@ begin
       raise exception 'vertrag_abschliessen: vor Ort geht nur aus der Vorbereitung (status=%)', v.status
         using errcode = 'P0001';
     end if;
-    if not exists (select 1 from public.vertrag_bankdaten where vertrag_id = p_vertrag_id) then
+    if not v_pilot
+       and not exists (select 1 from public.vertrag_bankdaten where vertrag_id = p_vertrag_id) then
       raise exception 'vertrag_abschliessen: IBAN fehlt' using errcode = 'P0001';
     end if;
-    if nullif(p_signatur_vertrag, '') is null or nullif(p_signatur_sepa, '') is null then
+    if nullif(p_signatur_vertrag, '') is null
+       or (not v_pilot and nullif(p_signatur_sepa, '') is null) then
       raise exception 'vertrag_abschliessen: Unterschrift fehlt' using errcode = 'P0001';
     end if;
 
     select string_agg(d.schluessel, ', ') into v_fehlt
       from public.vertrag_dokumente d
      where d.aktiv and d.pflicht
+       and v.vertragsart = any(d.vertragsarten)   -- V5: Pflicht je Vertragsart
        and not exists (
          select 1 from jsonb_array_elements(p_zustimmungen) z
           where z ->> 'schluessel' = d.schluessel and z ->> 'version' = d.version);
@@ -16973,12 +17046,23 @@ begin
     select p_vertrag_id, z ->> 'schluessel', z ->> 'version',
            coalesce((z ->> 'akzeptiert_at')::timestamptz, now()), auth.uid()
       from jsonb_array_elements(p_zustimmungen) z
+     -- V5: Zustimmungen zu Dokumenten der anderen Vertragsart halten wir nicht fest
+     -- (ein regulaerer Vertrag stimmt keiner Pilotvereinbarung zu). Unbekannte
+     -- Dokumente scheitern weiter am Fremdschluessel.
+     where not exists (select 1 from public.vertrag_dokumente d
+                        where d.schluessel = z ->> 'schluessel' and d.version = z ->> 'version'
+                          and not (v.vertragsart = any(d.vertragsarten)))
     on conflict (vertrag_id, dokument_schluessel, dokument_version) do nothing;
 
     insert into public.vertrag_unterschriften (vertrag_id, art, signatur) values
-      (p_vertrag_id, 'vertrag',     p_signatur_vertrag),
-      (p_vertrag_id, 'sepa_mandat', p_signatur_sepa)
+      (p_vertrag_id, 'vertrag', p_signatur_vertrag)
     on conflict (vertrag_id, art) do nothing;
+    -- Pilot: kein SEPA-Mandat, also auch keine Mandatsunterschrift.
+    if not v_pilot then
+      insert into public.vertrag_unterschriften (vertrag_id, art, signatur) values
+        (p_vertrag_id, 'sepa_mandat', p_signatur_sepa)
+      on conflict (vertrag_id, art) do nothing;
+    end if;
 
     p_unterschrieben_am := v_heute;
     v_abweichung := false;
@@ -17010,9 +17094,15 @@ begin
   end if;
 
   -- -------------------------------------------------------- Ende und Frist
-  -- Einzige Quelle. Wirft, wenn die Rechnung ueber ferien_nrw hinauslaeuft.
-  select * into v_ende from public.vertrag_ende_berechnen(v_beginn, v_laufzeit);
-  v_widerruf := public.vertrag_widerruf_bis(v_beginn);
+  if v_pilot then
+    -- V5: festes Ende ohne Ferienverlaengerung, kein Widerrufszeitraum.
+    select v.vertrag_ende as ende, null::integer as ferientage, array[]::text[] as ferien into v_ende;
+    v_widerruf := null;
+  else
+    -- Einzige Quelle. Wirft, wenn die Rechnung ueber ferien_nrw hinauslaeuft.
+    select * into v_ende from public.vertrag_ende_berechnen(v_beginn, v_laufzeit);
+    v_widerruf := public.vertrag_widerruf_bis(v_beginn);
+  end if;
 
   -- -------------------------------------------------------- Schuelerkonto
   v_erstvertrag := v.student_id is null;
@@ -17094,8 +17184,10 @@ begin
 
   -- Abo: eins je laufendem Vertrag. Der Guard verlangt, dass der Schueler
   -- vorher nicht mehr provisorisch ist — deshalb steht es hier unten.
-  if not exists (select 1 from public.student_subscriptions
-                  where student_id = v_student and tier_id = v_tier and status = 'active') then
+  -- V5: ein Pilot hat kein Paket und damit kein Abo.
+  if not v_pilot
+     and not exists (select 1 from public.student_subscriptions
+                      where student_id = v_student and tier_id = v_tier and status = 'active') then
     insert into public.student_subscriptions (student_id, tier_id) values (v_student, v_tier);
   end if;
 
@@ -17116,7 +17208,7 @@ begin
 
   update public.vertraege
      set status                 = 'abgeschlossen',
-         vertrag_status         = 'im_widerruf',
+         vertrag_status         = case when v_pilot then 'aktiv' else 'im_widerruf' end,
          abgeschlossen_at       = now(),
          abgeschlossen_am       = coalesce(p_unterschrieben_am, v_heute),
          abschluss_weg          = p_weg,
@@ -17133,6 +17225,8 @@ begin
          vertrag_ende           = v_ende.ende,
          ferientage             = v_ende.ferientage,
          widerruf_bis           = v_widerruf,
+         iban_masked            = case when v_pilot then null else iban_masked end,
+         kontoinhaber           = case when v_pilot then null else kontoinhaber end,
          zugangscode            = v_code,
          zugangscode_erzeugt_am = coalesce(zugangscode_erzeugt_am, v_heute),
          student_id             = v_student,
@@ -17499,6 +17593,95 @@ $$;
 
 
 --
+-- Name: vertrag_pilot_pruefen(date, date, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_pilot_pruefen(p_beginn date, p_ende date, p_einheiten integer) RETURNS void
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_ferien  text;
+  v_letzter date;
+begin
+  if p_beginn is null or p_ende is null or p_einheiten is null then
+    raise exception 'vertrag_pilot: Vertragsbeginn, Vertragsende und Einheiten sind Pflicht'
+      using errcode = 'P0001';
+  end if;
+  if extract(day from p_beginn) <> 1 then
+    raise exception 'vertrag_pilot: Vertragsbeginn ist immer der Monatserste (% ist es nicht)', p_beginn
+      using errcode = 'P0001';
+  end if;
+  if p_ende <= p_beginn then
+    raise exception 'vertrag_pilot: Vertragsende % liegt nicht nach dem Beginn %', p_ende, p_beginn
+      using errcode = 'P0001';
+  end if;
+  if p_einheiten <= 0 then
+    raise exception 'vertrag_pilot: Einheiten muessen groesser als 0 sein' using errcode = 'P0001';
+  end if;
+
+  select max(f.bis) into v_letzter from public.ferien_nrw f;
+  if v_letzter is null or p_ende > v_letzter then
+    raise exception 'vertrag_pilot: Ende % liegt nach dem letzten gepflegten Ferientag (%) — Ferien in ferien_nrw ergaenzen', p_ende, v_letzter
+      using errcode = 'P0001';
+  end if;
+
+  select f.name into v_ferien from public.ferien_nrw f where p_ende between f.von and f.bis limit 1;
+  if v_ferien is not null then
+    raise exception 'vertrag_pilot: Vertragsende % liegt in den Ferien (%)', p_ende, v_ferien
+      using errcode = 'P0001';
+  end if;
+end;
+$$;
+
+
+--
+-- Name: vertrag_pilot_vorschlag(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_pilot_vorschlag(p_beginn date) RETURNS TABLE(ende date, einheiten integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_sommer date;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_pilot_vorschlag: nur Admin' using errcode = '42501';
+  end if;
+  if p_beginn is null or extract(day from p_beginn) <> 1 then
+    raise exception 'vertrag_pilot_vorschlag: Vertragsbeginn ist immer der Monatserste (% ist es nicht)', p_beginn
+      using errcode = '22023';
+  end if;
+
+  select min(f.von) into v_sommer
+    from public.ferien_nrw f
+   where f.art = 'sommer' and f.von > p_beginn;
+  if v_sommer is null then
+    raise exception 'vertrag_pilot_vorschlag: nach % sind keine Sommerferien gepflegt', p_beginn
+      using errcode = 'P0001';
+  end if;
+
+  with schultage as (
+    select d::date as tag
+      from generate_series(p_beginn, v_sommer - 1, interval '1 day') d
+     where extract(isodow from d) <= 5
+       and not exists (select 1 from public.ferien_nrw f where d::date between f.von and f.bis)
+  )
+  select max(s.tag), count(distinct s.tag - (extract(isodow from s.tag)::integer - 1))::integer
+    into ende, einheiten
+    from schultage s;
+
+  if ende is null then
+    raise exception 'vertrag_pilot_vorschlag: zwischen % und den Sommerferien liegt kein Schultag', p_beginn
+      using errcode = 'P0001';
+  end if;
+  return next;
+end;
+$$;
+
+
+--
 -- Name: vertrag_sonderkuendigung_erfassen(uuid, date, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -17539,10 +17722,10 @@ $$;
 
 
 --
--- Name: vertrag_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
+-- Name: vertrag_starten(uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.vertrag_starten(p_lead_id uuid) RETURNS uuid
+CREATE FUNCTION public.vertrag_starten(p_lead_id uuid, p_vertragsart text DEFAULT 'regulaer'::text) RETURNS uuid
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -17553,6 +17736,9 @@ declare
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_starten: nur Admin' using errcode = '42501';
+  end if;
+  if p_vertragsart is null or p_vertragsart not in ('regulaer', 'pilot') then
+    raise exception 'vertrag_starten: unbekannte Vertragsart %', p_vertragsart using errcode = '22023';
   end if;
 
   select * into v_lead from public.leads where id = p_lead_id for update;
@@ -17578,12 +17764,14 @@ begin
 
   insert into public.vertraege (
     created_by, lead_id, eltern_telefon, eltern_email,
-    kind_vorname, kind_nachname, kind_geburtsdatum, klasse, fach, schule, schule_id
+    kind_vorname, kind_nachname, kind_geburtsdatum, klasse, fach, schule, schule_id,
+    vertragsart, preis_cents
   ) values (
     auth.uid(), p_lead_id, v_lead.contact_phone, v_lead.contact_email,
     coalesce(v_lead.first_name, split_part(v_lead.full_name, ' ', 1)),
     nullif(regexp_replace(v_lead.full_name, '^\S+\s*', ''), ''),
-    v_lead.birth_date, v_lead.class_level, v_lead.subjects[1], v_lead.school_name, v_schule
+    v_lead.birth_date, v_lead.class_level, v_lead.subjects[1], v_lead.school_name, v_schule,
+    p_vertragsart, case when p_vertragsart = 'pilot' then 0 end
   )
   returning id into v_id;
 
@@ -17715,12 +17903,19 @@ begin
   if v.status = 'abgeschlossen' then
     raise exception 'vertrag_versenden: Vertrag ist bereits abgeschlossen' using errcode = 'P0001';
   end if;
-  if v.tier_id is null or v.laufzeit_monate is null or v.vertragsbeginn is null then
-    raise exception 'vertrag_versenden: Paket, Laufzeit oder Vertragsbeginn fehlt'
-      using errcode = 'P0001';
-  end if;
-  if not exists (select 1 from public.vertrag_bankdaten where vertrag_id = p_vertrag_id) then
-    raise exception 'vertrag_versenden: IBAN fehlt' using errcode = 'P0001';
+  if v.vertragsart = 'pilot' then
+    perform public.vertrag_pilot_pruefen(v.vertragsbeginn, v.vertrag_ende, v.einheiten);
+    -- Entscheidung 2: Ein Pilot hat keine Bankdaten. Eine aus dem Vorgaenger uebernommene
+    -- oder vor dem Wechsel der Vertragsart erfasste IBAN geht nicht mit hinaus.
+    delete from public.vertrag_bankdaten where vertrag_id = p_vertrag_id;
+  else
+    if v.tier_id is null or v.laufzeit_monate is null or v.vertragsbeginn is null then
+      raise exception 'vertrag_versenden: Paket, Laufzeit oder Vertragsbeginn fehlt'
+        using errcode = 'P0001';
+    end if;
+    if not exists (select 1 from public.vertrag_bankdaten where vertrag_id = p_vertrag_id) then
+      raise exception 'vertrag_versenden: IBAN fehlt' using errcode = 'P0001';
+    end if;
   end if;
 
   -- Fassungen festhalten: ALLE aktiven Dokumente, nicht nur die Pflichtstuecke.
@@ -17730,6 +17925,7 @@ begin
   select p_vertrag_id, d.schluessel, d.version, now(), auth.uid()
     from public.vertrag_dokumente d
    where d.aktiv
+     and v.vertragsart = any(d.vertragsarten)   -- V5: nur das Bündel der eigenen Vertragsart
   on conflict (vertrag_id, dokument_schluessel, dokument_version) do nothing;
 
   if p_weg = 'druck' then
@@ -17747,6 +17943,8 @@ begin
          unterschrift_ausstehend_at = coalesce(unterschrift_ausstehend_at, now()),
          abschluss_weg   = 'papier',
          rueckmeldung_bis = v_bis,
+         iban_masked     = case when v.vertragsart = 'pilot' then null else iban_masked end,
+         kontoinhaber    = case when v.vertragsart = 'pilot' then null else kontoinhaber end,
          glaeubiger_id   = coalesce(glaeubiger_id,
                              (select glaeubiger_id from public.vertrag_einstellungen))
    where id = p_vertrag_id;
@@ -19962,6 +20160,7 @@ CREATE TABLE public.vertraege (
     zugangscode_erzeugt_am date,
     zugangscode_gesperrt_am date,
     scan_pfad text,
+    vertragsart text DEFAULT 'regulaer'::text NOT NULL,
     CONSTRAINT vertraege_abgelehnt_grund_check CHECK (((abgelehnt_grund IS NULL) OR (abgelehnt_grund = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT vertraege_abgelehnt_notiz_check CHECK (((abgelehnt_grund IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(abgelehnt_notiz), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_abschluss_weg_check CHECK (((abschluss_weg IS NULL) OR (abschluss_weg = ANY (ARRAY['vor_ort'::text, 'papier'::text])))),
@@ -19973,11 +20172,15 @@ CREATE TABLE public.vertraege (
     CONSTRAINT vertraege_klasse_check CHECK (((klasse IS NULL) OR ((klasse >= 5) AND (klasse <= 13)))),
     CONSTRAINT vertraege_laufzeit_check CHECK (((laufzeit_monate IS NULL) OR (laufzeit_monate = ANY (ARRAY[6, 12])))),
     CONSTRAINT vertraege_offener_betrag_nicht_negativ CHECK (((offener_betrag_cents IS NULL) OR (offener_betrag_cents >= 0))),
+    CONSTRAINT vertraege_pilot_konditionen CHECK (((vertragsart <> 'pilot'::text) OR (((einheiten IS NULL) OR (einheiten > 0)) AND ((status = ANY (ARRAY['in_vorbereitung'::text, 'abgelehnt'::text])) OR ((einheiten IS NOT NULL) AND (vertragsbeginn IS NOT NULL) AND (vertrag_ende IS NOT NULL)))))),
+    CONSTRAINT vertraege_pilot_ohne_tarif CHECK (((vertragsart <> 'pilot'::text) OR ((tier_id IS NULL) AND (laufzeit_monate IS NULL) AND (widerruf_bis IS NULL) AND (ferientage IS NULL) AND (preis_cents = 0)))),
+    CONSTRAINT vertraege_pilot_ohne_zahlung CHECK (((vertragsart <> 'pilot'::text) OR ((zahlungsstatus = 'in_ordnung'::text) AND (offener_betrag_cents IS NULL)))),
     CONSTRAINT vertraege_scan_bei_papier CHECK (((status <> 'abgeschlossen'::text) OR (abschluss_weg IS DISTINCT FROM 'papier'::text) OR (NULLIF(btrim(scan_pfad), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_status_check CHECK ((status = ANY (ARRAY['in_vorbereitung'::text, 'unterschrift_ausstehend'::text, 'abgeschlossen'::text, 'abgelehnt'::text]))),
     CONSTRAINT vertraege_verlaengerung_status_check CHECK (((verlaengerung_status IS NULL) OR (verlaengerung_status = ANY (ARRAY['offen'::text, 'kontaktiert'::text, 'gespraech_vereinbart'::text, 'verlaengert'::text, 'keine_verlaengerung'::text])))),
     CONSTRAINT vertraege_vertrag_status_check CHECK (((vertrag_status IS NULL) OR (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text, 'gekuendigt'::text, 'ausgelaufen'::text, 'widerrufen'::text])))),
     CONSTRAINT vertraege_vertrag_status_nach_abschluss CHECK (((status = 'abgeschlossen'::text) = (vertrag_status IS NOT NULL))),
+    CONSTRAINT vertraege_vertragsart_check CHECK ((vertragsart = ANY (ARRAY['regulaer'::text, 'pilot'::text]))),
     CONSTRAINT vertraege_vorgaenger_nicht_selbst CHECK (((vorgaenger_id IS NULL) OR (vorgaenger_id <> id))),
     CONSTRAINT vertraege_widerruf_nach_beginn CHECK (((widerruf_bis IS NULL) OR (vertragsbeginn IS NULL) OR (widerruf_bis >= vertragsbeginn))),
     CONSTRAINT vertraege_widerrufen_braucht_datum CHECK (((vertrag_status IS DISTINCT FROM 'widerrufen'::text) OR (widerrufen_am IS NOT NULL))),
@@ -20055,6 +20258,7 @@ CREATE VIEW public.vertraege_aktuell WITH (security_invoker='true') AS
             v.zugangscode_erzeugt_am,
             v.zugangscode_gesperrt_am,
             v.scan_pfad,
+            v.vertragsart,
             public.vertrag_wirksamer_status(v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis) AS wirksamer_status,
                 CASE
                     WHEN ((v.vertragsbeginn IS NULL) OR (CURRENT_DATE < v.vertragsbeginn)) THEN NULL::integer
@@ -20128,12 +20332,14 @@ CREATE VIEW public.vertraege_aktuell WITH (security_invoker='true') AS
     laufzeit_monat,
     (row_number() OVER (PARTITION BY COALESCE(student_id, id) ORDER BY vertragsbeginn DESC NULLS LAST, abgeschlossen_am DESC NULLS LAST, created_at DESC) = 1) AS ist_aktueller_vertrag,
         CASE
+            WHEN (vertragsart = 'pilot'::text) THEN 0
             WHEN ((preis_cents IS NULL) OR (laufzeit_monat IS NULL) OR (laufzeit_monate IS NULL)) THEN 0
             WHEN ((laufzeit_monat >= 1) AND (laufzeit_monat <= laufzeit_monate)) THEN preis_cents
             ELSE 0
         END AS beitrag_diesen_monat_cents,
     ((zugangscode IS NOT NULL) AND (zugangscode_gesperrt_am IS NULL) AND (wirksamer_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text]))) AS zugangscode_gueltig,
-    (vertrag_ende - CURRENT_DATE) AS endet_in_tagen
+    (vertrag_ende - CURRENT_DATE) AS endet_in_tagen,
+    vertragsart
    FROM basis b;
 
 
@@ -20179,7 +20385,9 @@ CREATE TABLE public.vertrag_dokumente (
     titel text NOT NULL,
     pflicht boolean NOT NULL,
     aktiv boolean DEFAULT true NOT NULL,
-    sort_order integer DEFAULT 0 NOT NULL
+    sort_order integer DEFAULT 0 NOT NULL,
+    vertragsarten text[] DEFAULT ARRAY['regulaer'::text] NOT NULL,
+    CONSTRAINT vertrag_dokumente_vertragsarten_check CHECK (((cardinality(vertragsarten) > 0) AND (vertragsarten <@ ARRAY['regulaer'::text, 'pilot'::text])))
 );
 
 

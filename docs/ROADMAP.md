@@ -94,6 +94,12 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Verträge V5 · Pilotvereinbarung** (Retro `2026-10-14-vertraege-v5-pilot.md`, Branch `feat/rasit-vertrag-pilot`):
+  zweite Vertragsart `vertraege.vertragsart` (`regulaer` | `pilot`): 0 €, ohne Paket, Laufzeit, SEPA und Widerruf,
+  festes Ende und feste Einheiten mit Vorschlag (`vertrag_pilot_vorschlag`), Status ab Abschluss `aktiv`.
+  Dokumente je Vertragsart (`vertrag_dokumente.vertragsarten`), Vorlage `pilotvereinbarung.md`, PDF ohne Mandat.
+  Kennzeichen „Pilot“ in Menü, Detail, Akte und Slots, Pilot in keiner Kennzahl. Erster Fall: Batu Demirel ab
+  01.11.2026. Eingespielt und deployt 14.10. (PR #247). **Offen:** `docs/vertraege/offene-punkte-v5.md`.
 - **Slots SL1 · Datenmodell, Planung und Regeln** (Retro `2026-10-10-slots-sl1.md`, Branch
   `feat/rasit-slots-sl1-datenmodell`): sieben Tabellen (Uhrzeiten, Räume, Stammschichten, Abweichungen, Rhythmus,
   Stammplätze, Kind-Termine), Abgleich `termine_planen`, Planbilanz, Raumzuteilung, Schreib- und Lesefunktionen je
@@ -110,6 +116,11 @@
   ohne Doppelung, Admin-„Heute im Betrieb“ und „Absagen heute“ aus `slots_tag`, Akte mit „Termine planen“ und Planbilanz
   (nur Admin), nächste Session bei Coach und Eltern vor dem Festschreiben. Reine Oberfläche, keine Migration.
   **Offen:** `docs/slots/offene-punkte-sl3.md`.
+- **Session P1 · T5 Coach im Testlauf** (Retro `2026-10-14-session-t5-coach-testlauf.md`, Branch
+  `feat/rasit-session-t5-coach-testlauf`): Neuer RPC `skill_pruefung_session` (echt nur freigegeben, im Testlauf jede
+  Prüffrage, die `pruefung_aufs_tablet` auflegt, mit `freigegeben`), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach
+  legt einen reinen Testtermin selbst als Testlauf an (Systemweg `edvance.testlauf_anlegen` im Trigger).
+  Migrationen `20261014104355`, `20261014104412`. **Offen:** `docs/session/offene-punkte-t5.md`.
 - **Session P1 · C3 Schublade der Coach-Live-Sicht** (Retro `2026-10-08-session-c3-schublade.md`, Branch
   `feat/rasit-session-c3-schublade`): Pfad-Vorschlag mit Warm-up-Zahlen und Fehlbild, „Heute“ je Kind, Grund des
   letzten Schritts mit Zahl (`session_schritte.details`), alle Kernideen der Erklärsequenz, Warm-up-Beleg für die

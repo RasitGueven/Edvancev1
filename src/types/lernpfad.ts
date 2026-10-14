@@ -88,6 +88,9 @@ export type SkillPruefung = {
   quelle: 'ki' | 'mensch'
 }
 
+/** T5: Pruefrage der Session (skill_pruefung_session); freigegeben = Status 'freigegeben', serverseitig. */
+export type SkillPruefungSession = SkillPruefung & { freigegeben: boolean }
+
 /** Sicht des Kindes: ein Mastery-Kandidat erscheint als „sicher“. */
 export type MeinLernpfadEintrag = {
   skill_key: string

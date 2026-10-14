@@ -1,8 +1,8 @@
 // Board- und Formularlogik der Vertragsansicht. Reine Funktionen ohne React.
 
-import type { Vertrag, VertragMitLead, VertragStatus } from '@/types'
+import type { Vertrag, Vertragsart, VertragMitLead, VertragStatus } from '@/types'
 import { daysWaiting, followUpDays, type AgeDisplay, type LeadFilters } from '../leads/boardModel'
-import type { VertragFormState } from './vertragForm'
+import { einheitenGueltig, type VertragFormState } from './vertragForm'
 
 export type VertragColumnKey = 'vorbereitung' | 'ausstehend' | 'abgeschlossen' | 'archiv'
 
@@ -108,15 +108,34 @@ export const PFLICHTFELDER = [
   'kontoinhaber',
 ] as const satisfies readonly (keyof Vertrag)[]
 
-export type Pflichtfeld = (typeof PFLICHTFELDER)[number] | 'iban'
+/**
+ * V5: Pflichtangaben einer Pilotvereinbarung. Ohne Paket, Laufzeit und
+ * Bankdaten; dafuer Vertragsende und Einheiten, die der Admin vorgibt.
+ */
+const NUR_REGULAER = ['laufzeit_monate', 'tier_id', 'kontoinhaber'] as const
+export const PFLICHTFELDER_PILOT = [
+  ...PFLICHTFELDER.filter((f) => !(NUR_REGULAER as readonly string[]).includes(f)),
+  'vertrag_ende',
+  'einheiten',
+] as const satisfies readonly (keyof Vertrag)[]
+
+export type Pflichtfeld =
+  | (typeof PFLICHTFELDER)[number]
+  | (typeof PFLICHTFELDER_PILOT)[number]
+  | 'iban'
+
+export function pflichtfelder(art: Vertragsart): readonly Pflichtfeld[] {
+  return art === 'pilot' ? PFLICHTFELDER_PILOT : PFLICHTFELDER
+}
 
 /** Was vor Unterschrift oder Versand noch fehlt. Leer = vollstaendig. */
 export function fehlendeAngaben(v: Vertrag, hatIban: boolean): Pflichtfeld[] {
-  const fehlt: Pflichtfeld[] = PFLICHTFELDER.filter((feld) => {
-    const wert = v[feld]
+  const pilot = v.vertragsart === 'pilot'
+  const fehlt: Pflichtfeld[] = pflichtfelder(v.vertragsart).filter((feld) => {
+    const wert = v[feld as keyof Vertrag]
     return wert === null || (typeof wert === 'string' && wert.trim() === '')
   })
-  if (!hatIban) fehlt.push('iban')
+  if (!hatIban && !pilot) fehlt.push('iban')
   return fehlt
 }
 
@@ -131,7 +150,12 @@ export function fehlendeAngaben(v: Vertrag, hatIban: boolean): Pflichtfeld[] {
  * form.iban und zaehlt genauso.
  */
 export function fehlendeFormAngaben(form: VertragFormState, hatIban: boolean): Pflichtfeld[] {
-  const fehlt: Pflichtfeld[] = PFLICHTFELDER.filter((feld) => form[feld].trim() === '')
-  if (!hatIban && form.iban.trim() === '') fehlt.push('iban')
+  const pilot = form.vertragsart === 'pilot'
+  const fehlt: Pflichtfeld[] = pflichtfelder(form.vertragsart).filter(
+    (feld) => form[feld as keyof VertragFormState].trim() === '',
+  )
+  // Pilot: Einheiten sind eine ganze Zahl > 0 — sonst gelten sie als fehlend.
+  if (pilot && form.einheiten.trim() !== '' && !einheitenGueltig(form.einheiten)) fehlt.push('einheiten')
+  if (!hatIban && !pilot && form.iban.trim() === '') fehlt.push('iban')
   return fehlt
 }
