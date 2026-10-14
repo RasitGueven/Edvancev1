@@ -148,6 +148,8 @@ export type LiveMasteryKandidat = {
   frage: string
   erwartung: string
   kriterium: string
+  /** T5: Im Testlauf ist die Pruefrage nicht freigegeben (Kennzeichen „Entwurf“); echt immer false. */
+  entwurf: boolean
   entscheidung: MasteryEntscheidungLive | null
 }
 

@@ -251,6 +251,7 @@
       "abstand": "Abstand zur letzten Übung: {{count}} Tage"
     },
     "frage": "Prüffrage · anderer Kontext als die geübten Aufgaben",
+    "entwurf": "Entwurf",
     "erwartung": "Erwartung",
     "kriterium": "Kriterium",
     "schrittFrage": "Prüffrage gestellt",

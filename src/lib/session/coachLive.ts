@@ -10,7 +10,7 @@
 import { listLernpfad, masteryEntscheiden as masteryEntscheidenRpc, skillPruefungen, zielFertigkeiten } from '@/lib/supabase/lernpfad'
 import * as rpc from '@/lib/supabase/sessionCoach'
 import { satzVorschlaege, sessionBriefing } from '@/lib/supabase/sessionC2'
-import { pruefungAufsTablet as aufsTablet, pruefungVomTablet as vomTablet } from '@/lib/supabase/sessionPruefung'
+import { pruefungAufsTablet as aufsTablet, pruefungVomTablet as vomTablet, skillPruefungSession } from '@/lib/supabase/sessionPruefung'
 import { getStudentIstTest } from '@/lib/supabase/testmodus'
 import { listThemen } from '@/lib/supabase/themen'
 import type { CoachLiveRaum } from '@/types/coachLive'
@@ -88,6 +88,21 @@ async function themenLabels(): Promise<Map<string, string>> {
   return themenCache ?? new Map()
 }
 
+/**
+ * T5: Pruefrage der Session (skill_pruefung_session; die erste ist die Frage auf dem Tablet). Im Testlauf kann sie
+ * nicht freigegeben sein: Coaches lesen keinen Status, also gilt als Entwurf, was skill_pruefung_lesen (nur
+ * freigegeben) nicht liefert. Scheitert dieser Abgleich, bleibt das Kennzeichen weg.
+ */
+async function ladePruefung(sessionId: string, skill: string, testlauf: boolean): Promise<NonNullable<LiveZusatz['detail']>['pruefung']> {
+  const [res, frei] = await Promise.all([
+    skillPruefungSession(sessionId, skill),
+    testlauf ? skillPruefungen(skill) : Promise.resolve(null),
+  ])
+  const p = res.data?.[0] ?? null
+  if (!p) return null
+  return { ...p, entwurf: testlauf && !!frei?.data && !frei.data.some((f) => f.id === p.id) }
+}
+
 /** Schublade: Detail, Ziel der Stunde, Pruefgespraech und Belege nur fuer dieses Kind. */
 async function ladeDetail(sessionId: string, raum: RaumLive, kindId: string): Promise<LiveZusatz['detail']> {
   const kind = raum.kinder.find((k) => k.student_id === kindId)
@@ -97,7 +112,7 @@ async function ladeDetail(sessionId: string, raum: RaumLive, kindId: string): Pr
   const [detail, ziel, pruefung, lernpfad] = await Promise.all([
     rpc.kindDetail(sessionId, kindId),
     themaKey ? zielFertigkeiten(kindId, themaKey) : Promise.resolve({ data: [], error: null }),
-    skill ? skillPruefungen(skill) : Promise.resolve({ data: [], error: null }),
+    skill ? ladePruefung(sessionId, skill, raum.session.testlauf === true) : Promise.resolve(null),
     skill ? listLernpfad(kindId) : Promise.resolve({ data: [], error: null }),
   ])
   if (!detail.data) return null
@@ -105,8 +120,8 @@ async function ladeDetail(sessionId: string, raum: RaumLive, kindId: string): Pr
     kindId,
     detail: detail.data,
     ziel: ziel.data ?? [],
-    // Wie das Tablet: die erste freigegebene Pruefung des Skills (offene-punkte-a2b Nr. 6).
-    pruefung: pruefung.data?.[0] ?? null,
+    // Wie das Tablet: die erste Pruefung der Session (offene-punkte-a2b Nr. 6; T5 auch im Testlauf).
+    pruefung,
     lernpfad: lernpfad.data?.find((l) => l.skill_key === skill) ?? null,
   }
 }

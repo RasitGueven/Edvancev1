@@ -7,7 +7,7 @@ const from = vi.fn()
 
 vi.mock('@/lib/supabase/client', () => ({ supabase: { rpc, from } }))
 
-const { pruefungAufsTablet, pruefungVomTablet } = await import('@/lib/supabase/sessionPruefung')
+const { pruefungAufsTablet, pruefungVomTablet, skillPruefungSession } = await import('@/lib/supabase/sessionPruefung')
 
 beforeEach(() => {
   rpc.mockReset()
@@ -28,5 +28,21 @@ describe('Pruefrage aufs Tablet', () => {
     const res = await pruefungVomTablet('ZZ_s', 'ZZ_k')
     expect(rpc).toHaveBeenCalledWith('pruefung_vom_tablet', { p_session_id: 'ZZ_s', p_student_id: 'ZZ_k' })
     expect(res).toEqual({ data: null, error: 'pruefung_vom_tablet: keine Pruefrage auf dem Tablet' })
+  })
+})
+
+describe('T5: Pruefragen der Session', () => {
+  it('liest ueber skill_pruefung_session mit Session und Skill', async () => {
+    rpc.mockResolvedValue({ data: [{ id: 'ZZ_p', skill_key: 'ZZ_sk', frage: 'F', erwartung: 'E', kriterium: 'K', quelle: 'ki' }], error: null })
+    const res = await skillPruefungSession('ZZ_s', 'ZZ_sk')
+    expect(rpc).toHaveBeenCalledWith('skill_pruefung_session', { p_session_id: 'ZZ_s', p_skill_key: 'ZZ_sk' })
+    expect(res.data?.[0].erwartung).toBe('E')
+    expect(from).not.toHaveBeenCalled()
+  })
+
+  it('reicht SQLSTATE und Meldung der Datenbank durch', async () => {
+    rpc.mockResolvedValue({ data: null, error: { message: 'skill_pruefung_session: nur der Coach der Session oder ein Admin', code: '42501' } })
+    const res = await skillPruefungSession('ZZ_s', 'ZZ_sk')
+    expect(res).toMatchObject({ data: null, error: 'skill_pruefung_session: nur der Coach der Session oder ein Admin', code: '42501' })
   })
 })

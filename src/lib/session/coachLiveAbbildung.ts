@@ -36,7 +36,14 @@ import { eingabeDerAufgabe, falscheZurAufgabe } from './coachLiveEingabe'
 
 /** Was neben coach_raum_live geladen wurde. Detail nur fuer das Kind mit offener Schublade. */
 export type LiveZusatz = {
-  detail: { kindId: string; detail: KindDetail; ziel: ZielFertigkeit[]; pruefung: SkillPruefung | null; lernpfad: LernpfadEintrag | null } | null
+  /** T5: pruefung.entwurf = im Testlauf nicht freigegeben. */
+  detail: {
+    kindId: string
+    detail: KindDetail
+    ziel: ZielFertigkeit[]
+    pruefung: (SkillPruefung & { entwurf: boolean }) | null
+    lernpfad: LernpfadEintrag | null
+  } | null
   briefing: BriefingKind[]
   satz: Record<string, SatzVorschlag[]>
   themen: Map<string, string>
