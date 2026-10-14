@@ -141,7 +141,7 @@ begin
      where extract(isodow from d) <= 5
        and not exists (select 1 from public.ferien_nrw f where d::date between f.von and f.bis)
   )
-  select max(s.tag), count(distinct date_trunc('week', s.tag))::integer
+  select max(s.tag), count(distinct s.tag - (extract(isodow from s.tag)::integer - 1))::integer
     into ende, einheiten
     from schultage s;
 
@@ -308,6 +308,9 @@ begin
   end if;
   if v.vertragsart = 'pilot' then
     perform public.vertrag_pilot_pruefen(v.vertragsbeginn, v.vertrag_ende, v.einheiten);
+    -- Entscheidung 2: Ein Pilot hat keine Bankdaten. Eine aus dem Vorgaenger uebernommene
+    -- oder vor dem Wechsel der Vertragsart erfasste IBAN geht nicht mit hinaus.
+    delete from public.vertrag_bankdaten where vertrag_id = p_vertrag_id;
   else
     if v.tier_id is null or v.laufzeit_monate is null or v.vertragsbeginn is null then
       raise exception 'vertrag_versenden: Paket, Laufzeit oder Vertragsbeginn fehlt'
@@ -343,6 +346,8 @@ begin
          unterschrift_ausstehend_at = coalesce(unterschrift_ausstehend_at, now()),
          abschluss_weg   = 'papier',
          rueckmeldung_bis = v_bis,
+         iban_masked     = case when v.vertragsart = 'pilot' then null else iban_masked end,
+         kontoinhaber    = case when v.vertragsart = 'pilot' then null else kontoinhaber end,
          glaeubiger_id   = coalesce(glaeubiger_id,
                              (select glaeubiger_id from public.vertrag_einstellungen))
    where id = p_vertrag_id;
@@ -419,6 +424,8 @@ begin
         using errcode = 'P0001';
     end if;
     perform public.vertrag_pilot_pruefen(v_beginn, v.vertrag_ende, v.einheiten);
+    -- Entscheidung 2: keine Bankdaten (auch keine uebernommenen oder vorher erfassten).
+    delete from public.vertrag_bankdaten where vertrag_id = p_vertrag_id;
     v_tier      := null;
     v_laufzeit  := null;
     v_preis     := 0;
@@ -652,6 +659,8 @@ begin
          vertrag_ende           = v_ende.ende,
          ferientage             = v_ende.ferientage,
          widerruf_bis           = v_widerruf,
+         iban_masked            = case when v_pilot then null else iban_masked end,
+         kontoinhaber           = case when v_pilot then null else kontoinhaber end,
          zugangscode            = v_code,
          zugangscode_erzeugt_am = coalesce(zugangscode_erzeugt_am, v_heute),
          student_id             = v_student,

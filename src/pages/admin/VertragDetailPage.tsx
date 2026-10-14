@@ -145,6 +145,7 @@ export function VertragDetailPage(): JSX.Element {
   const paket = d.tiers.find((x) => x.id === v.tier_id)?.name ?? '—'
   const datum = (ymd: string | null): string => (ymd ? formatDateOnly(ymd, lang) : '—')
   const widerrufMoeglich = v.wirksamer_status === 'im_widerruf'
+  const pilot = v.vertragsart === 'pilot'
 
   const folgevertrag = async (): Promise<void> => {
     setBusy(true)
@@ -224,16 +225,21 @@ export function VertragDetailPage(): JSX.Element {
                   </span>
                 ),
               },
-              { label: t('detailansicht.widerrufBis'), wert: datum(v.widerruf_bis) },
+              // V5: Ein Pilot hat weder Widerruf noch Zahlung — die Zeilen entfallen.
+              ...(pilot ? [] : [{ label: t('detailansicht.widerrufBis'), wert: datum(v.widerruf_bis) }]),
               { label: t('detailansicht.abgeschlossenAm'), wert: datum(v.abgeschlossen_am) },
-              {
-                label: t('menue.spalte.zahlung'),
-                wert: (
-                  <EdvanceBadge variant={ZAHLUNG_FARBE[v.zahlungsstatus]}>
-                    {t(`menue.zahlung.${v.zahlungsstatus}`)}
-                  </EdvanceBadge>
-                ),
-              },
+              ...(pilot
+                ? []
+                : [
+                    {
+                      label: t('menue.spalte.zahlung'),
+                      wert: (
+                        <EdvanceBadge variant={ZAHLUNG_FARBE[v.zahlungsstatus]}>
+                          {t(`menue.zahlung.${v.zahlungsstatus}`)}
+                        </EdvanceBadge>
+                      ),
+                    },
+                  ]),
               ...(v.abweichung_vermerk
                 ? [{ label: t('einpflegen.vermerk'), wert: v.abweichung_vermerk }]
                 : []),
@@ -339,9 +345,10 @@ export function VertragDetailPage(): JSX.Element {
             elternEmail={v.eltern_email}
             zugangscode={v.zugangscode}
             widerrufMoeglich={widerrufMoeglich}
+            pilot={pilot}
             onFolgevertrag={() => void folgevertrag()}
             onVersenden={(anlass) => void versenden(anlass)}
-            onWiderruf={() => setWiderruf(true)}
+            onWiderruf={pilot ? undefined : () => setWiderruf(true)}
             onKuendigung={() => setKuendigung(true)}
           />
         </div>

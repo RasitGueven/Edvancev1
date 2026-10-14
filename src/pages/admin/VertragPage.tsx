@@ -141,7 +141,9 @@ export function VertragPage(): JSX.Element {
   const einpflegen = vertrag.status === 'unterschrift_ausstehend'
   const abgeschlossen = vertrag.status === 'abgeschlossen'
   const dirty = isDirty(form, vertrag)
-  const ibanInvalid = form.iban.trim() !== '' && !isValidIban(form.iban)
+  // V5: Ein Pilot hat keine Bankdaten — dort wird keine IBAN geprueft oder gespeichert.
+  const mitIban = form.vertragsart !== 'pilot' && form.iban.trim() !== ''
+  const ibanInvalid = mitIban && !isValidIban(form.iban)
   const fehlt = fehlendeAngaben(vertrag, iban !== null)
   const datenSperre = dirty
     ? t('ways.blockedUnsaved')
@@ -174,7 +176,7 @@ export function VertragPage(): JSX.Element {
     setSpeicherFehler(null)
     const ok = await run(async () => {
       const res = await updateVertrag(vertrag.id, toPatch(form))
-      if (res.error || form.iban.trim() === '') return res
+      if (res.error || !mitIban) return res
       return saveIban(vertrag.id, normalizeIban(form.iban))
     })
     setSaved(ok)
@@ -301,7 +303,7 @@ export function VertragPage(): JSX.Element {
 
             {schritt === 3 && (
               <>
-                <Schritt3Weg wahl={wahl} onWahl={setWahl} disabled={saving} />
+                <Schritt3Weg wahl={wahl} onWahl={setWahl} disabled={saving} pilot={vertrag.vertragsart === 'pilot'} />
                 <div className="flex flex-col items-end gap-2">
                   {wahl === null && (
                     <p className="text-sm text-[var(--color-text-tertiary)]">{t('wizard.wegMissing')}</p>

@@ -65,7 +65,7 @@ export function Schritt4Versand({
 
       <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
         {weg === 'email'
-          ? t('wizard.emailManual', { empfaenger: empfaenger ?? '—' })
+          ? t(pilot ? 'wizard.emailManualPilot' : 'wizard.emailManual', { empfaenger: empfaenger ?? '—' })
           : t('wizard.printHint')}
       </p>
 

@@ -114,7 +114,11 @@ select vertrag_starten(pg_temp.lead('Piet Papier'), 'pilot') as pp \gset
 update vertraege set vertragsbeginn = '2027-11-01', vertrag_ende = '2028-03-17', einheiten = 16,
                      kind_vorname = 'Piet', kind_nachname = 'Papier', klasse = 8
  where id = :'pp';
+-- Eine vor dem Wechsel der Vertragsart erfasste IBAN geht nicht mit hinaus (Entscheidung 2).
+insert into vertrag_bankdaten (vertrag_id, iban) values (:'pp', 'DE89370400440532013000');
 select lives_ok(format($f$select vertrag_versenden(%L, 'druck')$f$, :'pp'), '5 Versand ohne Paket und ohne IBAN');
+select is((select count(*)::int from vertrag_bankdaten where vertrag_id = :'pp'), 0, '5 Versand entfernt Bankdaten eines Pilots');
+select is((select iban_masked from vertraege where id = :'pp'), null, '5 Pilot ohne maskierte IBAN');
 select is((select array_agg(dokument_schluessel order by dokument_schluessel) from vertrag_zustimmungen where vertrag_id = :'pp'),
           array['datenschutz_vertrag', 'einwilligung_fotos', 'pilotvereinbarung'],
           '5 Bündel des Pilots: ohne SEPA, Widerruf, AGB und regulären Vertrag');

@@ -863,8 +863,8 @@ laufenden Vertrag (Zugangscode, Akte, Slots, Session, Reports). Migration `20261
 |---|---|
 | `vertrag_starten(p_lead_id uuid, p_vertragsart text default 'regulaer') → uuid` | Neuer Parameter. Ersetzt die einstellige Fassung (keine Überladung), Aufrufe mit nur `p_lead_id` lösen unverändert auf. |
 | `vertrag_pilot_vorschlag(p_beginn date) → { ende date, einheiten int }` | Neu, nur Admin. Ende: letzter Schultag (Mo–Fr, nicht in den Ferien) vor den nächsten Sommerferien nach dem Beginn. Einheiten: Zahl der Wochen mit mindestens einem Schultag. `22023`, wenn der Beginn kein Monatserster ist. |
-| `vertrag_versenden(…)` | Pilot: keine Pflicht für Paket, Laufzeit und IBAN. Geprüft werden Beginn, Ende und Einheiten. Das Ende darf nicht in den Ferien liegen (`P0001 vertrag_pilot: …`). |
-| `vertrag_abschliessen(…)` | Signatur und Ergebnisform unverändert. Pilot: `p_tier_id` und `p_laufzeit_monate` müssen `null` sein. Ohne IBAN, ohne SEPA-Unterschrift und ohne Abo (`student_subscriptions`). Ende und Einheiten kommen vom Vertrag, `vertrag_status = 'aktiv'`, `widerruf_bis` und `ferientage` sind `null`. Ergebnis: `ferientage: null`, `ferien: []`, `widerruf_bis: null`. |
+| `vertrag_versenden(…)` | Pilot: keine Pflicht für Paket, Laufzeit und IBAN. Geprüft werden Beginn, Ende und Einheiten. Das Ende darf nicht in den Ferien liegen (`P0001 vertrag_pilot: …`). Vorhandene Bankdaten werden gelöscht, `iban_masked` und `kontoinhaber` geleert. |
+| `vertrag_abschliessen(…)` | Signatur und Ergebnisform unverändert. Pilot: `p_tier_id` und `p_laufzeit_monate` müssen `null` sein. Ohne IBAN, ohne SEPA-Unterschrift und ohne Abo (`student_subscriptions`). Ende und Einheiten kommen vom Vertrag, vorhandene Bankdaten werden gelöscht, `vertrag_status = 'aktiv'`, `widerruf_bis` und `ferientage` sind `null`. Ergebnis: `ferientage: null`, `ferien: []`, `widerruf_bis: null`. |
 | `vertrag_folgevertrag_starten` | Unverändert. Der Folgevertrag eines Pilots ist `'regulaer'`, ohne Paket vorbelegt. |
 | `vertrag_zahlungsstatus_setzen` | Unverändert. Für einen Pilot scheitert jede Stufe außer `in_ordnung` am CHECK (`23514`). |
 

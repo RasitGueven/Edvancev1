@@ -164,7 +164,10 @@ export function VertragForm({
             className={SELECT_MD}
             value={form.vertragsart}
             disabled={readOnly}
-            onChange={(e) => onChange({ vertragsart: e.target.value === 'pilot' ? 'pilot' : 'regulaer' })}
+            onChange={(e) =>
+              // V5: beim Wechsel zum Pilot eine eingetippte IBAN verwerfen (Entscheidung 2).
+              onChange(e.target.value === 'pilot' ? { vertragsart: 'pilot', iban: '' } : { vertragsart: 'regulaer' })
+            }
           >
             <option value="regulaer">{t('vertragsart.regulaer')}</option>
             <option value="pilot">{t('vertragsart.pilot')}</option>

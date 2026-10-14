@@ -34,12 +34,18 @@
   Geprüft per Codesuche über SQL, `src/` und Edge Functions.
 
 ## Geprüft
-- pgTAP `v5_pilot`: 41 Zusicherungen. Volle Suite in der Wegwerf-DB (Port 55454) wie in der CI: 46 grün, die 8 aus
+- pgTAP `v5_pilot`: 43 Zusicherungen. Volle Suite in der Wegwerf-DB (Port 55454) wie in der CI: 46 grün, die 8 aus
   `bekannt-rot.txt` rot wie erwartet.
 - CI-Prüfskripte grün. Die fünf Vertrags-PRUEFUNG-Skripte laufen lokal mit Admin-Profil grün. In
   `vertrag_abschluss.PRUEFUNG.sql` zählt die Fassungsprüfung jetzt das Bündel der eigenen Vertragsart.
 - Typecheck, Lint, Vitest (132 Dateien) grün. Deno-Tests der PDF-Erzeugung 13 grün, `deno check` der drei Functions grün.
 - Schema-Abzug aus der Wegwerf-DB. Gegenüber dem dev-Stand weichen nur die eigenen Objekte ab.
+
+- Zweitprüfung durch eine frische Instanz, keine Blocker. Umgesetzt: Ein Pilot speichert keine IBAN mehr, Versand
+  und Abschluss löschen vorhandene Bankdaten, die Wochenzählung ist zeitzonenunabhängig, die Hinweistexte im
+  Assistenten haben Pilot-Fassungen. Offen als Rückfrage: ob ein Pilot als „laufender Vertrag“ zählt.
+- Browser: fünf Ansichten per Vite-Harness mit erfundenen Daten (Formular Pilot und Regulär, Übersicht, Detail,
+  Slots-Kind). Kein Konsolenfehler. Danach auf der Detailseite Widerruf und Zahlung beim Pilot ausgeblendet.
 
 ## Offen
 `docs/vertraege/offene-punkte-v5.md`

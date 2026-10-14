@@ -33,7 +33,11 @@ Stand: PR offen, Migration `20261014110412_vertrag_pilot.sql` noch nicht eingesp
    kennt er nicht. Eine Woche mit einem Schultag zählt voll, auch eine Teilwoche wie der 21./22.12.
 8. **Das Ende wird erst beim Versand bzw. Abschluss geprüft** (nicht in den Ferien, nicht nach dem letzten gepflegten
    Ferientag). Das Formular speichert ein Ende in den Ferien noch; die Meldung kommt dann aus der RPC.
-9. **Reiter-Zähler im Vertragsmenü.** Der Zähler am Reiter „Übersicht“ zählt Pilotverträge mit, weil sie in der Liste
+9. **Rückfrage: Zählt ein Pilot als „laufender Vertrag“?** Gebaut ist: nein. `summen()` lässt Pilots aus allen drei
+   Zahlen weg (laufend, im Widerruf, Abbuchung), also auch aus der Kachel „Verträge“ auf „Heute“. Entscheidung 8 nennt
+   nur Umsatz-, Beitrags- und Founders-Kennzahlen. Sollen Pilots als laufende Verträge mitzählen, reicht ein Filter
+   allein auf `abbuchungCents` (`src/lib/vertrag/menue.ts`).
+   **Reiter-Zähler im Vertragsmenü.** Der Zähler am Reiter „Übersicht“ zählt Pilotverträge mit, weil sie in der Liste
    stehen (mit Kennzeichen). Die Kennzahlen „laufende Verträge“, „im Widerruf“ und „Abbuchung“ sowie der Verzug
    zählen sie nicht. „Auslaufend“ zeigt einen Pilot bewusst, denn von dort startet der Folgevertrag.
 10. **„Aktive Schüler“ auf „Heute“** (`adminStats`, zählt aktive Akten) zählt ein Pilotkind mit. Das ist keine Umsatz-
@@ -43,17 +47,26 @@ Stand: PR offen, Migration `20261014110412_vertrag_pilot.sql` noch nicht eingesp
     keins.
 12. **Folgevertrag aus einem Pilot** übernimmt keine Bankdaten (es gibt keine). Paket, Laufzeit, IBAN und
     Kontoinhaber trägt der Admin im Folgevertrag ein.
-13. **Mandatsreferenz.** Sie entsteht wie bisher per Default und wird beim Pilot nirgends gezeigt: nicht im Kopf von
+13. **Bankdaten beim Pilot.** Das Formular speichert beim Pilot keine IBAN und verwirft eine eingetippte beim Wechsel
+    der Vertragsart. Hat der Vertrag schon Bankdaten, etwa als Folgevertrag eines regulären Vertrags oder weil die IBAN
+    vor dem Wechsel gespeichert wurde, löschen `vertrag_versenden` und `vertrag_abschliessen` sie beim Pilot und leeren
+    `iban_masked` und `kontoinhaber`. In der Vorbereitung bleiben sie bis dahin stehen, sind aber nirgends sichtbar.
+14. **Abschluss nach dem Ende.** `vertrag_pilot_pruefen` lehnt ein Ende in der Vergangenheit nicht ab. Ein verspäteter
+    Abschluss ergibt `vertrag_status = 'aktiv'`, `wirksamer_status` ist aber sofort `ausgelaufen`.
+15. **Papierweg.** Als Abweichung zählt beim Pilot nur der Beginn. Ändern die Eltern Ende oder Einheiten auf dem
+    Papier, lässt sich das nur über einen Vermerk und eine neue Vorbereitung abbilden.
+16. **Mandatsreferenz.** Sie entsteht wie bisher per Default und wird beim Pilot nirgends gezeigt: nicht im Kopf von
     Assistent und Detail, nicht im Partnerblock, nicht im Titel der Unterlagen, nicht in der PDF-Fußzeile. Das
-    Formular blendet beim Pilot den ganzen SEPA-Block aus.
+    Formular blendet beim Pilot den ganzen SEPA-Block aus. Die Detailseite zeigt beim Pilot weder „Widerruf möglich
+    bis“ noch „Zahlung“ noch den Knopf „Widerruf erfassen“.
 
 ## Technisch
 
-14. **Dateigrößen.** `VertragPage.tsx` stand vorher bei 435 Zeilen und steht jetzt bei 424: Die Ende-Vorschau ging in
+17. **Dateigrößen.** `VertragPage.tsx` stand vorher bei 435 Zeilen und steht jetzt bei 426: Die Ende-Vorschau ging in
     `useVertragsende.ts`, Section/Feld nach `FormTeile.tsx`. `src/types/slotplan.ts` lag schon über 400 (448 → 452).
     `vertrag_pdf_erzeugen.ts` schrumpfte durch das Auslagern von `vertrag_buendel.ts` von 428 auf 362.
-    `VertragDetailPage.tsx` steht bei 382, der Partnerblock ist ausgelagert.
-15. **Deno-Tests** (`supabase/functions/_shared/vertrag_pdf_test.ts`, 13 grün) laufen lokal per `npx deno`, nicht in
+    `VertragDetailPage.tsx` steht bei 389, der Partnerblock ist ausgelagert.
+18. **Deno-Tests** (`supabase/functions/_shared/vertrag_pdf_test.ts`, 13 grün) laufen lokal per `npx deno`, nicht in
     der CI.
-16. **Edge Functions neu deployen** nach dem Einspielen: `vertrag_pdf`, `mail_senden`, `vertrag_abschluss` (geteilter
+19. **Edge Functions neu deployen** nach dem Einspielen: `vertrag_pdf`, `mail_senden`, `vertrag_abschluss` (geteilter
     Code in `_shared/`).
