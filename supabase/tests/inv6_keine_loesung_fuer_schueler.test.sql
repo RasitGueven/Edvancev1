@@ -196,12 +196,12 @@ select is(
   'lsa_submit spiegelt die Loesung nicht zurueck — auch nicht bei RICHTIGER Antwort'
 );
 
--- lsa_hint gibt Hinweise heraus — das ist Absicht (gestufte Hilfe). Der Test
--- haelt fest: es kommt der Hinweis, nicht die Loesung.
+-- E3 (Entscheidung Rasit 12.10.2026): die LSA laeuft ohne Hinweise. Der Test haelt fest: es kommt weder
+-- der (gepruefte) Hinweis noch die Loesung.
 select is(
-  (select public.lsa_hint(:'lsa_sid', :'tid', 1) ->> 'text'),
-  'Denk an die Einheit.',
-  'lsa_hint liefert den Hinweis (Level 1)'
+  (select public.lsa_hint(:'lsa_sid', :'tid', 1) ->> 'available'),
+  'false',
+  'lsa_hint liefert keinen Hinweis (LSA ohne Hinweise)'
 );
 
 select is(

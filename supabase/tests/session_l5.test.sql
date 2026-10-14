@@ -4,7 +4,7 @@
 --   1  pruef_aufgabe liefert Hinweise mit Status; ohne Pruefrecht 42501; Konto ohne Profil 42501.
 --      pruef_speichern nimmt Hinweise im Entwurf an; Beanstandungsgruende fuer Hinweise.
 --   2  Freigabe (einzeln, nach Rueckfrage, gesammelt) setzt alle Hinweise auf geprueft;
---      lsa_hint und hinweis_abrufen liefern sie danach.
+--      hinweis_abrufen liefert sie danach; lsa_hint seit E3 (20261013173601) nie, auch geprueft nicht.
 --   3  Ruecknahme setzt sie auf entwurf; danach liefern lsa_hint und hinweis_abrufen sie nicht.
 --   4  Textaenderung nach der Freigabe -> entwurf.
 --   5  hinweise_bestaetigen nur durch Admin und nur fuer freigegebene Aufgaben; Protokollzeile.
@@ -185,12 +185,13 @@ select is(pg_temp.hs(:'sammel'), 'entwurf,entwurf', '2 Vorschau aendert nichts')
 select pruef_sammel('freigeben', array[:'sammel']::uuid[], '{}', false);
 select is(pg_temp.hs(:'sammel'), 'geprueft,geprueft', '2 Sammelfreigabe: alle geprueft');
 
--- lsa_hint (Kind selbst) und hinweis_abrufen (Tablet in der Session) liefern sie.
+-- hinweis_abrufen (Tablet in der Session) liefert sie; lsa_hint (Kind selbst) seit E3 nicht (LSA ohne Hinweise).
 insert into lsa_sessions (student_id, subject, grade, item_ids) values (:'kind_id', 'Mathematik', 8, array[:'frei'::uuid])
 returning id as lsa_sid \gset
 select pg_temp.act_as(:'kind_uid');
-select is(lsa_hint(:'lsa_sid', :'frei', 1) ->> 'text', 'L5 Stufe 1 l5-frei', '2 lsa_hint liefert Stufe 1 nach der Freigabe');
-select is(lsa_hint(:'lsa_sid', :'frei', 2) ->> 'available', 'true', '2 lsa_hint liefert Stufe 2');
+select is(lsa_hint(:'lsa_sid', :'frei', 1), '{"level":1,"text":null,"available":false}'::jsonb,
+          '2 lsa_hint: Stufe 1 auch nach der Freigabe nicht (E3: LSA ohne Hinweise)');
+select is(lsa_hint(:'lsa_sid', :'frei', 2) ->> 'available', 'false', '2 lsa_hint: Stufe 2 auch nach der Freigabe nicht (E3)');
 
 -- Session wie R1: Kind mit Lead und Vertrag, Coach startet, Tablet zugewiesen, Aufgabe ausgegeben.
 create function pg_temp.sitzungskind() returns uuid language plpgsql as $$
