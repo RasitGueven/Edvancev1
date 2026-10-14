@@ -10,10 +10,13 @@
 // vergleicht sie mit der eingecheckten. Aendert jemand nur eine Seite,
 // wird der Test rot und nennt den Befehl, der es richtet.
 
-export type DokumentArt = "vertrag" | "sepa_mandat" | "agb" | "widerruf" | "datenschutz_vertrag" | "einwilligung_fotos"
+export type DokumentArt = "vertrag" | "sepa_mandat" | "agb" | "widerruf" | "datenschutz_vertrag" | "einwilligung_fotos" | "pilotvereinbarung"
 
 /** Die Arten, die je Vertrag entstehen — mit eingesetzten Werten. */
 export const JE_VERTRAG: DokumentArt[] = ["vertrag", "sepa_mandat"]
+
+/** V5: Die Arten, die NUR zum regulaeren Vertrag gehoeren (vertrag_dokumente.vertragsarten). */
+export const NUR_REGULAER: DokumentArt[] = ["vertrag", "sepa_mandat", "agb", "widerruf"]
 
 /** Die Arten, die fuer alle gleich sind — eine Datei je Fassung. */
 export const JE_FASSUNG: DokumentArt[] = ["agb", "widerruf", "datenschutz_vertrag", "einwilligung_fotos"]
@@ -26,6 +29,7 @@ export const FASSUNG: Record<DokumentArt, string> = {
   widerruf: "platzhalter-v1",
   datenschutz_vertrag: "platzhalter-v1",
   einwilligung_fotos: "platzhalter-v1",
+  pilotvereinbarung: "platzhalter-v1",
 }
 
 /** Wortgleich mit src/pages/admin/vertraege/dokumente/de/<art>.md. */
@@ -36,6 +40,7 @@ export const TEXT: Record<DokumentArt, string> = {
   widerruf: "# Widerrufsbelehrung\n\n> **PLATZHALTER — NOCH KEIN RECHTSTEXT.** Belehrung und Muster-Widerrufsformular werden vor dem Echtbetrieb eingesetzt.\n\n## Muster-Widerrufsformular\n\n(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)\n\n- An: Edvance\n- Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung: ____________________\n- Bestellt am / erhalten am: ____________________\n- Name des/der Verbraucher(s): ____________________\n- Anschrift des/der Verbraucher(s): ____________________\n- Datum, Unterschrift: ____________________",
   datenschutz_vertrag: "# Datenschutzhinweise zum Vertrag\n\n> **PLATZHALTER — NOCH KEIN RECHTSTEXT.** Diese Hinweise betreffen die Verarbeitung der Vertrags- und Zahlungsdaten. Sie sind **nicht** die Einwilligung in die Verarbeitung der Lerndaten aus der Lernstandsanalyse — die ist ein eigenes Dokument mit eigener Unterschrift.",
   einwilligung_fotos: "# Einwilligung Fotos\n\n> **PLATZHALTER — NOCH KEIN RECHTSTEXT.** Optionale Einwilligung. Sie ist freiwillig und keine Voraussetzung für den Vertrag.",
+  pilotvereinbarung: "# Pilotvereinbarung über Lernbegleitung\n\n> **PLATZHALTER — NOCH KEIN RECHTSTEXT.** Dieser Text ist ohne rechtliche Bedeutung und darf so nicht im Echtbetrieb verwendet werden. Er steht hier, damit Erfassen, Prüfen, Unterschreiben und Drucken vollständig gebaut werden können.\n\n## Vertragspartner\n\n**Edvance** (Anbieter) und\n\n{{eltern_name}}\n{{anschrift}}\nTelefon: {{eltern_telefon}} · E-Mail: {{eltern_email}}\n\n## Teilnehmendes Kind\n\n{{kind_name}}, geboren am {{kind_geburtsdatum}}\nKlasse {{klasse}} · Fach {{fach}} · Schule: {{schule}}\n\n## Zeitraum und Umfang\n\n- Beginn: **{{vertragsbeginn}}**\n- Ende: **{{vertragsende}}**\n- Umfang: **{{einheiten}} Coaching-Einheiten** à 60 Minuten\n- Die Teilnahme erfolgt **ohne Entgelt**.\n\n## Absagen\n\nBis 10 Uhr am Session-Tag gilt eine Absage als rechtzeitig, danach verbraucht sie die Einheit.\n\n## Datenschutz\n\nEs gelten die Datenschutzhinweise zum Vertrag.\n\n## Weitere Regelungen\n\nHier stehen später Ziel und Ablauf des Piloten, Ende der Vereinbarung und Haftung. Den Text legt eine rechtskundige Person fest.",
 }
 
 /** Wortgleich mit de/vertraege.json → doc.* */
@@ -47,8 +52,12 @@ export const GLAEUBIGER_ID_FEHLT = "**Gläubiger-Identifikationsnummer fehlt —
 export const MAIL: Record<string, string> = {
   bestaetigungBetreff: "Ihr Vertrag mit Edvance für {{kind}}",
   bestaetigungText: "Guten Tag {{eltern}},\n\nvielen Dank für Ihr Vertrauen. Anbei finden Sie alle Unterlagen zum Vertrag für {{kind}}:\n{{liste}}\n\nDer Vertrag läuft vom {{beginn}} bis zum {{ende}}. Bis einschließlich {{widerruf}} können Sie ihn ohne Angabe von Gründen widerrufen; die Widerrufsbelehrung liegt bei.\n\nDen Zugang für {{kind}} richten wir vor dem ersten Termin gemeinsam ein. Bei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+  bestaetigungPilotBetreff: "Ihre Pilotvereinbarung mit Edvance für {{kind}}",
+  bestaetigungPilotText: "Guten Tag {{eltern}},\n\nvielen Dank für Ihr Vertrauen. Anbei finden Sie die Unterlagen zur Pilotvereinbarung für {{kind}}:\n{{liste}}\n\nDie Pilotvereinbarung läuft vom {{beginn}} bis zum {{ende}} und ist für Sie ohne Entgelt.\n\nDen Zugang für {{kind}} richten wir vor dem ersten Termin gemeinsam ein. Bei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
   unterlagenBetreff: "Ihre Vertragsunterlagen von Edvance",
   unterlagenText: "Guten Tag {{eltern}},\n\nanbei die Unterlagen für {{kind}}. Bitte drucken Sie den Vertrag und das SEPA-Mandat aus, unterschreiben beides und senden es uns zurück — bis zum {{bis}}.\n{{liste}}\n\nDer Vertrag kommt erst zustande, wenn uns das unterschriebene Original vorliegt. Bis dahin ist für Sie nichts verbindlich.\n\nBei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+  unterlagenPilotBetreff: "Ihre Unterlagen zur Pilotvereinbarung von Edvance",
+  unterlagenPilotText: "Guten Tag {{eltern}},\n\nanbei die Unterlagen für {{kind}}. Bitte drucken Sie die Pilotvereinbarung aus, unterschreiben sie und senden sie uns zurück — bis zum {{bis}}.\n{{liste}}\n\nDie Vereinbarung kommt erst zustande, wenn uns das unterschriebene Original vorliegt. Bis dahin ist für Sie nichts verbindlich.\n\nBei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
   zugangscodeBetreff: "Ihr neuer Zugangscode für Edvance",
   zugangscodeText: "Guten Tag {{eltern}},\n\nder Zugangscode für {{kind}} lautet:\n\n    {{code}}\n\nDer bisherige Code gilt nicht mehr. Geben Sie den Code bitte nicht weiter — er gehört zu diesem einen Zugang.\n\nHerzliche Grüße\nIhr Edvance-Team",
   terminBetreff: "Ihr Erstgespräch bei Edvance am {{datum}}",

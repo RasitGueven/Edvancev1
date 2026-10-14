@@ -32,6 +32,7 @@ import { SessionsKachel } from './SessionsKachel'
 import { StammdatenKachel } from './StammdatenKachel'
 import { TestkontoAkte } from '../testmodus/TestkontoAkte'
 import { useAktePlanbilanz } from './useAktePlanbilanz'
+import { PilotKennzeichen } from '../vertraege/PilotKennzeichen'
 
 type Daten = {
   stand: EinheitenStand | null
@@ -118,7 +119,12 @@ export function AktePage(): JSX.Element {
         .join(' · ')}
       titel={akte.name ?? '—'}
       satz={akte.akte_seit ? t('kopf.akteSeit', { datum: datum(akte.akte_seit, lang) }) : undefined}
-      aktionen={<EdvanceBadge variant={ruhend ? 'muted' : 'strength'}>{t(`kopf.zustand.${akte.zustand}`)}</EdvanceBadge>}
+      aktionen={
+        <>
+          <PilotKennzeichen art={planbilanz?.vertragsart} />
+          <EdvanceBadge variant={ruhend ? 'muted' : 'strength'}>{t(`kopf.zustand.${akte.zustand}`)}</EdvanceBadge>
+        </>
+      }
       zurueckZu="/admin/akten"
       zurueckLabel={t('kopf.zurueck')}
     />

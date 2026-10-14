@@ -19,7 +19,12 @@ const ARTEN = [
   'widerruf',
   'datenschutz_vertrag',
   'einwilligung_fotos',
+  'pilotvereinbarung',
 ]
+
+// Je Vertrag mit eingesetzten Werten — nicht als gemeinsame Fassung.
+// V5: die Pilotvereinbarung ist das Vertragsdokument eines Pilots.
+const JE_VERTRAG_ARTEN = ['vertrag', 'sepa_mandat', 'pilotvereinbarung']
 
 /** Der Inhalt von texte.ts, ohne ihn zu schreiben. */
 export function baueTexte(wurzel = '.') {
@@ -61,8 +66,11 @@ export function baueTexte(wurzel = '.') {
     '/** Die Arten, die je Vertrag entstehen — mit eingesetzten Werten. */',
     `export const JE_VERTRAG: DokumentArt[] = [${['vertrag', 'sepa_mandat'].map(s).join(', ')}]`,
     '',
+    '/** V5: Die Arten, die NUR zum regulaeren Vertrag gehoeren (vertrag_dokumente.vertragsarten). */',
+    `export const NUR_REGULAER: DokumentArt[] = [${['vertrag', 'sepa_mandat', 'agb', 'widerruf'].map(s).join(', ')}]`,
+    '',
     '/** Die Arten, die fuer alle gleich sind — eine Datei je Fassung. */',
-    `export const JE_FASSUNG: DokumentArt[] = [${ARTEN.filter((a) => !['vertrag', 'sepa_mandat'].includes(a)).map(s).join(', ')}]`,
+    `export const JE_FASSUNG: DokumentArt[] = [${ARTEN.filter((a) => !JE_VERTRAG_ARTEN.includes(a)).map(s).join(', ')}]`,
     '',
     '/** Fassungskennung je Art, muss zu vertrag_dokumente.version passen. */',
     'export const FASSUNG: Record<DokumentArt, string> = {',

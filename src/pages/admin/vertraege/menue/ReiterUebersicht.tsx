@@ -15,6 +15,7 @@ import {
 import type { TierPlan, VertragAktuell, WirksamerStatus, Zahlungsstatus } from '@/types'
 import { formatEuro } from '../VertragForm'
 import { STATUS_FARBE, ZAHLUNG_FARBE } from './statusFarben'
+import { PilotKennzeichen } from '../PilotKennzeichen'
 
 const STATUS: WirksamerStatus[] = ['aktiv', 'im_widerruf', 'gekuendigt', 'ausgelaufen', 'widerrufen']
 const ZAHLUNG: Zahlungsstatus[] = ['in_ordnung', 'zahlung_offen', 'mahnung_1', 'mahnung_2', 'inkasso']
@@ -56,7 +57,12 @@ export function ReiterUebersicht({ vertraege, tiers, filter, onFilter, onZeile }
         </div>
       ),
     },
-    { key: 'paket', kopf: t('field.tier_id'), zelle: (v) => paketName(v.tier_id) },
+    {
+      key: 'paket',
+      kopf: t('field.tier_id'),
+      // V5: Ein Pilot hat kein Paket — dort steht das Kennzeichen.
+      zelle: (v) => (v.vertragsart === 'pilot' ? <PilotKennzeichen art={v.vertragsart} /> : paketName(v.tier_id)),
+    },
     {
       key: 'betrag',
       kopf: t('menue.spalte.betrag'),
@@ -123,6 +129,12 @@ export function ReiterUebersicht({ vertraege, tiers, filter, onFilter, onZeile }
               {t(`menue.summe.${k}`)}
             </span>
             <span className="text-3xl font-bold text-[var(--color-text-primary)]">{wert}</span>
+            {/* V5: Pilots zaehlen als laufend und werden ausgewiesen. */}
+            {k === 'laufend' && s.davonPilot > 0 && (
+              <span className="text-xs text-[var(--color-text-tertiary)]">
+                {t('menue.summe.davonPilot', { count: s.davonPilot })}
+              </span>
+            )}
           </div>
         ))}
       </div>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ladeKind } from '@/lib/supabase/slotplan'
+import type { Vertragsart } from '@/types'
 import type { Planbilanz } from '@/types/slotplan'
 
-export type AktePlanbilanz = { pb: Planbilanz; vertragLaeuft: boolean }
+/** V5: vertragsart für das Kennzeichen "Pilot" im Kopf der Akte. */
+export type AktePlanbilanz = { pb: Planbilanz; vertragLaeuft: boolean; vertragsart: Vertragsart | null }
 
 /**
  * Planbilanz aus slots_kind für die Einheiten-Kachel (Slots SL3), nur für Admins — ein Coach ruft
@@ -18,7 +20,11 @@ export function useAktePlanbilanz(studentId: string, istAdmin: boolean): AktePla
     let aktiv = true
     void ladeKind(studentId).then((res) => {
       if (!aktiv || res.error !== null || !res.data?.planbilanz) return
-      setWert({ pb: res.data.planbilanz, vertragLaeuft: res.data.vertrag_laeuft === true })
+      setWert({
+        pb: res.data.planbilanz,
+        vertragLaeuft: res.data.vertrag_laeuft === true,
+        vertragsart: res.data.vertrag?.vertragsart ?? null,
+      })
     })
     return () => {
       aktiv = false

@@ -116,9 +116,11 @@ vi.mock('@/lib/supabase/vertraegeMenue', () => ({
 }))
 
 import { HeutePage } from './HeutePage'
+import { listVertraegeAktuell } from '@/lib/supabase/vertraegeMenue'
 
 beforeEach(() => {
   slots.tag = tagStandard()
+  vi.mocked(listVertraegeAktuell).mockResolvedValue({ data: [], error: null })
 })
 
 function Ort(): JSX.Element {
@@ -145,6 +147,21 @@ describe('HeutePage', () => {
     expect(await screen.findByRole('heading', { level: 1, name: /, ZZ_Rasit$/ })).toBeTruthy()
     // 2 neue Leads + 1 LSA + 1 Schüler im Rückstand + 1 review + 2 Rückfragen
     expect(screen.getByText(/^7 offene Punkte/)).toBeTruthy()
+  })
+
+  // V5 (Entscheidung Rasit 14.10.2026): Ein Pilot zählt als laufender Vertrag, nie bei der Abbuchung.
+  it('Kachel Verträge: Pilot zählt mit und steht als „davon 1 Pilot“, Abbuchung ohne Pilot', async () => {
+    const basis = { wirksamer_status: 'aktiv', ist_aktueller_vertrag: true, zahlungsstatus: 'in_ordnung', endet_in_tagen: 200 }
+    vi.mocked(listVertraegeAktuell).mockResolvedValue({
+      data: [
+        { ...basis, id: 'r', vertragsart: 'regulaer', beitrag_diesen_monat_cents: 38990 },
+        { ...basis, id: 'p', vertragsart: 'pilot', beitrag_diesen_monat_cents: 0 },
+      ] as never,
+      error: null,
+    })
+    setup()
+    expect(await screen.findByText(/davon 1 Pilot/)).toBeTruthy()
+    expect(screen.getByText('389,90 €')).toBeTruthy()
   })
 
   it('Listen: älteste zuerst, Amber ab 7 Tagen, leere Liste grün', async () => {

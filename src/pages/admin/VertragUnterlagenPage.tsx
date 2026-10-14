@@ -18,6 +18,7 @@ import type { VertragDokument, VertragMitLead } from '@/types'
 import { DokumentText } from './vertraege/DokumentText'
 import { DOKUMENTE, fillDokument } from './vertraege/dokumente'
 import { dokumentWerte } from './vertraege/dokumentWerte'
+import { dokumenteFuer } from './vertraege/vertragsart'
 
 type Daten = {
   vertrag: VertragMitLead
@@ -28,10 +29,12 @@ type Daten = {
   nachweise: VertragNachweise
 }
 
-// Dokumente mit Unterschriftsfeld: Vertrag und SEPA-Mandat.
+// Dokumente mit Unterschriftsfeld: Vertrag und SEPA-Mandat. Die Pilotvereinbarung
+// (V5) traegt die Vertragsunterschrift.
 const UNTERSCHRIFT_ART: Record<string, 'vertrag' | 'sepa_mandat'> = {
   vertrag: 'vertrag',
   sepa_mandat: 'sepa_mandat',
+  pilotvereinbarung: 'vertrag',
 }
 
 /**
@@ -83,14 +86,20 @@ export function VertragUnterlagenPage(): JSX.Element {
   }
 
   const werte = dokumentWerte({ ...daten, locale: i18n.language, t })
-  const sichtbar = daten.dokumente.filter((d) => nur === null || d.schluessel === nur)
+  // V5: Nur das Buendel der eigenen Vertragsart — ein Pilot bekommt kein SEPA-Mandat.
+  const sichtbar = dokumenteFuer(daten.dokumente, daten.vertrag.vertragsart).filter(
+    (d) => nur === null || d.schluessel === nur,
+  )
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-surface)] font-[family-name:var(--font-body)]">
       <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-8 print:max-w-none print:p-0">
         <div className="flex items-center justify-between gap-4 print:hidden">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-            {t('docsView.title', { ref: daten.vertrag.mandatsreferenz })}
+            {/* V5: Ein Pilot hat kein Mandat — dort steht nur der Titel. */}
+            {daten.vertrag.vertragsart === 'pilot'
+              ? t('docsView.titlePilot')
+              : t('docsView.title', { ref: daten.vertrag.mandatsreferenz })}
           </p>
           <Button onClick={() => window.print()}>
             <Printer className="h-4 w-4" />

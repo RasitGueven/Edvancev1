@@ -9,6 +9,7 @@ import { berlinToday, formatDateOnly } from '@/lib/datetime'
 import { uploadScan } from '@/lib/supabase/vertragScan'
 import { SELECT_MD, TEXTAREA_MD } from '@/lib/formStyles'
 import { abweichendeFelder, type AbgleichStand } from '@/lib/vertrag/abgleich'
+import { istPilot } from './vertragsart'
 import { paketOptionen } from '@/lib/vertrag/konditionen'
 import type { TierPlan, Vertrag } from '@/types'
 import { formatEuro } from './VertragForm'
@@ -23,8 +24,8 @@ type EinpflegenProps = {
     eingangDatum: string
     scanPfad: string
     abweichungVermerk: string | null
-    tierId: string
-    laufzeitMonate: number
+    tierId: string | null
+    laufzeitMonate: number | null
     vertragsbeginn: string
   }) => void
   onNichtZustande: () => void
@@ -52,6 +53,7 @@ export function EinpflegenPanel({
   const [scanPfad, setScanPfad] = useState<string | null>(vertrag.scan_pfad)
   const [upload, setUpload] = useState(false)
   const [uploadFehler, setUploadFehler] = useState<string | null>(null)
+  const pilot = istPilot(vertrag)
   const [tierId, setTierId] = useState(vertrag.tier_id ?? '')
   const [laufzeit, setLaufzeit] = useState(String(vertrag.laufzeit_monate ?? ''))
   const [beginn, setBeginn] = useState(vertrag.vertragsbeginn ?? '')
@@ -87,7 +89,7 @@ export function EinpflegenPanel({
     scanPfad === null ? t('einpflegen.missingScan') : null,
     unterschriebenAm === '' ? t('einpflegen.missingSigned') : null,
     eingangDatum === '' ? t('einpflegen.missingReceived') : null,
-    tierId === '' || laufzeit === '' || beginn === '' ? t('einpflegen.missingTerms') : null,
+    (!pilot && (tierId === '' || laufzeit === '')) || beginn === '' ? t('einpflegen.missingTerms') : null,
     abweichend.length > 0 && vermerk.trim() === '' ? t('einpflegen.missingNote') : null,
   ].filter((x): x is string => x !== null)
 
@@ -164,8 +166,9 @@ export function EinpflegenPanel({
         <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('einpflegen.abgleichTitle')}
         </h2>
-        {/* Wie in Schritt 1: erst die Laufzeit, dann das Paket mit IHREN Zahlen. */}
-        {zeile(
+        {/* Wie in Schritt 1: erst die Laufzeit, dann das Paket mit IHREN Zahlen.
+            V5: Eine Pilotvereinbarung hat beides nicht — dort zaehlt nur der Beginn. */}
+        {!pilot && zeile(
           'laufzeit_monate',
           <select
             id="ist-laufzeit_monate"
@@ -182,7 +185,7 @@ export function EinpflegenPanel({
             ))}
           </select>,
         )}
-        {zeile(
+        {!pilot && zeile(
           'tier_id',
           <select
             id="ist-tier_id"
@@ -300,8 +303,8 @@ export function EinpflegenPanel({
                 eingangDatum,
                 scanPfad: scanPfad!,
                 abweichungVermerk: vermerk.trim() === '' ? null : vermerk.trim(),
-                tierId,
-                laufzeitMonate: Number(laufzeit),
+                tierId: pilot ? null : tierId,
+                laufzeitMonate: pilot ? null : Number(laufzeit),
                 vertragsbeginn: beginn,
               })
             }

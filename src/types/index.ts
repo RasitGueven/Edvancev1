@@ -70,6 +70,7 @@ export type {
 
 export type {
   VertragStatus,
+  Vertragsart,
   VertragAbschlussWeg,
   VertragLebenStatus,
   WirksamerStatus,
