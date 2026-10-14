@@ -148,7 +148,7 @@ export type LiveMasteryKandidat = {
   frage: string
   erwartung: string
   kriterium: string
-  /** T5: Im Testlauf ist die Pruefrage nicht freigegeben (Kennzeichen „Entwurf“); echt immer false. */
+  /** T5: Pruefrage nicht freigegeben (freigegeben = false aus skill_pruefung_session, nur im Testlauf); echt immer false. */
   entwurf: boolean
   entscheidung: MasteryEntscheidungLive | null
 }

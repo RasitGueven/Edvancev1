@@ -12,13 +12,13 @@
 --   7) Die Einstellung ist nach termin_session_anlegen zurueckgenommen (auch nach einem Abbruch).
 -- Zusicherungen mit „echt“ sind vor und nach T5 gruen (unveraendert); vor T5 rot sind die Zusicherungen zu
 -- skill_pruefung_session (Funktion fehlt) und die Coach-Testlauf-Faelle in 4 und 6 (Ausnahme fehlt).
--- Die Coach-Faelle in 4/5/7 brauchen „heute“ (termin_session_anlegen nur am Tag des Termins, p_jetzt nur fuer
--- Admin/System); an Wochenenden laufen sie als skip. Ferien und Feiertage von heute nimmt der Test heraus.
+-- Die Coach-Faelle in 4/5/7 laufen am naechsten Betriebstag ab heute (tagc); dafuer steht slots_jetzt fuer Coaches in
+-- der Testtransaktion auf tagc 12:00 (Coaches rechnen sonst mit now()). Kein skip, an jedem Tag lauffaehig.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(48);
+select plan(52);
 
 \ir session_a2_fixture.sql
 
@@ -63,18 +63,18 @@ select pg_temp.neue_session(array[:'k_pe']::uuid[], 20) as s_qe \gset
 select pg_temp.neue_session(array[:'k_pt']::uuid[], 20, true) as s_qt \gset
 
 select pg_temp.act_as(:'coach_a');
-select is(pg_temp.liste(format('select * from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k2')),
+select is(pg_temp.liste(format('select id, skill_key, frage, erwartung, kriterium, quelle from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k2')),
           pg_temp.liste($$select * from skill_pruefung_lesen('zz_a2_k2')$$),
           '1 echt: zz_a2_k2 gleich skill_pruefung_lesen (Zeilen, Spalten, Reihenfolge)');
 select is(pg_temp.versuch(format('select string_agg(frage, '','') from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k2')),
           'ZZ T5 Freigegeben k2 alt,ZZ T5 Freigegeben k2 neu', '1 echt: nur freigegeben, aelteste zuerst');
-select is(pg_temp.liste(format('select * from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k1')),
+select is(pg_temp.liste(format('select id, skill_key, frage, erwartung, kriterium, quelle from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k1')),
           pg_temp.liste($$select * from skill_pruefung_lesen('zz_a2_k1')$$), '1 echt: zz_a2_k1 gleich skill_pruefung_lesen');
 select is(pg_temp.versuch(format('select count(*)::text from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k1')), '0',
           '1 echt: Entwurf und geprueft fehlen');
 select is(pg_temp.versuch(format('select count(*)::text from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_n1')), '0',
           '1 echt: reiner Entwurf fehlt');
-select is(pg_temp.liste(format('select * from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_s1')),
+select is(pg_temp.liste(format('select id, skill_key, frage, erwartung, kriterium, quelle from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_s1')),
           pg_temp.liste($$select * from skill_pruefung_lesen('zz_a2_s1')$$), '1 echt: Skill ohne Pruefrage gleich (leer)');
 
 select is(pg_temp.versuch(format($$select frage || '|' || erwartung || '|' || kriterium from skill_pruefung_session(%L, %L)
@@ -84,6 +84,14 @@ select is(pg_temp.versuch(format('select string_agg(frage, '','') from skill_pru
           'ZZ T5 Freigegeben k2 alt,ZZ T5 Freigegeben k2 neu,ZZ T5 Entwurf k2', '2 Testlauf: freigegeben vor Entwurf');
 select is(pg_temp.versuch(format('select string_agg(frage, '','') from skill_pruefung_session(%L, %L)', :'s_qt', 'zz_a2_k1')),
           'ZZ T5 Geprueft k1,ZZ T5 Entwurf k1', '2 Testlauf: geprueft vor Entwurf');
+-- freigegeben (Rasit 14.10.): serverseitig status = 'freigegeben'; Entwurf und geprueft -> false.
+select is(pg_temp.versuch(format($$select string_agg(frage || ':' || freigegeben, ',') from skill_pruefung_session(%L, %L)$$, :'s_qt', 'zz_a2_k2')),
+          'ZZ T5 Freigegeben k2 alt:true,ZZ T5 Freigegeben k2 neu:true,ZZ T5 Entwurf k2:false',
+          '2 Testlauf: freigegebene Fragen true, Entwurfsfrage false');
+select is(pg_temp.versuch(format($$select string_agg(frage || ':' || freigegeben, ',') from skill_pruefung_session(%L, %L)$$, :'s_qt', 'zz_a2_k1')),
+          'ZZ T5 Geprueft k1:false,ZZ T5 Entwurf k1:false', '2 Testlauf: geprueft ist nicht freigegeben');
+select is(pg_temp.versuch(format($$select bool_and(freigegeben)::text from skill_pruefung_session(%L, %L)$$, :'s_qe', 'zz_a2_k2')),
+          'true', '1 echt: freigegeben immer true');
 -- Dieselbe Menge wie pruefung_aufs_tablet: je Skill gibt es Zeilen genau dann, wenn die Frage aufs Tablet darf, die
 -- erste Zeile ist die Frage der Hilfe (und damit die auf dem Tablet), und es sind alle Pruefragen des Skills.
 select pg_temp.act_as(:'admin');
@@ -123,10 +131,13 @@ select is(pg_temp.versuch(format('select count(*)::text from skill_pruefung_sess
 select pg_temp.act_as(:'admin');
 select is(pg_temp.versuch(format('select count(*)::text from skill_pruefung_session(%L, %L)', :'s_qt', 'zz_a2_k2')), '3',
           '3 Admin -> alle drei im Testlauf');
-select is(pg_temp.liste(format('select * from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k2')),
+select is(pg_temp.liste(format('select id, skill_key, frage, erwartung, kriterium, quelle from skill_pruefung_session(%L, %L)', :'s_qe', 'zz_a2_k2')),
           pg_temp.liste($$select * from skill_pruefung_lesen('zz_a2_k2')$$), '3 Admin, echt: gleich skill_pruefung_lesen');
 select is(pg_temp.versuch(format('select count(*)::text from skill_pruefung_session(%L, %L)', gen_random_uuid(), 'zz_a2_k2')),
           'P0002', '3 unbekannte Session -> P0002 (wie session_coach_pruefen)');
+select is((select array_to_string(proargnames, ',') from pg_proc where proname = 'skill_pruefung_session'),
+          'p_session_id,p_skill_key,id,skill_key,frage,erwartung,kriterium,quelle,freigegeben',
+          '1 Spalten: wie skill_pruefung_lesen plus freigegeben, kein status');
 select is(pg_temp.versuch($$select has_function_privilege('anon', 'skill_pruefung_session(uuid,text)', 'execute')::text$$), 'false',
           '3 anon hat kein EXECUTE');
 select is(pg_temp.versuch($$select has_function_privilege('authenticated', 'skill_pruefung_session(uuid,text)', 'execute')::text$$),
@@ -134,15 +145,23 @@ select is(pg_temp.versuch($$select has_function_privilege('authenticated', 'skil
 select set_config('request.jwt.claims', '', true);
 
 -- ── Termin-Grundlage ─────────────────────────────────────────────────────────
--- Raum T5 mit Coach A (Mo–Fr, alle Zeiten), Raum T5b mit Coach B. Heute als Betriebstag, wenn Werktag.
-delete from feiertage_nrw where datum = public.slots_berlin_tag(now());
-delete from ferien_nrw where public.slots_berlin_tag(now()) between von and bis;
-select public.betriebstag(public.slots_berlin_tag(now())) as heute_ok \gset
--- Zwei kuenftige Betriebstage innerhalb der Vertraege der A2-Kinder (fester Tag fuer Admin/System ueber p_jetzt).
-select (select d::date from generate_series(current_date + 7, current_date + 90, interval '1 day') d
+-- Raum T5 mit Coach A (Mo–Fr, alle Zeiten), Raum T5b mit Coach B.
+-- Tage: tagc = naechster Betriebstag ab heute (Coach-Faelle), tag1/tag2 = die zwei Betriebstage danach (Admin/System
+-- ueber p_jetzt). Alle liegen in den Vertraegen der A2-Kinder (bis Ende des Monats + 7).
+select (select d::date from generate_series(current_date, current_date + 90, interval '1 day') d
+         where public.betriebstag(d::date) order by d limit 1) as tagc \gset
+select (select d::date from generate_series(:'tagc'::date + 1, :'tagc'::date + 90, interval '1 day') d
          where public.betriebstag(d::date) order by d limit 1) as tag1,
-       (select d::date from generate_series(current_date + 7, current_date + 90, interval '1 day') d
+       (select d::date from generate_series(:'tagc'::date + 1, :'tagc'::date + 90, interval '1 day') d
          where public.betriebstag(d::date) order by d offset 1 limit 1) as tag2 \gset
+-- Uhr fuer Coaches: termin_session_anlegen rechnet fuer sie mit now() (p_jetzt gilt nur fuer Admin/System). Damit die
+-- Coach-Faelle an jedem Tag laufen, steht die Uhr in dieser Transaktion fuer Coaches auf tagc 12:00 (Berlin); fuer
+-- Admin/System bleibt p_jetzt wie in der Prod-Fassung (rollback am Ende; Muster wie betriebstag in slots_festschreiben).
+select format($f$create or replace function public.slots_jetzt(p_jetzt timestamp with time zone)
+  returns timestamp with time zone language sql stable security definer set search_path = public, pg_temp as $b$
+  select case when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin'
+              then coalesce(p_jetzt, now())
+              else (%L::date + time '12:00') at time zone 'Europe/Berlin' end; $b$$f$, :'tagc') \gexec
 insert into raeume (name, aktiv_ab) values ('ZZ T5 Raum', '2026-01-01'), ('ZZ T5 Raum b', '2026-01-01');
 insert into stammschichten (coach_id, wochentag, slot_zeit_id, raum_id, gueltig_ab)
 select c.coach, w, z.id, (select id from raeume where name = c.raum), date '2026-01-01'
@@ -176,43 +195,30 @@ exception when others then
 end $$;
 select pg_temp.kind('ZZ T5 Tim test', true) as k_t1, pg_temp.kind('ZZ T5 Tea test', true) as k_t2,
        pg_temp.kind('ZZ T5 Rio echt') as k_r1 \gset
-select pg_temp.termin_fuer(:'k_t1', public.slots_berlin_tag(now()), 14) where :'heute_ok';
-select pg_temp.termin_fuer(:'k_t2', public.slots_berlin_tag(now()), 14) where :'heute_ok';
-select pg_temp.termin_fuer(:'k_r1', public.slots_berlin_tag(now()), 15) where :'heute_ok';
+select pg_temp.termin_fuer(:'k_t1', :'tagc', 14);
+select pg_temp.termin_fuer(:'k_t2', :'tagc', 14);
+select pg_temp.termin_fuer(:'k_r1', :'tagc', 15);
 
--- ── 4) und 5) termin_session_anlegen am Tag ───────────────────────────────────
+-- ── 4) und 5) termin_session_anlegen am Tag (tagc) ────────────────────────────
 select pg_temp.wer(:'coach_b');
-select case when :'heute_ok'
-            then is(pg_temp.anlegen(public.slots_berlin_tag(now()), 14, 'ZZ T5 Raum'), '42501',
-                    '5 anderer Coach: Testtermin im fremden Raum -> 42501')
-            else skip('heute kein Betriebstag', 1) end;
+select is(pg_temp.anlegen(:'tagc', 14, 'ZZ T5 Raum'), '42501', '5 anderer Coach: Testtermin im fremden Raum -> 42501');
 select pg_temp.wer(:'coach_a');
-select case when :'heute_ok'
-            then is(pg_temp.anlegen(public.slots_berlin_tag(now()), 14, 'ZZ T5 Raum'), 'true',
-                    '4 eingeteilter Coach: Testtermin festschreiben -> testlauf')
-            else skip('heute kein Betriebstag', 1) end;
+select is(pg_temp.anlegen(:'tagc', 14, 'ZZ T5 Raum'), 'true', '4 eingeteilter Coach: Testtermin festschreiben -> testlauf');
 select is(coalesce(current_setting('edvance.testlauf_anlegen', true), ''), '', '7 Einstellung nach dem Aufruf zurueckgenommen');
 select coalesce((select id::text from coaching_sessions where raum_id = pg_temp.raum('ZZ T5 Raum') and slot_zeit_id = pg_temp.zeit(14)
-           and scheduled_at = public.slots_termin_beginn(public.slots_berlin_tag(now()), pg_temp.zeit(14))), '') as s_ct \gset
-select case when :'heute_ok'
-            then is((select testlauf::text || ':' || coach_id::text || ':' || status from coaching_sessions where id = nullif(:'s_ct', '')::uuid),
-                    'true:' || :'coach_a' || ':upcoming', '4 Session mit testlauf = true, Coach A, upcoming')
-            else skip('heute kein Betriebstag', 1) end;
-select case when :'heute_ok'
-            then is((select string_agg(student_id::text, ',' order by student_id) from session_students where session_id = nullif(:'s_ct', '')::uuid),
-                    (select string_agg(k::text, ',' order by k) from unnest(array[:'k_t1', :'k_t2']::uuid[]) k),
-                    '4 beide Testkonten sind in der Testlauf-Session gebucht')
-            else skip('heute kein Betriebstag', 1) end;
+           and scheduled_at = public.slots_termin_beginn(:'tagc', pg_temp.zeit(14))), '') as s_ct \gset
+select is((select testlauf::text || ':' || coach_id::text || ':' || status from coaching_sessions where id = nullif(:'s_ct', '')::uuid),
+          'true:' || :'coach_a' || ':upcoming', '4 Session mit testlauf = true, Coach A, upcoming');
+select is((select string_agg(student_id::text, ',' order by student_id) from session_students where session_id = nullif(:'s_ct', '')::uuid),
+          (select string_agg(k::text, ',' order by k) from unnest(array[:'k_t1', :'k_t2']::uuid[]) k),
+          '4 beide Testkonten sind in der Testlauf-Session gebucht');
 -- 7: Im selben Zug (gleiche Transaktion, gleicher Coach) ohne Systemweg: direktes INSERT mit testlauf -> 42501.
 select throws_ok(format($f$insert into coaching_sessions (coach_id, room, scheduled_at, raum_id, slot_zeit_id, testlauf)
                            values (%L, 'ZZ T5 direkt', now() + interval '101 hours', %L, %L, true)$f$,
                         :'coach_a', pg_temp.raum('ZZ T5 Raum'), pg_temp.zeit(17)),
                  '42501', 'Testlauf: nur Admin', '7 danach in derselben Transaktion: direktes INSERT -> 42501');
 -- 5: Termin mit echtem Kind durch den eingeteilten Coach -> echte Session wie bisher.
-select case when :'heute_ok'
-            then is(pg_temp.anlegen(public.slots_berlin_tag(now()), 15, 'ZZ T5 Raum'), 'false',
-                    '5 echtes Kind: echte Session wie bisher')
-            else skip('heute kein Betriebstag', 1) end;
+select is(pg_temp.anlegen(:'tagc', 15, 'ZZ T5 Raum'), 'false', '5 echtes Kind: echte Session wie bisher');
 select is(coalesce(current_setting('edvance.testlauf_anlegen', true), ''), '', '7 auch nach einer echten Session zurueckgenommen');
 -- 7: Nach einem Abbruch (Systemaufruf, Trigger lehnt ab) ist die Einstellung ebenfalls weg.
 select pg_temp.als_system();

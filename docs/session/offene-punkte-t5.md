@@ -2,16 +2,16 @@
 
 Stand 14.10.2026 · Branch `feat/rasit-session-t5-coach-testlauf` · Anlass: offene-punkte-t4 Punkt 1,
 offene-punkte-sl2b Punkt 1 · Entscheidungen Rasit 12.10.
-Beweis: `supabase/tests/session_t5.test.sql` (48 Zusicherungen), `src/lib/session/coachLiveT5.test.ts`,
+Beweis: `supabase/tests/session_t5.test.sql` (52 Zusicherungen), `src/lib/session/coachLiveT5.test.ts`,
 `src/pages/coach/live/MasteryEntwurf.test.tsx`, `src/lib/supabase/sessionPruefung.test.ts`.
 
 ## Was T5 ändert
 
 | # | Was | Wo | Wirkung |
 |---|---|---|---|
-| 1 | Prüffragen der Session | `20261014104355_t5_pruefung_session`: neu `skill_pruefung_session(session, skill)` | Echt genau `freigegeben` wie `skill_pruefung_lesen`; Testlauf jede Prüffrage des Skills in der Reihenfolge von `session_pruefung_frage_sitzung` (erste Zeile = Frage auf dem Tablet) |
+| 1 | Prüffragen der Session | `20261014104355_t5_pruefung_session`: neu `skill_pruefung_session(session, skill)`, Spalten von `skill_pruefung_lesen` plus `freigegeben boolean` (Rasit 14.10.) | Echt genau `freigegeben` wie `skill_pruefung_lesen`; Testlauf jede Prüffrage des Skills in der Reihenfolge von `session_pruefung_frage_sitzung` (erste Zeile = Frage auf dem Tablet) |
 | 2 | `skill_pruefung_lesen` | – | unverändert (Prod und Neuaufbau gleich, md5 von `pg_get_functiondef`) |
-| 3 | Live-Sicht | `src/lib/session/coachLive.ts` (`ladePruefung`), `src/lib/supabase/sessionPruefung.ts` (`skillPruefungSession`), `MasteryPruefung.tsx`, `de/coachLive.json` `mastery.entwurf` | Schublade liest über die Session; im Testlauf Kennzeichen „Entwurf“ |
+| 3 | Live-Sicht | `src/lib/session/coachLive.ts` (`ladePruefung`), `src/lib/supabase/sessionPruefung.ts` (`skillPruefungSession`), `MasteryPruefung.tsx`, `de/coachLive.json` `mastery.entwurf` | Schublade liest über die Session; Kennzeichen „Entwurf“ nur bei `freigegeben = false` |
 | 4 | Testtermin durch den Coach | `20261014104412_t5_coach_testtermin`: ersetzt `termin_session_anlegen`, `coaching_sessions_testlauf_pruefen` | Systemweg `edvance.testlauf_anlegen` (transaktionslokal, nur um das INSERT) |
 | 5 | Übriger Trigger | dieselbe Migration | UPDATE nur Admin (42501), nach dem Start 55000, nur Testkonten 22023, Fehlercodes unverändert |
 | 6 | Kein Client-Weg zur Einstellung | Beleg im PR | siehe unten |
@@ -30,10 +30,10 @@ Neuaufbau: `prosecdef`, `provolatile`, `proconfig`, `proacl` gleich). Der neue R
    `pruefung_aufs_tablet` auflegt; alle Prüffragen des Skills; erste Zeile = Frage der Hilfe = Frage auf dem Tablet).
 2. **Zugriff über `session_coach_pruefen`** wie `coach_raum_live`: Coach der Session oder Admin, sonst 42501. Eine
    unbekannte Session meldet dort P0002 (Test 3), nicht 42501, wie bei allen Coach-Funktionen der Session.
-3. **„Entwurf“ heißt „nicht freigegeben“.** `skill_pruefung_session` liefert dieselben Spalten wie
-   `skill_pruefung_lesen`, also keinen Status, und Coaches lesen `skill_pruefung` nicht direkt (Policy nur Admin).
-   Die Live-Sicht ruft im Testlauf zusätzlich `skill_pruefung_lesen` und kennzeichnet die erste Frage, wenn sie dort
-   fehlt. Echt entfällt der zweite Aufruf, das Kennzeichen ist immer aus. Scheitert der Abgleich, bleibt es weg.
+3. **„Entwurf“ kommt vom Server.** Nachtrag Rasit 14.10.: `skill_pruefung_session` liefert zusätzlich
+   `freigegeben boolean` (`status = 'freigegeben'`, serverseitig); den Status selbst bekommt der Coach weiter nicht.
+   Die Live-Sicht setzt das Kennzeichen nur bei `freigegeben = false`, ohne zweiten Aufruf. Die Abweichung von
+   „gleiche Spalten“ (Entscheidung 1) ist damit freigegeben.
 4. **Ausnahme im Trigger NULL-sicher.** Die drei Bedingungen stehen in einem `coalesce(…, false)`: Ist ein Teil
    unbekannt (z. B. `auth.uid()` leer), gilt die Ausnahme nicht. Bedingung (c) verlangt die Rolle `coach` und
    `auth.uid() = new.coach_id`; der Admin geht wie bisher ohne Ausnahme durch. Der X0c-Wächter (R2) ist grün.
@@ -70,17 +70,18 @@ pgTAP konnte die Prüfinstanz nicht laden, die Läufe stehen im PR.
 
 ## Offene Punkte
 
-1. **Eine geprüfte Prüffrage trägt im Testlauf auch „Entwurf“.** Folge von Auslegung 3 (Status `geprueft` ist nicht
-   freigegeben). Prod hat derzeit gar keine Prüffragen (`skill_pruefung` 0 Zeilen, dbread 14.10.), praktisch also
-   offen. Wer es genauer will: eine Spalte `status` in `skill_pruefung_session` (Abweichung von „gleiche Spalten“).
+1. **Eine geprüfte Prüffrage trägt im Testlauf auch „Entwurf“** (`freigegeben = false`). So gewollt: Kennzeichen nur
+   nach `freigegeben`. Prod hat derzeit gar keine Prüffragen (`skill_pruefung` 0 Zeilen, dbread 14.10.).
 2. **Leerer Raum im Testtermin.** Sitzt im Raum kein Kind, richtet sich `v_test` nach den übrigen Sessions des Termins
    (SL2b, Entscheidung 5). Ist dort ein Testlauf, legt jetzt auch der eingeteilte Coach den leeren Raum als Testlauf an.
+   **Bestätigt (Rasit, 14.10.):** so lassen.
 3. **Hinweis `testlauf_nur_admin` praktisch nur noch für Systemaufrufe.** Ein Coach eines fremden Raums scheitert schon
    vorher („nur der eingeteilte Coach dieses Raums“, ohne Hinweis); der Admin und der eingeteilte Coach kommen durch.
    Der Pfad bleibt (Entscheidung 7), der Text in `de/slots.json` nennt jetzt beide.
-4. **Coach-Fälle hängen an „heute“.** `termin_session_anlegen` läuft für Coaches nur am Tag des Termins, `p_jetzt` gilt
-   nur für Admin/System. `session_t5` nimmt Ferien und Feiertage von heute heraus; an Wochenenden laufen die vier
-   Coach-Zusicherungen als `skip`. Den Trigger selbst prüft Test 6 tagesunabhängig (Systemweg simuliert).
+4. ~~**Coach-Fälle hängen an „heute“.**~~ Erledigt (Rasit 14.10.): `session_t5` bestimmt den nächsten Betriebstag ab
+   heute (`tagc`) und stellt `slots_jetzt` in der Testtransaktion für Coaches auf `tagc` 12:00 (Admin/System weiter
+   über `p_jetzt`; Muster wie `betriebstag` in `slots_festschreiben`). Kein skip mehr. Gegenprobe: mit heute bis +3 als
+   Feiertag springt `tagc` auf den 02.11. (Herbstferien dazwischen), alle 52 Zusicherungen grün.
 5. **`slots_sl2b` Zusicherung 58 umgestellt.** Sie erwartete für den eingeteilten Coach 42501 `testlauf_nur_admin` und
    erwartet jetzt Erfolg (gewollte Änderung nach Entscheidung 4); Anzahl unverändert (67).
 6. **CI-Schemavergleich bis zum Einspielen rot.** `supabase/schema-erwartet.sql` fasst T5 laut Leitplanke erst nach dem
@@ -88,8 +89,7 @@ pgTAP konnte die Prüfinstanz nicht laden, die Läufe stehen im PR.
 7. **Abweichungen Prod gegen Neuaufbau, nicht von T5.** `lsa_hint` kommt aus E3 (#244, in Prod, nach dem Abzweig dieses
    Branches in dev); erledigt sich mit dem Einmischen von `origin/dev`. `lsa_fehlbild_match` unterscheidet sich nur im
    ACL (Prod mit ausdrücklichen Grants an authenticated/service_role, Neuaufbau ohne). Altbestand, nicht angefasst.
-8. **Ein Aufruf mehr im Testlauf.** Mit offener Schublade ruft die Live-Sicht im Testlauf zwei RPCs statt einem je
-   Takt (4 s). Echt bleibt es bei einem.
+8. ~~**Ein Aufruf mehr im Testlauf.**~~ Entfällt mit `freigegeben` vom Server (ein RPC je Takt, auch im Testlauf).
 9. **„Keine freigegebene Prüffrage“.** Der Text `mastery.keineFrage` passt im Testlauf nur halb (dort fehlt jede
    Prüffrage). Nicht geändert.
 10. **Regel gegen künftige Lücken (Zweitprüfung Befund 3).** Entscheidung 6 hängt daran, dass PostgREST nur `public`

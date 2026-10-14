@@ -1,9 +1,9 @@
-// T5 Test 8: Die Live-Sicht liest die Pruefrage ueber skill_pruefung_session, sobald sie eine Session kennt. Im
-// Testlauf traegt eine nicht freigegebene Frage das Kennzeichen „Entwurf“; echt nie. Fehlerabbildung unveraendert.
+// T5 Test 8: Die Live-Sicht liest die Pruefrage ueber skill_pruefung_session, sobald sie eine Session kennt. Das
+// Kennzeichen „Entwurf“ kommt nur aus freigegeben = false (Server); echt nie. Fehlerabbildung unveraendert.
 // Grundlage sind die echten Antworten aus coachLiveFixtures.json (Emir: Mastery-Kandidat zz_a2_v2).
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import type { KindDetail, RaumLive, SkillPruefung } from '@/types'
+import type { KindDetail, RaumLive, SkillPruefung, SkillPruefungSession } from '@/types'
 import fixtures from './coachLiveFixtures.json'
 
 const rpc = vi.hoisted(() => ({
@@ -33,8 +33,10 @@ const { ladeRaumLive, liveZuruecksetzen } = await import('./coachLive')
 
 const F = fixtures as unknown as { raum_kern: RaumLive; detail_kern: KindDetail; pruefung_v2: SkillPruefung[] }
 const EMIR = F.raum_kern.kinder[0].student_id
-const FREI = F.pruefung_v2[0]
-const ENTWURF: SkillPruefung = { ...FREI, id: 'zz-t5-entwurf', frage: 'ZZ T5 Entwurfsfrage', erwartung: 'ZZ Erwartung', kriterium: 'ZZ Kriterium' }
+const FREI: SkillPruefungSession = { ...F.pruefung_v2[0], freigegeben: true }
+const ENTWURF: SkillPruefungSession = {
+  ...FREI, id: 'zz-t5-entwurf', frage: 'ZZ T5 Entwurfsfrage', erwartung: 'ZZ Erwartung', kriterium: 'ZZ Kriterium', freigegeben: false,
+}
 const testlauf: RaumLive = { ...F.raum_kern, session: { ...F.raum_kern.session, testlauf: true } }
 const ok = <T>(data: T) => Promise.resolve({ data, error: null })
 
@@ -65,26 +67,15 @@ describe('T5: Pruefrage der Live-Sicht', () => {
     expect(m).toMatchObject({ frage: FREI.frage, erwartung: FREI.erwartung, kriterium: FREI.kriterium, entwurf: false })
   })
 
-  it('Testlauf: Entwurfsfrage mit Erwartung, Kriterium und Kennzeichen', async () => {
-    rpc.raumLive.mockImplementation(() => ok(testlauf))
-    rpc.skillPruefungSession.mockImplementation(() => ok([ENTWURF, FREI]))
-    rpc.skillPruefungen.mockImplementation(() => ok([]))
-    const m = await kandidat()
-    expect(rpc.skillPruefungen).toHaveBeenCalledWith('zz_a2_v2')
-    expect(m).toMatchObject({ frage: 'ZZ T5 Entwurfsfrage', erwartung: 'ZZ Erwartung', kriterium: 'ZZ Kriterium', entwurf: true })
-  })
-
-  it('Testlauf: freigegebene Frage ohne Kennzeichen', async () => {
+  it('Testlauf: freigegebene und Entwurfsfrage, nur die zweite mit Kennzeichen', async () => {
     rpc.raumLive.mockImplementation(() => ok(testlauf))
     rpc.skillPruefungSession.mockImplementation(() => ok([FREI, ENTWURF]))
     expect(await kandidat()).toMatchObject({ frage: FREI.frage, entwurf: false })
-  })
-
-  it('Testlauf: scheitert der Abgleich, bleibt das Kennzeichen weg', async () => {
-    rpc.raumLive.mockImplementation(() => ok(testlauf))
+    liveZuruecksetzen()
     rpc.skillPruefungSession.mockImplementation(() => ok([ENTWURF]))
-    rpc.skillPruefungen.mockResolvedValue({ data: null, error: 'skill_pruefung_lesen: kaputt', code: 'XX000' })
-    expect(await kandidat()).toMatchObject({ frage: 'ZZ T5 Entwurfsfrage', entwurf: false })
+    expect(await kandidat()).toMatchObject({ frage: 'ZZ T5 Entwurfsfrage', erwartung: 'ZZ Erwartung', kriterium: 'ZZ Kriterium', entwurf: true })
+    // Der Status kommt nur vom Server: kein Abgleich ueber skill_pruefung_lesen.
+    expect(rpc.skillPruefungen).not.toHaveBeenCalled()
   })
 
   it('Fehler der Pruefrage: Kandidat ohne Frage, die Sicht laedt weiter (wie bisher)', async () => {

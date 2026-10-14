@@ -4,13 +4,14 @@
 // skill_pruefung_session (T5; ohne Session skill_pruefung_lesen), das Tablet sieht nur die Frage.
 
 import { sessionRpc, type RpcResult } from '@/lib/supabase/sessionRpc'
-import type { PruefungTabletAntwort, SkillPruefung } from '@/types'
+import type { PruefungTabletAntwort, SkillPruefungSession } from '@/types'
 
 /**
  * T5: Pruefragen eines Skills fuer den Coach dieser Session (oder Admin). Echte Session: nur freigegebene, wie
  * skill_pruefung_lesen. Testlauf: jede, die pruefung_aufs_tablet auflegen darf; die erste steht auf dem Tablet.
+ * freigegeben kommt vom Server (den Status selbst liest der Coach nicht).
  */
-export const skillPruefungSession = (sessionId: string, skillKey: string): Promise<RpcResult<SkillPruefung[]>> =>
+export const skillPruefungSession = (sessionId: string, skillKey: string): Promise<RpcResult<SkillPruefungSession[]>> =>
   sessionRpc('skill_pruefung_session', { p_session_id: sessionId, p_skill_key: skillKey }, 'Could not load mastery check')
 
 export const pruefungAufsTablet = (

@@ -33,10 +33,10 @@ describe('Pruefrage aufs Tablet', () => {
 
 describe('T5: Pruefragen der Session', () => {
   it('liest ueber skill_pruefung_session mit Session und Skill', async () => {
-    rpc.mockResolvedValue({ data: [{ id: 'ZZ_p', skill_key: 'ZZ_sk', frage: 'F', erwartung: 'E', kriterium: 'K', quelle: 'ki' }], error: null })
+    rpc.mockResolvedValue({ data: [{ id: 'ZZ_p', skill_key: 'ZZ_sk', frage: 'F', erwartung: 'E', kriterium: 'K', quelle: 'ki', freigegeben: false }], error: null })
     const res = await skillPruefungSession('ZZ_s', 'ZZ_sk')
     expect(rpc).toHaveBeenCalledWith('skill_pruefung_session', { p_session_id: 'ZZ_s', p_skill_key: 'ZZ_sk' })
-    expect(res.data?.[0].erwartung).toBe('E')
+    expect(res.data?.[0]).toMatchObject({ erwartung: 'E', freigegeben: false })
     expect(from).not.toHaveBeenCalled()
   })
 

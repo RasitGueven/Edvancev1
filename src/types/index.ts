@@ -311,6 +311,7 @@ export type {
   ZielFertigkeit,
   NaechsteLuecke,
   SkillPruefung,
+  SkillPruefungSession,
   MeinLernpfadEintrag,
   LernpfadUebernahme,
   MasteryEntscheidung,

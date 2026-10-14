@@ -36,7 +36,7 @@ import { eingabeDerAufgabe, falscheZurAufgabe } from './coachLiveEingabe'
 
 /** Was neben coach_raum_live geladen wurde. Detail nur fuer das Kind mit offener Schublade. */
 export type LiveZusatz = {
-  /** T5: pruefung.entwurf = im Testlauf nicht freigegeben. */
+  /** T5: pruefung.entwurf = freigegeben false aus skill_pruefung_session. */
   detail: {
     kindId: string
     detail: KindDetail

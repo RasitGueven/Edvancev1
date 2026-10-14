@@ -61,7 +61,7 @@ beforeEach(() => {
   rpc.satzVorschlaege.mockImplementation(() => ok(F.satz))
   rpc.zielFertigkeiten.mockImplementation(() => ok(F.ziel_kern))
   rpc.skillPruefungen.mockImplementation(() => ok(F.pruefung_v2))
-  rpc.skillPruefungSession.mockImplementation(() => ok(F.pruefung_v2))
+  rpc.skillPruefungSession.mockImplementation(() => ok(F.pruefung_v2.map((p) => ({ ...p, freigegeben: true }))))
   rpc.listLernpfad.mockImplementation(() => ok([F.lernpfad_v2]))
   rpc.listThemen.mockImplementation(() => ok([{ thema_key: 'zz_a2_terme', label: 'ZZ Terme' }]))
 })
@@ -174,7 +174,7 @@ describe('6 Fehlerabbildung und Detail nur fuer die offene Schublade', () => {
     const res = await ladeRaumLive('s1', EMIR)
     expect(rpc.kindDetail).toHaveBeenCalledTimes(1)
     expect(rpc.kindDetail).toHaveBeenCalledWith('s1', EMIR)
-    // T5: mit Session ueber skill_pruefung_session; echt ohne Abgleich gegen skill_pruefung_lesen.
+    // T5: mit Session ueber skill_pruefung_session, nicht mehr ueber skill_pruefung_lesen.
     expect(rpc.skillPruefungSession).toHaveBeenCalledWith('s1', 'zz_a2_v2')
     expect(rpc.skillPruefungen).not.toHaveBeenCalled()
     expect(res.data?.kinder.find((k) => k.id === EMIR)?.aufgabe).not.toBeNull()

@@ -112,7 +112,7 @@
   **Offen:** `docs/slots/offene-punkte-sl3.md`.
 - **Session P1 · T5 Coach im Testlauf** (Retro `2026-10-14-session-t5-coach-testlauf.md`, Branch
   `feat/rasit-session-t5-coach-testlauf`): Neuer RPC `skill_pruefung_session` (echt nur freigegeben, im Testlauf jede
-  Prüffrage, die `pruefung_aufs_tablet` auflegt), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach
+  Prüffrage, die `pruefung_aufs_tablet` auflegt, mit `freigegeben`), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach
   legt einen reinen Testtermin selbst als Testlauf an (Systemweg `edvance.testlauf_anlegen` im Trigger).
   Migrationen `20261014104355`, `20261014104412`. **Offen:** `docs/session/offene-punkte-t5.md`.
 - **Session P1 · C3 Schublade der Coach-Live-Sicht** (Retro `2026-10-08-session-c3-schublade.md`, Branch
