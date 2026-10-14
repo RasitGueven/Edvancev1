@@ -51,3 +51,15 @@ Summe: 115 Antworten.
 | eltern_reports | 0 |
 | parent_reports | 0 |
 | parent_report_generations | 0 |
+
+## Kontrolle nach dem Einspielen
+
+Eingespielt am 14.10.2026 06:41 UTC (`~/bin/mig 20261014064047 batu_altleads_test`, je Lead 1 Zeile).
+Dieselbe Abfrage um 06:41:34 UTC erneut per dbread, Ausgabe gegen die obige per `diff` verglichen:
+
+- abweichend nur die beiden Leads: `ist_test = t`, `full_name` „Batu Demirel (alt 07/2026)“ bzw.
+  „Batu Demirel (alt 09/2026)“; `first_name`, `status`, `created_at` gleich, `rejected_at` weiter leer
+- Schülerzeile c017bf9e unverändert
+- alle 10 Sessions gleich: Status, testlauf, Zeiten, Antwortzahl, `antworten_md5`, `summary_md5`
+- Lernpfad und Report weiter 0 Zeilen
+- `schema_migrations`: `20261014064047 | batu_altleads_test` vorhanden
