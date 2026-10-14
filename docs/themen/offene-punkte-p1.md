@@ -136,7 +136,7 @@ Summe: 19 von 28 Knoten und 7 von 8 Session-Knoten haben kein einziges Pilot-Fla
 | E3 gleichung_quadr_wurzel | 6 | 3 | 3 |
 | E3 gleichung_zweischrittig | 6 | 0 | 6 |
 | E3 term_ausklammern | 6 | 0 | 6 |
-| **Summe** | **258** | **27** | **231** |
+| **Summe** | **255** | **24** | **231** |
 
 ## Offene Punkte
 
@@ -158,3 +158,23 @@ Summe: 19 von 28 Knoten und 7 von 8 Session-Knoten haben kein einziges Pilot-Fla
    aus dem Zins-Kontext (`zins-potenzen-*`). Bei Lenas Durchsicht prüfen, ob sie dort bleiben.
 4. **dezimal_mult:** 1 von 9 Aufgaben bleibt regulär ausgeschlossen (`gate`: „Cluster fehlt“); 8 sichtbar, alle
    NUMERIC (≥ 3 ohne MC erfüllt).
+
+## Einspielergebnis (14.10.2026, nach „P1 einspielen“)
+
+Eingespielt mit `~/bin/mig` aus dem Worktree, je Migration eine Transaktion plus History-Eintrag. Meldungen: M1 13 Probe-Beanstandungen → draft, 1 `skill_thema`-Zeile; M2 231 Flags neu; M3 1 Zeile.
+
+Kontrolle per dbread:
+
+| Prüfung | Ergebnis |
+|---|---|
+| `schema_migrations` | 20261014140100, 140200, 140300 vorhanden |
+| potenzen | 24 Aufgaben, 24 draft, 0 beanstandet, 0 ready, 24 Pilot, Thema rationale_zahlen, Testlauf-Pool 24, echter Pool 0 |
+| `pruef_board()` als Admin | 255 Zielaufgaben, 1 regulär ausgeschlossen (dezimal_mult, gate), **254 sichtbar**; jeder Knoten vollständig |
+| Pilot gesamt | 331 (vorher 100, +231); 231 `pilot_an`-Protokollzeilen |
+| c6990fb9 | Text zeichengleich mit dem Original, Zusatz weg |
+| Beanstandungen gesamt / `task_reviews` | 0 / 13 (Historie unverändert) |
+| `tools/schema-snapshot.sh` | kein Unterschied zu `schema-erwartet.sql` (reine Datenmigrationen) |
+
+**Korrektur:** Die Summe in der M2-Tabelle war 258/27, richtig ist 255/24 (Rechenfehler beim Addieren; die
+Einzelzeilen und die 231 neuen Flags stimmten). Der Kopfkommentar von `20261014140200_p1_batu_pilot.sql` trägt
+noch „258 … 27“; die Datei ist eingespielt und wird deshalb nicht mehr geändert.
