@@ -1,7 +1,7 @@
 // Edge Function: provision_student — stillgelegt (Konto K1, Entscheidung Rasit 14.10.2026).
 //
 // Frueher: Lead -> Schueler-Konto, Eltern per inviteUserByEmail. Heute legt
-// der Vertragsabschluss (vertrag_abschluss) Schueler- und Elternkonto an,
+// der Vertragsabschluss (vertrag_abschluss) das Schuelerkonto an (Eltern bekommen seit K1b keins),
 // ohne Auth-Mail. Mit dem Send Email Hook (auth_mail) haette eine Einladung
 // von hier Eltern die Mitarbeiter-Einladung geschickt.
 //
