@@ -11,7 +11,9 @@
  *   - ein Eltern-Konto mit einem Kind verknuepft ist, das NICHT ist_test ist
  *     (auch: verknuepftes Profil ohne students-Zeile — dann ist es nicht als Test belegt), oder
  *   - eine Tabelle per Fremdschluessel ohne Cascade auf eines der Konten zeigt
- *     (das Loeschen wuerde mittendrin scheitern).
+ *     (das Loeschen wuerde mittendrin scheitern), oder
+ *   - ein Konto ueber die Admin-API nicht als parent-Konto auffindbar ist
+ *     (SUPABASE_URL zeigt dann nicht auf dieselbe Datenbank wie dbread).
  *
  * Lesen nur ueber ~/bin/dbread (read-only). Geschrieben wird nur mit --ausfuehren, mit
  * SUPABASE_URL (oder VITE_SUPABASE_URL) und SUPABASE_SERVICE_ROLE_KEY aus der Umgebung.
@@ -29,6 +31,7 @@ import { pathToFileURL } from 'node:url'
  * bestand.eltern: IDs der Profile mit Rolle parent.
  * bestand.links: { parent, istTest } je parent_student-Zeile; istTest true | false | null (keine students-Zeile).
  * bestand.blockierend: Zeilen in Tabellen, die per Fremdschluessel ohne Cascade auf die Konten zeigen.
+ * bestand.cascade: Zeilen, die per ON DELETE CASCADE mitfallen (ohne parent_student) — nur zur Information.
  */
 export function planen(bestand) {
   const links = bestand.links
@@ -40,6 +43,7 @@ export function planen(bestand) {
     kinderEcht: links.filter((l) => l.istTest === false).length,
     kinderOhneSchuelerzeile: links.filter((l) => l.istTest === null).length,
     blockierend: bestand.blockierend,
+    cascade: bestand.cascade ?? 0,
   }
   const gruende = []
   if (zahlen.kinderEcht > 0) gruende.push(`${zahlen.kinderEcht} Verknüpfung(en) mit einem Kind, das nicht ist_test ist`)
@@ -59,6 +63,7 @@ export function bericht({ zahlen, abbruch, gruende }, modus) {
     `verknüpfte Kinder ist_test nein:         ${zahlen.kinderEcht}`,
     `verknüpft, aber ohne students-Zeile:     ${zahlen.kinderOhneSchuelerzeile}`,
     `blockierende Fremdbezüge:                ${zahlen.blockierend}`,
+    `weitere Zeilen, die per Cascade fallen:  ${zahlen.cascade}`,
   ]
   if (abbruch) z.push('', 'ABBRUCH — es wird nichts gelöscht:', ...gruende.map((g) => `  - ${g}`))
   else if (zahlen.eltern === 0) z.push('', 'Nichts zu tun.')
@@ -67,11 +72,60 @@ export function bericht({ zahlen, abbruch, gruende }, modus) {
 }
 
 // ---------------------------------------------------------------------------
-// Effekte: dbread (lesen), Admin-API (schreiben)
+// Ablauf mit eingespritzten Effekten (testbar ohne DB und ohne Netz)
+
+/**
+ * lesen(): Bestand (wirft bei Lesefehler). konten: { pruefen(id) -> 'parent' | 'fehlt' | 'andere_rolle',
+ * verknuepfungenLoeschen(ids), kontoLoeschen(id) } oder null (keine Schreibrechte).
+ * Gibt { geloescht, abbruch } zurueck; loescht nie, wenn irgendeine Pruefung scheitert.
+ */
+export async function lauf({ modus, lesen, konten, log = console.log }) {
+  const plan = planen(lesen())
+  log(bericht(plan, modus))
+  if (modus === 'dry-run' || plan.abbruch || plan.zahlen.eltern === 0) return { geloescht: 0, abbruch: plan.abbruch }
+  if (!konten) {
+    log('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY fehlen in der Umgebung. Nichts gelöscht.')
+    return { geloescht: 0, abbruch: true }
+  }
+
+  // Unmittelbar vor dem Schreiben noch einmal lesen: Zwischen Lesen und Loeschen darf kein echtes Kind dazukommen.
+  const vorher = lesen()
+  const erneut = planen(vorher)
+  if (erneut.abbruch) {
+    log(bericht(erneut, 'ausfuehren'))
+    return { geloescht: 0, abbruch: true }
+  }
+  // Kopplung: Jedes Konto muss ueber die Admin-API als parent-Konto auffindbar sein. Sonst zeigt
+  // SUPABASE_URL auf ein anderes Projekt als dbread — dann wird nichts geloescht.
+  let abweichend = 0
+  for (const id of vorher.eltern) if ((await konten.pruefen(id)) !== 'parent') abweichend++
+  if (abweichend > 0) {
+    log(`ABBRUCH — ${abweichend} Konto/Konten über die Admin-API nicht als parent-Konto gefunden (anderes Projekt?). Nichts gelöscht.`)
+    return { geloescht: 0, abbruch: true }
+  }
+
+  await konten.verknuepfungenLoeschen(vorher.eltern)
+  let geloescht = 0
+  for (const id of vorher.eltern) {
+    await konten.kontoLoeschen(id).catch((e) => {
+      throw new Error(`Konto ${geloescht + 1} von ${vorher.eltern.length}: ${e instanceof Error ? e.message : e}`)
+    })
+    geloescht++
+  }
+  const danach = planen(lesen())
+  log(`\nGelöscht: ${geloescht} Konten. dbread danach: ${danach.zahlen.eltern} Konten mit Rolle parent, ${danach.zahlen.parentStudent} parent_student-Zeilen.`)
+  return { geloescht, abbruch: false }
+}
+
+// ---------------------------------------------------------------------------
+// Echte Effekte: dbread (lesen), Admin-API (schreiben)
 
 function dbread(sql) {
   try {
-    return String(execFileSync(path.join(os.homedir(), 'bin', 'dbread'), ['-tAc', sql], { encoding: 'utf8' }))
+    // stderr nicht durchreichen: eine Postgres-Meldung kann Werte enthalten.
+    return String(
+      execFileSync(path.join(os.homedir(), 'bin', 'dbread'), ['-tAc', sql], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }),
+    )
   } catch (e) {
     throw new Error(`dbread fehlgeschlagen (Exit ${e.status ?? '?'})`)
   }
@@ -79,8 +133,8 @@ function dbread(sql) {
 
 const zeilen = (s) => s.split('\n').map((x) => x.trim()).filter(Boolean)
 
-/** Zaehlt Zeilen in allen Tabellen, die per FK ohne Cascade/Set null auf profiles oder auth.users zeigen. */
-const SQL_BLOCKIEREND = String.raw`
+/** Zeilen in Tabellen, die per einspaltigem FK auf profiles oder auth.users zeigen, je nach Loeschregel. */
+const sqlFremdbezuege = (regeln, ohne) => String.raw`
 with eltern as (select array_agg(id) ids from public.profiles where role = 'parent'),
 fks as (
   select c.conrelid::regclass as tabelle, a.attname as spalte
@@ -88,13 +142,19 @@ fks as (
     join pg_attribute a on a.attrelid = c.conrelid and a.attnum = c.conkey[1]
    where c.contype = 'f' and array_length(c.conkey, 1) = 1
      and c.confrelid in ('public.profiles'::regclass, 'auth.users'::regclass)
-     and c.confdeltype in ('a', 'r')
+     and c.confdeltype in (${regeln})
+     and c.conrelid not in (${ohne})
 )
 select coalesce(sum((xpath('/row/c/text()', query_to_xml(
          format('select count(*) as c from %s where %I = any(%L::uuid[])', f.tabelle, f.spalte, e.ids),
          false, true, '')))[1]::text::int), 0)
   from fks f, eltern e
  where e.ids is not null`
+
+/** NO ACTION / RESTRICT: wuerde das Loeschen verhindern. */
+export const SQL_BLOCKIEREND = sqlFremdbezuege(`'a', 'r'`, `0`)
+/** CASCADE ohne parent_student und ohne profiles selbst: faellt mit. */
+export const SQL_CASCADE = sqlFremdbezuege(`'c'`, `'public.parent_student'::regclass, 'public.profiles'::regclass`)
 
 export function bestandLesen() {
   const eltern = zeilen(dbread(`select id from public.profiles where role = 'parent'`))
@@ -108,31 +168,33 @@ export function bestandLesen() {
     return { parent, istTest: t === 'true' ? true : t === 'false' ? false : null }
   })
   const blockierend = Number(zeilen(dbread(SQL_BLOCKIEREND))[0] ?? 0)
-  return { eltern, links, blockierend }
+  const cascade = Number(zeilen(dbread(SQL_CASCADE))[0] ?? 0)
+  return { eltern, links, blockierend, cascade }
 }
 
-async function adminClient() {
+async function kontenUeberAdminApi() {
   const url = process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) return null
   const { createClient } = await import('@supabase/supabase-js')
-  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
-}
-
-async function loeschen(sb, eltern) {
-  // 1. parent_student, in Stuecken (URL-Laenge)
-  for (let i = 0; i < eltern.length; i += 50) {
-    const { error } = await sb.from('parent_student').delete().in('parent_id', eltern.slice(i, i + 50))
-    if (error) throw new Error(`parent_student: ${error.message}`)
+  const sb = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
+  return {
+    async pruefen(id) {
+      const { data } = await sb.from('profiles').select('role').eq('id', id).maybeSingle()
+      if (!data) return 'fehlt'
+      return data.role === 'parent' ? 'parent' : 'andere_rolle'
+    },
+    async verknuepfungenLoeschen(ids) {
+      for (let i = 0; i < ids.length; i += 50) {
+        const { error } = await sb.from('parent_student').delete().in('parent_id', ids.slice(i, i + 50))
+        if (error) throw new Error(`parent_student: ${error.message}`)
+      }
+    },
+    async kontoLoeschen(id) {
+      const { error } = await sb.auth.admin.deleteUser(id)
+      if (error) throw new Error(error.message)
+    },
   }
-  // 2. Auth-Konten; das Profil faellt per Cascade
-  let geloescht = 0
-  for (const id of eltern) {
-    const { error } = await sb.auth.admin.deleteUser(id)
-    if (error) throw new Error(`Konto ${geloescht + 1} von ${eltern.length}: ${error.message}`)
-    geloescht++
-  }
-  return geloescht
 }
 
 async function main(argv = process.argv.slice(2)) {
@@ -142,29 +204,12 @@ async function main(argv = process.argv.slice(2)) {
     console.error('Genau eins angeben: --dry-run oder --ausfuehren.')
     process.exit(2)
   }
-
-  const plan = planen(bestandLesen())
-  console.log(bericht(plan, dryRun ? 'dry-run' : 'ausfuehren'))
-  if (dryRun || plan.abbruch || plan.zahlen.eltern === 0) {
-    if (plan.abbruch) process.exitCode = 1
-    return
-  }
-
-  const sb = await adminClient()
-  if (!sb) {
-    console.error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY fehlen in der Umgebung. Nichts gelöscht.')
-    process.exit(1)
-  }
-  // Unmittelbar vor dem Schreiben noch einmal pruefen: Zwischen Lesen und Loeschen darf kein echtes Kind dazukommen.
-  const vorher = bestandLesen()
-  const erneut = planen(vorher)
-  if (erneut.abbruch) {
-    console.error(bericht(erneut, 'ausfuehren'))
-    process.exit(1)
-  }
-  const n = await loeschen(sb, vorher.eltern)
-  const danach = planen(bestandLesen())
-  console.log(`\nGelöscht: ${n} Konten. dbread danach: ${danach.zahlen.eltern} Konten mit Rolle parent, ${danach.zahlen.parentStudent} parent_student-Zeilen.`)
+  const r = await lauf({
+    modus: dryRun ? 'dry-run' : 'ausfuehren',
+    lesen: bestandLesen,
+    konten: ausfuehren ? await kontenUeberAdminApi() : null,
+  })
+  if (r.abbruch) process.exitCode = 1
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {

@@ -23,7 +23,10 @@ Eltern bekommen kein Konto. Alle Mails an Eltern laufen über `vertraege.eltern_
      per Cascade.
    - Das Werkzeug bricht ab, wenn ein verknüpftes Kind nicht `ist_test` ist (auch: Profil ohne `students`-Zeile)
      oder wenn ein Fremdschlüssel ohne Cascade auf ein Eltern-Konto zeigt.
-   - Vor dem Schreiben liest es den Bestand noch einmal.
+   - Vor dem Schreiben liest es den Bestand noch einmal und prüft jedes Konto über die Admin-API. Ist ein
+     Konto dort nicht als `parent` auffindbar, zeigen `SUPABASE_URL` und `dbread` auf verschiedene Datenbanken;
+     dann löscht es nichts.
+   - Der Bericht weist zusätzlich die Zeilen aus, die per Cascade mitfallen (ohne `parent_student`).
 
 ## Nicht geändert (Auftrag)
 
@@ -52,3 +55,31 @@ Eltern bekommen kein Konto. Alle Mails an Eltern laufen über `vertraege.eltern_
    Bestandsaufnahme X0: 11 Auth-Konten ohne Profil. Nicht im Auftrag.
 3. **„Passwort vergessen“** bleibt für alle Konten (K1, Entscheidung 4). Nach dem Entfernen der Eltern-Konten gibt
    es dort für Eltern nichts mehr zurückzusetzen.
+
+## Zweitprüfung (frische Instanz, 14.10.2026)
+
+Die Edge-Function-Änderung ist freigabefähig: Bis auf das Eltern-Konto ist sie identisch, V5 bleibt erhalten,
+`randomPassword` ist unverändert umgezogen. Das Werkzeug war freigabefähig mit Auflage. Eingearbeitet:
+
+- Projektkopplung: Prüfung jedes Kontos per Admin-API vor dem ersten Löschen.
+- stderr von `dbread` wird nicht mehr durchgereicht.
+- Die Effekte sind eingespritzt, Vitest belegt in jedem dieser Fälle „nichts gelöscht“:
+  - jeder Abbruchgrund
+  - ein echtes Kind, das erst beim zweiten Lesen auftaucht
+  - Lesefehler
+  - abweichendes Projekt
+  - fehlende Schreibrechte
+- Die Cascade-Zeilen stehen im Bericht.
+
+Offen geblieben:
+- **Teilzustand bei einem Fehler mitten im Löschen.** Die `parent_student`-Zeilen sind dann weg, ein Teil der
+  Konten ist gelöscht. Der Lauf lässt sich wiederholen, die Meldung nennt die laufende Nummer.
+- **Folgevertrag nur in Deno belegt** (alle Konto-Parameter `null`), nicht in pgTAP.
+- **Die Verdrahtung in `index.ts`** (502 bei Konto-Fehler, Aufräumen, PDF) ist nur durch Lesen des Diffs belegt.
+
+## Reihenfolge beim Einspielen
+
+1. `vertrag_abschluss` von diesem Stand deployen (enthält V5). Erst danach legt kein Abschluss mehr ein
+   Eltern-Konto an.
+2. `node tools/eltern-konten-entfernen.mjs --dry-run` gegen Prod; nur die Anzahlen melden.
+3. `--ausfuehren` erst nach Rasits Okay.
