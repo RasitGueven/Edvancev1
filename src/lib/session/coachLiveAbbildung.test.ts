@@ -17,6 +17,7 @@ const rpc = vi.hoisted(() => ({
   listThemen: vi.fn(),
   pruefungAufsTablet: vi.fn(),
   pruefungVomTablet: vi.fn(),
+  skillPruefungSession: vi.fn(),
   tabletZuweisen: vi.fn(),
   masteryEntscheiden: vi.fn(),
 }))
@@ -27,7 +28,9 @@ vi.mock('@/lib/supabase/lernpfad', () => ({
   masteryEntscheiden: rpc.masteryEntscheiden,
 }))
 vi.mock('@/lib/supabase/themen', () => ({ listThemen: rpc.listThemen }))
-vi.mock('@/lib/supabase/sessionPruefung', () => ({ pruefungAufsTablet: rpc.pruefungAufsTablet, pruefungVomTablet: rpc.pruefungVomTablet }))
+vi.mock('@/lib/supabase/sessionPruefung', () => ({
+  pruefungAufsTablet: rpc.pruefungAufsTablet, pruefungVomTablet: rpc.pruefungVomTablet, skillPruefungSession: rpc.skillPruefungSession,
+}))
 
 const { ladeRaumLive, liveZuruecksetzen, masteryEntscheiden, pruefungAufsTablet, tabletZuweisen } = await import('./coachLive')
 const { raumAus } = await import('./coachLiveAbbildung')
@@ -58,6 +61,7 @@ beforeEach(() => {
   rpc.satzVorschlaege.mockImplementation(() => ok(F.satz))
   rpc.zielFertigkeiten.mockImplementation(() => ok(F.ziel_kern))
   rpc.skillPruefungen.mockImplementation(() => ok(F.pruefung_v2))
+  rpc.skillPruefungSession.mockImplementation(() => ok(F.pruefung_v2.map((p) => ({ ...p, freigegeben: true }))))
   rpc.listLernpfad.mockImplementation(() => ok([F.lernpfad_v2]))
   rpc.listThemen.mockImplementation(() => ok([{ thema_key: 'zz_a2_terme', label: 'ZZ Terme' }]))
 })
@@ -97,7 +101,7 @@ describe('5 Abbildung je Feld aus echten Antworten', () => {
   })
 
   it('Schublade: Aufgabe mit Musterloesung, Versuche mit Fehlbild, Ziel, Mastery-Kandidat mit Pruefgespraech', () => {
-    const detail = { kindId: EMIR, detail: F.detail_kern, ziel: F.ziel_kern, pruefung: F.pruefung_v2[0], lernpfad: F.lernpfad_v2 }
+    const detail = { kindId: EMIR, detail: F.detail_kern, ziel: F.ziel_kern, pruefung: { ...F.pruefung_v2[0], entwurf: false }, lernpfad: F.lernpfad_v2 }
     const emir = raumAus(F.raum_kern, { ...leer, detail }).kinder[0]
     expect(emir.aufgabe).toMatchObject({ kopf: { art: 'aufgabe', nr: 3 }, musterloesung: ['ZZ-LOESUNGSWEG: 3 + 4 = 7'] })
     expect(emir.aufgabe?.text).toContain('Wie viel ist 3 + 4?')
@@ -170,7 +174,9 @@ describe('6 Fehlerabbildung und Detail nur fuer die offene Schublade', () => {
     const res = await ladeRaumLive('s1', EMIR)
     expect(rpc.kindDetail).toHaveBeenCalledTimes(1)
     expect(rpc.kindDetail).toHaveBeenCalledWith('s1', EMIR)
-    expect(rpc.skillPruefungen).toHaveBeenCalledWith('zz_a2_v2')
+    // T5: mit Session ueber skill_pruefung_session, nicht mehr ueber skill_pruefung_lesen.
+    expect(rpc.skillPruefungSession).toHaveBeenCalledWith('s1', 'zz_a2_v2')
+    expect(rpc.skillPruefungen).not.toHaveBeenCalled()
     expect(res.data?.kinder.find((k) => k.id === EMIR)?.aufgabe).not.toBeNull()
     expect(res.data?.kinder.find((k) => k.id === DENIZ)?.aufgabe).toBeNull()
   })

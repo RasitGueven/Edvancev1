@@ -170,7 +170,8 @@ select throws_ok(format($f$select termin_session_anlegen('2027-11-11', %L, %L, '
                         pg_temp.zeit(18), pg_temp.raum('Raum 1')),
                  '42501', 'termin_session_anlegen: Testtermin, nur Admin', '4 Systemaufruf: Testtermin festschreiben -> 42501 testlauf_nur_admin');
 select pg_temp.als(:'admin');
--- Coach am Tag: testlauf beim Anlegen darf nur der Admin (Trigger), die Funktion meldet es (nur an Betriebstagen prüfbar).
+-- Coach am Tag: Seit T5 legt der eingeteilte Coach den Testtermin selbst als Testlauf an (Systemweg im Trigger;
+-- vorher 42501 testlauf_nur_admin). Nur an Betriebstagen prüfbar; weitere Fälle in session_t5.test.sql.
 select pg_temp.kind('Tag Test', 'Basic', 12, date_trunc('month', current_date)::date,
                      (date_trunc('month', current_date) + interval '12 months' - interval '1 day')::date) as ttag \gset
 update students set ist_test = true where id = :'ttag';
@@ -179,9 +180,9 @@ select :'ttag', pg_temp.vertrag(:'ttag'), public.slots_berlin_tag(now()), pg_tem
  where public.betriebstag(public.slots_berlin_tag(now()));
 select pg_temp.als(:'coach_a');
 select case when public.betriebstag(public.slots_berlin_tag(now()))
-            then throws_ok(format('select termin_session_anlegen(%L, %L, %L)', public.slots_berlin_tag(now()), pg_temp.zeit(19),
-                                  pg_temp.raum('Raum 1')), '42501', 'termin_session_anlegen: Testtermin, nur Admin',
-                           '4 Coach: Testtermin festschreiben -> 42501 (testlauf nur Admin)')
+            then lives_ok(format('select termin_session_anlegen(%L, %L, %L)', public.slots_berlin_tag(now()), pg_temp.zeit(19),
+                                 pg_temp.raum('Raum 1')),
+                          '4 Coach: Testtermin festschreiben -> Testlauf (T5, vorher 42501 testlauf_nur_admin)')
             else skip('heute kein Betriebstag', 1) end;
 select pg_temp.als(:'admin');
 

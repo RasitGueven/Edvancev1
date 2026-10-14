@@ -249,6 +249,7 @@ export const BEISPIEL_MASTERY: Record<string, Omit<LiveMasteryKandidat, 'entsche
     erwartung:
       'Sieht das rechtwinklige Dreieck aus Höhe und Tiefe und nimmt die Diagonale als Hypotenuse: 2,40² + 0,80² = 6,40, also etwa 2,53 m. Antwort: Es klappt nicht, der Schrank stößt an.',
     kriterium: 'Richtig gelöst und den Weg ohne Hilfe erklärt.',
+    entwurf: false,
   },
 }
 

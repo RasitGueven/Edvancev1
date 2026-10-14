@@ -102,7 +102,7 @@ export function sequenzAus(k: KindRaum): LiveErklaersequenz | null {
 /** Mastery-Kandidat aus coach_raum_live, Pruefgespraech (A1) und Belegen aus dem Lernpfad. */
 export function masteryAus(
   k: KindRaum,
-  pruefung: SkillPruefung | null,
+  pruefung: (SkillPruefung & { entwurf?: boolean }) | null,
   lernpfad: LernpfadEintrag | null,
   jetzt: string,
   warmupHeute: (skillKey: string) => MasteryBeleg | null = () => null,
@@ -131,6 +131,7 @@ export function masteryAus(
     frage: pruefung?.frage ?? '',
     erwartung: pruefung?.erwartung ?? '',
     kriterium: pruefung?.kriterium ?? '',
+    entwurf: pruefung?.entwurf === true,
     entscheidung: heute ? { art: heute.stand_coach, grund: heute.grund, zeit: heute.am, von: heute.von ?? '' } : null,
   }
 }

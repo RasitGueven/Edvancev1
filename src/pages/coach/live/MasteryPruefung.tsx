@@ -122,7 +122,11 @@ export function MasteryPruefung({ kind, m }: { kind: CoachLiveKind; m: LiveMaste
         ))}
       </ul>
       <div className="rounded-r-[var(--radius-md)] border-l-[3px] border-[var(--color-primary)] bg-[var(--color-bg-app)] px-4 py-2.5">
-        <Feldname>{tx.t('mastery.frage')}</Feldname>
+        <div className="flex flex-wrap items-center gap-2">
+          <Feldname>{tx.t('mastery.frage')}</Feldname>
+          {/* T5: nur im Testlauf, wenn die Pruefrage nicht freigegeben ist. */}
+          {m.entwurf && <Pille ton="warn">{tx.t('mastery.entwurf')}</Pille>}
+        </div>
         <p className="mt-1 text-base leading-relaxed text-[var(--color-text-primary)]">{m.frage}</p>
       </div>
       <PruefungTablet kind={kind} m={m} />
