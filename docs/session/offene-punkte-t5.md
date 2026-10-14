@@ -59,6 +59,15 @@ Per dbread (Prod, 14.10.) und per Aufruf der Prod-API mit dem anon-Key (nur lese
   kein `pgrst.db_pre_request`.
 - Ein Präfix `request.` wäre angreifbar (PostgREST setzt `request.*` aus der Anfrage); `edvance.` setzt PostgREST nie.
 
+## Zweitprüfung (CLAUDE.md §8)
+
+Unabhängige Instanz, nur lesend (Code, Prod per dbread, Wegwerf-DB nur in `begin … rollback`): **freigeben**, kein
+Befund hoch oder mittel. Geprüft: Rücknahme der Einstellung nach Erfolg und Fehler (lokal belegt), kein fremder Code
+zwischen `set_config` und Rücknahme (Trigger auf `coaching_sessions`: nur `laufzustand_trg` BEFORE ohne INSERT, kein
+AFTER-Trigger, keine Rules; einziges `INSERT INTO coaching_sessions` in `public` ist `termin_session_anlegen`),
+Ausnahme exakt (a)+(b)+(c) und NULL-sicher, Beleg zu Entscheidung 6. Niedrige Befunde: Punkte 2, 4 und 10 unten;
+pgTAP konnte die Prüfinstanz nicht laden, die Läufe stehen im PR.
+
 ## Offene Punkte
 
 1. **Eine geprüfte Prüffrage trägt im Testlauf auch „Entwurf“.** Folge von Auslegung 3 (Status `geprueft` ist nicht
@@ -83,3 +92,6 @@ Per dbread (Prod, 14.10.) und per Aufruf der Prod-API mit dem anon-Key (nur lese
    Takt (4 s). Echt bleibt es bei einem.
 9. **„Keine freigegebene Prüffrage“.** Der Text `mastery.keineFrage` passt im Testlauf nur halb (dort fehlt jede
    Prüffrage). Nicht geändert.
+10. **Regel gegen künftige Lücken (Zweitprüfung Befund 3).** Entscheidung 6 hängt daran, dass PostgREST nur `public`
+    und `graphql_public` ausliefert und keine `public`-Funktion einen Einstellungsnamen aus Parametern setzt. Vorschlag:
+    ein Wächter-Test, der `set_config(` mit nicht konstantem ersten Argument in `public` meldet. Nicht Teil von T5.
