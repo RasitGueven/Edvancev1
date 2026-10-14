@@ -3,7 +3,8 @@ import { supabase } from '@/lib/supabase/client'
 // Konto K1: Einladung annehmen, Passwort setzen, vergessen und aendern.
 // Die Fehler sind Codes, die Oberflaeche uebersetzt sie (Namespace konto).
 
-export type LinkTyp = 'invite' | 'recovery' | 'signup' | 'magiclink' | 'email_change'
+// email_change fehlt bewusst: auth_mail lehnt Adressaenderungen ab (K1, Entscheidung Rasit).
+export type LinkTyp = 'invite' | 'recovery' | 'signup' | 'magiclink'
 
 export type KontoFehler = 'link_ungueltig' | 'altes_falsch' | 'zu_kurz' | 'gleich' | 'unbekannt'
 

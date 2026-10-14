@@ -107,6 +107,12 @@ describe('Einladung annehmen', () => {
     expect(sb.auth.verifyOtp).not.toHaveBeenCalled()
   })
 
+  it('email_change-Link wird nicht angenommen (Adressaenderung gesperrt)', () => {
+    zeige('/auth/bestaetigen?token_hash=zz_h&type=email_change')
+    expect(screen.getByRole('heading', { name: 'Dieser Link gilt nicht mehr' })).toBeInTheDocument()
+    expect(sb.auth.verifyOtp).not.toHaveBeenCalled()
+  })
+
   it('abgelaufener Token: Hinweis statt Passwortformular', async () => {
     sb.auth.verifyOtp.mockResolvedValueOnce({ data: null, error: { code: 'otp_expired', message: 'x' } } as never)
     zeige('/auth/einladung?token_hash=zz_alt&type=invite')

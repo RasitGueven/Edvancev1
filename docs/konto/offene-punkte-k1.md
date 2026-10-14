@@ -26,6 +26,39 @@ Stand 14.10.2026 · Branch `feat/rasit-konto-k1` · Migration `20261014121000_ko
 8. **Unbekannte Mailart → 400** mit `unbekannte Mailart: <art>`, protokolliert als `unbekannt`. Das betrifft heute nur
    die Art `email` (Code-Login per OTP), die Edvance nicht nutzt. Wer sie einschaltet, sieht den Fehler sofort.
 
+## Entscheidungen Rasit (14.10.2026, nach dem ersten PR-Stand)
+
+1. Migration `20261014121000_konto_k1` ist freigegeben (CLAUDE.md §4).
+2. **`auth_mail` lehnt `email_change` ab:** 403 `email_change ist gesperrt: Adressaenderung nur ueber den Admin`, mit
+   Protokollzeile und ohne Mail. Das gilt, bis es einen Weg über den Admin gibt. Die Seite `/auth/bestaetigen` nimmt
+   `type=email_change` nicht mehr an.
+   - Lokal belegt: `PUT /auth/v1/user {email}` → Supabase antwortet 500 („Unexpected status code returned from hook:
+     403“). Die Adresse bleibt, `email_change` bleibt leer, es kommt keine Mail.
+3. **`provision_student` antwortet nach dem Deploy mit 410** wie `provision_coach`. Aufrufer: keine (`git grep` über
+   src, scripts, tools, supabase/tests). `scripts/seed-test-student.ts` ruft nur die RPC `app_provision_student`, die
+   bleibt.
+4. **„Passwort vergessen“** gilt für alle Konten mit Mail und Passwort, auch Eltern. So bleibt es.
+
+## Bericht: Lösen andere Functions eine Auth-Mail aus? (nur gemeldet, nichts geändert)
+
+`git grep` nach `inviteUserByEmail|generateLink|signUp|signInWithOtp|magiclink|resetPasswordForEmail` über
+`supabase/functions`, `scripts`, `tools`, `src` findet außer K1 selbst nur `provision_student` (jetzt 410).
+
+- **`vertrag_abschluss`** legt zwei Konten an, beide per `auth.admin.createUser`:
+  - das Schülerkonto mit `email_confirm: true` und Zufallspasswort (`vertrag_abschluss/index.ts:152`);
+  - das Elternkonto mit `email_confirm: false` und ohne Passwort (`:185`). Der Kommentar dort sagt ausdrücklich „kein
+    inviteUserByEmail … keine Mail“.
+  - Lokal mit genau diesen Aufrufen geprüft: 0 Mails in Mailpit, 0 Zeilen in `auth_mail_versand`. Ein
+    `createUser` der Admin-API ruft den Hook nicht.
+- **`tools/platz-konten.mjs`** und **`scripts/seed-test-student.ts`** nutzen `createUser` mit `email_confirm: true`.
+  Sie lösen keine Mail aus.
+- **Was der Hook mit einem Elternkonto aus `vertrag_abschluss` macht:** Nur wenn die Eltern selbst „Passwort
+  vergessen“ nutzen, entsteht eine `recovery`-Mail. Sie geht an die Elternadresse, mit Link auf
+  `/auth/neues-passwort`.
+  - Lokal belegt: `recover` 200 → Mail „Neues Passwort für Edvance“ → `verify` 200.
+  - Danach ist das Konto bestätigt (`email_confirmed_at` gesetzt), die Eltern legen ein Passwort fest und landen auf
+    `/parent`. Das passt zu Entscheidung 4.
+
 ## Befunde
 
 1. **`[auth.email] enable_signup = false` schaltet den ganzen E-Mail-Login ab.** Lokal geprüft: `POST
@@ -36,18 +69,18 @@ Stand 14.10.2026 · Branch `feat/rasit-konto-k1` · Migration `20261014121000_ko
    bekommen je eine Mail mit eigenem Link. Wer *einen* der beiden Links einlöst (`verifyOtp` mit `token_hash`), schließt
    die Änderung ab; der andere ist danach ungültig. Probiert in beiden Reihenfolgen. Das ist Supabase-Verhalten, nicht
    K1. Folge: Wer eine Sitzung hat, kann die Adresse ändern, indem er nur den Link an die neue Adresse klickt. Edvance
-   bietet keine Adressänderung an, der Weg ist nur per API mit gültiger Sitzung erreichbar. Vorschlag: vor einer
-   Adressänderung in der Oberfläche klären; bis dahin ggf. `email_change` im Hook ablehnen (Rasit).
+   bietet keine Adressänderung an. **Erledigt:** Der Hook lehnt `email_change` ab (Entscheidung 2 oben).
 3. **Zeitliches Ausspähen bleibt auf API-Ebene möglich.** Die Seite „Passwort vergessen“ antwortet immer gleich. Supabase
    ruft den Hook aber nur für vorhandene Adressen; die Antwortzeit von `/auth/v1/recover` ist für sie länger (Versand über
    Graph). Wer die API direkt misst, kann daraus schließen. Nicht in unserer Hand; Rate-Limits begrenzen es.
 4. **`provision_student` lädt Eltern weiter per `inviteUserByEmail` ein.** Die Function hat keinen Aufrufer mehr in der
    Oberfläche (Verträge legen Konten per `createUser` an), ist aber deployt. Mit aktivem Hook bekämen Eltern die
-   neutrale Einladung („Sie wurden zu Edvance eingeladen“) und landen nach dem Passwort auf `/parent`. Nach Entscheidung 11
-   nicht angefasst. Vorschlag: wie `provision_coach` stilllegen (Rasit).
+   neutrale Einladung („Sie wurden zu Edvance eingeladen“) und landen nach dem Passwort auf `/parent`. **Erledigt:**
+   Die Function antwortet nach dem Deploy mit 410 (Entscheidung 3 oben).
 5. **„Passwort vergessen“ steht auf der gemeinsamen Login-Seite** und funktioniert damit für jedes Konto mit echter
    Adresse, auch Eltern. Eine Einschränkung auf Mitarbeitende ginge nur mit einer Aussage, ob die Adresse einem
    Mitarbeiter gehört — genau das darf die Seite nicht verraten. Tablet-Konten haben Adressen, an die keine Mail geht.
+   **Entschieden:** So bleibt es (Entscheidung 4 oben).
 6. **Einladung eingelöst, Passwort nicht gesetzt:** Wer „Weiter“ klickt und dann abbricht, ist bestätigt, hat aber kein
    Passwort. Die Coach-Liste zeigt „aktiv seit …“, „erneut senden“ gibt es dann nicht mehr. Weg: „Passwort vergessen“.
 7. **Repo-`config.toml` und Supabase-CLI 2.99.0:** Der Abschnitt `[local_smtp]` lässt `supabase start` mit „failed to

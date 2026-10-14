@@ -5,6 +5,7 @@
 //   - invite und recovery: Link auf die eigene Seite mit token_hash und type, nie /auth/v1/verify
 //   - unbekannte Art -> 400 mit definiertem Fehler, protokolliert
 //   - Protokollzeile ohne Token und ohne Link, auch im Fehlerfall
+//   - email_change ist gesperrt (403, protokolliert, keine Mail)
 //   - die uebrigen Arten bekommen eine korrekte Mail
 //
 // Lauf:  npx deno@2 test supabase/functions/auth_mail/
@@ -26,7 +27,6 @@ function nutzlast(art: string, extra: Record<string, unknown> = {}): string {
     user: {
       id: '0c100000-0000-4000-8000-00000000000c',
       email: 'zz-coach@example.org',
-      new_email: 'zz-neu@example.org',
       user_metadata: { full_name: 'ZZ Mia Coach' },
     },
     email_data: {
@@ -183,14 +183,22 @@ Deno.test('reauthentication: nur der Code, kein Link', async () => {
   protokollSauber(a.protokoll)
 })
 
-Deno.test('email_change sicher: je eine Mail an alte und neue Adresse mit eigenem Token', async () => {
+Deno.test('email_change -> 403 mit definiertem Fehler, protokolliert, nichts versendet', async () => {
   const a = aufbau()
   const r = await hookBearbeiten(await anfrage(nutzlast('email_change', { token_hash_new: HASH_NEU })), a.deps)
-  assertEquals(r.status, 200)
-  assertEquals(a.gesendet.map((m) => m.an), ['zz-coach@example.org', 'zz-neu@example.org'])
-  assertStringIncludes(a.gesendet[0].text, `token_hash=${HASH}&type=email_change`)
-  assertStringIncludes(a.gesendet[1].text, `token_hash=${HASH_NEU}&type=email_change`)
-  assertEquals(a.protokoll.length, 2)
+  assertEquals(r.status, 403)
+  assertEquals(await r.json(), {
+    error: { http_code: 403, message: 'email_change ist gesperrt: Adressaenderung nur ueber den Admin' },
+  })
+  assertEquals(a.gesendet.length, 0)
+  assertEquals(a.protokoll, [
+    {
+      art: 'email_change',
+      empfaenger: 'zz-coach@example.org',
+      user_id: '0c100000-0000-4000-8000-00000000000c',
+      fehler: 'email_change ist gesperrt: Adressaenderung nur ueber den Admin',
+    },
+  ])
   protokollSauber(a.protokoll)
 })
 

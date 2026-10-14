@@ -4,7 +4,8 @@
 // Ablauf je Aufruf:
 //   1. Signatur pruefen (Standard Webhooks). Ohne gueltige Signatur 401 und
 //      KEIN Protokoll — sonst koennte jeder die Tabelle fuellen.
-//   2. Art bestimmen. Unbekannte Art: 400 mit definiertem Fehler, protokolliert.
+//   2. Art bestimmen. Unbekannte Art: 400, gesperrte Art (email_change): 403,
+//      beide mit definiertem Fehler und protokolliert, keine Mail.
 //   3. Mail(s) bauen. Die Links zeigen auf eigene Seiten der App, nie direkt
 //      auf /auth/v1/verify: Die Seite loest den Token erst nach einem Klick ein,
 //      damit Mail-Scanner (Safe Links), die Links vorab oeffnen, ihn nicht
@@ -15,12 +16,11 @@
 // Auth bricht dann den Vorgang ab (eine Einladung ohne Mail entsteht nicht).
 
 import { signaturPruefen } from '../_shared/standard_webhooks.ts'
-import { ARTEN, GUELTIG, TEXTE, type MailArt } from './texte.ts'
+import { ARTEN, GESPERRT, GUELTIG, TEXTE, type GesperrteArt, type MailArt } from './texte.ts'
 
 export type HookNutzer = {
   id: string
   email?: string
-  new_email?: string
   user_metadata?: { full_name?: unknown }
 }
 
@@ -37,7 +37,7 @@ export type HookDaten = {
 export type Mail = { an: string; betreff: string; text: string }
 
 export type ProtokollZeile = {
-  art: MailArt | 'unbekannt'
+  art: MailArt | GesperrteArt | 'unbekannt'
   empfaenger: string
   user_id: string | null
   fehler: string | null
@@ -58,7 +58,6 @@ const SEITE: Record<Exclude<MailArt, 'reauthentication'>, string> = {
   recovery: '/auth/neues-passwort',
   signup: '/auth/bestaetigen',
   magiclink: '/auth/bestaetigen',
-  email_change: '/auth/bestaetigen',
 }
 
 function antwort(status: number, payload: unknown): Response {
@@ -98,10 +97,7 @@ function anrede(nutzer: HookNutzer): string {
   return name ? `Guten Tag ${name}` : 'Guten Tag'
 }
 
-/**
- * Die Mails zu einem Aufruf. Meist eine; bei email_change mit sicherer
- * Bestaetigung zwei (alte und neue Adresse, je mit eigenem Token).
- */
+/** Die Mail zu einem Aufruf (je Aufruf genau eine). */
 export function mailsBauen(art: MailArt, nutzer: HookNutzer, daten: HookDaten, basis: string): Mail[] {
   const vorlage = TEXTE[art]
   const fertig = (an: string, werte: Record<string, string>): Mail => ({
@@ -115,22 +111,12 @@ export function mailsBauen(art: MailArt, nutzer: HookNutzer, daten: HookDaten, b
     return [fertig(nutzer.email, { code: daten.token })]
   }
 
-  if (art === 'email_change') {
-    // Sichere Bestaetigung: token_hash gehoert zur bisherigen Adresse,
-    // token_hash_new zur neuen. Ohne sie geht nur die neue Adresse eine Mail.
-    const mails: Mail[] = []
-    if (nutzer.email && daten.token_hash && daten.token_hash_new) {
-      mails.push(fertig(nutzer.email, { link: linkFuer(basis, art, daten.token_hash) }))
-    }
-    const neu = nutzer.new_email
-    const hashNeu = daten.token_hash_new || daten.token_hash
-    if (neu && hashNeu) mails.push(fertig(neu, { link: linkFuer(basis, art, hashNeu) }))
-    if (mails.length === 0) throw new Error('email_change ohne Adresse oder Token')
-    return mails
-  }
-
   if (!nutzer.email || !daten.token_hash) throw new Error(`${art} ohne Adresse oder Token`)
   return [fertig(nutzer.email, { link: linkFuer(basis, art, daten.token_hash) })]
+}
+
+function istGesperrt(x: unknown): x is GesperrteArt {
+  return typeof x === 'string' && (GESPERRT as readonly string[]).includes(x)
 }
 
 function istArt(x: unknown): x is MailArt {
@@ -168,6 +154,11 @@ export async function hookBearbeiten(req: Request, deps: Abhaengigkeiten): Promi
   }
 
   const artRoh = daten.email_action_type
+  if (istGesperrt(artRoh)) {
+    const fehler = `${artRoh} ist gesperrt: Adressaenderung nur ueber den Admin`
+    await deps.protokollieren({ art: artRoh, empfaenger: nutzer.email ?? '', user_id: nutzer.id, fehler })
+    return fehlerAntwort(403, fehler)
+  }
   if (!istArt(artRoh)) {
     const fehler = `unbekannte Mailart: ${String(artRoh).slice(0, 40)}`
     await deps.protokollieren({ art: 'unbekannt', empfaenger: nutzer.email ?? '', user_id: nutzer.id, fehler })

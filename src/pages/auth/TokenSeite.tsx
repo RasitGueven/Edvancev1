@@ -13,7 +13,7 @@ type Art = 'einladung' | 'neuesPasswort' | 'bestaetigen'
 const ERWARTET: Record<Art, readonly LinkTyp[]> = {
   einladung: ['invite'],
   neuesPasswort: ['recovery'],
-  bestaetigen: ['signup', 'magiclink', 'email_change'],
+  bestaetigen: ['signup', 'magiclink'],
 }
 
 type Schritt = 'start' | 'passwort' | 'fertig' | 'ungueltig'

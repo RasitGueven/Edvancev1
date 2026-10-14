@@ -9,16 +9,20 @@
 // Platzhalter: {{anrede}} ("Guten Tag Name" oder "Guten Tag"), {{link}},
 // {{code}}, {{gueltig}}.
 
-export type MailArt = 'invite' | 'recovery' | 'signup' | 'email_change' | 'reauthentication' | 'magiclink'
+export type MailArt = 'invite' | 'recovery' | 'signup' | 'reauthentication' | 'magiclink'
 
-export const ARTEN: readonly MailArt[] = [
-  'invite',
-  'recovery',
-  'signup',
-  'email_change',
-  'reauthentication',
-  'magiclink',
-]
+export const ARTEN: readonly MailArt[] = ['invite', 'recovery', 'signup', 'reauthentication', 'magiclink']
+
+/**
+ * Arten, die der Hook bewusst ablehnt (Entscheidung Rasit, 14.10.2026).
+ *
+ * email_change: Mit token_hash schliesst Supabase eine Adressaenderung schon
+ * nach EINEM Klick ab, auch nur auf den Link an die neue Adresse (lokal
+ * belegt, GoTrue v2.192.0). Wer eine Sitzung hat, koennte so die Adresse
+ * uebernehmen. Gesperrt, bis es einen Weg ueber den Admin gibt.
+ */
+export const GESPERRT = ['email_change'] as const
+export type GesperrteArt = (typeof GESPERRT)[number]
 
 /** Muss zur Einstellung "Email OTP Expiration" (86400 s) passen. */
 export const GUELTIG = '24 Stunden'
@@ -53,16 +57,6 @@ export const TEXTE: Record<MailArt, { betreff: string; text: string }> = {
       '{{anrede}},\n\n' +
       'bitte bestätigen Sie Ihre E-Mail-Adresse für Edvance über den folgenden Link:\n\n{{link}}\n\n' +
       'Der Link gilt {{gueltig}}. Falls Sie diese Mail nicht erwartet haben, können Sie sie ignorieren.\n\n' +
-      GRUSS,
-  },
-  email_change: {
-    betreff: 'Änderung Ihrer E-Mail-Adresse bei Edvance',
-    text:
-      '{{anrede}},\n\n' +
-      'für Ihr Konto bei Edvance wurde eine Änderung der E-Mail-Adresse angefordert. ' +
-      'Bitte bestätigen Sie sie über den folgenden Link:\n\n{{link}}\n\n' +
-      'Der Link gilt {{gueltig}}. Haben Sie die Änderung nicht angefordert, antworten Sie bitte ' +
-      'auf diese Mail; Ihre bisherige Adresse bleibt bis zur Bestätigung gültig.\n\n' +
       GRUSS,
   },
   reauthentication: {

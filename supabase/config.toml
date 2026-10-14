@@ -426,10 +426,7 @@ enabled = true
 # ---------------------------------------------------------------------------
 # Edge-Functions (aus der frueheren Stub-config.toml uebernommen — P00b+).
 #
-# provision_student nutzt das @supabase/server-Muster (withSupabase) und
-# uebernimmt die Auth selbst (auth: ['user','secret']). Das Plattform-Gateway
-# darf daher NICHT zusaetzlich verifizieren, sonst kommt der Request nie im
-# Function-Code an (401 vor dem Handler).
+# provision_student: stillgelegt (K1), antwortet 410.
 [functions.provision_student]
 verify_jwt = false
 
