@@ -131,7 +131,7 @@ jobs:
           # pgTAP liegt in `extensions`; die Tests rufen plan()/ok()/is()
           # unqualifiziert auf. In Supabase steht das im search_path der
           # Datenbank, in einem nackten Postgres nicht.
-          PGOPTIONS: -c search_path=public,extensions
+          PGOPTIONS: -c search_path=public,extensions -c jit=off
         run: |
           liste=supabase/tests/bekannt-rot.txt
           fehler=0
