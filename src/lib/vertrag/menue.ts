@@ -4,7 +4,7 @@
 // Summenzeile addiert Werte aus vertraege_aktuell, sie leitet sie nicht ab —
 // der Status eines Vertrags und sein Monatsbeitrag stehen fertig in der Zeile.
 
-import type { VertragAktuell, WirksamerStatus, Zahlungsstatus } from '@/types'
+import type { VertragAktuell, Vertragsart, WirksamerStatus, Zahlungsstatus } from '@/types'
 
 /** Was in der Uebersicht als "laufend" zaehlt. */
 export const LAUFEND: WirksamerStatus[] = ['aktiv', 'im_widerruf']
@@ -22,12 +22,19 @@ export type Summen = {
  * ausgelaufener Vertrag traegt seinen letzten Beitrag sonst ewig weiter.
  */
 export function summen(vertraege: VertragAktuell[]): Summen {
-  const laufend = vertraege.filter((v) => LAUFEND.includes(v.wirksamer_status))
+  // V5 (Entscheidung 8): Pilotvereinbarungen zaehlen in keiner Vertrags- oder Beitragskennzahl.
+  const regulaer = vertraege.filter(istRegulaer)
+  const laufend = regulaer.filter((v) => LAUFEND.includes(v.wirksamer_status))
   return {
     laufend: laufend.length,
     abbuchungCents: laufend.reduce((s, v) => s + v.beitrag_diesen_monat_cents, 0),
-    imWiderruf: vertraege.filter((v) => v.wirksamer_status === 'im_widerruf').length,
+    imWiderruf: regulaer.filter((v) => v.wirksamer_status === 'im_widerruf').length,
   }
+}
+
+/** V5: Nur regulaere Vertraege tragen Beitrag, Zahlung und Mahnung — ein Pilot nie. */
+export function istRegulaer(v: { vertragsart?: Vertragsart | null }): boolean {
+  return v.vertragsart !== 'pilot'
 }
 
 /** Die Mahnstufen in ihrer Reihenfolge — dieselbe wie in der RPC. */
@@ -103,7 +110,7 @@ export function auslaufende(vertraege: VertragAktuell[]): VertragAktuell[] {
 /** Zahlungsverzug: alles, was nicht in Ordnung ist. */
 export function imVerzug(vertraege: VertragAktuell[]): VertragAktuell[] {
   return vertraege
-    .filter((v) => v.zahlungsstatus !== 'in_ordnung')
+    .filter((v) => istRegulaer(v) && v.zahlungsstatus !== 'in_ordnung')
     .sort((a, b) => (a.zahlungsstatus_seit ?? '').localeCompare(b.zahlungsstatus_seit ?? ''))
 }
 
@@ -114,6 +121,7 @@ export function imVerzug(vertraege: VertragAktuell[]): VertragAktuell[] {
  * PDF-Paket haben ihr Vertrags-PDF, aber kein SEPA-Mandat. Ein Versand ohne
  * Mandat wäre eine halbe Mail.
  */
-export function buendelVollstaendig(arten: readonly string[]): boolean {
-  return arten.includes('vertrag') && arten.includes('sepa_mandat')
+export function buendelVollstaendig(arten: readonly string[], vertragsart: Vertragsart = 'regulaer'): boolean {
+  // V5: Die Pilotvereinbarung hat kein SEPA-Mandat.
+  return arten.includes('vertrag') && (vertragsart === 'pilot' || arten.includes('sepa_mandat'))
 }

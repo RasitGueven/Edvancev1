@@ -828,3 +828,52 @@ dieselbe wie bei `naechster_termin`, den `quest_erzeugen`, `session_kind_kontext
   beide `null` = Einzel-Session oder Testlauf). Pro Raum und Zeitpunkt gibt es höchstens eine Session.
 - **Anwesenheit:** Was der Coach in der Session setzt („anwesend“, „nicht erschienen“), steht danach auch im
   Kind-Termin (Spiegel-Trigger); ein anderer Schreiber für `kind_termine.zustand` aus der Session existiert nicht.
+- **`slots_vertrag_json`** (V5, 14.10.2026) liefert zusätzlich `vertragsart` (`'regulaer' | 'pilot'`). Bei einer
+  Pilotvereinbarung ist `paket` = `null`, `laufzeit_monate` = `null` und `rhythmus` = `{ woechentlich: 1,
+  vierzehntaeglich: 0 }`. Es entfällt nichts. `slots_vertrag_am`, `slots_kinder_basis` und `slots_kind_zugelassen` sind
+  unverändert; ein Pilot greift dort ohne Sonderfall.
+
+## 11. Verträge: Vertragsart Pilotvereinbarung (Admin, Paket V5)
+
+Eine Pilotvereinbarung ist ein Vertrag mit `vertragsart = 'pilot'`: 0 €, ohne Paket, Laufzeit, SEPA-Mandat und
+Widerruf, mit festem Ende und einer festen Zahl Einheiten. Nach dem Abschluss verhält sich das Kind wie mit jedem
+laufenden Vertrag (Zugangscode, Akte, Slots, Session, Reports). Migration `20261014110412_vertrag_pilot.sql`.
+
+### 11.1 Daten
+
+- **`vertraege.vertragsart`** `text not null default 'regulaer'`, `check in ('regulaer','pilot')`. Der Bestand ist
+  `'regulaer'`. Die Spalte steht auch in `vertraege_aktuell` (letzte Spalte).
+- **Regeln beim Pilot (CHECK):** `tier_id`, `laufzeit_monate`, `widerruf_bis` und `ferientage` sind `null`,
+  `preis_cents = 0`. `einheiten` ist entweder `null` oder `> 0`. Ab dem Versand bzw. dem Abschluss müssen
+  `einheiten`, `vertragsbeginn` und `vertrag_ende` gesetzt sein. `zahlungsstatus` bleibt `'in_ordnung'`,
+  `offener_betrag_cents` ist `null`.
+- **Guard (`vertraege_guard`):** In der Vorbereitung leert er beim Pilot Paket und Laufzeit, setzt `preis_cents = 0`
+  und nimmt `einheiten` aus dem Formular. Wechselt die Art von Pilot zu Regulär, rechnet er Preis und Einheiten
+  wieder aus dem Tarif und leert `vertrag_ende`. Die Vertragsart lässt sich nur in der Vorbereitung ändern.
+- **`vertrag_dokumente.vertragsarten`** `text[]`: zu welchen Vertragsarten ein Dokument gehört.
+  - Regulär: `vertrag`, `sepa_mandat`, `agb`, `widerruf`, `datenschutz_vertrag`, `einwilligung_fotos`.
+  - Pilot: `pilotvereinbarung` (Pflicht), `datenschutz_vertrag`, `einwilligung_fotos`.
+  - Die Pflichtprüfung beim Abschluss und das Festhalten der Fassungen beim Versand gelten je Vertragsart.
+  - Beim Abschluss vor Ort werden Zustimmungen zu Dokumenten der anderen Art nicht gespeichert.
+- **`vertraege_aktuell.beitrag_diesen_monat_cents`** ist beim Pilot immer 0.
+
+### 11.2 Aufrufe
+
+| Funktion | Änderung |
+|---|---|
+| `vertrag_starten(p_lead_id uuid, p_vertragsart text default 'regulaer') → uuid` | Neuer Parameter. Ersetzt die einstellige Fassung (keine Überladung), Aufrufe mit nur `p_lead_id` lösen unverändert auf. |
+| `vertrag_pilot_vorschlag(p_beginn date) → { ende date, einheiten int }` | Neu, nur Admin. Ende: letzter Schultag (Mo–Fr, nicht in den Ferien) vor den nächsten Sommerferien nach dem Beginn. Einheiten: Zahl der Wochen mit mindestens einem Schultag. `22023`, wenn der Beginn kein Monatserster ist. |
+| `vertrag_versenden(…)` | Pilot: keine Pflicht für Paket, Laufzeit und IBAN. Geprüft werden Beginn, Ende und Einheiten. Das Ende darf nicht in den Ferien liegen (`P0001 vertrag_pilot: …`). |
+| `vertrag_abschliessen(…)` | Signatur und Ergebnisform unverändert. Pilot: `p_tier_id` und `p_laufzeit_monate` müssen `null` sein. Ohne IBAN, ohne SEPA-Unterschrift und ohne Abo (`student_subscriptions`). Ende und Einheiten kommen vom Vertrag, `vertrag_status = 'aktiv'`, `widerruf_bis` und `ferientage` sind `null`. Ergebnis: `ferientage: null`, `ferien: []`, `widerruf_bis: null`. |
+| `vertrag_folgevertrag_starten` | Unverändert. Der Folgevertrag eines Pilots ist `'regulaer'`, ohne Paket vorbelegt. |
+| `vertrag_zahlungsstatus_setzen` | Unverändert. Für einen Pilot scheitert jede Stufe außer `in_ordnung` am CHECK (`23514`). |
+
+### 11.3 Frontend
+
+- **Kennzahlen:** `summen()` und `imVerzug()` in `src/lib/vertrag/menue.ts` lassen Pilotverträge aus.
+  `buendelVollstaendig(arten, vertragsart)` verlangt beim Pilot kein SEPA-Mandat.
+- **Kennzeichen „Pilot“:** `PilotKennzeichen` (`src/pages/admin/vertraege/`) steht im Vertragsmenü (Spalte Paket),
+  im Detail und im Assistenten (Kopf), im Verlauf, im Kopf der Schülerakte (Admin) und in den Slots (Kinder-Liste,
+  Kind).
+- **Vorlage:** `dokumente/de/pilotvereinbarung.md`, gebündelt in `supabase/functions/_shared/dokumente/texte.ts`.
+  Die Edge Functions erzeugen für einen Pilot nur das Vertragsdokument (Art `vertrag`), kein Mandat.

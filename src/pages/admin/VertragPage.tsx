@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { berlinToday } from '@/lib/datetime'
 import { listSchulen, type Schule } from '@/lib/supabase/schulen'
 import { listTiers } from '@/lib/supabase/subscriptions'
-import { berechneVertragsende, type VertragEnde } from '@/lib/supabase/vertragEnde'
 import {
   getGlaeubigerId,
   getIban,
@@ -35,6 +34,8 @@ import { unterlagenPerMail } from '@/lib/supabase/vertragMail'
 import { Schritt4Versand } from './vertraege/Schritt4Versand'
 import { VertragForm } from './vertraege/VertragForm'
 import { WizardKopf, type WizardSchritt } from './vertraege/WizardKopf'
+import { PilotKennzeichen } from './vertraege/PilotKennzeichen'
+import { useVertragsende } from './vertraege/useVertragsende'
 import { ZugangscodeKarte } from './vertraege/ZugangscodeKarte'
 import { isDirty, toFormState, toPatch, type VertragFormState } from './vertraege/vertragForm'
 import { fehlendeAngaben, fehlendeFormAngaben, kindName } from './vertraege/vertragModel'
@@ -68,8 +69,6 @@ export function VertragPage(): JSX.Element {
   const [iban, setIban] = useState<string | null>(null)
   const [stamm, setStamm] = useState<Stammdaten>(LEER)
   const [nachweise, setNachweise] = useState<VertragNachweise | null>(null)
-  const [ende, setEnde] = useState<VertragEnde | null>(null)
-  const [endeFehler, setEndeFehler] = useState<string | null>(null)
   const [schritt, setSchritt] = useState<WizardSchritt>(1)
   const [wahl, setWahl] = useState<AbschlussWahl | null>(null)
   const [loading, setLoading] = useState(true)
@@ -110,25 +109,8 @@ export function VertragPage(): JSX.Element {
     })()
   }, [load])
 
-  // Vorschau des Vertragsendes — aus der Datenbank, nicht aus dem Frontend.
-  const beginn = form?.vertragsbeginn ?? ''
-  const laufzeit = form?.laufzeit_monate ?? ''
-  useEffect(() => {
-    if (beginn === '' || laufzeit === '') {
-      setEnde(null)
-      setEndeFehler(null)
-      return
-    }
-    let aktuell = true
-    void berechneVertragsende(beginn, Number(laufzeit)).then(({ data, error: err }) => {
-      if (!aktuell) return
-      setEnde(data)
-      setEndeFehler(err)
-    })
-    return () => {
-      aktuell = false
-    }
-  }, [beginn, laufzeit])
+  // Vorschau des Vertragsendes bzw. Pilot-Vorschlag — aus der Datenbank, nicht aus dem Frontend.
+  const { ende, endeFehler, vorschlag, vorschlagFehler } = useVertragsende(form, setForm)
 
   const run = async (action: () => Promise<{ error: string | null }>): Promise<boolean> => {
     setSaving(true)
@@ -215,13 +197,16 @@ export function VertragPage(): JSX.Element {
         <AdminHeader
           eyebrow={t('detail.eyebrow')}
           title={kindName(vertrag)}
-          description={t('detail.mandate', { ref: vertrag.mandatsreferenz })}
+          description={vertrag.vertragsart === 'pilot' ? undefined : t('detail.mandate', { ref: vertrag.mandatsreferenz })}
           backTo="/admin/vertraege"
           backLabel={t('detail.back')}
           actions={
-            <EdvanceBadge variant={STATUS_BADGE[vertrag.status]}>
-              {t(`status.${vertrag.status}`)}
-            </EdvanceBadge>
+            <>
+              <PilotKennzeichen art={vertrag.vertragsart} />
+              <EdvanceBadge variant={STATUS_BADGE[vertrag.status]}>
+                {t(`status.${vertrag.status}`)}
+              </EdvanceBadge>
+            </>
           }
         />
 
@@ -260,6 +245,8 @@ export function VertragPage(): JSX.Element {
                   beginnOptionen={optionen}
                   ende={ende}
                   endeFehler={endeFehler}
+                  vorschlag={vorschlag}
+                  vorschlagFehler={vorschlagFehler}
                 />
                 {speicherFehler ? (
                   <p className="text-sm text-[var(--color-error-exam)]">{speicherFehler}</p>
@@ -332,6 +319,7 @@ export function VertragPage(): JSX.Element {
               <Schritt4VorOrt
                 vertragId={vertrag.id}
                 dokumente={stamm.dokumente}
+                vertragsart={vertrag.vertragsart}
                 datenSperre={datenSperre}
                 saving={saving}
                 onAbschluss={(zustimmungen, signaturVertrag, signaturSepa) =>
@@ -350,6 +338,7 @@ export function VertragPage(): JSX.Element {
             {schritt === 4 && wahl !== null && wahl !== 'vor_ort' && (
               <Schritt4Versand
                 glaeubigerId={vertrag.glaeubiger_id ?? stamm.glaeubigerId}
+                pilot={vertrag.vertragsart === 'pilot'}
                 weg={wahl}
                 empfaenger={vertrag.eltern_email}
                 datenSperre={datenSperre}

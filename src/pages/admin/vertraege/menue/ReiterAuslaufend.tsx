@@ -8,6 +8,7 @@ import { SELECT_SM } from '@/lib/formStyles'
 import { auslaufende, kind, vertragspartner } from '@/lib/vertrag/menue'
 import type { TierPlan, VerlaengerungStatus, VertragAktuell } from '@/types'
 import { formatEuro } from '../VertragForm'
+import { PilotKennzeichen } from '../PilotKennzeichen'
 
 /** 'verlaengert' fehlt bewusst: es entsteht nur aus dem Abschluss eines Folgevertrags. */
 const WAEHLBAR: VerlaengerungStatus[] = [
@@ -75,10 +76,15 @@ export function ReiterAuslaufend({
     {
       key: 'paket',
       kopf: t('field.tier_id'),
+      // V5: Ein Pilot hat weder Paket noch Beitrag — dort steht das Kennzeichen.
       zelle: (v) =>
-        `${tiers.find((x) => x.id === v.tier_id)?.name ?? '—'} · ${
-          v.preis_cents !== null ? formatEuro(v.preis_cents, lang) : '—'
-        }`,
+        v.vertragsart === 'pilot' ? (
+          <PilotKennzeichen art={v.vertragsart} />
+        ) : (
+          `${tiers.find((x) => x.id === v.tier_id)?.name ?? '—'} · ${
+            v.preis_cents !== null ? formatEuro(v.preis_cents, lang) : '—'
+          }`
+        ),
     },
     {
       key: 'verlaengerung',

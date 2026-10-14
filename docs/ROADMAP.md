@@ -94,6 +94,12 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Verträge V5 · Pilotvereinbarung** (Retro `2026-10-14-vertraege-v5-pilot.md`, Branch `feat/rasit-vertrag-pilot`):
+  zweite Vertragsart `vertraege.vertragsart` (`regulaer` | `pilot`): 0 €, ohne Paket, Laufzeit, SEPA und Widerruf,
+  festes Ende und feste Einheiten mit Vorschlag (`vertrag_pilot_vorschlag`), Status ab Abschluss `aktiv`.
+  Dokumente je Vertragsart (`vertrag_dokumente.vertragsarten`), Vorlage `pilotvereinbarung.md`, PDF ohne Mandat.
+  Kennzeichen „Pilot“ in Menü, Detail, Akte und Slots, Pilot in keiner Kennzahl. Erster Fall: Batu Demirel ab
+  01.11.2026. PR offen, noch nicht eingespielt. **Offen:** `docs/vertraege/offene-punkte-v5.md`.
 - **Slots SL1 · Datenmodell, Planung und Regeln** (Retro `2026-10-10-slots-sl1.md`, Branch
   `feat/rasit-slots-sl1-datenmodell`): sieben Tabellen (Uhrzeiten, Räume, Stammschichten, Abweichungen, Rhythmus,
   Stammplätze, Kind-Termine), Abgleich `termine_planen`, Planbilanz, Raumzuteilung, Schreib- und Lesefunktionen je

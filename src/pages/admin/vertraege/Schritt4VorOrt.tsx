@@ -3,17 +3,20 @@ import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
 import type { Zustimmung } from '@/lib/supabase/vertraege'
-import type { VertragDokument } from '@/types'
+import type { Vertragsart, VertragDokument } from '@/types'
 import { DokumentCheckliste } from './DokumentCheckliste'
 import { UnterschriftPanel } from './UnterschriftPanel'
+import { dokumenteFuer, vertragsDokument } from './vertragsart'
 
 type Schritt4VorOrtProps = {
   vertragId: string
   /** Alle aktiven Dokumente — die Fassung des Vertrags kommt separat dazu. */
   dokumente: VertragDokument[]
+  /** V5: Pilot — ohne SEPA-Mandat, Widerruf und AGB; Vertragsdokument ist die Pilotvereinbarung. */
+  vertragsart: Vertragsart
   datenSperre: string | null
   saving: boolean
-  onAbschluss: (zustimmungen: Zustimmung[], signaturVertrag: string, signaturSepa: string) => void
+  onAbschluss: (zustimmungen: Zustimmung[], signaturVertrag: string, signaturSepa: string | null) => void
 }
 
 /**
@@ -38,7 +41,8 @@ const BESTAETIGUNGEN = ['agb', 'datenschutz_vertrag', 'sepa_mandat', 'widerruf']
  */
 export function Schritt4VorOrt({
   vertragId,
-  dokumente,
+  dokumente: alleDokumente,
+  vertragsart,
   datenSperre,
   saving,
   onAbschluss,
@@ -46,6 +50,8 @@ export function Schritt4VorOrt({
   const { t } = useTranslation('vertraege')
   const [haken, setHaken] = useState<Record<string, string>>({})
   const [signiert, setSigniert] = useState(false)
+  const dokumente = dokumenteFuer(alleDokumente, vertragsart)
+  const vertragsSchluessel = vertragsDokument(vertragsart)
 
   const zuBestaetigen = dokumente.filter((d) => BESTAETIGUNGEN.includes(d.schluessel))
   const offenePflicht = zuBestaetigen.filter((d) => haken[d.schluessel] === undefined)
@@ -57,10 +63,10 @@ export function Schritt4VorOrt({
 
   const sperre = fehlt.length > 0 ? fehlt.join(' · ') : null
 
-  const abschliessen = (signaturVertrag: string, signaturSepa: string): void => {
+  const abschliessen = (signaturVertrag: string, signaturSepa: string | null): void => {
     // Alle gehakten Dokumente plus die Fassung des Vertrags selbst.
     const zustimmungen: Zustimmung[] = dokumente
-      .filter((d) => haken[d.schluessel] !== undefined || (d.pflicht && d.schluessel === 'vertrag'))
+      .filter((d) => haken[d.schluessel] !== undefined || (d.pflicht && d.schluessel === vertragsSchluessel))
       .map((d) => ({
         schluessel: d.schluessel,
         version: d.version,
@@ -100,6 +106,7 @@ export function Schritt4VorOrt({
         {signiert ? (
           <UnterschriftPanel
             saving={saving}
+            mitSepa={vertragsart !== 'pilot'}
             onCancel={() => setSigniert(false)}
             onSign={abschliessen}
           />

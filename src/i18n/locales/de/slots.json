@@ -453,5 +453,8 @@
     "kennzeichen": "Test",
     "titel": "Testkonto: zählt in den Kennzahlen nicht mit",
     "kindHinweis": "Testkonto. Es zählt in den Kennzahlen nicht mit und sitzt nie mit echten Kindern in einem Termin."
+  },
+  "vertragsart": {
+    "pilot": "Pilot"
   }
 }

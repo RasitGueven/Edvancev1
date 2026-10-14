@@ -22,8 +22,14 @@ export const VERTRAG_SPALTEN = `
   eltern_telefon, eltern_email, kind_vorname, kind_nachname, kind_geburtsdatum,
   klasse, fach, schule, laufzeit_monate, tier_id, preis_cents, einheiten,
   vertragsbeginn, vertrag_ende, ferientage, widerruf_bis, mandatsreferenz,
-  abschluss_weg, unterschrieben_am, abgeschlossen_am, kontoinhaber, glaeubiger_id
+  abschluss_weg, unterschrieben_am, abgeschlossen_am, kontoinhaber, glaeubiger_id,
+  vertragsart
 `
+
+/** V5: Pilotvereinbarung — kein Paket, kein SEPA-Mandat, kein Widerruf. */
+export function istPilot(v: VertragZeile): boolean {
+  return v.vertragsart === 'pilot'
+}
 
 export type VertragZeile = Record<string, unknown>
 
@@ -92,8 +98,12 @@ export function dokumentAusZeile(
   const preis = zahl('preis_cents')
 
   // Die Ferienklausel steht nur im Halbjahresvertrag (Anforderung B.7).
+  // Die Pilotvereinbarung hat keine Ferienverlaengerung und keinen Platzhalter dafuer.
+  const pilot = istPilot(v)
   const ferienklausel =
-    laufzeit === 6
+    pilot
+      ? null
+      : laufzeit === 6
       ? einsetzen(FERIENKLAUSEL, {
           einheiten: zahl('einheiten') ?? '\u2014',
           tage: zahl('ferientage') ?? 0,
@@ -148,8 +158,11 @@ export function dokumentAusZeile(
 
   return {
     vertrag: v,
-    markdown: fuellen(TEXT.vertrag, werte) + zusatz,
-    fusszeile: `Vertrag ${feld('mandatsreferenz') ?? String(v.id).slice(0, 8)}`,
+    markdown: fuellen(pilot ? TEXT.pilotvereinbarung : TEXT.vertrag, werte) + zusatz,
+    // V5: Die Mandatsreferenz eines Pilots wird nirgends gezeigt — dort die Vertrags-ID.
+    fusszeile: pilot
+      ? `Pilotvereinbarung ${String(v.id).slice(0, 8)}`
+      : `Vertrag ${feld('mandatsreferenz') ?? String(v.id).slice(0, 8)}`,
     unterschrift,
   }
 }

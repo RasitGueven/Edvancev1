@@ -37,6 +37,9 @@ export type VerlaengerungStatus =
   | 'verlaengert'
   | 'keine_verlaengerung'
 
+/** V5: regulaer = Paket + Laufzeit + SEPA; pilot = 0 €, feste Einheiten und festes Ende. */
+export type Vertragsart = 'regulaer' | 'pilot'
+
 export type Vertrag = {
   id: string
   created_at: string
@@ -67,11 +70,12 @@ export type Vertrag = {
   fach: string | null
   schule: string | null
 
+  vertragsart: Vertragsart
   laufzeit_monate: 6 | 12 | null
   tier_id: string | null
-  /** Monatsbeitrag, vom Trigger aus tier_laufzeiten gesetzt — nie aus dem Formular. */
+  /** Monatsbeitrag, vom Trigger aus tier_laufzeiten gesetzt — nie aus dem Formular. Pilot: 0. */
   preis_cents: number | null
-  /** Zugesagte Einheiten, vom Trigger aus tier_laufzeiten gesetzt. */
+  /** Zugesagte Einheiten, vom Trigger aus tier_laufzeiten gesetzt. Pilot: vom Admin vorgegeben. */
   einheiten: number | null
   vertragsbeginn: string | null
 
@@ -138,6 +142,10 @@ export type VertragPatch = Partial<
     | 'tier_id'
     | 'vertragsbeginn'
     | 'kontoinhaber'
+    | 'vertragsart'
+    // Nur beim Pilot aus dem Formular; beim regulaeren Vertrag rechnet sie die Datenbank.
+    | 'vertrag_ende'
+    | 'einheiten'
   >
 >
 
@@ -147,6 +155,8 @@ export type VertragDokument = {
   titel: string
   pflicht: boolean
   sort_order: number
+  /** V5: zu welchen Vertragsarten das Dokument gehoert. */
+  vertragsarten: Vertragsart[]
 }
 
 export type VertragZustimmung = {

@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import type { Spalte } from '@/components/edvance/EdvanceTable'
+import type { Vertragsart } from '@/types'
 import type { Rhythmus, SlotsKinderZeile, Stammplatz } from '@/types/slotplan'
+import { PilotKennzeichen } from '../../vertraege/PilotKennzeichen'
 import { datumVoll, wochentagName } from '../slotsFormat'
 import { EinheitenBalken, PlanbilanzBadge } from './Einheiten'
 import { KlasseFach } from '../KlasseFach'
@@ -18,8 +20,12 @@ export function rhythmusText(r: Rhythmus | null, t: T): string {
     .join(' + ')
 }
 
-/** "Basic · Halbjahr" */
-export function paketText(k: { paket: string | null; laufzeit_monate: number | null }, t: T): string {
+/** "Basic · Halbjahr"; V5: eine Pilotvereinbarung heisst "Pilot" (ohne Paket und Laufzeit). */
+export function paketText(
+  k: { paket: string | null; laufzeit_monate: number | null; vertragsart?: Vertragsart },
+  t: T,
+): string {
+  if (k.vertragsart === 'pilot') return t('vertragsart.pilot')
   return [k.paket ?? '–', k.laufzeit_monate ? t(`laufzeit.${k.laufzeit_monate}`) : null].filter(Boolean).join(' · ')
 }
 
@@ -44,7 +50,7 @@ function Paket({ k }: { k: SlotsKinderZeile }): JSX.Element {
   const { t } = useTranslation('slots')
   return (
     <span className="flex flex-col">
-      <span className="text-sm">{paketText(k, t)}</span>
+      {k.vertragsart === 'pilot' ? <PilotKennzeichen art="pilot" /> : <span className="text-sm">{paketText(k, t)}</span>}
       <span className="text-xs text-[var(--color-text-tertiary)]">{rhythmusText(k.rhythmus, t)}</span>
     </span>
   )

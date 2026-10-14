@@ -12,6 +12,8 @@ type Schritt4VersandProps = {
   empfaenger: string | null
   /** Leer heisst: das SEPA-Mandat geht ungueltig raus. Das muss man sehen. */
   glaeubigerId: string | null
+  /** V5: Pilot — kein SEPA-Mandat, also auch keine Warnung zur Gläubiger-ID. */
+  pilot?: boolean
   datenSperre: string | null
   saving: boolean
   onVersenden: (rueckmeldungBis: string) => void
@@ -39,6 +41,7 @@ export function Schritt4Versand({
   weg,
   empfaenger,
   glaeubigerId,
+  pilot = false,
   datenSperre,
   saving,
   onVersenden,
@@ -66,7 +69,7 @@ export function Schritt4Versand({
           : t('wizard.printHint')}
       </p>
 
-      {(glaeubigerId ?? '').trim() === '' && (
+      {!pilot && (glaeubigerId ?? '').trim() === '' && (
         <div className="rounded-xl border border-[var(--color-gold-warning)] bg-[var(--color-gold-warning-light)] px-4 py-3">
           <p className="text-sm leading-relaxed text-[var(--color-text-primary)]">
             {t('wizard.glaeubigerWarnung')}

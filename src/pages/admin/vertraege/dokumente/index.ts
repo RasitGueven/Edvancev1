@@ -11,6 +11,7 @@ import agb from './de/agb.md?raw'
 import widerruf from './de/widerruf.md?raw'
 import datenschutzVertrag from './de/datenschutz_vertrag.md?raw'
 import einwilligungFotos from './de/einwilligung_fotos.md?raw'
+import pilotvereinbarung from './de/pilotvereinbarung.md?raw'
 
 export type DokumentText = { version: string; text: string }
 
@@ -21,6 +22,8 @@ export const DOKUMENTE: Record<string, DokumentText> = {
   widerruf: { version: 'platzhalter-v1', text: widerruf },
   datenschutz_vertrag: { version: 'platzhalter-v1', text: datenschutzVertrag },
   einwilligung_fotos: { version: 'platzhalter-v1', text: einwilligungFotos },
+  // V5: Vertragsdokument der Pilotvereinbarung (Text liefert Tolunay).
+  pilotvereinbarung: { version: 'platzhalter-v1', text: pilotvereinbarung },
 }
 
 /** Setzt {{schluessel}}-Platzhalter ein; unbekannte oder leere Werte werden zu "—". */

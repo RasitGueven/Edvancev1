@@ -5,19 +5,21 @@ import { SignaturePad, type SignaturePadHandle } from '../intake/SignaturePad'
 
 type UnterschriftPanelProps = {
   saving: boolean
+  /** V5: Pilot hat kein SEPA-Mandat — dann nur das Vertragsfeld. */
+  mitSepa?: boolean
   onCancel: () => void
-  onSign: (signaturVertrag: string, signaturSepa: string) => void
+  onSign: (signaturVertrag: string, signaturSepa: string | null) => void
 }
 
 /** Zwei Unterschriftsfelder — Vertrag und SEPA-Mandat — mit dem vorhandenen SignaturePad. */
-export function UnterschriftPanel({ saving, onCancel, onSign }: UnterschriftPanelProps): JSX.Element {
+export function UnterschriftPanel({ saving, mitSepa = true, onCancel, onSign }: UnterschriftPanelProps): JSX.Element {
   const { t } = useTranslation('vertraege')
   const { t: tc } = useTranslation('common')
   const vertragRef = useRef<SignaturePadHandle>(null)
   const sepaRef = useRef<SignaturePadHandle>(null)
   const [inkVertrag, setInkVertrag] = useState(false)
   const [inkSepa, setInkSepa] = useState(false)
-  const complete = inkVertrag && inkSepa
+  const complete = inkVertrag && (inkSepa || !mitSepa)
 
   const feld = (
     label: string,
@@ -38,7 +40,7 @@ export function UnterschriftPanel({ saving, onCancel, onSign }: UnterschriftPane
   return (
     <div className="flex flex-col gap-4">
       {feld(t('sign.vertrag'), vertragRef, setInkVertrag)}
-      {feld(t('sign.sepa'), sepaRef, setInkSepa)}
+      {mitSepa && feld(t('sign.sepa'), sepaRef, setInkSepa)}
       <div className="flex flex-wrap justify-end gap-2">
         <Button variant="outline" onClick={onCancel} disabled={saving}>
           {tc('cancel')}
@@ -49,8 +51,8 @@ export function UnterschriftPanel({ saving, onCancel, onSign }: UnterschriftPane
             loading={saving}
             onClick={() => {
               const v = vertragRef.current?.toDataURL()
-              const s = sepaRef.current?.toDataURL()
-              if (v && s) onSign(v, s)
+              const s = mitSepa ? sepaRef.current?.toDataURL() : null
+              if (v && (s || !mitSepa)) onSign(v, s ?? null)
             }}
           >
             {t('sign.submit')}

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { VertragAktuell } from '@/types'
 import {
   auslaufende,
+  buendelVollstaendig,
   imVerzug,
   naechsteStufe,
   passtZumFilter,
@@ -126,5 +127,31 @@ describe('imVerzug', () => {
       v({ id: 'alt', zahlungsstatus: 'inkasso', zahlungsstatus_seit: '2026-07-01' }),
     ])
     expect(liste.map((x) => x.id)).toEqual(['alt', 'neu'])
+  })
+})
+
+// V5 (Entscheidung 8): Pilotvereinbarungen zaehlen in keiner Kennzahl.
+describe('Pilot in den Kennzahlen', () => {
+  const pilot = v({
+    id: 'pilot',
+    vertragsart: 'pilot',
+    tier_id: null,
+    laufzeit_monate: null,
+    preis_cents: 0,
+    beitrag_diesen_monat_cents: 0,
+  })
+
+  it('summen zaehlt den Pilot weder als laufend noch im Beitrag', () => {
+    expect(summen([v({ id: 'a' }), pilot])).toEqual({ laufend: 1, abbuchungCents: 38990, imWiderruf: 0 })
+  })
+
+  it('imVerzug laesst den Pilot aus, auch mit falschem Zahlungsstatus', () => {
+    expect(imVerzug([{ ...pilot, zahlungsstatus: 'mahnung_1' }])).toEqual([])
+  })
+
+  it('das Buendel eines Pilots ist ohne SEPA-Mandat vollstaendig', () => {
+    expect(buendelVollstaendig(['vertrag'], 'pilot')).toBe(true)
+    expect(buendelVollstaendig(['vertrag'])).toBe(false)
+    expect(buendelVollstaendig(['vertrag', 'sepa_mandat'])).toBe(true)
   })
 })

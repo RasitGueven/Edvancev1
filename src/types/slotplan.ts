@@ -3,6 +3,8 @@
 // Berlin), Uhrzeiten 'HH:MM' (Berlin), Zeitpunkte ISO-Strings mit Zeitzone.
 // Die Altlast S10 (Lead-Slots) steht in ./slots und hat mit diesen Typen nichts zu tun.
 
+import type { Vertragsart } from './vertrag'
+
 /** SL-Codes der Slot-Funktionen (Entscheidung 23). */
 export type SlotsCode =
   | 'SL001' | 'SL002' | 'SL003' | 'SL004' | 'SL005' | 'SL006'
@@ -295,6 +297,8 @@ export type VertragAuszug = {
   stichtag: string
   gekuendigt_zum: string | null
   rhythmus: Rhythmus | null
+  /** V5: 'pilot' = Pilotvereinbarung, ohne Paket und Laufzeit. */
+  vertragsart?: Vertragsart
 }
 
 /** Vorschlag "wie bisher weiterführen" für einen Folgevertrag (Entscheidung 22). */

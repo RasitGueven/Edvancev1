@@ -292,3 +292,42 @@ Deno.test('Umschlag: ohne Vertrags-PDF gibt es nichts zu verschicken', () => {
     'Archiv',
   )
 })
+
+// ---- V5: Pilotvereinbarung -----------------------------------------------------------------
+const PILOT = {
+  ...VERTRAG,
+  vertragsart: 'pilot',
+  laufzeit_monate: null,
+  preis_cents: 0,
+  einheiten: 34,
+  vertragsbeginn: '2026-11-01',
+  vertrag_ende: '2027-07-16',
+  ferientage: null,
+  widerruf_bis: null,
+}
+
+Deno.test('Pilot-PDF: Pilotvereinbarung mit Zeitraum und Einheiten, ohne Preis und Widerruf', async () => {
+  const dok = dokumentAusZeile(PILOT, null, SIGNATUR)
+  assertStringIncludes(dok.markdown, 'Pilotvereinbarung')
+  assert(!dok.markdown.includes('{{'), 'Platzhalter ungefuellt')
+  const text = await pdfText(await markdownZuPdf({ markdown: dok.markdown, fusszeile: dok.fusszeile }))
+  assertStringIncludes(text, '01.11.2026', 'Beginn fehlt')
+  assertStringIncludes(text, '16.07.2027', 'Ende fehlt')
+  assertStringIncludes(text, '34', 'Einheiten fehlen')
+  assertStringIncludes(text, 'ohne Entgelt')
+  assert(!text.includes('Widerrufsfrist'), 'Pilot hat keinen Widerruf')
+  assert(!text.includes('Ferientage'), 'Pilot hat keine Ferienklausel')
+  assert(!text.includes('EDV-2026-000042'), 'Mandatsreferenz steht im Pilot-PDF')
+})
+
+Deno.test('Pilot-Umschlag: nur Pilotvereinbarung und Datenschutz, ohne SEPA, AGB, Widerruf', () => {
+  const stuecke = buendelZusammenstellen({
+    dateien: [{ art: 'vertrag', pfad: 'v/vertrag.pdf' }],
+    zustimmungen: [{ dokument_schluessel: 'datenschutz_vertrag', dokument_version: 'platzhalter-v1' }],
+    fassungen: FASSUNGEN,
+    titel: { ...TITEL, pilotvereinbarung: 'Pilotvereinbarung' },
+    anlass: 'bestaetigung',
+    pilot: true,
+  })
+  assertEquals(stuecke.map((s) => s.name), ['Pilotvereinbarung.pdf', 'Datenschutzhinweise.pdf'])
+})

@@ -8,14 +8,18 @@
 
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { FASSUNG, JE_FASSUNG, JE_VERTRAG } from './dokumente/texte.ts'
+import { buendelZusammenstellen, type Umschlagstueck } from './vertrag_buendel.ts'
 import { markdownZuPdf } from './markdown_pdf.ts'
 import {
   VERTRAG_SPALTEN,
   dokumentAusZeile,
   fassungsDokument,
+  istPilot,
   sepaAusZeile,
   vertragDokument,
 } from './vertrag_dokument.ts'
+
+export { buendelZusammenstellen, type Umschlagstueck }
 
 export const BUCKET = 'vertraege'
 
@@ -124,6 +128,9 @@ export async function vertragPdfErzeugen(
     )
   }
 
+  // V5: Eine Pilotvereinbarung hat kein SEPA-Mandat.
+  if (istPilot(dok.vertrag)) return raus
+
   // ---- SEPA-Mandat ---------------------------------------------------------
   // Die volle IBAN kommt ueber vertrag_iban_anzeigen und nicht per direktem
   // SELECT: die RPC schreibt den audit_log-Eintrag. Dass die Kontonummer
@@ -223,12 +230,14 @@ export async function buendelVollstaendig(
   admin: SupabaseClient,
   vertragId: string,
 ): Promise<boolean> {
-  const { data } = await admin
-    .from('vertrag_dateien')
-    .select('art')
-    .eq('vertrag_id', vertragId)
+  const [{ data }, { data: v }] = await Promise.all([
+    admin.from('vertrag_dateien').select('art').eq('vertrag_id', vertragId),
+    admin.from('vertraege').select('vertragsart').eq('id', vertragId).maybeSingle(),
+  ])
   const vorhanden = new Set((data ?? []).map((d) => d.art as string))
-  return JE_VERTRAG.every((art) => vorhanden.has(art))
+  // V5: Der Pilot hat nur das Vertragsdokument, kein Mandat.
+  const noetig = v && istPilot(v) ? ['vertrag'] : JE_VERTRAG
+  return noetig.every((art) => vorhanden.has(art))
 }
 
 /**
@@ -260,8 +269,9 @@ export async function unterlagenVersandErzeugen(
   const zeile: Record<string, unknown> = { ...v }
 
   // Ende, Ferientage und Widerrufsfrist fuer die Vorschau berechnen — aus der
-  // Datenbank, nicht hier.
-  if (v.vertragsbeginn && v.laufzeit_monate) {
+  // Datenbank, nicht hier. Ein Pilot traegt sein Ende schon (V5).
+  const pilot = istPilot(v)
+  if (!pilot && v.vertragsbeginn && v.laufzeit_monate) {
     const { data: ende } = await rpc
       .rpc('vertrag_ende_berechnen', {
         p_beginn: v.vertragsbeginn,
@@ -284,15 +294,23 @@ export async function unterlagenVersandErzeugen(
     paket = (tier?.name as string | undefined) ?? null
   }
 
+  // Ohne Unterschriftsbild: hier wird von Hand unterschrieben. Ein leeres
+  // Feld waere hier richtig, ein eingesetztes Bild eine Faelschung.
+  const vertrag = dokumentAusZeile(zeile, paket, null)
+  if (pilot) {
+    // V5: ohne SEPA-Mandat, also ohne IBAN — nur die Pilotvereinbarung.
+    const pilotPdf = await markdownZuPdf({ markdown: vertrag.markdown, fusszeile: vertrag.fusszeile })
+    return await ablegen(
+      admin, rpc, vertragId, 'unterlagen_versand', 'unterlagen.pdf', pilotPdf, 'application/pdf',
+    )
+  }
+
   const { data: iban } = await rpc.rpc('vertrag_iban_anzeigen', { p_vertrag_id: vertragId })
   const { data: einst } = await admin
     .from('vertrag_einstellungen')
     .select('glaeubiger_id')
     .maybeSingle()
 
-  // Ohne Unterschriftsbild: hier wird von Hand unterschrieben. Ein leeres
-  // Feld waere hier richtig, ein eingesetztes Bild eine Faelschung.
-  const vertrag = dokumentAusZeile(zeile, paket, null)
   const sepa = sepaAusZeile(
     zeile,
     (iban as string | null) ?? null,
@@ -310,99 +328,13 @@ export async function unterlagenVersandErzeugen(
   )
 }
 
-/**
- * Was in den Umschlag gehoert — als Pfade im Bucket, in Lesereihenfolge.
- *
- * Fehlt etwas, wird es hier erzeugt statt eine halbe Mail zu verschicken. Ein
- * Buendel, dem die Widerrufsbelehrung fehlt, ist kein unvollstaendiges
- * Buendel, sondern ein rechtliches Problem.
- *
- * Die Fassungen sind die, denen dieser Vertrag ZUGESTIMMT hat — nicht die
- * neuesten. Sonst laege dem Elternteil ein Text bei, den es nie gesehen hat.
- * Die Foto-Einwilligung ist freiwillig und nur dabei, wenn zugestimmt wurde.
- */
-export type Umschlagstueck = { pfad: string; name: string }
-
-/**
- * Die Unterlagen, die JEDE Mail tragen muss.
- *
- * Die Foto-Einwilligung fehlt hier mit Absicht: sie ist freiwillig und keine
- * Voraussetzung fuer den Vertrag. Die drei anderen sind es.
- */
-const PFLICHT: readonly string[] = ['agb', 'widerruf', 'datenschutz_vertrag']
-
-/** Dateiname ohne Pfadtrenner und ohne Zeichen, die Mailprogramme stolpern lassen. */
-function sicherName(titel: string, art: string): string {
-  const roh = titel.trim() === '' ? art : titel
-  const sauber = roh
-    .replace(/[\\/:*?"<>|]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-  return `${sauber === '' ? art : sauber}.pdf`
-}
-
-/**
- * Was in den Umschlag gehoert — mit Pfad UND Dateinamen.
- *
- * Der Name kommt aus dem Katalog, nicht aus dem Pfad. Die Fassungen liegen
- * unter fassungen/<art>/<fassung>.pdf; aus dem Pfad abgeleitet hiessen sie
- * alle gleich ("platzhalter-v1.pdf"), und die Eltern haetten vier
- * ununterscheidbare Anhaenge im Postfach.
- *
- * Fehlt eine Pflichtunterlage, wird geworfen statt uebersprungen. Eine Mail
- * ohne AGB und Widerrufsbelehrung ist kein unvollstaendiges Buendel, sondern
- * ein rechtliches Problem — und sie saehe aus wie ein vollstaendiges.
- */
-export function buendelZusammenstellen(opts: {
-  dateien: { art: string; pfad: string }[]
-  zustimmungen: { dokument_schluessel: string; dokument_version: string }[]
-  fassungen: { art: string; fassung: string; pfad: string }[]
-  titel: Record<string, string>
-  anlass: 'bestaetigung' | 'unterlagen'
-}): Umschlagstueck[] {
-  const { dateien, zustimmungen, fassungen, titel, anlass } = opts
-  const je = new Map(dateien.map((d) => [d.art, d.pfad]))
-  const raus: Umschlagstueck[] = []
-
-  if (anlass === 'bestaetigung') {
-    const vertrag = je.get('vertrag')
-    const sepa = je.get('sepa_mandat')
-    if (!vertrag || !sepa) {
-      throw new Error('Das Vertrags-PDF fehlt noch — bitte erst im Archiv erzeugen')
-    }
-    raus.push({ pfad: vertrag, name: sicherName(titel.vertrag ?? '', 'Vertrag') })
-    raus.push({ pfad: sepa, name: sicherName(titel.sepa_mandat ?? '', 'SEPA-Mandat') })
-  } else {
-    const unterlagen = je.get('unterlagen_versand')
-    if (!unterlagen) throw new Error('Die Unterlagen wurden noch nicht erzeugt')
-    raus.push({ pfad: unterlagen, name: 'Vertragsunterlagen.pdf' })
-  }
-
-  for (const art of JE_FASSUNG) {
-    const z = zustimmungen.find((x) => x.dokument_schluessel === art)
-    if (!z) {
-      if (PFLICHT.includes(art)) {
-        throw new Error(
-          `Zu diesem Vertrag ist keine Zustimmung zu "${art}" festgehalten — ` +
-            'ohne sie darf das Dokument nicht als vereinbart mitgeschickt werden',
-        )
-      }
-      continue
-    }
-    const f = fassungen.find((x) => x.art === art && x.fassung === z.dokument_version)
-    if (!f) throw new Error(`Die Fassung ${art} ${z.dokument_version} liegt nicht im Archiv`)
-    raus.push({ pfad: f.pfad, name: sicherName(titel[art] ?? '', art) })
-  }
-  return raus
-}
-
 /** Laedt die Belege und stellt daraus den Umschlag zusammen. */
 export async function buendelPfade(
   admin: SupabaseClient,
   vertragId: string,
   anlass: 'bestaetigung' | 'unterlagen',
 ): Promise<Umschlagstueck[]> {
-  const [dateien, zust, fassungen, katalog] = await Promise.all([
+  const [dateien, zust, fassungen, katalog, vertrag] = await Promise.all([
     admin.from('vertrag_dateien').select('art, pfad').eq('vertrag_id', vertragId),
     admin
       .from('vertrag_zustimmungen')
@@ -410,6 +342,7 @@ export async function buendelPfade(
       .eq('vertrag_id', vertragId),
     admin.from('dokument_fassungen').select('art, fassung, pfad'),
     admin.from('vertrag_dokumente').select('schluessel, titel'),
+    admin.from('vertraege').select('vertragsart').eq('id', vertragId).maybeSingle(),
   ])
 
   const titel: Record<string, string> = {}
@@ -424,5 +357,6 @@ export async function buendelPfade(
     fassungen: (fassungen.data ?? []) as { art: string; fassung: string; pfad: string }[],
     titel,
     anlass,
+    pilot: vertrag.data ? istPilot(vertrag.data) : false,
   })
 }

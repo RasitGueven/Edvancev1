@@ -97,7 +97,9 @@
     "iban": "IBAN",
     "kontoinhaber": "Kontoinhaber:in",
     "mandatsreferenz": "Mandatsreferenz",
-    "glaeubiger_id": "Gläubiger-ID"
+    "glaeubiger_id": "Gläubiger-ID",
+    "vertragsart": "Vertragsart",
+    "vertrag_ende": "Vertragsende"
   },
   "docs": {
     "title": "Unterlagen",
@@ -158,6 +160,7 @@
   },
   "docsView": {
     "title": "Vertragsunterlagen · {{ref}}",
+    "titlePilot": "Unterlagen zur Pilotvereinbarung",
     "print": "Drucken",
     "accepted": "bestätigt am {{date}}",
     "signedAt": "Unterschrieben am {{date}}",
@@ -380,13 +383,34 @@
   "mail": {
     "bestaetigungBetreff": "Ihr Vertrag mit Edvance für {{kind}}",
     "bestaetigungText": "Guten Tag {{eltern}},\n\nvielen Dank für Ihr Vertrauen. Anbei finden Sie alle Unterlagen zum Vertrag für {{kind}}:\n{{liste}}\n\nDer Vertrag läuft vom {{beginn}} bis zum {{ende}}. Bis einschließlich {{widerruf}} können Sie ihn ohne Angabe von Gründen widerrufen; die Widerrufsbelehrung liegt bei.\n\nDen Zugang für {{kind}} richten wir vor dem ersten Termin gemeinsam ein. Bei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+    "bestaetigungPilotBetreff": "Ihre Pilotvereinbarung mit Edvance für {{kind}}",
+    "bestaetigungPilotText": "Guten Tag {{eltern}},\n\nvielen Dank für Ihr Vertrauen. Anbei finden Sie die Unterlagen zur Pilotvereinbarung für {{kind}}:\n{{liste}}\n\nDie Pilotvereinbarung läuft vom {{beginn}} bis zum {{ende}} und ist für Sie ohne Entgelt.\n\nDen Zugang für {{kind}} richten wir vor dem ersten Termin gemeinsam ein. Bei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
     "unterlagenBetreff": "Ihre Vertragsunterlagen von Edvance",
     "unterlagenText": "Guten Tag {{eltern}},\n\nanbei die Unterlagen für {{kind}}. Bitte drucken Sie den Vertrag und das SEPA-Mandat aus, unterschreiben beides und senden es uns zurück — bis zum {{bis}}.\n{{liste}}\n\nDer Vertrag kommt erst zustande, wenn uns das unterschriebene Original vorliegt. Bis dahin ist für Sie nichts verbindlich.\n\nBei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+    "unterlagenPilotBetreff": "Ihre Unterlagen zur Pilotvereinbarung von Edvance",
+    "unterlagenPilotText": "Guten Tag {{eltern}},\n\nanbei die Unterlagen für {{kind}}. Bitte drucken Sie die Pilotvereinbarung aus, unterschreiben sie und senden sie uns zurück — bis zum {{bis}}.\n{{liste}}\n\nDie Vereinbarung kommt erst zustande, wenn uns das unterschriebene Original vorliegt. Bis dahin ist für Sie nichts verbindlich.\n\nBei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
     "zugangscodeBetreff": "Ihr neuer Zugangscode für Edvance",
     "zugangscodeText": "Guten Tag {{eltern}},\n\nder Zugangscode für {{kind}} lautet:\n\n    {{code}}\n\nDer bisherige Code gilt nicht mehr. Geben Sie den Code bitte nicht weiter — er gehört zu diesem einen Zugang.\n\nHerzliche Grüße\nIhr Edvance-Team",
     "terminBetreff": "Ihr Erstgespräch bei Edvance am {{datum}}",
     "terminText": "Guten Tag,\n\nhiermit bestätigen wir den Termin für das Erstgespräch mit {{kind}}:\n\nTermin: {{datum}}, {{uhrzeit}} Uhr\nOrt: {{ort}}\nDauer: {{dauer}}\n\nZu Beginn sprechen wir mit Ihnen und {{kind}} über die Schule und darüber, was gerade schwerfällt. Danach bearbeitet {{kind}} etwa 20 Minuten lang Aufgaben am Tablet, während wir mit Ihnen weitersprechen; anschließend besprechen wir gemeinsam, was wir gesehen haben.\n\nBitte bringen Sie mit: das Mathe-Heft (Schulheft), das Hausaufgabenheft und – falls vorhanden – die letzte Klassenarbeit.\n\nFalls der Termin nicht passt oder Sie Fragen haben, antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
     "terminDauer": "etwa 60 Minuten – Gespräch und eine 20-minütige Lernstandsanalyse am Tablet",
     "anhangZeile": "- {{name}}"
+  },
+  "vertragsart": {
+    "regulaer": "Regulär",
+    "pilot": "Pilotvereinbarung"
+  },
+  "pilot": {
+    "hint": "Ohne Entgelt, ohne Paket, Laufzeit und SEPA-Mandat. Kein Widerruf — der Vertrag ist ab Abschluss aktiv.",
+    "ohneEntgelt": "Ohne Entgelt",
+    "endeHint": "Fester letzter Tag. Darf nicht in den Ferien liegen; keine Ferienverlängerung.",
+    "einheitenHint": "Feste Zahl Termine à 60 Minuten.",
+    "einheitenFalsch": "Bitte eine ganze Zahl größer als 0 eintragen.",
+    "vorschlag_one": "Vorschlag: Ende {{ende}}, {{count}} Einheit (ein Termin je Schulwoche).",
+    "vorschlag_other": "Vorschlag: Ende {{ende}}, {{count}} Einheiten (ein Termin je Schulwoche).",
+    "vorschlagOhneBeginn": "Nach Wahl des Vertragsbeginns erscheint ein Vorschlag für Ende und Einheiten.",
+    "vorschlagUebernehmen": "Vorschlag übernehmen",
+    "kennzeichen": "Pilot",
+    "kennzeichenTitel": "Pilotvereinbarung — ohne Entgelt, zählt in keiner Umsatzkennzahl"
   }
 }
