@@ -118,7 +118,7 @@ select (select id from lsa_sessions where student_id = :'kind_id') as lsa_sid
 \gset
 select pg_temp.act_as(:'kind_uid');
 select is(public.lsa_hint(:'lsa_sid', :'check1', 1) ->> 'available', 'false', '7a Hinweis im Entwurf: nicht verfuegbar');
-select is(public.lsa_hint(:'lsa_sid', :'check1', 2) ->> 'text', 'Geh einen Schritt nach rechts.', '7b gepruefter Hinweis kommt');
+select is(public.lsa_hint(:'lsa_sid', :'check1', 2) ->> 'available', 'false', '7b gepruefter Hinweis kommt in der LSA auch nicht (E3: LSA ohne Hinweise)');
 reset role;
 update task_solutions set hints = '[{"level":1,"text":"HINWEIS-ENTWURF-E1"},{"level":2,"text":"Neuer Text"}]'
  where task_id = :'check1';

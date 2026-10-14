@@ -1,0 +1,2745 @@
+{
+ "stand": "dbread 12.10.2026, Prod, nur gelesen",
+ "aufgaben": [
+  {
+   "id": "152bcdcd-897b-452b-9a8f-402375540a3f",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Einschrittig · 3x = 18",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n3x = 18",
+   "solution": null,
+   "skill_key": "gleichung_einschrittig",
+   "acceptance": {
+    "canonical": "6",
+    "known_errors": {
+     "15": "falsche_gegenoperation"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-einschrittig-03",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "6"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n3x = 18"
+   }
+  },
+  {
+   "id": "fbd28765-b198-4ff6-bdbe-de9ccc5202de",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Einschrittig · 4x = 24",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n4x = 24",
+   "solution": null,
+   "skill_key": "gleichung_einschrittig",
+   "acceptance": {
+    "canonical": "6",
+    "known_errors": {
+     "20": "falsche_gegenoperation"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-einschrittig-06",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "6"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n4x = 24"
+   }
+  },
+  {
+   "id": "d19c8070-85d9-44cc-b4cc-eac3e06010d0",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Einschrittig · x + 12 = 20",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\nx + 12 = 20",
+   "solution": null,
+   "skill_key": "gleichung_einschrittig",
+   "acceptance": {
+    "canonical": "8",
+    "known_errors": {
+     "32": "falsche_gegenoperation",
+     "-8": "seiten_verwechselt"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-einschrittig-04",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "8"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\nx + 12 = 20"
+   }
+  },
+  {
+   "id": "bfd877b9-cd3e-490c-82ad-0274b4f85a8b",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Einschrittig · x + 7 = 12",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\nx + 7 = 12",
+   "solution": null,
+   "skill_key": "gleichung_einschrittig",
+   "acceptance": {
+    "canonical": "5",
+    "known_errors": {
+     "19": "falsche_gegenoperation",
+     "-5": "seiten_verwechselt"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-einschrittig-01",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "5"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\nx + 7 = 12"
+   }
+  },
+  {
+   "id": "4f6f7cdd-3415-4185-8eae-95083d061b71",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Einschrittig · x − 4 = 9",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\nx − 4 = 9",
+   "solution": null,
+   "skill_key": "gleichung_einschrittig",
+   "acceptance": {
+    "canonical": "13",
+    "known_errors": {
+     "5": "falsche_gegenoperation",
+     "-5": "seiten_verwechselt"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-einschrittig-02",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "13"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\nx − 4 = 9"
+   }
+  },
+  {
+   "id": "6fc6928a-6ae3-4c32-9c2e-b9a20451b97c",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Einschrittig · x − 9 = 6",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\nx − 9 = 6",
+   "solution": null,
+   "skill_key": "gleichung_einschrittig",
+   "acceptance": {
+    "canonical": "15",
+    "known_errors": {
+     "3": "seiten_verwechselt",
+     "-3": "falsche_gegenoperation"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-einschrittig-05",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "15"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\nx − 9 = 6"
+   }
+  },
+  {
+   "id": "0c3d2396-131a-4cba-bd07-4597d92500cf",
+   "hints": [],
+   "parts": [],
+   "title": "Anzahl der Lösungen · 2x² − 8x + 8 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Wie viele Lösungen hat die Gleichung 2x² − 8x + 8 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+   "solution": "Durch 2 teilen: x² − 4x + 4 = 0, p = −4, q = 4.\nD = (−2)² − 4 = 0.\nD = 0: Es gibt genau eine Lösung (x = 2).\nAnzahl: 1.",
+   "skill_key": "gleichung_quadr_anzahl",
+   "acceptance": {
+    "canonical": "1",
+    "equivalents": [
+     "+1"
+    ],
+    "known_errors": {
+     "0": "vorzeichen_potenz",
+     "2": "division_vergessen",
+     "+2": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-anzahl-04",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Nicht durch 2 geteilt: D = (−4)² − 8 = 8 > 0, also zwei Lösungen.",
+     "fehlbild": "division_vergessen",
+     "socratic_question": "Steht vor x² eine 1, wenn du p und q abliest?"
+    },
+    {
+     "error": "(−2)² als −4 gerechnet: D = −8 < 0, also keine Lösung.",
+     "fehlbild": "vorzeichen_potenz",
+     "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+    }
+   ],
+   "correct_answers": [
+    "1",
+    "+1"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Wie viele Lösungen hat die Gleichung 2x² − 8x + 8 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2)."
+   }
+  },
+  {
+   "id": "a549083d-c72d-44d6-9aba-a138ad6d2dc0",
+   "hints": [],
+   "parts": [],
+   "title": "Anzahl der Lösungen · x² + 4x + 5 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Wie viele Lösungen hat die Gleichung x² + 4x + 5 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+   "solution": "p = 4, q = 5.\nD = (p/2)² − q = 2² − 5 = −1.\nD < 0: Unter der Wurzel stünde eine negative Zahl, es gibt keine Lösung.\nAnzahl: 0.",
+   "skill_key": "gleichung_quadr_anzahl",
+   "acceptance": {
+    "canonical": "0",
+    "known_errors": {
+     "2": "halbieren_vergessen",
+     "+2": "halbieren_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-anzahl-01",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "p nicht halbiert: D = 16 − 5 = 11 > 0, also zwei Lösungen.",
+     "fehlbild": "halbieren_vergessen",
+     "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+    }
+   ],
+   "correct_answers": [
+    "0"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Wie viele Lösungen hat die Gleichung x² + 4x + 5 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2)."
+   }
+  },
+  {
+   "id": "95077a87-7e8a-4463-83b0-dbbf6facc879",
+   "hints": [],
+   "parts": [],
+   "title": "Anzahl der Lösungen · Zaun 20 m, Fläche 25 m²",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Ein rechteckiges Feld wird mit 20 m Zaun eingezäunt und soll 25 m² Fläche haben. Für seine Breite x in Metern gilt x · (10 − x) = 25.\n\nWie viele Lösungen hat diese Gleichung? Gib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+   "solution": "x · (10 − x) = 25\n10x − x² = 25 | + x² − 10x\n0 = x² − 10x + 25, also p = −10, q = 25.\nD = (−5)² − 25 = 0.\nD = 0: genau eine Lösung (x = 5, das Feld ist ein Quadrat).\nAnzahl: 1.",
+   "skill_key": "gleichung_quadr_anzahl",
+   "acceptance": {
+    "canonical": "1",
+    "equivalents": [
+     "+1"
+    ],
+    "known_errors": {
+     "0": "vorzeichen_potenz",
+     "2": "halbieren_vergessen",
+     "+2": "halbieren_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-anzahl-05",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "(−5)² als −25 gerechnet: D = −50 < 0, also keine Lösung.",
+     "fehlbild": "vorzeichen_potenz",
+     "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+    },
+    {
+     "error": "p nicht halbiert: D = 100 − 25 > 0, also zwei Lösungen.",
+     "fehlbild": "halbieren_vergessen",
+     "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+    }
+   ],
+   "correct_answers": [
+    "1",
+    "+1"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Feld wird mit 20 m Zaun eingezäunt und soll 25 m² Fläche haben. Für seine Breite x in Metern gilt x · (10 − x) = 25.\n\nWie viele Lösungen hat diese Gleichung? Gib die Anzahl als ganze Zahl an (0, 1 oder 2)."
+   }
+  },
+  {
+   "id": "ef911123-949d-4ea9-a61d-beef95cc8dc0",
+   "hints": [],
+   "parts": [],
+   "title": "Diskriminante · x² − 5x − 6 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 5x − 6 = 0.\n\nGib das Ergebnis exakt an.",
+   "solution": "p = −5, q = −6.\nD = (−2,5)² − (−6) = 6,25 + 6.\nD = 12,25.",
+   "skill_key": "gleichung_quadr_anzahl",
+   "acceptance": {
+    "canonical": "12,25",
+    "equivalents": [
+     "+12,25",
+     "12.25",
+     "+12.25"
+    ],
+    "known_errors": {
+     "31": "halbieren_vergessen",
+     "+31": "halbieren_vergessen",
+     "-0,25": "vorzeichen_potenz",
+     "-0.25": "vorzeichen_potenz",
+     "- 0,25": "vorzeichen_potenz",
+     "- 0.25": "vorzeichen_potenz",
+     "−0,25": "vorzeichen_potenz",
+     "−0.25": "vorzeichen_potenz"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-anzahl-03",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "(−2,5)² als −6,25 gerechnet: D = −6,25 + 6.",
+     "fehlbild": "vorzeichen_potenz",
+     "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+    },
+    {
+     "error": "p nicht halbiert: D = 25 + 6.",
+     "fehlbild": "halbieren_vergessen",
+     "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+    }
+   ],
+   "correct_answers": [
+    "12,25",
+    "+12,25",
+    "12.25",
+    "+12.25"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 5x − 6 = 0.\n\nGib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "9f9ab204-2b5e-49d7-aaab-28ddc96ea8b5",
+   "hints": [],
+   "parts": [],
+   "title": "Diskriminante · x² − 6x + 8 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 6x + 8 = 0.\n\nGib das Ergebnis exakt an.",
+   "solution": "p = −6, q = 8.\nD = (−6/2)² − 8 = (−3)² − 8 = 9 − 8.\nD = 1.",
+   "skill_key": "gleichung_quadr_anzahl",
+   "acceptance": {
+    "canonical": "1",
+    "equivalents": [
+     "+1"
+    ],
+    "known_errors": {
+     "28": "halbieren_vergessen",
+     "+28": "halbieren_vergessen",
+     "-17": "vorzeichen_potenz",
+     "- 17": "vorzeichen_potenz",
+     "−17": "vorzeichen_potenz"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-anzahl-02",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "(−3)² als −9 gerechnet: D = −9 − 8.",
+     "fehlbild": "vorzeichen_potenz",
+     "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+    },
+    {
+     "error": "p nicht halbiert: D = 36 − 8.",
+     "fehlbild": "halbieren_vergessen",
+     "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+    }
+   ],
+   "correct_answers": [
+    "1",
+    "+1"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 6x + 8 = 0.\n\nGib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "56540a88-7b9e-4935-8702-26f9415e9d14",
+   "hints": [],
+   "parts": [],
+   "title": "Diskriminante rückwärts · x² + 6x + q = 0 mit genau einer Lösung",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Für welchen Wert von q hat die Gleichung x² + 6x + q = 0 genau eine Lösung?\n\nGib q exakt an.",
+   "solution": "Genau eine Lösung heißt D = 0.\nD = (6/2)² − q = 9 − q = 0, also q = 9.\nProbe: x² + 6x + 9 = (x + 3)², einzige Lösung x = −3.\nq = 9.",
+   "skill_key": "gleichung_quadr_anzahl",
+   "acceptance": {
+    "canonical": "9",
+    "equivalents": [
+     "+9"
+    ],
+    "known_errors": {
+     "36": "halbieren_vergessen",
+     "-9": "betrag_fehler",
+     "+36": "halbieren_vergessen",
+     "- 9": "betrag_fehler",
+     "−9": "betrag_fehler"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-anzahl-06",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Aus 9 − q = 0 den Wert q = −9 gemacht.",
+     "fehlbild": "betrag_fehler",
+     "socratic_question": "Setze q = −9 ein: Ist 9 − (−9) gleich null?"
+    },
+    {
+     "error": "p nicht halbiert: q = 6² = 36.",
+     "fehlbild": "halbieren_vergessen",
+     "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+    }
+   ],
+   "correct_answers": [
+    "9",
+    "+9"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für welchen Wert von q hat die Gleichung x² + 6x + q = 0 genau eine Lösung?\n\nGib q exakt an."
+   }
+  },
+  {
+   "id": "d7d81e80-6776-4308-a690-29675f7882d4",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Ausklammern · 3x² = 12x",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung 3x² = 12x.\n\nGib die Lösungen exakt an.",
+   "solution": "3x² = 12x | − 12x\n3x² − 12x = 0\n3x ausklammern: 3x · (x − 4) = 0.\n3x = 0, also x = 0, oder x − 4 = 0, also x = 4.\nKleinere Lösung: 0. Größere Lösung: 4.",
+   "skill_key": "gleichung_quadr_faktor",
+   "acceptance": {
+    "1": {
+     "canonical": "0",
+     "known_errors": {
+      "4": "loesung_null_verloren",
+      "+4": "loesung_null_verloren"
+     }
+    },
+    "2": {
+     "canonical": "4",
+     "equivalents": [
+      "+4"
+     ],
+     "known_errors": {
+      "12": "division_vergessen",
+      "+12": "division_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-faktor-03",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Durch x geteilt (3x = 12) und dabei die Lösung x = 0 verloren.",
+     "fehlbild": "loesung_null_verloren",
+     "socratic_question": "Stimmt die Gleichung auch für x = 0?"
+    },
+    {
+     "error": "Nicht durch 3 geteilt: x = 12.",
+     "fehlbild": "division_vergessen",
+     "socratic_question": "Setze 12 ein: Ist 3 · 12² gleich 12 · 12?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "0"
+    ],
+    "2": [
+     "4",
+     "+4"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "b47ef7d3-1933-416f-8fe8-edcbc8fe8929",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Ausklammern · x² − 5x = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung x² − 5x = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "x ausklammern: x · (x − 5) = 0.\nEin Produkt ist null, wenn ein Faktor null ist: x = 0 oder x − 5 = 0, also x = 5.\nKleinere Lösung: 0. Größere Lösung: 5.",
+   "skill_key": "gleichung_quadr_faktor",
+   "acceptance": {
+    "1": {
+     "canonical": "0",
+     "known_errors": {
+      "5": "loesung_null_verloren",
+      "+5": "loesung_null_verloren",
+      "-5": "vorzeichen_aus_klammer",
+      "- 5": "vorzeichen_aus_klammer",
+      "−5": "vorzeichen_aus_klammer"
+     }
+    },
+    "2": {
+     "canonical": "5",
+     "equivalents": [
+      "+5"
+     ],
+     "known_errors": {
+      "0": "vorzeichen_aus_klammer"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-faktor-01",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Durch x geteilt und dabei die Lösung x = 0 verloren.",
+     "socratic_question": "Was ergibt die linke Seite, wenn du x = 0 einsetzt?"
+    },
+    {
+     "error": "Aus (x − 5) den Wert −5 abgelesen statt 5.",
+     "socratic_question": "Für welches x wird x − 5 wirklich null?"
+    },
+    {
+     "error": "Aus (x − 5) den Wert −5 abgelesen; dann wäre 0 die größere Lösung.",
+     "socratic_question": "Setze −5 in x − 5 ein: Kommt null heraus?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "0"
+    ],
+    "2": [
+     "5",
+     "+5"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "1c4a31af-20bc-4348-b8d9-cd83b273ff38",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Nullprodukt · (x − 3)(x + 5) = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung (x − 3)(x + 5) = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "Ein Produkt ist null, wenn ein Faktor null ist.\nx − 3 = 0, also x = 3, oder x + 5 = 0, also x = −5.\nKleinere Lösung: -5. Größere Lösung: 3.",
+   "skill_key": "gleichung_quadr_faktor",
+   "acceptance": {
+    "1": {
+     "canonical": "-5",
+     "equivalents": [
+      "−5",
+      "- 5"
+     ],
+     "known_errors": {
+      "-3": "vorzeichen_aus_klammer",
+      "- 3": "vorzeichen_aus_klammer",
+      "−3": "vorzeichen_aus_klammer"
+     }
+    },
+    "2": {
+     "canonical": "3",
+     "equivalents": [
+      "+3"
+     ],
+     "known_errors": {
+      "5": "vorzeichen_aus_klammer",
+      "+5": "vorzeichen_aus_klammer"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-faktor-02",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Die Werte aus den Klammern mit falschem Vorzeichen abgelesen: 5 und −3.",
+     "socratic_question": "Für welches x wird x + 5 null?"
+    },
+    {
+     "error": "Die Werte aus den Klammern mit falschem Vorzeichen abgelesen: 5 und −3.",
+     "socratic_question": "Setze 5 in x + 5 ein: Kommt null heraus?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-5",
+     "−5",
+     "- 5"
+    ],
+    "2": [
+     "3",
+     "+3"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "9879542e-bb69-41c6-a77f-3916a26ffad1",
+   "hints": [],
+   "parts": [],
+   "title": "Nullprodukt · Ball landet wieder, h = 20t − 5t²",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Ein Ball wird vom Boden aus senkrecht nach oben geworfen. Seine Höhe in Metern nach t Sekunden ist h = 20t − 5t².\n\nNach wie vielen Sekunden ist der Ball wieder am Boden? Gib das Ergebnis exakt an.",
+   "solution": "Am Boden ist h = 0: 20t − 5t² = 0.\nt ausklammern: t · (20 − 5t) = 0.\nt = 0 (Abwurf) oder 20 − 5t = 0 | + 5t, : 5, also t = 4.\nDer Ball ist nach 4 s wieder am Boden.",
+   "skill_key": "gleichung_quadr_faktor",
+   "acceptance": {
+    "canonical": "4",
+    "equivalents": [
+     "4 s",
+     "4s"
+    ],
+    "known_errors": {
+     "20": "division_vergessen",
+     "-4": "vorzeichen_beim_umstellen",
+     "- 4": "vorzeichen_beim_umstellen",
+     "-4s": "vorzeichen_beim_umstellen",
+     "20s": "division_vergessen",
+     "-4 s": "vorzeichen_beim_umstellen",
+     "20 s": "division_vergessen",
+     "−4": "vorzeichen_beim_umstellen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-faktor-05",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Aus 20 = 5t nicht durch 5 geteilt: t = 20.",
+     "fehlbild": "division_vergessen",
+     "socratic_question": "Wie kommst du von 5t = 20 zu t?"
+    },
+    {
+     "error": "Beim Umstellen von 20 − 5t = 0 das Minus mitgenommen: t = −4.",
+     "fehlbild": "vorzeichen_beim_umstellen",
+     "socratic_question": "Kann eine Zeit nach dem Abwurf negativ sein?"
+    }
+   ],
+   "correct_answers": [
+    "4",
+    "4 s",
+    "4s"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Ball wird vom Boden aus senkrecht nach oben geworfen. Seine Höhe in Metern nach t Sekunden ist h = 20t − 5t².\n\nNach wie vielen Sekunden ist der Ball wieder am Boden? Gib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "c3be2e88-1087-479f-bf95-9dbd732efa56",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Nullprodukt · x(2x − 7) = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung x · (2x − 7) = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "Ein Produkt ist null, wenn ein Faktor null ist.\nx = 0 oder 2x − 7 = 0 | + 7, : 2, also x = 3,5.\nKleinere Lösung: 0. Größere Lösung: 3,5.",
+   "skill_key": "gleichung_quadr_faktor",
+   "acceptance": {
+    "1": {
+     "canonical": "0",
+     "known_errors": {
+      "3,5": "loesung_null_verloren",
+      "3.5": "loesung_null_verloren",
+      "+3,5": "loesung_null_verloren",
+      "+3.5": "loesung_null_verloren",
+      "-3,5": "vorzeichen_aus_klammer",
+      "-3.5": "vorzeichen_aus_klammer",
+      "- 3,5": "vorzeichen_aus_klammer",
+      "- 3.5": "vorzeichen_aus_klammer",
+      "−3,5": "vorzeichen_aus_klammer",
+      "−3.5": "vorzeichen_aus_klammer"
+     }
+    },
+    "2": {
+     "canonical": "3,5",
+     "equivalents": [
+      "+3,5",
+      "3.5",
+      "+3.5"
+     ],
+     "known_errors": {
+      "0": "vorzeichen_aus_klammer",
+      "7": "division_vergessen",
+      "+7": "division_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-faktor-04",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Nur den Faktor 2x − 7 betrachtet, die Lösung x = 0 verloren.",
+     "socratic_question": "Was ergibt x · (2x − 7), wenn x = 0 ist?"
+    },
+    {
+     "error": "Aus 2x − 7 den Wert −3,5 abgelesen statt 3,5.",
+     "socratic_question": "Setze −3,5 in 2x − 7 ein: Kommt null heraus?"
+    },
+    {
+     "error": "Aus 2x = 7 nicht durch 2 geteilt: x = 7.",
+     "socratic_question": "Wie kommst du von 2x = 7 zu x?"
+    },
+    {
+     "error": "Aus 2x − 7 den Wert −3,5 abgelesen; dann wäre 0 die größere Lösung.",
+     "socratic_question": "Setze −3,5 in 2x − 7 ein: Kommt null heraus?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "0"
+    ],
+    "2": [
+     "3,5",
+     "+3,5",
+     "3.5",
+     "+3.5"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "90635757-ba7c-4bde-bd7c-04bd79bf8c35",
+   "hints": [],
+   "parts": [],
+   "title": "Nullprodukt rückwärts · 2x² + bx = 0 mit Lösung 3",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Die Gleichung 2x² + bx = 0 hat die Lösungen x = 0 und x = 3.\n\nWelchen Wert hat b? Gib das Ergebnis exakt an.",
+   "solution": "x ausklammern: x · (2x + b) = 0.\nDie Lösung 3 macht den zweiten Faktor null: 2 · 3 + b = 0, also b = −6.\nProbe: 2x² − 6x = 2x · (x − 3), Lösungen 0 und 3.\nb = -6.",
+   "skill_key": "gleichung_quadr_faktor",
+   "acceptance": {
+    "canonical": "-6",
+    "equivalents": [
+     "−6",
+     "- 6"
+    ],
+    "known_errors": {
+     "6": "vorzeichen_aus_klammer",
+     "+6": "vorzeichen_aus_klammer",
+     "-18": "division_vergessen",
+     "- 18": "division_vergessen",
+     "−18": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-faktor-06",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Das Vorzeichen aus dem Faktor falsch übernommen: b = 6.",
+     "fehlbild": "vorzeichen_aus_klammer",
+     "socratic_question": "Setze b = 6 ein: Ist 3 dann eine Lösung von 2x² + 6x = 0?"
+    },
+    {
+     "error": "x = 3 eingesetzt (18 + 3b = 0), aber nicht durch 3 geteilt: b = −18.",
+     "fehlbild": "division_vergessen",
+     "socratic_question": "Wie kommst du von 3b = −18 zu b?"
+    }
+   ],
+   "correct_answers": [
+    "-6",
+    "−6",
+    "- 6"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Gleichung 2x² + bx = 0 hat die Lösungen x = 0 und x = 3.\n\nWelchen Wert hat b? Gib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "1f2a206f-1f63-4866-b446-c8305de6b725",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "p-q-Formel · 2x² − 4x − 6 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung 2x² − 4x − 6 = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "Durch 2 teilen: x² − 2x − 3 = 0, also p = −2, q = −3.\nx = 1 ± √(1 + 3) = 1 ± 2.\nKleinere Lösung: -1. Größere Lösung: 3.",
+   "skill_key": "gleichung_quadr_formel",
+   "acceptance": {
+    "1": {
+     "canonical": "-1",
+     "equivalents": [
+      "−1",
+      "- 1"
+     ],
+     "known_errors": {
+      "-3": "pq_vorzeichen",
+      "- 3": "pq_vorzeichen",
+      "−3": "pq_vorzeichen",
+      "-1,16": "division_vergessen",
+      "-1.16": "division_vergessen",
+      "- 1,16": "division_vergessen",
+      "- 1.16": "division_vergessen",
+      "−1,16": "division_vergessen",
+      "−1.16": "division_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "3",
+     "equivalents": [
+      "+3"
+     ],
+     "known_errors": {
+      "1": "pq_vorzeichen",
+      "+1": "pq_vorzeichen",
+      "5,16": "division_vergessen",
+      "5.16": "division_vergessen",
+      "+5,16": "division_vergessen",
+      "+5.16": "division_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-formel-03",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: −1 ± 2.",
+     "socratic_question": "Was ergibt −p/2, wenn p = −2 ist?"
+    },
+    {
+     "error": "Nicht durch 2 geteilt: mit p = −4 und q = −6 gerechnet (2 − √10 ≈ −1,16).",
+     "socratic_question": "Steht vor x² eine 1, wenn du die p-q-Formel benutzt?"
+    },
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: −1 ± 2.",
+     "socratic_question": "Was ergibt −p/2, wenn p = −2 ist?"
+    },
+    {
+     "error": "Nicht durch 2 geteilt: mit p = −4 und q = −6 gerechnet (2 + √10 ≈ 5,16).",
+     "socratic_question": "Steht vor x² eine 1, wenn du die p-q-Formel benutzt?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-1",
+     "−1",
+     "- 1"
+    ],
+    "2": [
+     "3",
+     "+3"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee",
+   "hints": [],
+   "parts": [],
+   "title": "p-q-Formel · Rechteck 4 cm länger als breit, 60 cm²",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Ein Rechteck ist 4 cm länger als breit. Sein Flächeninhalt beträgt 60 cm².\n\nWie lang ist die längere Seite des Rechtecks? Gib das Ergebnis exakt an.",
+   "solution": "Breite x, Länge x + 4: x · (x + 4) = 60\nx² + 4x − 60 = 0, p = 4, q = −60.\nx = −2 ± √(4 + 60) = −2 ± 8, also x = 6 oder x = −10; eine Breite ist positiv.\nBreite 6 cm, längere Seite 6 cm + 4 cm = 10 cm.",
+   "skill_key": "gleichung_quadr_formel",
+   "acceptance": {
+    "canonical": "10",
+    "equivalents": [
+     "10 cm",
+     "10cm"
+    ],
+    "known_errors": {
+     "6": "falsche_groesse_beantwortet",
+     "14": "pq_vorzeichen",
+     "66": "wurzel_vergessen",
+     "6cm": "falsche_groesse_beantwortet",
+     "14cm": "pq_vorzeichen",
+     "6 cm": "falsche_groesse_beantwortet",
+     "66cm": "wurzel_vergessen",
+     "14 cm": "pq_vorzeichen",
+     "66 cm": "wurzel_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-formel-05",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: Breite 2 + 8 = 10, Länge 14.",
+     "fehlbild": "pq_vorzeichen",
+     "socratic_question": "Setze deine Breite ein: Ist Breite · (Breite + 4) wirklich 60?"
+    },
+    {
+     "error": "Die Breite angegeben, nicht die längere Seite.",
+     "fehlbild": "falsche_groesse_beantwortet",
+     "socratic_question": "Ist nach der Breite oder nach der längeren Seite gefragt?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: Breite −2 + 64.",
+     "fehlbild": "wurzel_vergessen",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    }
+   ],
+   "correct_answers": [
+    "10",
+    "10 cm",
+    "10cm"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Rechteck ist 4 cm länger als breit. Sein Flächeninhalt beträgt 60 cm².\n\nWie lang ist die längere Seite des Rechtecks? Gib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "5b36238f-c64c-4578-bd63-55249f185c78",
+   "hints": [],
+   "parts": [],
+   "title": "p-q-Formel · Weg um ein Beet 20 m × 15 m, 500 m²",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Ein rechteckiges Beet ist 20 m lang und 15 m breit. Rundherum wird ein Weg angelegt, der überall gleich breit ist. Beet und Weg zusammen bedecken 500 m².\n\nWie breit ist der Weg? Gib das Ergebnis exakt an.",
+   "solution": "Wegbreite x: (20 + 2x) · (15 + 2x) = 500\n300 + 70x + 4x² = 500\n4x² + 70x − 200 = 0 | : 4\nx² + 17,5x − 50 = 0, p = 17,5, q = −50.\nx = −8,75 ± √(76,5625 + 50) = −8,75 ± 11,25, also x = 2,5 oder x = −20; eine Breite ist positiv.\nDer Weg ist 2,5 m breit.",
+   "skill_key": "gleichung_quadr_formel",
+   "acceptance": {
+    "canonical": "2,5",
+    "equivalents": [
+     "2.5",
+     "2,5 m",
+     "2,5m"
+    ],
+    "known_errors": {
+     "20": "pq_vorzeichen",
+     "20m": "pq_vorzeichen",
+     "2,75": "division_vergessen",
+     "2.75": "division_vergessen",
+     "20 m": "pq_vorzeichen",
+     "2,75m": "division_vergessen",
+     "2,75 m": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-formel-06",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: 8,75 + 11,25 = 20.",
+     "fehlbild": "pq_vorzeichen",
+     "socratic_question": "Setze 20 ein: Ist (20 + 40) · (15 + 40) gleich 500?"
+    },
+    {
+     "error": "Nicht durch 4 geteilt: mit p = 70 und q = −200 gerechnet (≈ 2,75).",
+     "fehlbild": "division_vergessen",
+     "socratic_question": "Steht vor x² eine 1, wenn du die p-q-Formel benutzt?"
+    }
+   ],
+   "correct_answers": [
+    "2,5",
+    "2.5",
+    "2,5 m",
+    "2,5m"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Beet ist 20 m lang und 15 m breit. Rundherum wird ein Weg angelegt, der überall gleich breit ist. Beet und Weg zusammen bedecken 500 m².\n\nWie breit ist der Weg? Gib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "b6e77404-2577-4e03-b4ce-cb61a5f6a5f9",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "p-q-Formel · x² + 2x − 15 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung x² + 2x − 15 = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "p = 2, q = −15.\nx = −p/2 ± √((p/2)² − q) = −1 ± √(1 + 15) = −1 ± 4.\nKleinere Lösung: -5. Größere Lösung: 3.",
+   "skill_key": "gleichung_quadr_formel",
+   "acceptance": {
+    "1": {
+     "canonical": "-5",
+     "equivalents": [
+      "−5",
+      "- 5"
+     ],
+     "known_errors": {
+      "-3": "pq_vorzeichen",
+      "- 3": "pq_vorzeichen",
+      "-17": "wurzel_vergessen",
+      "- 17": "wurzel_vergessen",
+      "−3": "pq_vorzeichen",
+      "−17": "wurzel_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "3",
+     "equivalents": [
+      "+3"
+     ],
+     "known_errors": {
+      "5": "pq_vorzeichen",
+      "15": "wurzel_vergessen",
+      "+5": "pq_vorzeichen",
+      "+15": "wurzel_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-formel-01",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: 1 ± 4.",
+     "socratic_question": "Welches Vorzeichen hat der erste Summand −p/2, wenn p = 2 ist?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: −1 − 16.",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    },
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: 1 ± 4.",
+     "socratic_question": "Welches Vorzeichen hat der erste Summand −p/2, wenn p = 2 ist?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: −1 + 16.",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-5",
+     "−5",
+     "- 5"
+    ],
+    "2": [
+     "3",
+     "+3"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "725448a1-10e2-4e88-beb8-fe57f6e54d06",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "p-q-Formel · x² + 4x − 1 = 0, gerundet",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung x² + 4x − 1 = 0.\n\nRunde die Lösungen auf zwei Stellen nach dem Komma.",
+   "solution": "p = 4, q = −1.\nx = −2 ± √(4 + 1) = −2 ± √5, √5 ≈ 2,236.\nKleinere Lösung: -4,24. Größere Lösung: 0,24.",
+   "skill_key": "gleichung_quadr_formel",
+   "acceptance": {
+    "1": {
+     "canonical": "-4,24",
+     "equivalents": [
+      "−4,24",
+      "- 4,24",
+      "-4.24",
+      "−4.24",
+      "- 4.24"
+     ],
+     "known_errors": {
+      "-7": "wurzel_vergessen",
+      "- 7": "wurzel_vergessen",
+      "−7": "wurzel_vergessen",
+      "-0,24": "pq_vorzeichen",
+      "-0.24": "pq_vorzeichen",
+      "-7,00": "wurzel_vergessen",
+      "-7.00": "wurzel_vergessen",
+      "- 0,24": "pq_vorzeichen",
+      "- 0.24": "pq_vorzeichen",
+      "- 7,00": "wurzel_vergessen",
+      "- 7.00": "wurzel_vergessen",
+      "−0,24": "pq_vorzeichen",
+      "−0.24": "pq_vorzeichen",
+      "−7,00": "wurzel_vergessen",
+      "−7.00": "wurzel_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "0,24",
+     "equivalents": [
+      "+0,24",
+      "0.24",
+      "+0.24"
+     ],
+     "known_errors": {
+      "3": "wurzel_vergessen",
+      "+3": "wurzel_vergessen",
+      "3,00": "wurzel_vergessen",
+      "3.00": "wurzel_vergessen",
+      "4,24": "pq_vorzeichen",
+      "4.24": "pq_vorzeichen",
+      "+3,00": "wurzel_vergessen",
+      "+3.00": "wurzel_vergessen",
+      "+4,24": "pq_vorzeichen",
+      "+4.24": "pq_vorzeichen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-formel-04",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: 2 ± √5.",
+     "socratic_question": "Welches Vorzeichen hat −p/2, wenn p = 4 ist?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: −2 − 5.",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    },
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: 2 ± √5.",
+     "socratic_question": "Welches Vorzeichen hat −p/2, wenn p = 4 ist?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: −2 + 5.",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-4,24",
+     "−4,24",
+     "- 4,24",
+     "-4.24",
+     "−4.24",
+     "- 4.24"
+    ],
+    "2": [
+     "0,24",
+     "+0,24",
+     "0.24",
+     "+0.24"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "43f39bc1-e7b4-48e6-8b77-ff8e41e77142",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "p-q-Formel · x² − 6x + 5 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung x² − 6x + 5 = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "p = −6, q = 5.\nx = −p/2 ± √((p/2)² − q) = 3 ± √(9 − 5) = 3 ± 2.\nKleinere Lösung: 1. Größere Lösung: 5.",
+   "skill_key": "gleichung_quadr_formel",
+   "acceptance": {
+    "1": {
+     "canonical": "1",
+     "equivalents": [
+      "+1"
+     ],
+     "known_errors": {
+      "-1": "wurzel_vergessen",
+      "-5": "pq_vorzeichen",
+      "- 1": "wurzel_vergessen",
+      "- 5": "pq_vorzeichen",
+      "−1": "wurzel_vergessen",
+      "−5": "pq_vorzeichen"
+     }
+    },
+    "2": {
+     "canonical": "5",
+     "equivalents": [
+      "+5"
+     ],
+     "known_errors": {
+      "7": "wurzel_vergessen",
+      "+7": "wurzel_vergessen",
+      "-1": "pq_vorzeichen",
+      "- 1": "pq_vorzeichen",
+      "−1": "pq_vorzeichen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-formel-02",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: −3 ± 2.",
+     "socratic_question": "Was ergibt −p/2, wenn p = −6 ist?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: 3 − 4.",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    },
+    {
+     "error": "p mit falschem Vorzeichen eingesetzt: −3 ± 2.",
+     "socratic_question": "Was ergibt −p/2, wenn p = −6 ist?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: 3 + 4.",
+     "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "1",
+     "+1"
+    ],
+    "2": [
+     "5",
+     "+5"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "504bbd98-9c80-4124-a66a-9dc7b6651bb9",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Wurzelziehen · (x − 2)² = 25",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung (x − 2)² = 25.\n\nGib die Lösungen exakt an.",
+   "solution": "(x − 2)² = 25\nx − 2 = 5 oder x − 2 = −5 | + 2\nx = 7 oder x = −3.\nKleinere Lösung: -3. Größere Lösung: 7.",
+   "skill_key": "gleichung_quadr_wurzel",
+   "acceptance": {
+    "1": {
+     "canonical": "-3",
+     "equivalents": [
+      "−3",
+      "- 3"
+     ],
+     "known_errors": {
+      "7": "negative_loesung_vergessen",
+      "+7": "negative_loesung_vergessen",
+      "-7": "vorzeichen_aus_klammer",
+      "- 7": "vorzeichen_aus_klammer",
+      "-23": "wurzel_vergessen",
+      "- 23": "wurzel_vergessen",
+      "−7": "vorzeichen_aus_klammer",
+      "−23": "wurzel_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "7",
+     "equivalents": [
+      "+7"
+     ],
+     "known_errors": {
+      "3": "vorzeichen_aus_klammer",
+      "27": "wurzel_vergessen",
+      "+3": "vorzeichen_aus_klammer",
+      "+27": "wurzel_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-wurzel-03",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Die 2 aus der Klammer mit falschem Vorzeichen verrechnet: x + 2 = −5.",
+     "socratic_question": "Welche Zahl musst du zu x − 2 addieren, damit nur x übrig bleibt?"
+    },
+    {
+     "error": "Nur den Fall x − 2 = 5 gerechnet, der Fall x − 2 = −5 fehlt.",
+     "socratic_question": "Welche zweite Zahl ergibt quadriert ebenfalls 25?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: x − 2 = −25.",
+     "socratic_question": "Ist x − 2 gleich 25 oder ist das Quadrat von x − 2 gleich 25?"
+    },
+    {
+     "error": "Die 2 aus der Klammer mit falschem Vorzeichen verrechnet: x + 2 = 5.",
+     "socratic_question": "Welche Zahl musst du zu x − 2 addieren, damit nur x übrig bleibt?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: x − 2 = 25.",
+     "socratic_question": "Ist x − 2 gleich 25 oder ist das Quadrat von x − 2 gleich 25?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-3",
+     "−3",
+     "- 3"
+    ],
+    "2": [
+     "7",
+     "+7"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "4d1a2438-3610-4dc9-b5be-8d35cb5199bd",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Wurzelziehen · 2x² − 18 = 0",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung 2x² − 18 = 0.\n\nGib die Lösungen exakt an.",
+   "solution": "2x² − 18 = 0 | + 18\n2x² = 18 | : 2\nx² = 9\nx = −√9 oder x = √9.\nKleinere Lösung: -3. Größere Lösung: 3.",
+   "skill_key": "gleichung_quadr_wurzel",
+   "acceptance": {
+    "1": {
+     "canonical": "-3",
+     "equivalents": [
+      "−3",
+      "- 3"
+     ],
+     "known_errors": {
+      "3": "negative_loesung_vergessen",
+      "+3": "negative_loesung_vergessen",
+      "-6": "falsche_gegenoperation",
+      "-9": "wurzel_vergessen",
+      "- 6": "falsche_gegenoperation",
+      "- 9": "wurzel_vergessen",
+      "−6": "falsche_gegenoperation",
+      "−9": "wurzel_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "3",
+     "equivalents": [
+      "+3"
+     ],
+     "known_errors": {
+      "6": "falsche_gegenoperation",
+      "9": "wurzel_vergessen",
+      "+6": "falsche_gegenoperation",
+      "+9": "wurzel_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-wurzel-02",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Nur die positive Lösung 3 gefunden, die negative fehlt.",
+     "socratic_question": "Welche zweite Zahl ergibt quadriert ebenfalls 9?"
+    },
+    {
+     "error": "Mit 2 multipliziert statt durch 2 geteilt: x² = 36.",
+     "socratic_question": "Wie macht man ein „mal 2\" rückgängig?"
+    },
+    {
+     "error": "Bei x² = 9 aufgehört, die Wurzel nicht gezogen.",
+     "socratic_question": "Steht nach dem Umstellen schon x oder noch x² da?"
+    },
+    {
+     "error": "Mit 2 multipliziert statt durch 2 geteilt: x² = 36.",
+     "socratic_question": "Wie macht man ein „mal 2\" rückgängig?"
+    },
+    {
+     "error": "Bei x² = 9 aufgehört, die Wurzel nicht gezogen.",
+     "socratic_question": "Steht nach dem Umstellen schon x oder noch x² da?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-3",
+     "−3",
+     "- 3"
+    ],
+    "2": [
+     "3",
+     "+3"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "cd6693f5-cc93-4628-baf9-f45436706641",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "II",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Wurzelziehen · 3x² = 60, gerundet",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung 3x² = 60.\n\nRunde die Lösungen auf zwei Stellen nach dem Komma.",
+   "solution": "3x² = 60 | : 3\nx² = 20\nx = −√20 oder x = √20, √20 ≈ 4,472.\nKleinere Lösung: -4,47. Größere Lösung: 4,47.",
+   "skill_key": "gleichung_quadr_wurzel",
+   "acceptance": {
+    "1": {
+     "canonical": "-4,47",
+     "equivalents": [
+      "−4,47",
+      "- 4,47",
+      "-4.47",
+      "−4.47",
+      "- 4.47"
+     ],
+     "known_errors": {
+      "-20": "wurzel_vergessen",
+      "- 20": "wurzel_vergessen",
+      "4,47": "negative_loesung_vergessen",
+      "4.47": "negative_loesung_vergessen",
+      "+4,47": "negative_loesung_vergessen",
+      "+4.47": "negative_loesung_vergessen",
+      "-7,75": "division_vergessen",
+      "-7.75": "division_vergessen",
+      "−20": "wurzel_vergessen",
+      "- 7,75": "division_vergessen",
+      "- 7.75": "division_vergessen",
+      "-20,00": "wurzel_vergessen",
+      "-20.00": "wurzel_vergessen",
+      "- 20,00": "wurzel_vergessen",
+      "- 20.00": "wurzel_vergessen",
+      "−7,75": "division_vergessen",
+      "−7.75": "division_vergessen",
+      "−20,00": "wurzel_vergessen",
+      "−20.00": "wurzel_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "4,47",
+     "equivalents": [
+      "+4,47",
+      "4.47",
+      "+4.47"
+     ],
+     "known_errors": {
+      "20": "wurzel_vergessen",
+      "+20": "wurzel_vergessen",
+      "7,75": "division_vergessen",
+      "7.75": "division_vergessen",
+      "+7,75": "division_vergessen",
+      "+7.75": "division_vergessen",
+      "20,00": "wurzel_vergessen",
+      "20.00": "wurzel_vergessen",
+      "+20,00": "wurzel_vergessen",
+      "+20.00": "wurzel_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-wurzel-04",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Nur die positive Lösung gefunden, die negative fehlt.",
+     "socratic_question": "Welche zweite Zahl ergibt quadriert ebenfalls 20?"
+    },
+    {
+     "error": "Nicht durch 3 geteilt: die Wurzel aus 60 gezogen.",
+     "socratic_question": "Steht vor x² noch ein Faktor, wenn du die Wurzel ziehst?"
+    },
+    {
+     "error": "Bei x² = 20 aufgehört, die Wurzel nicht gezogen.",
+     "socratic_question": "Ist x gleich 20 oder ist x² gleich 20?"
+    },
+    {
+     "error": "Nicht durch 3 geteilt: die Wurzel aus 60 gezogen.",
+     "socratic_question": "Steht vor x² noch ein Faktor, wenn du die Wurzel ziehst?"
+    },
+    {
+     "error": "Bei x² = 20 aufgehört, die Wurzel nicht gezogen.",
+     "socratic_question": "Ist x gleich 20 oder ist x² gleich 20?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-4,47",
+     "−4,47",
+     "- 4,47",
+     "-4.47",
+     "−4.47",
+     "- 4.47"
+    ],
+    "2": [
+     "4,47",
+     "+4,47",
+     "4.47",
+     "+4.47"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+   "hints": [],
+   "parts": [],
+   "title": "Wurzelziehen · Quadratseite um 3 cm verlängert, 121 cm²",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Verlängert man jede Seite eines Quadrats um 3 cm, so hat das neue Quadrat einen Flächeninhalt von 121 cm².\n\nWie lang war eine Seite des ursprünglichen Quadrats? Gib das Ergebnis exakt an.",
+   "solution": "Ursprüngliche Seite x: (x + 3)² = 121\nx + 3 = 11 oder x + 3 = −11 | − 3\nx = 8 oder x = −14; eine Seitenlänge ist positiv.\nDie Seite war 8 cm lang.",
+   "skill_key": "gleichung_quadr_wurzel",
+   "acceptance": {
+    "canonical": "8",
+    "equivalents": [
+     "8 cm",
+     "8cm"
+    ],
+    "known_errors": {
+     "11": "falsche_groesse_beantwortet",
+     "14": "vorzeichen_aus_klammer",
+     "118": "wurzel_vergessen",
+     "11cm": "falsche_groesse_beantwortet",
+     "14cm": "vorzeichen_aus_klammer",
+     "10,58": "quadrat_gliedweise",
+     "10.58": "quadrat_gliedweise",
+     "11 cm": "falsche_groesse_beantwortet",
+     "118cm": "wurzel_vergessen",
+     "14 cm": "vorzeichen_aus_klammer",
+     "118 cm": "wurzel_vergessen",
+     "10,58cm": "quadrat_gliedweise",
+     "10,58 cm": "quadrat_gliedweise"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-wurzel-06",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Die 3 aus der Klammer mit falschem Vorzeichen verrechnet: 11 + 3.",
+     "fehlbild": "vorzeichen_aus_klammer",
+     "socratic_question": "War das ursprüngliche Quadrat kleiner oder größer als das neue?"
+    },
+    {
+     "error": "Die Seite des neuen Quadrats angegeben, nicht die des ursprünglichen.",
+     "fehlbild": "falsche_groesse_beantwortet",
+     "socratic_question": "Nach welchem der beiden Quadrate ist gefragt?"
+    },
+    {
+     "error": "Die Klammer gliedweise quadriert: x² + 9 = 121 (≈ 10,58).",
+     "fehlbild": "quadrat_gliedweise",
+     "socratic_question": "Was ergibt (x + 3) · (x + 3) ausmultipliziert?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: x + 3 = 121.",
+     "fehlbild": "wurzel_vergessen",
+     "socratic_question": "Ist die neue Seite 121 cm lang oder ist ihr Quadrat 121?"
+    }
+   ],
+   "correct_answers": [
+    "8",
+    "8 cm",
+    "8cm"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Verlängert man jede Seite eines Quadrats um 3 cm, so hat das neue Quadrat einen Flächeninhalt von 121 cm².\n\nWie lang war eine Seite des ursprünglichen Quadrats? Gib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "bc0cdfe9-2416-4d02-a623-feb820083f07",
+   "hints": [],
+   "parts": [],
+   "title": "Wurzelziehen · Rechteck doppelt so lang wie breit, 98 m²",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Ein rechteckiges Beet ist doppelt so lang wie breit. Sein Flächeninhalt beträgt 98 m².\n\nWie breit ist das Beet? Als Breite ist nur eine positive Lösung sinnvoll. Gib das Ergebnis exakt an.",
+   "solution": "Breite x, Länge 2x: x · 2x = 98\n2x² = 98 | : 2\nx² = 49\nx = 7 oder x = −7; eine Breite ist positiv.\nDas Beet ist 7 m breit.",
+   "skill_key": "gleichung_quadr_wurzel",
+   "acceptance": {
+    "canonical": "7",
+    "equivalents": [
+     "7 m",
+     "7m"
+    ],
+    "known_errors": {
+     "14": "falsche_gegenoperation",
+     "49": "wurzel_vergessen",
+     "14m": "falsche_gegenoperation",
+     "49m": "wurzel_vergessen",
+     "9,9": "division_vergessen",
+     "9.9": "division_vergessen",
+     "14 m": "falsche_gegenoperation",
+     "49 m": "wurzel_vergessen",
+     "9,90": "division_vergessen",
+     "9,9m": "division_vergessen",
+     "9.90": "division_vergessen",
+     "9,9 m": "division_vergessen",
+     "9,90m": "division_vergessen",
+     "9,90 m": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "quadrgl-wurzel-05",
+   "updated_at": "2026-10-05T08:33:18.645477+00:00",
+   "typical_errors": [
+    {
+     "error": "Nicht durch 2 geteilt: die Wurzel aus 98 gezogen (≈ 9,90).",
+     "fehlbild": "division_vergessen",
+     "socratic_question": "Wie viele Breiten stecken im Flächeninhalt, wenn die Länge 2x ist?"
+    },
+    {
+     "error": "Bei x² = 49 aufgehört, die Wurzel nicht gezogen.",
+     "fehlbild": "wurzel_vergessen",
+     "socratic_question": "Ist die Breite 49 m oder ist das Quadrat der Breite 49?"
+    },
+    {
+     "error": "Mit 2 multipliziert statt durch 2 geteilt: x² = 196.",
+     "fehlbild": "falsche_gegenoperation",
+     "socratic_question": "Wie macht man ein „mal 2\" rückgängig?"
+    }
+   ],
+   "correct_answers": [
+    "7",
+    "7 m",
+    "7m"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Beet ist doppelt so lang wie breit. Sein Flächeninhalt beträgt 98 m².\n\nWie breit ist das Beet? Als Breite ist nur eine positive Lösung sinnvoll. Gib das Ergebnis exakt an."
+   }
+  },
+  {
+   "id": "9264f90a-1f7b-4170-97da-198c1acc89a3",
+   "hints": [],
+   "parts": [
+    {
+     "nr": 1,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "kleinere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "afb": "I",
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größere Lösung",
+     "competency_content": "arithmetik_algebra",
+     "competency_process": null
+    }
+   ],
+   "title": "Wurzelziehen · x² = 49",
+   "source": "edvance_k9_quadrgl",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung x² = 49.\n\nGib die Lösungen exakt an.",
+   "solution": "x² = 49 hat zwei Lösungen: x = √49 oder x = −√49.\n√49 = 7.\nKleinere Lösung: -7. Größere Lösung: 7.",
+   "skill_key": "gleichung_quadr_wurzel",
+   "acceptance": {
+    "1": {
+     "canonical": "-7",
+     "equivalents": [
+      "−7",
+      "- 7"
+     ],
+     "known_errors": {
+      "7": "negative_loesung_vergessen",
+      "+7": "negative_loesung_vergessen",
+      "-49": "wurzel_vergessen",
+      "- 49": "wurzel_vergessen",
+      "−49": "wurzel_vergessen"
+     }
+    },
+    "2": {
+     "canonical": "7",
+     "equivalents": [
+      "+7"
+     ],
+     "known_errors": {
+      "49": "wurzel_vergessen",
+      "+49": "wurzel_vergessen"
+     }
+    }
+   },
+   "input_type": "MULTI_PART",
+   "source_ref": "quadrgl-wurzel-01",
+   "updated_at": "2026-10-03T11:29:19.825484+00:00",
+   "typical_errors": [
+    {
+     "error": "Nur die positive Lösung 7 gefunden, die negative fehlt.",
+     "socratic_question": "Welche Zahl ergibt mit sich selbst multipliziert ebenfalls 49?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: −49.",
+     "socratic_question": "Ist x selbst 49 oder ist x² gleich 49?"
+    },
+    {
+     "error": "Die Wurzel nicht gezogen: 49.",
+     "socratic_question": "Ergibt 49 · 49 wirklich 49?"
+    }
+   ],
+   "correct_answers": {
+    "1": [
+     "-7",
+     "−7",
+     "- 7"
+    ],
+    "2": [
+     "7",
+     "+7"
+    ]
+   },
+   "question_payload": null
+  },
+  {
+   "id": "e8348c89-67cb-4650-be91-235e69321776",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Zweischrittig · 2x + 4 = 20",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n2x + 4 = 20",
+   "solution": null,
+   "skill_key": "gleichung_zweischrittig",
+   "acceptance": {
+    "canonical": "8",
+    "known_errors": {
+     "10": "b_ignoriert",
+     "12": "addiert_statt_subtrahiert",
+     "16": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-zweischrittig-02",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "8"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n2x + 4 = 20"
+   }
+  },
+  {
+   "id": "7976c81f-9b0b-46d8-a0d1-b5b6cc3bc992",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Zweischrittig · 3x + 6 = 24",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n3x + 6 = 24",
+   "solution": null,
+   "skill_key": "gleichung_zweischrittig",
+   "acceptance": {
+    "canonical": "6",
+    "known_errors": {
+     "8": "b_ignoriert",
+     "10": "addiert_statt_subtrahiert",
+     "18": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-zweischrittig-01",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "6"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n3x + 6 = 24"
+   }
+  },
+  {
+   "id": "17f3e728-2249-42ba-b5bf-c2a4b344dd00",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Zweischrittig · 3x + 9 = 30",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n3x + 9 = 30",
+   "solution": null,
+   "skill_key": "gleichung_zweischrittig",
+   "acceptance": {
+    "canonical": "7",
+    "known_errors": {
+     "10": "b_ignoriert",
+     "13": "addiert_statt_subtrahiert",
+     "21": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-zweischrittig-05",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "7"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n3x + 9 = 30"
+   }
+  },
+  {
+   "id": "b01451c0-53e5-4da7-9591-280448264835",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Zweischrittig · 4x + 8 = 40",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n4x + 8 = 40",
+   "solution": null,
+   "skill_key": "gleichung_zweischrittig",
+   "acceptance": {
+    "canonical": "8",
+    "known_errors": {
+     "10": "b_ignoriert",
+     "12": "addiert_statt_subtrahiert",
+     "32": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-zweischrittig-04",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "8"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n4x + 8 = 40"
+   }
+  },
+  {
+   "id": "9d15a93e-961b-4569-be8b-c4482dc98301",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Zweischrittig · 5x + 10 = 45",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n5x + 10 = 45",
+   "solution": null,
+   "skill_key": "gleichung_zweischrittig",
+   "acceptance": {
+    "canonical": "7",
+    "known_errors": {
+     "9": "b_ignoriert",
+     "11": "addiert_statt_subtrahiert",
+     "35": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-zweischrittig-03",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "7"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n5x + 10 = 45"
+   }
+  },
+  {
+   "id": "ff5710af-0c0a-47e5-9a57-b2a5bb4ef82d",
+   "hints": [],
+   "parts": [],
+   "title": "Gleichungen · Zweischrittig · 6x + 12 = 42",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Löse die Gleichung. Gib den Wert für x an.\n\n6x + 12 = 42",
+   "solution": null,
+   "skill_key": "gleichung_zweischrittig",
+   "acceptance": {
+    "canonical": "5",
+    "known_errors": {
+     "7": "b_ignoriert",
+     "9": "addiert_statt_subtrahiert",
+     "30": "division_vergessen"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "gleichung-zweischrittig-06",
+   "updated_at": "2026-07-22T09:22:29.406115+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "5"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n6x + 12 = 42"
+   }
+  },
+  {
+   "id": "02b24419-d7e8-40b8-8b74-ef3b4e806b3f",
+   "hints": [],
+   "parts": [],
+   "title": "Terme · Ausklammern · 12x + 18",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Klammere so weit wie möglich aus. Welcher Term ist richtig?\n\n12x + 18 = ?",
+   "solution": null,
+   "skill_key": "term_ausklammern",
+   "acceptance": null,
+   "input_type": "MC",
+   "source_ref": "term-ausklammern-06",
+   "updated_at": "2026-07-22T11:40:19.465734+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "c"
+   ],
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "6(2x + 18)"
+     },
+     {
+      "id": "b",
+      "label": "6(2x + 6)"
+     },
+     {
+      "id": "c",
+      "label": "6(2x + 3)"
+     },
+     {
+      "id": "d",
+      "label": "3(4x + 6)"
+     }
+    ],
+    "input_type": "MC"
+   }
+  },
+  {
+   "id": "81f97d0e-1e95-4bbd-bc6a-d05149786c58",
+   "hints": [],
+   "parts": [],
+   "title": "Terme · Ausklammern · 4x + 20",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Klammere so weit wie möglich aus. Welcher Term ist richtig?\n\n4x + 20 = ?",
+   "solution": null,
+   "skill_key": "term_ausklammern",
+   "acceptance": null,
+   "input_type": "MC",
+   "source_ref": "term-ausklammern-03",
+   "updated_at": "2026-07-22T11:40:19.465734+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "b"
+   ],
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "4(x + 10)"
+     },
+     {
+      "id": "b",
+      "label": "4(x + 5)"
+     },
+     {
+      "id": "c",
+      "label": "2(2x + 10)"
+     },
+     {
+      "id": "d",
+      "label": "4(x + 20)"
+     }
+    ],
+    "input_type": "MC"
+   }
+  },
+  {
+   "id": "4baeeda9-3985-4a80-8fd0-ecf8bbcfd6af",
+   "hints": [],
+   "parts": [],
+   "title": "Terme · Ausklammern · 4x + 8",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Klammere so weit wie möglich aus. Welcher Term ist richtig?\n\n4x + 8 = ?",
+   "solution": null,
+   "skill_key": "term_ausklammern",
+   "acceptance": null,
+   "input_type": "MC",
+   "source_ref": "term-ausklammern-01",
+   "updated_at": "2026-07-22T11:40:19.465734+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "d"
+   ],
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "2(2x + 4)"
+     },
+     {
+      "id": "b",
+      "label": "4(x + 8)"
+     },
+     {
+      "id": "c",
+      "label": "4(x + 4)"
+     },
+     {
+      "id": "d",
+      "label": "4(x + 2)"
+     }
+    ],
+    "input_type": "MC"
+   }
+  },
+  {
+   "id": "65841bd8-ee27-454f-b2a4-ea6f1bb0db33",
+   "hints": [],
+   "parts": [],
+   "title": "Terme · Ausklammern · 6x + 12",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Klammere so weit wie möglich aus. Welcher Term ist richtig?\n\n6x + 12 = ?",
+   "solution": null,
+   "skill_key": "term_ausklammern",
+   "acceptance": null,
+   "input_type": "MC",
+   "source_ref": "term-ausklammern-02",
+   "updated_at": "2026-07-22T11:40:19.465734+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "c"
+   ],
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "6(x + 12)"
+     },
+     {
+      "id": "b",
+      "label": "6(x + 4)"
+     },
+     {
+      "id": "c",
+      "label": "6(x + 2)"
+     },
+     {
+      "id": "d",
+      "label": "3(2x + 4)"
+     }
+    ],
+    "input_type": "MC"
+   }
+  },
+  {
+   "id": "ea237a07-681d-4680-bcd0-d94316c899e9",
+   "hints": [],
+   "parts": [],
+   "title": "Terme · Ausklammern · 8x + 12",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Klammere so weit wie möglich aus. Welcher Term ist richtig?\n\n8x + 12 = ?",
+   "solution": null,
+   "skill_key": "term_ausklammern",
+   "acceptance": null,
+   "input_type": "MC",
+   "source_ref": "term-ausklammern-05",
+   "updated_at": "2026-07-22T11:40:19.465734+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "d"
+   ],
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "2(4x + 6)"
+     },
+     {
+      "id": "b",
+      "label": "4(2x + 12)"
+     },
+     {
+      "id": "c",
+      "label": "4(2x + 6)"
+     },
+     {
+      "id": "d",
+      "label": "4(2x + 3)"
+     }
+    ],
+    "input_type": "MC"
+   }
+  },
+  {
+   "id": "b15b6be0-1b87-477d-bd88-23b095501581",
+   "hints": [],
+   "parts": [],
+   "title": "Terme · Ausklammern · 9x + 27",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Klammere so weit wie möglich aus. Welcher Term ist richtig?\n\n9x + 27 = ?",
+   "solution": null,
+   "skill_key": "term_ausklammern",
+   "acceptance": null,
+   "input_type": "MC",
+   "source_ref": "term-ausklammern-04",
+   "updated_at": "2026-07-22T11:40:19.465734+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "a"
+   ],
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "9(x + 3)"
+     },
+     {
+      "id": "b",
+      "label": "3(3x + 9)"
+     },
+     {
+      "id": "c",
+      "label": "9(x + 27)"
+     },
+     {
+      "id": "d",
+      "label": "9(x + 9)"
+     }
+    ],
+    "input_type": "MC"
+   }
+  },
+  {
+   "id": "e96cd37d-0254-4051-bf2d-71a6f7fa2aaf",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · -3 - 5",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n-3 - 5 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "-8",
+    "known_errors": {
+     "8": "vorzeichen_ignoriert",
+     "15": "mult_add_verwechslung",
+     "-2": "betrag_fehler"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-01",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "-8"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n-3 - 5 = ?"
+   }
+  },
+  {
+   "id": "17674b19-fe14-42ca-98db-6598fa8c5a3a",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · -4 + 9",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n-4 + 9 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "5",
+    "known_errors": {
+     "13": "vorzeichen_ignoriert",
+     "-5": "betrag_fehler",
+     "-36": "mult_add_verwechslung"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-05",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "5"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n-4 + 9 = ?"
+   }
+  },
+  {
+   "id": "27f51c08-6a47-4ceb-b189-f5f07cbcf1cf",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · -6 - 2",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n-6 - 2 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "-8",
+    "known_errors": {
+     "4": "betrag_fehler",
+     "8": "vorzeichen_ignoriert",
+     "12": "mult_add_verwechslung"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-04",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "-8"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n-6 - 2 = ?"
+   }
+  },
+  {
+   "id": "c92aa7e8-1e2d-4c80-a1fc-0fe4fedd86b0",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · -7 + 4",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n-7 + 4 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "-3",
+    "known_errors": {
+     "3": "betrag_fehler",
+     "11": "vorzeichen_ignoriert",
+     "-28": "mult_add_verwechslung"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-02",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "-3"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n-7 + 4 = ?"
+   }
+  },
+  {
+   "id": "3b44eada-3589-4bdb-a33b-2fb2ca0a1726",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · -9 + 5",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n-9 + 5 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "-4",
+    "known_errors": {
+     "4": "betrag_fehler",
+     "14": "vorzeichen_ignoriert",
+     "-45": "mult_add_verwechslung"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-07",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "-4"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n-9 + 5 = ?"
+   }
+  },
+  {
+   "id": "3e6fb055-111e-4888-9177-d2b17dd0fc54",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · 2 - 9",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n2 - 9 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "-7",
+    "known_errors": {
+     "7": "betrag_fehler",
+     "11": "vorzeichen_ignoriert",
+     "-18": "mult_add_verwechslung"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-03",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "-7"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n2 - 9 = ?"
+   }
+  },
+  {
+   "id": "738de19f-d3c9-43a0-b5ce-af6e30752c75",
+   "hints": [],
+   "parts": [],
+   "title": "Vorzeichen · Addieren · 3 - 8",
+   "source": "edvance_fundament",
+   "status": "draft",
+   "einsatz": [
+    "lsa",
+    "session"
+   ],
+   "question": "Berechne.\n\n3 - 8 = ?",
+   "solution": null,
+   "skill_key": "vorzeichen_add_sub",
+   "acceptance": {
+    "canonical": "-5",
+    "known_errors": {
+     "5": "betrag_fehler",
+     "11": "vorzeichen_ignoriert",
+     "-24": "mult_add_verwechslung"
+    }
+   },
+   "input_type": "NUMERIC",
+   "source_ref": "vorzeichen-addieren-06",
+   "updated_at": "2026-07-22T09:02:37.175454+00:00",
+   "typical_errors": [],
+   "correct_answers": [
+    "-5"
+   ],
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n3 - 8 = ?"
+   }
+  }
+ ]
+}

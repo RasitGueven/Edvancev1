@@ -79,8 +79,9 @@ Vertrags, das aus `tasks.question_payload` gelesen wird — also aus genau der
 Spalte, in der bei Bestandszeilen `accepted` liegt. `inv5` prüft deshalb an einem
 Item, dessen `accepted` **direkt neben** der Tabelle im selben Objekt steht.
 
-Hinweise kommen **einzeln auf Anfrage** über `lsa_hint` — nie vorab
-mitgeschickt. Sonst liest das Kind sie im Netzwerk-Tab.
+Hinweise werden nie vorab mitgeschickt — sonst liest das Kind sie im Netzwerk-Tab. Seit E3
+(Entscheidung Rasit 12.10.2026) läuft die LSA ganz ohne Hinweise; Hinweise gibt es nur in der
+Session (`hinweis_abrufen`).
 
 ---
 
@@ -193,9 +194,11 @@ anzeigen, weil es nichts darüber erfährt.
 
 ### `lsa_hint(session_id, task_id, level) → { level, text, available }`
 
-Genau der angefragte Hinweis-Level. `available: false`, wenn es ihn nicht gibt. Sonst nur Hinweise mit Status
-`geprueft`; in der LSA eines Testkontos (Testlauf oder `students.ist_test`) jeder Hinweis mit Text, wenn die Aufgabe die
-Prüfung des Lena-Boards besteht (`pruef_ausschluss` leer). Ein geprüfter Hinweis derselben Stufe geht vor (T3).
+Seit E3 (Migration `20261013173601_lsa_ohne_hinweise`, Entscheidung Rasit 12.10.2026) immer
+`{ level, text: null, available: false }` — für echte Kinder und Testkonten, auch bei geprüften Hinweisen. Die Prüfungen
+davor bleiben: unbekannte Session P0002, kein Zugriff 42501, Item nicht in `item_ids` P0001. Signatur und Rückgabeform
+sind unverändert, damit bestehende Clients nicht brechen. (Vorher: nur `geprueft`, für Testkonten jeder Hinweis mit
+Text, T3.)
 
 ### `lsa_finish(session_id) → result_summary`
 

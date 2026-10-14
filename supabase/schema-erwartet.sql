@@ -5218,7 +5218,6 @@ CREATE FUNCTION public.lsa_hint(p_session_id uuid, p_task_id uuid, p_level integ
     AS $$
 declare
   v_session lsa_sessions;
-  v_hint    jsonb;
 begin
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
@@ -5231,29 +5230,9 @@ begin
     raise exception 'LSA: Item gehoert nicht zu dieser Session' using errcode = 'P0001';
   end if;
 
-  -- Entscheidung 20: nur geprueft. Ohne Status gilt ein Hinweis als entwurf.
-  select h
-    into v_hint
-    from task_solutions s,
-         lateral jsonb_array_elements(s.hints) as e(h)
-   where s.task_id = p_task_id
-     and (h ->> 'level')::int = p_level
-     and (h ->> 'status' = 'geprueft'
-          -- T3: fuer ein Testkonto jeder Hinweis mit Text, wenn die Aufgabe die Pruefung des Lena-Boards besteht.
-          or (public.lsa_testinhalte(p_session_id) and nullif(btrim(h ->> 'text'), '') is not null
-              and public.testlauf_inhalt_sichtbar(p_task_id)))
-   order by coalesce(h ->> 'status' = 'geprueft', false) desc
-   limit 1;
-
-  if v_hint is null then
-    return jsonb_build_object('level', p_level, 'text', null, 'available', false);
-  end if;
-
-  return jsonb_build_object(
-    'level',     p_level,
-    'text',      v_hint ->> 'text',
-    'available', true
-  );
+  -- Entscheidung Rasit 12.10.2026: Hinweise sind nur fuer die Session (hinweis_abrufen). Die LSA misst den Stand
+  -- ohne Hilfe, fuer echte Kinder und fuer Testkonten; auch gepruefte Hinweise kommen hier nicht.
+  return jsonb_build_object('level', p_level, 'text', null, 'available', false);
 end;
 $$;
 
