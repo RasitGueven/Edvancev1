@@ -56,6 +56,17 @@ Stand 14.10.2026 · Branch `feat/rasit-konto-k1` · Migration `20261014121000_ko
 8. **Kein Löschen alter Protokollzeilen** in `auth_mail_versand` und keine Oberfläche dafür; lesen kann ein Admin per SQL.
 9. **Dateigröße:** `src/App.tsx` hat jetzt 474 Zeilen (vorher 456, schon über §4). Die Konto-Routen sind 25 Zeilen davon.
 10. **Umfang:** Das Paket liegt über den 300 Zeilen aus §4; es ist laut Auftrag ein PR.
+11. **Neu laden nach „Weiter“:** Wer nach dem Einlösen, aber vor dem Passwort die Seite neu lädt, sieht „Link gilt
+    nicht mehr“ (der Token ist aus der Adresse entfernt, die Sitzung besteht). Weg: „Passwort vergessen“. Hinweis der
+    Zweitprüfung, nur UX.
+12. **Weitere Ausspäh-Kanäle auf API-Ebene** (Zweitprüfung): GoTrue antwortet nur für vorhandene Adressen mit 429
+    („nur alle 60 s“) bzw. 500, wenn der Hook scheitert. Die Seite zeigt beides nicht an; wer `/auth/v1/recover`
+    direkt ruft, sieht es. Supabase-inhärent wie Punkt 3.
+13. **`slots_sl2b` lokal 4 rot (62–65)** — auch auf reinem `origin/dev` in einer eigenen Wegwerf-DB, also nicht K1.
+    Steht nicht in `bekannt-rot.txt`; vermutlich datumsabhängig. Gehört zu SL2b.
+14. **Auth-/RLS-nah:** Neue SECURITY-DEFINER-Funktionen lesen `auth.users`, neue Tabelle mit RLS. Bestehende Policies
+    und Auth-Einstellungen in Prod sind nicht geändert. Laut CLAUDE.md §4 braucht das Rasits ausdrückliche Bestätigung
+    vor dem Einspielen.
 
 ## Nach dem Einspielen prüfen
 
