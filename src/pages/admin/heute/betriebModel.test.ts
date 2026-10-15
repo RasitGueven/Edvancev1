@@ -19,6 +19,12 @@ describe('betriebAktion', () => {
     expect(betriebAktion(raum({}), '2026-10-15')).toEqual({ art: 'oeffnen', datum: '2026-10-15', zeit_id: 'z15', raum_id: 'r1' })
   })
 
+  it('Raum-Termin ohne Session und ohne Kinder: kein Knopf, auch mit oder ohne Coach (SL013)', () => {
+    expect(betriebAktion(raum({ belegt: 0 }), '2026-10-15')).toEqual({ art: 'leer' })
+    expect(betriebAktion(raum({ belegt: 0, coach_id: null, coach_name: null }), '2026-10-15')).toEqual({ art: 'leer' })
+    expect(betriebAktion(raum({ belegt: 0, session_id: 's9' }), '2026-10-15').art).toBe('live')
+  })
+
   it('Raum-Termin ohne Coach: kein Knopf, Link zur Termin-Seite', () => {
     expect(betriebAktion(raum({ coach_id: null, coach_name: null }), '2026-10-15'))
       .toEqual({ art: 'ohneCoach', ziel: '/admin/slots/termin/2026-10-15/z15' })

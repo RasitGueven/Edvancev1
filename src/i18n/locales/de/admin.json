@@ -111,7 +111,8 @@
         "oeffnen": "Session öffnen",
         "live": "Live-Sicht",
         "ohneCoach": "Kein Coach eingeteilt",
-        "zumTermin": "Zum Termin"
+        "zumTermin": "Zum Termin",
+        "leer": "Noch keine Kinder"
       }
     },
     "offeneSessions": {

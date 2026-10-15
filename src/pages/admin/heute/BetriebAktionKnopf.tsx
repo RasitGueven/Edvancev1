@@ -26,6 +26,10 @@ export function BetriebAktionKnopf({ aktion }: { aktion: BetriebAktion }): JSX.E
     )
   }
 
+  if (aktion.art === 'leer') {
+    return <span className="text-xs text-[var(--color-text-tertiary)]">{t('heute.betrieb.aktion.leer')}</span>
+  }
+
   if (aktion.art === 'ohneCoach') {
     return (
       <span className="flex flex-col items-end text-right">

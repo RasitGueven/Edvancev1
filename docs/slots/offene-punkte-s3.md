@@ -18,11 +18,15 @@ Raum die `session_id`. Keine Änderung an `src/lib/supabase/**`, keine Migration
    `slotsFehlerSchluessel`) ist derselbe. Coach-Dateien sind unverändert.
 3. **Bestehender Test „Offen geblieben“ eingegrenzt.** Er suchte den einzigen Link „Live-Sicht“ auf der Seite; seit S3
    gibt es mehrere. Er sucht jetzt nur in der Karte „Offen geblieben“.
+4. **Raum-Termin ohne Session und ohne Kinder: kein Knopf** (Nachtrag Rasit, PR #253). Bei `belegt = 0` steht rechts
+   nur „Noch keine Kinder“, ohne Link. Grund: offene-punkte-sl2b Punkt 2 — eine leere Session legt die Art des Termins
+   fest und sperrt danach Testkinder bzw. echte Kinder per SL013. Das gilt mit und ohne Coach; hat der Termin schon eine
+   Session, bleibt es bei „Live-Sicht“.
 
 ## Offene Punkte
 
-4. **Doppelte Aussage bei Terminen ohne Coach.** Die Unterzeile sagt schon „ohne Coach“, rechts steht zusätzlich
+5. **Doppelte Aussage bei Terminen ohne Coach.** Die Unterzeile sagt schon „ohne Coach“, rechts steht zusätzlich
    „Kein Coach eingeteilt“ (so verlangt). Wenn das zu laut ist: Unterzeile bei diesen Zeilen leer lassen.
-5. **Lernstandsanalysen ohne Aktion.** Die LSA-Zeilen in derselben Liste haben weiter keinen Knopf (nicht Teil von S3).
-6. **Kein Nachladen nach „Session öffnen“.** Die Seite wechselt sofort in die Live-Sicht; wer zurückgeht, lädt
+6. **Lernstandsanalysen ohne Aktion.** Die LSA-Zeilen in derselben Liste haben weiter keinen Knopf (nicht Teil von S3).
+7. **Kein Nachladen nach „Session öffnen“.** Die Seite wechselt sofort in die Live-Sicht; wer zurückgeht, lädt
    Admin-„Heute“ neu und sieht dann „Live-Sicht“. Scheitert das Anlegen, bleibt der Knopf stehen.

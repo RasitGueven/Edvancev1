@@ -46,15 +46,19 @@ export type BetriebAktion =
   | { art: 'oeffnen'; datum: string; zeit_id: string; raum_id: string }
   | { art: 'live'; ziel: string }
   | { art: 'ohneCoach'; ziel: string }
+  | { art: 'leer' }
 
 /**
  * Raum-Termin mit Session → Live-Sicht; ohne Session mit Coach → „Session öffnen“; ohne Coach (auch
- * „fällt aus“ ohne Session) → Satz mit Link zur Termin-Seite. Sessions ohne Raum → Live-Sicht.
+ * „fällt aus“ ohne Session) → Satz mit Link zur Termin-Seite. Sessions ohne Raum → Live-Sicht. Ohne Session und
+ * ohne Kinder → nur ein Satz: Eine leere Session legte die Art des Termins fest und sperrte danach per SL013
+ * Testkinder bzw. echte Kinder (offene-punkte-sl2b Punkt 2).
  */
 export function betriebAktion(z: BetriebZeile, datum: string): BetriebAktion {
   const live = (id: string): BetriebAktion => ({ art: 'live', ziel: `/coach/session/${id}/live` })
   if (z.art === 'ohneRaum') return live(z.s.session_id)
   if (z.t.session_id) return live(z.t.session_id)
+  if (z.t.belegt === 0) return { art: 'leer' }
   if (z.t.coach_id && z.t.art !== 'faellt_aus') return { art: 'oeffnen', datum, zeit_id: z.t.zeit_id, raum_id: z.t.raum_id }
   return { art: 'ohneCoach', ziel: `/admin/slots/termin/${datum}/${z.t.zeit_id}` }
 }
