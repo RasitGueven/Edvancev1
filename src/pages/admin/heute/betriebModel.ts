@@ -40,3 +40,21 @@ export function coachesImEinsatz(tag: SlotsTag | null): number {
   if (!tag) return 0
   return new Set(tag.raum_termine.filter((r) => r.art !== 'faellt_aus' && r.coach_id).map((r) => r.coach_id)).size
 }
+
+/** Was rechts in einer Zeile steht (Slots S3): genau eine Aktion, die Komponente zeigt nur an. */
+export type BetriebAktion =
+  | { art: 'oeffnen'; datum: string; zeit_id: string; raum_id: string }
+  | { art: 'live'; ziel: string }
+  | { art: 'ohneCoach'; ziel: string }
+
+/**
+ * Raum-Termin mit Session → Live-Sicht; ohne Session mit Coach → „Session öffnen“; ohne Coach (auch
+ * „fällt aus“ ohne Session) → Satz mit Link zur Termin-Seite. Sessions ohne Raum → Live-Sicht.
+ */
+export function betriebAktion(z: BetriebZeile, datum: string): BetriebAktion {
+  const live = (id: string): BetriebAktion => ({ art: 'live', ziel: `/coach/session/${id}/live` })
+  if (z.art === 'ohneRaum') return live(z.s.session_id)
+  if (z.t.session_id) return live(z.t.session_id)
+  if (z.t.coach_id && z.t.art !== 'faellt_aus') return { art: 'oeffnen', datum, zeit_id: z.t.zeit_id, raum_id: z.t.raum_id }
+  return { art: 'ohneCoach', ziel: `/admin/slots/termin/${datum}/${z.t.zeit_id}` }
+}

@@ -106,7 +106,13 @@
       "testlauf": "Testlauf",
       "einzel": "Einzel-Session",
       "keinBetrieb": "Heute kein Betrieb: {{anlass}}",
-      "fussWochenplan": "Zum Wochenplan"
+      "fussWochenplan": "Zum Wochenplan",
+      "aktion": {
+        "oeffnen": "Session öffnen",
+        "live": "Live-Sicht",
+        "ohneCoach": "Kein Coach eingeteilt",
+        "zumTermin": "Zum Termin"
+      }
     },
     "offeneSessions": {
       "titel": "Offen geblieben",
