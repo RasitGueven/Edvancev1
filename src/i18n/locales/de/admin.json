@@ -138,53 +138,6 @@
       "regel": "Bis 10 Uhr am Session-Tag gilt eine Absage als rechtzeitig, danach verbraucht sie die Einheit."
     }
   },
-  "schedule": {
-    "titel": "Einzel-Sessions und Testläufe",
-    "eyebrow": "Betrieb",
-    "beschreibung": "Präsenz-Sessions anlegen und Schüler einem Coach-Termin zuweisen.",
-    "neueSession": "Neue Session",
-    "coachPflicht": "Coach *",
-    "zeitpunktPflicht": "Zeitpunkt *",
-    "raum": "Raum",
-    "raumAnzeige": "Raum {{raum}}",
-    "zeitpunkt": "{{zeit}} Uhr",
-    "pflichtfelder": "Coach und Zeitpunkt sind erforderlich.",
-    "speichert": "Speichert …",
-    "sessionAnlegen": "Session anlegen",
-    "sessionsVerwalten": "Sessions eines Coaches verwalten",
-    "coachWaehlen": "Coach wählen …",
-    "unbenannt": "Unbenannt",
-    "leer": {
-      "titel": "Keine Sessions",
-      "beschreibung": "Lege oben die erste Session für diesen Coach an."
-    },
-    "status": {
-      "upcoming": "Geplant",
-      "active": "Läuft",
-      "done": "Erledigt"
-    },
-    "teilnehmer": "Teilnehmer",
-    "niemand": "Noch niemand zugewiesen.",
-    "kindWaehlen": "Schüler auswählen",
-    "kindZuweisenPlatzhalter": "Schüler zuweisen …",
-    "fuegtHinzu": "Fügt hinzu …",
-    "zuweisen": "Zuweisen",
-    "keinZugang": "Kein laufender Vertrag am {{datum}} — Platz kann nicht vergeben werden.",
-    "keineKandidaten": "Kein weiteres Kind hat an diesem Datum einen laufenden Vertrag.",
-    "testlauf": {
-      "kennzeichen": "Testlauf",
-      "label": "Testlauf",
-      "hilfe": "Nur mit Testkonten. Hinterlässt keine Belege, XP, Einheiten und keinen Eintrag im Lernpfad. Umschalten geht bis zum Start.",
-      "gestartet": "Die Session ist gestartet. Der Testlauf bleibt, wie er ist.",
-      "nurTestkontenBuchen": "Im Testlauf sind nur Testkonten buchbar.",
-      "fehler": {
-        "nurTestkonten": "Ein gebuchtes Kind ist kein Testkonto. Ein Testlauf geht nur mit Testkonten.",
-        "gestartet": "Die Session ist schon gestartet. Der Testlauf bleibt, wie er ist.",
-        "nurAdmin": "Einen Testlauf setzt nur ein Admin.",
-        "unbekannt": "Der Testlauf konnte nicht geändert werden. Bitte die Seite neu laden."
-      }
-    }
-  },
   "intake": {
     "lead": {
       "firstName": "Rufname des Kindes *",

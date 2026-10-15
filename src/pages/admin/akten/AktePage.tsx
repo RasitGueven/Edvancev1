@@ -33,6 +33,7 @@ import { StammdatenKachel } from './StammdatenKachel'
 import { TestkontoAkte } from '../testmodus/TestkontoAkte'
 import { useAktePlanbilanz } from './useAktePlanbilanz'
 import { PilotKennzeichen } from '../vertraege/PilotKennzeichen'
+import { SofortKnopf } from '../slots/sofort/SofortKnopf'
 
 type Daten = {
   stand: EinheitenStand | null
@@ -123,6 +124,8 @@ export function AktePage(): JSX.Element {
         <>
           <PilotKennzeichen art={planbilanz?.vertragsart} />
           <EdvanceBadge variant={ruhend ? 'muted' : 'strength'}>{t(`kopf.zustand.${akte.zustand}`)}</EdvanceBadge>
+          {/* Slots S2: Session ab jetzt mit diesem Kind (nur Admin; der Knopf prüft die Rolle selbst). */}
+          <SofortKnopf studentId={studentId} />
         </>
       }
       zurueckZu="/admin/akten"
