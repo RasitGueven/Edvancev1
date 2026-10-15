@@ -15739,6 +15739,10 @@ begin
   if cardinality(v_ids) = 0 then
     perform public.slots_fehler('22023', 'sofort_session_anlegen: keine Kinder', 'keine_kinder');
   end if;
+  -- Höchstens 5 Kinder pro Raum (Live-Sicht hat 5 Tablet-Plätze).
+  if cardinality(v_ids) > 5 then
+    perform public.slots_fehler('22023', 'sofort_session_anlegen: mehr als 5 Kinder', 'zu_viele');
+  end if;
 
   if exists (select 1 from unnest(v_ids) u(id)
               where not exists (select 1 from public.students s where s.id = u.id and not s.is_provisional)) then

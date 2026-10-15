@@ -939,6 +939,7 @@ Die Wochengrenze (`SL004`) prüft `kinder_buchbar` bewusst nicht; sie gilt nur f
 | `22023` | `kein_coach` | – | Leitung hat weder Rolle `coach` noch `admin` |
 | `22023` | `raum_inaktiv` | – | Raum fehlt oder ist am Tag nicht aktiv (`aktiv_ab ≤ Tag < inaktiv_ab`) |
 | `22023` | `keine_kinder` | – | Liste leer oder `null` (doppelte und leere Einträge fallen vorher weg) |
+| `22023` | `zu_viele` | – | mehr als 5 Kinder nach dem Entfernen doppelter Einträge (5 Tablet-Plätze) |
 | `22023` | `kein_kind` | – | ein Eintrag ist kein Kind oder ein vorläufiges |
 | `22023` | `art_konflikt` | – | Testkonto und echtes Kind gemischt |
 | `22023` | Code aus 12.3 | `student_id` | ein Kind ist nicht `ok`; erstes in der Reihenfolge der Eingabe |

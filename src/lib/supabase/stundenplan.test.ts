@@ -67,7 +67,7 @@ describe('Fehlerabbildung', () => {
   })
 
   it('hat für jeden Hinweis der Sofort-Session einen eigenen Text', () => {
-    const hinweise = ['keine_kinder', 'kein_kind', 'raum_inaktiv', 'art_konflikt', 'kein_coach', 'kein_vertrag', 'widerrufen',
+    const hinweise = ['keine_kinder', 'zu_viele', 'kein_kind', 'raum_inaktiv', 'art_konflikt', 'kein_coach', 'kein_vertrag', 'widerrufen',
       'vertrag_ab', 'vertrag_beendet', 'keine_einheit', 'schon_termin', 'datum_session']
     for (const hint of hinweise) {
       const k = slotsFehlerSchluessel({ code: '22023', hint })

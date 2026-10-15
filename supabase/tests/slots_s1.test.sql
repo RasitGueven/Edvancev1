@@ -6,7 +6,7 @@
 --   3) sofort_session_anlegen am Ferientag, Feiertag, Sonntag; Einzel-Session mit Raumname, auf die Minute.
 --   4) Einheiten: echtes Kind verbraucht eine (Planbilanz eins weniger, Stammplatz-Termine rücken nach),
 --      nur Testkinder → testlauf, nichts verbraucht.
---   5) Abbrüche mit Hinweis: art_konflikt, keine_kinder, kein_kind, Vertrags-Code mit student_id, raum_inaktiv, kein_coach.
+--   5) Abbrüche mit Hinweis: art_konflikt, keine_kinder, zu_viele (6 ja, 5 nein), kein_kind, Vertrags-Code mit student_id, raum_inaktiv, kein_coach.
 --   6) Leitung: Admin-Profil erlaubt, student/parent nicht; stammschicht_anlegen bleibt bei Rolle 'coach'.
 --   7) Rechte: Coach bekommt 42501 bei allen vier Funktionen; anon hat kein EXECUTE.
 --   8) session_leitung und stundenplan_woche.
@@ -177,6 +177,18 @@ select is(pg_temp.fehler(format($$select sofort_session_anlegen(%L, %L, '{}'::uu
           '22023/keine_kinder/', '5 leere Liste: keine_kinder');
 select is(pg_temp.fehler(format($$select sofort_session_anlegen(%L, %L, null, %L)$$, :'coach_a', pg_temp.raum('Raum 1'), :sonntag)),
           '22023/keine_kinder/', '5 null: keine_kinder');
+select pg_temp.kind('Tom Test', 'Basic', 12, '2027-09-01', '2028-08-31') as kt3 \gset
+select pg_temp.kind('Tara Test', 'Basic', 12, '2027-09-01', '2028-08-31') as kt4 \gset
+select pg_temp.kind('Timo Test', 'Basic', 12, '2027-09-01', '2028-08-31') as kt5 \gset
+select pg_temp.kind('Toni Test', 'Basic', 12, '2027-09-01', '2028-08-31') as kt6 \gset
+update students set ist_test = true where id in (:'kt3', :'kt4', :'kt5', :'kt6');
+select is(pg_temp.fehler(format($$select sofort_session_anlegen(%L, %L, array[%L, %L, %L, %L, %L, %L]::uuid[], %L)$$,
+                                :'coach_a', pg_temp.raum('Raum 1'), :'kt', :'kt2', :'kt3', :'kt4', :'kt5', :'kt6', :sonntag)),
+          '22023/zu_viele/', '5 sechs Kinder: zu_viele');
+select sofort_session_anlegen(:'coach_a', pg_temp.raum('Raum 1'), array[:'kt', :'kt2', :'kt3', :'kt4', :'kt5', :'kt']::uuid[],
+                              '2027-11-20 11:00 Europe/Berlin') as r_fuenf \gset
+select is((select count(*)::int from session_students where session_id = (:'r_fuenf'::jsonb ->> 'session_id')::uuid), 5,
+          '5 fünf Kinder (plus ein doppeltes) gehen');
 select is(pg_temp.fehler(format($$select sofort_session_anlegen(%L, %L, array[%L::uuid], %L)$$,
                                 :'coach_a', pg_temp.raum('Raum 1'), :'kpv', :sonntag)),
           '22023/kein_kind/', '5 vorläufiges Kind: kein_kind');
@@ -199,7 +211,8 @@ select is(pg_temp.fehler(format($$select sofort_session_anlegen(%L, %L, array[%L
 select is(pg_temp.fehler(format($$select stammschicht_anlegen(%L, 3, %L, %L, '2027-11-10', '2027-11-08 10:00 Europe/Berlin')$$,
                                 :'admin', pg_temp.zeit(16), pg_temp.raum('Raum 3'))),
           '22023/kein_coach/', '6 stammschicht_anlegen mit Admin-Profil weiterhin kein_coach');
-select is((select count(*)::int from coaching_sessions where scheduled_at >= '2027-11-08' and raum_id is null), 0,
+select is((select count(*)::int from coaching_sessions where scheduled_at >= '2027-11-08' and raum_id is null
+                                                   and id <> (:'r_fuenf'::jsonb ->> 'session_id')::uuid), 0,
           '5 kein Abbruch hat etwas angelegt');
 
 -- ── 8) session_leitung, stundenplan_woche ────────────────────────────────────

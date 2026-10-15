@@ -34,9 +34,10 @@ Stand: 15.10.2026 · Paket S1 (Sofort-Session und Buchbarkeit mit Grund) · Bran
     mehreren Hundert lohnt ein Blick auf die Laufzeit.
 11. **Text `fehler.keinCoach`** sagt „kein Coach“; bei der Sofort-Session ist ein Admin auch erlaubt. Für den Dialog
     eventuell eigener Text.
-12. **Keine Obergrenze für die Gruppengröße.** `sofort_session_anlegen` nimmt auch sechs und mehr Kinder an; das
-    Produkt hat höchstens fünf, `session_tablets.tablet_nr` geht bis 5. Nicht in den Entscheidungen, deshalb nicht
-    gebaut. Vorschlag: `cardinality > 5` → `22023` mit Hinweis `zu_viele` (Rasit entscheidet).
+12. **Gruppengröße — erledigt (Nachtrag, Rasit 15.10.2026).** `sofort_session_anlegen` bricht ab, wenn nach dem
+    Entfernen doppelter Einträge mehr als 5 Kinder übrig sind: `22023`, Hinweis `zu_viele` (höchstens 5 Kinder pro
+    Raum, Live-Sicht hat 5 Tablet-Plätze). Offen bleibt die Grenze im Stundenplan (`addStudentToSession`); sie kommt
+    in S2 als Sperre in der Oberfläche.
 13. **Raum- und Coach-Doppelbelegung** wird nicht geprüft: zwei Sofort-Sessions mit gleichem Coach und Raum zur selben
     Minute gehen beide durch. Vorschlag: Warnung in der Oberfläche.
 14. **`widerrufen` vor `vertrag_ab`.** Ist der Vertrag mit dem spätesten Beginn widerrufen, ein früherer, noch nicht

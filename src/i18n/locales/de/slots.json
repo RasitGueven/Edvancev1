@@ -23,6 +23,7 @@
     "keinCoach": "Dieses Konto ist kein Coach.",
     "keinVorschlag": "Für dieses Kind gibt es keinen Folgevertrag mit früheren Stammplätzen.",
     "keineKinder": "Wähle mindestens ein Kind.",
+    "zuViele": "Höchstens 5 Kinder pro Raum.",
     "keinKind": "Ein gewähltes Kind gibt es nicht oder es ist noch nicht aufgenommen.",
     "raumInaktiv": "Dieser Raum ist heute nicht in Betrieb.",
     "artKonflikt": "Testkonten und echte Kinder sitzen nie in derselben Session.",

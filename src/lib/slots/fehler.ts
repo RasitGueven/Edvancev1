@@ -22,6 +22,7 @@ const HINWEIS: Record<string, string> = {
   kein_vorschlag: 'keinVorschlag',
   // S1: Sofort-Session. Die Codes aus kinder_buchbar kommen als Hinweis, das Kind als Detail.
   keine_kinder: 'keineKinder',
+  zu_viele: 'zuViele',
   kein_kind: 'keinKind',
   raum_inaktiv: 'raumInaktiv',
   art_konflikt: 'artKonflikt',
