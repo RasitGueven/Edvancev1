@@ -4,11 +4,12 @@
 //
 // C2: Im Fehlerfall gehen SQLSTATE (code) und Hinweis (hint) mit, damit die
 // Coach-Live-Sicht sie auf ihre Fehler-Codes abbilden kann (nie den Rohtext zeigen).
+// S1: dazu das Detail (z. B. die student_id des Kindes, das eine Sofort-Session nicht zulässt).
 
 import { supabase } from '@/lib/supabase/client'
 import type { SupabaseResult } from '@/types'
 
-export type RpcFehler = { code?: string | null; hint?: string | null }
+export type RpcFehler = { code?: string | null; hint?: string | null; detail?: string | null }
 export type RpcResult<T> = SupabaseResult<T> & RpcFehler
 
 export async function sessionRpc<T>(
@@ -20,7 +21,11 @@ export async function sessionRpc<T>(
     const { data, error } = await supabase.rpc(fn, args)
     if (error) {
       // code/hint nur, wenn die Datenbank sie liefert (bestehende Aufrufer vergleichen das Ergebnis exakt).
-      return { data: null, error: error.message, ...(error.code ? { code: error.code } : {}), ...(error.hint ? { hint: error.hint } : {}) }
+      return {
+        data: null, error: error.message,
+        ...(error.code ? { code: error.code } : {}), ...(error.hint ? { hint: error.hint } : {}),
+        ...(error.details ? { detail: error.details } : {}),
+      }
     }
     return { data: data as T, error: null }
   } catch (err) {

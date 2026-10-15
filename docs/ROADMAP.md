@@ -94,6 +94,12 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Slots S1 · Sofort-Session und Buchbarkeit mit Grund** (Retro `2026-10-15-slots-s1-sofort-session.md`, Branch
+  `feat/rasit-slots-s1-sofort`): Admin legt jederzeit eine Einzel-Session ab jetzt an (`sofort_session_anlegen`, Leitung
+  Coach oder Admin, Raum aus der Raumliste, nur Testkinder → Testlauf, Einheit über `slots_einzelbuchungen`,
+  danach `termine_planen`). `kinder_buchbar` nennt je Kind und Datum den Grund (Vertrags-Codes genau dann, wenn
+  `session_platz_zugang` nein sagt). Dazu `session_leitung`, `stundenplan_woche`, Wrapper `stundenplan.ts`,
+  Datenvertrag Abschnitt 12. Oberfläche folgt. Noch nicht eingespielt. **Offen:** `docs/slots/offene-punkte-s1.md`.
 - **Verträge V5 · Pilotvereinbarung** (Retro `2026-10-14-vertraege-v5-pilot.md`, Branch `feat/rasit-vertrag-pilot`):
   zweite Vertragsart `vertraege.vertragsart` (`regulaer` | `pilot`): 0 €, ohne Paket, Laufzeit, SEPA und Widerruf,
   festes Ende und feste Einheiten mit Vorschlag (`vertrag_pilot_vorschlag`), Status ab Abschluss `aktiv`.

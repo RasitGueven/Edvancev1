@@ -878,3 +878,72 @@ laufenden Vertrag (Zugangscode, Akte, Slots, Session, Reports). Migration `20261
   Kind).
 - **Vorlage:** `dokumente/de/pilotvereinbarung.md`, gebündelt in `supabase/functions/_shared/dokumente/texte.ts`.
   Die Edge Functions erzeugen für einen Pilot nur das Vertragsdokument (Art `vertrag`), kein Mandat.
+
+## 12. Sofort-Session und Buchbarkeit mit Grund (Admin, Paket S1)
+
+Ein Admin legt jederzeit (auch Wochenende, Ferien, Feiertag) eine Session ab jetzt an. Technisch ist sie eine
+Einzel-Session wie aus dem Stundenplan: `coaching_sessions` mit `raum_id = null` und `slot_zeit_id = null`, keine
+`kind_termine`. Einheiten zählen über `slots_einzelbuchungen` / `slots_fest_belegt` (Testläufe nie).
+Migration `20261015093534_slots_s1_sofort_session.sql`, Wrapper `src/lib/supabase/stundenplan.ts`,
+Typen `src/types/stundenplan.ts`.
+
+### 12.1 Grundregeln
+
+- **Rollen.** Alle vier Funktionen nur Admin (oder Systemaufruf), sonst `42501`. EXECUTE nur `authenticated`.
+  Eine Sofort-Session nur mit Testkindern (Testlauf) legt nur ein Admin an; ein Systemaufruf scheitert daran am
+  bestehenden Testlauf-Trigger (`42501 Testlauf: nur Admin`).
+- **Leitung.** Leiten darf ein Profil mit Rolle `coach` oder `admin` (Entscheidung Rasit 2), nur bei Einzel- und
+  Sofort-Sessions. `stammschicht_anlegen`, `termin_coach_setzen`, `termin_raum_oeffnen` und der Slot-Plan bleiben bei
+  Rolle `coach`. `createSession` (`src/lib/supabase/sessions.ts`) darf eine Admin-ID als `coachId` bekommen.
+- **Fehler.** `22023` mit Hinweis (hint) und bei einem Kind dessen `student_id` als Detail. Der Wrapper gibt `code`,
+  `hint` und `detail` weiter, `slotsFehlerSchluessel` bildet den Hinweis auf `fehler.*` im Namespace `slots` ab.
+
+### 12.2 Aufrufe
+
+| Funktion | Ergebnis |
+|---|---|
+| `kinder_buchbar(p_datum date, p_session_id uuid default null)` | Tabelle `student_id, name, klasse, ist_test, code, detail date` für alle Kinder außer `is_provisional`. Code siehe 12.3. |
+| `sofort_session_anlegen(p_coach_id uuid, p_raum_id uuid, p_student_ids uuid[], p_jetzt timestamptz default now())` | `{ session_id, testlauf }`. `scheduled_at` = jetzt, auf die Minute abgerundet; `room` = Name des Raums. `p_jetzt` nimmt die Funktion nur von Admin/System an (`slots_jetzt`), die Oberfläche schickt es nie. |
+| `session_leitung()` | Tabelle `id, name, rolle` (`coach` \| `admin`), nach Name. Für die Coach-Auswahl in Stundenplan und Dialog. |
+| `stundenplan_woche(p_montag date)` | `{ montag, sessions: [...] }`. `p_montag` darf ein beliebiger Tag der Woche sein. Je Einzel-Session (Mo–So, nach Beginn): `session_id, scheduled_at, room, status, testlauf, gestartet, coach_id, coach_name, coach_rolle, kinder: [{ student_id, name, ist_test, attendance }]`. Slot-Sessions (`raum_id` gesetzt) fehlen. |
+
+### 12.3 Codes von `kinder_buchbar`
+
+Erster Treffer gewinnt. Die vier Vertrags-Codes greifen genau dann, wenn `session_platz_zugang(student_id, p_datum)`
+nein sagt, also wenn der Platz-Trigger (`ZG001`) das Kind ablehnen würde. `ok` gilt genau dann, wenn
+`session_platz_zugang` ja sagt und keiner der übrigen Codes greift.
+
+| Code | Bedeutung | `detail` |
+|---|---|---|
+| `kein_vertrag` | kein abgeschlossener Vertrag (auch: abgeschlossen, aber ohne Laufzeit) | – |
+| `widerrufen` | der letzte Vertrag (spätester Beginn) ist widerrufen | `widerrufen_am` |
+| `vertrag_ab` | ein nicht widerrufener Vertrag beginnt nach `p_datum` | nächster `vertragsbeginn` |
+| `vertrag_beendet` | der letzte Vertrag endete vor `p_datum` | letzter Vertragstag: `vertrag_ende`, bei Kündigung der Tag vor `gekuendigt_zum` |
+| `keine_einheit` | kein Testkonto und `einheiten − slots_fest_belegt(slots_vertrag_am(…), p_datum) < 1`, oder kein Vertrag über `slots_vertrag_am` (Brückentag) | – |
+| `schon_termin` | am `p_datum` ein `kind_termine` in `planned/present/unexcused` oder eine Einzelbuchung (`slots_einzelbuchungen`) in diesen Zuständen | – |
+| `art_konflikt` | nur mit `p_session_id`: Session ist Testlauf und Kind kein Testkonto, oder umgekehrt | – |
+| `ok` | buchbar | – |
+
+Mit `p_session_id` muss `p_datum` der Berlin-Tag der Session sein (sonst `22023`, Hinweis `datum_session`; unbekannte
+Session `P0002`). Eine Buchung in genau dieser Session zählt dann weder als `schon_termin` noch gegen die Einheiten,
+egal ob Einzelbuchung oder festgeschriebener Slot-Termin (`slots_fest_belegt(…, p_ausser)`).
+Die Wochengrenze (`SL004`) prüft `kinder_buchbar` bewusst nicht; sie gilt nur für Stammplätze und Zusatztermine.
+`slots_fest_belegt` zählt Einzelbuchungen mit (im Zeitraum `vertragsbeginn..vertrag_ende`, Zustände
+`planned/present/unexcused`), künftige bewegliche Stammplatz-Termine nicht.
+
+### 12.4 Abbrüche von `sofort_session_anlegen`
+
+| SQLSTATE | hint | detail | Wann |
+|---|---|---|---|
+| `42501` | – | – | nicht Admin |
+| `22023` | `kein_coach` | – | Leitung hat weder Rolle `coach` noch `admin` |
+| `22023` | `raum_inaktiv` | – | Raum fehlt oder ist am Tag nicht aktiv (`aktiv_ab ≤ Tag < inaktiv_ab`) |
+| `22023` | `keine_kinder` | – | Liste leer oder `null` (doppelte und leere Einträge fallen vorher weg) |
+| `22023` | `zu_viele` | – | mehr als 5 Kinder nach dem Entfernen doppelter Einträge (5 Tablet-Plätze) |
+| `22023` | `kein_kind` | – | ein Eintrag ist kein Kind oder ein vorläufiges |
+| `22023` | `art_konflikt` | – | Testkonto und echtes Kind gemischt |
+| `22023` | Code aus 12.3 | `student_id` | ein Kind ist nicht `ok`; erstes in der Reihenfolge der Eingabe |
+
+Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbraucht nichts, `keine_einheit` entfällt).
+Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
+Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
