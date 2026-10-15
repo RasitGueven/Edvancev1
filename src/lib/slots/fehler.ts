@@ -20,6 +20,18 @@ const HINWEIS: Record<string, string> = {
   zeit_doppelt: 'zeitDoppelt',
   kein_coach: 'keinCoach',
   kein_vorschlag: 'keinVorschlag',
+  // S1: Sofort-Session. Die Codes aus kinder_buchbar kommen als Hinweis, das Kind als Detail.
+  keine_kinder: 'keineKinder',
+  kein_kind: 'keinKind',
+  raum_inaktiv: 'raumInaktiv',
+  art_konflikt: 'artKonflikt',
+  kein_vertrag: 'keinVertrag',
+  widerrufen: 'widerrufen',
+  vertrag_ab: 'vertragAb',
+  vertrag_beendet: 'vertragBeendet',
+  keine_einheit: 'keineEinheit',
+  schon_termin: 'schonTermin',
+  datum_session: 'datumSession',
 }
 
 const SQLSTATE: Record<string, string> = {
