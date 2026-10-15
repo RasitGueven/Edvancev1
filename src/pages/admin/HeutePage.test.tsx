@@ -204,6 +204,11 @@ describe('HeutePage', () => {
     expect(within(betrieb).getByLabelText('3 von 5 Plätzen belegt')).toBeTruthy()
     expect(within(betrieb).getByText('Raum B2')).toBeTruthy()
     expect(within(betrieb).getByText('Einzel-Session')).toBeTruthy()
+    // S3: Raum A1 hat schon eine Session → Live-Sicht; Raum B2 mit Coach, ohne Session → Session öffnen
+    // (Reihenfolge hängt an der Uhrzeit des Laufs, daher sortiert)
+    expect(within(betrieb).getAllByRole('link', { name: 'Live-Sicht' }).map((a) => a.getAttribute('href')).sort())
+      .toEqual(['/coach/session/cs1/live', '/coach/session/e1/live'])
+    expect(within(betrieb).getByRole('button', { name: 'Session öffnen' })).toBeTruthy()
     expect(within(betrieb).getByRole('link', { name: /Zum Wochenplan/ }).getAttribute('href')).toBe('/admin/slots')
     // Kennzahl Coaches: zwei verschiedene Coaches der Raum-Termine
     expect(screen.getByText('2 heute im Einsatz')).toBeTruthy()
@@ -233,7 +238,7 @@ describe('HeutePage', () => {
     expect(await screen.findByText(/ZZ Raum/)).toBeTruthy()
     expect(screen.getByText('läuft noch · ZZ Coach · 2 Kinder')).toBeTruthy()
     expect(screen.getByText('Testlauf')).toBeTruthy()
-    expect(screen.getByRole('link', { name: 'Live-Sicht' }).getAttribute('href')).toBe('/coach/session/zz-s/live')
+    expect(within(karte('Offen geblieben')).getByRole('link', { name: 'Live-Sicht' }).getAttribute('href')).toBe('/coach/session/zz-s/live')
     // Nie gestartete Sessions: nur Zahl mit Link zum Stundenplan, kein Link in die Live-Sicht.
     const nie = await screen.findByTestId('nicht-gestartet')
     expect(within(nie).getByText('Nicht gestartet (2)')).toBeTruthy()

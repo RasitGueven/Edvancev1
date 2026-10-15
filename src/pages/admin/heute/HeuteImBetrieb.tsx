@@ -6,10 +6,14 @@ import { PlatzPunkte } from '@/components/edvance/PlatzPunkte'
 import type { LsaSessionListItem } from '@/types'
 import type { SlotsTag } from '@/types/slotplan'
 import { AbsagenHeute } from './AbsagenHeute'
-import { betriebKinder, betriebZeilen } from './betriebModel'
+import { BetriebAktionKnopf } from './BetriebAktionKnopf'
+import { betriebAktion, betriebKinder, betriebZeilen } from './betriebModel'
 import { berlinZeit } from './ListenVertrieb'
 
-type Eintrag = { key: string; zeit: string; sortier: number; titel: string; marke?: JSX.Element; unterzeile: string; rechts: JSX.Element }
+type Eintrag = {
+  key: string; zeit: string; sortier: number; titel: string; marke?: JSX.Element; unterzeile: string; rechts: JSX.Element
+  aktion?: JSX.Element
+}
 
 type Props = {
   tag: SlotsTag | null
@@ -21,7 +25,8 @@ type Props = {
 /**
  * Was heute im Haus passiert (Slots SL3): die Raum-Termine aus slots_tag (Zeit, Raum, Coach,
  * Platz-Punkte), die Einzel-Sessions und Testläufe ohne Raum-Termin (gekennzeichnet), die
- * Lernstandsanalysen von heute und darunter die Absagen des Tages. Jede Session steht genau einmal da.
+ * Lernstandsanalysen von heute und darunter die Absagen des Tages. Jede Session steht genau einmal da;
+ * Raum-Termine und Sessions tragen rechts genau eine Aktion (S3, betriebAktion).
  */
 export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Element {
   const { t, i18n } = useTranslation('admin')
@@ -40,6 +45,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
             titel: z.t.raum_name,
             unterzeile: z.t.art === 'faellt_aus' ? t('heute.betrieb.faelltAus') : (z.t.coach_name ?? t('heute.betrieb.ohneCoach')),
             rechts: <PlatzPunkte raeume={[z.t.belegt]} mitZahl />,
+            aktion: tag ? <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} /> : undefined,
           }
         : {
             key: z.key,
@@ -54,6 +60,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
             ),
             unterzeile: z.s.coach_name ?? t('heute.betrieb.ohneCoach'),
             rechts: <PlatzPunkte raeume={[z.s.kinder]} mitZahl />,
+            aktion: tag ? <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} /> : undefined,
           },
     ),
     ...lsa.map((l) => {
@@ -97,7 +104,10 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
                   {e.marke}
                 </span>
               </div>
-              {e.rechts}
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                {e.rechts}
+                {e.aktion}
+              </div>
             </li>
           ))}
         </ol>
