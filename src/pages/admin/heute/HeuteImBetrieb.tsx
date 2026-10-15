@@ -45,7 +45,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
             titel: z.t.raum_name,
             unterzeile: z.t.art === 'faellt_aus' ? t('heute.betrieb.faelltAus') : (z.t.coach_name ?? t('heute.betrieb.ohneCoach')),
             rechts: <PlatzPunkte raeume={[z.t.belegt]} mitZahl />,
-            aktion: <BetriebAktionKnopf aktion={betriebAktion(z, tag?.datum ?? '')} />,
+            aktion: tag ? <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} /> : undefined,
           }
         : {
             key: z.key,
@@ -60,7 +60,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
             ),
             unterzeile: z.s.coach_name ?? t('heute.betrieb.ohneCoach'),
             rechts: <PlatzPunkte raeume={[z.s.kinder]} mitZahl />,
-            aktion: <BetriebAktionKnopf aktion={betriebAktion(z, tag?.datum ?? '')} />,
+            aktion: tag ? <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} /> : undefined,
           },
     ),
     ...lsa.map((l) => {

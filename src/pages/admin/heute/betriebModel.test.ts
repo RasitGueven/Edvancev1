@@ -31,6 +31,7 @@ describe('betriebAktion', () => {
   it('Raum-Termin mit Session (auch ohne Coach): Live-Sicht', () => {
     expect(betriebAktion(raum({ session_id: 's9' }), '2026-10-15')).toEqual({ art: 'live', ziel: '/coach/session/s9/live' })
     expect(betriebAktion(raum({ session_id: 's9', coach_id: null }), '2026-10-15').art).toBe('live')
+    expect(betriebAktion(raum({ session_id: 's9', art: 'faellt_aus' }), '2026-10-15').art).toBe('live')
   })
 
   it('Session ohne Raum: Live-Sicht', () => {

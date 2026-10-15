@@ -43,13 +43,19 @@ export function BetriebAktionKnopf({ aktion }: { aktion: BetriebAktion }): JSX.E
   const oeffnen = async (): Promise<void> => {
     setLaeuft(true)
     setFehler(null)
-    const res = await terminSessionAnlegen(aktion.datum, aktion.zeit_id, aktion.raum_id)
-    setLaeuft(false)
-    if (res.error !== null || !res.data) {
-      setFehler(slotsFehlerSchluessel(res))
-      return
+    try {
+      const res = await terminSessionAnlegen(aktion.datum, aktion.zeit_id, aktion.raum_id)
+      if (res.error !== null || !res.data) {
+        setFehler(slotsFehlerSchluessel(res))
+        return
+      }
+      navigate(`/coach/session/${res.data.session_id}/live`)
+    } catch (e) {
+      console.warn('terminSessionAnlegen failed', e)
+      setFehler(slotsFehlerSchluessel(null))
+    } finally {
+      setLaeuft(false)
     }
-    navigate(`/coach/session/${res.data.session_id}/live`)
   }
 
   return (
