@@ -35,7 +35,7 @@ export const ADMIN_NAV: NavKonfiguration = {
         {
           id: 'slots',
           route: '/admin/slots',
-          // Einzel-Sessions und Testläufe (/admin/schedule) erreicht man über die Einstellungen der Slots.
+          // Einzel-Sessions: Reiter Stundenplan der Slots; /admin/schedule leitet dorthin um (S2).
           aktivBei: ['/admin/slots*', '/admin/schedule', '/admin/slot-auswahl'],
           nameKey: 'nav.slots',
           kurzKey: 'nav.kurz.slots',

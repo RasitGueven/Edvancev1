@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard, EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
 import { EdvanceTable } from '@/components/edvance/EdvanceTable'
@@ -18,7 +16,7 @@ type Offen = { art: 'raumNeu' | 'zeitNeu' } | { art: 'raumAus' | 'zeitAus'; id: 
 
 const FELD = 'h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm tabular-nums'
 
-/** Reiter Einstellungen (Bauauftrag SL2, Umfang 8): Räume, Uhrzeiten, Tage ohne Betrieb, Einzel-Sessions. */
+/** Reiter Einstellungen (Bauauftrag SL2, Umfang 8): Räume, Uhrzeiten, Tage ohne Betrieb. */
 export function EinstellungenReiter(): JSX.Element {
   const { t, i18n } = useTranslation('slots')
   const einst = useSlotsLaden(() => ladeEinstellungen(), 'einstellungen')
@@ -177,14 +175,6 @@ export function EinstellungenReiter(): JSX.Element {
         <p className="text-xs text-[var(--color-text-tertiary)]">{t('einst.tage.vertragsende')}</p>
       </EdvanceCard>
 
-      <EdvanceCard className="flex flex-col gap-2 p-6">
-        <h2 className="text-base font-semibold">{t('einst.einzel.titel')}</h2>
-        <p className="text-sm text-[var(--color-text-secondary)]">{t('einst.einzel.satz')}</p>
-        <Link to="/admin/schedule" className="inline-flex min-h-[44px] items-center gap-2 self-start text-sm font-semibold text-[var(--color-text-link)] hover:underline">
-          {t('einst.einzel.link')}
-          <ArrowRight aria-hidden="true" className="h-4 w-4" />
-        </Link>
-      </EdvanceCard>
       {meldung && <ToastBanner type="success" message={meldung} onClose={() => setMeldung(null)} />}
     </div>
   )

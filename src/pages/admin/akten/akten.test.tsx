@@ -4,7 +4,7 @@
 // Sperre bei einem Gesundheitsbegriff. Testdaten tragen das Praefix ZZ_.
 
 import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import '@/i18n'
 import type { BoardSchueler, Schuelerakte } from '@/types'
@@ -83,6 +83,17 @@ vi.mock('@/lib/supabase/slotplan', () => ({
       error: null,
     }),
   ),
+  ladeEinstellungen: vi.fn(() =>
+    Promise.resolve({ data: { raeume: [{ id: 'r1', name: 'Raum 1', aktiv_ab: '2020-01-01', inaktiv_ab: null, stammschichten: 0 }] }, error: null }),
+  ),
+}))
+// Slots S2: „Session jetzt starten“ aus der Akte, Kind vorgewählt.
+vi.mock('@/lib/supabase/stundenplan', () => ({
+  ladeKinderBuchbar: vi.fn(() =>
+    Promise.resolve({ data: [{ student_id: 'k1', name: 'ZZ_Efe Demir', klasse: 9, ist_test: false, code: 'ok', detail: null }], error: null }),
+  ),
+  ladeSessionLeitung: vi.fn(() => Promise.resolve({ data: [], error: null })),
+  sofortSessionAnlegen: vi.fn(),
 }))
 
 import { listBoardSchueler, stammdatenSpeichern } from '@/lib/supabase/akte'
@@ -225,5 +236,20 @@ describe('Akte', () => {
     expect(screen.queryByRole('button', { name: 'Stammdaten speichern' })).toBeNull()
     // Faecher in den Stammdaten und als Fach in der Kachel Fortschritt
     expect(screen.getAllByText('Mathematik').length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('Slots S2, Admin: „Session jetzt starten“ mit dem Kind der Akte vorgewählt', async () => {
+    zeige('/admin/akten/k1')
+    fireEvent.click(await screen.findByRole('button', { name: 'Session jetzt starten' }))
+    const dialog = await screen.findByRole('dialog')
+    const box = (await within(dialog).findByText('ZZ_Efe Demir')).closest('li')?.querySelector('input') as HTMLInputElement
+    await waitFor(() => expect(box.checked).toBe(true))
+  })
+
+  it('Slots S2, Coach: kein „Session jetzt starten“', async () => {
+    auth.rolle = 'coach'
+    zeige('/admin/akten/k1')
+    await screen.findByText('leicht im Rückstand')
+    expect(screen.queryByRole('button', { name: 'Session jetzt starten' })).toBeNull()
   })
 })

@@ -19,9 +19,9 @@ export function sessionGestartet(session: Pick<CoachingSession, 'status' | 'gest
 }
 
 const FEHLER_KEY: Record<string, string> = {
-  [TESTLAUF_NUR_TESTKONTEN]: 'schedule.testlauf.fehler.nurTestkonten',
-  [TESTLAUF_GESTARTET]: 'schedule.testlauf.fehler.gestartet',
-  '42501': 'schedule.testlauf.fehler.nurAdmin',
+  [TESTLAUF_NUR_TESTKONTEN]: 'stundenplan.testlauf.fehler.nurTestkonten',
+  [TESTLAUF_GESTARTET]: 'stundenplan.testlauf.fehler.gestartet',
+  '42501': 'stundenplan.testlauf.fehler.nurAdmin',
 }
 
 /**
@@ -30,7 +30,7 @@ const FEHLER_KEY: Record<string, string> = {
  * selbst (session_testlauf_setzen). Ablehnungen stehen ruhig unter dem Schalter.
  */
 export function SessionTestlaufSchalter({ session, wert, onGeaendert }: Props): JSX.Element {
-  const { t } = useTranslation('admin')
+  const { t } = useTranslation('slots')
   const [busy, setBusy] = useState(false)
   const [fehler, setFehler] = useState<string | null>(null)
   const gestartet = sessionGestartet(session)
@@ -41,7 +41,7 @@ export function SessionTestlaufSchalter({ session, wert, onGeaendert }: Props): 
     const { error, code } = await setSessionTestlauf(session.id, neu)
     setBusy(false)
     if (error) {
-      setFehler(t(FEHLER_KEY[code ?? ''] ?? 'schedule.testlauf.fehler.unbekannt'))
+      setFehler(t(FEHLER_KEY[code ?? ''] ?? 'stundenplan.testlauf.fehler.unbekannt'))
       return
     }
     onGeaendert(neu)
@@ -51,7 +51,7 @@ export function SessionTestlaufSchalter({ session, wert, onGeaendert }: Props): 
     <div className="flex flex-col gap-2">
       <label
         className="flex min-h-11 cursor-pointer items-start gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] p-3"
-        title={gestartet ? t('schedule.testlauf.gestartet') : undefined}
+        title={gestartet ? t('stundenplan.testlauf.gestartet') : undefined}
       >
         <input
           type="checkbox"
@@ -64,10 +64,10 @@ export function SessionTestlaufSchalter({ session, wert, onGeaendert }: Props): 
         />
         <span className="flex flex-col gap-1">
           <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-            {t('schedule.testlauf.label')}
+            {t('stundenplan.testlauf.label')}
           </span>
           <span className="text-xs text-[var(--color-text-tertiary)]">
-            {gestartet ? t('schedule.testlauf.gestartet') : t('schedule.testlauf.hilfe')}
+            {gestartet ? t('stundenplan.testlauf.gestartet') : t('stundenplan.testlauf.hilfe')}
           </span>
         </span>
       </label>

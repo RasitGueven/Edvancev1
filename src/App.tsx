@@ -18,7 +18,6 @@ import { AdminPruefansichtPage } from '@/pages/admin/pruefen/AdminPruefansichtPa
 import { ReiheEndePage } from '@/pages/admin/pruefen/ReiheEndePage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
-import { SchedulePage } from '@/pages/admin/SchedulePage'
 import { SlotsPage } from '@/pages/admin/slots/SlotsPage'
 import { TerminPage as SlotsTerminPage } from '@/pages/admin/slots/termin/TerminPage'
 import { KindPage as SlotsKindPage } from '@/pages/admin/slots/kind/KindPage'
@@ -240,11 +239,12 @@ export default function App(): JSX.Element {
               </ProtectedRoute>
             }
           />
+          {/* Slots S2: der Stundenplan ist ein Reiter der Slots; die alte Adresse leitet dorthin. */}
           <Route
             path="/admin/schedule"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <SchedulePage />
+                <Navigate to="/admin/slots?reiter=stundenplan" replace />
               </ProtectedRoute>
             }
           />

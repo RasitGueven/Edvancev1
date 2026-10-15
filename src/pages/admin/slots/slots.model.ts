@@ -5,7 +5,7 @@ import type { PlanbilanzArt, SlotsKinderZeile, SlotsWoche, WocheZelle } from '@/
 
 // ── Reiter <-> URL ─────────────────────────────────────────────────────────────
 
-export const REITER = ['wochenplan', 'kinder', 'coaches', 'einstellungen'] as const
+export const REITER = ['wochenplan', 'stundenplan', 'kinder', 'coaches', 'einstellungen'] as const
 export type SlotsReiter = (typeof REITER)[number]
 
 export function reiterAusSuche(suche: URLSearchParams): SlotsReiter {

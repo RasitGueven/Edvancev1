@@ -86,6 +86,7 @@ describe('Reiter und Woche in der URL', () => {
   it('Reiter aus der Suche, Wochenplan als Standard, Unbekanntes fällt zurück', () => {
     expect(reiterAusSuche(new URLSearchParams(''))).toBe('wochenplan')
     expect(reiterAusSuche(new URLSearchParams('reiter=kinder'))).toBe('kinder')
+    expect(reiterAusSuche(new URLSearchParams('reiter=stundenplan'))).toBe('stundenplan')
     expect(reiterAusSuche(new URLSearchParams('reiter=quatsch'))).toBe('wochenplan')
     expect(filterAusSuche(new URLSearchParams('reiter=kinder&filter=kein_stammplatz'))).toBe('kein_stammplatz')
   })

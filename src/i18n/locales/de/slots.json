@@ -51,6 +51,7 @@
   },
   "reiter": {
     "wochenplan": "Wochenplan",
+    "stundenplan": "Stundenplan",
     "kinder": "Kinder",
     "coaches": "Coaches",
     "einstellungen": "Einstellungen"
@@ -355,11 +356,6 @@
       "titel": "Tage ohne Betrieb bis Ende des Schuljahrs",
       "satz": "Ferien und Feiertage in NRW bis {{datum}}. An diesen Tagen entstehen keine Termine.",
       "vertragsende": "Für das Vertragsende zählen nur die Ferien. Feiertage und der Pfingstferientag verschieben es nicht."
-    },
-    "einzel": {
-      "titel": "Einzel-Sessions und Testläufe",
-      "satz": "Sessions außerhalb der Slots, etwa Testläufe, legst du weiterhin einzeln an.",
-      "link": "Einzel-Sessions öffnen"
     }
   },
   "dialog": {
@@ -473,10 +469,93 @@
     "ok": "Buchbar",
     "kein_vertrag": "Kein Vertrag",
     "widerrufen": "Vertrag widerrufen am {{datum}}",
-    "vertrag_ab": "Vertrag läuft ab {{datum}}",
+    "vertrag_ab": "Vertrag beginnt am {{datum}}",
     "vertrag_beendet": "Vertrag endete am {{datum}}",
     "keine_einheit": "Keine offene Einheit",
     "schon_termin": "Hat an diesem Tag schon einen Termin",
     "art_konflikt": "Passt nicht zur Session (Testkonto und echtes Kind)"
+  },
+  "stundenplan": {
+    "uhr": "{{zeit}} Uhr",
+    "ohneRaum": "Ohne Raum",
+    "ohneCoach": "Ohne Leitung",
+    "admin": "Admin",
+    "unbenannt": "Ohne Namen",
+    "klasse": "Klasse {{klasse}}",
+    "kinder": "Kinder {{anzahl}} von {{max}}",
+    "niemand": "Noch kein Kind zugewiesen.",
+    "zuweisen": "Kinder zuweisen",
+    "zuweisenKnopf_one": "{{count}} Kind zuweisen",
+    "zuweisenKnopf_other": "{{count}} Kinder zuweisen",
+    "waehleKind": "Wähle mindestens ein Kind.",
+    "voll": "Der Raum ist voll: höchstens {{max}} Kinder.",
+    "live": "Live-Sicht",
+    "status": {
+      "upcoming": "Geplant",
+      "active": "Läuft",
+      "done": "Erledigt"
+    },
+    "filter": {
+      "label": "Leitung",
+      "alle": "Alle"
+    },
+    "leer": {
+      "titel": "Diese Woche keine Einzel-Sessions",
+      "coachTitel": "Keine Einzel-Sessions mit dieser Leitung",
+      "text": "Starte eine Session ab jetzt oder plane eine für später."
+    },
+    "feld": {
+      "leitung": "Leitung",
+      "leitungAdmin": "{{name}} (Admin)",
+      "raum": "Raum",
+      "datum": "Datum",
+      "uhrzeit": "Uhrzeit",
+      "waehlen": "Bitte wählen"
+    },
+    "planen": {
+      "oeffnen": "Session planen",
+      "titel": "Session planen",
+      "satz": "Eine Einzel-Session für später. Die Kinder weist du danach in der Session zu.",
+      "anlegen": "Session anlegen",
+      "fehlt": {
+        "coach": "Wähle die Leitung.",
+        "zeit": "Wähle Datum und Uhrzeit.",
+        "raum": "Wähle einen Raum, der an diesem Tag in Betrieb ist."
+      }
+    },
+    "auswahl": {
+      "suche": "Kind suchen",
+      "liste": "Kinder",
+      "keinTreffer": "Kein Kind passt zur Suche.",
+      "leerTitel": "Noch keine Kinder",
+      "leerText": "Sobald ein Kind aufgenommen ist, erscheint es hier.",
+      "voll": "Höchstens {{max}} Kinder pro Raum."
+    },
+    "testlauf": {
+      "kennzeichen": "Testlauf",
+      "label": "Testlauf",
+      "hilfe": "Nur mit Testkonten. Hinterlässt keine Belege, XP, Einheiten und keinen Eintrag im Lernpfad. Umschalten geht bis zum Start.",
+      "gestartet": "Die Session ist gestartet. Der Testlauf bleibt, wie er ist.",
+      "nurTestkontenBuchen": "Im Testlauf sind nur Testkonten buchbar.",
+      "fehler": {
+        "nurTestkonten": "Ein gebuchtes Kind ist kein Testkonto. Ein Testlauf geht nur mit Testkonten.",
+        "gestartet": "Die Session ist schon gestartet. Der Testlauf bleibt, wie er ist.",
+        "nurAdmin": "Einen Testlauf setzt nur ein Admin.",
+        "unbekannt": "Der Testlauf konnte nicht geändert werden. Bitte die Seite neu laden."
+      }
+    }
+  },
+  "sofort": {
+    "knopf": "Session jetzt starten",
+    "titel": "Session jetzt starten",
+    "satz": "Die Session beginnt sofort, auch am Wochenende, in den Ferien und an Feiertagen.",
+    "kinder": "Kinder {{anzahl}} von {{max}}",
+    "starten": "Starten",
+    "fehlerKind": "{{name}}: {{grund}}",
+    "fehlt": {
+      "coach": "Wähle die Leitung.",
+      "raum": "Wähle einen Raum.",
+      "keinRaum": "Heute ist kein Raum in Betrieb. Lege unter Einstellungen einen an."
+    }
   }
 }

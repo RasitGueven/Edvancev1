@@ -99,7 +99,14 @@
   Coach oder Admin, Raum aus der Raumliste, nur Testkinder → Testlauf, Einheit über `slots_einzelbuchungen`,
   danach `termine_planen`). `kinder_buchbar` nennt je Kind und Datum den Grund (Vertrags-Codes genau dann, wenn
   `session_platz_zugang` nein sagt). Dazu `session_leitung`, `stundenplan_woche`, Wrapper `stundenplan.ts`,
-  Datenvertrag Abschnitt 12. Oberfläche folgt. Noch nicht eingespielt. **Offen:** `docs/slots/offene-punkte-s1.md`.
+  Datenvertrag Abschnitt 12. Höchstens 5 Kinder (`zu_viele`). Eingespielt 15.10. (PR #254). **Offen:**
+  `docs/slots/offene-punkte-s1.md`.
+- **Slots S2 · Stundenplan aufräumen und Sofort-Dialog** (Retro `2026-10-15-slots-s2-stundenplan.md`, Branch
+  `feat/rasit-slots-s2-stundenplan`): Reiter „Stundenplan“ in den Slots (Einzel-Sessions der Woche nach Tag, Filter
+  Leitung, „Session planen“ mit Raum aus der Raumliste), `/admin/schedule` leitet dorthin, `SchedulePage` entfällt.
+  Kinderwahl über `kinder_buchbar`: alle Kinder, nicht buchbare ausgegraut mit Grund; höchstens 5 je Raum.
+  „Session jetzt starten“ im Slots-Kopf und in der Akte (Kind vorgewählt), Dialog → `sofort_session_anlegen` →
+  Live-Sicht. Nur Frontend. **Offen:** `docs/slots/offene-punkte-s2.md`.
 - **Verträge V5 · Pilotvereinbarung** (Retro `2026-10-14-vertraege-v5-pilot.md`, Branch `feat/rasit-vertrag-pilot`):
   zweite Vertragsart `vertraege.vertragsart` (`regulaer` | `pilot`): 0 €, ohne Paket, Laufzeit, SEPA und Widerruf,
   festes Ende und feste Einheiten mit Vorschlag (`vertrag_pilot_vorschlag`), Status ab Abschluss `aktiv`.
