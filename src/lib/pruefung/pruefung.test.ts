@@ -18,7 +18,8 @@ import {
 function zeile(id: string, reihenfolge: number, status: LenaStatus = 'offen', over: Partial<PruefBoardZeile> = {}): PruefBoardZeile {
   return {
     task_id: id, stufe: 'erste', thema_key: 'a', thema_label: 'A', thema_sort: 10, skill_key: 's', skill_label: 'S',
-    kurztitel: id, reihenfolge, lena_status: status, geaendert: false, letzte_dauer_sek: null, ...over,
+    kurztitel: id, reihenfolge, lena_status: status, geaendert: false, letzte_dauer_sek: null, anlaesse: ['batu_lsa'],
+    hat_hinweise: false, ...over,
   }
 }
 

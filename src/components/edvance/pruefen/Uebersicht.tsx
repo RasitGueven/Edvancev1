@@ -1,7 +1,7 @@
 // Uebersicht "Aufgaben pruefen" (Entscheidung 29): Karte "Als Naechstes", Reiter je Stufe,
 // Themenliste mit Balken und "x / y"; ein Thema klappt auf und zeigt seine Aufgaben. Dazu der
 // Abschluss (Anforderung G 52). Mit Sollzahlen (P2): Restbedarf im Reiter, "X von Y noetig" je Thema,
-// aufgeklappt nach Knoten gruppiert.
+// aufgeklappt nach Knoten gruppiert. Ohne Reiter (Session-Bereich) stehen alle Themen untereinander.
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +13,7 @@ import { stand, themenDerStufe, type Stand } from '@/lib/pruefung/reihenfolge'
 import { knotenDesThemas, restDerStufe, sollDesThemas, sortiereThemen } from '@/lib/pruefung/soll'
 import type { LenaStatus, PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
 import { Taste } from './InfoTip'
-import { KnotenListe } from './KnotenListe'
+import { KnotenListe, Zusatz } from './KnotenListe'
 
 const STATUS_FARBE: Record<LenaStatus, string> = {
   offen: 'text-[var(--color-text-tertiary)]',
@@ -87,15 +87,26 @@ type ListeProps = {
   onThema: (key: string) => void
   onPruefen: (key: string) => void
   onAufgabe: (id: string) => void
+  /** false: keine Stufen-Reiter, alle Themen aller Stufen; aufgeklappt immer nach Knoten. */
+  reiter?: boolean
+  /** Kennzeichnung je Aufgabe, z. B. "auch Session". */
+  zusatz?: (z: PruefBoardZeile) => string | null
+  /** Text, wenn das Soll eines Themas erreicht ist. */
+  reichtText?: string
 }
 
-export function Themenliste({ board, soll = [], stufen, aktiv, offen, onReiter, onThema, onPruefen, onAufgabe }: ListeProps): JSX.Element {
+export function Themenliste({
+  board, soll = [], stufen, aktiv, offen, onReiter, onThema, onPruefen, onAufgabe, reiter = true, zusatz, reichtText,
+}: ListeProps): JSX.Element {
   const { t } = useTranslation('pruefen')
+  const gruppen = reiter
+    ? sortiereThemen(themenDerStufe(board, aktiv), soll)
+    : stufen.flatMap((s) => sortiereThemen(themenDerStufe(board, s), soll))
   const statusText = (z: PruefBoardZeile): string =>
     z.lena_status === 'passt' && z.geaendert ? t('status.passtGeaendert') : t(`status.${z.lena_status}`)
   return (
     <div className="flex flex-col gap-4">
-      <div role="tablist" className="flex flex-wrap gap-2">
+      {reiter && <div role="tablist" className="flex flex-wrap gap-2">
         {stufen.map((s) => {
           const st = stand(board.filter((z) => z.stufe === s))
           const rest = restDerStufe(soll, s)
@@ -110,9 +121,9 @@ export function Themenliste({ board, soll = [], stufen, aktiv, offen, onReiter, 
             </button>
           )
         })}
-      </div>
+      </div>}
       <div className="flex flex-col gap-2">
-        {sortiereThemen(themenDerStufe(board, aktiv), soll).map((g) => {
+        {gruppen.map((g) => {
           const st = stand(g.zeilen)
           const ts = sollDesThemas(soll, g.thema_key)
           const auf = offen.has(g.thema_key)
@@ -129,7 +140,7 @@ export function Themenliste({ board, soll = [], stufen, aktiv, offen, onReiter, 
                     {ts && <span className="text-xs text-[var(--color-text-secondary)]">{t('soll.themaNoetig', { x: ts.gezaehlt, y: ts.noetig })}</span>}
                   </span>
                 </button>
-                {ts?.reicht && <EdvanceBadge variant="success">{t('soll.themaReicht')}</EdvanceBadge>}
+                {ts?.reicht && <EdvanceBadge variant="success">{reichtText ?? t('soll.themaReicht')}</EdvanceBadge>}
                 <div className="hidden h-1.5 w-36 overflow-hidden rounded-[var(--radius-full)] bg-[var(--color-bg-subtle)] sm:flex" aria-hidden="true">
                   <span className="h-full bg-[var(--color-success)]" style={{ width: anteil(st.passt + st.freigegeben) }} />
                   <span className="h-full bg-[var(--color-warning)]" style={{ width: anteil(st.unsicher) }} />
@@ -138,11 +149,11 @@ export function Themenliste({ board, soll = [], stufen, aktiv, offen, onReiter, 
                 <span className="w-14 text-right text-sm text-[var(--color-text-secondary)]">{t('themen.zaehler', { x: st.geprueft, y: st.gesamt })}</span>
                 <Button variant="secondary" size="sm" onClick={() => onPruefen(g.thema_key)}>{t('themen.pruefen')}</Button>
               </div>
-              {auf && ts && (
+              {auf && (ts || !reiter) && (
                 <KnotenListe knoten={knotenDesThemas(g, soll)} statusText={statusText} statusFarbe={STATUS_FARBE} onAufgabe={onAufgabe}
-                  nummer={(id) => g.zeilen.findIndex((z) => z.task_id === id) + 1} />
+                  nummer={(id) => g.zeilen.findIndex((z) => z.task_id === id) + 1} zusatz={zusatz} />
               )}
-              {auf && !ts && (
+              {auf && !ts && reiter && (
                 <ul className="flex flex-col border-t border-[var(--color-border)]">
                   {g.zeilen.map((z, i) => (
                     <li key={z.task_id}>
@@ -152,6 +163,7 @@ export function Themenliste({ board, soll = [], stufen, aktiv, offen, onReiter, 
                           <span className="font-medium text-[var(--color-text-primary)]">{t('themen.aufgabe', { nr: i + 1, titel: z.kurztitel })}</span>
                           <span className="text-xs text-[var(--color-text-tertiary)]">{z.skill_label}</span>
                         </span>
+                        <Zusatz text={zusatz?.(z)} />
                         <span className={cn('whitespace-nowrap text-xs', STATUS_FARBE[z.lena_status])}>{statusText(z)}</span>
                       </button>
                     </li>
@@ -200,6 +212,28 @@ export function Abschluss({ board, schnitt, onOffene, onUebersicht }: AbschlussP
           <Button variant="secondary" onClick={onUebersicht}>{t('abschluss.zurUebersicht')}</Button>
         </div>
       </EdvanceCard>
+    </div>
+  )
+}
+
+type UmschalterProps<B extends string> = {
+  bereiche: { key: B; label: string; zahl: string }[]
+  aktiv: B
+  onWahl: (b: B) => void
+}
+
+/** Umschalter "Fuer die LSA" / "Fuer die Session" ueber dem Board, je mit "offen / gesamt". */
+export function BereichsUmschalter<B extends string>({ bereiche, aktiv, onWahl }: UmschalterProps<B>): JSX.Element {
+  return (
+    <div role="tablist" className="grid grid-cols-2 gap-2 rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] p-1">
+      {bereiche.map((b) => (
+        <button key={b.key} type="button" role="tab" aria-selected={b.key === aktiv} onClick={() => onWahl(b.key)}
+          className={cn('flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--radius-md)] px-4 text-sm',
+            b.key === aktiv ? 'bg-[var(--color-bg-surface)] font-semibold text-[var(--color-text-primary)] shadow-card'
+              : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]')}>
+          {b.label} <span className="text-xs text-[var(--color-text-tertiary)]">{b.zahl}</span>
+        </button>
+      ))}
     </div>
   )
 }

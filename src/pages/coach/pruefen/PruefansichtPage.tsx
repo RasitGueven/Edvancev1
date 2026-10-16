@@ -1,9 +1,11 @@
 // /coach/pruefen/:taskId — die Pruefansicht: ein Bildschirm je Aufgabe (Entscheidungen 30 bis 37).
 // Links die Kinderansicht, rechts die Pruefkarte, unten die Entscheidungsleiste. Nach jeder
 // Entscheidung oeffnet sich sofort die naechste offene Aufgabe; eine Meldung bietet 5 s "Rueckgaengig".
+// ?bereich=lsa|session: Weiter/Zurueck bleiben im Bereich; Hinweise nur im Session-Bereich. Ohne Parameter gilt
+// der Bereich der Aufgabe (LSA vor Session).
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { Button } from '@/components/ui'
@@ -25,6 +27,7 @@ import { getFehlbilder, getPruefBoard, getPruefEinstellungen, pruefEntscheiden, 
 import type { Fehlbild, LenaStatus, PasstNichtGrund, PruefBoardZeile, PruefEntscheidung } from '@/types'
 import { leseUebersprungen, merkeUebersprungen, vergissUebersprungen } from './uebersprungen'
 import { usePruefSitzung } from './usePruefSitzung'
+import { bereichDerAufgabe, bereichsBoard, leseBereich } from './bereich'
 import { useTasten } from './useTasten'
 
 const NICHT_IM_BOARD = ['vera8', 'inaktiv', 'typ']
@@ -35,7 +38,10 @@ export function PruefansichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
   const { role } = useAuth()
   const s = usePruefSitzung(taskId)
-  const [board, setBoard] = useState<PruefBoardZeile[]>([])
+  const [params] = useSearchParams()
+  const [alle, setBoard] = useState<PruefBoardZeile[]>([])
+  const bereich = leseBereich(params) ?? bereichDerAufgabe(alle.find((z) => z.task_id === taskId))
+  const board = useMemo(() => bereichsBoard(alle, bereich), [alle, bereich])
   const [fehlbilder, setFehlbilder] = useState<Fehlbild[]>([])
   const [grundPflicht, setGrundPflicht] = useState(false)
   const [panel, setPanel] = useState<Panel>(null)
@@ -81,12 +87,12 @@ export function PruefansichtPage(): JSX.Element {
   }), [a, fehlbildName])
 
   const geheZu = useCallback((id: string | null) => {
-    navigate(id ? `/coach/pruefen/${id}` : '/coach/pruefen?abschluss=1')
-  }, [navigate])
+    navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}` : `/coach/pruefen?abschluss=1&bereich=${bereich}`)
+  }, [navigate, bereich])
 
   const pause = async (): Promise<void> => {
     await s.sichern()
-    navigate(`/coach/pruefen?thema=${encodeURIComponent(position?.thema_key ?? '')}&pause=1`)
+    navigate(`/coach/pruefen?thema=${encodeURIComponent(position?.thema_key ?? '')}&pause=1&bereich=${bereich}`)
   }
 
   const statusText = (st: LenaStatus, geaendert: boolean): string =>
@@ -112,7 +118,7 @@ export function PruefansichtPage(): JSX.Element {
       return
     }
     const geaendert = aenderungen.length > 0
-    const neu = board.map((z) => (z.task_id === taskId ? { ...z, lena_status: res.data!.lena_status, geaendert } : z))
+    const neu = alle.map((z) => (z.task_id === taskId ? { ...z, lena_status: res.data!.lena_status, geaendert } : z))
     setBoard(neu)
     vergissUebersprungen(taskId)
     const version = res.data.pruef_version
@@ -130,7 +136,7 @@ export function PruefansichtPage(): JSX.Element {
         })
       },
     })
-    geheZu(naechsteOffene(neu, taskId, leseUebersprungen()))
+    geheZu(naechsteOffene(bereichsBoard(neu, bereich), taskId, leseUebersprungen()))
   }
 
   const ueberspringen = (): void => {
@@ -173,7 +179,7 @@ export function PruefansichtPage(): JSX.Element {
         {s.laedt && <LoadingPulse type="card" />}
         {!s.laedt && !a && (
           <EmptyState icon="🔎" title={t('ansicht.ladeFehler')} description={t(fehlerSchluessel(s.ladeFehler) ?? 'fehlermeldung.allgemein')}
-            action={<Button onClick={() => navigate('/coach/pruefen')}>{t('abschluss.zurUebersicht')}</Button>} />
+            action={<Button onClick={() => navigate(`/coach/pruefen?bereich=${bereich}`)}>{t('abschluss.zurUebersicht')}</Button>} />
         )}
         {a && s.b && s.ausgang && (
           <>
@@ -214,8 +220,10 @@ export function PruefansichtPage(): JSX.Element {
                 </section>
                 <TypischeFehler aufgabe={a} b={s.b} fehlbilder={fehlbilder} geaendert={felder.has('fehler')} lesend={lesend}
                   onChange={s.aendern} onZurueck={() => zuruecksetzen('fehler')} />
-                <KinderHinweise geladen={a.hinweise} b={s.b} geaendert={felder.has('hinweise')} lesend={lesend}
-                  onChange={s.aendern} onZurueck={() => zuruecksetzen('hinweise')} />
+                {bereich === 'session' && (
+                  <KinderHinweise geladen={a.hinweise} b={s.b} geaendert={felder.has('hinweise')} lesend={lesend}
+                    onChange={s.aendern} onZurueck={() => zuruecksetzen('hinweise')} />
+                )}
                 <Einordnung aufgabe={a} b={s.b} ausgang={s.ausgang} fertigkeitGeaendert={felder.has('fertigkeit')}
                   afbGeaendert={felder.has('afb')} lesend={lesend} onChange={s.aendern} onZurueck={zuruecksetzen} />
                 <AenderungenBox aenderungen={aenderungen} namen={namen} mc={a.aufgabe.input_type === 'MC'}

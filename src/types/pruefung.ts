@@ -35,6 +35,10 @@ export type PruefBoardZeile = {
   lena_status: LenaStatus
   geaendert: boolean
   letzte_dauer_sek: number | null
+  /** Aktive pruef_soll-Anlaesse des aktuellen Knotens (z. B. batu_lsa, batu_session); leer ohne Soll. */
+  anlaesse: string[]
+  /** task_solutions.hints hat mindestens einen Eintrag. */
+  hat_hinweise: boolean
 }
 
 /**

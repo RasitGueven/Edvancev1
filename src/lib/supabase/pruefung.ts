@@ -54,9 +54,9 @@ export async function getPruefBoard(): Promise<PruefResult<PruefBoardZeile[]>> {
   return res
 }
 
-/** Sollzahlen und Fortschritt je Knoten (P2), in der Reihenfolge von pruef_soll.sort. */
-export function getPruefSoll(): Promise<PruefResult<PruefSollZeile[]>> {
-  return rufe<PruefSollZeile[]>('pruef_board_soll')
+/** Sollzahlen und Fortschritt je Knoten (P2), in der Reihenfolge von pruef_soll.sort; mit anlass nur dieser Anlass. */
+export function getPruefSoll(anlass?: string): Promise<PruefResult<PruefSollZeile[]>> {
+  return rufe<PruefSollZeile[]>('pruef_board_soll', anlass ? { p_anlass: anlass } : undefined)
 }
 
 /** Pruefkarte einer Aufgabe. Legt beim ersten Oeffnen die Ausgangsfassung an. */

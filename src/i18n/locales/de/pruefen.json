@@ -61,6 +61,25 @@
     "knotenReicht": "reicht",
     "knotenLeer": "Keine Aufgabe in deiner Liste."
   },
+  "bereich": {
+    "lsa": "Für die LSA",
+    "session": "Für die Session",
+    "zahl": "{{offen}} offen / {{gesamt}}",
+    "sessionUeberschrift": "Nach Thema und Fertigkeit",
+    "auch": {
+      "lsa": "auch LSA",
+      "session": "auch Session"
+    },
+    "reicht": {
+      "lsa": "reicht für die LSA",
+      "session": "reicht für die Session"
+    },
+    "leer": {
+      "lsa": "Keine Aufgaben für die LSA",
+      "session": "Keine Aufgaben für die Session"
+    },
+    "leerText": "Im anderen Bereich warten Aufgaben auf dich."
+  },
   "pausiert": "Pausiert. Dein Stand ist gespeichert.",
   "abschluss": {
     "titel": "Alle Aufgaben bewertet",

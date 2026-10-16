@@ -5,6 +5,7 @@
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Check } from 'lucide-react'
+import { EdvanceBadge } from '@/components/edvance'
 import { cn } from '@/lib/utils'
 import type { KnotenGruppe } from '@/lib/pruefung/soll'
 import type { LenaStatus, PruefBoardZeile } from '@/types'
@@ -16,6 +17,13 @@ type Props = {
   statusText: (z: PruefBoardZeile) => string
   statusFarbe: Record<LenaStatus, string>
   onAufgabe: (id: string) => void
+  /** Kennzeichnung je Aufgabe, z. B. "auch Session". */
+  zusatz?: (z: PruefBoardZeile) => string | null
+}
+
+/** Kennzeichnung "auch Session" / "auch LSA" an einer Aufgabenzeile. */
+export function Zusatz({ text }: { text?: string | null }): JSX.Element | null {
+  return text ? <EdvanceBadge variant="muted">{text}</EdvanceBadge> : null
 }
 
 function KnotenKopf({ k }: { k: KnotenGruppe }): JSX.Element {
@@ -43,7 +51,7 @@ function KnotenKopf({ k }: { k: KnotenGruppe }): JSX.Element {
   )
 }
 
-export function KnotenListe({ knoten, nummer, statusText, statusFarbe, onAufgabe }: Props): JSX.Element {
+export function KnotenListe({ knoten, nummer, statusText, statusFarbe, onAufgabe, zusatz }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   return (
     <div className="flex flex-col gap-4 border-t border-[var(--color-border)] pt-4">
@@ -66,6 +74,7 @@ export function KnotenListe({ knoten, nummer, statusText, statusFarbe, onAufgabe
                       <span className="min-w-0 flex-1 font-medium text-[var(--color-text-primary)]">
                         {t('themen.aufgabe', { nr: nummer(z.task_id), titel: z.kurztitel })}
                       </span>
+                      <Zusatz text={zusatz?.(z)} />
                       <span className={cn('whitespace-nowrap text-xs', statusFarbe[z.lena_status])}>{statusText(z)}</span>
                     </button>
                   </li>

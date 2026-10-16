@@ -11,7 +11,7 @@ function zeile(id: string, n: number, over: Partial<PruefBoardZeile> = {}, statu
   return {
     task_id: id, stufe: 'zweite', thema_key: 'reelle_zahlen', thema_label: 'Reelle Zahlen', thema_sort: 410,
     skill_key: 'zahl_wurzel_quadrat', skill_label: 'Quadratwurzeln', kurztitel: `Aufgabe ${id}`, reihenfolge: n,
-    lena_status: status, geaendert: false, letzte_dauer_sek: null, ...over,
+    lena_status: status, geaendert: false, letzte_dauer_sek: null, anlaesse: ['batu_lsa'], hat_hinweise: false, ...over,
   }
 }
 
@@ -83,5 +83,28 @@ describe('Themenliste mit Sollzahlen', () => {
     liste(['kreis'])
     expect(screen.queryByTestId('knoten-geo_kreis')).toBeNull()
     expect(screen.getByRole('button', { name: /1\. Aufgabe t5/ })).toBeInTheDocument()
+  })
+})
+
+describe('Themenliste ohne Reiter (Session-Bereich)', () => {
+  it('alle Themen aller Stufen, keine Reiter, aufgeklappt nach Knoten, mit Kennzeichnung', () => {
+    render(
+      <Themenliste board={board} soll={[]} stufen={['erste', 'zweite']} aktiv="erste" offen={new Set(['kreis'])}
+        onReiter={vi.fn()} onThema={vi.fn()} onPruefen={vi.fn()} onAufgabe={vi.fn()} reiter={false}
+        zusatz={(z) => (z.task_id === 't5' ? 'auch LSA' : null)} />,
+    )
+    expect(screen.queryByRole('tab')).toBeNull()
+    const knoepfe = screen.getAllByRole('button', { name: /aufklappen|zuklappen/ })
+    expect(knoepfe.map((k) => k.textContent)).toEqual(['Terme', 'Reelle Zahlen', 'Kreis'])
+    expect(screen.getByTestId('knoten-geo_kreis')).toHaveTextContent('auch LSA')
+  })
+
+  it('"reicht" mit dem Text des Bereichs', () => {
+    render(
+      <Themenliste board={board} soll={[sollZeilen[0]]} stufen={['zweite']} aktiv="zweite" offen={new Set()}
+        onReiter={vi.fn()} onThema={vi.fn()} onPruefen={vi.fn()} onAufgabe={vi.fn()} reiter={false} reichtText="reicht für die Session" />,
+    )
+    expect(screen.getByText('reicht für die Session')).toBeInTheDocument()
+    expect(screen.queryByText('reicht für die LSA')).toBeNull()
   })
 })
