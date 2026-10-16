@@ -2553,3 +2553,19 @@ on conflict (id) do nothing;
 -- NICHT IN AF1: Baustein B (lsa_fehlbild_route + A16-Konsum) — das ist ein
 --   Eingriff IN den adaptiven Pfad und braucht einen eigenen Lauf. Ebenso der
 --   Report-Umbau zur Kette und die 17 K8-Knoten samt Items.
+
+-- ============================================================================
+-- Lena-Board: pruef_auffaelligkeiten · loesungsweg_endet_falsch
+-- (Migration 20261016112652_lwef_regel_hauptweg.sql; Quelle der Funktion: 20261005071100)
+-- ============================================================================
+-- Befund fuer NUMERIC: der Loesungsweg endet mit einem Wert, den lsa_grade (flach mit Regel) bzw.
+-- lsa_is_correct nicht als voll werten wuerde. Seit 20261016112652 zwei Lesarten, Befund nur, wenn
+-- KEINE voll ist:
+--   1. Ende des Hauptwegs: Klammer-Einschuebe mit Wort oder "=" entfernt, ab "Probe", "Kontrolle",
+--      "Check" oder "denn" abgeschnitten (ohne Gross/Klein), dann die ERSTE Zahl nach dem letzten
+--      "=" oder "≈". Diese Zahl steht im Befund als wert/stufe, falls vorhanden.
+--   2. Bisherige Lesart: die LETZTE Zahl nach dem letzten "=" oder "≈" im ganzen Weg.
+-- Grund: Probe oder Begruendung nach dem richtigen Ergebnis ("√30 ≈ 5,48. Probe: … = 6²") gab
+-- Fehlalarme (6 Pilot-Aufgaben, 16.10.2026). Lesart 1 allein haette neue Fehlalarme erzeugt
+-- ("≈ 3,3166 … ≈ 3,32 m"), daher die Kombination: jede Aufgabe ohne Befund bleibt ohne Befund.
+-- Befunde werden nicht gespeichert; pruef_aufgabe und pruef_speichern rechnen sie bei jedem Aufruf neu.
