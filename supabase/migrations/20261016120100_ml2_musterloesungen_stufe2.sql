@@ -9,7 +9,7 @@
 -- 1. task_solutions.solution nur dort, wo sie heute leer ist (NULL oder nur Leerraum), und nur an Pilot-Aufgaben
 --    im Status draft mit dem erwarteten skill_key. Antworten, Akzeptanz, Hinweise und Status bleiben unberührt.
 -- 2. fehlbild_labels.teilgekuerzt bekommt Klartext und freigegeben_am, beides nur, wenn es noch leer ist.
---    freigegeben_von bleibt leer (Migration, keine Person).
+--    freigegeben_von bleibt leer: kein Board, Report, keine Fehlbild-Auswahl und keine Policy liest es (geprüft 16.10.).
 -- Idempotent; in der CI ohne diese Aufgaben ein No-op. Kein begin/commit: mig klammert mit psql -1.
 
 do $ml2$
@@ -61,7 +61,7 @@ begin
   raise notice 'ml2_m1: % Musterlösung(en) gesetzt', v_n;
 
   update public.fehlbild_labels
-     set klartext = 'Kürzt nicht vollständig, Zähler und Nenner haben noch einen gemeinsamen Teiler.',
+     set klartext = 'Kürzt den Bruch nicht vollständig: Zähler und Nenner haben noch einen gemeinsamen Teiler.',
          freigegeben_am = coalesce(freigegeben_am, now())
    where slug = 'teilgekuerzt'
      and nullif(btrim(coalesce(klartext, '')), '') is null;
