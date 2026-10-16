@@ -1,6 +1,8 @@
 // /coach/pruefen — Uebersicht "Aufgaben pruefen" und Abschluss (Entscheidungen 29, 30; Anforderung
 // B und G). Lena landet hier ohne Auswahl von Lernstandsanalyse, Klasse oder Fach.
 // ?thema=<key>&pause=1 nach "Pause": Thema aufgeklappt, Meldung. ?abschluss=1: Abschlussseite.
+// ?bereich=lsa|session (Standard lsa): nur Aufgaben dieses Anlasses; LSA mit Stufen-Reitern, Session nach Thema und
+// Fertigkeit. Sollzahlen je Bereich nur mit dem passenden Anlass.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -9,21 +11,23 @@ import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { ErklaerEinstieg } from '@/components/edvance/pruefen/erklaer/ErklaerEinstieg'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
-import { Abschluss, AlsNaechstes, Themenliste } from '@/components/edvance/pruefen/Uebersicht'
+import { Abschluss, AlsNaechstes, BereichsUmschalter, Themenliste } from '@/components/edvance/pruefen/Uebersicht'
 import { useAuth } from '@/hooks/useAuth'
-import { ersteImThema, naechsteOffene, positionImThema, stufenMitAufgaben } from '@/lib/pruefung/reihenfolge'
+import { ersteImThema, naechsteOffene, positionImThema, stand, stufenMitAufgaben } from '@/lib/pruefung/reihenfolge'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
 import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
+import { ANLASS, auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
 
 export function PruefenUebersichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
   const navigate = useNavigate()
   const { user } = useAuth()
-  const [params] = useSearchParams()
-  const [board, setBoard] = useState<PruefBoardZeile[] | null>(null)
-  const [soll, setSoll] = useState<PruefSollZeile[]>([])
+  const [params, setParams] = useSearchParams()
+  const bereich: Bereich = leseBereich(params) ?? 'lsa'
+  const [alle, setAlle] = useState<PruefBoardZeile[] | null>(null)
+  const [sollJe, setSollJe] = useState<Record<Bereich, PruefSollZeile[]>>({ lsa: [], session: [] })
   const [fehler, setFehler] = useState<PruefFehlerInfo | null>(null)
   const [schnitt, setSchnitt] = useState<number | null>(null)
   const [reiter, setReiter] = useState<Stufe | null>(null)
@@ -33,15 +37,22 @@ export function PruefenUebersichtPage(): JSX.Element {
 
   useEffect(() => {
     void getPruefBoard().then((r) => {
-      setBoard(r.data)
+      setAlle(r.data)
       setFehler(r.error)
+      const ohne = r.data ? ohneBereich(r.data) : 0
+      if (ohne > 0) console.warn('pruef_board: tasks without batu_lsa/batu_session anlass (hidden)', ohne)
     })
     // Sollzahlen sind Zusatz: fehlen sie, bleibt das Board wie vor P2.
-    void getPruefSoll().then((r) => {
-      if (r.data) setSoll(r.data)
-      else if (r.error) console.warn('pruef_board_soll failed', r.error.message)
-    })
+    for (const b of BEREICHE) {
+      void getPruefSoll(ANLASS[b]).then((r) => {
+        if (r.data) setSollJe((s) => ({ ...s, [b]: r.data }))
+        else if (r.error) console.warn('pruef_board_soll failed', ANLASS[b], r.error.message)
+      })
+    }
   }, [])
+
+  const board = useMemo(() => (alle ? bereichsBoard(alle, bereich) : null), [alle, bereich])
+  const soll = sollJe[bereich]
 
   useEffect(() => {
     if (abschluss && user) void getMeineDauer(user.id).then((r) => setSchnitt(r.data))
@@ -62,7 +73,15 @@ export function PruefenUebersichtPage(): JSX.Element {
     ?? naechste?.stufe ?? stufen[0] ?? null
 
   const oeffne = (id: string | null): void => {
-    if (id) navigate(`/coach/pruefen/${id}`)
+    if (id) navigate(`/coach/pruefen/${id}?bereich=${bereich}`)
+  }
+  const waehle = (b: Bereich): void => {
+    setReiter(null)
+    setParams({ bereich: b })
+  }
+  const zusatz = (z: PruefBoardZeile): string | null => {
+    const auch = auchIn(z, bereich)
+    return auch ? t(`bereich.auch.${auch}`) : null
   }
 
   useEffect(() => {
@@ -71,12 +90,12 @@ export function PruefenUebersichtPage(): JSX.Element {
       const aufKnopf = !!el && ['BUTTON', 'A', 'INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName)
       if (e.key === 'Enter' && !aufKnopf && !abschluss && naechsteId) {
         e.preventDefault()
-        navigate(`/coach/pruefen/${naechsteId}`)
+        navigate(`/coach/pruefen/${naechsteId}?bereich=${bereich}`)
       }
     }
     window.addEventListener('keydown', taste)
     return () => window.removeEventListener('keydown', taste)
-  }, [naechsteId, abschluss, navigate])
+  }, [naechsteId, abschluss, navigate, bereich])
 
   return (
     <>
@@ -87,14 +106,21 @@ export function PruefenUebersichtPage(): JSX.Element {
         )}
         {board && abschluss && (
           <Abschluss board={board} schnitt={schnitt} onOffene={() => oeffne(naechsteId)}
-            onUebersicht={() => navigate('/coach/pruefen')} />
+            onUebersicht={() => navigate(`/coach/pruefen?bereich=${bereich}`)} />
         )}
         {board && !abschluss && (
           <>
             <PageHeader titel={t('kopf.titel')} satz={t('kopf.text')} />
             <ErklaerEinstieg />
+            {alle && alle.length > 0 && (
+              <BereichsUmschalter aktiv={bereich} onWahl={waehle} bereiche={BEREICHE.map((b) => {
+                const st = stand(bereichsBoard(alle, b))
+                return { key: b, label: t(`bereich.${b}`), zahl: t('bereich.zahl', { offen: st.offen, gesamt: st.gesamt }) }
+              })} />
+            )}
             {board.length === 0 ? (
-              <EmptyState icon="📋" title={t('themen.leer')} description={t('themen.leerText')} />
+              <EmptyState icon="📋" title={t(alle?.length ? `bereich.leer.${bereich}` : 'themen.leer')}
+                description={t(alle?.length ? 'bereich.leerText' : 'themen.leerText')} />
             ) : (
               <>
                 <AlsNaechstes board={board} naechste={naechste}
@@ -103,9 +129,10 @@ export function PruefenUebersichtPage(): JSX.Element {
                 {aktiv && (
                   <section className="flex flex-col gap-2">
                     <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                      {t(`stufe.${aktiv}`)}
+                      {bereich === 'lsa' ? t(`stufe.${aktiv}`) : t('bereich.sessionUeberschrift')}
                     </h2>
                     <Themenliste board={board} soll={soll} stufen={stufen} aktiv={aktiv} offen={offen} onReiter={setReiter}
+                      reiter={bereich === 'lsa'} zusatz={zusatz} reichtText={t(`bereich.reicht.${bereich}`)}
                       onThema={(k) => setOffen((o) => {
                         const n = new Set(o)
                         if (n.has(k)) n.delete(k)

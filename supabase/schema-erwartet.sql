@@ -8810,7 +8810,7 @@ $$;
 -- Name: pruef_board(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_board() RETURNS TABLE(task_id uuid, stufe text, thema_key text, thema_label text, thema_sort integer, skill_key text, skill_label text, kurztitel text, reihenfolge bigint, lena_status text, geaendert boolean, letzte_dauer_sek integer)
+CREATE FUNCTION public.pruef_board() RETURNS TABLE(task_id uuid, stufe text, thema_key text, thema_label text, thema_sort integer, skill_key text, skill_label text, kurztitel text, reihenfolge bigint, lena_status text, geaendert boolean, letzte_dauer_sek integer, anlaesse text[], hat_hinweise boolean)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -8834,7 +8834,11 @@ begin
                                      b.source_ref, b.id),
          public.pruef_lena_status(b.status),
          coalesce(jsonb_array_length(lp.aenderungen) > 0, false),
-         lp.dauer_sek
+         lp.dauer_sek,
+         coalesce((select array_agg(ps.anlass order by ps.anlass) from public.pruef_soll ps
+                    where ps.aktiv and ps.skill_key = b.sk_jetzt), '{}'::text[]),
+         coalesce((select jsonb_array_length(ts.hints) > 0
+                     from public.task_solutions ts where ts.task_id = b.id), false)
     from b
     join public.skills s on s.skill_key = b.sk
     join public.skill_thema st on st.skill_key = b.sk
@@ -8846,10 +8850,10 @@ end $$;
 
 
 --
--- Name: pruef_board_soll(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: pruef_board_soll(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_board_soll() RETURNS TABLE(skill_key text, skill_label text, thema_key text, thema_label text, thema_sort integer, stufe text, sort integer, anlaesse text[], soll integer, min_ohne_mc integer, im_board integer, gezaehlt integer, gezaehlt_ohne_mc integer, rest integer, reicht boolean)
+CREATE FUNCTION public.pruef_board_soll(p_anlass text DEFAULT NULL::text) RETURNS TABLE(skill_key text, skill_label text, thema_key text, thema_label text, thema_sort integer, stufe text, sort integer, anlaesse text[], soll integer, min_ohne_mc integer, im_board integer, gezaehlt integer, gezaehlt_ohne_mc integer, rest integer, reicht boolean)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -8863,7 +8867,7 @@ begin
     select p.skill_key sk, max(p.soll) so, max(p.min_ohne_mc) mo, min(p.sort) srt,
            array_agg(p.anlass order by p.sort, p.anlass) an
       from public.pruef_soll p
-     where p.aktiv
+     where p.aktiv and (p_anlass is null or p.anlass = p_anlass)
      group by p.skill_key),
   b as (
     select z.skill_key sk, count(*)::int n,

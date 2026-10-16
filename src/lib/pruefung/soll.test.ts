@@ -6,7 +6,8 @@ import { knotenDesThemas, restDerStufe, sollDesThemas, sortiereThemen } from './
 function zeile(id: string, reihenfolge: number, over: Partial<PruefBoardZeile> = {}, status: LenaStatus = 'offen'): PruefBoardZeile {
   return {
     task_id: id, stufe: 'zweite', thema_key: 'kreis', thema_label: 'Kreis', thema_sort: 10, skill_key: 'k_umfang',
-    skill_label: 'Umfang', kurztitel: id, reihenfolge, lena_status: status, geaendert: false, letzte_dauer_sek: null, ...over,
+    skill_label: 'Umfang', kurztitel: id, reihenfolge, lena_status: status, geaendert: false, letzte_dauer_sek: null,
+    anlaesse: ['batu_lsa'], hat_hinweise: false, ...over,
   }
 }
 

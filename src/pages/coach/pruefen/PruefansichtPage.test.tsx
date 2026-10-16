@@ -1,10 +1,12 @@
 // Pruefansicht: mountet sie mit einer Kreis-Aufgabe, gilt der Sperrgrund, verlangt "Passt nicht"
 // einen Grund, fuehrt "3" zur Entscheidung und danach zur naechsten offenen Aufgabe?
+// Bereiche: Hinweise nur im Session-Bereich, Weiter bleibt im Bereich.
 // Alle Supabase-Wrapper sind gemockt (CI hat keine VITE_*-Variablen).
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import type { JSX } from 'react'
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom'
 import '@/i18n'
 import type { PruefAufgabe, PruefBoardZeile } from '@/types'
 
@@ -31,10 +33,15 @@ import {
 } from '@/lib/supabase/pruefung'
 import { PruefansichtPage } from './PruefansichtPage'
 
-const zeile = (id: string, reihenfolge: number): PruefBoardZeile => ({
+function Ort(): JSX.Element {
+  const { search } = useLocation()
+  return <p>Übersicht {search}</p>
+}
+
+const zeile = (id: string, reihenfolge: number, anlaesse = ['batu_lsa', 'batu_session']): PruefBoardZeile => ({
   task_id: id, stufe: 'zweite', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', thema_sort: 470,
   skill_key: 'geo_kreis_umfang', skill_label: 'Umfang des Kreises', kurztitel: id, reihenfolge,
-  lena_status: 'offen', geaendert: false, letzte_dauer_sek: null,
+  lena_status: 'offen', geaendert: false, letzte_dauer_sek: null, anlaesse, hat_hinweise: true,
 })
 
 const sicht = {
@@ -65,12 +72,12 @@ const aufgabe: PruefAufgabe = {
   auffaelligkeiten: [],
 }
 
-function zeige(): void {
+function zeige(pfad = '/coach/pruefen/t1?bereich=session'): void {
   render(
-    <MemoryRouter initialEntries={['/coach/pruefen/t1']}>
+    <MemoryRouter initialEntries={[pfad]}>
       <Routes>
         <Route path="/coach/pruefen/:taskId" element={<PruefansichtPage />} />
-        <Route path="/coach/pruefen" element={<p>Übersicht</p>} />
+        <Route path="/coach/pruefen" element={<Ort />} />
       </Routes>
     </MemoryRouter>,
   )
@@ -106,6 +113,34 @@ describe('PruefansichtPage', () => {
     await waitFor(() => expect(pruefSpeichern).toHaveBeenCalledWith('t1', 3, expect.objectContaining({
       hinweise: [{ stufe: 1, text: 'Welche Formel gilt für den Umfang?' }],
     })), { timeout: 2000 })
+  })
+
+  it('LSA-Bereich: keine Hinweise, auch nicht eingeklappt', async () => {
+    zeige('/coach/pruefen/t1?bereich=lsa')
+    await screen.findByText('22,62')
+    expect(screen.queryByText('Hinweise für das Kind')).toBeNull()
+    expect(screen.queryByLabelText('Hinweis Stufe 1')).toBeNull()
+    expect(document.body.textContent).not.toContain('Was gehört in die Formel?')
+  })
+
+  it('ohne ?bereich=: LSA, wenn die Aufgabe auch LSA ist; Session-Aufgabe zeigt Hinweise', async () => {
+    zeige('/coach/pruefen/t1')
+    await screen.findByText('22,62')
+    expect(screen.queryByText('Hinweise für das Kind')).toBeNull()
+  })
+
+  it('ohne ?bereich=: reine Session-Aufgabe zeigt Hinweise', async () => {
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: [zeile('t1', 1, ['batu_session'])], error: null })
+    zeige('/coach/pruefen/t1')
+    expect(await screen.findByText('Hinweise für das Kind')).toBeTruthy()
+  })
+
+  it('Weiter bleibt im Bereich: im LSA-Bereich zaehlt eine reine Session-Aufgabe nicht', async () => {
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: [zeile('t1', 1), zeile('t2', 2, ['batu_session'])], error: null })
+    zeige('/coach/pruefen/t1?bereich=lsa')
+    await screen.findByText('22,62')
+    fireEvent.keyDown(window, { key: '3' })
+    expect(await screen.findByText('Übersicht ?abschluss=1&bereich=lsa')).toBeTruthy()
   })
 
   it('"Passt nicht" verlangt einen Grund', async () => {

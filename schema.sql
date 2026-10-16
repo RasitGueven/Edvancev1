@@ -2569,3 +2569,18 @@ on conflict (id) do nothing;
 -- Fehlalarme (6 Pilot-Aufgaben, 16.10.2026). Lesart 1 allein haette neue Fehlalarme erzeugt
 -- ("≈ 3,3166 … ≈ 3,32 m"), daher die Kombination: jede Aufgabe ohne Befund bleibt ohne Befund.
 -- Befunde werden nicht gespeichert; pruef_aufgabe und pruef_speichern rechnen sie bei jedem Aufruf neu.
+
+-- ============================================================================
+-- Lena-Board: LSA- und Session-Aufgaben getrennt · pruef_board / pruef_board_soll
+-- (Migration 20261016140100_lena_board_lsa_session.sql; vorher 20261005071648, 20261014150300)
+-- ============================================================================
+-- pruef_board() liefert zusaetzlich zwei Spalten:
+--   anlaesse text[]       aktive pruef_soll-Anlaesse des aktuellen Knotens (tasks.skill_key), alphabetisch,
+--                         leer statt null. Die Zuordnung laeuft nur ueber den Knoten: neue Aufgaben eines
+--                         Knotens mit Soll-Eintrag erscheinen ohne Eingriff im passenden Bereich.
+--                         tasks.einsatz trennt nicht (alle Aufgaben '{lsa,session}').
+--   hat_hinweise boolean  task_solutions.hints hat mindestens einen Eintrag; ohne Zeile false.
+-- pruef_board_soll(p_anlass text default null): mit Anlass nur dessen Soll-Eintraege (vorzeichen_add_sub:
+-- batu_lsa 3/1, batu_session 7/0); ohne Argument wie bisher Hoechstwerte ueber alle aktiven Anlaesse.
+-- Beide drop + create (Rueckgabetyp bzw. Parameter geaendert); execute nur fuer authenticated, wie vorher.
+-- Frontend: Bereich "Fuer die LSA" = 'batu_lsa' in anlaesse, "Fuer die Session" = 'batu_session'.
