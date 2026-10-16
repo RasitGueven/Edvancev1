@@ -20,8 +20,6 @@
 -- Hinweis: lsa_ziffernfolge zaehlt "²" nicht als Ziffer ("-2^2" → {2,2}, "-2²" → {2}). Das betrifft nur
 -- tasks_zahlen_guard, der fuer current_user = 'authenticated' greift; diese Migration laeuft als postgres.
 
-begin;
-
 with v(id, alt, neu) as (values
   ('855d22d3-4995-4497-a69a-6b89bcb097e5'::uuid, E'Berechne.\n\n(-2)^3 = ?', E'Berechne.\n\n(-2)³ = ?'),
   ('89ad1d12-b903-4411-a066-76e8b68ddcac'::uuid, E'Berechne.\n\n(-3)^2 = ?', E'Berechne.\n\n(-3)² = ?'),
@@ -51,5 +49,3 @@ with v(id, alt, neu) as (values
   returning t.id
 )
 select format('hochzahlen: %s Aufgabentexte umgestellt', count(*)) as hochzahlen from u;
-
-commit;
