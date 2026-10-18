@@ -135,6 +135,16 @@ describe('PreviewStage — der Vertrag, wie das Kind ihn sieht', () => {
     expect(document.querySelector('.katex, em, sup')).toBeNull()
   })
 
+  // Generierte Figuren sind fuer die dunkle Tablet-Buehne gezeichnet (Creme auf Navy).
+  // Auf der weissen Karte waeren sie kaum sichtbar — die Vorschau legt sie deshalb
+  // auf dieselbe dunkle Flaeche.
+  it('legt Abbildungen auf die dunkle Buehnenflaeche wie das Tablet', () => {
+    render(<PreviewStage payload={flat} />)
+    const flaeche = screen.getByAltText('Ein Balkendiagramm').closest('[data-testid="preview-abbildung"]')
+    expect(flaeche).not.toBeNull()
+    expect(flaeche).toHaveClass('bg-[var(--color-stage-bottom)]')
+  })
+
   it('bewertet nicht — die Eingaben sind Attrappen', () => {
     render(<PreviewStage payload={flat} />)
     expect(screen.getByPlaceholderText('Deine Antwort')).toBeDisabled()

@@ -83,9 +83,9 @@ class Palette:
 # Strich ist Gold — mattes Altgold auf Navy, das dunklere Report-Gold auf Papier.
 PALETTEN: dict[str, Palette] = {
     'dunkel': Palette(
-        gitter=_cream(0.18),                          # wie alpha.glassBorder
+        gitter=_cream(0.30),                          # Pruefung App-Darstellung 18.10.: 0.18 war auf dem Tablet kaum sichtbar
         achse=_cream(0.55),                           # wie alpha.creamMuted
-        beschriftung=_cream(0.55),
+        beschriftung=_cream(0.80),                    # Pruefung App-Darstellung 18.10.: 0.55 zu blass fuer Zahlen
         kurve=_cream(1.0),                            # volle Cream — die lauteste Ebene
         kurve_betont=Farbe(GEMESSEN['color-gold-altgold']),
     ),
@@ -105,6 +105,15 @@ THEMES = tuple(PALETTEN)
 # auf eine Serife zurueck und die Abbildung sieht aus wie aus einem anderen
 # Produkt. DIE DARSTELLUNG AM GERAET IST ZU BESTAETIGEN.
 SCHRIFT = 'Schibsted Grotesk, Helvetica, Arial, sans-serif'
+
+# Groessen auf der Tablet-Buehne — fuer ALLE Python-Generatoren (koordinatensystem,
+# thales, rechtecke), damit Figuren nebeneinander gleich wirken. Pruefung der
+# App-Darstellung (18.10.2026): Schrift 13 und Striche 1,5/2,5 waren zu duenn und
+# zu klein. Werte in px bei der Standardeinheit; koordinatensystem skaliert mit `skala`.
+SCHRIFTGROESSE = 20.0
+STARK_ACHSE = 2.0      # Achsen, Hilfslinien, Kreis um den Thales-Dreieck, Masslinien
+STARK_KURVE = 4.0      # die Figur selbst: Graph, Dreieck, Rechteckkontur
+STARK_BETONT = 5.0     # betonte Ebene: zweiter Graph, Winkelboegen
 
 
 def palette(theme: str) -> Palette:

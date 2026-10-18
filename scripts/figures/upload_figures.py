@@ -55,7 +55,10 @@ THEMES = ("dunkel", "hell")
 #   pruefe_koordinatensystem.pruefe(svg: str, params: dict) -> tuple[bool, str]
 
 
-GENERATOREN = ("koordinatensystem", "winkel")
+# Positivliste — muss mit dem CHECK task_figures_generator_check uebereinstimmen.
+# "rechteck" ist der TypeScript-Generator rechteck.ts; figures/rechteck.py ruft ihn
+# ueber tsx auf und braucht deshalb node_modules (npm ci).
+GENERATOREN = ("koordinatensystem", "winkel", "thales", "rechtecke", "rechteck")
 
 
 def _lade_generator(name: str):

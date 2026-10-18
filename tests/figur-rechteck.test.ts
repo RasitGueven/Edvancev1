@@ -77,9 +77,9 @@ function befunde(svg: string): string[] {
 describe('gueltige Parameter', () => {
   it('zeichnet ein Quadrat an den ausgerechneten Pixelorten', () => {
     const svg = rechteck({ laenge: 5, breite: 5, einheit: 'cm' })
-    // Flaeche 232 x 176, Verhaeltnis 1 -> h = 176, w = 176, zentriert:
-    // x0 = 64 + (232-176)/2 = 92, y0 = 24, x1 = 268, y1 = 200.
-    expect(rahmen(svg)).toEqual({ x0: 92, y0: 24, breite: 176, hoehe: 176 })
+    // Flaeche 192 x 168, Verhaeltnis 1 -> h = 168, w = 168, zentriert:
+    // x0 = 104 + (192-168)/2 = 116, y0 = 24, x1 = 284, y1 = 192.
+    expect(rahmen(svg)).toEqual({ x0: 116, y0: 24, breite: 168, hoehe: 168 })
     expect(befunde(svg)).toEqual([])
     expect(linien(svg)).toHaveLength(4)
     expect(polylinien(svg)).toBe(1) // nur der rechte Winkel
@@ -104,14 +104,14 @@ describe('gueltige Parameter', () => {
     const mit = rechteck({ laenge: 5, breite: 5, diagonale: true })
     expect(linien(ohne)).toHaveLength(4)
     expect(linien(mit)).toHaveLength(5)
-    // Von oben links (92|24) nach unten rechts (268|200) — die markierte Ecke
-    // unten links (92|200) liegt nicht darauf.
-    expect(mit).toContain('<line x1="92" y1="24" x2="268" y2="200"')
+    // Von oben links (116|24) nach unten rechts (284|192) — die markierte Ecke
+    // unten links (116|192) liegt nicht darauf.
+    expect(mit).toContain('<line x1="116" y1="24" x2="284" y2="192"')
   })
 
   it('markiert den rechten Winkel innen an der unteren linken Ecke', () => {
     const svg = rechteck({ laenge: 5, breite: 5 })
-    expect(svg).toContain('<polyline points="92,188 104,188 104,200"')
+    expect(svg).toContain('<polyline points="116,180 128,180 128,192"')
   })
 
   it('bleibt react-native-tauglich: kein CSS, kein foreignObject, kein rgba', () => {
@@ -120,7 +120,7 @@ describe('gueltige Parameter', () => {
       expect(svg).not.toContain(verboten)
     }
     // Deckkraft steht getrennt, nie als rgba() im Praesentationsattribut.
-    expect(rechteck({ laenge: 5, breite: 5 }, 'dunkel')).toContain('stroke-opacity="0.55"')
+    expect(rechteck({ laenge: 5, breite: 5 }, 'dunkel')).toContain('stroke-opacity="0.8"')
   })
 
   it('kennt beide Themes und nur die', () => {
@@ -348,5 +348,44 @@ describe('zeichne(params, theme)', () => {
     // Kein stilles 'dunkel', wenn das theme fehlt: sonst waere das helle Bild
     // fuer den Eltern-Report unbemerkt das dunkle.
     expect(() => zeichne({ laenge: 5, breite: 3 }, undefined)).toThrow(/theme/)
+  })
+})
+
+// Text-Masse (Figuren Welle 1): Die Aufgabe nennt eine Seite als Term. Dann steht
+// der Term an der Seite, keine Zahl, und die Skizze ist nicht massstaeblich.
+describe('Text-Masse', () => {
+  const texte = (svg: string): string[] => [...svg.matchAll(/>([^<]+)<\/text>/g)].map((t) => t[1])
+
+  it('setzt die Terme an die Seiten und sonst keinen Text', () => {
+    const svg = zeichne({ laenge_text: '(x + 3) cm', breite_text: '4 cm', verhaeltnis: 2 }, 'dunkel')
+    expect(texte(svg).sort()).toEqual(['(x + 3) cm', '4 cm'])
+  })
+
+  it('zeichnet das verlangte Verhaeltnis, ohne Bruchzeichen', () => {
+    const svg = zeichne({ laenge_text: 'x cm', breite_text: '5 cm', verhaeltnis: 2 }, 'hell')
+    const { breite, hoehe } = rahmen(svg)
+    expect(breite / hoehe).toBeCloseTo(2, 2)
+    expect(polylinien(svg)).toBe(1)
+  })
+
+  it('ist ohne verhaeltnis ein Rechteck im Standardverhaeltnis', () => {
+    const { breite, hoehe } = rahmen(zeichne({ laenge_text: 'x cm', breite_text: '5 cm' }, 'hell'))
+    expect(breite / hoehe).toBeCloseTo(1.6, 2)
+  })
+
+  it('weist Zahl und Text fuer dieselbe Figur ab', () => {
+    expect(() => zeichne({ laenge_text: 'x cm', breite_text: '5 cm', laenge: 5 }, 'hell')).toThrow(/schliessen sich aus/)
+    expect(() => zeichne({ laenge_text: 'x cm', breite_text: '5 cm', einheit: 'cm' }, 'hell')).toThrow(/schliessen sich aus/)
+  })
+
+  it('verlangt beide Texte, nicht leer und nicht zu lang', () => {
+    expect(() => zeichne({ laenge_text: 'x cm' }, 'hell')).toThrow(/breite_text/)
+    expect(() => zeichne({ laenge_text: ' ', breite_text: '5 cm' }, 'hell')).toThrow(/laenge_text/)
+    expect(() => zeichne({ laenge_text: 'x'.repeat(17), breite_text: '5 cm' }, 'hell')).toThrow(/16 Zeichen/)
+  })
+
+  it('haelt verhaeltnis im Band und nur zusammen mit Texten', () => {
+    expect(() => zeichne({ laenge_text: 'x', breite_text: 'y', verhaeltnis: 5 }, 'hell')).toThrow(/verhaeltnis/)
+    expect(() => zeichne({ laenge: 5, breite: 3, verhaeltnis: 2 }, 'hell')).toThrow(/verhaeltnis/)
   })
 })

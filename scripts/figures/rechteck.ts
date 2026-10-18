@@ -51,118 +51,26 @@ import {
   polylinie,
   type Theme,
 } from './svgBasis'
+import { fehler, pruefeParams, type RechteckParams, VERHAELTNIS_MAX, zeige } from './rechteckParams'
+
+export { MASS_MAX, MASS_MIN, type RechteckParams, VERHAELTNIS_MAX, VERHAELTNIS_TEXT_STANDARD } from './rechteckParams'
 
 // ── Buehne ───────────────────────────────────────────────────────────────────
 // Fest, nicht aus den Parametern gerechnet. Die Raender tragen die Masse: links
-// die Breite (rechtsbuendig, laengster Fall "1000 cm"), unten die Laenge.
+// die Breite (rechtsbuendig, laengster Fall "1000 cm" bei Schrift 20), unten die Laenge.
 export const BUEHNE_BREITE = 320
 export const BUEHNE_HOEHE = 240
-const RAND_LINKS = 64
+const RAND_LINKS = 104
 const RAND_RECHTS = 24
 const RAND_OBEN = 24
-const RAND_UNTEN = 40
-const FLAECHE_BREITE = BUEHNE_BREITE - RAND_LINKS - RAND_RECHTS // 232
-const FLAECHE_HOEHE = BUEHNE_HOEHE - RAND_OBEN - RAND_UNTEN // 176
+const RAND_UNTEN = 48
+const FLAECHE_BREITE = BUEHNE_BREITE - RAND_LINKS - RAND_RECHTS // 192
+const FLAECHE_HOEHE = BUEHNE_HOEHE - RAND_OBEN - RAND_UNTEN // 168
 
-/** Ab hier wird gestaucht statt massstaeblich gezeichnet (1:4 bzw. 4:1). */
-export const VERHAELTNIS_MAX = 4
-
-// Wertebereich der Seitenmasse. Unten: unter 0,1 rundet die Beschriftung (zwei
-// Nachkommastellen) auf null und die Figur behauptete ein Mass, das sie nicht
-// anzeigt. Oben: ueber 1000 sprengt die Beschriftung den linken Rand.
-export const MASS_MIN = 0.1
-export const MASS_MAX = 1000
-
-const SCHLUESSEL = ['laenge', 'breite', 'einheit', 'diagonale'] as const
-// Ein bis vier Buchstaben ('cm', 'm', 'km'). Ziffern und Sonderzeichen sind
-// draussen: die Angabe steht am Rand der festen Buehne, laengeres passt nicht.
-const EINHEIT_MUSTER = /^[A-Za-zÄÖÜäöüß]{1,4}$/
-
-const STARK_KONTUR = 2.5
-const STARK_BETONT = 2
-const STARK_WINKEL = 1.5
-
-export interface RechteckParams {
-  laenge: number
-  breite: number
-  einheit?: string
-  diagonale?: boolean
-}
-
-interface GeprueftParams {
-  laenge: number
-  breite: number
-  einheit: string
-  diagonale: boolean
-}
-
-// ── Pruefungen (Vorlage: pruefungen.py) ──────────────────────────────────────
-
-function fehler(text: string): never {
-  throw new Error(text)
-}
-
-function zeige(wert: unknown): string {
-  if (wert === undefined) return 'undefined'
-  if (typeof wert === 'number' || typeof wert === 'boolean' || wert === null) return String(wert)
-  try {
-    return JSON.stringify(wert) ?? String(wert)
-  } catch {
-    return String(wert)
-  }
-}
-
-function pruefeMass(wert: unknown, name: string): number {
-  // NaN und Infinity sind `typeof 'number'` und wuerden sonst als Koordinate
-  // durchlaufen — das SVG traegt dann 'NaN' im Attribut und zeigt nichts.
-  if (typeof wert !== 'number' || !Number.isFinite(wert)) {
-    fehler(`${name} muss eine endliche Zahl sein, nicht ${zeige(wert)}.`)
-  }
-  if (wert <= 0) {
-    fehler(`${name} muss groesser als null sein, nicht ${zeige(wert)}.`)
-  }
-  if (wert < MASS_MIN || wert > MASS_MAX) {
-    fehler(`${name} muss zwischen ${MASS_MIN} und ${MASS_MAX} liegen, nicht ${zeige(wert)}.`)
-  }
-  return wert
-}
-
-function pruefeEinheit(wert: unknown): string {
-  if (wert === undefined) return ''
-  if (typeof wert !== 'string') fehler(`einheit muss Text sein, nicht ${zeige(wert)}.`)
-  if (!EINHEIT_MUSTER.test(wert)) {
-    fehler(
-      `einheit muss ein bis vier Buchstaben sein (z.B. "cm"), nicht ${zeige(wert)}. ` +
-        'Die Angabe steht am Rand der Buehne — laengeres passt dort nicht hin.',
-    )
-  }
-  return wert
-}
-
-function pruefeWahrheitswert(wert: unknown, name: string): boolean {
-  if (wert === undefined) return false
-  if (typeof wert !== 'boolean') fehler(`${name} muss true oder false sein, nicht ${zeige(wert)}.`)
-  return wert
-}
-
-function pruefeParams(roh: unknown): GeprueftParams {
-  if (typeof roh !== 'object' || roh === null || Array.isArray(roh)) {
-    fehler(`params muss ein Objekt sein, nicht ${zeige(roh)}.`)
-  }
-  const unbekannt = Object.keys(roh).filter((k) => !(SCHLUESSEL as readonly string[]).includes(k))
-  if (unbekannt.length > 0) {
-    // Kein stiller Verzicht: 'laenger' statt 'laenge' waere sonst eine Figur
-    // ohne Mass statt eines Fehlers.
-    fehler(`params: unbekannte Schluessel: ${unbekannt.sort().map(zeige).join(', ')}.`)
-  }
-  const p = roh as Record<string, unknown>
-  return {
-    laenge: pruefeMass(p.laenge, 'laenge'),
-    breite: pruefeMass(p.breite, 'breite'),
-    einheit: pruefeEinheit(p.einheit),
-    diagonale: pruefeWahrheitswert(p.diagonale, 'diagonale'),
-  }
-}
+// Wie tokens.py: STARK_KURVE, STARK_BETONT, STARK_ACHSE.
+const STARK_KONTUR = 4
+const STARK_BETONT = 5
+const STARK_WINKEL = 2
 
 // ── Geometrie ────────────────────────────────────────────────────────────────
 
@@ -311,7 +219,7 @@ export function altText(params: RechteckParams): string {
  * theme     — 'dunkel' (Schueler-Buehne) oder 'hell' (Eltern-Report, Druck).
  */
 export function rechteck(params: RechteckParams, theme: Theme = 'dunkel'): string {
-  const { laenge, breite, einheit, diagonale } = pruefeParams(params)
+  const { laenge, breite, einheit, diagonale, texte } = pruefeParams(params)
   const farben = palette(theme)
   const { x0, y0, x1, y1, gestauchtWaagerecht, gestauchtSenkrecht } = lage(laenge, breite)
 
@@ -346,8 +254,8 @@ export function rechteck(params: RechteckParams, theme: Theme = 'dunkel'): strin
   // links neben der linken. Keine Massbemassung mit Hilfslinien — die Geometrie
   // verlangt sie nicht, und jede zusaetzliche Linie ist eine Behauptung mehr.
   const angabe = (wert: number): string => (einheit ? `${mass(wert)} ${einheit}` : mass(wert))
-  inhalt.push(beschriftung((x0 + x1) / 2, y1 + 20, angabe(laenge), farben.beschriftung, 'middle'))
-  inhalt.push(beschriftung(x0 - 12, (y0 + y1) / 2, angabe(breite), farben.beschriftung, 'end'))
+  inhalt.push(beschriftung((x0 + x1) / 2, y1 + 20, texte?.laenge ?? angabe(laenge), farben.beschriftung, 'middle'))
+  inhalt.push(beschriftung(x0 - 12, (y0 + y1) / 2, texte?.breite ?? angabe(breite), farben.beschriftung, 'end'))
 
   return dokument(BUEHNE_BREITE, BUEHNE_HOEHE, inhalt)
 }

@@ -114,6 +114,11 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 - **Endzustand-Hinweis:** **keine** `serlo_*`-Spalten (von Migr. 006 entfernt).
 - **RLS:** Lesen für alle authentifizierten User; Schreiben **nur Admin**.
 
+### task_figures
+- **Zweck:** Generierte Abbildung je Aufgabe (A19). Server-only; die Figur erscheint über `lsa_task_assets` im `assets`-Array des Payloads, sobald `svg_hash` gesetzt ist (Upload über `scripts/figures/upload_figures.py`).
+- **Spalten:** `task_id` (PK, FK→`tasks` CASCADE), `generator`, `params` (jsonb), `alt_text`, `svg_hash`, `erzeugt_am`.
+- **Constraints:** `task_figures_alt_no_digit` (keine Ziffern im alt-Text), `task_figures_alt_not_empty`, `task_figures_generator_check`: `koordinatensystem`, `winkel`, `thales`, `rechtecke`, `rechteck` (die letzten drei seit Migr. `20261018170100`). Die Liste muss mit `GENERATOREN` in `upload_figures.py` übereinstimmen.
+
 ### task_coach_metadata
 - **Zweck:** Optionale Coach-Hinweise pro Aufgabe.
 - **Spalten:** `id` (PK), `task_id` (FK→`tasks` CASCADE), `typical_errors`, `observation_hints`, `intervention_triggers`, `updated_at`.

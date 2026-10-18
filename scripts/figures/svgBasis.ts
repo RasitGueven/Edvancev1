@@ -129,7 +129,8 @@ export function polylinie(punkte: [number, number][], farbe: Farbe, breite: numb
  * Produkt.
  */
 export const SCHRIFT = 'Schibsted Grotesk, Helvetica, Arial, sans-serif'
-export const SCHRIFTGROESSE = 13
+// Wie SCHRIFTGROESSE in tokens.py (Pruefung App-Darstellung 18.10.2026: 13 war auf dem Tablet zu klein).
+export const SCHRIFTGROESSE = 20
 
 /**
  * Ein Textknoten.
@@ -205,7 +206,7 @@ export interface Palette {
 const PALETTEN: Record<Theme, Palette> = {
   dunkel: {
     kontur: { hex: '#F7F5EE', deckkraft: 1 }, // tokens.css:136 color-stage-text
-    beschriftung: { hex: '#F7F5EE', deckkraft: 0.55 }, // dito, Stufe alpha.creamMuted
+    beschriftung: { hex: '#F7F5EE', deckkraft: 0.8 }, // dito; wie tokens.py (18.10.2026: 0.55 zu blass)
     betont: { hex: '#D4A843', deckkraft: 1 }, // tokens.css:56  color-gold-altgold
   },
   hell: {

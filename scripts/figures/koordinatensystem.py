@@ -47,7 +47,7 @@ from .svg_basis import (
     zahl,
 )
 from .steigungsdreieck import label_unten, steigungsdreiecke_svg
-from .tokens import SCHRIFT, palette
+from .tokens import SCHRIFT, SCHRIFTGROESSE, STARK_ACHSE, STARK_BETONT, STARK_KURVE, palette
 
 # px pro Einheit. Bei -5..5 in beiden Richtungen ergibt das 400 x 400 px Flaeche
 # — gross genug, dass die Beschriftung auf der 340 px breiten Buehne lesbar
@@ -56,7 +56,7 @@ EINHEIT_STANDARD = 40
 
 # Aussenrand. Traegt die Achsenzahlen, wenn eine Achse am Fensterrand steht
 # (etwa bei x_min = 0), plus die Pfeilspitzen.
-RAND = 34
+RAND = 44
 
 # Feste ID. Die SVGs sind eigenstaendige Dateien; werden sie je INLINE in ein
 # gemeinsames HTML-Dokument gelegt, kollidieren gleiche IDs — dann braucht der
@@ -247,10 +247,10 @@ def koordinatensystem(
     # mit einheit=20 nicht wie mit einem Filzstift gezeichnet aussieht.
     skala = einheit / EINHEIT_STANDARD
     stark_gitter = 1 * skala
-    stark_achse = 1.5 * skala
-    stark_kurve = 2.5 * skala
-    stark_betont = 3.5 * skala
-    schriftgroesse = 13 * skala
+    stark_achse = STARK_ACHSE * skala
+    stark_kurve = STARK_KURVE * skala
+    stark_betont = STARK_BETONT * skala
+    schriftgroesse = SCHRIFTGROESSE * skala
 
     # Achsenlage. Liegt die Null ausserhalb des Fensters, rueckt die Achse an
     # den Rand — die Teilstriche tragen dann trotzdem ihre echten Werte, es wird
@@ -346,9 +346,12 @@ def koordinatensystem(
     schritte = max(2, int(breite_plot))
     kurven_teile: list[str] = []
     label_teile: list[str] = []
-    for funktion in geprueft_f:
-        farbe = farben.kurve_betont if funktion['betont'] else farben.kurve
-        breite_strich = stark_betont if funktion['betont'] else stark_kurve
+    for nr, funktion in enumerate(geprueft_f):
+        # Jede zweite Funktion automatisch betont (Gold): f und g sind dann ohne
+        # Datenschritt unterscheidbar. Das Label traegt die Farbe seiner Linie.
+        betont = funktion['betont'] or nr % 2 == 1
+        farbe = farben.kurve_betont if betont else farben.kurve
+        breite_strich = stark_betont if betont else stark_kurve
         abschnitte = _segmente(funktion, x_min, x_max, y_min, y_max, schritte)
         for teil in abschnitte:
             kurven_teile.append(

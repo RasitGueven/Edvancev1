@@ -37,7 +37,18 @@ function Assets({ assets }: { assets: PreviewAsset[] }): JSX.Element | null {
   // Der Alt-Text ist Vertragsbestandteil. Fehlt er, zeigt die Vorschau ein leeres
   // alt="" — genau das, was ein Screenreader beim Kind vorfinden wuerde. Der
   // Missstand gehoert in die Flag-Liste, nicht in einen erfundenen Ersatztext.
-  return <AssetList assets={assets.map((a) => ({ url: a.url, alt: a.alt ?? '' }))} />
+  // Auf dem Tablet liegt die Abbildung auf der dunklen Buehne, und die generierten
+  // Figuren sind dafuer gezeichnet (Creme auf Navy, task_figures Theme "dunkel").
+  // Auf der weissen Karte waeren Linien und Zahlen kaum zu sehen — die Vorschau
+  // zeigte dann etwas anderes als das Kind sieht. Darum hier dieselbe Flaeche.
+  return (
+    <div
+      data-testid="preview-abbildung"
+      className="rounded-[var(--radius-md)] bg-[var(--color-stage-bottom)] p-3 [&_img]:border-0 [&_img]:bg-transparent"
+    >
+      <AssetList assets={assets.map((a) => ({ url: a.url, alt: a.alt ?? '' }))} />
+    </div>
+  )
 }
 
 function Table({ table }: { table: PreviewTable }): JSX.Element {
