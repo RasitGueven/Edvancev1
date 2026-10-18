@@ -213,6 +213,45 @@ def _text_roh(inhalt: str) -> str:
     return inhalt.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')
 
 
+def text_kasten(x: float, y: float, inhalt: str, groesse: float, anker: str = 'middle',
+                fett: bool = False) -> tuple[float, float, float, float]:
+    """Geschaetzter Kasten (x0, y0, x1, y1) eines Texts mit dominant-baseline=middle."""
+    weite = len(inhalt) * groesse * (TEXT_LAUFWEITE_FETT if fett else TEXT_LAUFWEITE)
+    links = x - weite / 2 if anker == 'middle' else x - weite if anker == 'end' else x
+    return links, y - groesse * TEXT_HALBE_HOEHE, links + weite, y + groesse * TEXT_HALBE_HOEHE
+
+
+def textkaesten(svg: str) -> list[tuple[float, float, float, float]]:
+    """Die Kaesten aller <text>-Elemente eines SVG, in Dokumentreihenfolge."""
+    import re
+
+    aus = []
+    for m in re.finditer(r'<text x="([\d.-]+)" y="([\d.-]+)"([^>]*)>([^<]*)</text>', svg):
+        attr = m.group(3)
+        groesse = float(re.search(r'font-size="([\d.]+)"', attr).group(1))
+        anker = (re.search(r'text-anchor="(\w+)"', attr) or [None, 'start'])[1]
+        aus.append(text_kasten(float(m.group(1)), float(m.group(2)), _text_roh(m.group(4)), groesse, anker,
+                               'font-weight' in attr))
+    return aus
+
+
+def kaesten_ueberlappen(a, b, luft: float = 0.0) -> bool:
+    """Ueberlappen zwei Kaesten (x0, y0, x1, y1), mit `luft` Mindestabstand?"""
+    return a[0] < b[2] + luft and b[0] < a[2] + luft and a[1] < b[3] + luft and b[1] < a[3] + luft
+
+
+def strecke_trifft_kasten(p, q, kasten, schritt: float = 1.0) -> bool:
+    """Beruehrt die Strecke p-q den Kasten? Abgetastet im Pixelabstand — genau genug fuer Beschriftung."""
+    laenge = max(abs(q[0] - p[0]), abs(q[1] - p[1]))
+    n = max(1, int(laenge / schritt))
+    for i in range(n + 1):
+        x = p[0] + (q[0] - p[0]) * i / n
+        y = p[1] + (q[1] - p[1]) * i / n
+        if kasten[0] <= x <= kasten[2] and kasten[1] <= y <= kasten[3]:
+            return True
+    return False
+
+
 def umriss(svg: str) -> tuple[float, float, float, float]:
     """
     (x0, y0, x1, y1) aller gezeichneten Elemente: Linien und Streckenzuege mit
@@ -247,15 +286,9 @@ def umriss(svg: str) -> tuple[float, float, float, float]:
         x, y, b, h = (float(m.group(i)) for i in range(1, 5))
         xs += [x - s, x + b + s]
         ys += [y - s, y + h + s]
-    for m in re.finditer(r'<text x="([\d.-]+)" y="([\d.-]+)"([^>]*)>([^<]*)</text>', svg):
-        attr = m.group(3)
-        groesse = float(re.search(r'font-size="([\d.]+)"', attr).group(1))
-        anker = (re.search(r'text-anchor="(\w+)"', attr) or [None, 'start'])[1]
-        weite = len(_text_roh(m.group(4))) * groesse * (TEXT_LAUFWEITE_FETT if 'font-weight' in attr else TEXT_LAUFWEITE)
-        x, y = float(m.group(1)), float(m.group(2))
-        links = x - weite / 2 if anker == 'middle' else x - weite if anker == 'end' else x
-        xs += [links, links + weite]
-        ys += [y - groesse * TEXT_HALBE_HOEHE, y + groesse * TEXT_HALBE_HOEHE]
+    for k in textkaesten(svg):
+        xs += [k[0], k[2]]
+        ys += [k[1], k[3]]
     if not xs:
         raise ValueError('Nichts gezeichnet — kein Umriss.')
     return min(xs), min(ys), max(xs), max(ys)

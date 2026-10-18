@@ -343,6 +343,41 @@ def _mengen_gleich(a: list[float], b: list[float]) -> bool:
     return all(abs(x - y) < EPS_EXAKT for x, y in zip(a, b))
 
 
+def pruefe_beschriftung_frei(svg: str, params: dict) -> list[str]:
+    """
+    g) Keine Beschriftung ueberlappt eine andere, und keine Achsenzahl liegt auf
+    einer Kurve. Mit Schrift 20 lagen „0“ und „-1“ am Ursprung uebereinander und
+    Randzahlen an der Kurve (Pruefung App-Darstellung, 18.10.2026).
+
+    Gemessen an den geschaetzten Textkaesten (svg_basis.text_kasten) und an den
+    Kurven, soweit sie in der Zeichenflaeche (clipPath) liegen.
+    """
+    from figures.svg_basis import kaesten_ueberlappen, strecke_trifft_kasten, textkaesten
+
+    befunde: list[str] = []
+    texte = [m.group(1) for m in re.finditer(r'<text [^>]*>([^<]*)</text>', svg)]
+    kaesten = textkaesten(svg)
+    for i in range(len(kaesten)):
+        for j in range(i + 1, len(kaesten)):
+            if kaesten_ueberlappen(kaesten[i], kaesten[j]):
+                befunde.append(f'g) Beschriftungen {texte[i]!r} und {texte[j]!r} ueberlappen.')
+    clip = re.search(r'<clipPath [^>]*><rect x="([\d.-]+)" y="([\d.-]+)" width="([\d.-]+)" height="([\d.-]+)"', svg)
+    if not clip:
+        return befunde
+    cx, cy, cb, ch = (float(clip.group(i)) for i in range(1, 5))
+    kurven = [[tuple(map(float, p.split(','))) for p in m.group(1).split()]
+              for m in re.finditer(r'<polyline points="([^"]+)"', svg)]
+    for text, k in zip(texte, kaesten):
+        if not re.fullmatch(r'-?\d+', text):
+            continue
+        innen = (max(k[0], cx), max(k[1], cy), min(k[2], cx + cb), min(k[3], cy + ch))
+        if innen[0] > innen[2] or innen[1] > innen[3]:
+            continue
+        if any(strecke_trifft_kasten(z[i], z[i + 1], innen) for z in kurven for i in range(len(z) - 1)):
+            befunde.append(f'g) Achsenzahl {text!r} liegt auf einer Kurve.')
+    return befunde
+
+
 # ── Sammelpruefung + Adapter fuer den Upload ─────────────────────────────────
 
 _ALLE = (
@@ -353,6 +388,7 @@ _ALLE = (
     pruefe_punkte,
     pruefe_gitter,
     pruefe_steigungsdreiecke,
+    pruefe_beschriftung_frei,
 )
 
 
@@ -416,9 +452,22 @@ def _erste_gerade_verbiegen(svg: str, dy: float) -> str:
     return re.sub(r'<polyline points="([^"]+)"', einmal, svg, count=1)
 
 
+def _text_doppeln(svg: str, inhalt: str) -> str:
+    """Setzt den Text `inhalt` ein zweites Mal, 6 px tiefer — wie zwei Achsenschleifen, die beide die 0 schreiben."""
+    m = re.search(rf'<text x="([\d.-]+)" y="([\d.-]+)"([^>]*)>{re.escape(inhalt)}</text>', svg)
+    doppel = f'<text x="{m.group(1)}" y="{float(m.group(2)) + 6:g}"{m.group(3)}>{inhalt}</text>'
+    return svg.replace('</svg>', doppel + '</svg>')
+
+
+def _text_auf_punkt(svg: str, inhalt: str, x: float, y: float) -> str:
+    """Verschiebt den ersten Text `inhalt` auf den Pixelort (x, y)."""
+    return re.sub(rf'<text x="[\d.-]+" y="[\d.-]+"([^>]*)>{re.escape(inhalt)}</text>',
+                  f'<text x="{x:g}" y="{y:g}"\\1>{inhalt}</text>', svg, count=1)
+
+
 def negativkontrolle() -> list[tuple[str, bool, list[str]]]:
     """
-    Fuenf Verletzungen an korrekten SVGs. Rueckgabe je Fall:
+    Sieben Verletzungen an korrekten SVGs. Rueckgabe je Fall:
     (Name, hat_angeschlagen, Befunde). hat_angeschlagen == False ist ein Versagen
     der Pruefung selbst.
     """
@@ -444,6 +493,10 @@ def negativkontrolle() -> list[tuple[str, bool, list[str]]]:
          _erste_kreis_cx(koordinatensystem(**mit_punkt), 9000.0), mit_punkt),
         ('Steigungsdreieck falsch beschriftet',
          koordinatensystem(**mit_dreieck).replace('>hoch 6<', '>hoch 5<'), mit_dreieck),
+        ('Null doppelt am Ursprung (ueberlappende Beschriftung)',
+         _text_doppeln(koordinatensystem(**mit_punkt), '0'), mit_punkt),
+        ('Achsenzahl auf die Kurve geschoben',
+         _text_auf_punkt(koordinatensystem(**mit_gerade), '2', 284, 124), mit_gerade),
     ]
 
     ergebnis = []

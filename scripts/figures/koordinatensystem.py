@@ -37,6 +37,7 @@ from .pruefungen import (
     wahrheitswert,
 )
 from .svg_basis import (
+    textkaesten,
     beschriftung,
     dokument,
     element,
@@ -46,6 +47,7 @@ from .svg_basis import (
     polylinie,
     zahl,
 )
+from .achsenzahlen import achsenzahlen_svg
 from .steigungsdreieck import label_unten, steigungsdreiecke_svg
 from .tokens import SCHRIFT, SCHRIFTGROESSE, STARK_ACHSE, STARK_BETONT, STARK_KURVE, palette
 
@@ -297,48 +299,12 @@ def koordinatensystem(
         (achse_x + spitze, oben),
     ], farben.achse))
 
-    strich = 4 * skala
-    for x in range(x_min, x_max + 1):
-        if x == 0:
-            continue
-        achsen_teile.append(
-            linie(px(x), achse_y - strich, px(x), achse_y + strich, farben.achse, stark_achse)
-        )
-        achsen_teile.append(beschriftung(
-            px(x), achse_y + strich + schriftgroesse, str(x),
-            farben.beschriftung, schriftgroesse, SCHRIFT, anker='middle', grundlinie='middle',
-        ))
-    for y in range(y_min, y_max + 1):
-        if y == 0:
-            continue
-        achsen_teile.append(
-            linie(achse_x - strich, py(y), achse_x + strich, py(y), farben.achse, stark_achse)
-        )
-        achsen_teile.append(beschriftung(
-            achse_x - strich - 4 * skala, py(y), str(y),
-            farben.beschriftung, schriftgroesse, SCHRIFT, anker='end', grundlinie='middle',
-        ))
-
-    if null_sichtbar:
-        # Die Null steht EINMAL, links unter dem Ursprung — nicht zweimal
-        # uebereinander wie es zwei unabhaengige Achsenschleifen taeten.
-        achsen_teile.append(beschriftung(
-            achse_x - strich - 4 * skala, achse_y + strich + schriftgroesse, '0',
-            farben.beschriftung, schriftgroesse, SCHRIFT, anker='end', grundlinie='middle',
-        ))
-
-    if titel_x:
-        achsen_teile.append(beschriftung(
-            rechts - 2 * skala, achse_y - schriftgroesse, titel_x,
-            farben.beschriftung, schriftgroesse, SCHRIFT, anker='end', grundlinie='middle',
-        ))
-    if titel_y:
-        achsen_teile.append(beschriftung(
-            achse_x + schriftgroesse, oben + 2 * skala, titel_y,
-            farben.beschriftung, schriftgroesse, SCHRIFT, anker='start', grundlinie='middle',
-        ))
-
-    inhalt.append(element('g', [], ''.join(achsen_teile)))
+    # Die Achsenzahlen kommen ZULETZT dazu (siehe unten): sie weichen allen anderen
+    # Texten aus, darum muessen die schon stehen. Gezeichnet wird trotzdem hier.
+    achsen_index = len(inhalt)
+    inhalt.append('')
+    # Jetzt festhalten: `unten` wird weiter unten (Punkte) als Wahrheitswert wiederverwendet.
+    zeichenflaeche = (links, oben, rechts, unten)
 
     # ── Funktionen ───────────────────────────────────────────────────────────
     # Ein Abtastpunkt je Pixel: feiner als die Ausgabe aufloest, damit eine
@@ -408,6 +374,18 @@ def koordinatensystem(
     if punkt_teile:
         inhalt.append(element('g', [], ''.join(punkt_teile)))
 
+    kurven_px = [
+        [(px(x), py(y)) for x, y in teil]
+        for funktion in geprueft_f
+        for teil in _segmente(funktion, x_min, x_max, y_min, y_max, max(2, int(breite_plot)))
+    ]
+    achsen_teile.extend(achsenzahlen_svg(
+        px, py, (x_min, x_max, y_min, y_max), zeichenflaeche, achse_x, achse_y,
+        null_sichtbar, kurven_px, farben, skala, schriftgroesse, stark_achse, stark_betont,
+        titel=(titel_x, titel_y),
+        belegt=textkaesten('\n'.join(inhalt) + ''.join(achsen_teile)),
+    ))
+    inhalt[achsen_index] = element('g', [], ''.join(achsen_teile))
     return dokument(breite, hoehe, inhalt)
 
 

@@ -15,6 +15,10 @@
 - Zusatz aus der Pruefung der App-Darstellung: Schrift 20, Striche Achse 2 / Kurve 4 / betont 5, Rand 44, Palette
   dunkel Gitter 0.30 / Beschriftung 0.80, jede zweite Funktion Gold. Groessen zentral in `tokens.py`, dieselben Werte in
   `svgBasis.ts`/`rechteck.ts`.
+- Achsenzahlen ohne Ueberlappung (`achsenzahlen.py`): Stammplatz, sonst andere Achsenseite, sonst weglassen; die 0
+  einmal links unter dem Ursprung (Ausweichplaetze, wenn eine Gerade durch den Ursprung geht); Titel weichen aus.
+  `pruefe_koordinatensystem.pruefe_beschriftung_frei` prueft Ueberlappung und Zahlen auf Kurven, mit zwei
+  Negativkontrollen.
 - Knappe viewBox fuer winkel, thales, rechtecke (Rasit, 18.10.): Umriss alles Gezeichneten plus 16 px Rand
   (`svg_basis.dokument_knapp`), geprueft von `pruefe_knapper_rahmen` (nichts ragt hinaus, kein Rand groesser als 16).
 
@@ -28,6 +32,7 @@
 ## Offen
 - `svg_hash` haengt nur an generator + params. Ein `--force`-Upload ueberschreibt die Dateien unter derselben URL;
   Clients mit gecachter Datei sehen die alte Fassung, bis der Cache verfaellt.
-- Koordinatensystem: An der Ecke unten links stehen „-1“ der x-Achse, „0“ und „-1“ der y-Achse eng beieinander (z. B.
-  0315634a). War vorher genauso, mit Schrift 20 faellt es mehr auf.
+- Achsenzahlen (achsenzahlen.py): Wo eine Gerade durch den Platz einer Zahl laeuft und auch die andere Achsenseite
+  belegt ist, entfaellt die Zahl; das Gitter zeigt den Massstab weiter. In den LGS-Figuren fehlen dadurch einzelne Zahlen.
+- `koordinatensystem.py` hat 412 Zeilen (vorher 431), die Grenze von 400 ist weiter ueberschritten.
 - `scripts/figures/` hat keinen CI-Job; die Python-Tests laufen nur lokal.
