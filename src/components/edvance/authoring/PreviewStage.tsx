@@ -15,6 +15,14 @@
 // Text hier genauso roh da wie auf dem Tablet, auch „-2^2" bleibt „-2^2".
 // Rahmen und Schrift bleiben flach (Coach-Sprache), geteilt wird nur der Inhalt.
 //
+// FIGUREN WIE AUF DEM TABLET: Das Payload liefert die -dunkel.svg (lsa_task_assets) —
+// cremefarbene Linien fuer den Nachthimmel. In der weissen Karte waren sie kaum zu
+// sehen, und max-h-72 hielt ein Koordinatensystem auf Briefmarkengroesse. Die Figur
+// steht deshalb wie in `Buehne` (edvance-app) ohne Karte direkt auf der dunklen
+// Buehne, ueber dem Text, in voller Spaltenbreite; die Hoehe folgt aus dem
+// Seitenverhaeltnis des Bildes (beim SVG die viewBox). Die Hoehenkappung des Tablets
+// (figurGroesse.ts: Spalte minus Text) entfaellt — die Vorschau scrollt.
+//
 // TABELLE (F01): Das Tablet hat dafuer noch keinen Renderer. Sie steht hier mit
 // den Klassen, die MathContent einer Markdown-Tabelle gibt.
 //
@@ -24,7 +32,6 @@
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
-import { AssetList } from '@/lib/render/AssetList'
 import type { PreviewAsset, PreviewOption, PreviewPart, PreviewPayload, PreviewTable } from '@/types'
 
 /** Aufgabentext wie `Buehne` auf dem Tablet: reiner Text, Umbrueche und Leerzeichen bleiben. */
@@ -32,12 +39,24 @@ function KindText({ text }: { text: string }): JSX.Element {
   return <p className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-primary)]">{text}</p>
 }
 
-function Assets({ assets }: { assets: PreviewAsset[] }): JSX.Element | null {
+function Figuren({ assets }: { assets: PreviewAsset[] }): JSX.Element | null {
   if (assets.length === 0) return null
   // Der Alt-Text ist Vertragsbestandteil. Fehlt er, zeigt die Vorschau ein leeres
   // alt="" — genau das, was ein Screenreader beim Kind vorfinden wuerde. Der
   // Missstand gehoert in die Flag-Liste, nicht in einen erfundenen Ersatztext.
-  return <AssetList assets={assets.map((a) => ({ url: a.url, alt: a.alt ?? '' }))} />
+  return (
+    <div className="flex flex-col gap-2">
+      {assets.map((a, i) => (
+        <img
+          key={`${a.url}-${i}`}
+          src={a.url}
+          alt={a.alt ?? ''}
+          loading="lazy"
+          className="block h-auto w-full rounded-[var(--radius-md)]"
+        />
+      ))}
+    </div>
+  )
 }
 
 function Table({ table }: { table: PreviewTable }): JSX.Element {
@@ -138,13 +157,13 @@ export function PreviewStage({ payload }: { payload: PreviewPayload }): JSX.Elem
 
   return (
     <div className="preview-stage flex flex-col gap-3 rounded-[var(--radius-lg)] p-4">
+      <Figuren assets={payload.assets} />
       <EdvanceCard className="flex flex-col gap-3">
         {stem.trim() === '' ? (
           <p className="text-sm italic text-[var(--color-text-tertiary)]">{t('preview.empty')}</p>
         ) : (
           <KindText text={stem} />
         )}
-        <Assets assets={payload.assets} />
         {payload.table && <Table table={payload.table} />}
 
         {/* Der Stamm eines Multi-Part-Items traegt selbst keine Eingabe — die
