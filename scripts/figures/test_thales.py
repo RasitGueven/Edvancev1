@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from figures.pruefe_thales import ecken, pruefe, pruefe_geometrie  # noqa: E402
 from figures.svg_basis import zahl  # noqa: E402
 from figures.thales import ABSTAND_MIN, BREITE, HOEHE, punkte, thales, zeichne  # noqa: E402
+from figures.svg_basis import pruefe_knapper_rahmen  # noqa: E402
 from figures.tokens import THEMES  # noqa: E402
 
 
@@ -67,9 +68,22 @@ def test_gleiche_parameter_gleiche_bytes():
     assert zeichne(p, 'dunkel') == zeichne(dict(p), 'dunkel')
 
 
-def test_fester_rahmen():
+def test_knappe_viewbox():
+    # Kein Leerraum um die Figur: Tablet und Vorschau nehmen die volle Breite.
     for p in PILOT.values():
-        assert f'viewBox="0 0 {BREITE} {HOEHE}"' in zeichne(p, 'hell')
+        svg = zeichne(p, 'hell')
+        assert pruefe_knapper_rahmen(svg) == []
+        assert f'viewBox="0 0 {BREITE} {HOEHE}"' not in svg
+
+
+def test_negativkontrolle_zu_viel_rand():
+    svg = zeichne(PILOT['11aebc7c'], 'dunkel')
+    kopf = re.search(r'viewBox="([^"]+)"', svg).group(1)
+    x, y, b, h = map(float, kopf.split())
+    weit = svg.replace(f'viewBox="{kopf}"', f'viewBox="{x - 40:g} {y:g} {b + 40:g} {h:g}"').replace(
+        f'width="{b:g}"', f'width="{b + 40:g}"', 1)
+    bestanden, meldung = pruefe(weit, PILOT['11aebc7c'])
+    assert not bestanden and 'Rand links' in meldung, meldung
 
 
 def test_kein_rechter_winkel_auch_wenn_gamma_gefragt():
