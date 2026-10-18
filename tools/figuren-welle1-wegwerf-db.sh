@@ -3,6 +3,9 @@
 #
 #   bash tools/figuren-welle1-wegwerf-db.sh            # Neuaufbau wie die CI: alle Migrationen + seed + pgTAP + Schema-Vergleich
 #   bash tools/figuren-welle1-wegwerf-db.sh --abzug    # dazu supabase/schema-erwartet.sql aus dem Neuaufbau schreiben
+#   bash tools/figuren-welle1-wegwerf-db.sh --daten <fixture-ordner>
+#        # PR 2: Prod-Fixture (tasks der 13 Zielaufgaben + alle task_figures, read-only per dbread \copy, nicht
+#        # eingecheckt), Daten-Migration zweimal, tasks unveraendert, md5-Schutz, upload_figures --dry-run, Payload
 #
 # Eigener Cluster über FIG_SOCKET (Socket-Verzeichnis) und FIG_PORT (Standard 55511); PGDATABASE & Co. werden
 # geleert; nie edvance_shadow, nie Produktion. pgTAP aus PGTAP_SQL (pgtap--1.3.4.sql, apt-get download).
@@ -18,6 +21,68 @@ spiele() {
   fi
 }
 neu() { dropdb --if-exists "$1" 2>/dev/null; createdb "$1"; psql -q -X "postgresql:///$1" -v ON_ERROR_STOP=1 -f supabase/test-grundlage.sql >/dev/null; }
+DATEN_MIG=20261018170200_figuren_welle1_daten.sql
+
+# ── PR 2: Daten-Lauf auf Prod-Fixture ───────────────────────────────────────
+if [ "${1:-}" = "--daten" ]; then
+  FIX="$(cd "${2:?Fixture-Ordner fehlt}" && pwd)"
+  DB=fig1_daten
+  neu "$DB"
+  for f in $(ls supabase/migrations/*.sql | sort); do [ "$(basename "$f")" = "$DATEN_MIG" ] || spiele "$f" "$DB"; done
+  spiele supabase/seed.sql "$DB"
+  lade=$(mktemp); trap 'rm -f "$lade"' EXIT
+  cat > "$lade" <<SQL
+set session_replication_role = replica;
+create temp table fix_tasks (like public.tasks including defaults);
+\\copy fix_tasks ($(head -1 "$FIX/tasks.csv")) from '$FIX/tasks.csv' csv header
+delete from public.tasks t using fix_tasks f where t.id = f.id or (t.source, t.source_ref) = (f.source, f.source_ref);
+insert into public.tasks ($(head -1 "$FIX/tasks.csv")) select $(head -1 "$FIX/tasks.csv") from fix_tasks;
+truncate public.task_figures;
+\\copy public.task_figures ($(head -1 "$FIX/task_figures.csv")) from '$FIX/task_figures.csv' csv header
+SQL
+  spiele "$lade" "$DB"
+  psql -X -q "postgresql:///$DB" -v ON_ERROR_STOP=1 -c "create schema vorher; create table vorher.tasks as select * from public.tasks"
+  echo "Fixture: $(psql -X -tA "postgresql:///$DB" -c 'select count(*) from public.task_figures') Figuren vorher"
+  for lauf in 1 2; do
+    echo "  Lauf $lauf: $(psql -X -tA "postgresql:///$DB" -v ON_ERROR_STOP=1 -f "supabase/migrations/$DATEN_MIG")"
+  done
+  psql -X -q "postgresql:///$DB" -v ON_ERROR_STOP=1 <<'SQL'
+do $$
+declare n int; geaendert int; leer int; mit_ziffer int;
+begin
+  select count(*) into n from public.task_figures where generator in ('thales', 'rechtecke', 'rechteck');
+  select count(*) into leer from public.task_figures where generator in ('thales', 'rechtecke', 'rechteck') and svg_hash is null;
+  select count(*) into geaendert from public.tasks t join vorher.tasks v using (id)
+    where row(t.*)::text is distinct from row(v.*)::text;
+  if n <> 13 or leer <> 13 then raise exception 'erwartet 13 neue Figuren ohne svg_hash, sind % / %', n, leer; end if;
+  if geaendert <> 0 then raise exception '% Aufgaben veraendert', geaendert; end if;
+  -- Ohne svg_hash erscheint nichts im Payload.
+  if exists (select 1 from public.task_figures f where f.generator = 'thales'
+              and jsonb_array_length(public.lsa_question_payload(f.task_id) -> 'assets') > 0) then
+    raise exception 'Figur ohne svg_hash steht schon im Payload';
+  end if;
+  raise notice 'figuren-abnahme: 13 Figuren ohne svg_hash, tasks unveraendert, Payload noch ohne Figur';
+end $$;
+-- md5-Schutz: Aendert sich der Aufgabentext, legt die Migration keine Figur an.
+begin;
+delete from public.task_figures where task_id = '11aebc7c-d30e-4577-89d5-52efed7d379f';
+update public.tasks set question = question || ' ' where id = '11aebc7c-d30e-4577-89d5-52efed7d379f';
+\i supabase/migrations/20261018170200_figuren_welle1_daten.sql
+rollback;
+-- Mit svg_hash (wie nach dem Upload) steht die Figur im Payload, Theme dunkel.
+begin;
+update public.task_figures set svg_hash = 'probe' where generator in ('thales', 'rechtecke', 'rechteck');
+select left(f.task_id::text, 8) as aufgabe, a ->> 'url' like '%/generiert/' || f.task_id || '/' || f.generator || '-dunkel.svg' as url_ok,
+       a ->> 'alt' = f.alt_text as alt_ok
+  from public.task_figures f, jsonb_array_elements(public.lsa_question_payload(f.task_id) -> 'assets') a
+ where f.generator in ('thales', 'rechtecke', 'rechteck') order by 1;
+rollback;
+SQL
+  echo "── upload_figures.py --dry-run gegen die Wegwerf-DB"
+  DATABASE_URL="postgresql:///$DB?host=$PGHOST&port=$PGPORT&user=postgres" python3 scripts/figures/upload_figures.py --dry-run \
+    | grep -v 'wuerde laden'
+  exit 0
+fi
 
 # ── 1. Neuaufbau wie die CI ─────────────────────────────────────────────────
 CI=fig1_ci

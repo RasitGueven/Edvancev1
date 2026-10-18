@@ -32,3 +32,13 @@
 - Koordinatensystem: An der Ecke unten links stehen „-1“ der x-Achse, „0“ und „-1“ der y-Achse eng beieinander (z. B.
   0315634a). War vorher genauso, mit Schrift 20 faellt es mehr auf.
 - `scripts/figures/` hat keinen CI-Job; die Python-Tests laufen nur lokal.
+
+## PR 2 – Daten
+- `docs/figuren/welle1.json`: 13 Figuren-Specs (6 thales, 5 rechtecke, 2 rechteck), Quelle `bedarf.json` aus F1.
+  Abweichungen zur Spec: 5b36238f mit Texten innen an den Beetkanten statt Masslinien (Masslinien kreuzten sich),
+  3a42b89c mit dem Flaecheninhalt ueber der Figur statt in der Mitte; alt-Texte entsprechend angepasst.
+- `tools/figuren-welle1.py`: Konsistenz (pruefe in beiden Themes, Zahlen und Bezeichnungen der Figur stehen im
+  Aufgabentext, keine Loesungszahl in der Figur, alt-Text ohne Ziffern) und Migration aus derselben Quelle.
+- Migration `20261018170200`: je Aufgabe nur bei gleichem Aufgabentext (md5) und ohne vorhandene Figur;
+  `svg_hash` bleibt leer, sichtbar wird die Figur erst nach `upload_figures.py`.
+- Im Neuaufbau wie die CI legt die Migration 11 von 13 an: f8364853 und 113aea0a gibt es dort nicht (nur in Prod).
