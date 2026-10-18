@@ -347,7 +347,7 @@ begin
   -- sind GAR NICHT gekuerzt (4/12 statt 1/3), der Name sagt "teilweise". Das
   -- ist eine Frage des Namens, nicht des Inhalts. Klartext ("Kuerzt den Bruch
   -- nicht vollstaendig", 20261016120100) und der Satz von schritt_vergessen
-  -- ("ohne einen Bruch bis zum Ende zu kuerzen") treffen beide Faelle. Eine
+  -- ("einen Bruch nicht bis zum Ende kuerzt") treffen beide Faelle. Eine
   -- Familie, deren Satz nur "teilweise" traegt, wuerde das nicht; deshalb
   -- haelt der Fall die eine Zuordnung fest. Das Umbenennen bleibt offen.
 

@@ -18,7 +18,7 @@
 -- teilgekuerzt bekommt eine Familie (schritt_vergessen). F14 in supabase/checks/fehlbild_familien.PRUEFUNG.sql hielt
 -- ihn offen, weil die Belege meist GAR NICHT gekürzt sind (4/12 statt 1/3), der Name aber „teilweise“ sagt. Das ist
 -- eine Frage des Slug-Namens, nicht des Inhalts: Klartext („Kürzt den Bruch nicht vollständig …“, seit 20261016120100)
--- und Familiensatz („ohne einen Bruch bis zum Ende zu kürzen“) treffen beide Fälle. Das Umbenennen bleibt offen.
+-- und Familiensatz („einen Bruch nicht bis zum Ende kürzt“) treffen beide Fälle. Das Umbenennen bleibt offen.
 --
 -- Idempotent; kein begin/commit.
 
@@ -30,11 +30,11 @@ begin
   insert into public.fehlbild_familien (schluessel, elterntext)
   values
     ('schritt_vergessen',
-     'Ihr Kind geht den richtigen Rechenweg, lässt aber einen Teil davon weg oder hört zu früh auf, etwa ohne das Halbieren in der Flächenformel eines Dreiecks oder ohne einen Bruch bis zum Ende zu kürzen.'),
+     'Ihr Kind geht den richtigen Rechenweg, lässt aber einen Teil davon weg oder hört zu früh auf, etwa wenn es beim Dreieck das Halbieren vergisst oder einen Bruch nicht bis zum Ende kürzt.'),
     ('figuren',
      'Ihr Kind geht bei Figuren den richtigen Weg, setzt aber eine falsche Strecke oder einen falschen Winkel ein oder lässt einen Teil der Figur weg, etwa die schräge Seite statt der Höhe.'),
     ('geraden_schaubilder',
-     'Ihr Kind arbeitet mit Geraden und Schaubildern, verwechselt dabei aber, welche Zahl wofür steht, etwa den Wert nach rechts mit dem nach oben, oder schätzt falsch ein, ob und wo sich zwei Geraden treffen.'),
+     'Ihr Kind arbeitet mit Geraden und Schaubildern, verwechselt dabei aber, welche Zahl wofür steht, etwa den Wert nach rechts mit dem nach oben, oder erkennt nicht richtig, ob und wo sich zwei Geraden schneiden.'),
     ('klammern',
      'Ihr Kind rechnet mit Klammern, verrechnet dabei aber nicht jeden Teil richtig, nimmt eine falsche Regel oder lässt eine nötige Klammer weg, etwa (x + 3)² = x² + 9 statt x² + 6x + 9.')
   on conflict (schluessel) do nothing;
@@ -109,7 +109,7 @@ begin
   get diagnostics v_n = row_count; v_s := v_s + v_n;
 
   update public.fehlbild_familien
-     set elterntext = 'Ihr Kind rechnet bei Hochzahlen und Wurzeln nach einer Regel, die dort nicht gilt, oder hält eine Zahl fälschlich für eine Kommazahl, die endlos ohne Muster weitergeht, oder umgekehrt, etwa 3² als 3 · 2 oder √36 als die Hälfte von 36.'
+     set elterntext = 'Ihr Kind rechnet bei Hochzahlen und Wurzeln nach einer Regel, die dort nicht gilt, etwa 3² als 3 · 2 oder √36 als die Hälfte von 36, oder ordnet eine Zahl falsch ein, etwa √49 als Zahl, die sich nicht genau angeben lässt.'
    where schluessel = 'potenzen_wurzeln'
      and elterntext = 'Ihr Kind arbeitet bei Hochzahlen, Wurzeln und der Einordnung von Zahlen mit einer Vorstellung, die dort nicht passt, etwa 3² als 3 · 2 oder √36 als die Hälfte von 36.';
   get diagnostics v_n = row_count; v_s := v_s + v_n;
