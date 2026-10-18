@@ -23,7 +23,9 @@ declare
   v_n       bigint;
 begin
   insert into auth.users (id, email) values (v_coach, 'w5a-coach@edvance.test');
-  insert into public.profiles (id, email, role) values (v_coach, 'w5a-coach@edvance.test', 'coach');
+  -- Admin statt Coach: Seit X0 (Entscheidung 26) liest ein Coach LSA-Daten nur
+  -- bei laufendem Vertrag, das Probe-Kind hat keinen (wie fehlbild_familien.PRUEFUNG.sql).
+  insert into public.profiles (id, email, role) values (v_coach, 'w5a-coach@edvance.test', 'admin');
   perform set_config('request.jwt.claim.sub', v_coach::text, true);
 
   insert into public.skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe)
@@ -39,6 +41,10 @@ begin
 
   update public.fehlbild_labels set freigegeben_am = now(), freigegeben_von = v_coach
    where slug in ('mal_exponent', 'komma_ignoriert');
+  -- Seit 20261016170100 sind beide Familien freigegeben. Für den Test wieder
+  -- Entwurf, damit E1/E2 weiter die Familien-Abnahme prüfen (rollback am Ende).
+  update public.fehlbild_familien set freigegeben_am = null, freigegeben_von = null
+   where schluessel in ('potenzen_wurzeln', 'kommazahlen');
 
   -- Je zwei Vorkommen in zwei Aufgaben -> beide Slugs sind 'befund'.
   insert into public.lsa_responses

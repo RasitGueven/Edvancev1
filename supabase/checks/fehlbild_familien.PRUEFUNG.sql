@@ -341,19 +341,23 @@ begin
   end if;
   raise notice 'F13 ok: 5 Familien und 20 Fehlbilder stehen bestueckt';
 
-  -- ══ Fall 14: teilgekuerzt bleibt bewusst offen ════════════════════════════
+  -- ══ Fall 14: teilgekuerzt nur in schritt_vergessen ═══════════════════════
   --
-  -- Haelt die Entscheidung fest. Der Slug beschreibt etwas anderes als er tut
-  -- (alle belegten Faelle sind UNgekuerzt); ihn zu etikettieren wuerde den
-  -- Befund verstecken statt ihn zu klaeren. Faellt dieser Fall, hat jemand ihn
-  -- nebenbei bestueckt statt ihn zu reparieren.
+  -- Bis 20261016170100 blieb der Slug bewusst ohne Familie: Die meisten Belege
+  -- sind GAR NICHT gekuerzt (4/12 statt 1/3), der Name sagt "teilweise". Das
+  -- ist eine Frage des Namens, nicht des Inhalts. Klartext ("Kuerzt den Bruch
+  -- nicht vollstaendig", 20261016120100) und der Satz von schritt_vergessen
+  -- ("ohne einen Bruch bis zum Ende zu kuerzen") treffen beide Faelle. Eine
+  -- Familie, deren Satz nur "teilweise" traegt, wuerde das nicht; deshalb
+  -- haelt der Fall die eine Zuordnung fest. Das Umbenennen bleibt offen.
 
   if exists (select 1 from public.fehlbild_labels
               where slug = 'teilgekuerzt'
-                and (familie is not null or klartext is not null)) then
-    raise exception 'F14: teilgekuerzt wurde bestueckt — erst umbenennen, dann etikettieren';
+                and familie is distinct from 'schritt_vergessen'
+                and familie is not null) then
+    raise exception 'F14: teilgekuerzt steht in einer anderen Familie als schritt_vergessen';
   end if;
-  raise notice 'F14 ok: teilgekuerzt steht unbestueckt (offener Punkt, kein Versehen)';
+  raise notice 'F14 ok: teilgekuerzt ohne Familie oder in schritt_vergessen';
 
   -- ══ Negativkontrolle des Harnischs selbst ═════════════════════════════════
 
