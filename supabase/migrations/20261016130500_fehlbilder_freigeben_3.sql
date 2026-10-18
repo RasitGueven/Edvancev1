@@ -132,7 +132,7 @@ begin
   get diagnostics v_n = row_count; v_k := v_k + v_n;
 
   update public.fehlbild_labels
-     set klartext = 'Vergisst am Ende das Wurzelziehen: Aus x² = 49 wird x = 49 statt x = 7.'
+     set klartext = 'Vergisst am Ende das Wurzelziehen: Aus x² = 49 wird x = 49 statt x = 7 und x = −7.'
    where slug = 'wurzel_vergessen'
      and klartext = 'Rechnet bis zum Quadrat richtig, zieht am Ende aber nicht die Wurzel.';
   get diagnostics v_n = row_count; v_k := v_k + v_n;
