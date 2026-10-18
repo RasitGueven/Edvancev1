@@ -119,6 +119,22 @@ describe('PreviewStage — der Vertrag, wie das Kind ihn sieht', () => {
     expect(screen.getAllByRole('button')).toHaveLength(1)
   })
 
+  // Das Tablet (edvance-app, Buehne) setzt den Text roh in ein <Text>. Markdown hatte
+  // hier einfache Umbrueche eingeklappt (LGS „I: …\nII: …" in einer Zeile).
+  it('zeigt den Text roh wie das Tablet: Umbrueche bleiben, kein Markdown, kein LaTeX', () => {
+    const roh: PreviewPayload = {
+      ...multi,
+      stem: 'Löse das Gleichungssystem.\n\nI: x + 2y = 12\nII: x - 2y = 4',
+      parts: [{ nr: 1, kind: 'short_input', prompt: '-2^2 = ? und $x^2$ und *fett*' }],
+    }
+    render(<PreviewStage payload={roh} />)
+    const stamm = screen.getByText(/Löse das Gleichungssystem\./)
+    expect(stamm.textContent).toBe('Löse das Gleichungssystem.\n\nI: x + 2y = 12\nII: x - 2y = 4')
+    expect(stamm).toHaveClass('whitespace-pre-wrap')
+    expect(screen.getByText('-2^2 = ? und $x^2$ und *fett*')).toBeInTheDocument()
+    expect(document.querySelector('.katex, em, sup')).toBeNull()
+  })
+
   it('bewertet nicht — die Eingaben sind Attrappen', () => {
     render(<PreviewStage payload={flat} />)
     expect(screen.getByPlaceholderText('Deine Antwort')).toBeDisabled()

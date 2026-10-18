@@ -5,11 +5,18 @@
 // kennt keine Loesung, sie hat keinen Zugriff darauf. Was hier nicht ankommt,
 // kommt auch beim Kind nicht an — und umgekehrt.
 //
-// OPTIK: dieselben Bausteine wie der echte Schueler-Player (src/pages/student/
-// TaskPlayer.tsx): dunkle Buehne, solide Karte, MathContent fuer den Stamm,
-// AssetList fuer die Abbildung. Die Tabelle (F01) hat auf der Schueler-Flaeche noch
-// keinen Renderer — sie bekommt hier exakt die Klassen, die MathContent einer
-// Markdown-Tabelle gibt, damit beide Wege gleich aussehen.
+// TEXT WIE AUF DEM TABLET: Kinder sehen Aufgaben nur noch in edvance-app (der
+// Web-TaskPlayer ist stillgelegt, Entscheidung 24). Dort setzt `Buehne` Stamm,
+// Teilaufgaben und Antwortoptionen als reinen Text in ein <Text>: kein Markdown,
+// kein LaTeX, Zeilenumbrueche bleiben stehen. Frueher lief der Text hier durch
+// MathContent (Markdown + KaTeX) — das klappte einfache Umbrueche zusammen
+// („I: …" und „II: …" eines Gleichungssystems standen in einer Zeile) und haette
+// $…$, *…* oder Tabellen anders gezeigt als das Kind sie sieht. Deshalb steht der
+// Text hier genauso roh da wie auf dem Tablet, auch „-2^2" bleibt „-2^2".
+// Rahmen und Schrift bleiben flach (Coach-Sprache), geteilt wird nur der Inhalt.
+//
+// TABELLE (F01): Das Tablet hat dafuer noch keinen Renderer. Sie steht hier mit
+// den Klassen, die MathContent einer Markdown-Tabelle gibt.
 //
 // NICHT INTERAKTIV: Die Eingaben sind Attrappen (disabled). Die Vorschau zeigt,
 // sie bewertet nicht — kein Richtig/Falsch, kein Absenden (CLAUDE §6).
@@ -18,8 +25,12 @@ import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
 import { AssetList } from '@/lib/render/AssetList'
-import { MathContent } from '@/lib/render/MathContent'
 import type { PreviewAsset, PreviewOption, PreviewPart, PreviewPayload, PreviewTable } from '@/types'
+
+/** Aufgabentext wie `Buehne` auf dem Tablet: reiner Text, Umbrueche und Leerzeichen bleiben. */
+function KindText({ text }: { text: string }): JSX.Element {
+  return <p className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-primary)]">{text}</p>
+}
 
 function Assets({ assets }: { assets: PreviewAsset[] }): JSX.Element | null {
   if (assets.length === 0) return null
@@ -89,7 +100,7 @@ function McOptions({ options }: { options: PreviewOption[] }): JSX.Element | nul
           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-primary-light)] text-xs font-bold text-[var(--color-primary)]">
             {String.fromCharCode(65 + i)}
           </span>
-          <span className="text-sm text-[var(--color-text-primary)]">{option.label}</span>
+          <span className="whitespace-pre-wrap text-sm text-[var(--color-text-primary)]">{option.label}</span>
         </div>
       ))}
     </div>
@@ -104,7 +115,7 @@ function Part({ part }: { part: PreviewPart }): JSX.Element {
       <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {t('parts.part', { nr: part.nr })}
       </span>
-      {part.prompt && <MathContent text={part.prompt} />}
+      {part.prompt && <KindText text={part.prompt} />}
       {part.table && <Table table={part.table} />}
       {part.kind === 'mc' ? (
         <McOptions options={part.options ?? []} />
@@ -131,7 +142,7 @@ export function PreviewStage({ payload }: { payload: PreviewPayload }): JSX.Elem
         {stem.trim() === '' ? (
           <p className="text-sm italic text-[var(--color-text-tertiary)]">{t('preview.empty')}</p>
         ) : (
-          <MathContent text={stem} />
+          <KindText text={stem} />
         )}
         <Assets assets={payload.assets} />
         {payload.table && <Table table={payload.table} />}
