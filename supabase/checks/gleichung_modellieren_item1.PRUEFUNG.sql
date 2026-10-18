@@ -287,13 +287,13 @@ begin
   end if;
 
   -- Und die Familien existieren wirklich (der FK deckt das ab, die Probe
-  -- benennt es).
+  -- benennt es). Seit 20261016170100 stehen beide in klammern.
   if exists (
     select 1 from public.fehlbild_labels l
      where l.slug in ('klammer_vergessen','klammer_falsch_gesetzt')
-       and l.familie <> 'gleichungen_umformen'
+       and l.familie <> 'klammern'
   ) then
-    raise exception 'F8: die zwei Klammer-Fehlbilder gehoeren nach gleichungen_umformen';
+    raise exception 'F8: die zwei Klammer-Fehlbilder gehoeren nach klammern';
   end if;
   raise notice 'F8 ok: alle neun neuen Slugs stehen mit Familie in der Registry';
 
