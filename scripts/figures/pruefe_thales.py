@@ -5,7 +5,7 @@ Geometriepruefungen fuer den Thales-Generator — IMPORTIERBAR.
 `upload_figures.py` laedt nichts hoch, was `pruefe(svg, params)` nicht besteht.
 Gemessen wird das ERZEUGTE SVG, nicht die Parameter:
 
-  r) alles liegt im Rahmen
+  r) knappe viewBox: alles liegt darin, kein Rand groesser als RAND_KNAPP
   p) Punkte: A und B waagerecht, M in der Mitte, C auf dem Kreis, der gemessene
      Winkel BMC ist `c_grad` — und liegt NICHT an der wahren Lage
   k) Kreis bzw. Halbkreisbogen um M mit Radius MA, der Halbkreis oberhalb von AB
@@ -26,12 +26,14 @@ import math
 import re
 
 try:
+    from .svg_basis import pruefe_knapper_rahmen
     from .thales import ABSTAND_MIN, pruefe_params
 except ImportError:
     import sys
     from pathlib import Path
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from figures.svg_basis import pruefe_knapper_rahmen
     from figures.thales import ABSTAND_MIN, pruefe_params
 
 EPS_PIXEL = 0.6
@@ -120,18 +122,8 @@ def _mittelpunkt(e: dict) -> tuple[float, float]:
 # ── Pruefungen ───────────────────────────────────────────────────────────────
 
 def pruefe_rahmen(svg: str, params: dict) -> list[str]:
-    breite, hoehe = _kopf(svg)
-    befunde = []
-    xs = [v for l in _linien(svg) for v in (l[0], l[2])] + [p[0] for pl in _polylinien(svg) for p in pl['punkte']]
-    ys = [v for l in _linien(svg) for v in (l[1], l[3])] + [p[1] for pl in _polylinien(svg) for p in pl['punkte']]
-    for k in _kreise(svg):
-        xs += [k['x'] - k['r'], k['x'] + k['r']]
-        ys += [k['y'] - k['r'], k['y'] + k['r']]
-    if xs and (min(xs) < -EPS_PIXEL or max(xs) > breite + EPS_PIXEL):
-        befunde.append(f'r: waagerecht ausserhalb des Rahmens ({min(xs):.1f}..{max(xs):.1f} bei Breite {breite:g}).')
-    if ys and (min(ys) < -EPS_PIXEL or max(ys) > hoehe + EPS_PIXEL):
-        befunde.append(f'r: senkrecht ausserhalb des Rahmens ({min(ys):.1f}..{max(ys):.1f} bei Hoehe {hoehe:g}).')
-    return befunde
+    """Knappe viewBox: deckt width/height, alles liegt darin, kein Rand groesser als RAND_KNAPP."""
+    return pruefe_knapper_rahmen(svg)
 
 
 def pruefe_punkte(svg: str, params: dict) -> list[str]:

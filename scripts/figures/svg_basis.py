@@ -191,3 +191,144 @@ def dokument(breite: float, hoehe: float, inhalt: list[str]) -> str:
         f'role="img">'
     )
     return '\n'.join([kopf, *inhalt, '</svg>', ''])
+
+
+# ── Knappe viewBox ──────────────────────────────────────────────────────────
+# Rasit, 18.10.2026: Tablet und Vorschau nehmen die volle Breite und die Hoehe aus
+# dem Seitenverhaeltnis der viewBox. Ein fester Rahmen mit viel Leerraum macht die
+# Figur dort klein. Die viewBox ist deshalb der Umriss alles Gezeichneten plus
+# EIN einheitlicher Rand. Gemessen wird am fertigen SVG-Text — dieselbe Messung
+# nutzen die pruefe_*-Module, damit Generator und Pruefung nicht auseinanderlaufen.
+
+RAND_KNAPP = 16.0
+
+# Geschaetzte Laufweite je Zeichen in Schriftgroessen (Schibsted Grotesk, eher
+# grosszuegig: lieber ein paar Pixel Rand zu viel als ein abgeschnittener Text).
+TEXT_LAUFWEITE = 0.62
+TEXT_LAUFWEITE_FETT = 0.66
+TEXT_HALBE_HOEHE = 0.62
+
+
+def _text_roh(inhalt: str) -> str:
+    return inhalt.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')
+
+
+def text_kasten(x: float, y: float, inhalt: str, groesse: float, anker: str = 'middle',
+                fett: bool = False) -> tuple[float, float, float, float]:
+    """Geschaetzter Kasten (x0, y0, x1, y1) eines Texts mit dominant-baseline=middle."""
+    weite = len(inhalt) * groesse * (TEXT_LAUFWEITE_FETT if fett else TEXT_LAUFWEITE)
+    links = x - weite / 2 if anker == 'middle' else x - weite if anker == 'end' else x
+    return links, y - groesse * TEXT_HALBE_HOEHE, links + weite, y + groesse * TEXT_HALBE_HOEHE
+
+
+def textkaesten(svg: str) -> list[tuple[float, float, float, float]]:
+    """Die Kaesten aller <text>-Elemente eines SVG, in Dokumentreihenfolge."""
+    import re
+
+    aus = []
+    for m in re.finditer(r'<text x="([\d.-]+)" y="([\d.-]+)"([^>]*)>([^<]*)</text>', svg):
+        attr = m.group(3)
+        groesse = float(re.search(r'font-size="([\d.]+)"', attr).group(1))
+        anker = (re.search(r'text-anchor="(\w+)"', attr) or [None, 'start'])[1]
+        aus.append(text_kasten(float(m.group(1)), float(m.group(2)), _text_roh(m.group(4)), groesse, anker,
+                               'font-weight' in attr))
+    return aus
+
+
+def kaesten_ueberlappen(a, b, luft: float = 0.0) -> bool:
+    """Ueberlappen zwei Kaesten (x0, y0, x1, y1), mit `luft` Mindestabstand?"""
+    return a[0] < b[2] + luft and b[0] < a[2] + luft and a[1] < b[3] + luft and b[1] < a[3] + luft
+
+
+def strecke_trifft_kasten(p, q, kasten, schritt: float = 1.0) -> bool:
+    """Beruehrt die Strecke p-q den Kasten? Abgetastet im Pixelabstand — genau genug fuer Beschriftung."""
+    laenge = max(abs(q[0] - p[0]), abs(q[1] - p[1]))
+    n = max(1, int(laenge / schritt))
+    for i in range(n + 1):
+        x = p[0] + (q[0] - p[0]) * i / n
+        y = p[1] + (q[1] - p[1]) * i / n
+        if kasten[0] <= x <= kasten[2] and kasten[1] <= y <= kasten[3]:
+            return True
+    return False
+
+
+def umriss(svg: str) -> tuple[float, float, float, float]:
+    """
+    (x0, y0, x1, y1) aller gezeichneten Elemente: Linien und Streckenzuege mit
+    halber Strichstaerke, Kreise, Rechtecke, Texte mit geschaetzter Ausdehnung.
+    """
+    import re
+
+    xs: list[float] = []
+    ys: list[float] = []
+
+    def strich(attr: str) -> float:
+        m = re.search(r'stroke-width="([\d.]+)"', attr)
+        return float(m.group(1)) / 2 if m else 0.0
+
+    for m in re.finditer(r'<line x1="([\d.-]+)" y1="([\d.-]+)" x2="([\d.-]+)" y2="([\d.-]+)"([^>]*)>', svg):
+        s = strich(m.group(5))
+        x1, y1, x2, y2 = (float(m.group(i)) for i in range(1, 5))
+        xs += [min(x1, x2) - s, max(x1, x2) + s]
+        ys += [min(y1, y2) - s, max(y1, y2) + s]
+    for m in re.finditer(r'<polyline points="([^"]+)"([^>]*)>', svg):
+        s = strich(m.group(2))
+        for p in m.group(1).split():
+            x, y = map(float, p.split(','))
+            xs += [x - s, x + s]
+            ys += [y - s, y + s]
+    for m in re.finditer(r'<circle cx="([\d.-]+)" cy="([\d.-]+)" r="([\d.-]+)"([^>]*)>', svg):
+        r = float(m.group(3)) + strich(m.group(4))
+        xs += [float(m.group(1)) - r, float(m.group(1)) + r]
+        ys += [float(m.group(2)) - r, float(m.group(2)) + r]
+    for m in re.finditer(r'<rect x="([\d.-]+)" y="([\d.-]+)" width="([\d.-]+)" height="([\d.-]+)"([^>]*)>', svg):
+        s = strich(m.group(5))
+        x, y, b, h = (float(m.group(i)) for i in range(1, 5))
+        xs += [x - s, x + b + s]
+        ys += [y - s, y + h + s]
+    for k in textkaesten(svg):
+        xs += [k[0], k[2]]
+        ys += [k[1], k[3]]
+    if not xs:
+        raise ValueError('Nichts gezeichnet — kein Umriss.')
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def dokument_knapp(inhalt: list[str], rand: float = RAND_KNAPP) -> str:
+    """Wie `dokument`, aber die viewBox ist der Umriss der Figur plus `rand` ringsum."""
+    x0, y0, x1, y1 = umriss('\n'.join(inhalt))
+    x0, y0 = round(x0 - rand, 2), round(y0 - rand, 2)
+    breite, hoehe = round(x1 + rand - x0, 2), round(y1 + rand - y0, 2)
+    kopf = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" '
+        f'width="{zahl(breite)}" height="{zahl(hoehe)}" '
+        f'viewBox="{zahl(x0)} {zahl(y0)} {zahl(breite)} {zahl(hoehe)}" '
+        f'role="img">'
+    )
+    return '\n'.join([kopf, *inhalt, '</svg>', ''])
+
+
+def pruefe_knapper_rahmen(svg: str, rand: float = RAND_KNAPP, eps: float = 0.6) -> list[str]:
+    """
+    Die viewBox deckt width/height, alles Gezeichnete liegt darin, und an keiner
+    Seite ist mehr Rand als `rand` — eine Figur mit Leerraum waere in Vorschau und
+    App unnoetig klein.
+    """
+    import re
+
+    kopf = re.search(r'<svg\b[^>]*\bwidth="([\d.]+)"[^>]*\bheight="([\d.]+)"[^>]*\bviewBox="([^"]+)"', svg)
+    if not kopf:
+        return ['r: SVG ohne width/height/viewBox.']
+    breite, hoehe = float(kopf.group(1)), float(kopf.group(2))
+    vx, vy, vb, vh = map(float, kopf.group(3).split())
+    befunde = []
+    if abs(vb - breite) > eps or abs(vh - hoehe) > eps:
+        befunde.append(f'r: viewBox {vb}x{vh} deckt width/height {breite}x{hoehe} nicht.')
+    x0, y0, x1, y1 = umriss(svg)
+    raender = {'links': x0 - vx, 'oben': y0 - vy, 'rechts': vx + vb - x1, 'unten': vy + vh - y1}
+    for seite, r in raender.items():
+        if r < -eps:
+            befunde.append(f'r: Figur ragt {seite} {-r:.1f} px aus der viewBox — sie wuerde abgeschnitten.')
+        elif r > rand + eps:
+            befunde.append(f'r: {r:.1f} px Rand {seite}, erlaubt {rand:g} — die Figur waere unnoetig klein.')
+    return befunde

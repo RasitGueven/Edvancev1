@@ -109,6 +109,19 @@ describe('PreviewStage — der Vertrag, wie das Kind ihn sieht', () => {
     expect(screen.getByText('m')).toBeInTheDocument()
   })
 
+  // Die -dunkel.svg hat cremefarbene Linien: In der weissen Karte waren sie kaum zu
+  // sehen. Wie auf dem Tablet steht die Figur direkt auf der Buehne, ueber dem Text,
+  // in voller Breite und ohne Hoehenkappung.
+  it('stellt die Figur wie das Tablet dar: auf der dunklen Buehne, volle Breite, ueber dem Text', () => {
+    render(<PreviewStage payload={flat} />)
+    const bild = screen.getByAltText('Ein Balkendiagramm')
+    expect(bild.parentElement?.parentElement).toHaveClass('preview-stage')
+    expect(bild).toHaveClass('w-full', 'h-auto')
+    expect(bild).not.toHaveClass('max-h-72')
+    const text = screen.getByText(/Berechne 20 % von 80 m\./)
+    expect(bild.compareDocumentPosition(text) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  })
+
   it('rendert Multi-Part: Stamm oben, Teilaufgaben darunter, EIN Weiter-Button', () => {
     render(<PreviewStage payload={multi} />)
     expect(screen.getByText(/Die Tabelle zeigt die Bevoelkerungsdichte\./)).toBeInTheDocument()
@@ -133,16 +146,6 @@ describe('PreviewStage — der Vertrag, wie das Kind ihn sieht', () => {
     expect(stamm).toHaveClass('whitespace-pre-wrap')
     expect(screen.getByText('-2^2 = ? und $x^2$ und *fett*')).toBeInTheDocument()
     expect(document.querySelector('.katex, em, sup')).toBeNull()
-  })
-
-  // Generierte Figuren sind fuer die dunkle Tablet-Buehne gezeichnet (Creme auf Navy).
-  // Auf der weissen Karte waeren sie kaum sichtbar — die Vorschau legt sie deshalb
-  // auf dieselbe dunkle Flaeche.
-  it('legt Abbildungen auf die dunkle Buehnenflaeche wie das Tablet', () => {
-    render(<PreviewStage payload={flat} />)
-    const flaeche = screen.getByAltText('Ein Balkendiagramm').closest('[data-testid="preview-abbildung"]')
-    expect(flaeche).not.toBeNull()
-    expect(flaeche).toHaveClass('bg-[var(--color-stage-bottom)]')
   })
 
   it('bewertet nicht — die Eingaben sind Attrappen', () => {

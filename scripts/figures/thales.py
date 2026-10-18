@@ -19,7 +19,7 @@ Deshalb ist beides baulich ausgeschlossen:
 `pruefe_thales.py` misst das erzeugte SVG zurueck: Lage der Punkte, Bogen,
 Winkelboegen, Beschriftung, und dass C nicht an der wahren Lage sitzt.
 
-FESTER RAHMEN: 400 x 330, unabhaengig von den Parametern. A liegt links, B
+ZEICHENRAUM 400 x 330; die viewBox ist knapp (svg_basis.dokument_knapp). A liegt links, B
 rechts, AB waagerecht. C liegt oberhalb von AB; `c_grad` wird von MB aus gegen
 den Uhrzeigersinn gemessen (0 < c_grad < 180).
 
@@ -33,7 +33,7 @@ import math
 
 try:
     from .pruefungen import reelle_zahl, wahrheitswert
-    from .svg_basis import beschriftung, dokument, element, farb_attribute, kreis, linie, polylinie, zahl
+    from .svg_basis import beschriftung, dokument_knapp, element, farb_attribute, kreis, linie, polylinie, zahl
     from .tokens import SCHRIFT, SCHRIFTGROESSE, STARK_ACHSE, STARK_BETONT, STARK_KURVE, palette
 except ImportError:
     import sys
@@ -41,7 +41,7 @@ except ImportError:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from figures.pruefungen import reelle_zahl, wahrheitswert
-    from figures.svg_basis import beschriftung, dokument, element, farb_attribute, kreis, linie, polylinie, zahl
+    from figures.svg_basis import beschriftung, dokument_knapp, element, farb_attribute, kreis, linie, polylinie, zahl
     from figures.tokens import SCHRIFT, SCHRIFTGROESSE, STARK_ACHSE, STARK_BETONT, STARK_KURVE, palette
 
 BREITE = 400
@@ -257,7 +257,7 @@ def thales(theme: str = 'dunkel', **params) -> str:
         texte.append(beschriftung(nx, ny, n, farben.beschriftung, SCHRIFTGROESSE, SCHRIFT))
 
     inhalt.append(element('g', [], ''.join(texte)))
-    return dokument(BREITE, HOEHE, inhalt)
+    return dokument_knapp(inhalt)
 
 
 def zeichne(params: dict, theme: str) -> str:

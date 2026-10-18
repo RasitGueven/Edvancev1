@@ -3,6 +3,8 @@
 Parametrischer Generator: zusammengesetzte Rechtecke und Quadrate — angesetzt,
 in einer Ecke abgetrennt, verlaengert oder gekuerzt, mit Rahmen (Weg).
 
+VIEWBOX: knapp um die Figur (svg_basis.dokument_knapp), Zeichenraum 400 x 300.
+
 SCHEMATISCH, NICHT MASSSTAEBLICH, UND DAS IST DER PUNKT: Die Aufgaben rechnen
 mit Termen ("x cm", "(x + 3) m") oder mit Zahlen, die das Kind verrechnen und
 nicht abmessen soll. Die Koordinaten in `params` sind deshalb Skizzen-Einheiten
@@ -26,7 +28,7 @@ from __future__ import annotations
 
 try:
     from .pruefungen import reelle_zahl
-    from .svg_basis import beschriftung, dokument, element, farb_attribute, linie, zahl
+    from .svg_basis import beschriftung, dokument_knapp, element, farb_attribute, linie, zahl
     from .tokens import SCHRIFT, SCHRIFTGROESSE, STARK_ACHSE, STARK_KURVE, palette
 except ImportError:
     import sys
@@ -34,7 +36,7 @@ except ImportError:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from figures.pruefungen import reelle_zahl
-    from figures.svg_basis import beschriftung, dokument, element, farb_attribute, linie, zahl
+    from figures.svg_basis import beschriftung, dokument_knapp, element, farb_attribute, linie, zahl
     from figures.tokens import SCHRIFT, SCHRIFTGROESSE, STARK_ACHSE, STARK_KURVE, palette
 
 BREITE = 400
@@ -191,7 +193,7 @@ def rechtecke(theme: str = 'dunkel', **params) -> str:
         texte.append(beschriftung(px(t['x']), py(t['y']), t['text'], farben.kurve, SCHRIFTGROESSE, SCHRIFT))
     if texte:
         inhalt.append(element('g', [], ''.join(texte)))
-    return dokument(BREITE, HOEHE, inhalt)
+    return dokument_knapp(inhalt)
 
 
 def zeichne(params: dict, theme: str) -> str:

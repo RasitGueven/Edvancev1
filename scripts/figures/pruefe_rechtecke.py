@@ -6,7 +6,7 @@ Gemessen wird das ERZEUGTE SVG. Die Abbildung Skizze -> Pixel wird aus den
 gezeichneten Rechtecken zurueckgerechnet (Umriss aller Rechtecke gegen den
 Umriss der Parameter), nie aus dem Generator uebernommen:
 
-  r) alles liegt im Rahmen
+  r) knappe viewBox: alles liegt darin, kein Rand groesser als RAND_KNAPP
   e) EIN Faktor fuer beide Achsen, jedes Rechteck an seinem Ort und im
      verlangten Stil (kontur / gestrichelt / flaeche)
   m) je Mass eine Masslinie parallel zur Strecke, gleich lang, auf der
@@ -23,12 +23,14 @@ import re
 
 try:
     from .rechtecke import MASS_ABSTAND, SEITEN, TEXT_ABSTAND, pruefe_params
+    from .svg_basis import pruefe_knapper_rahmen
 except ImportError:
     import sys
     from pathlib import Path
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from figures.rechtecke import MASS_ABSTAND, SEITEN, TEXT_ABSTAND, pruefe_params
+    from figures.svg_basis import pruefe_knapper_rahmen
 
 EPS_PIXEL = 0.6
 EPS_FAKTOR = 0.01
@@ -91,20 +93,8 @@ def _nah(a: float, b: float, eps: float = EPS_PIXEL) -> bool:
 # ── Pruefungen ───────────────────────────────────────────────────────────────
 
 def pruefe_rahmen(svg: str, params: dict) -> list[str]:
-    breite, hoehe = _kopf(svg)
-    xs, ys = [], []
-    for r in _rechtecke(svg):
-        xs += [r['x0'], r['x1']]
-        ys += [r['y0'], r['y1']]
-    for l in _linien(svg):
-        xs += [l[0], l[2]]
-        ys += [l[1], l[3]]
-    for t in _texte(svg):
-        xs.append(t['x'])
-        ys.append(t['y'])
-    if xs and (min(xs) < 0 or max(xs) > breite or min(ys) < 0 or max(ys) > hoehe):
-        return [f'r: ausserhalb des Rahmens ({min(xs):.1f}..{max(xs):.1f} / {min(ys):.1f}..{max(ys):.1f}).']
-    return []
+    """Knappe viewBox: deckt width/height, alles liegt darin, kein Rand groesser als RAND_KNAPP."""
+    return pruefe_knapper_rahmen(svg)
 
 
 def pruefe_rechtecke(svg: str, params: dict) -> list[str]:
