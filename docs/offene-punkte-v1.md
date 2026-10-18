@@ -84,3 +84,17 @@ Alle 112 Dateien in jedem Lauf.
    per `findByRole`. Kommt das Muster in einem neuen Test vor, gleiches Vorgehen wie in `Umstieg`.
 4. **Mehr als drei gleichzeitige Gates** sind nicht gemessen. Bei vier oder mehr Agenten wäre `maxWorkers: 3` oder ein
    Wert in Prozent zu prüfen.
+
+## App (edvance-app)
+
+Aus #263 und #265 (16.10.2026). Die Liste stand vorher nirgends, sie beginnt hier.
+
+1. **Tablet: Hochzahlen per Textstil statt Unicode.** Fraunces 500 (Schrift des Aufgabentexts) hat nur `⁰ ¹ ² ³ ⁴`.
+   `⁵`–`⁹`, `⁻` und `ⁿ` setzt das iPad in einer Ersatzschrift. Deshalb steht 5c73a51d noch als `2^5`. Ziel: Die Hochzahl
+   wird als hochgestellter, verkleinerter Text gesetzt, unabhängig vom Zeichenvorrat der Schrift.
+2. **Tablet: Hochzahl-Eingabe im Term-Modus.** Der Term-Modus kann heute nur `ax+b`, eine Hochzahl ist nicht eintippbar.
+   Die TERM-Bewertung vergleicht Zeichenketten: `x²+6x+9` ist richtig, `x^2+6x+9`, `x*x+6x+9` und `9+6x+x²` sind falsch.
+   Ziel: Die Bewertung behandelt `x^2`, `x²`, `x*x` und eine andere Reihenfolge der Summanden gleich. Das ist nötig, bevor
+   offene Term-Aufgaben mit Quadrat kommen.
+3. **Tablet: `payload.table` wird nicht angezeigt.** Die Bühne rendert die Tabelle aus dem Payload nicht, die Web-Vorschau
+   zeigt sie. Heute ist keine Pilot-Aufgabe betroffen.
