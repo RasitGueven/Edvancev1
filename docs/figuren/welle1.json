@@ -1,0 +1,525 @@
+{
+ "stand": "2026-10-18",
+ "quelle": "docs/figuren/bedarf.json (F1), Specs umgesetzt in F2 Welle 1",
+ "figuren": [
+  {
+   "task_id": "11aebc7c-d30e-4577-89d5-52efed7d379f",
+   "generator": "thales",
+   "params": {
+    "form": "halbkreis",
+    "c_grad": 75,
+    "wahre_lage_grad": 64,
+    "mittelpunkt": false,
+    "winkel": [
+     {
+      "ecke": "A",
+      "schenkel": [
+       "C",
+       "B"
+      ],
+      "text": "32°"
+     },
+     {
+      "ecke": "B",
+      "schenkel": [
+       "C",
+       "A"
+      ],
+      "text": "?"
+     }
+    ]
+   },
+   "alt_text": "Halbkreisförmiger Fensterbogen über der Unterkante AB. Von A und B führen zwei gerade Streben zu einem Punkt C auf dem Bogen. Der Winkel bei A ist angegeben, der Winkel bei B ist gesucht."
+  },
+  {
+   "task_id": "3e087e16-bd3e-4489-b3d9-6c6759c4ce74",
+   "generator": "thales",
+   "params": {
+    "form": "kreis",
+    "c_grad": 60,
+    "wahre_lage_grad": 70,
+    "mc": true,
+    "winkel": [
+     {
+      "ecke": "M",
+      "schenkel": [
+       "A",
+       "C"
+      ],
+      "text": ""
+     },
+     {
+      "ecke": "M",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": ""
+     },
+     {
+      "ecke": "A",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": "α = ?"
+     }
+    ]
+   },
+   "alt_text": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck, zusätzlich ist die Strecke von M nach C gezeichnet. Die beiden Winkel bei M sind markiert, der Winkel Alpha bei A ist gesucht."
+  },
+  {
+   "task_id": "9ca300e1-76b9-4bb9-96cf-44cfda31824b",
+   "generator": "thales",
+   "params": {
+    "form": "kreis",
+    "c_grad": 80,
+    "wahre_lage_grad": 64,
+    "mc": true,
+    "winkel": [
+     {
+      "ecke": "M",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": "64°"
+     },
+     {
+      "ecke": "A",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": "α = ?"
+     }
+    ]
+   },
+   "alt_text": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck, zusätzlich ist die Strecke von M nach C gezeichnet. Der Winkel zwischen MB und MC ist angegeben, der Winkel Alpha bei A ist gesucht."
+  },
+  {
+   "task_id": "9e7c1e4b-d317-44cf-8865-071c653ef2cf",
+   "generator": "thales",
+   "params": {
+    "form": "kreis",
+    "c_grad": 110,
+    "wahre_lage_grad": 80,
+    "mc": true,
+    "winkel": [
+     {
+      "ecke": "A",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": "40°"
+     },
+     {
+      "ecke": "C",
+      "schenkel": [
+       "A",
+       "M"
+      ],
+      "text": "?"
+     }
+    ]
+   },
+   "alt_text": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck, zusätzlich ist die Strecke von C nach M gezeichnet. Der Winkel bei A ist angegeben, der Winkel zwischen CA und CM ist gesucht."
+  },
+  {
+   "task_id": "22e90366-5528-4685-993e-42e88f3623f6",
+   "generator": "thales",
+   "params": {
+    "form": "kreis",
+    "c_grad": 70,
+    "wahre_lage_grad": 56,
+    "winkel": [
+     {
+      "ecke": "A",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": "α = 28°"
+     },
+     {
+      "ecke": "C",
+      "schenkel": [
+       "A",
+       "B"
+      ],
+      "text": "γ = ?"
+     }
+    ]
+   },
+   "alt_text": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck. Der Winkel Alpha bei A ist angegeben, der Winkel Gamma bei C ist gesucht."
+  },
+  {
+   "task_id": "9f171c32-9786-4617-b2e4-161c88071ea5",
+   "generator": "thales",
+   "params": {
+    "form": "kreis",
+    "c_grad": 100,
+    "wahre_lage_grad": 70,
+    "winkel": [
+     {
+      "ecke": "A",
+      "schenkel": [
+       "B",
+       "C"
+      ],
+      "text": "α = 35°"
+     },
+     {
+      "ecke": "B",
+      "schenkel": [
+       "A",
+       "C"
+      ],
+      "text": "β = ?"
+     }
+    ]
+   },
+   "alt_text": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck. Der Winkel Alpha bei A ist angegeben, der Winkel Beta bei B ist gesucht."
+  },
+  {
+   "task_id": "11390e1a-2fc1-4cf1-93da-890ac936b56a",
+   "generator": "rechtecke",
+   "params": {
+    "rechtecke": [
+     {
+      "x": 0,
+      "y": 0,
+      "b": 7,
+      "h": 4,
+      "stil": "kontur"
+     },
+     {
+      "x": 7,
+      "y": 0,
+      "b": 4,
+      "h": 4,
+      "stil": "kontur"
+     }
+    ],
+    "masse": [
+     {
+      "von": [
+       0,
+       0
+      ],
+      "bis": [
+       7,
+       0
+      ],
+      "text": "x cm",
+      "seite": "unten"
+     },
+     {
+      "von": [
+       0,
+       0
+      ],
+      "bis": [
+       0,
+       4
+      ],
+      "text": "4 cm",
+      "seite": "links"
+     },
+     {
+      "von": [
+       7,
+       0
+      ],
+      "bis": [
+       11,
+       0
+      ],
+      "text": "4 cm",
+      "seite": "unten"
+     }
+    ]
+   },
+   "alt_text": "Eine Figur aus einem Rechteck und einem rechts angesetzten Quadrat. Die lange Rechteckseite ist mit x beschriftet, die kurze Rechteckseite und die Quadratseite mit ihrer Länge."
+  },
+  {
+   "task_id": "f8364853-03fa-4d7e-807c-b0a20dbe09e3",
+   "generator": "rechtecke",
+   "params": {
+    "rechtecke": [
+     {
+      "x": 5,
+      "y": 0,
+      "b": 3,
+      "h": 8,
+      "stil": "flaeche"
+     },
+     {
+      "x": 0,
+      "y": 5,
+      "b": 5,
+      "h": 3,
+      "stil": "flaeche"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "b": 8,
+      "h": 8,
+      "stil": "kontur"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "b": 5,
+      "h": 5,
+      "stil": "kontur"
+     }
+    ],
+    "masse": [
+     {
+      "von": [
+       0,
+       8
+      ],
+      "bis": [
+       8,
+       8
+      ],
+      "text": "(x + 3) m",
+      "seite": "oben"
+     },
+     {
+      "von": [
+       0,
+       0
+      ],
+      "bis": [
+       5,
+       0
+      ],
+      "text": "(x - 1) m",
+      "seite": "unten"
+     }
+    ],
+    "texte": [
+     {
+      "x": 2.5,
+      "y": 2.5,
+      "text": "Beet"
+     }
+    ]
+   },
+   "alt_text": "Ein quadratisches Grundstück, in einer Ecke ist ein kleineres quadratisches Beet abgetrennt. Beide Seitenlängen sind als Term mit x beschriftet, die Restfläche ist getönt."
+  },
+  {
+   "task_id": "113aea0a-276a-4042-b634-805ef1e11db2",
+   "generator": "rechtecke",
+   "params": {
+    "rechtecke": [
+     {
+      "x": 0,
+      "y": 0,
+      "b": 6,
+      "h": 6,
+      "stil": "gestrichelt"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "b": 8,
+      "h": 4,
+      "stil": "kontur"
+     }
+    ],
+    "masse": [
+     {
+      "von": [
+       0,
+       0
+      ],
+      "bis": [
+       6,
+       0
+      ],
+      "text": "x m",
+      "seite": "unten"
+     },
+     {
+      "von": [
+       6,
+       0
+      ],
+      "bis": [
+       8,
+       0
+      ],
+      "text": "5 m",
+      "seite": "unten"
+     },
+     {
+      "von": [
+       0,
+       4
+      ],
+      "bis": [
+       0,
+       6
+      ],
+      "text": "5 m",
+      "seite": "links"
+     }
+    ]
+   },
+   "alt_text": "Ein gestricheltes Quadrat mit der Seitenlänge x. Darüber ein Rechteck, bei dem eine Seite um ein Stück verlängert und die andere um ein gleich langes Stück gekürzt ist."
+  },
+  {
+   "task_id": "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+   "generator": "rechtecke",
+   "params": {
+    "rechtecke": [
+     {
+      "x": 0,
+      "y": 0,
+      "b": 5,
+      "h": 5,
+      "stil": "gestrichelt"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "b": 7,
+      "h": 7,
+      "stil": "kontur"
+     }
+    ],
+    "masse": [
+     {
+      "von": [
+       0,
+       0
+      ],
+      "bis": [
+       5,
+       0
+      ],
+      "text": "?",
+      "seite": "unten"
+     },
+     {
+      "von": [
+       5,
+       0
+      ],
+      "bis": [
+       7,
+       0
+      ],
+      "text": "3 cm",
+      "seite": "unten"
+     },
+     {
+      "von": [
+       0,
+       5
+      ],
+      "bis": [
+       0,
+       7
+      ],
+      "text": "3 cm",
+      "seite": "links"
+     }
+    ],
+    "texte": [
+     {
+      "x": 3.5,
+      "y": 7.9,
+      "text": "neues Quadrat: 121 cm²"
+     }
+    ]
+   },
+   "alt_text": "Ein gestricheltes kleines Quadrat mit unbekannter Seitenlänge liegt in der Ecke eines größeren Quadrats. Das große Quadrat ist an zwei Seiten um dasselbe Stück länger, sein Flächeninhalt steht darüber."
+  },
+  {
+   "task_id": "5b36238f-c64c-4578-bd63-55249f185c78",
+   "generator": "rechtecke",
+   "params": {
+    "rechtecke": [
+     {
+      "x": 0,
+      "y": 0,
+      "b": 11,
+      "h": 9,
+      "stil": "kontur"
+     },
+     {
+      "x": 1.5,
+      "y": 1.5,
+      "b": 8,
+      "h": 6,
+      "stil": "kontur"
+     }
+    ],
+    "masse": [
+     {
+      "von": [
+       9.5,
+       4.5
+      ],
+      "bis": [
+       11,
+       4.5
+      ],
+      "text": "?",
+      "seite": "oben"
+     }
+    ],
+    "texte": [
+     {
+      "x": 6,
+      "y": 3.2,
+      "text": "Beet"
+     },
+     {
+      "x": 5.5,
+      "y": 6.8,
+      "text": "20 m"
+     },
+     {
+      "x": 2.8,
+      "y": 4.5,
+      "text": "15 m"
+     },
+     {
+      "x": 5.5,
+      "y": 0.75,
+      "text": "Weg"
+     }
+    ]
+   },
+   "alt_text": "Ein rechteckiges Beet, an dessen Seiten innen die Länge steht. Ringsum verläuft ein überall gleich breiter Weg, seine Breite ist gesucht."
+  },
+  {
+   "task_id": "46192474-3c40-4cec-a9de-742684e86e01",
+   "generator": "rechteck",
+   "params": {
+    "laenge_text": "x cm",
+    "breite_text": "5 cm",
+    "verhaeltnis": 2
+   },
+   "alt_text": "Ein Rechteck, die Länge ist mit x beschriftet, an der Breite steht die Länge."
+  },
+  {
+   "task_id": "770f72e9-c73c-45fc-9803-e3b20846de70",
+   "generator": "rechteck",
+   "params": {
+    "laenge_text": "(x + 3) cm",
+    "breite_text": "4 cm",
+    "verhaeltnis": 2
+   },
+   "alt_text": "Ein Rechteck, die Länge ist als Term mit x beschriftet, an der Breite steht die Länge."
+  }
+ ]
+}
