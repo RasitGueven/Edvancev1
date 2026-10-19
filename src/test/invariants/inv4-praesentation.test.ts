@@ -1,9 +1,9 @@
 // INV-4 für die Tablet-Präsentation der LSA (T1–T4): die Texte im Namespace
 // `praesentation` gehorchen den Sprachregeln der Elternfläche (R7
 // Entscheidung 9). Aufbau wie inv4-elternbericht.test.ts.
-// T2 erweitert diese Datei um die Prüfungen der Komponenten und Styles.
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+// T2 hat die Prüfungen der Komponenten und Styles ergänzt (INV-4.12).
+import { readFileSync, readdirSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import deElternbericht from '@/i18n/locales/de/elternbericht.json'
@@ -88,6 +88,108 @@ describe('INV-4.11 — praesentation.json spricht Elternsprache', () => {
   it('Schlüssel sind dot-notation ohne snake_case — außer den Plural-Endungen', () => {
     for (const key of Object.keys(texte)) {
       expect(key.replace(/_(one|other)$/, ''), key).not.toMatch(/_/)
+    }
+  })
+})
+
+/**
+ * INV-4.12 — Komponenten und Styles der Präsentation (T2, Entscheidung 11).
+ *
+ * Alle Dateien unter src/components/edvance/praesentation/ und
+ * src/styles/praesentation/, ohne Tests und ohne Kommentare. Gilt auch für die
+ * Stationen aus T3 und T4 — die Regeln sind so gefasst, dass sie nichts daran
+ * ändern müssen.
+ */
+describe('INV-4.12 — die Präsentation rendert keine Schlüssel, Quoten oder freien Farben', () => {
+  const ORDNER = ['src/components/edvance/praesentation', 'src/styles/praesentation']
+  const dateien = ORDNER.flatMap((ordner) =>
+    (readdirSync(resolve(ROOT, ordner), { recursive: true }) as string[])
+      .filter((f) => /\.(tsx?|css)$/.test(f) && !/\.test\.tsx?$/.test(f))
+      .map((f) => join(ordner, f)),
+  )
+  const ohneKommentare = (text: string): string =>
+    text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+  const quelle = dateien.map((pfad) => ({ pfad, text: ohneKommentare(read(pfad)) }))
+  const code = quelle.filter((d) => /\.tsx?$/.test(d.pfad))
+  const css = quelle.filter((d) => d.pfad.endsWith('.css'))
+
+  it('findet die Dateien des Rahmens und die vier Stationen', () => {
+    for (const teil of [
+      'Praesentation.tsx',
+      'Kopf.tsx',
+      'Leiste.tsx',
+      'Intro.tsx',
+      'Station1.tsx',
+      'Station4.tsx',
+      'useStationen.ts',
+      'rahmen.css',
+      'kopf.css',
+      'leiste.css',
+      'intro.css',
+      'station1.css',
+      'station4.css',
+    ]) {
+      expect(dateien.some((d) => d.endsWith(teil)), teil).toBe(true)
+    }
+  })
+
+  it('nutzt skillKey nur als React-key (INV-4.3)', () => {
+    for (const { pfad, text } of code) {
+      for (const zeile of text.split('\n')) {
+        if (!/\bskillKey\b/.test(zeile)) continue
+        expect(zeile.replace(/key=\{[^}]*\}/g, ''), pfad).not.toMatch(/\bskillKey\b/)
+      }
+    }
+  })
+
+  it('rendert Feld- und Ebenenschlüssel nie roh, nur über i18n (feld.*, s3.ebene.*) oder als key', () => {
+    // Roh gerendert wäre: {x.feld} als Kind, oder ${x.feld} in einem Text, der kein i18n-Schlüssel ist.
+    const KIND = /(^|[^=\w])\{\s*[\w.?]*\.(feld|ebene)\s*\}/
+    const VORLAGE = /`[^`]*\$\{[^}]*\.(feld|ebene)\}[^`]*`/g
+    for (const { pfad, text } of code) {
+      expect(text, pfad).not.toMatch(KIND)
+      for (const [vorlage] of text.matchAll(VORLAGE)) {
+        expect(vorlage, pfad).toMatch(/^`(elternbericht:)?(feld|s3\.ebene)\.\$\{[^}]*\}`$/)
+      }
+    }
+  })
+
+  it('rechnet keine Prozente und gibt kein % aus (CSS ausgenommen)', () => {
+    const STRING_MIT_PROZENT = /(['"`])(?:(?!\1)[^\\\n]|\\.)*%(?:(?!\1)[^\\\n]|\\.)*\1/
+    const JSX_TEXT_MIT_PROZENT = />[^<>{}]*%[^<>{}]*</
+    for (const { pfad, text } of code) {
+      expect(text, pfad).not.toMatch(/\*\s*100\b/)
+      expect(text, pfad).not.toMatch(/\btoFixed\b/)
+      expect(text, pfad).not.toMatch(STRING_MIT_PROZENT)
+      expect(text, pfad).not.toMatch(JSX_TEXT_MIT_PROZENT)
+    }
+  })
+
+  it('setzt Inline-Styles nur für berechnete Werte, nie als festen Text', () => {
+    for (const { pfad, text } of code) {
+      expect(text, pfad).not.toMatch(/style=\{\{[^}]*:\s*['"][^'"]*['"]/)
+    }
+  })
+
+  it('nimmt Farben nur aus --color-eb-* und --color-tp-* und schreibt keine Hex-Werte', () => {
+    for (const { pfad, text } of quelle) {
+      expect(text, pfad).not.toMatch(/#[0-9a-fA-F]{3,8}\b/)
+      expect(text, pfad).not.toMatch(/var\(--color-(?!eb-|tp-)/)
+      expect(text, pfad).not.toMatch(/\b(rgba?|hsla?|oklch|lab|lch)\(/)
+      expect(text, pfad).not.toMatch(
+        /(:|=|\s|["'])(white|black|red|green|blue|gray|grey|navy|gold|orange|yellow)\s*[;"'}]/,
+      )
+      expect(text, pfad).not.toMatch(
+        /\b(text|bg|border|fill|stroke|ring|from|to)-(white|black|slate|gray|zinc|red|rose|green|emerald|blue|amber|yellow)(-\d+)?\b/,
+      )
+    }
+  })
+
+  it('mischt in color-mix nur eb-/tp-Tokens mit transparent (Lichtschein, Schatten)', () => {
+    for (const { pfad, text } of css) {
+      for (const [mix] of text.matchAll(/color-mix\(in srgb,[^;]*?\)\s*\d*%?\s*,\s*[^)]*\)/g)) {
+        expect(mix, pfad).toMatch(/^color-mix\(in srgb, var\(--color-(eb|tp)-[a-z-]+\) \d+%, transparent\)$/)
+      }
     }
   })
 })

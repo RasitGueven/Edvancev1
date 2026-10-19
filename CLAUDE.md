@@ -223,6 +223,29 @@ deshalb abweichend von den Regeln oben:
   Ausnahme gilt nur für den Bogen; R6 und alle anderen Elternflächen bleiben
   ohne Ampel.
 
+### Tablet-Präsentation (LSA)
+
+Die Präsentation der Lernstandsanalyse ist ein Vollbild für das Gespräch mit
+Eltern und Kind auf dem iPad (`docs/report/praesentation/Anforderung.md`,
+Entscheidung 11), kein Screen der App. Für
+`src/components/edvance/praesentation/**` und `src/styles/praesentation/**`
+gilt deshalb abweichend von den Regeln oben (Gründer-Gespräch vom 18.10.2026):
+
+- Eigene Kästen statt `EdvanceCard`.
+- Mehr als drei Schriftgrößen je Station sind erlaubt (das Muster Dummy V7 hat sie).
+- **Ausnahme von INV-4.4:** „sicher“ grün (`--color-eb-sicher`) und
+  „Übungsbedarf“ rosé (`--color-eb-uebung`) wie im Druckbogen R7.
+- Farbverläufe nur für die Kugeln (Eddie, Kugel in Station 01, Kurvenpunkte,
+  Empfehlungspunkt), den Lichtschein im Intro und das Punktmuster
+  „übersprungen“. Sonst keine Verläufe, kein Glass.
+- Ruhige Bewegung nach dem Dummy (Zeiten als Variablen in `rahmen.css`), mit
+  `prefers-reduced-motion`: dann erscheint alles sofort.
+- Farben nur aus `--color-eb-*` und `--color-tp-*` (`tokens.css`), keine
+  Hex-Werte, Inline-Styles nur für berechnete Werte; Texte nur über i18n
+  (Namespaces `praesentation`, `elternbericht`). Geprüft in
+  `src/test/invariants/inv4-praesentation.test.ts`.
+- `src/styles/praesentation/**` gehört zur Präsentation, nicht zum Student-Fenster.
+
 ### Shadow-Hierarchie
 - Ruhende Cards: `shadow-card`
 - Hover-Zustand: `shadow-elevation-md` (via `hover:shadow-elevation-md`)
@@ -300,6 +323,8 @@ Datei-Disziplin:
 Design-/Recht-Invarianten (gelten für ALLE Surfaces):
 - Die 8 Hard Rules des Designsystems gelten. Glass nur auf dunklem BG.
   Student-Sprache (Gradients/Glass/Bounce) leakt NICHT nach Parent/Coach (flat).
+  Verläufe in der Tablet-Präsentation nur wie in §11 „Tablet-Präsentation (LSA)“
+  festgelegt (Kugeln, Lichtschein im Intro, Punktmuster „übersprungen“).
 - FernUSG: "Mastered" nur über den Coach-Gate (grantMastery / Coach-Rolle).
   Kein visuelles Mastered-Label ohne Backend-Bestätigung.
 - Shadows blau-getönt, Radii aus Tokens, keine hardcodierten Hex außer tokens.css.
