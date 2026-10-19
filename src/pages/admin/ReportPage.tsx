@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { Printer, Mail } from 'lucide-react'
+import { Printer, Mail, Presentation } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { LoadingPulse } from '@/components/edvance'
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
+import { Praesentation } from '@/components/edvance/praesentation/Praesentation'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { ReportBody } from '@/components/edvance/report/ReportBody'
 import { ReportOutlook } from '@/components/edvance/report/ReportOutlook'
@@ -31,14 +32,21 @@ import { TestlaufBanner } from './testmodus/TestlaufBanner'
  * Zwei Fassungen (Bauauftrag R7, Entscheidung 1): ohne Parameter R6, mit
  * ?fassung=r7 der Druckbogen nach Muster E7. Umgestellt wird erst nach der
  * Abnahme; bis dahin schaltet der Knopf in den Aktionen um.
+ *
+ * Mit ?ansicht=praesentation liegt darüber die Tablet-Präsentation als
+ * Vollbild (Anforderung Tablet-Präsentation, Entscheidung 1). Schließen
+ * entfernt nur diesen Parameter; Report, Ausblick und Fassung bleiben.
  */
 export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { t } = useTranslation('report')
   const { t: tb } = useTranslation('elternbericht')
+  const { t: tp } = useTranslation('praesentation')
   const { role } = useAuth()
   const [suche, setSuche] = useSearchParams()
   const r7 = suche.get('fassung') === 'r7'
+  const praesentation = suche.get('ansicht') === 'praesentation'
+  const brauchtPakete = r7 || praesentation
 
   const [data, setData] = useState<ReportData | null>(null)
   const [notes, setNotes] = useState<ReportNotes>(EMPTY_NOTES)
@@ -48,6 +56,7 @@ export function ReportPage(): JSX.Element {
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [tiers, setTiers] = useState<TierPlan[]>([])
+  const [pakete, setPakete] = useState<'offen' | 'laedt' | 'da' | 'fehler'>('offen')
 
   useEffect(() => {
     if (!sessionId) return
@@ -74,17 +83,39 @@ export function ReportPage(): JSX.Element {
     }
   }, [sessionId])
 
-  // Nur R7 zeigt die Mitgliedschaften (Seite 5). Ohne Pakete entfällt der Abschnitt.
+  // R7 (Seite 5) und die Präsentation (Empfehlung) brauchen die Pakete — einmal
+  // je Seite geladen, auch wenn beide Parameter gesetzt sind. Ohne Pakete
+  // entfällt dort nur der Abschnitt bzw. die Empfehlungszeile.
+  const angefragt = useRef(false)
+  const gemountet = useRef(true)
   useEffect(() => {
-    if (!r7) return
-    let cancelled = false
-    void listTiers().then((res) => {
-      if (!cancelled) setTiers(res.data ?? [])
-    })
+    gemountet.current = true
     return () => {
-      cancelled = true
+      gemountet.current = false
     }
-  }, [r7])
+  }, [])
+  useEffect(() => {
+    if (!brauchtPakete || angefragt.current) return
+    angefragt.current = true
+    setPakete('laedt')
+    void listTiers().then((res) => {
+      if (!gemountet.current) return
+      setTiers(res.data ?? [])
+      setPakete(res.error ? 'fehler' : 'da')
+    })
+  }, [brauchtPakete])
+
+  const setzeAnsicht = useCallback(
+    (an: boolean) =>
+      setSuche((alt) => {
+        const neu = new URLSearchParams(alt)
+        if (an) neu.set('ansicht', 'praesentation')
+        else neu.delete('ansicht')
+        return neu
+      }),
+    [setSuche],
+  )
+  const schliessePraesentation = useCallback(() => setzeAnsicht(false), [setzeAnsicht])
 
   const handleSave = useCallback(async () => {
     if (!sessionId) return
@@ -104,6 +135,10 @@ export function ReportPage(): JSX.Element {
 
   const aktionen = (
     <>
+      <Button type="button" variant="secondary" onClick={() => setzeAnsicht(true)}>
+        <Presentation className="mr-2 h-4 w-4" />
+        {tp('einstieg.knopf')}
+      </Button>
       <Button
         type="button"
         variant="secondary"
@@ -180,6 +215,18 @@ export function ReportPage(): JSX.Element {
     </div>
   )
 
+  const ebene = praesentation && sessionId && (loading || data) && (
+    <Praesentation
+      data={data}
+      notes={notes}
+      tiers={tiers}
+      tiersFehler={pakete === 'fehler'}
+      sessionId={sessionId}
+      laden={loading || pakete === 'offen' || pakete === 'laedt'}
+      onSchliessen={schliessePraesentation}
+    />
+  )
+
   // R7: eigener Wrapper, nicht .report-sheet — dessen Druckregeln gelten für R6.
   // Am Bildschirm Hinweise und Ausblick, auf Papier nur der Bogen.
   if (r7) {
@@ -211,6 +258,7 @@ export function ReportPage(): JSX.Element {
             </>
           )
         )}
+        {ebene}
       </div>
     )
   }
@@ -220,6 +268,7 @@ export function ReportPage(): JSX.Element {
     <div className="report-sheet flex flex-col gap-6 @4xl:max-w-3xl">
       {kopf}
       {inhalt}
+      {ebene}
     </div>
   )
 }
