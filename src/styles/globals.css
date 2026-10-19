@@ -3,6 +3,7 @@
 @import "./session.css";
 @import "./print.css";
 @import "./report.css";
+@import "./elternbericht/index.css";
 
 /* ─── Hülle (Admin, später Coach) — Breiten als Tokens ────────────────────────────
    Bauauftrag Admin-Hülle, Entscheidungen 4, 5 und 8. `static`, damit die Werte

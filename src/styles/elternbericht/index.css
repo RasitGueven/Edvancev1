@@ -1,0 +1,10 @@
+/* Eltern-Bericht R7 — Druckbogen nach Muster E7.
+   Ein Import in globals.css. Alles unter .eb-bogen; Maße und Radien in pt aus
+   docs/report/r7/E7-Masse.md, Farben nur aus --color-eb-* (tokens.css).
+   Je Seite eine eigene Datei, damit R7-3 und R7-4 parallel bauen können. */
+@import "./rahmen.css";
+@import "./seite1.css";
+@import "./seite2.css";
+@import "./seite3.css";
+@import "./seite4.css";
+@import "./seite5.css";
