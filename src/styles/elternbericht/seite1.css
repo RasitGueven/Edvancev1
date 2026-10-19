@@ -1,0 +1,327 @@
+/* Eltern-Bericht R7 · Seite 1 — Überblick (Maßblatt E7, „Seite 1“).
+
+   Im Fluss; die Abstände sind aus den Grundlinien des Musters gerechnet
+   (Formel in rahmen.css). Der Inhaltskasten beginnt bei y 80. Wo ein Wert in
+   Klammern steht, ist es die Grundlinie bzw. Kante im Muster. */
+
+.eb-s1 {
+  display: flow-root;
+}
+
+.eb-s1-kicker {
+  margin-top: 23.32pt; /* (111,3) */
+}
+
+.eb-s1-titel {
+  margin-top: 21.98pt; /* erste Zeile (160,7) */
+  font-size: 26pt;
+  line-height: 32pt;
+  text-wrap: balance;
+  position: relative;
+  top: 0.7pt; /* Rundung der Schriftmetrik, siehe rahmen.css */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* ─── Kopfdaten (44,250)–(551,304) ─────────────────────────────────────────── */
+
+.eb-s1-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 126.7pt);
+  box-sizing: border-box;
+  height: 54pt;
+  margin-top: 18.7pt;
+  padding: 8.12pt 0 0 15.25pt; /* Spalten ab x 60 / 186,8 / 313,5 / 440,2 */
+  background: var(--color-eb-weiss);
+  border: 0.75pt solid var(--color-eb-linie);
+  border-radius: 12pt;
+}
+.eb-s1-meta-spalte {
+  position: relative;
+}
+/* Trenner bei x 174,8 / 301,5 / 428,2, y 263–289. */
+.eb-s1-meta-spalte + .eb-s1-meta-spalte::before {
+  content: '';
+  position: absolute;
+  left: -12.35pt;
+  top: 4.13pt;
+  width: 0.7pt;
+  height: 26pt;
+  background: var(--color-eb-linie);
+}
+.eb-s1-meta dt {
+  font-size: 7.6pt; /* (266,6) */
+  line-height: 10pt;
+  color: var(--color-eb-leise);
+}
+.eb-s1-meta dd {
+  margin-top: 7.04pt; /* (284,1) */
+  font-size: 9.15pt;
+  line-height: 12pt;
+  color: var(--color-eb-tinte);
+}
+
+/* ─── Auf einen Blick ─────────────────────────────────────────────────────── */
+
+.eb-s1-blick-kicker {
+  margin-top: 19.32pt; /* (331,3) */
+}
+.eb-s1-zeile {
+  margin-top: 7.75pt; /* (349,7) */
+  font-size: 8.7pt;
+  line-height: 11pt;
+  white-space: pre-wrap;
+  color: var(--color-eb-text);
+}
+
+/* Drei Karten, y 366–517, Streifen oben 3 pt. */
+.eb-s1-karten {
+  display: grid;
+  grid-template-columns: repeat(3, 162.3pt);
+  column-gap: 10pt;
+  margin-top: 13.93pt;
+}
+.eb-s1-karte {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 151pt;
+  padding: 14.43pt 11.3pt 6.11pt;
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+  border-radius: 11pt;
+}
+/* Streifen (Karte, 366)–(Karte, 369) über die volle Breite, über dem Rand. */
+.eb-s1-karte::before {
+  content: '';
+  position: absolute;
+  top: -0.7pt;
+  left: -0.7pt;
+  right: -0.7pt;
+  height: 3pt;
+  border-radius: 1.5pt;
+  background: var(--color-eb-navy);
+}
+.eb-s1-karte-sicher::before {
+  background: var(--color-eb-sicher);
+}
+.eb-s1-karte-uebung::before {
+  background: var(--color-eb-uebung);
+}
+
+.eb-s1-karte-kopf {
+  font-size: 7.15pt; /* (387,1) */
+  line-height: 9pt;
+  text-transform: uppercase;
+  color: var(--color-eb-navy);
+}
+.eb-s1-karte-sicher .eb-s1-karte-kopf,
+.eb-s1-karte-sicher .eb-s1-weitere {
+  color: var(--color-eb-sicher-text);
+}
+.eb-s1-karte-uebung .eb-s1-karte-kopf,
+.eb-s1-karte-uebung .eb-s1-weitere {
+  color: var(--color-eb-uebung-text);
+}
+
+.eb-s1-liste {
+  margin-top: 16.93pt; /* erster Eintrag (413,7), dann je 23 */
+}
+.eb-s1-liste li {
+  position: relative;
+  padding-left: 11pt; /* Text ab Karte + 23 */
+  font-size: 7.75pt;
+  line-height: 9.5pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s1-liste li + li {
+  margin-top: 13.5pt;
+}
+/* Punkt Ø 5,4 bei Karte + 12,3, Mitte 0,7 über der Grundlinie. */
+.eb-s1-liste li::before {
+  content: '';
+  position: absolute;
+  left: 0.3pt;
+  top: 4.14pt;
+  width: 5.4pt;
+  height: 5.4pt;
+  border-radius: 50%;
+  background: var(--color-eb-sicher);
+}
+.eb-s1-karte-uebung .eb-s1-liste li::before {
+  background: var(--color-eb-uebung);
+}
+.eb-s1-leer {
+  margin-top: 16.17pt;
+  font-size: 7.75pt;
+  line-height: 11.1pt;
+  color: var(--color-eb-text);
+}
+.eb-s1-weitere {
+  margin-top: auto; /* unten in der Karte (508,1) */
+  padding-top: 2pt;
+  padding-left: 1pt;
+  font-size: 8.1pt;
+  line-height: 10pt;
+}
+
+/* Erster Ansatz: Kreis Ø 24 bei Karte + 12, y 403; Titel ab Karte + 44. */
+.eb-s1-ansatz-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 8pt;
+  margin-top: 11.65pt;
+}
+.eb-s1-ansatz-kreis {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 24pt;
+  height: 24pt;
+  margin-top: 2.32pt;
+  padding-bottom: 1.2pt;
+  border-radius: 50%;
+  background: var(--color-eb-navy);
+  font-size: 10pt;
+  line-height: 10pt;
+  color: var(--color-eb-weiss);
+}
+.eb-s1-ansatz-titel {
+  font-size: 9.1pt; /* (410,1) */
+  line-height: 12.3pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s1-ansatz-text {
+  margin-top: 29.9pt; /* (466,2) */
+  padding-left: 1pt;
+  font-size: 8.2pt;
+  line-height: 11.1pt;
+  color: var(--color-eb-text);
+}
+.eb-s1-ansatz-keiner {
+  margin-top: 15.07pt;
+}
+
+/* ─── Anliegen und Prüfweg, y 533–656, gleich hoch ─────────────────────────── */
+
+.eb-s1-kaesten {
+  display: grid;
+  grid-template-columns: 247.5pt 247.5pt;
+  column-gap: 12pt;
+  margin-top: 16pt;
+}
+.eb-s1-kaesten-voll {
+  grid-template-columns: 507pt;
+}
+.eb-s1-kasten {
+  box-sizing: border-box;
+  min-height: 123pt;
+  border-radius: 11pt;
+}
+.eb-s1-anliegen {
+  padding: 12.32pt 12.5pt 11.9pt 13pt; /* Kicker (553,3) bei x 57 */
+  background: var(--color-eb-mint);
+}
+.eb-s1-geprueft {
+  padding: 11.62pt 12.3pt 11pt; /* Kicker (553,3) bei x 316,5 */
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+}
+
+.eb-s1-anliegen-satz {
+  margin-top: 8.95pt; /* (572,4) */
+  font-size: 9.4pt;
+  line-height: 12.5pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s1-anliegen-thema {
+  margin-top: 20.59pt; /* (605,5) */
+  font-size: 8.45pt;
+  line-height: 11.8pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s1-rueckbezuege {
+  margin-top: 15.34pt; /* (631,5) */
+}
+.eb-s1-rueckbezuege li {
+  font-size: 7.5pt;
+  line-height: 10.2pt;
+  color: var(--color-eb-text);
+}
+.eb-s1-rueckbezuege li + li {
+  margin-top: 4pt;
+}
+/* Fehlt der Satz davor, rückt der nächste an den Kicker. */
+.eb-kicker + .eb-s1-anliegen-thema {
+  margin-top: 7.84pt;
+}
+.eb-kicker + .eb-s1-rueckbezuege {
+  margin-top: 7.9pt;
+}
+
+.eb-s1-geprueft-text {
+  margin-top: 7.84pt; /* (571,4) */
+  font-size: 8.45pt;
+  line-height: 11.8pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s1-geprueft-hinweis {
+  margin-top: 22.76pt; /* (628,6) */
+  font-size: 7.6pt;
+  line-height: 10.5pt;
+  color: var(--color-eb-text);
+}
+
+/* ─── Ihr Weg durch diesen Bericht ────────────────────────────────────────── */
+
+.eb-s1-weg {
+  margin-top: 29.32pt; /* Kicker (693,3) */
+}
+.eb-s1-weg-bild {
+  display: block;
+  width: 507pt;
+  height: 59pt; /* Ausschnitt y 698–757 */
+  margin-top: 2.68pt;
+  overflow: visible;
+}
+.eb-weg-pfad {
+  fill: none;
+  stroke: var(--color-eb-weg);
+  stroke-width: 1.2;
+}
+.eb-weg-station circle {
+  fill: var(--color-eb-papier);
+  stroke: var(--color-eb-weg-ring);
+  stroke-width: 1;
+}
+.eb-weg-hier circle {
+  fill: var(--color-eb-navy);
+  stroke: var(--color-eb-navy);
+}
+.eb-weg-nummer,
+.eb-weg-name {
+  font-size: 8.4px;
+  text-anchor: middle;
+}
+.eb-weg-nummer {
+  fill: var(--color-eb-navy);
+}
+.eb-weg-hier .eb-weg-nummer {
+  fill: var(--color-eb-weiss);
+}
+.eb-weg-name {
+  fill: var(--color-eb-text);
+}
+.eb-weg-hier .eb-weg-name {
+  fill: var(--color-eb-navy);
+}
+.eb-weg-sie {
+  font-size: 7px;
+  text-transform: uppercase;
+  fill: var(--color-eb-sicher);
+}

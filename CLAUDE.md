@@ -200,6 +200,29 @@ je Zeile. Zehn Felder auf einer Karte sind nicht mehr scanbar.
   Hex-Werte, keine Inline-Styles.
 - Außerhalb von `src/pages/admin/**` bleibt die Karten-Regel unberührt.
 
+### Druckbogen Eltern-Bericht (R7)
+
+Der Bericht R7 ist ein Druckbogen nach dem abgenommenen Muster E7
+(`docs/report/r7/Edvance_Elternreport_E7.pdf`), kein Screen. Für
+`src/components/edvance/elternbericht/**` und `src/styles/elternbericht/**` gilt
+deshalb abweichend von den Regeln oben:
+
+- Maße und Radien in pt aus dem Maßblatt `docs/report/r7/E7-Masse.md` (bei
+  Abweichungen gilt dort Teil 2), nicht aus dem 4pt-Grid und nicht aus den
+  Radius-Tokens.
+- Mehr als drei Schriftgrößen je Seite sind erlaubt (das Muster hat sie).
+- Eigene Kästen statt `EdvanceCard`.
+- Kopf, Fuß und die Kurve auf Seite 4 liegen absolut; alles andere läuft im Fluss.
+- Farben nur aus `--color-eb-*` (`tokens.css`), keine Hex-Werte, Texte nur über
+  i18n (Namespace `elternbericht`). Geprüft in
+  `src/test/invariants/inv4-elternbericht.test.ts`.
+- `src/styles/elternbericht/**` gehört zum Bericht, nicht zum Student-Fenster.
+- **Ausnahme von INV-4.4 (keine Ampelfarben auf Elternflächen):** Auf dem
+  Druckbogen ist „sicher“ grün (`--color-eb-sicher`) und „Übungsbedarf“ rosé
+  (`--color-eb-uebung`), beschlossen im Gründer-Gespräch vom 18.10.2026. Die
+  Ausnahme gilt nur für den Bogen; R6 und alle anderen Elternflächen bleiben
+  ohne Ampel.
+
 ### Shadow-Hierarchie
 - Ruhende Cards: `shadow-card`
 - Hover-Zustand: `shadow-elevation-md` (via `hover:shadow-elevation-md`)
