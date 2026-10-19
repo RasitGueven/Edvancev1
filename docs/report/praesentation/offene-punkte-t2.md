@@ -59,8 +59,8 @@ Rahmen, Vorschau, Ansichtstests und Invarianten müssen T3 und T4 nicht ändern,
 1. **WebKit** ließ sich installieren, startet in WSL aber nicht: es fehlen Systembibliotheken (gtk4, graphene,
    gstreamer, flite …), `install --with-deps` braucht sudo. Die Config nimmt WebKit deshalb nur mit
    `TP_WEBKIT=1` dazu. Safari bleibt Teil der iPad-Abnahme (Abnahme 4).
-2. **Port 5185** war während des Laufs von einem anderen Worktree (`Edvancev1-r7d`) belegt; gemessen wurde mit
-   `TP_PORT=5195`. Die Config bleibt beim Standard 5185.
+2. **Port 5185** war zwischenzeitlich von einem anderen Worktree (`Edvancev1-r7d`) belegt; Zwischenläufe
+   liefen auf 5195, der Schlusslauf (164/164) auf 5185.
 3. **Chromium in WSL** braucht `libasound.so.2` (ohne root per `apt-get download libasound2t64` und
    `LD_LIBRARY_PATH`).
 4. **Fotos:** je Fall und Station bei 820×1180 und 1180×820 unter `abnahme/t2/`, dazu das Intro von Ilkay. Die
