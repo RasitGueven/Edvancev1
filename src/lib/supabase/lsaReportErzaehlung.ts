@@ -30,6 +30,7 @@ import {
   loadReportBausteine,
 } from '@/lib/supabase/reportBausteine'
 import type {
+  KatalogSkill,
   ReportErzaehlung,
   ReportFehlbild,
   ReportBaustein,
@@ -183,11 +184,18 @@ async function loadKanten(): Promise<SucheKante[]> {
  * Ohne ihn zeigte die Profilachse `traegt / geprueft` — und „2 von 2" ergäbe
  * eine volle Achse, obwohl von acht vorhandenen Bereichen sechs nie angesehen
  * wurden.
+ *
+ * Mit Herkunftsklasse für den Katalog des R7-Bogens („bis Klasse k"); das
+ * R6-Profil bekommt weiter nur die Schlüssel. Leer bei Fehler — dann zeichnet
+ * R7 keinen Bogen statt einer falschen Zahl.
  */
-async function loadBestand(): Promise<string[]> {
-  const { data, error } = await supabase.from('skills').select('skill_key')
+async function loadBestand(): Promise<KatalogSkill[]> {
+  const { data, error } = await supabase.from('skills').select('skill_key, klasse_herkunft')
   if (error || !data) return []
-  return (data as { skill_key: string }[]).map((s) => s.skill_key)
+  return (data as { skill_key: string; klasse_herkunft: number }[]).map((s) => ({
+    skillKey: s.skill_key,
+    klasse: s.klasse_herkunft,
+  }))
 }
 
 /**
@@ -213,7 +221,10 @@ export async function loadErzaehlung(
 
   const fundament = baueFundament(urteile)
   const suche = baueSuche({ skills: urteile, themaLabel: thema.label, raum: thema.raum })
-  const profil = familienBefunde(urteile, familienBestand(bestand))
+  const profil = familienBefunde(
+    urteile,
+    familienBestand(bestand.map((b) => b.skillKey)),
+  )
 
   // Die Anzeigenamen der genannten Punkte, für die Aufzählung in Abschnitt 01.
   // Ohne Zuordnung steht der Rohwert da — holprig, aber lesbar; ein leerer
@@ -234,6 +245,8 @@ export async function loadErzaehlung(
       bausteine: bausteine as ReportBaustein[],
       ansprechpartner,
       anlassNamen,
+      kompetenzen: urteile,
+      katalog: bestand,
     }
   }
 
@@ -262,5 +275,7 @@ export async function loadErzaehlung(
     bausteine: bausteine as ReportBaustein[],
     ansprechpartner,
     anlassNamen,
+    kompetenzen: urteile,
+    katalog: bestand,
   }
 }

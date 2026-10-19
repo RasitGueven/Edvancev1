@@ -18,6 +18,7 @@ import dePruefenAdmin from './locales/de/pruefenAdmin.json'
 import deCoachLive from './locales/de/coachLive.json'
 import deErklaerPruefen from './locales/de/erklaerPruefen.json'
 import deKonto from './locales/de/konto.json'
+import deElternbericht from './locales/de/elternbericht.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -40,6 +41,7 @@ void i18n.use(initReactI18next).init({
       coachLive: deCoachLive,
       erklaerPruefen: deErklaerPruefen,
       konto: deKonto,
+      elternbericht: deElternbericht,
     },
   },
   lng: 'de',
@@ -64,6 +66,7 @@ void i18n.use(initReactI18next).init({
     'coachLive',
     'erklaerPruefen',
     'konto',
+    'elternbericht',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,

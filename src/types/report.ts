@@ -15,7 +15,8 @@ import type {
   ReportBaustein,
   Rueckbezug,
 } from '@/types/reportFundament'
-import type { Suchweg, Themenraum } from '@/types/reportSuche'
+import type { KatalogSkill } from '@/types/elternbericht'
+import type { SucheSkill, Suchweg, Themenraum } from '@/types/reportSuche'
 
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
 
@@ -175,6 +176,11 @@ export type ReportData = {
   testlauf: boolean
   /** leads.next_exam_topic — das Thema, an dem die Analyse angesetzt hat. */
   naechstesThema: string | null
+  /**
+   * students.school_type des Kindes der Sitzung (R7, Kopfdaten Seite 1).
+   * null bei Fehler, RLS oder leerem Feld — dann entfällt die Schulform.
+   */
+  schulform: string | null
 }
 
 /**
@@ -207,6 +213,16 @@ export type ReportErzaehlung = {
    * der Anzeigename aus report_anlass_zuordnung glättet die Aufzählung.
    */
   anlassNamen: string[]
+  /**
+   * Alle direkt geprüften Skills mit Label (R7) — dieselbe Liste, aus der
+   * fundament, suche und profil gerechnet werden, unverändert.
+   */
+  kompetenzen: SucheSkill[]
+  /**
+   * Alle Skills des Katalogs mit Herkunftsklasse (R7, Nenner „bis Klasse k").
+   * Leer, wenn der Katalog nicht geladen werden konnte.
+   */
+  katalog: KatalogSkill[]
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die

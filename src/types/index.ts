@@ -224,6 +224,20 @@ export type {
 export { REPORT_PAKETE } from './report'
 
 export type {
+  EbBereich,
+  EbEbene,
+  EbGruppe,
+  EbProfilZeile,
+  EbSchwerpunkt,
+  EbZaehlung,
+  EbeneKey,
+  Elternbericht,
+  KatalogSkill,
+  KopfFall,
+  ThemenfeldKey,
+} from './elternbericht'
+
+export type {
   AnlassZuordnung,
   Fundament,
   FundamentEbene,

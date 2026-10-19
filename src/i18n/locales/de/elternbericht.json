@@ -1,0 +1,214 @@
+{
+  "fassung": {
+    "zuR7": "Neue Fassung (Druck)",
+    "zuR6": "Bisherige Fassung",
+    "leer": "Für diese Analyse gibt es keine direkt geprüften Bereiche. Die neue Fassung braucht sie; die bisherige Fassung zeigt, was vorhanden ist.",
+    "keinKatalog": "Der Aufgabenkatalog konnte nicht geladen werden. Ohne ihn stimmen die Zahlen im Bericht nicht. Bitte die Seite neu laden."
+  },
+  "kind": "Ihr Kind",
+  "rahmen": {
+    "testdaten": "Testdaten",
+    "fuss": "edvance  ·  Köln  ·  Lernstandsanalyse {{name}}",
+    "fussOhneName": "edvance  ·  Köln  ·  Lernstandsanalyse",
+    "seite": "{{seite}} / {{gesamt}}"
+  },
+  "stufe": {
+    "erprobung": "Klasse 5/6",
+    "erste": "Klasse 7/8",
+    "zweite": "Klasse 9/10",
+    "spanne": "Klasse {{von}}–{{bis}}"
+  },
+  "feld": {
+    "brueche": "Brüche & Dezimalzahlen",
+    "prozent": "Prozent & Dreisatz",
+    "terme": "Terme & Gleichungen",
+    "geometrie": "Geometrie",
+    "groessen": "Größen",
+    "zahlen": "Zahlen & Rechnen",
+    "funktionen": "Funktionen",
+    "zufall": "Daten & Zufall",
+    "weitere": "Weitere Bereiche"
+  },
+  "zustand": {
+    "sicher": "sicher",
+    "uebung": "Übungsbedarf"
+  },
+  "liste": {
+    "weitere_one": "{{liste}} und ein weiterer",
+    "weitere_other": "{{liste}} und {{count}} weitere"
+  },
+  "s1": {
+    "kicker": "Lernstandsanalyse {{fach}}",
+    "kopfErsatz": "Was wir bei {{name}} gesehen haben",
+    "kopfErsatzOhneName": "Was wir bei Ihrem Kind gesehen haben",
+    "meta": {
+      "klasse": "Klasse",
+      "fach": "Fach",
+      "umfang": "Umfang",
+      "datum": "Datum",
+      "klasseSchulform": "{{klasse}}, {{schulform}}",
+      "aufgaben_one": "{{count}} Aufgabe",
+      "aufgaben_other": "{{count}} Aufgaben"
+    },
+    "blick": {
+      "kicker": "Auf einen Blick",
+      "zeile": "{{untersucht}} von {{katalog}} Bereichen untersucht  ·  {{sicher}} sicher  ·  {{uebung}} Übungsbedarf  ·  {{offen}} nicht untersucht",
+      "sicher": "Das klappte bereits",
+      "uebung": "Hier braucht es noch Übung",
+      "ansatz": "Unser erster Ansatz",
+      "weitere": "+{{count}} weitere",
+      "keinSicher": "Noch kein Bereich sicher.",
+      "keineUebung": "Kein Bereich mit Übungsbedarf.",
+      "ansatzGemischt": "Dort liegen Sicheres und noch Unsicheres direkt nebeneinander. Wir beginnen bei dem, was schon klappt.",
+      "ansatzUebung": "In diesem Themenfeld war noch nichts sicher. Hier setzen wir zuerst an.",
+      "ansatzKeiner": "In den untersuchten Bereichen gibt es keinen Übungsbedarf. Wir arbeiten am aktuellen Stoff weiter."
+    },
+    "anliegen": {
+      "kicker": "Ihr Anliegen",
+      "genannt": "Sie machen sich Sorgen um {{wessen}} {{punkte}}.",
+      "genanntOhneName_one": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeit sehen.",
+      "genanntOhneName_other": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeiten sehen.",
+      "thema": "Als nächstes Thema steht {{thema}} an."
+    },
+    "geprueft": {
+      "kicker": "So haben wir geprüft",
+      "text": "Je nach Antwort hat das System die nächste Aufgabe gewählt. So wurden {{untersucht}} von {{katalog}} Bereichen des Katalogs bis Klasse {{klasse}} untersucht.",
+      "hinweis_one": "Über den nicht untersuchten Bereich enthält dieser Bericht keine Aussage. Mehr dazu auf Seite 2.",
+      "hinweis_other": "Über die {{count}} nicht untersuchten Bereiche enthält dieser Bericht keine Aussage. Mehr dazu auf Seite 2."
+    },
+    "weg": {
+      "kicker": "Ihr Weg durch diesen Bericht",
+      "hier": "Sie sind hier",
+      "station": {
+        "1": "Überblick",
+        "2": "Lernstand",
+        "3": "Einordnung",
+        "4": "Lernplan",
+        "5": "Nächste Schritte"
+      }
+    }
+  },
+  "s2": {
+    "kicker": "Lernstand im Überblick",
+    "titel": "{{wessen}} Lernstand in den untersuchten Bereichen.",
+    "titelOhneName": "Der Lernstand in den untersuchten Bereichen.",
+    "intro": "Untersucht: {{untersucht}} von {{katalog}} Bereichen des Katalogs. Davon {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
+    "introOffen_one": "Ein Bereich wurde nicht untersucht.",
+    "introOffen_other": "{{count}} Bereiche wurden nicht untersucht.",
+    "zahl": {
+      "sicher": "sicher eingestuft",
+      "uebung": "Übungsbedarf",
+      "offen": "nicht untersucht"
+    },
+    "profil": {
+      "titel": "{{wessen}} Kompetenzprofil",
+      "titelOhneName": "Kompetenzprofil",
+      "hinweis": "Jedes Segment steht für eine Kompetenz",
+      "untersucht": "{{untersucht}} von {{vorhanden}} untersucht",
+      "sicher": "{{count}} sicher",
+      "uebung": "{{count}} Übungsbedarf",
+      "aria": "{{feld}}: {{untersucht}} von {{vorhanden}} untersucht, davon {{sicher}} sicher und {{uebung}} mit Übungsbedarf.",
+      "legende": {
+        "sicher": "Sicher",
+        "uebung": "Übungsbedarf",
+        "offen": "Nicht untersucht"
+      }
+    },
+    "deutung": {
+      "kicker": "Was die Grafik zeigt",
+      "sicher_one": "Überwiegend sicher war das Themenfeld {{felder}}.",
+      "sicher_other": "Überwiegend sicher waren die Themenfelder {{felder}}.",
+      "uebung_one": "Den meisten Übungsbedarf zeigte das Themenfeld {{felder}}.",
+      "uebung_other": "Den meisten Übungsbedarf zeigten die Themenfelder {{felder}}.",
+      "coach": "Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen."
+    },
+    "fussnote": "Die Streifen zeigen die Verteilung der Katalogbereiche, keine Note und keinen Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Schraffierte Bereiche wurden nicht untersucht und sagen nichts über {{name}} aus."
+  },
+  "s3": {
+    "kicker": "Einordnung im Lernstoff",
+    "titel": "Auf vorhandenen Stärken aufbauen.",
+    "titelOhneSicher": "Wo wir ansetzen.",
+    "intro": "Jeder untersuchte Bereich steht dort, wo er im Lernstoff liegt: unten die Grundlagen aus früheren Klassen, darüber der weiterführende Stoff, oben der aktuelle Stoff. So sehen Sie, wo es gut läuft und wo noch nicht.",
+    "introKurz": "Jeder untersuchte Bereich steht dort, wo er im Lernstoff liegt. So sehen Sie, wo es gut läuft und wo noch nicht.",
+    "zwischenzeile": "Wo die untersuchten Bereiche im Lernstoff liegen",
+    "legende": {
+      "sicher": "sicher",
+      "uebung": "Übungsbedarf"
+    },
+    "ebene": {
+      "spaeter": "Stoff späterer Klassen",
+      "aktuell": "Aktueller Unterrichtsstoff",
+      "weiterfuehrend": "Weiterführende Themen",
+      "grundlagen": "Grundlagen"
+    },
+    "zaehlung": {
+      "sicher": "{{count}} sicher",
+      "uebung": "{{count}} Übungsbedarf"
+    },
+    "weitere": "+{{count}} weitere",
+    "eintragAria": "{{label}}: {{zustand}}",
+    "lesen": {
+      "kicker": "So lesen Sie die Pyramide",
+      "spaeter": "was laut Lehrplan erst in {{klassen}} kommt.",
+      "aktuell": "was laut Lehrplan in {{klassen}} dran ist.",
+      "weiterfuehrend": "der Stoff nach den Grundlagen, zum Beispiel {{beispiele}}.",
+      "weiterfuehrendOhneBeispiel": "der Stoff nach den Grundlagen.",
+      "grundlagen": "Stoff aus früheren Klassenstufen, zum Beispiel {{beispiele}}.",
+      "grundlagenOhneBeispiel": "Stoff aus früheren Klassenstufen.",
+      "nurFuer": "Die Pyramide gilt nur für {{name}}. Was oben steht, richtet sich nach {{wessen}} Klasse; was darunter liegt, nach dem NRW-Lehrplan, an dem sich unser Katalog orientiert. Bei einem anderen Kind sieht sie anders aus.",
+      "nurFuerOhneName": "Die Pyramide gilt nur für Ihr Kind. Was oben steht, richtet sich nach der Klasse Ihres Kindes; was darunter liegt, nach dem NRW-Lehrplan, an dem sich unser Katalog orientiert. Bei einem anderen Kind sieht sie anders aus.",
+      "hinweis": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung. Ob Übungsbedarf weiter unten etwas weiter oben erklärt, prüft der Coach im Unterricht.",
+      "hinweisEineEbene": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung."
+    }
+  },
+  "s4": {
+    "fazit": {
+      "kicker": "Unser Fazit",
+      "coach": "Der Coach prüft in den ersten Sitzungen, ob sich das bestätigt."
+    },
+    "titel": {
+      "1": "Ein Schwerpunkt.",
+      "2": "Zwei Schwerpunkte, in dieser Reihenfolge.",
+      "3": "Drei Schwerpunkte, in dieser Reihenfolge.",
+      "4": "Vier Schwerpunkte, in dieser Reihenfolge."
+    },
+    "titelKeiner": "Kein Übungsbedarf in den untersuchten Bereichen.",
+    "reihenfolge": "In dieser Reihenfolge beginnen wir. Die Reihenfolge ist eine Planung, keine Aussage darüber, dass ein Thema das andere voraussetzt.",
+    "punkt": {
+      "sicher": "Sicher: {{liste}}.",
+      "uebung": "Noch nicht sicher: {{liste}}."
+    },
+    "danach": "Danach nehmen wir {{liste}} dazu.",
+    "lernziel": "Unser gemeinsames Lernziel",
+    "stand": "Das ist der Stand nach dieser Analyse. Der Coach überprüft ihn in den ersten Sitzungen und passt den Plan an, wenn nötig."
+  },
+  "s5": {
+    "kicker": "Wie es weitergeht",
+    "titel": "Unsere Einschätzung für {{name}}.",
+    "intro": "Der Bericht endet nicht mit einer Zahl, sondern mit einem Vorschlag. Was er bedeutet und ob er passt, besprechen wir mit Ihnen.",
+    "vorschlag": {
+      "chip": "Vorschlag",
+      "titel": "Welcher Rhythmus zu {{name}} passt, legen wir gemeinsam im Gespräch fest.",
+      "titelOhneName": "Welcher Rhythmus passt, legen wir gemeinsam im Gespräch fest.",
+      "zeile": "Vorschlag des Coachs: {{paket}}, {{merkmal}}.",
+      "zeileOhneMerkmal": "Vorschlag des Coachs: {{paket}}."
+    },
+    "pakete": {
+      "kicker": "Unsere Mitgliedschaften",
+      "karte": "Mitgliedschaft",
+      "vorschlag": "Coach-Vorschlag",
+      "konditionen": "Konditionen im Gespräch",
+      "hinweis": "Preise, Laufzeiten und Konditionen besprechen wir persönlich. Dieser Bericht enthält keine Vertragsangaben."
+    },
+    "kontakt": {
+      "kicker": "Ihr persönlicher Ansprechpartner",
+      "rolle": "hat die Analyse begleitet",
+      "team": "Das Edvance-Team",
+      "mail": "hello@edvanceacademy.de"
+    },
+    "fragen": {
+      "kicker": "Fragen oder Entscheidung",
+      "text": "Sie können sich direkt entscheiden oder sich später mit Fragen melden. Wir antworten persönlich, ohne Termin und ohne Frist."
+    }
+  }
+}

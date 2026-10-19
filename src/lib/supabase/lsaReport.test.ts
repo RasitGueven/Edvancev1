@@ -15,6 +15,8 @@ let leadRow: Row = null
 let clusterRow: Row = null
 let abgefragt: string[] = []
 let rpcFehler: string | null = null
+// students.school_type für loadSchulform (R7).
+let schulAntwort: { data: Row; error: { message: string } | null } = { data: null, error: null }
 
 vi.mock('@/lib/supabase/client', () => {
   const bau = (tabelle: string) => {
@@ -22,7 +24,10 @@ vi.mock('@/lib/supabase/client', () => {
     const q = {
       select: () => q,
       eq: () => q,
-      maybeSingle: () => Promise.resolve({ data: clusterRow, error: null }),
+      maybeSingle: () =>
+        Promise.resolve(
+          tabelle === 'students' ? schulAntwort : { data: clusterRow, error: null },
+        ),
     }
     return q
   }
@@ -38,13 +43,14 @@ vi.mock('@/lib/supabase/client', () => {
   return { supabase: { from: (tabelle: string) => bau(tabelle), rpc } }
 })
 
-const { loadNaechstesThema } = await import('@/lib/supabase/lsaReport')
+const { loadNaechstesThema, loadSchulform } = await import('@/lib/supabase/lsaReport')
 
 beforeEach(() => {
   leadRow = null
   clusterRow = null
   abgefragt = []
   rpcFehler = null
+  schulAntwort = { data: null, error: null }
 })
 
 describe('loadNaechstesThema — Cluster vor Freitext', () => {
@@ -107,5 +113,25 @@ describe('loadNaechstesThema — Altbestand ohne Cluster', () => {
     rpcFehler = 'permission denied'
 
     await expect(loadNaechstesThema('ZZ_student_1')).rejects.toThrow('lsa_lead_kontext')
+  })
+})
+
+describe('loadSchulform — Ergänzung für R7, nie ein Abbruch', () => {
+  it('liefert students.school_type', async () => {
+    schulAntwort = { data: { school_type: 'ZZ_Gesamtschule' }, error: null }
+
+    expect(await loadSchulform('ZZ_student_1')).toBe('ZZ_Gesamtschule')
+    expect(abgefragt).toEqual(['students'])
+  })
+
+  it('liefert null bei Fehler, ohne Zeile (RLS) oder leerem Feld', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    schulAntwort = { data: null, error: { message: 'permission denied' } }
+    expect(await loadSchulform('ZZ_student_1')).toBeNull()
+    schulAntwort = { data: null, error: null }
+    expect(await loadSchulform('ZZ_student_1')).toBeNull()
+    schulAntwort = { data: { school_type: '  ' }, error: null }
+    expect(await loadSchulform('ZZ_student_1')).toBeNull()
+    warn.mockRestore()
   })
 })

@@ -239,6 +239,29 @@ async function naechstesThemaAus(k: LeadKontext | undefined): Promise<string | n
   return clusterName ?? freitext
 }
 
+/**
+ * Die Schulform des Kindes (students.school_type) für die Kopfdaten des
+ * R7-Bogens. Eine Ergänzung, kein Pflichtfeld: Fehler, RLS oder ein leeres
+ * Feld ergeben null, der Report lädt weiter.
+ */
+export async function loadSchulform(studentId: string): Promise<string | null> {
+  try {
+    const { data, error } = await supabase
+      .from('students')
+      .select('school_type')
+      .eq('id', studentId)
+      .maybeSingle()
+    if (error) {
+      console.warn('report: school_type lookup failed', error.message)
+      return null
+    }
+    return (data as { school_type: string | null } | null)?.school_type?.trim() || null
+  } catch (e) {
+    console.warn('report: school_type lookup failed', e)
+    return null
+  }
+}
+
 export async function getReportData(
   sessionId: string,
 ): Promise<SupabaseResult<ReportData>> {
@@ -278,6 +301,7 @@ export async function getReportData(
         testlauf: row.testlauf === true,
         aufgaben,
         naechstesThema: await naechstesThemaAus(kontext),
+        schulform: await loadSchulform(row.student_id),
         parentAssessment,
         skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder,
