@@ -19,11 +19,13 @@ export type ZaehlungErgebnis = {
 
 /** null ohne Katalog: Eine falsche Zahl auf Papier wäre schlimmer als keine. */
 export function zaehle(
-  bereiche: readonly EbBereich[],
+  alleBereiche: readonly EbBereich[],
   katalog: readonly KatalogSkill[],
   kindKlasse: number,
 ): ZaehlungErgebnis | null {
   if (katalog.length === 0) return null
+  // Je Schlüssel ein Bereich — sonst wird „nicht untersucht" negativ.
+  const bereiche = [...new Map(alleBereiche.map((b) => [b.skillKey, b])).values()]
 
   const bisKlasse = Math.min(kindKlasse, Math.max(...katalog.map((k) => k.klasse)))
 
@@ -35,7 +37,6 @@ export function zaehle(
     if (k.klasse <= bisKlasse && !menge.has(k.skillKey)) menge.set(k.skillKey, feldVon(k.skillKey))
   }
 
-  // bereicheAus hat nach Schlüssel entdoppelt: untersucht = sicher + uebung.
   const untersucht = bereiche.length
   const sicher = bereiche.filter((b) => b.sicher).length
   const uebung = untersucht - sicher

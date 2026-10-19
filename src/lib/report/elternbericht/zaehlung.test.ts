@@ -70,6 +70,16 @@ describe('zaehle — Nenner „von Y Bereichen des Katalogs"', () => {
     expect(zaehlung.katalog).toBe(130)
   })
 
+  it('ein Skill, der gar nicht im Katalog steht, zählt über die Vereinigung; Doppel zählen einmal', () => {
+    const fremd = { skillKey: 'zz_fremd', label: 'ZZ', feld: 'weitere' as const, klasse: 6, sicher: false }
+    const basis = bereicheAus(ilkay.erzaehlung.kompetenzen)
+    const { zaehlung, profil } = zaehle([...basis, fremd, fremd], KATALOG, 10)!
+    expect(zaehlung.katalog).toBe(131)
+    expect(zaehlung.untersucht).toBe(28)
+    expect(zaehlung.offen).toBe(103)
+    expect(profil.at(-1)).toEqual({ feld: 'weitere', vorhanden: 1, sicher: 0, uebung: 1 })
+  })
+
   it('ohneKatalog ergibt null', () => {
     expect(z(ohneKatalog)).toBeNull()
   })
