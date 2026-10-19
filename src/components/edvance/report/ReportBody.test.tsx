@@ -88,6 +88,7 @@ function baueDaten(fall: SucheEingabe = FALL_A): ReportData {
     testlauf: false,
     aufgaben: 25,
     naechstesThema: 'Lineare Gleichungen',
+    schulform: null,
     parentAssessment: { note: null, weakTopics: ['Textverständnis', 'Grundlagen fehlen'] },
     skillbefunde: null,
     fehlbilder: [],
@@ -104,6 +105,9 @@ function baueDaten(fall: SucheEingabe = FALL_A): ReportData {
       bausteine: BAUSTEINE,
       ansprechpartner: { name: 'Rasit Güven', email: 'rasit@edvanceacademy.de' },
       anlassNamen: ['Textverständnis', 'fehlende Grundlagen'],
+      // R7-Felder; ReportBody liest sie nicht.
+      kompetenzen: [...fall.skills],
+      katalog: [],
     },
   }
 }
@@ -248,6 +252,8 @@ describe('ReportBody — die sechs Schritte', () => {
         bausteine: [],
         ansprechpartner: { name: null, email: null },
         anlassNamen: [],
+        kompetenzen: [],
+        katalog: [],
       },
     }
     const { container } = render(<ReportBody data={leer} />)
