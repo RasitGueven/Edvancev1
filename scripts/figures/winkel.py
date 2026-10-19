@@ -17,11 +17,12 @@ ist ein Fehler (dafuer gibt es None), und ein unbekannter Schluessel in `params`
 ist ein Fehler — 'benenung' statt 'benennung' wuerde sonst die Beschriftung
 verschlucken.
 
-FESTER RAHMEN: Die viewBox ist immer 300 x 300, unabhaengig von den Parametern.
-Der Scheitel sitzt in der Mitte, die Schenkel sind 110 px lang — damit passt
-JEDE Winkelweite in denselben Rahmen, ohne dass der Aufrufer die Masse kennen
-muss. Bei kleinen Winkeln bleibt links Platz ungenutzt; das ist der Preis fuer
-einen Rahmen, der sich mit den Parametern nicht aendert.
+KNAPPE VIEWBOX (18.10.2026, vorher fester Rahmen): Tablet und Vorschau nehmen
+die volle Breite und die Hoehe aus dem Seitenverhaeltnis der viewBox. Ein
+fester Rahmen mit Leerraum machte die Figur dort klein. Gezeichnet wird weiter
+im festen Zeichenraum unten; die viewBox ist der Umriss alles Gezeichneten plus
+ein einheitlicher Rand (svg_basis.dokument_knapp). Der Scheitel sitzt im
+Zeichenraum in der Mitte, die Schenkel sind 110 px lang.
 
 GRADZAHL IST OPTIONAL, UND ZWAR AUS FACHLICHEM GRUND: `mit_bogen=False`
 zeichnet nur die beiden Schenkel — kein Bogen, kein rechtwinkliges Zeichen,
@@ -35,7 +36,7 @@ import math
 
 try:
     from .pruefungen import reelle_zahl, text_oder_none, wahrheitswert
-    from .svg_basis import beschriftung, dokument, element, linie, polylinie, zahl
+    from .svg_basis import beschriftung, dokument_knapp, element, linie, polylinie, zahl
     from .tokens import SCHRIFT, palette
 except ImportError:
     # Flach importiert statt als Paket: `upload_figures.py` legt scripts/figures
@@ -48,7 +49,7 @@ except ImportError:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from figures.pruefungen import reelle_zahl, text_oder_none, wahrheitswert
-    from figures.svg_basis import beschriftung, dokument, element, linie, polylinie, zahl
+    from figures.svg_basis import beschriftung, dokument_knapp, element, linie, polylinie, zahl
     from figures.tokens import SCHRIFT, palette
 
 # ── Feste Masse (px) ─────────────────────────────────────────────────────────
@@ -252,7 +253,7 @@ def winkel(
     if schrift_teile:
         inhalt.append(element('g', [], ''.join(schrift_teile)))
 
-    return dokument(BREITE, HOEHE, inhalt)
+    return dokument_knapp(inhalt)
 
 
 # ── Adapter fuer den Upload (upload_figures.py: zeichne(params, theme)) ───────

@@ -12,7 +12,7 @@ WIE: Nicht die Parameter nachrechnen, sondern das ERZEUGTE SVG zurueckmessen.
 Jede Pruefung liest Koordinaten aus dem SVG-Text, rekonstruiert daraus Scheitel,
 Schenkelrichtungen und Bogenverlauf und haelt das gegen die Parameter:
 
-  r) alles Gezeichnete liegt im Rahmen, width/height deckt die viewBox
+  r) knappe viewBox: alles Gezeichnete liegt darin, kein Rand groesser als RAND_KNAPP
   s) beide Schenkel gehen vom SELBEN Punkt aus
   u) der Grundschenkel ist waagerecht und zeigt nach rechts
   w) KERNPRUEFUNG: der gemessene Winkel zwischen den Schenkeln ist `grad`
@@ -35,6 +35,15 @@ from __future__ import annotations
 
 import math
 import re
+
+try:
+    from .svg_basis import pruefe_knapper_rahmen
+except ImportError:
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from figures.svg_basis import pruefe_knapper_rahmen
 
 # Toleranzen. Koordinaten stehen auf zwei Nachkommastellen (svg_basis STELLEN=2);
 # ein echter Fehler ist immer groesser.
@@ -232,39 +241,11 @@ def _ist_rechter(grad: float) -> bool:
 
 def pruefe_rahmen(svg: str, params: dict) -> list[str]:
     """
-    r) Der Rahmen deckt die Figur: viewBox == width/height, und kein
-    gezeichneter Punkt liegt draussen.
-
-    Ein Schenkel, der aus dem Rahmen laeuft, wird beim Rendern weggeschnitten —
-    die Abbildung ist dann unauffaellig unvollstaendig, der schlimmste Fall.
+    r) Knappe viewBox: sie deckt width/height, alles Gezeichnete liegt darin
+    (ein Schenkel, der hinauslaeuft, wuerde unauffaellig weggeschnitten), und an
+    keiner Seite ist mehr Rand als svg_basis.RAND_KNAPP.
     """
-    figur = Figur(svg)
-    befunde: list[str] = []
-
-    x0, y0, vb_breite, vb_hoehe = figur.viewbox
-    if (abs(x0) > EPS_PIXEL or abs(y0) > EPS_PIXEL
-            or abs(vb_breite - figur.breite) > EPS_PIXEL
-            or abs(vb_hoehe - figur.hoehe) > EPS_PIXEL):
-        befunde.append(
-            f'r) viewBox ({x0}, {y0}, {vb_breite}, {vb_hoehe}) deckt nicht '
-            f'width/height ({figur.breite}, {figur.hoehe}).'
-        )
-
-    punkte: list[tuple[float, float]] = []
-    for strich in figur.linien:
-        punkte.extend([(strich[0], strich[1]), (strich[2], strich[3])])
-    for zug in figur.polylinien:
-        punkte.extend(zug)
-    punkte.extend([(x, y) for x, y, _ in figur.texte])
-
-    for x, y in punkte:
-        if not (-EPS_PIXEL <= x <= figur.breite + EPS_PIXEL
-                and -EPS_PIXEL <= y <= figur.hoehe + EPS_PIXEL):
-            befunde.append(
-                f'r) Punkt ({x}, {y}) liegt ausserhalb des Rahmens '
-                f'(0..{figur.breite} x 0..{figur.hoehe}) — er wuerde weggeschnitten.'
-            )
-    return befunde
+    return [b.replace('r: ', 'r) ', 1) for b in pruefe_knapper_rahmen(svg)]
 
 
 def pruefe_scheitel(svg: str, params: dict) -> list[str]:

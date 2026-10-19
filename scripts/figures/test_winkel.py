@@ -32,6 +32,7 @@ from figures.pruefe_winkel import (  # noqa: E402
     pruefe,
     pruefe_geometrie,
 )
+from figures.svg_basis import pruefe_knapper_rahmen  # noqa: E402
 from figures.tokens import THEMES, pruefe_drift  # noqa: E402
 from figures.winkel import BREITE, HOEHE, winkel, zeichne  # noqa: E402
 
@@ -179,28 +180,22 @@ def test_fremdtext_wird_escaped():
     assert '<a & b>' not in svg
 
 
-# ── Fester Rahmen ────────────────────────────────────────────────────────────
+# ── Knappe viewBox ───────────────────────────────────────────────────────────
+# Seit 18.10.2026 kein fester 300x300-Rahmen mehr: Tablet und Vorschau nehmen die
+# volle Breite, Leerraum in der viewBox machte die Figur klein.
 
-@pytest.mark.parametrize('grad', [1, 90, 180, 359])
-def test_rahmen_haengt_nicht_an_den_parametern(grad):
-    svg = winkel(grad, benennung='alpha')
-    assert f'width="{BREITE}" height="{HOEHE}"' in svg
-    assert f'viewBox="0 0 {BREITE} {HOEHE}"' in svg
+def test_kleiner_winkel_hat_eine_flache_viewbox():
+    hoehe = float(re.search(r'height="([\d.]+)"', winkel(20)).group(1))
+    assert hoehe < HOEHE / 2, f'20 Grad: viewBox {hoehe} hoch — Leerraum ueber dem Winkel'
 
 
-def test_alles_liegt_im_rahmen():
-    """Ein Schenkel oder Text ausserhalb wuerde weggeschnitten — die Abbildung
-    waere unauffaellig unvollstaendig."""
+def test_alles_liegt_knapp_in_der_viewbox():
+    """Ein Schenkel oder Text ausserhalb wuerde weggeschnitten; mehr Rand als
+    RAND_KNAPP machte die Figur unnoetig klein."""
     for grad in range(1, 360):
-        svg = winkel(grad, benennung='alpha')
-        zahlen = [
-            (float(m.group(1)), float(m.group(2)))
-            for m in re.finditer(r'<(?:line|text) x1?="([\d.-]+)" y1?="([\d.-]+)"', svg)
-        ]
-        for zug in _polylinien(svg):
-            zahlen.extend(zug)
-        for x, y in zahlen:
-            assert 0 <= x <= BREITE and 0 <= y <= HOEHE, f'{grad} Grad: ({x}, {y})'
+        for p in ({'benennung': 'alpha'}, {'mit_bogen': False}):
+            svg = winkel(grad, **p)
+            assert pruefe_knapper_rahmen(svg) == [], f'{grad} Grad {p}: {pruefe_knapper_rahmen(svg)}'
 
 
 # ── Determinismus ────────────────────────────────────────────────────────────

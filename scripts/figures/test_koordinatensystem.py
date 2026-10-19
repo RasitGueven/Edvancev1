@@ -51,11 +51,11 @@ masse = re.search(r'width="(\d+)" height="(\d+)"', svg)
 pruefe(masse is not None, 'Kopf ohne width/height.')
 if masse:
     breite, hoehe = int(masse.group(1)), int(masse.group(2))
-    # 20 Einheiten * 40 px + 2 * 34 Rand = 868; 4 * 40 + 68 = 228.
-    pruefe(breite == 868, f'Breite {breite}, erwartet 868.')
-    pruefe(hoehe == 228, f'Hoehe {hoehe}, erwartet 228.')
-    px_pro_x = (breite - 68) / 20
-    px_pro_y = (hoehe - 68) / 4
+    # 20 Einheiten * 40 px + 2 * 44 Rand = 888; 4 * 40 + 88 = 248.
+    pruefe(breite == 888, f'Breite {breite}, erwartet 888.')
+    pruefe(hoehe == 248, f'Hoehe {hoehe}, erwartet 248.')
+    px_pro_x = (breite - 88) / 20
+    px_pro_y = (hoehe - 88) / 4
     pruefe(px_pro_x == px_pro_y == 40, f'Skalen {px_pro_x} vs {px_pro_y} — muessen gleich sein.')
 
 # Eine Steigung von 1 muss unter 45 Grad stehen: gleiche Pixeldifferenz in x
@@ -107,7 +107,7 @@ pruefe(len(linien) == 2, f'Parabel ergibt {len(linien)} Abschnitte, erwartet 2 (
 for zug in linien:
     ys = [float(p.split(',')[1]) for p in zug.split()]
     # Toleranz ist eine Einheit ueber dem Rand (40 px), der clipPath nimmt den Rest.
-    pruefe(min(ys) >= 34 - 40 - 0.5, f'Abschnitt laeuft {min(ys)} weit ueber den Rahmen hinaus.')
+    pruefe(min(ys) >= 44 - 40 - 0.5, f'Abschnitt laeuft {min(ys)} weit ueber den Rahmen hinaus.')
 pruefe('clip-path="url(#edvance-plot)"' in geteilt, 'Kurvengruppe ohne clipPath.')
 
 # Der Gegenfall, damit die Zerlegung nicht ueberreagiert: Scheitel im Fenster
@@ -190,9 +190,9 @@ f_label = re.search(r'<text x="([\d.-]+)" y="([\d.-]+)"[^>]*>f</text>', raus)
 pruefe(f_label is not None, 'Label f nicht als Textknoten gefunden.')
 if f_label:
     fx, fy = float(f_label.group(1)), float(f_label.group(2))
-    # Fenster -5..5 bei einheit 40, Rand 34: Mitte liegt bei 234/234.
-    pruefe(fx > 234, f'Label f steht bei x={fx}, gehoert in die rechte Haelfte.')
-    pruefe(fy < 234, f'Label f steht bei y={fy}, gehoert in die obere Haelfte.')
+    # Fenster -5..5 bei einheit 40, Rand 44: Mitte liegt bei 244/244.
+    pruefe(fx > 244, f'Label f steht bei x={fx}, gehoert in die rechte Haelfte.')
+    pruefe(fy < 244, f'Label f steht bei y={fy}, gehoert in die obere Haelfte.')
 # Und es darf nicht IN der abgeschnittenen Gruppe haengen — dort wuerde ein
 # Text an der Fensterkante zur Haelfte weggeschnitten.
 geclippt = re.search(r'<g clip-path="url\(#edvance-plot\)">(.*?)</g>', raus, re.S)
