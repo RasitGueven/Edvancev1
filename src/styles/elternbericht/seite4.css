@@ -1,1 +1,197 @@
-/* Eltern-Bericht R7 · Seite 4 — Lernplan als Kurve (R7-4). In R7-2 noch leer. */
+/* Eltern-Bericht R7 · Seite 4 — Lernplan als Kurve (Maßblatt E7, „Seite 4“).
+
+   Im Fluss; Abstände aus den Grundlinien des Musters gerechnet (Formel in
+   rahmen.css). Wo ein Wert in Klammern steht, ist es die Grundlinie bzw. Kante
+   im Muster. Der Inhaltskasten beginnt bei y 80, x 44; Schwerpunkte, Lernziel
+   und Fußnote stehen ab x 93 (49 eingerückt). */
+
+.eb-s4 {
+  position: relative;
+  display: flow-root;
+}
+
+.eb-s4-kicker {
+  margin-top: 23.32pt; /* (111,3) */
+}
+
+/* ─── Fazit (44,132)–(551,246) ───────────────────────────────────────────── */
+
+.eb-s4-fazit {
+  box-sizing: border-box;
+  min-height: 114pt;
+  margin-top: 18.68pt;
+  padding: 16.89pt 20pt; /* Text ab x 64, Breite 467, erste Zeile (160,9) */
+  font-size: 11pt;
+  line-height: 16.1pt;
+  color: var(--color-eb-tinte);
+  background: var(--color-eb-mint);
+  border-radius: 13pt;
+}
+
+/* ─── Titel und Hinweis ──────────────────────────────────────────────────── */
+
+.eb-s4-titel {
+  margin-top: 32.58pt; /* (296,1) */
+  font-size: 18.1pt;
+  line-height: 22pt;
+  text-wrap: balance;
+}
+/* Ohne Fazit rückt alles nach oben: der Titel steht, wo sonst der Kicker beginnt. */
+.eb-s4-titel:first-child {
+  margin-top: 23.32pt;
+}
+
+.eb-s4-hinweis,
+.eb-s4-keine {
+  margin-top: 8.52pt; /* (318,6) */
+  font-size: 8.75pt;
+  line-height: 12.7pt;
+  color: var(--color-eb-text);
+}
+
+/* ─── Schwerpunkte ───────────────────────────────────────────────────────────
+   Titel-Grundlinie (380,2); Trennlinie bei max(Titel + 55,8; letzte Zeile +
+   22,8), der nächste Titel 23,8 darunter. Im Fluss: Mindesthöhe von der
+   Titel-Oberkante bis Titel + 55,8, Innenabstand unten 22,8 − Unterlänge der
+   Textzeile; zwischen zwei Schwerpunkten 23,8 − Oberlänge der Titelzeile. */
+
+.eb-s4-liste {
+  margin-top: 34.6pt;
+}
+
+.eb-s4-punkt {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 66.9pt;
+  padding: 0 0 19.49pt 49pt;
+}
+.eb-s4-punkt + .eb-s4-punkt {
+  margin-top: 12.7pt;
+}
+/* Trennlinie x 94–551, linie 0,6, mittig auf der Unterkante. */
+.eb-s4-punkt:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 50pt;
+  right: 0;
+  bottom: -0.3pt;
+  height: 0.6pt;
+  background: var(--color-eb-linie);
+}
+
+.eb-s4-punkt-titel {
+  font-size: 11.4pt;
+  line-height: 14pt;
+  color: var(--color-eb-tinte);
+}
+/* Leerer inline-block: seine Unterkante ist die Grundlinie (Messpunkt der Kurve). */
+.eb-s4-grund {
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+.eb-s4-punkt-text {
+  margin-top: 6.9pt; /* 19,7 unter der Titel-Grundlinie */
+  font-size: 9.15pt;
+  line-height: 13.2pt;
+  color: var(--color-eb-text);
+}
+
+/* Die übrigen Felder stehen in der Reserve des letzten Schwerpunkts; darunter
+   folgt keine Trennlinie, deshalb weniger Abstand. Sonst liefe die Seite mit
+   fünfzeiligem Fazit, zweizeiligen Texten und Lernziel über. */
+.eb-s4-danach {
+  margin-top: 4pt;
+  font-size: 9.15pt;
+  line-height: 13.2pt;
+  color: var(--color-eb-text);
+}
+.eb-s4-punkt:has(.eb-s4-danach) {
+  padding-bottom: 8pt;
+}
+
+/* ─── Lernziel x 93–551 ──────────────────────────────────────────────────── */
+
+.eb-s4-lernziel {
+  margin: 20.4pt 0 0 49pt;
+  padding: 9.91pt 15.2pt 7.08pt; /* Kicker (Kasten + 19,2), Text ab x 109, Breite 426 */
+  background: var(--color-eb-weiss);
+  border: 0.8pt solid var(--color-eb-linie);
+  border-radius: 11pt;
+}
+.eb-s4-lernziel-text {
+  margin-top: 9.31pt; /* erste Zeile (Kasten + 39,8) */
+  font-size: 9.1pt;
+  line-height: 13pt;
+  white-space: pre-line;
+  color: var(--color-eb-text);
+}
+
+.eb-s4-stand {
+  margin: 20.4pt 0 0 49pt;
+  font-size: 7.8pt;
+  line-height: 10pt;
+  color: var(--color-eb-leise);
+}
+.eb-s4-lernziel + .eb-s4-stand {
+  margin-top: 8.99pt; /* (Kasten-Unterkante + 16,8) */
+}
+
+/* ─── Verdichtet ─────────────────────────────────────────────────────────────
+   Nur wenn die Seite mit den Abständen des Musters überläuft (Seite4.tsx,
+   useDicht): echte Elterntexte ergeben mit dem Coach-Satz sechs bis sieben
+   Zeilen Fazit, das Muster hat Platz für fünf. Die Regel zur Trennlinie bleibt,
+   nur mit kleineren Werten; die Kurve misst danach neu. */
+
+.eb-s4[data-dicht] .eb-s4-fazit {
+  min-height: 0;
+}
+.eb-s4[data-dicht] .eb-s4-titel {
+  margin-top: 20pt;
+}
+.eb-s4[data-dicht] .eb-s4-liste {
+  margin-top: 22pt;
+}
+.eb-s4[data-dicht] .eb-s4-punkt {
+  min-height: 56pt;
+  padding-bottom: 13pt;
+}
+.eb-s4[data-dicht] .eb-s4-punkt + .eb-s4-punkt {
+  margin-top: 10pt;
+}
+.eb-s4[data-dicht] .eb-s4-punkt:has(.eb-s4-danach) {
+  padding-bottom: 6pt;
+}
+.eb-s4[data-dicht] .eb-s4-lernziel {
+  margin-top: 12pt;
+}
+
+/* ─── Kurve (SVG in Seitenkoordinaten über dem Inhaltskasten) ────────────── */
+
+.eb-s4-kurve {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 507pt;
+  height: 720pt;
+  pointer-events: none;
+}
+.eb-s4-pfad {
+  fill: none;
+  stroke: var(--color-eb-navy);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.eb-s4-spitze {
+  fill: none;
+  stroke: var(--color-eb-gold);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.eb-s4-knoten {
+  fill: var(--color-eb-weiss);
+  stroke: var(--color-eb-navy);
+  stroke-width: 1.3;
+}
