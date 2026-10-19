@@ -244,6 +244,16 @@
   - R7-2 Bogen, Druck und Seite 1 · R7-3 Seiten 2 und 5 · R7-4 Seiten 3 und 4 — warten auf R7-1.
   - Danach Abnahme durch die Gründer (Nenner, Reihenfolge der Schwerpunkte) und Lena (Texte,
     Kopfsätze, W5-d-Entwürfe); dann Standard auf R7 umstellen.
+- **Tablet-Präsentation der LSA** (Anforderung `docs/report/praesentation/Anforderung.md`, Dummy
+  `dummy-v7.html`): Vollbild unter `/admin/report/:sessionId?ansicht=praesentation` mit Intro und vier
+  Stationen, dieselbe Rechnung wie der Druckbogen R7.
+  - **T1 Daten** (Branch `feat/rasit-praesentation-daten`, Retro
+    `2026-10-19-t1-praesentation-daten.md`): `bauePraesentation` teilt die R7-Werte nach „übersprungen"
+    (`nicht_angesetzt`) auf; Überblick, Empfehlung (`tiers`, ohne Preis), Logo-Kurve; Fixtures
+    `PRAESENTATION_FAELLE`; Namespace `praesentation`; Tokens `--color-tp-*`; INV-4.11. Kein DDL.
+    **Offen:** `docs/report/praesentation/offene-punkte-t1.md`.
+  - T2 Rahmen (wartet auf T1 und R7-2) · T3 Stationen 01/02 · T4 Stationen 03/04 (parallel nach T2).
+  - Ziel: Test-LSA am Sa 31.10.; iPad-Abnahme Do 29.10.
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
     aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,
