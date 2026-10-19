@@ -2,9 +2,10 @@
 // Namespace `elternbericht` und die Kopfsätze aus der R7-Migration gehorchen
 // den Sprachregeln der Elternfläche. Eigene Datei, weil
 // inv4-eltern-sprache.test.ts schon über 400 Zeilen hat (CLAUDE §4).
-// R7-2 erweitert diese Datei um die Prüfungen der Komponenten und Styles.
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+// Seit R7-2 dazu die Komponenten und Styles des Bogens (INV-4.11), per Glob —
+// neue Seitendateien aus R7-3/R7-4 werden ohne Änderung hier mitgeprüft.
+import { readdirSync, readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import deElternbericht from '@/i18n/locales/de/elternbericht.json'
@@ -137,6 +138,71 @@ describe('INV-4.10 — Kopfsätze des Eltern-Berichts sprechen Elternsprache', (
     for (const { key, text } of saetze) {
       const namen = [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1])
       expect(namen, key).toEqual(['name'])
+    }
+  })
+})
+
+/**
+ * INV-4.11 — Komponenten und Styles des Druckbogens (Bauauftrag R7, Entscheidung 10).
+ *
+ * Alle Dateien unter src/components/edvance/elternbericht/ und
+ * src/styles/elternbericht/, ohne Tests (die erzeugen keinen Bogen) und ohne
+ * Kommentare (dort darf ein Schlüssel oder ein Farbwert erklärt werden).
+ */
+describe('INV-4.11 — der Druckbogen rendert keine Schlüssel, Quoten oder freien Farben', () => {
+  const ORDNER = ['src/components/edvance/elternbericht', 'src/styles/elternbericht']
+  const dateien = ORDNER.flatMap((ordner) =>
+    (readdirSync(resolve(ROOT, ordner), { recursive: true }) as string[])
+      .filter((f) => /\.(tsx?|css)$/.test(f) && !/\.test\.tsx?$/.test(f))
+      .map((f) => join(ordner, f)),
+  )
+  const ohneKommentare = (text: string): string =>
+    text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+  const quelle = dateien.map((pfad) => ({ pfad, text: ohneKommentare(read(pfad)) }))
+  const code = quelle.filter((d) => /\.tsx?$/.test(d.pfad))
+
+  it('findet die Dateien des Bogens, auch die Seiten-Hüllen', () => {
+    for (const teil of ['Bogen.tsx', 'Seite.tsx', 'Seite1.tsx', 'Seite5.tsx', 'rahmen.css', 'seite5.css']) {
+      expect(dateien.some((d) => d.endsWith(teil)), teil).toBe(true)
+    }
+  })
+
+  it('nutzt skillKey, Familien- und Fehlbild-Schlüssel nur als React-key (INV-4.3)', () => {
+    for (const { pfad, text } of code) {
+      for (const zeile of text.split('\n')) {
+        if (!/\bskillKey\b|\.familie\b|\.slug\b/.test(zeile)) continue
+        expect(zeile, pfad).toMatch(/key=\{[^}]*(\bskillKey\b|\.familie\b|\.slug\b)[^}]*\}/)
+        expect(zeile.replace(/key=\{[^}]*\}/g, ''), pfad).not.toMatch(/\bskillKey\b|\.familie\b|\.slug\b/)
+      }
+    }
+  })
+
+  it('setzt keine statischen Inline-Styles', () => {
+    for (const { pfad, text } of code) expect(text, pfad).not.toMatch(/style=\{\{/)
+  })
+
+  it('rechnet keine Prozente und gibt kein % aus (CSS ausgenommen)', () => {
+    const STRING_MIT_PROZENT = /(['"`])(?:(?!\1)[^\\\n]|\\.)*%(?:(?!\1)[^\\\n]|\\.)*\1/
+    const JSX_TEXT_MIT_PROZENT = />[^<>{}]*%[^<>{}]*</
+    for (const { pfad, text } of code) {
+      expect(text, pfad).not.toMatch(/\*\s*100\b/)
+      expect(text, pfad).not.toMatch(/\btoFixed\b/)
+      expect(text, pfad).not.toMatch(STRING_MIT_PROZENT)
+      expect(text, pfad).not.toMatch(JSX_TEXT_MIT_PROZENT)
+    }
+  })
+
+  it('nimmt Farben nur aus --color-eb-* und schreibt keine Hex-Werte', () => {
+    for (const { pfad, text } of quelle) {
+      expect(text, pfad).not.toMatch(/#[0-9a-fA-F]{3,8}\b/)
+      expect(text, pfad).not.toMatch(/var\(--color-(?!eb-)/)
+      expect(text, pfad).not.toMatch(/\b(rgba?|hsla?|oklch|lab|lch|color-mix)\(/)
+      expect(text, pfad).not.toMatch(
+        /(:|=|\s|["'])(white|black|red|green|blue|gray|grey|navy|gold|orange|yellow)\s*[;"'}]/,
+      )
+      expect(text, pfad).not.toMatch(
+        /\b(text|bg|border|fill|stroke|ring|from|to)-(white|black|slate|gray|zinc|red|rose|green|emerald|blue|amber|yellow)(-\d+)?\b/,
+      )
     }
   })
 })
