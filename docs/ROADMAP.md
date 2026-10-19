@@ -233,6 +233,17 @@
   Guards (kein Abo, kein direkter Insert), Statistik-Schutz in `src/lib`.
   **Offen:** pgTAP-Lauf (`npx supabase test db` — Docker war in der Session nicht
   verfügbar). Platz-Mechanik: freigegeben und als S9 gebaut (s. o.).
+- **R7 Eltern-Bericht als Druckbogen nach Muster E7** (Bauauftrag `docs/report/r7/Bauauftrag-R7.md`):
+  fünf A4-Seiten unter `/admin/report/:sessionId?fassung=r7`, R6 bleibt bis zur Abnahme Standard.
+  - **R7-1 Daten, Rechnung, Texte** (Branch `feat/rasit-report-r7-daten`, Retro
+    `2026-10-19-r7-1-elternbericht-daten.md`): Lesepfad mit Kompetenzen, Katalog und Schulform;
+    `baueElternbericht` (Themenfelder, Pyramide nach Lehrplanstufe, Zählung gegen den Katalog,
+    Schwerpunkte, Genitiv); Fixtures mit `FAELLE`; Namespace `elternbericht`; Tokens `--color-eb-*`;
+    Kopfsätze als Entwurf (`20261019080220`, nach dem Merge einspielen). **Offen:**
+    `docs/report/r7/offene-punkte-r7-1.md`.
+  - R7-2 Bogen, Druck und Seite 1 · R7-3 Seiten 2 und 5 · R7-4 Seiten 3 und 4 — warten auf R7-1.
+  - Danach Abnahme durch die Gründer (Nenner, Reihenfolge der Schwerpunkte) und Lena (Texte,
+    Kopfsätze, W5-d-Entwürfe); dann Standard auf R7 umstellen.
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
     aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,
