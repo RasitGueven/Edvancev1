@@ -50,6 +50,17 @@ describe('Präsentation — Vollbild', () => {
     expect(document.documentElement).not.toHaveClass('tp-offen')
   })
 
+  it('gibt beim Schließen den Fokus an den Knopf zurück, der sie geöffnet hat', () => {
+    const knopf = document.createElement('button')
+    document.body.appendChild(knopf)
+    knopf.focus()
+    const { unmount } = oeffne(ilkay)
+    expect(document.activeElement).not.toBe(knopf)
+    unmount()
+    expect(document.activeElement).toBe(knopf)
+    knopf.remove()
+  })
+
   it('schließt mit Escape', () => {
     const { onSchliessen } = oeffne(ilkay)
     fireEvent.keyDown(document, { key: 'Escape' })

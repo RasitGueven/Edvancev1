@@ -1,4 +1,4 @@
-import { useEffect, useMemo, type ComponentType } from 'react'
+import { useEffect, useMemo, useState, type ComponentType } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -52,6 +52,11 @@ export type PraesentationProps = {
 export function Praesentation(props: PraesentationProps): JSX.Element {
   const { data, notes, tiers, tiersFehler, laden, onSchliessen } = props
   const { t } = useTranslation('praesentation')
+
+  // Beim Schließen geht der Fokus dorthin zurück, wo er vor dem Öffnen war (Knopf im Report).
+  // Gemerkt beim ersten Render: Die Effekte der Bühne setzen den Fokus schon vorher um.
+  const [vorher] = useState(() => (document.activeElement instanceof HTMLElement ? document.activeElement : null))
+  useEffect(() => () => vorher?.focus({ preventScroll: true }), [vorher])
 
   useEffect(() => {
     document.documentElement.classList.add('tp-offen')

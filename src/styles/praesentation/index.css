@@ -3,6 +3,8 @@
    --color-tp-* (tokens.css), Ausnahmen in CLAUDE.md §11 „Tablet-Präsentation (LSA)".
    Je Station eine eigene Datei, damit T3 und T4 parallel bauen können. */
 @import "./rahmen.css";
+@import "./kopf.css";
+@import "./leiste.css";
 @import "./intro.css";
 @import "./station1.css";
 @import "./station2.css";

@@ -66,6 +66,14 @@ export async function verstoesse(page: Page, station: number): Promise<string[]>
       )
     }
 
+    // Kopf und Leiste liegen über den Stationen: kein Inhalt darf darunter rutschen.
+    const ueber = [
+      ...document.querySelectorAll('.tp-kopf > *, .tp-leiste-eintrag, .tp-eddie'),
+    ].map((el) => ({ el, r: el.getBoundingClientRect() }))
+    const schneidet = (a: { links: number; oben: number; rechts: number; unten: number }, b: DOMRect): boolean =>
+      Math.min(a.rechts, b.right) - Math.max(a.links, b.left) > 0.5 &&
+      Math.min(a.unten, b.bottom) - Math.max(a.oben, b.top) > 0.5
+
     for (const el of s.querySelectorAll('*')) {
       if (el.closest('[data-tp-liste]') && !el.hasAttribute('data-tp-liste')) continue
       if (el.closest('svg') && el.tagName.toLowerCase() !== 'svg') continue
@@ -77,18 +85,27 @@ export async function verstoesse(page: Page, station: number): Promise<string[]>
       if (r.unten > sr.bottom - 8 + 0.5) fehler.push(`${name(el)} reicht bis ${r.unten.toFixed(1)} (Grenze ${(sr.bottom - 8).toFixed(1)})`)
       if (r.oben < sr.top - 0.5) fehler.push(`${name(el)} ragt oben hinaus (${r.oben.toFixed(1)})`)
       if (r.rechts > sr.right + 0.5) fehler.push(`${name(el)} ragt rechts hinaus (${r.rechts.toFixed(1)} > ${sr.right})`)
+      if (r.links < sr.left - 0.5) fehler.push(`${name(el)} ragt links hinaus (${r.links.toFixed(1)})`)
+      const unter = ueber.find((u) => schneidet(r, u.r))
+      if (unter) fehler.push(`${name(el)} liegt unter ${name(unter.el)}`)
     }
 
     for (const el of s.querySelectorAll('[data-tp-pflicht]')) {
-      if (!gezeigt(el) || !sichtbarerTeil(el)) fehler.push(`Pflichtteil ${name(el)} nicht sichtbar`)
+      // Fast ganz zu sehen: mindestens 95 % der Fläche.
+      const r = el.getBoundingClientRect()
+      const t = gezeigt(el) ? sichtbarerTeil(el) : null
+      const anteil = t ? ((t.rechts - t.links) * (t.unten - t.oben)) / Math.max(1, r.width * r.height) : 0
+      if (anteil < 0.95) fehler.push(`Pflichtteil ${name(el)} nicht sichtbar (${Math.round(anteil * 100)} von 100)`)
     }
 
-    // Beschriftungen: keine Überlappung, kein Punkt der Kurve darin.
+    // Beschriftungen: keine Überlappung, kein Punkt der Kurve darin. Verschachtelte
+    // Beschriftungen (Label in der Karte) zählen nicht als Überlappung.
     const schriften = [...s.querySelectorAll('[data-tp-beschriftung]')]
       .filter(gezeigt)
       .map((el) => ({ el, r: el.getBoundingClientRect() }))
     for (let i = 0; i < schriften.length; i++) {
       for (let k = i + 1; k < schriften.length; k++) {
+        if (schriften[i].el.contains(schriften[k].el) || schriften[k].el.contains(schriften[i].el)) continue
         const a = schriften[i].r
         const b = schriften[k].r
         const x = Math.min(a.right, b.right) - Math.max(a.left, b.left)
@@ -158,4 +175,21 @@ export async function stationOben(page: Page, station: number): Promise<number> 
     (nr) => document.querySelector(`.tp-station[data-station="${nr}"]`)!.getBoundingClientRect().top,
     station,
   )
+}
+
+/** Das Intro passt: Logo, Kicker, Name, Unterzeile und Knopf liegen ganz im Bild. */
+export async function introVerstoesse(page: Page): Promise<string[]> {
+  return page.evaluate(() => {
+    const intro = document.querySelector('.tp-intro')
+    if (!intro) return ['Intro fehlt']
+    const ir = intro.getBoundingClientRect()
+    const fehler: string[] = []
+    for (const el of intro.querySelectorAll('.tp-intro-innen > *, .tp-intro-los')) {
+      const r = el.getBoundingClientRect()
+      if (r.left < ir.left - 0.5 || r.right > ir.right + 0.5 || r.top < ir.top - 0.5 || r.bottom > ir.bottom - 8 + 0.5) {
+        fehler.push(`${el.className} außerhalb (${r.left.toFixed(0)},${r.top.toFixed(0)}–${r.right.toFixed(0)},${r.bottom.toFixed(0)})`)
+      }
+    }
+    return fehler
+  })
 }

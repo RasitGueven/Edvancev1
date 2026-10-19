@@ -123,6 +123,8 @@ describe('INV-4.12 — die Präsentation rendert keine Schlüssel, Quoten oder f
       'Station4.tsx',
       'useStationen.ts',
       'rahmen.css',
+      'kopf.css',
+      'leiste.css',
       'intro.css',
       'station1.css',
       'station4.css',

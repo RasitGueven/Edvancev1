@@ -11,7 +11,7 @@ import { resolve } from 'node:path'
 import { expect, test, type Page } from '@playwright/test'
 
 import { PRAESENTATION_FAELLE } from '../src/lib/report/praesentation/fixtures'
-import { kleineZiele, stationOben, verstoesse } from './messen'
+import { introVerstoesse, kleineZiele, stationOben, verstoesse } from './messen'
 
 const AUSGABE = resolve(process.env.TP_AUSGABE ?? 'docs/report/praesentation/abnahme/t2')
 const MASSE: ReadonlyArray<[number, number]> = [
@@ -76,6 +76,8 @@ for (const fall of Object.keys(PRAESENTATION_FAELLE)) {
           return
         }
 
+        expect(await introVerstoesse(page), 'Intro').toEqual([])
+        expect(await kleineZiele(page), 'Intro').toEqual([])
         await page.locator('.tp-intro-los').click()
         await expect(page.locator('.tp-intro')).toBeHidden()
 
@@ -131,8 +133,10 @@ test.describe('Bewegung und Bedienung (ilkay)', () => {
       await geheZu(page, 2)
       await expect(s2).toHaveClass(/\bentered\b/)
       await expect(s2).not.toHaveClass(/motion-complete/)
-      await page.waitForTimeout(4000)
-      await geheZu(page, 3)
+      // Mitten in der Bewegung verlassen und sofort zurück: dann still, nichts läuft mehr.
+      await page.waitForTimeout(300)
+      await page.locator('.tp-leiste-eintrag').nth(2).click()
+      await expect(page.locator('.tp-leiste-eintrag').nth(2)).toHaveAttribute('aria-current', 'step')
       await expect(s2).toHaveClass(/motion-complete/)
       await page.locator('.tp-leiste-eintrag').nth(1).click()
       const unruhig = await s2.evaluate((el) => ({

@@ -23,9 +23,19 @@ Rahmen, Vorschau, Ansichtstests und Invarianten müssen T3 und T4 nicht ändern,
     `aria-expanded`. Daraus wählt der Test die Zeile mit den meisten Bereichen und prüft „höchstens eins offen“.
   - `data-tp-beschriftung` (Beschriftungen und Förderfokus-Karte in 04) und `path[data-tp-kurve]`.
   - Ohne diese Attribute laufen die jeweiligen Prüfungen leer (heute bei den Hüllen der Fall).
+- Kopf und Leiste liegen über den Stationen; der Test meldet jedes Element, das darunter rutscht, und
+  alles, was links, rechts, oben oder unten (−8 px) aus der Station ragt. Pflichtteile müssen zu mindestens
+  95 % zu sehen sein. Verschachtelte `data-tp-beschriftung` (Label in der Karte) zählen nicht als Überlappung.
+- **Leere Prüfungen:** Fehlt ein Attribut, prüft der Ansichtstest still nichts. T3 und T4 sichern deshalb in
+  ihren Vitest-Tests, dass `data-tp-zeile`, `data-tp-liste`, `path[data-tp-kurve]` und `data-tp-beschriftung`
+  dort gesetzt sind, wo es Zeilen bzw. Schwerpunkte gibt.
 - **Invarianten** (INV-4.12): Feldschlüssel nur als `key` oder in einer i18n-Vorlage der Form
   `` `feld.${x.feld}` `` / `` `elternbericht:feld.${…}` `` bzw. `` `s3.ebene.${…}` ``; Inline-Styles nur mit
   berechneten Werten; `color-mix` nur als `color-mix(in srgb, var(--color-eb|tp-…) N%, transparent)`.
+  Kein `* 100`, kein `toFixed`, kein String mit `%` in .ts/.tsx: Breiten der Pyramide über feste Klassen je
+  Position, Lage der Kurvenpunkte als Zahl in eine CSS-Variable (`--x: 30.4`) und im CSS
+  `calc(var(--x) * 1%)`; Pfadkoordinaten bei Bedarf mit `Math.round(v * 10) / 10`. Die Hex-Prüfung trifft
+  auch `url(#abc)` – SVG-Ids deshalb nicht aus Hex-Buchstaben bilden (z. B. `#tp-punkte`).
 
 ## Abweichungen vom Dummy (mit Grund)
 

@@ -1,0 +1,154 @@
+/* Tablet-Präsentation · Stationsleiste mit Eddie (T2). Maße aus dem Dummy V7, Farben auf
+   --color-eb-* gerundet. */
+
+/* ─── Stationsleiste mit Eddie ────────────────────────────────────────────── */
+
+.tp-leiste {
+  position: absolute;
+  z-index: 35;
+  left: clamp(20px, 3.4vw, 54px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 135px;
+  height: 324px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: opacity .35s ease, visibility 0s;
+}
+
+.tp-leiste-eintrag {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  width: 100%;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  color: var(--color-eb-leise);
+}
+
+.tp-leiste-punkt {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.tp-leiste-punkt::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--color-eb-nav-linie);
+  border-radius: 50%;
+  background: var(--color-eb-papier);
+}
+
+.tp-leiste-name {
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.tp-leiste-name small {
+  font-size: 10px;
+  letter-spacing: .13em;
+  color: var(--color-eb-leise);
+}
+
+.tp-leiste-eintrag[aria-current='step'],
+.tp-leiste-eintrag[aria-current='step'] small {
+  color: var(--color-eb-navy);
+  font-weight: 700;
+}
+
+.tp-eddie {
+  position: absolute;
+  z-index: 5;
+  left: 10px;
+  top: 9px;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  transform: translate(-50%, var(--tp-eddie, 0px));
+  transition: transform 790ms var(--tp-ease);
+}
+
+.tp-eddie::before {
+  content: '';
+  position: absolute;
+  inset: -13px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-tp-schein) 33%, transparent) 0%,
+    color-mix(in srgb, var(--color-tp-schein) 7%, transparent) 55%,
+    transparent 74%
+  );
+}
+
+.tp-eddie::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 25%,
+    var(--color-tp-kugel-hell) 0%,
+    var(--color-tp-kugel-mitte) 32%,
+    var(--color-tp-kugel-warm) 61%,
+    var(--color-tp-kugel-tief) 100%
+  );
+  box-shadow:
+    0 4px 12px color-mix(in srgb, var(--color-tp-kugel-tief) 40%, transparent),
+    inset -2px -3px 5px color-mix(in srgb, var(--color-tp-kugel-tief) 22%, transparent);
+}
+
+.tp-eddie b {
+  position: absolute;
+  z-index: 3;
+  left: 13px;
+  top: 10px;
+  width: 6px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-eb-weiss);
+  filter: blur(.5px);
+}
+
+@media (max-width: 1050px) {
+  .tp-leiste {
+    left: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tp-leiste {
+    left: 12px;
+    width: 84px;
+    height: 294px;
+  }
+
+  .tp-leiste-eintrag {
+    gap: 9px;
+    height: 46px;
+  }
+
+  .tp-eddie {
+    top: 6px;
+  }
+
+  .tp-leiste-name {
+    font-size: 10px;
+  }
+
+  .tp-leiste-name small {
+    font-size: 9px;
+  }
+}
