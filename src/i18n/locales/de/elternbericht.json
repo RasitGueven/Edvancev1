@@ -158,7 +158,8 @@
       "nurFuer": "Die Pyramide gilt nur für {{name}}. Was oben steht, richtet sich nach {{wessen}} Klasse; was darunter liegt, nach dem NRW-Lehrplan, an dem sich unser Katalog orientiert. Bei einem anderen Kind sieht sie anders aus.",
       "nurFuerOhneName": "Die Pyramide gilt nur für Ihr Kind. Was oben steht, richtet sich nach der Klasse Ihres Kindes; was darunter liegt, nach dem NRW-Lehrplan, an dem sich unser Katalog orientiert. Bei einem anderen Kind sieht sie anders aus.",
       "hinweis": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung. Ob Übungsbedarf weiter unten etwas weiter oben erklärt, prüft der Coach im Unterricht.",
-      "hinweisEineEbene": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung."
+      "hinweisEineEbene": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung.",
+      "ebene": "{{ebene}}:"
     }
   },
   "s4": {

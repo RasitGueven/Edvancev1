@@ -1,1 +1,245 @@
-/* Eltern-Bericht R7 · Seite 3 — Einordnung als Pyramide (R7-4). In R7-2 noch leer. */
+/* Eltern-Bericht R7 · Seite 3 — Einordnung als Pyramide (Maßblatt E7, „Seite 3“).
+
+   Im Fluss; Abstände aus den Grundlinien des Musters gerechnet (Formel in
+   rahmen.css). Wo ein Wert in Klammern steht, ist es die Grundlinie bzw. Kante
+   im Muster. Der Inhaltskasten beginnt bei y 80, x 44. */
+
+.eb-s3 {
+  display: flow-root;
+}
+
+.eb-s3-kicker {
+  margin-top: 23.32pt; /* (111,3) */
+}
+
+.eb-s3-titel {
+  margin-top: 16.38pt; /* (155,1) */
+  font-size: 26.1pt;
+  line-height: 32pt;
+  text-wrap: balance;
+  position: relative;
+  top: 0.7pt; /* Rundung der Schriftmetrik, siehe rahmen.css */
+}
+
+.eb-s3-intro {
+  position: relative;
+  top: 1pt; /* Rundung der Schriftmetrik */
+  margin-top: 12.21pt; /* (183,9) */
+  font-size: 9pt;
+  line-height: 13.5pt;
+  color: var(--color-eb-text);
+}
+
+/* ─── Zwischenzeile und Legende auf einer Grundlinie (234,9) ─────────────── */
+
+.eb-s3-zwischen {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 23.03pt;
+}
+.eb-s3-zwischenzeile {
+  font-size: 11pt;
+  line-height: 14pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s3-legende {
+  display: flex;
+  align-items: baseline;
+  gap: 19pt;
+  font-size: 8.1pt;
+  line-height: 10pt;
+  color: var(--color-eb-text);
+}
+.eb-s3-legende li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6pt;
+}
+/* Quadrat 10 × 10, Unterkante 1,9 unter der Grundlinie. */
+.eb-s3-legende li::before {
+  content: '';
+  display: inline-block;
+  position: relative;
+  top: 1.9pt;
+  width: 10pt;
+  height: 10pt;
+  border-radius: 2.6pt;
+}
+.eb-s3-legende-sicher::before {
+  background: var(--color-eb-sicher);
+}
+.eb-s3-legende-uebung::before {
+  background: var(--color-eb-uebung);
+}
+
+/* ─── Pyramide ab y 250 ──────────────────────────────────────────────────── */
+
+.eb-s3-pyramide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8pt;
+  margin-top: 12.06pt;
+}
+
+.eb-s3-ebene {
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 10pt 13pt 11.5pt 14.2pt;
+  background: var(--color-eb-weiss);
+  border: 0.56pt solid var(--color-eb-linie);
+  border-radius: 11pt;
+}
+/* Streifen links über die volle Höhe. */
+.eb-s3-ebene::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3.2pt;
+  background: var(--color-eb-mint);
+}
+/* Breite nach Position von unten: 507, je Stufe darüber 56 schmaler. */
+.eb-s3-ebene-p0 {
+  width: 507pt;
+}
+.eb-s3-ebene-p1 {
+  width: 451pt;
+}
+.eb-s3-ebene-p2 {
+  width: 395pt;
+}
+.eb-s3-ebene-p3 {
+  width: 339pt;
+}
+
+.eb-s3-ebene-kopf {
+  position: relative;
+  top: 0.4pt; /* Rundung der Schriftmetrik */
+  display: flex;
+  align-items: baseline;
+}
+.eb-s3-ebene-name {
+  font-size: 10.1pt;
+  line-height: 12.5pt;
+  color: var(--color-eb-navy);
+}
+.eb-s3-ebene-klassen {
+  margin-left: 7pt;
+  font-size: 8pt;
+  color: var(--color-eb-leise);
+}
+.eb-s3-ebene-zaehlung {
+  margin-left: auto;
+  font-size: 7.4pt;
+  color: var(--color-eb-leise);
+}
+
+/* Themenfelder nebeneinander, höchstens vier je Reihe. Grid statt flex
+   (Maßblatt: `flex: 1 1 auto`): auto-Spalten wachsen gleichmäßig bis zu ihrer
+   Inhaltsbreite, so bricht zuerst die Gruppe mit den langen Namen um und nicht
+   jede anteilig. Reicht der Platz, verteilt sich der Rest wie bei flex. */
+.eb-s3-reihe {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  column-gap: 10pt;
+  margin-top: 7.5pt;
+}
+.eb-s3-gruppe-name {
+  margin-bottom: 3.6pt;
+  font-size: 6.6pt;
+  line-height: 8pt;
+  letter-spacing: 0.55pt;
+  text-transform: uppercase;
+  color: var(--color-eb-leise);
+}
+.eb-s3-eintraege {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6pt;
+  font-size: 7.8pt;
+  line-height: 10pt;
+}
+.eb-s3-eintrag,
+.eb-s3-weitere {
+  position: relative;
+  padding-left: 11pt;
+  text-wrap: balance;
+}
+.eb-s3-eintrag {
+  color: var(--color-eb-tinte);
+}
+.eb-s3-weitere {
+  color: var(--color-eb-leise);
+}
+/* Punkt Ø 6,6, 3,7 unter der Zeilenoberkante. */
+.eb-s3-eintrag::before {
+  content: '';
+  position: absolute;
+  top: 3.7pt;
+  left: 0;
+  width: 6.6pt;
+  height: 6.6pt;
+  border-radius: 50%;
+}
+.eb-s3-eintrag-sicher::before {
+  background: var(--color-eb-sicher);
+}
+.eb-s3-eintrag-uebung::before {
+  background: var(--color-eb-uebung);
+}
+
+/* ─── Lesehilfe, 34 unter der Pyramide ───────────────────────────────────── */
+
+.eb-s3-lesen {
+  display: grid;
+  grid-template-columns: 149pt 358pt;
+  margin-top: 34pt;
+}
+.eb-s3-lesen-kicker {
+  line-height: 12.3pt;
+  top: 2.9pt; /* (600,0) */
+}
+.eb-s3-lesen-zeilen {
+  display: flex;
+  flex-direction: column;
+  gap: 5.5pt;
+}
+.eb-s3-lesen-zeile {
+  display: flex;
+  align-items: flex-start;
+  gap: 8pt;
+}
+.eb-s3-mini {
+  flex: none;
+  width: 16pt;
+  margin-top: 1.05pt;
+}
+.eb-s3-balken {
+  fill: var(--color-eb-linie);
+}
+.eb-s3-balken-eigen {
+  fill: var(--color-eb-navy);
+}
+.eb-s3-lesen-text,
+.eb-s3-lesen-nur {
+  font-size: 8.7pt;
+  line-height: 12.3pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s3-lesen-ebene {
+  color: var(--color-eb-navy);
+}
+.eb-s3-lesen-nur {
+  margin-top: 9pt;
+}
+.eb-s3-lesen-hinweis {
+  margin-top: 13pt;
+  font-size: 7.35pt;
+  line-height: 10pt;
+  color: var(--color-eb-text);
+}
