@@ -1,0 +1,116 @@
+{
+  "aria": "Lernstandspräsentation {{name}}",
+  "ariaOhneName": "Lernstandspräsentation",
+  "einstieg": {
+    "knopf": "Präsentation"
+  },
+  "leer": "Für diese Analyse gibt es keine direkt geprüften Bereiche. Eine Präsentation ist deshalb nicht möglich.",
+  "keinKatalog": "Der Aufgabenkatalog konnte nicht geladen werden. Ohne ihn stimmen die Zahlen nicht. Bitte die Seite neu laden.",
+  "kopf": {
+    "zumUeberblick": "Zum Überblick",
+    "testdaten": "Testdaten",
+    "laeuftNoch": "Analyse läuft noch",
+    "station": "{{nummer}} / {{gesamt}} · {{name}}",
+    "schliessen": "Präsentation schließen"
+  },
+  "leiste": {
+    "aria": "Stationen direkt anwählen",
+    "station": {
+      "1": "Überblick",
+      "2": "Lernstand",
+      "3": "Einordnung",
+      "4": "Förderansatz"
+    }
+  },
+  "intro": {
+    "aria": "Einführung",
+    "kicker": "Lernstandsanalyse {{fach}}",
+    "unterzeile": "Ein persönlicher Blick auf die Ergebnisse",
+    "los": "Gemeinsam ansehen"
+  },
+  "zaehlung": {
+    "sicher": "{{count}} sicher",
+    "uebung": "{{count}} Übungsbedarf",
+    "davonUebersprungen": "davon {{count}} übersprungen",
+    "uebersprungen": "{{count}} übersprungen"
+  },
+  "s1": {
+    "kicker": "{{wessen}} Ausgangspunkt",
+    "kickerOhneName": "Ausgangspunkt",
+    "lead": {
+      "gemischt": "Was schon gelingt und wo noch Übung nötig ist, sehen wir uns jetzt gemeinsam an.",
+      "sicher": "Was schon gelingt, sehen wir uns jetzt gemeinsam an.",
+      "uebung": "Wo noch Übung nötig ist und wo wir ansetzen, sehen wir uns jetzt gemeinsam an."
+    },
+    "fachKlasse": "{{fach}} · Klasse {{klasse}}",
+    "imBlick": "Im Blick: {{thema}}",
+    "gelungen": "Schon gelungen",
+    "ueben": "Gezielt üben",
+    "sicherEinzeln_one": "Ein Bereich ist schon sicher: {{bereich}}.",
+    "sicherEinzeln_other": "Einzelne Bereiche sind schon sicher, zum Beispiel {{bereich}}.",
+    "uebungEinzeln_one": "Ein Bereich braucht noch Übung: {{bereich}}.",
+    "uebungEinzeln_other": "Einzelne Bereiche brauchen noch Übung, zum Beispiel {{bereich}}.",
+    "weiter": "Weiterwischen, um {{wessen}} Kompetenzprofil zu sehen",
+    "weiterOhneName": "Weiterwischen zum Kompetenzprofil"
+  },
+  "s2": {
+    "kicker": "Lernstand",
+    "titel": "Was der Test zeigt.",
+    "zahl": {
+      "uebersprungen": "übersprungen",
+      "davonUebersprungen": "davon übersprungen"
+    },
+    "untersucht": "{{untersucht}} von {{katalog}} Bereichen bis Klasse {{klasse}} untersucht.",
+    "uebersprungenHeisst": "Übersprungen heißt: Bei allen Aufgaben zu diesem Bereich hat {{name}} „Weiß ich nicht“ gewählt oder nichts eingetragen. Das ist kein Fehler, zeigt aber, wo noch Sicherheit fehlt.",
+    "uebersprungenHeisstOhneName": "Übersprungen heißt: Bei allen Aufgaben zu diesem Bereich wurde „Weiß ich nicht“ gewählt oder nichts eingetragen. Das ist kein Fehler, zeigt aber, wo noch Sicherheit fehlt.",
+    "profilHinweis": "Jedes Segment steht für eine Kompetenz · Antippen für Details",
+    "zeileZahl": "{{untersucht}} von {{vorhanden}}",
+    "zeileAria": "{{feld}}: {{untersucht}} von {{vorhanden}} untersucht, {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
+    "zeileAriaKombiniert": "{{feld}}: {{untersucht}} von {{vorhanden}} untersucht, {{sicher}} sicher, {{uebung}} mit Übungsbedarf, davon {{uebersprungen}} übersprungen.",
+    "zeileAriaGetrennt": "{{feld}}: {{untersucht}} von {{vorhanden}} untersucht, {{sicher}} sicher, {{uebung}} mit Übungsbedarf, {{uebersprungen}} übersprungen.",
+    "detailsZeigen": "Details anzeigen",
+    "detailsSchliessen": "Details schließen",
+    "detail": {
+      "sicher": "Sicher im Test",
+      "uebung": "Hier weiterüben",
+      "uebersprungen": "Übersprungen",
+      "weissNicht": "„Weiß ich nicht“",
+      "keinSicher": "In diesem Themenfeld war noch nichts sicher.",
+      "keineUebung": "Kein Übungsbedarf in diesem Themenfeld."
+    },
+    "legende": {
+      "uebersprungen": "Übersprungen („Weiß ich nicht“)"
+    },
+    "tippen": "Die Details öffnen sich durch Antippen eines Themenfelds."
+  },
+  "s3": {
+    "kicker": "Einordnung",
+    "titel": "Wo im Lernstoff die Themen liegen.",
+    "desc": "Dieselben Ergebnisse, jetzt danach geordnet, wo sie im Lernstoff liegen. Keine Note.",
+    "ebeneAria": "{{ebene}}, {{klassen}}: {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
+    "ebeneAriaKombiniert": "{{ebene}}, {{klassen}}: {{sicher}} sicher, {{uebung}} mit Übungsbedarf, davon {{uebersprungen}} übersprungen.",
+    "ebeneAriaGetrennt": "{{ebene}}, {{klassen}}: {{sicher}} sicher, {{uebung}} mit Übungsbedarf, {{uebersprungen}} übersprungen.",
+    "lesen": {
+      "label": "So ist die Pyramide aufgebaut",
+      "titel": "Geordnet nach Klassenstufen im NRW-Lehrplan.",
+      "text": "Jede Stufe fasst Stoff aus bestimmten Klassen zusammen; die Klassen stehen daneben. Welche Stufen es gibt, richtet sich nach {{wessen}} Klasse.",
+      "textOhneName": "Jede Stufe fasst Stoff aus bestimmten Klassen zusammen; die Klassen stehen daneben. Welche Stufen es gibt, richtet sich nach der Klasse Ihres Kindes."
+    }
+  },
+  "s4": {
+    "kicker": "Förderansatz",
+    "titel": "Daran würden wir zuerst arbeiten.",
+    "desc_one": "Ein Ansatzpunkt aus dem Test.",
+    "desc_other": "{{count}} Ansatzpunkte aus dem Test, in dieser Reihenfolge.",
+    "punktAria": "{{feld}}, Stoff aus {{klassen}}",
+    "fokus": "Förderfokus",
+    "stoffAus": "Stoff aus {{klassen}}",
+    "sicher": "Sicher im Test",
+    "ueben": "Hier üben wir",
+    "keinSicher": "In diesem Themenfeld war noch nichts sicher.",
+    "hinweis": "Die Auswahl ist ein pädagogischer Arbeitsvorschlag. Der Coach prüft sie mit Blick auf Unterricht und anstehende Klausuren.",
+    "empfehlung": "Unsere Empfehlung für {{name}}: <b>Paket {{paket}}</b>",
+    "empfehlungOhneName": "Unsere Empfehlung: <b>Paket {{paket}}</b>",
+    "basisMoeglich": "{{basis}} ist ebenfalls möglich."
+  }
+}

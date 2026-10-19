@@ -209,5 +209,25 @@
     --color-eb-weiss:          #FFFFFF;
     --font-eb-titel: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
     --font-eb-marke: 'Fraunces';
+
+    /* ── TABLET-PRÄSENTATION LSA ───────────────────────────────
+       Tablet-Präsentation LSA, Werte aus dem Dummy V7
+       (docs/report/praesentation/dummy-v7.html, Anhang B der Anforderung).
+       Nur für src/components/edvance/praesentation/** und
+       src/styles/praesentation/**. Alles andere nimmt --color-eb-*. */
+    --color-tp-kugel-hell:          #FFF2C7;
+    --color-tp-kugel-mitte:         #F9C16D;
+    --color-tp-kugel-warm:          #F5A64A;
+    --color-tp-kugel-tief:          #D87B2F;
+    --color-tp-schein:              #F3A84C;
+    --color-tp-pille:               #EEF2F5;
+    --color-tp-fokus:               #79A6C0;
+    --color-tp-ueber-punkt:         #D9988B;
+    --color-tp-ueber-grund:         #FCF4F1;
+    --color-tp-ueber-rand:          #DDB2A8;
+    --color-tp-ueber-neutral-punkt: #B3A49B;
+    --color-tp-ueber-neutral-grund: #FBF9F7;
+    --color-tp-ueber-neutral-rand:  #D8CDC5;
+    --color-tp-ueber-neutral-text:  #7C6E66;
   }
 }
