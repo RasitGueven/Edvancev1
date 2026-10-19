@@ -237,6 +237,9 @@ export type {
   ThemenfeldKey,
 } from './elternbericht'
 
+// Tablet-Präsentation: nur Typen (PraesentationDaten, Tp*). Sammelexport hält index.ts ≤ 400 Zeilen.
+export type * from './praesentation'
+
 export type {
   AnlassZuordnung,
   Fundament,
