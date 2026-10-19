@@ -58,3 +58,22 @@ export function bauePyramide(bereiche: readonly EbBereich[], kindKlasse: number)
     ]
   })
 }
+
+const KLASSEN: Readonly<Record<Stufe, readonly [number, number]>> = {
+  erprobung: [5, 6],
+  erste: [7, 8],
+  zweite: [9, 10],
+}
+
+/**
+ * Die Klassenangabe einer Ebene für i18n: eine Stufe → `elternbericht:stufe.<stufe>`
+ * („Klasse 7/8"), mehrere → `stufe.spanne` mit von/bis („Klasse 7–10").
+ */
+export function klassenAngabe(
+  stufen: readonly Stufe[],
+): { stufe: Stufe } | { von: number; bis: number } | null {
+  if (stufen.length === 0) return null
+  if (stufen.length === 1) return { stufe: stufen[0] }
+  const grenzen = stufen.flatMap((s) => KLASSEN[s])
+  return { von: Math.min(...grenzen), bis: Math.max(...grenzen) }
+}

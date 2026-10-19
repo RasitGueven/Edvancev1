@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { bereicheAus } from '@/lib/report/elternbericht/bereiche'
-import { EBENEN, bauePyramide, ebeneFuer } from '@/lib/report/elternbericht/einordnung'
+import { EBENEN, bauePyramide, ebeneFuer, klassenAngabe } from '@/lib/report/elternbericht/einordnung'
 import { ilkay } from '@/lib/report/elternbericht/fixtures/ilkay'
 import { klasse10neu, klasse7, spaeter } from '@/lib/report/elternbericht/fixtures/synthetisch'
 import type { EbEbene, ReportData } from '@/types'
@@ -99,5 +99,14 @@ describe('bauePyramide', () => {
   it('nutzt nie fundament_tiefe', () => {
     const verdreht = ilkay.erzaehlung.kompetenzen.map((k) => ({ ...k, fundamentTiefe: 99 - k.fundamentTiefe }))
     expect(bauePyramide(bereicheAus(verdreht), 10)).toEqual(pyramide(ilkay))
+  })
+})
+
+describe('klassenAngabe', () => {
+  it('eine Stufe nennt die Stufe, mehrere die Spanne', () => {
+    expect(klassenAngabe(['zweite'])).toEqual({ stufe: 'zweite' })
+    expect(klassenAngabe(['erste', 'zweite'])).toEqual({ von: 7, bis: 10 })
+    expect(klassenAngabe(['erprobung', 'erste'])).toEqual({ von: 5, bis: 8 })
+    expect(klassenAngabe([])).toBeNull()
   })
 })
