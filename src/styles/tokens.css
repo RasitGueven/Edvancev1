@@ -176,5 +176,38 @@
     --duration-celebration: 500ms;
     --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
     --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* ── DRUCKBOGEN ELTERN-BERICHT R7 ──────────────────────────
+       Druckbogen Eltern-Bericht R7, Werte aus dem Muster E7
+       (docs/report/r7/E7-Masse.md, Teil 1 „Farben"). Nur für
+       src/components/edvance/elternbericht/** und src/styles/elternbericht/**.
+       sicher/uebung sind Grün/Rosé — bewusste Ausnahme von INV-4.4 für den
+       Druckbogen (Gründer-Gespräch 18.10.2026). */
+    --color-eb-papier:         #F8F7F2;
+    --color-eb-navy:           #304969;
+    --color-eb-tinte:          #24313D;
+    --color-eb-text:           #52616F;
+    --color-eb-leise:          #8795A0;
+    --color-eb-linie:          #DEE4E1;
+    --color-eb-linie-zart:     #E8EDEB;
+    --color-eb-mint:           #EAF5F0;
+    --color-eb-mint-karte:     #EFF7F4;
+    --color-eb-sicher:         #087F70;
+    --color-eb-sicher-text:    #08665C;
+    --color-eb-uebung:         #CA8275;
+    --color-eb-uebung-text:    #9D5349;
+    --color-eb-offen:          #C4D0D4;
+    --color-eb-schraffur-rand: #CAD7DC;
+    --color-eb-schraffur:      #D3DEE1;
+    --color-eb-gold:           #E4A132;
+    --color-eb-nav-linie:      #B9C5CC;
+    --color-eb-nav-punkt:      #AEBCC4;
+    --color-eb-weg:            #B6C6CD;
+    --color-eb-weg-ring:       #A9BCC7;
+    --color-eb-navy-chip:      #456281;
+    --color-eb-auf-navy:       #E4ECF0;
+    --color-eb-weiss:          #FFFFFF;
+    --font-eb-titel: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+    --font-eb-marke: 'Fraunces';
   }
 }
