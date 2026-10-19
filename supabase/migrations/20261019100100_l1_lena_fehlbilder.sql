@@ -4,6 +4,8 @@
 --    (der Report zeigt je Familie nur fehlbild_familien.elterntext, lsa_fehlbild_auswertung):
 --      plus_minus_vertauscht   Plus und Minus vertauscht (Zahlenstrahl, falsche Richtung)
 --      merksatz_als_addition   „Minus mal Minus gibt Plus“ als Rechenanweisung, addiert
+--    Dazu der Klartext von vorzeichen_ignoriert verallgemeinert (nur wo der Vorher-Text steht), weil der Slug nach
+--    Schritt 2 auch für „Vorzeichen der ersten Zahl übersehen“ steht; die Daten bleiben.
 --    Der Wunsch-Slug richtung_vertauscht ist schon belegt: Maßstab (teilt statt malzunehmen), Familie
 --    einheiten_massstab, 49 Schlüssel in groessen_* und geo_massstab. Ein Slug mit der Bedeutung „Plus und Minus
 --    vertauscht“ oder „Merksatz als Addition“ existiert nicht (dbread, 19.10.2026). Per on conflict do nothing.
@@ -37,7 +39,7 @@ begin
      'Beim Rechnen mit negativen Zahlen geht Ihr Kind auf dem Zahlenstrahl manchmal in die falsche Richtung: Aus einem Plus wird ein Minus oder umgekehrt.',
      now(), v_rasit),
     ('merksatz_als_addition',
-     'Ihr Kind kennt die Regel ‚Minus mal Minus ergibt Plus‘, wendet sie aber als Rechenanweisung an und addiert die Zahlen, statt sie zu multiplizieren.',
+     'Ihr Kind kennt die Regel ‚Minus mal Minus ergibt Plus‘, versteht sie aber als Rechenanweisung und rechnet Plus statt Mal.',
      now(), v_rasit)
   on conflict (schluessel) do nothing;
   get diagnostics v_n = row_count;
@@ -56,6 +58,15 @@ begin
   on conflict (slug) do nothing;
   get diagnostics v_n = row_count;
   raise notice 'l1_lena_fehlbilder: % neue(s) Fehlbild(er)', v_n;
+
+  -- vorzeichen_ignoriert trägt nach Schritt 2 auch „Vorzeichen der ersten Zahl übersehen“ (−6 − 2 → 4):
+  -- Klartext verallgemeinern. Der Elterntext der Familie vorzeichen ist schon allgemein und bleibt.
+  update public.fehlbild_labels
+     set klartext = 'Rechnet nur mit den Beträgen und lässt Minuszeichen weg (z. B. −4 + 9 als 4 + 9, −6 − 2 als 6 − 2).'
+   where slug = 'vorzeichen_ignoriert'
+     and klartext = 'Lässt die Minuszeichen weg und addiert die Beträge.';
+  get diagnostics v_n = row_count;
+  raise notice 'l1_lena_fehlbilder: vorzeichen_ignoriert Klartext, % Zeile(n)', v_n;
 
   -- ── 2. known_errors (alt null = Schlüssel fehlt bisher) ─────────────────────
   create temp table l1_ke (task_id uuid not null, skill_key text not null, schluessel text not null,

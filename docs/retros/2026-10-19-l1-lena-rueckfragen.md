@@ -14,7 +14,11 @@
 - Eine eigene Familie je Fehlbild, weil der Report nur Familien-Elterntexte zeigt.
 - Ausgelassen wegen Kollision mit vorzeichen_ignoriert: 3e6fb055 (2 − 9 → 11) und 738de19f (3 − 8 → 11).
 
+## Nachtrag (Rasit, 19.10.)
+- Der Klartext von vorzeichen_ignoriert ist verallgemeinert („Rechnet nur mit den Beträgen …“), die Daten bleiben.
+  Der Elterntext der Familie vorzeichen war schon allgemein genug und bleibt.
+- Der Elterntext von merksatz_als_addition lautet jetzt „… rechnet Plus statt Mal.“
+
 ## Offen
-- `vorzeichen_ignoriert` hat jetzt zwei Bedeutungen: Klartext „Beträge addiert“, aber −2 (e96cd37d) und
-  4 (27f51c08) bedeuten „Vorzeichen der ersten Zahl übersehen“. Eigener Slug oder Klartext erweitern.
-- Hinweise der Zweitprüfung (siehe PR): Elterntext „addiert die Zahlen“, −24 bei (−a)·(−b) fehlt usw.
+- 8 vorzeichen_ignoriert-Werte passen nicht zur neuen Beschreibung (z. B. −24 bei −4 · (−6)); die Liste steht im PR.
+- Hinweise der Zweitprüfung (siehe PR): Slug-Name betrag_fehler, −24 als eigenes Fehlbild usw.

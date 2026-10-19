@@ -23,7 +23,7 @@ begin
    where f.freigegeben_am is not null
      and (f.schluessel, f.elterntext) in (
        ('plus_minus_vertauscht', 'Beim Rechnen mit negativen Zahlen geht Ihr Kind auf dem Zahlenstrahl manchmal in die falsche Richtung: Aus einem Plus wird ein Minus oder umgekehrt.'),
-       ('merksatz_als_addition', 'Ihr Kind kennt die Regel ‚Minus mal Minus ergibt Plus‘, wendet sie aber als Rechenanweisung an und addiert die Zahlen, statt sie zu multiplizieren.'));
+       ('merksatz_als_addition', 'Ihr Kind kennt die Regel ‚Minus mal Minus ergibt Plus‘, versteht sie aber als Rechenanweisung und rechnet Plus statt Mal.'));
   if v_n <> 2 then raise exception 'P1 Familien: % von 2 mit Elterntext und Freigabe', v_n; end if;
 
   select count(*) into v_n
@@ -38,6 +38,15 @@ begin
   -- Der belegte Slug richtung_vertauscht (Maßstab) ist unverändert.
   if not exists (select 1 from public.fehlbild_labels where slug = 'richtung_vertauscht' and familie = 'einheiten_massstab') then
     raise exception 'P1 richtung_vertauscht (Maßstab) verändert';
+  end if;
+  -- vorzeichen_ignoriert: Klartext verallgemeinert, Elterntext der Familie vorzeichen unverändert.
+  if not exists (select 1 from public.fehlbild_labels where slug = 'vorzeichen_ignoriert' and familie = 'vorzeichen'
+                    and klartext = 'Rechnet nur mit den Beträgen und lässt Minuszeichen weg (z. B. −4 + 9 als 4 + 9, −6 − 2 als 6 − 2).') then
+    raise exception 'P1 vorzeichen_ignoriert Klartext nicht verallgemeinert';
+  end if;
+  if not exists (select 1 from public.fehlbild_familien where schluessel = 'vorzeichen' and freigegeben_am is not null
+                    and elterntext = 'Ihr Kind geht den richtigen Rechenweg, setzt aber ein Plus oder Minus falsch: ein Minuszeichen geht verloren, kommt hinzu oder wird umgedreht.') then
+    raise exception 'P1 Elterntext der Familie vorzeichen verändert';
   end if;
   raise notice 'P1 ok: zwei Familien und zwei Fehlbilder, freigegeben';
 
