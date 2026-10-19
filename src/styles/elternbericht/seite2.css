@@ -1,1 +1,197 @@
-/* Eltern-Bericht R7 · Seite 2 — Lernstand mit Kompetenzprofil (R7-3). In R7-2 noch leer. */
+/* Eltern-Bericht R7 · Seite 2 — Lernstand (Maßblatt E7, „Seite 2“).
+
+   Im Fluss, Abstände aus den Grundlinien des Musters (Formel und Messweise in
+   rahmen.css). Zahlen, Profilzeilen und Legende sind SVG mit 1 Einheit = 1 pt;
+   Schriftgrößen dort in px = pt. In Klammern die Grundlinie bzw. Kante im Muster. */
+
+.eb-s2 {
+  display: flow-root;
+}
+
+.eb-s2-kicker {
+  margin-top: 24.32pt; /* (112,3) */
+}
+
+.eb-s2-titel {
+  margin-top: 16.53pt; /* (154,8 / 184,8) */
+  font-size: 26.8pt;
+  line-height: 30pt;
+  text-wrap: balance;
+}
+
+.eb-s2-intro {
+  margin-top: 8.85pt; /* (207,9) */
+  font-size: 8.9pt;
+  line-height: 12pt;
+  color: var(--color-eb-text);
+}
+
+/* ─── Drei Zahlen, Ausschnitt y 232–298 ───────────────────────────────────── */
+
+.eb-s2-zahlen {
+  display: block;
+  width: 507pt;
+  height: 66pt;
+  margin-top: 21.3pt;
+  overflow: visible;
+}
+.eb-s2-zahl {
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 48;
+  font-size: 32.6px;
+}
+.eb-s2-zahl-label {
+  font-size: 8.4px;
+  fill: var(--color-eb-text);
+}
+.eb-s2-zahl-sicher rect {
+  fill: var(--color-eb-sicher);
+}
+.eb-s2-zahl-sicher .eb-s2-zahl {
+  fill: var(--color-eb-sicher);
+}
+.eb-s2-zahl-uebung rect {
+  fill: var(--color-eb-uebung);
+}
+.eb-s2-zahl-uebung .eb-s2-zahl {
+  fill: var(--color-eb-uebung-text);
+}
+.eb-s2-zahl-offen rect {
+  fill: var(--color-eb-offen);
+}
+.eb-s2-zahl-offen .eb-s2-zahl {
+  fill: var(--color-eb-tinte);
+}
+
+/* ─── Profil-Karte (44,323)–(551,663) ─────────────────────────────────────── */
+
+.eb-s2-profil {
+  box-sizing: border-box;
+  margin-top: 25pt;
+  padding: 0 19.1pt 12.1pt;
+  background: var(--color-eb-weiss);
+  border: 0.9pt solid var(--color-eb-linie);
+  border-radius: 16pt;
+}
+.eb-s2-profil-kopf {
+  display: block;
+  width: 467pt;
+  height: 63.1pt;
+  overflow: visible;
+}
+.eb-s2-profil-titel {
+  font-size: 11.8px;
+  fill: var(--color-eb-navy);
+}
+.eb-s2-profil-hinweis {
+  font-size: 7.8px;
+  text-anchor: end;
+  fill: var(--color-eb-leise);
+}
+.eb-s2-profil-linie {
+  stroke: var(--color-eb-linie);
+  stroke-width: 0.65;
+}
+
+.eb-s2-zeile-bild {
+  display: block;
+  overflow: visible;
+}
+.eb-s2-feld {
+  font-size: 9.1px;
+  fill: var(--color-eb-tinte);
+}
+.eb-s2-untersucht {
+  font-size: 7.5px;
+  text-anchor: end;
+  fill: var(--color-eb-text);
+}
+.eb-s2-teile {
+  font-size: 7.05px;
+  text-anchor: end;
+  fill: var(--color-eb-leise);
+}
+.eb-s2-zeilen-linie {
+  stroke: var(--color-eb-linie-zart);
+  stroke-width: 0.55;
+}
+
+.eb-s2-segment-sicher {
+  fill: var(--color-eb-sicher);
+}
+.eb-s2-segment-uebung {
+  fill: var(--color-eb-uebung);
+}
+/* Nicht untersucht: weiß, darüber die Schraffur aus dem Bogen, Rand obenauf. */
+/* Nur die untere Fläche: Die obere trägt fill="url(#eb-schraffur)" als Attribut,
+   eine CSS-Füllung würde es überschreiben. */
+.eb-s2-segment-offen rect:not(.eb-s2-segment-schraffur) {
+  fill: var(--color-eb-weiss);
+}
+.eb-s2-segment-offen .eb-s2-segment-schraffur {
+  stroke: var(--color-eb-schraffur-rand);
+  stroke-width: 0.7;
+}
+
+/* Legende, Quadrate 10 × 10, 8,2 pt unter der letzten Zeile. */
+.eb-s2-legende {
+  display: block;
+  width: 467pt;
+  height: 10pt;
+  margin-top: 8.2pt;
+  overflow: visible;
+}
+.eb-s2-legende text {
+  font-size: 8.1px;
+  fill: var(--color-eb-text);
+}
+
+/* ─── Was die Grafik zeigt ────────────────────────────────────────────────── */
+
+.eb-s2-deutung {
+  display: grid;
+  grid-template-columns: 149pt 358pt; /* Text ab x 193 */
+  align-items: start;
+  margin-top: 15.82pt; /* Kicker (688,3), Text (687,7) */
+}
+.eb-s2-deutung-kicker {
+  margin-top: 1.5pt;
+}
+.eb-s2-deutung-text {
+  font-size: 8.7pt;
+  line-height: 12.3pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s2-fussnote {
+  margin-top: 16.66pt; /* (752,3) */
+  font-size: 7.35pt;
+  line-height: 10pt;
+  color: var(--color-eb-text);
+}
+.eb-s2-fussnote:first-child {
+  margin-top: 0;
+}
+
+/* ─── Ab sieben Profilzeilen: enger, damit acht Zeilen auf die Seite passen ──
+   Auch mit zweizeiligem Intro und vierzeiliger Fußnote (ohne Namen oder mit
+   langem Rufnamen) bleibt so etwa 15 pt Luft bis y 800. */
+
+.eb-s2-eng .eb-s2-zahlen {
+  margin-top: 12pt;
+}
+.eb-s2-eng .eb-s2-profil {
+  margin-top: 14pt;
+}
+.eb-s2-eng .eb-s2-legende {
+  margin-top: 6pt;
+}
+.eb-s2-eng .eb-s2-deutung {
+  margin-top: 10pt;
+}
+.eb-s2-eng .eb-s2-fussnote {
+  margin-top: 9pt;
+}
+.eb-s2-eng .eb-s2-fussnote:first-child {
+  margin-top: 0;
+}

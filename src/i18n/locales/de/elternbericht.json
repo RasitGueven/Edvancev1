@@ -108,6 +108,8 @@
       "sicher": "{{count}} sicher",
       "uebung": "{{count}} Übungsbedarf",
       "aria": "{{feld}}: {{untersucht}} von {{vorhanden}} untersucht, davon {{sicher}} sicher und {{uebung}} mit Übungsbedarf.",
+      "ariaKeiner": "{{feld}}: 0 von {{vorhanden}} untersucht.",
+      "trenner": " · ",
       "legende": {
         "sicher": "Sicher",
         "uebung": "Übungsbedarf",
