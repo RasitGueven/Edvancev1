@@ -1,0 +1,598 @@
+/* Tablet-Präsentation · Rahmen (T2): Ebene, Fluss mit Einrasten, Kopf,
+   Stationsleiste mit Eddie, Szene und die Bewegung beim ersten Besuch.
+   Maße, Zeiten und Kurven aus dem Dummy V7 (docs/report/praesentation/dummy-v7.html);
+   Farben auf --color-eb-* gerundet. */
+
+/* ─── Ebene ───────────────────────────────────────────────────────────────── */
+
+/* Per Portal unter <body>. Über allen Ebenen der Shell (höchste dort: z-50). */
+.tp {
+  /* Bewegung — T3 und T4 nutzen diese Variablen, keine eigenen Zeiten. */
+  --tp-ease: cubic-bezier(.22, .72, .29, 1);        /* Dummy --v6-ease */
+  --tp-soft: cubic-bezier(.18, .65, .24, 1);        /* Dummy --v6-soft */
+  --tp-ease-intro: cubic-bezier(.2, .8, .2, 1);     /* Dummy --ease (Intro) */
+  --tp-pop: cubic-bezier(.2, .8, .25, 1.15);        /* Kurvenpunkte */
+  --tp-reveal-opacity: 760ms;
+  --tp-reveal-weg: 850ms;
+  /* Station 02: Zahlen, Erklärtext, Profil, Zeilen und Segmente */
+  --tp-zahl-dauer: 650ms;
+  --tp-zahl-weg: 730ms;
+  --tp-zahl-1: 330ms;
+  --tp-zahl-2: 505ms;
+  --tp-zahl-3: 680ms;
+  --tp-erklaer: 845ms;
+  --tp-profil: 1030ms;
+  --tp-zeile-dauer: 660ms;
+  --tp-zeile-start: 1560ms;
+  --tp-zeile-takt: 315ms;
+  --tp-segment-dauer: 610ms;
+  --tp-segment-start: 1770ms;
+  --tp-segment-takt: 24ms;
+  --tp-legende: 3330ms;
+  --tp-fuss: 3560ms;
+  /* Station 03: Ebenen von unten nach oben, dann die Lesehilfe */
+  --tp-ebene-dauer: 720ms;
+  --tp-ebene-start: 1300ms;
+  --tp-ebene-takt: 340ms;
+  --tp-strich-dauer: 560ms;
+  --tp-strich-start: 1440ms;
+  --tp-strich-takt: 20ms;
+  --tp-lesehilfe: 2450ms;
+  --tp-lesehilfe-dauer: 760ms;
+  /* Station 04: Linie, Punkte entlang der Linie, Karte, Hinweis, Empfehlung */
+  --tp-linie-start: 1150ms;
+  --tp-linie-dauer: 1500ms;
+  --tp-startpunkt: 1050ms;
+  --tp-pfeil: 2600ms;
+  --tp-punkt-dauer: 620ms;
+  --tp-karte: 1750ms;
+  --tp-hinweis: 2750ms;
+  --tp-empfehlung: 3050ms;
+
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+  background: var(--color-eb-papier);
+  color: var(--color-eb-tinte);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+html.tp-offen,
+html.tp-offen body {
+  overflow: hidden;
+}
+
+.tp [hidden] {
+  display: none !important;
+}
+
+/* Ohne Gewicht (:where), damit die Klassen der Knöpfe Schrift und Größe setzen. */
+:where(.tp) button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tp button:focus-visible {
+  outline: 3px solid var(--color-tp-fokus);
+  outline-offset: 3px;
+}
+
+.tp-mitte {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.tp-mitte > * {
+  width: min(640px, 100%);
+}
+
+.tp-knopf {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-eb-navy);
+  color: var(--color-eb-weiss);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ─── Fluss: jede Station füllt den Bildschirm und rastet ein ────────────── */
+
+.tp-buehne {
+  position: relative;
+  height: 100%;
+}
+
+.tp-fluss {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  touch-action: pan-y;
+  outline: none;
+}
+
+.tp-fluss::-webkit-scrollbar {
+  display: none;
+}
+
+.tp-intro,
+.tp-station {
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--color-eb-papier);
+}
+
+/* ─── Kopf ────────────────────────────────────────────────────────────────── */
+
+.tp-kopf {
+  position: absolute;
+  z-index: 40;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 68px;
+  padding: 0 clamp(18px, 3vw, 50px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, var(--color-eb-papier) 67%, transparent);
+  pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease, visibility 0s;
+}
+
+.tp-kopf > * {
+  pointer-events: auto;
+}
+
+/* Kopf und Leiste erscheinen erst nach dem Intro. */
+.tp-am-intro .tp-kopf,
+.tp-am-intro .tp-leiste {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s;
+}
+
+.tp-am-intro .tp-kopf {
+  transform: translateY(-10px);
+}
+
+.tp-am-intro .tp-kopf > * {
+  pointer-events: none;
+}
+
+.tp-marke {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-eb-navy);
+  font: 600 24px var(--font-eb-titel);
+  letter-spacing: -.045em;
+}
+
+.tp-marke .tp-logo {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+}
+
+.tp-kopf-rechts {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tp-chip {
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 50px;
+  padding: 5px 11px;
+  color: var(--color-eb-leise);
+  font-size: 10px;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tp-chip-laeuft {
+  border-color: var(--color-eb-gold);
+  color: var(--color-eb-navy);
+}
+
+.tp-stationsanzeige {
+  color: var(--color-eb-navy);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tp-schliessen {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 50%;
+  background: var(--color-eb-weiss);
+  color: var(--color-eb-navy);
+}
+
+.tp-schliessen svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ─── Logo ────────────────────────────────────────────────────────────────── */
+
+.tp-logo-linie,
+.tp-logo-pfeil {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tp-logo-linie {
+  stroke: var(--color-eb-navy);
+  stroke-width: 2.8;
+}
+
+.tp-logo-pfeil {
+  stroke: var(--color-eb-gold);
+  stroke-width: 2.7;
+}
+
+.tp-logo-dick {
+  stroke-width: 3.7;
+}
+
+.tp-logo-punkt {
+  fill: var(--color-eb-navy);
+}
+
+/* ─── Stationsleiste mit Eddie ────────────────────────────────────────────── */
+
+.tp-leiste {
+  position: absolute;
+  z-index: 35;
+  left: clamp(20px, 3.4vw, 54px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 135px;
+  height: 324px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: opacity .35s ease, visibility 0s;
+}
+
+.tp-leiste-eintrag {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  width: 100%;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  color: var(--color-eb-leise);
+}
+
+.tp-leiste-punkt {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.tp-leiste-punkt::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--color-eb-nav-linie);
+  border-radius: 50%;
+  background: var(--color-eb-papier);
+}
+
+.tp-leiste-name {
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.tp-leiste-name small {
+  font-size: 10px;
+  letter-spacing: .13em;
+  color: var(--color-eb-leise);
+}
+
+.tp-leiste-eintrag[aria-current='step'],
+.tp-leiste-eintrag[aria-current='step'] small {
+  color: var(--color-eb-navy);
+  font-weight: 700;
+}
+
+.tp-eddie {
+  position: absolute;
+  z-index: 5;
+  left: 10px;
+  top: 9px;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  transform: translate(-50%, var(--tp-eddie, 0px));
+  transition: transform 790ms var(--tp-ease);
+}
+
+.tp-eddie::before {
+  content: '';
+  position: absolute;
+  inset: -13px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-tp-schein) 33%, transparent) 0%,
+    color-mix(in srgb, var(--color-tp-schein) 7%, transparent) 55%,
+    transparent 74%
+  );
+}
+
+.tp-eddie::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 25%,
+    var(--color-tp-kugel-hell) 0%,
+    var(--color-tp-kugel-mitte) 32%,
+    var(--color-tp-kugel-warm) 61%,
+    var(--color-tp-kugel-tief) 100%
+  );
+  box-shadow:
+    0 4px 12px color-mix(in srgb, var(--color-tp-kugel-tief) 40%, transparent),
+    inset -2px -3px 5px color-mix(in srgb, var(--color-tp-kugel-tief) 22%, transparent);
+}
+
+.tp-eddie b {
+  position: absolute;
+  z-index: 3;
+  left: 13px;
+  top: 10px;
+  width: 6px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-eb-weiss);
+  filter: blur(.5px);
+}
+
+/* ─── Szene: der Inhalt einer Station ─────────────────────────────────────── */
+
+.tp-szene {
+  height: 100%;
+  min-height: 0;
+  max-width: 1590px;
+  margin: auto;
+  padding: 76px clamp(28px, 5.2vw, 86px) 30px max(181px, 15vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tp-kicker {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--color-eb-navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+}
+
+.tp-kicker-nr {
+  color: var(--color-eb-nav-punkt);
+  font-size: 11px;
+  letter-spacing: .13em;
+}
+
+.tp-kicker i {
+  width: 27px;
+  height: 1px;
+  background: var(--color-eb-nav-punkt);
+}
+
+.tp-titel {
+  margin: 20px 0 12px;
+  color: var(--color-eb-tinte);
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-size: clamp(36px, 4.3vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -.042em;
+}
+
+.tp h1.tp-titel {
+  margin-top: 28px;
+  font-size: clamp(44px, 5vw, 78px);
+  line-height: 1.04;
+}
+
+.tp-desc {
+  max-width: 650px;
+  color: var(--color-eb-text);
+  font-size: clamp(13px, 1.15vw, 16px);
+  line-height: 1.65;
+}
+
+.tp-fusszeile {
+  color: var(--color-eb-leise);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.tp-etikett {
+  color: var(--color-eb-navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+/* ─── Bewegung: erster Besuch wie im Dummy, Wiederbesuch still ────────────── */
+
+.tp-reveal {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition-property: opacity, transform;
+  transition-duration: var(--tp-reveal-opacity), var(--tp-reveal-weg);
+  transition-timing-function: var(--tp-ease), var(--tp-soft);
+  transition-delay: var(--tp-verzoegerung, 0ms);
+}
+
+.tp-kicker {
+  --tp-verzoegerung: 130ms;
+}
+
+.tp-titel {
+  --tp-verzoegerung: 400ms;
+}
+
+.tp-desc {
+  --tp-verzoegerung: 760ms;
+}
+
+.tp-station.entered .tp-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.tp-station.motion-complete .tp-reveal {
+  transition: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@keyframes tp-zeile-ein {
+  from { opacity: 0; transform: translate3d(0, 7px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes tp-segment-ein {
+  from { opacity: .18; transform: scaleX(.06); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes tp-zeichnen {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes tp-blenden {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes tp-pop {
+  from { opacity: 0; transform: scale(.35); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes tp-label-ein {
+  from { opacity: 0; translate: 0 6px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* ─── Geräte ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp-szene {
+    padding-left: 165px;
+    padding-right: 27px;
+  }
+
+  .tp-leiste {
+    left: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tp-leiste {
+    left: 12px;
+    width: 84px;
+    height: 294px;
+  }
+
+  .tp-leiste-eintrag {
+    gap: 9px;
+    height: 46px;
+  }
+
+  .tp-eddie {
+    top: 6px;
+  }
+
+  .tp-leiste-name {
+    font-size: 10px;
+  }
+
+  .tp-leiste-name small {
+    font-size: 9px;
+  }
+
+  .tp-szene {
+    padding: 79px 23px 25px 111px;
+  }
+}
+
+@media (max-height: 720px) {
+  .tp-szene {
+    padding-top: 67px;
+    padding-bottom: 14px;
+  }
+
+  .tp-titel {
+    margin: 9px 0 8px;
+  }
+}
+
+/* Ruhig: alles sofort, ohne Bewegung. */
+@media (prefers-reduced-motion: reduce) {
+  .tp *,
+  .tp *::before,
+  .tp *::after {
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .tp-fluss {
+    scroll-behavior: auto;
+  }
+
+  .tp .tp-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

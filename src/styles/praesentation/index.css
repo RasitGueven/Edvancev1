@@ -1,0 +1,10 @@
+/* Tablet-Präsentation der LSA (T1–T4) — Vollbild über der App, Muster Dummy V7.
+   Ein Import in globals.css. Alles unter .tp; Farben nur aus --color-eb-* und
+   --color-tp-* (tokens.css), Ausnahmen in CLAUDE.md §11 „Tablet-Präsentation (LSA)".
+   Je Station eine eigene Datei, damit T3 und T4 parallel bauen können. */
+@import "./rahmen.css";
+@import "./intro.css";
+@import "./station1.css";
+@import "./station2.css";
+@import "./station3.css";
+@import "./station4.css";

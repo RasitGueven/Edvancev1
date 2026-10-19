@@ -1,0 +1,108 @@
+/* Tablet-Präsentation · Intro (T2). Ablauf und Zeiten wie im Dummy V7:
+   Logo 0,1 s, Kicker 0,55 s, Name 0,85 s, Unterzeile 1,1 s, „Gemeinsam
+   ansehen" 1,5 s — nach etwa 2,2 s steht alles. Wischen geht jederzeit. */
+
+.tp-intro::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: min(63vw, 550px);
+  height: min(63vw, 550px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-eb-weiss) 68%, transparent), transparent 68%);
+  pointer-events: none;
+}
+
+.tp-intro-innen {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 100px;
+  text-align: center;
+}
+
+.tp-intro-logo {
+  width: 89px;
+  height: 89px;
+  margin-bottom: 38px;
+  display: grid;
+  place-items: center;
+  animation: tp-intro-auf .8s .1s var(--tp-ease-intro) both;
+}
+
+.tp-intro-logo .tp-logo {
+  width: 88px;
+  height: 88px;
+}
+
+.tp-intro-kicker {
+  color: var(--color-eb-leise);
+  font-size: 14px;
+  letter-spacing: .035em;
+  animation: tp-intro-auf .7s .55s var(--tp-ease-intro) both;
+}
+
+.tp-intro-name {
+  margin: 12px 0 14px;
+  color: var(--color-eb-tinte);
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-size: clamp(70px, 10vw, 118px);
+  line-height: 1.1;
+  letter-spacing: -.042em;
+  animation: tp-intro-auf .8s .85s var(--tp-ease-intro) both;
+}
+
+.tp-intro-unterzeile {
+  color: var(--color-eb-leise);
+  font-size: 14px;
+  animation: tp-intro-auf .7s 1.1s var(--tp-ease-intro) both;
+}
+
+.tp-intro-los {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  min-height: 44px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--color-eb-leise);
+  font-size: 12px;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  animation: tp-intro-weiter .65s 1.5s both;
+}
+
+.tp-intro-pfeil {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-eb-nav-linie);
+  border-radius: 50%;
+  font-size: 17px;
+  transition: transform .25s;
+}
+
+.tp-intro-los:hover .tp-intro-pfeil {
+  transform: translateY(4px);
+}
+
+@keyframes tp-intro-auf {
+  from { opacity: 0; transform: translateY(17px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes tp-intro-weiter {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
