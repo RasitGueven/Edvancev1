@@ -1,1 +1,187 @@
-/* Eltern-Bericht R7 · Seite 5 — Nächste Schritte (R7-3). In R7-2 noch leer. */
+/* Eltern-Bericht R7 · Seite 5 — Nächste Schritte (Maßblatt E7, „Seite 5“).
+
+   Im Fluss, Abstände aus den Grundlinien des Musters (rahmen.css). Die Karten
+   der Mitgliedschaften sind SVG mit 1 Einheit = 1 pt, Schriftgrößen dort in
+   px = pt. In Klammern die Grundlinie bzw. Kante im Muster. */
+
+.eb-s5 {
+  display: flow-root;
+}
+
+.eb-s5-kicker {
+  margin-top: 24.32pt; /* (112,3) */
+}
+.eb-s5-titel {
+  margin-top: 16.66pt; /* (156,0) */
+  font-size: 27pt;
+  line-height: 32pt;
+  text-wrap: balance;
+}
+.eb-s5-intro {
+  margin-right: -1pt; /* Umbruch wie im Muster: Zeile 1 endet bei x 550,9 */
+  margin-top: 15.22pt; /* (187,6) */
+  font-size: 9.6pt;
+  line-height: 14pt;
+  color: var(--color-eb-text);
+}
+
+/* ─── Navy-Kasten (44,236)–(551,363) ──────────────────────────────────────── */
+
+.eb-s5-vorschlag {
+  box-sizing: border-box;
+  min-height: 127pt;
+  margin-top: 29.8pt;
+  padding: 16pt 18pt 12.56pt;
+  background: var(--color-eb-navy);
+  border-radius: 13pt;
+}
+.eb-s5-vorschlag-chip {
+  display: block;
+  width: fit-content;
+  box-sizing: border-box;
+  height: 17.3pt;
+  padding: 1.6pt 10pt 0;
+  border-radius: 8.7pt;
+  background: var(--color-eb-navy-chip);
+  font-size: 7.3pt; /* (263,3) */
+  line-height: 15.3pt;
+  text-transform: uppercase;
+  color: var(--color-eb-weiss);
+}
+.eb-s5-vorschlag-titel {
+  margin-top: 16.25pt; /* (302,0 / 324,6) */
+  font-size: 17.8pt;
+  line-height: 22.6pt;
+  color: var(--color-eb-weiss);
+  text-wrap: balance;
+}
+.eb-s5-vorschlag-zeile {
+  max-width: 469pt;
+  margin-top: 6.94pt; /* (346,6) */
+  padding-left: 1pt;
+  font-size: 8.65pt;
+  line-height: 12pt;
+  color: var(--color-eb-auf-navy);
+}
+
+/* ─── Mitgliedschaften, Karten y 422–574 ──────────────────────────────────── */
+
+.eb-s5-pakete-kicker {
+  margin-top: 31.32pt; /* (402,3) */
+}
+.eb-s5-karten {
+  display: flex;
+  gap: 12pt;
+  margin-top: 17.68pt;
+}
+.eb-s5-karte {
+  display: block;
+  overflow: visible;
+}
+.eb-s5-karte-flaeche {
+  fill: var(--color-eb-weiss);
+  stroke: var(--color-eb-linie);
+  stroke-width: 0.75;
+}
+.eb-s5-karte-vorschlag .eb-s5-karte-flaeche {
+  fill: var(--color-eb-mint-karte);
+  stroke: var(--color-eb-sicher);
+  stroke-width: 1.05;
+}
+.eb-s5-karte-kopf {
+  font-size: 7.1px;
+  text-transform: uppercase;
+  fill: var(--color-eb-leise);
+}
+.eb-s5-chip rect {
+  fill: var(--color-eb-mint);
+}
+.eb-s5-chip text {
+  font-size: 7px;
+  text-transform: uppercase;
+  fill: var(--color-eb-sicher-text);
+}
+.eb-s5-karte-name {
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 48;
+  font-size: 17px;
+  fill: var(--color-eb-navy);
+}
+.eb-s5-karte-linie {
+  stroke: var(--color-eb-linie);
+  stroke-width: 0.7;
+}
+.eb-s5-merkmal {
+  font-size: 8.5px;
+  fill: var(--color-eb-text);
+}
+.eb-s5-merkmal-1 {
+  fill: var(--color-eb-tinte);
+}
+.eb-s5-konditionen {
+  font-size: 7.4px;
+  fill: var(--color-eb-leise);
+}
+.eb-s5-pakete-hinweis {
+  margin-top: 15.6pt; /* (598,5) */
+  font-size: 8.5pt;
+  line-height: 12pt;
+  color: var(--color-eb-text);
+}
+
+/* ─── Kontakt (44,636)–(551,768), Trenner bei x 307,6 ─────────────────────── */
+
+.eb-s5-kontakt {
+  display: grid;
+  grid-template-columns: 263.6pt 1fr;
+  box-sizing: border-box;
+  min-height: 132pt;
+  margin-top: 33.6pt;
+  background: var(--color-eb-weiss);
+  border: 0.8pt solid var(--color-eb-linie);
+  border-radius: 12pt;
+}
+.eb-s5-kontakt-person,
+.eb-s5-kontakt-fragen {
+  padding: 17.42pt 16pt 16pt 15.2pt; /* Kicker (661,3) bei x 60 bzw. 323,6 */
+}
+.eb-s5-kontakt-fragen {
+  position: relative;
+  padding-left: 15.6pt;
+}
+.eb-s5-kontakt-fragen::before {
+  content: '';
+  position: absolute;
+  left: -0.375pt;
+  top: 17.2pt;
+  bottom: 16.2pt;
+  width: 0.75pt;
+  background: var(--color-eb-linie);
+}
+.eb-s5-kontakt-name {
+  margin-top: 15.74pt; /* (694,0) */
+  font-size: 16pt;
+  line-height: 20pt;
+}
+.eb-s5-kontakt-rolle {
+  margin-top: 7.24pt; /* (714,5) */
+  font-size: 8.5pt;
+  line-height: 11pt;
+  color: var(--color-eb-text);
+}
+.eb-s5-kontakt-mail {
+  display: block;
+  margin-top: 12.7pt; /* (738,2) */
+  font-size: 9.25pt;
+  line-height: 12pt;
+  color: var(--color-eb-sicher-text);
+  text-decoration: none;
+}
+.eb-s5-fragen-text {
+  max-width: 200pt;
+  margin-top: 16.73pt; /* (689,2) */
+  font-size: 9.2pt;
+  line-height: 13.7pt;
+  color: var(--color-eb-text);
+}
