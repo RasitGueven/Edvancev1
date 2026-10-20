@@ -13,8 +13,9 @@ Stand 20.10.2026 · Migration `20261020150943_slots_w1_raum` · Bauauftrag `Baua
 4. **Altbestand ohne Raum.** In Prod eine Testzeile in `stammplaetze` (raum_id null). Sie wird weiter verteilt wie bisher.
    Ändern verlangt einen Raum („Raum festlegen“ in W3). `stammplaetze_weiterfuehren` übernimmt den Raum des Vorgängers
    und bricht bei Altbestand mit `raum_fehlt` ab.
-5. **Vorschau-Budget ist eine Näherung.** `stammplatz_vorschau` nimmt an, dass Stammplätze am selben Wochentag ab
-   `p_ab` ersetzt werden. Ein Datum, an dem das Kind schon einen festen Termin hat, erscheint als `termin`.
+5. **Vorschau.** Ohne `p_ersetzt` nimmt `stammplatz_vorschau` an, dass Stammplätze am selben Wochentag ab `p_ab`
+   ersetzt werden (W3 gibt beim Ändern `p_ersetzt` mit). Ein Datum, an dem das Kind schon einen festen Termin hat,
+   erscheint als `termin`; ein Testkonto-Konflikt (SL013) als `voll`.
 6. **`stammplatz_kurz` ist deutscher Text** (Wochentag-Kürzel), wie im Auftrag verlangt. Die Oberfläche nimmt zum
    Anzeigen `stammplaetze` (Wochentag, Beginn, Raum, Takt) über i18n.
 7. **Coach am Stammplatz** (`slots_kinder`, `slots_kind`) ist der Coach der Schicht am ersten Tag (heute oder gültig ab).

@@ -121,6 +121,7 @@ describe('Slots-Schreibfunktionen', () => {
     await s.ladeStammplatzVorschau('ZZ_k', 4, 'ZZ_z', 'ZZ_r', 'a_woche', '2028-03-16')
     expect(rpc).toHaveBeenLastCalledWith('stammplatz_vorschau', {
       p_student_id: 'ZZ_k', p_wochentag: 4, p_slot_zeit_id: 'ZZ_z', p_raum_id: 'ZZ_r', p_takt: 'a_woche', p_ab: '2028-03-16',
+      p_ersetzt: null,
     })
     await s.stammschichtBlockAnlegen('ZZ_c', 4, 'ZZ_z14', 'ZZ_z17', 'ZZ_r')
     expect(rpc).toHaveBeenLastCalledWith('stammschicht_block_anlegen', {

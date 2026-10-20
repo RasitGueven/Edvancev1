@@ -88,12 +88,16 @@ export function ladeKandidatenAlle(datum: string, zeitId: string, raumId: string
     'Kandidaten konnten nicht geladen werden')
 }
 
-/** W1: die nächsten sechs Wochen ab `ab` an diesem Wochentag, je Datum ein Ergebnis mit Grund. */
+/**
+ * W1: die nächsten sechs Wochen ab `ab` an diesem Wochentag, je Datum ein Ergebnis mit Grund. ersetzt = Stammplätze,
+ * die mit `ab` enden (Ändern); null = die am selben Wochentag.
+ */
 export function ladeStammplatzVorschau(
-  studentId: string, wochentag: number, zeitId: string, raumId: string, takt: Takt, ab: string,
+  studentId: string, wochentag: number, zeitId: string, raumId: string, takt: Takt, ab: string, ersetzt: string[] | null = null,
 ): Promise<SlotsResult<StammplatzVorschauZeile[]>> {
   return rpc('stammplatz_vorschau', {
     p_student_id: studentId, p_wochentag: wochentag, p_slot_zeit_id: zeitId, p_raum_id: raumId, p_takt: takt, p_ab: ab,
+    p_ersetzt: ersetzt,
   }, 'Vorschau konnte nicht geladen werden')
 }
 

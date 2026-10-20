@@ -170,7 +170,7 @@ select is(pg_temp.hint(format($f$select stammplatz_aendern(%L, '2027-11-16', 2, 
 
 -- ── 6) stammplatz_vorschau ──────────────────────────────────────────────────────────────────────
 -- A-Takt montags ab 18.10.2027: KW 42 B, 25.10. Herbstferien, 01.11. Allerheiligen, 08.11. A, 15.11. B, 22.11. A.
-create temp table vs as select * from stammplatz_vorschau(:'k7', 1, pg_temp.zeit(15), pg_temp.raum('Raum 1'), 'a_woche', '2027-10-18', :jetzt);
+create temp table vs as select * from stammplatz_vorschau(:'k7', 1, pg_temp.zeit(15), pg_temp.raum('Raum 1'), 'a_woche', '2027-10-18', null, :jetzt);
 select is((select array_agg(ergebnis order by datum) from vs),
           array['andere_woche', 'ferien', 'feiertag', 'termin', 'andere_woche', 'termin'], '6 A-Takt: Gründe je Datum');
 select is((select array_agg(datum order by datum) from vs),
@@ -179,11 +179,11 @@ select is((select anlass from vs where datum = '2027-11-01'), 'Allerheiligen', '
 select is((select anlass from vs where datum = '2027-10-25'), 'Herbst 2027', '6 Anlass Ferien');
 select is((select coach_name from vs where datum = '2027-11-08'), 'Coach Anna', '6 Coach aus der Schicht');
 select is((select belegt from vs where datum = '2027-11-08'), 0, '6 belegt ohne dieses Kind');
-select ok(exists (select 1 from stammplatz_vorschau(:'k7', 3, pg_temp.zeit(16), pg_temp.raum('Raum 1'), 'woechentlich', '2027-10-13', :jetzt)
+select ok(exists (select 1 from stammplatz_vorschau(:'k7', 3, pg_temp.zeit(16), pg_temp.raum('Raum 1'), 'woechentlich', '2027-10-13', null, :jetzt)
                    where ergebnis = 'voll' and belegt = 5), '6 voll: Raum 1 Mi 16 Uhr');
 select ok((select bool_and(ergebnis in ('ohne_coach', 'ferien', 'feiertag'))
-             from stammplatz_vorschau(:'k7', 3, pg_temp.zeit(16), pg_temp.raum('Raum 3'), 'woechentlich', '2027-10-13', :jetzt))
-          and exists (select 1 from stammplatz_vorschau(:'k7', 3, pg_temp.zeit(16), pg_temp.raum('Raum 3'), 'woechentlich', '2027-10-13', :jetzt)
+             from stammplatz_vorschau(:'k7', 3, pg_temp.zeit(16), pg_temp.raum('Raum 3'), 'woechentlich', '2027-10-13', null, :jetzt))
+          and exists (select 1 from stammplatz_vorschau(:'k7', 3, pg_temp.zeit(16), pg_temp.raum('Raum 3'), 'woechentlich', '2027-10-13', null, :jetzt)
                        where ergebnis = 'ohne_coach' and coach_id is null), '6 ohne_coach: Raum 3');
 select pg_temp.k('Bea Budget') as kb \gset
 -- Einheiten folgen sonst aus dem Paket (vertraege_guard); für den Test ohne Trigger auf zwei setzen.
@@ -191,7 +191,7 @@ set local session_replication_role = replica;
 update vertraege set einheiten = 2 where student_id = :'kb';
 set local session_replication_role = origin;
 select is((select array_agg(ergebnis order by datum)
-             from stammplatz_vorschau(:'kb', 5, pg_temp.zeit(14), pg_temp.raum('Raum 1'), 'woechentlich', '2027-10-15', :jetzt)),
+             from stammplatz_vorschau(:'kb', 5, pg_temp.zeit(14), pg_temp.raum('Raum 1'), 'woechentlich', '2027-10-15', null, :jetzt)),
           array['termin', 'termin', 'ferien', 'ferien', 'ohne_budget', 'ohne_budget'], '6 ohne_budget nach zwei Einheiten');
 
 -- ── 7) slots_kandidaten_alle ────────────────────────────────────────────────────────────────────
@@ -326,6 +326,47 @@ select is((select jsonb_build_object('raum', s -> 'raum_name', 'coach', s -> 'co
           '{"raum": "Raum 3", "coach": null}'::jsonb, '10 Raum ohne Schicht: kein Coach');
 select ok((select (z ->> 'laeuft')::boolean is not null from jsonb_array_elements(slots_woche('2027-11-08', :jetzt) -> 'zellen') z limit 1),
           '10 Zellen tragen laeuft');
+
+-- ── 12) Zweitprüfung: Belegung mit beweglichen Kindern, Raumwechsel-Grenzen, Vorschau beim Ändern ─────
+-- a) Raum 2 fällt Do 25.11. 19 Uhr aus; fünf Zusatztermine ohne Raum füllen Raum 1 (bewegliche Kinder).
+select lives_ok(format($f$select termin_coach_setzen('2027-11-25', %L, %L, null, %L)$f$, pg_temp.zeit(19), pg_temp.raum('Raum 2'), :jetzt),
+                '12a Raum 2 fällt Do 25.11. 19 Uhr aus');
+create temp table beweglich as select n, pg_temp.k('Bo' || n || ' Beweglich') as student from generate_series(1, 6) n;
+select is((select count(*)::int from beweglich b, lateral zusatztermin_buchen(b.student, '2027-11-25', pg_temp.zeit(19), :jetzt) x where b.n <= 5),
+          5, '12a fünf Zusatztermine ohne Raum');
+select is(slots_raum_belegt('2027-11-25', pg_temp.zeit(19), pg_temp.raum('Raum 1')), 0, '12a keiner davon fest in Raum 1');
+select throws_ok(format($f$select zusatztermin_buchen(%L, '2027-11-25', %L, %L, %L)$f$,
+                        (select student from beweglich where n = 6), pg_temp.zeit(19), :jetzt, pg_temp.raum('Raum 1')),
+                 'SL001', null, '12a fester Zusatztermin in Raum 1 -> SL001, der Termin ist mit beweglichen Kindern voll');
+select is((select code from slots_kandidaten_alle('2027-11-25', pg_temp.zeit(19), pg_temp.raum('Raum 1'), :jetzt)
+            where student_id = (select student from beweglich where n = 6)), 'SL001', '12a Kandidaten: SL001');
+-- b) Kinder im Raum ohne Coach (Mi 10.11. 16 Uhr, Abschnitt 10) zählen nicht zusätzlich als ohne Raum.
+select is((select (z ->> 'ohne_raum')::int from jsonb_array_elements(slots_woche('2027-11-08', :jetzt) -> 'zellen') z
+            where z ->> 'datum' = '2027-11-10' and z ->> 'zeit_id' = pg_temp.zeit(16)::text), 0,
+          '12b Zelle: Kinder im Raum ohne Coach nicht unter ohne Raum');
+-- c) Raumwechsel mit Kindern: im Zielraum höchstens fünf.
+select is((select count(*)::int from beweglich b, lateral stammplatz_vergeben(b.student, pg_temp.rzeilen('1:15:woechentlich:Raum 4'), '2027-11-22', :jetzt) x
+            where b.n <= 4), 4, '12c vier Kinder Mo 15 Uhr in Raum 4 (Coach Cem)');
+select throws_ok(format($f$select stammschicht_raum_wechseln(%L, %L, '2027-11-29', true, %L)$f$,
+                        (select array_agg(id) from stammschichten where coach_id = :'coach_c' and raum_id = pg_temp.raum('Raum 4')),
+                        pg_temp.raum('Raum 3'), :jetzt),
+                 'SL001', null, '12c zurück nach Raum 3 mit Kindern: 4 + 2 > 5 -> SL001');
+select is((select count(*)::int from stammschichten where coach_id = :'coach_c' and raum_id = pg_temp.raum('Raum 4') and gueltig_bis is null),
+          4, '12c alles oder nichts: Schichten unverändert');
+-- d) Zwei Schichten derselben Stunde in einem Aufruf -> SL009.
+select is(pg_temp.hint(format($f$select stammschicht_raum_wechseln(%L, %L, '2027-12-06', false, %L)$f$,
+                              (select array_agg(s.id) from stammschichten s where s.wochentag = 5 and s.slot_zeit_id = pg_temp.zeit(14)
+                                  and s.coach_id in (:'coach_a', :'coach_b')), pg_temp.raum('Raum 4'), :jetzt)),
+          'doppelt', '12d zwei Schichten derselben Stunde -> SL009 doppelt');
+-- e) Vorschau beim Ändern: p_ersetzt nimmt den bisherigen Stammplatz aus dem Budget.
+select lives_ok(format($f$select stammplatz_vergeben(%L, %L, '2027-10-18', %L)$f$, :'kb', pg_temp.rzeilen('1:14:woechentlich:Raum 1'), :jetzt),
+                '12e Bea (zwei Einheiten): Stammplatz Mo 14 Uhr');
+select is((select array_agg(ergebnis order by datum) from stammplatz_vorschau(:'kb', 5, pg_temp.zeit(14), pg_temp.raum('Raum 1'), 'woechentlich',
+                                                                            '2027-10-15', null, :jetzt)),
+          array['termin', 'ohne_budget', 'ferien', 'ferien', 'ohne_budget', 'ohne_budget'], '12e ohne p_ersetzt zählt der Montag mit');
+select is((select array_agg(ergebnis order by datum) from stammplatz_vorschau(:'kb', 5, pg_temp.zeit(14), pg_temp.raum('Raum 1'), 'woechentlich',
+                                                                            '2027-10-15', (select array_agg(id) from stammplaetze where student_id = :'kb'), :jetzt)),
+          array['termin', 'termin', 'ferien', 'ferien', 'ohne_budget', 'ohne_budget'], '12e mit p_ersetzt ist der Montag ersetzt');
 
 -- ── 11) Rechte ──────────────────────────────────────────────────────────────────────────────────
 select pg_temp.als(:'coach_a');

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 15MytGvHwTIeO3tDvko4D7iniVKnjISgDciMv2pgtC5zkEPbBsBgkrmEGGW0OG6
+\restrict WXh2RECUIBbh8IYhVglApRg17mqzByodOT7tasPtzijNw9JbLrKYNSAkS6DDwhO
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -14842,7 +14842,7 @@ begin
     elsif c.r is not null then
       -- W1 (Entscheidung 2): Stammplatz mit Raum nur in diesen Raum, wenn er offen ist und Platz hat.
       if public.slots_raum_offen(c.d, c.z, c.r)
-         and public.slots_raum_belegt(c.d, c.z, c.r, v.student_id) < 5
+         and public.slots_raum_platz(c.d, c.z, c.r, v.student_id)
          and not public.slots_art_konflikt(v.student_id, c.d, c.z) then
         ergebnis := 'neu'; v_rest := v_rest - 1;
       else
@@ -15079,6 +15079,19 @@ $$;
 
 
 --
+-- Name: slots_raum_platz(date, uuid, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_raum_platz(p_datum date, p_slot_zeit_id uuid, p_raum_id uuid, p_ohne_student uuid DEFAULT NULL::uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.slots_raum_belegt(p_datum, p_slot_zeit_id, p_raum_id, p_ohne_student) < 5
+     and public.slot_belegt(p_datum, p_slot_zeit_id, p_ohne_student) < public.slot_kapazitaet(p_datum, p_slot_zeit_id);
+$$;
+
+
+--
 -- Name: slots_raum_pruefen(jsonb, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -15200,7 +15213,7 @@ begin
         elsif public.slots_art_konflikt(p_student_id, f.datum, z.sz) then
           v_out := v_out || jsonb_build_object('code', 'SL013', 'zeile', z.i, 'datum', f.datum);
           exit;
-        elsif public.slots_raum_belegt(f.datum, z.sz, z.r, p_student_id) >= 5 then
+        elsif not public.slots_raum_platz(f.datum, z.sz, z.r, p_student_id) then
           v_out := v_out || jsonb_build_object('code', 'SL001', 'zeile', z.i, 'datum', f.datum);
           exit;
         end if;
@@ -15823,10 +15836,11 @@ CREATE FUNCTION public.slots_zelle(p_datum date, p_zeit_id uuid) RETURNS jsonb
   select jsonb_build_object(
     'kapazitaet', 5 * (select count(*) from r where r.offen),
     'belegt', (select count(*) from t),
-    'ohne_raum', (select count(*) from t where t.raum_id is null),
+    -- W1: Kinder im Raum ohne Coach zählen dort (raeume[].belegt), nicht zusätzlich als ohne Raum.
+    'ohne_raum', (select count(*) from t where t.raum_id is null and t.zu_raum is null),
     -- SL2b (Entscheidungen 2 und 3): davon Testkonten. belegt zählt sie mit, der Platz ist belegt.
     'test', (select count(*) from t where t.ist_test),
-    'test_ohne_raum', (select count(*) from t where t.ist_test and t.raum_id is null),
+    'test_ohne_raum', (select count(*) from t where t.ist_test and t.raum_id is null and t.zu_raum is null),
     'coach_fehlt', (select count(*) from r where r.art = 'faellt_aus' and r.stamm_coach_id is not null),
     'raeume', coalesce((select jsonb_agg(jsonb_build_object(
                  'raum_id', r.raum_id, 'name', r.raum_name, 'offen', r.offen, 'art', r.art,
@@ -15985,7 +15999,7 @@ begin
   if public.slots_art_konflikt(p_student_id, p_datum, p_slot_zeit_id) then
     return 'SL013';
   end if;
-  if public.slots_raum_belegt(p_datum, p_slot_zeit_id, p_raum_id, p_student_id) >= 5 then
+  if not public.slots_raum_platz(p_datum, p_slot_zeit_id, p_raum_id, p_student_id) then
     return 'SL001';
   end if;
   if (select v.einheiten from public.vertraege v where v.id = v_vertrag)
@@ -16246,10 +16260,10 @@ $$;
 
 
 --
--- Name: stammplatz_vorschau(uuid, integer, uuid, uuid, text, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+-- Name: stammplatz_vorschau(uuid, integer, uuid, uuid, text, date, uuid[], timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.stammplatz_vorschau(p_student_id uuid, p_wochentag integer, p_slot_zeit_id uuid, p_raum_id uuid, p_takt text, p_ab date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS TABLE(datum date, ergebnis text, anlass text, belegt integer, coach_id uuid, coach_name text)
+CREATE FUNCTION public.stammplatz_vorschau(p_student_id uuid, p_wochentag integer, p_slot_zeit_id uuid, p_raum_id uuid, p_takt text, p_ab date, p_ersetzt uuid[] DEFAULT NULL::uuid[], p_jetzt timestamp with time zone DEFAULT now()) RETURNS TABLE(datum date, ergebnis text, anlass text, belegt integer, coach_id uuid, coach_name text)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -16273,12 +16287,14 @@ begin
   v_erster := v_ab + (p_wochentag - extract(isodow from v_ab)::int + 7) % 7;
   v_vertrag := coalesce(public.slots_vertrag_am(p_student_id, v_erster), public.slots_vertrag(p_student_id, v_heute));
 
-  -- Budget wie die Planung: bestehende Stammplätze des Vertrags (am selben Wochentag ab p_ab ersetzt) plus dieser.
+  -- Budget wie die Planung: bestehende Stammplätze des Vertrags plus dieser. Ab p_ab ersetzt sind p_ersetzt (Ändern),
+  -- ohne Angabe die am selben Wochentag.
   if v_vertrag is not null then
     select coalesce(jsonb_agg(jsonb_build_object(
              'stammplatz_id', s.id, 'wochentag', s.wochentag, 'slot_zeit_id', s.slot_zeit_id, 'takt', s.takt,
              'gueltig_ab', s.gueltig_ab, 'raum_id', s.raum_id,
-             'gueltig_bis', case when s.wochentag = p_wochentag and coalesce(s.gueltig_bis, v_ab) >= v_ab
+             'gueltig_bis', case when (case when p_ersetzt is null then s.wochentag = p_wochentag else s.id = any (p_ersetzt) end)
+                                      and coalesce(s.gueltig_bis, v_ab) >= v_ab
                                  then greatest(s.gueltig_ab - 1, v_ab - 1) else s.gueltig_bis end)), '[]')
       into v_sp
       from public.stammplaetze s where s.vertrag_id = v_vertrag;
@@ -16307,7 +16323,8 @@ begin
       belegt := public.slots_raum_belegt(d, p_slot_zeit_id, p_raum_id, p_student_id);
       if v_coach is null then
         ergebnis := 'ohne_coach';
-      elsif belegt >= 5 or public.slots_art_konflikt(p_student_id, d, p_slot_zeit_id) then
+      elsif not public.slots_raum_platz(d, p_slot_zeit_id, p_raum_id, p_student_id)
+            or public.slots_art_konflikt(p_student_id, d, p_slot_zeit_id) then
         ergebnis := 'voll';
       elsif public.slots_vertrag_am(p_student_id, d) is null
             or exists (select 1 from jsonb_array_elements(v_plan) x
@@ -16505,6 +16522,10 @@ begin
   end if;
 
   -- Erst alles prüfen (alles oder nichts).
+  if exists (select 1 from public.stammschichten x where x.id = any (p_ids)
+              group by x.wochentag, x.slot_zeit_id having count(*) > 1) then
+    perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach): zwei Schichten derselben Stunde', 'doppelt');
+  end if;
   for s in
     select x.*, z.beginn from public.stammschichten x join public.slot_zeiten z on z.id = x.slot_zeit_id
      where x.id = any (p_ids) order by x.wochentag, z.beginn
@@ -16520,6 +16541,13 @@ begin
                   and not y.id = any (p_ids) and coalesce(y.gueltig_bis, 'infinity'::date) >= p_ab) then
       perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach) um ' || public.slots_hhmm(s.beginn),
                                   'raum:' || public.slots_hhmm(s.beginn));
+    end if;
+    -- Mit Kindern: Im Zielraum sitzen danach höchstens fünf Kinder mit Stammplatz (SL001, hint raum:HH:MM).
+    if coalesce(p_kinder_mitnehmen, false)
+       and (select count(distinct x.student_id) from public.stammplaetze x
+             where x.raum_id in (s.raum_id, p_raum_id) and x.wochentag = s.wochentag and x.slot_zeit_id = s.slot_zeit_id
+               and least(coalesce(x.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(x.vertrag_id)) >= p_ab) > 5 then
+      perform public.slots_fehler('SL001', 'Raum voll um ' || public.slots_hhmm(s.beginn), 'raum:' || public.slots_hhmm(s.beginn));
     end if;
   end loop;
 
@@ -27906,5 +27934,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 15MytGvHwTIeO3tDvko4D7iniVKnjISgDciMv2pgtC5zkEPbBsBgkrmEGGW0OG6
+\unrestrict WXh2RECUIBbh8IYhVglApRg17mqzByodOT7tasPtzijNw9JbLrKYNSAkS6DDwhO
 

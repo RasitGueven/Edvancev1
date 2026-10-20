@@ -843,7 +843,8 @@ dieselbe wie bei `naechster_termin`, den `quest_erzeugen`, `session_kind_kontext
   Zeile in `stammplatz_vergeben` braucht `raum_id`; ohne Raum **22023** mit Hinweis `raum_fehlt`. Ebenso
   `stammplaetze_weiterfuehren` (übernimmt den Raum des Vorgängers). Der Coach ergibt sich aus der Schicht des Raums.
 - **Planung je Raum.** Termine aus einem Stammplatz mit Raum entstehen fest im Raum (`raum_id`, `raum_fest`), nur wenn
-  der Raum an dem Tag offen ist (Coach eingeteilt) und dort weniger als fünf Kinder sitzen; sonst übersprungen
+  der Raum an dem Tag offen ist (Coach eingeteilt), dort weniger als fünf Kinder fest sitzen und der Termin insgesamt
+  noch Platz hat (bewegliche Kinder ohne Raum-Stift zählen mit); sonst übersprungen
   (Planbilanz `uebersprungen`), auch wenn ein Nachbarraum frei ist. Ein fester Termin, dessen Raum voll oder ohne
   Coach ist, bleibt in der Zuteilung **ohne Raum** (`grund` `raum_voll` / `raum_zu`) und landet nie still woanders.
 - **SL001 / SL002 je Raum.** Mit Raum heißt SL002 „dieser Raum hat zu der Zeit keinen Coach“, SL001 „dieser Raum ist
@@ -854,15 +855,16 @@ dieselbe wie bei `naechster_termin`, den `quest_erzeugen`, `session_kind_kontext
 |---|---|---|
 | `stammplatz_aendern(…, p_raum_id uuid default null)` | wie bisher | ohne `p_raum_id` bleibt der Raum des bisherigen Stammplatzes; ohne beide `raum_fehlt` |
 | `zusatztermin_buchen(…, p_raum_id uuid default null)` | wie bisher | mit Raum: fest im Raum, SL002/SL001 für diesen Raum |
-| `stammplatz_vorschau(p_student_id, p_wochentag, p_slot_zeit_id, p_raum_id, p_takt, p_ab)` | `StammplatzVorschauZeile[]` | 22023 |
+| `stammplatz_vorschau(p_student_id, p_wochentag, p_slot_zeit_id, p_raum_id, p_takt, p_ab, p_ersetzt uuid[] default null)` | `StammplatzVorschauZeile[]` | 22023 |
 | `slots_kandidaten_alle(p_datum, p_zeit_id, p_raum_id)` | `SlotsKandidatAlle[]` | 22023 |
 | `stammschicht_block_anlegen(p_coach_id, p_wochentag, p_von_zeit_id, p_bis_zeit_id, p_raum_id, p_gueltig_ab default heute)` | `{ stammschicht_ids, stunden }` | SL007, SL009 (Hinweis `raum:HH:MM` / `coach:HH:MM`), 22023 `von_bis`, `kein_coach` |
-| `stammschicht_raum_wechseln(p_ids uuid[], p_raum_id, p_ab, p_kinder_mitnehmen boolean)` | `{ stammschicht_ids, stammplatz_ids, kinder }` | SL007, SL009 (`raum:HH:MM`), 22023 `gleicher_raum`, `raum_inaktiv` |
+| `stammschicht_raum_wechseln(p_ids uuid[], p_raum_id, p_ab, p_kinder_mitnehmen boolean)` | `{ stammschicht_ids, stammplatz_ids, kinder }` | SL007, SL009 (`raum:HH:MM`, `doppelt`), SL001 (`raum:HH:MM`, mit Kindern mehr als fünf), 22023 `gleicher_raum`, `raum_inaktiv` |
 
 - **`stammplatz_vorschau`:** sechs Daten (der Wochentag ab `p_ab`, dann wöchentlich) mit `ergebnis` `termin`,
   `ferien`, `feiertag` (`anlass` = Name), `andere_woche` (Takt), `voll` (fünf Kinder oder Kind der anderen Art),
   `ohne_coach`, `ohne_budget`. `belegt` = Kinder im Raum ohne dieses Kind, `coach_id`/`coach_name` aus der Schicht.
-  Das Budget rechnet wie die Planung; Stammplätze am selben Wochentag gelten ab `p_ab` als ersetzt.
+  Das Budget rechnet wie die Planung; ab `p_ab` ersetzt sind `p_ersetzt` (Ändern), ohne Angabe die Stammplätze am
+  selben Wochentag.
 - **`slots_kandidaten_alle`:** alle Kinder mit abgeschlossenem Vertrag oder Testkonto (ohne vorläufige), je Kind genau
   eine Zeile. `code` = null genau dann, wenn `zusatztermin_buchen(…, p_raum_id)` gelingt; sonst ein SL-Code,
   `kein_vertrag` oder `vertrag_ab` (`datum` = Beginn). `stammplatz_kurz` („Mi 16:00 · A1“) ist nur Text; zum Anzeigen
