@@ -4,7 +4,7 @@ Stand 20.10.2026, Branch `feat/rasit-praesentation-stationen12`.
 
 ## Offen
 
-1. **Ansichtstests laufen ohne „reduzierte Bewegung“ (Fehler in T2, `e2e-praesentation/praesentation.spec.ts:63`).**
+1. **Ansichtstests liefen ohne „reduzierte Bewegung“ (Fehler in T2, `e2e-praesentation/praesentation.spec.ts:63`, in diesem PR behoben).**
    `test.use({ reducedMotion: 'reduce' })` wirkt in Playwright 1.61 nicht: `matchMedia('(prefers-reduced-motion: reduce)')`
    bleibt `false`. Die Prüfungen messen deshalb mitten in der Bewegung des ersten Besuchs. Bei T2 fiel das nicht auf,
    weil Kicker und Titel nach gut einer Sekunde stehen. In Station 01 blendet das Bild mit den Karten nach 1035 ms ein
@@ -13,7 +13,8 @@ Stand 20.10.2026, Branch `feat/rasit-praesentation-stationen12`.
    - Richtig ist `test.use({ contextOptions: { reducedMotion: 'reduce' } })` (gegengeprüft: `matchMedia` dann `true`).
    - Mit dieser einen Zeile laufen alle 164 Ansichtstests grün (Kopie des Specs außerhalb von `e2e-praesentation/`,
      Port 5186). Mit dem Stand von dev schlagen die Maße fehl, deren Messung vor 1035 ms + 760 ms liegt.
-   - `e2e-praesentation/**` gehört laut Auftrag nicht zu T3. T4 (parallel) trifft dasselbe.
+   - `e2e-praesentation/**` gehört laut Auftrag nicht zu T3. Auf Rasits Entscheidung (20.10.) korrigiert T3 die
+     Zeile trotzdem in diesem PR. T4 (parallel) trifft dasselbe; dieselbe Änderung dort führt beim Merge zu keinem Konflikt.
 2. **Port 5186** war zu Beginn von einem anderen Worktree (`Edvancev1-r7e`) belegt. Zwischenläufe liefen auf 5196,
    der Schlusslauf auf 5186.
 3. **Zeiten für Station 01:** `rahmen.css` führt nur Zeiten für 02–04. Die Verzögerungen für Leitsatz, Bild, Zeile
