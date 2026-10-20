@@ -2,9 +2,10 @@ import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { anzeigeZahlen } from '@/lib/report/praesentation/praesentation'
-import type { TpAnzeige, TpAnzeigeZahlen, TpEbene } from '@/types'
+import type { TpAnzeige, TpEbene } from '@/types'
 
 import { useKlassen } from './useKlassen'
+import { Zaehlung } from './Zaehlung'
 
 /** Lücke zwischen den Segmenten: 4 px bis 16, 2 px bis 30, darüber 1 px (Entscheidung 8). */
 export function lueckenKlasse(segmente: number): string {
@@ -28,24 +29,6 @@ function segmente(e: TpEbene): Art[] {
     ...Array<Art>(e.uebung).fill('uebung'),
     ...Array<Art>(e.uebersprungen).fill('ueber'),
   ]
-}
-
-/** Zählung einer Ebene je Zählweise, nur Teile ungleich null. */
-function Zaehlung({ z }: { z: TpAnzeigeZahlen }): JSX.Element {
-  const { t } = useTranslation('praesentation')
-  return (
-    <p className="tp-s3-zaehlung">
-      {z.sicher > 0 && <span className="tp-s3-z-sicher">{t('zaehlung.sicher', { count: z.sicher })}</span>}
-      {z.uebung > 0 && <span className="tp-s3-z-uebung">{t('zaehlung.uebung', { count: z.uebung })}</span>}
-      {z.dritte && (
-        <span className={z.dritte.art === 'davon' ? 'tp-s3-z-davon' : 'tp-s3-z-ueber'}>
-          {t(z.dritte.art === 'davon' ? 'zaehlung.davonUebersprungen' : 'zaehlung.uebersprungen', {
-            count: z.dritte.wert,
-          })}
-        </span>
-      )}
-    </p>
-  )
 }
 
 /**
@@ -89,10 +72,10 @@ export function Pyramide({ ebenen, anzeige }: { ebenen: TpEbene[]; anzeige: TpAn
             </div>
             <div className={`tp-s3-spur ${lueckenKlasse(teile.length)}`} role="img" aria-label={aria}>
               {teile.map((art, k) => (
-                <i key={k} className={`tp-s3-seg tp-s3-seg-${art}`} style={{ '--k': k } as CSSProperties} />
+                <i key={k} className={`tp-s3-seg tp-s3-seg-${art}${art === 'ueber' ? ' tp-muster-ueber' : ''}`} style={{ '--k': k } as CSSProperties} />
               ))}
             </div>
-            <Zaehlung z={z} />
+            <Zaehlung anteile={e} anzeige={anzeige} className="tp-s3-zaehlung" farbig />
           </li>
         )
       })}

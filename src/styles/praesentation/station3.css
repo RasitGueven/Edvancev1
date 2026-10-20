@@ -81,6 +81,9 @@
   flex: 1;
   min-width: 0;
   border-radius: 4px;
+}
+
+.tp .tp-s3-seg-sicher {
   background: var(--color-eb-sicher);
 }
 
@@ -92,34 +95,19 @@
   background: var(--color-eb-uebung);
 }
 
-/* „übersprungen": Punkte, nie Streifen (Streifen heißen im Druckbogen „nicht untersucht"). */
-.tp .tp-s3-seg-ueber {
-  border: 1px solid var(--color-tp-ueber-rand);
-  background:
-    radial-gradient(circle, var(--color-tp-ueber-punkt) 1.2px, transparent 1.7px) 0 0 / 5px 5px,
-    var(--color-tp-ueber-grund);
+/* „übersprungen": Punktmuster aus rahmen.css (.tp-muster-ueber); getrennt neutral. */
+.tp .tp-s3-getrennt {
+  --tp-ueber-punkt: var(--color-tp-ueber-neutral-punkt);
+  --tp-ueber-grund: var(--color-tp-ueber-neutral-grund);
+  --tp-ueber-rand: var(--color-tp-ueber-neutral-rand);
 }
 
-.tp .tp-s3-getrennt .tp-s3-seg-ueber {
-  border-color: var(--color-tp-ueber-neutral-rand);
-  background:
-    radial-gradient(circle, var(--color-tp-ueber-neutral-punkt) 1.2px, transparent 1.7px) 0 0 / 5px 5px,
-    var(--color-tp-ueber-neutral-grund);
-}
-
+/* Teile, Trenner und Farben aus rahmen.css (.tp-zaehlung, Zaehlung.tsx). */
 .tp .tp-s3-zaehlung {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px 12px;
-  margin: 0;
+  display: block;
   color: var(--color-eb-leise);
   font-size: 11px;
 }
-
-.tp .tp-s3-z-sicher { color: var(--color-eb-sicher); }
-.tp .tp-s3-z-uebung { color: var(--color-eb-uebung-text); }
-.tp .tp-s3-z-davon { color: var(--color-eb-uebung-text); }
-.tp .tp-s3-z-ueber { color: var(--color-tp-ueber-neutral-text); }
 
 /* ─── Lesehilfe ───────────────────────────────────────────────────────────── */
 

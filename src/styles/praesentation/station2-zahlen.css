@@ -68,7 +68,7 @@
 .tp .tp-s2-zahl-sicher strong { color: var(--color-eb-sicher); }
 .tp .tp-s2-zahl-uebung { border-color: var(--color-eb-uebung); }
 .tp .tp-s2-zahl-uebung strong { color: var(--color-eb-uebung-text); }
-.tp .tp-s2-zahl-ueber { border-color: var(--tp-s2-rand); }
+.tp .tp-s2-zahl-ueber { border-color: var(--tp-ueber-rand); }
 
 .tp .tp-s2-zahl-ueber strong {
   color: var(--tp-s2-ueber-text);

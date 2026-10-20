@@ -71,14 +71,14 @@ export function Profilzeile({
           {segmente.map(({ b, art }, k) => (
             <i
               key={b.skillKey}
-              className={`tp-s2-segment tp-s2-segment-${art}`}
+              className={`tp-s2-segment tp-s2-segment-${art}${art === 'ueber' ? ' tp-muster-ueber' : ''}`}
               style={{ '--segment': k } as CSSProperties}
             />
           ))}
         </span>
         <span className="tp-s2-rechts" aria-hidden="true">
           <span className="tp-s2-zeile-zahl">{t('s2.zeileZahl', { untersucht, vorhanden: zeile.vorhanden })}</span>
-          <Zaehlung anteile={anteile} anzeige={anzeige} />
+          <Zaehlung anteile={anteile} anzeige={anzeige} className="tp-s2-zaehlung" />
         </span>
         <span className="tp-s2-pfeil" aria-hidden="true">
           ⌄
