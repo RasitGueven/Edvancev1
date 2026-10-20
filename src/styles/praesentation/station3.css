@@ -242,7 +242,7 @@
   min-height: 0;
   display: flex;
   gap: 44px;
-  margin-top: 14px;
+  margin-top: 22px; /* Gang für Linien zwischen Zonenkopf und Inseln */
 }
 
 /* Eine Gruppe (Zone, dieses Schuljahr, nächste Klasse) füllt die Höhe; ihre

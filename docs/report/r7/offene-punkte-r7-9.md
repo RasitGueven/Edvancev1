@@ -164,8 +164,13 @@ getBoundingClientRect, die Präsentation mit Layoutwerten (`messeLernweg(…, 'l
   (`packeSpalten`, `lernwegSpalten.ts`), die Reihenfolge bleibt, die Lücken bleiben Gassen.
   - Statt `flex-flow: column wrap` zählt das Programm die Spalten: Chromium macht einen Container mit
     `column wrap` nicht breiter, wenn er umbricht; die Spur würde abgeschnitten. Das Ergebnis ist dasselbe.
-  - **Ausnahme (wie erlaubt):** `abgestuftMitOffen`, Insel „Zahlen & Rechnen“ in Aktuell: 415 px, Platz
-    398 px. Die Spur ist dort 541 px hoch. In allen anderen Fällen bleibt sie bei 510.
+  - **Ausnahme (wie erlaubt):** `abgestuftMitOffen`, Insel „Zahlen & Rechnen“ in Aktuell: zu hoch für
+    den Platz bei 510. Die Spur ist dort 548 px hoch. In allen anderen Fällen bleibt sie bei 510.
+  - Fund der zweiten Zweitprüfung: Die Ausnahme hob sich zuerst selbst auf. Die zweite Messung sah den Platz
+    der schon höheren Spur und setzte sie auf 510 zurück; die Insel ragte 14 px aus der Zone. Jetzt zählt
+    der Platz immer bei 510.
+  - Neu im Ansichtstest: jede Insel liegt ganz in ihrer Zone, für alle Fälle und Maße. Die Gegenprobe
+    ohne die Korrektur ist rot.
 - **Querformat (Entscheidung 3):**
   - Titel, Satz und „Weg abspielen“ stehen in einer Zeile. Der Satz entfällt, wenn er nicht einzeilig
     passt; bei 1180×820 ist das der Fall.
@@ -188,6 +193,8 @@ getBoundingClientRect, die Präsentation mit Layoutwerten (`messeLernweg(…, 'l
   Die Gegenprobe mit der alten Messung ist rot.
 - **Bogen.tsx:** zweite und letzte Zeile, `useMemo`-Abhängigkeiten mit `data.erzaehlung` und `data.analysedAt`.
 - **CLAUDE.md §11:** Der Verlauf von Kommt noch in Station 03 steht jetzt in der Liste der erlaubten Verläufe.
+- **Abstand der Linie zu den Inseln** (Hinweis der Zweitprüfung): Zwischen Zonenkopf und Inseln liegen
+  jetzt 22 Entwurfs-px; die waagrechte Linie läuft mittig darin (Abstand 9), nicht mehr 4 px über der Kante.
 - **neuaufbau:** rot nur durch `session_a2` (Test 15, Median unter 200 ms), bekannte Laufzeitmessung;
   der rote Job ist neu gestartet.
 

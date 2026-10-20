@@ -212,6 +212,11 @@ export async function lernwegVerstoesse(page: Page): Promise<string[]> {
         if (t.scrollWidth > t.clientWidth + 1 || t.scrollHeight > t.clientHeight + 1) f.push(`Text läuft über in „${titel(el)}“: ${t.textContent}`)
         if (q.right > r.right + 0.5 || q.bottom > r.bottom + 0.5 || q.left < r.left - 0.5) f.push(`Text ragt aus „${titel(el)}“: ${t.textContent}`)
       }
+      // Jede Insel liegt ganz in ihrer Zone (auch die Ausnahme „Spur höher“, Nachbesserung R7-9).
+      const zone = el.closest('[data-zone]')?.getBoundingClientRect()
+      if (zone && (r.bottom > zone.bottom + 0.5 || r.top < zone.top - 0.5)) {
+        f.push(`Insel „${titel(el)}“ ragt aus ihrer Zone (${r.bottom.toFixed(0)} > ${zone.bottom.toFixed(0)})`)
+      }
       for (const k of s.querySelectorAll('[data-kopf]')) {
         const q = k.getBoundingClientRect()
         const x = Math.min(q.right, r.right) - Math.max(q.left, r.left)

@@ -129,14 +129,17 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     if (lauf.current && groesse.current && groesse.current !== neueGroesse) unterbrechen()
     groesse.current = neueGroesse
 
-    // Spalten: je Gruppe so viele, dass die Spur ihre Entwurfshöhe behält.
+    // Spalten: je Gruppe so viele, dass die Spur ihre Entwurfshöhe behält. Der
+    // Platz zählt bei 510 — ist die Spur für eine zu hohe Insel schon höher,
+    // ginge die Ausnahme sonst bei der nächsten Messung wieder verloren.
+    const zusatz = Math.max(0, spur.offsetHeight - ENTWURF_HOEHE)
     const neu: Packungen = {}
     let ueber = 0
     for (const gruppe of spur.querySelectorAll<HTMLElement>('[data-gruppe]')) {
       const inseln = [...gruppe.querySelectorAll<HTMLElement>('[data-insel]')].sort(
         (a, b) => Number(a.dataset.index) - Number(b.dataset.index),
       )
-      const platz = gruppe.clientHeight
+      const platz = gruppe.clientHeight - zusatz
       const p = packeSpalten(inseln.map((i) => i.offsetHeight), platz, INSEL_LUECKE)
       if (p.zuHoch) ueber = Math.max(ueber, Math.max(...inseln.map((i) => i.offsetHeight)) - platz)
       neu[gruppe.dataset.gruppe!] = p.spalten
@@ -162,7 +165,8 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     kommtX.current = kommt ? xIn(kommt, spur) : Infinity
     const punkte = [...spur.querySelectorAll('[data-rast]')].map((el) => Math.round(xIn(el, spur) * skala))
     setRast((alt) => (alt.join() === punkte.join() ? alt : punkte))
-    const m = messeLernweg(spur, lw.linien, spur.offsetWidth, 'layout')
+    // Abstand 9: der Gang zwischen Zonenkopf und Inseln (22 px) hat die Linie mittig.
+    const m = { ...messeLernweg(spur, lw.linien, spur.offsetWidth, 'layout'), abstand: 9 }
     const p = m.inseln.length ? fuehreLinien(m) : []
     setPfade((alt) => (alt.map((x) => x.d).join() === p.map((x) => x.d).join() ? alt : p))
     setGemessen(true)
