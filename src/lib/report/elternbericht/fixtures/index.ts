@@ -40,6 +40,7 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   fazitLang: mitNotizen(g.fazitLang, NOTIZEN_LANG),
   langerName: mitNotizen(g.langerName, zielMit(g.LANGER_NAME)),
   zuLangerName: mitNotizen(g.zuLangerName, zielMit('Ihr Kind')),
+  breiterName: mitNotizen(g.breiterName, zielMit('Ihr Kind')),
   weitereBereiche: mitNotizen(g.weitereBereiche),
   vieleAnliegen: mitNotizen(g.vieleAnliegen),
   keinSchwerpunktMitZiel: mitNotizen(g.keinSchwerpunktMitZiel),

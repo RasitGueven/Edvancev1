@@ -1,10 +1,11 @@
-import { Fragment, useLayoutEffect, useRef, useState, type RefObject } from 'react'
+import { Fragment, useContext, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import type { EbSchwerpunkt } from '@/types'
 
 import { Kurve } from './Kurve'
+import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
 
 /** Höchstens so viele Elterntexte im Fazit (Bauauftrag R7, Entscheidung 10). */
@@ -90,7 +91,7 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
           <p className="eb-s4-lernziel-text">{zielbild}</p>
         </section>
       )}
-      <p className="eb-s4-stand">{t('s4.stand')}</p>
+      <p className={anzahl === 0 ? 'eb-s4-stand eb-s4-stand-voll' : 'eb-s4-stand'}>{t('s4.stand')}</p>
 
       {anzahl > 0 && <Kurve />}
     </div>
@@ -113,10 +114,12 @@ const EIN_TEXT = 3 // dazu steht nur der erste Elterntext
 function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: number } {
   const ref = useRef<HTMLDivElement>(null)
   const [wert, setWert] = useState(0)
+  // Erst entscheidet der Bogen über den Namen, dann misst Seite 4.
+  const nameEntschieden = useContext(NamensMessungFertig)
 
   useLayoutEffect(() => {
     const kasten = ref.current?.parentElement
-    if (!kasten || wert >= hoechste) return
+    if (!nameEntschieden || !kasten || wert >= hoechste) return
     let aktiv = true
     const pruefen = (): void => {
       if (aktiv && kasten.scrollHeight > kasten.clientHeight) setWert(wert + 1)
@@ -126,7 +129,7 @@ function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: num
     return () => {
       aktiv = false
     }
-  }, [wert, hoechste])
+  }, [wert, hoechste, nameEntschieden])
 
   return { ref, wert }
 }

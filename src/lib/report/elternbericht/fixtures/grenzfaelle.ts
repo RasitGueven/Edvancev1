@@ -94,6 +94,13 @@ export const langerName = fall('17', { firstName: LANGER_NAME, weakTopics: ANLIE
 export const zuLangerName = fall('19', { firstName: ZU_LANGER_NAME, weakTopics: ANLIEGEN })
 
 /**
+ * 24 Zeichen, aber breite Buchstaben: Der Titel auf Seite 2 wird mit Namen
+ * dreizeilig, die Messung im Bogen nimmt die Fassungen ohne Namen.
+ */
+export const BREITER_NAME = 'Mohammed-Mustafa Wilhelm'
+export const breiterName = fall('21', { firstName: BREITER_NAME, weakTopics: ANLIEGEN })
+
+/**
  * Ein untersuchter Skill ohne Themenfeld (Schlüssel synthetisch, in Prod ist
  * heute jeder Skill zugeordnet): neunte Profilzeile „Weitere Bereiche“.
  */

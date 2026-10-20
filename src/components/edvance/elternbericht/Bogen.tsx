@@ -7,6 +7,7 @@ import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import { genitiv } from '@/lib/report/elternbericht/genitiv'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
 
+import { NAME_MAX, NamensMessungFertig, useNamensMessung } from './namensMessung'
 import { Seite } from './Seite'
 import { Seite1 } from './Seite1'
 import { Seite2 } from './Seite2'
@@ -14,12 +15,6 @@ import { Seite3 } from './Seite3'
 import { Seite4 } from './Seite4'
 import { Seite5 } from './Seite5'
 import { SCHRAFFUR_ID, type SeitenProps } from './seitenProps'
-
-/**
- * Längere Rufnamen passen nicht in jeden Titel und Satz des Bogens; dann
- * nehmen alle Stellen ihre Fassung ohne Namen (Gründer-Entscheidung R7-5).
- */
-const NAME_MAX = 24
 
 const SEITEN: ReadonlyArray<(props: SeitenProps) => JSX.Element | null> = [
   Seite1,
@@ -55,6 +50,12 @@ export function ElternberichtBogen({
   )
   const satz = useMemo(() => new Bausteinsatz(bausteine), [bausteine])
 
+  // Rufname: über NAME_MAX Zeichen gar nicht, sonst nur, wenn der Bogen mit ihm
+  // passt (namensMessung.ts). Sonst überall die Fassungen ohne Namen.
+  const rufname = data.firstName?.trim() || null
+  const vorab = rufname && [...rufname].length <= NAME_MAX ? rufname : null
+  const messung = useNamensMessung(vorab !== null)
+
   if (!bericht) {
     return (
       <div className="print-hide" data-testid="eb-leer">
@@ -67,8 +68,7 @@ export function ElternberichtBogen({
     )
   }
 
-  const rufname = data.firstName?.trim() || null
-  const name = rufname && [...rufname].length <= NAME_MAX ? rufname : null
+  const name = messung.nameBleibt ? vorab : null
   const props: SeitenProps = {
     data,
     bericht,
@@ -80,7 +80,7 @@ export function ElternberichtBogen({
   }
 
   return (
-    <div className="eb-bogen">
+    <div className="eb-bogen" ref={messung.ref} data-ohne-name={(vorab && !name) || undefined}>
       {/* Schraffur für „nicht untersucht“ (Seite 2): einmal definiert, nicht
           sichtbar. Nicht display:none — sonst findet url(#…) das Pattern nicht. */}
       <svg className="eb-defs" aria-hidden="true" focusable="false">
@@ -96,11 +96,13 @@ export function ElternberichtBogen({
           </pattern>
         </defs>
       </svg>
-      {SEITEN.map((Inhalt, i) => (
-        <Seite key={i + 1} nummer={i + 1} testlauf={data.testlauf} name={name}>
-          <Inhalt {...props} />
-        </Seite>
-      ))}
+      <NamensMessungFertig.Provider value={messung.fertig}>
+        {SEITEN.map((Inhalt, i) => (
+          <Seite key={i + 1} nummer={i + 1} testlauf={data.testlauf} name={name}>
+            <Inhalt {...props} />
+          </Seite>
+        ))}
+      </NamensMessungFertig.Provider>
     </div>
   )
 }

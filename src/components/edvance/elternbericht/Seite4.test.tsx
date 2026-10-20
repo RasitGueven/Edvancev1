@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
 
+import { NamensMessungFertig } from '@/components/edvance/elternbericht/namensMessung'
 import { Seite4 } from '@/components/edvance/elternbericht/Seite4'
 import type { SeitenProps } from '@/components/edvance/elternbericht/seitenProps'
 import { Bausteinsatz } from '@/lib/report/bausteine'
@@ -264,6 +265,20 @@ describe('Seite 4 — Verdichtung bei Überlauf', () => {
     expect(stufe(zwei, 0)).toEqual({ stufe: '3', dicht: true, fazit: 'Satz A. ' })
   })
 
+  it('misst erst, wenn der Bogen über den Namen entschieden hat', () => {
+    vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(977)
+    vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(960)
+    const { container } = render(
+      <NamensMessungFertig.Provider value={false}>
+        <div className="eb-inhalt">
+          <Seite4 {...props(mitFehlbildern(zwei))} />
+        </div>
+      </NamensMessungFertig.Provider>,
+    )
+    expect(container.querySelector('.eb-s4')!.hasAttribute('data-stufe')).toBe(false)
+    vi.restoreAllMocks()
+  })
+
   it('mit einem Elterntext entfällt höchstens der Coach-Satz', () => {
     expect(stufe([familie('eins', 'Satz A.', 5)], 0)).toEqual({ stufe: '2', dicht: true, fazit: 'Satz A. ' })
   })
@@ -276,5 +291,11 @@ describe('Seite 4 — Lernziel ohne Schwerpunkt', () => {
     ohne.unmount()
     const mit = seite4(props(FAELLE.ilkay.data))
     expect(mit.getByTestId('eb-lernziel')).not.toHaveClass('eb-s4-lernziel-voll')
+    expect(mit.container.querySelector('.eb-s4-stand')).not.toHaveClass('eb-s4-stand-voll')
+  })
+
+  it('auch die Fußnote steht dann bündig an der Inhaltskante', () => {
+    const { container } = seite4(props(FAELLE.keinSchwerpunktMitZiel.data))
+    expect(container.querySelector('.eb-s4-stand')).toHaveClass('eb-s4-stand', 'eb-s4-stand-voll')
   })
 })

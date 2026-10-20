@@ -88,8 +88,9 @@ describe('Fixtures des Eltern-Berichts', () => {
     it('Rufnamen an der Grenze: 24 und 25 Zeichen', () => {
       expect([...FAELLE.langerName.data.firstName!]).toHaveLength(24)
       expect([...FAELLE.zuLangerName.data.firstName!]).toHaveLength(25)
+      expect([...FAELLE.breiterName.data.firstName!]).toHaveLength(24)
       expect(bericht('langerName').profil).toHaveLength(8)
-      for (const n of ['langerName', 'zuLangerName'] as const) {
+      for (const n of ['langerName', 'zuLangerName', 'breiterName'] as const) {
         expect(FAELLE[n].data.erzaehlung.anlassNamen.length, n).toBeGreaterThan(1)
         expect(FAELLE[n].data.erzaehlung.rueckbezuege, n).toHaveLength(1)
       }

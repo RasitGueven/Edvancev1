@@ -140,6 +140,10 @@
 .eb-s4-lernziel + .eb-s4-stand {
   margin-top: 8.99pt; /* (Kasten-Unterkante + 16,8) */
 }
+/* Ohne Schwerpunkt bündig mit dem Lernziel-Kasten. */
+.eb-s4-stand-voll {
+  margin-left: 0;
+}
 
 /* ─── Verdichtet ─────────────────────────────────────────────────────────────
    Nur wenn die Seite mit den Abständen des Musters überläuft (Seite4.tsx,
