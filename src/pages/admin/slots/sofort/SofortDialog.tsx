@@ -12,8 +12,8 @@ import { ladeEinstellungen } from '@/lib/supabase/slotplan'
 import { ladeKinderBuchbar, ladeSessionLeitung, sofortSessionAnlegen } from '@/lib/supabase/stundenplan'
 import type { SlotsEinstellungen } from '@/types/slotplan'
 import type { KindBuchbar, SessionLeitung } from '@/types/stundenplan'
-import { KindAuswahl } from '../stundenplan/KindAuswahl'
-import { gemischt, MAX_KINDER, raeumeAktivAm } from '../stundenplan/stundenplan.model'
+import { KindAuswahl } from '../panel/KindAuswahl'
+import { gemischt, MAX_KINDER, raeumeAktivAm } from '../panel/stundenplan.model'
 
 type Raum = SlotsEinstellungen['raeume'][number]
 

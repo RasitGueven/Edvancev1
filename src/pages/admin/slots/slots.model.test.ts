@@ -1,58 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { dieseWoche, montagVon, wocheVerschieben } from '@/components/edvance/wochenNavigation.model'
-import type { SlotsKinderZeile, SlotsWoche, WocheZelle } from '@/types/slotplan'
+import type { SlotsKinderZeile } from '@/types/slotplan'
 import {
-  anzahlJeFilter, filterAusSuche, kinderGefiltert, kinderSortiert, leereZeiten, planbilanzVariante, raumBelegung,
-  rechtzeitigVorschau, reiterAusSuche, sucheMitReiter, zellZustand,
+  anzahlJeFilter, filterAusSuche, kinderGefiltert, kinderSortiert, planbilanzVariante,
+  rechtzeitigVorschau, reiterAusSuche, sucheMitReiter,
 } from './slots.model'
-
-const zelle = (teil: Partial<WocheZelle>): WocheZelle => ({
-  datum: '2028-03-16', zeit_id: 'z16', kapazitaet: 10, belegt: 4, ohne_raum: 0, coach_fehlt: 0, raeume: [], faecher: [], vergangen: false, laeuft: false, ...teil,
-})
-
-describe('Zellzustand (Bauauftrag SL2, Test 1)', () => {
-  it('normal, ab 90 %, überbucht, Coach fehlt, kein Raum', () => {
-    expect(zellZustand(zelle({ belegt: 4 }))).toBe('normal')
-    expect(zellZustand(zelle({ belegt: 9 }))).toBe('achtung')
-    expect(zellZustand(zelle({ belegt: 10 }))).toBe('achtung')
-    expect(zellZustand(zelle({ belegt: 7, kapazitaet: 5, ohne_raum: 2 }))).toBe('handeln')
-    expect(zellZustand(zelle({ belegt: 3, kapazitaet: 5, coach_fehlt: 1 }))).toBe('handeln')
-    expect(zellZustand(zelle({ belegt: 0, kapazitaet: 0 }))).toBe('leer')
-  })
-
-  it('vergangen ändert den Zustand nicht (die Zelle ist nur gedämpft)', () => {
-    expect(zellZustand(zelle({ belegt: 9, vergangen: true }))).toBe('achtung')
-  })
-
-  it('Platz-Punkte je geöffnetem Raum', () => {
-    const z = zelle({
-      raeume: [
-        { raum_id: 'r1', name: 'Raum 1', offen: true, art: 'stamm', coach_id: 'c1', coach_name: 'Coach 1', belegt: 5 },
-        { raum_id: 'r2', name: 'Raum 2', offen: false, art: 'faellt_aus', coach_id: null, coach_name: null, belegt: 0 },
-        { raum_id: 'r3', name: 'Raum 3', offen: true, art: 'zusatz', coach_id: 'c3', coach_name: 'Coach 3', belegt: 2 },
-      ],
-    })
-    expect(raumBelegung(z)).toEqual([5, 2])
-  })
-})
-
-describe('leere Zeitzeilen fallen zusammen', () => {
-  const woche = {
-    montag: '2028-03-13', kw: 11, a_woche: true, heute: '2028-03-13', tage: [],
-    zeiten: [{ id: 'z14', beginn: '14:00', ende: '15:00' }, { id: 'z16', beginn: '16:00', ende: '17:00' }, { id: 'z19', beginn: '19:00', ende: '20:00' }],
-    zellen: [
-      zelle({ zeit_id: 'z14', kapazitaet: 0, belegt: 0 }),
-      zelle({ zeit_id: 'z16' }),
-      zelle({ zeit_id: 'z19', kapazitaet: 0, belegt: 0, datum: '2028-03-13' }),
-      zelle({ zeit_id: 'z19', kapazitaet: 0, belegt: 1, datum: '2028-03-14' }),
-    ],
-    kopf: { plaetze: 0, belegt: 0, auslastung: null, ohne_raum: 0, erster_ohne_raum: null, ohne_stammplatz: 0, ohne_stammplatz_laufend: 0,
-      belegt_test: 0, auslastung_mit_test: null, ohne_stammplatz_test: 0, raeume_ohne_coach: 0 },
-  } satisfies SlotsWoche
-  it('nur Uhrzeiten ohne geöffneten Raum und ohne Kind in der ganzen Woche', () => {
-    expect([...leereZeiten(woche)]).toEqual(['z14'])
-  })
-})
 
 const kind = (name: string, art: SlotsKinderZeile['planbilanz']['art'], vertrag_laeuft = true, beginn = '2028-03-01'): SlotsKinderZeile =>
   ({ student_id: name, name, planbilanz: { art }, vertrag_laeuft, beginn } as unknown as SlotsKinderZeile)
@@ -87,7 +39,8 @@ describe('Reiter und Woche in der URL', () => {
   it('Reiter aus der Suche, Wochenplan als Standard, Unbekanntes fällt zurück', () => {
     expect(reiterAusSuche(new URLSearchParams(''))).toBe('wochenplan')
     expect(reiterAusSuche(new URLSearchParams('reiter=kinder'))).toBe('kinder')
-    expect(reiterAusSuche(new URLSearchParams('reiter=stundenplan'))).toBe('stundenplan')
+    // W2: Den Reiter Stundenplan gibt es nicht mehr; die alte Adresse zeigt den Wochenplan.
+    expect(reiterAusSuche(new URLSearchParams('reiter=stundenplan'))).toBe('wochenplan')
     expect(reiterAusSuche(new URLSearchParams('reiter=quatsch'))).toBe('wochenplan')
     expect(filterAusSuche(new URLSearchParams('reiter=kinder&filter=kein_stammplatz'))).toBe('kein_stammplatz')
   })

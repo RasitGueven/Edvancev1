@@ -1,9 +1,9 @@
-// Slots S2: Reiter Stundenplan, Session-Karte und Kinderwahl. Früher SchedulePage.test.tsx (P5b, T2): Die Regeln
+// Slots S2/W2: Session-Karte (im Session-Panel des Wochenplans), Kinderwahl und Session planen. Früher SchedulePage.test.tsx (P5b, T2): Die Regeln
 // setzt weiter die Datenbank durch (ZG001, Testlauf-Trigger); neu zeigt die Wahl alle Kinder, nicht buchbare
 // ausgegraut mit Grund aus kinder_buchbar. Supabase ist gemockt.
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import '@/i18n'
 import type { KindBuchbar, StundenplanSession } from '@/types/stundenplan'
@@ -30,7 +30,6 @@ vi.mock('@/hooks/useAuth', () => ({ useAuth: () => ({ user: { id: 'ZZ_admin' }, 
 
 const { SessionKarte } = await import('./SessionKarte')
 const { KindAuswahl } = await import('./KindAuswahl')
-const { StundenplanReiter } = await import('./StundenplanReiter')
 const { SessionPlanen } = await import('./SessionPlanen')
 
 const kind = (id: string, name: string, code: KindBuchbar['code'], detail: string | null = null, ist_test = false): KindBuchbar =>
@@ -172,32 +171,6 @@ describe('Session-Karte', () => {
   })
 })
 
-describe('Reiter Stundenplan', () => {
-  it('gruppiert nach Tag und filtert nach Leitung', async () => {
-    sp.ladeSessionLeitung.mockResolvedValue({
-      data: [{ id: 'ZZ_admin', name: 'Ada Admin', rolle: 'admin' }, { id: 'ZZ_coach', name: 'Carl Coach', rolle: 'coach' }], error: null,
-    })
-    slot.ladeEinstellungen.mockResolvedValue({ data: { raeume: [] }, error: null })
-    sp.ladeStundenplanWoche.mockResolvedValue({
-      data: {
-        montag: '2027-11-01',
-        sessions: [
-          SESSION,
-          { ...SESSION, session_id: 'ZZ_s2', scheduled_at: '2027-11-06T09:00:00Z', coach_id: 'ZZ_coach', coach_name: 'Carl Coach', coach_rolle: 'coach' },
-        ],
-      },
-      error: null,
-    })
-    render(<MemoryRouter><StundenplanReiter montag="2027-11-01" onWoche={vi.fn()} /></MemoryRouter>)
-    expect(await screen.findByRole('heading', { name: 'Donnerstag, 4. November' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: 'Samstag, 6. November' })).toBeTruthy()
-    await act(async () => {})
-    fireEvent.change(screen.getByLabelText('Leitung'), { target: { value: 'ZZ_coach' } })
-    expect(screen.queryByRole('heading', { name: 'Donnerstag, 4. November' })).toBeNull()
-    expect(screen.getAllByText('Carl Coach').length).toBeGreaterThan(0)
-  })
-})
-
 describe('Session planen', () => {
   it('Raum nur aus den an dem Tag aktiven Räumen, Zeit in Berlin, Woche springt zum Tag', async () => {
     ses.createSession.mockResolvedValue({ data: {}, error: null })
@@ -218,5 +191,19 @@ describe('Session planen', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Session anlegen' }))
     await waitFor(() => expect(onAngelegt).toHaveBeenCalledWith('2027-11-04'))
     expect(ses.createSession).toHaveBeenCalledWith('ZZ_admin', '2027-11-04T13:00:00.000Z', 'Raum 1')
+  })
+
+  it('im Tagespanel (W2): Datum fest auf dem Tag, Knopf „+ Einzel-Session an diesem Tag planen“', async () => {
+    ses.createSession.mockResolvedValue({ data: {}, error: null })
+    const onAngelegt = vi.fn()
+    const raeume = [{ id: 'r1', name: 'Raum 1', aktiv_ab: '2020-01-01', inaktiv_ab: null, stammschichten: 0 }]
+    render(<SessionPlanen datum="2027-11-05" leitung={[{ id: 'ZZ_admin', name: 'Ada Admin', rolle: 'admin' }]} raeume={raeume} onAngelegt={onAngelegt} />)
+    fireEvent.click(screen.getByRole('button', { name: '+ Einzel-Session an diesem Tag planen' }))
+    expect(screen.queryByLabelText('Datum')).toBeNull()
+    fireEvent.change(screen.getByLabelText('Leitung'), { target: { value: 'ZZ_admin' } })
+    fireEvent.change(screen.getByLabelText('Uhrzeit'), { target: { value: '15:00' } })
+    fireEvent.change(screen.getByLabelText('Raum'), { target: { value: 'r1' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Session anlegen' }))
+    await waitFor(() => expect(onAngelegt).toHaveBeenCalledWith('2027-11-05'))
   })
 })

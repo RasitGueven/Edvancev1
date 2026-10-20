@@ -1,128 +1,122 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { SlotsWoche, SlotZeit, WocheTag } from '@/types/slotplan'
-import { datumKurz, wochentagKurz } from '../slotsFormat'
-import { leereZeiten, zelleVon } from '../slots.model'
+import type { SlotsWoche, WocheTag } from '@/types/slotplan'
+import type { StundenplanSession } from '@/types/stundenplan'
+import { datumTagMonat, uhrzeit, wochentagName } from '../slotsFormat'
+import { zelleVon } from '../slots.model'
+import { einzelAmTag, type Panel } from './wochenplan.model'
 import { WochenZelle } from './WochenZelle'
 
-const terminZiel = (datum: string, zeitId: string): string => `/admin/slots/termin/${datum}/${zeitId}`
-
-/** Schmale Zeile für eine Uhrzeit ohne geöffneten Raum in der ganzen Woche. */
-function LeereZeile({ zeit }: { zeit: SlotZeit }): JSX.Element {
-  const { t } = useTranslation('slots')
-  return (
-    <div className="col-span-full flex min-h-[32px] items-center gap-2 border-t border-[var(--color-border)] px-2 text-xs text-[var(--color-text-tertiary)]">
-      <span className="tabular-nums">{zeit.beginn}</span>
-      <span aria-hidden="true">·</span>
-      <span>{t('woche.keinRaum')}</span>
-    </div>
-  )
+type Props = {
+  woche: SlotsWoche
+  /** Einzel- und Sofort-Sessions der Woche (stundenplan_woche); null = lädt noch oder Fehler. */
+  einzel: StundenplanSession[] | null
+  onPanel: (panel: Panel) => void
 }
 
-function Tageskopf({ tag }: { tag: WocheTag }): JSX.Element {
+/** Tageskopf als Knopf ins Tagespanel (Entscheidung 5); Tage ohne Betrieb sind kein Knopf. */
+function Tageskopf({ tag, onOeffnen }: { tag: WocheTag; onOeffnen: () => void }): JSX.Element {
   const { t, i18n } = useTranslation('slots')
+  const inhalt = (
+    <>
+      <span className={`text-sm font-semibold ${tag.heute ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-primary)]'}`}>
+        {wochentagName(tag.wochentag, i18n.language, true)}
+      </span>
+      <span className={`text-xs tabular-nums ${tag.heute ? 'font-semibold text-[var(--color-primary)]' : 'text-[var(--color-text-tertiary)]'}`}>
+        {tag.heute ? t('wochenplan2.tag.heute', { datum: datumTagMonat(tag.datum, i18n.language) }) : datumTagMonat(tag.datum, i18n.language)}
+      </span>
+    </>
+  )
+  const klasse = 'flex min-h-[52px] w-full flex-col items-start justify-center rounded-[var(--radius-md)] border border-transparent px-2 py-1 text-left'
+  if (!tag.betrieb) return <div className={klasse}>{inhalt}</div>
   return (
-    <div
-      className={`sticky top-0 z-10 flex min-h-[44px] flex-col justify-center rounded-t-[var(--radius-md)] px-2 py-2 ${
-        tag.heute
-          ? 'bg-[var(--color-primary-light)] text-[var(--color-primary)]'
-          : tag.betrieb
-            ? 'bg-[var(--color-bg-surface)] text-[var(--color-text-primary)]'
-            : 'bg-[var(--color-bg-subtle)] text-[var(--color-text-tertiary)]'
-      }`}
+    <button
+      type="button"
+      onClick={onOeffnen}
+      title={t('wochenplan2.tag.oeffnen')}
+      className={`${klasse} transition-colors duration-150 ease-out hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)]`}
     >
-      <span className="text-sm font-semibold tabular-nums">{datumKurz(tag.datum, i18n.language)}</span>
-      <span className="truncate text-xs">{tag.heute ? t('woche.heute') : tag.betrieb ? '' : tag.anlass ?? t('woche.keinBetrieb')}</span>
-    </div>
+      {inhalt}
+    </button>
   )
 }
 
-/** Raster Mo–Fr × Uhrzeiten (ab --container-slots-woche). Die Kopfzeile bleibt beim Scrollen stehen. */
-export function WochenRaster({ woche, leereZeigen }: { woche: SlotsWoche; leereZeigen: boolean }): JSX.Element {
-  const leer = leereZeiten(woche)
+/**
+ * Raster Mo–Fr × Uhrzeiten (Entscheidung 3 und 4): eine Zelle je Tag und Uhrzeit, Tage ohne Betrieb als eine
+ * Fläche mit Anlass, unten die Zeile „Einzel“. Auf schmalen Breiten scrollt nur das Raster seitlich.
+ */
+export function WochenRaster({ woche, einzel, onPanel }: Props): JSX.Element {
+  const { t, i18n } = useTranslation('slots')
+  const zeilen = woche.zeiten.length
+
   return (
-    <div role="grid" aria-rowcount={woche.zeiten.length + 1} className="grid grid-cols-[3.5rem_repeat(5,minmax(0,1fr))] gap-1">
-      <div role="row" className="contents">
-        <span aria-hidden="true" className="sticky top-0 z-10 bg-[var(--color-bg-surface)]" />
+    <div className="overflow-x-auto" role="region" aria-label={t('wochenplan2.raster.label')} tabIndex={0}>
+      <div className="grid min-w-[880px] grid-cols-[4rem_repeat(5,minmax(9.5rem,1fr))] gap-2">
+        <span aria-hidden="true" />
         {woche.tage.map((tag) => (
-          <div key={tag.datum} role="columnheader">
-            <Tageskopf tag={tag} />
-          </div>
+          <Tageskopf key={tag.datum} tag={tag} onOeffnen={() => onPanel({ art: 'tag', datum: tag.datum })} />
         ))}
-      </div>
-      {woche.zeiten.map((zeit) =>
-        leer.has(zeit.id) && !leereZeigen ? (
-          <LeereZeile key={zeit.id} zeit={zeit} />
-        ) : (
-          <div key={zeit.id} role="row" className="contents">
-            <span role="rowheader" className="flex min-h-[44px] items-start px-1 pt-2 text-xs font-semibold tabular-nums text-[var(--color-text-secondary)]">
-              {zeit.beginn}
+
+        {woche.zeiten.map((zeit, i) => (
+          <Fragment key={zeit.id}>
+            <span className="flex flex-col pt-2 text-xs tabular-nums text-[var(--color-text-tertiary)]">
+              <span className="font-semibold text-[var(--color-text-secondary)]">{zeit.beginn}</span>
+              <span>{zeit.ende}</span>
             </span>
             {woche.tage.map((tag) => {
-              const zelle = tag.betrieb ? zelleVon(woche, tag.datum, zeit.id) : undefined
-              return (
-                <div key={tag.datum} role="gridcell" className={tag.betrieb ? '' : 'rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)]'}>
-                  {zelle && <WochenZelle zelle={zelle} ziel={terminZiel(tag.datum, zeit.id)} />}
-                </div>
+              if (!tag.betrieb) {
+                if (i > 0) return null
+                return (
+                  <div
+                    key={tag.datum}
+                    // Die Fläche reicht über alle Uhrzeiten des Tages (berechneter Wert).
+                    style={{ gridRow: `span ${zeilen}` }}
+                    className="flex flex-col items-center justify-center gap-1 rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)] p-4 text-center text-xs text-[var(--color-text-tertiary)]"
+                  >
+                    <span className="font-semibold text-[var(--color-text-secondary)]">{tag.anlass ?? t('woche.keinBetrieb')}</span>
+                    {tag.anlass && <span>{t('woche.keinBetrieb')}</span>}
+                  </div>
+                )
+              }
+              const zelle = zelleVon(woche, tag.datum, zeit.id)
+              return zelle ? (
+                <WochenZelle
+                  key={tag.datum}
+                  zelle={zelle}
+                  onOeffnen={() => onPanel({ art: 'slot', datum: tag.datum, zeitId: zeit.id })}
+                />
+              ) : (
+                <span key={tag.datum} />
               )
             })}
+          </Fragment>
+        ))}
+
+        <span className="pt-2 text-xs font-semibold text-[var(--color-text-secondary)]">{t('wochenplan2.einzel.zeile')}</span>
+        {woche.tage.map((tag) => (
+          <div key={tag.datum} className="flex min-w-0 flex-col gap-1">
+            {einzelAmTag(einzel ?? [], tag.datum).map((s) => (
+              <button
+                key={s.session_id}
+                type="button"
+                onClick={() => onPanel({ art: 'einzel', datum: tag.datum, sessionId: s.session_id })}
+                className={`flex min-h-[44px] w-full min-w-0 flex-col items-start rounded-[var(--radius-sm)] border border-[var(--color-border)] border-l-[3px] bg-[var(--color-bg-surface)] px-2 py-1 text-left text-xs hover:bg-[var(--color-primary-light)] ${
+                  s.testlauf ? 'border-l-[var(--color-gold-warning)]' : 'border-l-[var(--color-primary)]'
+                }`}
+              >
+                <span className="font-semibold tabular-nums text-[var(--color-text-primary)]">
+                  {t('wochenplan2.einzel.chip', { zeit: uhrzeit(s.scheduled_at, i18n.language), raum: s.room ?? t('stundenplan.ohneRaum') })}
+                </span>
+                <span className="max-w-full truncate text-[var(--color-text-tertiary)]">
+                  {s.testlauf
+                    ? t('wochenplan2.einzel.leitungTest', { leitung: s.coach_name ?? t('stundenplan.ohneCoach') })
+                    : s.coach_name ?? t('stundenplan.ohneCoach')}
+                </span>
+              </button>
+            ))}
           </div>
-        ),
-      )}
-    </div>
-  )
-}
-
-/** Unter --container-slots-woche: ein Tag, Umschalter Mo–Fr, Uhrzeiten als Zeilen. */
-export function TagesAnsicht({ woche, leereZeigen }: { woche: SlotsWoche; leereZeigen: boolean }): JSX.Element {
-  const { t, i18n } = useTranslation('slots')
-  const start = woche.tage.find((d) => d.heute) ?? woche.tage.find((d) => d.betrieb) ?? woche.tage[0]
-  const [gewaehlt, setGewaehlt] = useState(start.datum)
-  const tag = woche.tage.find((d) => d.datum === gewaehlt) ?? start
-  const leer = leereZeiten(woche)
-
-  return (
-    <div className="flex flex-col gap-2">
-      <div role="group" aria-label={t('woche.tagWaehlen')} className="grid grid-cols-5 gap-1">
-        {woche.tage.map((d) => (
-          <button
-            key={d.datum}
-            type="button"
-            aria-pressed={d.datum === tag.datum}
-            onClick={() => setGewaehlt(d.datum)}
-            className={`min-h-[44px] rounded-[var(--radius-md)] text-sm font-semibold transition-colors duration-150 ease-out ${
-              d.datum === tag.datum
-                ? 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
-                : d.betrieb
-                  ? 'bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)]'
-                  : 'bg-[var(--color-bg-subtle)] text-[var(--color-text-tertiary)] line-through'
-            }`}
-          >
-            {wochentagKurz(d.datum, i18n.language)}
-          </button>
         ))}
       </div>
-      <Tageskopf tag={tag} />
-      {!tag.betrieb ? (
-        <p className="rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)] px-4 py-6 text-center text-sm text-[var(--color-text-tertiary)]">
-          {t('woche.keinBetriebTag', { anlass: tag.anlass ?? t('woche.keinBetrieb') })}
-        </p>
-      ) : (
-        <div className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-1">
-          {woche.zeiten.map((zeit) => {
-            const zelle = zelleVon(woche, tag.datum, zeit.id)
-            if (leer.has(zeit.id) && !leereZeigen) return <LeereZeile key={zeit.id} zeit={zeit} />
-            return (
-              <Fragment key={zeit.id}>
-                <span className="flex min-h-[44px] items-start px-1 pt-2 text-xs font-semibold tabular-nums text-[var(--color-text-secondary)]">
-                  {zeit.beginn}
-                </span>
-                {zelle ? <WochenZelle zelle={zelle} ziel={terminZiel(tag.datum, zeit.id)} /> : <span />}
-              </Fragment>
-            )
-          })}
-        </div>
-      )}
     </div>
   )
 }

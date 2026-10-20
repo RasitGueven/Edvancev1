@@ -1,4 +1,4 @@
-// Slots S2: „Session jetzt starten“ (Entscheidung 7–9) und der Reiter Stundenplan in den Slots. Supabase ist gemockt.
+// Slots S2: „Session jetzt starten“ (Entscheidung 7–9); W2: der Reiter Stundenplan ist im Wochenplan aufgegangen. Supabase ist gemockt.
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
@@ -122,7 +122,7 @@ describe('Sofort-Dialog', () => {
   })
 })
 
-describe('Slots: Reiter Stundenplan', () => {
+describe('Slots: Einzel-Sessions im Wochenplan (W2, früher Reiter Stundenplan)', () => {
   function slots(pfad: string): void {
     slot.ladeWoche.mockResolvedValue({ data: null, error: null })
     slot.ladeCoaches.mockResolvedValue({ data: null, error: null })
@@ -136,16 +136,13 @@ describe('Slots: Reiter Stundenplan', () => {
     )
   }
 
-  it('steht zwischen Wochenplan und Kinder; Reiter und Woche in der URL', async () => {
-    slots('/admin/slots?woche=2027-11-01')
+  it('kein Reiter Stundenplan mehr; der Wochenplan lädt die Einzel-Sessions der Woche', async () => {
+    slots('/admin/slots?woche=2027-11-01&reiter=stundenplan')
     await act(async () => {})
     const titel = within(screen.getByRole('tablist')).getAllByRole('tab').map((r) => r.textContent ?? '')
-    expect(titel.findIndex((x) => x.startsWith('Stundenplan'))).toBe(1)
-    fireEvent.click(screen.getByRole('tab', { name: /Stundenplan/ }))
-    await act(async () => {})
-    expect(screen.getByTestId('ort').textContent).toBe('/admin/slots?woche=2027-11-01&reiter=stundenplan')
+    expect(titel.some((x) => x.startsWith('Stundenplan'))).toBe(false)
+    expect(screen.getByTestId('ort').textContent).toBe('/admin/slots?woche=2027-11-01')
     expect(sp.ladeStundenplanWoche).toHaveBeenCalledWith('2027-11-01')
-    expect(screen.getByText('Diese Woche keine Einzel-Sessions')).toBeTruthy()
   })
 
   it('Knopf „Session jetzt starten“ im Kopf der Slots', async () => {
@@ -154,12 +151,11 @@ describe('Slots: Reiter Stundenplan', () => {
     expect(screen.getByRole('button', { name: 'Session jetzt starten' })).toBeTruthy()
   })
 
-  it('ein Coach sieht weder Reiter noch Knopf, auch nicht über die Adresse', async () => {
+  it('ein Coach sieht den Knopf nicht (die Route lässt ihn ohnehin nicht herein)', async () => {
     auth.rolle = 'coach'
     slots('/admin/slots?reiter=stundenplan')
     await act(async () => {})
     expect(screen.queryByRole('tab', { name: /Stundenplan/ })).toBeNull()
     expect(screen.queryByRole('button', { name: 'Session jetzt starten' })).toBeNull()
-    expect(sp.ladeStundenplanWoche).not.toHaveBeenCalled()
   })
 })

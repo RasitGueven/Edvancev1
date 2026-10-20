@@ -1,5 +1,5 @@
-// Slots SL2b, Test 6: Kennzeichen „Test“ an allen vier Stellen (Wochenplan, Termin, Kinder, Kind) und die
-// Kennzahl „Belegt“ sagt, wie viele Testkonten sie nicht zählt. Daten: Ausgabe der Slot-Funktionen aus einer
+// Slots SL2b, Test 6: Kennzeichen „Test“ an allen vier Stellen (Wochenplan, Slot-Panel, Kinder, Kind) und die
+// Kennzahl „Belegt“ nennt die Testkonten getrennt (W2, Entscheidung 7). Daten: Ausgabe der Slot-Funktionen aus einer
 // Wegwerf-DB (sl2b.fixture.json, erfundene Namen).
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -14,7 +14,7 @@ vi.mock('@/lib/supabase/slotplan', () => sp)
 
 const { WochenZelle } = await import('./wochenplan/WochenZelle')
 const { WochenplanReiter } = await import('./wochenplan/WochenplanReiter')
-const { TerminPage } = await import('./termin/TerminPage')
+const { SlotPanel } = await import('./panel/SlotPanel')
 const { KinderReiter } = await import('./kinder/KinderReiter')
 const { KindPage } = await import('./kind/KindPage')
 
@@ -45,25 +45,28 @@ describe('Testkonten in den Slots (SL2b)', () => {
     const mitTest = woche.zellen.find((z) => (z.test ?? 0) > 0)
     const ohneTest = woche.zellen.find((z) => (z.test ?? 0) === 0 && z.belegt > 0)
     expect(mitTest && ohneTest).toBeTruthy()
-    await zeige('/', '/', <WochenZelle zelle={mitTest!} ziel="/x" />)
+    await zeige('/', '/', <WochenZelle zelle={mitTest!} onOeffnen={() => {}} />)
     expect(screen.getByText('Test')).toBeTruthy()
-    expect(screen.getByRole('link').getAttribute('aria-label')).toContain('Test')
+    expect(screen.getByRole('button').getAttribute('aria-label')).toContain('Test')
     document.body.innerHTML = ''
-    await zeige('/', '/', <WochenZelle zelle={ohneTest!} ziel="/x" />)
+    await zeige('/', '/', <WochenZelle zelle={ohneTest!} onOeffnen={() => {}} />)
     expect(screen.queryByText('Test')).toBeNull()
   })
 
-  it('Wochenplan: Kopf „Belegt“ zählt nur echte Kinder und nennt die Testkonten', async () => {
-    await zeige('/', '/', <WochenplanReiter woche={{ daten: woche, fehler: null, laedt: false } as never} montag={woche.montag} onWoche={() => {}} />)
+  it('Wochenplan (W2, Entscheidung 7): Kopf „Belegt“ zählt Testkonten sichtbar mit und nennt sie getrennt', async () => {
     const testkonten = woche.zellen.reduce((s, z) => s + (z.test ?? 0), 0)
     expect(testkonten).toBeGreaterThan(0)
-    expect(screen.getByText(`ohne ${testkonten} Testkonten`)).toBeTruthy()
-    expect(screen.getByText(String(woche.kopf.belegt))).toBeTruthy()
+    // Die Fixture stammt aus SL2b; die W1-Felder des Kopfs ergänzt der Test aus den Zellen.
+    const w1 = { ...woche, kopf: { ...woche.kopf, belegt_test: testkonten, auslastung_mit_test: null, ohne_stammplatz_test: 0, raeume_ohne_coach: 0 } }
+    const leer = { daten: null, fehler: null, laedt: false } as never
+    await zeige('/', '/', <WochenplanReiter woche={{ daten: w1, fehler: null, laedt: false } as never} einzel={leer} montag={woche.montag} onWoche={() => {}} onPanel={() => {}} />)
+    expect(screen.getByText(`${woche.kopf.belegt} Kinder · ${testkonten} ${testkonten === 1 ? 'Testkonto' : 'Testkonten'}`)).toBeTruthy()
+    expect(screen.getByText(String(woche.kopf.belegt + testkonten))).toBeTruthy()
   })
 
   it('Termin: jedes Testkonto im Raum trägt „Test“', async () => {
     sp.ladeTermin.mockResolvedValue({ data: terminTest, error: null })
-    await zeige(`/admin/slots/termin/${terminTest.datum}/${terminTest.zeit.id}`, '/admin/slots/termin/:datum/:zeitId', <TerminPage />)
+    await zeige('/', '/', <SlotPanel datum={terminTest.datum} zeitId={terminTest.zeit.id} einzel={[]} onPanel={() => {}} onClose={() => {}} onGeaendert={() => {}} />)
     const kinderImRaum = terminTest.raeume.flatMap((r) => r.kinder)
     expect(kinderImRaum.length).toBeGreaterThan(0)
     expect(kinderImRaum.every((k) => k.ist_test)).toBe(true)

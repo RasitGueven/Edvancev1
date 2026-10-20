@@ -1,132 +1,133 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard, EmptyState, LoadingPulse, WochenNavigation } from '@/components/edvance'
 import { KennzahlenLeiste, type Kennzahl } from '@/components/edvance/admin/KennzahlenLeiste'
 import type { SlotsWoche } from '@/types/slotplan'
+import type { StundenplanWoche } from '@/types/stundenplan'
 import type { Geladen } from '../useSlotsLaden'
-import { datumKurz, prozent } from '../slotsFormat'
-import { TagesAnsicht, WochenRaster } from './WochenRaster'
+import { prozent } from '../slotsFormat'
+import { FARBE } from './RaumZeile'
+import { WochenRaster } from './WochenRaster'
+import { wochenKennzahlen, type Panel, type RaumFarbe } from './wochenplan.model'
 
 /** Wochenraster als Skelett, solange die Woche lädt. */
 function RasterSkelett(): JSX.Element {
   return (
-    <div className="grid grid-cols-[3.5rem_repeat(5,minmax(0,1fr))] gap-1" aria-hidden="true">
-      {Array.from({ length: 6 * 7 }, (_, i) => (
-        <div key={i} className={`h-14 rounded-[var(--radius-md)] ${i % 6 === 0 ? '' : 'bg-[var(--color-border)] animate-skeleton'}`} />
+    <div className="grid grid-cols-[4rem_repeat(5,minmax(0,1fr))] gap-2" aria-hidden="true">
+      {Array.from({ length: 6 * 5 }, (_, i) => (
+        <div key={i} className={`h-20 rounded-[var(--radius-md)] ${i % 6 === 0 ? '' : 'bg-[var(--color-border)] animate-skeleton'}`} />
       ))}
     </div>
   )
 }
 
+const LEGENDE: RaumFarbe[] = ['rot', 'gelb', 'gruen', 'leer', 'keinCoach']
+const SWATCH: Record<RaumFarbe, string> = {
+  rot: `w-3 ${FARBE.rot.punkt}`,
+  gelb: `w-3 ${FARBE.gelb.punkt}`,
+  gruen: `w-3 ${FARBE.gruen.punkt}`,
+  leer: `w-3 ${FARBE.leer.leer}`,
+  keinCoach: 'w-6 bg-[var(--color-error-coach)]',
+}
+
 function Legende(): JSX.Element {
   const { t } = useTranslation('slots')
-  const punkt = 'inline-block h-4 w-4 rounded-sm'
   return (
     <ul className="flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-tertiary)]">
-      <li className="flex items-center gap-2">
-        <span aria-hidden="true" className={`${punkt} bg-[var(--color-gold-warning-light)] shadow-[inset_3px_0_0_var(--color-gold-warning)]`} />
-        {t('woche.legende.achtung')}
-      </li>
-      <li className="flex items-center gap-2">
-        <span aria-hidden="true" className={`${punkt} bg-[var(--color-error-coach-light)] shadow-[inset_3px_0_0_var(--color-error-coach)]`} />
-        {t('woche.legende.handeln')}
-      </li>
-      <li className="flex items-center gap-2">
-        <span aria-hidden="true">–</span>
-        {t('woche.keinRaum')}
-      </li>
-      <li>{t('woche.legende.faecher')}</li>
+      <li>{t('wochenplan2.legende.titel')}</li>
+      {LEGENDE.map((f) => (
+        <li key={f} className="flex items-center gap-2">
+          <span aria-hidden="true" className={`inline-block h-3 rounded-sm ${SWATCH[f]}`} />
+          {t(`wochenplan2.legende.${f}`)}
+        </li>
+      ))}
     </ul>
   )
 }
 
+/**
+ * Reiter Wochenplan (Bauauftrag W2): Woche mit A/B-Kennzeichen, fünf Kennzahlen mit sichtbaren Testkonten,
+ * Raster mit Räumen je Zelle und Zeile „Einzel“. Zellen, Tage und Einzel-Sessions öffnen ihr Panel.
+ */
 export function WochenplanReiter({
   woche,
+  einzel,
   montag,
   onWoche,
+  onPanel,
 }: {
   woche: Geladen<SlotsWoche>
+  einzel: Geladen<StundenplanWoche>
   montag: string
   onWoche: (montag: string) => void
+  onPanel: (panel: Panel) => void
 }): JSX.Element {
   const { t, i18n } = useTranslation('slots')
-  const [leereZeigen, setLeereZeigen] = useState(false)
   const w = woche.daten && woche.daten.montag === montag ? woche.daten : null
-  const kopf = w?.kopf
-  // SL2b (Entscheidung 3): Der Kopf zählt Testkonten nicht; die Zahl sagt, wie viele in der Woche fehlen.
-  const testkonten = w ? w.zellen.reduce((s, z) => s + (z.test ?? 0), 0) : 0
+  const e = einzel.daten && einzel.daten.montag === montag ? einzel.daten.sessions : null
+  const k = w ? wochenKennzahlen(w.kopf) : null
+  const pz = (a: number | null): string => (a === null ? '–' : prozent(a, i18n.language))
 
-  const zahlen: Kennzahl[] = kopf
+  const zahlen: Kennzahl[] = k
     ? [
-        { key: 'plaetze', label: t('woche.kpi.plaetze'), wert: String(kopf.plaetze), unterzeile: t('woche.kpi.plaetzeSub') },
+        { key: 'plaetze', label: t('wochenplan2.kpi.plaetze'), wert: String(k.plaetze), unterzeile: t('wochenplan2.kpi.plaetzeSub') },
         {
           key: 'belegt',
-          label: t('woche.kpi.belegt'),
-          wert: String(kopf.belegt),
-          unterzeile: testkonten > 0 ? t('woche.kpi.belegtSubOhneTest', { count: testkonten }) : t('woche.kpi.belegtSub'),
+          label: t('wochenplan2.kpi.belegt'),
+          wert: String(k.belegt),
+          unterzeile: t('wochenplan2.kpi.belegtSub', { kinder: k.echt, count: k.test }),
         },
         {
           key: 'auslastung',
-          label: t('woche.kpi.auslastung'),
-          wert: kopf.auslastung === null ? '–' : prozent(kopf.auslastung, i18n.language),
-          unterzeile: t('woche.kpi.auslastungSub'),
+          label: t('wochenplan2.kpi.auslastung'),
+          wert: pz(k.auslastung),
+          unterzeile: t('wochenplan2.kpi.auslastungSub', { prozent: pz(k.auslastungOhneTest) }),
         },
         {
-          key: 'ohneRaum',
-          label: t('woche.kpi.ohneRaum'),
-          wert: String(kopf.ohne_raum),
-          ton: kopf.ohne_raum > 0 ? 'handeln' : 'neutral',
-          unterzeile: kopf.erster_ohne_raum
-            ? t('woche.kpi.ohneRaumErster', { datum: datumKurz(kopf.erster_ohne_raum.datum, i18n.language) })
-            : t('woche.kpi.ohneRaumKeiner'),
-          ziel: kopf.erster_ohne_raum
-            ? `/admin/slots/termin/${kopf.erster_ohne_raum.datum}/${kopf.erster_ohne_raum.zeit_id}`
-            : undefined,
+          key: 'ohneCoach',
+          label: t('wochenplan2.kpi.ohneCoach'),
+          wert: String(k.raeumeOhneCoach),
+          ton: k.raeumeOhneCoach > 0 ? 'handeln' : 'neutral',
+          unterzeile: t(k.raeumeOhneCoach > 0 ? 'wochenplan2.kpi.ohneCoachHandeln' : 'wochenplan2.kpi.ohneCoachKeiner'),
         },
         {
           key: 'ohneStammplatz',
-          label: t('woche.kpi.ohneStammplatz'),
-          wert: String(kopf.ohne_stammplatz),
-          ton: kopf.ohne_stammplatz_laufend > 0 ? 'handeln' : 'neutral',
-          unterzeile: t('woche.kpi.ohneStammplatzSub', { count: kopf.ohne_stammplatz_laufend }),
-          ziel: kopf.ohne_stammplatz > 0 ? '/admin/slots?reiter=kinder&filter=kein_stammplatz' : undefined,
+          label: t('wochenplan2.kpi.ohneStammplatz'),
+          wert: String(k.ohneStammplatz),
+          ton: k.ohneStammplatzHandeln ? 'handeln' : 'neutral',
+          unterzeile: t('wochenplan2.kpi.ohneStammplatzSub', { count: k.ohneStammplatzTest }),
+          ziel: k.ohneStammplatz + k.ohneStammplatzTest > 0 ? '/admin/slots?reiter=kinder&filter=kein_stammplatz' : undefined,
         },
       ]
     : []
 
   return (
     <div className="flex flex-col gap-4">
-      {w ? <KennzahlenLeiste zahlen={zahlen} label={t('woche.kpi.label')} breite="slots-kpi" /> : <LoadingPulse type="stat" />}
+      <div className="flex flex-wrap items-center gap-4">
+        <WochenNavigation montag={montag} onWechsel={onWoche} />
+        {w && (
+          <span className="text-xs text-[var(--color-text-tertiary)]">
+            {t(w.a_woche ? 'wochenplan2.aWoche' : 'wochenplan2.bWoche')}
+          </span>
+        )}
+      </div>
 
-      <EdvanceCard className="@container flex flex-col gap-4 p-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-base font-semibold text-[var(--color-text-primary)]">{t('woche.titel')}</h2>
-          <WochenNavigation montag={montag} onWechsel={onWoche} />
-        </div>
+      <div className="@container">
+        {w ? <KennzahlenLeiste zahlen={zahlen} label={t('woche.kpi.label')} breite="slots-kpi" /> : <LoadingPulse type="stat" />}
+      </div>
 
+      <EdvanceCard className="flex min-w-0 flex-col gap-4 p-4">
         {woche.fehler && !w ? (
-          <p className="text-sm text-[var(--color-text-secondary)]">{t(woche.fehler)}</p>
+          <p role="alert" className="text-sm text-[var(--color-text-secondary)]">{t(woche.fehler)}</p>
         ) : !w ? (
           <RasterSkelett />
         ) : w.zeiten.length === 0 ? (
           <EmptyState icon="🕓" title={t('woche.leerTitel')} description={t('woche.leerText')} />
         ) : (
-          <>
-            <div className="hidden @slots-woche:block">
-              <WochenRaster woche={w} leereZeigen={leereZeigen} />
-            </div>
-            <div className="@slots-woche:hidden">
-              <TagesAnsicht key={w.montag} woche={w} leereZeigen={leereZeigen} />
-            </div>
-          </>
+          <WochenRaster woche={w} einzel={e} onPanel={onPanel} />
         )}
-
-        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--color-border)] pt-2">
+        {einzel.fehler && <p role="alert" className="text-xs text-[var(--color-text-secondary)]">{t(einzel.fehler)}</p>}
+        <footer className="border-t border-[var(--color-border)] pt-2">
           <Legende />
-          <label className="flex min-h-[44px] items-center gap-2 text-xs text-[var(--color-text-secondary)]">
-            <input type="checkbox" checked={leereZeigen} onChange={(e) => setLeereZeigen(e.target.checked)} className="h-4 w-4" />
-            {t('woche.leereZeigen')}
-          </label>
         </footer>
       </EdvanceCard>
     </div>

@@ -1,6 +1,6 @@
 // Slots SL2, Tests 1 und 7: Alle /admin/slots*-Routen nur für Admins; ein Coach landet auch über die direkte
 // Adresse in seinen Einsätzen (Abnahmefall 14). /admin/slot-auswahl leitet in die Kinder-Liste um,
-// /admin/schedule in den Reiter Stundenplan (S2).
+// /admin/schedule und /admin/slots/termin/… in den Wochenplan (W2; Verhalten in wochenplan/wochenplan.test.tsx).
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -65,23 +65,12 @@ describe('Slots-Routen', () => {
     expect(APP).toContain('<Navigate to="/admin/slots?reiter=kinder" replace />')
   })
 
-  it('/admin/schedule leitet einen Admin in den Reiter Stundenplan (Slots S2)', () => {
-    auth.rolle = 'admin'
-    render(
-      <MemoryRouter initialEntries={['/admin/schedule']}>
-        <Routes>
-          <Route path="/admin/schedule" element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <Navigate to="/admin/slots?reiter=stundenplan" replace />
-            </ProtectedRoute>
-          } />
-          <Route path="*" element={<Ort />} />
-        </Routes>
-      </MemoryRouter>,
-    )
-    expect(screen.getByTestId('ort').textContent).toBe('/admin/slots?reiter=stundenplan')
-    const block = APP.slice(APP.indexOf('path="/admin/schedule"'), APP.indexOf('/>', APP.indexOf('path="/admin/schedule"') + 200) + 2)
-    expect(block).toContain('<Navigate to="/admin/slots?reiter=stundenplan" replace />')
+  it('/admin/schedule und die Termin-Adresse leiten in den Wochenplan (W2, Entscheidung 1 und 6)', () => {
+    const block = (pfad: string): string => APP.slice(APP.indexOf(`path="${pfad}"`), APP.indexOf('</Route>', APP.indexOf(`path="${pfad}"`)) + 300)
+    expect(block('/admin/schedule')).toContain('<ScheduleUmleitung />')
+    expect(block('/admin/slots/termin/:datum/:zeitId')).toContain('<TerminUmleitung />')
+    expect(APP).not.toContain('reiter=stundenplan')
     expect(APP).not.toContain('SchedulePage')
+    expect(APP).not.toContain('TerminPage')
   })
 })

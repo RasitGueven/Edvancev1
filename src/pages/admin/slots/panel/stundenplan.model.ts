@@ -1,27 +1,11 @@
-// Slots S2: reine Logik für Reiter Stundenplan und Sofort-Dialog (ohne React). Ob ein Kind buchbar ist,
+// Slots S2/W2: reine Logik für Einzel-Sessions (Panel) und Sofort-Dialog (ohne React). Ob ein Kind buchbar ist,
 // entscheidet die Datenbank (kinder_buchbar); hier wird nur sortiert, gruppiert und der Grund in Text-Parameter übersetzt.
 
-import { berlinLocalParts } from '@/lib/datetime'
 import type { SlotsEinstellungen } from '@/types/slotplan'
-import type { BuchbarCode, KindBuchbar, StundenplanSession } from '@/types/stundenplan'
+import type { BuchbarCode, KindBuchbar } from '@/types/stundenplan'
 
 /** Höchstens 5 Kinder pro Raum (Live-Sicht hat 5 Tablet-Plätze; sofort_session_anlegen: hint 'zu_viele'). */
 export const MAX_KINDER = 5
-
-/** Sessions nach Berliner Tag gruppiert, Tage aufsteigend, je Tag nach Beginn. */
-export function nachTag(sessions: StundenplanSession[]): { datum: string; sessions: StundenplanSession[] }[] {
-  const tage = new Map<string, StundenplanSession[]>()
-  for (const s of [...sessions].sort((a, b) => a.scheduled_at.localeCompare(b.scheduled_at))) {
-    const d = berlinLocalParts(s.scheduled_at).date
-    tage.set(d, [...(tage.get(d) ?? []), s])
-  }
-  return [...tage.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([datum, liste]) => ({ datum, sessions: liste }))
-}
-
-/** Coach-Filter: '' = alle. */
-export function nachCoach(sessions: StundenplanSession[], coachId: string): StundenplanSession[] {
-  return coachId ? sessions.filter((s) => s.coach_id === coachId) : sessions
-}
 
 type Raum = SlotsEinstellungen['raeume'][number]
 

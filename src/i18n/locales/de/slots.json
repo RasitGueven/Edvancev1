@@ -96,6 +96,137 @@
       "belegtSubOhneTest_other": "ohne {{count}} Testkonten"
     }
   },
+  "wochenplan2": {
+    "aWoche": "A-Woche (ungerade KW)",
+    "bWoche": "B-Woche (gerade KW)",
+    "oeffnen": "Öffnen",
+    "panel": {
+      "schliessen": "Schließen"
+    },
+    "raster": {
+      "label": "Wochenplan: Räume je Tag und Uhrzeit"
+    },
+    "kpi": {
+      "plaetze": "Plätze in besetzten Räumen",
+      "plaetzeSub": "Räume mit Coach × 5",
+      "belegt": "Belegt",
+      "belegtSub_one": "{{kinder}} Kinder · {{count}} Testkonto",
+      "belegtSub_other": "{{kinder}} Kinder · {{count}} Testkonten",
+      "auslastung": "Auslastung",
+      "auslastungSub": "ohne Testkonten {{prozent}}",
+      "ohneCoach": "Räume mit Kindern ohne Coach",
+      "ohneCoachHandeln": "Coach setzen oder umbuchen",
+      "ohneCoachKeiner": "alles besetzt",
+      "ohneStammplatz": "Ohne Stammplatz",
+      "ohneStammplatzSub_one": "Kinder · dazu {{count}} Testkonto",
+      "ohneStammplatzSub_other": "Kinder · dazu {{count}} Testkonten"
+    },
+    "legende": {
+      "titel": "Auslastung je Raum:",
+      "rot": "1–2 Kinder",
+      "gelb": "3 Kinder",
+      "gruen": "4–5 Kinder",
+      "leer": "leer",
+      "keinCoach": "Kinder, aber kein Coach"
+    },
+    "tag": {
+      "heute": "{{datum}} · heute",
+      "oeffnen": "Ganzen Tag ansehen",
+      "rubrik": "KW {{kw}} · ganzer Tag",
+      "satz_one": "Freie Plätze über den Tag: {{frei}} · {{count}} Kind eingeplant",
+      "satz_other": "Freie Plätze über den Tag: {{frei}} · {{count}} Kinder eingeplant",
+      "frei": "frei",
+      "oeffnenUm": "{{beginn}} öffnen",
+      "einzelPlanen": "+ Einzel-Session an diesem Tag planen"
+    },
+    "zelle": {
+      "label_one": "{{count}} Kind, {{frei}} frei",
+      "label_other": "{{count}} Kinder, {{frei}} frei",
+      "frei_one": "{{count}} frei",
+      "frei_other": "{{count}} frei",
+      "laeuft": "läuft gerade"
+    },
+    "raum": {
+      "belegt": "{{belegt}}/{{max}}",
+      "keinCoach": "kein Coach",
+      "label": "{{raum}}: {{stand}}",
+      "labelKeinCoach": "{{raum}}: {{stand}}, kein Coach",
+      "faelltAus": "{{coach}} fällt aus.",
+      "ohneCoachSatz_one": "{{count}} Kind sitzt in einem Raum ohne Coach. Coach setzen, das Kind in einen anderen Raum schieben oder den Termin ausfallen lassen.",
+      "ohneCoachSatz_other": "{{count}} Kinder sitzen in einem Raum ohne Coach. Coach setzen, Kinder in einen anderen Raum schieben oder den Termin ausfallen lassen.",
+      "geschlossenLeer": "Ohne Coach ist der Raum geschlossen. Einen Coach wählen öffnet ihn für diesen Termin.",
+      "kindPlus": "+ Kind in {{raum}}",
+      "vollGrund": "Raum ist voll ({{max}} von {{max}})."
+    },
+    "slot": {
+      "rubrik": "KW {{kw}} · Slot",
+      "satz_one": "{{belegt}} von {{plaetze}} Plätzen belegt · {{count}} Raum mit Coach",
+      "satz_other": "{{belegt}} von {{plaetze}} Plätzen belegt · {{count}} Räume mit Coach",
+      "laeuft": "läuft gerade",
+      "beendet": "beendet",
+      "einzel": "Einzel-Sessions in dieser Stunde",
+      "hinweisAbsage": "Absagen bis 10:00 Uhr am Session-Tag gelten als rechtzeitig, die Einheit bleibt offen. Danach gilt der Termin als unentschuldigt."
+    },
+    "aktion": {
+      "amTermintag": "Öffnen am Termintag",
+      "beendet": "beendet",
+      "rueckblick": "Rückblick",
+      "live": "Live-Sicht",
+      "leer": "Noch keine Kinder: keine Session nötig."
+    },
+    "einzel": {
+      "zeile": "Einzel",
+      "chip": "{{zeit}} · {{raum}}",
+      "leitungTest": "Testlauf · {{leitung}}",
+      "art": "Einzel-Session",
+      "leitungKinder_one": "Leitung {{leitung}} · {{count}} Kind",
+      "leitungKinder_other": "Leitung {{leitung}} · {{count}} Kinder"
+    },
+    "einzelPanel": {
+      "titel": "{{datum}} · {{zeit}}",
+      "satz": "Außerhalb der Stammplätze, zählt als Einheit.",
+      "satzTest": "Außerhalb der Stammplätze. Testlauf: verbraucht nichts.",
+      "wegTitel": "Session nicht gefunden",
+      "wegText": "Diese Session gibt es an diesem Tag nicht mehr. Schließe das Panel und lade den Wochenplan neu."
+    },
+    "kind": {
+      "titel": "Kind in {{raum}}",
+      "kopf": "{{datum}} · {{beginn}} · {{coach}} · {{belegt}} von {{max}} belegt",
+      "modusLabel": "Wie oft",
+      "modus": {
+        "einmal": "Nur an diesem Termin",
+        "jedeWoche": "Jede Woche (Stammplatz)"
+      },
+      "satzEinmal": "Zusatztermin aus den offenen Einheiten des Kindes.",
+      "satzJedeWoche": "Stammplatz {{tag}} {{beginn}} in {{raum}}, gültig ab {{ab}}. Der Coach kommt aus der Schicht des Raums.",
+      "suche": "Kind suchen",
+      "waehlen": "Ein Kind wählen. Ausgegraute Kinder tragen den Grund rechts.",
+      "speichernEinmal": "Hinzufügen",
+      "speichernJedeWoche": "Stammplatz vergeben",
+      "gebuchtEinmal": "{{name}} ist an diesem Termin in {{raum}}.",
+      "gebuchtJedeWoche": "{{name}} hat jetzt einen Stammplatz in {{raum}}.",
+      "ohneStammplatz": "ohne Stammplatz",
+      "stammplatz": "Stammplatz {{liste}}",
+      "stammKurz": "{{tag}} {{beginn}} · {{raum}}",
+      "stammKurzTakt": "{{tag}} {{beginn}} · {{raum}} ({{takt}})",
+      "raumAutomatisch": "Raum automatisch",
+      "live": "Live"
+    },
+    "grund": {
+      "kein_vertrag": "Kein Vertrag",
+      "vertrag_ab": "Vertrag beginnt am {{datum}}",
+      "SL001": "Raum ist voll",
+      "SL002": "Raum hat zu der Zeit keinen Coach",
+      "SL003": "Hat an dem Tag schon einen Termin",
+      "SL004": "Wochengrenze des Kindes erreicht",
+      "SL005": "Keine offene Einheit mehr",
+      "SL006": "Termin liegt außerhalb des Vertrags",
+      "SL007": "Termin liegt in der Vergangenheit",
+      "SL011": "Termin hat begonnen oder ist vergangen",
+      "SL012": "Termin liegt hinter der Ferientabelle",
+      "SL013": "Testkind und echtes Kind nicht im selben Termin"
+    }
+  },
   "termin": {
     "rubrik": "Slots · KW {{kw}}",
     "titel": "{{datum}} · {{beginn}}–{{ende}}",
