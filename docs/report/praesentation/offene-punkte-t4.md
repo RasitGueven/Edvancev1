@@ -46,12 +46,12 @@ Stand 20.10.2026, Branch `feat/rasit-praesentation-stationen34`.
 
 ## Offen
 
-1. **Spec-Korrektur** (siehe oben) vor der iPad-Abnahme einspielen; danach T3 und T4 noch einmal offiziell
-   laufen lassen und die Fotos neu ziehen.
-2. **Punktmuster doppelt:** T3 baut das Muster „übersprungen“ für Station 02 parallel in `station2.css`; T4
+1. ~~**Spec-Korrektur** (siehe oben) vor der iPad-Abnahme einspielen~~ — erledigt in T3 (#282); die
+   offiziellen Läufe ab T5 messen mit reduzierter Bewegung.
+2. ~~**Punktmuster doppelt:**~~ — erledigt in T5: eine Klasse `.tp-muster-ueber` in `rahmen.css`. T3 baut das Muster „übersprungen“ für Station 02 parallel in `station2.css`; T4
    hat es in `station3.css` unter `.tp-s3-seg-ueber`. Nach dem Merge beider an eine Stelle ziehen
    (z. B. eine gemeinsame Klasse in `rahmen.css`, gehört T2/Rasit).
-3. **Zählung doppelt:** Die Zählung „x sicher · y Übungsbedarf · davon z übersprungen“ hat T4 als kleine
+3. ~~**Zählung doppelt:**~~ — erledigt in T5: eine Komponente `Zaehlung.tsx` (Prop `farbig` für 03). Die Zählung „x sicher · y Übungsbedarf · davon z übersprungen“ hat T4 als kleine
    Funktion in `Pyramide.tsx`; T3 hat eine eigene für die Zeilen in 02. Zusammenlegen nach dem Merge.
 4. **Lage des Förderfokus im Hochformat** (unter der Kurve) bei der Abnahme bestätigen (Abnahme 7).
 5. **Zeile „Basic ist ebenfalls möglich“** bei der Abnahme bestätigen (Beschluss vom 17.10.).

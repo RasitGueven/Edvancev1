@@ -29,6 +29,9 @@ Stand 20.10.2026, Branch `feat/rasit-praesentation-stationen12`.
 6. **Liste in den Karten von 01:** `Intl.ListFormat` macht aus zwei Feldern „Größen und Zahlen & Rechnen“. Das „&“
    im Feldnamen steht dann neben dem „und“. Bei der Abnahme ansehen; Alternative wäre ein Zeilenumbruch je Feld.
 
+7. ~~**Punktmuster und Zählung doppelt** (Station 02 hier, Station 03 in T4)~~ — erledigt in T5: ein Muster
+   `.tp-muster-ueber` in `rahmen.css`, eine Komponente `Zaehlung.tsx` für 02 und 03.
+
 ## Abweichungen vom Dummy (mit Grund)
 
 - **Überschrift 01:** Kopfsatz bzw. Ersatzüberschrift ohne farbige Hervorhebung (Entscheidung 6/12).

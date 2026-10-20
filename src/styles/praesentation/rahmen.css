@@ -211,10 +211,8 @@ html.tp-offen body {
 
 /* ─── Bausteine der Stationen 02 und 03 ───────────────────────────────────── */
 
-/* Punktmuster „übersprungen": Punkte, nie Streifen (Streifen heißen im Druckbogen
-   „nicht untersucht"). Verlauf nur hierfür erlaubt (CLAUDE.md §11). Farben
-   kombiniert rosé; die Zählweise „getrennt" setzt am Container die neutralen
-   Werte. Punktgröße und Raster per Variable (Legende: kleines Raster). */
+/* Punktmuster „übersprungen", nie Streifen (die heißen im Druckbogen „nicht untersucht").
+   Kombiniert rosé; „getrennt" setzt am Container die neutralen Werte. */
 .tp {
   --tp-ueber-punkt: var(--color-tp-ueber-punkt);
   --tp-ueber-grund: var(--color-tp-ueber-grund);
@@ -232,8 +230,7 @@ html.tp-offen body {
     var(--tp-ueber-grund);
 }
 
-/* Zählung „2 sicher · 3 Übungsbedarf · davon 1 übersprungen" (Zaehlung.tsx).
-   Umbruch nur zwischen den Teilen, der Punkt bleibt am Teil davor. */
+/* Zählung (Zaehlung.tsx): Umbruch nur zwischen den Teilen, der Punkt bleibt am Teil davor. */
 .tp .tp-zaehlung > span {
   white-space: nowrap;
 }

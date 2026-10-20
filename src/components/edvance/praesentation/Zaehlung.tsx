@@ -7,16 +7,15 @@ import type { TpAnzeige } from '@/types'
 type ZaehlungProps = {
   anteile: TpAnteile
   anzeige: TpAnzeige
-  /** Klasse der Station für Größe und Lage (tp-s2-zaehlung, tp-s3-zaehlung). */
+  /** Klasse der Station (Größe, Lage). */
   className: string
-  /** Teile in den Farben der Zustände (Station 03); sonst leise (Station 02). */
+  /** Teile in den Farben der Zustände (Station 03). */
   farbig?: boolean
 }
 
 /**
- * Die kleine Zählung in Station 02 (je Zeile) und 03 (je Ebene): „2 sicher ·
- * 3 Übungsbedarf" und, je Zählweise, „davon 1 übersprungen" bzw. „1
- * übersprungen". Nur Teile, die nicht null sind. Trenner und Umbruch in rahmen.css.
+ * Die Zählung je Zeile (02) bzw. Ebene (03): „2 sicher · 3 Übungsbedarf" und je
+ * Zählweise „davon 1 übersprungen" bzw. „1 übersprungen". Nur Teile ≠ 0.
  */
 export function Zaehlung({ anteile, anzeige, className, farbig = false }: ZaehlungProps): JSX.Element {
   const { t } = useTranslation('praesentation')
