@@ -1,6 +1,7 @@
-/* Eltern-Report — Druckbild (R1).
-   Alles ist unter @media print bzw. .report-sheet gescoped, damit die
-   Bildschirm-Oberfläche unberührt bleibt. */
+/* Druckbild der App: Seitenformat und was nicht aufs Blatt gehört.
+   Alles ist unter @media print gescoped, damit die Bildschirm-Oberfläche
+   unberührt bleibt. Der Eltern-Bericht R7 druckt randlos über die benannte
+   Seite `eb` (styles/elternbericht/rahmen.css). */
 
 @media print {
   @page {
@@ -19,85 +20,7 @@
   }
 
   body {
-    /* Der Report ist ein Dokument, kein Screen: volle Breite, kein App-Chrome. */
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-  }
-
-  .report-sheet {
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    gap: 8mm !important;
-  }
-
-  /* Ein Abschnitt soll nicht über den Seitenrand zerrissen werden. */
-  .report-block {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    box-shadow: none !important;
-  }
-
-  /* W2-7: die Suche ist mit drei Blöcken länger als eine halbe Seite. Als
-     Ganzes unteilbar rutschte sie komplett auf die nächste Seite und ließ eine
-     leere zurück — sie bricht deshalb zwischen den Zeilen, nie in einer. */
-  .report-block.report-suche {
-    break-inside: auto;
-    page-break-inside: auto;
-  }
-  .report-suche-zeile {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-  .report-suche-kopf,
-  .report-suche-hinweis,
-  .report-suche-stufe-name {
-    break-after: avoid;
-    page-break-after: avoid;
-  }
-
-  /* R3 — der Befund-Abschnitt steht im Druck OFFEN.
-     Am Bildschirm ist er zugeklappt (Eltern öffnen ihn zu Hause), auf Papier
-     gibt es kein Klicken: die UA-Regel für geschlossene <details> wird hier
-     überschrieben, der Aufklapp-Hinweis und der Winkel verschwinden. */
-  /* Die Suchzeilen und das Profil tragen die Aussage — sie muessen mitdrucken,
-     nicht als leerer Rahmen erscheinen. */
-  .report-suche-zeile,
-  .report-befund-traegt,
-  .report-rueckbezug-marke {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  /* Das Profil ist eine Flaeche, kein Rahmen: ohne exakte Farben blieben zwei
-     leere Sechsecke uebrig und der Abstand zwischen ihnen — die eigentliche
-     Information — waere weg. */
-  .report-profil-bild {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  .report-sheet details:not([open]) > .report-details-body {
-    display: block !important;
-  }
-  .report-sheet .report-details-hint,
-  .report-sheet .report-winkel {
-    display: none !important;
-  }
-
-  /* Die Aufgabenspur trägt die Aussage mit — sie muss mitdrucken, nicht als
-     leere Ringe erscheinen. */
-  .report-marke {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  /* Der Schluss ist eine Fläche, kein Kasten in der Reihe: er darf umbrechen,
-     aber nicht auf einer eigenen Seite alleine landen. */
-  .report-schluss {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-    break-inside: avoid;
-    page-break-inside: avoid;
   }
 }

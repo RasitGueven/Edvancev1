@@ -130,9 +130,9 @@ describe('ElternberichtBogen — Name nach der Messung', () => {
     vi.spyOn(window, 'getComputedStyle').mockImplementation(
       () => ({ lineHeight: '40px' }) as CSSStyleDeclaration,
     )
-    vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function (this: Element) {
-      const h = this.classList.contains('eb-titel') && seiteVon(this) === 2 ? 40 * titelZeilen : 0
-      return { x: 0, y: 0, top: 0, left: 0, right: 0, width: 0, height: h, bottom: h, toJSON: () => ({}) }
+    // Layoutwert, nicht getBoundingClientRect: skalenfest seit R7-7.
+    vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockImplementation(function (this: HTMLElement) {
+      return this.classList.contains('eb-titel') && seiteVon(this) === 2 ? 40 * titelZeilen : 0
     })
     vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockImplementation(function (this: HTMLElement) {
       return this.classList.contains('eb-inhalt') && ueberlauf.includes(seiteVon(this)) ? 977 : 960

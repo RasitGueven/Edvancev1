@@ -45,16 +45,7 @@ function code(rel: string): string {
 }
 
 const PARENT_DASHBOARD = 'pages/parent/ParentDashboard.tsx'
-const REPORT_BODY = 'components/edvance/report/ReportBody.tsx'
-const REPORT_FEHLBILDER = 'components/edvance/report/ReportFehlbilder.tsx'
 const FEHLBILD_GRUPPIERUNG = 'lib/reportFehlbilder.ts'
-const SKILLBEFUNDE = 'components/edvance/report/ReportSkillbefunde.tsx'
-const REPORT_SUCHE = 'components/edvance/report/ReportSuche.tsx'
-const REPORT_PROFIL = 'components/edvance/report/ReportProfil.tsx'
-const REPORT_BEFUND = 'components/edvance/report/ReportBefund.tsx'
-const REPORT_RUECKBEZUG = 'components/edvance/report/ReportRueckbezug.tsx'
-const REPORT_SCHLUSS = 'components/edvance/report/ReportSchluss.tsx'
-const PRINT_CSS = 'styles/print.css'
 
 // Alle Strings eines Übersetzungsbaums, Pfad → Text.
 function flatten(
@@ -140,27 +131,13 @@ describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
   // gibt jetzt ZWEI interne Schlüssel (slug, familie) und einen Text, der nicht
   // für Eltern gedacht ist (den Coach-Klartext).
 
-  it('ReportBody rendert den Fehlbild-Abschnitt nicht mehr selbst', () => {
-    // Er delegiert. Zieht jemand die Liste zurück in den Body, greifen die
-    // Proben unten nicht mehr — deshalb wird die Delegation selbst geprüft.
-    const src = code(REPORT_BODY)
-    expect(src).toContain('<ReportFehlbilder')
-    expect(src).not.toMatch(/\bfb\./)
-  })
+  // R7-7: Die Komponenten der Fassung R6 (ReportBody, ReportFehlbilder,
+  // ReportSkillbefunde …) sind gelöscht, mit ihnen die Prüfungen ihres
+  // Quelltexts. Was in src/lib und report.json bleibt, wird weiter geprüft.
 
-  it('die Fehlbild-Komponente rendert weder Slug noch Familienschlüssel', () => {
-    const src = code(REPORT_FEHLBILDER)
-    // Der Familienschlüssel darf ausschliesslich als React-key dienen.
-    expect([...src.matchAll(/familie\.familie/g)]).toHaveLength(1)
-    expect(src).toContain('key={familie.familie}')
-    // Der Slug taucht in der Elternsicht überhaupt nicht auf.
-    expect(src).not.toMatch(/\.slug\b/)
-  })
-
-  it('die Fehlbild-Komponente rendert keinen Coach-Klartext', () => {
+  it('die Fehlbild-Gruppierung kennt keinen Coach-Klartext', () => {
     // klartext ist ab AF4 der Coach-Satz. Er kommt über die Eltern-RPC gar
     // nicht mehr an; taucht der Bezeichner hier auf, hat ihn jemand zurückgeholt.
-    expect(code(REPORT_FEHLBILDER)).not.toMatch(/klartext/i)
     expect(code(FEHLBILD_GRUPPIERUNG)).not.toMatch(/klartext/i)
   })
 
@@ -169,33 +146,6 @@ describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
     // Behauptung über das Denken eines Kindes, die die Abnahme verhindern soll.
     const src = code(FEHLBILD_GRUPPIERUNG)
     expect(src).toContain('if (!familie || !elterntext) continue')
-    // Und die Komponente rendert nichts, wenn nichts übrig bleibt.
-    expect(code(REPORT_FEHLBILDER)).toContain('return null')
-  })
-
-  it('der angezeigte Satz kommt wörtlich aus der Datenbank', () => {
-    // Nicht aus i18n: der Elterntext ist Inhalt, keine Oberflächensprache
-    // (CLAUDE §12). Gerendert wird das Feld, unverändert.
-    expect(code(REPORT_FEHLBILDER)).toContain('{familie.elterntext}')
-  })
-
-  it('der Skill-Abschnitt rendert das Label, niemals den skill_key', () => {
-    const src = code(SKILLBEFUNDE)
-    // skillKey darf ausschliesslich als React-key dienen.
-    expect([...src.matchAll(/skill\.skillKey/g)]).toHaveLength(1)
-    expect(src).toContain('key={skill.skillKey}')
-    expect(src).toContain('{skill.label}')
-  })
-
-  it('der Skill-Abschnitt entfaellt, statt Leere zu behaupten', () => {
-    const src = code(SKILLBEFUNDE)
-    expect(src).toContain('return null')
-  })
-
-  it('der Skill-Abschnitt zeigt keine Fundamenttiefe als Zahl', () => {
-    // Eine Stufenzahl waere fuer Eltern bedeutungslos und laese sich wie eine Note.
-    const src = code(SKILLBEFUNDE)
-    expect(src).not.toMatch(/\{\s*skill\.fundamentTiefe\s*\}/)
   })
 
   it('der Skill-Abschnitt traegt seine Vorlaeufigkeit in der Sprache', () => {
@@ -228,50 +178,18 @@ describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
  * Grenze hier und nicht nur im Kommentar.
  */
 describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
-  const REPORT_FLAECHEN = [
-    REPORT_BODY,
-    REPORT_SUCHE,
-    REPORT_PROFIL,
-    REPORT_BEFUND,
-    REPORT_RUECKBEZUG,
-    REPORT_FEHLBILDER,
-    SKILLBEFUNDE,
-    REPORT_SCHLUSS,
-  ]
+  // R7-7: Die Quelltext-Prüfungen der R6-Flächen (Quote, Ampelfarben, Profil,
+  // Schluss, Befund im Druck) sind mit den Komponenten entfallen; der Bogen R7
+  // hat seine eigenen in inv4-elternbericht.test.ts.
 
-  it('keine Quote und keine Prozentzahl als Aussage', () => {
-    for (const datei of REPORT_FLAECHEN) {
-      const src = code(datei)
-      // Prozentrechnung im Renderpfad — der klassische Weg zur Note.
-      expect(src, datei).not.toMatch(/\*\s*100\b/)
-      expect(src, datei).not.toMatch(/toFixed/)
-      // Ein Prozentzeichen im ausgegebenen Text.
-      expect(src, datei).not.toMatch(/%\s*(<\/|\{|'|"|`)/)
-    }
+  it('keine Prozentzahl in report.json', () => {
     const prozent = Object.entries(reportStrings).filter(([, text]) =>
       text.includes('%'),
     )
     expect(prozent).toEqual([])
   })
 
-  it('keine Ampelfarben auf den Eltern-Flaechen', () => {
-    // Der Report kennt drei Farben: Navy, Gold, Creme. Rot/Gelb/Gruen tragen
-    // hier eine Wertung, die niemand belegt hat.
-    for (const datei of REPORT_FLAECHEN) {
-      const src = code(datei)
-      expect(src, datei).not.toMatch(
-        /--color-(error|success|warning|danger)|\b(bg|text|border)-(red|green|amber|yellow|emerald|rose)-/,
-      )
-    }
-  })
-
-  it('die Suche nennt beide Summanden im Klartext, ohne Balken', () => {
-    // Die Ebenenspur (R6) trug einen Balken mit variabler Breite. Die Gliederung
-    // nach Stufen (W2-7) braucht ihn nicht: Jede Zeile nennt „x von y sicher"
-    // und die Bereiche einzeln. Eine Breite käme ohne Not als Skala zurück.
-    const src = code(REPORT_SUCHE)
-    expect(src).not.toMatch(/width/)
-    expect(src).toMatch(/suche\.zaehlung/)
+  it('die Suche nennt beide Summanden im Klartext', () => {
     expect(reportStrings['suche.zaehlung']).toBe('{{sicher}} von {{geprueft}} sicher')
   })
 
@@ -283,27 +201,6 @@ describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
     }
   })
 
-  it('das Profil schreibt keine Zahl an die Achsen', () => {
-    // Wer eine Prozentzahl an eine Achse schreibt, hat eine Note gebaut. Die
-    // Grundgesamtheit steht stattdessen als Satz unter dem Diagramm.
-    const src = code(REPORT_PROFIL)
-    expect(src).not.toMatch(/%/)
-    expect(src).toMatch(/profil\.nenner/)
-  })
-
-  it('der Schluss rendert nichts ohne Daten', () => {
-    // Fazit und Empfehlung kommen aus abgenommenen Bausteinen. Solange die
-    // fehlen, steht dort kein leerer Kasten und kein Platzhaltersatz.
-    expect(code(REPORT_SCHLUSS)).toMatch(/return null/)
-  })
-
-  it('der aufklappbare Befund steht im Druck offen', () => {
-    // Am Bildschirm zugeklappt, auf Papier vollstaendig: ein ausgedruckter
-    // Report darf nicht weniger sagen als der gleiche Report am Bildschirm.
-    expect(read(PRINT_CSS)).toMatch(
-      /details:not\(\[open\]\)\s*>\s*\.report-details-body/,
-    )
-  })
 })
 
 /**

@@ -27,12 +27,17 @@ const SEITEN_MIT_NAMEN = [1, 2, 3, 5]
  */
 export const NamensMessungFertig = createContext(true)
 
-/** Passt der Bogen mit Namen? Gemessen am gerenderten Bogen. */
-function passtMitNamen(bogen: HTMLElement): boolean {
+/**
+ * Passt der Bogen mit Namen? Gemessen am gerenderten Bogen, nur mit
+ * Layoutwerten (offsetHeight, scrollHeight): Am Bildschirm skaliert
+ * BerichtAnsicht den Bogen per transform, getBoundingClientRect wäre dann
+ * verkleinert, die berechnete Zeilenhöhe nicht (R7-7).
+ */
+export function passtMitNamen(bogen: HTMLElement): boolean {
   const titel = bogen.querySelector<HTMLElement>('.eb-seite[data-seite="2"] .eb-titel')
   if (titel) {
     const zeile = parseFloat(getComputedStyle(titel).lineHeight)
-    const hoehe = titel.getBoundingClientRect().height
+    const hoehe = titel.offsetHeight
     if (zeile > 0 && Math.round(hoehe / zeile) > TITEL_ZEILEN_MAX) return false
   }
   return SEITEN_MIT_NAMEN.every((n) => {

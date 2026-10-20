@@ -1,8 +1,11 @@
 /* Eltern-Bericht R7 · Bogen und Seitenrahmen (Maßblatt E7, „Alle Seiten“).
 
-   Die Seite ist 595,28 × 841,89 pt groß und wird nie skaliert (kein zoom, kein
-   transform): Seite 4 misst ihre Kurve im Layout, eine Skalierung am
-   Bildschirm würde die Messung vom Druck trennen.
+   Die Seite ist 595,28 × 841,89 pt groß; der Bogen selbst bleibt in pt und
+   kennt keinen zoom und kein transform. Skaliert wird nur am Bildschirm, und
+   zwar von außen: BerichtAnsicht (components/edvance/report) passt den ganzen
+   Bogen per transform in die Spalte ein (R7-7). Die Messungen im Bogen
+   (Name, Stufen, Kurve) rechnen mit Layoutwerten bzw. Verhältnissen und
+   treffen deshalb bei jeder Skala dieselbe Entscheidung wie im Druck.
 
    Grundlinien im Fluss: Bei Zeilenhöhe L und Schriftgröße f liegt die
    Grundlinie L/2 + 0,36·f unter der Oberkante der Zeile (Fraunces und
@@ -14,11 +17,6 @@
    Nachmessen: Grundlinie = Unterkante eines leeren inline-block vor dem Text. */
 
 /* ─── Bildschirm ──────────────────────────────────────────────────────────── */
-
-/* Breiter als die Inhaltsspalte: seitlich scrollen statt verkleinern. */
-.eb-ansicht {
-  overflow-x: auto;
-}
 
 .eb-bogen {
   position: relative;
@@ -167,7 +165,7 @@
 
 /* ─── Druck ───────────────────────────────────────────────────────────────── */
 
-/* Randlos über eine benannte Seite; die globale @page aus print.css bleibt für R6. */
+/* Randlos über eine benannte Seite; die globale @page aus print.css gilt für alles andere. */
 @page eb {
   size: A4;
   margin: 0;
@@ -184,10 +182,6 @@
     margin: 0 !important;
     padding: 0 !important;
     overflow: visible !important;
-  }
-
-  .eb-ansicht {
-    overflow: visible;
   }
 
   .eb-bogen {
