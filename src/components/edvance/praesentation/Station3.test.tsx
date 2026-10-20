@@ -75,13 +75,13 @@ describe('Station 03 — Inhalt', () => {
   it('derselbe Lernweg wie Seite 3; Kommt noch mit Klasse 10 als eigener Spalte', () => {
     const { container } = station(abgestuft, 'entered motion-complete')
     expect(container.querySelectorAll('[data-zone]')).toHaveLength(4)
-    expect(container.querySelector('[data-spalte="kommt-naechste"]')).toHaveTextContent('Klasse 10')
+    expect(container.querySelector('.tp-s3-naechste-block')).toHaveTextContent('Klasse 10')
     expect(container.querySelector('[data-zone="kommt"] .tp-s3-zone-klasse')).toHaveTextContent('Klasse 9 und 10, Schulplan')
   })
 
   it('ilkay: Kernlehrplan, keine Spalte der nächsten Klasse', () => {
     const { container } = station(ilkay, 'entered motion-complete')
-    expect(container.querySelector('[data-spalte="kommt-naechste"]')).toBeNull()
+    expect(container.querySelector('[data-gruppe="kommt-naechste"]')).toBeNull()
     expect(screen.getByText(/was laut Kernlehrplan NRW noch kommt/)).toBeInTheDocument()
   })
 
@@ -192,7 +192,7 @@ describe('Station 03 — Bedienung (Entscheidungen 22 und 25)', () => {
     expect(screen.getByTestId('tp-s3-info')).toHaveTextContent(
       'Potenzen und Potenzgesetze · kommt in Klasse 9. Baut auf, was schon sitzt: Bruch in Dezimalzahl.',
     )
-    fireEvent.click(within(container.querySelector('[data-spalte="kommt-naechste"]')!).getByRole('button', { name: 'Ähnlichkeit' }))
+    fireEvent.click(within(container.querySelector('[data-gruppe="kommt-naechste"]')!).getByRole('button', { name: 'Ähnlichkeit' }))
     expect(screen.getByTestId('tp-s3-info')).toHaveTextContent('Ähnlichkeit · kommt in Klasse 10.')
   })
 
@@ -216,11 +216,14 @@ describe('Station 03 — Bedienung (Entscheidungen 22 und 25)', () => {
     vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(500)
     vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(1600)
     const zonen = ['grundlagen', 'weiterfuehrend', 'aktuell', 'kommt']
-    vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function (this: Element) {
+    // Gemessen wird mit Layoutwerten (offsetLeft), ohne Transforms.
+    vi.spyOn(HTMLElement.prototype, 'offsetLeft', 'get').mockImplementation(function (this: HTMLElement) {
       const z = this.getAttribute('data-zone')
-      const x = z ? zonen.indexOf(z) * 400 : this.getAttribute('data-spalte') === 'kommt-naechste' ? 1450 : 0
-      const b = this.classList.contains('tp-s3-spur') ? 1600 : 10
-      return { left: x, right: x + b, width: b, top: 0, bottom: 10, height: 10, x, y: 0, toJSON: () => ({}) } as DOMRect
+      if (z) return zonen.indexOf(z) * 400
+      return this.classList.contains('tp-s3-naechste-block') ? 50 : 0
+    })
+    vi.spyOn(HTMLElement.prototype, 'offsetParent', 'get').mockImplementation(function (this: HTMLElement) {
+      return this.classList.contains('tp-s3-spur') ? null : (this.parentElement as Element)
     })
     const s = station(abgestuft, 'entered motion-complete')
     act(() => sichtbar.forEach((cb) => cb([{ intersectionRatio: 1 }])))

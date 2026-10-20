@@ -1,38 +1,41 @@
-import { useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties, type MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useLernwegTexte } from '@/components/edvance/elternbericht/lernwegTexte'
 import type { Lernweg, LwInsel, LwZone } from '@/types'
 
 import { infoEintrag, infoKommt, infoLeer, verbunden } from './lernwegInfo'
-import type { Fahrt } from './useLernwegFahrt'
+import type { Fahrt, Packungen } from './useLernwegFahrt'
 
-type Spalte = { key: string; inseln: LwInsel[]; art: 'normal' | 'jahr' | 'naechste' | 'leer' }
+type Gruppe = { key: string; inseln: LwInsel[]; art: 'normal' | 'jahr' | 'naechste' }
 
-/** Eine Spalte bis 3 Inseln, sonst zwei; Kommt noch: dieses Schuljahr und die nächste Klasse. */
-export function spaltenVon(z: LwZone, lw: Lernweg): Spalte[] {
-  if (z.key === 'kommt') {
-    return [
-      { key: 'kommt-jahr', inseln: z.inseln, art: 'jahr' },
-      ...(lw.naechsteKlasse ? [{ key: 'kommt-naechste', inseln: lw.naechsteKlasse.inseln, art: 'naechste' as const }] : []),
-    ]
-  }
-  if (z.inseln.length === 0) return [{ key: z.key, inseln: [], art: 'leer' }]
-  if (z.inseln.length <= 3) return [{ key: z.key, inseln: z.inseln, art: 'normal' }]
-  const h = Math.ceil(z.inseln.length / 2)
+/** Die Inselgruppen einer Zone: eine je Zone, in Kommt noch dieses Schuljahr und die nächste Klasse. */
+export function gruppenVon(z: LwZone, lw: Lernweg): Gruppe[] {
+  if (z.key !== 'kommt') return [{ key: z.key, inseln: z.inseln, art: 'normal' }]
   return [
-    { key: `${z.key}-1`, inseln: z.inseln.slice(0, h), art: 'normal' },
-    { key: `${z.key}-2`, inseln: z.inseln.slice(h), art: 'normal' },
+    { key: 'kommt-jahr', inseln: z.inseln, art: 'jahr' },
+    ...(lw.naechsteKlasse ? [{ key: 'kommt-naechste', inseln: lw.naechsteKlasse.inseln, art: 'naechste' as const }] : []),
   ]
 }
+
+/** Spalten einer Gruppe: nach der Messung so viele, dass die Spur ihre Höhe hält (useLernwegFahrt). */
+const spalten = (g: Gruppe, p: Packungen | null): LwInsel[][] =>
+  (p?.[g.key] ?? [g.inseln.map((_, i) => i)]).map((s) => s.map((i) => g.inseln[i]).filter(Boolean))
 
 /** Lage eines Eintrags in der Folge seiner Insel: für das Nacheinander (je 300 ms). */
 const folge = (i: number): CSSProperties => ({ '--tp-i': i }) as CSSProperties
 
+/** Antippen fokussiert, ohne dass der Browser die Fläche zum Knopf schiebt (die Ansicht bleibt). */
+const ohneSprung = (e: MouseEvent<HTMLButtonElement>): void => {
+  e.preventDefault()
+  e.currentTarget.focus({ preventScroll: true })
+}
+
 /**
  * Station 03 · die waagrechte Bühne des Lernwegs (R7-9, Entscheidungen 20–25):
- * Zonen nebeneinander, Inseln in Spalten, goldene Linien darüber, die Zukunft
- * hellblau mit Wolken. Darunter Fortschrittsbalken, Zonennamen und Infofeld.
+ * Zonen nebeneinander, Inseln in Spalten (umgebrochen auf die feste Höhe der
+ * Spur), goldene Linien darüber, die Zukunft hellblau mit Wolken. Darunter
+ * Infofeld, Fortschrittsbalken und Zonennamen.
  */
 export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element {
   const { t, i18n } = useTranslation('praesentation')
@@ -66,7 +69,7 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
   const knopf = (id: string, basis: string): string =>
     [basis, sel === id && 'tp-s3-gewaehlt', nah && !nah.has(id) && 'tp-s3-blass'].filter(Boolean).join(' ')
 
-  const insel = (i: LwInsel, art: Spalte['art']): JSX.Element => {
+  const insel = (i: LwInsel, art: Gruppe['art'], index: number): JSX.Element => {
     const kommt = i.zone === 'kommt'
     const klasse = [
       'tp-s3-insel',
@@ -79,10 +82,18 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
     ]
     let n = 0
     return (
-      <div key={i.id} className={klasse.filter(Boolean).join(' ')} data-insel={i.id}>
+      <div key={i.id} className={klasse.filter(Boolean).join(' ')} data-insel={i.id} data-index={index}>
         {kommt ? (
-          <button type="button" className="tp-s3-kbtn" aria-pressed={plan === i.id} onClick={() => klaeren(i.id)}>
-            <span className="tp-s3-insel-titel">{tx.inselTitel(i)}</span>
+          <button
+            type="button"
+            className="tp-s3-kbtn"
+            aria-pressed={plan === i.id}
+            onMouseDown={ohneSprung}
+            onClick={() => klaeren(i.id)}
+          >
+            <span className="tp-s3-insel-titel" data-tp-text="">
+              {tx.inselTitel(i)}
+            </span>
           </button>
         ) : (
           <p className="tp-s3-insel-titel">{tx.inselTitel(i)}</p>
@@ -96,6 +107,7 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
                   className={knopf(e.id, `tp-s3-e tp-s3-e-${e.stand}`)}
                   aria-pressed={sel === e.id}
                   data-eintrag={e.id}
+                  onMouseDown={ohneSprung}
                   onClick={() => tippen(e.id)}
                 >
                   <span className="tp-s3-punkt" data-anker="" aria-hidden="true" />
@@ -112,6 +124,7 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
                     className={knopf(u.id, `tp-s3-e tp-s3-unter tp-s3-unter-${u.stand}`)}
                     aria-pressed={sel === u.id}
                     data-eintrag={u.id}
+                    onMouseDown={ohneSprung}
                     onClick={() => tippen(u.id)}
                   >
                     <span className="tp-s3-pfeil" data-anker="" aria-hidden="true">
@@ -131,6 +144,16 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
     )
   }
 
+  const gruppe = (g: Gruppe): JSX.Element => (
+    <div key={g.key} className={`tp-s3-gruppe tp-s3-gruppe-${g.art}`} data-gruppe={g.key}>
+      {spalten(g, f.packungen).map((sp, k) => (
+        <div key={k} className="tp-s3-spalte" data-spalte={`${g.key}-${k}`}>
+          {sp.map((i) => insel(i, g.art, g.inseln.indexOf(i)))}
+        </div>
+      ))}
+    </div>
+  )
+
   const klassen = ['tp-s3-scroller', f.frei && 'tp-s3-frei', f.zieht && 'tp-s3-zieht'].filter(Boolean).join(' ')
 
   return (
@@ -145,7 +168,7 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
         onPointerDown={f.handler.onPointerDown}
         onPointerMove={f.handler.onPointerMove}
         onPointerUp={f.handler.onPointerUp}
-        onPointerLeave={f.handler.onPointerUp}
+        onPointerCancel={f.handler.onPointerCancel}
         onTouchStart={f.handler.onTouchStart}
         data-testid="tp-s3-scroller"
       >
@@ -176,22 +199,21 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
                     )}
                   </>
                 )}
-                <header className="tp-s3-zone-kopf" data-kopf="" data-tp-ueberschrift="">
+                <header className="tp-s3-zone-kopf" data-kopf="">
                   <p className="tp-s3-zone-name">{tx.zoneName(z.key)}</p>
                   <p className="tp-s3-zone-klasse">{tx.zoneKlasse(z.key, true)}</p>
                 </header>
                 <div className="tp-s3-spalten">
-                  {spaltenVon(z, lw).map((sp) => (
-                    <div
-                      key={sp.key}
-                      className={`tp-s3-spalte tp-s3-spalte-${sp.art}`}
-                      data-spalte={sp.key}
-                      data-rast={sp.art === 'naechste' ? '' : undefined}
-                    >
-                      {sp.art === 'naechste' && <p className="tp-s3-naechste">{tb('s3.weg.zone.naechste', { klasse: lw.naechsteKlasse!.klasse })}</p>}
-                      {sp.inseln.map((i) => insel(i, sp.art))}
-                    </div>
-                  ))}
+                  {gruppenVon(z, lw).map((g) =>
+                    g.art === 'naechste' ? (
+                      <div key={g.key} className="tp-s3-naechste-block" data-rast="">
+                        <p className="tp-s3-naechste">{tb('s3.weg.zone.naechste', { klasse: lw.naechsteKlasse!.klasse })}</p>
+                        {gruppe(g)}
+                      </div>
+                    ) : (
+                      gruppe(g)
+                    ),
+                  )}
                 </div>
               </section>
             ))}
@@ -212,6 +234,9 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
       </div>
 
       <div className="tp-s3-fuss">
+        <p className="tp-s3-info" aria-live="polite" data-testid="tp-s3-info">
+          {info.titel && <strong>{info.titel}</strong>} {info.text}
+        </p>
         <div className="tp-s3-leiste">
           <span className="tp-s3-balken" aria-hidden="true">
             <span />
@@ -224,9 +249,6 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
             ))}
           </ul>
         </div>
-        <p className="tp-s3-info" aria-live="polite" data-testid="tp-s3-info">
-          {info.titel && <strong>{info.titel}</strong>} {info.text}
-        </p>
       </div>
     </div>
   )

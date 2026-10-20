@@ -1,6 +1,16 @@
 import { describe, expect, it } from 'vitest'
 
-import { FAHRT, fahrtDauer, fahrtStand, kameraFuer, schiebeDauer, type FahrtGeometrie } from '@/lib/report/praesentation/lernwegFahrt'
+import {
+  FAHRT,
+  fahrtDauer,
+  fahrtStand,
+  frontBei,
+  frontTabelle,
+  kameraFuer,
+  laufKoordinaten,
+  schiebeDauer,
+  type FahrtGeometrie,
+} from '@/lib/report/praesentation/lernwegFahrt'
 
 // Wie Batu im Prototyp: Spitze 300 → 1560 Entwurfs-px, Skala 1, 1180 px breit.
 const G: FahrtGeometrie = { start: 300, ende: 1560, s: 1, breite: 1180, max: 2420 + 48 - 1180 }
@@ -78,3 +88,67 @@ describe('lernwegFahrt (Entscheidung 24)', () => {
     expect(fahrtStand(fahrtDauer(OHNE), OHNE)).toMatchObject({ phase: 'fertig', scrollLeft: 0 })
   })
 })
+
+describe('Laufkoordinate (Nachbesserung R7-9, Entscheidung 4)', () => {
+  // Stamm von (300|255) nach rechts bis 1480, eine Linie biegt bei 362 nach unten ab.
+  const stamm = [
+    { x: 300, y: 255 },
+    { x: 1480, y: 255 },
+  ]
+  const abzweig = [
+    { x: 300, y: 255 },
+    { x: 362, y: 255 },
+    { x: 362, y: 415 },
+    { x: 394, y: 415 },
+  ]
+
+  it('w = x + senkrechte Wege; der gemeinsame Stamm hat dasselbe w und wächst gleich schnell', () => {
+    expect(laufKoordinaten(stamm)).toEqual([300, 1480])
+    expect(laufKoordinaten(abzweig)).toEqual([300, 362, 522, 554])
+    // Bei w = 340 sind beide 40 px gewachsen: dasselbe Stück, dieselbe Länge.
+    expect(laufKoordinaten(stamm)[0]).toBe(laufKoordinaten(abzweig)[0])
+  })
+
+  it('ein senkrechtes Stück wächst stetig mit der Spitze, nicht auf einen Schlag', () => {
+    const g: FahrtGeometrie = { ...G, start: 300, ende: 554, front: frontTabelle(proben(abzweig)) }
+    let vorher = -Infinity
+    let senkrechtMax = 0
+    for (const t of zeiten(g)) {
+      const st = fahrtStand(t, g)
+      if (st.phase !== 'schieben') continue
+      const w = st.spitze!
+      // Gewachsene Länge des senkrechten Stücks (w zwischen 362 und 522).
+      const senkrecht = Math.max(0, Math.min(160, w - 362))
+      if (vorher !== -Infinity) senkrechtMax = Math.max(senkrechtMax, senkrecht - vorher)
+      vorher = senkrecht
+    }
+    expect(senkrechtMax).toBeLessThan(40)
+  })
+
+  it('die Kamera folgt dem größten x der Front; auf dem senkrechten Stück steht sie', () => {
+    const tab = frontTabelle(proben(abzweig))
+    expect(frontBei(340, tab)).toBe(340)
+    expect(frontBei(450, tab)).toBe(362)
+    expect(frontBei(554, tab)).toBe(394)
+    const g: FahrtGeometrie = { ...G, s: 1, breite: 200, max: 1000, start: 300, ende: 554, front: tab }
+    for (const t of zeiten(g)) {
+      const st = fahrtStand(t, g)
+      if (st.phase !== 'schieben') continue
+      expect(st.scrollLeft).toBeCloseTo(kameraFuer(frontBei(st.spitze!, tab), g), 6)
+      expect(st.aufgedeckt).toBe(st.front)
+    }
+  })
+})
+
+/** Stichproben alle 4 px entlang eines achsparallelen Linienzugs, mit w. */
+function proben(punkte: { x: number; y: number }[]): { w: number; x: number }[] {
+  const out: { w: number; x: number }[] = []
+  const w = laufKoordinaten(punkte)
+  for (let i = 1; i < punkte.length; i++) {
+    const [a, b] = [punkte[i - 1], punkte[i]]
+    const len = Math.abs(b.x - a.x) + Math.abs(b.y - a.y)
+    for (let l = 0; l < len; l += 4) out.push({ w: w[i - 1] + l, x: a.x + (b.x - a.x) * (l / len) })
+  }
+  out.push({ w: w[w.length - 1], x: punkte[punkte.length - 1].x })
+  return out
+}

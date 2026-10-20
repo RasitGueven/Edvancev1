@@ -7,7 +7,7 @@ import { resolve } from 'node:path'
 
 import { expect, test, type Page } from '@playwright/test'
 
-import { stationOben } from './messen'
+import { lernwegVerstoesse, stationOben } from './messen'
 
 const AUSGABE = resolve(process.env.TP_AUSGABE ?? 'docs/report/praesentation/abnahme/r7-9')
 
@@ -39,28 +39,48 @@ test.describe('Fahrt (abgestuft)', () => {
       const sc = scroller(page)
       await expect(sc).toHaveAttribute('data-phase', 'schieben', { timeout: 5000 })
 
-      // Jedes Bild, solange die Kamera mitläuft (im Seitenkontext je Frame gemessen,
-      // damit Last auf dem Rechner keine Bilder verschluckt): Spitze bei 55–70 % der Breite.
-      const bilder = await sc.evaluate(
+      // Genug Fläche, dass der Pfeil sie sichtbar schiebt (Nachbesserung, Tests).
+      const bereich = await sc.evaluate((el) => ({ scroll: el.scrollWidth - el.clientWidth, breite: el.clientWidth }))
+      expect(bereich.scroll, `Scrollbereich ${bereich.scroll} px bei ${bereich.breite} px Breite`).toBeGreaterThanOrEqual(1.5 * bereich.breite)
+
+      // Jedes Bild der Schiebe-Phase, im Seitenkontext je Frame gemessen: Spitze bei
+      // 55–70 % der Breite, solange die Kamera mitläuft; keine Linie wächst in einem
+      // Bild um mehr als 40 Entwurfs-px (auch nicht senkrecht).
+      const m = await sc.evaluate(
         (el) =>
-          new Promise<{ anteil: number; links: number; max: number }[]>((fertig) => {
-            const liste: { anteil: number; links: number; max: number }[] = []
+          new Promise<{ anteile: number[]; sprung: number }>((fertig) => {
+            const anteile: number[] = []
+            const vorher = new Map<Element, number>()
+            let sprung = 0
             const bild = (): void => {
-              if (el.getAttribute('data-phase') !== 'schieben') return fertig(liste)
+              if (el.getAttribute('data-phase') !== 'schieben') return fertig({ anteile, sprung })
               const links = el.scrollLeft
               const max = el.scrollWidth - el.clientWidth
-              const spitze = Number(el.getAttribute('data-spitze'))
-              if (links > 0.5 && links < max - 0.5) liste.push({ anteil: spitze / el.clientWidth, links, max })
+              if (links > 0.5 && links < max - 0.5) anteile.push(Number(el.getAttribute('data-spitze')) / el.clientWidth)
+              for (const p of el.querySelectorAll<SVGPathElement>('path.tp-s3-linie')) {
+                const laenge = p.getTotalLength()
+                const gezeichnet = laenge - (parseFloat(p.style.strokeDashoffset) || 0)
+                const alt = vorher.get(p)
+                if (alt !== undefined) sprung = Math.max(sprung, gezeichnet - alt)
+                vorher.set(p, gezeichnet)
+              }
               requestAnimationFrame(bild)
             }
             requestAnimationFrame(bild)
           }),
       )
-      expect(bilder.length, 'gemessene Bilder mit mitlaufender Kamera').toBeGreaterThan(5)
-      for (const x of bilder) {
-        expect(x.anteil, JSON.stringify(x)).toBeGreaterThanOrEqual(0.55)
-        expect(x.anteil, JSON.stringify(x)).toBeLessThanOrEqual(0.7)
+      expect(m.anteile.length, 'gemessene Bilder mit mitlaufender Kamera').toBeGreaterThanOrEqual(60)
+      for (const a of m.anteile) {
+        expect(a).toBeGreaterThanOrEqual(0.55)
+        expect(a).toBeLessThanOrEqual(0.7)
       }
+      expect(m.sprung, 'größtes Wachstum einer Linie in einem Bild (Entwurfs-px)').toBeLessThanOrEqual(40)
+
+      // In der Pause (alles aufgedeckt, noch während der ersten Fahrt): Die Linien
+      // liegen an den Inseln, wie sie jetzt stehen, nicht wie sie beim Einblenden standen.
+      await expect(sc).toHaveAttribute('data-phase', 'pause', { timeout: 10_000 })
+      await page.waitForTimeout(1100) // Einblenden der letzten Inseln (1 s) abwarten
+      expect(await lernwegVerstoesse(page), 'Lernweg während der ersten Fahrt').toEqual([])
 
       // Danach: Kamera allein, Pause, zurück; das Gespräch beginnt bei den Grundlagen.
       await expect(sc).toHaveAttribute('data-phase', 'fertig', { timeout: 20_000 })
@@ -69,6 +89,26 @@ test.describe('Fahrt (abgestuft)', () => {
       await expect(page.getByTestId('tp-s3-hier')).toBeVisible()
     })
   }
+})
+
+test.describe('Abbruch der Fahrt (abgestuft)', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } })
+
+  test('Antippen mitten im Schieben: alles steht da, die Ansicht bleibt, wo sie ist', async ({ page }) => {
+    test.setTimeout(60_000)
+    await page.setViewportSize({ width: 820, height: 1180 })
+    await zuStation3(page, 'abgestuft')
+    const sc = scroller(page)
+    await expect(sc).toHaveAttribute('data-phase', 'schieben', { timeout: 5000 })
+    await expect.poll(() => sc.evaluate((el) => el.scrollLeft), { timeout: 10_000 }).toBeGreaterThan(60)
+    await page.getByRole('button', { name: /^Wurzeln abschätzen/ }).click()
+    const dort = await sc.evaluate((el) => el.scrollLeft)
+    await page.waitForTimeout(1500)
+    expect(Math.abs((await sc.evaluate((el) => el.scrollLeft)) - dort)).toBeLessThanOrEqual(1)
+    await expect(sc).toHaveAttribute('data-phase', 'unterbrochen')
+    expect(await page.locator('.tp-s3-insel:not(.tp-s3-da)').count()).toBe(0)
+    expect(await lernwegVerstoesse(page), 'Lernweg nach dem Abbruch').toEqual([])
+  })
 })
 
 test.describe('Bedienung (abgestuft, ruhig)', () => {
@@ -115,21 +155,27 @@ test.describe('Bedienung (abgestuft, ruhig)', () => {
 })
 
 test.describe('Video', () => {
-  test('Fahrt abgestuft 1180x820 → fahrt.webm', async ({ browser }) => {
-    test.setTimeout(90_000)
-    mkdirSync(AUSGABE, { recursive: true })
-    const ctx = await browser.newContext({
-      viewport: { width: 1180, height: 820 },
-      reducedMotion: 'no-preference',
-      recordVideo: { dir: resolve(AUSGABE, 'video-roh'), size: { width: 1180, height: 820 } },
+  for (const [b, h, datei] of [
+    [1180, 820, 'fahrt.webm'],
+    [820, 1180, 'fahrt-hoch.webm'],
+  ] as const) {
+    test(`Fahrt abgestuft ${b}x${h} → ${datei}`, async ({ browser }) => {
+      test.setTimeout(90_000)
+      mkdirSync(AUSGABE, { recursive: true })
+      const roh = resolve(AUSGABE, `video-roh-${b}`)
+      const ctx = await browser.newContext({
+        viewport: { width: b, height: h },
+        reducedMotion: 'no-preference',
+        recordVideo: { dir: roh, size: { width: b, height: h } },
+      })
+      const page = await ctx.newPage()
+      await zuStation3(page, 'abgestuft')
+      await expect(scroller(page)).toHaveAttribute('data-phase', 'fertig', { timeout: 40_000 })
+      await page.waitForTimeout(800)
+      const video = page.video()!
+      await ctx.close()
+      renameSync(await video.path(), resolve(AUSGABE, datei))
+      rmSync(roh, { recursive: true, force: true })
     })
-    const page = await ctx.newPage()
-    await zuStation3(page, 'abgestuft')
-    await expect(scroller(page)).toHaveAttribute('data-phase', 'fertig', { timeout: 40_000 })
-    await page.waitForTimeout(800)
-    const video = page.video()!
-    await ctx.close()
-    renameSync(await video.path(), resolve(AUSGABE, 'fahrt.webm'))
-    rmSync(resolve(AUSGABE, 'video-roh'), { recursive: true, force: true })
-  })
+  }
 })

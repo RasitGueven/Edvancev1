@@ -38,18 +38,19 @@
   display: block;
   margin: 0 0 6px;
   color: var(--color-eb-leise);
-  font-size: 11px;
+  font-size: 15.5px;
   font-weight: 500;
-  line-height: 14px;
-  letter-spacing: .9px;
+  line-height: 19px;
+  letter-spacing: .5px;
   text-transform: uppercase;
 }
 
+/* Im Bild mindestens 13 px auch bei der kleinsten Skala 0,85 (Nachbesserung, Entscheidung 1). */
 .tp .tp-s3-insel-kommt .tp-s3-insel-titel {
   margin: 0;
   color: var(--color-eb-navy);
-  font-size: 15px;
-  line-height: 20px;
+  font-size: 17px;
+  line-height: 22px;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -91,8 +92,8 @@
   padding: 6px 4px;
   border-radius: 8px;
   color: var(--color-eb-tinte);
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 17px;
+  line-height: 21px;
   cursor: pointer;
   transition: opacity .3s, background .3s;
 }
@@ -117,7 +118,7 @@
   flex: none;
   width: 9px;
   height: 9px;
-  margin-top: 4.5px;
+  margin-top: 6px;
   border-radius: 50%;
   background: var(--color-eb-uebung);
   box-sizing: border-box;
@@ -138,13 +139,13 @@
   display: block;
   margin-top: 1px;
   color: var(--color-eb-leise);
-  font-size: 12px;
+  font-size: 15.5px;
   font-weight: 400;
-  line-height: 15px;
+  line-height: 19px;
 }
 
 .tp .tp-s3-unter { padding-left: 20px; color: var(--color-eb-text); font-weight: 400; }
-.tp .tp-s3-unter .tp-s3-pfeil { flex: none; font-size: 16px; line-height: 18px; }
+.tp .tp-s3-unter .tp-s3-pfeil { flex: none; font-size: 17px; line-height: 21px; }
 .tp .tp-s3-unter-uebung .tp-s3-pfeil { color: var(--color-eb-uebung-text); }
 
 .tp .tp-s3-gewaehlt { background: color-mix(in srgb, var(--color-eb-gold) 16%, transparent); }
@@ -186,7 +187,7 @@
 
 .tp .tp-s3-fuss {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 10px;
   padding-top: 10px;
 }
@@ -241,6 +242,67 @@
 }
 
 .tp .tp-s3-info strong { color: var(--color-eb-navy); font-weight: 500; }
+
+/* ─── Querformat: mehr Höhe für die Bühne (Nachbesserung, Entscheidung 3) ── */
+
+@media (orientation: landscape) {
+  .tp .tp-s3 .tp-titel { flex: none; margin: 6px 0 4px; }
+
+  /* Titel, Satz und Knopf in einer Zeile. */
+  .tp .tp-s3-kopfzeile {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .tp .tp-s3-unterkopf {
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+
+  /* Der Satz steht einzeilig neben „Weg abspielen“; passt er nicht, entfällt er (Station3.tsx). */
+  .tp .tp-s3-unterkopf .tp-desc {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .tp .tp-s3-unterkopf .tp-desc.tp-s3-aus { display: none; }
+
+  .tp .tp-s3-legende {
+    flex-wrap: nowrap;
+    gap: 4px 12px;
+    margin-top: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .tp .tp-s3-buehne { margin-top: 8px; }
+
+  /* Infofeld links, Balken und Zonennamen rechts, in einer Zeile. */
+  .tp .tp-s3-fuss {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding-top: 8px;
+  }
+
+  .tp .tp-s3-info {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .tp .tp-s3-leiste { flex: 0 1 380px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .tp .tp-s3-wolke { animation: none; }

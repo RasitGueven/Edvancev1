@@ -11,13 +11,44 @@ const ABSTAND = 4
 type Bild = { hoehe: number; pfade: LinienPfad[] }
 
 /**
- * Die Lage aller Inseln, Einträge und Spalten im Bereich, in pt. Gemessen wie
- * Kurve.tsx: Verhältnis zur Breite des Bereichs, deshalb skalenfest (R7-7).
+ * Lage eines Elements im Bereich aus Layoutwerten (offsetLeft/offsetTop bis zum
+ * Bereich). Transforms zählen nicht mit: weder die Skala von außen (R7-7) noch
+ * das Einblenden der Inseln (translateY) in der Präsentation, das sonst die
+ * Linien um die Verschiebung zu tief legt.
  */
-export function messeLernweg(bereich: HTMLElement, linien: readonly LwLinie[], breite: number): LinienEingabe & { hoehe: number } {
+function lage(el: HTMLElement, bereich: HTMLElement): { x: number; y: number } {
+  let x = 0
+  let y = 0
+  for (let e: HTMLElement | null = el; e && e !== bereich; e = e.offsetParent as HTMLElement | null) {
+    x += e.offsetLeft
+    y += e.offsetTop
+    if (e.offsetParent && !bereich.contains(e.offsetParent)) break
+  }
+  return { x, y }
+}
+
+/**
+ * Die Lage aller Inseln, Einträge und Spalten im Bereich, in pt (Druck) bzw.
+ * Entwurfs-px (Präsentation), skalenfest:
+ * - `rechteck` (Druck): getBoundingClientRect im Verhältnis zur Breite des
+ *   Bereichs wie Kurve.tsx — genau, und im Bogen liegt kein Transform innen.
+ * - `layout` (Präsentation): offsetLeft/offsetTop, damit das Einblenden der
+ *   Inseln (translateY) die Linien nicht verschiebt; ganze px reichen dort.
+ */
+export function messeLernweg(
+  bereich: HTMLElement,
+  linien: readonly LwLinie[],
+  breite: number,
+  art: 'rechteck' | 'layout' = 'rechteck',
+): LinienEingabe & { hoehe: number } {
   const r = bereich.getBoundingClientRect()
-  const pt = breite / (r.width || 1)
+  const pt = breite / ((art === 'layout' ? bereich.offsetWidth : r.width) || 1)
   const rel = (el: Element): Rechteck => {
+    const h = el as HTMLElement
+    if (art === 'layout') {
+      const { x, y } = lage(h, bereich)
+      return { x: x * pt, y: y * pt, b: h.offsetWidth * pt, h: h.offsetHeight * pt }
+    }
     const q = el.getBoundingClientRect()
     return { x: (q.left - r.left) * pt, y: (q.top - r.top) * pt, b: q.width * pt, h: q.height * pt }
   }
@@ -38,7 +69,7 @@ export function messeLernweg(bereich: HTMLElement, linien: readonly LwLinie[], b
     rect: rel(el.querySelector(':scope > [data-anker], :scope > .eb-s3-zeile > [data-anker], [data-anker]') ?? el),
   }))
   const kopf = Math.max(0, ...[...bereich.querySelectorAll('[data-kopf]')].map((k) => rel(k).y + rel(k).h))
-  const hoehe = r.height * pt
+  const hoehe = (art === 'layout' ? bereich.offsetHeight : r.height) * pt
   return { spalten, inseln, eintraege, linien, oben: kopf + 2, unten: hoehe - 2, hoehe, abstand: ABSTAND }
 }
 

@@ -236,3 +236,27 @@ export async function lernwegVerstoesse(page: Page): Promise<string[]> {
     return f
   })
 }
+
+/**
+ * Station 03 · Lesbarkeit (Nachbesserung R7-9, Entscheidung 1): Jeder Eintrag
+ * (Label, Unterzeile, Inseltitel) hat im Bild mindestens 13 px Schrift
+ * (berechnete Schriftgröße × Skala der Spur). Liefert die Verstöße und die
+ * Messwerte (Bühnenhöhe, kleinste Schrift).
+ */
+export async function lernwegLesbar(page: Page): Promise<{ fehler: string[]; buehne: number; kleinste: number }> {
+  return page.evaluate(() => {
+    const s3 = document.querySelector('.tp-station[data-station="3"]')
+    const spur = s3?.querySelector<HTMLElement>('.tp-s3-spur')
+    const sc = s3?.querySelector<HTMLElement>('[data-testid="tp-s3-scroller"]')
+    if (!s3 || !spur || !sc) return { fehler: ['Bühne fehlt'], buehne: 0, kleinste: 0 }
+    const s = Number(getComputedStyle(spur).getPropertyValue('--tp-s3-s')) || 1
+    const fehler: string[] = []
+    let kleinste = Infinity
+    for (const el of s3.querySelectorAll<HTMLElement>('.tp-s3-label, .tp-s3-label small, .tp-s3-insel-titel')) {
+      const px = parseFloat(getComputedStyle(el).fontSize) * s
+      kleinste = Math.min(kleinste, px)
+      if (px < 13 - 0.01) fehler.push(`${px.toFixed(1)} px: ${el.textContent?.slice(0, 40)}`)
+    }
+    return { fehler, buehne: sc.clientHeight, kleinste: Math.round(kleinste * 100) / 100 }
+  })
+}

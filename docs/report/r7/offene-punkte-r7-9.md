@@ -149,3 +149,83 @@ Halbjahr. Thema der Sitzung: Reelle Zahlen (Position 1) → Kommt noch ab Positi
 Abweichung von der Fixture `abgestuft`: Prod hat ein 13. direktes Urteil („Flächeninhalt des Trapezes“,
 `nicht_angesetzt`), das die Fixture bewusst weglässt. Daraus kommen das zusätzliche ↳ in Geometrie und die
 zweite Basis von „Zusammengesetzte Vielecke“. Sonst ist alles wie in Entwurf, Prototyp und Fixture.
+
+## Nachbesserung (Review #289, 20.10.2026)
+
+Auftrag: `docs/report/r7/Nachbesserung-R7-9.md`. Der Druck ist unverändert: Alle 27 PDFs in `abnahme/r7-9`
+sind bis auf das Erstellungsdatum byteweise gleich wie vor der Nachbesserung. Der Druck misst weiter mit
+getBoundingClientRect, die Präsentation mit Layoutwerten (`messeLernweg(…, 'layout')`).
+
+- **Lesbarkeit (Entscheidung 1):** S_MIN = 0,85. Einträge sind 17 px groß, Unterzeilen und Inseltitel
+  15,5 px, Titel in Kommt noch 17 px (Entwurfsmaß). Im Bild ist damit nichts kleiner als 13 px. Die
+  Ansichtstests prüfen das für jedes Maß und jeden Fall.
+- **Spalten statt Höhe (Entscheidung 2):** Die Spur ist fest 510 Entwurfs-px hoch. Die Inseln einer
+  Gruppe (Zone; in Kommt noch dieses Schuljahr und die nächste Klasse) brechen in weitere Spalten um
+  (`packeSpalten`, `lernwegSpalten.ts`), die Reihenfolge bleibt, die Lücken bleiben Gassen.
+  - Statt `flex-flow: column wrap` zählt das Programm die Spalten: Chromium macht einen Container mit
+    `column wrap` nicht breiter, wenn er umbricht; die Spur würde abgeschnitten. Das Ergebnis ist dasselbe.
+  - **Ausnahme (wie erlaubt):** `abgestuftMitOffen`, Insel „Zahlen & Rechnen“ in Aktuell: 415 px, Platz
+    398 px. Die Spur ist dort 541 px hoch. In allen anderen Fällen bleibt sie bei 510.
+- **Querformat (Entscheidung 3):**
+  - Titel, Satz und „Weg abspielen“ stehen in einer Zeile. Der Satz entfällt, wenn er nicht einzeilig
+    passt; bei 1180×820 ist das der Fall.
+  - Legende in einer Reihe.
+  - Infofeld links, Balken und Zonennamen rechts.
+  - Hochformat unverändert.
+- **Laufkoordinate (Entscheidung 4):**
+  - w = x + alle senkrechten Wege; gerechnet als Weglänge entlang der Linie (|Δx| + |Δy|), damit auch
+    Stücke nach links streng steigen.
+  - Die Spitze läuft auf w, die Kamera und das Aufdecken folgen dem größten erreichten x.
+  - Im Ansichtstest wächst keine Linie in einem Bild um mehr als 40 Entwurfs-px.
+- **Robust (Entscheidung 5):**
+  - Eine Größenänderung während der Fahrt unterbricht sie.
+  - Ziehen mit Pointer-Capture (erst ab 5 px, damit ein Tippen ein Klick bleibt); `pointercancel` wie `pointerup`.
+  - Antippen fokussiert ohne Scrollsprung: Der Browser schob die Fläche sonst zum Knopf, und die Ansicht
+    blieb beim Abbruch nicht stehen (Fund aus dem Review).
+- **Linien beim Einblenden (Fund aus dem Review):** Gemessen wurde mit getBoundingClientRect, also mit
+  dem translateY des Einblendens. Die Linien lagen dadurch während der ersten Fahrt etwa 10 Entwurfs-px zu
+  tief. Neu geprüft: im Ansichtstest in der Pause der ersten Fahrt und nach einem Abbruch mitten im Schieben.
+  Die Gegenprobe mit der alten Messung ist rot.
+- **Bogen.tsx:** zweite und letzte Zeile, `useMemo`-Abhängigkeiten mit `data.erzaehlung` und `data.analysedAt`.
+- **CLAUDE.md §11:** Der Verlauf von Kommt noch in Station 03 steht jetzt in der Liste der erlaubten Verläufe.
+- **neuaufbau:** rot nur durch `session_a2` (Test 15, Median unter 200 ms), bekannte Laufzeitmessung;
+  der rote Job ist neu gestartet.
+
+### Gemessen (Chromium, ruhige Bewegung, Station 03)
+
+| Fall | Maß | Bühne (px) | Skala | kleinste Schrift im Bild (px) | Scrollbereich / Breite |
+|---|---|---|---|---|---|
+| abgestuft | 820x1180 | 783 | 1.35 | 20.93 | 5.7 |
+| abgestuft | 820x1100 | 709 | 1.35 | 20.93 | 5.7 |
+| abgestuft | 1180x820 | 560 | 1.086 | 16.84 | 2.6 |
+| abgestuft | 1180x740 | 480 | 0.929 | 14.41 | 2.1 |
+| abgestuft | 744x1133 | 740 | 1.35 | 20.93 | 5.9 |
+| abgestuft | 744x1060 | 672 | 1.306 | 20.24 | 5.6 |
+| abgestuft | 1133x744 | 485 | 0.939 | 14.56 | 2.3 |
+| abgestuft | 1032x1376 | 979 | 1.35 | 20.93 | 4.0 |
+| abgestuft | 1376x1032 | 782 | 1.35 | 20.93 | 2.8 |
+| ilkay | 820x1180 | 805 | 1.35 | 20.93 | 6.3 |
+| ilkay | 820x1100 | 731 | 1.35 | 20.93 | 6.3 |
+| ilkay | 1180x820 | 560 | 1.086 | 16.84 | 2.9 |
+| ilkay | 1180x740 | 480 | 0.929 | 14.41 | 2.4 |
+| ilkay | 744x1133 | 762 | 1.35 | 20.93 | 6.5 |
+| ilkay | 744x1060 | 694 | 1.349 | 20.91 | 6.5 |
+| ilkay | 1133x744 | 485 | 0.939 | 14.56 | 2.6 |
+| ilkay | 1032x1376 | 979 | 1.35 | 20.93 | 4.4 |
+| ilkay | 1376x1032 | 782 | 1.35 | 20.93 | 3.2 |
+
+### Kernlehrplan, zweites Jahr einer Stufe (Entscheidung 7) — Vorlage für Rasits Daten-Migration
+
+`klpPlan` nimmt im zweiten Jahr (Klasse 6, 8, 10) nur noch Themen mit `themen.klasse ≥ Klasse`, sobald es
+solche gibt. Heute steht `themen.klasse` je Stufe überall auf dem ersten Jahr (dbread 20.10.2026: 5, 7 bzw. 9).
+Vorschlag nach dem Aufbau von Lambacher Schweizer NRW (G9). **Vor der Migration gegen das Inhaltsverzeichnis
+prüfen**: Die Zuordnung stammt aus dem Gedächtnis, nicht aus dem Buch. Unsicheres ist markiert.
+
+| Stufe | bleibt beim ersten Jahr | neu `klasse` = zweites Jahr |
+|---|---|---|
+| 5/6 | natuerliche_zahlen, rechnen_natuerliche_zahlen, daten_streumasse, geometrische_grundbegriffe, symmetrie, flaeche_umfang | **6:** teilbarkeit, brueche, rechnen_brueche_dezimalzahlen, winkel, koerper_quader (?), ganze_zahlen_groessen |
+| 7/8 | rationale_zahlen, zuordnungen, zinsrechnung, terme_gleichungen, winkel_dreiecke | **8:** lineare_funktionen, terme_binomische_formeln, zufallsexperimente (?), flaechen_vielecke, lineare_gleichungen_lgs, thales_konstruktionen |
+| 9/10 | reelle_zahlen, potenzen, quadratische_funktionen, quadratische_gleichungen (?), pythagoras, kreis, prismen_zylinder | **10:** aehnlichkeit (?), koerper_pyramide_kegel_kugel, trigonometrie, exponentialfunktionen, sinusfunktion, bedingte_wahrscheinlichkeit (?), statistik_beurteilen |
+
+Zum Vergleich der FWG-Plan: Klasse 10 hat dort bedingte Wahrscheinlichkeit (auch 9), quadratische
+Gleichungen, Ähnlichkeit, Exponentialfunktionen, Trigonometrie und trigonometrische Funktionen.

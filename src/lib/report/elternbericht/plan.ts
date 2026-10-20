@@ -89,14 +89,17 @@ export function schulPlan(
 }
 
 /**
- * Der Kernlehrplan NRW: die Themen der Stufe nach sort (themen.klasse ist die
- * erste Klasse der Stufe, nicht die des Themas). Kein Halbjahr, keine nächste
- * Klasse.
+ * Der Kernlehrplan NRW: die Themen der Stufe nach sort. Im zweiten Jahr einer
+ * Stufe (Klasse 6, 8, 10) nur die Themen mit themen.klasse ≥ Klasse des Kindes,
+ * wenn es solche gibt — heute steht themen.klasse für die ganze Stufe auf dem
+ * ersten Jahr, dann bleiben alle (Nachbesserung R7-9, Entscheidung 7). Kein
+ * Halbjahr, keine nächste Klasse.
  */
 export function klpPlan(themen: readonly KlpThema[], klasse: number): LernPlan {
   const stufe = stufeVon(klasse)
-  const eintraege: PlanEintrag[] = themen
-    .filter((t) => t.stufe === stufe)
+  const derStufe = themen.filter((t) => t.stufe === stufe)
+  const abJetzt = derStufe.filter((t) => t.klasse >= klasse)
+  const eintraege: PlanEintrag[] = (abJetzt.length > 0 ? abJetzt : derStufe)
     .sort((a, b) => (a.sort ?? Infinity) - (b.sort ?? Infinity) || a.themaKey.localeCompare(b.themaKey))
     .map((t, i) => ({ position: i + 1, themaKey: t.themaKey, titel: t.label, halbjahr: null }))
   return { quelle: 'klp', schulname: null, klasse, eintraege, naechsteKlasse: null }

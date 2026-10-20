@@ -99,3 +99,16 @@ describe('aktuellePosition (Entscheidung 9)', () => {
     expect([1, 2, 7, 8, 12].map(halbjahrVon)).toEqual([1, 2, 2, 1, 1])
   })
 })
+
+describe('klpPlan im zweiten Jahr einer Stufe (Nachbesserung R7-9, Entscheidung 7)', () => {
+  it('Klasse 10 heute: themen.klasse steht für 9/10 überall auf 9 → alle Themen der Stufe', () => {
+    const p = klpPlan(THEMEN, 10)
+    expect(p.eintraege.length).toBe(THEMEN.filter((t) => t.stufe === 'zweite').length)
+  })
+  it('Klasse 10 nach der Korrektur von themen.klasse: nur noch die Themen der 10', () => {
+    const korrigiert = THEMEN.map((t) => (['trigonometrie', 'exponentialfunktionen', 'sinusfunktion'].includes(t.themaKey) ? { ...t, klasse: 10 } : t))
+    expect(klpPlan(korrigiert, 10).eintraege.map((e) => e.themaKey)).toEqual(['trigonometrie', 'exponentialfunktionen', 'sinusfunktion'])
+    // Klasse 9 sieht weiter alles der Stufe, in der Reihenfolge nach sort.
+    expect(klpPlan(korrigiert, 9).eintraege.length).toBe(THEMEN.filter((t) => t.stufe === 'zweite').length)
+  })
+})
