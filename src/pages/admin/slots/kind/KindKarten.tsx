@@ -7,8 +7,9 @@ import { CardMenu, type CardMenuItem } from '@/pages/admin/leads/CardMenu'
 import type { KindLetzterTermin, KindNaechsterTermin, SlotsKind, Stammplatz } from '@/types/slotplan'
 import { datumKurz, datumTagMonat, datumVoll } from '../slotsFormat'
 import { EinheitenBalken, PlanbilanzBadge, planbilanzSatz } from '../kinder/Einheiten'
-import { paketText, rhythmusText, stammplatzText } from '../kinder/KinderSpalten'
-import { ZustandBadge } from '../termin/TerminKarten'
+import { CoachZelle, paketText, rhythmusText } from '../kinder/KinderSpalten'
+import { ohneRaum, stammplatzKurz } from '../kinder/kinder.model'
+import { ZustandBadge } from '../panel/TerminKarten'
 
 const FELD = 'h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm tabular-nums'
 const NAECHSTE = 8
@@ -66,7 +67,10 @@ export function VertragKarte({ kind }: { kind: SlotsKind }): JSX.Element | null 
   )
 }
 
-/** Stammplätze: die aktuellen mit "Ändern ab …" und "Beenden" (inline mit Datum), frühere zugeklappt. */
+/**
+ * Stammplätze: die aktuellen mit Raum und Coach (W3, Entscheidung 7), "Ändern ab …" bzw. beim Altbestand ohne Raum
+ * "Raum festlegen" und "Beenden" (inline mit Datum), frühere zugeklappt.
+ */
 export function StammplaetzeKarte({
   kind,
   heute,
@@ -102,14 +106,21 @@ export function StammplaetzeKarte({
           {kind.stammplaetze.map((s) => (
             <li key={s.id} className="flex flex-col gap-2 border-t border-[var(--color-border)] py-2">
               <div className="flex min-h-[44px] flex-wrap items-center justify-between gap-2">
-                <span className="flex flex-col">
-                  <span className="text-sm font-semibold tabular-nums">{stammplatzText(s, i18n.language, t)}</span>
+                <span className="flex flex-col gap-1">
+                  <span className="text-sm font-semibold tabular-nums">{stammplatzKurz(s, i18n.language, t)}</span>
+                  {!ohneRaum(s) && (
+                    <span className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-secondary)]">
+                      {t('kinder2.kind.coach')} <CoachZelle s={s} />
+                    </span>
+                  )}
                   <span className="text-xs text-[var(--color-text-tertiary)]">
                     {[zeit(s), s.gueltig_bis ? t('kind.stamm.bis', { datum: datumTagMonat(s.gueltig_bis, i18n.language) }) : null].filter(Boolean).join(' · ')}
                   </span>
                 </span>
                 <span className="flex items-center gap-2">
-                  <Button type="button" variant="outline" size="sm" className="min-h-[44px]" onClick={() => onAendern(s)}>{t('aktion.aendernAb')}</Button>
+                  <Button type="button" variant="outline" size="sm" className="min-h-[44px]" onClick={() => onAendern(s)}>
+                    {t(ohneRaum(s) ? 'kinder2.aktion.raumFestlegen' : 'aktion.aendernAb')}
+                  </Button>
                   <CardMenu items={[{ label: t('aktion.beenden'), onSelect: () => setBeenden({ id: s.id, ab: heute }), danger: true }]} />
                 </span>
               </div>
@@ -137,7 +148,7 @@ export function StammplaetzeKarte({
           <ul className="flex flex-col">
             {kind.fruehere_stammplaetze.map((s) => (
               <li key={s.id} className="flex min-h-[44px] items-center justify-between gap-2 text-sm text-[var(--color-text-tertiary)]">
-                <span className="tabular-nums">{stammplatzText(s, i18n.language, t)}</span>
+                <span className="tabular-nums">{stammplatzKurz(s, i18n.language, t)}</span>
                 <span className="text-xs tabular-nums">
                   {t('kind.stamm.zeitraum', { von: datumKurz(s.gueltig_ab, i18n.language), bis: s.gueltig_bis ? datumKurz(s.gueltig_bis, i18n.language) : '' })}
                 </span>

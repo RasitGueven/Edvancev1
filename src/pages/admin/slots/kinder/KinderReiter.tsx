@@ -1,39 +1,37 @@
 import { useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard, EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
 import { EdvanceTable } from '@/components/edvance/EdvanceTable'
 import { Input } from '@/components/ui/input'
 import { ladeKinder, stammplaetzeWeiterfuehren } from '@/lib/supabase/slotplan'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
-import type { SlotsKinderZeile } from '@/types/slotplan'
-import { KINDER_FILTER, anzahlJeFilter, filterAusSuche, kinderGefiltert, kinderSortiert, type KinderFilter } from '../slots.model'
+import type { SlotsKinderZeile, Stammplatz } from '@/types/slotplan'
 import { useSlotsLaden } from '../useSlotsLaden'
 import { StammplatzDialog } from '../dialoge/StammplatzDialog'
-import { OhneStammplatzListe } from './OhneStammplatzListe'
-import { KindZellen, useKinderSpalten } from './KinderSpalten'
+import { KindZellen, useKinderSpalten, type KindAktion } from './KinderSpalten'
+import { filter2AusSuche, kinder2Anzahl, kinder2Gefiltert, testkontenAusSuche, type Kinder2Filter } from './kinder.model'
 
-/** Reiter Kinder (Bauauftrag SL2, Umfang 5). */
+/** Reiter Kinder (Bauauftrag W3, Entscheidungen 1 und 2): Raum und Coach je Stammplatz, Filter, Aktion je Zeile. */
 export function KinderReiter(): JSX.Element {
   const { t } = useTranslation('slots')
-  const navigate = useNavigate()
   const [suche, setSuche] = useSearchParams()
-  const filter = filterAusSuche(suche)
+  const filter = filter2AusSuche(suche)
+  const testkonten = testkontenAusSuche(suche)
   const [q, setQ] = useState('')
-  const [dialogKind, setDialogKind] = useState<SlotsKinderZeile | null>(null)
+  const [dialog, setDialog] = useState<{ kind: SlotsKinderZeile; aendern?: Stammplatz } | null>(null)
   const [meldung, setMeldung] = useState<string | null>(null)
   const [fehlerBei, setFehlerBei] = useState<{ ort: string; text: string } | null>(null)
   const kinder = useSlotsLaden(() => ladeKinder(), 'kinder')
-  const spalten = useKinderSpalten()
 
-  const setFilter = (f: KinderFilter): void => {
+  const setzeSuche = (schluessel: string, wert: string | null): void => {
     const neu = new URLSearchParams(suche)
-    if (f === 'alle') neu.delete('filter')
-    else neu.set('filter', f)
+    if (wert === null) neu.delete(schluessel)
+    else neu.set(schluessel, wert)
     setSuche(neu, { replace: true })
   }
   const fertig = (text: string): void => {
-    setDialogKind(null)
+    setDialog(null)
     setMeldung(text)
     kinder.neuLaden()
   }
@@ -43,15 +41,19 @@ export function KinderReiter(): JSX.Element {
     if (res.error !== null) return setFehlerBei({ ort: k.student_id, text: slotsFehlerSchluessel(res) })
     fertig(t('kinder.weitergefuehrt', { name: k.name }))
   }
+  const onAktion = (a: KindAktion): void => {
+    if (a.art === 'weiterfuehren') void weiterfuehren(a.kind)
+    else setDialog({ kind: a.kind, aendern: a.art === 'aendern' ? a.stammplatz : undefined })
+  }
+  const spalten = useKinderSpalten(onAktion)
 
   if (!kinder.daten) {
     return kinder.fehler ? <p className="text-sm text-[var(--color-text-secondary)]">{t(kinder.fehler)}</p> : <LoadingPulse type="list" lines={6} />
   }
 
   const alle = kinder.daten
-  const liste = kinderGefiltert(alle, filter, q)
-  const zahl = anzahlJeFilter(alle)
-  const ohne = kinderSortiert(alle).filter((k) => k.ohne_stammplatz)
+  const liste = kinder2Gefiltert(alle, { filter, testkonten, suche: q })
+  const zahl = kinder2Anzahl(alle, testkonten)
 
   const chip = (an: boolean): string =>
     `min-h-[44px] rounded-[var(--radius-full)] px-4 text-sm font-semibold transition-colors duration-150 ease-out ${
@@ -59,6 +61,12 @@ export function KinderReiter(): JSX.Element {
         ? 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
         : 'border border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
     }`
+  const filterKnopf = (f: Kinder2Filter): JSX.Element => (
+    <button key={f} type="button" aria-pressed={filter === f} onClick={() => setzeSuche('filter', f === 'alle' ? null : 'ohne')} className={chip(filter === f)}>
+      {t(`kinder2.filter.${f}`)} <span className="tabular-nums">{zahl[f]}</span>
+    </button>
+  )
+  const fehlerZeile = fehlerBei && alle.find((k) => k.student_id === fehlerBei.ort)
 
   return (
     <div className="flex flex-col gap-6">
@@ -67,69 +75,62 @@ export function KinderReiter(): JSX.Element {
           <EmptyState icon="🧒" title={t('kinder.leerTitel')} description={t('kinder.leerText')} />
         </EdvanceCard>
       ) : (
-        <>
-          {ohne.length > 0 && (
-            <OhneStammplatzListe kinder={ohne} fehlerBei={fehlerBei} onVergeben={setDialogKind} onWeiterfuehren={(k) => void weiterfuehren(k)} />
+        <section className="flex flex-col gap-4" aria-label={t('kinder.liste')}>
+          <div className="flex flex-wrap items-center gap-2">
+            <Input
+              type="search"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={t('kinder.suche')}
+              aria-label={t('kinder.suche')}
+              className="min-h-[44px] w-full max-w-xs"
+            />
+            <div role="group" aria-label={t('kinder2.filter.label')} className="flex flex-wrap gap-2">
+              {filterKnopf('alle')}
+              {filterKnopf('ohne')}
+              <button type="button" aria-pressed={testkonten} onClick={() => setzeSuche('test', testkonten ? 'aus' : null)} className={chip(testkonten)}>
+                {t('kinder2.filter.test')} <span className="tabular-nums">{zahl.test}</span>
+              </button>
+            </div>
+          </div>
+
+          {fehlerZeile && fehlerBei && (
+            <p role="alert" className="text-sm text-[var(--color-error-coach)]">
+              {t('kinder2.fehlerBei', { name: fehlerZeile.name ?? t('kind.ohneName'), fehler: t(fehlerBei.text) })}
+            </p>
           )}
 
-          <section className="flex flex-col gap-4" aria-label={t('kinder.liste')}>
-            <div className="flex flex-wrap items-center gap-2">
-              <div role="group" aria-label={t('kinder.filterLabel')} className="flex flex-wrap gap-2">
-                {KINDER_FILTER.map((f) => (
-                  <button key={f} type="button" aria-pressed={filter === f} onClick={() => setFilter(f)} className={chip(filter === f)}>
-                    {t(`kinder.filter.${f}`)} <span className="tabular-nums">{zahl[f]}</span>
-                  </button>
+          {liste.length === 0 ? (
+            <EdvanceCard>
+              <EmptyState icon="🔎" title={t('kinder.keinTrefferTitel')} description={t('kinder2.keinTrefferText')} />
+            </EdvanceCard>
+          ) : (
+            <div className="@container">
+              <div className="hidden @slots-tabelle:block">
+                <EdvanceTable spalten={spalten} zeilen={liste} zeileKey={(k) => k.student_id} beschriftung={t('kinder.liste')} />
+              </div>
+              <ul className="flex flex-col gap-4 @slots-tabelle:hidden">
+                {liste.map((k) => (
+                  <li key={k.student_id}>
+                    <EdvanceCard className="flex flex-col gap-2 p-4">
+                      <KindZellen kind={k} onAktion={onAktion} />
+                    </EdvanceCard>
+                  </li>
                 ))}
-              </div>
-              <Input
-                type="search"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder={t('kinder.suche')}
-                aria-label={t('kinder.suche')}
-                className="min-h-[44px] w-full max-w-xs"
-              />
+              </ul>
             </div>
-
-            {liste.length === 0 ? (
-              <EdvanceCard>
-                <EmptyState icon="🔎" title={t('kinder.keinTrefferTitel')} description={t('kinder.keinTrefferText')} />
-              </EdvanceCard>
-            ) : (
-              <div className="@container">
-                <div className="hidden @slots-tabelle:block">
-                  <EdvanceTable
-                    spalten={spalten}
-                    zeilen={liste}
-                    zeileKey={(k) => k.student_id}
-                    onZeile={(k) => navigate(`/admin/slots/kind/${k.student_id}`)}
-                    beschriftung={t('kinder.liste')}
-                  />
-                </div>
-                <ul className="flex flex-col gap-4 @slots-tabelle:hidden">
-                  {liste.map((k) => (
-                    <li key={k.student_id}>
-                      <Link to={`/admin/slots/kind/${k.student_id}`} className="block rounded-[var(--radius-lg)]">
-                        <EdvanceCard className="flex flex-col gap-2 p-4 hover:shadow-elevation-md">
-                          <KindZellen kind={k} />
-                        </EdvanceCard>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </section>
-        </>
+          )}
+        </section>
       )}
 
-      {dialogKind && (
+      {dialog && (
         <StammplatzDialog
           kind={{
-            student_id: dialogKind.student_id, name: dialogKind.name, beginn: dialogKind.beginn,
-            vertrag_laeuft: dialogKind.vertrag_laeuft, rhythmus: dialogKind.rhythmus,
+            student_id: dialog.kind.student_id, name: dialog.kind.name, beginn: dialog.kind.beginn,
+            vertrag_laeuft: dialog.kind.vertrag_laeuft, rhythmus: dialog.kind.rhythmus,
           }}
-          onClose={() => setDialogKind(null)}
+          aendern={dialog.aendern}
+          onClose={() => setDialog(null)}
           onGespeichert={fertig}
         />
       )}

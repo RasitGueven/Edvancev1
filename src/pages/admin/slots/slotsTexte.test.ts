@@ -55,6 +55,11 @@ describe('Slots-Texte', () => {
       ...['einmal', 'jedeWoche'].map((m) => `wochenplan2.kind.modus.${m}`),
       ...['kein_vertrag', 'vertrag_ab', 'SL001', 'SL002', 'SL003', 'SL004', 'SL005', 'SL006', 'SL007', 'SL011', 'SL012', 'SL013']
         .map((c) => `wochenplan2.grund.${c}`),
+      // W3
+      ...['alle', 'ohne'].map((f) => `kinder2.filter.${f}`),
+      ...['woechentlich', 'a_woche', 'b_woche'].map((k) => `kinder2.takt.${k}`),
+      ...['geplant', 'entfaellt', 'keinBetrieb', 'andereWoche'].map((k) => `kinder2.kennzeichen.${k}`),
+      ...['ferien', 'feiertag'].map((k) => `kinder2.grund.${k}`),
     ]
     expect(erwartet.filter((k) => !hat(k))).toEqual([])
   })

@@ -691,5 +691,91 @@
       "raum": "Wähle einen Raum.",
       "keinRaum": "Heute ist kein Raum in Betrieb. Lege unter Einstellungen einen an."
     }
+  },
+  "kinder2": {
+    "filter": {
+      "label": "Kinder filtern",
+      "alle": "Alle",
+      "ohne": "Ohne Stammplatz",
+      "test": "Testkonten zeigen"
+    },
+    "keinTrefferText": "Setze den Filter zurück, blende die Testkonten ein oder suche nach einem anderen Namen.",
+    "fehlerBei": "{{name}}: {{fehler}}",
+    "spalte": {
+      "stammplatz": "Stammplatz",
+      "coach": "Coach",
+      "aktion": "Aktion"
+    },
+    "paket": {
+      "ab": "{{rhythmus}} · ab {{datum}}"
+    },
+    "stamm": {
+      "kurz": "{{tag}} {{beginn}} · {{raum}}",
+      "mitTakt": "{{text}} ({{takt}})",
+      "raumAuto": "Raum: automatisch",
+      "ohne": "ohne Stammplatz"
+    },
+    "coach": {
+      "keineSchicht": "keine Schicht"
+    },
+    "aktion": {
+      "aendern": "Ändern",
+      "aendernVon": "{{stammplatz}} ändern",
+      "raumFestlegen": "Raum festlegen"
+    },
+    "kind": {
+      "coach": "Coach:"
+    },
+    "takt": {
+      "woechentlich": "jede Woche",
+      "a_woche": "14-täglich, A-Woche",
+      "b_woche": "14-täglich, B-Woche"
+    },
+    "dialog": {
+      "titelRaum": "Raum festlegen",
+      "wochentag": "Wochentag",
+      "waehlen": "wählen",
+      "zeit": "{{von}}–{{bis}}",
+      "ab": "Gültig ab",
+      "abHinweis": "A-Woche = ungerade KW, B-Woche = gerade. KW {{kw}} ist eine {{woche}}.",
+      "slotWaehlen": "Tag und Uhrzeit wählen.",
+      "raumWaehlen": "Einen Raum wählen.",
+      "bilanzLeer": "Wähle Tag, Uhrzeit und Raum, dann erscheint die Planbilanz."
+    },
+    "raum": {
+      "titel": "Raum",
+      "erstSlot": "Wähle Tag und Uhrzeit, dann erscheinen die Räume mit Coach und freien Plätzen.",
+      "keinCoach": "kein Coach eingeteilt",
+      "frei": "{{frei}} von {{max}} frei am {{datum}}",
+      "keinTermin": "in den nächsten sechs Wochen kein Termin",
+      "keinerTitel": "Kein Raum in Betrieb",
+      "keinerText": "Lege unter Einstellungen einen Raum an, dann lässt sich ein Stammplatz vergeben."
+    },
+    "sperre": {
+      "voll": "{{raum}} ist am {{datum}} voll ({{max}} von {{max}}). Anderen Raum oder andere Uhrzeit wählen.",
+      "ohneCoach": "{{raum}} hat am {{datum}} um {{beginn}} keinen Coach. Ohne Coach-Schicht ist der Raum nicht wählbar."
+    },
+    "termine": {
+      "titel": "Die nächsten Termine",
+      "leer": "Wähle einen Raum, dann zeigt die Vorschau die nächsten sechs Termine mit Grund."
+    },
+    "kennzeichen": {
+      "geplant": "geplant",
+      "entfaellt": "entfällt",
+      "keinBetrieb": "kein Betrieb",
+      "andereWoche": "andere Woche"
+    },
+    "grund": {
+      "termin": "Termin in {{raum}} bei {{coach}}, dann {{belegt}} von {{max}} Plätzen belegt.",
+      "terminOhneName": "Termin in {{raum}}, dann {{belegt}} von {{max}} Plätzen belegt.",
+      "ferien": "Kein Betrieb: {{anlass}}.",
+      "feiertag": "Kein Betrieb, Feiertag: {{anlass}}.",
+      "keinBetrieb": "Kein Betrieb an diesem Tag.",
+      "andereWoche": "{{woche}} (KW {{kw}}): Der Stammplatz gilt in der {{takt}}, hier kein Termin.",
+      "voll": "{{raum}} ist an diesem Tag voll ({{max}} von {{max}}), kein Termin.",
+      "andereArt": "In {{raum}} sitzen an diesem Tag Kinder der anderen Art (Testkonto oder echt), kein Termin.",
+      "ohneCoach": "{{raum}} hat an diesem Tag keinen Coach, kein Termin.",
+      "ohneBudget": "Keine Einheit mehr frei, kein Termin."
+    }
   }
 }
