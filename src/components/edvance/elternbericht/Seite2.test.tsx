@@ -6,6 +6,8 @@ import '@/i18n'
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { Profil } from '@/components/edvance/elternbericht/Profil'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
+import { datenAus } from '@/lib/report/elternbericht/fixtures/basis'
+import { ILKAY_ROH, ILKAY_URTEILE } from '@/lib/report/elternbericht/fixtures/ilkay'
 import type { ReportData, ThemenfeldKey } from '@/types'
 
 function seite2(data: ReportData) {
@@ -250,5 +252,37 @@ describe('Seite 2 — abgeleitete Bereiche und Klassen (R7-8)', () => {
     expect(seite2(FAELLE.ilkay.data).el.querySelector('.eb-s2-profil-hinweis')).toHaveTextContent(
       'Jedes Kästchen steht für einen Bereich',
     )
+  })
+})
+
+describe('Seite 2 — Was die Grafik zeigt (R7-10)', () => {
+  const COACH = 'Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen.'
+
+  it('abgestuft (Batu): Brüche & Dezimalzahlen nicht mehr „überwiegend sicher“', () => {
+    expect(seite2(FAELLE.abgestuft.data).el.querySelector('.eb-s2-deutung-text')?.textContent).toBe(
+      `Überwiegend sicher war das Themenfeld Terme & Gleichungen. Den meisten Übungsbedarf zeigten die Themenfelder Geometrie und Zahlen & Rechnen. ${COACH}`,
+    )
+  })
+
+  it('Coach-Satz in keinem Fall allein', () => {
+    for (const [fall, { data }] of Object.entries(FAELLE).filter(([f]) => f !== 'ohneKatalog')) {
+      const text = seite2(data).el.querySelector('.eb-s2-deutung-text')?.textContent ?? ''
+      if (text.includes(COACH)) expect(text.length, fall).toBeGreaterThan(COACH.length)
+    }
+  })
+
+  it('je Feld nur ein geprüfter Bereich: kein Satz, Absatz entfällt, Kicker und Fußnote bleiben', () => {
+    const urteile = ['bruch_kuerzen', 'geo_umfang', 'prozent_grundwert'].map((k) => ({
+      ...ILKAY_URTEILE.find((x) => x.skillKey === k)!,
+      zustand: 'traegt_nicht',
+    }))
+    const s = seite2(datenAus({ ...ILKAY_ROH, urteile }))
+    expect(s.getAllByTestId('eb-profil-zeile')).toHaveLength(3)
+    expect(s.el.querySelector('.eb-s2-zahl-uebung .eb-s2-zahl')).toHaveTextContent('3')
+    const d = s.getByTestId('eb-deutung')
+    expect(d.querySelector('.eb-s2-deutung-text')).toBeNull()
+    expect(d).not.toHaveTextContent('prüft der Coach')
+    expect(d.querySelector('.eb-s2-deutung-kicker')).toHaveTextContent('Was die Grafik zeigt')
+    expect(d.querySelector('.eb-s2-fussnote')).not.toBeNull()
   })
 })

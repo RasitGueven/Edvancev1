@@ -158,9 +158,18 @@ export type Deutung = {
 }
 
 /**
+ * Mindestzahl direkt geprüfter Bereiche (sicher + Übungsbedarf), ab der ein
+ * Feld in „Was die Grafik zeigt“ genannt wird (R7-10). Ein einzelnes Urteil
+ * trägt keine Aussage über das ganze Feld — erst recht nicht neben Umrissen
+ * abgeleiteter Bereiche, die nie mitzählen.
+ */
+export const MIN_GEPRUEFT_DEUTUNG = 2
+
+/**
  * „Was die Grafik zeigt“: welche Felder in welchem Satz stehen.
  *
- * Jedes Feld zählt für höchstens einen Satz. Je Satz nach der jeweiligen Anzahl
+ * Nur Felder mit mindestens MIN_GEPRUEFT_DEUTUNG direkt geprüften Bereichen;
+ * jedes zählt für höchstens einen Satz. Je Satz nach der jeweiligen Anzahl
  * absteigend, Gleichstand nach der Reihenfolge der Felder (= Reihenfolge des
  * Profils), höchstens zwei.
  */
@@ -168,6 +177,7 @@ export function deutung(profil: readonly Pick<EbProfilZeile, 'feld' | 'sicher' |
   const sicher: { feld: ThemenfeldKey; n: number; i: number }[] = []
   const uebung: { feld: ThemenfeldKey; n: number; i: number }[] = []
   profil.forEach((z, i) => {
+    if (z.sicher + z.uebung < MIN_GEPRUEFT_DEUTUNG) return
     if (z.sicher > z.uebung) sicher.push({ feld: z.feld, n: z.sicher, i })
     else if (z.uebung > 0) uebung.push({ feld: z.feld, n: z.uebung, i })
   })
