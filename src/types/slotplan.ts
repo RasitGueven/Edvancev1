@@ -16,8 +16,11 @@ export type SlotsCode =
 export type TerminZustand = 'planned' | 'present' | 'cancelled' | 'unexcused' | 'cancelled_by_us'
 export type Takt = 'woechentlich' | 'a_woche' | 'b_woche'
 export type TerminHerkunft = 'stammplatz' | 'zusatz'
-/** stamm = Stammschicht, vertretung = anderer Coach, zusatz = Raum zusätzlich geöffnet, faellt_aus = geschlossen. */
-export type RaumArt = 'stamm' | 'vertretung' | 'zusatz' | 'faellt_aus'
+/**
+ * stamm = Stammschicht, vertretung = anderer Coach, zusatz = Raum zusätzlich geöffnet, faellt_aus = geschlossen.
+ * W1: ohne_schicht = Raum ohne Schicht und ohne Abweichung, in dem trotzdem Kinder fest sitzen (offen = false).
+ */
+export type RaumArt = 'stamm' | 'vertretung' | 'zusatz' | 'faellt_aus' | 'ohne_schicht'
 export type PlanbilanzArt = 'kein_stammplatz' | 'aufgebraucht' | 'reicht_bis' | 'ohne_termin' | 'passt'
 
 export type SlotZeit = { id: string; beginn: string; ende: string }
@@ -77,6 +80,9 @@ export type ZelleRaum = {
   offen: boolean
   art: RaumArt
   coach_id: string | null
+  /** W1. */
+  coach_name: string | null
+  /** W1: mit offen = false und belegt > 0 ein Raum mit Kindern, aber ohne Coach („kein Coach“). */
   belegt: number
 }
 
@@ -91,6 +97,8 @@ export type WocheZelle = {
   raeume: ZelleRaum[]
   faecher: { fach: string | null; zahl: number }[]
   vergangen: boolean
+  /** W1: Die Stunde läuft gerade. */
+  laeuft: boolean
   /** SL2b: davon Testkonten (in belegt enthalten, im Kopf nicht). */
   test?: number
   /** SL2b: davon Testkonten ohne Raum. */
@@ -114,6 +122,12 @@ export type SlotsWoche = {
     erster_ohne_raum: { datum: string; zeit_id: string } | null
     ohne_stammplatz: number
     ohne_stammplatz_laufend: number
+    /** W1 (Entscheidung 7): Testkonten sichtbar daneben; belegt und auslastung bleiben ohne Testkonten. */
+    belegt_test: number
+    auslastung_mit_test: number | null
+    ohne_stammplatz_test: number
+    /** W1: Raum-Zellen der Woche mit Kindern, aber ohne Coach. */
+    raeume_ohne_coach: number
   }
 }
 
@@ -163,6 +177,8 @@ export type SlotsTermin = {
   heute: boolean
   vergangen: boolean
   begonnen: boolean
+  /** W1: Die Stunde läuft gerade. */
+  laeuft: boolean
   festgeschrieben: boolean
   kapazitaet: number
   belegt: number
@@ -188,6 +204,8 @@ export type TagRaumTermin = {
   coach_id: string | null
   coach_name: string | null
   art: RaumArt
+  /** W1: false = kein Coach (Kinder sitzen fest im Raum, belegt zählt sie). */
+  offen: boolean
   kapazitaet: number
   belegt: number
   session_id: string | null
@@ -237,6 +255,8 @@ export type Stammschicht = {
   raum_name: string
   gueltig_ab: string
   gueltig_bis: string | null
+  /** W1: Kinder mit Stammplatz in diesem Raum zu dieser Zeit. */
+  kinder: number
 }
 
 export type CoachAbweichung = {
@@ -284,6 +304,12 @@ export type Stammplatz = {
   /** null = bis zum Stichtag. */
   gueltig_bis: string | null
   vorgaenger_id: string | null
+  /** W1: null = Altbestand ohne Raum (das System verteilt je Termin). */
+  raum_id: string | null
+  raum_name: string | null
+  /** W1: Coach der Schicht dieses Raums am ersten Tag (heute oder gültig ab); null = keine Schicht. */
+  coach_id: string | null
+  coach_name: string | null
 }
 
 export type Rhythmus = { woechentlich: number; vierzehntaeglich: number }
@@ -305,7 +331,7 @@ export type VertragAuszug = {
 export type Weiterfuehren = {
   vertrag_id: string
   ab: string
-  zeilen: { vorgaenger_id: string; wochentag: number; slot_zeit_id: string; takt: Takt; beginn: string }[]
+  zeilen: { vorgaenger_id: string; wochentag: number; slot_zeit_id: string; takt: Takt; beginn: string; raum_id: string | null }[]
 } | null
 
 export type SlotsKinderZeile = KindKurz & VertragAuszug & {
@@ -356,97 +382,5 @@ export type SlotsKind = {
   weiterfuehren: Weiterfuehren
 }
 
-// ── Dialoge ─────────────────────────────────────────────────────────────────
-
-export type StammplatzZeile = { wochentag: number; slot_zeit_id: string; takt: Takt }
-
-export type SlotsFrei = {
-  takt: Takt
-  ab: string
-  zeiten: SlotZeit[]
-  /** Kleinster Wert der nächsten sechs Termine; raum = alle sechs haben einen Raum mit Coach. */
-  zellen: {
-    wochentag: number
-    zeit_id: string
-    frei: number
-    raum: boolean
-    voll: boolean
-    termine: number
-    /** SL2b: einer der nächsten sechs Termine scheitert an einem Kind der anderen Art (SL013). */
-    art_konflikt?: boolean
-  }[]
-}
-
-export type Sperrgrund = { code: SlotsCode; zeile: number | null; datum?: string }
-
-export type PlanbilanzVorschau = {
-  planbilanz: Planbilanz | null
-  terminzahl: number | null
-  letzter_termin: string | null
-  uebersprungen: string[]
-  /** Leer = Speichern möglich (Abnahmefall 9). */
-  gruende: Sperrgrund[]
-}
-
-export type SlotsZiel = {
-  datum: string
-  zeit_id: string
-  beginn: string
-  ende: string
-  frei: number
-  /** Stammplatz-Termin, der für diesen Termin wegfiele (Anforderung G 45). */
-  verdraengt: string | null
-}
-
-export type SlotsZiele = {
-  ab: string
-  wochen: number
-  /** Eingang nach 10 Uhr: die alte Einheit ist verbraucht, der neue Termin braucht eine weitere. */
-  alt_verbraucht: boolean
-  kein_budget: boolean
-  ziele: SlotsZiel[]
-}
-
-export type SlotsKandidat = KindKurz & { offen: number; verdraengt: string | null }
-
-// ── Coach und Eltern ────────────────────────────────────────────────────────
-
-export type MeinEinsatz = {
-  datum: string
-  zeit_id: string
-  beginn: string
-  ende: string
-  raum_id: string
-  raum_name: string
-  heute: boolean
-  session_id: string | null
-  kinder: KindKurz[]
-}
-
-export type MeineEinsaetze = { montag: string; kw: number; heute: string; einsaetze: MeinEinsatz[] }
-
-export type NaechsterTermin = {
-  beginn: string
-  datum: string
-  uhrzeit: string
-  ende: string
-  festgeschrieben: boolean
-  session_id: string | null
-}
-
-// ── Ergebnisse der Schreibfunktionen ───────────────────────────────────────
-
-export type StammplatzErgebnis = { stammplatz_ids?: string[]; stammplatz_id?: string; planbilanz: Planbilanz | null }
-export type AbsageErgebnis = { termin_id: string; zustand: 'cancelled' | 'unexcused'; rechtzeitig: boolean }
-export type ZusatzErgebnis = {
-  termin_id: string
-  verdraengt: string[]
-  ausgelassen?: (KindKurz & { termin_id: string; grund: 'ZG001' })[]
-}
-export type UmbuchenErgebnis = { termin_id: string; alt_zustand: 'cancelled' | 'unexcused'; rechtzeitig: boolean; verdraengt: string[] }
-export type SessionAnlegenErgebnis = {
-  session_id: string
-  neu: boolean
-  /** Kinder ohne Zugang an dem Tag (ZG001): ausgelassen, Termin "ausgefallen durch uns". */
-  ausgelassen: (KindKurz & { termin_id: string; grund: 'ZG001' })[]
-}
+export * from './slotplanDialoge'
+export * from './slotplanRaum'

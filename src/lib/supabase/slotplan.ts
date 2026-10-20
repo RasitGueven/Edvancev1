@@ -6,9 +6,10 @@
 
 import { sessionRpc as rpc, type RpcResult } from '@/lib/supabase/sessionRpc'
 import type {
-  AbsageErgebnis, MeineEinsaetze, NaechsterTermin, PlanbilanzVorschau, SessionAnlegenErgebnis, SlotsCoaches,
-  SlotsEinstellungen, SlotsFrei, SlotsKandidat, SlotsKind, SlotsKinderZeile, SlotsTag, SlotsTermin, SlotsWoche,
-  SlotsZaehler, SlotsZiele, StammplatzErgebnis, StammplatzZeile, Takt, UmbuchenErgebnis, ZusatzErgebnis,
+  AbsageErgebnis, BlockErgebnis, MeineEinsaetze, NaechsterTermin, PlanbilanzVorschau, SessionAnlegenErgebnis, SlotsCoaches,
+  RaumWechselErgebnis, SlotsEinstellungen, SlotsFrei, SlotsKandidat, SlotsKandidatAlle, SlotsKind, SlotsKinderZeile,
+  SlotsTag, SlotsTermin, SlotsWoche, SlotsZaehler, SlotsZiele, StammplatzErgebnis, StammplatzVorschauZeile,
+  StammplatzZeile, Takt, UmbuchenErgebnis, ZusatzErgebnis,
 } from '@/types/slotplan'
 
 export type SlotsResult<T> = RpcResult<T>
@@ -81,6 +82,25 @@ export function ladeKandidaten(datum: string, zeitId: string): Promise<SlotsResu
   return rpc('slots_kandidaten', { p_datum: datum, p_zeit_id: zeitId }, 'Kandidaten konnten nicht geladen werden')
 }
 
+/** W1: alle Kinder mit Vertrag oder Testkonto für „+ Kind in Raum“; nicht buchbare mit Code statt gefiltert. */
+export function ladeKandidatenAlle(datum: string, zeitId: string, raumId: string): Promise<SlotsResult<SlotsKandidatAlle[]>> {
+  return rpc('slots_kandidaten_alle', { p_datum: datum, p_zeit_id: zeitId, p_raum_id: raumId },
+    'Kandidaten konnten nicht geladen werden')
+}
+
+/**
+ * W1: die nächsten sechs Wochen ab `ab` an diesem Wochentag, je Datum ein Ergebnis mit Grund. ersetzt = Stammplätze,
+ * die mit `ab` enden (Ändern); null = die am selben Wochentag.
+ */
+export function ladeStammplatzVorschau(
+  studentId: string, wochentag: number, zeitId: string, raumId: string, takt: Takt, ab: string, ersetzt: string[] | null = null,
+): Promise<SlotsResult<StammplatzVorschauZeile[]>> {
+  return rpc('stammplatz_vorschau', {
+    p_student_id: studentId, p_wochentag: wochentag, p_slot_zeit_id: zeitId, p_raum_id: raumId, p_takt: takt, p_ab: ab,
+    p_ersetzt: ersetzt,
+  }, 'Vorschau konnte nicht geladen werden')
+}
+
 /** Nur Coach: eigene Raum-Termine der Woche. */
 export function ladeMeineEinsaetze(montag: string): Promise<SlotsResult<MeineEinsaetze>> {
   return rpc('meine_einsaetze', { p_montag: montag }, 'Einsätze konnten nicht geladen werden')
@@ -97,9 +117,11 @@ export function stammplatzVergeben(studentId: string, zeilen: StammplatzZeile[],
   return rpc('stammplatz_vergeben', { p_student_id: studentId, p_zeilen: zeilen, p_ab: ab }, 'Stammplatz konnte nicht vergeben werden')
 }
 
+/** W1: ohne zeile.raum_id behält der neue Stammplatz den Raum des bisherigen. */
 export function stammplatzAendern(id: string, ab: string, zeile: StammplatzZeile): Promise<SlotsResult<StammplatzErgebnis>> {
   return rpc('stammplatz_aendern', {
     p_id: id, p_ab: ab, p_wochentag: zeile.wochentag, p_slot_zeit_id: zeile.slot_zeit_id, p_takt: zeile.takt,
+    p_raum_id: zeile.raum_id ?? null,
   }, 'Stammplatz konnte nicht geändert werden')
 }
 
@@ -130,8 +152,12 @@ export function absageZuruecknehmen(terminId: string): Promise<SlotsResult<{ ter
   return rpc('absage_zuruecknehmen', { p_termin_id: terminId }, 'Absage konnte nicht zurückgenommen werden')
 }
 
-export function zusatzterminBuchen(studentId: string, datum: string, zeitId: string): Promise<SlotsResult<ZusatzErgebnis>> {
-  return rpc('zusatztermin_buchen', { p_student_id: studentId, p_datum: datum, p_zeit_id: zeitId }, 'Zusatztermin konnte nicht gebucht werden')
+/** W1: mit raumId sitzt der Termin fest in diesem Raum (SL002/SL001 gelten für den Raum); ohne verteilt die Zuteilung. */
+export function zusatzterminBuchen(
+  studentId: string, datum: string, zeitId: string, raumId: string | null = null,
+): Promise<SlotsResult<ZusatzErgebnis>> {
+  return rpc('zusatztermin_buchen', { p_student_id: studentId, p_datum: datum, p_zeit_id: zeitId, p_raum_id: raumId },
+    'Zusatztermin konnte nicht gebucht werden')
 }
 
 /** Ausgefallen (durch uns): Einheit bleibt offen. */
@@ -177,6 +203,24 @@ export function stammschichtAnlegen(
 
 export function stammschichtBeenden(id: string, ab: string): Promise<SlotsResult<null>> {
   return rpc('stammschicht_beenden', { p_id: id, p_ab: ab }, 'Stammschicht konnte nicht beendet werden')
+}
+
+/** W1: eine Stammschicht je aktiver Uhrzeit von–bis, alles oder nichts (SL009, hint 'raum:HH:MM' / 'coach:HH:MM'). */
+export function stammschichtBlockAnlegen(
+  coachId: string, wochentag: number, vonZeitId: string, bisZeitId: string, raumId: string, gueltigAb: string | null = null,
+): Promise<SlotsResult<BlockErgebnis>> {
+  return rpc('stammschicht_block_anlegen', {
+    p_coach_id: coachId, p_wochentag: wochentag, p_von_zeit_id: vonZeitId, p_bis_zeit_id: bisZeitId,
+    p_raum_id: raumId, p_gueltig_ab: gueltigAb,
+  }, 'Schicht konnte nicht eingetragen werden')
+}
+
+/** W1: Schichten ab `ab` in einen anderen Raum; mitKindern zieht die Stammplätze dort zu diesen Zeiten mit. */
+export function stammschichtRaumWechseln(
+  ids: string[], raumId: string, ab: string, mitKindern: boolean,
+): Promise<SlotsResult<RaumWechselErgebnis>> {
+  return rpc('stammschicht_raum_wechseln', { p_ids: ids, p_raum_id: raumId, p_ab: ab, p_kinder_mitnehmen: mitKindern },
+    'Raum der Schicht konnte nicht geändert werden')
 }
 
 export function raumAnlegen(name: string, aktivAb: string | null = null): Promise<SlotsResult<string>> {

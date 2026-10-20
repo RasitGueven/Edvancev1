@@ -115,7 +115,9 @@ insert into api values ('absage_zuruecknehmen'), ('meine_einsaetze'), ('naechste
   ('slots_ziele'), ('stammplaetze_weiterfuehren'), ('stammplatz_aendern'), ('stammplatz_beenden'), ('stammplatz_vergeben'),
   ('stammschicht_anlegen'), ('stammschicht_beenden'), ('termin_absagen'), ('termin_ausgefallen'), ('termin_coach_setzen'),
   ('termin_faellt_aus'), ('termin_raum_oeffnen'), ('termin_raum_setzen'), ('termin_session_anlegen'), ('termin_umbuchen'),
-  ('zusatztermin_buchen');
+  ('zusatztermin_buchen'),
+  -- W1: Wochenplan, Stammplatz am Raum, Schichten als Block
+  ('slots_kandidaten_alle'), ('stammplatz_vorschau'), ('stammschicht_block_anlegen'), ('stammschicht_raum_wechseln');
 create temp table slots_fkt as
 select p.oid, p.proname::text as name from pg_proc p join pg_namespace n on n.oid = p.pronamespace
  where n.nspname = 'public'

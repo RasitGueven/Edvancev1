@@ -91,3 +91,11 @@ create or replace function pg_temp.termin(p_student uuid, p_datum date) returns 
   select id from public.kind_termine where student_id = p_student and datum = p_datum
    order by (zustand in ('planned', 'present', 'unexcused')) desc, angelegt_am desc limit 1
 $$;
+
+-- W1: Die Tests mit dieser Ausgangslage prüfen Stammplätze ohne Raum (Altbestand: das System verteilt je Termin).
+-- Seit W1 braucht jeder neue Stammplatz einen Raum; hier ist die Pflicht nur in der Transaktion des Tests aus.
+-- slots_w1.test.sql schaltet sie nach dem Einbinden wieder an.
+create or replace function public.slots_raum_pflicht() returns boolean language plpgsql stable as $$
+begin
+  return false;
+end $$;
