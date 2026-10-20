@@ -95,7 +95,8 @@
       "titel": "Geordnet nach Klassenstufen im NRW-Lehrplan.",
       "text": "Jede Stufe fasst Stoff aus bestimmten Klassen zusammen; die Klassen stehen daneben. Welche Stufen es gibt, richtet sich nach {{wessen}} Klasse.",
       "textOhneName": "Jede Stufe fasst Stoff aus bestimmten Klassen zusammen; die Klassen stehen daneben. Welche Stufen es gibt, richtet sich nach der Klasse Ihres Kindes."
-    }
+    },
+    "pyramideAria": "Ergebnisse nach Stufen im Lernstoff"
   },
   "s4": {
     "kicker": "Förderansatz",
@@ -111,6 +112,7 @@
     "hinweis": "Die Auswahl ist ein pädagogischer Arbeitsvorschlag. Der Coach prüft sie mit Blick auf Unterricht und anstehende Klausuren.",
     "empfehlung": "Unsere Empfehlung für {{name}}: <b>Paket {{paket}}</b>",
     "empfehlungOhneName": "Unsere Empfehlung: <b>Paket {{paket}}</b>",
-    "basisMoeglich": "{{basis}} ist ebenfalls möglich."
+    "basisMoeglich": "{{basis}} ist ebenfalls möglich.",
+    "punkteAria": "Förderschwerpunkte"
   }
 }

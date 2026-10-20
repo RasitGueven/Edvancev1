@@ -1,2 +1,236 @@
 /* Tablet-Präsentation · Station 03 Einordnung · T4. Selektoren unter .tp .tp-s3;
-   Zeiten und Kurven aus den Variablen in rahmen.css. */
+   Zeiten und Kurven aus den Variablen in rahmen.css. Muster: Dummy V7, „03
+   Einordnung: Pyramide"; Farben auf --color-eb-* gerundet. */
+
+.tp .tp-s3-layout {
+  --tp-verzoegerung: 990ms;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(220px, .72fr);
+  gap: clamp(22px, 3.6vw, 58px);
+  align-items: center;
+  margin-top: 22px;
+  min-height: 0;
+}
+
+/* ─── Pyramide ────────────────────────────────────────────────────────────── */
+
+.tp .tp-s3-pyramide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s3-ebene {
+  width: 100%;
+  padding: 14px 18px 12px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 14px;
+  background: var(--color-eb-weiss);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-eb-navy) 6%, transparent);
+}
+
+/* Unterste 100 %, jede Ebene darüber 19 Punkte schmaler (Entscheidung 8). */
+.tp .tp-s3-breite-0 { width: 100%; }
+.tp .tp-s3-breite-1 { width: 81%; }
+.tp .tp-s3-breite-2 { width: 62%; }
+.tp .tp-s3-breite-3 { width: 43%; }
+
+.tp .tp-s3-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tp .tp-s3-kopf h3 {
+  margin: 0;
+  color: var(--color-eb-navy);
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-size: clamp(18px, 1.75vw, 23px);
+  line-height: 1.15;
+  letter-spacing: -.042em;
+}
+
+.tp .tp-s3-pille {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--color-tp-pille);
+  color: var(--color-eb-navy);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tp .tp-s3-spur {
+  display: flex;
+  height: 15px;
+  margin: 11px 0 8px;
+}
+
+.tp .tp-s3-luecke-weit { gap: 4px; }
+.tp .tp-s3-luecke-mittel { gap: 2px; }
+.tp .tp-s3-luecke-eng { gap: 1px; }
+
+.tp .tp-s3-seg {
+  flex: 1;
+  min-width: 0;
+  border-radius: 4px;
+  background: var(--color-eb-sicher);
+}
+
+.tp .tp-s3-luecke-eng .tp-s3-seg {
+  border-radius: 2px;
+}
+
+.tp .tp-s3-seg-uebung {
+  background: var(--color-eb-uebung);
+}
+
+/* „übersprungen": Punkte, nie Streifen (Streifen heißen im Druckbogen „nicht untersucht"). */
+.tp .tp-s3-seg-ueber {
+  border: 1px solid var(--color-tp-ueber-rand);
+  background:
+    radial-gradient(circle, var(--color-tp-ueber-punkt) 1.2px, transparent 1.7px) 0 0 / 5px 5px,
+    var(--color-tp-ueber-grund);
+}
+
+.tp .tp-s3-getrennt .tp-s3-seg-ueber {
+  border-color: var(--color-tp-ueber-neutral-rand);
+  background:
+    radial-gradient(circle, var(--color-tp-ueber-neutral-punkt) 1.2px, transparent 1.7px) 0 0 / 5px 5px,
+    var(--color-tp-ueber-neutral-grund);
+}
+
+.tp .tp-s3-zaehlung {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 12px;
+  margin: 0;
+  color: var(--color-eb-leise);
+  font-size: 11px;
+}
+
+.tp .tp-s3-z-sicher { color: var(--color-eb-sicher); }
+.tp .tp-s3-z-uebung { color: var(--color-eb-uebung-text); }
+.tp .tp-s3-z-davon { color: var(--color-eb-uebung-text); }
+.tp .tp-s3-z-ueber { color: var(--color-tp-ueber-neutral-text); }
+
+/* ─── Lesehilfe ───────────────────────────────────────────────────────────── */
+
+.tp .tp-s3-lesen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 24px;
+  border-left: 1px solid var(--color-eb-linie);
+}
+
+.tp .tp-s3-lesen h3 {
+  margin: 0;
+  color: var(--color-eb-navy);
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 31px);
+  line-height: 1.16;
+  letter-spacing: -.042em;
+}
+
+.tp .tp-s3-lesen p {
+  margin: 0;
+  color: var(--color-eb-text);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.tp .tp-s3-lesen .tp-s3-hinweis {
+  color: var(--color-eb-leise);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+/* ─── Bewegung: Ebenen von unten nach oben, dann die Lesehilfe ────────────── */
+
+.tp-station:not(.entered) .tp-s3-ebene,
+.tp-station:not(.entered) .tp-s3-lesen {
+  opacity: 0;
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s3-ebene {
+  animation: tp-zeile-ein var(--tp-ebene-dauer) var(--tp-soft) backwards;
+  animation-delay: calc(var(--tp-ebene-start) + var(--reihe) * var(--tp-ebene-takt));
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s3-seg {
+  transform-origin: left center;
+  animation: tp-segment-ein var(--tp-strich-dauer) var(--tp-ease) backwards;
+  animation-delay: calc(var(--tp-strich-start) + var(--reihe) * var(--tp-ebene-takt) + var(--k) * var(--tp-strich-takt));
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s3-lesen {
+  animation: tp-zeile-ein var(--tp-lesehilfe-dauer) var(--tp-soft) var(--tp-lesehilfe) backwards;
+}
+
+.tp-station.motion-complete .tp-s3-ebene,
+.tp-station.motion-complete .tp-s3-seg,
+.tp-station.motion-complete .tp-s3-lesen {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* ─── Geräte ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp .tp-s3-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tp .tp-s3-lesen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 6px 22px;
+    align-items: start;
+    padding: 14px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--color-eb-linie);
+  }
+
+  .tp .tp-s3-lesen .tp-etikett {
+    grid-column: 1 / -1;
+  }
+
+  .tp .tp-s3-lesen h3 {
+    grid-row: 2 / 4;
+    font-size: clamp(21px, 3vw, 27px);
+  }
+}
+
+@media (max-height: 720px) {
+  .tp .tp-s3-ebene {
+    padding: 10px 16px 9px;
+  }
+
+  .tp .tp-s3-spur {
+    height: 13px;
+    margin: 8px 0 6px;
+  }
+
+  .tp .tp-s3-pyramide {
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp .tp-s3-ebene,
+  .tp .tp-s3-seg,
+  .tp .tp-s3-lesen {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

@@ -1,2 +1,291 @@
 /* Tablet-Präsentation · Station 04 Förderansatz · T4. Selektoren unter .tp .tp-s4;
-   Zeiten und Kurven aus den Variablen in rahmen.css. */
+   Zeiten und Kurven aus den Variablen in rahmen.css. Muster: Dummy V7, „04
+   Förderansatz: Kurve im Stil des Logos"; Farben auf --color-eb-* gerundet,
+   Verläufe nur für die Kugeln (Punkte, Empfehlungspunkt). */
+
+@import "./station4-kurve.css";
+
+.tp .tp-s4-layout {
+  --tp-verzoegerung: 1020ms;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+  gap: clamp(24px, 4vw, 62px);
+  align-items: center;
+  margin-top: 23px;
+}
+
+/* ─── Förderfokus ─────────────────────────────────────────────────────────── */
+
+.tp .tp-s4-fokus {
+  position: relative;
+  padding: 27px 31px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 23px;
+  background: var(--color-eb-weiss);
+}
+
+.tp .tp-s4-fokus:focus-visible {
+  outline: 3px solid var(--color-tp-fokus);
+  outline-offset: 3px;
+}
+
+.tp .tp-s4-fokus-inhalt {
+  animation: tp-blenden .38s var(--tp-ease) both;
+}
+
+.tp .tp-s4-fokus-kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tp .tp-s4-fokus-kopf .tp-etikett {
+  color: var(--color-eb-leise);
+}
+
+.tp .tp-s4-pille {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--color-tp-pille);
+  color: var(--color-eb-navy);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tp .tp-s4-fokus h3 {
+  margin: 16px 0 14px;
+  color: var(--color-eb-navy);
+  font-family: var(--font-eb-titel);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.12;
+  letter-spacing: -.042em;
+}
+
+.tp .tp-s4-kaesten {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 13px;
+}
+
+.tp .tp-s4-kasten {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  background: var(--color-eb-mint);
+}
+
+.tp .tp-s4-kasten-ueben {
+  background: color-mix(in srgb, var(--color-eb-uebung) 14%, transparent);
+}
+
+.tp .tp-s4-kasten small {
+  color: var(--color-eb-leise);
+  font-size: 10px;
+}
+
+.tp .tp-s4-kasten ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s4-kasten li,
+.tp .tp-s4-leer {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tp .tp-s4-kasten-sicher li {
+  color: var(--color-eb-sicher-text);
+}
+
+.tp .tp-s4-kasten-ueben li {
+  color: var(--color-eb-uebung-text);
+}
+
+.tp .tp-s4-kasten .tp-s4-weitere,
+.tp .tp-s4-leer {
+  color: var(--color-eb-text);
+}
+
+/* ─── Danach, Hinweis, Empfehlung ─────────────────────────────────────────── */
+
+.tp .tp-s4-danach,
+.tp .tp-s4-hinweis,
+.tp .tp-s4-empfehlung {
+  --tp-verzoegerung: var(--tp-hinweis);
+  max-width: 760px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.tp .tp-s4-danach {
+  margin-top: 18px;
+  color: var(--color-eb-text);
+}
+
+.tp .tp-s4-hinweis {
+  margin-top: 6px;
+  color: var(--color-eb-leise);
+}
+
+.tp .tp-s4-danach + .tp-s4-hinweis {
+  margin-top: 4px;
+}
+
+.tp .tp-s4-layout + .tp-s4-hinweis {
+  margin-top: 18px;
+}
+
+.tp .tp-s4-empfehlung {
+  --tp-verzoegerung: var(--tp-empfehlung);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: 8px;
+  color: var(--color-eb-navy);
+}
+
+.tp .tp-s4-empfehlung b {
+  font-weight: 700;
+}
+
+.tp .tp-s4-empfehlung-punkt {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, var(--color-tp-kugel-hell), var(--color-tp-kugel-mitte) 52%, var(--color-tp-kugel-warm));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-eb-gold) 16%, transparent);
+}
+
+.tp .tp-s4-basis {
+  color: var(--color-eb-leise);
+}
+
+.tp .tp-s4-basis::before {
+  content: '·';
+  margin-right: 10px;
+  color: var(--color-eb-nav-linie);
+}
+
+/* Ohne Schwerpunkt: Titel, Satz und Empfehlung. */
+.tp .tp-s4-keiner .tp-s4-empfehlung {
+  margin-top: 22px;
+}
+
+/* ─── Bewegung: Linie, Punkte entlang der Linie, Karte, Hinweis, Empfehlung ─ */
+
+.tp-station:not(.entered) .tp-s4-punkt,
+.tp-station:not(.entered) .tp-s4-start,
+.tp-station:not(.entered) .tp-s4-pfeil,
+.tp-station:not(.entered) .tp-s4-fokus {
+  opacity: 0;
+}
+
+.tp-station:not(.motion-complete) .tp-s4-linie {
+  stroke-dashoffset: 100;
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s4-linie {
+  animation: tp-zeichnen var(--tp-linie-dauer) linear var(--tp-linie-start) both;
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s4-start {
+  animation: tp-blenden 450ms var(--tp-ease) var(--tp-startpunkt) backwards;
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s4-pfeil {
+  animation: tp-blenden 520ms var(--tp-ease) var(--tp-pfeil) backwards;
+}
+
+/* Jeder Punkt erscheint, wenn die Linie ihn erreicht. */
+.tp-station.entered:not(.motion-complete) .tp-s4-kugel {
+  animation: tp-pop var(--tp-punkt-dauer) var(--tp-pop) backwards;
+  animation-delay: calc(var(--tp-linie-start) + var(--anteil) * var(--tp-linie-dauer) - 60ms);
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s4-label {
+  animation: tp-label-ein var(--tp-punkt-dauer) var(--tp-soft) backwards;
+  animation-delay: calc(var(--tp-linie-start) + var(--anteil) * var(--tp-linie-dauer) + 80ms);
+}
+
+.tp-station.entered:not(.motion-complete) .tp-s4-fokus {
+  animation: tp-zeile-ein 760ms var(--tp-soft) var(--tp-karte) backwards;
+}
+
+.tp-station.motion-complete .tp-s4-linie {
+  animation: none !important;
+  stroke-dashoffset: 0 !important;
+}
+
+.tp-station.motion-complete .tp-s4-punkt,
+.tp-station.motion-complete .tp-s4-kugel,
+.tp-station.motion-complete .tp-s4-label,
+.tp-station.motion-complete .tp-s4-start,
+.tp-station.motion-complete .tp-s4-pfeil,
+.tp-station.motion-complete .tp-s4-fokus {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* ─── Geräte ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp .tp-s4-layout {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .tp .tp-s4-kurve {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .tp .tp-s4-fokus {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tp .tp-s4-fokus {
+    padding: 17px;
+  }
+
+  .tp .tp-s4-fokus h3 {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp .tp-s4-linie {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .tp .tp-s4-punkt,
+  .tp .tp-s4-kugel,
+  .tp .tp-s4-label,
+  .tp .tp-s4-start,
+  .tp .tp-s4-pfeil,
+  .tp .tp-s4-fokus,
+  .tp .tp-s4-fokus-inhalt {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .tp .tp-s4-kugel,
+  .tp .tp-s4-kugel::after {
+    transition: none !important;
+  }
+}
