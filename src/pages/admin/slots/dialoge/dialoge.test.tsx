@@ -1,6 +1,5 @@
 // Slots SL2, Tests 2–4: Absage (10-Uhr-Vorschau, gesendet wird der Eingang), Umbuchen (nur Ziele aus
-// slots_ziele, Abnahmefall 5/6), Stammplatz-Dialog (Speichern gesperrt mit Gründen, Abnahmefall 9; Tippen ins
-// Raster übernimmt den Slot).
+// slots_ziele, Abnahmefall 5/6), Stammplatz-Dialog (Speichern gesperrt mit Gründen, Abnahmefall 9; seit W3 mit Raum).
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
@@ -11,7 +10,8 @@ const sp = vi.hoisted(() => ({
   terminAbsagen: vi.fn(),
   terminUmbuchen: vi.fn(),
   ladeZiele: vi.fn(),
-  ladeFrei: vi.fn(),
+  ladeEinstellungen: vi.fn(),
+  ladeStammplatzVorschau: vi.fn(),
   ladePlanbilanzVorschau: vi.fn(),
   stammplatzVergeben: vi.fn(),
   stammplatzAendern: vi.fn(),
@@ -87,19 +87,30 @@ describe('Umbuchen (Test 4, Abnahmefall 5 und 6)', () => {
 })
 
 describe('Stammplatz-Dialog (Test 3, Abnahmefall 9)', () => {
-  const frei = {
-    takt: 'woechentlich', ab: '2028-03-14',
-    zeiten: [{ id: 'z16', beginn: '16:00', ende: '17:00' }],
-    zellen: [
-      { wochentag: 1, zeit_id: 'z16', frei: 0, raum: true, voll: true, termine: 6 },
-      { wochentag: 2, zeit_id: 'z16', frei: 3, raum: true, voll: false, termine: 6 },
-      { wochentag: 3, zeit_id: 'z16', frei: 0, raum: false, voll: false, termine: 6 },
-    ],
+  // W3: Das Raster freier Plätze ist durch die Raum-Karten ersetzt (Tests in StammplatzDialog.test.tsx). Weiter gilt:
+  // Speichern bleibt mit den Gründen der Planbilanz-Vorschau gesperrt; ohne Gründe speichert er die Zeilen.
+  const einst = {
+    heute: '2026-10-20', schuljahr_bis: '2031-07-31', planungsgrenze: '2031-07-31', ferien: [], feiertage: [],
+    raeume: [{ id: 'r-a1', name: 'A1', aktiv_ab: '2026-01-01', inaktiv_ab: null, stammschichten: 1 }],
+    zeiten: [{ id: 'z16', beginn: '16:00', ende: '17:00', aktiv_ab: '2026-01-01', inaktiv_ab: null }],
   }
-  const kindStamm = { student_id: 'k1', name: 'Jonas Köhler', beginn: '2028-02-01', vertrag_laeuft: true, rhythmus: { woechentlich: 1, vierzehntaeglich: 0 } }
+  const kindStamm = { student_id: 'k1', name: 'Jonas Köhler', beginn: '2030-11-04', vertrag_laeuft: true, rhythmus: { woechentlich: 1, vierzehntaeglich: 0 } }
+  const zeile = { wochentag: 2, slot_zeit_id: 'z16', takt: 'woechentlich', raum_id: 'r-a1' }
 
-  it('Tippen ins Raster übernimmt den Slot; Speichern gesperrt mit den Gründen der Vorschau', async () => {
-    sp.ladeFrei.mockResolvedValue({ data: frei, error: null })
+  async function waehle(): Promise<void> {
+    fireEvent.change(await screen.findByLabelText('Wochentag'), { target: { value: '2' } })
+    fireEvent.change(screen.getByLabelText('Uhrzeit'), { target: { value: 'z16' } })
+    fireEvent.click(await screen.findByRole('button', { name: /^A1/ }))
+  }
+
+  beforeEach(() => {
+    sp.ladeEinstellungen.mockResolvedValue({ data: einst, error: null })
+    sp.ladeStammplatzVorschau.mockResolvedValue({
+      data: [{ datum: '2030-11-05', ergebnis: 'termin', anlass: null, belegt: 1, coach_id: 'c1', coach_name: 'Jana Berg' }], error: null,
+    })
+  })
+
+  it('Speichern gesperrt mit den Gründen der Vorschau', async () => {
     sp.ladePlanbilanzVorschau.mockResolvedValue({
       data: { planbilanz: null, terminzahl: null, letzter_termin: null, uebersprungen: [], gruende: [{ code: 'SL001', zeile: 0 }] },
       error: null,
@@ -107,30 +118,24 @@ describe('Stammplatz-Dialog (Test 3, Abnahmefall 9)', () => {
     render(<StammplatzDialog kind={kindStamm} onClose={() => undefined} onGespeichert={() => undefined} />)
     const speichern = screen.getByRole('button', { name: 'Speichern' }) as HTMLButtonElement
     expect(speichern.disabled).toBe(true)
-    expect(within(screen.getByRole('list', { name: 'Warum Speichern noch nicht geht' })).getByText('Zeile 1: Tag und Uhrzeit wählen.')).toBeTruthy()
+    expect(within(screen.getByRole('list', { name: 'Warum Speichern noch nicht geht' })).getByText('Tag und Uhrzeit wählen.')).toBeTruthy()
 
-    expect(await screen.findByText('voll')).toBeTruthy()
-    expect(screen.queryByRole('button', { name: /Montag 16:00/ })).toBeNull()
-    expect(screen.getAllByText('kein Raum').length).toBe(3)
-    fireEvent.click(await screen.findByRole('button', { name: 'Dienstag 16:00: 3 Plätze frei' }))
-    expect(screen.getByRole('button', { name: /Zeile 1/ }).textContent).toContain('Di 16:00')
-
-    await waitFor(() => expect(sp.ladePlanbilanzVorschau).toHaveBeenCalledWith('k1', [{ wochentag: 2, slot_zeit_id: 'z16', takt: 'woechentlich' }], expect.any(String), null))
-    expect(await screen.findByText('Zeile 1: Dieser Termin ist voll.')).toBeTruthy()
+    await waehle()
+    await waitFor(() => expect(sp.ladePlanbilanzVorschau).toHaveBeenCalledWith('k1', [zeile], '2030-11-04', null))
+    expect(await screen.findByText('Dieser Termin ist voll.')).toBeTruthy()
     expect(speichern.disabled).toBe(true)
     expect(sp.stammplatzVergeben).not.toHaveBeenCalled()
   })
 
   it('ohne Gründe speichert er die Zeilen', async () => {
-    sp.ladeFrei.mockResolvedValue({ data: frei, error: null })
     sp.ladePlanbilanzVorschau.mockResolvedValue({ data: { planbilanz: null, terminzahl: null, letzter_termin: null, uebersprungen: [], gruende: [] }, error: null })
     sp.stammplatzVergeben.mockResolvedValue({ data: { stammplatz_ids: ['s1'], planbilanz: null }, error: null })
     const gespeichert = vi.fn()
     render(<StammplatzDialog kind={kindStamm} onClose={() => undefined} onGespeichert={gespeichert} />)
-    fireEvent.click(await screen.findByRole('button', { name: 'Dienstag 16:00: 3 Plätze frei' }))
+    await waehle()
     await waitFor(() => expect((screen.getByRole('button', { name: 'Speichern' }) as HTMLButtonElement).disabled).toBe(false))
     await act(async () => fireEvent.click(screen.getByRole('button', { name: 'Speichern' })))
-    expect(sp.stammplatzVergeben).toHaveBeenCalledWith('k1', [{ wochentag: 2, slot_zeit_id: 'z16', takt: 'woechentlich' }], expect.any(String))
+    expect(sp.stammplatzVergeben).toHaveBeenCalledWith('k1', [zeile], '2030-11-04')
     expect(gespeichert).toHaveBeenCalled()
   })
 })

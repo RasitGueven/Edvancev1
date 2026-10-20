@@ -140,6 +140,12 @@
   (einmalig oder jede Woche), Tagespanel mit freien Plätzen je Stunde, Session-Panel für Einzel-Sessions. Reiter
   Stundenplan entfällt, alte Adressen leiten um. Reine Oberfläche, keine Migration. **Offen:**
   `docs/slots/offene-punkte-w2.md`.
+- **Slots W3 · Kinder und Stammplatz-Dialog** (Retro `2026-10-20-slots-w3-kinder.md`, Branch
+  `feat/rasit-slots-w3-kinder`): Kinderliste mit Stammplatz am Raum, Coach aus der Schicht („keine Schicht“),
+  „Raum: automatisch“ mit „Raum festlegen“, Filter Alle · Ohne Stammplatz · Testkonten zeigen. Stammplatz-Dialog mit
+  Raum-Karten (voll und ohne Coach gesperrt mit Grund), A/B-Hinweis, „Die nächsten Termine“ aus `stammplatz_vorschau`
+  und Speichern mit Raum; Kind-Seite zeigt Raum und Coach. Reine Oberfläche, keine Migration. **Offen:**
+  `docs/slots/offene-punkte-w3.md`.
 - **Session P1 · T5 Coach im Testlauf** (Retro `2026-10-14-session-t5-coach-testlauf.md`, Branch
   `feat/rasit-session-t5-coach-testlauf`): Neuer RPC `skill_pruefung_session` (echt nur freigegeben, im Testlauf jede
   Prüffrage, die `pruefung_aufs_tablet` auflegt, mit `freigegeben`), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach
