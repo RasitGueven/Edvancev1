@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { SELECT_MD } from '@/lib/formStyles'
 import { stammschichtBlockAnlegen } from '@/lib/supabase/slotplan'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
+import { berlinToday } from '@/lib/datetime'
 import type { SlotsCoaches } from '@/types/slotplan'
 import { wochentagName } from '../slotsFormat'
 import { konfliktSatzAnlegen } from './coaches.model'
@@ -51,7 +52,7 @@ export function SchichtEintragen({ daten, onGespeichert }: { daten: SlotsCoaches
     setSpeichert(false)
     if (res.error !== null) {
       const name = coach.name ?? t('kind.ohneName')
-      const satz = konfliktSatzAnlegen(res, { coachId: coach.id, wochentag, raumId: raum.id }, coaches, { raum: raum.name, coach: name })
+      const satz = konfliktSatzAnlegen(res, { coachId: coach.id, wochentag, raumId: raum.id, ab: berlinToday() }, coaches, { raum: raum.name, coach: name })
       return setFehler(satz ? t(satz.schluessel, { ...satz.werte, tag }) : t(slotsFehlerSchluessel(res)))
     }
     onGespeichert(t('coaches2.neu.gespeichert', {

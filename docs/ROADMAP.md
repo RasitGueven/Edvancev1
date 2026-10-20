@@ -147,7 +147,7 @@
   und Speichern mit Raum; Kind-Seite zeigt Raum und Coach. Reine Oberfläche, keine Migration. **Offen:**
   `docs/slots/offene-punkte-w3.md`.
 - **Slots W4 · Coaches: Schichten als Block** (Retro `2026-10-20-slots-w4-coaches.md`, Branch
-  `feat/rasit-slots-w4-coaches`): Je Coach eine Karte mit Blöcken („Mo 14:00–18:00“, Raum, Stammplätze), „Schicht
+  `feat/rasit-slots-w4-coaches`): Je Coach eine Karte mit Blöcken („Mo 14:00–18:00“, Raum, Kinder mit Stammplatz), „Schicht
   eintragen“ als ein Block über `stammschicht_block_anlegen` mit Konfliktsatz und Uhrzeit, Dialog „Raum ändern“ (gültig ab
   nächster Montag, Kinder nur mit Häkchen, besetzter Zielraum gesperrt mit Grund), Dialog „Entfernen“ ab Datum.
   Abweichungen verweisen ins Slot-Panel. Reine Oberfläche, keine Migration. **Offen:** `docs/slots/offene-punkte-w4.md`.

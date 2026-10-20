@@ -8,7 +8,7 @@ import { stammschichtRaumWechseln } from '@/lib/supabase/slotplan'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
 import type { SlotsCoaches } from '@/types/slotplan'
 import { datumVoll, wochentagName } from '../slotsFormat'
-import { konfliktSatzWechsel, standardAb, zielraumBesetzt, type Block, type CoachDaten } from './coaches.model'
+import { endetVorher, konfliktSatzWechsel, standardAb, zielraumBesetzt, type Block, type CoachDaten } from './coaches.model'
 
 export const DATUM_FELD = 'h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm tabular-nums'
 export const FELD_LABEL = 'flex flex-col gap-2 text-xs font-semibold text-[var(--color-text-tertiary)]'
@@ -38,9 +38,11 @@ export function RaumWechselDialog({ coach, block, daten, onClose, onGespeichert 
   const ziel = ziele.find((r) => r.id === zielId)
   const tag = wochentagName(block.wochentag, i18n.language)
   const besetzt = ziel ? zielraumBesetzt(block, ziel.id, ab, daten.coaches) : []
-  const n = block.stammplaetze
+  const n = block.kinder
   const sperre = !ziel
     ? t('coaches2.wechsel.keinZiel')
+    : endetVorher(block, ab) && block.gueltigBis
+      ? t('coaches2.wechsel.endet', { datum: datumVoll(block.gueltigBis, i18n.language) })
     : besetzt.length > 0
       ? t('coaches2.wechsel.gesperrt')
       : null
@@ -53,7 +55,7 @@ export function RaumWechselDialog({ coach, block, daten, onClose, onGespeichert 
     const res = await stammschichtRaumWechseln(block.ids, ziel.id, ab, mitKindern)
     setSpeichert(false)
     if (res.error !== null) {
-      const satz = konfliktSatzWechsel(res, block, ziel.id, ziel.name, daten.coaches)
+      const satz = konfliktSatzWechsel(res, block, { id: ziel.id, name: ziel.name, ab }, daten.coaches)
       return setFehler(satz ? t(satz.schluessel, { ...satz.werte, tag }) : t(slotsFehlerSchluessel(res)))
     }
     const werte = { coach: coach.name ?? t('kind.ohneName'), datum: datumVoll(ab, i18n.language), ziel: ziel.name, alt: block.raumName }

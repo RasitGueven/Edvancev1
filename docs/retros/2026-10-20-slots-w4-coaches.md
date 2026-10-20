@@ -9,7 +9,7 @@
   Schicht am Tag der gewählten Woche, künftige Schichten bilden Blöcke mit „ab“. Dazu Zielraum-Prüfung und die
   Konfliktsätze aus den Hinweisen `raum:HH:MM` / `coach:HH:MM`.
 - **Reiter Coaches** (`CoachesReiter.tsx`, `CoachKarte.tsx`): je Coach eine Karte (Name, Std. pro Woche, Blöcke mit
-  Raum, Stammplätzen, „Raum ändern“, „Entfernen“), Abweichungen der Woche als Verweis ins Slot-Panel; daneben
+  Raum, Kindern mit Stammplatz, „Raum ändern“, „Entfernen“), Abweichungen der Woche als Verweis ins Slot-Panel; daneben
   „Schicht eintragen“ (`SchichtEintragen.tsx`, `stammschicht_block_anlegen` mit von/bis).
 - **Dialoge:** „Raum der Schicht ändern“ (`RaumWechselDialog.tsx`: neuer Raum, gültig ab = nächster Montag, Satz
   „Kinder hängen am Raum …“, Kästchen Standard aus, gesperrt mit Grund bei besetztem Zielraum) und „Schicht
@@ -18,9 +18,17 @@
   Konfliktsatz, Raum ändern mit/ohne Kinder, gesperrter Zielraum, Entfernen über Dialog, Teilfehler).
 
 ## Entscheidungen
-- Kinderzahl als Summe je Stunde, benannt „Stammplätze“ (Daten liefern nur Zählungen je Stunde).
+- Kinderzahl als Summe je Stunde, benannt „Kinder mit Stammplatz“ (ein Kind hat je Wochentag einen Stammplatz, SL008; Randfall A-/B-Woche offen).
 - Abweichungen öffnen das Slot-Panel im Reiter Coaches statt über die alte Termin-Adresse.
 - Abweichungen vom Dummy mit Grund in `docs/slots/offene-punkte-w4.md`.
 
 ## Offen
 - `docs/slots/offene-punkte-w4.md` (u. a. Kinder distinct je Block, atomares Entfernen).
+
+## Zweitprüfung (nachgezogen)
+- Wortlaut zurück auf „Kinder“ (Auftrag), A-/B-Randfall als offener Punkt.
+- Blöcke, die vor dem Standarddatum enden, ohne Aktionen („läuft aus“); Datum nach dem Ende in den Dialogen gesperrt.
+- Standarddatum = max(nächster Montag, spätestes `gueltig_ab` des Blocks); „ab“ = erster Termin am Wochentag;
+  Konfliktsatz nimmt die am Prüfdatum gültige Schicht; Ende einer inaktiven Uhrzeit = Beginn + 1 h; Abweichungszeile
+  über i18n.
+- Server-Befund (annullierte Schichten zählen als belegt) in offene-punkte-w4 Nr. 7 für die Foundation notiert.

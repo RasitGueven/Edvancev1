@@ -462,8 +462,9 @@
     "stunden_other": "{{count}} Std. pro Woche",
     "block": "{{tag}} {{beginn}}–{{ende}}",
     "raum": "Raum {{raum}}",
-    "stammplaetze_one": "{{count}} Stammplatz in diesem Raum",
-    "stammplaetze_other": "{{count}} Stammplätze in diesem Raum",
+    "kinder_one": "{{count}} Kind mit Stammplatz",
+    "kinder_other": "{{count}} Kinder mit Stammplatz",
+    "endet": "läuft aus, nichts mehr zu ändern",
     "ab": "ab {{datum}}",
     "bis": "bis {{datum}}",
     "keineSchicht": "Keine Schicht in dieser Woche. Trag rechts einen Block ein.",
@@ -475,6 +476,7 @@
     "abweichungen": "Abweichungen in KW {{kw}}",
     "abweichungenSatz": "Vertretung und Ausfall für einen Termin setzt du im Wochenplan im Slot-Panel.",
     "abweichungLabel": "{{datum}} {{beginn}}, Raum {{raum}}: im Slot-Panel öffnen",
+    "abweichungZeile": "{{datum}} {{beginn}} · {{raum}}",
     "neu": {
       "titel": "Schicht eintragen",
       "satz": "Ein Block von–bis legt eine Schicht für jede Stunde an. Er gilt ab heute in jeder Betriebswoche.",
@@ -494,7 +496,7 @@
       "raumOhneName": "Raum {{raum}} ist {{tag}} {{beginn}} schon besetzt.",
       "coach": "{{coach}} ist {{tag}} {{beginn}} schon in Raum {{raum}}.",
       "coachOhneRaum": "{{coach}} ist {{tag}} {{beginn}} schon in einem anderen Raum eingeteilt.",
-      "voll": "Mit den Kindern hätte Raum {{raum}} {{tag}} {{beginn}} mehr als fünf Stammplätze."
+      "voll": "Mit den Kindern säßen in Raum {{raum}} {{tag}} {{beginn}} mehr als fünf Kinder."
     },
     "wechsel": {
       "titel": "Raum der Schicht ändern",
@@ -502,10 +504,10 @@
       "ziel": "Neuer Raum",
       "ab": "gültig ab",
       "satz_zero": "Kinder hängen am Raum, nicht am Coach. In Raum {{raum}} hat zu diesen Zeiten kein Kind einen Stammplatz.",
-      "satz_one": "Kinder hängen am Raum, nicht am Coach. Ohne Häkchen bleibt der eine Stammplatz in Raum {{raum}}.",
-      "satz_other": "Kinder hängen am Raum, nicht am Coach. Ohne Häkchen bleiben die {{count}} Stammplätze in Raum {{raum}}.",
-      "mit_one": "{{count}} Stammplatz mit in Raum {{ziel}} nehmen",
-      "mit_other": "{{count}} Stammplätze mit in Raum {{ziel}} nehmen",
+      "satz_one": "Kinder hängen am Raum, nicht am Coach. Ohne Häkchen bleibt das eine Kind in Raum {{raum}}.",
+      "satz_other": "Kinder hängen am Raum, nicht am Coach. Ohne Häkchen bleiben die {{count}} Kinder in Raum {{raum}}.",
+      "mit_one": "{{count}} Kind mit in Raum {{ziel}} nehmen",
+      "mit_other": "{{count}} Kinder mit in Raum {{ziel}} nehmen",
       "besetzt": "Raum {{raum}} ist dann schon besetzt: {{liste}}.",
       "besetztEintrag": "{{tag}} {{beginn}} {{coach}}",
       "besetztOhneName": "{{tag}} {{beginn}}",
@@ -513,8 +515,9 @@
       "keinZiel": "Es gibt keinen anderen Raum. Lege ihn unter Einstellungen an.",
       "knopf": "Raum ändern",
       "gespeichert": "{{coach}} ist ab {{datum}} in Raum {{ziel}}. Die Kinder bleiben in Raum {{alt}}.",
-      "gespeichertMit_one": "{{coach}} ist ab {{datum}} in Raum {{ziel}}, {{count}} Stammplatz zieht mit.",
-      "gespeichertMit_other": "{{coach}} ist ab {{datum}} in Raum {{ziel}}, {{count}} Stammplätze ziehen mit."
+      "gespeichertMit_one": "{{coach}} ist ab {{datum}} in Raum {{ziel}}, {{count}} Kind zieht mit.",
+      "gespeichertMit_other": "{{coach}} ist ab {{datum}} in Raum {{ziel}}, {{count}} Kinder ziehen mit.",
+      "endet": "Die Schicht endet am {{datum}}. Wähle ein Datum bis dahin."
     },
     "weg": {
       "titel": "Schicht entfernen",
@@ -523,7 +526,8 @@
       "ab": "entfernen ab",
       "knopf": "Entfernen",
       "gespeichert": "Schicht entfernt: {{coach}}, {{tag}} {{beginn}}–{{ende}}, Raum {{raum}}, ab {{datum}}.",
-      "teilweise": "Nicht alle Stunden wurden entfernt ({{fertig}} von {{gesamt}}). {{fehler}} Die Schichten sind neu geladen."
+      "teilweise": "Nicht alle Stunden wurden entfernt ({{fertig}} von {{gesamt}}). {{fehler}} Die Schichten sind neu geladen.",
+      "endet": "Die Schicht endet am {{datum}}. Wähle ein Datum bis dahin."
     }
   },
   "einst": {

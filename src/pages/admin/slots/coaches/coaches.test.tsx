@@ -56,7 +56,7 @@ describe('Reiter Coaches · Blöcke', () => {
     const block = screen.getByRole('listitem', { name: 'Sara Kühn, Do 16:00–18:00, Raum B1' })
     expect(within(block).getByText('Do 16:00–18:00')).toBeTruthy()
     expect(within(block).getByText('Raum B1')).toBeTruthy()
-    expect(within(block).getByText('5 Stammplätze in diesem Raum')).toBeTruthy()
+    expect(within(block).getByText('5 Kinder mit Stammplatz')).toBeTruthy()
     expect(screen.getByText('2 Std. pro Woche')).toBeTruthy()
   })
 })
@@ -117,9 +117,9 @@ describe('Raum ändern', () => {
     sp.stammschichtRaumWechseln.mockResolvedValue({ data: { stammschicht_ids: ['n1', 'n2'], stammplatz_ids: [], kinder: 0 }, error: null })
     zeige()
     oeffne()
-    expect(within(dialog()).getByText('Kinder hängen am Raum, nicht am Coach. Ohne Häkchen bleiben die 5 Stammplätze in Raum B1.')).toBeTruthy()
+    expect(within(dialog()).getByText('Kinder hängen am Raum, nicht am Coach. Ohne Häkchen bleiben die 5 Kinder in Raum B1.')).toBeTruthy()
     fireEvent.change(within(dialog()).getByLabelText('Neuer Raum'), { target: { value: 'rC1' } })
-    const kaestchen = within(dialog()).getByLabelText('5 Stammplätze mit in Raum C1 nehmen') as HTMLInputElement
+    const kaestchen = within(dialog()).getByLabelText('5 Kinder mit in Raum C1 nehmen') as HTMLInputElement
     expect(kaestchen.checked).toBe(false)
     expect((within(dialog()).getByLabelText('gültig ab') as HTMLInputElement).value).toBe(naechsterMontag())
     fireEvent.click(within(dialog()).getByRole('button', { name: 'Raum ändern' }))
@@ -133,10 +133,10 @@ describe('Raum ändern', () => {
     oeffne()
     fireEvent.change(within(dialog()).getByLabelText('Neuer Raum'), { target: { value: 'rC1' } })
     fireEvent.change(within(dialog()).getByLabelText('gültig ab'), { target: { value: '2026-12-07' } })
-    fireEvent.click(within(dialog()).getByLabelText('5 Stammplätze mit in Raum C1 nehmen'))
+    fireEvent.click(within(dialog()).getByLabelText('5 Kinder mit in Raum C1 nehmen'))
     fireEvent.click(within(dialog()).getByRole('button', { name: 'Raum ändern' }))
     await waitFor(() => expect(sp.stammschichtRaumWechseln).toHaveBeenCalledWith(['s16', 's17'], 'rC1', '2026-12-07', true))
-    expect(await screen.findByText('Sara Kühn ist ab 07.12.2026 in Raum C1, 5 Stammplätze ziehen mit.')).toBeTruthy()
+    expect(await screen.findByText('Sara Kühn ist ab 07.12.2026 in Raum C1, 5 Kinder ziehen mit.')).toBeTruthy()
   })
 
   it('Zielraum zu einer der Zeiten besetzt: gesperrt mit Grund, kein Aufruf', () => {
@@ -157,9 +157,9 @@ describe('Raum ändern', () => {
     zeige()
     oeffne()
     fireEvent.change(within(dialog()).getByLabelText('Neuer Raum'), { target: { value: 'rC1' } })
-    fireEvent.click(within(dialog()).getByLabelText('5 Stammplätze mit in Raum C1 nehmen'))
+    fireEvent.click(within(dialog()).getByLabelText('5 Kinder mit in Raum C1 nehmen'))
     fireEvent.click(within(dialog()).getByRole('button', { name: 'Raum ändern' }))
-    expect((await within(dialog()).findByRole('alert')).textContent).toBe('Mit den Kindern hätte Raum C1 Do 16:00 mehr als fünf Stammplätze.')
+    expect((await within(dialog()).findByRole('alert')).textContent).toBe('Mit den Kindern säßen in Raum C1 Do 16:00 mehr als fünf Kinder.')
   })
 })
 
@@ -199,5 +199,41 @@ describe('Entfernen', () => {
     expect(within(dialog()).getByRole('alert').textContent)
       .toBe('Nicht alle Stunden wurden entfernt (1 von 2). Das Datum liegt in der Vergangenheit. Die Schichten sind neu geladen.')
     expect(neuLaden).toHaveBeenCalled()
+  })
+})
+
+describe('Block, der vor dem Standarddatum endet', () => {
+  const ENDET: SlotsCoaches = {
+    ...DATEN,
+    coaches: [{ ...DATEN.coaches[0], stammschichten: [{ ...s('e1', 4, 'z16', 'B1', 2), gueltig_bis: '2026-11-05' }] }],
+  }
+
+  it('bietet weder „Raum ändern“ noch „Entfernen“ an, sondern sagt, dass er ausläuft', () => {
+    // Heute Mittwoch 4.11.: nächster Montag ist der 9.11., die Schicht endet am 5.11.
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(new Date('2026-11-04T10:00:00Z'))
+    zeige(ENDET)
+    vi.useRealTimers()
+    const block = screen.getByRole('listitem', { name: 'Sara Kühn, Do 16:00–17:00, Raum B1' })
+    expect(within(block).getByText('läuft aus, nichts mehr zu ändern')).toBeTruthy()
+    expect(within(block).queryByRole('button')).toBeNull()
+  })
+
+  it('Entfernen und Raum ändern mit Datum nach dem Ende: gesperrt mit Satz, kein Aufruf, kein Erfolg', () => {
+    zeige({ ...DATEN, coaches: [{ ...DATEN.coaches[0], stammschichten: [{ ...s('e1', 4, 'z16', 'B1', 2), gueltig_bis: '2099-12-31' }] }] })
+    fireEvent.click(screen.getByRole('button', { name: 'Entfernen: Sara Kühn, Do 16:00–17:00, Raum B1' }))
+    fireEvent.change(within(dialog()).getByLabelText('entfernen ab'), { target: { value: '2100-01-04' } })
+    const weg = within(dialog()).getByRole('button', { name: 'Entfernen' }) as HTMLButtonElement
+    expect(weg.disabled).toBe(true)
+    expect(within(dialog()).getByText('Die Schicht endet am 31.12.2099. Wähle ein Datum bis dahin.')).toBeTruthy()
+    fireEvent.click(weg)
+    expect(sp.stammschichtBeenden).not.toHaveBeenCalled()
+    fireEvent.click(within(dialog()).getByRole('button', { name: 'Abbrechen' }))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Raum ändern: Sara Kühn, Do 16:00–17:00, Raum B1' }))
+    fireEvent.change(within(dialog()).getByLabelText('Neuer Raum'), { target: { value: 'rC1' } })
+    fireEvent.change(within(dialog()).getByLabelText('gültig ab'), { target: { value: '2100-01-04' } })
+    expect((within(dialog()).getByRole('button', { name: 'Raum ändern' }) as HTMLButtonElement).disabled).toBe(true)
+    expect(sp.stammschichtRaumWechseln).not.toHaveBeenCalled()
   })
 })

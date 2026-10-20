@@ -6,7 +6,7 @@ import { berlinToday } from '@/lib/datetime'
 import { stammschichtBeenden } from '@/lib/supabase/slotplan'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
 import { datumVoll, wochentagName } from '../slotsFormat'
-import { standardAb, type Block, type CoachDaten } from './coaches.model'
+import { endetVorher, standardAb, type Block, type CoachDaten } from './coaches.model'
 import { DATUM_FELD, FELD_LABEL } from './RaumWechselDialog'
 
 type Props = {
@@ -33,7 +33,13 @@ export function EntfernenDialog({ coach, block, onClose, onGespeichert, onTeilwe
     beginn: block.beginn, ende: block.ende, raum: block.raumName,
   }
 
+  // Nach dem Ende der Schicht gäbe es nichts zu beenden (stammschicht_beenden kürzt nur): kein Erfolg vortäuschen.
+  const sperre = endetVorher(block, ab) && block.gueltigBis
+    ? t('coaches2.weg.endet', { datum: datumVoll(block.gueltigBis, i18n.language) })
+    : null
+
   const entfernen = async (): Promise<void> => {
+    if (sperre) return
     setSpeichert(true)
     setFehler(null)
     let fertig = 0
@@ -59,11 +65,15 @@ export function EntfernenDialog({ coach, block, onClose, onGespeichert, onTeilwe
       title={t('coaches2.weg.titel')}
       description={t('coaches2.weg.kopf', werte)}
       footer={
-        <div className="flex gap-2">
-          <Button type="button" variant="ghost" onClick={onClose}>{t('dialog.abbrechen')}</Button>
-          <Button type="button" variant="destructive" onClick={() => void entfernen()} disabled={speichert} loading={speichert}>
-            {t('coaches2.weg.knopf')}
-          </Button>
+        <div className="flex w-full flex-col items-end gap-2">
+          <div className="flex gap-2">
+            <Button type="button" variant="ghost" onClick={onClose}>{t('dialog.abbrechen')}</Button>
+            <Button type="button" variant="destructive" onClick={() => void entfernen()} disabled={sperre !== null || speichert}
+              loading={speichert} title={sperre ?? undefined}>
+              {t('coaches2.weg.knopf')}
+            </Button>
+          </div>
+          {sperre && <p className="text-xs text-[var(--color-text-secondary)]">{sperre}</p>}
         </div>
       }
     >
@@ -71,7 +81,7 @@ export function EntfernenDialog({ coach, block, onClose, onGespeichert, onTeilwe
         <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{t('coaches2.weg.satz', { raum: block.raumName })}</p>
         <label className={`${FELD_LABEL} self-start`}>
           {t('coaches2.weg.ab')}
-          <input type="date" autoFocus value={ab} min={berlinToday()} className={DATUM_FELD}
+          <input type="date" autoFocus value={ab} min={berlinToday()} max={block.gueltigBis ?? undefined} className={DATUM_FELD}
             onChange={(e) => { if (e.target.value) { setAb(e.target.value); setFehler(null) } }} />
         </label>
         {fehler && <p role="alert" className="text-sm text-[var(--color-error-coach)]">{fehler}</p>}

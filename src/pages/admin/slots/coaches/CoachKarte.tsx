@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
 import { datumKurz, datumTagMonat, wochentagName } from '../slotsFormat'
-import type { Block, CoachDaten } from './coaches.model'
+import { endetVorher, standardAb, type Block, type CoachDaten } from './coaches.model'
 
 type Props = {
   coach: CoachDaten
@@ -47,8 +47,11 @@ export function CoachKarte({ coach, bloecke, kw, panelZiel, onRaumAendern, onEnt
                 <EdvanceBadge variant="primary">{t('coaches2.raum', { raum: b.raumName })}</EdvanceBadge>
                 {b.ab && <EdvanceBadge variant="warning">{t('coaches2.ab', { datum: datumTagMonat(b.ab, i18n.language) })}</EdvanceBadge>}
                 {b.gueltigBis && <EdvanceBadge variant="muted">{t('coaches2.bis', { datum: datumTagMonat(b.gueltigBis, i18n.language) })}</EdvanceBadge>}
-                <span className="text-xs tabular-nums text-[var(--color-text-tertiary)]">{t('coaches2.stammplaetze', { count: b.stammplaetze })}</span>
+                <span className="text-xs tabular-nums text-[var(--color-text-tertiary)]">{t('coaches2.kinder', { count: b.kinder })}</span>
                 </span>
+                {endetVorher(b, standardAb(b)) ? (
+                  <span className="text-xs text-[var(--color-text-tertiary)]">{t('coaches2.endet')}</span>
+                ) : (
                 <span className="flex shrink-0 gap-2">
                   <Button type="button" variant="ghost" onClick={() => onRaumAendern(b)} aria-label={t('coaches2.raumAendernLabel', { block: label })}>
                     {t('coaches2.raumAendern')}
@@ -58,6 +61,7 @@ export function CoachKarte({ coach, bloecke, kw, panelZiel, onRaumAendern, onEnt
                     {t('coaches2.entfernen')}
                   </Button>
                 </span>
+                )}
               </li>
             )
           })}
@@ -73,7 +77,7 @@ export function CoachKarte({ coach, bloecke, kw, panelZiel, onRaumAendern, onEnt
                 <Link to={panelZiel(a.datum, a.zeit_id)} state={{ panel: true }}
                   aria-label={t('coaches2.abweichungLabel', { datum: datumKurz(a.datum, i18n.language), beginn: a.beginn, raum: a.raum_name })}
                   className="flex min-h-[44px] items-center justify-between gap-2 rounded-[var(--radius-md)] px-2 text-sm hover:bg-[var(--color-bg-subtle)]">
-                  <span className="tabular-nums">{`${datumKurz(a.datum, i18n.language)} ${a.beginn} · ${a.raum_name}`}</span>
+                  <span className="tabular-nums">{t('coaches2.abweichungZeile', { datum: datumKurz(a.datum, i18n.language), beginn: a.beginn, raum: a.raum_name })}</span>
                   <EdvanceBadge variant={a.art === 'faellt_aus' ? 'coach-emergency' : 'warning'}>{t(`raumArt.${a.art}`)}</EdvanceBadge>
                 </Link>
               </li>
