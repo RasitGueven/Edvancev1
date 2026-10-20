@@ -1,2 +1,278 @@
 /* Tablet-Präsentation · Station 02 Lernstand · T3. Selektoren unter .tp .tp-s2;
-   Zeiten und Kurven aus den Variablen in rahmen.css. */
+   Zeiten und Kurven aus den Variablen in rahmen.css. Maße aus dem Dummy V7
+   (.results, .summary-number, .chart-shell, .cat), Farben auf --color-eb-*
+   gerundet. „Übersprungen" ist ein Punktmuster, nie Streifen: Streifen heißen
+   im Druckbogen „nicht untersucht". */
+
+/* Teile (Dateigröße): Kopf und Zahlen, Detail mit Legende und Bewegung. */
+@import "./station2-zahlen.css";
+@import "./station2-detail.css";
+
+.tp .tp-s2 {
+  /* Punktmuster „übersprungen": kombiniert rosé, getrennt neutral (Entscheidung 4). */
+  --tp-s2-punkt: var(--color-tp-ueber-punkt);
+  --tp-s2-grund: var(--color-tp-ueber-grund);
+  --tp-s2-rand: var(--color-tp-ueber-rand);
+  --tp-s2-ueber-text: var(--color-eb-uebung-text);
+  justify-content: flex-start;
+  padding-top: 75px;
+  padding-bottom: 17px;
+}
+
+.tp .tp-s2-getrennt {
+  --tp-s2-punkt: var(--color-tp-ueber-neutral-punkt);
+  --tp-s2-grund: var(--color-tp-ueber-neutral-grund);
+  --tp-s2-rand: var(--color-tp-ueber-neutral-rand);
+  --tp-s2-ueber-text: var(--color-tp-ueber-neutral-text);
+}
+
+/* ─── Kompetenzprofil ─────────────────────────────────────────────────── */
+
+.tp .tp-s2-profil {
+  --tp-verzoegerung: var(--tp-profil);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 19px 24px 13px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 25px;
+  background: var(--color-eb-weiss);
+  box-shadow: 0 13px 50px color-mix(in srgb, var(--color-eb-tinte) 3%, transparent);
+}
+
+.tp .tp-s2-profil-kopf {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-eb-linie-zart);
+}
+
+.tp .tp-s2-profil-kopf h3 {
+  margin: 0;
+  color: var(--color-eb-navy);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.tp .tp-s2-profil-kopf > span {
+  color: var(--color-eb-leise);
+  font-size: 10.5px;
+  text-align: right;
+}
+
+.tp .tp-s2-liste {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-eb-linie) transparent;
+}
+
+.tp .tp-s2-zeile {
+  flex: 1 0 auto;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--color-eb-linie-zart);
+  opacity: 0;
+  transform: translate3d(0, 7px, 0);
+}
+
+.tp .tp-s2-zeile:last-child {
+  border-bottom: 0;
+}
+
+.tp .tp-s2-zeile-knopf {
+  width: 100%;
+  min-height: 49px;
+  display: grid;
+  grid-template-columns: minmax(145px, 215px) minmax(0, 1fr) 156px 20px;
+  gap: 13px;
+  align-items: center;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.tp .tp-s2-feld {
+  color: var(--color-eb-text);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tp .tp-s2-zeile-knopf:hover .tp-s2-feld,
+.tp .tp-s2-zeile[data-offen='true'] .tp-s2-feld {
+  color: var(--color-eb-navy);
+}
+
+.tp .tp-s2-spur {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  height: 21px;
+}
+
+.tp .tp-s2-spur-dicht {
+  gap: 2px;
+}
+
+.tp .tp-s2-segment {
+  flex: 1;
+  min-width: 0;
+  /* Wenige Segmente sollen nicht wie ein voller Balken wirken: Es sind Anzahlen. */
+  max-width: 96px;
+  height: 100%;
+  border-radius: 6px;
+  transform-origin: left center;
+}
+
+.tp .tp-s2-segment-sicher {
+  background: var(--color-eb-sicher);
+}
+
+.tp .tp-s2-segment-uebung {
+  background: var(--color-eb-uebung);
+}
+
+/* Punktmuster: Verlauf nur hierfür erlaubt (CLAUDE.md §11). */
+.tp .tp-s2-segment-ueber {
+  border: 1px solid var(--tp-s2-rand);
+  background:
+    radial-gradient(circle, var(--tp-s2-punkt) 0 1.15px, transparent 1.6px) 0 0 / 5px 5px,
+    var(--tp-s2-grund);
+}
+
+.tp .tp-s2-rechts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.tp .tp-s2-zeile-zahl {
+  color: var(--color-eb-navy);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tp .tp-s2-zaehlung {
+  color: var(--color-eb-leise);
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.tp .tp-s2-zaehlung > span {
+  white-space: nowrap;
+}
+
+.tp .tp-s2-zaehlung > span:not(:last-child)::after {
+  content: '·';
+  margin-left: .4em;
+}
+
+.tp .tp-s2-pfeil {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--color-eb-leise);
+  transition: transform .3s var(--tp-ease);
+}
+
+.tp .tp-s2-zeile[data-offen='true'] .tp-s2-pfeil {
+  transform: rotate(180deg);
+  color: var(--color-eb-navy);
+}
+
+/* ─── Geräte ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp .tp-s2-profil {
+    padding: 16px 17px 10px;
+  }
+
+  .tp .tp-s2-zeile-knopf {
+    grid-template-columns: minmax(120px, 175px) minmax(0, 1fr) 132px 18px;
+    gap: 9px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tp .tp-s2 {
+    padding-top: 74px;
+    padding-bottom: 20px;
+  }
+
+  .tp .tp-s2-profil-kopf > span {
+    font-size: 10px;
+  }
+
+  .tp .tp-s2-zeile-knopf {
+    grid-template-columns: 106px minmax(0, 1fr) 128px 17px;
+    gap: 7px;
+  }
+
+  .tp .tp-s2-feld {
+    font-size: 11px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .tp .tp-s2-spur {
+    height: 18px;
+    gap: 3px;
+  }
+
+  .tp .tp-s2-spur-dicht {
+    gap: 2px;
+  }
+}
+
+@media (max-height: 760px) {
+  .tp .tp-s2-profil {
+    padding-top: 12px;
+    padding-bottom: 9px;
+  }
+
+  .tp .tp-s2-profil-kopf {
+    padding-bottom: 8px;
+  }
+
+  /* Touch-Ziele bleiben 44 px, anders als im Dummy (39 px). */
+  .tp .tp-s2-zeile {
+    min-height: 44px;
+  }
+
+  .tp .tp-s2-zeile-knopf {
+    min-height: 44px;
+    padding: 4px 0;
+  }
+
+  .tp .tp-s2-spur {
+    height: 16px;
+  }
+}
+
+@media (max-height: 720px) {
+  .tp .tp-s2 {
+    padding-top: 67px;
+    padding-bottom: 14px;
+  }
+}

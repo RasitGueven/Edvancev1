@@ -1,0 +1,180 @@
+/* Tablet-Präsentation · Station 02 Lernstand · T3, Teil 2: Detail, Legende und
+   die Bewegung beim ersten Besuch. Teil 1 (Zahlen, Profil, Zeilen) und die
+   Variablen des Punktmusters stehen in station2.css, das diese Datei importiert. */
+
+/* ─── Detail ──────────────────────────────────────────────────────────── */
+
+.tp .tp-s2-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .38s var(--tp-ease), opacity .28s;
+}
+
+.tp .tp-s2-zeile[data-offen='true'] .tp-s2-detail {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.tp .tp-s2-detail-innen {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tp .tp-s2-detail-inhalt {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  margin: 0 20px 3px 0;
+  padding: 7px 13px 15px 15px;
+  border-left: 2px solid var(--color-eb-linie);
+  background: color-mix(in srgb, var(--color-eb-mint) 45%, transparent);
+}
+
+.tp .tp-s2-spalte h4 {
+  margin: 0 0 5px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.tp .tp-s2-spalte-sicher h4 { color: var(--color-eb-sicher-text); }
+.tp .tp-s2-spalte-uebung h4 { color: var(--color-eb-uebung-text); }
+.tp .tp-s2-spalte-ueber h4 { color: var(--tp-s2-ueber-text); }
+
+.tp .tp-s2-spalte h4 em {
+  color: var(--color-eb-leise);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.tp .tp-s2-spalte p,
+.tp .tp-s2-bereiche,
+.tp .tp-s2-keine-uebung {
+  margin: 0;
+  padding: 0;
+  color: var(--color-eb-text);
+  font-size: 11px;
+  line-height: 1.5;
+  list-style: none;
+}
+
+.tp .tp-s2-bereiche li {
+  display: inline;
+}
+
+.tp .tp-s2-bereiche li + li::before {
+  content: '·';
+  margin: 0 .45em;
+  color: var(--color-eb-leise);
+}
+
+.tp .tp-s2-keine-uebung {
+  align-self: start;
+  padding-top: 20px;
+}
+
+/* ─── Legende ─────────────────────────────────────────────────────────── */
+
+.tp .tp-s2-fuss {
+  --tp-verzoegerung: var(--tp-legende);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-eb-linie-zart);
+}
+
+.tp .tp-s2-legende {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s2-legende li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-eb-leise);
+  font-size: 10px;
+}
+
+.tp .tp-s2-legende i {
+  display: block;
+  width: 11px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.tp .tp-s2-legende i.tp-s2-segment-ueber {
+  background:
+    radial-gradient(circle, var(--tp-s2-punkt) 0 .9px, transparent 1.3px) 0 0 / 3.5px 3.5px,
+    var(--tp-s2-grund);
+}
+
+.tp .tp-s2-tippen {
+  max-width: 310px;
+  color: var(--color-eb-leise);
+  font-size: 9px;
+  line-height: 1.45;
+  text-align: right;
+}
+
+/* ─── Bewegung: Zeilen nacheinander, Segmente wachsen; Wiederbesuch still ── */
+
+.tp .tp-station.entered .tp-s2-zeile {
+  animation: tp-zeile-ein var(--tp-zeile-dauer) var(--tp-soft) both;
+  animation-delay: calc(var(--tp-zeile-start) + var(--zeile) * var(--tp-zeile-takt));
+}
+
+.tp .tp-station.entered .tp-s2-segment {
+  animation: tp-segment-ein var(--tp-segment-dauer) var(--tp-ease) both;
+  animation-delay: calc(
+    var(--tp-segment-start) + var(--zeile) * var(--tp-zeile-takt) + var(--segment) * var(--tp-segment-takt)
+  );
+}
+
+.tp .tp-station.motion-complete .tp-s2-zeile,
+.tp .tp-station.motion-complete .tp-s2-segment {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.tp .tp-station.motion-complete .tp-s2-zahl {
+  transition: none !important;
+}
+
+@media (max-width: 800px) {
+  .tp .tp-s2-detail-inhalt {
+    margin-right: 0;
+  }
+
+  .tp .tp-s2-fuss {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .tp .tp-s2-tippen {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+/* Ruhig: alles sofort, ohne Bewegung. */
+@media (prefers-reduced-motion: reduce) {
+  .tp .tp-s2-zeile,
+  .tp .tp-s2-segment {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

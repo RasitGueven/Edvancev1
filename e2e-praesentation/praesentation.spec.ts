@@ -60,7 +60,7 @@ async function oeffneGroessteZeile(page: Page): Promise<boolean> {
 
 for (const fall of Object.keys(PRAESENTATION_FAELLE)) {
   test.describe(fall, () => {
-    test.use({ reducedMotion: 'reduce' })
+    test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
     for (const [breite, hoehe] of MASSE) {
       const mass = `${breite}x${hoehe}`
