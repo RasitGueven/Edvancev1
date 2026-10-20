@@ -1,0 +1,167 @@
+/* Tablet-Präsentation · Station 04 · die Kurve mit den Punkten (T4), aus
+   station4.css ausgelagert (≤ 400 Zeilen je Datei). Muster: Dummy V7, „04
+   Förderansatz"; Verläufe nur für die Kugeln. Bewegung in station4.css. */
+
+/* ─── Kurve ───────────────────────────────────────────────────────────────── */
+
+.tp .tp-s4-kurve {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 460 / 340;
+  container-type: inline-size;
+}
+
+.tp .tp-s4-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tp .tp-s4-linie,
+.tp .tp-s4-pfeil {
+  fill: none;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tp .tp-s4-linie {
+  stroke: var(--color-eb-navy);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+}
+
+.tp .tp-s4-start {
+  fill: var(--color-eb-navy);
+}
+
+.tp .tp-s4-pfeil {
+  stroke: var(--color-eb-gold);
+}
+
+.tp .tp-s4-punkte {
+  position: absolute;
+  inset: 0;
+}
+
+.tp .tp-s4-punkt {
+  --d: clamp(24px, 7cqw, 38px);
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: var(--d);
+  height: var(--d);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  font: inherit;
+  transform: translate(-50%, -50%);
+}
+
+/* Trefferfläche mindestens 44 px (Kugel ab 24 px plus 2 × 12 px). */
+.tp .tp-s4-punkt::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+}
+
+.tp .tp-s4-punkt:focus-visible {
+  outline: none;
+}
+
+.tp .tp-s4-kugel {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-eb-weiss);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, var(--color-tp-kugel-hell) 0%, var(--color-tp-kugel-mitte) 44%, var(--color-tp-kugel-warm) 100%);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--color-eb-navy) 16%, transparent);
+  transition: scale .5s var(--tp-ease), box-shadow .5s var(--tp-ease);
+}
+
+/* Lichtschein um den gewählten Punkt. */
+.tp .tp-s4-kugel::after {
+  content: '';
+  position: absolute;
+  inset: -62%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-tp-schein) 31%, transparent) 0%, color-mix(in srgb, var(--color-tp-schein) 8%, transparent) 55%, transparent 72%);
+  opacity: 0;
+  transition: opacity .5s var(--tp-ease);
+}
+
+.tp .tp-s4-punkt[aria-selected='true'] .tp-s4-kugel {
+  scale: 1.24;
+  background: radial-gradient(circle at 32% 25%, var(--color-tp-kugel-hell) 0%, var(--color-tp-kugel-mitte) 32%, var(--color-tp-kugel-warm) 61%, var(--color-tp-kugel-tief) 100%);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--color-eb-gold) 18%, transparent),
+    0 6px 16px color-mix(in srgb, var(--color-eb-navy) 22%, transparent);
+}
+
+.tp .tp-s4-punkt[aria-selected='true'] .tp-s4-kugel::after {
+  opacity: 1;
+}
+
+.tp .tp-s4-punkt:focus-visible .tp-s4-kugel {
+  box-shadow:
+    0 0 0 3px var(--color-eb-weiss),
+    0 0 0 6px var(--color-tp-fokus);
+}
+
+.tp .tp-s4-label {
+  position: absolute;
+  display: grid;
+  gap: .22em;
+  width: max-content;
+  max-width: 38cqw;
+  font-size: clamp(11px, 2.95cqw, 15px);
+  line-height: 1.2;
+  white-space: normal;
+}
+
+.tp .tp-s4-label b {
+  color: var(--color-eb-text);
+  font-weight: 600;
+  transition: color .3s;
+}
+
+.tp .tp-s4-label small {
+  color: var(--color-eb-leise);
+  font-size: .84em;
+  font-weight: 500;
+}
+
+.tp .tp-s4-punkt[aria-selected='true'] .tp-s4-label b {
+  color: var(--color-eb-navy);
+}
+
+.tp .tp-s4-seite-unten .tp-s4-label {
+  top: calc(100% + 1.5cqw);
+  left: 50%;
+  transform: translateX(-50%);
+  justify-items: center;
+  text-align: center;
+}
+
+.tp .tp-s4-seite-links .tp-s4-label {
+  top: 50%;
+  right: calc(100% + 2.3cqw);
+  /* Etwas über der Mitte: links unten läuft die Kurve heran (bei schmaler Kurve, z. B. 1133 px). */
+  transform: translateY(-90%);
+  justify-items: end;
+  text-align: right;
+}
+
+.tp .tp-s4-seite-linksOben .tp-s4-label {
+  right: calc(100% + 1.4cqw);
+  bottom: 58%;
+  justify-items: end;
+  text-align: right;
+}
