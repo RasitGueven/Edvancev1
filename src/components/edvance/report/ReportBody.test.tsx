@@ -108,6 +108,8 @@ function baueDaten(fall: SucheEingabe = FALL_A): ReportData {
       // R7-Felder; ReportBody liest sie nicht.
       kompetenzen: [...fall.skills],
       katalog: [],
+      modus: null,
+      abgeleitet: [],
     },
   }
 }
@@ -254,6 +256,8 @@ describe('ReportBody — die sechs Schritte', () => {
         anlassNamen: [],
         kompetenzen: [],
         katalog: [],
+        modus: null,
+        abgeleitet: [],
       },
     }
     const { container } = render(<ReportBody data={leer} />)

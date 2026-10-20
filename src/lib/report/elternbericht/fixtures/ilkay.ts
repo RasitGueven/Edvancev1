@@ -85,6 +85,24 @@ export const ILKAY_ROH: SitzungRoh = {
   fehlbilder: [],
   themaLabel: 'Terme und Gleichungen',
   raum: RAUM,
+  // In Prod steht die Sitzung auf 'adaptiv', abgestuft war sie nicht (Befund
+  // R7-6); der Raum ist nachgetragen. Hier ausdrücklich 'fest'.
+  modus: 'fest',
+  // lsa_skill_urteil, belegt_direkt = false, zustand traegt* (dbread 20.10.2026).
+  abgeleitet: [
+    'dezimal_add_sub',
+    'dezimal_div',
+    'dezimal_mult',
+    'gleichung_beidseitig',
+    'gleichung_einschrittig',
+    'gleichung_zweischrittig',
+    'groessen_zeit',
+    'proportionalitaet',
+    'term_ausmultiplizieren',
+    'term_zusammenfassen',
+    'vorzeichen_add_sub',
+    'vorzeichen_mult_div',
+  ],
 }
 
 export const ilkay: ReportData = datenAus(ILKAY_ROH)

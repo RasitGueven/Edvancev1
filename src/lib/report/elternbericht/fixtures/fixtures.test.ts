@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
+import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 
 const SRC = resolve(__dirname, '../../../..')
@@ -64,6 +65,19 @@ describe('Fixtures des Eltern-Berichts', () => {
       expect(f.notes === null, name).toBe(name === 'ohneNotizen')
       expect(f.tiers.filter((t) => t.active)).toHaveLength(3)
     }
+  })
+
+  it('modus ausdrücklich gesetzt; Thema-Satz nur in abgestuft und abgestuftMitOffen (R7-6)', () => {
+    const abdeckung = (name: string) => themaAbdeckungAus(FAELLE[name].data.erzaehlung)
+    for (const [name, f] of Object.entries(FAELLE)) {
+      expect(f.data.erzaehlung.modus, name).not.toBeNull()
+      expect(abdeckung(name) !== null, name).toBe(name === 'abgestuft' || name === 'abgestuftMitOffen')
+    }
+    expect(FAELLE.ilkay.data.erzaehlung.modus).toBe('fest')
+    // Wie 6220b7e8 und 09cf8baa (Befund R7-6).
+    expect(abdeckung('abgestuft')).toEqual({ thema: 'Reelle Zahlen', umfang: 14, direkt: 5, abgeleitet: 9, offen: 0 })
+    expect(abdeckung('abgestuftMitOffen')).toMatchObject({ umfang: 14, direkt: 6, abgeleitet: 5, offen: 3 })
+    expect(FAELLE.abgestuft.data.erzaehlung.kompetenzen).toHaveLength(12)
   })
 
   describe('Grenzfälle R7-5', () => {

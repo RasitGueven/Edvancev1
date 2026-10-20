@@ -52,7 +52,7 @@
     },
     "blick": {
       "kicker": "Auf einen Blick",
-      "zeile": "{{untersucht}} von {{katalog}} Bereichen untersucht  ·  {{sicher}} sicher  ·  {{uebung}} Übungsbedarf  ·  {{offen}} nicht untersucht",
+      "zeile": "{{untersucht}} Bereiche geprüft  ·  {{sicher}} sicher  ·  {{uebung}} Übungsbedarf",
       "sicher": "Das klappte bereits",
       "uebung": "Hier braucht es noch Übung",
       "ansatz": "Unser erster Ansatz",
@@ -72,9 +72,24 @@
     },
     "geprueft": {
       "kicker": "So haben wir geprüft",
-      "text": "Je nach Antwort hat das System die nächste Aufgabe gewählt. So wurden {{untersucht}} von {{katalog}} Bereichen des Katalogs bis Klasse {{klasse}} untersucht.",
-      "hinweis_one": "Über den nicht untersuchten Bereich enthält dieser Bericht keine Aussage. Mehr dazu auf Seite 2.",
-      "hinweis_other": "Über die {{count}} nicht untersuchten Bereiche enthält dieser Bericht keine Aussage. Mehr dazu auf Seite 2."
+      "text": "Ausgehend vom Thema {{thema}} hat das System je nach Antwort die nächste Aufgabe gewählt. So wurden {{untersucht}} Bereiche gezielt geprüft.",
+      "textOhneThema": "Je nach Antwort hat das System die nächste Aufgabe gewählt. So wurden {{untersucht}} Bereiche gezielt geprüft.",
+      "hinweis": "Dieser Bericht sagt nur etwas über die geprüften Bereiche. Weitere Bereiche lernen wir in den ersten Sitzungen kennen.",
+      "hinweisThema": "Zahlen und Farben in diesem Bericht zeigen nur die direkt geprüften Bereiche."
+    },
+    "thema": {
+      "umfang_one": "Zum Thema {{thema}} gehört ein Bereich.",
+      "umfang_other": "Zum Thema {{thema}} gehören {{count}} Bereiche.",
+      "direkt_one": "Einen davon haben wir direkt geprüft",
+      "direkt_other": "{{count}} davon haben wir direkt geprüft",
+      "alleDirekt": "Alle davon haben wir direkt geprüft.",
+      "abgeleitetRest_one": ", der übrige ergibt sich aus diesen Aufgaben.",
+      "abgeleitetRest_other": ", die übrigen {{count}} ergeben sich aus diesen Aufgaben.",
+      "abgeleitetTeil_one": ", ein weiterer ergibt sich aus diesen Aufgaben.",
+      "abgeleitetTeil_other": ", {{count}} weitere ergeben sich aus diesen Aufgaben.",
+      "offen_one": "Einen Bereich klären wir in den ersten Sitzungen.",
+      "offen_other": "Die übrigen {{count}} klären wir in den ersten Sitzungen.",
+      "punkt": "."
     },
     "weg": {
       "kicker": "Ihr Weg durch diesen Bericht",
@@ -92,28 +107,24 @@
     "kicker": "Lernstand im Überblick",
     "titel": "{{wessen}} Lernstand in den untersuchten Bereichen.",
     "titelOhneName": "Der Lernstand in den untersuchten Bereichen.",
-    "intro": "Untersucht: {{untersucht}} von {{katalog}} Bereichen des Katalogs. Davon {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
-    "introOffen_one": "Ein Bereich wurde nicht untersucht.",
-    "introOffen_other": "{{count}} Bereiche wurden nicht untersucht.",
+    "intro": "Geprüft: {{untersucht}} Bereiche. Davon {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
     "zahl": {
       "sicher": "sicher eingestuft",
       "uebung": "Übungsbedarf",
-      "offen": "nicht untersucht"
+      "geprueft": "Bereiche geprüft"
     },
     "profil": {
       "titel": "{{wessen}} Kompetenzprofil",
       "titelOhneName": "Kompetenzprofil",
       "hinweis": "Jedes Segment steht für eine Kompetenz",
-      "untersucht": "{{untersucht}} von {{vorhanden}} untersucht",
+      "geprueft": "{{count}} geprüft",
       "sicher": "{{count}} sicher",
       "uebung": "{{count}} Übungsbedarf",
-      "aria": "{{feld}}: {{untersucht}} von {{vorhanden}} untersucht, davon {{sicher}} sicher und {{uebung}} mit Übungsbedarf.",
-      "ariaKeiner": "{{feld}}: 0 von {{vorhanden}} untersucht.",
+      "aria": "{{feld}}: {{untersucht}} geprüft, davon {{sicher}} sicher und {{uebung}} mit Übungsbedarf.",
       "trenner": " · ",
       "legende": {
         "sicher": "Sicher",
-        "uebung": "Übungsbedarf",
-        "offen": "Nicht untersucht"
+        "uebung": "Übungsbedarf"
       }
     },
     "deutung": {
@@ -124,7 +135,7 @@
       "uebung_other": "Den meisten Übungsbedarf zeigten die Themenfelder {{felder}}.",
       "coach": "Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen."
     },
-    "fussnote": "Die Streifen zeigen die Verteilung der Katalogbereiche, keine Note und keinen Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Schraffierte Bereiche wurden nicht untersucht und sagen nichts über {{name}} aus."
+    "fussnote": "Jedes Segment steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts."
   },
   "s3": {
     "kicker": "Einordnung im Lernstoff",

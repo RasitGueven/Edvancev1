@@ -1,16 +1,22 @@
 // Eltern-Bericht R7 · Seite 2 — reine Rechnung für das Kompetenzprofil und
 // „Was die Grafik zeigt“ (Bauauftrag R7-3, Entscheidung 1).
 //
-// Die Segmente sind ANZAHLEN, keine Quote: Jede Kompetenz des Felds ist ein
-// gleich breites Stück der Spur. Gerechnet wird nur Breite und Lage in pt,
-// nie ein Anteil.
+// Die Segmente sind ANZAHLEN, keine Quote: Jeder geprüfte Bereich ist ein
+// Segment fester Breite, linksbündig; Nicht-Geprüftes bekommt keins (R7-6,
+// Entscheidung 3). Gerechnet wird nur Breite und Lage in pt, nie ein Anteil.
 
 import type { EbProfilZeile, ThemenfeldKey } from '@/types'
 
 /** Breite der Spur (Maßblatt, Seite 2: x 229–455). */
 export const SPUR = 226
 
-export type SegmentArt = 'sicher' | 'uebung' | 'offen'
+/** Höchstbreite eines Segments — ein geprüfter Bereich füllt die Spur nicht. */
+export const SEGMENT_MAX = 18
+
+/** Lücke zwischen zwei Segmenten. */
+export const LUECKE = 4
+
+export type SegmentArt = 'sicher' | 'uebung'
 
 export type Segment = {
   art: SegmentArt
@@ -20,26 +26,27 @@ export type Segment = {
   radius: number
 }
 
-/** Lücke zwischen zwei Segmenten: 4 pt bis 16, 2 pt bis 30, darüber 1 pt. */
-export function luecke(anzahl: number): number {
-  if (anzahl <= 16) return 4
-  if (anzahl <= 30) return 2
-  return 1
+/** Breite eines Segments bei n geprüften Bereichen: min(18, (226 − (n − 1) · 4) / n). */
+export function segmentBreite(n: number): number {
+  return Math.min(SEGMENT_MAX, (SPUR - (n - 1) * LUECKE) / n)
 }
 
-/** Ein Segment je Kompetenz: erst sicher, dann Übungsbedarf, dann nicht untersucht. */
-export function segmente(zeile: Pick<EbProfilZeile, 'vorhanden' | 'sicher' | 'uebung'>): Segment[] {
-  const n = zeile.vorhanden
+/** Ein Segment je geprüftem Bereich: erst sicher, dann Übungsbedarf. */
+export function segmente(zeile: Pick<EbProfilZeile, 'sicher' | 'uebung'>): Segment[] {
+  const n = zeile.sicher + zeile.uebung
   if (n <= 0) return []
-  const l = luecke(n)
-  const breite = (SPUR - (n - 1) * l) / n
+  const breite = segmentBreite(n)
   const radius = Math.min(3.5, breite / 3)
   const arten: SegmentArt[] = [
     ...Array<SegmentArt>(zeile.sicher).fill('sicher'),
     ...Array<SegmentArt>(zeile.uebung).fill('uebung'),
   ]
-  while (arten.length < n) arten.push('offen')
-  return arten.slice(0, n).map((art, i) => ({ art, x: i * (breite + l), breite, radius }))
+  return arten.map((art, i) => ({ art, x: i * (breite + LUECKE), breite, radius }))
+}
+
+/** Die Profilzeilen mit mindestens einem geprüften Bereich, Reihenfolge wie im Profil. */
+export function gepruefteZeilen(profil: readonly EbProfilZeile[]): EbProfilZeile[] {
+  return profil.filter((z) => z.sicher + z.uebung > 0)
 }
 
 /**

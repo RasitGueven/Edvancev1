@@ -3,32 +3,34 @@ import { useTranslation } from 'react-i18next'
 import type { ThemenfeldKey } from '@/types'
 
 import { Profil } from './Profil'
-import { deutung } from './seite2Rechnung'
+import { deutung, gepruefteZeilen } from './seite2Rechnung'
 import type { SeitenProps } from './seitenProps'
 
 // Die drei Zahlen (Maßblatt Seite 2): Spalten ab x 44 / 218 / 392, Balken
 // 158 × 2,6 bei y 236, Zahl auf y 277,6, Label auf y 294,4. Ein SVG in
-// Seitenkoordinaten, Ausschnitt y 232–298.
+// Seitenkoordinaten, Ausschnitt y 232–298. Die dritte ist seit R7-6 „geprüft“,
+// nicht mehr „nicht untersucht“.
 const ZAHLEN = [
   { art: 'sicher', x: 44 },
   { art: 'uebung', x: 218 },
-  { art: 'offen', x: 392 },
+  { art: 'geprueft', x: 392 },
 ] as const
 
 /**
  * Seite 2 des Eltern-Berichts R7: Lernstand in Zahlen und als Kompetenzprofil
  * je Themenfeld (Maßblatt E7, „Seite 2“).
  *
- * Ab sieben Profilzeilen rückt die Seite enger zusammen (`eb-s2-eng`), damit
- * acht Zeilen — ab etwa Klasse 8 der Normalfall — nicht überlaufen.
+ * Das Profil zeigt nur Felder mit geprüften Bereichen (R7-6). Ab sieben Zeilen
+ * rückt die Seite enger zusammen (`eb-s2-eng`), damit acht nicht überlaufen.
  */
-export function Seite2({ bericht, name, wessen }: SeitenProps): JSX.Element {
+export function Seite2({ bericht, wessen }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
-  const { zaehlung, profil } = bericht
+  const { zaehlung } = bericht
+  const profil = gepruefteZeilen(bericht.profil)
   const liste = new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' })
   const felder = (keys: ThemenfeldKey[]): string => liste.format(keys.map((k) => t(`feld.${k}`)))
   const d = deutung(profil)
-  const werte = { sicher: zaehlung.sicher, uebung: zaehlung.uebung, offen: zaehlung.offen }
+  const werte = { sicher: zaehlung.sicher, uebung: zaehlung.uebung, geprueft: zaehlung.untersucht }
 
   return (
     <div className={profil.length >= 7 ? 'eb-s2 eb-s2-eng' : 'eb-s2'}>
@@ -39,11 +41,9 @@ export function Seite2({ bericht, name, wessen }: SeitenProps): JSX.Element {
       <p className="eb-s2-intro">
         {t('s2.intro', {
           untersucht: zaehlung.untersucht,
-          katalog: zaehlung.katalog,
           sicher: zaehlung.sicher,
           uebung: zaehlung.uebung,
         })}
-        {zaehlung.offen > 0 && <> {t('s2.introOffen', { count: zaehlung.offen })}</>}
       </p>
 
       <svg className="eb-s2-zahlen" viewBox="44 232 507 66" data-testid="eb-zahlen">
@@ -83,7 +83,7 @@ export function Seite2({ bericht, name, wessen }: SeitenProps): JSX.Element {
                 ))}
             </p>
           )}
-          <p className="eb-s2-fussnote">{t('s2.fussnote', { name: name ?? t('kind') })}</p>
+          <p className="eb-s2-fussnote">{t('s2.fussnote')}</p>
         </div>
       </section>
     </div>

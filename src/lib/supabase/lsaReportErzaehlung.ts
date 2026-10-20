@@ -44,7 +44,9 @@ import type {
  *
  * NUR `belegt_direkt`. Mitbelegte Urteile sind aus dem Voraussetzungsgraphen
  * gefolgert — eine Schlussfolgerung, keine Beobachtung — und gehören nicht in
- * ein Elterngespräch.
+ * ein Elterngespräch. Die kompetenzen bleiben deshalb direkt; abgeleitete
+ * Urteile werden nur für den Thema-Satz des R7-Bogens gezählt
+ * (loadAbgeleitet, Gründer-Entscheidung 20.10.2026).
  *
  * Zwei Abfragen statt eines Embeds: die Zuordnung Urteil → Label ist ein
  * einfacher Join über den Schlüssel, und zwei klare Abfragen sind hier weniger
@@ -112,10 +114,44 @@ async function loadUrteile(sessionId: string): Promise<SucheSkill[]> {
   })
 }
 
+/** Zustände, die ein Urteil sind; nicht_angesetzt u. a. zählen nicht. */
+const URTEIL_ZUSTAENDE = ['traegt', 'traegt_teilweise', 'traegt_nicht']
+
+/**
+ * Die Schlüssel der abgeleiteten Urteile (belegt_direkt = false), ohne Zustand.
+ *
+ * Nur für den Thema-Satz auf Seite 1 des R7-Bogens: Er nennt, wie viele
+ * Bereiche des Themas sich aus den Aufgaben ergeben. Nie als sicher oder
+ * Übungsbedarf gezeigt. null bei Fehler: Leer hieße „nichts ergibt sich“, und
+ * der Satz nennte abgeleitete Bereiche als offen.
+ */
+async function loadAbgeleitet(sessionId: string): Promise<string[] | null> {
+  try {
+    const { data, error } = await supabase
+      .from('lsa_skill_urteil')
+      .select('skill_key')
+      .eq('session_id', sessionId)
+      .eq('belegt_direkt', false)
+      .in('zustand', URTEIL_ZUSTAENDE)
+    if (error || !data) {
+      console.warn('report: abgeleitet lookup failed', error)
+      return null
+    }
+    return (data as { skill_key: string }[]).map((r) => r.skill_key)
+  } catch (e) {
+    console.warn('report: abgeleitet lookup failed', e)
+    return null
+  }
+}
+
 type ThemaDaten = {
   label: string | null
   raum: Themenraum | null
+  /** lsa_sessions.modus; null bei alten Sitzungen oder Fehler. */
+  modus: 'fest' | 'adaptiv' | null
 }
+
+const alsModus = (m: unknown): ThemaDaten['modus'] => (m === 'fest' || m === 'adaptiv' ? m : null)
 
 /**
  * Das gewählte Thema der Sitzung und sein Themenraum.
@@ -129,16 +165,18 @@ type ThemaDaten = {
  * Report läuft im Admin-Bereich.
  */
 async function loadThema(sessionId: string): Promise<ThemaDaten> {
-  const leer: ThemaDaten = { label: null, raum: null }
+  const leer: ThemaDaten = { label: null, raum: null, modus: null }
   try {
     const { data: s, error } = await supabase
       .from('lsa_sessions')
-      .select('thema_key, themenraum:result_summary->themenraum')
+      .select('thema_key, modus, themenraum:result_summary->themenraum')
       .eq('id', sessionId)
       .maybeSingle()
-    const zeile = s as { thema_key: string | null; themenraum: unknown } | null
+    const zeile = s as { thema_key: string | null; modus: unknown; themenraum: unknown } | null
     const key = zeile?.thema_key ?? null
-    if (error || !key) return leer
+    if (error) return leer
+    const modus = alsModus(zeile?.modus)
+    if (!key) return { ...leer, modus }
 
     const gespeichert = zeile?.themenraum ?? null
     const [thema, einstieg, kanten] = await Promise.all([
@@ -152,6 +190,7 @@ async function loadThema(sessionId: string): Promise<ThemaDaten> {
       console.warn('report: thema lookup failed', thema.error ?? einstieg.error)
     }
     return {
+      modus,
       label: (thema.data as { label: string | null } | null)?.label ?? null,
       raum: themenraumFuer({
         themaKey: key,
@@ -209,7 +248,7 @@ export async function loadErzaehlung(
   weakTopics: readonly string[],
   fehlbilder: readonly ReportFehlbild[],
 ): Promise<ReportErzaehlung> {
-  const [urteile, bestand, bausteine, zuordnungen, ansprechpartner, thema] =
+  const [urteile, bestand, bausteine, zuordnungen, ansprechpartner, thema, abgeleitetOderFehler] =
     await Promise.all([
       loadUrteile(sessionId),
       loadBestand(),
@@ -217,7 +256,12 @@ export async function loadErzaehlung(
       loadAnlassZuordnungen(),
       loadAnsprechpartner(sessionId),
       loadThema(sessionId),
+      loadAbgeleitet(sessionId),
     ])
+
+  // Ohne die abgeleiteten Urteile kein Thema-Satz: modus null schaltet ihn ab.
+  const modus = abgeleitetOderFehler ? thema.modus : null
+  const abgeleitet = abgeleitetOderFehler ?? []
 
   const fundament = baueFundament(urteile)
   const suche = baueSuche({ skills: urteile, themaLabel: thema.label, raum: thema.raum })
@@ -247,6 +291,8 @@ export async function loadErzaehlung(
       anlassNamen,
       kompetenzen: urteile,
       katalog: bestand,
+      modus,
+      abgeleitet,
     }
   }
 
@@ -277,5 +323,7 @@ export async function loadErzaehlung(
     anlassNamen,
     kompetenzen: urteile,
     katalog: bestand,
+    modus,
+    abgeleitet,
   }
 }

@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
+import type { ThemaAbdeckung } from '@/lib/report/elternbericht/themaAbdeckung'
 import type { EbZaehlung, ReportData } from '@/types'
+
+import { themaSaetze } from './themaSatz'
 
 /**
  * Zwei Kästen nebeneinander, gleich hoch: links das Anliegen der Eltern,
@@ -10,15 +13,23 @@ import type { EbZaehlung, ReportData } from '@/types'
  * und die Antwort der Analyse darauf (Rückbezüge). Gibt es nichts davon,
  * entfällt er und der rechte steht in voller Breite — ein leerer Kasten läse
  * sich wie „nichts angegeben“.
+ *
+ * Rechts bei der abgestuften LSA mit Thema zusätzlich der Thema-Satz: wie viele
+ * Bereiche zum Thema gehören, wie viele direkt geprüft wurden und wie viele
+ * sich daraus ergeben (R7-6, Entscheidung 7). Nur dort zählen abgeleitete Urteile.
  */
 export function Seite1Kaesten({
   data,
   zaehlung,
+  thema,
+  abdeckung,
   wessen,
   rueckbezuege,
 }: {
   data: ReportData
   zaehlung: EbZaehlung
+  thema: string | null
+  abdeckung: ThemaAbdeckung | null
   wessen: string | null
   rueckbezuege: { thema: string; text: string }[]
 }): JSX.Element {
@@ -56,17 +67,23 @@ export function Seite1Kaesten({
       <section className="eb-s1-kasten eb-s1-geprueft" data-testid="eb-geprueft">
         <h2 className="eb-kicker">{t('s1.geprueft.kicker')}</h2>
         <p className="eb-s1-geprueft-text">
-          {t('s1.geprueft.text', {
-            untersucht: zaehlung.untersucht,
-            katalog: zaehlung.katalog,
-            klasse: zaehlung.bisKlasse,
-          })}
+          {thema
+            ? t('s1.geprueft.text', { thema, untersucht: zaehlung.untersucht })
+            : t('s1.geprueft.textOhneThema', { untersucht: zaehlung.untersucht })}
         </p>
-        {zaehlung.offen > 0 && (
-          <p className="eb-s1-geprueft-hinweis">
-            {t('s1.geprueft.hinweis', { count: zaehlung.offen })}
+        {abdeckung && (
+          <p className="eb-s1-geprueft-thema" data-testid="eb-thema-satz">
+            {themaSaetze(t, abdeckung).map((s, i) => (
+              <span key={i}>
+                {i > 0 && ' '}
+                {s}
+              </span>
+            ))}
           </p>
         )}
+        <p className="eb-s1-geprueft-hinweis">
+          {t(abdeckung ? 's1.geprueft.hinweisThema' : 's1.geprueft.hinweis')}
+        </p>
       </section>
     </div>
   )

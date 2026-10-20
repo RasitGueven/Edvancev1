@@ -38,6 +38,28 @@ const DUZEN = /\b(du|dich|dir|dein|deine|deiner|deinem|deinen|deines)\b/i
 const TRAEGT = /tr(ä|ae)gt/i
 const SNAKE = /\b[a-z]+_[a-z_]+\b/
 
+/** Anhang-A-Schlüssel, die R7-6 neu fasst (docs/report/r7/Bauauftrag-R7-6.md). */
+const R7_6_GEAENDERT: Record<string, string> = {
+  's1.blick.zeile': '{{untersucht}} Bereiche geprüft  ·  {{sicher}} sicher  ·  {{uebung}} Übungsbedarf',
+  's1.geprueft.text':
+    'Ausgehend vom Thema {{thema}} hat das System je nach Antwort die nächste Aufgabe gewählt. So wurden {{untersucht}} Bereiche gezielt geprüft.',
+  's2.intro': 'Geprüft: {{untersucht}} Bereiche. Davon {{sicher}} sicher, {{uebung}} mit Übungsbedarf.',
+  's2.profil.aria': '{{feld}}: {{untersucht}} geprüft, davon {{sicher}} sicher und {{uebung}} mit Übungsbedarf.',
+  's2.fussnote':
+    'Jedes Segment steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
+}
+
+/** Anhang-A-Schlüssel, die R7-6 streicht. */
+const R7_6_ENTFALLEN = [
+  's1.geprueft.hinweis_one',
+  's1.geprueft.hinweis_other',
+  's2.introOffen_one',
+  's2.introOffen_other',
+  's2.zahl.offen',
+  's2.profil.untersucht',
+  's2.profil.legende.offen',
+]
+
 /**
  * INV-4.9 — der Namespace `elternbericht` (Anhang A des Bauauftrags R7).
  */
@@ -49,7 +71,29 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const ende = bauauftrag.indexOf('```', start + 7)
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, ende)))
     expect(Object.keys(anhang)).toHaveLength(148)
-    for (const [key, text] of Object.entries(anhang)) expect(texte[key], key).toBe(text)
+    for (const [key, text] of Object.entries(anhang)) {
+      if (key in R7_6_GEAENDERT || R7_6_ENTFALLEN.includes(key)) continue
+      expect(texte[key], key).toBe(text)
+    }
+  })
+
+  it('R7-6: die ersetzten Schlüssel aus Anhang A wörtlich neu, die entfallenen fehlen', () => {
+    // Bauauftrag R7-6, Entscheidungen 2 und 3: kein Katalog-Nenner, kein
+    // „nicht untersucht“. Jeder Schlüssel steht hier einzeln, damit keiner still
+    // aus der Prüfung fällt.
+    const bauauftrag = read('docs/report/r7/Bauauftrag-R7.md')
+    const start = bauauftrag.indexOf('```json', bauauftrag.indexOf('## Anhang A'))
+    const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
+    for (const [key, text] of Object.entries(R7_6_GEAENDERT)) {
+      expect(anhang[key], key).toBeDefined()
+      expect(texte[key], key).toBe(text)
+    }
+    for (const key of R7_6_ENTFALLEN) {
+      expect(anhang[key], key).toBeDefined()
+      expect(texte[key], key).toBeUndefined()
+    }
+    // Nach Anhang A ergänzt (R7-3), mit R7-6 ebenfalls gestrichen.
+    expect(texte['s2.profil.ariaKeiner']).toBeUndefined()
   })
 
   it('duzt nirgends', () => {

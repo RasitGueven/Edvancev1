@@ -276,6 +276,17 @@
   line-height: 10.5pt;
   color: var(--color-eb-text);
 }
+/* Thema-Satz (R7-6): im Muster nicht vorhanden. Schrift wie der Text darüber,
+   Abstand wie zwischen Kicker und Text; der Hinweis rückt dann heran. */
+.eb-s1-geprueft-thema {
+  margin-top: 7.84pt;
+  font-size: 8.45pt;
+  line-height: 11.8pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s1-geprueft-thema + .eb-s1-geprueft-hinweis {
+  margin-top: 7.84pt;
+}
 
 /* ─── Ihr Weg durch diesen Bericht ────────────────────────────────────────── */
 

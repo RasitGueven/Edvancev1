@@ -52,6 +52,10 @@ export type SitzungRoh = {
   fehlbilder?: ReportFehlbild[]
   themaLabel: string | null
   raum: Themenraum | null
+  /** lsa_sessions.modus */
+  modus: 'fest' | 'adaptiv' | null
+  /** Schlüssel der abgeleiteten Urteile (belegt_direkt = false). */
+  abgeleitet: readonly string[]
   katalog?: readonly KatalogSkill[]
 }
 
@@ -120,6 +124,8 @@ export function datenAus(roh: SitzungRoh): ReportData {
       anlassNamen,
       kompetenzen: urteile,
       katalog,
+      modus: roh.modus,
+      abgeleitet: [...roh.abgeleitet],
     },
   }
 }

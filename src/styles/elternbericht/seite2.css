@@ -57,10 +57,10 @@
 .eb-s2-zahl-uebung .eb-s2-zahl {
   fill: var(--color-eb-uebung-text);
 }
-.eb-s2-zahl-offen rect {
-  fill: var(--color-eb-offen);
+.eb-s2-zahl-geprueft rect {
+  fill: var(--color-eb-navy);
 }
-.eb-s2-zahl-offen .eb-s2-zahl {
+.eb-s2-zahl-geprueft .eb-s2-zahl {
   fill: var(--color-eb-tinte);
 }
 
@@ -102,7 +102,7 @@
   font-size: 9.1px;
   fill: var(--color-eb-tinte);
 }
-.eb-s2-untersucht {
+.eb-s2-geprueft {
   font-size: 7.5px;
   text-anchor: end;
   fill: var(--color-eb-text);
@@ -123,16 +123,8 @@
 .eb-s2-segment-uebung {
   fill: var(--color-eb-uebung);
 }
-/* Nicht untersucht: weiß, darüber die Schraffur aus dem Bogen, Rand obenauf. */
-/* Nur die untere Fläche: Die obere trägt fill="url(#eb-schraffur)" als Attribut,
-   eine CSS-Füllung würde es überschreiben. */
-.eb-s2-segment-offen rect:not(.eb-s2-segment-schraffur) {
-  fill: var(--color-eb-weiss);
-}
-.eb-s2-segment-offen .eb-s2-segment-schraffur {
-  stroke: var(--color-eb-schraffur-rand);
-  stroke-width: 0.7;
-}
+/* Keine Segmente für nicht Geprüftes, keine Schraffur (R7-6). Das Pattern im
+   Bogen bleibt definiert, wird aber nicht mehr benutzt. */
 
 /* Legende, Quadrate 10 × 10, 8,2 pt unter der letzten Zeile. */
 .eb-s2-legende {
