@@ -37,8 +37,10 @@ export function RaumAktion({ termin, raum }: { termin: SlotsTermin; raum: Termin
   const [fehler, setFehler] = useState<string | null>(null)
 
   if (!raum.offen && !raum.session_id) return null
+  // Vorbei: Tag vergangen oder heute nach dem Ende der Stunde (begonnen, läuft nicht mehr).
+  const vorbei = termin.vergangen || (termin.heute && termin.begonnen && !termin.laeuft)
   const leer = <span className="text-xs text-[var(--color-text-tertiary)]">{t('wochenplan2.aktion.leer')}</span>
-  if (raum.kinder.length === 0 && !raum.session_id) return termin.vergangen ? null : leer
+  if (raum.kinder.length === 0 && !raum.session_id) return vorbei ? null : leer
   const rueckblick = (id: string): JSX.Element => (
     <span className="flex items-center gap-2">
       <EdvanceBadge variant="muted">{t('wochenplan2.aktion.beendet')}</EdvanceBadge>
@@ -52,7 +54,7 @@ export function RaumAktion({ termin, raum }: { termin: SlotsTermin; raum: Termin
 
   const aktion = betriebAktion(alsBetriebZeile(termin, raum), termin.datum)
   if (aktion.art === 'live') {
-    if (termin.vergangen && raum.session_id) return rueckblick(raum.session_id)
+    if (vorbei && raum.session_id) return rueckblick(raum.session_id)
     return (
       <Button asChild variant="outline" size="sm" className="min-h-[44px]">
         <Link to={aktion.ziel}>{t('wochenplan2.aktion.live')}</Link>
@@ -60,7 +62,7 @@ export function RaumAktion({ termin, raum }: { termin: SlotsTermin; raum: Termin
     )
   }
   if (aktion.art === 'leer') return leer
-  if (aktion.art !== 'oeffnen' || termin.vergangen) return null
+  if (aktion.art !== 'oeffnen' || vorbei) return null
 
   const oeffnen = async (): Promise<void> => {
     setLaeuft(true)

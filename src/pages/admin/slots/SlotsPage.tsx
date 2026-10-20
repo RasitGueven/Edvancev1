@@ -109,7 +109,7 @@ export function SlotsPage(): JSX.Element {
         <SlotPanel
           datum={panel.datum}
           zeitId={panel.zeitId}
-          einzel={einzelAmTag(einzel.daten?.sessions ?? [], panel.datum)}
+          einzel={einzel.daten?.montag === montagVon(panel.datum) ? einzelAmTag(einzel.daten.sessions, panel.datum) : []}
           onPanel={oeffnePanel}
           onClose={schliessePanel}
           onGeaendert={geaendert}

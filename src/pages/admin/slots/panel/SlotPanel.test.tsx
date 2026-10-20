@@ -153,4 +153,29 @@ describe('Slot-Panel (früher Termin-Seite)', () => {
     expect(sp.ladeKandidatenAlle).toHaveBeenCalledWith('2028-03-16', 'z16', 'r1')
     expect(screen.getByRole('dialog', { name: 'Kind in Raum 1' })).toBeTruthy()
   })
+
+  it('heute nach dem Ende: „beendet“ und Rückblick statt Live-Sicht', async () => {
+    await zeige(termin({ heute: true, begonnen: true, laeuft: false, ohne_raum: [], raeume: [raum1({ session_id: 's1', gestartet: true })] }))
+    expect(screen.getByText('5 von 5 Plätzen belegt · 1 Raum mit Coach · beendet')).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Rückblick' }).getAttribute('href')).toBe('/coach/session/s1/live')
+    expect(screen.queryByRole('link', { name: 'Live-Sicht' })).toBeNull()
+    expect(screen.queryByRole('link', { name: 'Live' })).toBeNull()
+  })
+
+  it('begonnen: kein „+ Kind“, kein Coach-Wechsel, kein Raum je Kind; Absage geht weiter', async () => {
+    await zeige(termin({
+      heute: true, begonnen: true, laeuft: true, ohne_raum: [],
+      raeume: [raum1(), { ...raum1({ raum_id: 'r3', name: 'Raum 3', coach_id: 'c3', kinder: [kind(8)] }) }],
+    }))
+    expect(screen.queryByRole('button', { name: /^\+ Kind/ })).toBeNull()
+    expect(screen.queryByRole('combobox')).toBeNull()
+    fireEvent.click(within(raumKarte('Raum 1')).getAllByRole('button', { name: 'Weitere Aktionen' })[0])
+    expect(screen.getByText('Absage')).toBeTruthy()
+    expect(screen.queryByText('In Raum 3 verschieben')).toBeNull()
+  })
+
+  it('geschlossener Raum mit Stammschicht und Kindern ohne Raum: „Coach fehlt“', async () => {
+    await zeige(termin())
+    expect(within(raumKarte('Raum 2')).getByText('Coach fehlt')).toBeTruthy()
+  })
 })

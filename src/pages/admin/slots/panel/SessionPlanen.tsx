@@ -16,12 +16,12 @@ type Props = {
   raeume: SlotsEinstellungen['raeume']
   /** Nach dem Anlegen: Tag der neuen Session. */
   onAngelegt: (datum: string) => void
-  /** W2: im Tagespanel ist das Datum des Tages vorbelegt (sonst heute). */
+  /** W2: im Tagespanel steht das Datum fest auf dem Tag des Panels (kein Datumsfeld); sonst heute, änderbar. */
   datum?: string
 }
 
 /**
- * „Session planen“ (Slots S2, Entscheidung 4; W2: im Tagespanel mit vorbelegtem Datum): eine spätere Einzel-Session mit Leitung (Coach oder Admin),
+ * „Session planen“ (Slots S2, Entscheidung 4; W2: im Tagespanel fest auf dem Tag): eine spätere Einzel-Session mit Leitung (Coach oder Admin),
  * Raum aus den aktiven Räumen des Tages, Datum und Uhrzeit. Kinder kommen danach in der Session-Karte dazu.
  */
 export function SessionPlanen({ leitung, raeume, onAngelegt, datum: vorbelegt }: Props): JSX.Element {
@@ -83,10 +83,12 @@ export function SessionPlanen({ leitung, raeume, onAngelegt, datum: vorbelegt }:
             ))}
           </select>
         </div>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="sp-datum">{t('stundenplan.feld.datum')}</Label>
-          <Input id="sp-datum" type="date" value={datum} onChange={(e) => setDatum(e.target.value)} />
-        </div>
+        {!vorbelegt && (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="sp-datum">{t('stundenplan.feld.datum')}</Label>
+            <Input id="sp-datum" type="date" value={datum} onChange={(e) => setDatum(e.target.value)} />
+          </div>
+        )}
         <div className="flex flex-col gap-2">
           <Label htmlFor="sp-zeit">{t('stundenplan.feld.uhrzeit')}</Label>
           <Input id="sp-zeit" type="time" value={zeit} onChange={(e) => setZeit(e.target.value)} />

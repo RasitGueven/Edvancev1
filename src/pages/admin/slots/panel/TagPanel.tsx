@@ -3,7 +3,8 @@ import { EdvanceBadge, EdvanceCard, EmptyState, LoadingPulse } from '@/component
 import { Button } from '@/components/ui/button'
 import { ladeEinstellungen, ladeTag } from '@/lib/supabase/slotplan'
 import { ladeSessionLeitung } from '@/lib/supabase/stundenplan'
-import type { SlotZeit, SlotsWoche, TagRaumTermin } from '@/types/slotplan'
+import { berlinToday } from '@/lib/datetime'
+import type { SlotZeit, SlotsWoche, TagRaumTermin, WocheZelle } from '@/types/slotplan'
 import { kalenderwoche, montagVon } from '@/components/edvance/wochenNavigation.model'
 import { datumLang } from '../slotsFormat'
 import { zelleVon } from '../slots.model'
@@ -42,6 +43,8 @@ export function TagPanel({ datum, woche, onPanel, onClose, onGeaendert }: Props)
   const d = tag.daten?.datum === datum ? tag.daten : null
   const w = woche && woche.montag === montagVon(datum) ? woche : null
   const zeiten = w?.zeiten ?? zeitenAusTag(d?.raum_termine ?? [])
+  // Kinder ohne Raum und „läuft gerade“ kennt nur die Woche (slots_tag liefert beides nicht).
+  const zelleZu = (zeitId: string): WocheZelle | undefined => (w ? zelleVon(w, datum, zeitId) : undefined)
   const zeilen = d ? tagZeilen(zeiten, d.raum_termine, d.sessions_ohne_raum) : []
   const frei = zeilen.reduce((s, z) => s + (z.art === 'slot' ? z.frei : 0), 0)
   const kinder = d ? d.raum_termine.reduce((s, r) => s + r.belegt, 0) : 0
@@ -85,7 +88,12 @@ export function TagPanel({ datum, woche, onPanel, onClose, onGeaendert }: Props)
                         <RaumZeile key={r.raum_id} name={r.raum_name} belegt={r.belegt} mitCoach={r.offen} coach={r.offen ? r.coach_name : null} />
                       ))
                     )}
-                    {w && zelleVon(w, datum, z.zeit.id)?.laeuft && (
+                    {(zelleZu(z.zeit.id)?.ohne_raum ?? 0) > 0 && (
+                      <span className="text-xs font-semibold text-[var(--color-error-coach)]">
+                        {t('woche.ohneRaum', { count: zelleZu(z.zeit.id)?.ohne_raum ?? 0 })}
+                      </span>
+                    )}
+                    {zelleZu(z.zeit.id)?.laeuft && (
                       <EdvanceBadge variant="primary" className="self-start">{t('wochenplan2.zelle.laeuft')}</EdvanceBadge>
                     )}
                   </span>
@@ -114,7 +122,7 @@ export function TagPanel({ datum, woche, onPanel, onClose, onGeaendert }: Props)
         </EdvanceCard>
       )}
 
-      {leitung.daten && einst.daten && (
+      {d?.betrieb && datum >= berlinToday() && leitung.daten && einst.daten && (
         <SessionPlanen
           key={datum}
           datum={datum}

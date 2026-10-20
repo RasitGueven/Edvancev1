@@ -106,10 +106,10 @@ export function SlotPanel({ datum, zeitId, einzel, onPanel, onClose, onGeaendert
   const menu = ansicht || !d.betrieb
     ? []
     : [
-        ...(d.raeume_schliessbar.length > 0 ? [{ label: t('aktion.raumOeffnen'), onSelect: () => setDialog({ art: 'raum' }) }] : []),
+        ...(d.raeume_schliessbar.length > 0 && !d.begonnen ? [{ label: t('aktion.raumOeffnen'), onSelect: () => setDialog({ art: 'raum' }) }] : []),
         ...(anzahl > 0 ? [{ label: t('aktion.faelltAus'), onSelect: () => setDialog({ art: 'faelltAus' }), danger: true }] : []),
       ]
-  const stand = d.laeuft ? t('wochenplan2.slot.laeuft') : d.vergangen && d.heute ? t('wochenplan2.slot.beendet') : null
+  const stand = d.laeuft ? t('wochenplan2.slot.laeuft') : d.heute && d.begonnen ? t('wochenplan2.slot.beendet') : null
 
   return (
     <Seitenpanel
@@ -137,7 +137,7 @@ export function SlotPanel({ datum, zeitId, einzel, onPanel, onClose, onGeaendert
             icon="🚪"
             title={t('termin.keineRaeumeTitel')}
             description={t('termin.keineRaeumeText')}
-            action={!ansicht && d.raeume_schliessbar.length > 0 ? (
+            action={!ansicht && !d.begonnen && d.raeume_schliessbar.length > 0 ? (
               <Button type="button" variant="outline" onClick={() => setDialog({ art: 'raum' })}>{t('aktion.raumOeffnen')}</Button>
             ) : undefined}
           />

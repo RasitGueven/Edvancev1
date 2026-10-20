@@ -17,9 +17,10 @@ export function WochenZelle({ zelle, onOeffnen }: { zelle: WocheZelle; onOeffnen
     : zelle.vergangen
       ? 'opacity-60'
       : ''
-  const basis = `flex h-full min-h-[84px] w-full min-w-0 flex-col gap-1 rounded-[var(--radius-md)] border p-2 text-left transition-shadow duration-150 ease-out hover:border-[var(--color-primary)] hover:shadow-elevation-md ${zustand}`
+  const basis = `flex h-full min-h-[84px] w-full min-w-0 flex-col gap-1 rounded-[var(--radius-md)] border p-2 text-left transition-shadow duration-150 ease-out hover:border-[var(--color-primary)] hover:shadow-md ${zustand}`
 
-  if (raeume.length === 0) {
+  // Kinder ohne Raum (Altbestand, Zusatz ohne Raum, Coach fällt aus) dürfen nicht hinter „kein Raum besetzt“ verschwinden.
+  if (raeume.length === 0 && zelle.ohne_raum === 0) {
     return (
       <button
         type="button"
@@ -31,7 +32,7 @@ export function WochenZelle({ zelle, onOeffnen }: { zelle: WocheZelle; onOeffnen
     )
   }
 
-  const kinder = raeume.reduce((s, r) => s + r.belegt, 0)
+  const kinder = raeume.reduce((s, r) => s + r.belegt, 0) + zelle.ohne_raum
   return (
     <button
       type="button"
@@ -49,9 +50,12 @@ export function WochenZelle({ zelle, onOeffnen }: { zelle: WocheZelle; onOeffnen
       ))}
       <span className="mt-auto flex flex-wrap items-center gap-1 text-xs text-[var(--color-text-tertiary)]">
         {zelle.laeuft && <span className="font-semibold text-[var(--color-primary)]">{t('wochenplan2.zelle.laeuft')} ·</span>}
-        <span>{t('wochenplan2.zelle.frei', { count: frei })}</span>
+        {raeume.length > 0 && <span>{t('wochenplan2.zelle.frei', { count: frei })}</span>}
         {zelle.ohne_raum > 0 && (
-          <span className="font-semibold text-[var(--color-error-coach)]">· {t('woche.ohneRaum', { count: zelle.ohne_raum })}</span>
+          <span className="font-semibold text-[var(--color-error-coach)]">
+            {raeume.length > 0 ? '· ' : ''}
+            {t('woche.ohneRaum', { count: zelle.ohne_raum })}
+          </span>
         )}
         {(zelle.test ?? 0) > 0 && <TestKennzeichen />}
       </span>

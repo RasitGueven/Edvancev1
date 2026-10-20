@@ -60,7 +60,7 @@ export function RaumZeile({ name, belegt, mitCoach, coach, className = '' }: Pro
   return (
     <span
       className={`flex min-w-0 items-center gap-2 rounded-[var(--radius-sm)] px-2 py-1 text-xs ${FARBE[farbe].flaeche} ${className}`}
-      aria-label={t('wochenplan2.raum.label', { raum: name, stand: farbe === 'keinCoach' ? `${zahl}, ${t('wochenplan2.raum.keinCoach')}` : zahl })}
+      aria-label={t(farbe === 'keinCoach' ? 'wochenplan2.raum.labelKeinCoach' : 'wochenplan2.raum.label', { raum: name, stand: zahl })}
       role="img"
     >
       <span className="min-w-[1.5rem] font-semibold">{name}</span>

@@ -55,6 +55,7 @@ export function Seitenpanel({ rubrik, titel, satz, aktionen, breit = false, esca
         aria-labelledby={titelId}
         tabIndex={-1}
         // Ohne Animation an der Fläche: ein transform machte sie zum Bezugsrahmen der fixed-Dialoge darin.
+        // shadow-lg (Token --shadow-lg): ein Utility shadow-elevation-lg ist in globals.css nicht definiert.
         className={`relative flex h-full w-full flex-col bg-[var(--color-bg-app)] shadow-lg outline-none ${breit ? 'max-w-3xl' : 'max-w-2xl'}`}
       >
         <header className="flex items-start gap-4 border-b border-[var(--color-border)] bg-[var(--color-bg-surface)] px-6 py-4">

@@ -25,6 +25,8 @@ type Props = KartenProps & {
 export function RaumKarte({ raum, termin, ansicht, fehlerBei, onKind, onCoach, onKindPlus }: Props): JSX.Element {
   const { t } = useTranslation('slots')
   const andereRaeume = termin.raeume.filter((r) => r.offen && r.raum_id !== raum.raum_id && r.kinder.length < PLAETZE)
+  // Begonnen (W2, offene-punkte Nr. 14): Absage, Umbuchen und ausgefallen gehen weiter; „+ Kind“, Coach und Raum je Kind nicht.
+  const begonnen = termin.begonnen
   const coachWahl = termin.coaches.filter((c) => c.raum_id === null || c.raum_id === raum.raum_id)
   const anzahl = raum.kinder.length
   const farbe = raumFarbe(anzahl, raum.offen)
@@ -37,7 +39,7 @@ export function RaumKarte({ raum, termin, ansicht, fehlerBei, onKind, onCoach, o
       : [
           { label: t('aktion.absage'), onSelect: () => onKind(k, 'absage') },
           { label: t('aktion.umbuchen'), onSelect: () => onKind(k, 'umbuchen') },
-          ...andereRaeume.map((r) => ({ label: t('aktion.inRaum', { raum: r.name }), onSelect: () => onKind(k, { raum: r.raum_id }) })),
+          ...(begonnen ? [] : andereRaeume).map((r) => ({ label: t('aktion.inRaum', { raum: r.name }), onSelect: () => onKind(k, { raum: r.raum_id }) })),
           { label: t('aktion.ausgefallen'), onSelect: () => onKind(k, 'ausgefallen'), danger: true },
         ]
 
@@ -45,6 +47,9 @@ export function RaumKarte({ raum, termin, ansicht, fehlerBei, onKind, onCoach, o
     <EdvanceCard className="flex flex-col gap-2 p-4">
       <header className="flex flex-wrap items-center gap-2">
         <h3 className="text-base font-semibold text-[var(--color-text-primary)]">{raum.name}</h3>
+        {!raum.offen && raum.stamm_coach_id && termin.ohne_raum.length > 0 && (
+          <EdvanceBadge variant="coach-emergency">{t('woche.coachFehlt')}</EdvanceBadge>
+        )}
         {raum.vertretung && raum.offen && <EdvanceBadge variant="warning">{t('termin.vertretung')}</EdvanceBadge>}
         {raum.gemischt && <EdvanceBadge variant="warning">{t('termin.gemischt')}</EdvanceBadge>}
         <span className={`ml-auto flex items-center gap-2 rounded-[var(--radius-sm)] px-2 py-1 text-xs font-semibold tabular-nums ${FARBE[farbe].flaeche}`}>
@@ -53,7 +58,7 @@ export function RaumKarte({ raum, termin, ansicht, fehlerBei, onKind, onCoach, o
         </span>
       </header>
 
-      {ansicht ? (
+      {ansicht || begonnen ? (
         <p className="text-sm text-[var(--color-text-secondary)]">{raum.coach_name ?? t('termin.keinCoach')}</p>
       ) : (
         <label className="flex flex-col gap-2 text-xs text-[var(--color-text-tertiary)]">
@@ -108,7 +113,7 @@ export function RaumKarte({ raum, termin, ansicht, fehlerBei, onKind, onCoach, o
       </ul>
 
       <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--color-border)] pt-2">
-        {!ansicht && termin.betrieb && raum.offen ? (
+        {!ansicht && !begonnen && termin.betrieb && raum.offen ? (
           <span className="flex flex-col gap-1">
             <Button
               type="button"

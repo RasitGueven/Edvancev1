@@ -39,9 +39,9 @@ const WOCHE: SlotsWoche = {
     zelle('2026-11-02', 'z14', [raum('A1', 4), raum('B1', 2)]),
     zelle('2026-11-02', 'z15', [raum('A1', 3), raum('B1', 2, false)], { laeuft: true }),
     zelle('2026-11-03', 'z14', [raum('A1', 0, false)]),
-    zelle('2026-11-03', 'z15', [raum('A1', 5)]),
+    zelle('2026-11-03', 'z15', [raum('A1', 5)], { ohne_raum: 1 }),
     zelle('2026-11-04', 'z14', [raum('A1', 1)]),
-    zelle('2026-11-04', 'z15', []),
+    zelle('2026-11-04', 'z15', [], { ohne_raum: 2 }),
     zelle('2026-11-05', 'z14', [raum('A1', 3)]),
     zelle('2026-11-05', 'z15', [raum('A1', 3)]),
   ],
@@ -128,7 +128,10 @@ describe('Wochenplan', () => {
     const z2 = screen.getByRole('button', { name: /^5 Kinder, 2 frei, läuft gerade/ })
     expect(within(z2).getByText('kein Coach')).toBeTruthy()
     // Geschlossener Raum ohne Kinder steht nicht in der Zelle.
-    expect(screen.getAllByText('kein Raum besetzt')).toHaveLength(2)
+    expect(screen.getAllByText('kein Raum besetzt')).toHaveLength(1)
+    // Kinder ohne Raum verschwinden nicht hinter „kein Raum besetzt“.
+    const ohne = screen.getByRole('button', { name: '2 Kinder, 0 frei, 2 ohne Raum' })
+    expect(within(ohne).getByText('2 ohne Raum')).toBeTruthy()
     expect(screen.getByText('Brückentag')).toBeTruthy()
     expect(screen.getByRole('button', { name: /10:30 · B1/ }).textContent).toContain('Testlauf · Ada Admin')
   })
@@ -154,6 +157,8 @@ describe('Wochenplan', () => {
     const panel = screen.getByRole('dialog', { name: 'Dienstag, 3. November' })
     expect(within(panel).getByText('Deniz Aydın')).toBeTruthy()
     expect(within(panel).getByText('Freie Plätze über den Tag: 0 · 5 Kinder eingeplant')).toBeTruthy()
+    expect(within(panel).getByText('1 ohne Raum')).toBeTruthy()
+    expect(within(panel).getByRole('button', { name: '+ Einzel-Session an diesem Tag planen' })).toBeTruthy()
     fireEvent.click(within(panel).getByRole('button', { name: '15:00 öffnen' }))
     await act(async () => {})
     expect(ort()).toBe('/admin/slots?woche=2026-11-02&slot=2026-11-03_z15')
@@ -177,6 +182,16 @@ describe('Wochenplan', () => {
     fireEvent.click(screen.getAllByRole('button', { name: 'Schließen' }).at(-1) as HTMLElement)
     await act(async () => {})
     expect(ort()).toBe('/admin/slots?woche=2026-11-09')
+  })
+})
+
+describe('Tagespanel ohne Betrieb', () => {
+  it('kein „+ Einzel-Session planen“ an einem Tag ohne Betrieb', async () => {
+    slot.ladeTag.mockResolvedValue({ data: { ...TAG, betrieb: false, anlass: 'Brückentag', raum_termine: [], sessions_ohne_raum: [] }, error: null })
+    await zeige('/admin/slots?woche=2026-11-02&tag=2026-11-03')
+    const panel = screen.getByRole('dialog', { name: 'Dienstag, 3. November' })
+    expect(within(panel).getAllByText('Brückentag').length).toBeGreaterThan(0)
+    expect(within(panel).queryByRole('button', { name: '+ Einzel-Session an diesem Tag planen' })).toBeNull()
   })
 })
 

@@ -193,9 +193,17 @@ describe('Session planen', () => {
     expect(ses.createSession).toHaveBeenCalledWith('ZZ_admin', '2027-11-04T13:00:00.000Z', 'Raum 1')
   })
 
-  it('im Tagespanel (W2): Datum vorbelegt, Knopf „+ Einzel-Session an diesem Tag planen“', () => {
-    render(<SessionPlanen datum="2027-11-05" leitung={[]} raeume={[]} onAngelegt={vi.fn()} />)
+  it('im Tagespanel (W2): Datum fest auf dem Tag, Knopf „+ Einzel-Session an diesem Tag planen“', async () => {
+    ses.createSession.mockResolvedValue({ data: {}, error: null })
+    const onAngelegt = vi.fn()
+    const raeume = [{ id: 'r1', name: 'Raum 1', aktiv_ab: '2020-01-01', inaktiv_ab: null, stammschichten: 0 }]
+    render(<SessionPlanen datum="2027-11-05" leitung={[{ id: 'ZZ_admin', name: 'Ada Admin', rolle: 'admin' }]} raeume={raeume} onAngelegt={onAngelegt} />)
     fireEvent.click(screen.getByRole('button', { name: '+ Einzel-Session an diesem Tag planen' }))
-    expect((screen.getByLabelText('Datum') as HTMLInputElement).value).toBe('2027-11-05')
+    expect(screen.queryByLabelText('Datum')).toBeNull()
+    fireEvent.change(screen.getByLabelText('Leitung'), { target: { value: 'ZZ_admin' } })
+    fireEvent.change(screen.getByLabelText('Uhrzeit'), { target: { value: '15:00' } })
+    fireEvent.change(screen.getByLabelText('Raum'), { target: { value: 'r1' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Session anlegen' }))
+    await waitFor(() => expect(onAngelegt).toHaveBeenCalledWith('2027-11-05'))
   })
 })

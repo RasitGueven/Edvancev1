@@ -150,6 +150,7 @@
       "belegt": "{{belegt}}/{{max}}",
       "keinCoach": "kein Coach",
       "label": "{{raum}}: {{stand}}",
+      "labelKeinCoach": "{{raum}}: {{stand}}, kein Coach",
       "faelltAus": "{{coach}} fällt aus.",
       "ohneCoachSatz_one": "{{count}} Kind sitzt in einem Raum ohne Coach. Coach setzen, das Kind in einen anderen Raum schieben oder den Termin ausfallen lassen.",
       "ohneCoachSatz_other": "{{count}} Kinder sitzen in einem Raum ohne Coach. Coach setzen, Kinder in einen anderen Raum schieben oder den Termin ausfallen lassen.",

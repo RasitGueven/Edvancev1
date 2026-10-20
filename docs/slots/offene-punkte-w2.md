@@ -56,11 +56,23 @@ Vorlage `slots-dummy-v2.html`. Reine Oberfläche, keine Migration, nichts unter 
 6. **Nicht mehr benutzte Texte** in `de/slots.json` (`reiter.stundenplan`, `stundenplan.filter.*`, `stundenplan.leer.*`,
    `woche.legende.*`, `woche.kpi.*` außer `label`, `dialog.hinzufuegen.*` u. a.) sind stehen geblieben, damit die
    parallelen PRs W3/W4 nicht an denselben Zeilen kollidieren. Aufräumen nach dem Merge aller drei.
-7. **„läuft gerade“ im Tagespanel** kommt aus der Woche (`slots_woche.zellen[].laeuft`), weil `slots_tag` kein `laeuft`
-   liefert; für einen Tag außerhalb der angezeigten Woche fehlt das Kennzeichen.
+7. **„läuft gerade“ und „n ohne Raum“ im Tagespanel** kommen aus der Woche (`slots_woche.zellen[]`), weil `slots_tag`
+   weder `laeuft` noch Kinder ohne Raum liefert; für einen Tag außerhalb der angezeigten Woche fehlen beide (die
+   Uhrzeiten kommen dann aus `slots_tag`). Gleiches gilt für die Einzel-Sessions im Slot-Panel: nur, wenn die geladene
+   Woche zum Panel-Datum passt, sonst bleibt die Liste leer.
 8. **Rückblick** führt in die Live-Sicht der beendeten Session (`/coach/session/:id/live`), wie im Dummy beschrieben;
    eine eigene Rückblick-Ansicht gibt es nicht.
 9. **Seitenpanel ohne Fokus-Falle und Scroll-Sperre.** Escape schließt das Panel auch bei offenem „…“-Menü; der
    Hintergrund ist per Tab erreichbar. Nachziehen, wenn ein gemeinsames Panel-Bauteil entsteht (Foundation).
 10. **Kein Buchen in einen Slot ohne offenen Raum.** Ohne Raum mit Coach bietet das Panel nur „Raum öffnen“; danach
     steht „+ Kind in …“ am geöffneten Raum (früher ging ein Zusatztermin ohne Raum, der dann „ohne Raum“ stand).
+11. **Begonnener Slot (Zweitprüfung).** Laut Datenvertrag 10.3 und den Funktionen gilt: `termin_absagen` (und damit
+    Umbuchen) sowie `termin_ausgefallen` gehen am Termintag weiter, auch nach Beginn; `zusatztermin_buchen` lehnt nach
+    Beginn ab (SL007); `termin_raum_setzen` und `termin_coach_setzen` sperren erst, wenn die Session gestartet ist
+    (SL011). Entscheidung W2 (wie im Dummy, bearbeitbar nur „offen“ und „später“): Sobald der Slot begonnen hat, sind
+    „+ Kind“, Coach-Wechsel, „Raum öffnen“ und „In Raum … verschieben“ gesperrt; Absage, Umbuchen, „ausgefallen“,
+    Rücknahme und „Ganzer Termin fällt aus“ bleiben. Wer nach Beginn noch umsetzen muss, tut das in der Live-Sicht.
+12. **Schatten des Panels.** `shadow-elevation-lg` (CLAUDE.md §11) ist in `globals.css` nicht definiert und würde
+    keinen Schatten zeichnen; das Panel nutzt `shadow-lg` (Token `--shadow-lg`, blau getönt), die Zelle beim
+    Darüberfahren `shadow-md`. Die Utilities `shadow-elevation-*` gehören ins Foundation-Fenster.
+13. **„Einzel-Session planen“ im Tagespanel** nur an Tagen mit Betrieb ab heute; das Datum steht fest auf dem Tag.
