@@ -209,6 +209,42 @@ html.tp-offen body {
   text-transform: uppercase;
 }
 
+/* ─── Bausteine der Stationen 02 und 03 ───────────────────────────────────── */
+
+/* Punktmuster „übersprungen", nie Streifen (die heißen im Druckbogen „nicht untersucht").
+   Kombiniert rosé; „getrennt" setzt am Container die neutralen Werte. */
+.tp {
+  --tp-ueber-punkt: var(--color-tp-ueber-punkt);
+  --tp-ueber-grund: var(--color-tp-ueber-grund);
+  --tp-ueber-rand: var(--color-tp-ueber-rand);
+  --tp-muster-punkt: 1.15px;
+  --tp-muster-weich: 1.6px;
+  --tp-muster-raster: 5px;
+}
+
+.tp .tp-muster-ueber {
+  border: 1px solid var(--tp-ueber-rand);
+  background:
+    radial-gradient(circle, var(--tp-ueber-punkt) 0 var(--tp-muster-punkt), transparent var(--tp-muster-weich))
+      0 0 / var(--tp-muster-raster) var(--tp-muster-raster),
+    var(--tp-ueber-grund);
+}
+
+/* Zählung (Zaehlung.tsx): Umbruch nur zwischen den Teilen, der Punkt bleibt am Teil davor. */
+.tp .tp-zaehlung > span {
+  white-space: nowrap;
+}
+
+.tp .tp-zaehlung > span:not(:last-child)::after {
+  content: '·';
+  margin-left: .4em;
+}
+
+.tp .tp-zaehlung-farbig .tp-zaehlung-sicher { color: var(--color-eb-sicher); }
+.tp .tp-zaehlung-farbig .tp-zaehlung-uebung,
+.tp .tp-zaehlung-farbig .tp-zaehlung-davon { color: var(--color-eb-uebung-text); }
+.tp .tp-zaehlung-farbig .tp-zaehlung-eigen { color: var(--color-tp-ueber-neutral-text); }
+
 /* ─── Bewegung: erster Besuch wie im Dummy, Wiederbesuch still ────────────── */
 
 .tp-reveal {

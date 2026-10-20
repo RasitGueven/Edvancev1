@@ -113,10 +113,11 @@
   border-radius: 2px;
 }
 
-.tp .tp-s2-legende i.tp-s2-segment-ueber {
-  background:
-    radial-gradient(circle, var(--tp-s2-punkt) 0 .9px, transparent 1.3px) 0 0 / 3.5px 3.5px,
-    var(--tp-s2-grund);
+/* Kleines Raster für das Punktmuster in der Legende. */
+.tp .tp-s2-legende {
+  --tp-muster-punkt: .9px;
+  --tp-muster-weich: 1.3px;
+  --tp-muster-raster: 3.5px;
 }
 
 .tp .tp-s2-tippen {

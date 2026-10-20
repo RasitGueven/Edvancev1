@@ -104,7 +104,7 @@ export function Station2({ p, anzeige }: StationProps): JSX.Element {
             </li>
             {uebersprungen && (
               <li data-testid="tp-s2-legende-ueber">
-                <i className="tp-s2-segment-ueber" aria-hidden="true" />
+                <i className="tp-s2-segment-ueber tp-muster-ueber" aria-hidden="true" />
                 {t('s2.legende.uebersprungen')}
               </li>
             )}

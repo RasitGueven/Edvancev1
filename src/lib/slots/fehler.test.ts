@@ -22,6 +22,13 @@ describe('slotsFehlerSchluessel', () => {
     expect(slotsFehlerSchluessel({ code: '22023', hint: null })).toBe('fehler.eingabe')
   })
 
+  it('W1: Raum fehlt, Block von–bis, gleicher Raum; SL009 mit Uhrzeit bleibt SL009', () => {
+    expect(slotsFehlerSchluessel({ code: '22023', hint: 'raum_fehlt' })).toBe('fehler.raumFehlt')
+    expect(slotsFehlerSchluessel({ code: '22023', hint: 'von_bis' })).toBe('fehler.vonBis')
+    expect(slotsFehlerSchluessel({ code: '22023', hint: 'gleicher_raum' })).toBe('fehler.gleicherRaum')
+    expect(slotsFehlerSchluessel({ code: 'SL009', hint: 'raum:16:00' })).toBe('fehler.SL009')
+  })
+
   it('kennt Rechte, Nicht-gefunden und Unbekanntes', () => {
     expect(slotsFehlerSchluessel({ code: '42501' })).toBe('fehler.keinRecht')
     expect(slotsFehlerSchluessel({ code: 'P0002' })).toBe('fehler.nichtGefunden')
@@ -30,7 +37,8 @@ describe('slotsFehlerSchluessel', () => {
   })
 
   it('hat für jeden möglichen Schlüssel einen Text', () => {
-    const hinweise = ['nur_am_tag', 'testkonto', 'testlauf_nur_admin', 'eingang', 'zustand', 'name_doppelt', 'zeit_doppelt', 'kein_coach', 'kein_vorschlag']
+    const hinweise = ['nur_am_tag', 'testkonto', 'testlauf_nur_admin', 'eingang', 'zustand', 'name_doppelt', 'zeit_doppelt', 'kein_coach', 'kein_vorschlag',
+      'raum_fehlt', 'von_bis', 'gleicher_raum']
     const codes = ['42501', 'P0002', '22023', 'ZG001', 'XX000']
     for (const h of hinweise) expect(typeof text(slotsFehlerSchluessel({ code: '22023', hint: h }))).toBe('string')
     for (const c of codes) expect(typeof text(slotsFehlerSchluessel({ code: c }))).toBe('string')

@@ -1,10 +1,13 @@
+-- schema-erwartet.sql
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
+
 --
 -- PostgreSQL database dump
 --
 
-\restrict gkUD9cHoI3KQ9O7iY5jN4aKmqgAKP6Q4CG971w1SJSSn8ROSssfwz3Bflyip6Ez
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -13907,6 +13910,10 @@ begin
       v_wahl := array_position(r_ids, k.sess_raum); grund := 'session';
     elsif k.raum_fest and k.stift = any (r_ids) and r_zahl[array_position(r_ids, k.stift)] < 5 then
       v_wahl := array_position(r_ids, k.stift); grund := 'stift';
+    elsif k.raum_fest then
+      -- W1 (Entscheidung 2): Ein fester Termin landet nie still in einem anderen Raum. Sein Raum ist voll
+      -- oder hat keinen Coach: Er bleibt ohne Raum, bis jemand ihn von Hand verschiebt.
+      grund := case when k.stift = any (r_ids) then 'raum_voll' else 'raum_zu' end;
     else
       for i in 1 .. cardinality(r_ids) loop
         if r_zahl[i] < 5 and strpos(r_fach[i], v_fach) > 0 then v_wahl := i; exit; end if;
@@ -14157,7 +14164,11 @@ begin
         'id', p.id, 'name', p.full_name,
         'stammschichten', coalesce((select jsonb_agg(jsonb_build_object(
               'id', s.id, 'wochentag', s.wochentag, 'zeit_id', s.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn),
-              'raum_id', s.raum_id, 'raum_name', r.name, 'gueltig_ab', s.gueltig_ab, 'gueltig_bis', s.gueltig_bis)
+              'raum_id', s.raum_id, 'raum_name', r.name, 'gueltig_ab', s.gueltig_ab, 'gueltig_bis', s.gueltig_bis,
+              'kinder', (select count(distinct sp.student_id) from public.stammplaetze sp
+                          where sp.raum_id = s.raum_id and sp.wochentag = s.wochentag and sp.slot_zeit_id = s.slot_zeit_id
+                            and least(coalesce(sp.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(sp.vertrag_id))
+                                >= greatest(v_mo, sp.gueltig_ab)))
             order by s.wochentag, z.beginn)
             from public.stammschichten s
             join public.slot_zeiten z on z.id = s.slot_zeit_id join public.raeume r on r.id = s.raum_id
@@ -14462,6 +14473,69 @@ $$;
 
 
 --
+-- Name: slots_kandidaten_alle(date, uuid, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_kandidaten_alle(p_datum date, p_zeit_id uuid, p_raum_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS TABLE(student_id uuid, name text, klasse integer, fach text, ist_test boolean, stammplatz_kurz text, stammplaetze jsonb, code text, datum date)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+begin
+  perform public.slots_admin_pruefen('slots_kandidaten_alle');
+  if p_datum is null or p_zeit_id is null then
+    perform public.slots_fehler('22023', 'slots_kandidaten_alle: Datum oder Uhrzeit fehlt');
+  end if;
+  return query
+  with k as (
+    select s.id,
+           public.slots_vertrag_am(s.id, p_datum) as vam,
+           (select v.id from public.vertraege v where v.student_id = s.id and v.status = 'abgeschlossen'
+             order by v.vertragsbeginn desc nulls last limit 1) as vletzt,
+           (select min(v.vertragsbeginn) from public.vertraege v
+             where v.student_id = s.id and v.status = 'abgeschlossen' and v.widerrufen_am is null
+               and v.vertragsbeginn > p_datum) as ab
+      from public.students s
+     where not s.is_provisional
+       and (s.ist_test or exists (select 1 from public.vertraege v where v.student_id = s.id and v.status = 'abgeschlossen'))
+  ),
+  sp as (
+    select x.student_id,
+           string_agg((array['Mo', 'Di', 'Mi', 'Do', 'Fr'])[x.wochentag] || ' ' || public.slots_hhmm(z.beginn)
+                        || coalesce(' · ' || r.name, '')
+                        || case x.takt when 'a_woche' then ' (A-Woche)' when 'b_woche' then ' (B-Woche)' else '' end,
+                      ', ' order by x.wochentag, z.beginn) as kurz,
+           jsonb_agg(jsonb_build_object('wochentag', x.wochentag, 'zeit_id', x.slot_zeit_id,
+                                        'beginn', public.slots_hhmm(z.beginn), 'takt', x.takt,
+                                        'raum_id', x.raum_id, 'raum_name', r.name)
+                     order by x.wochentag, z.beginn) as liste
+      from public.stammplaetze x
+      join public.slot_zeiten z on z.id = x.slot_zeit_id
+      left join public.raeume r on r.id = x.raum_id
+     where least(coalesce(x.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(x.vertrag_id))
+           >= greatest(v_heute, x.gueltig_ab)
+     group by x.student_id
+  )
+  select k.id, i ->> 'name', (i ->> 'klasse')::int, i ->> 'fach', coalesce((i ->> 'ist_test')::boolean, false),
+         sp.kurz, coalesce(sp.liste, '[]'::jsonb),
+         -- W1 (Entscheidung 6): dieselben Regeln wie zusatztermin_buchen, als Grund statt Filter.
+         case when k.vam is not null then public.slots_zusatz_code_raum(k.id, p_datum, p_zeit_id, v_jetzt, p_raum_id)
+              when k.vletzt is null then 'kein_vertrag'
+              when k.ab is not null then 'vertrag_ab'
+              else 'SL006' end,
+         case when k.vam is null and k.vletzt is not null then k.ab end
+    from k
+    cross join lateral public.slots_kind_info(k.id, coalesce(k.vam, k.vletzt)) i
+    left join sp on sp.student_id = k.id
+   order by i ->> 'name', k.id;
+end;
+$$;
+
+
+--
 -- Name: slots_kind(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -14721,12 +14795,12 @@ begin
 
   for c in
     with sp as (
-      select s.id, s.wochentag, s.slot_zeit_id, s.takt, s.gueltig_ab, s.gueltig_bis
+      select s.id, s.wochentag, s.slot_zeit_id, s.takt, s.gueltig_ab, s.gueltig_bis, s.raum_id
         from public.stammplaetze s
        where p_stammplaetze is null and s.vertrag_id = v.id
       union all
       select (x ->> 'stammplatz_id')::uuid, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid,
-             x ->> 'takt', (x ->> 'gueltig_ab')::date, (x ->> 'gueltig_bis')::date
+             x ->> 'takt', (x ->> 'gueltig_ab')::date, (x ->> 'gueltig_bis')::date, nullif(x ->> 'raum_id', '')::uuid
         from jsonb_array_elements(coalesce(p_stammplaetze, '[]'::jsonb)) x
     ),
     gesperrt as (
@@ -14739,7 +14813,7 @@ begin
        where e.attendance in ('planned', 'present', 'unexcused')
     ),
     kand as (
-      select g::date as d, sp.slot_zeit_id as z, sp.id as sp_id, z.beginn
+      select g::date as d, sp.slot_zeit_id as z, sp.id as sp_id, sp.raum_id as r, z.beginn
         from sp
         join public.slot_zeiten z on z.id = sp.slot_zeit_id
         cross join lateral generate_series(greatest(v_von, sp.gueltig_ab),
@@ -14750,11 +14824,14 @@ begin
          and public.slots_zeit_aktiv(sp.slot_zeit_id, g::date)
          and g::date not in (select gesperrt.datum from gesperrt)
     )
-    select k.d, k.z, k.sp_id,
+    -- W1: Ein vorhandener Termin zählt für einen Stammplatz mit Raum nur, wenn er zu diesem Stammplatz gehört
+    -- oder schon fest in dessen Raum sitzt; sonst wird er wie ein neuer Termin geprüft (Raum gewechselt).
+    select k.d, k.z, k.sp_id, k.r,
            exists (select 1 from public.kind_termine kt
                     where kt.student_id = v.student_id and kt.datum = k.d and kt.slot_zeit_id = k.z
                       and kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null
-                      and kt.datum >= p_heute) as da
+                      and kt.datum >= p_heute
+                      and (k.r is null or kt.stammplatz_id = k.sp_id or (kt.raum_fest and kt.raum_id = k.r))) as da
       from kand k
      order by k.d, k.beginn
   loop
@@ -14765,6 +14842,15 @@ begin
       ergebnis := 'ohne_budget';
     elsif c.da then
       ergebnis := 'vorhanden'; v_rest := v_rest - 1;
+    elsif c.r is not null then
+      -- W1 (Entscheidung 2): Stammplatz mit Raum nur in diesen Raum, wenn er offen ist und Platz hat.
+      if public.slots_raum_offen(c.d, c.z, c.r)
+         and public.slots_raum_platz(c.d, c.z, c.r, v.student_id)
+         and not public.slots_art_konflikt(v.student_id, c.d, c.z) then
+        ergebnis := 'neu'; v_rest := v_rest - 1;
+      else
+        ergebnis := 'uebersprungen';
+      end if;
     -- SL2b (Entscheidung 4): ein Termin mit Kindern der anderen Art zählt wie ein voller Slot.
     elsif public.slot_kapazitaet(c.d, c.z) - public.slot_belegt(c.d, c.z, v.student_id) > 0
           and not public.slots_art_konflikt(v.student_id, c.d, c.z) then
@@ -14894,14 +14980,14 @@ begin
 
   select coalesce(jsonb_agg(jsonb_build_object(
            'stammplatz_id', s.id, 'wochentag', s.wochentag, 'slot_zeit_id', s.slot_zeit_id, 'takt', s.takt,
-           'gueltig_ab', s.gueltig_ab,
+           'gueltig_ab', s.gueltig_ab, 'raum_id', s.raum_id,
            'gueltig_bis', case when s.id = any (coalesce(v_ersetzt, '{}'))
                                then greatest(s.gueltig_ab - 1, p_ab - 1) else s.gueltig_bis end)), '[]')
     into v_sp
     from public.stammplaetze s where s.vertrag_id = v_vertrag;
   select v_sp || coalesce(jsonb_agg(jsonb_build_object(
            'stammplatz_id', null, 'wochentag', (x ->> 'wochentag')::int, 'slot_zeit_id', x ->> 'slot_zeit_id',
-           'takt', x ->> 'takt', 'gueltig_ab', p_ab, 'gueltig_bis', null)), '[]')
+           'takt', x ->> 'takt', 'gueltig_ab', p_ab, 'gueltig_bis', null, 'raum_id', x ->> 'raum_id')), '[]')
     into v_sp
     from jsonb_array_elements(coalesce(p_zeilen, '[]')) x;
 
@@ -14947,6 +15033,80 @@ CREATE FUNCTION public.slots_planungsgrenze() RETURNS date
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select max(f.bis) from public.ferien_nrw f;
+$$;
+
+
+--
+-- Name: slots_raum_belegt(date, uuid, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_raum_belegt(p_datum date, p_slot_zeit_id uuid, p_raum_id uuid, p_ohne_student uuid DEFAULT NULL::uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select count(*)::int from public.kind_termine kt
+    left join public.coaching_sessions cs on cs.id = kt.session_id
+   where kt.datum = p_datum and kt.slot_zeit_id = p_slot_zeit_id
+     and kt.zustand in ('planned', 'present')
+     and kt.student_id is distinct from p_ohne_student
+     and coalesce(cs.raum_id, case when kt.raum_fest then kt.raum_id end) = p_raum_id;
+$$;
+
+
+--
+-- Name: slots_raum_offen(date, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_raum_offen(p_datum date, p_slot_zeit_id uuid, p_raum_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.slot_raeume(p_datum, p_datum) r
+                  where r.slot_zeit_id = p_slot_zeit_id and r.raum_id = p_raum_id and r.offen);
+$$;
+
+
+--
+-- Name: slots_raum_pflicht(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_raum_pflicht() RETURNS boolean
+    LANGUAGE plpgsql STABLE
+    AS $$
+begin
+  -- W1 (Entscheidung 1): Jeder neue oder geänderte Stammplatz braucht einen Raum. Die Tests für Stammplätze
+  -- ohne Raum (Altbestand) ersetzen diese Funktion in ihrer eigenen Transaktion.
+  return true;
+end;
+$$;
+
+
+--
+-- Name: slots_raum_platz(date, uuid, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_raum_platz(p_datum date, p_slot_zeit_id uuid, p_raum_id uuid, p_ohne_student uuid DEFAULT NULL::uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.slots_raum_belegt(p_datum, p_slot_zeit_id, p_raum_id, p_ohne_student) < 5
+     and public.slot_belegt(p_datum, p_slot_zeit_id, p_ohne_student) < public.slot_kapazitaet(p_datum, p_slot_zeit_id);
+$$;
+
+
+--
+-- Name: slots_raum_pruefen(jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_raum_pruefen(p_zeilen jsonb, p_wer text) RETURNS void
+    LANGUAGE plpgsql STABLE
+    AS $$
+begin
+  if public.slots_raum_pflicht()
+     and exists (select 1 from jsonb_array_elements(coalesce(p_zeilen, '[]')) x where nullif(x ->> 'raum_id', '') is null) then
+    perform public.slots_fehler('22023', p_wer || ': Raum fehlt', 'raum_fehlt');
+  end if;
+end;
 $$;
 
 
@@ -15017,12 +15177,15 @@ begin
   end if;
 
   for z in
-    select (x.o - 1)::int as i, (x.v ->> 'wochentag')::int as w, (x.v ->> 'slot_zeit_id')::uuid as sz, x.v ->> 'takt' as t
+    select (x.o - 1)::int as i, (x.v ->> 'wochentag')::int as w, (x.v ->> 'slot_zeit_id')::uuid as sz, x.v ->> 'takt' as t,
+           nullif(x.v ->> 'raum_id', '')::uuid as r
       from jsonb_array_elements(coalesce(p_zeilen, '[]')) with ordinality x(v, o)
   loop
     if z.w is null or z.w not between 1 and 5 or z.t is null or z.t not in ('woechentlich', 'a_woche', 'b_woche')
-       or z.sz is null or not public.slots_zeit_aktiv(z.sz, coalesce(p_ab, p_heute)) then
-      perform public.slots_fehler('22023', 'Stammplatz: Zeile ' || (z.i + 1) || ' ist unvollständig oder die Uhrzeit ist nicht aktiv');
+       or z.sz is null or not public.slots_zeit_aktiv(z.sz, coalesce(p_ab, p_heute))
+       or (z.r is not null and not exists (select 1 from public.raeume x
+                                            where x.id = z.r and (x.inaktiv_ab is null or coalesce(p_ab, p_heute) < x.inaktiv_ab))) then
+      perform public.slots_fehler('22023', 'Stammplatz: Zeile ' || (z.i + 1) || ' ist unvollständig oder Uhrzeit bzw. Raum ist nicht aktiv');
     end if;
 
     -- SL008: zwei Stammplätze, die auf denselben Tag fallen können (gleicher Wochentag, Takte überlappen).
@@ -15041,23 +15204,43 @@ begin
       end if;
     end loop;
 
-    -- SL002 / SL001: einer der nächsten sechs Termine ab "gültig ab" ohne Raum oder voll.
-    -- SL2b (Entscheidung 4): SL013, wenn dort schon ein Kind der anderen Art sitzt (vor SL001).
-    for f in
-      select * from public.slots_naechste_termine_frei(z.w, z.sz, z.t, greatest(p_ab, p_heute), p_student_id)
-       order by datum
-    loop
-      if f.kapazitaet = 0 then
-        v_out := v_out || jsonb_build_object('code', 'SL002', 'zeile', z.i, 'datum', f.datum);
-        exit;
-      elsif public.slots_art_konflikt(p_student_id, f.datum, z.sz) then
-        v_out := v_out || jsonb_build_object('code', 'SL013', 'zeile', z.i, 'datum', f.datum);
-        exit;
-      elsif f.belegt >= f.kapazitaet then
-        v_out := v_out || jsonb_build_object('code', 'SL001', 'zeile', z.i, 'datum', f.datum);
-        exit;
-      end if;
-    end loop;
+    if z.r is not null then
+      -- W1 (Entscheidung 3): je Raum. SL002 = dieser Raum hat zu der Zeit keinen Coach, SL001 = dieser Raum ist voll.
+      for f in
+        select x.datum from public.slots_naechste_termine_frei(z.w, z.sz, z.t, greatest(p_ab, p_heute), p_student_id) x
+         order by x.datum
+      loop
+        if not public.slots_raum_offen(f.datum, z.sz, z.r) then
+          v_out := v_out || jsonb_build_object('code', 'SL002', 'zeile', z.i, 'datum', f.datum);
+          exit;
+        elsif public.slots_art_konflikt(p_student_id, f.datum, z.sz) then
+          v_out := v_out || jsonb_build_object('code', 'SL013', 'zeile', z.i, 'datum', f.datum);
+          exit;
+        elsif not public.slots_raum_platz(f.datum, z.sz, z.r, p_student_id) then
+          v_out := v_out || jsonb_build_object('code', 'SL001', 'zeile', z.i, 'datum', f.datum);
+          exit;
+        end if;
+      end loop;
+    else
+      -- Ohne Raum (Altbestand, Vorschau ohne Raum): je Slot wie bisher.
+      -- SL002 / SL001: einer der nächsten sechs Termine ab "gültig ab" ohne Raum oder voll.
+      -- SL2b (Entscheidung 4): SL013, wenn dort schon ein Kind der anderen Art sitzt (vor SL001).
+      for f in
+        select * from public.slots_naechste_termine_frei(z.w, z.sz, z.t, greatest(p_ab, p_heute), p_student_id)
+         order by datum
+      loop
+        if f.kapazitaet = 0 then
+          v_out := v_out || jsonb_build_object('code', 'SL002', 'zeile', z.i, 'datum', f.datum);
+          exit;
+        elsif public.slots_art_konflikt(p_student_id, f.datum, z.sz) then
+          v_out := v_out || jsonb_build_object('code', 'SL013', 'zeile', z.i, 'datum', f.datum);
+          exit;
+        elsif f.belegt >= f.kapazitaet then
+          v_out := v_out || jsonb_build_object('code', 'SL001', 'zeile', z.i, 'datum', f.datum);
+          exit;
+        end if;
+      end loop;
+    end if;
   end loop;
   return v_out;
 end;
@@ -15074,8 +15257,20 @@ CREATE FUNCTION public.slots_stammplatz_json(p_id uuid) RETURNS jsonb
     AS $$
   select jsonb_build_object('id', s.id, 'wochentag', s.wochentag, 'zeit_id', s.slot_zeit_id,
                             'beginn', public.slots_hhmm(z.beginn), 'takt', s.takt,
-                            'gueltig_ab', s.gueltig_ab, 'gueltig_bis', s.gueltig_bis, 'vorgaenger_id', s.vorgaenger_id)
-    from public.stammplaetze s join public.slot_zeiten z on z.id = s.slot_zeit_id
+                            'gueltig_ab', s.gueltig_ab, 'gueltig_bis', s.gueltig_bis, 'vorgaenger_id', s.vorgaenger_id,
+                            'raum_id', s.raum_id, 'raum_name', r.name, 'coach_id', c.coach_id, 'coach_name', p.full_name)
+    from public.stammplaetze s
+    join public.slot_zeiten z on z.id = s.slot_zeit_id
+    left join public.raeume r on r.id = s.raum_id
+    left join lateral (
+      select x.coach_id from public.stammschichten x
+       where x.raum_id = s.raum_id and x.wochentag = s.wochentag and x.slot_zeit_id = s.slot_zeit_id
+         and x.gueltig_ab <= greatest(s.gueltig_ab, public.slots_berlin_tag(now()))
+         and coalesce(x.gueltig_bis, 'infinity'::date) >= greatest(s.gueltig_ab, public.slots_berlin_tag(now()))
+       order by x.gueltig_ab desc
+       limit 1
+    ) c on true
+    left join public.profiles p on p.id = c.coach_id
    where s.id = p_id;
 $$;
 
@@ -15098,14 +15293,31 @@ begin
                'zeit_id', r.slot_zeit_id, 'beginn', public.slots_hhmm(z.beginn), 'ende', public.slots_hhmm(z.ende),
                'raum_id', r.raum_id, 'raum_name', r.raum_name,
                'coach_id', r.coach_id, 'coach_name', (select p.full_name from public.profiles p where p.id = r.coach_id),
-               'art', r.art, 'kapazitaet', 5,
-               'belegt', (select count(*) from public.slot_zuteilung(p_datum, r.slot_zeit_id) t where t.raum_id = r.raum_id),
+               'art', r.art, 'offen', r.offen, 'kapazitaet', 5,
+               'belegt', b.belegt + b.zu,
                'session_id', s.id, 'gestartet', s.gestartet_am is not null, 'status', s.status)
              order by z.beginn, r.raum_name)
-        from public.slot_raeume(p_datum, p_datum) r
+        from (
+          select x.slot_zeit_id, x.raum_id, x.raum_name, x.coach_id, x.art, x.offen
+            from public.slot_raeume(p_datum, p_datum) x
+          union all
+          -- W1: Räume mit festen Kindern, aber ohne Schicht und ohne Abweichung.
+          select f.slot_zeit_id, y.id, y.name, null::uuid, 'ohne_schicht', false
+            from (select distinct kt.slot_zeit_id, kt.raum_id from public.kind_termine kt
+                   where kt.datum = p_datum and kt.raum_fest and kt.zustand in ('planned', 'present')) f
+            join public.raeume y on y.id = f.raum_id
+           where not exists (select 1 from public.slot_raeume(p_datum, p_datum) w
+                              where w.slot_zeit_id = f.slot_zeit_id and w.raum_id = f.raum_id)
+        ) r
         join public.slot_zeiten z on z.id = r.slot_zeit_id
         left join lateral (select * from public.slots_session(p_datum, r.slot_zeit_id, r.raum_id)) s on true
-       where r.offen or s.id is not null), '[]'),
+        cross join lateral (
+          select count(*) filter (where t.raum_id = r.raum_id) as belegt,
+                 count(*) filter (where t.grund = 'raum_zu' and kt.raum_id = r.raum_id) as zu
+            from public.slot_zuteilung(p_datum, r.slot_zeit_id) t
+            join public.kind_termine kt on kt.id = t.termin_id
+        ) b
+       where r.offen or s.id is not null or b.zu > 0), '[]'),
     -- Sessions ohne Raum-Termin: Einzel-Sessions und Testläufe, jede genau einmal.
     'sessions_ohne_raum', coalesce((
       select jsonb_agg(jsonb_build_object(
@@ -15169,7 +15381,7 @@ begin
   v_beginn := public.slots_termin_beginn(p_datum, p_zeit_id);
 
   with t as (
-    select t.termin_id, t.raum_id, t.grund,
+    select t.termin_id, t.raum_id, t.grund, case when t.grund = 'raum_zu' then kt.raum_id end as zu_raum,
            public.slots_kind_info(kt.student_id, kt.vertrag_id) || jsonb_build_object(
              'termin_id', kt.id, 'herkunft', kt.herkunft, 'zustand', kt.zustand, 'raum_fest', kt.raum_fest,
              'session_id', kt.session_id,
@@ -15180,7 +15392,14 @@ begin
       from public.slot_zuteilung(p_datum, p_zeit_id) t
       join public.kind_termine kt on kt.id = t.termin_id
   ),
-  r as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id)
+  r0 as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id),
+  -- W1: Räume mit festen Kindern ohne Coach stehen mit ihren Kindern in der Liste (offen = false).
+  r as (
+    select r0.raum_id, r0.raum_name, r0.offen, r0.art, r0.coach_id, r0.stamm_coach_id from r0
+    union all
+    select x.id, x.name, false, 'ohne_schicht', null::uuid, null::uuid from public.raeume x
+     where x.id in (select t.zu_raum from t) and not x.id in (select r0.raum_id from r0)
+  )
   select coalesce(jsonb_agg(jsonb_build_object(
            'raum_id', r.raum_id, 'name', r.raum_name, 'offen', r.offen, 'art', r.art,
            'coach_id', r.coach_id, 'coach_name', (select p.full_name from public.profiles p where p.id = r.coach_id),
@@ -15188,10 +15407,12 @@ begin
            'stamm_coach_name', (select p.full_name from public.profiles p where p.id = r.stamm_coach_id),
            'vertretung', r.art = 'vertretung',
            'session_id', s.id, 'gestartet', s.gestartet_am is not null,
-           'gemischt', (select count(distinct coalesce(t.kind ->> 'fach', '')) from t where t.raum_id = r.raum_id) > 1,
-           'kinder', coalesce((select jsonb_agg(t.kind order by t.kind ->> 'name') from t where t.raum_id = r.raum_id), '[]'))
+           'gemischt', (select count(distinct coalesce(t.kind ->> 'fach', '')) from t
+                         where t.raum_id = r.raum_id or t.zu_raum = r.raum_id) > 1,
+           'kinder', coalesce((select jsonb_agg(t.kind order by t.kind ->> 'name') from t
+                                where t.raum_id = r.raum_id or t.zu_raum = r.raum_id), '[]'))
          order by r.raum_name), '[]'),
-         coalesce((select jsonb_agg(t.kind order by t.kind ->> 'name') from t where t.raum_id is null), '[]')
+         coalesce((select jsonb_agg(t.kind order by t.kind ->> 'name') from t where t.raum_id is null and t.zu_raum is null), '[]')
     into v_raeume, v_ohne
     from r
     left join lateral (select * from public.slots_session(p_datum, p_zeit_id, r.raum_id)) s on true;
@@ -15214,6 +15435,7 @@ begin
     'zeit', jsonb_build_object('id', z.id, 'beginn', public.slots_hhmm(z.beginn), 'ende', public.slots_hhmm(z.ende)),
     'betrieb', public.betriebstag(p_datum), 'anlass', public.slots_anlass(p_datum),
     'heute', p_datum = v_heute, 'vergangen', p_datum < v_heute, 'begonnen', v_beginn <= v_jetzt,
+    'laeuft', v_beginn <= v_jetzt and v_beginn + interval '1 hour' > v_jetzt,
     'festgeschrieben', exists (select 1 from public.coaching_sessions cs
                                 where cs.slot_zeit_id = p_zeit_id and cs.scheduled_at = v_beginn),
     'kapazitaet', public.slot_kapazitaet(p_datum, p_zeit_id),
@@ -15408,7 +15630,7 @@ CREATE FUNCTION public.slots_weiterfuehren_vorschlag(p_student_id uuid, p_heute 
            'vertrag_id', n.id, 'ab', n.ab,
            'zeilen', coalesce((select jsonb_agg(jsonb_build_object('vorgaenger_id', s.id, 'wochentag', s.wochentag,
                                                                     'slot_zeit_id', s.slot_zeit_id, 'takt', s.takt,
-                                                                    'beginn', z.beginn)
+                                                                    'beginn', z.beginn, 'raum_id', s.raum_id)
                                                 order by s.wochentag, z.beginn)
                                  from public.stammplaetze s join public.slot_zeiten z on z.id = s.slot_zeit_id
                                 where s.vertrag_id = n.vorgaenger_id
@@ -15453,19 +15675,23 @@ begin
 
   select coalesce(jsonb_agg(public.slots_zelle(g::date, z.id)
                             || jsonb_build_object('datum', g::date, 'zeit_id', z.id,
-                                                  'vergangen', public.slots_termin_beginn(g::date, z.id) <= v_jetzt)
+                                                  'vergangen', public.slots_termin_beginn(g::date, z.id) <= v_jetzt,
+                                                  -- W1: Die Stunde läuft gerade (für „läuft gerade“ im Raster).
+                                                  'laeuft', public.slots_termin_beginn(g::date, z.id) <= v_jetzt
+                                                            and public.slots_termin_beginn(g::date, z.id) + interval '1 hour' > v_jetzt)
                             order by g, z.beginn), '[]')
     into v_zellen
     from generate_series(v_mo, v_mo + 4, interval '1 day') g
     join public.slot_zeiten z on z.aktiv_ab <= g::date and (z.inaktiv_ab is null or g::date < z.inaktiv_ab)
    where public.betriebstag(g::date);
 
-  -- SL2b (Entscheidung 3): Die Kennzahlen zählen Testkonten nicht mit.
-  select jsonb_build_object('ohne_stammplatz', count(*) filter (where b.ohne_stammplatz),
-                            'ohne_stammplatz_laufend', count(*) filter (where b.ohne_stammplatz and b.laeuft))
+  -- SL2b (Entscheidung 3): Die Kennzahlen zählen Testkonten nicht mit. W1 (Entscheidung 7): daneben stehen sie sichtbar.
+  select jsonb_build_object('ohne_stammplatz', count(*) filter (where b.ohne_stammplatz and not s.ist_test),
+                            'ohne_stammplatz_laufend', count(*) filter (where b.ohne_stammplatz and b.laeuft and not s.ist_test),
+                            'ohne_stammplatz_test', count(*) filter (where b.ohne_stammplatz and s.ist_test))
     into v_kinder
     from public.slots_kinder_basis(v_heute) b
-    join public.students s on s.id = b.student_id and not s.ist_test;
+    join public.students s on s.id = b.student_id;
 
   return jsonb_build_object(
     'montag', v_mo, 'kw', extract(week from v_mo)::int, 'a_woche', extract(week from v_mo)::int % 2 = 1,
@@ -15474,17 +15700,24 @@ begin
     'kopf', jsonb_build_object(
       'plaetze', (select coalesce(sum((c ->> 'kapazitaet')::int), 0) from jsonb_array_elements(v_zellen) c),
       'belegt', (select coalesce(sum((c ->> 'belegt')::int - (c ->> 'test')::int), 0) from jsonb_array_elements(v_zellen) c),
+      'belegt_test', (select coalesce(sum((c ->> 'test')::int), 0) from jsonb_array_elements(v_zellen) c),
       'auslastung', (select case when sum((c ->> 'kapazitaet')::int) > 0
                                  then round(sum((c ->> 'belegt')::int - (c ->> 'test')::int)::numeric
                                             / sum((c ->> 'kapazitaet')::int), 3) end
                        from jsonb_array_elements(v_zellen) c),
+      'auslastung_mit_test', (select case when sum((c ->> 'kapazitaet')::int) > 0
+                                          then round(sum((c ->> 'belegt')::int)::numeric / sum((c ->> 'kapazitaet')::int), 3) end
+                                from jsonb_array_elements(v_zellen) c),
+      'raeume_ohne_coach', (select count(*) from jsonb_array_elements(v_zellen) c, jsonb_array_elements(c -> 'raeume') r
+                             where not (r ->> 'offen')::boolean and (r ->> 'belegt')::int > 0),
       'ohne_raum', (select coalesce(sum((c ->> 'ohne_raum')::int - (c ->> 'test_ohne_raum')::int), 0)
                       from jsonb_array_elements(v_zellen) c),
       'erster_ohne_raum', (select jsonb_build_object('datum', c -> 'datum', 'zeit_id', c -> 'zeit_id')
                              from jsonb_array_elements(v_zellen) with ordinality x(c, o)
                             where (c ->> 'ohne_raum')::int - (c ->> 'test_ohne_raum')::int > 0 order by o limit 1),
       'ohne_stammplatz', v_kinder -> 'ohne_stammplatz',
-      'ohne_stammplatz_laufend', v_kinder -> 'ohne_stammplatz_laufend'));
+      'ohne_stammplatz_laufend', v_kinder -> 'ohne_stammplatz_laufend',
+      'ohne_stammplatz_test', v_kinder -> 'ohne_stammplatz_test'));
 end;
 $$;
 
@@ -15589,23 +15822,33 @@ CREATE FUNCTION public.slots_zelle(p_datum date, p_zeit_id uuid) RETURNS jsonb
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  with r as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id),
+  with r0 as (select * from public.slot_raeume(p_datum, p_datum) x where x.slot_zeit_id = p_zeit_id),
   t as (
-    select t.*, kt.vertrag_id, s.ist_test from public.slot_zuteilung(p_datum, p_zeit_id) t
+    select t.*, kt.vertrag_id, s.ist_test, case when t.grund = 'raum_zu' then kt.raum_id end as zu_raum
+      from public.slot_zuteilung(p_datum, p_zeit_id) t
       join public.kind_termine kt on kt.id = t.termin_id
       join public.students s on s.id = t.student_id
+  ),
+  -- W1 (Entscheidung 7): Räume mit festen Kindern, aber ohne Coach, stehen mit offen = false in der Liste.
+  r as (
+    select r0.raum_id, r0.raum_name, r0.offen, r0.art, r0.coach_id, r0.stamm_coach_id from r0
+    union all
+    select x.id, x.name, false, 'ohne_schicht', null::uuid, null::uuid from public.raeume x
+     where x.id in (select t.zu_raum from t) and not x.id in (select r0.raum_id from r0)
   )
   select jsonb_build_object(
     'kapazitaet', 5 * (select count(*) from r where r.offen),
     'belegt', (select count(*) from t),
-    'ohne_raum', (select count(*) from t where t.raum_id is null),
+    -- W1: Kinder im Raum ohne Coach zählen dort (raeume[].belegt), nicht zusätzlich als ohne Raum.
+    'ohne_raum', (select count(*) from t where t.raum_id is null and t.zu_raum is null),
     -- SL2b (Entscheidungen 2 und 3): davon Testkonten. belegt zählt sie mit, der Platz ist belegt.
     'test', (select count(*) from t where t.ist_test),
-    'test_ohne_raum', (select count(*) from t where t.ist_test and t.raum_id is null),
+    'test_ohne_raum', (select count(*) from t where t.ist_test and t.raum_id is null and t.zu_raum is null),
     'coach_fehlt', (select count(*) from r where r.art = 'faellt_aus' and r.stamm_coach_id is not null),
     'raeume', coalesce((select jsonb_agg(jsonb_build_object(
                  'raum_id', r.raum_id, 'name', r.raum_name, 'offen', r.offen, 'art', r.art,
-                 'coach_id', r.coach_id, 'belegt', (select count(*) from t where t.raum_id = r.raum_id))
+                 'coach_id', r.coach_id, 'coach_name', (select p.full_name from public.profiles p where p.id = r.coach_id),
+                 'belegt', (select count(*) from t where t.raum_id = r.raum_id or t.zu_raum = r.raum_id))
                order by r.raum_name) from r), '[]'),
     'faecher', coalesce((select jsonb_agg(jsonb_build_object('fach', f.fach, 'zahl', f.n) order by f.n desc, f.fach)
                            from (select t.fach, count(*) as n from t group by t.fach) f), '[]'));
@@ -15721,6 +15964,57 @@ $$;
 
 
 --
+-- Name: slots_zusatz_code_raum(uuid, date, uuid, timestamp with time zone, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slots_zusatz_code_raum(p_student_id uuid, p_datum date, p_slot_zeit_id uuid, p_jetzt timestamp with time zone, p_raum_id uuid) RETURNS text
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_vertrag uuid := public.slots_vertrag_am(p_student_id, p_datum);
+begin
+  if p_raum_id is null then
+    return public.slots_zusatz_code(p_student_id, p_datum, p_slot_zeit_id, p_jetzt);
+  end if;
+  if v_vertrag is null or not public.slots_kind_zugelassen(p_student_id) then
+    return 'SL006';
+  end if;
+  if p_datum > public.slots_planungsgrenze() then
+    return 'SL012';
+  end if;
+  if public.slots_termin_beginn(p_datum, p_slot_zeit_id) <= p_jetzt then
+    return 'SL007';
+  end if;
+  if not public.slots_raum_offen(p_datum, p_slot_zeit_id, p_raum_id) then
+    return 'SL002';
+  end if;
+  if exists (select 1 from public.kind_termine kt
+              where kt.student_id = p_student_id and kt.datum = p_datum
+                and kt.zustand in ('planned', 'present', 'unexcused'))
+     or exists (select 1 from public.slots_einzelbuchungen(p_student_id) e
+                 where e.datum = p_datum and e.attendance in ('planned', 'present', 'unexcused')) then
+    return 'SL003';
+  end if;
+  if public.slots_woche_aktiv(p_student_id, p_datum) + 1 > public.slots_wochengrenze(p_student_id, p_datum) then
+    return 'SL004';
+  end if;
+  if public.slots_art_konflikt(p_student_id, p_datum, p_slot_zeit_id) then
+    return 'SL013';
+  end if;
+  if not public.slots_raum_platz(p_datum, p_slot_zeit_id, p_raum_id, p_student_id) then
+    return 'SL001';
+  end if;
+  if (select v.einheiten from public.vertraege v where v.id = v_vertrag)
+     - public.slots_fest_belegt(v_vertrag, public.slots_berlin_tag(p_jetzt)) < 1 then
+    return 'SL005';
+  end if;
+  return null;
+end;
+$$;
+
+
+--
 -- Name: sofort_session_anlegen(uuid, uuid, uuid[], timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -15821,13 +16115,15 @@ begin
   if v_vor is null or jsonb_array_length(v_vor -> 'zeilen') = 0 then
     perform public.slots_fehler('P0002', 'stammplaetze_weiterfuehren: kein Folgevertrag mit Vorschlag', 'kein_vorschlag');
   end if;
+  perform public.slots_raum_pruefen(v_vor -> 'zeilen', 'stammplaetze_weiterfuehren');
   perform public.slots_gruende_werfen(
     public.slots_stammplatz_gruende(p_student_id, v_vor -> 'zeilen', (v_vor ->> 'ab')::date, v_heute));
 
   with neu as (
-    insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, vorgaenger_id, angelegt_von)
+    insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, vorgaenger_id,
+                                     raum_id, angelegt_von)
     select p_student_id, (v_vor ->> 'vertrag_id')::uuid, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid,
-           x ->> 'takt', (v_vor ->> 'ab')::date, (x ->> 'vorgaenger_id')::uuid, auth.uid()
+           x ->> 'takt', (v_vor ->> 'ab')::date, (x ->> 'vorgaenger_id')::uuid, nullif(x ->> 'raum_id', '')::uuid, auth.uid()
       from jsonb_array_elements(v_vor -> 'zeilen') x
     returning id
   )
@@ -15841,10 +16137,10 @@ $$;
 
 
 --
--- Name: stammplatz_aendern(uuid, date, integer, uuid, text, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+-- Name: stammplatz_aendern(uuid, date, integer, uuid, text, timestamp with time zone, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.stammplatz_aendern(p_id uuid, p_ab date, p_wochentag integer, p_slot_zeit_id uuid, p_takt text, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+CREATE FUNCTION public.stammplatz_aendern(p_id uuid, p_ab date, p_wochentag integer, p_slot_zeit_id uuid, p_takt text, p_jetzt timestamp with time zone DEFAULT now(), p_raum_id uuid DEFAULT NULL::uuid) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -15852,7 +16148,8 @@ declare
   v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
   v_heute date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
   s       public.stammplaetze;
-  v_zeile jsonb := jsonb_build_array(jsonb_build_object('wochentag', p_wochentag, 'slot_zeit_id', p_slot_zeit_id, 'takt', p_takt));
+  v_raum  uuid;
+  v_zeile jsonb;
   v_id    uuid;
 begin
   perform public.slots_admin_pruefen('stammplatz_aendern');
@@ -15864,6 +16161,11 @@ begin
   if coalesce(s.gueltig_bis, 'infinity'::date) < p_ab then
     perform public.slots_fehler('22023', 'stammplatz_aendern: Stammplatz ist zu diesem Datum schon beendet');
   end if;
+  -- W1: Ohne p_raum_id bleibt der Raum des bisherigen Stammplatzes; ohne beide fehlt der Raum.
+  v_raum := coalesce(p_raum_id, s.raum_id);
+  v_zeile := jsonb_build_array(jsonb_build_object('wochentag', p_wochentag, 'slot_zeit_id', p_slot_zeit_id,
+                                                  'takt', p_takt, 'raum_id', v_raum));
+  perform public.slots_raum_pruefen(v_zeile, 'stammplatz_aendern');
   perform public.slots_gruende_werfen(
     public.slots_stammplatz_gruende(s.student_id, v_zeile, p_ab, v_heute, array[p_id]));
 
@@ -15872,9 +16174,9 @@ begin
      set gueltig_bis = greatest(s.gueltig_ab - 1, p_ab - 1), beendet_am = now(), beendet_von = auth.uid()
    where id = p_id;
   insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, gueltig_bis,
-                                   vorgaenger_id, angelegt_von)
+                                   vorgaenger_id, raum_id, angelegt_von)
   values (s.student_id, coalesce(public.slots_vertrag_am(s.student_id, p_ab), s.vertrag_id), p_wochentag,
-          p_slot_zeit_id, p_takt, p_ab, s.gueltig_bis, p_id, auth.uid())
+          p_slot_zeit_id, p_takt, p_ab, s.gueltig_bis, p_id, v_raum, auth.uid())
   returning id into v_id;
 
   perform public.termine_planen(s.student_id, v_jetzt);
@@ -15940,12 +16242,14 @@ begin
   if jsonb_typeof(p_zeilen) is distinct from 'array' or jsonb_array_length(p_zeilen) = 0 then
     perform public.slots_fehler('22023', 'stammplatz_vergeben: keine Zeilen');
   end if;
+  perform public.slots_raum_pruefen(p_zeilen, 'stammplatz_vergeben');
   perform public.slots_gruende_werfen(public.slots_stammplatz_gruende(p_student_id, p_zeilen, p_ab, v_heute));
   v_vertrag := public.slots_vertrag_am(p_student_id, p_ab);
 
   with neu as (
-    insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, angelegt_von)
-    select p_student_id, v_vertrag, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid, x ->> 'takt', p_ab, auth.uid()
+    insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, raum_id, angelegt_von)
+    select p_student_id, v_vertrag, (x ->> 'wochentag')::smallint, (x ->> 'slot_zeit_id')::uuid, x ->> 'takt', p_ab,
+           nullif(x ->> 'raum_id', '')::uuid, auth.uid()
       from jsonb_array_elements(p_zeilen) x
     returning id
   )
@@ -15954,6 +16258,87 @@ begin
   perform public.termine_planen(p_student_id, v_jetzt);
   return jsonb_build_object('stammplatz_ids', to_jsonb(v_ids),
                             'planbilanz', public.slots_planbilanz(v_vertrag, v_heute));
+end;
+$$;
+
+
+--
+-- Name: stammplatz_vorschau(uuid, integer, uuid, uuid, text, date, uuid[], timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammplatz_vorschau(p_student_id uuid, p_wochentag integer, p_slot_zeit_id uuid, p_raum_id uuid, p_takt text, p_ab date, p_ersetzt uuid[] DEFAULT NULL::uuid[], p_jetzt timestamp with time zone DEFAULT now()) RETURNS TABLE(datum date, ergebnis text, anlass text, belegt integer, coach_id uuid, coach_name text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_heute   date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  v_ab      date := greatest(coalesce(p_ab, v_heute), v_heute);
+  v_erster  date;
+  v_vertrag uuid;
+  v_sp      jsonb;
+  v_plan    jsonb := '[]';
+  v_coach   uuid;
+  d         date;
+  i         integer;
+begin
+  perform public.slots_admin_pruefen('stammplatz_vorschau');
+  if p_wochentag is null or p_wochentag not between 1 and 5 or p_slot_zeit_id is null or p_raum_id is null
+     or p_takt is null or p_takt not in ('woechentlich', 'a_woche', 'b_woche') then
+    perform public.slots_fehler('22023', 'stammplatz_vorschau: Wochentag, Uhrzeit, Raum oder Takt fehlt');
+  end if;
+  v_erster := v_ab + (p_wochentag - extract(isodow from v_ab)::int + 7) % 7;
+  v_vertrag := coalesce(public.slots_vertrag_am(p_student_id, v_erster), public.slots_vertrag(p_student_id, v_heute));
+
+  -- Budget wie die Planung: bestehende Stammplätze des Vertrags plus dieser. Ab p_ab ersetzt sind p_ersetzt (Ändern),
+  -- ohne Angabe die am selben Wochentag.
+  if v_vertrag is not null then
+    select coalesce(jsonb_agg(jsonb_build_object(
+             'stammplatz_id', s.id, 'wochentag', s.wochentag, 'slot_zeit_id', s.slot_zeit_id, 'takt', s.takt,
+             'gueltig_ab', s.gueltig_ab, 'raum_id', s.raum_id,
+             'gueltig_bis', case when (case when p_ersetzt is null then s.wochentag = p_wochentag else s.id = any (p_ersetzt) end)
+                                      and coalesce(s.gueltig_bis, v_ab) >= v_ab
+                                 then greatest(s.gueltig_ab - 1, v_ab - 1) else s.gueltig_bis end)), '[]')
+      into v_sp
+      from public.stammplaetze s where s.vertrag_id = v_vertrag;
+    v_sp := v_sp || jsonb_build_array(jsonb_build_object(
+              'stammplatz_id', null, 'wochentag', p_wochentag, 'slot_zeit_id', p_slot_zeit_id, 'takt', p_takt,
+              'gueltig_ab', v_ab, 'gueltig_bis', null, 'raum_id', p_raum_id));
+    select coalesce(jsonb_agg(jsonb_build_object('datum', r.datum, 'ergebnis', r.ergebnis)), '[]') into v_plan
+      from public.slots_plan_rechnen(v_vertrag, v_heute, v_sp) r
+     where r.stammplatz_id is null;
+  end if;
+
+  for i in 0 .. 5 loop
+    d := v_erster + 7 * i;
+    datum := d; anlass := null; belegt := null; coach_id := null; coach_name := null;
+    if exists (select 1 from public.feiertage_nrw f where f.datum = d) then
+      ergebnis := 'feiertag'; anlass := public.slots_anlass(d);
+    elsif exists (select 1 from public.ferien_nrw f where d between f.von and f.bis) then
+      ergebnis := 'ferien'; anlass := public.slots_anlass(d);
+    elsif not public.slots_takt_passt(p_takt, d) then
+      ergebnis := 'andere_woche';
+    else
+      select r.coach_id into v_coach from public.slot_raeume(d, d) r
+       where r.slot_zeit_id = p_slot_zeit_id and r.raum_id = p_raum_id and r.offen;
+      coach_id := v_coach;
+      coach_name := (select p.full_name from public.profiles p where p.id = v_coach);
+      belegt := public.slots_raum_belegt(d, p_slot_zeit_id, p_raum_id, p_student_id);
+      if v_coach is null then
+        ergebnis := 'ohne_coach';
+      elsif not public.slots_raum_platz(d, p_slot_zeit_id, p_raum_id, p_student_id)
+            or public.slots_art_konflikt(p_student_id, d, p_slot_zeit_id) then
+        ergebnis := 'voll';
+      elsif public.slots_vertrag_am(p_student_id, d) is null
+            or exists (select 1 from jsonb_array_elements(v_plan) x
+                        where (x ->> 'datum')::date = d and x ->> 'ergebnis' = 'ohne_budget') then
+        ergebnis := 'ohne_budget';
+      else
+        ergebnis := 'termin';
+      end if;
+    end if;
+    return next;
+  end loop;
 end;
 $$;
 
@@ -16028,6 +16413,186 @@ begin
          beendet_am = now(), beendet_von = auth.uid()
    where id = p_id;
   perform public.slots_planen_slot(s.wochentag, s.slot_zeit_id, v_jetzt);
+end;
+$$;
+
+
+--
+-- Name: stammschicht_block_anlegen(uuid, integer, uuid, uuid, uuid, date, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammschicht_block_anlegen(p_coach_id uuid, p_wochentag integer, p_von_zeit_id uuid, p_bis_zeit_id uuid, p_raum_id uuid, p_gueltig_ab date DEFAULT NULL::date, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt timestamptz := public.slots_jetzt(p_jetzt);
+  v_ab    date := coalesce(p_gueltig_ab, public.slots_berlin_tag(public.slots_jetzt(p_jetzt)));
+  v_von   time;
+  v_bis   time;
+  v_ids   uuid[] := '{}';
+  v_id    uuid;
+  v_raum  boolean;
+  z       record;
+begin
+  perform public.slots_admin_pruefen('stammschicht_block_anlegen');
+  perform public.slots_sperren();
+  if not exists (select 1 from public.profiles p where p.id = p_coach_id and p.role = 'coach') then
+    perform public.slots_fehler('22023', 'stammschicht_block_anlegen: kein Coach', 'kein_coach');
+  end if;
+  if p_wochentag is null or p_wochentag not between 1 and 5 then
+    perform public.slots_fehler('22023', 'stammschicht_block_anlegen: Wochentag 1–5');
+  end if;
+  if v_ab < public.slots_berlin_tag(v_jetzt) then
+    perform public.slots_fehler('SL007', 'stammschicht_block_anlegen: gültig ab liegt in der Vergangenheit');
+  end if;
+  select x.beginn into v_von from public.slot_zeiten x where x.id = p_von_zeit_id;
+  select x.beginn into v_bis from public.slot_zeiten x where x.id = p_bis_zeit_id;
+  if v_von is null or v_bis is null
+     or not public.slots_zeit_aktiv(p_von_zeit_id, v_ab) or not public.slots_zeit_aktiv(p_bis_zeit_id, v_ab)
+     or not exists (select 1 from public.raeume r where r.id = p_raum_id and (r.inaktiv_ab is null or v_ab < r.inaktiv_ab)) then
+    perform public.slots_fehler('22023', 'stammschicht_block_anlegen: Uhrzeit oder Raum nicht aktiv');
+  end if;
+  if v_bis < v_von then
+    perform public.slots_fehler('22023', 'stammschicht_block_anlegen: bis liegt vor von', 'von_bis');
+  end if;
+
+  -- Erst alle Stunden prüfen, dann anlegen: alles oder nichts (SL009, hint raum:HH:MM bzw. coach:HH:MM).
+  for z in
+    select x.id, x.beginn from public.slot_zeiten x
+     where public.slots_zeit_aktiv(x.id, v_ab) and x.beginn between v_von and v_bis order by x.beginn
+  loop
+    select s.raum_id = p_raum_id into v_raum from public.stammschichten s
+     where s.wochentag = p_wochentag and s.slot_zeit_id = z.id
+       and (s.raum_id = p_raum_id or s.coach_id = p_coach_id)
+       and coalesce(s.gueltig_bis, 'infinity'::date) >= v_ab
+     order by (s.raum_id = p_raum_id) desc
+     limit 1;
+    if found then
+      perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach) um ' || public.slots_hhmm(z.beginn),
+                                  case when v_raum then 'raum:' else 'coach:' end || public.slots_hhmm(z.beginn));
+    end if;
+  end loop;
+
+  for z in
+    select x.id from public.slot_zeiten x
+     where public.slots_zeit_aktiv(x.id, v_ab) and x.beginn between v_von and v_bis order by x.beginn
+  loop
+    insert into public.stammschichten (coach_id, wochentag, slot_zeit_id, raum_id, gueltig_ab, angelegt_von)
+    values (p_coach_id, p_wochentag, z.id, p_raum_id, v_ab, auth.uid())
+    returning id into v_id;
+    v_ids := v_ids || v_id;
+    perform public.slots_planen_slot(p_wochentag, z.id, v_jetzt);
+  end loop;
+  return jsonb_build_object('stammschicht_ids', to_jsonb(v_ids), 'stunden', cardinality(v_ids));
+end;
+$$;
+
+
+--
+-- Name: stammschicht_raum_wechseln(uuid[], uuid, date, boolean, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stammschicht_raum_wechseln(p_ids uuid[], p_raum_id uuid, p_ab date, p_kinder_mitnehmen boolean DEFAULT false, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jetzt   timestamptz := public.slots_jetzt(p_jetzt);
+  v_heute   date := public.slots_berlin_tag(public.slots_jetzt(p_jetzt));
+  s         record;
+  sp        public.stammplaetze;
+  v_id      uuid;
+  v_schicht uuid[] := '{}';
+  v_platz   uuid[] := '{}';
+begin
+  perform public.slots_admin_pruefen('stammschicht_raum_wechseln');
+  perform public.slots_sperren();
+  if p_ids is null or cardinality(p_ids) = 0 then
+    perform public.slots_fehler('22023', 'stammschicht_raum_wechseln: keine Schichten');
+  end if;
+  if p_ab is null or p_ab < v_heute then
+    perform public.slots_fehler('SL007', 'stammschicht_raum_wechseln: Datum liegt in der Vergangenheit');
+  end if;
+  if not exists (select 1 from public.raeume r where r.id = p_raum_id and r.aktiv_ab <= p_ab
+                  and (r.inaktiv_ab is null or p_ab < r.inaktiv_ab)) then
+    perform public.slots_fehler('22023', 'stammschicht_raum_wechseln: Raum nicht aktiv', 'raum_inaktiv');
+  end if;
+  perform 1 from public.stammschichten x where x.id = any (p_ids) for update;
+  if (select count(*) from public.stammschichten x where x.id = any (p_ids))
+     <> (select count(distinct u) from unnest(p_ids) u) then
+    perform public.slots_fehler('P0002', 'stammschicht_raum_wechseln: Stammschicht nicht gefunden');
+  end if;
+
+  -- Erst alles prüfen (alles oder nichts).
+  if exists (select 1 from public.stammschichten x where x.id = any (p_ids)
+              group by x.wochentag, x.slot_zeit_id having count(*) > 1) then
+    perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach): zwei Schichten derselben Stunde', 'doppelt');
+  end if;
+  for s in
+    select x.*, z.beginn from public.stammschichten x join public.slot_zeiten z on z.id = x.slot_zeit_id
+     where x.id = any (p_ids) order by x.wochentag, z.beginn
+  loop
+    if coalesce(s.gueltig_bis, 'infinity'::date) < p_ab then
+      perform public.slots_fehler('22023', 'stammschicht_raum_wechseln: Schicht ist zu diesem Datum schon beendet');
+    end if;
+    if s.raum_id = p_raum_id then
+      perform public.slots_fehler('22023', 'stammschicht_raum_wechseln: Schicht ist schon in diesem Raum', 'gleicher_raum');
+    end if;
+    if exists (select 1 from public.stammschichten y
+                where y.raum_id = p_raum_id and y.wochentag = s.wochentag and y.slot_zeit_id = s.slot_zeit_id
+                  and not y.id = any (p_ids) and coalesce(y.gueltig_bis, 'infinity'::date) >= p_ab) then
+      perform public.slots_fehler('SL009', 'Schicht doppelt (Raum oder Coach) um ' || public.slots_hhmm(s.beginn),
+                                  'raum:' || public.slots_hhmm(s.beginn));
+    end if;
+    -- Mit Kindern: Im Zielraum sitzen danach höchstens fünf Kinder mit Stammplatz (SL001, hint raum:HH:MM).
+    if coalesce(p_kinder_mitnehmen, false)
+       and (select count(distinct x.student_id) from public.stammplaetze x
+             where x.raum_id in (s.raum_id, p_raum_id) and x.wochentag = s.wochentag and x.slot_zeit_id = s.slot_zeit_id
+               and least(coalesce(x.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(x.vertrag_id)) >= p_ab) > 5 then
+      perform public.slots_fehler('SL001', 'Raum voll um ' || public.slots_hhmm(s.beginn), 'raum:' || public.slots_hhmm(s.beginn));
+    end if;
+  end loop;
+
+  for s in
+    select x.* from public.stammschichten x where x.id = any (p_ids)
+  loop
+    update public.stammschichten
+       set gueltig_bis = greatest(s.gueltig_ab - 1, p_ab - 1), beendet_am = now(), beendet_von = auth.uid()
+     where id = s.id;
+    insert into public.stammschichten (coach_id, wochentag, slot_zeit_id, raum_id, gueltig_ab, gueltig_bis, angelegt_von)
+    values (s.coach_id, s.wochentag, s.slot_zeit_id, p_raum_id, greatest(p_ab, s.gueltig_ab), s.gueltig_bis, auth.uid())
+    returning id into v_id;
+    v_schicht := v_schicht || v_id;
+
+    -- Kinder hängen am Raum (Entscheidung 6). Nur auf Wunsch ziehen ihre Stammplätze mit, als Nachfolger.
+    if coalesce(p_kinder_mitnehmen, false) then
+      for sp in
+        select * from public.stammplaetze x
+         where x.raum_id = s.raum_id and x.wochentag = s.wochentag and x.slot_zeit_id = s.slot_zeit_id
+           and least(coalesce(x.gueltig_bis, 'infinity'::date), public.slots_vertrag_planende(x.vertrag_id)) >= p_ab
+         for update
+      loop
+        update public.stammplaetze
+           set gueltig_bis = greatest(sp.gueltig_ab - 1, p_ab - 1), beendet_am = now(), beendet_von = auth.uid()
+         where id = sp.id;
+        insert into public.stammplaetze (student_id, vertrag_id, wochentag, slot_zeit_id, takt, gueltig_ab, gueltig_bis,
+                                         vorgaenger_id, raum_id, angelegt_von)
+        values (sp.student_id, coalesce(public.slots_vertrag_am(sp.student_id, greatest(p_ab, sp.gueltig_ab)), sp.vertrag_id),
+                sp.wochentag, sp.slot_zeit_id, sp.takt, greatest(p_ab, sp.gueltig_ab), sp.gueltig_bis, sp.id, p_raum_id, auth.uid())
+        returning id into v_id;
+        v_platz := v_platz || v_id;
+      end loop;
+    end if;
+  end loop;
+
+  for s in
+    select distinct x.wochentag, x.slot_zeit_id from public.stammschichten x where x.id = any (p_ids)
+  loop
+    perform public.slots_planen_slot(s.wochentag, s.slot_zeit_id, v_jetzt);
+  end loop;
+  return jsonb_build_object('stammschicht_ids', to_jsonb(v_schicht), 'stammplatz_ids', to_jsonb(v_platz),
+                            'kinder', cardinality(v_platz));
 end;
 $$;
 
@@ -17070,14 +17635,27 @@ begin
      where kt.vertrag_id = v.id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
        and kt.session_id is null and kt.datum >= v_heute
        and not exists (select 1 from slots_plan_tmp p where p.datum = kt.datum and p.slot_zeit_id = kt.slot_zeit_id);
-    update public.kind_termine kt set stammplatz_id = p.stammplatz_id
+    -- W1: Wechselt der Stammplatz (neuer Stammplatz mit Raum), zieht der Termin in dessen Raum.
+    update public.kind_termine kt
+       set stammplatz_id = p.stammplatz_id,
+           raum_id = coalesce(s.raum_id, kt.raum_id),
+           raum_fest = case when s.raum_id is not null then true else kt.raum_fest end
       from slots_plan_tmp p
+      join public.stammplaetze s on s.id = p.stammplatz_id
      where kt.vertrag_id = v.id and kt.herkunft = 'stammplatz' and kt.zustand = 'planned'
        and kt.session_id is null and kt.datum = p.datum and kt.slot_zeit_id = p.slot_zeit_id
        and kt.stammplatz_id is distinct from p.stammplatz_id;
-    insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, stammplatz_id, angelegt_von)
-    select p_student_id, v.id, p.datum, p.slot_zeit_id, 'stammplatz', p.stammplatz_id, auth.uid()
-      from slots_plan_tmp p where p.ergebnis = 'neu';
+    -- W1 (Entscheidung 2): Termine aus einem Stammplatz mit Raum entstehen fest in diesem Raum.
+    insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, stammplatz_id,
+                                     raum_id, raum_fest, angelegt_von)
+    select p_student_id, v.id, p.datum, p.slot_zeit_id, 'stammplatz', p.stammplatz_id,
+           s.raum_id, s.raum_id is not null, auth.uid()
+      from slots_plan_tmp p
+      join public.stammplaetze s on s.id = p.stammplatz_id
+     where p.ergebnis = 'neu'
+       and not exists (select 1 from public.kind_termine kt
+                        where kt.student_id = p_student_id and kt.datum = p.datum and kt.slot_zeit_id = p.slot_zeit_id
+                          and kt.herkunft = 'stammplatz' and kt.zustand = 'planned' and kt.session_id is null);
   end loop;
 end;
 $$;
@@ -18615,10 +19193,10 @@ $$;
 
 
 --
--- Name: zusatztermin_buchen(uuid, date, uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+-- Name: zusatztermin_buchen(uuid, date, uuid, timestamp with time zone, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.zusatztermin_buchen(p_student_id uuid, p_datum date, p_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+CREATE FUNCTION public.zusatztermin_buchen(p_student_id uuid, p_datum date, p_zeit_id uuid, p_jetzt timestamp with time zone DEFAULT now(), p_raum_id uuid DEFAULT NULL::uuid) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -18631,11 +19209,13 @@ declare
 begin
   perform public.slots_admin_pruefen('zusatztermin_buchen');
   perform public.slots_sperren();
-  perform public.slots_code_werfen(public.slots_zusatz_code(p_student_id, p_datum, p_zeit_id, v_jetzt),
+  -- W1 (Entscheidung 4): mit Raum prüft SL002/SL001 diesen Raum, der Termin sitzt fest dort.
+  perform public.slots_code_werfen(public.slots_zusatz_code_raum(p_student_id, p_datum, p_zeit_id, v_jetzt, p_raum_id),
                                    'zusatztermin_buchen');
   v_vorher := public.slots_beweglich(p_student_id, v_heute);
-  insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, angelegt_von)
-  values (p_student_id, public.slots_vertrag_am(p_student_id, p_datum), p_datum, p_zeit_id, 'zusatz', auth.uid())
+  insert into public.kind_termine (student_id, vertrag_id, datum, slot_zeit_id, herkunft, raum_id, raum_fest, angelegt_von)
+  values (p_student_id, public.slots_vertrag_am(p_student_id, p_datum), p_datum, p_zeit_id, 'zusatz',
+          p_raum_id, p_raum_id is not null, auth.uid())
   returning id into v_id;
   v_aus := public.slots_festschreibung_nachziehen(p_datum, p_zeit_id);
   perform public.termine_planen(p_student_id, v_jetzt);
@@ -20021,6 +20601,7 @@ CREATE TABLE public.stammplaetze (
     angelegt_von uuid,
     beendet_am timestamp with time zone,
     beendet_von uuid,
+    raum_id uuid,
     CONSTRAINT stammplaetze_takt_check CHECK ((takt = ANY (ARRAY['woechentlich'::text, 'a_woche'::text, 'b_woche'::text]))),
     CONSTRAINT stammplaetze_wochentag_check CHECK (((wochentag >= 1) AND (wochentag <= 5))),
     CONSTRAINT stammplaetze_zeitraum_check CHECK (((gueltig_bis IS NULL) OR (gueltig_bis >= (gueltig_ab - 1))))
@@ -22632,6 +23213,13 @@ CREATE INDEX slots_weekday_idx ON public.slots USING btree (weekday, start_time)
 
 
 --
+-- Name: stammplaetze_raum_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX stammplaetze_raum_idx ON public.stammplaetze USING btree (raum_id, wochentag, slot_zeit_id) WHERE (raum_id IS NOT NULL);
+
+
+--
 -- Name: stammplaetze_slot_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24643,6 +25231,14 @@ ALTER TABLE ONLY public.stammplaetze
 
 ALTER TABLE ONLY public.stammplaetze
     ADD CONSTRAINT stammplaetze_beendet_von_fkey FOREIGN KEY (beendet_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: stammplaetze stammplaetze_raum_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stammplaetze
+    ADD CONSTRAINT stammplaetze_raum_id_fkey FOREIGN KEY (raum_id) REFERENCES public.raeume(id) ON DELETE RESTRICT;
 
 
 --
@@ -27341,5 +27937,4 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict gkUD9cHoI3KQ9O7iY5jN4aKmqgAKP6Q4CG971w1SJSSn8ROSssfwz3Bflyip6Ez
 

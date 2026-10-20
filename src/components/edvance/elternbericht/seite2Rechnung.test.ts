@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   KAESTCHEN_MAX,
+  MIN_GEPRUEFT_DEUTUNG,
   SPUR,
   SPUR_MIT_ABGELEITETEN,
   deutung,
@@ -243,5 +244,41 @@ describe('deutung', () => {
       { feld: 'zahlen', sicher: 0, uebung: 3 },
     ])
     expect(d.uebung).toEqual(['zahlen', 'terme'])
+  })
+})
+
+describe('deutung — erst ab zwei geprüften Bereichen (R7-10)', () => {
+  it('Schwelle ist 2', () => {
+    expect(MIN_GEPRUEFT_DEUTUNG).toBe(2)
+  })
+
+  it('Sicher-Satz: 1 geprüft (sicher) nicht genannt, mit 2 genannt', () => {
+    expect(deutung([{ feld: 'brueche', sicher: 1, uebung: 0 }]).sicher).toEqual([])
+    expect(deutung([{ feld: 'brueche', sicher: 2, uebung: 0 }]).sicher).toEqual(['brueche'])
+  })
+
+  it('1 sicher + 1 Übungsbedarf: genannt nach Mehrheit, also im Übungssatz', () => {
+    expect(deutung([{ feld: 'terme', sicher: 1, uebung: 1 }])).toEqual({ sicher: [], uebung: ['terme'] })
+  })
+
+  it('Schwelle auch im Übungssatz: 1 Übungsbedarf nicht genannt, 2 genannt', () => {
+    expect(deutung([{ feld: 'geometrie', sicher: 0, uebung: 1 }]).uebung).toEqual([])
+    expect(deutung([{ feld: 'geometrie', sicher: 0, uebung: 2 }]).uebung).toEqual(['geometrie'])
+  })
+
+  it('abgeleitete zählen nicht: 1 sicher + 4 abgeleitet bleibt ungenannt', () => {
+    const z: ProfilZeile = { feld: 'brueche', sicher: 1, uebung: 0, abgeleitet: 4, klasse: null }
+    expect(deutung([z])).toEqual({ sicher: [], uebung: [] })
+  })
+
+  it('abgestuft (Batu): sicher nur Terme & Gleichungen, Übung Geometrie und Zahlen & Rechnen', () => {
+    // brueche 1/0 (+4 abgeleitet), terme 2/1, geometrie 0/3, zahlen 1/3 (+5), zufall 0/1
+    expect(deutung(zeilenVon('abgestuft'))).toEqual({ sicher: ['terme'], uebung: ['geometrie', 'zahlen'] })
+  })
+
+  it('ilkay: unverändert, jedes Feld hat mindestens 3 geprüfte Bereiche', () => {
+    const p = bericht('ilkay').profil
+    expect(p.filter((z) => z.sicher + z.uebung > 0).every((z) => z.sicher + z.uebung >= 3)).toBe(true)
+    expect(deutung(zeilenVon('ilkay'))).toEqual({ sicher: ['groessen', 'zahlen'], uebung: ['geometrie', 'brueche'] })
   })
 })
