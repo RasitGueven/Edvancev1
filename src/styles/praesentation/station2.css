@@ -9,10 +9,8 @@
 @import "./station2-detail.css";
 
 .tp .tp-s2 {
-  /* Punktmuster „übersprungen": kombiniert rosé, getrennt neutral (Entscheidung 4). */
-  --tp-s2-punkt: var(--color-tp-ueber-punkt);
-  --tp-s2-grund: var(--color-tp-ueber-grund);
-  --tp-s2-rand: var(--color-tp-ueber-rand);
+  /* Text „übersprungen": kombiniert rosé, getrennt neutral (Entscheidung 4).
+     Das Punktmuster selbst steht in rahmen.css (.tp-muster-ueber). */
   --tp-s2-ueber-text: var(--color-eb-uebung-text);
   justify-content: flex-start;
   padding-top: 75px;
@@ -20,9 +18,9 @@
 }
 
 .tp .tp-s2-getrennt {
-  --tp-s2-punkt: var(--color-tp-ueber-neutral-punkt);
-  --tp-s2-grund: var(--color-tp-ueber-neutral-grund);
-  --tp-s2-rand: var(--color-tp-ueber-neutral-rand);
+  --tp-ueber-punkt: var(--color-tp-ueber-neutral-punkt);
+  --tp-ueber-grund: var(--color-tp-ueber-neutral-grund);
+  --tp-ueber-rand: var(--color-tp-ueber-neutral-rand);
   --tp-s2-ueber-text: var(--color-tp-ueber-neutral-text);
 }
 
@@ -149,14 +147,6 @@
   background: var(--color-eb-uebung);
 }
 
-/* Punktmuster: Verlauf nur hierfür erlaubt (CLAUDE.md §11). */
-.tp .tp-s2-segment-ueber {
-  border: 1px solid var(--tp-s2-rand);
-  background:
-    radial-gradient(circle, var(--tp-s2-punkt) 0 1.15px, transparent 1.6px) 0 0 / 5px 5px,
-    var(--tp-s2-grund);
-}
-
 .tp .tp-s2-rechts {
   display: flex;
   flex-direction: column;
@@ -176,15 +166,6 @@
   color: var(--color-eb-leise);
   font-size: 9.5px;
   line-height: 1.35;
-}
-
-.tp .tp-s2-zaehlung > span {
-  white-space: nowrap;
-}
-
-.tp .tp-s2-zaehlung > span:not(:last-child)::after {
-  content: '·';
-  margin-left: .4em;
 }
 
 .tp .tp-s2-pfeil {
