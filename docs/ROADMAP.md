@@ -134,6 +134,12 @@
   geschlossenen Raum ohne Raum, `stammplatz_vorschau`, `slots_kandidaten_alle`, Schichten als Block und Raumwechsel,
   Kennzahlen mit Testkonten und Räume ohne Coach im Wochenplan. Grundlage für W2–W4. **Offen:**
   `docs/slots/offene-punkte-w1.md`.
+- **Slots W2 · Wochenplan, Slot-Panel, Tagespanel** (Retro `2026-10-20-slots-w2-wochenplan.md`, Branch
+  `feat/rasit-slots-w2-wochenplan`): Der Wochenplan ist die eine Planungsfläche. Räume je Zelle in der Farbe der
+  Belegung, Kennzahlen mit sichtbaren Testkonten, Zeile „Einzel“; Slot-Panel statt Termin-Seite mit „+ Kind in <Raum>“
+  (einmalig oder jede Woche), Tagespanel mit freien Plätzen je Stunde, Session-Panel für Einzel-Sessions. Reiter
+  Stundenplan entfällt, alte Adressen leiten um. Reine Oberfläche, keine Migration. **Offen:**
+  `docs/slots/offene-punkte-w2.md`.
 - **Session P1 · T5 Coach im Testlauf** (Retro `2026-10-14-session-t5-coach-testlauf.md`, Branch
   `feat/rasit-session-t5-coach-testlauf`): Neuer RPC `skill_pruefung_session` (echt nur freigegeben, im Testlauf jede
   Prüffrage, die `pruefung_aufs_tablet` auflegt, mit `freigegeben`), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach

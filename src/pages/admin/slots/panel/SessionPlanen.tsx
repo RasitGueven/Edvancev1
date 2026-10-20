@@ -14,19 +14,21 @@ import { raeumeAktivAm } from './stundenplan.model'
 type Props = {
   leitung: SessionLeitung[]
   raeume: SlotsEinstellungen['raeume']
-  /** Nach dem Anlegen: Tag der neuen Session (die Woche springt dorthin). */
+  /** Nach dem Anlegen: Tag der neuen Session. */
   onAngelegt: (datum: string) => void
+  /** W2: im Tagespanel ist das Datum des Tages vorbelegt (sonst heute). */
+  datum?: string
 }
 
 /**
- * „Session planen“ (Slots S2, Entscheidung 4): eine spätere Einzel-Session mit Leitung (Coach oder Admin),
+ * „Session planen“ (Slots S2, Entscheidung 4; W2: im Tagespanel mit vorbelegtem Datum): eine spätere Einzel-Session mit Leitung (Coach oder Admin),
  * Raum aus den aktiven Räumen des Tages, Datum und Uhrzeit. Kinder kommen danach in der Session-Karte dazu.
  */
-export function SessionPlanen({ leitung, raeume, onAngelegt }: Props): JSX.Element {
+export function SessionPlanen({ leitung, raeume, onAngelegt, datum: vorbelegt }: Props): JSX.Element {
   const { t } = useTranslation('slots')
   const [offen, setOffen] = useState(false)
   const [coach, setCoach] = useState('')
-  const [datum, setDatum] = useState(berlinToday())
+  const [datum, setDatum] = useState(vorbelegt ?? berlinToday())
   const [zeit, setZeit] = useState('')
   const [raum, setRaum] = useState('')
   const [speichert, setSpeichert] = useState(false)
@@ -51,7 +53,7 @@ export function SessionPlanen({ leitung, raeume, onAngelegt }: Props): JSX.Eleme
   if (!offen) {
     return (
       <Button type="button" variant="outline" className="self-start" onClick={() => setOffen(true)}>
-        {t('stundenplan.planen.oeffnen')}
+        {vorbelegt ? t('wochenplan2.tag.einzelPlanen') : t('stundenplan.planen.oeffnen')}
       </Button>
     )
   }

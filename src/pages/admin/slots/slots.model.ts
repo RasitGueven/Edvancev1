@@ -5,7 +5,8 @@ import type { PlanbilanzArt, SlotsKinderZeile, SlotsWoche, WocheZelle } from '@/
 
 // ── Reiter <-> URL ─────────────────────────────────────────────────────────────
 
-export const REITER = ['wochenplan', 'stundenplan', 'kinder', 'coaches', 'einstellungen'] as const
+/** W2, Entscheidung 1: Der Reiter Stundenplan ist im Wochenplan aufgegangen. */
+export const REITER = ['wochenplan', 'kinder', 'coaches', 'einstellungen'] as const
 export type SlotsReiter = (typeof REITER)[number]
 
 export function reiterAusSuche(suche: URLSearchParams): SlotsReiter {
@@ -24,30 +25,8 @@ export function sucheMitReiter(suche: URLSearchParams, reiter: SlotsReiter): URL
 
 // ── Wochenplan ───────────────────────────────────────────────────────────────
 
-/** leer = kein Raum besetzt; achtung = ab 90 %; handeln = mehr Kinder als Plätze oder Coach fehlt. */
-export type ZellZustand = 'leer' | 'normal' | 'achtung' | 'handeln'
-
-export function zellZustand(z: WocheZelle): ZellZustand {
-  if (z.kapazitaet === 0 && z.belegt === 0 && z.coach_fehlt === 0) return 'leer'
-  if (z.belegt > z.kapazitaet || z.coach_fehlt > 0 || z.ohne_raum > 0) return 'handeln'
-  if (z.belegt >= z.kapazitaet * 0.9) return 'achtung'
-  return 'normal'
-}
-
-/** Uhrzeiten, die in der ganzen Woche keinen geöffneten Raum und kein Kind haben (fallen zusammen). */
-export function leereZeiten(woche: SlotsWoche): Set<string> {
-  const leer = new Set(woche.zeiten.map((z) => z.id))
-  for (const z of woche.zellen) if (zellZustand(z) !== 'leer') leer.delete(z.zeit_id)
-  return leer
-}
-
 export function zelleVon(woche: SlotsWoche, datum: string, zeitId: string): WocheZelle | undefined {
   return woche.zellen.find((z) => z.datum === datum && z.zeit_id === zeitId)
-}
-
-/** Belegung je geöffnetem Raum für die Platz-Punkte. */
-export function raumBelegung(z: WocheZelle): number[] {
-  return z.raeume.filter((r) => r.offen).map((r) => r.belegt)
 }
 
 // ── Kinder ───────────────────────────────────────────────────────────────────

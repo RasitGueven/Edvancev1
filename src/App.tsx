@@ -19,7 +19,7 @@ import { ReiheEndePage } from '@/pages/admin/pruefen/ReiheEndePage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SlotsPage } from '@/pages/admin/slots/SlotsPage'
-import { TerminPage as SlotsTerminPage } from '@/pages/admin/slots/termin/TerminPage'
+import { ScheduleUmleitung, TerminUmleitung } from '@/pages/admin/slots/SlotsUmleitung'
 import { KindPage as SlotsKindPage } from '@/pages/admin/slots/kind/KindPage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
@@ -239,12 +239,12 @@ export default function App(): JSX.Element {
               </ProtectedRoute>
             }
           />
-          {/* Slots S2: der Stundenplan ist ein Reiter der Slots; die alte Adresse leitet dorthin. */}
+          {/* Slots W2: der Stundenplan ist im Wochenplan aufgegangen; die alte Adresse leitet dorthin (Woche bleibt). */}
           <Route
             path="/admin/schedule"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <Navigate to="/admin/slots?reiter=stundenplan" replace />
+                <ScheduleUmleitung />
               </ProtectedRoute>
             }
           />
@@ -262,7 +262,8 @@ export default function App(): JSX.Element {
             path="/admin/slots/termin/:datum/:zeitId"
             element={
               <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach/einsaetze' }}>
-                <SlotsTerminPage />
+                {/* Slots W2: die Termin-Seite ist das Slot-Panel im Wochenplan (?slot=…). */}
+                <TerminUmleitung />
               </ProtectedRoute>
             }
           />

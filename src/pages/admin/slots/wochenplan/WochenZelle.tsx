@@ -1,79 +1,60 @@
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { PlatzPunkte } from '@/components/edvance'
 import type { WocheZelle } from '@/types/slotplan'
-import { fachKuerzel } from '../slotsFormat'
-import { raumBelegung, zellZustand } from '../slots.model'
 import { TestKennzeichen } from '../TestKennzeichen'
-
-/** Fläche und 3-px-Streifen links nur bei einem Zustand (Entscheidung 28); der Streifen ist ein Inset-Schatten. */
-const FLAECHE = {
-  leer: 'bg-[var(--color-bg-surface)]',
-  normal: 'bg-[var(--color-bg-surface)] hover:bg-[var(--color-bg-subtle)]',
-  achtung: 'bg-[var(--color-gold-warning-light)] shadow-[inset_3px_0_0_var(--color-gold-warning)]',
-  handeln: 'bg-[var(--color-error-coach-light)] shadow-[inset_3px_0_0_var(--color-error-coach)]',
-} as const
+import { RaumZeile } from './RaumZeile'
+import { freiePlaetze, zellRaeume } from './wochenplan.model'
 
 /**
- * Eine Zelle des Wochenplans: "8 / 10" mit Fach-Mix, Platz-Punkte je geöffnetem Raum, eine dritte Zeile nur
- * bei Handlungsbedarf. Fläche und Rand nur mit Bedeutung (Entscheidung 28). Die ganze Zelle ist der Link.
+ * Eine Zelle des Wochenplans (Entscheidung 3): je Raum mit Coach oder Kindern eine Zeile, unten „x frei“ bzw.
+ * „läuft gerade“. Vergangene Zellen gedämpft. Die ganze Zelle ist der Knopf ins Slot-Panel.
  */
-export function WochenZelle({ zelle, ziel }: { zelle: WocheZelle; ziel: string }): JSX.Element {
+export function WochenZelle({ zelle, onOeffnen }: { zelle: WocheZelle; onOeffnen: () => void }): JSX.Element {
   const { t } = useTranslation('slots')
-  const zustand = zellZustand(zelle)
-  const vergangen = zelle.vergangen ? 'opacity-60' : ''
+  const raeume = zellRaeume(zelle)
+  const frei = freiePlaetze(raeume)
+  const zustand = zelle.laeuft
+    ? 'border-[var(--color-primary)] ring-1 ring-[var(--color-primary)]'
+    : zelle.vergangen
+      ? 'opacity-60'
+      : ''
+  const basis = `flex h-full min-h-[84px] w-full min-w-0 flex-col gap-1 rounded-[var(--radius-md)] border p-2 text-left transition-shadow duration-150 ease-out hover:border-[var(--color-primary)] hover:shadow-elevation-md ${zustand}`
 
-  if (zustand === 'leer') {
+  if (raeume.length === 0) {
     return (
-      <Link
-        to={ziel}
-        title={t('woche.keinRaum')}
-        className={`flex min-h-[44px] h-full items-center justify-center rounded-[var(--radius-md)] text-sm text-[var(--color-text-tertiary)] transition-colors duration-150 ease-out hover:bg-[var(--color-bg-subtle)] ${vergangen}`}
+      <button
+        type="button"
+        onClick={onOeffnen}
+        className={`${basis} items-center justify-center border-dashed border-[var(--color-border)] bg-[var(--color-bg-app)] text-xs text-[var(--color-text-tertiary)]`}
       >
-        <span aria-hidden="true">–</span>
-        <span className="sr-only">{t('woche.keinRaum')}</span>
-      </Link>
+        {t('woche.keinRaum')}
+      </button>
     )
   }
 
-  const hinweise = [
-    zelle.coach_fehlt > 0 ? t('woche.coachFehlt') : null,
-    zelle.ohne_raum > 0 ? t('woche.ohneRaum', { count: zelle.ohne_raum }) : null,
-  ].filter(Boolean)
-
+  const kinder = raeume.reduce((s, r) => s + r.belegt, 0)
   return (
-    <Link
-      to={ziel}
+    <button
+      type="button"
+      onClick={onOeffnen}
       aria-label={[
-        t('woche.zelleLabel', { belegt: zelle.belegt, kapazitaet: zelle.kapazitaet }),
+        t('wochenplan2.zelle.label', { count: kinder, frei }),
+        zelle.laeuft ? t('wochenplan2.zelle.laeuft') : null,
         (zelle.test ?? 0) > 0 ? t('test.kennzeichen') : null,
-        ...hinweise,
+        zelle.ohne_raum > 0 ? t('woche.ohneRaum', { count: zelle.ohne_raum }) : null,
       ].filter(Boolean).join(', ')}
-      className={`flex min-h-[44px] h-full flex-col gap-2 rounded-[var(--radius-md)] py-2 pl-3 pr-2 transition-colors duration-150 ease-out ${FLAECHE[zustand]} ${vergangen}`}
+      className={`${basis} border-[var(--color-border)] bg-[var(--color-bg-surface)]`}
     >
-      <span className="flex items-baseline justify-between gap-2">
-        <span className="text-sm tabular-nums">
-          <span className="font-semibold text-[var(--color-text-primary)]">{zelle.belegt}</span>
-          <span className="text-[var(--color-text-tertiary)]"> / {zelle.kapazitaet}</span>
-        </span>
-        {(zelle.faecher.length > 0 || (zelle.test ?? 0) > 0) && (
-          <span className="flex min-w-0 flex-wrap justify-end gap-1">
-            {(zelle.test ?? 0) > 0 && <TestKennzeichen />}
-            {zelle.faecher.map((f) => (
-              <span key={f.fach ?? '-'} title={f.fach ?? undefined} className="inline-flex h-5 items-center gap-1 rounded-[var(--radius-full)] border border-[var(--color-border)] px-1 text-xs tabular-nums text-[var(--color-text-secondary)]">
-                <span className="font-semibold">{fachKuerzel(f.fach) || '–'}</span>
-                {f.zahl}
-              </span>
-            ))}
-          </span>
+      {raeume.map((r) => (
+        <RaumZeile key={r.raum_id} name={r.name} belegt={r.belegt} mitCoach={r.offen} className="w-full" />
+      ))}
+      <span className="mt-auto flex flex-wrap items-center gap-1 text-xs text-[var(--color-text-tertiary)]">
+        {zelle.laeuft && <span className="font-semibold text-[var(--color-primary)]">{t('wochenplan2.zelle.laeuft')} ·</span>}
+        <span>{t('wochenplan2.zelle.frei', { count: frei })}</span>
+        {zelle.ohne_raum > 0 && (
+          <span className="font-semibold text-[var(--color-error-coach)]">· {t('woche.ohneRaum', { count: zelle.ohne_raum })}</span>
         )}
+        {(zelle.test ?? 0) > 0 && <TestKennzeichen />}
       </span>
-      {zelle.kapazitaet > 0 || zelle.ohne_raum > 0 ? (
-        <PlatzPunkte raeume={raumBelegung(zelle)} ueberhang={zelle.ohne_raum} className="flex-wrap" />
-      ) : null}
-      {hinweise.length > 0 && (
-        <span className="text-xs font-semibold text-[var(--color-error-coach)]">{hinweise.join(' · ')}</span>
-      )}
-    </Link>
+    </button>
   )
 }

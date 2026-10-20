@@ -29,7 +29,7 @@ describe('Slots-Texte', () => {
   it('jeder Schlüssel aus den Quellen steht in de/slots.json', () => {
     const fehlend: string[] = []
     for (const { p, s } of QUELLEN) {
-      for (const m of s.matchAll(/['`]([a-z][a-zA-Z]*(?:\.[a-zA-Z0-9_]+)+)['`]/g)) {
+      for (const m of s.matchAll(/['`]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9_]+)+)['`]/g)) {
         const k = m[1]
         if (!OBEN.includes(k.split('.')[0]) || /\.(tsx?|json)$/.test(k)) continue
         if (!hat(k)) fehlend.push(`${p.replace(WURZEL, '')}: ${k}`)
@@ -50,6 +50,11 @@ describe('Slots-Texte', () => {
       ...['alle', 'kein_stammplatz', 'reicht_nicht', 'einheiten_uebrig', 'aufgebraucht', 'passt'].map((f) => `kinder.filter.${f}`),
       ...['verbraucht', 'geplant', 'gesamt'].map((k) => `einheiten.${k}Label`),
       ...SLOTS_CODES.map((c) => `fehler.${c}`),
+      // W2
+      ...['rot', 'gelb', 'gruen', 'leer', 'keinCoach'].map((f) => `wochenplan2.legende.${f}`),
+      ...['einmal', 'jedeWoche'].map((m) => `wochenplan2.kind.modus.${m}`),
+      ...['kein_vertrag', 'vertrag_ab', 'SL001', 'SL002', 'SL003', 'SL004', 'SL005', 'SL006', 'SL007', 'SL011', 'SL012', 'SL013']
+        .map((c) => `wochenplan2.grund.${c}`),
     ]
     expect(erwartet.filter((k) => !hat(k))).toEqual([])
   })
