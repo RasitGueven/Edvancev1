@@ -143,7 +143,7 @@
 
 /* ─── Verdichtet ─────────────────────────────────────────────────────────────
    Nur wenn die Seite mit den Abständen des Musters überläuft (Seite4.tsx,
-   useDicht): echte Elterntexte ergeben mit dem Coach-Satz sechs bis sieben
+   useStufe, Stufe 1): echte Elterntexte ergeben mit dem Coach-Satz sechs bis sieben
    Zeilen Fazit, das Muster hat Platz für fünf. Die Regel zur Trennlinie bleibt,
    nur mit kleineren Werten; die Kurve misst danach neu. */
 

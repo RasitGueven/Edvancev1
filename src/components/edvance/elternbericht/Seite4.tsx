@@ -106,8 +106,9 @@ const EIN_TEXT = 3 // dazu steht nur der erste Elterntext
  * Läuft die Seite mit den Abständen des Musters über (langes Fazit, lange
  * Texte), geht sie eine Stufe weiter, bis alles passt oder `hoechste` erreicht
  * ist — statt dass die Fußnote am Papierrand abgeschnitten wird. Text wird nie
- * gekürzt, nur weggelassen. Geprüft nach dem Layout und nach dem Laden der
- * Schriften; eine erreichte Stufe bleibt.
+ * gekürzt, nur weggelassen. Geprüft nach dem Layout, solange Schriften laden
+ * aber erst nach `document.fonts.ready` — sonst bliebe eine Stufe stehen, die
+ * nur die Ersatzschrift brauchte. Eine erreichte Stufe bleibt.
  */
 function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: number } {
   const ref = useRef<HTMLDivElement>(null)
@@ -120,8 +121,8 @@ function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: num
     const pruefen = (): void => {
       if (aktiv && kasten.scrollHeight > kasten.clientHeight) setWert(wert + 1)
     }
-    pruefen()
-    void document.fonts?.ready.then(pruefen)
+    if (!document.fonts || document.fonts.status === 'loaded') pruefen()
+    else void document.fonts.ready.then(pruefen)
     return () => {
       aktiv = false
     }

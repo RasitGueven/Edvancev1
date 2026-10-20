@@ -62,7 +62,8 @@ export const mitFazit = fall('13', { fehlbilder: [POTENZEN, GERADEN] })
 /**
  * Drei Familien mit den drei längsten Elterntexten, vier Schwerpunkte und
  * „Danach …“ (wie sechsFelderMitUebung), dazu ein langes Lernziel
- * (NOTIZEN_LANG): Hier greifen die Stufen der Verdichtung auf Seite 4.
+ * (NOTIZEN_LANG). Gemessen reicht hier Stufe 1 (Verdichtung); Stufe 2 und 3
+ * erreicht mit den heutigen Texten kein Fall, sie prüft Seite4.test.tsx.
  */
 export const fazitLang = fall('15', {
   urteile: [
