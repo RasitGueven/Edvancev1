@@ -89,3 +89,5 @@ wie seit R7-1 als Übungsbedarf, deshalb steht Geometrie in Prod bei 4, in der F
 - „Was die Grafik zeigt“ wertet nur direkt Geprüftes. Bei `abgestuft` heißt es „überwiegend sicher …
   Brüche & Dezimalzahlen“ bei 1 von 1 geprüft, neben vier Umrissen. Unverändert seit R7-3, aber jetzt
   sichtbarer.
+- Die Umriss-Kästchen sind hell (Fläche Papier, Rand `--color-eb-schraffur-rand`) und können im Druck
+  blass wirken. Das ist eine Designfrage, im Ausdruck ansehen (Fund der Zweitprüfung).
