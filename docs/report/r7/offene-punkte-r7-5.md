@@ -6,10 +6,11 @@ Inhalt, der nicht passt (Gründer-Entscheidungen 1–4 im Paket R7-5).
 ## Abnahme-Material
 
 - PDFs aller Fälle: `docs/report/r7/abnahme/r7-5/<fall>.pdf`. Neu: `mitFazit`, `fazitLang`,
-  `langerName`, `zuLangerName`, `weitereBereiche`, `vieleAnliegen`, `keinSchwerpunktMitZiel`.
+  `langerName`, `zuLangerName`, `breiterName`, `weitereBereiche`, `vieleAnliegen`,
+  `keinSchwerpunktMitZiel`.
   `ohneKatalog` hat weiter kein PDF (Hinweis statt Bogen).
 - Druck-Tests: `EB_PORT=5186 EB_AUSGABE=docs/report/r7/abnahme/r7-5 npx playwright test -c
-  playwright.elternbericht.config.ts` — alle 20 Fälle grün.
+  playwright.elternbericht.config.ts` — alle 21 Fälle grün.
 
 ## Geschlossen
 
@@ -19,7 +20,7 @@ Inhalt, der nicht passt (Gründer-Entscheidungen 1–4 im Paket R7-5).
 | r7-3 Punkt 5 (Grenze Seite 2) | `weitereBereiche` (neun Zeilen), `langerName` / `zuLangerName` |
 | r7-4 Punkt 1 (Fazit im Druck) | `mitFazit`, `fazitLang` |
 | r7-4 Punkt 2 (Verdichtung reicht nicht) | Stufen in `Seite4.tsx` (`useStufe`), Entscheidung 2 |
-| r7-4 Punkt 4 (Lernziel ohne Schwerpunkt) | `.eb-s4-lernziel-voll` in `seite4.css`, Entscheidung 3 |
+| r7-4 Punkt 4 (Lernziel ohne Schwerpunkt) | `.eb-s4-lernziel-voll` und `.eb-s4-stand-voll` in `seite4.css`, Entscheidung 3 |
 
 ## Regeln
 
@@ -29,9 +30,22 @@ Inhalt, der nicht passt (Gründer-Entscheidungen 1–4 im Paket R7-5).
   `document.fonts.ready`, eine Stufe je Durchgang; eine erreichte Stufe bleibt. Elterntexte werden
   nie gekürzt, nur weggelassen.
 - **Lernziel ohne Schwerpunkt (Entscheidung 3):** Klasse `eb-s4-lernziel-voll`, `margin-left: 0` —
-  Kasten bei x 44, Breite 507 pt (gemessen in `keinSchwerpunktMitZiel`).
-- **Rufname (Entscheidung 4):** In `Bogen.tsx` nach `trim`, gezählt in Zeichen (Codepoints). Ab 25
-  sind `name` und `wessen` null; alle Seiten, Fuß und Anliegen nehmen die Fassung ohne Namen.
+  Kasten bei x 44, Breite 507 pt; die Fußnote „Stand …“ (`eb-s4-stand-voll`) ebenfalls bei x 44
+  (gemessen in `keinSchwerpunktMitZiel`).
+- **Rufname (Entscheidung 4, neu nach dem STOPP):** `namensMessung.ts`, angewandt in `Bogen.tsx`.
+  a) Über 24 Zeichen (nach `trim`, Codepoints) nimmt der Bogen den Namen gar nicht auf.
+  b) Sonst rendert er mit Namen und misst einmal nach dem Layout — solange Schriften laden, erst nach
+  `document.fonts.ready`: Titel auf Seite 2 mehr als zweizeilig (Höhe / Zeilenhöhe) oder Überlauf
+  von `.eb-inhalt` auf Seite 1, 2, 3 oder 5 → der ganze Bogen nimmt die Fassungen ohne Namen
+  (`data-ohne-name` am `.eb-bogen`). Einmal, kein Zurückspringen.
+  c) Seite 4 misst ihre Stufen erst danach (Context `NamensMessungFertig`).
+  Vor der Messung wird ein Layout erzwungen (`offsetHeight`): Ohne Kurve hat vorher noch nichts die
+  Schriften angefordert, `fonts.status` stünde auf `loaded`, und es mäße die Ersatzschrift (Befund B1
+  der zweiten Zweitprüfung; gleich in den Stufen auf Seite 4).
+  Seite 4 ist von b) ausgenommen: Ihr Inhalt hängt nicht vom Namen ab (nur Fuß und Freitext des
+  Coachs), und ihr Überlauf vor den Stufen (etwa bei
+  `mitFazit`) ist der Normalfall, den die Stufen regeln — sonst verlöre jeder Bogen mit langem Fazit
+  den Namen.
 
 ## Gemessen (Chromium, Bildschirm und Druckmedium gleich)
 
@@ -44,9 +58,15 @@ ohne das SVG der Kurve. Kein Fall läuft über (`scrollHeight − clientHeight` 
 | `fazitLang` | 703,9 | 749,4 | 557,2 | 775,3 (Stufe 1) | 767,1 | S4, 24,7 pt |
 | `langerName` | 760,9 | 783,7 | 662,7 | 621,2 | 799,1 | **S5, 0,9 pt** |
 | `zuLangerName` | 728,9 | 783,7 | 662,7 | 621,2 | 767,1 | S2, 16,3 pt |
+| `breiterName` (ohne Namen) | 739,1 | 783,7 | 662,7 | 621,2 | 767,1 | S2, 16,3 pt |
 | `weitereBereiche` | 703,9 | 776,6 | 691,8 | 621,2 | 767,1 | S2, 23,4 pt |
 | `vieleAnliegen` | 737,9 | 773,7 | 682,7 | 621,2 | 767,1 | S2, 26,3 pt |
 | `keinSchwerpunktMitZiel` | 703,9 | 736,8 | 662,7 | 262,7 | 767,1 | S5, 32,9 pt |
+
+**Druckdialog:** Die Entscheidung fällt einmal am Bildschirm und ändert sich beim Drucken nicht.
+Geprüft für `langerName` und `breiterName`: am Bildschirm geladen, direkt im Druckmedium geladen,
+und am Bildschirm geladen mit `window.print()` (beforeprint feuert) und danach Druckmedium — jedes
+Mal dieselbe Fassung und dieselben Werte auf 0,1 pt.
 
 - `fazitLang`: Fazit sechs Zeilen (zwei Elterntexte mit 221 und 208 Zeichen + Coach-Satz), vier
   Schwerpunkte + „Danach …“, Lernziel sieben Zeilen. **Es greift nur Stufe 1** (Verdichtung); der
@@ -54,7 +74,9 @@ ohne das SVG der Kurve. Kein Fall läuft über (`scrollHeight − clientHeight` 
   in Vitest mit gemessener Höhe gemockt geprüft.
 - `mitFazit` braucht schon Stufe 1 (wie in r7-4 Punkt 2 vorhergesagt).
 
-## STOPP: Entscheidung 4 reicht nicht für jeden Namen mit 24 Zeichen
+## STOPP (erster Lauf): Entscheidung 4 reichte nicht für jeden Namen mit 24 Zeichen
+
+Gelöst durch die neue Entscheidung 4 (oben, „Rufname“) und den Fall `breiterName`.
 
 Gefunden von der Zweitprüfung, nachgemessen (Fall `langerName`, Name vorübergehend getauscht, Fixture
 unverändert eingecheckt):
@@ -76,26 +98,27 @@ Fassung ohne Namen. Mit neun Profilzeilen wird es knapper (`weitereBereiche` mit
 
 ## Offene Punkte
 
-1. **Seite 5 mit 24 Zeichen Rufnamen: 0,9 pt Rest** (gilt schon ab etwa 20 Zeichen, z. B.
-   „Mohammed-Ali Wilhelm“). Der Titel „Welcher Rhythmus zu … passt, …“
-   wird zweizeilig, der Kontakt-Kasten endet bei 799,1. Mit „Maximilian Wolfgang Mohr“ (24, breite
-   Buchstaben) gleich. Ein Name aus einem einzigen Wort ohne Bindestrich mit 24 breiten Buchstaben
-   (Kunstwort „WWWW…“, „Mmmm…“) bricht nicht um und läuft über: Seite 2 um 18 pt (813,7), Seite 5 um
-   28 pt (821,0) — vorübergehend gemessen, nicht als Fall eingetragen. Echte Namen dieser Art sind
-   unwahrscheinlich; sonst müsste die Grenze nach Breite statt nach Zeichen gehen (Gründer).
+1. **Seite 5 mit Namen ab etwa 20 Zeichen: 0,9 pt Rest** (`langerName`, „Mohammed-Ali Wilhelm“). Der
+   Titel „Welcher Rhythmus zu … passt, …“ wird zweizeilig, der Kontakt-Kasten endet bei 799,1. Läuft
+   es einmal über (andere Schriftversion, längeres Merkmal), greift jetzt der Wechsel auf die Fassung
+   ohne Namen, statt abzuschneiden.
 2. **Mehrere Anliegen bei einem Rückbezug** gibt es mit den Werten des Intake-Formulars heute nicht:
    Alle sechs Werte haben eine Zeile in `report_anlass_zuordnung` und damit einen Rückbezug. Die
    Fälle `langerName`, `zuLangerName` und `vieleAnliegen` nutzen dafür synthetische Anliegen
    („Hausaufgaben“, „Motivation“) außerhalb der Zuordnung.
 3. **„Weitere Bereiche“** ist in Prod heute leer: Jeder Skill hat ein Themenfeld. `weitereBereiche`
    nutzt einen synthetischen Skill (`daten_diagramme`).
-4. **Fußnote ohne Schwerpunkt:** Entscheidung 3 rückt nur den Lernziel-Kasten nach links; die Fußnote
-   „Stand …“ darunter steht weiter bei x 93. Bitte im PDF `keinSchwerpunktMitZiel` ansehen.
-5. `vieleAnliegen` mit vier Anliegen nennt sie im Satz „Sie machen sich Sorgen um Ilkays
+4. **Name im Zielbild:** Wechselt der Bogen auf die Fassungen ohne Namen, steht der Name weiter im
+   Lernziel, wenn der Coach ihn ins Zielbild geschrieben hat (Freitext, nicht gemessen und nicht
+   ersetzt). `breiterName` und `zuLangerName` setzen dort „Ihr Kind“ ein und verdecken das.
+5. **Kein neues Messen bei neuen Daten ohne Remount** (Name und Stufen). Heute unkritisch: die
+   Ansicht mountet den Bogen je Sitzung neu (LoadingPulse); `key={data.sessionId}` würde es absichern.
+6. Namen in NFD zählen länger (`normalize('NFC')` fehlt).
+7. `vieleAnliegen` mit vier Anliegen nennt sie im Satz „Sie machen sich Sorgen um Ilkays
    Textverständnis, Rechenwege, fehlende Grundlagen und Hausaufgaben.“ — sprachlich holprig bei
    Mischformen, Text `s1.anliegen.genannt` (Lena).
 
-## Zweitprüfung
+## Zweitprüfung (erster Lauf)
 
 Frische Instanz, Schwerpunkt Grenzfälle im Druck, alle neuen Fälle Seite für Seite in Bildschirm und
 Druckmedium (Werte wie oben auf 0,1 pt), dazu mit um 1,5 s verzögerten Schriften (Werte und Stufen
@@ -110,3 +133,21 @@ neun Profilzeilen mit 30 pt; Lernziel ohne Schwerpunkt bei x 44, 507 pt breit; `
 - Nicht umgesetzt (kann): Warnhinweis, wenn Stufe 3 noch überläuft (heute nur Druck-Test fängt das);
   Stufe bei Datenwechsel ohne Remount nicht zurückgesetzt (Bogen wird je Sitzung neu gerendert);
   Namen in NFD zählen länger (`normalize('NFC')`).
+
+## Zweitprüfung (zweiter Lauf, Namenswechsel und Seite 4/5)
+
+Frische Instanz. 209 Vitest-Tests und 21 Druck-Tests grün. `langerName` behält den Namen (Rest S1–S5:
+39,1 / 16,3 / 137,3 / 178,8 / **0,9** pt), `breiterName` wechselt (60,9 / 16,3 / 137,3 / 178,8 / 32,9),
+kein Namensteil auf den Seiten. Bildschirm, Bildschirm→Druck und direkt im Druck geladen gleich; mit
+1,5 s und 3 s verzögerten Schriften gleiche Entscheidung, kein Zwischenwechsel, Stufe auf Seite 4 erst
+danach. 13 weitere Namen mit 20–24 Zeichen auf allen Fällen mit Namen: kein Überlauf ohne Wechsel; wo
+der Name bleibt, ist Seite 5 der Engpass (0,9 pt), nicht der Titel auf Seite 2.
+
+- Blockierend (umgesetzt): B1, Messung mit der Ersatzschrift in Fällen ohne Kurve — `allesSicher`
+  mit „Hans-Joachim Wilhelm“ verlor den Namen, obwohl mit echten Schriften nichts überläuft. Nach dem
+  Fix nachgemessen (Name vorübergehend eingesetzt): Name bleibt, kein Überlauf, auch mit 1,5 s
+  verzögerten Schriften.
+- Sollte (umgesetzt): Kommentar zu Seite 4 in `namensMessung.ts`; Name im Zielbild als offener Punkt 4.
+- Sollte (Hinweis): Fast jeder lange Name kippt an Seite 5 (offener Punkt 1).
+- Kann (nicht umgesetzt): offene Punkte 5 und 6; kein Nachmessen bei `beforeprint` — in Chromium sind
+  Druck- und Bildschirmmaß gleich.

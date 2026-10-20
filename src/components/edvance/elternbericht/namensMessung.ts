@@ -15,8 +15,9 @@ export const NAME_MAX = 24
 const TITEL_ZEILEN_MAX = 2
 
 /**
- * Seiten, auf denen der Name steht. Seite 4 trägt ihn nicht und regelt Überlauf
- * mit ihren eigenen Stufen; ihr Überlauf vor den Stufen sagt über den Namen nichts.
+ * Seiten, deren Inhalt vom Namen abhängt. Auf Seite 4 steht er nur im Fuß (SVG,
+ * außerhalb des Inhalts) und im Freitext des Coachs; ihren Überlauf regeln die
+ * eigenen Stufen, er sagt über den Namen nichts.
  */
 const SEITEN_MIT_NAMEN = [1, 2, 3, 5]
 
@@ -63,6 +64,9 @@ export function useNamensMessung(mitName: boolean): {
       if (!passtMitNamen(bogen)) setNameBleibt(false)
       setFertig(true)
     }
+    // Erst ein Layout erzwingen: Vorher hat der Bogen keine Schrift angefordert,
+    // und fonts.status stünde auf 'loaded', obwohl die Ersatzschrift misst.
+    void bogen.offsetHeight
     if (!document.fonts || document.fonts.status === 'loaded') messen()
     else void document.fonts.ready.then(messen)
     return () => {

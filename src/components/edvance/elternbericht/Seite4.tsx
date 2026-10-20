@@ -124,6 +124,7 @@ function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: num
     const pruefen = (): void => {
       if (aktiv && kasten.scrollHeight > kasten.clientHeight) setWert(wert + 1)
     }
+    void kasten.offsetHeight // Layout erzwingen, damit die Schriften angefordert sind
     if (!document.fonts || document.fonts.status === 'loaded') pruefen()
     else void document.fonts.ready.then(pruefen)
     return () => {

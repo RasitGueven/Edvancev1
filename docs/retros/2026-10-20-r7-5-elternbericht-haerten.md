@@ -32,3 +32,17 @@
 ## Gelernt
 - Grenzen in Zeichen sind für Druck keine Garantie: Breite hängt an den Buchstaben. Gegenprobe mit
   breiten, realistischen Namen gehört in jede Namensgrenze.
+
+## Nachtrag: neue Entscheidung 4 (Name nach Messung)
+- `namensMessung.ts`: vorab über 24 Zeichen ohne Namen; sonst eine Messung nach dem Laden der
+  Schriften (Titel Seite 2 > 2 Zeilen oder Überlauf Seite 1/2/3/5) → ganzer Bogen ohne Namen, einmal.
+  Seite 4 misst ihre Stufen erst danach (Context `NamensMessungFertig`, `seitenProps.ts` unverändert).
+- Fall `breiterName` („Mohammed-Mustafa Wilhelm“) → ohne Namen; `langerName` behält ihn (S5 0,9 pt).
+- Fußnote „Stand …“ ohne Schwerpunkt bei x 44 (`eb-s4-stand-voll`).
+- Zweitprüfung fand B1: `fonts.status` ist `loaded`, solange nichts eine Schrift angefordert hat —
+  ohne Kurve maß der Bogen mit der Ersatzschrift. Fix: Layout erzwingen vor der Statusprüfung.
+- Ergebnis: Typecheck, Lint, Vitest (1596) grün; Druck-Tests 21/21 grün.
+
+## Gelernt (Nachtrag)
+- `document.fonts.status === 'loaded'` heißt nicht „Schriften geladen“, sondern „nichts lädt gerade“.
+  Vor der Prüfung ein Layout erzwingen.
