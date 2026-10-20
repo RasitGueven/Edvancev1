@@ -38,6 +38,8 @@ export function Seite2({ data, bericht, wessen }: SeitenProps): JSX.Element {
   const liste = new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' })
   const felder = (keys: ThemenfeldKey[]): string => liste.format(keys.map((k) => t(`feld.${k}`)))
   const d = deutung(profil)
+  // Der Coach-Satz bezieht sich auf den Satz davor und steht nie allein (R7-10).
+  const mitFeldSatz = d.sicher.length > 0 || d.uebung.length > 0
   const werte = { sicher: zaehlung.sicher, uebung: zaehlung.uebung, geprueft: zaehlung.untersucht }
 
   return (
@@ -73,7 +75,7 @@ export function Seite2({ data, bericht, wessen }: SeitenProps): JSX.Element {
       <section className="eb-s2-deutung" data-testid="eb-deutung">
         <h2 className="eb-kicker eb-s2-deutung-kicker">{t('s2.deutung.kicker')}</h2>
         <div>
-          {(d.sicher.length > 0 || d.uebung.length > 0 || zaehlung.uebung > 0) && (
+          {mitFeldSatz && (
             <p className="eb-s2-deutung-text">
               {[
                 d.sicher.length > 0 &&

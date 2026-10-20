@@ -130,11 +130,11 @@
   fill: var(--color-eb-uebung);
 }
 /* Abgeleitete Bereiche (R7-8): nur Umriss, keine Farbe für sicher oder
-   Übungsbedarf. */
+   Übungsbedarf. Seit R7-10 kräftiger (weg-ring, 0,8), damit er im Druck trägt. */
 .eb-s2-segment-abgeleitet {
   fill: var(--color-eb-papier);
-  stroke: var(--color-eb-schraffur-rand);
-  stroke-width: 0.7;
+  stroke: var(--color-eb-weg-ring);
+  stroke-width: 0.8;
 }
 /* Keine Segmente für nicht Geprüftes, keine Schraffur (R7-6). Das Pattern im
    Bogen bleibt definiert, wird aber nicht mehr benutzt. */
