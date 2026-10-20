@@ -108,3 +108,31 @@ export const abgestuftMitOffen = fall('31', {
   ],
   abgeleitet: ['dezimal_add_sub', 'dezimal_mult', 'potenzen', 'vorzeichen_add_sub', 'vorzeichen_mult_div'],
 })
+
+/** 12 direkt geprüfte und 14 abgeleitete Bereiche in einem Feld (Zahlen & Rechnen). */
+const LANG_DIREKT = Array.from({ length: 12 }, (_, i) => `zahl_r7_8_d${i + 1}`)
+const LANG_ABGELEITET = Array.from({ length: 14 }, (_, i) => `zahl_r7_8_a${i + 1}`)
+
+/**
+ * Synthetisch (R7-8): der längste rechte Text auf Seite 2, „12 geprüft · 14
+ * abgeleitet“, in der längsten Zeile (26 Kästchen). Prüft, dass die Spur mit
+ * abgeleiteten Bereichen (206 pt) vor dem Text endet.
+ */
+export const abgestuftLang = fall('32', {
+  analysedAt: '2026-10-20T09:00:00.000Z',
+  raum: themenraumFuer({
+    themaKey: 'reelle_zahlen',
+    gespeichert: {
+      stand: '2026-10-20T08:55:00.000+00:00',
+      thema_key: 'reelle_zahlen',
+      einstieg: LANG_DIREKT,
+      darunter: LANG_ABGELEITET,
+    },
+    einstieg: [],
+    kanten: [],
+  }),
+  urteile: LANG_DIREKT.map((k, i) =>
+    u(k, `Zahlbereich ${i + 1}`, 3, 5 + (i % 5), i % 3 === 0 ? 'traegt' : 'traegt_nicht', 2, false),
+  ),
+  abgeleitet: LANG_ABGELEITET,
+})

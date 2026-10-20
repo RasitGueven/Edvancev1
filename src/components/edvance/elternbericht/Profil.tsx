@@ -1,8 +1,13 @@
 import { useTranslation } from 'react-i18next'
 
-import type { EbProfilZeile } from '@/types'
-
-import { linienLage, segmente, teile, zeilenAbstand } from './seite2Rechnung'
+import {
+  linienLage,
+  massstabFuer,
+  segmente,
+  teile,
+  zeilenAbstand,
+  type ProfilZeile,
+} from './seite2Rechnung'
 
 // Lage in der Karte, in pt relativ zur Innenkante (Maßblatt Seite 2: Karte
 // (44,323)–(551,663), Rand 0,9, Inhalt ab x 64). Jede Zeile ist ein SVG mit
@@ -11,12 +16,20 @@ const BREITE = 467 // x 64–531
 const RECHTS = 468 // rechte Texte bis x 532
 const SPUR_X = 165 // x 229
 const SPUR_H = 13.5
+/** Rand der Umriss-Kästchen; das Rechteck rückt um die halbe Stärke ein, damit
+ * es außen so groß ist wie ein farbiges. */
+const UMRISS = 0.7
+/** Legende: dritter Eintrag hinter „Übungsbedarf“ (Textende 129,1, gemessen)
+ * mit demselben Abstand wie zwischen den ersten beiden (Textende 41,6 → 59,9). */
+const LEGENDE_UMRISS_X = 147.4
 
 /**
- * Das Kompetenzprofil: eine Zeile je Themenfeld mit geprüften Bereichen, ein
- * Segment je geprüftem Bereich (R7-6). `profil` kommt schon gefiltert.
+ * Das Kompetenzprofil: eine Zeile je Themenfeld, ein Kästchen je geprüftem
+ * Bereich (R7-6). Seit R7-8 mit einem Maßstab für alle Zeilen, der
+ * Klassenspanne unter dem Feldnamen und — nur bei abgestufter LSA — den
+ * abgeleiteten Bereichen des Themas als Umriss ohne Farbe, Zustand und Label.
  *
- * Die Segmente sind Anzahlen, keine Quote: Beide Zahlen stehen als Text
+ * Die Kästchen sind Anzahlen, keine Quote: Die Zahlen stehen als Text
  * daneben, die Spur ist für Vorleseprogramme verborgen, jede Zeile hat einen
  * eigenen Vorlesetext.
  */
@@ -24,11 +37,13 @@ export function Profil({
   profil,
   wessen,
 }: {
-  profil: EbProfilZeile[]
+  profil: ProfilZeile[]
   wessen: string | null
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
   const abstand = zeilenAbstand(profil.length)
+  const m = massstabFuer(profil)
+  const mitAbgeleiteten = profil.some((z) => z.abgeleitet > 0)
   // Trennlinie zwischen zwei Zeilen: im Muster 31,8 unter der Spur-Oberkante;
   // bei engem Abstand mittig zwischen Unterzeile und nächster Spur.
   const linieY = linienLage(abstand)
@@ -49,10 +64,20 @@ export function Profil({
         {profil.map((z, i) => {
           const untersucht = z.sicher + z.uebung
           const feld = t(`feld.${z.feld}`)
+          const vorlesen = [
+            untersucht > 0
+              ? t('s2.profil.aria', { feld, untersucht, sicher: z.sicher, uebung: z.uebung })
+              : t('s2.profil.ariaNurAbgeleitet', { feld, count: z.abgeleitet }),
+            untersucht > 0 && z.abgeleitet > 0 && t('s2.profil.ariaAbgeleitet', { count: z.abgeleitet }),
+          ]
+          const oben = [
+            untersucht > 0 && t('s2.profil.geprueft', { count: untersucht }),
+            z.abgeleitet > 0 && t('s2.profil.abgeleitet', { count: z.abgeleitet }),
+          ]
           return (
             <li key={z.feld} className="eb-s2-zeile" data-testid="eb-profil-zeile">
               <span className="sr-only">
-                {t('s2.profil.aria', { feld, untersucht, sicher: z.sicher, uebung: z.uebung })}
+                {vorlesen.filter((x): x is string => Boolean(x)).join(' ')}
               </span>
               <svg
                 className="eb-s2-zeile-bild"
@@ -64,21 +89,31 @@ export function Profil({
                 <text className="eb-s2-feld" x="0" y="9.1">
                   {feld}
                 </text>
+                {z.klasse && (
+                  <text className="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">
+                    {z.klasse.von === z.klasse.bis
+                      ? t('s2.profil.klasse', { k: z.klasse.von })
+                      : t('s2.profil.klasseSpanne', { von: z.klasse.von, bis: z.klasse.bis })}
+                  </text>
+                )}
                 <g className="eb-s2-spur" transform={`translate(${SPUR_X} 0)`}>
-                  {segmente(z).map((s, j) => (
-                    <rect
-                      key={j}
-                      className={`eb-s2-segment-${s.art}`}
-                      x={s.x}
-                      y="0"
-                      width={s.breite}
-                      height={SPUR_H}
-                      rx={s.radius}
-                    />
-                  ))}
+                  {segmente(z, m).map((s, j) => {
+                    const ein = s.art === 'abgeleitet' ? UMRISS / 2 : 0
+                    return (
+                      <rect
+                        key={j}
+                        className={`eb-s2-segment-${s.art}`}
+                        x={s.x + ein}
+                        y={ein}
+                        width={s.breite - 2 * ein}
+                        height={SPUR_H - 2 * ein}
+                        rx={Math.max(0, s.radius - ein)}
+                      />
+                    )
+                  })}
                 </g>
                 <text className="eb-s2-geprueft" x={RECHTS} y="5.5">
-                  {t('s2.profil.geprueft', { count: untersucht })}
+                  {oben.filter((x): x is string => Boolean(x)).join(t('s2.profil.trenner'))}
                 </text>
                 <text className="eb-s2-teile" x={RECHTS} y="20">
                   {teile(z)
@@ -103,6 +138,21 @@ export function Profil({
         <text x="75.9" y="6.1">
           {t('s2.profil.legende.uebung')}
         </text>
+        {mitAbgeleiteten && (
+          <g data-testid="eb-legende-abgeleitet">
+            <rect
+              className="eb-s2-segment-abgeleitet"
+              x={LEGENDE_UMRISS_X + UMRISS / 2}
+              y={UMRISS / 2}
+              width={10 - UMRISS}
+              height={10 - UMRISS}
+              rx={2.6 - UMRISS / 2}
+            />
+            <text x={LEGENDE_UMRISS_X + 16} y="6.1">
+              {t('s2.profil.legende.abgeleitet')}
+            </text>
+          </g>
+        )}
       </svg>
     </section>
   )

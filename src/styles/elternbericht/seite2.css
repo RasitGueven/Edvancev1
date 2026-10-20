@@ -112,6 +112,12 @@
   text-anchor: end;
   fill: var(--color-eb-leise);
 }
+/* Klassenspanne unter dem Feldnamen: Schrift und Farbe wie .eb-s2-teile, auf
+   derselben Grundlinie (y 20) im vorhandenen Raum der Zeile (R7-8). */
+.eb-s2-klasse {
+  font-size: 7.05px;
+  fill: var(--color-eb-leise);
+}
 .eb-s2-zeilen-linie {
   stroke: var(--color-eb-linie-zart);
   stroke-width: 0.55;
@@ -122,6 +128,13 @@
 }
 .eb-s2-segment-uebung {
   fill: var(--color-eb-uebung);
+}
+/* Abgeleitete Bereiche (R7-8): nur Umriss, keine Farbe für sicher oder
+   Übungsbedarf. */
+.eb-s2-segment-abgeleitet {
+  fill: var(--color-eb-papier);
+  stroke: var(--color-eb-schraffur-rand);
+  stroke-width: 0.7;
 }
 /* Keine Segmente für nicht Geprüftes, keine Schraffur (R7-6). Das Pattern im
    Bogen bleibt definiert, wird aber nicht mehr benutzt. */

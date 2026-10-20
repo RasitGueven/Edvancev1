@@ -75,7 +75,7 @@
       "text": "Ausgehend vom Thema {{thema}} hat das System je nach Antwort die nächste Aufgabe gewählt. So wurden {{untersucht}} Bereiche gezielt geprüft.",
       "textOhneThema": "Je nach Antwort hat das System die nächste Aufgabe gewählt. So wurden {{untersucht}} Bereiche gezielt geprüft.",
       "hinweis": "Dieser Bericht sagt nur etwas über die geprüften Bereiche. Weitere Bereiche lernen wir in den ersten Sitzungen kennen.",
-      "hinweisThema": "Zahlen und Farben in diesem Bericht zeigen nur die direkt geprüften Bereiche."
+      "hinweisThema": "Die Farben in diesem Bericht zeigen nur die direkt geprüften Bereiche."
     },
     "thema": {
       "umfang_one": "Zum Thema {{thema}} gehört ein Bereich.",
@@ -116,15 +116,23 @@
     "profil": {
       "titel": "{{wessen}} Kompetenzprofil",
       "titelOhneName": "Kompetenzprofil",
-      "hinweis": "Jedes Segment steht für eine Kompetenz",
+      "hinweis": "Jedes Kästchen steht für einen Bereich",
       "geprueft": "{{count}} geprüft",
+      "abgeleitet": "{{count}} abgeleitet",
+      "klasse": "Klasse {{k}}",
+      "klasseSpanne": "Klasse {{von}}–{{bis}}",
       "sicher": "{{count}} sicher",
       "uebung": "{{count}} Übungsbedarf",
       "aria": "{{feld}}: {{untersucht}} geprüft, davon {{sicher}} sicher und {{uebung}} mit Übungsbedarf.",
+      "ariaAbgeleitet_one": "{{count}} weiterer ergibt sich aus den Aufgaben.",
+      "ariaAbgeleitet_other": "{{count}} weitere ergeben sich aus den Aufgaben.",
+      "ariaNurAbgeleitet_one": "{{feld}}: nicht einzeln geprüft, {{count}} Bereich ergibt sich aus den Aufgaben.",
+      "ariaNurAbgeleitet_other": "{{feld}}: nicht einzeln geprüft, {{count}} Bereiche ergeben sich aus den Aufgaben.",
       "trenner": " · ",
       "legende": {
         "sicher": "Sicher",
-        "uebung": "Übungsbedarf"
+        "uebung": "Übungsbedarf",
+        "abgeleitet": "Aus den Aufgaben abgeleitet"
       }
     },
     "deutung": {
@@ -135,7 +143,8 @@
       "uebung_other": "Den meisten Übungsbedarf zeigten die Themenfelder {{felder}}.",
       "coach": "Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen."
     },
-    "fussnote": "Jedes Segment steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts."
+    "fussnote": "Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.",
+    "fussnoteAbgeleitet": "Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe."
   },
   "s3": {
     "kicker": "Einordnung im Lernstoff",
