@@ -119,6 +119,10 @@
   border: 0.8pt solid var(--color-eb-linie);
   border-radius: 11pt;
 }
+/* Ohne Schwerpunkt keine Kurve daneben: bündig an der Inhaltskante, volle Breite. */
+.eb-s4-lernziel-voll {
+  margin-left: 0;
+}
 .eb-s4-lernziel-text {
   margin-top: 9.31pt; /* erste Zeile (Kasten + 39,8) */
   font-size: 9.1pt;
@@ -136,10 +140,14 @@
 .eb-s4-lernziel + .eb-s4-stand {
   margin-top: 8.99pt; /* (Kasten-Unterkante + 16,8) */
 }
+/* Ohne Schwerpunkt bündig mit dem Lernziel-Kasten. */
+.eb-s4-stand-voll {
+  margin-left: 0;
+}
 
 /* ─── Verdichtet ─────────────────────────────────────────────────────────────
    Nur wenn die Seite mit den Abständen des Musters überläuft (Seite4.tsx,
-   useDicht): echte Elterntexte ergeben mit dem Coach-Satz sechs bis sieben
+   useStufe, Stufe 1): echte Elterntexte ergeben mit dem Coach-Satz sechs bis sieben
    Zeilen Fazit, das Muster hat Platz für fünf. Die Regel zur Trennlinie bleibt,
    nur mit kleineren Werten; die Kurve misst danach neu. */
 

@@ -1,7 +1,7 @@
 // Bogen und Seitenrahmen des Eltern-Berichts R7: fünf Seiten, Chip nur im
 // Testlauf, Mikro-Navigation, Fuß mit und ohne Namen, Hinweis statt Bogen.
 import { render, screen, within } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
 
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
@@ -74,6 +74,34 @@ describe('ElternberichtBogen', () => {
     )
   })
 
+  it('nimmt Rufnamen bis 24 Zeichen, darüber überall die Fassungen ohne Namen', () => {
+    const texte = (firstName: string) => {
+      const { container, unmount } = bogen({ ...FAELLE.ilkay.data, firstName })
+      const s = seiten(container)
+      const ergebnis = {
+        fuss: s[0].querySelector('.eb-fuss-text')?.textContent,
+        titel: s.map((x) => x.querySelector('.eb-titel')?.textContent),
+        anliegen: s[0].querySelector('.eb-s1-anliegen-satz')?.textContent,
+        alles: container.textContent ?? '',
+      }
+      unmount()
+      return ergebnis
+    }
+
+    const mit = texte(' Anna-Katharina Henriette ') // 24 Zeichen nach trim
+    expect(mit.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse Anna-Katharina Henriette')
+    expect(mit.titel[0]).toBe('Was wir bei Anna-Katharina Henriette gesehen haben')
+    expect(mit.titel[1]).toContain('Anna-Katharina Henriettes')
+    expect(mit.anliegen).toContain('Anna-Katharina Henriettes')
+
+    const ohne = texte('Anna-Katharina Friederike') // 25 Zeichen
+    const ohneName = texte('')
+    expect(ohne.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse')
+    expect(ohne.titel).toEqual(ohneName.titel)
+    expect(ohne.anliegen).toBe(ohneName.anliegen)
+    expect(ohne.alles).not.toContain('Friederike')
+  })
+
   it('zeigt ohne Katalog keinen Bogen, sondern den Hinweis', () => {
     const { container } = bogen('ohneKatalog')
     expect(seiten(container)).toHaveLength(0)
@@ -89,5 +117,67 @@ describe('ElternberichtBogen', () => {
     expect(screen.getByTestId('eb-leer')).toHaveTextContent(
       'Für diese Analyse gibt es keine direkt geprüften Bereiche.',
     )
+  })
+})
+
+describe('ElternberichtBogen — Name nach der Messung', () => {
+  afterEach(() => vi.restoreAllMocks())
+
+  const seiteVon = (el: Element): number => Number(el.closest<HTMLElement>('.eb-seite')?.dataset.seite)
+
+  /** Gemessene Lagen gemockt: Zeilen des Titels auf Seite 2 und überlaufende Seiten. */
+  function gemessen(titelZeilen: number, ueberlauf: number[]) {
+    vi.spyOn(window, 'getComputedStyle').mockImplementation(
+      () => ({ lineHeight: '40px' }) as CSSStyleDeclaration,
+    )
+    vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function (this: Element) {
+      const h = this.classList.contains('eb-titel') && seiteVon(this) === 2 ? 40 * titelZeilen : 0
+      return { x: 0, y: 0, top: 0, left: 0, right: 0, width: 0, height: h, bottom: h, toJSON: () => ({}) }
+    })
+    vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockImplementation(function (this: HTMLElement) {
+      return this.classList.contains('eb-inhalt') && ueberlauf.includes(seiteVon(this)) ? 977 : 960
+    })
+    vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(960)
+
+    const { container } = bogen('langerName')
+    const s = seiten(container)
+    return {
+      ohneName: container.querySelector('.eb-bogen')!.hasAttribute('data-ohne-name'),
+      fuesse: s.map((x) => x.querySelector('.eb-fuss-text')?.textContent),
+      titel: [0, 1, 4].map((i) => s[i].querySelector('.eb-titel')?.textContent),
+      stufe: container.querySelector('.eb-s4')!.getAttribute('data-stufe'),
+    }
+  }
+
+  const MIT = 'edvance  ·  Köln  ·  Lernstandsanalyse Anna-Katharina Henriette'
+  const OHNE = 'edvance  ·  Köln  ·  Lernstandsanalyse'
+
+  it('passt alles, bleibt der Name', () => {
+    const m = gemessen(2, [])
+    expect(m.ohneName).toBe(false)
+    expect(m.fuesse).toEqual(Array(5).fill(MIT))
+  })
+
+  it('Titel auf Seite 2 dreizeilig: der ganze Bogen ohne Namen', () => {
+    const m = gemessen(3, [])
+    expect(m.ohneName).toBe(true)
+    expect(m.fuesse).toEqual(Array(5).fill(OHNE))
+    expect(m.titel).toEqual([
+      'Was wir bei Ihrem Kind gesehen haben',
+      'Der Lernstand in den untersuchten Bereichen.',
+      'Unsere Einschätzung für Ihr Kind.',
+    ])
+  })
+
+  it('läuft eine Seite mit Namen über (hier Seite 5), nie nur diese Seite ohne Namen', () => {
+    const m = gemessen(2, [5])
+    expect(m.ohneName).toBe(true)
+    expect(m.fuesse).toEqual(Array(5).fill(OHNE))
+  })
+
+  it('Überlauf nur auf Seite 4 (ohne Namen) regeln die Stufen, der Name bleibt', () => {
+    const m = gemessen(2, [4])
+    expect(m.ohneName).toBe(false)
+    expect(m.stufe).toBe('1')
   })
 })
