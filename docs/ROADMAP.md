@@ -146,6 +146,11 @@
   Raum-Karten (voll und ohne Coach gesperrt mit Grund), A/B-Hinweis, „Die nächsten Termine“ aus `stammplatz_vorschau`
   und Speichern mit Raum; Kind-Seite zeigt Raum und Coach. Reine Oberfläche, keine Migration. **Offen:**
   `docs/slots/offene-punkte-w3.md`.
+- **Slots W4 · Coaches: Schichten als Block** (Retro `2026-10-20-slots-w4-coaches.md`, Branch
+  `feat/rasit-slots-w4-coaches`): Je Coach eine Karte mit Blöcken („Mo 14:00–18:00“, Raum, Stammplätze), „Schicht
+  eintragen“ als ein Block über `stammschicht_block_anlegen` mit Konfliktsatz und Uhrzeit, Dialog „Raum ändern“ (gültig ab
+  nächster Montag, Kinder nur mit Häkchen, besetzter Zielraum gesperrt mit Grund), Dialog „Entfernen“ ab Datum.
+  Abweichungen verweisen ins Slot-Panel. Reine Oberfläche, keine Migration. **Offen:** `docs/slots/offene-punkte-w4.md`.
 - **Session P1 · T5 Coach im Testlauf** (Retro `2026-10-14-session-t5-coach-testlauf.md`, Branch
   `feat/rasit-session-t5-coach-testlauf`): Neuer RPC `skill_pruefung_session` (echt nur freigegeben, im Testlauf jede
   Prüffrage, die `pruefung_aufs_tablet` auflegt, mit `freigegeben`), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach
