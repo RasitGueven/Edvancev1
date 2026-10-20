@@ -4,6 +4,7 @@
 // Supabase-Client. Neue Fälle hier eintragen, dann gehen Vorschau und
 // Druck-Test sie automatisch durch.
 
+import * as a from '@/lib/report/elternbericht/fixtures/abgestuft'
 import * as g from '@/lib/report/elternbericht/fixtures/grenzfaelle'
 import { ilkay } from '@/lib/report/elternbericht/fixtures/ilkay'
 import { NOTIZEN, NOTIZEN_LANG, TIERS } from '@/lib/report/elternbericht/fixtures/notizen'
@@ -44,6 +45,9 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   weitereBereiche: mitNotizen(g.weitereBereiche),
   vieleAnliegen: mitNotizen(g.vieleAnliegen),
   keinSchwerpunktMitZiel: mitNotizen(g.keinSchwerpunktMitZiel),
+  // Abgestufte LSA mit Thema: Thema-Satz auf Seite 1 (R7-6)
+  abgestuft: mitNotizen(a.abgestuft),
+  abgestuftMitOffen: mitNotizen(a.abgestuftMitOffen),
 }
 
 export { ilkay, NOTIZEN, NOTIZEN_LANG, TIERS }

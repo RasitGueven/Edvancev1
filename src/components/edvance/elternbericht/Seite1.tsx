@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
+import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
+
 import { Seite1Kaesten } from './Seite1Kaesten'
 import { Seite1Karten } from './Seite1Karten'
 import { Weg } from './Weg'
@@ -15,6 +17,9 @@ import type { SeitenProps } from './seitenProps'
 export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
+  // Dieselbe Quelle wie R6 „Wie wir gesucht haben“; ohne Label die Fassung ohne Thema.
+  const thema = data.erzaehlung.suche?.themaLabel ?? null
+  const abdeckung = themaAbdeckungAus(data.erzaehlung)
 
   // Überschrift: abgenommener Kopfsatz, sonst die neutrale Ersatzüberschrift.
   const titel =
@@ -69,10 +74,8 @@ export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
       <p className="eb-s1-zeile">
         {t('s1.blick.zeile', {
           untersucht: zaehlung.untersucht,
-          katalog: zaehlung.katalog,
           sicher: zaehlung.sicher,
           uebung: zaehlung.uebung,
-          offen: zaehlung.offen,
         })}
       </p>
 
@@ -81,6 +84,8 @@ export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
       <Seite1Kaesten
         data={data}
         zaehlung={zaehlung}
+        thema={thema}
+        abdeckung={abdeckung}
         wessen={wessen}
         rueckbezuege={rueckbezuege}
       />

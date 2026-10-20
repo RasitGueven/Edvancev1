@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  LUECKE,
   SPUR,
   deutung,
+  gepruefteZeilen,
   linienLage,
-  luecke,
+  segmentBreite,
   segmente,
   teile,
   zeilenAbstand,
@@ -32,55 +34,68 @@ const zeile = (vorhanden: number, sicher = 0, uebung = 0): EbProfilZeile => ({
 })
 
 describe('segmente', () => {
-  it('ilkay: eine Zeile je Feld mit Katalogbereichen, ein Segment je Kompetenz', () => {
-    const { profil } = bericht('ilkay')
+  it('ilkay: nur Felder mit geprüften Bereichen, ein Segment je geprüftem Bereich', () => {
+    const profil = gepruefteZeilen(bericht('ilkay').profil)
     expect(profil.map((z) => [z.feld, segmente(z).length])).toEqual([
-      ['brueche', 8],
-      ['prozent', 9],
-      ['terme', 23],
-      ['geometrie', 40],
-      ['groessen', 6],
-      ['zahlen', 14],
-      ['funktionen', 20],
-      ['zufall', 10],
+      ['brueche', 5],
+      ['prozent', 4],
+      ['terme', 4],
+      ['geometrie', 6],
+      ['groessen', 5],
+      ['zahlen', 3],
     ])
     for (const z of profil) {
       const s = segmente(z)
       expect(s.filter((x) => x.art === 'sicher')).toHaveLength(z.sicher)
       expect(s.filter((x) => x.art === 'uebung')).toHaveLength(z.uebung)
-      expect(s.filter((x) => x.art === 'offen')).toHaveLength(z.vorhanden - z.sicher - z.uebung)
     }
   })
 
-  it('reiht sicher, Übungsbedarf, nicht untersucht', () => {
-    expect(segmente(zeile(5, 2, 1)).map((s) => s.art)).toEqual(['sicher', 'sicher', 'uebung', 'offen', 'offen'])
+  it('reiht erst sicher, dann Übungsbedarf — nichts für nicht Geprüftes', () => {
+    expect(segmente(zeile(5, 2, 1)).map((s) => s.art)).toEqual(['sicher', 'sicher', 'uebung'])
   })
 
-  it('füllt die Spur genau, mit der Lücke nach der Zahl der Segmente', () => {
-    for (const [n, l] of [[16, 4], [17, 2], [30, 2], [31, 1]] as const) {
-      expect(luecke(n), String(n)).toBe(l)
-      const s = segmente(zeile(n))
-      expect(s).toHaveLength(n)
-      expect(s[1].x - s[0].x - s[0].breite, String(n)).toBeCloseTo(l)
+  it('Breite min(18, (226 − (n − 1) · 4) / n) für n = 1, 5, 12, 40', () => {
+    expect(segmentBreite(1)).toBe(18)
+    expect(segmentBreite(5)).toBe(18)
+    expect(segmentBreite(12)).toBeCloseTo((226 - 11 * 4) / 12) // 15,17
+    expect(segmentBreite(40)).toBeCloseTo((226 - 39 * 4) / 40) // 1,75
+  })
+
+  it('linksbündig mit Lücke 4 pt, nie breiter als die Spur', () => {
+    for (const n of [1, 5, 12, 40]) {
+      const s = segmente(zeile(n, n, 0))
+      expect(s, String(n)).toHaveLength(n)
+      expect(s[0].x).toBe(0)
+      if (n > 1) expect(s[1].x - s[0].x - s[0].breite, String(n)).toBeCloseTo(LUECKE)
       const letztes = s[n - 1]
-      expect(letztes.x + letztes.breite, String(n)).toBeCloseTo(SPUR)
+      expect(letztes.x + letztes.breite, String(n)).toBeLessThanOrEqual(SPUR + 1e-9)
     }
+    // Ein geprüfter Bereich füllt die Spur nicht.
+    expect(segmente(zeile(1, 1, 0))[0].breite).toBe(18)
   })
 
-  it('Muster: acht Segmente sind 24,75 pt breit, Radius 3,5', () => {
-    const [erstes] = segmente(zeile(8, 2, 3))
-    expect(erstes.breite).toBeCloseTo(24.75)
-    expect(erstes.radius).toBe(3.5)
-  })
-
-  it('Radius höchstens ein Drittel der Segmentbreite', () => {
-    const [s] = segmente(zeile(40))
+  it('Radius min(3,5, Breite / 3)', () => {
+    expect(segmente(zeile(1, 1, 0))[0].radius).toBe(3.5)
+    const [s] = segmente(zeile(40, 40, 0))
     expect(s.radius).toBeCloseTo(s.breite / 3)
     expect(s.radius).toBeLessThan(3.5)
   })
 
-  it('ohne Katalogbereiche keine Segmente', () => {
-    expect(segmente(zeile(0))).toEqual([])
+  it('ohne geprüften Bereich keine Segmente', () => {
+    expect(segmente(zeile(8))).toEqual([])
+  })
+})
+
+describe('gepruefteZeilen', () => {
+  it('nur Felder mit mindestens einem geprüften Bereich, Reihenfolge bleibt', () => {
+    for (const fall of ['ilkay', 'allesSicher', 'weitereBereiche'] as const) {
+      const alle = bericht(fall).profil
+      const z = gepruefteZeilen(alle)
+      expect(z.every((x) => x.sicher + x.uebung > 0), fall).toBe(true)
+      expect(z.map((x) => x.feld), fall).toEqual(alle.filter((x) => x.sicher + x.uebung > 0).map((x) => x.feld))
+    }
+    expect(gepruefteZeilen(bericht('weitereBereiche').profil).at(-1)!.feld).toBe('weitere')
   })
 })
 

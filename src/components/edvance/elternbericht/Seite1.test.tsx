@@ -70,10 +70,10 @@ describe('Seite 1 — Kopfdaten und Zählung (ilkay)', () => {
     expect(ohne.getByText('10')).toBeInTheDocument()
   })
 
-  it('fasst die Zählung in einer Zeile zusammen', () => {
-    expect(
-      s().getByText(/von 130 Bereichen untersucht/).textContent,
-    ).toBe('27 von 130 Bereichen untersucht  ·  11 sicher  ·  16 Übungsbedarf  ·  103 nicht untersucht')
+  it('fasst die Zählung in einer Zeile zusammen, ohne Katalog-Nenner', () => {
+    expect(s().el.querySelector('.eb-s1-zeile')?.textContent).toBe(
+      '27 Bereiche geprüft  ·  11 sicher  ·  16 Übungsbedarf',
+    )
   })
 })
 
@@ -128,11 +128,12 @@ describe('Seite 1 — Anliegen, Prüfweg und Weg', () => {
     expect(anliegen).toHaveTextContent('Als nächstes Thema steht Algebra & Funktionen an.')
     expect(within(anliegen).getAllByRole('listitem')).toHaveLength(1)
     expect(s.getByTestId('eb-geprueft')).toHaveTextContent(
-      'So wurden 27 von 130 Bereichen des Katalogs bis Klasse 10 untersucht.',
+      'Ausgehend vom Thema Terme und Gleichungen hat das System je nach Antwort die nächste Aufgabe gewählt. So wurden 27 Bereiche gezielt geprüft.',
     )
     expect(s.getByTestId('eb-geprueft')).toHaveTextContent(
-      'Über die 103 nicht untersuchten Bereiche enthält dieser Bericht keine Aussage.',
+      'Dieser Bericht sagt nur etwas über die geprüften Bereiche. Weitere Bereiche lernen wir in den ersten Sitzungen kennen.',
     )
+    expect(s.queryByTestId('eb-thema-satz')).toBeNull()
     expect(s.getByTestId('eb-weg')).toHaveTextContent('Sie sind hier')
   })
 

@@ -223,6 +223,17 @@ export type ReportErzaehlung = {
    * Leer, wenn der Katalog nicht geladen werden konnte.
    */
   katalog: KatalogSkill[]
+  /**
+   * lsa_sessions.modus: 'adaptiv' ist die abgestufte LSA. null bei alten
+   * Sitzungen oder wenn die Sitzung nicht gelesen werden konnte.
+   */
+  modus: 'fest' | 'adaptiv' | null
+  /**
+   * Schlüssel der aus dem Voraussetzungsgraphen abgeleiteten Urteile
+   * (belegt_direkt = false), ohne Zustand. Nur für den Thema-Satz des
+   * R7-Bogens gezählt, nie als sicher/Übungsbedarf gezeigt (Gründer, 20.10.2026).
+   */
+  abgeleitet: string[]
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import type { EbProfilZeile } from '@/types'
 
 import { linienLage, segmente, teile, zeilenAbstand } from './seite2Rechnung'
-import { SCHRAFFUR_ID } from './seitenProps'
 
 // Lage in der Karte, in pt relativ zur Innenkante (Maßblatt Seite 2: Karte
 // (44,323)–(551,663), Rand 0,9, Inhalt ab x 64). Jede Zeile ist ein SVG mit
@@ -12,10 +11,10 @@ const BREITE = 467 // x 64–531
 const RECHTS = 468 // rechte Texte bis x 532
 const SPUR_X = 165 // x 229
 const SPUR_H = 13.5
-const SCHRAFFUR = `url(#${SCHRAFFUR_ID})`
 
 /**
- * Das Kompetenzprofil: eine Zeile je Themenfeld, ein Segment je Kompetenz.
+ * Das Kompetenzprofil: eine Zeile je Themenfeld mit geprüften Bereichen, ein
+ * Segment je geprüftem Bereich (R7-6). `profil` kommt schon gefiltert.
  *
  * Die Segmente sind Anzahlen, keine Quote: Beide Zahlen stehen als Text
  * daneben, die Spur ist für Vorleseprogramme verborgen, jede Zeile hat einen
@@ -53,15 +52,7 @@ export function Profil({
           return (
             <li key={z.feld} className="eb-s2-zeile" data-testid="eb-profil-zeile">
               <span className="sr-only">
-                {untersucht > 0
-                  ? t('s2.profil.aria', {
-                      feld,
-                      untersucht,
-                      vorhanden: z.vorhanden,
-                      sicher: z.sicher,
-                      uebung: z.uebung,
-                    })
-                  : t('s2.profil.ariaKeiner', { feld, vorhanden: z.vorhanden })}
+                {t('s2.profil.aria', { feld, untersucht, sicher: z.sicher, uebung: z.uebung })}
               </span>
               <svg
                 className="eb-s2-zeile-bild"
@@ -74,43 +65,26 @@ export function Profil({
                   {feld}
                 </text>
                 <g className="eb-s2-spur" transform={`translate(${SPUR_X} 0)`}>
-                  {segmente(z).map((s, j) =>
-                    s.art === 'offen' ? (
-                      <g key={j} className="eb-s2-segment-offen">
-                        <rect x={s.x} y="0" width={s.breite} height={SPUR_H} rx={s.radius} />
-                        <rect
-                          className="eb-s2-segment-schraffur"
-                          x={s.x}
-                          y="0"
-                          width={s.breite}
-                          height={SPUR_H}
-                          rx={s.radius}
-                          fill={SCHRAFFUR}
-                        />
-                      </g>
-                    ) : (
-                      <rect
-                        key={j}
-                        className={`eb-s2-segment-${s.art}`}
-                        x={s.x}
-                        y="0"
-                        width={s.breite}
-                        height={SPUR_H}
-                        rx={s.radius}
-                      />
-                    ),
-                  )}
+                  {segmente(z).map((s, j) => (
+                    <rect
+                      key={j}
+                      className={`eb-s2-segment-${s.art}`}
+                      x={s.x}
+                      y="0"
+                      width={s.breite}
+                      height={SPUR_H}
+                      rx={s.radius}
+                    />
+                  ))}
                 </g>
-                <text className="eb-s2-untersucht" x={RECHTS} y="5.5">
-                  {t('s2.profil.untersucht', { untersucht, vorhanden: z.vorhanden })}
+                <text className="eb-s2-geprueft" x={RECHTS} y="5.5">
+                  {t('s2.profil.geprueft', { count: untersucht })}
                 </text>
-                {untersucht > 0 && (
-                  <text className="eb-s2-teile" x={RECHTS} y="20">
-                    {teile(z)
-                      .map((teil) => t(`s2.profil.${teil.art}`, { count: teil.anzahl }))
-                      .join(t('s2.profil.trenner'))}
-                  </text>
-                )}
+                <text className="eb-s2-teile" x={RECHTS} y="20">
+                  {teile(z)
+                    .map((teil) => t(`s2.profil.${teil.art}`, { count: teil.anzahl }))
+                    .join(t('s2.profil.trenner'))}
+                </text>
                 {i < profil.length - 1 && (
                   <line className="eb-s2-zeilen-linie" x1="0" y1={linieY} x2={BREITE} y2={linieY} />
                 )}
@@ -128,13 +102,6 @@ export function Profil({
         <rect className="eb-s2-segment-uebung" x="59.9" y="0" width="10" height="10" rx="2.6" />
         <text x="75.9" y="6.1">
           {t('s2.profil.legende.uebung')}
-        </text>
-        <g className="eb-s2-segment-offen">
-          <rect x="147.8" y="0" width="10" height="10" rx="2.6" />
-          <rect className="eb-s2-segment-schraffur" x="147.8" y="0" width="10" height="10" rx="2.6" fill={SCHRAFFUR} />
-        </g>
-        <text x="163.8" y="6.1">
-          {t('s2.profil.legende.offen')}
         </text>
       </svg>
     </section>
