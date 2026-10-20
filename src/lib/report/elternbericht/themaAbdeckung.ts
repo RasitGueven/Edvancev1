@@ -13,7 +13,8 @@
 // nicht verlässlich — Ilkays Sitzung steht in Prod auf 'adaptiv', war aber
 // nicht abgestuft; ihr Raum ist nachgetragen.
 
-import type { ReportErzaehlung, Themenraum } from '@/types'
+import { feldVon } from '@/lib/report/elternbericht/themenfelder'
+import type { KatalogSkill, ReportErzaehlung, ThemenfeldKey, Themenraum } from '@/types'
 
 export type ThemaAbdeckungEingabe = {
   modus: 'fest' | 'adaptiv' | null
@@ -24,6 +25,15 @@ export type ThemaAbdeckungEingabe = {
   direkt: readonly string[]
   /** ReportErzaehlung.abgeleitet */
   abgeleitet: readonly string[]
+  /** ReportErzaehlung.katalog — nur für die Klasse der abgeleiteten Bereiche (R7-8). */
+  katalog?: readonly KatalogSkill[]
+}
+
+/** Ein abgeleiteter Bereich, wie Seite 2 ihn braucht: ohne Schlüssel (R7-8). */
+export type AbgeleiteterBereich = {
+  feld: ThemenfeldKey
+  /** Aus dem Katalog; null, wenn der Katalog den Schlüssel nicht kennt. */
+  klasse: number | null
 }
 
 export type ThemaAbdeckung = {
@@ -36,6 +46,14 @@ export type ThemaAbdeckung = {
   abgeleitet: number
   /** umfang − direkt − abgeleitet */
   offen: number
+  /** Die Schlüssel hinter `abgeleitet`, sortiert (R7-8). */
+  abgeleiteteSchluessel: string[]
+  /**
+   * Dieselben Bereiche in derselben Reihenfolge, mit Feld und Klasse: die
+   * Umriss-Kästchen auf Seite 2. Der Bogen selbst kennt so keine Schlüssel
+   * (INV-4.3) und schlägt nichts im Katalog nach (R7-8).
+   */
+  abgeleiteteBereiche: AbgeleiteterBereich[]
 }
 
 /**
@@ -48,6 +66,7 @@ export function themaAbdeckung({
   themaLabel,
   direkt,
   abgeleitet,
+  katalog = [],
 }: ThemaAbdeckungEingabe): ThemaAbdeckung | null {
   if (modus !== 'adaptiv' || raum?.herkunft !== 'abschluss' || !themaLabel) return null
   const menge = new Set([...raum.einstieg, ...raum.darunter])
@@ -56,6 +75,8 @@ export function themaAbdeckung({
   const direktImRaum = new Set(direkt.filter((k) => menge.has(k)))
   if (direktImRaum.size === 0) return null
   const abgeleitetImRaum = new Set(abgeleitet.filter((k) => menge.has(k) && !direktImRaum.has(k)))
+  const schluessel = [...abgeleitetImRaum].sort()
+  const klasse = new Map(katalog.map((k) => [k.skillKey, k.klasse]))
 
   return {
     thema: themaLabel,
@@ -63,12 +84,14 @@ export function themaAbdeckung({
     direkt: direktImRaum.size,
     abgeleitet: abgeleitetImRaum.size,
     offen: menge.size - direktImRaum.size - abgeleitetImRaum.size,
+    abgeleiteteSchluessel: schluessel,
+    abgeleiteteBereiche: schluessel.map((k) => ({ feld: feldVon(k), klasse: klasse.get(k) ?? null })),
   }
 }
 
 /** Aus der Erzählschicht; das Thema wie in R6 aus Suchweg.themaLabel. */
 export function themaAbdeckungAus(
-  e: Pick<ReportErzaehlung, 'modus' | 'raum' | 'suche' | 'kompetenzen' | 'abgeleitet'>,
+  e: Pick<ReportErzaehlung, 'modus' | 'raum' | 'suche' | 'kompetenzen' | 'abgeleitet' | 'katalog'>,
 ): ThemaAbdeckung | null {
   return themaAbdeckung({
     modus: e.modus,
@@ -76,5 +99,6 @@ export function themaAbdeckungAus(
     themaLabel: e.suche?.themaLabel ?? null,
     direkt: e.kompetenzen.map((k) => k.skillKey),
     abgeleitet: e.abgeleitet,
+    katalog: e.katalog,
   })
 }

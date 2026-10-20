@@ -15,6 +15,8 @@ const AUSGABE = resolve(process.env.EB_AUSGABE ?? 'docs/report/r7/abnahme/r7-2')
 const PT = 4 / 3 // CSS-px je pt
 const TOLERANZ = 1 // pt
 const NAV_X = [484, 497, 510, 523, 536]
+/** Mindestabstand zwischen Spur und rechtem Text einer Profilzeile (R7-8). */
+const SPUR_ABSTAND = 6
 
 type Rechteck = { x: number; y: number; b: number; h: number }
 
@@ -92,6 +94,28 @@ async function pruefeSeiten(page: Page, testlauf: boolean, medium: string): Prom
   }
 }
 
+/**
+ * Seite 2, Kompetenzprofil (R7-8): In jeder Zeile endet die Spur mindestens
+ * 6 pt vor dem rechten Text. Gibt die rechten Texte zurück.
+ */
+async function pruefeProfil(page: Page, wo: string): Promise<string[]> {
+  const zeilen = await page.evaluate((PT) => {
+    const s = document.querySelector('.eb-seite[data-seite="2"]')!
+    return [...s.querySelectorAll('[data-testid="eb-profil-zeile"]')].map((z) => {
+      const ende = Math.max(0, ...[...z.querySelectorAll('.eb-s2-spur rect')].map((r) => r.getBoundingClientRect().right))
+      const texte = [...z.querySelectorAll('.eb-s2-geprueft, .eb-s2-teile')].filter((t) => t.textContent)
+      const start = Math.min(...texte.map((t) => t.getBoundingClientRect().left))
+      return { text: z.querySelector('.eb-s2-geprueft')?.textContent ?? '', luft: (start - ende) / PT }
+    })
+  }, PT)
+  for (const z of zeilen) {
+    expect(z.luft, `${wo}, Profilzeile „${z.text}“: Spur endet ${z.luft.toFixed(2)} pt vor dem Text`).toBeGreaterThanOrEqual(
+      SPUR_ABSTAND,
+    )
+  }
+  return zeilen.map((z) => z.text)
+}
+
 /** Seiten im PDF: die Seitenobjekte, nicht der Seitenbaum (/Pages). */
 function pdfSeiten(pdf: Buffer): number {
   return (pdf.toString('latin1').match(/\/Type\s*\/Page(?![s\w])/g) ?? []).length
@@ -122,6 +146,9 @@ for (const [name, fall] of Object.entries(FAELLE)) {
     await pruefeSeiten(page, fall.data.testlauf, 'Bildschirm')
     await page.emulateMedia({ media: 'print' })
     await pruefeSeiten(page, fall.data.testlauf, 'Druck')
+    const rechts = await pruefeProfil(page, 'Druck')
+    // Der längste mögliche rechte Text steht wirklich im Fall abgestuftLang.
+    if (name === 'abgestuftLang') expect(rechts).toContain('12 geprüft · 14 abgeleitet')
 
     const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true })
     mkdirSync(AUSGABE, { recursive: true })

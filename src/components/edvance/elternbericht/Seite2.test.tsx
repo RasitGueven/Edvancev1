@@ -49,9 +49,9 @@ describe('Seite 2 — ilkay', () => {
     expect(el.querySelector('.eb-s2-segment-offen, .eb-s2-segment-schraffur')).toBeNull()
     expect(erste.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
     expect(erste.querySelector('svg')).toHaveAttribute('height', '40.8pt')
-    // Feste Breite 18 pt, linksbündig.
+    // Ein Maßstab für alle Zeilen: höchstens sechs Kästchen, also 28 pt (R7-8).
     const rects = [...erste.querySelectorAll('rect')]
-    expect(rects.map((r) => r.getAttribute('width'))).toEqual(Array(5).fill('18'))
+    expect(rects.map((r) => r.getAttribute('width'))).toEqual(Array(5).fill('28'))
     expect(rects[0]).toHaveAttribute('x', '0')
   })
 
@@ -73,10 +73,12 @@ describe('Seite 2 — ilkay', () => {
     expect(legende).not.toHaveTextContent('Nicht untersucht')
   })
 
-  it('Fußnote: ein Segment je geprüftem Bereich', () => {
-    expect(s().el.querySelector('.eb-s2-fussnote')).toHaveTextContent(
-      'Jedes Segment steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert.',
+  it('Fußnote: ein Kästchen je geprüftem Bereich, ohne Zusatz zu Abgeleitetem', () => {
+    const fussnote = s().el.querySelector('.eb-s2-fussnote')
+    expect(fussnote).toHaveTextContent(
+      'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert.',
     )
+    expect(fussnote).not.toHaveTextContent('Umrandete Kästchen')
   })
 
   it('Was die Grafik zeigt: zwei Sätze und der Coach', () => {
@@ -93,7 +95,7 @@ describe('Seite 2 — Sonderfälle', () => {
         wessen="Ilkays"
         profil={[
           ...['brueche', 'prozent', 'terme', 'geometrie', 'groessen', 'zahlen', 'funktionen', 'zufall', 'weitere'].map(
-            (feld) => ({ feld: feld as ThemenfeldKey, vorhanden: 4, sicher: 1, uebung: 1 }),
+            (feld) => ({ feld: feld as ThemenfeldKey, sicher: 1, uebung: 1, abgeleitet: 0, klasse: null }),
           ),
         ]}
       />,
@@ -143,5 +145,110 @@ describe('Seite 2 — Sonderfälle', () => {
     const zeilen = s.getAllByTestId('eb-profil-zeile')
     expect(zeilen).toHaveLength(6)
     for (const z of zeilen) expect(z.querySelector('.eb-s2-segment-uebung')).toBeNull()
+  })
+})
+
+describe('Seite 2 — abgeleitete Bereiche und Klassen (R7-8)', () => {
+  const umrisse = (el: HTMLElement): number => el.querySelectorAll('.eb-s2-segment-abgeleitet').length
+  const profilVon = (el: HTMLElement): HTMLElement => el.querySelector('[data-testid="eb-profil"]')!
+
+  it('Umrisse nur bei abgestufter LSA; Summe = Thema-Satz (9 bzw. 5)', () => {
+    // Die Legende trägt ein eigenes Umriss-Kästchen; gezählt werden die Zeilen.
+    const inZeilen = (data: ReportData): number =>
+      seite2(data).getAllByTestId('eb-profil-zeile').reduce((n, z) => n + umrisse(z), 0)
+    expect(inZeilen(FAELLE.abgestuft.data)).toBe(9)
+    expect(inZeilen(FAELLE.abgestuftMitOffen.data)).toBe(5)
+    expect(umrisse(profilVon(seite2(FAELLE.ilkay.data).el))).toBe(0)
+  })
+
+  it('Umrisse ohne Farbe, Zustand oder Label: hinter den farbigen, gleiche Lage im Raster', () => {
+    const zeile = seite2(FAELLE.abgestuft.data).getAllByTestId('eb-profil-zeile')[0]
+    const rects = [...zeile.querySelectorAll('rect')]
+    expect(rects.map((r) => r.getAttribute('class'))).toEqual([
+      'eb-s2-segment-sicher',
+      ...Array(4).fill('eb-s2-segment-abgeleitet'),
+    ])
+    for (const r of rects.slice(1)) {
+      expect(r.getAttribute('fill')).toBeNull()
+      expect(r.getAttribute('aria-label')).toBeNull()
+    }
+    // Neun Kästchen in der längsten Zeile (Zahlen & Rechnen), mit abgeleiteten
+    // Bereichen auf 206 pt Spur: (206 − 8 · 4) / 9.
+    const breite = (206 - 8 * 4) / 9
+    expect(Number(rects[0].getAttribute('width'))).toBeCloseTo(breite)
+    expect(Number(rects[1].getAttribute('x'))).toBeCloseTo(breite + 4 + 0.35)
+    expect(Number(rects[1].getAttribute('width'))).toBeCloseTo(breite - 0.7)
+  })
+
+  it('rechte Zeile mit „abgeleitet“, zweite Zeile nur direkt', () => {
+    const zeilen = seite2(FAELLE.abgestuft.data).getAllByTestId('eb-profil-zeile')
+    const rechts = (i: number): (string | null)[] =>
+      [...zeilen[i].querySelectorAll('.eb-s2-geprueft, .eb-s2-teile')].map((x) => x.textContent)
+    expect(rechts(0)).toEqual(['1 geprüft · 4 abgeleitet', '1 sicher'])
+    expect(rechts(1)).toEqual(['3 geprüft', '2 sicher · 1 Übungsbedarf'])
+    expect(rechts(3)).toEqual(['4 geprüft · 5 abgeleitet', '1 sicher · 3 Übungsbedarf'])
+  })
+
+  it('ein Feld nur mit abgeleiteten Bereichen: nur Umrisse, nur „abgeleitet“', () => {
+    const zeile = seite2(FAELLE.abgestuftMitOffen.data).getAllByTestId('eb-profil-zeile')[0]
+    expect(zeile).toHaveTextContent('Brüche & Dezimalzahlen')
+    expect(zeile.querySelectorAll('rect')).toHaveLength(2)
+    expect(umrisse(zeile)).toBe(2)
+    expect(zeile.querySelector('.eb-s2-geprueft')).toHaveTextContent(/^2 abgeleitet$/)
+    expect(zeile.querySelector('.eb-s2-teile')).toBeEmptyDOMElement()
+    expect(zeile.querySelector('.sr-only')).toHaveTextContent(
+      'Brüche & Dezimalzahlen: nicht einzeln geprüft, 2 Bereiche ergeben sich aus den Aufgaben.',
+    )
+  })
+
+  it('Vorlesetext: wie bisher, bei abgeleiteten mit Zusatz', () => {
+    const zeilen = seite2(FAELLE.abgestuft.data).getAllByTestId('eb-profil-zeile')
+    expect(zeilen[3].querySelector('.sr-only')).toHaveTextContent(
+      'Zahlen & Rechnen: 4 geprüft, davon 1 sicher und 3 mit Übungsbedarf. 5 weitere ergeben sich aus den Aufgaben.',
+    )
+    expect(zeilen[1].querySelector('.sr-only')?.textContent).toBe(
+      'Terme & Gleichungen: 3 geprüft, davon 2 sicher und 1 mit Übungsbedarf.',
+    )
+  })
+
+  it('Klasse je Zeile: eine Stufe oder Spanne aus allen Kästchen der Zeile', () => {
+    const klassen = (data: ReportData): (string | null)[] =>
+      seite2(data)
+        .getAllByTestId('eb-profil-zeile')
+        .map((z) => z.querySelector('[data-testid="eb-profil-klasse"]')?.textContent ?? null)
+    expect(klassen(FAELLE.abgestuft.data)).toEqual([
+      'Klasse 5–6',
+      'Klasse 8',
+      'Klasse 8',
+      'Klasse 5–9',
+      'Klasse 8',
+    ])
+    expect(klassen(FAELLE.ilkay.data)).toEqual([
+      'Klasse 6',
+      'Klasse 7',
+      'Klasse 7–8',
+      'Klasse 5–7',
+      'Klasse 5–6',
+      'Klasse 5–7',
+    ])
+  })
+
+  it('Legende mit drittem Eintrag nur bei abgeleiteten', () => {
+    const legende = (data: ReportData): HTMLElement => seite2(data).el.querySelector('.eb-s2-legende')!
+    expect(legende(FAELLE.abgestuft.data).textContent).toBe('SicherÜbungsbedarfAus den Aufgaben abgeleitet')
+    expect(umrisse(legende(FAELLE.abgestuft.data))).toBe(1)
+    expect(legende(FAELLE.ilkay.data).textContent).toBe('SicherÜbungsbedarf')
+  })
+
+  it('Fußnote mit Zusatz nur bei abgeleiteten', () => {
+    expect(seite2(FAELLE.abgestuft.data).el.querySelector('.eb-s2-fussnote')).toHaveTextContent(
+      'Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts. Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe.',
+    )
+  })
+
+  it('Kopf: ein Kästchen je Bereich', () => {
+    expect(seite2(FAELLE.ilkay.data).el.querySelector('.eb-s2-profil-hinweis')).toHaveTextContent(
+      'Jedes Kästchen steht für einen Bereich',
+    )
   })
 })

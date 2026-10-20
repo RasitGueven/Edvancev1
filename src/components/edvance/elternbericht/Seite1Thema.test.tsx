@@ -7,6 +7,7 @@ import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { themaSaetze } from '@/components/edvance/elternbericht/themaSatz'
 import de from '@/i18n/locales/de/elternbericht.json'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
+import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
 import type { ReportData } from '@/types'
 
 function bogen(data: ReportData) {
@@ -26,7 +27,8 @@ describe('Seite 1 — Thema-Satz (abgestufte LSA mit Thema)', () => {
     expect(within(kasten).getByTestId('eb-thema-satz').textContent).toBe(
       'Zum Thema Reelle Zahlen gehören 14 Bereiche. 5 davon haben wir direkt geprüft, die übrigen 9 ergeben sich aus diesen Aufgaben.',
     )
-    expect(kasten).toHaveTextContent('Zahlen und Farben in diesem Bericht zeigen nur die direkt geprüften Bereiche.')
+    // R7-8: Seite 2 nennt jetzt auch Zahlen für Abgeleitetes — der Hinweis spricht nur noch von Farben.
+    expect(kasten).toHaveTextContent('Die Farben in diesem Bericht zeigen nur die direkt geprüften Bereiche.')
     expect(kasten).not.toHaveTextContent('Weitere Bereiche lernen wir')
   })
 
@@ -67,6 +69,9 @@ describe('themaSaetze — alle Fassungen', () => {
     direkt,
     abgeleitet,
     offen: umfang - direkt - abgeleitet,
+    // Für den Satz ohne Belang (R7-8: nur Seite 2 nutzt sie).
+    abgeleiteteSchluessel: [],
+    abgeleiteteBereiche: [],
   })
   const satz = (...x: [number, number, number]): string => themaSaetze(t, a(...x)).join(' ')
 
@@ -120,8 +125,12 @@ describe('Seite 1 und 2 — nur Geprüftes', () => {
       const { data } = FAELLE[name]
       const { container, seite } = bogen(data)
       const direkt = data.erzaehlung.kompetenzen
-      // Segmente auf Seite 2 = direkt geprüfte Bereiche.
-      expect(seite(2).querySelectorAll('.eb-s2-spur rect'), name).toHaveLength(direkt.length)
+      // Farbige Kästchen auf Seite 2 = direkt geprüfte Bereiche; abgeleitete
+      // stehen dort seit R7-8 nur als Umriss, je einer pro Bereich des Thema-Satzes.
+      expect(seite(2).querySelectorAll('.eb-s2-spur .eb-s2-segment-sicher, .eb-s2-spur .eb-s2-segment-uebung'), name).toHaveLength(direkt.length)
+      expect(seite(2).querySelectorAll('.eb-s2-spur .eb-s2-segment-abgeleitet'), name).toHaveLength(
+        themaAbdeckungAus(data.erzaehlung)!.abgeleitet,
+      )
       // Listeneinträge auf Seite 1 nur aus den direkt geprüften Labels.
       const labels = new Set(direkt.map((k) => k.label))
       for (const li of seite(1).querySelectorAll('.eb-s1-liste li')) expect(labels, name).toContain(li.textContent)
@@ -155,8 +164,12 @@ describe('Seite 1 und 2 — nur Geprüftes', () => {
       const [geprueft, sicher, uebung] = [...zeile.matchAll(/\d+/g)].map((m) => m[0])
       const zahlen = [...seite(2).querySelectorAll('.eb-s2-zahl')].map((z) => z.textContent)
       expect(zahlen, name).toEqual([sicher, uebung, geprueft])
-      // Ein Segment je geprüftem Bereich: Profil-Summe = „Bereiche geprüft“.
-      expect(String(seite(2).querySelectorAll('.eb-s2-spur rect').length), name).toBe(geprueft)
+      // Ein farbiges Kästchen je geprüftem Bereich: Profil-Summe = „Bereiche geprüft“.
+      expect(String(seite(2).querySelectorAll('.eb-s2-spur .eb-s2-segment-sicher, .eb-s2-spur .eb-s2-segment-uebung').length), name).toBe(geprueft)
+      // Umrisse = „ergeben sich“ im Thema-Satz (R7-8).
+      expect(seite(2).querySelectorAll('.eb-s2-spur .eb-s2-segment-abgeleitet').length, name).toBe(
+        themaAbdeckungAus(data.erzaehlung)?.abgeleitet ?? 0,
+      )
       expect(seite(2).querySelector('.eb-s2-intro')!.textContent, name).toBe(
         `Geprüft: ${geprueft} Bereiche. Davon ${sicher} sicher, ${uebung} mit Übungsbedarf.`,
       )

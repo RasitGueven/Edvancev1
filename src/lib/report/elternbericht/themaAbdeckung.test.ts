@@ -48,7 +48,45 @@ describe('themaAbdeckung', () => {
       direkt: 2,
       abgeleitet: 4,
       offen: 0,
+      abgeleiteteSchluessel: ['d2', 'd3', 'd4', 'e2'],
+      abgeleiteteBereiche: [
+        { feld: 'weitere', klasse: null },
+        { feld: 'weitere', klasse: null },
+        { feld: 'weitere', klasse: null },
+        { feld: 'weitere', klasse: null },
+      ],
     })
+  })
+
+  it('R7-8: gibt die abgeleiteten Schlüssel sortiert zurück, ohne direkte, fremde und doppelte', () => {
+    const a = themaAbdeckung(ein({ abgeleitet: ['e2', 'x9', 'd3', 'e1', 'd3', 'd2'] }))!
+    expect(a.abgeleiteteSchluessel).toEqual(['d2', 'd3', 'e2'])
+    expect(a.abgeleiteteSchluessel).toHaveLength(a.abgeleitet)
+  })
+
+  it('R7-8: abgeleitete Bereiche mit Feld und Klasse aus dem Katalog, null ohne Eintrag', () => {
+    const r: Themenraum = { ...RAUM, einstieg: ['bruch_a'], darunter: ['bruch_kuerzen', 'potenzen', 'x_ohne'] }
+    const a = themaAbdeckung(
+      ein({
+        raum: r,
+        direkt: ['bruch_a'],
+        abgeleitet: ['potenzen', 'bruch_kuerzen', 'x_ohne'],
+        katalog: [
+          { skillKey: 'bruch_kuerzen', klasse: 6 },
+          { skillKey: 'potenzen', klasse: 9 },
+        ],
+      }),
+    )!
+    expect(a.abgeleiteteSchluessel).toEqual(['bruch_kuerzen', 'potenzen', 'x_ohne'])
+    expect(a.abgeleiteteBereiche).toEqual([
+      { feld: 'brueche', klasse: 6 },
+      { feld: 'zahlen', klasse: 9 },
+      { feld: 'weitere', klasse: null },
+    ])
+    // Ohne Katalog: Feld bleibt, Klasse null.
+    expect(themaAbdeckung(ein({ raum: r, direkt: ['bruch_a'], abgeleitet: ['potenzen'] }))!.abgeleiteteBereiche).toEqual([
+      { feld: 'zahlen', klasse: null },
+    ])
   })
 
   it('offen > 0', () => {

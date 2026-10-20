@@ -48,6 +48,8 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   // Abgestufte LSA mit Thema: Thema-Satz auf Seite 1 (R7-6)
   abgestuft: mitNotizen(a.abgestuft),
   abgestuftMitOffen: mitNotizen(a.abgestuftMitOffen),
+  // Längster rechter Text auf Seite 2 bei abgeleiteten Bereichen (R7-8)
+  abgestuftLang: mitNotizen(a.abgestuftLang),
 }
 
 export { ilkay, NOTIZEN, NOTIZEN_LANG, TIERS }

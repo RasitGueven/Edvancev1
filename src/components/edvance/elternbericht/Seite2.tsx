@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next'
 
+import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
 import type { ThemenfeldKey } from '@/types'
 
 import { Profil } from './Profil'
-import { deutung, gepruefteZeilen } from './seite2Rechnung'
+import { deutung, profilZeilen } from './seite2Rechnung'
 import type { SeitenProps } from './seitenProps'
 
 // Die drei Zahlen (Maßblatt Seite 2): Spalten ab x 44 / 218 / 392, Balken
@@ -20,13 +21,20 @@ const ZAHLEN = [
  * Seite 2 des Eltern-Berichts R7: Lernstand in Zahlen und als Kompetenzprofil
  * je Themenfeld (Maßblatt E7, „Seite 2“).
  *
- * Das Profil zeigt nur Felder mit geprüften Bereichen (R7-6). Ab sieben Zeilen
- * rückt die Seite enger zusammen (`eb-s2-eng`), damit acht nicht überlaufen.
+ * Das Profil zeigt Felder mit geprüften Bereichen (R7-6), bei abgestufter LSA
+ * auch solche mit abgeleiteten Bereichen des Themas — genau die, die der
+ * Thema-Satz auf Seite 1 zählt (R7-8). Ab sieben Zeilen rückt die Seite enger
+ * zusammen (`eb-s2-eng`), damit acht nicht überlaufen.
  */
-export function Seite2({ bericht, wessen }: SeitenProps): JSX.Element {
+export function Seite2({ data, bericht, wessen }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
-  const profil = gepruefteZeilen(bericht.profil)
+  const profil = profilZeilen({
+    profil: bericht.profil,
+    bereiche: [...bericht.sicherListe, ...bericht.uebungListe],
+    abgeleitet: themaAbdeckungAus(data.erzaehlung)?.abgeleiteteBereiche ?? [],
+  })
+  const mitAbgeleiteten = profil.some((z) => z.abgeleitet > 0)
   const liste = new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' })
   const felder = (keys: ThemenfeldKey[]): string => liste.format(keys.map((k) => t(`feld.${k}`)))
   const d = deutung(profil)
@@ -83,7 +91,10 @@ export function Seite2({ bericht, wessen }: SeitenProps): JSX.Element {
                 ))}
             </p>
           )}
-          <p className="eb-s2-fussnote">{t('s2.fussnote')}</p>
+          <p className="eb-s2-fussnote">
+            {t('s2.fussnote')}
+            {mitAbgeleiteten && <> {t('s2.fussnoteAbgeleitet')}</>}
+          </p>
         </div>
       </section>
     </div>
