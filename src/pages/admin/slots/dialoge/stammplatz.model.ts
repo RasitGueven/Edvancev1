@@ -46,28 +46,34 @@ export type StammRaum = SlotsEinstellungen['raeume'][number]
 const OHNE_TERMIN: VorschauErgebnis[] = ['ferien', 'feiertag', 'andere_woche']
 
 export type RaumStand = {
-  /** Erster Tag mit Betrieb in der Woche des Takts; null = in den sechs Wochen keiner. */
+  /** Erster Termin im Takt mit Betrieb; null = in den sechs Wochen keiner (dann keine Aussage zum Coach). */
   datum: string | null
   coach_name: string | null
   /** Kinder im Raum ohne dieses Kind. */
   belegt: number
   frei: number
-  /** Nicht wählbar (S4 nicht freigegeben: ohne Coach gesperrt). */
-  sperre: 'voll' | 'ohne_coach' | null
+  /**
+   * Nicht wählbar (S4 nicht freigegeben: ohne Coach gesperrt). voll = fünf Kinder im Raum; keinPlatz = Server sagt
+   * „voll“ mit weniger als fünf (Termin insgesamt voll oder Kind der anderen Art, offene-punkte-w1 Nr. 5).
+   */
+  sperre: 'voll' | 'keinPlatz' | 'ohne_coach' | null
 }
 
-/** Raum-Karte aus der Vorschau dieses Raums: Stand am ersten Termin (Bauauftrag W3, Entscheidung 3). */
-export function raumStand(zeilen: StammplatzVorschauZeile[]): RaumStand {
-  const erste = zeilen.find((z) => !OHNE_TERMIN.includes(z.ergebnis))
+/** Liegt ein Datum in der Woche des Takts? (A-Woche = ungerade KW.) */
+export function imTakt(iso: string, takt: Takt): boolean {
+  return takt === 'woechentlich' || istAWoche(iso) === (takt === 'a_woche')
+}
+
+/**
+ * Raum-Karte aus der Vorschau dieses Raums: Stand am ersten Termin im Takt mit Betrieb (Bauauftrag W3, Entscheidung 3).
+ * Daten der anderen Woche zählen nicht, auch wenn der Server dort ein anderes Ergebnis meldet.
+ */
+export function raumStand(zeilen: StammplatzVorschauZeile[], takt: Takt): RaumStand {
+  const erste = zeilen.find((z) => !OHNE_TERMIN.includes(z.ergebnis) && imTakt(z.datum, takt))
   if (!erste) return { datum: null, coach_name: null, belegt: 0, frei: PLAETZE, sperre: null }
   const belegt = erste.belegt ?? 0
-  return {
-    datum: erste.datum,
-    coach_name: erste.coach_name,
-    belegt,
-    frei: Math.max(0, PLAETZE - belegt),
-    sperre: erste.ergebnis === 'voll' ? 'voll' : erste.ergebnis === 'ohne_coach' ? 'ohne_coach' : null,
-  }
+  const sperre = erste.ergebnis === 'voll' ? (belegt >= PLAETZE ? 'voll' : 'keinPlatz') : erste.ergebnis === 'ohne_coach' ? 'ohne_coach' : null
+  return { datum: erste.datum, coach_name: erste.coach_name, belegt, frei: Math.max(0, PLAETZE - belegt), sperre }
 }
 
 export type Kennzeichen = 'geplant' | 'entfaellt' | 'keinBetrieb' | 'andereWoche'
@@ -101,7 +107,7 @@ export function vorschauSatz(z: StammplatzVorschauZeile, raum: string, takt: Tak
         takt: t(`takt.${takt}`),
       })
     case 'voll':
-      return belegt >= max ? t('kinder2.grund.voll', { raum, max }) : t('kinder2.grund.andereArt', { raum })
+      return belegt >= max ? t('kinder2.grund.voll', { raum, max }) : t('kinder2.grund.keinPlatz', { raum })
     case 'ohne_coach':
       return t('kinder2.grund.ohneCoach', { raum })
     case 'ohne_budget':

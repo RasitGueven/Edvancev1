@@ -747,13 +747,15 @@
       "erstSlot": "Wähle Tag und Uhrzeit, dann erscheinen die Räume mit Coach und freien Plätzen.",
       "keinCoach": "kein Coach eingeteilt",
       "frei": "{{frei}} von {{max}} frei am {{datum}}",
-      "keinTermin": "in den nächsten sechs Wochen kein Termin",
+      "keinTermin": "In den nächsten sechs Wochen kein Termin.",
       "keinerTitel": "Kein Raum in Betrieb",
       "keinerText": "Lege unter Einstellungen einen Raum an, dann lässt sich ein Stammplatz vergeben."
     },
     "sperre": {
       "voll": "{{raum}} ist am {{datum}} voll ({{max}} von {{max}}). Anderen Raum oder andere Uhrzeit wählen.",
-      "ohneCoach": "{{raum}} hat am {{datum}} um {{beginn}} keinen Coach. Ohne Coach-Schicht ist der Raum nicht wählbar."
+      "ohneCoach": "{{raum}} hat am {{datum}} um {{beginn}} keinen Coach. Ohne Coach-Schicht ist der Raum nicht wählbar.",
+      "keinPlatz": "{{raum}}: am {{datum}} ist in diesem Termin kein Platz mehr frei. Anderen Raum oder andere Uhrzeit wählen.",
+      "fehler": "{{raum}}: Die Vorschau konnte nicht geladen werden. {{fehler}}"
     },
     "termine": {
       "titel": "Die nächsten Termine",
@@ -773,9 +775,9 @@
       "keinBetrieb": "Kein Betrieb an diesem Tag.",
       "andereWoche": "{{woche}} (KW {{kw}}): Der Stammplatz gilt in der {{takt}}, hier kein Termin.",
       "voll": "{{raum}} ist an diesem Tag voll ({{max}} von {{max}}), kein Termin.",
-      "andereArt": "In {{raum}} sitzen an diesem Tag Kinder der anderen Art (Testkonto oder echt), kein Termin.",
       "ohneCoach": "{{raum}} hat an diesem Tag keinen Coach, kein Termin.",
-      "ohneBudget": "Keine Einheit mehr frei, kein Termin."
+      "ohneBudget": "Keine Einheit mehr frei, kein Termin.",
+      "keinPlatz": "{{raum}}: an diesem Tag ist in diesem Termin kein Platz mehr frei, kein Termin."
     }
   }
 }

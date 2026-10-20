@@ -11,12 +11,12 @@ import {
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
 import { wocheVerschieben, dieseWoche } from '@/components/edvance/wochenNavigation.model'
 import type {
-  PlanbilanzVorschau, Rhythmus, SlotsEinstellungen, Stammplatz, StammplatzVorschauZeile, StammplatzZeile, Takt,
+  PlanbilanzVorschau, Rhythmus, SlotsEinstellungen, Stammplatz, StammplatzZeile, Takt,
 } from '@/types/slotplan'
 import { datumKurz, wochentagName } from '../slotsFormat'
 import { PlanbilanzBadge, planbilanzSatz } from '../kinder/Einheiten'
-import { aktivAm, ersterTermintag, istAWoche, kwVon, raumStand } from './stammplatz.model'
-import { StammplatzRaeume, StammplatzTermine, sperrSatz } from './StammplatzRaeume'
+import { aktivAm, ersterTermintag, istAWoche, kwVon } from './stammplatz.model'
+import { StammplatzRaeume, StammplatzTermine, sperrSatz, type RaumVorschau } from './StammplatzRaeume'
 
 export type StammplatzKind = { student_id: string; name: string | null; beginn: string; vertrag_laeuft: boolean; rhythmus: Rhythmus | null }
 export type Zeile = { wochentag: number | null; zeit_id: string | null; takt: Takt; raum_id: string | null }
@@ -34,6 +34,15 @@ export function zeilenNachRhythmus(r: Rhythmus | null): Zeile[] {
   return z.length > 0 ? z : [leer('woechentlich')]
 }
 
+/**
+ * Standard für „gültig ab“: beim Ändern der spätere von nächstem Montag, Beginn des Stammplatzes und Vertragsbeginn;
+ * beim Vergeben heute oder der spätere Vertragsbeginn.
+ */
+export function abStandard(kind: Pick<StammplatzKind, 'beginn'>, heute: string, aendern?: Pick<Stammplatz, 'gueltig_ab'>): string {
+  const kandidaten = aendern ? [wocheVerschieben(dieseWoche(), 1), aendern.gueltig_ab, kind.beginn] : [heute, kind.beginn]
+  return kandidaten.reduce((a, b) => (b > a ? b : a))
+}
+
 const mitSlot = (z: Zeile): z is Zeile & { wochentag: number; zeit_id: string } => z.wochentag !== null && z.zeit_id !== null
 const vollstaendig = (z: Zeile): z is Zeile & { wochentag: number; zeit_id: string; raum_id: string } => mitSlot(z) && z.raum_id !== null
 
@@ -44,12 +53,15 @@ const vollstaendig = (z: Zeile): z is Zeile & { wochentag: number; zeit_id: stri
 export function StammplatzDialog({
   kind,
   aendern,
+  vorbelegt,
   onClose,
   onGespeichert,
 }: {
   kind: StammplatzKind
   /** Gesetzt: diesen Stammplatz ab "gültig ab" ändern (Altbestand ohne Raum: „Raum festlegen“). */
   aendern?: Stammplatz
+  /** Vergeben mit vorbelegten Zeilen (z. B. Tag, Uhrzeit, Takt der Vorgänger bei einem Folgevertrag ohne Raum). */
+  vorbelegt?: Zeile[]
   onClose: () => void
   onGespeichert: (meldung: string) => void
 }): JSX.Element {
@@ -58,12 +70,12 @@ export function StammplatzDialog({
   const [zeilen, setZeilen] = useState<Zeile[]>(() =>
     aendern
       ? [{ wochentag: aendern.wochentag, zeit_id: aendern.zeit_id, takt: aendern.takt, raum_id: aendern.raum_id ?? null }]
-      : zeilenNachRhythmus(kind.rhythmus),
+      : vorbelegt && vorbelegt.length > 0 ? vorbelegt : zeilenNachRhythmus(kind.rhythmus),
   )
   const [aktiv, setAktiv] = useState(0)
-  const [ab, setAb] = useState(aendern ? wocheVerschieben(dieseWoche(), 1) : kind.beginn > heute ? kind.beginn : heute)
+  const [ab, setAb] = useState(() => abStandard(kind, heute, aendern))
   const [einst, setEinst] = useState<SlotsEinstellungen | null>(null)
-  const [raumVorschau, setRaumVorschau] = useState<Record<string, StammplatzVorschauZeile[]> | null>(null)
+  const [raumVorschau, setRaumVorschau] = useState<Record<string, RaumVorschau> | null>(null)
   const [bilanz, setBilanz] = useState<PlanbilanzVorschau | null>(null)
   const [fehler, setFehler] = useState<string | null>(null)
   const [speichert, setSpeichert] = useState(false)
@@ -101,9 +113,10 @@ export function StammplatzDialog({
       raumIds.split(',').map((id) => ladeStammplatzVorschau(kind.student_id, wochentag, zeitId, id, takt, ab, ersetzt).then((res) => [id, res] as const)),
     ).then((ergebnisse) => {
       if (!lauf) return
-      const kaputt = ergebnisse.find(([, res]) => res.error !== null)
-      if (kaputt) setFehler(slotsFehlerSchluessel(kaputt[1]))
-      setRaumVorschau(Object.fromEntries(ergebnisse.map(([id, res]) => [id, res.data ?? []])))
+      // Scheitert die Vorschau eines Raums, ist seine Karte mit Satz gesperrt; beim nächsten Laden beginnt alles neu.
+      setRaumVorschau(Object.fromEntries(ergebnisse.map(([id, res]) => [
+        id, { zeilen: res.data ?? [], fehler: res.error !== null ? slotsFehlerSchluessel(res) : null },
+      ])))
     })
     return () => {
       lauf = false
@@ -130,7 +143,7 @@ export function StammplatzDialog({
   const mitZeile = (i: number, satz: string): string => (zeilen.length > 1 ? t('dialog.stamm.zeileGrund', { zeile: i + 1, grund: satz }) : satz)
 
   const gewaehlteVorschau = z.raum_id && raumVorschau ? (raumVorschau[z.raum_id] ?? null) : null
-  const sperre = gewaehlteVorschau ? sperrSatz(raumStand(gewaehlteVorschau), raumName(z.raum_id), zeit(z.zeit_id), t, i18n.language) : null
+  const sperre = gewaehlteVorschau ? sperrSatz(gewaehlteVorschau, raumName(z.raum_id), zeit(z.zeit_id), z.takt, t, i18n.language) : null
   const gruende = [
     ...zeilen.flatMap((x, i) => [
       ...(mitSlot(x) ? [] : [mitZeile(i, t('kinder2.dialog.slotWaehlen'))]),
@@ -239,7 +252,7 @@ export function StammplatzDialog({
             <section className="flex flex-col gap-2" aria-label={t('kinder2.raum.titel')}>
               <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">{t('kinder2.raum.titel')}</h3>
               {mitSlot(z) ? (
-                <StammplatzRaeume raeume={raeume} vorschau={raumVorschau} beginn={zeit(z.zeit_id)} gewaehlt={z.raum_id} onWahl={(raum_id) => setze({ raum_id })} />
+                <StammplatzRaeume raeume={raeume} vorschau={raumVorschau} beginn={zeit(z.zeit_id)} takt={z.takt} gewaehlt={z.raum_id} onWahl={(raum_id) => setze({ raum_id })} />
               ) : (
                 <p className="text-sm text-[var(--color-text-tertiary)]">{t('kinder2.raum.erstSlot')}</p>
               )}
@@ -247,8 +260,8 @@ export function StammplatzDialog({
 
             <section className="flex flex-col gap-2" aria-live="polite">
               <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">{t('kinder2.termine.titel')}</h3>
-              {gewaehlteVorschau ? (
-                <StammplatzTermine zeilen={gewaehlteVorschau} raum={raumName(z.raum_id)} takt={z.takt} />
+              {gewaehlteVorschau && !gewaehlteVorschau.fehler ? (
+                <StammplatzTermine zeilen={gewaehlteVorschau.zeilen} raum={raumName(z.raum_id)} takt={z.takt} />
               ) : (
                 <p className="text-sm text-[var(--color-text-tertiary)]">{t('kinder2.termine.leer')}</p>
               )}

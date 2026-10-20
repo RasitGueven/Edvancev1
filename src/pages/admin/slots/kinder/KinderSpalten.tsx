@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { CardMenu } from '@/pages/admin/leads/CardMenu'
 import type { Vertragsart } from '@/types'
 import type { Rhythmus, SlotsKinderZeile, Stammplatz } from '@/types/slotplan'
+import type { Zeile } from '../dialoge/StammplatzDialog'
 import { PilotKennzeichen } from '../../vertraege/PilotKennzeichen'
 import { datumTagMonat, wochentagName } from '../slotsFormat'
 import { PlanbilanzBadge } from './Einheiten'
@@ -36,7 +37,8 @@ export function paketText(
 
 /** Was die Aktion-Spalte auslöst (Bauauftrag W3, Entscheidung 1). */
 export type KindAktion =
-  | { art: 'vergeben'; kind: SlotsKinderZeile }
+  /** vorbelegt: Tag, Uhrzeit, Takt der Vorgänger, wenn „wie bisher“ am fehlenden Raum scheitern würde. */
+  | { art: 'vergeben'; kind: SlotsKinderZeile; vorbelegt?: Zeile[] }
   | { art: 'weiterfuehren'; kind: SlotsKinderZeile }
   | { art: 'aendern'; kind: SlotsKinderZeile; stammplatz: Stammplatz }
 
@@ -92,16 +94,32 @@ function Coaches({ k }: { k: SlotsKinderZeile }): JSX.Element {
   )
 }
 
-/** Ein Knopf je Zeile: vergeben, wie bisher weiterführen, Raum festlegen (Altbestand) oder ändern. */
-function Aktion({ k, onAktion }: { k: SlotsKinderZeile; onAktion: (a: KindAktion) => void }): JSX.Element {
+/** Raumname je raum_id (aus slots_einstellungen), für „Wie bisher weiterführen (Mo 14:00 · A1)“. */
+export type RaumNamen = Record<string, string>
+
+/**
+ * Ein Knopf je Zeile: vergeben, wie bisher weiterführen, Raum festlegen (Altbestand) oder ändern. „Wie bisher“ nur,
+ * wenn jede Vorgänger-Zeile einen Raum hat (sonst bricht stammplaetze_weiterfuehren mit raum_fehlt ab); dann
+ * „Stammplatz vergeben“ mit Tag, Uhrzeit und Takt der Vorgänger vorbelegt.
+ */
+function Aktion({ k, raumNamen, onAktion }: { k: SlotsKinderZeile; raumNamen: RaumNamen; onAktion: (a: KindAktion) => void }): JSX.Element {
   const { t, i18n } = useTranslation('slots')
   const knopf = (text: string, a: KindAktion, primaer = false): JSX.Element => (
     <Button type="button" size="sm" variant={primaer ? 'default' : 'outline'} className="min-h-[44px]" onClick={() => onAktion(a)}>{text}</Button>
   )
   const vorschlag = k.ohne_stammplatz && k.weiterfuehren && k.weiterfuehren.zeilen.length > 0 ? k.weiterfuehren : null
   let inhalt: JSX.Element
-  if (vorschlag) {
-    const slot = vorschlag.zeilen.map((z) => `${wochentagName(z.wochentag, i18n.language)} ${z.beginn}`).join(', ')
+  if (vorschlag && vorschlag.zeilen.some((z) => z.raum_id === null)) {
+    const vorbelegt: Zeile[] = vorschlag.zeilen.map((z) => ({ wochentag: z.wochentag, zeit_id: z.slot_zeit_id, takt: z.takt, raum_id: null }))
+    inhalt = knopf(t('aktion.stammplatzVergeben'), { art: 'vergeben', kind: k, vorbelegt }, true)
+  } else if (vorschlag) {
+    const slot = vorschlag.zeilen
+      .map((z) => {
+        const name = z.raum_id ? raumNamen[z.raum_id] : undefined
+        const tag = wochentagName(z.wochentag, i18n.language)
+        return name ? t('kinder2.stamm.kurz', { tag, beginn: z.beginn, raum: name }) : `${tag} ${z.beginn}`
+      })
+      .join(', ')
     inhalt = (
       <>
         {knopf(t('kinder.ohne.weiterfuehren', { slot }), { art: 'weiterfuehren', kind: k })}
@@ -128,7 +146,7 @@ function Aktion({ k, onAktion }: { k: SlotsKinderZeile; onAktion: (a: KindAktion
   return <span className="flex items-center justify-end gap-2">{inhalt}</span>
 }
 
-export function useKinderSpalten(onAktion: (a: KindAktion) => void): Spalte<SlotsKinderZeile>[] {
+export function useKinderSpalten(onAktion: (a: KindAktion) => void, raumNamen: RaumNamen): Spalte<SlotsKinderZeile>[] {
   const { t } = useTranslation('slots')
   return [
     { key: 'kind', kopf: t('kinder.spalte.kind'), zelle: (k) => <Kind k={k} /> },
@@ -136,12 +154,12 @@ export function useKinderSpalten(onAktion: (a: KindAktion) => void): Spalte<Slot
     { key: 'stamm', kopf: t('kinder2.spalte.stammplatz'), zelle: (k) => <Stammplaetze k={k} /> },
     { key: 'coach', kopf: t('kinder2.spalte.coach'), zelle: (k) => <Coaches k={k} /> },
     { key: 'planbilanz', kopf: t('kinder.spalte.planbilanz'), zelle: (k) => <PlanbilanzBadge planbilanz={k.planbilanz} vertragLaeuft={k.vertrag_laeuft} /> },
-    { key: 'aktion', kopf: t('kinder2.spalte.aktion'), rechts: true, zelle: (k) => <Aktion k={k} onAktion={onAktion} /> },
+    { key: 'aktion', kopf: t('kinder2.spalte.aktion'), rechts: true, zelle: (k) => <Aktion k={k} raumNamen={raumNamen} onAktion={onAktion} /> },
   ]
 }
 
 /** Dieselben Felder als Karte (unter --container-slots-tabelle). */
-export function KindZellen({ kind: k, onAktion }: { kind: SlotsKinderZeile; onAktion: (a: KindAktion) => void }): JSX.Element {
+export function KindZellen({ kind: k, raumNamen, onAktion }: { kind: SlotsKinderZeile; raumNamen: RaumNamen; onAktion: (a: KindAktion) => void }): JSX.Element {
   const { t, i18n } = useTranslation('slots')
   return (
     <>
@@ -157,7 +175,7 @@ export function KindZellen({ kind: k, onAktion }: { kind: SlotsKinderZeile; onAk
         </span>
       ))}
       {k.stammplaetze.length === 0 && <span className="text-sm text-[var(--color-text-tertiary)]">{t('kinder2.stamm.ohne')}</span>}
-      <Aktion k={k} onAktion={onAktion} />
+      <Aktion k={k} raumNamen={raumNamen} onAktion={onAktion} />
     </>
   )
 }

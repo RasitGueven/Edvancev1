@@ -3,7 +3,7 @@ import { EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
 import type { StammplatzVorschauZeile, Takt } from '@/types/slotplan'
 import { datumKurz } from '../slotsFormat'
 import { PLAETZE } from '../wochenplan/wochenplan.model'
-import { kennzeichen, raumStand, vorschauSatz, type Kennzeichen, type RaumStand, type StammRaum } from './stammplatz.model'
+import { kennzeichen, raumStand, vorschauSatz, type Kennzeichen, type StammRaum } from './stammplatz.model'
 
 const KENNZEICHEN_FARBE: Record<Kennzeichen, 'strength' | 'warning' | 'muted'> = {
   geplant: 'strength',
@@ -12,11 +12,19 @@ const KENNZEICHEN_FARBE: Record<Kennzeichen, 'strength' | 'warning' | 'muted'> =
   andereWoche: 'muted',
 }
 
-/** Warum ein Raum nicht wählbar ist, als Satz (auch für die Gründe unter „Speichern“). */
-export function sperrSatz(stand: RaumStand, raum: string, beginn: string, t: (k: string, o?: Record<string, unknown>) => string, sprache: string): string | null {
+/** Vorschau eines Raums; fehler = i18n-Schlüssel, wenn stammplatz_vorschau für diesen Raum scheiterte. */
+export type RaumVorschau = { zeilen: StammplatzVorschauZeile[]; fehler: string | null }
+
+type T = (k: string, o?: Record<string, unknown>) => string
+
+/** Warum ein Raum nicht wählbar ist, als Satz (auch für die Gründe unter „Speichern“); null = wählbar. */
+export function sperrSatz(v: RaumVorschau, raum: string, beginn: string, takt: Takt, t: T, sprache: string): string | null {
+  if (v.fehler) return t('kinder2.sperre.fehler', { raum, fehler: t(v.fehler) })
+  const stand = raumStand(v.zeilen, takt)
   if (!stand.sperre || !stand.datum) return null
   const datum = datumKurz(stand.datum, sprache)
-  return stand.sperre === 'voll' ? t('kinder2.sperre.voll', { raum, datum, max: PLAETZE }) : t('kinder2.sperre.ohneCoach', { raum, datum, beginn })
+  if (stand.sperre === 'ohne_coach') return t('kinder2.sperre.ohneCoach', { raum, datum, beginn })
+  return t(stand.sperre === 'voll' ? 'kinder2.sperre.voll' : 'kinder2.sperre.keinPlatz', { raum, datum, max: PLAETZE })
 }
 
 /**
@@ -27,13 +35,15 @@ export function StammplatzRaeume({
   raeume,
   vorschau,
   beginn,
+  takt,
   gewaehlt,
   onWahl,
 }: {
   raeume: StammRaum[]
   /** null = lädt. */
-  vorschau: Record<string, StammplatzVorschauZeile[]> | null
+  vorschau: Record<string, RaumVorschau> | null
   beginn: string
+  takt: Takt
   gewaehlt: string | null
   onWahl: (raumId: string) => void
 }): JSX.Element {
@@ -43,8 +53,9 @@ export function StammplatzRaeume({
   return (
     <div role="group" aria-label={t('kinder2.raum.titel')} className="grid grid-cols-1 gap-2 @md:grid-cols-2 @3xl:grid-cols-4">
       {raeume.map((r) => {
-        const stand = raumStand(vorschau[r.id] ?? [])
-        const sperre = sperrSatz(stand, r.name, beginn, t, i18n.language)
+        const v = vorschau[r.id] ?? { zeilen: [], fehler: null }
+        const stand = raumStand(v.zeilen, takt)
+        const sperre = sperrSatz(v, r.name, beginn, takt, t, i18n.language)
         const an = r.id === gewaehlt
         const frei = stand.datum
           ? t('kinder2.raum.frei', { frei: stand.frei, max: PLAETZE, datum: datumKurz(stand.datum, i18n.language) })
@@ -66,7 +77,9 @@ export function StammplatzRaeume({
             }`}
           >
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">{r.name}</span>
-            <span className="text-xs text-[var(--color-text-secondary)]">{stand.coach_name ?? t('kinder2.raum.keinCoach')}</span>
+            {stand.datum && !v.fehler && (
+              <span className="text-xs text-[var(--color-text-secondary)]">{stand.coach_name ?? t('kinder2.raum.keinCoach')}</span>
+            )}
             {sperre ? (
               <span className="text-xs font-semibold text-[var(--color-error-coach)]">{sperre}</span>
             ) : (

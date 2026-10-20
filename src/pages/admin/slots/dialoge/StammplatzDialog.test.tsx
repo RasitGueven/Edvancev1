@@ -16,7 +16,7 @@ const sp = vi.hoisted(() => ({
 }))
 vi.mock('@/lib/supabase/slotplan', () => sp)
 
-const { StammplatzDialog } = await import('./StammplatzDialog')
+const { StammplatzDialog, abStandard } = await import('./StammplatzDialog')
 
 // 2030-11-04 ist ein Montag in KW 45 (A-Woche); das Kind beginnt dort, damit „gültig ab“ nicht vom heutigen Tag abhängt.
 const kindStamm = { student_id: 'k1', name: 'Jonas Köhler', beginn: '2030-11-04', vertrag_laeuft: false, rhythmus: { woechentlich: 1, vierzehntaeglich: 0 } }
@@ -104,7 +104,7 @@ describe('Die nächsten Termine (W3, Entscheidung 5)', () => {
     ])
   })
 
-  it('andere Woche und Kinder der anderen Art (voll mit weniger als fünf, offene-punkte-w1 Nr. 5)', async () => {
+  it('andere Woche und kein Platz (voll mit weniger als fünf: Termin voll oder andere Art)', async () => {
     sp.ladeStammplatzVorschau.mockResolvedValue({
       data: [zeile('2030-11-05', 'termin', { belegt: 0, ...jana }), zeile('2030-11-12', 'andere_woche'), zeile('2030-11-19', 'voll', { belegt: 2, ...jana })],
       error: null,
@@ -117,7 +117,7 @@ describe('Die nächsten Termine (W3, Entscheidung 5)', () => {
     const liste = await screen.findByRole('list', { name: 'Die nächsten Termine' })
     expect(within(liste).getAllByRole('listitem').map((li) => li.textContent).slice(1)).toEqual([
       'Di 12.11.andere WocheB-Woche (KW 46): Der Stammplatz gilt in der A-Woche, hier kein Termin.',
-      'Di 19.11.entfälltIn A1 sitzen an diesem Tag Kinder der anderen Art (Testkonto oder echt), kein Termin.',
+      'Di 19.11.entfälltA1: an diesem Tag ist in diesem Termin kein Platz mehr frei, kein Termin.',
     ])
   })
 })
@@ -182,5 +182,66 @@ describe('Speichern (W3, Entscheidung 6)', () => {
     await waitFor(() => expect(speichern.disabled).toBe(false))
     await act(async () => fireEvent.click(speichern))
     expect(screen.getByRole('alert').textContent).toBe('Wähle einen Raum für den Stammplatz.')
+  })
+})
+
+describe('Zweitprüfung W3', () => {
+  it('der Sperrsatz nennt den ersten Termin im Takt, wie die Karte (nicht ein Datum der anderen Woche)', async () => {
+    const tage = ['2030-11-05', '2030-11-12', '2030-11-19']
+    sp.ladeStammplatzVorschau.mockImplementation((_s: string, _w: number, _z: string, raumId: string) => Promise.resolve({
+      data: raumId === 'r-a1' ? tage.map((d) => zeile(d, 'termin', { belegt: 1, ...jana })) : tage.map((d) => zeile(d, 'ohne_coach', { belegt: 0 })),
+      error: null,
+    }))
+    render(<StammplatzDialog kind={kindStamm} onClose={() => undefined} onGespeichert={() => undefined} />)
+    await waehleSlot()
+    fireEvent.change(screen.getByLabelText('Takt'), { target: { value: 'b_woche' } })
+    await screen.findByRole('group', { name: 'Raum' })
+    expect(raum('A1').textContent).toContain('4 von 5 frei am Di 12.11.')
+    expect(raum('C1').textContent).toContain('C1 hat am Di 12.11. um 16:00 keinen Coach.')
+    expect(raum('C1').textContent).not.toContain('05.11.')
+  })
+
+  it('„voll“ mit weniger als fünf Kindern heißt auf der Karte nicht „5 von 5“', async () => {
+    sp.ladeStammplatzVorschau.mockImplementation((_s: string, _w: number, _z: string, raumId: string) => Promise.resolve({
+      data: raumId === 'r-b1' ? [zeile('2030-11-05', 'voll', { belegt: 3, ...jana })] : VORSCHAU[raumId], error: null,
+    }))
+    render(<StammplatzDialog kind={kindStamm} onClose={() => undefined} onGespeichert={() => undefined} />)
+    await waehleSlot()
+    expect(raum('B1').disabled).toBe(true)
+    expect(raum('B1').textContent).toContain('B1: am Di 05.11. ist in diesem Termin kein Platz mehr frei.')
+    expect(raum('B1').textContent).not.toContain('5 von 5')
+  })
+
+  it('ohne Termin in sechs Wochen: Satz statt „kein Coach eingeteilt“', async () => {
+    sp.ladeStammplatzVorschau.mockResolvedValue({
+      data: ['2030-11-05', '2030-11-12'].map((d) => zeile(d, 'ferien', { anlass: 'Herbstferien' })), error: null,
+    })
+    render(<StammplatzDialog kind={kindStamm} onClose={() => undefined} onGespeichert={() => undefined} />)
+    await waehleSlot()
+    expect(raum('A1').textContent).toContain('In den nächsten sechs Wochen kein Termin.')
+    expect(raum('A1').textContent).not.toContain('kein Coach eingeteilt')
+    expect(raum('A1').disabled).toBe(false)
+  })
+
+  it('scheitert die Vorschau eines Raums, ist seine Karte gesperrt mit Satz; beim nächsten Laden wieder offen', async () => {
+    let kaputt = true
+    sp.ladeStammplatzVorschau.mockImplementation((_s: string, _w: number, _z: string, raumId: string) => Promise.resolve(
+      raumId === 'r-a1' && kaputt ? { data: null, error: 'x', code: '42501' } : { data: VORSCHAU[raumId], error: null },
+    ))
+    render(<StammplatzDialog kind={kindStamm} onClose={() => undefined} onGespeichert={() => undefined} />)
+    await waehleSlot()
+    expect(raum('A1').disabled).toBe(true)
+    expect(raum('A1').textContent).toContain('A1: Die Vorschau konnte nicht geladen werden. Dafür fehlen dir die Rechte.')
+    kaputt = false
+    fireEvent.change(screen.getByLabelText('Takt'), { target: { value: 'a_woche' } })
+    await waitFor(() => expect(raum('A1').disabled).toBe(false))
+  })
+
+  it('gültig ab beim Ändern: der spätere von nächstem Montag, Beginn des Stammplatzes und Vertragsbeginn', () => {
+    expect(abStandard({ beginn: '2020-01-01' }, '2020-01-01', { gueltig_ab: '2099-03-02' })).toBe('2099-03-02')
+    expect(abStandard({ beginn: '2099-05-04' }, '2020-01-01', { gueltig_ab: '2020-01-01' })).toBe('2099-05-04')
+    const montag = abStandard({ beginn: '2020-01-01' }, '2020-01-01', { gueltig_ab: '2020-01-01' })
+    expect(new Date(`${montag}T00:00:00Z`).getUTCDay()).toBe(1)
+    expect(abStandard({ beginn: '2030-11-04' }, '2026-10-20')).toBe('2030-11-04')
   })
 })

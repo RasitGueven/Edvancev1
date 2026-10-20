@@ -147,3 +147,30 @@ describe('Kind-Seite (W3, Entscheidung 7)', () => {
     expect(screen.getByRole('dialog', { name: 'Raum festlegen' })).toBeTruthy()
   })
 })
+
+describe('Wie bisher weiterführen (W3, Zweitprüfung M3)', () => {
+  const folge = (raumId: string | null) => ({
+    vertrag_id: 'v2', ab: '2026-11-02',
+    zeilen: [{ vorgaenger_id: 'alt1', wochentag: 1, slot_zeit_id: 'z14', takt: 'woechentlich' as const, beginn: '14:00', raum_id: raumId }],
+  })
+
+  it('mit Raum: Knopf nennt den Raum', async () => {
+    sp.ladeKinder.mockResolvedValue({ data: [kind('k9', 'Ida Roth', { ...ohne, weiterfuehren: folge('r-a1') })], error: null })
+    sp.ladeEinstellungen.mockResolvedValue({ data: { heute: '2026-10-20', schuljahr_bis: '2027-07-31', planungsgrenze: '2027-07-31', raeume: [{ id: 'r-a1', name: 'A1', aktiv_ab: '2026-01-01', inaktiv_ab: null, stammschichten: 1 }], zeiten: [], ferien: [], feiertage: [] }, error: null })
+    await zeige()
+    await act(async () => {})
+    expect(within(zeile('Ida Roth')).getByRole('button', { name: 'Wie bisher weiterführen (Mo 14:00 · A1)' })).toBeTruthy()
+  })
+
+  it('Vorgänger ohne Raum: kein „wie bisher“, sondern „Stammplatz vergeben“ mit Tag und Uhrzeit vorbelegt', async () => {
+    sp.ladeKinder.mockResolvedValue({ data: [kind('k9', 'Ida Roth', { ...ohne, weiterfuehren: folge(null) })], error: null })
+    sp.ladeEinstellungen.mockResolvedValue({ data: { heute: '2026-10-20', schuljahr_bis: '2027-07-31', planungsgrenze: '2027-07-31', raeume: [], zeiten: [{ id: 'z14', beginn: '14:00', ende: '15:00', aktiv_ab: '2026-01-01', inaktiv_ab: null }], ferien: [], feiertage: [] }, error: null })
+    await zeige()
+    const ida = zeile('Ida Roth')
+    expect(within(ida).queryByRole('button', { name: /Wie bisher/ })).toBeNull()
+    await act(async () => fireEvent.click(within(ida).getByRole('button', { name: 'Stammplatz vergeben' })))
+    expect(((await screen.findByLabelText('Wochentag')) as HTMLSelectElement).value).toBe('1')
+    expect((screen.getByLabelText('Uhrzeit') as HTMLSelectElement).value).toBe('z14')
+    expect(sp.stammplaetzeWeiterfuehren).not.toHaveBeenCalled()
+  })
+})
