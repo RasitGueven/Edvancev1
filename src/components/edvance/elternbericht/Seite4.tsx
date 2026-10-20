@@ -1,10 +1,11 @@
-import { Fragment, useLayoutEffect, useRef, useState, type RefObject } from 'react'
+import { Fragment, useContext, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import type { EbSchwerpunkt } from '@/types'
 
 import { Kurve } from './Kurve'
+import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
 
 /** Höchstens so viele Elterntexte im Fazit (Bauauftrag R7, Entscheidung 10). */
@@ -21,11 +22,12 @@ const LISTE_VOLL = 3
  */
 export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
-  const dicht = useDicht()
   const { schwerpunkte, danach } = bericht
   const anzahl = schwerpunkte.length
 
-  const fazit = gruppiereFehlbilderNachFamilie(data.fehlbilder).slice(0, FAZIT_TEXTE)
+  const texte = gruppiereFehlbilderNachFamilie(data.fehlbilder).slice(0, FAZIT_TEXTE)
+  const stufe = useStufe(texte.length === 0 ? DICHT : texte.length === 1 ? OHNE_COACH : EIN_TEXT)
+  const fazit = stufe.wert >= EIN_TEXT ? texte.slice(0, 1) : texte
   const keine = anzahl === 0 ? satz.waehle('fazit', 'keine', data.sessionId) : null
   const zielbild = notes?.zielbild.trim() || null
 
@@ -38,7 +40,12 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
         })
 
   return (
-    <div className="eb-s4" ref={dicht.ref} data-dicht={dicht.an || undefined}>
+    <div
+      className="eb-s4"
+      ref={stufe.ref}
+      data-dicht={stufe.wert >= DICHT || undefined}
+      data-stufe={stufe.wert || undefined}
+    >
       {fazit.length > 0 && (
         <section className="eb-s4-fazit-bereich" data-testid="eb-fazit">
           <h2 className="eb-kicker eb-s4-kicker">{t('s4.fazit.kicker')}</h2>
@@ -46,7 +53,7 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
             {fazit.map((f) => (
               <Fragment key={f.familie}>{f.elterntext} </Fragment>
             ))}
-            {t('s4.fazit.coach')}
+            {stufe.wert < OHNE_COACH && t('s4.fazit.coach')}
           </p>
         </section>
       )}
@@ -75,43 +82,57 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
       )}
 
       {zielbild && (
-        <section className="eb-s4-lernziel" data-kurve-ziel data-testid="eb-lernziel">
+        <section
+          className={anzahl === 0 ? 'eb-s4-lernziel eb-s4-lernziel-voll' : 'eb-s4-lernziel'}
+          data-kurve-ziel
+          data-testid="eb-lernziel"
+        >
           <h2 className="eb-kicker">{t('s4.lernziel')}</h2>
           <p className="eb-s4-lernziel-text">{zielbild}</p>
         </section>
       )}
-      <p className="eb-s4-stand">{t('s4.stand')}</p>
+      <p className={anzahl === 0 ? 'eb-s4-stand eb-s4-stand-voll' : 'eb-s4-stand'}>{t('s4.stand')}</p>
 
       {anzahl > 0 && <Kurve />}
     </div>
   )
 }
 
+/** Stufen, wenn Seite 4 überläuft (Gründer-Entscheidung R7-5), nacheinander. */
+const DICHT = 1 // engere Abstände (`[data-dicht]` in seite4.css)
+const OHNE_COACH = 2 // dazu entfällt s4.fazit.coach
+const EIN_TEXT = 3 // dazu steht nur der erste Elterntext
+
 /**
  * Läuft die Seite mit den Abständen des Musters über (langes Fazit, lange
- * Texte), rücken die Abschnitte enger zusammen (`[data-dicht]` in seite4.css),
- * statt dass die Fußnote am Papierrand abgeschnitten wird. Geprüft nach dem
- * Layout und nach dem Laden der Schriften; einmal dicht, bleibt es dicht.
+ * Texte), geht sie eine Stufe weiter, bis alles passt oder `hoechste` erreicht
+ * ist — statt dass die Fußnote am Papierrand abgeschnitten wird. Text wird nie
+ * gekürzt, nur weggelassen. Geprüft nach dem Layout, solange Schriften laden
+ * aber erst nach `document.fonts.ready` — sonst bliebe eine Stufe stehen, die
+ * nur die Ersatzschrift brauchte. Eine erreichte Stufe bleibt.
  */
-function useDicht(): { ref: RefObject<HTMLDivElement>; an: boolean } {
+function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: number } {
   const ref = useRef<HTMLDivElement>(null)
-  const [an, setAn] = useState(false)
+  const [wert, setWert] = useState(0)
+  // Erst entscheidet der Bogen über den Namen, dann misst Seite 4.
+  const nameEntschieden = useContext(NamensMessungFertig)
 
   useLayoutEffect(() => {
     const kasten = ref.current?.parentElement
-    if (!kasten || an) return
+    if (!nameEntschieden || !kasten || wert >= hoechste) return
     let aktiv = true
     const pruefen = (): void => {
-      if (aktiv && kasten.scrollHeight > kasten.clientHeight) setAn(true)
+      if (aktiv && kasten.scrollHeight > kasten.clientHeight) setWert(wert + 1)
     }
-    pruefen()
-    void document.fonts?.ready.then(pruefen)
+    void kasten.offsetHeight // Layout erzwingen, damit die Schriften angefordert sind
+    if (!document.fonts || document.fonts.status === 'loaded') pruefen()
+    else void document.fonts.ready.then(pruefen)
     return () => {
       aktiv = false
     }
-  }, [an])
+  }, [wert, hoechste, nameEntschieden])
 
-  return { ref, an }
+  return { ref, wert }
 }
 
 /** Ein Schwerpunkt; unter dem letzten die übrigen Felder („Danach …“). */

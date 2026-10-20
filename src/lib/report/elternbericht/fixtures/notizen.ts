@@ -11,6 +11,13 @@ export const NOTIZEN: ReportNotes = {
   paket: 'premium',
 }
 
+/** Ein langes Zielbild ohne Namen (sechs Zeilen im Lernziel-Kasten), synthetisch. */
+export const NOTIZEN_LANG: ReportNotes = {
+  ...NOTIZEN,
+  zielbild:
+    'Ihr Kind rechnet mit Brüchen und Dezimalzahlen sicher, auch wenn die Aufgabe in einen Text eingebettet ist, und löst Prozentaufgaben in beide Richtungen, also auch dann, wenn der Grundwert gesucht ist. Terme fasst es zusammen und klammert aus, ohne ein Vorzeichen zu verlieren. Bei Figuren wählt es die passende Formel für Umfang und Fläche und rechnet Flächeneinheiten richtig um. Danach festigen wir die Grundlagen für das nächste Thema. Wir überprüfen den Stand regelmäßig in den Sitzungen, besprechen ihn mit Ihnen und passen den Plan an, sobald sich etwas verschiebt.',
+}
+
 const tier = (n: number, name: string, features: string[]): TierPlan => ({
   id: `00000000-0000-4000-8000-00000000t00${n}`,
   name,
