@@ -2,7 +2,9 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
+import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
+import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 
 const SRC = resolve(__dirname, '../../../..')
 
@@ -62,5 +64,57 @@ describe('Fixtures des Eltern-Berichts', () => {
       expect(f.notes === null, name).toBe(name === 'ohneNotizen')
       expect(f.tiers.filter((t) => t.active)).toHaveLength(3)
     }
+  })
+
+  describe('Grenzfälle R7-5', () => {
+    const bericht = (name: keyof typeof FAELLE) => {
+      const { kompetenzen, katalog } = FAELLE[name].data.erzaehlung
+      return baueElternbericht({ kompetenzen, katalog, klasse: FAELLE[name].data.grade })!
+    }
+    const familien = (name: keyof typeof FAELLE) => gruppiereFehlbilderNachFamilie(FAELLE[name].data.fehlbilder)
+
+    it('mitFazit: zwei Familien über der Schwelle, die längsten Elterntexte zuerst', () => {
+      expect(familien('mitFazit').map((f) => f.familie)).toEqual(['potenzen_wurzeln', 'geraden_schaubilder'])
+      expect(familien('mitFazit').map((f) => f.elterntext.length)).toEqual([221, 208])
+    })
+
+    it('fazitLang: drei Familien, vier Schwerpunkte und „Danach …“, langes Lernziel', () => {
+      expect(familien('fazitLang').map((f) => f.elterntext.length)).toEqual([221, 208, 194])
+      expect(bericht('fazitLang').schwerpunkte).toHaveLength(4)
+      expect(bericht('fazitLang').danach.length).toBeGreaterThan(0)
+      expect(FAELLE.fazitLang.notes!.zielbild.length).toBeGreaterThan(500)
+    })
+
+    it('Rufnamen an der Grenze: 24 und 25 Zeichen', () => {
+      expect([...FAELLE.langerName.data.firstName!]).toHaveLength(24)
+      expect([...FAELLE.zuLangerName.data.firstName!]).toHaveLength(25)
+      expect(bericht('langerName').profil).toHaveLength(8)
+      for (const n of ['langerName', 'zuLangerName'] as const) {
+        expect(FAELLE[n].data.erzaehlung.anlassNamen.length, n).toBeGreaterThan(1)
+        expect(FAELLE[n].data.erzaehlung.rueckbezuege, n).toHaveLength(1)
+      }
+    })
+
+    it('weitereBereiche: neunte Profilzeile „weitere“', () => {
+      const profil = bericht('weitereBereiche').profil
+      expect(profil).toHaveLength(9)
+      expect(profil.at(-1)!.feld).toBe('weitere')
+    })
+
+    it('vieleAnliegen: vier Anliegen, Thema, drei Rückbezüge mit den längsten Bausteinen', () => {
+      const { data } = FAELLE.vieleAnliegen
+      expect(data.erzaehlung.anlassNamen).toHaveLength(4)
+      expect(data.naechstesThema).not.toBeNull()
+      expect(data.erzaehlung.rueckbezuege.map((r) => r.fall)).toEqual([
+        'textverstaendnis_entlastend_schmal',
+        'rechenwege_offen',
+        'grundlagen_entlastend_schmal',
+      ])
+    })
+
+    it('keinSchwerpunktMitZiel: kein Schwerpunkt, Zielbild gesetzt', () => {
+      expect(bericht('keinSchwerpunktMitZiel').schwerpunkte).toHaveLength(0)
+      expect(FAELLE.keinSchwerpunktMitZiel.notes?.zielbild).toBeTruthy()
+    })
   })
 })

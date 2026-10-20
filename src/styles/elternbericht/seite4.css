@@ -119,6 +119,10 @@
   border: 0.8pt solid var(--color-eb-linie);
   border-radius: 11pt;
 }
+/* Ohne Schwerpunkt keine Kurve daneben: bündig an der Inhaltskante, volle Breite. */
+.eb-s4-lernziel-voll {
+  margin-left: 0;
+}
 .eb-s4-lernziel-text {
   margin-top: 9.31pt; /* erste Zeile (Kasten + 39,8) */
   font-size: 9.1pt;

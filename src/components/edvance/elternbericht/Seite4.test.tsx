@@ -224,4 +224,57 @@ describe('Seite 4 — Verdichtung bei Überlauf', () => {
     expect(inBogen(false)).toBe(false)
     expect(inBogen(true)).toBe(true)
   })
+
+  /**
+   * „Gemessene“ Höhe: Der Kasten läuft über, solange das Fazit länger als
+   * `grenze` Zeichen ist. Die Verdichtung allein ändert den Text nicht.
+   */
+  const stufe = (fehlbilder: ReportFehlbild[], grenze: number) => {
+    vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockImplementation(function (this: HTMLElement) {
+      return (this.querySelector('.eb-s4-fazit')?.textContent ?? '').length > grenze ? 977 : 960
+    })
+    vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(960)
+    const { container, unmount } = render(
+      <div className="eb-inhalt">
+        <Seite4 {...props(mitFehlbildern(fehlbilder))} />
+      </div>,
+    )
+    const s4 = container.querySelector('.eb-s4')!
+    const ergebnis = {
+      stufe: s4.getAttribute('data-stufe'),
+      dicht: s4.hasAttribute('data-dicht'),
+      fazit: s4.querySelector('.eb-s4-fazit')!.textContent,
+    }
+    unmount()
+    vi.restoreAllMocks()
+    return ergebnis
+  }
+  const zwei = [familie('eins', 'Satz A.', 5), familie('zwei', 'Satz B.', 4)]
+  const voll = `Satz A. Satz B. ${COACH}`
+
+  it('reicht die Verdichtung, bleiben beide Elterntexte und der Coach-Satz', () => {
+    expect(stufe(zwei, voll.length)).toEqual({ stufe: null, dicht: false, fazit: voll })
+    expect(stufe(zwei, voll.length - 1)).toMatchObject({ dicht: true })
+  })
+
+  it('reicht die Verdichtung nicht, entfällt zuerst der Coach-Satz, dann der zweite Elterntext', () => {
+    expect(stufe(zwei, 'Satz A. Satz B. '.length)).toEqual({ stufe: '2', dicht: true, fazit: 'Satz A. Satz B. ' })
+    expect(stufe(zwei, 'Satz A. '.length)).toEqual({ stufe: '3', dicht: true, fazit: 'Satz A. ' })
+    // Auch wenn es dann noch überläuft: der erste Elterntext bleibt, wörtlich.
+    expect(stufe(zwei, 0)).toEqual({ stufe: '3', dicht: true, fazit: 'Satz A. ' })
+  })
+
+  it('mit einem Elterntext entfällt höchstens der Coach-Satz', () => {
+    expect(stufe([familie('eins', 'Satz A.', 5)], 0)).toEqual({ stufe: '2', dicht: true, fazit: 'Satz A. ' })
+  })
+})
+
+describe('Seite 4 — Lernziel ohne Schwerpunkt', () => {
+  it('steht bündig an der Inhaltskante (eigene Klasse), mit Schwerpunkten eingerückt', () => {
+    const ohne = seite4(props(FAELLE.keinSchwerpunktMitZiel.data))
+    expect(ohne.getByTestId('eb-lernziel')).toHaveClass('eb-s4-lernziel', 'eb-s4-lernziel-voll')
+    ohne.unmount()
+    const mit = seite4(props(FAELLE.ilkay.data))
+    expect(mit.getByTestId('eb-lernziel')).not.toHaveClass('eb-s4-lernziel-voll')
+  })
 })

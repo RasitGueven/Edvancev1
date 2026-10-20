@@ -15,6 +15,12 @@ import { Seite4 } from './Seite4'
 import { Seite5 } from './Seite5'
 import { SCHRAFFUR_ID, type SeitenProps } from './seitenProps'
 
+/**
+ * Längere Rufnamen passen nicht in jeden Titel und Satz des Bogens; dann
+ * nehmen alle Stellen ihre Fassung ohne Namen (Gründer-Entscheidung R7-5).
+ */
+const NAME_MAX = 24
+
 const SEITEN: ReadonlyArray<(props: SeitenProps) => JSX.Element | null> = [
   Seite1,
   Seite2,
@@ -61,7 +67,8 @@ export function ElternberichtBogen({
     )
   }
 
-  const name = data.firstName?.trim() || null
+  const rufname = data.firstName?.trim() || null
+  const name = rufname && [...rufname].length <= NAME_MAX ? rufname : null
   const props: SeitenProps = {
     data,
     bericht,

@@ -74,6 +74,34 @@ describe('ElternberichtBogen', () => {
     )
   })
 
+  it('nimmt Rufnamen bis 24 Zeichen, darüber überall die Fassungen ohne Namen', () => {
+    const texte = (firstName: string) => {
+      const { container, unmount } = bogen({ ...FAELLE.ilkay.data, firstName })
+      const s = seiten(container)
+      const ergebnis = {
+        fuss: s[0].querySelector('.eb-fuss-text')?.textContent,
+        titel: s.map((x) => x.querySelector('.eb-titel')?.textContent),
+        anliegen: s[0].querySelector('.eb-s1-anliegen-satz')?.textContent,
+        alles: container.textContent ?? '',
+      }
+      unmount()
+      return ergebnis
+    }
+
+    const mit = texte(' Anna-Katharina Henriette ') // 24 Zeichen nach trim
+    expect(mit.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse Anna-Katharina Henriette')
+    expect(mit.titel[0]).toBe('Was wir bei Anna-Katharina Henriette gesehen haben')
+    expect(mit.titel[1]).toContain('Anna-Katharina Henriettes')
+    expect(mit.anliegen).toContain('Anna-Katharina Henriettes')
+
+    const ohne = texte('Anna-Katharina Friederike') // 25 Zeichen
+    const ohneName = texte('')
+    expect(ohne.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse')
+    expect(ohne.titel).toEqual(ohneName.titel)
+    expect(ohne.anliegen).toBe(ohneName.anliegen)
+    expect(ohne.alles).not.toContain('Friederike')
+  })
+
   it('zeigt ohne Katalog keinen Bogen, sondern den Hinweis', () => {
     const { container } = bogen('ohneKatalog')
     expect(seiten(container)).toHaveLength(0)
