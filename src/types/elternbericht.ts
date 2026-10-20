@@ -28,10 +28,40 @@ export type EbeneKey = 'spaeter' | 'aktuell' | 'weiterfuehrend' | 'grundlagen'
 /** Fall der Überschrift auf Seite 1 (report_bausteine, slot 'kopf'). */
 export type KopfFall = 'gemischt' | 'sicher' | 'uebung'
 
-/** Ein Skill des Katalogs mit seiner Herkunftsklasse (skills.klasse_herkunft). */
+/** Ein Skill des Katalogs mit Herkunftsklasse und Label (skills.klasse_herkunft, skills.label). */
 export type KatalogSkill = {
   skillKey: string
   klasse: number
+  /** skills.label, roh; Elternbezeichnung über elternLabel (R7-9). */
+  label: string
+}
+
+/** Eine Kante des Voraussetzungsgraphen (skill_kante): skillKey baut auf voraussetzt auf. */
+export type LwKante = { skillKey: string; voraussetzt: string }
+
+/** Heimat-Thema eines Skills (skill_thema): wo der Stoff im Lehrplan eingeführt wird. */
+export type HeimatThema = { skillKey: string; themaKey: string }
+
+/** Ein Eintrag im Plan der Klasse: Schulplan (schul_themenplan) oder Kernlehrplan (themen). */
+export type PlanEintrag = {
+  position: number
+  themaKey: string | null
+  titel: string
+  halbjahr: 1 | 2 | null
+}
+
+/**
+ * Was im Schuljahr kommt (R7-9, Entscheidung 3): der Schulplan der Schule des
+ * Kindes für die Klasse der Sitzung, sonst der Kernlehrplan NRW der Stufe.
+ */
+export type LernPlan = {
+  quelle: 'schule' | 'klp'
+  /** schulen.name; null beim Kernlehrplan oder wenn die Schule nicht lesbar ist. */
+  schulname: string | null
+  klasse: number
+  eintraege: PlanEintrag[]
+  /** Nur beim Schulplan und nur, wenn es für Klasse + 1 einen gibt. */
+  naechsteKlasse: { klasse: number; eintraege: Omit<PlanEintrag, 'halbjahr'>[] } | null
 }
 
 /** Ein direkt geprüfter Bereich (= Skill), eingeordnet. */
@@ -105,4 +135,70 @@ export type Elternbericht = {
   sicherListe: EbBereich[]
   uebungListe: EbBereich[]
   kopfFall: KopfFall
+  /** Der Lernweg für Seite 3 und Station 03 (R7-9); null ohne Eingabe dafür. */
+  lernweg: Lernweg | null
+}
+
+/* ─── Lernweg (R7-9): Seite 3 und Station 03 ──────────────────────────────── */
+
+/** Zonen des Lernwegs von links nach rechts. */
+export type LwZoneKey = 'grundlagen' | 'weiterfuehrend' | 'aktuell' | 'kommt'
+
+/** offen = „noch nicht geprüft“ (leerer Kreis). */
+export type LwStand = 'sicher' | 'uebung' | 'offen'
+
+/** Ein eingerückter Eintrag „↳ Ziel“ unter seiner Basis in derselben Insel. */
+export type LwUnter = {
+  id: string
+  label: string
+  stand: LwStand
+  /** Die Basen derselben Insel (Kennungen), auf denen das Ziel aufbaut; eine = „baut darauf auf“. */
+  basen: string[]
+}
+
+export type LwEintrag = {
+  /** Eigene Kennung (e1, e2 …), nie der Skill-Schlüssel. */
+  id: string
+  label: string
+  stand: LwStand
+  /** Herkunftsklasse; null, wenn unbekannt. */
+  klasse: number | null
+  /** Stoff einer späteren Klasse als der des Kindes (steht in Aktuell). */
+  spaeter: boolean
+  unter: LwUnter[]
+}
+
+export type LwInsel = {
+  /** Eigene Kennung (i1, i2 …). */
+  id: string
+  zone: LwZoneKey
+  /** Themenfeld; null bei Inseln aus dem Plan (Kommt noch). */
+  feld: ThemenfeldKey | null
+  /** Titel aus dem Plan; null bei Themenfeld-Inseln. */
+  titel: string | null
+  eintraege: LwEintrag[]
+  /** Mindestens 2 mit Übungsbedarf und mehr Übungsbedarf als sicher. */
+  broeckelt: boolean
+}
+
+export type LwZone = { key: LwZoneKey; inseln: LwInsel[] }
+
+/** Eine goldene Linie: von einer sicheren Basis zu einem Ziel in einer anderen Insel. */
+export type LwLinie = { von: string; zu: string }
+
+export type Lernweg = {
+  /** Klasse der Sitzung. */
+  klasse: number
+  zonen: LwZone[]
+  linien: LwLinie[]
+  /** Nur beim Schulplan mit Plan für Klasse + 1; nur die Präsentation zeigt sie. */
+  naechsteKlasse: { klasse: number; inseln: LwInsel[] } | null
+  quelle: 'schule' | 'klp'
+  schulname: string | null
+  /** Label des Themas der Sitzung; null ohne Thema. */
+  thema: string | null
+  /** Datum der Sitzung (ISO, wie im Kopf von Seite 1) für „Sie sind hier · Monat“. */
+  datum: string | null
+  /** Was die Grenzen weggelassen haben (Entscheidung 8 und 18) — erscheint nicht. */
+  weggelassen: { linien: number; offen: number; kommt: number }
 }

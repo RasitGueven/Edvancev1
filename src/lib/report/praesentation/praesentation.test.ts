@@ -268,3 +268,20 @@ describe('anzeigeZahlen', () => {
     expect(anzeigeZahlen(anteileZeile(geo), 'getrennt')).toEqual({ sicher: 1, uebung: 4, dritte: { wert: 1, art: 'eigen' } })
   })
 })
+
+describe('Lernweg (R7-9, Entscheidung 5): eine Rechnung, zwei Darstellungen', () => {
+  it('abgestuft: PraesentationDaten.lernweg ist bericht.lernweg', () => {
+    const fall = PRAESENTATION_FAELLE.abgestuft
+    const e = fall.data.erzaehlung
+    const bericht = baueElternbericht({
+      kompetenzen: e.kompetenzen,
+      katalog: e.katalog,
+      klasse: fall.data.grade,
+      lernweg: { erzaehlung: e, datum: fall.data.analysedAt },
+    })!
+    const p = bauePraesentation(fall)
+    if ('fehlt' in p) throw new Error('abgestuft ohne Daten')
+    expect(bericht.lernweg).not.toBeNull()
+    expect(p.lernweg).toEqual(bericht.lernweg)
+  })
+})

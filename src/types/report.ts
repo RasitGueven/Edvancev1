@@ -15,7 +15,7 @@ import type {
   ReportBaustein,
   Rueckbezug,
 } from '@/types/reportFundament'
-import type { KatalogSkill } from '@/types/elternbericht'
+import type { HeimatThema, KatalogSkill, LernPlan, LwKante } from '@/types/elternbericht'
 import type { SucheSkill, Suchweg, Themenraum } from '@/types/reportSuche'
 
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
@@ -234,6 +234,12 @@ export type ReportErzaehlung = {
    * R7-Bogens gezählt, nie als sicher/Übungsbedarf gezeigt (Gründer, 20.10.2026).
    */
   abgeleitet: string[]
+  /** Alle Kanten aus skill_kante (R7-9, Lernweg). Leer bei Fehler. */
+  kanten: LwKante[]
+  /** skill_thema: das Heimat-Thema je Skill (R7-9). Leer bei Fehler. */
+  heimatThemen: HeimatThema[]
+  /** Schulplan der Schule des Kindes, sonst Kernlehrplan NRW (R7-9); null bei Fehler. */
+  plan: LernPlan | null
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die

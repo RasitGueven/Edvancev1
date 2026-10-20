@@ -4,6 +4,7 @@
 // Gezählt werden alle mit Label, auch die ohne Themenfamilie. `traegt` ist
 // sicher, alles andere Übungsbedarf — wie R6 seit #189.
 
+import { elternLabel } from '@/lib/report/elternbericht/elternLabel'
 import { feldPosition, feldVon } from '@/lib/report/elternbericht/themenfelder'
 import type { EbBereich, KopfFall, SucheSkill } from '@/types'
 
@@ -15,7 +16,8 @@ export function bereicheAus(kompetenzen: readonly SucheSkill[]): EbBereich[] {
   const einmal = [...new Map(kompetenzen.map((k) => [k.skillKey, k])).values()]
   return einmal.map((k) => ({
     skillKey: k.skillKey,
-    label: k.label,
+    // Elternbezeichnung (R7-9): Fachkürzel aufgelöst, für alle Seiten und die Präsentation.
+    label: elternLabel(k.label),
     feld: feldVon(k.skillKey),
     klasse: k.klasseHerkunft,
     sicher: k.zustand === SICHER,

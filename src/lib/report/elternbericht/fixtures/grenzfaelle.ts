@@ -107,7 +107,7 @@ export const breiterName = fall('21', { firstName: BREITER_NAME, weakTopics: ANL
 const OHNE_FELD = u('daten_diagramme', 'Diagramme lesen und auswerten', 3, 6, 'traegt_nicht', 2, false)
 export const weitereBereiche = fall('20', {
   urteile: [...ILKAY_URTEILE, OHNE_FELD],
-  katalog: [...KATALOG, { skillKey: OHNE_FELD.skillKey, klasse: 6 }],
+  katalog: [...KATALOG, { skillKey: OHNE_FELD.skillKey, klasse: 6, label: OHNE_FELD.label }],
 })
 
 /**

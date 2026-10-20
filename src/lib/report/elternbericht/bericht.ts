@@ -11,9 +11,17 @@ import {
   uebungListe,
 } from '@/lib/report/elternbericht/bereiche'
 import { bauePyramide } from '@/lib/report/elternbericht/einordnung'
+import { baueLernweg } from '@/lib/report/elternbericht/lernweg'
 import { waehleSchwerpunkte } from '@/lib/report/elternbericht/schwerpunkte'
 import { zaehle } from '@/lib/report/elternbericht/zaehlung'
-import type { Elternbericht, KatalogSkill, SucheSkill } from '@/types'
+import type { Elternbericht, KatalogSkill, ReportErzaehlung, SucheSkill } from '@/types'
+
+/** Was der Lernweg (R7-9) über die Kompetenzen hinaus braucht. */
+export type LernwegQuelle = {
+  erzaehlung: Pick<ReportErzaehlung, 'kanten' | 'katalog' | 'heimatThemen' | 'plan' | 'raum' | 'suche'>
+  /** Datum der Sitzung, dasselbe wie im Kopf von Seite 1 (data.analysedAt). */
+  datum: string | null
+}
 
 export type ElternberichtEingabe = {
   /** ReportErzaehlung.kompetenzen — nur direkt geprüfte Skills mit Label. */
@@ -22,12 +30,15 @@ export type ElternberichtEingabe = {
   katalog: readonly KatalogSkill[]
   /** Klasse der Sitzung (lsa_sessions.grade). */
   klasse: number
+  /** Ohne sie kein Lernweg (bericht.lernweg null). Bogen und Präsentation geben sie mit. */
+  lernweg?: LernwegQuelle
 }
 
 export function baueElternbericht({
   kompetenzen,
   katalog,
   klasse,
+  lernweg,
 }: ElternberichtEingabe): Elternbericht | null {
   if (kompetenzen.length === 0) return null
   const bereiche = bereicheAus(kompetenzen)
@@ -43,5 +54,18 @@ export function baueElternbericht({
     sicherListe: sicherListe(bereiche),
     uebungListe: uebungListe(bereiche),
     kopfFall: kopfFall(zaehlung.sicher, zaehlung.uebung),
+    lernweg: lernweg
+      ? baueLernweg({
+          bereiche,
+          klasse,
+          kanten: lernweg.erzaehlung.kanten,
+          katalog: lernweg.erzaehlung.katalog,
+          heimatThemen: lernweg.erzaehlung.heimatThemen,
+          plan: lernweg.erzaehlung.plan,
+          themaKey: lernweg.erzaehlung.raum?.themaKey ?? null,
+          thema: lernweg.erzaehlung.suche?.themaLabel ?? null,
+          datum: lernweg.datum,
+        })
+      : null,
   }
 }

@@ -2,6 +2,8 @@
 // abgeleitet. Nur von Tests und der Vorschau importiert. Neue Skills mit
 // Label, Tiefe und klasse_herkunft wie in Prod (Stand 19.10.2026).
 
+import { THEMEN } from '@/lib/report/elternbericht/fixtures/plaene'
+import { klpPlan } from '@/lib/report/elternbericht/plan'
 import { datenAus, u, type SitzungRoh } from '@/lib/report/elternbericht/fixtures/basis'
 import { ILKAY_ROH, ILKAY_URTEILE } from '@/lib/report/elternbericht/fixtures/ilkay'
 import type { ReportData, SucheSkill } from '@/types'
@@ -69,10 +71,10 @@ export const klasse10neu = fall('02', {
 })
 
 /** Klasse 7: zwei Ebenen (7/8 aktuell, 5/6 Grundlagen). */
-export const klasse7 = fall('03', { grade: 7, urteile: KLASSE7 })
+export const klasse7 = fall('03', { grade: 7, urteile: KLASSE7, plan: klpPlan(THEMEN, 7) })
 
 /** Klasse 7 mit einem Bereich aus 9/10: oberste Ebene „Stoff späterer Klassen". */
-export const spaeter = fall('04', { grade: 7, urteile: [...KLASSE7, NEU.wurzel] })
+export const spaeter = fall('04', { grade: 7, urteile: [...KLASSE7, NEU.wurzel], plan: klpPlan(THEMEN, 7) })
 
 export const allesSicher = fall('05', { urteile: alle('traegt') })
 

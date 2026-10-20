@@ -72,8 +72,8 @@ describe('themaAbdeckung', () => {
         direkt: ['bruch_a'],
         abgeleitet: ['potenzen', 'bruch_kuerzen', 'x_ohne'],
         katalog: [
-          { skillKey: 'bruch_kuerzen', klasse: 6 },
-          { skillKey: 'potenzen', klasse: 9 },
+          { skillKey: 'bruch_kuerzen', klasse: 6, label: 'Bereich' },
+          { skillKey: 'potenzen', klasse: 9, label: 'Bereich' },
         ],
       }),
     )!

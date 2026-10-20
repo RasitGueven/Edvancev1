@@ -19,7 +19,10 @@ import { baueRueckbezuege } from '@/lib/report/rueckbezug'
 import { baueSuche } from '@/lib/report/suche'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import type {
+  HeimatThema,
   KatalogSkill,
+  LernPlan,
+  LwKante,
   ReportData,
   ReportFehlbild,
   ReportSkillbefunde,
@@ -57,6 +60,12 @@ export type SitzungRoh = {
   /** Schlüssel der abgeleiteten Urteile (belegt_direkt = false). */
   abgeleitet: readonly string[]
   katalog?: readonly KatalogSkill[]
+  /** skill_kante (R7-9) — jeder Fall setzt sie ausdrücklich, auch leer. */
+  kanten: readonly LwKante[]
+  /** skill_thema (R7-9). */
+  heimatThemen: readonly HeimatThema[]
+  /** Schulplan oder Kernlehrplan der Klasse (R7-9). */
+  plan: LernPlan | null
 }
 
 /** Wie loadSkillbefunde, aber aus den schon geladenen Urteilen. */
@@ -126,6 +135,9 @@ export function datenAus(roh: SitzungRoh): ReportData {
       katalog,
       modus: roh.modus,
       abgeleitet: [...roh.abgeleitet],
+      kanten: [...roh.kanten],
+      heimatThemen: [...roh.heimatThemen],
+      plan: roh.plan,
     },
   }
 }

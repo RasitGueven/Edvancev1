@@ -11,7 +11,7 @@ import { resolve } from 'node:path'
 import { expect, test, type Page } from '@playwright/test'
 
 import { PRAESENTATION_FAELLE } from '../src/lib/report/praesentation/fixtures'
-import { introVerstoesse, kleineZiele, stationOben, verstoesse } from './messen'
+import { introVerstoesse, kleineZiele, lernwegVerstoesse, stationOben, verstoesse } from './messen'
 
 const AUSGABE = resolve(process.env.TP_AUSGABE ?? 'docs/report/praesentation/abnahme/t2')
 const MASSE: ReadonlyArray<[number, number]> = [
@@ -85,6 +85,7 @@ for (const fall of Object.keys(PRAESENTATION_FAELLE)) {
           await geheZu(page, n)
           expect(await verstoesse(page, n), `Station ${nn(n)}`).toEqual([])
           expect(await kleineZiele(page), `Station ${nn(n)}`).toEqual([])
+          if (n === 3) expect(await lernwegVerstoesse(page), 'Station 03 · Lernweg').toEqual([])
           if (FOTOS.has(mass)) {
             mkdirSync(AUSGABE, { recursive: true })
             await page.screenshot({ path: resolve(AUSGABE, `${fall}_${mass}_${nn(n)}.png`) })

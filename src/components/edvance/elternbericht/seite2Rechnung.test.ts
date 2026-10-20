@@ -155,7 +155,8 @@ describe('profilZeilen', () => {
   it('Umrisse nur bei den abgestuften Fällen; Summe = themaAbdeckung.abgeleitet', () => {
     for (const fall of Object.keys(FAELLE).filter((f) => f !== 'ohneKatalog') as (keyof typeof FAELLE)[]) {
       const summe = zeilenVon(fall).reduce((n, x) => n + x.abgeleitet, 0)
-      const erwartet = { abgestuft: 9, abgestuftMitOffen: 5, abgestuftLang: 14 }[fall as string] ?? 0
+      // ohneKanten und langeLabels sind aus abgestuft abgeleitet (R7-9), mit demselben Thema-Satz.
+      const erwartet = { abgestuft: 9, abgestuftMitOffen: 5, abgestuftLang: 14, ohneKanten: 9, langeLabels: 9 }[fall as string] ?? 0
       expect(summe, fall).toBe(erwartet)
       expect(summe, fall).toBe(themaAbdeckungAus(FAELLE[fall].data.erzaehlung)?.abgeleitet ?? 0)
     }

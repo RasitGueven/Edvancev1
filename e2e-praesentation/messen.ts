@@ -193,3 +193,46 @@ export async function introVerstoesse(page: Page): Promise<string[]> {
     return fehler
   })
 }
+
+/**
+ * Station 03 · Lernweg (R7-9): kein Text ragt aus einer Insel, keine Insel liegt
+ * über einer Zonen-Überschrift, keine Linie schneidet eine Insel. Leer = in Ordnung.
+ */
+export async function lernwegVerstoesse(page: Page): Promise<string[]> {
+  return page.evaluate(() => {
+    const s = document.querySelector('.tp-station[data-station="3"]')
+    if (!s) return ['Station 03 fehlt']
+    const f: string[] = []
+    const inseln = [...s.querySelectorAll('[data-insel]')].map((el) => ({ el, r: el.getBoundingClientRect() }))
+    const titel = (el: Element): string => el.querySelector('.tp-s3-insel-titel')?.textContent ?? ''
+    for (const { el, r } of inseln) {
+      // Gemessen werden die Texte, nicht die Knöpfe: deren Trefferfläche (::before) ragt bewusst hinaus.
+      for (const t of el.querySelectorAll<HTMLElement>('.tp-s3-label, .tp-s3-insel-titel')) {
+        const q = t.getBoundingClientRect()
+        if (t.scrollWidth > t.clientWidth + 1 || t.scrollHeight > t.clientHeight + 1) f.push(`Text läuft über in „${titel(el)}“: ${t.textContent}`)
+        if (q.right > r.right + 0.5 || q.bottom > r.bottom + 0.5 || q.left < r.left - 0.5) f.push(`Text ragt aus „${titel(el)}“: ${t.textContent}`)
+      }
+      for (const k of s.querySelectorAll('[data-kopf]')) {
+        const q = k.getBoundingClientRect()
+        const x = Math.min(q.right, r.right) - Math.max(q.left, r.left)
+        const y = Math.min(q.bottom, r.bottom) - Math.max(q.top, r.top)
+        if (x > 0.5 && y > 0.5) f.push(`Insel „${titel(el)}“ liegt über einer Zonen-Überschrift`)
+      }
+    }
+    for (const p of s.querySelectorAll<SVGPathElement>('path.tp-s3-linie')) {
+      const ctm = p.getScreenCTM()
+      if (!ctm) continue
+      const laenge = p.getTotalLength()
+      for (let l = 0; l <= laenge; l += 3) {
+        const pt = p.getPointAtLength(l)
+        const q = new DOMPoint(pt.x, pt.y).matrixTransform(ctm)
+        const treffer = inseln.find(({ r }) => q.x > r.left + 1 && q.x < r.right - 1 && q.y > r.top + 1 && q.y < r.bottom - 1)
+        if (treffer) {
+          f.push(`Linie schneidet „${titel(treffer.el)}“`)
+          break
+        }
+      }
+    }
+    return f
+  })
+}

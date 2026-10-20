@@ -223,19 +223,8 @@ export type {
 
 export { REPORT_PAKETE } from './report'
 
-export type {
-  EbBereich,
-  EbEbene,
-  EbGruppe,
-  EbProfilZeile,
-  EbSchwerpunkt,
-  EbZaehlung,
-  EbeneKey,
-  Elternbericht,
-  KatalogSkill,
-  KopfFall,
-  ThemenfeldKey,
-} from './elternbericht'
+// Eltern-Bericht R7 und Lernweg (R7-9): nur Typen. Sammelexport hält index.ts ≤ 400 Zeilen.
+export type * from './elternbericht'
 
 // Tablet-Präsentation: nur Typen (PraesentationDaten, Tp*). Sammelexport hält index.ts ≤ 400 Zeilen.
 export type * from './praesentation'

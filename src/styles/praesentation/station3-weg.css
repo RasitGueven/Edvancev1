@@ -1,0 +1,247 @@
+/* Tablet-Präsentation · Station 03 Lernweg · R7-9 — Inseln, Einträge, Linien und
+   der Fuß (Balken, Zonennamen, Infofeld). Teil 2 zu station3.css (≤ 400 Zeilen je
+   Datei); Selektoren unter .tp .tp-s3, Farben nur aus --color-eb-* und --color-tp-*. */
+
+/* ─── Inseln ──────────────────────────────────────────────────────────────── */
+
+.tp .tp-s3-insel {
+  position: relative;
+  box-sizing: border-box;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 16px;
+  background: var(--color-eb-weiss);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--tp-s3-zeit-insel) var(--tp-ease), transform var(--tp-s3-zeit-insel) var(--tp-ease), filter .6s var(--tp-ease);
+}
+
+.tp .tp-s3-insel.tp-s3-da { opacity: 1; transform: none; }
+
+.tp .tp-s3-broeckelt {
+  border-color: color-mix(in srgb, var(--color-eb-uebung) 60%, transparent);
+  background: color-mix(in srgb, var(--color-eb-uebung) 8%, transparent);
+}
+
+.tp .tp-s3-insel-kommt {
+  border: 1.2px dashed var(--color-eb-zukunft-rand);
+  background: color-mix(in srgb, var(--color-eb-weiss) 72%, transparent);
+}
+
+/* Die Zukunft leicht verschwommen; Antippen macht eine Insel klar. */
+.tp .tp-s3-dunst.tp-s3-da { opacity: .62; filter: blur(.6px); }
+.tp .tp-s3-weit.tp-s3-da { opacity: .45; filter: blur(1.1px); }
+.tp .tp-s3-insel-kommt.tp-s3-klar,
+.tp .tp-s3-insel-kommt:hover { opacity: 1; filter: none; }
+
+.tp .tp-s3-insel-titel {
+  display: block;
+  margin: 0 0 6px;
+  color: var(--color-eb-leise);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+}
+
+.tp .tp-s3-insel-kommt .tp-s3-insel-titel {
+  margin: 0;
+  color: var(--color-eb-navy);
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.tp .tp-s3-kbtn {
+  all: unset;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tp .tp-s3-eintraege {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s3-eintraege > li { animation: tp-zeile-ein var(--tp-s3-zeit-zeile) var(--tp-ease) both; }
+.tp .tp-s3-insel:not(.tp-s3-da) .tp-s3-eintraege > li { animation: none; opacity: 0; }
+
+.tp .tp-s3-insel.tp-s3-da .tp-s3-eintraege > li {
+  animation-delay: calc(250ms + var(--tp-i, 0) * var(--tp-s3-takt));
+}
+
+/* Ein Eintrag ist ein Knopf; die Trefferfläche wächst mit der Skala auf
+   mindestens 44 px (--tp-s3-treffer aus useLernwegFahrt.ts). */
+.tp .tp-s3-e {
+  all: unset;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  width: 100%;
+  min-height: 30px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  color: var(--color-eb-tinte);
+  font-size: 15px;
+  line-height: 18px;
+  cursor: pointer;
+  transition: opacity .3s, background .3s;
+}
+
+.tp .tp-s3-e::before,
+.tp .tp-s3-kbtn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--tp-s3-treffer, 7px));
+  bottom: calc(-1 * var(--tp-s3-treffer, 7px));
+}
+
+.tp .tp-s3-e:focus-visible,
+.tp .tp-s3-kbtn:focus-visible {
+  outline: 2px solid var(--color-eb-navy);
+  outline-offset: 1px;
+}
+
+.tp .tp-s3-punkt {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin-top: 4.5px;
+  border-radius: 50%;
+  background: var(--color-eb-uebung);
+  box-sizing: border-box;
+}
+
+.tp .tp-s3-e-sicher { font-weight: 500; }
+.tp .tp-s3-e-sicher .tp-s3-punkt { background: var(--color-eb-sicher); }
+.tp .tp-s3-e-offen { color: var(--color-eb-text); }
+.tp .tp-s3-e-offen .tp-s3-punkt { background: transparent; border: 1.4px solid var(--color-eb-leise); }
+
+.tp .tp-s3-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.tp .tp-s3-label small {
+  display: block;
+  margin-top: 1px;
+  color: var(--color-eb-leise);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+}
+
+.tp .tp-s3-unter { padding-left: 20px; color: var(--color-eb-text); font-weight: 400; }
+.tp .tp-s3-unter .tp-s3-pfeil { flex: none; font-size: 16px; line-height: 18px; }
+.tp .tp-s3-unter-uebung .tp-s3-pfeil { color: var(--color-eb-uebung-text); }
+
+.tp .tp-s3-gewaehlt { background: color-mix(in srgb, var(--color-eb-gold) 16%, transparent); }
+.tp .tp-s3-e.tp-s3-blass { opacity: .3; }
+
+/* ─── Linien ──────────────────────────────────────────────────────────────── */
+
+.tp .tp-s3-linien {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.tp .tp-s3-linie {
+  fill: none;
+  stroke: var(--color-eb-gold);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity .3s;
+}
+
+.tp .tp-s3-spitze {
+  fill: var(--color-eb-gold);
+  opacity: 0;
+  transition: opacity .35s;
+}
+
+.tp .tp-s3-spitze.tp-s3-an { opacity: 1; }
+.tp .tp-s3-linie.tp-s3-blass,
+.tp .tp-s3-spitze.tp-s3-an.tp-s3-blass { opacity: .14; }
+
+/* ─── Fuß: Balken, Zonen, Infofeld ────────────────────────────────────────── */
+
+.tp .tp-s3-fuss {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.tp .tp-s3-leiste {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tp .tp-s3-balken {
+  position: relative;
+  flex: 1 1 auto;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-eb-linie);
+}
+
+.tp .tp-s3-balken > span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--tp-s3-balken-links, 0) * 100%);
+  width: calc(var(--tp-s3-balken-breite, .4) * 100%);
+  border-radius: 2px;
+  background: var(--color-eb-navy);
+}
+
+.tp .tp-s3-zonennamen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-eb-leise);
+  font-size: 13px;
+}
+
+.tp .tp-s3-zonennamen .tp-s3-an { color: var(--color-eb-navy); font-weight: 500; }
+
+.tp .tp-s3-info {
+  min-height: 40px;
+  margin: 0;
+  padding: 10px 16px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 12px;
+  background: var(--color-eb-weiss);
+  color: var(--color-eb-tinte);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.tp .tp-s3-info strong { color: var(--color-eb-navy); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tp .tp-s3-wolke { animation: none; }
+}

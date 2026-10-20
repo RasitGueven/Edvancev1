@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Station 03 · Lernweg</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&amp;family=Schibsted+Grotesk:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.tp{--ease:cubic-bezier(.22,.72,.29,1)}
+.scroller{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none;-webkit-user-select:none;scroll-snap-type:x mandatory;scroll-padding-left:24px;overscroll-behavior-x:contain}
+.scroller.frei{scroll-snap-type:none}
+.scroller.zieht{cursor:grabbing}
+.scroller::-webkit-scrollbar{display:none}
+.snap{position:absolute;top:0;width:1px;height:1px;scroll-snap-align:start;scroll-snap-stop:always}
+.platz{position:absolute;opacity:0;transform:translateY(10px);animation:erscheinen 1s var(--ease) forwards}
+.zeile{opacity:0;transform:translateX(-8px);animation:erscheinen .8s var(--ease) forwards}
+@keyframes erscheinen{to{opacity:1;transform:none}}
+.insel{position:relative;box-sizing:border-box;background:#fff;border:1px solid #DEE4E1;border-radius:16px;padding:12px 14px 10px 14px}
+.insel.broeckelt{background:#FCF3F0;border-color:#E2B0A5}
+.insel.kommt{background:rgba(255,255,255,.72);border:1.2px dashed #A7BCCB;transition:opacity .6s var(--ease),filter .6s var(--ease)}
+.insel.dunst{opacity:.62;filter:blur(.6px)}
+.insel.weit{opacity:.45;filter:blur(1.1px)}
+.insel.kommt:hover,.insel.klar{opacity:1;filter:none}
+.insel h4{margin:0 0 8px 0;height:14px;font:500 11px/14px 'Schibsted Grotesk',sans-serif;letter-spacing:.9px;text-transform:uppercase;color:#6F7D88}
+.insel.kommt h4{text-transform:none;letter-spacing:0;font-size:15px;color:#304969}
+.kbtn{all:unset;cursor:pointer;display:block;width:100%;border-radius:8px}
+.kbtn:focus-visible{outline:2px solid #304969;outline-offset:2px}
+.it{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:9px;width:100%;min-height:30px;font:400 15px/18px 'Schibsted Grotesk',sans-serif;color:#24313D;cursor:pointer;border-radius:8px;padding:0 4px;transition:opacity .3s,background .3s}
+.it:focus-visible{outline:2px solid #304969;outline-offset:1px}
+.it .p{flex:none;width:9px;height:9px;border-radius:50%;background:#C0705F}
+.it.s .p{background:#087F70}
+.it.o{color:#6F7D88}
+.it.o .p{background:transparent;border:1.4px solid #6F7D88;box-sizing:border-box}
+.it.s{font-weight:500}
+.it.sub{align-items:flex-start;padding:4px 4px 6px 20px}
+.it.sub .pf{flex:none;color:#9A6510;font-size:16px;line-height:18px}
+.it.sub.u .pf{color:#C0705F}
+.it.sub small{display:block;margin-top:1px;font-size:12px;line-height:15px;color:#6F7D88}
+.it.sel{background:rgba(228,161,50,.16)}
+.it.dim{opacity:.3}
+.ln{fill:none;stroke:#E4A132;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:3000;stroke-dashoffset:3000;transition:opacity .3s}
+.ln.z{stroke-dasharray:3 7;stroke-dashoffset:0;opacity:0}
+.ln.dim{opacity:.14!important}
+.spitze{fill:#E4A132;opacity:0;transition:opacity .35s}
+.spitze.dim{opacity:.14!important}
+.wolke{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0));filter:blur(6px);animation:ziehen 46s ease-in-out infinite alternate}
+.wolke.b{animation-duration:62s;animation-direction:alternate-reverse}
+@keyframes ziehen{from{transform:translateX(-30px)}to{transform:translateX(40px)}}
+.kugel{position:absolute;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#FFF2C7 0%,#F9C16D 38%,#F5A64A 66%,#D87B2F 100%);box-shadow:0 0 18px 6px rgba(243,168,76,.45),0 0 44px 14px rgba(243,168,76,.18);animation:atmen 3.2s ease-in-out infinite}
+@keyframes atmen{50%{box-shadow:0 0 24px 9px rgba(243,168,76,.55),0 0 60px 20px rgba(243,168,76,.22)}}
+.navb{all:unset;cursor:pointer;font:500 14px/18px 'Schibsted Grotesk',sans-serif;color:#304969;padding:11px 18px;border-radius:999px;border:1px solid #DEE4E1;background:#fff}
+.navb:focus-visible{outline:2px solid #E4A132;outline-offset:2px}
+.zname{font-size:13px;color:#6F7D88;transition:color .3s}
+.zname.an{color:#304969;font-weight:500}
+@media (prefers-reduced-motion: reduce){.wolke,.kugel{animation:none}.platz,.zeile{animation-duration:.01s!important;animation-delay:0s!important}}
+</style>
+</helmet>
+<div class="tp" style="width: 100%; height: 100vh; min-height: 600px; box-sizing: border-box; background: #F8F7F2; font-family: 'Schibsted Grotesk', sans-serif; color: #52616F; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+
+  <div style="padding: clamp(18px, 3.4vh, 34px) clamp(16px, 4vw, 48px) 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px 24px;">
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: #304969;">03 · Batus Lernweg</div>
+      <h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.16; color: #304969;">Auf vorhandenen Stärken aufbauen.</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 22px; max-width: 680px;">Ziehen Sie die Fläche nach links in die Grundlagen und nach rechts in das, was am Friedrich-Wilhelm-Gymnasium noch kommt.</p>
+    </div>
+    <button class="navb" onClick="{{abspielen}}" aria-label="Lernweg noch einmal aufbauen" style="display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2 L12 7 L3 12 Z" fill="#304969"></path></svg>
+      Weg abspielen
+    </button>
+  </div>
+
+  <div style="margin: clamp(10px, 2vh, 16px) clamp(16px, 4vw, 48px) 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: #24313D; padding: 10px 16px; background: #fff; border: 1px solid #DEE4E1; border-radius: 12px;">
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #087F70;"></span>sicher</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #C0705F;"></span>Übungsbedarf</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 10px; height: 10px; border-radius: 50%; border: 1.4px solid #6F7D88; box-sizing: border-box;"></span>noch nicht geprüft</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 24px; height: 0; border-top: 2.6px solid #E4A132;"></span>sitzt schon, darauf baut es auf</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="color: #9A6510; font-size: 15px;">↳</span>baut direkt darauf auf</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 16px; height: 11px; border-radius: 4px; border: 1px solid #E2B0A5; background: #FCF3F0;"></span>hier hat es gebröckelt</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 16px; height: 11px; border-radius: 4px; border: 1.2px dashed #A7BCCB; background: #E3EDF6;"></span>kommt noch</span>
+  </div>
+
+  <div class="{{scrollerKlasse}}" ref="{{setScroller}}" onScroll="{{beimScrollen}}" onWheel="{{beimRad}}" onPointerDown="{{runter}}" onPointerMove="{{bewegen}}" onPointerUp="{{hoch}}" onPointerLeave="{{hoch}}" style="margin-top: 12px; flex-grow: 1; min-height: 0; position: relative;">
+    <div style="position: relative; width: {{dims.w}}px; height: {{dims.h}}px;">
+      <sc-for list="{{snaps}}" as="sp" hint-placeholder-count="5"><div class="snap" style="left: {{sp.x}}px;"></div></sc-for>
+      <sc-if value="{{zeige}}" hint-placeholder-val="{{true}}">
+      <div style="position: absolute; left: 24px; top: 0; width: 2420px; height: 510px; transform: scale({{dims.s}}); transform-origin: 0 0;">
+
+        <sc-for list="{{zonen}}" as="z" hint-placeholder-count="4">
+          <div style="position: absolute; top: 0; bottom: 0; left: {{z.x}}px; width: {{z.w}}px; background: {{z.grund}}; border-radius: {{z.radius}};">
+            <sc-if value="{{z.sichtbar}}" hint-placeholder-val="{{true}}">
+              <div class="zeile" style="position: absolute; top: 2px; left: {{z.lx}}px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: {{z.farbe}};">{{z.name}}</div>
+              <div class="zeile" style="position: absolute; top: 20px; left: {{z.lx}}px; font-size: 13px; color: #6F7D88;">{{z.klasse}}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+
+        <div class="wolke" style="left: 1560px; top: 4px; width: 340px; height: 120px;"></div>
+        <div class="wolke b" style="left: 1820px; top: 170px; width: 300px; height: 110px;"></div>
+        <div class="wolke" style="left: 1980px; top: 40px; width: 380px; height: 140px;"></div>
+        <div class="wolke b" style="left: 2080px; top: 320px; width: 360px; height: 130px;"></div>
+        <div class="wolke" style="left: 1620px; top: 400px; width: 300px; height: 100px;"></div>
+
+        <sc-for list="{{inseln}}" as="i" hint-placeholder-count="10">
+          <sc-if value="{{i.sichtbar}}" hint-placeholder-val="{{true}}">
+            <div class="platz" style="left: {{i.x}}px; top: {{i.y}}px; width: {{i.w}}px;">
+              <div class="{{i.klasse}}">
+                <sc-if value="{{i.istKommt}}" hint-placeholder-val="{{false}}"><button class="kbtn" onClick="{{i.klaeren}}" aria-pressed="{{i.offen}}"><h4>{{i.titel}}</h4></button></sc-if>
+                <sc-if value="{{i.nichtKommt}}" hint-placeholder-val="{{true}}"><h4>{{i.titel}}</h4></sc-if>
+                <sc-for list="{{i.eintraege}}" as="e" hint-placeholder-count="2">
+                  <div class="zeile" style="animation-delay: {{e.delay}};">
+                    <sc-if value="{{e.sub}}" hint-placeholder-val="{{false}}">
+                      <button class="{{e.cls}}" onClick="{{e.waehlen}}" aria-pressed="{{e.gewaehlt}}">
+                        <span class="pf" aria-hidden="true">↳</span>
+                        <span>{{e.label}}<small>{{e.caption}}</small></span>
+                      </button>
+                    </sc-if>
+                    <sc-if value="{{e.normal}}" hint-placeholder-val="{{true}}">
+                      <button class="{{e.cls}}" onClick="{{e.waehlen}}" aria-pressed="{{e.gewaehlt}}">
+                        <span class="p" aria-hidden="true"></span>
+                        <span>{{e.label}}</span>
+                      </button>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </sc-for>
+
+        <svg width="2420" height="510" viewBox="0 0 2420 510" aria-hidden="true" style="position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible;">
+          <sc-for list="{{linien}}" as="l" hint-placeholder-count="5">
+            <path class="{{l.cls}}" d="{{l.d}}" ref="{{l.ref}}"></path>
+          </sc-for>
+          <sc-for list="{{spitzen}}" as="s" hint-placeholder-count="4">
+            <path class="{{s.cls}}" d="{{s.d}}" ref="{{s.ref}}"></path>
+          </sc-for>
+        </svg>
+
+        <sc-if value="{{zeigeHier}}" hint-placeholder-val="{{true}}">
+          <div class="platz" style="left: 1465px; top: 6px; width: 260px; height: 34px;">
+            <div class="kugel" style="left: 0; top: 0;"></div>
+            <div style="position: absolute; left: 39px; top: 2px; background: #E4A132; color: #fff; font-size: 13px; font-weight: 500; letter-spacing: .6px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,.12);">Sie sind hier · Oktober</div>
+          </div>
+        </sc-if>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="padding: 10px clamp(16px, 4vw, 48px) clamp(12px, 2.4vh, 22px) clamp(16px, 4vw, 48px); display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <div style="position: relative; flex-grow: 1; height: 4px; border-radius: 2px; background: #E5EAE7;">
+        <div style="position: absolute; top: 0; bottom: 0; left: {{balken.links}}%; width: {{balken.breite}}%; border-radius: 2px; background: #304969;"></div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 4px 14px;">
+        <sc-for list="{{zonenAnzeige}}" as="n" hint-placeholder-count="4">
+          <span class="{{n.cls}}">{{n.name}}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div aria-live="polite" style="padding: 12px 16px; background: #fff; border: 1px solid #DEE4E1; border-radius: 12px; font-size: 14px; line-height: 20px; color: #24313D; min-height: 20px;">
+      <strong style="font-weight: 500; color: #304969;">{{info.titel}}</strong>
+      <span>{{info.text}}</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1194,"height":834}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: null, plan: null, zone: 0, zeige: true, zieht: false, frei: true, pos: 0, s: 1, sicht: {}, hier: false };
+    this.scrollEl = null;
+    this.raf = null;
+    this.timer = null;
+    this.drag = null;
+    this.unterdrueck = false;
+    this.letztesRad = 0;
+    this.ro = null;
+    this.pfade = {};
+    this.spitzenEl = {};
+    this.spitze = 300;
+  }
+
+  componentDidMount() {
+    if (typeof ResizeObserver !== 'undefined' && this.scrollEl) {
+      this.ro = new ResizeObserver(() => this.messen());
+      this.ro.observe(this.scrollEl);
+    }
+    this.messen();
+    this.fahrt();
+  }
+
+  componentWillUnmount() { this.stopp(); if (this.ro) this.ro.disconnect(); }
+
+  messen() {
+    if (!this.scrollEl) return;
+    const s = Math.max(0.55, Math.min(1.35, (this.scrollEl.clientHeight - 6) / 510));
+    if (Math.abs(s - this.state.s) > 0.005) this.setState({ s: s });
+  }
+
+  punkte() { return [0, 360, 1010, 1480, 1930]; }
+
+  stopp() {
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = null;
+    clearTimeout(this.timer);
+    this.zurueck = false;
+  }
+
+  // Wann erscheint was: sobald die Pfeilspitze (am Ende die Kamera) es erreicht.
+  ausloeser() {
+    return [
+      { id: 'z:g', bei: 0 }, { id: 'bd', bei: 0 },
+      { id: 'z:w', bei: 330 }, { id: 'tg', bei: 340 }, { id: 'dz', bei: 420 }, { id: 'geo', bei: 640 },
+      { id: 'z:a', bei: 960 }, { id: 'zr', bei: 990 },
+      { id: 'z:k', bei: 1420 }, { id: 'hier', bei: 1450 },
+      { id: 'qf', bei: 1480 }, { id: 'kpz', bei: 1495 }, { id: 'pot', bei: 1505 }, { id: 'pyt', bei: 1520 }, { id: 'dw', bei: 1530 },
+      { id: 'k10a', bei: 1700 }, { id: 'k10b', bei: 1760 }, { id: 'k10c', bei: 1820 }, { id: 'k10d', bei: 1880 }, { id: 'k10e', bei: 1940 }
+    ];
+  }
+
+  // Fortschritt jeder Linie aus der Lage der Spitze, direkt am Element gesetzt.
+  zeichne(x) {
+    const teil = (a, b) => Math.max(0, Math.min(1, (x - a) / (b - a)));
+    const fort = { stamm: teil(300, 1480), laplace: teil(330, 600), rational: teil(994, 1150), neghoch: teil(1480, 1536), vierfeld: teil(1494, 1560) };
+    Object.keys(fort).forEach((k) => {
+      const el = this.pfade[k];
+      if (!el) return;
+      if (k === 'neghoch' || k === 'vierfeld') { el.style.opacity = String(fort[k]); return; }
+      const L = el.getTotalLength ? el.getTotalLength() : 1500;
+      el.style.strokeDasharray = L + ' ' + L;
+      el.style.strokeDashoffset = String(L * (1 - fort[k]));
+    });
+    ['laplace', 'rational', 'neghoch', 'vierfeld'].forEach((k) => {
+      const el = this.spitzenEl[k];
+      if (el) el.style.opacity = fort[k] >= 1 ? '1' : '0';
+    });
+  }
+
+  zeigeBis(x) {
+    const neu = Object.assign({}, this.state.sicht);
+    let geaendert = false, hier = this.state.hier;
+    this.ausloeser().forEach((a) => {
+      if (x >= a.bei && !(a.id === 'hier' ? hier : neu[a.id])) {
+        if (a.id === 'hier') hier = true; else neu[a.id] = true;
+        geaendert = true;
+      }
+    });
+    if (geaendert) this.setState({ sicht: neu, hier: hier });
+  }
+
+  alles() {
+    this.spitze = 2400;
+    this.zeigeBis(2400);
+    this.zeichne(2400);
+  }
+
+  gleite(i, dauerMs) {
+    if (!this.scrollEl) return;
+    const pk = this.punkte();
+    const n = Math.max(0, Math.min(pk.length - 1, i));
+    const max = this.scrollEl.scrollWidth - this.scrollEl.clientWidth;
+    const ziel = Math.min(max, pk[n] * this.state.s);
+    this.stopp();
+    this.setState({ frei: true });
+    const von = this.scrollEl.scrollLeft, t0 = performance.now(), dauer = dauerMs || 700;
+    const weich = (t) => 1 - Math.pow(1 - t, 3);
+    const schritt = (jetzt) => {
+      const t = Math.min(1, (jetzt - t0) / dauer);
+      if (this.scrollEl) this.scrollEl.scrollLeft = von + (ziel - von) * weich(t);
+      if (t < 1) this.raf = requestAnimationFrame(schritt);
+      else { this.raf = null; this.setState({ frei: false }); }
+    };
+    this.raf = requestAnimationFrame(schritt);
+  }
+
+  punktLinks() {
+    if (!this.scrollEl) return 0;
+    const links = this.scrollEl.scrollLeft + 12;
+    let n = 0;
+    this.punkte().forEach((x, i) => { if (x * this.state.s <= links) n = i; });
+    return n;
+  }
+
+  // Die Spitze schiebt sich von „Bruch in Dezimalzahl“ nach rechts; die Kamera hält sie bei 62 % der Breite.
+  // Danach fährt die Kamera allein weiter bis Klasse 10.
+  fahrt() {
+    this.stopp();
+    this.spitze = 300;
+    this.setState({ frei: true });
+    this.zeichne(300);
+    this.zeigeBis(0);
+    const start = 1500, schieben = 11000, nach = 2600;
+    const weich = (p) => p - Math.sin(2 * Math.PI * p) / (2 * Math.PI) * 0.35;
+    const t0 = performance.now();
+    let kamEnde = null;
+    const schritt = (jetzt) => {
+      const t = jetzt - t0;
+      const el = this.scrollEl;
+      if (!el) return;
+      const s = this.state.s;
+      const max = el.scrollWidth - el.clientWidth;
+      if (t < start) {
+        el.scrollLeft = 0;
+      } else if (t < start + schieben) {
+        const p = weich((t - start) / schieben);
+        this.spitze = 300 + (1560 - 300) * p;
+        this.zeichne(this.spitze);
+        this.zeigeBis(this.spitze);
+        el.scrollLeft = Math.max(0, Math.min(max, 24 + this.spitze * s - el.clientWidth * 0.62));
+      } else if (t < start + schieben + nach) {
+        if (kamEnde === null) { this.spitze = 1560; this.zeichne(1560); kamEnde = el.scrollLeft; }
+        const p = (t - start - schieben) / nach;
+        const q = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+        el.scrollLeft = kamEnde + (max - kamEnde) * q;
+        const sichtRechts = (el.scrollLeft + el.clientWidth - 24) / s;
+        this.zeigeBis(Math.max(1560, sichtRechts - 120));
+      } else {
+        this.alles();
+        this.raf = null;
+        // Kurz beim Ausblick verweilen, dann zurück zu den Grundlagen: dort beginnt das Gespräch.
+        this.zurueck = true;
+        this.timer = setTimeout(() => { this.zurueck = false; this.gleite(0, 2200); }, 1400);
+        return;
+      }
+      this.raf = requestAnimationFrame(schritt);
+    };
+    this.raf = requestAnimationFrame(schritt);
+  }
+
+  unterbrechen() {
+    if (!this.raf && !this.zurueck) return;
+    this.stopp();
+    this.alles();
+    this.setState({ frei: false });
+  }
+
+  renderVals() {
+    const sel = this.state.sel;
+    const plan = this.state.plan;
+    const sicht = this.state.sicht;
+
+    const kanten = [
+      { von: 'bruch', zu: 'rational' }, { von: 'bruch', zu: 'laplace' },
+      { von: 'bruch', zu: 'neghoch' }, { von: 'bruch', zu: 'vierfeld' },
+      { von: 'einsetz', zu: 'sach' }, { von: 'addition', zu: 'sach' },
+      { von: 'drachen', zu: 'vielecke' }, { von: 'wgesetz', zu: 'teilw' }
+    ];
+    const verwandt = new Set();
+    if (sel) {
+      verwandt.add(sel);
+      kanten.forEach((k) => { if (k.von === sel) verwandt.add(k.zu); if (k.zu === sel) verwandt.add(k.von); });
+    }
+
+    const texte = {
+      bruch: ['Bruch in Dezimalzahl · sicher.', 'Darauf bauen vier Bereiche auf: rationale und irrationale Zahlen, die Laplace-Wahrscheinlichkeit, negative Hochzahlen (Potenzen) und die Vierfeldertafel (Daten und Wahrscheinlichkeit).'],
+      einsetz: ['Einsetzungsverfahren · sicher.', 'Zusammen mit dem Additionsverfahren die Grundlage für Gleichungssysteme aus Sachaufgaben.'],
+      grafisch: ['Gleichungssysteme grafisch lösen · sicher.', 'Sitzt bereits.'],
+      addition: ['Additionsverfahren · Übungsbedarf.', 'Sitzt es, werden Gleichungssysteme aus Sachaufgaben leichter.'],
+      sach: ['Gleichungssysteme aus Sachaufgaben · noch nicht geprüft.', 'Baut auf beiden Verfahren auf. Das klären wir in den ersten Sitzungen.'],
+      trapez: ['Flächeninhalt des Trapezes · Übungsbedarf.', ''],
+      drachen: ['Drachen und Raute · Übungsbedarf.', 'Darauf bauen zusammengesetzte Vielecke auf.'],
+      vielecke: ['Zusammengesetzte Vielecke · noch nicht geprüft.', 'Baut auf Drachen und Raute auf. Das klären wir in den ersten Sitzungen.'],
+      thales: ['Satz des Thales · Übungsbedarf.', ''],
+      termefl: ['Terme für Flächeninhalte · Übungsbedarf.', ''],
+      mehrstufig: ['Mehrstufige Zufallsexperimente · Übungsbedarf.', ''],
+      laplace: ['Laplace-Wahrscheinlichkeit · noch nicht geprüft.', 'Baut auf Bruch in Dezimalzahl auf, und das sitzt.'],
+      wurzelab: ['Wurzeln abschätzen · sicher.', 'Sitzt bereits im aktuellen Thema.'],
+      rational: ['Rationale und irrationale Zahlen · Übungsbedarf.', 'Baut auf Bruch in Dezimalzahl auf, und das sitzt. Ein guter Startpunkt.'],
+      wgesetz: ['Wurzelgesetze · Übungsbedarf.', 'Sitzen sie, gelingt das teilweise Wurzelziehen.'],
+      teilw: ['Teilweise die Wurzel ziehen · Übungsbedarf.', 'Baut auf den Wurzelgesetzen auf.'],
+      neghoch: ['Negative Hochzahlen · kommt mit Potenzen.', 'Baut auf, was schon sitzt: Bruch in Dezimalzahl.'],
+      vierfeld: ['Vierfeldertafel · kommt mit Daten und Wahrscheinlichkeit.', 'Baut auf, was schon sitzt: Bruch in Dezimalzahl.']
+    };
+
+    let k = 0;
+    const e = (id, label, art, extra) => {
+      const o = Object.assign({ id: id, label: label, art: art, sub: false, normal: true, caption: '' }, extra || {});
+      if (o.sub) o.normal = false;
+      o.delay = (0.25 + 0.3 * (k++)) + 's';
+      const gew = sel === id;
+      const dim = sel && !verwandt.has(id);
+      o.cls = 'it ' + art + (o.sub ? ' sub' : '') + (gew ? ' sel' : '') + (dim ? ' dim' : '');
+      o.gewaehlt = gew ? 'true' : 'false';
+      o.waehlen = () => { if (this.unterdrueck) return; this.setState({ sel: gew ? null : id, plan: null }); };
+      return o;
+    };
+    const neu = (f) => { k = 0; return f(); };
+
+    const insel = (id, titel, art, x, y, w, eintraege) => {
+      const kommt = !!art && art.indexOf('kommt') === 0;
+      return {
+        id: id, titel: titel, x: x, y: y, w: w, eintraege: eintraege,
+        sichtbar: !!sicht[id],
+        istKommt: kommt, nichtKommt: !kommt, offen: plan === id ? 'true' : 'false',
+        klasse: 'insel' + (art ? ' ' + art : '') + (kommt && plan === id ? ' klar' : ''),
+        klaeren: () => { if (this.unterdrueck) return; this.setState({ plan: plan === id ? null : id, sel: null }); }
+      };
+    };
+
+    const inseln = [
+      insel('bd', 'Brüche & Dezimalzahlen', '', 40, 206, 260, neu(() => [e('bruch', 'Bruch in Dezimalzahl', 's')])),
+      insel('tg', 'Terme & Gleichungen', '', 392, 46, 336, neu(() => [
+        e('einsetz', 'Einsetzungsverfahren', 's'), e('grafisch', 'Gleichungssysteme grafisch lösen', 's'),
+        e('addition', 'Additionsverfahren', 'u'),
+        e('sach', 'Gleichungssysteme aus Sachaufgaben', 'o', { sub: true, caption: 'baut auf beiden Verfahren auf · noch nicht geprüft' })
+      ])),
+      insel('dz', 'Daten & Zufall', '', 400, 336, 290, neu(() => [e('mehrstufig', 'Mehrstufige Zufallsexperimente', 'u'), e('laplace', 'Laplace-Wahrscheinlichkeit', 'o')])),
+      insel('geo', 'Geometrie', 'broeckelt', 716, 272, 280, neu(() => [
+        e('trapez', 'Flächeninhalt des Trapezes', 'u'), e('drachen', 'Drachen und Raute', 'u'),
+        e('vielecke', 'Zusammengesetzte Vielecke', 'o', { sub: true, caption: 'baut darauf auf · noch nicht geprüft' }),
+        e('thales', 'Satz des Thales', 'u'), e('termefl', 'Terme für Flächeninhalte', 'u')
+      ])),
+      insel('zr', 'Zahlen & Rechnen', 'broeckelt', 1050, 286, 310, neu(() => [
+        e('wurzelab', 'Wurzeln abschätzen', 's'), e('rational', 'Rationale und irrationale Zahlen', 'u'),
+        e('wgesetz', 'Wurzelgesetze', 'u'),
+        e('teilw', 'Teilweise die Wurzel ziehen', 'u', { sub: true, caption: 'baut auf den Wurzelgesetzen auf · Übungsbedarf' })
+      ])),
+      insel('qf', 'Quadratische Funktionen', 'kommt dunst', 1540, 96, 320, []),
+      insel('kpz', 'Kreise, Prismen, Zylinder', 'kommt dunst', 1540, 152, 320, []),
+      insel('pot', 'Potenzen', 'kommt dunst', 1540, 206, 320, neu(() => [e('neghoch', 'Negative Hochzahlen', 'o')])),
+      insel('pyt', 'Pythagoras und Körper', 'kommt dunst', 1540, 302, 320, []),
+      insel('dw', 'Daten und Wahrscheinlichkeit', 'kommt dunst', 1540, 366, 320, neu(() => [e('vierfeld', 'Vierfeldertafel', 'o')])),
+      insel('k10a', 'Quadratische Gleichungen', 'kommt weit', 1950, 128, 300, []),
+      insel('k10b', 'Ähnlichkeit', 'kommt weit', 1950, 184, 300, []),
+      insel('k10c', 'Exponentialfunktionen', 'kommt weit', 1950, 240, 300, []),
+      insel('k10d', 'Trigonometrie', 'kommt weit', 1950, 296, 300, []),
+      insel('k10e', 'Trigonometrische Funktionen', 'kommt weit', 1950, 352, 300, [])
+    ];
+
+    // Ein Stamm von „Bruch in Dezimalzahl“ nach rechts; die Abzweige setzen an, wo die Spitze vorbeikommt.
+    const dimAus = (ziele) => (sel && sel !== 'bruch' && ziele.indexOf(sel) < 0 ? ' dim' : '');
+    const ref = (k2) => (el) => { if (el) { this.pfade[k2] = el; this.zeichne(this.spitze); } };
+    const refS = (k2) => (el) => { if (el) { this.spitzenEl[k2] = el; this.zeichne(this.spitze); } };
+    const linien = [
+      { d: 'M300 255 H 1480', cls: 'ln' + dimAus(['rational', 'laplace', 'neghoch', 'vierfeld']), ref: ref('stamm') },
+      { d: 'M330 255 C 352 255, 362 270, 362 298 V 386 C 362 412, 372 415, 394 415', cls: 'ln' + dimAus(['laplace']), ref: ref('laplace') },
+      { d: 'M994 255 C 1022 255, 1012 365, 1044 365', cls: 'ln' + dimAus(['rational']), ref: ref('rational') },
+      { d: 'M1480 255 H 1536', cls: 'ln z' + dimAus(['neghoch']), ref: ref('neghoch') },
+      { d: 'M1480 255 H 1494 C 1516 255, 1506 415, 1536 415', cls: 'ln z' + dimAus(['vierfeld']), ref: ref('vierfeld') }
+    ];
+    const spitze = (x, y) => 'M' + (x - 9) + ' ' + (y - 5) + ' L ' + (x + 1) + ' ' + y + ' L ' + (x - 9) + ' ' + (y + 5) + ' Z';
+    const spitzen = [
+      { d: spitze(398, 415), cls: 'spitze' + dimAus(['laplace']), ref: refS('laplace') },
+      { d: spitze(1048, 365), cls: 'spitze' + dimAus(['rational']), ref: refS('rational') },
+      { d: spitze(1540, 255), cls: 'spitze' + dimAus(['neghoch']), ref: refS('neghoch') },
+      { d: spitze(1540, 415), cls: 'spitze' + dimAus(['vierfeld']), ref: refS('vierfeld') }
+    ];
+
+    const zonen = [
+      { id: 'z:g', name: 'Grundlagen', klasse: 'Klasse 5/6', x: 0, w: 360, grund: 'linear-gradient(180deg, rgba(48,73,105,.04), rgba(48,73,105,0))', farbe: '#9A6510', radius: '18px', lx: 22 },
+      { id: 'z:w', name: 'Weiterführend', klasse: 'Klasse 7/8', x: 360, w: 650, grund: 'linear-gradient(180deg, rgba(48,73,105,.055), rgba(48,73,105,0))', farbe: '#9A6510', radius: '18px', lx: 22 },
+      { id: 'z:a', name: 'Aktuell', klasse: 'Klasse 9 · Reelle Zahlen', x: 1010, w: 470, grund: 'linear-gradient(180deg, rgba(48,73,105,.08), rgba(48,73,105,.01))', farbe: '#9A6510', radius: '18px', lx: 22 },
+      { id: 'z:k', name: 'Kommt noch', klasse: 'Klasse 9 und 10, Schulplan FWG', x: 1480, w: 940, grund: 'linear-gradient(90deg, #E3EDF6 0%, #EAF1F7 55%, #F1F5F8 100%)', farbe: '#304969', radius: '18px 0 0 18px', lx: 250 }
+    ].map((z) => Object.assign(z, { sichtbar: !!sicht[z.id] }));
+
+    const s = this.state.s;
+    const zonenAnzeige = zonen.map((z, n) => ({ name: z.name, cls: 'zname' + (this.state.zone === n ? ' an' : '') }));
+    const gesamt = 2420 * s + 48;
+    const sichtB = this.scrollEl ? this.scrollEl.clientWidth : 1194;
+    const balken = { breite: Math.min(100, Math.round((sichtB / gesamt) * 1000) / 10), links: Math.round((this.state.pos / gesamt) * 1000) / 10 };
+    const dims = { s: s, w: Math.round(2420 * s + 48), h: Math.round(510 * s) };
+    const snaps = this.punkte().map((x) => ({ x: Math.round(24 + x * s) }));
+
+    const planTexte = {
+      qf: ['Quadratische Funktionen · kommt als Nächstes.', 'Direkt nach den reellen Zahlen im FWG-Plan Klasse 9.'],
+      kpz: ['Kreise, Prismen, Zylinder · kommt in Klasse 9.', ''],
+      pot: ['Potenzen · kommt in Klasse 9.', 'Baut auf, was schon sitzt: Bruch in Dezimalzahl.'],
+      pyt: ['Pythagoras und Körper · kommt in Klasse 9.', ''],
+      dw: ['Daten und Wahrscheinlichkeit · kommt in Klasse 9.', 'Baut auf, was schon sitzt: Bruch in Dezimalzahl.']
+    };
+    let info = { titel: 'Tippen Sie auf einen Bereich,', text: 'um zu sehen, worauf er aufbaut und was darauf aufbaut.' };
+    if (sel && texte[sel]) info = { titel: texte[sel][0], text: texte[sel][1] };
+    else if (plan && planTexte[plan]) info = { titel: planTexte[plan][0], text: planTexte[plan][1] };
+    else if (plan) info = { titel: 'Klasse 10 · noch weiter in der Zukunft.', text: 'Nach dem Schulplan des FWG.' };
+
+    return {
+      zonen: zonen, zonenAnzeige: zonenAnzeige, balken: balken, inseln: inseln,
+      linien: linien, spitzen: spitzen, info: info,
+      zeige: this.state.zeige, zeigeHier: this.state.hier,
+      dims: dims, snaps: snaps,
+      scrollerKlasse: 'scroller' + (this.state.zieht ? ' zieht' : '') + (this.state.frei ? ' frei' : ''),
+      setScroller: (el) => { this.scrollEl = el; },
+      beimScrollen: () => {
+        if (!this.scrollEl) return;
+        const links = this.scrollEl.scrollLeft;
+        const n = Math.min(3, this.punktLinks());
+        if (n !== this.state.zone || Math.abs(links - this.state.pos) > 4) this.setState({ zone: n, pos: links });
+      },
+      beimRad: (ev) => {
+        if (!this.scrollEl) return;
+        const dy = ev.deltaY || 0, dx = ev.deltaX || 0;
+        if (Math.abs(dy) <= Math.abs(dx)) { if (dx) this.unterbrechen(); return; }
+        if (Math.abs(dy) < 4) return;
+        const jetzt = Date.now();
+        if (jetzt - this.letztesRad < 650) return;
+        this.letztesRad = jetzt;
+        if (this.raf) { this.stopp(); this.alles(); }
+        this.gleite(this.punktLinks() + (dy > 0 ? 1 : -1));
+      },
+      runter: (ev) => {
+        this.unterbrechen();
+        if (ev.pointerType !== 'mouse' || !this.scrollEl) return;
+        this.drag = { x: ev.clientX, links: this.scrollEl.scrollLeft, bewegt: false, start: this.punktLinks(), dx: 0 };
+      },
+      bewegen: (ev) => {
+        if (!this.drag || !this.scrollEl) return;
+        const dx = ev.clientX - this.drag.x;
+        if (!this.drag.bewegt && Math.abs(dx) > 5) { this.drag.bewegt = true; this.setState({ zieht: true, frei: true }); }
+        if (this.drag.bewegt) { this.drag.dx = dx; this.scrollEl.scrollLeft = this.drag.links - dx; }
+      },
+      hoch: () => {
+        if (!this.drag) return;
+        const d = this.drag;
+        this.drag = null;
+        if (!d.bewegt) return;
+        this.unterdrueck = true;
+        setTimeout(() => { this.unterdrueck = false; }, 0);
+        this.setState({ zieht: false });
+        if (d.dx < -60) this.gleite(d.start + 1);
+        else if (d.dx > 60) this.gleite(d.links > this.punkte()[d.start] * s + 4 ? d.start : d.start - 1);
+        else this.gleite(d.start);
+      },
+      abspielen: () => {
+        this.stopp();
+        if (this.scrollEl) this.scrollEl.scrollLeft = 0;
+        this.pfade = {}; this.spitzenEl = {}; this.spitze = 300;
+        this.setState({ zeige: false, sel: null, plan: null, zone: 0, pos: 0, frei: true, sicht: {}, hier: false });
+        this.timer = setTimeout(() => { this.setState({ zeige: true }); this.timer = setTimeout(() => this.fahrt(), 30); }, 60);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

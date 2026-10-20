@@ -9,6 +9,9 @@
 // festen Platzhalter. Keine weiteren personenbezogenen Daten — Rufname wie im
 // Muster, Schulform als Art, keine Schule, keine Mail der Familie.
 
+import { HEIMAT, KANTEN } from '@/lib/report/elternbericht/fixtures/graph'
+import { THEMEN } from '@/lib/report/elternbericht/fixtures/plaene'
+import { klpPlan } from '@/lib/report/elternbericht/plan'
 import { datenAus, u, type SitzungRoh } from '@/lib/report/elternbericht/fixtures/basis'
 import { themenraumFuer } from '@/lib/report/themenraum'
 import type { ReportData } from '@/types'
@@ -70,6 +73,10 @@ const RAUM = themenraumFuer({
 })
 
 export const ILKAY_ROH: SitzungRoh = {
+  // R7-9: echter Graph und Heimat-Themen; keine Schule hinterlegt → Kernlehrplan NRW 9/10.
+  kanten: KANTEN,
+  heimatThemen: HEIMAT,
+  plan: klpPlan(THEMEN, 10),
   sessionId: ILKAY_SESSION,
   firstName: 'Ilkay',
   grade: 10,
