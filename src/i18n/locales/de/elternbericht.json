@@ -147,7 +147,8 @@
     "fussnoteAbgeleitet": "Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe."
   },
   "s3": {
-    "kicker": "Einordnung im Lernstoff",
+    "kicker": "{{wessen}} Lernweg",
+    "kickerOhneName": "Lernweg",
     "titel": "Auf vorhandenen Stärken aufbauen.",
     "titelOhneSicher": "Wo wir ansetzen.",
     "intro": "Jeder untersuchte Bereich steht dort, wo er im Lernstoff liegt: unten die Grundlagen aus früheren Klassen, darüber der weiterführende Stoff, oben der aktuelle Stoff. So sehen Sie, wo es gut läuft und wo noch nicht.",
@@ -182,6 +183,56 @@
       "hinweis": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung. Ob Übungsbedarf weiter unten etwas weiter oben erklärt, prüft der Coach im Unterricht.",
       "hinweisEineEbene": "Die Pyramide zeigt, wo ein Bereich im Lernstoff liegt, keine feste Voraussetzung.",
       "ebene": "{{ebene}}:"
+    },
+    "weg": {
+      "intro": "Von links nach rechts der Weg durch den Lernstoff: was {{name}} schon hinter sich hat, wo der Unterricht gerade steht und was in Klasse {{klasse}} {{quelle}} noch kommt.",
+      "introOhneName": "Von links nach rechts der Weg durch den Lernstoff: was Ihr Kind schon hinter sich hat, wo der Unterricht gerade steht und was in Klasse {{klasse}} {{quelle}} noch kommt.",
+      "quelle": {
+        "schule": "laut Schulplan der Schule {{schulname}}",
+        "schuleOhneName": "laut Schulplan der Schule",
+        "klp": "nach dem Kernlehrplan NRW"
+      },
+      "quelleAus": {
+        "schule": "dem Schulplan der Schule {{schulname}}",
+        "schuleOhneName": "dem Schulplan der Schule",
+        "klp": "dem Kernlehrplan NRW"
+      },
+      "legende": {
+        "sicher": "sicher",
+        "uebung": "Übungsbedarf",
+        "offen": "noch nicht geprüft",
+        "linie": "sitzt schon, darauf baut es auf",
+        "unter": "baut direkt darauf auf",
+        "broeckelt": "hier hat es gebröckelt",
+        "kommt": "kommt noch"
+      },
+      "zone": {
+        "grundlagen": "Grundlagen",
+        "weiterfuehrend": "Weiterführend",
+        "aktuell": "Aktuell",
+        "kommt": "Kommt noch",
+        "aktuellKlasse": "Klasse {{klasse}} · {{thema}}",
+        "aktuellKlasseOhneThema": "Klasse {{klasse}}",
+        "kommtSchule": "Klasse {{klasse}}, Schulplan",
+        "kommtSchuleNaechste": "Klasse {{klasse}} und {{naechste}}, Schulplan",
+        "kommtKlp": "Kernlehrplan NRW, {{stufe}}",
+        "naechste": "Klasse {{klasse}}"
+      },
+      "unter": {
+        "eine": "baut darauf auf",
+        "beide": "baut auf beiden Verfahren auf",
+        "mehrere": "baut auf diesen {{count}} Bereichen auf",
+        "zeile": "{{wie}} · {{stand}}"
+      },
+      "stand": {
+        "sicher": "sicher",
+        "uebung": "Übungsbedarf",
+        "offen": "noch nicht geprüft"
+      },
+      "spaeter": "Stoff aus Klasse {{klasse}}",
+      "hier": "Sie sind hier · {{monat}}",
+      "hierOhneMonat": "Sie sind hier",
+      "hinweis": "Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage. Nicht geprüfte Bereiche klären wir in den ersten Sitzungen."
     }
   },
   "s4": {

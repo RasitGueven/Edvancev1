@@ -23,6 +23,7 @@ import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
 import { baueSuche } from '@/lib/report/suche'
 import { themenraumFuer, type SucheKante } from '@/lib/report/themenraum'
+import { loadHeimatThemen, loadPlan } from '@/lib/supabase/lsaReportPlan'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import {
   loadAnlassZuordnungen,
@@ -164,7 +165,7 @@ const alsModus = (m: unknown): ThemaDaten['modus'] => (m === 'fest' || m === 'ad
  * gliedert ohne Thema. thema_einstieg ist nur für admin/coach lesbar; der
  * Report läuft im Admin-Bereich.
  */
-async function loadThema(sessionId: string): Promise<ThemaDaten> {
+async function loadThema(sessionId: string, kantenGeladen: Promise<SucheKante[]>): Promise<ThemaDaten> {
   const leer: ThemaDaten = { label: null, raum: null, modus: null }
   try {
     const { data: s, error } = await supabase
@@ -184,7 +185,7 @@ async function loadThema(sessionId: string): Promise<ThemaDaten> {
       gespeichert
         ? Promise.resolve({ data: [], error: null })
         : supabase.from('thema_einstieg').select('skill_key').eq('thema_key', key),
-      gespeichert ? Promise.resolve([]) : loadKanten(),
+      gespeichert ? Promise.resolve([]) : kantenGeladen,
     ])
     if (thema.error || einstieg.error) {
       console.warn('report: thema lookup failed', thema.error ?? einstieg.error)
@@ -205,7 +206,10 @@ async function loadThema(sessionId: string): Promise<ThemaDaten> {
   }
 }
 
-/** Der Voraussetzungsgraph, für den Abschluss der Einstiegsknoten. */
+/**
+ * Der Voraussetzungsgraph: für den Abschluss der Einstiegsknoten und seit
+ * R7-9 immer für den Lernweg (was worauf aufbaut). Leer bei Fehler.
+ */
 async function loadKanten(): Promise<SucheKante[]> {
   const { data, error } = await supabase
     .from('skill_kante')
@@ -229,11 +233,13 @@ async function loadKanten(): Promise<SucheKante[]> {
  * R7 keinen Bogen statt einer falschen Zahl.
  */
 async function loadBestand(): Promise<KatalogSkill[]> {
-  const { data, error } = await supabase.from('skills').select('skill_key, klasse_herkunft')
+  const { data, error } = await supabase.from('skills').select('skill_key, klasse_herkunft, label')
   if (error || !data) return []
-  return (data as { skill_key: string; klasse_herkunft: number }[]).map((s) => ({
+  return (data as { skill_key: string; klasse_herkunft: number; label: string | null }[]).map((s) => ({
     skillKey: s.skill_key,
     klasse: s.klasse_herkunft,
+    // R7-9: für nicht geprüfte Bereiche im Lernweg (Elternbezeichnung dort).
+    label: s.label?.trim() ?? '',
   }))
 }
 
@@ -248,15 +254,19 @@ export async function loadErzaehlung(
   weakTopics: readonly string[],
   fehlbilder: readonly ReportFehlbild[],
 ): Promise<ReportErzaehlung> {
-  const [urteile, bestand, bausteine, zuordnungen, ansprechpartner, thema, abgeleitetOderFehler] =
+  const kantenGeladen = loadKanten()
+  const [urteile, bestand, bausteine, zuordnungen, ansprechpartner, thema, abgeleitetOderFehler, kanten, heimatThemen, plan] =
     await Promise.all([
       loadUrteile(sessionId),
       loadBestand(),
       loadReportBausteine(),
       loadAnlassZuordnungen(),
       loadAnsprechpartner(sessionId),
-      loadThema(sessionId),
+      loadThema(sessionId, kantenGeladen),
       loadAbgeleitet(sessionId),
+      kantenGeladen,
+      loadHeimatThemen(),
+      loadPlan(sessionId),
     ])
 
   // Ohne die abgeleiteten Urteile kein Thema-Satz: modus null schaltet ihn ab.
@@ -293,6 +303,9 @@ export async function loadErzaehlung(
       katalog: bestand,
       modus,
       abgeleitet,
+      kanten,
+      heimatThemen,
+      plan,
     }
   }
 
@@ -325,5 +338,8 @@ export async function loadErzaehlung(
     katalog: bestand,
     modus,
     abgeleitet,
+    kanten,
+    heimatThemen,
+    plan,
   }
 }

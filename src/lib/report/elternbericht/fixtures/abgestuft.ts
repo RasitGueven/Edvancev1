@@ -10,6 +10,8 @@
 
 import { datenAus, u, type SitzungRoh } from '@/lib/report/elternbericht/fixtures/basis'
 import { ILKAY_ROH } from '@/lib/report/elternbericht/fixtures/ilkay'
+import { FWG_NAME, FWG_PLAN } from '@/lib/report/elternbericht/fixtures/plaene'
+import { schulPlan } from '@/lib/report/elternbericht/plan'
 import { themenraumFuer } from '@/lib/report/themenraum'
 import type { ReportData } from '@/types'
 
@@ -48,6 +50,8 @@ const fall = (id: string, aenderung: Partial<SitzungRoh>): ReportData =>
     themaLabel: 'Reelle Zahlen',
     raum: RAUM,
     modus: 'adaptiv',
+    // R7-9: Schule über den Lead (Befund 20.10.2026), FWG-Plan Klasse 9 und 10.
+    plan: schulPlan(FWG_PLAN, 9, FWG_NAME),
     ...aenderung,
   })
 

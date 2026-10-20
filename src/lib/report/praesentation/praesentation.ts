@@ -108,7 +108,12 @@ export function bauePraesentation({
   tiers,
 }: PraesentationEingabe): PraesentationDaten | PraesentationFehlt {
   const { kompetenzen, katalog } = data.erzaehlung
-  const bericht = baueElternbericht({ kompetenzen, katalog, klasse: data.grade })
+  const bericht = baueElternbericht({
+    kompetenzen,
+    katalog,
+    klasse: data.grade,
+    lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
+  })
   if (!bericht) return { fehlt: kompetenzen.length === 0 ? 'kompetenzen' : 'katalog' }
 
   const bereiche = bereicheAus(kompetenzen)
@@ -137,6 +142,7 @@ export function bauePraesentation({
     },
     zeilen: zeilenAus(bericht, bereiche, ueber),
     pyramide: pyramideAus(bericht, ueber),
+    lernweg: bericht.lernweg,
     schwerpunkte: schwerpunkteAus(bericht, bereiche),
     danach: [...bericht.danach],
     empfehlung: empfehlungAus(notes?.paket ?? null, tiers),

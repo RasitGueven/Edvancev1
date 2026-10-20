@@ -207,6 +207,11 @@
     --color-eb-navy-chip:      #456281;
     --color-eb-auf-navy:       #E4ECF0;
     --color-eb-weiss:          #FFFFFF;
+    /* Lernweg (R7-9): Kommt noch hellblau hinterlegt, Rand der Kommt-Inseln,
+       Gold als Text auf Papier (Gold allein hat dort zu wenig Kontrast). */
+    --color-eb-zukunft:        #E3EDF6;
+    --color-eb-zukunft-rand:   #A7BCCB;
+    --color-eb-gold-text:      #9A6510;
     --font-eb-titel: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
     --font-eb-marke: 'Fraunces';
 

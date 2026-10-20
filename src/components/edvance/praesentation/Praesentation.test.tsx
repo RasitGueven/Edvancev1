@@ -123,8 +123,8 @@ describe('Präsentation — Kopf', () => {
   it('zeigt die Station zweistellig und schließt per Knopf', () => {
     const { onSchliessen } = oeffne(ilkay)
     expect(within(dialog()).getByText('01 / 04 · Überblick')).toBeInTheDocument()
-    fireEvent.click(within(leiste()).getByRole('button', { name: /Einordnung/ }))
-    expect(within(dialog()).getByText('03 / 04 · Einordnung')).toBeInTheDocument()
+    fireEvent.click(within(leiste()).getByRole('button', { name: /Lernweg/ }))
+    expect(within(dialog()).getByText('03 / 04 · Lernweg')).toBeInTheDocument()
     fireEvent.click(within(dialog()).getByRole('button', { name: 'Präsentation schließen' }))
     expect(onSchliessen).toHaveBeenCalledTimes(1)
   })
@@ -144,7 +144,7 @@ describe('Präsentation — Leiste', () => {
     expect(eintraege.map((e) => e.textContent)).toEqual([
       '01Überblick',
       '02Lernstand',
-      '03Einordnung',
+      '03Lernweg',
       '04Förderansatz',
     ])
     expect(eintraege.filter((e) => e.hasAttribute('aria-current'))).toHaveLength(0)
@@ -162,7 +162,7 @@ describe('Präsentation — Leiste', () => {
     fireEvent.click(within(leiste()).getByRole('button', { name: /Lernstand/ }))
     expect(station(2)).toHaveClass('entered')
     expect(station(2)).not.toHaveClass('motion-complete')
-    fireEvent.click(within(leiste()).getByRole('button', { name: /Einordnung/ }))
+    fireEvent.click(within(leiste()).getByRole('button', { name: /Lernweg/ }))
     expect(station(2)).toHaveClass('motion-complete')
     expect(station(3)).toHaveClass('entered')
   })

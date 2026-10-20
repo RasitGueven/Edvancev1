@@ -193,3 +193,75 @@ export async function introVerstoesse(page: Page): Promise<string[]> {
     return fehler
   })
 }
+
+/**
+ * Station 03 · Lernweg (R7-9): kein Text ragt aus einer Insel, keine Insel liegt
+ * über einer Zonen-Überschrift, keine Linie schneidet eine Insel. Leer = in Ordnung.
+ */
+export async function lernwegVerstoesse(page: Page): Promise<string[]> {
+  return page.evaluate(() => {
+    const s = document.querySelector('.tp-station[data-station="3"]')
+    if (!s) return ['Station 03 fehlt']
+    const f: string[] = []
+    const inseln = [...s.querySelectorAll('[data-insel]')].map((el) => ({ el, r: el.getBoundingClientRect() }))
+    const titel = (el: Element): string => el.querySelector('.tp-s3-insel-titel')?.textContent ?? ''
+    for (const { el, r } of inseln) {
+      // Gemessen werden die Texte, nicht die Knöpfe: deren Trefferfläche (::before) ragt bewusst hinaus.
+      for (const t of el.querySelectorAll<HTMLElement>('.tp-s3-label, .tp-s3-insel-titel')) {
+        const q = t.getBoundingClientRect()
+        if (t.scrollWidth > t.clientWidth + 1 || t.scrollHeight > t.clientHeight + 1) f.push(`Text läuft über in „${titel(el)}“: ${t.textContent}`)
+        if (q.right > r.right + 0.5 || q.bottom > r.bottom + 0.5 || q.left < r.left - 0.5) f.push(`Text ragt aus „${titel(el)}“: ${t.textContent}`)
+      }
+      // Jede Insel liegt ganz in ihrer Zone (auch die Ausnahme „Spur höher“, Nachbesserung R7-9).
+      const zone = el.closest('[data-zone]')?.getBoundingClientRect()
+      if (zone && (r.bottom > zone.bottom + 0.5 || r.top < zone.top - 0.5)) {
+        f.push(`Insel „${titel(el)}“ ragt aus ihrer Zone (${r.bottom.toFixed(0)} > ${zone.bottom.toFixed(0)})`)
+      }
+      for (const k of s.querySelectorAll('[data-kopf]')) {
+        const q = k.getBoundingClientRect()
+        const x = Math.min(q.right, r.right) - Math.max(q.left, r.left)
+        const y = Math.min(q.bottom, r.bottom) - Math.max(q.top, r.top)
+        if (x > 0.5 && y > 0.5) f.push(`Insel „${titel(el)}“ liegt über einer Zonen-Überschrift`)
+      }
+    }
+    for (const p of s.querySelectorAll<SVGPathElement>('path.tp-s3-linie')) {
+      const ctm = p.getScreenCTM()
+      if (!ctm) continue
+      const laenge = p.getTotalLength()
+      for (let l = 0; l <= laenge; l += 3) {
+        const pt = p.getPointAtLength(l)
+        const q = new DOMPoint(pt.x, pt.y).matrixTransform(ctm)
+        const treffer = inseln.find(({ r }) => q.x > r.left + 1 && q.x < r.right - 1 && q.y > r.top + 1 && q.y < r.bottom - 1)
+        if (treffer) {
+          f.push(`Linie schneidet „${titel(treffer.el)}“`)
+          break
+        }
+      }
+    }
+    return f
+  })
+}
+
+/**
+ * Station 03 · Lesbarkeit (Nachbesserung R7-9, Entscheidung 1): Jeder Eintrag
+ * (Label, Unterzeile, Inseltitel) hat im Bild mindestens 13 px Schrift
+ * (berechnete Schriftgröße × Skala der Spur). Liefert die Verstöße und die
+ * Messwerte (Bühnenhöhe, kleinste Schrift).
+ */
+export async function lernwegLesbar(page: Page): Promise<{ fehler: string[]; buehne: number; kleinste: number }> {
+  return page.evaluate(() => {
+    const s3 = document.querySelector('.tp-station[data-station="3"]')
+    const spur = s3?.querySelector<HTMLElement>('.tp-s3-spur')
+    const sc = s3?.querySelector<HTMLElement>('[data-testid="tp-s3-scroller"]')
+    if (!s3 || !spur || !sc) return { fehler: ['Bühne fehlt'], buehne: 0, kleinste: 0 }
+    const s = Number(getComputedStyle(spur).getPropertyValue('--tp-s3-s')) || 1
+    const fehler: string[] = []
+    let kleinste = Infinity
+    for (const el of s3.querySelectorAll<HTMLElement>('.tp-s3-label, .tp-s3-label small, .tp-s3-insel-titel')) {
+      const px = parseFloat(getComputedStyle(el).fontSize) * s
+      kleinste = Math.min(kleinste, px)
+      if (px < 13 - 0.01) fehler.push(`${px.toFixed(1)} px: ${el.textContent?.slice(0, 40)}`)
+    }
+    return { fehler, buehne: sc.clientHeight, kleinste: Math.round(kleinste * 100) / 100 }
+  })
+}

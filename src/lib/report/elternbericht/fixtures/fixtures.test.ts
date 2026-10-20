@@ -71,7 +71,10 @@ describe('Fixtures des Eltern-Berichts', () => {
     const abdeckung = (name: string) => themaAbdeckungAus(FAELLE[name].data.erzaehlung)
     for (const [name, f] of Object.entries(FAELLE)) {
       expect(f.data.erzaehlung.modus, name).not.toBeNull()
-      expect(abdeckung(name) !== null, name).toBe(['abgestuft', 'abgestuftMitOffen', 'abgestuftLang'].includes(name))
+      // ohneKanten und langeLabels (R7-9) sind aus abgestuft abgeleitet, mit Thema.
+      expect(abdeckung(name) !== null, name).toBe(
+        ['abgestuft', 'abgestuftMitOffen', 'abgestuftLang', 'ohneKanten', 'langeLabels'].includes(name),
+      )
     }
     expect(FAELLE.ilkay.data.erzaehlung.modus).toBe('fest')
     // Wie 6220b7e8 und 09cf8baa (Befund R7-6).

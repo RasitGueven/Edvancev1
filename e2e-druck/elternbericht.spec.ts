@@ -116,6 +116,47 @@ async function pruefeProfil(page: Page, wo: string): Promise<string[]> {
   return zeilen.map((z) => z.text)
 }
 
+/**
+ * Seite 3, Lernweg (R7-9, Entscheidungen 15, 16 und 18): Der Bereich läuft
+ * nicht über (auch nicht nach dem Kürzen), kein Text ragt aus einer Insel, und
+ * keine Linie schneidet eine Insel (Punkte entlang des Pfads, alle 2 Einheiten).
+ */
+async function pruefeLernweg(page: Page, wo: string): Promise<void> {
+  const fehler = await page.evaluate(() => {
+    const weg = document.querySelector<HTMLElement>('.eb-seite[data-seite="3"] [data-testid="eb-s3-weg"]')
+    if (!weg) return ['kein Lernweg auf Seite 3']
+    const f: string[] = []
+    if (weg.scrollHeight > weg.clientHeight + 0.5 || weg.hasAttribute('data-ueberlauf')) {
+      f.push(`Lernweg läuft über (${weg.scrollHeight} > ${weg.clientHeight}, Stufe ${weg.dataset.stufe})`)
+    }
+    const inseln = [...weg.querySelectorAll('[data-insel]')].map((i) => ({ el: i, r: i.getBoundingClientRect() }))
+    for (const { el, r } of inseln) {
+      for (const t of el.querySelectorAll<HTMLElement>('.eb-s3-label, .eb-s3-insel-titel, small')) {
+        const q = t.getBoundingClientRect()
+        if (q.right > r.right + 0.5 || q.bottom > r.bottom + 0.5 || t.scrollWidth > t.clientWidth + 1) {
+          f.push(`Text ragt aus Insel: ${t.textContent}`)
+        }
+      }
+    }
+    for (const p of weg.querySelectorAll<SVGPathElement>('path.eb-s3-linie')) {
+      const ctm = p.getScreenCTM()
+      if (!ctm) continue
+      const laenge = p.getTotalLength()
+      for (let l = 0; l <= laenge; l += 2) {
+        const pt = p.getPointAtLength(l)
+        const q = new DOMPoint(pt.x, pt.y).matrixTransform(ctm)
+        const treffer = inseln.find(({ r }) => q.x > r.left + 1 && q.x < r.right - 1 && q.y > r.top + 1 && q.y < r.bottom - 1)
+        if (treffer) {
+          f.push(`Linie schneidet Insel „${treffer.el.querySelector('p')?.textContent}“ bei ${q.x.toFixed(0)},${q.y.toFixed(0)}`)
+          break
+        }
+      }
+    }
+    return f
+  })
+  expect(fehler, wo).toEqual([])
+}
+
 /** Seiten im PDF: die Seitenobjekte, nicht der Seitenbaum (/Pages). */
 function pdfSeiten(pdf: Buffer): number {
   return (pdf.toString('latin1').match(/\/Type\s*\/Page(?![s\w])/g) ?? []).length
@@ -146,6 +187,7 @@ for (const [name, fall] of Object.entries(FAELLE)) {
     await pruefeSeiten(page, fall.data.testlauf, 'Bildschirm')
     await page.emulateMedia({ media: 'print' })
     await pruefeSeiten(page, fall.data.testlauf, 'Druck')
+    await pruefeLernweg(page, `${name}, Druck`)
     const rechts = await pruefeProfil(page, 'Druck')
     // Der längste mögliche rechte Text steht wirklich im Fall abgestuftLang.
     if (name === 'abgestuftLang') expect(rechts).toContain('12 geprüft · 14 abgeleitet')

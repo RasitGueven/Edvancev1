@@ -18,7 +18,7 @@
     "station": {
       "1": "Überblick",
       "2": "Lernstand",
-      "3": "Einordnung",
+      "3": "Lernweg",
       "4": "Förderansatz"
     }
   },
@@ -84,7 +84,7 @@
     "tippen": "Die Details öffnen sich durch Antippen eines Themenfelds."
   },
   "s3": {
-    "kicker": "Einordnung",
+    "kicker": "Lernweg",
     "titel": "Wo im Lernstoff die Themen liegen.",
     "desc": "Dieselben Ergebnisse, jetzt danach geordnet, wo sie im Lernstoff liegen. Keine Note.",
     "ebeneAria": "{{ebene}}, {{klassen}}: {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
@@ -96,7 +96,29 @@
       "text": "Jede Stufe fasst Stoff aus bestimmten Klassen zusammen; die Klassen stehen daneben. Welche Stufen es gibt, richtet sich nach {{wessen}} Klasse.",
       "textOhneName": "Jede Stufe fasst Stoff aus bestimmten Klassen zusammen; die Klassen stehen daneben. Welche Stufen es gibt, richtet sich nach der Klasse Ihres Kindes."
     },
-    "pyramideAria": "Ergebnisse nach Stufen im Lernstoff"
+    "pyramideAria": "Ergebnisse nach Stufen im Lernstoff",
+    "weg": {
+      "desc": "Ziehen Sie die Fläche nach links in die Grundlagen und nach rechts in das, was laut {{quelle}} noch kommt.",
+      "quelle": {
+        "schule": "Schulplan der Schule {{schulname}}",
+        "schuleOhneName": "Schulplan der Schule",
+        "klp": "Kernlehrplan NRW"
+      },
+      "abspielen": "Weg abspielen",
+      "abspielenAria": "Lernweg noch einmal aufbauen",
+      "buehneAria": "Lernweg, waagrecht verschiebbar",
+      "zonenAria": "Zonen des Lernwegs",
+      "info": {
+        "eintrag": "{{label}} · {{stand}}.",
+        "ziele": "Darauf baut auf: {{liste}}.",
+        "basis": "Baut auf {{basis}} auf, und das sitzt.",
+        "offen": "Das klären wir in den ersten Sitzungen.",
+        "naechstes": "{{titel}} · kommt als Nächstes.",
+        "spaeter": "{{titel}} · kommt in Klasse {{klasse}}.",
+        "kommtBasis": "Baut auf, was schon sitzt: {{liste}}.",
+        "leer": "Tippen Sie auf einen Bereich, um zu sehen, worauf er aufbaut und was darauf aufbaut."
+      }
+    }
   },
   "s4": {
     "kicker": "Förderansatz",

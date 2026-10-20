@@ -236,8 +236,9 @@ gilt deshalb abweichend von den Regeln oben (Gründer-Gespräch vom 18.10.2026):
 - **Ausnahme von INV-4.4:** „sicher“ grün (`--color-eb-sicher`) und
   „Übungsbedarf“ rosé (`--color-eb-uebung`) wie im Druckbogen R7.
 - Farbverläufe nur für die Kugeln (Eddie, Kugel in Station 01, Kurvenpunkte,
-  Empfehlungspunkt), den Lichtschein im Intro und das Punktmuster
-  „übersprungen“. Sonst keine Verläufe, kein Glass.
+  Empfehlungspunkt), den Lichtschein im Intro, das Punktmuster
+  „übersprungen“ und die Zone „Kommt noch“ in Station 03 (R7-9: die Zukunft
+  läuft nach rechts heller aus). Sonst keine Verläufe, kein Glass.
 - Ruhige Bewegung nach dem Dummy (Zeiten als Variablen in `rahmen.css`), mit
   `prefers-reduced-motion`: dann erscheint alles sofort.
 - Farben nur aus `--color-eb-*` und `--color-tp-*` (`tokens.css`), keine

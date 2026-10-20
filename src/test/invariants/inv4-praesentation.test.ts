@@ -41,6 +41,16 @@ const ANFORDERUNG = read('docs/report/praesentation/Anforderung.md')
 const ANHANG_A = ANFORDERUNG.slice(ANFORDERUNG.indexOf('## Anhang A'), ANFORDERUNG.indexOf('## Anhang B'))
 
 /**
+ * Anhang-A-Schlüssel, die R7-9 bewusst neu fasst (docs/report/r7/Bauauftrag-R7-9.md,
+ * Entscheidung 26): Station 03 heißt jetzt „Lernweg“. Jeder steht hier einzeln,
+ * alle anderen bleiben wörtlich.
+ */
+const R7_9_GEAENDERT: Record<string, string> = {
+  'leiste.station.3': 'Lernweg',
+  's3.kicker': 'Lernweg',
+}
+
+/**
  * INV-4.11 — der Namespace `praesentation` (Anhang A der Anforderung).
  */
 describe('INV-4.11 — praesentation.json spricht Elternsprache', () => {
@@ -50,7 +60,18 @@ describe('INV-4.11 — praesentation.json spricht Elternsprache', () => {
     const ende = ANHANG_A.indexOf('```', start + 7)
     const anhang = flatten(JSON.parse(ANHANG_A.slice(start + 7, ende)))
     expect(Object.keys(anhang)).toHaveLength(84)
-    for (const [key, text] of Object.entries(anhang)) expect(texte[key], key).toBe(text)
+    for (const [key, text] of Object.entries(anhang)) expect(texte[key], key).toBe(R7_9_GEAENDERT[key] ?? text)
+  })
+
+  it('R7-9: genau leiste.station.3 und s3.kicker sind neu gefasst, beide stehen in Anhang A', () => {
+    const start = ANHANG_A.indexOf('```json')
+    const anhang = flatten(JSON.parse(ANHANG_A.slice(start + 7, ANHANG_A.indexOf('```', start + 7))))
+    expect(Object.keys(R7_9_GEAENDERT)).toEqual(['leiste.station.3', 's3.kicker'])
+    for (const [key, text] of Object.entries(R7_9_GEAENDERT)) {
+      expect(anhang[key], key).toBeDefined()
+      expect(anhang[key], key).not.toBe(text)
+      expect(texte[key], key).toBe(text)
+    }
   })
 
   it('die aus elternbericht übernommenen Schlüssel gibt es dort', () => {

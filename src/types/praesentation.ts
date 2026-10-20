@@ -5,7 +5,7 @@
 // aufgeteilt. skillKey und Feldschlüssel werden nie gerendert, nur als React-key
 // und zum Nachschlagen in i18n.
 
-import type { EbBereich, EbeneKey, KopfFall, ThemenfeldKey } from './elternbericht'
+import type { EbBereich, EbeneKey, KopfFall, Lernweg, ThemenfeldKey } from './elternbericht'
 import type { Stufe } from './themen'
 
 /** Zählweise „übersprungen" (Entscheidung 4 der Anforderung). */
@@ -99,6 +99,8 @@ export type PraesentationDaten = {
   zahlen: TpZahlen
   zeilen: TpZeile[]
   pyramide: TpEbene[]
+  /** Derselbe Lernweg wie bericht.lernweg (R7-9), für Station 03. */
+  lernweg: Lernweg | null
   schwerpunkte: TpSchwerpunkt[]
   danach: ThemenfeldKey[]
   empfehlung: TpEmpfehlung | null

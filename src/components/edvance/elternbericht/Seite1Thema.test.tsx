@@ -6,6 +6,7 @@ import i18n from '@/i18n'
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { themaSaetze } from '@/components/edvance/elternbericht/themaSatz'
 import de from '@/i18n/locales/de/elternbericht.json'
+import { elternLabel } from '@/lib/report/elternbericht/elternLabel'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
 import type { ReportData } from '@/types'
@@ -132,7 +133,8 @@ describe('Seite 1 und 2 — nur Geprüftes', () => {
         themaAbdeckungAus(data.erzaehlung)!.abgeleitet,
       )
       // Listeneinträge auf Seite 1 nur aus den direkt geprüften Labels.
-      const labels = new Set(direkt.map((k) => k.label))
+      // Seit R7-9 in der Elternbezeichnung (elternLabel, Entscheidung 4).
+      const labels = new Set(direkt.map((k) => elternLabel(k.label)))
       for (const li of seite(1).querySelectorAll('.eb-s1-liste li')) expect(labels, name).toContain(li.textContent)
       // Kein Schlüssel eines abgeleiteten Urteils im ganzen Bogen.
       const text = container.textContent ?? ''

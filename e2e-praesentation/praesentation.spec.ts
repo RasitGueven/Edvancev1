@@ -11,7 +11,7 @@ import { resolve } from 'node:path'
 import { expect, test, type Page } from '@playwright/test'
 
 import { PRAESENTATION_FAELLE } from '../src/lib/report/praesentation/fixtures'
-import { introVerstoesse, kleineZiele, stationOben, verstoesse } from './messen'
+import { introVerstoesse, kleineZiele, lernwegLesbar, lernwegVerstoesse, stationOben, verstoesse } from './messen'
 
 const AUSGABE = resolve(process.env.TP_AUSGABE ?? 'docs/report/praesentation/abnahme/t2')
 const MASSE: ReadonlyArray<[number, number]> = [
@@ -85,6 +85,14 @@ for (const fall of Object.keys(PRAESENTATION_FAELLE)) {
           await geheZu(page, n)
           expect(await verstoesse(page, n), `Station ${nn(n)}`).toEqual([])
           expect(await kleineZiele(page), `Station ${nn(n)}`).toEqual([])
+          if (n === 3) {
+            expect(await lernwegVerstoesse(page), 'Station 03 · Lernweg').toEqual([])
+            // Nachbesserung R7-9: Schrift im Bild ≥ 13 px; im Querformat 1180x820 die Bühne ≥ 480 px.
+            const lesbar = await lernwegLesbar(page)
+            expect(lesbar.fehler, 'Station 03 · Schrift ≥ 13 px').toEqual([])
+            if (mass === '1180x820') expect(lesbar.buehne, 'Bühnenhöhe 1180x820').toBeGreaterThanOrEqual(480)
+            if (mass === '1133x744') expect(lesbar.buehne, 'Bühnenhöhe 1133x744').toBeGreaterThanOrEqual(440)
+          }
           if (FOTOS.has(mass)) {
             mkdirSync(AUSGABE, { recursive: true })
             await page.screenshot({ path: resolve(AUSGABE, `${fall}_${mass}_${nn(n)}.png`) })

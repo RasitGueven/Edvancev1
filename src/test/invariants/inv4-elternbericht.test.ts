@@ -60,6 +60,11 @@ const R7_8_GEAENDERT: Record<string, string> = {
     'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
 }
 
+/** Anhang-A-Schlüssel, die R7-9 neu fasst (docs/report/r7/Bauauftrag-R7-9.md, Entscheidung 12). */
+const R7_9_GEAENDERT: Record<string, string> = {
+  's3.kicker': '{{wessen}} Lernweg',
+}
+
 /** Anhang-A-Schlüssel, die R7-6 streicht. */
 const R7_6_ENTFALLEN = [
   's1.geprueft.hinweis_one',
@@ -83,7 +88,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, ende)))
     expect(Object.keys(anhang)).toHaveLength(148)
     for (const [key, text] of Object.entries(anhang)) {
-      if (key in R7_6_GEAENDERT || key in R7_8_GEAENDERT || R7_6_ENTFALLEN.includes(key)) continue
+      if (key in R7_6_GEAENDERT || key in R7_8_GEAENDERT || key in R7_9_GEAENDERT || R7_6_ENTFALLEN.includes(key)) continue
       expect(texte[key], key).toBe(text)
     }
   })
@@ -105,6 +110,16 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     }
     // Nach Anhang A ergänzt (R7-3), mit R7-6 ebenfalls gestrichen.
     expect(texte['s2.profil.ariaKeiner']).toBeUndefined()
+  })
+
+  it('R7-9: die neu gefassten Schlüssel aus Anhang A wörtlich', () => {
+    const bauauftrag = read('docs/report/r7/Bauauftrag-R7.md')
+    const start = bauauftrag.indexOf('```json', bauauftrag.indexOf('## Anhang A'))
+    const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
+    for (const [key, text] of Object.entries(R7_9_GEAENDERT)) {
+      expect(anhang[key], key).toBeDefined()
+      expect(texte[key], key).toBe(text)
+    }
   })
 
   it('R7-8: die neu gefassten Schlüssel aus Anhang A wörtlich', () => {

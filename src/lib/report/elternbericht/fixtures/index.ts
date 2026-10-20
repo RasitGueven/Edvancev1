@@ -6,6 +6,7 @@
 
 import * as a from '@/lib/report/elternbericht/fixtures/abgestuft'
 import * as g from '@/lib/report/elternbericht/fixtures/grenzfaelle'
+import * as lw from '@/lib/report/elternbericht/fixtures/lernwegFaelle'
 import { ilkay } from '@/lib/report/elternbericht/fixtures/ilkay'
 import { NOTIZEN, NOTIZEN_LANG, TIERS } from '@/lib/report/elternbericht/fixtures/notizen'
 import * as s from '@/lib/report/elternbericht/fixtures/synthetisch'
@@ -50,6 +51,11 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   abgestuftMitOffen: mitNotizen(a.abgestuftMitOffen),
   // Längster rechter Text auf Seite 2 bei abgeleiteten Bereichen (R7-8)
   abgestuftLang: mitNotizen(a.abgestuftLang),
+  // Lernweg (R7-9)
+  ohneKanten: mitNotizen(lw.ohneKanten),
+  planOhneThema: mitNotizen(lw.planOhneThema),
+  vieleKanten: mitNotizen(lw.vieleKanten),
+  langeLabels: mitNotizen(lw.langeLabels),
 }
 
 export { ilkay, NOTIZEN, NOTIZEN_LANG, TIERS }
