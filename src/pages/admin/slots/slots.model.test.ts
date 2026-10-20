@@ -7,7 +7,7 @@ import {
 } from './slots.model'
 
 const zelle = (teil: Partial<WocheZelle>): WocheZelle => ({
-  datum: '2028-03-16', zeit_id: 'z16', kapazitaet: 10, belegt: 4, ohne_raum: 0, coach_fehlt: 0, raeume: [], faecher: [], vergangen: false, ...teil,
+  datum: '2028-03-16', zeit_id: 'z16', kapazitaet: 10, belegt: 4, ohne_raum: 0, coach_fehlt: 0, raeume: [], faecher: [], vergangen: false, laeuft: false, ...teil,
 })
 
 describe('Zellzustand (Bauauftrag SL2, Test 1)', () => {
@@ -27,9 +27,9 @@ describe('Zellzustand (Bauauftrag SL2, Test 1)', () => {
   it('Platz-Punkte je geöffnetem Raum', () => {
     const z = zelle({
       raeume: [
-        { raum_id: 'r1', name: 'Raum 1', offen: true, art: 'stamm', coach_id: 'c1', belegt: 5 },
-        { raum_id: 'r2', name: 'Raum 2', offen: false, art: 'faellt_aus', coach_id: null, belegt: 0 },
-        { raum_id: 'r3', name: 'Raum 3', offen: true, art: 'zusatz', coach_id: 'c3', belegt: 2 },
+        { raum_id: 'r1', name: 'Raum 1', offen: true, art: 'stamm', coach_id: 'c1', coach_name: 'Coach 1', belegt: 5 },
+        { raum_id: 'r2', name: 'Raum 2', offen: false, art: 'faellt_aus', coach_id: null, coach_name: null, belegt: 0 },
+        { raum_id: 'r3', name: 'Raum 3', offen: true, art: 'zusatz', coach_id: 'c3', coach_name: 'Coach 3', belegt: 2 },
       ],
     })
     expect(raumBelegung(z)).toEqual([5, 2])
@@ -46,7 +46,8 @@ describe('leere Zeitzeilen fallen zusammen', () => {
       zelle({ zeit_id: 'z19', kapazitaet: 0, belegt: 0, datum: '2028-03-13' }),
       zelle({ zeit_id: 'z19', kapazitaet: 0, belegt: 1, datum: '2028-03-14' }),
     ],
-    kopf: { plaetze: 0, belegt: 0, auslastung: null, ohne_raum: 0, erster_ohne_raum: null, ohne_stammplatz: 0, ohne_stammplatz_laufend: 0 },
+    kopf: { plaetze: 0, belegt: 0, auslastung: null, ohne_raum: 0, erster_ohne_raum: null, ohne_stammplatz: 0, ohne_stammplatz_laufend: 0,
+      belegt_test: 0, auslastung_mit_test: null, ohne_stammplatz_test: 0, raeume_ohne_coach: 0 },
   } satisfies SlotsWoche
   it('nur Uhrzeiten ohne geöffneten Raum und ohne Kind in der ganzen Woche', () => {
     expect([...leereZeiten(woche)]).toEqual(['z14'])

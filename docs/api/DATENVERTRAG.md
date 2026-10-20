@@ -662,7 +662,7 @@ type SchrittDetails =
 ## 10. Slots (Admin, Coach, Eltern; Bauauftrag Slots, Paket SL1)
 
 **Stand:** 2026-10-12 · **Migrationen:** `20261013100318`–`20261013125413` (SL1), `20261013181427`, `20261013183052`
-(SL2b, Testkonten) · **Beweis:**
+(SL2b, Testkonten), `20261020150943` (W1, Stammplatz am Raum, 10.6) · **Beweis:**
 `supabase/tests/slots_kontrollwerte.test.sql`, `slots_abnahme`, `slots_abgleich`, `slots_festschreiben`, `slots_verbrauch`,
 `slots_kalender`, `slots_rechte`, `slots_naechster`, `slots_nachbesserung`, `slots_sl2b` (pgTAP), `tools/slots-parallel-test.sh` · **Typen:**
 `src/types/slotplan.ts` · **Aufrufe:** `src/lib/supabase/slotplan.ts` · **Beispiele mit echtem JSON:**
@@ -832,6 +832,58 @@ dieselbe wie bei `naechster_termin`, den `quest_erzeugen`, `session_kind_kontext
   Pilotvereinbarung ist `paket` = `null`, `laufzeit_monate` = `null` und `rhythmus` = `{ woechentlich: 1,
   vierzehntaeglich: 0 }`. Es entfällt nichts. `slots_vertrag_am`, `slots_kinder_basis` und `slots_kind_zugelassen` sind
   unverändert; ein Pilot greift dort ohne Sonderfall.
+
+### 10.6 W1: Stammplatz am Raum (20.10.2026)
+
+**Migration:** `20261020150943_slots_w1_raum` · **Beweis:** `supabase/tests/slots_w1.test.sql` · **Typen:**
+`src/types/slotplanRaum.ts` (neu), Ergänzungen in `src/types/slotplan.ts` · **Auftrag:**
+`docs/slots/Bauauftrag-Slots-Wochenplan-v2.md`, Abschnitt W1.
+
+- **Stammplatz am Raum.** `stammplaetze.raum_id` (null = Altbestand: das System verteilt je Termin wie bisher). Jede
+  Zeile in `stammplatz_vergeben` braucht `raum_id`; ohne Raum **22023** mit Hinweis `raum_fehlt`. Ebenso
+  `stammplaetze_weiterfuehren` (übernimmt den Raum des Vorgängers). Der Coach ergibt sich aus der Schicht des Raums.
+- **Planung je Raum.** Termine aus einem Stammplatz mit Raum entstehen fest im Raum (`raum_id`, `raum_fest`), nur wenn
+  der Raum an dem Tag offen ist (Coach eingeteilt) und dort weniger als fünf Kinder sitzen; sonst übersprungen
+  (Planbilanz `uebersprungen`), auch wenn ein Nachbarraum frei ist. Ein fester Termin, dessen Raum voll oder ohne
+  Coach ist, bleibt in der Zuteilung **ohne Raum** (`grund` `raum_voll` / `raum_zu`) und landet nie still woanders.
+- **SL001 / SL002 je Raum.** Mit Raum heißt SL002 „dieser Raum hat zu der Zeit keinen Coach“, SL001 „dieser Raum ist
+  voll“ (Stammplatz: einer der nächsten sechs Termine; Zusatztermin: dieser Termin). Ohne Raum gelten sie je Slot wie
+  bisher. S4 ist nicht freigegeben: ein Raum ohne Coach bleibt gesperrt.
+
+| Funktion | Ergebnis | Fehler |
+|---|---|---|
+| `stammplatz_aendern(…, p_raum_id uuid default null)` | wie bisher | ohne `p_raum_id` bleibt der Raum des bisherigen Stammplatzes; ohne beide `raum_fehlt` |
+| `zusatztermin_buchen(…, p_raum_id uuid default null)` | wie bisher | mit Raum: fest im Raum, SL002/SL001 für diesen Raum |
+| `stammplatz_vorschau(p_student_id, p_wochentag, p_slot_zeit_id, p_raum_id, p_takt, p_ab)` | `StammplatzVorschauZeile[]` | 22023 |
+| `slots_kandidaten_alle(p_datum, p_zeit_id, p_raum_id)` | `SlotsKandidatAlle[]` | 22023 |
+| `stammschicht_block_anlegen(p_coach_id, p_wochentag, p_von_zeit_id, p_bis_zeit_id, p_raum_id, p_gueltig_ab default heute)` | `{ stammschicht_ids, stunden }` | SL007, SL009 (Hinweis `raum:HH:MM` / `coach:HH:MM`), 22023 `von_bis`, `kein_coach` |
+| `stammschicht_raum_wechseln(p_ids uuid[], p_raum_id, p_ab, p_kinder_mitnehmen boolean)` | `{ stammschicht_ids, stammplatz_ids, kinder }` | SL007, SL009 (`raum:HH:MM`), 22023 `gleicher_raum`, `raum_inaktiv` |
+
+- **`stammplatz_vorschau`:** sechs Daten (der Wochentag ab `p_ab`, dann wöchentlich) mit `ergebnis` `termin`,
+  `ferien`, `feiertag` (`anlass` = Name), `andere_woche` (Takt), `voll` (fünf Kinder oder Kind der anderen Art),
+  `ohne_coach`, `ohne_budget`. `belegt` = Kinder im Raum ohne dieses Kind, `coach_id`/`coach_name` aus der Schicht.
+  Das Budget rechnet wie die Planung; Stammplätze am selben Wochentag gelten ab `p_ab` als ersetzt.
+- **`slots_kandidaten_alle`:** alle Kinder mit abgeschlossenem Vertrag oder Testkonto (ohne vorläufige), je Kind genau
+  eine Zeile. `code` = null genau dann, wenn `zusatztermin_buchen(…, p_raum_id)` gelingt; sonst ein SL-Code,
+  `kein_vertrag` oder `vertrag_ab` (`datum` = Beginn). `stammplatz_kurz` („Mi 16:00 · A1“) ist nur Text; zum Anzeigen
+  über i18n `stammplaetze` nehmen.
+- **`stammschicht_block_anlegen`:** je aktiver Uhrzeit von–bis eine Zeile in `stammschichten`; erst werden alle
+  Stunden geprüft, dann angelegt (alles oder nichts).
+- **`stammschicht_raum_wechseln`:** beendet die Schichten am Vortag von `p_ab` und legt sie im neuen Raum neu an.
+  Mit `p_kinder_mitnehmen` ziehen die Stammplätze im alten Raum zu genau diesen Zeiten als Nachfolger mit
+  (`vorgaenger_id`), sonst bleiben sie im alten Raum und erscheinen dort ohne Coach.
+- **Erweitert, nichts entfernt:**
+  - `slots_woche.kopf`: `belegt_test`, `auslastung_mit_test`, `ohne_stammplatz_test`, `raeume_ohne_coach`
+    (Raum-Zellen mit Kindern ohne Coach); `belegt`, `auslastung`, `ohne_stammplatz` bleiben ohne Testkonten.
+    `zellen[]`: `laeuft`; `zellen[].raeume[]`: `coach_name`, dazu Räume mit festen Kindern ohne Coach
+    (`offen: false`, `belegt > 0`, `art` `faellt_aus` oder `ohne_schicht`).
+  - `slots_termin`: `laeuft`; Räume mit festen Kindern ohne Coach stehen mit ihren Kindern in `raeume`
+    (nicht zusätzlich in `ohne_raum`).
+  - `slots_tag.raum_termine[]`: `offen`; Räume mit festen Kindern ohne Coach erscheinen (`belegt` zählt sie).
+  - Stammplätze in `slots_kinder`/`slots_kind`: `raum_id`, `raum_name`, `coach_id`, `coach_name` (Schicht am
+    ersten Tag: heute oder gültig ab; null = keine Schicht).
+  - `slots_coaches.coaches[].stammschichten[]`: `kinder` (Kinder mit Stammplatz in diesem Raum zu dieser Zeit).
+  - `slots_planbilanz_vorschau`: `p_zeilen[].raum_id` (mit Raum prüfen `gruende` je Raum).
 
 ## 11. Verträge: Vertragsart Pilotvereinbarung (Admin, Paket V5)
 

@@ -33,6 +33,10 @@ const HINWEIS: Record<string, string> = {
   keine_einheit: 'keineEinheit',
   schon_termin: 'schonTermin',
   datum_session: 'datumSession',
+  // W1: Stammplatz am Raum, Schichten als Block.
+  raum_fehlt: 'raumFehlt',
+  von_bis: 'vonBis',
+  gleicher_raum: 'gleicherRaum',
 }
 
 const SQLSTATE: Record<string, string> = {

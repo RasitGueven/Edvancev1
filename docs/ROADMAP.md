@@ -129,6 +129,11 @@
   ohne Doppelung, Admin-„Heute im Betrieb“ und „Absagen heute“ aus `slots_tag`, Akte mit „Termine planen“ und Planbilanz
   (nur Admin), nächste Session bei Coach und Eltern vor dem Festschreiben. Reine Oberfläche, keine Migration.
   **Offen:** `docs/slots/offene-punkte-sl3.md`.
+- **Slots W1 · Stammplatz am Raum** (Retro `2026-10-20-slots-w1-raum.md`, Branch `feat/rasit-slots-w1-raum`):
+  `stammplaetze.raum_id`, Planung und Prüfung je Raum (SL001/SL002 je Raum), fester Termin bleibt im vollen oder
+  geschlossenen Raum ohne Raum, `stammplatz_vorschau`, `slots_kandidaten_alle`, Schichten als Block und Raumwechsel,
+  Kennzahlen mit Testkonten und Räume ohne Coach im Wochenplan. Grundlage für W2–W4. **Offen:**
+  `docs/slots/offene-punkte-w1.md`.
 - **Session P1 · T5 Coach im Testlauf** (Retro `2026-10-14-session-t5-coach-testlauf.md`, Branch
   `feat/rasit-session-t5-coach-testlauf`): Neuer RPC `skill_pruefung_session` (echt nur freigegeben, im Testlauf jede
   Prüffrage, die `pruefung_aufs_tablet` auflegt, mit `freigegeben`), Live-Sicht liest darüber und zeigt „Entwurf“; der eingeteilte Coach

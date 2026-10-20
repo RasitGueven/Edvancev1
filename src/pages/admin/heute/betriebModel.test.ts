@@ -6,7 +6,7 @@ import { betriebAktion, type BetriebZeile } from './betriebModel'
 
 const termin: TagRaumTermin = {
   zeit_id: 'z15', beginn: '15:00', ende: '16:00', raum_id: 'r1', raum_name: 'Raum A1', coach_id: 'c1', coach_name: 'ZZ_Coach',
-  art: 'stamm', kapazitaet: 5, belegt: 3, session_id: null, gestartet: false, status: null,
+  art: 'stamm', offen: true, kapazitaet: 5, belegt: 3, session_id: null, gestartet: false, status: null,
 }
 const ohneRaum: TagSessionOhneRaum = {
   session_id: 'e1', scheduled_at: '2026-10-15T13:00:00Z', room: null, status: 'upcoming', coach_id: 'c1', coach_name: 'ZZ_Coach',

@@ -19,7 +19,7 @@ const kind = (n: number, teil: Partial<TerminKind> = {}): TerminKind => ({
 function termin(teil: Partial<SlotsTermin> = {}): SlotsTermin {
   return {
     datum: '2028-03-16', kw: 11, zeit: { id: 'z16', beginn: '16:00', ende: '17:00' }, betrieb: true, anlass: null,
-    heute: false, vergangen: false, begonnen: false, festgeschrieben: false, kapazitaet: 5, belegt: 5,
+    heute: false, vergangen: false, begonnen: false, laeuft: false, festgeschrieben: false, kapazitaet: 5, belegt: 5,
     raeume: [
       { raum_id: 'r1', name: 'Raum 1', offen: true, art: 'stamm', coach_id: 'c1', coach_name: 'Tom Berg', stamm_coach_id: 'c1',
         stamm_coach_name: 'Tom Berg', vertretung: false, gemischt: false, session_id: null, gestartet: false,
