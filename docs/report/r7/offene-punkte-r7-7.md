@@ -114,3 +114,8 @@ freie Farben ab.
   unverändert gelassen.
 - `src/lib/reportFehlbilder.ts` und Teile von `src/lib/report/**` haben nach der Löschung womöglich
   keinen Aufrufer mehr. Prüfen im Foundation-Fenster.
+- `src/styles/report.css` enthält weiter die `.report-sheet`-Regeln der Fassung R6. Niemand setzt die
+  Klasse mehr, das ist toter Code. Der Auftrag nannte nur `print.css`, deshalb unverändert gelassen
+  (Fund der Zweitprüfung).
+- Die Pakete kommen asynchron; der Bogen misst nach ihrem Eintreffen nicht neu (Seite 5). Das war mit
+  `?fassung=r7` schon so (Fund der Zweitprüfung).
