@@ -1,2 +1,252 @@
 /* Tablet-Präsentation · Station 01 Überblick · T3. Selektoren unter .tp .tp-s1;
-   Zeiten und Kurven aus den Variablen in rahmen.css. */
+   Zeiten und Kurven aus den Variablen in rahmen.css. Maße aus dem Dummy V7
+   (.overview, .overview-art, .art-label), Farben auf --color-eb-* gerundet. */
+
+.tp .tp-s1 {
+  /* Verzögerungen der Station 01 aus dem Dummy (V6 „human first, then context").
+     rahmen.css führt sie nicht; sie gelten nur hier. */
+  --tp-s1-lead: 755ms;
+  --tp-s1-bild: 1035ms;
+  --tp-s1-notiz: 1385ms;
+  --tp-s1-fuss: 1755ms;
+}
+
+.tp .tp-s1-raster {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: center;
+  align-content: center;
+}
+
+/* ─── Text ─────────────────────────────────────────────────────────────── */
+
+.tp .tp-s1 h1.tp-titel {
+  max-width: 730px;
+}
+
+/* Längere Kopfsätze kleiner, damit sie in höchstens vier Zeilen stehen. */
+.tp .tp-s1 h1.tp-s1-lang {
+  font-size: clamp(38px, 4.2vw, 64px);
+}
+
+.tp .tp-s1 h1.tp-s1-sehr-lang {
+  font-size: clamp(32px, 3.4vw, 52px);
+  line-height: 1.08;
+}
+
+.tp .tp-s1-lead {
+  --tp-verzoegerung: var(--tp-s1-lead);
+  max-width: 640px;
+  margin-top: 27px;
+  color: var(--color-eb-text);
+  font-size: clamp(17px, 1.65vw, 23px);
+  line-height: 1.54;
+}
+
+.tp .tp-s1-notiz {
+  --tp-verzoegerung: var(--tp-s1-notiz);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 4px;
+  margin-top: 40px;
+  color: var(--color-eb-leise);
+  font-size: 12px;
+}
+
+.tp .tp-s1-notiz i {
+  width: 5px;
+  height: 5px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: var(--color-eb-navy);
+}
+
+.tp .tp-s1-notiz span {
+  white-space: nowrap;
+}
+
+.tp .tp-s1-notiz span + span::before {
+  content: '·';
+  margin: 0 .55em;
+  opacity: .5;
+}
+
+.tp .tp-s1-fuss {
+  --tp-verzoegerung: var(--tp-s1-fuss);
+  flex: 0 0 auto;
+}
+
+/* ─── Bild mit Kreisen, Kugel und den zwei Karten ───────────────────────── */
+
+.tp .tp-s1-bild {
+  --tp-verzoegerung: var(--tp-s1-bild);
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+.tp .tp-s1-kreise {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-eb-mint) 55%, transparent);
+}
+
+.tp .tp-s1-bahn {
+  position: absolute;
+  width: 78%;
+  height: 78%;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 50%;
+}
+
+.tp .tp-s1-bahn-aussen {
+  width: 100%;
+  height: 100%;
+  border-color: var(--color-eb-linie-zart);
+}
+
+/* Die Kugel: Verlauf erlaubt (CLAUDE.md §11 „Tablet-Präsentation"). */
+.tp .tp-s1-kugel {
+  position: absolute;
+  width: 35%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 28% 26%,
+    var(--color-tp-kugel-hell) 0%,
+    var(--color-tp-kugel-mitte) 32%,
+    var(--color-tp-kugel-warm) 61%,
+    var(--color-tp-kugel-tief) 100%
+  );
+  box-shadow: 0 12px 45px color-mix(in srgb, var(--color-tp-schein) 20%, transparent);
+}
+
+.tp .tp-s1-karte {
+  position: absolute;
+  z-index: 3;
+  max-width: 168px;
+  padding: 13px 15px;
+  border: 1px solid var(--color-eb-linie-zart);
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--color-eb-weiss) 91%, transparent);
+  box-shadow: 0 8px 26px color-mix(in srgb, var(--color-eb-navy) 8%, transparent);
+}
+
+.tp .tp-s1-karte h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.tp .tp-s1-karte p {
+  color: var(--color-eb-text);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.tp .tp-s1-karte-gelungen {
+  top: 15%;
+  left: -8%;
+}
+
+.tp .tp-s1-karte-gelungen h3 {
+  color: var(--color-eb-sicher-text);
+}
+
+.tp .tp-s1-karte-ueben {
+  right: -10%;
+  bottom: 14%;
+}
+
+.tp .tp-s1-karte-ueben h3 {
+  color: var(--color-eb-uebung-text);
+}
+
+/* ─── Geräte ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp .tp-s1-raster {
+    gap: 28px;
+  }
+
+  .tp .tp-s1-karte-gelungen {
+    left: -2%;
+  }
+
+  .tp .tp-s1-karte-ueben {
+    right: 0;
+  }
+}
+
+/* iPad mini hoch: kein Bild, die Karten stehen unter dem Leitsatz. */
+@media (max-width: 800px) {
+  .tp .tp-s1-raster {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 13px;
+  }
+
+  .tp .tp-s1 h1.tp-titel {
+    font-size: clamp(44px, 7.4vw, 80px);
+  }
+
+  .tp .tp-s1 h1.tp-s1-lang {
+    font-size: clamp(38px, 6.4vw, 64px);
+  }
+
+  .tp .tp-s1 h1.tp-s1-sehr-lang {
+    font-size: clamp(32px, 5.2vw, 52px);
+  }
+
+  .tp .tp-s1-notiz {
+    margin-top: 24px;
+  }
+
+  .tp .tp-s1-bild {
+    max-width: none;
+    aspect-ratio: auto;
+    margin: 18px 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .tp .tp-s1-kreise {
+    display: none;
+  }
+
+  .tp .tp-s1-karte {
+    position: static;
+    max-width: none;
+    padding: 16px 18px;
+  }
+
+  .tp .tp-s1-karte h3 {
+    font-size: 13px;
+  }
+
+  .tp .tp-s1-karte p {
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 720px) {
+  .tp .tp-s1-lead {
+    margin-top: 18px;
+  }
+
+  .tp .tp-s1-notiz {
+    margin-top: 24px;
+  }
+}
