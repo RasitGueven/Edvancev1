@@ -63,7 +63,8 @@ describe('ReportPage — Präsentation', () => {
     const aktionen = knopf.parentElement!
     expect(within(aktionen).getAllByRole('button')[0]).toBe(knopf)
     expect(ebene()).toBeNull()
-    expect(wrapper.listTiers).not.toHaveBeenCalled()
+    // Seit R7-7 braucht auch der Bogen die Pakete: einmal je Seite.
+    await waitFor(() => expect(wrapper.listTiers).toHaveBeenCalledTimes(1))
   })
 
   it('öffnet per Knopf mit ?ansicht=praesentation und lädt die Pakete einmal', async () => {
@@ -95,14 +96,14 @@ describe('ReportPage — Präsentation', () => {
     warn.mockRestore()
   })
 
-  it('lädt bei ?fassung=r7&ansicht=praesentation die Pakete nur einmal; Schließen entfernt nur ?ansicht', async () => {
+  it('lädt bei ?fassung=r7&ansicht=praesentation die Pakete nur einmal; ?fassung entfällt, Schließen entfernt ?ansicht', async () => {
     seite('/admin/report/s1?fassung=r7&ansicht=praesentation')
     await waitFor(() => expect(ebene()?.querySelectorAll('.tp-station')).toHaveLength(4))
     expect(document.querySelector('.eb-bogen')).not.toBeNull()
     expect(wrapper.listTiers).toHaveBeenCalledTimes(1)
 
     fireEvent.click(within(ebene()!).getByRole('button', { name: 'Präsentation schließen' }))
-    expect(screen.getByTestId('ort')).toHaveTextContent(/^\?fassung=r7$/)
+    expect(screen.getByTestId('ort')).toBeEmptyDOMElement()
     expect(ebene()).toBeNull()
     expect(document.querySelector('.eb-bogen')).not.toBeNull()
     expect(document.documentElement).not.toHaveClass('tp-offen')

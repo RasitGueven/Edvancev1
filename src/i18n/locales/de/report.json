@@ -158,5 +158,8 @@
     "team": "das Edvance-Team",
     "frage": "Fragen dazu beantworten wir gern — schreiben Sie an",
     "frageOhneMail": "Fragen dazu beantworten wir gern."
+  },
+  "ansicht": {
+    "seitenleiste": "Seiten des Berichts"
   }
 }

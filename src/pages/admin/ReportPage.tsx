@@ -3,10 +3,9 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { Printer, Mail, Presentation } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { LoadingPulse } from '@/components/edvance'
-import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { Praesentation } from '@/components/edvance/praesentation/Praesentation'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
-import { ReportBody } from '@/components/edvance/report/ReportBody'
+import { BerichtAnsicht } from '@/components/edvance/report/BerichtAnsicht'
 import { ReportOutlook } from '@/components/edvance/report/ReportOutlook'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
@@ -29,27 +28,30 @@ import { TestlaufBanner } from './testmodus/TestlaufBanner'
  * lsa_responses.correct (serverseitig gesetzt); Lösungen erreichen den Client
  * nie.
  *
- * Zwei Fassungen (Bauauftrag R7, Entscheidung 1): ohne Parameter R6, mit
- * ?fassung=r7 der Druckbogen nach Muster E7. Umgestellt wird erst nach der
- * Abnahme; bis dahin schaltet der Knopf in den Aktionen um.
+ * Gezeigt wird der Eltern-Bericht R7 als Druckbogen nach Muster E7, am
+ * Bildschirm eingepasst und mit dem Ausblick daneben (BerichtAnsicht). Die
+ * alte Fassung R6 ist entfallen (Bauauftrag R7-7); ein altes ?fassung in der
+ * URL wird beim Laden entfernt.
  *
  * Mit ?ansicht=praesentation liegt darüber die Tablet-Präsentation als
  * Vollbild (Anforderung Tablet-Präsentation, Entscheidung 1). Schließen
- * entfernt nur diesen Parameter; Report, Ausblick und Fassung bleiben.
+ * entfernt nur diesen Parameter; Report und Ausblick bleiben.
  */
+
+/** So lange nach der letzten Eingabe im Ausblick misst der Bogen neu. */
+const NEU_MESSEN_MS = 400
 export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { t } = useTranslation('report')
-  const { t: tb } = useTranslation('elternbericht')
   const { t: tp } = useTranslation('praesentation')
   const { role } = useAuth()
   const [suche, setSuche] = useSearchParams()
-  const r7 = suche.get('fassung') === 'r7'
   const praesentation = suche.get('ansicht') === 'praesentation'
-  const brauchtPakete = r7 || praesentation
 
   const [data, setData] = useState<ReportData | null>(null)
   const [notes, setNotes] = useState<ReportNotes>(EMPTY_NOTES)
+  // Was der Bogen zeigt: beim Laden sofort, Eingaben im Ausblick entprellt.
+  const [bogenNotes, setBogenNotes] = useState<ReportNotes>(EMPTY_NOTES)
   const [notesUnavailable, setNotesUnavailable] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -73,7 +75,10 @@ export function ReportPage(): JSX.Element {
       if (report.error) setError(report.error)
       else setData(report.data)
 
-      if (storedNotes.data) setNotes(storedNotes.data)
+      if (storedNotes.data) {
+        setNotes(storedNotes.data)
+        setBogenNotes(storedNotes.data)
+      }
       setNotesUnavailable(storedNotes.unavailable)
       setLoading(false)
     })()
@@ -83,9 +88,23 @@ export function ReportPage(): JSX.Element {
     }
   }, [sessionId])
 
-  // R7 (Seite 5) und die Präsentation (Empfehlung) brauchen die Pakete — einmal
-  // je Seite geladen, auch wenn beide Parameter gesetzt sind. Ohne Pakete
-  // entfällt dort nur der Abschnitt bzw. die Empfehlungszeile.
+  // Die Fassung R6 gibt es nicht mehr: ?fassung fällt aus der URL, alle
+  // anderen Parameter bleiben.
+  useEffect(() => {
+    if (!suche.has('fassung')) return
+    setSuche(
+      (alt) => {
+        const neu = new URLSearchParams(alt)
+        neu.delete('fassung')
+        return neu
+      },
+      { replace: true },
+    )
+  }, [suche, setSuche])
+
+  // Der Bogen (Seite 5) und die Präsentation (Empfehlung) brauchen die Pakete —
+  // einmal je Seite geladen. Ohne Pakete entfällt dort nur der Abschnitt bzw.
+  // die Empfehlungszeile.
   const angefragt = useRef(false)
   const gemountet = useRef(true)
   useEffect(() => {
@@ -95,7 +114,7 @@ export function ReportPage(): JSX.Element {
     }
   }, [])
   useEffect(() => {
-    if (!brauchtPakete || angefragt.current) return
+    if (angefragt.current) return
     angefragt.current = true
     setPakete('laedt')
     void listTiers().then((res) => {
@@ -103,7 +122,25 @@ export function ReportPage(): JSX.Element {
       setTiers(res.data ?? [])
       setPakete(res.error ? 'fehler' : 'da')
     })
-  }, [brauchtPakete])
+  }, [])
+
+  // Neu messen, wenn sich der Inhalt ändert (Entscheidung 5): Erst 400 ms nach
+  // der letzten Eingabe bekommt der Bogen die Notizen und damit einen neuen
+  // key — so flackert er nicht bei jedem Tastendruck.
+  const entprellung = useRef<number>()
+  useEffect(() => () => window.clearTimeout(entprellung.current), [])
+  const aendereNotes = useCallback((next: ReportNotes) => {
+    setNotes(next)
+    setSaved(false)
+    window.clearTimeout(entprellung.current)
+    entprellung.current = window.setTimeout(() => setBogenNotes(next), NEU_MESSEN_MS)
+  }, [])
+  const bogenKey = JSON.stringify([
+    sessionId,
+    bogenNotes.zielbild,
+    bogenNotes.empfehlung,
+    bogenNotes.paket,
+  ])
 
   const setzeAnsicht = useCallback(
     (an: boolean) =>
@@ -139,13 +176,6 @@ export function ReportPage(): JSX.Element {
         <Presentation className="mr-2 h-4 w-4" />
         {tp('einstieg.knopf')}
       </Button>
-      <Button
-        type="button"
-        variant="secondary"
-        onClick={() => setSuche(r7 ? {} : { fassung: 'r7' }, { replace: true })}
-      >
-        {tb(r7 ? 'fassung.zuR6' : 'fassung.zuR7')}
-      </Button>
       <Button type="button" variant="secondary" onClick={() => window.print()}>
         <Printer className="mr-2 h-4 w-4" />
         {t('actions.print')}
@@ -164,43 +194,13 @@ export function ReportPage(): JSX.Element {
     <ReportOutlook
       name={name}
       notes={notes}
-      onChange={(next) => {
-        setNotes(next)
-        setSaved(false)
-      }}
+      onChange={aendereNotes}
       onSave={() => void handleSave()}
       saving={saving}
       saved={saved}
       unavailable={notesUnavailable}
       nurLesen={role !== 'admin'}
     />
-  )
-
-  const inhalt = (
-    <>
-      {error && (
-        <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-error-gap-light)] p-3 text-sm text-[var(--color-error-gap)]">
-          {error}
-        </p>
-      )}
-
-      {loading ? (
-        <LoadingPulse type="card" lines={5} />
-      ) : (
-        data && (
-          <>
-            {data.status === 'in_progress' && (
-              <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-gold-warning-light)] p-3 text-sm text-[var(--color-gold-warning)]">
-                {t('page.notFinished', { name })}
-              </p>
-            )}
-            {data.testlauf && <TestlaufBanner />}
-            <ReportBody data={data} />
-            {ausblick}
-          </>
-        )
-      )}
-    </>
   )
 
   const kopf = (
@@ -227,47 +227,40 @@ export function ReportPage(): JSX.Element {
     />
   )
 
-  // R7: eigener Wrapper, nicht .report-sheet — dessen Druckregeln gelten für R6.
-  // Am Bildschirm Hinweise und Ausblick, auf Papier nur der Bogen.
-  if (r7) {
-    return (
-      <div className="eb-ansicht flex flex-col gap-6">
-        {kopf}
-        {error && (
-          <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-error-gap-light)] p-3 text-sm text-[var(--color-error-gap)]">
-            {error}
-          </p>
-        )}
-        {loading ? (
-          <LoadingPulse type="card" lines={5} />
-        ) : (
-          data && (
-            <>
-              {data.status === 'in_progress' && (
-                <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-gold-warning-light)] p-3 text-sm text-[var(--color-gold-warning)]">
-                  {t('page.notFinished', { name })}
-                </p>
-              )}
-              {data.testlauf && (
-                <div className="print-hide">
-                  <TestlaufBanner />
-                </div>
-              )}
-              <ElternberichtBogen data={data} notes={notes} tiers={tiers} />
-              <div className="print-hide @4xl:max-w-3xl">{ausblick}</div>
-            </>
-          )
-        )}
-        {ebene}
-      </div>
-    )
-  }
-
-  // Ein Dokument: Lesebreite wie das Druckblatt, links im Inhaltsbereich.
+  // Am Bildschirm Hinweise, Leiste und Ausblick, auf Papier nur der Bogen.
   return (
-    <div className="report-sheet flex flex-col gap-6 @4xl:max-w-3xl">
+    <div className="eb-ansicht flex flex-col gap-6">
       {kopf}
-      {inhalt}
+      {error && (
+        <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-error-gap-light)] p-3 text-sm text-[var(--color-error-gap)]">
+          {error}
+        </p>
+      )}
+      {loading ? (
+        <LoadingPulse type="card" lines={5} />
+      ) : (
+        data && (
+          <>
+            {data.status === 'in_progress' && (
+              <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-gold-warning-light)] p-3 text-sm text-[var(--color-gold-warning)]">
+                {t('page.notFinished', { name })}
+              </p>
+            )}
+            {data.testlauf && (
+              <div className="print-hide">
+                <TestlaufBanner />
+              </div>
+            )}
+            <BerichtAnsicht
+              data={data}
+              notes={bogenNotes}
+              tiers={tiers}
+              bogenKey={bogenKey}
+              ausblick={ausblick}
+            />
+          </>
+        )
+      )}
       {ebene}
     </div>
   )
