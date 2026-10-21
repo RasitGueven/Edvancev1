@@ -4,7 +4,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import i18n from '@/i18n'
 import type { PruefAenderung } from '@/types'
-import { ADMIN_HINWEISE, AUSLASS_GRUENDE, adminFehler, auslassText, nachGrund, uebersetze } from './adminTexte'
+import { ADMIN_HINWEISE, AUSLASS_GRUENDE, GATE_SCHLUESSEL, adminFehler, auslassText, gateUebersetzung, nachGrund, uebersetze } from './adminTexte'
 import { herkunftVon } from './herkunft'
 import {
   leseReihe, naechste, neueReihe, position, reiheDerUebersprungenen, reiheFuer, speichereReihe, vergissReihe,
@@ -105,6 +105,16 @@ describe('Uebersetzung der Auslass-Gruende und HINTs', () => {
     expect(uebersetze(t, auslassText({ grund: 'unbekannt', text: 'kaputt' }))).toBe('Fehler: kaputt')
     expect(adminFehler({ code: 'P0001', hint: null, message: 'task_status_set: Stoffanker fehlt' })).toEqual({ text: 'Stoffanker fehlt' })
     expect(uebersetze(t, auslassText({ grund: 'befund', text: 'task_status_set: Cluster fehlt' }))).toBe('Befund vor der Freigabe: Cluster fehlt')
+  })
+
+  it('uebersetzt die festen Gate-Schluessel des Prozent-Gates', () => {
+    for (const k of GATE_SCHLUESSEL) expect(i18n.exists(`pruefenAdmin:gate.${k}`), k).toBe(true)
+    expect(uebersetze(t, gateUebersetzung('task_status_set: prozentzahl_ohne_zeichen'))).toBe('Prozentzahl ohne %-Zeichen als richtig hinterlegt (z. B. „60“ statt „60 %“)')
+    expect(uebersetze(t, adminFehler({ code: 'P0001', hint: null, message: 'task_status_set: prozent_ohne_marker' })!))
+      .toBe('Das Antwortfeld zeigt ein %-Zeichen, die Antwort ist aber nicht als Prozentangabe hinterlegt')
+    expect(uebersetze(t, auslassText({ grund: 'befund', text: 'task_status_set: prozentzahl_ohne_zeichen' })))
+      .toBe('Befund vor der Freigabe: Prozentzahl ohne %-Zeichen als richtig hinterlegt (z. B. „60“ statt „60 %“)')
+    expect(gateUebersetzung('task_status_set: Cluster fehlt')).toEqual({ text: 'Cluster fehlt' })
   })
 
   it('gruppiert Ausgelassene nach Grund', () => {

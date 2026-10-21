@@ -23,7 +23,7 @@ const ZIEL: Record<string, EditorAbschnitt> = {
   stemMissing: 'aufgabe', titleMissing: 'aufgabe', stemFieldLabel: 'aufgabe', inputTypeMissing: 'aufgabe',
   mcOptionsMissing: 'aufgabe', partsOnFlatItem: 'aufgabe', partsTooFew: 'aufgabe', partNrDuplicate: 'aufgabe',
   partPromptMissing: 'aufgabe', partMcOptionsMissing: 'aufgabe', estDurationMissing: 'aufgabe',
-  solutionMissing: 'antwort', solutionTextMissing: 'antwort', typicalErrorsMissing: 'antwort', partSolutionMissing: 'antwort',
+  solutionMissing: 'antwort', prozentOhneMarker: 'antwort', prozentzahlOhneZeichen: 'antwort', solutionTextMissing: 'antwort', typicalErrorsMissing: 'antwort', partSolutionMissing: 'antwort',
   clusterMissing: 'einordnung', afbMissing: 'einordnung', competencyMissing: 'einordnung', partAfbMissing: 'einordnung',
   partCompetencyMissing: 'einordnung',
   stoffankerMissing: 'stoffanker', stoffankerNoField: 'stoffanker',

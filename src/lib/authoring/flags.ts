@@ -20,6 +20,7 @@ import type {
   TaskSolution,
 } from '@/types'
 import { istVera8 } from './vera8'
+import { prozentBefund } from './prozentGate'
 
 /** Markdown-GFM-Tabelle im Stamm: eine Zeile, die mit | beginnt und endet. */
 export function hasTable(question: string | null): boolean {
@@ -123,6 +124,9 @@ export function computeFlags(
     if (task.input_type === 'MC' && optionsOf(task.question_payload).length < 2) {
       flags.push(flag('mcOptionsMissing', true))
     }
+    // Spiegel des Prozent-Gates (prozent_gate_fehler): „%“ am Feld ohne Marker, Prozentzahl ohne Zeichen.
+    const prozent = prozentBefund(task.unit, solution.acceptance, answers)
+    if (prozent) flags.push(flag(prozent, true))
   }
   if (isBlank(solution.solution)) flags.push(flag('solutionTextMissing', false))
   if (solution.typical_errors.length === 0) flags.push(flag('typicalErrorsMissing', false))

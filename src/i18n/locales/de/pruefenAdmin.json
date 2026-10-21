@@ -22,7 +22,8 @@
     "nicht_gefunden": "Aufgabe nicht gefunden",
     "fehler": "Fehler: {{text}}",
     "nicht_freigegeben": "nicht freigegeben, Hinweise kommen mit der Freigabe",
-    "keine_hinweise_offen": "keine ungeprüften Hinweise"
+    "keine_hinweise_offen": "keine ungeprüften Hinweise",
+    "befundSchluessel": "Befund vor der Freigabe: {{grund}}"
   },
   "fehler": {
     "erst_an_lena": "Erst überarbeiten, dann zurück an Lena. Freigeben geht hier nicht.",
@@ -304,5 +305,9 @@
     "offen_other": "{{count}} Hinweise sind ungeprüft. Das Kind bekommt sie erst nach der Bestätigung.",
     "bestaetigt": "Hinweise bestätigt: {{titel}}",
     "mitFreigabe": "Mit der Freigabe gelten alle Hinweise als geprüft."
+  },
+  "gate": {
+    "prozent_ohne_marker": "Das Antwortfeld zeigt ein %-Zeichen, die Antwort ist aber nicht als Prozentangabe hinterlegt",
+    "prozentzahl_ohne_zeichen": "Prozentzahl ohne %-Zeichen als richtig hinterlegt (z. B. „60“ statt „60 %“)"
   }
 }
