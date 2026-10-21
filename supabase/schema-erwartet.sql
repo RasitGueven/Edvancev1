@@ -3282,7 +3282,7 @@ CREATE FUNCTION public.freigabe_gate_fehler(p_task_id uuid) RETURNS text
     LANGUAGE plpgsql STABLE
     SET search_path TO 'public', 'pg_temp'
     AS $$
-declare v public.tasks%rowtype;
+declare v public.tasks%rowtype; v_prozent text;
 begin
   select * into v from public.tasks where id = p_task_id;
   if not found then return null; end if;
@@ -3296,6 +3296,9 @@ begin
                     and public.lsa_has_answers(v.input_type, v.parts, s.correct_answers)) then
     return 'task_status_set: Loesung unvollstaendig';
   end if;
+  select public.prozent_gate_fehler(v.unit, s.acceptance, s.correct_answers) into v_prozent
+    from public.task_solutions s where s.task_id = p_task_id;
+  if v_prozent is not null then return 'task_status_set: ' || v_prozent; end if;
   return null;
 end $$;
 
@@ -4675,6 +4678,89 @@ $_$;
 
 
 --
+-- Name: lsa_antwort_korrekt(text, text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_antwort_korrekt(p_input_type text, p_input_hint text, p_correct_answers jsonb, p_response jsonb) RETURNS boolean
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare
+  v_term boolean := p_input_type = 'TERM' or (p_input_hint = 'term' and p_input_type is distinct from 'MC');
+  v_text text;
+begin
+  -- 1. Der bisherige Vergleich. Was hier trifft, bleibt ein Treffer.
+  if coalesce(public.lsa_is_correct(case when v_term then 'TERM' else p_input_type end,
+                                    p_correct_answers, p_response), false) then
+    return true;
+  end if;
+  if p_input_type = 'MC' or jsonb_typeof(p_response) is distinct from 'object'
+     or jsonb_typeof(p_correct_answers) is distinct from 'array' then
+    return false;
+  end if;
+  v_text := coalesce(p_response ->> 'text', p_response ->> 'value');
+  if v_text is null or btrim(v_text) = '' then
+    return false;
+  end if;
+  -- Ab hier nur zusätzliche Treffer: ein Fehler heisst „kein Treffer“, nie Abbruch der Abgabe.
+  begin
+    -- 3. Term: kanonische Form ax+b.
+    if v_term then
+      return exists (select 1 from jsonb_array_elements_text(p_correct_answers) l(x)
+                      where public.lsa_term_kanonisch(l.x) = public.lsa_term_kanonisch(v_text));
+    end if;
+    -- 2. Bruch: nach Wert.
+    if p_input_hint = 'fraction' then
+      return public.lsa_bruch_wert_gleich(v_text, p_correct_answers);
+    end if;
+    return false;
+  exception
+    when others then
+      return false;
+  end;
+end;
+$$;
+
+
+--
+-- Name: lsa_bruch_wert_gleich(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_bruch_wert_gleich(p_antwort text, p_loesungen jsonb) RETURNS boolean
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare
+  v_a numeric[];
+begin
+  v_a := public.lsa_bruch_zahl(p_antwort);
+  if v_a is null or jsonb_typeof(p_loesungen) is distinct from 'array' then
+    return false;
+  end if;
+  return exists (
+    select 1
+      from jsonb_array_elements_text(p_loesungen) l(x)
+     cross join lateral (select public.lsa_bruch_zahl(l.x) as b) y
+     where y.b is not null and v_a[1] * y.b[2] = y.b[1] * v_a[2]);
+exception
+  when others then
+    return false;
+end;
+$$;
+
+
+--
+-- Name: lsa_bruch_zahl(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_bruch_zahl(p_raw text) RETURNS numeric[]
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  select case when v ~ '^-?[0-9]+/[0-9]+$' or v ~ '^-?[0-9]+(\.[0-9]+)?$'
+              then public.lsa_parse_fraction(v) end
+    from (select regexp_replace(public.lsa_normalize_number(p_raw), '[[:space:]]*/[[:space:]]*', '/', 'g') as v) x
+$_$;
+
+
+--
 -- Name: lsa_confirm_focus(uuid, uuid[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4756,6 +4842,28 @@ CREATE FUNCTION public.lsa_darf_starten(p_student_id uuid) RETURNS boolean
     AS $$
   select coalesce(public.get_my_role(), '') = 'admin'
       or public.coach_hat_platz(p_student_id)
+$$;
+
+
+--
+-- Name: lsa_eingabeformat_eindeutig(text, boolean, text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_eingabeformat_eindeutig(p_input_type text, p_bruch boolean, p_unit text, p_parts jsonb, p_answers jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case
+    when p_input_type = 'MC' then true
+    when p_input_type = 'MULTI_PART' then not exists (
+      select 1
+        from jsonb_array_elements(case when jsonb_typeof(p_parts) = 'array' then p_parts else '[]'::jsonb end) e(p)
+       where p ->> 'kind' = 'short_input'
+         and public.lsa_teil_input_hint(p,
+               case when jsonb_typeof(p_answers) = 'object'
+                     and jsonb_typeof(p_answers -> (p ->> 'nr')) = 'array'
+                    then p_answers -> (p ->> 'nr') end) is null)
+    else public.lsa_input_hint(p_input_type, p_bruch, p_answers, p_unit) is not null
+  end
 $$;
 
 
@@ -5175,6 +5283,24 @@ $$;
 
 
 --
+-- Name: lsa_format_vorschlag(jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_format_vorschlag(p_answers jsonb, p_unit text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  select case
+    when jsonb_typeof(p_answers) is distinct from 'array' then null
+    when jsonb_array_length(p_answers) = 0 then null
+    when not exists (select 1 from jsonb_array_elements_text(p_answers) a
+                      where btrim(a) !~ '^-?\d+/\d+$') then 'fraction'
+    when not exists (select 1 from jsonb_array_elements_text(p_answers) a
+                      where not public.lsa_loesung_ist_zahl(a, p_unit)) then 'number'
+  end
+$_$;
+
+
+--
 -- Name: lsa_grade(text, jsonb, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5348,6 +5474,34 @@ $$;
 
 
 --
+-- Name: lsa_grade(text, jsonb, jsonb, jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_grade(p_input_type text, p_acceptance jsonb, p_correct_answers jsonb, p_response jsonb, p_input_hint text) RETURNS text
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare
+  v_res text := public.lsa_grade(p_input_type, p_acceptance, p_correct_answers, p_response);
+begin
+  if v_res is distinct from 'nicht' or p_input_type = 'MC'
+     or p_input_hint is null or p_input_hint not in ('fraction', 'term') then
+    return v_res;
+  end if;
+  if not public.lsa_antwort_korrekt(p_input_type, p_input_hint, p_correct_answers, p_response) then
+    return v_res;
+  end if;
+  if p_input_hint = 'fraction'
+     and jsonb_typeof(p_acceptance) = 'object' and p_acceptance ? 'canonical'
+     and coalesce((p_acceptance ->> 'require_reduced')::boolean, false)
+     and not coalesce(public.lsa_is_reduced(coalesce(p_response ->> 'text', p_response ->> 'value')), false) then
+    return 'teilweise';
+  end if;
+  return 'voll';
+end;
+$$;
+
+
+--
 -- Name: lsa_has_answers(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5421,10 +5575,29 @@ CREATE FUNCTION public.lsa_im_pool(p_task_id uuid, p_testlauf boolean DEFAULT fa
        and 'lsa' = any (t.einsatz)
        and exists (select 1 from public.task_solutions s
                     where s.task_id = t.id
-                      and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers))
+                      and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
+                      -- LSA-Erlebnis L1: ohne eindeutiges Eingabeformat nicht in den Pool.
+                      and public.lsa_eingabeformat_eindeutig(t.input_type, t.bruch, t.unit, t.parts, s.correct_answers))
        and (t.status = 'ready'
             or (coalesce(p_testlauf, false) and public.testlauf_inhalt_sichtbar(t.id)))
   )
+$$;
+
+
+--
+-- Name: lsa_input_hint(text, boolean, jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_input_hint(p_input_type text, p_bruch boolean, p_answers jsonb, p_unit text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case
+    when p_input_type in ('MC', 'MULTI_PART') then null
+    when p_input_type = 'TERM' then 'term'
+    when p_bruch then 'fraction'
+    when not p_bruch then 'number'
+    else public.lsa_format_vorschlag(p_answers, p_unit)
+  end
 $$;
 
 
@@ -5594,6 +5767,24 @@ CREATE FUNCTION public.lsa_lead_von_schueler(p_student_id uuid) RETURNS uuid
       limit 1)
   )
 $$;
+
+
+--
+-- Name: lsa_loesung_ist_zahl(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_loesung_ist_zahl(p_loesung text, p_unit text) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  select case
+    when m is null then false
+    when btrim(m[2]) = '' then true
+    else coalesce(btrim(p_unit), '') <> ''
+         and replace(btrim(m[2]), ' ', '') = replace(lower(btrim(p_unit)), ' ', '')
+  end
+    from (select regexp_match(public.lsa_normalize_number(p_loesung),
+                              '^(-?(?:[0-9]{1,3}(?: [0-9]{3})+|[0-9]+)(?:\.[0-9]+)?)(.*)$') as m) x
+$_$;
 
 
 --
@@ -5899,6 +6090,17 @@ $$;
 CREATE FUNCTION public.lsa_public_parts(p_parts jsonb) RETURNS jsonb
     LANGUAGE sql IMMUTABLE
     AS $$
+  select public.lsa_public_parts(p_parts, null::jsonb)
+$$;
+
+
+--
+-- Name: lsa_public_parts(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_public_parts(p_parts jsonb, p_answers jsonb) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    AS $$
   select coalesce((
     select jsonb_agg(
              jsonb_strip_nulls(jsonb_build_object(
@@ -5906,6 +6108,10 @@ CREATE FUNCTION public.lsa_public_parts(p_parts jsonb) RETURNS jsonb
                'kind',   p ->> 'kind',
                'prompt', p ->> 'prompt',
                'unit',   p ->> 'unit',
+               'input_hint', public.lsa_teil_input_hint(p,
+                   case when jsonb_typeof(p_answers) = 'object'
+                         and jsonb_typeof(p_answers -> (p ->> 'nr')) = 'array'
+                        then p_answers -> (p ->> 'nr') end),
                'table',  public.lsa_public_table(p -> 'table'),
                'options', case when p ->> 'kind' = 'mc' then coalesce((
                    select jsonb_agg(
@@ -5983,7 +6189,7 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
         'stem',    coalesce(t.question, ''),
         'assets',  public.lsa_task_assets(t.id),
         'table',   public.lsa_public_table(t.question_payload -> 'table'),
-        'parts',   public.lsa_public_parts(t.parts)
+        'parts',   public.lsa_public_parts(t.parts, s.correct_answers)
       )
       when t.input_type = 'MC' then jsonb_build_object(
         'task_id', t.id,
@@ -6006,16 +6212,18 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
         ), '[]'::jsonb)
       )
       else jsonb_build_object(
-        'task_id', t.id,
-        'kind',    'short_input',
-        'prompt',  coalesce(t.question, ''),
-        'assets',  public.lsa_task_assets(t.id),
-        'table',   public.lsa_public_table(t.question_payload -> 'table'),
-        'unit',    t.unit
+        'task_id',    t.id,
+        'kind',       'short_input',
+        'prompt',     coalesce(t.question, ''),
+        'assets',     public.lsa_task_assets(t.id),
+        'table',      public.lsa_public_table(t.question_payload -> 'table'),
+        'unit',       t.unit,
+        'input_hint', public.lsa_input_hint(t.input_type, t.bruch, s.correct_answers, t.unit)
       )
     end
   )
   from tasks t
+  left join task_solutions s on s.task_id = t.id
   where t.id = p_task_id
 $$;
 
@@ -6083,7 +6291,8 @@ begin
   -- T4: dieselbe Regel ueber lsa_testinhalte (Testlauf oder Testkonto).
   v_pool := public.lsa_testinhalte(p_session_id);
 
-  v_beginn := coalesce(v_sess.started_at, v_sess.created_at);
+  -- L1: Diagnosezeit ab „Los geht’s“ (platz_los), sonst wie bisher ab lsa_start.
+  v_beginn := coalesce(v_sess.diagnose_ab, v_sess.started_at, v_sess.created_at);
   if p_jetzt > v_beginn + interval '19 minutes' then
     return null;
   end if;
@@ -6655,10 +6864,12 @@ begin
     insert into lsa_responses (session_id, task_id, part_nr, response, abgabeart, correct, duration_ms)
     select p_session_id, p_task_id, (p ->> 'nr')::int, p_response -> (p ->> 'nr'), teil.art,
            case when teil.art = 'antwort'
-                then coalesce(public.lsa_is_correct(
-                       case when p ->> 'kind' = 'mc' then 'MC' else 'SHORT_TEXT' end,
-                       case when jsonb_typeof(v_answers -> (p ->> 'nr')) = 'array'
-                            then v_answers -> (p ->> 'nr') else '[]'::jsonb end,
+                -- L1: Eingabeformat je Teil (Bruch nach Wert, Term kanonisch; Teil mit input_type TERM wie TERM).
+                then coalesce(public.lsa_antwort_korrekt(
+                       case when p ->> 'kind' = 'mc' then 'MC'
+                            when p ->> 'input_type' = 'TERM' then 'TERM' else 'SHORT_TEXT' end,
+                       public.lsa_teil_input_hint(p, teil.loesungen),
+                       teil.loesungen,
                        public.lsa_part_answer(p ->> 'kind', p_response -> (p ->> 'nr'))
                      ), false)
                 else null end,
@@ -6669,15 +6880,21 @@ begin
                     else public.lsa_abgabeart(
                            case when p ->> 'kind' = 'mc' then 'MC' else 'SHORT_TEXT' end,
                            public.lsa_part_answer(p ->> 'kind', p_response -> (p ->> 'nr')))
-               end as art
+               end as art,
+               case when jsonb_typeof(v_answers -> (p ->> 'nr')) = 'array'
+                    then v_answers -> (p ->> 'nr') else '[]'::jsonb end as loesungen
       ) teil
     on conflict (session_id, task_id, coalesce(part_nr, 0)) do nothing;
   else
     insert into lsa_responses (session_id, task_id, part_nr, response, abgabeart, correct, duration_ms)
     values (
       p_session_id, p_task_id, null, p_response, v_art,
+      -- L1: Eingabeformat der Aufgabe (Bruch nach Wert, Term kanonisch).
       case when v_art = 'antwort'
-           then coalesce(public.lsa_is_correct(v_task.input_type, v_answers, p_response), false)
+           then coalesce(public.lsa_antwort_korrekt(
+                  v_task.input_type,
+                  public.lsa_input_hint(v_task.input_type, v_task.bruch, v_answers, v_task.unit),
+                  v_answers, p_response), false)
            else null end,
       p_duration_ms
     )
@@ -6771,10 +6988,13 @@ CREATE FUNCTION public.lsa_task_assets(p_task_id uuid) RETURNS jsonb
 
     union all
 
-    -- Generierte Abbildung (dunkel), Typ bekannt. Hinten einsortiert.
+    -- Generierte Abbildung, Typ bekannt. Hinten einsortiert.
+    -- L1: url bleibt dunkel (Navy-Flaechen); hell zusaetzlich als url_hell fuer die Creme-Flaeche.
     select jsonb_build_object(
              'url', public.lsa_storage_base()
                     || 'generiert/' || f.task_id::text || '/' || f.generator || '-dunkel.svg',
+             'url_hell', public.lsa_storage_base()
+                    || 'generiert/' || f.task_id::text || '/' || f.generator || '-hell.svg',
              'alt', f.alt_text,
              'content_type', 'image/svg+xml'
            ) as item,
@@ -6782,6 +7002,24 @@ CREATE FUNCTION public.lsa_task_assets(p_task_id uuid) RETURNS jsonb
       from task_figures f
      where f.task_id = p_task_id and f.svg_hash is not null
   ) s
+$$;
+
+
+--
+-- Name: lsa_teil_input_hint(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_teil_input_hint(p_part jsonb, p_answers jsonb) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case
+    when p_part ->> 'kind' is distinct from 'short_input' then null
+    else public.lsa_input_hint(
+           coalesce(p_part ->> 'input_type', 'SHORT_TEXT'),
+           case when jsonb_typeof(p_part -> 'bruch') = 'boolean' then (p_part ->> 'bruch')::boolean end,
+           p_answers,
+           p_part ->> 'unit')
+  end
 $$;
 
 
@@ -6818,6 +7056,60 @@ begin
   return new;
 end;
 $$;
+
+
+--
+-- Name: lsa_term_kanonisch(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_term_kanonisch(p_raw text) RETURNS text
+    LANGUAGE plpgsql IMMUTABLE
+    AS $_$
+declare
+  z  constant text := '[0-9]+(?:\.[0-9]+)?';
+  v  text;
+  v2 text;
+  m  text[];
+  a  numeric;
+  b  numeric;
+begin
+  if p_raw is null then
+    return null;
+  end if;
+  -- Minuszeichen vereinheitlichen, jedes Komma zum Punkt, Malzeichen nur zwischen Ziffer und x
+  -- („3·x“ → „3x“; „2·3“ bleibt, wie es ist).
+  v := replace(translate(public.lsa_normalize_term(p_raw), chr(8722) || chr(8211) || chr(8212), '---'), ',', '.');
+  v := regexp_replace(v, '([0-9])[*' || chr(183) || chr(8901) || ']x', '\1x', 'g');
+  loop
+    v2 := replace(replace(replace(replace(v, '+-', '-'), '-+', '-'), '--', '+'), '++', '+');
+    exit when v2 = v;
+    v := v2;
+  end loop;
+
+  m := regexp_match(v, '^([+-]?)(' || z || ')?x([+-]' || z || ')?$');          -- ax+b
+  if m is not null then
+    a := (case when m[1] = '-' then -1 else 1 end) * coalesce(m[2]::numeric, 1);
+    b := coalesce(m[3]::numeric, 0);
+  else
+    m := regexp_match(v, '^([+-]?' || z || ')(?:([+-])(' || z || ')?x)?$');      -- b oder b+ax
+    if m is null then
+      return v;
+    end if;
+    b := m[1]::numeric;
+    a := case when m[2] is null then 0
+              else (case when m[2] = '-' then -1 else 1 end) * coalesce(m[3]::numeric, 1) end;
+  end if;
+
+  if a = 0 then
+    return trim_scale(b)::text;
+  end if;
+  return case when a = 1 then '' when a = -1 then '-' else trim_scale(a)::text end || 'x'
+      || case when b > 0 then '+' || trim_scale(b)::text when b < 0 then trim_scale(b)::text else '' end;
+exception
+  when others then
+    return v;
+end;
+$_$;
 
 
 --
@@ -7101,7 +7393,9 @@ begin
       v_res := case when coalesce(v_resp.correct, false) then 'voll' else 'nicht' end;
     else
       -- NUMERIC/TERM: die dreistufige Bewertung.
-      select public.lsa_grade(v_task.input_type, s.acceptance, s.correct_answers, v_resp.response)
+      -- L1: mit Eingabeformat (Bruch nach Wert, Term kanonisch), wie correct in lsa_submit.
+      select public.lsa_grade(v_task.input_type, s.acceptance, s.correct_answers, v_resp.response,
+                              public.lsa_input_hint(v_task.input_type, v_task.bruch, s.correct_answers, v_task.unit))
         into v_res
         from task_solutions s where s.task_id = p_task_id;
       v_res := coalesce(v_res, 'nicht');
@@ -8039,6 +8333,45 @@ $$;
 
 
 --
+-- Name: platz_los(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.platz_los(p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_a       platz_assignments;
+  v_session lsa_sessions;
+begin
+  if not exists (select 1 from platz_devices where profile_id = auth.uid()) then
+    raise exception 'platz_los: kein Platz-Konto' using errcode = '42501';
+  end if;
+
+  v_a := public.platz_current_assignment();
+  if v_a.id is null then
+    raise exception 'platz_los: keine aktive Zuweisung' using errcode = '42501';
+  end if;
+
+  select * into v_session from lsa_sessions where id = v_a.session_id;
+  if not found or v_session.status <> 'in_progress' then
+    raise exception 'platz_los: keine aktive Session' using errcode = '42501';
+  end if;
+
+  -- Einmalig: ein Neuladen nach „Los geht’s“ verschiebt den Beginn nicht. Nie in der Zukunft (das hielte
+  -- das Fenster beliebig offen) und nie vor dem Start der Sitzung.
+  update lsa_sessions
+     set diagnose_ab = greatest(coalesce(v_session.started_at, v_session.created_at),
+                                least(coalesce(p_jetzt, now()), now()))
+   where id = v_session.id and diagnose_ab is null;
+
+  -- Wie platz_avatar_set: exakt {ok:true}.
+  return jsonb_build_object('ok', true);
+end;
+$$;
+
+
+--
 -- Name: platz_next(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8163,10 +8496,13 @@ begin
     -- KEIN progress: die Aufgabenzahl ist adaptiv und darf dem Kind nie
     -- gezeigt werden. Der Fortschritt kommt allein aus der Zeit (expires_at).
     return jsonb_build_object(
-      'status',     'zugewiesen',
-      'first_name', v_first_name,
-      'expires_at', v_a.expires_at,
-      'testlauf',   v_session.testlauf
+      'status',      'zugewiesen',
+      'first_name',  v_first_name,
+      'expires_at',  v_a.expires_at,
+      'testlauf',    v_session.testlauf,
+      -- L1: Avatar und Diagnosebeginn (Neuladen).
+      'avatar',      v_session.avatar_choice,
+      'diagnose_ab', v_session.diagnose_ab
     );
   end if;
 
@@ -8180,7 +8516,10 @@ begin
                     'answered', v_answered,
                     'total',    coalesce(array_length(v_session.item_ids, 1), 0)),
     'expires_at', v_a.expires_at,
-    'testlauf',   v_session.testlauf
+    'testlauf',   v_session.testlauf,
+    -- L1: Avatar und Diagnosebeginn (Neuladen).
+    'avatar',      v_session.avatar_choice,
+    'diagnose_ab', v_session.diagnose_ab
   );
 end;
 $$;
@@ -8272,6 +8611,45 @@ CREATE FUNCTION public.profil_fuer_coach_sichtbar(p_profile_id uuid) RETURNS boo
                 and exists (select 1 from public.students s
                              where s.profile_id = p.id and public.akte_aktiv(s.id))))
   );
+$$;
+
+
+--
+-- Name: prozent_gate_fehler(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.prozent_gate_fehler(p_unit text, p_acceptance jsonb, p_correct_answers jsonb) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  -- Nur Aufgaben mit flacher Wertungsregel (acceptance mit canonical) werden geprüft. Ohne Regel wertet lsa_grade
+  -- über lsa_is_correct, also über den exakten Vergleich mit correct_answers; der Prozent-Faktor wirkt dort nicht,
+  -- und ein Marker ginge nur über eine neue Regel, die den Bewertungsweg ändert. Deshalb sind solche Aufgaben
+  -- ausgenommen, auch mit „%“ am Feld (z. B. d350fb95, VERA8, ready). Entscheidung Rasit, 21.10.2026.
+  with r as (
+    select p_acceptance as acc,
+           public.lsa_parse_fraction(p_acceptance ->> 'canonical') as cf,
+           lower(coalesce(btrim((public.lsa_split_value_unit(p_acceptance ->> 'canonical'))[2]), '')) as cu
+     where jsonb_typeof(p_acceptance) = 'object' and p_acceptance ? 'canonical'
+       and (p_acceptance ->> 'unit') is distinct from '%'
+  )
+  select case
+    when btrim(coalesce(p_unit, '')) = '%' then 'prozent_ohne_marker'
+    when exists (
+      select 1
+        from (select x from jsonb_array_elements_text(
+                case when jsonb_typeof(p_correct_answers) = 'array' then p_correct_answers else '[]' end) x
+              union
+              select x from jsonb_array_elements_text(
+                case when jsonb_typeof(r.acc -> 'equivalents') = 'array' then r.acc -> 'equivalents' else '[]' end) x) w,
+             lateral (select public.lsa_parse_fraction(w.x) as xf,
+                             coalesce(btrim((public.lsa_split_value_unit(w.x))[2]), '') as xu) p
+       where r.cf is not null and r.cf[1] <> 0 and r.cu in ('', '%', 'prozent')
+         and p.xu = '' and p.xf is not null
+         and p.xf[1] * r.cf[2] * (case when r.cu in ('%', 'prozent') then 100 else 1 end) = 100 * r.cf[1] * p.xf[2])
+      then 'prozentzahl_ohne_zeichen'
+  end
+  from r
 $$;
 
 
@@ -8576,6 +8954,7 @@ CREATE TABLE public.tasks (
     pruef_version bigint DEFAULT 1 NOT NULL,
     pruef_pilot boolean DEFAULT false NOT NULL,
     einsatz text[] DEFAULT '{lsa,session}'::text[] NOT NULL,
+    bruch boolean,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
@@ -19762,6 +20141,7 @@ CREATE TABLE public.lsa_sessions (
     uebernommen_am timestamp with time zone,
     thema_key text,
     testlauf boolean DEFAULT false NOT NULL,
+    diagnose_ab timestamp with time zone,
     CONSTRAINT lsa_sessions_avatar_choice_form CHECK (((avatar_choice IS NULL) OR (((length(avatar_choice) >= 1) AND (length(avatar_choice) <= 40)) AND (avatar_choice = btrim(avatar_choice))))),
     CONSTRAINT lsa_sessions_grade_check CHECK (((grade >= 5) AND (grade <= 13))),
     CONSTRAINT lsa_sessions_modus_check CHECK ((modus = ANY (ARRAY['fest'::text, 'adaptiv'::text]))),
