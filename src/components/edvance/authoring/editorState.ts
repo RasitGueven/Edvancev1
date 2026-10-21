@@ -53,6 +53,11 @@ export type FormState = {
    */
   needs_image: boolean | null
   /**
+   * Bruch-Angabe eines flachen short_input-Items (LSA-Erlebnis L1): true Bruch, false Zahl, null =
+   * Vorschlag aus den Loesungen. Bei Multi-Part steht sie je Teil in `parts[i].bruch`.
+   */
+  bruch: boolean | null
+  /**
    * Der einblendbare Attributionstext (CC BY 4.0 / TASL, A09). Leerstring = kein
    * Text. Der Wizard befuellt ihn vor, sobald ein Bild zugewiesen und das Feld
    * leer ist (buildAttribution); ueberschreibbar. Einer je Aufgabe, nicht je
@@ -135,6 +140,7 @@ export function fromTask(task: AuthoringTask, solution: TaskSolution): FormState
     parts: task.parts.map((p) => ({ ...p })),
     assets: task.assets.map((a) => ({ ...a })),
     needs_image: task.needs_image ?? null,
+    bruch: task.bruch ?? null,
     licence_text: task.licence_text ?? '',
     mcOptions: optionsFromPayload(task.question_payload),
     table: tableFromPayload(task.question_payload),
@@ -183,6 +189,8 @@ export function toPatch(state: FormState): AuthoringTaskPatch {
     assets: state.assets.filter((a) => a.url.trim() !== ''),
     // Didaktik-Beurteilung des Stamms. null = nicht beurteilt bleibt null.
     needs_image: state.needs_image,
+    // Bruch-Angabe nur, wo es ein Eingabefeld gibt (kein MC, kein Multi-Part, kein Term).
+    bruch: multi || state.input_type === 'MC' || state.input_type === 'TERM' ? null : state.bruch,
     // Kein Text = NULL, nicht Leerstring: „noch nichts gepflegt" ist ein
     // Fehlen, kein leerer Inhalt (A09).
     licence_text: nullIfBlank(state.licence_text),
@@ -227,6 +235,12 @@ export function normalizeParts(parts: TaskPart[]): TaskPart[] {
     if (part.needs_image === true || part.needs_image === false) {
       clean.needs_image = part.needs_image
     }
+    // Bruch-Angabe (LSA-Erlebnis L1) wie needs_image: nur eine echte Angabe, fehlt = Vorschlag.
+    // input_type 'TERM' erhalten — der Editor setzt es nicht, darf es aber nicht verlieren.
+    if (part.kind === 'short_input' && part.input_type !== 'TERM' && (part.bruch === true || part.bruch === false)) {
+      clean.bruch = part.bruch
+    }
+    if (part.kind === 'short_input' && part.input_type === 'TERM') clean.input_type = 'TERM'
     return clean
   })
 }

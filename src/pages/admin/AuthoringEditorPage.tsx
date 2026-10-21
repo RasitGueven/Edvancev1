@@ -287,13 +287,14 @@ export function AuthoringEditorPage(): JSX.Element {
                   parts={state.parts}
                   partAnswers={state.partAnswers}
                   competencies={competencies}
+                  mitBruch={schema.hasBruch}
                   onParts={(next) => set('parts', next)}
                   onPartAnswers={(next) => set('partAnswers', next)}
                 />
               </Section>
             ) : (
               <Section title={t('sections.answer')} collapsible anker="antwort">
-                <AnswerSection state={state} set={set} />
+                <AnswerSection state={state} set={set} mitBruch={schema.hasBruch} />
               </Section>
             )}
 

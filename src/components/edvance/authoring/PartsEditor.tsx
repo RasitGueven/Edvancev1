@@ -17,6 +17,7 @@ import { SELECT_SM, TEXTAREA_MD } from '@/lib/formStyles'
 import type { Afb, PartKind, PartOption, TaskPart } from '@/types'
 import { AddButton, Field, IconButton, StringList } from './ui'
 import { AFB_VALUES } from './editorState'
+import { BruchControl } from './BruchControl'
 
 const KINDS: PartKind[] = ['short_input', 'mc']
 
@@ -30,6 +31,7 @@ function PartCard({
   total,
   answers,
   competencies,
+  mitBruch,
   onChange,
   onAnswers,
   onMove,
@@ -40,6 +42,7 @@ function PartCard({
   total: number
   answers: string[]
   competencies: string[]
+  mitBruch: boolean
   onChange: (next: TaskPart) => void
   onAnswers: (next: string[]) => void
   onMove: (dir: -1 | 1) => void
@@ -133,6 +136,16 @@ function PartCard({
         />
       </Field>
 
+      {mitBruch && part.kind === 'short_input' && part.input_type !== 'TERM' && (
+        <BruchControl
+          feld={`parts.${part.nr}.bruch`}
+          value={part.bruch ?? null}
+          answers={answers}
+          unit={part.unit}
+          onChange={(next) => set('bruch', next)}
+        />
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label={t('fields.afb')} feld={`parts.${part.nr}.afb`}>
           <select
@@ -171,12 +184,15 @@ export function PartsEditor({
   parts,
   partAnswers,
   competencies,
+  mitBruch = false,
   onParts,
   onPartAnswers,
 }: {
   parts: TaskPart[]
   partAnswers: Record<string, string[]>
   competencies: string[]
+  /** tasks.bruch vorhanden (LSA-Erlebnis L1) — sonst kein Feld „Bruch“ je Teil. */
+  mitBruch?: boolean
   onParts: (next: TaskPart[]) => void
   onPartAnswers: (next: Record<string, string[]>) => void
 }): JSX.Element {
@@ -225,6 +241,7 @@ export function PartsEditor({
           total={parts.length}
           answers={partAnswers[String(part.nr)] ?? []}
           competencies={competencies}
+          mitBruch={mitBruch}
           onChange={(next) => onParts(parts.map((p, j) => (j === i ? next : p)))}
           onAnswers={(next) =>
             onPartAnswers({ ...partAnswers, [String(part.nr)]: next })

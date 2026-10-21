@@ -12,7 +12,7 @@ import { leseReihe } from '@/lib/pruefung/reihe'
 import type { AuthoringTask } from '@/types'
 
 vi.mock('@/lib/supabase/taskAuthoring', () => ({
-  probeAuthoringSchema: vi.fn().mockResolvedValue({ hasStoffanker: true, hasSolutionRead: true, hasStatusGate: true, hasVorbefuellt: true }),
+  probeAuthoringSchema: vi.fn().mockResolvedValue({ hasStoffanker: true, hasSolutionRead: true, hasStatusGate: true, hasVorbefuellt: true, hasBruch: true }),
   listAuthoringTasks: vi.fn(),
   listClustersWithSubject: vi.fn().mockResolvedValue({ data: [], error: null }),
   listReviewMeta: vi.fn(() => Promise.resolve(new Map())),

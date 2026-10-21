@@ -275,6 +275,15 @@
     "leer": "Bewusst leer: {{grund}}",
     "aria": "{{art}} – noch nicht bestätigt: {{grund}}"
   },
+  "bruch": {
+    "label": "Bruch",
+    "auto": "Automatisch",
+    "yes": "Bruch",
+    "no": "Zahl",
+    "auto_fraction": "Automatisch aus den Lösungen: Bruch – das Kind bekommt die Bruchmaske.",
+    "auto_number": "Automatisch aus den Lösungen: Zahl – das Kind bekommt die Zifferntastatur.",
+    "auto_offen": "Nicht eindeutig (gemischte Schreibweisen, Text oder eine Einheit, die das Feld nicht zeigt): Bitte „Bruch“ oder „Zahl“ wählen, sonst kommt die Aufgabe nicht in die LSA."
+  },
   "needsImage": {
     "title": "Bild-Notwendigkeit",
     "hint": "Didaktik, nicht Technik: Braucht die Aufgabe inhaltlich eine Abbildung? Getrennt vom Bild-Zustand darunter — hier zählt nur der Inhalt, nicht ob schon ein Bild da ist. Eine Fachentscheidung, kein Automatismus.",

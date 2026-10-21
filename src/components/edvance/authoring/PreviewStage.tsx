@@ -16,7 +16,8 @@
 // Rahmen und Schrift bleiben flach (Coach-Sprache), geteilt wird nur der Inhalt.
 //
 // FIGUREN WIE AUF DEM TABLET: Das Payload liefert die -dunkel.svg (lsa_task_assets) —
-// cremefarbene Linien fuer den Nachthimmel. In der weissen Karte waren sie kaum zu
+// cremefarbene Linien fuer den Nachthimmel. (Die helle Fassung fuer die Creme-Flaeche steht seit
+// LSA-Erlebnis L1 zusaetzlich als url_hell im Asset; diese Buehne ist dunkel und bleibt bei url.) In der weissen Karte waren sie kaum zu
 // sehen, und max-h-72 hielt ein Koordinatensystem auf Briefmarkengroesse. Die Figur
 // steht deshalb wie in `Buehne` (edvance-app) ohne Karte direkt auf der dunklen
 // Buehne, ueber dem Text, in voller Spaltenbreite; die Hoehe folgt aus dem

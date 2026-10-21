@@ -13,6 +13,13 @@
 // Degraded-Modus — deshalb probeAuthoringSchema(): wir raten nicht, wir fragen.
 
 import { supabase } from '@/lib/supabase/client'
+import {
+  A01_COLUMNS,
+  BRUCH_COLUMNS,
+  PREFILL_COLUMNS,
+  columnsFor,
+  ohneFehlendeSpalten,
+} from '@/lib/supabase/taskAuthoringSpalten'
 import type {
   AuthoringSchema,
   AuthoringTask,
@@ -32,35 +39,6 @@ const COL_MISSING = '42703'
 
 const NIL_UUID = '00000000-0000-0000-0000-000000000000'
 
-const BASE_COLUMNS = [
-  'id',
-  'title',
-  'question',
-  'status',
-  'input_type',
-  'afb',
-  'competency_content',
-  'competency_process',
-  'cluster_id',
-  'unit',
-  'skill_key',
-  'est_duration_sec',
-  'class_level',
-  'parts',
-  'assets',
-  'needs_image',
-  'licence_text',
-  'question_payload',
-  'source',
-  'source_ref',
-  'is_active',
-  'created_at',
-].join(',')
-
-const A01_COLUMNS = 'curriculum_grade,reviewed_by,reviewed_at'
-/** Vorbefuellt-Kennzeichen (20260930140000_tasks_vorbefuellt). */
-const PREFILL_COLUMNS = 'vorbefuellt,vorbefuellt_am'
-
 let schemaCache: AuthoringSchema | null = null
 
 /**
@@ -72,9 +50,10 @@ let schemaCache: AuthoringSchema | null = null
 export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
   if (schemaCache) return schemaCache
 
-  const [cols, prefill, solRead, gate] = await Promise.all([
+  const [cols, prefill, bruch, solRead, gate] = await Promise.all([
     supabase.from('tasks').select(`id,${A01_COLUMNS}`).limit(1),
     supabase.from('tasks').select(`id,${PREFILL_COLUMNS}`).limit(1),
+    supabase.from('tasks').select(`id,${BRUCH_COLUMNS}`).limit(1),
     supabase.rpc('task_solution_get', { p_task_id: NIL_UUID }),
     // NIL_UUID existiert nie → die RPC laeuft in "nicht gefunden" (P0002) und
     // schreibt nichts. Uns interessiert nur, ob sie ueberhaupt da ist.
@@ -86,6 +65,7 @@ export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
     hasSolutionRead: solRead.error?.code !== FN_MISSING,
     hasStatusGate: gate.error?.code !== FN_MISSING,
     hasVorbefuellt: prefill.error?.code !== COL_MISSING,
+    hasBruch: bruch.error?.code !== COL_MISSING,
   }
   return schemaCache
 }
@@ -93,12 +73,6 @@ export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
 /** Nur fuer Tests — der Cache ueberlebt sonst den Rollenwechsel nicht sauber. */
 export function resetAuthoringSchemaCache(): void {
   schemaCache = null
-}
-
-function columnsFor(schema: AuthoringSchema): string {
-  return [BASE_COLUMNS, schema.hasStoffanker && A01_COLUMNS, schema.hasVorbefuellt && PREFILL_COLUMNS]
-    .filter(Boolean)
-    .join(',')
 }
 
 // ── tasks lesen ─────────────────────────────────────────────────────────────
@@ -190,8 +164,7 @@ export async function updateAuthoringTask(
   try {
     const schema = await probeAuthoringSchema()
     const payload: Record<string, unknown> = { ...patch }
-    if (!schema.hasStoffanker) delete payload.curriculum_grade
-    if (!schema.hasVorbefuellt) delete payload.vorbefuellt
+    ohneFehlendeSpalten(payload, schema)
 
     const { data, error } = await supabase
       .from('tasks')

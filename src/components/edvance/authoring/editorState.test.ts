@@ -217,3 +217,38 @@ describe('toSolution — typical_errors[].fehlbild (Lena-Board, Entscheidung 23)
     ])
   })
 })
+
+// LSA-Erlebnis L1: Die Bruch-Angabe bestimmt das Eingabeformat beim Kind. Speichern darf sie weder
+// verlieren (Aufgabe und Teil) noch an Aufgaben ohne Eingabefeld schreiben.
+describe('toPatch — Bruch-Angabe (LSA-Erlebnis L1)', () => {
+  it('schreibt tasks.bruch bei flachen Eingabe-Items, null bleibt null', () => {
+    expect(toPatch(fromTask(task({ input_type: 'NUMERIC', bruch: true }), solution)).bruch).toBe(true)
+    expect(toPatch(fromTask(task({ input_type: 'NUMERIC', bruch: false }), solution)).bruch).toBe(false)
+    expect(toPatch(fromTask(task({ input_type: 'NUMERIC' }), solution)).bruch).toBeNull()
+  })
+
+  it('MC und TERM haben keine Bruch-Angabe', () => {
+    expect(toPatch(fromTask(task({ input_type: 'MC', bruch: true }), solution)).bruch).toBeNull()
+    expect(toPatch(fromTask(task({ input_type: 'TERM', bruch: true }), solution)).bruch).toBeNull()
+  })
+
+  it('erhaelt parts[].bruch und parts[].input_type, fehlende Angabe bleibt fehlend', () => {
+    const state = fromTask(
+      task({
+        input_type: 'MULTI_PART',
+        est_duration_sec: 300,
+        parts: [
+          { nr: 1, kind: 'short_input', prompt: 'a', bruch: true },
+          { nr: 2, kind: 'short_input', prompt: 'b' },
+          { nr: 3, kind: 'short_input', prompt: 'c', input_type: 'TERM' },
+        ],
+      }),
+      solution,
+    )
+    const parts = toPatch(state).parts ?? []
+    expect(parts[0].bruch).toBe(true)
+    expect('bruch' in parts[1]).toBe(false)
+    expect(parts[2].input_type).toBe('TERM')
+    expect('bruch' in parts[2]).toBe(false)
+  })
+})
