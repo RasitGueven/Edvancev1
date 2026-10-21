@@ -5197,6 +5197,9 @@ declare
   v_reduced   boolean;
   v_hit       boolean := false;
   v_unit_ok   boolean := false;
+  v_pct_satz  boolean;
+  v_frac      numeric[];
+  v_g_cmp     text;
 begin
   -- MC: unveraendert binaer, ueber die bestehende Mengengleichheit.
   if p_input_type = 'MC' then
@@ -5251,6 +5254,9 @@ begin
       ''));
     v_req_unit := lower(v_req_unit);
 
+    -- Die Antwort ist selbst ein Prozentsatz: nur, wenn acceptance.unit ausdruecklich '%' ist.
+    v_pct_satz := btrim(coalesce(v_rule ->> 'unit', '')) = '%';
+
     -- Kandidaten: die kanonische Antwort und ihre Aequivalente. Reihenfolge
     -- zaehlt — der erste Treffer MIT passender Einheit gewinnt.
     for v_cand in
@@ -5280,10 +5286,23 @@ begin
 
       if v_g_num <> '' and v_c_num <> ''
          and public.lsa_is_unit(v_g_unit) and public.lsa_is_unit(v_c_unit) then
+        -- Prozent ist ein Faktor: 0,48 % ist nicht 0,48. Steht % (oder „Prozent“) nur auf einer
+        -- Seite und die andere hat keine Einheit, rechnet die Eingabe in die Skala des Kandidaten um.
+        v_g_cmp := v_g_num;
+        if not v_pct_satz and (lower(v_g_unit) in ('%', 'prozent')) <> (v_c_unit in ('%', 'prozent'))
+           and (v_g_unit = '' or v_c_unit = '') then
+          v_frac := public.lsa_parse_fraction(v_g_num);
+          if v_frac is null then
+            continue;
+          end if;
+          v_g_cmp := case when v_c_unit in ('%', 'prozent')
+                          then (v_frac[1] * 100)::text || '/' || v_frac[2]::text
+                          else v_frac[1]::text || '/' || (v_frac[2] * 100)::text end;
+        end if;
         -- Zahlen: mathematisch vergleichen. NUR wenn der Rest auf beiden Seiten
         -- plausibel eine Einheit ist — sonst waere "5x+9" gegen "5x+4" ein
         -- Treffer auf der 5 (Befund 1).
-        if not public.lsa_values_equal(v_g_num, v_c_num, v_tol) then
+        if not public.lsa_values_equal(v_g_cmp, v_c_num, v_tol) then
           continue;
         end if;
       else
@@ -8901,11 +8920,13 @@ CREATE FUNCTION public.pruef_einheit(p_acceptance jsonb, p_ca jsonb) RETURNS tex
     LANGUAGE sql IMMUTABLE
     AS $$
   select coalesce(nullif(btrim(p_acceptance ->> 'unit'), ''),
-                  public.pruef_einheit_von(p_acceptance ->> 'canonical'),
-                  (select public.pruef_einheit_von(x) from jsonb_array_elements_text(
-                     case when jsonb_typeof(p_ca) = 'array' then p_ca else '[]' end)
-                     with ordinality e(x, i)
-                    where public.pruef_einheit_von(x) is not null order by i limit 1))
+                  (select case when lower(btrim(z.u)) in ('%', 'prozent') then null else z.u end
+                     from (select coalesce(
+                             public.pruef_einheit_von(p_acceptance ->> 'canonical'),
+                             (select public.pruef_einheit_von(x) from jsonb_array_elements_text(
+                                case when jsonb_typeof(p_ca) = 'array' then p_ca else '[]' end)
+                                with ordinality e(x, i)
+                               where public.pruef_einheit_von(x) is not null order by i limit 1)) as u) z))
 $$;
 
 
