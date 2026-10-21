@@ -7,7 +7,7 @@
 --
 
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -3282,7 +3282,7 @@ CREATE FUNCTION public.freigabe_gate_fehler(p_task_id uuid) RETURNS text
     LANGUAGE plpgsql STABLE
     SET search_path TO 'public', 'pg_temp'
     AS $$
-declare v public.tasks%rowtype;
+declare v public.tasks%rowtype; v_prozent text;
 begin
   select * into v from public.tasks where id = p_task_id;
   if not found then return null; end if;
@@ -3296,6 +3296,9 @@ begin
                     and public.lsa_has_answers(v.input_type, v.parts, s.correct_answers)) then
     return 'task_status_set: Loesung unvollstaendig';
   end if;
+  select public.prozent_gate_fehler(v.unit, s.acceptance, s.correct_answers) into v_prozent
+    from public.task_solutions s where s.task_id = p_task_id;
+  if v_prozent is not null then return 'task_status_set: ' || v_prozent; end if;
   return null;
 end $$;
 
@@ -8272,6 +8275,41 @@ CREATE FUNCTION public.profil_fuer_coach_sichtbar(p_profile_id uuid) RETURNS boo
                 and exists (select 1 from public.students s
                              where s.profile_id = p.id and public.akte_aktiv(s.id))))
   );
+$$;
+
+
+--
+-- Name: prozent_gate_fehler(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.prozent_gate_fehler(p_unit text, p_acceptance jsonb, p_correct_answers jsonb) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with r as (
+    select p_acceptance as acc,
+           public.lsa_parse_fraction(p_acceptance ->> 'canonical') as cf,
+           lower(coalesce(btrim((public.lsa_split_value_unit(p_acceptance ->> 'canonical'))[2]), '')) as cu
+     where jsonb_typeof(p_acceptance) = 'object' and p_acceptance ? 'canonical'
+       and (p_acceptance ->> 'unit') is distinct from '%'
+  )
+  select case
+    when btrim(coalesce(p_unit, '')) = '%' then 'prozent_ohne_marker'
+    when exists (
+      select 1
+        from (select x from jsonb_array_elements_text(
+                case when jsonb_typeof(p_correct_answers) = 'array' then p_correct_answers else '[]' end) x
+              union
+              select x from jsonb_array_elements_text(
+                case when jsonb_typeof(r.acc -> 'equivalents') = 'array' then r.acc -> 'equivalents' else '[]' end) x) w,
+             lateral (select public.lsa_parse_fraction(w.x) as xf,
+                             coalesce(btrim((public.lsa_split_value_unit(w.x))[2]), '') as xu) p
+       where r.cf is not null and r.cf[1] <> 0 and r.cu in ('', '%', 'prozent')
+         and p.xu = '' and p.xf is not null
+         and p.xf[1] * r.cf[2] * (case when r.cu in ('%', 'prozent') then 100 else 1 end) = 100 * r.cf[1] * p.xf[2])
+      then 'prozentzahl_ohne_zeichen'
+  end
+  from r
 $$;
 
 

@@ -266,6 +266,36 @@ describe('computeFlags — MULTI_PART', () => {
   })
 })
 
+describe('computeFlags — Prozent-Gate (Spiegel von prozent_gate_fehler)', () => {
+  const wahrscheinlichkeit = (ca: string[], eq: string[], canonical = '3/5'): TaskSolution =>
+    sol({ correct_answers: ca, acceptance: { canonical, equivalents: eq } })
+
+  it('sperrt die Prozentzahl ohne Zeichen in correct_answers und equivalents', () => {
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['3/5', '0,6', '60 %', '60'], []))).toContain('prozentzahlOhneZeichen')
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['3/5'], ['60']))).toContain('prozentzahlOhneZeichen')
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['20 %', '0,2', '20'], [], '20 %'))).toContain('prozentzahlOhneZeichen')
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['0,488', '48,8'], [], '0,488'))).toContain('prozentzahlOhneZeichen')
+  })
+
+  it('laesst richtige Schreibweisen, andere Einheiten und den Wert 0 frei', () => {
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['3/5', '0,6', '60 %', '60%', '60/100'], []))).toEqual([])
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['0,5 m', '50'], [], '0,5 m'))).toEqual([])
+    expect(codes(task({ unit: null }), wahrscheinlichkeit(['0'], [], '0'))).toEqual([])
+  })
+
+  it('sperrt Prozent am Feld ohne Marker, nicht die Zinsaufgabe mit Marker', () => {
+    expect(codes(task({ unit: '%' }), sol({ correct_answers: ['3', '3 %'], acceptance: { canonical: '3', equivalents: ['3 %'] } })))
+      .toContain('prozentOhneMarker')
+    expect(codes(task({ unit: '%' }), sol({ correct_answers: ['3', '300'], acceptance: { canonical: '3', unit: '%' } }))).toEqual([])
+    expect(codes(task({ unit: '%' }), sol({ correct_answers: ['10'], acceptance: null }))).toEqual([])
+  })
+
+  it('markiert beide Prozent-Befunde als blockierend', () => {
+    const f = computeFlags(task({ unit: null }), wahrscheinlichkeit(['3/5', '60'], []), true)
+    expect(blockingFlags(f).map((x) => x.code)).toEqual(['prozentzahlOhneZeichen'])
+  })
+})
+
 describe('hasTable', () => {
   it('erkennt eine GFM-Tabelle im Stamm', () => {
     expect(hasTable('Text\n\n| a | b |\n| --- | --- |\n| 1 | 2 |')).toBe(true)

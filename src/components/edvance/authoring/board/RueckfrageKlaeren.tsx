@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { gateUebersetzung, uebersetze } from '@/lib/pruefung/adminTexte'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { pruefRueckfrageKlaeren } from '@/lib/supabase/pruefung'
 import { GRUENDE } from '@/components/edvance/pruefen/Entscheidungsleiste'
@@ -44,7 +45,7 @@ export function RueckfrageKlaeren({ taskId, onReload }: { taskId: string; onRelo
     setMeldung(null)
     const res = await pruefRueckfrageKlaeren(taskId, aktion, antwort, aktion === 'zurueckweisen' ? gruende : undefined)
     setBusy(false)
-    if (res.error) return setMeldung(res.error.code === 'P0001' ? res.error.message : tp(fehlerSchluessel(res.error) ?? 'fehlermeldung.allgemein'))
+    if (res.error) return setMeldung(res.error.code === 'P0001' ? uebersetze(t, gateUebersetzung(res.error.message)) : tp(fehlerSchluessel(res.error) ?? 'fehlermeldung.allgemein'))
     onReload()
   }
 

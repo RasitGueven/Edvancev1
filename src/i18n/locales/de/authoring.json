@@ -223,7 +223,9 @@
     "partSolutionMissing": "Teilaufgabe {{nr}}: keine Lösung. Bei Multi-Part braucht jede Teilaufgabe eine.",
     "assetAltMissing": "Bild {{index}}: kein Alt-Text.",
     "licenceMissing": "Bild ohne Lizenz-/Quellenangabe.",
-    "estDurationMissing": "Kein Zeitbudget gesetzt."
+    "estDurationMissing": "Kein Zeitbudget gesetzt.",
+    "prozentOhneMarker": "Das Antwortfeld zeigt ein %-Zeichen, die Antwort ist aber nicht als Prozentangabe hinterlegt.",
+    "prozentzahlOhneZeichen": "Prozentzahl ohne %-Zeichen als richtig hinterlegt (z. B. „60“ statt „60 %“)."
   },
   "release": {
     "current": "Aktueller Status",

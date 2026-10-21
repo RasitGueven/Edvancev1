@@ -22,6 +22,17 @@ const MIT_AUSSCHLUSS = new Set(['nicht_bei_lena', 'schon_ausgeschlossen', 'nicht
 /** Der Gate-Text ohne den Funktionsnamen davor („task_status_set: Stoffanker … fehlt“ → „Stoffanker … fehlt“). */
 export const gateText = (text: string): string => text.replace(/^task_status_set:\s*/, '')
 
+/** Gate-Befunde, die als fester Schluessel kommen (Migration 20261021081417) — uebersetzt ueber pruefenAdmin:gate.*. */
+export const GATE_SCHLUESSEL = ['prozent_ohne_marker', 'prozentzahl_ohne_zeichen'] as const
+
+const istGateSchluessel = (k: string): boolean => (GATE_SCHLUESSEL as readonly string[]).includes(k)
+
+/** Ein Gate-Befund als Uebersetzung: feste Schluessel ueber i18n, die uebrigen Gate-Texte wie geliefert. */
+export function gateUebersetzung(text: string): Uebersetzung {
+  const k = gateText(text)
+  return istGateSchluessel(k) ? { key: `pruefenAdmin:gate.${k}` } : { text: k }
+}
+
 /** Ein i18n-Schluessel (mit Namespace) samt Werten; grundKey wird vorher uebersetzt und als {{grund}} eingesetzt. */
 export type Uebersetzung = { key: string; werte?: Record<string, string>; grundKey?: string } | { text: string }
 
@@ -42,7 +53,7 @@ export function adminFehler(err: PruefFehlerInfo | null): Uebersetzung | null {
   if (err.code === 'ED422' && (ADMIN_HINWEISE as readonly string[]).includes(err.hint ?? '')) {
     return { key: `pruefenAdmin:fehler.${err.hint}` }
   }
-  if (err.code === 'P0001') return { text: gateText(err.message) }
+  if (err.code === 'P0001') return gateUebersetzung(err.message)
   return { key: `pruefen:${fehlerSchluessel(err) ?? 'fehlermeldung.allgemein'}` }
 }
 
@@ -52,6 +63,9 @@ export function auslassText(a: Pick<SammelAusgelassen, 'grund' | 'text'>): Ueber
   if ((AUSLASS_GRUENDE as readonly string[]).includes(g)) {
     if (MIT_AUSSCHLUSS.has(g)) {
       return { key: `pruefenAdmin:ausgelassen.${g}`, grundKey: `authoring:lena.ausschluss.${a.text ?? ''}` }
+    }
+    if (g === 'befund' && istGateSchluessel(gateText(a.text ?? ''))) {
+      return { key: 'pruefenAdmin:ausgelassen.befundSchluessel', grundKey: `pruefenAdmin:gate.${gateText(a.text ?? '')}` }
     }
     return { key: `pruefenAdmin:ausgelassen.${g}`, werte: { text: gateText(a.text ?? '') } }
   }
