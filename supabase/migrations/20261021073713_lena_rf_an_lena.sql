@@ -31,7 +31,7 @@ begin
     select v.task_id, v.antwort
       from (values
         ('54f5e1df-adc9-4fa3-b9c1-c15301c29cbe'::uuid,
-         'Danke dir, du hast völlig recht: 0,48 % und 12/25 % sind nicht dasselbe wie 48 %. Wir haben das so umgestellt, dass bei Prozent nur noch 48 % zählt. Auch 48 ohne Prozentzeichen zählt nicht mehr, denn das wäre 48 und nicht 0,48. Denselben Fehler haben wir bei der Münz-Aufgabe (50 %) gefunden und mitkorrigiert. Wenn Rot und Blau vertauscht werden, kommt hier immer dasselbe Ergebnis heraus: In jedem Weg werden dieselben zwei Zahlen malgenommen, nur in anderer Reihenfolge. Deshalb können wir diesen Fehler an der Antwort leider nicht erkennen. Zu deinem zweiten Beispiel: Welches Endergebnis würde ein Kind da typischerweise eintippen, wenn es die Gesamtzahl übersieht? Dann nehmen wir es als typischen Fehler auf.')
+         'Danke dir, du hast völlig recht: 0,48 % und 12/25 % sind nicht dasselbe wie 48 %. Wir haben das so umgestellt, dass bei Prozent nur noch 48 % zählt (12/25 und 0,48 sind natürlich weiter richtig). Auch 48 ohne Prozentzeichen zählt nicht mehr, denn das wäre 48 und nicht 0,48. Denselben Fehler haben wir bei der Münz-Aufgabe (50 %) gefunden und mitkorrigiert. Wenn Rot und Blau vertauscht werden, kommt hier immer dasselbe Ergebnis heraus: In jedem Weg werden dieselben zwei Zahlen malgenommen, nur in anderer Reihenfolge. Deshalb können wir diesen Fehler an der Antwort leider nicht erkennen. Zu deinem zweiten Beispiel: Welches Endergebnis würde ein Kind da typischerweise eintippen, wenn es die Gesamtzahl übersieht? Dann nehmen wir es als typischen Fehler auf.')
       ) v(task_id, antwort)
       join public.tasks t on t.id = v.task_id
      where t.status = 'rueckfrage'
