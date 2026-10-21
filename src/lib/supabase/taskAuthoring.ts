@@ -13,6 +13,13 @@
 // Degraded-Modus — deshalb probeAuthoringSchema(): wir raten nicht, wir fragen.
 
 import { supabase } from '@/lib/supabase/client'
+import {
+  A01_COLUMNS,
+  BRUCH_COLUMNS,
+  PREFILL_COLUMNS,
+  columnsFor,
+  ohneFehlendeSpalten,
+} from '@/lib/supabase/taskAuthoringSpalten'
 import type {
   AuthoringSchema,
   AuthoringTask,
@@ -31,37 +38,6 @@ const FN_MISSING = 'PGRST202'
 const COL_MISSING = '42703'
 
 const NIL_UUID = '00000000-0000-0000-0000-000000000000'
-
-const BASE_COLUMNS = [
-  'id',
-  'title',
-  'question',
-  'status',
-  'input_type',
-  'afb',
-  'competency_content',
-  'competency_process',
-  'cluster_id',
-  'unit',
-  'skill_key',
-  'est_duration_sec',
-  'class_level',
-  'parts',
-  'assets',
-  'needs_image',
-  'licence_text',
-  'question_payload',
-  'source',
-  'source_ref',
-  'is_active',
-  'created_at',
-].join(',')
-
-const A01_COLUMNS = 'curriculum_grade,reviewed_by,reviewed_at'
-/** Vorbefuellt-Kennzeichen (20260930140000_tasks_vorbefuellt). */
-const PREFILL_COLUMNS = 'vorbefuellt,vorbefuellt_am'
-/** Bruch-Angabe (20261021082756_lsa_eingabeformat). */
-const BRUCH_COLUMNS = 'bruch'
 
 let schemaCache: AuthoringSchema | null = null
 
@@ -97,17 +73,6 @@ export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
 /** Nur fuer Tests — der Cache ueberlebt sonst den Rollenwechsel nicht sauber. */
 export function resetAuthoringSchemaCache(): void {
   schemaCache = null
-}
-
-function columnsFor(schema: AuthoringSchema): string {
-  return [
-    BASE_COLUMNS,
-    schema.hasStoffanker && A01_COLUMNS,
-    schema.hasVorbefuellt && PREFILL_COLUMNS,
-    schema.hasBruch && BRUCH_COLUMNS,
-  ]
-    .filter(Boolean)
-    .join(',')
 }
 
 // ── tasks lesen ─────────────────────────────────────────────────────────────
@@ -199,9 +164,7 @@ export async function updateAuthoringTask(
   try {
     const schema = await probeAuthoringSchema()
     const payload: Record<string, unknown> = { ...patch }
-    if (!schema.hasStoffanker) delete payload.curriculum_grade
-    if (!schema.hasVorbefuellt) delete payload.vorbefuellt
-    if (!schema.hasBruch) delete payload.bruch
+    ohneFehlendeSpalten(payload, schema)
 
     const { data, error } = await supabase
       .from('tasks')
