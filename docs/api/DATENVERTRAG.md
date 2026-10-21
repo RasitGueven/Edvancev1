@@ -1,11 +1,16 @@
 # Datenvertrag: `question_payload` + LSA-RPCs
 
-**Stand:** 2026-07-14 · **Migrationen:** `20260712100000_p01_datenvertrag.sql` (P01),
+**Stand §1–7:** 2026-10-21 (LSA-Erlebnis L1) · **Migrationen:** `20260712100000_p01_datenvertrag.sql` (P01),
 `20260713100000_p02_multipart.sql` (P02 — Multi-Part),
-`20260714100000_f01_tabellen.sql` (F01 — Tabellen)
+`20260714100000_f01_tabellen.sql` (F01 — Tabellen), A13 (`abgabeart`), A17 (Platz adaptiv),
+`20261021082756_lsa_eingabeformat` · `20261021082844_lsa_bruch_term_wertung` ·
+`20261021083001_lsa_urteil_eingabeformat` · `20261021083026_lsa_diagnose_ab` ·
+`20261021083033_platz_avatar_helle_abbildung` (L1 — Eingabeformat, Wertung, Diagnosezeit, Avatar, helle Abbildungen)
 **Beweis:** `supabase/tests/inv2_lsa_datenvertrag.test.sql` (17 Assertions) +
 `supabase/tests/inv3_lsa_multipart.test.sql` (23 Assertions) +
-`supabase/tests/inv5_lsa_tabellen.test.sql` (15 Assertions), alle pgTAP
+`supabase/tests/inv5_lsa_tabellen.test.sql` (15 Assertions) +
+`supabase/tests/lsa_l1_eingabeformat.test.sql` (31) + `lsa_l1_wertung.test.sql` (44) +
+`lsa_l1_platz.test.sql` (21), alle pgTAP
 
 Dieses Dokument ist die Klammer zwischen Backend (Edvancev1) und der neuen
 React-Native-App. Was hier steht, ist zugesichert. Was hier nicht steht, ist
@@ -18,13 +23,21 @@ nicht zugesichert.
 Ein diskriminierter Typ. Der Renderer schaltet auf `kind`.
 
 ```ts
-type Asset = { url: string; alt?: string }
+// VERA-Bestand: { url, alt? }. Generierte Abbildung (L1): url = helle Fassung …-hell.svg
+// (transparenter Grund, für die cremefarbene Fläche), url_dunkel = …-dunkel.svg (für Navy-Flächen:
+// Session zweispaltig, Admin-Vorschau). Wer auf dunklem Grund zeigt, MUSS url_dunkel nehmen.
+type Asset = { url: string; alt?: string; content_type?: 'image/svg+xml'; url_dunkel?: string }
 
 // F01 — siehe §7. Zellen sind IMMER Strings ("301", nicht 301).
 type Table = { headers: string[]; rows: string[][] }
 
+// L1 — siehe „Eingabeformat“ unten. Fehlt der Schlüssel, hat die Aufgabe keinen eindeutigen Hinweis
+// (kommt dann nicht über die LSA-Auswahl, kann aber z. B. in der Session-Vorschau auftauchen).
+type InputHint = 'number' | 'fraction' | 'term'
+
 type Part =
-  | { nr: number; kind: 'short_input'; prompt: string; unit?: string; table?: Table }
+  | { nr: number; kind: 'short_input'; prompt: string; unit?: string; table?: Table;
+      input_hint?: InputHint }
   | { nr: number; kind: 'mc'; prompt: string; table?: Table;
       options: { id: string; label: string }[] }
 
@@ -32,7 +45,7 @@ type QuestionPayload =
   | { kind: 'mc'; task_id: string; prompt: string; assets: Asset[]; table?: Table;
       options: { id: string; label: string }[] }
   | { kind: 'short_input'; task_id: string; prompt: string; assets: Asset[];
-      table?: Table; unit?: string }
+      table?: Table; unit?: string; input_hint?: InputHint }
   | { kind: 'multi_part'; task_id: string; stem: string; assets: Asset[];
       table?: Table; parts: Part[] }   // P02 — siehe §6
 // Spätere Typen sind in der Struktur vorgesehen, aber NICHT implementiert: cloze
@@ -45,14 +58,34 @@ PK von `xp_rules`; es wird hier nicht angefasst):
 | `input_type` | `kind`        |
 |---|---|
 | `MC`         | `mc`          |
-| `SHORT_TEXT` | `short_input` |
-| `NUMERIC`    | `short_input` |
 | `MULTI_PART` | `multi_part`  |
+| alles andere (`SHORT_TEXT`, `NUMERIC`, `TERM`, …) | `short_input` |
 
-`unit` und `table` fehlen im Payload, wenn die Aufgabe keine Einheit bzw. keine
-Tabelle hat (`jsonb_strip_nulls`) — im TS-Typ also optional. Ein leeres
-`{headers:[],rows:[]}` gibt es nicht: entweder der Schlüssel ist da und trägt eine
-Tabelle, oder er ist gar nicht da.
+`unit`, `table` und `input_hint` fehlen im Payload, wenn die Aufgabe keine Einheit,
+keine Tabelle bzw. keinen eindeutigen Hinweis hat (`jsonb_strip_nulls`) — im TS-Typ
+also optional. Ein leeres `{headers:[],rows:[]}` gibt es nicht: entweder der Schlüssel
+ist da und trägt eine Tabelle, oder er ist gar nicht da.
+
+### Eingabeformat `input_hint` (L1)
+
+Das Kind sieht nie einen Umschalter Zahl/Bruch/Term; das Format kommt aus der Aufgabe.
+`input_hint` steht an jeder `short_input`-Aufgabe und an jedem `short_input`-Teil:
+
+| Regel (`lsa_input_hint`, in dieser Reihenfolge) | `input_hint` |
+|---|---|
+| `tasks.input_type = 'TERM'` bzw. Teil mit `input_type: 'TERM'` | `term` |
+| Bruch-Angabe `tasks.bruch` bzw. `tasks.parts[i].bruch` = `true` | `fraction` |
+| Bruch-Angabe = `false` | `number` |
+| keine Angabe: **jede** Lösung (nach `btrim`) hat die Form `^-?\d+/\d+$` | `fraction` |
+| keine Angabe: **keine** Lösung hat diese Form und keine enthält `/` | `number` |
+| keine Angabe, gemischt, leer oder ein Bruch außerhalb der Regel („+1/3“) | — (kein Schlüssel) |
+
+- Die Bruch-Angabe pflegt die Item-Pflege (Feld „Bruch“: Automatisch · Bruch · Zahl). Die Migration
+  hat sie für den Bestand nach derselben Regel vorbefüllt; Bruch-Treffer tragen das Vorbefüllt-Kennzeichen.
+  Die Regel ist wörtlich: „+1/3“ oder ein typografisches Minus machen eine Liste „gemischt“.
+- **Gate:** Eine `short_input`-Aufgabe ohne Hinweis, oder ein Mehrteiler mit einem `short_input`-Teil
+  ohne Hinweis, ist nicht im LSA-Pool (`lsa_im_pool`). Die Prüfliste: `supabase/checks/lsa_eingabeformat_pruefliste.sql`.
+- Weder `bruch` noch die Lösung gehen ans Kind — nur der abgeleitete Hinweis.
 
 ### Die Sicherheitsregel
 
@@ -143,6 +176,26 @@ gültig. Wenn nicht, nicht. Content ist die Wahrheit, nicht Code-Magie.
 Vergleich pro `input_type` (`lsa_is_correct`):
 - **MC** — `{selected: string[]}` gegen `correct_answers` als **Mengengleichheit** (normalisiert)
 - **SHORT_TEXT / NUMERIC** — `{text}` bzw. `{value}` normalisiert gegen die Liste
+- **TERM** — wie oben, zusätzlich aller Leerraum entfernt (`lsa_normalize_term`)
+
+### Wertung nach Eingabeformat (L1, `lsa_antwort_korrekt`)
+
+Die LSA (`lsa_submit` → `lsa_responses.correct`, und das Fertigkeitsurteil über
+`lsa_grade(…, input_hint)`) wertet mit dem Eingabeformat der Aufgabe bzw. des Teils:
+
+1. Zuerst der Vergleich oben. Was dort trifft, bleibt ein Treffer — **nie ein Treffer weniger**
+   (z. B. ein nackter Prozentwert, der in `correct_answers` steht).
+2. **`fraction`:** zusätzlich nach Wert. Nur wenn die Antwort ein Bruch oder eine Zahl ist
+   (`-?\d+/\d+` bzw. `-?\d+(,\d+)?`); verglichen wird gegen jede Lösung derselben Form, ohne
+   Rundung. `-3/4` trifft `-3/4`, `-6/8` und `-0,75`. Nenner 0 trifft nie. Lösungen mit `%` oder
+   Einheit nehmen nicht teil.
+3. **`term`:** zusätzlich über die kanonische Form `ax+b` (`lsa_term_kanonisch`): die Abgabeform der
+   App (`ax+b`, `x+b`, `-x+b`, `ax`, `b`) trifft auch `1x+5`, `5-x`, `0x+7`, `3x+-6`. Teile mit
+   `input_type: 'TERM'` werden wie TERM-Aufgaben normalisiert.
+
+Bei `number` bleibt es beim Zeichenkettenvergleich. Nicht berührt (bewusst, offener Folgepunkt): die
+Session-Wertung (`session_bewerten`, `erklaer_bewerten`) und die Prüfansicht (`pruef_wertung_testen`,
+`pruef_auffaelligkeiten`) — dort trifft „6/8“ gegen „3/4“ weiterhin nicht.
 
 ---
 
@@ -151,7 +204,13 @@ Vergleich pro `input_type` (`lsa_is_correct`):
 Alle vier prüfen selbst, ob der Aufrufer handeln darf (der Schüler selbst, oder
 Coach/Admin) — `SECURITY DEFINER` ohne eigene Prüfung wäre ein Loch.
 
-### `lsa_start(student_id, grade, subject) → { session_id, total_items, item }`
+### `lsa_start(student_id, grade, subject, modus = 'adaptiv', jetzt, testlauf) → { session_id, testlauf, total_items?, item }`
+
+> **Stand:** Die Beschreibung unten ist der Modus `fest` (P01). Im Modus `adaptiv` (Standard seit A15/A16)
+> gibt es **kein** `total_items`, die Aufgaben zieht `lsa_select_next_core` einzeln innerhalb von 19 Minuten
+> (mit Sitzungsthema endet die Tiefe nach 12 Minuten). Beginn des Fensters ist `lsa_sessions.diagnose_ab`
+> (gesetzt von `platz_los`, L1), ohne ihn `started_at`. Starten dürfen nur Admin/Coach (`lsa_darf_starten`);
+> Leads gehen über `lead_lsa_freigeben`. Das Kind am Tablet ruft nur die Platz-RPCs (§4a).
 
 Pool: `tasks.status = 'ready'` **und** eine `task_solutions`-Zeile mit
 mindestens einer akzeptierten Antwort (bei Multi-Part: **für jede** Teilaufgabe)
@@ -177,8 +236,13 @@ Korrektheit + Dauer in `lsa_responses` (append-only).
 | `input_type` | `response` |
 |---|---|
 | `MC` | `{ selected: string[] }` |
-| `SHORT_TEXT` / `NUMERIC` | `{ text: string }` bzw. `{ value: … }` |
-| `MULTI_PART` | `{ "1": "20", "2": "b", "3": "16" }` — **eine** Anfrage mit allen Teilantworten |
+| `SHORT_TEXT` / `NUMERIC` / `TERM` | `{ text: string }` bzw. `{ value: … }` — immer ASCII `-` und `/` |
+| `MULTI_PART` | `{ "1": "20", "2": "b", "3": "16" }` — **eine** Anfrage mit allen Teilantworten, je Teil Text oder Objekt (§6) |
+| jede Aufgabe | `{ dont_know: true }` — „Ich weiß es nicht“ |
+
+Ein nackter String bei einer einfachen Aufgabe gilt als `leer`, nicht als Antwort. Jede Zeile in
+`lsa_responses` trägt `abgabeart` (`lsa_abgabeart`, A13): `weiss_nicht` (`dont_know: true`), `leer`
+(nichts bzw. leerer Text, leere Auswahl) oder `antwort`. `correct` steht nur bei `antwort`.
 
 **Die Antwort enthält kein `correct`, keinen Score, kein Feedback** — auch nicht
 per Teilaufgabe, auch nicht aggregiert, auch nicht als Zähler. Die LSA ist eine
@@ -191,6 +255,28 @@ anzeigen, weil es nichts darüber erfährt.
 
 `next` ist das nächste unbeantwortete Item in Plan-Reihenfolge, sonst `null`
 (= Session durch).
+
+### 4a. Platz-RPCs (Kiosk-Tablet, A17 + L1)
+
+Das Kind meldet sich nicht an; das Tablet ist ein Platz-Konto (`platz_devices`), dem der Admin eine
+laufende LSA zuweist (`platz_assign`, läuft nach 2 h ab). Das Tablet hat **kein** SELECT auf `lsa_*` und
+ruft nur diese Funktionen. Alle prüfen Platz-Konto (sonst `42501`), aktive Zuweisung und laufende
+Sitzung (sonst `42501`).
+
+| Aufruf | Rückgabe | Zweck |
+|---|---|---|
+| `platz_state()` | `{status:'wartet'}` oder `{status:'zugewiesen', first_name, expires_at, testlauf, avatar, diagnose_ab}` (+ `progress{answered,total}` nur Modus `fest`) | Polling der Weiche (alle 3 s). `avatar` = `avatar_choice` (L1), `diagnose_ab` = Zeitpunkt von „Los geht’s“ oder `null` (L1). |
+| `platz_avatar_set(p_avatar)` | `{ok:true}` | Avatar-Schlüssel (1–40 Zeichen) in `lsa_sessions.avatar_choice`; jederzeit änderbar. |
+| `platz_next()` | `{done:false, item: QuestionPayload}` · `{done:true, item:null}` | Die offene Aufgabe. **Idempotent**: zieht nichts, liefert nach Neuladen dieselbe. |
+| `platz_los(p_jetzt = now())` | `{ok:true}` | „Los geht’s“ (L1): setzt **einmalig** `lsa_sessions.diagnose_ab` (begrenzt auf `started_at`…`now()`); ein zweiter Aufruf ändert nichts. Ab da läuft das 19-Minuten-Fenster der Auswahl. |
+| `platz_submit(p_task_id, p_response, p_duration_ms, p_jetzt)` | `{ok:true, next}` | Antwort auf die **offene** Aufgabe (sonst `P0001`), Kodierung wie `lsa_submit`. |
+| `platz_finish(p_jetzt)` | `{ok:true}` | Abschluss (`lsa_finish`). |
+
+`p_jetzt` sendet die App nie (nur Tests). `progress` und `testlauf` erscheinen nie auf dem
+Kinderbildschirm, `diagnose_ab` nie als Zahl.
+
+**Neu laden:** Ist `diagnose_ab` gesetzt, war „Los geht’s“ schon — weiter mit `platz_next`, ohne
+Einführung (Entscheidung 7.7); der Avatar kommt aus `platz_state.avatar`.
 
 ### `lsa_hint(session_id, task_id, level) → { level, text, available }`
 
@@ -297,7 +383,7 @@ auto-gradebare Typen gehören in eine Diagnose.
 
 | | |
 |---|---|
-| **Struktur** (öffentlich) | `tasks.parts` — `[{nr, kind, prompt, unit?, table?, options?, competency_content?, competency_process?, afb?}]` |
+| **Struktur** (öffentlich) | `tasks.parts` — `[{nr, kind, prompt, unit?, table?, options?, competency_content?, competency_process?, afb?, needs_image?, bruch?, input_type?}]` (`bruch`/`input_type`: L1, Eingabeformat des Teils) |
 | **Lösung** (server-only) | `task_solutions.correct_answers` als **Objekt**: `{"1":["20"],"2":["b"]}` |
 
 `tasks.competency_content` / `_process` / `afb` sind **skalar** — einmal pro Item.
@@ -319,8 +405,21 @@ flachen Items). Der alte `unique(session_id, task_id)` hätte die zweite
 Teilaufgabe desselben Items abgewiesen und ist durch
 `unique(session_id, task_id, coalesce(part_nr, 0))` ersetzt.
 
-Bewertet wird je Teilaufgabe über dieselbe Konvention wie bisher
-(`lsa_normalize_answer` / `lsa_is_correct`) — es gibt keine zweite.
+Bewertet wird je Teilaufgabe über dieselbe Konvention wie flache Aufgaben
+(`lsa_antwort_korrekt` mit dem `input_hint` des Teils, §3) — es gibt keine zweite.
+
+**Antwort je Teil** (eine Anfrage, ein Objekt mit der Teil-`nr` als Schlüssel; L1 macht das offiziell):
+
+```jsonc
+{ "1": { "text": "7" }, "2": { "dont_know": true }, "3": { "selected": ["b"] } }
+// gleichwertig für Text-Teile: { "1": "7" }   (ein String wird als {text} gelesen)
+```
+
+- Jeder Teil bekommt eine eigene Zeile mit eigener `abgabeart`: `{"dont_know":true}` → `weiss_nicht`
+  (auch bei MC-Teilen), leer/fehlend → `leer`, sonst `antwort` mit `correct`.
+- `{ "dont_know": true }` **als ganze Antwort** setzt alle Teile auf `weiss_nicht`.
+- Bei Mehrteilern muss die Antwort ein Objekt sein (sonst `P0001`). Beweis: `lsa_l1_wertung` (W6),
+  `lsa_l1_platz` (P5, Abnahme 14).
 
 `duration_ms` ist bei Multi-Part die Dauer des **gesamten Items** (der Client
 misst nicht pro Teilaufgabe) und steht auf jeder Teilaufgaben-Zeile gleich.
@@ -392,6 +491,9 @@ Grenzfall. `CHECK tasks_question_table_check` (Stamm) und `lsa_parts_valid`
 Der CHECK beißt **nur, wenn der Schlüssel `table` da ist**. Ein pauschaler Vertrag
 auf die ganze Spalte würde die 299 Bestandszeilen sofort abweisen — deren
 `question_payload` trägt das kanonische `AnswerPayload` inklusive `accepted`.
+
+Die Kinder-App liest `table` an Aufgabe und Teil (Anforderung LSA-Erlebnis, Daten Punkt 7); heute
+hat keine Aufgabe im LSA-Pool eine Tabelle (L0, 21.10.2026).
 
 ### Gebaut, nicht durchgereicht
 

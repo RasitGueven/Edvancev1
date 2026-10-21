@@ -60,6 +60,8 @@ const BASE_COLUMNS = [
 const A01_COLUMNS = 'curriculum_grade,reviewed_by,reviewed_at'
 /** Vorbefuellt-Kennzeichen (20260930140000_tasks_vorbefuellt). */
 const PREFILL_COLUMNS = 'vorbefuellt,vorbefuellt_am'
+/** Bruch-Angabe (20261021082756_lsa_eingabeformat). */
+const BRUCH_COLUMNS = 'bruch'
 
 let schemaCache: AuthoringSchema | null = null
 
@@ -72,9 +74,10 @@ let schemaCache: AuthoringSchema | null = null
 export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
   if (schemaCache) return schemaCache
 
-  const [cols, prefill, solRead, gate] = await Promise.all([
+  const [cols, prefill, bruch, solRead, gate] = await Promise.all([
     supabase.from('tasks').select(`id,${A01_COLUMNS}`).limit(1),
     supabase.from('tasks').select(`id,${PREFILL_COLUMNS}`).limit(1),
+    supabase.from('tasks').select(`id,${BRUCH_COLUMNS}`).limit(1),
     supabase.rpc('task_solution_get', { p_task_id: NIL_UUID }),
     // NIL_UUID existiert nie → die RPC laeuft in "nicht gefunden" (P0002) und
     // schreibt nichts. Uns interessiert nur, ob sie ueberhaupt da ist.
@@ -86,6 +89,7 @@ export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
     hasSolutionRead: solRead.error?.code !== FN_MISSING,
     hasStatusGate: gate.error?.code !== FN_MISSING,
     hasVorbefuellt: prefill.error?.code !== COL_MISSING,
+    hasBruch: bruch.error?.code !== COL_MISSING,
   }
   return schemaCache
 }
@@ -96,7 +100,12 @@ export function resetAuthoringSchemaCache(): void {
 }
 
 function columnsFor(schema: AuthoringSchema): string {
-  return [BASE_COLUMNS, schema.hasStoffanker && A01_COLUMNS, schema.hasVorbefuellt && PREFILL_COLUMNS]
+  return [
+    BASE_COLUMNS,
+    schema.hasStoffanker && A01_COLUMNS,
+    schema.hasVorbefuellt && PREFILL_COLUMNS,
+    schema.hasBruch && BRUCH_COLUMNS,
+  ]
     .filter(Boolean)
     .join(',')
 }
@@ -192,6 +201,7 @@ export async function updateAuthoringTask(
     const payload: Record<string, unknown> = { ...patch }
     if (!schema.hasStoffanker) delete payload.curriculum_grade
     if (!schema.hasVorbefuellt) delete payload.vorbefuellt
+    if (!schema.hasBruch) delete payload.bruch
 
     const { data, error } = await supabase
       .from('tasks')

@@ -193,12 +193,12 @@ select is(
 select is(
   (select public.lsa_question_payload(:'t_mp') -> 'parts'),
   '[
-     {"nr":1,"kind":"short_input","prompt":"Wie viel Euro betraegt die Ermaessigung?","unit":"€"},
+     {"nr":1,"kind":"short_input","prompt":"Wie viel Euro betraegt die Ermaessigung?","unit":"€","input_hint":"number"},
      {"nr":2,"kind":"mc","prompt":"Welcher Term beschreibt den neuen Preis?",
       "options":[{"id":"a","label":"80 mal 0,2"},{"id":"b","label":"80 mal 0,8"}]},
-     {"nr":3,"kind":"short_input","prompt":"Wie viel cm misst der Aufnaeher?","unit":"cm"}
+     {"nr":3,"kind":"short_input","prompt":"Wie viel cm misst der Aufnaeher?","unit":"cm","input_hint":"number"}
    ]'::jsonb,
-  'parts[] traegt exakt nr/kind/prompt/unit/options(id,label) — kein competency_*, kein afb'
+  'parts[] traegt exakt nr/kind/prompt/unit/options(id,label), seit L1 input_hint — kein competency_*, kein afb'
 );
 
 -- DER rekursive Test: ueber den GESAMTEN Payload-Text, nicht nur die oberste

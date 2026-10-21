@@ -197,9 +197,11 @@ select is((select count(*) from tasks where source = 'edvance_erklaer_k8_linfkt'
 select is((select count(*) from session_schritte x join tasks t on t.id = x.task_id
             where t.source = 'edvance_erklaer_k8_linfkt'), 0::bigint, '4 in keiner Session dieses Tests als Aufgabe ausgegeben');
 -- Gegenprobe: Es liegt am Einsatz. Mit Einsatz session wäre derselbe Check im Testlauf im Pool.
-update tasks set einsatz = '{lsa,session}' where id = :'c2';
+-- Seit LSA-Erlebnis L1 braucht der LSA-Pool ein eindeutiges Eingabeformat; die Lösungen dieses Checks mischen
+-- Bruch und Dezimal („3/2“, „1,5“), deshalb hier zusätzlich die Bruch-Angabe.
+update tasks set einsatz = '{lsa,session}', bruch = false where id = :'c2';
 select ok(session_im_pool(:'c2', true) and lsa_im_pool(:'c2', true), '4 Gegenprobe: mit Einsatz lsa,session im Testlauf-Pool');
-update tasks set einsatz = '{check}' where id = :'c2';
+update tasks set einsatz = '{check}', bruch = null where id = :'c2';
 select ok(not session_im_pool(:'c2', true), '4 Gegenprobe zurückgesetzt');
 
 -- Quest-Auswahl ausdrücklich: Kind mit Quest zum Skill bekommt keinen Check.

@@ -75,6 +75,13 @@ export type TaskPart = {
    * nicht durch.
    */
   needs_image?: boolean | null
+  /**
+   * Bruch-Angabe des Teils (LSA-Erlebnis L1): true = Bruchmaske, false = Zahl, fehlt = Vorschlag aus den
+   * Loesungen. Geht nicht ans Kind; dort kommt nur der abgeleitete input_hint an.
+   */
+  bruch?: boolean | null
+  /** 'TERM' macht den Teil zur Term-Eingabe (wie tasks.input_type). Der Editor setzt es nicht, erhaelt es aber. */
+  input_type?: 'TERM'
 }
 
 /** Eine tasks-Zeile, wie das Autoren-Tool sie sieht. */
@@ -125,6 +132,10 @@ export type AuthoringTask = {
   /** Vom Agenten vorbefuellte, noch unbestaetigte Felder. undefined = Spalte fehlt. */
   vorbefuellt?: Vorbefuellt
   vorbefuellt_am?: string | null
+
+  // --- Erst nach 20261021082756_lsa_eingabeformat.sql vorhanden ---
+  /** Bruch-Angabe (true Bruch, false Zahl, NULL Vorschlag aus den Loesungen). undefined = Spalte fehlt. */
+  bruch?: boolean | null
 }
 
 /**
@@ -156,6 +167,7 @@ export type AuthoringTaskPatch = {
   needs_image?: boolean | null
   licence_text?: string | null
   question_payload?: unknown
+  bruch?: boolean | null
 }
 
 /**
@@ -313,6 +325,8 @@ export type AuthoringSchema = {
   hasStatusGate: boolean
   /** tasks.vorbefuellt / vorbefuellt_am */
   hasVorbefuellt: boolean
+  /** tasks.bruch (LSA-Erlebnis L1) */
+  hasBruch: boolean
 }
 
 /** Quellenbeleg aus der Extraktion (gebaut von scripts/build-grounding-index.ts). Read-only. */

@@ -16,13 +16,17 @@ import { Input } from '@/components/ui/input'
 import type { PartOption } from '@/types'
 import { Field, StringList } from './ui'
 import type { FormState } from './editorState'
+import { BruchControl } from './BruchControl'
 
 export function AnswerSection({
   state,
   set,
+  mitBruch = false,
 }: {
   state: FormState
   set: <K extends keyof FormState>(key: K, value: FormState[K]) => void
+  /** tasks.bruch vorhanden (LSA-Erlebnis L1) — sonst kein Feld „Bruch“. */
+  mitBruch?: boolean
 }): JSX.Element {
   const { t } = useTranslation('authoring')
 
@@ -69,6 +73,15 @@ export function AnswerSection({
           onChange={(next) => set('answers', next)}
         />
       </Field>
+
+      {mitBruch && state.input_type !== 'MC' && state.input_type !== 'TERM' && (
+        <BruchControl
+          feld="bruch"
+          value={state.bruch}
+          answers={state.answers}
+          onChange={(next) => set('bruch', next)}
+        />
+      )}
     </div>
   )
 }

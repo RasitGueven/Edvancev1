@@ -236,7 +236,8 @@ select is(
     :'t_flat',
     '{"question":"Berechne 25 % von 80 m.","unit":"cm"}'::jsonb
   ) - 'task_id',
-  '{"kind":"short_input","prompt":"Berechne 25 % von 80 m.","unit":"cm","assets":[]}'::jsonb,
+  -- input_hint seit LSA-Erlebnis L1 (20261021082756): aus den Loesungen abgeleitet, die Loesung selbst nie.
+  '{"kind":"short_input","prompt":"Berechne 25 % von 80 m.","unit":"cm","assets":[],"input_hint":"number"}'::jsonb,
   'Entwurf: die Vorschau zeigt den ungespeicherten Stamm und die ungespeicherte Einheit'
 );
 
@@ -274,7 +275,7 @@ select is(
          "options":[{"id":"a","label":"A"},{"id":"b","label":"B"}]}
       ]}'::jsonb
   ) -> 'parts' -> 0,
-  '{"nr":1,"kind":"short_input","prompt":"Neu getippt","unit":"m"}'::jsonb,
+  '{"nr":1,"kind":"short_input","prompt":"Neu getippt","unit":"m","input_hint":"number"}'::jsonb,
   'Entwurf: die Whitelist greift auch hier — afb und competency_content kommen nicht mit'
 );
 
