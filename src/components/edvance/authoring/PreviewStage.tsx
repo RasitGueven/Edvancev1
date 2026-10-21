@@ -15,9 +15,9 @@
 // Text hier genauso roh da wie auf dem Tablet, auch „-2^2" bleibt „-2^2".
 // Rahmen und Schrift bleiben flach (Coach-Sprache), geteilt wird nur der Inhalt.
 //
-// FIGUREN WIE AUF DEM TABLET: Die Buehne ist dunkel, gezeigt wird deshalb die -dunkel.svg
-// (seit LSA-Erlebnis L1 als url_dunkel, url ist dort die helle Fassung fuer die Creme-Flaeche) —
-// cremefarbene Linien fuer den Nachthimmel. In der weissen Karte waren sie kaum zu
+// FIGUREN WIE AUF DEM TABLET: Das Payload liefert die -dunkel.svg (lsa_task_assets) —
+// cremefarbene Linien fuer den Nachthimmel. (Die helle Fassung fuer die Creme-Flaeche steht seit
+// LSA-Erlebnis L1 zusaetzlich als url_hell im Asset; diese Buehne ist dunkel und bleibt bei url.) In der weissen Karte waren sie kaum zu
 // sehen, und max-h-72 hielt ein Koordinatensystem auf Briefmarkengroesse. Die Figur
 // steht deshalb wie in `Buehne` (edvance-app) ohne Karte direkt auf der dunklen
 // Buehne, ueber dem Text, in voller Spaltenbreite; die Hoehe folgt aus dem
@@ -50,7 +50,7 @@ function Figuren({ assets }: { assets: PreviewAsset[] }): JSX.Element | null {
       {assets.map((a, i) => (
         <img
           key={`${a.url}-${i}`}
-          src={a.url_dunkel ?? a.url}
+          src={a.url}
           alt={a.alt ?? ''}
           loading="lazy"
           className="block h-auto w-full rounded-[var(--radius-md)]"

@@ -11,7 +11,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(44);
+select plan(49);
 
 \ir lsa_l1_fixture.sql
 
@@ -54,6 +54,8 @@ select is(public.lsa_antwort_korrekt('TERM', 'term', '["3x"]', '{"text":"3x"}'),
 select is(public.lsa_antwort_korrekt('TERM', 'term', '["3x+6"]', '{"text":"3x-6"}'), false, 'W3 3x-6 trifft 3x+6 nicht');
 select is(public.lsa_antwort_korrekt('TERM', 'term', '["2x+1"]', '{"text":"x+1"}'), false, 'W3 x+1 trifft 2x+1 nicht');
 select is(public.lsa_term_kanonisch('2(x+3)'), '2(x+3)', 'W3 nichtlinearer Ausdruck bleibt, wie er ist (keine Klammer-Magie)');
+select is(public.lsa_term_kanonisch('3·x - 6'), '3x-6', 'W3 Malpunkt zwischen Ziffer und x faellt weg');
+select is(public.lsa_term_kanonisch('2·3'), '2·3', 'W3 Malpunkt zwischen Ziffern bleibt');
 select is(public.lsa_antwort_korrekt('SHORT_TEXT', 'term', '["x+5"]', '{"text":"1x + 5"}'), true,
           'W3 Teil mit term: dieselbe Normalisierung wie eine TERM-Aufgabe');
 
@@ -63,6 +65,13 @@ select is(public.lsa_grade('NUMERIC', null, '["-3/4"]', '{"text":"-6/8"}', 'frac
           'W4 mit fraction: voll (wie correct)');
 select is(public.lsa_grade('NUMERIC', null, '["-3/4"]', '{"text":"-6/8"}', 'number'), 'nicht', 'W4 mit number: unveraendert');
 select is(public.lsa_grade('TERM', null, '["1x+5"]', '{"text":"x+5"}', 'term'), 'voll', 'W4 Term kanonisch: voll');
+select is(public.lsa_grade('NUMERIC', '{"canonical":"5/2","require_reduced":true}', '["5/2","10/4"]', '{"text":"20/8"}'),
+          'teilweise', 'W4 vierstellig: 20/8 trifft canonical 5/2 nach Wert, ungekuerzt → teilweise');
+select is(public.lsa_grade('NUMERIC', '{"canonical":"5/2","require_reduced":true}', '["5/2","10/4"]', '{"text":"20/8"}', 'fraction'),
+          'teilweise', 'W4 fuenfstellig (fraction, ohne Einheit): ungekuerzt bleibt teilweise');
+select is(public.lsa_grade('NUMERIC', '{"canonical":"48 %","equivalents":["12/25"]}', '["12/25","48 %"]', '{"text":"48"}', 'number'),
+          public.lsa_grade('NUMERIC', '{"canonical":"48 %","equivalents":["12/25"]}', '["12/25","48 %"]', '{"text":"48"}'),
+          'W4 number: fuenfstellig = vierstellig (#294 Prozent als Faktor unangetastet)');
 select is(public.lsa_grade('NUMERIC', '{"canonical":"5/2","unit_graded":true,"unit":"cm","require_reduced":true}',
                            '["10/4"]', '{"text":"10/4"}', 'fraction'), 'teilweise',
           'W4 require_reduced: ungekuerzter Treffer nur ueber correct_answers → teilweise');

@@ -9,7 +9,7 @@
 **Beweis:** `supabase/tests/inv2_lsa_datenvertrag.test.sql` (17 Assertions) +
 `supabase/tests/inv3_lsa_multipart.test.sql` (23 Assertions) +
 `supabase/tests/inv5_lsa_tabellen.test.sql` (15 Assertions) +
-`supabase/tests/lsa_l1_eingabeformat.test.sql` (31) + `lsa_l1_wertung.test.sql` (44) +
+`supabase/tests/lsa_l1_eingabeformat.test.sql` (37) + `lsa_l1_wertung.test.sql` (49) +
 `lsa_l1_platz.test.sql` (21), alle pgTAP
 
 Dieses Dokument ist die Klammer zwischen Backend (Edvancev1) und der neuen
@@ -23,10 +23,10 @@ nicht zugesichert.
 Ein diskriminierter Typ. Der Renderer schaltet auf `kind`.
 
 ```ts
-// VERA-Bestand: { url, alt? }. Generierte Abbildung (L1): url = helle Fassung …-hell.svg
-// (transparenter Grund, für die cremefarbene Fläche), url_dunkel = …-dunkel.svg (für Navy-Flächen:
-// Session zweispaltig, Admin-Vorschau). Wer auf dunklem Grund zeigt, MUSS url_dunkel nehmen.
-type Asset = { url: string; alt?: string; content_type?: 'image/svg+xml'; url_dunkel?: string }
+// VERA-Bestand: { url, alt? }. Generierte Abbildung: url = …-dunkel.svg (für Navy-Flächen, wie bisher),
+// url_hell = …-hell.svg (L1; transparenter Grund, für die cremefarbene Fläche). Die Creme-Fläche liest
+// url_hell ?? url. Bewusst additiv: Session, Sequenz und alte LSA lesen weiter nur url.
+type Asset = { url: string; alt?: string; content_type?: 'image/svg+xml'; url_hell?: string }
 
 // F01 — siehe §7. Zellen sind IMMER Strings ("301", nicht 301).
 type Table = { headers: string[]; rows: string[][] }
@@ -77,11 +77,12 @@ Das Kind sieht nie einen Umschalter Zahl/Bruch/Term; das Format kommt aus der Au
 | Bruch-Angabe `tasks.bruch` bzw. `tasks.parts[i].bruch` = `true` | `fraction` |
 | Bruch-Angabe = `false` | `number` |
 | keine Angabe: **jede** Lösung (nach `btrim`) hat die Form `^-?\d+/\d+$` | `fraction` |
-| keine Angabe: **keine** Lösung hat diese Form und keine enthält `/` | `number` |
-| keine Angabe, gemischt, leer oder ein Bruch außerhalb der Regel („+1/3“) | — (kein Schlüssel) |
+| keine Angabe: **jede** Lösung ist eine Zahl (`lsa_loesung_ist_zahl`: Vorzeichen auch „+“/„−“, Komma oder Punkt, Tausender mit Leerzeichen; dahinter höchstens die Einheit, die das Feld selbst zeigt, `unit` der Aufgabe bzw. des Teils) | `number` |
+| sonst: gemischt, Text („x = 9“), fremde Einheit, leer, Bruch außerhalb der Regel („+1/3“) | — (kein Schlüssel) |
 
 - Die Bruch-Angabe pflegt die Item-Pflege (Feld „Bruch“: Automatisch · Bruch · Zahl). Die Migration
-  hat sie für den Bestand nach derselben Regel vorbefüllt; Bruch-Treffer tragen das Vorbefüllt-Kennzeichen.
+  hat nur die Bruch-Treffer fest gesetzt (`true`, mit Vorbefüllt-Kennzeichen); alles andere steht auf
+  „Automatisch“ (NULL) und wird zur Laufzeit nach der Regel abgeleitet.
   Die Regel ist wörtlich: „+1/3“ oder ein typografisches Minus machen eine Liste „gemischt“.
 - **Gate:** Eine `short_input`-Aufgabe ohne Hinweis, oder ein Mehrteiler mit einem `short_input`-Teil
   ohne Hinweis, ist nicht im LSA-Pool (`lsa_im_pool`). Die Prüfliste: `supabase/checks/lsa_eingabeformat_pruefliste.sql`.
@@ -181,7 +182,9 @@ Vergleich pro `input_type` (`lsa_is_correct`):
 ### Wertung nach Eingabeformat (L1, `lsa_antwort_korrekt`)
 
 Die LSA (`lsa_submit` → `lsa_responses.correct`, und das Fertigkeitsurteil über
-`lsa_grade(…, input_hint)`) wertet mit dem Eingabeformat der Aufgabe bzw. des Teils:
+`lsa_grade(…, input_hint)`; dort greift die Angleichung nur bei `fraction` und `term`, bei `number`
+bleibt das Urteil exakt das der vierstelligen `lsa_grade`) wertet mit dem Eingabeformat der Aufgabe bzw. des Teils.
+Ein Fehler im zusätzlichen Vergleich zählt als „kein Treffer“, nie als Abbruch der Abgabe:
 
 1. Zuerst der Vergleich oben. Was dort trifft, bleibt ein Treffer — **nie ein Treffer weniger**
    (z. B. ein nackter Prozentwert, der in `correct_answers` steht).
@@ -190,7 +193,8 @@ Die LSA (`lsa_submit` → `lsa_responses.correct`, und das Fertigkeitsurteil üb
    Rundung. `-3/4` trifft `-3/4`, `-6/8` und `-0,75`. Nenner 0 trifft nie. Lösungen mit `%` oder
    Einheit nehmen nicht teil.
 3. **`term`:** zusätzlich über die kanonische Form `ax+b` (`lsa_term_kanonisch`): die Abgabeform der
-   App (`ax+b`, `x+b`, `-x+b`, `ax`, `b`) trifft auch `1x+5`, `5-x`, `0x+7`, `3x+-6`. Teile mit
+   App (`ax+b`, `x+b`, `-x+b`, `ax`, `b`) trifft auch `1x+5`, `5-x`, `0x+7`, `3x+-6`, `3·x-6` (Malzeichen
+   nur zwischen Ziffer und x). Teile mit
    `input_type: 'TERM'` werden wie TERM-Aufgaben normalisiert.
 
 Bei `number` bleibt es beim Zeichenkettenvergleich. Nicht berührt (bewusst, offener Folgepunkt): die

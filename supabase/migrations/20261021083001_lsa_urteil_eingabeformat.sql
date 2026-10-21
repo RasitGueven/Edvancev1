@@ -118,7 +118,7 @@ begin
       -- NUMERIC/TERM: die dreistufige Bewertung.
       -- L1: mit Eingabeformat (Bruch nach Wert, Term kanonisch), wie correct in lsa_submit.
       select public.lsa_grade(v_task.input_type, s.acceptance, s.correct_answers, v_resp.response,
-                              public.lsa_input_hint(v_task.input_type, v_task.bruch, s.correct_answers))
+                              public.lsa_input_hint(v_task.input_type, v_task.bruch, s.correct_answers, v_task.unit))
         into v_res
         from task_solutions s where s.task_id = p_task_id;
       v_res := coalesce(v_res, 'nicht');

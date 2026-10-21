@@ -16,7 +16,7 @@ with basis as (
      and 'lsa' = any (t.einsatz) and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
 ), einheiten as (
   select b.id as task_id, null::int as teil, b.status, b.echt, b.testlauf,
-         public.lsa_input_hint(b.input_type, b.bruch, b.correct_answers) as hinweis, b.correct_answers as loesungen
+         public.lsa_input_hint(b.input_type, b.bruch, b.correct_answers, b.unit) as hinweis, b.correct_answers as loesungen
     from basis b where b.input_type not in ('MC', 'MULTI_PART')
   union all
   select b.id, (p ->> 'nr')::int, b.status, b.echt, b.testlauf,
@@ -35,7 +35,7 @@ select t.id as task_id, p.teil, t.status, p.loesungen::text as correct_answers
   join public.task_solutions s on s.task_id = t.id
   cross join lateral (
     select null::int as teil, s.correct_answers as loesungen,
-           public.lsa_input_hint(t.input_type, t.bruch, s.correct_answers) as hinweis
+           public.lsa_input_hint(t.input_type, t.bruch, s.correct_answers, t.unit) as hinweis
      where t.input_type not in ('MC', 'MULTI_PART')
     union all
     select (q ->> 'nr')::int, s.correct_answers -> (q ->> 'nr'), public.lsa_teil_input_hint(q, s.correct_answers -> (q ->> 'nr'))

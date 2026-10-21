@@ -141,6 +141,7 @@ function PartCard({
           feld={`parts.${part.nr}.bruch`}
           value={part.bruch ?? null}
           answers={answers}
+          unit={part.unit}
           onChange={(next) => set('bruch', next)}
         />
       )}

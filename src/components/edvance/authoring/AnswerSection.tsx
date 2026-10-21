@@ -79,6 +79,7 @@ export function AnswerSection({
           feld="bruch"
           value={state.bruch}
           answers={state.answers}
+          unit={state.unit}
           onChange={(next) => set('bruch', next)}
         />
       )}

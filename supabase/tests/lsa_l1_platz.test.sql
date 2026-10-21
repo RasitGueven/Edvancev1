@@ -4,7 +4,7 @@
 --   P1 platz_los setzt lsa_sessions.diagnose_ab einmalig; ohne Platz-Konto 42501
 --   P2 Abnahme 23: fuenf Minuten Einfuehrung kuerzen das 19-Minuten-Fenster nicht
 --   P3 platz_state liefert avatar (aus avatar_choice) und diagnose_ab, weiter kein progress (adaptiv)
---   P4 lsa_task_assets: generierte Abbildung hell, dunkel als url_dunkel
+--   P4 lsa_task_assets: url bleibt dunkel, helle Fassung zusaetzlich als url_hell
 --   P5 Abnahme 14 ueber platz_submit: Mehrteiler je Teil Antwort bzw. {"dont_know":true}
 -- ============================================================================
 begin;
@@ -68,9 +68,9 @@ select ok(not (public.platz_state() ?| array['progress', 'total_items']), 'P3 ad
 insert into task_figures (task_id, generator, params, alt_text, svg_hash)
 values (:'t1', 'winkel', '{}', 'Ein Winkel mit Scheitel A.', 'zz-l1-hash');
 select is(public.lsa_task_assets(:'t1') -> 0 ->> 'url',
-          public.lsa_storage_base() || 'generiert/' || :'t1' || '/winkel-hell.svg', 'P4 url ist die helle Fassung');
-select is(public.lsa_task_assets(:'t1') -> 0 ->> 'url_dunkel',
-          public.lsa_storage_base() || 'generiert/' || :'t1' || '/winkel-dunkel.svg', 'P4 die dunkle bleibt als url_dunkel');
+          public.lsa_storage_base() || 'generiert/' || :'t1' || '/winkel-dunkel.svg', 'P4 url bleibt die dunkle Fassung (rueckwaertskompatibel)');
+select is(public.lsa_task_assets(:'t1') -> 0 ->> 'url_hell',
+          public.lsa_storage_base() || 'generiert/' || :'t1' || '/winkel-hell.svg', 'P4 die helle kommt zusaetzlich als url_hell');
 select is(public.lsa_question_payload(:'t1') -> 'assets' -> 0 ->> 'content_type', 'image/svg+xml', 'P4 im Payload angekommen');
 
 -- P5 Abnahme 14 -----------------------------------------------------------

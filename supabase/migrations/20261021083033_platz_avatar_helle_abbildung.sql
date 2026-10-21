@@ -1,4 +1,4 @@
--- LSA-Erlebnis L1, Punkte 5 und 6: Avatar und Diagnosebeginn in platz_state, helle Abbildungen im Payload.
+-- LSA-Erlebnis L1, Punkte 5 und 6: Avatar und Diagnosebeginn in platz_state, helle Abbildungen zusätzlich im Payload.
 --
 -- Anforderung „LSA-Erlebnis nach Prototyp V1.3.1“ (Fassung 1.1), Daten und Backend, Punkte 5 und 6;
 -- Abnahme 24 und 25.
@@ -11,11 +11,14 @@
 --                                      richtige Stelle setzen. Nie als Zahl anzeigen.
 -- Alles andere bleibt wörtlich (Grundlage pg_get_functiondef aus Prod vom 21.10.2026, Änderungen „L1“).
 --
--- lsa_task_assets: generierte Abbildungen kommen als helle Fassung …-hell.svg (transparenter Grund, Linien
--- Navy #102038, Beschriftung #4A4A47, Markierung Gold #DA9721). Geprüft auf Creme #F8F5EE an vier
--- Generatoren (docs/lsa-erlebnis/helle-abbildungen/): trägt. Alle 41 hellen Dateien liegen im Storage
--- (HEAD 200 am 21.10.2026). Die dunkle Fassung bleibt als url_dunkel im Asset (additiv), damit Oberflächen
--- auf Navy (Session zweispaltig) sie weiter zeigen können. VERA-Bestandsassets unverändert.
+-- lsa_task_assets: generierte Abbildungen tragen zusätzlich die helle Fassung …-hell.svg als url_hell
+-- (transparenter Grund, Linien Navy #102038, Beschriftung #4A4A47, Markierung Gold #DA9721). Geprüft auf
+-- Creme #F8F5EE an vier Generatoren (docs/lsa-erlebnis/helle-abbildungen/): trägt. Alle 41 hellen Dateien
+-- liegen im Storage (HEAD 200 am 21.10.2026).
+-- Bewusste Abweichung von der Anforderung (Befundrunde 1): url bleibt die dunkle Fassung wie heute — die App
+-- liest heute nur url und zeigt sie auf Navy (Session, Sequenz, alte LSA; dev ist Vercel-Production,
+-- Abnahme 22). Die neue Creme-Fläche (L3) liest url_hell ?? url. Wirkung wie gefordert, Feldname anders.
+-- VERA-Bestandsassets unverändert.
 
 CREATE OR REPLACE FUNCTION public.platz_state()
  RETURNS jsonb
@@ -99,12 +102,12 @@ AS $function$
     union all
 
     -- Generierte Abbildung, Typ bekannt. Hinten einsortiert.
-    -- L1: hell fuer die cremefarbene Flaeche; dunkel bleibt als url_dunkel (Navy-Flaechen).
+    -- L1: url bleibt dunkel (Navy-Flaechen); hell zusaetzlich als url_hell fuer die Creme-Flaeche.
     select jsonb_build_object(
              'url', public.lsa_storage_base()
-                    || 'generiert/' || f.task_id::text || '/' || f.generator || '-hell.svg',
-             'url_dunkel', public.lsa_storage_base()
                     || 'generiert/' || f.task_id::text || '/' || f.generator || '-dunkel.svg',
+             'url_hell', public.lsa_storage_base()
+                    || 'generiert/' || f.task_id::text || '/' || f.generator || '-hell.svg',
              'alt', f.alt_text,
              'content_type', 'image/svg+xml'
            ) as item,

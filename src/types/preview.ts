@@ -9,8 +9,7 @@
 // diese Datei — sonst rendert die Vorschau wieder etwas, das das Kind nie sieht.
 
 /** Eine Abbildung. Der Alt-Text ist Teil des Vertrags — ein Bild ohne ihn ist ein Mangel. */
-/** url_dunkel: generierte Abbildung, dunkle Fassung (LSA-Erlebnis L1; url ist dann die helle). */
-export type PreviewAsset = { url: string; alt?: string; url_dunkel?: string }
+export type PreviewAsset = { url: string; alt?: string }
 
 /** Die Aufgaben-Tabelle (F01). Zellen sind IMMER Strings — der Client rendert, er rechnet nicht. */
 export type PreviewTable = { headers: string[]; rows: string[][] }

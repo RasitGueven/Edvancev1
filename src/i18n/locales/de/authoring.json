@@ -280,7 +280,7 @@
     "no": "Zahl",
     "auto_fraction": "Automatisch aus den Lösungen: Bruch – das Kind bekommt die Bruchmaske.",
     "auto_number": "Automatisch aus den Lösungen: Zahl – das Kind bekommt die Zifferntastatur.",
-    "auto_offen": "Nicht eindeutig (Bruch- und Dezimalschreibweise gemischt): Bitte „Bruch“ oder „Zahl“ wählen, sonst kommt die Aufgabe nicht in die LSA."
+    "auto_offen": "Nicht eindeutig (gemischte Schreibweisen, Text oder eine Einheit, die das Feld nicht zeigt): Bitte „Bruch“ oder „Zahl“ wählen, sonst kommt die Aufgabe nicht in die LSA."
   },
   "needsImage": {
     "title": "Bild-Notwendigkeit",

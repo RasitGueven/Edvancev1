@@ -1,7 +1,7 @@
 -- ============================================================================
 -- LSA-Erlebnis L1, Punkt 1: Eingabeformat (input_hint) je Aufgabe und je Teil, Gate im LSA-Pool.
 -- Migration 20261021082756_lsa_eingabeformat. Anforderung Fassung 1.1, Daten Punkt 1; Abnahme 12.
---   E1 Regel lsa_bruch_vorschlag: jede Loesung -?\d+/\d+ → Bruch; keine → Zahl; gemischt/leer → offen
+--   E1 Regel lsa_format_vorschlag: jede Loesung -?\d+/\d+ → Bruch; jede eine Zahl → Zahl; sonst offen
 --   E2 Payload: input_hint an short_input (number | fraction | term), nie an MC, nie die Loesung
 --   E3 Teile: input_hint je short_input-Teil, Term ueber parts[i].input_type = 'TERM'
 --   E4 Gate: ohne eindeutigen Hinweis nicht im Pool (Aufgabe und Mehrteiler); die Angabe in der
@@ -10,20 +10,25 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(31);
+select plan(37);
 
 \ir lsa_l1_fixture.sql
 
 -- E1 Regel ----------------------------------------------------------------
-select is(public.lsa_bruch_vorschlag('["3/4","-6/8"]'), true, 'E1 nur Brueche → Bruch');
-select is(public.lsa_bruch_vorschlag('["12","12,5"]'), false, 'E1 keine Brueche → Zahl');
-select is(public.lsa_bruch_vorschlag('["3/4","0,75"]'), null::boolean, 'E1 gemischt → kein Hinweis');
-select is(public.lsa_bruch_vorschlag('["1/3","+1/3"]'), null::boolean,
+select is(public.lsa_format_vorschlag('["3/4","-6/8"]', null), 'fraction', 'E1 nur Brueche → fraction');
+select is(public.lsa_format_vorschlag('["12","12,5","+12","−12"]', null), 'number', 'E1 nur Zahlen (auch „+“/„−“) → number');
+select is(public.lsa_format_vorschlag('["500000","500 000"]', null), 'number', 'E1 Tausender mit Leerzeichen → number');
+select is(public.lsa_format_vorschlag('["3/4","0,75"]', null), null, 'E1 gemischt → kein Hinweis');
+select is(public.lsa_format_vorschlag('["1/3","+1/3"]', null), null,
           'E1 Regel woertlich: „+1/3“ ist kein Bruch, die Aufgabe kommt auf die Pruefliste');
-select is(public.lsa_bruch_vorschlag('[]'), null::boolean, 'E1 ohne Loesung → kein Hinweis');
-select is(public.lsa_bruch_vorschlag('["+1/3"]'), null::boolean,
-          'E1 nur Brueche ausserhalb der Regel („+1/3“) → Pruefliste, nicht Zahl');
-select is(public.lsa_bruch_vorschlag('"3/4"'), null::boolean, 'E1 keine Liste → kein Hinweis');
+select is(public.lsa_format_vorschlag('["+1/3"]', null), null, 'E1 nur Brueche ausserhalb der Regel → Pruefliste, nicht Zahl');
+select is(public.lsa_format_vorschlag('["x = 9"]', null), null, 'E1 Textloesung („x = 9“) → kein Hinweis');
+select is(public.lsa_format_vorschlag('["A UND B"]', null), null, 'E1 Textloesung („A UND B“) → kein Hinweis');
+select is(public.lsa_format_vorschlag('["12","12 cm","12cm"]', 'cm'), 'number', 'E1 Einheit, die das Feld zeigt → number');
+select is(public.lsa_format_vorschlag('["6","6 €"]', null), null, 'E1 Einheit ohne Feld-Einheit → kein Hinweis');
+select is(public.lsa_format_vorschlag('["6","6 m"]', 'cm'), null, 'E1 andere Einheit als am Feld → kein Hinweis');
+select is(public.lsa_format_vorschlag('[]', null), null, 'E1 ohne Loesung → kein Hinweis');
+select is(public.lsa_format_vorschlag('"3/4"', null), null, 'E1 keine Liste → kein Hinweis');
 
 -- Fixture-Aufgaben
 select pg_temp.l1_aufgabe('num', 'NUMERIC', '["12","12,0"]') as t_num \gset
@@ -76,10 +81,10 @@ select is((select p ->> 'input_hint' from jsonb_array_elements(public.lsa_questi
             where p ->> 'nr' = '1'), 'number', 'E4 … und der Teil traegt jetzt number');
 
 -- Rechte: die Hilfsfunktionen sind nicht ueber die API aufrufbar.
-select ok(not has_function_privilege('authenticated', 'public.lsa_input_hint(text, boolean, jsonb)', 'execute')
-          and not has_function_privilege('anon', 'public.lsa_input_hint(text, boolean, jsonb)', 'execute'),
+select ok(not has_function_privilege('authenticated', 'public.lsa_input_hint(text, boolean, jsonb, text)', 'execute')
+          and not has_function_privilege('anon', 'public.lsa_input_hint(text, boolean, jsonb, text)', 'execute'),
           'R lsa_input_hint nicht fuer anon/authenticated');
-select ok(not has_function_privilege('authenticated', 'public.lsa_eingabeformat_eindeutig(text, boolean, jsonb, jsonb)', 'execute'),
+select ok(not has_function_privilege('authenticated', 'public.lsa_eingabeformat_eindeutig(text, boolean, text, jsonb, jsonb)', 'execute'),
           'R lsa_eingabeformat_eindeutig nicht fuer authenticated');
 select ok(not has_function_privilege('authenticated', 'public.lsa_public_parts(jsonb, jsonb)', 'execute'),
           'R lsa_public_parts(jsonb, jsonb) nicht fuer authenticated');

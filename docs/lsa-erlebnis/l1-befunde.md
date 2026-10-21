@@ -19,42 +19,50 @@ bzw. Zeilentypen referenzieren (`prosrc`-Suche, Ergebnis wörtlich):
 | Zeilentyp `lsa_sessions` | `lsa_confirm_focus`, `lsa_finish`, `lsa_hint`, `lsa_select_next_core`, `lsa_submit`, `lsa_uebernahme`, `platz_assign`, `platz_avatar_set`, `platz_finish`, `platz_next`, `platz_state`, `platz_submit` | dito |
 | `insert into tasks/lsa_sessions` ohne Spaltenliste, `to_jsonb(t)` u. ä. | – | keine positionsabhängigen Zugriffe |
 | `task_figures` | `lsa_task_assets`, `pruef_aufgabe`, `pruef_ausschluss` | nur `lsa_task_assets` baut URLs |
-| `-dunkel.svg` | `lsa_task_assets` | umgestellt auf `-hell.svg`, dunkel als `url_dunkel` |
+| `-dunkel.svg` | `lsa_task_assets` | `url` bleibt dunkel, `-hell.svg` zusätzlich als `url_hell` |
 | Aufrufer `lsa_question_payload` | `lsa_start`, `platz_next`, `erklaer_start`, `lsa_submit`, `tablet_stand`, `coach_kind_detail`, `session_kind_live`, `quest_inhalt`, `task_preview_payload`, `session_schritt_oeffentlich`, `erklaer_zeigen` | bekommen `input_hint` additiv (auch die Session, siehe PR) |
 | Aufrufer `lsa_is_correct` | `lsa_grade`, `erklaer_bewerten`, `pruef_auffaelligkeiten`, `lsa_submit`, `session_bewerten`, `pruef_wertung_testen` | nur `lsa_submit` wechselt auf `lsa_antwort_korrekt`; die übrigen bleiben unverändert |
 | Aufrufer `lsa_im_pool` | `lsa_select_next_core`, `lsa_start` | Gate wirkt auf beide Modi |
 
 ## 2. Prüfliste Eingabeformat (nach dem Einspielen, Abfrage `supabase/checks/lsa_eingabeformat_pruefliste.sql`)
 
-Ermittelt auf einer lokalen Kopie der Inhaltstabellen aus Prod (21.10.2026) mit allen fünf Migrationen. Pool ohne
-das neue Gate gezählt, damit die herausfallenden Fälle sichtbar sind.
+Ermittelt auf einer lokalen Kopie der Inhaltstabellen aus Prod (21.10.2026) mit allen fünf Migrationen (Stand nach
+Befundrunde 1: `number` nur, wenn jede Lösung eine Zahl ist; Einheit nur, wenn das Feld sie zeigt). Pool ohne das
+neue Gate gezählt, damit die herausfallenden Fälle sichtbar sind.
 
 | Hinweis | Pool echt: Aufgaben | Pool echt: Teile | Pool Testlauf: Aufgaben | Pool Testlauf: Teile |
 |---|---:|---:|---:|---:|
-| `number` | 84 | 2 | 681 | 190 |
+| `number` | 84 | 2 | 681 | 176 |
 | `fraction` | 0 | 0 | 38 | 0 |
 | `term` | 0 | 0 | 20 | 0 |
-| kein Hinweis (Prüfliste) | 2 | 0 | 24 | 3 |
+| kein Hinweis (Prüfliste) | 2 | 0 | 24 | 17 |
 
-Pool mit Gate (`lsa_im_pool`): echt 87 → **85**, Testlauf 898 → **872** (24 Aufgaben und die 2 Mehrteiler
-`3b59c4a1…`, `785c92ab…` mit Teilen ohne Hinweis). Gleich der Zählung aus L0.
+Pool mit Gate (`lsa_im_pool`): echt 87 → **85**, Testlauf 898 → **864** (24 Aufgaben und 10 Mehrteiler).
 
-Prüfliste (27 Einheiten): ready `939baa76-0207-496c-a768-4df2988f7f12`, `afc3b977-389b-4e8d-a157-9952b087c8e2`;
-draft `03c74739`, `15164236`, `15c3975c`, `2b7059d7`, `305c5063`, `356c43e5`, `3b3119d4`, `3b59c4a1` (Teil 1 und 2),
-`3cb3aa9d`, `46f1792e`, `54f5e1df`, `5bcca7e7`, `5d143147`, `785c92ab` (Teil 1), `7e7ce00a`, `8bc01e5b`, `9a48fec6`,
-`b0fd871b`, `d1f84813`, `d24bac46` (nur „1/3“, „+1/3“ — Regel wörtlich, Orchestrator a), `d38afe88`, `ddaa4ecd`,
-`df337432`, `ffc758dc`.
+Prüfliste (41 Einheiten):
+- **Aufgaben (24):** ready `939baa76-0207-496c-a768-4df2988f7f12`, `afc3b977-389b-4e8d-a157-9952b087c8e2`; draft
+  `03c74739`, `15164236`, `15c3975c`, `2b7059d7`, `305c5063`, `356c43e5`, `3b3119d4`, `3cb3aa9d`, `46f1792e`,
+  `54f5e1df`, `5bcca7e7`, `5d143147`, `7e7ce00a`, `8bc01e5b`, `9a48fec6`, `b0fd871b`, `d1f84813`, `d24bac46`
+  (nur „1/3“, „+1/3“ — Regel wörtlich), `d38afe88`, `ddaa4ecd`, `df337432`, `ffc758dc` (Bruch und Dezimal gemischt).
+- **Teile (17), alle draft:** `3b59c4a1` Teil 1+2, `785c92ab` Teil 1 (Bruch/Dezimal gemischt); neu durch die
+  Zahl-Regel (Lösung mit Einheit, die der Teil nicht als `unit` zeigt): `0315634a` Teil 2 (€), `0c5d8ee8` Teil 1+2 (°),
+  `4d293e0f` Teil 2 (€), `5fcdd8c8` Teil 1+2 (€), `614b148f` Teil 2 (km) und 3 (€), `7eb5ad20` Teil 2+3 (kg),
+  `f2cff506` Teil 1+2 (m), `f3595c06` Teil 1+2 (€). Abhilfe in der Item-Pflege: Einheit am Teil eintragen oder
+  „Zahl“ wählen.
+- Textlösungen („x = 9“, „A UND B“) gibt es im Pool heute keine.
+- `1660a458` (ready, „500 000“) bleibt `number` (Tausender mit Leerzeichen).
 
 Bruch-Treffer zur Handprüfung (Vorbefüllt-Kennzeichen `bruch`): 38 Aufgaben, alle draft, 0 Teile; IDs wie in
 L0 (`ist-analyse-daten.md`, Abschnitt 2).
 
-Vorbefüllung gesamt (alle Aufgaben, nicht nur Pool): 749 Aufgaben bekommen `bruch` (38 true, 711 false),
-150 Mehrteiler bekommen `bruch` an 270 Teilen (alle false). Ein zweiter Lauf ändert nichts.
+Vorbefüllung (Befundrunde 1, Punkt 6): nur diese 38 Aufgaben bekommen `bruch = true`; alle anderen bleiben NULL und
+werden zur Laufzeit abgeleitet. `pruef_version` zählt nur bei den 38. Ein zweiter Lauf ändert nichts.
 
 ## 3. Helle Abbildungen auf Creme `#F8F5EE`
 
 Gerendert mit Chromium (Playwright) auf `#F8F5EE`, Radius 30 pt wie die Arbeitsfläche; Bilder in
-`helle-abbildungen/`. Alle 41 hellen Dateien liegen im Storage (HEAD 200).
+`helle-abbildungen/`. Alle 41 hellen Dateien liegen im Storage (HEAD 200). Im Payload als `url_hell`
+(Befundrunde 1); `url` bleibt dunkel.
 
 | Generator | Aufgabe | Ergebnis |
 |---|---|---|

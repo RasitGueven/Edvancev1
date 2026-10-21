@@ -2,12 +2,13 @@
 //
 // Sie bestimmt das Eingabeformat beim Kind (input_hint): Bruch → Bruchmaske, Zahl → Zifferntastatur.
 // Drei Zustaende wie bei der Bild-Notwendigkeit: „Automatisch“ (NULL) nimmt den Vorschlag aus den
-// Loesungen; der steht darunter. Ist er nicht eindeutig (Bruch- und Dezimalschreibweise gemischt), kommt
-// die Aufgabe nicht in den LSA-Pool, bis hier „Bruch“ oder „Zahl“ gewaehlt ist.
+// Loesungen; der steht darunter. Ist er nicht eindeutig (gemischt, Text, fremde Einheit), kommt die Aufgabe
+// nicht in den LSA-Pool, bis hier „Bruch“ oder „Zahl“ gewaehlt ist. Die Migration hat nur Bruch-Treffer
+// fest gesetzt; alles andere steht auf „Automatisch“.
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
-import { bruchVorschlag } from '@/lib/authoring/bruch'
+import { formatVorschlag } from '@/lib/authoring/bruch'
 import { Field } from './ui'
 
 type Choice = { value: boolean | null; key: 'auto' | 'yes' | 'no' }
@@ -22,6 +23,7 @@ export function BruchControl({
   feld,
   value,
   answers,
+  unit,
   onChange,
 }: {
   /** Schluessel im Vorbefuellt-Kennzeichen ('bruch' / 'parts.<nr>.bruch'). */
@@ -29,11 +31,12 @@ export function BruchControl({
   value: boolean | null
   /** Die Loesungen — Grundlage fuer den Vorschlag bei „Automatisch“. */
   answers: string[]
+  /** Die Einheit, die das Feld zeigt — eine Loesung mit genau dieser Einheit zaehlt als Zahl. */
+  unit?: string | null
   onChange: (next: boolean | null) => void
 }): JSX.Element {
   const { t } = useTranslation('authoring')
-  const vorschlag = bruchVorschlag(answers)
-  const ergebnis = vorschlag === null ? 'offen' : vorschlag ? 'fraction' : 'number'
+  const ergebnis = formatVorschlag(answers.filter((a) => a.trim() !== ''), unit) ?? 'offen'
 
   return (
     <Field label={t('bruch.label')} feld={feld} hint={value === null ? t(`bruch.auto_${ergebnis}`) : undefined}>

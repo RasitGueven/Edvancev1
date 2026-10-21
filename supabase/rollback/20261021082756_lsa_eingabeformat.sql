@@ -2,7 +2,7 @@
 -- Reihenfolge: zuerst die Rollbacks der späteren L1-Migrationen (…083033, …083026, …083001, …082844), dann dieses.
 -- Stellt lsa_im_pool (ohne Gate), lsa_public_parts(jsonb) und lsa_question_payload (ohne input_hint) wieder her,
 -- wörtlich nach pg_get_functiondef aus Prod vom 21.10.2026 (vor L1).
--- Nicht löschend: tasks.bruch, die Bruch-Angaben in tasks.parts und die neuen Hilfsfunktionen bleiben stehen;
+-- Nicht löschend: tasks.bruch, die Bruch-Angaben in tasks.parts (nur Bruch-Treffer) und die neuen Hilfsfunktionen bleiben stehen;
 -- nach dem Rollback liest sie niemand mehr. Wer sie wirklich entfernen will, siehe Ende (auskommentiert).
 
 CREATE OR REPLACE FUNCTION public.lsa_im_pool(p_task_id uuid, p_testlauf boolean DEFAULT false)
@@ -114,9 +114,12 @@ $function$;
 -- update public.tasks set vorbefuellt = (select coalesce(jsonb_object_agg(k, v), '{}'::jsonb)
 --          from jsonb_each(vorbefuellt) e(k, v) where k <> 'bruch' and k !~ '^parts\.[0-9]+\.bruch$')
 --  where vorbefuellt ? 'bruch' or exists (select 1 from jsonb_object_keys(vorbefuellt) k where k ~ '^parts\.[0-9]+\.bruch$');
+-- update public.tasks set parts = (select jsonb_agg(p - 'bruch' order by o) from jsonb_array_elements(parts) with ordinality e(p, o))
+--  where jsonb_typeof(parts) = 'array' and exists (select 1 from jsonb_array_elements(parts) p where p ? 'bruch');
 -- drop function public.lsa_public_parts(jsonb, jsonb);
--- drop function public.lsa_eingabeformat_eindeutig(text, boolean, jsonb, jsonb);
+-- drop function public.lsa_eingabeformat_eindeutig(text, boolean, text, jsonb, jsonb);
 -- drop function public.lsa_teil_input_hint(jsonb, jsonb);
--- drop function public.lsa_input_hint(text, boolean, jsonb);
--- drop function public.lsa_bruch_vorschlag(jsonb);
+-- drop function public.lsa_input_hint(text, boolean, jsonb, text);
+-- drop function public.lsa_format_vorschlag(jsonb, text);
+-- drop function public.lsa_loesung_ist_zahl(text, text);
 -- alter table public.tasks drop column bruch;

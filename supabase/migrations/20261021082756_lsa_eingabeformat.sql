@@ -1,31 +1,33 @@
 -- LSA-Erlebnis L1, Punkt 1: Eingabeformat je Aufgabe und je Teil (input_hint number | fraction | term).
 --
 -- Anforderung „LSA-Erlebnis nach Prototyp V1.3.1“ (Fassung 1.1), Daten und Backend, Punkt 1; Entscheidungen
--- Rasit 21.10.2026 (7.8) und Orchestrator a) und b).
+-- Rasit 21.10.2026 (7.8) und Orchestrator a), b) sowie Befundrunde 1 (Punkte 5 und 6).
 --
--- Die Bruch-Angabe:
---   tasks.bruch          boolean  — an der Aufgabe (short_input). NULL = nicht festgelegt.
---   tasks.parts[i].bruch boolean  — am short_input-Teil eines Mehrteilers. Fehlt = nicht festgelegt.
+-- Die Bruch-Angabe (Item-Pflege, Feld „Bruch“):
+--   tasks.bruch          boolean  — an der Aufgabe (short_input). NULL = automatisch nach der Regel.
+--   tasks.parts[i].bruch boolean  — am short_input-Teil eines Mehrteilers. Fehlt = automatisch.
 -- Ein Teil wird Term über tasks.parts[i].input_type = 'TERM' (wie eine Aufgabe über tasks.input_type);
 -- heute hat kein Teil diesen Schlüssel (L0: 0 von 606).
 --
 -- Regel (lsa_input_hint):
 --   input_type TERM → 'term'
 --   bruch true → 'fraction', bruch false → 'number'
---   bruch NULL → Vorschlag aus den Lösungen (lsa_bruch_vorschlag): JEDE Lösung passt (nach btrim) auf
---   ^-?\d+/\d+$ → 'fraction'; KEINE → 'number'; gemischt oder leer → kein Hinweis.
+--   bruch NULL → Vorschlag aus den Lösungen (lsa_format_vorschlag):
+--     JEDE Lösung passt (nach btrim) auf ^-?\d+/\d+$                              → 'fraction'
+--     JEDE Lösung ist eine Zahl (lsa_loesung_ist_zahl: Vorzeichen auch „+“/„−“,
+--       Dezimalkomma/-punkt, Tausender mit Leerzeichen, dahinter höchstens die
+--       Einheit, die das Feld selbst zeigt — tasks.unit bzw. parts[i].unit)      → 'number'
+--     sonst (gemischt, Text wie „x = 9“, Einheit ohne Feld-Einheit, leer)          → kein Hinweis
 --   Die Bruch-Regel bleibt wörtlich (Orchestrator a): „+1/3“ und typografisches Minus sind kein Bruch.
 --
--- Vorbefüllung: Die Migration schreibt den Vorschlag für alle vorhandenen Aufgaben und Teile fest
--- (bruch true/false), gemischte bleiben NULL und landen auf der Prüfliste
--- (supabase/checks/lsa_eingabeformat_pruefliste.sql). Bruch-Treffer bekommen das Vorbefüllt-Kennzeichen
--- (tasks.vorbefuellt 'bruch' bzw. 'parts.<nr>.bruch'), damit Rasit/Lena sie in der Item-Pflege bestätigen.
--- Compare-and-set: nur wo noch nichts steht; ein zweiter Lauf ändert nichts. tasks.pruef_version zählt per
--- Trigger hoch (wie bei jeder Änderung an tasks) — eine offene Prüfansicht meldet „neu laden“.
+-- Vorbefüllung (Befundrunde 1, Punkt 6): Die Migration schreibt nur die Bruch-Treffer fest (bruch = true,
+-- mit Vorbefüllt-Kennzeichen 'bruch' bzw. 'parts.<nr>.bruch', damit Rasit/Lena sie in der Item-Pflege
+-- bestätigen). Alles andere bleibt NULL und wird zur Laufzeit nach der Regel abgeleitet — so veraltet nichts,
+-- und tasks.pruef_version zählt nur bei den Treffern hoch. Compare-and-set; ein zweiter Lauf ändert nichts.
 --
 -- Gate (lsa_im_pool): Eine short_input-Aufgabe ohne eindeutigen Hinweis kommt nicht in den LSA-Pool, ebenso
--- ein Mehrteiler, bei dem ein short_input-Teil keinen hat (Orchestrator b). Neue Aufgaben ohne Angabe
--- bekommen den Vorschlag aus ihren Lösungen; nur gemischte fallen heraus.
+-- ein Mehrteiler, bei dem ein short_input-Teil keinen hat (Orchestrator b). Prüfliste:
+-- supabase/checks/lsa_eingabeformat_pruefliste.sql.
 --
 -- Payload: short_input und short_input-Teile tragen input_hint (jsonb_strip_nulls: fehlt ohne Hinweis).
 
@@ -33,25 +35,40 @@ alter table public.tasks add column if not exists bruch boolean;
 
 -- ── Regel ──────────────────────────────────────────────────────────────────
 
-create or replace function public.lsa_bruch_vorschlag(p_answers jsonb)
+-- Ist diese Lösung eine Zahl, die das Kind auf der Zifferntastatur tippen kann? Eine Einheit dahinter zählt nur,
+-- wenn das Feld genau diese Einheit selbst anzeigt (p_unit).
+create or replace function public.lsa_loesung_ist_zahl(p_loesung text, p_unit text)
 returns boolean
 language sql
 immutable
 as $$
-  -- true: jede Lösung ist ein Bruch · false: keine (und keine sieht nach Bruch aus)
-  -- NULL: gemischt, leer, oder ein Bruch, der die Regel nicht erfüllt („+1/3“, „−3/4“) → Prüfliste
+  select case
+    when m is null then false
+    when btrim(m[2]) = '' then true
+    else coalesce(btrim(p_unit), '') <> ''
+         and replace(btrim(m[2]), ' ', '') = replace(lower(btrim(p_unit)), ' ', '')
+  end
+    from (select regexp_match(public.lsa_normalize_number(p_loesung),
+                              '^(-?(?:[0-9]{1,3}(?: [0-9]{3})+|[0-9]+)(?:\.[0-9]+)?)(.*)$') as m) x
+$$;
+
+-- 'fraction' · 'number' · NULL (Prüfliste)
+create or replace function public.lsa_format_vorschlag(p_answers jsonb, p_unit text)
+returns text
+language sql
+immutable
+as $$
   select case
     when jsonb_typeof(p_answers) is distinct from 'array' then null
     when jsonb_array_length(p_answers) = 0 then null
     when not exists (select 1 from jsonb_array_elements_text(p_answers) a
-                      where btrim(a) !~ '^-?\d+/\d+$') then true
-    when exists (select 1 from jsonb_array_elements_text(p_answers) a
-                  where btrim(a) ~ '^-?\d+/\d+$' or a ~ '/') then null
-    else false
+                      where btrim(a) !~ '^-?\d+/\d+$') then 'fraction'
+    when not exists (select 1 from jsonb_array_elements_text(p_answers) a
+                      where not public.lsa_loesung_ist_zahl(a, p_unit)) then 'number'
   end
 $$;
 
-create or replace function public.lsa_input_hint(p_input_type text, p_bruch boolean, p_answers jsonb)
+create or replace function public.lsa_input_hint(p_input_type text, p_bruch boolean, p_answers jsonb, p_unit text)
 returns text
 language sql
 immutable
@@ -59,8 +76,9 @@ as $$
   select case
     when p_input_type in ('MC', 'MULTI_PART') then null
     when p_input_type = 'TERM' then 'term'
-    when coalesce(p_bruch, public.lsa_bruch_vorschlag(p_answers)) then 'fraction'
-    when not coalesce(p_bruch, public.lsa_bruch_vorschlag(p_answers)) then 'number'
+    when p_bruch then 'fraction'
+    when not p_bruch then 'number'
+    else public.lsa_format_vorschlag(p_answers, p_unit)
   end
 $$;
 
@@ -75,12 +93,13 @@ as $$
     else public.lsa_input_hint(
            coalesce(p_part ->> 'input_type', 'SHORT_TEXT'),
            case when jsonb_typeof(p_part -> 'bruch') = 'boolean' then (p_part ->> 'bruch')::boolean end,
-           p_answers)
+           p_answers,
+           p_part ->> 'unit')
   end
 $$;
 
 -- Gate: hat die Aufgabe (bzw. jeder short_input-Teil) einen eindeutigen Hinweis?
-create or replace function public.lsa_eingabeformat_eindeutig(p_input_type text, p_bruch boolean,
+create or replace function public.lsa_eingabeformat_eindeutig(p_input_type text, p_bruch boolean, p_unit text,
                                                               p_parts jsonb, p_answers jsonb)
 returns boolean
 language sql
@@ -96,58 +115,52 @@ as $$
                case when jsonb_typeof(p_answers) = 'object'
                      and jsonb_typeof(p_answers -> (p ->> 'nr')) = 'array'
                     then p_answers -> (p ->> 'nr') end) is null)
-    else public.lsa_input_hint(p_input_type, p_bruch, p_answers) is not null
+    else public.lsa_input_hint(p_input_type, p_bruch, p_answers, p_unit) is not null
   end
 $$;
 
-revoke all on function public.lsa_bruch_vorschlag(jsonb) from public, anon, authenticated;
-revoke all on function public.lsa_input_hint(text, boolean, jsonb) from public, anon, authenticated;
+revoke all on function public.lsa_loesung_ist_zahl(text, text) from public, anon, authenticated;
+revoke all on function public.lsa_format_vorschlag(jsonb, text) from public, anon, authenticated;
+revoke all on function public.lsa_input_hint(text, boolean, jsonb, text) from public, anon, authenticated;
 revoke all on function public.lsa_teil_input_hint(jsonb, jsonb) from public, anon, authenticated;
-revoke all on function public.lsa_eingabeformat_eindeutig(text, boolean, jsonb, jsonb) from public, anon, authenticated;
+revoke all on function public.lsa_eingabeformat_eindeutig(text, boolean, text, jsonb, jsonb) from public, anon, authenticated;
 
--- ── Vorbefüllung ───────────────────────────────────────────────────────────
+-- ── Vorbefüllung: nur Bruch-Treffer ────────────────────────────────────────
 
 do $vb$
 declare
   v_aufgaben integer;
   v_teile    integer;
 begin
-  -- Aufgaben (alles, was lsa_question_payload als short_input ausgibt; TERM ist immer term).
   update public.tasks t
-     set bruch = v.vorschlag,
-         vorbefuellt = case when v.vorschlag
-           then t.vorbefuellt || jsonb_build_object('bruch', jsonb_build_object('art', 'neu',
-                  'grund', 'LSA-Erlebnis L1: alle Lösungen in Bruchschreibweise'))
-           else t.vorbefuellt end
-    from (select t2.id, public.lsa_bruch_vorschlag(s.correct_answers) as vorschlag
-            from public.tasks t2 join public.task_solutions s on s.task_id = t2.id
-           where t2.input_type not in ('MC', 'MULTI_PART', 'TERM')) v
-   where v.id = t.id
+     set bruch = true,
+         vorbefuellt = t.vorbefuellt || jsonb_build_object('bruch', jsonb_build_object('art', 'neu',
+                         'grund', 'LSA-Erlebnis L1: alle Lösungen in Bruchschreibweise'))
+    from public.task_solutions s
+   where s.task_id = t.id
+     and t.input_type not in ('MC', 'MULTI_PART', 'TERM')
      and t.bruch is null
-     and v.vorschlag is not null;
+     and public.lsa_format_vorschlag(s.correct_answers, t.unit) = 'fraction';
   get diagnostics v_aufgaben = row_count;
 
-  -- short_input-Teile ohne Angabe (nicht Term).
   with neu as (
     select t.id,
-           jsonb_agg(case when x.v is not null then e.p || jsonb_build_object('bruch', x.v) else e.p end
-                     order by e.o) as parts,
+           jsonb_agg(case when x.treffer then e.p || '{"bruch": true}'::jsonb else e.p end order by e.o) as parts,
            coalesce(jsonb_object_agg('parts.' || (e.p ->> 'nr') || '.bruch',
                       jsonb_build_object('art', 'neu',
                         'grund', 'LSA-Erlebnis L1: alle Lösungen in Bruchschreibweise'))
-                    filter (where x.v), '{}'::jsonb) as kennzeichen,
-           count(*) filter (where x.v is not null) as gesetzt
+                    filter (where x.treffer), '{}'::jsonb) as kennzeichen,
+           count(*) filter (where x.treffer) as gesetzt
       from public.tasks t
       join public.task_solutions s on s.task_id = t.id
       cross join lateral jsonb_array_elements(t.parts) with ordinality as e(p, o)
       cross join lateral (
-        select case
-          when e.p ->> 'kind' = 'short_input' and not e.p ? 'bruch'
-               and e.p ->> 'input_type' is distinct from 'TERM'
-               and jsonb_typeof(s.correct_answers) = 'object'
-               and jsonb_typeof(s.correct_answers -> (e.p ->> 'nr')) = 'array'
-          then public.lsa_bruch_vorschlag(s.correct_answers -> (e.p ->> 'nr'))
-        end as v
+        select coalesce(
+                 e.p ->> 'kind' = 'short_input' and not e.p ? 'bruch'
+                 and e.p ->> 'input_type' is distinct from 'TERM'
+                 and jsonb_typeof(s.correct_answers) = 'object'
+                 and public.lsa_format_vorschlag(s.correct_answers -> (e.p ->> 'nr'), e.p ->> 'unit') = 'fraction',
+               false) as treffer
       ) x
      where t.input_type = 'MULTI_PART' and jsonb_typeof(t.parts) = 'array'
      group by t.id
@@ -159,7 +172,7 @@ begin
    where neu.id = t.id and neu.gesetzt > 0;
   get diagnostics v_teile = row_count;
 
-  raise notice 'lsa_eingabeformat: % Aufgaben, % Mehrteiler vorbefuellt', v_aufgaben, v_teile;
+  raise notice 'lsa_eingabeformat: % Aufgaben, % Mehrteiler als Bruch vorbefuellt', v_aufgaben, v_teile;
 end $vb$;
 
 -- ── Gate im LSA-Pool ───────────────────────────────────────────────────────
@@ -182,7 +195,7 @@ AS $function$
                     where s.task_id = t.id
                       and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
                       -- LSA-Erlebnis L1: ohne eindeutiges Eingabeformat nicht in den Pool.
-                      and public.lsa_eingabeformat_eindeutig(t.input_type, t.bruch, t.parts, s.correct_answers))
+                      and public.lsa_eingabeformat_eindeutig(t.input_type, t.bruch, t.unit, t.parts, s.correct_answers))
        and (t.status = 'ready'
             or (coalesce(p_testlauf, false) and public.testlauf_inhalt_sichtbar(t.id)))
   )
@@ -282,7 +295,7 @@ AS $function$
         'assets',     public.lsa_task_assets(t.id),
         'table',      public.lsa_public_table(t.question_payload -> 'table'),
         'unit',       t.unit,
-        'input_hint', public.lsa_input_hint(t.input_type, t.bruch, s.correct_answers)
+        'input_hint', public.lsa_input_hint(t.input_type, t.bruch, s.correct_answers, t.unit)
       )
     end
   )

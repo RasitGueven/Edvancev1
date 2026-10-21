@@ -1,26 +1,32 @@
 import { describe, expect, it } from 'vitest'
-import { bruchVorschlag, eingabeFormat } from './bruch'
+import { eingabeFormat, formatVorschlag } from './bruch'
 
-describe('bruchVorschlag', () => {
+describe('formatVorschlag', () => {
   it('nur Brueche → Bruch', () => {
-    expect(bruchVorschlag(['3/4', '-6/8'])).toBe(true)
+    expect(formatVorschlag(['3/4', '-6/8'])).toBe('fraction')
   })
-  it('keine Brueche → Zahl', () => {
-    expect(bruchVorschlag(['12', '12,5'])).toBe(false)
+  it('nur Zahlen → Zahl (auch „+“, „−“, Tausender)', () => {
+    expect(formatVorschlag(['12', '12,5', '+12', '−12'])).toBe('number')
+    expect(formatVorschlag(['500000', '500 000'])).toBe('number')
   })
   it('gemischt → kein Hinweis', () => {
-    expect(bruchVorschlag(['3/4', '0,75'])).toBeNull()
+    expect(formatVorschlag(['3/4', '0,75'])).toBeNull()
   })
   it('die Regel ist woertlich: „+1/3“ ist kein Bruch', () => {
-    expect(bruchVorschlag(['1/3', '+1/3'])).toBeNull()
+    expect(formatVorschlag(['1/3', '+1/3'])).toBeNull()
+    expect(formatVorschlag(['+1/3'])).toBeNull()
   })
-  it('nur Brueche ausserhalb der Regel → kein Hinweis, nicht Zahl', () => {
-    expect(bruchVorschlag(['+1/3'])).toBeNull()
-    expect(bruchVorschlag(['−3/4'])).toBeNull()
+  it('Textloesungen → kein Hinweis', () => {
+    expect(formatVorschlag(['x = 9'])).toBeNull()
+    expect(formatVorschlag(['A UND B'])).toBeNull()
+  })
+  it('Einheit nur, wenn das Feld sie zeigt', () => {
+    expect(formatVorschlag(['12', '12 cm', '12cm'], 'cm')).toBe('number')
+    expect(formatVorschlag(['6', '6 €'])).toBeNull()
+    expect(formatVorschlag(['6', '6 m'], 'cm')).toBeNull()
   })
   it('leer → kein Hinweis', () => {
-    expect(bruchVorschlag([])).toBeNull()
-    expect(bruchVorschlag(['  '])).toBeNull()
+    expect(formatVorschlag([])).toBeNull()
   })
 })
 
@@ -35,6 +41,6 @@ describe('eingabeFormat', () => {
     expect(eingabeFormat(null, ['3/4', '0,75'])).toBeNull()
   })
   it('Term bleibt Term', () => {
-    expect(eingabeFormat(true, ['3/4'], true)).toBe('term')
+    expect(eingabeFormat(true, ['3/4'], null, true)).toBe('term')
   })
 })

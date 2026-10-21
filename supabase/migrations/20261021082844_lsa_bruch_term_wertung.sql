@@ -33,18 +33,28 @@ as $$
     from (select regexp_replace(public.lsa_normalize_number(p_raw), '[[:space:]]*/[[:space:]]*', '/', 'g') as v) x
 $$;
 
+-- Ein Fehler (unlesbare Zahl, Überlauf) heisst „kein Treffer“, nie Abbruch der Abgabe.
 create or replace function public.lsa_bruch_wert_gleich(p_antwort text, p_loesungen jsonb)
 returns boolean
-language sql
+language plpgsql
 immutable
 as $$
-  select coalesce(z.a is not null and exists (
-           select 1
-             from jsonb_array_elements_text(
-                    case when jsonb_typeof(p_loesungen) = 'array' then p_loesungen else '[]'::jsonb end) l(x)
-            cross join lateral (select public.lsa_bruch_zahl(l.x) as b) y
-            where y.b is not null and z.a[1] * y.b[2] = y.b[1] * z.a[2]), false)
-    from (select public.lsa_bruch_zahl(p_antwort) as a) z
+declare
+  v_a numeric[];
+begin
+  v_a := public.lsa_bruch_zahl(p_antwort);
+  if v_a is null or jsonb_typeof(p_loesungen) is distinct from 'array' then
+    return false;
+  end if;
+  return exists (
+    select 1
+      from jsonb_array_elements_text(p_loesungen) l(x)
+     cross join lateral (select public.lsa_bruch_zahl(l.x) as b) y
+     where y.b is not null and v_a[1] * y.b[2] = y.b[1] * v_a[2]);
+exception
+  when others then
+    return false;
+end;
 $$;
 
 -- Linearer Term in x → kanonische Abgabeform der App; alles andere → normalisiert, sonst unverändert.
@@ -64,10 +74,10 @@ begin
   if p_raw is null then
     return null;
   end if;
-  -- Minuszeichen vereinheitlichen, Malpunkte weg, jedes Komma zum Punkt.
-  v := replace(translate(public.lsa_normalize_term(p_raw),
-                         chr(8722) || chr(8211) || chr(8212) || '*' || chr(183) || chr(8901), '---'),
-               ',', '.');
+  -- Minuszeichen vereinheitlichen, jedes Komma zum Punkt, Malzeichen nur zwischen Ziffer und x
+  -- („3·x“ → „3x“; „2·3“ bleibt, wie es ist).
+  v := replace(translate(public.lsa_normalize_term(p_raw), chr(8722) || chr(8211) || chr(8212), '---'), ',', '.');
+  v := regexp_replace(v, '([0-9])[*' || chr(183) || chr(8901) || ']x', '\1x', 'g');
   loop
     v2 := replace(replace(replace(replace(v, '+-', '-'), '-+', '-'), '--', '+'), '++', '+');
     exit when v2 = v;
@@ -122,24 +132,29 @@ begin
   if v_text is null or btrim(v_text) = '' then
     return false;
   end if;
-  -- 3. Term: kanonische Form ax+b.
-  if v_term then
-    return exists (select 1 from jsonb_array_elements_text(p_correct_answers) l(x)
-                    where public.lsa_term_kanonisch(l.x) = public.lsa_term_kanonisch(v_text));
-  end if;
-  -- 2. Bruch: nach Wert.
-  if p_input_hint = 'fraction' then
-    return public.lsa_bruch_wert_gleich(v_text, p_correct_answers);
-  end if;
-  return false;
+  -- Ab hier nur zusätzliche Treffer: ein Fehler heisst „kein Treffer“, nie Abbruch der Abgabe.
+  begin
+    -- 3. Term: kanonische Form ax+b.
+    if v_term then
+      return exists (select 1 from jsonb_array_elements_text(p_correct_answers) l(x)
+                      where public.lsa_term_kanonisch(l.x) = public.lsa_term_kanonisch(v_text));
+    end if;
+    -- 2. Bruch: nach Wert.
+    if p_input_hint = 'fraction' then
+      return public.lsa_bruch_wert_gleich(v_text, p_correct_answers);
+    end if;
+    return false;
+  exception
+    when others then
+      return false;
+  end;
 end;
 $$;
 
--- Fertigkeitsurteil mit Eingabeformat: dieselbe Wertung wie bisher, und wo sie 'nicht' sagt, aber
--- lsa_antwort_korrekt trifft, gilt 'voll' — bzw. 'teilweise', wenn die gepflegte Regel einen gekürzten Bruch
--- verlangt. So laufen correct und Urteil nicht auseinander. Das gilt für jeden Hinweis: auch bei 'number' wird
--- ein 'nicht' der canonical-Regel zu 'voll', wenn die Antwort wörtlich in correct_answers steht (Prod
--- 21.10.2026: 0 von 732 Aufgaben mit canonical betroffen).
+-- Fertigkeitsurteil mit Eingabeformat: dieselbe Wertung wie bisher. Nur bei 'fraction' und 'term' gilt: wo sie
+-- 'nicht' sagt, aber lsa_antwort_korrekt trifft, gilt 'voll' — bzw. 'teilweise', wenn die gepflegte Regel einen
+-- gekürzten Bruch verlangt. So laufen correct und Urteil dort nicht auseinander. Bei 'number' (und ohne
+-- Hinweis) bleibt es exakt bei der vierstelligen lsa_grade aus #294 (Prozent als Faktor).
 create or replace function public.lsa_grade(p_input_type text, p_acceptance jsonb, p_correct_answers jsonb,
                                             p_response jsonb, p_input_hint text)
 returns text
@@ -149,7 +164,8 @@ as $$
 declare
   v_res text := public.lsa_grade(p_input_type, p_acceptance, p_correct_answers, p_response);
 begin
-  if v_res is distinct from 'nicht' or p_input_type = 'MC' or p_input_hint is null then
+  if v_res is distinct from 'nicht' or p_input_type = 'MC'
+     or p_input_hint is null or p_input_hint not in ('fraction', 'term') then
     return v_res;
   end if;
   if not public.lsa_antwort_korrekt(p_input_type, p_input_hint, p_correct_answers, p_response) then
@@ -252,7 +268,7 @@ begin
       case when v_art = 'antwort'
            then coalesce(public.lsa_antwort_korrekt(
                   v_task.input_type,
-                  public.lsa_input_hint(v_task.input_type, v_task.bruch, v_answers),
+                  public.lsa_input_hint(v_task.input_type, v_task.bruch, v_answers, v_task.unit),
                   v_answers, p_response), false)
            else null end,
       p_duration_ms
