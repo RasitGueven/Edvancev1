@@ -4,7 +4,7 @@
 --   ~/bin/dbread -f supabase/checks/prozent_gate.PRUEFUNG.sql
 --
 -- Nur Lesezugriffe (läuft in der read-only-Sitzung von dbread), ein do-Block, jede Abweichung ist ein
--- raise exception. Nach M1 aufrufen. P3 richtet sich nach dem Stand: alter Stand der acht Entwürfe → Hinweis
+-- raise exception. Nach M1 aufrufen. P3 richtet sich nach dem Stand: alter Stand der neun Entwürfe → Hinweis
 -- „M2 steht aus“, neuer Stand → wird geprüft. P2 verlangt den Stand nach M2.
 
 do $p$
@@ -54,11 +54,12 @@ begin
         ('d1f84813-9f5b-43ec-8e69-f3d566cffb09'::uuid, '["3/5", "0,6", "0.6", "60 %", "60%", "60/100"]'::jsonb, '["60"]'::jsonb),
         ('8bc01e5b-acf8-4808-a6ef-ce19acb8ea77'::uuid, '["9/25", "0,36", "0.36", "36 %", "36%", "36/100"]'::jsonb, '["36"]'::jsonb),
         ('df337432-9db5-4a28-be26-e64132f93659'::uuid, '["1/4", "0,25", "0.25", "25 %", "25%", "25/100"]'::jsonb, '["25"]'::jsonb),
-        ('3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f'::uuid, '["0,488", "61/125", "122/250", "244/500", "488/1000", "0.488", "48,8 %", "48,8%", "48.8 %", "48.8%"]'::jsonb, '["48,8", "48.8"]'::jsonb)
+        ('3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f'::uuid, '["0,488", "61/125", "122/250", "244/500", "488/1000", "0.488", "48,8 %", "48,8%", "48.8 %", "48.8%"]'::jsonb, '["48,8", "48.8"]'::jsonb),
+        ('5bcca7e7-8a84-49b8-b115-6598e4b337c6'::uuid, '["20 %", "1/5", "2/10", "3/15", "5/25", "6/30", "10/50", "15/75", "30/150", "0,2", "0.2", "20%", "20/100"]'::jsonb, '["20"]'::jsonb)
     ) v(id, neu, weg)
     join public.task_solutions s on s.task_id = v.id;
   if v_neu + v_alt = 0 then
-    raise notice 'P3 übersprungen: die acht Entwürfe fehlen (CI)';
+    raise notice 'P3 übersprungen: die neun Entwürfe fehlen (CI)';
   elsif v_neu = 0 then
     raise notice 'P3 M2 steht aus (% Entwürfe im alten Stand)', v_alt;
   elsif v_alt > 0 then
@@ -74,7 +75,8 @@ begin
         ('d1f84813-9f5b-43ec-8e69-f3d566cffb09'::uuid, '["3/5", "0,6", "0.6", "60 %", "60%", "60/100"]'::jsonb, '["60"]'::jsonb),
         ('8bc01e5b-acf8-4808-a6ef-ce19acb8ea77'::uuid, '["9/25", "0,36", "0.36", "36 %", "36%", "36/100"]'::jsonb, '["36"]'::jsonb),
         ('df337432-9db5-4a28-be26-e64132f93659'::uuid, '["1/4", "0,25", "0.25", "25 %", "25%", "25/100"]'::jsonb, '["25"]'::jsonb),
-        ('3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f'::uuid, '["0,488", "61/125", "122/250", "244/500", "488/1000", "0.488", "48,8 %", "48,8%", "48.8 %", "48.8%"]'::jsonb, '["48,8", "48.8"]'::jsonb)
+        ('3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f'::uuid, '["0,488", "61/125", "122/250", "244/500", "488/1000", "0.488", "48,8 %", "48,8%", "48.8 %", "48.8%"]'::jsonb, '["48,8", "48.8"]'::jsonb),
+        ('5bcca7e7-8a84-49b8-b115-6598e4b337c6'::uuid, '["20 %", "1/5", "2/10", "3/15", "5/25", "6/30", "10/50", "15/75", "30/150", "0,2", "0.2", "20%", "20/100"]'::jsonb, '["20"]'::jsonb)
         ) v(id, neu, weg)
         join public.tasks t on t.id = v.id
         join public.task_solutions s on s.task_id = t.id
@@ -102,7 +104,15 @@ begin
                        or public.lsa_is_correct(r.input_type, r.ca, jsonb_build_object('text', k)));
       if cardinality(v_m) > 0 then raise exception 'P3 % Fehlerwerte richtig: %', r.id, v_m; end if;
     end loop;
-    raise notice 'P3 ok: acht Entwürfe bereinigt, Status draft, Ausgangsfassung nachgezogen, Wertung stimmt';
+    -- 5bcca7e7: freie Schreibweise, ohne „Gib das Ergebnis in Prozent an“, Feld ohne „%“, kein Marker.
+    if not exists (select 1 from public.tasks t join public.task_solutions s on s.task_id = t.id
+                    where t.id = '5bcca7e7-8a84-49b8-b115-6598e4b337c6'
+                      and t.question = E'Bei einer Tombola werden 150 Lose verkauft, 30 davon sind Gewinne. Ein Los wird zufällig gekauft.\n\nWie groß ist die Wahrscheinlichkeit für einen Gewinn?'
+                      and t.question_payload ->> 'prompt' = t.question
+                      and t.unit is null and not s.acceptance ? 'unit') then
+      raise exception 'P3 5bcca7e7 Aufgabentext, Feld oder Marker nicht wie vorgesehen';
+    end if;
+    raise notice 'P3 ok: neun Entwürfe bereinigt, Status draft, Ausgangsfassung nachgezogen, Wertung stimmt, 5bcca7e7 ohne „in Prozent“';
   end if;
 
   -- ── 2. Bestand gegen das Gate ─────────────────────────────────────────────
@@ -113,10 +123,8 @@ begin
     v_m := array(select left(t.id::text, 8) || ' ' || public.prozent_gate_fehler(t.unit, s.acceptance, s.correct_answers)
                    from public.tasks t join public.task_solutions s on s.task_id = t.id
                   where public.prozent_gate_fehler(t.unit, s.acceptance, s.correct_answers) is not null);
-    -- 5bcca7e7 ist bewusst ausgelassen („in Prozent“ gefragt, Feld ohne %), Entwurf; Entscheidung steht aus.
-    v_m := array(select x from unnest(v_m) x where x not like '5bcca7e7 %');
     if cardinality(v_m) > 0 then raise exception 'P2 Aufgaben verstoßen gegen das Prozent-Gate: %', v_m; end if;
-    raise notice 'P2 ok: keine Aufgabe verstößt gegen das Prozent-Gate außer der ausgelassenen 5bcca7e7 (Entwurf)';
+    raise notice 'P2 ok: keine Aufgabe verstößt gegen das Prozent-Gate';
   else
     raise notice 'P2 ok: keine freigegebene Aufgabe verstößt gegen das Prozent-Gate (Bestand ohne M2 nicht geprüft)';
   end if;

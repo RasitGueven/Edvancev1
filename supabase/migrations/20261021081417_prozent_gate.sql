@@ -11,8 +11,10 @@
 --                             gilt z. B. „60“ bei 3/5 als richtig.
 --
 -- Beide Regeln gelten nur für eine flache Wertungsregel (acceptance mit canonical). Ohne Regel wertet
--- lsa_grade über lsa_is_correct, der Faktor wirkt dort nicht. Die zweite Regel prüft nur kanonische
--- Antworten ohne Einheit oder mit „%“: Bei „0,5 m“ ist „50“ (cm) kein Prozentfehler.
+-- lsa_grade über lsa_is_correct, der Faktor wirkt dort nicht. Das betrifft auch Aufgaben mit „%“ am Feld ohne
+-- Regel: d350fb95 (VERA8, ready, Antwort 10) bleibt bewusst unverändert und frei (Entscheidung Rasit, 21.10.2026).
+-- Die zweite Regel prüft nur kanonische Antworten ohne Einheit oder mit „%“: Bei „0,5 m“ ist „50“ (cm) kein
+-- Prozentfehler.
 --
 -- Rückgabe wie bisher „task_status_set: …“, hier mit festem Schlüssel statt Text. Das Frontend übersetzt
 -- die beiden Schlüssel (pruefenAdmin:gate.*), alle anderen Gate-Texte zeigt es weiter wie geliefert.
@@ -20,6 +22,10 @@
 
 create or replace function public.prozent_gate_fehler(p_unit text, p_acceptance jsonb, p_correct_answers jsonb)
 returns text language sql immutable set search_path = public, pg_temp as $$
+  -- Nur Aufgaben mit flacher Wertungsregel (acceptance mit canonical) werden geprüft. Ohne Regel wertet lsa_grade
+  -- über lsa_is_correct, also über den exakten Vergleich mit correct_answers; der Prozent-Faktor wirkt dort nicht,
+  -- und ein Marker ginge nur über eine neue Regel, die den Bewertungsweg ändert. Deshalb sind solche Aufgaben
+  -- ausgenommen, auch mit „%“ am Feld (z. B. d350fb95, VERA8, ready). Entscheidung Rasit, 21.10.2026.
   with r as (
     select p_acceptance as acc,
            public.lsa_parse_fraction(p_acceptance ->> 'canonical') as cf,

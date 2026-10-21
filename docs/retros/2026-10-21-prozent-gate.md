@@ -9,7 +9,7 @@ und neun Wahrscheinlichkeitsentwürfe führten die Prozentzahl ohne „%“ als 
 - M1 `20261021081417_prozent_gate`: neue Hilfsfunktion `prozent_gate_fehler(unit, acceptance, correct_answers)`,
   aufgerufen am Ende von `freigabe_gate_fehler`. Sie liefert die festen Schlüssel `prozent_ohne_marker` und
   `prozentzahl_ohne_zeichen` mit dem bisherigen Präfix „task_status_set: “.
-- M2 `20261021081529_prozent_gate_daten`: acht Entwürfe bereinigt. Die Prozentzahl ohne „%“ ist entfernt, „X/100“
+- M2 `20261021081529_prozent_gate_daten`: neun Entwürfe bereinigt. Die Prozentzahl ohne „%“ ist entfernt, „X/100“
   ergänzt, wo X eine ganze Zahl ist. Die Ausgangsfassung von 2b7059d7 und 7e7ce00a ist nachgezogen.
 - Frontend: Spiegel der Regeln in `computeFlags` (`src/lib/authoring/prozentGate.ts`). So zeigen Editor und
   Admin-Prüfansicht den Befund unter „Vor der Freigabe klären“. Die Schlüssel werden über `pruefenAdmin:gate.*`
@@ -24,12 +24,11 @@ und neun Wahrscheinlichkeitsentwürfe führten die Prozentzahl ohne „%“ als 
   kein Prozentfehler. Steht „%“ an canonical, zählt diese als 1/100 („20 %“ → 0,2, also „20“ als Treffer).
 - Bei 62,5 und 48,8 gibt es kein „X/100“, weil „62,5/100“ kein gültiger Bruch ist. 3cb3aa9d hat 488/1000 schon.
 
+## Entscheidungen Rasit (21.10.)
+- d350fb95 (VERA8_IQB, ready, „%“ am Feld, ohne Wertungsregel) bleibt unverändert. `prozent_ohne_marker` greift
+  nur bei Aufgaben mit Wertungsregel; das steht als Kommentar in `prozent_gate_fehler`.
+- 5bcca7e7 (Tombola): freie Schreibweise. „Gib das Ergebnis in Prozent an.“ ist gestrichen, „20“ entfernt,
+  „20/100“ ergänzt. Feld ohne „%“, kein Marker, Status draft.
+
 ## Offen
-- 5bcca7e7 (Tombola, kanonisch „20 %“) ist ausgelassen. Die Aufgabe verlangt „Gib das Ergebnis in Prozent an“, das
-  Feld zeigt aber kein „%“, und ein Kind meint mit „20“ dann 20 %. Möglich ist: „20“ entfernen, oder `tasks.unit = '%'`
-  mit Marker (dann ist die Antwort ein Prozentsatz, Bruch und Dezimalzahl fallen weg), oder die Aufgabe auf freie
-  Schreibweise umformulieren. Bis dahin hält das Gate sie auf (Entwurf).
-- d350fb95 (VERA8_IQB, ready, „um wie viel Prozent“, Antwort 10, „%“ am Feld) hat keine Wertungsregel. Nach dem
-  Wortlaut von `prozent_ohne_marker` wäre sie ein Verstoß. Ein Marker ginge nur mit einer neuen Regel
-  `{"canonical":"10","unit":"%"}`, die den Bewertungsweg ändert. Rasit entscheidet.
 - prozent_prozentsatz (Entwurf): „12 %“ ist in `lsa_grade` 'voll', in `lsa_is_correct` falsch (schon vorher so).

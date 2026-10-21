@@ -14,7 +14,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(17);
+select plan(18);
 
 -- --- A) / B) prozent_gate_fehler ---------------------------------------------
 select is(public.prozent_gate_fehler('%', '{"canonical":"12","equivalents":["12 %"]}', '["12","12 %"]'),
@@ -33,6 +33,8 @@ select is(public.prozent_gate_fehler(null, '{"canonical":"0,488"}', '["0,488","4
           'prozentzahl_ohne_zeichen', 'B: Dezimalzahl 48,8 bei 0,488');
 select is(public.prozent_gate_fehler(null, '{"canonical":"3/5"}', '["3/5","0,6","60 %","60%","60/100"]'),
           null, 'B: nur richtige Schreibweisen');
+select is(public.prozent_gate_fehler(null, '{"canonical":"20 %"}', '["20 %","1/5","0,2","20%","20/100"]'),
+          null, 'B: kanonisch 20 % mit freier Schreibweise ohne 20 frei (5bcca7e7 nach M2)');
 select is(public.prozent_gate_fehler(null, '{"canonical":"0,5 m"}', '["0,5 m","50"]'),
           null, 'B: andere Einheit (0,5 m gegen 50) frei');
 select is(public.prozent_gate_fehler(null, '{"canonical":"0"}', '["0"]'),

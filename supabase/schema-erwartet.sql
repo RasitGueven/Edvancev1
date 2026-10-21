@@ -8286,6 +8286,10 @@ CREATE FUNCTION public.prozent_gate_fehler(p_unit text, p_acceptance jsonb, p_co
     LANGUAGE sql IMMUTABLE
     SET search_path TO 'public', 'pg_temp'
     AS $$
+  -- Nur Aufgaben mit flacher Wertungsregel (acceptance mit canonical) werden geprüft. Ohne Regel wertet lsa_grade
+  -- über lsa_is_correct, also über den exakten Vergleich mit correct_answers; der Prozent-Faktor wirkt dort nicht,
+  -- und ein Marker ginge nur über eine neue Regel, die den Bewertungsweg ändert. Deshalb sind solche Aufgaben
+  -- ausgenommen, auch mit „%“ am Feld (z. B. d350fb95, VERA8, ready). Entscheidung Rasit, 21.10.2026.
   with r as (
     select p_acceptance as acc,
            public.lsa_parse_fraction(p_acceptance ->> 'canonical') as cf,

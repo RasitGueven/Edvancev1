@@ -1,4 +1,4 @@
--- Prozent-Gate (M2, Daten; nach 20261021081417_prozent_gate): acht Wahrscheinlichkeitsentwürfe bereinigen.
+-- Prozent-Gate (M2, Daten; nach 20261021081417_prozent_gate): neun Wahrscheinlichkeitsentwürfe bereinigen.
 --
 -- Die Aufgaben führen die Prozentzahl ohne „%“ als richtige Antwort (z. B. „60“ bei 3/5). Seit #294 gilt das als
 -- falsch; das neue Gate (prozentzahl_ohne_zeichen) hielte sie vor 'ready' auf. Entfernt wird die Zahl ohne „%“ aus
@@ -8,27 +8,34 @@
 --   15164236  weg: 62,5, 62.5
 --   2b7059d7  weg: 65
 --   d38afe88  weg: 40
+--   5bcca7e7  weg: 20  dazu: 20/100
 --   7e7ce00a  weg: 60  dazu: 60/100
 --   d1f84813  weg: 60  dazu: 60/100
 --   8bc01e5b  weg: 36  dazu: 36/100
 --   df337432  weg: 25  dazu: 25/100
 --   3cb3aa9d  weg: 48,8, 48.8
 --
--- Ausgelassen: 5bcca7e7 (Tombola, 20 %). Die Aufgabe verlangt „Gib das Ergebnis in Prozent an“, das Feld zeigt aber
--- kein „%“. Dort meint ein Kind mit „20“ 20 %; ob „20“ falsch werden soll oder das Feld „%“ bekommt, entscheidet Rasit.
+-- 5bcca7e7 (Tombola) verlangte „Gib das Ergebnis in Prozent an“, das Feld zeigt aber kein „%“; ein Kind meinte mit
+-- „20“ dann 20 %. Entscheidung Rasit (21.10.2026): freie Schreibweise. Der Satz fällt aus question und
+-- question_payload.prompt weg, sonst bleibt der Text. Richtig sind 1/5, 0,2 und 20 % samt gleichwertiger
+-- Schreibweisen; Feld ohne „%“, kein Marker. tasks_zahlen_guard greift nur für authenticated, die Migration läuft
+-- als postgres.
 --
--- Alle acht stehen im Entwurf, keine hat eine Prüfzeile von Lena; 3cb3aa9d ist im Pilot. 2b7059d7 und 7e7ce00a
+-- Alle neun stehen im Entwurf, keine hat eine Prüfzeile von Lena; 3cb3aa9d ist im Pilot. 2b7059d7 und 7e7ce00a
 -- haben eine Ausgangsfassung (schon geöffnet): Sie wird gleich nachgezogen, sonst meldet das Board die Bereinigung
--- als Änderung (Vorgehen wie L1 / #274). Status bleibt.
+-- als Änderung (Vorgehen wie L1 / #274). 5bcca7e7 hat keine Ausgangsfassung. Status bleibt.
 --
--- Compare-and-set: geändert wird nur, wenn correct_answers und equivalents dem Stand aus Prod vom 21.10.2026
--- entsprechen. Ein zweiter Lauf ändert nichts. In der CI fehlen die Aufgaben, alle Updates treffen null Zeilen.
--- Kein begin/commit: mig klammert mit psql -1.
+-- Compare-and-set: geändert wird nur, wenn correct_answers, equivalents und der Aufgabentext dem Stand aus Prod vom
+-- 21.10.2026 entsprechen. Ein zweiter Lauf ändert nichts. In der CI fehlen die Aufgaben, alle Updates treffen null
+-- Zeilen. Kein begin/commit: mig klammert mit psql -1.
 
 do $pz2$
 declare
+  c_alt constant text := E'Bei einer Tombola werden 150 Lose verkauft, 30 davon sind Gewinne. Ein Los wird zufällig gekauft.\n\nWie groß ist die Wahrscheinlichkeit für einen Gewinn? Gib das Ergebnis in Prozent an.';
+  c_neu constant text := E'Bei einer Tombola werden 150 Lose verkauft, 30 davon sind Gewinne. Ein Los wird zufällig gekauft.\n\nWie groß ist die Wahrscheinlichkeit für einen Gewinn?';
   v_l integer;
   v_a integer;
+  v_q integer;
 begin
   update public.task_solutions s
      set correct_answers = v.ca_neu,
@@ -43,6 +50,9 @@ begin
       ('d38afe88-221f-43a3-a3ec-469ea309dc42'::uuid,
        '["2/5", "4/10", "8/20", "10/25", "16/40", "20/50", "40/100", "80/200", "0,4", "0.4", "40 %", "40%", "40"]'::jsonb,
        '["2/5", "4/10", "8/20", "10/25", "16/40", "20/50", "40/100", "80/200", "0,4", "0.4", "40 %", "40%"]'::jsonb),
+      ('5bcca7e7-8a84-49b8-b115-6598e4b337c6'::uuid,
+       '["20 %", "1/5", "2/10", "3/15", "5/25", "6/30", "10/50", "15/75", "30/150", "0,2", "0.2", "20%", "20"]'::jsonb,
+       '["20 %", "1/5", "2/10", "3/15", "5/25", "6/30", "10/50", "15/75", "30/150", "0,2", "0.2", "20%", "20/100"]'::jsonb),
       ('7e7ce00a-733b-404a-88fe-b41cf327f2f5'::uuid,
        '["3/5", "6/10", "12/20", "24/40", "0,6", "0.6", "60 %", "60%", "60"]'::jsonb,
        '["3/5", "6/10", "12/20", "24/40", "0,6", "0.6", "60 %", "60%", "60/100"]'::jsonb),
@@ -80,5 +90,13 @@ begin
      and a.ausgang #> '{acceptance,equivalents}' = v.ca_alt - (a.ausgang #>> '{acceptance,canonical}');
   get diagnostics v_a = row_count;
 
-  raise notice 'prozent_gate_daten: Lösungen % · Ausgangsfassung %', v_l, v_a;
+  update public.tasks
+     set question = c_neu,
+         question_payload = jsonb_set(question_payload, '{prompt}', to_jsonb(c_neu))
+   where id = '5bcca7e7-8a84-49b8-b115-6598e4b337c6'
+     and question = c_alt
+     and question_payload ->> 'prompt' = c_alt;
+  get diagnostics v_q = row_count;
+
+  raise notice 'prozent_gate_daten: Lösungen % · Ausgangsfassung % · Aufgabentext %', v_l, v_a, v_q;
 end $pz2$;
