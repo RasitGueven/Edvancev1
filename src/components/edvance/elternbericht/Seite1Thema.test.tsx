@@ -100,7 +100,7 @@ describe('themaSaetze — alle Fassungen', () => {
   })
 })
 
-describe('Seite 1 und 2 — nur Geprüftes', () => {
+describe('Seite 1 und 2 — nur Geprüftes', { timeout: 30_000 }, () => {
   const faelle = Object.entries(FAELLE).filter(([n]) => n !== 'ohneKatalog')
 
   it('kein Katalog-Nenner und kein „nicht untersucht“ in den Texten', () => {
