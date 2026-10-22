@@ -1,8 +1,9 @@
 # LSA-Testkinder (LSA-T)
 
-Fünf erfundene Kinder (Klasse 7, 8, 9) spielen je eine vollständige LSA durch die echte Auswahl und
-Wertung, mit festem Antwortprofil von „sehr gut“ bis „sehr, sehr schwach“. Danach liegt für jedes Kind
-ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauauftrag: `docs/lsa/Bauauftrag-LSA-T.md`.
+Sechs erfundene Kinder (Klasse 7, 8, 9) spielen je eine vollständige LSA durch die echte Auswahl und
+Wertung, mit festem Antwortprofil von „macht nichts falsch“ bis „sehr, sehr schwach“. Danach liegt für jedes
+Kind ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauaufträge: `docs/lsa/Bauauftrag-LSA-T.md`,
+`docs/lsa/Bauauftrag-LSA-T2.md` (Max, Schalter `nur`).
 
 | Kind | Klasse | Schule | Thema | Profil |
 | --- | --- | --- | --- | --- |
@@ -11,6 +12,7 @@ ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauauftrag: `docs/lsa/Bau
 | Sophie Wagner | 8 Realschule | ohne Plan | Lineare Funktionen | Klasse 7/8 falsch (Steigung vertauscht), Koordinaten unsicher, bis Klasse 6 sicher |
 | Jonas Richter | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | Klasse 7–10 „Weiß ich nicht“, bis Klasse 6 falsch (Vorzeichen) |
 | Nele Schmitz | 7 Gymnasium | ohne Plan | Prozent- und Zinsrechnung | Prozentwert sicher, Grundwert und Prozentsatz falsch, Brüche teils |
+| Max Hoffmann | 8 Gymnasium | FWG (Schulplan) | Lineare Funktionen | nichts falsch: jede Aufgabe kanonisch richtig, auch Vorschau, Rückblick, Zweitbeleg |
 
 Die Profile stehen als Daten oben im Skript (`grund` je Klassenstufe, `ausnahmen` je Skill,
 bevorzugtes Fehlbild, Antwortdauer).
@@ -32,18 +34,39 @@ bevorzugtes Fehlbild, Antwortdauer).
    nur mit diesem Abstand, also genau wie bei einem Kind, das so lange braucht.
 5. Gibt je Kind eine NOTICE (Profil, Abweichungen vom Profil) und am Ende die Tabelle aus:
    Kind · Klasse · Thema · Sitzung · Status · Aufgaben gesamt · davon ready · sicher · Übungsbedarf ·
-   ohne Ansatz · Fehlbilder · Report-Pfad. Gezählt werden direkt geprüfte Bereiche.
+   ohne Ansatz · Fehlbilder · Report-Pfad. Gezählt werden direkt geprüfte Bereiche. Die Tabelle zeigt nur
+   die Kinder, die gelaufen sind.
+6. Nimmt die Wertung eine ganz richtige Antwort nicht als richtig an (`lsa_responses.correct` nicht true),
+   bricht der Lauf nicht ab: je Fall eine NOTICE `LSA-T: richtig beantwortet, nicht angenommen` mit
+   task_id, skill_key, input_type und der gesendeten Antwort, ohne Kindername. Ist Max gelaufen, folgt
+   nach der Tabelle seine Liste „richtig beantwortet, nicht angenommen“. Jeder Eintrag ist ein
+   Inhaltsfehler für Lena; leer heißt: alles angenommen.
 
 Gezogen wird aus dem Testkonto-Pool (`students.ist_test` → Entwürfe ohne Prüfausschluss), weil noch wenig
 auf „ready“ steht; „davon ready“ zeigt, wie viele der gezogenen Aufgaben schon freigegeben sind.
 
 ## Starten
 
+Erst prüfen, dass `DATABASE_URL` auf den Supabase-Pooler und die Datenbank `postgres` zeigt (`dbcheck`
+prüft das nicht), dann laufen lassen. Alle sechs Kinder:
+
 ```bash
-dbcheck && psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -1 -f tools/lsa-testkinder/erzeugen.sql
+[[ "$DATABASE_URL" == *pooler.supabase.com* ]] && \
+psql "$DATABASE_URL" -tAc "select current_database()" | grep -qx postgres && \
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -1 -f tools/lsa-testkinder/erzeugen.sql
 ```
 
-Ohne `-1` läuft jeder Block für sich; dann bleibt bei einem Fehler ein halber Stand stehen.
+Nur einzelne Kinder mit `-v nur=…` (Vorname, mehrere mit Komma, z. B. `-v nur=Max,Lina`):
+
+```bash
+[[ "$DATABASE_URL" == *pooler.supabase.com* ]] && \
+psql "$DATABASE_URL" -tAc "select current_database()" | grep -qx postgres && \
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v nur=Max -1 -f tools/lsa-testkinder/erzeugen.sql
+```
+
+Ein unbekannter Name bricht vor dem ersten Schreiben ab (`LSA-T: unbekannte Kinder in nur: …`, mit der
+Liste der bekannten). Ohne `-1` läuft jeder Block für sich; dann bleibt bei einem Fehler ein halber Stand
+stehen.
 
 ## Erneut laufen lassen
 
@@ -51,7 +74,7 @@ Jeder Lauf legt je Kind eine **neue** Sitzung an und löscht nichts (Rohdaten bl
 Tabelle nennt die Sitzung dieses Laufs.
 
 - **Nach LSA-V (neue Auswahl):** einfach erneut starten. Die neuen Sitzungen zeigen die neue Auswahl an
-  denselben fünf Kindern; die alten Sitzungen bleiben zum Vergleich stehen.
+  denselben Kindern; die alten Sitzungen bleiben zum Vergleich stehen.
 - **Nach R7-11 (neuer Report):** kein neuer Lauf nötig. Der Report rechnet beim Öffnen neu — dieselben
   Report-Pfade erneut öffnen.
 - **Neue Aufgaben im Pool:** erneut starten; „davon ready“ steigt mit jeder Freigabe.
@@ -60,4 +83,6 @@ Tabelle nennt die Sitzung dieses Laufs.
 
 `supabase/tests/lsa_testkinder.test.sql` lässt das Skript im CI-Neuaufbau zweimal laufen (mit einer
 Aufgaben-Fixture je Skill, der Neuaufbau hat keine LSA-Aufgaben) und prüft je Kind Abschluss, Profil,
-Uhr, Fehlbild und den zweiten Lauf.
+Uhr, Fehlbild und den zweiten Lauf; für Max zusätzlich 100 % sicher und eine leere Liste „richtig
+beantwortet, nicht angenommen“. Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
+unbekanntem Namen (Abbruch).

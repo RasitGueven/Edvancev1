@@ -1,28 +1,26 @@
--- LSA-T: fünf erfundene Testkinder mit vollständiger LSA (Bauauftrag docs/lsa/Bauauftrag-LSA-T.md).
+-- LSA-T: sechs erfundene Testkinder mit vollständiger LSA (Bauaufträge docs/lsa/Bauauftrag-LSA-T.md, -LSA-T2.md).
 --
--- Start (eine Transaktion, bricht etwas, wird alles zurückgerollt):
---   dbcheck && psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -1 -f tools/lsa-testkinder/erzeugen.sql
+-- Start in einer Transaktion (-1, bricht etwas, wird alles zurückgerollt); Befehl samt Prüfung der Ziel-DB im README.
+-- Nur einzelne Kinder: -v nur=Max oder -v nur=Max,Lina. Ein unbekannter Name bricht ab.
 --
 -- Was passiert, je Kind:
 --   1. Lead mit Erstgespräch (feste UUID, Phantasiedaten, ist_test) und provisorischer Schülerdatensatz
 --      (feste UUID, wie lead_lsa_freigeben ihn anlegt). Ein zweiter Lauf aktualisiert nur die Lead-Angaben.
---   2. Aktuelles Thema über lead_thema_setzen, behandelte Themen wie die Erstgesprächs-Maske,
---      Anliegen über lead_assessment_upsert.
+--   2. Aktuelles Thema über lead_thema_setzen, behandelte Themen wie die Maske, Anliegen über lead_assessment_upsert.
 --   3. LSA über lead_lsa_freigeben (→ lsa_start), jede Antwort über lsa_submit, Abschluss über lsa_finish —
 --      dieselben RPCs wie die App, als bestehender Admin (request.jwt.claims). Das Skript schreibt nie in
 --      lsa_skill_urteil, lsa_responses oder result_summary.
---   4. Die Uhr: Nach der Freigabe wird lsa_sessions.started_at einmal um 20 Minuten zurückgesetzt, noch vor
---      der ersten Antwort. Jede Antwort geht mit p_jetzt = Beginn + Summe der bisherigen Antwortdauern und
---      p_duration_ms an lsa_submit. Die Auswahl liest die Zeit nur als Abstand p_jetzt − Beginn
---      (19 Minuten, Tiefe bis 12, LSA-V Vorschau bis 16); der Abstand ist derselbe wie bei einem Kind, das
---      wirklich so lange braucht. Die erste Aufgabe zog lsa_start beim Abstand 0 — auch das bleibt gleich.
+--   4. Die Uhr: started_at der neuen Sitzung einmal 20 Minuten zurück, vor der ersten Antwort. Jede Antwort geht
+--      mit p_jetzt = Beginn + Summe der bisherigen Antwortdauern an lsa_submit. Die Auswahl liest die Zeit nur
+--      als Abstand p_jetzt − Beginn (19 Minuten, Tiefe bis 12, LSA-V Vorschau bis 16) — derselbe Abstand wie bei
+--      einem Kind, das so lange braucht; die erste Aufgabe zog lsa_start beim Abstand 0.
+--   5. Nimmt die Wertung eine ganz richtige Antwort nicht an, meldet der Lauf das als NOTICE (ohne Kindername)
+--      und bricht nicht ab; für Max steht am Ende die Liste „richtig beantwortet, nicht angenommen“.
 --
--- Ein zweiter Lauf legt neue Sitzungen an und löscht nichts. Die Tabelle am Ende nennt die neueste Sitzung
--- je Kind. Kein DDL, keine Funktionen, keine Tabellen.
+-- Jeder Lauf legt neue Sitzungen an und löscht nichts; die Tabelle nennt je gelaufenem Kind die Sitzung des Laufs.
+-- Kein DDL, keine Funktionen, keine Tabellen.
 
-\set ON_ERROR_STOP on
-
--- ── Die fünf Kinder ──────────────────────────────────────────────────────────────────────────────
+-- ── Die sechs Kinder ──────────────────────────────────────────────────────────────────────────────
 -- grund: Zustand je Klassenstufe (Herkunftsklasse des Skills: 56 = bis 6, 78 = 7/8, 910 = ab 9).
 -- ausnahmen: je skill_key, überschreibt den Grundstand. Zustände: sicher | uebung | teilweise | nicht_angesetzt.
 -- familie/fehlbilder: bevorzugtes Fehlbild bei falschen Antworten (erst die Slugs, dann die Familie).
@@ -72,10 +70,44 @@ do $do$ begin perform set_config('lsat.kinder', $kinder$[
                 "prozent_zins_zinseszins": "uebung", "prozent_zins_rueckrechnung": "uebung",
                 "bruch_add": "teilweise", "bruch_mult": "teilweise", "bruch_div": "teilweise", "bruch_dezimal": "teilweise"},
   "familie": "rechenart_formel", "fehlbilder": ["multipliziert_statt_dividiert", "grundwert_verwechselt", "falsche_richtung"],
-  "sekunden": 70}
+  "sekunden": 70},
+ {"kind": "Max", "name": "Max Hoffmann", "lead": "a5a7c41d-1ead-4000-8000-000000000006", "schueler": "a5a7c41d-5c00-4000-8000-000000000006",
+  "klasse": 8, "schulform": "Gymnasium", "schule": "Friedrich-Wilhelm-Gymnasium", "thema": "lineare_funktionen",
+  "behandelt": ["rationale_zahlen", "zuordnungen", "terme_gleichungen"], "quelle_behandelt": "schulplan",
+  "anliegen": ["Rechenwege"], "notiz": "Möchte gefordert werden, langweilt sich im Unterricht.",
+  "goal": "GENERAL", "letzte_note": "1-", "trend": "stabil", "interessen": "Schach, Programmieren",
+  "grund": {"56": "sicher", "78": "sicher", "910": "sicher"}, "ausnahmen": {}, "familie": null, "fehlbilder": [], "sekunden": 35}
 ]$kinder$, false);
-  perform set_config('lsat.sitzungen', '{}', false);
+  perform set_config('lsat.sitzungen', '{}', false); perform set_config('lsat.nicht_angenommen', '{}', false);
 end $do$;
+
+-- ── Schalter nur: nur die genannten Kinder (Komma-Liste), ohne nur alle ──────────────────────────
+\if :{?nur}
+set lsat.nur to :'nur';
+\else
+set lsat.nur to '';
+\endif
+do $$
+declare
+  v_alle  jsonb  := current_setting('lsat.kinder')::jsonb;
+  v_nur   text[] := array(select btrim(n) from unnest(string_to_array(current_setting('lsat.nur'), ',')) n
+                           where btrim(n) <> '');
+  v_fremd text;
+begin
+  if cardinality(v_nur) = 0 then return; end if;
+  select string_agg(n, ', ') into v_fremd from unnest(v_nur) n
+   where not exists (select 1 from jsonb_array_elements(v_alle) k where k ->> 'kind' = n);
+  if v_fremd is not null then
+    raise exception 'LSA-T: unbekannte Kinder in nur: % (bekannt: %)', v_fremd,
+      (select string_agg(k ->> 'kind', ', ') from jsonb_array_elements(v_alle) k);
+  end if;
+  perform set_config('lsat.kinder', (select jsonb_agg(e.k order by e.o) from jsonb_array_elements(v_alle)
+                                       with ordinality e(k, o) where e.k ->> 'kind' = any (v_nur))::text, false);
+end $$;
+-- Unbekannter Name: Meldung oben, der Rest läuft nicht (mit ON_ERROR_STOP endet psql schon dort).
+\if :ERROR
+\else
+\set ON_ERROR_STOP on
 
 -- Ein bestehender Admin; seine Claims gelten für alle RPCs (wie die bestehenden Tests). Kein service_role.
 do $$
@@ -164,6 +196,7 @@ declare
   v_richt  jsonb;
   v_wert   text;
   v_falsch_nr text;
+  v_nicht  jsonb;
 begin
   for k in select * from jsonb_array_elements(current_setting('lsat.kinder')::jsonb) loop
     v_s := (public.lead_lsa_freigeben((k ->> 'lead')::uuid, (k ->> 'klasse')::int, 'Mathematik') ->> 'session_id')::uuid;
@@ -175,6 +208,7 @@ begin
                                           || jsonb_build_object(k ->> 'kind', v_s))::text, false);
 
     v_i := 0;
+    v_nicht := '[]';
     loop
       -- Die offene Aufgabe, wie platz_next sie liest.
       select t.* into v_task
@@ -284,14 +318,24 @@ begin
                        * case when v_zust = 'nicht_angesetzt' then 0.5 else 1 end);
       v_t := v_t + make_interval(secs => v_dauer / 1000.0);
       perform public.lsa_submit(v_s, v_task.id, v_resp, v_dauer, v_t);
+      -- LSA-T2: eine ganz richtige Antwort, die die Wertung nicht annimmt, ist ein Inhaltsfehler (für Lena).
+      if v_zust = 'sicher' and exists (select 1 from lsa_responses r where r.session_id = v_s
+                                          and r.task_id = v_task.id and r.correct is not true) then
+        raise notice 'LSA-T: richtig beantwortet, nicht angenommen: task_id % skill_key % input_type % Antwort %',
+          v_task.id, v_task.skill_key, v_task.input_type, v_resp;
+        v_nicht := v_nicht || jsonb_build_object('task_id', v_task.id, 'skill_key', v_task.skill_key, 'input_type',
+                                                 v_task.input_type, 'antwort', v_resp);
+      end if;
     end loop;
 
     perform public.lsa_finish(v_s);
+    perform set_config('lsat.nicht_angenommen', (current_setting('lsat.nicht_angenommen')::jsonb
+                                                 || jsonb_build_object(k ->> 'kind', v_nicht))::text, false);
   end loop;
 end $$;
 
 -- ── 3. Bericht des Laufs ─────────────────────────────────────────────────────────────────────────
--- Je Kind die Sitzung dieses Laufs (= die neueste). sicher und Übungsbedarf zählen direkt geprüfte Bereiche
+-- Je gelaufenem Kind die Sitzung dieses Laufs (= die neueste). sicher und Übungsbedarf zählen direkt geprüfte Bereiche
 -- (Übungsbedarf = traegt_nicht + traegt_teilweise, ohne Ansatz = nicht_angesetzt).
 -- Abweichungen vom Profil (etwa eine richtige Antwort, die die Wertung nicht annimmt) als NOTICE.
 do $$
@@ -345,3 +389,12 @@ select k ->> 'name'                                                    as "Kind"
   join lsa_sessions ls on ls.id = kind.sid
   left join themen th on th.thema_key = ls.thema_key
  order by kind.ord;
+
+select (current_setting('lsat.nicht_angenommen')::jsonb ? 'Max')::int as lsat_max \gset
+\if :lsat_max
+\echo 'Max: richtig beantwortet, nicht angenommen (Arbeitsauftrag für Lena; leer = alles angenommen)'
+select x.task_id as "Aufgabe", x.skill_key as "Skill", x.input_type as "Eingabe", x.antwort as "gesendete Antwort"
+  from jsonb_to_recordset(current_setting('lsat.nicht_angenommen')::jsonb -> 'Max')
+       x(task_id uuid, skill_key text, input_type text, antwort jsonb);
+\endif
+\endif
