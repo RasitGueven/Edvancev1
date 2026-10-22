@@ -43,7 +43,8 @@
   "actions": {
     "print": "Drucken",
     "email": "Per E-Mail senden",
-    "emailTooltip": "kommt mit dem Eltern-Zugang"
+    "emailTooltip": "kommt mit dem Eltern-Zugang",
+    "druckTitel": "Edvance LSA-Report {{name}} {{datum}}"
   },
   "skillbefunde": {
     "title": "Was wir uns genauer ansehen",

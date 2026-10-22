@@ -85,7 +85,7 @@ async function loadLeadKontext(
   return kontext
 }
 
-async function loadNames(
+export async function loadNames(
   studentIds: string[],
 ): Promise<Record<string, string | null>> {
   const names: Record<string, string | null> = {}

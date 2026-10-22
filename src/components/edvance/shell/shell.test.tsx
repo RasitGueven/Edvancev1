@@ -80,6 +80,17 @@ describe('ShellSidebar', () => {
     }
   })
 
+  it('ein geöffneter Report markiert LSA-Reports, nicht die Item-Pflege (LR-1)', () => {
+    for (const pfad of ['/admin/report/x', '/admin/lsa-reports']) {
+      const { unmount } = zeige(pfad)
+      const lsa = screen.getByRole('link', { name: /LSA-Reports/ })
+      expect(lsa.getAttribute('aria-current')).toBe('page')
+      expect(lsa.getAttribute('href')).toBe('/admin/lsa-reports')
+      expect(screen.getByRole('link', { name: /Item-Pflege/ }).getAttribute('aria-current')).toBeNull()
+      unmount()
+    }
+  })
+
   it('zeigt Zähler über null, „bald“-Einträge sind kein Link', () => {
     zeige('/admin')
     expect(screen.getByRole('link', { name: /Leads/ }).textContent).toContain('3')

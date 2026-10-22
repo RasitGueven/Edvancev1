@@ -17,6 +17,7 @@ import {
 } from '@/lib/supabase/reportNotes'
 import { listTiers } from '@/lib/supabase/subscriptions'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
+import { bogenBereit, druckDatum, druckeMitTitel } from './reportDruck'
 import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
 /**
@@ -36,13 +37,17 @@ import { TestlaufBanner } from './testmodus/TestlaufBanner'
  * Mit ?ansicht=praesentation liegt darüber die Tablet-Präsentation als
  * Vollbild (Anforderung Tablet-Präsentation, Entscheidung 1). Schließen
  * entfernt nur diesen Parameter; Report und Ausblick bleiben.
+ *
+ * Mit ?aktion=pdf (Liste LSA-Reports, LR-1) öffnet sich der Druckdialog genau
+ * einmal von selbst, sobald Bericht, Pakete und Schriften da sind. Danach
+ * fällt nur ?aktion aus der URL.
  */
 
 /** So lange nach der letzten Eingabe im Ausblick misst der Bogen neu. */
 const NEU_MESSEN_MS = 400
 export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
-  const { t } = useTranslation('report')
+  const { t, i18n } = useTranslation('report')
   const { t: tp } = useTranslation('praesentation')
   const { role } = useAuth()
   const [suche, setSuche] = useSearchParams()
@@ -170,13 +175,49 @@ export function ReportPage(): JSX.Element {
   const name = data?.firstName?.trim() || t('head.childFallback')
   const titel = loading ? t('head.title') : name
 
+  // Ein Titel-Mechanismus für den Knopf und für ?aktion=pdf.
+  const drucke = useCallback(
+    (danach?: () => void) =>
+      druckeMitTitel(
+        data
+          ? t('actions.druckTitel', {
+              name,
+              datum: data.analysedAt ? druckDatum(data.analysedAt, i18n.language) : '',
+            }).trim()
+          : document.title,
+        danach,
+      ),
+    [data, name, t, i18n.language],
+  )
+
+  const pdf = suche.get('aktion') === 'pdf'
+  const bereitZumDruck = !loading && !error && data !== null && pakete !== 'offen' && pakete !== 'laedt'
+  const gedruckt = useRef(false)
+  useEffect(() => {
+    if (!pdf || !bereitZumDruck || gedruckt.current) return
+    gedruckt.current = true
+    void bogenBereit().then(() => {
+      if (!gemountet.current) return
+      drucke(() =>
+        setSuche(
+          (alt) => {
+            const neu = new URLSearchParams(alt)
+            neu.delete('aktion')
+            return neu
+          },
+          { replace: true },
+        ),
+      )
+    })
+  }, [pdf, bereitZumDruck, drucke, setSuche])
+
   const aktionen = (
     <>
       <Button type="button" variant="secondary" onClick={() => setzeAnsicht(true)}>
         <Presentation className="mr-2 h-4 w-4" />
         {tp('einstieg.knopf')}
       </Button>
-      <Button type="button" variant="secondary" onClick={() => window.print()}>
+      <Button type="button" variant="secondary" onClick={() => drucke()}>
         <Printer className="mr-2 h-4 w-4" />
         {t('actions.print')}
       </Button>

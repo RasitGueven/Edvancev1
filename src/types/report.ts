@@ -33,6 +33,22 @@ export type LsaSessionListItem = {
   planned: number
 }
 
+// Eine Zeile der Liste „LSA-Reports“ (LR-1): nur abgeschlossene Sitzungen.
+// Testläufe und Testkonten bleiben drin und werden gekennzeichnet.
+export type LsaReportListItem = {
+  session_id: string
+  first_name: string | null
+  grade: number
+  subject: string
+  completed_at: string
+  testlauf: boolean
+  ist_test: boolean
+  modus: string | null
+  thema_key: string | null
+  /** themen.label über thema_key; null, wenn es fehlt. */
+  thema_label: string | null
+}
+
 // Die beim Lead erfasste Eltern-Einschätzung (lead_assessments, source='parent').
 export type ParentAssessment = {
   note: string | null

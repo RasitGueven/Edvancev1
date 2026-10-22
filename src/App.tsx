@@ -25,6 +25,7 @@ import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { StellschraubenPage } from '@/pages/admin/stellschrauben/StellschraubenPage'
+import { LsaReportsPage } from '@/pages/admin/lsaReports/LsaReportsPage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { ReportPage } from '@/pages/admin/ReportPage'
 import { BoardPage as AktenBoardPage } from '@/pages/admin/akten/BoardPage'
@@ -325,6 +326,15 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin', 'coach']}>
                 <ReportPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Liste aller abgeschlossenen LSAs (LR-1) — nur Verwaltung. */}
+          <Route
+            path="/admin/lsa-reports"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <LsaReportsPage />
               </ProtectedRoute>
             }
           />
