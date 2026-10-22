@@ -151,6 +151,28 @@ describe('Lernweg: jeder Vorgriff steht in Kommt noch (Zweitprüfung, Befund 1)'
   })
 })
 
+describe('Vorgriffe nur mit Thema (Rasit, 22.10.2026)', () => {
+  const quelle = (d: ReportData) => ({ erzaehlung: d.erzaehlung, datum: d.analysedAt })
+
+  it('mit Thema: ein Bereich aus einem späteren Thema ist Vorgriff, kein Übungsbedarf', () => {
+    const { vorgriff, bereiche } = gezaehlteBereiche(MIT.erzaehlung.kompetenzen, quelle(MIT))
+    expect(vorgriff.has('fkt_quadr_normalform')).toBe(true)
+    expect(bereiche.map((x) => x.skillKey)).not.toContain('fkt_quadr_normalform')
+  })
+
+  it('ohne Thema: derselbe Bereich behält seinen Übungsbedarf, wie vor LSA-V2', () => {
+    const ohneThema = fall('95', { urteile: [...ABGESTUFT_URTEILE, NORMALFORM, KREIS], raum: null, themaLabel: null })
+    const { vorgriff, bereiche } = gezaehlteBereiche(ohneThema.erzaehlung.kompetenzen, quelle(ohneThema))
+    expect(vorgriff.size).toBe(0)
+    expect(bereiche.find((x) => x.skillKey === 'fkt_quadr_normalform')?.sicher).toBe(false)
+    const b = bericht(ohneThema)
+    expect(b.uebungListe.map((x) => x.label)).toContain('Normalform')
+    expect(b.zaehlung.uebung).toBe(bericht(MIT).zaehlung.uebung + 1)
+    const lw = b.lernweg!.zonen.flatMap((z) => z.inseln.flatMap((i) => i.eintraege))
+    expect(lw.find((x) => x.label === 'Normalform')?.stand).toBe('uebung')
+  })
+})
+
 describe('„Weiß ich nicht“ mit einer Probe (LSA-V2, Entscheidung 9): der Report bleibt, wie er ist', () => {
   const WN = u('geo_winkel_dreieck', 'Winkelsumme', 4, 7, 'nicht_angesetzt', 1, false)
   const mit = fall('93', { urteile: [...ABGESTUFT_URTEILE, WN] })

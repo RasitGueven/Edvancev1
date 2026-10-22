@@ -94,17 +94,19 @@ export function baueElternbericht({
 
 /**
  * Die direkt geprüften Bereiche (alle), die Vorgriffe darunter und die, die
- * zählen (LSA-V2, Entscheidung 13). Ohne Lernweg-Quelle fehlt der Plan, dann
- * gibt es keine Vorgriffe. Auch für die Präsentation (dieselbe Ableitung).
+ * zählen (LSA-V2, Entscheidung 13). Vorgriffe gibt es nur in Sitzungen mit
+ * Thema, dort auch rückwirkend (Rasit, 22.10.2026); ohne Thema oder ohne
+ * Lernweg-Quelle (dann fehlt der Plan) bleibt alles wie vor LSA-V2. Auch für
+ * die Präsentation (dieselbe Ableitung).
  */
 export function gezaehlteBereiche(
   kompetenzen: readonly SucheSkill[],
   quelle?: LernwegQuelle,
 ): { alle: EbBereich[]; bereiche: EbBereich[]; vorgriff: Set<string> } {
   const alle = bereicheAus(kompetenzen)
-  if (!quelle) return { alle, bereiche: alle, vorgriff: new Set() }
-  const e = quelle.erzaehlung
-  const themaKey = e.raum?.themaKey ?? null
+  const e = quelle?.erzaehlung
+  const themaKey = e?.raum?.themaKey ?? null
+  if (!quelle || !e || !themaKey) return { alle, bereiche: alle, vorgriff: new Set() }
   const vorgriff = vorgriffe({
     bereiche: alle,
     raum: new Set(e.raum ? [...e.raum.einstieg, ...e.raum.darunter] : []),

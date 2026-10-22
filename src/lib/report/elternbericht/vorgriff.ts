@@ -7,6 +7,7 @@
 //     lernweg.ts, Klasse oder Klasse + 1),
 //   - er nicht im Themenraum liegt
 //   - und er kein Randknoten der Vorschau ist (wie lsa_select_next_core, LSA-V).
+// Nur in Sitzungen mit Thema (bericht.ts, gezaehlteBereiche; Rasit 22.10.2026).
 // Nur aus Plan, Graph und Raum, ohne DB-Feld. Druckbogen und Präsentation
 // rechnen beide über baueElternbericht und damit über diese Funktion.
 

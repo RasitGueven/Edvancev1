@@ -59,20 +59,14 @@ Offen für den Gründer: Befund 2 (siehe unten).
 - Lokal kein Docker: pgTAP als SQL in einer Wegwerf-Vorlage (wie Retro 2026-10-03), `session_x0` ist lokal auch
   ohne die Migration rot (Rechte der lokalen Rolle), in CI grün.
 
-## Offen
-1. **Vorgriff-Regel auch ohne Ausblick (Zweitprüfung, Befund 2):** `vorgriff.ts` wirkt wörtlich nach D, also auch
-   für Sitzungen ohne Thema und rückwirkend für alte Sitzungen. Bereiche, die Breite b oder die Restzeit aus
-   späteren Themen der Klasse beurteilt hat, verlieren dort ihren Übungsbedarf. Bestätigen oder auf Sitzungen mit
-   Thema (bzw. ab LSA-V2) beschränken?
-2. **Tim und der Deckel:** Tim hat ein Thema; die Auswahl endet bei ihm nach 36 Aufgaben von selbst, der Deckel
-   greift nicht. Soll Tim (oder ein zweiter Durchklicker) ohne Thema laufen, damit der Lauf den Deckel zeigt?
-3. **Ausblick für echte Kinder fast leer:** Von 45 Einstiegsknoten haben nur die drei von Reelle Zahlen ready-Aufgaben
-   (dbread). Ohne Freigaben durch Lena bekommen echte Kinder keinen Ausblick.
-4. **Jonas:** Im Neuaufbau erreicht er schon vorher Klasse 5; der Anlass (nicht bis 5/6) stammt aus dem Prod-Testpool
-   und ist hier nicht nachgestellt. Nach dem Einspielen ein Lauf mit `nur=Jonas` auf Prod.
-5. **Stärke nach dem Rückblick:** Hebt ein Rückblick-Urteil das Kind über 75 %, folgt der Ausblick nach dem
-   Rückblick. So spezifiziert, wirkt aber wie eine andere Reihenfolge.
-6. Rand-Bedingung in `vorgriff.ts` ist mit der jetzigen Datenlage nie entscheidend (wie im SQL); der
-   Rückblick-Ausschluss ist im Report nicht gespiegelt (setzt widersprüchliche Lead-Daten voraus).
-7. Migration (840), Rollback (629) und `schema-erwartet.sql` liegen über 400 Zeilen: vollständige Funktionskörper,
-   wie bei LSA-V (528/318).
+## Offen (nach Entscheidungen Rasit, 22.10.2026)
+- Entschieden: Vorgriffe nur in Sitzungen mit Thema, dort auch rückwirkend; ohne Thema wie vor LSA-V2 (umgesetzt,
+  Test in `vorgriff.test.ts`). Tim bleibt mit Thema, der Deckel ist über pgTAP belegt. Ausblick nach dem Rückblick
+  bleibt so.
+- Offen: Für echte Kinder bleibt der Ausblick fast leer, bis Lena Einstiege kommender Themen freigibt (eigenes Paket
+  für Lenas Prüflauf).
+- Jonas nach dem Einspielen mit `nur=Lina,Max,Jonas` auf Prod prüfen.
+- Rand-Bedingung in `vorgriff.ts` ist mit der jetzigen Datenlage nie entscheidend (wie im SQL); der
+  Rückblick-Ausschluss ist im Report nicht gespiegelt (setzt widersprüchliche Lead-Daten voraus).
+- Migration (840), Rollback (629) und `schema-erwartet.sql` liegen über 400 Zeilen: vollständige Funktionskörper,
+  wie bei LSA-V (528/318).
