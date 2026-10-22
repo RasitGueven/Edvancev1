@@ -222,7 +222,13 @@ describe('Kontrollwerte aus Anhang C', () => {
   })
 
   it('klasse10neu: drei Ebenen, Terme mit Klasse 7–10', () => {
-    const p = baue('klasse10neu')
+    // Ohne Plan: Mit Plan ist gleichung_quadr_formel (Quadratische Gleichungen kommt noch) ein Vorgriff (LSA-V2)
+    // und zählt nicht als Übungsbedarf; hier geht es um die Klassenangabe über drei Stufen.
+    const f = PRAESENTATION_FAELLE.klasse10neu
+    const ohnePlan = { ...f, data: { ...f.data, erzaehlung: { ...f.data.erzaehlung, plan: null } } }
+    const roh = bauePraesentation(ohnePlan)
+    if ('fehlt' in roh) throw new Error('klasse10neu: fehlt')
+    const p = roh
     expect(p.pyramide.map((e) => [e.ebene, klassenAngabe(e.stufen)])).toEqual([
       ['aktuell', { stufe: 'zweite' }],
       ['weiterfuehrend', { stufe: 'erste' }],

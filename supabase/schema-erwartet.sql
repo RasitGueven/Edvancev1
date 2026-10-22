@@ -4722,6 +4722,111 @@ $$;
 
 
 --
+-- Name: lsa_ausblick_knoten(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_ausblick_knoten(p_session_id uuid, p_mit_thema boolean DEFAULT NULL::boolean) RETURNS text[]
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  -- So viele kommende Plan-Themen nimmt der Ausblick (die Vorschau nimmt c_vorschau_themen = 2).
+  c_ausblick_themen constant int := 3;
+
+  v_sess     lsa_sessions;
+  v_fach     text;
+  v_schule   uuid;
+  v_aktuell  int;
+  v_themen   text[];
+  v_einstieg text[];
+  v_raum     text[];
+  v_lead     uuid;
+begin
+  select * into v_sess from lsa_sessions where id = p_session_id;
+  if not found or v_sess.thema_key is null then
+    return '{}';
+  end if;
+  if not coalesce(p_mit_thema, exists (
+       select 1 from thema_einstieg te join tasks t on t.skill_key = te.skill_key
+        where te.thema_key = v_sess.thema_key
+          and public.lsa_im_pool(t.id, public.lsa_testinhalte(p_session_id)))) then
+    return '{}';
+  end if;
+
+  v_fach   := lower(v_sess.subject);
+  v_schule := public.lsa_schule_von_sitzung(p_session_id);
+  v_lead   := public.lsa_lead_von_schueler(v_sess.student_id);
+
+  if exists (select 1 from schul_themenplan p
+              where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade) then
+    -- Aktuelle Position wie in lsa_select_next_core (LSA-V) und lernweg.ts.
+    v_aktuell := coalesce(
+      (select min(p.position) from schul_themenplan p
+        where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+          and p.thema_key = v_sess.thema_key),
+      (select min(p.position) from schul_themenplan p
+        where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+          and p.halbjahr = case when extract(month from coalesce(v_sess.completed_at, v_sess.started_at,
+                                                                 v_sess.created_at) at time zone 'Europe/Berlin')
+                                     between 2 and 7 then 2 else 1 end),
+      0);
+    v_themen := array(
+      select x.thema_key
+        from (select p.thema_key,
+                     min(case when p.klasse = v_sess.grade then 0 else 1 end) as kl,
+                     min(p.position) filter (where p.klasse = v_sess.grade) as pos,
+                     min(p.position) as pos_naechste
+                from schul_themenplan p
+               where p.schule_id = v_schule and lower(p.fach) = v_fach and p.thema_key is not null
+                 and p.thema_key is distinct from v_sess.thema_key
+                 and ((p.klasse = v_sess.grade and p.position > v_aktuell) or p.klasse = v_sess.grade + 1)
+               group by p.thema_key) x
+       order by x.kl, coalesce(x.pos, x.pos_naechste)
+       limit c_ausblick_themen);
+  else
+    -- Kernlehrplan wie die Vorschau (klpPlan in plan.ts).
+    with klp as (
+      select th.thema_key, th.sort from themen th
+       where lower(th.fach) = v_fach
+         and th.stufe = case when v_sess.grade <= 6 then 'erprobung'
+                             when v_sess.grade <= 8 then 'erste' else 'zweite' end
+    ), k as (
+      select * from klp
+       where not exists (select 1 from themen th join klp using (thema_key) where th.klasse >= v_sess.grade)
+          or thema_key in (select th.thema_key from themen th join klp using (thema_key)
+                            where th.klasse >= v_sess.grade)
+    )
+    select array(select k.thema_key from k
+                  where k.sort > coalesce((select k2.sort from k k2 where k2.thema_key = v_sess.thema_key), -1)
+                  order by k.sort nulls last, k.thema_key
+                  limit c_ausblick_themen)
+      into v_themen;
+  end if;
+
+  v_einstieg := array(select te.skill_key from thema_einstieg te where te.thema_key = v_sess.thema_key);
+  v_raum := v_einstieg || array(
+    select distinct a.skill_key
+      from unnest(v_einstieg) e(sk)
+      cross join lateral public.lsa_abschluss(e.sk) a);
+
+  return array(
+    select x.skill_key
+      from (select te.skill_key, min(u.rang) as rang
+              from unnest(v_themen) with ordinality u(thema_key, rang)
+              join thema_einstieg te on te.thema_key = u.thema_key
+             group by te.skill_key) x
+      join skills s on s.skill_key = x.skill_key
+     where s.klasse_herkunft <= v_sess.grade + 1
+       and not x.skill_key = any (v_raum)
+       and not exists (select 1 from lead_themen lt join thema_einstieg te on te.thema_key = lt.thema_key
+                        where lt.lead_id = v_lead and lt.status = 'behandelt' and lower(lt.fach) = v_fach
+                          and te.skill_key = x.skill_key)
+     order by x.rang, s.fundament_tiefe nulls last, x.skill_key);
+end;
+$$;
+
+
+--
 -- Name: lsa_bruch_wert_gleich(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5844,6 +5949,18 @@ $_$;
 
 
 --
+-- Name: lsa_ist_ausblick(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_ist_ausblick(p_session_id uuid, p_skill_key text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  select p_skill_key = any (public.lsa_ausblick_knoten(p_session_id))
+$$;
+
+
+--
 -- Name: lsa_lead_kontext(uuid[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6422,6 +6539,12 @@ declare
   c_vorschau_bis constant interval := interval '16 minutes';
   -- LSA-V: So viele kommende Plan-Themen nimmt die Vorschau.
   c_vorschau_themen constant int := 2;
+  -- LSA-V2: Deckel. Nach so vielen ausgegebenen Aufgaben endet die Sitzung, mit und ohne Thema.
+  c_max_aufgaben constant int := 40;
+  -- LSA-V2: Der Ausblick laeuft nur fuer starke Kinder: mindestens so viele direkt belegte, finale Urteile ...
+  c_ausblick_min_urteile constant int := 6;
+  -- ... davon mindestens dieser Anteil traegt.
+  c_ausblick_anteil constant numeric := 0.75;
 
   v_sess    lsa_sessions;
   v_pool    boolean;  -- F1 (E2): Testlauf-Pool fuer Testlauf oder Testkonto
@@ -6448,6 +6571,10 @@ declare
   v_tief_sk    text[];  -- Abschluss des Randes (Abstieg in der Vorschau) ...
   v_tief_rang  int[];   -- ... Rang wie beim Randknoten darueber
   v_kand       uuid;    -- LSA-D: Kandidat in Schritt 5
+  -- LSA-V2
+  v_ausblick   text[];  -- Ausblick-Knoten der Sitzung in Ausblick-Reihenfolge (lsa_ausblick_knoten)
+  v_urteile    int;     -- direkt belegte, finale Urteile ...
+  v_traegt     int;     -- ... davon traegt
 begin
   select * into v_sess from lsa_sessions where id = p_session_id;
   if not found or v_sess.status <> 'in_progress' then
@@ -6463,6 +6590,10 @@ begin
   -- L1: Diagnosezeit ab „Los geht’s“ (platz_los), sonst wie bisher ab lsa_start.
   v_beginn := coalesce(v_sess.diagnose_ab, v_sess.started_at, v_sess.created_at);
   if p_jetzt > v_beginn + interval '19 minutes' then
+    return null;
+  end if;
+  -- LSA-V2 Deckel (docs/lsa/durchklicken-auswertung.md, Abschnitt 6): ausgegebene Aufgaben, nicht Antwortzeilen.
+  if (select count(*) from lsa_ausgegeben a where a.session_id = p_session_id) >= c_max_aufgaben then
     return null;
   end if;
 
@@ -6489,6 +6620,9 @@ begin
     v_einstieg   := '{}';
     v_themenraum := '{}';
   end if;
+
+  -- LSA-V2: Ausblick-Knoten, einmal je Aufruf (haengen nur an Thema, Plan und Graph).
+  v_ausblick := case when v_mit_thema then public.lsa_ausblick_knoten(p_session_id, true) else '{}' end;
 
   -- LSA-V: Kommende Themen und der Rand. Haengt nur an Plan und Graph, nicht an
   -- den Urteilen der Sitzung — einmal je Aufruf.
@@ -6662,6 +6796,7 @@ begin
            and u.offen = false
            and u.zustand in ('traegt_nicht','nicht_angesetzt')
            and (not v_mit_thema or u.skill_key = any (v_themenraum))
+           and not u.skill_key = any (v_ausblick)  -- LSA-V2: kein Abstieg unter Ausblick-Knoten
            and (v_mit_thema or s.klasse_herkunft <= v_sess.grade)
            and not exists (
                  select 1 from lsa_skill_urteil d
@@ -6750,6 +6885,44 @@ begin
         v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
         exit when v_task is not null;
       end loop;
+    end if;
+    if v_task is not null then
+      return v_task;
+    end if;
+
+    -- LSA-V2 Ausblick: die Einstiegsknoten der naechsten Plan-Themen, in der
+    -- Reihenfolge von lsa_ausblick_knoten. Nur fuer starke Kinder (bei jedem
+    -- Aufruf geprueft). Haben die letzten zwei Ausblick-Knoten nicht traegt
+    -- ergeben, endet der Ausblick. Die Knoten werden in ihrer Reihenfolge
+    -- beurteilt, die letzten zwei Urteile sind also die zwei hoechsten
+    -- Stellen (die Uhr der Urteile taugt dafuer nicht: in einer Transaktion
+    -- tragen alle dasselbe now()).
+    v_task := null;
+    if cardinality(v_ausblick) > 0 then
+      select count(*), count(*) filter (where u.zustand = 'traegt')
+        into v_urteile, v_traegt
+        from lsa_skill_urteil u
+       where u.session_id = p_session_id and u.belegt_direkt and not u.offen;
+      if v_urteile >= c_ausblick_min_urteile and v_traegt >= c_ausblick_anteil * v_urteile
+         and not coalesce((select count(*) = 2 and bool_and(y.zustand <> 'traegt')
+                             from (select u.zustand
+                                     from unnest(v_ausblick) with ordinality x(sk, nr)
+                                     join lsa_skill_urteil u on u.session_id = p_session_id and u.skill_key = x.sk
+                                    where u.belegt_direkt and not u.offen
+                                    order by x.nr desc
+                                    limit 2) y), false) then
+        for v_leaf in
+          select x.sk
+            from unnest(v_ausblick) with ordinality x(sk, nr)
+           where not exists (
+                   select 1 from lsa_skill_urteil u
+                    where u.session_id = p_session_id and u.skill_key = x.sk)
+           order by x.nr
+        loop
+          v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
+          exit when v_task is not null;
+        end loop;
+      end if;
     end if;
     if v_task is not null then
       return v_task;
@@ -7714,8 +7887,23 @@ begin
       perform public.lsa_mitbelegung(p_session_id, v_sk);
       return 'traegt';
     end if;
+    -- LSA-V2 (B): „Weiss ich nicht“ oder leer ist sofort final, ohne Zweitbeleg — ueberall, auch im Thema.
+    if v_res in ('weiss_nicht','leer') then
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_sk, 'nicht_angesetzt', true, false, 1);
+      return 'nicht_angesetzt';
+    end if;
+    -- LSA-V2 (A5): Ausblick-Knoten — eine falsche erste Probe ist final. Einen Zweitbeleg gibt es dort nur
+    -- nach „voll“ auf MC (unten).
+    if v_res in ('nicht','teilweise') and public.lsa_ist_ausblick(p_session_id, v_sk) then
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_sk, 'traegt_nicht', true, false, 1);
+      return 'traegt_nicht';
+    end if;
     -- Zweitprobe faellig -> provisorisch schreiben. Der provisorische Zustand
     -- kodiert die erste Probe: traegt=mc_ja, traegt_nicht=nicht, nicht_angesetzt=weiss_nicht.
+    -- LSA-V2: weiss_nicht/leer kommt hier nicht mehr an (oben final); offene Urteile aus der Zeit davor
+    -- loest PROBE 2 weiter auf.
     v_prov := case
       when v_res = 'voll' then 'traegt'                         -- nur MC richtig
       when v_res in ('nicht','teilweise') then 'traegt_nicht'

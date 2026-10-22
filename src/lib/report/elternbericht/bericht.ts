@@ -3,6 +3,10 @@
 // Der Bogen ruft das einmal (useMemo) und reicht das Ergebnis an die Seiten.
 // null, wenn kein Bereich direkt geprüft wurde oder der Katalog fehlt
 // (Entscheidung 3): Dann gibt es keinen Bogen, nur einen Hinweis.
+//
+// LSA-V2: Vorgriffe (vorgriff.ts), die noch nicht sicher sind, zählen nirgends
+// als Übungsbedarf — nicht in Zahlen, Profil, Pyramide, Schwerpunkten und
+// Listen. Der Lernweg zeigt sie in „Kommt noch“ als „noch nicht behandelt“.
 
 import {
   bereicheAus,
@@ -14,8 +18,9 @@ import { bauePyramide } from '@/lib/report/elternbericht/einordnung'
 import { baueLernweg, kommtNoch } from '@/lib/report/elternbericht/lernweg'
 import { themaZuerst, waehleSchwerpunkte, type ThemaKontext } from '@/lib/report/elternbericht/schwerpunkte'
 import { themaAbdeckung } from '@/lib/report/elternbericht/themaAbdeckung'
+import { gezaehlt, vorgriffe } from '@/lib/report/elternbericht/vorgriff'
 import { zaehle } from '@/lib/report/elternbericht/zaehlung'
-import type { Elternbericht, KatalogSkill, ReportErzaehlung, SucheSkill } from '@/types'
+import type { EbBereich, Elternbericht, KatalogSkill, ReportErzaehlung, SucheSkill } from '@/types'
 
 /**
  * Was der Lernweg (R7-9) und die Thema-Regel der Schwerpunkte (R7-11) über die
@@ -48,11 +53,11 @@ export function baueElternbericht({
   lernweg,
 }: ElternberichtEingabe): Elternbericht | null {
   if (kompetenzen.length === 0) return null
-  const bereiche = bereicheAus(kompetenzen)
-  const gezaehlt = zaehle(bereiche, katalog, klasse)
-  if (!gezaehlt) return null
+  const { alle, bereiche, vorgriff } = gezaehlteBereiche(kompetenzen, lernweg)
+  const zahlen = zaehle(bereiche, katalog, klasse)
+  if (!zahlen) return null
 
-  const { zaehlung, profil } = gezaehlt
+  const { zaehlung, profil } = zahlen
   const thema = themaKontext(kompetenzen, lernweg)
   return {
     zaehlung,
@@ -72,7 +77,8 @@ export function baueElternbericht({
     kopfFall: kopfFall(zaehlung.sicher, zaehlung.uebung),
     lernweg: lernweg
       ? baueLernweg({
-          bereiche,
+          bereiche: alle,
+          vorgriffe: vorgriff,
           klasse,
           kanten: lernweg.erzaehlung.kanten,
           katalog: lernweg.erzaehlung.katalog,
@@ -84,6 +90,33 @@ export function baueElternbericht({
         })
       : null,
   }
+}
+
+/**
+ * Die direkt geprüften Bereiche (alle), die Vorgriffe darunter und die, die
+ * zählen (LSA-V2, Entscheidung 13). Vorgriffe gibt es nur in Sitzungen mit
+ * Thema, dort auch rückwirkend (Rasit, 22.10.2026); ohne Thema oder ohne
+ * Lernweg-Quelle (dann fehlt der Plan) bleibt alles wie vor LSA-V2. Auch für
+ * die Präsentation (dieselbe Ableitung).
+ */
+export function gezaehlteBereiche(
+  kompetenzen: readonly SucheSkill[],
+  quelle?: LernwegQuelle,
+): { alle: EbBereich[]; bereiche: EbBereich[]; vorgriff: Set<string> } {
+  const alle = bereicheAus(kompetenzen)
+  const e = quelle?.erzaehlung
+  const themaKey = e?.raum?.themaKey ?? null
+  if (!quelle || !e || !themaKey) return { alle, bereiche: alle, vorgriff: new Set() }
+  const vorgriff = vorgriffe({
+    bereiche: alle,
+    raum: new Set(e.raum ? [...e.raum.einstieg, ...e.raum.darunter] : []),
+    kanten: e.kanten,
+    heimatThemen: e.heimatThemen,
+    kommt: kommtNoch({ plan: e.plan, themaKey, datum: quelle.datum }).map((p) => p.themaKey),
+    naechsteKlasse: e.plan?.naechsteKlasse?.eintraege.map((p) => p.themaKey) ?? [],
+    themaKey,
+  })
+  return { alle, bereiche: gezaehlt(alle, vorgriff), vorgriff }
 }
 
 /**

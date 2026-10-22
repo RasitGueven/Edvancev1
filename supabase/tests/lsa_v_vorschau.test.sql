@@ -15,6 +15,10 @@
 --   i) lsa_schule_von_sitzung: drei Wege wie R7-9.
 --   j) Ohne Thema: dieselbe Folge wie vor LSA-V.
 --
+-- LSA-V2 (20261022131358): Wer nach der Vorschau mindestens 6 direkte Urteile mit 75 % traegt hat, bekommt vor
+-- dem Rueckblick den Ausblick (Einstiege der naechsten Plan-Themen: zv_u2a, zv_u1a). Die Faelle a, d und f
+-- zeigen ihn jetzt; die Vorschau selbst ist unveraendert. Mehr dazu in lsa_v2_ausblick.
+--
 -- Isoliert wie inv10 (eigener Graph, tasks.skill_key -> NULL). Antworten ueber
 -- lsa_submit: {"value":"5"} richtig (r), {"value":"7"} falsch (f).
 --
@@ -174,8 +178,8 @@ $$;
 select pg_temp.kind('zv_akt', 'ZV Schule') as k_a \gset
 select pg_temp.start(:'k_a') as s_a \gset
 select is(pg_temp.folge(:'s_a', repeat('r', 10), '1 minute'),
-  'zv_a1,zv_r1,zv_r5,zv_r7,zv_r3,zv_r2,zv_b1,-',
-  'a: Thema, dann zv_r1 (Rand beider kommender Themen), Rand von zv_u2 (Plan-Position 2), von zv_u1 (4), Rueckblick, Ende');
+  'zv_a1,zv_r1,zv_r5,zv_r7,zv_r3,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
+  'a: Thema, dann zv_r1 (Rand beider kommender Themen), Rand von zv_u2 (Plan-Position 2), von zv_u1 (4), Ausblick (LSA-V2), Rueckblick, Ende');
 select is(public.lsa_select_next_core(:'s_a', array['ready'], pg_temp.t0() + interval '8 minutes'), null::uuid,
   'a: in Minute 8 kommt null — keine Fuellaufgabe, obwohl zv_f1 frei ist');
 select ok(not ('zv_f1' = any (pg_temp.gezogen(:'s_a'))), 'a: zv_f1 (ohne Grund) nie gezogen');
@@ -183,8 +187,9 @@ select ok(not ('zv_f1' = any (pg_temp.gezogen(:'s_a'))), 'a: zv_f1 (ohne Grund) 
 -- ============================================================================
 -- b) Skills kommender Themen nie; Ersetzung durch den Rand
 -- ============================================================================
-select ok(not (pg_temp.gezogen(:'s_a') && array['zv_u1a', 'zv_u1b', 'zv_u2a']),
-  'b: Skills der kommenden Themen selbst nie');
+-- LSA-V2: Die Einstiege zv_u1a und zv_u2a kommen jetzt im Ausblick, nach dem ganzen Rand (Folge in a).
+select ok(not ('zv_u1b' = any (pg_temp.gezogen(:'s_a'))),
+  'b: Skills der kommenden Themen nie in der Vorschau; der Ausblick nimmt nur Einstiege (zv_u1b nie)');
 select ok(not ('zv_x' = any (pg_temp.gezogen(:'s_a'))) and 'zv_r3' = any (pg_temp.gezogen(:'s_a')),
   'b: zv_x (Thema zv_spaet kommt noch) ersetzt durch seinen Rand zv_r3');
 select ok(not ('zv_r6' = any (pg_temp.gezogen(:'s_a'))) and 'zv_r7' = any (pg_temp.gezogen(:'s_a')),
@@ -202,7 +207,7 @@ select ok(not (pg_temp.gezogen(:'s_a') && array['zv_t1', 'zv_t2']), 'd: zv_r1 tr
 select pg_temp.kind('zv_akt', 'ZV Schule') as k_d \gset
 select pg_temp.start(:'k_d') as s_d \gset
 select is(pg_temp.folge(:'s_d', 'rffrrrrrrrr', '1 minute'),
-  'zv_a1,zv_r1,zv_r1,zv_r5,zv_r7,zv_t1,zv_r3,zv_r2,zv_b1,-',
+  'zv_a1,zv_r1,zv_r1,zv_r5,zv_r7,zv_t1,zv_r3,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
   'd: zv_r1 bricht -> zv_t1 nach dem Rand von zv_u2 (Rand vor Tiefe), vor dem Rand von zv_u1');
 select ok(not ('zv_t2' = any (pg_temp.gezogen(:'s_d'))), 'd: zv_t1 traegt -> keine zweite Stufe zu zv_t2');
 
@@ -220,8 +225,8 @@ select is(pg_temp.folge(:'s_e', 'rrrrrr', '4 minutes'),
 -- ============================================================================
 select pg_temp.kind('zv_hj', 'ZV Schule') as k_f1 \gset
 select pg_temp.start(:'k_f1') as s_f1 \gset
-select is(pg_temp.folge(:'s_f1', 'rrrrrrr', '1 minute'),
-  'zv_h1,zv_r1,zv_r5,zv_r7,zv_r3,zv_r2,zv_b1,-',
+select is(pg_temp.folge(:'s_f1', 'rrrrrrrrr', '1 minute'),
+  'zv_h1,zv_r1,zv_r5,zv_r7,zv_r3,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
   'f: Thema nicht im Plan, Oktober -> erstes Halbjahr, Position 1: es kommen zv_u2 und zv_u1');
 select pg_temp.kind('zv_hj', 'ZV Schule') as k_f2 \gset
 select pg_temp.start(:'k_f2', '2026-03-02 08:00:00+00') as s_f2 \gset
@@ -230,8 +235,8 @@ select is(pg_temp.folge(:'s_f2', 'rrrr', '1 minute', '2026-03-02 08:00:00+00'),
   'f: Maerz -> zweites Halbjahr, Position 4: es kommt nur zv_spaet (Rand zv_r3)');
 select pg_temp.kind('zv_hj', 'ZV2 Schule', false) as k_f3 \gset
 select pg_temp.start(:'k_f3') as s_f3 \gset
-select is(pg_temp.folge(:'s_f3', 'rrrrrrr', '1 minute'),
-  'zv_h1,zv_r1,zv_x,zv_r2,zv_r6,zv_r5,-',
+select is(pg_temp.folge(:'s_f3', 'rrrrrrrrr', '1 minute'),
+  'zv_h1,zv_r1,zv_x,zv_r2,zv_r6,zv_r5,zv_u1a,zv_u2a,-',
   'f: Plan ohne Halbjahr -> von vorn (zv_u1, zv_u2); zv_spaet und zv_n stehen nicht im Plan, also sind zv_x, zv_r6 Rand');
 
 -- ============================================================================

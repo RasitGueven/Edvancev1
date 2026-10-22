@@ -211,6 +211,7 @@
         "sicher": "sicher",
         "uebung": "Übungsbedarf",
         "offen": "noch nicht geprüft",
+        "vorgriff": "noch nicht behandelt",
         "linie": "sitzt schon, darauf baut es auf",
         "unter": "baut direkt darauf auf",
         "broeckelt": "hier hat es gebröckelt",
@@ -237,7 +238,8 @@
       "stand": {
         "sicher": "sicher",
         "uebung": "Übungsbedarf",
-        "offen": "noch nicht geprüft"
+        "offen": "noch nicht geprüft",
+        "vorgriff": "noch nicht behandelt"
       },
       "spaeter": "Stoff aus Klasse {{klasse}}",
       "hier": "Sie sind hier · {{monat}}",
@@ -251,7 +253,8 @@
         "stand": {
           "uebung": "mit Übungsbedarf",
           "sicher": "sicher",
-          "offen": "noch nicht geprüft"
+          "offen": "noch nicht geprüft",
+          "vorgriff": "noch nicht behandelt"
         }
       },
       "zusammen": {

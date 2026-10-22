@@ -8,7 +8,7 @@ import { stufeVon } from '@/lib/report/elternbericht/plan'
 import type { Lernweg, LwInsel, LwStand, LwUnter, LwWeitere, LwZaehlzeile, LwZoneKey } from '@/types'
 
 /** Einträge der Legende, in der Reihenfolge des Entwurfs. */
-export const LEGENDE = ['sicher', 'uebung', 'offen', 'linie', 'unter', 'broeckelt', 'kommt'] as const
+export const LEGENDE = ['sicher', 'uebung', 'offen', 'vorgriff', 'linie', 'unter', 'broeckelt', 'kommt'] as const
 export type LegendenArt = (typeof LEGENDE)[number]
 
 /** Nur, was auf der Fläche vorkommt (Entscheidung 12). */
@@ -20,6 +20,7 @@ export function legendeFuer(lw: Lernweg, mitNaechsterKlasse = false): LegendenAr
     sicher: staende.has('sicher'),
     uebung: staende.has('uebung'),
     offen: staende.has('offen'),
+    vorgriff: staende.has('vorgriff'),
     linie: lw.linien.length > 0,
     unter: inseln.some((i) => i.eintraege.some((e) => e.unter.length > 0)),
     broeckelt: inseln.some((i) => i.broeckelt),
@@ -80,7 +81,7 @@ export function useLernwegTexte(lw: Lernweg) {
     legende: (a: LegendenArt): string => t(`s3.weg.legende.${a}`),
     /** „+ 3 weitere mit Übungsbedarf, 2 sicher“ (R7-12, Entscheidung 4). */
     weitere: (w: LwWeitere): string => {
-      const teile = (['uebung', 'sicher', 'offen'] as const).filter((s) => w[s] > 0)
+      const teile = (['uebung', 'sicher', 'vorgriff', 'offen'] as const).filter((s) => w[s] > 0)
       return teile
         .map((s, i) =>
           t(i === 0 ? 's3.weg.weitere.erste' : 's3.weg.weitere.folge', { count: w[s], stand: t(`s3.weg.weitere.stand.${s}`) }),

@@ -8,17 +8,22 @@ Kind ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauaufträge: `docs/
 
 | Kind | Klasse | Schule | Thema | Profil |
 | --- | --- | --- | --- | --- |
-| Lina Berger | 9 Gymnasium | FWG (Schulplan) | Quadratische Funktionen | alles sicher, ein Ausrutscher (Fläche Dreieck) |
+| Lina Berger | 9 Gymnasium | FWG (Schulplan) | Quadratische Funktionen | alles sicher, ein Ausrutscher (Fläche Dreieck); im Ausblick nur Kreise sicher, Potenzen und Pythagoras nicht |
 | Emre Kaya | 9 Gymnasium | FWG (Schulplan) | Reelle Zahlen und Wurzeln | sicher bis auf Wurzelgesetze und teilweises Wurzelziehen, Fehlbild „Wurzel einer Summe“ |
 | Sophie Wagner | 8 Realschule | ohne Plan | Lineare Funktionen | Klasse 7/8 falsch (Steigung vertauscht), Koordinaten unsicher, bis Klasse 6 sicher |
 | Jonas Richter | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | Klasse 7–10 „Weiß ich nicht“, bis Klasse 6 falsch (Vorzeichen) |
 | Nele Schmitz | 7 Gymnasium | ohne Plan | Prozent- und Zinsrechnung | Prozentwert sicher, Grundwert und Prozentsatz falsch, Brüche teils |
-| Max Hoffmann | 8 Gymnasium | FWG (Schulplan) | Lineare Funktionen | nichts falsch: jede Aufgabe kanonisch richtig, auch Vorschau, Rückblick, Zweitbeleg |
-| Tim Schuster | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | klickt sich durch: 2–4 s je Aufgabe, fast alles falsch, nach 30 Aufgaben Schluss; seine LSA ist **nicht auswertbar** |
+| Max Hoffmann | 8 Gymnasium | FWG (Schulplan) | Lineare Funktionen | nichts falsch: jede Aufgabe kanonisch richtig, auch Vorschau, Rückblick, Zweitbeleg; im Ausblick nur Binomische Formeln sicher, Zufall und Flächen nicht |
+| Tim Schuster | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | klickt sich durch: 2–4 s je Aufgabe, fast alles falsch, ohne feste Grenze: höchstens 40 Aufgaben (Deckel, LSA-V2); seine LSA ist **nicht auswertbar** |
 
 Die Profile stehen als Daten in `kinder.sql` (`grund` je Klassenstufe, `ausnahmen` je Skill,
-bevorzugtes Fehlbild, Antwortdauer, bei Tim `hoechstens` = Zahl der Aufgaben); `erzeugen.sql` bindet sie mit
+bevorzugtes Fehlbild, Antwortdauer, optional `hoechstens` = Zahl der Aufgaben); `erzeugen.sql` bindet sie mit
 `\ir kinder.sql` ein.
+
+LSA-V2 (`docs/lsa/Bauauftrag-LSA-V2.md`): Max und Lina können vom Stoff, der als Nächstes kommt, nur das erste
+kommende Plan-Thema. Die Einstiege der zwei Themen danach stehen in `ausnahmen` auf `uebung`. So zeigt jeder Lauf
+den Ausblick und seinen Stopp (zwei Ausblick-Knoten hintereinander nicht sicher). Tim braucht `hoechstens` nicht
+mehr: Seine LSA endet, wenn die Auswahl leer ist, spätestens beim Deckel 40.
 
 ## Was das Skript tut
 
@@ -82,13 +87,27 @@ Tabelle nennt die Sitzung dieses Laufs.
   Report-Pfade erneut öffnen.
 - **Neue Aufgaben im Pool:** erneut starten; „davon ready“ steigt mit jeder Freigabe.
 
+## Simulation vorher/nachher (LSA-V2)
+
+`simulation.sh` baut zwei Wegwerf-DBs im lokalen Postgres (CI-Neuaufbau ohne bzw. mit der Migration
+`*_lsa_v2_ausblick.sql`), lädt `neuaufbau-fixture.sql` (Admin und drei Aufgaben je Skill, dieselbe Fixture wie der
+pgTAP-Test) und lässt alle Kinder laufen. `auswertung.sql` gibt je Kind Aufgaben, Dauer, Ende (Zeit, leer, Deckel),
+Ausblick-Knoten und davon sicher, tiefste Klasse und Zweitbelege aus. Nie gegen Prod.
+
+```bash
+bash tools/lsa-testkinder/simulation.sh
+```
+
+Ergebnis vom 22.10.2026: `docs/lsa/lsa-v2-simulation.md`.
+
 ## Test
 
-`supabase/tests/lsa_testkinder.test.sql` lässt das Skript im CI-Neuaufbau zweimal laufen (mit einer
-Aufgaben-Fixture je Skill, der Neuaufbau hat keine LSA-Aufgaben) und prüft je Kind Abschluss, Profil,
+`supabase/tests/lsa_testkinder.test.sql` lässt das Skript im CI-Neuaufbau zweimal laufen (mit
+`neuaufbau-fixture.sql`, der Neuaufbau hat keine LSA-Aufgaben) und prüft je Kind Abschluss, Profil,
 Uhr, Fehlbild und den zweiten Lauf; für Max zusätzlich 100 % sicher und eine leere Liste „richtig
 beantwortet, nicht angenommen“. Tim ist nicht auswertbar, die sechs anderen sind auswertbar (LSA-R2,
-`lsa_durchklick_stand`). Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
+`lsa_durchklick_stand`). LSA-V2: Max und Lina mit Ausblick und Stopp, kein Kind über 40 Aufgaben, Tim endet durch
+den Deckel oder die leere Auswahl, „Weiß ich nicht“ ohne Zweitbeleg, Jonas bis Klasse 5/6. Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
 unbekanntem Namen (Abbruch).
 
 Hinweis zu Tim: Alle Antworten eines Laufs liegen in einer Transaktion und tragen dieselbe Abgabezeit. Die

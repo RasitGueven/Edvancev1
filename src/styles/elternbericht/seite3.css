@@ -61,7 +61,8 @@
 }
 .eb-s3-leg-sicher::before,
 .eb-s3-leg-uebung::before,
-.eb-s3-leg-offen::before {
+.eb-s3-leg-offen::before,
+.eb-s3-leg-vorgriff::before {
   width: 6.5pt;
   height: 6.5pt;
   border-radius: 50%;
@@ -70,7 +71,8 @@
 .eb-s3-leg-uebung::before {
   background: var(--color-eb-uebung);
 }
-.eb-s3-leg-offen::before {
+.eb-s3-leg-offen::before,
+.eb-s3-leg-vorgriff::before {
   background: transparent;
   border: 0.9pt solid var(--color-eb-leise);
 }
@@ -284,7 +286,8 @@
 .eb-s3-e-sicher .eb-s3-punkt {
   background: var(--color-eb-sicher);
 }
-.eb-s3-e-offen .eb-s3-punkt {
+.eb-s3-e-offen .eb-s3-punkt,
+.eb-s3-e-vorgriff .eb-s3-punkt {
   background: transparent;
   border: 0.8pt solid var(--color-eb-leise);
 }
@@ -294,7 +297,8 @@
   line-height: 10pt;
   color: var(--color-eb-tinte);
 }
-.eb-s3-e-offen > .eb-s3-zeile .eb-s3-label {
+.eb-s3-e-offen > .eb-s3-zeile .eb-s3-label,
+.eb-s3-e-vorgriff > .eb-s3-zeile .eb-s3-label {
   color: var(--color-eb-text);
 }
 .eb-s3-spaeter,

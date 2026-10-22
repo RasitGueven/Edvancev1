@@ -13,6 +13,9 @@
 --   (nie im Pool), Sondierrang 1–3 oder leer. Damit liegt vor einer Pool-Aufgabe oft eine, die nicht im Pool ist.
 --   Kind Klasse 9; Plan der Schule ZG: zg_a, zg_b, zg_c; zg_d 'behandelt'.
 --   Antworten je Skill nach i % 4: falsch / richtig / „weiß nicht“ / erst falsch, dann richtig.
+-- LSA-V2 (20261022131358): „Weiß ich nicht“ als erste Probe ist final. Die Folgen von c5d2c18 bleiben unten
+-- stehen; erwartet wird jetzt genau diese Folge ohne den zweiten Eintrag der Skills mit i % 4 = 2 (pg_temp.ohne_wn).
+-- Kein Kind hier ist stark genug für den Ausblick (höchstens die Hälfte traegt).
 -- Sitzungen: Thema zg_a mit Testkonto und ohne; kein Thema mit Testkonto und ohne. Uhr 20 s je Aufgabe, damit
 -- ohne Thema Breite b auslaeuft und die Restzeit (Schritt 5, die langsame Stelle aus LSA-D) drankommt.
 -- ============================================================================
@@ -140,10 +143,18 @@ end $$;
 \set ohne_test '40-1,40-3,37-1,36-1,36-3,34-2,34-3,27-1,27-2,22-1,22-2,13-1,38-1,38-4,32-1,32-4,31-1,31-2,24-2,24-4,18-1,18-3,10-1,10-4,4-2,4-3,3-1,3-4,39-3,39-4,7-1,7-4,28-1,28-3,21-1,20-1,20-4,15-1,15-3,25-1,-'
 \set ohne_echt '40-1,40-3,37-2,37-4,36-1,36-2,34-4,34-3,27-1,27-4,22-1,22-4,13-3,38-1,38-3,32-1,32-4,31-1,31-2,24-3,24-4,18-1,18-4,10-1,10-4,4-4,4-2,3-1,3-4,39-2,39-4,28-1,28-4,21-3,21-2,20-1,20-3,15-1,15-4,25-3,-'
 
-select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000001', 'zg_a', true),  :'thema_test', 'Thema, Testpool: dieselbe Aufgabenfolge wie vor der Umstellung');
-select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000002', 'zg_a', false), :'thema_echt', 'Thema, echter Pool: dieselbe Aufgabenfolge');
-select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000003', null, true), :'ohne_test',  'ohne Thema, Testpool (Breite b, Restzeit): dieselbe Aufgabenfolge');
-select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000004', null, false), :'ohne_echt',  'ohne Thema, echter Pool: dieselbe Aufgabenfolge');
+-- LSA-V2: die Folge ohne die zweite Probe nach „Weiß ich nicht“ (Skills mit i % 4 = 2), sonst unverändert.
+create function pg_temp.ohne_wn(p text) returns text language sql as $$
+  select string_agg(x.e, ',' order by x.nr)
+    from (select u.e, u.nr, row_number() over (partition by split_part(u.e, '-', 1) order by u.nr) as probe
+            from unnest(string_to_array(p, ',')) with ordinality u(e, nr)) x
+   where not (x.e <> '-' and split_part(x.e, '-', 1)::int % 4 = 2 and x.probe > 1)
+$$;
+
+select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000001', 'zg_a', true),  pg_temp.ohne_wn(:'thema_test'), 'Thema, Testpool: dieselbe Aufgabenfolge wie vor der Umstellung (ohne WN-Zweitbeleg)');
+select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000002', 'zg_a', false), pg_temp.ohne_wn(:'thema_echt'), 'Thema, echter Pool: dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
+select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000003', null, true), pg_temp.ohne_wn(:'ohne_test'),  'ohne Thema, Testpool (Breite b, Restzeit): dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
+select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000004', null, false), pg_temp.ohne_wn(:'ohne_echt'),  'ohne Thema, echter Pool: dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
 
 select ok(not has_function_privilege('authenticated', 'public.lsa_freie_aufgabe(uuid, text, boolean, boolean)', 'execute')
           and not has_function_privilege('anon', 'public.lsa_freie_aufgabe(uuid, text, boolean, boolean)', 'execute'),
