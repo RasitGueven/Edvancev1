@@ -100,9 +100,11 @@ export function kuerzeLernweg(lw: Lernweg, g: Grenzen, thema: ThemaVorrang = nul
       }
     }
   }
-  // 3. Kommt noch (vor den Linien, damit Linien in weggefallene Inseln mitgehen)
+  // 3. Kommt noch (vor den Linien, damit Linien in weggefallene Inseln mitgehen). LSA-V2: Eine Insel mit
+  // einem geprüften Eintrag (Vorgriff) bleibt, auch hinter der Grenze.
   const kommt = lw.zonen.find((z) => z.key === 'kommt')
-  for (const i of kommt?.inseln.slice(g.kommt) ?? []) for (const e of i.eintraege) raus.add(e.id)
+  const bleibtKommt = (i: LwInsel, n: number): boolean => n < g.kommt || i.eintraege.some((e) => e.stand !== 'offen')
+  for (const i of kommt?.inseln.filter((x, n) => !bleibtKommt(x, n)) ?? []) for (const e of i.eintraege) raus.add(e.id)
   // 2. Linien
   const behalten = linien.filter((l) => !raus.has(l.zu)).slice(0, g.linien)
   const mitLinie = new Set(behalten.map((l) => l.zu))
@@ -116,7 +118,7 @@ export function kuerzeLernweg(lw: Lernweg, g: Grenzen, thema: ThemaVorrang = nul
   weg.linien += linien.length - behalten.length
   let zonen: LwZone[] = lw.zonen.map((z) => ({
     ...z,
-    inseln: (z.key === 'kommt' ? z.inseln.slice(0, g.kommt) : z.inseln)
+    inseln: (z.key === 'kommt' ? z.inseln.filter(bleibtKommt) : z.inseln)
       .map((i) => ({
         ...i,
         eintraege: i.eintraege
@@ -129,7 +131,7 @@ export function kuerzeLernweg(lw: Lernweg, g: Grenzen, thema: ThemaVorrang = nul
   const offenIn = (zs: LwZone[]): number =>
     zs.flatMap((z) => z.inseln.flatMap((i) => i.eintraege.flatMap((e) => [e, ...e.unter]))).filter((e) => e.stand === 'offen').length
   weg.offen += offenIn(lw.zonen) - offenIn(zonen)
-  weg.kommt += Math.max(0, (kommt?.inseln.length ?? 0) - g.kommt)
+  weg.kommt += (kommt?.inseln.length ?? 0) - (kommt?.inseln.filter(bleibtKommt).length ?? 0)
 
   // 4. Zonen zusammenfassen: Linien aus der Zone beginnen an ihrer Zählung,
   // Linien in die Zone fallen weg.

@@ -105,11 +105,21 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
   const heimat = new Map<string, string[]>()
   for (const h of e.heimatThemen) heimat.set(h.skillKey, [...(heimat.get(h.skillKey) ?? []), h.themaKey])
 
-  // Kommt noch: die Plan-Einträge nach der aktuellen Position, höchstens grenzen.kommt.
+  // Kommt noch: die Plan-Einträge nach der aktuellen Position, höchstens grenzen.kommt. LSA-V2: dazu jedes
+  // weitere Thema mit einem Vorgriff, auch aus dem Plan der Klasse + 1 — ein Vorgriff steht immer in Kommt noch.
   const nachher = kommtNoch(e)
-  const kommtKeys = nachher.slice(0, grenzen.kommt).map((p, i) => {
+  const vorgriffThemen = new Set(e.bereiche.filter((b) => vorgriff.has(b.skillKey)).flatMap((b) => heimat.get(b.skillKey) ?? []))
+  const mitVorgriff = (p: { themaKey: string | null }): boolean => p.themaKey !== null && vorgriffThemen.has(p.themaKey)
+  const imKommt = nachher.filter((p, i) => i < grenzen.kommt || mitVorgriff(p))
+  const ausNaechster = (e.plan?.naechsteKlasse?.eintraege ?? []).filter(
+    (p, i, alle) =>
+      mitVorgriff(p) && !nachher.some((n) => n.themaKey === p.themaKey) && alle.findIndex((x) => x.themaKey === p.themaKey) === i,
+  )
+  const naechsteKeys = new Set<string>()
+  const kommtKeys = [...imKommt, ...ausNaechster].map((p, i) => {
     const key = `kommt|${i}`
     inseln.set(key, { zone: 'kommt', feld: null, titel: p.titel, themaKey: p.themaKey, direkt: [], offen: [] })
+    if (i >= imKommt.length) naechsteKeys.add(key)
     return key
   })
   const kommtInsel = (skillKey: string): string | undefined => {
@@ -187,7 +197,7 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
             label: b.label,
             stand: standVon(b),
             klasse: b.klasse,
-            spaeter: zone !== 'kommt' && b.klasse > e.klasse,
+            spaeter: (zone !== 'kommt' || naechsteKeys.has(key)) && b.klasse > e.klasse,
             unter: unterVon(b.skillKey),
           })),
         ...i.offen.map((o) => ({
@@ -242,6 +252,6 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
     schulname: e.plan?.schulname ?? null,
     thema: e.thema,
     datum: e.datum,
-    weggelassen: { ...teil.weggelassen, kommt: Math.max(0, nachher.length - grenzen.kommt), eintraege: 0, zonen: 0 },
+    weggelassen: { ...teil.weggelassen, kommt: nachher.length - imKommt.length, eintraege: 0, zonen: 0 },
   }
 }

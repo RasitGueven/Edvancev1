@@ -14,7 +14,7 @@ Kind ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauaufträge: `docs/
 | Jonas Richter | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | Klasse 7–10 „Weiß ich nicht“, bis Klasse 6 falsch (Vorzeichen) |
 | Nele Schmitz | 7 Gymnasium | ohne Plan | Prozent- und Zinsrechnung | Prozentwert sicher, Grundwert und Prozentsatz falsch, Brüche teils |
 | Max Hoffmann | 8 Gymnasium | FWG (Schulplan) | Lineare Funktionen | nichts falsch: jede Aufgabe kanonisch richtig, auch Vorschau, Rückblick, Zweitbeleg; im Ausblick nur Binomische Formeln sicher, Zufall und Flächen nicht |
-| Tim Schuster | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | klickt sich durch: 2–4 s je Aufgabe, fast alles falsch, nach 40 Aufgaben beendet ihn der Deckel (LSA-V2); seine LSA ist **nicht auswertbar** |
+| Tim Schuster | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | klickt sich durch: 2–4 s je Aufgabe, fast alles falsch, ohne feste Grenze: höchstens 40 Aufgaben (Deckel, LSA-V2); seine LSA ist **nicht auswertbar** |
 
 Die Profile stehen als Daten in `kinder.sql` (`grund` je Klassenstufe, `ausnahmen` je Skill,
 bevorzugtes Fehlbild, Antwortdauer, optional `hoechstens` = Zahl der Aufgaben); `erzeugen.sql` bindet sie mit
@@ -23,7 +23,7 @@ bevorzugtes Fehlbild, Antwortdauer, optional `hoechstens` = Zahl der Aufgaben); 
 LSA-V2 (`docs/lsa/Bauauftrag-LSA-V2.md`): Max und Lina können vom Stoff, der als Nächstes kommt, nur das erste
 kommende Plan-Thema. Die Einstiege der zwei Themen danach stehen in `ausnahmen` auf `uebung`. So zeigt jeder Lauf
 den Ausblick und seinen Stopp (zwei Ausblick-Knoten hintereinander nicht sicher). Tim braucht `hoechstens` nicht
-mehr, der Deckel 40 in der Auswahl beendet seine LSA.
+mehr: Seine LSA endet, wenn die Auswahl leer ist, spätestens beim Deckel 40.
 
 ## Was das Skript tut
 
@@ -106,8 +106,8 @@ Ergebnis vom 22.10.2026: `docs/lsa/lsa-v2-simulation.md`.
 `neuaufbau-fixture.sql`, der Neuaufbau hat keine LSA-Aufgaben) und prüft je Kind Abschluss, Profil,
 Uhr, Fehlbild und den zweiten Lauf; für Max zusätzlich 100 % sicher und eine leere Liste „richtig
 beantwortet, nicht angenommen“. Tim ist nicht auswertbar, die sechs anderen sind auswertbar (LSA-R2,
-`lsa_durchklick_stand`). LSA-V2: Max und Lina mit Ausblick und Stopp, kein Kind über 40 Aufgaben, bei Tim greift
-der Deckel, „Weiß ich nicht“ ohne Zweitbeleg, Jonas bis Klasse 5/6. Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
+`lsa_durchklick_stand`). LSA-V2: Max und Lina mit Ausblick und Stopp, kein Kind über 40 Aufgaben, Tim endet durch
+den Deckel oder die leere Auswahl, „Weiß ich nicht“ ohne Zweitbeleg, Jonas bis Klasse 5/6. Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
 unbekanntem Namen (Abbruch).
 
 Hinweis zu Tim: Alle Antworten eines Laufs liegen in einer Transaktion und tragen dieselbe Abgabezeit. Die

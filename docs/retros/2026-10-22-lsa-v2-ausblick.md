@@ -19,11 +19,12 @@ Zweitbelegen, die Klick-LSA hatte 135 Aufgaben. Bauauftrag `docs/lsa/Bauauftrag-
 - Report: `vorgriff.ts` (Vorgriff = Heimat in Kommt noch, nicht im Raum, nicht am Vorschau-Rand). `bericht.ts`
   zählt nur sichere Vorgriffe; der Lernweg setzt Vorgriffe in die Insel ihres Themas in Kommt noch, unsichere mit
   neuem Stand `vorgriff` („noch nicht behandelt“, leerer Kreis). Die Präsentation nimmt dieselben Bereiche.
-- Testkinder: `kinder.sql` ausgelagert (erzeugen.sql 400 → 342 Zeilen), Max und Lina mit Ausblick-Profil,
-  `neuaufbau-fixture.sql` (aus dem Test), `simulation.sh` und `auswertung.sql`.
-- pgTAP `lsa_v2_ausblick` (32), `lsa_testkinder` (49, +5 Zusicherungen), angepasst: `lsa_v_vorschau`
+- Testkinder: Max und Lina mit Ausblick-Profil in `kinder.sql` (von LSA-R2 ausgelagert; meine eigene Auslagerung
+  ist beim Rebase auf #312 entfallen), Tim ohne `hoechstens`, `neuaufbau-fixture.sql` (aus dem Test),
+  `simulation.sh` und `auswertung.sql`.
+- pgTAP `lsa_v2_ausblick` (36), `lsa_testkinder` (57, +6 Zusicherungen), angepasst: `lsa_v_vorschau`
   (Ausblick in a, d, f), `lsa_v_gleich` (Folge ohne die Zweitprobe nach „Weiß ich nicht“, aus den alten Folgen
-  abgeleitet). Vitest `vorgriff.test.ts` (12), angepasst `lernwegKuerzen.test.ts`, `praesentation.test.ts`.
+  abgeleitet). Vitest `vorgriff.test.ts` (14), angepasst `lernwegKuerzen.test.ts`, `praesentation.test.ts`.
 
 ## Entscheidungen
 - Die Definition der Ausblick-Knoten ist eine Liste (`lsa_ausblick_knoten`), `lsa_ist_ausblick` prüft dagegen.
@@ -38,6 +39,15 @@ Zweitbelegen, die Klick-LSA hatte 135 Aufgaben. Bauauftrag `docs/lsa/Bauauftrag-
   Einstiege der zwei danach `uebung`“. Am FWG liegen die drei kommenden Themen für Max und Lina noch in ihrer
   Klasse.
 
+## Zweitprüfung (unabhängige Instanz)
+Freigabe mit Auflagen. DB-Seite ohne Befund (Diff nur an den markierten Stellen, Rollback katalog-gleich,
+Stärke, Stopp, Kandidatenliste, B, Deckel, Laufzeit ~0,75 ms für `lsa_ausblick_knoten`). Umgesetzt:
+- Befund 1: Ein Vorgriff aus Klasse + 1 oder hinter der Kommt-Grenze stand in „Aktuell“, beim Kürzen ging seine
+  Insel verloren. Jetzt bekommt jedes Thema mit Vorgriff eine Kommt-Insel (auch aus dem Plan der Klasse + 1), und
+  das Kürzen behält Kommt-Inseln mit geprüften Einträgen. Tests in `vorgriff.test.ts`.
+- Tests für B mit „leer“ und Multi-Part, i18n-Einrückung.
+Offen für den Gründer: Befund 2 (siehe unten).
+
 ## Was auffiel
 - Die Stärke gilt bei jedem Aufruf: Hebt erst ein Urteil im Rückblick das Kind auf 75 %, kommt der Ausblick nach
   dem Rückblick (pgTAP `lsa_v2_ausblick`, Fall b). Das folgt aus Entscheidung 2, wirkt aber wie eine andere
@@ -50,4 +60,19 @@ Zweitbelegen, die Klick-LSA hatte 135 Aufgaben. Bauauftrag `docs/lsa/Bauauftrag-
   ohne die Migration rot (Rechte der lokalen Rolle), in CI grün.
 
 ## Offen
-Siehe PR und `docs/lsa/lsa-v2-simulation.md`.
+1. **Vorgriff-Regel auch ohne Ausblick (Zweitprüfung, Befund 2):** `vorgriff.ts` wirkt wörtlich nach D, also auch
+   für Sitzungen ohne Thema und rückwirkend für alte Sitzungen. Bereiche, die Breite b oder die Restzeit aus
+   späteren Themen der Klasse beurteilt hat, verlieren dort ihren Übungsbedarf. Bestätigen oder auf Sitzungen mit
+   Thema (bzw. ab LSA-V2) beschränken?
+2. **Tim und der Deckel:** Tim hat ein Thema; die Auswahl endet bei ihm nach 36 Aufgaben von selbst, der Deckel
+   greift nicht. Soll Tim (oder ein zweiter Durchklicker) ohne Thema laufen, damit der Lauf den Deckel zeigt?
+3. **Ausblick für echte Kinder fast leer:** Von 45 Einstiegsknoten haben nur die drei von Reelle Zahlen ready-Aufgaben
+   (dbread). Ohne Freigaben durch Lena bekommen echte Kinder keinen Ausblick.
+4. **Jonas:** Im Neuaufbau erreicht er schon vorher Klasse 5; der Anlass (nicht bis 5/6) stammt aus dem Prod-Testpool
+   und ist hier nicht nachgestellt. Nach dem Einspielen ein Lauf mit `nur=Jonas` auf Prod.
+5. **Stärke nach dem Rückblick:** Hebt ein Rückblick-Urteil das Kind über 75 %, folgt der Ausblick nach dem
+   Rückblick. So spezifiziert, wirkt aber wie eine andere Reihenfolge.
+6. Rand-Bedingung in `vorgriff.ts` ist mit der jetzigen Datenlage nie entscheidend (wie im SQL); der
+   Rückblick-Ausschluss ist im Report nicht gespiegelt (setzt widersprüchliche Lead-Daten voraus).
+7. Migration (840), Rollback (629) und `schema-erwartet.sql` liegen über 400 Zeilen: vollständige Funktionskörper,
+   wie bei LSA-V (528/318).

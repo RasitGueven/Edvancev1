@@ -115,7 +115,7 @@
         "ziele": "Darauf baut auf: {{liste}}.",
         "basis": "Baut auf {{basis}} auf, und das sitzt.",
         "offen": "Das klären wir in den ersten Sitzungen.",
-      "vorgriff": "Das kommt im Unterricht erst noch. Wir haben schon einen Blick darauf geworfen; dass es noch nicht sitzt, ist kein Übungsbedarf.",
+        "vorgriff": "Das kommt im Unterricht erst noch. Wir haben schon einen Blick darauf geworfen; dass es noch nicht sitzt, ist kein Übungsbedarf.",
         "naechstes": "{{titel}} · kommt als Nächstes.",
         "spaeter": "{{titel}} · kommt in Klasse {{klasse}}.",
         "kommtBasis": "Baut auf, was schon sitzt: {{liste}}.",

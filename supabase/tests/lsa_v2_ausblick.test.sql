@@ -30,7 +30,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(32);
+select plan(36);
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
@@ -245,6 +245,27 @@ select is((select count(*)::int from lsa_skill_urteil where session_id = :'s_d2'
   'd: auch ohne Thema kein offenes Urteil nach „Weiß ich nicht“');
 select is((select string_agg(zustand || '/' || proben_anzahl, ',') from lsa_skill_urteil
             where session_id = :'s_d2' and belegt_direkt), 'nicht_angesetzt/1', 'd: ... nicht_angesetzt mit einer Probe');
+
+-- Direkt ueber lsa_urteil_buchen_core: „leer“ (flach) und „Weiß ich nicht“ in allen Teilen (Multi-Part).
+insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe) values ('za_m', 'ZA M', 'mathematik', 7, 1);
+insert into tasks (cluster_id, content_type, input_type, status, question, parts, est_duration_sec, source, source_ref, skill_key, class_level)
+select (select c.id from skill_clusters c join subjects sub on sub.id = c.subject_id
+         where sub.name = 'Mathematik' order by c.sort_order limit 1),
+       'exercise', 'MULTI_PART', 'ready', 'Zwei Teile',
+       '[{"nr":1,"afb":"I","kind":"short_input","unit":null,"prompt":"3 + 4?","competency_content":"zahlen","competency_process":null},
+         {"nr":2,"afb":"I","kind":"short_input","unit":null,"prompt":"1 + 2?","competency_content":"zahlen","competency_process":null}]'::jsonb,
+       120, 'test', 'za-m-mp', 'za_m', 7;
+insert into lsa_responses (session_id, task_id, response, abgabeart, part_nr)
+select :'s_d2', t.id, '{}'::jsonb, 'weiss_nicht', n from tasks t cross join generate_series(1, 2) n
+ where t.source_ref = 'za-m-mp';
+select is(public.lsa_urteil_buchen_core(:'s_d2', (select id from tasks where source_ref = 'za-m-mp')), 'nicht_angesetzt',
+  'd: Multi-Part, alle Teile „Weiß ich nicht“ -> nicht_angesetzt');
+select is(pg_temp.urteil(:'s_d2', 'za_m'), 'nicht_angesetzt/1/final', 'd: ... final mit einer Probe');
+insert into lsa_responses (session_id, task_id, response, abgabeart)
+select :'s_d2', t.id, '{}'::jsonb, 'leer' from tasks t where t.source_ref = 'za-za_k1-1';
+select is(public.lsa_urteil_buchen_core(:'s_d2', (select id from tasks where source_ref = 'za-za_k1-1')), 'nicht_angesetzt',
+  'd: flach, leer abgegeben -> nicht_angesetzt');
+select is(pg_temp.urteil(:'s_d2', 'za_k1'), 'nicht_angesetzt/1/final', 'd: ... final mit einer Probe');
 
 -- ============================================================================
 -- e) Deckel 40

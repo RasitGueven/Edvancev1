@@ -12,56 +12,59 @@ Max und Lina). Ausblick-Knoten zählt die Auswertung in beiden Läufen mit derse
 
 Ende: **Zeit** = über 19 Minuten, **leer** = die Auswahl lieferte nichts mehr, **Deckel** = 40 Aufgaben ausgegeben.
 
-### vorher (20261022080744, dev)
+### vorher (dev mit LSA-R2, 20261022131037)
 
 | Kind | Kl. | Aufgaben | Dauer | Ende | Ausblick | davon sicher | tiefste Kl. | Zweitbelege |
 | --- | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: |
-| Lina | 9 | 22 | 15:06 | leer | 0 | 0 | 5 | 7 |
-| Emre | 9 | 19 | 19:21 | Zeit | 0 | 0 | 6 | 5 |
+| Lina | 9 | 18 | 12:22 | leer | 0 | 0 | 5 | 3 |
+| Emre | 9 | 19 | 19:21 | Zeit | 0 | 0 | 6 | 6 |
 | Sophie | 8 | 14 | 19:20 | Zeit | 0 | 0 | 6 | 6 |
 | Jonas | 8 | 16 | 20:21 | Zeit | 0 | 0 | 5 | 8 |
-| Nele | 7 | 10 | 12:08 | leer | 0 | 0 | 7 | 3 |
-| Max | 8 | 11 | 06:32 | leer | 0 | 0 | 6 | 4 |
+| Nele | 7 | 13 | 15:24 | leer | 0 | 0 | 7 | 6 |
+| Max | 8 | 10 | 06:04 | leer | 0 | 0 | 6 | 3 |
+| Tim | 8 | 36 | 01:50 | leer | 0 | 0 | 5 | 18 |
 
 ### nachher (mit 20261022131358)
 
 | Kind | Kl. | Aufgaben | Dauer | Ende | Ausblick | davon sicher | tiefste Kl. | Zweitbelege |
 | --- | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: |
-| Lina | 9 | 28 | 19:04 | Zeit | 4 | 2 | 5 | 9 |
-| Emre | 9 | 19 | 19:21 | Zeit | 2 | 2 | 6 | 6 |
-| Sophie | 8 | 14 | 19:20 | Zeit | 0 | 0 | 6 | 6 |
+| Lina | 9 | 27 | 18:20 | leer | 4 | 2 | 5 | 8 |
+| Emre | 9 | 19 | 19:21 | Zeit | 3 | 3 | 5 | 4 |
+| Sophie | 8 | 14 | 19:20 | Zeit | 0 | 0 | 6 | 5 |
 | Jonas | 8 | 14 | 20:56 | Zeit | 0 | 0 | 5 | 4 |
 | Nele | 7 | 11 | 13:04 | leer | 0 | 0 | 7 | 4 |
-| Max | 8 | 17 | 10:05 | leer | 6 | 4 | 6 | 4 |
+| Max | 8 | 16 | 09:30 | leer | 6 | 4 | 6 | 3 |
+| Tim | 8 | 36 | 01:50 | leer | 0 | 0 | 5 | 18 |
+
+Tim läuft in beiden Ständen ohne `hoechstens` (aus kinder.sql entfernt), damit die Auswahl allein sein Ende
+bestimmt.
 
 Ausblick in der Reihenfolge der Ausgabe (nachher):
 
 | Kind | Ausblick-Knoten und Urteil |
 | --- | --- |
 | Lina | geo_kreis_flaeche traegt, geo_kreis_umfang traegt, zahl_potenz_rechnen traegt_nicht, geo_pythagoras_abstand traegt_nicht → Stopp |
-| Emre | fkt_quadr_normalform traegt, fkt_quadr_nullstellen traegt → Zeit |
+| Emre | fkt_quadr_normalform traegt, fkt_quadr_nullstellen traegt, geo_kreis_flaeche traegt → Zeit |
 | Max | term_binom_quadrat, term_binom_quadratdifferenz, term_binom_faktorisieren, term_binom_gemischt traegt, stoch_pfad_summe traegt_nicht, geo_flaeche_drachen_raute traegt_nicht → Stopp |
 
 ### Gegen die Erwartung aus dem Bauauftrag
 
 | Erwartung | Ergebnis |
 | --- | --- |
-| Max und Lina deutlich länger, mit Ausblick | ja: Max 11 → 17 Aufgaben, 6:32 → 10:05; Lina 22 → 28, 15:06 → 19:04 (jetzt Ende durch die Zeit). Beide mit Ausblick und sichtbarem Stopp. |
+| Max und Lina deutlich länger, mit Ausblick | ja: Max 10 → 16 Aufgaben, 6:04 → 9:30; Lina 18 → 27, 12:22 → 18:20. Beide mit Ausblick und sichtbarem Stopp. |
 | Jonas erreicht Klasse 5/6 | ja, aber auch vorher schon: Im Neuaufbau mit drei Aufgaben je Skill kommt Jonas in beiden Läufen bis Klasse 5. Neu: halb so viele Zweitbelege (8 → 4), weil „Weiß ich nicht“ keinen mehr auslöst. Der Befund aus dem Anlass (Prod-Testpool) lässt sich hier nicht nachstellen, siehe offene Punkte. |
-| Emre, Sophie, Nele ändern sich wenig | ja: Sophie gleich, Nele +1 Aufgabe, Emre gleich viele Aufgaben, davon 2 im Ausblick (Emre ist mit 2 Übungsbereichen stark genug). |
-| Kein Kind über 40 | ja, höchstens 28. |
+| Emre, Sophie, Nele ändern sich wenig | ja: Sophie gleich, Nele 13 → 11 Aufgaben (weniger Zweitbelege), Emre gleich viele Aufgaben, davon 3 im Ausblick (Emre ist mit 2 Übungsbereichen stark genug). |
+| Kein Kind über 40 | ja, höchstens 36 (Tim). |
+| Bei Tim greift der Deckel | **nein**: Tim hat ein Thema (Terme und Gleichungen). Mit Thema endet die Auswahl seit LSA-V nach Thema, Vorschau und Rückblick von selbst, hier nach 36 Aufgaben (1:50 Minuten), vorher wie nachher. Der Deckel ist im pgTAP-Test `lsa_v2_ausblick` (Fall e) mit einem Durchklicker ohne Thema belegt: genau 40 Aufgaben, dann null nach knapp 4 Minuten. Siehe offene Punkte. |
 
-Die Folgen hängen über `md5(Sitzung || Aufgabe)` an der zufälligen Sitzungs-ID. Weitere Läufe nachher: Lina
-16:58–19:04, Max 8:53–10:49, Nele 13:04–14:21; Emre, Sophie und Jonas wie oben. Die Zusicherungen in `lsa_testkinder.test.sql`
+Die Folgen hängen über `md5(Sitzung || Aufgabe)` an der zufälligen Sitzungs-ID; zwischen Läufen schwanken Lina
+(nachher 16:58–19:04), Max (8:53–11:17) und Nele (12:08–14:21). Die Zusicherungen in `lsa_testkinder.test.sql`
 gelten für jeden Lauf.
-
-**Tim** (Durchklicker aus LSA-R2) gibt es auf dev noch nicht; der Deckel ist deshalb im pgTAP-Test
-`lsa_v2_ausblick` (Fall e) mit einem eigenen Durchklicker belegt: ohne Thema, alles falsch, alle 5 Sekunden →
-genau 40 Aufgaben, dann null nach knapp 4 Minuten.
 
 ## 2. Laufzeit „Weiter“ (wie LSA-D)
 
-`tools/lsa-weiter-messung.sql` unverändert, Seed 0.42, je Fassung eine frische Kopie. Datenbank: CI-Neuaufbau plus
+`tools/lsa-weiter-messung.sql` unverändert, Seed 0.42, je Fassung eine frische Kopie. Gemessen vor dem Rebase auf LSA-R2; R2 ersetzt
+`lsa_finish` und `platz_submit`, nicht `lsa_submit`, `lsa_select_next_core` oder `lsa_urteil_buchen_core`. Datenbank: CI-Neuaufbau plus
 851 synthetische Aufgaben nach dem Prod-Bestand aus `supabase/tests/lsa_v_daten.sql` (Skill, Sondierrang, MC,
 ready/Entwurf; 72 ready, 851 im Testpool; Pool-Prüfung über alle 194 ms, in LSA-V 270 ms). Zeiten in ms, lokal.
 

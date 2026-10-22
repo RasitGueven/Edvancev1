@@ -25,7 +25,7 @@
 --  10. Tim (LSA-R2) klickt sich durch (2–4 s, fast alles falsch): seine Sitzung ist nicht auswertbar, die
 --      der sechs anderen ist auswertbar (lsa_finish ueber lsa_durchklick_stand).
 --  11. LSA-V2: Max und Lina bekommen den Ausblick, mit mindestens einem sicheren Knoten, und er endet mit genau
---      zwei nicht sicheren Knoten hintereinander (Stopp). Kein Kind ueber 40 Aufgaben, bei Tim greift der Deckel.
+--      zwei nicht sicheren Knoten hintereinander (Stopp). Kein Kind ueber 40 Aufgaben, Tim ohne 'hoechstens'.
 --      „Weiß ich nicht“ hat nie einen Zweitbeleg. Jonas kommt bis Klasse 5/6.
 -- ============================================================================
 begin;
@@ -152,7 +152,12 @@ select is((select max(c) from (select count(*) as c from lsa_ausgegeben a
                                 where a.session_id in (select pg_temp.sitzung(n)
                                                          from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim']) n)
                                 group by a.session_id) x) <= 40, true, 'Kein Kind ueber 40 Aufgaben');
-select is(pg_temp.ende_grund(pg_temp.sitzung('Tim')), 'Deckel', 'Tim: der Deckel beendet die LSA nach 40 Aufgaben');
+-- Tim hat ein Thema: Die Auswahl mit Thema endet nach Thema, Vorschau und Rueckblick von selbst (im Neuaufbau mit drei
+-- Aufgaben je Skill vor 40). Ohne 'hoechstens' endet er durch die leere Auswahl oder den Deckel, nie spaeter; den
+-- Deckel selbst belegt lsa_v2_ausblick (Fall e, Durchklicker ohne Thema).
+select ok(pg_temp.ende_grund(pg_temp.sitzung('Tim')) in ('Deckel', 'Auswahl leer'),
+          'Tim: endet durch den Deckel oder die leere Auswahl (' || pg_temp.ende_grund(pg_temp.sitzung('Tim')) || ', '
+          || (select count(*) from lsa_ausgegeben a where a.session_id = pg_temp.sitzung('Tim')) || ' Aufgaben)');
 select is((select count(*) from lsa_skill_urteil u
             where u.session_id in (select pg_temp.sitzung(n)
                                      from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim']) n)

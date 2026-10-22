@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { baueElternbericht, gezaehlteBereiche } from '@/lib/report/elternbericht/bericht'
 import { ABGESTUFT_URTEILE, fall } from '@/lib/report/elternbericht/fixtures/abgestuft'
 import { u } from '@/lib/report/elternbericht/fixtures/basis'
+import { KUERZUNGEN, kuerzeLernweg } from '@/lib/report/elternbericht/lernweg'
 import { gezaehlt, vorgriffe, vorschauRand, type VorgriffEingabe } from '@/lib/report/elternbericht/vorgriff'
 import { bauePraesentation, zustandAufTablet } from '@/lib/report/praesentation/praesentation'
 import type { EbBereich, PraesentationDaten, ReportData } from '@/types'
@@ -124,6 +125,29 @@ describe('Bericht: Vorgriffe sind nie Übungsbedarf (Entscheidungen 12–14)', (
     expect(p.zeilen.flatMap((z) => [...z.uebung, ...z.uebersprungen]).map((x) => x.label)).not.toContain('Normalform')
     expect(p.schwerpunkte.flatMap((s) => s.uebung).sort()).toEqual(q.schwerpunkte.flatMap((s) => s.uebung).sort())
     expect(p.themaWeg).toEqual(q.themaWeg)
+  })
+})
+
+describe('Lernweg: jeder Vorgriff steht in Kommt noch (Zweitprüfung, Befund 1)', () => {
+  // Lösungsformel: Quadratische Gleichungen kommt erst in Klasse 10. Umkehrung: Bedingte Wahrscheinlichkeit ist das
+  // fünfte kommende Thema, hinter der Grenze von Kürzungsstufe 3 (vier Themen).
+  const FORMEL = u('gleichung_quadr_formel', 'Lösungsformel', 8, 9, 'traegt_nicht', 1, false)
+  const UMKEHR = u('stoch_bedingt_umkehr', 'Umkehrung', 7, 9, 'traegt', 1, false)
+  const lw = bericht(fall('94', { urteile: [...ABGESTUFT_URTEILE, FORMEL, UMKEHR] })).lernweg!
+  const inKommt = (l: typeof lw) =>
+    l.zonen.find((z) => z.key === 'kommt')!.inseln.flatMap((i) => i.eintraege.map((e) => `${i.titel}: ${e.label} ${e.stand}`))
+
+  it('Klasse + 1: eigene Insel in Kommt noch, „noch nicht behandelt“', () => {
+    expect(inKommt(lw).filter((x) => x.includes('Lösungsformel'))).toHaveLength(1)
+    expect(inKommt(lw).find((x) => x.includes('Lösungsformel'))).toMatch(/vorgriff$/)
+  })
+
+  it('hinter der Kommt-Grenze: die Insel bleibt, in jeder Kürzungsstufe', () => {
+    KUERZUNGEN.forEach((g, stufe) => {
+      const k = inKommt(kuerzeLernweg(lw, g))
+      expect(k.some((x) => x.includes('Umkehrung sicher')), `Stufe ${stufe}`).toBe(true)
+      expect(k.some((x) => x.includes('Lösungsformel vorgriff')), `Stufe ${stufe}`).toBe(true)
+    })
   })
 })
 
