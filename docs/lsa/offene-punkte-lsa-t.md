@@ -48,9 +48,6 @@ Prozent- und Zinsrechnung 6/6). „ready“ sind davon nur die drei Einstiege vo
   also vom Tablet am Platz. Das Skript läuft über den Admin-Weg ohne Platz-Konto; die Interessen stehen
   deshalb nur in `leads.notes`. Soll der Report sie zeigen, braucht es einen Platz-Lauf oder einen
   eigenen Schreibweg.
-- **Anliegen:** frei als `lead_assessments.weak_topics`. Nur „Konzentration“ hat eine Zeile in
-  `report_anlass_zuordnung`; „Motivation“, „Mathe-Note“, „Versetzung gefährdet“ usw. erscheinen im
-  Report als Rohwert.
 - **Diagnosebeginn:** `diagnose_ab` (Tippen auf „Los geht’s“) setzt nur `platz_los` am Tablet; ohne Platz
   rechnet die Auswahl wie im Hub-Weg ab `started_at`.
 
