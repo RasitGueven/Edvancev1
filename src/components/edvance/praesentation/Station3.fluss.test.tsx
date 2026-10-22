@@ -32,7 +32,7 @@ function station() {
       <Station3 p={daten(PRAESENTATION_FAELLE.abgestuft)} anzeige="kombiniert" satz={new Bausteinsatz([])} sessionId="s" />
     </section>,
   )
-  // PS-1: Standard ist die Kette; die volle Karte steht hinter „Ganzen Lernweg zeigen“.
+  // Seit PS-1 zeigt Station 03 zuerst die Kette; die volle Karte liegt hinter „Ganzen Lernweg zeigen“.
   fireEvent.click(screen.getByTestId('tp-s3-ganz'))
   const section = r.container.querySelector('section')!
   const alle = () => [...r.container.querySelectorAll('.tp-s3-insel, .tp-s3-zone')]

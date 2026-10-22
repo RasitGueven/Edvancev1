@@ -119,6 +119,7 @@ type Abfrage<T> = {
     order: (col: string, opts: { ascending: boolean }) => Promise<{ data: T[] | null; error: RpcFehler | null }>
     eq: (col: string, wert: string) => Promise<{ data: T[] | null; error: RpcFehler | null }>
     limit: (n: number) => Promise<{ data: T[] | null; error: RpcFehler | null }>
+    in: (col: string, werte: string[]) => Promise<{ data: T[] | null; error: RpcFehler | null }>
   }
   update: (werte: Record<string, unknown>) => {
     eq: (col: string, wert: string | boolean) => Promise<{ error: RpcFehler | null }>
@@ -135,6 +136,28 @@ export async function getFehlbilder(): Promise<PruefResult<Fehlbild[]>> {
       .order('klartext', { ascending: true })
     if (error) return { data: null, error: alsFehler(error) }
     return { data: data ?? [], error: null }
+  } catch (err) {
+    return { data: null, error: alsFehler(err) }
+  }
+}
+
+const TYP_BLOCK = 200
+
+/**
+ * Aufgabentyp (tasks.input_type) je task_id fuer den Prueflauf (P4-MC): pruef_board liefert ihn nicht. Lange Listen in
+ * Bloecken, damit die URL kurz bleibt; ein Fehler in einem Block gilt fuer alle (dann laeuft der Lauf ohne Typen).
+ */
+export async function getAufgabenTypen(taskIds: string[]): Promise<PruefResult<Record<string, string | null>>> {
+  try {
+    const typen: Record<string, string | null> = {}
+    for (let i = 0; i < taskIds.length; i += TYP_BLOCK) {
+      const { data, error } = await tabelle<{ id: string; input_type: string | null }>('tasks')
+        .select('id,input_type')
+        .in('id', taskIds.slice(i, i + TYP_BLOCK))
+      if (error) return { data: null, error: alsFehler(error) }
+      for (const r of data ?? []) typen[r.id] = r.input_type
+    }
+    return { data: typen, error: null }
   } catch (err) {
     return { data: null, error: alsFehler(err) }
   }

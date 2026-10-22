@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { LenaStatus, PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
-import { ersteNoetigeImThema, knotenOhneAufgabe, nachrechnen, naechsteNoetige, restImThema } from './lauf'
+import { ersteNoetigeImThema, knotenOhneAufgabe, nachrechnen, naechsteNoetige, noetigImKnoten, restImThema } from './lauf'
 import { naechsteOffene } from './reihenfolge'
 
 function zeile(id: string, reihenfolge: number, skill: string, thema = 'kreis', stufe: Stufe = 'zweite', status: LenaStatus = 'offen'): PruefBoardZeile {
@@ -146,5 +146,58 @@ describe('nachrechnen (lokal wie pruef_board_soll)', () => {
   it('Rueckgaengig rechnet zurueck', () => {
     const nach = nachrechnen(s, 'k', 'offen', 'passt', false)
     expect(nachrechnen(nach, 'k', 'passt', 'offen', false)[0]).toMatchObject({ gezaehlt: 0, gezaehlt_ohne_mc: 0, rest: 3 })
+  })
+})
+
+describe('MC-Nachtrag: ohne MC vorziehen', () => {
+  // Knoten k: m1, m2 (MC) liegen im Board vor o3 (ohne MC); danach Thema dreieck.
+  const b = [zeile('m1', 1, 'k'), zeile('m2', 2, 'k'), zeile('o3', 3, 'k'), zeile('d1', 4, 'k_d', 'dreieck')]
+  const mc = new Set(['m1', 'm2'])
+  const k = (over: Partial<PruefSollZeile>) => [soll('k', 10, 1, 'kreis', 'zweite', over), soll('k_d', 20, 1, 'dreieck')]
+  const nurOhneMc = k({ soll: 3, gezaehlt: 3, gezaehlt_ohne_mc: 0, min_ohne_mc: 1, rest: 1 })
+  const beides = k({ soll: 3, gezaehlt: 1, gezaehlt_ohne_mc: 0, min_ohne_mc: 1, rest: 2 })
+  const ohneBedarf = k({ soll: 3, gezaehlt: 1, gezaehlt_ohne_mc: 1, min_ohne_mc: 1, rest: 2 })
+
+  it('nur "ohne MC" fehlt: MC faellt aus dem Lauf, die Aufgabe ohne MC kommt sofort', () => {
+    expect(naechsteNoetige(b, nurOhneMc, null, [], { mc })).toEqual({ taskId: 'o3', grund: 'gleiches_thema' })
+    expect(noetigImKnoten(b.slice(0, 3), nurOhneMc[0], mc).map((z) => z.task_id)).toEqual(['o3'])
+    // nach o3 ist der Knoten fertig: MC wird nicht mehr gezogen, weiter mit dem naechsten Thema
+    const nach = nachrechnen(nurOhneMc, 'k', 'offen', 'passt', false)
+    const b2 = b.map((z) => (z.task_id === 'o3' ? { ...z, lena_status: 'passt' as const } : z))
+    expect(naechsteNoetige(b2, nach, 'o3', [], { mc })).toEqual({ taskId: 'd1', grund: 'themenwechsel' })
+  })
+
+  it('nur "ohne MC" fehlt und keine Aufgabe ohne MC offen: der Knoten zieht nichts', () => {
+    const b2 = b.map((z) => (z.task_id === 'o3' ? { ...z, lena_status: 'passt_nicht' as const } : z))
+    expect(naechsteNoetige(b2, nurOhneMc, null, [], { mc }).taskId).toBe('d1')
+  })
+
+  it('beides fehlt: ohne MC vor MC, MC bleibt noetig', () => {
+    expect(noetigImKnoten(b.slice(0, 3), beides[0], mc).map((z) => z.task_id)).toEqual(['o3', 'm1', 'm2'])
+    expect(naechsteNoetige(b, beides, null, [], { mc }).taskId).toBe('o3')
+    expect(naechsteNoetige(b, beides, 'o3', [], { mc })).toEqual({ taskId: 'm1', grund: 'gleiches_thema' })
+  })
+
+  it('kein Bedarf an "ohne MC": Board-Reihenfolge unveraendert', () => {
+    expect(noetigImKnoten(b.slice(0, 3), ohneBedarf[0], mc).map((z) => z.task_id)).toEqual(['m1', 'm2', 'o3'])
+    expect(naechsteNoetige(b, ohneBedarf, null, [], { mc }).taskId).toBe('m1')
+  })
+
+  it('ohne Typen: Verhalten wie nach P4', () => {
+    for (const s of [nurOhneMc, beides]) {
+      expect(naechsteNoetige(b, s, null, [], { mc: null })).toEqual(naechsteNoetige(b, s, null))
+      expect(naechsteNoetige(b, s, null).taskId).toBe('m1')
+      expect(ersteNoetigeImThema(b, s, 'kreis')).toBe('m1')
+    }
+    expect(ersteNoetigeImThema(b, nurOhneMc, 'kreis', mc)).toBe('o3')
+  })
+
+  it('Nachrechnen: MC-"passt" senkt gezaehlt, nicht gezaehlt_ohne_mc; danach faellt MC aus dem Lauf', () => {
+    const vorher = k({ soll: 3, gezaehlt: 2, gezaehlt_ohne_mc: 0, min_ohne_mc: 1, rest: 1 })
+    expect(naechsteNoetige(b, vorher, null, [], { mc }).taskId).toBe('o3')
+    const nach = nachrechnen(vorher, 'k', 'offen', 'passt', true)
+    expect(nach[0]).toMatchObject({ gezaehlt: 3, gezaehlt_ohne_mc: 0, rest: 1, reicht: false })
+    const b2 = b.map((z) => (z.task_id === 'm1' ? { ...z, lena_status: 'passt' as const } : z))
+    expect(naechsteNoetige(b2, nach, 'm1', [], { mc })).toEqual({ taskId: 'o3', grund: 'gleiches_thema' })
   })
 })

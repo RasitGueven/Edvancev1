@@ -1,9 +1,10 @@
 // Uebersicht mit Bereichen: Umschalter "Fuer die LSA" / "Fuer die Session" mit offen / gesamt, Filter nach Anlass,
 // Kennzeichnung bei beiden Anlaessen, Aufgaben ohne Anlass nur im Log, Sollzahlen je Anlass.
+// MC-Nachtrag: fehlt einem Knoten nur noch "ohne MC", zieht "Als Naechstes" die Aufgabe ohne MC.
 // Alle Supabase-Wrapper sind gemockt (CI hat keine VITE_*-Variablen).
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import type { JSX } from 'react'
 import '@/i18n'
@@ -12,13 +13,14 @@ import type { PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
 vi.mock('@/lib/supabase/pruefung', () => ({
   getPruefBoard: vi.fn(),
   getPruefSoll: vi.fn(),
+  getAufgabenTypen: vi.fn().mockResolvedValue({ data: {}, error: null }),
   getMeineDauer: vi.fn(),
 }))
 vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { id: 'lena', email: 'lena@edvance.de' }, role: 'coach', signOut: vi.fn() }),
 }))
 
-import { getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
+import { getAufgabenTypen, getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
 import { PruefenUebersichtPage } from './PruefenUebersichtPage'
 
 const zeile = (id: string, n: number, anlaesse: string[], stufe: Stufe = 'erste', status: 'offen' | 'passt' = 'offen'): PruefBoardZeile => ({
@@ -176,5 +178,41 @@ describe('PruefenUebersichtPage · Lauf nach Soll (P4)', () => {
     expect(await screen.findByText('Alles Nötige in diesem Bereich ist geprüft')).toBeInTheDocument()
     expect(screen.getByText('Knoten k_l1 (noch 1 nötig)')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Weitere Aufgaben ohne Soll prüfen' })).toBeInTheDocument()
+  })
+})
+
+describe('PruefenUebersichtPage · MC-Nachtrag', () => {
+  // Knoten k_m: zwei MC vor einer Aufgabe ohne MC; Soll erreicht, es fehlt nur noch "ohne MC".
+  const m = (id: string, n: number): PruefBoardZeile => ({ ...zeile(id, n, ['batu_lsa']), skill_key: 'k_m', skill_label: 'Knoten m' })
+  const nurOhneMc = { ...sollZeile('k_m', 'batu_lsa', 410, 1), soll: 2, gezaehlt: 2, gezaehlt_ohne_mc: 0 }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: [m('m1', 1), m('m2', 2), m('o3', 3)], error: null })
+    vi.mocked(getMeineDauer).mockResolvedValue({ data: null, error: null })
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({ data: a === 'batu_lsa' ? [nurOhneMc] : [], error: null }))
+  })
+
+  it('nur "ohne MC" fehlt: die MC-Aufgaben werden uebersprungen, Enter oeffnet die Aufgabe ohne MC', async () => {
+    vi.mocked(getAufgabenTypen).mockResolvedValue({ data: { m1: 'MC', m2: 'MC', o3: 'NUMERIC' }, error: null })
+    zeige()
+    await screen.findByText('Thema erste · noch 1 nötig')
+    expect(getAufgabenTypen).toHaveBeenCalledWith(['m1', 'm2', 'o3'])
+    await act(async () => {
+      await vi.mocked(getAufgabenTypen).mock.results[0].value
+    })
+    fireEvent.keyDown(window, { key: 'Enter' })
+    expect(await screen.findByText('Geöffnet o3 ?bereich=lsa')).toBeInTheDocument()
+  })
+
+  it('ohne Typen (Fehler): Reihenfolge wie nach P4, erst m1', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.mocked(getAufgabenTypen).mockResolvedValue({ data: null, error: { code: null, hint: null, message: 'kaputt' } })
+    zeige()
+    await screen.findByText('Thema erste · noch 1 nötig')
+    await waitFor(() => expect(warn).toHaveBeenCalledWith(expect.stringContaining('MC rule off'), 'kaputt'))
+    fireEvent.keyDown(window, { key: 'Enter' })
+    expect(await screen.findByText('Geöffnet m1 ?bereich=lsa')).toBeInTheDocument()
+    warn.mockRestore()
   })
 })
