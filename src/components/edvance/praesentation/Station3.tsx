@@ -1,10 +1,16 @@
-import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
   legendeFuer,
   useLernwegTexte,
 } from "@/components/edvance/elternbericht/lernwegTexte";
+import {
+  KUERZUNGEN,
+  STUFE_BEREICHE,
+  kuerzeLernweg,
+  type ThemaVorrang,
+} from "@/lib/report/elternbericht/lernweg";
 import { kette } from "@/lib/report/praesentation/kette";
 import type { Lernweg } from "@/types";
 
@@ -67,7 +73,11 @@ export function Station3({ p }: StationProps): JSX.Element {
           <Lernkette k={k} titelId={titelId} still={zurueck} />
         </>
       ) : p.lernweg ? (
-        <Weg lw={p.lernweg} titel={tb("s3.titel")} />
+        <Weg
+          voll={p.lernweg}
+          thema={p.schwerpunkte.find((s) => s.feld === null) ?? null}
+          titel={tb("s3.titel")}
+        />
       ) : (
         <h2 className="tp-titel tp-reveal" data-tp-pflicht="">
           {tb("s3.titel")}
@@ -107,11 +117,34 @@ function useSatzEinzeilig(): React.RefObject<HTMLParagraphElement> {
   return ref;
 }
 
-/** Im Querformat stehen Titel, Satz und „Weg abspielen“ in einer Zeile (Nachbesserung, Entscheidung 3). */
-function Weg({ lw, titel }: { lw: Lernweg; titel: string }): JSX.Element {
+/**
+ * Im Querformat stehen Titel, Satz und „Weg abspielen“ in einer Zeile
+ * (Nachbesserung, Entscheidung 3). Die Bühne zeigt den Lernweg gekürzt ab
+ * Stufe 4; ragt beim Messen eine Insel auch bei der kleinsten Skala über die
+ * Spur, nimmt sie die nächste Stufe (R7-12, Entscheidungen 9 und 10).
+ */
+function Weg({
+  voll,
+  thema,
+  titel,
+}: {
+  voll: Lernweg;
+  thema: ThemaVorrang;
+  titel: string;
+}): JSX.Element {
   const { t } = useTranslation("praesentation");
+  const [stufe, setStufe] = useState(STUFE_BEREICHE);
+  const lw = useMemo(
+    () => kuerzeLernweg(voll, KUERZUNGEN[stufe], thema),
+    [voll, stufe, thema],
+  );
+  const weiter = useCallback((): boolean => {
+    if (stufe >= KUERZUNGEN.length - 1) return false;
+    setStufe(stufe + 1);
+    return true;
+  }, [stufe]);
   const tx = useLernwegTexte(lw);
-  const f = useLernwegFahrt(lw);
+  const f = useLernwegFahrt(lw, weiter);
   const satz = useSatzEinzeilig();
   const quelle =
     lw.quelle === "klp"
@@ -121,7 +154,7 @@ function Weg({ lw, titel }: { lw: Lernweg; titel: string }): JSX.Element {
         : t("s3.weg.quelle.schuleOhneName");
   return (
     <>
-      <div className="tp-s3-kopfzeile">
+      <div className="tp-s3-kopfzeile" data-stufe={stufe}>
         <h2 className="tp-titel tp-reveal" data-tp-pflicht="">
           {titel}
         </h2>

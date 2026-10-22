@@ -221,9 +221,31 @@ export type LwInsel = {
   eintraege: LwEintrag[]
   /** Mindestens 2 mit Übungsbedarf und mehr Übungsbedarf als sicher. */
   broeckelt: boolean
+  /** Nur nach dem Kürzen (R7-12): die Zeile „+ n weitere“. */
+  weitere?: LwWeitere
 }
 
-export type LwZone = { key: LwZoneKey; inseln: LwInsel[] }
+/**
+ * „+ n weitere“ als letzte Zeile einer gekürzten Insel (R7-12, Entscheidung 4):
+ * kein Eintrag, kein Punkt, keine Linie. Labels in der Reihenfolge der Insel.
+ */
+export type LwWeitere = { uebung: number; sicher: number; offen: number; labels: string[] }
+
+/** Eine Zählzeile einer zusammengefassten Zone: „<Themenfeld>: n sicher · m Übungsbedarf“. */
+export type LwZaehlzeile = { feld: ThemenfeldKey; sicher: number; uebung: number }
+
+/**
+ * Eine zusammengefasste Zone (R7-12, Entscheidung 5): keine Inseln, je
+ * Themenfeld eine Zählzeile. Linien, die in der Zone beginnen, beginnen an `id`.
+ */
+export type LwZusammen = { id: string; zeilen: LwZaehlzeile[] }
+
+export type LwZone = {
+  key: LwZoneKey
+  inseln: LwInsel[]
+  /** Nur nach dem Kürzen (R7-12); dann ist `inseln` leer. */
+  zusammen?: LwZusammen
+}
 
 /** Eine goldene Linie: von einer sicheren Basis zu einem Ziel in einer anderen Insel. */
 export type LwLinie = { von: string; zu: string }
@@ -241,6 +263,9 @@ export type Lernweg = {
   thema: string | null
   /** Datum der Sitzung (ISO, wie im Kopf von Seite 1) für „Sie sind hier · Monat“. */
   datum: string | null
-  /** Was die Grenzen weggelassen haben (Entscheidung 8 und 18) — erscheint nicht. */
-  weggelassen: { linien: number; offen: number; kommt: number }
+  /**
+   * Was die Grenzen weggelassen haben (Entscheidung 8 und 18) — erscheint nicht.
+   * R7-12: `eintraege` = Zeilen hinter „+ n weitere“, `zonen` = zusammengefasste Zonen.
+   */
+  weggelassen: { linien: number; offen: number; kommt: number; eintraege: number; zonen: number }
 }

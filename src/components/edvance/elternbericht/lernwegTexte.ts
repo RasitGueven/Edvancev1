@@ -5,7 +5,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { stufeVon } from '@/lib/report/elternbericht/plan'
-import type { Lernweg, LwInsel, LwStand, LwUnter, LwZoneKey } from '@/types'
+import type { Lernweg, LwInsel, LwStand, LwUnter, LwWeitere, LwZaehlzeile, LwZoneKey } from '@/types'
 
 /** Einträge der Legende, in der Reihenfolge des Entwurfs. */
 export const LEGENDE = ['sicher', 'uebung', 'offen', 'linie', 'unter', 'broeckelt', 'kommt'] as const
@@ -78,5 +78,23 @@ export function useLernwegTexte(lw: Lernweg) {
       }),
     spaeter: (klasse: number | null): string => (klasse ? t('s3.weg.spaeter', { klasse }) : ''),
     legende: (a: LegendenArt): string => t(`s3.weg.legende.${a}`),
+    /** „+ 3 weitere mit Übungsbedarf, 2 sicher“ (R7-12, Entscheidung 4). */
+    weitere: (w: LwWeitere): string => {
+      const teile = (['uebung', 'sicher', 'offen'] as const).filter((s) => w[s] > 0)
+      return teile
+        .map((s, i) =>
+          t(i === 0 ? 's3.weg.weitere.erste' : 's3.weg.weitere.folge', { count: w[s], stand: t(`s3.weg.weitere.stand.${s}`) }),
+        )
+        .join(t('s3.weg.weitere.trenner'))
+    },
+    /** „Geometrie: 2 sicher · 7 Übungsbedarf“ (R7-12, Entscheidung 5). */
+    zaehlzeile: (z: LwZaehlzeile): string =>
+      t('s3.weg.zusammen.zeile', {
+        feld: t(`feld.${z.feld}`),
+        teile: (['sicher', 'uebung'] as const)
+          .filter((s) => z[s] > 0)
+          .map((s) => t(`s3.weg.zusammen.${s}`, { count: z[s] }))
+          .join(t('s3.weg.zusammen.trenner')),
+      }),
   }
 }

@@ -118,7 +118,8 @@
         "naechstes": "{{titel}} · kommt als Nächstes.",
         "spaeter": "{{titel}} · kommt in Klasse {{klasse}}.",
         "kommtBasis": "Baut auf, was schon sitzt: {{liste}}.",
-        "leer": "Tippen Sie auf einen Bereich, um zu sehen, worauf er aufbaut und was darauf aufbaut."
+        "leer": "Tippen Sie auf einen Bereich, um zu sehen, worauf er aufbaut und was darauf aufbaut.",
+        "weitere": "Weitere Bereiche:"
       }
     },
     "kette": {

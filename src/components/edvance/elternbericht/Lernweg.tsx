@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 
-import type { Lernweg as LernwegDaten, LwEintrag, LwInsel, LwZone } from '@/types'
+import type { Lernweg as LernwegDaten, LwEintrag, LwInsel, LwZone, LwZusammen } from '@/types'
 
 import { legendeFuer, useLernwegTexte } from './lernwegTexte'
 
@@ -71,15 +71,40 @@ function Insel({ i, tx }: { i: LwInsel; tx: ReturnType<typeof useLernwegTexte> }
           ))}
         </ul>
       )}
+      {i.weitere && <p className="eb-s3-weitere">{tx.weitere(i.weitere)}</p>}
+    </div>
+  )
+}
+
+/**
+ * Eine zusammengefasste Zone (R7-12): je Themenfeld eine Zählzeile. Die erste
+ * trägt den Anker der Linien, die in der Zone beginnen.
+ */
+function Zusammen({ z, tx }: { z: LwZusammen; tx: ReturnType<typeof useLernwegTexte> }): JSX.Element {
+  return (
+    <div className="eb-s3-insel eb-s3-zusammen" data-insel={z.id}>
+      <ul className="eb-s3-eintraege">
+        {z.zeilen.map((zeile, n) => (
+          <li
+            key={zeile.feld}
+            className="eb-s3-zaehl"
+            data-eintrag={n === 0 ? z.id : undefined}
+            data-anker={n === 0 ? '' : undefined}
+          >
+            {tx.zaehlzeile(zeile)}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
 
 /** Gewicht einer Spalte: Zeilen der Einträge (↳ zählt mehr), Inseltitel; leer schmal. */
 export function spaltenGewicht(z: LwZone): number {
+  if (z.zusammen) return Math.max(0.8, 0.55 + z.zusammen.zeilen.length * 1.4 * 0.045)
   if (z.inseln.length === 0) return 0.68
   const zeilen = z.inseln.reduce(
-    (n, i) => n + 1.2 + i.eintraege.reduce((m, e) => m + 1 + e.unter.length * 1.6, 0),
+    (n, i) => n + 1.2 + (i.weitere ? 1 : 0) + i.eintraege.reduce((m, e) => m + 1 + e.unter.length * 1.6, 0),
     0,
   )
   return Math.min(1.7, Math.max(z.key === 'kommt' ? 1.05 : 0.8, 0.55 + zeilen * 0.045))
@@ -112,6 +137,7 @@ export function LernwegZonen({ lw }: { lw: LernwegDaten }): JSX.Element {
             <p className="eb-s3-zone-klasse">{tx.zoneKlasse(z.key)}</p>
           </header>
           <div className="eb-s3-inseln" data-inseln="">
+            {z.zusammen && z.zusammen.zeilen.length > 0 && <Zusammen z={z.zusammen} tx={tx} />}
             {z.inseln.map((i) => (
               <Insel key={i.id} i={i} tx={tx} />
             ))}

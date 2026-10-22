@@ -2,9 +2,10 @@
 //
 // Aus den Kanten mit direkt geprüfter Basis werden ↳-Einträge (Ziel in
 // derselben Insel) und goldene Linien (Ziel woanders, nur von sicheren Basen).
-// Die Grenzen schneiden ab; was wegfällt, wird gezählt, nicht gezeigt.
+// Die Grenzen schneiden ab; was wegfällt, wird gezählt, nicht gezeigt. Das
+// Kürzen eines fertigen Lernwegs steht in lernwegKuerzen.ts.
 
-import type { LwKante } from '@/types'
+import type { LwKante, LwZoneKey } from '@/types'
 
 /** Wo ein Ziel steht: in einer Insel, und ob es direkt geprüft ist. */
 export type ZielOrt = {
@@ -24,18 +25,35 @@ export type Grenzen = {
   offenGesamt: number
   /** Höchstens so viele Plan-Themen in Kommt noch (und in der nächsten Klasse). */
   kommt: number
+  /** Höchstens so viele Zeilen je Insel; jeder Eintrag und jedes ↳ zählt eine (R7-12). */
+  eintraegeJeInsel: number
+  /** Zonen, die nur noch als Zählzeilen erscheinen (R7-12). */
+  zusammenfassen: readonly LwZoneKey[]
 }
 
 /** Entscheidung 8 und 9. Der Druck kürzt bei Platzmangel (Entscheidung 18). */
-export const GRENZEN: Grenzen = { linien: 6, offenJeInsel: 2, offenGesamt: 8, kommt: 6 }
+export const GRENZEN: Grenzen = { linien: 6, offenJeInsel: 2, offenGesamt: 8, kommt: 6, eintraegeJeInsel: 8, zusammenfassen: [] }
 
-/** Die Kürzungsstufen des Drucks, in dieser Reihenfolge (Entscheidung 18). */
+const STUFE3: Grenzen = { ...GRENZEN, offenJeInsel: 1, linien: 4, kommt: 4 }
+
+/**
+ * Die Kürzungsstufen des Drucks, in dieser Reihenfolge (Entscheidung 18); ab
+ * Stufe 4 auch geprüfte Einträge und ganze Zonen (R7-12, Entscheidung 2). Die
+ * volle Karte der Präsentation beginnt bei Stufe 4 (R7-12, Entscheidung 9).
+ */
 export const KUERZUNGEN: readonly Grenzen[] = [
   GRENZEN,
   { ...GRENZEN, offenJeInsel: 1 },
   { ...GRENZEN, offenJeInsel: 1, linien: 4 },
-  { ...GRENZEN, offenJeInsel: 1, linien: 4, kommt: 4 },
+  STUFE3,
+  { ...STUFE3, eintraegeJeInsel: 6 },
+  { ...STUFE3, eintraegeJeInsel: 4 },
+  { ...STUFE3, eintraegeJeInsel: 4, zusammenfassen: ['grundlagen'] },
+  { ...STUFE3, eintraegeJeInsel: 3, zusammenfassen: ['grundlagen', 'weiterfuehrend'] },
 ]
+
+/** Ab dieser Stufe kürzt der Druck auch geprüfte Bereiche (Fußnote auf Seite 3). */
+export const STUFE_BEREICHE = 4
 
 export type Bezug = { basis: string; ziel: string }
 

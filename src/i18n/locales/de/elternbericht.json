@@ -242,7 +242,25 @@
       "spaeter": "Stoff aus Klasse {{klasse}}",
       "hier": "Sie sind hier · {{monat}}",
       "hierOhneMonat": "Sie sind hier",
-      "hinweis": "Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage. Nicht geprüfte Bereiche klären wir in den ersten Sitzungen."
+      "hinweis": "Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage. Nicht geprüfte Bereiche klären wir in den ersten Sitzungen.",
+      "weitere": {
+        "erste_one": "+ {{count}} weiterer {{stand}}",
+        "erste_other": "+ {{count}} weitere {{stand}}",
+        "folge": "{{count}} {{stand}}",
+        "trenner": ", ",
+        "stand": {
+          "uebung": "mit Übungsbedarf",
+          "sicher": "sicher",
+          "offen": "noch nicht geprüft"
+        }
+      },
+      "zusammen": {
+        "zeile": "{{feld}}: {{teile}}",
+        "sicher": "{{count}} sicher",
+        "uebung": "{{count}} Übungsbedarf",
+        "trenner": " · "
+      },
+      "gekuerzt": "Nicht alle Bereiche passen auf diese Seite. Wie viele es je Themenfeld sind, steht auf Seite 2."
     }
   },
   "s4": {

@@ -149,6 +149,44 @@
 .tp .tp-s3-gewaehlt { background: color-mix(in srgb, var(--color-eb-gold) 16%, transparent); }
 .tp .tp-s3-e.tp-s3-blass { opacity: .3; }
 
+/* Die Spur ändert ihre Höhe sofort, auch bei reduzierter Bewegung (rahmen.css
+   setzt dort .01ms für alles): sonst misst useLernwegFahrt noch die alte Höhe. */
+.tp .tp-s3-spur { transition: none; }
+
+/* R7-12: „+ n weitere“ (antippbar, kein Punkt, keine Linie) und die Zählzeilen
+   einer zusammengefassten Zone; Größen wie Unterzeile bzw. Eintrag. */
+.tp .tp-s3-weitere {
+  all: unset;
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  padding: 6px 4px 2px 22px;
+  border-radius: 8px;
+  color: var(--color-eb-leise);
+  font-size: 15.5px;
+  line-height: 19px;
+  cursor: pointer;
+}
+.tp .tp-s3-weitere::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--tp-s3-treffer, 7px));
+  bottom: calc(-1 * var(--tp-s3-treffer, 7px));
+}
+.tp .tp-s3-weitere:focus-visible { outline: 2px solid var(--color-eb-navy); outline-offset: 1px; }
+.tp .tp-s3-weitere[aria-pressed='true'] { background: color-mix(in srgb, var(--color-eb-gold) 16%, transparent); }
+
+.tp .tp-s3-zaehl {
+  padding: 6px 4px;
+  color: var(--color-eb-text);
+  font-size: 17px;
+  line-height: 21px;
+}
+
 /* ─── Linien ──────────────────────────────────────────────────────────────── */
 
 .tp .tp-s3-linien {

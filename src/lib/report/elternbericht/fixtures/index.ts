@@ -57,6 +57,8 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   planOhneThema: mitNotizen(lw.planOhneThema),
   vieleKanten: mitNotizen(lw.vieleKanten),
   langeLabels: mitNotizen(lw.langeLabels),
+  // 60 geprüfte Bereiche, fast alle mit Übungsbedarf: Lernweg kürzt (R7-12)
+  sehrViele: mitNotizen(lw.sehrViele),
   // Erster Ansatz am Thema, Anliegen mit Antwort (R7-11)
   abgestuftThemaSicher: mitNotizen(af.abgestuftThemaSicher),
   abgestuftPlanrang: mitNotizen(af.abgestuftPlanrang),
