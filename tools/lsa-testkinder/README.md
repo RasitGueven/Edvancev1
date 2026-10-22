@@ -1,9 +1,10 @@
 # LSA-Testkinder (LSA-T)
 
-Sechs erfundene Kinder (Klasse 7, 8, 9) spielen je eine vollständige LSA durch die echte Auswahl und
-Wertung, mit festem Antwortprofil von „macht nichts falsch“ bis „sehr, sehr schwach“. Danach liegt für jedes
+Sieben erfundene Kinder (Klasse 7, 8, 9) spielen je eine vollständige LSA durch die echte Auswahl und
+Wertung, mit festem Antwortprofil von „macht nichts falsch“ bis „sehr, sehr schwach“, dazu ein Kind, das sich
+durchklickt. Danach liegt für jedes
 Kind ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauaufträge: `docs/lsa/Bauauftrag-LSA-T.md`,
-`docs/lsa/Bauauftrag-LSA-T2.md` (Max, Schalter `nur`).
+`docs/lsa/Bauauftrag-LSA-T2.md` (Max, Schalter `nur`), `docs/lsa/Bauauftrag-LSA-R2.md` (Tim).
 
 | Kind | Klasse | Schule | Thema | Profil |
 | --- | --- | --- | --- | --- |
@@ -13,9 +14,11 @@ Kind ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauaufträge: `docs/
 | Jonas Richter | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | Klasse 7–10 „Weiß ich nicht“, bis Klasse 6 falsch (Vorzeichen) |
 | Nele Schmitz | 7 Gymnasium | ohne Plan | Prozent- und Zinsrechnung | Prozentwert sicher, Grundwert und Prozentsatz falsch, Brüche teils |
 | Max Hoffmann | 8 Gymnasium | FWG (Schulplan) | Lineare Funktionen | nichts falsch: jede Aufgabe kanonisch richtig, auch Vorschau, Rückblick, Zweitbeleg |
+| Tim Schuster | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | klickt sich durch: 2–4 s je Aufgabe, fast alles falsch, nach 30 Aufgaben Schluss; seine LSA ist **nicht auswertbar** |
 
-Die Profile stehen als Daten oben im Skript (`grund` je Klassenstufe, `ausnahmen` je Skill,
-bevorzugtes Fehlbild, Antwortdauer).
+Die Profile stehen als Daten in `kinder.sql` (`grund` je Klassenstufe, `ausnahmen` je Skill,
+bevorzugtes Fehlbild, Antwortdauer, bei Tim `hoechstens` = Zahl der Aufgaben); `erzeugen.sql` bindet sie mit
+`\ir kinder.sql` ein.
 
 ## Was das Skript tut
 
@@ -34,7 +37,7 @@ bevorzugtes Fehlbild, Antwortdauer).
    nur mit diesem Abstand, also genau wie bei einem Kind, das so lange braucht.
 5. Gibt je Kind eine NOTICE (Profil, Abweichungen vom Profil) und am Ende die Tabelle aus:
    Kind · Klasse · Thema · Sitzung · Status · Aufgaben gesamt · davon ready · sicher · Übungsbedarf ·
-   ohne Ansatz · Fehlbilder · Report-Pfad. Gezählt werden direkt geprüfte Bereiche. Die Tabelle zeigt nur
+   ohne Ansatz · auswertbar · Fehlbilder · Report-Pfad. Gezählt werden direkt geprüfte Bereiche. Die Tabelle zeigt nur
    die Kinder, die gelaufen sind.
 6. Nimmt die Wertung eine ganz richtige Antwort nicht als richtig an (`lsa_responses.correct` nicht true),
    bricht der Lauf nicht ab: je Fall eine NOTICE `LSA-T: richtig beantwortet, nicht angenommen` mit
@@ -48,7 +51,7 @@ auf „ready“ steht; „davon ready“ zeigt, wie viele der gezogenen Aufgaben
 ## Starten
 
 Erst prüfen, dass `DATABASE_URL` auf den Supabase-Pooler und die Datenbank `postgres` zeigt (`dbcheck`
-prüft das nicht), dann laufen lassen. Alle sechs Kinder:
+prüft das nicht), dann laufen lassen. Alle sieben Kinder:
 
 ```bash
 [[ "$DATABASE_URL" == *pooler.supabase.com* ]] && \
@@ -84,5 +87,10 @@ Tabelle nennt die Sitzung dieses Laufs.
 `supabase/tests/lsa_testkinder.test.sql` lässt das Skript im CI-Neuaufbau zweimal laufen (mit einer
 Aufgaben-Fixture je Skill, der Neuaufbau hat keine LSA-Aufgaben) und prüft je Kind Abschluss, Profil,
 Uhr, Fehlbild und den zweiten Lauf; für Max zusätzlich 100 % sicher und eine leere Liste „richtig
-beantwortet, nicht angenommen“. Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
+beantwortet, nicht angenommen“. Tim ist nicht auswertbar, die sechs anderen sind auswertbar (LSA-R2,
+`lsa_durchklick_stand`). Danach ein Lauf mit `nur=Max` (genau eine neue Sitzung) und einer mit
 unbekanntem Namen (Abbruch).
+
+Hinweis zu Tim: Alle Antworten eines Laufs liegen in einer Transaktion und tragen dieselbe Abgabezeit. Die
+Reihenfolge der Abgaben ist dann nicht die echte; die Anteilsregel (ab 10 Antworten, 40 % schnell falsch)
+macht ihn trotzdem sicher nicht auswertbar.
