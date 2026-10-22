@@ -105,6 +105,8 @@ function schwerpunkteAus(bericht: Elternbericht, bereiche: EbBereich[]): TpSchwe
       stufen: STUFEN.filter((st) => stufen.has(st)),
       sicher: [...s.sicher],
       uebung: [...s.uebung],
+      start: s.start,
+      naechster: s.naechster,
     }
   })
 }
@@ -185,4 +187,34 @@ export function anzeigeZahlen(anteile: TpAnteile, anzeige: TpAnzeige): TpAnzeige
     uebung: kombiniert ? uebung + uebersprungen : uebung,
     dritte: uebersprungen > 0 ? { wert: uebersprungen, art: kombiniert ? 'davon' : 'eigen' } : null,
   }
+}
+
+/** Höchstens so viele Profilzeilen stehen in Station 02 sofort (PS-1, Entscheidung 9). */
+export const PROFIL_SOFORT = 4
+
+/**
+ * Die Profilzeilen in der Reihenfolge von Station 02 (PS-1, Entscheidung 9):
+ * zuerst das Feld der Startstelle des Thema-Schwerpunkts, dann Felder mit
+ * Übungsbedarf in der Schwerpunkt-Reihenfolge (schwerpunkte, danach, dann der
+ * Rest wie im Profil), dann die sicheren Felder wie im Profil. Nur Felder mit
+ * einem untersuchten Bereich — das sind alle in p.zeilen.
+ */
+export function profilReihenfolge(p: Pick<PraesentationDaten, 'zeilen' | 'schwerpunkte' | 'danach'>): TpZeile[] {
+  const mitUebung = (z: TpZeile): boolean => z.uebung.length + z.uebersprungen.length > 0
+  const start = p.schwerpunkte.find((s) => s.thema)?.start ?? null
+  const startFeld = start
+    ? p.zeilen.find((z) => [...z.uebung, ...z.uebersprungen].some((b) => b.label === start))?.feld ?? null
+    : null
+  const rang = [
+    ...(startFeld ? [startFeld] : []),
+    ...p.schwerpunkte.flatMap((s) => (s.feld ? [s.feld] : [])),
+    ...p.danach,
+  ]
+  const stelle = (z: TpZeile): number => {
+    if (!mitUebung(z)) return Infinity
+    const i = rang.indexOf(z.feld)
+    return i < 0 ? rang.length : i
+  }
+  // sort ist stabil: Gleichstand behält die Reihenfolge des Profils.
+  return [...p.zeilen].sort((a, b) => (stelle(a) === stelle(b) ? 0 : stelle(a) < stelle(b) ? -1 : 1))
 }

@@ -58,12 +58,6 @@
   letter-spacing: 0;
 }
 
-.tp .tp-s2-profil-kopf > span {
-  color: var(--color-eb-leise);
-  font-size: 10.5px;
-  text-align: right;
-}
-
 .tp .tp-s2-liste {
   flex: 1;
   min-height: 0;
@@ -117,34 +111,41 @@
   color: var(--color-eb-navy);
 }
 
-.tp .tp-s2-spur {
+/* Ein Balken mit zwei Anteilen (PS-1, Entscheidung 9): Länge je Anteil aus
+   --anteil (Anzahl der Bereiche), übersprungen als Punktmuster im Übungsbedarf. */
+.tp .tp-s2-balken {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
   min-width: 0;
   height: 21px;
 }
 
-.tp .tp-s2-spur-dicht {
-  gap: 2px;
-}
-
-.tp .tp-s2-segment {
-  flex: 1;
-  min-width: 0;
-  /* Wenige Segmente sollen nicht wie ein voller Balken wirken: Es sind Anzahlen. */
-  max-width: 96px;
+.tp .tp-s2-anteil {
+  position: relative;
+  flex: var(--anteil) 1 0;
+  min-width: 6px;
   height: 100%;
+  overflow: hidden;
   border-radius: 6px;
   transform-origin: left center;
 }
 
-.tp .tp-s2-segment-sicher {
+.tp .tp-s2-anteil-sicher {
   background: var(--color-eb-sicher);
 }
 
-.tp .tp-s2-segment-uebung {
+.tp .tp-s2-anteil-uebung {
   background: var(--color-eb-uebung);
+}
+
+.tp .tp-s2-anteil-ueber {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(var(--ueber) / var(--anteil) * 100%);
+  border-width: 0 0 0 1px;
 }
 
 .tp .tp-s2-rechts {
@@ -153,13 +154,6 @@
   align-items: flex-end;
   gap: 2px;
   text-align: right;
-}
-
-.tp .tp-s2-zeile-zahl {
-  color: var(--color-eb-navy);
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
 .tp .tp-s2-zaehlung {
@@ -182,6 +176,20 @@
   color: var(--color-eb-navy);
 }
 
+/* „Alle Themenfelder zeigen“: aufklappen innerhalb der Station (PS-1). */
+.tp .tp-s2-alle {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--color-eb-navy);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 /* ─── Geräte ──────────────────────────────────────────────────────────── */
 
 @media (max-width: 1050px) {
@@ -201,10 +209,6 @@
     padding-bottom: 20px;
   }
 
-  .tp .tp-s2-profil-kopf > span {
-    font-size: 10px;
-  }
-
   .tp .tp-s2-zeile-knopf {
     grid-template-columns: 106px minmax(0, 1fr) 128px 17px;
     gap: 7px;
@@ -216,13 +220,8 @@
     white-space: normal;
   }
 
-  .tp .tp-s2-spur {
+  .tp .tp-s2-balken {
     height: 18px;
-    gap: 3px;
-  }
-
-  .tp .tp-s2-spur-dicht {
-    gap: 2px;
   }
 }
 
@@ -246,7 +245,7 @@
     padding: 4px 0;
   }
 
-  .tp .tp-s2-spur {
+  .tp .tp-s2-balken {
     height: 16px;
   }
 }

@@ -53,6 +53,10 @@ export type TpSchwerpunkt = {
   /** Labels wie R7. `uebung` enthält übersprungene Bereiche. */
   sicher: string[]
   uebung: string[]
+  /** Startstelle im Thema (EbSchwerpunkt.start); null beim Feld. */
+  start: string | null
+  /** Baut direkt auf der Startstelle auf (EbSchwerpunkt.naechster); sonst null. */
+  naechster: string | null
 }
 
 /** Die zwei Karten in Station 01. */

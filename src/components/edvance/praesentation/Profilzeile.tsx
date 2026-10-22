@@ -7,11 +7,11 @@ import type { EbBereich, TpAnzeige, TpZeile } from '@/types'
 import { Zaehlung } from './Zaehlung'
 
 /**
- * Eine Zeile des Kompetenzprofils in Station 02 (Entscheidung 7): Name, ein
- * Segment je untersuchtem Bereich (sicher, Übungsbedarf, übersprungen), rechts
- * „x von y" mit der Zählung, dann der Pfeil. Antippen öffnet das Detail.
- * Die Spur ist für Vorleseprogramme verborgen, die Zeile hat einen eigenen
- * Vorlesetext.
+ * Eine Zeile des Kompetenzprofils in Station 02 (Entscheidung 7, PS-1
+ * Entscheidung 9): Name, ein Balken mit zwei Anteilen (sicher, Übungsbedarf
+ * mit übersprungen als Punktmuster darin), rechts die Zählung, dann der Pfeil.
+ * Antippen öffnet das Detail. Der Balken ist für Vorleseprogramme verborgen,
+ * die Zeile hat einen eigenen Vorlesetext.
  */
 export function Profilzeile({
   zeile,
@@ -39,11 +39,7 @@ export function Profilzeile({
   else if (z.dritte.art === 'davon') aria = t('s2.zeileAriaKombiniert', { ...werte, uebersprungen: z.dritte.wert })
   else aria = t('s2.zeileAriaGetrennt', { ...werte, uebersprungen: z.dritte.wert })
 
-  const segmente = [
-    ...zeile.sicher.map((b) => ({ b, art: 'sicher' })),
-    ...zeile.uebung.map((b) => ({ b, art: 'uebung' })),
-    ...zeile.uebersprungen.map((b) => ({ b, art: 'ueber' })),
-  ]
+  const uebungMit = anteile.uebung + anteile.uebersprungen
   const detailId = `tp-s2-detail-${index}`
 
   return (
@@ -67,17 +63,26 @@ export function Profilzeile({
         <span className="tp-s2-feld" aria-hidden="true">
           {feld}
         </span>
-        <span className={segmente.length > 12 ? 'tp-s2-spur tp-s2-spur-dicht' : 'tp-s2-spur'} aria-hidden="true">
-          {segmente.map(({ b, art }, k) => (
+        {/* Anteile als Zahl in --sicher/--uebung, im CSS flex-grow (station2.css). */}
+        <span className="tp-s2-balken" aria-hidden="true">
+          {anteile.sicher > 0 && (
             <i
-              key={b.skillKey}
-              className={`tp-s2-segment tp-s2-segment-${art}${art === 'ueber' ? ' tp-muster-ueber' : ''}`}
-              style={{ '--segment': k } as CSSProperties}
+              className="tp-s2-anteil tp-s2-anteil-sicher"
+              data-testid="tp-s2-anteil"
+              style={{ '--anteil': anteile.sicher } as CSSProperties}
             />
-          ))}
+          )}
+          {uebungMit > 0 && (
+            <i
+              className="tp-s2-anteil tp-s2-anteil-uebung"
+              data-testid="tp-s2-anteil"
+              style={{ '--anteil': uebungMit, '--ueber': anteile.uebersprungen } as CSSProperties}
+            >
+              {anteile.uebersprungen > 0 && <i className="tp-s2-anteil-ueber tp-muster-ueber" />}
+            </i>
+          )}
         </span>
         <span className="tp-s2-rechts" aria-hidden="true">
-          <span className="tp-s2-zeile-zahl">{t('s2.zeileZahl', { untersucht, vorhanden: zeile.vorhanden })}</span>
           <Zaehlung anteile={anteile} anzeige={anzeige} className="tp-s2-zaehlung" />
         </span>
         <span className="tp-s2-pfeil" aria-hidden="true">
@@ -129,13 +134,19 @@ function Detail({ zeile }: { zeile: TpZeile }): JSX.Element {
   )
 }
 
-/** Alle Bereiche mit Label, in der Reihenfolge der Rechnung (Klasse, dann Label). */
+/** Höchstens drei Bereiche je Liste, dann „+n weitere" (PS-1, Entscheidung 9). */
+const JE_LISTE = 3
+
+/** Die Bereiche mit Label, in der Reihenfolge der Rechnung (Klasse, dann Label). */
 function Bereiche({ liste }: { liste: EbBereich[] }): JSX.Element {
+  const { t: tb } = useTranslation('elternbericht')
+  const rest = liste.length - JE_LISTE
   return (
     <ul className="tp-s2-bereiche">
-      {liste.map((b) => (
+      {liste.slice(0, JE_LISTE).map((b) => (
         <li key={b.skillKey}>{b.label}</li>
       ))}
+      {rest > 0 && <li className="tp-s2-weitere">{tb('s1.blick.weitere', { count: rest })}</li>}
     </ul>
   )
 }

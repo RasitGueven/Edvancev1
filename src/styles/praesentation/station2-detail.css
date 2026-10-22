@@ -64,6 +64,10 @@
   display: inline;
 }
 
+.tp .tp-s2-bereiche .tp-s2-weitere {
+  color: var(--color-eb-leise);
+}
+
 .tp .tp-s2-bereiche li + li::before {
   content: '·';
   margin: 0 .45em;
@@ -128,22 +132,20 @@
   text-align: right;
 }
 
-/* ─── Bewegung: Zeilen nacheinander, Segmente wachsen; Wiederbesuch still ── */
+/* ─── Bewegung: Zeilen nacheinander, Anteile wachsen; Wiederbesuch still ── */
 
 .tp .tp-station.entered .tp-s2-zeile {
   animation: tp-zeile-ein var(--tp-zeile-dauer) var(--tp-soft) both;
   animation-delay: calc(var(--tp-zeile-start) + var(--zeile) * var(--tp-zeile-takt));
 }
 
-.tp .tp-station.entered .tp-s2-segment {
+.tp .tp-station.entered .tp-s2-anteil {
   animation: tp-segment-ein var(--tp-segment-dauer) var(--tp-ease) both;
-  animation-delay: calc(
-    var(--tp-segment-start) + var(--zeile) * var(--tp-zeile-takt) + var(--segment) * var(--tp-segment-takt)
-  );
+  animation-delay: calc(var(--tp-segment-start) + var(--zeile) * var(--tp-zeile-takt));
 }
 
 .tp .tp-station.motion-complete .tp-s2-zeile,
-.tp .tp-station.motion-complete .tp-s2-segment {
+.tp .tp-station.motion-complete .tp-s2-anteil {
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
@@ -173,7 +175,7 @@
 /* Ruhig: alles sofort, ohne Bewegung. */
 @media (prefers-reduced-motion: reduce) {
   .tp .tp-s2-zeile,
-  .tp .tp-s2-segment {
+  .tp .tp-s2-anteil {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

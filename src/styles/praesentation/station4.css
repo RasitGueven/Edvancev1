@@ -78,12 +78,6 @@
   letter-spacing: -.042em;
 }
 
-.tp .tp-s4-kaesten {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 13px;
-}
-
 .tp .tp-s4-kasten {
   display: flex;
   flex-direction: column;
@@ -110,50 +104,35 @@
   list-style: none;
 }
 
-.tp .tp-s4-kasten li,
-.tp .tp-s4-leer {
+.tp .tp-s4-kasten li {
   margin: 0;
   font-size: 13px;
   line-height: 1.4;
-}
-
-.tp .tp-s4-kasten-sicher li {
-  color: var(--color-eb-sicher-text);
 }
 
 .tp .tp-s4-kasten-ueben li {
   color: var(--color-eb-uebung-text);
 }
 
-.tp .tp-s4-kasten .tp-s4-weitere,
-.tp .tp-s4-leer {
+.tp .tp-s4-kasten .tp-s4-weitere {
   color: var(--color-eb-text);
 }
 
-/* ─── Danach, Hinweis, Empfehlung ─────────────────────────────────────────── */
+/* ─── Empfehlung, darunter der Hinweis als Caption (PS-1, Entscheidung 18) ── */
 
-.tp .tp-s4-danach,
 .tp .tp-s4-hinweis,
 .tp .tp-s4-empfehlung {
-  --tp-verzoegerung: var(--tp-hinweis);
   max-width: 760px;
   margin: 0;
   font-size: 11px;
   line-height: 1.5;
 }
 
-.tp .tp-s4-danach {
-  margin-top: 18px;
-  color: var(--color-eb-text);
-}
-
+/* Reihenfolge getauscht: erst die Empfehlung (--tp-hinweis), dann der Hinweis. */
 .tp .tp-s4-hinweis {
+  --tp-verzoegerung: var(--tp-empfehlung);
   margin-top: 6px;
   color: var(--color-eb-leise);
-}
-
-.tp .tp-s4-danach + .tp-s4-hinweis {
-  margin-top: 4px;
 }
 
 .tp .tp-s4-layout + .tp-s4-hinweis {
@@ -161,12 +140,12 @@
 }
 
 .tp .tp-s4-empfehlung {
-  --tp-verzoegerung: var(--tp-empfehlung);
+  --tp-verzoegerung: var(--tp-hinweis);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 10px;
-  margin-top: 8px;
+  margin-top: 18px;
   color: var(--color-eb-navy);
 }
 

@@ -1,6 +1,6 @@
-// Station 04 · Förderansatz (T4, Entscheidung 9): Kurve mit 1–4 Punkten,
-// Auswahl per Tippen und Pfeiltasten, Förderfokus, Danach-Zeile, Hinweis und
-// Empfehlung. Kontrollwerte aus Anhang C der Anforderung.
+// Station 04 · Förderansatz (T4, Entscheidung 9; PS-1 Entscheidungen 16–18):
+// Kurve mit 1–3 Punkten, Auswahl per Tippen und Pfeiltasten, Förderfokus nur mit
+// „Hier üben wir", Empfehlung und darunter der Hinweis. Kontrollwerte aus Anhang C.
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
@@ -26,7 +26,7 @@ describe('Station 04 — Kurve', () => {
     ['einSchwerpunkt', 1],
     ['zweiSchwerpunkte', 2],
     ['dreiSchwerpunkte', 3],
-    ['ilkay', 4],
+    ['ilkay', 3],
   ])('%s: %i Punkte ohne Zahlen, der erste vorgewählt', (fall, n) => {
     const { container } = zeige(Station4, F[fall])
     expect(punkte()).toHaveLength(n)
@@ -40,20 +40,15 @@ describe('Station 04 — Kurve', () => {
     expect(screen.getByText(n === 1 ? 'Ein Ansatzpunkt aus dem Test.' : `${n} Ansatzpunkte aus dem Test, in dieser Reihenfolge.`)).toBeInTheDocument()
   })
 
-  it('ilkay: Reihenfolge wie R7, Beschriftung mit Klassenangabe, Vorlesetext', () => {
+  it('ilkay: die ersten drei in der Reihenfolge von R7, Beschriftung mit Klassenangabe, Vorlesetext', () => {
+    expect(daten(F.ilkay).schwerpunkte).toHaveLength(4)
     zeige(Station4, F.ilkay)
     expect(punkte().map((p) => p.getAttribute('aria-label'))).toEqual([
       'Geometrie, Stoff aus Klasse 5–8',
       'Brüche & Dezimalzahlen, Stoff aus Klasse 5/6',
       'Größen, Stoff aus Klasse 5/6',
-      'Prozent & Dreisatz, Stoff aus Klasse 7/8',
     ])
-    expect(punkte().map((p) => p.className.match(/tp-s4-seite-(\w+)/)?.[1])).toEqual([
-      'unten',
-      'links',
-      'linksOben',
-      'linksOben',
-    ])
+    expect(punkte().map((p) => p.className.match(/tp-s4-seite-(\w+)/)?.[1])).toEqual(['unten', 'links', 'linksOben'])
   })
 
   it('Tippen und Pfeiltasten wechseln den Punkt, mit Umlauf', () => {
@@ -63,30 +58,31 @@ describe('Station 04 — Kurve', () => {
     expect(within(fokus()).getByRole('heading')).toHaveTextContent('Größen')
 
     fireEvent.keyDown(punkte()[2], { key: 'ArrowRight' })
-    expect(punkte()[3]).toHaveAttribute('aria-selected', 'true')
-    expect(document.activeElement).toBe(punkte()[3])
-    fireEvent.keyDown(punkte()[3], { key: 'ArrowUp' })
     expect(punkte()[0]).toHaveAttribute('aria-selected', 'true')
-    fireEvent.keyDown(punkte()[0], { key: 'ArrowLeft' })
-    expect(punkte()[3]).toHaveAttribute('aria-selected', 'true')
-    fireEvent.keyDown(punkte()[3], { key: 'ArrowDown' })
+    expect(document.activeElement).toBe(punkte()[0])
+    fireEvent.keyDown(punkte()[0], { key: 'ArrowUp' })
+    expect(punkte()[1]).toHaveAttribute('aria-selected', 'true')
+    fireEvent.keyDown(punkte()[1], { key: 'ArrowLeft' })
+    expect(punkte()[0]).toHaveAttribute('aria-selected', 'true')
+    fireEvent.keyDown(punkte()[0], { key: 'ArrowDown' })
     expect(punkte()[2]).toHaveAttribute('aria-selected', 'true')
-    expect(punkte().map((p) => p.tabIndex)).toEqual([-1, -1, 0, -1])
+    expect(punkte().map((p) => p.tabIndex)).toEqual([-1, -1, 0])
     expect(fokus()).toHaveAttribute('aria-labelledby', punkte()[2].id)
   })
 })
 
 describe('Station 04 — Förderfokus', () => {
-  it('ilkay Geometrie: „Stoff aus Klasse 5–8", Listen mit „+2 weitere"', () => {
+  it('ilkay Geometrie: „Stoff aus Klasse 5–8", nur „Hier üben wir" mit „+2 weitere"', () => {
     zeige(Station4, F.ilkay)
     const karte = fokus()
     expect(within(karte).getByText('Förderfokus')).toBeInTheDocument()
     expect(within(karte).getByText('Stoff aus Klasse 5–8')).toBeInTheDocument()
     expect(within(karte).getByRole('heading')).toHaveTextContent('Geometrie')
-    const [sicher, ueben] = within(karte).getAllByRole('list')
-    expect(within(sicher).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
-      'Fläche von Rechteck und Quadrat',
-    ])
+    expect(within(karte).getByText('Hier üben wir')).toBeInTheDocument()
+    expect(within(karte).queryByText('Sicher im Test')).toBeNull()
+    expect(karte).not.toHaveTextContent('Fläche von Rechteck und Quadrat')
+    const [ueben] = within(karte).getAllByRole('list')
+    expect(within(karte).getAllByRole('list')).toHaveLength(1)
     expect(within(ueben).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
       'Umfang von Rechteck und Dreieck',
       'Maßstab',
@@ -95,39 +91,46 @@ describe('Station 04 — Förderfokus', () => {
     ])
   })
 
-  it('ilkay Brüche: drei sichere Bereiche nach Anhang C', () => {
+  it('ilkay Brüche: drei Bereiche mit Übungsbedarf, kein Sicheres', () => {
     zeige(Station4, F.ilkay)
     fireEvent.click(punkte()[1])
     expect(within(fokus()).getByText('Stoff aus Klasse 5/6')).toBeInTheDocument()
-    expect(fokus()).toHaveTextContent('Bruch in Dezimalzahl')
     expect(fokus()).toHaveTextContent('Brüche multiplizieren')
+    expect(fokus()).not.toHaveTextContent('Bruch in Dezimalzahl')
     expect(fokus()).not.toHaveTextContent('weitere')
   })
 
-  it('keinSicher: ohne Sicheres im Feld steht der Satz statt einer Liste', () => {
-    zeige(Station4, F.nichtsSicher)
-    expect(within(fokus()).getByText('In diesem Themenfeld war noch nichts sicher.')).toBeInTheDocument()
-    expect(within(fokus()).getAllByRole('list')).toHaveLength(1)
+  it('Thema: Schild „Ihr Thema", die Startstelle zuerst (abgestuft)', () => {
+    const p = daten(F.abgestuft)
+    zeige(Station4, F.abgestuft)
+    expect(within(fokus()).getByTestId('tp-s4-chip-thema')).toBeInTheDocument()
+    expect(within(fokus()).getAllByRole('listitem')[0]).toHaveTextContent(p.schwerpunkte[0].start!)
+  })
+
+  it.each(Object.keys(F).filter((f) => f !== 'ohneKatalog'))('%s: kein „Sicher im Test", höchstens 3 Punkte', (fall) => {
+    zeige(Station4, F[fall])
+    expect(screen.queryByText('Sicher im Test')).toBeNull()
+    expect(punkte().length).toBeLessThanOrEqual(3)
   })
 })
 
-describe('Station 04 — Danach, Hinweis, ohne Schwerpunkt', () => {
-  it('ilkay: Danach-Zeile und Hinweis', () => {
-    zeige(Station4, F.ilkay)
-    expect(screen.getByText('Danach nehmen wir Terme & Gleichungen und Zahlen & Rechnen dazu.')).toBeInTheDocument()
-    expect(screen.getByText(/pädagogischer Arbeitsvorschlag/)).toBeInTheDocument()
-  })
-
-  it.each(['sechsFelderMitUebung', 'alleFelder'])('%s: Danach-Zeile mit allen übrigen Feldern', (fall) => {
-    const p = daten(F[fall])
-    expect(p.danach.length).toBeGreaterThan(0)
-    zeige(Station4, F[fall])
-    expect(screen.getByText(/^Danach nehmen wir .+ dazu\.$/)).toBeInTheDocument()
-  })
-
-  it('ohne „danach" keine Danach-Zeile', () => {
-    zeige(Station4, F.einSchwerpunkt)
+describe('Station 04 — kein „danach", Hinweis als Caption, ohne Schwerpunkt', () => {
+  it('ilkay: keine Danach-Zeile, der Hinweis steht unter der Empfehlung', () => {
+    const { container } = zeige(Station4, F.ilkay)
     expect(screen.queryByText(/^Danach nehmen wir/)).toBeNull()
+    expect(container.querySelector('.tp-s4-danach')).toBeNull()
+    const hinweis = screen.getByText(/pädagogischer Arbeitsvorschlag/)
+    expect(screen.getByTestId('tp-empfehlung').nextElementSibling).toBe(hinweis)
+  })
+
+  it.each(['sechsFelderMitUebung', 'alleFelder'])('%s: „danach" bleibt in den Daten, steht aber nicht in der Station', (fall) => {
+    expect(daten(F[fall]).danach.length).toBeGreaterThan(0)
+    zeige(Station4, F[fall])
+    expect(screen.queryByText(/^Danach nehmen wir/)).toBeNull()
+  })
+
+  it('einSchwerpunkt: der Hinweis bleibt', () => {
+    zeige(Station4, F.einSchwerpunkt)
     expect(screen.getByText(/pädagogischer Arbeitsvorschlag/)).toBeInTheDocument()
   })
 

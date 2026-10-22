@@ -1,5 +1,5 @@
-// Station 01 · Überblick (T3): Überschrift, Leitsatz, Fach und Klasse, die zwei
-// Karten und die Fußzeile — für die Fälle aus PRAESENTATION_FAELLE.
+// Station 01 · Überblick (T3, PS-1 Entscheidungen 4–6): Überschrift, Anliegen und
+// die zwei Karten mit höchstens zwei Zeilen — für die Fälle aus PRAESENTATION_FAELLE.
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -36,11 +36,10 @@ describe('Station 01 — Überschrift', () => {
     expect(document.querySelector('.tp-kicker')).toHaveTextContent(/^01Ilkays Ausgangspunkt$/)
   })
 
-  it('ohne Namen: „Ihrem Kind", Kicker „Ausgangspunkt", Fußzeile ohne Namen', () => {
+  it('ohne Namen: „Ihrem Kind", Kicker „Ausgangspunkt"', () => {
     zeigeStation(Station1, 'ohneName')
     expect(titel()).toHaveTextContent('Was wir bei Ihrem Kind gesehen haben')
     expect(document.querySelector('.tp-kicker')).toHaveTextContent(/^01Ausgangspunkt$/)
-    expect(screen.getByText(/Weiterwischen zum Kompetenzprofil/)).toBeInTheDocument()
   })
 
   it('nimmt den freigegebenen Kopfsatz zum Fall wie der Druckbogen', () => {
@@ -64,54 +63,69 @@ describe('Station 01 — Überschrift', () => {
   })
 })
 
-describe('Station 01 — Leitsatz und Zeile', () => {
-  it.each([
-    ['ilkay', 'Was schon gelingt und wo noch Übung nötig ist, sehen wir uns jetzt gemeinsam an.'],
-    ['allesSicher', 'Was schon gelingt, sehen wir uns jetzt gemeinsam an.'],
-    ['nichtsSicher', 'Wo noch Übung nötig ist und wo wir ansetzen, sehen wir uns jetzt gemeinsam an.'],
-  ])('Leitsatz je kopfFall (%s)', (fall, satz) => {
-    zeigeStation(Station1, fall)
-    expect(screen.getByText(satz)).toBeInTheDocument()
-  })
+const zeilenIn = (id: 'gelungen' | 'ueben'): string[] =>
+  within(karte(id))
+    .queryAllByRole('listitem')
+    .map((li) => li.textContent ?? '')
 
-  it('nennt Fach, Klasse und das nächste Thema', () => {
-    zeigeStation(Station1, 'ilkay')
-    expect(screen.getByText('Mathematik · Klasse 10')).toBeInTheDocument()
-    expect(screen.getByText('Im Blick: Algebra & Funktionen')).toBeInTheDocument()
-    expect(screen.getByText(/Weiterwischen, um Ilkays Kompetenzprofil zu sehen/)).toBeInTheDocument()
-  })
-
-  it('lässt „Im Blick" ohne Thema still weg', () => {
-    const data = { ...PRAESENTATION_FAELLE.ilkay.data, naechstesThema: null }
-    zeigeStation(Station1, 'ilkay', { data })
+describe('Station 01 — nur Titel, Anliegen und Karten (PS-1)', () => {
+  it.each(['ilkay', 'allesSicher', 'nichtsSicher', 'abgestuft'])('%s: kein Leitsatz, keine Notiz, keine Fußzeile', (fall) => {
+    const { container } = zeigeStation(Station1, fall)
+    expect(container.querySelector('.tp-s1-lead, .tp-s1-notiz, .tp-s1-fuss')).toBeNull()
+    expect(screen.queryByText(/sehen wir uns jetzt gemeinsam an/)).toBeNull()
+    expect(screen.queryByText(/Klasse 10$/)).toBeNull()
     expect(screen.queryByText(/Im Blick/)).toBeNull()
+    expect(screen.queryByText(/Weiterwischen/)).toBeNull()
+  })
+
+  it('das Anliegen hat höchstens zwei Sätze: Frage und Antwort zum Thema (abgestuft)', () => {
+    zeigeStation(Station1, 'abgestuft')
+    const satz = screen.getByTestId('tp-s1-anliegen').textContent ?? ''
+    expect(satz.match(/[.?!](\s|$)/g)?.length ?? 0).toBeLessThanOrEqual(2)
+    expect(satz).toMatch(/Reelle Zahlen/)
   })
 })
 
 describe('Station 01 — Karten', () => {
-  it('ilkay: Schon gelungen = Größen, Zahlen & Rechnen; Gezielt üben = Geometrie, Brüche & Dezimalzahlen', () => {
+  it('ilkay: je Karte zwei Zeilen untereinander, dann „+2 weitere"', () => {
     zeigeStation(Station1, 'ilkay')
-    expect(within(karte('gelungen')).getByText('Größen und Zahlen & Rechnen')).toBeInTheDocument()
-    expect(within(karte('ueben')).getByText('Geometrie und Brüche & Dezimalzahlen')).toBeInTheDocument()
+    expect(zeilenIn('gelungen')).toEqual(['Größen', 'Zahlen & Rechnen'])
+    expect(zeilenIn('ueben')).toEqual(['Geometrie', 'Brüche & Dezimalzahlen', '+2 weitere'])
   })
 
-  it('allesSicher: keine Übung', () => {
+  it('allesSicher: zwei sichere Felder und „+4 weitere", keine Übung', () => {
     zeigeStation(Station1, 'allesSicher')
-    expect(within(karte('gelungen')).getByText('Geometrie und Brüche & Dezimalzahlen')).toBeInTheDocument()
+    expect(zeilenIn('gelungen')).toEqual(['Geometrie', 'Brüche & Dezimalzahlen', '+4 weitere'])
     expect(within(karte('ueben')).getByText('Kein Bereich mit Übungsbedarf.')).toBeInTheDocument()
   })
 
   it('nichtsSicher: nichts sicher', () => {
     zeigeStation(Station1, 'nichtsSicher')
     expect(within(karte('gelungen')).getByText('Noch kein Bereich sicher.')).toBeInTheDocument()
-    expect(within(karte('ueben')).getByText('Geometrie und Brüche & Dezimalzahlen')).toBeInTheDocument()
+    expect(zeilenIn('ueben')).toEqual(['Geometrie', 'Brüche & Dezimalzahlen', '+4 weitere'])
   })
 
   it('alleFelder: „Ein Bereich ist schon sicher: Brüche kürzen."', () => {
     zeigeStation(Station1, 'alleFelder')
     expect(within(karte('gelungen')).getByText('Ein Bereich ist schon sicher: Brüche kürzen.')).toBeInTheDocument()
-    expect(within(karte('ueben')).getByText('Brüche & Dezimalzahlen und Prozent & Dreisatz')).toBeInTheDocument()
+    expect(zeilenIn('ueben')).toEqual(['Brüche & Dezimalzahlen', 'Prozent & Dreisatz', '+6 weitere'])
   })
+
+  it('mit Thema-Schwerpunkt steht die Startstelle in „Gezielt üben" zuerst (abgestuft)', () => {
+    zeigeStation(Station1, 'abgestuft')
+    expect(zeilenIn('ueben')).toEqual(['Wurzelgesetze für Produkt und Quotient', 'Geometrie', '+2 weitere'])
+  })
+
+  it.each(Object.keys(PRAESENTATION_FAELLE).filter((f) => f !== 'ohneKatalog'))(
+    '%s: höchstens zwei Einträge je Karte plus „+n weitere"',
+    (fall) => {
+      zeigeStation(Station1, fall)
+      for (const id of ['gelungen', 'ueben'] as const) {
+        const z = zeilenIn(id)
+        expect(z.filter((t) => !/^\+\d+ weitere$/.test(t)).length, id).toBeLessThanOrEqual(2)
+      }
+    },
+  )
 
   it('einSchwerpunkt: Übung in keinem Feld überwiegend → Plural mit Beispiel', () => {
     zeigeStation(Station1, 'einSchwerpunkt')

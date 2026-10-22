@@ -81,7 +81,9 @@
     "legende": {
       "uebersprungen": "Übersprungen („Weiß ich nicht“)"
     },
-    "tippen": "Die Details öffnen sich durch Antippen eines Themenfelds."
+    "tippen": "Die Details öffnen sich durch Antippen eines Themenfelds.",
+    "alleFelder": "Alle Themenfelder zeigen",
+    "wenigerFelder": "Weniger Themenfelder zeigen"
   },
   "s3": {
     "kicker": "Lernweg",

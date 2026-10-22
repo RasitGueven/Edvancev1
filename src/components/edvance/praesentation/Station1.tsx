@@ -11,12 +11,15 @@ import { UeberblickKarten } from './UeberblickKarten'
 const LANG = 48
 const SEHR_LANG = 80
 
+/** Höchstens zwei Sätze aus dem Anliegen (PS-1, Entscheidung 4). */
+const ANLIEGEN_SAETZE = 2
+
 /**
- * Station 01 · Überblick (Entscheidung 6): Überschrift, Leitsatz, das Anliegen
- * als Frage und Antwort wie auf Seite 1 (R7-11), Fach und Klasse, die zwei
- * Karten und die Fußzeile. Die Überschrift ist der Kopfsatz
- * wie auf Seite 1 des Druckbogens; fehlt er, gilt die neutrale
- * Ersatzüberschrift. Keine farbige Teilhervorhebung.
+ * Station 01 · Überblick (Entscheidung 6, PS-1 Entscheidungen 4–6): Kicker,
+ * Überschrift, das Anliegen als Frage und Antwort wie auf Seite 1 (R7-11) und
+ * die zwei Karten. Die Überschrift ist der Kopfsatz wie auf Seite 1 des
+ * Druckbogens; fehlt er, gilt die neutrale Ersatzüberschrift. Leitsatz, Fach
+ * und Klasse und die Fußzeile entfallen: Fach und Klasse stehen im Intro.
  */
 export function Station1({ p, satz, sessionId }: StationProps): JSX.Element {
   const { t, i18n } = useTranslation('praesentation')
@@ -29,8 +32,11 @@ export function Station1({ p, satz, sessionId }: StationProps): JSX.Element {
   const laenge = kopf.length >= SEHR_LANG ? ' tp-s1-sehr-lang' : kopf.length >= LANG ? ' tp-s1-lang' : ''
   // „Ihr Anliegen“ mit denselben Sätzen wie Seite 1 (R7-11, Entscheidung 13).
   const anliegen = p.anliegen
-    ? anliegenSaetze(tb, p.anliegen, p.wessen, baueListe(tb, i18n.language), i18n.language).join(' ')
+    ? anliegenSaetze(tb, p.anliegen, p.wessen, baueListe(tb, i18n.language), i18n.language)
+        .slice(0, ANLIEGEN_SAETZE)
+        .join(' ')
     : null
+  const thema = p.schwerpunkte[0]?.thema ? p.schwerpunkte[0] : null
 
   return (
     <div className="tp-szene tp-s1">
@@ -40,25 +46,14 @@ export function Station1({ p, satz, sessionId }: StationProps): JSX.Element {
           <h1 className={`tp-titel tp-reveal${laenge}`} data-tp-pflicht="">
             {kopf}
           </h1>
-          <p className="tp-s1-lead tp-reveal">{t(`s1.lead.${p.kopfFall}`)}</p>
           {anliegen && (
             <p className="tp-s1-anliegen tp-reveal" data-testid="tp-s1-anliegen">
               {anliegen}
             </p>
           )}
-          <p className="tp-s1-notiz tp-reveal">
-            <i aria-hidden="true" />
-            <span>{t('s1.fachKlasse', { fach: p.fach, klasse: p.klasse })}</span>
-            {/* Ohne Anliegen-Satz wie bisher; sonst steht das nächste Thema dort (Seite 1). */}
-            {!anliegen && p.naechstesThema && <span>{t('s1.imBlick', { thema: p.naechstesThema })}</span>}
-          </p>
         </div>
-        <UeberblickKarten ueberblick={p.ueberblick} />
+        <UeberblickKarten ueberblick={p.ueberblick} start={thema?.start ?? null} />
       </div>
-      <p className="tp-fusszeile tp-s1-fuss tp-reveal">
-        {p.wessen ? t('s1.weiter', { wessen: p.wessen }) : t('s1.weiterOhneName')}{' '}
-        <span aria-hidden="true">↓</span>
-      </p>
     </div>
   )
 }

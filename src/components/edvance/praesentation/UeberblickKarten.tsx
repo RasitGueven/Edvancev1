@@ -2,30 +2,44 @@ import { useTranslation } from 'react-i18next'
 
 import type { TpUeberblick } from '@/types'
 
+/** Höchstens zwei Einträge je Karte, dann „+n weitere" (PS-1, Entscheidung 6). */
+const JE_KARTE = 2
+
+function Eintraege({ zeilen, ersatz }: { zeilen: string[]; ersatz: string }): JSX.Element {
+  const { t: tb } = useTranslation('elternbericht')
+  if (zeilen.length === 0) return <p>{ersatz}</p>
+  const rest = zeilen.length - JE_KARTE
+  return (
+    <ul>
+      {zeilen.slice(0, JE_KARTE).map((z) => (
+        <li key={z}>{z}</li>
+      ))}
+      {rest > 0 && <li className="tp-s1-weitere">{tb('s1.blick.weitere', { count: rest })}</li>}
+    </ul>
+  )
+}
+
 /**
  * Die zwei Karten „Schon gelungen" und „Gezielt üben" in Station 01
- * (Entscheidung 6). Ab 800 px Breite liegen sie im Bild mit Kreisen und Kugel
- * wie im Dummy, darunter stehen sie ohne Bild unter dem Leitsatz. Beide sind
- * Pflichtteile: Sie fallen nie weg.
+ * (Entscheidung 6, PS-1 Entscheidung 6): je Karte höchstens zwei kurze Zeilen
+ * untereinander, dann „+n weitere". Mit Thema-Schwerpunkt steht die
+ * Startstelle in „Gezielt üben" zuerst. Ohne Feld die Ersatztexte wie bisher.
+ * Ab 800 px Breite liegen die Karten im Bild mit Kreisen und Kugel, darunter
+ * stehen sie ohne Bild. Beide sind Pflichtteile: Sie fallen nie weg.
  */
-export function UeberblickKarten({ ueberblick }: { ueberblick: TpUeberblick }): JSX.Element {
-  const { t, i18n } = useTranslation('praesentation')
+export function UeberblickKarten({ ueberblick, start }: { ueberblick: TpUeberblick; start: string | null }): JSX.Element {
+  const { t } = useTranslation('praesentation')
   const { t: tb } = useTranslation('elternbericht')
-  const liste = new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' })
-  const felder = (keys: readonly string[]): string => liste.format(keys.map((k) => tb(`feld.${k}`)))
+  const feld = (k: string): string => tb(`feld.${k}`)
 
   const { gelungen, ueben, beispielSicher, beispielUebung } = ueberblick
-  let textGelungen: string
-  if (gelungen.length > 0) textGelungen = felder(gelungen)
-  else if (beispielSicher)
-    textGelungen = t('s1.sicherEinzeln', { count: beispielSicher.anzahl, bereich: beispielSicher.label })
-  else textGelungen = tb('s1.blick.keinSicher')
-
-  let textUeben: string
-  if (ueben.length > 0) textUeben = felder(ueben)
-  else if (beispielUebung)
-    textUeben = t('s1.uebungEinzeln', { count: beispielUebung.anzahl, bereich: beispielUebung.label })
-  else textUeben = tb('s1.blick.keineUebung')
+  const ersatzGelungen = beispielSicher
+    ? t('s1.sicherEinzeln', { count: beispielSicher.anzahl, bereich: beispielSicher.label })
+    : tb('s1.blick.keinSicher')
+  const ersatzUeben = beispielUebung
+    ? t('s1.uebungEinzeln', { count: beispielUebung.anzahl, bereich: beispielUebung.label })
+    : tb('s1.blick.keineUebung')
+  const zeilenUeben = ueben.length > 0 && start ? [start, ...ueben.map(feld)] : ueben.map(feld)
 
   return (
     <div className="tp-s1-bild tp-reveal">
@@ -36,11 +50,11 @@ export function UeberblickKarten({ ueberblick }: { ueberblick: TpUeberblick }): 
       </div>
       <div className="tp-s1-karte tp-s1-karte-gelungen" data-tp-pflicht="" data-testid="tp-s1-gelungen">
         <h3>{t('s1.gelungen')}</h3>
-        <p>{textGelungen}</p>
+        <Eintraege zeilen={gelungen.map(feld)} ersatz={ersatzGelungen} />
       </div>
       <div className="tp-s1-karte tp-s1-karte-ueben" data-tp-pflicht="" data-testid="tp-s1-ueben">
         <h3>{t('s1.ueben')}</h3>
-        <p>{textUeben}</p>
+        <Eintraege zeilen={zeilenUeben} ersatz={ersatzUeben} />
       </div>
     </div>
   )
