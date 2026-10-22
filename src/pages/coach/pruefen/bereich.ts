@@ -1,16 +1,26 @@
 // Bereiche im Lena-Board: "Fuer die LSA" und "Fuer die Session". Die Zuordnung kommt aus pruef_board().anlaesse
 // (aktive pruef_soll-Anlaesse des Knotens); eine Aufgabe mit beiden Anlaessen steht in beiden Bereichen.
 // Aufgaben ohne passenden Anlass erscheinen in keinem Bereich. Hinweise sind nur im Session-Bereich sichtbar.
+// Zur LSA gehoeren Batus Liste (batu_lsa) und die Vorschau-Kandidaten aus LSA-V (lsa_vorschau, P3).
 
-import type { PruefBoardZeile } from '@/types'
+import type { PruefBoardZeile, PruefSollZeile } from '@/types'
 
 export type Bereich = 'lsa' | 'session'
 
 export const BEREICHE: Bereich[] = ['lsa', 'session']
 
-export const ANLASS: Record<Bereich, string> = { lsa: 'batu_lsa', session: 'batu_session' }
+export const ANLASS: Record<Bereich, string[]> = { lsa: ['batu_lsa', 'lsa_vorschau'], session: ['batu_session'] }
 
-export const imBereich = (z: PruefBoardZeile, b: Bereich): boolean => z.anlaesse.includes(ANLASS[b])
+export const imBereich = (z: PruefBoardZeile, b: Bereich): boolean => ANLASS[b].some((a) => z.anlaesse.includes(a))
+
+/**
+ * Sollzahlen der Anlaesse eines Bereichs zusammengefuehrt, nach pruef_soll.sort (je Anlass ein pruef_board_soll).
+ * Traegt ein Knoten mehrere Anlaesse des Bereichs, zaehlt er einmal: die Zeile mit dem kleineren sort.
+ */
+export function sollDesBereichs(jeAnlass: PruefSollZeile[][]): PruefSollZeile[] {
+  const sortiert = jeAnlass.flat().sort((a, b) => a.sort - b.sort || a.skill_key.localeCompare(b.skill_key))
+  return sortiert.filter((z, i) => sortiert.findIndex((y) => y.skill_key === z.skill_key) === i)
+}
 
 export const bereichsBoard = (board: PruefBoardZeile[], b: Bereich): PruefBoardZeile[] =>
   board.filter((z) => imBereich(z, b))

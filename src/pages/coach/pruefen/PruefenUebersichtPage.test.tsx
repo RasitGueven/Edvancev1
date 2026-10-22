@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import '@/i18n'
-import type { PruefBoardZeile, Stufe } from '@/types'
+import type { PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
 
 vi.mock('@/lib/supabase/pruefung', () => ({
   getPruefBoard: vi.fn(),
@@ -32,7 +32,14 @@ const board = [
   zeile('b1', 3, ['batu_lsa', 'batu_session']),
   zeile('s1', 4, ['batu_session'], 'zweite'),
   zeile('o1', 5, []),
+  zeile('v1', 6, ['lsa_vorschau']),
 ]
+
+const sollZeile = (skill: string, anlass: string, sort: number, rest: number): PruefSollZeile => ({
+  skill_key: skill, skill_label: `Knoten ${skill}`, thema_key: 'thema_erste', thema_label: 'Thema erste', thema_sort: 1,
+  stufe: 'erste', sort, anlaesse: [anlass], soll: rest, min_ohne_mc: 1, im_board: 1, gezaehlt: 0, gezaehlt_ohne_mc: 0,
+  rest, reicht: false,
+})
 
 function zeige(pfad = '/coach/pruefen'): void {
   render(
@@ -55,7 +62,7 @@ describe('PruefenUebersichtPage · Bereiche', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     zeige()
     const lsa = await screen.findByRole('tab', { name: /Für die LSA/ })
-    expect(lsa).toHaveTextContent('2 offen / 3')
+    expect(lsa).toHaveTextContent('3 offen / 4')
     expect(lsa).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('tab', { name: /Für die Session/ })).toHaveTextContent('2 offen / 2')
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('without'), 1)
@@ -86,7 +93,27 @@ describe('PruefenUebersichtPage · Bereiche', () => {
     zeige()
     await screen.findByRole('tab', { name: /Für die LSA/ })
     expect(getPruefSoll).toHaveBeenCalledWith('batu_lsa')
+    expect(getPruefSoll).toHaveBeenCalledWith('lsa_vorschau')
     expect(getPruefSoll).toHaveBeenCalledWith('batu_session')
     expect(getPruefSoll).not.toHaveBeenCalledWith()
+  })
+
+  it('LSA: Vorschau-Aufgaben im Reiter, Restbedarf aus batu_lsa und lsa_vorschau zusammen', async () => {
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({
+      data: a === 'batu_lsa' ? [sollZeile('k_l2', a, 410, 2)]
+        : a === 'lsa_vorschau' ? [sollZeile('k_v1', a, 610, 3)]
+          : [sollZeile('k_s1', a ?? '', 310, 7)],
+      error: null,
+    }))
+    zeige()
+    expect(await screen.findByRole('tab', { name: /Klasse 7\/8/ })).toHaveTextContent('noch 5 zu prüfen')
+    fireEvent.click(screen.getByRole('button', { name: /Thema erste aufklappen/ }))
+    expect(screen.getByRole('button', { name: /Aufgabe v1/ })).toBeInTheDocument()
+  })
+
+  it('Session: keine Vorschau-Aufgaben', async () => {
+    zeige('/coach/pruefen?bereich=session')
+    fireEvent.click(await screen.findByRole('button', { name: /Thema erste aufklappen/ }))
+    expect(screen.queryByRole('button', { name: /Aufgabe v1/ })).toBeNull()
   })
 })

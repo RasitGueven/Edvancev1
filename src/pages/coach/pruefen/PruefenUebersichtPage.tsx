@@ -18,7 +18,7 @@ import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
 import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
-import { ANLASS, auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
+import { ANLASS, auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, sollDesBereichs, type Bereich } from './bereich'
 
 export function PruefenUebersichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
@@ -40,13 +40,15 @@ export function PruefenUebersichtPage(): JSX.Element {
       setAlle(r.data)
       setFehler(r.error)
       const ohne = r.data ? ohneBereich(r.data) : 0
-      if (ohne > 0) console.warn('pruef_board: tasks without batu_lsa/batu_session anlass (hidden)', ohne)
+      if (ohne > 0) console.warn('pruef_board: tasks without lsa/session anlass (hidden)', ohne)
     })
-    // Sollzahlen sind Zusatz: fehlen sie, bleibt das Board wie vor P2.
+    // Sollzahlen sind Zusatz: fehlen sie, bleibt das Board wie vor P2. Ein Bereich zeigt sie erst, wenn alle
+    // seine Anlaesse geantwortet haben, sonst stimmten "noch X zu pruefen" und "X von Y noetig" nicht.
     for (const b of BEREICHE) {
-      void getPruefSoll(ANLASS[b]).then((r) => {
-        if (r.data) setSollJe((s) => ({ ...s, [b]: r.data }))
-        else if (r.error) console.warn('pruef_board_soll failed', ANLASS[b], r.error.message)
+      void Promise.all(ANLASS[b].map((a) => getPruefSoll(a))).then((rs) => {
+        const kaputt = rs.find((r) => r.error)
+        if (kaputt?.error) console.warn('pruef_board_soll failed', ANLASS[b], kaputt.error.message)
+        else setSollJe((s) => ({ ...s, [b]: sollDesBereichs(rs.map((r) => r.data ?? [])) }))
       })
     }
   }, [])
