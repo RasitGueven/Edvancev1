@@ -9,6 +9,7 @@ import {
   kameraFuer,
   laufKoordinaten,
   schiebeDauer,
+  sichtGrenze,
   type FahrtGeometrie,
 } from '@/lib/report/praesentation/lernwegFahrt'
 
@@ -19,16 +20,19 @@ const zeiten = (g: FahrtGeometrie, schritt = 16): number[] =>
   Array.from({ length: Math.ceil(fahrtDauer(g) / schritt) + 20 }, (_, i) => i * schritt)
 
 describe('lernwegFahrt (Entscheidung 24)', () => {
-  it('Dauer aus etwa 115 Entwurfs-px/s, begrenzt auf 6–14 s', () => {
-    expect(schiebeDauer(G)).toBeCloseTo((1260 / 115) * 1000)
-    expect(schiebeDauer({ ...G, ende: 400 })).toBe(6000)
-    expect(schiebeDauer({ ...G, ende: 5000 })).toBe(14000)
+  it('Dauer aus etwa 240 Entwurfs-px/s, begrenzt auf 3,5–8 s (PF-1, Entscheidung 7)', () => {
+    expect(FAHRT).toMatchObject({ pxProSekunde: 240, minDauer: 3500, maxDauer: 8000, warten: 600 })
+    expect(FAHRT).toMatchObject({ kamera: 2600, pause: 1400, zurueck: 2200 })
+    expect(schiebeDauer(G)).toBeCloseTo((1260 / 240) * 1000)
+    expect(schiebeDauer({ ...G, ende: 400 })).toBe(3500)
+    expect(schiebeDauer({ ...G, ende: 5000 })).toBe(8000)
     expect(schiebeDauer(OHNE)).toBe(0)
   })
 
-  it('wartet 1,5 s bei den Grundlagen', () => {
+  it('wartet 0,6 s bei den Grundlagen', () => {
     expect(fahrtStand(0, G)).toMatchObject({ phase: 'warten', scrollLeft: 0, spitze: 300 })
-    expect(fahrtStand(1499, G).phase).toBe('warten')
+    expect(fahrtStand(599, G).phase).toBe('warten')
+    expect(fahrtStand(601, G).phase).toBe('schieben')
   })
 
   it('während der Fahrt: scrollLeft = Spitze · s − 0,62 · Breite (begrenzt)', () => {
@@ -86,6 +90,27 @@ describe('lernwegFahrt (Entscheidung 24)', () => {
     const mitte = fahrtStand(FAHRT.warten + FAHRT.kamera / 2, OHNE)
     expect(mitte.aufgedeckt).toBeCloseTo((mitte.scrollLeft + OHNE.breite) / OHNE.s - FAHRT.vorlauf)
     expect(fahrtStand(fahrtDauer(OHNE), OHNE)).toMatchObject({ phase: 'fertig', scrollLeft: 0 })
+  })
+})
+
+describe('Sichtgrenze nach Kamera (PF-1, Entscheidung 5)', () => {
+  it('rechte Kante des Bildes in Entwurfs-px, abzüglich des Vorlaufs', () => {
+    expect(sichtGrenze(0, G)).toBe(1180 - FAHRT.vorlauf)
+    expect(sichtGrenze(500, { ...G, s: 0.5 })).toBe((500 + 1180) / 0.5 - FAHRT.vorlauf)
+  })
+
+  it('beim Schieben liegt sie vor der Front: Kästen stehen, bevor die Linie kommt', () => {
+    for (let t = FAHRT.warten; t < FAHRT.warten + schiebeDauer(G); t += 50) {
+      const st = fahrtStand(t, G)
+      expect(sichtGrenze(st.scrollLeft, G)).toBeGreaterThan(st.front!)
+    }
+  })
+
+  it('steigt mit der Kamera bis zum Ende der Kamerafahrt', () => {
+    const bisKamera = zeiten(G).filter((t) => t < FAHRT.warten + schiebeDauer(G) + FAHRT.kamera)
+    const grenzen = bisKamera.map((t) => sichtGrenze(fahrtStand(t, G).scrollLeft, G))
+    for (let i = 1; i < grenzen.length; i++) expect(grenzen[i]).toBeGreaterThanOrEqual(grenzen[i - 1] - 1e-9)
+    expect(grenzen.at(-1)).toBeCloseTo(sichtGrenze(G.max, G), 0)
   })
 })
 

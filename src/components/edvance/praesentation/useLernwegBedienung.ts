@@ -128,11 +128,16 @@ export function useLernwegBedienung({
       onScroll: () => {
         const el = scrollerRef.current
         if (!el) return
-        // Der Balken unten zeigt den sichtbaren Ausschnitt (Variablen am gemeinsamen Elternteil).
+        // Der Balken unten zeigt den sichtbaren Ausschnitt. Erst lesen, dann schreiben,
+        // und die Variablen nur am Balken: am gemeinsamen Elternteil erbten sie alle
+        // Inseln, und jedes Bild der Fahrt rechnete die Stile der ganzen Bühne neu (PF-1).
         const breite = el.scrollWidth || 1
-        el.parentElement?.style.setProperty('--tp-s3-balken-links', String(el.scrollLeft / breite))
-        el.parentElement?.style.setProperty('--tp-s3-balken-breite', String(Math.min(1, el.clientWidth / breite)))
+        const links = el.scrollLeft / breite
+        const sichtbar = Math.min(1, el.clientWidth / breite)
         const n = punktLinks()
+        const balken = el.parentElement?.querySelector<HTMLElement>('.tp-s3-balken')
+        balken?.style.setProperty('--tp-s3-balken-links', String(links))
+        balken?.style.setProperty('--tp-s3-balken-breite', String(sichtbar))
         setZone((alt) => (alt === n ? alt : n))
       },
       onWheel: (e) => {

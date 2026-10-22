@@ -13,7 +13,7 @@
   background: var(--color-eb-weiss);
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity var(--tp-s3-zeit-insel) var(--tp-ease), transform var(--tp-s3-zeit-insel) var(--tp-ease), filter .6s var(--tp-ease);
+  transition: opacity var(--tp-s3-zeit-insel) var(--tp-ease), transform var(--tp-s3-zeit-insel) var(--tp-ease);
 }
 
 .tp .tp-s3-insel.tp-s3-da { opacity: 1; transform: none; }
@@ -28,9 +28,12 @@
   background: color-mix(in srgb, var(--color-eb-weiss) 72%, transparent);
 }
 
-/* Die Zukunft leicht verschwommen; Antippen macht eine Insel klar. */
-.tp .tp-s3-dunst.tp-s3-da { opacity: .62; filter: blur(.6px); }
-.tp .tp-s3-weit.tp-s3-da { opacity: .45; filter: blur(1.1px); }
+/* Die Zukunft leicht verschwommen; Antippen macht eine Insel klar. Die Unschärfe
+   steht schon vor dem Einblenden, eingeblendet werden nur opacity und transform (PF-1). */
+.tp .tp-s3-dunst { filter: blur(.6px); }
+.tp .tp-s3-weit { filter: blur(1.1px); }
+.tp .tp-s3-dunst.tp-s3-da { opacity: .62; }
+.tp .tp-s3-weit.tp-s3-da { opacity: .45; }
 .tp .tp-s3-insel-kommt.tp-s3-klar,
 .tp .tp-s3-insel-kommt:hover { opacity: 1; filter: none; }
 
@@ -71,12 +74,7 @@
   list-style: none;
 }
 
-.tp .tp-s3-eintraege > li { animation: tp-zeile-ein var(--tp-s3-zeit-zeile) var(--tp-ease) both; }
-.tp .tp-s3-insel:not(.tp-s3-da) .tp-s3-eintraege > li { animation: none; opacity: 0; }
-
-.tp .tp-s3-insel.tp-s3-da .tp-s3-eintraege > li {
-  animation-delay: calc(250ms + var(--tp-i, 0) * var(--tp-s3-takt));
-}
+/* Eine Insel erscheint als Ganzes, ihre Zeilen laufen nicht einzeln ein (PF-1, Entscheidung 6). */
 
 /* Ein Eintrag ist ein Knopf; die Trefferfläche wächst mit der Skala auf
    mindestens 44 px (--tp-s3-treffer aus useLernwegFahrt.ts). */
@@ -95,7 +93,7 @@
   font-size: 17px;
   line-height: 21px;
   cursor: pointer;
-  transition: opacity .3s, background .3s;
+  transition: opacity .3s;
 }
 
 .tp .tp-s3-e::before,
@@ -210,8 +208,10 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: calc(var(--tp-s3-balken-links, 0) * 100%);
+  left: 0;
   width: calc(var(--tp-s3-balken-breite, .4) * 100%);
+  /* Lage per transform statt left (PF-1): je Bild kein Layout. */
+  transform: translateX(calc(var(--tp-s3-balken-links, 0) / var(--tp-s3-balken-breite, .4) * 100%));
   border-radius: 2px;
   background: var(--color-eb-navy);
 }

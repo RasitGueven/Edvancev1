@@ -7,8 +7,10 @@
 // entlang der Linie (achsparallel). So wächst ein senkrechtes Stück stetig
 // statt auf einen Schlag, und Stücke, die sich decken (gemeinsamer Stamm),
 // haben dasselbe w. Die Kamera folgt dem größten x, das die Front erreicht hat
-// (front), und hält es bei 62 % der Breite; Inseln und Zonen erscheinen nach x.
-// Danach fährt die Kamera allein bis zum Ende, wartet und gleitet zurück.
+// (front), und hält es bei 62 % der Breite. Inseln und Zonen erscheinen, sobald
+// sie ins Bild kommen (sichtGrenze, PF-1 Entscheidung 5): Die Linie läuft durch
+// Kästen, die schon stehen. Danach fährt die Kamera allein bis zum Ende, wartet
+// und gleitet zurück.
 
 /** Je Laufkoordinate w das größte x, das die Front bis dahin erreicht hat (nach w sortiert). */
 export type FrontTabelle = readonly { w: number; x: number }[]
@@ -61,12 +63,12 @@ export type FahrtGeometrie = {
 
 export const FAHRT = {
   /** Nach dem ersten Betreten, bevor die Spitze losläuft. */
-  warten: 1500,
+  warten: 600,
   /** Geschwindigkeit der Spitze in Entwurfs-px je Sekunde … */
-  pxProSekunde: 115,
+  pxProSekunde: 240,
   /** … mit dieser Dauer höchstens und mindestens. */
-  minDauer: 6000,
-  maxDauer: 14000,
+  minDauer: 3500,
+  maxDauer: 8000,
   /** Die Kamera allein bis zum Ende. */
   kamera: 2600,
   /** Pause am Ende, dann zurück zu den Grundlagen. */
@@ -96,6 +98,9 @@ const begrenzt = (x: number, max: number): number => Math.max(0, Math.min(max, x
 const schwung = (p: number): number => p - (Math.sin(2 * Math.PI * p) / (2 * Math.PI)) * 0.35
 const weich = (p: number): number => (p < 0.5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2)
 
+/** Was die Kamera bei scrollLeft zeigt, bis zur rechten Kante abzüglich des Vorlaufs (Entwurfs-px). */
+export const sichtGrenze = (scrollLeft: number, g: FahrtGeometrie): number => (scrollLeft + g.breite) / g.s - FAHRT.vorlauf
+
 /** Dauer der Schiebe-Phase in ms (0 ohne Linien). */
 export function schiebeDauer(g: FahrtGeometrie): number {
   if (g.start === null || g.ende === null) return 0
@@ -121,7 +126,7 @@ export function fahrtStand(t: number, g: FahrtGeometrie, unterbrochenBei: number
     return { phase: 'fertig', spitze: g.ende, front: vorn(g.ende), scrollLeft: dort.scrollLeft, aufgedeckt: Infinity }
   }
   const dauer = schiebeDauer(g)
-  const sicht = (scroll: number): number => (scroll + g.breite) / g.s - FAHRT.vorlauf
+  const sicht = (scroll: number): number => sichtGrenze(scroll, g)
 
   if (t < FAHRT.warten) {
     return { phase: 'warten', spitze: g.start, front: vorn(g.start), scrollLeft: 0, aufgedeckt: vorn(g.start) ?? sicht(0) }
