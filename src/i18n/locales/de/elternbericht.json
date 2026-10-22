@@ -53,7 +53,7 @@
     "blick": {
       "kicker": "Auf einen Blick",
       "zeile": "{{untersucht}} Bereiche geprüft  ·  {{sicher}} sicher  ·  {{uebung}} Übungsbedarf",
-      "sicher": "Das klappte bereits",
+      "sicher": "Das klappt bereits",
       "uebung": "Hier braucht es noch Übung",
       "ansatz": "Unser erster Ansatz",
       "weitere": "+{{count}} weitere",
@@ -61,14 +61,24 @@
       "keineUebung": "Kein Bereich mit Übungsbedarf.",
       "ansatzGemischt": "Dort liegen Sicheres und noch Unsicheres direkt nebeneinander. Wir beginnen bei dem, was schon klappt.",
       "ansatzUebung": "In diesem Themenfeld war noch nichts sicher. Hier setzen wir zuerst an.",
-      "ansatzKeiner": "In den untersuchten Bereichen gibt es keinen Übungsbedarf. Wir arbeiten am aktuellen Stoff weiter."
+      "ansatzKeiner": "In den untersuchten Bereichen gibt es keinen Übungsbedarf. Wir arbeiten am aktuellen Stoff weiter.",
+      "ansatzThema": {
+        "kicker": "Im Thema {{thema}}",
+        "naechster": "Darauf baut {{naechster}} auf.",
+        "zuerst": "Hier setzen wir zuerst an."
+      },
+      "ansatzThemaSicher": "Was wir im Thema {{thema}} geprüft haben, sitzt. Wir arbeiten am aktuellen Stoff weiter."
     },
     "anliegen": {
       "kicker": "Ihr Anliegen",
       "genannt": "Sie machen sich Sorgen um {{wessen}} {{punkte}}.",
       "genanntOhneName_one": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeit sehen.",
       "genanntOhneName_other": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeiten sehen.",
-      "thema": "Als nächstes Thema steht {{thema}} an."
+      "thema": "Ihr Anlass: {{thema}}.",
+      "antwort": "Dort hakt es: {{liste}}.",
+      "antwortSicher": "Was wir dazu geprüft haben, sitzt.",
+      "antwortSchwerpunkt": "Dort setzen wir zuerst an: {{schwerpunkt}}.",
+      "naechstesThema": "Als nächstes Thema steht {{thema}} an."
     },
     "geprueft": {
       "kicker": "So haben wir geprüft",
@@ -143,7 +153,7 @@
       "uebung_other": "Den meisten Übungsbedarf zeigten die Themenfelder {{felder}}.",
       "coach": "Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen."
     },
-    "fussnote": "Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen; die Bewertungsregel ist noch nicht abschließend festgelegt. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.",
+    "fussnote": "Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.",
     "fussnoteAbgeleitet": "Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe."
   },
   "s3": {
@@ -254,7 +264,10 @@
     },
     "danach": "Danach nehmen wir {{liste}} dazu.",
     "lernziel": "Unser gemeinsames Lernziel",
-    "stand": "Das ist der Stand nach dieser Analyse. Der Coach überprüft ihn in den ersten Sitzungen und passt den Plan an, wenn nötig."
+    "stand": "Das ist der Stand nach dieser Analyse. Der Coach überprüft ihn in den ersten Sitzungen und passt den Plan an, wenn nötig.",
+    "chip": {
+      "thema": "Aktuelles Thema"
+    }
   },
   "s5": {
     "kicker": "Wie es weitergeht",

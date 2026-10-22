@@ -23,6 +23,7 @@ import type {
   LwKante,
   LwStand,
   LwZoneKey,
+  PlanEintrag,
   Stufe,
   ThemenfeldKey,
 } from '@/types'
@@ -69,6 +70,12 @@ export function zonenFuer(kindKlasse: number): LwZoneKey[] {
   ]
 }
 
+/** Kommt noch: alle Plan-Einträge nach der aktuellen Position (vor der Grenze). Auch für die Schwerpunkte (R7-11). */
+export function kommtNoch(e: Pick<LernwegEingabe, 'plan' | 'themaKey' | 'datum'>): PlanEintrag[] {
+  const plan = e.plan?.eintraege ?? []
+  return plan.slice(aktuellePosition(plan, e.themaKey, e.datum) + 1)
+}
+
 const FELD_RANG = new Map(THEMENFELDER.map((f, i) => [f.key, i]))
 const standVon = (b: EbBereich): LwStand => (b.sicher ? 'sicher' : 'uebung')
 
@@ -94,8 +101,7 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
   for (const b of sortiert) inseln.get(inselFuer(zoneFuer(b.klasse, e.klasse), b.feld))!.direkt.push(b)
 
   // Kommt noch: die Plan-Einträge nach der aktuellen Position, höchstens grenzen.kommt.
-  const plan = e.plan?.eintraege ?? []
-  const nachher = plan.slice(aktuellePosition(plan, e.themaKey, e.datum) + 1)
+  const nachher = kommtNoch(e)
   const kommtKeys = nachher.slice(0, grenzen.kommt).map((p, i) => {
     const key = `kommt|${i}`
     inseln.set(key, { zone: 'kommt', feld: null, titel: p.titel, themaKey: p.themaKey, direkt: [], offen: [] })

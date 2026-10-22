@@ -1,6 +1,7 @@
 import { useRef, type CSSProperties, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { schwerpunktKey, schwerpunktTitel } from '@/components/edvance/elternbericht/liste'
 import { KURVE_PFAD, KURVE_PFEIL, KURVE_START, VIEWBOX, kurvenPunkte } from '@/lib/report/praesentation/kurve'
 import type { TpSchwerpunkt } from '@/types'
 
@@ -55,13 +56,12 @@ export function Kurve({ schwerpunkte, gewaehlt, onWahl, tabId, panelId }: KurveP
       <div className="tp-s4-punkte" role="tablist" aria-label={t('s4.punkteAria')}>
         {punkte.map((pt, i) => {
           const s = schwerpunkte[i]
-          const feldKey = s.feld
-          const feld = tb(`feld.${feldKey}`)
+          const feld = schwerpunktTitel(tb, s)
           const angabe = klassen(s.stufen)
           const an = i === gewaehlt
           return (
             <button
-              key={s.feld}
+              key={schwerpunktKey(s)}
               ref={(el) => {
                 knoepfe.current[i] = el
               }}

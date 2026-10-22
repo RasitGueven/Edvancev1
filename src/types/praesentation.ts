@@ -5,7 +5,7 @@
 // aufgeteilt. skillKey und Feldschlüssel werden nie gerendert, nur als React-key
 // und zum Nachschlagen in i18n.
 
-import type { EbBereich, EbeneKey, KopfFall, Lernweg, ThemenfeldKey } from './elternbericht'
+import type { EbAnliegen, EbBereich, EbeneKey, KopfFall, Lernweg, ThemenfeldKey } from './elternbericht'
 import type { Stufe } from './themen'
 
 /** Zählweise „übersprungen" (Entscheidung 4 der Anforderung). */
@@ -43,7 +43,10 @@ export type TpEbene = {
 }
 
 export type TpSchwerpunkt = {
-  feld: ThemenfeldKey
+  /** null beim Thema-Schwerpunkt (R7-11); dann steht das Thema in `thema`. */
+  feld: ThemenfeldKey | null
+  /** Label des Themas der LSA, nur beim Thema-Schwerpunkt (EbSchwerpunkt.thema). */
+  thema: string | null
   gemischt: boolean
   /** Stufen der Übungsbedarf-Bereiche des Felds (inkl. übersprungen), aufsteigend. */
   stufen: Stufe[]
@@ -104,4 +107,6 @@ export type PraesentationDaten = {
   schwerpunkte: TpSchwerpunkt[]
   danach: ThemenfeldKey[]
   empfehlung: TpEmpfehlung | null
+  /** „Ihr Anliegen“ wie auf Seite 1 (R7-11, anliegen.ts); null, wenn nichts zu sagen ist. */
+  anliegen: EbAnliegen | null
 }

@@ -5,13 +5,12 @@ import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import type { EbSchwerpunkt } from '@/types'
 
 import { Kurve } from './Kurve'
+import { baueListe, schwerpunktKey, schwerpunktTitel, type Liste } from './liste'
 import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
 
 /** Höchstens so viele Elterntexte im Fazit (Bauauftrag R7, Entscheidung 10). */
 const FAZIT_TEXTE = 2
-/** Bis zu so vielen Labels als Aufzählung, darüber „… und n weitere“. */
-const LISTE_VOLL = 3
 
 /**
  * Seite 4 des Eltern-Berichts R7: Lernplan als Kurve (Maßblatt E7, „Seite 4“).
@@ -31,13 +30,7 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
   const keine = anzahl === 0 ? satz.waehle('fazit', 'keine', data.sessionId) : null
   const zielbild = notes?.zielbild.trim() || null
 
-  const liste = (labels: readonly string[]): string =>
-    labels.length <= LISTE_VOLL
-      ? new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(labels)
-      : t('liste.weitere', {
-          liste: labels.slice(0, LISTE_VOLL).join(', '),
-          count: labels.length - LISTE_VOLL,
-        })
+  const liste = baueListe(t, i18n.language)
 
   return (
     <div
@@ -68,7 +61,7 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
         <ol className="eb-s4-liste" data-testid="eb-schwerpunkte">
           {schwerpunkte.map((s, i) => (
             <Schwerpunkt
-              key={s.feld}
+              key={schwerpunktKey(s)}
               schwerpunkt={s}
               liste={liste}
               danach={
@@ -142,17 +135,23 @@ function Schwerpunkt({
   danach,
 }: {
   schwerpunkt: EbSchwerpunkt
-  liste: (labels: readonly string[]) => string
+  liste: Liste
   danach: string | null
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
-  const { feld, sicher, uebung } = schwerpunkt
+  const { thema, sicher, uebung } = schwerpunkt
 
   return (
     <li className="eb-s4-punkt">
       <h3 className="eb-s4-punkt-titel">
         <span className="eb-s4-grund" aria-hidden="true" />
-        {t(`feld.${feld}`)}
+        {schwerpunktTitel(t, schwerpunkt)}
+        {/* Schild am Thema-Schwerpunkt (R7-11), nur mit Thema. */}
+        {thema && (
+          <span className="eb-s4-chip" data-testid="eb-s4-chip-thema">
+            {t('s4.chip.thema')}
+          </span>
+        )}
       </h3>
       <p className="eb-s4-punkt-text">
         {sicher.length > 0 && <>{t('s4.punkt.sicher', { liste: liste(sicher) })} </>}

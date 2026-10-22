@@ -5,7 +5,7 @@ import '@/i18n'
 
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
-import type { ReportBaustein, ReportData } from '@/types'
+import type { ReportBaustein, ReportData, Rueckbezug } from '@/types'
 
 function seite1(data: ReportData) {
   const { container } = render(
@@ -121,12 +121,11 @@ describe('Seite 1 — Auf einen Blick', () => {
 })
 
 describe('Seite 1 — Anliegen, Prüfweg und Weg', () => {
-  it('ilkay: Anliegen mit Genitiv, Thema, ein Rückbezug, Weg steht', () => {
+  it('ilkay: nur „Konzentration“ (überfachlich) → kein Anliegen-Kasten, kein Grenzsatz, Weg steht (R7-11)', () => {
     const s = seite1(FAELLE.ilkay.data)
-    const anliegen = s.getByTestId('eb-anliegen')
-    expect(anliegen).toHaveTextContent('Sie machen sich Sorgen um Ilkays Konzentration.')
-    expect(anliegen).toHaveTextContent('Als nächstes Thema steht Algebra & Funktionen an.')
-    expect(within(anliegen).getAllByRole('listitem')).toHaveLength(1)
+    expect(s.queryByTestId('eb-anliegen')).toBeNull()
+    expect(s.el).not.toHaveTextContent(/Konzentration/)
+    expect(s.getByTestId('eb-geprueft').parentElement).toHaveClass('eb-s1-kaesten-voll')
     expect(s.getByTestId('eb-geprueft')).toHaveTextContent(
       'Ausgehend vom Thema Terme und Gleichungen hat das System je nach Antwort die nächste Aufgabe gewählt. So wurden 27 Bereiche gezielt geprüft.',
     )
@@ -137,24 +136,60 @@ describe('Seite 1 — Anliegen, Prüfweg und Weg', () => {
     expect(s.getByTestId('eb-weg')).toHaveTextContent('Sie sind hier')
   })
 
-  it('ohneName: Anliegen ohne Namen, im Plural nach der Zahl der Punkte', () => {
-    const s = seite1(FAELLE.ohneName.data)
+  it('anliegenGemischt: nur „Noten“, mit Genitiv, Antwort Schwerpunkt 1 und nächstem Thema', () => {
+    const s = seite1(FAELLE.anliegenGemischt.data)
     expect(s.getByTestId('eb-anliegen')).toHaveTextContent(
-      'Sie sind zu uns gekommen, weil Sie Konzentration als Schwierigkeit sehen.',
+      'Sie machen sich Sorgen um Ilkays Noten. Dort setzen wir zuerst an: Geometrie. Als nächstes Thema steht Algebra & Funktionen an.',
     )
-    const zwei = seite1({
-      ...FAELLE.ohneName.data,
-      erzaehlung: { ...FAELLE.ohneName.data.erzaehlung, anlassNamen: ['Konzentration', 'Rechenwege'] },
-    })
-    expect(zwei.getByTestId('eb-anliegen')).toHaveTextContent(
-      'weil Sie Konzentration und Rechenwege als Schwierigkeiten sehen.',
+    expect(s.el).not.toHaveTextContent(/Konzentration/)
+  })
+
+  it('ohneName: fachliche Anliegen ohne Namen, im Plural nach der Zahl der Punkte', () => {
+    const mit = (anlassNamen: string[]) =>
+      seite1({ ...FAELLE.ohneName.data, erzaehlung: { ...FAELLE.ohneName.data.erzaehlung, anlassNamen } })
+    expect(mit(['Rechenwege', 'Konzentration']).getByTestId('eb-anliegen')).toHaveTextContent(
+      'Sie sind zu uns gekommen, weil Sie Rechenwege als Schwierigkeit sehen.',
+    )
+    expect(mit(['Textverständnis', 'Rechenwege']).getByTestId('eb-anliegen')).toHaveTextContent(
+      'weil Sie Textverständnis und Rechenwege als Schwierigkeiten sehen.',
     )
   })
 
-  it('vieleRueckbezuege: vier Rückbezüge, der Weg entfällt', () => {
-    const s = seite1(FAELLE.vieleRueckbezuege.data)
-    expect(within(s.getByTestId('eb-anliegen')).getAllByRole('listitem')).toHaveLength(4)
-    expect(s.queryByTestId('eb-weg')).toBeNull()
+  it('abgestuft: Frage und Antwort zum Thema, ohne gebeugte Bereichsnamen, kein Schwerpunkt-Satz', () => {
+    const s = seite1(FAELLE.abgestuft.data)
+    expect(s.getByTestId('eb-anliegen')).toHaveTextContent(
+      'Ihr Anlass: Reelle Zahlen. Dort hakt es: Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen.',
+    )
+    expect(s.getByTestId('eb-anliegen')).not.toHaveTextContent('Dort setzen wir zuerst an')
+    expect(seite1(FAELLE.abgestuftThemaSicher.data).getByTestId('eb-anliegen')).toHaveTextContent(
+      'Ihr Anlass: Reelle Zahlen. Was wir dazu geprüft haben, sitzt.',
+    )
+  })
+
+  it('Rückbezüge nur zu fachlichen Anliegen und nur die, die antworten (R7-11, Entscheidung 14)', () => {
+    const { data } = FAELLE.vieleRueckbezuege
+    const rb = (thema: string, fall: string, richtung: Rueckbezug['richtung']): Rueckbezug => ({
+      thema,
+      fall,
+      richtung,
+      belege: 2,
+    })
+    const s = seite1({
+      ...data,
+      erzaehlung: {
+        ...data.erzaehlung,
+        rueckbezuege: [
+          rb('Konzentration', 'konzentration_nicht_messbar', 'nicht_messbar'),
+          rb('Rechenwege', 'rechenwege_bestaetigend', 'bestaetigend'),
+          rb('Textverständnis', 'textverstaendnis_offen', 'offen'),
+          rb('Grundlagen fehlen', 'grundlagen_entlastend_schmal', 'entlastend'),
+        ],
+      },
+    })
+    const eintraege = within(s.getByTestId('eb-anliegen')).getAllByRole('listitem')
+    expect(eintraege).toHaveLength(1)
+    expect(eintraege[0]).toHaveTextContent(/Rechenweg/)
+    expect(s.getByTestId('eb-weg')).toBeInTheDocument()
   })
 
   it('ohne Anlass, Thema und Rückbezug entfällt der linke Kasten', () => {

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
+import { schwerpunktKey, schwerpunktTitel } from '@/components/edvance/elternbericht/liste'
 import type { TpSchwerpunkt } from '@/types'
 
 import { useKlassen } from './useKlassen'
@@ -36,7 +37,6 @@ export function Foerderfokus({ s, id, tabId }: { s: TpSchwerpunkt; id: string; t
   const { t } = useTranslation('praesentation')
   const { t: tb } = useTranslation('elternbericht')
   const klassen = useKlassen()
-  const feldKey = s.feld
   return (
     <div
       className="tp-s4-fokus"
@@ -47,12 +47,18 @@ export function Foerderfokus({ s, id, tabId }: { s: TpSchwerpunkt; id: string; t
       data-tp-beschriftung=""
     >
       {/* key: beim Wechsel blendet der Inhalt neu ein wie im Dummy. */}
-      <div key={s.feld} className="tp-s4-fokus-inhalt">
+      <div key={schwerpunktKey(s)} className="tp-s4-fokus-inhalt">
         <div className="tp-s4-fokus-kopf">
           <span className="tp-etikett">{t('s4.fokus')}</span>
+          {/* Schild am Thema-Schwerpunkt wie auf Seite 4 (R7-11). */}
+          {s.thema && (
+            <span className="tp-s4-chip" data-testid="tp-s4-chip-thema">
+              {tb('s4.chip.thema')}
+            </span>
+          )}
           <span className="tp-s4-pille">{t('s4.stoffAus', { klassen: klassen(s.stufen) })}</span>
         </div>
-        <h3>{tb(`feld.${feldKey}`)}</h3>
+        <h3>{schwerpunktTitel(tb, s)}</h3>
         <div className="tp-s4-kaesten">
           <Kasten art="sicher" titel={t('s4.sicher')} labels={s.sicher} leer={t('s4.keinSicher')} />
           <Kasten art="ueben" titel={t('s4.ueben')} labels={s.uebung} leer="" />

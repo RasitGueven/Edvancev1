@@ -13,7 +13,7 @@ import { ILKAY_ROH } from '@/lib/report/elternbericht/fixtures/ilkay'
 import { FWG_NAME, FWG_PLAN } from '@/lib/report/elternbericht/fixtures/plaene'
 import { schulPlan } from '@/lib/report/elternbericht/plan'
 import { themenraumFuer } from '@/lib/report/themenraum'
-import type { ReportData } from '@/types'
+import type { ReportData, SucheSkill } from '@/types'
 
 /** Themenraum „Reelle Zahlen“: 3 Einstiege, 11 darunter. */
 const RAUM = themenraumFuer({
@@ -40,7 +40,8 @@ const RAUM = themenraumFuer({
   kanten: [],
 })
 
-const fall = (id: string, aenderung: Partial<SitzungRoh>): ReportData =>
+/** Eine Sitzung wie Batu (Klasse 9, Thema Reelle Zahlen, FWG-Plan); auch für die Fälle aus R7-11. */
+export const fall = (id: string, aenderung: Partial<SitzungRoh>): ReportData =>
   datenAus({
     ...ILKAY_ROH,
     sessionId: `00000000-0000-4000-8000-0000000000${id}`,
@@ -55,23 +56,26 @@ const fall = (id: string, aenderung: Partial<SitzungRoh>): ReportData =>
     ...aenderung,
   })
 
+/** Die zwölf direkten Urteile von 6220b7e8 (Batu). */
+export const ABGESTUFT_URTEILE: readonly SucheSkill[] = [
+  u('bruch_dezimal', 'Bruch in Dezimalzahl', 4, 6, 'traegt', 1, false),
+  u('geo_flaeche_drachen_raute', 'Flächeninhalt von Drachen und Raute', 5, 8, 'traegt_nicht', 2, false),
+  u('geo_flaeche_term', 'Terme für Flächeninhalte', 6, 8, 'traegt_teilweise', 2, false),
+  u('geo_winkel_thales', 'Satz des Thales (Winkel berechnen)', 5, 8, 'traegt_nicht', 2, false),
+  u('gleichung_lgs_addition', 'Additionsverfahren', 8, 8, 'traegt_nicht', 2, false),
+  u('gleichung_lgs_einsetzen', 'Einsetzungsverfahren', 7, 8, 'traegt', 1, false),
+  u('gleichung_lgs_grafisch', 'LGS grafisch lösen (Schnittpunkt)', 8, 8, 'traegt', 1, false),
+  u('stoch_pfad_summe', 'Mehrstufige Zufallsexperimente: Summenregel', 7, 8, 'traegt_nicht', 2, false),
+  u('zahl_wurzel_gesetze', 'Wurzelgesetze für Produkt und Quotient', 6, 9, 'traegt_teilweise', 2, false),
+  u('zahl_wurzel_irrational', 'Rationale und irrationale Zahlen', 6, 9, 'traegt_nicht', 2, false),
+  u('zahl_wurzel_naeherung', 'Wurzeln abschätzen und Näherungswerte', 6, 9, 'traegt', 1, false),
+  u('zahl_wurzel_teilweise', 'Teilweise die Wurzel ziehen', 7, 9, 'traegt_nicht', 2, false),
+]
+
 /** Wie 6220b7e8: 5 direkt im Raum, 7 außerhalb, 9 abgeleitet im Raum, offen 0. */
 export const abgestuft = fall('30', {
   analysedAt: '2026-10-18T14:05:00.000Z',
-  urteile: [
-    u('bruch_dezimal', 'Bruch in Dezimalzahl', 4, 6, 'traegt', 1, false),
-    u('geo_flaeche_drachen_raute', 'Flächeninhalt von Drachen und Raute', 5, 8, 'traegt_nicht', 2, false),
-    u('geo_flaeche_term', 'Terme für Flächeninhalte', 6, 8, 'traegt_teilweise', 2, false),
-    u('geo_winkel_thales', 'Satz des Thales (Winkel berechnen)', 5, 8, 'traegt_nicht', 2, false),
-    u('gleichung_lgs_addition', 'Additionsverfahren', 8, 8, 'traegt_nicht', 2, false),
-    u('gleichung_lgs_einsetzen', 'Einsetzungsverfahren', 7, 8, 'traegt', 1, false),
-    u('gleichung_lgs_grafisch', 'LGS grafisch lösen (Schnittpunkt)', 8, 8, 'traegt', 1, false),
-    u('stoch_pfad_summe', 'Mehrstufige Zufallsexperimente: Summenregel', 7, 8, 'traegt_nicht', 2, false),
-    u('zahl_wurzel_gesetze', 'Wurzelgesetze für Produkt und Quotient', 6, 9, 'traegt_teilweise', 2, false),
-    u('zahl_wurzel_irrational', 'Rationale und irrationale Zahlen', 6, 9, 'traegt_nicht', 2, false),
-    u('zahl_wurzel_naeherung', 'Wurzeln abschätzen und Näherungswerte', 6, 9, 'traegt', 1, false),
-    u('zahl_wurzel_teilweise', 'Teilweise die Wurzel ziehen', 7, 9, 'traegt_nicht', 2, false),
-  ],
+  urteile: ABGESTUFT_URTEILE,
   abgeleitet: [
     // im Raum (9)
     'bruch_kuerzen',

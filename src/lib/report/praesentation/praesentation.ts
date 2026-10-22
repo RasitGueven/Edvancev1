@@ -5,7 +5,9 @@
 // „danach". Die Präsentation teilt diese Werte nur nach „übersprungen" auf
 // (zustand 'nicht_angesetzt', auch vorläufig) und zählt nie selbst gegen den
 // Katalog. Neu gerechnet werden nur Überblick, Empfehlung und Kurvenpunkte.
+// Schwerpunkte und Anliegen kommen aus schwerpunkte.ts und anliegen.ts (R7-11).
 
+import { anliegenAus } from '@/lib/report/elternbericht/anliegen'
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import { bereicheAus } from '@/lib/report/elternbericht/bereiche'
 import { genitiv } from '@/lib/report/elternbericht/genitiv'
@@ -87,13 +89,18 @@ function pyramideAus(bericht: Elternbericht, ueber: Set<string>): TpEbene[] {
   })
 }
 
+/** Genau die Schwerpunkte aus schwerpunkte.ts (R7-11, Entscheidung 6), nur um die Stufen ergänzt. */
 function schwerpunkteAus(bericht: Elternbericht, bereiche: EbBereich[]): TpSchwerpunkt[] {
   return bericht.schwerpunkte.map((s) => {
-    const stufen = new Set(
-      bereiche.filter((b) => b.feld === s.feld && !b.sicher).map((b) => stufeAusKlasse(b.klasse)),
-    )
+    // Thema: die Bereiche mit Übungsbedarf des Schwerpunkts; Feld: wie bisher.
+    const labels = new Set(s.uebung)
+    const drin = s.feld
+      ? bereiche.filter((b) => b.feld === s.feld && !b.sicher)
+      : bereiche.filter((b) => labels.has(b.label))
+    const stufen = new Set(drin.map((b) => stufeAusKlasse(b.klasse)))
     return {
       feld: s.feld,
+      thema: s.thema,
       gemischt: s.gemischt,
       stufen: STUFEN.filter((st) => stufen.has(st)),
       sicher: [...s.sicher],
@@ -146,6 +153,12 @@ export function bauePraesentation({
     schwerpunkte: schwerpunkteAus(bericht, bereiche),
     danach: [...bericht.danach],
     empfehlung: empfehlungAus(notes?.paket ?? null, tiers),
+    anliegen: anliegenAus({
+      anlassNamen: data.erzaehlung.anlassNamen,
+      naechstesThema: data.naechstesThema,
+      schwerpunkte: bericht.schwerpunkte,
+      thema: bericht.thema,
+    }),
   }
 }
 
