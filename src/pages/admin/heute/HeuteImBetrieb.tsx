@@ -71,6 +71,12 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
         sortier: zeitpunkt ? new Date(zeitpunkt).getTime() : Number.MAX_SAFE_INTEGER,
         titel: l.first_name ?? '—',
         unterzeile: t('heute.betrieb.lsaMeta', { klasse: l.grade, fach: l.subject }),
+        // LSA-R2: laufende LSA, die gerade durchgeklickt wird (listTodaysLsaSessions).
+        marke: l.schnell ? (
+          <span title={t('heute.betrieb.schnellTitel')}>
+            <EdvanceBadge variant="warning">{t('heute.betrieb.schnell')}</EdvanceBadge>
+          </span>
+        ) : undefined,
         rechts: <EdvanceBadge variant="primary">{t('heute.betrieb.lsa')}</EdvanceBadge>,
       }
     }),

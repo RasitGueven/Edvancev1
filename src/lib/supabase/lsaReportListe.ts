@@ -5,8 +5,11 @@
 //   students     — ist_test des Kindes (über lsa_sessions.student_id)
 //   themen       — label über thema_key
 //   lsa_lead_kontext (RPC, über loadNames) — Rufname
+//   lsa_sessions.auswertbar (über loadNichtAuswertbar, LSA-R2) — eigene Abfrage,
+//                  damit die Liste ohne die Migration weiter lädt
 
 import { supabase } from '@/lib/supabase/client'
+import { loadNichtAuswertbar } from '@/lib/supabase/lsaDurchklick'
 import { loadNames } from '@/lib/supabase/lsaReport'
 import type { SupabaseResult } from '@/types'
 import type { LsaReportListItem } from '@/types/report'
@@ -43,6 +46,7 @@ export async function listLsaReports(): Promise<SupabaseResult<LsaReportListItem
 
     // Ohne Rufname bleibt das Kind in der Liste (first_name null).
     const names = await loadNames([...new Set(rows.map((r) => r.student_id))])
+    const nichtAuswertbar = await loadNichtAuswertbar()
 
     const liste = rows.map((r) => ({
       session_id: r.id,
@@ -55,6 +59,8 @@ export async function listLsaReports(): Promise<SupabaseResult<LsaReportListItem
       modus: r.modus,
       thema_key: r.thema_key,
       thema_label: r.themen?.label?.trim() || null,
+      auswertbar: !nichtAuswertbar.has(r.id),
+      nicht_auswertbar_grund: nichtAuswertbar.get(r.id) ?? null,
     }))
     // Neueste oben — auch, falls der Server die Reihenfolge nicht hält.
     liste.sort((a, b) => b.completed_at.localeCompare(a.completed_at))

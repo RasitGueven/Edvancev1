@@ -81,6 +81,24 @@ export function LeadsPage(): JSX.Element {
     }, { replace: true })
   }, [params, setParams])
 
+  // „LSA wiederholen“ aus dem Report (/admin/leads?lead=<id>, LSA-R2): den Lead
+  // im Erstgespraech oeffnen, wo „LSA freigeben“ steht. Erst wenn die Leads da
+  // sind; danach faellt der Parameter weg.
+  useEffect(() => {
+    const id = params.get('lead')
+    if (!id || loading) return
+    const lead = leads.find((l) => l.id === id)
+    if (lead) {
+      setShowForm(false)
+      setEditingStep(1)
+      setEditingLead(lead)
+    }
+    setParams((p) => {
+      p.delete('lead')
+      return p
+    }, { replace: true })
+  }, [params, setParams, leads, loading])
+
   // Termin speichern. Aus Spalte 1 wechselt der Lead erst jetzt nach
   // "Termin vereinbart"; spaeter aendert es nur den Termin.
   const saveTermin = async (lead: Lead, termin: TerminInput): Promise<void> => {

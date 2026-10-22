@@ -20,6 +20,31 @@ import type { SucheSkill, Suchweg, Themenraum } from '@/types/reportSuche'
 
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
 
+/**
+ * Durchklicken (LSA-R2): der Stand aus lsa_durchklick_stand. Eine Antwort ist
+ * eine Aufgabe; „schnell falsch“ = unter schwellen.schnell_ms und falsch.
+ * Gespeichert als lsa_sessions.nicht_auswertbar_grund und
+ * result_summary.durchklick.
+ */
+export type DurchklickStand = {
+  antworten: number
+  schnell_falsch: number
+  /** 0–1, zwei Nachkommastellen. */
+  anteil_schnell_falsch: number
+  folge_schnell_falsch_max: number
+  /** Schnelle Abgaben am Ende, richtig oder falsch, ohne „Weiß ich nicht“. */
+  folge_schnell_aktuell: number
+  nicht_auswertbar: boolean
+  grund: 'folge' | 'anteil' | null
+  schwellen?: {
+    schnell_ms: number
+    folge: number
+    anteil: number
+    min_antworten: number
+    hinweis_folge: number
+  }
+}
+
 // Ein Eintrag der Fertig-Liste (heutige Analysen).
 export type LsaSessionListItem = {
   session_id: string
@@ -31,6 +56,11 @@ export type LsaSessionListItem = {
   completed_at: string | null
   answered: number
   planned: number
+  /**
+   * LSA-R2: nur laufende Sitzungen — nicht auswertbar oder gerade schnell
+   * (lsa_durchklick_stand). Fehlt, solange die Funktion nicht eingespielt ist.
+   */
+  schnell?: boolean
 }
 
 // Eine Zeile der Liste „LSA-Reports“ (LR-1): nur abgeschlossene Sitzungen.
@@ -47,6 +77,9 @@ export type LsaReportListItem = {
   thema_key: string | null
   /** themen.label über thema_key; null, wenn es fehlt. */
   thema_label: string | null
+  /** LSA-R2. Fehlt (vor der Migration) = auswertbar. */
+  auswertbar?: boolean
+  nicht_auswertbar_grund?: DurchklickStand | null
 }
 
 // Die beim Lead erfasste Eltern-Einschätzung (lead_assessments, source='parent').
@@ -197,6 +230,15 @@ export type ReportData = {
    * null bei Fehler, RLS oder leerem Feld — dann entfällt die Schulform.
    */
   schulform: string | null
+  /**
+   * LSA-R2: false, wenn lsa_finish die Sitzung als durchgeklickt markiert hat.
+   * Fehlt (vor der Migration) = auswertbar.
+   */
+  auswertbar?: boolean
+  /** Der Stand beim Abschluss, nur bei auswertbar = false. */
+  nichtAuswertbarGrund?: DurchklickStand | null
+  /** Der Lead der Sitzung (lsa_lead_kontext) — Ziel von „LSA wiederholen“. */
+  leadId?: string | null
 }
 
 /**

@@ -11,6 +11,12 @@ let filter: [string, unknown][] = []
 let sortierung: unknown[] = []
 let auswahl = ''
 let rufnamen: Record<string, string | null> = {}
+let nichtAuswertbar = new Map<string, unknown>()
+
+// LSA-R2: eigene Abfrage, hier nur ihr Ergebnis.
+vi.mock('@/lib/supabase/lsaDurchklick', () => ({
+  loadNichtAuswertbar: () => Promise.resolve(nichtAuswertbar),
+}))
 
 vi.mock('@/lib/supabase/client', () => {
   const q = {
@@ -56,6 +62,7 @@ beforeEach(() => {
   sortierung = []
   auswahl = ''
   rufnamen = {}
+  nichtAuswertbar = new Map()
 })
 
 describe('listLsaReports', () => {
@@ -99,6 +106,17 @@ describe('listLsaReports', () => {
     const res = await listLsaReports()
     const nach = Object.fromEntries((res.data ?? []).map((z) => [z.session_id, z.thema_label]))
     expect(nach).toEqual({ mit: 'ZZ_Binomische Formeln', ohneLabel: null, ohne: null })
+  })
+
+  it('kennzeichnet nicht auswertbare LSAs mit Grund, alle anderen sind auswertbar (LSA-R2)', async () => {
+    zeilen = [zeile('klick'), zeile('ruhig')]
+    const grund = { grund: 'folge', folge_schnell_falsch_max: 5 }
+    nichtAuswertbar = new Map([['klick', grund]])
+    const res = await listLsaReports()
+    const nach = Object.fromEntries(
+      (res.data ?? []).map((z) => [z.session_id, [z.auswertbar, z.nicht_auswertbar_grund]]),
+    )
+    expect(nach).toEqual({ klick: [false, grund], ruhig: [true, null] })
   })
 
   it('behält Kinder ohne Rufnamen', async () => {

@@ -113,7 +113,9 @@
         "ohneCoach": "Kein Coach eingeteilt",
         "zumTermin": "Zum Termin",
         "leer": "Noch keine Kinder"
-      }
+      },
+      "schnell": "schnell",
+      "schnellTitel": "Antwortet gerade sehr schnell oder ist schon nicht mehr auswertbar"
     },
     "offeneSessions": {
       "titel": "Offen geblieben",
@@ -473,14 +475,31 @@
     },
     "kennzeichen": {
       "testlauf": "Testlauf",
-      "testkonto": "Testkonto"
+      "testkonto": "Testkonto",
+      "nichtAuswertbar": "Nicht auswertbar"
     },
     "aktion": {
       "praesentation": "Präsentation",
       "pdf": "PDF",
       "praesentationFuer": "Präsentation für {{name}} öffnen",
       "pdfFuer": "Report von {{name}} als PDF sichern",
-      "bogenFuer": "Report von {{name}} öffnen"
+      "bogenFuer": "Report von {{name}} öffnen",
+      "praesentationGesperrt": "Nicht auswertbar: {{grund}}. Die Präsentation bleibt geschlossen."
+    }
+  },
+  "durchklick": {
+    "grund": {
+      "folge": "{{folge}} Aufgaben in Folge in unter {{sekunden}} s falsch beantwortet",
+      "anteil": "{{anteil}} der Antworten in unter {{sekunden}} s und falsch",
+      "unbekannt": "viele Aufgaben in sehr kurzer Zeit beantwortet"
+    },
+    "balken": {
+      "titel": "Diese LSA ist nicht auswertbar",
+      "text": "Grund: {{grund}}. Die Eltern sehen nur den Hinweis unten, keine Ergebnisse.",
+      "kennzahlen": "Antworten {{antworten}} · schnell falsch {{schnellFalsch}} ({{anteil}}) · längste Folge {{folge}}",
+      "wiederholen": "LSA wiederholen",
+      "nurAdmin": "Eine neue LSA gibt nur die Verwaltung frei.",
+      "ohneLead": "Zu dieser LSA gibt es keinen Lead, über den sich eine neue LSA freigeben ließe."
     }
   }
 }

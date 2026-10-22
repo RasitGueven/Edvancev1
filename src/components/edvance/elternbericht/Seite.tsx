@@ -11,6 +11,9 @@ import { SEITEN_GESAMT } from './seitenProps'
  * genau dort, wo das Muster sie hat, und Text steht auf seiner Grundlinie —
  * unabhängig von Zeilenhöhen. Der Inhalt läuft in `.eb-inhalt` zwischen der
  * Kopflinie (y 78) und y 800.
+ *
+ * `gesamt` nur für einen Bogen mit anderer Seitenzahl (die Seite „nicht
+ * auswertbar“, LSA-R2): Fuß „1 / 1“, ohne die Navigationspunkte.
  */
 
 // Mikro-Navigation: fünf Punkte auf einer Linie (Maßblatt, Kopf).
@@ -20,11 +23,13 @@ const NAV_R = 3.4
 
 export function Seite({
   nummer,
+  gesamt = SEITEN_GESAMT,
   testlauf,
   name,
   children,
 }: {
   nummer: number
+  gesamt?: number
   testlauf: boolean
   name: string | null
   children: ReactNode
@@ -51,10 +56,10 @@ export function Seite({
             </text>
           </g>
         )}
-        {NAV_X.slice(1).map((x, i) => (
+        {gesamt === SEITEN_GESAMT && NAV_X.slice(1).map((x, i) => (
           <line key={x} className="eb-nav-linie" x1={NAV_X[i]} y1={NAV_Y} x2={x} y2={NAV_Y} />
         ))}
-        {NAV_X.map((x, i) => (
+        {gesamt === SEITEN_GESAMT && NAV_X.map((x, i) => (
           <circle
             key={x}
             className={i + 1 === nummer ? 'eb-nav-punkt eb-nav-punkt-aktiv' : 'eb-nav-punkt'}
@@ -75,7 +80,7 @@ export function Seite({
           {name ? t('rahmen.fuss', { name }) : t('rahmen.fussOhneName')}
         </text>
         <text className="eb-fuss-text eb-fuss-seite" x="551" y="828.1">
-          {t('rahmen.seite', { seite: nummer, gesamt: SEITEN_GESAMT })}
+          {t('rahmen.seite', { seite: nummer, gesamt })}
         </text>
       </svg>
     </section>

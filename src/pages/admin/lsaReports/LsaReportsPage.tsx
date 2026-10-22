@@ -9,11 +9,15 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { listLsaReports } from '@/lib/supabase/lsaReportListe'
 import type { LsaReportListItem } from '@/types/report'
+import { durchklickGrund } from './durchklickGrund'
 
 /**
  * Menüpunkt „LSA-Reports“ (Bauauftrag LR-1): alle abgeschlossenen LSAs, neueste
  * oben. Je Zeile öffnet der Name den Bogen, „Präsentation“ die Tablet-Ansicht
  * und „PDF“ den Druckdialog des Bogens (ReportPage, ?aktion=pdf).
+ *
+ * Eine durchgeklickte LSA (LSA-R2) trägt das Kennzeichen „Nicht auswertbar“;
+ * ihre Präsentation ist gesperrt, der Tooltip nennt den Grund.
  */
 export function LsaReportsPage(): JSX.Element {
   const { t, i18n } = useTranslation('admin')
@@ -76,12 +80,18 @@ export function LsaReportsPage(): JSX.Element {
     {
       key: 'kennzeichen',
       kopf: t('lsaReports.spalte.kennzeichen'),
-      zelle: (z) =>
-        z.testlauf ? (
-          <EdvanceBadge variant="warning">{t('lsaReports.kennzeichen.testlauf')}</EdvanceBadge>
-        ) : z.ist_test ? (
-          <EdvanceBadge variant="muted">{t('lsaReports.kennzeichen.testkonto')}</EdvanceBadge>
-        ) : null,
+      zelle: (z) => (
+        <span className="flex flex-wrap gap-2">
+          {z.auswertbar === false && (
+            <EdvanceBadge variant="warning">{t('lsaReports.kennzeichen.nichtAuswertbar')}</EdvanceBadge>
+          )}
+          {z.testlauf ? (
+            <EdvanceBadge variant="warning">{t('lsaReports.kennzeichen.testlauf')}</EdvanceBadge>
+          ) : z.ist_test ? (
+            <EdvanceBadge variant="muted">{t('lsaReports.kennzeichen.testkonto')}</EdvanceBadge>
+          ) : null}
+        </span>
+      ),
     },
     {
       key: 'aktionen',
@@ -89,15 +99,30 @@ export function LsaReportsPage(): JSX.Element {
       zelle: (z) => (
         // Quer nebeneinander, im Hochformat untereinander in gleicher Breite.
         <span className="flex flex-col gap-2 lg:flex-row">
-          <Button asChild variant="primary" className="px-3">
-            <Link
-              to={`/admin/report/${z.session_id}?ansicht=praesentation`}
-              aria-label={t('lsaReports.aktion.praesentationFuer', { name: name(z) })}
+          {z.auswertbar === false ? (
+            // Der Tooltip sitzt an der Hülle: ein deaktivierter Knopf meldet kein Hover.
+            <span
+              className="inline-flex"
+              title={t('lsaReports.aktion.praesentationGesperrt', {
+                grund: durchklickGrund(t, i18n.language, z.nicht_auswertbar_grund),
+              })}
             >
-              <Presentation className="h-4 w-4" aria-hidden />
-              {t('lsaReports.aktion.praesentation')}
-            </Link>
-          </Button>
+              <Button type="button" variant="primary" className="w-full px-3" disabled>
+                <Presentation className="h-4 w-4" aria-hidden />
+                {t('lsaReports.aktion.praesentation')}
+              </Button>
+            </span>
+          ) : (
+            <Button asChild variant="primary" className="px-3">
+              <Link
+                to={`/admin/report/${z.session_id}?ansicht=praesentation`}
+                aria-label={t('lsaReports.aktion.praesentationFuer', { name: name(z) })}
+              >
+                <Presentation className="h-4 w-4" aria-hidden />
+                {t('lsaReports.aktion.praesentation')}
+              </Link>
+            </Button>
+          )}
           <Button asChild variant="secondary" className="px-3">
             <Link
               to={`/admin/report/${z.session_id}?aktion=pdf`}

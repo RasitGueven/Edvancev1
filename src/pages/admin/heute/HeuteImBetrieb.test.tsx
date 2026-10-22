@@ -78,3 +78,22 @@ describe('HeuteImBetrieb – Aktion je Zeile (S3)', () => {
     expect(screen.queryByTestId('ort')).toBeNull()
   })
 })
+
+describe('HeuteImBetrieb – laufende LSA „schnell“ (LSA-R2)', () => {
+  it('Badge „schnell“ nur an der LSA, die listTodaysLsaSessions als schnell meldet', () => {
+    const lsa = (id: string, name: string, schnell: boolean) => ({
+      session_id: id, first_name: name, grade: 8, subject: 'Mathematik', status: 'in_progress' as const,
+      started_at: '2026-10-15T09:00:00Z', completed_at: null, answered: 3, planned: 0, schnell,
+    })
+    render(
+      <MemoryRouter>
+        <HeuteImBetrieb tag={null} lsa={[lsa('l1', 'ZZ_Tim', true), lsa('l2', 'ZZ_Ida', false)]} />
+      </MemoryRouter>,
+    )
+    const tim = screen.getByText('ZZ_Tim').closest('li') as HTMLElement
+    expect(within(tim).getByText('schnell').closest('[title]')?.getAttribute('title')).toBe(
+      'Antwortet gerade sehr schnell oder ist schon nicht mehr auswertbar',
+    )
+    expect(within(screen.getByText('ZZ_Ida').closest('li') as HTMLElement).queryByText('schnell')).toBeNull()
+  })
+})
