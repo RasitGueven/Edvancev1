@@ -34,7 +34,7 @@ import { leseUebersprungen, merkeUebersprungen, vergissUebersprungen } from './u
 import { usePruefSitzung } from './usePruefSitzung'
 import { bereichDerAufgabe, bereichsBoard, leseBereich } from './bereich'
 import { useTasten } from './useTasten'
-import { usePruefLauf } from './usePruefLauf'
+import { ladeMc, usePruefLauf } from './usePruefLauf'
 
 const NICHT_IM_BOARD = ['vera8', 'inaktiv', 'typ']
 
@@ -53,6 +53,7 @@ export function PruefansichtPage(): JSX.Element {
   const ohneSoll = params.get('ohneSoll') === '1'
   const lauf = usePruefLauf(bereich)
   const [wechsel, setWechsel] = useState<Wechsel | null>(null)
+  const [mc, setMc] = useState<Set<string> | null>(null)
   const [fehlbilder, setFehlbilder] = useState<Fehlbild[]>([])
   const [grundPflicht, setGrundPflicht] = useState(false)
   const [panel, setPanel] = useState<Panel>(null)
@@ -62,7 +63,11 @@ export function PruefansichtPage(): JSX.Element {
   const [meldung, setMeldung] = useState<{ text: string; rueckgaengig?: () => void } | null>(null)
 
   useEffect(() => {
-    void getPruefBoard().then((r) => r.data && setBoard(r.data))
+    void getPruefBoard().then((r) => {
+      if (!r.data) return
+      setBoard(r.data)
+      void ladeMc(r.data).then(setMc)
+    })
     void getFehlbilder().then((r) => r.data && setFehlbilder(r.data))
     void getPruefEinstellungen().then((r) => setGrundPflicht(r.data?.grund_pflicht ?? false))
   }, [])
@@ -106,7 +111,7 @@ export function PruefansichtPage(): JSX.Element {
   /** Naechster Schritt im Lauf: im Thema sofort weiter, beim Themen- oder Stufenwechsel erst das Zwischenbild. */
   const weiterNach = (b: PruefBoardZeile[], id: string, skip: string[], soll = lauf.soll): void => {
     const imBereich = bereichsBoard(b, bereich)
-    const schritt = naechsteNoetige(imBereich, soll, id, skip, { stufen: bereich === 'lsa', ohneSoll })
+    const schritt = naechsteNoetige(imBereich, soll, id, skip, { stufen: bereich === 'lsa', ohneSoll, mc })
     const von = imBereich.find((z) => z.task_id === id)
     const nach = imBereich.find((z) => z.task_id === schritt.taskId)
     if ((schritt.grund === 'themenwechsel' || schritt.grund === 'stufenwechsel') && von && nach && soll) {

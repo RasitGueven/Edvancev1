@@ -15,6 +15,7 @@ vi.mock('@/lib/supabase/pruefung', () => ({
   getPruefAufgabe: vi.fn(),
   getPruefBoard: vi.fn(),
   getPruefSoll: vi.fn(),
+  getAufgabenTypen: vi.fn().mockResolvedValue({ data: {}, error: null }),
   getFehlbilder: vi.fn(),
   getPruefEinstellungen: vi.fn(),
   pruefSpeichern: vi.fn(),
