@@ -1,30 +1,72 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
   legendeFuer,
   useLernwegTexte,
 } from "@/components/edvance/elternbericht/lernwegTexte";
+import { kette } from "@/lib/report/praesentation/kette";
 import type { Lernweg } from "@/types";
 
 import { Kicker } from "./Kicker";
+import { Lernkette } from "./Lernkette";
 import { LernwegBuehne } from "./LernwegBuehne";
 import type { StationProps } from "./stationProps";
 import { useLernwegFahrt } from "./useLernwegFahrt";
 
 /**
- * Station 03 · Lernweg (R7-9, Entscheidung 19): derselbe Lernweg wie Seite 3
- * des Berichts (p.lernweg), als waagrechte Bühne, die sich beim ersten
- * Betreten Bereich für Bereich aufbaut. Kopf und Legende wie im Prototyp
- * Version 7; die Legende mit denselben Texten wie der Druck.
+ * Station 03 · Lernweg (R7-9, Entscheidung 19; PS-1 Entscheidungen 10–15):
+ * zuerst die Kette „Der Weg zum Thema" (Lernkette). „Ganzen Lernweg zeigen"
+ * öffnet in derselben Station die volle Karte wie Seite 3 des Berichts
+ * (p.lernweg) als waagrechte Bühne mit Fahrt, „Zurück zum Weg" schließt sie.
+ * Ohne Kette (kein Schwerpunkt, kein Thema) steht die volle Karte wie bisher.
  */
 export function Station3({ p }: StationProps): JSX.Element {
   const { t } = useTranslation("praesentation");
   const { t: tb } = useTranslation("elternbericht");
+  const k = useMemo(() => kette(p), [p]);
+  const [ganz, setGanz] = useState(false);
+  const [zurueck, setZurueck] = useState(false);
+  const titelId = useId();
+  const knopf = useRef<HTMLButtonElement>(null);
+  const umgeschaltet = useRef(false);
+
+  // Nach dem Umschalten bekommt der Knopf der anderen Ansicht den Fokus.
+  useEffect(() => {
+    if (umgeschaltet.current) knopf.current?.focus({ preventScroll: true });
+  }, [ganz]);
+
+  const umschalten = (): void => {
+    umgeschaltet.current = true;
+    if (ganz) setZurueck(true);
+    setGanz((g) => !g);
+  };
+
+  const zeigeKette = k && !ganz;
   return (
-    <div className="tp-szene tp-s3">
-      <Kicker nummer={3}>{t("s3.kicker")}</Kicker>
-      {p.lernweg ? (
+    <div className={zeigeKette ? "tp-szene tp-s3 tp-s3-mit-kette" : "tp-szene tp-s3"}>
+      <div className="tp-s3-kopfreihe">
+        <Kicker nummer={3}>{t("s3.kicker")}</Kicker>
+        {k && p.lernweg && (
+          <button
+            ref={knopf}
+            type="button"
+            className="tp-s3-umschalten tp-reveal"
+            data-testid={ganz ? "tp-s3-zurueck" : "tp-s3-ganz"}
+            onClick={umschalten}
+          >
+            {t(ganz ? "s3.kette.zurueck" : "s3.kette.ganzerWeg")}
+          </button>
+        )}
+      </div>
+      {zeigeKette ? (
+        <>
+          <h2 id={titelId} className="tp-titel tp-reveal" data-tp-pflicht="">
+            {t(k.fall === "feld" ? "s3.kette.titelFeld" : "s3.kette.titel")}
+          </h2>
+          <Lernkette k={k} titelId={titelId} still={zurueck} />
+        </>
+      ) : p.lernweg ? (
         <Weg lw={p.lernweg} titel={tb("s3.titel")} />
       ) : (
         <h2 className="tp-titel tp-reveal" data-tp-pflicht="">

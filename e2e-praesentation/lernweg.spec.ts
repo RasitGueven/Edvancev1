@@ -20,6 +20,9 @@ async function zuStation3(page: Page, fall: string): Promise<void> {
   await eintrag.click()
   await expect(eintrag).toHaveAttribute('aria-current', 'step')
   await expect.poll(() => stationOben(page, 3).then(Math.abs)).toBeLessThanOrEqual(1)
+  // PS-1: Standard ist die Kette; die volle Karte steht hinter „Ganzen Lernweg zeigen".
+  const ganz = page.getByTestId('tp-s3-ganz')
+  if (await ganz.count()) await ganz.click()
 }
 
 const scroller = (page: Page) => page.getByTestId('tp-s3-scroller')
