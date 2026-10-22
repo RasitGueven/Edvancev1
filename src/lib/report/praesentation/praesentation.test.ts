@@ -25,6 +25,7 @@ const r7 = (data: ReportData) => {
     kompetenzen: data.erzaehlung.kompetenzen,
     katalog: data.erzaehlung.katalog,
     klasse: data.grade,
+    lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
   })
   if (!b) throw new Error('kein R7-Bericht')
   return b
@@ -103,9 +104,11 @@ describe('Gleichheit mit dem Druckbogen R7', () => {
       expect(e.uebung + e.uebersprungen).toBe(b.pyramide[i].uebung)
     })
 
-    expect(p.schwerpunkte.map(({ feld, gemischt, sicher, uebung }) => ({ feld, gemischt, sicher, uebung }))).toEqual(
-      b.schwerpunkte,
-    )
+    // Dieselbe Rechnung (R7-11, Entscheidung 6): schwerpunkte.ts, nur um die Stufen ergänzt.
+    const ohneStart = b.schwerpunkte.map(({ start: _start, ...s }) => s)
+    expect(
+      p.schwerpunkte.map(({ feld, thema, gemischt, sicher, uebung }) => ({ feld, thema, gemischt, sicher, uebung })),
+    ).toEqual(ohneStart)
     expect(p.danach).toEqual(b.danach)
     expect(p.kopfFall).toBe(b.kopfFall)
   })

@@ -76,7 +76,9 @@ describe('ElternberichtBogen', () => {
 
   it('nimmt Rufnamen bis 24 Zeichen, darüber überall die Fassungen ohne Namen', () => {
     const texte = (firstName: string) => {
-      const { container, unmount } = bogen({ ...FAELLE.ilkay.data, firstName })
+      // „Noten“ ist fachlich: Der Anliegen-Kasten steht mit Genitiv (R7-11).
+      const { data } = FAELLE.anliegenGemischt
+      const { container, unmount } = bogen({ ...data, firstName })
       const s = seiten(container)
       const ergebnis = {
         fuss: s[0].querySelector('.eb-fuss-text')?.textContent,

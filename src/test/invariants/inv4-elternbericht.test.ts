@@ -65,6 +65,36 @@ const R7_9_GEAENDERT: Record<string, string> = {
   's3.kicker': '{{wessen}} Lernweg',
 }
 
+/**
+ * Anhang-A-Schlüssel, die R7-11 neu fasst (docs/report/r7/Bauauftrag-R7-11.md):
+ * `s1.anliegen.thema` ist jetzt die Frage nach dem Thema der LSA (Entscheidung
+ * 12; der alte Satz steht als `s1.anliegen.naechstesThema`), `s2.fussnote`
+ * verliert den Halbsatz zur Bewertungsregel (Entscheidung 15).
+ */
+const R7_11_GEAENDERT: Record<string, string> = {
+  's1.anliegen.thema': 'Sie sind wegen {{thema}} zu uns gekommen.',
+  's2.fussnote':
+    'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
+}
+
+/**
+ * INV-4.13 (R7-11, Entscheidung 14): Seite 1 und Station 01 sagen nicht, was die
+ * Analyse nicht sagen kann oder erst später klärt. Mindestens diese Wörter.
+ */
+const GRENZSATZ =
+  /sagt nichts|sagt eine Analyse|sagt diese Analyse|erst nach|können wir noch nicht|nach mehreren Sitzungen|nichts beitragen|nicht abschließend/i
+
+/**
+ * Ausnahme von INV-4.13: der Methodenhinweis im Kasten „So haben wir geprüft“
+ * (R7-6). Er beschreibt die Methode, nicht eine Grenze zu einem Anliegen.
+ */
+const GRENZSATZ_AUSNAHMEN = [
+  's1.geprueft.hinweis',
+  's1.geprueft.hinweisThema',
+  's1.thema.offen_one',
+  's1.thema.offen_other',
+]
+
 /** Anhang-A-Schlüssel, die R7-6 streicht. */
 const R7_6_ENTFALLEN = [
   's1.geprueft.hinweis_one',
@@ -88,7 +118,14 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, ende)))
     expect(Object.keys(anhang)).toHaveLength(148)
     for (const [key, text] of Object.entries(anhang)) {
-      if (key in R7_6_GEAENDERT || key in R7_8_GEAENDERT || key in R7_9_GEAENDERT || R7_6_ENTFALLEN.includes(key)) continue
+      if (
+        key in R7_6_GEAENDERT ||
+        key in R7_8_GEAENDERT ||
+        key in R7_9_GEAENDERT ||
+        key in R7_11_GEAENDERT ||
+        R7_6_ENTFALLEN.includes(key)
+      )
+        continue
       expect(texte[key], key).toBe(text)
     }
   })
@@ -102,7 +139,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_6_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(R7_8_GEAENDERT[key] ?? text)
+      expect(texte[key], key).toBe(R7_11_GEAENDERT[key] ?? R7_8_GEAENDERT[key] ?? text)
     }
     for (const key of R7_6_ENTFALLEN) {
       expect(anhang[key], key).toBeDefined()
@@ -128,8 +165,32 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_8_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
+      expect(texte[key], key).toBe(R7_11_GEAENDERT[key] ?? text)
+    }
+  })
+
+  it('R7-11: die neu gefassten Schlüssel aus Anhang A wörtlich, der alte Thema-Satz unter neuem Schlüssel', () => {
+    const bauauftrag = read('docs/report/r7/Bauauftrag-R7.md')
+    const start = bauauftrag.indexOf('```json', bauauftrag.indexOf('## Anhang A'))
+    const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
+    for (const [key, text] of Object.entries(R7_11_GEAENDERT)) {
+      expect(anhang[key], key).toBeDefined()
       expect(texte[key], key).toBe(text)
     }
+    expect(texte['s1.anliegen.naechstesThema']).toBe(anhang['s1.anliegen.thema'])
+  })
+
+  it('INV-4.13: kein Text auf Seite 1 sagt, was die Analyse nicht sagen kann (außer dem Methodenhinweis)', () => {
+    const seite1 = Object.entries(texte).filter(([key]) => key.startsWith('s1.'))
+    expect(seite1.length).toBeGreaterThan(40)
+    for (const [key, s] of seite1) {
+      if (GRENZSATZ_AUSNAHMEN.includes(key)) continue
+      expect(s, key).not.toMatch(GRENZSATZ)
+    }
+    // Die Ausnahmen gibt es wirklich, keine steht still für einen entfallenen Schlüssel.
+    for (const key of GRENZSATZ_AUSNAHMEN) expect(texte[key], key).toBeDefined()
+    // Und auf Seite 2 entfällt der Halbsatz zur Bewertungsregel (Entscheidung 15).
+    expect(texte['s2.fussnote']).not.toMatch(/Bewertungsregel/)
   })
 
   it('duzt nirgends', () => {

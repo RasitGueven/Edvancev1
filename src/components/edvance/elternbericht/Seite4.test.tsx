@@ -112,7 +112,7 @@ describe('Seite 4 — Titel und Schwerpunkte', () => {
   })
 
   const mitListe = (uebung: string[]): string => {
-    const sp: EbSchwerpunkt = { feld: 'geometrie', gemischt: false, sicher: [], uebung }
+    const sp: EbSchwerpunkt = { feld: 'geometrie', thema: null, gemischt: false, sicher: [], uebung, start: null }
     const { container, unmount } = seite4(props(FAELLE.ilkay.data, () => ({ schwerpunkte: [sp], danach: [] })))
     const text = container.querySelector('.eb-s4-punkt-text')!.textContent ?? ''
     unmount()

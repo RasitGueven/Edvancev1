@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
+import { anliegenAus, rueckbezugZeigen } from '@/lib/report/elternbericht/anliegen'
 import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
 
 import { Seite1Kaesten } from './Seite1Kaesten'
@@ -26,8 +27,16 @@ export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
     satz.waehle('kopf', bericht.kopfFall, data.sessionId, { name: name ?? t('kind') }) ??
     (name ? t('s1.kopfErsatz', { name }) : t('s1.kopfErsatzOhneName'))
 
-  // Rückbezüge wie in ReportRueckbezug (R6), ohne Marken.
+  // Anliegen als Frage und Antwort, nur fachliche (R7-11, Entscheidung 12).
+  const anliegen = anliegenAus({
+    anlassNamen: data.erzaehlung.anlassNamen,
+    naechstesThema: data.naechstesThema,
+    schwerpunkte: bericht.schwerpunkte,
+  })
+  // Rückbezüge wie in ReportRueckbezug (R6), ohne Marken; nur die, die antworten,
+  // und nur, wenn der Kasten steht (R7-11, Entscheidungen 11 und 14).
   const rueckbezuege = data.erzaehlung.rueckbezuege
+    .filter((r) => anliegen !== null && rueckbezugZeigen(r))
     .map((r) => ({
       thema: r.thema,
       text: satz.waehle('rueckbezug', r.fall, `${data.sessionId} ${r.thema}`, {
@@ -79,13 +88,13 @@ export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
         })}
       </p>
 
-      <Seite1Karten bericht={bericht} />
+      <Seite1Karten bericht={bericht} name={name} />
 
       <Seite1Kaesten
-        data={data}
         zaehlung={zaehlung}
         thema={thema}
         abdeckung={abdeckung}
+        anliegen={anliegen}
         wessen={wessen}
         rueckbezuege={rueckbezuege}
       />

@@ -113,12 +113,37 @@ export type EbEbene = {
 }
 
 export type EbSchwerpunkt = {
-  feld: ThemenfeldKey
+  /** Themenfeld; null beim Thema-Schwerpunkt (R7-11). */
+  feld: ThemenfeldKey | null
+  /**
+   * Label des Themas der LSA, nur beim Thema-Schwerpunkt (R7-11, Entscheidung 2):
+   * dann ist er immer Schwerpunkt 1 und `feld` ist null.
+   */
+  thema: string | null
   /** Im Feld gibt es Sicheres und Übungsbedarf. */
   gemischt: boolean
-  /** Labels, sortiert nach Klasse und Label. */
+  /** Labels, sortiert nach Klasse und Label; beim Thema in der Thema-Reihenfolge. */
   sicher: string[]
   uebung: string[]
+  /** Startstelle im Thema: der erste Bereich mit Übungsbedarf; sonst null. */
+  start: string | null
+}
+
+/**
+ * „Ihr Anliegen“ auf Seite 1 und in Station 01 (R7-11, Entscheidung 12):
+ * Frage und Antwort. Nur fachliche Anliegen (anliegen.ts).
+ */
+export type EbAnliegen = {
+  /** Label des Themas der LSA; null ohne Thema. */
+  thema: string | null
+  /** Bereiche mit Übungsbedarf im Themenraum, in der Thema-Reihenfolge. */
+  themaUebung: string[]
+  /** Die fachlichen Anliegen (Anzeigenamen), in der Reihenfolge der Eltern. */
+  punkte: string[]
+  /** Schwerpunkt 1 für „Dort setzen wir zuerst an“; null, wenn der Satz entfällt. */
+  schwerpunkt: EbSchwerpunkt | null
+  /** leads.next_exam_topic, nur ohne Thema der LSA. */
+  naechstesThema: string | null
 }
 
 /** Alles, was die fünf Seiten aus den Kompetenzen rechnen. */
@@ -131,7 +156,7 @@ export type Elternbericht = {
   schwerpunkte: EbSchwerpunkt[]
   /** Die übrigen Felder mit Übungsbedarf, in derselben Reihenfolge. */
   danach: ThemenfeldKey[]
-  /** Seite 1: nach Themenfeld, Klasse, Label. */
+  /** Seite 1: nach Themenfeld, Klasse, Label; mit Thema die Bereiche des Themas zuerst (R7-11). */
   sicherListe: EbBereich[]
   uebungListe: EbBereich[]
   kopfFall: KopfFall

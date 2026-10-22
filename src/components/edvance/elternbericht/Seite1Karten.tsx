@@ -2,18 +2,23 @@ import { useTranslation } from 'react-i18next'
 
 import type { EbBereich, Elternbericht } from '@/types'
 
+import { baueListe, schwerpunktTitel } from './liste'
+import { ansatzThemaSaetze } from './seite1Saetze'
+
 /** Höchstens so viele Einträge je Liste; der Rest steht als „+n weitere“. */
 const EINTRAEGE = 4
 
 /**
  * „Auf einen Blick“: was klappte, wo es Übung braucht, der erste Ansatz.
  *
- * Die Listen kommen sortiert aus der Rechnung (Themenfeld, Klasse, Label). Der
- * erste Ansatz ist Schwerpunkt 1 — derselbe, den Seite 4 als ersten nennt.
+ * Die Listen kommen sortiert aus der Rechnung (Themenfeld, Klasse, Label; mit
+ * Thema die Bereiche des Themas zuerst). Der erste Ansatz ist Schwerpunkt 1 —
+ * derselbe, den Seite 4 als ersten nennt; mit Thema ist das das Thema (R7-11).
  */
-export function Seite1Karten({ bericht }: { bericht: Elternbericht }): JSX.Element {
-  const { t } = useTranslation('elternbericht')
+export function Seite1Karten({ bericht, name }: { bericht: Elternbericht; name: string | null }): JSX.Element {
+  const { t, i18n } = useTranslation('elternbericht')
   const erster = bericht.schwerpunkte[0] ?? null
+  const liste = baueListe(t, i18n.language)
 
   return (
     <div className="eb-s1-karten">
@@ -37,10 +42,13 @@ export function Seite1Karten({ bericht }: { bericht: Elternbericht }): JSX.Eleme
               <span className="eb-s1-ansatz-kreis" aria-hidden="true">
                 1
               </span>
-              <p className="eb-s1-ansatz-titel">{t(`feld.${erster.feld}`)}</p>
+              <p className="eb-s1-ansatz-titel">{schwerpunktTitel(t, erster)}</p>
             </div>
             <p className="eb-s1-ansatz-text">
-              {t(erster.gemischt ? 's1.blick.ansatzGemischt' : 's1.blick.ansatzUebung')}
+              {/* Mit Thema die konkreten Sätze (R7-11, Entscheidung 8), sonst die Bausteine. */}
+              {erster.thema
+                ? ansatzThemaSaetze(t, erster, name, liste).join(' ')
+                : t(erster.gemischt ? 's1.blick.ansatzGemischt' : 's1.blick.ansatzUebung')}
             </p>
           </>
         ) : (

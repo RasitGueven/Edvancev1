@@ -1,60 +1,50 @@
 import { useTranslation } from 'react-i18next'
 
 import type { ThemaAbdeckung } from '@/lib/report/elternbericht/themaAbdeckung'
-import type { EbZaehlung, ReportData } from '@/types'
+import type { EbAnliegen, EbZaehlung } from '@/types'
 
+import { baueListe } from './liste'
+import { anliegenSaetze } from './seite1Saetze'
 import { themaSaetze } from './themaSatz'
 
 /**
  * Zwei Kästen nebeneinander, gleich hoch: links das Anliegen der Eltern,
  * rechts, wie geprüft wurde.
  *
- * Der linke Kasten nennt, was die Eltern angegeben haben, das nächste Thema
- * und die Antwort der Analyse darauf (Rückbezüge). Gibt es nichts davon,
- * entfällt er und der rechte steht in voller Breite — ein leerer Kasten läse
- * sich wie „nichts angegeben“.
+ * Links Frage und Antwort (R7-11, Entscheidung 12): das Thema der LSA und wo es
+ * dort hakt, die fachlichen Anliegen und wo wir ansetzen, dazu die Rückbezüge,
+ * die antworten. Überfachliche Anliegen erscheinen nicht. Ist nichts zu sagen,
+ * entfällt der Kasten und der rechte steht in voller Breite — ein leerer Kasten
+ * läse sich wie „nichts angegeben“.
  *
  * Rechts bei der abgestuften LSA mit Thema zusätzlich der Thema-Satz: wie viele
  * Bereiche zum Thema gehören, wie viele direkt geprüft wurden und wie viele
  * sich daraus ergeben (R7-6, Entscheidung 7). Nur dort zählen abgeleitete Urteile.
  */
 export function Seite1Kaesten({
-  data,
   zaehlung,
   thema,
   abdeckung,
+  anliegen,
   wessen,
   rueckbezuege,
 }: {
-  data: ReportData
   zaehlung: EbZaehlung
   thema: string | null
   abdeckung: ThemaAbdeckung | null
+  anliegen: EbAnliegen | null
   wessen: string | null
   rueckbezuege: { thema: string; text: string }[]
 }): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
-  const punkte = data.erzaehlung.anlassNamen
-  const liste = new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(punkte)
-  const mitAnliegen = punkte.length > 0 || Boolean(data.naechstesThema) || rueckbezuege.length > 0
+  const saetze = anliegen ? anliegenSaetze(t, anliegen, wessen, baueListe(t, i18n.language), i18n.language) : []
 
   return (
-    <div className={mitAnliegen ? 'eb-s1-kaesten' : 'eb-s1-kaesten eb-s1-kaesten-voll'}>
-      {mitAnliegen && (
+    <div className={anliegen ? 'eb-s1-kaesten' : 'eb-s1-kaesten eb-s1-kaesten-voll'}>
+      {anliegen && (
         <section className="eb-s1-kasten eb-s1-anliegen" data-testid="eb-anliegen">
           <h2 className="eb-kicker">{t('s1.anliegen.kicker')}</h2>
-          {punkte.length > 0 && (
-            <p className="eb-s1-anliegen-satz">
-              {wessen
-                ? t('s1.anliegen.genannt', { wessen, punkte: liste })
-                : t('s1.anliegen.genanntOhneName', { punkte: liste, count: punkte.length })}
-            </p>
-          )}
-          {data.naechstesThema && (
-            <p className="eb-s1-anliegen-thema">
-              {t('s1.anliegen.thema', { thema: data.naechstesThema })}
-            </p>
-          )}
+          <p className="eb-s1-anliegen-satz">{saetze.join(' ')}</p>
           {rueckbezuege.length > 0 && (
             <ul className="eb-s1-rueckbezuege">
               {rueckbezuege.map((r) => (
