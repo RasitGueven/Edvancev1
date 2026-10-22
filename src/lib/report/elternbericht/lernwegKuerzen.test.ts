@@ -39,6 +39,7 @@ const weg = (zonen: { key: LwZoneKey; inseln: LwInsel[] }[], linien: Lernweg['li
 
 /** Sichtbare Zeilen einer Insel (Einträge und ↳), in Reihenfolge. */
 const zeilen = (i: LwInsel): string[] => i.eintraege.flatMap((x) => [x.id, ...x.unter.map((v) => v.id)])
+const zeilenStand = (i: LwInsel): string[] => i.eintraege.flatMap((x) => [x.stand, ...x.unter.map((v) => v.stand)])
 const inselIn = (lw: Lernweg, id: string): LwInsel => lw.zonen.flatMap((z) => z.inseln).find((i) => i.id === id)!
 
 /** Eine Insel in Aktuell mit 12 Einträgen: 1–8 Übungsbedarf, 9–12 sicher. */
@@ -79,7 +80,7 @@ describe('Kürzungsstufen (R7-12, Entscheidung 2)', () => {
     ])] }])
     const i = inselIn(kuerzeLernweg(lw, { ...GRENZEN, eintraegeJeInsel: 4 }), 'i1')
     expect(zeilen(i)).toEqual(['e1', 'e3', 'e5', 'e6'])
-    expect(i.weitere).toEqual({ uebung: 0, sicher: 1, offen: 1, labels: ['L-e2', 'L-e4'] })
+    expect(i.weitere).toEqual({ uebung: 0, sicher: 1, offen: 1, vorgriff: 0, labels: ['L-e2', 'L-e4'] })
   })
 })
 
@@ -146,7 +147,7 @@ describe('Vorrang in der Insel (R7-12, Entscheidung 3)', () => {
     ])] }])
     const i = inselIn(kuerzeLernweg(lw, { ...GRENZEN, eintraegeJeInsel: 2 }), 'i1')
     expect(zeilen(i)).toEqual(['e1', 'e2'])
-    expect(i.weitere).toEqual({ uebung: 1, sicher: 1, offen: 1, labels: ['L-e3', 'L-u1', 'L-u2'] })
+    expect(i.weitere).toEqual({ uebung: 1, sicher: 1, offen: 1, vorgriff: 0, labels: ['L-e3', 'L-u1', 'L-u2'] })
   })
 
   it('↳ mit Übungsbedarf holt seine sichere Basis nach, wenn Platz ist', () => {
@@ -220,7 +221,10 @@ describe('sehrViele (60 geprüfte Bereiche)', () => {
 
   it('60 direkt geprüft, fast alle mit Übungsbedarf, in Grundlagen, Weiterführend und Aktuell', () => {
     expect(data.erzaehlung.kompetenzen).toHaveLength(60)
-    expect(bericht.zaehlung.uebung).toBeGreaterThanOrEqual(50)
+    // LSA-V2: 17 Bereiche aus Themen, die noch kommen, sitzen nicht und sind Vorgriffe, kein Übungsbedarf.
+    const vorgriffe = voll.zonen.flatMap((z) => z.inseln.flatMap(zeilenStand)).filter((s) => s === 'vorgriff').length
+    expect(vorgriffe).toBe(17)
+    expect(bericht.zaehlung.uebung + vorgriffe).toBeGreaterThanOrEqual(50)
     for (const z of ['grundlagen', 'weiterfuehrend', 'aktuell'] as const) {
       expect(voll.zonen.find((x) => x.key === z)!.inseln.length, z).toBeGreaterThan(0)
     }
@@ -250,7 +254,7 @@ describe('sehrViele (60 geprüfte Bereiche)', () => {
     KUERZUNGEN.forEach((g, stufe) => {
       const k = kuerzeLernweg(voll, g, thema)
       const inseln = k.zonen.flatMap((z) => z.inseln)
-      const weitere = inseln.reduce((a, i) => a + (i.weitere ? i.weitere.sicher + i.weitere.uebung : 0), 0)
+      const weitere = inseln.reduce((a, i) => a + (i.weitere ? i.weitere.sicher + i.weitere.uebung + i.weitere.vorgriff : 0), 0)
       const gezaehlt = k.zonen.flatMap((z) => z.zusammen?.zeilen ?? []).reduce((a, z) => a + z.sicher + z.uebung, 0)
       expect(geprueft(k).length + weitere + gezaehlt, `Stufe ${stufe}`).toBe(geprueft(voll).length)
       expect(k.weggelassen.eintraege, `Stufe ${stufe}`).toBe(inseln.reduce((a, i) => a + (i.weitere?.labels.length ?? 0), 0))

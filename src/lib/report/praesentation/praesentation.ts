@@ -8,8 +8,7 @@
 // Schwerpunkte und Anliegen kommen aus schwerpunkte.ts und anliegen.ts (R7-11).
 
 import { anliegenAus } from '@/lib/report/elternbericht/anliegen'
-import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
-import { bereicheAus } from '@/lib/report/elternbericht/bereiche'
+import { baueElternbericht, gezaehlteBereiche } from '@/lib/report/elternbericht/bericht'
 import { genitiv } from '@/lib/report/elternbericht/genitiv'
 import { themaReihenfolge } from '@/lib/report/elternbericht/schwerpunkte'
 import { stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
@@ -144,15 +143,12 @@ export function bauePraesentation({
   tiers,
 }: PraesentationEingabe): PraesentationDaten | PraesentationFehlt {
   const { kompetenzen, katalog } = data.erzaehlung
-  const bericht = baueElternbericht({
-    kompetenzen,
-    katalog,
-    klasse: data.grade,
-    lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
-  })
+  const lernweg = { erzaehlung: data.erzaehlung, datum: data.analysedAt }
+  const bericht = baueElternbericht({ kompetenzen, katalog, klasse: data.grade, lernweg })
   if (!bericht) return { fehlt: kompetenzen.length === 0 ? 'kompetenzen' : 'katalog' }
 
-  const bereiche = bereicheAus(kompetenzen)
+  // LSA-V2: dieselben Bereiche wie im Bericht — Vorgriffe, die noch nicht sitzen, zählen nicht.
+  const { bereiche } = gezaehlteBereiche(kompetenzen, lernweg)
   const ueber = uebersprungeneSchluessel(kompetenzen)
   const uebersprungen = bereiche.filter((b) => !b.sicher && ueber.has(b.skillKey)).length
   const { zaehlung } = bericht

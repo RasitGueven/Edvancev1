@@ -7,14 +7,20 @@
 -- familie/fehlbilder: bevorzugtes Fehlbild bei falschen Antworten (erst die Slugs, dann die Familie).
 -- anliegen: nur Werte aus PARENT_WEAK_TOPICS (src/pages/admin/intake/intakeConstants.ts), alles andere in notiz.
 -- sekunden: Antwortdauer, je Aufgabe nach festem Muster variiert (c_muster in erzeugen.sql).
--- hoechstens: optional, so viele Aufgaben, dann lsa_finish (Tim: bei 3 s je Aufgabe wären 19 Minuten mehrere hundert).
+-- hoechstens: optional, so viele Aufgaben, dann lsa_finish. Tim braucht es seit LSA-V2 nicht mehr: der Deckel in
+--   lsa_select_next_core beendet ihn nach 40 Aufgaben.
+-- LSA-V2 (Ausblick): Max und Lina können vom Stoff, der als Nächstes kommt, nur das erste kommende Plan-Thema
+--   (FWG: Max Binomische Formeln, Lina Kreise); die Einstiege der zwei Themen danach stehen in ausnahmen auf uebung.
+--   So zeigt der Lauf den Stopp des Ausblicks (zwei Ausblick-Knoten hintereinander nicht sicher).
 do $do$ begin perform set_config('lsat.kinder', $kinder$[
  {"kind": "Lina", "name": "Lina Berger", "lead": "a5a7c41d-1ead-4000-8000-000000000001", "schueler": "a5a7c41d-5c00-4000-8000-000000000001",
   "klasse": 9, "schulform": "Gymnasium", "schule": "Friedrich-Wilhelm-Gymnasium", "thema": "quadratische_funktionen",
   "behandelt": ["reelle_zahlen", "lineare_funktionen", "terme_binomische_formeln"], "quelle_behandelt": "schulplan",
   "anliegen": ["Rechenwege"], "notiz": "Noten halten, Oberstufe vorbereiten.",
   "goal": "GENERAL", "letzte_note": "2+", "trend": "stabil", "interessen": "Volleyball, Fotografie",
-  "grund": {"56": "sicher", "78": "sicher", "910": "sicher"}, "ausnahmen": {"geo_flaeche_dreieck": "uebung"},
+  "grund": {"56": "sicher", "78": "sicher", "910": "sicher"}, "ausnahmen": {"geo_flaeche_dreieck": "uebung",
+                "zahl_potenz_rechnen": "uebung", "geo_pythagoras_kathete": "uebung", "geo_pythagoras_umkehrung": "uebung",
+                "geo_pythagoras_abstand": "uebung"},
   "familie": null, "fehlbilder": [], "sekunden": 40},
  {"kind": "Emre", "name": "Emre Kaya", "lead": "a5a7c41d-1ead-4000-8000-000000000002", "schueler": "a5a7c41d-5c00-4000-8000-000000000002",
   "klasse": 9, "schulform": "Gymnasium", "schule": "Friedrich-Wilhelm-Gymnasium", "thema": "reelle_zahlen",
@@ -58,14 +64,17 @@ do $do$ begin perform set_config('lsat.kinder', $kinder$[
   "behandelt": ["rationale_zahlen", "zuordnungen", "terme_gleichungen"], "quelle_behandelt": "schulplan",
   "anliegen": ["Rechenwege"], "notiz": "Möchte gefordert werden, langweilt sich im Unterricht.",
   "goal": "GENERAL", "letzte_note": "1-", "trend": "stabil", "interessen": "Schach, Programmieren",
-  "grund": {"56": "sicher", "78": "sicher", "910": "sicher"}, "ausnahmen": {}, "familie": null, "fehlbilder": [], "sekunden": 35},
+  "grund": {"56": "sicher", "78": "sicher", "910": "sicher"},
+  "ausnahmen": {"stoch_pfad_summe": "uebung", "geo_flaeche_trapez": "uebung", "geo_flaeche_drachen_raute": "uebung",
+                "geo_flaeche_term": "uebung"},
+  "familie": null, "fehlbilder": [], "sekunden": 35},
  {"kind": "Tim", "name": "Tim Schuster", "lead": "a5a7c41d-1ead-4000-8000-000000000007", "schueler": "a5a7c41d-5c00-4000-8000-000000000007",
   "klasse": 8, "schulform": "Gesamtschule", "schule": null, "thema": "terme_gleichungen",
   "behandelt": ["rationale_zahlen", "zuordnungen"], "quelle_behandelt": "gespraech",
   "anliegen": ["Konzentration"], "notiz": "Will schnell fertig sein, liest Aufgaben oft nicht zu Ende.",
   "goal": "IMPROVE_GRADES", "letzte_note": "4", "trend": "schlechter", "interessen": "Basketball, Musik",
   "grund": {"56": "uebung", "78": "uebung", "910": "uebung"}, "ausnahmen": {"runden_ueberschlag": "sicher"},
-  "familie": null, "fehlbilder": [], "sekunden": 3, "hoechstens": 30}
+  "familie": null, "fehlbilder": [], "sekunden": 3}
 ]$kinder$, false);
   perform set_config('lsat.sitzungen', '{}', false); perform set_config('lsat.nicht_angenommen', '{}', false);
 end $do$;

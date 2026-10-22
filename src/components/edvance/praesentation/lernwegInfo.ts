@@ -67,6 +67,7 @@ export function infoEintrag(
   const sichere = basen.filter((b) => k.get(b)?.stand === 'sicher')
   if (sichere.length) saetze.push(t('s3.weg.info.basis', { basis: liste(sichere.map(label)) }))
   if (n.stand === 'offen') saetze.push(t('s3.weg.info.offen'))
+  if (n.stand === 'vorgriff') saetze.push(t('s3.weg.info.vorgriff'))
   return {
     titel: t('s3.weg.info.eintrag', { label: n.label, stand: tb(`s3.weg.stand.${n.stand}`) }),
     text: saetze.join(' '),

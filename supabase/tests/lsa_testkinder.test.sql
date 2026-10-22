@@ -18,64 +18,22 @@
 --   6. Die Anliegen stammen nur aus den Intake-Werten (PARENT_WEAK_TOPICS) und stehen wie im Profil am Lead.
 --   7. Der zweite Lauf legt neue Sitzungen an, findet dieselben Leads und Schueler und loescht nichts.
 --   8. Max (LSA-T2): 100 % sicher, kein Uebungsbedarf, nichts ohne Ansatz, und die Liste „richtig beantwortet,
---      nicht angenommen“ ist leer (die Loesungen der Fixture sind konsistent).
+--      nicht angenommen“ ist leer (die Loesungen der Fixture sind konsistent). LSA-V2: ausser im Ausblick — dort
+--      kann Max laut Profil nur das erste kommende Thema.
 --   9. Schalter: nur=Max legt genau eine Sitzung an, fuer Max; ein unbekannter Name bricht ab, bevor etwas
 --      angelegt wird.
 --  10. Tim (LSA-R2) klickt sich durch (2–4 s, fast alles falsch): seine Sitzung ist nicht auswertbar, die
 --      der sechs anderen ist auswertbar (lsa_finish ueber lsa_durchklick_stand).
+--  11. LSA-V2: Max und Lina bekommen den Ausblick, mit mindestens einem sicheren Knoten, und er endet mit genau
+--      zwei nicht sicheren Knoten hintereinander (Stopp). Kein Kind ueber 40 Aufgaben, bei Tim greift der Deckel.
+--      „Weiß ich nicht“ hat nie einen Zweitbeleg. Jonas kommt bis Klasse 5/6.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(51);
+select plan(57);
 
-\set admin 'a5a7c41d-adad-4000-8000-000000000001'
-insert into auth.users (id, email, instance_id, aud, role)
-values (:'admin', 'lsat-admin@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
-insert into profiles (id, email, role, full_name, created_at)
-values (:'admin', 'lsat-admin@test.local', 'admin', 'ZZ LSA-T Admin', '2000-01-01');
-
--- Drei Aufgaben je Skill. Das hinterlegte Fehlbild folgt dem Skill, damit die Familien der Kinder etwas
--- zum Ausloesen haben; "-7" ist bei jeder Zahl-Aufgabe ein Vorzeichenfehler.
-insert into skill_clusters (name, class_level_min, class_level_max) values ('ZZ LSA-T Cluster', 5, 13);
-create temp table zz_lsat_skill as
-select s.skill_key,
-       case when s.skill_key = 'zahl_wurzel_gesetze' then 'wurzel_gliedweise'
-            when s.skill_key like 'zahl_wurzel%' then 'faktor_ohne_wurzel'
-            when s.skill_key like 'fkt_linear%' then 'steigung_kehrwert'
-            when s.skill_key like 'prozent%' then 'multipliziert_statt_dividiert'
-            else 'falsche_operation' end as slug
-  from skills s;
-
-insert into tasks (cluster_id, content_type, input_type, status, question, question_payload, parts, afb,
-                   competency_content, est_duration_sec, class_level, curriculum_grade, source, source_ref,
-                   skill_key, difficulty, einsatz, is_active)
-select (select id from skill_clusters where name = 'ZZ LSA-T Cluster'), 'exercise', a.typ, 'ready',
-       'ZZ LSA-T ' || z.skill_key || ' ' || a.typ || ': Wie viel ist 3 + 4?',
-       case when a.typ = 'MC' then '{"input_type":"MC","options":[{"id":"a","label":"7"},{"id":"b","label":"8"},{"id":"c","label":"6"}]}'::jsonb end,
-       case when a.typ = 'MULTI_PART' then
-         '[{"nr":1,"afb":"I","kind":"short_input","unit":null,"prompt":"Wie viel ist 3 + 4?","competency_content":"zahlen","competency_process":null},
-           {"nr":2,"afb":"I","kind":"short_input","unit":null,"prompt":"Wie viel ist 1 + 2?","competency_content":"zahlen","competency_process":null}]'::jsonb
-       else '[]'::jsonb end,
-       'I', 'Zahlen und Operationen', 60, 8, 8, 'test', 'lsat-' || z.skill_key || '-' || a.typ,
-       z.skill_key, 1, '{lsa}', true
-  from zz_lsat_skill z
- cross join (values ('NUMERIC'), ('MC'), ('MULTI_PART')) a(typ);
-
-insert into task_solutions (task_id, correct_answers, solution, acceptance)
-select t.id,
-       case t.input_type when 'MC' then '["a"]'::jsonb when 'MULTI_PART' then '{"1":["7"],"2":["3"]}'::jsonb
-                         else '["7"]'::jsonb end,
-       'ZZ-LOESUNGSWEG',
-       case t.input_type
-         when 'MC' then jsonb_build_object('canonical', 'a', 'known_errors', jsonb_build_object('b', z.slug))
-         when 'MULTI_PART' then jsonb_build_object(
-           '1', jsonb_build_object('canonical', '7', 'known_errors', jsonb_build_object('8', z.slug)),
-           '2', jsonb_build_object('canonical', '3'))
-         else jsonb_build_object('canonical', '7',
-                                 'known_errors', jsonb_build_object('8', z.slug, '-7', 'vorzeichen_ignoriert')) end
-  from tasks t join zz_lsat_skill z on z.skill_key = t.skill_key
- where t.source = 'test' and t.source_ref like 'lsat-%';
+\ir ../../tools/lsa-testkinder/neuaufbau-fixture.sql
 
 select is((select count(*) from tasks where source_ref like 'lsat-%' and public.lsa_im_pool(id, false)),
           (select 3 * count(*) from skills), 'Fixture: drei Aufgaben je Skill im Pool');
@@ -99,10 +57,18 @@ $$;
 create function pg_temp.sitzung(p_name text) returns uuid language sql as $$
   select (current_setting('lsat.sitzungen')::jsonb ->> p_name)::uuid
 $$;
-create function pg_temp.anteil_sicher(p_name text) returns numeric language sql as $$
+create function pg_temp.anteil_sicher(p_name text, p_ohne_ausblick boolean default false) returns numeric
+language sql as $$
   select round(count(*) filter (where u.zustand = 'traegt')::numeric / nullif(count(*), 0), 2)
     from lsa_skill_urteil u
    where u.session_id = pg_temp.sitzung(p_name) and u.belegt_direkt and u.zustand <> 'ungeprueft'
+     and not (p_ohne_ausblick and public.lsa_ist_ausblick(u.session_id, u.skill_key))
+$$;
+-- LSA-V2: die direkt beurteilten Ausblick-Knoten in Ausblick-Reihenfolge, je 't' (traegt) oder 'n' (sonst).
+create function pg_temp.ausblick(p_name text) returns text language sql as $$
+  select coalesce(string_agg(case when u.zustand = 'traegt' then 't' else 'n' end, '' order by x.nr), '')
+    from unnest(public.lsa_ausblick_knoten(pg_temp.sitzung(p_name))) with ordinality x(sk, nr)
+    join lsa_skill_urteil u on u.session_id = pg_temp.sitzung(p_name) and u.skill_key = x.sk and u.belegt_direkt
 $$;
 
 -- ── Erster Lauf ─────────────────────────────────────────────────────────────
@@ -136,6 +102,9 @@ begin
   if v_d between 18.5 * 60000 and 21 * 60000 then
     return 'Zeit';
   end if;
+  if (select count(*) from lsa_ausgegeben a where a.session_id = p_s) >= 40 then
+    return 'Deckel';  -- LSA-V2
+  end if;
   if v_d > 21 * 60000 then
     return 'zu lang';
   end if;
@@ -149,8 +118,8 @@ begin
   return case when v_next is null then 'Auswahl leer' else 'offen' end;
 end $$;
 
-select ok(pg_temp.ende_grund(pg_temp.sitzung(n)) in ('Zeit', 'Auswahl leer'),
-          n || ': endet durch die Zeit oder weil die Auswahl keine Aufgabe mehr liefert')
+select ok(pg_temp.ende_grund(pg_temp.sitzung(n)) in ('Zeit', 'Auswahl leer', 'Deckel'),
+          n || ': endet durch die Zeit, den Deckel oder weil die Auswahl keine Aufgabe mehr liefert')
   from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
 select diag(n || ': ' || to_char(make_interval(secs => pg_temp.dauer_ms(pg_temp.sitzung(n)) / 1000.0), 'MI:SS')
             || ' Minuten, Ende: ' || pg_temp.ende_grund(pg_temp.sitzung(n)))
@@ -161,13 +130,37 @@ select ok(pg_temp.anteil_sicher('Lina') >= 0.8, 'Lina: mindestens 80 % sicher ('
 select ok(pg_temp.anteil_sicher('Jonas') <= 0.2, 'Jonas: hoechstens 20 % sicher (' || pg_temp.anteil_sicher('Jonas') || ')');
 
 -- 8
-select ok(pg_temp.anteil_sicher('Max') = 1, 'Max: 100 % der gewerteten Bereiche sicher (' || pg_temp.anteil_sicher('Max') || ')');
+select ok(pg_temp.anteil_sicher('Max', true) = 1,
+          'Max: ausser im Ausblick 100 % der gewerteten Bereiche sicher (' || pg_temp.anteil_sicher('Max', true) || ')');
 select is((select count(*) from lsa_skill_urteil u where u.session_id = pg_temp.sitzung('Max') and u.belegt_direkt
-              and u.zustand in ('traegt_nicht', 'traegt_teilweise')), 0::bigint, 'Max: kein Uebungsbedarf');
+              and u.zustand in ('traegt_nicht', 'traegt_teilweise')
+              and not public.lsa_ist_ausblick(u.session_id, u.skill_key)), 0::bigint,
+          'Max: kein Uebungsbedarf ausser im Ausblick');
 select is((select count(*) from lsa_skill_urteil u where u.session_id = pg_temp.sitzung('Max') and u.belegt_direkt
               and u.zustand = 'nicht_angesetzt'), 0::bigint, 'Max: nichts ohne Ansatz');
 select is(current_setting('lsat.nicht_angenommen')::jsonb -> 'Max', '[]'::jsonb,
           'Max: jede richtige Antwort angenommen (Liste „richtig beantwortet, nicht angenommen“ leer)');
+
+-- 11 (LSA-V2)
+-- Die Folge haengt ueber md5(Sitzung || Aufgabe) an der zufaelligen Sitzungs-ID; endet die Zeit vor dem Stopp,
+-- genuegt ein angefangener Ausblick.
+select ok(pg_temp.ausblick(n) ~ '^t+nn$'
+          or (pg_temp.ende_grund(pg_temp.sitzung(n)) = 'Zeit' and pg_temp.ausblick(n) ~ '^t+n?$'),
+          n || ': Ausblick mit sicheren Knoten, Stopp nach zwei nicht sicheren (' || pg_temp.ausblick(n) || ')')
+  from unnest(array['Max', 'Lina']) n;
+select is((select max(c) from (select count(*) as c from lsa_ausgegeben a
+                                where a.session_id in (select pg_temp.sitzung(n)
+                                                         from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim']) n)
+                                group by a.session_id) x) <= 40, true, 'Kein Kind ueber 40 Aufgaben');
+select is(pg_temp.ende_grund(pg_temp.sitzung('Tim')), 'Deckel', 'Tim: der Deckel beendet die LSA nach 40 Aufgaben');
+select is((select count(*) from lsa_skill_urteil u
+            where u.session_id in (select pg_temp.sitzung(n)
+                                     from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim']) n)
+              and u.zustand = 'nicht_angesetzt' and u.belegt_direkt and (u.proben_anzahl <> 1 or u.offen)),
+          0::bigint, '„Weiß ich nicht“ ist mit der ersten Probe final, ohne Zweitbeleg');
+select ok((select min(s.klasse_herkunft) from lsa_ausgegeben a join tasks t on t.id = a.task_id
+             join skills s on s.skill_key = t.skill_key where a.session_id = pg_temp.sitzung('Jonas')) <= 6,
+          'Jonas: kommt bis Klasse 5/6');
 
 -- 5
 select ok(exists (select 1 from lsa_responses r join fehlbild_labels f on f.slug = r.fehlbild_slug

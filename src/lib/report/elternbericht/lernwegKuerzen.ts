@@ -22,12 +22,13 @@ const zeilenVon = (i: LwInsel): Zeile[] => {
   return z
 }
 
-const STAND_RANG: Record<LwStand, number> = { uebung: 2, sicher: 3, offen: 4 }
+const STAND_RANG: Record<LwStand, number> = { uebung: 2, sicher: 3, vorgriff: 4, offen: 5 }
 
 /**
  * Welche Zeilen einer Insel bleiben (R7-12, Entscheidung 3): Linienenden immer
  * (auch über die Grenze), dann Startstelle und nächster Bereich des Themas
- * (erster Treffer je Label), dann Übungsbedarf vor sicher vor nicht geprüft,
+ * (erster Treffer je Label), dann Übungsbedarf vor sicher vor noch nicht
+ * behandelt (LSA-V2) vor nicht geprüft,
  * sonst die Reihenfolge der Insel. Ein ↳ bleibt nur mit seiner Basis.
  */
 export function waehleZeilen(
@@ -162,7 +163,13 @@ export function kuerzeLernweg(lw: Lernweg, g: Grenzen, thema: ThemaVorrang = nul
         eintraege: i.eintraege
           .filter((e) => bleibt.has(e.id))
           .map((e) => ({ ...e, unter: e.unter.filter((u) => bleibt.has(u.id)) })),
-        weitere: { uebung: zahl('uebung'), sicher: zahl('sicher'), offen: zahl('offen'), labels: fort.map((x) => x.label) },
+        weitere: {
+          uebung: zahl('uebung'),
+          sicher: zahl('sicher'),
+          offen: zahl('offen'),
+          vorgriff: zahl('vorgriff'),
+          labels: fort.map((x) => x.label),
+        },
       }
     }),
   }))

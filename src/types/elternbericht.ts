@@ -186,8 +186,11 @@ export type Elternbericht = {
 /** Zonen des Lernwegs von links nach rechts. */
 export type LwZoneKey = 'grundlagen' | 'weiterfuehrend' | 'aktuell' | 'kommt'
 
-/** offen = „noch nicht geprüft“ (leerer Kreis). */
-export type LwStand = 'sicher' | 'uebung' | 'offen'
+/**
+ * offen = „noch nicht geprüft“ (leerer Kreis); vorgriff = geprüft, aber noch
+ * nicht behandelt und noch nicht sicher (LSA-V2, leerer Kreis in Kommt noch).
+ */
+export type LwStand = 'sicher' | 'uebung' | 'offen' | 'vorgriff'
 
 /** Ein eingerückter Eintrag „↳ Ziel“ unter seiner Basis in derselben Insel. */
 export type LwUnter = {
@@ -229,7 +232,7 @@ export type LwInsel = {
  * „+ n weitere“ als letzte Zeile einer gekürzten Insel (R7-12, Entscheidung 4):
  * kein Eintrag, kein Punkt, keine Linie. Labels in der Reihenfolge der Insel.
  */
-export type LwWeitere = { uebung: number; sicher: number; offen: number; labels: string[] }
+export type LwWeitere = { uebung: number; sicher: number; offen: number; vorgriff: number; labels: string[] }
 
 /** Eine Zählzeile einer zusammengefassten Zone: „<Themenfeld>: n sicher · m Übungsbedarf“. */
 export type LwZaehlzeile = { feld: ThemenfeldKey; sicher: number; uebung: number }

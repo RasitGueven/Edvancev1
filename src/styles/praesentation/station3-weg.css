@@ -124,8 +124,10 @@
 
 .tp .tp-s3-e-sicher { font-weight: 500; }
 .tp .tp-s3-e-sicher .tp-s3-punkt { background: var(--color-eb-sicher); }
-.tp .tp-s3-e-offen { color: var(--color-eb-text); }
-.tp .tp-s3-e-offen .tp-s3-punkt { background: transparent; border: 1.4px solid var(--color-eb-leise); }
+.tp .tp-s3-e-offen,
+.tp .tp-s3-e-vorgriff { color: var(--color-eb-text); }
+.tp .tp-s3-e-offen .tp-s3-punkt,
+.tp .tp-s3-e-vorgriff .tp-s3-punkt { background: transparent; border: 1.4px solid var(--color-eb-leise); }
 
 .tp .tp-s3-label {
   min-width: 0;

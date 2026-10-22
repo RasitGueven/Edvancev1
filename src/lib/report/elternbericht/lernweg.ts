@@ -44,6 +44,8 @@ export type LernwegEingabe = {
   thema: string | null
   /** Datum der Sitzung (data.analysedAt). */
   datum: string | null
+  /** LSA-V2: Vorgriffe unter den Bereichen (vorgriff.ts); sie stehen in Kommt noch. */
+  vorgriffe?: ReadonlySet<string>
 }
 
 const STUFEN: readonly Stufe[] = ['erprobung', 'erste', 'zweite']
@@ -78,7 +80,6 @@ export function kommtNoch(e: Pick<LernwegEingabe, 'plan' | 'themaKey' | 'datum'>
 }
 
 const FELD_RANG = new Map(THEMENFELDER.map((f, i) => [f.key, i]))
-const standVon = (b: EbBereich): LwStand => (b.sicher ? 'sicher' : 'uebung')
 
 type InselBau = {
   zone: LwZoneKey
@@ -97,9 +98,12 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
     return key
   }
 
-  // Direkt geprüfte Bereiche: je Zone und Themenfeld eine Insel.
-  const sortiert = [...e.bereiche].sort((a, b) => Number(b.sicher) - Number(a.sicher) || nachFeldKlasseLabel(a, b))
-  for (const b of sortiert) inseln.get(inselFuer(zoneFuer(b.klasse, e.klasse), b.feld))!.direkt.push(b)
+  // LSA-V2: Ein Vorgriff, der noch nicht sitzt, ist „noch nicht behandelt“, kein Übungsbedarf.
+  const vorgriff = e.vorgriffe ?? new Set<string>()
+  const standVon = (b: EbBereich): LwStand =>
+    b.sicher ? 'sicher' : vorgriff.has(b.skillKey) ? 'vorgriff' : 'uebung'
+  const heimat = new Map<string, string[]>()
+  for (const h of e.heimatThemen) heimat.set(h.skillKey, [...(heimat.get(h.skillKey) ?? []), h.themaKey])
 
   // Kommt noch: die Plan-Einträge nach der aktuellen Position, höchstens grenzen.kommt.
   const nachher = kommtNoch(e)
@@ -108,21 +112,30 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
     inseln.set(key, { zone: 'kommt', feld: null, titel: p.titel, themaKey: p.themaKey, direkt: [], offen: [] })
     return key
   })
+  const kommtInsel = (skillKey: string): string | undefined => {
+    const themen = heimat.get(skillKey) ?? []
+    return kommtKeys.find((k) => themen.includes(inseln.get(k)!.themaKey ?? ''))
+  }
+
+  // Direkt geprüfte Bereiche: je Zone und Themenfeld eine Insel; Vorgriffe in
+  // die Insel ihres Themas in Kommt noch (ohne sichtbare Insel wie die übrigen).
+  const sortiert = [...e.bereiche].sort((a, b) => Number(b.sicher) - Number(a.sicher) || nachFeldKlasseLabel(a, b))
+  for (const b of sortiert) {
+    const ziel = (vorgriff.has(b.skillKey) && kommtInsel(b.skillKey)) || inselFuer(zoneFuer(b.klasse, e.klasse), b.feld)
+    inseln.get(ziel)!.direkt.push(b)
+  }
 
   // Wo jedes Ziel steht.
   const katalog = new Map(e.katalog.map((k) => [k.skillKey, k]))
   const direkt = new Map<string, { insel: string; sicher: boolean }>()
   for (const [key, insel] of inseln) for (const b of insel.direkt) direkt.set(b.skillKey, { insel: key, sicher: b.sicher })
-  const heimat = new Map<string, string[]>()
-  for (const h of e.heimatThemen) heimat.set(h.skillKey, [...(heimat.get(h.skillKey) ?? []), h.themaKey])
   const offenOrt = new Map<string, { insel: string; label: string; klasse: number }>()
   const ort = (ziel: string): ZielOrt | null => {
     const d = direkt.get(ziel)
     if (d) return { insel: d.insel, geprueft: true, kommt: false }
     const kat = katalog.get(ziel)
     if (!kat) return null
-    const themen = heimat.get(ziel) ?? []
-    const imPlan = kommtKeys.find((k) => themen.includes(inseln.get(k)!.themaKey ?? ''))
+    const imPlan = kommtInsel(ziel)
     const insel = imPlan ?? `${zoneFuer(kat.klasse, e.klasse)}|${feldVon(ziel)}`
     offenOrt.set(ziel, { insel, label: elternLabel(kat.label), klasse: kat.klasse })
     return { insel, geprueft: false, kommt: Boolean(imPlan) }
@@ -174,7 +187,7 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
             label: b.label,
             stand: standVon(b),
             klasse: b.klasse,
-            spaeter: b.klasse > e.klasse,
+            spaeter: zone !== 'kommt' && b.klasse > e.klasse,
             unter: unterVon(b.skillKey),
           })),
         ...i.offen.map((o) => ({
@@ -186,7 +199,7 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
           unter: [],
         })),
       ]
-      const uebung = i.direkt.filter((b) => !b.sicher).length
+      const uebung = i.direkt.filter((b) => standVon(b) === 'uebung').length
       return {
         id: '',
         zone,

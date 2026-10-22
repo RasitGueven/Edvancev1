@@ -94,7 +94,8 @@
 
 .tp .tp-s3-leg-sicher::before,
 .tp .tp-s3-leg-uebung::before,
-.tp .tp-s3-leg-offen::before {
+.tp .tp-s3-leg-offen::before,
+.tp .tp-s3-leg-vorgriff::before {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -103,7 +104,8 @@
 
 .tp .tp-s3-leg-uebung::before { background: var(--color-eb-uebung); }
 
-.tp .tp-s3-leg-offen::before {
+.tp .tp-s3-leg-offen::before,
+.tp .tp-s3-leg-vorgriff::before {
   background: transparent;
   border: 1.4px solid var(--color-eb-leise);
 }
