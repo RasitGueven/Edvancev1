@@ -53,6 +53,10 @@ export type TpSchwerpunkt = {
   /** Labels wie R7. `uebung` enthält übersprungene Bereiche. */
   sicher: string[]
   uebung: string[]
+  /** Startstelle im Thema (EbSchwerpunkt.start); null beim Feld. */
+  start: string | null
+  /** Baut direkt auf der Startstelle auf (EbSchwerpunkt.naechster); sonst null. */
+  naechster: string | null
 }
 
 /** Die zwei Karten in Station 01. */
@@ -61,6 +65,34 @@ export type TpUeberblick = {
   ueben: ThemenfeldKey[]
   beispielSicher: { label: string; anzahl: number } | null
   beispielUebung: { label: string; anzahl: number } | null
+}
+
+/**
+ * Thema-Reihenfolge und direkte Kanten im Themenraum, nur mit Thema der LSA
+ * (bericht.thema). Labels wie in TpSchwerpunkt; Grundlage der Kette (PS-1).
+ */
+export type TpThemaWeg = {
+  /** Alle direkt geprüften Bereiche im Raum, in der Thema-Reihenfolge (themaReihenfolge). */
+  reihe: { label: string; sicher: boolean }[]
+  /** Direkte Kanten (skill_kante) zwischen diesen Bereichen: von = Voraussetzung. */
+  kanten: { von: string; zu: string }[]
+}
+
+/** Ein Kasten der Kette in Station 03 (PS-1, Entscheidung 10). */
+export type TpGlied =
+  | {
+      art: 'basis' | 'start' | 'naechster' | 'thema' | 'themaSitzt' | 'kommt'
+      label: string
+      /** Nur bei basis: über eine direkte Kante zur Startstelle gefunden. */
+      kante?: boolean
+    }
+  | { art: 'feld'; feld: ThemenfeldKey }
+
+/** Die Kette in Station 03: höchstens fünf Kästen, links nach rechts. */
+export type TpKette = {
+  /** thema: mit Thema-Schwerpunkt; themaSitzt: Thema ohne Übungsbedarf; feld: ohne Thema. */
+  fall: 'thema' | 'themaSitzt' | 'feld'
+  glieder: TpGlied[]
 }
 
 /** Die Empfehlungszeile in Station 04. Nie ein Preis. */
@@ -106,6 +138,10 @@ export type PraesentationDaten = {
   lernweg: Lernweg | null
   schwerpunkte: TpSchwerpunkt[]
   danach: ThemenfeldKey[]
+  /** Label des Themas der LSA wie bericht.thema (R7-11); null ohne Thema. */
+  thema: string | null
+  /** Nur mit Thema; null sonst. */
+  themaWeg: TpThemaWeg | null
   empfehlung: TpEmpfehlung | null
   /** „Ihr Anliegen“ wie auf Seite 1 (R7-11, anliegen.ts); null, wenn nichts zu sagen ist. */
   anliegen: EbAnliegen | null

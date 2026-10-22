@@ -26,7 +26,7 @@
 
 .tp .tp-s2-zahlen {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
   gap: 16px;
 }
@@ -49,7 +49,6 @@
 
 .tp .tp-s2-zahl:nth-child(1) { --tp-verzoegerung: var(--tp-zahl-1); }
 .tp .tp-s2-zahl:nth-child(2) { --tp-verzoegerung: var(--tp-zahl-2); }
-.tp .tp-s2-zahl:nth-child(3) { --tp-verzoegerung: var(--tp-zahl-3); }
 
 .tp .tp-s2-zahl strong {
   color: var(--color-eb-tinte);
@@ -68,16 +67,31 @@
 .tp .tp-s2-zahl-sicher strong { color: var(--color-eb-sicher); }
 .tp .tp-s2-zahl-uebung { border-color: var(--color-eb-uebung); }
 .tp .tp-s2-zahl-uebung strong { color: var(--color-eb-uebung-text); }
-.tp .tp-s2-zahl-ueber { border-color: var(--tp-ueber-rand); }
-
-.tp .tp-s2-zahl-ueber strong {
+/* „davon n übersprungen“: kleine Zeile unter Übungsbedarf, Antippen öffnet den
+   Erklärsatz (PS-1, Entscheidungen 7 und 8). Touch-Ziel 44 px. */
+.tp .tp-s2-ueber-zeile {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 2px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--tp-s2-ueber-text);
+  font: inherit;
+  font-size: 12px;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
 }
 
-/* kombiniert: „davon" ist ein Teil des Übungsbedarfs, deshalb kleiner und leiser. */
-.tp .tp-s2:not(.tp-s2-getrennt) .tp-s2-zahl-ueber strong {
-  opacity: .82;
-  font-size: clamp(30px, 3.3vw, 44px);
+.tp .tp-s2-ueber-zeile i {
+  --tp-muster-punkt: .9px;
+  --tp-muster-weich: 1.3px;
+  --tp-muster-raster: 3.5px;
+  width: 11px;
+  height: 9px;
+  border-radius: 2px;
 }
 
 .tp .tp-s2-erklaer {
@@ -87,10 +101,6 @@
   color: var(--color-eb-leise);
   font-size: 11px;
   line-height: 1.65;
-}
-
-.tp .tp-s2-erklaer span {
-  display: block;
 }
 
 /* ─── Geräte ──────────────────────────────────────────────────────────── */
@@ -119,14 +129,6 @@
     border-left: 0;
     font-size: 10px;
     line-height: 1.5;
-  }
-
-  .tp .tp-s2-erklaer span {
-    display: inline;
-  }
-
-  .tp .tp-s2-erklaer span + span::before {
-    content: ' ';
   }
 }
 

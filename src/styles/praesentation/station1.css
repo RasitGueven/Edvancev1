@@ -7,8 +7,6 @@
      rahmen.css führt sie nicht; sie gelten nur hier. */
   --tp-s1-lead: 755ms;
   --tp-s1-bild: 1035ms;
-  --tp-s1-notiz: 1385ms;
-  --tp-s1-fuss: 1755ms;
 }
 
 .tp .tp-s1-raster {
@@ -37,57 +35,14 @@
   line-height: 1.08;
 }
 
-.tp .tp-s1-lead {
+/* „Ihr Anliegen“ wie auf Seite 1 (R7-11): der eine Satz unter dem Titel (PS-1). */
+.tp .tp-s1-anliegen {
   --tp-verzoegerung: var(--tp-s1-lead);
   max-width: 640px;
   margin-top: 27px;
   color: var(--color-eb-text);
   font-size: clamp(17px, 1.65vw, 23px);
   line-height: 1.54;
-}
-
-/* „Ihr Anliegen“ wie auf Seite 1 (R7-11): mit dem Leitsatz, eine Stufe leiser. */
-.tp .tp-s1-anliegen {
-  --tp-verzoegerung: var(--tp-s1-lead);
-  max-width: 640px;
-  margin-top: 14px;
-  color: var(--color-eb-text);
-  font-size: clamp(14px, 1.3vw, 18px);
-  line-height: 1.5;
-}
-
-.tp .tp-s1-notiz {
-  --tp-verzoegerung: var(--tp-s1-notiz);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  row-gap: 4px;
-  margin-top: 40px;
-  color: var(--color-eb-leise);
-  font-size: 12px;
-}
-
-.tp .tp-s1-notiz i {
-  width: 5px;
-  height: 5px;
-  margin-right: 9px;
-  border-radius: 50%;
-  background: var(--color-eb-navy);
-}
-
-.tp .tp-s1-notiz span {
-  white-space: nowrap;
-}
-
-.tp .tp-s1-notiz span + span::before {
-  content: '·';
-  margin: 0 .55em;
-  opacity: .5;
-}
-
-.tp .tp-s1-fuss {
-  --tp-verzoegerung: var(--tp-s1-fuss);
-  flex: 0 0 auto;
 }
 
 /* ─── Bild mit Kreisen, Kugel und den zwei Karten ───────────────────────── */
@@ -159,10 +114,24 @@
   letter-spacing: 0;
 }
 
-.tp .tp-s1-karte p {
+.tp .tp-s1-karte p,
+.tp .tp-s1-karte li {
   color: var(--color-eb-text);
   font-size: 11px;
   line-height: 1.45;
+}
+
+/* Einträge als kurze Zeilen untereinander (PS-1, Entscheidung 6). */
+.tp .tp-s1-karte ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s1-karte li.tp-s1-weitere {
+  color: var(--color-eb-leise);
 }
 
 .tp .tp-s1-karte-gelungen {
@@ -219,10 +188,6 @@
     font-size: clamp(32px, 5.2vw, 52px);
   }
 
-  .tp .tp-s1-notiz {
-    margin-top: 24px;
-  }
-
   .tp .tp-s1-bild {
     max-width: none;
     aspect-ratio: auto;
@@ -246,17 +211,14 @@
     font-size: 13px;
   }
 
-  .tp .tp-s1-karte p {
+  .tp .tp-s1-karte p,
+  .tp .tp-s1-karte li {
     font-size: 13px;
   }
 }
 
 @media (max-height: 720px) {
-  .tp .tp-s1-lead {
+  .tp .tp-s1-anliegen {
     margin-top: 18px;
-  }
-
-  .tp .tp-s1-notiz {
-    margin-top: 24px;
   }
 }

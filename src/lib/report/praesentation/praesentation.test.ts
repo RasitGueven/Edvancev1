@@ -8,6 +8,8 @@ import {
   anteileZeile,
   anzeigeZahlen,
   bauePraesentation,
+  PROFIL_SOFORT,
+  profilReihenfolge,
   uebersprungeneSchluessel,
   zustandAufTablet,
   type PraesentationFehlt,
@@ -105,10 +107,7 @@ describe('Gleichheit mit dem Druckbogen R7', () => {
     })
 
     // Dieselbe Rechnung (R7-11, Entscheidung 6): schwerpunkte.ts, nur um die Stufen ergänzt.
-    const ohneStart = b.schwerpunkte.map(({ start: _start, naechster: _naechster, ...s }) => s)
-    expect(
-      p.schwerpunkte.map(({ feld, thema, gemischt, sicher, uebung }) => ({ feld, thema, gemischt, sicher, uebung })),
-    ).toEqual(ohneStart)
+    expect(p.schwerpunkte.map(({ stufen: _stufen, ...s }) => s)).toEqual(b.schwerpunkte)
     expect(p.danach).toEqual(b.danach)
     expect(p.kopfFall).toBe(b.kopfFall)
   })
@@ -188,7 +187,7 @@ describe('Kontrollwerte aus Anhang C', () => {
     ])
     expect(p.danach).toEqual(['terme', 'zahlen'])
     expect(p.ueberblick.gelungen).toEqual(['groessen', 'zahlen'])
-    expect(p.ueberblick.ueben).toEqual(['geometrie', 'brueche'])
+    expect(p.ueberblick.ueben).toEqual(['geometrie', 'brueche', 'prozent', 'terme'])
   })
 
   it('uebersprungen', () => {
@@ -286,5 +285,30 @@ describe('Lernweg (R7-9, Entscheidung 5): eine Rechnung, zwei Darstellungen', ()
     if ('fehlt' in p) throw new Error('abgestuft ohne Daten')
     expect(bericht.lernweg).not.toBeNull()
     expect(p.lernweg).toEqual(bericht.lernweg)
+  })
+})
+
+describe('profilReihenfolge (PS-1, Entscheidung 9)', () => {
+  const felder = (name: string): string[] => profilReihenfolge(baue(name)).map((z) => z.feld)
+
+  it('ohne Thema: Felder mit Übungsbedarf nach schwerpunkte und danach, dann die sicheren (ilkay)', () => {
+    expect(felder('ilkay')).toEqual(['geometrie', 'brueche', 'groessen', 'prozent', 'terme', 'zahlen'])
+  })
+
+  it('mit Thema: zuerst das Feld der Startstelle (abgestuft)', () => {
+    expect(felder('abgestuft')).toEqual(['zahlen', 'terme', 'geometrie', 'zufall', 'brueche'])
+  })
+
+  it('alles sicher: Reihenfolge des Profils', () => {
+    const p = baue('allesSicher')
+    expect(felder('allesSicher')).toEqual(p.zeilen.map((z) => z.feld))
+  })
+
+  it('verliert und verdoppelt keine Zeile; sofort sichtbar sind höchstens vier', () => {
+    expect(PROFIL_SOFORT).toBe(4)
+    for (const [name] of Object.entries(PRAESENTATION_FAELLE).filter(([n]) => n !== 'ohneKatalog')) {
+      const p = baue(name)
+      expect([...felder(name)].sort(), name).toEqual(p.zeilen.map((z) => z.feld).sort())
+    }
   })
 })

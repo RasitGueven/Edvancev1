@@ -11,6 +11,7 @@ import { anliegenAus } from '@/lib/report/elternbericht/anliegen'
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import { bereicheAus } from '@/lib/report/elternbericht/bereiche'
 import { genitiv } from '@/lib/report/elternbericht/genitiv'
+import { themaReihenfolge } from '@/lib/report/elternbericht/schwerpunkte'
 import { stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
 import { empfehlungAus } from '@/lib/report/praesentation/empfehlung'
 import { ueberblick } from '@/lib/report/praesentation/ueberblick'
@@ -27,6 +28,7 @@ import type {
   TpAnzeigeZahlen,
   TpEbene,
   TpSchwerpunkt,
+  TpThemaWeg,
   TpZeile,
 } from '@/types'
 
@@ -105,8 +107,35 @@ function schwerpunkteAus(bericht: Elternbericht, bereiche: EbBereich[]): TpSchwe
       stufen: STUFEN.filter((st) => stufen.has(st)),
       sicher: [...s.sicher],
       uebung: [...s.uebung],
+      start: s.start,
+      naechster: s.naechster,
     }
   })
+}
+
+/**
+ * Reihe und direkte Kanten im Themenraum für die Kette (PS-1, Entscheidung 10):
+ * dieselbe Thema-Reihenfolge wie schwerpunkte.ts (themaReihenfolge mit Raum,
+ * Kanten und geprüften Bereichen). null ohne Thema.
+ */
+function themaWegAus(bericht: Elternbericht, bereiche: EbBereich[], data: ReportData): TpThemaWeg | null {
+  const { raum, kanten } = data.erzaehlung
+  if (!bericht.thema || !raum) return null
+  const imRaum = new Set([...raum.einstieg, ...raum.darunter])
+  const geprueft = new Set(data.erzaehlung.kompetenzen.map((k) => k.skillKey))
+  const drin = themaReihenfolge(
+    bereiche.filter((b) => imRaum.has(b.skillKey)),
+    imRaum,
+    kanten,
+    geprueft,
+  )
+  const label = new Map(drin.map((b) => [b.skillKey, b.label]))
+  return {
+    reihe: drin.map((b) => ({ label: b.label, sicher: b.sicher })),
+    kanten: kanten
+      .filter((k) => label.has(k.voraussetzt) && label.has(k.skillKey))
+      .map((k) => ({ von: label.get(k.voraussetzt)!, zu: label.get(k.skillKey)! })),
+  }
 }
 
 export function bauePraesentation({
@@ -152,6 +181,8 @@ export function bauePraesentation({
     lernweg: bericht.lernweg,
     schwerpunkte: schwerpunkteAus(bericht, bereiche),
     danach: [...bericht.danach],
+    thema: bericht.thema?.titel ?? null,
+    themaWeg: themaWegAus(bericht, bereiche, data),
     empfehlung: empfehlungAus(notes?.paket ?? null, tiers),
     anliegen: anliegenAus({
       anlassNamen: data.erzaehlung.anlassNamen,
@@ -185,4 +216,34 @@ export function anzeigeZahlen(anteile: TpAnteile, anzeige: TpAnzeige): TpAnzeige
     uebung: kombiniert ? uebung + uebersprungen : uebung,
     dritte: uebersprungen > 0 ? { wert: uebersprungen, art: kombiniert ? 'davon' : 'eigen' } : null,
   }
+}
+
+/** Höchstens so viele Profilzeilen stehen in Station 02 sofort (PS-1, Entscheidung 9). */
+export const PROFIL_SOFORT = 4
+
+/**
+ * Die Profilzeilen in der Reihenfolge von Station 02 (PS-1, Entscheidung 9):
+ * zuerst das Feld der Startstelle des Thema-Schwerpunkts, dann Felder mit
+ * Übungsbedarf in der Schwerpunkt-Reihenfolge (schwerpunkte, danach, dann der
+ * Rest wie im Profil), dann die sicheren Felder wie im Profil. Nur Felder mit
+ * einem untersuchten Bereich — das sind alle in p.zeilen.
+ */
+export function profilReihenfolge(p: Pick<PraesentationDaten, 'zeilen' | 'schwerpunkte' | 'danach'>): TpZeile[] {
+  const mitUebung = (z: TpZeile): boolean => z.uebung.length + z.uebersprungen.length > 0
+  const start = p.schwerpunkte.find((s) => s.thema)?.start ?? null
+  const startFeld = start
+    ? p.zeilen.find((z) => [...z.uebung, ...z.uebersprungen].some((b) => b.label === start))?.feld ?? null
+    : null
+  const rang = [
+    ...(startFeld ? [startFeld] : []),
+    ...p.schwerpunkte.flatMap((s) => (s.feld ? [s.feld] : [])),
+    ...p.danach,
+  ]
+  const stelle = (z: TpZeile): number => {
+    if (!mitUebung(z)) return Infinity
+    const i = rang.indexOf(z.feld)
+    return i < 0 ? rang.length : i
+  }
+  // sort ist stabil: Gleichstand behält die Reihenfolge des Profils.
+  return [...p.zeilen].sort((a, b) => (stelle(a) === stelle(b) ? 0 : stelle(a) < stelle(b) ? -1 : 1))
 }

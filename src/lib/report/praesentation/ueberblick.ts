@@ -2,9 +2,10 @@
 //
 // „Schon gelungen": Themenfelder mit mehr sicheren Bereichen als Bereichen mit
 // Übungsbedarf. „Gezielt üben": die übrigen Felder mit Übungsbedarf. Gezählt
-// wie R7 (übersprungen gehört zum Übungsbedarf). Je Karte höchstens zwei,
-// absteigend nach Anzahl, bei Gleichstand nach THEMENFELDER (Reihenfolge von
-// bericht.profil). Kein Feld steht in beiden Karten.
+// wie R7 (übersprungen gehört zum Übungsbedarf). Absteigend nach Anzahl, bei
+// Gleichstand nach THEMENFELDER (Reihenfolge von bericht.profil). Kein Feld
+// steht in beiden Karten. Alle Felder kommen zurück; die Karte zeigt zwei und
+// „+n weitere" (PS-1, Entscheidung 6).
 //
 // R7-3 („Was die Grafik zeigt") war beim Bau noch nicht auf dev; die Regel
 // steht deshalb hier. Kommt sie dort als reine Funktion, eine von beiden
@@ -12,13 +13,10 @@
 
 import type { EbProfilZeile, Elternbericht, TpUeberblick } from '@/types'
 
-const MAX_JE_KARTE = 2
-
 function oben(zeilen: EbProfilZeile[], anzahl: (z: EbProfilZeile) => number): EbProfilZeile['feld'][] {
   // Array.prototype.sort ist stabil: Gleichstand behält die Reihenfolge des Profils.
   return [...zeilen]
     .sort((a, b) => anzahl(b) - anzahl(a))
-    .slice(0, MAX_JE_KARTE)
     .map((z) => z.feld)
 }
 

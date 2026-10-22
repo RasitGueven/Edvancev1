@@ -81,7 +81,9 @@
     "legende": {
       "uebersprungen": "Übersprungen („Weiß ich nicht“)"
     },
-    "tippen": "Die Details öffnen sich durch Antippen eines Themenfelds."
+    "tippen": "Die Details öffnen sich durch Antippen eines Themenfelds.",
+    "alleFelder": "Alle Themenfelder zeigen",
+    "wenigerFelder": "Weniger Themenfelder zeigen"
   },
   "s3": {
     "kicker": "Lernweg",
@@ -118,6 +120,28 @@
         "kommtBasis": "Baut auf, was schon sitzt: {{liste}}.",
         "leer": "Tippen Sie auf einen Bereich, um zu sehen, worauf er aufbaut und was darauf aufbaut."
       }
+    },
+    "kette": {
+      "titel": "Der Weg zum Thema.",
+      "titelFeld": "Der Weg zum Themenfeld.",
+      "etikett": {
+        "basis": "Sitzt schon",
+        "start": "Hier hakt es",
+        "naechster": "Baut darauf auf",
+        "thema": "Ihr Thema",
+        "themaSitzt": "Ihr Thema · sitzt",
+        "feld": "Themenfeld",
+        "kommt": "Kommt als Nächstes"
+      },
+      "info": {
+        "start": "Hier setzen wir zuerst an.",
+        "naechster": "Baut direkt auf {{start}} auf.",
+        "thema": "Darauf arbeiten wir hin.",
+        "themaSitzt": "Was wir in diesem Thema geprüft haben, sitzt schon.",
+        "feld": "Die Bereiche davor gehören zu diesem Themenfeld."
+      },
+      "ganzerWeg": "Ganzen Lernweg zeigen",
+      "zurueck": "Zurück zum Weg"
     }
   },
   "s4": {

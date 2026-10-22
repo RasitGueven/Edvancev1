@@ -86,6 +86,18 @@ for (const fall of Object.keys(PRAESENTATION_FAELLE)) {
           expect(await verstoesse(page, n), `Station ${nn(n)}`).toEqual([])
           expect(await kleineZiele(page), `Station ${nn(n)}`).toEqual([])
           if (n === 3) {
+            // PS-1: Standard ist die Kette; Foto davon, dann die volle Karte prüfen.
+            const ganz = page.getByTestId('tp-s3-ganz')
+            if (await ganz.count()) {
+              if (FOTOS.has(mass)) {
+                mkdirSync(AUSGABE, { recursive: true })
+                await page.screenshot({ path: resolve(AUSGABE, `${fall}_${mass}_03-kette.png`) })
+              }
+              await ganz.click()
+              // Die Bühne misst sich nach dem Einhängen erst ein; dann gelten die Maße.
+              await expect.poll(() => kleineZiele(page), { message: 'Station 03 · volle Karte' }).toEqual([])
+              expect(await verstoesse(page, n), 'Station 03 · volle Karte').toEqual([])
+            }
             expect(await lernwegVerstoesse(page), 'Station 03 · Lernweg').toEqual([])
             // Nachbesserung R7-9: Schrift im Bild ≥ 13 px; im Querformat 1180x820 die Bühne ≥ 480 px.
             const lesbar = await lernwegLesbar(page)

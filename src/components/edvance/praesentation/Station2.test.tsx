@@ -1,5 +1,6 @@
-// Station 02 · Lernstand (T3): Zahlen je Zählweise, Erklärtext, Kompetenzprofil
-// mit Zählung je Zeile und die Details — Kontrollwerte aus Anhang C.
+// Station 02 · Lernstand (T3, PS-1 Entscheidungen 7–9): zwei Zahlen, „davon
+// übersprungen" mit Erklärsatz beim Antippen, höchstens vier Profilzeilen mit
+// zwei Anteilen und die Details — Kontrollwerte aus Anhang C.
 import { act, fireEvent, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
@@ -12,100 +13,146 @@ const zeile = (feld: string): HTMLElement => zeilen().find((z) => within(z).quer
 const zahl = (id: string): HTMLElement => screen.getByTestId(`tp-s2-zahl-${id}`)
 const knopf = (z: HTMLElement): HTMLElement => within(z).getByRole('button')
 const rechts = (z: HTMLElement): string => z.querySelector('.tp-s2-rechts')!.textContent ?? ''
+const felder = (): string[] => zeilen().map((z) => z.querySelector('.tp-s2-feld')!.textContent ?? '')
+const alleZeigen = (): void => {
+  fireEvent.click(screen.getByTestId('tp-s2-alle'))
+}
 
 afterEach(() => {
   vi.useRealTimers()
 })
 
 describe('Station 02 — ilkay', () => {
-  it('zeigt 11 sicher und 16 Übungsbedarf, keine dritte Zahl', () => {
+  it('zeigt 11 sicher und 16 Übungsbedarf, keine dritte Zahl, keinen Untersucht-Satz', () => {
     zeigeStation(Station2, 'ilkay')
     expect(zahl('sicher')).toHaveTextContent('11sicher eingestuft')
-    expect(zahl('uebung')).toHaveTextContent('16Übungsbedarf')
+    expect(zahl('uebung')).toHaveTextContent(/^16Übungsbedarf$/)
     expect(screen.queryByTestId('tp-s2-zahl-ueber')).toBeNull()
-    expect(screen.getByText('27 von 130 Bereichen bis Klasse 10 untersucht.')).toBeInTheDocument()
+    expect(document.querySelectorAll('.tp-s2-zahl')).toHaveLength(2)
+    expect(screen.queryByText(/Bereichen bis Klasse/)).toBeNull()
     expect(screen.queryByText(/Übersprungen heißt/)).toBeNull()
     expect(screen.queryByTestId('tp-s2-legende-ueber')).toBeNull()
+    expect(document.querySelectorAll('.tp-s2-legende li')).toHaveLength(2)
   })
 
-  it('hat sechs Zeilen in der Reihenfolge der Themenfelder', () => {
+  it('höchstens vier Zeilen: Felder mit Übungsbedarf in der Schwerpunkt-Reihenfolge, der Rest hinter „Alle Themenfelder zeigen"', () => {
     zeigeStation(Station2, 'ilkay')
-    expect(zeilen().map((z) => z.querySelector('.tp-s2-feld')!.textContent)).toEqual([
+    expect(felder()).toEqual(['Geometrie', 'Brüche & Dezimalzahlen', 'Größen', 'Prozent & Dreisatz'])
+    const alle = screen.getByTestId('tp-s2-alle')
+    expect(alle).toHaveTextContent('Alle Themenfelder zeigen')
+    expect(alle).toHaveAttribute('aria-expanded', 'false')
+    alleZeigen()
+    expect(felder()).toEqual([
+      'Geometrie',
       'Brüche & Dezimalzahlen',
+      'Größen',
       'Prozent & Dreisatz',
       'Terme & Gleichungen',
-      'Geometrie',
-      'Größen',
       'Zahlen & Rechnen',
     ])
+    expect(alle).toHaveAttribute('aria-expanded', 'true')
+    alleZeigen()
+    expect(zeilen()).toHaveLength(4)
   })
 
-  it('Brüche & Dezimalzahlen: „5 von 8" und „2 sicher · 3 Übungsbedarf"', () => {
+  it('Brüche & Dezimalzahlen: „2 sicher · 3 Übungsbedarf", ein Balken mit zwei Anteilen, kein „x von y"', () => {
     zeigeStation(Station2, 'ilkay')
     const z = zeile('Brüche & Dezimalzahlen')
-    expect(rechts(z)).toBe('5 von 82 sicher 3 Übungsbedarf')
-    expect(z.querySelectorAll('.tp-s2-segment-sicher')).toHaveLength(2)
-    expect(z.querySelectorAll('.tp-s2-segment-uebung')).toHaveLength(3)
-    expect(z.querySelector('.tp-s2-spur')).toHaveAttribute('aria-hidden', 'true')
+    expect(rechts(z)).toBe('2 sicher 3 Übungsbedarf')
+    const anteile = within(z).getAllByTestId('tp-s2-anteil')
+    expect(anteile).toHaveLength(2)
+    expect(anteile[0]).toHaveClass('tp-s2-anteil-sicher')
+    expect(anteile[0].style.getPropertyValue('--anteil')).toBe('2')
+    expect(anteile[1]).toHaveClass('tp-s2-anteil-uebung')
+    expect(anteile[1].style.getPropertyValue('--anteil')).toBe('3')
+    expect(z.querySelector('.tp-s2-balken')).toHaveAttribute('aria-hidden', 'true')
+    expect(z.querySelector('.tp-s2-zeile-zahl')).toBeNull()
+    for (const sichtbar of z.querySelectorAll('[aria-hidden="true"]')) expect(sichtbar.textContent).not.toMatch(/\d+ von \d+/)
     expect(knopf(z)).toHaveAccessibleName(
       'Brüche & Dezimalzahlen: 5 von 8 untersucht, 2 sicher, 3 mit Übungsbedarf. Details anzeigen',
     )
   })
 
-  it.each([
-    ['Prozent & Dreisatz', '4 von 9'],
-    ['Terme & Gleichungen', '4 von 23'],
-    ['Geometrie', '6 von 40'],
-    ['Größen', '5 von 6'],
-    ['Zahlen & Rechnen', '3 von 14'],
-  ])('%s: %s', (feld, text) => {
-    zeigeStation(Station2, 'ilkay')
-    expect(zeile(feld).querySelector('.tp-s2-zeile-zahl')).toHaveTextContent(text)
-  })
-
   it('setzt die Attribute der Ansichtstests (data-tp-liste, data-tp-zeile, data-tp-bereiche)', () => {
     zeigeStation(Station2, 'ilkay')
     expect(document.querySelectorAll('[data-tp-liste]')).toHaveLength(1)
-    expect(document.querySelectorAll('[data-tp-liste] [data-tp-zeile]')).toHaveLength(6)
+    expect(document.querySelectorAll('[data-tp-liste] [data-tp-zeile]')).toHaveLength(4)
     expect(zeile('Geometrie')).toHaveAttribute('data-tp-bereiche', '6')
     expect(zeile('Geometrie').querySelector('[aria-expanded]')).not.toBeNull()
   })
 })
 
+describe('Station 02 — Reihenfolge mit Thema', () => {
+  it('abgestuft: zuerst das Feld der Startstelle, dann die Schwerpunkte, dann die sicheren Felder', () => {
+    zeigeStation(Station2, 'abgestuft')
+    expect(felder()).toEqual(['Zahlen & Rechnen', 'Terme & Gleichungen', 'Geometrie', 'Daten & Zufall'])
+    alleZeigen()
+    expect(felder().at(-1)).toBe('Brüche & Dezimalzahlen')
+  })
+
+  it('ohne mehr als vier Felder kein „Alle Themenfelder zeigen" (dreiSchwerpunkte)', () => {
+    zeigeStation(Station2, 'dreiSchwerpunkte')
+    expect(zeilen()).toHaveLength(3)
+    expect(screen.queryByTestId('tp-s2-alle')).toBeNull()
+  })
+})
+
 describe('Station 02 — übersprungen', () => {
-  it('kombiniert: 16 Übungsbedarf, „davon 3 übersprungen", Punktmuster in drei Zeilen', () => {
+  it('kombiniert: 16 Übungsbedarf, darunter „davon 3 übersprungen", Erklärsatz erst beim Antippen', () => {
     zeigeStation(Station2, 'uebersprungen')
     expect(zahl('sicher')).toHaveTextContent('11')
-    expect(zahl('uebung')).toHaveTextContent('16Übungsbedarf')
-    expect(zahl('ueber')).toHaveTextContent('3davon übersprungen')
-    expect(screen.getByText(/Übersprungen heißt: Bei allen Aufgaben zu diesem Bereich hat Ilkay/)).toBeInTheDocument()
+    expect(document.querySelectorAll('.tp-s2-zahl')).toHaveLength(2)
+    const klein = zahl('ueber')
+    expect(zahl('uebung')).toContainElement(klein)
+    expect(zahl('uebung').querySelector('strong')).toHaveTextContent('16')
+    expect(klein).toHaveTextContent(/^davon 3 übersprungen$/)
+    const erklaer = screen.getByTestId('tp-s2-erklaer')
+    expect(erklaer).not.toBeVisible()
+    expect(klein).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(klein)
+    expect(erklaer).toBeVisible()
+    expect(erklaer).toHaveTextContent(/Übersprungen heißt: Bei allen Aufgaben zu diesem Bereich hat Ilkay/)
+    expect(klein).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByTestId('tp-s2-legende-ueber')).toHaveTextContent('Übersprungen („Weiß ich nicht“)')
-    const mitMuster = zeilen().filter((z) => z.querySelector('.tp-s2-segment-ueber'))
+    expect(document.querySelector('.tp-s2')).not.toHaveClass('tp-s2-getrennt')
+  })
+
+  it('übersprungen liegt als Punktmuster im Anteil Übungsbedarf, nie als dritter Anteil', () => {
+    zeigeStation(Station2, 'uebersprungen')
+    alleZeigen()
+    const mitMuster = zeilen().filter((z) => z.querySelector('.tp-s2-anteil-ueber'))
     expect(mitMuster.map((z) => z.querySelector('.tp-s2-feld')!.textContent)).toEqual([
+      'Geometrie',
       'Prozent & Dreisatz',
       'Terme & Gleichungen',
-      'Geometrie',
     ])
-    expect(document.querySelector('.tp-s2')).not.toHaveClass('tp-s2-getrennt')
+    for (const z of zeilen()) {
+      expect(within(z).getAllByTestId('tp-s2-anteil').length).toBeLessThanOrEqual(2)
+      const muster = z.querySelector('.tp-s2-anteil-ueber')
+      if (muster) expect(muster.parentElement).toHaveClass('tp-s2-anteil-uebung')
+    }
+    const prozent = within(zeile('Prozent & Dreisatz')).getAllByTestId('tp-s2-anteil')[1]
+    expect(prozent.style.getPropertyValue('--anteil')).toBe('3')
+    expect(prozent.style.getPropertyValue('--ueber')).toBe('1')
   })
 
   it('kombiniert je Zeile: Übungsbedarf mit übersprungen, „davon 1 übersprungen"', () => {
     zeigeStation(Station2, 'uebersprungen')
     const z = zeile('Prozent & Dreisatz')
-    expect(rechts(z)).toBe('4 von 91 sicher 3 Übungsbedarf davon 1 übersprungen')
+    expect(rechts(z)).toBe('1 sicher 3 Übungsbedarf davon 1 übersprungen')
     expect(knopf(z)).toHaveAccessibleName(
       'Prozent & Dreisatz: 4 von 9 untersucht, 1 sicher, 3 mit Übungsbedarf, davon 1 übersprungen. Details anzeigen',
     )
   })
 
-  it('getrennt über die Prop: 11 · 13 · 3, neutrales Muster', () => {
+  it('getrennt über die Prop: 11 · 13, „3 übersprungen", neutrales Muster', () => {
     zeigeStation(Station2, 'uebersprungen', { anzeige: 'getrennt' })
     expect(zahl('sicher')).toHaveTextContent('11')
-    expect(zahl('uebung')).toHaveTextContent('13Übungsbedarf')
-    expect(zahl('ueber')).toHaveTextContent('3übersprungen')
+    expect(zahl('uebung').querySelector('strong')).toHaveTextContent('13')
+    expect(zahl('ueber')).toHaveTextContent(/^3 übersprungen$/)
     expect(document.querySelector('.tp-s2')).toHaveClass('tp-s2-getrennt')
     const z = zeile('Geometrie')
-    expect(rechts(z)).toBe('6 von 401 sicher 4 Übungsbedarf 1 übersprungen')
+    expect(rechts(z)).toBe('1 sicher 4 Übungsbedarf 1 übersprungen')
     expect(knopf(z)).toHaveAccessibleName(
       'Geometrie: 6 von 40 untersucht, 1 sicher, 4 mit Übungsbedarf, 1 übersprungen. Details anzeigen',
     )
@@ -122,8 +169,10 @@ describe('Station 02 — übersprungen', () => {
 })
 
 describe('Station 02 — weitere Fälle', () => {
-  it('alleFelder: acht Zeilen', () => {
+  it('alleFelder: vier Zeilen, aufgeklappt acht', () => {
     zeigeStation(Station2, 'alleFelder')
+    expect(zeilen()).toHaveLength(4)
+    alleZeigen()
     expect(zeilen()).toHaveLength(8)
   })
 
@@ -132,6 +181,12 @@ describe('Station 02 — weitere Fälle', () => {
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(/^Kompetenzprofil$/)
     zeigeStation(Station2, 'ilkay')
     expect(screen.getAllByRole('heading', { level: 3 })[1]).toHaveTextContent('Ilkays Kompetenzprofil')
+  })
+
+  it('ein Hinweis aufs Antippen, als Caption', () => {
+    zeigeStation(Station2, 'ilkay')
+    expect(screen.getAllByText(/Antippen/)).toHaveLength(1)
+    expect(screen.queryByText(/Jedes Segment/)).toBeNull()
   })
 })
 
@@ -161,6 +216,14 @@ describe('Station 02 — Details', () => {
     expect(uebung.map((li) => li.textContent)).toEqual(['Brüche addieren', 'Brüche dividieren', 'Brüche multiplizieren'])
   })
 
+  it('je Liste höchstens drei Bereiche, dann „+n weitere" (ilkay Geometrie)', () => {
+    zeigeStation(Station2, 'ilkay')
+    const spalte = within(zeile('Geometrie')).getByTestId('tp-s2-spalte-uebung')
+    const li = within(spalte).getAllByRole('listitem', { hidden: true }).map((l) => l.textContent)
+    expect(li).toHaveLength(4)
+    expect(li[3]).toBe('+2 weitere')
+  })
+
   it('keineUebung nur ohne Übungsbedarf und ohne Übersprungenes (allesSicher)', () => {
     zeigeStation(Station2, 'allesSicher')
     for (const z of zeilen()) {
@@ -187,6 +250,7 @@ describe('Station 02 — Details', () => {
   it('holt die geöffnete Zeile in den sichtbaren Bereich der Liste — nur die Liste scrollt', () => {
     vi.useFakeTimers()
     zeigeStation(Station2, 'ilkay')
+    alleZeigen()
     const liste = document.querySelector<HTMLElement>('[data-tp-liste]')!
     const z = zeilen()[5]
     const scrollBy = vi.fn()

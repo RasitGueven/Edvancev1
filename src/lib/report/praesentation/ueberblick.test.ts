@@ -22,10 +22,10 @@ const aus = (kompetenzen: SucheSkill[]): Elternbericht =>
   baueElternbericht({ kompetenzen, katalog: KATALOG, klasse: 10 })!
 
 describe('ueberblick', () => {
-  it('ilkay: gelungen Größen, Zahlen · üben Geometrie, Brüche', () => {
+  it('ilkay: gelungen Größen, Zahlen · üben Geometrie, Brüche, Prozent, Terme (alle, die Karte kürzt)', () => {
     expect(ueberblick(bericht('ilkay'))).toEqual({
       gelungen: ['groessen', 'zahlen'],
-      ueben: ['geometrie', 'brueche'],
+      ueben: ['geometrie', 'brueche', 'prozent', 'terme'],
       beispielSicher: null,
       beispielUebung: null,
     })
@@ -45,10 +45,10 @@ describe('ueberblick', () => {
     expect([b.beispielSicher, b.beispielUebung]).toEqual([null, null])
   })
 
-  it('alleFelder: gelungen leer, Beispiel „Brüche kürzen", üben Brüche und Prozent', () => {
+  it('alleFelder: gelungen leer, Beispiel „Brüche kürzen", üben alle acht, Brüche und Prozent zuerst', () => {
     expect(ueberblick(bericht('alleFelder'))).toEqual({
       gelungen: [],
-      ueben: ['brueche', 'prozent'],
+      ueben: ['brueche', 'prozent', 'terme', 'geometrie', 'groessen', 'zahlen', 'funktionen', 'zufall'],
       beispielSicher: { label: 'Brüche kürzen', anzahl: 1 },
       beispielUebung: null,
     })
@@ -82,7 +82,7 @@ describe('ueberblick', () => {
         u('prozent_grundwert', 'Grundwert berechnen', 7, 7, 'traegt_nicht', 2, false),
       ]),
     )
-    expect(b.gelungen).toEqual(['brueche', 'groessen'])
+    expect(b.gelungen).toEqual(['brueche', 'groessen', 'zahlen'])
     expect(b.ueben).toEqual(['prozent', 'geometrie'])
   })
 
@@ -91,13 +91,11 @@ describe('ueberblick', () => {
     expect(b.gelungen).not.toContain('terme')
   })
 
-  it('kein Feld in beiden Karten, je Karte höchstens zwei', () => {
+  it('kein Feld in beiden Karten', () => {
     for (const [name, { data }] of Object.entries(PRAESENTATION_FAELLE)) {
       if (data.erzaehlung.katalog.length === 0) continue
       const b = ueberblick(bericht(name))
       expect(b.gelungen.filter((f) => b.ueben.includes(f)), name).toEqual([])
-      expect(b.gelungen.length, name).toBeLessThanOrEqual(2)
-      expect(b.ueben.length, name).toBeLessThanOrEqual(2)
     }
   })
 })

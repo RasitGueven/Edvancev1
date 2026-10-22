@@ -1,5 +1,7 @@
 // Station 03 · Lernweg (R7-9, Entscheidungen 19–25): derselbe Lernweg wie Seite
-// 3, Fahrt nur beim ersten Betreten, Antippen, Ziehen, Pfeiltasten.
+// 3, Fahrt nur beim ersten Betreten, Antippen, Ziehen, Pfeiltasten. Seit PS-1
+// steht die volle Karte hinter „Ganzen Lernweg zeigen"; die Kette selbst prüft
+// Lernkette.test.tsx.
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
@@ -37,7 +39,11 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-/** Station 03 in ihrer <section> wie im Rahmen, mit den Klassen der Bewegung. */
+/**
+ * Station 03 in ihrer <section> wie im Rahmen, mit den Klassen der Bewegung.
+ * Die volle Karte steht hinter „Ganzen Lernweg zeigen" (PS-1): der Knopf wird
+ * hier zuerst angetippt.
+ */
 function station(fall = abgestuft, klassen = '') {
   const p = daten(fall)
   const r = render(
@@ -45,6 +51,7 @@ function station(fall = abgestuft, klassen = '') {
       <Station3 p={p} anzeige="kombiniert" satz={new Bausteinsatz([])} sessionId="s" />
     </section>,
   )
+  fireEvent.click(screen.getByTestId('tp-s3-ganz'))
   const section = r.container.querySelector('section')!
   const inseln = () => [...r.container.querySelectorAll('.tp-s3-insel')]
   const da = () => inseln().filter((i) => i.classList.contains('tp-s3-da')).length
