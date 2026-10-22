@@ -6,10 +6,12 @@
 --      students.lead_id wie ueber leads.converted_student_id. Kein Lead/kein
 --      Thema: NULL. Thema ohne Aufgaben: thema_key gesetzt, gilt als ohne Thema.
 --   1) Thema traegt sofort -> nach den Einstiegsknoten die Breite, zuerst ein
---      'behandelt'-Thema (Schulplan vor themen.sort).
+--      'behandelt'-Thema (Schulplan vor themen.sort). LSA-V: danach Ende, keine
+--      gierige Deckung mehr mit Thema.
 --   2) Thema bricht -> Abstieg nur unter dem Thema, bis sicher; danach Breite,
 --      dort kein Abstieg mehr.
---   3) Thema bricht tief -> ab Minute 12 keine Tiefe, die Breite beginnt.
+--   3) Thema bricht tief -> ab Minute 12 keine Tiefe. LSA-V: dann Thema
+--      vertiefen (ungepruefte Knoten des Themenraums), erst danach Rueckblick.
 --   4) Kein Thema -> bisherige Auswahl: gierige Deckung MIT Abstieg, keine
 --      Breite a, Klassengrenze.
 --   5) Klassengrenze nur in Breite/Restzeit (und ohne Thema): Klasse 7 zieht
@@ -217,9 +219,10 @@ select ok(not has_function_privilege('authenticated', 'public.lsa_lead_von_schue
 -- ============================================================================
 -- 1) Thema traegt sofort
 -- ============================================================================
+-- LSA-V: vorher 'zt_e1,zt_e2,zt_ba,zt_bb,zt_g1,-' — zt_g1 kam aus Breite b, die mit Thema entfaellt.
 select is(pg_temp.folge(:'s_null', 'rrrrr', '1 minute'),
-  'zt_e1,zt_e2,zt_ba,zt_bb,zt_g1,-',
-  '1: Einstiegsknoten (groesster Abschluss zuerst), dann behandelt (Schulplan), dann gierige Deckung');
+  'zt_e1,zt_e2,zt_ba,zt_bb,-',
+  '1: Einstiegsknoten (groesster Abschluss zuerst), dann behandelt (Schulplan), dann Ende statt gierige Deckung');
 select is((select zustand from lsa_skill_urteil where session_id = :'s_null' and skill_key = 'zt_p2'),
   'traegt', '1: der Abschluss des Themas ist mitbelegt, nicht gezogen');
 
@@ -242,9 +245,11 @@ select is((select zustand from lsa_skill_urteil where session_id = :'s_zwei' and
 -- ============================================================================
 select pg_temp.kind('ZT Drei', 'zt_akt', true, true) as k_drei \gset
 select pg_temp.start(:'k_drei') as s_drei \gset
+-- LSA-V: vorher 'zt_e1,zt_e1,zt_e2,zt_e2,zt_ba' (Breite a ab Minute 12). Jetzt kommt zuerst Thema vertiefen:
+-- zt_p1 ist im Themenraum noch ohne Urteil (groesster offener Abschluss). Den Rueckblick danach zeigt lsa_v_vorschau.
 select is(pg_temp.folge(:'s_drei', 'ffff', '3 minutes'),
-  'zt_e1,zt_e1,zt_e2,zt_e2,zt_ba',
-  '3: Auswahl in Minute 12 -> kein Abstieg mehr, die Breite beginnt');
+  'zt_e1,zt_e1,zt_e2,zt_e2,zt_p1',
+  '3: Auswahl in Minute 12 -> keine Tiefe mehr, Thema vertiefen beginnt');
 
 select pg_temp.kind('ZT Drei Kontrolle', 'zt_akt', true, true) as k_drei_k \gset
 select pg_temp.start(:'k_drei_k') as s_drei_k \gset
@@ -296,8 +301,9 @@ select is((select count(*)::int from lsa_ausgegeben a join tasks t on t.id = a.t
 
 select pg_temp.kind('ZT Hoch', 'zt_hoch', false, false) as k_hoch \gset
 select pg_temp.start(:'k_hoch') as s_hoch \gset
-select is(pg_temp.folge(:'s_hoch', 'ffr', '1 minute'), 'zt_h8,zt_h8,zt_r,zt_e1',
-  '5: Klasse 7 mit Thema der Klasse 8 — Phase T und Abstieg laufen, danach Breite ohne zt_h9');
+-- LSA-V: vorher 'zt_h8,zt_h8,zt_r,zt_e1' — zt_e1 kam aus Breite b, die mit Thema entfaellt.
+select is(pg_temp.folge(:'s_hoch', 'ffr', '1 minute'), 'zt_h8,zt_h8,zt_r,-',
+  '5: Klasse 7 mit Thema der Klasse 8 — Phase T und Abstieg laufen, danach Ende ohne zt_h9');
 
 -- ============================================================================
 -- 6) Zweitbeleg hat in jeder Phase Vorrang

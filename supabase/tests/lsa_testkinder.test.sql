@@ -9,7 +9,9 @@
 --   1. Die neueste Sitzung ist abgeschlossen, mit result_summary und Themenraum.
 --   2. Jeder direkt beurteilte Bereich passt zum Profil (sicher → traegt, uebung → traegt_nicht,
 --      teilweise → traegt oder traegt_teilweise, nicht_angesetzt → nicht_angesetzt).
---   3. Die simulierte Uhr deckt die 19 Minuten ab (Summe der Antwortdauern 18,5 bis 21 Minuten).
+--   3. Jede Sitzung endet durch die Zeit (Summe der Antwortdauern 18,5 bis 21 Minuten) oder vorher, weil die
+--      Auswahl keine Aufgabe mehr liefert (lsa_select_next_core gibt null; LSA-V, Entscheidung 2d: eine LSA
+--      darf vor Minute 19 enden). Dauer und Grund je Kind stehen als diag in der Ausgabe.
 --   4. Lina hat mindestens 80 % sicher, Jonas hoechstens 20 %.
 --   5. Emre, Sophie und Nele loesen ihr bevorzugtes Fehlbild aus.
 --   6. Die Anliegen stammen nur aus den Intake-Werten (PARENT_WEAK_TOPICS) und stehen wie im Profil am Lead.
@@ -112,10 +114,39 @@ select is((select string_agg(u.skill_key || '=' || u.zustand, ', ') from lsa_ski
               and not pg_temp.passt(pg_temp.kind(n), u.skill_key, u.zustand)),
           null, n || ': jeder direkt beurteilte Bereich passt zum Profil')
   from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele']) n;
-select ok((select sum(r.d) between 18.5 * 60000 and 21 * 60000
-             from (select distinct r.task_id, r.duration_ms as d from lsa_responses r
-                    where r.session_id = pg_temp.sitzung(n)) r),
-          n || ': die simulierte Uhr deckt die 19 Minuten ab')
+-- Summe der Antwortdauern einer Sitzung in ms (die Uhr des Skripts: p_jetzt = Beginn + diese Summe).
+create function pg_temp.dauer_ms(p_s uuid) returns numeric language sql as $$
+  select sum(r.d) from (select distinct r.task_id, r.duration_ms as d from lsa_responses r
+                         where r.session_id = p_s) r
+$$;
+-- Warum die Sitzung endete: 'Zeit' (18,5 bis 21 Minuten), 'Auswahl leer' (vorher, und lsa_select_next_core
+-- gibt zum Endzeitpunkt null) oder 'offen' (vorher, aber die Auswahl haette noch eine Aufgabe).
+-- Die Auswahl wird in einem zurueckgerollten Teilblock gefragt: sie braucht die Sitzung als in_progress
+-- und kann Urteile schreiben; beides bleibt nicht stehen.
+create function pg_temp.ende_grund(p_s uuid) returns text language plpgsql as $$
+declare v_d numeric := pg_temp.dauer_ms(p_s); v_next uuid; v_beginn timestamptz;
+begin
+  if v_d between 18.5 * 60000 and 21 * 60000 then
+    return 'Zeit';
+  end if;
+  if v_d > 21 * 60000 then
+    return 'zu lang';
+  end if;
+  begin
+    update lsa_sessions set status = 'in_progress' where id = p_s
+    returning coalesce(diagnose_ab, started_at, created_at) into v_beginn;
+    v_next := public.lsa_select_next_core(p_s, array['ready'], v_beginn + make_interval(secs => v_d / 1000.0));
+    raise exception using errcode = 'P0A57';
+  exception when sqlstate 'P0A57' then null;
+  end;
+  return case when v_next is null then 'Auswahl leer' else 'offen' end;
+end $$;
+
+select ok(pg_temp.ende_grund(pg_temp.sitzung(n)) in ('Zeit', 'Auswahl leer'),
+          n || ': endet durch die Zeit oder weil die Auswahl keine Aufgabe mehr liefert')
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele']) n;
+select diag(n || ': ' || to_char(make_interval(secs => pg_temp.dauer_ms(pg_temp.sitzung(n)) / 1000.0), 'MI:SS')
+            || ' Minuten, Ende: ' || pg_temp.ende_grund(pg_temp.sitzung(n)))
   from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele']) n;
 
 -- 4
