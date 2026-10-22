@@ -12,12 +12,13 @@
 --   3. Die simulierte Uhr deckt die 19 Minuten ab (Summe der Antwortdauern 18,5 bis 21 Minuten).
 --   4. Lina hat mindestens 80 % sicher, Jonas hoechstens 20 %.
 --   5. Emre, Sophie und Nele loesen ihr bevorzugtes Fehlbild aus.
---   6. Der zweite Lauf legt neue Sitzungen an, findet dieselben Leads und Schueler und loescht nichts.
+--   6. Die Anliegen stammen nur aus den Intake-Werten (PARENT_WEAK_TOPICS) und stehen wie im Profil am Lead.
+--   7. Der zweite Lauf legt neue Sitzungen an, findet dieselben Leads und Schueler und loescht nichts.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(32);
+select plan(33);
 
 \set admin 'a5a7c41d-adad-4000-8000-000000000001'
 insert into auth.users (id, email, instance_id, aud, role)
@@ -129,10 +130,20 @@ select ok(exists (select 1 from lsa_responses r join fehlbild_labels f on f.slug
           n || ': das bevorzugte Fehlbild ist ausgeloest')
   from unnest(array['Emre', 'Sophie', 'Nele']) n;
 
+-- 6
+select is((select string_agg(k ->> 'kind' || ': ' || array_to_string(a.weak_topics, ', '), ' | ' order by k ->> 'kind')
+             from jsonb_array_elements(current_setting('lsat.kinder')::jsonb) k
+             join lead_assessments a on a.lead_id = (k ->> 'lead')::uuid and a.source = 'parent'
+            where a.weak_topics <@ array['Grundlagen fehlen', 'Textverständnis', 'Rechenwege', 'Konzentration',
+                                         'Prüfungsangst', 'Zeiteinteilung']),
+          'Emre: Grundlagen fehlen | Jonas: Grundlagen fehlen, Konzentration | Lina: Rechenwege | '
+            || 'Nele: Prüfungsangst | Sophie: Textverständnis, Konzentration',
+          'Anliegen nur aus PARENT_WEAK_TOPICS, je Kind wie im Profil');
+
 -- ── Zweiter Lauf ────────────────────────────────────────────────────────────
 \ir ../../tools/lsa-testkinder/erzeugen.sql
 
--- 6
+-- 7
 select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%'), 5::bigint, 'Zweiter Lauf: dieselben fuenf Leads');
 select is((select count(*) from students where id::text like 'a5a7c41d-5c00-%' and ist_test and is_provisional),
           5::bigint, 'Zweiter Lauf: dieselben fuenf Testkonten');
