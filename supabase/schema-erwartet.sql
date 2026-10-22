@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-\restrict KC9EBrIoSO3vOavHzeYLGtwSR14AfN19of6oJBPIzEobwBhVYVDF26I26i2mEIK
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -4843,6 +4842,95 @@ $$;
 
 
 --
+-- Name: lsa_durchklick_stand(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_durchklick_stand(p_session_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  -- Die Schwellen (Rasit, 22.10.2026). Nur hier.
+  c_schnell_ms    constant integer := 5000;
+  c_folge         constant integer := 5;
+  c_anteil        constant numeric := 0.40;
+  c_min_antworten constant integer := 10;
+  c_hinweis_folge constant integer := 3;
+
+  v_student        uuid;
+  a                record;
+  v_antworten      integer := 0;
+  v_sf             integer := 0;
+  v_folge_sf       integer := 0;
+  v_folge_sf_max   integer := 0;
+  v_folge_schnell  integer := 0;
+  v_folge          boolean;
+  v_anteil         boolean;
+begin
+  select student_id into v_student from lsa_sessions where id = p_session_id;
+  if v_student is null then
+    raise exception 'LSA: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+  if not (coalesce(current_setting('edvance.lsa_intern', true), '') = '1'
+          or (coalesce(public.get_my_role(), '') in ('admin', 'coach')
+              and public.lsa_may_act_for(v_student))) then
+    raise exception 'LSA: kein Zugriff auf diese Session' using errcode = '42501';
+  end if;
+
+  -- Je Aufgabe eine Abgabe. duration_ms steht in allen Teilzeilen gleich. Innerhalb einer
+  -- Transaktion tragen alle Zeilen dieselbe Zeit; dann entscheidet task_id (nur in Tests
+  -- und Generatoren, jede echte Abgabe ist eine eigene Transaktion).
+  for a in
+    select bool_and(r.abgabeart = 'weiss_nicht')          as wn,
+           coalesce(bool_or(r.correct = false), false)    as falsch,
+           coalesce(max(r.duration_ms) < c_schnell_ms, false) as schnell
+      from lsa_responses r
+     where r.session_id = p_session_id
+     group by r.task_id
+     order by min(r.created_at), r.task_id
+  loop
+    v_antworten := v_antworten + 1;
+
+    if a.schnell and a.falsch then
+      v_sf := v_sf + 1;
+      v_folge_sf := v_folge_sf + 1;
+      v_folge_sf_max := greatest(v_folge_sf_max, v_folge_sf);
+    else
+      v_folge_sf := 0;
+    end if;
+
+    -- Fuer den Hinweis zaehlt nur das Tempo, nicht richtig/falsch (CLAUDE.md §6).
+    if a.schnell and not a.wn then
+      v_folge_schnell := v_folge_schnell + 1;
+    else
+      v_folge_schnell := 0;
+    end if;
+  end loop;
+
+  v_folge  := v_folge_sf_max >= c_folge;
+  v_anteil := v_antworten >= c_min_antworten and v_sf >= c_anteil * v_antworten;
+
+  return jsonb_build_object(
+    'antworten',                v_antworten,
+    'schnell_falsch',           v_sf,
+    'anteil_schnell_falsch',    case when v_antworten = 0 then 0
+                                     else round(v_sf::numeric / v_antworten, 2) end,
+    'folge_schnell_falsch_max', v_folge_sf_max,
+    'folge_schnell_aktuell',    v_folge_schnell,
+    'nicht_auswertbar',         v_folge or v_anteil,
+    'grund',                    case when v_folge then 'folge' when v_anteil then 'anteil' end,
+    'schwellen', jsonb_build_object(
+      'schnell_ms',    c_schnell_ms,
+      'folge',         c_folge,
+      'anteil',        c_anteil,
+      'min_antworten', c_min_antworten,
+      'hinweis_folge', c_hinweis_folge)
+  );
+end;
+$$;
+
+
+--
 -- Name: lsa_eingabeformat_eindeutig(text, boolean, text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5134,6 +5222,7 @@ CREATE FUNCTION public.lsa_finish(p_session_id uuid) RETURNS jsonb
 declare
   v_session lsa_sessions;
   v_summary jsonb;
+  v_stand   jsonb;
 begin
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
@@ -5268,10 +5357,21 @@ begin
         || jsonb_build_object('stand', to_jsonb(now())));
   end if;
 
+  -- LSA-R2: durchgeklickt? Dieselben Kennzahlen kommen in result_summary.durchklick und,
+  -- wenn nicht auswertbar, als Grund an die Sitzung. Gesetzt in DERSELBEN Anweisung wie
+  -- completed, also bevor der Abschluss sichtbar wird.
+  perform set_config('edvance.lsa_intern', '1', true);
+  v_stand := public.lsa_durchklick_stand(p_session_id);
+  perform set_config('edvance.lsa_intern', '', true);
+  v_summary := v_summary || jsonb_build_object('durchklick', v_stand);
+
   update lsa_sessions
-     set status         = 'completed',
-         completed_at   = now(),
-         result_summary = v_summary
+     set auswertbar             = not (v_stand ->> 'nicht_auswertbar')::boolean,
+         nicht_auswertbar_grund = case when (v_stand ->> 'nicht_auswertbar')::boolean
+                                       then v_stand end,
+         status                 = 'completed',
+         completed_at           = now(),
+         result_summary         = v_summary
    where id = p_session_id;
 
   return v_summary;
@@ -8731,6 +8831,8 @@ declare
   v_open    uuid;
   v_claims  text;
   v_result  jsonb;
+  v_stand   jsonb;
+  v_hinweis boolean := false;
 begin
   if not exists (select 1 from platz_devices where profile_id = auth.uid()) then
     raise exception 'platz_submit: kein Platz-Konto' using errcode = '42501';
@@ -8781,7 +8883,20 @@ begin
 
   perform set_config('request.jwt.claims', coalesce(v_claims, ''), true);
 
-  return v_result;   -- {ok, next} — kein correct, kein Score, kein Zaehler.
+  -- LSA-R2: ruhiger Tempo-Hinweis, hoechstens einmal je Sitzung. Nur Tempo, kein
+  -- richtig/falsch; das Kind erfaehrt nichts ueber seine Antworten. Das Update mit
+  -- „is null“ setzt den Zeitpunkt genau einmal, auch bei zwei Aufrufen zugleich.
+  perform set_config('edvance.lsa_intern', '1', true);
+  v_stand := public.lsa_durchklick_stand(v_session.id);
+  perform set_config('edvance.lsa_intern', '', true);
+  if (v_stand ->> 'folge_schnell_aktuell')::int >= (v_stand -> 'schwellen' ->> 'hinweis_folge')::int then
+    update lsa_sessions set hinweis_tempo_am = now()
+     where id = v_session.id and hinweis_tempo_am is null;
+    v_hinweis := found;
+  end if;
+
+  -- {ok, next, hinweis_tempo} — kein correct, kein Score, kein Zaehler.
+  return v_result || jsonb_build_object('hinweis_tempo', v_hinweis);
 end;
 $$;
 
@@ -20335,6 +20450,9 @@ CREATE TABLE public.lsa_sessions (
     thema_key text,
     testlauf boolean DEFAULT false NOT NULL,
     diagnose_ab timestamp with time zone,
+    auswertbar boolean DEFAULT true NOT NULL,
+    nicht_auswertbar_grund jsonb,
+    hinweis_tempo_am timestamp with time zone,
     CONSTRAINT lsa_sessions_avatar_choice_form CHECK (((avatar_choice IS NULL) OR (((length(avatar_choice) >= 1) AND (length(avatar_choice) <= 40)) AND (avatar_choice = btrim(avatar_choice))))),
     CONSTRAINT lsa_sessions_grade_check CHECK (((grade >= 5) AND (grade <= 13))),
     CONSTRAINT lsa_sessions_modus_check CHECK ((modus = ANY (ARRAY['fest'::text, 'adaptiv'::text]))),
@@ -28533,5 +28651,4 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict KC9EBrIoSO3vOavHzeYLGtwSR14AfN19of6oJBPIzEobwBhVYVDF26I26i2mEIK
 

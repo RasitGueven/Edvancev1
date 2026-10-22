@@ -107,8 +107,9 @@ select is(
 select is(
   (select array_agg(k order by k) from lsa_sessions s, jsonb_object_keys(s.result_summary) k
     where s.id = :'se_b'),
-  array['afb', 'answered', 'answered_parts', 'competencies', 'planned', 'proposal', 'unbeantwortet'],
-  'B: genau die bisherigen sieben Schluessel'
+  -- LSA-R2 (20261022131037) ergaenzt durchklick; alle uebrigen wie bisher.
+  array['afb', 'answered', 'answered_parts', 'competencies', 'durchklick', 'planned', 'proposal', 'unbeantwortet'],
+  'B: genau die bisherigen sieben Schluessel und durchklick'
 );
 select is(
   (select (result_summary ->> 'answered')::int from lsa_sessions where id = :'se_a'),
