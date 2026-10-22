@@ -3,6 +3,8 @@
 // ?thema=<key>&pause=1 nach "Pause": Thema aufgeklappt, Meldung. ?abschluss=1: Abschlussseite.
 // ?bereich=lsa|session (Standard lsa): nur Aufgaben dieses Anlasses; LSA mit Stufen-Reitern, Session nach Thema und
 // Fertigkeit. Sollzahlen je Bereich nur mit dem passenden Anlass.
+// P4: "Als Naechstes", Enter und "Pruefen" je Thema folgen dem Bedarf (naechsteNoetige, Start im aktiven Reiter).
+// ?ohneSoll=1: Lauf nach "Weitere Aufgaben ohne Soll pruefen", wieder der alte Weg.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -13,12 +15,14 @@ import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { Abschluss, AlsNaechstes, BereichsUmschalter, Themenliste } from '@/components/edvance/pruefen/Uebersicht'
 import { useAuth } from '@/hooks/useAuth'
-import { ersteImThema, naechsteOffene, positionImThema, stand, stufenMitAufgaben } from '@/lib/pruefung/reihenfolge'
+import { ersteNoetigeImThema, knotenOhneAufgabe, naechsteNoetige, restImThema } from '@/lib/pruefung/lauf'
+import { naechsteOffene, positionImThema, stand, stufenMitAufgaben } from '@/lib/pruefung/reihenfolge'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
-import { getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
+import { getMeineDauer, getPruefBoard } from '@/lib/supabase/pruefung'
 import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
-import { ANLASS, auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, sollDesBereichs, type Bereich } from './bereich'
+import { auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
+import { ladeSoll } from './usePruefLauf'
 
 export function PruefenUebersichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
@@ -45,11 +49,7 @@ export function PruefenUebersichtPage(): JSX.Element {
     // Sollzahlen sind Zusatz: fehlen sie, bleibt das Board wie vor P2. Ein Bereich zeigt sie erst, wenn alle
     // seine Anlaesse geantwortet haben, sonst stimmten "noch X zu pruefen" und "X von Y noetig" nicht.
     for (const b of BEREICHE) {
-      void Promise.all(ANLASS[b].map((a) => getPruefSoll(a))).then((rs) => {
-        const kaputt = rs.find((r) => r.error)
-        if (kaputt?.error) console.warn('pruef_board_soll failed', ANLASS[b], kaputt.error.message)
-        else setSollJe((s) => ({ ...s, [b]: sollDesBereichs(rs.map((r) => r.data ?? [])) }))
-      })
+      void ladeSoll(b).then((s) => s && setSollJe((x) => ({ ...x, [b]: s })))
     }
   }, [])
 
@@ -67,16 +67,24 @@ export function PruefenUebersichtPage(): JSX.Element {
   }, [pausiert])
 
   const stufen = useMemo(() => (board ? stufenMitAufgaben(board) : []), [board])
-  const naechsteId = board ? naechsteOffene(board, null, leseUebersprungen()) : null
-  const naechste = board?.find((z) => z.task_id === naechsteId) ?? null
+  const ohneSoll = params.get('ohneSoll') === '1'
   const themaParam = params.get('thema')
-  const aktiv: Stufe | null = reiter
-    ?? board?.find((z) => z.thema_key === themaParam)?.stufe
-    ?? naechste?.stufe ?? stufen[0] ?? null
+  const start = reiter ?? board?.find((z) => z.thema_key === themaParam)?.stufe ?? null
+  const skip = leseUebersprungen()
+  const schritt = board
+    ? naechsteNoetige(board, soll, null, skip, { start, stufen: bereich === 'lsa', ohneSoll })
+    : null
+  const naechsteId = schritt?.taskId ?? null
+  const naechste = board?.find((z) => z.task_id === naechsteId) ?? null
+  const aktiv: Stufe | null = start ?? naechste?.stufe ?? stufen[0] ?? null
+  const freiId = board ? naechsteOffene(board, null, skip) : null
 
-  const oeffne = (id: string | null): void => {
-    if (id) navigate(`/coach/pruefen/${id}?bereich=${bereich}`)
+  const oeffne = (id: string | null, frei = ohneSoll): void => {
+    if (id) navigate(`/coach/pruefen/${id}?bereich=${bereich}${frei ? '&ohneSoll=1' : ''}`)
   }
+  const fertig = schritt?.grund === 'fertig'
+    ? { onOhneSoll: freiId ? () => oeffne(freiId, true) : null, onUebersicht: () => navigate(`/coach/pruefen?bereich=${bereich}`) }
+    : null
   const waehle = (b: Bereich): void => {
     setReiter(null)
     setParams({ bereich: b })
@@ -92,12 +100,12 @@ export function PruefenUebersichtPage(): JSX.Element {
       const aufKnopf = !!el && ['BUTTON', 'A', 'INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName)
       if (e.key === 'Enter' && !aufKnopf && !abschluss && naechsteId) {
         e.preventDefault()
-        navigate(`/coach/pruefen/${naechsteId}?bereich=${bereich}`)
+        navigate(`/coach/pruefen/${naechsteId}?bereich=${bereich}${ohneSoll ? '&ohneSoll=1' : ''}`)
       }
     }
     window.addEventListener('keydown', taste)
     return () => window.removeEventListener('keydown', taste)
-  }, [naechsteId, abschluss, navigate, bereich])
+  }, [naechsteId, abschluss, navigate, bereich, ohneSoll])
 
   return (
     <>
@@ -108,7 +116,8 @@ export function PruefenUebersichtPage(): JSX.Element {
         )}
         {board && abschluss && (
           <Abschluss board={board} schnitt={schnitt} onOffene={() => oeffne(naechsteId)}
-            onUebersicht={() => navigate(`/coach/pruefen?bereich=${bereich}`)} />
+            onUebersicht={() => navigate(`/coach/pruefen?bereich=${bereich}`)}
+            fertig={fertig && { fehlen: knotenOhneAufgabe(board, soll), onOhneSoll: fertig.onOhneSoll }} />
         )}
         {board && !abschluss && (
           <>
@@ -125,8 +134,9 @@ export function PruefenUebersichtPage(): JSX.Element {
                 description={t(alle?.length ? 'bereich.leerText' : 'themen.leerText')} />
             ) : (
               <>
-                <AlsNaechstes board={board} naechste={naechste}
+                <AlsNaechstes board={board} naechste={naechste} fertig={fertig}
                   position={naechste ? positionImThema(board, naechste.task_id) : null}
+                  rest={naechste && !ohneSoll ? restImThema(soll, naechste.thema_key) : null}
                   onWeiter={() => oeffne(naechsteId)} />
                 {aktiv && (
                   <section className="flex flex-col gap-2">
@@ -141,7 +151,7 @@ export function PruefenUebersichtPage(): JSX.Element {
                         else n.add(k)
                         return n
                       })}
-                      onPruefen={(k) => oeffne(ersteImThema(board, k))}
+                      onPruefen={(k) => oeffne(ersteNoetigeImThema(board, soll, k))}
                       onAufgabe={(id) => oeffne(id)} />
                   </section>
                 )}

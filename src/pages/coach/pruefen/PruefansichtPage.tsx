@@ -3,6 +3,8 @@
 // Entscheidung oeffnet sich sofort die naechste offene Aufgabe; eine Meldung bietet 5 s "Rueckgaengig".
 // ?bereich=lsa|session: Weiter/Zurueck bleiben im Bereich; Hinweise nur im Session-Bereich. Ohne Parameter gilt
 // der Bereich der Aufgabe (LSA vor Session).
+// P4: Der Lauf folgt dem Bedarf (naechsteNoetige): erst die noch noetigen Aufgaben, Thema fuer Thema; beim Wechsel
+// des Themas ein Zwischenbild. ?ohneSoll=1 nach "Weitere Aufgaben ohne Soll pruefen": der alte Weg.
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -11,6 +13,7 @@ import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { Button } from '@/components/ui'
 import { Kinderansicht } from '@/components/edvance/pruefen/Kinderansicht'
 import { PruefKopf } from '@/components/edvance/pruefen/PruefKopf'
+import { Themenwechsel } from '@/components/edvance/pruefen/Themenwechsel'
 import { RichtigeAntwort } from '@/components/edvance/pruefen/RichtigeAntwort'
 import { AntwortTesten, Loesungsweg, RegelBlock } from '@/components/edvance/pruefen/RegelUndTesten'
 import { TypischeFehler } from '@/components/edvance/pruefen/TypischeFehler'
@@ -21,16 +24,21 @@ import {
 } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { useAuth } from '@/hooks/useAuth'
 import { feldZuruecksetzen, geaenderteFelder, lokaleAenderungen, sperrgrund, type Feld } from '@/lib/pruefung/entwurf'
-import { naechsteOffene, positionImThema, vorige } from '@/lib/pruefung/reihenfolge'
+import { naechsteNoetige, restImThema, type LaufSchritt } from '@/lib/pruefung/lauf'
+import { positionImThema, vorige } from '@/lib/pruefung/reihenfolge'
+import { sollDesThemas } from '@/lib/pruefung/soll'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getFehlbilder, getPruefBoard, getPruefEinstellungen, pruefEntscheiden, pruefRueckgaengig } from '@/lib/supabase/pruefung'
-import type { Fehlbild, LenaStatus, PasstNichtGrund, PruefBoardZeile, PruefEntscheidung } from '@/types'
+import type { Fehlbild, LenaStatus, PasstNichtGrund, PruefBoardZeile, PruefEntscheidung, PruefSollZeile } from '@/types'
 import { leseUebersprungen, merkeUebersprungen, vergissUebersprungen } from './uebersprungen'
 import { usePruefSitzung } from './usePruefSitzung'
 import { bereichDerAufgabe, bereichsBoard, leseBereich } from './bereich'
 import { useTasten } from './useTasten'
+import { usePruefLauf } from './usePruefLauf'
 
 const NICHT_IM_BOARD = ['vera8', 'inaktiv', 'typ']
+
+type Wechsel = { schritt: LaufSchritt; von: PruefBoardZeile; nach: PruefBoardZeile; soll: PruefSollZeile[] }
 
 export function PruefansichtPage(): JSX.Element {
   const { taskId } = useParams<{ taskId: string }>()
@@ -42,6 +50,9 @@ export function PruefansichtPage(): JSX.Element {
   const [alle, setBoard] = useState<PruefBoardZeile[]>([])
   const bereich = leseBereich(params) ?? bereichDerAufgabe(alle.find((z) => z.task_id === taskId))
   const board = useMemo(() => bereichsBoard(alle, bereich), [alle, bereich])
+  const ohneSoll = params.get('ohneSoll') === '1'
+  const lauf = usePruefLauf(bereich)
+  const [wechsel, setWechsel] = useState<Wechsel | null>(null)
   const [fehlbilder, setFehlbilder] = useState<Fehlbild[]>([])
   const [grundPflicht, setGrundPflicht] = useState(false)
   const [panel, setPanel] = useState<Panel>(null)
@@ -60,6 +71,7 @@ export function PruefansichtPage(): JSX.Element {
     setPanel(null)
     setGrund('')
     setFehler(null)
+    setWechsel(null)
     window.scrollTo({ top: 0 })
   }, [taskId])
 
@@ -87,8 +99,20 @@ export function PruefansichtPage(): JSX.Element {
   }), [a, fehlbildName])
 
   const geheZu = useCallback((id: string | null) => {
-    navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}` : `/coach/pruefen?abschluss=1&bereich=${bereich}`)
-  }, [navigate, bereich])
+    const frei = ohneSoll ? '&ohneSoll=1' : ''
+    navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}${frei}` : `/coach/pruefen?abschluss=1&bereich=${bereich}${frei}`)
+  }, [navigate, bereich, ohneSoll])
+
+  /** Naechster Schritt im Lauf: im Thema sofort weiter, beim Themen- oder Stufenwechsel erst das Zwischenbild. */
+  const weiterNach = (b: PruefBoardZeile[], id: string, skip: string[], soll = lauf.soll): void => {
+    const imBereich = bereichsBoard(b, bereich)
+    const schritt = naechsteNoetige(imBereich, soll, id, skip, { stufen: bereich === 'lsa', ohneSoll })
+    const von = imBereich.find((z) => z.task_id === id)
+    const nach = imBereich.find((z) => z.task_id === schritt.taskId)
+    if ((schritt.grund === 'themenwechsel' || schritt.grund === 'stufenwechsel') && von && nach && soll) {
+      setWechsel({ schritt, von, nach, soll })
+    } else geheZu(schritt.taskId)
+  }
 
   const pause = async (): Promise<void> => {
     await s.sichern()
@@ -118,10 +142,14 @@ export function PruefansichtPage(): JSX.Element {
       return
     }
     const geaendert = aenderungen.length > 0
+    const vorher = alle.find((z) => z.task_id === taskId)
+    const mc = a.aufgabe.input_type === 'MC'
+    const sollNeu = lauf.verbuche(vorher?.skill_key ?? null, vorher?.lena_status ?? 'offen', res.data.lena_status, mc)
     const neu = alle.map((z) => (z.task_id === taskId ? { ...z, lena_status: res.data!.lena_status, geaendert } : z))
     setBoard(neu)
     vergissUebersprungen(taskId)
     const version = res.data.pruef_version
+    const nachher = res.data.lena_status
     const id = taskId
     setMeldung({
       text: t('meldung.entschieden', {
@@ -132,16 +160,19 @@ export function PruefansichtPage(): JSX.Element {
         void pruefRueckgaengig(id, version).then((r) => {
           if (r.error) return setFehler(t(fehlerSchluessel(r.error) ?? 'fehlermeldung.allgemein'))
           setBoard((b) => b.map((z) => (z.task_id === id ? { ...z, lena_status: 'offen' } : z)))
+          lauf.verbuche(vorher?.skill_key ?? null, nachher, 'offen', mc)
+          setWechsel(null)
           geheZu(id)
+          s.neuLaden()
         })
       },
     })
-    geheZu(naechsteOffene(bereichsBoard(neu, bereich), taskId, leseUebersprungen()))
+    weiterNach(neu, taskId, leseUebersprungen(), sollNeu)
   }
 
   const ueberspringen = (): void => {
     if (!taskId) return
-    void s.sichern().then(() => geheZu(naechsteOffene(board, taskId, merkeUebersprungen(taskId))))
+    void s.sichern().then(() => weiterNach(alle, taskId, merkeUebersprungen(taskId)))
   }
   const zurueck = (): void => {
     const v = taskId ? vorige(board, taskId) : null
@@ -149,7 +180,7 @@ export function PruefansichtPage(): JSX.Element {
   }
 
   useTasten({
-    aktiv: !!a && !lesend,
+    aktiv: !!a && !lesend && !wechsel,
     panelOffen: panel !== null,
     passt: () => { if (!sperre) void entscheide('passt') },
     panel: (p) => setPanel(p),
@@ -170,6 +201,10 @@ export function PruefansichtPage(): JSX.Element {
       : aenderungen.length ? { art: 'aenderungen' as const, text: t('leiste.aenderungen', { count: aenderungen.length }) }
         : { art: 'vorbefuellt' as const, text: t('leiste.allesVorbefuellt') }
 
+  const zeileJetzt = board.find((z) => z.task_id === taskId)
+  const kopfLauf = zeileJetzt && lauf.soll?.length
+    ? { thema: zeileJetzt.thema_label, knoten: zeileJetzt.skill_label, rest: restImThema(lauf.soll, zeileJetzt.thema_key) }
+    : null
   const letzte = a?.letzte_pruefung
   const bewertet = a && !team && a.aufgabe.lena_status !== 'offen' && a.aufgabe.lena_status !== 'freigegeben'
 
@@ -181,9 +216,19 @@ export function PruefansichtPage(): JSX.Element {
           <EmptyState icon="🔎" title={t('ansicht.ladeFehler')} description={t(fehlerSchluessel(s.ladeFehler) ?? 'fehlermeldung.allgemein')}
             action={<Button onClick={() => navigate(`/coach/pruefen?bereich=${bereich}`)}>{t('abschluss.zurUebersicht')}</Button>} />
         )}
-        {a && s.b && s.ausgang && (
+        {wechsel && (
+          <Themenwechsel
+            fertig={{ thema: wechsel.von.thema_label, soll: sollDesThemas(wechsel.soll, wechsel.von.thema_key) }}
+            weiter={{
+              thema: wechsel.nach.thema_label, rest: restImThema(wechsel.soll, wechsel.nach.thema_key),
+              stufe: wechsel.schritt.grund === 'stufenwechsel' ? wechsel.nach.stufe : null,
+            }}
+            onWeiter={() => geheZu(wechsel.schritt.taskId)}
+            onUebersicht={() => navigate(`/coach/pruefen?bereich=${bereich}`)} />
+        )}
+        {!wechsel && a && s.b && s.ausgang && (
           <>
-            <PruefKopf aufgabe={a} position={position} hatVorige={!!(taskId && vorige(board, taskId))}
+            <PruefKopf aufgabe={a} position={position} hatVorige={!!(taskId && vorige(board, taskId))} lauf={kopfLauf}
               onZurueck={zurueck} onUeberspringen={ueberspringen} onPause={() => void pause()} />
             {s.konflikt && (
               <EdvanceCard className="flex flex-wrap items-center justify-between gap-4 border-[var(--color-warning)] bg-[var(--color-warning-light)]">
@@ -241,7 +286,7 @@ export function PruefansichtPage(): JSX.Element {
           </>
         )}
       </div>
-      {a && s.b && (
+      {!wechsel && a && s.b && (
         <Entscheidungsleiste key={taskId} panel={panel} setPanel={setPanel} info={info}
           passtGesperrt={sperre ? t(`leiste.sperre.${sperre}`) : null} arbeitet={arbeitet}
           fehler={fehler ?? (s.fehler && !s.konflikt ? t(fehlerSchluessel(s.fehler) ?? 'fehlermeldung.allgemein') : null)}

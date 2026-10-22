@@ -2,6 +2,8 @@
 // Themenliste mit Balken und "x / y"; ein Thema klappt auf und zeigt seine Aufgaben. Dazu der
 // Abschluss (Anforderung G 52). Mit Sollzahlen (P2): Restbedarf im Reiter, "X von Y noetig" je Thema,
 // aufgeklappt nach Knoten gruppiert. Ohne Reiter (Session-Bereich) stehen alle Themen untereinander.
+// P4: "Als Naechstes" nennt Thema und "noch n noetig"; ist alles Noetige geprueft, zeigen Karte und Abschluss
+// "Alles Noetige geprueft" mit "Weitere Aufgaben ohne Soll pruefen" und "Zur Uebersicht".
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -45,11 +47,39 @@ type NaechstesProps = {
   naechste: PruefBoardZeile | null
   position: { nr: number; anzahl: number } | null
   onWeiter: () => void
+  /** "noch n noetig" im Thema der naechsten Aufgabe; null ohne Soll. */
+  rest?: number | null
+  /** Alles Noetige geprueft: Knoepfe "Weitere ohne Soll" (falls noch offene) und "Zur Uebersicht". */
+  fertig?: { onOhneSoll: (() => void) | null; onUebersicht: () => void } | null
 }
 
-export function AlsNaechstes({ board, naechste, position, onWeiter }: NaechstesProps): JSX.Element {
+/** Die Knoepfe aus Entscheidung 6 (P4), wenn alles Noetige geprueft ist. */
+function FertigKnoepfe({ onOhneSoll, onUebersicht }: { onOhneSoll: (() => void) | null; onUebersicht: () => void }): JSX.Element {
+  const { t } = useTranslation('pruefen')
+  return (
+    <div className="flex flex-wrap gap-2">
+      {onOhneSoll && <Button onClick={onOhneSoll}>{t('abschluss.ohneSoll')}</Button>}
+      <Button variant="secondary" onClick={onUebersicht}>{t('abschluss.zurUebersicht')}</Button>
+    </div>
+  )
+}
+
+export function AlsNaechstes({ board, naechste, position, onWeiter, rest = null, fertig = null }: NaechstesProps): JSX.Element {
   const { t } = useTranslation('pruefen')
   const s = stand(board)
+  if (fertig) {
+    return (
+      <EdvanceCard className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">{t('naechstes.fertigEyebrow')}</span>
+          <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">{t('naechstes.allesNoetig')}</h2>
+          <p className="text-sm text-[var(--color-text-secondary)]">{t('naechstes.allesNoetigText')}</p>
+          <Kennzahlen s={s} />
+        </div>
+        <FertigKnoepfe {...fertig} />
+      </EdvanceCard>
+    )
+  }
   return (
     <EdvanceCard className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
       <div className="flex flex-col gap-2">
@@ -57,7 +87,9 @@ export function AlsNaechstes({ board, naechste, position, onWeiter }: NaechstesP
           {naechste ? t('naechstes.eyebrow') : t('naechstes.fertigEyebrow')}
         </span>
         <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">
-          {naechste && position
+          {naechste && rest !== null
+            ? t('naechstes.noetig', { thema: naechste.thema_label, n: rest })
+            : naechste && position
             ? t('naechstes.position', { thema: naechste.thema_label, nr: position.nr, anzahl: position.anzahl })
             : t('naechstes.alleBewertet')}
         </h2>
@@ -178,9 +210,16 @@ export function Themenliste({
   )
 }
 
-type AbschlussProps = { board: PruefBoardZeile[]; schnitt: number | null; onOffene: () => void; onUebersicht: () => void }
+type AbschlussProps = {
+  board: PruefBoardZeile[]
+  schnitt: number | null
+  onOffene: () => void
+  onUebersicht: () => void
+  /** P4: alles Noetige geprueft; fehlen = Knoten mit Restbedarf ohne offene Aufgabe (Hinweis fuers Team). */
+  fertig?: { fehlen: PruefSollZeile[]; onOhneSoll: (() => void) | null } | null
+}
 
-export function Abschluss({ board, schnitt, onOffene, onUebersicht }: AbschlussProps): JSX.Element {
+export function Abschluss({ board, schnitt, onOffene, onUebersicht, fertig = null }: AbschlussProps): JSX.Element {
   const { t } = useTranslation('pruefen')
   const s = stand(board)
   const zahlen: { label: string; wert: number; farbe: string; zusatz?: string }[] = [
@@ -193,8 +232,8 @@ export function Abschluss({ board, schnitt, onOffene, onUebersicht }: AbschlussP
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{t('abschluss.titel')}</h1>
-        <p className="text-sm text-[var(--color-text-secondary)]">{t('abschluss.text')}</p>
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{t(fertig ? 'abschluss.allesNoetig' : 'abschluss.titel')}</h1>
+        <p className="text-sm text-[var(--color-text-secondary)]">{t(fertig ? 'abschluss.allesNoetigText' : 'abschluss.text')}</p>
       </div>
       <EdvanceCard className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -207,11 +246,22 @@ export function Abschluss({ board, schnitt, onOffene, onUebersicht }: AbschlussP
           ))}
         </div>
         {schnitt !== null && <p className="text-sm text-[var(--color-text-secondary)]">{t('abschluss.schnitt', { count: schnitt })}</p>}
-        <div className="flex flex-wrap gap-2">
-          {s.offen > 0 && <Button onClick={onOffene}>{t('abschluss.offenePruefen')}</Button>}
-          <Button variant="secondary" onClick={onUebersicht}>{t('abschluss.zurUebersicht')}</Button>
-        </div>
+        {fertig ? <FertigKnoepfe onOhneSoll={fertig.onOhneSoll} onUebersicht={onUebersicht} /> : (
+          <div className="flex flex-wrap gap-2">
+            {s.offen > 0 && <Button onClick={onOffene}>{t('abschluss.offenePruefen')}</Button>}
+            <Button variant="secondary" onClick={onUebersicht}>{t('abschluss.zurUebersicht')}</Button>
+          </div>
+        )}
       </EdvanceCard>
+      {fertig && fertig.fehlen.length > 0 && (
+        <EdvanceCard className="flex flex-col gap-2">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">{t('abschluss.fehlenTitel')}</h2>
+          <p className="text-sm text-[var(--color-text-secondary)]">{t('abschluss.fehlenText')}</p>
+          <ul className="flex flex-col gap-1 text-sm text-[var(--color-text-primary)]">
+            {fertig.fehlen.map((k) => <li key={k.skill_key}>{t('abschluss.fehlenZeile', { knoten: k.skill_label, n: k.rest })}</li>)}
+          </ul>
+        </EdvanceCard>
+      )}
     </div>
   )
 }
