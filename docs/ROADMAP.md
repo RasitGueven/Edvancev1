@@ -1,6 +1,10 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **LSA-R2 Durchgeklickte LSA erkennen** (Retro `2026-10-22-lsa-r2-durchklicken.md`, Branch
+  `feat/rasit-lsa-durchklicken`): `lsa_durchklick_stand`, `lsa_sessions.auswertbar`, `hinweis_tempo` in
+  `platz_submit`; Bogen „nicht auswertbar“, Kennzeichen in „LSA-Reports“, Badge „schnell“ in „Heute“; Testkind
+  Tim. **Offen:** Migration `20261022131037` einspielen, App-Hinweis (edvance-app), Deckel 40 (LSA-V2).
 - **Admin-Prüfansicht, Sammelaktionen, Pflege-Strecke entfernt** (Retro `2026-10-05-admin-pruefansicht.md`,
   Branch `feat/rasit-admin-pruefansicht`): Admins prüfen eine Aufgabe auf Lenas Bildschirm
   (`/admin/pruefen/:taskId`) mit „Lenas Ergebnis“, „Vor der Freigabe klären“, Verlauf und eigener Leiste

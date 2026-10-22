@@ -6,15 +6,17 @@
 -- ab 10 Antworten mit mindestens 40 % schnell falsch; Hinweis an das Kind nach 3 schnellen Abgaben in
 -- Folge (ohne „Weiss ich nicht“), einmal je LSA.
 --
---   D1 Rechte: admin ja, Schueler nein, anon ohne Ausfuehrungsrecht
---   D2 Klickfolge (2–3 s, falsch) wird ab Aufgabe 10 nicht auswertbar, Grund 'folge'
+--   D1 Rechte: admin ja, Coach nur mit aktiver Akte, Schueler nein, anon ohne Ausfuehrungsrecht
+--   D2 Klickfolge (2–3 s, falsch) wird ab Aufgabe 10 nicht auswertbar, Grund 'folge'; eine reine Klickkette
+--      schon bei der fuenften
 --   D3 Die Anteilsregel greift erst ab 10 Antworten (auch genau 40 %)
 --   D4 Langsames, schwaches Profil mit viel WN (auch schnellem WN) bleibt auswertbar
 --   D5 WN unterbricht eine Folge (schnell falsch und Hinweis)
 --   D6 Multi-Part zaehlt einmal
 --   D7 lsa_finish schreibt auswertbar, nicht_auswertbar_grund und result_summary.durchklick
 --   D8 Alte (schon abgeschlossene) Sitzungen bleiben auswertbar, kein Backfill
---   D9 platz_submit: hinweis_tempo genau einmal, ok und next unveraendert
+--   D9 platz_submit: hinweis_tempo genau einmal (auch nach Unterbrechung und neuer Folge), ok und next
+--      unveraendert
 --
 -- Die Antworten fuer D2–D8 werden direkt eingetragen, mit fester Abgabezeit je Aufgabe: innerhalb einer
 -- Transaktion haetten sonst alle Zeilen dieselbe now()-Zeit. D9 laeuft ueber platz_submit; danach
@@ -23,7 +25,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(39);
+select plan(43);
 
 \ir lsa_l1_fixture.sql
 
@@ -96,6 +98,27 @@ select pg_temp.act_as(:'tablet');
 select throws_ok(format('select public.lsa_durchklick_stand(%L)', :'s1'), '42501', null,
                  'D1 Schueler (Platz-Konto): 42501');
 select pg_temp.act_as(:'admin');
+-- Coach: mit aktiver Akte (Vertrag ohne Trigger angelegt, wie session_a1) ja, ohne nein.
+\set coach 'b1e1b1e1-0003-4000-8000-000000000001'
+insert into auth.users (id, email, instance_id, aud, role)
+values (:'coach', 'dk-coach@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
+insert into profiles (id, email, role, full_name) values (:'coach', 'dk-coach@test.local', 'coach', 'ZZ DK Coach');
+set local session_replication_role = replica;
+insert into vertraege (lead_id, student_id, status, vertrag_status, abgeschlossen_am, vertragsbeginn, vertrag_ende,
+                       widerruf_bis)
+select st.lead_id, st.id, 'abgeschlossen', 'aktiv',
+       (date_trunc('month', current_date) - interval '2 months')::date,
+       (date_trunc('month', current_date) - interval '1 month')::date,
+       (date_trunc('month', current_date) + interval '11 months')::date - 1,
+       (date_trunc('month', current_date) - interval '1 month')::date + 14
+  from lsa_sessions l join students st on st.id = l.student_id where l.id = :'s1';
+set local session_replication_role = origin;
+select pg_temp.sitzung() as s_fremd \gset
+select pg_temp.act_as(:'coach');
+select is(pg_temp.stand(:'s1') ->> 'antworten', '0', 'D1 Coach mit aktiver Akte: darf');
+select throws_ok(format('select public.lsa_durchklick_stand(%L)', :'s_fremd'), '42501', null,
+                 'D1 Coach ohne aktive Akte: 42501');
+select pg_temp.act_as(:'admin');
 select ok(has_function_privilege('authenticated', 'public.lsa_durchklick_stand(uuid)', 'execute')
           and not has_function_privilege('anon', 'public.lsa_durchklick_stand(uuid)', 'execute'),
           'D1 authenticated ja, anon nein');
@@ -110,6 +133,12 @@ select pg_temp.abgaben(:'s1', 'f');
 select is(pg_temp.stand(:'s1') ->> 'nicht_auswertbar', 'true', 'D2 ab Aufgabe 10: nicht auswertbar');
 select is(pg_temp.stand(:'s1') ->> 'grund', 'folge', 'D2 Grund folge (Folge vor Anteil)');
 select is(pg_temp.stand(:'s1') ->> 'schnell_falsch', '9', 'D2 neun schnell falsch');
+
+select pg_temp.sitzung() as s1b \gset
+select pg_temp.abgaben(:'s1b', 'ffff');
+select is(pg_temp.stand(:'s1b') ->> 'nicht_auswertbar', 'false', 'D2 reine Klickkette: nach vier noch auswertbar');
+select pg_temp.abgaben(:'s1b', 'f');
+select is(pg_temp.stand(:'s1b') ->> 'grund', 'folge', 'D2 … bei der fuenften nicht auswertbar, Grund folge');
 
 -- D3 Anteil erst ab 10 Antworten ---------------------------------------------
 select pg_temp.sitzung() as s2 \gset
@@ -183,7 +212,7 @@ select is((select auswertbar from lsa_sessions where id = :'s7'), true, 'D8 … 
 select pg_temp.l1_kind('Ida ZZ DK') as kind2 \gset
 insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus)
 values (:'kind2', 'Mathematik', 8,
-        (select array_agg(id order by nr) from zz_dk_aufgabe where typ = 'NUMERIC' and nr <= 8),
+        (select array_agg(id order by nr) from zz_dk_aufgabe where typ = 'NUMERIC' and nr <= 12),
         now() - interval '5 minutes', 'in_progress', 'fest')
 returning id as s8 \gset
 select public.platz_assign(:'tablet', :'s8');
@@ -201,11 +230,13 @@ end $$;
 select is(array(select pg_temp.platz(:'s8', n, r::jsonb, ms) ->> 'hinweis_tempo'
                   from (values (1, '{"text":"1"}', 2000), (2, '{"text":"7"}', 2000), (3, '{"dont_know":true}', 1000),
                                (4, '{"text":"7"}', 2000), (5, '{"text":"1"}', 2000), (6, '{"text":"7"}', 2000),
-                               (7, '{"text":"1"}', 2000)) v(n, r, ms) order by n),
-          array['false', 'false', 'false', 'false', 'false', 'true', 'false'],
-          'D9 schnell, schnell, WN, dann drei schnelle (richtig oder falsch): Hinweis genau einmal, bei der dritten');
+                               (7, '{"text":"1"}', 2000), (8, '{"text":"1"}', 30000), (9, '{"text":"1"}', 2000),
+                               (10, '{"text":"7"}', 2000), (11, '{"text":"1"}', 2000)) v(n, r, ms) order by n),
+          array['false', 'false', 'false', 'false', 'false', 'true', 'false', 'false', 'false', 'false', 'false'],
+          'D9 schnell, schnell, WN, dann drei schnelle: Hinweis bei der dritten; nach langsamer Abgabe und neuer '
+            || 'Folge nicht noch einmal');
 select ok((select hinweis_tempo_am is not null from lsa_sessions where id = :'s8'), 'D9 hinweis_tempo_am gesetzt');
-select is((select array_agg(k order by k) from jsonb_object_keys(pg_temp.platz(:'s8', 8, '{"text":"1"}', 2000)) k),
+select is((select array_agg(k order by k) from jsonb_object_keys(pg_temp.platz(:'s8', 12, '{"text":"1"}', 2000)) k),
           array['hinweis_tempo', 'next', 'ok'], 'D9 Antwort: ok, next und hinweis_tempo, sonst nichts');
 
 select * from finish();
