@@ -4,7 +4,8 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { MemoryRouter, Route, Routes, useLocation, useParams } from 'react-router-dom'
+import type { JSX } from 'react'
 import '@/i18n'
 import type { PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
 
@@ -17,7 +18,7 @@ vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { id: 'lena', email: 'lena@edvance.de' }, role: 'coach', signOut: vi.fn() }),
 }))
 
-import { getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
+import { getMeineDauer, getPruefBoard, getPruefSoll } from '@/lib/supabase/pruefung'
 import { PruefenUebersichtPage } from './PruefenUebersichtPage'
 
 const zeile = (id: string, n: number, anlaesse: string[], stufe: Stufe = 'erste', status: 'offen' | 'passt' = 'offen'): PruefBoardZeile => ({
@@ -41,11 +42,18 @@ const sollZeile = (skill: string, anlass: string, sort: number, rest: number): P
   rest, reicht: false,
 })
 
+function Geoeffnet(): JSX.Element {
+  const { taskId } = useParams()
+  const { search } = useLocation()
+  return <p>Geöffnet {taskId} {search}</p>
+}
+
 function zeige(pfad = '/coach/pruefen'): void {
   render(
     <MemoryRouter initialEntries={[pfad]}>
       <Routes>
         <Route path="/coach/pruefen" element={<PruefenUebersichtPage />} />
+        <Route path="/coach/pruefen/:taskId" element={<Geoeffnet />} />
       </Routes>
     </MemoryRouter>,
   )
@@ -115,5 +123,58 @@ describe('PruefenUebersichtPage · Bereiche', () => {
     zeige('/coach/pruefen?bereich=session')
     fireEvent.click(await screen.findByRole('button', { name: /Thema erste aufklappen/ }))
     expect(screen.queryByRole('button', { name: /Aufgabe v1/ })).toBeNull()
+  })
+})
+
+describe('PruefenUebersichtPage · Lauf nach Soll (P4)', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: board, error: null })
+    vi.mocked(getMeineDauer).mockResolvedValue({ data: null, error: null })
+  })
+
+  it('"Als Naechstes" zeigt die erste noetige Aufgabe mit Thema und "noch n noetig"; Enter oeffnet sie', async () => {
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({
+      data: a === 'batu_lsa' ? [sollZeile('k_b1', a, 410, 2)] : [],
+      error: null,
+    }))
+    zeige()
+    expect(await screen.findByText('Thema erste · noch 2 nötig')).toBeInTheDocument()
+    fireEvent.keyDown(window, { key: 'Enter' })
+    expect(await screen.findByText('Geöffnet b1 ?bereich=lsa')).toBeInTheDocument()
+  })
+
+  it('"Pruefen" je Thema nimmt die erste noetige Aufgabe', async () => {
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({
+      data: a === 'batu_lsa' ? [sollZeile('k_b1', a, 410, 2)] : [],
+      error: null,
+    }))
+    zeige()
+    await screen.findByText('Thema erste · noch 2 nötig')
+    fireEvent.click(screen.getByRole('button', { name: 'Prüfen' }))
+    expect(await screen.findByText('Geöffnet b1 ?bereich=lsa')).toBeInTheDocument()
+  })
+
+  it('alles erfuellt: "Alles Noetige geprueft" mit "Weitere Aufgaben ohne Soll pruefen" und "Zur Uebersicht"', async () => {
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({
+      data: a === 'batu_lsa' ? [sollZeile('k_b1', a, 410, 0)] : [],
+      error: null,
+    }))
+    zeige()
+    expect(await screen.findByText('Alles Nötige geprüft')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Zur Übersicht' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Weitere Aufgaben ohne Soll prüfen' }))
+    expect(await screen.findByText('Geöffnet l2 ?bereich=lsa&ohneSoll=1')).toBeInTheDocument()
+  })
+
+  it('Abschluss: "Alles Noetige in diesem Bereich ist geprueft" und Knoten ohne offene Aufgabe', async () => {
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({
+      data: a === 'batu_lsa' ? [sollZeile('k_b1', a, 410, 0), sollZeile('k_l1', a, 420, 1)] : [],
+      error: null,
+    }))
+    zeige('/coach/pruefen?abschluss=1&bereich=lsa')
+    expect(await screen.findByText('Alles Nötige in diesem Bereich ist geprüft')).toBeInTheDocument()
+    expect(screen.getByText('Knoten k_l1 (noch 1 nötig)')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Weitere Aufgaben ohne Soll prüfen' })).toBeInTheDocument()
   })
 })

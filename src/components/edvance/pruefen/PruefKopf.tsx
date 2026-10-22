@@ -16,6 +16,8 @@ type Props = {
   onZurueck: () => void
   onUeberspringen: () => void
   onPause: () => void
+  /** Prueflauf (P4): Thema · Knoten · "noch n noetig im Thema" (rest null = Thema ohne Soll). */
+  lauf?: { thema: string; knoten: string | null; rest: number | null } | null
 }
 
 /** Kopfzeile: Stufe · Lernstandsanalyse Mathe · Erlaubt: ⟨Hilfsmittel⟩ ⓘ (auch in der Admin-Pruefansicht). */
@@ -30,7 +32,7 @@ export function KopfMeta({ aufgabe }: { aufgabe: PruefAufgabe }): JSX.Element {
   )
 }
 
-export function PruefKopf({ aufgabe, position, hatVorige, onZurueck, onUeberspringen, onPause }: Props): JSX.Element {
+export function PruefKopf({ aufgabe, position, hatVorige, onZurueck, onUeberspringen, onPause, lauf }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const k = aufgabe.kopf
   const anteil = position && position.anzahl > 0 ? (position.bewertet / position.anzahl) * 100 : 0
@@ -40,6 +42,12 @@ export function PruefKopf({ aufgabe, position, hatVorige, onZurueck, onUeberspri
         <div className="flex min-w-0 flex-col gap-1">
           <KopfMeta aufgabe={aufgabe} />
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{k.thema_label ?? k.kurztitel}</h1>
+          {lauf && (
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              {[lauf.thema, lauf.knoten, lauf.rest === null ? null : t('lauf.kopfRest', { n: lauf.rest })]
+                .filter(Boolean).join(' · ')}
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {position && (

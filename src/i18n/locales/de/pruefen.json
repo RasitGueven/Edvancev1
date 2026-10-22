@@ -34,7 +34,10 @@
     "passt": "Passt {{n}}",
     "geaendert": "geändert {{n}}",
     "unsicher": "Unsicher {{n}}",
-    "passtNicht": "Passt nicht {{n}}"
+    "passtNicht": "Passt nicht {{n}}",
+    "noetig": "{{thema}} · noch {{n}} nötig",
+    "allesNoetig": "Alles Nötige geprüft",
+    "allesNoetigText": "In diesem Bereich hat jedes Thema genug geprüfte Aufgaben."
   },
   "themen": {
     "reiter": "{{stufe}}",
@@ -92,7 +95,13 @@
     "schnitt_one": "Im Schnitt {{count}} Sekunde pro Aufgabe.",
     "schnitt_other": "Im Schnitt {{count}} Sekunden pro Aufgabe.",
     "offenePruefen": "Offene Aufgaben prüfen",
-    "zurUebersicht": "Zur Übersicht"
+    "zurUebersicht": "Zur Übersicht",
+    "allesNoetig": "Alles Nötige in diesem Bereich ist geprüft",
+    "allesNoetigText": "Danke! Jedes Thema hat jetzt genug geprüfte Aufgaben. Weitere Aufgaben kannst du prüfen, sie sind aber kein Muss.",
+    "ohneSoll": "Weitere Aufgaben ohne Soll prüfen",
+    "fehlenTitel": "Hier fehlen noch Aufgaben",
+    "fehlenText": "Hinweis fürs Team: Diese Knoten brauchen noch geprüfte Aufgaben, aber in deiner Liste ist keine mehr offen.",
+    "fehlenZeile": "{{knoten}} (noch {{n}} nötig)"
   },
   "ansicht": {
     "meta": "{{stufe}} · Lernstandsanalyse Mathe · Erlaubt: {{hilfsmittel}}",
@@ -490,6 +499,18 @@
     "statusInfo": {
       "entwurf": "Das Kind bekommt diesen Hinweis noch nicht. Er wird mit der Freigabe der Aufgabe geprüft.",
       "geprueft": "Geprüft: Das Kind bekommt diesen Hinweis."
+    }
+  },
+  "lauf": {
+    "kopfRest": "noch {{n}} nötig im Thema",
+    "wechsel": {
+      "eyebrow": "Thema geschafft",
+      "fertig": "{{thema}} ist fertig: {{x}} von {{y}} nötig geprüft.",
+      "fertigOhneSoll": "{{thema}} ist fertig.",
+      "stufe": "Jetzt {{stufe}}",
+      "weiter": "Weiter mit {{thema}} · noch {{n}} nötig",
+      "weiterOhneSoll": "Weiter mit {{thema}}",
+      "knopf": "Weiter"
     }
   }
 }

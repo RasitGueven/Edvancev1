@@ -1,6 +1,7 @@
 // Pruefansicht: mountet sie mit einer Kreis-Aufgabe, gilt der Sperrgrund, verlangt "Passt nicht"
 // einen Grund, fuehrt "3" zur Entscheidung und danach zur naechsten offenen Aufgabe?
 // Bereiche: Hinweise nur im Session-Bereich, Weiter bleibt im Bereich.
+// P4: mit Sollzahlen folgt der Lauf dem Bedarf; beim Themenwechsel kommt erst das Zwischenbild.
 // Alle Supabase-Wrapper sind gemockt (CI hat keine VITE_*-Variablen).
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -8,11 +9,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { JSX } from 'react'
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom'
 import '@/i18n'
-import type { PruefAufgabe, PruefBoardZeile } from '@/types'
+import type { PruefAufgabe, PruefBoardZeile, PruefSollZeile } from '@/types'
 
 vi.mock('@/lib/supabase/pruefung', () => ({
   getPruefAufgabe: vi.fn(),
   getPruefBoard: vi.fn(),
+  getPruefSoll: vi.fn(),
   getFehlbilder: vi.fn(),
   getPruefEinstellungen: vi.fn(),
   pruefSpeichern: vi.fn(),
@@ -29,7 +31,7 @@ vi.mock('@/hooks/useAuth', () => ({
 }))
 
 import {
-  getFehlbilder, getPruefAufgabe, getPruefBoard, getPruefEinstellungen, pruefEntscheiden, pruefSpeichern,
+  getFehlbilder, getPruefAufgabe, getPruefBoard, getPruefEinstellungen, getPruefSoll, pruefEntscheiden, pruefSpeichern,
 } from '@/lib/supabase/pruefung'
 import { PruefansichtPage } from './PruefansichtPage'
 
@@ -91,6 +93,7 @@ describe('PruefansichtPage', () => {
     vi.mocked(getFehlbilder).mockResolvedValue({ data: [{ slug: 'pi_vergessen', klartext: 'Lässt π weg.' }], error: null })
     vi.mocked(getPruefEinstellungen).mockResolvedValue({ data: { hilfsmittel: 'x', nur_pilot: false, grund_pflicht: false }, error: null })
     vi.mocked(pruefEntscheiden).mockResolvedValue({ data: { pruef_version: 4, lena_status: 'passt' }, error: null })
+    vi.mocked(getPruefSoll).mockResolvedValue({ data: [], error: null })
   })
 
   it('zeigt Kopf, Pruefkarte und "mittel sicher" in Lenas Sprache', async () => {
@@ -174,5 +177,61 @@ describe('PruefansichtPage', () => {
     expect(screen.queryByRole('button', { name: /Antwort 22,62 löschen/ })).toBeNull()
     fireEvent.keyDown(window, { key: '3' })
     expect(pruefEntscheiden).not.toHaveBeenCalled()
+  })
+})
+
+const soll = (skill: string, thema: string, sort: number, gezaehlt: number): PruefSollZeile => ({
+  skill_key: skill, skill_label: skill, thema_key: thema, thema_label: thema, thema_sort: 1, stufe: 'zweite', sort,
+  anlaesse: ['batu_lsa'], soll: 3, min_ohne_mc: 1, im_board: 3, gezaehlt, gezaehlt_ohne_mc: gezaehlt,
+  rest: 3 - gezaehlt, reicht: gezaehlt >= 3,
+})
+
+describe('PruefansichtPage · Lauf nach Soll (P4)', () => {
+  const dreieck = { ...zeile('t3', 0, ['batu_lsa']), thema_key: 'dreieck', thema_label: 'Dreiecke', skill_key: 'geo_dreieck', skill_label: 'Dreiecksfläche' }
+
+  function mitSoll(umfangGezaehlt: number): void {
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: [dreieck, zeile('t1', 1, ['batu_lsa']), zeile('t2', 2, ['batu_lsa'])], error: null })
+    vi.mocked(getPruefSoll).mockImplementation(async (a) => ({
+      data: a === 'batu_lsa' ? [soll('geo_kreis_umfang', 'kreis', 10, umfangGezaehlt), soll('geo_dreieck', 'dreieck', 20, 1)] : [],
+      error: null,
+    }))
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    vi.mocked(getPruefAufgabe).mockResolvedValue({ data: aufgabe, error: null })
+    vi.mocked(getFehlbilder).mockResolvedValue({ data: [], error: null })
+    vi.mocked(getPruefEinstellungen).mockResolvedValue({ data: { hilfsmittel: 'x', nur_pilot: false, grund_pflicht: false }, error: null })
+    vi.mocked(pruefEntscheiden).mockResolvedValue({ data: { pruef_version: 4, lena_status: 'passt' }, error: null })
+  })
+
+  it('Kopf zeigt Thema · Knoten · noch n noetig im Thema', async () => {
+    mitSoll(2)
+    zeige('/coach/pruefen/t1?bereich=lsa')
+    expect(await screen.findByText('Kreis: Umfang und Fläche · Umfang des Kreises · noch 1 nötig im Thema')).toBeTruthy()
+    expect(screen.getByText('Aufgabe 1 von 2')).toBeTruthy()
+  })
+
+  it('"Passt" auf der letzten noetigen Aufgabe: Zwischenbild mit "3 von 3 noetig", "Weiter" oeffnet das naechste Thema', async () => {
+    mitSoll(2)
+    zeige('/coach/pruefen/t1?bereich=lsa')
+    await screen.findByText(/noch 1 nötig im Thema/)
+    fireEvent.keyDown(window, { key: '3' })
+    expect(await screen.findByText('Kreis: Umfang und Fläche ist fertig: 3 von 3 nötig geprüft.')).toBeTruthy()
+    expect(screen.getByText('Weiter mit Dreiecke · noch 2 nötig')).toBeTruthy()
+    expect(screen.queryByRole('button', { name: /✓ Passt/ })).toBeNull()
+    expect(getPruefAufgabe).toHaveBeenLastCalledWith('t1')
+    fireEvent.keyDown(window, { key: 'Enter' })
+    await waitFor(() => expect(getPruefAufgabe).toHaveBeenLastCalledWith('t3'))
+    expect(screen.queryByText(/ist fertig/)).toBeNull()
+  })
+
+  it('innerhalb eines Themas kein Zwischenbild, auch wenn die Aufgabe im Board weiter vorn liegt', async () => {
+    mitSoll(0)
+    zeige('/coach/pruefen/t2?bereich=lsa')
+    await screen.findByText(/noch 3 nötig im Thema/)
+    fireEvent.keyDown(window, { key: '3' })
+    await waitFor(() => expect(getPruefAufgabe).toHaveBeenLastCalledWith('t1'))
+    expect(screen.queryByText(/ist fertig/)).toBeNull()
   })
 })
