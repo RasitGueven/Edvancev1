@@ -44,6 +44,20 @@
   color: var(--color-eb-leise);
 }
 
+/* Schild „Aktuelles Thema“ (R7-11): flach, mit Rand, rechts neben der Pille. */
+.tp .tp-s4-chip {
+  margin-left: auto;
+  padding: 3px 9px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 6px;
+  color: var(--color-eb-leise);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .tp .tp-s4-pille {
   padding: 4px 10px;
   border-radius: 6px;

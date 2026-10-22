@@ -175,6 +175,16 @@
   gap: 8pt;
   margin-top: 11.65pt;
 }
+/* Mit Thema (R7-11): klein über der Startstelle, der Kopf rückt dafür näher heran. */
+.eb-s1-ansatz-thema {
+  margin-top: 11.65pt;
+  font-size: 7.15pt;
+  line-height: 9pt;
+  color: var(--color-eb-leise);
+}
+.eb-s1-ansatz-thema + .eb-s1-ansatz-kopf {
+  margin-top: 4pt;
+}
 .eb-s1-ansatz-kreis {
   display: flex;
   flex: none;

@@ -79,9 +79,12 @@ describe('waehleSchwerpunkte — Fälle', () => {
     expect(schwerpunkte.every((s) => s.gemischt)).toBe(true)
     expect(schwerpunkte[1]).toEqual({
       feld: 'brueche',
+      thema: null,
       gemischt: true,
       sicher: ['Bruch in Dezimalzahl', 'Brüche kürzen'],
       uebung: ['Brüche addieren', 'Brüche dividieren', 'Brüche multiplizieren'],
+      start: null,
+      naechster: null,
     })
   })
 

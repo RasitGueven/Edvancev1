@@ -90,6 +90,20 @@
   width: 0;
   height: 0;
 }
+/* Schild „Aktuelles Thema“ am Thema-Schwerpunkt (R7-11), wie der Chip im Kopf. */
+.eb-s4-chip {
+  margin-left: 6pt;
+  padding: 1pt 5pt;
+  border: 0.6pt solid var(--color-eb-linie);
+  border-radius: 6pt;
+  font-size: 6.5pt;
+  line-height: 9pt;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 1.5pt;
+  color: var(--color-eb-leise);
+  background: var(--color-eb-weiss);
+}
 .eb-s4-punkt-text {
   margin-top: 6.9pt; /* 19,7 unter der Titel-Grundlinie */
   font-size: 9.15pt;

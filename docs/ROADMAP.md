@@ -264,6 +264,10 @@
     Kopfsätze als Entwurf (`20261019080220`, nach dem Merge einspielen). **Offen:**
     `docs/report/r7/offene-punkte-r7-1.md`.
   - R7-2 Bogen, Druck und Seite 1 · R7-3 Seiten 2 und 5 · R7-4 Seiten 3 und 4 — warten auf R7-1.
+  - **R7-11 Erster Ansatz am Thema, Anliegen mit Antwort** (Branch `feat/rasit-report-r7-ansatz`, Retro
+    `2026-10-22-r7-11-ansatz-anliegen.md`): Mit Thema der LSA ist Schwerpunkt 1 das Thema (Startstelle
+    nach skill_kante), die Breite folgt nach Planrang; „Ihr Anliegen“ nur fachlich, als Frage und Antwort
+    (`anliegen.ts`); Station 01/04 dieselbe Rechnung. **Offen:** `docs/report/r7/offene-punkte-r7-11.md`.
   - Danach Abnahme durch die Gründer (Nenner, Reihenfolge der Schwerpunkte) und Lena (Texte,
     Kopfsätze, W5-d-Entwürfe); dann Standard auf R7 umstellen.
 - **Tablet-Präsentation der LSA** (Anforderung `docs/report/praesentation/Anforderung.md`, Dummy

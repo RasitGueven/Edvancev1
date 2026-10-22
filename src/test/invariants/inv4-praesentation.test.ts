@@ -214,3 +214,25 @@ describe('INV-4.12 — die Präsentation rendert keine Schlüssel, Quoten oder f
     }
   })
 })
+
+/**
+ * INV-4.13 (R7-11, Entscheidung 14): Station 01 sagt nicht, was die Analyse
+ * nicht sagen kann oder erst später klärt — weder in eigenen Texten noch in den
+ * Sätzen, die sie über tb aus `elternbericht` nimmt (Anliegen wie Seite 1).
+ * Mindestens diese Wörter; dieselbe Liste wie in inv4-elternbericht.
+ */
+describe('INV-4.13 — Station 01 ohne Grenzsatz', () => {
+  const GRENZSATZ =
+    /sagt nichts|sagt eine Analyse|sagt diese Analyse|erst nach|können wir noch nicht|nach mehreren Sitzungen|nichts beitragen|nicht abschließend|Konzentration/i
+  const eb = flatten(deElternbericht)
+
+  it('kein Schlüssel der Präsentation spricht von Konzentration oder einer Grenze der Analyse', () => {
+    for (const [key, s] of Object.entries(texte)) expect(s, key).not.toMatch(GRENZSATZ)
+  })
+
+  it('die Anliegen-Sätze aus elternbericht, die Station 01 zeigt, ebenso', () => {
+    const station1 = Object.entries(eb).filter(([key]) => key.startsWith('s1.anliegen.') || key.startsWith('liste.'))
+    expect(station1.length).toBeGreaterThanOrEqual(10)
+    for (const [key, s] of station1) expect(s, key).not.toMatch(GRENZSATZ)
+  })
+})

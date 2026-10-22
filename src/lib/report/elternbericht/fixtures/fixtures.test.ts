@@ -73,7 +73,16 @@ describe('Fixtures des Eltern-Berichts', () => {
       expect(f.data.erzaehlung.modus, name).not.toBeNull()
       // ohneKanten und langeLabels (R7-9) sind aus abgestuft abgeleitet, mit Thema.
       expect(abdeckung(name) !== null, name).toBe(
-        ['abgestuft', 'abgestuftMitOffen', 'abgestuftLang', 'ohneKanten', 'langeLabels'].includes(name),
+        [
+          'abgestuft',
+          'abgestuftMitOffen',
+          'abgestuftLang',
+          'ohneKanten',
+          'langeLabels',
+          // R7-11: aus abgestuft abgeleitet, mit Thema.
+          'abgestuftThemaSicher',
+          'abgestuftPlanrang',
+        ].includes(name),
       )
     }
     expect(FAELLE.ilkay.data.erzaehlung.modus).toBe('fest')

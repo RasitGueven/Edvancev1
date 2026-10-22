@@ -5,6 +5,7 @@
 // Druck-Test sie automatisch durch.
 
 import * as a from '@/lib/report/elternbericht/fixtures/abgestuft'
+import * as af from '@/lib/report/elternbericht/fixtures/ansatzFaelle'
 import * as g from '@/lib/report/elternbericht/fixtures/grenzfaelle'
 import * as lw from '@/lib/report/elternbericht/fixtures/lernwegFaelle'
 import { ilkay } from '@/lib/report/elternbericht/fixtures/ilkay'
@@ -56,6 +57,11 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   planOhneThema: mitNotizen(lw.planOhneThema),
   vieleKanten: mitNotizen(lw.vieleKanten),
   langeLabels: mitNotizen(lw.langeLabels),
+  // Erster Ansatz am Thema, Anliegen mit Antwort (R7-11)
+  abgestuftThemaSicher: mitNotizen(af.abgestuftThemaSicher),
+  abgestuftPlanrang: mitNotizen(af.abgestuftPlanrang),
+  anliegenGemischt: mitNotizen(af.anliegenGemischt),
+  anliegenNurUeberfach: mitNotizen(af.anliegenNurUeberfach),
 }
 
 export { ilkay, NOTIZEN, NOTIZEN_LANG, TIERS }

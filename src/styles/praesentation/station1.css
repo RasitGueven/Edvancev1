@@ -46,6 +46,16 @@
   line-height: 1.54;
 }
 
+/* „Ihr Anliegen“ wie auf Seite 1 (R7-11): mit dem Leitsatz, eine Stufe leiser. */
+.tp .tp-s1-anliegen {
+  --tp-verzoegerung: var(--tp-s1-lead);
+  max-width: 640px;
+  margin-top: 14px;
+  color: var(--color-eb-text);
+  font-size: clamp(14px, 1.3vw, 18px);
+  line-height: 1.5;
+}
+
 .tp .tp-s1-notiz {
   --tp-verzoegerung: var(--tp-s1-notiz);
   display: flex;
