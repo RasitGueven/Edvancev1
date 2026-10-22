@@ -96,6 +96,42 @@ describe('LsaReportsPage', () => {
     expect(within(await reihe('echt')).queryByText(/Testlauf|Testkonto/)).toBeNull()
   })
 
+  it('nicht auswertbar: Kennzeichen, Präsentation gesperrt mit Grund, PDF bleibt (LSA-R2)', async () => {
+    wrapper.listLsaReports.mockResolvedValue({
+      data: [
+        zeile('klick', {
+          auswertbar: false,
+          nicht_auswertbar_grund: {
+            antworten: 12,
+            schnell_falsch: 6,
+            anteil_schnell_falsch: 0.5,
+            folge_schnell_falsch_max: 2,
+            folge_schnell_aktuell: 0,
+            nicht_auswertbar: true,
+            grund: 'anteil',
+            schwellen: { schnell_ms: 5000, folge: 5, anteil: 0.4, min_antworten: 10, hinweis_folge: 3 },
+          },
+        }),
+        zeile('ruhig'),
+      ],
+      error: null,
+    })
+    seite()
+    const klick = (await screen.findByText('ZZ_klick')).closest('tr')!
+    expect(within(klick).getByText('Nicht auswertbar')).toBeInTheDocument()
+    const knopf = within(klick).getByRole('button', { name: 'Präsentation' })
+    expect(knopf).toBeDisabled()
+    // Intl setzt vor % ein geschütztes Leerzeichen.
+    expect(knopf.parentElement?.getAttribute('title')).toMatch(
+      /^Nicht auswertbar: 50\s% der Antworten in unter 5 s und falsch\. Die Präsentation bleibt geschlossen\.$/,
+    )
+    expect(within(klick).queryByRole('link', { name: /Präsentation/ })).toBeNull()
+    expect(within(klick).getByRole('link', { name: 'Report von ZZ_klick als PDF sichern' })).toBeInTheDocument()
+    const ruhig = screen.getByText('ZZ_ruhig').closest('tr')!
+    expect(within(ruhig).queryByText('Nicht auswertbar')).toBeNull()
+    expect(within(ruhig).getByRole('link', { name: 'Präsentation für ZZ_ruhig öffnen' })).toBeInTheDocument()
+  })
+
   it('zeigt einen Ladefehler als Hinweis', async () => {
     wrapper.listLsaReports.mockResolvedValue({ data: null, error: 'ZZ_kaputt' })
     seite()

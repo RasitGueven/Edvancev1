@@ -10,10 +10,13 @@
 //                       leads.converted_student_id auf (nach dem Vertrags-
 //                       abschluss ist students.lead_id NULL). Coaches lesen
 //                       leads seit S1 nicht mehr direkt.
+//   lsa_sessions.auswertbar, lsa_durchklick_stand — Durchklicken (LSA-R2,
+//                       lsaDurchklick.ts); ohne Migration auswertbar.
 //
 // task_solutions wird NICHT angefasst.
 
 import { supabase } from '@/lib/supabase/client'
+import { loadNichtAuswertbar, loadSchnelleSitzungen } from '@/lib/supabase/lsaDurchklick'
 import { loadErzaehlung } from '@/lib/supabase/lsaReportErzaehlung'
 import { loadSkillbefunde } from '@/lib/supabase/lsaReportSkills'
 import type {
@@ -43,6 +46,7 @@ const SESSION_COLS =
 
 // Was der Report vom Lead braucht — ohne Kontaktdaten.
 type LeadKontext = {
+  leadId: string | null
   rufname: string | null
   nextExamTopic: string | null
   currentTopicClusterId: string | null
@@ -67,6 +71,7 @@ async function loadLeadKontext(
 
   type Row = {
     student_id: string
+    lead_id: string | null
     rufname: string | null
     next_exam_topic: string | null
     current_topic_cluster_id: string | null
@@ -75,6 +80,7 @@ async function loadLeadKontext(
   }
   for (const r of (data ?? []) as Row[]) {
     kontext.set(r.student_id, {
+      leadId: r.lead_id ?? null,
       rufname: r.rufname,
       nextExamTopic: r.next_exam_topic,
       currentTopicClusterId: r.current_topic_cluster_id,
@@ -134,6 +140,11 @@ export async function listTodaysLsaSessions(): Promise<
       answered.set(key, (answered.get(key) ?? 0) + 1)
     }
 
+    // LSA-R2: nur laufende Sitzungen; bei jedem Laden bzw. Aktualisieren neu.
+    const schnell = await loadSchnelleSitzungen(
+      rows.filter((r) => r.status === 'in_progress').map((r) => r.id),
+    )
+
     return {
       data: rows.map((r) => ({
         session_id: r.id,
@@ -145,6 +156,7 @@ export async function listTodaysLsaSessions(): Promise<
         completed_at: r.completed_at,
         answered: answered.get(r.id) ?? 0,
         planned: r.item_ids?.length ?? 0,
+        schnell: schnell.has(r.id),
       })),
       error: null,
     }
@@ -289,6 +301,7 @@ export async function getReportData(
 
     const parentAssessment = parentAssessmentAus(kontext)
     const fehlbilder = await loadFehlbilder(row.id)
+    const nichtAuswertbar = await loadNichtAuswertbar([row.id])
 
     return {
       data: {
@@ -302,6 +315,9 @@ export async function getReportData(
         aufgaben,
         naechstesThema: await naechstesThemaAus(kontext),
         schulform: await loadSchulform(row.student_id),
+        auswertbar: !nichtAuswertbar.has(row.id),
+        nichtAuswertbarGrund: nichtAuswertbar.get(row.id) ?? null,
+        leadId: kontext?.leadId ?? null,
         parentAssessment,
         skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder,

@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { Printer, Mail, Presentation } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { LoadingPulse } from '@/components/edvance'
+import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { Praesentation } from '@/components/edvance/praesentation/Praesentation'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { BerichtAnsicht } from '@/components/edvance/report/BerichtAnsicht'
@@ -17,6 +18,8 @@ import {
 } from '@/lib/supabase/reportNotes'
 import { listTiers } from '@/lib/supabase/subscriptions'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
+import { durchklickGrund } from './lsaReports/durchklickGrund'
+import { NichtAuswertbarBalken } from './lsaReports/NichtAuswertbarBalken'
 import { bogenBereit, druckDatum, druckeMitTitel } from './reportDruck'
 import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
@@ -41,6 +44,11 @@ import { TestlaufBanner } from './testmodus/TestlaufBanner'
  * Mit ?aktion=pdf (Liste LSA-Reports, LR-1) öffnet sich der Druckdialog genau
  * einmal von selbst, sobald Bericht, Pakete und Schriften da sind. Danach
  * fällt nur ?aktion aus der URL.
+ *
+ * Eine durchgeklickte LSA (auswertbar = false, LSA-R2) hat nur die Seite
+ * „nicht auswertbar“, ohne Ausblick, darüber den Hinweisbalken mit „LSA
+ * wiederholen“. Die Präsentation öffnet nicht: ?ansicht=praesentation fällt
+ * aus der URL, es bleibt der Bogen.
  */
 
 /** So lange nach der letzten Eingabe im Ausblick misst der Bogen neu. */
@@ -49,6 +57,7 @@ export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { t, i18n } = useTranslation('report')
   const { t: tp } = useTranslation('praesentation')
+  const { t: ta } = useTranslation('admin')
   const { role } = useAuth()
   const [suche, setSuche] = useSearchParams()
   const praesentation = suche.get('ansicht') === 'praesentation'
@@ -159,6 +168,20 @@ export function ReportPage(): JSX.Element {
   )
   const schliessePraesentation = useCallback(() => setzeAnsicht(false), [setzeAnsicht])
 
+  // Nicht auswertbar: keine Präsentation, ein solcher Aufruf landet auf dem Bogen.
+  const nichtAuswertbar = data?.auswertbar === false
+  useEffect(() => {
+    if (!nichtAuswertbar || !praesentation) return
+    setSuche(
+      (alt) => {
+        const neu = new URLSearchParams(alt)
+        neu.delete('ansicht')
+        return neu
+      },
+      { replace: true },
+    )
+  }, [nichtAuswertbar, praesentation, setSuche])
+
   const handleSave = useCallback(async () => {
     if (!sessionId) return
     setSaving(true)
@@ -213,10 +236,24 @@ export function ReportPage(): JSX.Element {
 
   const aktionen = (
     <>
-      <Button type="button" variant="secondary" onClick={() => setzeAnsicht(true)}>
-        <Presentation className="mr-2 h-4 w-4" />
-        {tp('einstieg.knopf')}
-      </Button>
+      {nichtAuswertbar ? (
+        <span
+          className="inline-flex"
+          title={ta('lsaReports.aktion.praesentationGesperrt', {
+            grund: durchklickGrund(ta, i18n.language, data?.nichtAuswertbarGrund),
+          })}
+        >
+          <Button type="button" variant="secondary" disabled>
+            <Presentation className="mr-2 h-4 w-4" />
+            {tp('einstieg.knopf')}
+          </Button>
+        </span>
+      ) : (
+        <Button type="button" variant="secondary" onClick={() => setzeAnsicht(true)}>
+          <Presentation className="mr-2 h-4 w-4" />
+          {tp('einstieg.knopf')}
+        </Button>
+      )}
       <Button type="button" variant="secondary" onClick={() => drucke()}>
         <Printer className="mr-2 h-4 w-4" />
         {t('actions.print')}
@@ -256,7 +293,7 @@ export function ReportPage(): JSX.Element {
     </div>
   )
 
-  const ebene = praesentation && sessionId && (loading || data) && (
+  const ebene = praesentation && sessionId && (loading || data) && !nichtAuswertbar && (
     <Praesentation
       data={data}
       notes={notes}
@@ -292,13 +329,29 @@ export function ReportPage(): JSX.Element {
                 <TestlaufBanner />
               </div>
             )}
-            <BerichtAnsicht
-              data={data}
-              notes={bogenNotes}
-              tiers={tiers}
-              bogenKey={bogenKey}
-              ausblick={ausblick}
-            />
+            {nichtAuswertbar ? (
+              <>
+                <NichtAuswertbarBalken
+                  stand={data.nichtAuswertbarGrund ?? null}
+                  leadId={data.leadId ?? null}
+                  darfFreigeben={role === 'admin'}
+                />
+                {/* Eine Seite, ohne Ausblick: es gibt nichts zu empfehlen. */}
+                <div className="overflow-x-auto rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] p-4 print:overflow-visible print:bg-transparent print:p-0">
+                  <div className="mx-auto w-fit">
+                    <ElternberichtBogen data={data} notes={null} tiers={[]} />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <BerichtAnsicht
+                data={data}
+                notes={bogenNotes}
+                tiers={tiers}
+                bogenKey={bogenKey}
+                ausblick={ausblick}
+              />
+            )}
           </>
         )
       )}

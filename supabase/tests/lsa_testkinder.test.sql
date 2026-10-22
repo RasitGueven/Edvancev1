@@ -21,11 +21,13 @@
 --      nicht angenommen“ ist leer (die Loesungen der Fixture sind konsistent).
 --   9. Schalter: nur=Max legt genau eine Sitzung an, fuer Max; ein unbekannter Name bricht ab, bevor etwas
 --      angelegt wird.
+--  10. Tim (LSA-R2) klickt sich durch (2–4 s, fast alles falsch): seine Sitzung ist nicht auswertbar, die
+--      der sechs anderen ist auswertbar (lsa_finish ueber lsa_durchklick_stand).
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(44);
+select plan(51);
 
 \set admin 'a5a7c41d-adad-4000-8000-000000000001'
 insert into auth.users (id, email, instance_id, aud, role)
@@ -182,22 +184,35 @@ select is((select string_agg(k ->> 'kind' || ': ' || array_to_string(a.weak_topi
             where a.weak_topics <@ array['Grundlagen fehlen', 'Textverständnis', 'Rechenwege', 'Konzentration',
                                          'Prüfungsangst', 'Zeiteinteilung']),
           'Emre: Grundlagen fehlen | Jonas: Grundlagen fehlen, Konzentration | Lina: Rechenwege | Max: Rechenwege | '
-            || 'Nele: Prüfungsangst | Sophie: Textverständnis, Konzentration',
+            || 'Nele: Prüfungsangst | Sophie: Textverständnis, Konzentration | Tim: Konzentration',
           'Anliegen nur aus PARENT_WEAK_TOPICS, je Kind wie im Profil');
+
+-- 10
+select ok((select not l.auswertbar and l.status = 'completed'
+                  and (l.nicht_auswertbar_grund ->> 'nicht_auswertbar')::boolean
+                  and l.result_summary -> 'durchklick' = l.nicht_auswertbar_grund
+             from lsa_sessions l where l.id = pg_temp.sitzung('Tim')),
+          'Tim: abgeschlossen und nicht auswertbar, Grund = result_summary.durchklick');
+select ok((select l.auswertbar and l.nicht_auswertbar_grund is null
+                  and not (l.result_summary -> 'durchklick' ->> 'nicht_auswertbar')::boolean
+             from lsa_sessions l where l.id = pg_temp.sitzung(n)),
+          n || ': auswertbar')
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+select diag('Tim: ' || (select (l.nicht_auswertbar_grund - 'schwellen')::text from lsa_sessions l where l.id = pg_temp.sitzung('Tim')));
 
 -- ── Zweiter Lauf ────────────────────────────────────────────────────────────
 \ir ../../tools/lsa-testkinder/erzeugen.sql
 
 -- 7
-select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%'), 6::bigint, 'Zweiter Lauf: dieselben sechs Leads');
+select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%'), 7::bigint, 'Zweiter Lauf: dieselben sieben Leads');
 select is((select count(*) from students where id::text like 'a5a7c41d-5c00-%' and ist_test and is_provisional),
-          6::bigint, 'Zweiter Lauf: dieselben sechs Testkonten');
+          7::bigint, 'Zweiter Lauf: dieselben sieben Testkonten');
 select is((select count(*) from lsa_sessions where student_id::text like 'a5a7c41d-5c00-%' and status = 'completed'),
-          12::bigint, 'Zweiter Lauf: zwoelf abgeschlossene Sitzungen, je Kind zwei');
-select is((select count(*) from zz_lsat_lauf1 a join lsa_sessions l on l.id = a.id), 6::bigint,
+          14::bigint, 'Zweiter Lauf: vierzehn abgeschlossene Sitzungen, je Kind zwei');
+select is((select count(*) from zz_lsat_lauf1 a join lsa_sessions l on l.id = a.id), 7::bigint,
           'Zweiter Lauf: die Sitzungen des ersten Laufs stehen noch');
 select ok(pg_temp.sitzung('Lina') not in (select id from zz_lsat_lauf1), 'Zweiter Lauf: die neueste Sitzung ist neu');
-select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%' and status = 'lsa_fertig'), 6::bigint,
+select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%' and status = 'lsa_fertig'), 7::bigint,
           'Zweiter Lauf: alle Leads stehen auf lsa_fertig');
 
 -- ── Schalter (9) ────────────────────────────────────────────────────────────
@@ -221,7 +236,7 @@ savepoint zz_unbekannt;
 \unset nur
 rollback to savepoint zz_unbekannt;
 select is(:'LAST_ERROR_MESSAGE'::text,
-          'LSA-T: unbekannte Kinder in nur: Moritz (bekannt: Lina, Emre, Sophie, Jonas, Nele, Max)',
+          'LSA-T: unbekannte Kinder in nur: Moritz (bekannt: Lina, Emre, Sophie, Jonas, Nele, Max, Tim)',
           'Unbekannter Name: Abbruch mit klarer Meldung, nichts danach ausgefuehrt');
 
 select * from finish();

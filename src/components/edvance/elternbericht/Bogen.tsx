@@ -8,6 +8,7 @@ import { genitiv } from '@/lib/report/elternbericht/genitiv'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
 
 import { NAME_MAX, NamensMessungFertig, useNamensMessung } from './namensMessung'
+import { NichtAuswertbarSeite } from './NichtAuswertbarSeite'
 import { Seite } from './Seite'
 import { Seite1 } from './Seite1'
 import { Seite2 } from './Seite2'
@@ -31,6 +32,9 @@ const SEITEN: ReadonlyArray<(props: SeitenProps) => JSX.Element | null> = [
  * nichts (kein direkt geprüfter Bereich, kein Katalog), gibt es keinen Bogen,
  * sondern einen Hinweis am Bildschirm: Eine falsche Zahl auf Papier für Eltern
  * wäre schlimmer als kein Bogen (Bauauftrag R7, Entscheidung 3).
+ *
+ * Eine durchgeklickte LSA (auswertbar = false, LSA-R2) bekommt statt der fünf
+ * Seiten nur die Seite „nicht auswertbar“.
  */
 export function ElternberichtBogen({
   data,
@@ -55,6 +59,8 @@ export function ElternberichtBogen({
   const rufname = data.firstName?.trim() || null
   const vorab = rufname && [...rufname].length <= NAME_MAX ? rufname : null
   const messung = useNamensMessung(vorab !== null)
+
+  if (data.auswertbar === false) return <NichtAuswertbarSeite data={data} />
 
   if (!bericht) {
     return (

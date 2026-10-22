@@ -315,5 +315,11 @@
       "kicker": "Fragen oder Entscheidung",
       "text": "Sie können sich direkt entscheiden oder sich später mit Fragen melden. Wir antworten persönlich, ohne Termin und ohne Frist."
     }
+  },
+  "nichtAuswertbar": {
+    "titel": "Eine neue Analyse für {{name}}",
+    "titelOhneName": "Eine neue Analyse für Ihr Kind",
+    "kicker": "Zu dieser Analyse",
+    "text": "Diese Lernstandsanalyse können wir nicht auswerten. Viele Aufgaben wurden in sehr kurzer Zeit beantwortet. So kurze Antwortzeiten zeigen nicht, was {{name}} kann. Wir wiederholen die Analyse in Ruhe."
   }
 }

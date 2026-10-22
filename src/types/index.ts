@@ -209,6 +209,7 @@ export type {
 
 export type {
   LsaSessionState,
+  DurchklickStand,
   LsaSessionListItem,
   ParentAssessment,
   ReportData,
