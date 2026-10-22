@@ -1,13 +1,10 @@
--- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
--- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
-
 --
 -- PostgreSQL database dump
 --
 
+\restrict KC9EBrIoSO3vOavHzeYLGtwSR14AfN19of6oJBPIzEobwBhVYVDF26I26i2mEIK
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -9416,7 +9413,7 @@ begin
   end if;
   return query
   with b as (
-    select t.id, t.title, t.status, t.source_ref, t.skill_key sk_jetzt,
+    select t.id, t.title, t.status, t.source_ref, t.skill_key sk_jetzt, t.einsatz,
            coalesce(a.ausgang ->> 'skill_key', t.skill_key) sk,
            case when a.task_id is not null then (a.ausgang ->> 'sondierrang')::int else t.sondierrang end sr
       from public.tasks t
@@ -9432,7 +9429,7 @@ begin
          coalesce(jsonb_array_length(lp.aenderungen) > 0, false),
          lp.dauer_sek,
          coalesce((select array_agg(ps.anlass order by ps.anlass) from public.pruef_soll ps
-                    where ps.aktiv and ps.skill_key = b.sk_jetzt), '{}'::text[]),
+                    where ps.aktiv and ps.skill_key = b.sk_jetzt and ps.einsatz = any (b.einsatz)), '{}'::text[]),
          coalesce((select jsonb_array_length(ts.hints) > 0
                      from public.task_solutions ts where ts.task_id = b.id), false)
     from b
@@ -9466,13 +9463,14 @@ begin
      where p.aktiv and (p_anlass is null or p.anlass = p_anlass)
      group by p.skill_key),
   b as (
-    select z.skill_key sk, count(*)::int n,
+    select s.sk, count(*)::int n,
            count(*) filter (where z.lena_status in ('passt', 'freigegeben'))::int g,
            count(*) filter (where z.lena_status in ('passt', 'freigegeben')
                               and t.input_type is distinct from 'MC')::int g_ohne
       from public.pruef_board() z
+      join s on s.sk = z.skill_key and z.anlaesse && s.an
       join public.tasks t on t.id = z.task_id
-     group by z.skill_key)
+     group by s.sk)
   select s.sk, k.label, th.thema_key, th.label, th.sort, th.stufe, s.srt, s.an, s.so, s.mo,
          coalesce(b.n, 0), coalesce(b.g, 0), coalesce(b.g_ohne, 0),
          greatest(s.so - coalesce(b.g, 0), s.mo - coalesce(b.g_ohne, 0), 0),
@@ -20487,8 +20485,10 @@ CREATE TABLE public.pruef_soll (
     sort integer NOT NULL,
     aktiv boolean DEFAULT true NOT NULL,
     angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    einsatz text DEFAULT 'lsa'::text NOT NULL,
     CONSTRAINT pruef_soll_anlass_check CHECK ((anlass ~ '^[a-z][a-z0-9_]*$'::text)),
     CONSTRAINT pruef_soll_check CHECK (((min_ohne_mc >= 0) AND (min_ohne_mc <= soll))),
+    CONSTRAINT pruef_soll_einsatz_check CHECK ((einsatz = ANY (ARRAY['lsa'::text, 'session'::text]))),
     CONSTRAINT pruef_soll_soll_check CHECK ((soll > 0))
 );
 
@@ -28533,4 +28533,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
+\unrestrict KC9EBrIoSO3vOavHzeYLGtwSR14AfN19of6oJBPIzEobwBhVYVDF26I26i2mEIK
 
