@@ -272,7 +272,7 @@
     "coaches": "Coaches",
     "vertraege": "Verträge",
     "elternReports": "Eltern-Reports",
-    "lsaErgebnisse": "LSA-Ergebnisse",
+    "lsaReports": "LSA-Reports",
     "itemPflege": "Item-Pflege",
     "gruppe": {
       "vertrieb": "Vertrieb",
@@ -288,7 +288,7 @@
       "coaches": "Coaches",
       "vertraege": "Verträge",
       "elternReports": "Reports",
-      "lsaErgebnisse": "LSA",
+      "lsaReports": "LSA",
       "itemPflege": "Inhalte",
       "stellschrauben": "Werte"
     },
@@ -451,5 +451,36 @@
     "verlaufLeerText": "Der Wert steht seit dem Start auf dem Startwert.",
     "verlaufZeile": "{{alt}} → {{neu}}",
     "anteilHinweis": "Als Dezimalzahl, zum Beispiel 0,8 für 80 %."
+  },
+  "lsaReports": {
+    "titel": "LSA-Reports",
+    "satz": "Alle abgeschlossenen Lernstandsanalysen. Je Zeile als Präsentation öffnen oder als PDF sichern.",
+    "suche": "Kind suchen …",
+    "ohneName": "Ohne Namen",
+    "ladeFehler": "Die LSA-Reports konnten nicht geladen werden: {{fehler}}",
+    "leer": "Noch keine abgeschlossene LSA",
+    "leerText": "Sobald eine Lernstandsanalyse abgeschlossen ist, steht ihr Report hier.",
+    "keinTreffer": "Kein Kind gefunden",
+    "keinTrefferText": "Zu „{{suche}}“ gibt es keinen Report. Prüf die Schreibweise.",
+    "spalte": {
+      "kind": "Kind",
+      "klasse": "Klasse",
+      "fach": "Fach",
+      "thema": "Thema",
+      "datum": "LSA vom",
+      "kennzeichen": "Kennzeichen",
+      "aktionen": "Aktionen"
+    },
+    "kennzeichen": {
+      "testlauf": "Testlauf",
+      "testkonto": "Testkonto"
+    },
+    "aktion": {
+      "praesentation": "Präsentation",
+      "pdf": "PDF",
+      "praesentationFuer": "Präsentation für {{name}} öffnen",
+      "pdfFuer": "Report von {{name}} als PDF sichern",
+      "bogenFuer": "Report von {{name}} öffnen"
+    }
   }
 }

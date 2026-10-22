@@ -74,7 +74,15 @@ export const ADMIN_NAV: NavKonfiguration = {
           icon: SlidersHorizontal,
         },
         { id: 'elternReports', nameKey: 'nav.elternReports', kurzKey: 'nav.kurz.elternReports', icon: FileText, bald: true },
-        { id: 'lsaErgebnisse', nameKey: 'nav.lsaErgebnisse', kurzKey: 'nav.kurz.lsaErgebnisse', icon: ClipboardCheck, bald: true },
+        {
+          id: 'lsaReports',
+          route: '/admin/lsa-reports',
+          // Ein geöffneter Report gehört zur Liste, nicht zur Item-Pflege (LR-1).
+          aktivBei: ['/admin/lsa-reports', '/admin/report/*'],
+          nameKey: 'nav.lsaReports',
+          kurzKey: 'nav.kurz.lsaReports',
+          icon: ClipboardCheck,
+        },
       ],
     },
     {
@@ -89,7 +97,6 @@ export const ADMIN_NAV: NavKonfiguration = {
             '/admin/content-gesundheit',
             '/admin/qs',
             '/admin/diagnostics',
-            '/admin/report/*',
             '/admin/pruefen/erklaerungen*',
           ],
           nameKey: 'nav.itemPflege',
