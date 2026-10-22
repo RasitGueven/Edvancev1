@@ -268,6 +268,10 @@
     `2026-10-22-r7-11-ansatz-anliegen.md`): Mit Thema der LSA ist Schwerpunkt 1 das Thema (Startstelle
     nach skill_kante), die Breite folgt nach Planrang; „Ihr Anliegen“ nur fachlich, als Frage und Antwort
     (`anliegen.ts`); Station 01/04 dieselbe Rechnung. **Offen:** `docs/report/r7/offene-punkte-r7-11.md`.
+  - **R7-12 Lernweg passt immer** (Branch `feat/rasit-r7-12-lernweg-grenzen`, Bauauftrag
+    `docs/report/r7/Bauauftrag-R7-12.md`, Retro `2026-10-22-r7-12-lernweg-grenzen.md`): Kürzungsstufen 4–7
+    (Zeilen je Insel, „+ n weitere“, Zonen als Zählzeilen) für Seite 3 und die volle Karte in Station 03;
+    Fixture `sehrViele`. Kein DDL. **Offen:** `docs/report/r7/offene-punkte-r7-12.md`.
   - Danach Abnahme durch die Gründer (Nenner, Reihenfolge der Schwerpunkte) und Lena (Texte,
     Kopfsätze, W5-d-Entwürfe); dann Standard auf R7 umstellen.
 - **Tablet-Präsentation der LSA** (Anforderung `docs/report/praesentation/Anforderung.md`, Dummy
