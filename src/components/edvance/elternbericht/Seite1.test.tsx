@@ -155,14 +155,14 @@ describe('Seite 1 — Anliegen, Prüfweg und Weg', () => {
     )
   })
 
-  it('abgestuft: Frage und Antwort zum Thema, kein Schwerpunkt-Satz, kein nächstes Thema', () => {
+  it('abgestuft: Frage und Antwort zum Thema, ohne gebeugte Bereichsnamen, kein Schwerpunkt-Satz', () => {
     const s = seite1(FAELLE.abgestuft.data)
     expect(s.getByTestId('eb-anliegen')).toHaveTextContent(
-      'Sie sind wegen Reelle Zahlen zu uns gekommen. Dort hakt es bei Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen.',
+      'Ihr Anlass: Reelle Zahlen. Dort hakt es: Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen.',
     )
     expect(s.getByTestId('eb-anliegen')).not.toHaveTextContent('Dort setzen wir zuerst an')
     expect(seite1(FAELLE.abgestuftThemaSicher.data).getByTestId('eb-anliegen')).toHaveTextContent(
-      'Sie sind wegen Reelle Zahlen zu uns gekommen. Was wir dazu geprüft haben, sitzt.',
+      'Ihr Anlass: Reelle Zahlen. Was wir dazu geprüft haben, sitzt.',
     )
   })
 

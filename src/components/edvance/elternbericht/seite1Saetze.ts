@@ -10,26 +10,14 @@ import type { EbAnliegen, EbSchwerpunkt } from '@/types'
 import { schwerpunktTitel, type Liste } from './liste'
 
 /**
- * Der Ansatz für den Thema-Schwerpunkt: was sicher ist, wo es Übung braucht,
- * wo wir beginnen. Ohne Übungsbedarf im Thema der Satz `ansatzThemaSicher`.
+ * Der eine Satz unter der Startstelle (R7-11, Nachbesserung 1): was direkt
+ * darauf aufbaut, sonst „Hier setzen wir zuerst an.“ Kein Bereichsname wird
+ * gebeugt, er steht als Subjekt im Satz.
  */
-export function ansatzThemaSaetze(
-  t: TFunction<'elternbericht'>,
-  s: EbSchwerpunkt,
-  name: string | null,
-  liste: Liste,
-): string[] {
-  if (s.uebung.length === 0) return [t('s1.blick.ansatzThemaSicher', { thema: s.thema })]
-  const uebung = liste(s.uebung)
-  return [
-    ...(s.sicher.length > 0
-      ? [t('s1.blick.ansatzThema.sicher', { liste: liste(s.sicher), count: s.sicher.length })]
-      : []),
-    name
-      ? t('s1.blick.ansatzThema.uebung', { name, liste: uebung })
-      : t('s1.blick.ansatzThema.uebungOhneName', { liste: uebung }),
-    t('s1.blick.ansatzThema.start', { start: s.start, count: s.uebung.length }),
-  ]
+export function ansatzThemaSatz(t: TFunction<'elternbericht'>, s: EbSchwerpunkt): string {
+  return s.naechster
+    ? t('s1.blick.ansatzThema.naechster', { naechster: s.naechster })
+    : t('s1.blick.ansatzThema.zuerst')
 }
 
 /**

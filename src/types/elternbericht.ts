@@ -127,6 +127,21 @@ export type EbSchwerpunkt = {
   uebung: string[]
   /** Startstelle im Thema: der erste Bereich mit Übungsbedarf; sonst null. */
   start: string | null
+  /**
+   * Ein Bereich mit Übungsbedarf im Thema, der direkt auf der Startstelle
+   * aufbaut (der erste in der Thema-Reihenfolge); sonst null.
+   */
+  naechster: string | null
+}
+
+/**
+ * Das Thema der LSA (R7-11), auch wenn es kein Schwerpunkt ist: Ohne
+ * Übungsbedarf im Thema zeigt Seite 1 dann ansatzThemaSicher.
+ */
+export type EbThema = {
+  titel: string
+  /** Bereiche mit Übungsbedarf im Themenraum, in der Thema-Reihenfolge. */
+  uebung: string[]
 }
 
 /**
@@ -160,6 +175,8 @@ export type Elternbericht = {
   sicherListe: EbBereich[]
   uebungListe: EbBereich[]
   kopfFall: KopfFall
+  /** Das Thema der LSA (R7-11); null ohne Thema. */
+  thema: EbThema | null
   /** Der Lernweg für Seite 3 und Station 03 (R7-9); null ohne Eingabe dafür. */
   lernweg: Lernweg | null
 }

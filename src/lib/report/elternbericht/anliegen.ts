@@ -11,7 +11,7 @@
 // Antwort, und ein Satz darüber, was die Analyse nicht sagen kann, verwirrt
 // mehr, als er hilft. Die Daten bleiben unverändert in der Datenbank.
 
-import type { EbAnliegen, EbSchwerpunkt, Rueckbezug } from '@/types'
+import type { EbAnliegen, EbSchwerpunkt, EbThema, Rueckbezug } from '@/types'
 
 export type AnliegenArt = 'fachlich' | 'ueberfachlich'
 
@@ -64,29 +64,31 @@ export function rueckbezugZeigen(r: Pick<Rueckbezug, 'thema' | 'fall' | 'richtun
  * Frage und Antwort (Entscheidung 12). null, wenn der Kasten entfällt: ohne
  * Thema der LSA und ohne fachliches Anliegen.
  *
- * - Mit Thema: Thema und die Bereiche mit Übungsbedarf darin (aus Schwerpunkt 1).
- * - Fachliche Anliegen: genannt, dazu Schwerpunkt 1 als Antwort — mit Thema
- *   entfällt der, weil Schwerpunkt 1 dann das Thema ist und dasselbe sagt.
+ * - Mit Thema: Thema und die Bereiche mit Übungsbedarf darin.
+ * - Fachliche Anliegen: genannt, dazu Schwerpunkt 1 als Antwort — außer
+ *   Schwerpunkt 1 ist das Thema, dann sagte der Satz dasselbe.
  * - Das nächste Thema aus dem Lead nur ohne Thema der LSA.
  */
 export function anliegenAus({
   anlassNamen,
   naechstesThema,
   schwerpunkte,
+  thema,
 }: {
   anlassNamen: readonly string[]
   naechstesThema: string | null
   schwerpunkte: readonly EbSchwerpunkt[]
+  /** Elternbericht.thema — auch ohne Übungsbedarf im Thema gesetzt. */
+  thema: EbThema | null
 }): EbAnliegen | null {
   const erster = schwerpunkte[0] ?? null
-  const thema = erster?.thema ?? null
   const punkte = [...new Set(anlassNamen)].filter(istFachlich)
   if (!thema && punkte.length === 0) return null
   return {
-    thema,
-    themaUebung: thema && erster ? [...erster.uebung] : [],
+    thema: thema?.titel ?? null,
+    themaUebung: thema ? [...thema.uebung] : [],
     punkte,
-    schwerpunkt: !thema && punkte.length > 0 ? erster : null,
+    schwerpunkt: punkte.length > 0 && erster && !erster.thema ? erster : null,
     naechstesThema: thema ? null : naechstesThema,
   }
 }

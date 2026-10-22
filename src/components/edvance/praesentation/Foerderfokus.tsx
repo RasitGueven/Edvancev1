@@ -61,12 +61,7 @@ export function Foerderfokus({ s, id, tabId }: { s: TpSchwerpunkt; id: string; t
         <h3>{schwerpunktTitel(tb, s)}</h3>
         <div className="tp-s4-kaesten">
           <Kasten art="sicher" titel={t('s4.sicher')} labels={s.sicher} leer={t('s4.keinSicher')} />
-          <Kasten
-            art="ueben"
-            titel={t('s4.ueben')}
-            labels={s.uebung}
-            leer={s.thema ? tb('s1.blick.ansatzThemaSicher', { thema: s.thema }) : ''}
-          />
+          <Kasten art="ueben" titel={t('s4.ueben')} labels={s.uebung} leer="" />
         </div>
       </div>
     </div>

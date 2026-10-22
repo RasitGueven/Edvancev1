@@ -18,7 +18,7 @@ describe('Station 01 — Anliegen wie Seite 1', () => {
   it('abgestuft: Frage und Antwort zum Thema, kein „Im Blick“', () => {
     zeigeStation(Station1, 'abgestuft')
     expect(screen.getByTestId('tp-s1-anliegen')).toHaveTextContent(
-      'Sie sind wegen Reelle Zahlen zu uns gekommen. Dort hakt es bei Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen.',
+      'Ihr Anlass: Reelle Zahlen. Dort hakt es: Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen.',
     )
     expect(screen.queryByText(/Im Blick/)).toBeNull()
   })

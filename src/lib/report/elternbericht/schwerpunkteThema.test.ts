@@ -51,6 +51,7 @@ describe('Schwerpunkte mit Thema — Fälle', () => {
         'Teilweise die Wurzel ziehen',
       ],
       start: 'Wurzelgesetze für Produkt und Quotient',
+      naechster: 'Teilweise die Wurzel ziehen',
     })
     expect(schwerpunkte.map((s) => s.feld)).toEqual([null, 'terme', 'geometrie', 'zufall'])
     expect(danach).toEqual([])
@@ -59,10 +60,34 @@ describe('Schwerpunkte mit Thema — Fälle', () => {
     expect(sicherListe.slice(0, 2).map((x) => x.label)).toEqual(schwerpunkte[0].sicher)
   })
 
-  it('abgestuftThemaSicher: Thema ohne Übungsbedarf bleibt Schwerpunkt 1, Breite ab 2', () => {
-    const { schwerpunkte } = bericht(FAELLE.abgestuftThemaSicher.data)
-    expect(schwerpunkte[0]).toMatchObject({ thema: 'Reelle Zahlen', uebung: [], start: null, gemischt: false })
-    expect(schwerpunkte.slice(1).map((s) => s.feld)).toEqual(['terme', 'geometrie', 'zufall'])
+  it('abgestuftThemaSicher: Thema ohne Übungsbedarf ist kein Schwerpunkt, die Breite beginnt bei 1', () => {
+    const r = bericht(FAELLE.abgestuftThemaSicher.data)
+    expect(r.schwerpunkte.map((s) => s.feld)).toEqual(['terme', 'geometrie', 'zufall'])
+    expect(r.thema).toEqual({ titel: 'Reelle Zahlen', uebung: [] })
+  })
+
+  it('Thema ohne Übungsbedarf und Breite ohne Übungsbedarf: keine Schwerpunkte', () => {
+    const { data } = FAELLE.abgestuftThemaSicher
+    const alles = data.erzaehlung.kompetenzen.map((k) => ({ ...k, zustand: 'traegt' }))
+    const r = bericht({ ...data, erzaehlung: { ...data.erzaehlung, kompetenzen: alles } })
+    expect(r.schwerpunkte).toEqual([])
+    expect(r.danach).toEqual([])
+    expect(r.thema?.titel).toBe('Reelle Zahlen')
+  })
+
+  it('naechster nur, wenn ein Bereich mit Übungsbedarf direkt auf der Startstelle aufbaut', () => {
+    // abgestuftMitOffen: Start „Runden und Überschlag“; darauf baut „Wurzeln abschätzen …“ (Übungsbedarf) auf.
+    expect(bericht(FAELLE.abgestuftMitOffen.data).schwerpunkte[0]).toMatchObject({
+      start: 'Runden und Überschlag',
+      naechster: 'Wurzeln abschätzen und Näherungswerte',
+    })
+    // abgestuftPlanrang ohne Teilweise die Wurzel ziehen: nichts baut mit Übungsbedarf darauf auf.
+    const { data } = FAELLE.abgestuftPlanrang
+    const ohne = data.erzaehlung.kompetenzen.filter((k) => k.skillKey !== 'zahl_wurzel_teilweise')
+    expect(bericht({ ...data, erzaehlung: { ...data.erzaehlung, kompetenzen: ohne } }).schwerpunkte[0]).toMatchObject({
+      start: 'Wurzelgesetze für Produkt und Quotient',
+      naechster: null,
+    })
   })
 
   it('abgestuftPlanrang: das Feld für das nächste Plan-Thema vor dem gemischten Feld', () => {
@@ -81,7 +106,8 @@ describe('Schwerpunkte mit Thema — Fälle', () => {
     expect(mit.sicherListe).toEqual(ohne.sicherListe)
     expect(mit.uebungListe).toEqual(ohne.uebungListe)
     expect(mit.schwerpunkte.map((s) => s.feld)).toEqual(['geometrie', 'brueche', 'groessen', 'prozent'])
-    expect(mit.schwerpunkte.every((s) => s.thema === null && s.start === null)).toBe(true)
+    expect(mit.schwerpunkte.every((s) => s.thema === null && s.start === null && s.naechster === null)).toBe(true)
+    expect(mit.thema).toBeNull()
   })
 
   it('in allen Fällen: höchstens vier, kein Bereich doppelt, abgeleitete zählen nie', () => {

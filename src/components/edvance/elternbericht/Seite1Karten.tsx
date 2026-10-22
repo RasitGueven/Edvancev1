@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next'
 
 import type { EbBereich, Elternbericht } from '@/types'
 
-import { baueListe, schwerpunktTitel } from './liste'
-import { ansatzThemaSaetze } from './seite1Saetze'
+import { schwerpunktTitel } from './liste'
+import { ansatzThemaSatz } from './seite1Saetze'
 
 /** Höchstens so viele Einträge je Liste; der Rest steht als „+n weitere“. */
 const EINTRAEGE = 4
@@ -15,10 +15,9 @@ const EINTRAEGE = 4
  * Thema die Bereiche des Themas zuerst). Der erste Ansatz ist Schwerpunkt 1 —
  * derselbe, den Seite 4 als ersten nennt; mit Thema ist das das Thema (R7-11).
  */
-export function Seite1Karten({ bericht, name }: { bericht: Elternbericht; name: string | null }): JSX.Element {
-  const { t, i18n } = useTranslation('elternbericht')
+export function Seite1Karten({ bericht }: { bericht: Elternbericht }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
   const erster = bericht.schwerpunkte[0] ?? null
-  const liste = baueListe(t, i18n.language)
 
   return (
     <div className="eb-s1-karten">
@@ -36,7 +35,24 @@ export function Seite1Karten({ bericht, name }: { bericht: Elternbericht; name: 
       />
       <section className="eb-s1-karte eb-s1-karte-ansatz" data-testid="eb-ansatz">
         <h2 className="eb-s1-karte-kopf">{t('s1.blick.ansatz')}</h2>
-        {erster ? (
+        {erster?.thema && erster.start ? (
+          // Mit Thema (R7-11): die Startstelle als Titel, darüber das Thema, ein Satz darunter.
+          <>
+            <p className="eb-s1-ansatz-thema">{t('s1.blick.ansatzThema.kicker', { thema: erster.thema })}</p>
+            <div className="eb-s1-ansatz-kopf">
+              <span className="eb-s1-ansatz-kreis" aria-hidden="true">
+                1
+              </span>
+              <p className="eb-s1-ansatz-titel">{erster.start}</p>
+            </div>
+            <p className="eb-s1-ansatz-text">{ansatzThemaSatz(t, erster)}</p>
+          </>
+        ) : bericht.thema ? (
+          // Thema ohne Übungsbedarf: kein Schwerpunkt, nur der Satz dazu.
+          <p className="eb-s1-ansatz-text eb-s1-ansatz-keiner">
+            {t('s1.blick.ansatzThemaSicher', { thema: bericht.thema.titel })}
+          </p>
+        ) : erster ? (
           <>
             <div className="eb-s1-ansatz-kopf">
               <span className="eb-s1-ansatz-kreis" aria-hidden="true">
@@ -45,10 +61,7 @@ export function Seite1Karten({ bericht, name }: { bericht: Elternbericht; name: 
               <p className="eb-s1-ansatz-titel">{schwerpunktTitel(t, erster)}</p>
             </div>
             <p className="eb-s1-ansatz-text">
-              {/* Mit Thema die konkreten Sätze (R7-11, Entscheidung 8), sonst die Bausteine. */}
-              {erster.thema
-                ? ansatzThemaSaetze(t, erster, name, liste).join(' ')
-                : t(erster.gemischt ? 's1.blick.ansatzGemischt' : 's1.blick.ansatzUebung')}
+              {t(erster.gemischt ? 's1.blick.ansatzGemischt' : 's1.blick.ansatzUebung')}
             </p>
           </>
         ) : (

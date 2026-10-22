@@ -105,7 +105,7 @@ describe('Gleichheit mit dem Druckbogen R7', () => {
     })
 
     // Dieselbe Rechnung (R7-11, Entscheidung 6): schwerpunkte.ts, nur um die Stufen ergänzt.
-    const ohneStart = b.schwerpunkte.map(({ start: _start, ...s }) => s)
+    const ohneStart = b.schwerpunkte.map(({ start: _start, naechster: _naechster, ...s }) => s)
     expect(
       p.schwerpunkte.map(({ feld, thema, gemischt, sicher, uebung }) => ({ feld, thema, gemischt, sicher, uebung })),
     ).toEqual(ohneStart)

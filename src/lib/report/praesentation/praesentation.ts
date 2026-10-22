@@ -92,8 +92,8 @@ function pyramideAus(bericht: Elternbericht, ueber: Set<string>): TpEbene[] {
 /** Genau die Schwerpunkte aus schwerpunkte.ts (R7-11, Entscheidung 6), nur um die Stufen ergänzt. */
 function schwerpunkteAus(bericht: Elternbericht, bereiche: EbBereich[]): TpSchwerpunkt[] {
   return bericht.schwerpunkte.map((s) => {
-    // Thema: die Bereiche des Schwerpunkts (Übungsbedarf, sonst die sicheren); Feld: wie bisher.
-    const labels = new Set(s.uebung.length > 0 ? s.uebung : s.sicher)
+    // Thema: die Bereiche mit Übungsbedarf des Schwerpunkts; Feld: wie bisher.
+    const labels = new Set(s.uebung)
     const drin = s.feld
       ? bereiche.filter((b) => b.feld === s.feld && !b.sicher)
       : bereiche.filter((b) => labels.has(b.label))
@@ -157,6 +157,7 @@ export function bauePraesentation({
       anlassNamen: data.erzaehlung.anlassNamen,
       naechstesThema: data.naechstesThema,
       schwerpunkte: bericht.schwerpunkte,
+      thema: bericht.thema,
     }),
   }
 }

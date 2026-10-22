@@ -10,9 +10,9 @@
 //   4. dann die Reihenfolge der Themenfelder.
 // Höchstens vier; die übrigen gehen in `danach`, in derselben Reihenfolge.
 //
-// Mit Thema der LSA (R7-11, Gründer 22.10.2026) ist Schwerpunkt 1 immer das
-// Thema selbst: nur direkt geprüfte Bereiche im Themenraum, in der
-// Thema-Reihenfolge (Voraussetzungen zuerst). Danach die Breite — Themenfelder
+// Mit Thema der LSA (R7-11, Gründer 22.10.2026) ist Schwerpunkt 1 das Thema
+// selbst, sofern es dort Übungsbedarf gibt: nur direkt geprüfte Bereiche im
+// Themenraum, in der Thema-Reihenfolge (Voraussetzungen zuerst). Danach die Breite — Themenfelder
 // mit Übungsbedarf außerhalb des Raums, zuerst die, die für das nächste
 // Schulthema gebraucht werden (Planrang), dann nach der Regel oben. Ohne Thema
 // gilt die Regel oben unverändert.
@@ -66,6 +66,7 @@ function kandidat(
     sicher: sicher.map((b) => b.label),
     uebung: uebung.map((b) => b.label),
     start: null,
+    naechster: null,
     tiefste: Math.min(...uebung.map((b) => STUFEN_RANG[stufeAusKlasse(b.klasse)])),
     planrang: Math.min(...uebung.map(planrang)),
   }
@@ -138,8 +139,12 @@ export function planrangVon(k: ThemaKontext): (b: EbBereich) => number {
   }
 }
 
-/** Der Thema-Schwerpunkt: nur direkt geprüfte Bereiche im Raum. */
-function themaSchwerpunkt(bereiche: readonly EbBereich[], k: ThemaKontext): EbSchwerpunkt {
+/**
+ * Der Thema-Schwerpunkt: nur direkt geprüfte Bereiche im Raum. null ohne
+ * Übungsbedarf im Thema — dann ist das Thema kein Schwerpunkt (R7-11,
+ * Nachbesserung 3).
+ */
+function themaSchwerpunkt(bereiche: readonly EbBereich[], k: ThemaKontext): EbSchwerpunkt | null {
   const drin = themaReihenfolge(
     bereiche.filter((b) => k.raum.has(b.skillKey)),
     k.raum,
@@ -148,13 +153,18 @@ function themaSchwerpunkt(bereiche: readonly EbBereich[], k: ThemaKontext): EbSc
   )
   const uebung = drin.filter((b) => !b.sicher)
   const sicher = drin.filter((b) => b.sicher)
+  const start = uebung[0]
+  if (!start) return null
+  // Wer baut direkt auf der Startstelle auf? Der erste in der Thema-Reihenfolge.
+  const darauf = new Set(k.kanten.filter((e) => e.voraussetzt === start.skillKey).map((e) => e.skillKey))
   return {
     feld: null,
     thema: k.thema,
-    gemischt: sicher.length > 0 && uebung.length > 0,
+    gemischt: sicher.length > 0,
     sicher: sicher.map((b) => b.label),
     uebung: uebung.map((b) => b.label),
-    start: uebung[0]?.label ?? null,
+    start: start.label,
+    naechster: uebung.find((b) => darauf.has(b.skillKey))?.label ?? null,
   }
 }
 
@@ -172,7 +182,8 @@ export function waehleSchwerpunkte(
   const felder = THEMENFELDER.flatMap(({ key }) => kandidat(key, breite, planrang) ?? []).sort(
     (a, b) => (a.planrang === b.planrang ? nachRegel(a, b) : a.planrang < b.planrang ? -1 : 1),
   )
-  const vorn = kontext ? [themaSchwerpunkt(bereiche, kontext)] : []
+  const thema = kontext ? themaSchwerpunkt(bereiche, kontext) : null
+  const vorn = thema ? [thema] : []
   const platz = MAX_SCHWERPUNKTE - vorn.length
   return {
     schwerpunkte: [...vorn, ...felder.slice(0, platz).map(ohneHilfswerte)],

@@ -17,6 +17,7 @@ const feld: EbSchwerpunkt = {
   sicher: ['A'],
   uebung: ['B'],
   start: null,
+  naechster: null,
 }
 const thema: EbSchwerpunkt = {
   feld: null,
@@ -25,7 +26,9 @@ const thema: EbSchwerpunkt = {
   sicher: ['S'],
   uebung: ['U1', 'U2'],
   start: 'U1',
+  naechster: 'U2',
 }
+const T = { titel: 'Reelle Zahlen', uebung: ['U1', 'U2'] }
 
 describe('anliegenArt — die feste Tabelle', () => {
   it('ordnet jede Intake-Option und jeden Anzeigenamen zu', () => {
@@ -50,24 +53,40 @@ describe('anliegenArt — die feste Tabelle', () => {
 describe('anliegenAus — Frage und Antwort', () => {
   it('gemischt: nur das fachliche Anliegen, mit Schwerpunkt 1 als Antwort und nächstem Thema', () => {
     expect(
-      anliegenAus({ anlassNamen: ['Noten', 'Konzentration'], naechstesThema: 'Algebra', schwerpunkte: [feld] }),
+      anliegenAus({ anlassNamen: ['Noten', 'Konzentration'], naechstesThema: 'Algebra', schwerpunkte: [feld], thema: null }),
     ).toEqual({ thema: null, themaUebung: [], punkte: ['Noten'], schwerpunkt: feld, naechstesThema: 'Algebra' })
   })
 
   it('ohne Thema und nur überfachlich: null (der Kasten entfällt), auch mit nächstem Thema', () => {
-    expect(anliegenAus({ anlassNamen: ['Konzentration'], naechstesThema: 'Algebra', schwerpunkte: [feld] })).toBeNull()
-    expect(anliegenAus({ anlassNamen: [], naechstesThema: null, schwerpunkte: [] })).toBeNull()
+    expect(
+      anliegenAus({ anlassNamen: ['Konzentration'], naechstesThema: 'Algebra', schwerpunkte: [feld], thema: null }),
+    ).toBeNull()
+    expect(anliegenAus({ anlassNamen: [], naechstesThema: null, schwerpunkte: [], thema: null })).toBeNull()
   })
 
-  it('mit Thema: Thema und Übungsbedarf darin; kein Schwerpunkt-Satz, kein nächstes Thema', () => {
+  it('mit Thema als Schwerpunkt 1: Thema und Übungsbedarf darin; kein Schwerpunkt-Satz, kein nächstes Thema', () => {
     expect(
-      anliegenAus({ anlassNamen: ['Rechenwege', 'Rechenwege'], naechstesThema: 'Algebra', schwerpunkte: [thema, feld] }),
+      anliegenAus({
+        anlassNamen: ['Rechenwege', 'Rechenwege'],
+        naechstesThema: 'Algebra',
+        schwerpunkte: [thema, feld],
+        thema: T,
+      }),
     ).toEqual({ thema: 'Reelle Zahlen', themaUebung: ['U1', 'U2'], punkte: ['Rechenwege'], schwerpunkt: null, naechstesThema: null })
-    expect(anliegenAus({ anlassNamen: [], naechstesThema: null, schwerpunkte: [thema] })?.thema).toBe('Reelle Zahlen')
+    expect(anliegenAus({ anlassNamen: [], naechstesThema: null, schwerpunkte: [thema], thema: T })?.thema).toBe('Reelle Zahlen')
+  })
+
+  it('Thema ohne Übungsbedarf (kein Schwerpunkt): Feld-Schwerpunkt 1 als Antwort auf das fachliche Anliegen', () => {
+    const sicher = { titel: 'Reelle Zahlen', uebung: [] }
+    expect(
+      anliegenAus({ anlassNamen: ['Rechenwege'], naechstesThema: null, schwerpunkte: [feld], thema: sicher }),
+    ).toEqual({ thema: 'Reelle Zahlen', themaUebung: [], punkte: ['Rechenwege'], schwerpunkt: feld, naechstesThema: null })
   })
 
   it('fachlich ohne Schwerpunkt (kein Übungsbedarf): kein Antwortsatz', () => {
-    expect(anliegenAus({ anlassNamen: ['Rechenwege'], naechstesThema: null, schwerpunkte: [] })?.schwerpunkt).toBeNull()
+    expect(
+      anliegenAus({ anlassNamen: ['Rechenwege'], naechstesThema: null, schwerpunkte: [], thema: null })?.schwerpunkt,
+    ).toBeNull()
   })
 })
 

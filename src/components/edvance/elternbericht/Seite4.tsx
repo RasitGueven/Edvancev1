@@ -155,8 +155,7 @@ function Schwerpunkt({
       </h3>
       <p className="eb-s4-punkt-text">
         {sicher.length > 0 && <>{t('s4.punkt.sicher', { liste: liste(sicher) })} </>}
-        {/* Thema ohne Übungsbedarf (R7-11, Entscheidung 3): nur das Sichere. */}
-        {uebung.length > 0 && t('s4.punkt.uebung', { liste: liste(uebung) })}
+        {t('s4.punkt.uebung', { liste: liste(uebung) })}
       </p>
       {danach && <p className="eb-s4-danach">{danach}</p>}
     </li>

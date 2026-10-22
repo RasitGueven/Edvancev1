@@ -61,6 +61,14 @@ export function baueElternbericht({
     ...waehleSchwerpunkte(bereiche, thema),
     sicherListe: themaZuerst(sicherListe(bereiche), thema),
     uebungListe: themaZuerst(uebungListe(bereiche), thema),
+    thema: thema
+      ? {
+          titel: thema.thema,
+          uebung: themaZuerst(uebungListe(bereiche), thema)
+            .filter((b) => thema.raum.has(b.skillKey))
+            .map((b) => b.label),
+        }
+      : null,
     kopfFall: kopfFall(zaehlung.sicher, zaehlung.uebung),
     lernweg: lernweg
       ? baueLernweg({

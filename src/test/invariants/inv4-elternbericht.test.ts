@@ -67,12 +67,15 @@ const R7_9_GEAENDERT: Record<string, string> = {
 
 /**
  * Anhang-A-Schlüssel, die R7-11 neu fasst (docs/report/r7/Bauauftrag-R7-11.md):
- * `s1.anliegen.thema` ist jetzt die Frage nach dem Thema der LSA (Entscheidung
- * 12; der alte Satz steht als `s1.anliegen.naechstesThema`), `s2.fussnote`
- * verliert den Halbsatz zur Bewertungsregel (Entscheidung 15).
+ * `s1.anliegen.thema` nennt jetzt das Thema der LSA (Entscheidung 12,
+ * Nachbesserung 2; der alte Satz steht als `s1.anliegen.naechstesThema`),
+ * `s1.blick.sicher` steht im Präsens (Nachbesserung 4), `s2.fussnote` verliert
+ * den Halbsatz zur Bewertungsregel (Entscheidung 15).
  */
 const R7_11_GEAENDERT: Record<string, string> = {
-  's1.anliegen.thema': 'Sie sind wegen {{thema}} zu uns gekommen.',
+  's1.anliegen.thema': 'Ihr Anlass: {{thema}}.',
+  // Nachbesserung 4: Gegenwart statt Vergangenheit.
+  's1.blick.sicher': 'Das klappt bereits',
   's2.fussnote':
     'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
 }

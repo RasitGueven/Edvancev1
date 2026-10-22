@@ -84,6 +84,7 @@ describe('waehleSchwerpunkte — Fälle', () => {
       sicher: ['Bruch in Dezimalzahl', 'Brüche kürzen'],
       uebung: ['Brüche addieren', 'Brüche dividieren', 'Brüche multiplizieren'],
       start: null,
+      naechster: null,
     })
   })
 

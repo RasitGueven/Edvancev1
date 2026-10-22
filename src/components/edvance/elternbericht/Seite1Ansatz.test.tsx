@@ -26,38 +26,37 @@ const GRENZSATZ =
   /sagt nichts|sagt eine Analyse|sagt diese Analyse|erst nach|können wir noch nicht|nach mehreren Sitzungen|nichts beitragen|Konzentration/i
 
 describe('Seite 1 — erster Ansatz mit Thema (R7-11)', () => {
-  it('abgestuft (Batu): Thema, Übungsbedarf, Start Wurzelgesetze; keine Geometrie im Ansatz', () => {
+  it('abgestuft (Batu): Startstelle als Titel, „Im Thema …“ darüber, ein Satz; keine Liste, keine Geometrie', () => {
     const s = seite(FAELLE.abgestuft.data, 1)
     const ansatz = s.getByTestId('eb-ansatz')
-    expect(ansatz.querySelector('.eb-s1-ansatz-titel')).toHaveTextContent(/^Reelle Zahlen$/)
-    expect(ansatz.querySelector('.eb-s1-ansatz-text')).toHaveTextContent(
-      'Sicher sind schon Bruch in Dezimalzahl und Wurzeln abschätzen und Näherungswerte. ' +
-        'Noch Übung braucht Ilkay bei Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen. ' +
-        'Wir beginnen bei Wurzelgesetze für Produkt und Quotient.',
-    )
+    expect(ansatz.querySelector('.eb-s1-ansatz-thema')).toHaveTextContent(/^Im Thema Reelle Zahlen$/)
+    expect(ansatz.querySelector('.eb-s1-ansatz-titel')).toHaveTextContent(/^Wurzelgesetze für Produkt und Quotient$/)
+    expect(ansatz.querySelector('.eb-s1-ansatz-text')).toHaveTextContent(/^Darauf baut Teilweise die Wurzel ziehen auf\.$/)
     expect(ansatz).not.toHaveTextContent('Geometrie')
+    expect(ansatz).not.toHaveTextContent('Rationale')
     // Die Listen beginnen mit Bereichen aus dem Thema.
     expect(within(s.getByTestId('eb-liste-uebung')).getAllByRole('listitem')[0]).toHaveTextContent(
       'Wurzelgesetze für Produkt und Quotient',
     )
     expect(within(s.getByTestId('eb-liste-sicher')).getAllByRole('listitem')[0]).toHaveTextContent('Bruch in Dezimalzahl')
+    expect(s.getByTestId('eb-liste-sicher')).toHaveTextContent('Das klappt bereits')
   })
 
-  it('abgestuftThemaSicher: ansatzThemaSicher', () => {
+  it('abgestuftThemaSicher: ansatzThemaSicher, ohne Kreis und Titel', () => {
     const s = seite(FAELLE.abgestuftThemaSicher.data, 1)
-    expect(s.getByTestId('eb-ansatz')).toHaveTextContent(
+    const ansatz = s.getByTestId('eb-ansatz')
+    expect(ansatz).toHaveTextContent(
       'Was wir im Thema Reelle Zahlen geprüft haben, sitzt. Wir arbeiten am aktuellen Stoff weiter.',
     )
+    expect(ansatz.querySelector('.eb-s1-ansatz-titel')).toBeNull()
   })
 
-  it('ohne Namen und mit nur einem Bereich mit Übungsbedarf: „Dort setzen wir an.“', () => {
+  it('nichts baut mit Übungsbedarf auf der Startstelle auf: „Hier setzen wir zuerst an.“', () => {
     const { data } = FAELLE.abgestuft
-    const eins = data.erzaehlung.kompetenzen.map((k) =>
-      k.skillKey === 'zahl_wurzel_irrational' || k.skillKey === 'zahl_wurzel_teilweise' ? { ...k, zustand: 'traegt' } : k,
-    )
-    const s = seite({ ...data, firstName: null, erzaehlung: { ...data.erzaehlung, kompetenzen: eins } }, 1)
-    expect(s.getByTestId('eb-ansatz')).toHaveTextContent(
-      'Noch Übung braucht es bei Wurzelgesetze für Produkt und Quotient. Dort setzen wir an.',
+    const ohne = data.erzaehlung.kompetenzen.filter((k) => k.skillKey !== 'zahl_wurzel_teilweise')
+    const s = seite({ ...data, erzaehlung: { ...data.erzaehlung, kompetenzen: ohne } }, 1)
+    expect(s.getByTestId('eb-ansatz').querySelector('.eb-s1-ansatz-text')).toHaveTextContent(
+      /^Hier setzen wir zuerst an\.$/,
     )
   })
 
@@ -90,9 +89,19 @@ describe('Seite 4 — Thema-Schwerpunkt (R7-11)', () => {
     expect(s.getAllByTestId('eb-s4-chip-thema')).toHaveLength(1)
   })
 
-  it('abgestuftThemaSicher: nur „Sicher: …“ beim Thema', () => {
+  it('abgestuftThemaSicher: das Thema ist kein Schwerpunkt, kein Schild', () => {
     const s = seite(FAELLE.abgestuftThemaSicher.data, 4)
-    expect(s.el.querySelector('.eb-s4-punkt-text')!.textContent).toMatch(/^Sicher: [^.]+\. ?$/)
+    const titel = [...s.el.querySelectorAll('.eb-s4-punkt-titel')].map((t) => t.textContent)
+    expect(titel).toEqual(['Terme & Gleichungen', 'Geometrie', 'Daten & Zufall'])
+    expect(s.queryByTestId('eb-s4-chip-thema')).toBeNull()
+  })
+
+  it('Thema und Breite ohne Übungsbedarf: Seite 4 wie bisher ohne Schwerpunkt', () => {
+    const { data } = FAELLE.abgestuftThemaSicher
+    const alles = data.erzaehlung.kompetenzen.map((k) => ({ ...k, zustand: 'traegt' }))
+    const s = seite({ ...data, erzaehlung: { ...data.erzaehlung, kompetenzen: alles } }, 4)
+    expect(s.el).toHaveTextContent('Kein Übungsbedarf in den untersuchten Bereichen.')
+    expect(s.queryByTestId('eb-schwerpunkte')).toBeNull()
   })
 
   it('ilkay: ohne Schild', () => {

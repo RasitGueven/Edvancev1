@@ -53,7 +53,7 @@
     "blick": {
       "kicker": "Auf einen Blick",
       "zeile": "{{untersucht}} Bereiche geprüft  ·  {{sicher}} sicher  ·  {{uebung}} Übungsbedarf",
-      "sicher": "Das klappte bereits",
+      "sicher": "Das klappt bereits",
       "uebung": "Hier braucht es noch Übung",
       "ansatz": "Unser erster Ansatz",
       "weitere": "+{{count}} weitere",
@@ -63,12 +63,9 @@
       "ansatzUebung": "In diesem Themenfeld war noch nichts sicher. Hier setzen wir zuerst an.",
       "ansatzKeiner": "In den untersuchten Bereichen gibt es keinen Übungsbedarf. Wir arbeiten am aktuellen Stoff weiter.",
       "ansatzThema": {
-        "sicher_one": "Sicher ist schon {{liste}}.",
-        "sicher_other": "Sicher sind schon {{liste}}.",
-        "uebung": "Noch Übung braucht {{name}} bei {{liste}}.",
-        "uebungOhneName": "Noch Übung braucht es bei {{liste}}.",
-        "start_one": "Dort setzen wir an.",
-        "start_other": "Wir beginnen bei {{start}}."
+        "kicker": "Im Thema {{thema}}",
+        "naechster": "Darauf baut {{naechster}} auf.",
+        "zuerst": "Hier setzen wir zuerst an."
       },
       "ansatzThemaSicher": "Was wir im Thema {{thema}} geprüft haben, sitzt. Wir arbeiten am aktuellen Stoff weiter."
     },
@@ -77,8 +74,8 @@
       "genannt": "Sie machen sich Sorgen um {{wessen}} {{punkte}}.",
       "genanntOhneName_one": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeit sehen.",
       "genanntOhneName_other": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeiten sehen.",
-      "thema": "Sie sind wegen {{thema}} zu uns gekommen.",
-      "antwort": "Dort hakt es bei {{liste}}.",
+      "thema": "Ihr Anlass: {{thema}}.",
+      "antwort": "Dort hakt es: {{liste}}.",
       "antwortSicher": "Was wir dazu geprüft haben, sitzt.",
       "antwortSchwerpunkt": "Dort setzen wir zuerst an: {{schwerpunkt}}.",
       "naechstesThema": "Als nächstes Thema steht {{thema}} an."

@@ -32,6 +32,7 @@ export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
     anlassNamen: data.erzaehlung.anlassNamen,
     naechstesThema: data.naechstesThema,
     schwerpunkte: bericht.schwerpunkte,
+    thema: bericht.thema,
   })
   // Rückbezüge wie in ReportRueckbezug (R6), ohne Marken; nur die, die antworten,
   // und nur, wenn der Kasten steht (R7-11, Entscheidungen 11 und 14).
@@ -88,7 +89,7 @@ export function Seite1({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
         })}
       </p>
 
-      <Seite1Karten bericht={bericht} name={name} />
+      <Seite1Karten bericht={bericht} />
 
       <Seite1Kaesten
         zaehlung={zaehlung}

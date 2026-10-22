@@ -31,3 +31,12 @@
   - Dativ bei Labels.
   - Bestätigung der Tabelle.
   - Thema ohne Übungsbedarf auf Seite 4.
+
+## Nachbesserung (22.10., aus der Zweitprüfung)
+- **Ansatz:** Die Startstelle ist der Titel, darüber steht „Im Thema …“. Darunter ein Satz: „Darauf baut
+  … auf.“ oder „Hier setzen wir zuerst an.“ Die Listen stehen nicht mehr im Ansatz.
+- **Labels:** Kein Satz beugt mehr einen Bereichsnamen („Ihr Anlass: …“, „Dort hakt es: …“).
+- **Thema ohne Übungsbedarf:** Das Thema ist dann kein Schwerpunkt (`Elternbericht.thema` trägt es
+  weiter).
+- **Präsens:** „Das klappt bereits“.
+- **Zweitprüfung 2:** Alle drei Fragen sind beantwortet, auch das Warum des Starts.
