@@ -4,6 +4,7 @@
 // ?bereich=lsa|session (Standard lsa): nur Aufgaben dieses Anlasses; LSA mit Stufen-Reitern, Session nach Thema und
 // Fertigkeit. Sollzahlen je Bereich nur mit dem passenden Anlass.
 // P4: "Als Naechstes", Enter und "Pruefen" je Thema folgen dem Bedarf (naechsteNoetige, Start im aktiven Reiter).
+// MC-Nachtrag: mit den Aufgabentypen zieht der Lauf in Knoten, denen "ohne MC" fehlt, erst die Aufgaben ohne MC.
 // ?ohneSoll=1: Lauf nach "Weitere Aufgaben ohne Soll pruefen", wieder der alte Weg.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
@@ -22,7 +23,7 @@ import { getMeineDauer, getPruefBoard } from '@/lib/supabase/pruefung'
 import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
 import { auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
-import { ladeSoll } from './usePruefLauf'
+import { ladeMc, ladeSoll } from './usePruefLauf'
 
 export function PruefenUebersichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
@@ -32,6 +33,7 @@ export function PruefenUebersichtPage(): JSX.Element {
   const bereich: Bereich = leseBereich(params) ?? 'lsa'
   const [alle, setAlle] = useState<PruefBoardZeile[] | null>(null)
   const [sollJe, setSollJe] = useState<Record<Bereich, PruefSollZeile[]>>({ lsa: [], session: [] })
+  const [mc, setMc] = useState<Set<string> | null>(null)
   const [fehler, setFehler] = useState<PruefFehlerInfo | null>(null)
   const [schnitt, setSchnitt] = useState<number | null>(null)
   const [reiter, setReiter] = useState<Stufe | null>(null)
@@ -43,6 +45,7 @@ export function PruefenUebersichtPage(): JSX.Element {
     void getPruefBoard().then((r) => {
       setAlle(r.data)
       setFehler(r.error)
+      if (r.data) void ladeMc(r.data).then(setMc)
       const ohne = r.data ? ohneBereich(r.data) : 0
       if (ohne > 0) console.warn('pruef_board: tasks without lsa/session anlass (hidden)', ohne)
     })
@@ -72,7 +75,7 @@ export function PruefenUebersichtPage(): JSX.Element {
   const start = reiter ?? board?.find((z) => z.thema_key === themaParam)?.stufe ?? null
   const skip = leseUebersprungen()
   const schritt = board
-    ? naechsteNoetige(board, soll, null, skip, { start, stufen: bereich === 'lsa', ohneSoll })
+    ? naechsteNoetige(board, soll, null, skip, { start, stufen: bereich === 'lsa', ohneSoll, mc })
     : null
   const naechsteId = schritt?.taskId ?? null
   const naechste = board?.find((z) => z.task_id === naechsteId) ?? null
@@ -151,7 +154,7 @@ export function PruefenUebersichtPage(): JSX.Element {
                         else n.add(k)
                         return n
                       })}
-                      onPruefen={(k) => oeffne(ersteNoetigeImThema(board, soll, k))}
+                      onPruefen={(k) => oeffne(ersteNoetigeImThema(board, soll, k, mc))}
                       onAufgabe={(id) => oeffne(id)} />
                   </section>
                 )}

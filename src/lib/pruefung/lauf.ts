@@ -2,6 +2,8 @@
 // "Noetig" ist eine offene Aufgabe eines Knotens mit rest > 0 (pruef_board_soll). Reihenfolge wie in der
 // Uebersicht: Stufe (aktueller Reiter zuerst, nur LSA), Thema nach sortiereThemen, Knoten nach knotenDesThemas,
 // Aufgabe in Board-Reihenfolge. Ohne Sollzahlen gilt der alte Weg naechsteOffene.
+// MC-Nachtrag: Fehlt einem Knoten noch "ohne MC", kommen seine Aufgaben ohne MC zuerst; fehlt nur noch das, faellt
+// MC dort aus dem Lauf. Ohne Typen (mc fehlt) bleibt die Board-Reihenfolge.
 
 import type { LenaStatus, PruefBoardZeile, PruefSollZeile, Stufe } from '@/types'
 import { ersteImThema, naechsteOffene, STUFEN_REIHENFOLGE, themenDerStufe } from './reihenfolge'
@@ -18,23 +20,34 @@ export type LaufOptionen = {
   stufen?: boolean
   /** "Weitere Aufgaben ohne Soll pruefen": ab da der alte Weg. */
   ohneSoll?: boolean
+  /** task_ids mit input_type MC; null/fehlend = Typen unbekannt, dann keine MC-Regel. */
+  mc?: ReadonlySet<string> | null
 }
 
 type Block = { stufe: Stufe; thema_key: string; zeilen: PruefBoardZeile[] }
 
-const noetigerKnoten = (soll: PruefSollZeile[]): Set<string> =>
-  new Set(soll.filter((s) => s.rest > 0).map((s) => s.skill_key))
+/**
+ * Die noetigen offenen Aufgaben eines Knotens. Fehlt noch "ohne MC" (gezaehlt_ohne_mc < min_ohne_mc): erst ohne MC,
+ * dann MC; ist das Soll sonst erreicht (gezaehlt >= soll), sind die MC-Aufgaben nicht noetig.
+ */
+export function noetigImKnoten(zeilen: PruefBoardZeile[], s: PruefSollZeile, mc?: ReadonlySet<string> | null): PruefBoardZeile[] {
+  const offen = zeilen.filter((z) => z.lena_status === 'offen')
+  if (!mc || s.gezaehlt_ohne_mc >= s.min_ohne_mc) return offen
+  const ohne = offen.filter((z) => !mc.has(z.task_id))
+  return s.gezaehlt >= s.soll ? ohne : [...ohne, ...offen.filter((z) => mc.has(z.task_id))]
+}
 
 /** Die noetigen offenen Aufgaben je Thema, in Uebersichts-Reihenfolge; Stufen in STUFEN_REIHENFOLGE. */
-function bloecke(board: PruefBoardZeile[], soll: PruefSollZeile[]): Block[] {
-  const noetig = noetigerKnoten(soll)
+function bloecke(board: PruefBoardZeile[], soll: PruefSollZeile[], mc?: ReadonlySet<string> | null): Block[] {
+  const noetig = new Map(soll.filter((s) => s.rest > 0).map((s) => [s.skill_key, s]))
   return STUFEN_REIHENFOLGE.flatMap((stufe) =>
     sortiereThemen(themenDerStufe(board, stufe), soll).map((g) => ({
       stufe,
       thema_key: g.thema_key,
-      zeilen: knotenDesThemas(g, soll)
-        .filter((k) => k.skill_key !== null && noetig.has(k.skill_key))
-        .flatMap((k) => k.zeilen.filter((z) => z.lena_status === 'offen')),
+      zeilen: knotenDesThemas(g, soll).flatMap((k) => {
+        const s = k.skill_key === null ? undefined : noetig.get(k.skill_key)
+        return s ? noetigImKnoten(k.zeilen, s, mc) : []
+      }),
     })))
 }
 
@@ -63,7 +76,7 @@ export function naechsteNoetige(
   if (opt.ohneSoll || !soll?.length) {
     return { taskId: naechsteOffene(board, aktuell, uebersprungen), grund: 'ohne_soll' }
   }
-  const alle = bloecke(board, soll)
+  const alle = bloecke(board, soll, opt.mc)
   const mitStufen = opt.stufen ?? true
   const jetzt = board.find((z) => z.task_id === aktuell)
   const stufeStart = jetzt?.stufe ?? opt.start
@@ -94,8 +107,10 @@ export function naechsteNoetige(
 }
 
 /** "Pruefen" je Thema: die erste noetige offene Aufgabe des Themas, sonst wie ersteImThema. */
-export function ersteNoetigeImThema(board: PruefBoardZeile[], soll: PruefSollZeile[], themaKey: string): string | null {
-  const b = bloecke(board, soll).find((x) => x.thema_key === themaKey)
+export function ersteNoetigeImThema(
+  board: PruefBoardZeile[], soll: PruefSollZeile[], themaKey: string, mc?: ReadonlySet<string> | null,
+): string | null {
+  const b = bloecke(board, soll, mc).find((x) => x.thema_key === themaKey)
   return b?.zeilen[0]?.task_id ?? ersteImThema(board, themaKey)
 }
 
