@@ -279,6 +279,10 @@
     `PRAESENTATION_FAELLE`; Namespace `praesentation`; Tokens `--color-tp-*`; INV-4.11. Kein DDL.
     **Offen:** `docs/report/praesentation/offene-punkte-t1.md`.
   - T2 Rahmen (wartet auf T1 und R7-2) · T3 Stationen 01/02 · T4 Stationen 03/04 (parallel nach T2).
+  - **PF-1 Lernweg flüssig** (Branch `feat/rasit-lernweg-fluss`, Bauauftrag
+    `docs/report/praesentation/Bauauftrag-PF-1.md`, Retro `2026-10-22-pf1-lernweg-fluss.md`): Station 03
+    ohne Neuvermessen je Render, Sichtbarkeit je Bild über Klassen, Kästen vor Linie, Inseln als Ganzes,
+    240 px/s. Kein DDL.
   - Ziel: Test-LSA am Sa 31.10.; iPad-Abnahme Do 29.10.
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu

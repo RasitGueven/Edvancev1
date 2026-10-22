@@ -2,10 +2,12 @@
    Referenz: Prototyp Version 7 (docs/report/praesentation/r7-9-prototyp-station3.dc.html);
    Farben nur aus --color-eb-* und --color-tp-*, heller Hintergrund wie der Bericht.
    Die Spur hat feste Entwurfsmaße und wird per transform auf die Höhe der
-   Station skaliert (useLernwegFahrt.ts setzt --tp-s3-s und die äußere Größe). */
+   Station skaliert (useLernwegFahrt.ts setzt --tp-s3-s und die äußere Größe).
+   Animiert werden nur opacity, transform und stroke-dashoffset (PF-1). */
 
 .tp .tp-s3 {
-  --tp-s3-zeit-insel: 1s;
+  --tp-s3-zeit-insel: 500ms;
+  /* Zeile für Zeile: seit PF-1 nicht mehr in Station 03 (Inseln erscheinen als Ganzes). */
   --tp-s3-zeit-zeile: 800ms;
   --tp-s3-takt: 300ms;
   justify-content: flex-start;
@@ -295,6 +297,8 @@
   animation: tp-blenden var(--tp-s3-zeit-insel) var(--tp-ease) both;
 }
 
+.tp .tp-s3-hier[hidden] { display: none; }
+
 .tp .tp-s3-kugel {
   width: 30px;
   height: 30px;
@@ -330,6 +334,7 @@
   background: color-mix(in srgb, var(--color-eb-weiss) 80%, transparent);
   filter: blur(14px);
   animation: tp-s3-ziehen 46s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .tp .tp-s3-wolke-1 { left: 4%; top: 2%; width: 340px; height: 110px; }

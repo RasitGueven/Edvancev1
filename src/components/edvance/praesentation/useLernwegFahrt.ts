@@ -2,18 +2,20 @@
 // Entscheidungen 20 und 24; Nachbesserung, Entscheidungen 1, 2, 4 und 5).
 // Referenz: Prototyp Version 7 (fahrt, zeichne, zeigeBis, unterbrechen).
 //
-// Je Bild nur Refs (scrollLeft, style.setProperty, Attribute); setState nur,
-// wenn eine Schwelle überschritten wird (Zone oder Insel sichtbar).
+// Je Bild nur Refs (scrollLeft, style.setProperty, Attribute, Klassen); kein
+// setState während der Fahrt (PF-1, Entscheidung 3). Was sichtbar ist, regelt
+// useLernwegSicht: Inseln und Zonen erscheinen, sobald die Kamera sie zeigt.
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 
 import { messeLernweg } from '@/components/edvance/elternbericht/LernwegLinien'
 import { fuehreLinien, type LinienPfad } from '@/lib/report/elternbericht/lernwegLinien'
-import { fahrtDauer, fahrtStand, type FahrtGeometrie } from '@/lib/report/praesentation/lernwegFahrt'
+import { fahrtDauer, fahrtStand, sichtGrenze, type FahrtGeometrie } from '@/lib/report/praesentation/lernwegFahrt'
 import { packeSpalten } from '@/lib/report/praesentation/lernwegSpalten'
 import type { Lernweg } from '@/types'
 
 import { ruhig, useLernwegBedienung, type Bedienung } from './useLernwegBedienung'
+import { useLernwegSicht } from './useLernwegSicht'
 import { useLinienZeichnen } from './useLinienZeichnen'
 
 /** Feste Entwurfshöhe der Spur (Prototyp); höher nur für eine Insel, die allein nicht passt. */
@@ -23,9 +25,6 @@ export const S_MIN = 0.85
 const S_MAX = 1.35
 /** Lücke zwischen zwei Inseln einer Spalte (station3-weg.css). */
 const INSEL_LUECKE = 16
-/** Zonen erscheinen so viele Entwurfs-px vor der Front, Inseln so viele. */
-const VOR_ZONE = 30
-const VOR_INSEL = 20
 
 /** Je Gruppe (Zone, „kommt-jahr“, „kommt-naechste“) die Spalten als Indizes ihrer Inseln. */
 export type Packungen = Record<string, number[][]>
@@ -41,6 +40,7 @@ export type Fahrt = Bedienung & {
   /** null = alles sichtbar. */
   sicht: Set<string> | null
   hier: boolean
+  hierRef: RefObject<HTMLParagraphElement>
   frei: boolean
   pfadRef: (key: string, art: 'linie' | 'spitze') => (el: SVGPathElement | null) => void
   abspielen: () => void
@@ -61,18 +61,17 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
   const [pfade, setPfade] = useState<LinienPfad[]>([])
   const [packungen, setPackungen] = useState<Packungen | null>(null)
   const [rast, setRast] = useState<number[]>([0])
-  const [sicht, setSicht] = useState<Set<string> | null>(null)
-  const [hier, setHier] = useState(true)
   const [frei, setFrei] = useState(false)
   const [gemessen, setGemessen] = useState(false)
 
   const s = useRef(1)
-  const lagen = useRef<{ id: string; x: number }[]>([])
-  const kommtX = useRef(Infinity)
+  /** Sichtbare Breite und größtes scrollLeft, beim Messen gemerkt: je Bild kein Lesen des Layouts. */
+  const mass = useRef({ breite: 0, max: 0 })
   const raf = useRef<number | null>(null)
   const lauf = useRef<{ t0: number } | null>(null)
   const groesse = useRef('')
-  const { pfadRef, zeichne, bereich, front } = useLinienZeichnen()
+  const { pfadRef, abgleichen, zeichne, bereich, front } = useLinienZeichnen()
+  const sichtbar = useLernwegSicht()
 
   /* ─── Fahrt: Stopp und Abbruch ────────────────────────────────────────── */
 
@@ -81,30 +80,11 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     raf.current = null
   }, [])
 
-  const zeigeBis = useCallback((x: number): void => {
-    if (x === Infinity) {
-      setSicht(null)
-      setHier(true)
-      return
-    }
-    setSicht((alt) => {
-      const neu = new Set(alt ?? [])
-      let geaendert = alt === null
-      for (const l of lagen.current) {
-        if (x >= l.x && !neu.has(l.id)) {
-          neu.add(l.id)
-          geaendert = true
-        }
-      }
-      return geaendert ? neu : alt
-    })
-    setHier((alt) => alt || x >= kommtX.current)
-  }, [])
-
+  const { leer, bis, alles: allesSichtbar, erfassen } = sichtbar
   const alles = useCallback((): void => {
     zeichne(Infinity)
-    zeigeBis(Infinity)
-  }, [zeichne, zeigeBis])
+    allesSichtbar()
+  }, [zeichne, allesSichtbar])
 
   // Die Ansicht bleibt, wo sie ist: Einrasten bleibt aus, bis wieder jemand
   // selbst schiebt (Wischen, Rad, Ziehen, Pfeiltaste).
@@ -157,20 +137,20 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     // Spielraum gegen Rundung (Knopf ≥ 28 Entwurfs-px angenommen, +1 px).
     spur.style.setProperty('--tp-s3-treffer', `${Math.max(0, 22 / skala - 14, 22 - 14 * skala) + 1}px`)
 
-    lagen.current = [
-      ...[...spur.querySelectorAll('[data-zone]')].map((el) => ({ id: `z:${el.getAttribute('data-zone')}`, x: xIn(el, spur) - VOR_ZONE })),
-      ...[...spur.querySelectorAll('[data-insel]')].map((el) => ({ id: el.getAttribute('data-insel')!, x: xIn(el, spur) - VOR_INSEL })),
-    ]
     const kommt = spur.querySelector('[data-zone="kommt"]')
-    kommtX.current = kommt ? xIn(kommt, spur) : Infinity
+    erfassen(
+      [...spur.querySelectorAll<HTMLElement>('[data-zone], [data-insel]')].map((el) => ({ el, x: xIn(el, spur) })),
+      kommt ? xIn(kommt, spur) : Infinity,
+    )
     const punkte = [...spur.querySelectorAll('[data-rast]')].map((el) => Math.round(xIn(el, spur) * skala))
     setRast((alt) => (alt.join() === punkte.join() ? alt : punkte))
     // Abstand 9: der Gang zwischen Zonenkopf und Inseln (22 px) hat die Linie mittig.
     const m = { ...messeLernweg(spur, lw.linien, spur.offsetWidth, 'layout'), abstand: 9 }
     const p = m.inseln.length ? fuehreLinien(m) : []
     setPfade((alt) => (alt.map((x) => x.d).join() === p.map((x) => x.d).join() ? alt : p))
+    mass.current = { breite: scroller.clientWidth, max: scroller.scrollWidth - scroller.clientWidth }
     setGemessen(true)
-  }, [lw, unterbrechen])
+  }, [lw, unterbrechen, erfassen])
 
   useLayoutEffect(() => {
     messen()
@@ -180,20 +160,21 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     return () => ro?.disconnect()
   }, [messen, packungen])
 
+  // Neue d (nach dem Messen) neu vermessen; sonst bleiben die Tabellen.
+  useLayoutEffect(abgleichen, [pfade, abgleichen])
+
   /* ─── Fahrt ───────────────────────────────────────────────────────────── */
 
-  /** Die Geometrie je Bild neu: Ein spätes Messen (Schriften) gilt sofort. */
+  /** Die Geometrie je Bild aus dem Gemessenen: Ein spätes Messen (Schriften) gilt sofort. */
   const geometrie = useCallback((): FahrtGeometrie | null => {
-    const el = scrollerRef.current
-    if (!el) return null
+    if (!scrollerRef.current) return null
     const b = bereich()
     return {
       start: b?.start ?? null,
       ende: b?.ende ?? null,
       front: front(),
       s: s.current,
-      breite: el.clientWidth,
-      max: el.scrollWidth - el.clientWidth,
+      ...mass.current,
     }
   }, [bereich, front])
 
@@ -204,8 +185,7 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     stopp()
     lauf.current = { t0: performance.now() }
     setFrei(true)
-    setSicht(new Set())
-    setHier(false)
+    leer()
     scroller.scrollLeft = 0
     zeichne(g0.start ?? -Infinity)
     const schritt = (jetzt: number): void => {
@@ -218,8 +198,9 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
       el.scrollLeft = st.scrollLeft
       if (st.front !== null) el.setAttribute('data-spitze', String(st.front * g.s - st.scrollLeft))
       zeichne(st.phase === 'warten' || st.phase === 'schieben' ? (st.spitze ?? -Infinity) : Infinity)
-      zeigeBis(st.aufgedeckt)
-      el.setAttribute('data-phase', st.phase)
+      // Kästen vor Linie: alles, was die Kamera zeigt; „Sie sind hier“ mit der Front.
+      bis(st.aufgedeckt === Infinity ? Infinity : Math.max(st.aufgedeckt, sichtGrenze(st.scrollLeft, g)), st.aufgedeckt)
+      if (el.getAttribute('data-phase') !== st.phase) el.setAttribute('data-phase', st.phase)
       if (t >= fahrtDauer(g)) {
         lauf.current = null
         raf.current = null
@@ -230,7 +211,7 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
       raf.current = requestAnimationFrame(schritt)
     }
     raf.current = requestAnimationFrame(schritt)
-  }, [geometrie, stopp, zeichne, zeigeBis])
+  }, [geometrie, stopp, zeichne, leer, bis])
 
   // Wann die Fahrt läuft: beim ersten Betreten (Klasse entered), nicht bei
   // motion-complete und nicht bei reduzierter Bewegung (dann fertiger Weg).
@@ -256,8 +237,7 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     }
     // Vor dem ersten Betreten: nur, was links der Spitze liegt.
     if (!section.classList.contains('entered')) {
-      setSicht(new Set())
-      setHier(false)
+      leer()
       zeichne(-Infinity)
     }
     pruefen()
@@ -265,7 +245,7 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     mo.observe(section, { attributes: true, attributeFilter: ['class'] })
     return () => mo.disconnect()
     // Erst nach dem Messen starten, damit die Spitze ihre Lage kennt.
-  }, [gemessen, starten, unterbrechen, alles, zeichne])
+  }, [gemessen, starten, unterbrechen, alles, leer, zeichne])
 
   useEffect(() => stopp, [stopp])
 
@@ -284,8 +264,9 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     pfade,
     packungen,
     rast,
-    sicht,
-    hier,
+    sicht: sichtbar.sicht,
+    hier: sichtbar.hier,
+    hierRef: sichtbar.hierRef,
     frei,
     pfadRef,
     abspielen,

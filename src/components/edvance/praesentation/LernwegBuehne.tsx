@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useLernwegTexte } from '@/components/edvance/elternbericht/lernwegTexte'
@@ -21,9 +21,6 @@ export function gruppenVon(z: LwZone, lw: Lernweg): Gruppe[] {
 /** Spalten einer Gruppe: nach der Messung so viele, dass die Spur ihre Höhe hält (useLernwegFahrt). */
 const spalten = (g: Gruppe, p: Packungen | null): LwInsel[][] =>
   (p?.[g.key] ?? [g.inseln.map((_, i) => i)]).map((s) => s.map((i) => g.inseln[i]).filter(Boolean))
-
-/** Lage eines Eintrags in der Folge seiner Insel: für das Nacheinander (je 300 ms). */
-const folge = (i: number): CSSProperties => ({ '--tp-i': i }) as CSSProperties
 
 /** Antippen fokussiert, ohne dass der Browser die Fläche zum Knopf schiebt (die Ansicht bleibt). */
 const ohneSprung = (e: MouseEvent<HTMLButtonElement>): void => {
@@ -80,7 +77,6 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
       i.broeckelt && 'tp-s3-broeckelt',
       sichtbar(i.id) && 'tp-s3-da',
     ]
-    let n = 0
     return (
       <div key={i.id} className={klasse.filter(Boolean).join(' ')} data-insel={i.id} data-index={index}>
         {kommt ? (
@@ -101,7 +97,7 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
         {i.eintraege.length > 0 && (
           <ul className="tp-s3-eintraege">
             {i.eintraege.map((e) => (
-              <li key={e.id} style={folge(n++)}>
+              <li key={e.id}>
                 <button
                   type="button"
                   className={knopf(e.id, `tp-s3-e tp-s3-e-${e.stand}`)}
@@ -120,7 +116,6 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
                   <button
                     key={u.id}
                     type="button"
-                    style={folge(n++)}
                     className={knopf(u.id, `tp-s3-e tp-s3-unter tp-s3-unter-${u.stand}`)}
                     aria-pressed={sel === u.id}
                     data-eintrag={u.id}
@@ -191,12 +186,11 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
                         <i key={w} className={`tp-s3-wolke tp-s3-wolke-${w}`} />
                       ))}
                     </div>
-                    {f.hier && (
-                      <p className="tp-s3-hier" data-testid="tp-s3-hier">
-                        <span className="tp-s3-kugel" aria-hidden="true" />
-                        <span className="tp-s3-schild">{tx.hier}</span>
-                      </p>
-                    )}
+                    {/* Während der Fahrt schaltet useLernwegSicht hidden je Bild über die Ref. */}
+                    <p ref={f.hierRef} className="tp-s3-hier" hidden={!f.hier} data-testid="tp-s3-hier">
+                      <span className="tp-s3-kugel" aria-hidden="true" />
+                      <span className="tp-s3-schild">{tx.hier}</span>
+                    </p>
                   </>
                 )}
                 <header className="tp-s3-zone-kopf" data-kopf="">
