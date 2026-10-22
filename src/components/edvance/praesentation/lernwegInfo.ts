@@ -3,7 +3,7 @@
 
 import type { TFunction } from 'i18next'
 
-import type { Lernweg, LwInsel, LwStand } from '@/types'
+import type { Lernweg, LwInsel, LwStand, LwWeitere } from '@/types'
 
 type Knoten = { id: string; label: string; stand: LwStand; insel: LwInsel }
 
@@ -92,5 +92,11 @@ export function infoKommt(
   const basen = [...new Set(lw.linien.filter((l) => drin.has(l.zu)).map((l) => l.von))].map((b) => k.get(b)?.label ?? '')
   return { titel: kopf, text: basen.length ? t('s3.weg.info.kommtBasis', { liste: liste(basen) }) : '' }
 }
+
+/** „+ n weitere“ angetippt (R7-12, Entscheidung 11): die weggelassenen Bereiche als Liste. */
+export const infoWeitere = (w: LwWeitere, t: TFunction<'praesentation'>, liste: (l: string[]) => string): Info => ({
+  titel: t('s3.weg.info.weitere'),
+  text: liste(w.labels),
+})
 
 export const infoLeer = (t: TFunction<'praesentation'>): Info => ({ titel: null, text: t('s3.weg.info.leer') })

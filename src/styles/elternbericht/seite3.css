@@ -329,6 +329,24 @@
   color: var(--color-eb-text);
 }
 
+/* R7-12: „+ n weitere“ (kein Eintrag, kein Punkt) und die Zählzeilen einer
+   zusammengefassten Zone; Größen wie Unterzeile bzw. Eintrag. */
+.eb-s3-weitere {
+  margin-top: 3pt;
+  padding-left: 9.7pt;
+  font-size: 6.4pt;
+  line-height: 8pt;
+  color: var(--color-eb-leise);
+}
+.eb-s3-zaehl {
+  font-size: 8pt;
+  line-height: 10pt;
+  color: var(--color-eb-text);
+}
+.eb-s3-zusammen .eb-s3-eintraege {
+  margin-top: 0;
+}
+
 /* ─── Linien ─────────────────────────────────────────────────────────────── */
 
 .eb-s3-linien {

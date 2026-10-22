@@ -9,7 +9,8 @@ import { nachFeldKlasseLabel } from '@/lib/report/elternbericht/bereiche'
 import { elternLabel } from '@/lib/report/elternbericht/elternLabel'
 import { GRENZEN, teileKanten, type Grenzen, type ZielOrt } from '@/lib/report/elternbericht/lernwegKanten'
 
-export { GRENZEN, KUERZUNGEN, type Grenzen } from '@/lib/report/elternbericht/lernwegKanten'
+export { GRENZEN, KUERZUNGEN, STUFE_BEREICHE, type Grenzen } from '@/lib/report/elternbericht/lernwegKanten'
+export { kuerzeLernweg, type ThemaVorrang } from '@/lib/report/elternbericht/lernwegKuerzen'
 import { aktuellePosition, stufeVon } from '@/lib/report/elternbericht/plan'
 import { THEMENFELDER, feldVon } from '@/lib/report/elternbericht/themenfelder'
 import type {
@@ -228,60 +229,6 @@ export function baueLernweg(e: LernwegEingabe, grenzen: Grenzen = GRENZEN): Lern
     schulname: e.plan?.schulname ?? null,
     thema: e.thema,
     datum: e.datum,
-    weggelassen: { ...teil.weggelassen, kommt: Math.max(0, nachher.length - grenzen.kommt) },
+    weggelassen: { ...teil.weggelassen, kommt: Math.max(0, nachher.length - grenzen.kommt), eintraege: 0, zonen: 0 },
   }
-}
-
-/**
- * Kürzt einen fertigen Lernweg für den Druck (Entscheidung 18), in dieser
- * Reihenfolge: nicht geprüfte Einträge je Insel, Linien, Plan-Themen in Kommt
- * noch. Behält jeweils die vorderen (Linien sind schon nach Vorrang sortiert).
- * Ein nicht geprüfter Eintrag, der nur wegen einer Linie da war, geht mit ihr.
- */
-export function kuerzeLernweg(lw: Lernweg, g: Grenzen): Lernweg {
-  const linien = [...lw.linien]
-  const weg = { ...lw.weggelassen }
-  const raus = new Set<string>()
-
-  // 1. nicht geprüfte Einträge je Insel
-  for (const z of lw.zonen) {
-    for (const i of z.inseln) {
-      let n = 0
-      for (const e of i.eintraege) {
-        for (const u of e.unter) if (u.stand === 'offen' && ++n > g.offenJeInsel) raus.add(u.id)
-        if (e.stand === 'offen' && ++n > g.offenJeInsel) raus.add(e.id)
-      }
-    }
-  }
-  // 3. Kommt noch (vor den Linien, damit Linien in weggefallene Inseln mitgehen)
-  const kommt = lw.zonen.find((z) => z.key === 'kommt')
-  for (const i of kommt?.inseln.slice(g.kommt) ?? []) for (const e of i.eintraege) raus.add(e.id)
-  // 2. Linien
-  const behalten = linien.filter((l) => !raus.has(l.zu)).slice(0, g.linien)
-  const mitLinie = new Set(behalten.map((l) => l.zu))
-  // Nur eigenständige nicht geprüfte Einträge hängen an ihrer Linie; ↳-Einträge
-  // und geprüfte Ziele bleiben.
-  const nurWegenLinie = new Set(
-    lw.zonen.flatMap((z) => z.inseln.flatMap((i) => i.eintraege.filter((e) => e.stand === 'offen').map((e) => e.id))),
-  )
-  for (const l of linien) if (!mitLinie.has(l.zu) && nurWegenLinie.has(l.zu)) raus.add(l.zu)
-
-  weg.linien += linien.length - behalten.length
-  const zonen = lw.zonen.map((z) => ({
-    ...z,
-    inseln: (z.key === 'kommt' ? z.inseln.slice(0, g.kommt) : z.inseln)
-      .map((i) => ({
-        ...i,
-        eintraege: i.eintraege
-          .filter((e) => !(e.stand === 'offen' && raus.has(e.id)))
-          .map((e) => ({ ...e, unter: e.unter.filter((u) => !raus.has(u.id)) })),
-      }))
-      // Eine Insel, die nur aus weggefallenen nicht geprüften Einträgen bestand, fällt weg.
-      .filter((i) => i.titel !== null || i.eintraege.length > 0),
-  }))
-  const offenVorher = lw.zonen.flatMap((z) => z.inseln.flatMap((i) => i.eintraege.flatMap((e) => [e, ...e.unter]))).filter((e) => e.stand === 'offen').length
-  const offenNachher = zonen.flatMap((z) => z.inseln.flatMap((i) => i.eintraege.flatMap((e) => [e, ...e.unter]))).filter((e) => e.stand === 'offen').length
-  weg.offen += offenVorher - offenNachher
-  weg.kommt += Math.max(0, (kommt?.inseln.length ?? 0) - g.kommt)
-  return { ...lw, zonen, linien: behalten, weggelassen: weg }
 }

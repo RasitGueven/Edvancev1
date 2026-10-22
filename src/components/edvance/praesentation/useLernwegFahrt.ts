@@ -54,7 +54,12 @@ function xIn(el: Element, spur: HTMLElement): number {
   return x
 }
 
-export function useLernwegFahrt(lw: Lernweg): Fahrt {
+/**
+ * `weiter` (R7-12, Entscheidung 10): Ragt beim Messen eine Insel auch bei S_MIN
+ * über die Fläche, fragt die Fahrt nach der nächsten Kürzungsstufe; true = es
+ * gibt eine, dann misst sie mit dem neuen Lernweg neu. Nie während der Fahrt.
+ */
+export function useLernwegFahrt(lw: Lernweg, weiter?: () => boolean): Fahrt {
   const scrollerRef = useRef<HTMLDivElement>(null)
   const aussenRef = useRef<HTMLDivElement>(null)
   const spurRef = useRef<HTMLDivElement>(null)
@@ -70,6 +75,8 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
   const raf = useRef<number | null>(null)
   const lauf = useRef<{ t0: number } | null>(null)
   const groesse = useRef('')
+  /** Die Kürzungsstufe steht nach der ersten vollständigen Messung fest (R7-12, Entscheidung 10). */
+  const entschieden = useRef(false)
   const { pfadRef, abgleichen, zeichne, bereich, front } = useLinienZeichnen()
   const sichtbar = useLernwegSicht()
 
@@ -111,21 +118,33 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
 
     // Spalten: je Gruppe so viele, dass die Spur ihre Entwurfshöhe behält. Der
     // Platz zählt bei 510 — ist die Spur für eine zu hohe Insel schon höher,
-    // ginge die Ausnahme sonst bei der nächsten Messung wieder verloren.
-    const zusatz = Math.max(0, spur.offsetHeight - ENTWURF_HOEHE)
-    const neu: Packungen = {}
-    let ueber = 0
-    for (const gruppe of spur.querySelectorAll<HTMLElement>('[data-gruppe]')) {
-      const inseln = [...gruppe.querySelectorAll<HTMLElement>('[data-insel]')].sort(
-        (a, b) => Number(a.dataset.index) - Number(b.dataset.index),
-      )
-      const platz = gruppe.clientHeight - zusatz
-      const p = packeSpalten(inseln.map((i) => i.offsetHeight), platz, INSEL_LUECKE)
-      if (p.zuHoch) ueber = Math.max(ueber, Math.max(...inseln.map((i) => i.offsetHeight)) - platz)
-      neu[gruppe.dataset.gruppe!] = p.spalten
+    // ginge die Ausnahme sonst bei der nächsten Messung wieder verloren. Ändert
+    // die Ausnahme die Höhe, wird gleich noch einmal gemessen, bis sie steht
+    // (R7-12: sonst liegen die Linien bis zur nächsten Größenänderung falsch).
+    let neu: Packungen = {}
+    let hoehe = ENTWURF_HOEHE
+    for (let runde = 0; runde < 4; runde++) {
+      const zusatz = Math.max(0, spur.offsetHeight - ENTWURF_HOEHE)
+      neu = {}
+      let ueber = 0
+      for (const gruppe of spur.querySelectorAll<HTMLElement>('[data-gruppe]')) {
+        const inseln = [...gruppe.querySelectorAll<HTMLElement>('[data-insel]')].sort(
+          (a, b) => Number(a.dataset.index) - Number(b.dataset.index),
+        )
+        const platz = gruppe.clientHeight - zusatz
+        const p = packeSpalten(inseln.map((i) => i.offsetHeight), platz, INSEL_LUECKE)
+        if (p.zuHoch) ueber = Math.max(ueber, Math.max(...inseln.map((i) => i.offsetHeight)) - platz)
+        neu[gruppe.dataset.gruppe!] = p.spalten
+      }
+      hoehe = ENTWURF_HOEHE + ueber
+      // R7-12, Entscheidung 10: Ragt eine Insel auch bei S_MIN über die Fläche,
+      // nimmt Station 03 die nächste Kürzungsstufe — einmal, vor der Fahrt.
+      const ragtHeraus = ueber > 0 && scroller.clientHeight > 0 && hoehe * S_MIN > scroller.clientHeight - 6
+      if (ragtHeraus && !entschieden.current && weiter?.()) return
+      if (hoehe === spur.offsetHeight) break
+      spur.style.setProperty('--tp-s3-entwurf', `${hoehe}px`)
     }
-    const hoehe = ENTWURF_HOEHE + ueber
-    spur.style.setProperty('--tp-s3-entwurf', `${hoehe}px`)
+    if (scroller.clientHeight > 0) entschieden.current = true
     setPackungen((alt) => (JSON.stringify(alt) === JSON.stringify(neu) ? alt : neu))
 
     const skala = Math.max(S_MIN, Math.min(S_MAX, (scroller.clientHeight - 6) / hoehe))
@@ -150,7 +169,7 @@ export function useLernwegFahrt(lw: Lernweg): Fahrt {
     setPfade((alt) => (alt.map((x) => x.d).join() === p.map((x) => x.d).join() ? alt : p))
     mass.current = { breite: scroller.clientWidth, max: scroller.scrollWidth - scroller.clientWidth }
     setGemessen(true)
-  }, [lw, unterbrechen, erfassen])
+  }, [lw, unterbrechen, erfassen, weiter])
 
   useLayoutEffect(() => {
     messen()

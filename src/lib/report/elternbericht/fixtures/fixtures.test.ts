@@ -82,6 +82,8 @@ describe('Fixtures des Eltern-Berichts', () => {
           // R7-11: aus abgestuft abgeleitet, mit Thema.
           'abgestuftThemaSicher',
           'abgestuftPlanrang',
+          // R7-12: aus abgestuft abgeleitet, mit Thema.
+          'sehrViele',
         ].includes(name),
       )
     }

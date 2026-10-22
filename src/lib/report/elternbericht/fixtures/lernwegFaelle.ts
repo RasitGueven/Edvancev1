@@ -1,9 +1,10 @@
 // Fälle für den Lernweg (R7-9, „Testfälle“ im Bauauftrag). Abgeleitet aus
-// abgestuft (Batu) und Ilkay; nur von Tests und der Vorschau importiert.
+// abgestuft (Batu) und Ilkay, sehrViele aus dem Katalog; nur von Tests und der Vorschau importiert.
 
-import { abgestuft } from '@/lib/report/elternbericht/fixtures/abgestuft'
-import { datenAus, type SitzungRoh } from '@/lib/report/elternbericht/fixtures/basis'
+import { abgestuft, fall } from '@/lib/report/elternbericht/fixtures/abgestuft'
+import { datenAus, u, type SitzungRoh } from '@/lib/report/elternbericht/fixtures/basis'
 import { ILKAY_ROH, ILKAY_URTEILE } from '@/lib/report/elternbericht/fixtures/ilkay'
+import { KATALOG } from '@/lib/report/elternbericht/fixtures/katalog'
 import { FWG_NAME, FWG_PLAN } from '@/lib/report/elternbericht/fixtures/plaene'
 import { schulPlan } from '@/lib/report/elternbericht/plan'
 import type { ReportData } from '@/types'
@@ -58,4 +59,25 @@ export const langeLabels = wie(abgestuft, '43', {
         ? { ...k, label: 'Einsetzungsverfahren bei linearen Gleichungssystemen mit zwei Variablen' }
         : k,
   ),
+})
+
+/** Die 60 Bereiche für sehrViele: 12 aus Klasse 5–6, je 24 aus 7–8 und 9–10 (in der Reihenfolge des Katalogs). */
+const SEHR_VIELE = [
+  ...KATALOG.filter((k) => k.klasse <= 6).slice(0, 12),
+  ...KATALOG.filter((k) => k.klasse === 7 || k.klasse === 8).slice(0, 24),
+  ...KATALOG.filter((k) => k.klasse >= 9).slice(0, 24),
+]
+
+/**
+ * Synthetisch (R7-12): 60 direkt geprüfte Bereiche über alle Zonen, fast alle
+ * mit Übungsbedarf (jeder achte sicher) — wie eine LSA mit 70 Aufgaben, die
+ * fast alle danebengingen. Seite 3 und die volle Karte müssen kürzen.
+ */
+export const sehrViele = fall('44', {
+  analysedAt: '2026-10-21T15:00:00.000Z',
+  aufgaben: 70,
+  urteile: SEHR_VIELE.map((k, i) =>
+    u(k.skillKey, k.label, Math.max(1, k.klasse - 4), k.klasse, i % 8 === 0 ? 'traegt' : 'traegt_nicht', 2, false),
+  ),
+  abgeleitet: [],
 })

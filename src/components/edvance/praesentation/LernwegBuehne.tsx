@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLernwegTexte } from '@/components/edvance/elternbericht/lernwegTexte'
 import type { Lernweg, LwInsel, LwZone } from '@/types'
 
-import { infoEintrag, infoKommt, infoLeer, verbunden } from './lernwegInfo'
+import { infoEintrag, infoKommt, infoLeer, infoWeitere, verbunden } from './lernwegInfo'
 import type { Fahrt, Packungen } from './useLernwegFahrt'
 
 type Gruppe = { key: string; inseln: LwInsel[]; art: 'normal' | 'jahr' | 'naechste' }
@@ -40,28 +40,42 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
   const tx = useLernwegTexte(lw)
   const [sel, setSel] = useState<string | null>(null)
   const [plan, setPlan] = useState<string | null>(null)
+  /** Insel, deren „+ n weitere“ angetippt ist (R7-12, Entscheidung 11). */
+  const [mehr, setMehr] = useState<string | null>(null)
 
   const liste = (l: string[]): string => new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(l)
   const nah = sel ? verbunden(lw, sel) : null
   const sichtbar = (id: string): boolean => f.sicht === null || f.sicht.has(id)
   const alleInseln = [...lw.zonen.flatMap((z) => z.inseln), ...(lw.naechsteKlasse?.inseln ?? [])]
+  const mehrInsel = mehr ? alleInseln.find((i) => i.id === mehr) : undefined
   const info = sel
     ? infoEintrag(lw, sel, t, tb, liste)
     : plan
       ? infoKommt(lw, alleInseln.find((i) => i.id === plan)!, t, liste)
-      : infoLeer(t)
+      : mehrInsel?.weitere
+        ? infoWeitere(mehrInsel.weitere, t, liste)
+        : infoLeer(t)
 
   const tippen = (id: string): void => {
     if (f.unterdrueckt()) return
     f.unterbrechen()
     setPlan(null)
+    setMehr(null)
     setSel((alt) => (alt === id ? null : id))
   }
   const klaeren = (id: string): void => {
     if (f.unterdrueckt()) return
     f.unterbrechen()
     setSel(null)
+    setMehr(null)
     setPlan((alt) => (alt === id ? null : id))
+  }
+  const weitere = (id: string): void => {
+    if (f.unterdrueckt()) return
+    f.unterbrechen()
+    setSel(null)
+    setPlan(null)
+    setMehr((alt) => (alt === id ? null : id))
   }
   const knopf = (id: string, basis: string): string =>
     [basis, sel === id && 'tp-s3-gewaehlt', nah && !nah.has(id) && 'tp-s3-blass'].filter(Boolean).join(' ')
@@ -135,9 +149,44 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
             ))}
           </ul>
         )}
+        {i.weitere && (
+          <button
+            type="button"
+            className="tp-s3-weitere"
+            aria-pressed={mehr === i.id}
+            onMouseDown={ohneSprung}
+            onClick={() => weitere(i.id)}
+          >
+            {tx.weitere(i.weitere)}
+          </button>
+        )}
       </div>
     )
   }
+
+  /** Eine zusammengefasste Zone (R7-12): Zählzeilen, die erste trägt den Anker der Linien. */
+  const zusammen = (z: LwZone): JSX.Element | null =>
+    z.zusammen && z.zusammen.zeilen.length > 0 ? (
+      <div className="tp-s3-spalte" data-spalte={`${z.key}-zusammen`}>
+        <div
+          className={`tp-s3-insel tp-s3-zusammen${sichtbar(z.zusammen.id) ? ' tp-s3-da' : ''}`}
+          data-insel={z.zusammen.id}
+        >
+          <ul className="tp-s3-eintraege">
+            {z.zusammen.zeilen.map((zeile, n) => (
+              <li
+                key={zeile.feld}
+                className="tp-s3-zaehl"
+                data-eintrag={n === 0 ? z.zusammen!.id : undefined}
+                data-anker={n === 0 ? '' : undefined}
+              >
+                {tx.zaehlzeile(zeile)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ) : null
 
   const gruppe = (g: Gruppe): JSX.Element => (
     <div key={g.key} className={`tp-s3-gruppe tp-s3-gruppe-${g.art}`} data-gruppe={g.key}>
@@ -198,7 +247,8 @@ export function LernwegBuehne({ lw, f }: { lw: Lernweg; f: Fahrt }): JSX.Element
                   <p className="tp-s3-zone-klasse">{tx.zoneKlasse(z.key, true)}</p>
                 </header>
                 <div className="tp-s3-spalten">
-                  {gruppenVon(z, lw).map((g) =>
+                  {zusammen(z)}
+                  {!z.zusammen && gruppenVon(z, lw).map((g) =>
                     g.art === 'naechste' ? (
                       <div key={g.key} className="tp-s3-naechste-block" data-rast="">
                         <p className="tp-s3-naechste">{tb('s3.weg.zone.naechste', { klasse: lw.naechsteKlasse!.klasse })}</p>

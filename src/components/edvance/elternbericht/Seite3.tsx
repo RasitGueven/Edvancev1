@@ -1,7 +1,7 @@
 import { useContext, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { KUERZUNGEN, kuerzeLernweg } from '@/lib/report/elternbericht/lernweg'
+import { KUERZUNGEN, STUFE_BEREICHE, kuerzeLernweg } from '@/lib/report/elternbericht/lernweg'
 
 import { LernwegLegende, LernwegZonen } from './Lernweg'
 import { LernwegLinien } from './LernwegLinien'
@@ -11,10 +11,12 @@ import type { SeitenProps } from './seitenProps'
 
 /**
  * Stufe der Kürzung (Entscheidung 18): Passt der Lernweg nicht in seinen
- * Bereich, kürzt die Seite nacheinander nicht geprüfte Einträge, Linien und
- * Kommt noch, bis er passt. Gemessen wird nur der eigene Bereich (er schneidet
- * ab), damit die Namensentscheidung des Bogens davon nichts merkt. Passt es
- * nach der letzten Stufe nicht, steht `data-ueberlauf` am Bereich (Druck-Test).
+ * Bereich, kürzt die Seite nacheinander nicht geprüfte Einträge, Linien,
+ * Kommt noch, dann Einträge je Insel und ganze Zonen (R7-12), bis er passt.
+ * Gemessen wird nur der eigene Bereich (er schneidet ab), damit die
+ * Namensentscheidung des Bogens davon nichts merkt. Passt es nach der letzten
+ * Stufe nicht, steht `data-ueberlauf` am Bereich (Druck-Test) und eine Warnung
+ * in der Konsole.
  */
 function useKuerzung(bereit: boolean, schluessel: unknown) {
   const ref = useRef<HTMLDivElement>(null)
@@ -35,7 +37,10 @@ function useKuerzung(bereit: boolean, schluessel: unknown) {
       const zuGross = bereich.scrollHeight > bereich.clientHeight + 0.5
       if (!zuGross) return
       if (stufe < KUERZUNGEN.length - 1) setStufe(stufe + 1)
-      else setUeberlauf(true)
+      else {
+        console.warn('Elternbericht Seite 3: Lernweg passt auch nach der letzten Kürzungsstufe nicht')
+        setUeberlauf(true)
+      }
     }
     void bereich.offsetHeight
     if (!document.fonts || document.fonts.status === 'loaded') pruefen()
@@ -58,7 +63,12 @@ export function Seite3({ bericht, name, wessen }: SeitenProps): JSX.Element | nu
   const nameEntschieden = useContext(NamensMessungFertig)
   const voll = bericht.lernweg
   const k = useKuerzung(nameEntschieden && voll !== null, voll)
-  const lw = useMemo(() => (voll ? kuerzeLernweg(voll, KUERZUNGEN[k.stufe]) : null), [voll, k.stufe])
+  // Vorrang beim Kürzen: Startstelle und nächster Bereich des Thema-Schwerpunkts (R7-12, Entscheidung 3b).
+  const thema = bericht.schwerpunkte.find((s) => s.feld === null) ?? null
+  const lw = useMemo(
+    () => (voll ? kuerzeLernweg(voll, KUERZUNGEN[k.stufe], thema) : null),
+    [voll, k.stufe, thema],
+  )
 
   return (
     <div className="eb-s3">
@@ -103,7 +113,13 @@ function Inhalt({
         <LernwegZonen lw={lw} />
         <LernwegLinien linien={lw.linien} />
       </div>
-      <p className="eb-s3-hinweis">{tx.t('s3.weg.hinweis', { quelle: tx.quelleAus })}</p>
+      <p className="eb-s3-hinweis">
+        {tx.t('s3.weg.hinweis', { quelle: tx.quelleAus })}
+        {/* Erst ab Stufe 4 fallen geprüfte Bereiche (R7-12, Entscheidung 6). */}
+        {stufe >= STUFE_BEREICHE && lw.weggelassen.eintraege + lw.weggelassen.zonen > 0 && (
+          <> {tx.t('s3.weg.gekuerzt')}</>
+        )}
+      </p>
     </>
   )
 }
