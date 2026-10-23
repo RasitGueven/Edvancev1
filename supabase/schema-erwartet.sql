@@ -6432,20 +6432,22 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
   select jsonb_strip_nulls(
     case
       when t.input_type = 'MULTI_PART' then jsonb_build_object(
-        'task_id', t.id,
-        'kind',    'multi_part',
-        'stem',    coalesce(t.question, ''),
-        'assets',  public.lsa_task_assets(t.id),
-        'table',   public.lsa_public_table(t.question_payload -> 'table'),
-        'parts',   public.lsa_public_parts(t.parts, s.correct_answers)
+        'task_id',    t.id,
+        'kind',       'multi_part',
+        'themenfeld', public.lsa_themenfeld(t.skill_key),
+        'stem',       coalesce(t.question, ''),
+        'assets',     public.lsa_task_assets(t.id),
+        'table',      public.lsa_public_table(t.question_payload -> 'table'),
+        'parts',      public.lsa_public_parts(t.parts, s.correct_answers)
       )
       when t.input_type = 'MC' then jsonb_build_object(
-        'task_id', t.id,
-        'kind',    'mc',
-        'prompt',  coalesce(t.question, ''),
-        'assets',  public.lsa_task_assets(t.id),
-        'table',   public.lsa_public_table(t.question_payload -> 'table'),
-        'options', coalesce((
+        'task_id',    t.id,
+        'kind',       'mc',
+        'themenfeld', public.lsa_themenfeld(t.skill_key),
+        'prompt',     coalesce(t.question, ''),
+        'assets',     public.lsa_task_assets(t.id),
+        'table',      public.lsa_public_table(t.question_payload -> 'table'),
+        'options',    coalesce((
           select jsonb_agg(
                    jsonb_build_object('id', o ->> 'id', 'label', o ->> 'label')
                    order by ord
@@ -6462,6 +6464,7 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
       else jsonb_build_object(
         'task_id',    t.id,
         'kind',       'short_input',
+        'themenfeld', public.lsa_themenfeld(t.skill_key),
         'prompt',     coalesce(t.question, ''),
         'assets',     public.lsa_task_assets(t.id),
         'table',      public.lsa_public_table(t.question_payload -> 'table'),
@@ -7592,6 +7595,76 @@ CREATE FUNCTION public.lsa_testinhalte(p_session_id uuid) RETURNS boolean
   select coalesce((select coalesce(l.testlauf, false) or coalesce(s.ist_test, false)
                      from public.lsa_sessions l left join public.students s on s.id = l.student_id
                     where l.id = p_session_id), false)
+$$;
+
+
+--
+-- Name: lsa_themenfeld(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_themenfeld(p_skill_key text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO ''
+    AS $$
+  with ausnahme(skill_key, bereich) as (
+    values ('proportionalitaet', 'zuordnungen'),
+           ('potenzen', 'potenzen'),
+           ('runden_ueberschlag', 'zahlen')
+  ),
+  praefix(praefix, bereich) as (
+    values ('bruch', 'brueche'),
+           ('dezimal', 'dezimalzahlen'),
+           ('vorzeichen', 'negative_zahlen'),
+           ('groessen', 'groessen'),
+           ('geo', 'geometrie'),
+           ('geo_flaeche', 'geometrie'),
+           ('geo_winkel', 'geometrie'),
+           ('geo_koerper', 'geometrie'),
+           ('geo_kreis', 'geometrie'),
+           ('geo_aehnlich', 'geometrie'),
+           ('geo_pythagoras', 'geometrie'),
+           ('geo_trigo', 'geometrie'),
+           ('term', 'terme'),
+           ('gleichung', 'gleichungen'),
+           ('gleichung_lgs', 'gleichungen'),
+           ('gleichung_quadr', 'gleichungen'),
+           ('prozent', 'prozent'),
+           ('prozent_zins', 'prozent'),
+           ('fkt', 'funktionen'),
+           ('fkt_linear', 'funktionen'),
+           ('fkt_quadr', 'funktionen'),
+           ('fkt_exp', 'funktionen'),
+           ('fkt_sinus', 'funktionen'),
+           ('zahl', 'zahlen'),
+           ('zahl_potenz', 'potenzen'),
+           ('zahl_wurzel', 'wurzeln'),
+           ('stoch', 'stochastik'),
+           ('stoch_bedingt', 'stochastik'),
+           ('stoch_pfad', 'stochastik')
+  ),
+  feld(bereich, feld) as (
+    values ('brueche', 'brueche'), ('dezimalzahlen', 'brueche'),
+           ('prozent', 'prozent'), ('zuordnungen', 'prozent'),
+           ('terme', 'terme'), ('gleichungen', 'terme'),
+           ('geometrie', 'geometrie'),
+           ('groessen', 'groessen'),
+           ('zahlen', 'zahlen'), ('negative_zahlen', 'zahlen'), ('potenzen', 'zahlen'), ('wurzeln', 'zahlen'),
+           ('funktionen', 'funktionen'),
+           ('stochastik', 'zufall')
+  ),
+  teile(t) as (
+    select string_to_array(p_skill_key, '_')
+  ),
+  bereich(b) as (
+    select coalesce(
+      (select a.bereich from ausnahme a where a.skill_key = p_skill_key),
+      (select p.bereich
+         from teile, generate_series(cardinality(teile.t) - 1, 1, -1) as n, praefix p
+        where p.praefix = array_to_string(teile.t[1:n], '_')
+        order by n desc
+        limit 1))
+  )
+  select coalesce((select f.feld from feld f, bereich where f.bereich = bereich.b), 'weitere')
 $$;
 
 

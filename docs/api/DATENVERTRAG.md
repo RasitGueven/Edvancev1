@@ -5,12 +5,13 @@
 `20260714100000_f01_tabellen.sql` (F01 — Tabellen), A13 (`abgabeart`), A17 (Platz adaptiv),
 `20261021082756_lsa_eingabeformat` · `20261021082844_lsa_bruch_term_wertung` ·
 `20261021083001_lsa_urteil_eingabeformat` · `20261021083026_lsa_diagnose_ab` ·
-`20261021083033_platz_avatar_helle_abbildung` (L1 — Eingabeformat, Wertung, Diagnosezeit, Avatar, helle Abbildungen)
+`20261021083033_platz_avatar_helle_abbildung` (L1 — Eingabeformat, Wertung, Diagnosezeit, Avatar, helle Abbildungen) ·
+`20261023074802_lsa_themenfeld` (LSA-A1 — Themenfeld, 23.10.2026)
 **Beweis:** `supabase/tests/inv2_lsa_datenvertrag.test.sql` (17 Assertions) +
 `supabase/tests/inv3_lsa_multipart.test.sql` (23 Assertions) +
 `supabase/tests/inv5_lsa_tabellen.test.sql` (15 Assertions) +
 `supabase/tests/lsa_l1_eingabeformat.test.sql` (37) + `lsa_l1_wertung.test.sql` (49) +
-`lsa_l1_platz.test.sql` (21), alle pgTAP
+`lsa_l1_platz.test.sql` (21) + `lsa_themenfeld.test.sql` (12), alle pgTAP
 
 Dieses Dokument ist die Klammer zwischen Backend (Edvancev1) und der neuen
 React-Native-App. Was hier steht, ist zugesichert. Was hier nicht steht, ist
@@ -35,6 +36,10 @@ type Table = { headers: string[]; rows: string[][] }
 // (kommt dann nicht über die LSA-Auswahl, kann aber z. B. in der Session-Vorschau auftauchen).
 type InputHint = 'number' | 'fraction' | 'term'
 
+// LSA-A1 — siehe „Themenfeld“ unten. Immer gesetzt; ältere DBs ohne LSA-A1 liefern den Schlüssel nicht.
+type Themenfeld = 'brueche' | 'prozent' | 'terme' | 'geometrie' | 'groessen' | 'zahlen'
+                | 'funktionen' | 'zufall' | 'weitere'
+
 type Part =
   | { nr: number; kind: 'short_input'; prompt: string; unit?: string; table?: Table;
       input_hint?: InputHint }
@@ -42,11 +47,11 @@ type Part =
       options: { id: string; label: string }[] }
 
 type QuestionPayload =
-  | { kind: 'mc'; task_id: string; prompt: string; assets: Asset[]; table?: Table;
-      options: { id: string; label: string }[] }
-  | { kind: 'short_input'; task_id: string; prompt: string; assets: Asset[];
+  | { kind: 'mc'; task_id: string; themenfeld: Themenfeld; prompt: string; assets: Asset[];
+      table?: Table; options: { id: string; label: string }[] }
+  | { kind: 'short_input'; task_id: string; themenfeld: Themenfeld; prompt: string; assets: Asset[];
       table?: Table; unit?: string; input_hint?: InputHint }
-  | { kind: 'multi_part'; task_id: string; stem: string; assets: Asset[];
+  | { kind: 'multi_part'; task_id: string; themenfeld: Themenfeld; stem: string; assets: Asset[];
       table?: Table; parts: Part[] }   // P02 — siehe §6
 // Spätere Typen sind in der Struktur vorgesehen, aber NICHT implementiert: cloze
 ```
@@ -88,11 +93,26 @@ Das Kind sieht nie einen Umschalter Zahl/Bruch/Term; das Format kommt aus der Au
   ohne Hinweis, ist nicht im LSA-Pool (`lsa_im_pool`). Die Prüfliste: `supabase/checks/lsa_eingabeformat_pruefliste.sql`.
 - Weder `bruch` noch die Lösung gehen ans Kind — nur der abgeleitete Hinweis.
 
+### Themenfeld `themenfeld` (LSA-A1)
+
+Damit die App beim Wechsel den Bereich ansagen kann, trägt jede Aufgabe (alle drei Arten, nicht die
+Teile) das Themenfeld ihres Skills: `public.lsa_themenfeld(tasks.skill_key)`. Es sind dieselben acht
+Felder wie im Eltern-Report (`THEMENFELDER` in `src/lib/report/elternbericht/themenfelder.ts`); die
+Zuordnung ist `feldVon`: Ausnahmen, dann der längste Präfix nach ganzen Segmenten, dann
+Inhaltsbereich → Feld.
+
+- Geliefert wird immer der Schlüssel, nie ein Text. Anzeige über die Texte der App bzw.
+  `elternbericht:feld.<key>`. Unbekannte oder fehlende Skills ergeben `weitere` (dafür keine Ansage).
+- Das Feld verrät keine Klassenstufe und kein „Grundlagen“.
+- Gleichlauf SQL ↔ TS: `tools/themenfeld-fixture.ts` erzeugt `supabase/tests/fixtures/themenfeld.sql`,
+  Vitest (`themenfeld-fixture.test.ts`) hält sie aktuell, pgTAP (`lsa_themenfeld.test.sql`) prüft
+  `lsa_themenfeld` dagegen.
+
 ### Die Sicherheitsregel
 
 **Die Lösung landet niemals im `question_payload`.**
 
-- Ans Frontend geht: `prompt`, `assets`, `table`, `options` (nur `id` + `label`), `unit`
+- Ans Frontend geht: `prompt`, `assets`, `table`, `options` (nur `id` + `label`), `unit`, `input_hint`, `themenfeld`
 - Server-only bleibt: `correct_answers`, `solution`, `hints`, `coach_hints`, `typical_errors`
 
 Durchgesetzt wird das nicht durch Filtern, sondern durch **Bauen aus einer
