@@ -5,6 +5,8 @@
 import { useTranslation } from 'react-i18next'
 
 import { stufeVon } from '@/lib/report/elternbericht/plan'
+
+import { schuleGenitiv } from './berichtSaetze'
 import type { Lernweg, LwInsel, LwStand, LwUnter, LwWeitere, LwZaehlzeile, LwZoneKey } from '@/types'
 
 /** Einträge der Legende, in der Reihenfolge des Entwurfs. */
@@ -38,7 +40,7 @@ export function useLernwegTexte(lw: Lernweg) {
     lw.quelle === 'klp'
       ? t(`s3.weg.${art}.klp`)
       : lw.schulname
-        ? t(`s3.weg.${art}.schule`, { schulname: lw.schulname })
+        ? t(`s3.weg.${art}.schule`, { schule: schuleGenitiv(t, lw.schulname) })
         : t(`s3.weg.${art}.schuleOhneName`)
 
   return {

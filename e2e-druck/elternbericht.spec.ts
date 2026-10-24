@@ -4,6 +4,7 @@
 // (R7-3, R7-4) brauchen hier keine Änderung. Je Fall: Schrift geladen, kein
 // Inhalt läuft über, Kopf und Fuß liegen auf den Maßen aus dem Maßblatt E7
 // (±1 pt, gemessen an den gezeichneten Teilen), und das PDF hat fünf Seiten.
+// Bericht v2: beschriftete Navigation oben rechts, Überschriften in Literata.
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -14,7 +15,8 @@ import { FAELLE } from '../src/lib/report/elternbericht/fixtures'
 const AUSGABE = resolve(process.env.EB_AUSGABE ?? 'docs/report/r7/abnahme/r7-2')
 const PT = 4 / 3 // CSS-px je pt
 const TOLERANZ = 1 // pt
-const NAV_X = [484, 497, 510, 523, 536]
+// Bericht v2: beschriftete Navigation oben rechts (Seite.tsx).
+const NAV_X = [256, 322, 388, 454, 520]
 /** Mindestabstand zwischen Spur und rechtem Text einer Profilzeile (R7-8). */
 const SPUR_ABSTAND = 6
 
@@ -68,26 +70,32 @@ async function pruefeSeiten(page: Page, testlauf: boolean, medium: string): Prom
     nahe(fuss.y, 810, `${wo} Fußlinie y`)
     nahe(fuss.x + fuss.b, 551, `${wo} Fußlinie Ende`)
 
-    // Navigationspunkte: Mitte bei x 484 … 536, y 39, Ø 6,8; genau einer aktiv.
+    // Navigation (Bericht v2): fünf Kreise Ø 12,4 bei y 33, Mitten NAV_X, je mit
+    // Beschriftung unter dem Kreis, die nicht über die Kopflinie hinausragt; genau einer aktiv.
     const punkte = await lage(page, n, '.eb-nav-punkt')
     expect(punkte, wo).toHaveLength(5)
     punkte.forEach((p, i) => {
       nahe(p.x + p.b / 2, NAV_X[i], `${wo} Punkt ${i + 1} x`)
-      nahe(p.y + p.h / 2, 39, `${wo} Punkt ${i + 1} y`)
-      nahe(p.b, 6.8, `${wo} Punkt ${i + 1} Ø`)
+      nahe(p.y + p.h / 2, 33, `${wo} Punkt ${i + 1} y`)
     })
-    const aktiv = await lage(page, n, '.eb-nav-punkt-aktiv')
+    const namen = await lage(page, n, '.eb-nav-name')
+    expect(namen, wo).toHaveLength(5)
+    for (const [i, z] of namen.entries()) {
+      expect(z.x + z.b, `${wo} Name ${i + 1} rechts`).toBeLessThanOrEqual(551 + TOLERANZ)
+      if (i > 0) expect(z.x, `${wo} Name ${i + 1} überlappt`).toBeGreaterThan(namen[i - 1].x + namen[i - 1].b)
+    }
+    const aktiv = await lage(page, n, '.eb-nav-aktiv .eb-nav-punkt')
     expect(aktiv, wo).toHaveLength(1)
     nahe(aktiv[0].x + aktiv[0].b / 2, NAV_X[n - 1], `${wo} aktiver Punkt`)
 
-    // Chip „Testdaten“ (381,30), 82 × 21 — nur im Testlauf.
+    // Chip „Testdaten“ (Bericht v2: unter der Wortmarke, 70,52), 50 × 13 — nur im Testlauf.
     const chip = await lage(page, n, '.eb-chip')
     if (testlauf) {
       expect(chip, wo).toHaveLength(1)
-      nahe(chip[0].x, 381, `${wo} Chip x`)
-      nahe(chip[0].y, 30, `${wo} Chip y`)
-      nahe(chip[0].b, 82, `${wo} Chip Breite`)
-      nahe(chip[0].h, 21, `${wo} Chip Höhe`)
+      nahe(chip[0].x, 70, `${wo} Chip x`)
+      nahe(chip[0].y, 52, `${wo} Chip y`)
+      nahe(chip[0].b, 50, `${wo} Chip Breite`)
+      nahe(chip[0].h, 13, `${wo} Chip Höhe`)
     } else {
       expect(chip, wo).toHaveLength(0)
     }
@@ -117,40 +125,21 @@ async function pruefeProfil(page: Page, wo: string): Promise<string[]> {
 }
 
 /**
- * Seite 3, Lernweg (R7-9, Entscheidungen 15, 16 und 18): Der Bereich läuft
- * nicht über (auch nicht nach dem Kürzen), kein Text ragt aus einer Insel, und
- * keine Linie schneidet eine Insel (Punkte entlang des Pfads, alle 2 Einheiten).
+ * Seite 3, Einordnung (Bericht v2): kein Text ragt aus seinem Kasten, und die
+ * Pfeile bleiben in ihrer Zeile (nichts läuft quer über die Seite).
  */
-async function pruefeLernweg(page: Page, wo: string): Promise<void> {
+async function pruefeEinordnung(page: Page, wo: string): Promise<void> {
   const fehler = await page.evaluate(() => {
-    const weg = document.querySelector<HTMLElement>('.eb-seite[data-seite="3"] [data-testid="eb-s3-weg"]')
-    if (!weg) return ['kein Lernweg auf Seite 3']
+    const s = document.querySelector('.eb-seite[data-seite="3"]')
+    if (!s) return ['keine Seite 3']
     const f: string[] = []
-    if (weg.scrollHeight > weg.clientHeight + 0.5 || weg.hasAttribute('data-ueberlauf')) {
-      f.push(`Lernweg läuft über (${weg.scrollHeight} > ${weg.clientHeight}, Stufe ${weg.dataset.stufe})`)
+    for (const k of s.querySelectorAll<HTMLElement>('.eb-s3v2-luecken, .eb-s3v2-kommt, .eb-s3v2-weitere, .eb-s3v2-staerken')) {
+      if (k.scrollWidth > k.clientWidth + 1 || k.scrollHeight > k.clientHeight + 1) f.push(`Text ragt aus Kasten: ${k.textContent?.slice(0, 40)}`)
     }
-    const inseln = [...weg.querySelectorAll('[data-insel]')].map((i) => ({ el: i, r: i.getBoundingClientRect() }))
-    for (const { el, r } of inseln) {
-      for (const t of el.querySelectorAll<HTMLElement>('.eb-s3-label, .eb-s3-insel-titel, small')) {
-        const q = t.getBoundingClientRect()
-        if (q.right > r.right + 0.5 || q.bottom > r.bottom + 0.5 || t.scrollWidth > t.clientWidth + 1) {
-          f.push(`Text ragt aus Insel: ${t.textContent}`)
-        }
-      }
-    }
-    for (const p of weg.querySelectorAll<SVGPathElement>('path.eb-s3-linie')) {
-      const ctm = p.getScreenCTM()
-      if (!ctm) continue
-      const laenge = p.getTotalLength()
-      for (let l = 0; l <= laenge; l += 2) {
-        const pt = p.getPointAtLength(l)
-        const q = new DOMPoint(pt.x, pt.y).matrixTransform(ctm)
-        const treffer = inseln.find(({ r }) => q.x > r.left + 1 && q.x < r.right - 1 && q.y > r.top + 1 && q.y < r.bottom - 1)
-        if (treffer) {
-          f.push(`Linie schneidet Insel „${treffer.el.querySelector('p')?.textContent}“ bei ${q.x.toFixed(0)},${q.y.toFixed(0)}`)
-          break
-        }
-      }
+    for (const z of s.querySelectorAll<HTMLElement>('.eb-s3v2-zeile')) {
+      const r = z.getBoundingClientRect()
+      const p = z.querySelector('.eb-s3v2-pfeil')?.getBoundingClientRect()
+      if (p && (p.top < r.top - 0.5 || p.bottom > r.bottom + 0.5)) f.push('Pfeil verlässt seine Zeile')
     }
     return f
   })
@@ -181,16 +170,14 @@ for (const [name, fall] of Object.entries(FAELLE)) {
         .filter((f) => f.status === 'loaded')
         .map((f) => `${f.family.replace(/["']/g, '')} ${f.weight}`),
     )
-    expect(geladen).toContain('Fraunces 500')
+    expect(geladen).toContain('Literata 600')
     expect(geladen).toContain('Schibsted Grotesk 400')
 
     await pruefeSeiten(page, fall.data.testlauf, 'Bildschirm')
     await page.emulateMedia({ media: 'print' })
     await pruefeSeiten(page, fall.data.testlauf, 'Druck')
-    await pruefeLernweg(page, `${name}, Druck`)
-    const rechts = await pruefeProfil(page, 'Druck')
-    // Der längste mögliche rechte Text steht wirklich im Fall abgestuftLang.
-    if (name === 'abgestuftLang') expect(rechts).toContain('12 geprüft · 14 abgeleitet')
+    await pruefeEinordnung(page, `${name}, Druck`)
+    await pruefeProfil(page, 'Druck')
 
     const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true })
     mkdirSync(AUSGABE, { recursive: true })

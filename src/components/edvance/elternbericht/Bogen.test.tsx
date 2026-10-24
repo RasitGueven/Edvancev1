@@ -1,10 +1,12 @@
-// Bogen und Seitenrahmen des Eltern-Berichts R7: fünf Seiten, Chip nur im
-// Testlauf, Mikro-Navigation, Fuß mit und ohne Namen, Hinweis statt Bogen.
+// Bogen und Seitenrahmen des Eltern-Berichts (Bericht v2): fünf Seiten, Chip
+// nur im Testlauf, beschriftete Navigation, Fuß mit und ohne Namen, Hinweis
+// statt Bogen, der eine Coach-Satz auf Seite 4.
 import { render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
 
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
+import de from '@/i18n/locales/de/elternbericht.json'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import type { ReportData } from '@/types'
 
@@ -46,15 +48,31 @@ describe('ElternberichtBogen', () => {
     expect(ohne.container.querySelector('[data-testid="eb-chip"]')).toBeNull()
   })
 
-  it('markiert in der Mikro-Navigation die eigene Seite, und nur sie', () => {
+  it('zeigt auf jeder Seite fünf beschriftete Stationen, genau die eigene ist aktiv', () => {
     const { container } = bogen('ilkay')
+    const namen = ['Überblick', 'Lernstand', 'Einordnung', 'Lernplan', 'Nächste Schritte']
+    expect(Object.values(de.s1.weg.station)).toEqual(namen)
     seiten(container).forEach((s, i) => {
-      const punkte = [...s.querySelectorAll('.eb-nav-punkt')]
-      expect(punkte).toHaveLength(5)
-      const aktiv = punkte.flatMap((p, j) => (p.hasAttribute('data-aktiv') ? [j] : []))
+      const nav = within(s).getByTestId('eb-nav')
+      expect(nav).toHaveAttribute('aria-label', 'Ihr Weg durch diesen Bericht')
+      const stationen = [...nav.querySelectorAll('.eb-nav-station')]
+      expect(stationen.map((x) => x.querySelector('.eb-nav-name')?.textContent)).toEqual(namen)
+      expect(stationen.map((x) => x.querySelector('.eb-nav-nummer')?.textContent)).toEqual(['1', '2', '3', '4', '5'])
+      const aktiv = stationen.flatMap((x, j) => (x.hasAttribute('data-aktiv') ? [j] : []))
       expect(aktiv).toEqual([i])
-      expect(punkte[i]).toHaveClass('eb-nav-punkt-aktiv')
+      expect(stationen[i]).toHaveAttribute('aria-current', 'page')
+      expect(stationen.filter((x) => x.hasAttribute('aria-current'))).toHaveLength(1)
     })
+  })
+
+  it('setzt den Testlauf-Chip unter die Wortmarke, nicht mehr in die Navigation', () => {
+    const { container } = bogen('testlauf')
+    const kopf = within(seiten(container)[0]).getByTestId('eb-kopf')
+    const wortmarke = kopf.querySelector('.eb-wortmarke')!
+    const chip = kopf.querySelector('rect.eb-chip')!
+    expect(chip.getAttribute('x')).toBe(wortmarke.getAttribute('x'))
+    expect(Number(chip.getAttribute('y'))).toBeGreaterThan(Number(wortmarke.getAttribute('y')))
+    expect(within(kopf).getByTestId('eb-nav')).not.toContainElement(within(kopf).getByTestId('eb-chip'))
   })
 
   it('nennt im Fuß den Namen und die Seitenzahl', () => {
@@ -76,9 +94,13 @@ describe('ElternberichtBogen', () => {
 
   it('nimmt Rufnamen bis 24 Zeichen, darüber überall die Fassungen ohne Namen', () => {
     const texte = (firstName: string) => {
-      // „Noten“ ist fachlich: Der Anliegen-Kasten steht mit Genitiv (R7-11).
+      // Die Note im Erstgespräch nennt den Namen im „Anliegen“-Kasten (Bericht v2).
       const { data } = FAELLE.anliegenGemischt
-      const { container, unmount } = bogen({ ...data, firstName })
+      const { container, unmount } = bogen({
+        ...data,
+        firstName,
+        erstgespraech: { note: '4', trend: null, seit: null, ziele: null, klassenarbeit: null, klassenarbeitDatum: null },
+      })
       const s = seiten(container)
       const ergebnis = {
         fuss: s[0].querySelector('.eb-fuss-text')?.textContent,
@@ -93,14 +115,16 @@ describe('ElternberichtBogen', () => {
     const mit = texte(' Anna-Katharina Henriette ') // 24 Zeichen nach trim
     expect(mit.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse Anna-Katharina Henriette')
     expect(mit.titel[0]).toBe('Was wir bei Anna-Katharina Henriette gesehen haben')
-    expect(mit.titel[1]).toContain('Anna-Katharina Henriettes')
-    expect(mit.anliegen).toContain('Anna-Katharina Henriettes')
+    // Seit Bericht v2 ohne Genitiv: „Der Lernstand von {name} …“.
+    expect(mit.titel[1]).toBe('Der Lernstand von Anna-Katharina Henriette in den geprüften Bereichen.')
+    expect(mit.anliegen).toContain('Die letzte Zeugnisnote von Anna-Katharina Henriette in Mathematik war eine 4.')
 
     const ohne = texte('Anna-Katharina Friederike') // 25 Zeichen
     const ohneName = texte('')
     expect(ohne.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse')
     expect(ohne.titel).toEqual(ohneName.titel)
     expect(ohne.anliegen).toBe(ohneName.anliegen)
+    expect(ohne.anliegen).toContain('Die letzte Zeugnisnote in Mathematik war eine 4.')
     expect(ohne.alles).not.toContain('Friederike')
   })
 
@@ -119,6 +143,34 @@ describe('ElternberichtBogen', () => {
     expect(screen.getByTestId('eb-leer')).toHaveTextContent(
       'Für diese Analyse gibt es keine direkt geprüften Bereiche.',
     )
+  })
+})
+
+describe('ElternberichtBogen — Inhalt des Berichts v2', () => {
+  const COACH = de.s4.coach
+  const alle = Object.keys(FAELLE).filter((n) => n !== 'ohneKatalog')
+
+  it('der Coach-Satz steht im ganzen Bogen genau einmal, und zwar auf Seite 4', () => {
+    for (const n of alle) {
+      const { container, unmount } = bogen(n)
+      const s = seiten(container)
+      const treffer = s.map((x) => (x.textContent ?? '').split(COACH).length - 1)
+      expect(treffer, n).toEqual([0, 0, 0, 1, 0])
+      unmount()
+    }
+  })
+
+  it('kein „abgeleitet“ und kein „ergeben sich“ auf irgendeiner Seite, in keinem Fall', () => {
+    for (const n of alle) {
+      const { container, unmount } = bogen(n)
+      expect(container.textContent, n).not.toMatch(/abgeleitet|ergeben sich|ergibt sich/i)
+      unmount()
+    }
+  })
+
+  it('keine Preise, Konditionen oder Lernpfad-Zeilen im Bogen', () => {
+    const { container } = bogen('ilkay')
+    expect(container.textContent).not.toMatch(/Konditionen|Preis|Laufzeit|€/)
   })
 })
 
@@ -166,7 +218,7 @@ describe('ElternberichtBogen — Name nach der Messung', () => {
     expect(m.fuesse).toEqual(Array(5).fill(OHNE))
     expect(m.titel).toEqual([
       'Was wir bei Ihrem Kind gesehen haben',
-      'Der Lernstand in den untersuchten Bereichen.',
+      'Der Lernstand in den geprüften Bereichen.',
       'Unsere Einschätzung für Ihr Kind.',
     ])
   })

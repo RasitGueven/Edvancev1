@@ -7,6 +7,7 @@
 // abgestufter LSA stehen die abgeleiteten Bereiche des Themas als Umriss
 // dahinter. Gerechnet wird nur Breite und Lage in pt, nie ein Anteil.
 
+import { DEUTUNG } from '@/lib/report/elternbericht/berichtKonfig'
 import type { AbgeleiteterBereich } from '@/lib/report/elternbericht/themaAbdeckung'
 import { THEMENFELDER } from '@/lib/report/elternbericht/themenfelder'
 import type { EbBereich, EbProfilZeile, ThemenfeldKey } from '@/types'
@@ -72,12 +73,14 @@ export const kaestchen = (z: Pick<ProfilZeile, 'sicher' | 'uebung' | 'abgeleitet
 
 /**
  * Der Maßstab für ein ganzes Profil: nach der Zeile mit den meisten Kästchen,
- * auf 206 pt Spur, sobald eine Zeile abgeleitete Bereiche hat, sonst 226 pt.
+ * auf 206 pt Spur, sobald eine Zeile abgeleitete Bereiche hat oder eine
+ * Zeile zehn oder mehr Kästchen hat (Bericht v2: rechts stehen dann lange Zeilen;
+ * ohne Umrisse fehlte sonst der Abstand), sonst 226 pt.
  */
 export const massstabFuer = (zeilen: readonly ProfilZeile[]): Massstab =>
   massstab(
     Math.max(1, ...zeilen.map(kaestchen)),
-    zeilen.some((z) => z.abgeleitet > 0) ? SPUR_MIT_ABGELEITETEN : SPUR,
+    zeilen.some((z) => z.abgeleitet > 0 || kaestchen(z) >= 10) ? SPUR_MIT_ABGELEITETEN : SPUR,
   )
 
 /** Je Bereich ein Kästchen: erst sicher, dann Übungsbedarf, dahinter die Umrisse. */
@@ -187,4 +190,30 @@ export function deutung(profil: readonly Pick<EbProfilZeile, 'feld' | 'sicher' |
       .slice(0, 2)
       .map((x) => x.feld)
   return { sicher: auswahl(sicher), uebung: auswahl(uebung) }
+}
+
+/** Bericht v2: das Feld (oder die Felder) mit dem höchsten Anteil Übungsbedarf. */
+export type MeisterUebung = { felder: ThemenfeldKey[]; uebung: number; geprueft: number }
+
+/**
+ * „Den meisten Übungsbedarf zeigte …“ (Bericht v2). Regel:
+ *   1. Nur Felder mit mindestens DEUTUNG.minGeprueft direkt geprüften Bereichen
+ *      (ein einzelnes Urteil trägt keine Aussage über ein ganzes Feld).
+ *   2. Maß ist der ANTEIL Übungsbedarf an den geprüften Bereichen des Felds,
+ *      nicht die Anzahl — sonst gewänne immer das am breitesten geprüfte Feld.
+ *   3. Gleicher Anteil: mehr Übungsbedarf zuerst; bleibt es gleich (gleicher
+ *      Anteil UND gleiche Anzahl), werden beide Felder genannt.
+ *   4. Kein Feld mit Übungsbedarf → null, der Satz entfällt.
+ */
+export function meisterUebung(
+  profil: readonly Pick<EbProfilZeile, 'feld' | 'sicher' | 'uebung'>[],
+): MeisterUebung | null {
+  const kandidaten = profil
+    .filter((z) => z.sicher + z.uebung >= DEUTUNG.minGeprueft && z.uebung > 0)
+    .map((z) => ({ ...z, anteil: z.uebung / (z.sicher + z.uebung) }))
+    .sort((a, b) => b.anteil - a.anteil || b.uebung - a.uebung)
+  const erster = kandidaten[0]
+  if (!erster) return null
+  const gleich = kandidaten.filter((z) => z.anteil === erster.anteil && z.uebung === erster.uebung)
+  return { felder: gleich.map((z) => z.feld), uebung: erster.uebung, geprueft: erster.sicher + erster.uebung }
 }

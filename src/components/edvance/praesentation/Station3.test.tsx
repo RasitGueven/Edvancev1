@@ -71,7 +71,7 @@ describe('Station 03 — Inhalt', () => {
   it('Kopf, Satz mit Schulplan, Legende wie im Druck, Infofeld ohne Auswahl', () => {
     station(abgestuft, 'entered motion-complete')
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Auf vorhandenen Stärken aufbauen.')
-    expect(screen.getByText(/was laut Schulplan der Schule Friedrich-Wilhelm-Gymnasium noch kommt/)).toBeInTheDocument()
+    expect(screen.getByText(/was laut Schulplan des Friedrich-Wilhelm-Gymnasiums noch kommt/)).toBeInTheDocument()
     const legende = within(screen.getByTestId('tp-s3-legende')).getAllByRole('listitem').map((l) => l.getAttribute('data-legende'))
     expect(legende).toEqual(['sicher', 'uebung', 'offen', 'linie', 'unter', 'broeckelt', 'kommt'])
     expect(screen.getByTestId('tp-s3-info')).toHaveTextContent(

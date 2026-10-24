@@ -1,11 +1,12 @@
-// Seite 1 des Eltern-Berichts R7 (Überblick) für die Fixture-Fälle.
+// Seite 1 des Eltern-Berichts (Bericht v2): Kopf, „So gehen wir vor“, „Auf einen Blick".
 import { render, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import '@/i18n'
 
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
-import type { ReportBaustein, ReportData, Rueckbezug } from '@/types'
+import de from '@/i18n/locales/de/elternbericht.json'
+import type { ReportBaustein, ReportData, ReportFehlbild } from '@/types'
 
 function seite1(data: ReportData) {
   const { container } = render(
@@ -77,129 +78,136 @@ describe('Seite 1 — Kopfdaten und Zählung (ilkay)', () => {
   })
 })
 
-describe('Seite 1 — Auf einen Blick', () => {
-  it('ilkay: je vier Einträge, darunter „+n weitere“, erster Ansatz gemischt', () => {
-    const s = seite1(FAELLE.ilkay.data)
-    const sicher = within(s.getByTestId('eb-liste-sicher'))
-    const uebung = within(s.getByTestId('eb-liste-uebung'))
-    expect(sicher.getAllByRole('listitem')).toHaveLength(4)
-    expect(sicher.getByText('+7 weitere')).toBeInTheDocument()
-    expect(uebung.getAllByRole('listitem')).toHaveLength(4)
-    expect(uebung.getByText('+12 weitere')).toBeInTheDocument()
+const fehlbild = (familie: string, aufgaben: number): ReportFehlbild => ({
+  slug: `${familie}-slug`,
+  familie,
+  familieElterntext: null,
+  anzahl: aufgaben,
+  aufgaben,
+  skills: [],
+  skillUebergreifend: false,
+  einstufung: 'befund',
+})
 
-    const ansatz = s.getByTestId('eb-ansatz')
-    expect(ansatz).toHaveTextContent('1')
-    expect(ansatz).toHaveTextContent('Geometrie')
-    expect(ansatz).toHaveTextContent('Dort liegen Sicheres und noch Unsicheres direkt nebeneinander.')
-  })
+const punkte = (el: HTMLElement, art: 'sicher' | 'uebung'): number => el.querySelectorAll(`.eb-s1-punkt-${art}`).length
 
-  it('allesSicher: keine Übungsliste, kein Schwerpunkt', () => {
-    const s = seite1(FAELLE.allesSicher.data)
-    expect(within(s.getByTestId('eb-liste-uebung')).getByText('Kein Bereich mit Übungsbedarf.')).toBeInTheDocument()
-    expect(within(s.getByTestId('eb-liste-uebung')).queryByRole('listitem')).toBeNull()
-    const ansatz = s.getByTestId('eb-ansatz')
-    expect(ansatz.querySelector('.eb-s1-ansatz-kreis')).toBeNull()
-    expect(ansatz).toHaveTextContent('In den untersuchten Bereichen gibt es keinen Übungsbedarf.')
-  })
-
-  it('nichtsSicher: keine Sicher-Liste, Ansatz ohne Sicheres', () => {
-    const s = seite1(FAELLE.nichtsSicher.data)
-    expect(within(s.getByTestId('eb-liste-sicher')).getByText('Noch kein Bereich sicher.')).toBeInTheDocument()
-    expect(s.getByTestId('eb-ansatz')).toHaveTextContent(
-      'In diesem Themenfeld war noch nichts sicher. Hier setzen wir zuerst an.',
-    )
-  })
-
-  it('ohne „+n weitere“ bei höchstens vier Einträgen', () => {
-    const s = seite1(FAELLE.klasse7.data)
-    for (const art of ['sicher', 'uebung']) {
-      const karte = within(s.getByTestId(`eb-liste-${art}`))
-      expect(karte.getAllByRole('listitem').length).toBeLessThanOrEqual(4)
-      expect(karte.queryByText(/weitere/)).toBeNull()
+describe('Seite 1 — So gehen wir vor', () => {
+  it('fester Text für alle Berichte, ohne „abgeleitet“ und „ergeben sich“', () => {
+    for (const [name, { data }] of Object.entries(FAELLE).filter(([n]) => n !== 'ohneKatalog')) {
+      const kasten = seite1(data).getByTestId('eb-geprueft')
+      expect(kasten, name).toHaveTextContent(de.s1.systematik.start)
+      expect(kasten, name).toHaveTextContent(de.s1.systematik.seiten)
+      expect(kasten.textContent, name).not.toMatch(/abgeleitet|ergeben sich|ergibt sich/i)
+      expect(within(kasten).queryByTestId('eb-thema-satz'), name).toBeNull()
     }
+  })
+
+  it('der Stufensatz folgt der Klasse des Kindes', () => {
+    const text = (grade: number): string | null | undefined =>
+      seite1({ ...FAELLE.klasse7.data, grade }).getByTestId('eb-geprueft').querySelector('.eb-s1-geprueft-text')?.textContent
+    expect(text(10)).toContain('Klasse 5/6 steht für die Grundlagen, Klasse 7/8 für weiterführenden Stoff, Klasse 10 für den aktuellen Stoff.')
+    expect(text(7)).toContain('Klasse 5/6 steht für die Grundlagen, Klasse 7 für den aktuellen Stoff.')
+    expect(text(5)).toContain('Im Mittelpunkt steht der Stoff aus Klasse 5.')
   })
 })
 
-describe('Seite 1 — Anliegen, Prüfweg und Weg', () => {
-  it('ilkay: nur „Konzentration“ (überfachlich) → kein Anliegen-Kasten, kein Grenzsatz, Weg steht (R7-11)', () => {
+describe('Seite 1 — Auf einen Blick', () => {
+  it('keine Listen einzelner Bereiche, kein „+n weitere“, keine Weg-Grafik, kein Ansatz-Kasten mehr', () => {
+    for (const [name, { data }] of Object.entries(FAELLE).filter(([n]) => n !== 'ohneKatalog')) {
+      const s = seite1(data)
+      expect(s.queryByTestId('eb-liste-sicher'), name).toBeNull()
+      expect(s.queryByTestId('eb-liste-uebung'), name).toBeNull()
+      expect(s.queryByTestId('eb-weg'), name).toBeNull()
+      expect(s.queryByTestId('eb-ansatz'), name).toBeNull()
+      expect(s.el.textContent, name).not.toMatch(/\+\d+ weitere|Sie sind hier/)
+    }
+  })
+
+  it('ilkay: je Klassenstufe eine Zeile mit Punkten und Kurzsatz', () => {
     const s = seite1(FAELLE.ilkay.data)
-    expect(s.queryByTestId('eb-anliegen')).toBeNull()
-    expect(s.el).not.toHaveTextContent(/Konzentration/)
-    expect(s.getByTestId('eb-geprueft').parentElement).toHaveClass('eb-s1-kaesten-voll')
-    expect(s.getByTestId('eb-geprueft')).toHaveTextContent(
-      'Ausgehend vom Thema Terme und Gleichungen hat das System je nach Antwort die nächste Aufgabe gewählt. So wurden 27 Bereiche gezielt geprüft.',
-    )
-    expect(s.getByTestId('eb-geprueft')).toHaveTextContent(
-      'Dieser Bericht sagt nur etwas über die geprüften Bereiche. Weitere Bereiche lernen wir in den ersten Sitzungen kennen.',
-    )
-    expect(s.queryByTestId('eb-thema-satz')).toBeNull()
-    expect(s.getByTestId('eb-weg')).toHaveTextContent('Sie sind hier')
+    const zeilen = [...s.getByTestId('eb-stufen').querySelectorAll('li')]
+    expect(zeilen.map((z) => z.querySelector('.eb-s1-stufe-name')?.textContent)).toEqual([
+      'GrundlagenKlasse 5/6',
+      'WeiterführendKlasse 7/8',
+    ])
+    expect(zeilen.map((z) => [punkte(z, 'sicher'), punkte(z, 'uebung')])).toEqual([
+      [7, 8],
+      [4, 8],
+    ])
+    expect(zeilen.map((z) => z.querySelector('.eb-s1-stufe-urteil')?.textContent)).toEqual([
+      'hier liegen die Lücken',
+      'hier liegen die Lücken',
+    ])
+    expect(zeilen[0]).toHaveAttribute('aria-label', 'Klasse 5/6: 7 sicher, 8 mit Übungsbedarf')
   })
 
-  it('anliegenGemischt: nur „Noten“, mit Genitiv, Antwort Schwerpunkt 1 und nächstem Thema', () => {
-    const s = seite1(FAELLE.anliegenGemischt.data)
-    expect(s.getByTestId('eb-anliegen')).toHaveTextContent(
-      'Sie machen sich Sorgen um Ilkays Noten. Dort setzen wir zuerst an: Geometrie. Als nächstes Thema steht Algebra & Funktionen an.',
-    )
-    expect(s.el).not.toHaveTextContent(/Konzentration/)
+  it('abgestuft: drei Stufen, Kurzsätze sicher und Lücken; aktuell mit seiner Klasse', () => {
+    const zeilen = [...seite1(FAELLE.abgestuft.data).getByTestId('eb-stufen').querySelectorAll('li')]
+    expect(zeilen.map((z) => z.querySelector('.eb-s1-stufe-urteil')?.textContent)).toEqual([
+      'sicher',
+      'hier liegen die Lücken',
+      'hier liegen die Lücken',
+    ])
+    expect(zeilen[2].querySelector('.eb-s1-stufe-name')).toHaveTextContent('Aktueller StoffKlasse 9')
   })
 
-  it('ohneName: fachliche Anliegen ohne Namen, im Plural nach der Zahl der Punkte', () => {
-    const mit = (anlassNamen: string[]) =>
-      seite1({ ...FAELLE.ohneName.data, erzaehlung: { ...FAELLE.ohneName.data.erzaehlung, anlassNamen } })
-    expect(mit(['Rechenwege', 'Konzentration']).getByTestId('eb-anliegen')).toHaveTextContent(
-      'Sie sind zu uns gekommen, weil Sie Rechenwege als Schwierigkeit sehen.',
-    )
-    expect(mit(['Textverständnis', 'Rechenwege']).getByTestId('eb-anliegen')).toHaveTextContent(
-      'weil Sie Textverständnis und Rechenwege als Schwierigkeiten sehen.',
+  it('klasse7: Gemischtes heißt „teils sicher, teils Übungsbedarf“', () => {
+    const zeilen = [...seite1(FAELLE.klasse7.data).getByTestId('eb-stufen').querySelectorAll('li')]
+    expect(zeilen.map((z) => z.querySelector('.eb-s1-stufe-urteil')?.textContent)).toEqual([
+      'hier liegen die Lücken',
+      'teils sicher, teils Übungsbedarf',
+    ])
+  })
+
+  it('die Punkte aller Zeilen ergeben die Zählung der Zusammenfassung, in allen Fällen', () => {
+    for (const [name, { data }] of Object.entries(FAELLE).filter(([n]) => n !== 'ohneKatalog')) {
+      const { el } = seite1(data)
+      const [geprueft, sicher, uebung] = [...el.querySelector('.eb-s1-zeile')!.textContent!.matchAll(/\d+/g)].map((m) => Number(m[0]))
+      expect(punkte(el, 'sicher'), name).toBe(sicher)
+      expect(punkte(el, 'uebung'), name).toBe(uebung)
+      expect(sicher + uebung, name).toBe(geprueft)
+    }
+  })
+
+  it('Zusammenfassung in einer Zeile', () => {
+    expect(seite1(FAELLE.ilkay.data).el.querySelector('.eb-s1-zeile')?.textContent).toBe(
+      '27 Bereiche geprüft  ·  11 sicher  ·  16 Übungsbedarf',
     )
   })
 
-  it('abgestuft: Frage und Antwort zum Thema, ohne gebeugte Bereichsnamen, kein Schwerpunkt-Satz', () => {
-    const s = seite1(FAELLE.abgestuft.data)
-    expect(s.getByTestId('eb-anliegen')).toHaveTextContent(
-      'Ihr Anlass: Reelle Zahlen. Dort hakt es: Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehen.',
-    )
-    expect(s.getByTestId('eb-anliegen')).not.toHaveTextContent('Dort setzen wir zuerst an')
-    expect(seite1(FAELLE.abgestuftThemaSicher.data).getByTestId('eb-anliegen')).toHaveTextContent(
-      'Ihr Anlass: Reelle Zahlen. Was wir dazu geprüft haben, sitzt.',
+  it('Lücken-Satz: die zwei Themenfelder mit dem meisten Übungsbedarf', () => {
+    expect(seite1(FAELLE.ilkay.data).getByTestId('eb-luecken-satz')).toHaveTextContent(
+      'Die Lücken liegen vor allem bei der Geometrie sowie bei Brüchen und Dezimalzahlen.',
     )
   })
 
-  it('Rückbezüge nur zu fachlichen Anliegen und nur die, die antworten (R7-11, Entscheidung 14)', () => {
-    const { data } = FAELLE.vieleRueckbezuege
-    const rb = (thema: string, fall: string, richtung: Rueckbezug['richtung']): Rueckbezug => ({
-      thema,
-      fall,
-      richtung,
-      belege: 2,
-    })
-    const s = seite1({
-      ...data,
-      erzaehlung: {
-        ...data.erzaehlung,
-        rueckbezuege: [
-          rb('Konzentration', 'konzentration_nicht_messbar', 'nicht_messbar'),
-          rb('Rechenwege', 'rechenwege_bestaetigend', 'bestaetigend'),
-          rb('Textverständnis', 'textverstaendnis_offen', 'offen'),
-          rb('Grundlagen fehlen', 'grundlagen_entlastend_schmal', 'entlastend'),
-        ],
-      },
-    })
-    const eintraege = within(s.getByTestId('eb-anliegen')).getAllByRole('listitem')
-    expect(eintraege).toHaveLength(1)
-    expect(eintraege[0]).toHaveTextContent(/Rechenweg/)
-    expect(s.getByTestId('eb-weg')).toBeInTheDocument()
+  it('Lücken-Satz entfällt, wenn kein Feld zwei Bereiche mit Übungsbedarf hat und kein Muster da ist', () => {
+    expect(seite1(FAELLE.allesSicher.data).queryByTestId('eb-luecken-satz')).toBeNull()
   })
 
-  it('ohne Anlass, Thema und Rückbezug entfällt der linke Kasten', () => {
-    const { data } = FAELLE.ilkay
-    const s = seite1({
-      ...data,
-      naechstesThema: null,
-      erzaehlung: { ...data.erzaehlung, anlassNamen: [], rueckbezuege: [] },
-    })
-    expect(s.queryByTestId('eb-anliegen')).toBeNull()
-    expect(s.getByTestId('eb-geprueft').parentElement).toHaveClass('eb-s1-kaesten-voll')
+  it('Sorgfalts-Muster: Satz zusätzlich zu den Lücken, nie ohne Datengrundlage', () => {
+    const mit = seite1({ ...FAELLE.ilkay.data, fehlbilder: [fehlbild('vorzeichen', 3)] })
+    expect(mit.getByTestId('eb-luecken-satz')).toHaveTextContent(de.s1.blick.muster)
+    expect(mit.getByTestId('eb-luecken-satz')).toHaveTextContent('Die Lücken liegen vor allem bei')
+    const zuWenig = seite1({ ...FAELLE.ilkay.data, fehlbilder: [fehlbild('vorzeichen', 2)] })
+    expect(zuWenig.getByTestId('eb-luecken-satz')).not.toHaveTextContent(de.s1.blick.muster)
+    // Nur Muster, keine Lücken-Felder.
+    const nurMuster = seite1({ ...FAELLE.allesSicher.data, fehlbilder: [fehlbild('figuren', 4)] })
+    expect(nurMuster.getByTestId('eb-luecken-satz').textContent).toBe(de.s1.blick.muster)
+  })
+
+  it('„Wir beginnen mit …, weil …“ nennt den ersten Schwerpunkt und seinen Grund', () => {
+    expect(seite1(FAELLE.ilkay.data).getByTestId('eb-start')).toHaveTextContent(
+      'Wir beginnen mit der Geometrie, weil hier schon Stoff aus Klasse 5/6 Übung braucht.',
+    )
+    expect(seite1(FAELLE.abgestuft.data).getByTestId('eb-start')).toHaveTextContent(
+      'Wir beginnen mit dem Thema Reelle Zahlen, weil es das aktuelle Schulthema ist.',
+    )
+  })
+
+  it('ohne Schwerpunkt: stattdessen der Satz „kein Übungsbedarf“', () => {
+    const start = seite1(FAELLE.allesSicher.data).getByTestId('eb-start')
+    expect(start.textContent).toBe(de.s1.blick.ansatzKeiner)
+    expect(start).not.toHaveTextContent('Wir beginnen')
   })
 })

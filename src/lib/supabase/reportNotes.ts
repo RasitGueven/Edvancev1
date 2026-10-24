@@ -28,6 +28,25 @@ function asPaket(value: unknown): ReportPaket | null {
     : null
 }
 
+/**
+ * Bericht v2: hat der Coach das Paket bestätigt? Eigene Abfrage, weil die
+ * Spalte paket_bestaetigt erst mit der Migration 20261024…_bericht_v2 kommt —
+ * fehlt sie, gilt „nicht bestätigt“ und Seite 5 zeigt den Vorschlag.
+ */
+async function loadPaketBestaetigt(sessionId: string): Promise<boolean> {
+  try {
+    const { data, error } = await supabase
+      .from('lsa_report_notes')
+      .select('paket_bestaetigt')
+      .eq('session_id', sessionId)
+      .maybeSingle()
+    if (error) return false
+    return (data as { paket_bestaetigt: unknown } | null)?.paket_bestaetigt === true
+  } catch {
+    return false
+  }
+}
+
 export async function getReportNotes(sessionId: string): Promise<NotesResult> {
   try {
     const { data, error } = await supabase
@@ -47,6 +66,7 @@ export async function getReportNotes(sessionId: string): Promise<NotesResult> {
         zielbild: (data?.zielbild as string | null) ?? '',
         empfehlung: (data?.empfehlung as string | null) ?? '',
         paket: asPaket(data?.paket),
+        paketBestaetigt: await loadPaketBestaetigt(sessionId),
       },
       error: null,
       unavailable: false,

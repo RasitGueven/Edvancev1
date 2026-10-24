@@ -16,6 +16,7 @@ import type {
   Rueckbezug,
 } from '@/types/reportFundament'
 import type { HeimatThema, KatalogSkill, LernPlan, LwKante } from '@/types/elternbericht'
+import type { LeadGradeTrend, LeadStrugglingSince } from '@/types/domain'
 import type { SucheSkill, Suchweg, Themenraum } from '@/types/reportSuche'
 
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
@@ -239,6 +240,32 @@ export type ReportData = {
   nichtAuswertbarGrund?: DurchklickStand | null
   /** Der Lead der Sitzung (lsa_lead_kontext) — Ziel von „LSA wiederholen“. */
   leadId?: string | null
+  /**
+   * Bericht v2: der Anlass aus dem Erstgespräch (leads). Nur für den Admin
+   * lesbar; beim Coach oder bei Fehler null — dann entfallen die Sätze.
+   */
+  erstgespraech?: ReportErstgespraech | null
+}
+
+/** Stand der Klassenarbeit zum aktuellen Thema; null = unbekannt. */
+export type KlassenarbeitStatus = 'bevorstehend' | 'geschrieben'
+
+/** Bericht v2: was das Erstgespräch zum Anlass erfasst hat (leads). */
+export type ReportErstgespraech = {
+  /** leads.last_grade (letzte Zeugnisnote, „1“–„6“). */
+  note: string | null
+  trend: LeadGradeTrend | null
+  seit: LeadStrugglingSince | null
+  /** leads.goal — die Ziele aus dem Erstgespräch. */
+  ziele: string | null
+  /**
+   * leads.klassenarbeit_status (Migration 20261024…, noch nicht eingespielt);
+   * ohne Spalte aus next_exam_date abgeleitet (Datum ab der Sitzung →
+   * bevorstehend), sonst null.
+   */
+  klassenarbeit: KlassenarbeitStatus | null
+  /** leads.next_exam_date, ISO-Datum. */
+  klassenarbeitDatum: string | null
 }
 
 /**
@@ -310,4 +337,10 @@ export type ReportNotes = {
   zielbild: string
   empfehlung: string
   paket: ReportPaket | null
+  /**
+   * Bericht v2: der Coach hat das Paket bestätigt (lsa_report_notes.paket_bestaetigt,
+   * Migration noch nicht eingespielt). Fehlt oder false: Seite 5 zeigt den
+   * Vorschlag des Systems.
+   */
+  paketBestaetigt?: boolean
 }

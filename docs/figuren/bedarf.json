@@ -1,0 +1,7031 @@
+{
+ "stand": "2026-10-18",
+ "quelle": "dbread Produktion, nur lesend",
+ "umfang": "tasks.pruef_pilot = true",
+ "stufen": {
+  "A": "nötig",
+  "B": "hilfreich",
+  "C": "nicht nötig",
+  "D": "vorhanden, aber mangelhaft"
+ },
+ "aufgaben": [
+  {
+   "id": "0b7e781c-60ae-4a93-afb8-2ee2b400b15a",
+   "kurz": "0b7e781c",
+   "knoten": "zahl_wurzel_irrational",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Zahl- oder Zählaufgabe zu rationalen und irrationalen Zahlen, nichts Räumliches.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "54382934-12e4-4819-8dc4-5f4f5650471f",
+   "kurz": "54382934",
+   "knoten": "zahl_wurzel_irrational",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Zahl- oder Zählaufgabe zu rationalen und irrationalen Zahlen, nichts Räumliches.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "834de179-1fbd-4491-9d86-fd572310f3dd",
+   "kurz": "834de179",
+   "knoten": "zahl_wurzel_irrational",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Zahl- oder Zählaufgabe zu rationalen und irrationalen Zahlen, nichts Räumliches.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9935f4bb-1222-4ead-bf3c-6b8cfd134395",
+   "kurz": "9935f4bb",
+   "knoten": "zahl_wurzel_irrational",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Zahl- oder Zählaufgabe zu rationalen und irrationalen Zahlen, nichts Räumliches.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ae8478c7-f104-407a-a75a-087d71e20757",
+   "kurz": "ae8478c7",
+   "knoten": "zahl_wurzel_irrational",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Zahl- oder Zählaufgabe zu rationalen und irrationalen Zahlen, nichts Räumliches.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d851f251-cbe5-4804-b74d-2458c7a855af",
+   "kurz": "d851f251",
+   "knoten": "zahl_wurzel_irrational",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Zahl- oder Zählaufgabe zu rationalen und irrationalen Zahlen, nichts Räumliches.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0b9229a0-db38-4fc4-8b64-1213b5198f50",
+   "kurz": "0b9229a0",
+   "knoten": "zahl_wurzel_naeherung",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzel näherungsweise bestimmen; ein Quadrat-Kontext (Teppich, Beet) liefert nur die Fläche, eine Skizze trüge nichts zur Wurzel bei.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6585552b-bb6b-4345-98cb-d427378cdfed",
+   "kurz": "6585552b",
+   "knoten": "zahl_wurzel_naeherung",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzel näherungsweise bestimmen; ein Quadrat-Kontext (Teppich, Beet) liefert nur die Fläche, eine Skizze trüge nichts zur Wurzel bei.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "81015f65-8ac0-4ef3-abb8-9a7b87c44940",
+   "kurz": "81015f65",
+   "knoten": "zahl_wurzel_naeherung",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzel näherungsweise bestimmen; ein Quadrat-Kontext (Teppich, Beet) liefert nur die Fläche, eine Skizze trüge nichts zur Wurzel bei.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd",
+   "kurz": "9af2a3ce",
+   "knoten": "zahl_wurzel_naeherung",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzel näherungsweise bestimmen; ein Quadrat-Kontext (Teppich, Beet) liefert nur die Fläche, eine Skizze trüge nichts zur Wurzel bei.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "cd35f4b2-62da-4f01-9215-bc9504f8e67a",
+   "kurz": "cd35f4b2",
+   "knoten": "zahl_wurzel_naeherung",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzel näherungsweise bestimmen; ein Quadrat-Kontext (Teppich, Beet) liefert nur die Fläche, eine Skizze trüge nichts zur Wurzel bei.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "fde9c9a1-f05a-42ff-ab98-d94ee6894d07",
+   "kurz": "fde9c9a1",
+   "knoten": "zahl_wurzel_naeherung",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzel näherungsweise bestimmen; ein Quadrat-Kontext (Teppich, Beet) liefert nur die Fläche, eine Skizze trüge nichts zur Wurzel bei.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0bcc83c8-42f0-4956-b1d0-00446cb6e5e2",
+   "kurz": "0bcc83c8",
+   "knoten": "zahl_wurzel_teilweise",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Teilweises Wurzelziehen ist reine Termumformung; der Spielplatz liefert nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1dece473-758d-4108-9969-02b495dbf4ed",
+   "kurz": "1dece473",
+   "knoten": "zahl_wurzel_teilweise",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Teilweises Wurzelziehen ist reine Termumformung; der Spielplatz liefert nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "21427340-fc85-41c4-abea-99ad0121b83c",
+   "kurz": "21427340",
+   "knoten": "zahl_wurzel_teilweise",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Teilweises Wurzelziehen ist reine Termumformung; der Spielplatz liefert nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ad08897e-a44b-43fb-a779-96b889c069db",
+   "kurz": "ad08897e",
+   "knoten": "zahl_wurzel_teilweise",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Teilweises Wurzelziehen ist reine Termumformung; der Spielplatz liefert nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "df6b2bcd-8643-46b2-9553-db75854b597d",
+   "kurz": "df6b2bcd",
+   "knoten": "zahl_wurzel_teilweise",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Teilweises Wurzelziehen ist reine Termumformung; der Spielplatz liefert nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0",
+   "kurz": "ef90a8ac",
+   "knoten": "zahl_wurzel_teilweise",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Teilweises Wurzelziehen ist reine Termumformung; der Spielplatz liefert nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3",
+   "kurz": "4f7652bf",
+   "knoten": "zahl_wurzel_gesetze",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzelgesetze sind reine Rechnung; die Beete und das Feld liefern nur Zahlen, die Form spielt keine Rolle.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "760fc0ad-d0c6-4a09-889b-c116a2f0ff78",
+   "kurz": "760fc0ad",
+   "knoten": "zahl_wurzel_gesetze",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzelgesetze sind reine Rechnung; die Beete und das Feld liefern nur Zahlen, die Form spielt keine Rolle.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "88c99e21-a70e-42e5-b426-07e29b93d3fe",
+   "kurz": "88c99e21",
+   "knoten": "zahl_wurzel_gesetze",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzelgesetze sind reine Rechnung; die Beete und das Feld liefern nur Zahlen, die Form spielt keine Rolle.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "926f4f6e-7eca-43f5-92c2-855eff8167b4",
+   "kurz": "926f4f6e",
+   "knoten": "zahl_wurzel_gesetze",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzelgesetze sind reine Rechnung; die Beete und das Feld liefern nur Zahlen, die Form spielt keine Rolle.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a0a8c04b-145b-4010-8c46-b5c7520d54bb",
+   "kurz": "a0a8c04b",
+   "knoten": "zahl_wurzel_gesetze",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzelgesetze sind reine Rechnung; die Beete und das Feld liefern nur Zahlen, die Form spielt keine Rolle.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ce24db36-6dac-4b3f-8395-e815549a7689",
+   "kurz": "ce24db36",
+   "knoten": "zahl_wurzel_gesetze",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Wurzelgesetze sind reine Rechnung; die Beete und das Feld liefern nur Zahlen, die Form spielt keine Rolle.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "16d6e3b7-86f0-4661-b750-70bf5764e3ba",
+   "kurz": "16d6e3b7",
+   "knoten": "zahl_wurzel_quadrat",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Quadratwurzel ziehen ist reine Rechnung; der Platz und die Tischplatte liefern nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "4b3b14a9-0603-40d7-90b1-60f3517f7348",
+   "kurz": "4b3b14a9",
+   "knoten": "zahl_wurzel_quadrat",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Quadratwurzel ziehen ist reine Rechnung; der Platz und die Tischplatte liefern nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "55239bfc-349a-4285-b29e-2b1c105e6033",
+   "kurz": "55239bfc",
+   "knoten": "zahl_wurzel_quadrat",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Quadratwurzel ziehen ist reine Rechnung; der Platz und die Tischplatte liefern nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "5f9d6c06-c962-4b38-9096-4a1ab9c97292",
+   "kurz": "5f9d6c06",
+   "knoten": "zahl_wurzel_quadrat",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Quadratwurzel ziehen ist reine Rechnung; der Platz und die Tischplatte liefern nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "99b7829c-3536-4278-a84e-3dbeea10637c",
+   "kurz": "99b7829c",
+   "knoten": "zahl_wurzel_quadrat",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Quadratwurzel ziehen ist reine Rechnung; der Platz und die Tischplatte liefern nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "afc3b977-389b-4e8d-a157-9952b087c8e2",
+   "kurz": "afc3b977",
+   "knoten": "zahl_wurzel_quadrat",
+   "gruppen": [
+    "Stufe 1"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Quadratwurzel ziehen ist reine Rechnung; der Platz und die Tischplatte liefern nur die Fläche.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "01f22500-c86d-47d0-bb1d-a5f420e2de9d",
+   "kurz": "01f22500",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "25539057-46a0-473c-ab73-40d1b81edd55",
+   "kurz": "25539057",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "2fe1feb6-8551-4eb1-be91-f5092d383242",
+   "kurz": "2fe1feb6",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "451bd34e-273d-40ac-a16d-3f13d271c5fa",
+   "kurz": "451bd34e",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "59c982b3-47db-4d90-b0ba-5de9ff4a8cbd",
+   "kurz": "59c982b3",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "5c73a51d-2fb0-40c5-97c9-945ea1ad4494",
+   "kurz": "5c73a51d",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "72d61822-e5ed-49c3-8f9d-643cf94196bc",
+   "kurz": "72d61822",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "744b2ea7-ab5e-4e8f-95d2-3e029684eb9e",
+   "kurz": "744b2ea7",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "796659c3-7b6f-4ccb-a7b1-144eab486c5c",
+   "kurz": "796659c3",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "83839a0b-e05e-4ef5-a18b-4afde56e3752",
+   "kurz": "83839a0b",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "855d22d3-4995-4497-a69a-6b89bcb097e5",
+   "kurz": "855d22d3",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "89ad1d12-b903-4411-a066-76e8b68ddcac",
+   "kurz": "89ad1d12",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9ee7cbb7-5f40-4aeb-8983-ace78557d557",
+   "kurz": "9ee7cbb7",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a3343b39-bedb-491f-a214-6b6817ce2768",
+   "kurz": "a3343b39",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "aef364ee-8c7f-49af-9e55-c2c65b7e36db",
+   "kurz": "aef364ee",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "bb125765-c709-4f59-afff-4b4bd090dbbf",
+   "kurz": "bb125765",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "bbc88883-d27f-4fee-ad1a-42d664d6f47d",
+   "kurz": "bbc88883",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "c5ff0008-b3f0-4ebf-aa68-31cff48d7342",
+   "kurz": "c5ff0008",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "db07cb07-f719-4c8b-9e23-614902c6a7a4",
+   "kurz": "db07cb07",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e04a700d-23f0-4709-bf16-a4e65bca3cd2",
+   "kurz": "e04a700d",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e1aeb6a9-507a-471c-92c8-98ae592162a3",
+   "kurz": "e1aeb6a9",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e5da9c79-e34a-42f9-bc85-0e135ff90987",
+   "kurz": "e5da9c79",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e7c7b1c6-85c0-4592-8996-d9310332ce17",
+   "kurz": "e7c7b1c6",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "fd7c0327-2903-4199-a275-be6c4b46cd1e",
+   "kurz": "fd7c0327",
+   "knoten": "potenzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Potenzrechnung; beim Würfelkarton steht die Formel V = a³ im Text.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3768ecdc-2c2e-4076-b6ff-556906e5cbfe",
+   "kurz": "3768ecdc",
+   "knoten": "bruch_dezimal",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Umrechnung Bruch in Dezimalzahl.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6bdc7d4e-d6a2-494e-8649-02839c5a3bda",
+   "kurz": "6bdc7d4e",
+   "knoten": "bruch_dezimal",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Umrechnung Bruch in Dezimalzahl.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6ef85b4a-1f14-49b4-acf6-05aa01567e4f",
+   "kurz": "6ef85b4a",
+   "knoten": "bruch_dezimal",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Umrechnung Bruch in Dezimalzahl.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "80105584-06dd-4fc9-b481-ec047c7cb343",
+   "kurz": "80105584",
+   "knoten": "bruch_dezimal",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Umrechnung Bruch in Dezimalzahl.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "8ea44368-dbbd-45b4-86c5-729c90b93498",
+   "kurz": "8ea44368",
+   "knoten": "bruch_dezimal",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Umrechnung Bruch in Dezimalzahl.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "de2aabbf-8988-47d4-9f51-c4e80232b374",
+   "kurz": "de2aabbf",
+   "knoten": "bruch_dezimal",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Umrechnung Bruch in Dezimalzahl.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1debff4f-af14-4dec-89a8-4344d6966fb0",
+   "kurz": "1debff4f",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "400b8905-8ad7-4fd8-8a15-7fb6d0e37b14",
+   "kurz": "400b8905",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6b531762-47e8-4b29-aeee-ce70b560486a",
+   "kurz": "6b531762",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6fc6f305-160c-4c63-8371-de05eda0d520",
+   "kurz": "6fc6f305",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "730dae3f-afb6-49c8-baa9-53a5169a6a90",
+   "kurz": "730dae3f",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "865b6e60-271a-483b-afe2-63cdfe266e1b",
+   "kurz": "865b6e60",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "91390c63-7a79-43a0-bf60-4abc0316bc52",
+   "kurz": "91390c63",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "bdf4d10a-9cf2-4ed5-a59b-54fec4b3851f",
+   "kurz": "bdf4d10a",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "fa305352-7dcc-4e25-85dd-0cc9e201fca6",
+   "kurz": "fa305352",
+   "knoten": "dezimal_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Division; Schnur, Saft und Erde sind Sachkontext ohne Form.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0cbaacfd-cf96-40a7-a896-c198e67531fa",
+   "kurz": "0cbaacfd",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1983282b-8a5d-437f-a7dc-d8695f8a3496",
+   "kurz": "1983282b",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "21f1c9f4-2ef0-445d-937b-73c7c5d0d606",
+   "kurz": "21f1c9f4",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "24310ee2-1688-4504-a72b-5e1fa7cab2dc",
+   "kurz": "24310ee2",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3038721a-abdd-4030-b683-33b3e8d3efb9",
+   "kurz": "3038721a",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3d066cef-b5e1-45db-b560-dd86d1c5b38c",
+   "kurz": "3d066cef",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "98441ffc-3708-44cc-b8fc-d626f2819561",
+   "kurz": "98441ffc",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d183eca3-c7af-4e26-9c7a-e8dd69937346",
+   "kurz": "d183eca3",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e8e6eeb7-115f-40a1-ade1-4d4aa67a97a3",
+   "kurz": "e8e6eeb7",
+   "knoten": "dezimal_mult",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Multiplikation; bei der Fliese sind Breite und Höhe genannt, die Rechnung ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0438a9f9-bdb4-4f29-ab59-adc7946ade36",
+   "kurz": "0438a9f9",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "2e8ce53f-1357-48b2-8d76-0633ae836980",
+   "kurz": "2e8ce53f",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "38aa9504-bb48-4b1c-98e7-85d38de70108",
+   "kurz": "38aa9504",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "751f9c63-c295-4b9e-8202-6244c6fd8f05",
+   "kurz": "751f9c63",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "7db70449-d6fa-47dd-9423-1e8c75ce8c8f",
+   "kurz": "7db70449",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ba0701ff-bac1-4ae6-a6f4-b5f610a35ee7",
+   "kurz": "ba0701ff",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e58cb290-db86-40df-b60b-03aee393107b",
+   "kurz": "e58cb290",
+   "knoten": "vorzeichen_mult_div",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0bb7e6c8-6b8a-470d-8b5c-f735f5db239e",
+   "kurz": "0bb7e6c8",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0cd53103-432c-41a2-9f48-383c1f7580cd",
+   "kurz": "0cd53103",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "17eff311-f4f0-4a7a-8239-a5b29bb07721",
+   "kurz": "17eff311",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1c31db89-a9f6-40ed-b885-abfeb33683e0",
+   "kurz": "1c31db89",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "20c27486-b734-48c4-91f9-976e3256d4ec",
+   "kurz": "20c27486",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "4ff59e5f-dab3-4ef4-80bd-ad7e96e11080",
+   "kurz": "4ff59e5f",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6f816c36-cce9-4b22-81e5-add0473dad02",
+   "kurz": "6f816c36",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "865abaf9-5450-49ba-aa27-679f6b6de611",
+   "kurz": "865abaf9",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "963d2134-f512-49d2-b3b6-61fb8cb3b8ab",
+   "kurz": "963d2134",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a982bbce-ca98-4db5-ae2a-f46fbc666440",
+   "kurz": "a982bbce",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ad9cec47-c4b5-450b-b6b4-227335c639a2",
+   "kurz": "ad9cec47",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "c6e71bcf-f040-44ac-9b85-c701854f7910",
+   "kurz": "c6e71bcf",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d9d683a3-1d2d-4b72-81f6-16eaee5640e0",
+   "kurz": "d9d683a3",
+   "knoten": "runden_ueberschlag",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Runden.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "024143bf-840e-4ad5-aefe-b18c223aefcf",
+   "kurz": "024143bf",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0cb5d1f1-8b64-4bc7-afbe-855c688a9773",
+   "kurz": "0cb5d1f1",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "172db197-48cf-4afd-9e59-a57c8bc29b55",
+   "kurz": "172db197",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "20321d30-58db-4218-96b3-d035bca32573",
+   "kurz": "20321d30",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "2084724c-6537-4b1a-81c4-946ca9eeb974",
+   "kurz": "2084724c",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "37a501b6-a8b1-4651-afcd-ee974d78e031",
+   "kurz": "37a501b6",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "5699500a-7b14-4f91-9039-6226dc176587",
+   "kurz": "5699500a",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6a8e9bc1-3e90-4815-b294-149aae9de23a",
+   "kurz": "6a8e9bc1",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a07cbf96-8bca-4a36-b89b-8752db0bfd34",
+   "kurz": "a07cbf96",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "be8ce7e4-d8f2-4b45-b6b1-447b102cf500",
+   "kurz": "be8ce7e4",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "da4f1646-c1f7-4a59-a0db-b712208565e3",
+   "kurz": "da4f1646",
+   "knoten": "dezimal_add_sub",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Addition oder Subtraktion.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1244b84c-781d-47cb-8c73-eaa5543b1ce0",
+   "kurz": "1244b84c",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "2e40939a-e791-4615-8813-79812e1faa2c",
+   "kurz": "2e40939a",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "41004d1a-6ab3-4556-a1a2-778ea2450471",
+   "kurz": "41004d1a",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9a6bf378-2cd4-4ca5-afeb-bb856d5853f8",
+   "kurz": "9a6bf378",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9a70682a-428d-4b75-8567-e5d9f7cb607e",
+   "kurz": "9a70682a",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b7fbaaca-e478-4aeb-b9d1-c637494234d8",
+   "kurz": "b7fbaaca",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "bba44bae-beda-4a25-8fdc-e7a303e991c8",
+   "kurz": "bba44bae",
+   "knoten": "bruch_kuerzen",
+   "gruppen": [
+    "Stufe 2"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reines Kürzen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "17674b19-fe14-42ca-98db-6598fa8c5a3a",
+   "kurz": "17674b19",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "27f51c08-6a47-4ceb-b189-f5f07cbcf1cf",
+   "kurz": "27f51c08",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3b44eada-3589-4bdb-a33b-2fb2ca0a1726",
+   "kurz": "3b44eada",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3e6fb055-111e-4888-9177-d2b17dd0fc54",
+   "kurz": "3e6fb055",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "738de19f-d3c9-43a0-b5ce-af6e30752c75",
+   "kurz": "738de19f",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "c92aa7e8-1e2d-4c80-a1fc-0fe4fedd86b0",
+   "kurz": "c92aa7e8",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e96cd37d-0254-4051-bf2d-71a6f7fa2aaf",
+   "kurz": "e96cd37d",
+   "knoten": "vorzeichen_add_sub",
+   "gruppen": [
+    "Stufe 2",
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Vorzeichenrechnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "02b24419-d7e8-40b8-8b74-ef3b4e806b3f",
+   "kurz": "02b24419",
+   "knoten": "term_ausklammern",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "4baeeda9-3985-4a80-8fd0-ecf8bbcfd6af",
+   "kurz": "4baeeda9",
+   "knoten": "term_ausklammern",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "65841bd8-ee27-454f-b2a4-ea6f1bb0db33",
+   "kurz": "65841bd8",
+   "knoten": "term_ausklammern",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "81f97d0e-1e95-4bbd-bc6a-d05149786c58",
+   "kurz": "81f97d0e",
+   "knoten": "term_ausklammern",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b15b6be0-1b87-477d-bd88-23b095501581",
+   "kurz": "b15b6be0",
+   "knoten": "term_ausklammern",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ea237a07-681d-4680-bcd0-d94316c899e9",
+   "kurz": "ea237a07",
+   "knoten": "term_ausklammern",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "152bcdcd-897b-452b-9a8f-402375540a3f",
+   "kurz": "152bcdcd",
+   "knoten": "gleichung_einschrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "4f6f7cdd-3415-4185-8eae-95083d061b71",
+   "kurz": "4f6f7cdd",
+   "knoten": "gleichung_einschrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6fc6928a-6ae3-4c32-9c2e-b9a20451b97c",
+   "kurz": "6fc6928a",
+   "knoten": "gleichung_einschrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "bfd877b9-cd3e-490c-82ad-0274b4f85a8b",
+   "kurz": "bfd877b9",
+   "knoten": "gleichung_einschrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d19c8070-85d9-44cc-b4cc-eac3e06010d0",
+   "kurz": "d19c8070",
+   "knoten": "gleichung_einschrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "fbd28765-b198-4ff6-bdbe-de9ccc5202de",
+   "kurz": "fbd28765",
+   "knoten": "gleichung_einschrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "17f3e728-2249-42ba-b5bf-c2a4b344dd00",
+   "kurz": "17f3e728",
+   "knoten": "gleichung_zweischrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "7976c81f-9b0b-46d8-a0d1-b5b6cc3bc992",
+   "kurz": "7976c81f",
+   "knoten": "gleichung_zweischrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9d15a93e-961b-4569-be8b-c4482dc98301",
+   "kurz": "9d15a93e",
+   "knoten": "gleichung_zweischrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b01451c0-53e5-4da7-9591-280448264835",
+   "kurz": "b01451c0",
+   "knoten": "gleichung_zweischrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e8348c89-67cb-4650-be91-235e69321776",
+   "kurz": "e8348c89",
+   "knoten": "gleichung_zweischrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ff5710af-0c0a-47e5-9a57-b2a5bb4ef82d",
+   "kurz": "ff5710af",
+   "knoten": "gleichung_zweischrittig",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+   "kurz": "3a42b89c",
+   "knoten": "gleichung_quadr_wurzel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Fläche und Verlängerung stehen im Text, die Gleichung ist die Fertigkeit; die Skizze zeigt, dass jede Seite um dasselbe Stück wächst.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: rechtecke",
+    "params": {
+     "teile": [
+      {
+       "name": "altes Quadrat",
+       "seite_text": "?"
+      },
+      {
+       "name": "neues Quadrat",
+       "zusatz_text": "3 cm",
+       "flaeche_text": "121 cm²"
+      }
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Kleines Quadrat mit „?“ an der Seite, in einer Ecke eines größeren Quadrats; an zwei Seiten das Zusatzstück „3 cm“; im großen Quadrat „121 cm²“.",
+    "nicht": "Nicht die Seite des großen Quadrats („11 cm“ ist ein Lösungsschritt), keine Beschriftung „x + 3“, kein Gitter.",
+    "beschriftung": "„?“, „3 cm“ (zweimal), „121 cm²“.",
+    "alt": "Ein kleines Quadrat mit unbekannter Seitenlänge liegt in der Ecke eines größeren Quadrats. Das große Quadrat ist an zwei Seiten um dasselbe Stück länger, sein Flächeninhalt steht in der Mitte."
+   }
+  },
+  {
+   "id": "4d1a2438-3610-4dc9-b5be-8d35cb5199bd",
+   "kurz": "4d1a2438",
+   "knoten": "gleichung_quadr_wurzel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "504bbd98-9c80-4124-a66a-9dc7b6651bb9",
+   "kurz": "504bbd98",
+   "knoten": "gleichung_quadr_wurzel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9264f90a-1f7b-4170-97da-198c1acc89a3",
+   "kurz": "9264f90a",
+   "knoten": "gleichung_quadr_wurzel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "bc0cdfe9-2416-4d02-a623-feb820083f07",
+   "kurz": "bc0cdfe9",
+   "knoten": "gleichung_quadr_wurzel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "cd6693f5-cc93-4628-baf9-f45436706641",
+   "kurz": "cd6693f5",
+   "knoten": "gleichung_quadr_wurzel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1c4a31af-20bc-4348-b8d9-cd83b273ff38",
+   "kurz": "1c4a31af",
+   "knoten": "gleichung_quadr_faktor",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung oder Term steht fertig da; ein Graph der Wurfhöhe würde die Nullstellen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "90635757-ba7c-4bde-bd7c-04bd79bf8c35",
+   "kurz": "90635757",
+   "knoten": "gleichung_quadr_faktor",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung oder Term steht fertig da; ein Graph der Wurfhöhe würde die Nullstellen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9879542e-bb69-41c6-a77f-3916a26ffad1",
+   "kurz": "9879542e",
+   "knoten": "gleichung_quadr_faktor",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung oder Term steht fertig da; ein Graph der Wurfhöhe würde die Nullstellen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b47ef7d3-1933-416f-8fe8-edcbc8fe8929",
+   "kurz": "b47ef7d3",
+   "knoten": "gleichung_quadr_faktor",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung oder Term steht fertig da; ein Graph der Wurfhöhe würde die Nullstellen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "c3be2e88-1087-479f-bf95-9dbd732efa56",
+   "kurz": "c3be2e88",
+   "knoten": "gleichung_quadr_faktor",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung oder Term steht fertig da; ein Graph der Wurfhöhe würde die Nullstellen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d7d81e80-6776-4308-a690-29675f7882d4",
+   "kurz": "d7d81e80",
+   "knoten": "gleichung_quadr_faktor",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung oder Term steht fertig da; ein Graph der Wurfhöhe würde die Nullstellen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee",
+   "kurz": "1271aabc",
+   "knoten": "gleichung_quadr_formel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1f2a206f-1f63-4866-b446-c8305de6b725",
+   "kurz": "1f2a206f",
+   "knoten": "gleichung_quadr_formel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "43f39bc1-e7b4-48e6-8b77-ff8e41e77142",
+   "kurz": "43f39bc1",
+   "knoten": "gleichung_quadr_formel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "5b36238f-c64c-4578-bd63-55249f185c78",
+   "kurz": "5b36238f",
+   "knoten": "gleichung_quadr_formel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": null,
+   "begruendung": "Ein Weg „rundherum, überall gleich breit“ ist eine Lage, die das Kind erst konstruieren muss; dass das Beet auf beiden Seiten um die doppelte Wegbreite wächst, ist ohne Bild vor allem eine Leseaufgabe.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: rechtecke",
+    "params": {
+     "teile": [
+      {
+       "name": "Beet",
+       "laenge_text": "20 m",
+       "breite_text": "15 m"
+      },
+      {
+       "name": "Weg",
+       "rahmen": true,
+       "breite_text": "?"
+      }
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Rechteckiges Beet „20 m“ × „15 m“, ringsum ein gleich breiter Rahmen (Weg), Wegbreite an einer Stelle mit „?“.",
+    "nicht": "Keine Außenmaße („20 + 2x“ ist der Lösungsschritt), die 500 m² nicht im Bild, kein Gitter, nicht maßstäblich (die Wegbreite wäre sonst messbar).",
+    "beschriftung": "„20 m“, „15 m“, „?“ an der Wegbreite.",
+    "alt": "Ein rechteckiges Beet, an dessen Seiten die Länge steht. Ringsum verläuft ein überall gleich breiter Weg, seine Breite ist gesucht."
+   }
+  },
+  {
+   "id": "725448a1-10e2-4e88-beb8-fe57f6e54d06",
+   "kurz": "725448a1",
+   "knoten": "gleichung_quadr_formel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b6e77404-2577-4e03-b4ce-cb61a5f6a5f9",
+   "kurz": "b6e77404",
+   "knoten": "gleichung_quadr_formel",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0c3d2396-131a-4cba-bd07-4597d92500cf",
+   "kurz": "0c3d2396",
+   "knoten": "gleichung_quadr_anzahl",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da; ein Parabelgraph würde die Anzahl der Lösungen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "56540a88-7b9e-4935-8702-26f9415e9d14",
+   "kurz": "56540a88",
+   "knoten": "gleichung_quadr_anzahl",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da; ein Parabelgraph würde die Anzahl der Lösungen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "95077a87-7e8a-4463-83b0-dbbf6facc879",
+   "kurz": "95077a87",
+   "knoten": "gleichung_quadr_anzahl",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da; ein Parabelgraph würde die Anzahl der Lösungen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9f9ab204-2b5e-49d7-aaab-28ddc96ea8b5",
+   "kurz": "9f9ab204",
+   "knoten": "gleichung_quadr_anzahl",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da; ein Parabelgraph würde die Anzahl der Lösungen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a549083d-c72d-44d6-9aba-a138ad6d2dc0",
+   "kurz": "a549083d",
+   "knoten": "gleichung_quadr_anzahl",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da; ein Parabelgraph würde die Anzahl der Lösungen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ef911123-949d-4ea9-a61d-beef95cc8dc0",
+   "kurz": "ef911123",
+   "knoten": "gleichung_quadr_anzahl",
+   "gruppen": [
+    "Session"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichung steht fertig da; ein Parabelgraph würde die Anzahl der Lösungen zeigen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "07f970aa-ff64-4158-a713-9943054621a0",
+   "kurz": "07f970aa",
+   "knoten": "fkt_linear_gleichung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Steigung und Achsenabschnitt oder zwei Punkte stehen im Text; die Gleichung aufzustellen ist die Fertigkeit, ein Graph würde f(x) ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1bbce78e-f996-4c03-a78a-09b47f5c7445",
+   "kurz": "1bbce78e",
+   "knoten": "fkt_linear_gleichung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Steigung und Achsenabschnitt oder zwei Punkte stehen im Text; die Gleichung aufzustellen ist die Fertigkeit, ein Graph würde f(x) ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "55d52e3e-cdd5-4e3c-9929-fb82aac16d33",
+   "kurz": "55d52e3e",
+   "knoten": "fkt_linear_gleichung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Steigung und Achsenabschnitt oder zwei Punkte stehen im Text; die Gleichung aufzustellen ist die Fertigkeit, ein Graph würde f(x) ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a61e8be9-b55f-4c43-9971-7b74e3d55a33",
+   "kurz": "a61e8be9",
+   "knoten": "fkt_linear_gleichung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Steigung und Achsenabschnitt oder zwei Punkte stehen im Text; die Gleichung aufzustellen ist die Fertigkeit, ein Graph würde f(x) ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b0f1b654-75da-4811-b7b4-065712b6e347",
+   "kurz": "b0f1b654",
+   "knoten": "fkt_linear_gleichung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Steigung und Achsenabschnitt oder zwei Punkte stehen im Text; die Gleichung aufzustellen ist die Fertigkeit, ein Graph würde f(x) ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ffc76634-86ca-4c53-b816-d18d7f868443",
+   "kurz": "ffc76634",
+   "knoten": "fkt_linear_gleichung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Steigung und Achsenabschnitt oder zwei Punkte stehen im Text; die Gleichung aufzustellen ist die Fertigkeit, ein Graph würde f(x) ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "438b3001-2778-4fec-be77-75354c88e454",
+   "kurz": "438b3001",
+   "knoten": "fkt_linear_steigung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Zwei Punkte oder zwei Wertepaare stehen im Text; ein Steigungsdreieck im Bild würde die Lösung vorwegnehmen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "7cd1b9af-433f-459f-90a6-cf241c245739",
+   "kurz": "7cd1b9af",
+   "knoten": "fkt_linear_steigung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Zwei Punkte oder zwei Wertepaare stehen im Text; ein Steigungsdreieck im Bild würde die Lösung vorwegnehmen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9f8674f1-2917-4082-ad94-20b3af6c84c0",
+   "kurz": "9f8674f1",
+   "knoten": "fkt_linear_steigung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Zwei Punkte oder zwei Wertepaare stehen im Text; ein Steigungsdreieck im Bild würde die Lösung vorwegnehmen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a0451e78-948c-4ef6-90ce-50a16fed9f39",
+   "kurz": "a0451e78",
+   "knoten": "fkt_linear_steigung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Zwei Punkte oder zwei Wertepaare stehen im Text; ein Steigungsdreieck im Bild würde die Lösung vorwegnehmen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d8958025-3016-4995-8011-6ad2abe63fe5",
+   "kurz": "d8958025",
+   "knoten": "fkt_linear_steigung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Zwei Punkte oder zwei Wertepaare stehen im Text; ein Steigungsdreieck im Bild würde die Lösung vorwegnehmen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ffc758dc-dcdb-4b66-9281-4563b18c2dc8",
+   "kurz": "ffc758dc",
+   "knoten": "fkt_linear_steigung",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Zwei Punkte oder zwei Wertepaare stehen im Text; ein Steigungsdreieck im Bild würde die Lösung vorwegnehmen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1c170c59-3c96-4767-b731-6d954e127025",
+   "kurz": "1c170c59",
+   "knoten": "fkt_linear_yabschnitt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Funktionsgleichung oder Punkt und Steigung stehen im Text; ein Graph würde den Achsenabschnitt ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "871303c4-dcdb-4573-9dfb-6e3ca2085426",
+   "kurz": "871303c4",
+   "knoten": "fkt_linear_yabschnitt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Funktionsgleichung oder Punkt und Steigung stehen im Text; ein Graph würde den Achsenabschnitt ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "c2f24a82-07ce-4db6-bdcb-f667e34f2439",
+   "kurz": "c2f24a82",
+   "knoten": "fkt_linear_yabschnitt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Funktionsgleichung oder Punkt und Steigung stehen im Text; ein Graph würde den Achsenabschnitt ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "de54e58b-fac9-4341-b38e-88c5233a90d3",
+   "kurz": "de54e58b",
+   "knoten": "fkt_linear_yabschnitt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Funktionsgleichung oder Punkt und Steigung stehen im Text; ein Graph würde den Achsenabschnitt ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e4611c3d-02b9-4a0b-8e42-795f8a15a925",
+   "kurz": "e4611c3d",
+   "knoten": "fkt_linear_yabschnitt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Funktionsgleichung oder Punkt und Steigung stehen im Text; ein Graph würde den Achsenabschnitt ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "fa6fb2c7-da7b-44be-a425-f7dc8e06af6a",
+   "kurz": "fa6fb2c7",
+   "knoten": "fkt_linear_yabschnitt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Funktionsgleichung oder Punkt und Steigung stehen im Text; ein Graph würde den Achsenabschnitt ablesbar machen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "18dbb731-98be-4b90-a8c2-5773114de6c6",
+   "kurz": "18dbb731",
+   "knoten": "term_binom_faktorisieren",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "88ca2551-82bf-4ca3-b971-32cd4292a146",
+   "kurz": "88ca2551",
+   "knoten": "term_binom_faktorisieren",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9be9bb9c-a5b5-482e-bd76-51599553d61b",
+   "kurz": "9be9bb9c",
+   "knoten": "term_binom_faktorisieren",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9d904128-a0ae-449c-b7de-e1c57c8238c5",
+   "kurz": "9d904128",
+   "knoten": "term_binom_faktorisieren",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b2bc0cfc-d927-4a29-aca4-4686606d9466",
+   "kurz": "b2bc0cfc",
+   "knoten": "term_binom_faktorisieren",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "e4a18d51-9545-4f17-b1aa-10dc72c35cd3",
+   "kurz": "e4a18d51",
+   "knoten": "term_binom_faktorisieren",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "1c519bed-37b4-4322-9668-849b4756efcf",
+   "kurz": "1c519bed",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "79c7a940-7a41-4b6b-b4ff-ce464425c758",
+   "kurz": "79c7a940",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "8c4a2d71-0e9b-4f36-b5a8-6d1f3e7c9a24",
+   "kurz": "8c4a2d71",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261",
+   "kurz": "b7ac3c73",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "c31fdbb1-9a48-4cd8-9b0c-35393af84330",
+   "kurz": "c31fdbb1",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "dd4db5a2-2e96-4a93-b1c0-fca052b144ca",
+   "kurz": "dd4db5a2",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "f8364853-03fa-4d7e-807c-b0a20dbe09e3",
+   "kurz": "f8364853",
+   "knoten": "term_binom_gemischt",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Seitenlängen stehen im Text, die binomische Rechnung ist die Fertigkeit; eine Skizze macht klar, dass die Beetfläche abgezogen wird.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: rechtecke",
+    "params": {
+     "teile": [
+      {
+       "name": "Grundstück",
+       "seite_text": "(x + 3) m"
+      },
+      {
+       "name": "Beet",
+       "seite_text": "(x - 1) m",
+       "lage": "ecke_unten_links",
+       "hervorgehoben": true
+      }
+     ],
+     "restflaeche_markiert": true,
+     "massstaeblich": false
+    },
+    "sichtbar": "Großes Quadrat „(x + 3) m“, in einer Ecke ein kleineres Quadrat „(x - 1) m“ abgesetzt, die Restfläche getönt.",
+    "nicht": "Nicht die Breite des Reststreifens („4 m“ wäre ein Lösungsschritt), keine Zerlegung der Restfläche, kein Gitter.",
+    "beschriftung": "„(x + 3) m“, „(x - 1) m“, Minus wie im Aufgabentext.",
+    "alt": "Ein quadratisches Grundstück, in einer Ecke ist ein kleineres quadratisches Beet abgetrennt. Beide Seitenlängen sind als Term mit x beschriftet, die Restfläche ist getönt."
+   }
+  },
+  {
+   "id": "3b1e6f0a-5c2d-4e8b-9f71-2a6d0c4b8e13",
+   "kurz": "3b1e6f0a",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "513d03bd-0d8d-4f0a-9e99-ea63b38b8587",
+   "kurz": "513d03bd",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Ein Quadrat mit Seite (x + 4) trägt nichts bei; eine Aufteilung in x und vier wäre der Beweis der binomischen Formel und nähme die Lösung vorweg.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "9a598424-963b-4981-91ad-9a81cead51f4",
+   "kurz": "9a598424",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ae6fa0b8-283c-4570-b9d2-6271c17e3384",
+   "kurz": "ae6fa0b8",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "de60d4ff-c473-4358-b050-85a54dd903a1",
+   "kurz": "de60d4ff",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ebd05f6f-2ab0-41ad-bac3-16c075fc2592",
+   "kurz": "ebd05f6f",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa",
+   "kurz": "f54b2f2c",
+   "knoten": "term_binom_quadrat",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": true,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "113aea0a-276a-4042-b634-805ef1e11db2",
+   "kurz": "113aea0a",
+   "knoten": "term_binom_quadratdifferenz",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Änderungen stehen im Text, die dritte binomische Formel ist die Fertigkeit; die Skizze macht sichtbar, welche Seite länger und welche kürzer wird.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: rechtecke",
+    "params": {
+     "teile": [
+      {
+       "name": "Quadrat",
+       "seite_text": "x m",
+       "gestrichelt": true
+      },
+      {
+       "name": "Rechteck",
+       "verlaengert_text": "5 m",
+       "verkuerzt_text": "5 m"
+      }
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Ursprüngliches Quadrat gestrichelt mit „x m“, darüber das neue Rechteck: eine Seite um ein Stück „5 m“ verlängert, die andere um „5 m“ gekürzt (gekürztes Stück schraffiert).",
+    "nicht": "Keine Beschriftung „x + 5“ oder „x − 5“ an den neuen Seiten (das ist der Übersetzungsschritt), kein Gitter.",
+    "beschriftung": "„x m“, „5 m“ (Verlängerung), „5 m“ (Kürzung).",
+    "alt": "Ein gestricheltes Quadrat mit der Seitenlänge x. Darüber ein Rechteck, bei dem eine Seite um ein Stück verlängert und die andere um ein gleich langes Stück gekürzt ist."
+   }
+  },
+  {
+   "id": "293413f8-8e31-4f0b-b64e-7ac2a183606e",
+   "kurz": "293413f8",
+   "knoten": "term_binom_quadratdifferenz",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "7e027634-1c45-4c70-8357-198dad0f1797",
+   "kurz": "7e027634",
+   "knoten": "term_binom_quadratdifferenz",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "94492e5a-3627-4f45-b628-41d06114a7a4",
+   "kurz": "94492e5a",
+   "knoten": "term_binom_quadratdifferenz",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "d47b8793-7e82-4036-9173-d446c554b907",
+   "kurz": "d47b8793",
+   "knoten": "term_binom_quadratdifferenz",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "eb3f28da-155b-49fc-aa17-1abfd882a373",
+   "kurz": "eb3f28da",
+   "knoten": "term_binom_quadratdifferenz",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Reine Termumformung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "04167489-16b6-4f8e-bd85-5aff2f8433a9",
+   "kurz": "04167489",
+   "knoten": "gleichung_lgs_addition",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb",
+   "kurz": "5fcdd8c8",
+   "knoten": "gleichung_lgs_addition",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "8a6667f5-f069-4df5-8411-c4533e44b757",
+   "kurz": "8a6667f5",
+   "knoten": "gleichung_lgs_addition",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "b0a46ab7-8546-455a-af17-41d97b6da549",
+   "kurz": "b0a46ab7",
+   "knoten": "gleichung_lgs_addition",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ca914e37-5069-4fe6-bbec-d3965feca69a",
+   "kurz": "ca914e37",
+   "knoten": "gleichung_lgs_addition",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "ffd185a0-239d-4e19-8600-87934606fffc",
+   "kurz": "ffd185a0",
+   "knoten": "gleichung_lgs_addition",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "158c874c-248c-40ed-b8b5-af3eb627517a",
+   "kurz": "158c874c",
+   "knoten": "gleichung_lgs_einsetzen",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9",
+   "kurz": "59fc7bef",
+   "knoten": "gleichung_lgs_einsetzen",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "686a3356-9cec-46b5-9625-24e8b3159661",
+   "kurz": "686a3356",
+   "knoten": "gleichung_lgs_einsetzen",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6ffa3e34-6e9c-4b46-b615-0ea96683fa4f",
+   "kurz": "6ffa3e34",
+   "knoten": "gleichung_lgs_einsetzen",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "8ccd8989-eb3b-4954-bcb6-5bd202d6710e",
+   "kurz": "8ccd8989",
+   "knoten": "gleichung_lgs_einsetzen",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "fd5eeb1f-97c2-49a8-ba75-d620da074fc2",
+   "kurz": "fd5eeb1f",
+   "knoten": "gleichung_lgs_einsetzen",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Gleichungen stehen im Text oder sind aus dem Sachtext aufzustellen; das Verfahren ist rechnerisch.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0315634a-9c1d-4961-b214-07617add2874",
+   "kurz": "0315634a",
+   "knoten": "gleichung_lgs_grafisch",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": {
+    "generator": "koordinatensystem",
+    "params": {
+     "x_max": 8,
+     "x_min": -1,
+     "y_max": 9,
+     "y_min": -1,
+     "funktionen": [
+      {
+       "b": 2,
+       "m": 1,
+       "typ": "linear",
+       "label": "f"
+      },
+      {
+       "b": 4,
+       "m": 0.5,
+       "typ": "linear",
+       "label": "g"
+      }
+     ]
+    },
+    "alt_text": "Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g.",
+    "befund": "ok"
+   },
+   "begruendung": "„Lies ab“: Die Aufgabe ist ohne die Geraden nicht lösbar; die vorhandene Figur passt (Schnittpunkt bei Leihdauer vier, Kosten sechs wie in correct_answers).",
+   "hinweis": "Kein Mangel, nur Verbesserung für F2: x_min = -1 zeigt eine negative Leihdauer, die Achsen heißen x und y statt Stunden und €. Kein D, weil Text und Teilaufgaben die Achsen erklären.",
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "4888b388-56c9-4c9a-8388-46367317b245",
+   "kurz": "4888b388",
+   "knoten": "gleichung_lgs_grafisch",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "A",
+   "figur_vorhanden": {
+    "generator": "koordinatensystem",
+    "params": {
+     "x_max": 5,
+     "x_min": -5,
+     "y_max": 5,
+     "y_min": -5,
+     "funktionen": [
+      {
+       "b": 2,
+       "m": 0.5,
+       "typ": "linear",
+       "label": "f"
+      },
+      {
+       "b": -1,
+       "m": 0.5,
+       "typ": "linear",
+       "label": "g"
+      }
+     ]
+    },
+    "alt_text": "Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g.",
+    "befund": "ok"
+   },
+   "begruendung": "Lösungsanzahl wird an den gezeichneten Geraden bestimmt; die Figur zeigt zwei Parallelen, passend zu „keine Lösung“.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "49e51e4e-c935-489b-af30-a41f8d0a932f",
+   "kurz": "49e51e4e",
+   "knoten": "gleichung_lgs_grafisch",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Gleichungen stehen im Text; eine Zeichnung zeigte zwei aufeinanderliegende Geraden und damit die Lösung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "635ae61a-bd3c-4180-9a0f-c47f66e6bc62",
+   "kurz": "635ae61a",
+   "knoten": "gleichung_lgs_grafisch",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": {
+    "generator": "koordinatensystem",
+    "params": {
+     "x_max": 5,
+     "x_min": -5,
+     "y_max": 5,
+     "y_min": -5,
+     "funktionen": [
+      {
+       "b": 1,
+       "m": 1,
+       "typ": "linear",
+       "label": "f"
+      },
+      {
+       "b": 4,
+       "m": -0.5,
+       "typ": "linear",
+       "label": "g"
+      }
+     ]
+    },
+    "alt_text": "Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g.",
+    "befund": "ok"
+   },
+   "begruendung": "„Lies … ab“ ohne Gleichungen im Text; die Figur schneidet bei (2|3), passend zu correct_answers.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "6bc7dd64-72ef-461c-b6cc-661ef4f08c78",
+   "kurz": "6bc7dd64",
+   "knoten": "gleichung_lgs_grafisch",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": {
+    "generator": "koordinatensystem",
+    "params": {
+     "x_max": 5,
+     "x_min": -5,
+     "y_max": 5,
+     "y_min": -5,
+     "funktionen": [
+      {
+       "b": 1,
+       "m": 1,
+       "typ": "linear",
+       "label": "f"
+      },
+      {
+       "b": -2,
+       "m": -0.5,
+       "typ": "linear",
+       "label": "g"
+      }
+     ]
+    },
+    "alt_text": "Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g.",
+    "befund": "ok"
+   },
+   "begruendung": "„Lies … ab“ ohne Gleichungen im Text; die Figur schneidet bei (-2|-1), passend zu correct_answers.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "a4edd0b8-6298-45c2-b050-72d8d32c91ba",
+   "kurz": "a4edd0b8",
+   "knoten": "gleichung_lgs_grafisch",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MULTI_PART",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": {
+    "generator": "koordinatensystem",
+    "params": {
+     "x_max": 7,
+     "x_min": -2,
+     "y_max": 6,
+     "y_min": -3,
+     "funktionen": [
+      {
+       "b": -1,
+       "m": 0.5,
+       "typ": "linear",
+       "label": "f"
+      },
+      {
+       "b": 5,
+       "m": -1,
+       "typ": "linear",
+       "label": "g"
+      }
+     ]
+    },
+    "alt_text": "Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g.",
+    "befund": "ok"
+   },
+   "begruendung": "„Mithilfe der Zeichnung“ ohne Gleichungen im Text; die Figur schneidet bei (4|1), passend zu correct_answers.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "0802547a-2b81-4d03-8c5c-941705076285",
+   "kurz": "0802547a",
+   "knoten": "geo_flaeche_drachen_raute",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Diagonalen der Fliese stehen im Text, die Formel ist die Fertigkeit; eine Raute mit Diagonalen erleichtert die Zuordnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: viereck_diagonalen",
+    "params": {
+     "form": "raute",
+     "e": 20,
+     "f": 12,
+     "einheit": "cm",
+     "masse": [
+      "e",
+      "f"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Eine Fliese als Raute, beide Diagonalen gestrichelt, Maße „20 cm“ und „12 cm“ an den Diagonalen.",
+    "nicht": "Nicht die ganze Wand und nicht die Anzahl der Fliesen (die Multiplikation mit vierzig ist Teil der Aufgabe). Keine Fläche, kein Gitter.",
+    "beschriftung": "„20 cm“, „12 cm“.",
+    "alt": "Eine rautenförmige Fliese mit ihren beiden gestrichelten Diagonalen, an beiden Diagonalen steht die Länge."
+   }
+  },
+  {
+   "id": "6274f6a5-65e5-40f4-be09-36fa8931c424",
+   "kurz": "6274f6a5",
+   "knoten": "geo_flaeche_drachen_raute",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beispiel aus dem Auftrag: e, f und die Seite stehen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: viereck_diagonalen",
+    "params": {
+     "form": "raute",
+     "e": 24,
+     "f": 10,
+     "seite": 13,
+     "einheit": "cm",
+     "masse": [
+      "e",
+      "f",
+      "seite"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Raute mit beiden Diagonalen e und f gestrichelt, Maße an e und f, an einer Seite „13 cm“ (Ablenker aus dem Text).",
+    "nicht": "Keine Höhe, kein Rechter-Winkel-Zeichen am Diagonalenschnittpunkt nötig, kein Gitter.",
+    "beschriftung": "„e = 24 cm“, „f = 10 cm“, „13 cm“ an einer Seite.",
+    "alt": "Eine Raute mit den beiden gestrichelten Diagonalen e und f. An den Diagonalen und an einer Seite steht die Länge."
+   }
+  },
+  {
+   "id": "7cfb5d9f-a6d9-48d5-85e1-d470eee978c7",
+   "kurz": "7cfb5d9f",
+   "knoten": "geo_flaeche_drachen_raute",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Stablängen stehen im Text, und der Text sagt selbst, dass sie die Diagonalen sind; eine Skizze erleichtert die Zuordnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: viereck_diagonalen",
+    "params": {
+     "form": "drachen",
+     "e": 90,
+     "f": 60,
+     "einheit": "cm",
+     "e_name": "Längsstab",
+     "f_name": "Querstab",
+     "masse": [
+      "e",
+      "f"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Drachenviereck mit senkrechtem Längsstab und waagerechtem Querstab als Diagonalen, Maße „90 cm“ und „60 cm“.",
+    "nicht": "Keine Seitenlängen, kein Schwanz, kein Gitter. Wo sich die Stäbe kreuzen, nennt der Text nicht; die Skizze wählt eine übliche Lage im oberen Drittel und beschriftet die Teilstrecken nicht.",
+    "beschriftung": "„Längsstab 90 cm“, „Querstab 60 cm“.",
+    "alt": "Ein Drachen in Form eines Drachenvierecks mit einem senkrechten Längsstab und einem waagerechten Querstab. An beiden Stäben steht die Länge."
+   }
+  },
+  {
+   "id": "c1440c89-6139-41c2-9aac-6f65cf638e2f",
+   "kurz": "c1440c89",
+   "knoten": "geo_flaeche_drachen_raute",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beispiel aus dem Auftrag (Drachen mit e und f): alle Größen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: viereck_diagonalen",
+    "params": {
+     "form": "drachen",
+     "e": 8,
+     "f": 6,
+     "einheit": "cm",
+     "masse": [
+      "e",
+      "f"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Drachenviereck mit gestrichelten Diagonalen e und f und deren Maßen.",
+    "nicht": "Keine Seitenlängen, kein Gitter.",
+    "beschriftung": "„e = 8 cm“, „f = 6 cm“.",
+    "alt": "Ein Drachenviereck mit den beiden gestrichelten Diagonalen e und f, an beiden steht die Länge."
+   }
+  },
+  {
+   "id": "ef5c0139-1f43-4f58-9395-11b5e84364d0",
+   "kurz": "ef5c0139",
+   "knoten": "geo_flaeche_drachen_raute",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Größen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: viereck_diagonalen",
+    "params": {
+     "form": "drachen",
+     "e": 7.5,
+     "f": 4.8,
+     "einheit": "cm",
+     "masse": [
+      "e",
+      "f"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Drachenviereck mit gestrichelten Diagonalen e und f und deren Maßen.",
+    "nicht": "Keine Seitenlängen, kein Gitter.",
+    "beschriftung": "„e = 7,5 cm“, „f = 4,8 cm“ (Dezimalkomma).",
+    "alt": "Ein Drachenviereck mit den beiden gestrichelten Diagonalen e und f, an beiden steht die Länge."
+   }
+  },
+  {
+   "id": "f8054c53-9d2a-4d33-88b4-c3086fa96bfd",
+   "kurz": "f8054c53",
+   "knoten": "geo_flaeche_drachen_raute",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Größen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: viereck_diagonalen",
+    "params": {
+     "form": "raute",
+     "e": 10,
+     "f": 7,
+     "einheit": "cm",
+     "masse": [
+      "e",
+      "f"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Raute mit gestrichelten Diagonalen e und f und deren Maßen.",
+    "nicht": "Keine Seitenlängen, kein Gitter.",
+    "beschriftung": "„e = 10 cm“, „f = 7 cm“.",
+    "alt": "Eine Raute mit den beiden gestrichelten Diagonalen e und f, an beiden steht die Länge."
+   }
+  },
+  {
+   "id": "10f112ad-b1cc-4690-8925-773ef92d20e3",
+   "kurz": "10f112ad",
+   "knoten": "geo_flaeche_term",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Grundseite und Höhe stehen im Text, die Dreiecksformel mit Term ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "dreieck (Spec specs/active/figur-dreieck.md, noch nicht gebaut) + Term-Beschriftung",
+    "params": {
+     "art": "beliebig",
+     "grundseite_text": "(x + 4) cm",
+     "hoehe_text": "6 cm",
+     "massstaeblich": false
+    },
+    "sichtbar": "Dreieck mit waagerechter Grundseite „(x + 4) cm“ und gestrichelter Höhe „6 cm“.",
+    "nicht": "Kein Gitter, keine Zerlegung in Teildreiecke, kein Rechteck drumherum (das wäre der Lösungsweg).",
+    "beschriftung": "„(x + 4) cm“, „6 cm“.",
+    "alt": "Ein Dreieck mit waagerechter Grundseite und gestrichelter Höhe. An Grundseite und Höhe steht jeweils die Länge, die Grundseite als Term mit x."
+   }
+  },
+  {
+   "id": "11390e1a-2fc1-4cf1-93da-890ac936b56a",
+   "kurz": "11390e1a",
+   "knoten": "geo_flaeche_term",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "A",
+   "figur_vorhanden": null,
+   "begruendung": "„Eine Figur besteht aus …“: Die zusammengesetzte Form muss das Kind erst aus dem Text bauen, im Schulbuch stünde hier immer ein Bild.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: rechtecke",
+    "params": {
+     "teile": [
+      {
+       "name": "Rechteck",
+       "breite_text": "x cm",
+       "hoehe_text": "4 cm"
+      },
+      {
+       "name": "Quadrat",
+       "seite_text": "4 cm",
+       "angesetzt_an": "rechts"
+      }
+     ],
+     "trennlinie": true,
+     "massstaeblich": false
+    },
+    "sichtbar": "Rechteck mit „x cm“ an der langen und „4 cm“ an der kurzen Seite, rechts an der kurzen Seite ein Quadrat mit „4 cm“, Trennlinie zwischen beiden.",
+    "nicht": "Keine Gesamtlänge „x + 4“ (das ist ein Lösungsschritt), kein Gitter, keine Teilflächen-Beschriftung.",
+    "beschriftung": "„x cm“, „4 cm“ (Rechteck), „4 cm“ (Quadrat).",
+    "alt": "Eine Figur aus einem Rechteck und einem rechts angesetzten Quadrat. Die lange Rechteckseite ist mit x beschriftet, die kurze Rechteckseite und die Quadratseite mit ihrer Länge."
+   }
+  },
+  {
+   "id": "1f27364f-e37a-4203-8097-4c3331ea9940",
+   "kurz": "1f27364f",
+   "knoten": "geo_flaeche_term",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Der Term aus „doppelt so lang wie breit“ ist die Fertigkeit; eine Skizze müsste dafür „2x“ zeigen und nähme ihn vorweg, ohne das trägt sie nichts.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "214345b8-69d2-43d4-8c1b-1e8e7c428e1d",
+   "kurz": "214345b8",
+   "knoten": "geo_flaeche_term",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Der Term aus „3 m länger als breit“ ist die Fertigkeit; eine Skizze müsste dafür „x + 3“ zeigen und nähme ihn vorweg, ohne das trägt sie nichts.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "46192474-3c40-4cec-a9de-742684e86e01",
+   "kurz": "46192474",
+   "knoten": "geo_flaeche_term",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Seiten stehen im Text, der Flächenterm ist die Fertigkeit; eine Skizze erleichtert die Zuordnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "rechteck (rechteck.ts vorhanden) + Term-Beschriftung, in upload_figures aufnehmen",
+    "params": {
+     "laenge_text": "x cm",
+     "breite_text": "5 cm",
+     "massstaeblich": false
+    },
+    "sichtbar": "Rechteck mit „x cm“ und „5 cm“.",
+    "nicht": "Kein Gitter.",
+    "beschriftung": "„x cm“, „5 cm“.",
+    "alt": "Ein Rechteck, die Länge ist mit x beschriftet, an der Breite steht die Länge."
+   }
+  },
+  {
+   "id": "770f72e9-c73c-45fc-9803-e3b20846de70",
+   "kurz": "770f72e9",
+   "knoten": "geo_flaeche_term",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "MC",
+   "mc": true,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Seiten stehen im Text, der Flächenterm ist die Fertigkeit; eine Skizze erleichtert die Zuordnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "rechteck (rechteck.ts vorhanden) + Term-Beschriftung, in upload_figures aufnehmen",
+    "params": {
+     "laenge_text": "(x + 3) cm",
+     "breite_text": "4 cm",
+     "massstaeblich": false
+    },
+    "sichtbar": "Rechteck mit „(x + 3) cm“ und „4 cm“.",
+    "nicht": "Keine Aufteilung der Länge in x und drei (das wäre der Distributiv-Schritt), kein Gitter.",
+    "beschriftung": "„(x + 3) cm“, „4 cm“.",
+    "alt": "Ein Rechteck, die Länge ist als Term mit x beschriftet, an der Breite steht die Länge."
+   }
+  },
+  {
+   "id": "4bfe5d6e-3f3b-4a91-964c-6eb3f4157273",
+   "kurz": "4bfe5d6e",
+   "knoten": "geo_flaeche_trapez",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "a, c und h stehen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: trapez",
+    "params": {
+     "a": 8,
+     "c": 4,
+     "h": 5,
+     "einheit": "cm",
+     "masse": [
+      "a",
+      "c",
+      "h"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Trapez mit a unten, c oben, Höhe h gestrichelt mit Rechter-Winkel-Zeichen an a.",
+    "nicht": "Keine Schenkellängen, kein Gitter.",
+    "beschriftung": "„a = 8 cm“, „c = 4 cm“, „h = 5 cm“.",
+    "alt": "Ein Trapez mit der unteren Seite a, der oberen Seite c und der gestrichelten Höhe h. An allen drei steht die Länge."
+   }
+  },
+  {
+   "id": "5c219db6-804b-4819-b671-9cb512ab1b0b",
+   "kurz": "5c219db6",
+   "knoten": "geo_flaeche_trapez",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "a, c, h und die Schenkel stehen im Text (Schenkel als Ablenker), die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: trapez",
+    "params": {
+     "a": 11,
+     "c": 5,
+     "h": 4,
+     "schenkel": 5,
+     "art": "gleichschenklig",
+     "einheit": "cm",
+     "masse": [
+      "a",
+      "c",
+      "h",
+      "schenkel"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Gleichschenkliges Trapez, a unten, c oben, h gestrichelt, an beiden Schenkeln „5 cm“.",
+    "nicht": "Nicht die Überstände von drei Zentimetern auf a (nicht im Text), kein Gitter.",
+    "beschriftung": "„a = 11 cm“, „c = 5 cm“, „h = 4 cm“, „5 cm“ an beiden Schenkeln.",
+    "alt": "Ein gleichschenkliges Trapez mit der unteren Seite a, der oberen Seite c, der gestrichelten Höhe h und den beiden gleich langen Schenkeln. An allen steht die Länge."
+   }
+  },
+  {
+   "id": "94fcae6b-947a-4db7-ab54-b4f13cc48c9b",
+   "kurz": "94fcae6b",
+   "knoten": "geo_flaeche_trapez",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Parallelen und ihr Abstand stehen im Text; die Skizze macht klar, dass der Abstand die Höhe ist.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: trapez",
+    "params": {
+     "a": 32,
+     "c": 24,
+     "h": 18,
+     "einheit": "m",
+     "masse": [
+      "a",
+      "c",
+      "h"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Trapez als Grundstück, untere Seite „32 m“, obere „24 m“, Abstand gestrichelt „18 m“.",
+    "nicht": "Kein Preis im Bild, kein Gitter.",
+    "beschriftung": "„32 m“, „24 m“, „18 m“.",
+    "alt": "Ein trapezförmiges Grundstück mit zwei parallelen Seiten und ihrem gestrichelt gezeichneten Abstand. An allen drei steht die Länge."
+   }
+  },
+  {
+   "id": "f1ecd67e-e9b9-4aed-9604-cf9dbf8826f5",
+   "kurz": "f1ecd67e",
+   "knoten": "geo_flaeche_trapez",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "a, c und h stehen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: trapez",
+    "params": {
+     "a": 10,
+     "c": 6,
+     "h": 7,
+     "einheit": "cm",
+     "masse": [
+      "a",
+      "c",
+      "h"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Trapez mit a unten, c oben, Höhe h gestrichelt.",
+    "nicht": "Keine Schenkellängen, kein Gitter.",
+    "beschriftung": "„a = 10 cm“, „c = 6 cm“, „h = 7 cm“.",
+    "alt": "Ein Trapez mit der unteren Seite a, der oberen Seite c und der gestrichelten Höhe h. An allen drei steht die Länge."
+   }
+  },
+  {
+   "id": "fd558d3f-2e73-450f-a8e7-7c989eb1b314",
+   "kurz": "fd558d3f",
+   "knoten": "geo_flaeche_trapez",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Beide Dachkanten und ihr Abstand stehen im Text; die Skizze macht klar, dass der Abstand auf der Dachfläche die Höhe des Trapezes ist.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: trapez",
+    "params": {
+     "a": 12,
+     "c": 8,
+     "h": 5,
+     "einheit": "m",
+     "masse": [
+      "a",
+      "c",
+      "h"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Dachfläche als Trapez in Draufsicht, untere Kante „12 m“, obere „8 m“, Abstand gestrichelt „5 m“.",
+    "nicht": "Kein Haus und keine Schrägansicht (sonst sähe der Abstand verkürzt aus), kein Gitter.",
+    "beschriftung": "„12 m“, „8 m“, „5 m“.",
+    "alt": "Eine trapezförmige Dachfläche von vorn gesehen, mit unterer und oberer Dachkante und ihrem gestrichelten Abstand. An allen drei steht die Länge."
+   }
+  },
+  {
+   "id": "ffcbb7db-a7ab-4718-8e19-351a74a056c0",
+   "kurz": "ffcbb7db",
+   "knoten": "geo_flaeche_trapez",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "a, c und h stehen im Text, die Formel ist die Fertigkeit.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: trapez",
+    "params": {
+     "a": 6.5,
+     "c": 3.5,
+     "h": 4.2,
+     "einheit": "cm",
+     "masse": [
+      "a",
+      "c",
+      "h"
+     ],
+     "massstaeblich": false
+    },
+    "sichtbar": "Trapez mit a unten, c oben, Höhe h gestrichelt.",
+    "nicht": "Keine Schenkellängen, kein Gitter.",
+    "beschriftung": "„a = 6,5 cm“, „c = 3,5 cm“, „h = 4,2 cm“ (Dezimalkomma).",
+    "alt": "Ein Trapez mit der unteren Seite a, der oberen Seite c und der gestrichelten Höhe h. An allen drei steht die Länge."
+   }
+  },
+  {
+   "id": "2d6edc4b-15e0-4090-b9af-1711ece32395",
+   "kurz": "2d6edc4b",
+   "knoten": "stoch_pfad_summe",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Anzahlen und Wahrscheinlichkeiten stehen im Text. Ein Baumdiagramm ist hier die Fertigkeit selbst, vorgegeben nähme es sie vorweg; eine Urne zeigte nur die Anzahlen noch einmal.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f",
+   "kurz": "3cb3aa9d",
+   "knoten": "stoch_pfad_summe",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Anzahlen und Wahrscheinlichkeiten stehen im Text. Ein Baumdiagramm ist hier die Fertigkeit selbst, vorgegeben nähme es sie vorweg; eine Urne zeigte nur die Anzahlen noch einmal.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "54f5e1df-adc9-4fa3-b9c1-c15301c29cbe",
+   "kurz": "54f5e1df",
+   "knoten": "stoch_pfad_summe",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Anzahlen und Wahrscheinlichkeiten stehen im Text. Ein Baumdiagramm ist hier die Fertigkeit selbst, vorgegeben nähme es sie vorweg; eine Urne zeigte nur die Anzahlen noch einmal.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "64091830-731d-4ab2-b1f6-2166bb8539e6",
+   "kurz": "64091830",
+   "knoten": "stoch_pfad_summe",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Anzahlen und Wahrscheinlichkeiten stehen im Text. Ein Baumdiagramm ist hier die Fertigkeit selbst, vorgegeben nähme es sie vorweg; eine Urne zeigte nur die Anzahlen noch einmal.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "8b6561e6-1e6c-4c56-a35f-6ccc22f77807",
+   "kurz": "8b6561e6",
+   "knoten": "stoch_pfad_summe",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Anzahlen und Wahrscheinlichkeiten stehen im Text. Ein Baumdiagramm ist hier die Fertigkeit selbst, vorgegeben nähme es sie vorweg; eine Urne zeigte nur die Anzahlen noch einmal.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "939baa76-0207-496c-a768-4df2988f7f12",
+   "kurz": "939baa76",
+   "knoten": "stoch_pfad_summe",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "C",
+   "figur_vorhanden": null,
+   "begruendung": "Alle Anzahlen und Wahrscheinlichkeiten stehen im Text. Ein Baumdiagramm ist hier die Fertigkeit selbst, vorgegeben nähme es sie vorweg; eine Urne zeigte nur die Anzahlen noch einmal.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": null
+  },
+  {
+   "id": "11aebc7c-d30e-4577-89d5-52efed7d379f",
+   "kurz": "11aebc7c",
+   "knoten": "geo_winkel_thales",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": null,
+   "begruendung": "Beispiel aus dem Auftrag: Halbkreis, zwei Streben und die Lage des 32°-Winkels muss das Kind erst aus dem Text konstruieren.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: thales",
+    "params": {
+     "form": "halbkreis",
+     "punkte": [
+      "A",
+      "B",
+      "C"
+     ],
+     "mittelpunkt": null,
+     "strecken": [
+      "AB",
+      "AC",
+      "CB"
+     ],
+     "winkel": [
+      {
+       "bei": "A",
+       "zwischen": [
+        "AC",
+        "AB"
+       ],
+       "text": "32°"
+      },
+      {
+       "bei": "B",
+       "zwischen": [
+        "CB",
+        "AB"
+       ],
+       "text": "?"
+      }
+     ],
+     "c_lage_grad": 75,
+     "massstaeblich": false
+    },
+    "sichtbar": "Halbkreisbogen über der waagerechten Unterkante AB, Punkt C auf dem Bogen, Streben AC und CB, Winkelbogen bei A mit „32°“, Winkelbogen bei B mit „?“.",
+    "nicht": "Kein Rechter-Winkel-Zeichen und kein Winkelbogen bei C. C nicht an der wahren Lage (wahr wären 64° Mittelpunktswinkel von B aus), damit nicht gemessen wird. Kein Mittelpunkt, kein Fensterrahmen.",
+    "beschriftung": "A, B, C; „32°“ bei A; „?“ bei B.",
+    "alt": "Halbkreisförmiger Fensterbogen über der Unterkante AB. Von A und B führen zwei gerade Streben zu einem Punkt C auf dem Bogen. Der Winkel bei A ist angegeben, der Winkel bei B ist gesucht."
+   }
+  },
+  {
+   "id": "22e90366-5528-4685-993e-42e88f3623f6",
+   "kurz": "22e90366",
+   "knoten": "geo_winkel_thales",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Die Lage ist die Standardfigur des Satzes in einem Satz beschrieben, nötig sind nur α und γ; eine Skizze erleichtert die Zuordnung der Winkel.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: thales",
+    "params": {
+     "form": "kreis",
+     "punkte": [
+      "A",
+      "B",
+      "C",
+      "M"
+     ],
+     "strecken": [
+      "AB",
+      "AC",
+      "BC"
+     ],
+     "winkel": [
+      {
+       "bei": "A",
+       "zwischen": [
+        "AB",
+        "AC"
+       ],
+       "text": "α = 28°"
+      },
+      {
+       "bei": "C",
+       "zwischen": [
+        "CA",
+        "CB"
+       ],
+       "text": "γ = ?"
+      }
+     ],
+     "c_lage_grad": 70,
+     "massstaeblich": false
+    },
+    "sichtbar": "Kreis mit Durchmesser AB und Mittelpunkt M, Punkt C auf dem Kreis, Dreieck ABC, Bogen bei A mit „α = 28°“, Bogen bei C mit „γ = ?“.",
+    "nicht": "Gesucht ist γ = 90°: bei C ausdrücklich ein runder Bogen, kein Rechter-Winkel-Zeichen. Keine Strecke MC.",
+    "beschriftung": "A, B, C, M; „α = 28°“; „γ = ?“.",
+    "alt": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck. Der Winkel Alpha bei A ist angegeben, der Winkel Gamma bei C ist gesucht."
+   }
+  },
+  {
+   "id": "3e087e16-bd3e-4489-b3d9-6c6759c4ce74",
+   "kurz": "3e087e16",
+   "knoten": "geo_winkel_thales",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": null,
+   "begruendung": "Die Winkel ∠AMC und ∠BMC setzen die Strecke MC voraus, die im Text nur über die Winkelnamen vorkommt; das Kind muss die ganze Lage selbst aufbauen.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: thales",
+    "params": {
+     "form": "kreis",
+     "punkte": [
+      "A",
+      "B",
+      "C",
+      "M"
+     ],
+     "strecken": [
+      "AB",
+      "AC",
+      "BC",
+      "MC"
+     ],
+     "winkel": [
+      {
+       "bei": "M",
+       "zwischen": [
+        "MA",
+        "MC"
+       ],
+       "text": ""
+      },
+      {
+       "bei": "M",
+       "zwischen": [
+        "MB",
+        "MC"
+       ],
+       "text": ""
+      },
+      {
+       "bei": "A",
+       "zwischen": [
+        "AB",
+        "AC"
+       ],
+       "text": "α = ?"
+      }
+     ],
+     "c_lage_grad": 60,
+     "massstaeblich": false
+    },
+    "sichtbar": "Kreis mit Durchmesser AB und Mittelpunkt M, Punkt C auf dem Kreis, Dreieck ABC, Strecke MC, zwei unbeschriftete Winkelbögen bei M, Winkelbogen bei A mit „α = ?“.",
+    "nicht": "Keine Gradzahlen bei M (der Text nennt nur den Unterschied von 40°), kein Rechter-Winkel-Zeichen bei C, C nicht an der wahren Lage (wahr: ∠BMC = 70°).",
+    "beschriftung": "A, B, C, M; „α = ?“.",
+    "alt": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck, zusätzlich ist die Strecke von M nach C gezeichnet. Die beiden Winkel bei M sind markiert, der Winkel Alpha bei A ist gesucht."
+   }
+  },
+  {
+   "id": "9ca300e1-76b9-4bb9-96cf-44cfda31824b",
+   "kurz": "9ca300e1",
+   "knoten": "geo_winkel_thales",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": null,
+   "begruendung": "Der gegebene Winkel ∠BMC liegt an der Strecke MC, die im Dreieck ABC nicht vorkommt; ohne Figur prüft die Aufgabe vor allem, ob das Kind die Lage richtig aufbaut.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: thales",
+    "params": {
+     "form": "kreis",
+     "punkte": [
+      "A",
+      "B",
+      "C",
+      "M"
+     ],
+     "strecken": [
+      "AB",
+      "AC",
+      "BC",
+      "MC"
+     ],
+     "winkel": [
+      {
+       "bei": "M",
+       "zwischen": [
+        "MB",
+        "MC"
+       ],
+       "text": "64°"
+      },
+      {
+       "bei": "A",
+       "zwischen": [
+        "AB",
+        "AC"
+       ],
+       "text": "α = ?"
+      }
+     ],
+     "c_lage_grad": 80,
+     "massstaeblich": false
+    },
+    "sichtbar": "Kreis mit Durchmesser AB und Mittelpunkt M, Punkt C auf dem Kreis, Dreieck ABC, Strecke MC, Winkelbogen ∠BMC mit „64°“, Winkelbogen bei A mit „α = ?“.",
+    "nicht": "Kein Rechter-Winkel-Zeichen bei C, kein Bogen bei B, C nicht an der wahren Lage.",
+    "beschriftung": "A, B, C, M; „64°“ bei M; „α = ?“.",
+    "alt": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck, zusätzlich ist die Strecke von M nach C gezeichnet. Der Winkel zwischen MB und MC ist angegeben, der Winkel Alpha bei A ist gesucht."
+   }
+  },
+  {
+   "id": "9e7c1e4b-d317-44cf-8865-071c653ef2cf",
+   "kurz": "9e7c1e4b",
+   "knoten": "geo_winkel_thales",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "A",
+   "figur_vorhanden": null,
+   "begruendung": "Gesucht ist ∠ACM, ein Winkel an der Strecke CM, die das Kind aus dem Text erst ergänzen muss.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: thales",
+    "params": {
+     "form": "kreis",
+     "punkte": [
+      "A",
+      "B",
+      "C",
+      "M"
+     ],
+     "strecken": [
+      "AB",
+      "AC",
+      "BC",
+      "MC"
+     ],
+     "winkel": [
+      {
+       "bei": "A",
+       "zwischen": [
+        "AB",
+        "AC"
+       ],
+       "text": "40°"
+      },
+      {
+       "bei": "C",
+       "zwischen": [
+        "CA",
+        "CM"
+       ],
+       "text": "?"
+      }
+     ],
+     "c_lage_grad": 110,
+     "massstaeblich": false
+    },
+    "sichtbar": "Kreis mit Durchmesser AB und Mittelpunkt M, Punkt C auf dem Kreis, Dreieck ABC, Strecke MC, Winkelbogen bei A mit „40°“, Winkelbogen zwischen CA und CM mit „?“.",
+    "nicht": "Kein Rechter-Winkel-Zeichen bei C, kein Bogen für den ganzen Winkel γ, keine Markierung gleich langer Strecken MA und MC (das ist der Lösungsschritt), C nicht an der wahren Lage.",
+    "beschriftung": "A, B, C, M; „40°“ bei A; „?“ bei C zwischen CA und CM.",
+    "alt": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck, zusätzlich ist die Strecke von C nach M gezeichnet. Der Winkel bei A ist angegeben, der Winkel zwischen CA und CM ist gesucht."
+   }
+  },
+  {
+   "id": "9f171c32-9786-4617-b2e4-161c88071ea5",
+   "kurz": "9f171c32",
+   "knoten": "geo_winkel_thales",
+   "gruppen": [
+    "Stufe 3"
+   ],
+   "input_type": "NUMERIC",
+   "mc": false,
+   "stufe": "B",
+   "figur_vorhanden": null,
+   "begruendung": "Standardfigur in einem Satz beschrieben, nötig sind nur α und β; eine Skizze erleichtert die Zuordnung.",
+   "hinweis": null,
+   "lena": {
+    "geoeffnet": false,
+    "entscheidung": null,
+    "geprueft": false
+   },
+   "ausschluss": null,
+   "spec": {
+    "generator": "neu: thales",
+    "params": {
+     "form": "kreis",
+     "punkte": [
+      "A",
+      "B",
+      "C",
+      "M"
+     ],
+     "strecken": [
+      "AB",
+      "AC",
+      "BC"
+     ],
+     "winkel": [
+      {
+       "bei": "A",
+       "zwischen": [
+        "AB",
+        "AC"
+       ],
+       "text": "α = 35°"
+      },
+      {
+       "bei": "B",
+       "zwischen": [
+        "BA",
+        "BC"
+       ],
+       "text": "β = ?"
+      }
+     ],
+     "c_lage_grad": 100,
+     "massstaeblich": false
+    },
+    "sichtbar": "Kreis mit Durchmesser AB und Mittelpunkt M, Punkt C auf dem Kreis, Dreieck ABC, Bogen bei A mit „α = 35°“, Bogen bei B mit „β = ?“.",
+    "nicht": "Kein Rechter-Winkel-Zeichen und kein Bogen bei C (der rechte Winkel ist der Lösungsschritt). C nicht an der wahren Lage.",
+    "beschriftung": "A, B, C, M; „α = 35°“; „β = ?“.",
+    "alt": "Kreis mit Mittelpunkt M und Durchmesser AB. Ein Punkt C auf dem Kreis bildet mit A und B ein Dreieck. Der Winkel Alpha bei A ist angegeben, der Winkel Beta bei B ist gesucht."
+   }
+  }
+ ],
+ "knoten": [
+  {
+   "gruppe": "Stufe 1",
+   "knoten": "zahl_wurzel_irrational",
+   "anlass": "batu_lsa",
+   "soll": 6,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 1",
+   "knoten": "zahl_wurzel_naeherung",
+   "anlass": "batu_lsa",
+   "soll": 6,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 1",
+   "knoten": "zahl_wurzel_teilweise",
+   "anlass": "batu_lsa",
+   "soll": 6,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 1",
+   "knoten": "zahl_wurzel_gesetze",
+   "anlass": "batu_lsa",
+   "soll": 6,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 1",
+   "knoten": "zahl_wurzel_quadrat",
+   "anlass": "batu_lsa",
+   "soll": 6,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "potenzen",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 24,
+   "A": 0,
+   "B": 0,
+   "C": 24,
+   "D": 0,
+   "streng": {
+    "anzahl": 24,
+    "ohne_mc": 24,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 24,
+    "ohne_mc": 24,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "bruch_dezimal",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "dezimal_div",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 9,
+   "A": 0,
+   "B": 0,
+   "C": 9,
+   "D": 0,
+   "streng": {
+    "anzahl": 9,
+    "ohne_mc": 9,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 9,
+    "ohne_mc": 9,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "dezimal_mult",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 9,
+   "A": 0,
+   "B": 0,
+   "C": 9,
+   "D": 0,
+   "streng": {
+    "anzahl": 9,
+    "ohne_mc": 9,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 9,
+    "ohne_mc": 9,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "vorzeichen_mult_div",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 7,
+   "A": 0,
+   "B": 0,
+   "C": 7,
+   "D": 0,
+   "streng": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "runden_ueberschlag",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 13,
+   "A": 0,
+   "B": 0,
+   "C": 13,
+   "D": 0,
+   "streng": {
+    "anzahl": 13,
+    "ohne_mc": 13,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 13,
+    "ohne_mc": 13,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "dezimal_add_sub",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 11,
+   "A": 0,
+   "B": 0,
+   "C": 11,
+   "D": 0,
+   "streng": {
+    "anzahl": 11,
+    "ohne_mc": 11,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 11,
+    "ohne_mc": 11,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "bruch_kuerzen",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 7,
+   "A": 0,
+   "B": 0,
+   "C": 7,
+   "D": 0,
+   "streng": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 2",
+   "knoten": "vorzeichen_add_sub",
+   "anlass": "batu_lsa",
+   "soll": 3,
+   "min_ohne_mc": 1,
+   "gesamt": 7,
+   "A": 0,
+   "B": 0,
+   "C": 7,
+   "D": 0,
+   "streng": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "vorzeichen_add_sub",
+   "anlass": "batu_session",
+   "soll": 7,
+   "min_ohne_mc": 0,
+   "gesamt": 7,
+   "A": 0,
+   "B": 0,
+   "C": 7,
+   "D": 0,
+   "streng": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 7,
+    "ohne_mc": 7,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "term_ausklammern",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 0,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 0,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "gleichung_einschrittig",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "gleichung_zweischrittig",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "gleichung_quadr_wurzel",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 0,
+   "B": 1,
+   "C": 5,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "gleichung_quadr_faktor",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "gleichung_quadr_formel",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 1,
+   "B": 0,
+   "C": 5,
+   "D": 0,
+   "streng": {
+    "anzahl": 5,
+    "ohne_mc": 5,
+    "reicht": false
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 5,
+    "ohne_mc": 5,
+    "reicht": false
+   }
+  },
+  {
+   "gruppe": "Session",
+   "knoten": "gleichung_quadr_anzahl",
+   "anlass": "batu_session",
+   "soll": 6,
+   "min_ohne_mc": 0,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "fkt_linear_gleichung",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "fkt_linear_steigung",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "fkt_linear_yabschnitt",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "term_binom_faktorisieren",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 1,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 1,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "term_binom_gemischt",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 7,
+   "A": 0,
+   "B": 1,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 7,
+    "ohne_mc": 1,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 7,
+    "ohne_mc": 1,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "term_binom_quadrat",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 7,
+   "A": 0,
+   "B": 0,
+   "C": 7,
+   "D": 0,
+   "streng": {
+    "anzahl": 7,
+    "ohne_mc": 1,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 7,
+    "ohne_mc": 1,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "term_binom_quadratdifferenz",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 1,
+   "C": 5,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 1,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 1,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "gleichung_lgs_addition",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 5,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 5,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "gleichung_lgs_einsetzen",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "gleichung_lgs_grafisch",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 5,
+   "B": 0,
+   "C": 1,
+   "D": 0,
+   "streng": {
+    "anzahl": 1,
+    "ohne_mc": 0,
+    "reicht": false
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 4,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "geo_flaeche_drachen_raute",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 6,
+   "C": 0,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "geo_flaeche_term",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 1,
+   "B": 3,
+   "C": 2,
+   "D": 0,
+   "streng": {
+    "anzahl": 5,
+    "ohne_mc": 2,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 5,
+    "ohne_mc": 2,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "geo_flaeche_trapez",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 6,
+   "C": 0,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "stoch_pfad_summe",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 0,
+   "B": 0,
+   "C": 6,
+   "D": 0,
+   "streng": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 6,
+    "ohne_mc": 6,
+    "reicht": true
+   }
+  },
+  {
+   "gruppe": "Stufe 3",
+   "knoten": "geo_winkel_thales",
+   "anlass": "batu_lsa",
+   "soll": 2,
+   "min_ohne_mc": 1,
+   "gesamt": 6,
+   "A": 4,
+   "B": 2,
+   "C": 0,
+   "D": 0,
+   "streng": {
+    "anzahl": 2,
+    "ohne_mc": 2,
+    "reicht": true
+   },
+   "vorhandene_figuren_zaehlen": {
+    "anzahl": 2,
+    "ohne_mc": 2,
+    "reicht": true
+   }
+  }
+ ],
+ "generator_typen": {
+  "rechtecke": {
+   "anzahl": 5,
+   "davon_A": 2,
+   "ids": [
+    "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+    "5b36238f-c64c-4578-bd63-55249f185c78",
+    "f8364853-03fa-4d7e-807c-b0a20dbe09e3",
+    "113aea0a-276a-4042-b634-805ef1e11db2",
+    "11390e1a-2fc1-4cf1-93da-890ac936b56a"
+   ],
+   "beschreibung": "Achsenparallele Rechtecke und Quadrate zusammengesetzt: angesetzt, in einer Ecke abgetrennt, verlängert oder gekürzt, mit Rahmen (Weg). Maße als Text, auch Terme mit x und „?“, Teilflächen tönbar."
+  },
+  "viereck_diagonalen": {
+   "anzahl": 6,
+   "davon_A": 0,
+   "ids": [
+    "0802547a-2b81-4d03-8c5c-941705076285",
+    "6274f6a5-65e5-40f4-be09-36fa8931c424",
+    "7cfb5d9f-a6d9-48d5-85e1-d470eee978c7",
+    "c1440c89-6139-41c2-9aac-6f65cf638e2f",
+    "ef5c0139-1f43-4f58-9395-11b5e84364d0",
+    "f8054c53-9d2a-4d33-88b4-c3086fa96bfd"
+   ],
+   "beschreibung": "Raute oder Drachenviereck mit gestrichelten Diagonalen e und f, optional eine Seitenlänge, eigene Namen für die Diagonalen („Längsstab“)."
+  },
+  "dreieck": {
+   "anzahl": 1,
+   "davon_A": 0,
+   "ids": [
+    "10f112ad-b1cc-4690-8925-773ef92d20e3"
+   ],
+   "beschreibung": "Vorhanden als Spec `specs/active/figur-dreieck.md`, nicht gebaut. Braucht zusätzlich Text-Maße (Term „(x + 4) cm“), die Spec sieht nur Zahlen vor."
+  },
+  "rechteck": {
+   "anzahl": 2,
+   "davon_A": 0,
+   "ids": [
+    "46192474-3c40-4cec-a9de-742684e86e01",
+    "770f72e9-c73c-45fc-9803-e3b20846de70"
+   ],
+   "beschreibung": "`scripts/figures/rechteck.ts` ist vorhanden, kennt aber nur Zahlenmaße und ist nicht in `upload_figures.py`. Braucht Text-Maße (Terme)."
+  },
+  "trapez": {
+   "anzahl": 6,
+   "davon_A": 0,
+   "ids": [
+    "4bfe5d6e-3f3b-4a91-964c-6eb3f4157273",
+    "5c219db6-804b-4819-b671-9cb512ab1b0b",
+    "94fcae6b-947a-4db7-ab54-b4f13cc48c9b",
+    "f1ecd67e-e9b9-4aed-9604-cf9dbf8826f5",
+    "fd558d3f-2e73-450f-a8e7-7c989eb1b314",
+    "ffcbb7db-a7ab-4718-8e19-351a74a056c0"
+   ],
+   "beschreibung": "Trapez mit a unten, c oben, gestrichelter Höhe h, optional gleichschenklig mit Schenkelmaß."
+  },
+  "thales": {
+   "anzahl": 6,
+   "davon_A": 4,
+   "ids": [
+    "11aebc7c-d30e-4577-89d5-52efed7d379f",
+    "22e90366-5528-4685-993e-42e88f3623f6",
+    "3e087e16-bd3e-4489-b3d9-6c6759c4ce74",
+    "9ca300e1-76b9-4bb9-96cf-44cfda31824b",
+    "9e7c1e4b-d317-44cf-8865-071c653ef2cf",
+    "9f171c32-9786-4617-b2e4-161c88071ea5"
+   ],
+   "beschreibung": "Kreis oder Halbkreis mit Durchmesser AB, Mittelpunkt M, Punkt C auf dem Bogen, einbeschriebenes Dreieck, optional Strecke MC, Winkelbögen mit Text („32°“, „?“). Die Spec `figur-kreis.md` (nicht gebaut) deckt das nicht ab: Sie kennt keine Punkte, kein Dreieck und keine Winkelbögen."
+  }
+ }
+}

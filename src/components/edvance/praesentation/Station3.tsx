@@ -18,6 +18,7 @@ import { Kicker } from "./Kicker";
 import { Lernkette } from "./Lernkette";
 import { LernwegBuehne } from "./LernwegBuehne";
 import type { StationProps } from "./stationProps";
+import { schuleGenitiv } from "@/components/edvance/elternbericht/berichtSaetze";
 import { useLernwegFahrt } from "./useLernwegFahrt";
 
 /**
@@ -133,6 +134,7 @@ function Weg({
   titel: string;
 }): JSX.Element {
   const { t } = useTranslation("praesentation");
+  const { t: tb } = useTranslation("elternbericht");
   const [stufe, setStufe] = useState(STUFE_BEREICHE);
   const lw = useMemo(
     () => kuerzeLernweg(voll, KUERZUNGEN[stufe], thema),
@@ -150,7 +152,7 @@ function Weg({
     lw.quelle === "klp"
       ? t("s3.weg.quelle.klp")
       : lw.schulname
-        ? t("s3.weg.quelle.schule", { schulname: lw.schulname })
+        ? t("s3.weg.quelle.schule", { schule: schuleGenitiv(tb, lw.schulname) })
         : t("s3.weg.quelle.schuleOhneName");
   return (
     <>

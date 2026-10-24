@@ -276,6 +276,12 @@
     `docs/report/r7/Bauauftrag-R7-12.md`, Retro `2026-10-22-r7-12-lernweg-grenzen.md`): Kürzungsstufen 4–7
     (Zeilen je Insel, „+ n weitere“, Zonen als Zählzeilen) für Seite 3 und die volle Karte in Station 03;
     Fixture `sehrViele`. Kein DDL. **Offen:** `docs/report/r7/offene-punkte-r7-12.md`.
+  - **Bericht v2** (Branch `feat/lsa-report-v2`, Retro `2026-10-24-lsa-report-v2.md`): Navigation oben
+    rechts, Literata, Seite 1 mit Anlass aus dem Erstgespräch und Antwort auf die vermutete Ursache,
+    Systematik-Text, Klassenstufen-Überblick; Seite 2 ohne abgeleitete Kästchen; Seite 3 als Lücken →
+    kommende Themen; Seite 4 mit Fehlermuster und Grund je Schwerpunkt, Startlogik nach Klassenarbeit;
+    Seite 5 mit Paketvorschlag. Regeln zentral in `berichtKonfig.ts`. Migration
+    `20261024135226_bericht_v2` (nicht eingespielt). **Offen:** `docs/report/v2/offene-punkte.md`.
   - Danach Abnahme durch die Gründer (Nenner, Reihenfolge der Schwerpunkte) und Lena (Texte,
     Kopfsätze, W5-d-Entwürfe); dann Standard auf R7 umstellen.
 - **Tablet-Präsentation der LSA** (Anforderung `docs/report/praesentation/Anforderung.md`, Dummy

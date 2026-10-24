@@ -1922,6 +1922,8 @@ on conflict (id) do nothing;
 --                                      letztes_schuljahr, laenger)
 --   tried_before text[]              — offene Liste, bewusst ohne CHECK
 --   next_exam_date date, next_exam_topic text
+--   klassenarbeit_status text        — CHECK in (bevorstehend, geschrieben), null = unbekannt
+--       (Bericht v2, supabase/migrations/20261024135226_bericht_v2.sql)
 --   consent_dsgvo_at timestamptz, consent_dsgvo_by uuid → profiles
 --       — PFLICHT vor der LSA-Freigabe (lead_lsa_freigeben verweigert sonst).
 --   status-CHECK erweitert um 'lsa_freigegeben', 'lsa_fertig'.
@@ -2119,6 +2121,8 @@ on conflict (id) do nothing;
 --   id uuid PK, session_id uuid NOT NULL UNIQUE → lsa_sessions on delete cascade
 --   zielbild text, empfehlung text
 --   paket text CHECK in ('basis','standard','premium')
+--   paket_bestaetigt boolean not null default false — Coach hat das Paket bestätigt
+--       (Bericht v2, supabase/migrations/20261024135226_bericht_v2.sql)
 --   updated_at timestamptz not null default now()
 --   updated_by uuid → profiles(id) on delete set null
 --   INDEX lsa_report_notes_session_idx (session_id)

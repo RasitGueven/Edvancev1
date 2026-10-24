@@ -200,3 +200,20 @@
 .eb-s2-eng .eb-s2-fussnote:first-child {
   margin-top: 0;
 }
+
+/* Bericht v2: kurze Textbox über dem Profil („Warum auch frühere Klassen?“). */
+.eb-s2-warum {
+  margin-top: 14pt;
+  padding: 9pt 12pt 10pt;
+  background: var(--color-eb-mint);
+  border-radius: 11pt;
+}
+.eb-s2-warum-text {
+  margin-top: 4pt;
+  font-size: 8.45pt;
+  line-height: 11.8pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s2-warum + .eb-s2-profil {
+  margin-top: 12pt;
+}

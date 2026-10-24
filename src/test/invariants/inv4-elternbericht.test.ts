@@ -81,6 +81,24 @@ const R7_11_GEAENDERT: Record<string, string> = {
 }
 
 /**
+ * Anhang-A-Schlüssel, die der Bericht v2 (Auftrag Rasit, 24.10.2026) neu fasst:
+ * Anrede mit Vornamen ohne Genitiv, „gelungen“ statt „gelangen“, Ansprechpartner.
+ * Gilt vor den Fassungen aus R7-6/8/11.
+ */
+const V2_GEAENDERT: Record<string, string> = {
+  's2.titel': 'Der Lernstand von {{name}} in den geprüften Bereichen.',
+  's2.titelOhneName': 'Der Lernstand in den geprüften Bereichen.',
+  's2.fussnote':
+    'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
+  's5.kontakt.rolle': 'Ihr persönlicher Ansprechpartner',
+  's4.reihenfolge': 'In dieser Reihenfolge beginnen wir. Bei jedem Schwerpunkt steht, warum er an dieser Stelle steht.',
+  's3.weg.quelle.schule': 'laut Schulplan {{schule}}',
+  's3.weg.quelleAus.schule': 'dem Schulplan {{schule}}',
+  's3.weg.hinweis':
+    'Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage.',
+}
+
+/**
  * INV-4.13 (R7-11, Entscheidung 14): Seite 1 und Station 01 sagen nicht, was die
  * Analyse nicht sagen kann oder erst später klärt. Mindestens diese Wörter.
  */
@@ -122,6 +140,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     expect(Object.keys(anhang)).toHaveLength(148)
     for (const [key, text] of Object.entries(anhang)) {
       if (
+        key in V2_GEAENDERT ||
         key in R7_6_GEAENDERT ||
         key in R7_8_GEAENDERT ||
         key in R7_9_GEAENDERT ||
@@ -142,7 +161,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_6_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(R7_11_GEAENDERT[key] ?? R7_8_GEAENDERT[key] ?? text)
+      expect(texte[key], key).toBe(V2_GEAENDERT[key] ?? R7_11_GEAENDERT[key] ?? R7_8_GEAENDERT[key] ?? text)
     }
     for (const key of R7_6_ENTFALLEN) {
       expect(anhang[key], key).toBeDefined()
@@ -168,7 +187,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_8_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(R7_11_GEAENDERT[key] ?? text)
+      expect(texte[key], key).toBe(V2_GEAENDERT[key] ?? R7_11_GEAENDERT[key] ?? text)
     }
   })
 
@@ -178,9 +197,17 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_11_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(text)
+      expect(texte[key], key).toBe(V2_GEAENDERT[key] ?? text)
     }
     expect(texte['s1.anliegen.naechstesThema']).toBe(anhang['s1.anliegen.thema'])
+  })
+
+  it('Bericht v2: die neu gefassten Schlüssel wörtlich, kein „gelangen“, kein „abgeleitet“ in der Systematik', () => {
+    for (const [key, text] of Object.entries(V2_GEAENDERT)) expect(texte[key], key).toBe(text)
+    for (const [key, s] of Object.entries(texte)) expect(s, key).not.toMatch(/gelangen/)
+    for (const [key, s] of Object.entries(texte)) {
+      if (key.startsWith('s1.systematik.')) expect(s, key).not.toMatch(/abgeleitet|ergeben sich/)
+    }
   })
 
   it('INV-4.13: kein Text auf Seite 1 sagt, was die Analyse nicht sagen kann (außer dem Methodenhinweis)', () => {

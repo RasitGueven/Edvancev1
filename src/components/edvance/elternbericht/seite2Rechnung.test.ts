@@ -11,6 +11,7 @@ import {
   luecke,
   massstab,
   massstabFuer,
+  meisterUebung,
   profilZeilen,
   segmente,
   teile,
@@ -88,13 +89,23 @@ describe('massstab — ein Maßstab für alle Zeilen (R7-8)', () => {
       klasse: null,
     }))
     const m = massstabFuer(zeilen)
-    expect(m).toEqual(massstab(40))
+    // Zeile mit zehn oder mehr Kästchen → schmale Spur von 206 pt.
+    expect(m).toEqual(massstab(40, SPUR_MIT_ABGELEITETEN))
     const alle = zeilen.flatMap((z) => segmente(z, m))
     expect(new Set(alle.map((s) => s.breite)).size).toBe(1)
     for (const z of zeilen) {
       const s = segmente(z, m)
       if (s.length > 1) expect(s[1].x - s[0].x - s[0].breite).toBeCloseTo(1)
     }
+  })
+
+  it('Spur 206 pt auch ohne Umrisse, sobald eine Zeile zehn oder mehr Kästchen hat', () => {
+    const z = (sicher: number, uebung: number): ProfilZeile => ({ feld: 'zahlen', sicher, uebung, abgeleitet: 0, klasse: null })
+    expect(massstabFuer([z(5, 4)])).toEqual(massstab(9, SPUR))
+    expect(massstabFuer([z(6, 4)])).toEqual(massstab(10, SPUR_MIT_ABGELEITETEN))
+    expect(massstabFuer([z(9, 9)])).toEqual(massstab(18, SPUR_MIT_ABGELEITETEN))
+    expect(massstabFuer([z(10, 0)])).toEqual(massstab(10, SPUR_MIT_ABGELEITETEN))
+    expect(massstabFuer([z(0, 10)])).toEqual(massstab(10, SPUR_MIT_ABGELEITETEN))
   })
 
   it('Spur 206 pt für alle Zeilen, sobald eine Zeile abgeleitete hat, sonst 226 pt', () => {
@@ -280,5 +291,39 @@ describe('deutung — erst ab zwei geprüften Bereichen (R7-10)', () => {
     const p = bericht('ilkay').profil
     expect(p.filter((z) => z.sicher + z.uebung > 0).every((z) => z.sicher + z.uebung >= 3)).toBe(true)
     expect(deutung(zeilenVon('ilkay'))).toEqual({ sicher: ['groessen', 'zahlen'], uebung: ['geometrie', 'brueche'] })
+  })
+})
+
+describe('meisterUebung — Anteil statt Anzahl (Bericht v2)', () => {
+  const z = (feld: EbProfilZeile['feld'], sicher: number, uebung: number) => ({ feld, sicher, uebung })
+
+  it('ohne Übungsbedarf oder ohne Profil: null', () => {
+    expect(meisterUebung([])).toBeNull()
+    expect(meisterUebung([z('brueche', 4, 0)])).toBeNull()
+  })
+
+  it('Felder mit weniger als zwei geprüften Bereichen zählen nicht', () => {
+    expect(meisterUebung([z('brueche', 0, 1)])).toBeNull()
+  })
+
+  it('der höchste Anteil gewinnt, nicht die höchste Anzahl', () => {
+    // 3 von 10 (30 %) hat mehr Bereiche als 2 von 2 (100 %), verliert aber.
+    expect(meisterUebung([z('brueche', 7, 3), z('geometrie', 0, 2)])).toEqual({
+      felder: ['geometrie'],
+      uebung: 2,
+      geprueft: 2,
+    })
+  })
+
+  it('gleicher Anteil: mehr Übungsbedarf zuerst', () => {
+    expect(meisterUebung([z('brueche', 1, 1), z('geometrie', 3, 3)])).toMatchObject({ felder: ['geometrie'], uebung: 3, geprueft: 6 })
+  })
+
+  it('gleicher Anteil und gleiche Anzahl: beide Felder in Profil-Reihenfolge', () => {
+    expect(meisterUebung([z('prozent', 2, 2), z('terme', 2, 2), z('zahlen', 5, 1)])).toEqual({
+      felder: ['prozent', 'terme'],
+      uebung: 2,
+      geprueft: 4,
+    })
   })
 })

@@ -48,9 +48,17 @@ export function ElternberichtBogen({
   const { t } = useTranslation('elternbericht')
   const { kompetenzen, katalog, bausteine } = data.erzaehlung
 
+  const klassenarbeit = data.erstgespraech?.klassenarbeit ?? null
   const bericht = useMemo(
-    () => baueElternbericht({ kompetenzen, katalog, klasse: data.grade, lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt } }),
-    [kompetenzen, katalog, data.grade, data.erzaehlung, data.analysedAt],
+    () =>
+      baueElternbericht({
+        kompetenzen,
+        katalog,
+        klasse: data.grade,
+        lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
+        klassenarbeit,
+      }),
+    [kompetenzen, katalog, data.grade, data.erzaehlung, data.analysedAt, klassenarbeit],
   )
   const satz = useMemo(() => new Bausteinsatz(bausteine), [bausteine])
 

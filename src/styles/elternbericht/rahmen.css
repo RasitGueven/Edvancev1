@@ -37,6 +37,9 @@
   text-rendering: geometricPrecision;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
+  /* Bericht v2: Überschriften in Literata SemiBold, nur im Bogen. Die
+     Präsentation behält --font-eb-titel aus tokens.css. */
+  --font-eb-titel: 'Literata', ui-serif, Georgia, 'Times New Roman', serif;
 }
 
 /* Muster-Definitionen (Schraffur Seite 2): vorhanden, aber ohne Fläche. */
@@ -83,7 +86,7 @@
 }
 .eb-titel {
   font-family: var(--font-eb-titel);
-  font-weight: 500;
+  font-weight: 600;
   font-variation-settings: 'opsz' 48;
   color: var(--color-eb-navy);
 }
@@ -127,11 +130,14 @@
   stroke-width: 0.8;
 }
 .eb-chip-text {
-  font-size: 8.4px;
+  font-size: 6.6px;
+  letter-spacing: 0.4px;
+  text-anchor: middle;
   text-transform: uppercase;
   fill: var(--color-eb-leise);
 }
 
+/* Navigation oben rechts (Bericht v2): Kreise mit Nummer, Name darunter. */
 .eb-nav-linie {
   stroke: var(--color-eb-nav-linie);
   stroke-width: 0.85;
@@ -141,9 +147,27 @@
   stroke: var(--color-eb-nav-punkt);
   stroke-width: 0.9;
 }
-.eb-nav-punkt-aktiv {
+.eb-nav-nummer {
+  font-size: 6.4px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--color-eb-leise);
+}
+.eb-nav-name {
+  font-size: 7.4px;
+  text-anchor: middle;
+  fill: var(--color-eb-leise);
+}
+.eb-nav-aktiv .eb-nav-punkt {
   fill: var(--color-eb-navy);
   stroke: var(--color-eb-navy);
+}
+.eb-nav-aktiv .eb-nav-nummer {
+  fill: var(--color-eb-weiss);
+}
+.eb-nav-aktiv .eb-nav-name {
+  font-weight: 600;
+  fill: var(--color-eb-navy);
 }
 
 .eb-kopflinie {

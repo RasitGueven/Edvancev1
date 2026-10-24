@@ -1,4 +1,4 @@
-// Seite 4 des Eltern-Berichts R7 (Lernplan als Kurve) für die Fixture-Fälle.
+// Seite 4 des Eltern-Berichts (Bericht v2): Fehlermuster, Schwerpunkte mit Grund, Kurve.
 import { render } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
@@ -8,16 +8,24 @@ import { Seite4 } from '@/components/edvance/elternbericht/Seite4'
 import type { SeitenProps } from '@/components/edvance/elternbericht/seitenProps'
 import { Bausteinsatz } from '@/lib/report/bausteine'
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
+import de from '@/i18n/locales/de/elternbericht.json'
 import { FAELLE, NOTIZEN } from '@/lib/report/elternbericht/fixtures'
-import type { EbSchwerpunkt, Elternbericht, ReportData, ReportFehlbild } from '@/types'
+import type { EbSchwerpunkt, Elternbericht, KlassenarbeitStatus, ReportData, ReportFehlbild } from '@/types'
 
 function props(
   data: ReportData,
   anpassen: (b: Elternbericht) => Partial<Elternbericht> = () => ({}),
   notes = NOTIZEN,
+  klassenarbeit: KlassenarbeitStatus | null = null,
 ): SeitenProps {
   const { kompetenzen, katalog, bausteine } = data.erzaehlung
-  const bericht = baueElternbericht({ kompetenzen, katalog, klasse: data.grade })!
+  const bericht = baueElternbericht({
+    kompetenzen,
+    katalog,
+    klasse: data.grade,
+    lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
+    klassenarbeit,
+  })!
   const name = data.firstName?.trim() || null
   return {
     data,
@@ -32,12 +40,12 @@ function props(
 
 const seite4 = (p: SeitenProps) => render(<Seite4 {...p} />)
 
-const familie = (familie: string, text: string, anzahl: number): ReportFehlbild => ({
+const familie = (familie: string, text: string | null, aufgaben: number): ReportFehlbild => ({
   slug: `${familie}-slug`,
   familie,
   familieElterntext: text,
-  anzahl,
-  aufgaben: 2,
+  anzahl: aufgaben,
+  aufgaben,
   skills: [`${familie}-a`],
   skillUebergreifend: false,
   einstufung: 'befund',
@@ -48,34 +56,116 @@ const mitFehlbildern = (fehlbilder: ReportFehlbild[]): ReportData => ({
   fehlbilder,
 })
 
-const COACH = 'Der Coach prüft in den ersten Sitzungen, ob sich das bestätigt.'
+const COACH = de.s4.coach
 
-describe('Seite 4 — Fazit', () => {
-  it('ohne Elterntext: kein Kicker, kein Kasten, der Titel rückt nach oben', () => {
+describe('Seite 4 — Fehlermuster', () => {
+  const kicker = (c: HTMLElement): string | undefined => c.querySelector('.eb-s4-kicker')?.textContent ?? undefined
+
+  it('ohne Fehlbilder: keine Überschrift „Fehlermuster“, kein Kasten, der Titel rückt nach oben', () => {
     const { container, queryByTestId } = seite4(props(FAELLE.ilkay.data))
     expect(queryByTestId('eb-fazit')).toBeNull()
+    expect(container.textContent).not.toContain('Fehlermuster')
     expect(container.querySelector('.eb-s4')!.firstElementChild).toHaveClass('eb-s4-titel')
   })
 
-  it('ein Elterntext: wörtlich, danach der Satz zum Coach', () => {
-    const { getByTestId } = seite4(props(mitFehlbildern([familie('richtung', 'Satz A.', 3)])))
-    expect(getByTestId('eb-fazit')).toHaveTextContent('Unser Fazit')
-    expect(getByTestId('eb-fazit').querySelector('.eb-s4-fazit')).toHaveTextContent(`Satz A. ${COACH}`)
+  it('Sorgfalt gedeckt: Überschrift und fester Satz', () => {
+    const { getByTestId, container } = seite4(props(mitFehlbildern([familie('vorzeichen', 'Egal.', 3)])))
+    expect(kicker(container)).toBe('Fehlermuster')
+    expect(getByTestId('eb-fazit').querySelector('.eb-s4-fazit')?.textContent).toBe(
+      de.s4.muster.sorgfalt.replace('{{sorgfalt}}', '3').replace('{{eingeordnet}}', '3'),
+    )
   })
 
-  it('drei Elterntexte: nur die ersten zwei (nach Vorkommen), nie der Familienschlüssel', () => {
+  it('Sorgfalt nicht gedeckt, aber eindeutig häufigste Familie: ihr abgenommener Text mit Vornamen statt „Ihr Kind“', () => {
     const { getByTestId } = seite4(
-      props(
-        mitFehlbildern([
-          familie('drei', 'Satz C.', 2),
-          familie('eins', 'Satz A.', 5),
-          familie('zwei', 'Satz B.', 4),
-        ]),
-      ),
+      props(mitFehlbildern([familie('sachaufgaben', 'Ihr Kind liest die Aufgabe ungenau.', 4), familie('rest', 'Anderes.', 2)])),
     )
-    const text = getByTestId('eb-fazit').querySelector('.eb-s4-fazit')!
-    expect(text).toHaveTextContent(`Satz A. Satz B. ${COACH}`)
-    expect(text.textContent).not.toMatch(/Satz C|eins|zwei|drei/)
+    expect(getByTestId('eb-fazit').querySelector('.eb-s4-fazit')?.textContent).toBe('Ilkay liest die Aufgabe ungenau.')
+  })
+
+  it('ohne Namen bleibt „Ihr Kind“ stehen', () => {
+    const p = { ...props(mitFehlbildern([familie('sachaufgaben', 'Ihr Kind liest ungenau.', 4)])), name: null }
+    expect(seite4(p).getByTestId('eb-fazit')).toHaveTextContent('Ihr Kind liest ungenau.')
+  })
+
+  it('Gleichstand der Familien, nur eine Aufgabe oder kein freigegebener Text: gar kein Muster', () => {
+    for (const f of [
+      [familie('a', 'Text A.', 3), familie('b', 'Text B.', 3)],
+      [familie('a', 'Text A.', 1)],
+      [familie('a', null, 5)],
+    ]) {
+      const { queryByTestId, container, unmount } = seite4(props(mitFehlbildern(f)))
+      expect(queryByTestId('eb-fazit')).toBeNull()
+      expect(container.textContent).not.toContain('Fehlermuster')
+      unmount()
+    }
+  })
+
+  it('nie ein Familienschlüssel im Text', () => {
+    const { container } = seite4(props(mitFehlbildern([familie('schritt_vergessen', 'T.', 4)])))
+    expect(container.textContent).not.toMatch(/schritt_vergessen/)
+  })
+})
+
+describe('Seite 4 — Grund je Schwerpunkt und Coach-Satz', () => {
+  it('jeder Schwerpunkt nennt „weil …“ aus den Daten', () => {
+    const { container } = seite4(props(FAELLE.ilkay.data))
+    const gruende = [...container.querySelectorAll('.eb-s4-grund-text')].map((g) => g.textContent)
+    expect(gruende).toEqual([
+      'weil hier schon Stoff aus Klasse 5/6 Übung braucht',
+      'weil hier schon Stoff aus Klasse 5/6 Übung braucht',
+      'weil hier schon Stoff aus Klasse 5/6 Übung braucht',
+      'weil hier 3 Bereiche Übungsbedarf zeigen',
+    ])
+  })
+
+  it('Thema-Schwerpunkt: Grund nach dem Stand der Klassenarbeit', () => {
+    const grund = (k: KlassenarbeitStatus | null): string | null | undefined =>
+      seite4(props(FAELLE.abgestuft.data, undefined, NOTIZEN, k)).container.querySelector('.eb-s4-grund-text')?.textContent
+    expect(grund(null)).toBe('weil es das aktuelle Schulthema ist')
+    expect(grund('bevorstehend')).toBe('weil die Klassenarbeit zu diesem Thema bevorsteht')
+    expect(grund('geschrieben')).toBe('weil im aktuellen Schulthema noch eine Lücke offen ist')
+  })
+
+  it('Klassenarbeit „geschrieben“: Felder mit kommendem Schulthema zuerst, das Thema danach', () => {
+    const titel = (k: KlassenarbeitStatus | null): (string | null)[] =>
+      [...seite4(props(FAELLE.abgestuftPlanrang.data, undefined, NOTIZEN, k)).container.querySelectorAll('.eb-s4-punkt-titel')].map(
+        (t) => t.textContent,
+      )
+    expect(titel('bevorstehend')[0]).toBe('Reelle ZahlenAktuelles Thema')
+    expect(titel(null)[0]).toBe('Reelle ZahlenAktuelles Thema')
+    const nach = titel('geschrieben')
+    expect(nach[0]).toBe('Geometrie')
+    expect(nach[1]).toBe('Reelle ZahlenAktuelles Thema')
+    expect(nach.slice().sort()).toEqual(titel(null).slice().sort())
+  })
+
+  it('Feld mit kommendem Thema nennt dieses als Grund', () => {
+    const { container } = seite4(props(FAELLE.abgestuftPlanrang.data, undefined, NOTIZEN, 'geschrieben'))
+    expect(container.querySelector('.eb-s4-grund-text')?.textContent).toMatch(/^weil das kommende Schulthema .+ darauf aufbaut$/)
+  })
+
+  it('der Coach-Satz steht genau einmal, in der Fußnote', () => {
+    const { container } = seite4(props(FAELLE.ilkay.data))
+    expect(container.querySelector('.eb-s4-stand')?.textContent).toBe(COACH)
+    expect(container.textContent!.split(COACH)).toHaveLength(2)
+  })
+
+  it('auch ohne Schwerpunkt steht der Coach-Satz, bündig an der Inhaltskante', () => {
+    const { container } = seite4(props(FAELLE.allesSicher.data))
+    expect(container.querySelector('.eb-s4-stand')).toHaveClass('eb-s4-stand', 'eb-s4-stand-voll')
+    expect(container.querySelector('.eb-s4-stand')?.textContent).toBe(COACH)
+  })
+
+  it('mit Schwerpunkten ist die Fußnote nicht „voll“', () => {
+    expect(seite4(props(FAELLE.ilkay.data)).container.querySelector('.eb-s4-stand')).not.toHaveClass('eb-s4-stand-voll')
+  })
+
+  it('kein Lernziel-Kasten mehr auf Seite 4, auch nicht mit Zielbild in den Notizen', () => {
+    const notes = { ...NOTIZEN, zielbild: 'Erste Zeile.\nZweite Zeile.' }
+    const { queryByTestId, container } = seite4(props(FAELLE.ilkay.data, undefined, notes))
+    expect(queryByTestId('eb-lernziel')).toBeNull()
+    expect(container.textContent).not.toMatch(/Erste Zeile|Lernziel/)
   })
 })
 
@@ -98,6 +188,7 @@ describe('Seite 4 — Titel und Schwerpunkte', () => {
     ])
   })
 
+  // Geometrie fehlt hier mit Absicht: dort liegt nur Übungsbedarf bei Vorgriffen (LSA-V2), der nicht zählt.
   it('Titel ist das Themenfeld, Text nennt Sicheres nur, wenn es das gibt', () => {
     const { container } = seite4(props(FAELLE.klasse10neu.data))
     const punkte = [...container.querySelectorAll('.eb-s4-punkt')]
@@ -105,7 +196,6 @@ describe('Seite 4 — Titel und Schwerpunkte', () => {
       'Brüche & Dezimalzahlen',
       'Prozent & Dreisatz',
       'Terme & Gleichungen',
-      'Geometrie',
     ])
     expect(punkte[0].querySelector('.eb-s4-punkt-text')!.textContent).toMatch(/^Sicher: .+\. Noch nicht sicher: .+\.$/)
     expect(punkte[2].querySelector('.eb-s4-punkt-text')!.textContent).toMatch(/^Noch nicht sicher: /)
@@ -149,23 +239,31 @@ describe('Seite 4 — Titel und Schwerpunkte', () => {
   })
 })
 
-describe('Seite 4 — Lernziel und Fußnote', () => {
-  it('Lernziel mit erhaltenen Zeilenumbrüchen, Fußnote immer', () => {
-    const notes = { ...NOTIZEN, zielbild: 'Erste Zeile.\nZweite Zeile.' }
-    const { getByTestId, container } = seite4(props(FAELLE.ilkay.data, undefined, notes))
-    expect(getByTestId('eb-lernziel')).toHaveTextContent('Unser gemeinsames Lernziel')
-    expect(getByTestId('eb-lernziel').querySelector('.eb-s4-lernziel-text')!.textContent).toBe(
-      'Erste Zeile.\nZweite Zeile.',
-    )
-    expect(container.querySelector('.eb-s4-stand')).toHaveTextContent(/^Das ist der Stand nach dieser Analyse\./)
+describe('Seite 4 — Thema-Schwerpunkt (R7-11)', () => {
+  const titel = (c: HTMLElement): (string | null)[] => [...c.querySelectorAll('.eb-s4-punkt-titel')].map((t) => t.textContent)
+
+  it('abgestuft: Reelle Zahlen an Platz 1 mit Schild, Geometrie nicht vorn', () => {
+    const { container, getAllByTestId } = seite4(props(FAELLE.abgestuft.data))
+    expect(titel(container).slice(0, 2)).toEqual(['Reelle ZahlenAktuelles Thema', 'Terme & Gleichungen'])
+    expect(getAllByTestId('eb-s4-chip-thema')).toHaveLength(1)
   })
 
-  it('ohne Zielbild entfällt der Kasten', () => {
-    const leer = seite4(props(FAELLE.ilkay.data, undefined, { ...NOTIZEN, zielbild: '  ' }))
-    expect(leer.queryByTestId('eb-lernziel')).toBeNull()
-    expect(leer.container.querySelector('.eb-s4-stand')).not.toBeNull()
-    const ohne = render(<Seite4 {...{ ...props(FAELLE.ilkay.data), notes: null }} />)
-    expect(ohne.queryByTestId('eb-lernziel')).toBeNull()
+  it('abgestuftThemaSicher: das Thema ist kein Schwerpunkt, kein Schild', () => {
+    const { container, queryByTestId } = seite4(props(FAELLE.abgestuftThemaSicher.data))
+    expect(titel(container)).toEqual(['Terme & Gleichungen', 'Geometrie', 'Daten & Zufall'])
+    expect(queryByTestId('eb-s4-chip-thema')).toBeNull()
+  })
+
+  it('Thema und Breite ohne Übungsbedarf: Titel „Kein Übungsbedarf“, ohne Schwerpunkte', () => {
+    const { data } = FAELLE.abgestuftThemaSicher
+    const alles = data.erzaehlung.kompetenzen.map((k) => ({ ...k, zustand: 'traegt' }))
+    const { container, queryByTestId } = seite4(props({ ...data, erzaehlung: { ...data.erzaehlung, kompetenzen: alles } }))
+    expect(container).toHaveTextContent('Kein Übungsbedarf in den untersuchten Bereichen.')
+    expect(queryByTestId('eb-schwerpunkte')).toBeNull()
+  })
+
+  it('ilkay: ohne Schild', () => {
+    expect(seite4(props(FAELLE.ilkay.data)).queryByTestId('eb-s4-chip-thema')).toBeNull()
   })
 })
 
@@ -181,22 +279,15 @@ describe('Seite 4 — Kurve', () => {
     })
   }
 
-  it('je Schwerpunkt ein Knoten, mit Lernziel Auslauf und Spitze', () => {
+  it('je Schwerpunkt ein Knoten, die Kurve endet am letzten Knoten (ein Pfad, keine Spitze)', () => {
     mitLayout()
     const { getByTestId } = seite4(props(FAELLE.ilkay.data))
     const kurve = getByTestId('eb-kurve')
     expect(kurve).toHaveAttribute('aria-hidden', 'true')
     expect(kurve.querySelectorAll('circle')).toHaveLength(4)
-    expect(kurve.querySelectorAll('.eb-s4-pfad')).toHaveLength(2)
-    expect(kurve.querySelector('.eb-s4-spitze')).not.toBeNull()
+    expect(kurve.querySelectorAll('.eb-s4-pfad')).toHaveLength(1)
+    expect(kurve.querySelector('.eb-s4-spitze')).toBeNull()
     expect(kurve.textContent).toBe('')
-  })
-
-  it('ohne Lernziel endet die Kurve am letzten Knoten, ohne Spitze', () => {
-    mitLayout()
-    const { getByTestId } = seite4({ ...props(FAELLE.ilkay.data), notes: null })
-    expect(getByTestId('eb-kurve').querySelectorAll('.eb-s4-pfad')).toHaveLength(1)
-    expect(getByTestId('eb-kurve').querySelector('.eb-s4-spitze')).toBeNull()
   })
 
   it('ohne Schwerpunkt keine Kurve', () => {
@@ -250,19 +341,15 @@ describe('Seite 4 — Verdichtung bei Überlauf', () => {
     vi.restoreAllMocks()
     return ergebnis
   }
-  const zwei = [familie('eins', 'Satz A.', 5), familie('zwei', 'Satz B.', 4)]
-  const voll = `Satz A. Satz B. ${COACH}`
+  // Das Fehlermuster mit Text der häufigsten Familie (Sorgfalt ist hier nicht gedeckt).
+  const lang = [familie('eins', 'Ihr Kind liest ungenau und ein langer Satz folgt hier.', 5)]
 
-  it('reicht die Verdichtung, bleiben beide Elterntexte und der Coach-Satz', () => {
-    expect(stufe(zwei, voll.length)).toEqual({ stufe: null, dicht: false, fazit: voll })
-    expect(stufe(zwei, voll.length - 1)).toMatchObject({ dicht: true })
-  })
-
-  it('reicht die Verdichtung nicht, entfällt zuerst der Coach-Satz, dann der zweite Elterntext', () => {
-    expect(stufe(zwei, 'Satz A. Satz B. '.length)).toEqual({ stufe: '2', dicht: true, fazit: 'Satz A. Satz B. ' })
-    expect(stufe(zwei, 'Satz A. '.length)).toEqual({ stufe: '3', dicht: true, fazit: 'Satz A. ' })
-    // Auch wenn es dann noch überläuft: der erste Elterntext bleibt, wörtlich.
-    expect(stufe(zwei, 0)).toEqual({ stufe: '3', dicht: true, fazit: 'Satz A. ' })
+  it('läuft der Kasten wegen des Musters über, rückt die Seite eine Stufe zusammen und bleibt dabei', () => {
+    expect(stufe(lang, 1000)).toMatchObject({ stufe: null, dicht: false })
+    const ueber = stufe(lang, 0)
+    expect(ueber).toMatchObject({ stufe: '1', dicht: true })
+    // Text wird nie gekürzt, nur verdichtet.
+    expect(ueber.fazit).toBe('Ilkay liest ungenau und ein langer Satz folgt hier.')
   })
 
   it('misst erst, wenn der Bogen über den Namen entschieden hat', () => {
@@ -271,31 +358,11 @@ describe('Seite 4 — Verdichtung bei Überlauf', () => {
     const { container } = render(
       <NamensMessungFertig.Provider value={false}>
         <div className="eb-inhalt">
-          <Seite4 {...props(mitFehlbildern(zwei))} />
+          <Seite4 {...props(mitFehlbildern(lang))} />
         </div>
       </NamensMessungFertig.Provider>,
     )
     expect(container.querySelector('.eb-s4')!.hasAttribute('data-stufe')).toBe(false)
     vi.restoreAllMocks()
-  })
-
-  it('mit einem Elterntext entfällt höchstens der Coach-Satz', () => {
-    expect(stufe([familie('eins', 'Satz A.', 5)], 0)).toEqual({ stufe: '2', dicht: true, fazit: 'Satz A. ' })
-  })
-})
-
-describe('Seite 4 — Lernziel ohne Schwerpunkt', () => {
-  it('steht bündig an der Inhaltskante (eigene Klasse), mit Schwerpunkten eingerückt', () => {
-    const ohne = seite4(props(FAELLE.keinSchwerpunktMitZiel.data))
-    expect(ohne.getByTestId('eb-lernziel')).toHaveClass('eb-s4-lernziel', 'eb-s4-lernziel-voll')
-    ohne.unmount()
-    const mit = seite4(props(FAELLE.ilkay.data))
-    expect(mit.getByTestId('eb-lernziel')).not.toHaveClass('eb-s4-lernziel-voll')
-    expect(mit.container.querySelector('.eb-s4-stand')).not.toHaveClass('eb-s4-stand-voll')
-  })
-
-  it('auch die Fußnote steht dann bündig an der Inhaltskante', () => {
-    const { container } = seite4(props(FAELLE.keinSchwerpunktMitZiel.data))
-    expect(container.querySelector('.eb-s4-stand')).toHaveClass('eb-s4-stand', 'eb-s4-stand-voll')
   })
 })

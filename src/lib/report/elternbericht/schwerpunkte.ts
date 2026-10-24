@@ -10,6 +10,12 @@
 //   4. dann die Reihenfolge der Themenfelder.
 // Höchstens vier; die übrigen gehen in `danach`, in derselben Reihenfolge.
 //
+// Bericht v2 — Startlogik nach dem Stand der Klassenarbeit zum Thema:
+//   bevorstehend oder unbekannt → das Thema zuerst (Regel unten),
+//   geschrieben → zuerst die Felder, auf denen ein kommendes Schulthema direkt
+//   aufbaut (Planrang endlich), dann das Thema, dann der Rest.
+// Jeder Schwerpunkt trägt seinen Grund (grundVon), abgeleitet aus denselben Daten.
+//
 // Mit Thema der LSA (R7-11, Gründer 22.10.2026) ist Schwerpunkt 1 das Thema
 // selbst, sofern es dort Übungsbedarf gibt: nur direkt geprüfte Bereiche im
 // Themenraum, in der Thema-Reihenfolge (Voraussetzungen zuerst). Danach die Breite — Themenfelder
@@ -22,7 +28,9 @@ import { THEMENFELDER, feldPosition } from '@/lib/report/elternbericht/themenfel
 import { stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
 import type {
   EbBereich,
+  EbGrund,
   EbSchwerpunkt,
+  KlassenarbeitStatus,
   HeimatThema,
   LwKante,
   PlanEintrag,
@@ -168,13 +176,49 @@ function themaSchwerpunkt(bereiche: readonly EbBereich[], k: ThemaKontext): EbSc
   }
 }
 
-const ohneHilfswerte = ({ tiefste: _t, planrang: _p, ...s }: Kandidat): EbSchwerpunkt => s
+/** Der Grund eines Feld-Schwerpunkts: kommendes Thema, sonst Grundlagen, sonst Anzahl. */
+function feldGrund(k: Kandidat, kommt: readonly PlanEintrag[]): EbGrund {
+  if (Number.isFinite(k.planrang)) return { art: 'naechstesThema', titel: kommt[k.planrang].titel }
+  if (k.tiefste === STUFEN_RANG.erprobung) return { art: 'grundlagen' }
+  return { art: 'anzahl', count: k.uebung.length }
+}
+
+/** Der Grund des Thema-Schwerpunkts nach dem Stand der Klassenarbeit. */
+function themaGrund(klassenarbeit: KlassenarbeitStatus | null): EbGrund {
+  if (klassenarbeit === 'bevorstehend') return { art: 'klassenarbeit' }
+  return klassenarbeit === 'geschrieben' ? { art: 'themaGeschrieben' } : { art: 'thema' }
+}
+
+const ohneHilfswerte =
+  (kommt: readonly PlanEintrag[]) =>
+  (k: Kandidat): EbSchwerpunkt & { grund: EbGrund } => {
+    const { tiefste: _t, planrang: _p, ...s } = k
+    return { ...s, grund: feldGrund(k, kommt) }
+  }
 
 export function waehleSchwerpunkte(
   bereiche: readonly EbBereich[],
   kontext: ThemaKontext | null = null,
+  klassenarbeit: KlassenarbeitStatus | null = null,
 ): {
   schwerpunkte: EbSchwerpunkt[]
+  danach: ThemenfeldKey[]
+} {
+  const { schwerpunkte, danach } = schwerpunkteMitGrund(bereiche, kontext, klassenarbeit)
+  return { schwerpunkte: schwerpunkte.map(({ grund: _g, ...s }) => s), danach }
+}
+
+/**
+ * Wie waehleSchwerpunkte, dazu je Schwerpunkt sein Grund (Bericht v2) — als
+ * eigene Liste in derselben Reihenfolge, damit EbSchwerpunkt für Präsentation
+ * und Druck gleich bleibt.
+ */
+export function schwerpunkteMitGrund(
+  bereiche: readonly EbBereich[],
+  kontext: ThemaKontext | null = null,
+  klassenarbeit: KlassenarbeitStatus | null = null,
+): {
+  schwerpunkte: (EbSchwerpunkt & { grund: EbGrund })[]
   danach: ThemenfeldKey[]
 } {
   const breite = kontext ? bereiche.filter((b) => !kontext.raum.has(b.skillKey)) : bereiche
@@ -182,12 +226,19 @@ export function waehleSchwerpunkte(
   const felder = THEMENFELDER.flatMap(({ key }) => kandidat(key, breite, planrang) ?? []).sort(
     (a, b) => (a.planrang === b.planrang ? nachRegel(a, b) : a.planrang < b.planrang ? -1 : 1),
   )
-  const thema = kontext ? themaSchwerpunkt(bereiche, kontext) : null
-  const vorn = thema ? [thema] : []
-  const platz = MAX_SCHWERPUNKTE - vorn.length
+  const roh = kontext ? themaSchwerpunkt(bereiche, kontext) : null
+  const thema = roh ? { ...roh, grund: themaGrund(klassenarbeit) } : null
+  const fertig = felder.map(ohneHilfswerte(kontext?.kommt ?? []))
+  // Klassenarbeit geschrieben: erst die Voraussetzungen kommender Schulthemen.
+  // Das Thema bleibt unter den vier (es fiele sonst aus `danach`, das nur Felder kennt).
+  const vorThema =
+    thema && klassenarbeit === 'geschrieben'
+      ? Math.min(felder.filter((f) => Number.isFinite(f.planrang)).length, MAX_SCHWERPUNKTE - 1)
+      : 0
+  const reihe = thema ? [...fertig.slice(0, vorThema), thema, ...fertig.slice(vorThema)] : fertig
   return {
-    schwerpunkte: [...vorn, ...felder.slice(0, platz).map(ohneHilfswerte)],
-    danach: felder.slice(platz).map((s) => s.feld),
+    schwerpunkte: reihe.slice(0, MAX_SCHWERPUNKTE),
+    danach: reihe.slice(MAX_SCHWERPUNKTE).flatMap((s) => (s.feld ? [s.feld] : [])),
   }
 }
 

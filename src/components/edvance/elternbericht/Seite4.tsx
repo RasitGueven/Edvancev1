@@ -1,34 +1,39 @@
-import { Fragment, useContext, useLayoutEffect, useRef, useState, type RefObject } from 'react'
+import { useContext, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
-import type { EbSchwerpunkt } from '@/types'
+import { fehlermusterAus } from '@/lib/report/elternbericht/fehlermuster'
+import type { EbGrund, EbSchwerpunkt } from '@/types'
 
+import { grundText } from './berichtSaetze'
 import { Kurve } from './Kurve'
 import { baueListe, schwerpunktKey, schwerpunktTitel, type Liste } from './liste'
 import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
 
-/** Höchstens so viele Elterntexte im Fazit (Bauauftrag R7, Entscheidung 10). */
-const FAZIT_TEXTE = 2
-
 /**
- * Seite 4 des Eltern-Berichts R7: Lernplan als Kurve (Maßblatt E7, „Seite 4“).
+ * Seite 4 des Eltern-Berichts (v2): Fazit und Lernplan als Kurve.
  *
- * Im Fluss: Fazit (entfällt ohne Elterntext), Titel, Schwerpunkte, die übrigen
- * Felder, Lernziel (entfällt ohne Zielbild) und die Fußnote. Die Kurve liegt
- * als SVG darüber und misst die Lagen nach dem Layout (Kurve.tsx).
+ * Im Fluss: das Fehlermuster mit Überschrift (entfällt ohne Befund), Titel,
+ * Schwerpunkte mit ihrem Grund („weil …“, aus den Daten), die übrigen Felder
+ * und der einzige Coach-Satz des Berichts. Die Kurve liegt als SVG darüber und
+ * misst die Lagen nach dem Layout (Kurve.tsx). Die Ziele stehen auf Seite 5.
  */
-export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element {
+export function Seite4({ data, bericht, satz, name }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { schwerpunkte, danach } = bericht
   const anzahl = schwerpunkte.length
 
-  const texte = gruppiereFehlbilderNachFamilie(data.fehlbilder).slice(0, FAZIT_TEXTE)
-  const stufe = useStufe(texte.length === 0 ? DICHT : texte.length === 1 ? OHNE_COACH : EIN_TEXT)
-  const fazit = stufe.wert >= EIN_TEXT ? texte.slice(0, 1) : texte
+  const muster = fehlermusterAus(data.fehlbilder)
+  // Der abgenommene Familientext beginnt mit „Ihr Kind“ — im Bericht steht der Vorname.
+  const musterText = muster?.sorgfalt
+    ? t('s4.muster.sorgfalt', { sorgfalt: muster.sorgfaltAufgaben, eingeordnet: muster.aufgaben })
+    : muster?.haeufigste
+      ? name
+        ? muster.haeufigste.replace(/^Ihr Kind\b/, name)
+        : muster.haeufigste
+      : null
+  const stufe = useStufe(DICHT)
   const keine = anzahl === 0 ? satz.waehle('fazit', 'keine', data.sessionId) : null
-  const zielbild = notes?.zielbild.trim() || null
 
   const liste = baueListe(t, i18n.language)
 
@@ -39,15 +44,10 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
       data-dicht={stufe.wert >= DICHT || undefined}
       data-stufe={stufe.wert || undefined}
     >
-      {fazit.length > 0 && (
+      {musterText && (
         <section className="eb-s4-fazit-bereich" data-testid="eb-fazit">
-          <h2 className="eb-kicker eb-s4-kicker">{t('s4.fazit.kicker')}</h2>
-          <p className="eb-s4-fazit">
-            {fazit.map((f) => (
-              <Fragment key={f.familie}>{f.elterntext} </Fragment>
-            ))}
-            {stufe.wert < OHNE_COACH && t('s4.fazit.coach')}
-          </p>
+          <h2 className="eb-kicker eb-s4-kicker">{t('s4.muster.kicker')}</h2>
+          <p className="eb-s4-fazit">{musterText}</p>
         </section>
       )}
 
@@ -63,6 +63,7 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
             <Schwerpunkt
               key={schwerpunktKey(s)}
               schwerpunkt={s}
+              grund={bericht.gruende?.[i]}
               liste={liste}
               danach={
                 i === anzahl - 1 && danach.length > 0
@@ -74,17 +75,9 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
         </ol>
       )}
 
-      {zielbild && (
-        <section
-          className={anzahl === 0 ? 'eb-s4-lernziel eb-s4-lernziel-voll' : 'eb-s4-lernziel'}
-          data-kurve-ziel
-          data-testid="eb-lernziel"
-        >
-          <h2 className="eb-kicker">{t('s4.lernziel')}</h2>
-          <p className="eb-s4-lernziel-text">{zielbild}</p>
-        </section>
-      )}
-      <p className={anzahl === 0 ? 'eb-s4-stand eb-s4-stand-voll' : 'eb-s4-stand'}>{t('s4.stand')}</p>
+      <p className={anzahl === 0 ? 'eb-s4-stand eb-s4-stand-voll' : 'eb-s4-stand'}>
+        {t('s4.coach')}
+      </p>
 
       {anzahl > 0 && <Kurve />}
     </div>
@@ -93,8 +86,6 @@ export function Seite4({ data, bericht, satz, notes }: SeitenProps): JSX.Element
 
 /** Stufen, wenn Seite 4 überläuft (Gründer-Entscheidung R7-5), nacheinander. */
 const DICHT = 1 // engere Abstände (`[data-dicht]` in seite4.css)
-const OHNE_COACH = 2 // dazu entfällt s4.fazit.coach
-const EIN_TEXT = 3 // dazu steht nur der erste Elterntext
 
 /**
  * Läuft die Seite mit den Abständen des Musters über (langes Fazit, lange
@@ -131,10 +122,12 @@ function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: num
 /** Ein Schwerpunkt; unter dem letzten die übrigen Felder („Danach …“). */
 function Schwerpunkt({
   schwerpunkt,
+  grund,
   liste,
   danach,
 }: {
   schwerpunkt: EbSchwerpunkt
+  grund: EbGrund | undefined
   liste: Liste
   danach: string | null
 }): JSX.Element {
@@ -153,6 +146,7 @@ function Schwerpunkt({
           </span>
         )}
       </h3>
+      {grund && <p className="eb-s4-grund-text">{t('s4.grund', { grund: grundText(t, grund) })}</p>}
       <p className="eb-s4-punkt-text">
         {sicher.length > 0 && <>{t('s4.punkt.sicher', { liste: liste(sicher) })} </>}
         {t('s4.punkt.uebung', { liste: liste(uebung) })}
