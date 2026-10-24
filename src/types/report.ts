@@ -343,4 +343,11 @@ export type ReportNotes = {
    * Vorschlag des Systems.
    */
   paketBestaetigt?: boolean
+  /**
+   * Bericht v3: Ziele im Gespräch bestätigt (lsa_report_notes.ziele_bestaetigt,
+   * Migration noch nicht eingespielt). Nur dann zeigt Seite 5 Ziele — das
+   * Zielbild des Coachs oder sonst den Systemvorschlag. Fehlt oder false: kein
+   * Ziele-Abschnitt.
+   */
+  zieleBestaetigt?: boolean
 }

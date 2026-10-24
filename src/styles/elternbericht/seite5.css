@@ -106,6 +106,32 @@
   border: 0.8pt solid var(--color-eb-linie);
   border-radius: 12pt;
 }
+.eb-s5-fazit {
+  color: var(--color-eb-tinte);
+}
+.eb-s5-ziele-liste {
+  margin-top: 6pt;
+}
+.eb-s5-ziele-liste li {
+  position: relative;
+  padding-left: 11pt;
+  font-size: 9pt;
+  line-height: 12.5pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s5-ziele-liste li + li {
+  margin-top: 3pt;
+}
+.eb-s5-ziele-liste li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4.2pt;
+  width: 5pt;
+  height: 5pt;
+  border-radius: 50%;
+  background: var(--color-eb-sicher);
+}
 .eb-s5-ziele-text {
   margin-top: 6pt;
   font-size: 9.2pt;

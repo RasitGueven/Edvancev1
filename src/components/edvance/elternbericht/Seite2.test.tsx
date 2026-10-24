@@ -38,9 +38,10 @@ describe('Seite 2 — ilkay', () => {
     // Funktionen und Zufall: nichts geprüft, keine Zeile.
     expect(zeilen).toHaveLength(6)
     expect(el).not.toHaveTextContent('Funktionen')
+    // Bericht v3: die Zeilen stehen nach Klassenband; Größen (Klasse 5–6) zuerst.
     const erste = zeilen[0]
-    expect(erste.querySelectorAll('.eb-s2-segment-sicher')).toHaveLength(2)
-    expect(erste.querySelectorAll('.eb-s2-segment-uebung')).toHaveLength(3)
+    expect(erste.querySelectorAll('.eb-s2-segment-sicher')).toHaveLength(3)
+    expect(erste.querySelectorAll('.eb-s2-segment-uebung')).toHaveLength(2)
     expect(erste.querySelectorAll('rect')).toHaveLength(5)
     expect(el.querySelector('[fill^="url("]')).toBeNull()
     expect(el.querySelector('.eb-s2-segment-offen, .eb-s2-segment-schraffur')).toBeNull()
@@ -55,13 +56,13 @@ describe('Seite 2 — ilkay', () => {
   it('Vorlesetext und rechte Zeile je Feld', () => {
     const zeilen = s().getAllByTestId('eb-profil-zeile')
     expect(zeilen[0].querySelector('.sr-only')).toHaveTextContent(
-      'Brüche & Dezimalzahlen: 5 geprüft, davon 2 sicher und 3 mit Übungsbedarf.',
+      'Größen: 5 geprüft, davon 3 sicher und 2 mit Übungsbedarf.',
     )
     const rechts = (i: number): (string | null)[] =>
       [...zeilen[i].querySelectorAll('.eb-s2-geprueft, .eb-s2-teile')].map((x) => x.textContent)
-    expect(rechts(0)).toEqual(['5 geprüft', '2 sicher · 3 Übungsbedarf'])
-    // Zahlen & Rechnen: 2 sicher, 1 Übungsbedarf.
-    expect(rechts(5)).toEqual(['3 geprüft', '2 sicher · 1 Übungsbedarf'])
+    expect(rechts(0)).toEqual(['5 geprüft', '3 sicher · 2 Übungsbedarf'])
+    // Zahlen & Rechnen (dritte Zeile): 2 sicher, 1 Übungsbedarf.
+    expect(rechts(2)).toEqual(['3 geprüft', '2 sicher · 1 Übungsbedarf'])
   })
 
   it('Legende nur Sicher und Übungsbedarf', () => {
@@ -70,11 +71,12 @@ describe('Seite 2 — ilkay', () => {
     expect(legende).not.toHaveTextContent('Nicht untersucht')
   })
 
-  it('Fußnote: „gelungen“, keine Note, nichts zu Umrissen', () => {
+  it('Fußnote: „gelungen“, keine Note, nichts zu Umrissen und kein Satz über nicht geprüfte Bereiche', () => {
     const fussnote = s().el.querySelector('.eb-s2-fussnote')
-    expect(fussnote).toHaveTextContent(
-      'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
+    expect(fussnote?.textContent).toBe(
+      'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind.',
     )
+    expect(fussnote).not.toHaveTextContent(/nicht geprüft wurden/)
     expect(fussnote).not.toHaveTextContent(/abgeleitet|Umrandete|ergeben sich/i)
   })
 
@@ -104,10 +106,10 @@ describe('Seite 2 — Sonderfälle', () => {
     expect(container).toHaveTextContent('Weitere Bereiche')
   })
 
-  it('weitereBereiche: „Weitere Bereiche“ als letzte Zeile, Abstand nach Zahl der Zeilen', () => {
+  it('weitereBereiche: „Weitere Bereiche“ steht als Zeile (nach Klassenband einsortiert), Abstand nach Zahl der Zeilen', () => {
     const s = seite2(FAELLE.weitereBereiche.data)
     const zeilen = s.getAllByTestId('eb-profil-zeile')
-    expect(zeilen.at(-1)).toHaveTextContent('Weitere Bereiche')
+    expect(zeilen.filter((z) => z.textContent?.includes('Weitere Bereiche'))).toHaveLength(1)
     expect(zeilen[0].querySelector('svg')).toHaveAttribute('height', `${zeilen.length <= 6 ? 40.8 : zeilen.length <= 8 ? 33.4 : 30}pt`)
   })
 
@@ -175,13 +177,14 @@ describe('Seite 2 — keine abgeleiteten Bereiche, Klassen je Zeile', () => {
       seite2(data)
         .getAllByTestId('eb-profil-zeile')
         .map((z) => z.querySelector('[data-testid="eb-profil-klasse"]')?.textContent ?? null)
+    // Aufsteigend nach Klassenband (von, dann bis).
     expect(klassen(FAELLE.ilkay.data)).toEqual([
+      'Klasse 5–6',
+      'Klasse 5–7',
+      'Klasse 5–7',
       'Klasse 6',
       'Klasse 7',
       'Klasse 7–8',
-      'Klasse 5–7',
-      'Klasse 5–6',
-      'Klasse 5–7',
     ])
   })
 
@@ -191,7 +194,7 @@ describe('Seite 2 — keine abgeleiteten Bereiche, Klassen je Zeile', () => {
     )
   })
 
-  it('Zeilen mit zehn oder mehr Kästchen rücken die Spur zusammen (206 pt), kürzere nicht', () => {
+  it('Maßstab für alle Zeilen auf fester Spur: mehr Kästchen, schmalere Kästchen', () => {
     const breite = (data: ReportData): number =>
       Number(seite2(data).getAllByTestId('eb-profil-zeile')[0].querySelector('rect')!.getAttribute('width'))
     // sehrViele: Zeilen mit weit über zehn Bereichen.

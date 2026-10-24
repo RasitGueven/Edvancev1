@@ -1,9 +1,11 @@
-/* Eltern-Bericht v2 · Seite 3 — Einordnung: Lücken und was darauf aufbaut.
+/* Eltern-Bericht v3 · Seite 3 — Einordnung: erst was sitzt, dann was fehlt.
 
-   Je Zeile links die Lücken (rosé), ein kurzer Pfeil in der gedeckten
-   Übungsbedarf-Farbe, rechts das kommende Thema (hellblau wie „Kommt noch“).
-   Keine Linie läuft über die Zeile hinaus. Darunter die übrigen Lücken, ganz
-   unten knapp die Stärken (grün). Kicker und Titel wie bisher.
+   Grün „Sitzt schon“, rosé „Fehlt noch“, hellblau das kommende Thema (wie
+   „Kommt noch“). Layout A: links oben alle grünen, darunter alle roten Kästen,
+   rechts einmal die Themen (über die Nummer verbunden). Layout B: je Thema eine
+   Zeile grün · rosé → blau. Kurze Pfeile in der gedeckten Farbe der Kategorie,
+   nie über die Zeile hinaus. Darunter „Weitere Stärken“ und zuletzt die
+   übrigen Lücken.
 
    Ohne color-mix (INV-4.11): Tönungen sind Pseudo-Elemente in der
    Token-Farbe mit geringer Deckkraft. */
@@ -34,110 +36,203 @@
   color: var(--color-eb-text);
 }
 
-/* ─── Zeilen: Lücken → kommendes Thema ────────────────────────────────────── */
+/* ─── Gemeinsame Kästen ──────────────────────────────────────────────────── */
 
-.eb-s3v2-wege {
-  margin-top: 14pt;
-}
-.eb-s3v2-kopf {
-  display: grid;
-  grid-template-columns: 1fr 26pt 190pt;
-  font-size: 7.4pt;
-  line-height: 10pt;
-  letter-spacing: 0.8pt;
-  text-transform: uppercase;
-  color: var(--color-eb-leise);
-}
-.eb-s3v2-kopf span:last-child {
-  grid-column: 3;
-}
-.eb-s3v2-zeile {
-  display: grid;
-  grid-template-columns: 1fr 26pt 190pt;
-  align-items: center;
-  margin-top: 8pt;
-}
-
-.eb-s3v2-luecken {
+.eb-s3v3-kasten {
   position: relative;
   isolation: isolate;
-  padding: 8pt 11pt;
-  border: 0.8pt solid var(--color-eb-uebung);
+  box-sizing: border-box;
+  padding: 7pt 10pt;
+  border: 0.8pt solid var(--color-eb-sicher);
   border-radius: 9pt;
 }
-.eb-s3v2-luecken::before {
+.eb-s3v3-kasten::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   border-radius: inherit;
+  background: var(--color-eb-sicher);
+  opacity: 0.08;
+}
+.eb-s3v3-fehlt {
+  border-color: var(--color-eb-uebung);
+}
+.eb-s3v3-fehlt::before {
   background: var(--color-eb-uebung);
   opacity: 0.1;
 }
-.eb-s3v2-luecken li {
+.eb-s3v3-bereiche li {
   position: relative;
-  padding-left: 11pt;
-  font-size: 8.6pt;
-  line-height: 12pt;
+  padding-left: 10pt;
+  font-size: 8.2pt;
+  line-height: 11pt;
   color: var(--color-eb-tinte);
 }
-.eb-s3v2-luecken li::before {
+.eb-s3v3-bereiche li + li {
+  margin-top: 2pt;
+}
+.eb-s3v3-bereiche li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 3.6pt;
-  width: 5pt;
-  height: 5pt;
+  top: 3.3pt;
+  width: 4.6pt;
+  height: 4.6pt;
   border-radius: 50%;
+  background: var(--color-eb-sicher);
+}
+.eb-s3v3-fehlt .eb-s3v3-bereiche li::before {
   background: var(--color-eb-uebung);
 }
-
-.eb-s3v2-luecken li.eb-s3v2-rest {
+.eb-s3v3-bereiche li.eb-s3v3-rest {
   color: var(--color-eb-text);
 }
-.eb-s3v2-luecken li.eb-s3v2-rest::before {
+.eb-s3v3-bereiche li.eb-s3v3-rest::before {
   background: transparent;
 }
+.eb-s3v3-auch {
+  display: block;
+  font-size: 7pt;
+  line-height: 9.5pt;
+  color: var(--color-eb-text);
+}
 
-.eb-s3v2-pfeil {
+.eb-s3v3-pfeil {
   justify-self: center;
-  width: 18pt;
-  height: 9pt;
+  flex: none;
+  width: 16pt;
+  height: 8pt;
   overflow: visible;
 }
-.eb-s3v2-pfeil path {
+.eb-s3v3-pfeil path {
   fill: none;
-  stroke: var(--color-eb-uebung);
   stroke-width: 1.4;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.eb-s3v3-pfeil-sitzt path {
+  stroke: var(--color-eb-sicher);
+  opacity: 0.55;
+}
+.eb-s3v3-pfeil-fehlt path {
+  stroke: var(--color-eb-uebung);
+}
 
-.eb-s3v2-kommt {
+.eb-s3v3-thema {
   box-sizing: border-box;
-  height: 100%;
-  padding: 8pt 11pt;
+  padding: 7pt 10pt;
   background: var(--color-eb-zukunft);
   border: 0.8pt dashed var(--color-eb-zukunft-rand);
   border-radius: 9pt;
 }
-.eb-s3v2-kommt-titel {
-  font-size: 9pt;
-  line-height: 12pt;
+.eb-s3v3-thema-titel {
+  display: flex;
+  align-items: baseline;
+  gap: 5pt;
+  font-size: 8.8pt;
+  line-height: 11.5pt;
   font-weight: 600;
   color: var(--color-eb-navy);
 }
-.eb-s3v2-kommt-wann {
+.eb-s3v3-wann {
   margin-top: 2pt;
-  font-size: 7.4pt;
-  line-height: 10pt;
+  font-size: 7.2pt;
+  line-height: 9.5pt;
   color: var(--color-eb-text);
 }
-.eb-s3v2-kommt-sitzt {
-  margin-top: 4pt;
+.eb-s3v3-nr {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 11pt;
+  height: 11pt;
+  border-radius: 50%;
+  background: var(--color-eb-navy);
+  font-size: 6.6pt;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--color-eb-weiss);
+}
+.eb-s3v3-spalte {
+  font-size: 7.2pt;
+  line-height: 10pt;
+  letter-spacing: 0.8pt;
+  text-transform: uppercase;
+  color: var(--color-eb-sicher-text);
+}
+.eb-s3v3-spalte-fehlt {
+  margin-top: 8pt;
+  color: var(--color-eb-uebung-text);
+}
+.eb-s3v3-rechts .eb-s3v3-spalte {
+  color: var(--color-eb-leise);
+}
+
+/* ─── Layout A: links Stärken, dann Lücken; rechts die Themen einmal ──────── */
+
+.eb-s3v3-a {
+  display: grid;
+  grid-template-columns: 1fr 150pt;
+  column-gap: 6pt;
+  align-items: start;
+  margin-top: 12pt;
+}
+.eb-s3v3-links,
+.eb-s3v3-rechts {
+  display: flex;
+  flex-direction: column;
+  gap: 5pt;
+}
+.eb-s3v3-zeile-a {
+  display: flex;
+  align-items: center;
+  gap: 5pt;
+}
+.eb-s3v3-zeile-a .eb-s3v3-kasten {
+  flex: 1;
+}
+.eb-s3v3-fuer {
+  display: flex;
+  align-items: baseline;
+  gap: 5pt;
+  margin-bottom: 3pt;
   font-size: 7.4pt;
   line-height: 10pt;
+  color: var(--color-eb-navy);
+}
+
+/* ─── Layout B: je Thema eine Zeile ────────────────────────────────────────── */
+
+.eb-s3v3-b {
+  margin-top: 12pt;
+}
+.eb-s3v3-kopf,
+.eb-s3v3-zeile-b {
+  display: grid;
+  grid-template-columns: 1fr 1fr 22pt 130pt;
+  column-gap: 6pt;
+}
+.eb-s3v3-kopf {
+  font-size: 7.2pt;
+  line-height: 10pt;
+  letter-spacing: 0.8pt;
+  text-transform: uppercase;
+  color: var(--color-eb-leise);
+}
+.eb-s3v3-kopf span:first-child {
   color: var(--color-eb-sicher-text);
+}
+.eb-s3v3-kopf span:nth-child(2) {
+  color: var(--color-eb-uebung-text);
+}
+.eb-s3v3-zeile-b {
+  align-items: stretch;
+  margin-top: 6pt;
+}
+.eb-s3v3-zeile-b .eb-s3v3-pfeil {
+  align-self: center;
 }
 
 /* ─── Übrige Lücken ───────────────────────────────────────────────────────── */
@@ -145,7 +240,7 @@
 .eb-s3v2-weitere {
   position: relative;
   isolation: isolate;
-  margin-top: 16pt;
+  margin-top: 12pt;
   padding: 10pt 12pt;
   border: 0.8pt solid var(--color-eb-uebung);
   border-radius: 11pt;
@@ -183,22 +278,22 @@
   color: var(--color-eb-tinte);
 }
 
-/* ─── Stärken, knapp ──────────────────────────────────────────────────────── */
+/* ─── Weitere Stärken: kurze Liste ───────────────────────────────────────── */
 
-.eb-s3v2-staerken {
+.eb-s3v3-weitere-staerken {
   margin-top: 12pt;
-  padding: 10pt 12pt;
+  padding: 8pt 12pt;
   background: var(--color-eb-mint);
   border: 0.8pt solid var(--color-eb-sicher);
   border-radius: 11pt;
 }
-.eb-s3v2-staerken .eb-kicker {
+.eb-s3v3-weitere-staerken .eb-kicker {
   color: var(--color-eb-sicher-text);
 }
-.eb-s3v2-staerken p {
+.eb-s3v3-weitere-staerken p {
   margin-top: 4pt;
-  font-size: 8.45pt;
-  line-height: 11.8pt;
+  font-size: 8.2pt;
+  line-height: 11.5pt;
   color: var(--color-eb-tinte);
 }
 

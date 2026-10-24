@@ -54,7 +54,6 @@ export function Seite4({ data, bericht, satz, name }: SeitenProps): JSX.Element 
       <h1 className="eb-titel eb-s4-titel">
         {anzahl === 0 ? t('s4.titelKeiner') : t(`s4.titel.${anzahl}`)}
       </h1>
-      {anzahl >= 2 && <p className="eb-s4-hinweis">{t('s4.reihenfolge')}</p>}
       {keine && <p className="eb-s4-keine">{keine}</p>}
 
       {anzahl > 0 && (
@@ -119,7 +118,12 @@ function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: num
   return { ref, wert }
 }
 
-/** Ein Schwerpunkt; unter dem letzten die übrigen Felder („Danach …“). */
+/**
+ * Ein Schwerpunkt: Titel und Grund (Bericht v3, ohne die Listen „Sicher / Noch
+ * nicht sicher“); unter dem letzten die übrigen Felder („Danach …“). Ist die
+ * Klassenarbeit zum Thema geschrieben, heißt der Thema-Schwerpunkt nach seinen
+ * Lücken und trägt das Schild „Vorhandene Lücke“ statt „Aktuelles Thema“.
+ */
 function Schwerpunkt({
   schwerpunkt,
   grund,
@@ -132,25 +136,27 @@ function Schwerpunkt({
   danach: string | null
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
-  const { thema, sicher, uebung } = schwerpunkt
+  const { thema, uebung } = schwerpunkt
+  const luecke = grund?.art === 'spaeterGebraucht' || grund?.art === 'themaGeschrieben'
 
   return (
     <li className="eb-s4-punkt">
       <h3 className="eb-s4-punkt-titel">
         <span className="eb-s4-grund" aria-hidden="true" />
-        {schwerpunktTitel(t, schwerpunkt)}
-        {/* Schild am Thema-Schwerpunkt (R7-11), nur mit Thema. */}
+        {luecke ? liste(uebung) : schwerpunktTitel(t, schwerpunkt)}
         {thema && (
           <span className="eb-s4-chip" data-testid="eb-s4-chip-thema">
-            {t('s4.chip.thema')}
+            {t(luecke ? 's4.chip.luecke' : 's4.chip.thema')}
           </span>
         )}
       </h3>
-      {grund && <p className="eb-s4-grund-text">{t('s4.grund', { grund: grundText(t, grund) })}</p>}
-      <p className="eb-s4-punkt-text">
-        {sicher.length > 0 && <>{t('s4.punkt.sicher', { liste: liste(sicher) })} </>}
-        {t('s4.punkt.uebung', { liste: liste(uebung) })}
-      </p>
+      {grund && (
+        <p className="eb-s4-grund-text">
+          {grund.art === 'spaeterGebraucht'
+            ? t('s4.spaeterZeile', { titel: grund.titel })
+            : t('s4.grund', { grund: grundText(t, grund) })}
+        </p>
+      )}
       {danach && <p className="eb-s4-danach">{danach}</p>}
     </li>
   )

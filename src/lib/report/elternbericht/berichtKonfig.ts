@@ -16,6 +16,23 @@ export const KONTAKT: { telefon: string | null } = {
 }
 
 /**
+ * Link zur interaktiven Tablet-Fassung für Eltern (Seite 5). Noch gibt es keine
+ * Elternfassung (die Präsentation läuft im Admin-Bereich). Solange null, entfällt
+ * der Hinweis im PDF.
+ */
+export const TABLET_LINK: string | null = null
+
+/**
+ * Layout von Seite 3 (Einordnung), Gründerrunde 24.10.2026:
+ *   'A' — erst alle Stärken (grün), dann alle Lücken (rot); die Themen (blau)
+ *         stehen einmal in einer gemeinsamen rechten Spalte, nummeriert.
+ *   'B' — je kommendem Thema eine Zeile: grün · rot → blau.
+ * Der Bogen nimmt diesen Wert, wenn ihm keiner übergeben wird.
+ */
+export type EinordnungLayout = 'A' | 'B'
+export const EINORDNUNG_LAYOUT: EinordnungLayout = 'B'
+
+/**
  * Kurzsatz je Klassenstufe auf Seite 1 („Auf einen Blick“).
  *
  * Regel, der Reihe nach:

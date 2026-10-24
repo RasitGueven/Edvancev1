@@ -65,13 +65,19 @@ describe('massstab — ein Maßstab für alle Zeilen (R7-8)', () => {
     expect([1, 16, 17, 30, 31, 40].map(luecke)).toEqual([4, 4, 2, 2, 1, 1])
   })
 
-  it('Breite min(28, (226 − (n_max − 1) · Lücke) / n_max) für n_max = 1, 4, 7, 17, 31, 40', () => {
+  it('Spur fest 195 pt, auch mit abgeleiteten (Bericht v3)', () => {
+    expect(SPUR).toBe(195)
+    expect(SPUR_MIT_ABGELEITETEN).toBe(SPUR)
+  })
+
+  it('Breite min(28, (195 − (n_max − 1) · Lücke) / n_max) für n_max = 1, 4, 6, 17, 31, 40', () => {
     expect(massstab(1).breite).toBe(28)
     expect(massstab(4).breite).toBe(28)
-    expect(massstab(7).breite).toBe(28) // (226 − 24) / 7 = 28,86
-    expect(massstab(17).breite).toBeCloseTo((226 - 16 * 2) / 17) // 11,41
-    expect(massstab(31).breite).toBeCloseTo((226 - 30) / 31) // 6,32
-    expect(massstab(40).breite).toBeCloseTo((226 - 39) / 40) // 4,68
+    expect(massstab(6).breite).toBe(28) // (195 − 20) / 6 = 29,17 → Deckel
+    expect(massstab(7).breite).toBeCloseTo((195 - 6 * 4) / 7) // 24,43
+    expect(massstab(17).breite).toBeCloseTo((195 - 16 * 2) / 17) // 9,59
+    expect(massstab(31).breite).toBeCloseTo((195 - 30) / 31) // 5,32
+    expect(massstab(40).breite).toBeCloseTo((195 - 39) / 40) // 3,9
     for (const n of [1, 4, 7, 17, 31, 40]) {
       const m = massstab(n)
       expect(m.radius, String(n)).toBeCloseTo(Math.min(3.5, m.breite / 3))
@@ -89,8 +95,7 @@ describe('massstab — ein Maßstab für alle Zeilen (R7-8)', () => {
       klasse: null,
     }))
     const m = massstabFuer(zeilen)
-    // Zeile mit zehn oder mehr Kästchen → schmale Spur von 206 pt.
-    expect(m).toEqual(massstab(40, SPUR_MIT_ABGELEITETEN))
+    expect(m).toEqual(massstab(40, SPUR))
     const alle = zeilen.flatMap((z) => segmente(z, m))
     expect(new Set(alle.map((s) => s.breite)).size).toBe(1)
     for (const z of zeilen) {
@@ -99,25 +104,22 @@ describe('massstab — ein Maßstab für alle Zeilen (R7-8)', () => {
     }
   })
 
-  it('Spur 206 pt auch ohne Umrisse, sobald eine Zeile zehn oder mehr Kästchen hat', () => {
-    const z = (sicher: number, uebung: number): ProfilZeile => ({ feld: 'zahlen', sicher, uebung, abgeleitet: 0, klasse: null })
+  it('massstabFuer nimmt immer SPUR: ohne Umrisse, mit Umrissen, bei zehn und mehr Kästchen', () => {
+    const z = (sicher: number, uebung: number, abgeleitet = 0): ProfilZeile => ({
+      feld: 'zahlen',
+      sicher,
+      uebung,
+      abgeleitet,
+      klasse: null,
+    })
     expect(massstabFuer([z(5, 4)])).toEqual(massstab(9, SPUR))
-    expect(massstabFuer([z(6, 4)])).toEqual(massstab(10, SPUR_MIT_ABGELEITETEN))
-    expect(massstabFuer([z(9, 9)])).toEqual(massstab(18, SPUR_MIT_ABGELEITETEN))
-    expect(massstabFuer([z(10, 0)])).toEqual(massstab(10, SPUR_MIT_ABGELEITETEN))
-    expect(massstabFuer([z(0, 10)])).toEqual(massstab(10, SPUR_MIT_ABGELEITETEN))
-  })
-
-  it('Spur 206 pt für alle Zeilen, sobald eine Zeile abgeleitete hat, sonst 226 pt', () => {
-    const z = (abgeleitet: number): ProfilZeile => ({ feld: 'zahlen', sicher: 4, uebung: 5, abgeleitet, klasse: null })
-    expect(massstabFuer([z(0)])).toEqual(massstab(9, SPUR))
-    expect(massstabFuer([z(0), { ...z(2), feld: 'brueche', sicher: 0, uebung: 0 }])).toEqual(
-      massstab(9, SPUR_MIT_ABGELEITETEN),
-    )
+    expect(massstabFuer([z(6, 4)])).toEqual(massstab(10, SPUR))
+    expect(massstabFuer([z(9, 9)])).toEqual(massstab(18, SPUR))
+    expect(massstabFuer([z(4, 5, 0), { ...z(0, 0, 2), feld: 'brueche' }])).toEqual(massstab(9, SPUR))
     // Längster Fall: 12 geprüft + 14 abgeleitet in einer Zeile.
     const lang = massstabFuer(zeilenVon('abgestuftLang'))
-    expect(lang).toEqual(massstab(26, 206))
-    expect(26 * lang.breite + 25 * lang.luecke).toBeCloseTo(206)
+    expect(lang).toEqual(massstab(26, SPUR))
+    expect(26 * lang.breite + 25 * lang.luecke).toBeCloseTo(SPUR)
   })
 
   it('wenige Bereiche: höchstens 28 pt breit', () => {
@@ -142,26 +144,50 @@ describe('segmente', () => {
 describe('profilZeilen', () => {
   it('ilkay: nur Felder mit geprüften Bereichen, keine Umrisse', () => {
     const z = zeilenVon('ilkay')
+    // Bericht v3: nach Klassenband aufsteigend (von, dann bis), Gleichstand in Feldfolge.
     expect(z.map((x) => [x.feld, kaestchen(x)])).toEqual([
+      ['groessen', 5],
+      ['geometrie', 6],
+      ['zahlen', 3],
       ['brueche', 5],
       ['prozent', 4],
       ['terme', 4],
-      ['geometrie', 6],
-      ['groessen', 5],
-      ['zahlen', 3],
     ])
     expect(z.every((x) => x.abgeleitet === 0)).toBe(true)
+  })
+
+  it('sortiert nach Klassenband aufsteigend: von, dann bis; ohne Klasse ans Ende; Gleichstand nach Feldfolge', () => {
+    const profil: EbProfilZeile[] = [
+      { feld: 'brueche', vorhanden: 1, sicher: 1, uebung: 0 },
+      { feld: 'prozent', vorhanden: 1, sicher: 1, uebung: 0 },
+      { feld: 'terme', vorhanden: 1, sicher: 1, uebung: 0 },
+      { feld: 'geometrie', vorhanden: 1, sicher: 1, uebung: 0 },
+      { feld: 'zahlen', vorhanden: 0, sicher: 0, uebung: 0 },
+    ]
+    const z = profilZeilen({
+      profil,
+      bereiche: [
+        bereich('b', 'brueche', 8),
+        bereich('p', 'prozent', 5),
+        bereich('t', 'terme', 5),
+        bereich('g1', 'geometrie', 5),
+        bereich('g2', 'geometrie', 9),
+      ],
+      abgeleitet: [{ feld: 'zahlen', klasse: null }],
+    })
+    // prozent (5–5) und terme (5–5) in Feldfolge, dann geometrie (5–9), dann brueche (8–8), zahlen ohne Klasse zuletzt.
+    expect(z.map((x) => x.feld)).toEqual(['prozent', 'terme', 'geometrie', 'brueche', 'zahlen'])
   })
 
   it('direkt geprüft wie im Profil (zaehle unverändert), auch weitereBereiche', () => {
     for (const fall of ['ilkay', 'allesSicher', 'weitereBereiche', 'abgestuft'] as const) {
       const direkt = bericht(fall).profil.filter((x) => x.sicher + x.uebung > 0)
       const z = zeilenVon(fall).filter((x) => x.sicher + x.uebung > 0)
-      expect(z.map((x) => [x.feld, x.sicher, x.uebung]), fall).toEqual(
-        direkt.map((x) => [x.feld, x.sicher, x.uebung]),
-      )
+      // Gleiche Zeilen wie im Profil; die Reihenfolge ordnet Seite 2 nach Klassenband.
+      const je = (x: { feld: string; sicher: number; uebung: number }) => `${x.feld}:${x.sicher}/${x.uebung}`
+      expect(z.map(je).sort(), fall).toEqual(direkt.map(je).sort())
     }
-    expect(zeilenVon('weitereBereiche').at(-1)!.feld).toBe('weitere')
+    expect(zeilenVon('weitereBereiche').map((x) => x.feld)).toContain('weitere')
   })
 
   it('Umrisse nur bei den abgestuften Fällen; Summe = themaAbdeckung.abgeleitet', () => {
@@ -284,7 +310,8 @@ describe('deutung — erst ab zwei geprüften Bereichen (R7-10)', () => {
 
   it('abgestuft (Batu): sicher nur Terme & Gleichungen, Übung Geometrie und Zahlen & Rechnen', () => {
     // brueche 1/0 (+4 abgeleitet), terme 2/1, geometrie 0/3, zahlen 1/3 (+5), zufall 0/1
-    expect(deutung(zeilenVon('abgestuft'))).toEqual({ sicher: ['terme'], uebung: ['geometrie', 'zahlen'] })
+    // Gleichstand (je drei Übungsbedarf) folgt der Zeilenfolge, und die ist seit v3 nach Klassenband.
+    expect(deutung(zeilenVon('abgestuft'))).toEqual({ sicher: ['terme'], uebung: ['zahlen', 'geometrie'] })
   })
 
   it('ilkay: unverändert, jedes Feld hat mindestens 3 geprüfte Bereiche', () => {

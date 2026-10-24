@@ -1,8 +1,8 @@
-// Bericht v2, Seite 3: Lücken und die kommenden Themen, die direkt darauf aufbauen.
+// Bericht v3, Seite 3: jeder Bereich in genau einem Block (erstes kommendes Thema im Plan), „betrifft auch“.
 import { describe, expect, it } from 'vitest'
 
 import { LUECKENWEG_STUFEN, baueLueckenweg, duenneLueckenweg, type LueckenwegEingabe } from '@/lib/report/elternbericht/lueckenweg'
-import type { EbBereich, EbLueckenweg, LernPlan, PlanEintrag, ThemenfeldKey } from '@/types'
+import type { EbBereich, EbKommtThema, EbLueckenweg, LernPlan, PlanEintrag, ThemenfeldKey } from '@/types'
 
 const bereich = (skillKey: string, label: string, sicher: boolean, feld: ThemenfeldKey = 'zahlen', klasse = 8): EbBereich => ({
   skillKey,
@@ -53,8 +53,10 @@ const GRAPH = {
 }
 const KOMMT = [eintrag(1, 'quad', 'Quadratische Gleichungen', 1), eintrag(2, 'kreis', 'Kreis', 2)]
 
+const z = (label: string, auch: string[] = []) => ({ label, auch })
+
 describe('baueLueckenweg — kommende Themen', () => {
-  it('ordnet jede Lücke den kommenden Themen zu, die direkt auf ihr aufbauen', () => {
+  it('jeder Bereich steht nur im ersten Thema des Plans, das auf ihm aufbaut; die anderen stehen in „auch“', () => {
     const lw = baueLueckenweg(
       eingabe({
         ...GRAPH,
@@ -62,13 +64,25 @@ describe('baueLueckenweg — kommende Themen', () => {
         bereiche: [bereich('wurzel_ziehen', 'Wurzel ziehen', false), bereich('term_umformen', 'Terme umformen', false)],
       }),
     )
+    // Kreis baut nur auf term_umformen auf, Quadratische Gleichungen kommt zuerst.
     expect(lw.themen).toEqual([
-      { titel: 'Quadratische Gleichungen', halbjahr: 1, luecken: ['Terme umformen', 'Wurzel ziehen'], staerken: [] },
-      { titel: 'Kreis', halbjahr: 2, luecken: ['Terme umformen'], staerken: [] },
+      {
+        titel: 'Quadratische Gleichungen',
+        halbjahr: 1,
+        sitzt: [],
+        fehlt: [z('Terme umformen', ['Kreis']), z('Wurzel ziehen')],
+      },
     ])
   })
 
-  it('trennt Lücken und sichere Bereiche je Thema', () => {
+  it('der Block ist das erste Thema im Plan, nicht im Graphen', () => {
+    const lw = baueLueckenweg(
+      eingabe({ ...GRAPH, kommt: [...KOMMT].reverse(), bereiche: [bereich('term_umformen', 'Terme umformen', false)] }),
+    )
+    expect(lw.themen).toEqual([{ titel: 'Kreis', halbjahr: 2, sitzt: [], fehlt: [z('Terme umformen', ['Quadratische Gleichungen'])] }])
+  })
+
+  it('trennt sichere Bereiche (sitzt) und Lücken (fehlt) je Thema', () => {
     const lw = baueLueckenweg(
       eingabe({
         ...GRAPH,
@@ -76,15 +90,52 @@ describe('baueLueckenweg — kommende Themen', () => {
         bereiche: [bereich('wurzel_ziehen', 'Wurzel ziehen', true), bereich('term_umformen', 'Terme umformen', false)],
       }),
     )
-    expect(lw.themen[0]).toMatchObject({ luecken: ['Terme umformen'], staerken: ['Wurzel ziehen'] })
-    expect(lw.staerken).toEqual(['Wurzel ziehen'])
+    expect(lw.themen[0]).toMatchObject({ sitzt: [z('Wurzel ziehen')], fehlt: [z('Terme umformen', ['Kreis'])] })
+    expect(lw.weitereStaerken).toEqual([])
   })
 
-  it('bleibt in der Reihenfolge des Plans, nicht des Graphen', () => {
+  it('Themen ohne eigenen Bereich und ohne themaKey fallen weg, die Plan-Reihenfolge bleibt', () => {
     const lw = baueLueckenweg(
-      eingabe({ ...GRAPH, kommt: [...KOMMT].reverse(), bereiche: [bereich('term_umformen', 'Terme umformen', false)] }),
+      eingabe({
+        ...GRAPH,
+        kommt: [eintrag(1, null, 'Ohne Schlüssel'), eintrag(2, 'unbekannt', 'Ohne Bezug'), ...KOMMT],
+        bereiche: [bereich('wurzel_ziehen', 'Wurzel ziehen', false), bereich('kreis_x', 'Kreis-Kante', false)],
+        kanten: [...GRAPH.kanten, { skillKey: 'kreis_flaeche', voraussetzt: 'kreis_x' }],
+      }),
     )
-    expect(lw.themen.map((t) => t.titel)).toEqual(['Kreis', 'Quadratische Gleichungen'])
+    expect(lw.themen.map((t) => t.titel)).toEqual(['Quadratische Gleichungen', 'Kreis'])
+  })
+
+  it('ein Thema, das zweimal im Plan steht, nur einmal', () => {
+    const lw = baueLueckenweg(
+      eingabe({
+        ...GRAPH,
+        kommt: [eintrag(1, 'kreis', 'Kreis', 1), eintrag(2, 'kreis', 'Kreis', 2)],
+        bereiche: [bereich('term_umformen', 'Terme umformen', false)],
+      }),
+    )
+    expect(lw.themen).toEqual([{ titel: 'Kreis', halbjahr: 1, sitzt: [], fehlt: [z('Terme umformen')] }])
+  })
+
+  it('Halbjahr null bleibt null', () => {
+    const lw = baueLueckenweg(
+      eingabe({ ...GRAPH, kommt: [eintrag(1, 'kreis', 'Kreis', null)], bereiche: [bereich('term_umformen', 'T', false)] }),
+    )
+    expect(lw.themen[0].halbjahr).toBeNull()
+  })
+
+  it('Bereiche je Block nach Klasse, dann alphabetisch', () => {
+    const lw = baueLueckenweg(
+      eingabe({
+        ...GRAPH,
+        kommt: [KOMMT[0]],
+        bereiche: [
+          bereich('term_umformen', 'Zebra', false, 'terme', 7),
+          bereich('wurzel_ziehen', 'Anton', false, 'zahlen', 8),
+        ],
+      }),
+    )
+    expect(lw.themen[0].fehlt.map((x) => x.label)).toEqual(['Zebra', 'Anton'])
   })
 
   it('nur eine Kante, keine Kette: ein Thema, das erst über einen Zwischenschritt aufbaut, erscheint nicht', () => {
@@ -103,40 +154,21 @@ describe('baueLueckenweg — kommende Themen', () => {
     expect(lw.weitere).toHaveLength(1)
   })
 
-  it('Themen ohne Bezug zu einem geprüften Bereich und ohne themaKey fallen weg', () => {
-    const lw = baueLueckenweg(
-      eingabe({
-        ...GRAPH,
-        kommt: [eintrag(1, null, 'Ohne Schlüssel'), eintrag(2, 'unbekannt', 'Ohne Bezug'), ...KOMMT],
-        bereiche: [bereich('term_umformen', 'Terme umformen', false)],
-      }),
-    )
-    expect(lw.themen.map((t) => t.titel)).toEqual(['Quadratische Gleichungen', 'Kreis'])
-  })
-
-  it('ein Thema, das zweimal im Plan steht, nur einmal', () => {
-    const lw = baueLueckenweg(
-      eingabe({
-        ...GRAPH,
-        kommt: [eintrag(1, 'kreis', 'Kreis', 1), eintrag(2, 'kreis', 'Kreis', 2)],
-        bereiche: [bereich('term_umformen', 'Terme umformen', false)],
-      }),
-    )
-    expect(lw.themen).toEqual([{ titel: 'Kreis', halbjahr: 1, luecken: ['Terme umformen'], staerken: [] }])
-  })
-
-  it('Labels je Thema nach Klasse, dann alphabetisch', () => {
-    const lw = baueLueckenweg(
-      eingabe({
-        ...GRAPH,
-        kommt: [KOMMT[0]],
-        bereiche: [
-          bereich('term_umformen', 'Zebra', false, 'terme', 7),
-          bereich('wurzel_ziehen', 'Anton', false, 'zahlen', 8),
-        ],
-      }),
-    )
-    expect(lw.themen[0].luecken).toEqual(['Zebra', 'Anton'])
+  it('Invariante: jeder geprüfte Bereich steht genau einmal (Block, weitere Stärken oder weitere Lücken)', () => {
+    const bereiche = [
+      bereich('wurzel_ziehen', 'Wurzel ziehen', true),
+      bereich('term_umformen', 'Terme umformen', false),
+      bereich('s1', 'Frei sicher', true),
+      bereich('l1', 'Frei Lücke', false, 'geometrie'),
+      bereich('l2', 'Frei Lücke 2', false, 'brueche'),
+    ]
+    const lw = baueLueckenweg(eingabe({ ...GRAPH, kommt: KOMMT, bereiche }))
+    const alle = [
+      ...lw.themen.flatMap((t) => [...t.sitzt, ...t.fehlt].map((x) => x.label)),
+      ...lw.weitereStaerken,
+      ...lw.weitere.flatMap((g) => g.labels),
+    ]
+    expect([...alle].sort()).toEqual(bereiche.map((b) => b.label).sort())
   })
 })
 
@@ -184,7 +216,7 @@ describe('baueLueckenweg — weitere Lücken und Stärken', () => {
     expect(lw.weitere).toEqual([])
   })
 
-  it('sichere Bereiche ohne Bezug zählen nur in sicherGesamt, nicht in staerken', () => {
+  it('sichere Bereiche ohne kommendes Thema stehen in weitereStaerken, nicht in einem Block', () => {
     const lw = baueLueckenweg(
       eingabe({
         ...GRAPH,
@@ -192,16 +224,15 @@ describe('baueLueckenweg — weitere Lücken und Stärken', () => {
         bereiche: [bereich('term_umformen', 'Terme umformen', true), bereich('x', 'Anderes', true)],
       }),
     )
-    expect(lw.staerken).toEqual(['Terme umformen'])
-    expect(lw.sicherGesamt).toBe(2)
+    expect(lw.themen[0].sitzt.map((x) => x.label)).toEqual(['Terme umformen'])
+    expect(lw.weitereStaerken).toEqual(['Anderes'])
   })
 
   it('ohne Bereiche und ohne Plan: leer', () => {
     expect(baueLueckenweg(eingabe())).toEqual({
       themen: [],
+      weitereStaerken: [],
       weitere: [],
-      staerken: [],
-      sicherGesamt: 0,
       quelle: 'klp',
       schulname: null,
     })
@@ -222,91 +253,87 @@ describe('baueLueckenweg — Quelle', () => {
 
 describe('duenneLueckenweg — Seite 3 dünnt stufenweise aus', () => {
   const namen = (n: number, p: string): string[] => Array.from({ length: n }, (_, i) => `${p}${i + 1}`)
-  const thema = (i: number, luecken: string[], staerken: string[] = []) => ({
+  const thema = (i: number, fehlt: string[], sitzt: string[] = []): EbKommtThema => ({
     titel: `Thema ${i}`,
-    halbjahr: 1 as const,
-    luecken,
-    staerken,
+    halbjahr: 1,
+    sitzt: sitzt.map((l) => z(l)),
+    fehlt: fehlt.map((l) => z(l)),
   })
   const voll: EbLueckenweg = {
-    themen: [thema(1, namen(5, 'L'), ['S1'])],
+    themen: [thema(1, namen(5, 'L'), namen(4, 'S'))],
+    weitereStaerken: namen(8, 'W'),
     weitere: [
       { feld: 'brueche', thema: null, labels: namen(5, 'B') },
       { feld: 'terme', thema: null, labels: namen(2, 'T') },
     ],
-    staerken: ['S1'],
-    sicherGesamt: 4,
     quelle: 'klp',
     schulname: null,
   }
-  /** Acht Zeilen mit je einer eigenen Lücke Z1 … Z8. */
+  /** Acht Blöcke mit je einer eigenen Lücke Z1 … Z8 und einer Stärke S1 … S8. */
   const acht: EbLueckenweg = {
     ...voll,
     themen: Array.from({ length: 8 }, (_, i) => thema(i + 1, [`Z${i + 1}`], [`S${i + 1}`])),
+    weitereStaerken: [],
     weitere: [],
-    staerken: namen(8, 'S'),
   }
-  const mitLuecken = (lw: EbLueckenweg): number => lw.themen.filter((k) => k.luecken.length > 0).length
+  const gesamt = (lw: EbLueckenweg): number =>
+    lw.themen.reduce((n, k) => n + k.sitzt.length + (k.restSitzt ?? 0) + k.fehlt.length + (k.restFehlt ?? 0), 0) +
+    lw.weitereStaerken.length +
+    (lw.weitereStaerkenRest ?? 0) +
+    lw.weitere.reduce((n, g) => n + g.labels.length + (g.rest ?? 0), 0)
 
-  it('hat sechs Stufen; Stufe 0 ändert nichts', () => {
-    expect(LUECKENWEG_STUFEN).toBe(6)
+  it('hat fünf Stufen; Stufe 0 ändert nichts', () => {
+    expect(LUECKENWEG_STUFEN).toBe(5)
     expect(duenneLueckenweg(voll, 0)).toBe(voll)
   })
 
-  it('Stufe 1: je Gruppe höchstens drei Namen, der Rest als Zahl; Zeilen unberührt', () => {
+  it('Stufe 1: je Kasten höchstens drei Bereiche, Gruppen drei Namen, weitere Stärken sechs; Blöcke unberührt', () => {
     const lw = duenneLueckenweg(voll, 1)
+    expect(lw.themen[0]).toMatchObject({ restFehlt: 2, restSitzt: 1 })
+    expect(lw.themen[0].fehlt).toHaveLength(3)
+    expect(lw.themen[0].sitzt).toHaveLength(3)
     expect(lw.weitere.map((g) => [g.labels.length, g.rest])).toEqual([[3, 2], [2, 0]])
-    expect(lw.themen).toEqual(voll.themen)
-    expect(lw.staerken).toEqual(['S1'])
+    expect(lw.weitereStaerken).toHaveLength(6)
+    expect(lw.weitereStaerkenRest).toBe(2)
+    expect(duenneLueckenweg(acht, 1).themen).toHaveLength(8)
   })
 
-  it('Stufe 1: höchstens sechs Zeilen; die Lücken der übrigen Themen stehen in der Gruppe „spätere Themen“', () => {
-    const lw = duenneLueckenweg(acht, 1)
-    expect(mitLuecken(lw)).toBe(6)
-    expect(lw.weitere[0]).toMatchObject({ feld: null, thema: null, spaeter: true, labels: ['Z7', 'Z8'] })
-    // Die gekappten Themen bleiben für den Stärken-Satz in themen, ohne Lücken.
-    expect(lw.themen).toHaveLength(8)
-    expect(lw.themen[7]).toMatchObject({ titel: 'Thema 8', luecken: [], staerken: ['S8'] })
+  it('Stufe 2: höchstens vier Blöcke; Lücken der übrigen in „spätere Themen“, deren Stärken zu weitere Stärken', () => {
+    const lw = duenneLueckenweg(acht, 2)
+    expect(lw.themen.map((k) => k.titel)).toEqual(['Thema 1', 'Thema 2', 'Thema 3', 'Thema 4'])
+    expect(lw.weitere[0]).toMatchObject({ feld: null, thema: null, spaeter: true, labels: ['Z5', 'Z6', 'Z7'], rest: 1 })
+    expect(lw.weitereStaerken).toEqual(['S5', 'S6', 'S7', 'S8'])
+    expect(gesamt(lw)).toBe(gesamt(acht))
   })
 
-  it('eine Lücke, die in einer gezeigten Zeile steht, kommt nicht in „spätere Themen“', () => {
-    const lw = duenneLueckenweg(
-      { ...acht, themen: [...acht.themen.slice(0, 6), thema(7, ['Z1', 'Z7'])] },
-      1,
-    )
-    expect(lw.weitere.find((g) => g.spaeter)?.labels).toEqual(['Z7'])
-    const keine = duenneLueckenweg({ ...acht, themen: [...acht.themen.slice(0, 6), thema(7, ['Z1'])] }, 1)
-    expect(keine.weitere.some((g) => g.spaeter)).toBe(false)
+  it('Stufe 2: ohne Lücken in den übrigen Blöcken keine Gruppe „spätere Themen“', () => {
+    const ohne = { ...acht, themen: acht.themen.map((k, i) => (i < 4 ? k : { ...k, fehlt: [] })) }
+    expect(duenneLueckenweg(ohne, 2).weitere.some((g) => g.spaeter)).toBe(false)
   })
 
-  it('Stufe 2: höchstens vier Zeilen, je Zeile drei Lücken mit Rest, ohne „Sitzt schon“; Stärken-Liste bleibt', () => {
-    const lw = duenneLueckenweg(voll, 2)
-    expect(lw.themen[0]).toMatchObject({ luecken: ['L1', 'L2', 'L3'], rest: 2, zeileOhneStaerken: true, staerken: ['S1'] })
-    expect(lw.staerken).toEqual(['S1'])
-    expect(mitLuecken(duenneLueckenweg(acht, 2))).toBe(4)
-  })
-
-  it('Stufe 3: übrige Lücken nur noch als Zahl', () => {
+  it('Stufe 3: übrige Lücken und weitere Stärken nur noch als Zahl; Blöcke bleiben vier', () => {
     const lw = duenneLueckenweg(voll, 3)
     expect(lw.weitere.map((g) => [g.labels, g.rest])).toEqual([[[], 5], [[], 2]])
+    expect(lw.weitereStaerken).toEqual([])
+    expect(lw.weitereStaerkenRest).toBe(8)
+    expect(duenneLueckenweg(acht, 3).themen).toHaveLength(4)
   })
 
-  it('Stufe 4: Stärken nur noch als Zahl (sicherGesamt bleibt), nichts verschwindet still', () => {
-    const lw = duenneLueckenweg(voll, 4)
-    expect(lw.staerken).toEqual([])
-    expect(lw.sicherGesamt).toBe(4)
-    expect(lw.themen[0].luecken.length + (lw.themen[0].rest ?? 0)).toBe(5)
-  })
-
-  it('Stufe 5: höchstens drei Zeilen', () => {
-    const lw = duenneLueckenweg(acht, 5)
-    expect(mitLuecken(lw)).toBe(3)
+  it('Stufe 4: höchstens drei Blöcke, nichts verschwindet still', () => {
+    const lw = duenneLueckenweg(acht, 4)
+    expect(lw.themen).toHaveLength(3)
     expect(lw.weitere[0]).toMatchObject({ spaeter: true, labels: [], rest: 5 })
+    expect(lw.weitereStaerkenRest).toBe(5)
+    expect(gesamt(duenneLueckenweg(voll, 4))).toBe(gesamt(voll))
+  })
+
+  it('jede Stufe behält alle Bereiche (als Name oder Zahl)', () => {
+    for (let s = 0; s <= LUECKENWEG_STUFEN; s++) expect(gesamt(duenneLueckenweg(acht, s))).toBe(gesamt(acht))
   })
 
   it('verändert die Eingabe nicht', () => {
     const kopie = structuredClone(acht)
-    duenneLueckenweg(acht, 5)
+    duenneLueckenweg(acht, 4)
     expect(acht).toEqual(kopie)
   })
 })

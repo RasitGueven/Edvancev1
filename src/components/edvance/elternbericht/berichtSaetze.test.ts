@@ -4,6 +4,7 @@ import i18n from '@/i18n'
 
 import {
   anliegenSaetzeV2,
+  fazitSaetze,
   grundText,
   lueckenFelder,
   schuleGenitiv,
@@ -11,9 +12,10 @@ import {
   stufenKlasse,
   stufenUrteil,
   ursachenSaetze,
+  zieleSaetze,
 } from '@/components/edvance/elternbericht/berichtSaetze'
 import type { UrsachenAntwort } from '@/lib/report/elternbericht/ursache'
-import type { EbProfilZeile, EbSchwerpunkt, EbStufenZeile, ReportErstgespraech, ThemenfeldKey } from '@/types'
+import type { EbGrund, EbProfilZeile, EbSchwerpunkt, EbStufenZeile, ReportErstgespraech, ThemenfeldKey } from '@/types'
 
 const t = i18n.getFixedT('de', 'elternbericht')
 const liste = (s: readonly string[]): string => new Intl.ListFormat('de', { style: 'long', type: 'conjunction' }).format(s)
@@ -46,7 +48,7 @@ describe('stufenKlasse und stufenUrteil', () => {
 })
 
 describe('anliegenSaetzeV2', () => {
-  const ohne = { erstgespraech: null, ursachen: [], name: 'Ilkay', fach: 'Mathematik', liste }
+  const ohne = { erstgespraech: null, ursachen: [], fach: 'Mathematik', liste }
   const eg = (teil: Partial<ReportErstgespraech>): ReportErstgespraech => ({
     note: null,
     trend: null,
@@ -61,23 +63,22 @@ describe('anliegenSaetzeV2', () => {
     expect(anliegenSaetzeV2(t, ohne)).toEqual([])
   })
 
-  it('Note, Trend, Seit und Ursache in dieser Reihenfolge', () => {
+  it('Note mit Trend in einer Zeile, dann Seit und Ursache', () => {
     const s = anliegenSaetzeV2(t, {
       ...ohne,
       erstgespraech: eg({ note: '4', trend: 'schlechter', seit: 'letztes_schuljahr' }),
       ursachen: ['Grundlagen fehlen', 'Rechenwege'],
     })
     expect(s).toEqual([
-      'Die letzte Zeugnisnote von Ilkay in Mathematik war eine 4.',
-      'Zuletzt ist sie schlechter geworden.',
+      'Letzte Zeugnisnote in Mathematik: 4, zuletzt schlechter geworden.',
       'Die Schwierigkeiten gibt es seit dem letzten Schuljahr.',
       'Als Ursache vermuten Sie Grundlagen fehlen und Rechenwege.',
     ])
   })
 
-  it('ohne Namen: Fassung ohne Namen', () => {
-    const s = anliegenSaetzeV2(t, { ...ohne, name: null, erstgespraech: eg({ note: '3' }) })
-    expect(s).toEqual(['Die letzte Zeugnisnote in Mathematik war eine 3.'])
+  it('Note ohne Trend: „Letzte Zeugnisnote in {fach}: {note}.“, nie mit Namen', () => {
+    const s = anliegenSaetzeV2(t, { ...ohne, erstgespraech: eg({ note: '3' }) })
+    expect(s).toEqual(['Letzte Zeugnisnote in Mathematik: 3.'])
   })
 
   it('Trend ohne Note entfällt (er bezöge sich auf nichts)', () => {
@@ -93,11 +94,11 @@ describe('anliegenSaetzeV2', () => {
   })
 
   it.each([
-    ['besser', 'Zuletzt ist sie besser geworden.'],
-    ['stabil', 'Sie ist zuletzt gleich geblieben.'],
-    ['schlechter', 'Zuletzt ist sie schlechter geworden.'],
-  ] as const)('Trend %s', (trend, satz) => {
-    expect(anliegenSaetzeV2(t, { ...ohne, erstgespraech: eg({ note: '2', trend }) })[1]).toBe(satz)
+    ['besser', 'Letzte Zeugnisnote in Mathematik: 2, zuletzt besser geworden.'],
+    ['stabil', 'Letzte Zeugnisnote in Mathematik: 2, zuletzt unverändert.'],
+    ['schlechter', 'Letzte Zeugnisnote in Mathematik: 2, zuletzt schlechter geworden.'],
+  ] as const)('Trend %s steht in der Notenzeile', (trend, satz) => {
+    expect(anliegenSaetzeV2(t, { ...ohne, erstgespraech: eg({ note: '2', trend }) })).toEqual([satz])
   })
 })
 
@@ -181,7 +182,24 @@ describe('grundText, startSatz', () => {
     expect(grundText(t, { art: 'thema' })).toBe('es das aktuelle Schulthema ist')
     expect(grundText(t, { art: 'themaGeschrieben' })).toBe('im aktuellen Schulthema noch eine Lücke offen ist')
     expect(grundText(t, { art: 'grundlagen' })).toBe('hier schon Stoff aus Klasse 5/6 Übung braucht')
-    expect(grundText(t, { art: 'naechstesThema', titel: 'Kreis' })).toBe('das kommende Schulthema Kreis darauf aufbaut')
+    expect(grundText(t, { art: 'naechstesThema', titel: 'Kreis' })).toBe('das kommende Schulthema „Kreis“ darauf aufbaut')
+  })
+
+  it('naechstesThema mit Band und Stelle: zuerst bzw. danach', () => {
+    expect(grundText(t, { art: 'naechstesThema', titel: 'Kreis', stufe: 'erprobung', reihe: 'zuerst' })).toBe(
+      'das kommende Schulthema „Kreis“ darauf aufbaut – zuerst, weil es Stoff aus Klasse 5/6 ist',
+    )
+    expect(grundText(t, { art: 'naechstesThema', titel: 'Kreis', stufe: 'erste', reihe: 'danach' })).toBe(
+      'auch „Kreis“ darauf aufbaut – danach, weil es Stoff aus Klasse 7/8 ist',
+    )
+    // Band ohne Stelle (oder umgekehrt) fällt auf den einfachen Satz zurück.
+    expect(grundText(t, { art: 'naechstesThema', titel: 'Kreis', stufe: 'erste' })).toBe(
+      'das kommende Schulthema „Kreis“ darauf aufbaut',
+    )
+  })
+
+  it('spaeterGebraucht nennt das Thema, das die Lücke wieder braucht', () => {
+    expect(grundText(t, { art: 'spaeterGebraucht', titel: 'Kreis' })).toBe('es im Thema „Kreis“ wieder gebraucht wird')
   })
 
   it('Anzahl im Singular und Plural', () => {
@@ -228,5 +246,111 @@ describe('schuleGenitiv', () => {
 
   it('sonst „der Schule …“', () => {
     expect(schuleGenitiv(t, 'Holweide')).toBe('der Schule Holweide')
+  })
+})
+
+describe('fazitSaetze (Seite 5)', () => {
+  const st = (stufe: EbStufenZeile['stufe'], sicher: number, uebung: number, urteil: EbStufenZeile['urteil']): EbStufenZeile => ({
+    stufe,
+    urteil,
+    von: 5,
+    bis: 6,
+    sicher,
+    uebung,
+  })
+  const BASIS_OK = [st('grundlagen', 8, 2, 'weitgehend'), st('weiterfuehrend', 2, 6, 'luecken'), st('aktuell', 3, 3, 'gemischt')]
+
+  it('Grundlagen sitzen, Lücken in 7/8 und in zwei Feldern, dann der Startsatz', () => {
+    expect(fazitSaetze(t, { stufen: BASIS_OK, felder: ['brueche', 'prozent'], sorgfalt: false, start: 'Wir beginnen.' })).toEqual([
+      'Die Grundlagen aus Klasse 5/6 sitzen weitgehend.',
+      'Die Lücken liegen vor allem im Stoff von Klasse 7/8, besonders bei Brüchen und Dezimalzahlen sowie bei Prozent und Dreisatz.',
+      'Wir beginnen.',
+    ])
+  })
+
+  it('ein Feld, Sorgfaltsmuster vor dem Startsatz', () => {
+    const s = fazitSaetze(t, { stufen: BASIS_OK, felder: ['geometrie'], sorgfalt: true, start: 'Start.' })
+    expect(s).toHaveLength(4)
+    expect(s[1]).toContain('besonders bei der Geometrie.')
+    expect(s[2]).toBe(t('s1.blick.muster'))
+    expect(s[3]).toBe('Start.')
+  })
+
+  it('ohne Feld: nur die Stufe der Lücken', () => {
+    const s = fazitSaetze(t, { stufen: BASIS_OK, felder: [], sorgfalt: false, start: null })
+    expect(s[1]).toBe('Die Lücken liegen vor allem im Stoff von Klasse 7/8.')
+  })
+
+  it('ohne Lückenstufe, aber mit Feld: „Die Lücken liegen vor allem bei …“', () => {
+    const alleSicher = [st('grundlagen', 4, 0, 'sicher'), st('aktuell', 4, 0, 'sicher')]
+    expect(fazitSaetze(t, { stufen: alleSicher, felder: ['terme'], sorgfalt: false, start: null })).toEqual([
+      'Die Grundlagen aus Klasse 5/6 sitzen weitgehend.',
+      'Die Lücken liegen vor allem bei Termen und Gleichungen.',
+    ])
+  })
+
+  it('sitzen die Grundlagen nicht, fehlt der Basissatz; ohne Daten bleibt der Startsatz oder nichts', () => {
+    const tief = [st('grundlagen', 1, 5, 'luecken'), st('aktuell', 3, 3, 'gemischt')]
+    expect(fazitSaetze(t, { stufen: tief, felder: [], sorgfalt: false, start: null })[0]).not.toContain('sitzen weitgehend')
+    expect(fazitSaetze(t, { stufen: [], felder: [], sorgfalt: false, start: null })).toEqual([])
+    expect(fazitSaetze(t, { stufen: [], felder: [], sorgfalt: false, start: 'Start.' })).toEqual(['Start.'])
+  })
+})
+
+describe('zieleSaetze (Seite 5)', () => {
+  const sp = (feld: ThemenfeldKey | null, thema: string | null = null, uebung = ['A', 'B']): EbSchwerpunkt => ({
+    feld,
+    thema,
+    gemischt: false,
+    sicher: [],
+    uebung,
+    start: null,
+    naechster: null,
+  })
+  const vier = [sp('brueche'), sp('prozent'), sp('terme'), sp('geometrie')]
+  const z = (paket: 'basis' | 'standard' | 'premium', sorgfalt = false, gruende: EbGrund[] = []) =>
+    zieleSaetze(t, { schwerpunkte: vier, gruende, paket, sorgfalt, liste })
+
+  it('das Paket bestimmt, wie viele Schwerpunkte vorkommen: 2, 3, 4', () => {
+    expect(z('basis')).toEqual(['Brüche und Dezimalzahlen sicher anwenden', 'Prozent- und Dreisatzrechnung sicher anwenden'])
+    expect(z('standard')).toHaveLength(3)
+    expect(z('premium')).toHaveLength(4)
+    expect(z('premium')[3]).toBe('Flächen und Figuren sicher anwenden')
+  })
+
+  it('Sorgfaltsziel als letztes, zusätzlich zu den Schwerpunkten', () => {
+    const s = z('basis', true)
+    expect(s).toHaveLength(3)
+    expect(s[2]).toBe('Rechenwege sorgfältig zu Ende führen und Ergebnisse selbst kontrollieren')
+  })
+
+  it('der Grund bestimmt den Satz: kommendes Thema, Klassenarbeit, allgemein', () => {
+    const s = zieleSaetze(t, {
+      schwerpunkte: [sp('brueche'), sp('prozent'), sp('terme')],
+      gruende: [{ art: 'naechstesThema', titel: 'Kreis' }, { art: 'klassenarbeit' }, { art: 'anzahl', count: 2 }],
+      paket: 'standard',
+      sorgfalt: false,
+      liste,
+    })
+    expect(s).toEqual([
+      'Brüche und Dezimalzahlen sicher anwenden, bevor das Thema „Kreis“ beginnt',
+      'Prozent- und Dreisatzrechnung für die Klassenarbeit sicher anwenden',
+      'Terme und Gleichungen sicher anwenden',
+    ])
+  })
+
+  it('Thema-Schwerpunkt heißt wie das Thema; bei Lücke (geschrieben/spaeterGebraucht) nach seinen Lücken', () => {
+    const thema = sp(null, 'Reelle Zahlen', ['Wurzeln', 'Brüche'])
+    const mk = (g: EbGrund) => zieleSaetze(t, { schwerpunkte: [thema], gruende: [g], paket: 'basis', sorgfalt: false, liste })
+    expect(mk({ art: 'thema' })).toEqual(['Reelle Zahlen sicher anwenden'])
+    expect(mk({ art: 'themaGeschrieben' })).toEqual(['Wurzeln und Brüche sicher anwenden'])
+    expect(mk({ art: 'spaeterGebraucht', titel: 'Kreis' })).toEqual([
+      'Wurzeln und Brüche sicher anwenden, bevor das Thema „Kreis“ beginnt',
+    ])
+  })
+
+  it('ohne Schwerpunkte nur das Sorgfaltsziel oder nichts', () => {
+    expect(zieleSaetze(t, { schwerpunkte: [], gruende: [], paket: 'premium', sorgfalt: false, liste })).toEqual([])
+    expect(zieleSaetze(t, { schwerpunkte: [], gruende: [], paket: 'premium', sorgfalt: true, liste })).toHaveLength(1)
   })
 })

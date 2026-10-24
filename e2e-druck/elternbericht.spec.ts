@@ -133,12 +133,12 @@ async function pruefeEinordnung(page: Page, wo: string): Promise<void> {
     const s = document.querySelector('.eb-seite[data-seite="3"]')
     if (!s) return ['keine Seite 3']
     const f: string[] = []
-    for (const k of s.querySelectorAll<HTMLElement>('.eb-s3v2-luecken, .eb-s3v2-kommt, .eb-s3v2-weitere, .eb-s3v2-staerken')) {
+    for (const k of s.querySelectorAll<HTMLElement>('.eb-s3v3-kasten, .eb-s3v3-thema, .eb-s3v2-weitere, .eb-s3v3-weitere-staerken')) {
       if (k.scrollWidth > k.clientWidth + 1 || k.scrollHeight > k.clientHeight + 1) f.push(`Text ragt aus Kasten: ${k.textContent?.slice(0, 40)}`)
     }
-    for (const z of s.querySelectorAll<HTMLElement>('.eb-s3v2-zeile')) {
+    for (const z of s.querySelectorAll<HTMLElement>('.eb-s3v3-zeile-a, .eb-s3v3-zeile-b')) {
       const r = z.getBoundingClientRect()
-      const p = z.querySelector('.eb-s3v2-pfeil')?.getBoundingClientRect()
+      const p = z.querySelector('.eb-s3v3-pfeil')?.getBoundingClientRect()
       if (p && (p.top < r.top - 0.5 || p.bottom > r.bottom + 0.5)) f.push('Pfeil verlässt seine Zeile')
     }
     return f
@@ -151,9 +151,11 @@ function pdfSeiten(pdf: Buffer): number {
   return (pdf.toString('latin1').match(/\/Type\s*\/Page(?![s\w])/g) ?? []).length
 }
 
-for (const [name, fall] of Object.entries(FAELLE)) {
+// Bericht v3: Seite 3 in beiden Layouts (Vorschau: ?layout=A|B).
+for (const [name, fall] of Object.entries(FAELLE).flatMap(([n, f]) => (['A', 'B'] as const).map((l) => [`${n} ${l}`, f] as const))) {
   test(`Druckbogen ${name}`, async ({ page }) => {
-    await page.goto(`/vorschau/elternbericht.html?fall=${name}`)
+    const [fallName, layout] = name.split(' ')
+    await page.goto(`/vorschau/elternbericht.html?fall=${fallName}&layout=${layout}`)
     await page.waitForSelector('.eb-seite, [data-testid="eb-leer"]')
     await page.evaluate(() => document.fonts.ready)
 
@@ -181,7 +183,7 @@ for (const [name, fall] of Object.entries(FAELLE)) {
 
     const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true })
     mkdirSync(AUSGABE, { recursive: true })
-    writeFileSync(resolve(AUSGABE, `${name}.pdf`), pdf)
+    writeFileSync(resolve(AUSGABE, `${name.replace(' ', '-')}.pdf`), pdf)
     expect(pdfSeiten(pdf)).toBe(5)
   })
 }

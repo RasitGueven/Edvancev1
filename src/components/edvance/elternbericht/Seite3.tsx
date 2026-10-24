@@ -2,11 +2,13 @@ import { useContext, useLayoutEffect, useMemo, useRef, useState, type RefObject 
 import { useTranslation } from 'react-i18next'
 
 import { duenneLueckenweg, LUECKENWEG_STUFEN } from '@/lib/report/elternbericht/lueckenweg'
-import type { EbKommtThema, EbLueckenweg } from '@/types'
+import type { EbKommtThema, EbLueckenweg, EbZuordnung } from '@/types'
 
 import { schuleGenitiv } from './berichtSaetze'
 import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
+
+type Liste = (s: readonly string[]) => string
 
 /**
  * Stufe des Ausdünnens (duenneLueckenweg): Läuft die Seite über, geht sie eine
@@ -38,95 +40,168 @@ function useAusduennen(schluessel: unknown): { ref: RefObject<HTMLDivElement>; s
 }
 
 /**
- * Seite 3 des Eltern-Berichts (v2): Einordnung.
+ * Seite 3 des Eltern-Berichts (v3): Einordnung — erst was sitzt, dann was fehlt.
  *
- * Im Fokus die Lücken: je kommendem Schulthema eine Zeile — links die Bereiche
- * mit Übungsbedarf, auf denen es laut Voraussetzungsgraph direkt aufbaut,
- * rechts das Thema mit „voraussichtlich“ und Halbjahr aus dem Schulplan. Der
- * Pfeil steht nur zwischen den beiden Kästen einer Zeile; nichts läuft quer
- * über die Seite. Darunter die übrigen Lücken, ganz unten knapp die Stärken.
- * Rechnung: src/lib/report/elternbericht/lueckenweg.ts.
- *
- * Der bisherige Lernweg (bericht.lernweg) bleibt für Station 03 der
- * Präsentation bestehen.
+ * Je kommendem Schulthema, das direkt auf geprüften Bereichen aufbaut, ein
+ * grüner Kasten („Sitzt schon“), ein roter („Fehlt noch“) und der blaue
+ * Themenkasten. Zwei Layouts (berichtKonfig.EINORDNUNG_LAYOUT):
+ *   A — oben alle grünen, darunter alle roten Kästen; die Themen stehen einmal
+ *       in einer gemeinsamen rechten Spalte, verbunden über ihre Nummer,
+ *   B — je Thema eine Zeile: grün · rot → blau.
+ * Jeder Bereich steht genau einmal („betrifft auch …“ für weitere Themen).
+ * Darunter „Weitere Stärken“ als kurze Liste, zuletzt „Weitere Bereiche mit
+ * Übungsbedarf“. Pfeile bleiben in ihrer Zeile. Rechnung:
+ * src/lib/report/elternbericht/lueckenweg.ts.
  */
-export function Seite3({ data, bericht }: SeitenProps): JSX.Element | null {
+export function Seite3({ bericht, einordnung = 'B' }: SeitenProps): JSX.Element | null {
   const { t, i18n } = useTranslation('elternbericht')
   const voll = bericht.lueckenweg ?? null
   const a = useAusduennen(voll)
   const lw = useMemo(() => (voll ? duenneLueckenweg(voll, a.stufe) : null), [voll, a.stufe])
   if (!lw) return null
-  const liste = (s: readonly string[]): string =>
-    new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(s)
+  const liste: Liste = (s) => new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(s)
   const quelle =
     lw.quelle === 'klp'
       ? t('s3.v2.quelleKlp')
       : lw.schulname
         ? t('s3.v2.quelleSchule', { schule: schuleGenitiv(t, lw.schulname) })
         : t('s3.v2.quelleSchuleOhneName')
-  const zeilen = lw.themen.filter((k) => k.luecken.length > 0)
-  const mitLuecken = zeilen.length > 0 || lw.weitere.length > 0
+  const rest = lw.weitereStaerkenRest ?? 0
 
   return (
-    <div className="eb-s3 eb-s3v2" ref={a.ref} data-stufe={a.stufe || undefined}>
+    <div
+      className="eb-s3 eb-s3v3"
+      ref={a.ref}
+      data-stufe={a.stufe || undefined}
+      data-layout={einordnung}
+      data-testid="eb-s3"
+    >
       <p className="eb-kicker eb-s3-kicker">{t('s3.v2.kicker')}</p>
-      <h1 className="eb-titel eb-s3-titel">{t(mitLuecken ? 's3.v2.titel' : 's3.v2.titelOhneLuecken')}</h1>
-      {zeilen.length > 0 && (
-        <p className="eb-s3-intro">{t('s3.v2.intro', { quelle, klasse: data.grade })}</p>
-      )}
+      <h1 className="eb-titel eb-s3-titel">{t('s3.v3.titel')}</h1>
+      {lw.themen.length > 0 && <p className="eb-s3-intro">{t('s3.v3.intro', { quelle })}</p>}
 
-      {zeilen.length > 0 && (
-        <section className="eb-s3v2-wege" data-testid="eb-s3-wege">
-          <div className="eb-s3v2-kopf" aria-hidden="true">
-            <span>{t('s3.v2.spalteLuecken')}</span>
-            <span>{t('s3.v2.spalteKommt')}</span>
-          </div>
-          {zeilen.map((k) => (
-            <Zeile key={k.titel} k={k} klasse={data.grade} liste={liste} />
-          ))}
+      {lw.themen.length > 0 &&
+        (einordnung === 'A' ? <LayoutA lw={lw} liste={liste} /> : <LayoutB lw={lw} liste={liste} />)}
+
+      {(lw.weitereStaerken.length > 0 || rest > 0) && (
+        <section className="eb-s3v3-weitere-staerken" data-testid="eb-s3-weitere-staerken">
+          <h2 className="eb-kicker">{t('s3.v3.weitereStaerken')}</h2>
+          <p>
+            {lw.weitereStaerken.length === 0
+              ? t('s3.v2.nurAnzahl', { count: rest })
+              : [...lw.weitereStaerken, ...(rest > 0 ? [t('s3.v2.undWeitere', { count: rest })] : [])].join(' · ')}
+          </p>
         </section>
       )}
 
       {lw.weitere.length > 0 && <Weitere lw={lw} />}
-
-      <Staerken lw={lw} liste={liste} />
 
       <p className="eb-s3-hinweis">{t('s3.v2.hinweis', { quelle })}</p>
     </div>
   )
 }
 
-function Zeile({
-  k,
-  klasse,
-  liste,
-}: {
-  k: EbKommtThema
-  klasse: number
-  liste: (s: readonly string[]) => string
-}): JSX.Element {
+/** Die Bereiche eines Kastens, je mit „betrifft auch …“, dazu der Rest als Zahl. */
+function Bereiche({ liste, eintraege, rest }: { liste: Liste; eintraege: EbZuordnung[]; rest?: number }): JSX.Element {
   const { t } = useTranslation('elternbericht')
   return (
-    <div className="eb-s3v2-zeile" data-testid="eb-s3-zeile">
-      <ul className="eb-s3v2-luecken">
-        {k.luecken.map((l) => (
-          <li key={l}>{l}</li>
-        ))}
-        {(k.rest ?? 0) > 0 && <li className="eb-s3v2-rest">{t('s3.v2.undWeitere', { count: k.rest })}</li>}
-      </ul>
-      <svg className="eb-s3v2-pfeil" viewBox="0 0 24 12" aria-hidden="true">
-        <path d="M1 6 H20 M15 1.5 L21 6 L15 10.5" />
-      </svg>
-      <div className="eb-s3v2-kommt">
-        <p className="eb-s3v2-kommt-titel">{k.titel}</p>
-        <p className="eb-s3v2-kommt-wann">
-          {k.halbjahr ? t('s3.v2.halbjahr', { halbjahr: k.halbjahr }) : t('s3.v2.ohneHalbjahr', { klasse })}
-        </p>
-        {k.staerken.length > 0 && !k.zeileOhneStaerken && (
-          <p className="eb-s3v2-kommt-sitzt">{t('s3.v2.sitztSchon', { liste: liste(k.staerken) })}</p>
-        )}
-      </div>
+    <ul className="eb-s3v3-bereiche">
+      {eintraege.map((z) => (
+        <li key={z.label}>
+          {z.label}
+          {z.auch.length > 0 && <small className="eb-s3v3-auch">{t('s3.v3.auch', { themen: liste(z.auch.map((titel) => t('s3.v3.titelZitat', { titel }))) })}</small>}
+        </li>
+      ))}
+      {(rest ?? 0) > 0 && <li className="eb-s3v3-rest">{t('s3.v2.undWeitere', { count: rest })}</li>}
+    </ul>
+  )
+}
+
+function Pfeil({ art }: { art: 'sitzt' | 'fehlt' }): JSX.Element {
+  return (
+    <svg className={`eb-s3v3-pfeil eb-s3v3-pfeil-${art}`} viewBox="0 0 24 12" aria-hidden="true">
+      <path d="M1 6 H20 M15 1.5 L21 6 L15 10.5" />
+    </svg>
+  )
+}
+
+function Thema({ k, nummer }: { k: EbKommtThema; nummer?: number }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  return (
+    <div className="eb-s3v3-thema" data-testid="eb-s3-thema">
+      <p className="eb-s3v3-thema-titel">
+        {nummer !== undefined && <span className="eb-s3v3-nr">{nummer}</span>}
+        {k.titel}
+      </p>
+      {k.halbjahr && <p className="eb-s3v3-wann">{t('s3.v3.halbjahr', { halbjahr: k.halbjahr })}</p>}
     </div>
+  )
+}
+
+/** Variante A: oben alle Stärken, darunter alle Lücken; die Themen einmal rechts. */
+function LayoutA({ lw, liste }: { lw: EbLueckenweg; liste: Liste }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  const nr = (k: EbKommtThema): number => lw.themen.indexOf(k) + 1
+  const kasten = (k: EbKommtThema, art: 'sitzt' | 'fehlt'): JSX.Element => (
+    <div key={`${art}-${k.titel}`} className="eb-s3v3-zeile-a" data-testid={`eb-s3-${art}`}>
+      <div className={`eb-s3v3-kasten eb-s3v3-${art}`}>
+        <p className="eb-s3v3-fuer">
+          <span className="eb-s3v3-nr">{nr(k)}</span>
+          {k.titel}
+        </p>
+        <Bereiche
+          liste={liste}
+          eintraege={art === 'sitzt' ? k.sitzt : k.fehlt}
+          rest={art === 'sitzt' ? k.restSitzt : k.restFehlt}
+        />
+      </div>
+      <Pfeil art={art} />
+    </div>
+  )
+  const mitSitzt = lw.themen.filter((k) => k.sitzt.length > 0)
+  const mitFehlt = lw.themen.filter((k) => k.fehlt.length > 0)
+  return (
+    <section className="eb-s3v3-a" data-testid="eb-s3-wege">
+      <div className="eb-s3v3-links">
+        {mitSitzt.length > 0 && <p className="eb-s3v3-spalte">{t('s3.v3.sitzt')}</p>}
+        {mitSitzt.map((k) => kasten(k, 'sitzt'))}
+        {mitFehlt.length > 0 && <p className="eb-s3v3-spalte eb-s3v3-spalte-fehlt">{t('s3.v3.fehlt')}</p>}
+        {mitFehlt.map((k) => kasten(k, 'fehlt'))}
+      </div>
+      <div className="eb-s3v3-rechts">
+        <p className="eb-s3v3-spalte">{t('s3.v3.kommt')}</p>
+        {lw.themen.map((k) => (
+          <Thema key={k.titel} k={k} nummer={nr(k)} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+/** Variante B: je Thema eine Zeile — grün · rot → blau. */
+function LayoutB({ lw, liste }: { lw: EbLueckenweg; liste: Liste }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  return (
+    <section className="eb-s3v3-b" data-testid="eb-s3-wege">
+      <div className="eb-s3v3-kopf" aria-hidden="true">
+        <span>{t('s3.v3.sitzt')}</span>
+        <span>{t('s3.v3.fehlt')}</span>
+        <span />
+        <span>{t('s3.v3.kommt')}</span>
+      </div>
+      {lw.themen.map((k) => (
+        <div key={k.titel} className="eb-s3v3-zeile-b" data-testid="eb-s3-zeile">
+          <div className={k.sitzt.length > 0 ? 'eb-s3v3-kasten eb-s3v3-sitzt' : 'eb-s3v3-leer'} data-testid="eb-s3-sitzt">
+            {k.sitzt.length > 0 && <Bereiche liste={liste} eintraege={k.sitzt} rest={k.restSitzt} />}
+          </div>
+          <div className={k.fehlt.length > 0 ? 'eb-s3v3-kasten eb-s3v3-fehlt' : 'eb-s3v3-leer'} data-testid="eb-s3-fehlt">
+            {k.fehlt.length > 0 && <Bereiche liste={liste} eintraege={k.fehlt} rest={k.restFehlt} />}
+          </div>
+          <Pfeil art={k.fehlt.length > 0 ? 'fehlt' : 'sitzt'} />
+          <Thema k={k} />
+        </div>
+      ))}
+    </section>
   )
 }
 
@@ -135,9 +210,7 @@ function Weitere({ lw }: { lw: EbLueckenweg }): JSX.Element {
   return (
     <section className="eb-s3v2-weitere" data-testid="eb-s3-weitere">
       <h2 className="eb-kicker">{t('s3.v2.weitereKicker')}</h2>
-      {lw.themen.some((k) => k.luecken.length > 0) && !lw.weitere.some((g) => g.spaeter) && (
-        <p className="eb-s3v2-leise">{t('s3.v2.weitereHinweis')}</p>
-      )}
+      <p className="eb-s3v2-leise">{t('s3.v3.weitereIntro')}</p>
       <dl>
         {lw.weitere.map((g) => (
           <div key={g.spaeter ? 'spaeter' : (g.feld ?? 'thema')} className="eb-s3v2-gruppe">
@@ -156,28 +229,6 @@ function Weitere({ lw }: { lw: EbLueckenweg }): JSX.Element {
           </div>
         ))}
       </dl>
-    </section>
-  )
-}
-
-function Staerken({ lw, liste }: { lw: EbLueckenweg; liste: (s: readonly string[]) => string }): JSX.Element | null {
-  const { t } = useTranslation('elternbericht')
-  if (lw.sicherGesamt === 0) return null
-  const themen = lw.themen.filter((k) => k.staerken.length > 0).map((k) => k.titel)
-  const rest = lw.sicherGesamt - lw.staerken.length
-  return (
-    <section className="eb-s3v2-staerken" data-testid="eb-s3-staerken">
-      <h2 className="eb-kicker">{t('s3.v2.staerkenKicker')}</h2>
-      <p>
-        {lw.staerken.length > 0 && themen.length > 0
-          ? [
-              t('s3.v2.staerken', { themen: liste(themen), liste: liste(lw.staerken) }),
-              rest > 0 && t('s3.v2.staerkenRest', { count: rest }),
-            ]
-              .filter(Boolean)
-              .join(' ')
-          : t('s3.v2.staerkenOhneBezug', { count: lw.sicherGesamt })}
-      </p>
     </section>
   )
 }

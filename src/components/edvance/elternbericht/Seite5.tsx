@@ -1,34 +1,50 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { KONTAKT } from '@/lib/report/elternbericht/berichtKonfig'
+import { KONTAKT, TABLET_LINK } from '@/lib/report/elternbericht/berichtKonfig'
+import { fehlermusterAus } from '@/lib/report/elternbericht/fehlermuster'
 import { paketVorschlag } from '@/lib/report/elternbericht/paketVorschlag'
 
+import { fazitSaetze, lueckenFelder, startSatz, zieleSaetze } from './berichtSaetze'
 import { Mitgliedschaften } from './Mitgliedschaften'
 import { paketWahl } from './seite5Rechnung'
 import type { SeitenProps } from './seitenProps'
 
 /**
- * Seite 5 des Eltern-Berichts (v2): Pakete, Vorschlag, Ziele, Kontakt.
+ * Seite 5 des Eltern-Berichts (v3): der rote Faden zum Schluss.
  *
- * Ein Paket ist vorausgewählt: der Vorschlag des Systems (paketVorschlag.ts,
- * Schild „Vorschlag“), oder — wenn der Coach ein Paket bestätigt hat — seine
- * Wahl (Schild „Empfehlung Ihres Coachs“). Je Paket nur der Rhythmus, kein
- * Preis, keine Laufzeit. Die Ziele entfallen ohne Eintrag.
+ *   1. Fazit: Seite 1–4 in drei bis vier Sätzen, aus denselben Daten.
+ *   2. Pakete mit Vorschlag; die Begründung knüpft an das Fazit an.
+ *   3. Ziele für die nächsten 6 Monate — nur wenn im Gespräch bestätigt
+ *      (notes.zieleBestaetigt): das Zielbild des Coachs, sonst der
+ *      Systemvorschlag (zieleSaetze). Unbestätigte Freitexte erscheinen nie.
+ *   4. Kontakt: wer die Analyse begleitet hat, Telefon aus der Konfig, Vertrag.
+ * Kein Preis, keine Laufzeit.
  */
 export function Seite5({ data, bericht, notes, tiers, name }: SeitenProps): JSX.Element {
-  const { t } = useTranslation('elternbericht')
+  const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
+  const liste = (s: readonly string[]): string =>
+    new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(s)
 
   const vorschlag = paketVorschlag(bericht.schwerpunkte.length, zaehlung.uebung, zaehlung.untersucht)
   const bestaetigt = notes?.paketBestaetigt === true && notes.paket !== null ? notes.paket : null
-  const { pakete, vorschlag: gewaehlt, eindeutig } = paketWahl(tiers, bestaetigt ?? vorschlag.paket)
+  const paket = bestaetigt ?? vorschlag.paket
+  const { pakete, vorschlag: gewaehlt, eindeutig } = paketWahl(tiers, paket)
 
   useEffect(() => {
     if (pakete.length > 0 && !eindeutig) {
       console.warn(`elternbericht: ${pakete.length} active tiers instead of 3 — no card highlighted`)
     }
   }, [pakete.length, eindeutig])
+
+  const muster = fehlermusterAus(data.fehlbilder)
+  const fazit = fazitSaetze(t, {
+    stufen: bericht.stufen ?? [],
+    felder: lueckenFelder(bericht.profil),
+    sorgfalt: muster?.sorgfalt === true,
+    start: startSatz(t, bericht.schwerpunkte[0], bericht.gruende?.[0]),
+  })
 
   const satz = gewaehlt
     ? bestaetigt && bestaetigt !== vorschlag.paket
@@ -42,7 +58,19 @@ export function Seite5({ data, bericht, notes, tiers, name }: SeitenProps): JSX.
           }),
         })
     : null
-  const ziele = notes?.zielbild.trim() || data.erstgespraech?.ziele || null
+
+  const zielbild = notes?.zielbild.trim() || null
+  const ziele = notes?.zieleBestaetigt
+    ? zielbild
+      ? [zielbild]
+      : zieleSaetze(t, {
+          schwerpunkte: bericht.schwerpunkte,
+          gruende: bericht.gruende ?? [],
+          paket,
+          sorgfalt: muster?.sorgfalt === true,
+          liste,
+        })
+    : []
 
   const kontakt = data.erzaehlung.ansprechpartner
   const kontaktName = kontakt.name?.trim() || null
@@ -52,7 +80,11 @@ export function Seite5({ data, bericht, notes, tiers, name }: SeitenProps): JSX.
     <div className="eb-s5">
       <p className="eb-kicker eb-s5-kicker">{t('s5.kicker')}</p>
       <h1 className="eb-titel eb-s5-titel">{t('s5.titel', { name: name ?? t('kind') })}</h1>
-      <p className="eb-s5-intro">{t('s5.intro')}</p>
+      {fazit.length > 0 && (
+        <p className="eb-s5-intro eb-s5-fazit" data-testid="eb-s5-fazit">
+          {fazit.join(' ')}
+        </p>
+      )}
 
       {pakete.length > 0 && (
         <Mitgliedschaften pakete={pakete} vorschlag={gewaehlt} bestaetigt={bestaetigt !== null} />
@@ -69,10 +101,14 @@ export function Seite5({ data, bericht, notes, tiers, name }: SeitenProps): JSX.
         </section>
       )}
 
-      {ziele && (
+      {ziele.length > 0 && (
         <section className="eb-s5-ziele" data-testid="eb-ziele">
           <h2 className="eb-kicker">{t('s5.ziele.kicker')}</h2>
-          <p className="eb-s5-ziele-text">{ziele}</p>
+          <ul className="eb-s5-ziele-liste">
+            {ziele.map((z) => (
+              <li key={z}>{z}</li>
+            ))}
+          </ul>
         </section>
       )}
 
@@ -81,21 +117,26 @@ export function Seite5({ data, bericht, notes, tiers, name }: SeitenProps): JSX.
           <h2 className="eb-kicker">{t('s5.kontakt.kickerV2')}</h2>
           <p className="eb-titel eb-s5-kontakt-name">{kontaktName ?? t('s5.kontakt.team')}</p>
           {kontaktName && <p className="eb-s5-kontakt-rolle">{t('s5.kontakt.rolle')}</p>}
-          {mail && (
-            <a className="eb-s5-kontakt-mail" href={`mailto:${mail}`}>
-              {mail}
-            </a>
-          )}
           {KONTAKT.telefon && (
             <p className="eb-s5-kontakt-telefon" data-testid="eb-telefon">
               {t('s5.kontakt.telefon', { telefon: KONTAKT.telefon })}
             </p>
           )}
+          {mail && (
+            <a className="eb-s5-kontakt-mail" href={`mailto:${mail}`}>
+              {mail}
+            </a>
+          )}
         </div>
         <div className="eb-s5-kontakt-fragen">
           <h2 className="eb-kicker">{t('s5.fragen.kicker')}</h2>
-          <p className="eb-s5-fragen-text">{t('s5.fragen.text')}</p>
+          <p className="eb-s5-fragen-text">{t(KONTAKT.telefon ? 's5.fragen.text' : 's5.fragen.textOhneTelefon')}</p>
           <p className="eb-s5-fragen-text">{t('s5.fragen.vertrag')}</p>
+          {TABLET_LINK && (
+            <p className="eb-s5-fragen-text" data-testid="eb-tablet">
+              {t('s5.kontakt.tablet', { link: TABLET_LINK })}
+            </p>
+          )}
         </div>
       </section>
     </div>

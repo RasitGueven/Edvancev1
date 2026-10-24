@@ -106,7 +106,13 @@ describe('ElternberichtBogen', () => {
         fuss: s[0].querySelector('.eb-fuss-text')?.textContent,
         titel: s.map((x) => x.querySelector('.eb-titel')?.textContent),
         anliegen: s[0].querySelector('.eb-s1-anliegen-satz')?.textContent,
+        kontaktTitel: s[4].querySelector('.eb-titel')?.textContent,
         alles: container.textContent ?? '',
+        ohneFuss: (() => {
+          const kopie = container.cloneNode(true) as HTMLElement
+          kopie.querySelectorAll('[data-testid="eb-fuss"]').forEach((x) => x.remove())
+          return kopie.textContent ?? ''
+        })(),
       }
       unmount()
       return ergebnis
@@ -114,17 +120,19 @@ describe('ElternberichtBogen', () => {
 
     const mit = texte(' Anna-Katharina Henriette ') // 24 Zeichen nach trim
     expect(mit.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse Anna-Katharina Henriette')
+    // Bericht v3: Titel von Seite 1 und Fußzeile tragen den vollen Namen, der Text den Vornamen.
     expect(mit.titel[0]).toBe('Was wir bei Anna-Katharina Henriette gesehen haben')
-    // Seit Bericht v2 ohne Genitiv: „Der Lernstand von {name} …“.
-    expect(mit.titel[1]).toBe('Der Lernstand von Anna-Katharina Henriette in den geprüften Bereichen.')
-    expect(mit.anliegen).toContain('Die letzte Zeugnisnote von Anna-Katharina Henriette in Mathematik war eine 4.')
+    expect(mit.titel[1]).toBe('Der Lernstand von Anna-Katharina in den geprüften Bereichen.')
+    expect(mit.kontaktTitel).toBe('Unsere Einschätzung für Anna-Katharina.')
+    expect(mit.anliegen).toContain('Letzte Zeugnisnote in Mathematik: 4.')
+    expect(mit.ohneFuss.match(/Henriette/g)).toHaveLength(1) // nur der Titel von Seite 1
 
     const ohne = texte('Anna-Katharina Friederike') // 25 Zeichen
     const ohneName = texte('')
     expect(ohne.fuss).toBe('edvance  ·  Köln  ·  Lernstandsanalyse')
     expect(ohne.titel).toEqual(ohneName.titel)
     expect(ohne.anliegen).toBe(ohneName.anliegen)
-    expect(ohne.anliegen).toContain('Die letzte Zeugnisnote in Mathematik war eine 4.')
+    expect(ohne.anliegen).toContain('Letzte Zeugnisnote in Mathematik: 4.')
     expect(ohne.alles).not.toContain('Friederike')
   })
 

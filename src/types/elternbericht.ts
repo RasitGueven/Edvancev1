@@ -145,8 +145,14 @@ export type EbGrund =
   | { art: 'thema' }
   /** Thema, die Klassenarbeit ist geschrieben. */
   | { art: 'themaGeschrieben' }
-  /** Ein kommendes Schulthema baut laut Voraussetzungsgraph direkt darauf auf. */
-  | { art: 'naechstesThema'; titel: string }
+  /**
+   * Ein kommendes Schulthema baut laut Voraussetzungsgraph direkt darauf auf.
+   * Bei mehreren Feldern zum selben Thema aus verschiedenen Klassenbändern dazu
+   * das Band und die Stelle („zuerst“ bzw. „danach“, Regel in schwerpunkte.ts).
+   */
+  | { art: 'naechstesThema'; titel: string; stufe?: Stufe; reihe?: 'zuerst' | 'danach' }
+  /** Thema mit geschriebener Klassenarbeit: Ein kommendes Thema baut auf der Lücke auf. */
+  | { art: 'spaeterGebraucht'; titel: string }
   /** Übungsbedarf schon im Stoff von Klasse 5/6. */
   | { art: 'grundlagen' }
   /** Sonst: so viele Bereiche mit Übungsbedarf. */
@@ -165,18 +171,23 @@ export type EbStufenZeile = {
   urteil: EbStufenUrteil
 }
 
-/** Bericht v2, Seite 3: ein kommendes Schulthema mit dem, worauf es direkt aufbaut. */
+/**
+ * Bericht v3, Seite 3: ein Bereich in genau einem Themenblock. `auch` nennt die
+ * übrigen kommenden Themen, die ebenfalls direkt darauf aufbauen („betrifft auch …“).
+ */
+export type EbZuordnung = { label: string; auch: string[] }
+
+/** Bericht v3, Seite 3: ein kommendes Schulthema mit dem, worauf es direkt aufbaut. */
 export type EbKommtThema = {
   titel: string
   halbjahr: 1 | 2 | null
-  /** Geprüfte Bereiche mit Übungsbedarf, auf denen das Thema direkt aufbaut. */
-  luecken: string[]
-  /** Sichere Bereiche, auf denen es direkt aufbaut. */
-  staerken: string[]
-  /** Nur nach dem Ausdünnen: so viele Lücken stehen nicht mehr in `luecken`. */
-  rest?: number
-  /** Nur nach dem Ausdünnen: die Zeile zeigt „Sitzt schon“ nicht mehr. */
-  zeileOhneStaerken?: boolean
+  /** Sichere Bereiche, deren Block dieses Thema ist. */
+  sitzt: EbZuordnung[]
+  /** Bereiche mit Übungsbedarf, deren Block dieses Thema ist. */
+  fehlt: EbZuordnung[]
+  /** Nur nach dem Ausdünnen: so viele stehen nicht mehr in `sitzt` bzw. `fehlt`. */
+  restSitzt?: number
+  restFehlt?: number
 }
 
 /** Bericht v2, Seite 3: Lücken ohne direkten Bezug zu einem kommenden Thema, je Gruppe. */
@@ -191,16 +202,16 @@ export type EbLueckenGruppe = {
   rest?: number
 }
 
-/** Bericht v2, Seite 3: Lücken und was darauf aufbaut, Stärken knapp. */
+/** Bericht v3, Seite 3: erst was sitzt, dann was fehlt, je kommendem Thema. */
 export type EbLueckenweg = {
-  /** Nur kommende Themen mit Bezug zu geprüften Bereichen, in Plan-Reihenfolge. */
+  /** Kommende Themen mit mindestens einem eigenen Bereich, in Plan-Reihenfolge. */
   themen: EbKommtThema[]
-  /** Die übrigen Lücken. */
+  /** Sichere Bereiche ohne kommendes Thema („Weitere Stärken“). */
+  weitereStaerken: string[]
+  /** Nur nach dem Ausdünnen: so viele weitere Stärken stehen nicht mehr in der Liste. */
+  weitereStaerkenRest?: number
+  /** Bereiche mit Übungsbedarf ohne kommendes Thema, je Gruppe („Weitere Bereiche …“). */
   weitere: EbLueckenGruppe[]
-  /** Sichere Bereiche, die Grundlage eines kommenden Themas sind. */
-  staerken: string[]
-  /** Alle sicheren Bereiche (für „und n weitere“). */
-  sicherGesamt: number
   quelle: 'schule' | 'klp'
   schulname: string | null
 }

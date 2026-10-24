@@ -12,15 +12,20 @@ import type { AbgeleiteterBereich } from '@/lib/report/elternbericht/themaAbdeck
 import { THEMENFELDER } from '@/lib/report/elternbericht/themenfelder'
 import type { EbBereich, EbProfilZeile, ThemenfeldKey } from '@/types'
 
-/** Breite der Spur (Maßblatt, Seite 2: x 229–455). */
-export const SPUR = 226
+/**
+ * Breite der Spur. Bericht v3: fest 195 pt (x 229–424), damit rechts immer
+ * Platz für die längste Zählzeile bleibt („2 sicher · 10 Übungsbedarf“ ≈ 92 pt,
+ * rechtsbündig bis x 532) — auch bei 12 Kästchen überlagern sich Kästchen und
+ * Text nie. Vorher 226 pt (Maßblatt), dort rutschte bei 8 Kästchen das letzte
+ * unter die Zählzeile.
+ */
+export const SPUR = 195
 
 /**
- * Spur, sobald das Profil abgeleitete Bereiche hat (R7-8): Die rechte Zeile
- * „12 geprüft · 14 abgeleitet“ braucht rund 89 pt; mit 206 pt endet die Spur
- * mindestens 6 pt davor. Gilt dann für alle Zeilen, damit der Maßstab gleich bleibt.
+ * Spur mit abgeleiteten Bereichen (R7-8, „12 geprüft · 14 abgeleitet“). Seit
+ * Bericht v3 dieselbe wie SPUR; der Druck zeigt keine abgeleiteten mehr.
  */
-export const SPUR_MIT_ABGELEITETEN = 206
+export const SPUR_MIT_ABGELEITETEN = SPUR
 
 /** Höchstbreite eines Kästchens — auch die längste Zeile bleibt so ruhig (R7-8). */
 export const KAESTCHEN_MAX = 28
@@ -71,17 +76,9 @@ export function massstab(nMax: number, spur = SPUR): Massstab {
 export const kaestchen = (z: Pick<ProfilZeile, 'sicher' | 'uebung' | 'abgeleitet'>): number =>
   z.sicher + z.uebung + z.abgeleitet
 
-/**
- * Der Maßstab für ein ganzes Profil: nach der Zeile mit den meisten Kästchen,
- * auf 206 pt Spur, sobald eine Zeile abgeleitete Bereiche hat oder eine
- * Zeile zehn oder mehr Kästchen hat (Bericht v2: rechts stehen dann lange Zeilen;
- * ohne Umrisse fehlte sonst der Abstand), sonst 226 pt.
- */
+/** Der Maßstab für ein ganzes Profil: nach der Zeile mit den meisten Kästchen, auf SPUR. */
 export const massstabFuer = (zeilen: readonly ProfilZeile[]): Massstab =>
-  massstab(
-    Math.max(1, ...zeilen.map(kaestchen)),
-    zeilen.some((z) => z.abgeleitet > 0 || kaestchen(z) >= 10) ? SPUR_MIT_ABGELEITETEN : SPUR,
-  )
+  massstab(Math.max(1, ...zeilen.map(kaestchen)), SPUR)
 
 /** Je Bereich ein Kästchen: erst sicher, dann Übungsbedarf, dahinter die Umrisse. */
 export function segmente(
@@ -113,6 +110,9 @@ export function profilZeilen({
   bereiche: readonly EbBereich[]
   abgeleitet: readonly AbgeleiteterBereich[]
 }): ProfilZeile[] {
+  // Bericht v3: nach Klassenband aufsteigend (frühestes zuerst: kleinste, dann
+  // größte Klasse), Gleichstand in der Reihenfolge der Themenfelder; „Weitere
+  // Bereiche“ zuletzt.
   return THEMENFELDER.flatMap(({ key }) => {
     const direkt = profil.find((z) => z.feld === key)
     const sicher = direkt?.sicher ?? 0
@@ -126,7 +126,14 @@ export function profilZeilen({
     const klasse =
       klassen.length > 0 ? { von: Math.min(...klassen), bis: Math.max(...klassen) } : null
     return [{ feld: key, sicher, uebung, abgeleitet: abg.length, klasse }]
-  })
+  }).sort(
+    // sort ist stabil: Gleichstand bleibt in der Reihenfolge der Themenfelder.
+    // „Weitere Bereiche“ bleibt die letzte Zeile.
+    (a, b) =>
+      Number(a.feld === 'weitere') - Number(b.feld === 'weitere') ||
+      (a.klasse?.von ?? 99) - (b.klasse?.von ?? 99) ||
+      (a.klasse?.bis ?? 99) - (b.klasse?.bis ?? 99),
+  )
 }
 
 /**

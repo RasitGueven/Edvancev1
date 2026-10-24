@@ -80,6 +80,7 @@ function kandidat(
   }
 }
 
+/** R7, Entscheidung 7: gemischt zuerst, dann tiefste Stufe, mehr Übungsbedarf, Feldfolge. */
 const nachRegel = (a: Kandidat, b: Kandidat): number =>
   Number(b.gemischt) - Number(a.gemischt) ||
   a.tiefste - b.tiefste ||
@@ -176,25 +177,53 @@ function themaSchwerpunkt(bereiche: readonly EbBereich[], k: ThemaKontext): EbSc
   }
 }
 
-/** Der Grund eines Feld-Schwerpunkts: kommendes Thema, sonst Grundlagen, sonst Anzahl. */
-function feldGrund(k: Kandidat, kommt: readonly PlanEintrag[]): EbGrund {
-  if (Number.isFinite(k.planrang)) return { art: 'naechstesThema', titel: kommt[k.planrang].titel }
+const STUFE_VON_RANG: readonly Stufe[] = ['erprobung', 'erste', 'zweite']
+
+/**
+ * Der Grund eines Feld-Schwerpunkts: kommendes Thema, sonst Grundlagen, sonst
+ * Anzahl. Bauen mehrere Felder auf dasselbe kommende Thema auf und liegen sie in
+ * verschiedenen Klassenbändern, nennt der Grund das Band (Regel siehe
+ * nachPlanrang): der erste „zuerst, weil Stoff aus Klasse 5/6“, die übrigen
+ * „danach, weil Stoff aus Klasse 7/8“.
+ */
+function feldGrund(k: Kandidat, alle: readonly Kandidat[], kommt: readonly PlanEintrag[]): EbGrund {
+  if (Number.isFinite(k.planrang)) {
+    const titel = kommt[k.planrang].titel
+    const gruppe = alle.filter((x) => x.planrang === k.planrang)
+    const baender = new Set(gruppe.map((x) => x.tiefste))
+    if (gruppe.length < 2 || baender.size < 2) return { art: 'naechstesThema', titel }
+    const stufe = STUFE_VON_RANG[k.tiefste]
+    return gruppe[0] === k
+      ? { art: 'naechstesThema', titel, stufe, reihe: 'zuerst' }
+      : { art: 'naechstesThema', titel, stufe, reihe: 'danach' }
+  }
   if (k.tiefste === STUFEN_RANG.erprobung) return { art: 'grundlagen' }
   return { art: 'anzahl', count: k.uebung.length }
 }
 
-/** Der Grund des Thema-Schwerpunkts nach dem Stand der Klassenarbeit. */
-function themaGrund(klassenarbeit: KlassenarbeitStatus | null): EbGrund {
+/**
+ * Der Grund des Thema-Schwerpunkts nach dem Stand der Klassenarbeit. Ist sie
+ * geschrieben, ist das Thema eine vorhandene Lücke: Baut ein kommendes Thema
+ * laut Graph darauf auf, nennt der Grund es („wird beim … wieder gebraucht“).
+ */
+function themaGrund(klassenarbeit: KlassenarbeitStatus | null, spaeter: string | null): EbGrund {
   if (klassenarbeit === 'bevorstehend') return { art: 'klassenarbeit' }
-  return klassenarbeit === 'geschrieben' ? { art: 'themaGeschrieben' } : { art: 'thema' }
+  if (klassenarbeit !== 'geschrieben') return { art: 'thema' }
+  return spaeter ? { art: 'spaeterGebraucht', titel: spaeter } : { art: 'themaGeschrieben' }
 }
 
-const ohneHilfswerte =
-  (kommt: readonly PlanEintrag[]) =>
-  (k: Kandidat): EbSchwerpunkt & { grund: EbGrund } => {
-    const { tiefste: _t, planrang: _p, ...s } = k
-    return { ...s, grund: feldGrund(k, kommt) }
-  }
+/**
+ * Reihenfolge der Felder (Bericht v3): zuerst nach Planrang (das früheste
+ * kommende Schulthema, das direkt auf einer Lücke aufbaut). Bei GLEICHEM
+ * kommenden Thema das frühere Klassenband zuerst (tiefste Stufe der Lücken) —
+ * was früher im Lehrplan kommt, wird zuerst gefestigt; erst bei gleichem Band die
+ * Regel aus R7 (nachRegel). Ohne kommendes Thema gilt nachRegel unverändert.
+ */
+const nachPlanrang = (a: Kandidat, b: Kandidat): number => {
+  if (a.planrang !== b.planrang) return a.planrang < b.planrang ? -1 : 1
+  if (Number.isFinite(a.planrang) && a.tiefste !== b.tiefste) return a.tiefste - b.tiefste
+  return nachRegel(a, b)
+}
 
 export function waehleSchwerpunkte(
   bereiche: readonly EbBereich[],
@@ -209,7 +238,7 @@ export function waehleSchwerpunkte(
 }
 
 /**
- * Wie waehleSchwerpunkte, dazu je Schwerpunkt sein Grund (Bericht v2) — als
+ * Wie waehleSchwerpunkte, dazu je Schwerpunkt sein Grund (Bericht v2/v3) — als
  * eigene Liste in derselben Reihenfolge, damit EbSchwerpunkt für Präsentation
  * und Druck gleich bleibt.
  */
@@ -223,17 +252,30 @@ export function schwerpunkteMitGrund(
 } {
   const breite = kontext ? bereiche.filter((b) => !kontext.raum.has(b.skillKey)) : bereiche
   const planrang = kontext ? planrangVon(kontext) : () => Infinity
-  const felder = THEMENFELDER.flatMap(({ key }) => kandidat(key, breite, planrang) ?? []).sort(
-    (a, b) => (a.planrang === b.planrang ? nachRegel(a, b) : a.planrang < b.planrang ? -1 : 1),
-  )
+  const felder = THEMENFELDER.flatMap(({ key }) => kandidat(key, breite, planrang) ?? []).sort(nachPlanrang)
+  const kommt = kontext?.kommt ?? []
+  const fertig = felder.map((k): EbSchwerpunkt & { grund: EbGrund } => {
+    const { tiefste: _t, planrang: _p, ...s } = k
+    return { ...s, grund: feldGrund(k, felder, kommt) }
+  })
+
+  // Planrang des Themas: über seine Lücken, wie bei den Feldern.
   const roh = kontext ? themaSchwerpunkt(bereiche, kontext) : null
-  const thema = roh ? { ...roh, grund: themaGrund(klassenarbeit) } : null
-  const fertig = felder.map(ohneHilfswerte(kontext?.kommt ?? []))
-  // Klassenarbeit geschrieben: erst die Voraussetzungen kommender Schulthemen.
-  // Das Thema bleibt unter den vier (es fiele sonst aus `danach`, das nur Felder kennt).
+  const themaRang = roh
+    ? Math.min(Infinity, ...bereiche.filter((b) => !b.sicher && kontext!.raum.has(b.skillKey)).map(planrang))
+    : Infinity
+  const spaeter = Number.isFinite(themaRang) ? kommt[themaRang].titel : null
+  const thema = roh ? { ...roh, grund: themaGrund(klassenarbeit, spaeter) } : null
+
+  // Klassenarbeit geschrieben: erst die Voraussetzungen kommender Schulthemen —
+  // das Thema reiht sich nach seinem Planrang ein (bei Gleichstand nach den
+  // Feldern). Es bleibt unter den vier (es fiele sonst aus `danach`, das nur Felder kennt).
   const vorThema =
     thema && klassenarbeit === 'geschrieben'
-      ? Math.min(felder.filter((f) => Number.isFinite(f.planrang)).length, MAX_SCHWERPUNKTE - 1)
+      ? Math.min(
+          felder.filter((f) => Number.isFinite(f.planrang) && f.planrang <= themaRang).length,
+          MAX_SCHWERPUNKTE - 1,
+        )
       : 0
   const reihe = thema ? [...fertig.slice(0, vorThema), thema, ...fertig.slice(vorThema)] : fertig
   return {

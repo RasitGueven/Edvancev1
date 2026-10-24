@@ -1,9 +1,8 @@
 // Seite 4 des Eltern-Berichts (Bericht v2): Fehlermuster, Schwerpunkte mit Grund, Kurve.
 import { render } from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import '@/i18n'
 
-import { NamensMessungFertig } from '@/components/edvance/elternbericht/namensMessung'
 import { Seite4 } from '@/components/edvance/elternbericht/Seite4'
 import type { SeitenProps } from '@/components/edvance/elternbericht/seitenProps'
 import { Bausteinsatz } from '@/lib/report/bausteine'
@@ -34,6 +33,7 @@ function props(
     notes,
     tiers: [],
     name,
+    vollerName: name,
     wessen: name ? `${name}s` : null,
   }
 }
@@ -127,6 +127,63 @@ describe('Seite 4 — Grund je Schwerpunkt und Coach-Satz', () => {
     expect(grund('geschrieben')).toBe('weil im aktuellen Schulthema noch eine Lücke offen ist')
   })
 
+  it('geschrieben: der Titel sind die Lücken, das Schild heißt „Vorhandene Lücke“', () => {
+    const { container, getByTestId } = seite4(props(FAELLE.abgestuft.data, undefined, NOTIZEN, 'geschrieben'))
+    const h3 = container.querySelector('.eb-s4-punkt-titel')!
+    expect(h3.textContent).toBe(
+      'Wurzelgesetze für Produkt und Quotient, Rationale und irrationale Zahlen und Teilweise die Wurzel ziehenVorhandene Lücke',
+    )
+    expect(getByTestId('eb-s4-chip-thema')).toHaveTextContent('Vorhandene Lücke')
+    expect(container.textContent).not.toContain('Aktuelles Thema')
+  })
+
+  it('spaeterGebraucht: Lücken als Titel, Zeile „wird im Thema „…“ wieder gebraucht“ ohne „weil“', () => {
+    const thema: EbSchwerpunkt = {
+      feld: null,
+      thema: 'Reelle Zahlen',
+      gemischt: false,
+      sicher: [],
+      uebung: ['Wurzeln', 'Brüche'],
+      start: null,
+      naechster: null,
+    }
+    const { container } = seite4(
+      props(FAELLE.abgestuft.data, () => ({
+        schwerpunkte: [thema],
+        gruende: [{ art: 'spaeterGebraucht', titel: 'Kreis' }],
+        danach: [],
+      })),
+    )
+    expect(container.querySelector('.eb-s4-punkt-titel')?.textContent).toBe('Wurzeln und BrücheVorhandene Lücke')
+    expect(container.querySelector('.eb-s4-grund-text')?.textContent).toBe('wird im Thema „Kreis“ wieder gebraucht')
+  })
+
+  it('Feld mit Band und Stelle: „zuerst, weil es Stoff aus Klasse 5/6 ist“ bzw. „danach …“', () => {
+    const feld = (f: 'brueche' | 'geometrie'): EbSchwerpunkt => ({
+      feld: f,
+      thema: null,
+      gemischt: false,
+      sicher: [],
+      uebung: ['A'],
+      start: null,
+      naechster: null,
+    })
+    const { container } = seite4(
+      props(FAELLE.ilkay.data, () => ({
+        schwerpunkte: [feld('brueche'), feld('geometrie')],
+        gruende: [
+          { art: 'naechstesThema', titel: 'Kreis', stufe: 'erprobung', reihe: 'zuerst' },
+          { art: 'naechstesThema', titel: 'Kreis', stufe: 'erste', reihe: 'danach' },
+        ],
+        danach: [],
+      })),
+    )
+    expect([...container.querySelectorAll('.eb-s4-grund-text')].map((g) => g.textContent)).toEqual([
+      'weil das kommende Schulthema „Kreis“ darauf aufbaut – zuerst, weil es Stoff aus Klasse 5/6 ist',
+      'weil auch „Kreis“ darauf aufbaut – danach, weil es Stoff aus Klasse 7/8 ist',
+    ])
+  })
+
   it('Klassenarbeit „geschrieben“: Felder mit kommendem Schulthema zuerst, das Thema danach', () => {
     const titel = (k: KlassenarbeitStatus | null): (string | null)[] =>
       [...seite4(props(FAELLE.abgestuftPlanrang.data, undefined, NOTIZEN, k)).container.querySelectorAll('.eb-s4-punkt-titel')].map(
@@ -136,8 +193,9 @@ describe('Seite 4 — Grund je Schwerpunkt und Coach-Satz', () => {
     expect(titel(null)[0]).toBe('Reelle ZahlenAktuelles Thema')
     const nach = titel('geschrieben')
     expect(nach[0]).toBe('Geometrie')
-    expect(nach[1]).toBe('Reelle ZahlenAktuelles Thema')
-    expect(nach.slice().sort()).toEqual(titel(null).slice().sort())
+    // Das Thema steht an seinem Planrang, mit Lücken als Titel.
+    expect(nach[1]).toMatch(/^Wurzelgesetze für Produkt und Quotient.*Vorhandene Lücke$/)
+    expect(nach[2]).toBe(titel(null)[2])
   })
 
   it('Feld mit kommendem Thema nennt dieses als Grund', () => {
@@ -174,22 +232,24 @@ describe('Seite 4 — Titel und Schwerpunkte', () => {
     const p = props(FAELLE.ilkay.data, (b) => ({ schwerpunkte: b.schwerpunkte.slice(0, n) }))
     const { getByRole, unmount, container } = seite4(p)
     const t = getByRole('heading', { level: 1 }).textContent ?? ''
-    const hinweis = container.querySelector('.eb-s4-hinweis') !== null
+    // Bericht v3: kein Reihenfolge-Hinweis mehr unter dem Titel.
+    expect(container.querySelector('.eb-s4-hinweis')).toBeNull()
+    expect(container.textContent).not.toContain('In dieser Reihenfolge beginnen wir')
     unmount()
-    return `${t}${hinweis ? ' +' : ''}`
+    return t
   }
 
-  it('Titel je Anzahl, der Reihenfolge-Hinweis ab zwei', () => {
+  it('Titel je Anzahl, kein Reihenfolge-Hinweis', () => {
     expect([1, 2, 3, 4].map(titel)).toEqual([
       'Ein Schwerpunkt.',
-      'Zwei Schwerpunkte, in dieser Reihenfolge. +',
-      'Drei Schwerpunkte, in dieser Reihenfolge. +',
-      'Vier Schwerpunkte, in dieser Reihenfolge. +',
+      'Zwei Schwerpunkte, in dieser Reihenfolge.',
+      'Drei Schwerpunkte, in dieser Reihenfolge.',
+      'Vier Schwerpunkte, in dieser Reihenfolge.',
     ])
   })
 
   // Geometrie fehlt hier mit Absicht: dort liegt nur Übungsbedarf bei Vorgriffen (LSA-V2), der nicht zählt.
-  it('Titel ist das Themenfeld, Text nennt Sicheres nur, wenn es das gibt', () => {
+  it('Titel ist das Themenfeld mit dem Grund; keine Zeilen „Sicher:“ und „Noch nicht sicher:“', () => {
     const { container } = seite4(props(FAELLE.klasse10neu.data))
     const punkte = [...container.querySelectorAll('.eb-s4-punkt')]
     expect(punkte.map((p) => p.querySelector('h3')!.textContent)).toEqual([
@@ -197,22 +257,29 @@ describe('Seite 4 — Titel und Schwerpunkte', () => {
       'Prozent & Dreisatz',
       'Terme & Gleichungen',
     ])
-    expect(punkte[0].querySelector('.eb-s4-punkt-text')!.textContent).toMatch(/^Sicher: .+\. Noch nicht sicher: .+\.$/)
-    expect(punkte[2].querySelector('.eb-s4-punkt-text')!.textContent).toMatch(/^Noch nicht sicher: /)
+    for (const p of punkte) {
+      expect(p.querySelector('.eb-s4-punkt-text')).toBeNull()
+      expect(p.querySelector('.eb-s4-grund-text')).not.toBeNull()
+      expect(p.textContent).not.toMatch(/Sicher:|Noch nicht sicher:/)
+    }
   })
 
-  const mitListe = (uebung: string[]): string => {
-    const sp: EbSchwerpunkt = { feld: 'geometrie', thema: null, gemischt: false, sicher: [], uebung, start: null, naechster: null }
-    const { container, unmount } = seite4(props(FAELLE.ilkay.data, () => ({ schwerpunkte: [sp], danach: [] })))
-    const text = container.querySelector('.eb-s4-punkt-text')!.textContent ?? ''
-    unmount()
-    return text
-  }
-
-  it('Listen: bis drei Labels als Aufzählung, mehr als „A, B, C und n weitere“', () => {
-    expect(mitListe(['A', 'B', 'C'])).toBe('Noch nicht sicher: A, B und C.')
-    expect(mitListe(['A', 'B', 'C', 'D', 'E'])).toBe('Noch nicht sicher: A, B, C und 2 weitere.')
-    expect(mitListe(['A', 'B', 'C', 'D'])).toBe('Noch nicht sicher: A, B, C und ein weiterer.')
+  it('Schwerpunkt zeigt Titel und Grund, nicht die Bereichslisten', () => {
+    const sp: EbSchwerpunkt = {
+      feld: 'geometrie',
+      thema: null,
+      gemischt: true,
+      sicher: ['Sicherer Bereich'],
+      uebung: ['A', 'B'],
+      start: null,
+      naechster: null,
+    }
+    const { container } = seite4(props(FAELLE.ilkay.data, () => ({ schwerpunkte: [sp], gruende: [{ art: 'anzahl', count: 2 }], danach: [] })))
+    const punkt = container.querySelector('.eb-s4-punkt')!
+    expect(punkt.querySelector('h3')?.textContent).toBe('Geometrie')
+    expect(punkt.querySelector('.eb-s4-grund-text')?.textContent).toBe('weil hier 2 Bereiche Übungsbedarf zeigen')
+    expect(punkt.textContent).not.toContain('Sicherer Bereich')
+    expect(punkt.textContent).not.toMatch(/\bA\b|\bB\b/)
   })
 
   it('mehr als vier Felder mit Übungsbedarf: „Danach …“ unter dem letzten', () => {
@@ -264,105 +331,5 @@ describe('Seite 4 — Thema-Schwerpunkt (R7-11)', () => {
 
   it('ilkay: ohne Schild', () => {
     expect(seite4(props(FAELLE.ilkay.data)).queryByTestId('eb-s4-chip-thema')).toBeNull()
-  })
-})
-
-describe('Seite 4 — Kurve', () => {
-  afterEach(() => vi.restoreAllMocks())
-
-  /** jsdom hat kein Layout: 507 pt breit, Titel und Kasten je 100 px tiefer. */
-  function mitLayout(): void {
-    let y = 0
-    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
-      const top = this.classList.contains('eb-s4') ? 0 : (y += 100)
-      return { top, bottom: top, left: 0, right: 676, width: 676, height: 0, x: 0, y: top } as DOMRect
-    })
-  }
-
-  it('je Schwerpunkt ein Knoten, die Kurve endet am letzten Knoten (ein Pfad, keine Spitze)', () => {
-    mitLayout()
-    const { getByTestId } = seite4(props(FAELLE.ilkay.data))
-    const kurve = getByTestId('eb-kurve')
-    expect(kurve).toHaveAttribute('aria-hidden', 'true')
-    expect(kurve.querySelectorAll('circle')).toHaveLength(4)
-    expect(kurve.querySelectorAll('.eb-s4-pfad')).toHaveLength(1)
-    expect(kurve.querySelector('.eb-s4-spitze')).toBeNull()
-    expect(kurve.textContent).toBe('')
-  })
-
-  it('ohne Schwerpunkt keine Kurve', () => {
-    mitLayout()
-    expect(seite4(props(FAELLE.allesSicher.data)).queryByTestId('eb-kurve')).toBeNull()
-  })
-})
-
-describe('Seite 4 — Verdichtung bei Überlauf', () => {
-  afterEach(() => vi.restoreAllMocks())
-
-  it('läuft der Inhaltskasten über, rückt die Seite enger zusammen; sonst nicht', () => {
-    const inBogen = (ueber: boolean) => {
-      vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(ueber ? 977 : 960)
-      vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(960)
-      const { container, unmount } = render(
-        <div className="eb-inhalt">
-          <Seite4 {...props(FAELLE.ilkay.data)} />
-        </div>,
-      )
-      const dicht = container.querySelector('.eb-s4')!.hasAttribute('data-dicht')
-      unmount()
-      vi.restoreAllMocks()
-      return dicht
-    }
-    expect(inBogen(false)).toBe(false)
-    expect(inBogen(true)).toBe(true)
-  })
-
-  /**
-   * „Gemessene“ Höhe: Der Kasten läuft über, solange das Fazit länger als
-   * `grenze` Zeichen ist. Die Verdichtung allein ändert den Text nicht.
-   */
-  const stufe = (fehlbilder: ReportFehlbild[], grenze: number) => {
-    vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockImplementation(function (this: HTMLElement) {
-      return (this.querySelector('.eb-s4-fazit')?.textContent ?? '').length > grenze ? 977 : 960
-    })
-    vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(960)
-    const { container, unmount } = render(
-      <div className="eb-inhalt">
-        <Seite4 {...props(mitFehlbildern(fehlbilder))} />
-      </div>,
-    )
-    const s4 = container.querySelector('.eb-s4')!
-    const ergebnis = {
-      stufe: s4.getAttribute('data-stufe'),
-      dicht: s4.hasAttribute('data-dicht'),
-      fazit: s4.querySelector('.eb-s4-fazit')!.textContent,
-    }
-    unmount()
-    vi.restoreAllMocks()
-    return ergebnis
-  }
-  // Das Fehlermuster mit Text der häufigsten Familie (Sorgfalt ist hier nicht gedeckt).
-  const lang = [familie('eins', 'Ihr Kind liest ungenau und ein langer Satz folgt hier.', 5)]
-
-  it('läuft der Kasten wegen des Musters über, rückt die Seite eine Stufe zusammen und bleibt dabei', () => {
-    expect(stufe(lang, 1000)).toMatchObject({ stufe: null, dicht: false })
-    const ueber = stufe(lang, 0)
-    expect(ueber).toMatchObject({ stufe: '1', dicht: true })
-    // Text wird nie gekürzt, nur verdichtet.
-    expect(ueber.fazit).toBe('Ilkay liest ungenau und ein langer Satz folgt hier.')
-  })
-
-  it('misst erst, wenn der Bogen über den Namen entschieden hat', () => {
-    vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(977)
-    vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(960)
-    const { container } = render(
-      <NamensMessungFertig.Provider value={false}>
-        <div className="eb-inhalt">
-          <Seite4 {...props(mitFehlbildern(lang))} />
-        </div>
-      </NamensMessungFertig.Provider>,
-    )
-    expect(container.querySelector('.eb-s4')!.hasAttribute('data-stufe')).toBe(false)
-    vi.restoreAllMocks()
   })
 })

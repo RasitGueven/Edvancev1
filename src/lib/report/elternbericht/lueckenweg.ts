@@ -1,13 +1,18 @@
-// Eltern-Bericht v2 — Seite 3: die Lücken und was im Schuljahr darauf aufbaut.
+// Eltern-Bericht v3 — Seite 3 „Einordnung“: erst was sitzt, dann was fehlt.
 //
 // Ein kommendes Schulthema T baut DIREKT auf einem geprüften Bereich g auf,
 // wenn es im Voraussetzungsgraphen eine Kante s → g gibt (s setzt g voraus)
-// und T das Heimat-Thema von s ist (skill_thema). Nur eine Kante, keine Kette:
-// Was über mehrere Schritte zusammenhängt, zeigt der Bericht nicht.
+// und T das Heimat-Thema von s ist (skill_thema). Nur eine Kante, keine Kette.
 //
-// „Kommt noch“ sind die Plan-Einträge nach dem aktuellen Thema (kommtNoch,
-// derselbe Plan wie im Lernweg). Themen ohne Bezug zu einem geprüften Bereich
-// fallen weg. Unsichere Vorgriffe zählen nicht als Lücke (wie überall).
+// „Kommt noch“ sind die Plan-Einträge nach dem aktuellen Thema (kommtNoch aus
+// lernweg.ts). Jeder Bereich steht in genau EINEM Themenblock: dem ersten
+// kommenden Thema im Plan, das auf ihm aufbaut. Die übrigen Themen stehen als
+// „betrifft auch …“ daneben. So erscheint kein Bereich doppelt und keiner fehlt:
+//   - mit kommendem Thema  → im Block dieses Themas (sitzt bzw. fehlt),
+//   - sicher, ohne Thema   → „Weitere Stärken“,
+//   - Übungsbedarf, ohne   → „Weitere Bereiche mit Übungsbedarf“ (Thema der LSA
+//                            zuerst, dann je Themenfeld).
+// Unsichere Vorgriffe zählen nicht als Lücke (wie überall im Bericht).
 
 import { feldPosition } from '@/lib/report/elternbericht/themenfelder'
 import type {
@@ -15,6 +20,7 @@ import type {
   EbKommtThema,
   EbLueckenGruppe,
   EbLueckenweg,
+  EbZuordnung,
   HeimatThema,
   LernPlan,
   LwKante,
@@ -37,105 +43,106 @@ export type LueckenwegEingabe = {
 const nachKlasseLabel = (a: EbBereich, b: EbBereich): number =>
   a.klasse - b.klasse || a.label.localeCompare(b.label, 'de')
 
+/** Die übrigen Lücken: erst das Thema der LSA, dann je Themenfeld. */
+function gruppiere(rest: readonly EbBereich[], raum: ReadonlySet<string>, thema: string | null): EbLueckenGruppe[] {
+  const imThema = thema ? rest.filter((b) => raum.has(b.skillKey)) : []
+  const sonst = rest.filter((b) => !imThema.includes(b))
+  return [
+    ...(imThema.length > 0 ? [{ feld: null, thema, labels: imThema.map((b) => b.label) }] : []),
+    ...[...new Set(sonst.map((b) => b.feld))]
+      .sort((a, b) => feldPosition(a) - feldPosition(b))
+      .map((feld) => ({ feld, thema: null, labels: sonst.filter((b) => b.feld === feld).map((b) => b.label) })),
+  ]
+}
+
 export function baueLueckenweg(e: LueckenwegEingabe): EbLueckenweg {
   const heimat = new Map<string, Set<string>>()
   for (const h of e.heimatThemen) heimat.set(h.skillKey, (heimat.get(h.skillKey) ?? new Set()).add(h.themaKey))
-
-  // Je geprüftem Bereich: die Themen, deren Bereiche direkt auf ihm aufbauen.
   const themenVon = new Map<string, Set<string>>()
   for (const k of e.kanten) {
     for (const t of heimat.get(k.skillKey) ?? []) {
       themenVon.set(k.voraussetzt, (themenVon.get(k.voraussetzt) ?? new Set()).add(t))
     }
   }
-  const baut = (b: EbBereich, themaKey: string | null): boolean =>
-    themaKey !== null && (themenVon.get(b.skillKey)?.has(themaKey) ?? false)
 
-  const sortiert = [...e.bereiche].sort(nachKlasseLabel)
-  const gesehen = new Set<string>()
-  const themen: EbKommtThema[] = e.kommt.flatMap((p) => {
-    // Ein Thema, das zweimal im Plan steht, nur beim ersten Mal.
-    if (p.themaKey === null || gesehen.has(p.themaKey)) return []
-    gesehen.add(p.themaKey)
-    const drauf = sortiert.filter((b) => baut(b, p.themaKey))
-    if (drauf.length === 0) return []
-    return [
-      {
-        titel: p.titel,
-        halbjahr: p.halbjahr,
-        luecken: drauf.filter((b) => !b.sicher).map((b) => b.label),
-        staerken: drauf.filter((b) => b.sicher).map((b) => b.label),
-      },
-    ]
-  })
+  // Kommende Themen in Plan-Reihenfolge, jedes Thema einmal.
+  const kommt: (PlanEintrag & { themaKey: string })[] = []
+  for (const p of e.kommt) {
+    if (p.themaKey !== null && !kommt.some((x) => x.themaKey === p.themaKey)) kommt.push({ ...p, themaKey: p.themaKey })
+  }
+  const themenFuer = (b: EbBereich) => kommt.filter((p) => themenVon.get(b.skillKey)?.has(p.themaKey) ?? false)
 
-  const mitBezug = (b: EbBereich): boolean => [...gesehen].some((k) => baut(b, k))
+  const bloecke = new Map<string, EbKommtThema>(
+    kommt.map((p) => [p.themaKey, { titel: p.titel, halbjahr: p.halbjahr, sitzt: [], fehlt: [] }]),
+  )
+  const ohneSicher: EbBereich[] = []
+  const ohneUebung: EbBereich[] = []
+  for (const b of [...e.bereiche].sort(nachKlasseLabel)) {
+    const [erstes, ...weitere] = themenFuer(b)
+    if (!erstes) {
+      if (b.sicher) ohneSicher.push(b)
+      else ohneUebung.push(b)
+      continue
+    }
+    const z: EbZuordnung = { label: b.label, auch: weitere.map((p) => p.titel) }
+    const block = bloecke.get(erstes.themaKey)!
+    if (b.sicher) block.sitzt.push(z)
+    else block.fehlt.push(z)
+  }
 
-  // Die übrigen Lücken: erst das Thema der LSA, dann je Themenfeld.
-  const rest = sortiert.filter((b) => !b.sicher && !mitBezug(b))
-  const imThema = rest.filter((b) => e.raum.has(b.skillKey))
-  const weitere: EbLueckenGruppe[] = [
-    ...(imThema.length > 0 && e.thema ? [{ feld: null, thema: e.thema, labels: imThema.map((b) => b.label) }] : []),
-    ...[...new Set(rest.filter((b) => !e.raum.has(b.skillKey) || !e.thema).map((b) => b.feld))]
-      .sort((a, b) => feldPosition(a) - feldPosition(b))
-      .map((feld) => ({
-        feld,
-        thema: null,
-        labels: rest.filter((b) => b.feld === feld && (!e.raum.has(b.skillKey) || !e.thema)).map((b) => b.label),
-      })),
-  ]
-
-  const sicher = sortiert.filter((b) => b.sicher)
   return {
-    themen,
-    weitere,
-    staerken: sicher.filter(mitBezug).map((b) => b.label),
-    sicherGesamt: sicher.length,
+    themen: [...bloecke.values()].filter((k) => k.sitzt.length + k.fehlt.length > 0),
+    weitereStaerken: ohneSicher.map((b) => b.label),
+    weitere: gruppiere(ohneUebung, e.raum, e.thema),
     quelle: e.plan?.quelle ?? 'klp',
     schulname: e.plan?.schulname ?? null,
   }
 }
 
 /** Stufen des Ausdünnens für Seite 3; die letzte ist die knappste. */
-export const LUECKENWEG_STUFEN = 6
+export const LUECKENWEG_STUFEN = 5
 
-/** Höchstzahl der Themen-Zeilen je Stufe (Index = Stufe). */
-const ZEILEN = [Infinity, 6, 4, 4, 4, 3]
+/** Höchstzahl der Themenblöcke je Stufe (Index = Stufe). */
+const BLOECKE = [Infinity, Infinity, 4, 4, 3]
 
-const kuerze = (labels: readonly string[], n: number): { labels: string[]; rest: number } => ({
-  labels: labels.slice(0, n),
-  rest: Math.max(0, labels.length - n),
+const kuerze = <T,>(liste: readonly T[], n: number): { liste: T[]; rest: number } => ({
+  liste: liste.slice(0, n),
+  rest: Math.max(0, liste.length - n),
 })
 
 /**
- * Seite 3 dünnt aus, bis sie passt (Auftrag: „Inhalte ausdünnen“), Schritt für
- * Schritt, jeder Schritt behält die vorigen:
- *   1. höchstens sechs Themen-Zeilen (die frühesten im Plan); Lücken der übrigen
- *      Themen, die in keiner Zeile stehen, kommen in die Gruppe „spätere Themen“;
- *      übrige Lücken je Gruppe höchstens drei Namen, Rest als Zahl,
- *   2. höchstens vier Zeilen, je Zeile höchstens drei Lücken, ohne „Sitzt schon“,
- *   3. übrige Lücken nur noch als Zahl je Gruppe,
- *   4. Stärken nur noch als Zahl,
- *   5. höchstens drei Zeilen.
+ * Seite 3 dünnt aus, bis sie passt, Schritt für Schritt (jede Stufe behält die vorigen):
+ *   Stufe 1: je Kasten höchstens drei Bereiche, Rest als Zahl; übrige Lücken je
+ *            Gruppe höchstens drei Namen, weitere Stärken höchstens sechs,
+ *   Stufe 2: höchstens vier Themenblöcke (die frühesten im Plan); die Bereiche der
+ *            übrigen wandern zu „Weitere Stärken“ bzw. in die Gruppe „spätere Themen“,
+ *   Stufe 3: übrige Lücken und weitere Stärken nur noch als Zahl,
+ *   Stufe 4: höchstens drei Themenblöcke.
  * Was wegfällt, steht als Zahl oder in einer Gruppe da, nichts verschwindet still.
  */
 export function duenneLueckenweg(lw: EbLueckenweg, stufe: number): EbLueckenweg {
   if (stufe <= 0) return lw
-  const zeilen = lw.themen.filter((k) => k.luecken.length > 0)
-  const max = ZEILEN[Math.min(stufe, ZEILEN.length - 1)]
-  const gezeigt = zeilen.slice(0, max)
-  const sichtbar = new Set(gezeigt.flatMap((k) => k.luecken))
-  const spaeter = [...new Set(zeilen.slice(max).flatMap((k) => k.luecken))].filter((l) => !sichtbar.has(l))
+  const max = BLOECKE[Math.min(stufe, BLOECKE.length - 1)]
+  const ab = lw.themen.slice(max)
+  const spaeterLuecken = ab.flatMap((k) => k.fehlt.map((z) => z.label))
+  const n = stufe >= 3 ? 0 : 3
   const gruppen: EbLueckenGruppe[] = [
-    ...(spaeter.length > 0 ? [{ feld: null, thema: null, spaeter: true, labels: spaeter }] : []),
+    ...(spaeterLuecken.length > 0 ? [{ feld: null, thema: null, spaeter: true, labels: spaeterLuecken }] : []),
     ...lw.weitere,
-  ].map((g) => ({ ...g, ...kuerze(g.labels, stufe >= 3 ? 0 : 3) }))
-  const themen = gezeigt.map((k) => {
-    if (stufe < 2) return k
-    const { labels, rest } = kuerze(k.luecken, 3)
-    return { ...k, luecken: labels, rest, zeileOhneStaerken: true }
+  ].map((g) => {
+    const { liste, rest } = kuerze(g.labels, n)
+    return { ...g, labels: liste, rest }
   })
-  // Der Stärken-Satz rechnet mit allen Themen weiter (dort stehen sie nur als Titel).
-  const nurStaerken = lw.themen.filter((k) => !gezeigt.includes(k)).map((k) => ({ ...k, luecken: [] }))
-  return { ...lw, themen: [...themen, ...nurStaerken], weitere: gruppen, staerken: stufe >= 4 ? [] : lw.staerken }
+  const st = kuerze([...lw.weitereStaerken, ...ab.flatMap((k) => k.sitzt.map((z) => z.label))], stufe >= 3 ? 0 : 6)
+  return {
+    ...lw,
+    themen: lw.themen.slice(0, max).map((k) => {
+      const s = kuerze(k.sitzt, 3)
+      const f = kuerze(k.fehlt, 3)
+      return { ...k, sitzt: s.liste, fehlt: f.liste, restSitzt: s.rest, restFehlt: f.rest }
+    }),
+    weitereStaerken: st.liste,
+    weitereStaerkenRest: st.rest,
+    weitere: gruppen,
+  }
 }

@@ -2123,6 +2123,8 @@ on conflict (id) do nothing;
 --   paket text CHECK in ('basis','standard','premium')
 --   paket_bestaetigt boolean not null default false — Coach hat das Paket bestätigt
 --       (Bericht v2, supabase/migrations/20261024135226_bericht_v2.sql)
+--   ziele_bestaetigt boolean not null default false — Ziele im Gespräch bestätigt
+--       (Bericht v3, supabase/migrations/*_bericht_v3_ziele.sql)
 --   updated_at timestamptz not null default now()
 --   updated_by uuid → profiles(id) on delete set null
 --   INDEX lsa_report_notes_session_idx (session_id)

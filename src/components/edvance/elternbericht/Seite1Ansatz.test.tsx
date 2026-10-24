@@ -50,13 +50,28 @@ describe('Seite 1 — Ihr Anliegen', () => {
       mitUrsachen(FAELLE.ilkay.data, ['Rechenwege'], eg({ note: '4', trend: 'besser', seit: 'dieses_halbjahr' })),
     )
     expect(s.getByTestId('eb-anliegen').querySelector('.eb-s1-anliegen-satz')?.textContent).toBe(
-      'Die letzte Zeugnisnote von Ilkay in Mathematik war eine 4. Zuletzt ist sie besser geworden. Die Schwierigkeiten gibt es seit diesem Halbjahr. Als Ursache vermuten Sie Rechenwege.',
+      'Letzte Zeugnisnote in Mathematik: 4, zuletzt besser geworden. Die Schwierigkeiten gibt es seit diesem Halbjahr. Als Ursache vermuten Sie Rechenwege.',
     )
   })
 
-  it('ohne Namen die Fassung ohne Namen', () => {
-    const s = seite1(mitUrsachen(FAELLE.ohneName.data, [], eg({ note: '3' })))
-    expect(s.getByTestId('eb-anliegen')).toHaveTextContent('Die letzte Zeugnisnote in Mathematik war eine 3.')
+  it('Notenzeile ohne Trend; mit oder ohne Namen dieselbe Zeile (sie nennt den Namen nie)', () => {
+    const ohne = seite1(mitUrsachen(FAELLE.ohneName.data, [], eg({ note: '3' })))
+    expect(ohne.getByTestId('eb-anliegen')).toHaveTextContent('Letzte Zeugnisnote in Mathematik: 3.')
+    const mit = seite1(mitUrsachen(FAELLE.ilkay.data, [], eg({ note: '3' })))
+    expect(mit.getByTestId('eb-anliegen').querySelector('.eb-s1-anliegen-satz')?.textContent).toBe(
+      'Letzte Zeugnisnote in Mathematik: 3.',
+    )
+  })
+
+  it.each([
+    ['besser', 'zuletzt besser geworden'],
+    ['stabil', 'zuletzt unverändert'],
+    ['schlechter', 'zuletzt schlechter geworden'],
+  ] as const)('Trend %s steht hinter der Note in derselben Zeile', (trend, text) => {
+    const s = seite1(mitUrsachen(FAELLE.ilkay.data, [], eg({ note: '2', trend })))
+    expect(s.getByTestId('eb-anliegen').querySelector('.eb-s1-anliegen-satz')?.textContent).toBe(
+      `Letzte Zeugnisnote in Mathematik: 2, ${text}.`,
+    )
   })
 
   it('nur die Ursache aus den Anlassnamen, wenn kein Erstgespräch vorliegt', () => {

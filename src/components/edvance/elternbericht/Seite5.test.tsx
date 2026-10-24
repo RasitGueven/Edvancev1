@@ -6,7 +6,7 @@ import '@/i18n'
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { paketWahl } from '@/components/edvance/elternbericht/seite5Rechnung'
 import de from '@/i18n/locales/de/elternbericht.json'
-import { KONTAKT } from '@/lib/report/elternbericht/berichtKonfig'
+import { KONTAKT, TABLET_LINK } from '@/lib/report/elternbericht/berichtKonfig'
 import { FAELLE, NOTIZEN, TIERS } from '@/lib/report/elternbericht/fixtures'
 import type { ReportData, ReportErstgespraech, ReportNotes, TierPlan } from '@/types'
 
@@ -95,7 +95,7 @@ describe('Seite 5 — Vorschlag des Systems', () => {
     expect(karte(s, 2)).not.toHaveTextContent('Empfehlung Ihres Coachs')
     expect(karte(s, 0)).toHaveTextContent('Mitgliedschaft')
     expect(s.getByTestId('eb-vorschlag-zeile').textContent).toBe(
-      'Auf Grundlage der Lernstandsanalyse schlagen wir Premium vor, weil 16 von 27 geprüften Bereichen Übungsbedarf zeigen, verteilt auf 4 Schwerpunkte.',
+      'Passend dazu schlagen wir Premium vor, weil 16 von 27 geprüften Bereichen Übungsbedarf zeigen, verteilt auf 4 Schwerpunkte.',
     )
     expect(s.getByTestId('eb-vorschlag')).toHaveTextContent('nicht verpflichtend')
     expect(s.getByTestId('eb-vorschlag')).toHaveTextContent('Ein Start mit Basic ist möglich.')
@@ -110,14 +110,14 @@ describe('Seite 5 — Vorschlag des Systems', () => {
   it('Standard bei verteiltem Übungsbedarf, mit dem passenden Grund', () => {
     const s = seite5(FAELLE.klasse7)
     expect(vorgeschlagen(s).length).toBe(1)
-    expect(s.getByTestId('eb-vorschlag-zeile').textContent).toMatch(/^Auf Grundlage der Lernstandsanalyse schlagen wir \w+ vor, weil /)
+    expect(s.getByTestId('eb-vorschlag-zeile').textContent).toMatch(/^Passend dazu schlagen wir \w+ vor, weil /)
   })
 
   it('Basic nur ohne Übungsbedarf: Satz „nur wenige Bereiche“, ohne den Hinweis auf einen Start mit Basic', () => {
     const s = seite5(FAELLE.allesSicher)
     expect(vorgeschlagen(s)).toEqual(['Basic'])
     expect(s.getByTestId('eb-vorschlag-zeile').textContent).toBe(
-      'Auf Grundlage der Lernstandsanalyse schlagen wir Basic vor, weil nur wenige Bereiche Übungsbedarf zeigen.',
+      'Passend dazu schlagen wir Basic vor, weil nur wenige Bereiche Übungsbedarf zeigen.',
     )
     expect(s.getByTestId('eb-vorschlag').querySelector('.eb-s5-vorschlag-frei')?.textContent).toBe(
       'Das ist ein Vorschlag und nicht verpflichtend.',
@@ -133,7 +133,7 @@ describe('Seite 5 — Bestätigung durch den Coach', () => {
     expect(vorgeschlagen(s)).toEqual(['Standard'])
     expect(karte(s, 1)).toHaveTextContent('Empfehlung Ihres Coachs')
     expect(s.getByTestId('eb-vorschlag-zeile').textContent).toBe(
-      'Auf Grundlage der Lernstandsanalyse empfiehlt Ihr Coach Standard.',
+      'Passend dazu empfiehlt Ihr Coach Standard.',
     )
     expect(s.el).not.toHaveTextContent('schlagen wir')
   })
@@ -160,28 +160,87 @@ describe('Seite 5 — Bestätigung durch den Coach', () => {
   })
 })
 
-describe('Seite 5 — Ziele', () => {
-  const ziele = (fall: Parameters<typeof seite5>[0]): string | undefined =>
-    seite5(fall).queryByTestId('eb-ziele')?.querySelector('.eb-s5-ziele-text')?.textContent ?? undefined
+describe('Seite 5 — Fazit', () => {
+  const fazit = (fall: Parameters<typeof seite5>[0]): string | undefined =>
+    seite5(fall).queryByTestId('eb-s5-fazit')?.textContent ?? undefined
 
-  it('Zielbild des Coachs, Überschrift „Ziele für die nächsten 6 Monate“', () => {
+  it('das Fazit ersetzt den Einleitungstext und fasst Seite 1 bis 4 zusammen', () => {
     const s = seite5(FAELLE.ilkay)
-    expect(s.getByTestId('eb-ziele').querySelector('.eb-kicker')).toHaveTextContent('Ziele für die nächsten 6 Monate')
-    expect(ziele(FAELLE.ilkay)).toBe(NOTIZEN.zielbild)
+    const text = s.getByTestId('eb-s5-fazit').textContent!
+    expect(text).toContain('Die Lücken liegen vor allem im Stoff von')
+    expect(text).toContain('Wir beginnen mit')
+    expect(s.el).not.toHaveTextContent('Der Bericht endet nicht mit einer Zahl')
   })
 
-  it('ohne Zielbild die Ziele aus dem Erstgespräch; das Zielbild geht vor', () => {
+  it('das Fazit nutzt dieselben Daten wie Seite 1 (Startsatz)', () => {
+    const { container } = render(<ElternberichtBogen {...FAELLE.ilkay} />)
+    const start = container.querySelector('[data-seite="1"] [data-testid="eb-start"]')?.textContent
+    expect(start).toBeTruthy()
+    expect(fazit(FAELLE.ilkay)).toContain(start!.trim())
+  })
+
+  it('alles sicher: kein Lückensatz', () => {
+    expect(fazit(FAELLE.allesSicher) ?? '').not.toContain('Die Lücken liegen')
+  })
+})
+
+describe('Seite 5 — Ziele', () => {
+  const liste = (fall: Parameters<typeof seite5>[0]): string[] | undefined => {
+    const el = seite5(fall).queryByTestId('eb-ziele')
+    return el ? [...el.querySelectorAll('.eb-s5-ziele-liste li')].map((x) => x.textContent ?? '') : undefined
+  }
+  const bestaetigt = (zielbild: string, paket: ReportNotes['paket'] = null): ReportNotes => ({
+    ...NOTIZEN,
+    zielbild,
+    paket,
+    zieleBestaetigt: true,
+  })
+
+  it('ohne Bestätigung keine Ziele, auch nicht das Zielbild des Coachs', () => {
+    expect(liste(FAELLE.ilkay)).toBeUndefined()
+    expect(liste({ ...FAELLE.ilkay, notes: { ...NOTIZEN, zieleBestaetigt: false } })).toBeUndefined()
+    expect(liste({ ...FAELLE.ilkay, notes: null })).toBeUndefined()
+    expect(seite5(FAELLE.ilkay).el).not.toHaveTextContent(NOTIZEN.zielbild)
+  })
+
+  it('bestätigt: das Zielbild des Coachs, Überschrift „Ziele für die nächsten 6 Monate“', () => {
+    const fall = { ...FAELLE.ilkay, notes: bestaetigt(NOTIZEN.zielbild) }
+    expect(seite5(fall).getByTestId('eb-ziele').querySelector('.eb-kicker')).toHaveTextContent('Ziele für die nächsten 6 Monate')
+    expect(liste(fall)).toEqual([NOTIZEN.zielbild])
+  })
+
+  it('bestätigt ohne Zielbild: der Systemvorschlag, Anzahl nach Paket (2, 3, 4)', () => {
+    const je = (paket: 'basis' | 'standard' | 'premium') => liste({ ...FAELLE.ilkay, notes: { ...bestaetigt('  ', paket), paketBestaetigt: true } })!
+    expect(je('basis')).toEqual(['Flächen und Figuren sicher anwenden', 'Brüche und Dezimalzahlen sicher anwenden'])
+    expect(je('standard')).toHaveLength(3)
+    expect(je('premium')).toEqual([
+      'Flächen und Figuren sicher anwenden',
+      'Brüche und Dezimalzahlen sicher anwenden',
+      'Größen und Einheiten sicher anwenden',
+      'Prozent- und Dreisatzrechnung sicher anwenden',
+    ])
+  })
+
+  it('das bestätigte Paket bestimmt die Anzahl; ohne Bestätigung gilt der Vorschlag des Systems', () => {
+    // ilkay: Vorschlag Premium (4 Schwerpunkte), bestätigt Basic (2).
+    const notes: ReportNotes = { ...NOTIZEN, zielbild: '', paket: 'basis', paketBestaetigt: true, zieleBestaetigt: true }
+    expect(liste({ ...FAELLE.ilkay, notes })).toHaveLength(2)
+    expect(liste({ ...FAELLE.ilkay, notes: { ...notes, paketBestaetigt: false } })).toHaveLength(4)
+  })
+
+  it('Feld mit kommendem Schulthema: „… sicher anwenden, bevor das Thema „…“ beginnt“', () => {
+    const notes: ReportNotes = { ...NOTIZEN, zielbild: '', paket: null, zieleBestaetigt: true }
+    const z = liste({ ...FAELLE.abgestuftPlanrang, notes })!
+    expect(z).toContain('Flächen und Figuren sicher anwenden, bevor das Thema „Kreise, Prismen und Zylinder“ beginnt')
+  })
+
+  it('bestätigt, aber nichts zu tun (alles sicher) und ohne Zielbild: der Abschnitt entfällt', () => {
+    expect(liste({ ...FAELLE.allesSicher, notes: bestaetigt('') })).toBeUndefined()
+  })
+
+  it('Ziele aus dem Erstgespräch erscheinen auf Seite 5 nicht mehr', () => {
     const data = { ...FAELLE.ilkay.data, erstgespraech: eg({ ziele: 'Versetzung sichern.' }) }
-    expect(ziele({ ...FAELLE.ilkay, data, notes: { ...NOTIZEN, zielbild: '  ' } })).toBe('Versetzung sichern.')
-    expect(ziele({ ...FAELLE.ilkay, data, notes: null })).toBe('Versetzung sichern.')
-    expect(ziele({ ...FAELLE.ilkay, data })).toBe(NOTIZEN.zielbild)
-  })
-
-  it('weder Zielbild noch Erstgespräch: der Abschnitt entfällt', () => {
-    expect(ziele(FAELLE.ohneNotizen)).toBeUndefined()
-    expect(ziele({ ...FAELLE.ilkay, notes: { ...NOTIZEN, zielbild: '' } })).toBeUndefined()
-    const leer = { ...FAELLE.ilkay.data, erstgespraech: eg({ ziele: null }) }
-    expect(ziele({ ...FAELLE.ilkay, data: leer, notes: null })).toBeUndefined()
+    expect(seite5({ ...FAELLE.ilkay, data, notes: bestaetigt('') }).el).not.toHaveTextContent('Versetzung sichern.')
   })
 })
 
@@ -221,10 +280,24 @@ describe('Seite 5 — Kontakt', () => {
     expect(seite5(FAELLE.ilkay).getByTestId('eb-telefon')).toHaveTextContent('Telefon 0221 123456')
   })
 
-  it('Fragen oder Entscheidung: Antwortversprechen und Vertragssatz', () => {
+  it('Fragen oder Entscheidung: ohne Telefon „schreiben Sie mir gern“, Vertragssatz', () => {
     const k = within(seite5(FAELLE.ilkay).getByTestId('eb-kontakt'))
-    expect(k.getByText(/Sie können sich direkt entscheiden/)).toBeInTheDocument()
+    expect(k.getByText('Bei Fragen erreichen Sie mich jederzeit – schreiben Sie mir gern.')).toBeInTheDocument()
+    expect(k.queryByText(/rufen Sie gern an/)).toBeNull()
     expect(k.getByText(de.s5.fragen.vertrag)).toBeInTheDocument()
+  })
+
+  it('mit Telefon der Satz mit „rufen Sie gern an“', () => {
+    KONTAKT.telefon = '0221 123456'
+    const k = within(seite5(FAELLE.ilkay).getByTestId('eb-kontakt'))
+    expect(k.getByText('Bei Fragen erreichen Sie mich jederzeit – rufen Sie gern an oder schreiben Sie mir.')).toBeInTheDocument()
+  })
+
+  it('Hinweis auf die Tablet-Fassung entfällt, solange TABLET_LINK null ist', () => {
+    expect(TABLET_LINK).toBeNull()
+    const s = seite5(FAELLE.ilkay)
+    expect(s.queryByTestId('eb-tablet')).toBeNull()
+    expect(s.el).not.toHaveTextContent(/Tablet/)
   })
 
   it('ohneName: Titel ohne Namen', () => {

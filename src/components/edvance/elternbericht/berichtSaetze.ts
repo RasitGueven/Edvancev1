@@ -6,6 +6,7 @@
 import type { TFunction } from 'i18next'
 
 import { LUECKEN_FELDER } from '@/lib/report/elternbericht/berichtKonfig'
+import { lueckenStufe } from '@/lib/report/elternbericht/stufenBlick'
 import type { UrsachenAntwort } from '@/lib/report/elternbericht/ursache'
 import type {
   EbGrund,
@@ -14,6 +15,7 @@ import type {
   EbStufeKey,
   EbStufenZeile,
   ReportErstgespraech,
+  ReportPaket,
   ThemenfeldKey,
 } from '@/types'
 
@@ -41,22 +43,21 @@ export function anliegenSaetzeV2(
   {
     erstgespraech,
     ursachen,
-    name,
     fach,
     liste,
   }: {
     erstgespraech: ReportErstgespraech | null
     /** Anzeigenamen der vermuteten Ursachen (erzaehlung.anlassNamen). */
     ursachen: readonly string[]
-    name: string | null
     fach: string
     liste: (s: readonly string[]) => string
   },
 ): string[] {
   const e = erstgespraech
+  // Bericht v3: Note und Tendenz in einer knappen Zeile, ohne Namen.
   return [
-    e?.note && (name ? t('s1.anliegen.note', { name, fach, note: e.note }) : t('s1.anliegen.noteOhneName', { fach, note: e.note })),
-    e?.note && e.trend && t(`s1.anliegen.trend.${e.trend}`),
+    e?.note &&
+      (e.trend ? t(`s1.anliegen.noteTrend.${e.trend}`, { fach, note: e.note }) : t('s1.anliegen.note', { fach, note: e.note })),
     e?.seit && t(`s1.anliegen.seit.${SEIT_KEY[e.seit]}`),
     ursachen.length > 0 && t('s1.anliegen.ursache', { punkte: liste(ursachen) }),
   ].filter((s): s is string => Boolean(s))
@@ -105,7 +106,14 @@ export function lueckenFelder(profil: readonly EbProfilZeile[]): ThemenfeldKey[]
 
 /** Der halbe Satz nach „weil“. */
 export function grundText(t: T, g: EbGrund): string {
-  if (g.art === 'naechstesThema') return t('grund.naechstesThema', { titel: g.titel })
+  if (g.art === 'naechstesThema') {
+    if (!g.stufe || !g.reihe) return t('grund.naechstesThema', { titel: g.titel })
+    const stufe = t(`stufe.${g.stufe}`)
+    return g.reihe === 'zuerst'
+      ? t('grund.naechstesThemaZuerst', { titel: g.titel, stufe })
+      : t('grund.naechstesThemaDanach', { titel: g.titel, stufe })
+  }
+  if (g.art === 'spaeterGebraucht') return t('grund.spaeterGebraucht', { titel: g.titel })
   if (g.art === 'anzahl') return t('grund.anzahl', { count: g.count })
   return t(`grund.${g.art}`)
 }
@@ -127,4 +135,90 @@ export function schuleGenitiv(t: T, name: string): string {
   if (gym) return t('schule.gymnasiumVorn', { art: gym[1], rest: gym[2] })
   if (/(schule|akademie)\b/i.test(name)) return t('schule.schule', { name })
   return t('schule.sonst', { name })
+}
+
+/**
+ * Das Fazit auf Seite 5 (Bericht v3): Seite 1–4 in drei bis vier Sätzen, aus
+ * denselben Daten — wie es um die Grundlagen steht, wo die Lücken liegen, das
+ * Fehlermuster, womit wir beginnen. Kein neuer Inhalt.
+ */
+export function fazitSaetze(
+  t: T,
+  {
+    stufen,
+    felder,
+    sorgfalt,
+    start,
+  }: {
+    stufen: readonly EbStufenZeile[]
+    /** lueckenFelder(bericht.profil) */
+    felder: readonly ThemenfeldKey[]
+    sorgfalt: boolean
+    /** startSatz(...) */
+    start: string | null
+  },
+): string[] {
+  const luecken = lueckenStufe(stufen) ?? undefined
+  const basis = stufen.find((z) => z.stufe === 'grundlagen')
+  const basisSitzt = basis && (basis.urteil === 'sicher' || basis.urteil === 'weitgehend') && luecken !== 'grundlagen'
+  const feldText =
+    felder.length === 2
+      ? t('s5.fazit.zweiFelder', { erstes: t(`feldMit.${felder[0]}`), zweites: t(`feldMit.${felder[1]}`) })
+      : felder.length === 1
+        ? t(`feldMit.${felder[0]}`)
+        : null
+  const zeile = stufen.find((z) => z.stufe === luecken)
+  const lueckenSatz =
+    zeile && feldText
+      ? t('s5.fazit.luecken', { stufe: stufenKlasse(t, zeile), felder: feldText })
+      : zeile
+        ? t('ursache.grundlagen.bestaetigt', { stufe: stufenKlasse(t, zeile) })
+        : feldText
+          ? t('s1.blick.luecken', { felder: feldText })
+          : null
+  return [
+    basisSitzt ? t('ursache.grundlagen.basisSitzt') : null,
+    lueckenSatz,
+    sorgfalt ? t('s1.blick.muster') : null,
+    start,
+  ].filter((s): s is string => Boolean(s))
+}
+
+/** Wie viele Schwerpunkte die Ziele je Paket umfassen: gleiche Richtung, anderer Umfang. */
+const ZIELE_JE_PAKET = { basis: 2, standard: 3, premium: 4 } as const
+
+/**
+ * Ziele für die nächsten 6 Monate (Bericht v3): ein Systemvorschlag aus den
+ * Schwerpunkten (in ihrer Reihenfolge) und dem Paket. Nur Förderziele („…
+ * sicher anwenden“), nie Noten- oder Ergebnisziele; mit Sorgfaltsmuster ein
+ * Ziel dazu. Das Paket bestimmt nur, wie viele Schwerpunkte in sechs Monaten
+ * vorkommen.
+ */
+export function zieleSaetze(
+  t: T,
+  {
+    schwerpunkte,
+    gruende,
+    paket,
+    sorgfalt,
+    liste,
+  }: {
+    schwerpunkte: readonly EbSchwerpunkt[]
+    gruende: readonly (EbGrund | undefined)[]
+    paket: ReportPaket
+    sorgfalt: boolean
+    liste: (s: readonly string[]) => string
+  },
+): string[] {
+  const ziele = schwerpunkte.slice(0, ZIELE_JE_PAKET[paket]).map((s, i) => {
+    const g = gruende[i]
+    const was =
+      g?.art === 'spaeterGebraucht' || g?.art === 'themaGeschrieben'
+        ? liste(s.uebung)
+        : (s.thema ?? t(`feldZiel.${s.feld ?? 'weitere'}`))
+    if (g?.art === 'naechstesThema' || g?.art === 'spaeterGebraucht') return t('s5.ziele.vorThema', { was, titel: g.titel })
+    if (g?.art === 'klassenarbeit') return t('s5.ziele.klassenarbeit', { was })
+    return t('s5.ziele.allgemein', { was })
+  })
+  return sorgfalt ? [...ziele, t('s5.ziele.sorgfalt')] : ziele
 }

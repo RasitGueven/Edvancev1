@@ -20668,6 +20668,7 @@ CREATE TABLE public.lsa_report_notes (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_by uuid,
     paket_bestaetigt boolean DEFAULT false NOT NULL,
+    ziele_bestaetigt boolean DEFAULT false NOT NULL,
     CONSTRAINT lsa_report_notes_paket_check CHECK ((paket = ANY (ARRAY['basis'::text, 'standard'::text, 'premium'::text])))
 );
 

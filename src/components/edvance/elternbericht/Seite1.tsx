@@ -24,7 +24,7 @@ import type { SeitenProps } from './seitenProps'
  * womit wir beginnen. Keine Listen einzelner Bereiche. Fehlt ein Datum,
  * entfällt sein Satz still.
  */
-export function Seite1({ data, bericht, satz, name }: SeitenProps): JSX.Element {
+export function Seite1({ data, bericht, satz, name, vollerName }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
   const stufen = bericht.stufen ?? []
@@ -32,14 +32,13 @@ export function Seite1({ data, bericht, satz, name }: SeitenProps): JSX.Element 
     new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(s)
 
   const titel =
-    satz.waehle('kopf', bericht.kopfFall, data.sessionId, { name: name ?? t('kind') }) ??
-    (name ? t('s1.kopfErsatz', { name }) : t('s1.kopfErsatzOhneName'))
+    satz.waehle('kopf', bericht.kopfFall, data.sessionId, { name: vollerName ?? t('kind') }) ??
+    (vollerName ? t('s1.kopfErsatz', { name: vollerName }) : t('s1.kopfErsatzOhneName'))
 
   const muster = fehlermusterAus(data.fehlbilder)
   const anliegen = anliegenSaetzeV2(t, {
     erstgespraech: data.erstgespraech ?? null,
     ursachen: data.erzaehlung.anlassNamen,
-    name,
     fach: data.subject,
     liste,
   })

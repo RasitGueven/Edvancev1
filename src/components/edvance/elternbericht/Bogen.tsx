@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { EmptyState } from '@/components/edvance/EmptyState'
 import { Bausteinsatz } from '@/lib/report/bausteine'
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
+import { EINORDNUNG_LAYOUT, type EinordnungLayout } from '@/lib/report/elternbericht/berichtKonfig'
 import { genitiv } from '@/lib/report/elternbericht/genitiv'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
 
@@ -40,10 +41,13 @@ export function ElternberichtBogen({
   data,
   notes,
   tiers,
+  einordnung = EINORDNUNG_LAYOUT,
 }: {
   data: ReportData
   notes: ReportNotes | null
   tiers: TierPlan[]
+  /** Layout von Seite 3; ohne Angabe aus berichtKonfig. */
+  einordnung?: EinordnungLayout
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
   const { kompetenzen, katalog, bausteine } = data.erzaehlung
@@ -82,7 +86,10 @@ export function ElternberichtBogen({
     )
   }
 
-  const name = messung.nameBleibt ? vorab : null
+  // Bericht v3: Im Text steht der Vorname (erstes Wort), der volle Name nur im
+  // Titel von Seite 1 und in der Fußzeile.
+  const vollerName = messung.nameBleibt ? vorab : null
+  const name = vollerName ? vollerName.split(/\s+/)[0] : null
   const props: SeitenProps = {
     data,
     bericht,
@@ -90,7 +97,9 @@ export function ElternberichtBogen({
     notes,
     tiers,
     name,
+    vollerName,
     wessen: name ? genitiv(name) : null,
+    einordnung,
   }
 
   return (
@@ -112,7 +121,7 @@ export function ElternberichtBogen({
       </svg>
       <NamensMessungFertig.Provider value={messung.fertig}>
         {SEITEN.map((Inhalt, i) => (
-          <Seite key={i + 1} nummer={i + 1} testlauf={data.testlauf} name={name}>
+          <Seite key={i + 1} nummer={i + 1} testlauf={data.testlauf} name={vollerName}>
             <Inhalt {...props} />
           </Seite>
         ))}
