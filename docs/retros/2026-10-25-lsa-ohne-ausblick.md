@@ -29,7 +29,12 @@ p-q-Formel (Plan Klasse 10).
 
 ## Offen
 
-- Migration einspielen (Rasit).
+- ~~Migration einspielen~~: am 25.10. eingespielt; Funktionstext in Prod gleich dem Neuaufbau (md5), 33 aktive
+  `batu_lsa`-Zeilen, keine Sitzung mit Ausblick-Knoten.
+- **LSA ohne Thema** (Zweitprüfung): Breite b und Schritt 5 nehmen jeden Knoten mit `klasse_herkunft <= grade`,
+  ohne Blick auf den Schulplan. Ein Neuntklässler kann dort Klasse-9-Stoff bekommen, der noch nicht dran war.
+  Entscheidung Rasit offen: (a) ohne Thema nur bis Vorklasse plus behandelte Themen, (b) nach Schulplanposition.
+- `tools/lsa-testkinder/auswertung.sql` zeigt den Ausblick ohne Schalter jetzt leer (nur Anzeige).
 - Der Bericht (`vorgriff.ts`) kennt Vorgriffe weiter. Ohne Ausblick-Knoten entstehen keine, eine Änderung ist
   nicht nötig.
 - Ohne Thema (Breite b) ist nicht eigens geprüft; dort gilt weiter die Klassengrenze der alten Auswahl.
