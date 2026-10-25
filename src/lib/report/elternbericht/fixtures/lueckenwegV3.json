@@ -1,0 +1,5074 @@
+{
+ "ilkay": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "testlauf": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "klasse10neu": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Scheitelpunkt aus der Scheitelpunktform",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Exponentielles Wachstum",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Lineares und exponentielles Wachstum, Wachstumsfaktor",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Brüche kürzen"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "klasse7": {
+  "themen": [
+   {
+    "titel": "Lineare Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Brüche kürzen",
+      "auch": []
+     },
+     {
+      "label": "Gleichungen mit negativem Koeffizienten",
+      "auch": [
+       "Lineare Gleichungssysteme"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Terme mit mehreren Variablen und binomische Formeln",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Minusklammer auflösen",
+      "auch": [
+       "Lineare Gleichungssysteme"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Zufall und Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Brüche addieren",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Prozentwert berechnen"
+  ],
+  "weitere": [
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Umfang von Rechteck und Dreieck"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "spaeter": {
+  "themen": [
+   {
+    "titel": "Lineare Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Brüche kürzen",
+      "auch": []
+     },
+     {
+      "label": "Gleichungen mit negativem Koeffizienten",
+      "auch": [
+       "Lineare Gleichungssysteme"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Terme mit mehreren Variablen und binomische Formeln",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Minusklammer auflösen",
+      "auch": [
+       "Lineare Gleichungssysteme"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Zufall und Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Brüche addieren",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Prozentwert berechnen"
+  ],
+  "weitere": [
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Umfang von Rechteck und Dreieck"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Quadratwurzel als Umkehrung des Quadrierens"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "allesSicher": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche addieren",
+   "Brüche dividieren",
+   "Brüche kürzen",
+   "Brüche multiplizieren",
+   "Gemischte Schreibweise",
+   "Volumeneinheiten",
+   "Gleichungen mit negativem Koeffizienten",
+   "Grundwert berechnen",
+   "Minusklammer auflösen",
+   "Prozentuale Veränderung",
+   "Vorrangregeln mit Vorzeichen",
+   "Winkelsummen im Dreieck und Viereck"
+  ],
+  "weitere": [],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "nichtsSicher": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche kürzen",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Gleichungen mit negativem Koeffizienten",
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Längen umrechnen",
+     "Massen umrechnen",
+     "Gemischte Schreibweise",
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "sechsFelderMitUebung": {
+  "themen": [
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Brüche kürzen"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "alleFelder": {
+  "themen": [
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Trigonometrie",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Steigung einer linearen Funktion",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Brüche kürzen"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Laplace-Wahrscheinlichkeit"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "ohneName": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "vieleRueckbezuege": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "ohneNotizen": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "ohneKatalog": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "mitFazit": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "fazitLang": {
+  "themen": [
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Brüche kürzen"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "langerName": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "zuLangerName": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "breiterName": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "weitereBereiche": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   },
+   {
+    "feld": "weitere",
+    "thema": null,
+    "labels": [
+     "Diagramme lesen und auswerten"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "vieleAnliegen": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten",
+   "Negative Zahlen addieren/subtrahieren"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "keinSchwerpunktMitZiel": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche addieren",
+   "Brüche dividieren",
+   "Brüche kürzen",
+   "Brüche multiplizieren",
+   "Gemischte Schreibweise",
+   "Volumeneinheiten",
+   "Gleichungen mit negativem Koeffizienten",
+   "Grundwert berechnen",
+   "Minusklammer auflösen",
+   "Prozentuale Veränderung",
+   "Vorrangregeln mit Vorzeichen",
+   "Winkelsummen im Dreieck und Viereck"
+  ],
+  "weitere": [],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "abgestuft": {
+  "themen": [
+   {
+    "titel": "Potenzen und Potenzgesetze",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Daten und Wahrscheinlichkeit"
+      ]
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Einsetzungsverfahren",
+   "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Rationale und irrationale Zahlen",
+     "Teilweise die Wurzel ziehen",
+     "Wurzelgesetze für Produkt und Quotient"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt von Drachen und Raute",
+     "Satz des Thales (Winkel berechnen)",
+     "Terme für Flächeninhalte"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "abgestuftMitOffen": {
+  "themen": [
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Quadratwurzel als Umkehrung des Quadrierens",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Rationale und irrationale Zahlen",
+     "Teilweise die Wurzel ziehen",
+     "Wurzelgesetze für Produkt und Quotient",
+     "Wurzeln abschätzen und Näherungswerte"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "abgestuftLang": {
+  "themen": [],
+  "weitereStaerken": [
+   "Zahlbereich 1",
+   "Zahlbereich 7",
+   "Zahlbereich 4",
+   "Zahlbereich 10"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Zahlbereich 11",
+     "Zahlbereich 6",
+     "Zahlbereich 12",
+     "Zahlbereich 2",
+     "Zahlbereich 3",
+     "Zahlbereich 8",
+     "Zahlbereich 9",
+     "Zahlbereich 5"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "ohneKanten": {
+  "themen": [],
+  "weitereStaerken": [
+   "Bruch in Dezimalzahl",
+   "Einsetzungsverfahren",
+   "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Rationale und irrationale Zahlen",
+     "Teilweise die Wurzel ziehen",
+     "Wurzelgesetze für Produkt und Quotient"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt von Drachen und Raute",
+     "Satz des Thales (Winkel berechnen)",
+     "Terme für Flächeninhalte"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "planOhneThema": {
+  "themen": [
+   {
+    "titel": "Daten und Wahrscheinlichkeit",
+    "halbjahr": 2,
+    "sitzt": [
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Einsetzungsverfahren",
+   "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt von Drachen und Raute",
+     "Satz des Thales (Winkel berechnen)",
+     "Terme für Flächeninhalte"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Rationale und irrationale Zahlen",
+     "Teilweise die Wurzel ziehen",
+     "Wurzelgesetze für Produkt und Quotient"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "vieleKanten": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche addieren",
+   "Brüche dividieren",
+   "Brüche kürzen",
+   "Brüche multiplizieren",
+   "Gemischte Schreibweise",
+   "Volumeneinheiten",
+   "Gleichungen mit negativem Koeffizienten",
+   "Grundwert berechnen",
+   "Minusklammer auflösen",
+   "Prozentuale Veränderung",
+   "Vorrangregeln mit Vorzeichen",
+   "Winkelsummen im Dreieck und Viereck"
+  ],
+  "weitere": [],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "langeLabels": {
+  "themen": [
+   {
+    "titel": "Potenzen und Potenzgesetze",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Daten und Wahrscheinlichkeit"
+      ]
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Einsetzungsverfahren bei linearen Gleichungssystemen mit zwei Variablen",
+   "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Rationale und irrationale Zahlen",
+     "Teilweise die Wurzel ziehen",
+     "Wurzelgesetze für Produkt und Quotient"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren bei linearen Gleichungssystemen mit zwei Variablen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt von Drachen und Raute",
+     "Satz des Thales (Winkel berechnen)",
+     "Terme für Flächeninhalte"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "sehrViele": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dezimalzahlen dividieren",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Potenzen und Potenzgesetze",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Daten und Wahrscheinlichkeit"
+      ]
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Brüche addieren",
+   "Gleichsetzungsverfahren",
+   "Neben- und Scheitelwinkel",
+   "y-Achsenabschnitt einer linearen Funktion",
+   "Volumen und Oberfläche der Kugel",
+   "Graph der Sinusfunktion",
+   "Lineares und exponentielles Wachstum, Wachstumsfaktor"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Dezimalzahlen addieren/subtrahieren",
+     "Brüche kürzen",
+     "Dezimalzahlen multiplizieren"
+    ]
+   },
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Beidseitige Gleichungen",
+     "Einschrittige Gleichungen",
+     "Additionsverfahren",
+     "Einsetzungsverfahren",
+     "Gleichungssysteme aus Sachaufgaben aufstellen und lösen",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Maßstab",
+     "Winkelsummen im Dreieck und Viereck",
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute",
+     "Satz des Thales (Winkel berechnen)",
+     "Seite oder Höhe aus dem Flächeninhalt",
+     "Stufen- und Wechselwinkel an Parallelen",
+     "Terme für Flächeninhalte",
+     "Winkel in Dreiecken (Basiswinkel, Außenwinkel, Winkelsätze kombiniert)",
+     "Zusammengesetzte Vielecke",
+     "Volumen und Oberfläche der Pyramide",
+     "Volumen und Oberfläche des Kegels",
+     "Volumen und Oberfläche des Prismas",
+     "Volumen und Oberfläche des Zylinders"
+    ]
+   },
+   {
+    "feld": "funktionen",
+    "thema": null,
+    "labels": [
+     "Funktionsgleichung y = mx + b aufstellen",
+     "Graph einer linearen Funktion",
+     "Nullstelle einer linearen Funktion",
+     "Steigung einer linearen Funktion"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "abgestuftThemaSicher": {
+  "themen": [
+   {
+    "titel": "Potenzen und Potenzgesetze",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Daten und Wahrscheinlichkeit"
+      ]
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Einsetzungsverfahren",
+   "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+   "Rationale und irrationale Zahlen",
+   "Teilweise die Wurzel ziehen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt von Drachen und Raute",
+     "Satz des Thales (Winkel berechnen)",
+     "Terme für Flächeninhalte"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "abgestuftPlanrang": {
+  "themen": [
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Potenzen und Potenzgesetze",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Daten und Wahrscheinlichkeit"
+      ]
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Einsetzungsverfahren",
+   "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen",
+    "labels": [
+     "Rationale und irrationale Zahlen",
+     "Teilweise die Wurzel ziehen",
+     "Wurzelgesetze für Produkt und Quotient"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "anliegenGemischt": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "anliegenNurUeberfach": {
+  "themen": [
+   {
+    "titel": "Reelle Zahlen und Wurzeln",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Kreis: Umfang und Fläche",
+       "Exponentielles Wachstum"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen",
+       "Bedingte Wahrscheinlichkeit"
+      ]
+     },
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Potenzen",
+       "Ähnlichkeit und zentrische Streckung",
+       "Kreis: Umfang und Fläche"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Quadratische Gleichungen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Ausklammern",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Ähnlichkeit und zentrische Streckung",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Maßstab",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Volumen und Oberfläche des Quaders",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Bedingte Wahrscheinlichkeit",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Prozentwert berechnen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Statistische Erhebungen beurteilen",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Prozentsatz berechnen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Massen umrechnen",
+   "Brüche kürzen",
+   "Gemischte Schreibweise",
+   "Gleichungen mit negativem Koeffizienten"
+  ],
+  "weitere": [
+   {
+    "feld": "brueche",
+    "thema": null,
+    "labels": [
+     "Brüche addieren",
+     "Brüche dividieren",
+     "Brüche multiplizieren"
+    ]
+   },
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen",
+     "Prozentuale Veränderung"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Winkelsummen im Dreieck und Viereck"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Volumeneinheiten"
+    ]
+   },
+   {
+    "feld": "zahlen",
+    "thema": null,
+    "labels": [
+     "Vorrangregeln mit Vorzeichen"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "batuV4": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "batuBevorstehend": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "batuOhneStatus": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "batuMitNote": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "fahrplanKlp": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Satz des Pythagoras",
+       "Sinusfunktion und periodische Vorgänge"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Quadratische Gleichungen",
+       "Kreis: Umfang und Fläche",
+       "Trigonometrie"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Satz des Pythagoras",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreis: Umfang und Fläche",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Prismen und Zylinder"
+      ]
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ },
+ "fahrplanHalbjahr": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": 1,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": 1,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": 2,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "fahrplanLang": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder",
+       "Trigonometrie"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "fahrplanAuffuellen": {
+  "themen": [
+   {
+    "titel": "Zufall und Wahrscheinlichkeit",
+    "halbjahr": 2,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Brüche addieren",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Brüche kürzen",
+   "Gleichungen mit negativem Koeffizienten",
+   "Prozentwert berechnen"
+  ],
+  "weitere": [
+   {
+    "feld": "prozent",
+    "thema": null,
+    "labels": [
+     "Grundwert berechnen"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Minusklammer auflösen"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Umfang von Rechteck und Dreieck"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Gesamtschule Musterstadt"
+ },
+ "allesErfuellt": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "ohnePlan": {
+  "themen": [],
+  "weitereStaerken": [
+   "Fläche von Rechteck und Quadrat",
+   "Längen umrechnen",
+   "Umfang von Rechteck und Dreieck",
+   "Punkte im Koordinatensystem",
+   "Dreisatz, proportional und antiproportional",
+   "Einsetzungsverfahren",
+   "Gleichungen aufstellen (Sachkontext)",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Reelle Zahlen und Wurzeln",
+    "labels": [
+     "Teilweise die Wurzel ziehen"
+    ]
+   },
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Werte in Terme einsetzen",
+     "Additionsverfahren",
+     "Binomische Formeln (Quadrat einer Summe/Differenz)",
+     "Faktorisieren mit binomischer Formel",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Fläche von Dreieck und Parallelogramm",
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "groessen",
+    "thema": null,
+    "labels": [
+     "Flächeneinheiten"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "klp",
+  "schulname": null
+ }
+}

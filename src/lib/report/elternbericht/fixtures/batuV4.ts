@@ -137,15 +137,23 @@ const RAUM = {
   herkunft: 'abschluss',
 } as const
 
-/** Die Analyse mit einem Stand der Klassenarbeit und ggf. der Note der letzten Arbeit. */
-export function batuMit(klassenarbeit: KlassenarbeitStatus | null, letzteNote: number | null = null): ReportData {
+/**
+ * Die Analyse mit einem Stand der Klassenarbeit und ggf. der Note der letzten Arbeit.
+ * `id` = die letzten drei Ziffern der Platzhalter-Sitzung (je Fall eigene).
+ * Das Testlauf-Kennzeichen bleibt aus (nur der Fall `testlauf` hat es).
+ */
+export function batuMit(
+  klassenarbeit: KlassenarbeitStatus | null,
+  letzteNote: number | null = null,
+  id = '441',
+): ReportData {
   const data = datenAus({
     ...ILKAY_ROH,
-    sessionId: '00000000-0000-4000-8000-000000000441',
+    sessionId: `00000000-0000-4000-8000-000000000${id}`,
     grade: 9,
     analysedAt: '2026-10-24T11:07:58.091Z',
     aufgaben: 34,
-    testlauf: true,
+    testlauf: false,
     schulform: 'Gymnasium',
     naechstesThema: null,
     weakTopics: ['Grundlagen fehlen'],
@@ -174,6 +182,6 @@ export function batuMit(klassenarbeit: KlassenarbeitStatus | null, letzteNote: n
 }
 
 export const batuV4 = batuMit('geschrieben')
-export const batuBevorstehend = batuMit('bevorstehend')
-export const batuOhneStatus = batuMit(null)
-export const batuMitNote = batuMit('geschrieben', 4)
+export const batuBevorstehend = batuMit('bevorstehend', null, '443')
+export const batuOhneStatus = batuMit(null, null, '444')
+export const batuMitNote = batuMit('geschrieben', 4, '445')

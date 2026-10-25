@@ -17,11 +17,11 @@ const mitPlan = (data: ReportData, plan: LernPlan | null): ReportData => ({
 })
 
 /** Ohne Schulplan: Kernlehrplan NRW 9/10 (viele kommende Themen). */
-export const fahrplanKlp = mitPlan(batuMit('geschrieben'), klpPlan(THEMEN, 9))
+export const fahrplanKlp = mitPlan(batuMit('geschrieben', null, '446'), klpPlan(THEMEN, 9))
 
 /** FWG-Plan mit künstlichen Halbjahren: 1–3 im ersten, 4–6 im zweiten. */
 export const fahrplanHalbjahr = mitPlan(
-  batuMit('geschrieben'),
+  batuMit('geschrieben', null, '447'),
   schulPlan(
     FWG_PLAN.map((z) => (z.klasse === 9 ? { ...z, halbjahr: z.position <= 3 ? (1 as const) : (2 as const) } : z)),
     9,
@@ -36,7 +36,7 @@ const LANG: SchulplanZeile[] = [
   { klasse: 9, position: 8, themaKey: 'trigonometrie', titel: 'Trigonometrie', halbjahr: null },
   { klasse: 9, position: 9, themaKey: 'exponentialfunktionen', titel: 'Exponentialfunktionen', halbjahr: null },
 ]
-export const fahrplanLang = mitPlan(batuMit('geschrieben'), schulPlan(LANG, 9, FWG_NAME))
+export const fahrplanLang = mitPlan(batuMit('geschrieben', null, '448'), schulPlan(LANG, 9, FWG_NAME))
 
 /** Klasse 7 im 2. Halbjahr: zwei kommende Themen, dann zwei aus dem Plan der Klasse 8. */
 const K78: SchulplanZeile[] = [
@@ -51,10 +51,9 @@ const K78: SchulplanZeile[] = [
   { klasse: 8, position: 3, themaKey: 'flaechen_vielecke', titel: 'Flächen von Vielecken', halbjahr: 2 },
 ]
 export const fahrplanAuffuellen: ReportData = {
-  ...mitPlan(
-    { ...klasse7, analysedAt: '2027-02-15T09:00:00.000Z' },
-    schulPlan(K78, 7, 'Gesamtschule Musterstadt'),
-  ),
+  ...klasse7,
+  sessionId: '00000000-0000-4000-8000-000000000449',
+  analysedAt: '2027-02-15T09:00:00.000Z',
   erzaehlung: {
     ...klasse7.erzaehlung,
     kanten: [...KANTEN],
@@ -79,7 +78,7 @@ export const allesErfuellt: ReportData = {
     grade: 9,
     analysedAt: basis.analysedAt!,
     aufgaben: 34,
-    testlauf: true,
+    testlauf: false,
     schulform: 'Gymnasium',
     naechstesThema: null,
     weakTopics: ['Grundlagen fehlen'],
@@ -97,4 +96,4 @@ export const allesErfuellt: ReportData = {
 }
 
 /** Ohne Plan: kein Fahrplan, die Seiten fallen auf v3 zurück. */
-export const ohnePlan = mitPlan(batuMit('geschrieben'), null)
+export const ohnePlan = mitPlan(batuMit('geschrieben', null, '450'), null)
