@@ -140,7 +140,8 @@ declare v uuid;
 begin
   insert into tasks (content_type, input_type, title, question, afb, cluster_id, curriculum_grade,
                      skill_key, source, source_ref, status, is_tutorial, einsatz)
-  values ('exercise', 'NUMERIC', 'X0 · ' || p_ref, 'Was ist 2 + 3?', 'I',
+  -- LSA-L2 (20261025144025): eigener Text je Aufgabe, sonst waere jede weitere ein Fast-Duplikat der ersten.
+  values ('exercise', 'NUMERIC', 'X0 · ' || p_ref, 'Was ist 2 + 3? (' || p_ref || ')', 'I',
           (select id from skill_clusters where name = 'X0 Cluster'), 9, p_skill, 'x0_test', p_ref,
           p_status, p_tutorial, p_einsatz)
   returning id into v;
