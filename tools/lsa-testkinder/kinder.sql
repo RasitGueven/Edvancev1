@@ -1,7 +1,7 @@
 -- LSA-T: die Profile der Testkinder, eingebunden von erzeugen.sql (\ir kinder.sql).
--- Nur Daten: setzt lsat.kinder (JSON) und leert lsat.sitzungen und lsat.nicht_angenommen.
+-- Nur Daten: setzt lsat.kinder (JSON) und leert lsat.sitzungen, lsat.nicht_angenommen und lsat.folge.
 --
--- ── Die sieben Kinder ────────────────────────────────────────────────────────────────────────────
+-- ── Die acht Kinder ──────────────────────────────────────────────────────────────────────────────
 -- grund: Zustand je Klassenstufe (Herkunftsklasse des Skills: 56 = bis 6, 78 = 7/8, 910 = ab 9).
 -- ausnahmen: je skill_key, überschreibt den Grundstand. Zustände: sicher | uebung | teilweise | nicht_angesetzt.
 -- familie/fehlbilder: bevorzugtes Fehlbild bei falschen Antworten (erst die Slugs, dann die Familie).
@@ -12,6 +12,8 @@
 -- LSA-V2 (Ausblick): Max und Lina können vom Stoff, der als Nächstes kommt, nur das erste kommende Plan-Thema
 --   (FWG: Max Binomische Formeln, Lina Kreise); die Einstiege der zwei Themen danach stehen in ausnahmen auf uebung.
 --   So zeigt der Lauf den Stopp des Ausblicks (zwei Ausblick-Knoten hintereinander nicht sicher).
+-- LSA-L2 (Batu): Profil aus einem echten Testlauf (Klasse 9, FWG, Reelle Zahlen), festgeschrieben ohne IDs; Begründung
+--   im README. Klasse 7/8 Terme und Zufall uebung, Geometrie gemischt, sonst sicher; Urteile des Testlaufs gehen vor.
 do $do$ begin perform set_config('lsat.kinder', $kinder$[
  {"kind": "Lina", "name": "Lina Berger", "lead": "a5a7c41d-1ead-4000-8000-000000000001", "schueler": "a5a7c41d-5c00-4000-8000-000000000001",
   "klasse": 9, "schulform": "Gymnasium", "schule": "Friedrich-Wilhelm-Gymnasium", "thema": "quadratische_funktionen",
@@ -74,7 +76,29 @@ do $do$ begin perform set_config('lsat.kinder', $kinder$[
   "anliegen": ["Konzentration"], "notiz": "Will schnell fertig sein, liest Aufgaben oft nicht zu Ende.",
   "goal": "IMPROVE_GRADES", "letzte_note": "4", "trend": "schlechter", "interessen": "Basketball, Musik",
   "grund": {"56": "uebung", "78": "uebung", "910": "uebung"}, "ausnahmen": {"runden_ueberschlag": "sicher"},
-  "familie": null, "fehlbilder": [], "sekunden": 3}
+  "familie": null, "fehlbilder": [], "sekunden": 3},
+ {"kind": "Batu", "name": "Batu Testkind", "lead": "a5a7c41d-1ead-4000-8000-000000000008", "schueler": "a5a7c41d-5c00-4000-8000-000000000008",
+  "klasse": 9, "schulform": "Gymnasium", "schule": "Friedrich-Wilhelm-Gymnasium", "thema": "reelle_zahlen",
+  "behandelt": ["brueche", "daten_streumasse", "flaeche_umfang", "flaechen_vielecke", "ganze_zahlen_groessen",
+                "koerper_quader", "lineare_funktionen", "lineare_gleichungen_lgs", "natuerliche_zahlen", "rationale_zahlen",
+                "rechnen_brueche_dezimalzahlen", "rechnen_natuerliche_zahlen", "symmetrie", "terme_binomische_formeln",
+                "terme_gleichungen", "thales_konstruktionen", "winkel", "winkel_dreiecke", "zinsrechnung",
+                "zufallsexperimente", "zuordnungen"], "quelle_behandelt": "schulplan",
+  "anliegen": ["Grundlagen fehlen"], "notiz": "Klassenarbeit über Reelle Zahlen und Wurzeln geschrieben, jetzt kommen die nächsten.",
+  "goal": "IMPROVE_GRADES", "letzte_note": "3", "trend": "stabil", "interessen": "Basketball, Kochen",
+  "grund": {"56": "sicher", "78": "sicher", "910": "sicher"},
+  "ausnahmen": {"groessen_flaechen": "uebung", "zahl_wurzel_teilweise": "uebung",
+                "geo_flaeche_dreieck": "uebung", "geo_flaeche_drachen_raute": "uebung", "geo_flaeche_rueck": "uebung",
+                "geo_flaeche_trapez": "nicht_angesetzt",
+                "term_einsetzen": "uebung", "term_ausklammern": "uebung", "gleichung_neg_koeffizient": "uebung",
+                "term_binom_quadrat": "uebung", "term_binom_faktorisieren": "uebung", "term_binom_gemischt": "uebung",
+                "term_binom_quadratdifferenz": "uebung", "gleichung_lgs_addition": "uebung",
+                "gleichung_lgs_grafisch": "uebung", "gleichung_lgs_gleichsetzen": "uebung",
+                "gleichung_lgs_sachaufgabe": "uebung",
+                "stoch_pfad_summe": "uebung", "stoch_pfad_produkt": "uebung", "stoch_gegenereignis": "uebung",
+                "stoch_kenngroessen": "uebung", "stoch_laplace": "uebung"},
+  "familie": null, "fehlbilder": [], "sekunden": 34}
 ]$kinder$, false);
   perform set_config('lsat.sitzungen', '{}', false); perform set_config('lsat.nicht_angenommen', '{}', false);
+  perform set_config('lsat.folge', '{}', false);
 end $do$;

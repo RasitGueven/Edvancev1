@@ -1,6 +1,10 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **LSA-L2 Keine Fast-Duplikate, Vorschau auf drei Klassenarbeiten** (Retro `2026-10-25-lsa-l2-wiederholung.md`,
+  Branch `feat/rasit-lsa-l2-batu-pool`): `lsa_text_schluessel`, Zweitbeleg ohne Fast-Duplikat (entfällt, wenn nur
+  solche übrig sind), `c_vorschau_themen` 3; Testkind Batu, Simulation mit dem Prod-Pool, Freigabeliste für Lena
+  (`docs/lsa/freigabeliste-batu-1025.md`). Migration `20261025144025` eingespielt.
 - **LSA-R2 Durchgeklickte LSA erkennen** (Retro `2026-10-22-lsa-r2-durchklicken.md`, Branch
   `feat/rasit-lsa-durchklicken`): `lsa_durchklick_stand`, `lsa_sessions.auswertbar`, `hinweis_tempo` in
   `platz_submit`; Bogen „nicht auswertbar“, Kennzeichen in „LSA-Reports“, Badge „schnell“ in „Heute“; Testkind

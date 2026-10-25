@@ -24,6 +24,10 @@ insert into thema_einstieg (thema_key, skill_key) values
 insert into skill_thema (skill_key, thema_key) values ('zz_f1_e1', 'zz_f1_entwurf'), ('zz_f1_e3', 'zz_f1_gemischt');
 select pg_temp.aufgaben('zz_f1_e1', 6, 'draft'), pg_temp.aufgaben('zz_f1_e2', 6, 'draft'),
        pg_temp.aufgaben('zz_f1_e3', 1, 'ready'), pg_temp.aufgaben('zz_f1_e3', 5, 'draft', '{lsa,session}', 'f1-e3-entwurf');
+-- LSA-L2 (20261025144025): eindeutige Texte, sonst waere jede weitere Aufgabe ein Fast-Duplikat (lsa_text_schluessel)
+-- der ersten — die Fixture nutzt ueberall denselben Aufgabentext.
+update tasks set question = question || ' ' || translate(md5(id::text), '0123456789', 'ghijklmnop')
+ where skill_key like 'zz_f1_%';
 select is((select count(*) from tasks where skill_key = 'zz_f1_e2' and public.pruef_ausschluss(id) is not null), 6::bigint,
           'Vorbedingung: e2-Entwuerfe haben pruef_ausschluss');
 

@@ -1,5 +1,5 @@
--- LSA-T: sieben erfundene Testkinder mit vollständiger LSA (Bauaufträge docs/lsa/Bauauftrag-LSA-T.md, -LSA-T2.md,
--- Tim: -LSA-R2.md).
+-- LSA-T: acht erfundene Testkinder mit vollständiger LSA (Bauaufträge docs/lsa/Bauauftrag-LSA-T.md, -LSA-T2.md,
+-- Tim: -LSA-R2.md, Batu: -L2.md).
 --
 -- Start in einer Transaktion (-1, bricht etwas, wird alles zurückgerollt); Befehl samt Prüfung der Ziel-DB im README.
 -- Nur einzelne Kinder: -v nur=Max oder -v nur=Max,Lina. Ein unbekannter Name bricht ab.
@@ -140,11 +140,14 @@ declare
   v_wert   text;
   v_falsch_nr text;
   v_nicht  jsonb;
+  v_beginn timestamptz;
+  v_folge  jsonb;
 begin
   for k in select * from jsonb_array_elements(current_setting('lsat.kinder')::jsonb) loop
     v_s := (public.lead_lsa_freigeben((k ->> 'lead')::uuid, (k ->> 'klasse')::int, 'Mathematik') ->> 'session_id')::uuid;
     update lsa_sessions set started_at = started_at - interval '20 minutes' where id = v_s
     returning started_at into v_t;
+    v_beginn := v_t;
     -- Die Sitzung dieses Laufs (der Bericht unten liest sie von hier, nicht über Zeitstempel: in einer
     -- Transaktion tragen alle Sitzungen dasselbe now()).
     perform set_config('lsat.sitzungen', (coalesce(nullif(current_setting('lsat.sitzungen', true), ''), '{}')::jsonb
@@ -152,6 +155,7 @@ begin
 
     v_i := 0;
     v_nicht := '[]';
+    v_folge := '[]';
     loop
       -- Die offene Aufgabe, wie platz_next sie liest.
       select t.* into v_task
@@ -261,6 +265,9 @@ begin
 
       v_dauer := round((k ->> 'sekunden')::numeric * 1000 * c_muster[1 + (v_i - 1) % array_length(c_muster, 1)]
                        * case when v_zust = 'nicht_angesetzt' then 0.5 else 1 end);
+      -- LSA-L2: die Folge der Aufgaben mit dem Zeitpunkt der Anzeige (lsa_ausgegeben trägt in einer Transaktion
+      -- überall dasselbe now(), die Reihenfolge steht nur hier).
+      v_folge := v_folge || jsonb_build_object('t', v_task.id, 'ms', round(extract(epoch from v_t - v_beginn) * 1000));
       v_t := v_t + make_interval(secs => v_dauer / 1000.0);
       perform public.lsa_submit(v_s, v_task.id, v_resp, v_dauer, v_t);
       -- LSA-T2: eine ganz richtige Antwort, die die Wertung nicht annimmt, ist ein Inhaltsfehler (für Lena).
@@ -276,6 +283,8 @@ begin
     perform public.lsa_finish(v_s);
     perform set_config('lsat.nicht_angenommen', (current_setting('lsat.nicht_angenommen')::jsonb
                                                  || jsonb_build_object(k ->> 'kind', v_nicht))::text, false);
+    perform set_config('lsat.folge', (coalesce(nullif(current_setting('lsat.folge', true), ''), '{}')::jsonb
+                                      || jsonb_build_object(k ->> 'kind', v_folge))::text, false);
   end loop;
 end $$;
 
