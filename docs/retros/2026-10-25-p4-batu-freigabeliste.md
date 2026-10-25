@@ -29,7 +29,10 @@ Admin-Dashboard soll nachvollziehbar sein, was noch offen ist.
 
 ## Offen
 
-- **Migration einspielen** (Prod-Schreibzugriff, Rasit).
-- `term_ausklammern` hat keinen Entwurf ohne MC: Lena kann den Bereich nicht schließen, bis eine neue Aufgabe
-  ohne MC da ist. Die Karte zeigt „ohne MC fehlt“, sobald die MC-Aufgaben geprüft sind.
+- ~~Migration einspielen~~: am 25.10. von Rasit eingespielt (25 Sollzeilen, 48 Pilot-Flags).
+- ~~`term_ausklammern` ohne Entwurf ohne MC~~: neue Aufgabe `term-ausklammern-07` (Migration `20261025213530`,
+  eingespielt): „18x + 24 = ☐ · (☐x + ☐)“, Mehrteiler mit drei Zahlenfeldern, weil die Term-Tastatur der
+  Schüler-App nur ax + b kennt. Wartet auf Lenas Prüfung.
+- `schema-erwartet.sql` nach dem Einspielen nicht übernommen: Der Abzug enthielt
+  `leads.letzte_klassenarbeit_note` aus der Migration einer anderen Session, die nicht im Repo liegt.
 - **Lokale pgTAP-Läufe:** 27 Prüfungen sind auf `dev` lokal rot, mit und ohne P4 dieselben; maßgeblich ist die CI.

@@ -30,8 +30,9 @@ Ausblick 10. In keinem dieser Bereiche ist bisher eine Aufgabe freigegeben.
 - **KA2: vier Lücken, zuerst.**
   - `term_binom_faktorisieren` ★ und `term_binom_quadratdifferenz`: je **genau ein** Entwurf ohne MC
     (47² − 43² bzw. 102 · 98, geschicktes Rechnen) — der muss unter den zwei Freigaben sein.
-  - `term_ausklammern`: alle 6 Entwürfe sind MC. **Es fehlt eine Aufgabe ohne MC — die muss neu geschrieben
-    werden**; zwei MC-Freigaben allein füllen den Bereich nicht.
+  - `term_ausklammern`: Die 6 alten Entwürfe sind alle MC. **Nachtrag 25.10. abends:** neuer Entwurf ohne MC
+    „Terme · Ausklammern · 18x + 24 · Lücken“ (drei Zahlenfelder, Migration `20261025213530`) — der muss unter
+    den zwei Freigaben sein.
   - `gleichung_quadr_formel` ★ (p-q-Formel): Die LSA prüft ihn auch mit freien Aufgaben **nicht** (Thema Klasse
     10, die Vorschau nimmt seinen Rand). Darum innerhalb von KA2 zuletzt.
 - **Rückblick: 15 Bereiche** (Klasse 7/8). Solange hier nichts frei ist, endet Batus LSA bei Minute 11:35
@@ -46,7 +47,7 @@ Ausblick 10. In keinem dieser Bereiche ist bisher eine Aufgabe freigegeben.
 | KA2 | gleichung_quadr_formel ★ | 9 | 0 | 0 | keine frei | p-q-Formel · 2x² − 4x − 6 = 0; p-q-Formel · Rechteck 4 cm länger als breit, 60 cm²; p-q-Formel · Weg um ein Beet 20 m × 15 m, 500 m²; p-q-Formel · x² + 2x − 15 = 0; p-q-Formel · x² + 4x − 1 = 0, gerundet; p-q-Formel · x² − 6x + 5 = 0 |
 | KA2 | term_binom_faktorisieren ★ | 8 | 0 | 0 | keine frei | Faktorisieren · geschicktes Rechnen · 47² - 43²; Faktorisieren · Differenz von Quadraten · x² - 25 (MC); Faktorisieren · gemeinsamer Faktor und Quadrat · 3x² + 12x + 12 (MC); Faktorisieren · gemeinsamer Faktor zuerst · 2x² - 18 (MC); Faktorisieren · vollständiges Quadrat · x² + 8x + 16 (MC); Faktorisieren · zweistufig · x⁴ - 16 (MC) |
 | KA2 | term_binom_quadratdifferenz | 8 | 0 | 0 | keine frei | Dritte binomische Formel · geschicktes Rechnen · 102 · 98; Dritte binomische Formel · (2x - 9)(2x + 9) (MC); Dritte binomische Formel · (3x + 5)(3x - 5) (MC); Dritte binomische Formel · (x - 7)(x + 7) (MC); Dritte binomische Formel · (x + 4)(x - 4) (MC); Dritte binomische Formel · Sachkontext · Grundstück (MC) |
-| KA2 | term_ausklammern | 7 | 0 | 0 | keine frei | Terme · Ausklammern · 12x + 18 (MC); Terme · Ausklammern · 4x + 20 (MC); Terme · Ausklammern · 4x + 8 (MC); Terme · Ausklammern · 6x + 12 (MC); Terme · Ausklammern · 8x + 12 (MC); Terme · Ausklammern · 9x + 27 (MC) |
+| KA2 | term_ausklammern | 7 | 0 | 0 | keine frei | Terme · Ausklammern · 18x + 24 · Lücken (neu); Terme · Ausklammern · 12x + 18 (MC); Terme · Ausklammern · 4x + 20 (MC); Terme · Ausklammern · 4x + 8 (MC); Terme · Ausklammern · 6x + 12 (MC); Terme · Ausklammern · 8x + 12 (MC); Terme · Ausklammern · 9x + 27 (MC) |
 | Rückblick | fkt_linear_gleichung | 8 | 0 | 0 | keine frei | Funktionsgleichung · aus m und b · Funktionswert; Funktionsgleichung · aus zwei Punkten · Achsenabschnitt; Funktionsgleichung · aus zwei Punkten · Funktionswert; Funktionsgleichung · fallend · Funktionswert; Funktionsgleichung · Sachkontext · Carsharing; Funktionsgleichung · Sachkontext · Kerze |
 | Rückblick | fkt_linear_steigung | 8 | 0 | 0 | keine frei | Steigung · Rückrichtung · Punkt aus Steigung; Steigung · Sachkontext · Preis je Kilometer; Steigung · zwei Punkte · Ergebnis als Bruch; Steigung · zwei Punkte · erster Quadrant; Steigung · zwei Punkte · fallende Gerade; Steigung · zwei Punkte · Punkt auf der y-Achse |
 | Rückblick | fkt_linear_yabschnitt | 8 | 0 | 0 | keine frei | y-Achsenabschnitt · aus der Gleichung; y-Achsenabschnitt · aus Steigung und Punkt; y-Achsenabschnitt · fallende Gerade; y-Achsenabschnitt · negativer Abschnitt; y-Achsenabschnitt · Sachkontext · Anfangswert; y-Achsenabschnitt · Sachkontext · Grundpreis |
