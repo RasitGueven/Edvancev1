@@ -243,6 +243,65 @@ export type EbAnliegen = {
   naechstesThema: string | null
 }
 
+/* ─── Bericht v4: Klassenarbeiten als roter Faden ───────────────────────────── */
+
+/** Stand einer Station im Fahrplan (Bauauftrag V4, Entscheidung 1). */
+export type EbFahrtStand = 'geschrieben' | 'naechste' | 'aktuell' | 'voraussichtlich'
+
+/** Signal einer kommenden Station (Entscheidung 2). */
+export type EbSignal = 'fehlt' | 'erfuellt' | 'ohne'
+
+/** Eine Klassenarbeit im Fahrplan: das aktuelle Thema (Nummer 1) oder ein kommendes. */
+export type EbStation = {
+  /** 1 = aktuelles Thema, dann in Plan-Reihenfolge. */
+  nummer: number
+  themaKey: string
+  titel: string
+  halbjahr: 1 | 2 | null
+  schuljahr: 'dieses' | 'naechstes'
+  stand: EbFahrtStand
+  /** null nur bei der aktuellen Station. */
+  signal: EbSignal | null
+  /** Note der zuletzt geschriebenen Arbeit, nur bei 'geschrieben'. */
+  note: number | null
+}
+
+export type EbFahrplan = {
+  stationen: EbStation[]
+  /** Kommende Themen dieses Schuljahrs über die vier gezeigten hinaus. */
+  weitere: number
+  /** Halbjahr 1 und 2 kommen vor: Trenner „Halbjahreszeugnis“. */
+  halbjahrTrenner: boolean
+  /** Klasse des nächsten Schuljahrs, wenn aufgefüllt wurde; sonst null. */
+  klassenTrenner: number | null
+  quelle: 'schule' | 'klp'
+  schulname: string | null
+  /** Satz unter dem Fahrplan (Entscheidung 3). */
+  satz: 'fehlt' | 'erfuellt' | null
+}
+
+/** Welche geprüften Bereiche ein Thema betreffen (Entscheidung 2), serialisierbar. */
+export type EbThemaSignal = { themaKey: string; sitzt: EbBereich[]; fehlt: EbBereich[] }
+
+/** Ein Punkt im Lernpfad nach Klassenarbeiten (Entscheidung 5). */
+export type EbLernpfadPunkt = {
+  art: 'feld' | 'gruppe' | 'luecke' | 'spaeter'
+  /** Themenfeld bei 'feld'; null sonst. */
+  titelFeld: ThemenfeldKey | null
+  /** Plan-Titel bei 'gruppe'; bei 'luecke' das Thema der LSA; null sonst. */
+  titelThema: string | null
+  /** Stationsnummern, die der Punkt vorbereitet, aufsteigend; leer = keine kommende Station. */
+  ziele: number[]
+  /** Bereiche mit Übungsbedarf („Das üben wir“), höchstens vier. */
+  teile: string[]
+  /** So viele weitere Bereiche über die vier hinaus. */
+  rest: number
+  /** Begründung wie v3; null bei 'spaeter'. */
+  grund: EbGrund | null
+  /** Nur bei 'spaeter': die Themenfelder aus `danach`. */
+  felder?: ThemenfeldKey[]
+}
+
 /** Alles, was die fünf Seiten aus den Kompetenzen rechnen. */
 export type Elternbericht = {
   zaehlung: EbZaehlung
@@ -267,6 +326,14 @@ export type Elternbericht = {
   stufen?: EbStufenZeile[]
   /** Bericht v2, Seite 3; null ohne Lernweg-Quelle. */
   lueckenweg?: EbLueckenweg | null
+  /** Bericht v4: der Fahrplan der Klassenarbeiten; null ohne Plan oder ohne aktuelles Thema. */
+  fahrplan?: EbFahrplan | null
+  /** Bericht v4: je Thema die betreffenden Bereiche. */
+  signale?: EbThemaSignal[]
+  /** Bericht v4, Seite 3: ein vollständiger Block je Station mit Signal. */
+  lueckenwegV4?: EbLueckenweg | null
+  /** Bericht v4, Seite 4: Lernpfad nach Klassenarbeiten. */
+  lernpfad?: EbLernpfadPunkt[]
 }
 
 /* ─── Lernweg (R7-9): Seite 3 und Station 03 ──────────────────────────────── */

@@ -266,6 +266,11 @@ export type ReportErstgespraech = {
   klassenarbeit: KlassenarbeitStatus | null
   /** leads.next_exam_date, ISO-Datum. */
   klassenarbeitDatum: string | null
+  /**
+   * Bericht v4: leads.letzte_klassenarbeit_note (1–6), nur bei geschriebener
+   * Arbeit sinnvoll. Eigene Abfrage; fehlt die Spalte, null.
+   */
+  letzteNote?: number | null
 }
 
 /**

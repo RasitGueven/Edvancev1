@@ -53,6 +53,7 @@ export function ElternberichtBogen({
   const { kompetenzen, katalog, bausteine } = data.erzaehlung
 
   const klassenarbeit = data.erstgespraech?.klassenarbeit ?? null
+  const note = data.erstgespraech?.letzteNote ?? null
   const bericht = useMemo(
     () =>
       baueElternbericht({
@@ -61,8 +62,9 @@ export function ElternberichtBogen({
         klasse: data.grade,
         lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
         klassenarbeit,
+        note,
       }),
-    [kompetenzen, katalog, data.grade, data.erzaehlung, data.analysedAt, klassenarbeit],
+    [kompetenzen, katalog, data.grade, data.erzaehlung, data.analysedAt, klassenarbeit, note],
   )
   const satz = useMemo(() => new Bausteinsatz(bausteine), [bausteine])
 

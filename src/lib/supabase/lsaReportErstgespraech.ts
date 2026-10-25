@@ -40,6 +40,26 @@ async function loadKlassenarbeitStatus(leadId: string): Promise<KlassenarbeitSta
 }
 
 /**
+ * Bericht v4: Note der zuletzt geschriebenen Arbeit (leads.letzte_klassenarbeit_note,
+ * Migration aus V4-E). Eigene Abfrage wie loadKlassenarbeitStatus: fehlt die Spalte
+ * oder schlägt die Abfrage fehl, null.
+ */
+async function loadLetzteNote(leadId: string): Promise<number | null> {
+  try {
+    const { data, error } = await supabase
+      .from('leads')
+      .select('letzte_klassenarbeit_note')
+      .eq('id', leadId)
+      .maybeSingle()
+    if (error) return null
+    const note = (data as { letzte_klassenarbeit_note: unknown } | null)?.letzte_klassenarbeit_note
+    return typeof note === 'number' && note >= 1 && note <= 6 ? note : null
+  } catch {
+    return null
+  }
+}
+
+/**
  * @param analysedAt Zeitpunkt der Sitzung — Bezug für „bevorstehend“ aus dem Datum.
  */
 export async function loadErstgespraech(
@@ -48,13 +68,14 @@ export async function loadErstgespraech(
 ): Promise<ReportErstgespraech | null> {
   if (!leadId) return null
   try {
-    const [{ data, error }, status] = await Promise.all([
+    const [{ data, error }, status, letzteNote] = await Promise.all([
       supabase
         .from('leads')
         .select('last_grade, grade_trend, struggling_since, goal, next_exam_date')
         .eq('id', leadId)
         .maybeSingle(),
       loadKlassenarbeitStatus(leadId),
+      loadLetzteNote(leadId),
     ])
     if (error || !data) {
       if (error) console.warn('report: erstgespraech lookup failed', error.message)
@@ -71,6 +92,7 @@ export async function loadErstgespraech(
       ziele: text(lead.goal),
       klassenarbeit: status ?? ausDatum,
       klassenarbeitDatum: datum,
+      letzteNote,
     }
   } catch (e) {
     console.warn('report: erstgespraech lookup failed', e)
