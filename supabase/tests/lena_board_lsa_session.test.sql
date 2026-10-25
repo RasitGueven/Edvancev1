@@ -21,6 +21,8 @@ insert into profiles (id, email, role, full_name, darf_pruefen) values
   (:'lena_uid',  'ls-lena@test.local',  'coach', 'LS Lena',  true),
   (:'coach_uid', 'ls-coach@test.local', 'coach', 'LS Coach', false);
 update pruef_einstellungen set nur_pilot = true;
+-- P4 (20261025210952) gibt geo_kreis_umfang ein batu_lsa-Soll; der Test braucht den Knoten ohne Soll.
+delete from pruef_soll where skill_key = 'geo_kreis_umfang';
 
 create function pg_temp.aufgabe(p_ref text, p_hints jsonb)
 returns uuid language plpgsql as $$
