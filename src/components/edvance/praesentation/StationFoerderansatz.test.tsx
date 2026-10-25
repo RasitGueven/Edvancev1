@@ -127,8 +127,15 @@ describe('Station 04 · fester Kasten', () => {
     expect(punkte()[0]).toHaveAttribute('aria-selected', 'true')
   })
 
-  it('Ziel-Zeile nur bei bestätigten Zielen', () => {
+  it('batuV4: die Lücke im aktuellen Thema heißt wie auf Seite 4 nach ihrem Bereich, nicht nach dem Thema', () => {
     zeigeV4(StationFoerderansatz, 'batuV4')
+    const namen = punkte().map((p) => p.textContent ?? '')
+    expect(namen.some((n) => n.includes('Teilweise die Wurzel ziehen'))).toBe(true)
+    expect(namen.some((n) => n.includes('Reelle Zahlen'))).toBe(false)
+  })
+
+  it('Ziel-Zeile nur bei bestätigten Zielen', () => {
+    zeigeV4(StationFoerderansatz, 'batuV4', { zieleBestaetigt: false })
     expect(screen.queryByTestId('tp-s4v-ziel')).toBeNull()
     cleanup()
     zeigeV4(StationFoerderansatz, 'batuV4', { zieleBestaetigt: true })

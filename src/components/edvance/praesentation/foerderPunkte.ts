@@ -5,6 +5,7 @@
 import type { TFunction } from 'i18next'
 
 import { grundText } from '@/components/edvance/elternbericht/berichtSaetze'
+import { baueListe } from '@/components/edvance/elternbericht/liste'
 import { VIEWBOX, kurvenPunkte, punktBei } from '@/lib/report/praesentation/kurve'
 import type { EbLernpfadPunkt, TpSeite } from '@/types'
 
@@ -43,11 +44,19 @@ export function lagen(n: number): Lage[] {
   })
 }
 
-type Texte = { tp: TFunction<'praesentation'>; tb: TFunction<'elternbericht'> }
+type Texte = { tp: TFunction<'praesentation'>; tb: TFunction<'elternbericht'>; sprache: string }
 
 function zielFuer(v4: PraesentationV4, art: 'vorbereitet' | 'spaeter' | 'sorgfalt' | 'weitere', { tb }: Texte): string | null {
   const z = v4.ziele.find((e) => e.schluessel.startsWith(`v4.s5.ziele.${art}`))
   return z ? tb(z.schluessel, z.werte) : null
+}
+
+/** Wie Seite 4 des Berichts: eine Lücke im aktuellen Thema heißt nach ihren Übungsbereichen, nicht nach dem Thema. */
+function lueckeImThema(l: EbLernpfadPunkt, v4: PraesentationV4, { tb, sprache }: Texte): string | null {
+  const luecke = l.grund?.art === 'spaeterGebraucht' || l.grund?.art === 'themaGeschrieben'
+  const sp = v4.bericht.schwerpunkte.find((s) => s.feld === null)
+  if (l.art !== 'luecke' || !luecke || !sp) return null
+  return baueListe(tb, sprache)(sp.uebung)
 }
 
 function lernpfadPunkt(l: EbLernpfadPunkt, i: number, v4: PraesentationV4, texte: Texte): FoerderPunkt {
@@ -62,7 +71,7 @@ function lernpfadPunkt(l: EbLernpfadPunkt, i: number, v4: PraesentationV4, texte
       ? tb(`feld.${l.titelFeld}`)
       : l.art === 'gruppe'
         ? tb('v4.s4.gruppe', { thema: l.titelThema })
-        : (l.titelThema ?? '')
+        : lueckeImThema(l, v4, texte) ?? (l.titelThema ?? '')
   // Ohne kommende Station: eine Lücke im aktuellen Thema („Vorhandene Lücke“) oder Stoff, der später wichtig wird.
   const ohneZiel = tb(l.art === 'luecke' ? 's4.chip.luecke' : 'v4.s3.spaeter')
   const pille =

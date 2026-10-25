@@ -73,7 +73,9 @@ export function FoerderKasten({
           <span className={sorgfalt ? 'tp-s4v-pille tp-s4v-pille-sorgfalt' : 'tp-s4v-pille'}>{punkt.pille}</span>
         </div>
         <h3>{punkt.titel}</h3>
-        {punkt.grund && <p className="tp-s4v-grund">{punkt.grund}</p>}
+        {/* Ein bestätigtes Ziel sagt dasselbe wie der Grund, nur als Ziel — dann steht es an seiner Stelle (Platz im festen
+            Kasten). Bei Sorgfalt ist der Text der Inhalt selbst (keine Spalten) und bleibt. */}
+        {punkt.grund && (sorgfalt || !punkt.ziel) && <p className="tp-s4v-grund">{punkt.grund}</p>}
         {!sorgfalt && (
           <div className="tp-s4v-spalten">
             {punkt.sitzt.length > 0 && (

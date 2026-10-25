@@ -19,14 +19,14 @@ const ZURUECK = ['ArrowDown', 'ArrowLeft']
  */
 export function StationFoerderansatz({ p, v4 }: StationProps): JSX.Element | null {
   const { t: tp } = useTranslation('praesentation')
-  const { t: tb } = useTranslation('elternbericht')
+  const { t: tb, i18n } = useTranslation('elternbericht')
   const [gewaehlt, setGewaehlt] = useState(0)
   const basis = useId()
   const tabId = (i: number): string => `${basis}-punkt-${i}`
   const panelId = `${basis}-fokus`
   if (!v4) return null
 
-  const punkte = baueFoerderPunkte(v4, p.name, { tp, tb })
+  const punkte = baueFoerderPunkte(v4, p.name, { tp, tb, sprache: i18n.language })
   const n = punkte.length
   const aktuell = Math.min(gewaehlt, n - 1)
   const aktiv = punkte[aktuell]
