@@ -14,6 +14,7 @@ import { auslaufende, imVerzug, summen } from '@/lib/vertrag/menue'
 import type { Lead } from '@/types'
 import { HeuteImBetrieb } from './heute/HeuteImBetrieb'
 import { OffeneSessionsListe } from './heute/OffeneSessionsListe'
+import { FreigabelisteListe } from './heute/FreigabelisteListe'
 import { KennzahlenLeiste, type Kennzahl } from '@/components/edvance/admin/KennzahlenLeiste'
 import { InhalteListe, RueckstandListe, VertraegeListe } from './heute/ListenBetrieb'
 import { ErstgespraecheListe, LsaListe, NeueLeadsListe } from './heute/ListenVertrieb'
@@ -210,6 +211,7 @@ export function HeutePage(): JSX.Element {
                 <VertraegeListe antraege={listen.antraege} auslaufend={listen.auslaufend} verzug={listen.verzug} />
                 <RueckstandListe schueler={listen.rueckstand} />
                 <InhalteListe gruppen={listen.freigabe} rueckfragen={listen.rueckfragen} anzahl={daten.aufgaben.length} />
+                <FreigabelisteListe />
               </div>
             </section>
 

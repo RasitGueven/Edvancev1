@@ -1,6 +1,10 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **P4 Batus Freigabeliste im Prüflauf** (Retro `2026-10-25-p4-batu-freigabeliste.md`): die 24 Bereiche der
+  Liste haben wieder eine aktive `batu_lsa`-Sollzeile (KA2 vor Rückblick vor Ausblick), Lenas Enter-Lauf fragt die
+  nötigen Aufgaben ab; Karte „Batus Freigabeliste“ auf `/admin` mit offenem Stand und Freigabe-Reihe.
+  **Offen:** Migration `20261025210952` einspielen.
 - **LSA-L2 Keine Fast-Duplikate, Vorschau auf drei Klassenarbeiten** (Retro `2026-10-25-lsa-l2-wiederholung.md`,
   Branch `feat/rasit-lsa-l2-batu-pool`): `lsa_text_schluessel`, Zweitbeleg ohne Fast-Duplikat (entfällt, wenn nur
   solche übrig sind), `c_vorschau_themen` 3; Testkind Batu, Simulation mit dem Prod-Pool, Freigabeliste für Lena

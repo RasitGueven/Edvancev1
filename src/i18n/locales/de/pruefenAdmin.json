@@ -189,6 +189,7 @@
     "board": "{{titel}}",
     "gesundheit": "Content-Gesundheit · {{mangel}}",
     "heute": "Heute · Rückfragen",
+    "freigabeliste": "Heute · Batus Freigabeliste",
     "ausgelassene": "Ausgelassene",
     "alleMaengel": "alle Mängel"
   },
