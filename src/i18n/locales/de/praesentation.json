@@ -162,5 +162,59 @@
     "empfehlungOhneName": "Unsere Empfehlung: <b>Paket {{paket}}</b>",
     "basisMoeglich": "{{basis}} ist ebenfalls möglich.",
     "punkteAria": "Förderschwerpunkte"
+  },
+  "v4": {
+    "leiste": {
+      "1": "Überblick",
+      "2": "Lernstand",
+      "3": "Klassenarbeiten",
+      "4": "Förderansatz"
+    },
+    "s1": {
+      "lead": "{{name}} findet meist den richtigen Weg. Fehler entstehen eher durch fehlende Sorgfalt als durch fehlendes Verständnis.",
+      "leadOhneName": "Ihr Kind findet meist den richtigen Weg. Fehler entstehen eher durch fehlende Sorgfalt als durch fehlendes Verständnis.",
+      "weiter": "Weiterwischen zu {{wessen}} Lernstand",
+      "weiterOhneName": "Weiterwischen zum Lernstand",
+      "fahrplanKicker": "{{wessen}} Klassenarbeiten in diesem Schuljahr",
+      "fahrplanKickerOhneName": "Die Klassenarbeiten in diesem Schuljahr",
+      "eckdaten": {
+        "aufgaben": "Aufgaben bearbeitet",
+        "bereiche": "Bereiche geprüft",
+        "sicher": "sicher",
+        "uebung": "Übungsbedarf",
+        "zeile": "{{fach}} · Klasse {{klasse}} · {{schule}} · rund {{minuten}} Minuten"
+      }
+    },
+    "s2": {
+      "titel": "{{wessen}} Kompetenzprofil.",
+      "titelOhneName": "Das Kompetenzprofil.",
+      "desc": "In rund {{minuten}} Minuten hat {{name}} {{aufgaben}} Aufgaben bearbeitet. Jedes Kästchen ist ein geprüfter Bereich. Antippen zeigt, was dahintersteckt und für welche Klassenarbeit es wichtig ist.",
+      "descOhneName": "In rund {{minuten}} Minuten wurden {{aufgaben}} Aufgaben bearbeitet. Jedes Kästchen ist ein geprüfter Bereich. Antippen zeigt, was dahintersteckt und für welche Klassenarbeit es wichtig ist.",
+      "wichtig": "Wichtig für"
+    },
+    "s3": {
+      "kicker": "Klassenarbeiten",
+      "titel": "Was das für die nächsten Arbeiten heißt.",
+      "karte": "Klassenarbeit {{n}}",
+      "offen": "{{bereich}} war noch unsicher. Das wird bei „{{thema}}“ wieder gebraucht."
+    },
+    "s4": {
+      "titel": "Daran würden wir zuerst arbeiten.",
+      "desc": "In der Reihenfolge der nächsten Klassenarbeiten. Einen Punkt antippen, um zu sehen, was wir dort angehen.",
+      "fokusVon": "Förderfokus {{n}} von {{m}}",
+      "sitzt": "Sitzt schon",
+      "angehen": "Das gehen wir an",
+      "zurueck": "zurück",
+      "weiter": "weiter",
+      "schliessen": "Schließen",
+      "fokus": "Förderfokus {{n}}",
+      "ziel": "Ziel: {{ziel}}",
+      "sorgfalt": {
+        "titel": "Sorgfalt",
+        "zeile": "in jeder Session",
+        "text": "{{name}} versteht viel. Wir üben, die eigene Rechnung zu kontrollieren.",
+        "textOhneName": "Ihr Kind versteht viel. Wir üben, die eigene Rechnung zu kontrollieren."
+      }
+    }
   }
 }
