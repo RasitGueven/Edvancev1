@@ -4827,6 +4827,21 @@ $$;
 
 
 --
+-- Name: lsa_ausgegebene_schluessel(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_ausgegebene_schluessel(p_session_id uuid) RETURNS text[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  select coalesce(array_agg(distinct public.lsa_text_schluessel(t.question, t.parts))
+                    filter (where public.lsa_text_schluessel(t.question, t.parts) is not null), '{}')
+    from lsa_ausgegeben a join tasks t on t.id = a.task_id
+   where a.session_id = p_session_id
+$$;
+
+
+--
 -- Name: lsa_bruch_wert_gleich(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5516,6 +5531,7 @@ CREATE FUNCTION public.lsa_freie_aufgabe(p_session_id uuid, p_skill_key text, p_
     AS $$
 declare
   v_id uuid;
+  v_schluessel text[] := public.lsa_ausgegebene_schluessel(p_session_id);  -- LSA-L2
 begin
   for v_id in
     select t.id
@@ -5523,6 +5539,7 @@ begin
      where t.skill_key = p_skill_key
        and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id and a.task_id = t.id)
        and not exists (select 1 from lsa_responses r  where r.session_id = p_session_id and r.task_id = t.id)
+       and not coalesce(public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel), false)  -- LSA-L2
      order by (case when p_nonmc_zuerst and t.input_type <> 'MC' then 0 else 1 end),
               t.sondierrang nulls last,
               md5(p_session_id::text || t.id::text)
@@ -6540,8 +6557,9 @@ declare
   -- LSA-V: Die Vorschau (Voraussetzungen der naechsten Schulthemen) laeuft bis
   -- so lange nach Sitzungsbeginn; danach Thema vertiefen und Rueckblick.
   c_vorschau_bis constant interval := interval '16 minutes';
-  -- LSA-V: So viele kommende Plan-Themen nimmt die Vorschau.
-  c_vorschau_themen constant int := 2;
+  -- LSA-V: So viele kommende Plan-Themen nimmt die Vorschau. LSA-L2: 3 statt 2 (die nächsten drei
+  -- Klassenarbeiten; Simulation docs/lsa/l2-simulation.md).
+  c_vorschau_themen constant int := 3;
   -- LSA-V2: Deckel. Nach so vielen ausgegebenen Aufgaben endet die Sitzung, mit und ohne Thema.
   c_max_aufgaben constant int := 40;
   -- LSA-V2: Der Ausblick laeuft nur fuer starke Kinder: mindestens so viele direkt belegte, finale Urteile ...
@@ -6578,6 +6596,8 @@ declare
   v_ausblick   text[];  -- Ausblick-Knoten der Sitzung in Ausblick-Reihenfolge (lsa_ausblick_knoten)
   v_urteile    int;     -- direkt belegte, finale Urteile ...
   v_traegt     int;     -- ... davon traegt
+  -- LSA-L2
+  v_schluessel text[];  -- Text-Schluessel der ausgegebenen Aufgaben (Schritt 5)
 begin
   select * into v_sess from lsa_sessions where id = p_session_id;
   if not found or v_sess.status <> 'in_progress' then
@@ -7010,12 +7030,15 @@ begin
     -- Schritt 5: Restzeit. Erst nach Klasse, Ausgabe und Urteil sortieren,
     -- dann lsa_im_pool bis zum ersten Treffer (LSA-D: hier lagen alle
     -- langsamen Aufrufe, der Pool-Test lief vor dem Ausschluss ueber die Urteile).
+    -- LSA-L2 (A): auch hier keine Aufgabe, deren Text einer schon ausgegebenen gleicht.
+    v_schluessel := public.lsa_ausgegebene_schluessel(p_session_id);
     for v_kand in
       select t.id
         from tasks t
         join skills s on s.skill_key = t.skill_key
        where s.klasse_herkunft <= v_sess.grade
          and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id and a.task_id = t.id)
+         and not coalesce(public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel), false)
          and not exists (select 1 from lsa_responses r  where r.session_id = p_session_id and r.task_id = t.id)
          and not exists (
                select 1 from lsa_skill_urteil u
@@ -7595,6 +7618,25 @@ CREATE FUNCTION public.lsa_testinhalte(p_session_id uuid) RETURNS boolean
   select coalesce((select coalesce(l.testlauf, false) or coalesce(s.ist_test, false)
                      from public.lsa_sessions l left join public.students s on s.id = l.student_id
                     where l.id = p_session_id), false)
+$$;
+
+
+--
+-- Name: lsa_text_schluessel(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_text_schluessel(p_question text, p_parts jsonb) RETURNS text
+    LANGUAGE sql IMMUTABLE PARALLEL SAFE
+    SET search_path TO 'public'
+    AS $$
+  -- Ohne Text (Inhalt nur in Payload oder Bild) kein Schlüssel: null gleicht nichts (lsa_freie_aufgabe, Schritt 5).
+  select md5(nullif(btrim(regexp_replace(regexp_replace(lower(
+           coalesce(p_question, '') || ' ' ||
+           coalesce((select string_agg(e.p ->> 'prompt', ' ' order by e.nr)
+                       from jsonb_array_elements(case when jsonb_typeof(p_parts) = 'array' then p_parts
+                                                      else '[]'::jsonb end) with ordinality e(p, nr)), '')),
+           '[0-9]+([.,][0-9]+)*', '#', 'g'),
+         '[[:space:]]+', ' ', 'g')), ''))
 $$;
 
 
@@ -20596,10 +20638,12 @@ CREATE TABLE public.leads (
     rejection_note text,
     schule_id uuid,
     ist_test boolean DEFAULT false NOT NULL,
+    klassenarbeit_status text,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
+    CONSTRAINT leads_klassenarbeit_status_check CHECK ((klassenarbeit_status = ANY (ARRAY['bevorstehend'::text, 'geschrieben'::text]))),
     CONSTRAINT leads_rejection_note_check CHECK (((rejection_reason IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(rejection_note), ''::text) IS NOT NULL))),
     CONSTRAINT leads_rejection_reason_check CHECK (((rejection_reason IS NULL) OR (rejection_reason = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
@@ -20668,6 +20712,7 @@ CREATE TABLE public.lsa_report_notes (
     paket text,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_by uuid,
+    paket_bestaetigt boolean DEFAULT false NOT NULL,
     CONSTRAINT lsa_report_notes_paket_check CHECK ((paket = ANY (ARRAY['basis'::text, 'standard'::text, 'premium'::text])))
 );
 
