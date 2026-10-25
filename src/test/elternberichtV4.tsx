@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import type { EinordnungLayout } from '@/lib/report/elternbericht/berichtKonfig'
-import { FAELLE, NOTIZEN } from '@/lib/report/elternbericht/fixtures'
+import { FAELLE, NOTIZEN_ZIELE } from '@/lib/report/elternbericht/fixtures'
 import type { Elternbericht, ReportData, ReportNotes, TierPlan } from '@/types'
 
 /** Die Fälle aus V4-1 mit Fahrplan. */
@@ -21,7 +21,7 @@ export const MIT_FAHRPLAN = [
 ] as const
 
 /** Ziele im Gespräch bestätigt, ohne Zielbild des Coachs. */
-export const NOTIZEN_ZIELE: ReportNotes = { ...NOTIZEN, zielbild: '', zieleBestaetigt: true }
+export { NOTIZEN_ZIELE }
 
 /** Der Bericht, wie ihn der Bogen rechnet. */
 export function berichtV4(data: ReportData): Elternbericht {
