@@ -22,10 +22,13 @@ select s.skill_key,
             else 'falsche_operation' end as slug
   from skills s;
 
-insert into tasks (cluster_id, content_type, input_type, status, question, question_payload, parts, afb,
+-- Feste ids (LSA-L2): Die Auswahl mischt gleichrangige Aufgaben über md5(Sitzung || Aufgabe); mit festen ids
+-- vergleicht simulation.sh vorher/nachher ohne Zufall.
+insert into tasks (id, cluster_id, content_type, input_type, status, question, question_payload, parts, afb,
                    competency_content, est_duration_sec, class_level, curriculum_grade, source, source_ref,
                    skill_key, difficulty, einsatz, is_active)
-select (select id from skill_clusters where name = 'ZZ LSA-T Cluster'), 'exercise', a.typ, 'ready',
+select md5('lsat-' || z.skill_key || '-' || a.typ)::uuid,
+       (select id from skill_clusters where name = 'ZZ LSA-T Cluster'), 'exercise', a.typ, 'ready',
        'ZZ LSA-T ' || z.skill_key || ' ' || a.typ || ': Wie viel ist 3 + 4?',
        case when a.typ = 'MC' then '{"input_type":"MC","options":[{"id":"a","label":"7"},{"id":"b","label":"8"},{"id":"c","label":"6"}]}'::jsonb end,
        case when a.typ = 'MULTI_PART' then

@@ -70,6 +70,10 @@ select md5(format('zg-%s-%s', i, n))::uuid,
 insert into task_solutions (task_id, correct_answers)
 select id, case when input_type = 'MC' then '["a"]' else '["5"]' end::jsonb
   from tasks where source = 'test' and source_ref like 'zg-%';
+-- LSA-L2 (20261025144025): eindeutige Texte, sonst waere jede weitere Aufgabe ein Fast-Duplikat (lsa_text_schluessel)
+-- der ersten — die Fixture nutzt ueberall denselben Aufgabentext.
+update tasks set question = question || ' ' || translate(md5(id::text), '0123456789', 'ghijklmnop')
+ where source = 'test' and source_ref like 'zg-%';
 
 -- --- Personen, Schule ----------------------------------------------------------
 \set admin_uid 'dddddddd-dddd-dddd-dddd-0000000000b7'

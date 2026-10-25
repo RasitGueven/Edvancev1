@@ -18,6 +18,9 @@
 -- LSA-V2 (20261022131358): Wer nach der Vorschau mindestens 6 direkte Urteile mit 75 % traegt hat, bekommt vor
 -- dem Rueckblick den Ausblick (Einstiege der naechsten Plan-Themen: zv_u2a, zv_u1a). Die Faelle a, d und f
 -- zeigen ihn jetzt; die Vorschau selbst ist unveraendert. Mehr dazu in lsa_v2_ausblick.
+-- LSA-L2 (20261025144025): Die Vorschau nimmt drei kommende Themen (c_vorschau_themen = 3). Mit Plan ZV ist zv_spaet
+-- das dritte; sein Rand zv_r3 gehoert damit zu zwei kommenden Themen (direkt und als Ersatz fuer zv_x) und kommt
+-- gleich nach zv_r1 (a, d, e, f). Ohne Plan (g) kommt zv_u2 als drittes Thema dazu, mit Rand zv_r5, zv_r7.
 --
 -- Isoliert wie inv10 (eigener Graph, tasks.skill_key -> NULL). Antworten ueber
 -- lsa_submit: {"value":"5"} richtig (r), {"value":"7"} falsch (f).
@@ -89,6 +92,10 @@ select (select c.id from skill_clusters c join subjects sub on sub.id = c.subjec
   from skills s cross join generate_series(1, 2) n;
 insert into task_solutions (task_id, correct_answers)
 select id, '["5"]'::jsonb from tasks where source = 'test' and source_ref like 'zv-%';
+-- LSA-L2 (20261025144025): eindeutige Texte, sonst waere jede weitere Aufgabe ein Fast-Duplikat (lsa_text_schluessel)
+-- der ersten — die Fixture nutzt ueberall denselben Aufgabentext.
+update tasks set question = question || ' ' || translate(md5(id::text), '0123456789', 'ghijklmnop')
+ where source = 'test' and source_ref like 'zv-%';
 
 -- --- Schulen und Plaene -------------------------------------------------------
 \set admin_uid 'dddddddd-dddd-dddd-dddd-0000000000b5'
@@ -178,8 +185,8 @@ $$;
 select pg_temp.kind('zv_akt', 'ZV Schule') as k_a \gset
 select pg_temp.start(:'k_a') as s_a \gset
 select is(pg_temp.folge(:'s_a', repeat('r', 10), '1 minute'),
-  'zv_a1,zv_r1,zv_r5,zv_r7,zv_r3,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
-  'a: Thema, dann zv_r1 (Rand beider kommender Themen), Rand von zv_u2 (Plan-Position 2), von zv_u1 (4), Ausblick (LSA-V2), Rueckblick, Ende');
+  'zv_a1,zv_r1,zv_r3,zv_r5,zv_r7,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
+  'a: Thema, dann zv_r1, zv_r3 (Rand mehrerer kommender Themen), Rand von zv_u2 (Plan-Position 2), von zv_u1 (4), Ausblick (LSA-V2), Rueckblick, Ende');
 select is(public.lsa_select_next_core(:'s_a', array['ready'], pg_temp.t0() + interval '8 minutes'), null::uuid,
   'a: in Minute 8 kommt null — keine Fuellaufgabe, obwohl zv_f1 frei ist');
 select ok(not ('zv_f1' = any (pg_temp.gezogen(:'s_a'))), 'a: zv_f1 (ohne Grund) nie gezogen');
@@ -207,7 +214,7 @@ select ok(not (pg_temp.gezogen(:'s_a') && array['zv_t1', 'zv_t2']), 'd: zv_r1 tr
 select pg_temp.kind('zv_akt', 'ZV Schule') as k_d \gset
 select pg_temp.start(:'k_d') as s_d \gset
 select is(pg_temp.folge(:'s_d', 'rffrrrrrrrr', '1 minute'),
-  'zv_a1,zv_r1,zv_r1,zv_r5,zv_r7,zv_t1,zv_r3,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
+  'zv_a1,zv_r1,zv_r1,zv_r3,zv_r5,zv_r7,zv_t1,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
   'd: zv_r1 bricht -> zv_t1 nach dem Rand von zv_u2 (Rand vor Tiefe), vor dem Rand von zv_u1');
 select ok(not ('zv_t2' = any (pg_temp.gezogen(:'s_d'))), 'd: zv_t1 traegt -> keine zweite Stufe zu zv_t2');
 
@@ -217,7 +224,7 @@ select ok(not ('zv_t2' = any (pg_temp.gezogen(:'s_d'))), 'd: zv_t1 traegt -> kei
 select pg_temp.kind('zv_akt', 'ZV Schule') as k_e \gset
 select pg_temp.start(:'k_e') as s_e \gset
 select is(pg_temp.folge(:'s_e', 'rrrrrr', '4 minutes'),
-  'zv_a1,zv_r1,zv_r5,zv_r7,zv_b1,-',
+  'zv_a1,zv_r1,zv_r3,zv_r5,zv_b1,-',
   'e: Auswahl in Minute 16 -> keine Vorschau mehr, Rueckblick; Minute 20 -> Ende');
 
 -- ============================================================================
@@ -226,7 +233,7 @@ select is(pg_temp.folge(:'s_e', 'rrrrrr', '4 minutes'),
 select pg_temp.kind('zv_hj', 'ZV Schule') as k_f1 \gset
 select pg_temp.start(:'k_f1') as s_f1 \gset
 select is(pg_temp.folge(:'s_f1', 'rrrrrrrrr', '1 minute'),
-  'zv_h1,zv_r1,zv_r5,zv_r7,zv_r3,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
+  'zv_h1,zv_r1,zv_r3,zv_r5,zv_r7,zv_r2,zv_u2a,zv_u1a,zv_b1,-',
   'f: Thema nicht im Plan, Oktober -> erstes Halbjahr, Position 1: es kommen zv_u2 und zv_u1');
 select pg_temp.kind('zv_hj', 'ZV Schule') as k_f2 \gset
 select pg_temp.start(:'k_f2', '2026-03-02 08:00:00+00') as s_f2 \gset
@@ -245,8 +252,8 @@ select is(pg_temp.folge(:'s_f3', 'rrrrrrrrr', '1 minute'),
 select pg_temp.kind('zv_akt', null) as k_g \gset
 select pg_temp.start(:'k_g') as s_g \gset
 select is(pg_temp.folge(:'s_g', repeat('r', 10), '1 minute'),
-  'zv_a1,zv_r1,zv_r3,zv_r2,zv_b1,-',
-  'g: ohne Schule -> nach sort die naechsten zwei: zv_hj (ohne Rand) und zv_u1; zv_x ersetzt (zv_spaet liegt spaeter)');
+  'zv_a1,zv_r1,zv_r3,zv_r2,zv_r5,zv_r7,zv_h1,zv_u1a,zv_u2a,zv_b1,-',
+  'g: ohne Schule -> nach sort die naechsten drei: zv_hj (ohne Rand), zv_u1, zv_u2; zv_x ersetzt (zv_spaet liegt spaeter); Ausblick');
 
 -- ============================================================================
 -- h) Thema vertiefen, Rueckblick erst danach

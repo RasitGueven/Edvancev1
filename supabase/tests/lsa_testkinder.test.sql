@@ -23,15 +23,17 @@
 --   9. Schalter: nur=Max legt genau eine Sitzung an, fuer Max; ein unbekannter Name bricht ab, bevor etwas
 --      angelegt wird.
 --  10. Tim (LSA-R2) klickt sich durch (2–4 s, fast alles falsch): seine Sitzung ist nicht auswertbar, die
---      der sechs anderen ist auswertbar (lsa_finish ueber lsa_durchklick_stand).
+--      der sieben anderen ist auswertbar (lsa_finish ueber lsa_durchklick_stand).
 --  11. LSA-V2: Max und Lina bekommen den Ausblick, mit mindestens einem sicheren Knoten, und er endet mit genau
 --      zwei nicht sicheren Knoten hintereinander (Stopp). Kein Kind ueber 40 Aufgaben, Tim ohne 'hoechstens'.
 --      „Weiß ich nicht“ hat nie einen Zweitbeleg. Jonas kommt bis Klasse 5/6.
+--  12. LSA-L2: Batu (Klasse 9, FWG, Reelle Zahlen, Profil aus einem echten Testlauf) laeuft wie die anderen durch
+--      (1–3, 6, 10); acht Kinder im zweiten Lauf.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(57);
+select plan(62);
 
 \ir ../../tools/lsa-testkinder/neuaufbau-fixture.sql
 
@@ -77,16 +79,16 @@ create temp table zz_lsat_lauf1 as select l.id from lsa_sessions l where l.stude
 
 -- 1–3 je Kind
 select is((select l.status from lsa_sessions l where l.id = pg_temp.sitzung(n)), 'completed', n || ': Sitzung abgeschlossen')
-  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Batu']) n;
 select ok((select l.result_summary ? 'themenraum' and l.thema_key = pg_temp.kind(n) ->> 'thema'
              from lsa_sessions l where l.id = pg_temp.sitzung(n)),
           n || ': result_summary mit Themenraum des Themas aus dem Erstgespraech')
-  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Batu']) n;
 select is((select string_agg(u.skill_key || '=' || u.zustand, ', ') from lsa_skill_urteil u
             where u.session_id = pg_temp.sitzung(n) and u.belegt_direkt and u.zustand <> 'ungeprueft'
               and not pg_temp.passt(pg_temp.kind(n), u.skill_key, u.zustand)),
           null, n || ': jeder direkt beurteilte Bereich passt zum Profil')
-  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Batu']) n;
 -- Summe der Antwortdauern einer Sitzung in ms (die Uhr des Skripts: p_jetzt = Beginn + diese Summe).
 create function pg_temp.dauer_ms(p_s uuid) returns numeric language sql as $$
   select sum(r.d) from (select distinct r.task_id, r.duration_ms as d from lsa_responses r
@@ -120,10 +122,10 @@ end $$;
 
 select ok(pg_temp.ende_grund(pg_temp.sitzung(n)) in ('Zeit', 'Auswahl leer', 'Deckel'),
           n || ': endet durch die Zeit, den Deckel oder weil die Auswahl keine Aufgabe mehr liefert')
-  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Batu']) n;
 select diag(n || ': ' || to_char(make_interval(secs => pg_temp.dauer_ms(pg_temp.sitzung(n)) / 1000.0), 'MI:SS')
             || ' Minuten, Ende: ' || pg_temp.ende_grund(pg_temp.sitzung(n)))
-  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Batu']) n;
 
 -- 4
 select ok(pg_temp.anteil_sicher('Lina') >= 0.8, 'Lina: mindestens 80 % sicher (' || pg_temp.anteil_sicher('Lina') || ')');
@@ -150,7 +152,7 @@ select ok(pg_temp.ausblick(n) ~ '^t+nn$'
   from unnest(array['Max', 'Lina']) n;
 select is((select max(c) from (select count(*) as c from lsa_ausgegeben a
                                 where a.session_id in (select pg_temp.sitzung(n)
-                                                         from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim']) n)
+                                                         from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim', 'Batu']) n)
                                 group by a.session_id) x) <= 40, true, 'Kein Kind ueber 40 Aufgaben');
 -- Tim hat ein Thema: Die Auswahl mit Thema endet nach Thema, Vorschau und Rueckblick von selbst (im Neuaufbau mit drei
 -- Aufgaben je Skill vor 40). Ohne 'hoechstens' endet er durch die leere Auswahl oder den Deckel, nie spaeter; den
@@ -160,7 +162,7 @@ select ok(pg_temp.ende_grund(pg_temp.sitzung('Tim')) in ('Deckel', 'Auswahl leer
           || (select count(*) from lsa_ausgegeben a where a.session_id = pg_temp.sitzung('Tim')) || ' Aufgaben)');
 select is((select count(*) from lsa_skill_urteil u
             where u.session_id in (select pg_temp.sitzung(n)
-                                     from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim']) n)
+                                     from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim', 'Batu']) n)
               and u.zustand = 'nicht_angesetzt' and u.belegt_direkt and (u.proben_anzahl <> 1 or u.offen)),
           0::bigint, '„Weiß ich nicht“ ist mit der ersten Probe final, ohne Zweitbeleg');
 select ok((select min(s.klasse_herkunft) from lsa_ausgegeben a join tasks t on t.id = a.task_id
@@ -181,7 +183,7 @@ select is((select string_agg(k ->> 'kind' || ': ' || array_to_string(a.weak_topi
              join lead_assessments a on a.lead_id = (k ->> 'lead')::uuid and a.source = 'parent'
             where a.weak_topics <@ array['Grundlagen fehlen', 'Textverständnis', 'Rechenwege', 'Konzentration',
                                          'Prüfungsangst', 'Zeiteinteilung']),
-          'Emre: Grundlagen fehlen | Jonas: Grundlagen fehlen, Konzentration | Lina: Rechenwege | Max: Rechenwege | '
+          'Batu: Grundlagen fehlen | Emre: Grundlagen fehlen | Jonas: Grundlagen fehlen, Konzentration | Lina: Rechenwege | Max: Rechenwege | '
             || 'Nele: Prüfungsangst | Sophie: Textverständnis, Konzentration | Tim: Konzentration',
           'Anliegen nur aus PARENT_WEAK_TOPICS, je Kind wie im Profil');
 
@@ -195,22 +197,22 @@ select ok((select l.auswertbar and l.nicht_auswertbar_grund is null
                   and not (l.result_summary -> 'durchklick' ->> 'nicht_auswertbar')::boolean
              from lsa_sessions l where l.id = pg_temp.sitzung(n)),
           n || ': auswertbar')
-  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max']) n;
+  from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Batu']) n;
 select diag('Tim: ' || (select (l.nicht_auswertbar_grund - 'schwellen')::text from lsa_sessions l where l.id = pg_temp.sitzung('Tim')));
 
 -- ── Zweiter Lauf ────────────────────────────────────────────────────────────
 \ir ../../tools/lsa-testkinder/erzeugen.sql
 
 -- 7
-select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%'), 7::bigint, 'Zweiter Lauf: dieselben sieben Leads');
+select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%'), 8::bigint, 'Zweiter Lauf: dieselben acht Leads');
 select is((select count(*) from students where id::text like 'a5a7c41d-5c00-%' and ist_test and is_provisional),
-          7::bigint, 'Zweiter Lauf: dieselben sieben Testkonten');
+          8::bigint, 'Zweiter Lauf: dieselben acht Testkonten');
 select is((select count(*) from lsa_sessions where student_id::text like 'a5a7c41d-5c00-%' and status = 'completed'),
-          14::bigint, 'Zweiter Lauf: vierzehn abgeschlossene Sitzungen, je Kind zwei');
-select is((select count(*) from zz_lsat_lauf1 a join lsa_sessions l on l.id = a.id), 7::bigint,
+          16::bigint, 'Zweiter Lauf: sechzehn abgeschlossene Sitzungen, je Kind zwei');
+select is((select count(*) from zz_lsat_lauf1 a join lsa_sessions l on l.id = a.id), 8::bigint,
           'Zweiter Lauf: die Sitzungen des ersten Laufs stehen noch');
 select ok(pg_temp.sitzung('Lina') not in (select id from zz_lsat_lauf1), 'Zweiter Lauf: die neueste Sitzung ist neu');
-select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%' and status = 'lsa_fertig'), 7::bigint,
+select is((select count(*) from leads where id::text like 'a5a7c41d-1ead-%' and status = 'lsa_fertig'), 8::bigint,
           'Zweiter Lauf: alle Leads stehen auf lsa_fertig');
 
 -- ── Schalter (9) ────────────────────────────────────────────────────────────
@@ -234,7 +236,7 @@ savepoint zz_unbekannt;
 \unset nur
 rollback to savepoint zz_unbekannt;
 select is(:'LAST_ERROR_MESSAGE'::text,
-          'LSA-T: unbekannte Kinder in nur: Moritz (bekannt: Lina, Emre, Sophie, Jonas, Nele, Max, Tim)',
+          'LSA-T: unbekannte Kinder in nur: Moritz (bekannt: Lina, Emre, Sophie, Jonas, Nele, Max, Tim, Batu)',
           'Unbekannter Name: Abbruch mit klarer Meldung, nichts danach ausgefuehrt');
 
 select * from finish();
