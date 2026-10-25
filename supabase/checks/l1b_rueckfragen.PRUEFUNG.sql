@@ -14,6 +14,7 @@ declare
   x    text;
   v_n  integer;
   v_rf integer;
+  v_soll jsonb;
 begin
   -- ── 1. known_errors: genau der erwartete Stand ──────────────────────────────
   for r in
@@ -104,20 +105,20 @@ begin
   raise notice 'P4 ok: vier Aufgabentexte';
 
   -- ── 5. Antworten an Lena ────────────────────────────────────────────────────
-  create temp table l1b_soll (id uuid primary key, status text not null) on commit drop;
-  insert into l1b_soll values
-    ('a394b2eb-df58-4b57-9c79-ae8ff0c62b24', 'ready'), ('6ef85b4a-1f14-49b4-acf6-05aa01567e4f', 'ready'),
-    ('19ba5f42-6cd4-4191-afe0-fd8a09c4ac35', 'ready'), ('1527a939-6199-4d8c-9163-6f34b0cd0e13', 'ready'),
-    ('10a764bc-9657-4a5a-b11d-64b2a0014b05', 'ready'), ('df219b8c-887d-43c2-b544-ca2df4f32e66', 'ready'),
-    ('650eed2a-79e5-4a6f-9ed2-a51053fe75c8', 'ready'),
-    ('3b1e6f0a-5c2d-4e8b-9f71-2a6d0c4b8e13', 'draft'), ('4f0b933d-3ead-4042-adb9-a1369ba28f39', 'draft'),
-    ('e8348c89-67cb-4650-be91-235e69321776', 'draft'), ('7976c81f-9b0b-46d8-a0d1-b5b6cc3bc992', 'draft');
-  select count(*) filter (where t.status = 'rueckfrage') into v_rf from l1b_soll z join public.tasks t on t.id = z.id;
+  -- Soll-Status je Aufgabe; als jsonb statt Temp-Tabelle, weil dbread read-only ist.
+  v_soll := '{"a394b2eb-df58-4b57-9c79-ae8ff0c62b24": "ready", "6ef85b4a-1f14-49b4-acf6-05aa01567e4f": "ready",
+              "19ba5f42-6cd4-4191-afe0-fd8a09c4ac35": "ready", "1527a939-6199-4d8c-9163-6f34b0cd0e13": "ready",
+              "10a764bc-9657-4a5a-b11d-64b2a0014b05": "ready", "df219b8c-887d-43c2-b544-ca2df4f32e66": "ready",
+              "650eed2a-79e5-4a6f-9ed2-a51053fe75c8": "ready",
+              "3b1e6f0a-5c2d-4e8b-9f71-2a6d0c4b8e13": "draft", "4f0b933d-3ead-4042-adb9-a1369ba28f39": "draft",
+              "e8348c89-67cb-4650-be91-235e69321776": "draft", "7976c81f-9b0b-46d8-a0d1-b5b6cc3bc992": "draft"}';
+  select count(*) filter (where t.status = 'rueckfrage') into v_rf
+    from jsonb_each_text(v_soll) z(id, status) join public.tasks t on t.id = z.id::uuid;
   if v_rf = 11 then
     raise notice 'P5 Antworten stehen aus: alle elf Rückfragen offen';
   else
     select count(*) into v_n
-      from l1b_soll z join public.tasks t on t.id = z.id
+      from jsonb_each_text(v_soll) z(id, status) join public.tasks t on t.id = z.id::uuid
       join lateral (select * from public.task_pruefungen p where p.task_id = t.id order by p.geprueft_am desc limit 1) p on true
      where t.status = z.status and p.entscheidung = 'unsicher' and p.geprueft_am::date = '2026-10-25'
        and p.beantwortet_von = c_rasit and p.beantwortet_am is not null and length(p.antwort) > 20
