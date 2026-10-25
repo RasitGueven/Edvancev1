@@ -4739,6 +4739,12 @@ declare
   v_raum     text[];
   v_lead     uuid;
 begin
+  -- Rasit 25.10.2026: Kinder bekommen in der LSA nichts, was sie noch nicht hatten. Der Ausblick ist aus; nur die
+  -- Tests schalten ihn mit set local lsa.ausblick = 'an' ein, damit der Mechanismus geprueft bleibt.
+  if current_setting('lsa.ausblick', true) is distinct from 'an' then
+    return '{}';
+  end if;
+
   select * into v_sess from lsa_sessions where id = p_session_id;
   if not found or v_sess.thema_key is null then
     return '{}';

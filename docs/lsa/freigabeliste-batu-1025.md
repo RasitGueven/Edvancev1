@@ -20,31 +20,34 @@ oder rueckfrage, mit Kurztitel; (MC) = Multiple Choice.
 
 ## Ergebnis
 
-**Es fehlen 48 Freigaben in 24 Bereichen** (je Bereich 2, davon mindestens eine ohne MC): KA2 8, Rückblick 30,
-Ausblick 10. In keinem dieser Bereiche ist bisher eine Aufgabe freigegeben.
+**Es fehlen 36 Freigaben in 18 Bereichen** (je Bereich 2, davon mindestens eine ohne MC): KA2 6, Rückblick 30.
+In keinem dieser Bereiche ist bisher eine Aufgabe freigegeben.
+
+> **Nachtrag 25.10. abends (Rasit): Kinder bekommen in der LSA nichts, was sie noch nicht hatten.** Der Ausblick
+> ist aus (Migration `20261025220449_lsa_ohne_ausblick`). Damit entfallen für Lena die fünf Ausblick-Bereiche
+> (quadratische Funktionen, Kreis, Potenzen) und `gleichung_quadr_formel` (p-q-Formel, Plan Klasse 10) — 12
+> Freigaben weniger. Die Zeilen stehen unten nicht mehr in der Liste.
 
 - **Seit dem Vormittag geändert:** `term_binom_quadrat` reicht jetzt (keine Lücke mehr). Neu als Voraussetzung von
   KA2 gelten `term_binom_faktorisieren` (★), `term_binom_quadratdifferenz` (vorher Rückblick) und
   `term_ausklammern` (Klasse 7) — der Skill-Graph in Prod hat sich seitdem geändert.
 - **KA3, KA4 und Grundlagen: keine Lücke.**
-- **KA2: vier Lücken, zuerst.**
+- **KA2: drei Lücken, zuerst.**
   - `term_binom_faktorisieren` ★ und `term_binom_quadratdifferenz`: je **genau ein** Entwurf ohne MC
     (47² − 43² bzw. 102 · 98, geschicktes Rechnen) — der muss unter den zwei Freigaben sein.
   - `term_ausklammern`: Die 6 alten Entwürfe sind alle MC. **Nachtrag 25.10. abends:** neuer Entwurf ohne MC
     „Terme · Ausklammern · 18x + 24 · Lücken“ (drei Zahlenfelder, Migration `20261025213530`) — der muss unter
     den zwei Freigaben sein.
-  - `gleichung_quadr_formel` ★ (p-q-Formel): Die LSA prüft ihn auch mit freien Aufgaben **nicht** (Thema Klasse
-    10, die Vorschau nimmt seinen Rand). Darum innerhalb von KA2 zuletzt.
+  - ~~`gleichung_quadr_formel` (p-q-Formel)~~: entfällt (Thema Klasse 10, die LSA prüft ihn nicht).
 - **Rückblick: 15 Bereiche** (Klasse 7/8). Solange hier nichts frei ist, endet Batus LSA bei Minute 11:35
   (`docs/lsa/l2-simulation.md`). Bei `term_binom_gemischt` gibt es nur einen Entwurf ohne MC (x = 100), bei
   `geo_flaeche_term` zwei; alle anderen haben genug Entwürfe ohne MC.
-- **Ausblick: 5 Bereiche.** Nur für starke Kinder; zuletzt.
+- **Ausblick: entfällt** (siehe Nachtrag oben).
 
 ## Liste
 
 | Gruppe | Bereich (Skill) | Kl. | frei | ohne MC | Lücke | Entwürfe (Kurztitel) |
 | --- | --- | ---: | ---: | ---: | --- | --- |
-| KA2 | gleichung_quadr_formel ★ | 9 | 0 | 0 | keine frei | p-q-Formel · 2x² − 4x − 6 = 0; p-q-Formel · Rechteck 4 cm länger als breit, 60 cm²; p-q-Formel · Weg um ein Beet 20 m × 15 m, 500 m²; p-q-Formel · x² + 2x − 15 = 0; p-q-Formel · x² + 4x − 1 = 0, gerundet; p-q-Formel · x² − 6x + 5 = 0 |
 | KA2 | term_binom_faktorisieren ★ | 8 | 0 | 0 | keine frei | Faktorisieren · geschicktes Rechnen · 47² - 43²; Faktorisieren · Differenz von Quadraten · x² - 25 (MC); Faktorisieren · gemeinsamer Faktor und Quadrat · 3x² + 12x + 12 (MC); Faktorisieren · gemeinsamer Faktor zuerst · 2x² - 18 (MC); Faktorisieren · vollständiges Quadrat · x² + 8x + 16 (MC); Faktorisieren · zweistufig · x⁴ - 16 (MC) |
 | KA2 | term_binom_quadratdifferenz | 8 | 0 | 0 | keine frei | Dritte binomische Formel · geschicktes Rechnen · 102 · 98; Dritte binomische Formel · (2x - 9)(2x + 9) (MC); Dritte binomische Formel · (3x + 5)(3x - 5) (MC); Dritte binomische Formel · (x - 7)(x + 7) (MC); Dritte binomische Formel · (x + 4)(x - 4) (MC); Dritte binomische Formel · Sachkontext · Grundstück (MC) |
 | KA2 | term_ausklammern | 7 | 0 | 0 | keine frei | Terme · Ausklammern · 18x + 24 · Lücken (neu); Terme · Ausklammern · 12x + 18 (MC); Terme · Ausklammern · 4x + 20 (MC); Terme · Ausklammern · 4x + 8 (MC); Terme · Ausklammern · 6x + 12 (MC); Terme · Ausklammern · 8x + 12 (MC); Terme · Ausklammern · 9x + 27 (MC) |
@@ -63,11 +66,6 @@ Ausblick 10. In keinem dieser Bereiche ist bisher eine Aufgabe freigegeben.
 | Rückblick | term_binom_gemischt | 8 | 0 | 0 | keine frei | Binomische Formeln gemischt · vereinfachen und einsetzen · x = 100; Gemischt · Koeffizienten und Differenz · (3x - 2)² - (x + 4)(x - 4) (MC); Gemischt · Quadrat und Quadratdifferenz · (x + 5)² - (x + 2)(x - 2) (MC); Gemischt · Sachkontext · Restfläche (MC); Gemischt · Summe zweier Formeln · (x + 6)(x - 6) + (x + 2)² (MC); Gemischt · vereinfachen · (x + 4)² - x² - 16 (MC); Gemischt · zwei Quadrate · (x + 3)² - (x - 3)² (MC) |
 | Rückblick | prozent_zins_jahreszins | 7 | 0 | 0 | keine frei | Jahreszinsen · Guthaben 600 € zu 3 %; Jahreszinsen · Guthaben 640 € zu 2,5 %; Jahreszinsen · Guthaben 850 € zu 2 %; Jahreszinsen · Kontostand nach einem Jahr · 480 € zu 3,5 %; Jahreszinsen · Kredit 900 € zu 6 % · Rückzahlung; Jahreszinsen · zwei Sparangebote vergleichen · 750 € |
 | Rückblick | prozent_zins_zinseszins | 7 | 0 | 0 | keine frei | Kombinierte Veränderung · Preis +20 %, dann −20 % · 400 €; Zinseszins · 500 € zu 4 % für 2 Jahre; Zinseszins · 800 € zu 5 % für 3 Jahre; Zinseszins · Laufzeit durch Probieren · 500 € zu 10 % über 700 €; Zinseszins · Zinsen nach 2 Jahren · 600 € zu 3 %; Zinseszins · Zinssatz gesucht · 500 € werden in 2 Jahren 551,25 € |
-| Ausblick | fkt_quadr_normalform | 9 | 0 | 0 | keine frei | Problemlösen · Scheitelhöhe bei bekannter Scheitelstelle; Quadratische Ergänzung · höchster Punkt einer Wurfbahn; Quadratische Ergänzung · y = 2x² − 8x + 3; Quadratische Ergänzung · y = x² + 4x + 1; Quadratische Ergänzung · y = x² − 5x + 2; Quadratische Ergänzung · y = x² − 6x + 5 |
-| Ausblick | fkt_quadr_nullstellen | 9 | 0 | 0 | keine frei | Nullstelle · wann der Ball den Boden trifft; Nullstellen · aus der Abbildung ablesen; Nullstellen · f(x) = (x − 1)² − 4; Nullstellen · f(x) = 2x² + 4x − 6; Nullstellen · f(x) = x² − 2x − 8; Rückrichtung · Scheitelhöhe aus den Nullstellen |
-| Ausblick | geo_kreis_flaeche | 9 | 0 | 0 | keine frei | Fläche · Durchmesser 10 cm; Fläche · eine große Pizza gegen zwei kleine; Fläche · Pizza mit 30 cm Durchmesser; Fläche · Radius 2,4 m; Fläche · Radius 6 cm; Fläche · Radius 80 cm, Ergebnis in m² |
-| Ausblick | geo_kreis_umfang | 9 | 0 | 0 | keine frei | Umfang · Durchmesser 10 cm; Umfang · Fahrradrad mit 70 cm Durchmesser; Umfang · Radius 3,6 m; Umfang · Radius 4 cm; Umfang · Radius 45 cm, Ergebnis in Metern; Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser |
-| Ausblick | zahl_potenz_rechnen | 9 | 0 | 0 | keine frei | Wissenschaftliche Schreibweise · (3 · 10⁴) · (2 · 10⁻⁶); Wissenschaftliche Schreibweise · (3 · 10⁵) : (6 · 10⁻²) normieren; Wissenschaftliche Schreibweise · (5 · 10³) · (4 · 10⁵) normieren; Wissenschaftliche Schreibweise · (8 · 10⁶) : (2 · 10²); Wissenschaftliche Schreibweise · Licht von der Sonne zur Erde; Wissenschaftliche Schreibweise · Lichtweg in einer Minute |
 
 Neu erzeugen: `tools/lsa-testkinder/l2-freigabeliste.sql` (Aufruf im Kopf der Datei; Gruppen wie
 `tools/lsa-testkinder/l2-gruppen.sql`).

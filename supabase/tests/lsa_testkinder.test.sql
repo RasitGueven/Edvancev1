@@ -24,8 +24,8 @@
 --      angelegt wird.
 --  10. Tim (LSA-R2) klickt sich durch (2–4 s, fast alles falsch): seine Sitzung ist nicht auswertbar, die
 --      der sieben anderen ist auswertbar (lsa_finish ueber lsa_durchklick_stand).
---  11. LSA-V2: Max und Lina bekommen den Ausblick, mit mindestens einem sicheren Knoten, und er endet mit genau
---      zwei nicht sicheren Knoten hintereinander (Stopp). Kein Kind ueber 40 Aufgaben, Tim ohne 'hoechstens'.
+--  11. LSA ohne Ausblick (20261025220449, vorher LSA-V2): Max und Lina, die starken Kinder, bekommen keinen
+--      Ausblick-Knoten (Stoff, den sie noch nicht hatten). Kein Kind ueber 40 Aufgaben, Tim ohne 'hoechstens'.
 --      „Weiß ich nicht“ hat nie einen Zweitbeleg. Jonas kommt bis Klasse 5/6.
 --  12. LSA-L2: Batu (Klasse 9, FWG, Reelle Zahlen, Profil aus einem echten Testlauf) laeuft wie die anderen durch
 --      (1–3, 6, 10); acht Kinder im zweiten Lauf.
@@ -65,12 +65,6 @@ language sql as $$
     from lsa_skill_urteil u
    where u.session_id = pg_temp.sitzung(p_name) and u.belegt_direkt and u.zustand <> 'ungeprueft'
      and not (p_ohne_ausblick and public.lsa_ist_ausblick(u.session_id, u.skill_key))
-$$;
--- LSA-V2: die direkt beurteilten Ausblick-Knoten in Ausblick-Reihenfolge, je 't' (traegt) oder 'n' (sonst).
-create function pg_temp.ausblick(p_name text) returns text language sql as $$
-  select coalesce(string_agg(case when u.zustand = 'traegt' then 't' else 'n' end, '' order by x.nr), '')
-    from unnest(public.lsa_ausblick_knoten(pg_temp.sitzung(p_name))) with ordinality x(sk, nr)
-    join lsa_skill_urteil u on u.session_id = pg_temp.sitzung(p_name) and u.skill_key = x.sk and u.belegt_direkt
 $$;
 
 -- ── Erster Lauf ─────────────────────────────────────────────────────────────
@@ -143,13 +137,15 @@ select is((select count(*) from lsa_skill_urteil u where u.session_id = pg_temp.
 select is(current_setting('lsat.nicht_angenommen')::jsonb -> 'Max', '[]'::jsonb,
           'Max: jede richtige Antwort angenommen (Liste „richtig beantwortet, nicht angenommen“ leer)');
 
--- 11 (LSA-V2)
--- Die Folge haengt ueber md5(Sitzung || Aufgabe) an der zufaelligen Sitzungs-ID; endet die Zeit vor dem Stopp,
--- genuegt ein angefangener Ausblick.
-select ok(pg_temp.ausblick(n) ~ '^t+nn$'
-          or (pg_temp.ende_grund(pg_temp.sitzung(n)) = 'Zeit' and pg_temp.ausblick(n) ~ '^t+n?$'),
-          n || ': Ausblick mit sicheren Knoten, Stopp nach zwei nicht sicheren (' || pg_temp.ausblick(n) || ')')
+-- 11 (LSA ohne Ausblick): die Ausblick-Knoten der Sitzung mit Schalter berechnet, ausgegeben ohne.
+select set_config('lsa.ausblick', 'an', true);
+select is((select count(*)::int from lsa_ausgegeben a join tasks t on t.id = a.task_id
+            where a.session_id = pg_temp.sitzung(n)
+              and t.skill_key = any (public.lsa_ausblick_knoten(pg_temp.sitzung(n), true))), 0,
+          n || ': kein Ausblick-Knoten ausgegeben (' || cardinality(public.lsa_ausblick_knoten(pg_temp.sitzung(n), true))
+          || ' Knoten waeren es)')
   from unnest(array['Max', 'Lina']) n;
+select set_config('lsa.ausblick', '', true);
 select is((select max(c) from (select count(*) as c from lsa_ausgegeben a
                                 where a.session_id in (select pg_temp.sitzung(n)
                                                          from unnest(array['Lina', 'Emre', 'Sophie', 'Jonas', 'Nele', 'Max', 'Tim', 'Batu']) n)
