@@ -16,7 +16,7 @@ test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
 async function volleKarte(page: Page, fall: string): Promise<void> {
   await page.setViewportSize({ width: 1180, height: 820 })
-  await page.goto(`/vorschau/praesentation.html?fall=${fall}`)
+  await page.goto(`/vorschau/praesentation.html?fall=${fall}&v4=aus`)
   await page.locator('.tp').waitFor()
   await page.evaluate(() => document.fonts.ready)
   await page.locator('.tp-intro-los').click()

@@ -524,7 +524,8 @@
     },
     "quelle": {
       "schule": "Die Reihenfolge stammt aus dem Schulplan des {{schule}}. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.",
-      "klp": "Die Reihenfolge folgt dem Kernlehrplan NRW. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest."
+      "klp": "Die Reihenfolge folgt dem Kernlehrplan NRW. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.",
+      "schuleGenitiv": "Die Reihenfolge stammt aus dem Schulplan {{schule}}. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest."
     },
     "leiste": {
       "label": "Klassenarbeiten",

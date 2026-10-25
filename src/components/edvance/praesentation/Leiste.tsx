@@ -1,14 +1,22 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { STATIONEN, stationsNummer } from './stationProps'
+import { STATIONEN, stationsName, stationsNummer } from './stationProps'
 
 /**
  * Stationsleiste links (Entscheidung 5): vier Einträge mit Nummer und Namen.
  * Die Kugel (Eddie) wandert zur aktuellen Station, Tippen springt dorthin.
  * Ohne Pfadlinie.
  */
-export function Leiste({ aktuell, onSprung }: { aktuell: number; onSprung: (station: number) => void }): JSX.Element {
+export function Leiste({
+  aktuell,
+  onSprung,
+  v4 = false,
+}: {
+  aktuell: number
+  onSprung: (station: number) => void
+  v4?: boolean
+}): JSX.Element {
   const { t, i18n } = useTranslation('praesentation')
   const knoepfe = useRef<(HTMLButtonElement | null)[]>([])
   const [versatz, setVersatz] = useState(0)
@@ -42,7 +50,7 @@ export function Leiste({ aktuell, onSprung }: { aktuell: number; onSprung: (stat
           <span className="tp-leiste-punkt" aria-hidden="true" />
           <span className="tp-leiste-name">
             <small>{stationsNummer(n, i18n.language)}</small>
-            {t(`leiste.station.${n}`)}
+            {stationsName(t, n, v4)}
           </span>
         </button>
       ))}

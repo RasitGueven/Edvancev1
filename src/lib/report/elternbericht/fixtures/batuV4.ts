@@ -169,6 +169,8 @@ export function batuMit(
   })
   return {
     ...data,
+    // Summe der Antwortzeiten der Sitzung (dbread): rund 23 Minuten.
+    dauerMinuten: 23,
     erstgespraech: {
       note: '4',
       trend: 'stabil',

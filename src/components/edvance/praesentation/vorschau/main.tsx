@@ -14,7 +14,10 @@ import '@/styles/globals.css'
 import { Praesentation } from '@/components/edvance/praesentation/Praesentation'
 import { PRAESENTATION_FAELLE } from '@/lib/report/praesentation/fixtures'
 
-const name = new URLSearchParams(window.location.search).get('fall')
+const suche = new URLSearchParams(window.location.search)
+const name = suche.get('fall')
+/** ?v4=aus zeigt die Zuordnung vor V4 (Station 03 = Lernweg) auch bei Fällen mit Fahrplan. */
+const fahrplan = suche.get('v4') !== 'aus'
 const fall = name ? PRAESENTATION_FAELLE[name] : undefined
 
 const zurListe = (): void => {
@@ -31,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         tiersFehler={false}
         sessionId={fall.data.sessionId}
         laden={false}
+        fahrplan={fahrplan}
         onSchliessen={zurListe}
       />
     ) : (

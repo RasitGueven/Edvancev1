@@ -49,6 +49,14 @@
   --tp-hinweis: 2750ms;
   --tp-empfehlung: 3050ms;
 
+  /* V4: Fahrplan in Station 01 (Punkte nacheinander), Kästchen in Station 02 (ploppen auf) */
+  --tp-fahrplan-start: 1200ms;
+  --tp-fahrplan-takt: 150ms;
+  --tp-kasten-start: 500ms;
+  --tp-kasten-zeile: 260ms;
+  --tp-kasten-takt: 40ms;
+  --tp-kasten-dauer: 500ms;
+
   position: fixed;
   inset: 0;
   z-index: 200;

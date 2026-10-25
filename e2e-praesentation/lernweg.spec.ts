@@ -12,7 +12,7 @@ import { lernwegVerstoesse, stationOben } from './messen'
 const AUSGABE = resolve(process.env.TP_AUSGABE ?? 'docs/report/praesentation/abnahme/r7-9')
 
 async function zuStation3(page: Page, fall: string): Promise<void> {
-  await page.goto(`/vorschau/praesentation.html?fall=${fall}`)
+  await page.goto(`/vorschau/praesentation.html?fall=${fall}&v4=aus`)
   await page.locator('.tp').waitFor()
   await page.evaluate(() => document.fonts.ready)
   await page.locator('.tp-intro-los').click()

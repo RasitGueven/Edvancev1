@@ -13,17 +13,29 @@ import { Intro } from './Intro'
 import { Kopf } from './Kopf'
 import { Leiste } from './Leiste'
 import { Station1 } from './Station1'
+import { Station1V4 } from './Station1V4'
 import { Station2 } from './Station2'
 import { Station3 } from './Station3'
 import { Station4 } from './Station4'
-import { STATIONEN, type StationProps } from './stationProps'
+import { StationFoerderansatz } from './StationFoerderansatz'
+import { StationKlassenarbeiten } from './StationKlassenarbeiten'
+import { STATIONEN, stationsName, type StationProps } from './stationProps'
 import { useStationen } from './useStationen'
+import { baueV4, type PraesentationV4 } from './v4Daten'
 
 const STATION: Record<number, ComponentType<StationProps>> = {
   1: Station1,
   2: Station2,
   3: Station3,
   4: Station4,
+}
+
+/** Mit Fahrplan (V4): Überblick, Lernstand, Klassenarbeiten, Förderansatz. */
+const STATION_V4: Record<number, ComponentType<StationProps>> = {
+  1: Station1V4,
+  2: Station2,
+  3: StationKlassenarbeiten,
+  4: StationFoerderansatz,
 }
 
 export type PraesentationProps = {
@@ -39,6 +51,8 @@ export type PraesentationProps = {
   onSchliessen: () => void
   /** Nur für Tests: die Zählweise „übersprungen". */
   anzeige?: TpAnzeige
+  /** Nur für Tests und Vorschau: false erzwingt die Zuordnung vor V4 (Station 03 = Lernweg). */
+  fahrplan?: boolean
 }
 
 /**
@@ -50,7 +64,7 @@ export type PraesentationProps = {
  * Klasse tp-offen (kein Scrollen dahinter). Escape schließt.
  */
 export function Praesentation(props: PraesentationProps): JSX.Element {
-  const { data, notes, tiers, tiersFehler, laden, onSchliessen } = props
+  const { data, notes, tiers, tiersFehler, laden, onSchliessen, fahrplan = true } = props
   const { t } = useTranslation('praesentation')
 
   // Beim Schließen geht der Fokus dorthin zurück, wo er vor dem Öffnen war (Knopf im Report).
@@ -78,6 +92,11 @@ export function Praesentation(props: PraesentationProps): JSX.Element {
     return bauePraesentation({ data, notes, tiers: tiersFehler ? [] : tiers })
   }, [data, notes, tiers, tiersFehler, laden])
   const satz = useMemo(() => new Bausteinsatz(data?.erzaehlung.bausteine ?? []), [data])
+  // Klassenarbeiten als roter Faden; ohne Fahrplan null und die Zuordnung vor V4.
+  const v4 = useMemo(
+    () => (fahrplan && data && p && !('fehlt' in p) ? baueV4(data, notes) : null),
+    [fahrplan, data, notes, p],
+  )
 
   const name = p && !('fehlt' in p) ? p.name : null
 
@@ -104,7 +123,7 @@ export function Praesentation(props: PraesentationProps): JSX.Element {
       </div>
     )
   } else {
-    inhalt = <Buehne {...props} p={p} satz={satz} />
+    inhalt = <Buehne {...props} p={p} satz={satz} v4={v4} />
   }
 
   return createPortal(
@@ -127,7 +146,8 @@ function Buehne({
   sessionId,
   onSchliessen,
   anzeige = UEBERSPRUNGEN_ANZEIGE,
-}: PraesentationProps & { p: PraesentationDaten; satz: Bausteinsatz }): JSX.Element {
+  v4,
+}: PraesentationProps & { p: PraesentationDaten; satz: Bausteinsatz; v4: PraesentationV4 | null }): JSX.Element {
   const { t } = useTranslation('praesentation')
   const s = useStationen()
   const amIntro = s.aktuell === 0 && !s.introWeg
@@ -145,12 +165,13 @@ function Buehne({
         laeuftNoch={p.laeuftNoch}
         onLogo={() => s.springe(1)}
         onSchliessen={onSchliessen}
+        v4={v4 !== null}
       />
-      <Leiste aktuell={s.aktuell} onSprung={s.springe} />
+      <Leiste aktuell={s.aktuell} onSprung={s.springe} v4={v4 !== null} />
       <main ref={s.flussRef} className="tp-fluss" tabIndex={-1}>
         <Intro name={p.name} fach={p.fach} weg={s.introWeg} introRef={s.introRef} onLos={() => s.springe(1)} />
         {STATIONEN.map((n) => {
-          const Station = STATION[n]
+          const Station = (v4 ? STATION_V4 : STATION)[n]
           const klassen = ['tp-station']
           if (s.betreten[n - 1]) klassen.push('entered')
           if (s.fertig[n - 1]) klassen.push('motion-complete')
@@ -160,9 +181,9 @@ function Buehne({
               ref={s.stationRef(n)}
               className={klassen.join(' ')}
               data-station={n}
-              aria-label={t(`leiste.station.${n}`)}
+              aria-label={stationsName(t, n, v4 !== null)}
             >
-              <Station p={p} anzeige={anzeige} satz={satz} sessionId={sessionId} />
+              <Station p={p} anzeige={anzeige} satz={satz} sessionId={sessionId} v4={v4} />
             </section>
           )
         })}

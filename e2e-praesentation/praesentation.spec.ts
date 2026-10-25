@@ -85,7 +85,8 @@ for (const fall of Object.keys(PRAESENTATION_FAELLE)) {
           await geheZu(page, n)
           expect(await verstoesse(page, n), `Station ${nn(n)}`).toEqual([])
           expect(await kleineZiele(page), `Station ${nn(n)}`).toEqual([])
-          if (n === 3) {
+          const klassenarbeiten = (await page.getByTestId('tp-ka-raster').count()) > 0
+          if (n === 3 && !klassenarbeiten) {
             // PS-1: Standard ist die Kette; Foto davon, dann die volle Karte prüfen.
             const ganz = page.getByTestId('tp-s3-ganz')
             if (await ganz.count()) {

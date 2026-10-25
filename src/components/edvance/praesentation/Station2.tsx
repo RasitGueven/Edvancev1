@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { anzeigeZahlen, PROFIL_SOFORT, profilReihenfolge } from '@/lib/report/praesentation/praesentation'
 
+import { Eckdaten } from './Eckdaten'
 import { Kicker } from './Kicker'
 import { Profilzeile } from './Profilzeile'
 import type { StationProps } from './stationProps'
+import { nachKlassenstufe } from './v4Profil'
 
 /** So lange öffnet sich ein Detail (station2.css), danach wird die Zeile geholt. */
 const OEFFNEN_MS = 400
@@ -18,7 +20,7 @@ const OEFFNEN_MS = 400
  * Höchstens ein Detail ist offen; beim Öffnen wird die Zeile in den sichtbaren
  * Bereich der Liste geholt. Die Liste darf dann in sich scrollen, die Station nicht.
  */
-export function Station2({ p, anzeige }: StationProps): JSX.Element {
+export function Station2({ p, anzeige, v4 }: StationProps): JSX.Element {
   const { t } = useTranslation('praesentation')
   const { t: tb } = useTranslation('elternbericht')
   const [offen, setOffen] = useState<number | null>(null)
@@ -28,8 +30,9 @@ export function Station2({ p, anzeige }: StationProps): JSX.Element {
   const listeRef = useRef<HTMLDivElement>(null)
   const zahlen = anzeigeZahlen(p.zahlen, anzeige)
   const uebersprungen = p.zahlen.uebersprungen > 0
-  const zeilen = profilReihenfolge(p)
-  const sichtbar = alle ? zeilen : zeilen.slice(0, PROFIL_SOFORT)
+  // V4: aufsteigend nach Klassenstufe, alle Felder (die Liste scrollt in sich).
+  const zeilen = v4 ? nachKlassenstufe(p.zeilen) : profilReihenfolge(p)
+  const sichtbar = alle || v4 ? zeilen : zeilen.slice(0, PROFIL_SOFORT)
 
   useEffect(() => {
     if (offen === null) return
@@ -44,14 +47,24 @@ export function Station2({ p, anzeige }: StationProps): JSX.Element {
   }
 
   return (
-    <div className={anzeige === 'getrennt' ? 'tp-szene tp-s2 tp-s2-getrennt' : 'tp-szene tp-s2'}>
+    <div className={`tp-szene tp-s2${anzeige === 'getrennt' ? ' tp-s2-getrennt' : ''}${v4 ? ' tp-s2-v4' : ''}`}>
       <div className="tp-s2-kopf">
         <Kicker nummer={2}>{t('s2.kicker')}</Kicker>
         <h2 className="tp-titel tp-reveal" data-tp-pflicht="">
-          {t('s2.titel')}
+          {v4 ? t(p.wessen ? 'v4.s2.titel' : 'v4.s2.titelOhneName', { wessen: p.wessen }) : t('s2.titel')}
         </h2>
+        {v4?.minuten != null && (
+          <p className="tp-desc tp-reveal" data-testid="tp-s2-desc">
+            {p.name
+              ? t('v4.s2.desc', { name: p.name, minuten: v4.minuten, aufgaben: v4.aufgaben })
+              : t('v4.s2.descOhneName', { minuten: v4.minuten, aufgaben: v4.aufgaben })}
+          </p>
+        )}
       </div>
 
+      {v4 && <Eckdaten aufgaben={v4.aufgaben} p={p} anzeige={anzeige} />}
+
+      {!v4 && (
       <div className="tp-s2-tafel">
         <div className="tp-s2-zahlen">
           <p className="tp-s2-zahl tp-s2-zahl-sicher tp-reveal" data-testid="tp-s2-zahl-sicher">
@@ -84,6 +97,7 @@ export function Station2({ p, anzeige }: StationProps): JSX.Element {
           </p>
         )}
       </div>
+      )}
 
       <section className="tp-s2-profil tp-reveal">
         <div className="tp-s2-profil-kopf">
@@ -96,11 +110,12 @@ export function Station2({ p, anzeige }: StationProps): JSX.Element {
               zeile={zeile}
               index={i}
               anzeige={anzeige}
+              v4={v4}
               offen={offen === i}
               onUmschalten={() => setOffen((o) => (o === i ? null : i))}
             />
           ))}
-          {zeilen.length > PROFIL_SOFORT && (
+          {!v4 && zeilen.length > PROFIL_SOFORT && (
             <button
               type="button"
               className="tp-s2-alle"

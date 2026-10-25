@@ -1,0 +1,242 @@
+/* Tablet-Präsentation · Station 04 Förderansatz (V4): fester Kasten rechts,
+   blaue Kugel „Sorgfalt“. Baut auf station4.css und station4-kurve.css auf
+   (Kurve, Punkte, Empfehlung). Muster: docs/report/v4/praesentation-v4-dummy.html
+   (.focus, .fview, .fv-*). Der Kasten hat eine feste Höhe aus dem CSS; sein
+   Inhalt wechselt nur. Verlauf nur für die Kugel. */
+
+.tp .tp-s4v .tp-titel {
+  margin: 14px 0 8px;
+  font-size: clamp(32px, 3.9vw, 56px);
+}
+
+.tp .tp-s4v-layout {
+  flex: 1 1 0;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr);
+  align-content: center;
+  margin-top: 12px;
+  align-items: center;
+}
+
+/* Blaue Kugel: dieselbe Form wie die goldene, Farben nur aus Tokens. */
+.tp .tp-s4-punkt-sorgfalt .tp-s4-kugel,
+.tp .tp-s4-punkt-sorgfalt[aria-selected='true'] .tp-s4-kugel {
+  background: radial-gradient(
+    circle at 32% 28%,
+    var(--color-eb-navy-wash) 0%,
+    var(--color-eb-zukunft-rand) 50%,
+    var(--color-eb-navy-hell) 100%
+  );
+}
+
+.tp .tp-s4-punkt-sorgfalt[aria-selected='true'] .tp-s4-kugel {
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--color-eb-navy-hell) 24%, transparent),
+    0 6px 16px color-mix(in srgb, var(--color-eb-navy) 22%, transparent);
+}
+
+.tp .tp-s4-punkt-sorgfalt .tp-s4-kugel::after {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-eb-navy-hell) 30%, transparent) 0%,
+    color-mix(in srgb, var(--color-eb-navy-hell) 8%, transparent) 55%,
+    transparent 72%
+  );
+}
+
+/* ─── Der feste Kasten ──────────────────────────────────────────────────── */
+
+.tp .tp-s4v-kasten {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  max-height: 460px;
+  min-height: 0;
+  padding: 20px 24px 14px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 24px;
+  background: var(--color-eb-weiss);
+}
+
+.tp .tp-s4v-kasten:focus-visible {
+  outline: 3px solid var(--color-tp-fokus);
+  outline-offset: 3px;
+}
+
+.tp .tp-s4v-inhalt {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  animation: tp-blenden .35s var(--tp-ease) both;
+}
+
+.tp .tp-s4v-kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tp .tp-s4v-kopf .tp-etikett {
+  flex: none;
+  color: var(--color-eb-leise);
+}
+
+.tp .tp-s4v-pille {
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-eb-uebung) 14%, transparent);
+  color: var(--color-eb-uebung-text);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.tp .tp-s4v-pille-sorgfalt {
+  background: var(--color-eb-navy-wash);
+  color: var(--color-eb-navy);
+}
+
+.tp .tp-s4v-kasten h3 {
+  margin: 0;
+  color: var(--color-eb-navy);
+  font-family: var(--font-eb-titel);
+  font-size: clamp(22px, 2.3vw, 30px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -.04em;
+}
+
+.tp .tp-s4v-grund {
+  margin: 0;
+  color: var(--color-eb-text);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.tp .tp-s4v-spalten {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tp .tp-s4v-spalten:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.tp .tp-s4v-spalte {
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+
+.tp .tp-s4v-spalte-sitzt { background: var(--color-eb-mint); }
+.tp .tp-s4v-spalte-angehen { background: color-mix(in srgb, var(--color-eb-uebung) 14%, transparent); }
+
+.tp .tp-s4v-spalte h4 {
+  margin: 0 0 6px;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.tp .tp-s4v-spalte-sitzt h4 { color: var(--color-eb-sicher-text); }
+.tp .tp-s4v-spalte-angehen h4 { color: var(--color-eb-uebung-text); }
+
+.tp .tp-s4v-spalte ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s4v-spalte li {
+  color: var(--color-eb-tinte);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.tp .tp-s4v-spalte .tp-s4v-weitere {
+  color: var(--color-eb-leise);
+}
+
+.tp .tp-s4v-ziel {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-eb-linie);
+  color: var(--color-eb-navy);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tp .tp-s4v-bedienung {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tp .tp-s4v-bedienung span {
+  color: var(--color-eb-leise);
+  font-size: 11px;
+}
+
+.tp .tp-s4v-knopf {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 12px;
+  background: var(--color-eb-papier);
+  color: var(--color-eb-navy);
+  font-size: 13px;
+}
+
+.tp .tp-s4v-knopf:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+/* ─── Geräte ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp .tp-s4v-layout {
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .tp .tp-s4v-kasten {
+    padding: 18px 20px 12px;
+  }
+}
+
+@media (max-height: 760px) {
+  .tp .tp-s4v-kasten {
+    gap: 6px;
+  }
+
+  .tp .tp-s4v-inhalt {
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp .tp-s4v-inhalt {
+    animation: none !important;
+  }
+}
+
+/* Lange Titel brechen früher um, damit die Beschriftung links oben vom Punkt
+   nicht in den absteigenden Ast der Kurve ragt. */
+.tp .tp-s4v-layout .tp-s4-seite-linksOben .tp-s4-label {
+  max-width: 27cqw;
+}

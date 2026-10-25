@@ -297,6 +297,9 @@ export async function getReportData(
     // AUFGABEN, nicht Antwortzeilen: zwei Teilaufgaben desselben Items sind
     // eine Aufgabe. Dieselbe Zaehlweise nutzt lsa_fehlbild_auswertung.
     const aufgaben = new Set((responses ?? []).map((r) => r.task_id as string)).size
+    // Bericht v4: Bearbeitungszeit (Summe der Antwortzeiten), nicht die Wanduhr.
+    const ms = (responses ?? []).reduce((n, r) => n + (Number(r.duration_ms) || 0), 0)
+    const dauerMinuten = ms > 0 ? Math.max(1, Math.round(ms / 60000)) : null
 
     const kontext = (await loadLeadKontext([row.student_id])).get(row.student_id)
 
@@ -315,6 +318,7 @@ export async function getReportData(
         analysedAt,
         testlauf: row.testlauf === true,
         aufgaben,
+        dauerMinuten,
         naechstesThema: await naechstesThemaAus(kontext),
         schulform: await loadSchulform(row.student_id),
         auswertbar: !nichtAuswertbar.has(row.id),
