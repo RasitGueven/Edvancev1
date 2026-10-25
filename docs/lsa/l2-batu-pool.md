@@ -142,7 +142,7 @@ gibt es im freien Pool **keine** gleichen Texte (eigene Abfrage, 0 Treffer).
 | zahl_wurzel_quadrat | 2 | 5af76250 | berechne √#. gib das ergebnis exakt an. |
 | zahl_wurzel_teilweise | 3 | a14fb589 | es gilt √# = a · √#. bestimme a. a ist eine natürliche zahl. gib a exa |
 
-**23 Gruppen in 18 Skills**, 71 von 123 freien Aufgaben mit Skill liegen in einer solchen Gruppe. Am stärksten:
+**23 Gruppen in 18 Skills**, 71 von 121 freien Aufgaben mit Skill (134 frei, 13 davon ohne Skill) liegen in einer solchen Gruppe. Am stärksten:
 `potenzen` (5× „Berechne. #² = ?“, 4× „#³“), `runden_ueberschlag` (6× „Runde auf eine Nachkommastelle“). Für
 einen Zweitbeleg zieht die Auswahl heute die nächste freie Aufgabe desselben Skills — in diesen Skills oft
 dieselbe Aufgabe mit anderen Zahlen. In Batus Testlauf vom 24.10. kam das nicht vor (34 Aufgaben, alle

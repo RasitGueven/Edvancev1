@@ -9,6 +9,8 @@
 --   d) Auch über Skills hinweg: eine Aufgabe, deren Text einer ausgegebenen gleicht, wird übersprungen.
 --   e) Nie drei Aufgaben desselben Skills hintereinander, in jeder Folge dieses Tests.
 --   f) Vorschau: der Rand der dritten kommenden Klassenarbeit kommt dran (c_vorschau_themen = 3).
+--   g) Ohne Text (Inhalt nur in Payload oder Bild) kein Schlüssel: solche Aufgaben gleichen nichts.
+--   h) Zweitbeleg nach MC richtig, nur Fast-Duplikate übrig: entfällt, Urteil traegt mit einer Probe.
 --
 -- Isoliert wie lsa_v2_ausblick (eigener Graph, tasks.skill_key -> NULL). Antworten über lsa_submit: r richtig,
 -- f falsch (NUMERIC 5/7, MC a/b).
@@ -25,7 +27,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(16);
+select plan(19);
 
 -- --- a) lsa_text_schluessel ---------------------------------------------------
 select is(public.lsa_text_schluessel('Berechne 2 + 3.', '[]'), public.lsa_text_schluessel('  BERECHNE   14 + 3,5. ', null),
@@ -43,6 +45,9 @@ select ok(not has_function_privilege('authenticated', 'public.lsa_text_schluesse
           and not has_function_privilege('anon', 'public.lsa_ausgegebene_schluessel(uuid)', 'execute'),
   'a: keine Rechte für anon und authenticated');
 
+select is(public.lsa_text_schluessel('  ', '[{"nr":1}]'), null, 'g: ohne Text kein Schlüssel');
+select is(public.lsa_text_schluessel(null, null), null, 'g: question und parts leer: kein Schlüssel');
+
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
 delete from thema_einstieg;
@@ -54,16 +59,17 @@ delete from skills;
 insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe)
 select k, upper(k), 'mathematik', kl, tf from (values
   ('zl_a', 8, 3), ('zl_b', 8, 2), ('zl_c', 8, 1), ('zl_u1s', 8, 2), ('zl_u2s', 8, 2), ('zl_u3s', 8, 2),
-  ('zl_ra', 7, 1), ('zl_rb', 7, 1), ('zl_rc', 7, 1)) v(k, kl, tf);
+  ('zl_ra', 7, 1), ('zl_rb', 7, 1), ('zl_rc', 7, 1), ('zl_m', 8, 1)) v(k, kl, tf);
 insert into skill_kante (skill_key, voraussetzt_skill_key) values
   ('zl_u1s', 'zl_ra'), ('zl_u2s', 'zl_rb'), ('zl_u3s', 'zl_rc');
 
 insert into themen (thema_key, fach, klasse, label, stufe, sort) values
   ('zl_akt', 'mathematik', 8, 'ZL aktuell', 'erste', 8010), ('zl_u1', 'mathematik', 8, 'ZL U1', 'erste', 8020),
-  ('zl_u2', 'mathematik', 8, 'ZL U2', 'erste', 8030), ('zl_u3', 'mathematik', 8, 'ZL U3', 'erste', 8040);
+  ('zl_u2', 'mathematik', 8, 'ZL U2', 'erste', 8030), ('zl_u3', 'mathematik', 8, 'ZL U3', 'erste', 8040),
+  ('zl_mc', 'mathematik', 8, 'ZL MC', 'erste', 8050);
 insert into skill_thema (skill_key, thema_key) values
   ('zl_a', 'zl_akt'), ('zl_b', 'zl_akt'), ('zl_c', 'zl_akt'),
-  ('zl_u1s', 'zl_u1'), ('zl_u2s', 'zl_u2'), ('zl_u3s', 'zl_u3');
+  ('zl_u1s', 'zl_u1'), ('zl_u2s', 'zl_u2'), ('zl_u3s', 'zl_u3'), ('zl_m', 'zl_mc');
 insert into thema_einstieg (thema_key, skill_key) select thema_key, skill_key from skill_thema
  where skill_key like 'zl_%';
 
@@ -78,8 +84,17 @@ select (select c.id from skill_clusters c join subjects sub on sub.id = c.subjec
                ('zl_c', 'Berechne 1 + 4.', 'c1', 1), ('zl_c', 'Rechne aus: 1 + 4', 'c2', 2),
                ('zl_ra', 'Rand A: 2 + 3', 'ra', 1), ('zl_rb', 'Rand B: 2 + 3', 'rb', 1),
                ('zl_rc', 'Rand C: 2 + 3', 'rc', 1)) v(sk, q, ref, rang);
+-- zl_m (Thema zl_mc): zwei MC-Aufgaben, Fast-Duplikate.
+insert into tasks (cluster_id, content_type, input_type, status, question, question_payload, source, source_ref,
+                   skill_key, sondierrang, class_level)
+select (select c.id from skill_clusters c join subjects sub on sub.id = c.subject_id
+         where sub.name = 'Mathematik' order by c.sort_order limit 1),
+       'exercise', 'MC', 'ready', v.q, '{"input_type":"MC","options":[{"id":"a","label":"5"},{"id":"b","label":"7"}]}'::jsonb,
+       'test', 'zl-' || v.ref, 'zl_m', v.rang, 8
+  from (values ('Welche Zahl ist 2 + 3?', 'm1', 1), ('Welche Zahl ist 1 + 4?', 'm2', 2)) v(q, ref, rang);
 insert into task_solutions (task_id, correct_answers)
-select id, '["5"]'::jsonb from tasks where source = 'test' and source_ref like 'zl-%';
+select id, case when input_type = 'MC' then '["a"]' else '["5"]' end::jsonb
+  from tasks where source = 'test' and source_ref like 'zl-%';
 
 -- --- Schule, Plan, Kind ---------------------------------------------------------
 \set admin_uid 'dddddddd-dddd-dddd-dddd-0000000000c3'
@@ -185,6 +200,25 @@ select (public.lsa_start(:'k2', 8, 'Mathematik', 'adaptiv', pg_temp.t0()) ->> 's
 select pg_temp.folge(:'s2', 'ffffffffff') as f2 \gset
 select ok(pg_temp.laengster_lauf(:'f2') <= 2 and :'f2' like 'a1,a3,%',
   'e: Folge 2 (alles falsch) — nach dem Zweitbeleg nie eine dritte Aufgabe desselben Skills: ' || :'f2');
+
+-- ============================================================================
+-- h) MC richtig, Zweitbeleg nur als Fast-Duplikat: entfällt
+-- ============================================================================
+create function pg_temp.kind_mc() returns uuid language plpgsql as $$
+declare v_lead uuid; v_student uuid;
+begin
+  insert into leads (full_name, class_level, status) values ('ZL Kind MC', 8, 'contacted') returning id into v_lead;
+  insert into lead_themen (lead_id, fach, thema_key, status, quelle) values (v_lead, 'mathematik', 'zl_mc', 'aktuell', 'gespraech');
+  perform set_config('edvance.allow_provisional', '1', true);
+  insert into students (class_level, is_provisional, lead_id) values (8, true, v_lead) returning id into v_student;
+  return v_student;
+end $$;
+select pg_temp.kind_mc() as k3 \gset
+select (public.lsa_start(:'k3', 8, 'Mathematik', 'adaptiv', pg_temp.t0()) ->> 'session_id')::uuid as s3 \gset
+select public.lsa_submit(:'s3', pg_temp.offen(:'s3'), '{"selected":["a"]}'::jsonb, 1000, pg_temp.t0() + interval '1 minute')
+  is not null as gesendet \gset
+select is(pg_temp.urteil(:'s3', 'zl_m'), 'traegt/1/final',
+  'h: MC richtig, als Zweitbeleg nur „Welche Zahl ist 1 + 4?“ (Fast-Duplikat) — Zweitbeleg entfällt, traegt mit einer Probe');
 
 select * from finish();
 rollback;

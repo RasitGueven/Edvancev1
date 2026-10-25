@@ -4,10 +4,10 @@
 -- docs/lsa/l2-simulation.md (vorher/nachher im CI-Neuaufbau).
 --
 -- A. Fast-Duplikate: In einer Sitzung kommt keine Aufgabe, deren normalisierter Text (klein, Zahlen → #, Leerraum
---    zusammengefasst; question und die prompts der parts) dem einer schon ausgegebenen Aufgabe gleicht. Der
---    freie Pool hat 23 solche Gruppen in 18 Skills (potenzen: 5× „Berechne. #² = ?“). Umgesetzt an beiden Stellen,
---    die heute lsa_ausgegeben ausschließen: lsa_freie_aufgabe (alle Phasen) und Schritt 5 in lsa_select_next_core,
---    beide über lsa_text_schluessel. Bleiben für einen Zweitbeleg nur Fast-Duplikate, findet lsa_freie_aufgabe
+--    zusammengefasst; question und die prompts der parts) dem einer schon ausgegebenen Aufgabe gleicht.
+--    Aufgaben ohne Text haben keinen Schlüssel und gleichen nichts. Der freie Pool hat 23 solche Gruppen in
+--    18 Skills (potenzen: 5× „Berechne. #² = ?“). Umgesetzt an beiden Stellen, die heute
+--    lsa_ausgegeben ausschließen: lsa_freie_aufgabe (alle Phasen) und Schritt 5 in lsa_select_next_core, beide über lsa_text_schluessel. Bleiben für einen Zweitbeleg nur Fast-Duplikate, findet lsa_freie_aufgabe
 --    nichts, und der Zweitbeleg entfällt wie heute bei leerem Pool (Urteil mit einer Probe).
 -- B. Nie drei Aufgaben desselben Skills hintereinander: gilt schon (ein Skill hat höchstens zwei Proben, danach
 --    ein finales Urteil, und jede Phase schließt Skills mit Urteil aus). Nur per Test abgesichert.
@@ -30,13 +30,14 @@ immutable
 parallel safe
 set search_path to 'public'
 as $$
-  select md5(btrim(regexp_replace(regexp_replace(lower(
+  -- Ohne Text (Inhalt nur in Payload oder Bild) kein Schlüssel: null gleicht nichts (lsa_freie_aufgabe, Schritt 5).
+  select md5(nullif(btrim(regexp_replace(regexp_replace(lower(
            coalesce(p_question, '') || ' ' ||
            coalesce((select string_agg(e.p ->> 'prompt', ' ' order by e.nr)
                        from jsonb_array_elements(case when jsonb_typeof(p_parts) = 'array' then p_parts
                                                       else '[]'::jsonb end) with ordinality e(p, nr)), '')),
            '[0-9]+([.,][0-9]+)*', '#', 'g'),
-         '[[:space:]]+', ' ', 'g')))
+         '[[:space:]]+', ' ', 'g')), ''))
 $$;
 
 revoke all on function public.lsa_text_schluessel(text, jsonb) from public, anon, authenticated;
@@ -48,7 +49,8 @@ stable
 security definer
 set search_path to 'public'
 as $$
-  select coalesce(array_agg(distinct public.lsa_text_schluessel(t.question, t.parts)), '{}')
+  select coalesce(array_agg(distinct public.lsa_text_schluessel(t.question, t.parts))
+                    filter (where public.lsa_text_schluessel(t.question, t.parts) is not null), '{}')
     from lsa_ausgegeben a join tasks t on t.id = a.task_id
    where a.session_id = p_session_id
 $$;
@@ -77,7 +79,7 @@ begin
      where t.skill_key = p_skill_key
        and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id and a.task_id = t.id)
        and not exists (select 1 from lsa_responses r  where r.session_id = p_session_id and r.task_id = t.id)
-       and not public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel)  -- LSA-L2
+       and not coalesce(public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel), false)  -- LSA-L2
      order by (case when p_nonmc_zuerst and t.input_type <> 'MC' then 0 else 1 end),
               t.sondierrang nulls last,
               md5(p_session_id::text || t.id::text)
@@ -587,7 +589,7 @@ begin
         join skills s on s.skill_key = t.skill_key
        where s.klasse_herkunft <= v_sess.grade
          and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id and a.task_id = t.id)
-         and not public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel)
+         and not coalesce(public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel), false)
          and not exists (select 1 from lsa_responses r  where r.session_id = p_session_id and r.task_id = t.id)
          and not exists (
                select 1 from lsa_skill_urteil u

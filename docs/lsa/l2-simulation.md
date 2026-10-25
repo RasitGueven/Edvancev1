@@ -14,7 +14,7 @@ Migrationen, nie Prod). Drei Stände:
 
 Je Stand zwei Pools:
 
-- **Prod-Pool** (`l2-fixture.sql`): genau die 136 freigegebenen Prod-Aufgaben (id, Skill, Eingabeart, Sondierrang,
+- **Prod-Pool** (`l2-fixture.sql`): genau die 134 freigegebenen Prod-Aufgaben (Stand der Messung) (id, Skill, Eingabeart, Sondierrang,
   Text-Hash aus `l2-pool-fixture.sql`; Inhalte nicht nötig). So sieht die LSA für ein echtes Kind heute aus.
 - **Neuaufbau-Pool** (`neuaufbau-fixture.sql`): drei Aufgaben je Skill, keine Fast-Duplikate. So sähe sie mit
   vollem Pool aus.
@@ -275,8 +275,8 @@ entspricht das in Prod etwa 25–40 ms je „Weiter“, wie bei LSA-V2.
 
 ## 8. Tests
 
-- `supabase/tests/lsa_l2_wiederholung.test.sql` (16): Schlüssel, Zweitbeleg ohne Fast-Duplikat, Zweitbeleg entfällt
-  bei nur Fast-Duplikaten, Fast-Duplikat über Skills hinweg übersprungen, nie drei Aufgaben eines Skills
+- `supabase/tests/lsa_l2_wiederholung.test.sql` (19): Schlüssel (ohne Text kein Schlüssel), Zweitbeleg ohne Fast-Duplikat, Zweitbeleg entfällt
+  bei nur Fast-Duplikaten (auch nach MC richtig), Fast-Duplikat über Skills hinweg übersprungen, nie drei Aufgaben eines Skills
   hintereinander, Rand der dritten kommenden Klassenarbeit geprüft, Rechte.
 - Sechs bestehende LSA-Tests geben jeder Aufgabe ihrer Fixture einen eigenen Text (eine Zeile je Test): Ihre
   Fixtures nutzten überall „Wie viel ist 2 + 3?“, und nach Regel A wäre jede weitere Aufgabe ein Fast-Duplikat der
