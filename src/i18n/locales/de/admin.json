@@ -84,6 +84,30 @@
         "rueckfragen_other": "{{count}} Rückfragen von Lena",
         "rueckfragenSub": "als „Unsicher“ markiert",
         "unsicher": "Unsicher"
+      },
+      "freigabeliste": {
+        "titel": "Batus Freigabeliste",
+        "unterzeile": "Freigaben, die für die LSA noch fehlen",
+        "fehler": "Stand konnte nicht vollständig geladen werden",
+        "laedt": "Stand wird geladen …",
+        "leer": "alles freigegeben",
+        "block": {
+          "grundlage": "Thema und Grundlagen",
+          "ka2": "Nächste Klassenarbeit (KA2)",
+          "rueckblick": "Rückblick Klasse 7/8",
+          "ausblick": "Ausblick"
+        },
+        "bereiche_one": "{{count}} Bereich",
+        "bereiche_other": "{{count}} Bereiche",
+        "lena_one": "Lena prüft noch {{count}}",
+        "lena_other": "Lena prüft noch {{count}}",
+        "ohneMc": "ohne MC fehlt: {{bereiche}}",
+        "fehlt_one": "{{count}} offen",
+        "fehlt_other": "{{count}} offen",
+        "wartend_one": "{{count}} Aufgabe von Lena geprüft",
+        "wartend_other": "{{count}} Aufgaben von Lena geprüft",
+        "wartendSub": "wartet auf deine Freigabe",
+        "fuss": "Zu Lenas Prüfansicht"
       }
     },
     "betrieb": {
