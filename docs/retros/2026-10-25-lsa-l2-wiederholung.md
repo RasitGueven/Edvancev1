@@ -26,7 +26,7 @@ Bauauftrag `docs/lsa/Bauauftrag-L2.md` (Freigabe Rasit für Einspielen und Merge
 - **Kein Index, keine Spalte:** `lsa_select_next_core` höchstens 6,3 ms (vorher 6,0).
 - **C auf 3:** Bedingungen erfüllt (Themenraum gleich, ≤ 40, keine Verlängerung). Batu selbst gewinnt nichts, weil
   seine KA4-Voraussetzungen mitbelegt sind; ehrlich im Simulationsbericht vermerkt.
-- **Migration über 400 Zeilen** (605): Sie muss `lsa_select_next_core` vollständig ersetzen; wie bei LSA-V/V2.
+- **Migration über 400 Zeilen** (607): Sie muss `lsa_select_next_core` vollständig ersetzen; wie bei LSA-V/V2.
 
 ## Zweitprüfung
 
