@@ -1,16 +1,16 @@
 // Bericht v2, Seite 1: „Ihr Anliegen“ mit der Antwort der Analyse und der
 // Startsatz — über den ganzen Bogen, damit die Rechnung dieselbe ist wie im Druck.
-import { render, within } from '@testing-library/react'
+import { within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import '@/i18n'
+import { renderOhneFahrplan } from '@/test/elternberichtOhneFahrplan'
 
-import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import de from '@/i18n/locales/de/elternbericht.json'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import type { ReportData, ReportErstgespraech, ReportFehlbild } from '@/types'
 
 function seite1(data: ReportData) {
-  const { container } = render(<ElternberichtBogen data={data} notes={null} tiers={[]} />)
+  const { container } = renderOhneFahrplan(data)
   const el = container.querySelector<HTMLElement>('.eb-seite[data-seite="1"]')!
   return { ...within(el), el }
 }

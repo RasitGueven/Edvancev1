@@ -1,0 +1,103 @@
+/* Eltern-Bericht v4 · Seite 2 (Bauauftrag V4, V4-2). Maße in pt, Farben nur
+   aus --color-eb-*. Tönungen als Pseudo-Elemente mit geringer Deckkraft
+   (INV-4.11: kein color-mix); `--ton` und `--ton-text` kommen aus v4-rahmen.css. */
+
+/* ─── Seite 2: „Wichtig für“ ──────────────────────────────────────────────── */
+
+.eb-s2-profil-kopf-v4 {
+  height: 50pt;
+}
+.eb-s2-zeile-w {
+  padding: 7pt 0 6pt;
+}
+.eb-s2-zeile-w + .eb-s2-zeile-w {
+  border-top: 0.55pt solid var(--color-eb-linie-zart);
+}
+.eb-s2-wichtig {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3pt 4pt;
+  margin-top: 3pt;
+  font-size: 7.4pt;
+  line-height: 10pt;
+  color: var(--color-eb-text);
+}
+.eb-s2-wichtig-label {
+  margin-right: 2pt;
+}
+.eb-s2-marke {
+  display: inline-flex;
+  gap: 4pt;
+  max-width: 100%;
+  padding: 1.5pt 7pt;
+  color: var(--color-eb-navy);
+  background: var(--color-eb-navy-wash);
+  border-radius: 7pt;
+}
+.eb-s2-marke b {
+  font-weight: 600;
+}
+.eb-s2-marke-naechste {
+  color: var(--color-eb-weiss);
+  background: var(--color-eb-navy);
+}
+.eb-s2-wichtig-spaeter {
+  color: var(--color-eb-leise);
+}
+.eb-s2-segment-nummer {
+  fill: var(--color-eb-navy-wash);
+  stroke: var(--color-eb-navy-hell);
+  stroke-width: 0.6;
+}
+.eb-s2-deutung-v4 {
+  display: block;
+  margin-top: 12pt;
+  padding: 9pt 12pt 10pt;
+  background: var(--color-eb-mint);
+  border-radius: 11pt;
+}
+.eb-s2-deutung-v4 .eb-s2-deutung-kicker {
+  margin-top: 0;
+  color: var(--color-eb-sicher-text);
+}
+.eb-s2-deutung-v4 .eb-s2-deutung-text {
+  margin-top: 4pt;
+}
+.eb-s2-deutung-v4 .eb-s2-fussnote {
+  margin-top: 6pt;
+}
+.eb-s2-eng .eb-s2-deutung-v4 {
+  margin-top: 8pt;
+}
+
+/* Läuft Seite 2 über (useStufe): Zahlen, Karten und Zeilen rücken zusammen. */
+.eb-s2-v4[data-stufe] .eb-s2-titel {
+  margin-top: 10pt;
+  font-size: 23pt;
+  line-height: 27pt;
+}
+.eb-s2-v4[data-stufe] .eb-s2-zahlen {
+  margin-top: 6pt;
+}
+.eb-s2-v4[data-stufe] .eb-s2-warum {
+  margin-top: 8pt;
+  padding-block: 6pt 7pt;
+}
+.eb-s2-v4[data-stufe] .eb-s2-warum + .eb-s2-profil,
+.eb-s2-v4[data-stufe] .eb-s2-profil {
+  margin-top: 8pt;
+}
+.eb-s2-v4[data-stufe] .eb-s2-zeile-w {
+  padding-block: 5pt 4pt;
+}
+.eb-s2-v4[data-stufe] .eb-s2-deutung-v4 {
+  margin-top: 6pt;
+  padding-block: 6pt 7pt;
+}
+.eb-s2-v4[data-stufe='2'] .eb-s2-zeile-w {
+  padding-block: 3pt 2pt;
+}
+.eb-s2-v4[data-stufe='2'] .eb-s2-wichtig {
+  margin-top: 2pt;
+}

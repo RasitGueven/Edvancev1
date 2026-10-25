@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
@@ -17,6 +18,10 @@ import { Seitenleiste } from './Seitenleiste'
  * sonst schrumpfte jede Messung die Höhe um einen weiteren Faktor s. Skala und Höhe
  * sind berechnete Werte und gehen über style.setProperty (CLAUDE.md §11).
  *
+ * Bericht v4: Mit `onPreise` steht über dem Bogen ein Schalter „Preise
+ * einblenden“ (nur am Bildschirm). Der eingestellte Zustand gilt auch im Druck;
+ * er lebt als ?preise=an in der URL (ReportPage).
+ *
  * Im Druck gilt die Skala nicht: kein transform, die feste Höhe hebt
  * rahmen.css (`:has(.eb-bogen)`) auf; Leiste, Ausblick und Fläche sind
  * print-hide bzw. transparent.
@@ -27,6 +32,8 @@ export function BerichtAnsicht({
   tiers,
   bogenKey,
   ausblick,
+  preise = false,
+  onPreise,
 }: {
   data: ReportData
   /** Die Notizen, die der Bogen zeigt (entprellt, siehe ReportPage). */
@@ -36,7 +43,12 @@ export function BerichtAnsicht({
   bogenKey: string
   /** Der Ausblick (ReportOutlook) für die rechte Spalte. */
   ausblick: ReactNode
+  /** Preise je Paket auf Seite 5 zeigen (?preise=an). */
+  preise?: boolean
+  /** Ohne diesen Handler gibt es den Schalter nicht. */
+  onPreise?: (an: boolean) => void
 }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
   const huelle = useRef<HTMLDivElement>(null)
   const innen = useRef<HTMLDivElement>(null)
 
@@ -63,6 +75,23 @@ export function BerichtAnsicht({
     <div className="grid grid-cols-1 gap-6 @6xl:grid-cols-[minmax(0,1fr)_360px]">
       <div className="min-w-0 overflow-clip rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] px-4 pb-4 print:bg-transparent">
         <Seitenleiste bogen={innen} bogenKey={bogenKey} />
+        {onPreise && (
+          <div className="print-hide mb-4 flex justify-end">
+            <button
+              type="button"
+              aria-pressed={preise}
+              onClick={() => onPreise(!preise)}
+              data-testid="eb-preise-schalter"
+              className={`min-h-[44px] rounded-[var(--radius-md)] px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)] ${
+                preise
+                  ? 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
+                  : 'bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+              }`}
+            >
+              {t(preise ? 'v4.s5.preise.ausblenden' : 'v4.s5.preise.einblenden')}
+            </button>
+          </div>
+        )}
         <div
           ref={huelle}
           className="flex justify-center [&_.eb-seite]:scroll-mt-20"
@@ -73,7 +102,7 @@ export function BerichtAnsicht({
             className="origin-top self-start [transform:scale(var(--eb-skala,1))] print:[transform:none]"
             data-testid="eb-skaliert"
           >
-            <ElternberichtBogen key={bogenKey} data={data} notes={notes} tiers={tiers} />
+            <ElternberichtBogen key={bogenKey} data={data} notes={notes} tiers={tiers} preise={preise} />
           </div>
         </div>
       </div>

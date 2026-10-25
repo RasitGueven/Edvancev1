@@ -2,8 +2,8 @@
 import { render, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import '@/i18n'
+import { renderOhneFahrplan } from '@/test/elternberichtOhneFahrplan'
 
-import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { Seite3 } from '@/components/edvance/elternbericht/Seite3'
 import type { SeitenProps } from '@/components/edvance/elternbericht/seitenProps'
 import { Bausteinsatz } from '@/lib/report/bausteine'
@@ -13,7 +13,7 @@ import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import type { EbLueckenweg, Elternbericht, ReportData } from '@/types'
 
 function bogen(data: ReportData, einordnung?: EinordnungLayout) {
-  const { container } = render(<ElternberichtBogen data={data} notes={null} tiers={[]} einordnung={einordnung} />)
+  const { container } = renderOhneFahrplan(data, { einordnung })
   const seite = (n: number) => container.querySelector<HTMLElement>(`.eb-seite[data-seite="${n}"]`)!
   return { container, seite, s3: within(seite(3)) }
 }
@@ -38,7 +38,7 @@ const bericht = (d: ReportData): Elternbericht =>
 
 const propsFuer = (d: ReportData, lueckenweg?: EbLueckenweg, einordnung?: EinordnungLayout): SeitenProps => ({
   data: d,
-  bericht: lueckenweg ? { ...bericht(d), lueckenweg } : bericht(d),
+  bericht: { ...bericht(d), ...(lueckenweg ? { lueckenweg } : {}), fahrplan: null },
   satz: new Bausteinsatz([]),
   notes: null,
   tiers: [],

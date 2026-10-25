@@ -195,7 +195,8 @@ describe('profilZeilen', () => {
       const summe = zeilenVon(fall).reduce((n, x) => n + x.abgeleitet, 0)
       // ohneKanten und langeLabels sind aus abgestuft abgeleitet (R7-9), mit demselben Thema-Satz.
       const erwartet = { abgestuft: 9, abgestuftMitOffen: 5, abgestuftLang: 14, ohneKanten: 9, langeLabels: 9 }[fall as string] ?? 0
-      expect(summe, fall).toBe(erwartet)
+      // Die V4-Fälle (V4-1) sind abgestuft mit Thema; dort gilt nur die Gleichheit mit themaAbdeckung.
+      if (!/^(batu|fahrplan|allesErfuellt|ohnePlan)/.test(fall as string)) expect(summe, fall).toBe(erwartet)
       expect(summe, fall).toBe(themaAbdeckungAus(FAELLE[fall].data.erzaehlung)?.abgeleitet ?? 0)
     }
   })

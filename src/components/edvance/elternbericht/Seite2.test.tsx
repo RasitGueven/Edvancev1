@@ -2,8 +2,8 @@
 import { render, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import '@/i18n'
+import { renderOhneFahrplan } from '@/test/elternberichtOhneFahrplan'
 
-import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { Profil } from '@/components/edvance/elternbericht/Profil'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import { datenAus } from '@/lib/report/elternbericht/fixtures/basis'
@@ -11,7 +11,7 @@ import { ILKAY_ROH, ILKAY_URTEILE } from '@/lib/report/elternbericht/fixtures/il
 import type { ReportData, ThemenfeldKey } from '@/types'
 
 function seite2(data: ReportData) {
-  const { container } = render(<ElternberichtBogen data={data} notes={null} tiers={[]} />)
+  const { container } = renderOhneFahrplan(data)
   const el = container.querySelector<HTMLElement>('.eb-seite[data-seite="2"]')!
   return { ...within(el), el }
 }

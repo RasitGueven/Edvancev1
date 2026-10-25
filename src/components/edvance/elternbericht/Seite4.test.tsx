@@ -28,7 +28,7 @@ function props(
   const name = data.firstName?.trim() || null
   return {
     data,
-    bericht: { ...bericht, ...anpassen(bericht) },
+    bericht: { ...bericht, fahrplan: null, lernpfad: [], lueckenwegV4: null, ...anpassen(bericht) },
     satz: new Bausteinsatz(bausteine),
     notes,
     tiers: [],

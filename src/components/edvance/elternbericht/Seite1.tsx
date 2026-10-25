@@ -13,7 +13,12 @@ import {
   stufenUrteil,
   ursachenSaetze,
 } from './berichtSaetze'
+import { FahrplanSeite1 } from './FahrplanSeite1'
 import type { SeitenProps } from './seitenProps'
+import { useStufe } from './useStufe'
+
+/** Stufen des Verdichtens von Seite 1 mit Fahrplan. */
+const STUFEN_V4 = 2
 
 /**
  * Seite 1 des Eltern-Berichts (v2): Überblick.
@@ -23,11 +28,18 @@ import type { SeitenProps } from './seitenProps'
  * dann „Auf einen Blick“: eine Zeile je Klassenstufe, wo die Lücken liegen,
  * womit wir beginnen. Keine Listen einzelner Bereiche. Fehlt ein Datum,
  * entfällt sein Satz still.
+ *
+ * Bericht v4 (mit bericht.fahrplan): statt „Wir beginnen mit …“ der Fahrplan
+ * der Klassenarbeiten mit einem Signal je Arbeit (FahrplanSeite1); der Satz zum
+ * Sorgfalts-Muster steht im Anliegen-Kasten unter „Was die Analyse dazu zeigt“.
  */
-export function Seite1({ data, bericht, satz, name, vollerName }: SeitenProps): JSX.Element {
+export function Seite1({ data, bericht, satz, name, vollerName, wessen }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
   const stufen = bericht.stufen ?? []
+  const fahrplan = bericht.fahrplan ?? null
+  // Bericht v4: Läuft die Seite mit dem Fahrplan über, rückt sie enger zusammen (seite1 v4-rahmen.css).
+  const dicht = useStufe(fahrplan ? STUFEN_V4 : 0)
   const liste = (s: readonly string[]): string =>
     new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(s)
 
@@ -57,6 +69,17 @@ export function Seite1({ data, bericht, satz, name, vollerName }: SeitenProps): 
 
   const felder = lueckenFelder(bericht.profil)
   const start = startSatz(t, bericht.schwerpunkte[0], bericht.gruende?.[0])
+  // v4: Der Sorgfalt-Satz gehört in den Anliegen-Kasten, wenn es ihn gibt.
+  const sorgfaltImKasten = fahrplan !== null && muster?.sorgfalt === true && anliegen.length > 0
+  const antworten = sorgfaltImKasten
+    ? [...antwort, t(name ? 'v4.s1.sorgfalt' : 'v4.s1.sorgfaltOhneName', { name })]
+    : antwort
+  const blickSaetze = [
+    felder.length === 1 && t('s1.blick.luecken', { felder: t(`feldMit.${felder[0]}`) }),
+    felder.length === 2 &&
+      t('s1.blick.lueckenZwei', { erstes: t(`feldMit.${felder[0]}`), zweites: t(`feldMit.${felder[1]}`) }),
+    muster?.sorgfalt && !sorgfaltImKasten && t('s1.blick.muster'),
+  ].filter(Boolean)
 
   const datum = data.analysedAt
     ? new Intl.DateTimeFormat(i18n.language, { dateStyle: 'long', timeZone: 'Europe/Berlin' }).format(
@@ -77,7 +100,12 @@ export function Seite1({ data, bericht, satz, name, vollerName }: SeitenProps): 
   ]
 
   return (
-    <div className="eb-s1">
+    <div
+      className={fahrplan ? 'eb-s1 eb-s1-v4' : 'eb-s1'}
+      ref={dicht.ref}
+      data-stufe={dicht.wert || undefined}
+      data-v4={fahrplan ? true : undefined}
+    >
       <p className="eb-kicker eb-s1-kicker">{t('s1.kicker', { fach: data.subject })}</p>
       <h1 className="eb-titel eb-s1-titel">{titel}</h1>
 
@@ -95,10 +123,10 @@ export function Seite1({ data, bericht, satz, name, vollerName }: SeitenProps): 
           <section className="eb-s1-kasten eb-s1-anliegen" data-testid="eb-anliegen">
             <h2 className="eb-kicker">{t('s1.anliegen.kicker')}</h2>
             <p className="eb-s1-anliegen-satz">{anliegen.join(' ')}</p>
-            {antwort.length > 0 && (
+            {antworten.length > 0 && (
               <div className="eb-s1-antwort" data-testid="eb-antwort">
                 <h3 className="eb-s1-antwort-kicker">{t('s1.anliegen.antwortKicker')}</h3>
-                <p className="eb-s1-antwort-satz">{antwort.join(' ')}</p>
+                <p className="eb-s1-antwort-satz">{antworten.join(' ')}</p>
               </div>
             )}
           </section>
@@ -140,22 +168,19 @@ export function Seite1({ data, bericht, satz, name, vollerName }: SeitenProps): 
         <p className="eb-s1-zeile">
           {t('s1.blick.zeile', { untersucht: zaehlung.untersucht, sicher: zaehlung.sicher, uebung: zaehlung.uebung })}
         </p>
-        {(felder.length > 0 || muster?.sorgfalt) && (
+        {blickSaetze.length > 0 && (
           <p className="eb-s1-blick-satz" data-testid="eb-luecken-satz">
-            {[
-              felder.length === 1 && t('s1.blick.luecken', { felder: t(`feldMit.${felder[0]}`) }),
-              felder.length === 2 &&
-                t('s1.blick.lueckenZwei', { erstes: t(`feldMit.${felder[0]}`), zweites: t(`feldMit.${felder[1]}`) }),
-              muster?.sorgfalt && t('s1.blick.muster'),
-            ]
-              .filter(Boolean)
-              .join(' ')}
+            {blickSaetze.join(' ')}
           </p>
         )}
-        <p className="eb-s1-blick-satz eb-s1-start" data-testid="eb-start">
-          {start ?? t('s1.blick.ansatzKeiner')}
-        </p>
+        {!fahrplan && (
+          <p className="eb-s1-blick-satz eb-s1-start" data-testid="eb-start">
+            {start ?? t('s1.blick.ansatzKeiner')}
+          </p>
+        )}
       </section>
+
+      {fahrplan && <FahrplanSeite1 fahrplan={fahrplan} wessen={wessen} />}
     </div>
   )
 }

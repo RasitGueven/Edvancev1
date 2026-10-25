@@ -1,0 +1,478 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ohne Fahrplan wie v3 > alleFelder (Layout A): Hash je Seite 1`] = `
+[
+  "831ba0d4fc9b",
+  "76f8369ebad7",
+  "771baf02a46c",
+  "7ce023ee6d7e",
+  "badfbe1298ad",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > alleFelder (Layout B): Hash je Seite 1`] = `
+[
+  "831ba0d4fc9b",
+  "76f8369ebad7",
+  "a5ac65b9ceff",
+  "7ce023ee6d7e",
+  "badfbe1298ad",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > allesSicher (Layout A): Hash je Seite 1`] = `
+[
+  "251e7c6b4d1e",
+  "f908c05c2044",
+  "19209a49007a",
+  "64f2ca9c6fc6",
+  "90b65fb5f324",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > allesSicher (Layout B): Hash je Seite 1`] = `
+[
+  "251e7c6b4d1e",
+  "f908c05c2044",
+  "8906f3a1e122",
+  "64f2ca9c6fc6",
+  "90b65fb5f324",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > anliegenGemischt (Layout A): Hash je Seite 1`] = `
+[
+  "e14ecb48429e",
+  "0447e846751a",
+  "ba7c1106081c",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > anliegenGemischt (Layout B): Hash je Seite 1`] = `
+[
+  "e14ecb48429e",
+  "0447e846751a",
+  "c25607504a4a",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > anliegenNurUeberfach (Layout A): Hash je Seite 1`] = `
+[
+  "28433833d588",
+  "0447e846751a",
+  "ba7c1106081c",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > anliegenNurUeberfach (Layout B): Hash je Seite 1`] = `
+[
+  "28433833d588",
+  "0447e846751a",
+  "c25607504a4a",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > breiterName (Layout A): Hash je Seite 1`] = `
+[
+  "c3cf0c459288",
+  "f5aa934d2d63",
+  "ed493dfbbe83",
+  "34103b655211",
+  "43b435d57460",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > breiterName (Layout B): Hash je Seite 1`] = `
+[
+  "c3cf0c459288",
+  "f5aa934d2d63",
+  "98f293c2865b",
+  "34103b655211",
+  "43b435d57460",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > die Fälle ohne Fahrplan (ohnePlan ist dabei) 1`] = `
+[
+  "ilkay",
+  "testlauf",
+  "klasse10neu",
+  "allesSicher",
+  "nichtsSicher",
+  "sechsFelderMitUebung",
+  "alleFelder",
+  "ohneName",
+  "vieleRueckbezuege",
+  "ohneNotizen",
+  "mitFazit",
+  "fazitLang",
+  "langerName",
+  "zuLangerName",
+  "breiterName",
+  "weitereBereiche",
+  "vieleAnliegen",
+  "keinSchwerpunktMitZiel",
+  "vieleKanten",
+  "anliegenGemischt",
+  "anliegenNurUeberfach",
+  "ohnePlan",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > fazitLang (Layout A): Hash je Seite 1`] = `
+[
+  "a8c5a01a323f",
+  "a341fb928053",
+  "7b091ccf034b",
+  "298e6dd4afc0",
+  "2c2fb3ec579d",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > fazitLang (Layout B): Hash je Seite 1`] = `
+[
+  "a8c5a01a323f",
+  "a341fb928053",
+  "ab0972506083",
+  "298e6dd4afc0",
+  "2c2fb3ec579d",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ilkay (Layout A): Hash je Seite 1`] = `
+[
+  "f63f6f88414b",
+  "0447e846751a",
+  "ba7c1106081c",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ilkay (Layout B): Hash je Seite 1`] = `
+[
+  "f63f6f88414b",
+  "0447e846751a",
+  "c25607504a4a",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > keinSchwerpunktMitZiel (Layout A): Hash je Seite 1`] = `
+[
+  "251e7c6b4d1e",
+  "f908c05c2044",
+  "19209a49007a",
+  "243a4708c512",
+  "90b65fb5f324",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > keinSchwerpunktMitZiel (Layout B): Hash je Seite 1`] = `
+[
+  "251e7c6b4d1e",
+  "f908c05c2044",
+  "8906f3a1e122",
+  "243a4708c512",
+  "90b65fb5f324",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > klasse10neu (Layout A): Hash je Seite 1`] = `
+[
+  "a6a1dda30a9f",
+  "f955a99e0ca7",
+  "9a8d7d5b29bd",
+  "219905089297",
+  "66af63932cb4",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > klasse10neu (Layout B): Hash je Seite 1`] = `
+[
+  "a6a1dda30a9f",
+  "f955a99e0ca7",
+  "6c6a54442b90",
+  "219905089297",
+  "66af63932cb4",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > langerName (Layout A): Hash je Seite 1`] = `
+[
+  "0292a9a68111",
+  "0dcb2cac52cd",
+  "36d22e266a10",
+  "c8b937269596",
+  "c4d01476139a",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > langerName (Layout B): Hash je Seite 1`] = `
+[
+  "0292a9a68111",
+  "0dcb2cac52cd",
+  "cdef34505e2f",
+  "c8b937269596",
+  "c4d01476139a",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > mitFazit (Layout A): Hash je Seite 1`] = `
+[
+  "f63f6f88414b",
+  "0447e846751a",
+  "ba7c1106081c",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > mitFazit (Layout B): Hash je Seite 1`] = `
+[
+  "f63f6f88414b",
+  "0447e846751a",
+  "c25607504a4a",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > nichtsSicher (Layout A): Hash je Seite 1`] = `
+[
+  "fe6317c0f408",
+  "540ad567a243",
+  "16b475aaccd0",
+  "1388cd46fe71",
+  "f36e19911282",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > nichtsSicher (Layout B): Hash je Seite 1`] = `
+[
+  "fe6317c0f408",
+  "540ad567a243",
+  "8f37f7205c88",
+  "1388cd46fe71",
+  "f36e19911282",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohneName (Layout A): Hash je Seite 1`] = `
+[
+  "4b24ea3b091f",
+  "de19b2286752",
+  "363166152a44",
+  "ed6f67e26be7",
+  "188dab46a4d3",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohneName (Layout B): Hash je Seite 1`] = `
+[
+  "4b24ea3b091f",
+  "de19b2286752",
+  "f1d7664da5c5",
+  "ed6f67e26be7",
+  "188dab46a4d3",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohneNotizen (Layout A): Hash je Seite 1`] = `
+[
+  "f63f6f88414b",
+  "0447e846751a",
+  "ba7c1106081c",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohneNotizen (Layout B): Hash je Seite 1`] = `
+[
+  "f63f6f88414b",
+  "0447e846751a",
+  "c25607504a4a",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohnePlan (Layout A): Hash je Seite 1`] = `
+[
+  "dd1388cc6d6c",
+  "75d95cde6a45",
+  "22658d739539",
+  "e6af1c368bf0",
+  "9e2b4686aa6c",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohnePlan (Layout B): Hash je Seite 1`] = `
+[
+  "dd1388cc6d6c",
+  "75d95cde6a45",
+  "df39922a6f6e",
+  "e6af1c368bf0",
+  "9e2b4686aa6c",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > ohnePlan: das volle HTML aller fünf Seiten 1`] = `
+[
+  "<svg class="eb-kopf" viewBox="0 0 595.28 90" aria-hidden="true" data-testid="eb-kopf"><polyline class="eb-chevron" points="44,37 50,31 62,42"></polyline><text class="eb-wortmarke" x="70" y="43.4">edvance</text><g class="eb-nav" data-testid="eb-nav" role="list" aria-label="Ihr Weg durch diesen Bericht"><line class="eb-nav-linie" x1="256" y1="33" x2="520" y2="33"></line><g role="listitem" class="eb-nav-station eb-nav-aktiv" data-aktiv="true" aria-current="page"><circle class="eb-nav-punkt" cx="256" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="256" y="35.2">1</text><text class="eb-nav-name" x="256" y="53.5">Überblick</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="322" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="322" y="35.2">2</text><text class="eb-nav-name" x="322" y="53.5">Lernstand</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="388" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="388" y="35.2">3</text><text class="eb-nav-name" x="388" y="53.5">Einordnung</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="454" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="454" y="35.2">4</text><text class="eb-nav-name" x="454" y="53.5">Lernplan</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="520" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="520" y="35.2">5</text><text class="eb-nav-name" x="520" y="53.5">Nächste Schritte</text></g></g><line class="eb-kopflinie" x1="44" y1="78" x2="551" y2="78"></line></svg><div class="eb-inhalt"><div class="eb-s1"><p class="eb-kicker eb-s1-kicker">Lernstandsanalyse Mathematik</p><h1 class="eb-titel eb-s1-titel">Was wir bei Ilkay gesehen haben</h1><dl class="eb-s1-meta"><div class="eb-s1-meta-spalte"><dt>Klasse</dt><dd>9, Gymnasium</dd></div><div class="eb-s1-meta-spalte"><dt>Fach</dt><dd>Mathematik</dd></div><div class="eb-s1-meta-spalte"><dt>Umfang</dt><dd>34 Aufgaben</dd></div><div class="eb-s1-meta-spalte"><dt>Datum</dt><dd>24. Oktober 2026</dd></div></dl><div class="eb-s1-kaesten"><section class="eb-s1-kasten eb-s1-anliegen" data-testid="eb-anliegen"><h2 class="eb-kicker">Ihr Anliegen</h2><p class="eb-s1-anliegen-satz">Letzte Zeugnisnote in Mathematik: 4, zuletzt unverändert. Die Schwierigkeiten bestehen schon länger. Als Ursache vermuten Sie fehlende Grundlagen.</p><div class="eb-s1-antwort" data-testid="eb-antwort"><h3 class="eb-s1-antwort-kicker">Was die Analyse dazu zeigt</h3><p class="eb-s1-antwort-satz">Die Grundlagen aus Klasse 5/6 sitzen weitgehend. Die Lücken liegen vor allem im Stoff von Klasse 7/8.</p></div></section><section class="eb-s1-kasten eb-s1-geprueft" data-testid="eb-geprueft"><h2 class="eb-kicker">So gehen wir vor</h2><p class="eb-s1-geprueft-text">Wir starten beim aktuellen Schulthema und prüfen anhand des NRW-Lehrplans, worauf es aufbaut. Klasse 5/6 steht für die Grundlagen, Klasse 7/8 für weiterführenden Stoff, Klasse 9 für den aktuellen Stoff.</p><p class="eb-s1-geprueft-hinweis">Die nächsten Seiten zeigen, was sicher ist, wo Übungsbedarf besteht, wie das mit den kommenden Themen zusammenhängt und womit wir beginnen.</p></section></div><section class="eb-s1-blick" data-testid="eb-blick"><h2 class="eb-kicker eb-s1-blick-kicker">Auf einen Blick</h2><ul class="eb-s1-stufen" data-testid="eb-stufen"><li class="eb-s1-stufe eb-s1-stufe-weitgehend" aria-label="Klasse 5/6: 4 sicher, 1 mit Übungsbedarf"><span class="eb-s1-stufe-name">Grundlagen<small>Klasse 5/6</small></span><span class="eb-s1-stufe-punkte" aria-hidden="true"><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span></span><span class="eb-s1-stufe-urteil">sitzen weitgehend</span></li><li class="eb-s1-stufe eb-s1-stufe-luecken" aria-label="Klasse 7/8: 5 sicher, 9 mit Übungsbedarf"><span class="eb-s1-stufe-name">Weiterführend<small>Klasse 7/8</small></span><span class="eb-s1-stufe-punkte" aria-hidden="true"><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span></span><span class="eb-s1-stufe-urteil">hier liegen die Lücken</span></li><li class="eb-s1-stufe eb-s1-stufe-weitgehend" aria-label="Klasse 9: 3 sicher, 1 mit Übungsbedarf"><span class="eb-s1-stufe-name">Aktueller Stoff<small>Klasse 9</small></span><span class="eb-s1-stufe-punkte" aria-hidden="true"><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-sicher"></span><span class="eb-s1-punkt eb-s1-punkt-uebung"></span></span><span class="eb-s1-stufe-urteil">fast sicher</span></li></ul><p class="eb-s1-zeile">23 Bereiche geprüft  ·  12 sicher  ·  11 Übungsbedarf</p><p class="eb-s1-blick-satz" data-testid="eb-luecken-satz">Die Lücken liegen vor allem bei Termen und Gleichungen sowie bei der Geometrie. Ein großer Teil der Fehler spricht eher für fehlende Sorgfalt als für fehlendes Verständnis.</p><p class="eb-s1-blick-satz eb-s1-start" data-testid="eb-start">Wir beginnen mit dem Thema Reelle Zahlen und Wurzeln, weil im aktuellen Schulthema noch eine Lücke offen ist.</p></section></div></div><svg class="eb-fuss" viewBox="0 800 595.28 41.89" data-testid="eb-fuss"><line class="eb-fusslinie" x1="44" y1="810" x2="551" y2="810"></line><text class="eb-fuss-text" x="44" y="828.1">edvance  ·  Köln  ·  Lernstandsanalyse Ilkay</text><text class="eb-fuss-text eb-fuss-seite" x="551" y="828.1">1 / 5</text></svg>",
+  "<svg class="eb-kopf" viewBox="0 0 595.28 90" aria-hidden="true" data-testid="eb-kopf"><polyline class="eb-chevron" points="44,37 50,31 62,42"></polyline><text class="eb-wortmarke" x="70" y="43.4">edvance</text><g class="eb-nav" data-testid="eb-nav" role="list" aria-label="Ihr Weg durch diesen Bericht"><line class="eb-nav-linie" x1="256" y1="33" x2="520" y2="33"></line><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="256" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="256" y="35.2">1</text><text class="eb-nav-name" x="256" y="53.5">Überblick</text></g><g role="listitem" class="eb-nav-station eb-nav-aktiv" data-aktiv="true" aria-current="page"><circle class="eb-nav-punkt" cx="322" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="322" y="35.2">2</text><text class="eb-nav-name" x="322" y="53.5">Lernstand</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="388" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="388" y="35.2">3</text><text class="eb-nav-name" x="388" y="53.5">Einordnung</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="454" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="454" y="35.2">4</text><text class="eb-nav-name" x="454" y="53.5">Lernplan</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="520" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="520" y="35.2">5</text><text class="eb-nav-name" x="520" y="53.5">Nächste Schritte</text></g></g><line class="eb-kopflinie" x1="44" y1="78" x2="551" y2="78"></line></svg><div class="eb-inhalt"><div class="eb-s2 eb-s2-eng"><p class="eb-kicker eb-s2-kicker">Lernstand im Überblick</p><h1 class="eb-titel eb-s2-titel">Der Lernstand von Ilkay in den geprüften Bereichen.</h1><svg class="eb-s2-zahlen" viewBox="44 232 507 66" data-testid="eb-zahlen"><g class="eb-s2-zahl-sicher"><rect x="44" y="236" width="158" height="2.6" rx="1.3"></rect><text class="eb-s2-zahl" x="44" y="277.6">12</text><text class="eb-s2-zahl-label" x="44" y="294.4">sicher eingestuft</text></g><g class="eb-s2-zahl-uebung"><rect x="218" y="236" width="158" height="2.6" rx="1.3"></rect><text class="eb-s2-zahl" x="218" y="277.6">11</text><text class="eb-s2-zahl-label" x="218" y="294.4">Übungsbedarf</text></g><g class="eb-s2-zahl-geprueft"><rect x="392" y="236" width="158" height="2.6" rx="1.3"></rect><text class="eb-s2-zahl" x="392" y="277.6">23</text><text class="eb-s2-zahl-label" x="392" y="294.4">Bereiche geprüft</text></g></svg><section class="eb-s2-warum" data-testid="eb-warum"><h2 class="eb-kicker">Warum auch frühere Klassen?</h2><p class="eb-s2-warum-text">Mathematik baut aufeinander auf. Was in einem Thema hakt, hat seine Ursache oft in Stoff aus früheren Klassen. Deshalb haben wir auch Bereiche aus Klasse 5 bis 8 geprüft. Wie sie mit den kommenden Themen zusammenhängen, zeigt Seite 3.</p></section><section class="eb-s2-profil" data-testid="eb-profil"><svg class="eb-s2-profil-kopf" viewBox="0 0 467 63.1"><text class="eb-s2-profil-titel" x="0" y="28.9">Kompetenzprofil</text><text class="eb-s2-profil-hinweis" x="467" y="26.9">Jedes Kästchen steht für einen Bereich</text><line class="eb-s2-profil-linie" x1="0" y1="52.1" x2="467" y2="52.1"></line></svg><ul class="eb-s2-zeilen"><li class="eb-s2-zeile" data-testid="eb-profil-zeile"><span class="sr-only">Größen: 2 geprüft, davon 1 sicher und 1 mit Übungsbedarf.</span><svg class="eb-s2-zeile-bild" aria-hidden="true" width="468pt" height="40.8pt" viewBox="0 0 468 40.8"><text class="eb-s2-feld" x="0" y="9.1">Größen</text><text class="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">Klasse 5–6</text><g class="eb-s2-spur" transform="translate(165 0)"><rect class="eb-s2-segment-sicher" x="0" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="24.875" y="0" width="20.875" height="13.5" rx="3.5"></rect></g><text class="eb-s2-geprueft" x="468" y="5.5">2 geprüft</text><text class="eb-s2-teile" x="468" y="20">1 sicher · 1 Übungsbedarf</text><line class="eb-s2-zeilen-linie" x1="0" y1="31.8" x2="467" y2="31.8"></line></svg></li><li class="eb-s2-zeile" data-testid="eb-profil-zeile"><span class="sr-only">Geometrie: 8 geprüft, davon 5 sicher und 3 mit Übungsbedarf.</span><svg class="eb-s2-zeile-bild" aria-hidden="true" width="468pt" height="40.8pt" viewBox="0 0 468 40.8"><text class="eb-s2-feld" x="0" y="9.1">Geometrie</text><text class="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">Klasse 5–8</text><g class="eb-s2-spur" transform="translate(165 0)"><rect class="eb-s2-segment-sicher" x="0" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="24.875" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="49.75" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="74.625" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="99.5" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="124.375" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="149.25" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="174.125" y="0" width="20.875" height="13.5" rx="3.5"></rect></g><text class="eb-s2-geprueft" x="468" y="5.5">8 geprüft</text><text class="eb-s2-teile" x="468" y="20">5 sicher · 3 Übungsbedarf</text><line class="eb-s2-zeilen-linie" x1="0" y1="31.8" x2="467" y2="31.8"></line></svg></li><li class="eb-s2-zeile" data-testid="eb-profil-zeile"><span class="sr-only">Prozent &amp; Dreisatz: 1 geprüft, davon 1 sicher und 0 mit Übungsbedarf.</span><svg class="eb-s2-zeile-bild" aria-hidden="true" width="468pt" height="40.8pt" viewBox="0 0 468 40.8"><text class="eb-s2-feld" x="0" y="9.1">Prozent &amp; Dreisatz</text><text class="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">Klasse 7</text><g class="eb-s2-spur" transform="translate(165 0)"><rect class="eb-s2-segment-sicher" x="0" y="0" width="20.875" height="13.5" rx="3.5"></rect></g><text class="eb-s2-geprueft" x="468" y="5.5">1 geprüft</text><text class="eb-s2-teile" x="468" y="20">1 sicher</text><line class="eb-s2-zeilen-linie" x1="0" y1="31.8" x2="467" y2="31.8"></line></svg></li><li class="eb-s2-zeile" data-testid="eb-profil-zeile"><span class="sr-only">Terme &amp; Gleichungen: 7 geprüft, davon 2 sicher und 5 mit Übungsbedarf.</span><svg class="eb-s2-zeile-bild" aria-hidden="true" width="468pt" height="40.8pt" viewBox="0 0 468 40.8"><text class="eb-s2-feld" x="0" y="9.1">Terme &amp; Gleichungen</text><text class="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">Klasse 7–8</text><g class="eb-s2-spur" transform="translate(165 0)"><rect class="eb-s2-segment-sicher" x="0" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="24.875" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="49.75" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="74.625" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="99.5" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="124.375" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="149.25" y="0" width="20.875" height="13.5" rx="3.5"></rect></g><text class="eb-s2-geprueft" x="468" y="5.5">7 geprüft</text><text class="eb-s2-teile" x="468" y="20">2 sicher · 5 Übungsbedarf</text><line class="eb-s2-zeilen-linie" x1="0" y1="31.8" x2="467" y2="31.8"></line></svg></li><li class="eb-s2-zeile" data-testid="eb-profil-zeile"><span class="sr-only">Daten &amp; Zufall: 1 geprüft, davon 0 sicher und 1 mit Übungsbedarf.</span><svg class="eb-s2-zeile-bild" aria-hidden="true" width="468pt" height="40.8pt" viewBox="0 0 468 40.8"><text class="eb-s2-feld" x="0" y="9.1">Daten &amp; Zufall</text><text class="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">Klasse 8</text><g class="eb-s2-spur" transform="translate(165 0)"><rect class="eb-s2-segment-uebung" x="0" y="0" width="20.875" height="13.5" rx="3.5"></rect></g><text class="eb-s2-geprueft" x="468" y="5.5">1 geprüft</text><text class="eb-s2-teile" x="468" y="20">1 Übungsbedarf</text><line class="eb-s2-zeilen-linie" x1="0" y1="31.8" x2="467" y2="31.8"></line></svg></li><li class="eb-s2-zeile" data-testid="eb-profil-zeile"><span class="sr-only">Zahlen &amp; Rechnen: 4 geprüft, davon 3 sicher und 1 mit Übungsbedarf.</span><svg class="eb-s2-zeile-bild" aria-hidden="true" width="468pt" height="40.8pt" viewBox="0 0 468 40.8"><text class="eb-s2-feld" x="0" y="9.1">Zahlen &amp; Rechnen</text><text class="eb-s2-klasse" x="0" y="20" data-testid="eb-profil-klasse">Klasse 9</text><g class="eb-s2-spur" transform="translate(165 0)"><rect class="eb-s2-segment-sicher" x="0" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="24.875" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-sicher" x="49.75" y="0" width="20.875" height="13.5" rx="3.5"></rect><rect class="eb-s2-segment-uebung" x="74.625" y="0" width="20.875" height="13.5" rx="3.5"></rect></g><text class="eb-s2-geprueft" x="468" y="5.5">4 geprüft</text><text class="eb-s2-teile" x="468" y="20">3 sicher · 1 Übungsbedarf</text></svg></li></ul><svg class="eb-s2-legende" viewBox="0 0 467 10"><rect class="eb-s2-segment-sicher" x="1" y="0" width="10" height="10" rx="2.6"></rect><text x="17" y="6.1">Sicher</text><rect class="eb-s2-segment-uebung" x="59.9" y="0" width="10" height="10" rx="2.6"></rect><text x="75.9" y="6.1">Übungsbedarf</text></svg></section><section class="eb-s2-deutung" data-testid="eb-deutung"><h2 class="eb-kicker eb-s2-deutung-kicker">Was die Grafik zeigt</h2><div><p class="eb-s2-deutung-text"><span>Überwiegend sicher waren die Themenfelder Geometrie und Zahlen &amp; Rechnen.</span><span> Den meisten Übungsbedarf zeigte das Themenfeld Terme &amp; Gleichungen: 5 von 7 geprüften Bereichen.</span></p><p class="eb-s2-fussnote">Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind.</p></div></section></div></div><svg class="eb-fuss" viewBox="0 800 595.28 41.89" data-testid="eb-fuss"><line class="eb-fusslinie" x1="44" y1="810" x2="551" y2="810"></line><text class="eb-fuss-text" x="44" y="828.1">edvance  ·  Köln  ·  Lernstandsanalyse Ilkay</text><text class="eb-fuss-text eb-fuss-seite" x="551" y="828.1">2 / 5</text></svg>",
+  "<svg class="eb-kopf" viewBox="0 0 595.28 90" aria-hidden="true" data-testid="eb-kopf"><polyline class="eb-chevron" points="44,37 50,31 62,42"></polyline><text class="eb-wortmarke" x="70" y="43.4">edvance</text><g class="eb-nav" data-testid="eb-nav" role="list" aria-label="Ihr Weg durch diesen Bericht"><line class="eb-nav-linie" x1="256" y1="33" x2="520" y2="33"></line><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="256" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="256" y="35.2">1</text><text class="eb-nav-name" x="256" y="53.5">Überblick</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="322" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="322" y="35.2">2</text><text class="eb-nav-name" x="322" y="53.5">Lernstand</text></g><g role="listitem" class="eb-nav-station eb-nav-aktiv" data-aktiv="true" aria-current="page"><circle class="eb-nav-punkt" cx="388" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="388" y="35.2">3</text><text class="eb-nav-name" x="388" y="53.5">Einordnung</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="454" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="454" y="35.2">4</text><text class="eb-nav-name" x="454" y="53.5">Lernplan</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="520" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="520" y="35.2">5</text><text class="eb-nav-name" x="520" y="53.5">Nächste Schritte</text></g></g><line class="eb-kopflinie" x1="44" y1="78" x2="551" y2="78"></line></svg><div class="eb-inhalt"><div class="eb-s3 eb-s3v3" data-layout="B" data-testid="eb-s3"><p class="eb-kicker eb-s3-kicker">Einordnung</p><h1 class="eb-titel eb-s3-titel">Was sitzt und was noch fehlt.</h1><section class="eb-s3v3-weitere-staerken" data-testid="eb-s3-weitere-staerken"><h2 class="eb-kicker">Weitere Stärken</h2><p>Fläche von Rechteck und Quadrat · Längen umrechnen · Umfang von Rechteck und Dreieck · Punkte im Koordinatensystem · Dreisatz, proportional und antiproportional · Einsetzungsverfahren · Gleichungen aufstellen (Sachkontext) · Satz des Thales (Winkel berechnen) · Terme für Flächeninhalte · Rationale und irrationale Zahlen · Wurzelgesetze für Produkt und Quotient · Wurzeln abschätzen und Näherungswerte</p></section><section class="eb-s3v2-weitere" data-testid="eb-s3-weitere"><h2 class="eb-kicker">Weitere Bereiche mit Übungsbedarf</h2><p class="eb-s3v2-leise">Diese Bereiche werden in späteren Themen und Schuljahren wichtig. Wir nehmen sie dazu, sobald sie anstehen.</p><dl><div class="eb-s3v2-gruppe"><dt>Aktuelles Thema Reelle Zahlen und Wurzeln</dt><dd>Teilweise die Wurzel ziehen</dd></div><div class="eb-s3v2-gruppe"><dt>Terme &amp; Gleichungen</dt><dd>Werte in Terme einsetzen · Additionsverfahren · Binomische Formeln (Quadrat einer Summe/Differenz) · Faktorisieren mit binomischer Formel · Gleichungssysteme grafisch lösen (Schnittpunkt)</dd></div><div class="eb-s3v2-gruppe"><dt>Geometrie</dt><dd>Fläche von Dreieck und Parallelogramm · Flächeninhalt des Trapezes · Flächeninhalt von Drachen und Raute</dd></div><div class="eb-s3v2-gruppe"><dt>Größen</dt><dd>Flächeneinheiten</dd></div><div class="eb-s3v2-gruppe"><dt>Daten &amp; Zufall</dt><dd>Mehrstufige Zufallsexperimente: Summenregel</dd></div></dl></section><p class="eb-s3-hinweis">Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus dem Kernlehrplan NRW. Beides beschreibt den Lernstoff, keine Vorhersage.</p></div></div><svg class="eb-fuss" viewBox="0 800 595.28 41.89" data-testid="eb-fuss"><line class="eb-fusslinie" x1="44" y1="810" x2="551" y2="810"></line><text class="eb-fuss-text" x="44" y="828.1">edvance  ·  Köln  ·  Lernstandsanalyse Ilkay</text><text class="eb-fuss-text eb-fuss-seite" x="551" y="828.1">3 / 5</text></svg>",
+  "<svg class="eb-kopf" viewBox="0 0 595.28 90" aria-hidden="true" data-testid="eb-kopf"><polyline class="eb-chevron" points="44,37 50,31 62,42"></polyline><text class="eb-wortmarke" x="70" y="43.4">edvance</text><g class="eb-nav" data-testid="eb-nav" role="list" aria-label="Ihr Weg durch diesen Bericht"><line class="eb-nav-linie" x1="256" y1="33" x2="520" y2="33"></line><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="256" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="256" y="35.2">1</text><text class="eb-nav-name" x="256" y="53.5">Überblick</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="322" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="322" y="35.2">2</text><text class="eb-nav-name" x="322" y="53.5">Lernstand</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="388" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="388" y="35.2">3</text><text class="eb-nav-name" x="388" y="53.5">Einordnung</text></g><g role="listitem" class="eb-nav-station eb-nav-aktiv" data-aktiv="true" aria-current="page"><circle class="eb-nav-punkt" cx="454" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="454" y="35.2">4</text><text class="eb-nav-name" x="454" y="53.5">Lernplan</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="520" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="520" y="35.2">5</text><text class="eb-nav-name" x="520" y="53.5">Nächste Schritte</text></g></g><line class="eb-kopflinie" x1="44" y1="78" x2="551" y2="78"></line></svg><div class="eb-inhalt"><div class="eb-s4"><section class="eb-s4-fazit-bereich" data-testid="eb-fazit"><h2 class="eb-kicker eb-s4-kicker">Fehlermuster</h2><p class="eb-s4-fazit">Bei 6 von 11 Fehlern, die wir einordnen konnten, stimmte der Rechenweg, und nur ein Detail ging unterwegs verloren. Das spricht eher für fehlende Sorgfalt als für fehlendes Verständnis.</p></section><h1 class="eb-titel eb-s4-titel">Vier Schwerpunkte, in dieser Reihenfolge.</h1><ol class="eb-s4-liste" data-testid="eb-schwerpunkte"><li class="eb-s4-punkt"><h3 class="eb-s4-punkt-titel"><span class="eb-s4-grund" aria-hidden="true"></span>Teilweise die Wurzel ziehen<span class="eb-s4-chip" data-testid="eb-s4-chip-thema">Vorhandene Lücke</span></h3><p class="eb-s4-grund-text">weil im aktuellen Schulthema noch eine Lücke offen ist</p></li><li class="eb-s4-punkt"><h3 class="eb-s4-punkt-titel"><span class="eb-s4-grund" aria-hidden="true"></span>Größen</h3><p class="eb-s4-grund-text">weil hier schon Stoff aus Klasse 5/6 Übung braucht</p></li><li class="eb-s4-punkt"><h3 class="eb-s4-punkt-titel"><span class="eb-s4-grund" aria-hidden="true"></span>Terme &amp; Gleichungen</h3><p class="eb-s4-grund-text">weil hier 5 Bereiche Übungsbedarf zeigen</p></li><li class="eb-s4-punkt"><h3 class="eb-s4-punkt-titel"><span class="eb-s4-grund" aria-hidden="true"></span>Geometrie</h3><p class="eb-s4-grund-text">weil hier 3 Bereiche Übungsbedarf zeigen</p><p class="eb-s4-danach">Danach nehmen wir Daten &amp; Zufall dazu.</p></li></ol><p class="eb-s4-stand">Der Coach prüft in den ersten Sitzungen, ob sich das bestätigt, und passt den Plan an, wenn nötig.</p><svg class="eb-s4-kurve" viewBox="44 80 507 720" aria-hidden="true" focusable="false" data-testid="eb-kurve"></svg></div></div><svg class="eb-fuss" viewBox="0 800 595.28 41.89" data-testid="eb-fuss"><line class="eb-fusslinie" x1="44" y1="810" x2="551" y2="810"></line><text class="eb-fuss-text" x="44" y="828.1">edvance  ·  Köln  ·  Lernstandsanalyse Ilkay</text><text class="eb-fuss-text eb-fuss-seite" x="551" y="828.1">4 / 5</text></svg>",
+  "<svg class="eb-kopf" viewBox="0 0 595.28 90" aria-hidden="true" data-testid="eb-kopf"><polyline class="eb-chevron" points="44,37 50,31 62,42"></polyline><text class="eb-wortmarke" x="70" y="43.4">edvance</text><g class="eb-nav" data-testid="eb-nav" role="list" aria-label="Ihr Weg durch diesen Bericht"><line class="eb-nav-linie" x1="256" y1="33" x2="520" y2="33"></line><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="256" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="256" y="35.2">1</text><text class="eb-nav-name" x="256" y="53.5">Überblick</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="322" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="322" y="35.2">2</text><text class="eb-nav-name" x="322" y="53.5">Lernstand</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="388" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="388" y="35.2">3</text><text class="eb-nav-name" x="388" y="53.5">Einordnung</text></g><g role="listitem" class="eb-nav-station"><circle class="eb-nav-punkt" cx="454" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="454" y="35.2">4</text><text class="eb-nav-name" x="454" y="53.5">Lernplan</text></g><g role="listitem" class="eb-nav-station eb-nav-aktiv" data-aktiv="true" aria-current="page"><circle class="eb-nav-punkt" cx="520" cy="33" r="6.2"></circle><text class="eb-nav-nummer" x="520" y="35.2">5</text><text class="eb-nav-name" x="520" y="53.5">Nächste Schritte</text></g></g><line class="eb-kopflinie" x1="44" y1="78" x2="551" y2="78"></line></svg><div class="eb-inhalt"><div class="eb-s5"><p class="eb-kicker eb-s5-kicker">Wie es weitergeht</p><h1 class="eb-titel eb-s5-titel">Unsere Einschätzung für Ilkay.</h1><p class="eb-s5-intro eb-s5-fazit" data-testid="eb-s5-fazit">Die Grundlagen aus Klasse 5/6 sitzen weitgehend. Die Lücken liegen vor allem im Stoff von Klasse 7/8, besonders bei Termen und Gleichungen sowie bei der Geometrie. Ein großer Teil der Fehler spricht eher für fehlende Sorgfalt als für fehlendes Verständnis. Wir beginnen mit dem Thema Reelle Zahlen und Wurzeln, weil im aktuellen Schulthema noch eine Lücke offen ist.</p><section class="eb-s5-pakete" data-testid="eb-pakete"><h2 class="eb-kicker eb-s5-pakete-kicker">Unsere Mitgliedschaften</h2><ul class="eb-s5-karten"><li data-testid="eb-paket"><svg class="eb-s5-karte" width="161pt" height="104pt" viewBox="0 0 161 104"><defs><clipPath id="eb-karte-00000000-0000-4000-8000-00000000t001"><rect x="13" y="0" width="135" height="104"></rect></clipPath></defs><rect class="eb-s5-karte-flaeche" x="0.5" y="0.5" width="160" height="103" rx="12"></rect><text class="eb-s5-karte-kopf" x="13" y="23.1">Mitgliedschaft</text><text class="eb-s5-karte-name" x="13" y="60" clip-path="url(#eb-karte-00000000-0000-4000-8000-00000000t001)">Basic</text><line class="eb-s5-karte-linie" x1="13" y1="77" x2="148" y2="77"></line><text class="eb-s5-merkmal eb-s5-merkmal-1" x="13" y="94.5" clip-path="url(#eb-karte-00000000-0000-4000-8000-00000000t001)">1 Session pro Woche</text></svg></li><li data-testid="eb-paket" data-vorschlag="true"><svg class="eb-s5-karte eb-s5-karte-vorschlag" width="161pt" height="104pt" viewBox="0 0 161 104"><defs><clipPath id="eb-karte-00000000-0000-4000-8000-00000000t002"><rect x="13" y="0" width="135" height="104"></rect></clipPath></defs><rect class="eb-s5-karte-flaeche" x="0.5" y="0.5" width="160" height="103" rx="12"></rect><g class="eb-s5-chip"><rect x="13" y="10" width="56" height="15" rx="7.5"></rect><text x="21" y="20">Vorschlag</text></g><text class="eb-s5-karte-name" x="13" y="60" clip-path="url(#eb-karte-00000000-0000-4000-8000-00000000t002)">Standard</text><line class="eb-s5-karte-linie" x1="13" y1="77" x2="148" y2="77"></line><text class="eb-s5-merkmal eb-s5-merkmal-1" x="13" y="94.5" clip-path="url(#eb-karte-00000000-0000-4000-8000-00000000t002)">1,5 Sessions pro Woche</text></svg></li><li data-testid="eb-paket"><svg class="eb-s5-karte" width="161pt" height="104pt" viewBox="0 0 161 104"><defs><clipPath id="eb-karte-00000000-0000-4000-8000-00000000t003"><rect x="13" y="0" width="135" height="104"></rect></clipPath></defs><rect class="eb-s5-karte-flaeche" x="0.5" y="0.5" width="160" height="103" rx="12"></rect><text class="eb-s5-karte-kopf" x="13" y="23.1">Mitgliedschaft</text><text class="eb-s5-karte-name" x="13" y="60" clip-path="url(#eb-karte-00000000-0000-4000-8000-00000000t003)">Premium</text><line class="eb-s5-karte-linie" x1="13" y1="77" x2="148" y2="77"></line><text class="eb-s5-merkmal eb-s5-merkmal-1" x="13" y="94.5" clip-path="url(#eb-karte-00000000-0000-4000-8000-00000000t003)">2 Sessions pro Woche</text></svg></li></ul></section><section class="eb-s5-vorschlag" data-testid="eb-vorschlag"><p class="eb-s5-vorschlag-satz" data-testid="eb-vorschlag-zeile">Passend dazu schlagen wir Standard vor, weil sich der Übungsbedarf auf 4 Schwerpunkte verteilt (11 von 23 geprüften Bereichen).</p><p class="eb-s5-vorschlag-frei">Das ist ein Vorschlag und nicht verpflichtend. Ein Start mit Basic ist möglich.</p></section><section class="eb-s5-kontakt" data-testid="eb-kontakt"><div class="eb-s5-kontakt-person"><h2 class="eb-kicker">Kontakt</h2><p class="eb-titel eb-s5-kontakt-name">Rasit Güven</p><p class="eb-s5-kontakt-rolle">Ihr persönlicher Ansprechpartner</p><a class="eb-s5-kontakt-mail" href="mailto:rasit@edvanceacademy.de">rasit@edvanceacademy.de</a></div><div class="eb-s5-kontakt-fragen"><h2 class="eb-kicker">Fragen oder Entscheidung</h2><p class="eb-s5-fragen-text">Bei Fragen erreichen Sie mich jederzeit – schreiben Sie mir gern.</p><p class="eb-s5-fragen-text">Den Vertrag erhalten Sie vor Ort oder per E-Mail als PDF. Unterschreiben können Sie ihn auch am Handy.</p></div></section></div></div><svg class="eb-fuss" viewBox="0 800 595.28 41.89" data-testid="eb-fuss"><line class="eb-fusslinie" x1="44" y1="810" x2="551" y2="810"></line><text class="eb-fuss-text" x="44" y="828.1">edvance  ·  Köln  ·  Lernstandsanalyse Ilkay</text><text class="eb-fuss-text eb-fuss-seite" x="551" y="828.1">5 / 5</text></svg>",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > sechsFelderMitUebung (Layout A): Hash je Seite 1`] = `
+[
+  "a8c5a01a323f",
+  "a341fb928053",
+  "7b091ccf034b",
+  "298e6dd4afc0",
+  "2c2fb3ec579d",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > sechsFelderMitUebung (Layout B): Hash je Seite 1`] = `
+[
+  "a8c5a01a323f",
+  "a341fb928053",
+  "ab0972506083",
+  "298e6dd4afc0",
+  "2c2fb3ec579d",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > testlauf (Layout A): Hash je Seite 1`] = `
+[
+  "f76ee98ff0fb",
+  "65c51329bcd5",
+  "f699cd435683",
+  "1e56a2ccff99",
+  "a9e44e0dc1e1",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > testlauf (Layout B): Hash je Seite 1`] = `
+[
+  "f76ee98ff0fb",
+  "65c51329bcd5",
+  "593e56e66606",
+  "1e56a2ccff99",
+  "a9e44e0dc1e1",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > vieleAnliegen (Layout A): Hash je Seite 1`] = `
+[
+  "135c439d27f5",
+  "980c3aa92b78",
+  "03812d8ecbeb",
+  "5f2398873046",
+  "5c5be70cf887",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > vieleAnliegen (Layout B): Hash je Seite 1`] = `
+[
+  "135c439d27f5",
+  "980c3aa92b78",
+  "c6bc9d8c9e05",
+  "5f2398873046",
+  "5c5be70cf887",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > vieleKanten (Layout A): Hash je Seite 1`] = `
+[
+  "251e7c6b4d1e",
+  "f908c05c2044",
+  "19209a49007a",
+  "243a4708c512",
+  "90b65fb5f324",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > vieleKanten (Layout B): Hash je Seite 1`] = `
+[
+  "251e7c6b4d1e",
+  "f908c05c2044",
+  "8906f3a1e122",
+  "243a4708c512",
+  "90b65fb5f324",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > vieleRueckbezuege (Layout A): Hash je Seite 1`] = `
+[
+  "0f7a53469a27",
+  "0447e846751a",
+  "ba7c1106081c",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > vieleRueckbezuege (Layout B): Hash je Seite 1`] = `
+[
+  "0f7a53469a27",
+  "0447e846751a",
+  "c25607504a4a",
+  "5f2398873046",
+  "3e691cb65dce",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > weitereBereiche (Layout A): Hash je Seite 1`] = `
+[
+  "0b28e44b6afc",
+  "a624e0ee7027",
+  "0b6795a57cfe",
+  "9a9ca4b45399",
+  "b40a65471ea3",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > weitereBereiche (Layout B): Hash je Seite 1`] = `
+[
+  "0b28e44b6afc",
+  "a624e0ee7027",
+  "961047bfd53e",
+  "9a9ca4b45399",
+  "b40a65471ea3",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > zuLangerName (Layout A): Hash je Seite 1`] = `
+[
+  "64077639816d",
+  "de19b2286752",
+  "363166152a44",
+  "ed6f67e26be7",
+  "188dab46a4d3",
+]
+`;
+
+exports[`ohne Fahrplan wie v3 > zuLangerName (Layout B): Hash je Seite 1`] = `
+[
+  "64077639816d",
+  "de19b2286752",
+  "f1d7664da5c5",
+  "ed6f67e26be7",
+  "188dab46a4d3",
+]
+`;

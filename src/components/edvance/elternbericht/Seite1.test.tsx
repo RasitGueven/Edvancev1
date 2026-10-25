@@ -1,17 +1,15 @@
 // Seite 1 des Eltern-Berichts (Bericht v2): Kopf, „So gehen wir vor“, „Auf einen Blick".
-import { render, within } from '@testing-library/react'
+import { within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import '@/i18n'
+import { renderOhneFahrplan } from '@/test/elternberichtOhneFahrplan'
 
-import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import de from '@/i18n/locales/de/elternbericht.json'
 import type { ReportBaustein, ReportData, ReportFehlbild } from '@/types'
 
 function seite1(data: ReportData) {
-  const { container } = render(
-    <ElternberichtBogen data={data} notes={null} tiers={[]} />,
-  )
+  const { container } = renderOhneFahrplan(data)
   const el = container.querySelector<HTMLElement>('.eb-seite[data-seite="1"]')!
   return { ...within(el), el }
 }

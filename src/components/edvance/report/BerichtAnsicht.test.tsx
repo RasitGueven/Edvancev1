@@ -130,3 +130,55 @@ describe('Seitenleiste', () => {
     expect(screen.getByRole('button', { name: 'Lernplan' })).toHaveAttribute('aria-current', 'true')
   })
 })
+
+describe('Schalter „Preise einblenden“ (Bericht v4)', () => {
+  const mitSchalter = (preise: boolean, onPreise: (an: boolean) => void) =>
+    render(
+      <BerichtAnsicht
+        data={fall.data}
+        notes={fall.notes!}
+        tiers={fall.tiers}
+        bogenKey="s1"
+        ausblick={<p>Ausblick</p>}
+        preise={preise}
+        onPreise={onPreise}
+      />,
+    )
+
+  it('es gibt ihn nur mit Handler, nur am Bildschirm (print-hide) und standardmäßig aus', () => {
+    ansicht()
+    expect(screen.queryByTestId('eb-preise-schalter')).toBeNull()
+    mitSchalter(false, () => {})
+    const knopf = screen.getByTestId('eb-preise-schalter')
+    expect(knopf).toHaveTextContent('Preise einblenden')
+    expect(knopf).toHaveAttribute('aria-pressed', 'false')
+    expect(knopf.parentElement).toHaveClass('print-hide')
+    expect(document.body.textContent).not.toMatch(/€/)
+  })
+
+  it('ein Klick meldet den neuen Zustand, im Zustand „an“ heißt er „Preise ausblenden“', () => {
+    const onPreise = vi.fn()
+    const { unmount } = mitSchalter(false, onPreise)
+    fireEvent.click(screen.getByTestId('eb-preise-schalter'))
+    expect(onPreise).toHaveBeenCalledWith(true)
+    unmount()
+    mitSchalter(true, onPreise)
+    const knopf = screen.getByTestId('eb-preise-schalter')
+    expect(knopf).toHaveTextContent('Preise ausblenden')
+    expect(knopf).toHaveAttribute('aria-pressed', 'true')
+    fireEvent.click(knopf)
+    expect(onPreise).toHaveBeenLastCalledWith(false)
+  })
+
+  it('mit „an“ stehen die Preise im Bogen, ohne nicht', () => {
+    const tiers = fall.tiers.map((p) => ({ ...p, price_cents: 19990 }))
+    const { unmount } = render(
+      <BerichtAnsicht data={fall.data} notes={fall.notes!} tiers={tiers} bogenKey="s1" ausblick={null} preise />,
+    )
+    expect(screen.getAllByTestId('eb-preis').length).toBe(tiers.filter((p) => p.active).length)
+    expect(screen.getAllByTestId('eb-preis')[0].textContent?.replace(/\s/g, ' ')).toBe('199,90 € im Monat')
+    unmount()
+    render(<BerichtAnsicht data={fall.data} notes={fall.notes!} tiers={tiers} bogenKey="s1" ausblick={null} />)
+    expect(screen.queryAllByTestId('eb-preis')).toHaveLength(0)
+  })
+})

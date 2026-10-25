@@ -1,0 +1,284 @@
+/* Eltern-Bericht v4 · Seite 4 (Bauauftrag V4, V4-2). Maße in pt, Farben nur
+   aus --color-eb-*. Tönungen als Pseudo-Elemente mit geringer Deckkraft
+   (INV-4.11: kein color-mix); `--ton` und `--ton-text` kommen aus v4-rahmen.css. */
+
+/* ─── Seite 4: Lernpfad nach Klassenarbeiten ──────────────────────────────── */
+
+.eb-s4-v4 .eb-s4-kicker {
+  margin-top: 12pt;
+}
+.eb-s4-v4 .eb-s4-titel {
+  margin-top: 12pt;
+  font-size: 22pt;
+  line-height: 26pt;
+}
+.eb-s4-v4 .eb-s4-hinweis {
+  margin-top: 6pt;
+}
+.eb-s4v4-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 9pt;
+  margin-top: 12pt;
+}
+.eb-s4v4-punkt {
+  display: grid;
+  grid-template-columns: 62pt 1fr;
+  gap: 12pt;
+  align-items: stretch;
+}
+.eb-s4v4-marke {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2pt;
+  min-width: 0;
+  padding: 8pt 4pt;
+  text-align: center;
+  color: var(--color-eb-weiss);
+  background: var(--color-eb-navy);
+  border-radius: 11pt;
+}
+.eb-s4v4-marke small {
+  font-size: 6.4pt;
+  line-height: 8pt;
+  letter-spacing: 0.5pt;
+  text-transform: uppercase;
+  color: var(--color-eb-auf-navy);
+}
+.eb-s4v4-marke b {
+  font-family: var(--font-eb-titel);
+  font-size: 20pt;
+  line-height: 22pt;
+  font-weight: 500;
+}
+.eb-s4v4-marke span {
+  font-size: 6.8pt;
+  line-height: 8.4pt;
+  overflow-wrap: anywhere;
+  color: var(--color-eb-auf-navy);
+}
+.eb-s4v4-marke-leise,
+.eb-s4v4-spaeter .eb-s4v4-marke {
+  color: var(--color-eb-text);
+  background: var(--color-eb-linie);
+}
+.eb-s4v4-marke-leise small,
+.eb-s4v4-spaeter .eb-s4v4-marke small {
+  color: var(--color-eb-text);
+}
+.eb-s4v4-karte {
+  display: flex;
+  flex-direction: column;
+  gap: 5pt;
+  min-width: 0;
+  padding: 10pt 13pt;
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+  border-radius: 11pt;
+}
+.eb-s4v4-zeile {
+  font-size: 6.8pt;
+  line-height: 9pt;
+  letter-spacing: 0.55pt;
+  text-transform: uppercase;
+  color: var(--color-eb-uebung-text);
+}
+.eb-s4v4-spaeter .eb-s4v4-zeile {
+  color: var(--color-eb-leise);
+}
+.eb-s4v4-karte h3 {
+  font-size: 11.2pt;
+  line-height: 13.5pt;
+  font-weight: 500;
+  color: var(--color-eb-tinte);
+}
+.eb-s4v4-spaeter .eb-s4v4-karte h3 {
+  color: var(--color-eb-text);
+}
+.eb-s4v4-text {
+  font-size: 8.6pt;
+  line-height: 12pt;
+  color: var(--color-eb-text);
+}
+.eb-s4v4-uebt {
+  position: relative;
+  isolation: isolate;
+  padding: 6pt 9pt 7pt;
+  border-radius: 8pt;
+}
+.eb-s4v4-uebt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-eb-uebung);
+  opacity: 0.16;
+}
+.eb-s4v4-uebt h4 {
+  font-size: 6.4pt;
+  line-height: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.5pt;
+  text-transform: uppercase;
+  color: var(--color-eb-uebung-text);
+}
+.eb-s4v4-uebt .eb-s4v4-chips {
+  margin-top: 4pt;
+}
+.eb-s4v4-chips li {
+  color: var(--color-eb-uebung-text);
+  background: var(--color-eb-weiss);
+}
+.eb-s4v4-chips li.eb-s4v4-chips-mehr {
+  color: var(--color-eb-text);
+  background: transparent;
+}
+.eb-s4v4-ansatz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10pt;
+  margin-top: 12pt;
+}
+.eb-s4v4-kasten {
+  box-sizing: border-box;
+  padding: 11pt 13pt;
+  border-radius: 11pt;
+}
+.eb-s4v4-ansatz-links {
+  background: var(--color-eb-navy-wash);
+}
+.eb-s4v4-ansatz-rechts {
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+}
+.eb-s4v4-kasten h2 {
+  font-family: var(--font-eb-titel);
+  font-size: 12pt;
+  line-height: 15pt;
+  font-weight: 500;
+  color: var(--color-eb-navy);
+}
+.eb-s4v4-kasten p {
+  margin-top: 6pt;
+  font-size: 8.6pt;
+  line-height: 12pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s4v4-kasten ul {
+  margin-top: 6pt;
+}
+.eb-s4v4-kasten li {
+  position: relative;
+  padding-left: 13pt;
+  font-size: 8.2pt;
+  line-height: 11pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s4v4-kasten li + li {
+  margin-top: 4pt;
+}
+.eb-s4v4-kasten li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2.5pt;
+  width: 6pt;
+  height: 6pt;
+  border-radius: 50%;
+  background: var(--color-eb-gold);
+}
+.eb-s4-v4 .eb-s4-stand {
+  margin-top: 10pt;
+}
+
+/* Läuft Seite 4 über (useStufe), rücken die Karten enger zusammen. */
+.eb-s4-v4[data-dicht] .eb-s4-titel {
+  margin-top: 8pt;
+  font-size: 20pt;
+  line-height: 24pt;
+}
+.eb-s4-v4[data-dicht] .eb-s4v4-liste {
+  gap: 6pt;
+  margin-top: 8pt;
+}
+.eb-s4-v4[data-dicht] .eb-s4v4-marke {
+  padding: 5pt 4pt;
+}
+.eb-s4-v4[data-dicht] .eb-s4v4-karte {
+  gap: 3pt;
+  padding: 7pt 11pt;
+}
+.eb-s4-v4[data-dicht] .eb-s4v4-ansatz {
+  margin-top: 8pt;
+}
+.eb-s4-v4[data-dicht] .eb-s4v4-kasten {
+  padding: 8pt 11pt;
+}
+
+.eb-s4-v4[data-stufe='2'] .eb-s4-titel {
+  margin-top: 6pt;
+  font-size: 19pt;
+  line-height: 22pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4-hinweis {
+  margin-top: 4pt;
+  font-size: 8.2pt;
+  line-height: 11pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-karte {
+  gap: 2pt;
+  padding-block: 5pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-karte h3 {
+  font-size: 10.4pt;
+  line-height: 12pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-text {
+  font-size: 8.2pt;
+  line-height: 10.6pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-marke {
+  padding-block: 3pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-marke b {
+  font-size: 17pt;
+  line-height: 19pt;
+}
+/* Das Etikett „Das üben wir“ steht neben den Chips, nicht darüber. */
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-uebt {
+  display: flex;
+  gap: 8pt;
+  align-items: flex-start;
+  padding-block: 4pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-uebt h4 {
+  flex: none;
+  padding-top: 2.5pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-uebt .eb-s4v4-chips {
+  margin-top: 0;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-ansatz {
+  margin-top: 6pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-kasten {
+  padding-block: 6pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-kasten p,
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-kasten li {
+  font-size: 8pt;
+  line-height: 10.6pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-kasten p,
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-kasten ul {
+  margin-top: 3pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4v4-kasten li + li {
+  margin-top: 2pt;
+}
+.eb-s4-v4[data-stufe='2'] .eb-s4-stand {
+  margin-top: 6pt;
+}

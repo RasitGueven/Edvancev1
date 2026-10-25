@@ -1,4 +1,3 @@
-import { useContext, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { fehlermusterAus } from '@/lib/report/elternbericht/fehlermuster'
@@ -6,9 +5,10 @@ import type { EbGrund, EbSchwerpunkt } from '@/types'
 
 import { grundText } from './berichtSaetze'
 import { Kurve } from './Kurve'
+import { AnsatzKaesten, LernpfadV4 } from './LernpfadV4'
 import { baueListe, schwerpunktKey, schwerpunktTitel, type Liste } from './liste'
-import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
+import { useStufe } from './useStufe'
 
 /**
  * Seite 4 des Eltern-Berichts (v2): Fazit und Lernplan als Kurve.
@@ -17,8 +17,11 @@ import type { SeitenProps } from './seitenProps'
  * Schwerpunkte mit ihrem Grund („weil …“, aus den Daten), die übrigen Felder
  * und der einzige Coach-Satz des Berichts. Die Kurve liegt als SVG darüber und
  * misst die Lagen nach dem Layout (Kurve.tsx). Die Ziele stehen auf Seite 5.
+ *
+ * Bericht v4 (mit bericht.fahrplan): Lernpfad nach Klassenarbeiten statt Kurve,
+ * ohne Fehlermuster; darunter „Unser Ansatz“ und „Was dazu gehört“.
  */
-export function Seite4({ data, bericht, satz, name }: SeitenProps): JSX.Element {
+export function Seite4({ data, bericht, satz, name, wessen }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { schwerpunkte, danach } = bericht
   const anzahl = schwerpunkte.length
@@ -32,10 +35,44 @@ export function Seite4({ data, bericht, satz, name }: SeitenProps): JSX.Element 
         ? muster.haeufigste.replace(/^Ihr Kind\b/, name)
         : muster.haeufigste
       : null
-  const stufe = useStufe(DICHT)
+  const stufe = useStufe(bericht.fahrplan ? 2 : DICHT)
   const keine = anzahl === 0 ? satz.waehle('fazit', 'keine', data.sessionId) : null
 
   const liste = baueListe(t, i18n.language)
+
+  const fahrplan = bericht.fahrplan ?? null
+  if (fahrplan) {
+    const lernpfad = bericht.lernpfad ?? []
+    const status = data.erstgespraech?.klassenarbeit ?? null
+    return (
+      <div
+        className="eb-s4 eb-s4-v4"
+        ref={stufe.ref}
+        data-dicht={stufe.wert >= DICHT || undefined}
+        data-stufe={stufe.wert || undefined}
+      >
+        <p className="eb-kicker eb-s4-kicker">{t('v4.s4.kicker')}</p>
+        <h1 className="eb-titel eb-s4-titel">{lernpfad.length === 0 ? t('s4.titelKeiner') : t('v4.s4.titel')}</h1>
+        {lernpfad.length === 0 && keine && <p className="eb-s4-keine">{keine}</p>}
+        {lernpfad.length > 0 && (
+          <p className="eb-s4-hinweis" data-testid="eb-s4-intro">
+            {t(`v4.s4.intro.${status ?? 'unbekannt'}`, { thema: fahrplan.stationen[0].titel })}
+          </p>
+        )}
+        {lernpfad.length > 0 && (
+          <LernpfadV4
+            punkte={lernpfad}
+            fahrplan={fahrplan}
+            schwerpunkte={schwerpunkte}
+            liste={liste}
+            name={name}
+          />
+        )}
+        <AnsatzKaesten wessen={wessen} />
+        <p className="eb-s4-stand eb-s4-stand-voll">{t('s4.coach')}</p>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -83,40 +120,8 @@ export function Seite4({ data, bericht, satz, name }: SeitenProps): JSX.Element 
   )
 }
 
-/** Stufen, wenn Seite 4 überläuft (Gründer-Entscheidung R7-5), nacheinander. */
-const DICHT = 1 // engere Abstände (`[data-dicht]` in seite4.css)
-
-/**
- * Läuft die Seite mit den Abständen des Musters über (langes Fazit, lange
- * Texte), geht sie eine Stufe weiter, bis alles passt oder `hoechste` erreicht
- * ist — statt dass die Fußnote am Papierrand abgeschnitten wird. Text wird nie
- * gekürzt, nur weggelassen. Geprüft nach dem Layout, solange Schriften laden
- * aber erst nach `document.fonts.ready` — sonst bliebe eine Stufe stehen, die
- * nur die Ersatzschrift brauchte. Eine erreichte Stufe bleibt.
- */
-function useStufe(hoechste: number): { ref: RefObject<HTMLDivElement>; wert: number } {
-  const ref = useRef<HTMLDivElement>(null)
-  const [wert, setWert] = useState(0)
-  // Erst entscheidet der Bogen über den Namen, dann misst Seite 4.
-  const nameEntschieden = useContext(NamensMessungFertig)
-
-  useLayoutEffect(() => {
-    const kasten = ref.current?.parentElement
-    if (!nameEntschieden || !kasten || wert >= hoechste) return
-    let aktiv = true
-    const pruefen = (): void => {
-      if (aktiv && kasten.scrollHeight > kasten.clientHeight) setWert(wert + 1)
-    }
-    void kasten.offsetHeight // Layout erzwingen, damit die Schriften angefordert sind
-    if (!document.fonts || document.fonts.status === 'loaded') pruefen()
-    else void document.fonts.ready.then(pruefen)
-    return () => {
-      aktiv = false
-    }
-  }, [wert, hoechste, nameEntschieden])
-
-  return { ref, wert }
-}
+/** Stufen, wenn Seite 4 überläuft (Gründer-Entscheidung R7-5): engere Abstände (`[data-dicht]` in seite4.css). */
+const DICHT = 1
 
 /**
  * Ein Schwerpunkt: Titel und Grund (Bericht v3, ohne die Listen „Sicher / Noch
