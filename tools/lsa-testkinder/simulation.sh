@@ -4,6 +4,8 @@
 #   bash tools/lsa-testkinder/simulation.sh [<migration.sql> [<variante.sql> …]]
 #   POOLS="neuaufbau prod" (Standard): neuaufbau = neuaufbau-fixture.sql (drei Aufgaben je Skill),
 #                                      prod      = l2-fixture.sql (der freigegebene Prod-Pool, LSA-L2)
+#                                      l4        = l4-fixture.sql (Prod-Pool 25.10. abends, LSA-L4)
+#                                      lena      = l4-lena-fixture.sql (l4 plus Lenas 36 Freigaben, LSA-L4)
 #   KINDER_ZUSATZ=<datei>  weitere Kinder (LSA-L3: l3-kinder.sql), an erzeugen.sql als -v kinder_zusatz
 #   AUSWERTUNG="…"         weitere Auswertungen nach l2-auswertung.sql (LSA-L3: l3-auswertung.sql)
 #
@@ -45,6 +47,7 @@ lauf() {  # $1 = DB, $2 = Titel
   local pool fixture skript
   for pool in $POOLS; do
     case "$pool" in neuaufbau) fixture=$T/neuaufbau-fixture.sql ;; prod) fixture=$T/l2-fixture.sql ;;
+                    l4) fixture=$T/l4-fixture.sql ;; lena) fixture=$T/l4-lena-fixture.sql ;;
                     *) echo "Unbekannter Pool: $pool"; exit 1 ;; esac
     echo; echo "══ $2 · Pool $pool"
     skript=$(mktemp)

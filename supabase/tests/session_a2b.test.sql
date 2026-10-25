@@ -43,7 +43,9 @@ update lernpfad set stand_system = 'kandidat' where student_id = :'k_emir' and s
 -- Naechste gebuchte Session fuer Emir in drei Tagen (Quest B, naechste_session).
 select pg_temp.act_as(:'admin');
 insert into coaching_sessions (coach_id, room, scheduled_at)
-values (:'coach_a', 'ZZ A2b naechste', date_trunc('day', now()) + interval '3 days 16 hours') returning id as s_next \gset
+values (:'coach_a', 'ZZ A2b naechste',
+        (date_trunc('day', now() at time zone 'Europe/Berlin') + interval '3 days 16 hours') at time zone 'Europe/Berlin')
+returning id as s_next \gset
 insert into session_students (session_id, student_id) values (:'s_next', :'k_emir');
 select set_config('request.jwt.claims', '', true);
 
@@ -74,9 +76,12 @@ select pg_temp.act_as(pg_temp.tablet(1));
 select session_kind_kontext(:'s') as kx \gset
 select is(:'kx'::jsonb -> 'schulthema' ->> 'label', 'ZZ Terme', '6 aktuelles Schulthema mit Label');
 select is(:'kx'::jsonb ->> 'vorname', 'ZZ', '6 Vorname des Kindes');
+-- Termine nach dem Berliner Kalendertag der Session (session_kind_kontext), nicht current_date: zwischen 23 und 24 Uhr
+-- UTC ist in Berlin schon der naechste Tag (CI am 25.10.2026, 23:29 UTC).
+select (now() at time zone 'Europe/Berlin')::date as heute_berlin \gset
 select is(:'kx'::jsonb -> 'quest_termine' -> 'quest_a',
-          jsonb_build_array(current_date + 2, current_date + 3), '6 Quest A: zwei Tage nach quest_a_abstand_tage (2)');
-select is(:'kx'::jsonb -> 'quest_termine' ->> 'quest_b', (current_date + 2)::text, '6 Quest B: Tag vor der naechsten Session');
+          jsonb_build_array(:'heute_berlin'::date + 2, :'heute_berlin'::date + 3), '6 Quest A: zwei Tage nach quest_a_abstand_tage (2)');
+select is(:'kx'::jsonb -> 'quest_termine' ->> 'quest_b', (:'heute_berlin'::date + 2)::text, '6 Quest B: Tag vor der naechsten Session');
 select pg_temp.act_as(pg_temp.tablet(2));
 select is((session_kind_kontext(:'s')) -> 'schulthema', 'null'::jsonb, '6 ohne Schulthema: null');
 

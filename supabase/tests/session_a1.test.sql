@@ -98,7 +98,11 @@ values (:'lead_id', :'kind', 'abgeschlossen', 'aktiv',
 -- Abschluss (Rasit 06.10.). Deshalb: s1 heute abgeschlossen, s2 bis s4 laufen; die Reihenfolge
 -- der Sessions fuer die Belege bleibt scheduled_at.
 insert into coaching_sessions (id, coach_id, scheduled_at, status, gestartet_am, beendet_am) values
-  (:'s1', :'coach_uid', now() - interval '7 days', 'done', now() - interval '2 hours', now() - interval '1 hour'),
+  -- s1: heute beendet (Berliner Kalendertag). Nicht now() - 1 hour: zwischen 0 und 1 Uhr laege das auf gestern, und
+  -- der Coach duerfte nicht mehr entscheiden (lernpfad_coach_der_session).
+  (:'s1', :'coach_uid', now() - interval '7 days', 'done',
+   greatest(now() - interval '2 hours', date_trunc('day', now() at time zone 'Europe/Berlin') at time zone 'Europe/Berlin'),
+   greatest(now() - interval '1 hour', date_trunc('day', now() at time zone 'Europe/Berlin') at time zone 'Europe/Berlin')),
   (:'s2', :'coach_uid', now(), 'active', now(), null),
   (:'sf', :'fremd_uid', now(), 'active', now(), null),
   (:'s3', :'coach_uid', now() + interval '7 days', 'active', now(), null),
