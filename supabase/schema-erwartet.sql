@@ -20638,12 +20638,10 @@ CREATE TABLE public.leads (
     rejection_note text,
     schule_id uuid,
     ist_test boolean DEFAULT false NOT NULL,
-    klassenarbeit_status text,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
-    CONSTRAINT leads_klassenarbeit_status_check CHECK ((klassenarbeit_status = ANY (ARRAY['bevorstehend'::text, 'geschrieben'::text]))),
     CONSTRAINT leads_rejection_note_check CHECK (((rejection_reason IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(rejection_note), ''::text) IS NOT NULL))),
     CONSTRAINT leads_rejection_reason_check CHECK (((rejection_reason IS NULL) OR (rejection_reason = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
@@ -20712,7 +20710,6 @@ CREATE TABLE public.lsa_report_notes (
     paket text,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_by uuid,
-    paket_bestaetigt boolean DEFAULT false NOT NULL,
     CONSTRAINT lsa_report_notes_paket_check CHECK ((paket = ANY (ARRAY['basis'::text, 'standard'::text, 'premium'::text])))
 );
 
