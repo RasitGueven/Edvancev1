@@ -1,6 +1,6 @@
 -- ============================================================================
 -- P3 Vorschau prüfen (Migration 20261022080744): pruef_soll.einsatz, Anlässe je Aufgabe nach tasks.einsatz,
--- Zählung je Anlass, lsa_vorschau-Zeilen, alte Stufe 3 ruht.
+-- Zählung je Anlass, lsa_vorschau-Zeilen, alte Stufe 3 (seit P4 wieder aktiv).
 -- Fixtures am Knoten gleichung_zweischrittig (batu_session + lsa_vorschau): je eine Aufgabe nur LSA, nur Session,
 -- beide. Die übrigen Aufgaben des Knotens verlieren in dieser Transaktion ihr Pilot-Flag. Am Ende rollback.
 --
@@ -67,9 +67,15 @@ select is((select array_agg(skill_key order by sort) from pruef_soll
   '1: sort in der beauftragten Reihenfolge');
 select is((select aktiv from pruef_soll where anlass = 'batu_lsa' and skill_key = 'term_binom_quadrat'), true,
   '1: term_binom_quadrat bleibt aktiv');
-select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa' and aktiv and sort >= 410), 1,
-  '1: von der alten Stufe 3 ist nur term_binom_quadrat aktiv');
-select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa' and sort >= 410), 15,
+-- P4 (20261025210952) setzt die alte Stufe 3 wieder aktiv; hier bleibt nur, dass keine Zeile gelöscht wurde.
+select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa' and not aktiv and sort >= 410), 0,
+  '1: alte Stufe 3 nach P4 wieder aktiv');
+select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa'
+            and skill_key in ('fkt_linear_gleichung', 'fkt_linear_steigung', 'fkt_linear_yabschnitt',
+              'term_binom_faktorisieren', 'term_binom_gemischt', 'term_binom_quadrat', 'term_binom_quadratdifferenz',
+              'gleichung_lgs_addition', 'gleichung_lgs_einsetzen', 'gleichung_lgs_grafisch',
+              'geo_flaeche_drachen_raute', 'geo_flaeche_term', 'geo_flaeche_trapez', 'stoch_pfad_summe',
+              'geo_winkel_thales')), 15,
   '1: keine Zeile der alten Stufe 3 gelöscht');
 
 -- ============================================================================

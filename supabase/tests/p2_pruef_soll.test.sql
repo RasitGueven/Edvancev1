@@ -28,6 +28,8 @@ insert into profiles (id, email, role, full_name, darf_pruefen) values
   (:'student_uid', 'p2-student@test.local', 'student', 'P2 Schueler', false);
 -- Der Pilot laeuft wie in Prod: das Board zeigt nur markierte Aufgaben.
 update pruef_einstellungen set nur_pilot = true;
+-- P4 (20261025210952) gibt geo_kreis_umfang ein batu_lsa-Soll; der Test braucht den Knoten ohne Soll.
+delete from pruef_soll where skill_key = 'geo_kreis_umfang';
 
 -- Eine vollstaendige Kreis-Aufgabe (wie admin_pruefansicht), im Pilot, mit Status und Eingabetyp.
 create function pg_temp.aufgabe(p_ref text, p_status text, p_typ text default 'MC')
