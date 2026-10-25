@@ -1,6 +1,7 @@
 # LSA-L4 · Simulation vorher/nachher, Abnahme, diff
 
-Stand 25./26.10.2026. Bauauftrag `docs/lsa/Bauauftrag-L4.md`, Migration `20261025232926_lsa_l4_nachtrag` (Teil A und B),
+Stand 25./26.10.2026, **eingespielt** am 25.10.2026 (Version `20261025232926`, per dbread nachgewiesen: Historie, md5 von
+`lsa_select_next_core` und `lsa_urteil_buchen_core` gleich dem Neuaufbau, Rechte unverändert). Bauauftrag `docs/lsa/Bauauftrag-L4.md`, Migration `20261025232926_lsa_l4_nachtrag` (Teil A und B),
 Fixtures `tools/lsa-testkinder/l4-fixture.sql` und `l4-lena-fixture.sql` (Teil C).
 
 ## 1. Aufbau
