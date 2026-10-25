@@ -4,9 +4,11 @@
 // Grundlage sind die Schwerpunkte aus schwerpunkte.ts in ihrer Reihenfolge und
 // mit ihrer Startlogik (hier nicht geändert). Neu je Schwerpunkt: die Ziele =
 // die kommenden Stationen des Fahrplans, die seine Übungsbedarf-Bereiche
-// betreffen, aufsteigend. Aufeinanderfolgende Schwerpunkte mit derselben ersten
-// Ziel-Station werden zu einem Punkt („Grundlagen für …“). Am Ende ein Punkt
-// „später“ mit den Feldern aus `danach`.
+// betreffen, aufsteigend; bei einer Lücke im aktuellen Thema zuerst Station 1,
+// wenn deren Arbeit noch ansteht.
+// Aufeinanderfolgende Schwerpunkte mit derselben ersten Ziel-Station werden
+// zu einem Punkt („Grundlagen für …“). Am Ende ein Punkt „später“ mit den
+// Feldern aus `danach`.
 
 import type {
   EbFahrplan,
@@ -46,11 +48,13 @@ export function gruppiereSchwerpunkte({
   signale: readonly EbThemaSignal[]
 }): EbLernpfadPunkt[] {
   const kommende = (fahrplan?.stationen ?? []).filter((s) => s.nummer > 1)
+  // Steht die Arbeit zum aktuellen Thema noch an, bereitet eine Lücke in diesem Thema genau sie vor.
+  const ansteht = fahrplan?.stationen[0]?.stand === 'naechste'
   const fehltJeThema = new Map(signale.map((s) => [s.themaKey, new Set(s.fehlt.map((b) => b.label))]))
-  const zieleVon = (s: EbSchwerpunkt): number[] =>
-    kommende
-      .filter((st) => s.uebung.some((l) => fehltJeThema.get(st.themaKey)?.has(l)))
-      .map((st) => st.nummer)
+  const zieleVon = (s: EbSchwerpunkt): number[] => [
+    ...(ansteht && s.feld === null ? [1] : []),
+    ...kommende.filter((st) => s.uebung.some((l) => fehltJeThema.get(st.themaKey)?.has(l))).map((st) => st.nummer),
+  ]
 
   const einzeln: EbLernpfadPunkt[] = schwerpunkte.map((s, i) => ({
     art: s.feld ? 'feld' : 'luecke',

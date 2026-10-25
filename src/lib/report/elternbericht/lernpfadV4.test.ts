@@ -86,15 +86,34 @@ describe('gruppiereSchwerpunkte', () => {
     expect(p[0]).toMatchObject({ art: 'luecke', ziele: [3] })
   })
 
-  it('Station 1 ist kein Ziel', () => {
+  it('Station 1 ist kein Ziel, wenn ihre Arbeit geschrieben oder ihr Stand unbekannt ist', () => {
+    for (const stand of ['geschrieben', 'aktuell'] as const) {
+      const p = gruppiereSchwerpunkte({
+        schwerpunkte: [sp(['A'])],
+        gruende: [undefined],
+        danach: [],
+        fahrplan: { ...FAHRPLAN, stationen: [{ ...FAHRPLAN.stationen[0], stand }, ...FAHRPLAN.stationen.slice(1)] },
+        signale: [fehlt('t0', ['A'])],
+      })
+      expect(p[0].ziele, stand).toEqual([])
+    }
+  })
+
+  it('Lücke im aktuellen Thema: Station 1 ist erstes Ziel, wenn ihre Arbeit noch ansteht', () => {
+    const naechste: EbFahrplan = {
+      ...FAHRPLAN,
+      stationen: [{ ...FAHRPLAN.stationen[0], stand: 'naechste' }, ...FAHRPLAN.stationen.slice(1)],
+    }
     const p = gruppiereSchwerpunkte({
-      schwerpunkte: [sp(['A'])],
-      gruende: [undefined],
+      schwerpunkte: [sp(['A'], { feld: null, thema: 'Start' }), sp(['B'])],
+      gruende: [undefined, undefined],
       danach: [],
-      fahrplan: FAHRPLAN,
-      signale: [fehlt('t0', ['A'])],
+      fahrplan: naechste,
+      signale: [fehlt('t3', ['A']), fehlt('t2', ['B'])],
     })
-    expect(p[0].ziele).toEqual([])
+    expect(p[0].ziele).toEqual([1, 3])
+    // Ein Feld-Schwerpunkt bekommt Station 1 nicht.
+    expect(p[1].ziele).toEqual([2])
   })
 
   it('„später“ ist der letzte Punkt, mit den Feldern aus danach', () => {
@@ -130,6 +149,13 @@ describe('Lernpfad der Fälle', () => {
       expect(ohneSpaeter.length, name).toBeLessThanOrEqual(reihenfolge.length)
       expect(b.lernpfad.at(-1)?.art === 'spaeter', name).toBe(b.danach.length > 0)
     }
+  })
+
+  it('batuBevorstehend: die Lücke im aktuellen Thema bereitet auch Klassenarbeit 1 vor', () => {
+    const b = bericht('batuBevorstehend')
+    const luecke = (b.lernpfad ?? []).find((p) => p.art === 'luecke')
+    expect(luecke?.ziele).toEqual([1, 5])
+    expect(bericht('batuV4').lernpfad?.some((p) => p.ziele.includes(1))).toBe(false)
   })
 
   it('ohne Plan: gleich viele Punkte wie Schwerpunkte (+ später), alle ohne Ziel', () => {
