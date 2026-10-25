@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict aEvbb9GoUuLk1Mrbfot3rCzSQdqUi730TuYPMta8e04UaKBisD8EUl5Q2Wa83a9
+\restrict asuCooUORLNmcRC8QGkNcc3nQhWdn0Y8h8dzNfJt3eUceRcKBkba5YLk6Td3Nax
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -6595,8 +6595,11 @@ declare
   -- bis c_tiefe_bis_vz; danach Rueckblick (Simulation docs/lsa/l3-simulation.md).
   c_thema_kurz      constant interval := interval '4 minutes';
   c_thema_kurz_gut  constant interval := interval '1 minute';
-  c_vorschau_bis_vz constant interval := interval '19 minutes';  -- LSA-L4: 16 → 19 (Platz fuer die ★-Nachpruefung)
-  c_tiefe_bis_vz    constant interval := interval '19 minutes';  -- LSA-L4: 18 → 19
+  c_vorschau_bis_vz constant interval := interval '16 minutes';
+  c_tiefe_bis_vz    constant interval := interval '18 minutes';
+  -- LSA-L4: Die Nachpruefung mitbelegter Bericht-Voraussetzungen (★) laeuft in beiden Modi bis hierhin, auch wenn die
+  -- Vorschau fuer ungepruefte Knoten (c_vorschau_bis, c_vorschau_bis_vz) schon zu ist (Simulation docs/lsa/l4-simulation.md).
+  c_stern_bis       constant interval := interval '19 minutes';
 
   v_sess    lsa_sessions;
   v_pool    boolean;  -- F1 (E2): Testlauf-Pool fuer Testlauf oder Testkonto
@@ -6995,7 +6998,8 @@ begin
     -- LSA-L3: 'vorschau_zuerst' bis c_vorschau_bis_vz.
     v_task := null;
     -- LSA-L4 (Entscheidung 8): auch ohne Thema, wenn die Planposition bekannt ist.
-    if v_pos_bekannt and p_jetzt < v_beginn + (case when v_vz then c_vorschau_bis_vz else c_vorschau_bis end) then
+    -- LSA-L4: Der Block laeuft bis c_stern_bis; die ungeprueften Knoten nur bis zum Vorschau-Ende wie bisher.
+    if v_pos_bekannt and p_jetzt < v_beginn + c_stern_bis then
       for v_desc in
         select c.sk
           from (select x.sk, x.rang, x.n, true as rand
@@ -7013,6 +7017,7 @@ begin
                             and (u.skill_key = any (v_rand_sk) or u.skill_key = any (v_tief_sk)))) c
           join skills s on s.skill_key = c.sk
          where s.klasse_herkunft <= v_sess.grade
+           and p_jetzt < v_beginn + (case when v_vz then c_vorschau_bis_vz else c_vorschau_bis end)  -- LSA-L4
            and not exists (
                  select 1 from lsa_skill_urteil u
                   where u.session_id = p_session_id and u.skill_key = c.sk)
@@ -29179,5 +29184,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict aEvbb9GoUuLk1Mrbfot3rCzSQdqUi730TuYPMta8e04UaKBisD8EUl5Q2Wa83a9
+\unrestrict asuCooUORLNmcRC8QGkNcc3nQhWdn0Y8h8dzNfJt3eUceRcKBkba5YLk6Td3Nax
 
