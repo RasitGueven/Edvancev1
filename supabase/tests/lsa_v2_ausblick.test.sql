@@ -30,7 +30,9 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(36);
+select plan(37);
+-- LSA ohne Ausblick (20261025220449): der Ausblick ist in Prod aus; dieser Test prueft den Mechanismus mit Schalter.
+set local lsa.ausblick = 'an';
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
@@ -319,6 +321,11 @@ select ok(not has_function_privilege('authenticated', 'public.lsa_ist_ausblick(u
           and not has_function_privilege('authenticated', 'public.lsa_ausblick_knoten(uuid, boolean)', 'execute')
           and not has_function_privilege('anon', 'public.lsa_ausblick_knoten(uuid, boolean)', 'execute'),
   'f: beide Hilfsfunktionen sind fuer anon/authenticated nicht aufrufbar');
+
+-- LSA ohne Ausblick (20261025220449): ohne Schalter liefert lsa_ausblick_knoten nichts, auch fuer ein starkes Kind.
+reset lsa.ausblick;
+select is((select count(*)::int from lsa_sessions x, unnest(public.lsa_ausblick_knoten(x.id, true)) k
+            where x.thema_key is not null), 0, 'ohne Schalter: kein Ausblick-Knoten in keiner Sitzung');
 
 select * from finish();
 rollback;

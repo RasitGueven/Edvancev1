@@ -1,10 +1,15 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **LSA ohne Ausblick** (Retro `2026-10-25-lsa-ohne-ausblick.md`): Entscheidung Rasit 25.10. „Kinder sollen nichts
+  in der LSA haben, was sie noch nicht hatten“. `lsa_ausblick_knoten` liefert `{}` (Schalter `lsa.ausblick` nur
+  für Tests); Lenas Liste ohne Ausblick und p-q-Formel, 36 statt 48 Freigaben. Migration
+  `20261025220449` am 25.10. eingespielt. **Offen:** LSA ohne Thema (Breite b) zieht Klasse-9-Stoff ohne Planblick.
 - **P4 Batus Freigabeliste im Prüflauf** (Retro `2026-10-25-p4-batu-freigabeliste.md`): die 24 Bereiche der
   Liste haben wieder eine aktive `batu_lsa`-Sollzeile (KA2 vor Rückblick vor Ausblick), Lenas Enter-Lauf fragt die
   nötigen Aufgaben ab; Karte „Batus Freigabeliste“ auf `/admin` mit offenem Stand und Freigabe-Reihe.
-  **Offen:** Migration `20261025210952` einspielen.
+  Migration `20261025210952` am 25.10. eingespielt. Dazu die erste `term_ausklammern`-Aufgabe ohne MC
+  (`20261025213530`, Mehrteiler mit drei Zahlenfeldern, eingespielt).
 - **LSA-L2 Keine Fast-Duplikate, Vorschau auf drei Klassenarbeiten** (Retro `2026-10-25-lsa-l2-wiederholung.md`,
   Branch `feat/rasit-lsa-l2-batu-pool`): `lsa_text_schluessel`, Zweitbeleg ohne Fast-Duplikat (entfällt, wenn nur
   solche übrig sind), `c_vorschau_themen` 3; Testkind Batu, Simulation mit dem Prod-Pool, Freigabeliste für Lena

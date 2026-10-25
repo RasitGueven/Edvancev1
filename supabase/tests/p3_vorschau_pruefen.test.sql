@@ -68,7 +68,7 @@ select is((select array_agg(skill_key order by sort) from pruef_soll
 select is((select aktiv from pruef_soll where anlass = 'batu_lsa' and skill_key = 'term_binom_quadrat'), true,
   '1: term_binom_quadrat bleibt aktiv');
 -- P4 (20261025210952) setzt die alte Stufe 3 wieder aktiv; hier bleibt nur, dass keine Zeile gelöscht wurde.
-select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa' and not aktiv and sort >= 410), 0,
+select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa' and not aktiv and sort between 410 and 899), 0,
   '1: alte Stufe 3 nach P4 wieder aktiv');
 select is((select count(*)::int from pruef_soll where anlass = 'batu_lsa'
             and skill_key in ('fkt_linear_gleichung', 'fkt_linear_steigung', 'fkt_linear_yabschnitt',

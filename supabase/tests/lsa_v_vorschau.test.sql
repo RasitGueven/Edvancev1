@@ -43,6 +43,8 @@ begin;
 create extension if not exists pgtap with schema extensions;
 
 select plan(29);
+-- LSA ohne Ausblick (20261025220449): der Ausblick ist in Prod aus; dieser Test prueft den Mechanismus mit Schalter.
+set local lsa.ausblick = 'an';
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
