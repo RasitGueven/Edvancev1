@@ -1,125 +1,234 @@
 import { useContext, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { KUERZUNGEN, STUFE_BEREICHE, kuerzeLernweg } from '@/lib/report/elternbericht/lernweg'
+import { duenneLueckenweg, LUECKENWEG_STUFEN } from '@/lib/report/elternbericht/lueckenweg'
+import type { EbKommtThema, EbLueckenweg, EbZuordnung } from '@/types'
 
-import { LernwegLegende, LernwegZonen } from './Lernweg'
-import { LernwegLinien } from './LernwegLinien'
-import { useLernwegTexte } from './lernwegTexte'
+import { schuleGenitiv } from './berichtSaetze'
 import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
 
+type Liste = (s: readonly string[]) => string
+
 /**
- * Stufe der Kürzung (Entscheidung 18): Passt der Lernweg nicht in seinen
- * Bereich, kürzt die Seite nacheinander nicht geprüfte Einträge, Linien,
- * Kommt noch, dann Einträge je Insel und ganze Zonen (R7-12), bis er passt.
- * Gemessen wird nur der eigene Bereich (er schneidet ab), damit die
- * Namensentscheidung des Bogens davon nichts merkt. Passt es nach der letzten
- * Stufe nicht, steht `data-ueberlauf` am Bereich (Druck-Test) und eine Warnung
- * in der Konsole.
+ * Stufe des Ausdünnens (duenneLueckenweg): Läuft die Seite über, geht sie eine
+ * Stufe weiter, bis alles passt oder die letzte erreicht ist. Gemessen wie auf
+ * Seite 4 am Inhaltskasten, nach der Namensentscheidung und den Schriften.
  */
-function useKuerzung(bereit: boolean, schluessel: unknown) {
+function useAusduennen(schluessel: unknown): { ref: RefObject<HTMLDivElement>; stufe: number } {
   const ref = useRef<HTMLDivElement>(null)
   const [stufe, setStufe] = useState(0)
-  const [ueberlauf, setUeberlauf] = useState(false)
+  const nameEntschieden = useContext(NamensMessungFertig)
 
+  useLayoutEffect(() => setStufe(0), [schluessel])
   useLayoutEffect(() => {
-    setStufe(0)
-    setUeberlauf(false)
-  }, [schluessel])
-
-  useLayoutEffect(() => {
-    const bereich = ref.current
-    if (!bereit || !bereich) return
+    const kasten = ref.current?.parentElement
+    if (!nameEntschieden || !kasten || stufe >= LUECKENWEG_STUFEN - 1) return
     let aktiv = true
     const pruefen = (): void => {
-      if (!aktiv) return
-      const zuGross = bereich.scrollHeight > bereich.clientHeight + 0.5
-      if (!zuGross) return
-      if (stufe < KUERZUNGEN.length - 1) setStufe(stufe + 1)
-      else {
-        console.warn('Elternbericht Seite 3: Lernweg passt auch nach der letzten Kürzungsstufe nicht')
-        setUeberlauf(true)
-      }
+      if (aktiv && kasten.scrollHeight > kasten.clientHeight + 0.5) setStufe(stufe + 1)
     }
-    void bereich.offsetHeight
+    void kasten.offsetHeight
     if (!document.fonts || document.fonts.status === 'loaded') pruefen()
     else void document.fonts.ready.then(pruefen)
     return () => {
       aktiv = false
     }
-  }, [bereit, stufe])
+  }, [stufe, nameEntschieden])
 
-  return { ref, stufe, ueberlauf }
+  return { ref, stufe }
 }
 
 /**
- * Seite 3 des Eltern-Berichts R7: der Lernweg (R7-9) — Grundlagen →
- * Weiterführend → Aktuell → Kommt noch, mit Linien, worauf der kommende Stoff
- * aufbaut. Ersetzt die Pyramide. Styles in src/styles/elternbericht/seite3.css.
+ * Seite 3 des Eltern-Berichts (v3): Einordnung — erst was sitzt, dann was fehlt.
+ *
+ * Je kommendem Schulthema, das direkt auf geprüften Bereichen aufbaut, ein
+ * grüner Kasten („Sitzt schon“), ein roter („Fehlt noch“) und der blaue
+ * Themenkasten. Zwei Layouts (berichtKonfig.EINORDNUNG_LAYOUT):
+ *   A — oben alle grünen, darunter alle roten Kästen; die Themen stehen einmal
+ *       in einer gemeinsamen rechten Spalte, verbunden über ihre Nummer,
+ *   B — je Thema eine Zeile: grün · rot → blau.
+ * Jeder Bereich steht genau einmal („betrifft auch …“ für weitere Themen).
+ * Darunter „Weitere Stärken“ als kurze Liste, zuletzt „Weitere Bereiche mit
+ * Übungsbedarf“. Pfeile bleiben in ihrer Zeile. Rechnung:
+ * src/lib/report/elternbericht/lueckenweg.ts.
  */
-export function Seite3({ bericht, name, wessen }: SeitenProps): JSX.Element | null {
-  const { t } = useTranslation('elternbericht')
-  const nameEntschieden = useContext(NamensMessungFertig)
-  const voll = bericht.lernweg
-  const k = useKuerzung(nameEntschieden && voll !== null, voll)
-  // Vorrang beim Kürzen: Startstelle und nächster Bereich des Thema-Schwerpunkts (R7-12, Entscheidung 3b).
-  const thema = bericht.schwerpunkte.find((s) => s.feld === null) ?? null
-  const lw = useMemo(
-    () => (voll ? kuerzeLernweg(voll, KUERZUNGEN[k.stufe], thema) : null),
-    [voll, k.stufe, thema],
-  )
+export function Seite3({ bericht, einordnung = 'B' }: SeitenProps): JSX.Element | null {
+  const { t, i18n } = useTranslation('elternbericht')
+  const voll = bericht.lueckenweg ?? null
+  const a = useAusduennen(voll)
+  const lw = useMemo(() => (voll ? duenneLueckenweg(voll, a.stufe) : null), [voll, a.stufe])
+  if (!lw) return null
+  const liste: Liste = (s) => new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' }).format(s)
+  const quelle =
+    lw.quelle === 'klp'
+      ? t('s3.v2.quelleKlp')
+      : lw.schulname
+        ? t('s3.v2.quelleSchule', { schule: schuleGenitiv(t, lw.schulname) })
+        : t('s3.v2.quelleSchuleOhneName')
+  const rest = lw.weitereStaerkenRest ?? 0
 
   return (
-    <div className="eb-s3">
-      <p className="eb-kicker eb-s3-kicker">{wessen ? t('s3.kicker', { wessen }) : t('s3.kickerOhneName')}</p>
-      <h1 className="eb-titel eb-s3-titel">
-        {t(bericht.zaehlung.sicher > 0 ? 's3.titel' : 's3.titelOhneSicher')}
-      </h1>
-      {lw && <Inhalt lw={lw} name={name} bereich={k.ref} stufe={k.stufe} ueberlauf={k.ueberlauf} />}
+    <div
+      className="eb-s3 eb-s3v3"
+      ref={a.ref}
+      data-stufe={a.stufe || undefined}
+      data-layout={einordnung}
+      data-testid="eb-s3"
+    >
+      <p className="eb-kicker eb-s3-kicker">{t('s3.v2.kicker')}</p>
+      <h1 className="eb-titel eb-s3-titel">{t('s3.v3.titel')}</h1>
+      {lw.themen.length > 0 && <p className="eb-s3-intro">{t('s3.v3.intro', { quelle })}</p>}
+
+      {lw.themen.length > 0 &&
+        (einordnung === 'A' ? <LayoutA lw={lw} liste={liste} /> : <LayoutB lw={lw} liste={liste} />)}
+
+      {(lw.weitereStaerken.length > 0 || rest > 0) && (
+        <section className="eb-s3v3-weitere-staerken" data-testid="eb-s3-weitere-staerken">
+          <h2 className="eb-kicker">{t('s3.v3.weitereStaerken')}</h2>
+          <p>
+            {lw.weitereStaerken.length === 0
+              ? t('s3.v2.nurAnzahl', { count: rest })
+              : [...lw.weitereStaerken, ...(rest > 0 ? [t('s3.v2.undWeitere', { count: rest })] : [])].join(' · ')}
+          </p>
+        </section>
+      )}
+
+      {lw.weitere.length > 0 && <Weitere lw={lw} />}
+
+      <p className="eb-s3-hinweis">{t('s3.v2.hinweis', { quelle })}</p>
     </div>
   )
 }
 
-function Inhalt({
-  lw,
-  name,
-  bereich,
-  stufe,
-  ueberlauf,
-}: {
-  lw: NonNullable<SeitenProps['bericht']['lernweg']>
-  name: string | null
-  bereich: RefObject<HTMLDivElement>
-  stufe: number
-  ueberlauf: boolean
-}): JSX.Element {
-  const tx = useLernwegTexte(lw)
+/** Die Bereiche eines Kastens, je mit „betrifft auch …“, dazu der Rest als Zahl. */
+function Bereiche({ liste, eintraege, rest }: { liste: Liste; eintraege: EbZuordnung[]; rest?: number }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
   return (
-    <>
-      <p className="eb-s3-intro">
-        {name
-          ? tx.t('s3.weg.intro', { name, klasse: lw.klasse, quelle: tx.quelle })
-          : tx.t('s3.weg.introOhneName', { klasse: lw.klasse, quelle: tx.quelle })}
+    <ul className="eb-s3v3-bereiche">
+      {eintraege.map((z) => (
+        <li key={z.label}>
+          {z.label}
+          {z.auch.length > 0 && <small className="eb-s3v3-auch">{t('s3.v3.auch', { themen: liste(z.auch.map((titel) => t('s3.v3.titelZitat', { titel }))) })}</small>}
+        </li>
+      ))}
+      {(rest ?? 0) > 0 && <li className="eb-s3v3-rest">{t('s3.v2.undWeitere', { count: rest })}</li>}
+    </ul>
+  )
+}
+
+function Pfeil({ art }: { art: 'sitzt' | 'fehlt' }): JSX.Element {
+  return (
+    <svg className={`eb-s3v3-pfeil eb-s3v3-pfeil-${art}`} viewBox="0 0 24 12" aria-hidden="true">
+      <path d="M1 6 H20 M15 1.5 L21 6 L15 10.5" />
+    </svg>
+  )
+}
+
+function Thema({ k, nummer }: { k: EbKommtThema; nummer?: number }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  return (
+    <div className="eb-s3v3-thema" data-testid="eb-s3-thema">
+      <p className="eb-s3v3-thema-titel">
+        {nummer !== undefined && <span className="eb-s3v3-nr">{nummer}</span>}
+        {k.titel}
       </p>
-      <LernwegLegende lw={lw} />
-      <div
-        ref={bereich}
-        className="eb-s3-weg"
-        data-testid="eb-s3-weg"
-        data-stufe={stufe}
-        data-ueberlauf={ueberlauf || undefined}
-      >
-        <LernwegZonen lw={lw} />
-        <LernwegLinien linien={lw.linien} />
+      {k.halbjahr && <p className="eb-s3v3-wann">{t('s3.v3.halbjahr', { halbjahr: k.halbjahr })}</p>}
+    </div>
+  )
+}
+
+/** Variante A: oben alle Stärken, darunter alle Lücken; die Themen einmal rechts. */
+function LayoutA({ lw, liste }: { lw: EbLueckenweg; liste: Liste }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  const nr = (k: EbKommtThema): number => lw.themen.indexOf(k) + 1
+  const kasten = (k: EbKommtThema, art: 'sitzt' | 'fehlt'): JSX.Element => (
+    <div key={`${art}-${k.titel}`} className="eb-s3v3-zeile-a" data-testid={`eb-s3-${art}`}>
+      <div className={`eb-s3v3-kasten eb-s3v3-${art}`}>
+        <p className="eb-s3v3-fuer">
+          <span className="eb-s3v3-nr">{nr(k)}</span>
+          {k.titel}
+        </p>
+        <Bereiche
+          liste={liste}
+          eintraege={art === 'sitzt' ? k.sitzt : k.fehlt}
+          rest={art === 'sitzt' ? k.restSitzt : k.restFehlt}
+        />
       </div>
-      <p className="eb-s3-hinweis">
-        {tx.t('s3.weg.hinweis', { quelle: tx.quelleAus })}
-        {/* Erst ab Stufe 4 fallen geprüfte Bereiche (R7-12, Entscheidung 6). */}
-        {stufe >= STUFE_BEREICHE && lw.weggelassen.eintraege + lw.weggelassen.zonen > 0 && (
-          <> {tx.t('s3.weg.gekuerzt')}</>
-        )}
-      </p>
-    </>
+      <Pfeil art={art} />
+    </div>
+  )
+  const mitSitzt = lw.themen.filter((k) => k.sitzt.length > 0)
+  const mitFehlt = lw.themen.filter((k) => k.fehlt.length > 0)
+  return (
+    <section className="eb-s3v3-a" data-testid="eb-s3-wege">
+      <div className="eb-s3v3-links">
+        {mitSitzt.length > 0 && <p className="eb-s3v3-spalte">{t('s3.v3.sitzt')}</p>}
+        {mitSitzt.map((k) => kasten(k, 'sitzt'))}
+        {mitFehlt.length > 0 && <p className="eb-s3v3-spalte eb-s3v3-spalte-fehlt">{t('s3.v3.fehlt')}</p>}
+        {mitFehlt.map((k) => kasten(k, 'fehlt'))}
+      </div>
+      <div className="eb-s3v3-rechts">
+        <p className="eb-s3v3-spalte">{t('s3.v3.kommt')}</p>
+        {lw.themen.map((k) => (
+          <Thema key={k.titel} k={k} nummer={nr(k)} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+/** Variante B: je Thema eine Zeile — grün · rot → blau. */
+function LayoutB({ lw, liste }: { lw: EbLueckenweg; liste: Liste }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  return (
+    <section className="eb-s3v3-b" data-testid="eb-s3-wege">
+      <div className="eb-s3v3-kopf" aria-hidden="true">
+        <span>{t('s3.v3.sitzt')}</span>
+        <span>{t('s3.v3.fehlt')}</span>
+        <span />
+        <span>{t('s3.v3.kommt')}</span>
+      </div>
+      {lw.themen.map((k) => (
+        <div key={k.titel} className="eb-s3v3-zeile-b" data-testid="eb-s3-zeile">
+          <div className={k.sitzt.length > 0 ? 'eb-s3v3-kasten eb-s3v3-sitzt' : 'eb-s3v3-leer'} data-testid="eb-s3-sitzt">
+            {k.sitzt.length > 0 && <Bereiche liste={liste} eintraege={k.sitzt} rest={k.restSitzt} />}
+          </div>
+          <div className={k.fehlt.length > 0 ? 'eb-s3v3-kasten eb-s3v3-fehlt' : 'eb-s3v3-leer'} data-testid="eb-s3-fehlt">
+            {k.fehlt.length > 0 && <Bereiche liste={liste} eintraege={k.fehlt} rest={k.restFehlt} />}
+          </div>
+          <Pfeil art={k.fehlt.length > 0 ? 'fehlt' : 'sitzt'} />
+          <Thema k={k} />
+        </div>
+      ))}
+    </section>
+  )
+}
+
+function Weitere({ lw }: { lw: EbLueckenweg }): JSX.Element {
+  const { t } = useTranslation('elternbericht')
+  return (
+    <section className="eb-s3v2-weitere" data-testid="eb-s3-weitere">
+      <h2 className="eb-kicker">{t('s3.v2.weitereKicker')}</h2>
+      <p className="eb-s3v2-leise">{t('s3.v3.weitereIntro')}</p>
+      <dl>
+        {lw.weitere.map((g) => (
+          <div key={g.spaeter ? 'spaeter' : (g.feld ?? 'thema')} className="eb-s3v2-gruppe">
+            <dt>
+              {g.spaeter
+                ? t('s3.v2.weitereSpaeter')
+                : g.thema
+                  ? t('s3.v2.weitereThema', { thema: g.thema })
+                  : t(`feld.${g.feld ?? 'weitere'}`)}
+            </dt>
+            <dd>
+              {g.labels.length === 0
+                ? t('s3.v2.nurAnzahl', { count: g.rest ?? 0 })
+                : [...g.labels, ...((g.rest ?? 0) > 0 ? [t('s3.v2.undWeitere', { count: g.rest })] : [])].join(' · ')}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   )
 }

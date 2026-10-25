@@ -16,11 +16,20 @@ import {
 } from '@/lib/report/elternbericht/bereiche'
 import { bauePyramide } from '@/lib/report/elternbericht/einordnung'
 import { baueLernweg, kommtNoch } from '@/lib/report/elternbericht/lernweg'
-import { themaZuerst, waehleSchwerpunkte, type ThemaKontext } from '@/lib/report/elternbericht/schwerpunkte'
+import { baueLueckenweg } from '@/lib/report/elternbericht/lueckenweg'
+import { baueStufen } from '@/lib/report/elternbericht/stufenBlick'
+import { schwerpunkteMitGrund, themaZuerst, type ThemaKontext } from '@/lib/report/elternbericht/schwerpunkte'
 import { themaAbdeckung } from '@/lib/report/elternbericht/themaAbdeckung'
 import { gezaehlt, vorgriffe } from '@/lib/report/elternbericht/vorgriff'
 import { zaehle } from '@/lib/report/elternbericht/zaehlung'
-import type { EbBereich, Elternbericht, KatalogSkill, ReportErzaehlung, SucheSkill } from '@/types'
+import type {
+  EbBereich,
+  Elternbericht,
+  KatalogSkill,
+  KlassenarbeitStatus,
+  ReportErzaehlung,
+  SucheSkill,
+} from '@/types'
 
 /**
  * Was der Lernweg (R7-9) und die Thema-Regel der Schwerpunkte (R7-11) über die
@@ -44,6 +53,8 @@ export type ElternberichtEingabe = {
   klasse: number
   /** Ohne sie kein Lernweg (bericht.lernweg null). Bogen und Präsentation geben sie mit. */
   lernweg?: LernwegQuelle
+  /** Bericht v2: Stand der Klassenarbeit zum Thema (Startlogik der Schwerpunkte); null = unbekannt. */
+  klassenarbeit?: KlassenarbeitStatus | null
 }
 
 export function baueElternbericht({
@@ -51,6 +62,7 @@ export function baueElternbericht({
   katalog,
   klasse,
   lernweg,
+  klassenarbeit = null,
 }: ElternberichtEingabe): Elternbericht | null {
   if (kompetenzen.length === 0) return null
   const { alle, bereiche, vorgriff } = gezaehlteBereiche(kompetenzen, lernweg)
@@ -59,11 +71,30 @@ export function baueElternbericht({
 
   const { zaehlung, profil } = zahlen
   const thema = themaKontext(kompetenzen, lernweg)
+  const mitGrund = schwerpunkteMitGrund(bereiche, thema, klassenarbeit)
   return {
     zaehlung,
     profil,
     pyramide: bauePyramide(bereiche, klasse),
-    ...waehleSchwerpunkte(bereiche, thema),
+    schwerpunkte: mitGrund.schwerpunkte.map(({ grund: _g, ...s }) => s),
+    danach: mitGrund.danach,
+    gruende: mitGrund.schwerpunkte.map((s) => s.grund),
+    stufen: baueStufen(bereiche, klasse),
+    lueckenweg: lernweg
+      ? baueLueckenweg({
+          bereiche,
+          kanten: lernweg.erzaehlung.kanten,
+          heimatThemen: lernweg.erzaehlung.heimatThemen,
+          plan: lernweg.erzaehlung.plan,
+          kommt: kommtNoch({
+            plan: lernweg.erzaehlung.plan,
+            themaKey: lernweg.erzaehlung.raum?.themaKey ?? null,
+            datum: lernweg.datum,
+          }),
+          raum: thema?.raum ?? new Set(),
+          thema: thema?.thema ?? null,
+        })
+      : null,
     sicherListe: themaZuerst(sicherListe(bereiche), thema),
     uebungListe: themaZuerst(uebungListe(bereiche), thema),
     thema: thema

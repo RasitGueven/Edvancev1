@@ -220,6 +220,8 @@ export type {
   ReportSkillbefunde,
   ReportPaket,
   ReportNotes,
+  ReportErstgespraech,
+  KlassenarbeitStatus,
 } from './report'
 
 export { REPORT_PAKETE } from './report'

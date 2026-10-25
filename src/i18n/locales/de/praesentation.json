@@ -102,7 +102,7 @@
     "weg": {
       "desc": "Ziehen Sie die Fläche nach links in die Grundlagen und nach rechts in das, was laut {{quelle}} noch kommt.",
       "quelle": {
-        "schule": "Schulplan der Schule {{schulname}}",
+        "schule": "Schulplan {{schule}}",
         "schuleOhneName": "Schulplan der Schule",
         "klp": "Kernlehrplan NRW"
       },

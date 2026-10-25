@@ -10,7 +10,8 @@
     "testdaten": "Testdaten",
     "fuss": "edvance  ·  Köln  ·  Lernstandsanalyse {{name}}",
     "fussOhneName": "edvance  ·  Köln  ·  Lernstandsanalyse",
-    "seite": "{{seite}} / {{gesamt}}"
+    "seite": "{{seite}} / {{gesamt}}",
+    "nav": "Ihr Weg durch diesen Bericht"
   },
   "stufe": {
     "erprobung": "Klasse 5/6",
@@ -67,7 +68,12 @@
         "naechster": "Darauf baut {{naechster}} auf.",
         "zuerst": "Hier setzen wir zuerst an."
       },
-      "ansatzThemaSicher": "Was wir im Thema {{thema}} geprüft haben, sitzt. Wir arbeiten am aktuellen Stoff weiter."
+      "ansatzThemaSicher": "Was wir im Thema {{thema}} geprüft haben, sitzt. Wir arbeiten am aktuellen Stoff weiter.",
+      "luecken": "Die Lücken liegen vor allem bei {{felder}}.",
+      "muster": "Ein großer Teil der Fehler spricht eher für fehlende Sorgfalt als für fehlendes Verständnis.",
+      "start": "Wir beginnen mit {{was}}, weil {{grund}}.",
+      "startThema": "dem Thema {{thema}}",
+      "lueckenZwei": "Die Lücken liegen vor allem bei {{erstes}} sowie bei {{zweites}}."
     },
     "anliegen": {
       "kicker": "Ihr Anliegen",
@@ -78,7 +84,20 @@
       "antwort": "Dort hakt es: {{liste}}.",
       "antwortSicher": "Was wir dazu geprüft haben, sitzt.",
       "antwortSchwerpunkt": "Dort setzen wir zuerst an: {{schwerpunkt}}.",
-      "naechstesThema": "Als nächstes Thema steht {{thema}} an."
+      "naechstesThema": "Als nächstes Thema steht {{thema}} an.",
+      "seit": {
+        "diesesHalbjahr": "Die Schwierigkeiten gibt es seit diesem Halbjahr.",
+        "letztesSchuljahr": "Die Schwierigkeiten gibt es seit dem letzten Schuljahr.",
+        "laenger": "Die Schwierigkeiten bestehen schon länger."
+      },
+      "ursache": "Als Ursache vermuten Sie {{punkte}}.",
+      "antwortKicker": "Was die Analyse dazu zeigt",
+      "note": "Letzte Zeugnisnote in {{fach}}: {{note}}.",
+      "noteTrend": {
+        "besser": "Letzte Zeugnisnote in {{fach}}: {{note}}, zuletzt besser geworden.",
+        "stabil": "Letzte Zeugnisnote in {{fach}}: {{note}}, zuletzt unverändert.",
+        "schlechter": "Letzte Zeugnisnote in {{fach}}: {{note}}, zuletzt schlechter geworden."
+      }
     },
     "geprueft": {
       "kicker": "So haben wir geprüft",
@@ -111,12 +130,39 @@
         "4": "Lernplan",
         "5": "Nächste Schritte"
       }
+    },
+    "systematik": {
+      "kicker": "So gehen wir vor",
+      "start": "Wir starten beim aktuellen Schulthema und prüfen anhand des NRW-Lehrplans, worauf es aufbaut.",
+      "stufen": {
+        "zweite": "Klasse 5/6 steht für die Grundlagen, Klasse 7/8 für weiterführenden Stoff, Klasse {{klasse}} für den aktuellen Stoff.",
+        "erste": "Klasse 5/6 steht für die Grundlagen, Klasse {{klasse}} für den aktuellen Stoff.",
+        "erprobung": "Im Mittelpunkt steht der Stoff aus Klasse {{klasse}}."
+      },
+      "seiten": "Die nächsten Seiten zeigen, was sicher ist, wo Übungsbedarf besteht, wie das mit den kommenden Themen zusammenhängt und womit wir beginnen."
+    },
+    "stufen": {
+      "name": {
+        "grundlagen": "Grundlagen",
+        "weiterfuehrend": "Weiterführend",
+        "aktuell": "Aktueller Stoff"
+      },
+      "klasse": "Klasse {{k}}",
+      "klasseSpanne": "Klasse {{von}}/{{bis}}",
+      "urteil": {
+        "sicher": "sicher",
+        "weitgehend": "sitzen weitgehend",
+        "weitgehendAktuell": "fast sicher",
+        "gemischt": "teils sicher, teils Übungsbedarf",
+        "luecken": "hier liegen die Lücken"
+      },
+      "aria": "{{stufe}}: {{sicher}} sicher, {{uebung}} mit Übungsbedarf"
     }
   },
   "s2": {
     "kicker": "Lernstand im Überblick",
-    "titel": "{{wessen}} Lernstand in den untersuchten Bereichen.",
-    "titelOhneName": "Der Lernstand in den untersuchten Bereichen.",
+    "titel": "Der Lernstand von {{name}} in den geprüften Bereichen.",
+    "titelOhneName": "Der Lernstand in den geprüften Bereichen.",
     "intro": "Geprüft: {{untersucht}} Bereiche. Davon {{sicher}} sicher, {{uebung}} mit Übungsbedarf.",
     "zahl": {
       "sicher": "sicher eingestuft",
@@ -143,7 +189,8 @@
         "sicher": "Sicher",
         "uebung": "Übungsbedarf",
         "abgeleitet": "Aus den Aufgaben abgeleitet"
-      }
+      },
+      "titelBericht": "Kompetenzprofil"
     },
     "deutung": {
       "kicker": "Was die Grafik zeigt",
@@ -151,10 +198,17 @@
       "sicher_other": "Überwiegend sicher waren die Themenfelder {{felder}}.",
       "uebung_one": "Den meisten Übungsbedarf zeigte das Themenfeld {{felder}}.",
       "uebung_other": "Den meisten Übungsbedarf zeigten die Themenfelder {{felder}}.",
-      "coach": "Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen."
+      "coach": "Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen.",
+      "uebungAnteil": "Den meisten Übungsbedarf zeigte das Themenfeld {{feld}}: {{uebung}} von {{geprueft}} geprüften Bereichen.",
+      "uebungAnteilMehrere": "Den meisten Übungsbedarf zeigten die Themenfelder {{felder}}, je {{uebung}} von {{geprueft}} geprüften Bereichen."
     },
-    "fussnote": "Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die geprüften Aufgaben dazu gelangen. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.",
-    "fussnoteAbgeleitet": "Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe."
+    "fussnote": "Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind.",
+    "fussnoteAbgeleitet": "Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe.",
+    "warum": {
+      "kicker": "Warum auch frühere Klassen?",
+      "text": "Mathematik baut aufeinander auf. Was in einem Thema hakt, hat seine Ursache oft in Stoff aus früheren Klassen. Deshalb haben wir auch Bereiche aus Klasse 5 bis {{bis}} geprüft. Wie sie mit den kommenden Themen zusammenhängen, zeigt Seite 3.",
+      "textEine": "Mathematik baut aufeinander auf. Was in einem Thema hakt, hat seine Ursache oft in Stoff aus früheren Klassen. Deshalb haben wir auch Bereiche aus Klasse 5 geprüft. Wie sie mit den kommenden Themen zusammenhängen, zeigt Seite 3."
+    }
   },
   "s3": {
     "kicker": "{{wessen}} Lernweg",
@@ -198,12 +252,12 @@
       "intro": "Von links nach rechts der Weg durch den Lernstoff: was {{name}} schon hinter sich hat, wo der Unterricht gerade steht und was in Klasse {{klasse}} {{quelle}} noch kommt.",
       "introOhneName": "Von links nach rechts der Weg durch den Lernstoff: was Ihr Kind schon hinter sich hat, wo der Unterricht gerade steht und was in Klasse {{klasse}} {{quelle}} noch kommt.",
       "quelle": {
-        "schule": "laut Schulplan der Schule {{schulname}}",
+        "schule": "laut Schulplan {{schule}}",
         "schuleOhneName": "laut Schulplan der Schule",
         "klp": "nach dem Kernlehrplan NRW"
       },
       "quelleAus": {
-        "schule": "dem Schulplan der Schule {{schulname}}",
+        "schule": "dem Schulplan {{schule}}",
         "schuleOhneName": "dem Schulplan der Schule",
         "klp": "dem Kernlehrplan NRW"
       },
@@ -244,7 +298,7 @@
       "spaeter": "Stoff aus Klasse {{klasse}}",
       "hier": "Sie sind hier · {{monat}}",
       "hierOhneMonat": "Sie sind hier",
-      "hinweis": "Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage. Nicht geprüfte Bereiche klären wir in den ersten Sitzungen.",
+      "hinweis": "Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage.",
       "weitere": {
         "erste_one": "+ {{count}} weiterer {{stand}}",
         "erste_other": "+ {{count}} weitere {{stand}}",
@@ -264,6 +318,32 @@
         "trenner": " · "
       },
       "gekuerzt": "Nicht alle Bereiche passen auf diese Seite. Wie viele es je Themenfeld sind, steht auf Seite 2."
+    },
+    "v2": {
+      "kicker": "Einordnung",
+      "weitereKicker": "Weitere Bereiche mit Übungsbedarf",
+      "weitereThema": "Aktuelles Thema {{thema}}",
+      "quelleSchule": "dem Schulplan {{schule}}",
+      "quelleSchuleOhneName": "dem Schulplan der Schule",
+      "quelleKlp": "dem Kernlehrplan NRW",
+      "hinweis": "Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage.",
+      "undWeitere_one": "und ein weiterer",
+      "undWeitere_other": "und {{count}} weitere",
+      "nurAnzahl_one": "ein Bereich",
+      "nurAnzahl_other": "{{count}} Bereiche",
+      "weitereSpaeter": "Grundlage für spätere Themen"
+    },
+    "v3": {
+      "titel": "Was sitzt und was noch fehlt.",
+      "intro": "Zuerst steht, was schon sitzt, dann, was noch fehlt – jeweils für die Themen, die laut {{quelle}} noch kommen und direkt darauf aufbauen.",
+      "sitzt": "Sitzt schon",
+      "fehlt": "Fehlt noch",
+      "kommt": "Kommt noch",
+      "halbjahr": "voraussichtlich {{halbjahr}}. Halbjahr",
+      "auch": "betrifft auch {{themen}}",
+      "weitereStaerken": "Weitere Stärken",
+      "weitereIntro": "Diese Bereiche werden in späteren Themen und Schuljahren wichtig. Wir nehmen sie dazu, sobald sie anstehen.",
+      "titelZitat": "„{{titel}}“"
     }
   },
   "s4": {
@@ -278,45 +358,75 @@
       "4": "Vier Schwerpunkte, in dieser Reihenfolge."
     },
     "titelKeiner": "Kein Übungsbedarf in den untersuchten Bereichen.",
-    "reihenfolge": "In dieser Reihenfolge beginnen wir. Die Reihenfolge ist eine Planung, keine Aussage darüber, dass ein Thema das andere voraussetzt.",
-    "punkt": {
-      "sicher": "Sicher: {{liste}}.",
-      "uebung": "Noch nicht sicher: {{liste}}."
-    },
     "danach": "Danach nehmen wir {{liste}} dazu.",
     "lernziel": "Unser gemeinsames Lernziel",
     "stand": "Das ist der Stand nach dieser Analyse. Der Coach überprüft ihn in den ersten Sitzungen und passt den Plan an, wenn nötig.",
     "chip": {
-      "thema": "Aktuelles Thema"
-    }
+      "thema": "Aktuelles Thema",
+      "luecke": "Vorhandene Lücke"
+    },
+    "muster": {
+      "kicker": "Fehlermuster",
+      "sorgfalt": "Bei {{sorgfalt}} von {{eingeordnet}} Fehlern, die wir einordnen konnten, stimmte der Rechenweg, und nur ein Detail ging unterwegs verloren. Das spricht eher für fehlende Sorgfalt als für fehlendes Verständnis."
+    },
+    "grund": "weil {{grund}}",
+    "coach": "Der Coach prüft in den ersten Sitzungen, ob sich das bestätigt, und passt den Plan an, wenn nötig.",
+    "spaeterZeile": "wird im Thema „{{titel}}“ wieder gebraucht"
   },
   "s5": {
     "kicker": "Wie es weitergeht",
     "titel": "Unsere Einschätzung für {{name}}.",
-    "intro": "Der Bericht endet nicht mit einer Zahl, sondern mit einem Vorschlag. Was er bedeutet und ob er passt, besprechen wir mit Ihnen.",
     "vorschlag": {
       "chip": "Vorschlag",
       "titel": "Welcher Rhythmus zu {{name}} passt, legen wir gemeinsam im Gespräch fest.",
       "titelOhneName": "Welcher Rhythmus passt, legen wir gemeinsam im Gespräch fest.",
       "zeile": "Vorschlag des Coachs: {{paket}}, {{merkmal}}.",
-      "zeileOhneMerkmal": "Vorschlag des Coachs: {{paket}}."
+      "zeileOhneMerkmal": "Vorschlag des Coachs: {{paket}}.",
+      "chipBestaetigt": "Empfehlung Ihres Coachs",
+      "satz": "Passend dazu schlagen wir {{paket}} vor, weil {{grund}}.",
+      "satzBestaetigt": "Passend dazu empfiehlt Ihr Coach {{paket}}.",
+      "freiwillig": "Das ist ein Vorschlag und nicht verpflichtend. Ein Start mit Basic ist möglich.",
+      "freiwilligBasic": "Das ist ein Vorschlag und nicht verpflichtend."
     },
     "pakete": {
       "kicker": "Unsere Mitgliedschaften",
       "karte": "Mitgliedschaft",
       "vorschlag": "Coach-Vorschlag",
       "konditionen": "Konditionen im Gespräch",
-      "hinweis": "Preise, Laufzeiten und Konditionen besprechen wir persönlich. Dieser Bericht enthält keine Vertragsangaben."
+      "hinweis": "Preise, Laufzeiten und Konditionen besprechen wir persönlich. Dieser Bericht enthält keine Vertragsangaben.",
+      "vorschlagChip": "Vorschlag"
     },
     "kontakt": {
       "kicker": "Ihr persönlicher Ansprechpartner",
-      "rolle": "hat die Analyse begleitet",
+      "rolle": "Ihr persönlicher Ansprechpartner",
       "team": "Das Edvance-Team",
-      "mail": "hello@edvanceacademy.de"
+      "mail": "hello@edvanceacademy.de",
+      "kickerV2": "Kontakt",
+      "telefon": "Telefon {{telefon}}",
+      "tablet": "Die interaktive Fassung für das Tablet: {{link}}"
     },
     "fragen": {
       "kicker": "Fragen oder Entscheidung",
-      "text": "Sie können sich direkt entscheiden oder sich später mit Fragen melden. Wir antworten persönlich, ohne Termin und ohne Frist."
+      "text": "Bei Fragen erreichen Sie mich jederzeit – rufen Sie gern an oder schreiben Sie mir.",
+      "vertrag": "Den Vertrag erhalten Sie vor Ort oder per E-Mail als PDF. Unterschreiben können Sie ihn auch am Handy.",
+      "textOhneTelefon": "Bei Fragen erreichen Sie mich jederzeit – schreiben Sie mir gern."
+    },
+    "grund": {
+      "breit": "{{uebung}} von {{untersucht}} geprüften Bereichen Übungsbedarf zeigen, verteilt auf {{count}} Schwerpunkte",
+      "mehrere": "sich der Übungsbedarf auf {{count}} Schwerpunkte verteilt ({{uebung}} von {{untersucht}} geprüften Bereichen)",
+      "einer": "sich der Übungsbedarf auf einen Schwerpunkt konzentriert, dort aber {{uebung}} Bereiche betrifft",
+      "wenig": "nur wenige Bereiche Übungsbedarf zeigen"
+    },
+    "ziele": {
+      "kicker": "Ziele für die nächsten 6 Monate",
+      "vorThema": "{{was}} sicher anwenden, bevor das Thema „{{titel}}“ beginnt",
+      "klassenarbeit": "{{was}} für die Klassenarbeit sicher anwenden",
+      "allgemein": "{{was}} sicher anwenden",
+      "sorgfalt": "Rechenwege sorgfältig zu Ende führen und Ergebnisse selbst kontrollieren"
+    },
+    "fazit": {
+      "luecken": "Die Lücken liegen vor allem im Stoff von {{stufe}}, besonders bei {{felder}}.",
+      "zweiFelder": "{{erstes}} sowie bei {{zweites}}"
     }
   },
   "nichtAuswertbar": {
@@ -324,5 +434,74 @@
     "titelOhneName": "Eine neue Analyse für Ihr Kind",
     "kicker": "Zu dieser Analyse",
     "text": "Diese Lernstandsanalyse können wir nicht auswerten. Viele Aufgaben wurden in sehr kurzer Zeit beantwortet. So kurze Antwortzeiten zeigen nicht, was {{name}} kann. Wir wiederholen die Analyse in Ruhe."
+  },
+  "feldMit": {
+    "brueche": "Brüchen und Dezimalzahlen",
+    "prozent": "Prozent und Dreisatz",
+    "terme": "Termen und Gleichungen",
+    "geometrie": "der Geometrie",
+    "groessen": "Größen und Einheiten",
+    "zahlen": "Zahlen und Rechnen",
+    "funktionen": "Funktionen",
+    "zufall": "Daten und Zufall",
+    "weitere": "weiteren Bereichen"
+  },
+  "grund": {
+    "klassenarbeit": "die Klassenarbeit zu diesem Thema bevorsteht",
+    "thema": "es das aktuelle Schulthema ist",
+    "themaGeschrieben": "im aktuellen Schulthema noch eine Lücke offen ist",
+    "naechstesThema": "das kommende Schulthema „{{titel}}“ darauf aufbaut",
+    "grundlagen": "hier schon Stoff aus Klasse 5/6 Übung braucht",
+    "anzahl_one": "hier ein Bereich Übungsbedarf zeigt",
+    "anzahl_other": "hier {{count}} Bereiche Übungsbedarf zeigen",
+    "naechstesThemaZuerst": "das kommende Schulthema „{{titel}}“ darauf aufbaut – zuerst, weil es Stoff aus {{stufe}} ist",
+    "naechstesThemaDanach": "auch „{{titel}}“ darauf aufbaut – danach, weil es Stoff aus {{stufe}} ist",
+    "spaeterGebraucht": "es im Thema „{{titel}}“ wieder gebraucht wird"
+  },
+  "ursache": {
+    "grundlagen": {
+      "basisSitzt": "Die Grundlagen aus Klasse 5/6 sitzen weitgehend.",
+      "bestaetigt": "Die Lücken liegen vor allem im Stoff von {{stufe}}.",
+      "bestaetigtTief": "Die Lücken reichen bis in den Stoff von Klasse 5/6.",
+      "eherNicht": "Die Grundlagen aus früheren Klassen sitzen weitgehend.",
+      "eherNichtAktuell": "Die Lücken liegen vor allem im aktuellen Stoff von {{stufe}}."
+    },
+    "textverstaendnis": {
+      "bestaetigt": "Bei Aufgaben mit längerem Text zeigte sich Übungsbedarf.",
+      "eherNicht": "Aufgaben mit längerem Text löste {{name}} sicher. Die Schwierigkeiten liegen eher an anderer Stelle.",
+      "offen": "Zum Textverständnis gab es in dieser Analyse zu wenige Aufgaben für eine Aussage."
+    },
+    "rechenwege": {
+      "bestaetigt": "Bei mehrschrittigen Rechenwegen zeigten sich Fehler im Ablauf.",
+      "eherNicht": "Die Rechenwege selbst waren meist richtig aufgebaut.",
+      "offen": "Zu den Rechenwegen lässt diese Analyse keine klare Aussage zu."
+    },
+    "konzentration": {
+      "bestaetigt": "Ein großer Teil der Fehler spricht eher für fehlende Sorgfalt als für fehlendes Verständnis. Das passt zu Ihrem Eindruck.",
+      "offen": "Konzentration misst diese Analyse nicht direkt."
+    },
+    "pruefungsangst": {
+      "offen": "Prüfungsangst lässt sich in einer Analyse ohne Notendruck nicht messen."
+    },
+    "zeiteinteilung": {
+      "offen": "Zeiteinteilung misst diese Analyse nicht direkt."
+    }
+  },
+  "schule": {
+    "gymnasium": "des {{name}}s",
+    "schule": "der {{name}}",
+    "sonst": "der Schule {{name}}",
+    "gymnasiumVorn": "des {{art}}s {{rest}}"
+  },
+  "feldZiel": {
+    "brueche": "Brüche und Dezimalzahlen",
+    "prozent": "Prozent- und Dreisatzrechnung",
+    "terme": "Terme und Gleichungen",
+    "geometrie": "Flächen und Figuren",
+    "groessen": "Größen und Einheiten",
+    "zahlen": "Rechnen mit Zahlen und Wurzeln",
+    "funktionen": "Funktionen",
+    "zufall": "Daten und Zufall",
+    "weitere": "weitere Bereiche"
   }
 }

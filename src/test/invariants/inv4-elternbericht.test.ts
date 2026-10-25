@@ -81,6 +81,37 @@ const R7_11_GEAENDERT: Record<string, string> = {
 }
 
 /**
+ * Anhang-A-Schlüssel, die der Bericht v2 (Auftrag Rasit, 24.10.2026) neu fasst:
+ * Anrede mit Vornamen ohne Genitiv, „gelungen“ statt „gelangen“, Ansprechpartner.
+ * Gilt vor den Fassungen aus R7-6/8/11.
+ */
+const V2_GEAENDERT: Record<string, string> = {
+  's2.titel': 'Der Lernstand von {{name}} in den geprüften Bereichen.',
+  's2.titelOhneName': 'Der Lernstand in den geprüften Bereichen.',
+  's2.fussnote':
+    'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind. Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts.',
+  's5.kontakt.rolle': 'Ihr persönlicher Ansprechpartner',
+  's3.weg.quelle.schule': 'laut Schulplan {{schule}}',
+  's3.weg.quelleAus.schule': 'dem Schulplan {{schule}}',
+  's3.weg.hinweis':
+    'Was worauf aufbaut, stammt aus unserem Voraussetzungsgraphen zum NRW-Lehrplan, die Reihenfolge der kommenden Themen aus {{quelle}}. Beides beschreibt den Lernstoff, keine Vorhersage.',
+}
+
+/**
+ * Anhang-A-Schlüssel, die der Bericht v3 (Auftrag Rasit, 24.10.2026) neu fasst:
+ * die Fußnote verliert den letzten Satz („Über Bereiche, die nicht geprüft wurden …“),
+ * der Kontakttext spricht in der Ich-Form des Coachs. Geht allen früheren Fassungen vor.
+ */
+const V3_GEAENDERT: Record<string, string> = {
+  's2.fussnote':
+    'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind.',
+  's5.fragen.text': 'Bei Fragen erreichen Sie mich jederzeit – rufen Sie gern an oder schreiben Sie mir.',
+}
+
+/** Anhang-A-Schlüssel, die der Bericht v3 streicht (Seite 4 ohne Listen und Hinweis, Seite 5 mit Fazit). */
+const V3_ENTFALLEN = ['s4.reihenfolge', 's4.punkt.sicher', 's4.punkt.uebung', 's5.intro']
+
+/**
  * INV-4.13 (R7-11, Entscheidung 14): Seite 1 und Station 01 sagen nicht, was die
  * Analyse nicht sagen kann oder erst später klärt. Mindestens diese Wörter.
  */
@@ -122,6 +153,9 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     expect(Object.keys(anhang)).toHaveLength(148)
     for (const [key, text] of Object.entries(anhang)) {
       if (
+        key in V3_GEAENDERT ||
+        V3_ENTFALLEN.includes(key) ||
+        key in V2_GEAENDERT ||
         key in R7_6_GEAENDERT ||
         key in R7_8_GEAENDERT ||
         key in R7_9_GEAENDERT ||
@@ -142,7 +176,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_6_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(R7_11_GEAENDERT[key] ?? R7_8_GEAENDERT[key] ?? text)
+      expect(texte[key], key).toBe(V3_GEAENDERT[key] ?? V2_GEAENDERT[key] ?? R7_11_GEAENDERT[key] ?? R7_8_GEAENDERT[key] ?? text)
     }
     for (const key of R7_6_ENTFALLEN) {
       expect(anhang[key], key).toBeDefined()
@@ -168,7 +202,7 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_8_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(R7_11_GEAENDERT[key] ?? text)
+      expect(texte[key], key).toBe(V3_GEAENDERT[key] ?? V2_GEAENDERT[key] ?? R7_11_GEAENDERT[key] ?? text)
     }
   })
 
@@ -178,9 +212,44 @@ describe('INV-4.9 — elternbericht.json spricht Elternsprache', () => {
     const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
     for (const [key, text] of Object.entries(R7_11_GEAENDERT)) {
       expect(anhang[key], key).toBeDefined()
-      expect(texte[key], key).toBe(text)
+      expect(texte[key], key).toBe(V3_GEAENDERT[key] ?? V2_GEAENDERT[key] ?? text)
     }
     expect(texte['s1.anliegen.naechstesThema']).toBe(anhang['s1.anliegen.thema'])
+  })
+
+  it('Bericht v2: die neu gefassten Schlüssel wörtlich, kein „gelangen“, kein „abgeleitet“ in der Systematik', () => {
+    for (const [key, text] of Object.entries(V2_GEAENDERT)) expect(texte[key], key).toBe(V3_GEAENDERT[key] ?? text)
+    for (const [key, s] of Object.entries(texte)) expect(s, key).not.toMatch(/gelangen/)
+    for (const [key, s] of Object.entries(texte)) {
+      if (key.startsWith('s1.systematik.')) expect(s, key).not.toMatch(/abgeleitet|ergeben sich/)
+    }
+  })
+
+  it('Bericht v3: die neu gefassten Schlüssel wörtlich, die gestrichenen fehlen, Plantitel stehen in Anführungszeichen', () => {
+    const bauauftrag = read('docs/report/r7/Bauauftrag-R7.md')
+    const start = bauauftrag.indexOf('```json', bauauftrag.indexOf('## Anhang A'))
+    const anhang = flatten(JSON.parse(bauauftrag.slice(start + 7, bauauftrag.indexOf('```', start + 7))))
+    for (const [key, text] of Object.entries(V3_GEAENDERT)) {
+      expect(anhang[key], key).toBeDefined()
+      expect(texte[key], key).toBe(text)
+    }
+    expect(texte['s2.fussnote']).not.toMatch(/nicht geprüft wurden/)
+    for (const key of V3_ENTFALLEN) {
+      expect(anhang[key], key).toBeDefined()
+      expect(texte[key], key).toBeUndefined()
+    }
+    for (const key of ['s1.anliegen.trend.besser', 's1.anliegen.trend.stabil', 's1.anliegen.trend.schlechter', 's1.anliegen.noteOhneName', 's3.v2.titel', 's3.v2.intro']) {
+      expect(texte[key], key).toBeUndefined()
+    }
+    // Titel aus dem Schulplan stehen im Satz in „…“.
+    for (const key of ['grund.naechstesThema', 'grund.naechstesThemaZuerst', 'grund.naechstesThemaDanach', 'grund.spaeterGebraucht', 's4.spaeterZeile', 's5.ziele.vorThema', 's3.v3.titelZitat']) {
+      expect(texte[key], key).toMatch(/„\{\{titel\}\}“/)
+    }
+    // Die Notenzeile trägt Fach und Note, nie den Namen.
+    for (const key of ['s1.anliegen.note', 's1.anliegen.noteTrend.besser', 's1.anliegen.noteTrend.stabil', 's1.anliegen.noteTrend.schlechter']) {
+      expect(texte[key], key).toMatch(/Letzte Zeugnisnote in \{\{fach\}\}: \{\{note\}\}/)
+      expect(texte[key], key).not.toMatch(/\{\{name\}\}/)
+    }
   })
 
   it('INV-4.13: kein Text auf Seite 1 sagt, was die Analyse nicht sagen kann (außer dem Methodenhinweis)', () => {

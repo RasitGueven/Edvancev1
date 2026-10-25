@@ -135,6 +135,88 @@ export type EbSchwerpunkt = {
 }
 
 /**
+ * Bericht v2: der halbe Satz „weil …“ zu einem Schwerpunkt. Jede Art ist aus
+ * den Daten belegt (schwerpunkte.ts, grundVon), nichts ist frei formuliert.
+ */
+export type EbGrund =
+  /** Thema, die Klassenarbeit dazu steht bevor. */
+  | { art: 'klassenarbeit' }
+  /** Thema, Stand der Klassenarbeit unbekannt. */
+  | { art: 'thema' }
+  /** Thema, die Klassenarbeit ist geschrieben. */
+  | { art: 'themaGeschrieben' }
+  /**
+   * Ein kommendes Schulthema baut laut Voraussetzungsgraph direkt darauf auf.
+   * Bei mehreren Feldern zum selben Thema aus verschiedenen Klassenbändern dazu
+   * das Band und die Stelle („zuerst“ bzw. „danach“, Regel in schwerpunkte.ts).
+   */
+  | { art: 'naechstesThema'; titel: string; stufe?: Stufe; reihe?: 'zuerst' | 'danach' }
+  /** Thema mit geschriebener Klassenarbeit: Ein kommendes Thema baut auf der Lücke auf. */
+  | { art: 'spaeterGebraucht'; titel: string }
+  /** Übungsbedarf schon im Stoff von Klasse 5/6. */
+  | { art: 'grundlagen' }
+  /** Sonst: so viele Bereiche mit Übungsbedarf. */
+  | { art: 'anzahl'; count: number }
+
+/** Bericht v2, Seite 1: Klassenstufen in „Auf einen Blick“. */
+export type EbStufeKey = 'grundlagen' | 'weiterfuehrend' | 'aktuell'
+export type EbStufenUrteil = 'sicher' | 'weitgehend' | 'gemischt' | 'luecken'
+export type EbStufenZeile = {
+  stufe: EbStufeKey
+  /** Kleinste und größte Herkunftsklasse der Bereiche dieser Zeile. */
+  von: number
+  bis: number
+  sicher: number
+  uebung: number
+  urteil: EbStufenUrteil
+}
+
+/**
+ * Bericht v3, Seite 3: ein Bereich in genau einem Themenblock. `auch` nennt die
+ * übrigen kommenden Themen, die ebenfalls direkt darauf aufbauen („betrifft auch …“).
+ */
+export type EbZuordnung = { label: string; auch: string[] }
+
+/** Bericht v3, Seite 3: ein kommendes Schulthema mit dem, worauf es direkt aufbaut. */
+export type EbKommtThema = {
+  titel: string
+  halbjahr: 1 | 2 | null
+  /** Sichere Bereiche, deren Block dieses Thema ist. */
+  sitzt: EbZuordnung[]
+  /** Bereiche mit Übungsbedarf, deren Block dieses Thema ist. */
+  fehlt: EbZuordnung[]
+  /** Nur nach dem Ausdünnen: so viele stehen nicht mehr in `sitzt` bzw. `fehlt`. */
+  restSitzt?: number
+  restFehlt?: number
+}
+
+/** Bericht v2, Seite 3: Lücken ohne direkten Bezug zu einem kommenden Thema, je Gruppe. */
+export type EbLueckenGruppe = {
+  /** Themenfeld; null für das Thema der LSA. */
+  feld: ThemenfeldKey | null
+  thema: string | null
+  /** Nur nach dem Ausdünnen: Lücken, auf denen spätere Themen ohne eigene Zeile aufbauen. */
+  spaeter?: boolean
+  labels: string[]
+  /** Nur nach dem Ausdünnen: so viele Bereiche stehen nicht mehr in `labels`. */
+  rest?: number
+}
+
+/** Bericht v3, Seite 3: erst was sitzt, dann was fehlt, je kommendem Thema. */
+export type EbLueckenweg = {
+  /** Kommende Themen mit mindestens einem eigenen Bereich, in Plan-Reihenfolge. */
+  themen: EbKommtThema[]
+  /** Sichere Bereiche ohne kommendes Thema („Weitere Stärken“). */
+  weitereStaerken: string[]
+  /** Nur nach dem Ausdünnen: so viele weitere Stärken stehen nicht mehr in der Liste. */
+  weitereStaerkenRest?: number
+  /** Bereiche mit Übungsbedarf ohne kommendes Thema, je Gruppe („Weitere Bereiche …“). */
+  weitere: EbLueckenGruppe[]
+  quelle: 'schule' | 'klp'
+  schulname: string | null
+}
+
+/**
  * Das Thema der LSA (R7-11), auch wenn es kein Schwerpunkt ist: Ohne
  * Übungsbedarf im Thema zeigt Seite 1 dann ansatzThemaSicher.
  */
@@ -179,6 +261,12 @@ export type Elternbericht = {
   thema: EbThema | null
   /** Der Lernweg für Seite 3 und Station 03 (R7-9); null ohne Eingabe dafür. */
   lernweg: Lernweg | null
+  /** Bericht v2: je Schwerpunkt (gleiche Reihenfolge) der Grund „weil …“. */
+  gruende?: EbGrund[]
+  /** Bericht v2, Seite 1: eine Zeile je Klassenstufe mit geprüften Bereichen. */
+  stufen?: EbStufenZeile[]
+  /** Bericht v2, Seite 3; null ohne Lernweg-Quelle. */
+  lueckenweg?: EbLueckenweg | null
 }
 
 /* ─── Lernweg (R7-9): Seite 3 und Station 03 ──────────────────────────────── */

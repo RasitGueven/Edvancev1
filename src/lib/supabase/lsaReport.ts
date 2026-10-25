@@ -17,6 +17,7 @@
 
 import { supabase } from '@/lib/supabase/client'
 import { loadNichtAuswertbar, loadSchnelleSitzungen } from '@/lib/supabase/lsaDurchklick'
+import { loadErstgespraech } from '@/lib/supabase/lsaReportErstgespraech'
 import { loadErzaehlung } from '@/lib/supabase/lsaReportErzaehlung'
 import { loadSkillbefunde } from '@/lib/supabase/lsaReportSkills'
 import type {
@@ -302,6 +303,7 @@ export async function getReportData(
     const parentAssessment = parentAssessmentAus(kontext)
     const fehlbilder = await loadFehlbilder(row.id)
     const nichtAuswertbar = await loadNichtAuswertbar([row.id])
+    const analysedAt = row.completed_at ?? row.started_at ?? row.created_at
 
     return {
       data: {
@@ -310,7 +312,7 @@ export async function getReportData(
         grade: row.grade,
         subject: row.subject,
         status: row.status,
-        analysedAt: row.completed_at ?? row.started_at ?? row.created_at,
+        analysedAt,
         testlauf: row.testlauf === true,
         aufgaben,
         naechstesThema: await naechstesThemaAus(kontext),
@@ -318,6 +320,7 @@ export async function getReportData(
         auswertbar: !nichtAuswertbar.has(row.id),
         nichtAuswertbarGrund: nichtAuswertbar.get(row.id) ?? null,
         leadId: kontext?.leadId ?? null,
+        erstgespraech: await loadErstgespraech(kontext?.leadId ?? null, analysedAt),
         parentAssessment,
         skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder,

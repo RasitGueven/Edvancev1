@@ -18,9 +18,8 @@
 
 .eb-s4-fazit {
   box-sizing: border-box;
-  min-height: 114pt;
-  margin-top: 18.68pt;
-  padding: 16.89pt 20pt; /* Text ab x 64, Breite 467, erste Zeile (160,9) */
+  margin-top: 12pt;
+  padding: 14pt 20pt; /* Text ab x 64, Breite 467, erste Zeile (160,9) */
   font-size: 11pt;
   line-height: 16.1pt;
   color: var(--color-eb-tinte);
@@ -103,6 +102,16 @@
   vertical-align: 1.5pt;
   color: var(--color-eb-leise);
   background: var(--color-eb-weiss);
+}
+.eb-s4-grund-text {
+  margin-top: 3pt;
+  font-size: 8.6pt;
+  line-height: 11.5pt;
+  font-style: italic;
+  color: var(--color-eb-sicher-text);
+}
+.eb-s4-grund-text + .eb-s4-punkt-text {
+  margin-top: 4pt;
 }
 .eb-s4-punkt-text {
   margin-top: 6.9pt; /* 19,7 unter der Titel-Grundlinie */

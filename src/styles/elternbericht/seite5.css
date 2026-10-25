@@ -25,49 +25,10 @@
   color: var(--color-eb-text);
 }
 
-/* ─── Navy-Kasten (44,236)–(551,363) ──────────────────────────────────────── */
-
-.eb-s5-vorschlag {
-  box-sizing: border-box;
-  min-height: 127pt;
-  margin-top: 29.8pt;
-  padding: 16pt 18pt 12.56pt;
-  background: var(--color-eb-navy);
-  border-radius: 13pt;
-}
-.eb-s5-vorschlag-chip {
-  display: block;
-  width: fit-content;
-  box-sizing: border-box;
-  height: 17.3pt;
-  padding: 1.6pt 10pt 0;
-  border-radius: 8.7pt;
-  background: var(--color-eb-navy-chip);
-  font-size: 7.3pt; /* (263,3) */
-  line-height: 15.3pt;
-  text-transform: uppercase;
-  color: var(--color-eb-weiss);
-}
-.eb-s5-vorschlag-titel {
-  margin-top: 16.25pt; /* (302,0 / 324,6) */
-  font-size: 17.8pt;
-  line-height: 22.6pt;
-  color: var(--color-eb-weiss);
-  text-wrap: balance;
-}
-.eb-s5-vorschlag-zeile {
-  max-width: 469pt;
-  margin-top: 6.94pt; /* (346,6) */
-  padding-left: 1pt;
-  font-size: 8.65pt;
-  line-height: 12pt;
-  color: var(--color-eb-auf-navy);
-}
-
 /* ─── Mitgliedschaften, Karten y 422–574 ──────────────────────────────────── */
 
 .eb-s5-pakete-kicker {
-  margin-top: 31.32pt; /* (402,3) */
+  margin-top: 26pt;
 }
 .eb-s5-karten {
   display: flex;
@@ -119,15 +80,64 @@
 .eb-s5-merkmal-1 {
   fill: var(--color-eb-tinte);
 }
-.eb-s5-konditionen {
-  font-size: 7.4px;
-  fill: var(--color-eb-leise);
+/* ─── Bericht v2: Vorschlag mit Begründung, Ziele ───────────────────────── */
+
+.eb-s5-vorschlag {
+  margin-top: 14pt;
+  padding: 12pt 16pt;
+  background: var(--color-eb-navy);
+  border-radius: 12pt;
 }
-.eb-s5-pakete-hinweis {
-  margin-top: 15.6pt; /* (598,5) */
-  font-size: 8.5pt;
-  line-height: 12pt;
-  color: var(--color-eb-text);
+.eb-s5-vorschlag-satz {
+  font-size: 10pt;
+  line-height: 14pt;
+  color: var(--color-eb-weiss);
+}
+.eb-s5-vorschlag-frei {
+  margin-top: 5pt;
+  font-size: 8.4pt;
+  line-height: 11.5pt;
+  color: var(--color-eb-auf-navy);
+}
+.eb-s5-ziele {
+  margin-top: 18pt;
+  padding: 11pt 15pt;
+  background: var(--color-eb-weiss);
+  border: 0.8pt solid var(--color-eb-linie);
+  border-radius: 12pt;
+}
+.eb-s5-fazit {
+  color: var(--color-eb-tinte);
+}
+.eb-s5-ziele-liste {
+  margin-top: 6pt;
+}
+.eb-s5-ziele-liste li {
+  position: relative;
+  padding-left: 11pt;
+  font-size: 9pt;
+  line-height: 12.5pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s5-ziele-liste li + li {
+  margin-top: 3pt;
+}
+.eb-s5-ziele-liste li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4.2pt;
+  width: 5pt;
+  height: 5pt;
+  border-radius: 50%;
+  background: var(--color-eb-sicher);
+}
+.eb-s5-ziele-text {
+  margin-top: 6pt;
+  font-size: 9.2pt;
+  line-height: 13pt;
+  white-space: pre-line;
+  color: var(--color-eb-tinte);
 }
 
 /* ─── Kontakt (44,636)–(551,768), Trenner bei x 307,6 ─────────────────────── */
@@ -137,7 +147,7 @@
   grid-template-columns: 263.6pt 1fr;
   box-sizing: border-box;
   min-height: 132pt;
-  margin-top: 33.6pt;
+  margin-top: 18pt;
   background: var(--color-eb-weiss);
   border: 0.8pt solid var(--color-eb-linie);
   border-radius: 12pt;
@@ -177,6 +187,15 @@
   line-height: 12pt;
   color: var(--color-eb-sicher-text);
   text-decoration: none;
+}
+.eb-s5-kontakt-telefon {
+  margin-top: 4pt;
+  font-size: 9.25pt;
+  line-height: 12pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s5-fragen-text + .eb-s5-fragen-text {
+  margin-top: 8pt;
 }
 .eb-s5-fragen-text {
   max-width: 200pt;

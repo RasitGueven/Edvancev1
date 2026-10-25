@@ -4,6 +4,7 @@
 // Bogen anzufassen. Gerechnet wird einmal im Bogen, nicht je Seite.
 
 import type { Bausteinsatz } from '@/lib/report/bausteine'
+import type { EinordnungLayout } from '@/lib/report/elternbericht/berichtKonfig'
 import type { Elternbericht, ReportData, ReportNotes, TierPlan } from '@/types'
 
 export type SeitenProps = {
@@ -12,10 +13,14 @@ export type SeitenProps = {
   satz: Bausteinsatz
   notes: ReportNotes | null
   tiers: TierPlan[]
-  /** Rufname, getrimmt; null ohne Namen. */
+  /** Vorname (erstes Wort des Rufnamens) für den Text; null ohne Namen. */
   name: string | null
+  /** Voller Rufname, nur für den Titel von Seite 1 und die Fußzeile; null ohne Namen. */
+  vollerName: string | null
   /** genitiv(name) („Ilkays“); null ohne Namen. */
   wessen: string | null
+  /** Layout von Seite 3 (berichtKonfig.EINORDNUNG_LAYOUT, sonst übergeben). */
+  einordnung?: EinordnungLayout
 }
 
 /** Seitenzahl des Bogens (Fuß „n / 5“). */

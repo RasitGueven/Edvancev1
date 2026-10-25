@@ -19,13 +19,9 @@ function seite2(data: ReportData) {
 describe('Seite 2 — ilkay', () => {
   const s = (): ReturnType<typeof seite2> => seite2(FAELLE.ilkay.data)
 
-  it('Titel mit Genitiv, Intro nur mit Geprüftem', () => {
-    expect(s().getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Ilkays Lernstand in den untersuchten Bereichen.',
-    )
-    expect(s().el.querySelector('.eb-s2-intro')?.textContent).toBe(
-      'Geprüft: 27 Bereiche. Davon 11 sicher, 16 mit Übungsbedarf.',
-    )
+  it('Titel ohne Genitiv, keine Intro-Zeile mehr', () => {
+    expect(s().getByRole('heading', { level: 1 })).toHaveTextContent('Der Lernstand von Ilkay in den geprüften Bereichen.')
+    expect(s().el.querySelector('.eb-s2-intro')).toBeNull()
   })
 
   it('drei Zahlen sicher, Übungsbedarf, geprüft', () => {
@@ -42,10 +38,10 @@ describe('Seite 2 — ilkay', () => {
     // Funktionen und Zufall: nichts geprüft, keine Zeile.
     expect(zeilen).toHaveLength(6)
     expect(el).not.toHaveTextContent('Funktionen')
-    expect(el.querySelector('.eb-s2-eng')).toBeNull()
+    // Bericht v3: die Zeilen stehen nach Klassenband; Größen (Klasse 5–6) zuerst.
     const erste = zeilen[0]
-    expect(erste.querySelectorAll('.eb-s2-segment-sicher')).toHaveLength(2)
-    expect(erste.querySelectorAll('.eb-s2-segment-uebung')).toHaveLength(3)
+    expect(erste.querySelectorAll('.eb-s2-segment-sicher')).toHaveLength(3)
+    expect(erste.querySelectorAll('.eb-s2-segment-uebung')).toHaveLength(2)
     expect(erste.querySelectorAll('rect')).toHaveLength(5)
     expect(el.querySelector('[fill^="url("]')).toBeNull()
     expect(el.querySelector('.eb-s2-segment-offen, .eb-s2-segment-schraffur')).toBeNull()
@@ -60,13 +56,13 @@ describe('Seite 2 — ilkay', () => {
   it('Vorlesetext und rechte Zeile je Feld', () => {
     const zeilen = s().getAllByTestId('eb-profil-zeile')
     expect(zeilen[0].querySelector('.sr-only')).toHaveTextContent(
-      'Brüche & Dezimalzahlen: 5 geprüft, davon 2 sicher und 3 mit Übungsbedarf.',
+      'Größen: 5 geprüft, davon 3 sicher und 2 mit Übungsbedarf.',
     )
     const rechts = (i: number): (string | null)[] =>
       [...zeilen[i].querySelectorAll('.eb-s2-geprueft, .eb-s2-teile')].map((x) => x.textContent)
-    expect(rechts(0)).toEqual(['5 geprüft', '2 sicher · 3 Übungsbedarf'])
-    // Zahlen & Rechnen: 2 sicher, 1 Übungsbedarf.
-    expect(rechts(5)).toEqual(['3 geprüft', '2 sicher · 1 Übungsbedarf'])
+    expect(rechts(0)).toEqual(['5 geprüft', '3 sicher · 2 Übungsbedarf'])
+    // Zahlen & Rechnen (dritte Zeile): 2 sicher, 1 Übungsbedarf.
+    expect(rechts(2)).toEqual(['3 geprüft', '2 sicher · 1 Übungsbedarf'])
   })
 
   it('Legende nur Sicher und Übungsbedarf', () => {
@@ -75,18 +71,20 @@ describe('Seite 2 — ilkay', () => {
     expect(legende).not.toHaveTextContent('Nicht untersucht')
   })
 
-  it('Fußnote: ein Kästchen je geprüftem Bereich, ohne Zusatz zu Abgeleitetem', () => {
+  it('Fußnote: „gelungen“, keine Note, nichts zu Umrissen und kein Satz über nicht geprüfte Bereiche', () => {
     const fussnote = s().el.querySelector('.eb-s2-fussnote')
-    expect(fussnote).toHaveTextContent(
-      'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert.',
+    expect(fussnote?.textContent).toBe(
+      'Jedes Kästchen steht für einen geprüften Bereich. Das ist keine Note und kein Prozentwert. Ein Bereich gilt als sicher, wenn die Aufgaben dazu gelungen sind.',
     )
-    expect(fussnote).not.toHaveTextContent('Umrandete Kästchen')
+    expect(fussnote).not.toHaveTextContent(/nicht geprüft wurden/)
+    expect(fussnote).not.toHaveTextContent(/abgeleitet|Umrandete|ergeben sich/i)
   })
 
-  it('Was die Grafik zeigt: zwei Sätze und der Coach', () => {
+  it('Was die Grafik zeigt: Sicher-Satz und Übungsbedarf mit Anteil, kein Coach-Satz', () => {
     expect(s().getByTestId('eb-deutung')).toHaveTextContent(
-      'Überwiegend sicher waren die Themenfelder Größen und Zahlen & Rechnen. Den meisten Übungsbedarf zeigten die Themenfelder Geometrie und Brüche & Dezimalzahlen. Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen.',
+      'Überwiegend sicher waren die Themenfelder Größen und Zahlen & Rechnen. Den meisten Übungsbedarf zeigte das Themenfeld Geometrie: 5 von 6 geprüften Bereichen.',
     )
+    expect(s().el).not.toHaveTextContent(/prüft der Coach|Der Coach/)
   })
 })
 
@@ -108,10 +106,10 @@ describe('Seite 2 — Sonderfälle', () => {
     expect(container).toHaveTextContent('Weitere Bereiche')
   })
 
-  it('weitereBereiche: „Weitere Bereiche“ als letzte Zeile, Abstand nach Zahl der Zeilen', () => {
+  it('weitereBereiche: „Weitere Bereiche“ steht als Zeile (nach Klassenband einsortiert), Abstand nach Zahl der Zeilen', () => {
     const s = seite2(FAELLE.weitereBereiche.data)
     const zeilen = s.getAllByTestId('eb-profil-zeile')
-    expect(zeilen.at(-1)).toHaveTextContent('Weitere Bereiche')
+    expect(zeilen.filter((z) => z.textContent?.includes('Weitere Bereiche'))).toHaveLength(1)
     expect(zeilen[0].querySelector('svg')).toHaveAttribute('height', `${zeilen.length <= 6 ? 40.8 : zeilen.length <= 8 ? 33.4 : 30}pt`)
   })
 
@@ -120,7 +118,6 @@ describe('Seite 2 — Sonderfälle', () => {
     const d = s.getByTestId('eb-deutung')
     expect(d).toHaveTextContent('Überwiegend sicher')
     expect(d).not.toHaveTextContent('Übungsbedarf zeigte')
-    expect(d).not.toHaveTextContent('prüft der Coach')
     const teile = [...s.el.querySelectorAll('.eb-s2-teile')].map((x) => x.textContent)
     expect(teile.every((x) => x && /^\d+ sicher$/.test(x))).toBe(true)
   })
@@ -130,15 +127,14 @@ describe('Seite 2 — Sonderfälle', () => {
     const d = s.getByTestId('eb-deutung')
     expect(d).not.toHaveTextContent('Überwiegend sicher')
     expect(d).toHaveTextContent('Den meisten Übungsbedarf')
+    expect(d).toHaveTextContent(/von \d+ geprüften Bereichen/)
     const teile = [...s.el.querySelectorAll('.eb-s2-teile')].map((x) => x.textContent)
     expect(teile.every((x) => x && /^\d+ Übungsbedarf$/.test(x))).toBe(true)
   })
 
   it('ohneName: Titel und Fußnote ohne Namen', () => {
     const s = seite2(FAELLE.ohneName.data)
-    expect(s.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Der Lernstand in den untersuchten Bereichen.',
-    )
+    expect(s.getByRole('heading', { level: 1 })).toHaveTextContent('Der Lernstand in den geprüften Bereichen.')
     expect(s.el.querySelector('.eb-s2-profil-titel')).toHaveTextContent('Kompetenzprofil')
   })
 
@@ -150,102 +146,46 @@ describe('Seite 2 — Sonderfälle', () => {
   })
 })
 
-describe('Seite 2 — abgeleitete Bereiche und Klassen (R7-8)', () => {
-  const umrisse = (el: HTMLElement): number => el.querySelectorAll('.eb-s2-segment-abgeleitet').length
-  const profilVon = (el: HTMLElement): HTMLElement => el.querySelector('[data-testid="eb-profil"]')!
-
-  it('Umrisse nur bei abgestufter LSA; Summe = Thema-Satz (9 bzw. 5)', () => {
-    // Die Legende trägt ein eigenes Umriss-Kästchen; gezählt werden die Zeilen.
-    const inZeilen = (data: ReportData): number =>
-      seite2(data).getAllByTestId('eb-profil-zeile').reduce((n, z) => n + umrisse(z), 0)
-    expect(inZeilen(FAELLE.abgestuft.data)).toBe(9)
-    expect(inZeilen(FAELLE.abgestuftMitOffen.data)).toBe(5)
-    expect(umrisse(profilVon(seite2(FAELLE.ilkay.data).el))).toBe(0)
-  })
-
-  it('Umrisse ohne Farbe, Zustand oder Label: hinter den farbigen, gleiche Lage im Raster', () => {
-    const zeile = seite2(FAELLE.abgestuft.data).getAllByTestId('eb-profil-zeile')[0]
-    const rects = [...zeile.querySelectorAll('rect')]
-    expect(rects.map((r) => r.getAttribute('class'))).toEqual([
-      'eb-s2-segment-sicher',
-      ...Array(4).fill('eb-s2-segment-abgeleitet'),
-    ])
-    for (const r of rects.slice(1)) {
-      expect(r.getAttribute('fill')).toBeNull()
-      expect(r.getAttribute('aria-label')).toBeNull()
+describe('Seite 2 — keine abgeleiteten Bereiche, Klassen je Zeile', () => {
+  it('auch bei abgestufter LSA nur farbige Kästchen: keine Umrisse, keine Legende dazu, kein „abgeleitet“', () => {
+    for (const name of ['abgestuft', 'abgestuftMitOffen', 'abgestuftLang'] as const) {
+      const s = seite2(FAELLE[name].data)
+      expect(s.el.querySelector('.eb-s2-segment-abgeleitet'), name).toBeNull()
+      expect(s.el.querySelector('.eb-s2-legende')?.textContent, name).toBe('SicherÜbungsbedarf')
+      expect(s.el.textContent, name).not.toMatch(/abgeleitet|ergeben sich|ergibt sich/i)
     }
-    // Neun Kästchen in der längsten Zeile (Zahlen & Rechnen), mit abgeleiteten
-    // Bereichen auf 206 pt Spur: (206 − 8 · 4) / 9.
-    const breite = (206 - 8 * 4) / 9
-    expect(Number(rects[0].getAttribute('width'))).toBeCloseTo(breite)
-    expect(Number(rects[1].getAttribute('x'))).toBeCloseTo(breite + 4 + 0.35)
-    expect(Number(rects[1].getAttribute('width'))).toBeCloseTo(breite - 0.7)
   })
 
-  it('rechte Zeile mit „abgeleitet“, zweite Zeile nur direkt', () => {
+  it('rechte Zeile nur mit „geprüft“ und den Teilen', () => {
     const zeilen = seite2(FAELLE.abgestuft.data).getAllByTestId('eb-profil-zeile')
     const rechts = (i: number): (string | null)[] =>
       [...zeilen[i].querySelectorAll('.eb-s2-geprueft, .eb-s2-teile')].map((x) => x.textContent)
-    expect(rechts(0)).toEqual(['1 geprüft · 4 abgeleitet', '1 sicher'])
+    expect(rechts(0)).toEqual(['1 geprüft', '1 sicher'])
     expect(rechts(1)).toEqual(['3 geprüft', '2 sicher · 1 Übungsbedarf'])
-    expect(rechts(3)).toEqual(['4 geprüft · 5 abgeleitet', '1 sicher · 3 Übungsbedarf'])
   })
 
-  it('ein Feld nur mit abgeleiteten Bereichen: nur Umrisse, nur „abgeleitet“', () => {
-    const zeile = seite2(FAELLE.abgestuftMitOffen.data).getAllByTestId('eb-profil-zeile')[0]
-    expect(zeile).toHaveTextContent('Brüche & Dezimalzahlen')
-    expect(zeile.querySelectorAll('rect')).toHaveLength(2)
-    expect(umrisse(zeile)).toBe(2)
-    expect(zeile.querySelector('.eb-s2-geprueft')).toHaveTextContent(/^2 abgeleitet$/)
-    expect(zeile.querySelector('.eb-s2-teile')).toBeEmptyDOMElement()
-    expect(zeile.querySelector('.sr-only')).toHaveTextContent(
-      'Brüche & Dezimalzahlen: nicht einzeln geprüft, 2 Bereiche ergeben sich aus den Aufgaben.',
-    )
-  })
-
-  it('Vorlesetext: wie bisher, bei abgeleiteten mit Zusatz', () => {
+  it('Vorlesetext ohne Zusatz zu Abgeleitetem', () => {
     const zeilen = seite2(FAELLE.abgestuft.data).getAllByTestId('eb-profil-zeile')
-    expect(zeilen[3].querySelector('.sr-only')).toHaveTextContent(
-      'Zahlen & Rechnen: 4 geprüft, davon 1 sicher und 3 mit Übungsbedarf. 5 weitere ergeben sich aus den Aufgaben.',
-    )
+    for (const z of zeilen) expect(z.querySelector('.sr-only')?.textContent).not.toMatch(/ergeben sich|abgeleitet/)
     expect(zeilen[1].querySelector('.sr-only')?.textContent).toBe(
       'Terme & Gleichungen: 3 geprüft, davon 2 sicher und 1 mit Übungsbedarf.',
     )
   })
 
-  it('Klasse je Zeile: eine Stufe oder Spanne aus allen Kästchen der Zeile', () => {
+  it('Klasse je Zeile: eine Stufe oder Spanne aus den geprüften Kästchen der Zeile', () => {
     const klassen = (data: ReportData): (string | null)[] =>
       seite2(data)
         .getAllByTestId('eb-profil-zeile')
         .map((z) => z.querySelector('[data-testid="eb-profil-klasse"]')?.textContent ?? null)
-    expect(klassen(FAELLE.abgestuft.data)).toEqual([
-      'Klasse 5–6',
-      'Klasse 8',
-      'Klasse 8',
-      'Klasse 5–9',
-      'Klasse 8',
-    ])
+    // Aufsteigend nach Klassenband (von, dann bis).
     expect(klassen(FAELLE.ilkay.data)).toEqual([
+      'Klasse 5–6',
+      'Klasse 5–7',
+      'Klasse 5–7',
       'Klasse 6',
       'Klasse 7',
       'Klasse 7–8',
-      'Klasse 5–7',
-      'Klasse 5–6',
-      'Klasse 5–7',
     ])
-  })
-
-  it('Legende mit drittem Eintrag nur bei abgeleiteten', () => {
-    const legende = (data: ReportData): HTMLElement => seite2(data).el.querySelector('.eb-s2-legende')!
-    expect(legende(FAELLE.abgestuft.data).textContent).toBe('SicherÜbungsbedarfAus den Aufgaben abgeleitet')
-    expect(umrisse(legende(FAELLE.abgestuft.data))).toBe(1)
-    expect(legende(FAELLE.ilkay.data).textContent).toBe('SicherÜbungsbedarf')
-  })
-
-  it('Fußnote mit Zusatz nur bei abgeleiteten', () => {
-    expect(seite2(FAELLE.abgestuft.data).el.querySelector('.eb-s2-fussnote')).toHaveTextContent(
-      'Über Bereiche, die nicht geprüft wurden, sagt dieser Bericht nichts. Umrandete Kästchen sind Bereiche des Themas, die sich aus den geprüften Aufgaben ergeben. Sie wurden nicht einzeln geprüft und tragen deshalb keine Farbe.',
-    )
   })
 
   it('Kopf: ein Kästchen je Bereich', () => {
@@ -253,21 +193,43 @@ describe('Seite 2 — abgeleitete Bereiche und Klassen (R7-8)', () => {
       'Jedes Kästchen steht für einen Bereich',
     )
   })
+
+  it('Maßstab für alle Zeilen auf fester Spur: mehr Kästchen, schmalere Kästchen', () => {
+    const breite = (data: ReportData): number =>
+      Number(seite2(data).getAllByTestId('eb-profil-zeile')[0].querySelector('rect')!.getAttribute('width'))
+    // sehrViele: Zeilen mit weit über zehn Bereichen.
+    expect(breite(FAELLE.sehrViele.data)).toBeLessThan(breite(FAELLE.klasse7.data))
+  })
 })
 
-describe('Seite 2 — Was die Grafik zeigt (R7-10)', () => {
-  const COACH = 'Ob dahinter ein gemeinsames Muster liegt, prüft der Coach in den ersten Sitzungen.'
+describe('Seite 2 — Warum auch frühere Klassen?', () => {
+  const warum = (data: ReportData) => seite2(data).queryByTestId('eb-warum')
 
-  it('abgestuft (Batu): Brüche & Dezimalzahlen nicht mehr „überwiegend sicher“', () => {
-    expect(seite2(FAELLE.abgestuft.data).el.querySelector('.eb-s2-deutung-text')?.textContent).toBe(
-      `Überwiegend sicher war das Themenfeld Terme & Gleichungen. Den meisten Übungsbedarf zeigten die Themenfelder Geometrie und Zahlen & Rechnen. ${COACH}`,
+  it('ab Klasse 6 (frühere Klassen ab 5) mit der Obergrenze Klasse − 1', () => {
+    expect(warum(FAELLE.ilkay.data)).toHaveTextContent('Warum auch frühere Klassen?')
+    expect(warum(FAELLE.ilkay.data)).toHaveTextContent('Bereiche aus Klasse 5 bis 9 geprüft')
+    expect(warum(FAELLE.klasse7.data)).toHaveTextContent('Bereiche aus Klasse 5 bis 6 geprüft')
+    expect(warum(FAELLE.abgestuft.data)).toHaveTextContent('Klasse 5 bis 8')
+  })
+
+  it('Klasse 5 hat keine früheren Klassen: Kasten entfällt', () => {
+    expect(warum({ ...FAELLE.klasse7.data, grade: 5 })).toBeNull()
+  })
+})
+
+describe('Seite 2 — Was die Grafik zeigt (Bericht v2)', () => {
+  const text = (data: ReportData): string | undefined =>
+    seite2(data).el.querySelector('.eb-s2-deutung-text')?.textContent ?? undefined
+
+  it('abgestuft (Batu): Anteil Übungsbedarf statt Anzahl, ohne Coach-Satz', () => {
+    expect(text(FAELLE.abgestuft.data)).toBe(
+      'Überwiegend sicher war das Themenfeld Terme & Gleichungen. Den meisten Übungsbedarf zeigte das Themenfeld Geometrie: 3 von 3 geprüften Bereichen.',
     )
   })
 
-  it('Coach-Satz in keinem Fall allein', () => {
+  it('in keinem Fall ein Coach-Satz auf Seite 2', () => {
     for (const [fall, { data }] of Object.entries(FAELLE).filter(([f]) => f !== 'ohneKatalog')) {
-      const text = seite2(data).el.querySelector('.eb-s2-deutung-text')?.textContent ?? ''
-      if (text.includes(COACH)) expect(text.length, fall).toBeGreaterThan(COACH.length)
+      expect(text(data) ?? '', fall).not.toMatch(/Coach/)
     }
   })
 
@@ -281,7 +243,6 @@ describe('Seite 2 — Was die Grafik zeigt (R7-10)', () => {
     expect(s.el.querySelector('.eb-s2-zahl-uebung .eb-s2-zahl')).toHaveTextContent('3')
     const d = s.getByTestId('eb-deutung')
     expect(d.querySelector('.eb-s2-deutung-text')).toBeNull()
-    expect(d).not.toHaveTextContent('prüft der Coach')
     expect(d.querySelector('.eb-s2-deutung-kicker')).toHaveTextContent('Was die Grafik zeigt')
     expect(d.querySelector('.eb-s2-fussnote')).not.toBeNull()
   })

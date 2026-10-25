@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
-import { themaAbdeckungAus } from '@/lib/report/elternbericht/themaAbdeckung'
 import type { ThemenfeldKey } from '@/types'
 
 import { Profil } from './Profil'
-import { deutung, profilZeilen } from './seite2Rechnung'
+import { deutung, meisterUebung, profilZeilen } from './seite2Rechnung'
 import type { SeitenProps } from './seitenProps'
 
 // Die drei Zahlen (Maßblatt Seite 2): Spalten ab x 44 / 218 / 392, Balken
@@ -26,35 +25,38 @@ const ZAHLEN = [
  * Thema-Satz auf Seite 1 zählt (R7-8). Ab sieben Zeilen rückt die Seite enger
  * zusammen (`eb-s2-eng`), damit acht nicht überlaufen.
  */
-export function Seite2({ data, bericht, wessen }: SeitenProps): JSX.Element {
+export function Seite2({ data, bericht, name }: SeitenProps): JSX.Element {
   const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
+  // Bericht v2: nur direkt geprüfte Bereiche, keine Umrisse abgeleiteter Bereiche.
   const profil = profilZeilen({
     profil: bericht.profil,
     bereiche: [...bericht.sicherListe, ...bericht.uebungListe],
-    abgeleitet: themaAbdeckungAus(data.erzaehlung)?.abgeleiteteBereiche ?? [],
+    abgeleitet: [],
   })
-  const mitAbgeleiteten = profil.some((z) => z.abgeleitet > 0)
   const liste = new Intl.ListFormat(i18n.language, { style: 'long', type: 'conjunction' })
   const felder = (keys: ThemenfeldKey[]): string => liste.format(keys.map((k) => t(`feld.${k}`)))
   const d = deutung(profil)
-  // Der Coach-Satz bezieht sich auf den Satz davor und steht nie allein (R7-10).
-  const mitFeldSatz = d.sicher.length > 0 || d.uebung.length > 0
+  const meist = meisterUebung(profil)
+  // Die Felder des Übungsbedarf-Satzes zählen nicht zusätzlich als „überwiegend sicher“.
+  const sicherFelder = d.sicher.filter((f) => !meist?.felder.includes(f))
+  const saetze = [
+    sicherFelder.length > 0 && t('s2.deutung.sicher', { count: sicherFelder.length, felder: felder(sicherFelder) }),
+    meist &&
+      (meist.felder.length === 1
+        ? t('s2.deutung.uebungAnteil', { feld: felder(meist.felder), uebung: meist.uebung, geprueft: meist.geprueft })
+        : t('s2.deutung.uebungAnteilMehrere', { felder: felder(meist.felder), uebung: meist.uebung, geprueft: meist.geprueft })),
+  ].filter((s): s is string => Boolean(s))
+  // Warum auch frühere Klassen? Nur, wenn es frühere Klassen ab 5 gibt.
+  const bis = data.grade - 1
   const werte = { sicher: zaehlung.sicher, uebung: zaehlung.uebung, geprueft: zaehlung.untersucht }
 
   return (
-    <div className={profil.length >= 7 ? 'eb-s2 eb-s2-eng' : 'eb-s2'}>
+    <div className={profil.length >= 7 || bis >= 5 ? 'eb-s2 eb-s2-eng' : 'eb-s2'}>
       <p className="eb-kicker eb-s2-kicker">{t('s2.kicker')}</p>
       <h1 className="eb-titel eb-s2-titel">
-        {wessen ? t('s2.titel', { wessen }) : t('s2.titelOhneName')}
+        {name ? t('s2.titel', { name }) : t('s2.titelOhneName')}
       </h1>
-      <p className="eb-s2-intro">
-        {t('s2.intro', {
-          untersucht: zaehlung.untersucht,
-          sicher: zaehlung.sicher,
-          uebung: zaehlung.uebung,
-        })}
-      </p>
 
       <svg className="eb-s2-zahlen" viewBox="44 232 507 66" data-testid="eb-zahlen">
         {ZAHLEN.map((z) => (
@@ -70,33 +72,29 @@ export function Seite2({ data, bericht, wessen }: SeitenProps): JSX.Element {
         ))}
       </svg>
 
-      <Profil profil={profil} wessen={wessen} />
+      {bis >= 5 && (
+        <section className="eb-s2-warum" data-testid="eb-warum">
+          <h2 className="eb-kicker">{t('s2.warum.kicker')}</h2>
+          <p className="eb-s2-warum-text">{bis === 5 ? t('s2.warum.textEine') : t('s2.warum.text', { bis })}</p>
+        </section>
+      )}
+
+      <Profil profil={profil} wessen={null} />
 
       <section className="eb-s2-deutung" data-testid="eb-deutung">
         <h2 className="eb-kicker eb-s2-deutung-kicker">{t('s2.deutung.kicker')}</h2>
         <div>
-          {mitFeldSatz && (
+          {saetze.length > 0 && (
             <p className="eb-s2-deutung-text">
-              {[
-                d.sicher.length > 0 &&
-                  t('s2.deutung.sicher', { count: d.sicher.length, felder: felder(d.sicher) }),
-                d.uebung.length > 0 &&
-                  t('s2.deutung.uebung', { count: d.uebung.length, felder: felder(d.uebung) }),
-                zaehlung.uebung > 0 && t('s2.deutung.coach'),
-              ]
-                .filter((s): s is string => Boolean(s))
-                .map((s, i) => (
-                  <span key={i}>
-                    {i > 0 && ' '}
-                    {s}
-                  </span>
-                ))}
+              {saetze.map((s, i) => (
+                <span key={i}>
+                  {i > 0 && ' '}
+                  {s}
+                </span>
+              ))}
             </p>
           )}
-          <p className="eb-s2-fussnote">
-            {t('s2.fussnote')}
-            {mitAbgeleiteten && <> {t('s2.fussnoteAbgeleitet')}</>}
-          </p>
+          <p className="eb-s2-fussnote">{t('s2.fussnote')}</p>
         </div>
       </section>
     </div>

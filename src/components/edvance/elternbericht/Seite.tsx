@@ -16,10 +16,13 @@ import { SEITEN_GESAMT } from './seitenProps'
  * auswertbar“, LSA-R2): Fuß „1 / 1“, ohne die Navigationspunkte.
  */
 
-// Mikro-Navigation: fünf Punkte auf einer Linie (Maßblatt, Kopf).
-const NAV_X = [484, 497, 510, 523, 536] as const
-const NAV_Y = 39
-const NAV_R = 3.4
+// Navigation „Ihr Weg durch diesen Bericht“ (Bericht v2): fünf beschriftete
+// Stationen oben rechts, die aktuelle Seite gefüllt. Mitten in pt; die letzte
+// Beschriftung endet an der Kopflinie (x 551).
+const NAV_X = [256, 322, 388, 454, 520] as const
+const NAV_Y = 33
+const NAV_R = 6.2
+const NAV_TEXT_Y = 53.5
 
 export function Seite({
   nummer,
@@ -50,25 +53,37 @@ export function Seite({
         </text>
         {testlauf && (
           <g data-testid="eb-chip">
-            <rect className="eb-chip" x="381" y="30" width="82" height="21" rx="10.5" />
-            <text className="eb-chip-text" x="394" y="43.4">
+            <rect className="eb-chip" x="70" y="52" width="50" height="13" rx="6.5" />
+            <text className="eb-chip-text" x="95" y="61">
               {t('rahmen.testdaten')}
             </text>
           </g>
         )}
-        {gesamt === SEITEN_GESAMT && NAV_X.slice(1).map((x, i) => (
-          <line key={x} className="eb-nav-linie" x1={NAV_X[i]} y1={NAV_Y} x2={x} y2={NAV_Y} />
-        ))}
-        {gesamt === SEITEN_GESAMT && NAV_X.map((x, i) => (
-          <circle
-            key={x}
-            className={i + 1 === nummer ? 'eb-nav-punkt eb-nav-punkt-aktiv' : 'eb-nav-punkt'}
-            data-aktiv={i + 1 === nummer || undefined}
-            cx={x}
-            cy={NAV_Y}
-            r={NAV_R}
-          />
-        ))}
+        {gesamt === SEITEN_GESAMT && (
+          <g className="eb-nav" data-testid="eb-nav" role="list" aria-label={t('rahmen.nav')}>
+            <line className="eb-nav-linie" x1={NAV_X[0]} y1={NAV_Y} x2={NAV_X[4]} y2={NAV_Y} />
+            {NAV_X.map((x, i) => {
+              const aktiv = i + 1 === nummer
+              return (
+                <g
+                  key={x}
+                  role="listitem"
+                  className={aktiv ? 'eb-nav-station eb-nav-aktiv' : 'eb-nav-station'}
+                  data-aktiv={aktiv || undefined}
+                  aria-current={aktiv ? 'page' : undefined}
+                >
+                  <circle className="eb-nav-punkt" cx={x} cy={NAV_Y} r={NAV_R} />
+                  <text className="eb-nav-nummer" x={x} y={NAV_Y + 2.2}>
+                    {i + 1}
+                  </text>
+                  <text className="eb-nav-name" x={x} y={NAV_TEXT_Y}>
+                    {t(`s1.weg.station.${i + 1}`)}
+                  </text>
+                </g>
+              )
+            })}
+          </g>
+        )}
         <line className="eb-kopflinie" x1="44" y1="78" x2="551" y2="78" />
       </svg>
 
