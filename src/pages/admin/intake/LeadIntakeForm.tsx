@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { EdvanceCard } from '@/components/edvance'
 import { useAuthContext } from '@/context/AuthContext'
-import { createLead, setLeadConsent, updateLead } from '@/lib/supabase/leads'
+import {
+  createLead,
+  ladeKlassenarbeitSpalten,
+  saveLeadKlassenarbeit,
+  setLeadConsent,
+  updateLead,
+  type KlassenarbeitSpalten,
+} from '@/lib/supabase/leads'
 import { leadAssessmentUpsert, leadLsaFreigeben } from '@/lib/supabase/leadLsa'
 import type { Lead, LeadStatus } from '@/types'
 import { SectionLead } from './SectionLead'
@@ -19,6 +26,7 @@ import {
   intakeFromLead,
   freigabeZustand,
   intakeToLeadInput,
+  klassenarbeitAusForm,
   type IntakeFormState,
 } from './formState'
 
@@ -66,6 +74,17 @@ export function LeadIntakeForm({
   // Testmodus (Entscheidung 27): nur Admins, Testlauf nur bei Test-Leads.
   const [istTest, setIstTest] = useState(existingLead?.ist_test === true)
   const [testlauf, setTestlauf] = useState(false)
+  // Bericht v4 (V4-E): Felder nur, wenn ihre Spalte existiert (beim Laden geprüft).
+  const [klassenarbeitSpalten, setKlassenarbeitSpalten] = useState<KlassenarbeitSpalten>({ status: false, note: false })
+  useEffect(() => {
+    let aktiv = true
+    void ladeKlassenarbeitSpalten().then((s) => {
+      if (aktiv) setKlassenarbeitSpalten(s)
+    })
+    return () => {
+      aktiv = false
+    }
+  }, [])
 
   const patch = (next: Partial<IntakeFormState>): void => setForm((f) => ({ ...f, ...next }))
 
@@ -77,6 +96,14 @@ export function LeadIntakeForm({
   // faehrt im selben Update mit — ein Schreibvorgang, eine Stelle. Semantik
   // wie changeStatus() in LeadsPage: Status plus Zeitstempel. Steht der Lead
   // schon weiter als 'new', bleibt beides unberuehrt.
+  // Bericht v4 (V4-E): eigener Schreibvorgang, damit ein fehlendes Feld in der DB
+  // das übrige Erstgespräch nicht blockiert.
+  const speichereKlassenarbeit = async (id: string): Promise<boolean> => {
+    const { error: err } = await saveLeadKlassenarbeit(id, klassenarbeitAusForm(form), klassenarbeitSpalten)
+    if (err) setError(err)
+    return !err
+  }
+
   const persistLead = async (
     opts?: { markContacted?: boolean },
   ): Promise<string | null> => {
@@ -103,6 +130,7 @@ export function LeadIntakeForm({
         return null
       }
       if (data) setLeadStatus(data.status)
+      if (!(await speichereKlassenarbeit(leadId))) return null
       onRefresh()
       return leadId
     }
@@ -114,6 +142,7 @@ export function LeadIntakeForm({
     }
     setLeadId(data.id)
     setLeadStatus(data.status)
+    if (!(await speichereKlassenarbeit(data.id))) return null
     onRefresh()
     return data.id
   }
@@ -268,6 +297,7 @@ export function LeadIntakeForm({
           onSign={sign}
           consentByLabel={consent.by === user?.id ? (user?.email ?? null) : null}
           consentDisabled={leadId === null}
+          klassenarbeitSpalten={klassenarbeitSpalten}
         />
       )}
 

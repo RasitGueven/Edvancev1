@@ -84,6 +84,16 @@ describe('Fixtures des Eltern-Berichts', () => {
           'abgestuftPlanrang',
           // R7-12: aus abgestuft abgeleitet, mit Thema.
           'sehrViele',
+          // Bericht v4: die echte Analyse (batuV4.ts), abgestuft mit Thema.
+          'batuV4',
+          'batuBevorstehend',
+          'batuOhneStatus',
+          'batuMitNote',
+          'fahrplanKlp',
+          'fahrplanHalbjahr',
+          'fahrplanLang',
+          'allesErfuellt',
+          'ohnePlan',
         ].includes(name),
       )
     }

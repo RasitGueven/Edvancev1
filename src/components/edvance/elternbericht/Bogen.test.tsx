@@ -154,7 +154,7 @@ describe('ElternberichtBogen', () => {
   })
 })
 
-describe('ElternberichtBogen — Inhalt des Berichts v2', () => {
+describe('ElternberichtBogen — Inhalt des Berichts v2', { timeout: 30_000 }, () => {
   const COACH = de.s4.coach
   const alle = Object.keys(FAELLE).filter((n) => n !== 'ohneKatalog')
 

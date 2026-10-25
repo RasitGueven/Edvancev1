@@ -21,6 +21,8 @@ export type SeitenProps = {
   wessen: string | null
   /** Layout von Seite 3 (berichtKonfig.EINORDNUNG_LAYOUT, sonst übergeben). */
   einordnung?: EinordnungLayout
+  /** Bericht v4: Preis je Paket auf Seite 5 (nur mit ?preise=an in der Ansicht). */
+  preise?: boolean
 }
 
 /** Seitenzahl des Bogens (Fuß „n / 5“). */

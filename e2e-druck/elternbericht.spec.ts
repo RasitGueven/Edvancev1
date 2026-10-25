@@ -5,6 +5,8 @@
 // Inhalt läuft über, Kopf und Fuß liegen auf den Maßen aus dem Maßblatt E7
 // (±1 pt, gemessen an den gezeichneten Teilen), und das PDF hat fünf Seiten.
 // Bericht v2: beschriftete Navigation oben rechts, Überschriften in Literata.
+// Bericht v4: dazu die Leiste der Klassenarbeiten (Seite 2–5) und die Prüfung,
+// dass nichts aus seinem Kasten oder aus .eb-inhalt ragt (pruefeKaesten).
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -146,6 +148,79 @@ async function pruefeEinordnung(page: Page, wo: string): Promise<void> {
   expect(fehler, wo).toEqual([])
 }
 
+/**
+ * Bericht v4 (V4-2): Nichts ragt aus seinem Kasten oder aus `.eb-inhalt`, auf
+ * jeder Seite und in jedem Fall. Geprüft außerhalb von SVG (das hat eigene Maße)
+ * und ohne die Leiste-Titel, die mit Ellipse enden dürfen (voller Titel als
+ * Vorlesetext):
+ *   A. jeder sichtbare Kasten (Fläche oder Rand) liegt in `.eb-inhalt`,
+ *   B. jede Textzeile liegt in `.eb-inhalt` und im nächsten Kasten darüber,
+ *   C. ein Element mit verdecktem Überlauf schneidet nichts ab (scroll ≤ client,
+ *      bei Höhe mit Luft für die Schriftmetrik).
+ * Gemessen werden die Textzeilen selbst (Range), nicht die Spaltenkästen des
+ * Musters (die Kopfdaten auf Seite 1 sind breiter als ihr Kasten, ohne dass Text
+ * übersteht). Toleranz 2 px (Rundung, Schriftmetrik).
+ */
+async function pruefeKaesten(page: Page, wo: string): Promise<void> {
+  const fehler = await page.evaluate(() => {
+    const TOL = 2
+    // Schriftmetrik: Die Glyphenbox ist höher als die Zeile (Titel mit enger Zeilenhöhe); eine abgeschnittene Zeile wäre mehr als 20 px.
+    const SCHRIFT = 6
+    const f: string[] = []
+    const kurz = (el: Element): string =>
+      `${el.tagName.toLowerCase()}.${[...el.classList].join('.')} „${(el.textContent ?? '').trim().slice(0, 30)}“`
+    const sichtbarerKasten = (el: Element): boolean => {
+      const cs = getComputedStyle(el)
+      return cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || parseFloat(cs.borderTopWidth) > 0
+    }
+    const aus = (r: DOMRect, k: DOMRect): boolean =>
+      r.right > k.right + TOL || r.left < k.left - TOL || r.bottom > k.bottom + TOL || r.top < k.top - TOL
+    for (const seite of document.querySelectorAll('.eb-seite')) {
+      const n = seite.getAttribute('data-seite')
+      const inhalt = seite.querySelector<HTMLElement>('.eb-inhalt')!
+      const ri = inhalt.getBoundingClientRect()
+      const ausgenommen = (el: Element): boolean =>
+        el.closest('svg, .sr-only, .eb-leiste-titel') !== null
+
+      for (const el of inhalt.querySelectorAll<HTMLElement>('*')) {
+        if (ausgenommen(el)) continue
+        const r = el.getBoundingClientRect()
+        if (r.width === 0 || r.height === 0) continue
+        if (sichtbarerKasten(el) && (r.right > ri.right + TOL || r.left < ri.left - TOL || r.bottom > ri.bottom + TOL)) {
+          f.push(`Seite ${n}: Kasten ragt aus .eb-inhalt: ${kurz(el)}`)
+        }
+        if (getComputedStyle(el).overflow !== 'visible' && (el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + SCHRIFT)) {
+          f.push(`Seite ${n}: Überlauf wird abgeschnitten: ${kurz(el)}`)
+        }
+      }
+
+      const wurzeln: Element[] = [inhalt, ...seite.querySelectorAll('.eb-leiste')]
+      for (const wurzel of wurzeln) {
+        const walker = document.createTreeWalker(wurzel, NodeFilter.SHOW_TEXT)
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          const el = node.parentElement
+          if (!el || !node.textContent?.trim() || ausgenommen(el)) continue
+          const range = document.createRange()
+          range.selectNodeContents(node)
+          let kasten: Element | null = el
+          while (kasten && kasten !== wurzel && !sichtbarerKasten(kasten)) {
+            kasten = kasten.parentElement
+          }
+          for (const r of range.getClientRects()) {
+            if (r.width === 0 || r.height === 0) continue
+            if (wurzel === inhalt && aus(r, ri)) f.push(`Seite ${n}: Text ragt aus .eb-inhalt: ${kurz(el)}`)
+            if (kasten && kasten !== wurzel && aus(r, kasten.getBoundingClientRect())) {
+              f.push(`Seite ${n}: Text ragt aus seinem Kasten: ${kurz(el)} in ${kurz(kasten)}`)
+            }
+          }
+        }
+      }
+    }
+    return [...new Set(f)]
+  })
+  expect(fehler, wo).toEqual([])
+}
+
 /** Seiten im PDF: die Seitenobjekte, nicht der Seitenbaum (/Pages). */
 function pdfSeiten(pdf: Buffer): number {
   return (pdf.toString('latin1').match(/\/Type\s*\/Page(?![s\w])/g) ?? []).length
@@ -179,6 +254,7 @@ for (const [name, fall] of Object.entries(FAELLE).flatMap(([n, f]) => (['A', 'B'
     await page.emulateMedia({ media: 'print' })
     await pruefeSeiten(page, fall.data.testlauf, 'Druck')
     await pruefeEinordnung(page, `${name}, Druck`)
+    await pruefeKaesten(page, `${name}, Druck`)
     await pruefeProfil(page, 'Druck')
 
     const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true })

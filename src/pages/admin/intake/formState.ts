@@ -33,6 +33,13 @@ export type IntakeFormState = {
   // Bestandsleads. Das aktuelle Thema steht in lead_themen und wird direkt
   // dort gespeichert, nicht ueber den Lead-Payload.
   current_topic_cluster_id: string | null
+  // Bericht v4 (V4-E): Klassenarbeit zum aktuellen Thema. 'weissNicht' ist eine
+  // bewusste Auswahl und wird wie „nichts gewählt“ als null gespeichert.
+  klassenarbeit: 'bevorstehend' | 'geschrieben' | 'weissNicht' | null
+  /** leads.next_exam_date, nur bei 'bevorstehend'. */
+  naechste_arbeit_datum: string
+  /** leads.letzte_klassenarbeit_note, nur bei 'geschrieben'. */
+  letzte_note: number | null
   // Eltern-Einschaetzung (Gespraechskontext, nie Auswertungs-Input)
   parent_weak_topics: string[]
   parent_note: string
@@ -56,6 +63,9 @@ export const EMPTY_INTAKE: IntakeFormState = {
   struggling_since: null,
   tried_before: [],
   current_topic_cluster_id: null,
+  klassenarbeit: null,
+  naechste_arbeit_datum: '',
+  letzte_note: null,
   parent_weak_topics: [],
   parent_note: '',
   notes: '',
@@ -79,6 +89,9 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
     struggling_since: lead.struggling_since,
     tried_before: lead.tried_before ?? [],
     current_topic_cluster_id: lead.current_topic_cluster_id,
+    klassenarbeit: lead.klassenarbeit_status ?? null,
+    naechste_arbeit_datum: lead.next_exam_date ?? '',
+    letzte_note: lead.letzte_klassenarbeit_note ?? null,
     parent_weak_topics: [],
     parent_note: '',
     notes: lead.notes ?? '',
@@ -130,5 +143,19 @@ export function intakeToLeadInput(form: IntakeFormState): LeadInput {
     // next_exam_date, next_exam_topic und current_topic_cluster_id werden
     // nicht mehr beschrieben; die Spalten bleiben im Schema bestehen.
     notes: nullIfEmpty(form.notes),
+  }
+}
+
+/** Bericht v4 (V4-E): die Klassenarbeit aus dem Formular für saveLeadKlassenarbeit. */
+export function klassenarbeitAusForm(form: IntakeFormState): {
+  status: 'bevorstehend' | 'geschrieben' | null
+  datum: string | null
+  note: number | null
+} {
+  const status = form.klassenarbeit === 'bevorstehend' || form.klassenarbeit === 'geschrieben' ? form.klassenarbeit : null
+  return {
+    status,
+    datum: status === 'bevorstehend' ? nullIfEmpty(form.naechste_arbeit_datum) : null,
+    note: status === 'geschrieben' ? form.letzte_note : null,
   }
 }

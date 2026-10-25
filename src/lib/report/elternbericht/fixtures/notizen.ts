@@ -11,6 +11,9 @@ export const NOTIZEN: ReportNotes = {
   paket: 'premium',
 }
 
+/** Bericht v4: Ziele im Gespräch bestätigt, ohne eigenes Zielbild — Seite 5 zeigt den Systemvorschlag (zieleV4). */
+export const NOTIZEN_ZIELE: ReportNotes = { ...NOTIZEN, zielbild: '', zieleBestaetigt: true }
+
 /** Ein langes Zielbild ohne Namen (sechs Zeilen im Lernziel-Kasten), synthetisch. */
 export const NOTIZEN_LANG: ReportNotes = {
   ...NOTIZEN,

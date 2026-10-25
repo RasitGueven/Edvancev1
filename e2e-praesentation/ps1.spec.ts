@@ -22,7 +22,7 @@ const MASSE: ReadonlyArray<[number, number]> = [
 const nn = (n: number): string => String(n).padStart(2, '0')
 
 async function oeffne(page: Page, fall: string): Promise<void> {
-  await page.goto(`/vorschau/praesentation.html?fall=${fall}`)
+  await page.goto(`/vorschau/praesentation.html?fall=${fall}&v4=aus`)
   await page.locator('.tp').waitFor()
   await page.evaluate(() => document.fonts.ready)
   await page.locator('.tp-intro-los').click()

@@ -42,6 +42,8 @@ export function passtMitNamen(bogen: HTMLElement): boolean {
   }
   return SEITEN_MIT_NAMEN.every((n) => {
     const inhalt = bogen.querySelector<HTMLElement>(`.eb-seite[data-seite="${n}"] .eb-inhalt`)
+    // Bericht v4: Seiten mit Fahrplan verdichten sich selbst (useStufe, erst nach dieser Entscheidung).
+    if (inhalt?.querySelector(':scope > [data-v4]')) return true
     return !inhalt || inhalt.scrollHeight <= inhalt.clientHeight
   })
 }

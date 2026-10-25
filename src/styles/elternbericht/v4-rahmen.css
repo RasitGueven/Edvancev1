@@ -1,0 +1,357 @@
+/* Eltern-Bericht v4 · Klassenarbeiten als roter Faden — Rahmen, Leiste, Fahrplan
+   auf Seite 1 (Bauauftrag V4, V4-2). Maße in pt, Farben nur aus --color-eb-*.
+
+   Farbton einer Station: `--ton` (Fläche, Ring) und `--ton-text` (Schrift auf
+   Weiß) hängen am Signal bzw. am Stand. Die Tönungen anderer Dateien sind
+   Pseudo-Elemente mit geringer Deckkraft (INV-4.11: kein color-mix). */
+
+.eb-ton-fehlt {
+  --ton: var(--color-eb-uebung);
+  --ton-text: var(--color-eb-uebung-text);
+}
+.eb-ton-erfuellt {
+  --ton: var(--color-eb-sicher);
+  --ton-text: var(--color-eb-sicher-text);
+}
+.eb-ton-ohne {
+  --ton: var(--color-eb-offen);
+  --ton-text: var(--color-eb-leise);
+}
+.eb-ton-geschrieben {
+  --ton: var(--color-eb-navy-hell);
+  --ton-text: var(--color-eb-navy-chip);
+}
+.eb-ton-naechste {
+  --ton: var(--color-eb-gold);
+  --ton-text: var(--color-eb-gold-text);
+}
+.eb-ton-aktuell {
+  --ton: var(--color-eb-navy);
+  --ton-text: var(--color-eb-navy);
+}
+
+/* ─── Leiste unter der Kopflinie (Seiten 2–5), Höhe 16 pt ───────────────────
+   Der Inhalt rückt um ihre Höhe nach unten; der erste Kicker steht dichter am
+   Kopf, damit die Seiten nicht enger werden als nötig. */
+
+.eb-seite-leiste .eb-inhalt {
+  top: 96pt;
+  height: 704pt;
+}
+.eb-seite-leiste .eb-inhalt > div > .eb-kicker:first-child {
+  margin-top: 12pt;
+}
+
+.eb-leiste {
+  position: absolute;
+  top: 82pt;
+  left: 44pt;
+  width: 507pt;
+  height: 16pt;
+  display: flex;
+  align-items: center;
+  gap: 5pt;
+}
+.eb-leiste-label {
+  flex: none;
+  margin-right: 3pt;
+  font-size: 6.6pt;
+  line-height: 8pt;
+  letter-spacing: 0.55pt;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-eb-leise);
+}
+.eb-leiste-liste {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: 5pt;
+}
+.eb-leiste-chip {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 5pt;
+  min-width: 0;
+  box-sizing: border-box;
+  height: 16pt;
+  padding: 0 8pt 0 2.5pt;
+  font-size: 7.4pt;
+  line-height: 9pt;
+  color: var(--color-eb-text);
+  background: var(--color-eb-weiss);
+  border: 0.6pt solid var(--color-eb-linie);
+  border-radius: 9pt;
+}
+.eb-leiste-an {
+  font-weight: 500;
+  color: var(--color-eb-navy);
+  border-color: var(--color-eb-navy);
+}
+.eb-leiste-punkt {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 11pt;
+  height: 11pt;
+  border-radius: 50%;
+  font-size: 6.4pt;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--color-eb-weiss);
+  background: var(--ton);
+}
+.eb-leiste-chip.eb-ton-ohne .eb-leiste-punkt {
+  color: var(--color-eb-tinte);
+}
+.eb-leiste-punkt svg {
+  width: 8pt;
+  height: 8pt;
+  fill: none;
+  stroke: var(--color-eb-weiss);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Ellipse nur hier: die volle Bezeichnung steht als Vorlesetext (FahrplanLeiste.tsx). */
+.eb-leiste-titel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Fahrplan auf Seite 1 ────────────────────────────────────────────────── */
+
+.eb-fp {
+  box-sizing: border-box;
+  margin-top: 14pt;
+  padding: 11pt 14.3pt 10pt; /* Innenraum 477 pt = Breite der Bahn */
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+  border-radius: 12pt;
+}
+.eb-fp-raster {
+  width: 477pt;
+  margin-top: 8pt;
+}
+.eb-fp-bahn {
+  display: block;
+  width: 477pt;
+  height: 34pt;
+  overflow: visible;
+}
+.eb-fp-linie {
+  fill: none;
+  stroke: var(--color-eb-weg);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.eb-fp-punkt circle {
+  fill: var(--color-eb-papier);
+  stroke: var(--ton);
+  stroke-width: 1.4;
+}
+.eb-fp-punkt.eb-ton-geschrieben circle {
+  fill: var(--color-eb-navy-hell);
+  stroke: none;
+}
+.eb-fp-nr {
+  font-size: 8.6px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--ton-text);
+}
+.eb-fp-haken {
+  fill: none;
+  stroke: var(--color-eb-weiss);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.eb-fp-trenner line {
+  stroke: var(--color-eb-nav-linie);
+  stroke-width: 0.7;
+  stroke-dasharray: 2 2;
+}
+.eb-fp-trenner text {
+  font-size: 6px;
+  letter-spacing: 0.4px;
+  text-anchor: middle;
+  text-transform: uppercase;
+  fill: var(--color-eb-leise);
+}
+
+.eb-fp-spalten {
+  display: flex;
+  margin-top: 4pt;
+}
+.eb-fp-spalte {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 2pt;
+  min-width: 0;
+  padding: 0 4pt;
+  text-align: center;
+}
+.eb-fp-titel {
+  font-size: 8.2pt;
+  line-height: 10pt;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  color: var(--color-eb-tinte);
+}
+.eb-fp-stand,
+.eb-fp-signal {
+  font-size: 6.9pt;
+  line-height: 8.6pt;
+  color: var(--ton-text);
+}
+.eb-fp-weitere {
+  margin-top: 6pt;
+  font-size: 6.9pt;
+  line-height: 8.6pt;
+  text-align: right;
+  color: var(--color-eb-leise);
+}
+.eb-fp-satz {
+  margin-top: 10pt;
+  padding: 9pt 12pt;
+  font-size: 8.8pt;
+  line-height: 12.4pt;
+  color: var(--color-eb-tinte);
+  background: var(--color-eb-mint);
+  border-radius: 9pt;
+}
+.eb-fp-quelle {
+  display: flex;
+  gap: 6pt;
+  margin-top: 8pt;
+  font-size: 7.2pt;
+  line-height: 9.5pt;
+  color: var(--color-eb-leise);
+}
+.eb-fp-quelle svg {
+  flex: none;
+  width: 9pt;
+  height: 9pt;
+  margin-top: 0.2pt;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+/* Seite 1 mit Fahrplan: der Kasten „Wir beginnen mit …“ entfällt, dafür steht der
+   Fahrplan unter „Auf einen Blick“. Die Abschnitte darüber sind dichter gesetzt
+   als in v3 (Dummy V4: der Fahrplan füllt den Rest der Seite). Läuft sie trotzdem
+   über, verdichtet Seite1.tsx (useStufe) in zwei Stufen: data-stufe 1 und 2. */
+
+.eb-s1-v4 .eb-s1-kicker {
+  margin-top: 16pt;
+}
+.eb-s1-v4 .eb-s1-titel {
+  margin-top: 10pt;
+  font-size: 25pt;
+  line-height: 31pt;
+}
+.eb-s1-v4 .eb-s1-meta {
+  height: 46pt;
+  margin-top: 12pt;
+  padding-top: 6.5pt;
+}
+.eb-s1-v4 .eb-s1-meta dd {
+  margin-top: 4pt;
+}
+.eb-s1-v4 .eb-s1-kaesten {
+  margin-top: 12pt;
+}
+.eb-s1-v4 .eb-s1-kasten {
+  min-height: 0;
+}
+.eb-s1-v4 .eb-s1-anliegen,
+.eb-s1-v4 .eb-s1-geprueft {
+  padding-block: 10pt;
+}
+.eb-s1-v4 .eb-s1-anliegen-satz {
+  margin-top: 6pt;
+  font-size: 9pt;
+  line-height: 12pt;
+}
+.eb-s1-v4 .eb-s1-geprueft-text {
+  margin-top: 6pt;
+}
+.eb-s1-v4 .eb-s1-geprueft-hinweis {
+  margin-top: 6pt;
+}
+.eb-s1-v4 .eb-s1-antwort {
+  margin-top: 6pt;
+  padding-top: 6pt;
+}
+.eb-s1-v4 .eb-s1-blick {
+  margin-top: 12pt;
+}
+.eb-s1-v4 .eb-s1-stufen {
+  margin-top: 6pt;
+  padding-block: 2pt;
+}
+.eb-s1-v4 .eb-s1-stufe {
+  min-height: 31pt;
+}
+.eb-s1-v4 .eb-s1-zeile {
+  margin-top: 4pt;
+}
+.eb-s1-v4 .eb-s1-blick-satz {
+  margin-top: 6pt;
+}
+.eb-s1-v4 .eb-fp {
+  margin-top: 10pt;
+}
+
+.eb-s1-v4[data-stufe] .eb-s1-kicker {
+  margin-top: 12pt;
+}
+.eb-s1-v4[data-stufe] .eb-s1-titel {
+  margin-top: 6pt;
+  font-size: 22pt;
+  line-height: 27pt;
+}
+.eb-s1-v4[data-stufe] .eb-s1-meta {
+  height: 40pt;
+  margin-top: 8pt;
+  padding-top: 4pt;
+}
+.eb-s1-v4[data-stufe] .eb-s1-kaesten,
+.eb-s1-v4[data-stufe] .eb-s1-blick,
+.eb-s1-v4[data-stufe] .eb-fp {
+  margin-top: 8pt;
+}
+.eb-s1-v4[data-stufe] .eb-s1-stufe {
+  min-height: 26pt;
+}
+.eb-s1-v4[data-stufe] .eb-fp-satz {
+  margin-top: 7pt;
+  padding-block: 6pt;
+}
+.eb-s1-v4[data-stufe] .eb-fp-quelle {
+  margin-top: 5pt;
+}
+.eb-s1-v4[data-stufe='2'] .eb-s1-anliegen-satz,
+.eb-s1-v4[data-stufe='2'] .eb-s1-antwort-satz,
+.eb-s1-v4[data-stufe='2'] .eb-s1-geprueft-text {
+  font-size: 8.2pt;
+  line-height: 11pt;
+}
+.eb-s1-v4[data-stufe='2'] .eb-s1-anliegen,
+.eb-s1-v4[data-stufe='2'] .eb-s1-geprueft {
+  padding-block: 8pt;
+}
+.eb-s1-v4[data-stufe='2'] .eb-s1-stufen {
+  padding-block: 0;
+}
+.eb-s1-v4[data-stufe='2'] .eb-s1-stufe {
+  min-height: 24pt;
+}

@@ -14,6 +14,8 @@ import { OptionChips } from './OptionChips'
 import { ThemenAuswahl, type ThemenStatus } from './ThemenAuswahl'
 import { ConsentBlock, type ConsentState } from './ConsentBlock'
 import type { IntakeFormState } from './formState'
+import { KlassenarbeitFelder } from './KlassenarbeitFelder'
+import type { KlassenarbeitSpalten } from '@/lib/supabase/leads'
 
 type SectionErstgespraechProps = {
   form: IntakeFormState
@@ -30,6 +32,8 @@ type SectionErstgespraechProps = {
   consentByLabel: string | null
   /** Ohne angelegten Lead haengt die Einwilligung an nichts. */
   consentDisabled: boolean
+  /** Bericht v4: welche Klassenarbeits-Spalten es gibt. */
+  klassenarbeitSpalten: KlassenarbeitSpalten
 }
 
 const FieldLabel = ({ children }: { children: string }): JSX.Element => (
@@ -52,6 +56,7 @@ export function SectionErstgespraech({
   onSign,
   consentByLabel,
   consentDisabled,
+  klassenarbeitSpalten,
 }: SectionErstgespraechProps): JSX.Element {
   const { t } = useTranslation('admin')
   const toggleTried = (value: string): void => {
@@ -134,6 +139,8 @@ export function SectionErstgespraech({
         leadId={leadId}
         onStatus={onThemenStatus}
       />
+
+      <KlassenarbeitFelder form={form} patch={patch} spalten={klassenarbeitSpalten} />
 
       <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
         <FieldLabel>{t('intake.erstgespraech.parentWeak')}</FieldLabel>

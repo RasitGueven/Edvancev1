@@ -8,8 +8,10 @@ import * as a from '@/lib/report/elternbericht/fixtures/abgestuft'
 import * as af from '@/lib/report/elternbericht/fixtures/ansatzFaelle'
 import * as g from '@/lib/report/elternbericht/fixtures/grenzfaelle'
 import * as lw from '@/lib/report/elternbericht/fixtures/lernwegFaelle'
+import * as v4 from '@/lib/report/elternbericht/fixtures/batuV4'
+import * as fp from '@/lib/report/elternbericht/fixtures/fahrplanFaelle'
 import { ilkay } from '@/lib/report/elternbericht/fixtures/ilkay'
-import { NOTIZEN, NOTIZEN_LANG, TIERS } from '@/lib/report/elternbericht/fixtures/notizen'
+import { NOTIZEN, NOTIZEN_LANG, NOTIZEN_ZIELE, TIERS } from '@/lib/report/elternbericht/fixtures/notizen'
 import * as s from '@/lib/report/elternbericht/fixtures/synthetisch'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
 
@@ -64,6 +66,17 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   abgestuftPlanrang: mitNotizen(af.abgestuftPlanrang),
   anliegenGemischt: mitNotizen(af.anliegenGemischt),
   anliegenNurUeberfach: mitNotizen(af.anliegenNurUeberfach),
+  // Bericht v4: Klassenarbeiten als roter Faden (Bauauftrag V4, V4-1 Entscheidung 7); Ziele bestätigt (Seite 5, Station 04)
+  batuV4: mitNotizen(v4.batuV4, NOTIZEN_ZIELE),
+  batuBevorstehend: mitNotizen(v4.batuBevorstehend, NOTIZEN_ZIELE),
+  batuOhneStatus: mitNotizen(v4.batuOhneStatus, NOTIZEN_ZIELE),
+  batuMitNote: mitNotizen(v4.batuMitNote, NOTIZEN_ZIELE),
+  fahrplanKlp: mitNotizen(fp.fahrplanKlp, NOTIZEN_ZIELE),
+  fahrplanHalbjahr: mitNotizen(fp.fahrplanHalbjahr, NOTIZEN_ZIELE),
+  fahrplanLang: mitNotizen(fp.fahrplanLang, NOTIZEN_ZIELE),
+  fahrplanAuffuellen: mitNotizen(fp.fahrplanAuffuellen, NOTIZEN_ZIELE),
+  allesErfuellt: mitNotizen(fp.allesErfuellt, NOTIZEN_ZIELE),
+  ohnePlan: mitNotizen(fp.ohnePlan),
 }
 
-export { ilkay, NOTIZEN, NOTIZEN_LANG, TIERS }
+export { ilkay, NOTIZEN, NOTIZEN_LANG, NOTIZEN_ZIELE, TIERS }

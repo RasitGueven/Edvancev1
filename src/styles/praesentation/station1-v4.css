@@ -1,0 +1,338 @@
+/* Tablet-Präsentation · Station 01 Überblick (V4) und Fahrplan der
+   Klassenarbeiten. Muster: docs/report/v4/praesentation-v4-dummy.html (.ov,
+   .tiers, .fp). Farben nur --color-eb-*; Bewegung über die Variablen in
+   rahmen.css, Wiederbesuch und prefers-reduced-motion still. */
+
+.tp .tp-s1v {
+  --tp-s1-lead: 755ms;
+  --tp-s1-bild: 1035ms;
+  gap: 16px;
+}
+
+.tp .tp-s1v-oben {
+  flex: 0 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+  gap: clamp(24px, 4.5vw, 64px);
+  align-items: center;
+}
+
+.tp .tp-s1v h1.tp-titel {
+  max-width: 640px;
+  margin: 14px 0 0;
+  font-size: clamp(32px, 3.7vw, 54px);
+  line-height: 1.05;
+}
+
+.tp .tp-s1v h1.tp-s1-lang {
+  font-size: clamp(30px, 3.3vw, 48px);
+}
+
+.tp .tp-s1v h1.tp-s1-sehr-lang {
+  font-size: clamp(26px, 2.8vw, 40px);
+}
+
+.tp .tp-s1v-lead {
+  --tp-verzoegerung: var(--tp-s1-lead);
+  max-width: 580px;
+  margin-top: 12px;
+  color: var(--color-eb-text);
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height: 1.5;
+}
+
+/* ─── Pyramide: aktueller Stoff oben, Grundlagen unten ──────────────────── */
+
+.tp .tp-s1v-pyramide {
+  --tp-verzoegerung: var(--tp-s1-bild);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s1v-ebene {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 16px;
+  background: var(--color-eb-weiss);
+}
+
+.tp .tp-s1v-ebene[data-ebene='1'] { width: 87%; }
+.tp .tp-s1v-ebene[data-ebene='2'] { width: 74%; }
+
+.tp .tp-s1v-ebene-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tp .tp-s1v-ebene-kopf b {
+  color: var(--color-eb-navy);
+  font-family: var(--font-eb-titel);
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+}
+
+.tp .tp-s1v-ebene-kopf small {
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--color-tp-pille);
+  color: var(--color-eb-navy);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tp .tp-s1v-punkte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 7px 0 6px;
+}
+
+.tp .tp-s1v-punkt {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.tp .tp-s1v-punkt-sicher { background: var(--color-eb-sicher); opacity: .9; }
+.tp .tp-s1v-punkt-uebung { background: var(--color-eb-uebung); opacity: .75; }
+
+.tp .tp-s1v-urteil {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.tp .tp-s1v-ebene-sicher .tp-s1v-urteil,
+.tp .tp-s1v-ebene-weitgehend .tp-s1v-urteil { color: var(--color-eb-sicher-text); }
+.tp .tp-s1v-ebene-gemischt .tp-s1v-urteil,
+.tp .tp-s1v-ebene-luecken .tp-s1v-urteil { color: var(--color-eb-uebung-text); }
+
+.tp .tp-s1v-weiter {
+  --tp-verzoegerung: 1100ms;
+  margin: 0;
+  color: var(--color-eb-leise);
+  font-size: 11px;
+}
+
+/* ─── Fahrplan der Klassenarbeiten ──────────────────────────────────────── */
+
+.tp .tp-fp {
+  --tp-verzoegerung: 1000ms;
+  flex: 0 0 auto;
+  padding: 14px 20px 14px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 20px;
+  background: var(--color-eb-weiss);
+}
+
+.tp .tp-fp-kicker {
+  margin: 0;
+  color: var(--color-eb-navy);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.tp .tp-fp-bahn {
+  position: relative;
+  height: 40px;
+  margin: 22px 0 4px;
+}
+
+.tp .tp-fp-bahn svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tp .tp-fp-bahn path {
+  fill: none;
+  stroke: var(--color-eb-weg);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.tp .tp-fp-punkt {
+  position: absolute;
+  left: calc((var(--spalte) + .5) / var(--n) * 100%);
+  top: calc(var(--hoehe) * 1px);
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--color-eb-weg-ring);
+  border-radius: 50%;
+  background: var(--color-eb-papier);
+  color: var(--color-eb-text);
+  font-size: 12px;
+  font-weight: 700;
+  transition: opacity .5s var(--tp-ease), transform .5s var(--tp-ease);
+  transition-delay: calc(var(--tp-fahrplan-start) + var(--i) * var(--tp-fahrplan-takt));
+}
+
+.tp .tp-fp-punkt svg {
+  position: static;
+  width: 15px;
+  height: 15px;
+}
+
+.tp .tp-fp-punkt-geschrieben {
+  border-color: var(--color-eb-navy-hell);
+  background: var(--color-eb-navy-hell);
+  color: var(--color-eb-weiss);
+}
+
+.tp .tp-fp-punkt-fehlt { border-color: var(--color-eb-uebung); color: var(--color-eb-uebung-text); }
+.tp .tp-fp-punkt-erfuellt { border-color: var(--color-eb-sicher); color: var(--color-eb-sicher-text); }
+.tp .tp-fp-punkt-ohne { border-color: var(--color-eb-weg-ring); color: var(--color-eb-leise); }
+.tp .tp-fp-punkt-naechste { border-color: var(--color-eb-gold); color: var(--color-eb-gold-text); }
+.tp .tp-fp-punkt-aktuell { border-color: var(--color-eb-navy-hell); color: var(--color-eb-navy); }
+
+/* Trenner: dünne Linie zwischen zwei Spalten, die Beschriftung darauf. */
+.tp .tp-fp-trenner {
+  position: absolute;
+  left: calc(var(--spalte) / var(--n) * 100%);
+  top: -2px;
+  bottom: -2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tp .tp-fp-trenner i {
+  flex: 1;
+  width: 0;
+  border-left: 1px dashed var(--color-eb-weg);
+}
+
+.tp .tp-fp-trenner b {
+  position: absolute;
+  top: -12px;
+  padding: 0 6px;
+  background: var(--color-eb-weiss);
+  color: var(--color-eb-leise);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tp .tp-fp-spalten {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.tp .tp-fp-spalte b {
+  display: block;
+  color: var(--color-eb-tinte);
+  font-size: clamp(11px, 1.15vw, 13.5px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.tp .tp-fp-spalte small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.tp .tp-fp-spalte small span:not(:last-child)::after {
+  content: '·';
+  margin-left: .35em;
+}
+
+.tp .tp-fp-geschrieben { color: var(--color-eb-navy-hell); }
+.tp .tp-fp-fehlt { color: var(--color-eb-uebung-text); }
+.tp .tp-fp-erfuellt { color: var(--color-eb-sicher-text); }
+.tp .tp-fp-ohne,
+.tp .tp-fp-neutral { color: var(--color-eb-leise); }
+
+.tp .tp-fp-weitere {
+  margin: 8px 0 0;
+  color: var(--color-eb-leise);
+  font-size: 11px;
+  text-align: right;
+}
+
+.tp .tp-fp-satz {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--color-eb-mint);
+  color: var(--color-eb-tinte);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ─── Bewegung: die Punkte erscheinen nacheinander ──────────────────────── */
+
+.tp-station:not(.entered) .tp-fp-punkt {
+  opacity: 0;
+  transform: scale(.4);
+}
+
+.tp-station.motion-complete .tp-fp-punkt {
+  transition: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ─── Geräte ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1050px) {
+  .tp .tp-s1v-oben {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .tp .tp-s1v-pyramide {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tp .tp-fp {
+    padding: 12px 14px;
+  }
+
+  .tp .tp-fp-spalten {
+    gap: 6px;
+  }
+
+  .tp .tp-fp-spalte small {
+    font-size: 10px;
+  }
+}
+
+@media (max-height: 720px) {
+  .tp .tp-s1v {
+    gap: 10px;
+  }
+
+  .tp .tp-s1v-lead {
+    margin-top: 6px;
+  }
+}

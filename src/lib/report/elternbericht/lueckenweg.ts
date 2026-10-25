@@ -55,15 +55,55 @@ function gruppiere(rest: readonly EbBereich[], raum: ReadonlySet<string>, thema:
   ]
 }
 
-export function baueLueckenweg(e: LueckenwegEingabe): EbLueckenweg {
+/** Je Bereich die Themen, die direkt auf ihm aufbauen (Kante s → b, Heimat-Thema von s). */
+function themenJeBereich(
+  kanten: readonly LwKante[],
+  heimatThemen: readonly HeimatThema[],
+): Map<string, Set<string>> {
   const heimat = new Map<string, Set<string>>()
-  for (const h of e.heimatThemen) heimat.set(h.skillKey, (heimat.get(h.skillKey) ?? new Set()).add(h.themaKey))
+  for (const h of heimatThemen) heimat.set(h.skillKey, (heimat.get(h.skillKey) ?? new Set()).add(h.themaKey))
   const themenVon = new Map<string, Set<string>>()
-  for (const k of e.kanten) {
+  for (const k of kanten) {
     for (const t of heimat.get(k.skillKey) ?? []) {
       themenVon.set(k.voraussetzt, (themenVon.get(k.voraussetzt) ?? new Set()).add(t))
     }
   }
+  return themenVon
+}
+
+/**
+ * Bericht v4 (Entscheidung 2): je Thema die geprüften Bereiche, die es betreffen —
+ * dieselbe Kante wie unten, als erstes Thema oder als „auch“. Für alle Themen,
+ * auch die des nächsten Schuljahrs. `bereiche` sind die gezählten (ohne
+ * unsichere Vorgriffe). Reihenfolge je Liste: Klasse, dann Label.
+ */
+export function signaleJeThema(
+  e: Pick<LueckenwegEingabe, 'bereiche' | 'kanten' | 'heimatThemen'>,
+): Map<string, { sitzt: EbBereich[]; fehlt: EbBereich[] }> {
+  const themenVon = themenJeBereich(e.kanten, e.heimatThemen)
+  const je = new Map<string, { sitzt: EbBereich[]; fehlt: EbBereich[] }>()
+  for (const b of [...e.bereiche].sort(nachKlasseLabel)) {
+    for (const t of themenVon.get(b.skillKey) ?? []) {
+      const eintrag = je.get(t) ?? { sitzt: [], fehlt: [] }
+      ;(b.sicher ? eintrag.sitzt : eintrag.fehlt).push(b)
+      je.set(t, eintrag)
+    }
+  }
+  return je
+}
+
+/**
+ * Modus 'einmal' (v3): jeder Bereich in genau einem Block, „betrifft auch …“.
+ * Modus 'jeThemaVollstaendig' (v4, Entscheidung 4): ein Block je kommendem Thema
+ * mit mindestens einem betreffenden Bereich, darin ALLE betreffenden Bereiche
+ * (ein Bereich kann in mehreren Blöcken stehen, `auch` bleibt leer). Die
+ * Restgruppen enthalten nur Bereiche ohne jedes kommende Thema aus `kommt`.
+ */
+export function baueLueckenweg(
+  e: LueckenwegEingabe,
+  { modus = 'einmal' }: { modus?: 'einmal' | 'jeThemaVollstaendig' } = {},
+): EbLueckenweg {
+  const themenVon = themenJeBereich(e.kanten, e.heimatThemen)
 
   // Kommende Themen in Plan-Reihenfolge, jedes Thema einmal.
   const kommt: (PlanEintrag & { themaKey: string })[] = []
@@ -78,16 +118,20 @@ export function baueLueckenweg(e: LueckenwegEingabe): EbLueckenweg {
   const ohneSicher: EbBereich[] = []
   const ohneUebung: EbBereich[] = []
   for (const b of [...e.bereiche].sort(nachKlasseLabel)) {
-    const [erstes, ...weitere] = themenFuer(b)
-    if (!erstes) {
+    const themen = themenFuer(b)
+    if (themen.length === 0) {
       if (b.sicher) ohneSicher.push(b)
       else ohneUebung.push(b)
       continue
     }
-    const z: EbZuordnung = { label: b.label, auch: weitere.map((p) => p.titel) }
-    const block = bloecke.get(erstes.themaKey)!
-    if (b.sicher) block.sitzt.push(z)
-    else block.fehlt.push(z)
+    const [erstes, ...weitere] = themen
+    const ziele = modus === 'einmal' ? [erstes] : themen
+    for (const p of ziele) {
+      const z: EbZuordnung = { label: b.label, auch: modus === 'einmal' ? weitere.map((x) => x.titel) : [] }
+      const block = bloecke.get(p.themaKey)!
+      if (b.sicher) block.sitzt.push(z)
+      else block.fehlt.push(z)
+    }
   }
 
   return {

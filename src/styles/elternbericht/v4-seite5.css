@@ -1,0 +1,75 @@
+/* Eltern-Bericht v4 · Seite 5 (Bauauftrag V4, V4-2). Maße in pt, Farben nur
+   aus --color-eb-*. Tönungen als Pseudo-Elemente mit geringer Deckkraft
+   (INV-4.11: kein color-mix); `--ton` und `--ton-text` kommen aus v4-rahmen.css. */
+
+/* ─── Seite 5: Fazit im Kasten, Ziele nummeriert ──────────────────────────── */
+
+.eb-s5-fazit-v4 {
+  margin-right: 0;
+  padding: 12pt 18pt;
+  font-size: 9.8pt;
+  line-height: 14pt;
+  background: var(--color-eb-mint);
+  border-radius: 13pt;
+}
+.eb-s5-ziele-v4 .eb-s5-ziele-liste li {
+  padding-left: 22pt;
+}
+.eb-s5-ziele-v4 .eb-s5-ziele-liste li::before {
+  display: none;
+}
+.eb-s5-ziel-nr {
+  position: absolute;
+  top: 0.5pt;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 13pt;
+  height: 13pt;
+  font-size: 7.2pt;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--color-eb-weiss);
+  background: var(--color-eb-navy);
+  border-radius: 50%;
+}
+.eb-s5-keine-noten {
+  margin-top: 8pt;
+  font-size: 7.6pt;
+  line-height: 10pt;
+  color: var(--color-eb-text);
+}
+.eb-s5-preis {
+  fill: var(--color-eb-text);
+}
+
+/* Läuft Seite 5 über (useStufe): Fazit, Ziele und Karten rücken zusammen. */
+.eb-s5[data-stufe] .eb-s5-fazit-v4 {
+  margin-top: 10pt;
+  padding-block: 9pt;
+}
+.eb-s5[data-stufe] .eb-s5-pakete-kicker {
+  margin-top: 14pt;
+}
+.eb-s5[data-stufe] .eb-s5-karten {
+  margin-top: 10pt;
+}
+.eb-s5[data-stufe] .eb-s5-vorschlag {
+  margin-top: 10pt;
+  padding-block: 9pt;
+}
+.eb-s5[data-stufe] .eb-s5-ziele {
+  margin-top: 10pt;
+  padding-block: 8pt;
+}
+.eb-s5[data-stufe] .eb-s5-kontakt {
+  min-height: 0;
+  margin-top: 10pt;
+}
+.eb-s5[data-stufe='2'] .eb-s5-kontakt-person,
+.eb-s5[data-stufe='2'] .eb-s5-kontakt-fragen {
+  padding-block: 10pt;
+}
+.eb-s5[data-stufe='2'] .eb-s5-fragen-text {
+  margin-top: 8pt;
+}

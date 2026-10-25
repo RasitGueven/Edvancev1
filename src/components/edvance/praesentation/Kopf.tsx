@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { Logo } from './Logo'
-import { STATIONEN, stationsNummer } from './stationProps'
+import { STATIONEN, stationsName, stationsNummer } from './stationProps'
 
 type KopfProps = {
   /** 1 … 4; 0 (Intro) zeigt die Stationsanzeige der ersten Station. */
@@ -11,6 +11,8 @@ type KopfProps = {
   laeuftNoch: boolean
   onLogo: () => void
   onSchliessen: () => void
+  /** Klassenarbeiten als roter Faden: Stationsnamen nach V4. */
+  v4?: boolean
 }
 
 /**
@@ -18,7 +20,7 @@ type KopfProps = {
  * Testlauf und laufende Analyse, Stationsanzeige „02 / 04 · Lernstand" und
  * rechts „Schließen" an der Stelle des Einstellungsknopfs aus dem Dummy.
  */
-export function Kopf({ aktuell, testlauf, laeuftNoch, onLogo, onSchliessen }: KopfProps): JSX.Element {
+export function Kopf({ aktuell, testlauf, laeuftNoch, onLogo, onSchliessen, v4 = false }: KopfProps): JSX.Element {
   const { t, i18n } = useTranslation('praesentation')
   const station = Math.max(aktuell, 1)
 
@@ -35,7 +37,7 @@ export function Kopf({ aktuell, testlauf, laeuftNoch, onLogo, onSchliessen }: Ko
           {t('kopf.station', {
             nummer: stationsNummer(station, i18n.language),
             gesamt: stationsNummer(STATIONEN.length, i18n.language),
-            name: t(`leiste.station.${station}`),
+            name: stationsName(t, station, v4),
           })}
         </span>
         <button type="button" className="tp-schliessen" onClick={onSchliessen} aria-label={t('kopf.schliessen')}>

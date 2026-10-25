@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
+import type { EbFahrplan, EbThemaSignal } from '@/types'
+
 import {
   linienLage,
   massstabFuer,
@@ -8,6 +10,7 @@ import {
   zeilenAbstand,
   type ProfilZeile,
 } from './seite2Rechnung'
+import { wichtigFuer } from './wichtigFuer'
 
 // Lage in der Karte, in pt relativ zur Innenkante (Maßblatt Seite 2: Karte
 // (44,323)–(551,663), Rand 0,9, Inhalt ab x 64). Jede Zeile ist ein SVG mit
@@ -22,6 +25,11 @@ const UMRISS = 0.7
 /** Legende: dritter Eintrag hinter „Übungsbedarf“ (Textende 129,1, gemessen)
  * mit demselben Abstand wie zwischen den ersten beiden (Textende 41,6 → 59,9). */
 const LEGENDE_UMRISS_X = 147.4
+/** Bericht v4: Höhe der Zeile (Feld, Spur, Zählung); „Wichtig für“ folgt darunter. */
+const ZEILE_V4 = 22
+/** Bericht v4: Kopf der Karte ohne den Leerraum des Musters. */
+const KOPF_V4 = 50
+const KOPF_VERSATZ_V4 = KOPF_V4 - 63.1
 
 /**
  * Das Kompetenzprofil: eine Zeile je Themenfeld, ein Kästchen je geprüftem
@@ -32,16 +40,24 @@ const LEGENDE_UMRISS_X = 147.4
  * Die Kästchen sind Anzahlen, keine Quote: Die Zahlen stehen als Text
  * daneben, die Spur ist für Vorleseprogramme verborgen, jede Zeile hat einen
  * eigenen Vorlesetext.
+ *
+ * Bericht v4 (`klassenarbeiten`): unter jeder Zeile „Wichtig für“ mit einer
+ * Marke je Klassenarbeit (wichtigFuer.ts), oder „wird in späteren Schuljahren
+ * wichtig“; die Legende nennt die Nummer.
  */
 export function Profil({
   profil,
   wessen,
+  klassenarbeiten,
 }: {
   profil: ProfilZeile[]
   wessen: string | null
+  klassenarbeiten?: { fahrplan: EbFahrplan; signale: readonly EbThemaSignal[] }
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
-  const abstand = zeilenAbstand(profil.length)
+  const v4 = klassenarbeiten !== undefined
+  const kopfDy = v4 ? KOPF_VERSATZ_V4 : 0
+  const abstand = v4 ? ZEILE_V4 : zeilenAbstand(profil.length)
   const m = massstabFuer(profil)
   const mitAbgeleiteten = profil.some((z) => z.abgeleitet > 0)
   // Trennlinie zwischen zwei Zeilen: im Muster 31,8 unter der Spur-Oberkante;
@@ -50,14 +66,17 @@ export function Profil({
 
   return (
     <section className="eb-s2-profil" data-testid="eb-profil">
-      <svg className="eb-s2-profil-kopf" viewBox="0 0 467 63.1">
-        <text className="eb-s2-profil-titel" x="0" y="28.9">
+      <svg
+        className={v4 ? 'eb-s2-profil-kopf eb-s2-profil-kopf-v4' : 'eb-s2-profil-kopf'}
+        viewBox={`0 0 467 ${v4 ? KOPF_V4 : 63.1}`}
+      >
+        <text className="eb-s2-profil-titel" x="0" y={28.9 + kopfDy}>
           {wessen ? t('s2.profil.titel', { wessen }) : t('s2.profil.titelOhneName')}
         </text>
-        <text className="eb-s2-profil-hinweis" x={BREITE} y="26.9">
+        <text className="eb-s2-profil-hinweis" x={BREITE} y={26.9 + kopfDy}>
           {t('s2.profil.hinweis')}
         </text>
-        <line className="eb-s2-profil-linie" x1="0" y1="52.1" x2={BREITE} y2="52.1" />
+        <line className="eb-s2-profil-linie" x1="0" y1={52.1 + kopfDy} x2={BREITE} y2={52.1 + kopfDy} />
       </svg>
 
       <ul className="eb-s2-zeilen">
@@ -74,8 +93,9 @@ export function Profil({
             untersucht > 0 && t('s2.profil.geprueft', { count: untersucht }),
             z.abgeleitet > 0 && t('s2.profil.abgeleitet', { count: z.abgeleitet }),
           ]
+          const marken = klassenarbeiten ? wichtigFuer(z.feld, klassenarbeiten.fahrplan, klassenarbeiten.signale) : []
           return (
-            <li key={z.feld} className="eb-s2-zeile" data-testid="eb-profil-zeile">
+            <li key={z.feld} className={v4 ? 'eb-s2-zeile eb-s2-zeile-w' : 'eb-s2-zeile'} data-testid="eb-profil-zeile">
               <span className="sr-only">
                 {vorlesen.filter((x): x is string => Boolean(x)).join(' ')}
               </span>
@@ -120,10 +140,31 @@ export function Profil({
                     .map((teil) => t(`s2.profil.${teil.art}`, { count: teil.anzahl }))
                     .join(t('s2.profil.trenner'))}
                 </text>
-                {i < profil.length - 1 && (
+                {!v4 && i < profil.length - 1 && (
                   <line className="eb-s2-zeilen-linie" x1="0" y1={linieY} x2={BREITE} y2={linieY} />
                 )}
               </svg>
+              {klassenarbeiten && (marken.length > 0 || z.uebung > 0) && (
+                <p className="eb-s2-wichtig" data-testid="eb-wichtig">
+                  {marken.length > 0 ? (
+                    <>
+                      <span className="eb-s2-wichtig-label">{t('v4.s2.wichtig')}</span>
+                      {marken.map((m) => (
+                        <span
+                          key={m.nummer}
+                          className={m.naechste ? 'eb-s2-marke eb-s2-marke-naechste' : 'eb-s2-marke'}
+                          data-testid="eb-marke"
+                        >
+                          <b>{m.nummer}</b>
+                          {m.naechste ? `${m.titel}${t('s2.profil.trenner')}${t('v4.s2.naechste')}` : m.titel}
+                        </span>
+                      ))}
+                    </>
+                  ) : (
+                    <span className="eb-s2-wichtig-spaeter">{t('v4.s2.spaeter')}</span>
+                  )}
+                </p>
+              )}
             </li>
           )
         })}
@@ -138,6 +179,21 @@ export function Profil({
         <text x="75.9" y="6.1">
           {t('s2.profil.legende.uebung')}
         </text>
+        {v4 && (
+          <g data-testid="eb-legende-nummer">
+            <rect
+              className="eb-s2-segment-nummer"
+              x={LEGENDE_UMRISS_X + UMRISS / 2}
+              y={UMRISS / 2}
+              width={10 - UMRISS}
+              height={10 - UMRISS}
+              rx={2.6 - UMRISS / 2}
+            />
+            <text x={LEGENDE_UMRISS_X + 16} y="6.1">
+              {t('v4.s2.legendeNummer')}
+            </text>
+          </g>
+        )}
         {mitAbgeleiteten && (
           <g data-testid="eb-legende-abgeleitet">
             <rect

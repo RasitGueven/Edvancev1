@@ -17,3 +17,14 @@ export function paketWahl(
   const vorschlag = eindeutig && paket ? (pakete[POSITION[paket]] ?? null) : null
   return { pakete, vorschlag, eindeutig }
 }
+
+/**
+ * Monatspreis eines Pakets in Cent für die eingeblendeten Preise (Bericht v4):
+ * der niedrigste Monatsbeitrag aus tier_laufzeiten (= das Jahrespaket, 12
+ * Monate), sonst der Referenzpreis `price_cents` (derselbe Wert). Der Bericht
+ * zeigt damit den Beitrag, den die Familie bei der längeren Laufzeit zahlt.
+ */
+export function monatspreis(p: Pick<TierPlan, 'price_cents' | 'laufzeiten'>): number {
+  const preise = (p.laufzeiten ?? []).map((l) => l.preis_cents)
+  return preise.length > 0 ? Math.min(...preise) : p.price_cents
+}

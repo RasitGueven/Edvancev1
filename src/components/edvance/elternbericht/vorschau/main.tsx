@@ -18,12 +18,14 @@ const name = suche.get('fall')
 const fall = name ? FAELLE[name] : undefined
 // Bericht v3: Layout von Seite 3, ohne Angabe aus berichtKonfig.
 const layout = suche.get('layout') === 'A' ? 'A' : suche.get('layout') === 'B' ? 'B' : undefined
+// Bericht v4: ?preise=an blendet die Preise auf Seite 5 ein (wie der Schalter in der Ansicht).
+const preise = suche.get('preise') === 'an'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     {fall ? (
       <div className="eb-ansicht">
-        <ElternberichtBogen data={fall.data} notes={fall.notes} tiers={fall.tiers} einordnung={layout} />
+        <ElternberichtBogen data={fall.data} notes={fall.notes} tiers={fall.tiers} einordnung={layout} preise={preise} />
       </div>
     ) : (
       <ul className="flex flex-col gap-2 p-6 text-sm">

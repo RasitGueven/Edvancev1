@@ -1,0 +1,396 @@
+<title>Batu Lernstandsbericht</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Schibsted+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: Druckbogen E7 (A4 in pt), fünf Seiten; Kopf mit Stationsnavigation, darunter auf S. 2–5 die Klassenarbeits-Leiste als roter Faden */
+:root{
+  color-scheme:light;
+  --papier:#F8F7F2; --navy:#304969; --navy-hell:#7E9BBF; --navy-wash:#EAF0F6; --tinte:#24313D; --text:#52616F; --leise:#8795A0;
+  --linie:#DEE4E1; --linie-zart:#E8EDEB; --mint:#EAF5F0; --mint-karte:#EFF7F4;
+  --sicher:#087F70; --sicher-text:#08665C; --uebung:#CA8275; --uebung-text:#9D5349; --uebung-wash:#F6E7E2;
+  --gold:#E4A132; --nav-linie:#B9C5CC; --nav-punkt:#AEBCC4; --weg:#B6C6CD; --grau:#C4CDD2;
+  --navy-chip:#456281; --auf-navy:#E4ECF0; --weiss:#FFFFFF; --grund:#ECEDE8;
+  --titel:"Fraunces",Georgia,serif; --sans:"Schibsted Grotesk","Avenir Next",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--grund);color:var(--tinte);font-family:var(--sans);margin:0;padding-block:24px 40px}
+.wrap{overflow-x:auto;padding:0 16px}
+.schalter{width:595.28pt;margin:0 auto 12px;display:flex;justify-content:flex-end;gap:10px;align-items:center;font-size:13px;color:var(--text)}
+.schalter button{font:inherit;font-size:12px;border:1px solid var(--linie);background:var(--weiss);color:var(--navy);border-radius:8px;padding:6px 12px;cursor:pointer}
+.schalter button[aria-pressed=true]{background:var(--navy);color:var(--weiss);border-color:var(--navy)}
+.bogen{width:595.28pt;margin:0 auto;display:flex;flex-direction:column;gap:24px;font-kerning:none;font-synthesis:none}
+.seite{position:relative;width:595.28pt;height:841.89pt;background:var(--papier);overflow:hidden;box-shadow:0 4px 18px rgba(48,73,105,.12)}
+.ttl{font-family:var(--titel);font-weight:500;font-variation-settings:'opsz' 48;color:var(--navy);margin:0;letter-spacing:-.015em;text-wrap:balance}
+/* Kopf */
+.kopf{position:absolute;left:44pt;right:44.28pt;top:24pt;height:50pt;display:flex;justify-content:space-between}
+.marke{display:flex;flex-direction:column;gap:5pt}
+.marke-z{display:flex;align-items:center;gap:7pt}
+.marke-z svg{width:21pt;height:14pt}
+.marke-z span{font-family:var(--titel);font-weight:500;font-variation-settings:'opsz' 48;font-size:19pt;color:var(--navy);letter-spacing:-.03em}
+.chip{align-self:flex-start;margin-left:28pt;font-size:6.6pt;color:var(--leise);letter-spacing:.08em;text-transform:uppercase;background:var(--weiss);border:.7pt solid var(--linie);border-radius:8pt;padding:2pt 8pt}
+.nav{display:grid;grid-template-columns:repeat(5,54pt);position:relative;margin-top:1pt}
+.nav::before{content:"";position:absolute;left:27pt;right:27pt;top:7pt;border-top:.85pt solid var(--nav-linie)}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:5pt;position:relative}
+.nav i{width:14pt;height:14pt;border-radius:50%;border:.9pt solid var(--nav-punkt);background:var(--papier);font-style:normal;font-size:6.6pt;color:var(--leise);display:grid;place-items:center}
+.nav span{font-size:6.8pt;color:var(--leise);white-space:nowrap}
+.nav div.on i{background:var(--navy);border-color:var(--navy);color:var(--weiss)}
+.nav div.on span{color:var(--navy);font-weight:600}
+.linie-o{position:absolute;left:44pt;right:44.28pt;top:80pt;border-top:.85pt solid var(--linie)}
+.linie-u{position:absolute;left:44pt;right:44.28pt;top:810pt;border-top:.8pt solid var(--linie)}
+.fuss{position:absolute;left:44pt;right:44.28pt;top:820pt;display:flex;justify-content:space-between;font-size:8.1pt;color:var(--leise);white-space:pre}
+.inhalt{position:absolute;left:44pt;right:44.28pt;top:96pt;bottom:40pt;display:flex;flex-direction:column}
+.kicker{font-size:8.3pt;color:var(--navy);text-transform:uppercase;letter-spacing:.95pt;font-weight:500}
+.p{font-size:9.4pt;line-height:14pt;color:var(--text);margin:0}
+.leise{font-size:7.6pt;color:var(--leise);line-height:10.5pt;margin:0}
+.todo{display:inline-block;font-size:6.6pt;color:var(--uebung-text);border:.6pt dashed var(--uebung);border-radius:5pt;padding:0 5pt;font-weight:400;letter-spacing:0;text-transform:none;vertical-align:1pt}
+/* Klassenarbeits-Leiste S. 2–5 */
+.fahr{display:flex;align-items:center;gap:5pt;margin-bottom:14pt}
+.fahr .lbl{font-size:6.6pt;color:var(--leise);text-transform:uppercase;letter-spacing:.55pt;margin-right:3pt;white-space:nowrap}
+.fahr .ka{display:flex;align-items:center;gap:5pt;font-size:7.4pt;color:var(--text);background:var(--weiss);border:.6pt solid var(--linie);border-radius:9pt;padding:3pt 8pt 3pt 4pt;min-width:0;flex:0 1 auto}
+.fahr .ka b{flex:none;width:11pt;height:11pt;border-radius:50%;display:grid;place-items:center;font-size:6.4pt;font-weight:600;color:var(--weiss)}
+.fahr .ka span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fahr .ka.done b{background:var(--navy-hell)}
+.fahr .ka.fehlt b{background:var(--uebung)}
+.fahr .ka.on{border-color:var(--navy);color:var(--navy);font-weight:500}
+.fahr .pf{color:var(--weg);font-size:9pt}
+/* Seite 1 */
+.s1-titel{font-size:25pt;line-height:31pt;margin:12pt 0 14pt}
+.daten{display:grid;grid-template-columns:repeat(4,1fr);background:var(--weiss);border:.75pt solid var(--linie);border-radius:12pt;padding:10pt 0}
+.daten div{padding:0 16pt;border-left:.7pt solid var(--linie)}
+.daten div:first-child{border-left:0}
+.daten small{display:block;font-size:7.6pt;color:var(--leise);margin-bottom:3pt}
+.daten span{font-size:9.15pt;color:var(--tinte)}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:12pt;margin-top:12pt}
+.box{border-radius:11pt;padding:12pt 13pt;display:flex;flex-direction:column;gap:6pt}
+.box.mint{background:var(--mint)}
+.box.weiss{background:var(--weiss);border:.7pt solid var(--linie)}
+.box.navy-w{background:var(--navy-wash)}
+.box p{margin:0;font-size:8.6pt;line-height:12pt;color:var(--tinte)}
+.box p.l{font-size:7.8pt;line-height:11pt;color:var(--text)}
+.box .zeigt{font-size:7.4pt;color:var(--sicher-text);font-weight:600;border-top:.6pt solid rgba(8,127,112,.2);padding-top:6pt;margin-top:2pt}
+.blick{background:var(--weiss);border:.7pt solid var(--linie);border-radius:12pt;padding:4pt 14pt;margin-top:6pt}
+.stufe{display:grid;grid-template-columns:92pt 1fr auto;align-items:center;gap:10pt;padding:7pt 0;border-bottom:.55pt solid var(--linie-zart)}
+.stufe:last-child{border-bottom:0}
+.stufe b{font-size:9.4pt;font-weight:500;color:var(--tinte)}
+.stufe b small{display:block;font-size:7.2pt;color:var(--leise);font-weight:400}
+.dots{display:flex;gap:3pt;flex-wrap:wrap}
+.dots i{width:8pt;height:8pt;border-radius:50%}
+.dots i.s{background:var(--sicher)} .dots i.u{background:var(--uebung)}
+.stufe em{font-style:normal;font-size:8.4pt;text-align:right;white-space:nowrap}
+.stufe em.g{color:var(--sicher-text)} .stufe em.u{color:var(--uebung-text)}
+.zeile{font-size:7.6pt;color:var(--leise);white-space:pre;margin:4pt 0 0}
+.fplan{margin-top:auto;background:var(--weiss);border:.7pt solid var(--linie);border-radius:12pt;padding:12pt 14pt 12pt}
+.fplan .bahn{position:relative;height:30pt;margin:0 0 6pt}
+.fplan .bahn svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.fplan .pkt{position:absolute;width:20pt;height:20pt;margin:-10pt 0 0 -10pt;border-radius:50%;display:grid;place-items:center;font-size:8.6pt;font-weight:600}
+.fplan .pkt.done{background:var(--navy-hell);color:var(--weiss)}
+.fplan .pkt.fehlt{background:var(--papier);border:1.4pt solid var(--uebung);color:var(--uebung-text)}
+.fplan .labels{display:grid;grid-template-columns:repeat(4,1fr);gap:8pt}
+.fplan .labels div{text-align:center;display:flex;flex-direction:column;gap:2pt}
+.fplan .labels b{font-size:8.2pt;font-weight:500;color:var(--tinte);line-height:10pt}
+.fplan .labels small{font-size:6.9pt;line-height:8.6pt}
+.fplan .labels small.done{color:var(--navy-hell)} .fplan .labels small.fehlt{color:var(--uebung-text)}
+.fplan .satz{margin-top:11pt;background:var(--mint);border-radius:9pt;padding:9pt 12pt;font-size:8.8pt;line-height:12.4pt;color:var(--tinte)}
+.fplan .quelle{display:flex;align-items:center;gap:6pt;margin-top:8pt;font-size:7.2pt;color:var(--leise)}
+.fplan .quelle svg{width:9pt;height:9pt;flex:none}
+/* Seite 2 */
+.s-titel{font-size:25pt;line-height:29pt;margin:4pt 0 8pt}
+.zahlen{display:grid;grid-template-columns:repeat(3,1fr);gap:16pt;margin:12pt 0 14pt}
+.zahlen div{border-top:2.6pt solid var(--linie);padding-top:6pt}
+.zahlen .g{border-color:var(--sicher)} .zahlen .u{border-color:var(--uebung)} .zahlen .n{border-color:var(--navy)}
+.zahlen strong{display:block;font-family:var(--titel);font-weight:500;font-variation-settings:'opsz' 48;font-size:30pt;line-height:34pt}
+.zahlen .g strong{color:var(--sicher)} .zahlen .u strong{color:var(--uebung-text)} .zahlen .n strong{color:var(--tinte)}
+.zahlen span{font-size:8.4pt;color:var(--text)}
+.profil{background:var(--weiss);border:.9pt solid var(--linie);border-radius:16pt;padding:14pt 18pt 12pt}
+.profil-k{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.65pt solid var(--linie);padding-bottom:9pt}
+.profil-k b{font-size:11.8pt;font-weight:500;color:var(--navy)}
+.profil-k span{font-size:7.8pt;color:var(--leise)}
+.feld{display:grid;grid-template-columns:128pt 1fr 84pt;gap:4pt 10pt;align-items:center;padding:8pt 0;border-bottom:.55pt solid var(--linie-zart)}
+.feld:last-of-type{border-bottom:0}
+.feld .n{font-size:9.1pt;color:var(--tinte)}
+.feld .n small{display:block;font-size:7.2pt;color:var(--leise)}
+.spur{display:flex;gap:3.5pt;height:12.5pt}
+.spur i{width:16pt;border-radius:3.5pt}
+.spur i.s{background:var(--sicher)} .spur i.u{background:var(--uebung)}
+.feld .c{text-align:right;font-size:7.5pt;color:var(--text);line-height:10pt}
+.feld .c small{display:block;font-size:7pt;color:var(--leise)}
+.wichtig{grid-column:2/4;display:flex;flex-wrap:wrap;gap:4pt;align-items:center;font-size:7.4pt;color:var(--text)}
+.wichtig .tag{display:inline-flex;align-items:center;gap:4pt;background:var(--navy-wash);color:var(--navy);border-radius:7pt;padding:1.5pt 7pt}
+.wichtig .tag b{font-weight:600}
+.wichtig .tag.naechste{background:var(--navy);color:var(--weiss)}
+.wichtig .spaet{color:var(--leise)}
+.legende{display:flex;gap:18pt;margin-top:9pt;font-size:8.1pt;color:var(--text)}
+.legende span{display:inline-flex;align-items:center;gap:6pt}
+.legende i{width:10pt;height:10pt;border-radius:2.6pt}
+/* Seite 3 */
+.ka-karte{background:var(--weiss);border:.7pt solid var(--linie);border-radius:11pt;overflow:hidden;margin-bottom:9pt}
+.ka-kopf{display:flex;justify-content:space-between;align-items:center;gap:8pt;padding:9pt 14pt 8pt;border-bottom:.6pt solid var(--linie-zart)}
+.ka-kopf .l{display:flex;align-items:center;gap:8pt;min-width:0}
+.ka-kopf .nr{flex:none;width:18pt;height:18pt;border-radius:50%;background:var(--uebung-wash);color:var(--uebung-text);font-size:8.4pt;font-weight:600;display:grid;place-items:center}
+.ka-kopf b{font-size:10.2pt;font-weight:500;color:var(--navy)}
+.ka-kopf b small{display:block;font-size:7.4pt;color:var(--leise);font-weight:400;margin-top:1pt}
+.sig{flex:none;font-size:6.8pt;text-transform:uppercase;letter-spacing:.5pt;color:var(--uebung-text);background:var(--uebung-wash);border-radius:7pt;padding:2pt 8pt;white-space:nowrap}
+.ka-rumpf{display:grid;grid-template-columns:1fr 1fr}
+.ka-rumpf div{padding:8pt 14pt 10pt}
+.ka-rumpf div+div{border-left:.6pt solid var(--linie-zart)}
+.ka-rumpf h4{margin:0 0 5pt;font-size:6.6pt;font-weight:500;text-transform:uppercase;letter-spacing:.55pt}
+.ka-rumpf .ja h4{color:var(--sicher-text)} .ka-rumpf .nein h4{color:var(--uebung-text)}
+.punkte{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3.5pt}
+.punkte li{font-size:8.2pt;line-height:10.4pt;color:var(--tinte);padding-left:12pt;position:relative}
+.punkte li::before{content:"";position:absolute;left:0;top:2.6pt;width:6pt;height:6pt;border-radius:50%}
+.ja .punkte li::before,.punkte.g li::before{background:var(--sicher)} .nein .punkte li::before,.punkte.u li::before{background:var(--uebung)}
+.individuell{display:flex;gap:10pt;align-items:flex-start;background:var(--navy-wash);border-radius:10pt;padding:9pt 12pt;margin-bottom:11pt}
+.individuell svg{flex:none;width:16pt;height:16pt;margin-top:1pt}
+.individuell p{margin:0;font-size:8.6pt;line-height:12pt;color:var(--tinte)}
+.rest{display:grid;grid-template-columns:1fr 1fr;gap:10pt;margin-top:2pt}
+.rest .box{padding:10pt 12pt}
+.rest p.l{font-size:7.6pt}
+.chips{display:flex;flex-wrap:wrap;gap:4pt}
+.chips span{font-size:7.4pt;line-height:9pt;border-radius:6pt;padding:2pt 6pt}
+.chips.g span{background:var(--weiss);color:var(--sicher-text)}
+.chips.u span{background:var(--uebung-wash);color:var(--uebung-text)}
+.uebt .chips.u span{background:var(--weiss)}
+/* Seite 4 */
+.weg4{display:flex;flex-direction:column;gap:9pt;margin-top:12pt}
+.sp{display:grid;grid-template-columns:62pt 1fr;gap:12pt;align-items:stretch}
+.sp .ziel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2pt;border-radius:11pt;background:var(--navy);color:var(--weiss);text-align:center;padding:8pt 4pt}
+.sp .ziel small{font-size:6.4pt;text-transform:uppercase;letter-spacing:.5pt;opacity:.8}
+.sp .ziel b{font-family:var(--titel);font-weight:500;font-size:20pt;line-height:22pt}
+.sp .ziel span{font-size:6.8pt;line-height:8.4pt;opacity:.9}
+.sp.spaet .ziel{background:var(--linie);color:var(--text)}
+.sp .karte{background:var(--weiss);border:.7pt solid var(--linie);border-radius:11pt;padding:10pt 13pt;display:flex;flex-direction:column;gap:5pt}
+.sp .vor{font-size:6.8pt;text-transform:uppercase;letter-spacing:.55pt;color:var(--uebung-text)}
+.sp h3{margin:0;font-size:11.2pt;font-weight:500;color:var(--tinte)}
+.sp p{margin:0;font-size:8.6pt;line-height:12pt;color:var(--text)}
+.sp .uebt{background:var(--uebung-wash);border-radius:8pt;padding:6pt 9pt}
+.sp .uebt h4{margin:0 0 4pt;font-size:6.4pt;font-weight:500;text-transform:uppercase;letter-spacing:.5pt;color:var(--uebung-text)}
+.sp.spaet h3{color:var(--text)}
+.ansatz{display:grid;grid-template-columns:1fr 1fr;gap:10pt;margin-top:12pt}
+.ansatz .box{padding:11pt 13pt}
+.ansatz h3{margin:0;font-family:var(--titel);font-weight:500;font-size:12pt;color:var(--navy)}
+.ansatz ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4pt}
+.ansatz li{font-size:8.2pt;line-height:11pt;color:var(--tinte);padding-left:13pt;position:relative}
+.ansatz li::before{content:"";position:absolute;left:0;top:3pt;width:6pt;height:6pt;border-radius:50%;background:var(--gold)}
+/* Seite 5 */
+.fazit{background:var(--mint);border-radius:13pt;padding:14pt 18pt;margin:6pt 0 0}
+.fazit p{margin:0;font-size:10.2pt;line-height:15pt;color:var(--tinte)}
+.zielbox{background:var(--weiss);border:.7pt solid var(--linie);border-radius:12pt;padding:11pt 14pt;margin-top:12pt}
+.ziele{list-style:none;margin:8pt 0 0;padding:0;display:flex;flex-direction:column;gap:6pt}
+.ziele li{display:grid;grid-template-columns:18pt 1fr;font-size:9pt;line-height:12.6pt;color:var(--tinte)}
+.ziele li b{width:13pt;height:13pt;border-radius:50%;background:var(--navy);color:var(--weiss);font-size:7.2pt;font-weight:500;display:grid;place-items:center;margin-top:.5pt}
+.zielbox .kein{margin:8pt 0 0;font-size:7.6pt;color:var(--text)}
+.navy{background:var(--navy);border-radius:13pt;padding:12pt 18pt;margin-top:12pt;color:var(--weiss)}
+.navy .c{display:inline-block;background:var(--navy-chip);border-radius:8.7pt;font-size:7.1pt;text-transform:uppercase;letter-spacing:.5pt;padding:2.5pt 10pt}
+.navy h3{font-family:var(--titel);font-weight:500;font-variation-settings:'opsz' 48;font-size:16.8pt;line-height:21pt;margin:6pt 0 4pt}
+.navy p{margin:0;font-size:8.5pt;line-height:12pt;color:var(--auf-navy)}
+.pakete{display:grid;grid-template-columns:repeat(3,1fr);gap:11pt;margin-top:10pt}
+.paket{background:var(--weiss);border:.75pt solid var(--linie);border-radius:12pt;padding:10pt 13pt 11pt;display:flex;flex-direction:column}
+.paket.vor{background:var(--mint-karte);border:1.05pt solid var(--sicher)}
+.paket .k{font-size:7pt;color:var(--leise);text-transform:uppercase;letter-spacing:.5pt}
+.paket.vor .k{align-self:flex-start;color:var(--sicher-text);background:var(--mint);border-radius:7.5pt;padding:1pt 8pt}
+.paket .name{font-family:var(--titel);font-weight:500;font-variation-settings:'opsz' 48;font-size:16pt;color:var(--navy);margin:6pt 0 5pt;padding-bottom:6pt;border-bottom:.7pt solid var(--linie)}
+.paket .m1{font-size:8.4pt;color:var(--tinte)}
+.paket .preis{font-size:8.4pt;color:var(--text);margin-top:3pt}
+.bogen:not(.mit-preis) .preis{display:none}
+.bogen.mit-preis .ohne-preis{display:none}
+.kontakt{display:grid;grid-template-columns:1fr 1fr;background:var(--weiss);border:.8pt solid var(--linie);border-radius:12pt;padding:13pt 0;margin-top:auto}
+.kontakt>div{padding:0 16pt}
+.kontakt>div+div{border-left:.75pt solid var(--linie)}
+.kontakt .wer{font-family:var(--titel);font-weight:500;font-variation-settings:'opsz' 48;font-size:15pt;color:var(--navy);margin-top:7pt}
+.kontakt .rolle{font-size:8.4pt;color:var(--text);margin-top:2pt}
+.kontakt .mail{font-size:9pt;color:var(--sicher-text);margin-top:6pt;user-select:all}
+.kontakt p{margin:7pt 0 0;font-size:8.8pt;line-height:13pt;color:var(--text)}
+@media print{body{background:none;padding:0}.schalter{display:none}.seite{box-shadow:none;break-after:page}}
+</style>
+
+<div class="schalter"><span>Nur in der Ansicht:</span><button type="button" id="preisBtn" aria-pressed="false">Preise einblenden</button></div>
+<div class="wrap"><div class="bogen" id="bogen">
+
+<!-- ============ Seite 1 · Überblick ============ -->
+<section class="seite" data-n="1">
+  <div class="inhalt">
+    <div class="kicker">Lernstandsanalyse Mathematik</div>
+    <h1 class="ttl s1-titel">Batus Grundlagen sitzen. Für die nächsten Klassenarbeiten fehlen noch einige Voraussetzungen.</h1>
+    <div class="daten">
+      <div><small>Klasse</small><span>9, Gymnasium</span></div>
+      <div><small>Fach</small><span>Mathematik</span></div>
+      <div><small>Umfang</small><span>34 Aufgaben</span></div>
+      <div><small>Datum</small><span>24. Oktober 2026</span></div>
+    </div>
+    <div class="zwei">
+      <div class="box mint"><div class="kicker">Ihr Anliegen</div>
+        <p>Letzte Zeugnisnote in Mathematik: 4, zuletzt unverändert. Als Ursache vermuten Sie fehlende Grundlagen, dazu Flüchtigkeitsfehler in der Arbeit, obwohl Batu den Stoff versteht.</p>
+        <div class="zeigt">Was die Analyse dazu zeigt</div>
+        <p>Die Grundlagen aus Klasse 5/6 sitzen weitgehend. Batu findet meist den richtigen Weg, Fehler entstehen eher durch fehlende Sorgfalt.</p></div>
+      <div class="box weiss"><div class="kicker">So gehen wir vor</div>
+        <p>Wir starten beim aktuellen Schulthema und prüfen anhand des NRW-Lehrplans, worauf es aufbaut. Dann schauen wir, was das für Batus nächste Klassenarbeiten bedeutet.</p>
+        <p class="l">Jede Seite geht einen Schritt tiefer: erst der Überblick, dann die Themenfelder, dann jede Klassenarbeit, dann der Lernplan.</p></div>
+    </div>
+    <div class="kicker" style="margin-top:14pt">Auf einen Blick</div>
+    <div class="blick">
+      <div class="stufe"><b>Grundlagen<small>Klasse 5/6</small></b><div class="dots"><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="u"></i></div><em class="g">sitzen weitgehend</em></div>
+      <div class="stufe"><b>Weiterführend<small>Klasse 7/8</small></b><div class="dots"><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i></div><em class="u">hier liegen die Lücken</em></div>
+      <div class="stufe"><b>Aktueller Stoff<small>Klasse 9</small></b><div class="dots"><i class="s"></i><i class="s"></i><i class="s"></i><i class="u"></i></div><em class="g">fast sicher</em></div>
+    </div>
+    <div class="zeile">23 Bereiche geprüft  ·  12 sicher  ·  11 Übungsbedarf</div>
+
+    <div class="fplan">
+      <div class="kicker" style="margin-bottom:8pt">Batus Klassenarbeiten in diesem Schuljahr</div>
+      <div class="bahn" aria-hidden="true">
+        <svg viewBox="0 0 1000 30" preserveAspectRatio="none"><path d="M125 17 C 230 17 270 9 375 9 C 480 9 520 21 625 21 C 730 21 770 13 875 13" fill="none" stroke="#B6C6CD" stroke-width="1.3" vector-effect="non-scaling-stroke"/></svg>
+        <span class="pkt done" style="left:12.5%;top:17pt">✓</span>
+        <span class="pkt fehlt" style="left:37.5%;top:9pt">2</span>
+        <span class="pkt fehlt" style="left:62.5%;top:21pt">3</span>
+        <span class="pkt fehlt" style="left:87.5%;top:13pt">4</span>
+      </div>
+      <div class="labels">
+        <div><b>Reelle Zahlen und Wurzeln</b><small class="done">geschrieben <span class="todo">Note, falls bekannt</span></small></div>
+        <div><b>Quadratische Funktionen</b><small class="fehlt">nächste Arbeit<br>Voraussetzungen fehlen noch</small></div>
+        <div><b>Kreise, Prismen und Zylinder</b><small class="fehlt">voraussichtlich<br>Voraussetzungen fehlen noch</small></div>
+        <div><b>Satz des Pythagoras</b><small class="fehlt">voraussichtlich<br>Voraussetzungen fehlen noch</small></div>
+      </div>
+      <div class="satz">Vieles sitzt schon. Für die kommenden Arbeiten fehlen aber noch einige Voraussetzungen, und genau dort setzen wir an. Welche das sind, steht auf Seite 3.</div>
+      <div class="quelle"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="none" stroke="#8795A0" stroke-width="1"/><path d="M6 5.2v3.3M6 3.4v.1" stroke="#8795A0" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <span>Die Reihenfolge stammt aus dem Schulplan des Friedrich-Wilhelm-Gymnasiums. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Seite 2 · Lernstand ============ -->
+<section class="seite" data-n="2">
+  <div class="inhalt">
+    <div class="fahr" data-on="alle"></div>
+    <div class="kicker">Lernstand im Überblick</div>
+    <h2 class="ttl s-titel">Batus Lernstand, sortiert nach Klassenstufe.</h2>
+    <p class="p">Ausgehend vom aktuellen Thema hat das System auch Stoff aus Klasse 5 bis 8 geprüft. Dort entstehen Lücken oft, bevor sie in den Noten sichtbar werden. Bei jedem Themenfeld steht, für welche Klassenarbeit es wichtig ist.</p>
+    <div class="zahlen">
+      <div class="g"><strong>12</strong><span>sicher eingestuft</span></div>
+      <div class="u"><strong>11</strong><span>Übungsbedarf</span></div>
+      <div class="n"><strong>23</strong><span>Bereiche geprüft</span></div>
+    </div>
+    <div class="profil">
+      <div class="profil-k"><b>Batus Kompetenzprofil</b><span>Jedes Kästchen steht für einen geprüften Bereich</span></div>
+      <div class="feld"><div class="n">Größen<small>Klasse 5/6</small></div><div class="spur"><i class="s"></i><i class="u"></i></div><div class="c">2 geprüft<small>1 sicher · 1 Übung</small></div>
+        <div class="wichtig">Wichtig für <span class="tag"><b>3</b> Kreise, Prismen und Zylinder</span></div></div>
+      <div class="feld"><div class="n">Geometrie<small>Klasse 5–8</small></div><div class="spur"><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="u"></i><i class="u"></i><i class="u"></i></div><div class="c">8 geprüft<small>5 sicher · 3 Übung</small></div>
+        <div class="wichtig">Wichtig für <span class="tag"><b>3</b> Kreise, Prismen und Zylinder</span><span class="tag"><b>4</b> Satz des Pythagoras</span></div></div>
+      <div class="feld"><div class="n">Terme &amp; Gleichungen<small>Klasse 7/8</small></div><div class="spur"><i class="s"></i><i class="s"></i><i class="s"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i></div><div class="c">8 geprüft<small>3 sicher · 5 Übung</small></div>
+        <div class="wichtig">Wichtig für <span class="tag naechste"><b>2</b> Quadratische Funktionen · nächste Arbeit</span></div></div>
+      <div class="feld"><div class="n">Daten &amp; Zufall<small>Klasse 7/8</small></div><div class="spur"><i class="u"></i></div><div class="c">1 geprüft<small>1 Übung</small></div>
+        <div class="wichtig"><span class="spaet">wird in späteren Schuljahren wichtig</span></div></div>
+      <div class="feld"><div class="n">Reelle Zahlen &amp; Wurzeln<small>Klasse 9 · aktuelles Thema</small></div><div class="spur"><i class="s"></i><i class="s"></i><i class="s"></i><i class="u"></i></div><div class="c">4 geprüft<small>3 sicher · 1 Übung</small></div>
+        <div class="wichtig">Wichtig für <span class="tag"><b>4</b> Satz des Pythagoras</span></div></div>
+      <div class="legende"><span><i style="background:var(--sicher)"></i>Sicher</span><span><i style="background:var(--uebung)"></i>Übungsbedarf</span><span><i style="background:var(--navy-wash);border:.6pt solid var(--navy-hell)"></i>Nummer der Klassenarbeit</span></div>
+    </div>
+    <div class="box mint" style="margin-top:12pt"><div class="kicker">Was die Grafik zeigt</div>
+      <p>Die Grundlagen aus Klasse 5/6 sitzen weitgehend. Den größten Übungsbedarf zeigen Terme und Gleichungen aus Klasse 7/8, also genau der Stoff, auf dem die nächste Klassenarbeit aufbaut.</p></div>
+  </div>
+</section>
+
+<!-- ============ Seite 3 · Je Klassenarbeit ============ -->
+<section class="seite" data-n="3">
+  <div class="inhalt">
+    <div class="fahr" data-on="kommend"></div>
+    <div class="kicker">Einordnung nach Klassenarbeiten</div>
+    <h2 class="ttl s-titel">Was für die nächsten Arbeiten schon sitzt und was noch fehlt.</h2>
+    <div class="individuell"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.4" fill="#7E9BBF"/><path d="M4.6 8.2l2.3 2.3 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>Die Arbeit zu <b>Reelle Zahlen und Wurzeln</b> hat Batu laut Ihren Angaben schon geschrieben. Deshalb beginnt diese Übersicht mit Klassenarbeit 2. Für jede kommende Arbeit steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.</p></div>
+    <div class="ka-karte">
+      <div class="ka-kopf"><div class="l"><span class="nr">2</span><b>Quadratische Funktionen<small>Klassenarbeit 2 · nächste Arbeit</small></b></div><span class="sig">Voraussetzungen fehlen noch</span></div>
+      <div class="ka-rumpf"><div class="ja"><h4>Sitzt schon</h4><ul class="punkte"><li>Punkte im Koordinatensystem</li><li>Gleichungen aufstellen (Sachkontext)</li></ul></div>
+        <div class="nein"><h4>Fehlt noch</h4><ul class="punkte"><li>Werte in Terme einsetzen</li><li>Binomische Formeln</li><li>Faktorisieren mit binomischer Formel</li></ul></div></div>
+    </div>
+    <div class="ka-karte">
+      <div class="ka-kopf"><div class="l"><span class="nr">3</span><b>Kreise, Prismen und Zylinder<small>Klassenarbeit 3 · voraussichtlich</small></b></div><span class="sig">Voraussetzungen fehlen noch</span></div>
+      <div class="ka-rumpf"><div class="ja"><h4>Sitzt schon</h4><ul class="punkte"><li>Fläche von Rechteck und Quadrat</li><li>Umfang von Rechteck und Dreieck</li><li>Dreisatz</li></ul></div>
+        <div class="nein"><h4>Fehlt noch</h4><ul class="punkte"><li>Flächeneinheiten umrechnen</li><li>Fläche von Dreieck und Parallelogramm</li><li>Werte in Terme einsetzen</li></ul></div></div>
+    </div>
+    <div class="ka-karte">
+      <div class="ka-kopf"><div class="l"><span class="nr">4</span><b>Satz des Pythagoras<small>Klassenarbeit 4 · voraussichtlich</small></b></div><span class="sig">Voraussetzungen fehlen noch</span></div>
+      <div class="ka-rumpf"><div class="ja"><h4>Sitzt schon</h4><ul class="punkte"><li>Punkte im Koordinatensystem</li></ul></div>
+        <div class="nein"><h4>Fehlt noch</h4><ul class="punkte"><li>Teilweise die Wurzel ziehen</li></ul></div></div>
+    </div>
+    <div class="rest">
+      <div class="box mint"><div class="kicker" style="color:var(--sicher-text)">Weitere Stärken</div>
+        <div class="chips g"><span>Längen umrechnen</span><span>Einsetzungsverfahren</span><span>Satz des Thales</span><span>Terme für Flächeninhalte</span><span>Rationale und irrationale Zahlen</span><span>Wurzelgesetze</span><span>Wurzeln abschätzen</span></div></div>
+      <div class="box weiss"><div class="kicker" style="color:var(--uebung-text)">Wird später wichtig</div>
+        <p class="l">Kommt in späteren Themen und Schuljahren dran. Wir nehmen es dazu, sobald es ansteht.</p>
+        <div class="chips u"><span>Additionsverfahren</span><span>Gleichungssysteme grafisch</span><span>Trapez</span><span>Drachen und Raute</span><span>Summenregel</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Seite 4 · Lernplan ============ -->
+<section class="seite" data-n="4">
+  <div class="inhalt">
+    <div class="fahr" data-on="kommend"></div>
+    <div class="kicker">Lernplan</div>
+    <h2 class="ttl s-titel">Die Reihenfolge folgt den nächsten Klassenarbeiten.</h2>
+    <p class="p">Die Arbeit zu Reelle Zahlen und Wurzeln ist geschrieben. Deshalb beginnen wir mit den Voraussetzungen für die nächste Arbeit und arbeiten uns dann zu den folgenden vor.</p>
+    <div class="weg4">
+      <div class="sp"><div class="ziel"><small>für</small><b>2</b><span>Quadratische Funktionen</span></div>
+        <div class="karte"><div class="vor">Schritt 1 · Voraussetzung für Klassenarbeit 2</div><h3>Terme und Gleichungen</h3><p>Quadratische Funktionen bauen direkt darauf auf. Deshalb kommt das zuerst.</p>
+          <div class="uebt"><h4>Das üben wir</h4><div class="chips u"><span>Werte in Terme einsetzen</span><span>Binomische Formeln</span><span>Faktorisieren</span></div></div></div></div>
+      <div class="sp"><div class="ziel"><small>für</small><b>3</b><span>Kreise, Prismen, Zylinder</span></div>
+        <div class="karte"><div class="vor">Schritt 2 · Voraussetzung für Klassenarbeit 3</div><h3>Grundlagen für Kreise, Prismen und Zylinder</h3><p>Zuerst die Flächeneinheiten, weil sie Stoff aus Klasse 5/6 sind, danach die Flächen aus Klasse 7/8.</p>
+          <div class="uebt"><h4>Das üben wir</h4><div class="chips u"><span>Flächeneinheiten umrechnen</span><span>Fläche von Dreieck und Parallelogramm</span></div></div></div></div>
+      <div class="sp"><div class="ziel"><small>für</small><b>4</b><span>Satz des Pythagoras</span></div>
+        <div class="karte"><div class="vor">Schritt 3 · Voraussetzung für Klassenarbeit 4</div><h3>Teilweise die Wurzel ziehen</h3><p>Eine Lücke aus der letzten Arbeit, die beim Satz des Pythagoras wieder gebraucht wird.</p></div></div>
+      <div class="sp spaet"><div class="ziel"><small>danach</small><b>+</b><span>spätere Schuljahre</span></div>
+        <div class="karte"><div class="vor" style="color:var(--leise)">Wenn der Schulstoff sitzt</div><h3>Themen späterer Schuljahre</h3><p>Daten und Zufall, Gleichungssysteme und weitere Flächen. So baut Batu schon jetzt für die nächsten Schuljahre vor.</p></div></div>
+    </div>
+    <div class="ansatz">
+      <div class="box navy-w"><h3>Unser Ansatz</h3><p>Hausaufgabenhilfe arbeitet am Thema von heute. Wir setzen an der Wurzel an: dort, wo eine Lücke entstanden ist, und bei den Grundlagen für die nächste Arbeit, bevor sie gebraucht werden.</p></div>
+      <div class="box weiss"><h3>Was dazu gehört</h3><ul>
+        <li>ein Lernpfad, der auf Batus Stärken und Lücken zugeschnitten ist</li>
+        <li>Aufgaben, die zu seinen Interessen passen</li>
+        <li>kleine Erfolge, die sichtbar werden und motivieren</li>
+        <li>ein Coach vor Ort, der den Plan prüft und anpasst</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Seite 5 · Nächste Schritte ============ -->
+<section class="seite" data-n="5">
+  <div class="inhalt">
+    <div class="fahr" data-on="alle"></div>
+    <div class="kicker">Unser Fazit</div>
+    <div class="fazit"><p>Batus Grundlagen aus Klasse 5/6 sitzen. Die Lücken stammen aus Klasse 7/8, vor allem bei Termen und Gleichungen, und sie werden in den nächsten drei Klassenarbeiten wieder gebraucht. Seine Fehler deuten eher auf fehlende Sorgfalt als auf fehlendes Verständnis. Wir beginnen mit den Voraussetzungen für Quadratische Funktionen.</p></div>
+    <div class="zielbox"><div class="kicker">Ziele für die nächsten 6 Monate <span class="todo">im Gespräch bestätigen</span></div>
+      <ol class="ziele">
+        <li><b>1</b>Batu geht gut vorbereitet in die Arbeit zu Quadratischen Funktionen, weil die Grundlagen dafür vorher sitzen.</li>
+        <li><b>2</b>Wenn in der Schule Kreise, Prismen und Zylinder und der Satz des Pythagoras drankommen, fängt Batu nicht bei null an, sondern baut auf sicherem Stoff auf.</li>
+        <li><b>3</b>Batu kontrolliert die eigenen Rechnungen selbst und verliert weniger Punkte durch Flüchtigkeitsfehler.</li>
+        <li><b>4</b>Auch die übrigen Lücken schließen wir nach und nach, damit spätere Themen auf festen Grundlagen aufbauen.</li>
+      </ol>
+      <p class="kein">Wir versprechen keine Noten. Uns geht es darum, zu verstehen, woran es hakt, und Batu Schritt für Schritt voranzubringen.</p></div>
+    <div class="navy"><span class="c">Unser Vorschlag</span><h3>Standard, 1,5 Sessions pro Woche</h3><p>Vier Bereiche mit Lücken, drei kommende Arbeiten. Weniger Abstand zwischen den Sessions hilft, dass das Geübte bis zur nächsten Arbeit sitzt.</p></div>
+    <div class="pakete">
+      <div class="paket"><span class="k">Mitgliedschaft</span><div class="name">Basic</div><div class="m1">1 Session pro Woche</div><div class="preis">199,90 € im Monat</div></div>
+      <div class="paket vor"><span class="k">Unser Vorschlag</span><div class="name">Standard</div><div class="m1">1,5 Sessions pro Woche</div><div class="preis">269,90 € im Monat</div></div>
+      <div class="paket"><span class="k">Mitgliedschaft</span><div class="name">Premium</div><div class="m1">2 Sessions pro Woche</div><div class="preis">349,90 € im Monat</div></div>
+    </div>
+    <p class="leise ohne-preis" style="margin-top:7pt">Preise und Konditionen besprechen wir persönlich. Jede Session dauert 60 Minuten, vor Ort, mit höchstens fünf Kindern.</p>
+    <p class="leise preis" style="margin-top:7pt">Jede Session dauert 60 Minuten, vor Ort, mit höchstens fünf Kindern. <span class="todo">Soft-Launch-Angebot: Text offen</span></p>
+    <div class="kontakt">
+      <div><div class="kicker">Ihr persönlicher Ansprechpartner</div><div class="wer">Tolunay</div><div class="rolle">Mitgründer, hat die Analyse begleitet</div><div class="mail">hello@edvanceacademy.de</div></div>
+      <div><div class="kicker">Fragen oder Entscheidung</div><p>Sie können sich direkt entscheiden oder sich später mit Fragen melden. Wir antworten persönlich.</p></div>
+    </div>
+  </div>
+</section>
+
+</div></div>
+
+<script>
+const STATIONEN=["Überblick","Lernstand","Einordnung","Lernplan","Nächste Schritte"];
+const KA=[{t:"Reelle Zahlen und Wurzeln",s:"done"},{t:"Quadratische Funktionen",s:"fehlt"},{t:"Kreise, Prismen und Zylinder",s:"fehlt"},{t:"Satz des Pythagoras",s:"fehlt"}];
+const logo='<svg viewBox="0 0 21 14" aria-hidden="true"><polyline points="1.5,8 7.5,2 19.5,12.5" fill="none" stroke="#E4A132" stroke-width="2.2"/></svg>';
+document.querySelectorAll('.seite').forEach(s=>{
+  const n=+s.dataset.n;
+  const nav=STATIONEN.map((t,i)=>`<div class="${i+1===n?'on':''}"><i>${i+1}</i><span>${t}</span></div>`).join('');
+  s.insertAdjacentHTML('afterbegin',`<div class="kopf"><div class="marke"><div class="marke-z">${logo}<span>edvance</span></div><span class="chip">Testdaten</span></div><nav class="nav" aria-label="Seiten des Berichts">${nav}</nav></div><div class="linie-o"></div><div class="linie-u"></div><div class="fuss"><span>edvance  ·  Köln  ·  Lernstandsanalyse Batu</span><span>${n} / 5</span></div>`);
+  const f=s.querySelector('.fahr');
+  if(f){const on=f.dataset.on;f.innerHTML='<span class="lbl">Klassenarbeiten</span>'+KA.map((k,i)=>`${i?'<span class="pf">›</span>':''}<span class="ka ${k.s}${on==='alle'||(on==='kommend'&&i>0)?' on':''}" title="${k.t}"><b>${k.s==='done'?'✓':i+1}</b><span>${k.t}</span></span>`).join('');}
+});
+const btn=document.getElementById('preisBtn'),bogen=document.getElementById('bogen');
+btn.onclick=()=>{const an=!bogen.classList.contains('mit-preis');bogen.classList.toggle('mit-preis',an);btn.setAttribute('aria-pressed',String(an));btn.textContent=an?'Preise ausblenden':'Preise einblenden'};
+</script>

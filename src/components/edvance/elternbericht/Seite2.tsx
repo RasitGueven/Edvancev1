@@ -5,6 +5,7 @@ import type { ThemenfeldKey } from '@/types'
 import { Profil } from './Profil'
 import { deutung, meisterUebung, profilZeilen } from './seite2Rechnung'
 import type { SeitenProps } from './seitenProps'
+import { useStufe } from './useStufe'
 
 // Die drei Zahlen (Maßblatt Seite 2): Spalten ab x 44 / 218 / 392, Balken
 // 158 × 2,6 bei y 236, Zahl auf y 277,6, Label auf y 294,4. Ein SVG in
@@ -24,8 +25,14 @@ const ZAHLEN = [
  * auch solche mit abgeleiteten Bereichen des Themas — genau die, die der
  * Thema-Satz auf Seite 1 zählt (R7-8). Ab sieben Zeilen rückt die Seite enger
  * zusammen (`eb-s2-eng`), damit acht nicht überlaufen.
+ *
+ * Bericht v4 (mit bericht.fahrplan): je Zeile „Wichtig für“ mit den
+ * Klassenarbeiten, „Was die Grafik zeigt“ im mint Kasten.
  */
 export function Seite2({ data, bericht, name }: SeitenProps): JSX.Element {
+  const fahrplan = bericht.fahrplan ?? null
+  // Bericht v4: Mit den „Wichtig für“-Zeilen läuft die Seite eher über; dann rückt sie enger zusammen.
+  const dicht = useStufe(fahrplan ? 2 : 0)
   const { t, i18n } = useTranslation('elternbericht')
   const { zaehlung } = bericht
   // Bericht v2: nur direkt geprüfte Bereiche, keine Umrisse abgeleiteter Bereiche.
@@ -52,7 +59,18 @@ export function Seite2({ data, bericht, name }: SeitenProps): JSX.Element {
   const werte = { sicher: zaehlung.sicher, uebung: zaehlung.uebung, geprueft: zaehlung.untersucht }
 
   return (
-    <div className={profil.length >= 7 || bis >= 5 ? 'eb-s2 eb-s2-eng' : 'eb-s2'}>
+    <div
+      ref={dicht.ref}
+      data-stufe={dicht.wert || undefined}
+      data-v4={fahrplan ? true : undefined}
+      className={[
+        'eb-s2',
+        profil.length >= 7 || bis >= 5 ? 'eb-s2-eng' : '',
+        fahrplan ? 'eb-s2-v4' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <p className="eb-kicker eb-s2-kicker">{t('s2.kicker')}</p>
       <h1 className="eb-titel eb-s2-titel">
         {name ? t('s2.titel', { name }) : t('s2.titelOhneName')}
@@ -79,9 +97,13 @@ export function Seite2({ data, bericht, name }: SeitenProps): JSX.Element {
         </section>
       )}
 
-      <Profil profil={profil} wessen={null} />
+      <Profil
+        profil={profil}
+        wessen={null}
+        klassenarbeiten={fahrplan ? { fahrplan, signale: bericht.signale ?? [] } : undefined}
+      />
 
-      <section className="eb-s2-deutung" data-testid="eb-deutung">
+      <section className={fahrplan ? 'eb-s2-deutung eb-s2-deutung-v4' : 'eb-s2-deutung'} data-testid="eb-deutung">
         <h2 className="eb-kicker eb-s2-deutung-kicker">{t('s2.deutung.kicker')}</h2>
         <div>
           {saetze.length > 0 && (

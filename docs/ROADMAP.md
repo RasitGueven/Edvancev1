@@ -289,11 +289,18 @@
     Systematik-Text, Klassenstufen-Überblick; Seite 2 ohne abgeleitete Kästchen; Seite 3 als Lücken →
     kommende Themen; Seite 4 mit Fehlermuster und Grund je Schwerpunkt, Startlogik nach Klassenarbeit;
     Seite 5 mit Paketvorschlag. Regeln zentral in `berichtKonfig.ts`. Migration
-    `20261024135226_bericht_v2` (nicht eingespielt). **Offen:** `docs/report/v2/offene-punkte.md`.
+    `20261024135226_bericht_v2` (eingespielt 25.10.). **Offen:** `docs/report/v2/offene-punkte.md`.
   - **Bericht v3** (Branch `feat/lsa-report-v3`, Retro `2026-10-24-lsa-report-v3.md`): Graph-Kanten Wurzel →
-    Pythagoras und Faktorisieren → Nullstellen (Migration, nicht eingespielt), Vorname im Text, Seite 3 in zwei
+    Pythagoras und Faktorisieren → Nullstellen (Migrationen eingespielt 25.10.), Vorname im Text, Seite 3 in zwei
     Layouts (erst was sitzt, dann was fehlt), Seite 4 nur Titel und Grund, Seite 5 mit Fazit und bestätigten
     Zielen. **Offen:** `docs/report/v3/offene-punkte.md`.
+  - **Bericht v4** (Branch `feat/lsa-report-v3`, Bauauftrag `docs/report/v4/Bauauftrag-V4.md`, Retro
+    `2026-10-25-bericht-v4.md`): Fahrplan der Klassenarbeiten (aktuelles Thema + bis zu vier kommende mit
+    Signal) auf Seite 1, Leiste auf 2–5, Seite 3 vollständige Blöcke je Arbeit, Seite 4 Lernpfad nach
+    Klassenarbeiten, Seite 5 Ziele; Schalter `?preise=an`. Präsentation mit vier Stationen (Überblick,
+    Lernstand, Klassenarbeiten, Förderansatz). Erstgespräch: Klassenarbeit, Datum, Note der letzten Arbeit
+    (Migration `20261025142134_leads_letzte_klassenarbeit_note`, eingespielt 25.10.). Zweitprüfung
+    `docs/report/v4/zweitpruefung.md`. **Offen:** `docs/report/v4/offene-punkte.md`.
   - Danach Abnahme durch die Gründer (Nenner, Reihenfolge der Schwerpunkte) und Lena (Texte,
     Kopfsätze, W5-d-Entwürfe); dann Standard auf R7 umstellen.
 - **Tablet-Präsentation der LSA** (Anforderung `docs/report/praesentation/Anforderung.md`, Dummy

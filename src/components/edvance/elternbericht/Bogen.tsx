@@ -10,6 +10,7 @@ import type { ReportData, ReportNotes, TierPlan } from '@/types'
 
 import { NAME_MAX, NamensMessungFertig, useNamensMessung } from './namensMessung'
 import { NichtAuswertbarSeite } from './NichtAuswertbarSeite'
+import type { LeistenHervorhebung } from './FahrplanLeiste'
 import { Seite } from './Seite'
 import { Seite1 } from './Seite1'
 import { Seite2 } from './Seite2'
@@ -25,6 +26,9 @@ const SEITEN: ReadonlyArray<(props: SeitenProps) => JSX.Element | null> = [
   Seite4,
   Seite5,
 ]
+
+/** Bericht v4: Hervorhebung der Leiste je Seite; Seite 1 hat die Leiste nicht (dort steht der Fahrplan). */
+const LEISTE: ReadonlyArray<LeistenHervorhebung | undefined> = [undefined, 'alle', 'kommende', 'kommende', 'alle']
 
 /**
  * Der Eltern-Bericht R7 als Druckbogen: fünf A4-Seiten nach Muster E7.
@@ -42,17 +46,21 @@ export function ElternberichtBogen({
   notes,
   tiers,
   einordnung = EINORDNUNG_LAYOUT,
+  preise = false,
 }: {
   data: ReportData
   notes: ReportNotes | null
   tiers: TierPlan[]
   /** Layout von Seite 3; ohne Angabe aus berichtKonfig. */
   einordnung?: EinordnungLayout
+  /** Bericht v4: Preise je Paket auf Seite 5 (Schalter in der Ansicht, ?preise=an). */
+  preise?: boolean
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
   const { kompetenzen, katalog, bausteine } = data.erzaehlung
 
   const klassenarbeit = data.erstgespraech?.klassenarbeit ?? null
+  const note = data.erstgespraech?.letzteNote ?? null
   const bericht = useMemo(
     () =>
       baueElternbericht({
@@ -61,8 +69,9 @@ export function ElternberichtBogen({
         klasse: data.grade,
         lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
         klassenarbeit,
+        note,
       }),
-    [kompetenzen, katalog, data.grade, data.erzaehlung, data.analysedAt, klassenarbeit],
+    [kompetenzen, katalog, data.grade, data.erzaehlung, data.analysedAt, klassenarbeit, note],
   )
   const satz = useMemo(() => new Bausteinsatz(bausteine), [bausteine])
 
@@ -100,6 +109,7 @@ export function ElternberichtBogen({
     vollerName,
     wessen: name ? genitiv(name) : null,
     einordnung,
+    preise,
   }
 
   return (
@@ -121,7 +131,14 @@ export function ElternberichtBogen({
       </svg>
       <NamensMessungFertig.Provider value={messung.fertig}>
         {SEITEN.map((Inhalt, i) => (
-          <Seite key={i + 1} nummer={i + 1} testlauf={data.testlauf} name={vollerName}>
+          <Seite
+            key={i + 1}
+            nummer={i + 1}
+            testlauf={data.testlauf}
+            name={vollerName}
+            fahrplan={bericht.fahrplan ?? null}
+            leiste={LEISTE[i]}
+          >
             <Inhalt {...props} />
           </Seite>
         ))}

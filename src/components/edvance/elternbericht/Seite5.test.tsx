@@ -2,8 +2,9 @@
 import { render, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
-
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
+import { renderOhneFahrplan } from '@/test/elternberichtOhneFahrplan'
+
 import { paketWahl } from '@/components/edvance/elternbericht/seite5Rechnung'
 import de from '@/i18n/locales/de/elternbericht.json'
 import { KONTAKT, TABLET_LINK } from '@/lib/report/elternbericht/berichtKonfig'
@@ -11,7 +12,8 @@ import { FAELLE, NOTIZEN, TIERS } from '@/lib/report/elternbericht/fixtures'
 import type { ReportData, ReportErstgespraech, ReportNotes, TierPlan } from '@/types'
 
 function seite5(fall: { data: ReportData; notes: ReportNotes | null; tiers: TierPlan[] }) {
-  const { container } = render(<ElternberichtBogen {...fall} />)
+  // v3-Pfad (ohne Fahrplan); der Bogen mit Fahrplan steht in Seite5V4.test.tsx.
+  const { container } = renderOhneFahrplan(fall.data, { notes: fall.notes, tiers: fall.tiers })
   const el = container.querySelector<HTMLElement>('.eb-seite[data-seite="5"]')!
   return { ...within(el), el }
 }

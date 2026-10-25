@@ -16,7 +16,9 @@ import {
 } from '@/lib/report/elternbericht/bereiche'
 import { bauePyramide } from '@/lib/report/elternbericht/einordnung'
 import { baueLernweg, kommtNoch } from '@/lib/report/elternbericht/lernweg'
-import { baueLueckenweg } from '@/lib/report/elternbericht/lueckenweg'
+import { baueFahrplan } from '@/lib/report/elternbericht/fahrplan'
+import { gruppiereSchwerpunkte } from '@/lib/report/elternbericht/lernpfadV4'
+import { baueLueckenweg, signaleJeThema } from '@/lib/report/elternbericht/lueckenweg'
 import { baueStufen } from '@/lib/report/elternbericht/stufenBlick'
 import { schwerpunkteMitGrund, themaZuerst, type ThemaKontext } from '@/lib/report/elternbericht/schwerpunkte'
 import { themaAbdeckung } from '@/lib/report/elternbericht/themaAbdeckung'
@@ -55,6 +57,8 @@ export type ElternberichtEingabe = {
   lernweg?: LernwegQuelle
   /** Bericht v2: Stand der Klassenarbeit zum Thema (Startlogik der Schwerpunkte); null = unbekannt. */
   klassenarbeit?: KlassenarbeitStatus | null
+  /** Bericht v4: Note der zuletzt geschriebenen Arbeit (leads.letzte_klassenarbeit_note). */
+  note?: number | null
 }
 
 export function baueElternbericht({
@@ -63,6 +67,7 @@ export function baueElternbericht({
   klasse,
   lernweg,
   klassenarbeit = null,
+  note = null,
 }: ElternberichtEingabe): Elternbericht | null {
   if (kompetenzen.length === 0) return null
   const { alle, bereiche, vorgriff } = gezaehlteBereiche(kompetenzen, lernweg)
@@ -72,6 +77,7 @@ export function baueElternbericht({
   const { zaehlung, profil } = zahlen
   const thema = themaKontext(kompetenzen, lernweg)
   const mitGrund = schwerpunkteMitGrund(bereiche, thema, klassenarbeit)
+  const v4 = lernweg ? baueV4(lernweg, bereiche, thema, klassenarbeit, note, mitGrund) : null
   return {
     zaehlung,
     profil,
@@ -106,6 +112,10 @@ export function baueElternbericht({
         }
       : null,
     kopfFall: kopfFall(zaehlung.sicher, zaehlung.uebung),
+    fahrplan: v4?.fahrplan ?? null,
+    signale: v4?.signale ?? [],
+    lueckenwegV4: v4?.lueckenwegV4 ?? null,
+    lernpfad: v4?.lernpfad ?? [],
     lernweg: lernweg
       ? baueLernweg({
           bereiche: alle,
@@ -121,6 +131,56 @@ export function baueElternbericht({
         })
       : null,
   }
+}
+
+/**
+ * Bericht v4: Fahrplan, Signale je Thema, Seite 3 mit vollständigen Blöcken je
+ * Station und der Lernpfad nach Klassenarbeiten. Ohne Plan oder aktuelles Thema
+ * ist der Fahrplan null; dann gibt es keine Blöcke, und der Lernpfad hat keine Ziele.
+ */
+function baueV4(
+  quelle: LernwegQuelle,
+  bereiche: readonly EbBereich[],
+  thema: ThemaKontext | null,
+  klassenarbeit: KlassenarbeitStatus | null,
+  note: number | null,
+  mitGrund: ReturnType<typeof schwerpunkteMitGrund>,
+) {
+  const e = quelle.erzaehlung
+  const je = signaleJeThema({ bereiche, kanten: e.kanten, heimatThemen: e.heimatThemen })
+  const fahrplan = baueFahrplan({
+    plan: e.plan,
+    themaKey: e.raum?.themaKey ?? null,
+    datum: quelle.datum,
+    klassenarbeitStatus: klassenarbeit,
+    signale: je,
+    note,
+  })
+  const signale = [...je].map(([themaKey, s]) => ({ themaKey, sitzt: s.sitzt, fehlt: s.fehlt }))
+  const lueckenwegV4 = fahrplan
+    ? baueLueckenweg(
+        {
+          bereiche,
+          kanten: e.kanten,
+          heimatThemen: e.heimatThemen,
+          plan: e.plan,
+          kommt: fahrplan.stationen
+            .filter((s) => s.nummer > 1)
+            .map((s) => ({ position: s.nummer, themaKey: s.themaKey, titel: s.titel, halbjahr: s.halbjahr })),
+          raum: thema?.raum ?? new Set(),
+          thema: thema?.thema ?? null,
+        },
+        { modus: 'jeThemaVollstaendig' },
+      )
+    : null
+  const lernpfad = gruppiereSchwerpunkte({
+    schwerpunkte: mitGrund.schwerpunkte,
+    gruende: mitGrund.schwerpunkte.map((s) => s.grund),
+    danach: mitGrund.danach,
+    fahrplan,
+    signale,
+  })
+  return { fahrplan, signale, lueckenwegV4, lernpfad }
 }
 
 /**

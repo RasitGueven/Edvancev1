@@ -1924,6 +1924,8 @@ on conflict (id) do nothing;
 --   next_exam_date date, next_exam_topic text
 --   klassenarbeit_status text        — CHECK in (bevorstehend, geschrieben), null = unbekannt
 --       (Bericht v2, supabase/migrations/20261024135226_bericht_v2.sql)
+--   letzte_klassenarbeit_note smallint — CHECK between 1 and 6, null = unbekannt
+--       (Bericht v4, supabase/migrations/20261025142134_leads_letzte_klassenarbeit_note.sql)
 --   consent_dsgvo_at timestamptz, consent_dsgvo_by uuid → profiles
 --       — PFLICHT vor der LSA-Freigabe (lead_lsa_freigeben verweigert sonst).
 --   status-CHECK erweitert um 'lsa_freigegeben', 'lsa_fertig'.

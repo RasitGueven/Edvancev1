@@ -212,6 +212,11 @@
     --color-eb-zukunft:        #E3EDF6;
     --color-eb-zukunft-rand:   #A7BCCB;
     --color-eb-gold-text:      #9A6510;
+    /* Bericht v4 (Bauauftrag V4, Entscheidung 9): helles Blau für die schon
+       geschriebene Klassenarbeit (nicht navy, nicht grün — wir wissen nicht,
+       wie sie lief) und eine helle Blaufläche für Hinweis-Kästen. */
+    --color-eb-navy-hell:      #7E9BBF;
+    --color-eb-navy-wash:      #EAF0F6;
     --font-eb-titel: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
     --font-eb-marke: 'Fraunces';
 

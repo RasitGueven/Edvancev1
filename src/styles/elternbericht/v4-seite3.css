@@ -1,0 +1,239 @@
+/* Eltern-Bericht v4 · Seite 3 (Bauauftrag V4, V4-2). Maße in pt, Farben nur
+   aus --color-eb-*. Tönungen als Pseudo-Elemente mit geringer Deckkraft
+   (INV-4.11: kein color-mix); `--ton` und `--ton-text` kommen aus v4-rahmen.css. */
+
+/* ─── Seite 3: ein Block je Klassenarbeit ─────────────────────────────────── */
+
+.eb-s3v4 > * {
+  flex: none;
+}
+.eb-s3v4-einstieg {
+  display: flex;
+  gap: 10pt;
+  align-items: flex-start;
+  margin-top: 12pt;
+  padding: 9pt 12pt;
+  background: var(--color-eb-navy-wash);
+  border-radius: 10pt;
+}
+.eb-s3v4-einstieg svg {
+  flex: none;
+  width: 16pt;
+  height: 16pt;
+  margin-top: 1pt;
+}
+.eb-s3v4-einstieg circle {
+  fill: var(--color-eb-navy-hell);
+}
+.eb-s3v4-einstieg path {
+  fill: none;
+  stroke: var(--color-eb-weiss);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.eb-s3v4-einstieg p {
+  font-size: 8.6pt;
+  line-height: 12pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s3v4-einstieg b {
+  font-weight: 600;
+}
+.eb-s3v4-bloecke {
+  display: flex;
+  flex-direction: column;
+  gap: 9pt;
+  margin-top: 11pt;
+}
+.eb-s3v4-block {
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+  border-radius: 11pt;
+}
+.eb-s3v4-kopf {
+  display: flex;
+  gap: 8pt;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9pt 14pt 8pt;
+  border-bottom: 0.6pt solid var(--color-eb-linie-zart);
+}
+.eb-s3v4-nr,
+.eb-s3v4-chip {
+  position: relative;
+  isolation: isolate;
+  color: var(--ton-text);
+}
+.eb-s3v4-nr::before,
+.eb-s3v4-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--ton);
+  opacity: 0.18;
+}
+.eb-s3v4-nr {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 18pt;
+  height: 18pt;
+  border-radius: 50%;
+  font-size: 8.4pt;
+  line-height: 1;
+  font-weight: 600;
+}
+.eb-s3v4-titel {
+  flex: 1;
+  min-width: 0;
+}
+.eb-s3v4-titel h2 {
+  font-size: 10.2pt;
+  line-height: 12.5pt;
+  font-weight: 500;
+  color: var(--color-eb-navy);
+}
+.eb-s3v4-titel p {
+  margin-top: 1pt;
+  font-size: 7.4pt;
+  line-height: 9.5pt;
+  color: var(--color-eb-leise);
+}
+.eb-s3v4-chip {
+  flex: none;
+  padding: 2pt 8pt;
+  font-size: 6.8pt;
+  line-height: 9pt;
+  letter-spacing: 0.5pt;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 7pt;
+}
+.eb-s3v4-rumpf {
+  display: flex;
+}
+.eb-s3v4-spalte {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 8pt 14pt 10pt;
+}
+.eb-s3v4-spalte + .eb-s3v4-spalte {
+  border-left: 0.6pt solid var(--color-eb-linie-zart);
+}
+.eb-s3v4-spalte h3 {
+  margin-bottom: 5pt;
+  font-size: 6.6pt;
+  line-height: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.55pt;
+  text-transform: uppercase;
+}
+.eb-s3v4-ja h3 {
+  color: var(--color-eb-sicher-text);
+}
+.eb-s3v4-nein h3 {
+  color: var(--color-eb-uebung-text);
+}
+.eb-s3v4-bereiche li {
+  position: relative;
+  padding-left: 12pt;
+  font-size: 8.2pt;
+  line-height: 10.4pt;
+  color: var(--color-eb-tinte);
+}
+.eb-s3v4-bereiche li + li {
+  margin-top: 3.5pt;
+}
+.eb-s3v4-bereiche li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2.6pt;
+  width: 6pt;
+  height: 6pt;
+  border-radius: 50%;
+  background: var(--color-eb-sicher);
+}
+.eb-s3v4-nein .eb-s3v4-bereiche li::before {
+  background: var(--color-eb-uebung);
+}
+.eb-s3v4-bereiche li.eb-s3v4-mehr {
+  color: var(--color-eb-text);
+}
+.eb-s3v4-bereiche li.eb-s3v4-mehr::before {
+  background: transparent;
+}
+.eb-s3v4-rest {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10pt;
+  margin-top: 11pt;
+}
+.eb-s3v4-rest:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+.eb-s3v4-kasten {
+  box-sizing: border-box;
+  padding: 10pt 12pt;
+  border-radius: 11pt;
+}
+.eb-s3v4-staerken {
+  background: var(--color-eb-mint);
+}
+.eb-s3v4-staerken .eb-kicker {
+  color: var(--color-eb-sicher-text);
+}
+.eb-s3v4-spaeter {
+  background: var(--color-eb-weiss);
+  border: 0.7pt solid var(--color-eb-linie);
+}
+.eb-s3v4-spaeter .eb-kicker {
+  color: var(--color-eb-uebung-text);
+}
+.eb-s3v4-intro {
+  margin-top: 4pt;
+  font-size: 7.6pt;
+  line-height: 10.5pt;
+  color: var(--color-eb-text);
+}
+.eb-s3v4-chips,
+.eb-s4v4-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4pt;
+  margin-top: 6pt;
+}
+.eb-s3v4-chips li,
+.eb-s4v4-chips li {
+  position: relative;
+  isolation: isolate;
+  padding: 2pt 6pt;
+  font-size: 7.4pt;
+  line-height: 9pt;
+  border-radius: 6pt;
+}
+.eb-s3v4-staerken .eb-s3v4-chips li {
+  color: var(--color-eb-sicher-text);
+  background: var(--color-eb-weiss);
+}
+.eb-s3v4-spaeter .eb-s3v4-chips li {
+  color: var(--color-eb-uebung-text);
+}
+.eb-s3v4-spaeter .eb-s3v4-chips li::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-eb-uebung);
+  opacity: 0.18;
+}
+.eb-s3v4-chips li.eb-s3v4-chips-mehr {
+  color: var(--color-eb-text);
+}
+.eb-s3v4-spaeter .eb-s3v4-chips li.eb-s3v4-chips-mehr::before {
+  opacity: 0;
+}

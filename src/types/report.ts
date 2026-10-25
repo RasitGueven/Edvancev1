@@ -222,6 +222,12 @@ export type ReportData = {
   erzaehlung: ReportErzaehlung
   /** Aufgaben, nicht Antwortzeilen: zwei Teilaufgaben eines Items sind eine. */
   aufgaben: number
+  /**
+   * Bericht v4: Bearbeitungszeit in ganzen Minuten (Summe von
+   * lsa_responses.duration_ms, gerundet), nicht die Wanduhr — Pausen zählen nicht.
+   * null ohne Zeiten.
+   */
+  dauerMinuten?: number | null
   /** LSA als Testlauf (Entscheidung 27) — der Report zeigt ein Banner. */
   testlauf: boolean
   /** leads.next_exam_topic — das Thema, an dem die Analyse angesetzt hat. */
@@ -266,6 +272,11 @@ export type ReportErstgespraech = {
   klassenarbeit: KlassenarbeitStatus | null
   /** leads.next_exam_date, ISO-Datum. */
   klassenarbeitDatum: string | null
+  /**
+   * Bericht v4: leads.letzte_klassenarbeit_note (1–6), nur bei geschriebener
+   * Arbeit sinnvoll. Eigene Abfrage; fehlt die Spalte, null.
+   */
+  letzteNote?: number | null
 }
 
 /**

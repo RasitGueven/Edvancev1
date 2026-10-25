@@ -61,6 +61,18 @@ export function ReportPage(): JSX.Element {
   const { role } = useAuth()
   const [suche, setSuche] = useSearchParams()
   const praesentation = suche.get('ansicht') === 'praesentation'
+  // Bericht v4: Preise je Paket auf Seite 5, nur über den Schalter in der Ansicht (?preise=an).
+  const preise = suche.get('preise') === 'an'
+  const schaltePreise = (an: boolean): void =>
+    setSuche(
+      (alt) => {
+        const neu = new URLSearchParams(alt)
+        if (an) neu.set('preise', 'an')
+        else neu.delete('preise')
+        return neu
+      },
+      { replace: true },
+    )
 
   const [data, setData] = useState<ReportData | null>(null)
   const [notes, setNotes] = useState<ReportNotes>(EMPTY_NOTES)
@@ -350,6 +362,8 @@ export function ReportPage(): JSX.Element {
                 tiers={tiers}
                 bogenKey={bogenKey}
                 ausblick={ausblick}
+                preise={preise}
+                onPreise={schaltePreise}
               />
             )}
           </>

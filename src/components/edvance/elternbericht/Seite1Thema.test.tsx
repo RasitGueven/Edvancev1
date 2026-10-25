@@ -1,16 +1,16 @@
 // Bericht v2: Seite 1 und 2 zeigen nur direkt Geprüftes; themaSaetze (Präsentation) bleibt.
-import { render, within } from '@testing-library/react'
+import { within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import i18n from '@/i18n'
+import { renderOhneFahrplan } from '@/test/elternberichtOhneFahrplan'
 
-import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
 import { themaSaetze } from '@/components/edvance/elternbericht/themaSatz'
 import de from '@/i18n/locales/de/elternbericht.json'
 import { FAELLE } from '@/lib/report/elternbericht/fixtures'
 import type { ReportData } from '@/types'
 
 function bogen(data: ReportData) {
-  const { container } = render(<ElternberichtBogen data={data} notes={null} tiers={[]} />)
+  const { container } = renderOhneFahrplan(data)
   const seite = (n: number): HTMLElement => container.querySelector<HTMLElement>(`.eb-seite[data-seite="${n}"]`)!
   return { container, seite, s1: within(seite(1)) }
 }

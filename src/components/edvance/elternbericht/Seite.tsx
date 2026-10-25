@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import type { EbFahrplan } from '@/types'
+
+import { FahrplanLeiste, type LeistenHervorhebung } from './FahrplanLeiste'
 import { SEITEN_GESAMT } from './seitenProps'
 
 /**
@@ -14,6 +17,9 @@ import { SEITEN_GESAMT } from './seitenProps'
  *
  * `gesamt` nur für einen Bogen mit anderer Seitenzahl (die Seite „nicht
  * auswertbar“, LSA-R2): Fuß „1 / 1“, ohne die Navigationspunkte.
+ *
+ * Bericht v4: Mit `fahrplan` und `leiste` steht unter der Kopflinie die
+ * Klassenarbeits-Leiste (16 pt); `.eb-inhalt` rückt um ihre Höhe nach unten.
  */
 
 // Navigation „Ihr Weg durch diesen Bericht“ (Bericht v2): fünf beschriftete
@@ -29,18 +35,25 @@ export function Seite({
   gesamt = SEITEN_GESAMT,
   testlauf,
   name,
+  fahrplan = null,
+  leiste,
   children,
 }: {
   nummer: number
   gesamt?: number
   testlauf: boolean
   name: string | null
+  fahrplan?: EbFahrplan | null
+  leiste?: LeistenHervorhebung
   children: ReactNode
 }): JSX.Element {
   const { t } = useTranslation('elternbericht')
 
   return (
-    <section className="eb-seite" data-seite={nummer}>
+    <section
+      className={fahrplan && leiste ? 'eb-seite eb-seite-leiste' : 'eb-seite'}
+      data-seite={nummer}
+    >
       <svg
         className="eb-kopf"
         viewBox="0 0 595.28 90"
@@ -86,6 +99,8 @@ export function Seite({
         )}
         <line className="eb-kopflinie" x1="44" y1="78" x2="551" y2="78" />
       </svg>
+
+      {fahrplan && leiste && <FahrplanLeiste fahrplan={fahrplan} hervor={leiste} />}
 
       <div className="eb-inhalt">{children}</div>
 

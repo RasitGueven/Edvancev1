@@ -1,43 +1,15 @@
-import { useContext, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { duenneLueckenweg, LUECKENWEG_STUFEN } from '@/lib/report/elternbericht/lueckenweg'
+import { duenneLueckenweg } from '@/lib/report/elternbericht/lueckenweg'
 import type { EbKommtThema, EbLueckenweg, EbZuordnung } from '@/types'
 
 import { schuleGenitiv } from './berichtSaetze'
-import { NamensMessungFertig } from './namensMessung'
 import type { SeitenProps } from './seitenProps'
+import { Seite3V4 } from './Seite3V4'
+import { useAusduennen } from './useAusduennen'
 
 type Liste = (s: readonly string[]) => string
-
-/**
- * Stufe des Ausdünnens (duenneLueckenweg): Läuft die Seite über, geht sie eine
- * Stufe weiter, bis alles passt oder die letzte erreicht ist. Gemessen wie auf
- * Seite 4 am Inhaltskasten, nach der Namensentscheidung und den Schriften.
- */
-function useAusduennen(schluessel: unknown): { ref: RefObject<HTMLDivElement>; stufe: number } {
-  const ref = useRef<HTMLDivElement>(null)
-  const [stufe, setStufe] = useState(0)
-  const nameEntschieden = useContext(NamensMessungFertig)
-
-  useLayoutEffect(() => setStufe(0), [schluessel])
-  useLayoutEffect(() => {
-    const kasten = ref.current?.parentElement
-    if (!nameEntschieden || !kasten || stufe >= LUECKENWEG_STUFEN - 1) return
-    let aktiv = true
-    const pruefen = (): void => {
-      if (aktiv && kasten.scrollHeight > kasten.clientHeight + 0.5) setStufe(stufe + 1)
-    }
-    void kasten.offsetHeight
-    if (!document.fonts || document.fonts.status === 'loaded') pruefen()
-    else void document.fonts.ready.then(pruefen)
-    return () => {
-      aktiv = false
-    }
-  }, [stufe, nameEntschieden])
-
-  return { ref, stufe }
-}
 
 /**
  * Seite 3 des Eltern-Berichts (v3): Einordnung — erst was sitzt, dann was fehlt.
@@ -53,7 +25,16 @@ function useAusduennen(schluessel: unknown): { ref: RefObject<HTMLDivElement>; s
  * Übungsbedarf“. Pfeile bleiben in ihrer Zeile. Rechnung:
  * src/lib/report/elternbericht/lueckenweg.ts.
  */
-export function Seite3({ bericht, einordnung = 'B' }: SeitenProps): JSX.Element | null {
+export function Seite3(props: SeitenProps): JSX.Element | null {
+  // Bericht v4: Mit Fahrplan und Layout B steht ein Block je Klassenarbeit (Seite3V4).
+  return props.einordnung !== 'A' && props.bericht.fahrplan && props.bericht.lueckenwegV4 ? (
+    <Seite3V4 {...props} />
+  ) : (
+    <Seite3V3 {...props} />
+  )
+}
+
+function Seite3V3({ bericht, einordnung = 'B' }: SeitenProps): JSX.Element | null {
   const { t, i18n } = useTranslation('elternbericht')
   const voll = bericht.lueckenweg ?? null
   const a = useAusduennen(voll)

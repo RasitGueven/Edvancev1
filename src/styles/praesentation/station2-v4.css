@@ -1,0 +1,165 @@
+/* Tablet-Präsentation · Station 02 Lernstand (V4): Eckdaten über dem Profil,
+   Kästchen statt Balken (ploppen beim ersten Besuch auf), „Wichtig für“ im
+   Detail. Muster: docs/report/v4/praesentation-v4-dummy.html (.eck, .segs, .detail-in).
+   Zeiten über die Variablen in rahmen.css; Wiederbesuch und prefers-reduced-motion still. */
+
+.tp .tp-s2-v4 .tp-titel {
+  font-size: clamp(32px, 3.9vw, 56px);
+}
+
+.tp .tp-s2-v4 .tp-s2-kopf {
+  margin-bottom: 12px;
+}
+
+/* ─── Eckdaten ──────────────────────────────────────────────────────────── */
+
+.tp .tp-s2v-eck {
+  --tp-verzoegerung: var(--tp-zahl-1);
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 720px;
+  margin-bottom: 14px;
+}
+
+.tp .tp-s2v-eck > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: 8px;
+  border-top: 2px solid var(--color-eb-linie);
+}
+
+.tp .tp-s2v-eck strong {
+  color: var(--color-eb-tinte);
+  font-family: var(--font-eb-titel);
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+}
+
+.tp .tp-s2v-eck span {
+  color: var(--color-eb-text);
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+
+.tp .tp-s2v-eck-sicher { border-color: var(--color-eb-sicher); }
+.tp .tp-s2v-eck-sicher strong { color: var(--color-eb-sicher); }
+.tp .tp-s2v-eck-uebung { border-color: var(--color-eb-uebung); }
+.tp .tp-s2v-eck-uebung strong { color: var(--color-eb-uebung-text); }
+
+/* ─── Profil: Unterzeile mit Klassenangabe, Kästchen ────────────────────── */
+
+.tp .tp-s2-v4 .tp-s2-feld {
+  white-space: normal;
+  line-height: 1.25;
+}
+
+.tp .tp-s2-feld small {
+  display: block;
+  color: var(--color-eb-leise);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.tp .tp-s2-kaestchen {
+  gap: 5px;
+}
+
+.tp .tp-s2-kasten {
+  flex: 0 1 34px;
+  min-width: 8px;
+  height: 100%;
+  border-radius: 6px;
+  transform-origin: center;
+}
+
+.tp .tp-s2-kasten-sicher { background: var(--color-eb-sicher); }
+.tp .tp-s2-kasten-uebung { background: var(--color-eb-uebung); }
+.tp .tp-s2-kasten.tp-muster-ueber { border-radius: 6px; }
+
+@keyframes tp-kasten-pop {
+  from { opacity: 0; transform: scale(.2); }
+  70% { opacity: 1; transform: scale(1.15); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.tp .tp-station.entered:not(.motion-complete) .tp-s2-kasten {
+  animation: tp-kasten-pop var(--tp-kasten-dauer) var(--tp-ease) both;
+  animation-delay: calc(var(--tp-kasten-start) + var(--zeile) * var(--tp-kasten-zeile) + var(--k) * var(--tp-kasten-takt));
+}
+
+.tp .tp-station:not(.entered) .tp-s2-kasten {
+  opacity: 0;
+}
+
+.tp .tp-station.motion-complete .tp-s2-kasten {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ─── Detail: dritte Spalte „Wichtig für“ ───────────────────────────────── */
+
+.tp .tp-s2-v4 .tp-s2-detail-inhalt {
+  grid-template-columns: repeat(var(--spalten, 3), minmax(0, 1fr));
+}
+
+.tp .tp-s2-spalte-wichtig h4 { color: var(--color-eb-navy); }
+
+.tp .tp-s2-marken {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp .tp-s2-marke {
+  align-self: flex-end;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--color-eb-navy-wash);
+  color: var(--color-eb-navy);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.tp .tp-s2-marke b {
+  font-weight: 700;
+}
+
+.tp .tp-s2-marke-naechste {
+  background: var(--color-eb-navy);
+  color: var(--color-eb-weiss);
+}
+
+.tp .tp-s2-marke em {
+  margin-left: 6px;
+  font-size: 10px;
+  font-style: normal;
+  opacity: .85;
+}
+
+@media (max-width: 800px) {
+  .tp .tp-s2v-eck {
+    gap: 8px;
+  }
+
+  .tp .tp-s2-v4 .tp-s2-detail-inhalt {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp .tp-s2-kasten {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
