@@ -131,3 +131,51 @@ export async function updateLead(
     return { data: null, error: message }
   }
 }
+
+/** Bericht v4 (V4-E): welche Spalten zur Klassenarbeit es in der DB schon gibt. */
+export type KlassenarbeitSpalten = { status: boolean; note: boolean }
+
+/**
+ * Prüft beim Laden, ob leads.klassenarbeit_status und leads.letzte_klassenarbeit_note
+ * existieren (Migrationen 20261024135226 bzw. V4-E). Fehlt eine, bleibt ihr Feld im
+ * Erstgespräch ausgeblendet. Je Spalte eine eigene Abfrage.
+ */
+export async function ladeKlassenarbeitSpalten(): Promise<KlassenarbeitSpalten> {
+  const probe = async (spalte: string): Promise<boolean> => {
+    try {
+      const { error } = await supabase.from('leads').select(spalte).limit(1)
+      if (error) console.warn(`leads.${spalte} fehlt noch — Feld ausgeblendet`, error.message)
+      return !error
+    } catch (e) {
+      console.warn(`leads.${spalte} nicht prüfbar — Feld ausgeblendet`, e)
+      return false
+    }
+  }
+  const [status, note] = await Promise.all([probe('klassenarbeit_status'), probe('letzte_klassenarbeit_note')])
+  return { status, note }
+}
+
+/**
+ * Speichert die Klassenarbeit aus dem Erstgespräch in einem eigenen Update, nur
+ * mit den Spalten, die es gibt: Status, Datum der nächsten Arbeit (nur bei
+ * 'bevorstehend', sonst leer) und Note der letzten Arbeit (nur bei 'geschrieben').
+ */
+export async function saveLeadKlassenarbeit(
+  id: string,
+  werte: { status: 'bevorstehend' | 'geschrieben' | null; datum: string | null; note: number | null },
+  spalten: KlassenarbeitSpalten,
+): Promise<SupabaseResult<null>> {
+  const patch: Record<string, unknown> = {
+    next_exam_date: werte.status === 'bevorstehend' ? werte.datum || null : null,
+  }
+  if (spalten.status) patch.klassenarbeit_status = werte.status
+  if (spalten.note) patch.letzte_klassenarbeit_note = werte.status === 'geschrieben' ? werte.note : null
+  try {
+    const { error } = await supabase.from('leads').update(patch).eq('id', id)
+    if (error) return { data: null, error: error.message }
+    return { data: null, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Klassenarbeit konnte nicht gespeichert werden'
+    return { data: null, error: message }
+  }
+}

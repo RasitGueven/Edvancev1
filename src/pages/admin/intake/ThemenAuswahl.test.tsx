@@ -59,6 +59,9 @@ vi.mock('@/lib/supabase/leads', () => ({
   createLead: vi.fn(),
   updateLead: vi.fn(() => Promise.resolve({ data: null, error: null })),
   setLeadConsent: vi.fn(),
+  // Bericht v4 (V4-E): Spaltenprüfung und eigenes Update für die Klassenarbeit.
+  ladeKlassenarbeitSpalten: vi.fn(() => Promise.resolve({ status: true, note: true })),
+  saveLeadKlassenarbeit: vi.fn(() => Promise.resolve({ data: null, error: null })),
 }))
 vi.mock('@/lib/supabase/leadLsa', () => ({
   leadAssessmentUpsert: vi.fn(),

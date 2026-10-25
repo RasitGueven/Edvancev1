@@ -230,7 +230,17 @@
       "parentWeakHint": "Fließt nicht in die Auswertung ein — Gesprächskontext für den Coach.",
       "parentNotePlaceholder": "Kurze Ergänzung der Eltern (optional)",
       "notes": "Notiz",
-      "notesPlaceholder": "Freie Notiz zum Gespräch"
+      "notesPlaceholder": "Freie Notiz zum Gespräch",
+      "klassenarbeit": {
+        "titel": "Klassenarbeit zu diesem Thema",
+        "bevorstehend": "steht noch an",
+        "geschrieben": "schon geschrieben",
+        "weissNicht": "weiß nicht",
+        "hilfe": "Wenn das Kind es nicht weiß: ‚weiß nicht‘ wählen. Der Bericht richtet sich dann nach dem Schulplan.",
+        "datum": "Nächste Klassenarbeit",
+        "note": "Note der zuletzt geschriebenen Arbeit",
+        "noteHilfe": "Nur eintragen, wenn die Familie sie nennen möchte."
+      }
     },
     "optionen": {
       "gradeTrend": {

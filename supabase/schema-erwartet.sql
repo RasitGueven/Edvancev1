@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict EHlf93QUebhWfpzfDF7GN4C863BRUCB0B2ObCePqrxu4w3SYsQOFtfsNE7dbeYw
+\restrict DG2wPQTcVm54TQGEWEbzBmZxmKeB1TEZBYhGUhqMM2WlM57BgechvTAqmuTN2Zp
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -20594,11 +20594,13 @@ CREATE TABLE public.leads (
     schule_id uuid,
     ist_test boolean DEFAULT false NOT NULL,
     klassenarbeit_status text,
+    letzte_klassenarbeit_note smallint,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
     CONSTRAINT leads_klassenarbeit_status_check CHECK ((klassenarbeit_status = ANY (ARRAY['bevorstehend'::text, 'geschrieben'::text]))),
+    CONSTRAINT leads_letzte_klassenarbeit_note_check CHECK (((letzte_klassenarbeit_note >= 1) AND (letzte_klassenarbeit_note <= 6))),
     CONSTRAINT leads_rejection_note_check CHECK (((rejection_reason IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(rejection_note), ''::text) IS NOT NULL))),
     CONSTRAINT leads_rejection_reason_check CHECK (((rejection_reason IS NULL) OR (rejection_reason = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
@@ -28917,5 +28919,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict EHlf93QUebhWfpzfDF7GN4C863BRUCB0B2ObCePqrxu4w3SYsQOFtfsNE7dbeYw
+\unrestrict DG2wPQTcVm54TQGEWEbzBmZxmKeB1TEZBYhGUhqMM2WlM57BgechvTAqmuTN2Zp
 

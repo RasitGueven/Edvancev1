@@ -73,6 +73,11 @@ export type Lead = {
   tried_before: string[] | null
   next_exam_date: string | null
   next_exam_topic: string | null
+  // Bericht v4 (V4-E): Stand der Klassenarbeit zum aktuellen Thema und Note der
+  // zuletzt geschriebenen Arbeit. Optional, weil die Spalten per Migration kommen
+  // (fehlen sie, liefert select('*') sie nicht).
+  klassenarbeit_status?: 'bevorstehend' | 'geschrieben' | null
+  letzte_klassenarbeit_note?: number | null
   // Altes Themencluster (skill_clusters). Seit der Themenauswahl ueber
   // lead_themen wird die Spalte nicht mehr beschrieben, aber noch angezeigt.
   current_topic_cluster_id: string | null
