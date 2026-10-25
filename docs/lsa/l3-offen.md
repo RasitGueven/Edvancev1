@@ -11,9 +11,10 @@ Stand 25.10.2026. Bauauftrag `docs/lsa/Bauauftrag-L3.md`, Simulation `docs/lsa/l
    - (c) Die Kennzahl zählt „mitbelegt sicher“ als geprüft.
    - (d) Abnahme mit 11/11 der prüfbaren Voraussetzungen.
 
-   Bis dahin ist die Migration **nicht eingespielt** und der PR nicht gemergt.
+   Rasit hat am 25.10.2026 entschieden, L3 trotzdem einzuspielen und zu mergen (eingespielt, PR #325). Welcher der
+   Wege (a)–(d) folgt, ist offen.
 2. **Entscheidung 7 im Themenraum** (`l3-simulation.md` 6.2). Phase T, Tiefe und Thema vertiefen bleiben ohne
-   Klassengrenze, wie vor L3. Mit Klassengrenze verlören Kinder an 31 Schulen einen Einstieg ihres aktuellen Themas.
+   Klassengrenze, wie vor L3 (mit L3 so eingespielt). Mit Klassengrenze verlören Kinder an 31 Schulen einen Einstieg ihres aktuellen Themas.
    An zwei Schulen bliebe das Thema leer (Reelle Zahlen in Klasse 8, Binomische Formeln in Klasse 7). Soll die Grenze
    trotzdem gelten?
 3. **Ohne Thema** (aus der Retro zu #324, `l3-simulation.md` 6.3): Breite b und Schritt 5 ziehen Einstiege kommender

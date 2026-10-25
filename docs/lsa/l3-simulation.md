@@ -6,7 +6,8 @@ Stand 25.10.2026. Bauauftrag `docs/lsa/Bauauftrag-L3.md`, Migration `20261025223
 Bericht-Voraussetzungen der nächsten drei Klassenarbeiten direkt geprüft (65 %, vorher ebenfalls 11/17), nicht 80 %.
 Das sind alle 11, die sich direkt prüfen lassen. Die übrigen 6 sind entweder Klasse-10-Stoff oder schon vom ersten
 Thema-Einstieg mitbelegt; ein mitbelegtes Urteil ist final, und `lsa_urteil_buchen_core` bleibt unverändert
-(Entscheidung 6). Nach drei Runden deshalb **nicht eingespielt und nicht gemergt**, Befund in Abschnitt 6.
+(Entscheidung 6). Nach drei Runden mit Befund gemeldet (Abschnitt 6). **Rasit hat am 25.10.2026 entschieden, trotzdem
+einzuspielen und zu mergen**; eingespielt am 25.10., per dbread nachgewiesen (Funktionen md5-gleich mit dem Neuaufbau).
 
 ## 1. Aufbau
 

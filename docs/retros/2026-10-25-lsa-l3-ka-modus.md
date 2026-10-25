@@ -35,10 +35,14 @@ Auftrag `docs/lsa/Bauauftrag-L3.md`. Die LSA-Auswahl richtet sich nach dem Stand
 
 Das Kriterium „Batu geschrieben ≥ 80 %“ ist nicht erfüllt: 11/17, und genau 11 sind direkt prüfbar. Der Rest ist
 Klasse-10-Stoff oder vom ersten Thema-Einstieg mitbelegt; das ist final, und Entscheidung 6 sperrt die Wertung. Der
-Auftrag sagt „nur wenn die Zahlen passen“ und „danach mit Befund melden“. Deshalb:
+Auftrag sagt „nur wenn die Zahlen passen“ und „danach mit Befund melden“. Deshalb zuerst nur ein Draft-PR mit Befund.
+Nach der Meldung hat Rasit entschieden: einspielen und mergen. Eingespielt am 25.10.2026 per `mig`, nachgewiesen per
+dbread (Historie, md5 von `lsa_select_next_core` und `lsa_klp_themen` gleich mit dem Neuaufbau, Spalten da, Rechte).
+`schema-erwartet.sql` ist der Prod-Abzug, gefiltert gleich dem Neuaufbau.
 
-- **nicht eingespielt**,
-- **nicht gemergt**, nur ein Draft-PR.
+Früh leer im Prod-Pool (Rückfrage Rasit): 17 der 19 Rückblick-Bereiche der Klasse 7/8 haben 0 freigegebene Aufgaben
+(je 5–7 Entwürfe), dazu `term_binom_faktorisieren` in der Vorschau. Die übrigen Vorschau-Bereiche haben Aufgaben; sie
+fehlen wegen Mitbelegung bzw. Abstieg nur unter Brüchen.
 
 Alle anderen Kriterien sind erfüllt: `thema_zuerst` ist Aufgabe für Aufgabe gleich, Batu stark erfüllt seine
 Kriterien, Mia bekommt die Klasse-8-Voraussetzungen, kein Ausblick, ≤ 40/19, keine Wiederholung, unter 20 ms.
@@ -52,4 +56,4 @@ Kriterien, Mia bekommt die Klasse-8-Voraussetzungen, kein Ausblick, ≤ 40/19, k
 
 ## Offen
 
-`docs/lsa/l3-offen.md`. ROADMAP bleibt unverändert, bis Rasit über die Befunde entschieden hat.
+`docs/lsa/l3-offen.md`. ROADMAP: L3 eingespielt (Eintrag unten).
