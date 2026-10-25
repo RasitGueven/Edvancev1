@@ -22,7 +22,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(5);
+select plan(7);
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
@@ -155,8 +155,26 @@ create function pg_temp.ohne_wn(p text) returns text language sql as $$
    where not (x.e <> '-' and split_part(x.e, '-', 1)::int % 4 = 2 and x.probe > 1)
 $$;
 
-select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000001', 'zg_a', true),  pg_temp.ohne_wn(:'thema_test'), 'Thema, Testpool: dieselbe Aufgabenfolge wie vor der Umstellung (ohne WN-Zweitbeleg)');
-select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000002', 'zg_a', false), pg_temp.ohne_wn(:'thema_echt'), 'Thema, echter Pool: dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
+-- LSA-L4 (20261025232926): Mit Thema kommen nach dem alten Ende die nur mitbelegten Bericht-Voraussetzungen (★) der
+-- kommenden Themen zg_b, zg_c dazu. Bis zum alten Ende muss die Folge gleich sein, danach nur ★-Nachpruefungen.
+create function pg_temp.nur_stern(p_rest text) returns boolean language sql as $$
+  select not exists (
+    select 1 from unnest(string_to_array(p_rest, ',')) e
+     where e not in ('', '-')
+       and format('zg%s', lpad(split_part(e, '-', 1), 2, '0')) not in (
+             select k.voraussetzt_skill_key from skill_kante k join skill_thema st on st.skill_key = k.skill_key
+              where st.thema_key in ('zg_b', 'zg_c')
+                and not exists (select 1 from skill_thema x
+                                 where x.skill_key = k.voraussetzt_skill_key and x.thema_key = st.thema_key)))
+$$;
+select pg_temp.folge('eeeeeeee-0000-4000-8000-000000000001', 'zg_a', true) as f_test,
+       rtrim(pg_temp.ohne_wn(:'thema_test'), '-') as p_test \gset
+select pg_temp.folge('eeeeeeee-0000-4000-8000-000000000002', 'zg_a', false) as f_echt,
+       rtrim(pg_temp.ohne_wn(:'thema_echt'), '-') as p_echt \gset
+select is(left(:'f_test', length(:'p_test')), :'p_test', 'Thema, Testpool: bis zum alten Ende dieselbe Aufgabenfolge wie vor der Umstellung (ohne WN-Zweitbeleg)');
+select ok(pg_temp.nur_stern(substr(:'f_test', length(:'p_test') + 1)), 'Thema, Testpool: danach nur ★-Nachpruefungen (LSA-L4)');
+select is(left(:'f_echt', length(:'p_echt')), :'p_echt', 'Thema, echter Pool: bis zum alten Ende dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
+select ok(pg_temp.nur_stern(substr(:'f_echt', length(:'p_echt') + 1)), 'Thema, echter Pool: danach nur ★-Nachpruefungen (LSA-L4)');
 select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000003', null, true), pg_temp.ohne_wn(:'ohne_test'),  'ohne Thema, Testpool (Breite b, Restzeit): dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
 select is(pg_temp.folge('eeeeeeee-0000-4000-8000-000000000004', null, false), pg_temp.ohne_wn(:'ohne_echt'),  'ohne Thema, echter Pool: dieselbe Aufgabenfolge (ohne WN-Zweitbeleg)');
 

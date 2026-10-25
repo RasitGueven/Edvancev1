@@ -1,13 +1,10 @@
--- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
--- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
-
 --
 -- PostgreSQL database dump
 --
 
+\restrict aEvbb9GoUuLk1Mrbfot3rCzSQdqUi730TuYPMta8e04UaKBisD8EUl5Q2Wa83a9
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -6598,8 +6595,8 @@ declare
   -- bis c_tiefe_bis_vz; danach Rueckblick (Simulation docs/lsa/l3-simulation.md).
   c_thema_kurz      constant interval := interval '4 minutes';
   c_thema_kurz_gut  constant interval := interval '1 minute';
-  c_vorschau_bis_vz constant interval := interval '16 minutes';
-  c_tiefe_bis_vz    constant interval := interval '18 minutes';
+  c_vorschau_bis_vz constant interval := interval '19 minutes';  -- LSA-L4: 16 → 19 (Platz fuer die ★-Nachpruefung)
+  c_tiefe_bis_vz    constant interval := interval '19 minutes';  -- LSA-L4: 18 → 19
 
   v_sess    lsa_sessions;
   v_pool    boolean;  -- F1 (E2): Testlauf-Pool fuer Testlauf oder Testkonto
@@ -6637,6 +6634,12 @@ declare
   v_vz         boolean;  -- 'vorschau_zuerst' mit Thema
   v_kurz_bis   interval; -- Ende von Thema kurz
   v_fuell      text[];   -- Themen der Klasse + 1, aus denen die Vorschau auffuellt
+  -- LSA-L4
+  v_pos_bekannt boolean;     -- Planposition bekannt: mit Thema, Schulplan der Klasse oder Thema der Sitzung
+  v_neu_sk      text[] := '{}';  -- ohne Thema: Skills aus Themen, die laut Plan noch kommen (nie ziehen)
+  v_stern_sk    text[];      -- Bericht-Voraussetzungen der kommenden Themen (★) ...
+  v_stern_rang  int[];       -- ... Rang des ersten kommenden Themas
+  v_ohne_rueck  boolean := false;  -- ohne Thema: Breite b leer, jetzt der Rueckblick
 begin
   select * into v_sess from lsa_sessions where id = p_session_id;
   if not found or v_sess.status <> 'in_progress' then
@@ -6706,9 +6709,26 @@ begin
   v_ausblick := case when v_mit_thema and not v_vz then public.lsa_ausblick_knoten(p_session_id, true)
                      else '{}' end;
 
+  -- LSA-L4 (Entscheidung 7/8): Die Planposition ist auch ohne Thema bekannt, wenn die Schule einen Plan fuer die
+  -- Klasse hat oder die Sitzung ein Thema traegt (Kernlehrplan). Dann gelten kommende Themen, Rand und Vorschau
+  -- auch ohne Thema.
+  -- Bekannt heisst: Das Thema steht im Schulplan der Klasse oder das Halbjahr der Sitzung hat dort Eintraege; ohne
+  -- Schulplan steht das Thema in der Kernlehrplan-Folge der Klasse. Sonst (kein Thema, Thema nirgends im Plan) ist die
+  -- Position unbekannt, und es bleibt die alte Auswahl mit Klassengrenze (Entscheidung 7).
+  v_pos_bekannt := v_mit_thema or coalesce(case
+    when exists (select 1 from schul_themenplan p
+                  where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade) then
+      exists (select 1 from schul_themenplan p
+               where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+                 and (p.thema_key = v_sess.thema_key
+                      or p.halbjahr = case when extract(month from coalesce(v_sess.completed_at, v_sess.started_at,
+                                                                            v_sess.created_at) at time zone 'Europe/Berlin')
+                                                between 2 and 7 then 2 else 1 end))
+    else v_sess.thema_key = any (public.lsa_klp_themen(v_fach, v_sess.grade)) end, false);
+
   -- LSA-V: Kommende Themen und der Rand. Haengt nur an Plan und Graph, nicht an
   -- den Urteilen der Sitzung — einmal je Aufruf.
-  if v_mit_thema then
+  if v_pos_bekannt then
     if exists (select 1 from schul_themenplan p
                 where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade) then
       -- Aktuelle Position wie lernweg.ts (aktuellePosition, R7-9 Entscheidung 9):
@@ -6842,6 +6862,29 @@ begin
                                 where st.skill_key = a.skill_key
                                   and (st.thema_key = any (v_spaeter) or st.thema_key = any (v_kommend)))
              group by a.skill_key) t;
+
+    -- LSA-L4 (Entscheidung 2): Bericht-Voraussetzungen (★) der kommenden Themen, wie der Bericht sein Signal bildet:
+    -- skill_kante s → g, s gehoert zum kommenden Thema, g nicht. Nur Klasse <= Kind und kein Skill eines Themas, das
+    -- noch kommt (Leitsatz; z. B. gleichung_quadr_formel, Klasse 10, nie).
+    select array_agg(x.sk order by x.sk), array_agg(x.rang order by x.sk)
+      into v_stern_sk, v_stern_rang
+      from (select k.voraussetzt_skill_key as sk, min(u.rang)::int as rang
+              from unnest(v_kommend) with ordinality u(thema_key, rang)
+              join skill_thema st on st.thema_key = u.thema_key
+              join skill_kante k  on k.skill_key = st.skill_key
+              join skills s       on s.skill_key = k.voraussetzt_skill_key
+             where s.klasse_herkunft <= v_sess.grade
+               and not exists (select 1 from skill_thema x
+                                where x.skill_key = k.voraussetzt_skill_key
+                                  and (x.thema_key = u.thema_key or x.thema_key = any (v_spaeter)
+                                       or x.thema_key = any (v_kommend)))
+             group by k.voraussetzt_skill_key) x;
+
+    -- LSA-L4 (Entscheidung 7): ohne Thema nie Skills aus Themen, die laut Plan noch kommen.
+    if not v_mit_thema then
+      v_neu_sk := array(select distinct st.skill_key from skill_thema st
+                         where st.thema_key = any (v_spaeter) or st.thema_key = any (v_kommend));
+    end if;
   end if;
 
   -- LSA-D Fix A/B (docs/lsa/diagnose-weiter.md, Abschnitte 2 und 7): Jede Phase filtert und sortiert erst nach
@@ -6920,6 +6963,7 @@ begin
            and (not v_mit_thema or u.skill_key = any (v_themenraum))
            and not u.skill_key = any (v_ausblick)  -- LSA-V2: kein Abstieg unter Ausblick-Knoten
            and (v_mit_thema or s.klasse_herkunft <= v_sess.grade)
+           and not k.voraussetzt_skill_key = any (v_neu_sk)  -- LSA-L4: ohne Thema nichts Kommendes
            and not exists (
                  select 1 from lsa_skill_urteil d
                   where d.session_id = p_session_id and d.skill_key = k.voraussetzt_skill_key)
@@ -6950,7 +6994,8 @@ begin
     -- nicht schon prueft).
     -- LSA-L3: 'vorschau_zuerst' bis c_vorschau_bis_vz.
     v_task := null;
-    if v_mit_thema and p_jetzt < v_beginn + (case when v_vz then c_vorschau_bis_vz else c_vorschau_bis end) then
+    -- LSA-L4 (Entscheidung 8): auch ohne Thema, wenn die Planposition bekannt ist.
+    if v_pos_bekannt and p_jetzt < v_beginn + (case when v_vz then c_vorschau_bis_vz else c_vorschau_bis end) then
       for v_desc in
         select c.sk
           from (select x.sk, x.rang, x.n, true as rand
@@ -6983,6 +7028,22 @@ begin
         v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
         exit when v_task is not null;
       end loop;
+      -- LSA-L4 (Entscheidungen 2/3): danach die nur mitbelegten Bericht-Voraussetzungen (★), naechstes Thema zuerst.
+      -- Sie verdraengen keine ungeprueften Knoten (die kamen oben). Die direkte Probe ersetzt das mitbelegte Urteil
+      -- (lsa_urteil_buchen_core); bricht der Knoten, steigt die Vorschau wie oben eine Stufe ab (★ ist Rand).
+      if v_task is null then
+        for v_desc in
+          select x.sk
+            from unnest(v_stern_sk, v_stern_rang) x(sk, rang)
+            join skills s on s.skill_key = x.sk
+            join lsa_skill_urteil u on u.session_id = p_session_id and u.skill_key = x.sk
+           where not u.offen and not u.belegt_direkt and u.proben_anzahl = 0 and u.zustand = 'traegt'
+           order by x.rang, s.fundament_tiefe desc, x.sk
+        loop
+          v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
+          exit when v_task is not null;
+        end loop;
+      end if;
     end if;
     if v_task is not null then
       return v_task;
@@ -7090,8 +7151,9 @@ begin
     -- nach themen.sort absteigend.
     -- LSA-V: als Rueckblick nach Vorschau und Thema vertiefen; Schule ueber
     -- lsa_schule_von_sitzung.
+    -- LSA-L4 (Entscheidung 8): ohne Thema erst nach Breite b (v_ohne_rueck).
     v_task := null;
-    if v_mit_thema then
+    if v_mit_thema or v_ohne_rueck then
       for v_leaf in
         select te.skill_key
           from lead_themen lt
@@ -7142,6 +7204,7 @@ begin
         from skills b join skills s on s.skill_key = b.skill_key
        where not exists (select 1 from skill_kante k where k.voraussetzt_skill_key = b.skill_key)
          and b.klasse_herkunft <= v_sess.grade
+         and not b.skill_key = any (v_neu_sk)  -- LSA-L4: ohne Thema nichts Kommendes
          and not exists (
                select 1 from lsa_skill_urteil u
                 where u.session_id = p_session_id and u.skill_key = b.skill_key)
@@ -7160,6 +7223,12 @@ begin
       continue;
     end if;
 
+    -- LSA-L4 (Entscheidung 8): ohne Thema mit Planposition nach Breite b der Rueckblick, dann erst Schritt 5.
+    if v_pos_bekannt and not v_ohne_rueck then
+      v_ohne_rueck := true;
+      continue;
+    end if;
+
     -- Schritt 5: Restzeit. Erst nach Klasse, Ausgabe und Urteil sortieren,
     -- dann lsa_im_pool bis zum ersten Treffer (LSA-D: hier lagen alle
     -- langsamen Aufrufe, der Pool-Test lief vor dem Ausschluss ueber die Urteile).
@@ -7170,6 +7239,7 @@ begin
         from tasks t
         join skills s on s.skill_key = t.skill_key
        where s.klasse_herkunft <= v_sess.grade
+         and not t.skill_key = any (v_neu_sk)  -- LSA-L4: ohne Thema nichts Kommendes
          and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id and a.task_id = t.id)
          and not coalesce(public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel), false)
          and not exists (select 1 from lsa_responses r  where r.session_id = p_session_id and r.task_id = t.id)
@@ -8121,6 +8191,14 @@ begin
 
   select * into v_row from lsa_skill_urteil
    where session_id = p_session_id and skill_key = v_sk;
+
+  -- LSA-L4 (Entscheidungen 4/5): Ein nur mitbelegtes Urteil (traegt ohne eigene Probe) weicht der direkten Probe.
+  -- Danach wie eine erste Probe; ein falsches Ergebnis gewinnt so gegen das mitbelegte „sicher“.
+  if found and not v_row.offen and not v_row.belegt_direkt and v_row.proben_anzahl = 0
+     and v_row.zustand = 'traegt' then
+    delete from lsa_skill_urteil where session_id = p_session_id and skill_key = v_sk;
+    found := false;
+  end if;
 
   -- Vorhandenes FINALES Urteil wird nie ueberschrieben.
   if found and not v_row.offen then
@@ -29101,4 +29179,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
+\unrestrict aEvbb9GoUuLk1Mrbfot3rCzSQdqUi730TuYPMta8e04UaKBisD8EUl5Q2Wa83a9
 

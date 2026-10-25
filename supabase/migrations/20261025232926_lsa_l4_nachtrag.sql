@@ -1,0 +1,907 @@
+-- LSA-L4: Nachtrag zu L3 — Bericht-Voraussetzungen direkt prüfen statt nur mitbelegen, ohne Thema kein kommender Stoff.
+--
+-- Bauauftrag docs/lsa/Bauauftrag-L4.md (Rasit, 25.10.2026), Simulation docs/lsa/l4-simulation.md.
+-- Leitsatz: Kinder bekommen in der LSA nur Stoff, den sie schon hatten. Kein Ausblick. Das aktuelle Thema laut
+-- Schulplan zählt als „hatte“ (Themenraum ohne Klassengrenze, wie L3).
+--
+-- Teil A (Entscheidungen 1–6):
+--   lsa_urteil_buchen_core: Ein nur mitbelegtes Urteil (traegt, belegt_direkt = false, keine Probe) ist nicht mehr
+--   final, wenn auf seinen Skill direkt geantwortet wird: Die direkte Probe ersetzt es, danach gelten die Regeln einer
+--   ersten Probe (Zweitbeleg wie immer). Ein falsches direktes Ergebnis gewinnt so gegen das mitbelegte „sicher“.
+--   Sonst textgleich (diff in docs/lsa/l4-simulation.md).
+--   lsa_select_next_core, Vorschau (beide Modi): nach den Knoten ohne Urteil die nur mitbelegten Bericht-Voraussetzungen
+--   (★: skill_kante s → g, s im kommenden Thema, g nicht; Klasse ≤ Kind; kein Skill eines Themas, das noch kommt).
+--   Andere mitbelegte Knoten bleiben übersprungen. Abstieg unter einen falschen ★-Knoten wie heute (★ ist Rand).
+-- Teil B (Entscheidungen 7–9): Ohne Thema (v_mit_thema = false), aber mit bekannter Planposition (Schulplan der
+--   Klasse oder Thema der Sitzung im Kernlehrplan):
+--   - Kommende Themen, Rand und ★ werden auch ohne Thema berechnet; die Vorschau läuft bis c_vorschau_bis.
+--   - Tiefe, Breite b und Schritt 5 ziehen keine Skills aus Themen, die laut Plan noch kommen (v_spaeter, v_kommend).
+--   - Reihenfolge Vorschau → Breite → Rückblick → Schritt 5 (Rückblick ohne Thema erst, wenn Breite b nichts findet).
+--   Ohne Planposition bleibt die alte Auswahl mit Klassengrenze, Schritt für Schritt wie vorher.
+--
+-- lsa_select_next_core: Grundlage 20261025223011_lsa_l3_ka_modus, lsa_urteil_buchen_core: Stand Prod (pg_proc md5
+-- gleich dem Neuaufbau, 25.10.2026). Geändert ist nur, was „LSA-L4“ markiert. Mit Thema und ohne mitbelegte ★-Knoten
+-- läuft die Auswahl Schritt für Schritt wie vorher. Keine neue Tabelle, keine neue Spalte.
+-- Ausnahme 400-Zeilen-Regel: lsa_select_next_core steht vollständig in dieser einen Migration (wie L2, L3).
+-- Rollback: supabase/rollback/20261025232926_lsa_l4_nachtrag.sql. Kein begin/commit: mig klammert.
+
+CREATE OR REPLACE FUNCTION public.lsa_urteil_buchen_core(p_session_id uuid, p_task_id uuid)
+ RETURNS text
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare
+  v_task    tasks;
+  v_resp    lsa_responses;
+  v_sk      text;
+  v_is_mc   boolean;
+  v_res     text;   -- voll | teilweise | nicht | weiss_nicht | leer
+  v_row     lsa_skill_urteil;
+  v_prov    text;
+  v_a       text;
+  v_b       text;
+  v_final   text;
+  -- AF7, nur fuer den Multi-Part-Zweig
+  v_teile   integer;
+  v_zeilen  integer;
+  v_falsch  integer;
+  v_richtig integer;
+  v_wn      integer;
+begin
+  select * into v_task from tasks where id = p_task_id;
+  v_sk := v_task.skill_key;
+  if v_sk is null then
+    return null;  -- Nicht-Fundament-Aufgabe: kein Skill-Urteil.
+  end if;
+
+  if v_task.input_type = 'MULTI_PART' then
+    -- ── AF7: Urteil aus den Teilzeilen ────────────────────────────────────
+    --
+    -- Gezaehlt wird ueber ALLE Teile der Aufgabe, nicht ueber die gefundenen
+    -- Zeilen: nur so faellt auf, wenn eine Teilzeile fehlt.
+    select jsonb_array_length(v_task.parts) into v_teile;
+
+    select count(*),
+           count(*) filter (where r.abgabeart = 'antwort' and r.correct is false),
+           count(*) filter (where r.abgabeart = 'antwort' and r.correct is true),
+           count(*) filter (where r.abgabeart = 'weiss_nicht')
+      into v_zeilen, v_falsch, v_richtig, v_wn
+      from lsa_responses r
+     where r.session_id = p_session_id and r.task_id = p_task_id
+       and r.part_nr is not null;
+
+    if v_zeilen = 0 then
+      return null;  -- ohne Antwort kein Urteil (wie im flachen Pfad).
+    end if;
+
+    -- UNVOLLSTAENDIG ERFASST: weniger Zeilen als Teile.
+    -- lsa_submit legt normalerweise JE Teil eine Zeile an, auch fuer leere und
+    -- fuer "weiss nicht" — dieser Fall entsteht also nur durch eine Reparatur
+    -- von Hand oder einen kuenftigen Submit-Pfad. Dann gibt es KEIN Urteil:
+    -- die Verdichtungsregel fragt "sind ALLE Teile richtig", und diese Frage
+    -- ist bei unbekanntem Nenner nicht beantwortbar. Lieber kein Beleg als ein
+    -- Beleg auf halber Grundlage — dieselbe Haltung wie beim `return null`
+    -- oben, wenn gar keine Antwort vorliegt.
+    if v_zeilen < v_teile then
+      return null;
+    end if;
+
+    v_res := case
+      -- Ein falscher Teil genuegt. Das ist die Verdichtungsregel, und sie steht
+      -- VOR allem anderen: ein belegter Fehler wiegt schwerer als eine
+      -- ausgelassene Teilaufgabe daneben.
+      when v_falsch > 0 then 'nicht'
+      -- Kein Fehler und alle Teile beantwortet -> alle richtig.
+      when v_richtig = v_teile then 'voll'
+      -- Kein Fehler, aber nicht alle beantwortet: kein Beleg, kein Negativbeleg.
+      -- Beide Werte fliessen ohnehin gleich weiter (nicht_angesetzt bzw.
+      -- v_b = 'weiss_nicht'); unterschieden wird nur, was naeher an der Wahrheit
+      -- ist — hat das Kind "weiss nicht" gedrueckt oder das Feld leer gelassen.
+      when v_wn > 0 then 'weiss_nicht'
+      else 'leer'
+    end;
+
+    -- v_is_mc steuert unten NUR die Abkuerzung in Probe 1: bei MC wird ein
+    -- 'voll' nicht sofort final, weil eine einzelne MC-Antwort geraten sein
+    -- kann. Genau diese Begruendung traegt bei Multi-Part nur, wenn ALLE Teile
+    -- MC sind. Sobald ein Teil eine freie Eingabe ist, ist das Gesamtergebnis
+    -- nicht mehr ratbar — ein 'voll' heisst dann, dass das Kind modelliert UND
+    -- gerechnet hat, und das ist mindestens so tragfaehig wie ein 'voll' auf
+    -- einem flachen NUMERIC-Item.
+    select not exists (
+             select 1 from jsonb_array_elements(v_task.parts) as e(p)
+              where coalesce(p ->> 'kind', '') <> 'mc')
+      into v_is_mc;
+  else
+    -- ── Flacher Pfad, unveraendert ────────────────────────────────────────
+    -- Die flache Antwortzeile dieser Aufgabe.
+    select * into v_resp
+      from lsa_responses
+     where session_id = p_session_id and task_id = p_task_id and part_nr is null
+     order by created_at desc limit 1;
+    if not found then
+      return null;  -- ohne Antwort kein Urteil.
+    end if;
+
+    v_is_mc := (v_task.input_type = 'MC');
+
+    -- Regel 6: Ergebnis aus abgabeart ableiten.
+    if v_resp.abgabeart = 'weiss_nicht' then
+      v_res := 'weiss_nicht';
+    elsif v_resp.abgabeart = 'leer' then
+      v_res := 'leer';
+    elsif v_is_mc then
+      v_res := case when coalesce(v_resp.correct, false) then 'voll' else 'nicht' end;
+    else
+      -- NUMERIC/TERM: die dreistufige Bewertung.
+      -- L1: mit Eingabeformat (Bruch nach Wert, Term kanonisch), wie correct in lsa_submit.
+      select public.lsa_grade(v_task.input_type, s.acceptance, s.correct_answers, v_resp.response,
+                              public.lsa_input_hint(v_task.input_type, v_task.bruch, s.correct_answers, v_task.unit))
+        into v_res
+        from task_solutions s where s.task_id = p_task_id;
+      v_res := coalesce(v_res, 'nicht');
+    end if;
+  end if;
+
+  select * into v_row from lsa_skill_urteil
+   where session_id = p_session_id and skill_key = v_sk;
+
+  -- LSA-L4 (Entscheidungen 4/5): Ein nur mitbelegtes Urteil (traegt ohne eigene Probe) weicht der direkten Probe.
+  -- Danach wie eine erste Probe; ein falsches Ergebnis gewinnt so gegen das mitbelegte „sicher“.
+  if found and not v_row.offen and not v_row.belegt_direkt and v_row.proben_anzahl = 0
+     and v_row.zustand = 'traegt' then
+    delete from lsa_skill_urteil where session_id = p_session_id and skill_key = v_sk;
+    found := false;
+  end if;
+
+  -- Vorhandenes FINALES Urteil wird nie ueberschrieben.
+  if found and not v_row.offen then
+    return v_row.zustand;
+  end if;
+
+  if not found then
+    -- PROBE 1
+    if not v_is_mc and v_res = 'voll' then
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_sk, 'traegt', true, false, 1);
+      perform public.lsa_mitbelegung(p_session_id, v_sk);
+      return 'traegt';
+    end if;
+    -- LSA-V2 (B): „Weiss ich nicht“ oder leer ist sofort final, ohne Zweitbeleg — ueberall, auch im Thema.
+    if v_res in ('weiss_nicht','leer') then
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_sk, 'nicht_angesetzt', true, false, 1);
+      return 'nicht_angesetzt';
+    end if;
+    -- LSA-V2 (A5): Ausblick-Knoten — eine falsche erste Probe ist final. Einen Zweitbeleg gibt es dort nur
+    -- nach „voll“ auf MC (unten).
+    if v_res in ('nicht','teilweise') and public.lsa_ist_ausblick(p_session_id, v_sk) then
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_sk, 'traegt_nicht', true, false, 1);
+      return 'traegt_nicht';
+    end if;
+    -- Zweitprobe faellig -> provisorisch schreiben. Der provisorische Zustand
+    -- kodiert die erste Probe: traegt=mc_ja, traegt_nicht=nicht, nicht_angesetzt=weiss_nicht.
+    -- LSA-V2: weiss_nicht/leer kommt hier nicht mehr an (oben final); offene Urteile aus der Zeit davor
+    -- loest PROBE 2 weiter auf.
+    v_prov := case
+      when v_res = 'voll' then 'traegt'                         -- nur MC richtig
+      when v_res in ('nicht','teilweise') then 'traegt_nicht'
+      else 'nicht_angesetzt' end;                               -- weiss_nicht/leer
+    insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+      values (p_session_id, v_sk, v_prov, true, true, 1);
+    return v_prov;
+  else
+    -- PROBE 2 (offen=true)
+    v_a := case v_row.zustand
+             when 'traegt' then 'mc_ja'
+             when 'traegt_nicht' then 'nicht'
+             else 'weiss_nicht' end;               -- nicht_angesetzt
+    v_b := case
+             when v_res = 'voll' then 'voll'
+             when v_res in ('weiss_nicht','leer') then 'weiss_nicht'
+             else 'nicht' end;                     -- nicht/teilweise
+    v_final := public.lsa_urteil_aufloesung(v_a, v_b);
+    update lsa_skill_urteil
+       set zustand = v_final, proben_anzahl = 2, offen = false, aktualisiert = now()
+     where session_id = p_session_id and skill_key = v_sk;
+    if v_final = 'traegt' then
+      perform public.lsa_mitbelegung(p_session_id, v_sk);
+    end if;
+    return v_final;
+  end if;
+end;
+$function$;
+
+
+CREATE OR REPLACE FUNCTION public.lsa_select_next_core(p_session_id uuid, p_status_filter text[] DEFAULT ARRAY['ready'::text], p_jetzt timestamp with time zone DEFAULT now())
+ RETURNS uuid
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare
+  -- Phase Tiefe endet spaetestens so lange nach Sitzungsbeginn. Die Restzeit
+  -- bis zum 19-Minuten-Fenster gehoert der Breite: lieber ein Befund fuer
+  -- viele Bereiche als eine Ursachensuche, die die ganze Sitzung frisst.
+  c_tiefe_bis constant interval := interval '12 minutes';
+  -- LSA-V: Die Vorschau (Voraussetzungen der naechsten Schulthemen) laeuft bis
+  -- so lange nach Sitzungsbeginn; danach Thema vertiefen und Rueckblick.
+  c_vorschau_bis constant interval := interval '16 minutes';
+  -- LSA-V: So viele kommende Plan-Themen nimmt die Vorschau. LSA-L2: 3 statt 2 (die nächsten drei
+  -- Klassenarbeiten; Simulation docs/lsa/l2-simulation.md).
+  c_vorschau_themen constant int := 3;
+  -- LSA-V2: Deckel. Nach so vielen ausgegebenen Aufgaben endet die Sitzung, mit und ohne Thema.
+  c_max_aufgaben constant int := 40;
+  -- LSA-V2: Der Ausblick laeuft nur fuer starke Kinder: mindestens so viele direkt belegte, finale Urteile ...
+  c_ausblick_min_urteile constant int := 6;
+  -- ... davon mindestens dieser Anteil traegt.
+  c_ausblick_anteil constant numeric := 0.75;
+  -- LSA-L3 'vorschau_zuerst' (Klassenarbeit zum Thema geschrieben): Thema kurz (nur Einstiege) bis c_thema_kurz,
+  -- bei Note 1 oder 2 bis c_thema_kurz_gut; Vorschau bis c_vorschau_bis_vz; Tiefe unter gebrochenen Themenknoten
+  -- bis c_tiefe_bis_vz; danach Rueckblick (Simulation docs/lsa/l3-simulation.md).
+  c_thema_kurz      constant interval := interval '4 minutes';
+  c_thema_kurz_gut  constant interval := interval '1 minute';
+  c_vorschau_bis_vz constant interval := interval '19 minutes';  -- LSA-L4: 16 → 19 (Platz fuer die ★-Nachpruefung)
+  c_tiefe_bis_vz    constant interval := interval '19 minutes';  -- LSA-L4: 18 → 19
+
+  v_sess    lsa_sessions;
+  v_pool    boolean;  -- F1 (E2): Testlauf-Pool fuer Testlauf oder Testkonto
+  v_open    text;
+  v_prefer_nonmc boolean;
+  v_desc    text;
+  v_leaf    text;
+  v_task    uuid;
+  v_iter    int := 0;
+  v_beginn  timestamptz;
+  v_fach    text;
+  v_lead    uuid;
+  v_schule  uuid;
+  v_einstieg   text[];  -- Einstiegsknoten des Sitzungsthemas
+  v_themenraum text[];  -- Einstiegsknoten + ihr Abschluss = "unter dem Thema"
+  v_mit_thema  boolean; -- Thema mit Einstiegsknoten, die Aufgaben haben
+  -- LSA-V
+  v_aktuell    int;     -- Position des Kindes im Schulplan (0 = vor dem ersten Eintrag)
+  v_kommend    text[];  -- die naechsten Plan-Themen, naechstes zuerst
+  v_spaeter    text[];  -- alle Themen, die laut Plan (auch naechste Klasse) bzw. Kernlehrplan noch kommen
+  v_rand_sk    text[];  -- Rand der kommenden Themen ...
+  v_rand_rang  int[];   -- ... Rang des ersten kommenden Themas, zu dem der Knoten gehoert
+  v_rand_n     int[];   -- ... Zahl der kommenden Themen, zu denen er gehoert
+  v_tief_sk    text[];  -- Abschluss des Randes (Abstieg in der Vorschau) ...
+  v_tief_rang  int[];   -- ... Rang wie beim Randknoten darueber
+  v_kand       uuid;    -- LSA-D: Kandidat in Schritt 5
+  -- LSA-V2
+  v_ausblick   text[];  -- Ausblick-Knoten der Sitzung in Ausblick-Reihenfolge (lsa_ausblick_knoten)
+  v_urteile    int;     -- direkt belegte, finale Urteile ...
+  v_traegt     int;     -- ... davon traegt
+  -- LSA-L2
+  v_schluessel text[];  -- Text-Schluessel der ausgegebenen Aufgaben (Schritt 5)
+  -- LSA-L3
+  v_lead_j     jsonb;    -- der Lead als jsonb (fehlende Spalten zaehlen wie null)
+  v_vz         boolean;  -- 'vorschau_zuerst' mit Thema
+  v_kurz_bis   interval; -- Ende von Thema kurz
+  v_fuell      text[];   -- Themen der Klasse + 1, aus denen die Vorschau auffuellt
+  -- LSA-L4
+  v_pos_bekannt boolean;     -- Planposition bekannt: mit Thema, Schulplan der Klasse oder Thema der Sitzung
+  v_neu_sk      text[] := '{}';  -- ohne Thema: Skills aus Themen, die laut Plan noch kommen (nie ziehen)
+  v_stern_sk    text[];      -- Bericht-Voraussetzungen der kommenden Themen (★) ...
+  v_stern_rang  int[];       -- ... Rang des ersten kommenden Themas
+  v_ohne_rueck  boolean := false;  -- ohne Thema: Breite b leer, jetzt der Rueckblick
+begin
+  select * into v_sess from lsa_sessions where id = p_session_id;
+  if not found or v_sess.status <> 'in_progress' then
+    return null;
+  end if;
+
+  -- F1 (E2, Rasit 08.10.2026): Testkonten (students.ist_test) bekommen auch ausserhalb eines Testlaufs den
+  -- Testlauf-Pool. lsa_sessions.testlauf bleibt, wie es ist: Eine solche LSA ist kein Testlauf und wird wie
+  -- jede echte LSA in Lernpfad und Report uebernommen. Echte Kinder sehen weiter nur 'ready'.
+  -- T4: dieselbe Regel ueber lsa_testinhalte (Testlauf oder Testkonto).
+  v_pool := public.lsa_testinhalte(p_session_id);
+
+  -- L1: Diagnosezeit ab „Los geht’s“ (platz_los), sonst wie bisher ab lsa_start.
+  v_beginn := coalesce(v_sess.diagnose_ab, v_sess.started_at, v_sess.created_at);
+  if p_jetzt > v_beginn + interval '19 minutes' then
+    return null;
+  end if;
+  -- LSA-V2 Deckel (docs/lsa/durchklicken-auswertung.md, Abschnitt 6): ausgegebene Aufgaben, nicht Antwortzeilen.
+  if (select count(*) from lsa_ausgegeben a where a.session_id = p_session_id) >= c_max_aufgaben then
+    return null;
+  end if;
+
+  v_fach   := lower(v_sess.subject);
+  v_lead   := public.lsa_lead_von_schueler(v_sess.student_id);
+  -- LSA-V: Schule wie im Report (R7-9), nicht mehr nur ueber den Lead.
+  v_schule := public.lsa_schule_von_sitzung(p_session_id);
+
+  -- LSA-L3: Modus nach dem Klassenarbeits-Stand des Leads, einmal beim Start (erster Aufruf, aus lsa_start) und
+  -- dann fest. Eine Sitzung, die schon Aufgaben hat (vor L3 gestartet), bleibt 'thema_zuerst'. Die Lead-Spalten
+  -- ueber to_jsonb: fehlt letzte_klassenarbeit_note, ist sie null (Entscheidung 2).
+  if v_sess.ka_modus is null then
+    select to_jsonb(l) into v_lead_j from leads l where l.id = v_lead;
+    v_sess.ka_modus := case
+      when v_lead_j ->> 'klassenarbeit_status' = 'geschrieben'
+           and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id)
+        then 'vorschau_zuerst' else 'thema_zuerst' end;
+    v_sess.ka_note := case when v_lead_j ->> 'letzte_klassenarbeit_note' ~ '^[1-6]$'
+                           then (v_lead_j ->> 'letzte_klassenarbeit_note')::smallint end;
+    update lsa_sessions set ka_modus = v_sess.ka_modus, ka_note = v_sess.ka_note where id = p_session_id;
+  end if;
+
+  -- Ohne Thema (kein aktuell-Thema, oder keine Einstiegsknoten mit Aufgaben
+  -- im Status-Filter) laeuft die bisherige Auswahl: Abstieg unter jedem
+  -- gebrochenen Knoten, ohne Zeitgrenze, keine Breite a.
+  v_mit_thema := exists (
+    select 1 from thema_einstieg te join tasks t on t.skill_key = te.skill_key
+     where te.thema_key = v_sess.thema_key and public.lsa_im_pool(t.id, v_pool));
+
+  if v_mit_thema then
+    v_einstieg := array(
+      select te.skill_key from thema_einstieg te where te.thema_key = v_sess.thema_key);
+    v_themenraum := v_einstieg || array(
+      select distinct a.skill_key
+        from unnest(v_einstieg) e(sk)
+        cross join lateral public.lsa_abschluss(e.sk) a);
+  else
+    v_einstieg   := '{}';
+    v_themenraum := '{}';
+  end if;
+
+  -- LSA-L3: Ohne Thema gilt immer die bisherige Auswahl (Entscheidung 1).
+  v_vz := v_mit_thema and v_sess.ka_modus = 'vorschau_zuerst';
+  v_kurz_bis := case when v_sess.ka_note between 1 and 2 then c_thema_kurz_gut else c_thema_kurz end;
+
+  -- LSA-V2: Ausblick-Knoten, einmal je Aufruf (haengen nur an Thema, Plan und Graph).
+  -- LSA-L3: 'vorschau_zuerst' nie, auch nicht mit dem Test-Schalter lsa.ausblick.
+  v_ausblick := case when v_mit_thema and not v_vz then public.lsa_ausblick_knoten(p_session_id, true)
+                     else '{}' end;
+
+  -- LSA-L4 (Entscheidung 7/8): Die Planposition ist auch ohne Thema bekannt, wenn die Schule einen Plan fuer die
+  -- Klasse hat oder die Sitzung ein Thema traegt (Kernlehrplan). Dann gelten kommende Themen, Rand und Vorschau
+  -- auch ohne Thema.
+  -- Bekannt heisst: Das Thema steht im Schulplan der Klasse oder das Halbjahr der Sitzung hat dort Eintraege; ohne
+  -- Schulplan steht das Thema in der Kernlehrplan-Folge der Klasse. Sonst (kein Thema, Thema nirgends im Plan) ist die
+  -- Position unbekannt, und es bleibt die alte Auswahl mit Klassengrenze (Entscheidung 7).
+  v_pos_bekannt := v_mit_thema or coalesce(case
+    when exists (select 1 from schul_themenplan p
+                  where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade) then
+      exists (select 1 from schul_themenplan p
+               where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+                 and (p.thema_key = v_sess.thema_key
+                      or p.halbjahr = case when extract(month from coalesce(v_sess.completed_at, v_sess.started_at,
+                                                                            v_sess.created_at) at time zone 'Europe/Berlin')
+                                                between 2 and 7 then 2 else 1 end))
+    else v_sess.thema_key = any (public.lsa_klp_themen(v_fach, v_sess.grade)) end, false);
+
+  -- LSA-V: Kommende Themen und der Rand. Haengt nur an Plan und Graph, nicht an
+  -- den Urteilen der Sitzung — einmal je Aufruf.
+  if v_pos_bekannt then
+    if exists (select 1 from schul_themenplan p
+                where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade) then
+      -- Aktuelle Position wie lernweg.ts (aktuellePosition, R7-9 Entscheidung 9):
+      -- das Thema der Sitzung; sonst der erste Eintrag des Halbjahrs der Sitzung
+      -- (Europe/Berlin, August–Januar 1, Februar–Juli 2); sonst der Anfang.
+      v_aktuell := coalesce(
+        (select min(p.position) from schul_themenplan p
+          where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+            and p.thema_key = v_sess.thema_key),
+        (select min(p.position) from schul_themenplan p
+          where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+            and p.halbjahr = case when extract(month from coalesce(v_sess.completed_at, v_sess.started_at,
+                                                                   v_sess.created_at) at time zone 'Europe/Berlin')
+                                       between 2 and 7 then 2 else 1 end),
+        0);
+      v_kommend := array(
+        select p.thema_key from schul_themenplan p
+         where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade
+           and p.position > v_aktuell and p.thema_key is not null
+           and p.thema_key is distinct from v_sess.thema_key  -- steht das Thema spaeter noch einmal im Plan
+         order by p.position
+         limit c_vorschau_themen);
+      v_spaeter := array(
+        select distinct p.thema_key from schul_themenplan p
+         where p.schule_id = v_schule and lower(p.fach) = v_fach and p.thema_key is not null
+           and ((p.klasse = v_sess.grade and p.position > v_aktuell) or p.klasse = v_sess.grade + 1));
+    else
+      -- Ohne Schule oder ohne Plan fuer die Klasse: Kernlehrplan, die Themen der
+      -- Klasse nach sort (wie klpPlan in plan.ts: die Stufe der Klasse, ab der
+      -- Klasse, sonst die ganze Stufe — themen.klasse steht je Stufe auf dem
+      -- ersten Jahr). Nach dem Thema der Sitzung; liegt es nicht darin, von vorn.
+      with klp as (
+        select th.thema_key, th.sort from themen th
+         where lower(th.fach) = v_fach
+           and th.stufe = case when v_sess.grade <= 6 then 'erprobung'
+                               when v_sess.grade <= 8 then 'erste' else 'zweite' end
+      ), k as (
+        select * from klp
+         where not exists (select 1 from themen th join klp using (thema_key) where th.klasse >= v_sess.grade)
+            or thema_key in (select th.thema_key from themen th join klp using (thema_key)
+                              where th.klasse >= v_sess.grade)
+      )
+      select array(select k.thema_key from k
+                    where k.sort > coalesce((select k2.sort from k k2 where k2.thema_key = v_sess.thema_key), -1)
+                    order by k.sort nulls last, k.thema_key
+                    limit c_vorschau_themen),
+             array(select th.thema_key from themen th
+                    where lower(th.fach) = v_fach
+                      and th.sort > coalesce((select k2.sort from k k2 where k2.thema_key = v_sess.thema_key),
+                                             (select min(k3.sort) from k k3) - 1))
+        into v_kommend, v_spaeter;
+    end if;
+
+    -- LSA-L3 (Entscheidung 4, beide Modi): Kommen im Plan der Klasse weniger als c_vorschau_themen Themen, fuellt
+    -- die Vorschau mit den ersten Themen der Klasse + 1 auf: Schulplan der Klasse + 1, sonst Kernlehrplan-Folge
+    -- der Klasse + 1 ohne die Themen, die bis zur eigenen Klasse im Plan (bzw. Kernlehrplan) stehen. Die Themen sind
+    -- nur Ziel: Sie zaehlen zu v_spaeter, ihre eigenen Skills werden nie gezogen, die Klassengrenze der Vorschau
+    -- bleibt v_sess.grade.
+    if cardinality(v_kommend) < c_vorschau_themen then
+      if exists (select 1 from schul_themenplan p
+                  where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade + 1) then
+        v_fuell := array(
+          select x.thema_key
+            from (select p.thema_key, min(p.position) as pos from schul_themenplan p
+                   where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade + 1
+                     and p.thema_key is not null
+                   group by p.thema_key) x
+           order by x.pos, x.thema_key);
+      else
+        v_fuell := array(
+          select f.thema_key
+            from unnest(public.lsa_klp_themen(v_fach, v_sess.grade + 1)) with ordinality f(thema_key, nr)
+           where not f.thema_key = any (
+                   case when exists (select 1 from schul_themenplan p where p.schule_id = v_schule
+                                        and lower(p.fach) = v_fach and p.klasse = v_sess.grade)
+                        then array(select p.thema_key from schul_themenplan p
+                                    where p.schule_id = v_schule and lower(p.fach) = v_fach
+                                      and p.klasse <= v_sess.grade and p.thema_key is not null)
+                        else public.lsa_klp_themen(v_fach, v_sess.grade) end)
+           order by f.nr);
+      end if;
+      v_spaeter := v_spaeter || v_fuell;
+      v_kommend := v_kommend || array(
+        select f.thema_key
+          from unnest(v_fuell) with ordinality f(thema_key, nr)
+         where f.thema_key is distinct from v_sess.thema_key and not f.thema_key = any (v_kommend)
+         order by f.nr
+         limit c_vorschau_themen - cardinality(v_kommend));
+    end if;
+    v_spaeter := array_remove(v_spaeter, v_sess.thema_key);
+
+    -- Rand je kommendem Thema u: Voraussetzungen von Skills aus u, die nicht zu u
+    -- gehoeren. Gehoert eine zu einem Thema, das ebenfalls noch kommt, tritt ihr
+    -- eigener Rand an ihre Stelle (rekursiv). Skills kommender Themen werden nie
+    -- gezogen.
+    with recursive u as (
+      select x.thema_key, x.rang::int as rang
+        from unnest(v_kommend) with ordinality x(thema_key, rang)
+    ), r(rang, sk, pfad) as (
+      select u.rang, k.voraussetzt_skill_key, array[k.voraussetzt_skill_key]
+        from u
+        join skill_thema st on st.thema_key = u.thema_key
+        join skill_kante k  on k.skill_key = st.skill_key
+       where not exists (select 1 from skill_thema x
+                          where x.skill_key = k.voraussetzt_skill_key and x.thema_key = u.thema_key)
+      union
+      select r.rang, k.voraussetzt_skill_key, r.pfad || k.voraussetzt_skill_key
+        from r
+        join skill_thema x on x.skill_key = r.sk and x.thema_key = any (v_spaeter)
+        join skill_kante k on k.skill_key = r.sk
+       where not k.voraussetzt_skill_key = any (r.pfad)
+    ), rand as (
+      select r.sk, min(r.rang) as rang, count(distinct r.rang)::int as n
+        from r
+       where not exists (select 1 from skill_thema x
+                          where x.skill_key = r.sk
+                            and (x.thema_key = any (v_spaeter) or x.thema_key = any (v_kommend)))
+       group by r.sk
+    )
+    select array_agg(sk order by sk), array_agg(rang order by sk), array_agg(n order by sk)
+      into v_rand_sk, v_rand_rang, v_rand_n
+      from rand;
+
+    select array_agg(t.sk order by t.sk), array_agg(t.rang order by t.sk)
+      into v_tief_sk, v_tief_rang
+      from (select a.skill_key as sk, min(x.rang) as rang
+              from unnest(v_rand_sk, v_rand_rang) x(sk, rang)
+              cross join lateral public.lsa_abschluss(x.sk) a
+             where not a.skill_key = any (coalesce(v_rand_sk, '{}'))
+               and not exists (select 1 from skill_thema st
+                                where st.skill_key = a.skill_key
+                                  and (st.thema_key = any (v_spaeter) or st.thema_key = any (v_kommend)))
+             group by a.skill_key) t;
+
+    -- LSA-L4 (Entscheidung 2): Bericht-Voraussetzungen (★) der kommenden Themen, wie der Bericht sein Signal bildet:
+    -- skill_kante s → g, s gehoert zum kommenden Thema, g nicht. Nur Klasse <= Kind und kein Skill eines Themas, das
+    -- noch kommt (Leitsatz; z. B. gleichung_quadr_formel, Klasse 10, nie).
+    select array_agg(x.sk order by x.sk), array_agg(x.rang order by x.sk)
+      into v_stern_sk, v_stern_rang
+      from (select k.voraussetzt_skill_key as sk, min(u.rang)::int as rang
+              from unnest(v_kommend) with ordinality u(thema_key, rang)
+              join skill_thema st on st.thema_key = u.thema_key
+              join skill_kante k  on k.skill_key = st.skill_key
+              join skills s       on s.skill_key = k.voraussetzt_skill_key
+             where s.klasse_herkunft <= v_sess.grade
+               and not exists (select 1 from skill_thema x
+                                where x.skill_key = k.voraussetzt_skill_key
+                                  and (x.thema_key = u.thema_key or x.thema_key = any (v_spaeter)
+                                       or x.thema_key = any (v_kommend)))
+             group by k.voraussetzt_skill_key) x;
+
+    -- LSA-L4 (Entscheidung 7): ohne Thema nie Skills aus Themen, die laut Plan noch kommen.
+    if not v_mit_thema then
+      v_neu_sk := array(select distinct st.skill_key from skill_thema st
+                         where st.thema_key = any (v_spaeter) or st.thema_key = any (v_kommend));
+    end if;
+  end if;
+
+  -- LSA-D Fix A/B (docs/lsa/diagnose-weiter.md, Abschnitte 2 und 7): Jede Phase filtert und sortiert erst nach
+  -- Urteil und Ausgabe; lsa_im_pool (im Testpool teuer: pruef_ausschluss, freigabe_gate_fehler) wird zuletzt
+  -- und nur bis zum ersten Treffer geprueft — ueber lsa_freie_aufgabe bzw. die Schleife in Schritt 5. Die
+  -- Auswahl ist dieselbe: der erste Kandidat der Reihenfolge, der eine freie Aufgabe im Pool hat.
+  loop
+    v_iter := v_iter + 1;
+    if v_iter > 100 then
+      return null;
+    end if;
+
+    -- Schritt 2: offener Zweitbeleg, immer Vorrang.
+    select u.skill_key into v_open
+      from lsa_skill_urteil u
+     where u.session_id = p_session_id and u.offen = true
+     order by u.skill_key
+     limit 1;
+
+    if v_open is not null then
+      select (zustand = 'traegt') into v_prefer_nonmc
+        from lsa_skill_urteil where session_id = p_session_id and skill_key = v_open;
+
+      v_task := public.lsa_freie_aufgabe(p_session_id, v_open, v_pool, coalesce(v_prefer_nonmc, false));
+
+      if v_task is not null then
+        return v_task;
+      end if;
+      update lsa_skill_urteil set offen = false, aktualisiert = now()
+        where session_id = p_session_id and skill_key = v_open;
+      continue;
+    end if;
+
+    -- Phase T: naechster ungepruefter Einstiegsknoten des Themas, groesster
+    -- offener Abschluss zuerst. Nur Knoten mit einer noch freien Aufgabe —
+    -- ein Thema ohne Aufgaben laesst Phase T einfach aus. KEINE Klassengrenze:
+    -- das Thema hat das Erstgespraech gewaehlt.
+    -- LSA-L3: 'vorschau_zuerst' nur bis v_kurz_bis (Thema kurz).
+    v_task := null;
+    for v_leaf in
+      select s.skill_key
+        from skills s
+       where s.skill_key = any (v_einstieg)
+         and (not v_vz or p_jetzt < v_beginn + v_kurz_bis)
+         and not exists (
+               select 1 from lsa_skill_urteil u
+                where u.session_id = p_session_id and u.skill_key = s.skill_key)
+       order by 1 + (select count(*) from public.lsa_abschluss(s.skill_key) a
+                      where not exists (
+                        select 1 from lsa_skill_urteil u
+                         where u.session_id = p_session_id and u.skill_key = a.skill_key)) desc,
+                s.fundament_tiefe desc, s.skill_key
+    loop
+      v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
+      exit when v_task is not null;
+    end loop;
+    if v_task is not null then
+      return v_task;
+    end if;
+
+    -- Phase Tiefe (alter Schritt 3). Mit Thema: nur unter Knoten des
+    -- Themenraums, nur bis c_tiefe_bis nach Sitzungsbeginn, ohne Klassengrenze.
+    -- Ohne Thema: wie bisher unter jedem gebrochenen Knoten, ohne Zeitgrenze,
+    -- mit Klassengrenze.
+    -- LSA-L3: 'vorschau_zuerst' hat seine Tiefe erst nach der Vorschau (unten).
+    v_desc := null;
+    if not v_vz and (not v_mit_thema or p_jetzt < v_beginn + c_tiefe_bis) then
+      select x.q into v_desc from (
+        select k.voraussetzt_skill_key as q, s.fundament_tiefe as tf
+          from lsa_skill_urteil u
+          join skill_kante k on k.skill_key = u.skill_key
+          join skills s on s.skill_key = k.voraussetzt_skill_key
+         where u.session_id = p_session_id
+           and u.offen = false
+           and u.zustand in ('traegt_nicht','nicht_angesetzt')
+           and (not v_mit_thema or u.skill_key = any (v_themenraum))
+           and not u.skill_key = any (v_ausblick)  -- LSA-V2: kein Abstieg unter Ausblick-Knoten
+           and (v_mit_thema or s.klasse_herkunft <= v_sess.grade)
+           and not k.voraussetzt_skill_key = any (v_neu_sk)  -- LSA-L4: ohne Thema nichts Kommendes
+           and not exists (
+                 select 1 from lsa_skill_urteil d
+                  where d.session_id = p_session_id and d.skill_key = k.voraussetzt_skill_key)
+         order by s.fundament_tiefe desc, k.voraussetzt_skill_key
+         limit 1
+      ) x;
+    end if;
+
+    if v_desc is not null then
+      v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
+      if v_task is not null then
+        return v_task;
+      end if;
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_desc, 'ungeprueft', false, false, 0)
+        on conflict (session_id, skill_key) do nothing;
+      continue;
+    end if;
+
+    -- LSA-V Vorschau: der Rand der naechsten Plan-Themen, bis c_vorschau_bis.
+    -- Randknoten immer; tiefere Knoten aus ihrem Abschluss nur direkt unter
+    -- einem in dieser Sitzung gebrochenen Knoten (eine Stufe je Bruch).
+    -- Klassengrenze, kein Urteil in der Sitzung, freie Aufgabe im Pool.
+    -- Reihenfolge: Randknoten mehrerer kommender Themen, naechstes Thema
+    -- zuerst, Rand vor Tiefe, groesster offener Abschluss, Tiefe, Schluessel.
+    -- Ein Kandidat ohne freie Aufgabe wird uebersprungen (Entscheidung 9; das
+    -- Urteil 'ungeprueft' brauchte es nur, wenn die Kandidatenwahl die Aufgabe
+    -- nicht schon prueft).
+    -- LSA-L3: 'vorschau_zuerst' bis c_vorschau_bis_vz.
+    v_task := null;
+    -- LSA-L4 (Entscheidung 8): auch ohne Thema, wenn die Planposition bekannt ist.
+    if v_pos_bekannt and p_jetzt < v_beginn + (case when v_vz then c_vorschau_bis_vz else c_vorschau_bis end) then
+      for v_desc in
+        select c.sk
+          from (select x.sk, x.rang, x.n, true as rand
+                  from unnest(v_rand_sk, v_rand_rang, v_rand_n) x(sk, rang, n)
+                union all
+                select x.sk, x.rang, 1, false
+                  from unnest(v_tief_sk, v_tief_rang) x(sk, rang)
+                 where exists (
+                         select 1 from lsa_skill_urteil u
+                           join skill_kante k on k.skill_key = u.skill_key
+                          where u.session_id = p_session_id
+                            and u.offen = false
+                            and u.zustand in ('traegt_nicht','nicht_angesetzt')
+                            and k.voraussetzt_skill_key = x.sk
+                            and (u.skill_key = any (v_rand_sk) or u.skill_key = any (v_tief_sk)))) c
+          join skills s on s.skill_key = c.sk
+         where s.klasse_herkunft <= v_sess.grade
+           and not exists (
+                 select 1 from lsa_skill_urteil u
+                  where u.session_id = p_session_id and u.skill_key = c.sk)
+         order by case when c.rand and c.n > 1 then 0 else 1 end,
+                  c.rang,
+                  case when c.rand then 0 else 1 end,
+                  1 + (select count(*) from public.lsa_abschluss(c.sk) a
+                        where not exists (
+                          select 1 from lsa_skill_urteil u
+                           where u.session_id = p_session_id and u.skill_key = a.skill_key)) desc,
+                  s.fundament_tiefe desc, c.sk
+      loop
+        v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
+        exit when v_task is not null;
+      end loop;
+      -- LSA-L4 (Entscheidungen 2/3): danach die nur mitbelegten Bericht-Voraussetzungen (★), naechstes Thema zuerst.
+      -- Sie verdraengen keine ungeprueften Knoten (die kamen oben). Die direkte Probe ersetzt das mitbelegte Urteil
+      -- (lsa_urteil_buchen_core); bricht der Knoten, steigt die Vorschau wie oben eine Stufe ab (★ ist Rand).
+      if v_task is null then
+        for v_desc in
+          select x.sk
+            from unnest(v_stern_sk, v_stern_rang) x(sk, rang)
+            join skills s on s.skill_key = x.sk
+            join lsa_skill_urteil u on u.session_id = p_session_id and u.skill_key = x.sk
+           where not u.offen and not u.belegt_direkt and u.proben_anzahl = 0 and u.zustand = 'traegt'
+           order by x.rang, s.fundament_tiefe desc, x.sk
+        loop
+          v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
+          exit when v_task is not null;
+        end loop;
+      end if;
+    end if;
+    if v_task is not null then
+      return v_task;
+    end if;
+
+    -- LSA-L3 Tiefe 'vorschau_zuerst': unter gebrochenen Knoten des Themenraums, bis c_tiefe_bis_vz, ohne
+    -- Klassengrenze wie die Tiefe in 'thema_zuerst' (der Themenraum ist Stoff des aktuellen Themas). Zuerst Knoten,
+    -- die zugleich Voraussetzung einer kommenden Arbeit sind (Rand oder Abschluss).
+    v_desc := null;
+    if v_vz and p_jetzt < v_beginn + c_tiefe_bis_vz then
+      select k.voraussetzt_skill_key into v_desc
+        from lsa_skill_urteil u
+        join skill_kante k on k.skill_key = u.skill_key
+        join skills s on s.skill_key = k.voraussetzt_skill_key
+       where u.session_id = p_session_id
+         and u.offen = false
+         and u.zustand in ('traegt_nicht','nicht_angesetzt')
+         and u.skill_key = any (v_themenraum)
+         and not exists (
+               select 1 from lsa_skill_urteil d
+                where d.session_id = p_session_id and d.skill_key = k.voraussetzt_skill_key)
+       order by (k.voraussetzt_skill_key = any (coalesce(v_rand_sk, '{}'))
+                 or k.voraussetzt_skill_key = any (coalesce(v_tief_sk, '{}'))) desc,
+                s.fundament_tiefe desc, k.voraussetzt_skill_key
+       limit 1;
+    end if;
+    if v_desc is not null then
+      v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
+      if v_task is not null then
+        return v_task;
+      end if;
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_desc, 'ungeprueft', false, false, 0)
+        on conflict (session_id, skill_key) do nothing;
+      continue;
+    end if;
+
+    -- LSA-V Thema vertiefen: ungepruefte Knoten des Themenraums, ohne
+    -- Zeitgrenze und ohne Klassengrenze (wie Phase T).
+    -- LSA-L3: nicht in 'vorschau_zuerst' (Thema kurz, dann Vorschau, Tiefe, Rueckblick).
+    v_task := null;
+    if v_mit_thema and not v_vz then
+      for v_leaf in
+        select s.skill_key
+          from skills s
+         where s.skill_key = any (v_themenraum)
+           and not exists (
+                 select 1 from lsa_skill_urteil u
+                  where u.session_id = p_session_id and u.skill_key = s.skill_key)
+         order by 1 + (select count(*) from public.lsa_abschluss(s.skill_key) a
+                        where not exists (
+                          select 1 from lsa_skill_urteil u
+                           where u.session_id = p_session_id and u.skill_key = a.skill_key)) desc,
+                  s.fundament_tiefe desc, s.skill_key
+      loop
+        v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
+        exit when v_task is not null;
+      end loop;
+    end if;
+    if v_task is not null then
+      return v_task;
+    end if;
+
+    -- LSA-V2 Ausblick: die Einstiegsknoten der naechsten Plan-Themen, in der
+    -- Reihenfolge von lsa_ausblick_knoten. Nur fuer starke Kinder (bei jedem
+    -- Aufruf geprueft). Haben die letzten zwei Ausblick-Knoten nicht traegt
+    -- ergeben, endet der Ausblick. Die Knoten werden in ihrer Reihenfolge
+    -- beurteilt, die letzten zwei Urteile sind also die zwei hoechsten
+    -- Stellen (die Uhr der Urteile taugt dafuer nicht: in einer Transaktion
+    -- tragen alle dasselbe now()).
+    v_task := null;
+    if cardinality(v_ausblick) > 0 then
+      select count(*), count(*) filter (where u.zustand = 'traegt')
+        into v_urteile, v_traegt
+        from lsa_skill_urteil u
+       where u.session_id = p_session_id and u.belegt_direkt and not u.offen;
+      if v_urteile >= c_ausblick_min_urteile and v_traegt >= c_ausblick_anteil * v_urteile
+         and not coalesce((select count(*) = 2 and bool_and(y.zustand <> 'traegt')
+                             from (select u.zustand
+                                     from unnest(v_ausblick) with ordinality x(sk, nr)
+                                     join lsa_skill_urteil u on u.session_id = p_session_id and u.skill_key = x.sk
+                                    where u.belegt_direkt and not u.offen
+                                    order by x.nr desc
+                                    limit 2) y), false) then
+        for v_leaf in
+          select x.sk
+            from unnest(v_ausblick) with ordinality x(sk, nr)
+           where not exists (
+                   select 1 from lsa_skill_urteil u
+                    where u.session_id = p_session_id and u.skill_key = x.sk)
+           order by x.nr
+        loop
+          v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
+          exit when v_task is not null;
+        end loop;
+      end if;
+    end if;
+    if v_task is not null then
+      return v_task;
+    end if;
+
+    -- Breite a: Einstiegsknoten der schon behandelten Themen, zuletzt
+    -- behandelt zuerst — nach der Stellung im Schulplan der Schule des Leads
+    -- (Klasse, dann Position; die Position beginnt je Klasse neu), ohne Plan
+    -- nach themen.sort absteigend.
+    -- LSA-V: als Rueckblick nach Vorschau und Thema vertiefen; Schule ueber
+    -- lsa_schule_von_sitzung.
+    -- LSA-L4 (Entscheidung 8): ohne Thema erst nach Breite b (v_ohne_rueck).
+    v_task := null;
+    if v_mit_thema or v_ohne_rueck then
+      for v_leaf in
+        select te.skill_key
+          from lead_themen lt
+          join themen th         on th.thema_key = lt.thema_key
+          join thema_einstieg te on te.thema_key = lt.thema_key
+          join skills s          on s.skill_key  = te.skill_key
+         where lt.lead_id = v_lead
+           and lt.status = 'behandelt'
+           and lower(lt.fach) = v_fach
+           and s.klasse_herkunft <= v_sess.grade
+           and not exists (
+                 select 1 from lsa_skill_urteil u
+                  where u.session_id = p_session_id and u.skill_key = te.skill_key)
+         order by (select max(p.klasse * 1000 + p.position)
+                     from schul_themenplan p
+                    where p.schule_id = v_schule
+                      and p.thema_key = lt.thema_key
+                      and lower(p.fach) = v_fach) desc nulls last,
+                  th.sort desc nulls last,
+                  1 + (select count(*) from public.lsa_abschluss(te.skill_key) a
+                        where not exists (
+                          select 1 from lsa_skill_urteil u
+                           where u.session_id = p_session_id and u.skill_key = a.skill_key)) desc,
+                  s.fundament_tiefe desc, te.skill_key
+      loop
+        v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
+        exit when v_task is not null;
+      end loop;
+    end if;
+    if v_task is not null then
+      return v_task;
+    end if;
+
+    -- LSA-V: Mit Thema endet die Sitzung hier — keine Breite b, keine
+    -- Restzeit-Fuellung. Lieber frueher fertig als ein Bereich ohne Grund.
+    if v_mit_thema then
+      return null;
+    end if;
+
+    -- Breite b (alter Schritt 4): neues Blatt nach gieriger Deckung. Mit Thema
+    -- ohne Abstieg (die Tiefe oben greift nur im Themenraum), ohne Thema mit.
+    select y.leaf into v_leaf from (
+      select b.skill_key as leaf, s.fundament_tiefe as tf,
+             1 + (select count(*) from public.lsa_abschluss(b.skill_key) a
+                   where not exists (
+                     select 1 from lsa_skill_urteil u
+                      where u.session_id = p_session_id and u.skill_key = a.skill_key)) as neu
+        from skills b join skills s on s.skill_key = b.skill_key
+       where not exists (select 1 from skill_kante k where k.voraussetzt_skill_key = b.skill_key)
+         and b.klasse_herkunft <= v_sess.grade
+         and not b.skill_key = any (v_neu_sk)  -- LSA-L4: ohne Thema nichts Kommendes
+         and not exists (
+               select 1 from lsa_skill_urteil u
+                where u.session_id = p_session_id and u.skill_key = b.skill_key)
+       order by neu desc, s.fundament_tiefe desc, b.skill_key
+       limit 1
+    ) y;
+
+    if v_leaf is not null then
+      v_task := public.lsa_freie_aufgabe(p_session_id, v_leaf, v_pool);
+      if v_task is not null then
+        return v_task;
+      end if;
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_leaf, 'ungeprueft', false, false, 0)
+        on conflict (session_id, skill_key) do nothing;
+      continue;
+    end if;
+
+    -- LSA-L4 (Entscheidung 8): ohne Thema mit Planposition nach Breite b der Rueckblick, dann erst Schritt 5.
+    if v_pos_bekannt and not v_ohne_rueck then
+      v_ohne_rueck := true;
+      continue;
+    end if;
+
+    -- Schritt 5: Restzeit. Erst nach Klasse, Ausgabe und Urteil sortieren,
+    -- dann lsa_im_pool bis zum ersten Treffer (LSA-D: hier lagen alle
+    -- langsamen Aufrufe, der Pool-Test lief vor dem Ausschluss ueber die Urteile).
+    -- LSA-L2 (A): auch hier keine Aufgabe, deren Text einer schon ausgegebenen gleicht.
+    v_schluessel := public.lsa_ausgegebene_schluessel(p_session_id);
+    for v_kand in
+      select t.id
+        from tasks t
+        join skills s on s.skill_key = t.skill_key
+       where s.klasse_herkunft <= v_sess.grade
+         and not t.skill_key = any (v_neu_sk)  -- LSA-L4: ohne Thema nichts Kommendes
+         and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id and a.task_id = t.id)
+         and not coalesce(public.lsa_text_schluessel(t.question, t.parts) = any (v_schluessel), false)
+         and not exists (select 1 from lsa_responses r  where r.session_id = p_session_id and r.task_id = t.id)
+         and not exists (
+               select 1 from lsa_skill_urteil u
+                where u.session_id = p_session_id and u.skill_key = t.skill_key)
+       order by t.sondierrang nulls last, md5(p_session_id::text || t.id::text)
+    loop
+      if public.lsa_im_pool(v_kand, v_pool) then
+        return v_kand;
+      end if;
+    end loop;
+
+    return null;
+  end loop;
+end;
+$function$;

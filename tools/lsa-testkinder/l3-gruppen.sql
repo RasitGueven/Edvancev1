@@ -5,6 +5,7 @@
 -- Einstellungen: l3.schule (Name oder leer), l3.klasse, l3.thema, l3.behandelt (Komma-Liste).
 -- Spalten: skill_key, klasse, feld, gruppe (erste Gruppe), alle_gruppen, ka (Ränge 2..4: KA2 = erstes kommendes Thema),
 -- bericht_ka (Ränge, für die der Skill Bericht-Voraussetzung ist), kommend (die kommenden Themen, für die Kopfzeile).
+-- LSA-L4: Gruppe „Kommend“ = Skills aus Themen, die laut Plan noch kommen, außerhalb des Themenraums (darf nie kommen).
 with recursive
 par as (
   select current_setting('l3.klasse')::int as kl, current_setting('l3.thema') as th,
@@ -93,6 +94,10 @@ par as (
 ), ausblick as (  -- Einstiege der kommenden Themen (darf nie gezogen werden)
   select distinct te.skill_key as sk from kommend u join thema_einstieg te on te.thema_key = u.thema_key
    where te.skill_key not in (select sk from raum)
+), kommend_sk as (  -- LSA-L4: Skills aus Themen, die laut Plan noch kommen (ausser dem Themenraum)
+  select distinct st.skill_key as sk from skill_thema st
+   where st.thema_key in (select thema_key from spaeter union select thema_key from kommend)
+     and st.skill_key not in (select sk from raum)
 ), mitglied as (
   select sk, 1 as ord, 'Thema' as gruppe, null::text as art from raum join skills s on s.skill_key = raum.sk, par
    where s.klasse_herkunft >= par.kl
@@ -103,6 +108,7 @@ par as (
    where s.klasse_herkunft < par.kl
   union all select sk, 6, 'Rückblick', null from rueck
   union all select sk, 7, 'Ausblick', null from ausblick
+  union all select sk, 8, 'Kommend', null from kommend_sk
 )
 select m.sk as skill_key, s.klasse_herkunft as klasse, public.lsa_themenfeld(m.sk) as feld,
        (array_agg(m.gruppe order by m.ord))[1] as gruppe,

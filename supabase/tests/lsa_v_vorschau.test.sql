@@ -312,18 +312,23 @@ select ok(not has_function_privilege('authenticated', 'public.lsa_schule_von_sit
   'i: lsa_schule_von_sitzung ist fuer anon/authenticated nicht aufrufbar');
 
 -- ============================================================================
--- j) Ohne Thema: unveraendert (Erwartungen aus einem Lauf mit 20261021083026)
+-- j) Ohne Thema. Bis LSA-L4 wie vor LSA-V (Erwartungen aus einem Lauf mit 20261021083026:
+--    j1 'zv_u1a,zv_u2a,zv_c1,zv_a1,zv_b1,zv_f1,zv_h1,-',
+--    j2 'zv_u1a,zv_u1a,zv_u1b,zv_x,zv_x,zv_r1,zv_r1,zv_t1,zv_u2a,zv_c1,zv_c1,zv_c2,zv_c2,zv_a1,zv_b1,zv_b1,zv_f1,zv_f1,zv_h1,zv_r3,-').
+-- LSA-L4 (20261025232926, Entscheidungen 7/8): Plan ZV mit Halbjahr 1 (Oktober) -> Planposition bekannt. Die Vorschau
+-- laeuft auch ohne Thema (Rand zv_r1, zv_r3, zv_r5, zv_r7, zv_r2), danach Breite b; Skills kommender Themen (zv_u1a,
+-- zv_u1b, zv_u2a, zv_x) kommen nicht mehr.
 -- ============================================================================
-\set j1_erwartet 'zv_u1a,zv_u2a,zv_c1,zv_a1,zv_b1,zv_f1,zv_h1,-'
-\set j2_erwartet 'zv_u1a,zv_u1a,zv_u1b,zv_x,zv_x,zv_r1,zv_r1,zv_t1,zv_u2a,zv_c1,zv_c1,zv_c2,zv_c2,zv_a1,zv_b1,zv_b1,zv_f1,zv_f1,zv_h1,zv_r3,-'
+\set j1_erwartet 'zv_r1,zv_r3,zv_r5,zv_r7,zv_r2,zv_c1,zv_a1,zv_b1,zv_f1,zv_h1,-'
+\set j2_erwartet 'zv_r1,zv_r1,zv_t1,zv_r3,zv_r3,zv_r5,zv_r5,zv_r7,zv_r2,zv_c1,zv_c1,zv_c2,zv_c2,zv_a1,zv_b1,zv_b1,zv_f1,zv_f1,zv_h1,-'
 select pg_temp.kind(null, 'ZV Schule') as k_j1 \gset
 select pg_temp.start(:'k_j1') as s_j1 \gset
 select is(pg_temp.folge(:'s_j1', 'rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', '35 seconds'),
-  :'j1_erwartet', 'j: ohne Thema, alles richtig — Folge wie vor LSA-V');
+  :'j1_erwartet', 'j: ohne Thema, alles richtig — Vorschau, dann Breite b (LSA-L4)');
 select pg_temp.kind(null, 'ZV Schule') as k_j2 \gset
 select pg_temp.start(:'k_j2') as s_j2 \gset
 select is(pg_temp.folge(:'s_j2', 'ffrfrffrrfffrrfrffrrrfrfffrfrr', '35 seconds'),
-  :'j2_erwartet', 'j: ohne Thema, gemischt — Folge wie vor LSA-V');
+  :'j2_erwartet', 'j: ohne Thema, gemischt — Vorschau mit Abstieg, dann Breite b (LSA-L4)');
 select ok(exists (select 1 from lsa_skill_urteil where session_id = :'s_j2' and zustand = 'traegt_nicht'),
   'j: ... die gemischte Folge bricht wirklich (Abstieg und Breite b laufen)');
 select ok((select count(*) from lsa_ausgegeben a join tasks t on t.id = a.task_id join skills s using (skill_key)

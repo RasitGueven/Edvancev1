@@ -67,8 +67,20 @@ select kind.kind as "Kind", coalesce(max(i.modus), '–') as "Modus", count(i.nr
        (select count(*) filter (where direkt) || '/' || count(*) filter (where pool) from raum where raum.kind = kind.kind)
          as "Themenraum",
        (select count(*) filter (where direkt) from raum where raum.kind = kind.kind and raum.gruppe = 'Thema') as "Thema dir.",
-       count(i.nr) filter (where i.alle_gruppen ~ 'Ausblick') as "Ausblick",
+       count(i.nr) filter (where i.alle_gruppen ~ '(Ausblick|Kommend)') as "Ausblick",
        count(i.nr) filter (where i.klasse > kind.kl) as "Kl.>",
+       count(i.nr) filter (where i.klasse > kind.kl and coalesce(i.alle_gruppen, '') !~ '(Thema|Grundlage)') as "Kl.> a.T.",
+       -- LSA-L4: Bericht-Voraussetzungen, die erst mitbelegt waren und danach direkt geprueft wurden: die erste Aufgabe
+       -- des Skills kam nach der letzten Aufgabe eines direkt sicheren Skills, dessen Abschluss ihn enthaelt.
+       (select count(distinct g.skill_key) from l3_gruppe g
+          join l3_item a on a.kind = g.kind and a.skill_key = g.skill_key
+         where g.kind = kind.kind and g.bericht_ka is not null
+           and a.nr = (select min(a2.nr) from l3_item a2 where a2.kind = g.kind and a2.skill_key = g.skill_key)
+           and exists (select 1 from lsa_skill_urteil ub
+                        where ub.session_id = a.sid and ub.belegt_direkt and ub.zustand = 'traegt'
+                          and (select max(b.nr) from l3_item b where b.kind = g.kind and b.skill_key = ub.skill_key) < a.nr
+                          and exists (select 1 from public.lsa_abschluss(ub.skill_key) x where x.skill_key = g.skill_key))
+       ) as "mit→dir",
        (select count(*) - count(distinct f.text_hash) from l2_folge f where f.kind = kind.kind) as "(b)",
        (select count(*) from l2_lauf f where f.kind = kind.kind and f.text_hash = f.hash_davor) as "(c)",
        (select count(*) from (select 1 from l2_lauf f where f.kind = kind.kind and f.skill_key is not null
@@ -95,8 +107,8 @@ select i.kind as "Kind", i.nr as "Nr", i.minute as "Min", case
        case when i.gruppe like 'KA%' then 'Voraussetzung ' || i.gruppe else i.gruppe end as "Gruppe",
        i.ergebnis as "Ergebnis"
   from l3_item i
- where i.kind in ('BatuB', 'BatuG', 'BatuN4', 'BatuS2', 'Mia', 'MiaB')
- order by array_position(array['BatuB', 'BatuG', 'BatuN4', 'BatuS2', 'Mia', 'MiaB'], i.kind), i.nr;
+ where i.kind in ('BatuB', 'BatuG', 'BatuN4', 'BatuS2', 'Mia', 'MiaB', 'Sophie', 'Max')
+ order by array_position(array['BatuB', 'BatuG', 'BatuN4', 'BatuS2', 'Mia', 'MiaB', 'Sophie', 'Max'], i.kind), i.nr;
 
 \echo '## L3: Bericht-Voraussetzungen je KA (L3-Kinder und Batu)'
 select g.kind as "Kind", 'KA' || r.rang as "KA",

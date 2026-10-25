@@ -164,3 +164,12 @@ KINDER_ZUSATZ=$(pwd)/tools/lsa-testkinder/l3-kinder.sql AUSWERTUNG=l3-auswertung
 Bericht-Voraussetzungen der nächsten drei Klassenarbeiten, Themenraum, Ausblick, Aufgaben über der Klasse,
 Wiederholungen und einen md5 der Folge aus. Ergebnisse: `docs/lsa/l3-simulation.md`. Die Laufzeitmessung
 `tools/lsa-weiter-messung.sql` nimmt `-v ka=geschrieben` für den Modus `vorschau_zuerst`.
+
+## LSA-L4: frische Prod-Fixture, Lenas Freigaben
+
+- `l4-pool.sql` (dbread, nur lesend) erzeugt `l4-pool-fixture.sql`: den freigegebenen Prod-Pool (synthetische ids,
+  keine Inhalte) und Lenas 36 Entwürfe aus `docs/lsa/freigabeliste-batu-1025.md` (Spalte `lena`).
+- `l4-fixture.sql` = Pool `l4` (nur freigegeben), `l4-lena-fixture.sql` = Pool `lena` (plus Lenas Entwürfe als frei).
+- `simulation.sh` kennt `POOLS="neuaufbau prod l4 lena"`. `l3-auswertung.sql` hat die Spalten „mit→dir“ (★ erst
+  mitbelegt, dann direkt), „Ausblick“ (auch ohne Thema: Skills kommender Themen, Gruppe „Kommend“) und „Kl.> a.T.“.
+  Ergebnisse: `docs/lsa/l4-simulation.md`.
