@@ -23,6 +23,10 @@
 
 -- ── Die Kinder: Profile in kinder.sql ────────────────────────────────────────────────────────────
 \ir kinder.sql
+-- LSA-L3: weitere Kinder nur für die Simulation (-v kinder_zusatz=<datei>, hängt an lsat.kinder an).
+\if :{?kinder_zusatz}
+\i :kinder_zusatz
+\endif
 
 -- ── Schalter nur: nur die genannten Kinder (Komma-Liste), ohne nur alle ──────────────────────────
 \if :{?nur}
@@ -81,18 +85,22 @@ begin
 
     insert into leads (id, full_name, first_name, contact_email, class_level, school_type, school_name, schule_id,
                        subjects, goal, last_grade, grade_trend, next_exam_date, next_exam_topic, source, status,
-                       notes, erstgespraech_at, erstgespraech_standort, consent_dsgvo_at, consent_dsgvo_by, ist_test)
+                       notes, erstgespraech_at, erstgespraech_standort, consent_dsgvo_at, consent_dsgvo_by, ist_test,
+                       klassenarbeit_status, letzte_klassenarbeit_note)
     values (v_lead, k ->> 'name', k ->> 'kind', lower(k ->> 'kind') || '@example.invalid', (k ->> 'klasse')::int,
             k ->> 'schulform', k ->> 'schule', v_schule, '{Mathematik}', k ->> 'goal', k ->> 'letzte_note', k ->> 'trend',
             current_date + (k ->> 'pruefung_tage')::int, k ->> 'pruefung_thema', 'lsa-testkinder', 'contacted',
             'Testkind LSA-T (Phantasiedaten). Interessenswelt: ' || (k ->> 'interessen'),
-            now() - interval '7 days', 'koeln', now(), v_admin, true)
+            now() - interval '7 days', 'koeln', now(), v_admin, true,
+            k ->> 'ka_status', (k ->> 'ka_note')::smallint)
     on conflict (id) do update
        set full_name = excluded.full_name, first_name = excluded.first_name, contact_email = excluded.contact_email,
            class_level = excluded.class_level, school_type = excluded.school_type, school_name = excluded.school_name,
            schule_id = excluded.schule_id, goal = excluded.goal, last_grade = excluded.last_grade,
            grade_trend = excluded.grade_trend, next_exam_date = excluded.next_exam_date,
-           next_exam_topic = excluded.next_exam_topic, notes = excluded.notes;
+           next_exam_topic = excluded.next_exam_topic, notes = excluded.notes,
+           klassenarbeit_status = excluded.klassenarbeit_status,
+           letzte_klassenarbeit_note = excluded.letzte_klassenarbeit_note;
 
     -- Der provisorische Schüler, wie lead_lsa_freigeben ihn anlegt — nur mit fester id.
     perform set_config('edvance.allow_provisional', '1', true);

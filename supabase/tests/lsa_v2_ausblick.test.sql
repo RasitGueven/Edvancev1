@@ -20,12 +20,14 @@
 --   za_u1    (sort 8020): Einstiege za_u1a (8,5) -> za_r1 (7,2); za_u1b (8,3); za_u1c (8,3) ohne Aufgabe
 --   za_u2    (sort 8030): Einstiege za_u2a (8,2) nur MC; za_u2x (10,1)
 --   za_klp3  (sort 8040): Einstieg za_k3 (8,4)
---   za_n     (Kl. 9)    : Einstieg za_n1 (9,4) -> za_n0 (8,1)
+--   za_n     (Kl. 9)    : Einstieg za_n1 (9,4) -> za_n0 (9,1)
 --   za_n2    (Kl. 9)    : Einstieg za_n2a (9,1)
 --   za_klein (sort 8005): Einstiege za_k1, za_k2 (8,3)
 --   za_alt   (Kl. 7, behandelt): Einstieg za_b1 (7,1)
 --   ohne Thema: za_f01..za_f30 (7,1), Fuellmaterial fuer den Deckel
 -- Plan Schule ZA: Kl. 8: 1 za_akt, 2 za_u1, 3 za_u2; Kl. 9: 1 za_n, 2 za_n2. Schule ZB: Kl. 8: 1 za_klein, 2 za_u1.
+-- LSA-L3 (20261025223011): Die Vorschau fuellt jetzt aus Klasse 9 auf (za_n, za_n2). za_n0 steht deshalb auf
+-- Klasse 9 statt 8, sonst zoege die Vorschau ihn als Rand von za_n; der Ausblick bleibt, wie er war.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
@@ -46,7 +48,7 @@ insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe)
 select k, upper(k), 'mathematik', kl, tf from (values
   ('za_a1', 8, 6), ('za_a2', 8, 6), ('za_a3', 8, 6), ('za_a4', 8, 6), ('za_a5', 8, 6), ('za_a6', 8, 6),
   ('za_u1a', 8, 5), ('za_r1', 7, 2), ('za_u1b', 8, 3), ('za_u1c', 8, 3), ('za_u2a', 8, 2), ('za_u2x', 10, 1),
-  ('za_k3', 8, 4), ('za_n1', 9, 4), ('za_n0', 8, 1), ('za_n2a', 9, 1), ('za_k1', 8, 3), ('za_k2', 8, 3),
+  ('za_k3', 8, 4), ('za_n1', 9, 4), ('za_n0', 9, 1), ('za_n2a', 9, 1), ('za_k1', 8, 3), ('za_k2', 8, 3),
   ('za_b1', 7, 1)) v(k, kl, tf)
 union all
 select 'za_f' || lpad(i::text, 2, '0'), 'ZA F', 'mathematik', 7, 1 from generate_series(1, 30) i;

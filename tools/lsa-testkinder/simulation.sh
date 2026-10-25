@@ -4,6 +4,8 @@
 #   bash tools/lsa-testkinder/simulation.sh [<migration.sql> [<variante.sql> …]]
 #   POOLS="neuaufbau prod" (Standard): neuaufbau = neuaufbau-fixture.sql (drei Aufgaben je Skill),
 #                                      prod      = l2-fixture.sql (der freigegebene Prod-Pool, LSA-L2)
+#   KINDER_ZUSATZ=<datei>  weitere Kinder (LSA-L3: l3-kinder.sql), an erzeugen.sql als -v kinder_zusatz
+#   AUSWERTUNG="…"         weitere Auswertungen nach l2-auswertung.sql (LSA-L3: l3-auswertung.sql)
 #
 # Nur lokal: baut eine Grundlage-DB im lokalen Postgres (wie tools/neuaufbau-test.sh: Grundlage, alle Migrationen
 # außer der genannten, seed.sql) und daraus je Stand eine Kopie: „vorher“ ohne die Migration, „nachher“ mit ihr,
@@ -18,6 +20,8 @@ MIG="${1:-$(ls supabase/migrations/*_lsa_l2_wiederholung.sql | tail -1)}"
 shift || true
 VARIANTEN=("$@")
 POOLS="${POOLS:-neuaufbau prod}"
+KINDER_ZUSATZ="${KINDER_ZUSATZ:-}"
+AUSWERTUNG="${AUSWERTUNG:-}"
 # Nur das lokale Postgres (wie neuaufbau-test.sh); DATABASE_URL (Prod) wird nie benutzt.
 case "${PGHOST:-}" in *supabase*) echo "Nur gegen ein lokales Postgres."; exit 1 ;; esac
 unset DATABASE_URL
@@ -49,8 +53,10 @@ lauf() {  # $1 = DB, $2 = Titel
     # nur die Änderung, nicht den Zufall. Zurückgerollt wie alles andere.
     { echo 'begin;'; echo 'create sequence zz_lsasim_sitzung;'
       echo "alter table lsa_sessions alter column id set default md5('lsasim-' || nextval('zz_lsasim_sitzung'))::uuid;"
+      [[ -z "$KINDER_ZUSATZ" ]] || echo "\\set kinder_zusatz $KINDER_ZUSATZ"
       echo '\o /dev/null'; echo "\\i $fixture"; echo "\\i $T/erzeugen.sql"; echo '\o'
-      echo "\\i $T/auswertung.sql"; echo "\\i $T/l2-auswertung.sql"; echo 'rollback;'; } > "$skript"
+      echo "\\i $T/auswertung.sql"; echo "\\i $T/l2-auswertung.sql"
+      for a in $AUSWERTUNG; do echo "\\i $T/$a"; done; echo 'rollback;'; } > "$skript"
     psql -X -q -d "$1" -v ON_ERROR_STOP=1 -f "$skript" 2>&1 | grep -vE 'NOTICE|HINWEIS|^DETAIL|^CONTEXT' || true
     rm -f "$skript"
   done
