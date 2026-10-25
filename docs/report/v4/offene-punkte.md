@@ -78,3 +78,19 @@ Gemeldet, nicht angepasst (Auftrag: „Abweichungen melden, nicht anpassen“).
     bis zum Timeout. Einzeln liefen sie grün, ebenso der volle Lauf am 25.10. abends (493 grün).
 20. `e2e-druck` und ein älterer Präsentations-Spec schreiben ihre Fotos fest nach `docs/report/r7/…`.
     Nach jedem Lauf sind diese Dateien zurückzusetzen.
+
+## Aus Schritt 7 (echte Sitzungen gerendert, 25.10.2026)
+
+21. **Behoben in #322:** Bei „bevorstehend“ war die Lücke im aktuellen Thema nie Ziel von Klassenarbeit 1. Seite 4
+    sagte „Darauf bereiten wir zuerst vor“, zeigte aber „Voraussetzung für Klassenarbeit 5“.
+22. **Station 03 / Seite 3 bei „bevorstehend“:** Die Karte der anstehenden Arbeit zum aktuellen Thema bleibt
+    leer, auch wenn im Thema selbst eine Lücke liegt. `signaleJeThema` ordnet Bereiche nur den Themen zu, für
+    die sie Voraussetzung sind, nicht dem eigenen Thema.
+23. **„trägt/tragen“ in abgenommenen Bausteinen (`report_bausteine`):** `fazit.keine.a` („die Grundlagen
+    darunter tragen“), `fazit.mehrere.b`, `fazit.zwei.b` („Was noch nicht trägt …“) und
+    `rueckbezug.grundlagen_bestaetigend_mitte.a` widersprechen der Leitplanke. Der Invariantentest prüft nur
+    i18n-Texte, keine DB-Bausteine. → Lena.
+24. **Fast gleiche Punktnamen im Lernpfad:** Eine Lücke im aktuellen Thema „Terme und Gleichungen“ und das
+    Themenfeld „Terme & Gleichungen“ können direkt hintereinander stehen.
+25. **Leerzustand ohne Übungsbedarf** (kein Lernpfad-Punkt) ist nur über echte Daten belegt, nicht als Fixture
+    mit Fahrplan.
