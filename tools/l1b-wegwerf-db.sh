@@ -4,7 +4,8 @@
 #   L1B_SOCKET=<socket-ordner> bash tools/l1b-wegwerf-db.sh <fixture-ordner>
 #
 # Ablauf: Basis ohne die L1b-Migration + seed, Prod-Fixture laden, Rasits Profil anlegen,
-# Migration → Prüfskript (Antworten stehen aus) → tools/l1b-antworten.sql → Prüfskript →
+# Migration → Prüfskript (Antworten stehen aus) → tools/l1b-antworten.sql → Nachtrag (direkt freigeben,
+# Antworttexte) → Prüfskript →
 # Migration ein zweites Mal (ändert nichts) → Prüfskript.
 #
 # Die Fixture ist ein read-only Abzug der Inhaltstabellen aus Prod (dbread, \copy … csv header, ohne generierte
@@ -61,6 +62,8 @@ echo "Fixture: $(psql -X -tA "postgresql:///$DB" -c "select count(*) from public
 echo "Migration:"; spiele "supabase/migrations/$M" "$DB"
 spiele supabase/checks/l1b_rueckfragen.PRUEFUNG.sql "$DB"
 echo "Antworten:"; psql -X -q "postgresql:///$DB" -v ON_ERROR_STOP=1 -f tools/l1b-antworten.sql
+echo "Nachtrag:"; psql -X -q "postgresql:///$DB" -v ON_ERROR_STOP=1 -f tools/l1b-nachtrag-freigeben.sql
+psql -X -q "postgresql:///$DB" -v ON_ERROR_STOP=1 -f tools/l1b-antworten-nachtrag.sql
 spiele supabase/checks/l1b_rueckfragen.PRUEFUNG.sql "$DB"
 vorher=$(stand)
 echo "Zweiter Lauf:"; spiele "supabase/migrations/$M" "$DB"

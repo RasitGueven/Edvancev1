@@ -6,6 +6,8 @@
 - Daten-Migration `20261025143853_lena_rueckmeldungen_1025` mit Rollback: known_errors in 2 Aufgaben (7 Werte, vorhandene
   Fehlbilder), typical_errors ohne Slug in 2 TERM-Aufgaben, 4 Aufgabentexte.
 - Antworten über `pruef_rueckfrage_klaeren` als Rasit (`tools/l1b-antworten.sql`): 7 freigegeben, 4 an Lena.
+- Nachtrag (Rasit): die 4 Text-Aufgaben direkt freigegeben (`pruef_admin_freigeben`), Antworttexte angepasst
+  (direktes UPDATE auf antwort, von Rasit freigegeben). Board danach 134 freigegeben.
 - Prüfskript `supabase/checks/l1b_rueckfragen.PRUEFUNG.sql`, Trockenlauf `tools/l1b-wegwerf-db.sh` (Prod-Fixture).
 
 ## Entscheidungen
