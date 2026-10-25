@@ -21,6 +21,8 @@
 -- LSA-L2 (20261025144025): Die Vorschau nimmt drei kommende Themen (c_vorschau_themen = 3). Mit Plan ZV ist zv_spaet
 -- das dritte; sein Rand zv_r3 gehoert damit zu zwei kommenden Themen (direkt und als Ersatz fuer zv_x) und kommt
 -- gleich nach zv_r1 (a, d, e, f). Ohne Plan (g) kommt zv_u2 als drittes Thema dazu, mit Rand zv_r5, zv_r7.
+-- LSA-L3 (20261025223011): Kommen im Plan weniger als drei Themen, fuellt die Vorschau aus Klasse 10 auf (f): mit
+-- Plan ZV zv_n (Rand zv_r7 statt zv_r6), ohne Plan der Klasse 10 (ZV2) aus dem Kernlehrplan, also ebenfalls zv_n.
 --
 -- Isoliert wie inv10 (eigener Graph, tasks.skill_key -> NULL). Antworten ueber
 -- lsa_submit: {"value":"5"} richtig (r), {"value":"7"} falsch (f).
@@ -240,13 +242,13 @@ select is(pg_temp.folge(:'s_f1', 'rrrrrrrrr', '1 minute'),
 select pg_temp.kind('zv_hj', 'ZV Schule') as k_f2 \gset
 select pg_temp.start(:'k_f2', '2026-03-02 08:00:00+00') as s_f2 \gset
 select is(pg_temp.folge(:'s_f2', 'rrrr', '1 minute', '2026-03-02 08:00:00+00'),
-  'zv_h1,zv_r3,zv_b1,-',
-  'f: Maerz -> zweites Halbjahr, Position 4: es kommt nur zv_spaet (Rand zv_r3)');
+  'zv_h1,zv_r3,zv_r7,zv_b1,-',
+  'f: Maerz -> zweites Halbjahr, Position 4: es kommt nur zv_spaet (Rand zv_r3), dazu zv_n aus Klasse 10 (L3)');
 select pg_temp.kind('zv_hj', 'ZV2 Schule', false) as k_f3 \gset
 select pg_temp.start(:'k_f3') as s_f3 \gset
 select is(pg_temp.folge(:'s_f3', 'rrrrrrrrr', '1 minute'),
-  'zv_h1,zv_r1,zv_x,zv_r2,zv_r6,zv_r5,zv_u1a,zv_u2a,-',
-  'f: Plan ohne Halbjahr -> von vorn (zv_u1, zv_u2); zv_spaet und zv_n stehen nicht im Plan, also sind zv_x, zv_r6 Rand');
+  'zv_h1,zv_r1,zv_r7,zv_x,zv_r2,zv_r5,zv_u1a,zv_u2a,-',
+  'f: Plan ohne Halbjahr -> von vorn (zv_u1, zv_u2), dazu zv_n aus dem Kernlehrplan Klasse 10 (L3): zv_r6 ersetzt durch zv_r7; zv_x bleibt Rand');
 
 -- ============================================================================
 -- g) Ohne Plan: Kernlehrplan

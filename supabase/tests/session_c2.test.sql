@@ -27,7 +27,9 @@ select pg_temp.kind_mit('ZZ Emir C2', 'zz_a2_terme', '{zz_a2_v1,zz_a2_v2}', '{zz
        pg_temp.kind_mit('ZZ Tim C2', 'zz_a2_terme', '{zz_a2_v1,zz_a2_v2}', '{zz_a2_s1}', true) as k_tim
 \gset
 -- Deniz' Schulthema ist alt (30 Tage, thema_alt_tage = 21), Emirs frisch.
-update lead_themen set angelegt = now() - interval '30 days'
+-- 30 Berliner Kalendertage, mittags verankert (now() - 30 days verschiebt sich ueber die Zeitumstellung um eine Stunde
+-- und kippt kurz vor oder nach Mitternacht auf 29 bzw. 31 Tage).
+update lead_themen set angelegt = (((now() at time zone 'Europe/Berlin')::date - 30) + time '12:00') at time zone 'Europe/Berlin'
  where lead_id = (select id from leads where converted_student_id = :'k_deniz');
 -- Emir hat einen Mastery-Kandidaten mit faelliger Pruefung.
 update lernpfad set stand_system = 'kandidat' where student_id = :'k_emir' and skill_key = 'zz_a2_v1';

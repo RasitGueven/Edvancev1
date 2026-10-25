@@ -4,6 +4,7 @@
 -- Aufruf: psql postgresql:///<db> -v pool=true -v richtig=0.1 -f tools/lsa-weiter-messung.sql
 --   pool    = true  → Testkonto/Testlauf (Testlauf-Pool, wie Tolunays Test), false → echtes Kind (nur 'ready')
 --   richtig = Anteil richtiger Antworten (Tolunays Session 30091a4d: 14 von 147)
+--   ka      = optional, leads.klassenarbeit_status (LSA-L3)
 -- Ablauf wie in der App: lsa_start, dann je Aufgabe lsa_submit mit p_jetzt = Start + 8 s je Aufgabe, bis next = null.
 -- Gemessen je Schritt: lsa_submit gesamt, lsa_select_next_core allein (im zurückgerollten Block, vor dem Submit),
 -- lsa_question_payload allein (das, was platz_next danach noch einmal rechnet).
@@ -24,6 +25,10 @@ insert into leads (full_name, first_name, status, class_level) values ('Diag Kin
   returning id as lead \gset
 insert into students (class_level, ist_test) values (8, :pool) returning id as st \gset
 update leads set converted_student_id = :'st' where id = :'lead';
+-- LSA-L3: -v ka=geschrieben misst den Modus 'vorschau_zuerst' (ohne: Status unbekannt, 'thema_zuerst').
+\if :{?ka}
+update leads set klassenarbeit_status = :'ka' where id = :'lead';
+\endif
 insert into lead_themen (lead_id, fach, thema_key, status, quelle)
 select :'lead', 'mathematik', k, case when k = 'reelle_zahlen' then 'aktuell' else 'behandelt' end, 'gespraech'
   from unnest(array['brueche','daten_streumasse','flaeche_umfang','ganze_zahlen_groessen','koerper_quader',

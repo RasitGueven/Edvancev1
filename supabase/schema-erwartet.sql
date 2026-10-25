@@ -1,10 +1,13 @@
+-- schema-erwartet.sql
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
+
 --
 -- PostgreSQL database dump
 --
 
-\restrict DG2wPQTcVm54TQGEWEbzBmZxmKeB1TEZBYhGUhqMM2WlM57BgechvTAqmuTN2Zp
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -5981,6 +5984,27 @@ $$;
 
 
 --
+-- Name: lsa_klp_themen(text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_klp_themen(p_fach text, p_klasse integer) RETURNS text[]
+    LANGUAGE sql STABLE
+    SET search_path TO 'public'
+    AS $$
+  with klp as (
+    select th.thema_key, th.sort from themen th
+     where lower(th.fach) = lower(p_fach)
+       and th.stufe = case when p_klasse <= 6 then 'erprobung' when p_klasse <= 8 then 'erste' else 'zweite' end
+  ), k as (
+    select * from klp
+     where not exists (select 1 from themen th join klp using (thema_key) where th.klasse >= p_klasse)
+        or thema_key in (select th.thema_key from themen th join klp using (thema_key) where th.klasse >= p_klasse)
+  )
+  select coalesce(array_agg(k.thema_key order by k.sort nulls last, k.thema_key), '{}') from k
+$$;
+
+
+--
 -- Name: lsa_lead_kontext(uuid[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6551,7 +6575,7 @@ $$;
 CREATE FUNCTION public.lsa_select_next_core(p_session_id uuid, p_status_filter text[] DEFAULT ARRAY['ready'::text], p_jetzt timestamp with time zone DEFAULT now()) RETURNS uuid
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public'
-    AS $$
+    AS $_$
 declare
   -- Phase Tiefe endet spaetestens so lange nach Sitzungsbeginn. Die Restzeit
   -- bis zum 19-Minuten-Fenster gehoert der Breite: lieber ein Befund fuer
@@ -6569,6 +6593,13 @@ declare
   c_ausblick_min_urteile constant int := 6;
   -- ... davon mindestens dieser Anteil traegt.
   c_ausblick_anteil constant numeric := 0.75;
+  -- LSA-L3 'vorschau_zuerst' (Klassenarbeit zum Thema geschrieben): Thema kurz (nur Einstiege) bis c_thema_kurz,
+  -- bei Note 1 oder 2 bis c_thema_kurz_gut; Vorschau bis c_vorschau_bis_vz; Tiefe unter gebrochenen Themenknoten
+  -- bis c_tiefe_bis_vz; danach Rueckblick (Simulation docs/lsa/l3-simulation.md).
+  c_thema_kurz      constant interval := interval '4 minutes';
+  c_thema_kurz_gut  constant interval := interval '1 minute';
+  c_vorschau_bis_vz constant interval := interval '16 minutes';
+  c_tiefe_bis_vz    constant interval := interval '18 minutes';
 
   v_sess    lsa_sessions;
   v_pool    boolean;  -- F1 (E2): Testlauf-Pool fuer Testlauf oder Testkonto
@@ -6601,6 +6632,11 @@ declare
   v_traegt     int;     -- ... davon traegt
   -- LSA-L2
   v_schluessel text[];  -- Text-Schluessel der ausgegebenen Aufgaben (Schritt 5)
+  -- LSA-L3
+  v_lead_j     jsonb;    -- der Lead als jsonb (fehlende Spalten zaehlen wie null)
+  v_vz         boolean;  -- 'vorschau_zuerst' mit Thema
+  v_kurz_bis   interval; -- Ende von Thema kurz
+  v_fuell      text[];   -- Themen der Klasse + 1, aus denen die Vorschau auffuellt
 begin
   select * into v_sess from lsa_sessions where id = p_session_id;
   if not found or v_sess.status <> 'in_progress' then
@@ -6628,6 +6664,20 @@ begin
   -- LSA-V: Schule wie im Report (R7-9), nicht mehr nur ueber den Lead.
   v_schule := public.lsa_schule_von_sitzung(p_session_id);
 
+  -- LSA-L3: Modus nach dem Klassenarbeits-Stand des Leads, einmal beim Start (erster Aufruf, aus lsa_start) und
+  -- dann fest. Eine Sitzung, die schon Aufgaben hat (vor L3 gestartet), bleibt 'thema_zuerst'. Die Lead-Spalten
+  -- ueber to_jsonb: fehlt letzte_klassenarbeit_note, ist sie null (Entscheidung 2).
+  if v_sess.ka_modus is null then
+    select to_jsonb(l) into v_lead_j from leads l where l.id = v_lead;
+    v_sess.ka_modus := case
+      when v_lead_j ->> 'klassenarbeit_status' = 'geschrieben'
+           and not exists (select 1 from lsa_ausgegeben a where a.session_id = p_session_id)
+        then 'vorschau_zuerst' else 'thema_zuerst' end;
+    v_sess.ka_note := case when v_lead_j ->> 'letzte_klassenarbeit_note' ~ '^[1-6]$'
+                           then (v_lead_j ->> 'letzte_klassenarbeit_note')::smallint end;
+    update lsa_sessions set ka_modus = v_sess.ka_modus, ka_note = v_sess.ka_note where id = p_session_id;
+  end if;
+
   -- Ohne Thema (kein aktuell-Thema, oder keine Einstiegsknoten mit Aufgaben
   -- im Status-Filter) laeuft die bisherige Auswahl: Abstieg unter jedem
   -- gebrochenen Knoten, ohne Zeitgrenze, keine Breite a.
@@ -6647,8 +6697,14 @@ begin
     v_themenraum := '{}';
   end if;
 
+  -- LSA-L3: Ohne Thema gilt immer die bisherige Auswahl (Entscheidung 1).
+  v_vz := v_mit_thema and v_sess.ka_modus = 'vorschau_zuerst';
+  v_kurz_bis := case when v_sess.ka_note between 1 and 2 then c_thema_kurz_gut else c_thema_kurz end;
+
   -- LSA-V2: Ausblick-Knoten, einmal je Aufruf (haengen nur an Thema, Plan und Graph).
-  v_ausblick := case when v_mit_thema then public.lsa_ausblick_knoten(p_session_id, true) else '{}' end;
+  -- LSA-L3: 'vorschau_zuerst' nie, auch nicht mit dem Test-Schalter lsa.ausblick.
+  v_ausblick := case when v_mit_thema and not v_vz then public.lsa_ausblick_knoten(p_session_id, true)
+                     else '{}' end;
 
   -- LSA-V: Kommende Themen und der Rand. Haengt nur an Plan und Graph, nicht an
   -- den Urteilen der Sitzung — einmal je Aufruf.
@@ -6704,6 +6760,43 @@ begin
                       and th.sort > coalesce((select k2.sort from k k2 where k2.thema_key = v_sess.thema_key),
                                              (select min(k3.sort) from k k3) - 1))
         into v_kommend, v_spaeter;
+    end if;
+
+    -- LSA-L3 (Entscheidung 4, beide Modi): Kommen im Plan der Klasse weniger als c_vorschau_themen Themen, fuellt
+    -- die Vorschau mit den ersten Themen der Klasse + 1 auf: Schulplan der Klasse + 1, sonst Kernlehrplan-Folge
+    -- der Klasse + 1 ohne die Themen, die bis zur eigenen Klasse im Plan (bzw. Kernlehrplan) stehen. Die Themen sind
+    -- nur Ziel: Sie zaehlen zu v_spaeter, ihre eigenen Skills werden nie gezogen, die Klassengrenze der Vorschau
+    -- bleibt v_sess.grade.
+    if cardinality(v_kommend) < c_vorschau_themen then
+      if exists (select 1 from schul_themenplan p
+                  where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade + 1) then
+        v_fuell := array(
+          select x.thema_key
+            from (select p.thema_key, min(p.position) as pos from schul_themenplan p
+                   where p.schule_id = v_schule and lower(p.fach) = v_fach and p.klasse = v_sess.grade + 1
+                     and p.thema_key is not null
+                   group by p.thema_key) x
+           order by x.pos, x.thema_key);
+      else
+        v_fuell := array(
+          select f.thema_key
+            from unnest(public.lsa_klp_themen(v_fach, v_sess.grade + 1)) with ordinality f(thema_key, nr)
+           where not f.thema_key = any (
+                   case when exists (select 1 from schul_themenplan p where p.schule_id = v_schule
+                                        and lower(p.fach) = v_fach and p.klasse = v_sess.grade)
+                        then array(select p.thema_key from schul_themenplan p
+                                    where p.schule_id = v_schule and lower(p.fach) = v_fach
+                                      and p.klasse <= v_sess.grade and p.thema_key is not null)
+                        else public.lsa_klp_themen(v_fach, v_sess.grade) end)
+           order by f.nr);
+      end if;
+      v_spaeter := v_spaeter || v_fuell;
+      v_kommend := v_kommend || array(
+        select f.thema_key
+          from unnest(v_fuell) with ordinality f(thema_key, nr)
+         where f.thema_key is distinct from v_sess.thema_key and not f.thema_key = any (v_kommend)
+         order by f.nr
+         limit c_vorschau_themen - cardinality(v_kommend));
     end if;
     v_spaeter := array_remove(v_spaeter, v_sess.thema_key);
 
@@ -6786,11 +6879,13 @@ begin
     -- offener Abschluss zuerst. Nur Knoten mit einer noch freien Aufgabe —
     -- ein Thema ohne Aufgaben laesst Phase T einfach aus. KEINE Klassengrenze:
     -- das Thema hat das Erstgespraech gewaehlt.
+    -- LSA-L3: 'vorschau_zuerst' nur bis v_kurz_bis (Thema kurz).
     v_task := null;
     for v_leaf in
       select s.skill_key
         from skills s
        where s.skill_key = any (v_einstieg)
+         and (not v_vz or p_jetzt < v_beginn + v_kurz_bis)
          and not exists (
                select 1 from lsa_skill_urteil u
                 where u.session_id = p_session_id and u.skill_key = s.skill_key)
@@ -6811,8 +6906,9 @@ begin
     -- Themenraums, nur bis c_tiefe_bis nach Sitzungsbeginn, ohne Klassengrenze.
     -- Ohne Thema: wie bisher unter jedem gebrochenen Knoten, ohne Zeitgrenze,
     -- mit Klassengrenze.
+    -- LSA-L3: 'vorschau_zuerst' hat seine Tiefe erst nach der Vorschau (unten).
     v_desc := null;
-    if not v_mit_thema or p_jetzt < v_beginn + c_tiefe_bis then
+    if not v_vz and (not v_mit_thema or p_jetzt < v_beginn + c_tiefe_bis) then
       select x.q into v_desc from (
         select k.voraussetzt_skill_key as q, s.fundament_tiefe as tf
           from lsa_skill_urteil u
@@ -6852,8 +6948,9 @@ begin
     -- Ein Kandidat ohne freie Aufgabe wird uebersprungen (Entscheidung 9; das
     -- Urteil 'ungeprueft' brauchte es nur, wenn die Kandidatenwahl die Aufgabe
     -- nicht schon prueft).
+    -- LSA-L3: 'vorschau_zuerst' bis c_vorschau_bis_vz.
     v_task := null;
-    if v_mit_thema and p_jetzt < v_beginn + c_vorschau_bis then
+    if v_mit_thema and p_jetzt < v_beginn + (case when v_vz then c_vorschau_bis_vz else c_vorschau_bis end) then
       for v_desc in
         select c.sk
           from (select x.sk, x.rang, x.n, true as rand
@@ -6891,10 +6988,43 @@ begin
       return v_task;
     end if;
 
+    -- LSA-L3 Tiefe 'vorschau_zuerst': unter gebrochenen Knoten des Themenraums, bis c_tiefe_bis_vz, ohne
+    -- Klassengrenze wie die Tiefe in 'thema_zuerst' (der Themenraum ist Stoff des aktuellen Themas). Zuerst Knoten,
+    -- die zugleich Voraussetzung einer kommenden Arbeit sind (Rand oder Abschluss).
+    v_desc := null;
+    if v_vz and p_jetzt < v_beginn + c_tiefe_bis_vz then
+      select k.voraussetzt_skill_key into v_desc
+        from lsa_skill_urteil u
+        join skill_kante k on k.skill_key = u.skill_key
+        join skills s on s.skill_key = k.voraussetzt_skill_key
+       where u.session_id = p_session_id
+         and u.offen = false
+         and u.zustand in ('traegt_nicht','nicht_angesetzt')
+         and u.skill_key = any (v_themenraum)
+         and not exists (
+               select 1 from lsa_skill_urteil d
+                where d.session_id = p_session_id and d.skill_key = k.voraussetzt_skill_key)
+       order by (k.voraussetzt_skill_key = any (coalesce(v_rand_sk, '{}'))
+                 or k.voraussetzt_skill_key = any (coalesce(v_tief_sk, '{}'))) desc,
+                s.fundament_tiefe desc, k.voraussetzt_skill_key
+       limit 1;
+    end if;
+    if v_desc is not null then
+      v_task := public.lsa_freie_aufgabe(p_session_id, v_desc, v_pool);
+      if v_task is not null then
+        return v_task;
+      end if;
+      insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+        values (p_session_id, v_desc, 'ungeprueft', false, false, 0)
+        on conflict (session_id, skill_key) do nothing;
+      continue;
+    end if;
+
     -- LSA-V Thema vertiefen: ungepruefte Knoten des Themenraums, ohne
     -- Zeitgrenze und ohne Klassengrenze (wie Phase T).
+    -- LSA-L3: nicht in 'vorschau_zuerst' (Thema kurz, dann Vorschau, Tiefe, Rueckblick).
     v_task := null;
-    if v_mit_thema then
+    if v_mit_thema and not v_vz then
       for v_leaf in
         select s.skill_key
           from skills s
@@ -7056,7 +7186,7 @@ begin
     return null;
   end loop;
 end;
-$$;
+$_$;
 
 
 --
@@ -20769,8 +20899,12 @@ CREATE TABLE public.lsa_sessions (
     auswertbar boolean DEFAULT true NOT NULL,
     nicht_auswertbar_grund jsonb,
     hinweis_tempo_am timestamp with time zone,
+    ka_modus text,
+    ka_note smallint,
     CONSTRAINT lsa_sessions_avatar_choice_form CHECK (((avatar_choice IS NULL) OR (((length(avatar_choice) >= 1) AND (length(avatar_choice) <= 40)) AND (avatar_choice = btrim(avatar_choice))))),
     CONSTRAINT lsa_sessions_grade_check CHECK (((grade >= 5) AND (grade <= 13))),
+    CONSTRAINT lsa_sessions_ka_modus_check CHECK ((ka_modus = ANY (ARRAY['thema_zuerst'::text, 'vorschau_zuerst'::text]))),
+    CONSTRAINT lsa_sessions_ka_note_check CHECK (((ka_note >= 1) AND (ka_note <= 6))),
     CONSTRAINT lsa_sessions_modus_check CHECK ((modus = ANY (ARRAY['fest'::text, 'adaptiv'::text]))),
     CONSTRAINT lsa_sessions_status_check CHECK ((status = ANY (ARRAY['in_progress'::text, 'completed'::text, 'aborted'::text])))
 );
@@ -28967,5 +29101,4 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict DG2wPQTcVm54TQGEWEbzBmZxmKeB1TEZBYhGUhqMM2WlM57BgechvTAqmuTN2Zp
 

@@ -147,3 +147,20 @@ unbekanntem Namen (Abbruch).
 Hinweis zu Tim: Alle Antworten eines Laufs liegen in einer Transaktion und tragen dieselbe Abgabezeit. Die
 Reihenfolge der Abgaben ist dann nicht die echte; die Anteilsregel (ab 10 Antworten, 40 % schnell falsch)
 macht ihn trotzdem sicher nicht auswertbar.
+
+## LSA-L3: Klassenarbeits-Stand (Simulation)
+
+Seit L3 setzt `erzeugen.sql` auch `leads.klassenarbeit_status` und `letzte_klassenarbeit_note` (Felder `ka_status`,
+`ka_note` im Profil; die acht Kinder oben haben keinen Status, laufen also `thema_zuerst`). Für die Simulation gibt
+es weitere Kinder in `l3-kinder.sql` (Batu bevorstehend, geschrieben, Note 4, „stark“ mit Note 2; Mia Klasse 7 mit
+Auffüllen aus Klasse 8, geschrieben und bevorstehend). Sie laufen nur mit `KINDER_ZUSATZ`, nicht im pgTAP-Test:
+
+```bash
+KINDER_ZUSATZ=$(pwd)/tools/lsa-testkinder/l3-kinder.sql AUSWERTUNG=l3-auswertung.sql \
+  bash tools/lsa-testkinder/simulation.sh supabase/migrations/<V>_lsa_l3_ka_modus.sql
+```
+
+`l3-auswertung.sql` (mit `l3-gruppen.sql`) gibt je Kind Modus, Aufgaben und Minuten je Gruppe, die direkt geprüften
+Bericht-Voraussetzungen der nächsten drei Klassenarbeiten, Themenraum, Ausblick, Aufgaben über der Klasse,
+Wiederholungen und einen md5 der Folge aus. Ergebnisse: `docs/lsa/l3-simulation.md`. Die Laufzeitmessung
+`tools/lsa-weiter-messung.sql` nimmt `-v ka=geschrieben` für den Modus `vorschau_zuerst`.

@@ -352,12 +352,19 @@ select is((select count(*)::int from session_flags_offen() where session_id = :'
 
 -- ── Entscheidungen Rasit 06.10. (Nachtrag) ───────────────────────────────
 -- Coach-Entscheidungen nur in laufender Session oder am selben Tag nach dem Abschluss.
+-- „Tag“ ist der Berliner Kalendertag. Darum an Berliner Mitternacht verankert, nicht an now() - 1 day / - 2 hours:
+-- Nachts (0–2 Uhr) laege „vor 2 Stunden“ schon gestern, und am Tag der Zeitumstellung (25 Stunden) laege „vor 24
+-- Stunden“ noch heute (CI am 25.10.2026, 23:33 Uhr).
+select (date_trunc('day', now() at time zone 'Europe/Berlin') at time zone 'Europe/Berlin') as mitternacht \gset
 select pg_temp.als_system();
 insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am, beendet_am)
-values (:'coach_a', 'ZZ A2 gestern', now() - interval '1 day', 'done', now() - interval '1 day', now() - interval '1 day')
+values (:'coach_a', 'ZZ A2 gestern', :'mitternacht'::timestamptz - interval '13 hours', 'done',
+        :'mitternacht'::timestamptz - interval '13 hours', :'mitternacht'::timestamptz - interval '12 hours')
 returning id as s_gestern \gset
 insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am, beendet_am)
-values (:'coach_a', 'ZZ A2 heute', now() - interval '2 hours', 'done', now() - interval '2 hours', now() - interval '1 hour')
+values (:'coach_a', 'ZZ A2 heute', greatest(now() - interval '2 hours', :'mitternacht'::timestamptz), 'done',
+        greatest(now() - interval '2 hours', :'mitternacht'::timestamptz),
+        greatest(now() - interval '1 hour', :'mitternacht'::timestamptz))
 returning id as s_heute \gset
 insert into coaching_sessions (coach_id, room, scheduled_at) values (:'coach_a', 'ZZ A2 morgen', now() + interval '1 day')
 returning id as s_morgen \gset

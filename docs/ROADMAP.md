@@ -10,6 +10,11 @@
   nötigen Aufgaben ab; Karte „Batus Freigabeliste“ auf `/admin` mit offenem Stand und Freigabe-Reihe.
   Migration `20261025210952` am 25.10. eingespielt. Dazu die erste `term_ausklammern`-Aufgabe ohne MC
   (`20261025213530`, Mehrteiler mit drei Zahlenfeldern, eingespielt).
+- **LSA-L3 Auswahl nach Klassenarbeits-Stand** (Retro `2026-10-25-lsa-l3-ka-modus.md`, Branch
+  `feat/rasit-lsa-l3-ka-modus`, PR #325): `lsa_sessions.ka_modus`/`ka_note`, Modus `vorschau_zuerst` bei geschriebener
+  Klassenarbeit (Thema kurz, Vorschau bis 16, Tiefe bis 18, Rückblick), Auffüllen der Vorschau aus Klasse + 1.
+  Migration `20261025223011` am 25.10. eingespielt. **Offen:** 80 %-Kriterium für Batu nicht erreichbar (Mitbelegung),
+  Entscheidung 7 im Themenraum, Berichtstexte nach KA-Stand (`docs/lsa/l3-offen.md`).
 - **LSA-L2 Keine Fast-Duplikate, Vorschau auf drei Klassenarbeiten** (Retro `2026-10-25-lsa-l2-wiederholung.md`,
   Branch `feat/rasit-lsa-l2-batu-pool`): `lsa_text_schluessel`, Zweitbeleg ohne Fast-Duplikat (entfällt, wenn nur
   solche übrig sind), `c_vorschau_themen` 3; Testkind Batu, Simulation mit dem Prod-Pool, Freigabeliste für Lena
