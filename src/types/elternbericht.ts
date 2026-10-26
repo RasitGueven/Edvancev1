@@ -224,6 +224,8 @@ export type EbThema = {
   titel: string
   /** Bereiche mit Übungsbedarf im Themenraum, in der Thema-Reihenfolge. */
   uebung: string[]
+  /** LSA-L4: sichere Bereiche im Themenraum (direkt geprüft), in der Thema-Reihenfolge. */
+  sicher?: string[]
 }
 
 /**

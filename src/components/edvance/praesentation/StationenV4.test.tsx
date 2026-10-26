@@ -196,7 +196,9 @@ describe('Station 03 · Klassenarbeiten', () => {
       expect(k).toHaveTextContent('dazu noch nichts geprüft')
       expect(k.querySelector('ul')).toBeNull()
     }
-    expect(screen.getByTestId('tp-ka-offen')).toHaveTextContent('war noch unsicher')
+    // LSA-L4 Teil D: der Satz zur Arbeit im aktuellen Thema steht auf dessen Karte (Note offen).
+    expect(within(karten[0]).getByTestId('tp-ka-stand')).toHaveTextContent(/^Die Analyse zeigt für .+Sobald Sie die Note kennen, gleichen wir das gemeinsam ab\.$/)
+    expect(within(karten[1]).queryByTestId('tp-ka-stand')).toBeNull()
     expect(screen.getByTestId('tp-ka-quelle')).toHaveTextContent('Schulplan des Friedrich-Wilhelm-Gymnasiums')
     expect(screen.getByTestId('tp-ka-satz')).toHaveTextContent('Vieles sitzt schon.')
   })

@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
+import { kaSatz, kaTeile } from '@/lib/report/elternbericht/kaSatz'
 import { duenneLueckenweg } from '@/lib/report/elternbericht/lueckenweg'
-import type { EbFahrplan, EbKommtThema, EbStation } from '@/types'
+import type { EbFahrplan, EbKommtThema, EbStation, Elternbericht, KlassenarbeitStatus } from '@/types'
 
 import { schuleGenitiv } from './berichtSaetze'
 import { signalText, standZeile, tonVon } from './fahrplanText'
@@ -18,7 +19,7 @@ import { useAusduennen } from './useAusduennen'
  * kann in mehreren Blöcken stehen. Darunter „Weitere Stärken“ und „Wird später
  * wichtig“. Läuft die Seite über, dünnt sie aus wie in v3 (useAusduennen).
  */
-export function Seite3V4({ data, bericht, name }: SeitenProps): JSX.Element | null {
+export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
   const { t } = useTranslation('elternbericht')
   const voll = bericht.lueckenwegV4 ?? null
   const fahrplan = bericht.fahrplan ?? null
@@ -43,7 +44,12 @@ export function Seite3V4({ data, bericht, name }: SeitenProps): JSX.Element | nu
       <p className="eb-kicker eb-s3-kicker">{t('v4.s3.kicker')}</p>
       <h1 className="eb-titel eb-s3-titel">{t('v4.s3.titel')}</h1>
 
-      <Einstieg fahrplan={fahrplan} name={name} status={data.erstgespraech?.klassenarbeit ?? null} />
+      <Einstieg
+        bericht={bericht}
+        fahrplan={fahrplan}
+        status={data.erstgespraech?.klassenarbeit ?? null}
+        note={data.erstgespraech?.letzteNote ?? null}
+      />
 
       <div className="eb-s3v4-bloecke">
         {lw.themen.map((k) => {
@@ -107,39 +113,39 @@ export function Seite3V4({ data, bericht, name }: SeitenProps): JSX.Element | nu
   )
 }
 
-/** Der Satz, der auf die Angaben der Familie eingeht (Entscheidung 4). */
+/**
+ * Der Satz, der auf die Angaben der Familie eingeht (V4 Entscheidung 4): LSA-L4 Teil D nach dem Stand der
+ * Klassenarbeit beim LSA-Start (kaSatz), danach der Satz zum Aufbau der Seite.
+ */
 function Einstieg({
+  bericht,
   fahrplan,
-  name,
   status,
+  note,
 }: {
+  bericht: Elternbericht
   fahrplan: EbFahrplan
-  name: string | null
-  status: 'geschrieben' | 'bevorstehend' | null
+  status: KlassenarbeitStatus | null
+  note: number | null
 }): JSX.Element {
-  const { t } = useTranslation('elternbericht')
+  const { t, i18n } = useTranslation('elternbericht')
+  const satz = kaSatz(bericht, status, note)
   const aktuell = fahrplan.stationen[0]
-  const schluessel =
-    status === 'geschrieben'
-      ? name
-        ? 'geschrieben'
-        : 'geschriebenOhneName'
-      : status === 'bevorstehend'
-        ? 'bevorstehend'
-        : 'unbekannt'
+  const n = fahrplan.stationen[1]?.nummer ?? aktuell.nummer + 1
   return (
-    <div className="eb-s3v4-einstieg" data-testid="eb-s3-einstieg">
+    <div className="eb-s3v4-einstieg" data-testid="eb-s3-einstieg" data-ka={satz?.fall}>
       <svg viewBox="0 0 16 16" aria-hidden="true">
         <circle cx="8" cy="8" r="8" />
         <path d="M4.6 8.3 L7 10.6 L11.5 5.6" />
       </svg>
       <p>
-        <Trans
-          t={t}
-          i18nKey={`v4.s3.individuell.${schluessel}`}
-          values={{ thema: aktuell.titel, name, n: fahrplan.stationen[1]?.nummer ?? aktuell.nummer + 1 }}
-          components={{ b: <b /> }}
-        />
+        {satz &&
+          kaTeile(satz, i18n.language, (label) => t('v4.s3.ka.bereich', { label })).map((teil) => (
+            <Fragment key={teil.key}>
+              <Trans t={t} i18nKey={`v4.s3.ka.${teil.key}`} values={teil.values} components={{ b: <b /> }} />{' '}
+            </Fragment>
+          ))}
+        {t(status === 'geschrieben' ? 'v4.s3.rest.geschrieben' : 'v4.s3.rest.steht', { n })}
       </p>
     </div>
   )

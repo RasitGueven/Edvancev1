@@ -549,11 +549,27 @@
     "s3": {
       "kicker": "Einordnung nach Klassenarbeiten",
       "titel": "Was für die nächsten Arbeiten schon sitzt und was noch fehlt.",
-      "individuell": {
-        "geschrieben": "Die Arbeit zu <b>{{thema}}</b> hat {{name}} laut Ihren Angaben schon geschrieben. Deshalb beginnt diese Übersicht mit Klassenarbeit {{n}}. Für jede kommende Arbeit steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
-        "geschriebenOhneName": "Die Arbeit zu <b>{{thema}}</b> ist laut Ihren Angaben schon geschrieben. Deshalb beginnt diese Übersicht mit Klassenarbeit {{n}}. Für jede kommende Arbeit steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
-        "bevorstehend": "Die Arbeit zu <b>{{thema}}</b> steht laut Ihren Angaben noch an. Darauf bereiten wir zuerst vor. Für die Arbeiten danach steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
-        "unbekannt": "Für jede kommende Arbeit steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen. Die Reihenfolge stammt aus dem Schulplan."
+      "ka": {
+        "steht": "Die Arbeit zu <b>{{thema}}</b> steht noch an. Darauf bereiten wir zuerst vor.",
+        "analyse": {
+          "xy_one": "Die Analyse zeigt für <b>{{thema}}</b>: sicher war {{x}}, noch unsicher {{y}}.",
+          "xy_other": "Die Analyse zeigt für <b>{{thema}}</b>: sicher waren {{x}}, noch unsicher {{y}}.",
+          "x_one": "Die Analyse zeigt für <b>{{thema}}</b>: sicher war {{x}}.",
+          "x_other": "Die Analyse zeigt für <b>{{thema}}</b>: sicher waren {{x}}.",
+          "y": "Die Analyse zeigt für <b>{{thema}}</b>: noch unsicher {{y}}."
+        },
+        "geschrieben": "Die Arbeit zu <b>{{thema}}</b> ist geschrieben.",
+        "abgleich": "Sobald Sie die Note kennen, gleichen wir das gemeinsam ab.",
+        "note": "Die Arbeit zu <b>{{thema}}</b> ist mit Note {{n}} zurückgekommen.",
+        "dazu_one": "Dazu passt, was die Analyse zeigt: {{y}} war noch unsicher.",
+        "dazu_other": "Dazu passt, was die Analyse zeigt: {{y}} waren noch unsicher.",
+        "wieder_one": "{{y}} wird bei Klassenarbeit {{k}} wieder gebraucht.",
+        "wieder_other": "{{y}} werden bei Klassenarbeit {{k}} wieder gebraucht.",
+        "bereich": "„{{label}}“"
+      },
+      "rest": {
+        "geschrieben": "Diese Übersicht beginnt mit Klassenarbeit {{n}}. Für jede kommende Arbeit steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
+        "steht": "Für die Arbeiten danach steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen."
       },
       "blockTitel": "Klassenarbeit {{n}} · {{thema}}",
       "sitzt": "Sitzt schon",

@@ -15,6 +15,7 @@
 //
 // task_solutions wird NICHT angefasst.
 
+import { klassenarbeitDerSitzung, type KaModus } from '@/lib/report/kaStand'
 import { supabase } from '@/lib/supabase/client'
 import { loadNichtAuswertbar, loadSchnelleSitzungen } from '@/lib/supabase/lsaDurchklick'
 import { loadErstgespraech } from '@/lib/supabase/lsaReportErstgespraech'
@@ -40,10 +41,13 @@ type SessionRow = {
   completed_at: string | null
   created_at: string
   testlauf: boolean
+  /** LSA-L3: Modus beim Start (Klassenarbeits-Stand), null vor L3. */
+  ka_modus?: KaModus | null
+  ka_note?: number | null
 }
 
 const SESSION_COLS =
-  'id, student_id, subject, grade, status, item_ids, started_at, completed_at, created_at, testlauf'
+  'id, student_id, subject, grade, status, item_ids, started_at, completed_at, created_at, testlauf, ka_modus, ka_note'
 
 // Was der Report vom Lead braucht — ohne Kontaktdaten.
 type LeadKontext = {
@@ -307,6 +311,12 @@ export async function getReportData(
     const fehlbilder = await loadFehlbilder(row.id)
     const nichtAuswertbar = await loadNichtAuswertbar([row.id])
     const analysedAt = row.completed_at ?? row.started_at ?? row.created_at
+    // LSA-L4 (Entscheidung 13): der Stand der Sitzung, nicht der heutige des Leads.
+    const ka = klassenarbeitDerSitzung(
+      await loadErstgespraech(kontext?.leadId ?? null, analysedAt),
+      row.ka_modus ?? null,
+      row.ka_note ?? null,
+    )
 
     return {
       data: {
@@ -324,7 +334,8 @@ export async function getReportData(
         auswertbar: !nichtAuswertbar.has(row.id),
         nichtAuswertbarGrund: nichtAuswertbar.get(row.id) ?? null,
         leadId: kontext?.leadId ?? null,
-        erstgespraech: await loadErstgespraech(kontext?.leadId ?? null, analysedAt),
+        erstgespraech: ka.erstgespraech,
+        klassenarbeitAbweichung: ka.abweichung,
         parentAssessment,
         skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder,

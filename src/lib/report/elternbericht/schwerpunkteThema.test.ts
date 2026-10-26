@@ -63,7 +63,7 @@ describe('Schwerpunkte mit Thema — Fälle', () => {
   it('abgestuftThemaSicher: Thema ohne Übungsbedarf ist kein Schwerpunkt, die Breite beginnt bei 1', () => {
     const r = bericht(FAELLE.abgestuftThemaSicher.data)
     expect(r.schwerpunkte.map((s) => s.feld)).toEqual(['terme', 'geometrie', 'zufall'])
-    expect(r.thema).toEqual({ titel: 'Reelle Zahlen', uebung: [] })
+    expect(r.thema).toMatchObject({ titel: 'Reelle Zahlen', uebung: [] })
   })
 
   it('Thema ohne Übungsbedarf und Breite ohne Übungsbedarf: keine Schwerpunkte', () => {

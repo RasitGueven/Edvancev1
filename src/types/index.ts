@@ -222,6 +222,8 @@ export type {
   ReportNotes,
   ReportErstgespraech,
   KlassenarbeitStatus,
+  KaAbweichung,
+  KaStand,
 } from './report'
 
 export { REPORT_PAKETE } from './report'

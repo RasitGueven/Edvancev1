@@ -10,7 +10,15 @@
 import { baueElternbericht } from '@/lib/report/elternbericht/bericht'
 import { fehlermusterAus, type Fehlermuster } from '@/lib/report/elternbericht/fehlermuster'
 import { zieleV4, type ZielSchluessel } from '@/lib/report/elternbericht/zielbild'
-import type { EbFahrplan, EbStation, Elternbericht, ReportData, ReportNotes, ThemenfeldKey } from '@/types'
+import type {
+  EbFahrplan,
+  EbStation,
+  Elternbericht,
+  KlassenarbeitStatus,
+  ReportData,
+  ReportNotes,
+  ThemenfeldKey,
+} from '@/types'
 
 export type PraesentationV4 = {
   bericht: Elternbericht
@@ -22,6 +30,9 @@ export type PraesentationV4 = {
   muster: Fehlermuster | null
   /** Ziele in Elternsprache; leer, solange sie im Gespräch nicht bestätigt sind. */
   ziele: ZielSchluessel[]
+  /** LSA-L4: Stand der Klassenarbeit beim LSA-Start und die gemeldete Note (Satz in Station 03). */
+  klassenarbeit: KlassenarbeitStatus | null
+  note: number | null
 }
 
 /** Die Bereiche in „Wird später wichtig“ (Lücken ohne kommende Station). */
@@ -48,6 +59,8 @@ export function baueV4(data: ReportData, notes: ReportNotes | null): Praesentati
     aufgaben: data.aufgaben,
     minuten: data.dauerMinuten ?? null,
     muster,
+    klassenarbeit: data.erstgespraech?.klassenarbeit ?? null,
+    note: data.erstgespraech?.letzteNote ?? null,
     ziele: notes?.zieleBestaetigt
       ? zieleV4({ fahrplan: bericht.fahrplan, muster, name, spaeterLuecken: spaeterLuecken(bericht) })
       : [],

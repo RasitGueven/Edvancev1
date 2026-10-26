@@ -58,16 +58,32 @@ describe('Seite 3 mit Fahrplan', () => {
     })
   }
 
-  it('der Einstiegssatz geht auf die Angaben der Familie ein (geschrieben, bevorstehend, unbekannt)', () => {
-    const geschrieben = within(bogenV4('batuV4').seite(3)).getByTestId('eb-s3-einstieg')
-    expect(geschrieben.textContent).toContain('hat Ilkay laut Ihren Angaben schon geschrieben')
-    expect(geschrieben.textContent).toContain('beginnt diese Übersicht mit Klassenarbeit 2')
-    expect(geschrieben.querySelector('b')).toHaveTextContent('Reelle Zahlen')
-    const bevor = within(bogenV4('batuBevorstehend').seite(3)).getByTestId('eb-s3-einstieg')
-    expect(bevor.textContent).toContain('steht laut Ihren Angaben noch an')
-    const unbekannt = within(bogenV4('batuOhneStatus').seite(3)).getByTestId('eb-s3-einstieg')
-    expect(unbekannt.textContent).toContain('Die Reihenfolge stammt aus dem Schulplan.')
-    expect(unbekannt.querySelector('b')).toBeNull()
+  // LSA-L4 Teil D: der Satz nach dem Stand der Klassenarbeit (kaSatz), je Fall ein Fixture.
+  it('Einstieg „geschrieben, Note offen“ (batuV4): sicher/unsicher und der Abgleich', () => {
+    const e = within(bogenV4('batuV4').seite(3)).getByTestId('eb-s3-einstieg')
+    expect(e).toHaveAttribute('data-ka', 'offen')
+    expect(e.textContent).toMatch(/^Die Analyse zeigt für Reelle Zahlen( und Wurzeln)?: sicher war(en)? .+, noch unsicher .+\./)
+    expect(e.textContent).toContain('Sobald Sie die Note kennen, gleichen wir das gemeinsam ab.')
+    expect(e.textContent).toContain('Diese Übersicht beginnt mit Klassenarbeit 2.')
+    expect(e.textContent).not.toMatch(/Deshalb/)
+    expect(e.querySelector('b')).toHaveTextContent('Reelle Zahlen')
+  })
+
+  it('Einstieg „geschrieben, Note bekannt“ (batuMitNote): Note, „dazu passt“, kommende Arbeit', () => {
+    const e = within(bogenV4('batuMitNote').seite(3)).getByTestId('eb-s3-einstieg')
+    expect(e).toHaveAttribute('data-ka', 'note')
+    expect(e.textContent).toMatch(/ist mit Note 4 zurückgekommen\. Dazu passt, was die Analyse zeigt: .+ (war|waren) noch unsicher\./)
+    expect(e.textContent).toMatch(/(wird|werden) bei Klassenarbeit \d+ wieder gebraucht\./)
+    expect(e.textContent).not.toMatch(/\bweil\b|tr(ä|ae)gt/)
+  })
+
+  it('Einstieg „steht an“ und „unbekannt“: derselbe Satz', () => {
+    for (const fall of ['batuBevorstehend', 'batuOhneStatus'] as const) {
+      const e = within(bogenV4(fall).seite(3)).getByTestId('eb-s3-einstieg')
+      expect(e, fall).toHaveAttribute('data-ka', 'steht')
+      expect(e.textContent, fall).toMatch(/^Die Arbeit zu Reelle Zahlen( und Wurzeln)? steht noch an\. Darauf bereiten wir zuerst vor\./)
+      expect(e.textContent, fall).toContain('Für die Arbeiten danach steht hier')
+    }
   })
 
   it('„Weitere Stärken“ (mint, weiße Chips) und „Wird später wichtig“ (Chips)', () => {

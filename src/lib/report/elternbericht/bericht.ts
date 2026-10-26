@@ -109,6 +109,9 @@ export function baueElternbericht({
           uebung: themaZuerst(uebungListe(bereiche), thema)
             .filter((b) => thema.raum.has(b.skillKey))
             .map((b) => b.label),
+          sicher: themaZuerst(sicherListe(bereiche), thema)
+            .filter((b) => thema.raum.has(b.skillKey))
+            .map((b) => b.label),
         }
       : null,
     kopfFall: kopfFall(zaehlung.sicher, zaehlung.uebung),
