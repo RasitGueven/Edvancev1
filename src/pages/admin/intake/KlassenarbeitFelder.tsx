@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import type { KlassenarbeitSpalten } from '@/lib/supabase/leads'
 
 import { GRADES } from './intakeConstants'
+import { KLASSENARBEIT_ANKER } from './KlassenarbeitHinweis'
 import { OptionChips } from './OptionChips'
 import type { IntakeFormState } from './formState'
 
@@ -30,7 +31,7 @@ export function KlassenarbeitFelder({
   const k = 'intake.erstgespraech.klassenarbeit'
 
   return (
-    <div className="flex flex-col gap-2" data-testid="intake-klassenarbeit">
+    <div className="flex flex-col gap-2" data-testid="intake-klassenarbeit" id={KLASSENARBEIT_ANKER}>
       <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {t(`${k}.titel`)}
       </p>

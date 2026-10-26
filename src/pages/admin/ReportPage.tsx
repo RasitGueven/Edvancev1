@@ -20,6 +20,7 @@ import { listTiers } from '@/lib/supabase/subscriptions'
 import type { ReportData, ReportNotes, TierPlan } from '@/types'
 import { durchklickGrund } from './lsaReports/durchklickGrund'
 import { NichtAuswertbarBalken } from './lsaReports/NichtAuswertbarBalken'
+import { KaAbweichungHinweis } from './lsaReports/KaAbweichungHinweis'
 import { bogenBereit, druckDatum, druckeMitTitel } from './reportDruck'
 import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
@@ -341,6 +342,7 @@ export function ReportPage(): JSX.Element {
                 <TestlaufBanner />
               </div>
             )}
+            {data.klassenarbeitAbweichung && <KaAbweichungHinweis abweichung={data.klassenarbeitAbweichung} />}
             {nichtAuswertbar ? (
               <>
                 <NichtAuswertbarBalken

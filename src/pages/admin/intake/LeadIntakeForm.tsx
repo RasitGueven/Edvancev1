@@ -21,6 +21,7 @@ import { CONSENT_DOCUMENT_VERSION } from './consentDocument'
 import type { ConsentState } from './ConsentBlock'
 import type { ThemenStatus } from './ThemenAuswahl'
 import { FreigabeOhneThema } from './FreigabeOhneThema'
+import { KlassenarbeitHinweis } from './KlassenarbeitHinweis'
 import {
   EMPTY_INTAKE,
   intakeFromLead,
@@ -312,6 +313,9 @@ export function LeadIntakeForm({
           onFehler={setError}
         />
       )}
+
+      {/* LSA-L4: Hinweis vor der Freigabe, wenn der Stand der Klassenarbeit fehlt (kein Blocker). */}
+      {step === 1 && klassenarbeitSpalten.status && <KlassenarbeitHinweis form={form} />}
 
       {/* Navigation — Abbrechen laeuft ueber das × oben rechts. */}
       <div className="flex flex-wrap items-center justify-end gap-2">

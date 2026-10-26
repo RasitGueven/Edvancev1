@@ -263,7 +263,9 @@
         "hilfe": "Wenn das Kind es nicht weiß: ‚weiß nicht‘ wählen. Der Bericht richtet sich dann nach dem Schulplan.",
         "datum": "Nächste Klassenarbeit",
         "note": "Note der zuletzt geschriebenen Arbeit",
-        "noteHilfe": "Nur eintragen, wenn die Familie sie nennen möchte."
+        "noteHilfe": "Nur eintragen, wenn die Familie sie nennen möchte.",
+        "fehltHinweis": "Stand der letzten Klassenarbeit fehlt – die Analyse startet mit dem aktuellen Thema.",
+        "fehltLink": "Zum Stand der Klassenarbeit"
       }
     },
     "optionen": {
@@ -519,6 +521,13 @@
       "pdfFuer": "Report von {{name}} als PDF sichern",
       "bogenFuer": "Report von {{name}} öffnen",
       "praesentationGesperrt": "Nicht auswertbar: {{grund}}. Die Präsentation bleibt geschlossen."
+    },
+    "kaAbweichung": {
+      "text": "Das Erstgespräch hat sich seit dem LSA-Start geändert. Der Bericht zeigt den Stand der Klassenarbeit beim Start: {{sitzung}}. Heute steht im Erstgespräch: {{lead}}.",
+      "geschrieben": "geschrieben, Note offen",
+      "geschriebenNote": "geschrieben, Note {{note}}",
+      "bevorstehend": "steht an",
+      "unbekannt": "nicht angegeben"
     }
   },
   "durchklick": {

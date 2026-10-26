@@ -1,13 +1,13 @@
 import { Fragment, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { kaSatz, kaTeile, type KaTeil } from '@/lib/report/elternbericht/kaSatz'
 import type { EbKommtThema, EbStation, EbZuordnung } from '@/types'
 
 import { Kicker } from './Kicker'
 import type { StationProps } from './stationProps'
 import { schuleGenitiv } from '@/components/edvance/elternbericht/berichtSaetze'
 
-import type { PraesentationV4 } from './v4Daten'
 
 /** Höchstens drei Einträge je Liste, dann „+n weitere“. */
 const JE_LISTE = 3
@@ -24,20 +24,6 @@ function Liste({ art, eintraege }: { art: 'sitzt' | 'fehlt'; eintraege: EbZuordn
       {rest > 0 && <li className="tp-ka-weitere">{tb('s1.blick.weitere', { count: rest })}</li>}
     </ul>
   )
-}
-
-/**
- * Der Satz zu einer offenen Lücke im aktuellen Thema: der erste Bereich mit
- * Übungsbedarf dort, und die erste kommende Station, die ihn wieder braucht.
- */
-function offeneLuecke(v4: PraesentationV4): { bereich: string; thema: string } | null {
-  const bereich = v4.bericht.thema?.uebung[0]
-  if (!bereich) return null
-  const signal = (v4.bericht.signale ?? []).find(
-    (s) => s.fehlt.some((b) => b.label === bereich) && v4.fahrplan.stationen.some((k) => k.nummer > 1 && k.themaKey === s.themaKey),
-  )
-  const station = v4.fahrplan.stationen.find((k) => k.nummer > 1 && k.themaKey === signal?.themaKey)
-  return station ? { bereich, thema: station.titel } : null
 }
 
 /** Teile einer Zeile, getrennt durch einen Punkt (CSS); das Leerzeichen erlaubt den Umbruch. */
@@ -59,12 +45,13 @@ function Teile({ teile }: { teile: (string | null)[] }): JSX.Element {
 function Karte({
   s,
   block,
-  luecke,
+  ka,
   klasse,
 }: {
   s: EbStation
   block: EbKommtThema | undefined
-  luecke: { bereich: string; thema: string } | null
+  /** LSA-L4: der Satz zur Arbeit im aktuellen Thema, nur auf dessen Karte. */
+  ka: KaTeil[] | null
   klasse: number | null
 }): JSX.Element {
   const { t } = useTranslation('praesentation')
@@ -92,9 +79,9 @@ function Karte({
           <Liste art="fehlt" eintraege={block.fehlt} />
         </>
       )}
-      {s.stand === 'geschrieben' && luecke && (
-        <p className="tp-ka-offen" data-testid="tp-ka-offen">
-          {t('v4.s3.offen', luecke)}
+      {ka && ka.length > 0 && (
+        <p className="tp-ka-offen" data-testid="tp-ka-stand">
+          {ka.map((teil) => t(`v4.s3.ka.${teil.key}`, teil.values)).join(' ')}
         </p>
       )}
     </article>
@@ -105,14 +92,16 @@ function Karte({
  * Station 03 · Klassenarbeiten (V4, Entscheidung 4): je Station des Fahrplans
  * eine Karte mit Stand, Titel und Nummer. Kommende Arbeiten zeigen bis zu drei
  * Bereiche, die sitzen, und die fehlen. Die geschriebene Arbeit steht
- * gestrichelt, mit einem Satz zu einer offenen Lücke. Fußzeile mit der Quelle.
+ * gestrichelt. Die Karte des aktuellen Themas zeigt den Satz zum Stand der Klassenarbeit (LSA-L4, kaSatz).
+ * Fußzeile mit der Quelle.
  */
 export function StationKlassenarbeiten({ v4 }: StationProps): JSX.Element | null {
-  const { t } = useTranslation('praesentation')
+  const { t, i18n } = useTranslation('praesentation')
   const { t: tb } = useTranslation('elternbericht')
   if (!v4) return null
   const { fahrplan, bericht } = v4
-  const luecke = offeneLuecke(v4)
+  const satz = kaSatz(bericht, v4.klassenarbeit, v4.note)
+  const ka = satz ? kaTeile(satz, i18n.language, (label) => t('v4.s3.ka.bereich', { label })) : null
   const blocks = bericht.lueckenwegV4?.themen ?? []
   const quelle =
     fahrplan.quelle === 'schule' && fahrplan.schulname
@@ -140,7 +129,7 @@ export function StationKlassenarbeiten({ v4 }: StationProps): JSX.Element | null
             key={s.nummer}
             s={s}
             block={blocks.find((b) => b.titel === s.titel)}
-            luecke={luecke}
+            ka={s.nummer === 1 ? ka : null}
             klasse={fahrplan.klassenTrenner}
           />
         ))}

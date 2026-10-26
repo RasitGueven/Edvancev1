@@ -10,6 +10,10 @@
   nötigen Aufgaben ab; Karte „Batus Freigabeliste“ auf `/admin` mit offenem Stand und Freigabe-Reihe.
   Migration `20261025210952` am 25.10. eingespielt. Dazu die erste `term_ausklammern`-Aufgabe ohne MC
   (`20261025213530`, Mehrteiler mit drei Zahlenfeldern, eingespielt).
+- **LSA-L4 Nachtrag zu L3** (Retro `2026-10-26-lsa-l4-nachtrag.md`, PR #326 und Berichtstexte): mitbelegte
+  Bericht-Voraussetzungen werden direkt nachgeprüft (Batu 11/17 → 16/17), ohne Thema kein kommender Stoff, frische
+  Prod-Fixture; Satz zur Klassenarbeit nach Stand der Sitzung auf Seite 3 und in Station 03, Admin-Hinweise.
+  Migration `20261025232926` am 25.10. eingespielt. **Offen:** `docs/lsa/l4-offen.md`.
 - **LSA-L3 Auswahl nach Klassenarbeits-Stand** (Retro `2026-10-25-lsa-l3-ka-modus.md`, Branch
   `feat/rasit-lsa-l3-ka-modus`, PR #325): `lsa_sessions.ka_modus`/`ka_note`, Modus `vorschau_zuerst` bei geschriebener
   Klassenarbeit (Thema kurz, Vorschau bis 16, Tiefe bis 18, Rückblick), Auffüllen der Vorschau aus Klasse + 1.

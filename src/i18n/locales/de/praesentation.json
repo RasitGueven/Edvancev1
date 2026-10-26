@@ -196,7 +196,24 @@
       "kicker": "Klassenarbeiten",
       "titel": "Was das für die nächsten Arbeiten heißt.",
       "karte": "Klassenarbeit {{n}}",
-      "offen": "{{bereich}} war noch unsicher. Das wird bei „{{thema}}“ wieder gebraucht."
+      "ka": {
+        "steht": "Die Arbeit zu {{thema}} steht noch an. Darauf bereiten wir zuerst vor.",
+        "analyse": {
+          "xy_one": "Die Analyse zeigt für {{thema}}: sicher war {{x}}, noch unsicher {{y}}.",
+          "xy_other": "Die Analyse zeigt für {{thema}}: sicher waren {{x}}, noch unsicher {{y}}.",
+          "x_one": "Die Analyse zeigt für {{thema}}: sicher war {{x}}.",
+          "x_other": "Die Analyse zeigt für {{thema}}: sicher waren {{x}}.",
+          "y": "Die Analyse zeigt für {{thema}}: noch unsicher {{y}}."
+        },
+        "geschrieben": "Die Arbeit zu {{thema}} ist geschrieben.",
+        "abgleich": "Sobald Sie die Note kennen, gleichen wir das gemeinsam ab.",
+        "note": "Die Arbeit zu {{thema}} ist mit Note {{n}} zurückgekommen.",
+        "dazu_one": "Dazu passt, was die Analyse zeigt: {{y}} war noch unsicher.",
+        "dazu_other": "Dazu passt, was die Analyse zeigt: {{y}} waren noch unsicher.",
+        "wieder_one": "{{y}} wird bei Klassenarbeit {{k}} wieder gebraucht.",
+        "wieder_other": "{{y}} werden bei Klassenarbeit {{k}} wieder gebraucht.",
+        "bereich": "„{{label}}“"
+      }
     },
     "s4": {
       "titel": "Daran würden wir zuerst arbeiten.",

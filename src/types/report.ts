@@ -251,10 +251,21 @@ export type ReportData = {
    * lesbar; beim Coach oder bei Fehler null — dann entfallen die Sätze.
    */
   erstgespraech?: ReportErstgespraech | null
+  /**
+   * LSA-L4: Der Klassenarbeits-Stand des Leads weicht heute vom Stand der Sitzung beim LSA-Start ab. Der Bericht
+   * zeigt den Stand der Sitzung; die Abweichung nur als Hinweis in der Admin-Ansicht. null = gleich oder unbekannt.
+   */
+  klassenarbeitAbweichung?: KaAbweichung | null
 }
 
 /** Stand der Klassenarbeit zum aktuellen Thema; null = unbekannt. */
 export type KlassenarbeitStatus = 'bevorstehend' | 'geschrieben'
+
+/** LSA-L4: Stand und Note der Klassenarbeit zu einem Zeitpunkt. */
+export type KaStand = { status: KlassenarbeitStatus | null; note: number | null }
+
+/** LSA-L4: Stand der Sitzung beim Start gegen den heutigen Stand des Leads. */
+export type KaAbweichung = { sitzung: KaStand; lead: KaStand }
 
 /** Bericht v2: was das Erstgespräch zum Anlass erfasst hat (leads). */
 export type ReportErstgespraech = {
