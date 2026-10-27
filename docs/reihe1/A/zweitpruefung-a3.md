@@ -20,3 +20,15 @@ Frischer Subagent ohne Kontext: nur die zwei Migrationen, Konzept §3–7 und §
 | 14 | `richtig` NULL überspringt Fehlbilder; Fehler finden ohne Ordnung | überall `coalesce`; genauestes Fehlbild zuerst |
 | 15 | `tasks_input_type_check` | gegen Prod verglichen: alte zehn Werte + sechs neue |
 | 16 | Figur für „Graph + Feldmaske“ | `lsa_task_assets` liefert `task_figures` auch für neue Formate |
+
+## Nachtrag: Migration 20261027141615_reihe1_a3_vorschau (eigene Zweitprüfung)
+
+| # | Befund | Abarbeitung |
+|---|---|---|
+| 1 | Ein mitgeschickter Entwurf wird für Instanzen still verworfen | Antwort trägt `entwurf_ignoriert: true` (pgTAP) |
+| 2 | Ein Entwurf könnte eine Aufgabe auf ein neues Format stellen | `22023`: neue Formate entstehen nur im Generator |
+| 3 | Mögliches Lösungsleck im neuen Zweig | pgTAP: die Vorschau trägt keinen Lösungsschlüssel; `question_payload` ist per CHECK frei davon; Lösungsbeispiel-Schritte sind gewollt (Rolle beispiel) |
+| 4/5 | Lena liest Entwürfe und pausierte Instanzen? Welche Rolle hat Lena? | `aufgabe_lesbar` lässt Coach, Admin und `darf_pruefen` alles lesen; Lena ist `coach` mit `darf_pruefen` |
+| 6 | Feste Typliste | Erkennung über `question_payload ? 'format'` (durch `tasks_format_passt` gleichwertig) und `bauform_id` |
+| 8/10 | Kommentar am falschen Ort, unqualifiziertes `tasks` | Kommentar zurück an seinen Zweig; neuer Code nutzt `public.tasks` |
+| 7/9/11/12 | späte Bindung, zwei Abfragen, Grants, Frontend | `aufgabe_payload` gibt es genau einmal (Prod, A2); Grants und Kommentar bleiben bei `create or replace`; `PreviewStage` kennt `kind: 'format'` |

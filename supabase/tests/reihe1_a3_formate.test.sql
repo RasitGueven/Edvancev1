@@ -11,7 +11,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(44);
+select plan(47);
 
 create function pg_temp.w(p_format text, p_payload jsonb, p_loesung jsonb, p_fehlbilder jsonb, p_antwort jsonb)
 returns text language sql as $$
@@ -143,6 +143,16 @@ select ok(not aufgabe_ziehbar(:'t3'), '4 Graph-Auswahl ohne Bild fuer jede Optio
 insert into task_figur_optionen (task_id, option_id, generator, params, alt_text, svg_hash)
 values (:'t3', 'b', 'parabel', '{"a":-1,"d":0,"e":0}', 'Parabel nach unten geöffnet', 'h');
 select ok(aufgabe_ziehbar(:'t3'), '4 mit allen Bildern ziehbar');
+insert into auth.users (id, email, instance_id, aud, role)
+values ('2c500000-0000-4000-8000-0000000000a3', 'r1a3-admin@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
+insert into profiles (id, email, role, full_name) values ('2c500000-0000-4000-8000-0000000000a3', 'r1a3-admin@test.local', 'admin', 'R1A3 Admin');
+select set_config('request.jwt.claims', json_build_object('sub', '2c500000-0000-4000-8000-0000000000a3', 'role', 'authenticated')::text, true);
+select is((select task_preview_payload(:'t3') ->> 'kind' || '/' || (task_preview_payload(:'t3') ->> 'format')), 'format/graph_auswahl',
+          '4 Lenas Vorschau zeigt das Format wie das Tablet (task_preview_payload)');
+select ok(not (task_preview_payload(:'t3')::text ~ '"(fehlbilder|menge|werte|option|reihenfolgen|keine_loesung|loesung|richtig)"'),
+          '4 die Vorschau traegt keinen Loesungsschluessel');
+select is(task_preview_payload(:'t3', '{"question":"x"}') ->> 'entwurf_ignoriert', 'true',
+          '4 ein Entwurf fuer eine Instanz wird nicht still verworfen');
 
 select * from finish();
 rollback;

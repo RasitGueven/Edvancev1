@@ -516,5 +516,21 @@
     "session": "Pool Session",
     "check": "Mini-Check",
     "quest": "Quest"
+  },
+  "formate": {
+    "zeile": "Zeile {{nr}}",
+    "warumFrage": "Was ist dort falsch?",
+    "keineLoesung": "Keine Lösung",
+    "loesung": "Lösung {{nr}}",
+    "bausteineEins": "Wähle die passende Begründung.",
+    "bausteineZwei": "Wähle die zwei passenden Begründungen.",
+    "schritteAnleitung": "Bring die Schritte in die richtige Reihenfolge.",
+    "graphOhneBild": "Bild noch nicht erzeugt: {{alt}}",
+    "beispielTitel": "Lösungsbeispiel",
+    "beispielWarum": "Warum? (Begründungsbausteine)",
+    "beispielRichtig": "passt",
+    "feld": "Feld {{nr}}",
+    "vorzeichen": "Vorzeichen (+/−)",
+    "instanz": "{{bauform}} · Rolle {{rolle}} · Stufe {{stufe}}"
   }
 }

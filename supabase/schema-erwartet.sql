@@ -19411,6 +19411,25 @@ begin
     raise exception 'task_preview_payload: Aufgabe nicht gefunden' using errcode = 'P0002';
   end if;
 
+  -- Reihe 1 A3: neue Formate (question_payload.format, CHECK tasks_format_passt) und Bauform-Instanzen zeigt die
+  -- Vorschau genau wie das Tablet (aufgabe_payload, mit Rolle, Stufe und Loesungsbeispiel; Coach und Admin lesen
+  -- auch Entwuerfe und pausierte Instanzen). Sie entstehen im Generator, einen Entwurfsstand gibt es fuer sie nicht:
+  -- ein mitgeschickter Entwurf wird nicht still verworfen, sondern als entwurf_ignoriert gekennzeichnet.
+  if exists (select 1 from public.tasks x where x.id = p_task_id
+               and (x.bauform_id is not null or coalesce(x.question_payload ? 'format', false))) then
+    v_payload := public.aufgabe_payload(p_task_id);
+    if p_draft is not null and jsonb_typeof(p_draft) = 'object' then
+      v_payload := v_payload || jsonb_build_object('entwurf_ignoriert', true);
+    end if;
+    return v_payload;
+  end if;
+  -- Ein Entwurf darf eine bestehende Aufgabe nicht in ein neues Format umstellen (das Format kommt aus dem Generator).
+  if jsonb_typeof(p_draft) = 'object'
+     and p_draft ->> 'input_type' in ('FELDMASKE', 'LOESUNGSMENGE', 'GRAPH_AUSWAHL', 'FEHLER_FINDEN', 'BAUSTEINE',
+                                      'SCHRITTE_ORDNEN') then
+    raise exception 'task_preview_payload: neue Formate entstehen nur im Generator' using errcode = '22023';
+  end if;
+
   -- Der gespeicherte Stand: direkt durchgereicht. Kein Zwischenschritt, keine
   -- Kopie, keine Interpretation.
   if p_draft is null or jsonb_typeof(p_draft) <> 'object' then
