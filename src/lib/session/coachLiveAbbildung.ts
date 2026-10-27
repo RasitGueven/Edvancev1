@@ -133,6 +133,7 @@ function aufgabeAus(k: KindRaum, d: KindDetail, c: Kontext): LiveAufgabeDetail |
   const nr = k.aufgabe?.nr_in_phase ?? 1
   const letzte = eingabeDerAufgabe(d.versuche.filter((v) => v.task_id === a.task_id), a.payload)
   return {
+    taskId: a.task_id,
     kopf: k.aufgabe?.phase === 'warmup' ? { art: 'warmup', nr, von: Number(c.e.warmup_aufgaben ?? 3) } : { art: 'aufgabe', nr },
     skill: k.schritt?.skill_label ?? (k.aufgabe?.skill_key ? (c.label(k.aufgabe.skill_key) ?? '') : ''),
     text: text(a.payload),
