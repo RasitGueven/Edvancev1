@@ -1166,3 +1166,22 @@ Coach (laufender Vertrag) oder Admin. Eigene Zeile in `reihe_coach_aenderungen`;
 Coach (laufender Vertrag) oder Admin; beendet eine aktive Reihe desselben Fachs.
 
 Neu geplant wird beim Abschluss einer Session (Trigger auf `coaching_sessions.status → done`, nicht im Testlauf): Ist-Zeile in `reihe_ist`, neue Version mit Anlass `session`.
+
+## 15. Reihe 1 · Phasen und Auswahl am Tablet (Auftrag C, C2)
+
+`session_naechster_schritt` (Tablet) liefert zusätzlich:
+
+| Feld | Typ | Bedeutung |
+|---|---|---|
+| `art` | `… \| 'recap' \| 'generalprobe' \| 'gp_ergebnis'` | neu: Recap (Check-out, mit Aufgabe), Generalprobe (Kernarbeit, mit Aufgabe), Ergebnis der Generalprobe |
+| `rolle` | `'warmup' \| 'uebung' \| 'transfer' \| 'recap' \| 'beispiel' \| 'generalprobe' \| null` | Rolle, mit der die Aufgabe gezogen wurde |
+| `hinweise_max` | `number \| null` | höchste erlaubte Hinweisstufe; `0` = kein Hinweis-Knopf (Warm-up, Recap, Generalprobe, „Zeig's mir“), `1` im Transfer |
+| `hinweise_erlaubt` | `boolean` | wie bisher, jetzt auch `false` bei `hinweise_max = 0` |
+| `rueckmeldung` | `boolean` | `false` in der Generalprobe: keine Rückmeldung bis zum Ende; `antwort_abgeben` liefert dort kein `ergebnis` |
+| `gp_ergebnis` | `{ skill_key, label, sicher }[]` | nur bei `art = 'gp_ergebnis'`: „sicher / noch üben“ je Skill |
+| `aufgabe` | Payload | für Bauform-Instanzen aus `aufgabe_payload` (Auftrag A), sonst `lsa_question_payload` |
+
+- `termin` kommt nicht mehr (Entscheidung 27.10.: keine Quest-Tage).
+- `session_gp_waehlen(p_session_id, p_skill_key text | null) → { ok }` (Tablet, eigener Platz): „noch üben“ zu einem Skill der Generalprobe, `null` = weiter.
+- `antwort_abgeben.fehlbild_klartext`: bei Bauform-Instanzen der Rückmeldesatz aus `aufgabe_werten`.
+- Neues Verhalten (Warm-up mit Abruf, Recap, Generalprobe, Ziel aus dem Reihenplan) gilt für Kinder mit aktiver Reihe; ohne Reihe läuft die Session wie bisher (ohne Termin-Wahl).
