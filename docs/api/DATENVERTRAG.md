@@ -1166,4 +1166,28 @@ zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung 
     p_entscheidung: uebernehmen | nicht_heute (ASCII wie die übrigen Zustände); nur Coach der Session und Admin
 ```
 
-Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
+### Anmeldung mit Zugangscode und Geräte (D1)
+
+Edge Function `geraet_anmelden` (POST, ohne Nutzer-JWT):
+
+```text
+Rumpf   { code: string, name: string, plattform: 'ios'|'android'|'web', installation: string (16–128 Zeichen, zufällig je Installation) }
+200     { ergebnis: 'ok', access_token, refresh_token, expires_at }        → App: supabase.auth.setSession(...)
+200     { ergebnis: 'falsch' | 'kein_vertrag' | 'zu_viele_geraete' | 'gesperrt', warte_sek: number | null }
+400     { ergebnis: 'eingabe' }      500 { ergebnis: 'fehler' }
+```
+
+Das Gerät ist danach mit dem eigenen Konto des Kindes angemeldet (`get_my_student_id()` gilt unverändert).
+
+```text
+geraet_status() → text          das Kind selbst: aktiv | abgemeldet | kein_vertrag | ohne_geraet (Passwort-Session)
+geraet_abgemeldet() → boolean    intern für Home-Funktionen: Session gehört einem abgemeldeten Gerät
+kind_geraete_liste(p_student uuid) → table(id, name, plattform, angemeldet_am, zuletzt_gesehen, abgemeldet_am, abmelde_grund)   Admin
+kind_geraet_abmelden(p_geraet uuid) → void          Admin; löscht die Auth-Session des Geräts
+zugangscode_neu(p_vertrag uuid) → text              Admin; der alte Code ist sofort ungültig
+zugangscode_freischalten(p_vertrag uuid) → void     Admin; nur bei laufendem Vertrag
+geraet_einloesen(...), geraet_session_setzen(...)   nur service_role (Edge Function)
+```
+
+Grenzen: höchstens drei aktive Geräte je Kind; 5 Fehlversuche je Installation oder IP in 15 Minuten sperren 15 Minuten;
+nur bei laufendem Vertrag (`hat_zugang`) und nicht gesperrtem Code. Das Protokoll `zugangscode_versuche` speichert keinen Code.
