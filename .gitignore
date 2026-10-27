@@ -66,3 +66,7 @@ state/
 orchestration/
 scratchpad/
 .claude/worktrees/
+
+# Reihe 1 A4: lokale Python-Abhaengigkeiten der Pruefmaschine (sympy), nie committen
+scripts/bauformen/.pydeps/
+__pycache__/

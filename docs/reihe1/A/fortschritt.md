@@ -15,6 +15,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | 2026-10-27 | Einspielen | Anweisung Rasit: „alle Migrationen selbst einspielen“ — ab jetzt EINSPIELEN = orchestrator (nach grüner Zweitprüfung, Prüfung per dbread, bei Fehler Rollback + STOPP der Phase). | – |
 | 2026-10-27 | A3 Backend | Zwei Migrationen: sechs Formate (input_type, CHECKs), reine Wertung `format_werten_daten`, `session_bewerten` für neue Formate, Generator `parabel` + `pruefe_parabel` (18 pytest), Optionsfiguren, Kindersicht. pgTAP `reihe1_a3_formate` 44/44, Suite 76 grün / 8 bekannt rot. Zweitprüfung `zweitpruefung-a3.md` (16 Befunde abgearbeitet). | (PR folgt) |
 | 2026-10-27 | A3 Vorschau + Player | Migration `20261027141615_reihe1_a3_vorschau` (Lenas Vorschau = Tablet-Payload für Formate und Instanzen), Web-`FormatAnsicht` in `PreviewStage`. Player edvance-app: sechs Formate + Lösungsbeispiel, Vorschau `/aufgaben/vorschau`, Ansichtstests 56/56 (4 Größen × 7 × leer/beantwortet), Fotos `abnahme/formate/`. Web-Gate grün (3120 Tests). | #342 |
+| 2026-10-27 | A4 | Bauform-Motor `scripts/bauformen/` (Basis, sympy-Nachrechnen, Prüfmaschine 7 Prüfungen mit Wertung gegen Prod, Export, CLI `tools/bauform.sh`), 13 Negativkontrollen grün. Trigger-Migration `20261027142701_reihe1_a4_versionswechsel` (pgTAP `reihe1_a4_motor` 6/6). Pilot WZ-1 (26 grün) und NP-2 (83 grün), Blindlöser je 10/10. Zweitprüfung `zweitpruefung-a4.md` (11 Befunde). Suite 77 grün / 8 bekannt rot. | (PR folgt) |
 
 ## Abweichungen
 
@@ -26,6 +27,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 - **Rollback ohne Entfernen von Tabellen:** Guard-Hook und Leitplanke sperren das. Der Rollback des A2-Schemas legt das Modell still (Trigger, Policies, Rechte weg) und lässt die leeren Tabellen und Spalten stehen.
 - **Offen (Auth/RLS, braucht Rasit):** `read_tasks_by_role` lässt angemeldete Rollen `ready`-Zeilen aus `tasks` direkt lesen, also auch `params`/`pruefmaschine` freigegebener Instanzen. Vorschlag in `zweitpruefung-a2.md`.
 - **Types edvance-app (offen, braucht Rasit):** `src/types/database.ts` neu erzeugen geht nur über die Windows-CLI (`cmd.exe /c "supabase gen types typescript --project-id ztcppihxqcphlqaguhma --schema public"`). Das Schreiben in die gesperrte Datei hat die Rechteprüfung abgelehnt. Die Ausgabe vom 27.10. liegt im Scratchpad (`database.ts`). Die A-Komponenten nutzen eigene Typen (`formate/typen.ts`), typecheck ist grün.
+- **WZ-1 Stufe 1:** Zahlenraum c = 9…400 (bis 20², wie QW-1) statt bis 144, sonst gäbe es zu wenige verschiedene Aufgaben. Kleine Zahlenräume (WZ-1, NP-2 Stufe 1/2) ergeben 4–5 statt 8 Instanzen je Rolle, weil ein Kind dieselbe Aufgabe nie in zwei Rollen sehen soll.
 - **Types in Edvancev1** sind handgeschrieben (kein Generator); „Types neu generieren“ betrifft nur edvance-app (`supabase gen types`, Datei per Hook gesperrt).
 
 ## Einspielen (wartend / erledigt)

@@ -1290,14 +1290,18 @@ begin
     insert into public.bauform_versionen (bauform_id, version, steckbrief, status)
     values (old.id, old.version, old.steckbrief, old.status);
     new.version := old.version + 1;
-    new.pruefprotokoll := '{}'::jsonb;
-    new.blindloeser := null;
-    new.verdacht := null;
+    if coalesce(current_setting('edvance.bauform_export', true), '') <> '1' then
+      new.pruefprotokoll := '{}'::jsonb;
+      new.blindloeser := null;
+      new.verdacht := null;
+      if old.status <> 'entwurf' then
+        new.status := 'zur_pruefung';
+      end if;
+    elsif new.status in ('zur_freigabe', 'freigegeben', 'pausiert', 'beanstandet', 'rueckfrage') then
+      new.status := case when new.verdacht is null then 'zur_pruefung' else 'entwurf' end;
+    end if;
     new.freigegeben_am := null;
     new.freigegeben_von := null;
-    if old.status <> 'entwurf' then
-      new.status := 'zur_pruefung';
-    end if;
   end if;
   return new;
 end $$;
