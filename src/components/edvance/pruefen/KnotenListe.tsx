@@ -17,11 +17,11 @@ type Props = {
   statusText: (z: PruefBoardZeile) => string
   statusFarbe: Record<LenaStatus, string>
   onAufgabe: (id: string) => void
-  /** Kennzeichnung je Aufgabe, z. B. "auch Session". */
+  /** Kennzeichnung je Aufgabe, z. B. der Pool. */
   zusatz?: (z: PruefBoardZeile) => string | null
 }
 
-/** Kennzeichnung "auch Session" / "auch LSA" an einer Aufgabenzeile. */
+/** Kennzeichnung an einer Aufgabenzeile, z. B. "Pool Session". */
 export function Zusatz({ text }: { text?: string | null }): JSX.Element | null {
   return text ? <EdvanceBadge variant="muted">{text}</EdvanceBadge> : null
 }

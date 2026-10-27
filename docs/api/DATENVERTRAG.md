@@ -1164,3 +1164,14 @@ Ort `src/components/aufgaben/formate/`, eine Komponente je Format, gemeinsame Pr
 Der Inhalt kommt aus `aufgabe_payload` einer Instanz der Rolle `beispiel` (Feld `loesungsbeispiel`, A2/A3).
 
 Bis A3 zeigen alle Komponenten einen Platzhalter „Format kommt bald“; die Props ändern sich dabei nicht.
+
+### 13.2 Pool je Aufgabe (A1, Migration `20261027130250_reihe1_a1_pool_trennung`)
+
+- Die Pool-Angabe des Konzepts (§9 „tasks: Pool“) ist die vorhandene Spalte **`tasks.einsatz text[] not null`**:
+  genau einer von `lsa` | `session`, nie beide (`tasks_einsatz_ein_pool`), nie leer (`tasks_einsatz_nicht_leer`).
+  `check` (Mini-Check) und `quest` bleiben eigene Einsätze ohne Pool.
+- **Kein Default mehr.** Jeder Insert nennt `einsatz` ausdrücklich; Bauform-Instanzen setzen `{session}`.
+- Den Einsatz ändert nur ein Admin (`tasks_pruefer_guard`, dazu RLS `admin_write_tasks`).
+- Bestand seit A1: alle Aufgaben `{lsa}` (bis auf einen `{check}`). Die Session zieht bis zur ersten Freigabe von
+  Bauform-Instanzen nichts (`docs/reihe1/A/an-C.md`).
+- `pruef_board()` liefert zusätzlich `pool text` (`lsa` | `session` | `null`), am Ende der Spaltenliste.

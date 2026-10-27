@@ -64,7 +64,7 @@ select md5(format('zg-%s-%s', i, n))::uuid,
             then '{"input_type":"MC","options":[{"id":"a","label":"5"},{"id":"b","label":"7"}]}'::jsonb end,
        'test', format('zg-%s-%s', i, n), format('zg%s', lpad(i::text, 2, '0')),
        case when n = 1 then 1 end, 9,   -- n = 2..4 ohne Sondierrang: md5 entscheidet
-       case when (i + n) % 5 = 0 then '{}'::text[] else '{lsa}'::text[] end, true,
+       case when (i + n) % 5 = 0 then '{check}'::text[] else '{lsa}'::text[] end, true,
        'I', 'Zahlen und Operationen', 9   -- Gate-Felder: Entwuerfe sind im Testpool sichtbar
   from generate_series(1, 40) i cross join generate_series(1, 4) n;
 insert into task_solutions (task_id, correct_answers)

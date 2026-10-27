@@ -26,7 +26,7 @@ import { PruefenUebersichtPage } from './PruefenUebersichtPage'
 const zeile = (id: string, n: number, anlaesse: string[], stufe: Stufe = 'erste', status: 'offen' | 'passt' = 'offen'): PruefBoardZeile => ({
   task_id: id, stufe, thema_key: `thema_${stufe}`, thema_label: `Thema ${stufe}`, thema_sort: n, skill_key: `k_${id}`,
   skill_label: `Knoten ${id}`, kurztitel: `Aufgabe ${id}`, reihenfolge: n, lena_status: status, geaendert: false,
-  letzte_dauer_sek: null, anlaesse, hat_hinweise: false,
+  letzte_dauer_sek: null, anlaesse, hat_hinweise: false, pool: id.startsWith('s') ? 'session' : 'lsa',
 })
 
 const board = [
@@ -80,21 +80,21 @@ describe('PruefenUebersichtPage · Bereiche', () => {
     warn.mockRestore()
   })
 
-  it('LSA: Stufen-Reiter, nur LSA-Aufgaben, "auch Session" an der Doppelaufgabe', async () => {
+  it('LSA: Stufen-Reiter, nur LSA-Aufgaben, jede Zeile nennt ihren Pool', async () => {
     zeige()
     fireEvent.click(await screen.findByRole('button', { name: /Thema erste aufklappen/ }))
     expect(screen.getByRole('tab', { name: /Klasse 7\/8/ })).toBeInTheDocument()
     expect(screen.queryByRole('tab', { name: /Klasse 9\/10/ })).toBeNull()
-    expect(screen.getByRole('button', { name: /Aufgabe b1/ })).toHaveTextContent('auch Session')
-    expect(screen.getByRole('button', { name: /Aufgabe l2/ })).not.toHaveTextContent('auch')
+    expect(screen.getByRole('button', { name: /Aufgabe b1/ })).toHaveTextContent('Pool LSA')
+    expect(screen.getByRole('button', { name: /Aufgabe l2/ })).toHaveTextContent('Pool LSA')
   })
 
-  it('Session: alle Themen ohne Stufen-Reiter, "auch LSA" an der Doppelaufgabe', async () => {
+  it('Session: alle Themen ohne Stufen-Reiter, jede Zeile nennt ihren Pool', async () => {
     zeige('/coach/pruefen?bereich=session')
     expect(await screen.findByText('Nach Thema und Fertigkeit')).toBeInTheDocument()
     expect(screen.queryByRole('tab', { name: /Klasse/ })).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: /Thema erste aufklappen/ }))
-    expect(screen.getByRole('button', { name: /Aufgabe b1/ })).toHaveTextContent('auch LSA')
+    expect(screen.getByRole('button', { name: /Aufgabe b1/ })).toHaveTextContent('Pool LSA')
     expect(screen.queryByRole('button', { name: /Aufgabe l2/ })).toBeNull()
     expect(screen.getByRole('button', { name: /Thema zweite aufklappen/ })).toBeInTheDocument()
   })

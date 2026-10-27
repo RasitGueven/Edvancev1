@@ -12,6 +12,8 @@
 -- Eigene Fixtures (Quelle 'pz_test'), alles in einer Transaktion, am Ende rollback.
 -- ============================================================================
 begin;
+-- Reihe 1 A1: einsatz hat keinen Default mehr; die Aufgaben dieses Tests gehören zum Pool {lsa} (nur in dieser Transaktion).
+alter table public.tasks alter column einsatz set default '{lsa}';
 create extension if not exists pgtap with schema extensions;
 
 select plan(18);

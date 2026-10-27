@@ -30,6 +30,8 @@
 -- Klasse 9 statt 8, sonst zoege die Vorschau ihn als Rand von za_n; der Ausblick bleibt, wie er war.
 -- ============================================================================
 begin;
+-- Reihe 1 A1: einsatz hat keinen Default mehr; die Aufgaben dieses Tests gehören zum Pool {lsa} (nur in dieser Transaktion).
+alter table public.tasks alter column einsatz set default '{lsa}';
 create extension if not exists pgtap with schema extensions;
 
 select plan(37);

@@ -20,6 +20,8 @@
 -- Lauf: npx supabase test db
 -- ============================================================================
 begin;
+-- Reihe 1 A1: einsatz hat keinen Default mehr; die Aufgaben dieses Tests gehören zum Pool {session} (nur in dieser Transaktion).
+alter table public.tasks alter column einsatz set default '{session}';
 create extension if not exists pgtap with schema extensions;
 
 select plan(90);

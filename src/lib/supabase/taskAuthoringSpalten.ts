@@ -29,6 +29,7 @@ const BASE_COLUMNS = [
   'source_ref',
   'is_active',
   'created_at',
+  'einsatz',
 ].join(',')
 
 export const A01_COLUMNS = 'curriculum_grade,reviewed_by,reviewed_at'

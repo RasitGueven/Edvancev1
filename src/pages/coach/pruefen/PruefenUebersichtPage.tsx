@@ -22,7 +22,7 @@ import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getMeineDauer, getPruefBoard } from '@/lib/supabase/pruefung'
 import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
-import { auchIn, BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
+import { BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
 import { ladeMc, ladeSoll } from './usePruefLauf'
 
 export function PruefenUebersichtPage(): JSX.Element {
@@ -92,10 +92,8 @@ export function PruefenUebersichtPage(): JSX.Element {
     setReiter(null)
     setParams({ bereich: b })
   }
-  const zusatz = (z: PruefBoardZeile): string | null => {
-    const auch = auchIn(z, bereich)
-    return auch ? t(`bereich.auch.${auch}`) : null
-  }
+  // Reihe 1 A1: keine Aufgabe steht mehr in beiden Pools; die Zeile nennt ihren Pool.
+  const zusatz = (z: PruefBoardZeile): string | null => (z.pool ? t(`bereich.pool.${z.pool}`) : null)
 
   useEffect(() => {
     const taste = (e: KeyboardEvent): void => {
