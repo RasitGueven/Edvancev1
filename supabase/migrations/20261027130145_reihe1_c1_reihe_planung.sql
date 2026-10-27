@@ -87,10 +87,15 @@ declare
   v_n      int := 0;
   d        date;
 begin
+  -- Feste Termine: geplante Slot-Termine und gebuchte, noch nicht abgeschlossene Sessions (auch in den Ferien).
   for d in
-    select distinct kt.datum from public.kind_termine kt
-     where kt.student_id = p_student_id and kt.zustand = 'planned' and kt.datum >= p_von
-       and (p_bis is null or kt.datum < p_bis)
+    select x.datum from (
+      select kt.datum from public.kind_termine kt where kt.student_id = p_student_id and kt.zustand = 'planned'
+      union
+      select (cs.scheduled_at at time zone 'Europe/Berlin')::date from public.coaching_sessions cs
+        join public.session_students ss on ss.session_id = cs.id
+       where ss.student_id = p_student_id and cs.status in ('upcoming', 'active')) x
+     where x.datum >= p_von and (p_bis is null or x.datum < p_bis)
      order by 1
   loop
     exit when v_n >= p_max;
