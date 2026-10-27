@@ -154,5 +154,14 @@
     "einstellungSpeichern": "Stimme speichern",
     "einstellungGespeichert": "Stimme gespeichert.",
     "kiHinweis": "Stimme KI-erzeugt"
+  },
+  "vorschau": {
+    "titel": "Vorschau",
+    "welt": "Welt der Vorschau",
+    "ruhig": "Reduzierte Bewegung",
+    "kapitel": "Beats als Kapitel",
+    "stumm": "Ohne Stimme: stumme Vorschau mit geschätzter Dauer.",
+    "ladeFehler": "Die Vorschau ließ sich nicht laden.",
+    "springe": "Zu {{beat}} springen: {{titel}}"
   }
 }

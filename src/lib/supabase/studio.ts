@@ -158,3 +158,31 @@ export async function ladeStudioEinstellungen(): Promise<StudioErgebnis<Record<s
     return { data: null, error: fehler(e) }
   }
 }
+
+/** Audio der Vorschau je Beat einer Welt: signierte URL (1 h) und Dauer aus studio_audio. */
+export async function ladeVorschauAudio(sequenzId: string, welt: string): Promise<StudioErgebnis<Record<string, { url: string; dauerMs: number }>>> {
+  try {
+    const bedarf = await ladeStimmeBedarf(sequenzId)
+    if (bedarf.error) return { data: null, error: bedarf.error }
+    const meine = (bedarf.data ?? []).filter((b) => b.welt === welt && b.vorhanden)
+    if (meine.length === 0) return { data: {}, error: null }
+    const { data: audio, error } = await supabase
+      .from('studio_audio')
+      .select('fingerabdruck, pfad, dauer_ms')
+      .in('fingerabdruck', meine.map((b) => b.fingerabdruck))
+    if (error) return { data: null, error: fehler(error) }
+    const zeilen = (audio ?? []) as { fingerabdruck: string; pfad: string; dauer_ms: number }[]
+    const { data: urls, error: uFehler } = await supabase.storage.from('studio').createSignedUrls(zeilen.map((a) => a.pfad), 3600)
+    if (uFehler) return { data: null, error: fehler(uFehler) }
+    const jePfad = new Map((urls ?? []).map((u) => [u.path, u.signedUrl]))
+    const jeFp = new Map(zeilen.map((a) => [a.fingerabdruck, { url: jePfad.get(a.pfad) ?? '', dauerMs: a.dauer_ms }]))
+    const ergebnis: Record<string, { url: string; dauerMs: number }> = {}
+    for (const b of meine) {
+      const a = jeFp.get(b.fingerabdruck)
+      if (a?.url) ergebnis[b.beatKey] = a
+    }
+    return { data: ergebnis, error: null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}

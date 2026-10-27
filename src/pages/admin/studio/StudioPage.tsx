@@ -10,6 +10,7 @@ import type { StudioSequenz } from '@/types/studio'
 import { SequenzAnsicht } from './SequenzAnsicht'
 import { SkriptEinfuegen } from './SkriptEinfuegen'
 import { StimmePanel } from './StimmePanel'
+import { StudioVorschau } from './StudioVorschau'
 
 type Meldung = { art: 'success' | 'error'; text: string; id: number }
 
@@ -94,7 +95,10 @@ export function StudioPage(): JSX.Element {
               sequenz={aktuell}
               katalog={katalog}
               onGeaendert={() => void lade()}
-              zusatz={{ skript: <StimmePanel sequenzId={aktuell.id} stand={aktuell.geaendertAm} /> }}
+              zusatz={{
+                oben: <StudioVorschau sequenzId={aktuell.id} skript={aktuell.skript} stand={aktuell.geaendertAm} />,
+                skript: <StimmePanel sequenzId={aktuell.id} stand={aktuell.geaendertAm} />,
+              }}
             />
           ) : (
             <EmptyState icon="👈" title={t('liste.waehlen')} description={t('liste.waehlenText')} />
