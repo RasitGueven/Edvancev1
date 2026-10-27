@@ -6,8 +6,9 @@
 -- PostgreSQL database dump
 --
 
+\restrict r0amRfniH2RmkNTDcUmWF8RToDbot55nkiEHXVbycxdYHuwGtFc0otGBYckUSTN
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -3409,6 +3410,213 @@ end $$;
 
 
 --
+-- Name: geraet_abgemeldet(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geraet_abgemeldet() RETURNS boolean
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_session uuid;
+begin
+  begin
+    v_session := nullif(auth.jwt() ->> 'session_id', '')::uuid;
+  exception when invalid_text_representation then
+    return false;
+  end;
+  return v_session is not null and exists (
+    select 1 from public.kind_geraete g where g.auth_session_id = v_session and g.abgemeldet_am is not null
+  );
+end;
+$$;
+
+
+--
+-- Name: geraet_auth_session_loeschen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geraet_auth_session_loeschen(p_session uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+begin
+  if p_session is null or to_regclass('auth.sessions') is null then
+    return;
+  end if;
+  execute 'delete from auth.sessions where id = $1' using p_session;
+end;
+$_$;
+
+
+--
+-- Name: geraet_einloesen(text, text, text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geraet_einloesen(p_code text, p_name text, p_plattform text, p_installation_hash text, p_ip_hash text DEFAULT NULL::text) RETURNS TABLE(ergebnis text, warte_sek integer, student_id uuid, auth_user_id uuid, email text, geraet_id uuid)
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+#variable_conflict use_column
+declare
+  c_fenster   constant interval := interval '15 minutes';
+  c_versuche  constant integer  := 5;
+  c_geraete   constant integer  := 3;
+  v_code      text := public.zugangscode_normalisieren(p_code);
+  v_sperre_bis timestamptz;
+  v_vertrag   public.vertraege%rowtype;
+  v_aktiv     integer;
+  v_alt       record;
+  v_geraet    uuid;
+begin
+  if p_installation_hash is null or p_installation_hash !~ '^[0-9a-f]{64}$' then
+    raise exception 'geraet_einloesen: installation_hash fehlt' using errcode = '22023';
+  end if;
+  if p_ip_hash is not null and p_ip_hash !~ '^[0-9a-f]{64}$' then
+    raise exception 'geraet_einloesen: ip_hash ungültig' using errcode = '22023';
+  end if;
+  if p_plattform is null or p_plattform not in ('ios', 'android', 'web') then
+    raise exception 'geraet_einloesen: plattform ungültig' using errcode = '22023';
+  end if;
+
+  -- Sperre: der fünftjüngste Fehlversuch der letzten 15 Minuten (je Installation oder je IP) plus 15 Minuten.
+  perform pg_advisory_xact_lock(hashtext('geraet_einloesen:' || p_installation_hash));
+  select max(bis) into v_sperre_bis from (
+    select (array_agg(z.am order by z.am desc))[c_versuche] + c_fenster as bis
+      from public.zugangscode_versuche z
+     where z.installation_hash = p_installation_hash and z.am > now() - c_fenster
+       and z.ergebnis in ('falsch', 'kein_vertrag')
+    union all
+    select (array_agg(z.am order by z.am desc))[c_versuche] + c_fenster
+      from public.zugangscode_versuche z
+     where p_ip_hash is not null and z.ip_hash = p_ip_hash and z.am > now() - c_fenster
+       and z.ergebnis in ('falsch', 'kein_vertrag')
+  ) s;
+  if v_sperre_bis is not null and v_sperre_bis > now() then
+    insert into public.zugangscode_versuche (installation_hash, ip_hash, ergebnis)
+    values (p_installation_hash, p_ip_hash, 'gesperrt');
+    ergebnis := 'gesperrt'; warte_sek := ceil(extract(epoch from v_sperre_bis - now()))::integer;
+    return next; return;
+  end if;
+
+  select v.* into v_vertrag from public.vertraege v
+   where v_code is not null and v.zugangscode = v_code and v.status = 'abgeschlossen';
+  if not found then
+    insert into public.zugangscode_versuche (installation_hash, ip_hash, ergebnis)
+    values (p_installation_hash, p_ip_hash, 'falsch');
+    ergebnis := 'falsch'; return next; return;
+  end if;
+
+  if v_vertrag.zugangscode_gesperrt_am is not null or v_vertrag.student_id is null
+     or not public.hat_zugang(v_vertrag.student_id) then
+    insert into public.zugangscode_versuche (installation_hash, ip_hash, ergebnis, vertrag_id)
+    values (p_installation_hash, p_ip_hash, 'kein_vertrag', v_vertrag.id);
+    ergebnis := 'kein_vertrag'; return next; return;
+  end if;
+
+  -- Geräte eines Kindes nacheinander zählen, nie parallel.
+  perform pg_advisory_xact_lock(hashtext('kind_geraete:' || v_vertrag.student_id::text));
+
+  -- Dieselbe Installation meldet sich neu an: das alte Gerät gibt seinen Platz frei.
+  for v_alt in
+    select g.id, g.auth_session_id from public.kind_geraete g
+     where g.student_id = v_vertrag.student_id and g.installation_hash = p_installation_hash and g.abgemeldet_am is null
+  loop
+    update public.kind_geraete set abgemeldet_am = now(), abmelde_grund = 'neu_angemeldet' where id = v_alt.id;
+    perform public.geraet_auth_session_loeschen(v_alt.auth_session_id);
+  end loop;
+
+  select count(*) into v_aktiv from public.kind_geraete g
+   where g.student_id = v_vertrag.student_id and g.abgemeldet_am is null;
+  if v_aktiv >= c_geraete then
+    insert into public.zugangscode_versuche (installation_hash, ip_hash, ergebnis, vertrag_id)
+    values (p_installation_hash, p_ip_hash, 'zu_viele_geraete', v_vertrag.id);
+    ergebnis := 'zu_viele_geraete'; return next; return;
+  end if;
+
+  insert into public.kind_geraete (student_id, vertrag_id, name, plattform, installation_hash)
+  values (v_vertrag.student_id, v_vertrag.id, left(btrim(coalesce(nullif(btrim(p_name), ''), p_plattform)), 60),
+          p_plattform, p_installation_hash)
+  returning id into v_geraet;
+  insert into public.zugangscode_versuche (installation_hash, ip_hash, ergebnis, vertrag_id)
+  values (p_installation_hash, p_ip_hash, 'ok', v_vertrag.id);
+
+  select 'ok', null::integer, s.id, s.profile_id, u.email, v_geraet
+    into ergebnis, warte_sek, student_id, auth_user_id, email, geraet_id
+    from public.students s left join auth.users u on u.id = s.profile_id
+   where s.id = v_vertrag.student_id;
+  if auth_user_id is null or email is null then
+    -- Kind ohne Konto: Gerät sofort wieder freigeben, das ist ein Datenfehler, kein Fehlversuch.
+    update public.kind_geraete set abgemeldet_am = now(), abmelde_grund = 'abbruch' where id = v_geraet;
+    raise exception 'geraet_einloesen: Kind ohne Auth-Konto' using errcode = '55000';
+  end if;
+  return next;
+end;
+$_$;
+
+
+--
+-- Name: geraet_session_setzen(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geraet_session_setzen(p_geraet uuid, p_session uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if p_session is null then
+    update public.kind_geraete set abgemeldet_am = now(), abmelde_grund = 'abbruch'
+     where id = p_geraet and abgemeldet_am is null and auth_session_id is null;
+    return;
+  end if;
+  update public.kind_geraete set auth_session_id = p_session
+   where id = p_geraet and abgemeldet_am is null and auth_session_id is null;
+  if not found then
+    raise exception 'geraet_session_setzen: Gerät nicht offen' using errcode = '55000';
+  end if;
+end;
+$$;
+
+
+--
+-- Name: geraet_status(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geraet_status() RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_kind    uuid := public.get_my_student_id();
+  v_session uuid;
+  v_geraet  public.kind_geraete%rowtype;
+begin
+  if v_kind is null then
+    raise exception 'geraet_status: nur für ein Kinderkonto' using errcode = '42501';
+  end if;
+  begin
+    v_session := nullif(auth.jwt() ->> 'session_id', '')::uuid;
+  exception when invalid_text_representation then
+    v_session := null;
+  end;
+  select g.* into v_geraet from public.kind_geraete g where v_session is not null and g.auth_session_id = v_session;
+  if not found then
+    return 'ohne_geraet';
+  end if;
+  if v_geraet.student_id is distinct from v_kind or v_geraet.abgemeldet_am is not null then
+    return 'abgemeldet';
+  end if;
+  if not public.hat_zugang(v_kind) then
+    return 'kein_vertrag';
+  end if;
+  update public.kind_geraete set zuletzt_gesehen = now()
+   where id = v_geraet.id and zuletzt_gesehen < now() - interval '5 minutes';
+  return 'aktiv';
+end;
+$$;
+
+
+--
 -- Name: get_my_role(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3968,6 +4176,53 @@ begin
     raise exception '%: unbekanntes Thema in thema_keys', tg_table_name using errcode = '23503';
   end if;
   return new;
+end;
+$$;
+
+
+--
+-- Name: kind_geraet_abmelden(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_geraet_abmelden(p_geraet uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_session uuid;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'kind_geraet_abmelden: nur Admin' using errcode = '42501';
+  end if;
+  update public.kind_geraete set abgemeldet_am = now(), abgemeldet_von = auth.uid(), abmelde_grund = 'admin'
+   where id = p_geraet and abgemeldet_am is null
+  returning auth_session_id into v_session;
+  if not found then
+    raise exception 'kind_geraet_abmelden: Gerät nicht angemeldet' using errcode = '55000';
+  end if;
+  perform public.geraet_auth_session_loeschen(v_session);
+end;
+$$;
+
+
+--
+-- Name: kind_geraete_liste(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_geraete_liste(p_student uuid) RETURNS TABLE(id uuid, name text, plattform text, angemeldet_am timestamp with time zone, zuletzt_gesehen timestamp with time zone, abgemeldet_am timestamp with time zone, abmelde_grund text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'kind_geraete_liste: nur Admin' using errcode = '42501';
+  end if;
+  return query
+    select g.id, g.name, g.plattform, g.angemeldet_am, g.zuletzt_gesehen, g.abgemeldet_am, g.abmelde_grund
+      from public.kind_geraete g
+     where g.student_id = p_student and g.auth_session_id is not null
+     order by (g.abgemeldet_am is null) desc, g.angemeldet_am desc;
 end;
 $$;
 
@@ -20685,6 +20940,74 @@ $$;
 
 
 --
+-- Name: zugangscode_freischalten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.zugangscode_freischalten(p_vertrag uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_student uuid;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'zugangscode_freischalten: nur Admin' using errcode = '42501';
+  end if;
+  select v.student_id into v_student from public.vertraege v
+   where v.id = p_vertrag and v.zugangscode is not null and v.zugangscode_gesperrt_am is not null;
+  if not found then
+    raise exception 'zugangscode_freischalten: Code ist nicht gesperrt' using errcode = '55000';
+  end if;
+  if v_student is null or not public.hat_zugang(v_student) then
+    raise exception 'zugangscode_freischalten: Vertrag läuft nicht' using errcode = '55000';
+  end if;
+  update public.vertraege set zugangscode_gesperrt_am = null where id = p_vertrag;
+end;
+$$;
+
+
+--
+-- Name: zugangscode_neu(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.zugangscode_neu(p_vertrag uuid) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_code text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'zugangscode_neu: nur Admin' using errcode = '42501';
+  end if;
+  v_code := public.zugangscode_erzeugen();
+  update public.vertraege
+     set zugangscode = v_code, zugangscode_erzeugt_am = (now() at time zone 'Europe/Berlin')::date
+   where id = p_vertrag and status = 'abgeschlossen';
+  if not found then
+    raise exception 'zugangscode_neu: kein abgeschlossener Vertrag' using errcode = '55000';
+  end if;
+  return v_code;
+end;
+$$;
+
+
+--
+-- Name: zugangscode_normalisieren(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.zugangscode_normalisieren(p_code text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+  select case
+           when z ~ '^[A-Z0-9]{8}$' then 'EDV-' || substr(z, 1, 4) || '-' || substr(z, 5, 4)
+         end
+    from (select regexp_replace(regexp_replace(upper(coalesce(p_code, '')), '[^A-Z0-9]', '', 'g'), '^EDV(?=.{8}$)', '') as z) n;
+$_$;
+
+
+--
 -- Name: zusatztermin_buchen(uuid, date, uuid, timestamp with time zone, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -21016,6 +21339,31 @@ CREATE TABLE public.interventions (
     started_at timestamp with time zone DEFAULT now() NOT NULL,
     resolved_at timestamp with time zone,
     note text
+);
+
+
+--
+-- Name: kind_geraete; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kind_geraete (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    vertrag_id uuid,
+    name text NOT NULL,
+    plattform text NOT NULL,
+    installation_hash text NOT NULL,
+    auth_session_id uuid,
+    angemeldet_am timestamp with time zone DEFAULT now() NOT NULL,
+    zuletzt_gesehen timestamp with time zone DEFAULT now() NOT NULL,
+    abgemeldet_am timestamp with time zone,
+    abgemeldet_von uuid,
+    abmelde_grund text,
+    CONSTRAINT kind_geraete_abmelde_grund_check CHECK ((abmelde_grund = ANY (ARRAY['admin'::text, 'neu_angemeldet'::text, 'abbruch'::text]))),
+    CONSTRAINT kind_geraete_abmeldung_vollstaendig CHECK (((abgemeldet_am IS NULL) = (abmelde_grund IS NULL))),
+    CONSTRAINT kind_geraete_installation_hash_check CHECK ((installation_hash ~ '^[0-9a-f]{64}$'::text)),
+    CONSTRAINT kind_geraete_name_check CHECK (((char_length(btrim(name)) >= 1) AND (char_length(btrim(name)) <= 60))),
+    CONSTRAINT kind_geraete_plattform_check CHECK ((plattform = ANY (ARRAY['ios'::text, 'android'::text, 'web'::text])))
 );
 
 
@@ -22942,6 +23290,37 @@ CREATE TABLE public.xp_rules (
 
 
 --
+-- Name: zugangscode_versuche; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.zugangscode_versuche (
+    id bigint NOT NULL,
+    am timestamp with time zone DEFAULT now() NOT NULL,
+    installation_hash text NOT NULL,
+    ip_hash text,
+    ergebnis text NOT NULL,
+    vertrag_id uuid,
+    CONSTRAINT zugangscode_versuche_ergebnis_check CHECK ((ergebnis = ANY (ARRAY['ok'::text, 'falsch'::text, 'kein_vertrag'::text, 'zu_viele_geraete'::text, 'gesperrt'::text]))),
+    CONSTRAINT zugangscode_versuche_installation_hash_check CHECK ((installation_hash ~ '^[0-9a-f]{64}$'::text)),
+    CONSTRAINT zugangscode_versuche_ip_hash_check CHECK ((ip_hash ~ '^[0-9a-f]{64}$'::text))
+);
+
+
+--
+-- Name: zugangscode_versuche_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.zugangscode_versuche ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.zugangscode_versuche_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: akte_einstellungen akte_einstellungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -23147,6 +23526,14 @@ ALTER TABLE ONLY public.intake_sessions
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT interventions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kind_geraete kind_geraete_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_geraete
+    ADD CONSTRAINT kind_geraete_pkey PRIMARY KEY (id);
 
 
 --
@@ -24118,6 +24505,14 @@ ALTER TABLE ONLY public.xp_rules
 
 
 --
+-- Name: zugangscode_versuche zugangscode_versuche_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.zugangscode_versuche
+    ADD CONSTRAINT zugangscode_versuche_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: audit_log_actor_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24269,6 +24664,20 @@ CREATE INDEX interventions_session_idx ON public.interventions USING btree (sess
 --
 
 CREATE INDEX interventions_student_idx ON public.interventions USING btree (student_id);
+
+
+--
+-- Name: kind_geraete_aktiv_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_geraete_aktiv_idx ON public.kind_geraete USING btree (student_id) WHERE (abgemeldet_am IS NULL);
+
+
+--
+-- Name: kind_geraete_session_uniq; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX kind_geraete_session_uniq ON public.kind_geraete USING btree (auth_session_id) WHERE (auth_session_id IS NOT NULL);
 
 
 --
@@ -25077,6 +25486,20 @@ CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
 
 
 --
+-- Name: zugangscode_versuche_installation_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX zugangscode_versuche_installation_idx ON public.zugangscode_versuche USING btree (installation_hash, am DESC);
+
+
+--
+-- Name: zugangscode_versuche_ip_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX zugangscode_versuche_ip_idx ON public.zugangscode_versuche USING btree (ip_hash, am DESC) WHERE (ip_hash IS NOT NULL);
+
+
+--
 -- Name: coaching_sessions coaching_sessions_laufzustand_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -25682,6 +26105,30 @@ ALTER TABLE ONLY public.interventions
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT interventions_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: kind_geraete kind_geraete_abgemeldet_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_geraete
+    ADD CONSTRAINT kind_geraete_abgemeldet_von_fkey FOREIGN KEY (abgemeldet_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: kind_geraete kind_geraete_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_geraete
+    ADD CONSTRAINT kind_geraete_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: kind_geraete kind_geraete_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_geraete
+    ADD CONSTRAINT kind_geraete_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE SET NULL;
 
 
 --
@@ -27453,6 +27900,14 @@ ALTER TABLE ONLY public.xp_events
 
 
 --
+-- Name: zugangscode_versuche zugangscode_versuche_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.zugangscode_versuche
+    ADD CONSTRAINT zugangscode_versuche_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE SET NULL;
+
+
+--
 -- Name: tasks admin_write_tasks; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -27848,6 +28303,19 @@ CREATE POLICY interventions_coach_rw ON public.interventions USING ((session_id 
 --
 
 CREATE POLICY interventions_parent_read ON public.interventions FOR SELECT USING (public.is_parent_of_student(student_id));
+
+
+--
+-- Name: kind_geraete; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.kind_geraete ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: kind_geraete kind_geraete_admin_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY kind_geraete_admin_lesen ON public.kind_geraete FOR SELECT TO authenticated USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
@@ -29603,7 +30071,21 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 
 
 --
+-- Name: zugangscode_versuche; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.zugangscode_versuche ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: zugangscode_versuche zugangscode_versuche_admin_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FOR SELECT TO authenticated USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
 -- PostgreSQL database dump complete
 --
 
+\unrestrict r0amRfniH2RmkNTDcUmWF8RToDbot55nkiEHXVbycxdYHuwGtFc0otGBYckUSTN
 
