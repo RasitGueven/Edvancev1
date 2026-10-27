@@ -12,4 +12,6 @@ drop function if exists public.aufgabe_zwilling(uuid, uuid, text);
 drop function if exists public.aufgabe_ziehen(uuid, text, text, int, uuid[]);
 drop function if exists public.aufgabe_gesehen_von(uuid);
 drop function if exists public.aufgabe_ziehbar(uuid);
-drop function if exists public.aufgabe_recht(uuid);
+drop function if exists public.aufgabe_recht(uuid, text);
+drop function if exists public.aufgabe_aufrufer(uuid);
+drop function if exists public.instanz_gruen(jsonb);

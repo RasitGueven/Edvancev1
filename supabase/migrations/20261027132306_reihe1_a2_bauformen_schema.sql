@@ -63,7 +63,8 @@ create table public.bauform_pruefungen (
   id           uuid primary key default gen_random_uuid(),
   bauform_id   uuid not null references public.bauformen (id) on delete restrict,
   version      int not null,
-  entscheidung text not null check (entscheidung in ('passt', 'unsicher', 'passt_nicht', 'zurueckgenommen')),
+  entscheidung text not null check (entscheidung in ('passt', 'unsicher', 'passt_nicht', 'zurueckgenommen',
+                                                    'reaktiviert')),
   gruende      text[] not null default '{}',
   notiz        text,
   dauer_sek    int check (dauer_sek is null or dauer_sek >= 0),
@@ -86,6 +87,7 @@ alter table public.tasks add constraint tasks_bauform_instanz check (
   bauform_id is null
   or (bauform_version is not null and stufe is not null and rolle is not null and einsatz = array['session']::text[]));
 create index tasks_bauform_idx on public.tasks (bauform_id, rolle, stufe) where bauform_id is not null;
+create index tasks_instanz_ziehen_idx on public.tasks (skill_key, rolle, stufe) where bauform_id is not null;
 comment on column public.tasks.rolle is 'Reihe 1 A2: genau eine Rolle je Bauform-Instanz (warmup, uebung, transfer, recap, beispiel, home, generalprobe).';
 comment on column public.tasks.pruefmaschine is 'Reihe 1 A2: Ergebnis der Pruefmaschine je Pruefung {"1": {"ok": true, "grund": "…"}, …}.';
 

@@ -12,7 +12,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(40);
+select plan(43);
 
 \ir session_a2_fixture.sql
 
@@ -29,8 +29,9 @@ values ('ZZ-1', 'zz_r1a2', 'zz_r1a2:K1', 'zahl', '{uebung,beispiel,home,generalp
         '{"text": "Wie viel ist {a} + {b}?", "kann_entfallen": true,
           "fehlbilder": [{"key": "qf_null_vergessen", "rueckmeldung": "ZZ: Du hast etwas vergessen.", "gilt_fuer_stufen": [1,2,3,4,5]}],
           "warum": {"bei_schritt": 0, "frage": "Warum?", "bausteine": [{"id": "a", "text": "A"}], "richtig": "a"}}',
-        'zur_pruefung', '{"gruen": 8, "rot": 0}')
+        'zur_pruefung', '{"gruen": 8, "rot": 0, "rot_anteil": 0, "lauf_am": "2026-10-27"}')
 returning id as bf, version as bf_v \gset
+update bauformen set blindloeser = '{"bestanden": true}' where schluessel = 'ZZ-1';
 
 create function pg_temp.instanz(p_ref text, p_rolle text, p_stufe int, p_gruen boolean default true) returns uuid
 language plpgsql as $$
@@ -113,13 +114,19 @@ select is(aufgabe_ziehen(:'kind', 'zz_r1a2', 'uebung', 2), null, '3 aus einer pa
 update bauformen set status = 'freigegeben' where id = :'bf';
 
 -- ── 4) Bewaehrung ───────────────────────────────────────────────────────────
+-- Zehn Kinder, je ein erster Versuch (Zweitversuche zaehlen nicht); vier geben dieselbe unbekannte falsche Antwort.
+create temp table r1a2_kinder as select i, pg_temp.kind('ZZ R1A2 B' || i) as k from generate_series(1, 10) i;
+insert into session_students (session_id, student_id) select :'s1', k from r1a2_kinder;
 insert into session_antworten (session_id, student_id, task_id, versuch_nr, eingabe, ergebnis, hinweisstufe_max, eingemischt)
-select :'s1', :'kind', :'u2b', i, case when i <= 4 then '{"text":"8"}' else '{"text":"7"}' end::jsonb,
+select :'s1', k, :'u2b', 1, case when i <= 4 then '{"text":"8"}' else '{"text":"7"}' end::jsonb,
        case when i <= 4 then 'falsch' else 'richtig' end, 0, false
-  from generate_series(1, 9) i;
-select is((select status from aufgabe_bewaehrung where task_id = :'u2b'), 'in_bewaehrung', '4 nach neun Antworten noch in Bewaehrung');
+  from r1a2_kinder where i <= 9;
 insert into session_antworten (session_id, student_id, task_id, versuch_nr, eingabe, ergebnis, hinweisstufe_max, eingemischt)
-values (:'s1', :'kind', :'u2b', 10, '{"text":"7"}', 'richtig', 0, false);
+values (:'s1', :'kind', :'u2b', 2, '{"text":"9"}', 'falsch', 0, false);
+select is((select status || '/' || bearbeitungen from aufgabe_bewaehrung where task_id = :'u2b'), 'in_bewaehrung/9',
+          '4 nach neun ersten Versuchen noch in Bewaehrung; ein Zweitversuch zaehlt nicht');
+insert into session_antworten (session_id, student_id, task_id, versuch_nr, eingabe, ergebnis, hinweisstufe_max, eingemischt)
+select :'s1', k, :'u2b', 1, '{"text":"7"}', 'richtig', 0, false from r1a2_kinder where i = 10;
 select is((select status || '/' || haeufigste_unbekannte from aufgabe_bewaehrung where task_id = :'u2b'), 'auffaellig/8',
           '4 zehn Antworten, viermal dieselbe unbekannte falsche → auffaellig');
 
@@ -142,9 +149,17 @@ select is((select coalesce(sum(n_tup_ins + n_tup_upd + n_tup_del), 0) from pg_st
           '6 aufgabe_werten laesst alle Tabellen unveraendert');
 
 -- ── 7) Rechte, Katalog, kann_entfallen ──────────────────────────────────────
+-- Fuer die Rechtefaelle: Instanzen in die neue Version heben und die Bauform wieder freigeben (wie nach A4/Freigabe).
+update tasks set bauform_version = 2 where bauform_id = :'bf';
+update bauformen set status = 'freigegeben' where id = :'bf';
 select pg_temp.act_as(:'schueler');
-select throws_ok(format('select aufgabe_ziehen(%L, %L, %L)', :'anderes', 'zz_r1a2', 'uebung'), '42501', null,
+select throws_ok(format('select aufgabe_ziehen(%L, %L, %L)', :'anderes', 'zz_r1a2', 'home'), '42501', null,
                  '7 ein Kind zieht nicht fuer ein anderes');
+select throws_ok(format('select aufgabe_ziehen(%L, %L, %L)', :'kind', 'zz_r1a2', 'uebung'), '42501', null,
+                 '7 ein Kind zieht zuhause keine Session-Aufgabe (nur home)');
+select is(aufgabe_ziehen(:'kind', 'zz_r1a2', 'home'), :'h2'::uuid, '7 ein Kind zieht zuhause seine home-Aufgabe');
+select throws_ok(format('select aufgabe_werten(%L, %L)', :'u4', '{"eingabe":{"text":"7"}}'), '42501', null,
+                 '7 ein Kind wertet zuhause keine Session-Aufgabe');
 select throws_ok(format('select aufgabe_payload(%L)', (select id from tasks where 'lsa' = any (einsatz) limit 1)), '42501', null,
                  '7 ein Kind liest keine LSA-Aufgabe');
 set local role authenticated;

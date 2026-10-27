@@ -615,6 +615,26 @@ $$;
 
 
 --
+-- Name: aufgabe_aufrufer(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_aufrufer(p_kind uuid) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case
+    when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin'
+         or (coalesce(public.get_my_role(), '') = 'coach' and coalesce(public.lsa_may_act_for(p_kind), false)) then 'voll'
+    when exists (select 1 from public.session_tablets st
+                   join public.coaching_sessions cs on cs.id = st.session_id
+                  where st.student_id = p_kind and st.geraet_id = auth.uid() and st.geloest_am is null
+                    and cs.status = 'active') then 'tablet'
+    when coalesce(public.get_my_student_id() = p_kind, false) then 'kind'
+  end
+$$;
+
+
+--
 -- Name: aufgabe_ausgeben(uuid, uuid, uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -676,12 +696,14 @@ CREATE FUNCTION public.aufgabe_gezeigt(p_kind uuid, p_task uuid, p_session uuid)
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  if not public.aufgabe_recht(p_kind) then
+  -- Nur Session vor Ort (FernUSG: zuhause wird nichts je Aufgabe gespeichert): Coach, Admin, System oder das Tablet,
+  -- nie das Kind selbst. Die Session ist aktiv, das Kind steht in ihr.
+  if coalesce(public.aufgabe_aufrufer(p_kind), 'kind') not in ('voll', 'tablet') then
     raise exception 'aufgabe_gezeigt: kein Recht fuer dieses Kind' using errcode = '42501';
   end if;
-  -- Nur Session vor Ort: das Kind steht in dieser Session (FernUSG: zuhause wird nichts je Aufgabe gespeichert).
-  if not exists (select 1 from public.session_students ss where ss.session_id = p_session and ss.student_id = p_kind) then
-    raise exception 'aufgabe_gezeigt: das Kind ist nicht in dieser Session' using errcode = 'P0001';
+  if not exists (select 1 from public.session_students ss join public.coaching_sessions cs on cs.id = ss.session_id
+                  where ss.session_id = p_session and ss.student_id = p_kind and cs.status = 'active') then
+    raise exception 'aufgabe_gezeigt: das Kind ist nicht in dieser laufenden Session' using errcode = 'P0001';
   end if;
   if coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session), false) then
     return;  -- Testlaeufe merken nichts (Entscheidung 27)
@@ -700,12 +722,21 @@ CREATE FUNCTION public.aufgabe_lesbar(p_task uuid) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
+  with t as (select x.id, x.rolle, x.bauform_id from public.tasks x where x.id = p_task),
+       meine_tablets as (select st.session_id, st.student_id from public.session_tablets st
+                           join public.coaching_sessions cs on cs.id = st.session_id
+                          where st.geraet_id = auth.uid() and st.geloest_am is null and cs.status = 'active')
   select public.ist_systemaufruf()
       or coalesce(public.get_my_role(), '') in ('admin', 'coach')
       or public.darf_pruefen()
-      or public.aufgabe_ziehbar(p_task)
-      or exists (select 1 from public.tasks t where t.id = p_task and t.bauform_id is null
-                   and public.session_im_pool(t.id, false))
+      or exists (select 1 from meine_tablets m join public.session_ausgegeben a
+                   on a.session_id = m.session_id and a.student_id = m.student_id where a.task_id = p_task)
+      or (exists (select 1 from meine_tablets)
+          and exists (select 1 from t where t.rolle is distinct from 'home'
+                        and (public.aufgabe_ziehbar(t.id)
+                             or (t.bauform_id is null and public.session_im_pool(t.id, false)))))
+      or (public.get_my_student_id() is not null
+          and exists (select 1 from t where t.rolle = 'home' and public.aufgabe_ziehbar(t.id)))
 $$;
 
 
@@ -733,10 +764,18 @@ begin
   insert into public.aufgabe_meldungen (task_id, grund, von) values (p_task, btrim(p_grund), auth.uid());
   insert into public.aufgabe_bewaehrung (task_id, status, grund) values (p_task, 'pausiert', 'gemeldet')
   on conflict (task_id) do update set status = 'pausiert', grund = 'gemeldet', geaendert_am = now();
-  if v_bauform is not null
-     and (select count(distinct m.task_id) from public.aufgabe_meldungen m join public.tasks t on t.id = m.task_id
-           where t.bauform_id = v_bauform) >= 2 then
-    update public.bauformen set status = 'pausiert' where id = v_bauform and status <> 'pausiert';
+  if v_bauform is not null then
+    -- Sperre gegen zwei gleichzeitige Meldungen (beide zaehlten sonst nur 1). Gezaehlt werden gemeldete Instanzen
+    -- der aktuellen Version seit der letzten Freigabe.
+    perform 1 from public.bauformen where id = v_bauform for update;
+    if (select count(distinct m.task_id)
+          from public.aufgabe_meldungen m
+          join public.tasks t on t.id = m.task_id
+          join public.bauformen b on b.id = t.bauform_id
+         where t.bauform_id = v_bauform and t.bauform_version = b.version
+           and m.am >= coalesce(b.freigegeben_am, '-infinity')) >= 2 then
+      update public.bauformen set status = 'pausiert' where id = v_bauform and status <> 'pausiert';
+    end if;
   end if;
 end $$;
 
@@ -823,19 +862,18 @@ end $$;
 
 
 --
--- Name: aufgabe_recht(uuid); Type: FUNCTION; Schema: public; Owner: -
+-- Name: aufgabe_recht(uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.aufgabe_recht(p_kind uuid) RETURNS boolean
+CREATE FUNCTION public.aufgabe_recht(p_kind uuid, p_rolle text) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select public.ist_systemaufruf()
-      or coalesce(public.lsa_may_act_for(p_kind), false)
-      or exists (select 1 from public.session_tablets st
-                   join public.coaching_sessions cs on cs.id = st.session_id
-                  where st.student_id = p_kind and st.geraet_id = auth.uid() and st.geloest_am is null
-                    and cs.status = 'active')
+  select case public.aufgabe_aufrufer(p_kind)
+           when 'voll' then true
+           when 'tablet' then p_rolle is distinct from 'home'
+           when 'kind' then p_rolle = 'home'
+           else false end
 $$;
 
 
@@ -853,7 +891,11 @@ CREATE FUNCTION public.aufgabe_rueckmeldung(p_task uuid, p_slug text) RETURNS te
             jsonb_array_elements(case when jsonb_typeof(b.steckbrief -> 'fehlbilder') = 'array'
                                       then b.steckbrief -> 'fehlbilder' else '[]'::jsonb end) f
       where t.id = p_task and f ->> 'key' = p_slug limit 1),
-    (select fl.klartext from public.fehlbild_labels fl where fl.slug = p_slug and fl.freigegeben_am is not null))
+    -- Ohne Bauform wie bisher in antwort_abgeben der freigegebene Klartext; Instanzen nur ihr Steckbrief-Satz
+    -- (der Klartext ist fuer Coach und Lena geschrieben, Befund 18).
+    (select fl.klartext from public.fehlbild_labels fl
+      where fl.slug = p_slug and fl.freigegeben_am is not null
+        and exists (select 1 from public.tasks t where t.id = p_task and t.bauform_id is null)))
 $$;
 
 
@@ -878,11 +920,18 @@ begin
   end if;
   if jsonb_typeof(t.question_payload) = 'object' and t.question_payload ? 'format' then
     -- late binding: format_werten kommt mit A3
-    execute 'select * from public.format_werten($1, $2)' into r using p_task, p_antwort;
+    begin
+      execute 'select * from public.format_werten($1, $2)' into r using p_task, p_antwort;
+    exception when undefined_function then
+      raise exception 'aufgabe_werten: dieses Format ist noch nicht wertbar' using errcode = 'P0001',
+        hint = 'format_noch_nicht_wertbar';
+    end;
     richtig := r.richtig; fehlbild_key := r.fehlbild_key; rueckmeldung := r.rueckmeldung;
   else
-    select * into r from public.session_bewerten(p_task, (p_antwort ->> 'teil')::int,
-                                                 coalesce(p_antwort -> 'eingabe', p_antwort));
+    select * into r from public.session_bewerten(
+      p_task,
+      case when jsonb_typeof(p_antwort -> 'teil') = 'number' then (p_antwort ->> 'teil')::numeric::int end,
+      case when p_antwort ? 'eingabe' then p_antwort -> 'eingabe' else p_antwort end);
     richtig := r.ergebnis = 'richtig';
     fehlbild_key := nullif(r.fehlbild_slug, '__known__');
     rueckmeldung := case when fehlbild_key is not null then public.aufgabe_rueckmeldung(p_task, fehlbild_key) end;
@@ -906,6 +955,7 @@ CREATE FUNCTION public.aufgabe_ziehbar(p_task uuid) RETURNS boolean
      where t.id = p_task
        and b.status = 'freigegeben' and t.bauform_version = b.version
        and t.status = 'ready' and coalesce(t.is_active, false) and 'session' = any (t.einsatz)
+       and public.instanz_gruen(t.pruefmaschine)
        and not exists (select 1 from public.aufgabe_bewaehrung w
                         where w.task_id = t.id and w.status in ('pausiert', 'auffaellig')))
 $$;
@@ -922,11 +972,11 @@ CREATE FUNCTION public.aufgabe_ziehen(p_kind uuid, p_skill text, p_rolle text, p
 declare
   v_id uuid;
 begin
-  if not public.aufgabe_recht(p_kind) then
-    raise exception 'aufgabe_ziehen: kein Recht fuer dieses Kind' using errcode = '42501';
-  end if;
   if p_rolle is null or p_rolle not in ('warmup', 'uebung', 'transfer', 'recap', 'beispiel', 'home', 'generalprobe') then
     raise exception 'aufgabe_ziehen: unbekannte Rolle %', p_rolle using errcode = '22023';
+  end if;
+  if not public.aufgabe_recht(p_kind, p_rolle) then
+    raise exception 'aufgabe_ziehen: kein Recht fuer dieses Kind und diese Rolle' using errcode = '42501';
   end if;
 
   with gesehen as (select * from public.aufgabe_gesehen_von(p_kind))
@@ -939,12 +989,13 @@ begin
      and (p_rolle <> 'home' or t.stufe <= 3)
      and public.aufgabe_ziehbar(t.id)
      and not coalesce(g.als_beispiel, false)
-     and (p_rolle <> 'generalprobe' or g.task_id is null)
-   order by (g.task_id is not null),
-            case when p_stufe is null then 0
+     and (p_rolle not in ('generalprobe', 'beispiel') or g.task_id is null)
+   -- Stufe vor "ungesehen" (Befund 11): gleich, dann darunter, dann darueber; ohne p_stufe die leichteste.
+   order by case when p_stufe is null then t.stufe
                  when t.stufe = p_stufe then 0
                  when t.stufe < p_stufe then p_stufe - t.stufe
                  else 10 + t.stufe - p_stufe end,
+            (g.task_id is not null),
             g.zuletzt nulls first,
             md5(p_kind::text || t.id::text)
    limit 1;
@@ -959,12 +1010,14 @@ begin
        and t.bauform_id is null
        and t.id <> all (coalesce(p_ausschluss, '{}'))
        and public.session_im_pool(t.id, false)
+       and not exists (select 1 from public.aufgabe_bewaehrung w
+                        where w.task_id = t.id and w.status in ('pausiert', 'auffaellig'))
        and not coalesce(g.als_beispiel, false)
-     order by (g.task_id is not null),
-              case when p_stufe is null then 0
+     order by case when p_stufe is null then coalesce(t.difficulty, 1)
                    when coalesce(t.difficulty, 1) = p_stufe then 0
                    when coalesce(t.difficulty, 1) < p_stufe then p_stufe - coalesce(t.difficulty, 1)
                    else 10 + coalesce(t.difficulty, 1) - p_stufe end,
+              (g.task_id is not null),
               g.zuletzt nulls first,
               md5(p_kind::text || t.id::text)
      limit 1;
@@ -985,10 +1038,10 @@ declare
   t public.tasks;
   v_id uuid;
 begin
-  if not public.aufgabe_recht(p_kind) then
-    raise exception 'aufgabe_zwilling: kein Recht fuer dieses Kind' using errcode = '42501';
-  end if;
   select * into t from public.tasks where id = p_task;
+  if not public.aufgabe_recht(p_kind, coalesce(p_rolle, t.rolle)) then
+    raise exception 'aufgabe_zwilling: kein Recht fuer dieses Kind und diese Rolle' using errcode = '42501';
+  end if;
   if t.bauform_id is null then
     return null;
   end if;
@@ -1002,7 +1055,7 @@ begin
      and z.id <> t.id
      and public.aufgabe_ziehbar(z.id)
      and not coalesce(g.als_beispiel, false)
-     and (coalesce(p_rolle, t.rolle) <> 'generalprobe' or g.task_id is null)
+     and (coalesce(p_rolle, t.rolle) not in ('generalprobe', 'beispiel') or g.task_id is null)
    order by (g.task_id is not null), g.zuletzt nulls first, md5(p_kind::text || z.id::text)
    limit 1;
   return v_id;
@@ -1078,10 +1131,11 @@ begin
      where id = b.id;
     for t in
       select k.id from public.tasks k
-       where k.bauform_id = b.id and k.bauform_version = b.version and k.status <> 'ready'
+       where k.bauform_id = b.id and k.bauform_version = b.version and k.status in ('draft', 'review')
          and public.instanz_gruen(k.pruefmaschine)
     loop
-      update public.tasks set status = 'ready', reviewed_by = auth.uid(), reviewed_at = now() where id = t.id;
+      update public.tasks set status = 'ready', is_active = true, reviewed_by = auth.uid(), reviewed_at = now()
+       where id = t.id;
       perform public.pruef_hinweise_setzen(t.id, 'geprueft');
       insert into public.aufgabe_bewaehrung (task_id) values (t.id) on conflict do nothing;
       insert into public.task_admin_protokoll (task_id, aktion, aenderungen, grund, sammel, von)
@@ -1121,6 +1175,12 @@ begin
   if b.verdacht is not null then
     raise exception 'bauform_pruefen: Bauform ist verdaechtig (%)', b.verdacht using errcode = 'P0001';
   end if;
+  -- Konzept §6: ohne gruene Pruefmaschine und bestandenen Blindloeser der aktuellen Version sieht Lena sie nicht.
+  if b.pruefprotokoll ->> 'lauf_am' is null or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
+     or coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
+    raise exception 'bauform_pruefen: Pruefmaschine oder Blindloeser fehlen fuer Version %', b.version
+      using errcode = 'P0001', hint = 'pruefung_fehlt';
+  end if;
   case p_entscheidung
     when 'passt' then v_neu := 'zur_freigabe';
     when 'unsicher' then
@@ -1144,6 +1204,38 @@ end $$;
 
 
 --
+-- Name: bauform_reaktivieren(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_reaktivieren(p_bauform uuid, p_grund text) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b public.bauformen;
+  v_neu text;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_reaktivieren: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if coalesce(btrim(p_grund), '') = '' then
+    raise exception 'bauform_reaktivieren: Grund fehlt' using errcode = '22023';
+  end if;
+  select * into b from public.bauformen where id = p_bauform for update;
+  if b.status is distinct from 'pausiert' then
+    raise exception 'bauform_reaktivieren: Bauform ist nicht pausiert' using errcode = 'P0001';
+  end if;
+  v_neu := case when b.freigegeben_am is not null then 'freigegeben' else 'zur_pruefung' end;
+  insert into public.bauform_pruefungen (bauform_id, version, entscheidung, notiz, geprueft_von)
+  values (b.id, b.version, 'reaktiviert', btrim(p_grund), auth.uid());
+  update public.bauformen set status = v_neu,
+         freigegeben_am = case when v_neu = 'freigegeben' then now() else freigegeben_am end
+   where id = b.id;
+  return v_neu;
+end $$;
+
+
+--
 -- Name: bauform_stufen_vorschlag(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1159,7 +1251,8 @@ begin
   with je as (
     select t.stufe::int s, sum(w.bearbeitungen)::int n, sum(w.richtig)::int r
       from public.tasks t join public.aufgabe_bewaehrung w on w.task_id = t.id
-     where t.bauform_id = p_bauform
+      join public.bauformen b on b.id = t.bauform_id
+     where t.bauform_id = p_bauform and t.bauform_version = b.version
      group by t.stufe
   ), band as (
     select s, public.reihe1_wert('bewaehrung_band_' || w || '_min') lo,
@@ -1277,9 +1370,11 @@ declare
 begin
   if not exists (select 1 from public.tasks t where t.id = new.task_id and t.bauform_id is not null)
      or coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = new.session_id), false)
-     or coalesce(new.teil, 1) <> 1 then
+     or coalesce(new.teil, 1) <> 1 or new.versuch_nr <> 1 then
     return new;
   end if;
+  -- Die Bewaehrung darf nie eine Antwort verhindern: jeder Fehler hier wird nur gemeldet (Befund 1).
+  begin
   insert into public.aufgabe_bewaehrung (task_id) values (new.task_id) on conflict do nothing;
   select * into w from public.aufgabe_bewaehrung where task_id = new.task_id for update;
   w.bearbeitungen := w.bearbeitungen + 1;
@@ -1288,8 +1383,9 @@ begin
   elsif new.fehlbild_slug is not null and new.fehlbild_slug <> '__known__' then
     w.fehlbild_zaehler := jsonb_set(w.fehlbild_zaehler, array[new.fehlbild_slug],
                                     to_jsonb(coalesce((w.fehlbild_zaehler ->> new.fehlbild_slug)::int, 0) + 1));
-  else
-    v_antwort := coalesce(public.lsa_normalize_answer(new.eingabe ->> 'text'), new.eingabe::text);
+  elsif new.ergebnis = 'falsch' and new.fehlbild_slug is null then
+    -- Nur eine falsche Antwort ohne jedes Fehlbild ist "unbekannt"; teilweise und bekannte Fehler nicht (Befund 7).
+    v_antwort := coalesce(public.lsa_normalize_answer(new.eingabe ->> 'text'), new.eingabe::text, '∅');
     w.unbekannt := jsonb_set(w.unbekannt, array[v_antwort],
                              to_jsonb(coalesce((w.unbekannt ->> v_antwort)::int, 0) + 1));
   end if;
@@ -1310,6 +1406,9 @@ begin
          unbekannt = w.unbekannt, haeufigste_unbekannte = w.haeufigste_unbekannte, status = w.status,
          grund = w.grund, geaendert_am = now()
    where task_id = new.task_id;
+  exception when others then
+    raise warning 'bewaehrung_nach_antwort: % (Antwort % bleibt gespeichert)', sqlerrm, new.id;
+  end;
   return new;
 end $$;
 
@@ -15694,8 +15793,8 @@ CREATE FUNCTION public.skill_kann_entfallen(p_skill text) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select coalesce(bool_and(coalesce((b.steckbrief ->> 'kann_entfallen')::boolean, false)), false)
-    from public.bauformen b where b.skill_key = p_skill
+  select coalesce(bool_and(coalesce(b.steckbrief ->> 'kann_entfallen', '') = 'true'), false)
+    from public.bauformen b where b.skill_key = p_skill and b.status <> 'entwurf'
 $$;
 
 
@@ -21509,7 +21608,7 @@ CREATE TABLE public.bauform_pruefungen (
     geprueft_von uuid,
     geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT bauform_pruefungen_dauer_sek_check CHECK (((dauer_sek IS NULL) OR (dauer_sek >= 0))),
-    CONSTRAINT bauform_pruefungen_entscheidung_check CHECK ((entscheidung = ANY (ARRAY['passt'::text, 'unsicher'::text, 'passt_nicht'::text, 'zurueckgenommen'::text])))
+    CONSTRAINT bauform_pruefungen_entscheidung_check CHECK ((entscheidung = ANY (ARRAY['passt'::text, 'unsicher'::text, 'passt_nicht'::text, 'zurueckgenommen'::text, 'reaktiviert'::text])))
 );
 
 
@@ -25812,6 +25911,13 @@ CREATE INDEX tasks_diagnostic_idx ON public.tasks USING btree (is_diagnostic) WH
 --
 
 CREATE INDEX tasks_has_assets_idx ON public.tasks USING btree (((jsonb_array_length(assets) > 0))) WHERE (jsonb_array_length(assets) > 0);
+
+
+--
+-- Name: tasks_instanz_ziehen_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tasks_instanz_ziehen_idx ON public.tasks USING btree (skill_key, rolle, stufe) WHERE (bauform_id IS NOT NULL);
 
 
 --

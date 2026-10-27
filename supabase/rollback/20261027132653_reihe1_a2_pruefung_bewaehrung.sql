@@ -8,7 +8,7 @@ drop function if exists public.aufgabe_melden(uuid, text);
 drop function if exists public.aufgabe_reaktivieren(uuid);
 drop function if exists public.bauform_zur_ueberarbeitung(uuid, text);
 drop function if exists public.bauform_freigeben(text, text);
-drop function if exists public.instanz_gruen(jsonb);
+drop function if exists public.bauform_reaktivieren(uuid, text);
 drop function if exists public.bauform_pruefen(uuid, int, text, text[], text, int);
 drop function if exists public.reihe1_wert(text);
 delete from public.session_einstellungen e

@@ -4,7 +4,8 @@
 --       passt → zur_freigabe, unsicher → rueckfrage (Notiz Pflicht), passt_nicht → beanstandet (Grund Pflicht)
 --   bauform_freigeben(p_reihe, p_thema_key)   Admin: alle Bauformen "zur_freigabe" der Reihe bzw. des Themas →
 --       freigegeben; ihre gruenen Instanzen der aktuellen Version werden ready (Hinweise geprueft, protokolliert)
---   bauform_zur_ueberarbeitung(p_bauform, p_grund), aufgabe_reaktivieren(p_task)   Lena oder Admin (Reiter Auffaellig)
+--   bauform_zur_ueberarbeitung(p_bauform, p_grund), aufgabe_reaktivieren(p_task), bauform_reaktivieren(p_bauform,
+--       p_grund)   Lena oder Admin (Reiter Auffaellig)
 --   aufgabe_melden(p_task, p_grund)   Coach oder Admin: pausiert die Instanz sofort; zwei gemeldete Instanzen einer
 --       Bauform pausieren die Bauform
 --   Bewaehrung: Trigger nach jeder gespeicherten Session-Antwort (kein pg_cron, A0 §8). Zaehler je Instanz; nach
@@ -63,6 +64,12 @@ begin
   if b.verdacht is not null then
     raise exception 'bauform_pruefen: Bauform ist verdaechtig (%)', b.verdacht using errcode = 'P0001';
   end if;
+  -- Konzept §6: ohne gruene Pruefmaschine und bestandenen Blindloeser der aktuellen Version sieht Lena sie nicht.
+  if b.pruefprotokoll ->> 'lauf_am' is null or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
+     or coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
+    raise exception 'bauform_pruefen: Pruefmaschine oder Blindloeser fehlen fuer Version %', b.version
+      using errcode = 'P0001', hint = 'pruefung_fehlt';
+  end if;
   case p_entscheidung
     when 'passt' then v_neu := 'zur_freigabe';
     when 'unsicher' then
@@ -83,13 +90,6 @@ begin
   update public.bauformen set status = v_neu where id = b.id;
   return jsonb_build_object('status', v_neu, 'version', b.version);
 end $$;
-
--- Gruen heisst: jede Pruefung der Pruefmaschine ok (tasks.pruefmaschine {"1": {"ok": true}, …}, nicht leer).
-create function public.instanz_gruen(p_pruefmaschine jsonb)
-returns boolean language sql immutable as $$
-  select jsonb_typeof(p_pruefmaschine) = 'object' and p_pruefmaschine <> '{}'::jsonb
-     and not exists (select 1 from jsonb_each(p_pruefmaschine) e where coalesce((e.value ->> 'ok')::boolean, false) = false)
-$$;
 
 create function public.bauform_freigeben(p_reihe text default null, p_thema_key text default null)
 returns int
@@ -117,10 +117,11 @@ begin
      where id = b.id;
     for t in
       select k.id from public.tasks k
-       where k.bauform_id = b.id and k.bauform_version = b.version and k.status <> 'ready'
+       where k.bauform_id = b.id and k.bauform_version = b.version and k.status in ('draft', 'review')
          and public.instanz_gruen(k.pruefmaschine)
     loop
-      update public.tasks set status = 'ready', reviewed_by = auth.uid(), reviewed_at = now() where id = t.id;
+      update public.tasks set status = 'ready', is_active = true, reviewed_by = auth.uid(), reviewed_at = now()
+       where id = t.id;
       perform public.pruef_hinweise_setzen(t.id, 'geprueft');
       insert into public.aufgabe_bewaehrung (task_id) values (t.id) on conflict do nothing;
       insert into public.task_admin_protokoll (task_id, aktion, aenderungen, grund, sammel, von)
@@ -167,6 +168,37 @@ begin
                                       geaendert_am = now();
 end $$;
 
+-- Eine pausierte Bauform wieder ziehbar machen (Meldung unberechtigt). War sie freigegeben, gilt die Freigabe wieder
+-- (neue Zaehlung der Meldungen ab jetzt); sonst steht sie wieder zur Pruefung.
+create function public.bauform_reaktivieren(p_bauform uuid, p_grund text)
+returns text
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  b public.bauformen;
+  v_neu text;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_reaktivieren: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if coalesce(btrim(p_grund), '') = '' then
+    raise exception 'bauform_reaktivieren: Grund fehlt' using errcode = '22023';
+  end if;
+  select * into b from public.bauformen where id = p_bauform for update;
+  if b.status is distinct from 'pausiert' then
+    raise exception 'bauform_reaktivieren: Bauform ist nicht pausiert' using errcode = 'P0001';
+  end if;
+  v_neu := case when b.freigegeben_am is not null then 'freigegeben' else 'zur_pruefung' end;
+  insert into public.bauform_pruefungen (bauform_id, version, entscheidung, notiz, geprueft_von)
+  values (b.id, b.version, 'reaktiviert', btrim(p_grund), auth.uid());
+  update public.bauformen set status = v_neu,
+         freigegeben_am = case when v_neu = 'freigegeben' then now() else freigegeben_am end
+   where id = b.id;
+  return v_neu;
+end $$;
+
 create function public.aufgabe_melden(p_task uuid, p_grund text)
 returns void
 language plpgsql
@@ -189,10 +221,18 @@ begin
   insert into public.aufgabe_meldungen (task_id, grund, von) values (p_task, btrim(p_grund), auth.uid());
   insert into public.aufgabe_bewaehrung (task_id, status, grund) values (p_task, 'pausiert', 'gemeldet')
   on conflict (task_id) do update set status = 'pausiert', grund = 'gemeldet', geaendert_am = now();
-  if v_bauform is not null
-     and (select count(distinct m.task_id) from public.aufgabe_meldungen m join public.tasks t on t.id = m.task_id
-           where t.bauform_id = v_bauform) >= 2 then
-    update public.bauformen set status = 'pausiert' where id = v_bauform and status <> 'pausiert';
+  if v_bauform is not null then
+    -- Sperre gegen zwei gleichzeitige Meldungen (beide zaehlten sonst nur 1). Gezaehlt werden gemeldete Instanzen
+    -- der aktuellen Version seit der letzten Freigabe.
+    perform 1 from public.bauformen where id = v_bauform for update;
+    if (select count(distinct m.task_id)
+          from public.aufgabe_meldungen m
+          join public.tasks t on t.id = m.task_id
+          join public.bauformen b on b.id = t.bauform_id
+         where t.bauform_id = v_bauform and t.bauform_version = b.version
+           and m.am >= coalesce(b.freigegeben_am, '-infinity')) >= 2 then
+      update public.bauformen set status = 'pausiert' where id = v_bauform and status <> 'pausiert';
+    end if;
   end if;
 end $$;
 
@@ -212,9 +252,11 @@ declare
 begin
   if not exists (select 1 from public.tasks t where t.id = new.task_id and t.bauform_id is not null)
      or coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = new.session_id), false)
-     or coalesce(new.teil, 1) <> 1 then
+     or coalesce(new.teil, 1) <> 1 or new.versuch_nr <> 1 then
     return new;
   end if;
+  -- Die Bewaehrung darf nie eine Antwort verhindern: jeder Fehler hier wird nur gemeldet (Befund 1).
+  begin
   insert into public.aufgabe_bewaehrung (task_id) values (new.task_id) on conflict do nothing;
   select * into w from public.aufgabe_bewaehrung where task_id = new.task_id for update;
   w.bearbeitungen := w.bearbeitungen + 1;
@@ -223,8 +265,9 @@ begin
   elsif new.fehlbild_slug is not null and new.fehlbild_slug <> '__known__' then
     w.fehlbild_zaehler := jsonb_set(w.fehlbild_zaehler, array[new.fehlbild_slug],
                                     to_jsonb(coalesce((w.fehlbild_zaehler ->> new.fehlbild_slug)::int, 0) + 1));
-  else
-    v_antwort := coalesce(public.lsa_normalize_answer(new.eingabe ->> 'text'), new.eingabe::text);
+  elsif new.ergebnis = 'falsch' and new.fehlbild_slug is null then
+    -- Nur eine falsche Antwort ohne jedes Fehlbild ist "unbekannt"; teilweise und bekannte Fehler nicht (Befund 7).
+    v_antwort := coalesce(public.lsa_normalize_answer(new.eingabe ->> 'text'), new.eingabe::text, '∅');
     w.unbekannt := jsonb_set(w.unbekannt, array[v_antwort],
                              to_jsonb(coalesce((w.unbekannt ->> v_antwort)::int, 0) + 1));
   end if;
@@ -245,6 +288,9 @@ begin
          unbekannt = w.unbekannt, haeufigste_unbekannte = w.haeufigste_unbekannte, status = w.status,
          grund = w.grund, geaendert_am = now()
    where task_id = new.task_id;
+  exception when others then
+    raise warning 'bewaehrung_nach_antwort: % (Antwort % bleibt gespeichert)', sqlerrm, new.id;
+  end;
   return new;
 end $$;
 create trigger session_antworten_bewaehrung after insert on public.session_antworten
@@ -265,7 +311,8 @@ begin
   with je as (
     select t.stufe::int s, sum(w.bearbeitungen)::int n, sum(w.richtig)::int r
       from public.tasks t join public.aufgabe_bewaehrung w on w.task_id = t.id
-     where t.bauform_id = p_bauform
+      join public.bauformen b on b.id = t.bauform_id
+     where t.bauform_id = p_bauform and t.bauform_version = b.version
      group by t.stufe
   ), band as (
     select s, public.reihe1_wert('bewaehrung_band_' || w || '_min') lo,
@@ -289,7 +336,7 @@ begin
   foreach f in array array[
     'bauform_pruefen(uuid,int,text,text[],text,int)', 'bauform_freigeben(text,text)',
     'bauform_zur_ueberarbeitung(uuid,text)', 'aufgabe_reaktivieren(uuid)', 'aufgabe_melden(uuid,text)',
-    'bauform_stufen_vorschlag(uuid)', 'instanz_gruen(jsonb)'] loop
+    'bauform_stufen_vorschlag(uuid)', 'bauform_reaktivieren(uuid,text)'] loop
     execute format('revoke all on function public.%s from public, anon', f);
     execute format('grant execute on function public.%s to authenticated', f);
     execute format('comment on function public.%s is %L', f, 'reihe1 fertig');
