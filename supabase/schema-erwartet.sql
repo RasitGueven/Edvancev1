@@ -18390,7 +18390,7 @@ begin
   if v_r.id is null then
     raise exception 'studio_render_melden: Auftrag fehlt' using errcode = 'P0002';
   end if;
-  if v_r.angelegt_von <> auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
+  if v_r.angelegt_von is distinct from auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'studio_render_melden: nur wer den Auftrag angelegt hat' using errcode = '42501';
   end if;
   if not ((v_r.status = 'wartet' and p_status in ('laeuft', 'fehler')) or (v_r.status = 'laeuft' and p_status in ('fertig', 'fehler'))) then
