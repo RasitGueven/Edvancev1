@@ -121,7 +121,7 @@ export function FreigabeReiter({
               onPasst={() => void ergebnis(pruefeSequenz(sequenzId, art, 'skelett', 'passt'))}
               onPasstNicht={(b, k) => void ergebnis(pruefeSequenz(sequenzId, art, 'skelett', 'passt_nicht', b, k))}
             />
-            {skelett && ausgabe(skelett)}
+            {skelett && art === 'fachlich' && ausgabe(skelett)}
           </div>
         </EdvanceCard>
       ))}
