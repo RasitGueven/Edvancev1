@@ -2605,3 +2605,14 @@ on conflict (id) do nothing;
 -- Versionen: studio_sequenz.version (Skelett) und studio_welt.version steigen nur bei geaendertem Inhalt
 -- (studio_inhalt_hash). Schreiben nur ueber studio_skript_speichern (Autor oder Admin, nur eigene Sequenz).
 -- Lesen per RLS nur fuer Studio-Beteiligte (studio_darf_sehen); Kinder lesen nie direkt.
+
+-- ============================================================================
+-- Studio · Stimme (Reihe 1, Bauauftrag B2): studio_einstellung, studio_audio, Bucket 'studio'
+-- (Migration 20261027132413_studio_stimme.sql)
+-- ============================================================================
+-- Fingerabdruck = sha256(stimme \n modell \n gesprochener Satz) (studio_fingerabdruck); gesprochener Satz =
+-- Welt-Satz sonst Skelett-Satz, nach Woerterbuch studio_einstellung.aussprache [{wort, sprich}] (ganze Woerter).
+-- studio_stimme_bedarf(sequenz, stimme) liefert je Beat und Welt Satz, Kontext davor/danach, Fingerabdruck,
+-- vorhanden. Erzeugt wird in der Vercel Function api/studio/stimme.ts (ELEVENLABS_API_KEY nur dort; ohne
+-- Schluessel stumme WAV mit stimme 'platzhalter'), eingetragen per studio_audio_eintragen (Autor/Admin).
+-- Bucket 'studio' privat: lesen studio_darf_sehen(), schreiben studio_hat_rolle('autor').
