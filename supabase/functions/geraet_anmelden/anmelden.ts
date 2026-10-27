@@ -4,7 +4,8 @@
 // Ablauf: Eingabe pruefen → geraet_einloesen (service_role; Code, Sperre, Vertrag, Geraete) → Magic-Link
 // fuer das EIGENE Konto des Kindes erzeugen und sofort serverseitig einloesen (es geht keine Mail raus) →
 // Session-ID aus dem Access-Token am Geraet eintragen → Tokens an die App.
-// Schlaegt das Einloesen des Links fehl, gibt geraet_session_setzen(…, null) den Platz wieder frei.
+// Schlaegt das Einloesen des Links fehl, gibt geraet_session_setzen(…, null) den Platz wieder frei und eine schon
+// entstandene Auth-Session wird geloescht.
 
 export type Einloesung = {
   ergebnis: 'ok' | 'falsch' | 'kein_vertrag' | 'zu_viele_geraete' | 'gesperrt'
@@ -24,7 +25,9 @@ export type Dienste = {
   magicLinkHash: (email: string) => Promise<string>
   linkEinloesen: (tokenHash: string) => Promise<{ access_token: string; refresh_token: string; expires_at: number | null }>
   sessionSetzen: (geraetId: string, sessionId: string | null) => Promise<void>
-  sha256: (text: string) => Promise<string>
+  sessionLoeschen: (sessionId: string) => Promise<void>
+  /** HMAC-SHA-256 mit dem Pepper der Function (Hex). Ein reiner Hash ueber den IPv4-Raum waere umkehrbar. */
+  hmac: (text: string) => Promise<string>
 }
 
 export type Antwort =
@@ -56,7 +59,8 @@ export async function anmelden(
   const name = typeof body.name === 'string' ? body.name.slice(0, 60) : ''
   const plattform = typeof body.plattform === 'string' ? body.plattform : ''
   const installation = typeof body.installation === 'string' ? body.installation : ''
-  if (!code || !PLATTFORMEN.has(plattform) || installation.length < 16 || installation.length > 128) {
+  // Ohne Client-IP keine IP-Sperre: dann gar nicht erst pruefen.
+  if (!code || !ip || !PLATTFORMEN.has(plattform) || installation.length < 16 || installation.length > 128) {
     return { status: 400, body: { ergebnis: 'eingabe' } }
   }
 
@@ -65,20 +69,24 @@ export async function anmelden(
     p_code: code,
     p_name: name,
     p_plattform: plattform,
-    p_installation_hash: await d.sha256('geraet:' + installation),
-    p_ip_hash: ip ? await d.sha256('ip:' + ip) : null,
+    p_installation_hash: await d.hmac('geraet:' + installation),
+    p_ip_hash: await d.hmac('ip:' + ip),
   })
   if (e.ergebnis !== 'ok') return { status: 200, body: { ergebnis: e.ergebnis, warte_sek: e.warte_sek } }
   if (!e.email || !e.geraet_id) return { status: 500, body: { ergebnis: 'fehler' } }
 
+  let sessionId: string | null = null
   try {
     const session = await d.linkEinloesen(await d.magicLinkHash(e.email))
-    const sessionId = sessionIdAusToken(session.access_token)
+    sessionId = sessionIdAusToken(session.access_token)
     if (!sessionId) throw new Error('session_id fehlt im Token')
     await d.sessionSetzen(e.geraet_id, sessionId)
     return { status: 200, body: { ergebnis: 'ok', ...session } }
   } catch (err) {
     console.error('geraet_anmelden: Session nicht erzeugt', err instanceof Error ? err.message : err)
+    // Aufraeumen: keine Auth-Session ohne Geraet, kein offener Platz. Bleibt die Zeile trotzdem offen,
+    // gibt geraet_einloesen sie nach zwei Minuten frei.
+    if (sessionId) await d.sessionLoeschen(sessionId).catch(() => undefined)
     await d.sessionSetzen(e.geraet_id, null).catch(() => undefined)
     return { status: 500, body: { ergebnis: 'fehler' } }
   }

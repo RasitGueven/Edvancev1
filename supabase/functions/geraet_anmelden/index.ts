@@ -8,7 +8,9 @@
 // Antwort 200: { ergebnis: 'ok', access_token, refresh_token, expires_at } oder
 //              { ergebnis: 'falsch'|'kein_vertrag'|'zu_viele_geraete'|'gesperrt', warte_sek }
 //
-// Secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY und SUPABASE_ANON_KEY injiziert die Runtime.
+// Secrets: GERAET_PEPPER (zufaellig, mindestens 32 Zeichen; HMAC fuer Installations-ID und IP) setzt Rasit
+// einmal per `supabase secrets set`. SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY und SUPABASE_ANON_KEY injiziert
+// die Runtime.
 //
 // Deploy: npx supabase functions deploy geraet_anmelden --no-verify-jwt --project-ref ztcppihxqcphlqaguhma
 
@@ -28,9 +30,21 @@ function json(status: number, payload: unknown): Response {
   })
 }
 
-async function sha256(text: string): Promise<string> {
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
-  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, '0')).join('')
+async function hmacMit(pepper: string): Promise<(text: string) => Promise<string>> {
+  const enc = new TextEncoder()
+  const key = await crypto.subtle.importKey('raw', enc.encode(pepper), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
+  return async (text) => {
+    const sig = await crypto.subtle.sign('HMAC', key, enc.encode(text))
+    return Array.from(new Uint8Array(sig), (b) => b.toString(16).padStart(2, '0')).join('')
+  }
+}
+
+/**
+ * Client-IP. cf-connecting-ip setzt der Rand des Netzes selbst (vom Client nicht faelschbar), x-forwarded-for
+ * nur als Rueckfall. Welche Kopfzeilen in Prod ankommen, prueft die Live-Checkliste (gefaelschter XFF-Kopf).
+ */
+export function clientIp(h: Headers): string | null {
+  return h.get('cf-connecting-ip')?.trim() || h.get('x-forwarded-for')?.split(',')[0]?.trim() || null
 }
 
 Deno.serve(async (req: Request) => {
@@ -40,7 +54,8 @@ Deno.serve(async (req: Request) => {
   const url = Deno.env.get('SUPABASE_URL')
   const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
   const anonKey = Deno.env.get('SUPABASE_ANON_KEY')
-  if (!url || !serviceKey || !anonKey) return json(500, { ergebnis: 'fehler' })
+  const pepper = Deno.env.get('GERAET_PEPPER')
+  if (!url || !serviceKey || !anonKey || !pepper || pepper.length < 32) return json(500, { ergebnis: 'fehler' })
 
   let body: Record<string, unknown>
   try {
@@ -54,7 +69,7 @@ Deno.serve(async (req: Request) => {
   const oeffentlich = createClient(url, anonKey, ohneSitzung)
 
   const dienste: Dienste = {
-    sha256,
+    hmac: await hmacMit(pepper),
     einloesen: async (p) => {
       const { data, error } = await admin.rpc('geraet_einloesen', p)
       if (error) throw new Error(`geraet_einloesen: ${error.message}`)
@@ -75,10 +90,13 @@ Deno.serve(async (req: Request) => {
       const { error } = await admin.rpc('geraet_session_setzen', { p_geraet: geraetId, p_session: sessionId })
       if (error) throw new Error(`geraet_session_setzen: ${error.message}`)
     },
+    sessionLoeschen: async (sessionId) => {
+      const { error } = await admin.rpc('geraet_auth_session_loeschen', { p_session: sessionId })
+      if (error) throw new Error(`geraet_auth_session_loeschen: ${error.message}`)
+    },
   }
 
-  // Supabase setzt x-forwarded-for; der erste Eintrag ist der Client.
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null
+  const ip = clientIp(req.headers)
   try {
     const antwort = await anmelden(body, ip, dienste)
     return json(antwort.status, antwort.body)

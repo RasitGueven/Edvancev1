@@ -136,7 +136,8 @@ export function GeraeteKachel({ studentId }: { studentId: string }): JSX.Element
               </span>
             )
           )}
-          {frage === 'code' ? (
+          {/* Einen gesperrten Code erst freischalten; vertrag_zugangscode_neu lehnt ihn sonst ab. */}
+          {zugang.zugangscode_gesperrt_am ? null : frage === 'code' ? (
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm text-[var(--color-text-secondary)]">{t('geraete.neuFrage')}</span>
               <Button size="sm" className="min-h-11" disabled={laeuft}

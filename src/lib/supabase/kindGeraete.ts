@@ -67,8 +67,9 @@ async function aufruf<T>(name: string, args: Record<string, unknown>): Promise<S
 export const kindGeraetAbmelden = (geraetId: string): Promise<SupabaseResult<null>> =>
   aufruf('kind_geraet_abmelden', { p_geraet: geraetId })
 
+/** Bestand (Verträge-Menü): lehnt widerrufene, gesperrte oder ausgelaufene Verträge ab. */
 export const zugangscodeNeu = (vertragId: string): Promise<SupabaseResult<string>> =>
-  aufruf('zugangscode_neu', { p_vertrag: vertragId })
+  aufruf('vertrag_zugangscode_neu', { p_vertrag_id: vertragId })
 
 export const zugangscodeFreischalten = (vertragId: string): Promise<SupabaseResult<null>> =>
   aufruf('zugangscode_freischalten', { p_vertrag: vertragId })

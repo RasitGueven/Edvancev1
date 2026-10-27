@@ -64,9 +64,11 @@ describe('GeraeteKachel', () => {
 
   it('neuer Code nach Bestätigung; gesperrter Code lässt sich freischalten', async () => {
     lib.listKindGeraete.mockResolvedValue({ data: [], error: null })
-    lib.getKindZugang.mockResolvedValue({ data: zugang('2026-10-22'), error: null })
+    lib.getKindZugang.mockResolvedValueOnce({ data: zugang('2026-10-22'), error: null })
+    lib.getKindZugang.mockResolvedValue({ data: zugang(), error: null })
     render(<GeraeteKachel studentId="s1" />)
     fireEvent.click(await screen.findByText('Code freischalten'))
+    expect(screen.queryByRole('button', { name: 'Neuen Code erzeugen' })).toBeNull()
     await waitFor(() => expect(lib.zugangscodeFreischalten).toHaveBeenCalledWith('v1'))
     fireEvent.click(await screen.findByRole('button', { name: 'Neuen Code erzeugen' }))
     fireEvent.click(screen.getAllByRole('button', { name: 'Neuen Code erzeugen' })[0])
