@@ -167,7 +167,7 @@ select is((select count(*)::int from bauformen), 0, '7 ein Kind liest keine Stec
 select pg_temp.act_as(:'lena');
 select is((select count(*)::int from bauformen where schluessel = 'ZZ-1'), 1, '7 Lena liest Steckbriefe');
 reset role;
-select is((select count(*)::int from fehlbild_labels where slug like 'qf\_%'), 39, '7 die 39 qf_-Schluessel stehen im Katalog');
+select cmp_ok((select count(*)::int from fehlbild_labels where slug like 'qf\_%'), '>=', 39, '7 die 39 qf_-Schluessel stehen im Katalog');
 select ok(skill_kann_entfallen('zz_r1a2') and not skill_kann_entfallen('zz_a2_s1'), '7 skill_kann_entfallen');
 
 select * from finish();

@@ -822,7 +822,7 @@ begin
     -- Neue Formate (A3): question_payload IST die Kindersicht (CHECK tasks_question_payload_no_solution).
     v := jsonb_build_object('task_id', t.id, 'kind', 'format', 'prompt', coalesce(t.question, ''),
                             'assets', public.lsa_task_assets(t.id), 'format', t.question_payload ->> 'format',
-                            'payload', t.question_payload);
+                            'payload', public.format_kindersicht(t.id, t.question_payload));
   else
     v := public.lsa_question_payload(p_task) - 'themenfeld';
   end if;
@@ -957,7 +957,14 @@ CREATE FUNCTION public.aufgabe_ziehbar(p_task uuid) RETURNS boolean
        and t.status = 'ready' and coalesce(t.is_active, false) and 'session' = any (t.einsatz)
        and public.instanz_gruen(t.pruefmaschine)
        and not exists (select 1 from public.aufgabe_bewaehrung w
-                        where w.task_id = t.id and w.status in ('pausiert', 'auffaellig')))
+                        where w.task_id = t.id and w.status in ('pausiert', 'auffaellig'))
+       -- A3: eine Graph-Auswahl erst, wenn jede Option ihr hochgeladenes Bild hat (Zweitpruefung A3, Befund 11).
+       and (t.input_type <> 'GRAPH_AUSWAHL'
+            or (jsonb_array_length(coalesce(t.question_payload -> 'optionen', '[]')) >= 2
+                and not exists (select 1 from jsonb_array_elements(coalesce(t.question_payload -> 'optionen', '[]')) o
+                                 where not exists (select 1 from public.task_figur_optionen f
+                                                    where f.task_id = t.id and f.option_id = o ->> 'id'
+                                                      and f.svg_hash is not null)))))
 $$;
 
 
@@ -3845,6 +3852,303 @@ begin
   end if;
   return public.session_fall_berechnen(p_session_id, p_student_id);
 end;
+$$;
+
+
+--
+-- Name: format_bruch(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_bruch(p text) RETURNS text
+    LANGUAGE plpgsql IMMUTABLE
+    AS $_$
+declare
+  s text := coalesce(p, '');
+  m text[];
+  z numeric;
+  n numeric;
+  g numeric;
+begin
+  s := regexp_replace(s, '^[\s   ]+|[\s   ]+$', '', 'g');
+  s := translate(s, '−–,', '--.');
+  if length(s) > 40 then
+    return null;
+  end if;
+  m := regexp_match(s, '^([+-]?)([0-9]+)(?:\.([0-9]+))?(?:/([+-]?)([0-9]+))?$');
+  if m is null or (m[3] is not null and m[5] is not null) then
+    return null;
+  end if;
+  z := (m[2] || coalesce(m[3], ''))::numeric;
+  n := case when m[3] is not null then power(10::numeric, length(m[3])) else 1 end;
+  if m[5] is not null then
+    n := m[5]::numeric;
+    if n = 0 then
+      return null;
+    end if;
+  end if;
+  if (m[1] = '-') <> (coalesce(m[4], '') = '-') then
+    z := -z;
+  end if;
+  g := gcd(z, n);
+  if g = 0 then
+    return '0/1';
+  end if;
+  return trunc(z / g)::text || '/' || trunc(n / g)::text;
+end $_$;
+
+
+--
+-- Name: format_feldmaske_bedeutung(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_feldmaske_bedeutung(p_schablone jsonb, p_felder jsonb) RETURNS jsonb
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare
+  teil jsonb;
+  v_minus boolean := false;
+  v_roh text;
+  v_b text;
+  v jsonb := '{}'::jsonb;
+begin
+  if jsonb_typeof(p_felder) is distinct from 'object' then
+    return null;
+  end if;
+  for teil in select x from jsonb_array_elements(public.format_liste(p_schablone)) x loop
+    continue when jsonb_typeof(teil) <> 'object' or not (teil ? 'feld');
+    v_roh := btrim(coalesce(p_felder ->> (teil ->> 'feld'), ''));
+    if teil ->> 'typ' = 'vorzeichen' then
+      v_minus := v_roh in ('-', '−', '–');  -- Start "+"
+      continue;
+    end if;
+    if v_roh = '' then
+      if public.format_wahr(teil -> 'leer_heisst_eins') then
+        v_roh := '1';
+      else
+        return null;
+      end if;
+    end if;
+    v_b := public.format_bruch(v_roh);
+    if v_b is null then
+      return null;
+    end if;
+    if v_minus and v_b <> '0/1' then
+      v_b := case when left(v_b, 1) = '-' then substr(v_b, 2) else '-' || v_b end;
+    end if;
+    v := v || jsonb_build_object(teil ->> 'feld', v_b);
+    v_minus := false;
+  end loop;
+  return v;
+end $$;
+
+
+--
+-- Name: format_kindersicht(uuid, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_kindersicht(p_task uuid, p_payload jsonb) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case
+    when p_payload ->> 'format' = 'graph_auswahl' then
+      jsonb_set(p_payload, '{optionen}', coalesce((
+        select jsonb_agg(o || jsonb_strip_nulls(jsonb_build_object(
+                 'bild', case when f.svg_hash is not null then public.lsa_storage_base() || 'generiert/' || p_task::text
+                                                              || '/option-' || f.option_id || '-dunkel.svg' end,
+                 'bild_hell', case when f.svg_hash is not null then public.lsa_storage_base() || 'generiert/'
+                                                                    || p_task::text || '/option-' || f.option_id || '-hell.svg' end,
+                 'alt', coalesce(f.alt_text, o ->> 'alt')))
+               order by n)
+          from jsonb_array_elements(p_payload -> 'optionen') with ordinality e(o, n)
+          left join public.task_figur_optionen f on f.task_id = p_task and f.option_id = o ->> 'id'), '[]'::jsonb))
+    else p_payload end
+$$;
+
+
+--
+-- Name: format_liste(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_liste(p jsonb) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case when jsonb_typeof(p) = 'array' then p else '[]'::jsonb end
+$$;
+
+
+--
+-- Name: format_menge(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_menge(p jsonb) RETURNS text[]
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case when bool_and(public.format_bruch(e) is not null) is false then null
+              else coalesce(array_agg(distinct public.format_bruch(e) order by public.format_bruch(e)), '{}') end
+    from jsonb_array_elements_text(public.format_liste(p)) e
+   where btrim(e) <> ''
+$$;
+
+
+--
+-- Name: format_set(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_set(p jsonb) RETURNS text[]
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(array_agg(distinct e order by e), '{}') from jsonb_array_elements_text(public.format_liste(p)) e
+$$;
+
+
+--
+-- Name: format_wahr(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_wahr(p jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(jsonb_typeof(p) = 'boolean' and p = 'true'::jsonb, false)
+$$;
+
+
+--
+-- Name: format_werte_gleich(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_werte_gleich(a jsonb, b jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(jsonb_typeof(a) = 'object' and jsonb_typeof(b) = 'object'
+     and (select coalesce(array_agg(k order by k), '{}') from jsonb_object_keys(a) k)
+       = (select coalesce(array_agg(k order by k), '{}') from jsonb_object_keys(b) k)
+     and not exists (select 1 from jsonb_each_text(a) x where not public.format_zahl_gleich(x.value, b ->> x.key)), false)
+$$;
+
+
+--
+-- Name: format_werten(uuid, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_werten(p_task uuid, p_antwort jsonb) RETURNS TABLE(richtig boolean, fehlbild_key text, rueckmeldung text, teilmenge boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks;
+  s public.task_solutions;
+  r record;
+begin
+  select * into t from public.tasks where id = p_task;
+  select * into s from public.task_solutions where task_id = p_task;
+  select * into r from public.format_werten_daten(lower(t.input_type), t.question_payload, s.correct_answers -> 0,
+                                                  s.correct_answers -> 0 -> 'fehlbilder', p_antwort);
+  richtig := r.richtig;
+  fehlbild_key := r.fehlbild_key;
+  teilmenge := r.teilmenge;
+  rueckmeldung := case when r.fehlbild_key is not null then public.aufgabe_rueckmeldung(p_task, r.fehlbild_key)
+                       when r.teilmenge then 'Eine Lösung fehlt noch.' end;
+  return next;
+end $$;
+
+
+--
+-- Name: format_werten_daten(text, jsonb, jsonb, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_werten_daten(p_format text, p_payload jsonb, p_loesung jsonb, p_fehlbilder jsonb, p_antwort jsonb) RETURNS TABLE(richtig boolean, fehlbild_key text, teilmenge boolean)
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare
+  f jsonb;
+  v_a jsonb;
+  v_a_menge text[];
+  v_l_menge text[];
+  v_keine boolean;
+begin
+  teilmenge := false;
+  fehlbild_key := null;
+  richtig := false;
+  p_fehlbilder := public.format_liste(p_fehlbilder);
+  p_antwort := case when jsonb_typeof(p_antwort) = 'object' then p_antwort else '{}'::jsonb end;
+  p_loesung := case when jsonb_typeof(p_loesung) = 'object' then p_loesung else '{}'::jsonb end;
+  case p_format
+    when 'feldmaske' then
+      v_a := public.format_feldmaske_bedeutung(p_payload -> 'schablone', p_antwort -> 'felder');
+      richtig := public.format_werte_gleich(v_a, p_loesung -> 'werte');
+      if not richtig and v_a is not null then
+        select x ->> 'key' into fehlbild_key from jsonb_array_elements(p_fehlbilder) x
+         where public.format_werte_gleich(v_a, x -> 'werte') limit 1;
+      end if;
+    when 'loesungsmenge' then
+      v_keine := public.format_wahr(p_antwort -> 'keine_loesung');
+      v_a_menge := case when v_keine then null else public.format_menge(p_antwort -> 'werte') end;
+      v_l_menge := public.format_menge(p_loesung -> 'menge');
+      if public.format_wahr(p_loesung -> 'keine_loesung') then
+        richtig := v_keine;
+      else
+        richtig := coalesce(not v_keine and cardinality(v_a_menge) > 0 and v_a_menge = v_l_menge, false);
+      end if;
+      if not richtig and (v_keine or cardinality(v_a_menge) > 0) then
+        for f in select x from jsonb_array_elements(p_fehlbilder) x loop
+          if (public.format_wahr(f -> 'keine_loesung') and v_keine)
+             or (f ? 'menge' and not v_keine and v_a_menge = public.format_menge(f -> 'menge')) then
+            fehlbild_key := f ->> 'key';
+            exit;
+          end if;
+        end loop;
+        teilmenge := fehlbild_key is null and not v_keine and coalesce(cardinality(v_a_menge), 0) > 0
+                     and v_l_menge is not null and v_a_menge <@ v_l_menge
+                     and cardinality(v_a_menge) < cardinality(v_l_menge);
+      end if;
+    when 'graph_auswahl' then
+      richtig := coalesce(p_antwort ->> 'gewaehlt' = p_loesung ->> 'option', false);
+      if not richtig then
+        select x ->> 'key' into fehlbild_key from jsonb_array_elements(p_fehlbilder) x
+         where x ->> 'option' = p_antwort ->> 'gewaehlt' limit 1;
+      end if;
+    when 'fehler_finden' then
+      richtig := coalesce(p_antwort ->> 'zeile' = p_loesung ->> 'zeile' and p_antwort ->> 'warum' = p_loesung ->> 'warum', false);
+      if not richtig then
+        -- Das genaueste Fehlbild zuerst (Zeile und Warum vor nur einem von beiden).
+        select x ->> 'key' into fehlbild_key from jsonb_array_elements(p_fehlbilder) x
+         where (x ? 'zeile' or x ? 'warum')
+           and (not x ? 'zeile' or x ->> 'zeile' = p_antwort ->> 'zeile')
+           and (not x ? 'warum' or x ->> 'warum' = p_antwort ->> 'warum')
+         order by (x ? 'zeile')::int + (x ? 'warum')::int desc limit 1;
+      end if;
+    when 'bausteine' then
+      richtig := cardinality(public.format_set(p_antwort -> 'gewaehlt')) > 0
+                 and public.format_set(p_antwort -> 'gewaehlt') = public.format_set(p_loesung -> 'gewaehlt');
+      if not richtig then
+        select x ->> 'key' into fehlbild_key from jsonb_array_elements(p_fehlbilder) x
+         where x ? 'gewaehlt' and public.format_set(x -> 'gewaehlt') = public.format_set(p_antwort -> 'gewaehlt') limit 1;
+      end if;
+    when 'schritte_ordnen' then
+      richtig := jsonb_typeof(p_antwort -> 'reihenfolge') = 'array'
+                 and exists (select 1 from jsonb_array_elements(public.format_liste(p_loesung -> 'reihenfolgen')) r
+                              where r = p_antwort -> 'reihenfolge');
+      if not richtig then
+        select x ->> 'key' into fehlbild_key from jsonb_array_elements(p_fehlbilder) x
+         where x -> 'reihenfolge' = p_antwort -> 'reihenfolge' limit 1;
+      end if;
+    else
+      raise exception 'format_werten_daten: unbekanntes Format %', p_format using errcode = '22023';
+  end case;
+  richtig := coalesce(richtig, false);
+  return next;
+end $$;
+
+
+--
+-- Name: format_zahl_gleich(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.format_zahl_gleich(a text, b text) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(public.format_bruch(a) = public.format_bruch(b), false)
 $$;
 
 
@@ -10766,13 +11070,14 @@ CREATE TABLE public.tasks (
     CONSTRAINT tasks_einsatz_nicht_leer CHECK ((cardinality(einsatz) >= 1)),
     CONSTRAINT tasks_einsatz_quest_allein CHECK ((NOT (('quest'::text = ANY (einsatz)) AND (einsatz && ARRAY['lsa'::text, 'session'::text])))),
     CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
-    CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
+    CONSTRAINT tasks_format_passt CHECK ((((input_type = ANY (ARRAY['FELDMASKE'::text, 'LOESUNGSMENGE'::text, 'GRAPH_AUSWAHL'::text, 'FEHLER_FINDEN'::text, 'BAUSTEINE'::text, 'SCHRITTE_ORDNEN'::text])) = COALESCE(((jsonb_typeof(question_payload) = 'object'::text) AND (question_payload ? 'format'::text)), false)) AND ((NOT COALESCE((question_payload ? 'format'::text), false)) OR ((question_payload ->> 'format'::text) = lower(input_type))))),
+    CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text, 'FELDMASKE'::text, 'LOESUNGSMENGE'::text, 'GRAPH_AUSWAHL'::text, 'FEHLER_FINDEN'::text, 'BAUSTEINE'::text, 'SCHRITTE_ORDNEN'::text]))),
     CONSTRAINT tasks_multipart_check CHECK (
 CASE
     WHEN (input_type = 'MULTI_PART'::text) THEN (public.lsa_parts_valid(parts) AND (COALESCE(btrim(question), ''::text) <> ''::text) AND (est_duration_sec IS NOT NULL))
     ELSE (parts = '[]'::jsonb)
 END),
-    CONSTRAINT tasks_question_payload_no_solution CHECK (((question_payload IS NULL) OR (NOT (question_payload ?| ARRAY['correct'::text, 'accepted'::text, 'pairs'::text, 'blanks'::text, 'expected'::text])))),
+    CONSTRAINT tasks_question_payload_no_solution CHECK (((question_payload IS NULL) OR (NOT (question_payload ?| ARRAY['correct'::text, 'accepted'::text, 'pairs'::text, 'blanks'::text, 'expected'::text, 'werte'::text, 'menge'::text, 'keine_loesung'::text, 'option'::text, 'reihenfolgen'::text, 'fehlbilder'::text, 'loesung'::text, 'richtig'::text])))),
     CONSTRAINT tasks_question_table_check CHECK (((question_payload IS NULL) OR (NOT (question_payload ? 'table'::text)) OR public.lsa_table_valid((question_payload -> 'table'::text)))),
     CONSTRAINT tasks_rolle_check CHECK ((rolle = ANY (ARRAY['warmup'::text, 'uebung'::text, 'transfer'::text, 'recap'::text, 'beispiel'::text, 'home'::text, 'generalprobe'::text]))),
     CONSTRAINT tasks_sondierrang_check CHECK (((sondierrang IS NULL) OR (sondierrang >= 1))),
@@ -13478,8 +13783,15 @@ declare
   v_resp jsonb;
   v_ok   boolean;
   v_st   text;
+  v_f    record;
 begin
   select * into t from public.tasks where id = p_task_id;
+  if t.input_type in ('FELDMASKE', 'LOESUNGSMENGE', 'GRAPH_AUSWAHL', 'FEHLER_FINDEN', 'BAUSTEINE', 'SCHRITTE_ORDNEN') then
+    select * into v_f from public.format_werten(p_task_id, p_eingabe);
+    ergebnis := case when v_f.richtig then 'richtig' else 'falsch' end;
+    fehlbild_slug := coalesce(v_f.fehlbild_key, case when v_f.teilmenge then 'qf_loesung_fehlt' end);
+    return;
+  end if;
   select s.correct_answers, s.acceptance into v_ca, v_acc from public.task_solutions s where s.task_id = p_task_id;
   if t.input_type = 'MULTI_PART' then
     select x into v_p from jsonb_array_elements(t.parts) x where (x ->> 'nr')::int = p_teil;
@@ -23248,6 +23560,24 @@ CREATE TABLE public.task_coach_metadata (
 
 
 --
+-- Name: task_figur_optionen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.task_figur_optionen (
+    task_id uuid NOT NULL,
+    option_id text NOT NULL,
+    generator text NOT NULL,
+    params jsonb NOT NULL,
+    alt_text text NOT NULL,
+    svg_hash text,
+    erzeugt_am timestamp with time zone,
+    CONSTRAINT task_figur_optionen_alt_text_check CHECK (((btrim(alt_text) <> ''::text) AND (alt_text !~ '[0-9]'::text))),
+    CONSTRAINT task_figur_optionen_generator_check CHECK ((generator = 'parabel'::text)),
+    CONSTRAINT task_figur_optionen_option_id_check CHECK ((option_id ~ '^[a-z0-9]{1,8}$'::text))
+);
+
+
+--
 -- Name: task_figures; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -23260,7 +23590,7 @@ CREATE TABLE public.task_figures (
     erzeugt_am timestamp with time zone,
     CONSTRAINT task_figures_alt_no_digit CHECK ((alt_text !~ '[0-9]'::text)),
     CONSTRAINT task_figures_alt_not_empty CHECK ((btrim(alt_text) <> ''::text)),
-    CONSTRAINT task_figures_generator_check CHECK ((generator = ANY (ARRAY['koordinatensystem'::text, 'winkel'::text, 'thales'::text, 'rechtecke'::text, 'rechteck'::text])))
+    CONSTRAINT task_figures_generator_check CHECK ((generator = ANY (ARRAY['koordinatensystem'::text, 'winkel'::text, 'thales'::text, 'rechtecke'::text, 'rechteck'::text, 'parabel'::text])))
 );
 
 
@@ -24804,6 +25134,14 @@ ALTER TABLE ONLY public.task_admin_protokoll
 
 ALTER TABLE ONLY public.task_coach_metadata
     ADD CONSTRAINT task_coach_metadata_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: task_figur_optionen task_figur_optionen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_figur_optionen
+    ADD CONSTRAINT task_figur_optionen_pkey PRIMARY KEY (task_id, option_id);
 
 
 --
@@ -28267,6 +28605,14 @@ ALTER TABLE ONLY public.task_coach_metadata
 
 
 --
+-- Name: task_figur_optionen task_figur_optionen_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_figur_optionen
+    ADD CONSTRAINT task_figur_optionen_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
 -- Name: task_figures task_figures_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -30434,6 +30780,19 @@ CREATE POLICY task_admin_protokoll_lesen ON public.task_admin_protokoll FOR SELE
 --
 
 ALTER TABLE public.task_coach_metadata ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_figur_optionen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.task_figur_optionen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_figur_optionen task_figur_optionen_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY task_figur_optionen_pruefer_lesen ON public.task_figur_optionen FOR SELECT TO authenticated USING (public.darf_pruefen());
+
 
 --
 -- Name: task_figures; Type: ROW SECURITY; Schema: public; Owner: -

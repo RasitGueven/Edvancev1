@@ -84,3 +84,12 @@ def test_unbekannter_generator_bricht_ab():
                        capture_output=True, text=True)
     assert r.returncode != 0
     assert "Unbekannter Generator" in r.stderr
+
+
+def test_dateiname_fuer_optionen_der_graph_auswahl():
+    # Reihe 1 A3: format_kindersicht erwartet generiert/<task>/option-<id>-<theme>.svg
+    code = ("import sys; sys.path.insert(0, 'scripts/figures'); import upload_figures as u; "
+            "print(u.dateiname({'task_id': 't', 'generator': 'parabel', 'option_id': 'b'}, 'hell'), "
+            "u.dateiname({'task_id': 't', 'generator': 'parabel', 'option_id': None}, 'dunkel'))")
+    r = subprocess.run([sys.executable, "-c", code], cwd=WURZEL, capture_output=True, text=True)
+    assert r.stdout.split() == ["generiert/t/option-b-hell.svg", "generiert/t/parabel-dunkel.svg"], r.stderr
