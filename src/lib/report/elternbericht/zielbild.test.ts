@@ -21,7 +21,7 @@ describe('zieleV4', () => {
     expect(muster?.sorgfalt).toBe(true)
     const z = zieleV4({ fahrplan, muster, name, spaeterLuecken: 5 })
     expect(schluessel(z)).toEqual([
-      'v4.s5.ziele.vorbereitet',
+      'v4.s5.ziele.vorbereitetThema',
       'v4.s5.ziele.spaeterZwei',
       'v4.s5.ziele.sorgfalt',
       'v4.s5.ziele.weitere',
@@ -38,7 +38,7 @@ describe('zieleV4', () => {
     const { fahrplan, name } = arg('batuV4')
     for (const muster of [null, OHNE_SORGFALT]) {
       expect(schluessel(zieleV4({ fahrplan, muster, name, spaeterLuecken: 5 }))).toEqual([
-        'v4.s5.ziele.vorbereitet',
+        'v4.s5.ziele.vorbereitetThema',
         'v4.s5.ziele.spaeterZwei',
         'v4.s5.ziele.weitere',
       ])
@@ -48,7 +48,7 @@ describe('zieleV4', () => {
   it('ohne übrige Lücken kein „weitere“; nie mehr als vier', () => {
     const { fahrplan, muster, name } = arg('batuV4')
     expect(schluessel(zieleV4({ fahrplan, muster, name, spaeterLuecken: 0 }))).toEqual([
-      'v4.s5.ziele.vorbereitet',
+      'v4.s5.ziele.vorbereitetThema',
       'v4.s5.ziele.spaeterZwei',
       'v4.s5.ziele.sorgfalt',
     ])
@@ -62,17 +62,24 @@ describe('zieleV4', () => {
     const { fahrplan, name } = arg('fahrplanKlp')
     const nur = fahrplan!.stationen.map((s, i) => (i === 4 ? { ...s, signal: 'ohne' as const } : s))
     const z = zieleV4({ fahrplan: { ...fahrplan!, stationen: nur }, muster: null, name, spaeterLuecken: 0 })
-    expect(schluessel(z)).toEqual(['v4.s5.ziele.vorbereitet', 'v4.s5.ziele.spaeterEins'])
+    expect(schluessel(z)).toEqual(['v4.s5.ziele.vorbereitetThema', 'v4.s5.ziele.spaeterEins'])
     expect(z[1].werte).toHaveProperty('a')
   })
 
-  it('allesErfuellt: nur Sorgfalt bzw. übrige Lücken, oder leer', () => {
+  it('allesErfuellt (L5 Teil D): kein Übungsbedarf vor einem kommenden Thema → „baut auf dem auf …“, nie leer', () => {
     const { fahrplan, name } = arg('allesErfuellt')
     expect(schluessel(zieleV4({ fahrplan, muster: SORGFALT, name, spaeterLuecken: 2 }))).toEqual([
+      'v4.s5.ziele.aufbauen',
       'v4.s5.ziele.sorgfalt',
       'v4.s5.ziele.weitere',
     ])
-    expect(zieleV4({ fahrplan, muster: null, name, spaeterLuecken: 0 })).toEqual([])
+    expect(schluessel(zieleV4({ fahrplan, muster: null, name, spaeterLuecken: 0 }))).toEqual(['v4.s5.ziele.aufbauen'])
+  })
+
+  it('L5 Teil D: Folge bekannt → „in Klassenarbeit n zu …“ mit der echten Nummer', () => {
+    const { fahrplan, muster, name } = arg('batuEigen')
+    const z = zieleV4({ fahrplan, muster, name, spaeterLuecken: 0 })
+    expect(z[0]).toEqual({ schluessel: 'v4.s5.ziele.vorbereitetKa', werte: { n: '2', thema: 'Quadratische Funktionen', name } })
   })
 
   it('ohne Fahrplan: nur Sorgfalt und übrige Lücken', () => {
@@ -86,7 +93,7 @@ describe('zieleV4', () => {
     const { fahrplan, muster } = arg('batuV4')
     const z = zieleV4({ fahrplan, muster, name: null, spaeterLuecken: 5 })
     expect(schluessel(z)).toEqual([
-      'v4.s5.ziele.vorbereitetOhneName',
+      'v4.s5.ziele.vorbereitetThemaOhneName',
       'v4.s5.ziele.spaeterZweiOhneName',
       'v4.s5.ziele.sorgfaltOhneName',
       'v4.s5.ziele.weitere',

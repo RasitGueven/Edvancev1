@@ -242,5 +242,11 @@
       },
       "descThema": "In der Reihenfolge der nächsten Themen. Einen Punkt antippen, um zu sehen, was wir dort angehen."
     }
+  },
+  "bestaetigung": {
+    "aria": "Im Gespräch bestätigt",
+    "ziele": "Ziele bestätigt",
+    "paket": "Paket bestätigt",
+    "ohnePaket": "Erst im Report ein Paket wählen"
   }
 }

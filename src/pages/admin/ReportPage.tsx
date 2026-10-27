@@ -80,6 +80,8 @@ export function ReportPage(): JSX.Element {
   // Was der Bogen zeigt: beim Laden sofort, Eingaben im Ausblick entprellt.
   const [bogenNotes, setBogenNotes] = useState<ReportNotes>(EMPTY_NOTES)
   const [notesUnavailable, setNotesUnavailable] = useState(false)
+  // L5 Teil D: Spalten für „im Gespräch bestätigt“ vorhanden (sonst keine Schalter).
+  const [bestaetigung, setBestaetigung] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
@@ -107,6 +109,7 @@ export function ReportPage(): JSX.Element {
         setBogenNotes(storedNotes.data)
       }
       setNotesUnavailable(storedNotes.unavailable)
+      setBestaetigung(storedNotes.bestaetigung === true)
       setLoading(false)
     })()
 
@@ -167,6 +170,8 @@ export function ReportPage(): JSX.Element {
     bogenNotes.zielbild,
     bogenNotes.empfehlung,
     bogenNotes.paket,
+    bogenNotes.zieleBestaetigt,
+    bogenNotes.paketBestaetigt,
   ])
 
   const setzeAnsicht = useCallback(
@@ -199,13 +204,24 @@ export function ReportPage(): JSX.Element {
     if (!sessionId) return
     setSaving(true)
     setSaved(false)
-    const result = await saveReportNotes(sessionId, notes)
+    const result = await saveReportNotes(sessionId, notes, bestaetigung)
     setSaving(false)
     if (result.error) setError(result.error)
     else {
       setNotesUnavailable(result.unavailable)
       setSaved(true)
     }
+  }, [sessionId, notes, bestaetigung])
+
+  // L5 Teil D: Schalter in der Präsentation — sofort übernehmen und speichern.
+  const bestaetigeSofort = useCallback((art: 'zieleBestaetigt' | 'paketBestaetigt', an: boolean) => {
+    if (!sessionId) return
+    const next = { ...notes, [art]: an }
+    setNotes(next)
+    setBogenNotes(next)
+    void saveReportNotes(sessionId, next, true).then((r) => {
+      if (r.error) setError(r.error)
+    })
   }, [sessionId, notes])
 
   const name = data?.firstName?.trim() || t('head.childFallback')
@@ -291,6 +307,7 @@ export function ReportPage(): JSX.Element {
       saved={saved}
       unavailable={notesUnavailable}
       nurLesen={role !== 'admin'}
+      bestaetigung={bestaetigung}
     />
   )
 
@@ -315,6 +332,7 @@ export function ReportPage(): JSX.Element {
       sessionId={sessionId}
       laden={loading || pakete === 'offen' || pakete === 'laedt'}
       onSchliessen={schliessePraesentation}
+      bestaetigung={role === 'admin' && bestaetigung && !notesUnavailable ? { onWechsel: bestaetigeSofort } : undefined}
     />
   )
 

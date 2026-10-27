@@ -38,7 +38,11 @@
     "save": "Notizen speichern",
     "saving": "Speichert …",
     "saved": "Gespeichert",
-    "unavailable": "Die Notizen lassen sich noch nicht speichern — die Ablage dafür fehlt in der Datenbank."
+    "unavailable": "Die Notizen lassen sich noch nicht speichern — die Ablage dafür fehlt in der Datenbank.",
+    "zieleBestaetigt": "Ziele im Gespräch bestätigt",
+    "paketBestaetigt": "Paket im Gespräch bestätigt",
+    "paketBestaetigtOhnePaket": "Erst ein Paket wählen",
+    "bestaetigtHilfe": "Ohne Bestätigung zeigt der Bericht die Ziele als „Unser Vorschlag“. Das Zielbild oben erscheint erst nach der Bestätigung, als letztes Ziel."
   },
   "actions": {
     "print": "Drucken",

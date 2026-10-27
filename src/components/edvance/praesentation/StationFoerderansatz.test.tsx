@@ -143,12 +143,12 @@ describe('Station 04 · fester Kasten', () => {
     expect(namen.some((n) => n.includes('Reelle Zahlen'))).toBe(false)
   })
 
-  it('Ziel-Zeile nur bei bestätigten Zielen', () => {
+  it('L5 Teil D: Ziel-Zeile immer, auch ohne Bestätigung', () => {
     zeigeV4(StationFoerderansatz, 'batuV4', { zieleBestaetigt: false })
-    expect(screen.queryByTestId('tp-s4v-ziel')).toBeNull()
+    expect(screen.getByTestId('tp-s4v-ziel')).toHaveTextContent(/^Ziel: .*gut vorbereitet in das Thema „/)
     cleanup()
     zeigeV4(StationFoerderansatz, 'batuV4', { zieleBestaetigt: true })
-    expect(screen.getByTestId('tp-s4v-ziel')).toHaveTextContent(/^Ziel: .*gut vorbereitet in die Arbeit zu „/)
+    expect(screen.getByTestId('tp-s4v-ziel')).toHaveTextContent(/^Ziel: .*gut vorbereitet in das Thema „/)
     fireEvent.click(punkte()[3])
     expect(screen.getByTestId('tp-s4v-ziel')).toHaveTextContent('kontrolliert die eigenen Rechnungen selbst')
   })

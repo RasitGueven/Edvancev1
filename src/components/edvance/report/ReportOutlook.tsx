@@ -20,6 +20,8 @@ interface ReportOutlookProps {
   unavailable: boolean
   /** Coach: liest den Ausblick, schreibt ihn nicht (Entscheidung 26). */
   nurLesen?: boolean
+  /** L5 Teil D: Spalten für „im Gespräch bestätigt“ vorhanden — sonst keine Schalter. */
+  bestaetigung?: boolean
 }
 
 export function ReportOutlook({
@@ -31,6 +33,7 @@ export function ReportOutlook({
   saved,
   unavailable,
   nurLesen = false,
+  bestaetigung = false,
 }: ReportOutlookProps): JSX.Element {
   const { t } = useTranslation('report')
 
@@ -117,6 +120,27 @@ export function ReportOutlook({
         )}
       </div>
 
+      {bestaetigung && (
+        <div className="print-hide flex flex-col gap-2" data-testid="report-bestaetigung">
+          <BestaetigtSchalter
+            label={t('outlook.zieleBestaetigt')}
+            an={notes.zieleBestaetigt === true}
+            gesperrt={unavailable || nurLesen}
+            onWechsel={(an) => onChange({ ...notes, zieleBestaetigt: an })}
+          />
+          <BestaetigtSchalter
+            label={t('outlook.paketBestaetigt')}
+            an={notes.paketBestaetigt === true}
+            gesperrt={unavailable || nurLesen || notes.paket === null}
+            hinweis={notes.paket === null ? t('outlook.paketBestaetigtOhnePaket') : undefined}
+            onWechsel={(an) => onChange({ ...notes, paketBestaetigt: an })}
+          />
+          <p className="text-xs text-[color-mix(in_srgb,var(--color-report-navy)_55%,transparent)]">
+            {t('outlook.bestaetigtHilfe')}
+          </p>
+        </div>
+      )}
+
       {!nurLesen && (
         <div className="print-hide flex items-center gap-3">
           <Button type="button" onClick={onSave} disabled={unavailable || saving}>
@@ -130,5 +154,41 @@ export function ReportOutlook({
         </div>
       )}
     </section>
+  )
+}
+
+/** L5 Teil D: Schalter „… im Gespräch bestätigt“ (role=switch, 44 px hoch). */
+export function BestaetigtSchalter({
+  label,
+  an,
+  gesperrt = false,
+  hinweis,
+  onWechsel,
+}: {
+  label: string
+  an: boolean
+  gesperrt?: boolean
+  /** Grund, warum der Schalter gesperrt ist (Tooltip). */
+  hinweis?: string
+  onWechsel: (an: boolean) => void
+}): JSX.Element {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={an}
+      disabled={gesperrt}
+      title={hinweis}
+      onClick={() => onWechsel(!an)}
+      className="flex min-h-[44px] items-center gap-3 self-start rounded-[var(--radius-md)] px-1 text-sm font-semibold text-[var(--color-report-navy)] disabled:opacity-60"
+    >
+      <span
+        aria-hidden="true"
+        className={`relative h-6 w-10 rounded-full transition-colors ${an ? 'bg-[var(--color-report-gold)]' : 'bg-[color-mix(in_srgb,var(--color-report-navy)_18%,transparent)]'}`}
+      >
+        <span className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${an ? 'left-5' : 'left-1'}`} />
+      </span>
+      {label}
+    </button>
   )
 }

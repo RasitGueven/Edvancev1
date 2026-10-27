@@ -9,6 +9,7 @@ import { UEBERSPRUNGEN_ANZEIGE } from '@/lib/report/praesentation/einstellungen'
 import { bauePraesentation } from '@/lib/report/praesentation/praesentation'
 import type { PraesentationDaten, ReportData, ReportNotes, TierPlan, TpAnzeige } from '@/types'
 
+import { Bestaetigung, type TpBestaetigung } from './Bestaetigung'
 import { Intro } from './Intro'
 import { Kopf } from './Kopf'
 import { Leiste } from './Leiste'
@@ -53,6 +54,8 @@ export type PraesentationProps = {
   anzeige?: TpAnzeige
   /** Nur für Tests und Vorschau: false erzwingt die Zuordnung vor V4 (Station 03 = Lernweg). */
   fahrplan?: boolean
+  /** L5 Teil D: nur Admin — Schalter „im Gespräch bestätigt“ in Station 04. */
+  bestaetigung?: TpBestaetigung
 }
 
 /**
@@ -147,6 +150,8 @@ function Buehne({
   onSchliessen,
   anzeige = UEBERSPRUNGEN_ANZEIGE,
   v4,
+  notes,
+  bestaetigung,
 }: PraesentationProps & { p: PraesentationDaten; satz: Bausteinsatz; v4: PraesentationV4 | null }): JSX.Element {
   const { t } = useTranslation('praesentation')
   const s = useStationen()
@@ -184,6 +189,7 @@ function Buehne({
               aria-label={stationsName(t, n, v4 !== null)}
             >
               <Station p={p} anzeige={anzeige} satz={satz} sessionId={sessionId} v4={v4} />
+              {n === 4 && bestaetigung && <Bestaetigung notes={notes} bestaetigung={bestaetigung} />}
             </section>
           )
         })}

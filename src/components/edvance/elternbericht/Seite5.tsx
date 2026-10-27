@@ -13,14 +13,18 @@ import { paketWahl } from './seite5Rechnung'
 import type { SeitenProps } from './seitenProps'
 import { useStufe } from './useStufe'
 
+/** L5 Teil D: höchstens fünf Ziele (vier des Systems und das Zielbild des Coachs). */
+const MAX_ZIELE = 5
+
 /**
  * Seite 5 des Eltern-Berichts (v3): der rote Faden zum Schluss.
  *
  *   1. Fazit: Seite 1–4 in drei bis vier Sätzen, aus denselben Daten.
  *   2. Pakete mit Vorschlag; die Begründung knüpft an das Fazit an.
- *   3. Ziele für die nächsten 6 Monate — nur wenn im Gespräch bestätigt
- *      (notes.zieleBestaetigt): das Zielbild des Coachs, sonst der
- *      Systemvorschlag (zieleSaetze). Unbestätigte Freitexte erscheinen nie.
+ *   3. Ziele für die nächsten 6 Monate — immer (L5 Teil D): der Systemvorschlag
+ *      (zieleV4 bzw. zieleSaetze), bei Bestätigung (notes.zieleBestaetigt) mit
+ *      dem Zielbild des Coachs als letztem Ziel und dem Kicker „im Gespräch
+ *      vereinbart“. Unbestätigte Freitexte erscheinen nie.
  *   4. Kontakt: wer die Analyse begleitet hat, Telefon aus der Konfig, Vertrag.
  * Kein Preis, keine Laufzeit — außer in der Ansicht mit eingeschaltetem
  * Schalter „Preise einblenden“ (`preise`, Bericht v4).
@@ -91,7 +95,11 @@ export function Seite5({ data, bericht, notes, tiers, name, wessen, preise = fal
         sorgfalt: muster?.sorgfalt === true,
         liste,
       })
-  const ziele = notes?.zieleBestaetigt ? (zielbild ? [zielbild] : systemZiele) : []
+  // L5 Teil D (Entscheidungen 13–17): Systemziele immer; das Zielbild des Coachs kommt als letztes Ziel dazu, nur wenn
+  // bestätigt. Ohne Systemziel (v3 ohne Schwerpunkt) steht „baut auf dem auf, was schon sicher ist“.
+  const zieleBestaetigt = notes?.zieleBestaetigt === true
+  const basis = systemZiele.length > 0 ? systemZiele : [t(name ? 'v4.s5.ziele.aufbauen' : 'v4.s5.ziele.aufbauenOhneName', { name })]
+  const ziele = [...basis, ...(zieleBestaetigt && zielbild ? [zielbild] : [])].slice(0, MAX_ZIELE)
 
   const kontakt = data.erzaehlung.ansprechpartner
   const kontaktName = kontakt.name?.trim() || null
@@ -124,7 +132,9 @@ export function Seite5({ data, bericht, notes, tiers, name, wessen, preise = fal
 
       {ziele.length > 0 && (
         <section className={fahrplan ? 'eb-s5-ziele eb-s5-ziele-v4' : 'eb-s5-ziele'} data-testid="eb-ziele">
-          <h2 className="eb-kicker">{t('s5.ziele.kicker')}</h2>
+          <h2 className="eb-kicker" data-testid="eb-ziele-kicker">
+            {t(zieleBestaetigt ? 's5.ziele.kickerBestaetigt' : 's5.ziele.kickerVorschlag')}
+          </h2>
           <ul className="eb-s5-ziele-liste">
             {ziele.map((z, i) => (
               <li key={z}>
@@ -133,11 +143,9 @@ export function Seite5({ data, bericht, notes, tiers, name, wessen, preise = fal
               </li>
             ))}
           </ul>
-          {fahrplan && (
-            <p className="eb-s5-keine-noten" data-testid="eb-keine-noten">
-              {name ? t('v4.s5.keineNoten', { name }) : t('v4.s5.keineNotenOhneName')}
-            </p>
-          )}
+          <p className="eb-s5-keine-noten" data-testid="eb-keine-noten">
+            {name ? t('v4.s5.keineNoten', { name }) : t('v4.s5.keineNotenOhneName')}
+          </p>
         </section>
       )}
 

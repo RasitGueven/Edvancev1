@@ -422,7 +422,9 @@
       "vorThema": "{{was}} sicher anwenden, bevor das Thema „{{titel}}“ beginnt",
       "klassenarbeit": "{{was}} für die Klassenarbeit sicher anwenden",
       "allgemein": "{{was}} sicher anwenden",
-      "sorgfalt": "Rechenwege sorgfältig zu Ende führen und Ergebnisse selbst kontrollieren"
+      "sorgfalt": "Rechenwege sorgfältig zu Ende führen und Ergebnisse selbst kontrollieren",
+      "kickerVorschlag": "Unser Vorschlag: Ziele für die nächsten 6 Monate",
+      "kickerBestaetigt": "Ziele für die nächsten 6 Monate · im Gespräch vereinbart"
     },
     "fazit": {
       "luecken": "Die Lücken liegen vor allem im Stoff von {{stufe}}, besonders bei {{felder}}.",
@@ -648,15 +650,19 @@
         "fahrplanThema_other": "Sie werden in den nächsten {{count}} Themen wieder gebraucht."
       },
       "ziele": {
-        "vorbereitet": "{{name}} geht gut vorbereitet in die Arbeit zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
-        "vorbereitetOhneName": "Ihr Kind geht gut vorbereitet in die Arbeit zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetThema": "{{name}} geht gut vorbereitet in das Thema „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetKa": "{{name}} geht gut vorbereitet in Klassenarbeit {{n}} zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetThemaOhneName": "Ihr Kind geht gut vorbereitet in das Thema „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetKaOhneName": "Ihr Kind geht gut vorbereitet in Klassenarbeit {{n}} zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
         "spaeterEins": "Wenn in der Schule „{{a}}“ drankommt, fängt {{name}} nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "spaeterEinsOhneName": "Wenn in der Schule „{{a}}“ drankommt, fängt Ihr Kind nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "spaeterZwei": "Wenn in der Schule „{{a}}“ und „{{b}}“ drankommen, fängt {{name}} nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "spaeterZweiOhneName": "Wenn in der Schule „{{a}}“ und „{{b}}“ drankommen, fängt Ihr Kind nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "sorgfalt": "{{name}} kontrolliert die eigenen Rechnungen selbst und verliert weniger Punkte durch Flüchtigkeitsfehler.",
         "sorgfaltOhneName": "Ihr Kind kontrolliert die eigenen Rechnungen selbst und verliert weniger Punkte durch Flüchtigkeitsfehler.",
-        "weitere": "Auch die übrigen Lücken schließen wir nach und nach, damit spätere Themen auf festen Grundlagen aufbauen."
+        "weitere": "Auch die übrigen Lücken schließen wir nach und nach, damit spätere Themen auf festen Grundlagen aufbauen.",
+        "aufbauen": "{{name}} baut auf dem auf, was schon sicher ist, und geht den neuen Stoff Schritt für Schritt mit.",
+        "aufbauenOhneName": "Ihr Kind baut auf dem auf, was schon sicher ist, und geht den neuen Stoff Schritt für Schritt mit."
       },
       "keineNoten": "Wir versprechen keine Noten. Uns geht es darum, zu verstehen, woran es hakt, und {{name}} Schritt für Schritt voranzubringen.",
       "keineNotenOhneName": "Wir versprechen keine Noten. Uns geht es darum, zu verstehen, woran es hakt, und Ihr Kind Schritt für Schritt voranzubringen.",

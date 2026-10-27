@@ -28,7 +28,7 @@ export type PraesentationV4 = {
   /** Bearbeitungszeit in Minuten (ReportData.dauerMinuten); null ohne Zeiten. */
   minuten: number | null
   muster: Fehlermuster | null
-  /** Ziele in Elternsprache; leer, solange sie im Gespräch nicht bestätigt sind. */
+  /** Ziele in Elternsprache (Systemvorschlag), immer gesetzt (L5 Teil D). */
   ziele: ZielSchluessel[]
   /** LSA-L4: Stand der Klassenarbeit beim LSA-Start und die gemeldete Note (Satz in Station 03). */
   klassenarbeit: KlassenarbeitStatus | null
@@ -40,7 +40,7 @@ function spaeterLuecken(bericht: Elternbericht): number {
   return (bericht.lueckenwegV4?.weitere ?? []).reduce((summe, g) => summe + g.labels.length + (g.rest ?? 0), 0)
 }
 
-export function baueV4(data: ReportData, notes: ReportNotes | null): PraesentationV4 | null {
+export function baueV4(data: ReportData, _notes: ReportNotes | null): PraesentationV4 | null {
   const { kompetenzen, katalog } = data.erzaehlung
   const bericht = baueElternbericht({
     kompetenzen,
@@ -62,9 +62,8 @@ export function baueV4(data: ReportData, notes: ReportNotes | null): Praesentati
     muster,
     klassenarbeit: data.erstgespraech?.klassenarbeit ?? null,
     note: data.erstgespraech?.letzteNote ?? null,
-    ziele: notes?.zieleBestaetigt
-      ? zieleV4({ fahrplan: bericht.fahrplan, muster, name, spaeterLuecken: spaeterLuecken(bericht) })
-      : [],
+    // L5 Teil D (Entscheidung 13): die Systemziele immer, auch ohne Bestätigung.
+    ziele: zieleV4({ fahrplan: bericht.fahrplan, muster, name, spaeterLuecken: spaeterLuecken(bericht) }),
   }
 }
 

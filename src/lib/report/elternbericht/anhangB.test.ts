@@ -52,7 +52,7 @@ describe('Anhang B · batuV4', () => {
     const uebrig = b.lueckenwegV4!.weitere.flatMap((g) => g.labels)
     const z = zieleV4({ fahrplan: b.fahrplan, muster, name: data.firstName, spaeterLuecken: uebrig.length })
     expect(z.map((x) => x.schluessel)).toEqual([
-      'v4.s5.ziele.vorbereitet',
+      'v4.s5.ziele.vorbereitetThema',
       'v4.s5.ziele.spaeterZwei',
       'v4.s5.ziele.sorgfalt',
       'v4.s5.ziele.weitere',

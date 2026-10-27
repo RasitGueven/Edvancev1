@@ -110,3 +110,31 @@ describe('INV-4 · L5 · keine Nummer ohne bekannte Folge', () => {
     }
   })
 })
+
+// L5 Teil D (Entscheidung 18): die Ziele für die nächsten 6 Monate — keine Note, keine Prognose, kein „trägt/tragen“.
+describe('INV-4 · L5 Teil D · Ziele', () => {
+  const flach = (o: Record<string, unknown>, pre: string): [string, string][] =>
+    Object.entries(o).flatMap(([k, v]) =>
+      typeof v === 'string' ? [[`${pre}.${k}`, v] as [string, string]] : flach(v as Record<string, unknown>, `${pre}.${k}`),
+    )
+  const ZIELE = [
+    ...flach(deElternbericht.v4.s5.ziele, 'v4.s5.ziele'),
+    ...flach(deElternbericht.s5.ziele, 's5.ziele'),
+    ...flach(dePraesentation.bestaetigung, 'tp.bestaetigung'),
+  ]
+
+  it('es gibt die neuen Ziele', () => {
+    const keys = ZIELE.map(([k]) => k)
+    for (const k of ['v4.s5.ziele.vorbereitetThema', 'v4.s5.ziele.vorbereitetKa', 'v4.s5.ziele.aufbauen', 's5.ziele.kickerVorschlag', 's5.ziele.kickerBestaetigt']) {
+      expect(keys).toContain(k)
+    }
+  })
+
+  it.each(ZIELE)('%s: keine Note, keine Prognose, kein „trägt/tragen“, kein Prozent', (_key, s) => {
+    expect(s).not.toMatch(/\bNote[n]?\b|prognos|erwart|voraussichtlich|garanti|tr(ä|ae)gt|tragen|%|Prozent/i)
+  })
+
+  it('„Klassenarbeit {{n}}“ nur im Ziel mit bekannter Folge', () => {
+    for (const [key, s] of ZIELE) if (NUMMER.test(s) || /Klassenarbeit \{\{n\}\}/.test(s)) expect(key).toMatch(/vorbereitetKa/)
+  })
+})
