@@ -2624,3 +2624,15 @@ on conflict (id) do nothing;
 -- abgebrochen). Fingerabdruck = sha256(Renderer-Fassung, Skelett-Inhalt, Welt-Inhalt, Audio der Welt). Aktuell =
 -- letzter fertiger Render hat den aktuellen Fingerabdruck (studio_render_stand). Melden nur der Anleger oder Admin;
 -- fertig nur mit Dateien unter render/<seq>/<welt>/<fp>/<auftrag>/ im Bucket und unveraendertem Inhalt.
+
+-- ============================================================================
+-- Studio · Freigabe (Reihe 1, Bauauftrag B5): studio_freigabe, studio_bearbeiter, studio_ausgabe
+-- (Migration 20261027135739_studio_freigabe.sql)
+-- ============================================================================
+-- studio_freigabe: append-only Protokoll (verstaendlich | fachlich | variante je Welt), je Zeile Version und
+-- Inhalts-Fingerabdruck der Welt; gueltig nur bei gleichem Fingerabdruck. Trigger: Pruefer ist nie Autor oder
+-- Bearbeiter (studio_bearbeiter), verstaendlich und fachlich von zwei Personen. Pruefrollen nur ausdruecklich
+-- (studio_hat_rolle: gruender/fachlich nur aus studio_rolle; autor auch Admin).
+-- studio_ausgabe: eingefrorener Stand je freigegebener Welt (Render, Kapitel, Bereiche, Mini-Checks mit
+-- Ruecksprung); Kinder lesen nur sie (B6). Ersetzt erst bei neuer Freigabe; studio_zurueckziehen (Admin) entzieht
+-- sie und erhoeht die Versionen. Mit der Skelett-Freigabe werden die Mini-Check-Aufgaben draft → ready.
