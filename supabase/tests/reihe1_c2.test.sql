@@ -178,10 +178,10 @@ select pg_temp.abruf(5, false);
 select is(pg_temp.f(6), 1, 'F4 ein Fehler setzt den Abstand auf 1');
 set local session_replication_role = replica;
 insert into lernpfad_belege (student_id, skill_key, session_id, ergebnis, hinweis_genutzt)
-select :'k_f', 'zz_a2_v2', id, 'richtig', false from pg_temp.ss where nr = 6;
+select :'k_f', 'zz_a2_k2', id, 'richtig', false from pg_temp.ss where nr = 6;
 set local session_replication_role = origin;
 select is((select string_agg(skill_key, ',' order by ueberfaellig desc, skill_key) from session_abruf_faellig((select id from pg_temp.ss where nr = 8), :'k_f')),
-          'zz_a2_v1,zz_a2_v2', 'F5 mehr fällig als Plätze: der am längsten überfällige zuerst');
+          'zz_a2_v1,zz_a2_k2', 'F5 mehr fällig als Plätze: der am längsten überfällige zuerst (nicht alphabetisch)');
 
 -- ── G) Generalprobe (Arbeit morgen: heute ist die letzte Session) ──────────
 select pg_temp.kind_mit('ZZ C2 Gül', 'zz_a2_terme', '{}') as k_g \gset

@@ -122,7 +122,7 @@ begin
               s.skill_key
   loop
     v_niv := greatest(1, (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau - v_leicht);
-    select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, c.skill_key, v_niv, p_testlauf);
+    select * into w from public.session_ziehen(p_session_id, p_student_id, c.skill_key, 'warmup', v_niv, p_testlauf);
     if w.task_id is not null then
       v_grund := 'Warm-up ' || (v_fertig + 1) || ' von ' || v_n || ': '
         || case when c.voraus then 'Voraussetzung von ' || coalesce(p_ziel_label, public.session_label(p_aktuell))
@@ -175,7 +175,7 @@ begin
       order by x.rang, x.zuletzt desc
     loop
       v_niv := (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau;
-      select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, c.skill_key, v_niv, p_testlauf);
+      select * into w from public.session_ziehen(p_session_id, p_student_id, c.skill_key, 'uebung', v_niv, p_testlauf);
       if w.task_id is not null then
         return public.session_schritt('exit', 'checkout', c.skill_key, w.task_id, 'selbststaendig', false, v_niv,
           'Check-out: Exit-Aufgabe ' || (v_e + 1) || ' von ' || v_n || ' zu ' || public.session_label(c.skill_key)
@@ -404,7 +404,8 @@ begin
                       and s.art = 'generalprobe' and s.rolle = 'generalprobe' and s.skill_key = sk.skill_key) as gp_gehabt,
              case when l.stand_coach = 'gemeistert' then 3 when l.stand_system in ('sicher', 'kandidat') then 2
                   when l.skill_key is null then 0 else 1 end as rang,
-             (select count(*) from public.lernpfad_belege b where b.student_id = p_student_id and b.skill_key = sk.skill_key) as belege
+             (select count(*) from public.lernpfad_belege b where b.student_id = p_student_id and b.skill_key = sk.skill_key
+                 and b.ergebnis = 'richtig' and not b.hinweis_genutzt) as belege
         from unnest(p_skills) with ordinality sk(skill_key, o)
         left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = sk.skill_key) x
      order by x.rang, x.belege, x.o
@@ -483,6 +484,11 @@ as $$
 declare
   t public.session_tablets := public.session_tablet_platz(p_session_id, 'session_gp_waehlen');
 begin
+  if (select cs.status from public.coaching_sessions cs where cs.id = p_session_id) is distinct from 'active'
+     or not exists (select 1 from public.session_schritte s where s.session_id = p_session_id and s.student_id = t.student_id
+                     and s.art = 'gp_ergebnis') then
+    raise exception 'session_gp_waehlen: erst nach der Generalprobe' using errcode = 'P0001';
+  end if;
   if not exists (select 1 from public.session_schritte s where s.session_id = p_session_id and s.student_id = t.student_id
                   and s.art = 'generalprobe' and (p_skill_key is null or s.skill_key = p_skill_key)) then
     raise exception 'session_gp_waehlen: Skill war nicht in der Generalprobe' using errcode = '22023';
@@ -526,8 +532,10 @@ declare
 begin
   if to_regprocedure('public.aufgabe_werten(uuid,jsonb)') is not null
      and (select to_jsonb(t) ->> 'bauform_id' from public.tasks t where t.id = p_task_id) is not null then
+    -- Zweitprüfung C2-4: neue Formate (payload.kind = 'format') roh, alte Formate als {"eingabe", "teil"} (DATENVERTRAG A).
     execute 'select richtig, fehlbild_key, rueckmeldung from public.aufgabe_werten($1, $2)' into v_r, fehlbild_slug, rueckmeldung
-      using p_task_id, p_eingabe;
+      using p_task_id, case when public.session_payload(p_task_id) ->> 'kind' = 'format' then p_eingabe
+                            else jsonb_build_object('eingabe', p_eingabe) || coalesce(jsonb_build_object('teil', p_teil), '{}') end;
     ergebnis := case when v_r then 'richtig' else 'falsch' end;
     return;
   end if;
@@ -611,8 +619,11 @@ begin
   v_reihe := public.reihe_aktiv(p_student_id);
   if v_reihe.id is not null and (select c.fall_coach from public.session_checkin c
                                   where c.session_id = p_session_id and c.student_id = p_student_id) is distinct from 'lernpfad' then
-    v_rz := public.reihe_plan_wirksam(v_reihe.id, (s.scheduled_at at time zone 'Europe/Berlin')::date) -> 'sessions';
+    v_rz := coalesce(public.reihe_plan_wirksam(v_reihe.id, (s.scheduled_at at time zone 'Europe/Berlin')::date) -> 'sessions', '[]');
     v_rs := v_rz -> 0;
+  end if;
+  -- Zweitprüfung C2-5: ohne Plan-Session (Reihe vorbei) bleibt das Ziel aus der Zielliste.
+  if jsonb_array_length(coalesce(v_rz, '[]')) > 0 then
     v_gp := v_rs ->> 'art' = 'generalprobe';
     select array_agg(x.sk order by x.o) into v_ziel from (
       select sk, min(so * 100 + ko) as o
@@ -651,8 +662,11 @@ begin
        and not exists (select 1 from public.session_schritte x where x.session_id = p_session_id
                         and x.student_id = p_student_id and x.phase = 'kern'
                         and x.art in ('aufgabe', 'beispiel', 'erklaerung', 'generalprobe')) then
-      execute 'select z.skill_key from public.zeigs_mir_offen($1, $2) z where z.entscheidung in (''uebernehmen'', ''übernehmen'') limit 1'
-        into v_zm using p_student_id, p_session_id;
+      begin
+        execute 'select z.skill_key from public.zeigs_mir_offen($1, $2) z where z.entscheidung in (''uebernehmen'', ''übernehmen'') limit 1'
+          into v_zm using p_student_id, p_session_id;
+      exception when insufficient_privilege then v_zm := null;
+      end;
       if v_zm is not null then
         declare w record; v_st int := coalesce(public.session_stufe_sicher(p_student_id, v_zm), 1);
         begin
@@ -669,7 +683,8 @@ begin
     -- Generalprobe in der Plan-Session mit Art generalprobe (Konzept §2.5).
     if r ->> 'art' is null and v_gp then
       v_kern := public.session_plan_gp(p_session_id, p_student_id, s.testlauf,
-                  coalesce(array(select jsonb_array_elements_text(v_rs -> 'skills')), '{}'));
+                  coalesce(nullif(array(select jsonb_array_elements_text(v_rs -> 'skills')), '{}'),
+                           array(select x.skill_key from public.reihe_skills(v_reihe.thema_keys) x order by x.nr)));
       if v_kern is not null then
         r := v_kern || jsonb_build_object('signale', coalesce(r -> 'signale', '[]'));
       end if;
@@ -791,10 +806,13 @@ begin
         -- nach_beispiel = true: zaehlt als Einfuehrungsaufgabe (v_a), danach normale Kernarbeit.
         if public.session_pool_anzahl(p_session_id, p_student_id, p_aktuell, p_testlauf) = 1 then
           select * into w from public.session_ziehen(p_session_id, p_student_id, p_aktuell, 'uebung', niv.niveau, p_testlauf);
+          -- Zweitprüfung C2-9: der alte Pool zählt eine Aufgabe, A liefert vielleicht keine.
+          if w.task_id is not null then
           return public.session_schritt('aufgabe', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,
             coalesce(w.difficulty, niv.niveau),
             'Neuer Skill ' || v_lab || ': nur eine Aufgabe im Pool, Lösungsbeispiel entfällt',
             'neu_aufgabe_ohne_beispiel', jsonb_build_object('signale', v_sig, 'nach_beispiel', true, 'rolle', 'uebung'));
+          end if;
         end if;
         select * into w from public.session_ziehen(p_session_id, p_student_id, p_aktuell, 'beispiel', niv.niveau, p_testlauf);
         if w.task_id is not null then

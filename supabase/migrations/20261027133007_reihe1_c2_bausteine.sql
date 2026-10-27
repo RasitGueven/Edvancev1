@@ -56,8 +56,13 @@ declare
   v int;
 begin
   if p_task_id is null then return null; end if;
-  if to_regprocedure('public.aufgabe_meta(uuid)') is not null then
-    execute 'select stufe from public.aufgabe_meta($1)' into v using p_task_id;
+  -- Zweitprüfung C2-2: nur Bauform-Instanzen; das Tablet darf alte (LSA-)Aufgaben bei A nicht lesen.
+  if to_regprocedure('public.aufgabe_meta(uuid)') is not null
+     and (select to_jsonb(t) ->> 'bauform_id' from public.tasks t where t.id = p_task_id) is not null then
+    begin
+      execute 'select stufe from public.aufgabe_meta($1)' into v using p_task_id;
+    exception when insufficient_privilege then v := null;
+    end;
   end if;
   return coalesce(v, (select public.session_schwierigkeit(t.difficulty, t.afb) from public.tasks t where t.id = p_task_id));
 end;
@@ -119,8 +124,13 @@ begin
                      union all select g, 10 + g from generate_series(coalesce(p_stufe, 5) + 1, 5) g
                      union all select null::int, 99 where p_stufe is null) s order by o
     loop
-      execute 'select public.aufgabe_ziehen($1, $2, $3, $4, $5)' into task_id
-        using p_student_id, p_skill_key, p_rolle, v_s, v_aus;
+      begin
+        execute 'select public.aufgabe_ziehen($1, $2, $3, $4, $5)' into task_id
+          using p_student_id, p_skill_key, p_rolle, v_s, v_aus;
+      exception when insufficient_privilege then
+        -- Zweitprüfung C2-3: z. B. Coach-Vorschau ohne Akte; dann nichts ziehen statt abbrechen.
+        task_id := null; return;
+      end;
       if task_id is not null then
         difficulty := public.session_stufe(task_id);
         return;
@@ -152,7 +162,10 @@ declare
   v uuid;
 begin
   if to_regprocedure('public.aufgabe_zwilling(uuid,uuid,text)') is null then return null; end if;
-  execute 'select public.aufgabe_zwilling($1, $2, $3)' into v using p_student_id, p_task_id, p_rolle;
+  begin
+    execute 'select public.aufgabe_zwilling($1, $2, $3)' into v using p_student_id, p_task_id, p_rolle;
+  exception when insufficient_privilege then return null;
+  end;
   if v = any (public.session_ausschluss(p_session_id, p_student_id)) then return null; end if;
   return v;
 end;
