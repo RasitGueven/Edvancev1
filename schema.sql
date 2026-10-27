@@ -2636,3 +2636,13 @@ on conflict (id) do nothing;
 -- studio_ausgabe: eingefrorener Stand je freigegebener Welt (Render, Kapitel, Bereiche, Mini-Checks mit
 -- Ruecksprung); Kinder lesen nur sie (B6). Ersetzt erst bei neuer Freigabe; studio_zurueckziehen (Admin) entzieht
 -- sie und erhoeht die Versionen. Mit der Skelett-Freigabe werden die Mini-Check-Aufgaben draft → ready.
+
+-- ============================================================================
+-- Studio · Ausspielung (Reihe 1, Bauauftrag B6): studio_kind_welt, studio_angesehen; erklaer_start, erklaer_zeigen,
+-- erklaer_check_abgeben, erklaer_naechste_kernidee erweitert; mediathek_kind, mediathek_angesehen, eddie_index
+-- (Migration 20261027141453_studio_ausspielung.sql)
+-- ============================================================================
+-- Video-Kernidee = freigegebene Skelett-Ausgabe mit auslieferbarem Mini-Check zu ihr (studio_video_aufgaben: ready, aktiv,
+-- Einsatz check). Dann liefert E1 `video` (Welt des Kindes, sonst Skelett) und den Check aus der Ausgabe (Runde 1
+-- Hauptfrage, danach Zwillinge); bei Fehlbild mit Ruecksprung aktion 'ruecksprung'. Sonst Kartenweg unveraendert.
+-- Alles aus studio_ausgabe.inhalt (eingefroren), nie aus dem Entwurf. Storage: Dateien freigegebener Ausgaben lesbar.
