@@ -1175,3 +1175,54 @@ Bis A3 zeigen alle Komponenten einen Platzhalter „Format kommt bald“; die Pr
 - Bestand seit A1: alle Aufgaben `{lsa}` (bis auf einen `{check}`). Die Session zieht bis zur ersten Freigabe von
   Bauform-Instanzen nichts (`docs/reihe1/A/an-C.md`).
 - `pruef_board()` liefert zusätzlich `pool text` (`lsa` | `session` | `null`), am Ende der Spaltenliste.
+
+### 13.3 Bauformen (A2, Migration `20261027132306_reihe1_a2_bauformen_schema`)
+
+| Objekt | Inhalt |
+|---|---|
+| `bauformen` | `schluessel` (z. B. `NP-2`), `reihe`, `skill_key`, `kernidee_key` (`<skill>:K<n>`), `format`, `rollen[]`, `steckbrief` jsonb, `generator_pfad`, `version`, `status` (entwurf, zur_pruefung, rueckfrage, beanstandet, zur_freigabe, freigegeben, pausiert), `pruefprotokoll`, `blindloeser`, `verdacht`, `freigegeben_am/_von` |
+| `bauform_versionen` | frühere Steckbriefe je Version (nur anhängen) |
+| `bauform_pruefungen` | Lenas Entscheidungen je Bauform und Version (passt, unsicher, passt_nicht, zurueckgenommen; Gründe, Notiz, Dauer) |
+| `tasks` (neu) | `bauform_id`, `bauform_version`, `params` jsonb, `stufe` 1–5, `rolle` (genau eine), `kernidee_key`, `pruefmaschine` jsonb `{"<nr>": {"ok": bool, "grund": text}}`; CHECK: Instanz ⇒ Version, Stufe, Rolle, `einsatz = {session}` |
+| `aufgabe_bewaehrung` | je Instanz `bearbeitungen`, `richtig`, `fehlbild_zaehler`, `unbekannt`, `haeufigste_unbekannte`, `status` (in_bewaehrung, bewaehrt, auffaellig, pausiert), `grund` |
+| `aufgabe_meldungen` | Meldungen der Coaches (nur anhängen) |
+| `aufgabe_gesehen` | „gesehen“ je Kind, Instanz, Session (nur vor Ort) |
+| `skill_pruefung` | + `geprueft_von`, `geprueft_am` (Coach-Prüffragen; Ort gab es schon) |
+
+**Steckbrief** (jsonb): `text`, `stufen` {"1": {…Merkmale}}, `fehlbilder` [{`key`, `regel`, `rueckmeldung`, `gilt_fuer_stufen` [1–5]}],
+`hinweise` [3 Texte mit Platzhaltern], `loesungsweg` [Schritte], `warum` {`bei_schritt`, `frage`, `bausteine` [3 {id, text}], `richtig`},
+`kontext`, `figur` {generator, params}, `zeit_sek`, `kann_entfallen`.
+Eine Änderung an Steckbrief, Format, Rollen, Skill oder Kernidee erhöht die Version (Trigger), öffnet die Bauform für Lena
+(`zur_pruefung`) und nimmt die Instanzen der alten Version aus der Ziehung.
+
+RLS: Kinder lesen keine dieser Tabellen; Steckbriefe, Prüfungen, Bewährung lesen Admins und Lena (`darf_pruefen`),
+Meldungen zusätzlich Coaches. Geschrieben wird nur über die Funktionen unten und über Migrationen.
+
+### 13.4 Funktionen für B, C, D (A2, Migration `20261027132530_reihe1_a2_aufgabe_funktionen`; Kommentar `reihe1 fertig`)
+
+| Signatur | Bedeutung |
+|---|---|
+| `aufgabe_ziehen(p_kind uuid, p_skill text, p_rolle text, p_stufe int default null, p_ausschluss uuid[] default '{}') → uuid` | Pool session, Bauform freigegeben, Instanz der aktuellen Version, ready, aktiv, nicht pausiert, genau die Rolle; `home` nur Stufe 1–3. Reihenfolge: ungesehen zuerst, dann Stufe (gleich, dann darunter, dann darüber), dann zuletzt gesehen. Ein gezeigtes Lösungsbeispiel und eine gesehene Generalprobe-Aufgabe nie wieder. Rückfall nur für `uebung`/`warmup` auf freigegebene Session-Aufgaben ohne Bauform (Stufe = `difficulty`). `null`, wenn nichts passt. |
+| `aufgabe_zwilling(p_kind, p_task, p_rolle default null) → uuid` | andere ziehbare Instanz derselben Bauform, Rolle (oder `p_rolle`) und Stufe |
+| `aufgabe_payload(p_task) → jsonb` | Kindersicht ohne Lösung. Alte Formate wie `lsa_question_payload` (ohne `themenfeld`), neue Formate `{task_id, kind: 'format', format, prompt, assets, payload}` (§13.1); dazu `rolle`, `stufe`, `bauform_key`; bei Rolle `beispiel` zusätzlich `loesungsbeispiel {aufgabe, schritte[{text}], warum}` |
+| `aufgabe_werten(p_task, p_antwort jsonb) → (richtig boolean, fehlbild_key text, rueckmeldung text)` | **rein, schreibt nie.** Neue Formate: Antwort-JSON aus §13.1. Alte Formate: `{"eingabe": <wie antwort_abgeben>}`, Mehrteiler zusätzlich `"teil"`. `rueckmeldung` = Satz aus dem Steckbrief, sonst freigegebener Katalog-Klartext |
+| `aufgabe_meta(p_task) → (skill_key, kernidee_key, bauform_key, rolle, stufe)` | Stufe ohne Bauform = `difficulty` |
+| `aufgabe_gezeigt(p_kind, p_task, p_session) → void` | nur Session vor Ort (Kind steht in `session_students`), Testlauf merkt nichts |
+| `skill_kann_entfallen(p_skill) → boolean` | alle Bauformen des Skills `kann_entfallen`; ohne Bauform `false` |
+
+Rechte: Systemaufruf, Admin, Coach mit aktiver Akte, das Kind selbst (`lsa_may_act_for`) und das Tablet, an dem das Kind in einer aktiven Session sitzt. `aufgabe_payload`/`aufgabe_werten`/`aufgabe_meta` liefern Kindern nur Ziehbares bzw. den Session-Pool, nie LSA-Aufgaben.
+
+### 13.5 Prüfung, Freigabe, Bewährung (A2, Migration `20261027132653_reihe1_a2_pruefung_bewaehrung`; Kommentar `reihe1 fertig`)
+
+| Signatur | Wer | Bedeutung |
+|---|---|---|
+| `bauform_pruefen(p_bauform, p_version, p_entscheidung, p_gruende text[] = '{}', p_notiz = null, p_dauer_sek = null) → {status, version}` | Lena, Admin | passt → zur_freigabe, unsicher → rueckfrage (Notiz Pflicht), passt_nicht → beanstandet (Grund Pflicht); falsche Version `ED409` |
+| `bauform_freigeben(p_reihe = null, p_thema_key = null) → int` | Admin | genau eins von beiden; Bauformen „zur_freigabe“ → freigegeben, ihre grünen Instanzen der aktuellen Version → ready (Hinweise geprüft, `task_admin_protokoll` sammel) |
+| `bauform_zur_ueberarbeitung(p_bauform, p_grund)` | Lena, Admin | → beanstandet |
+| `aufgabe_reaktivieren(p_task)` | Lena, Admin | Bewährung neu, Status in_bewaehrung |
+| `aufgabe_melden(p_task, p_grund) → void` | Coach, Admin | pausiert die Instanz sofort; zwei gemeldete Instanzen pausieren die Bauform |
+| `bauform_stufen_vorschlag(p_bauform) → (stufe, bearbeitungen, quote, band_min, band_max, vorschlag)` | Lena, Admin | Erfolgsquote je Stufe gegen das Erwartungsband; `leichter`/`schwerer`/null |
+| `instanz_gruen(p_pruefmaschine jsonb) → boolean` | alle | jede Prüfung `ok` |
+
+Bewährung: Trigger nach jeder Session-Antwort einer Instanz (nicht im Testlauf). Stellschrauben in `session_einstellungen`:
+`bewaehrung_bearbeitungen` (10), `bewaehrung_unbekannt_anteil` (0,30), `bewaehrung_band_<eins…fuenf>_min/_max`.
