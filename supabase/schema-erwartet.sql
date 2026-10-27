@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict Ud8R9sJUEDUq7WlNQIidQ9vhFSYUJNUxxuXrIPqkFDrJmEK6RCGBBaa2m1bkeMS
+\restrict BKL2GAxKD9PMtObh6mVez9XY4PzzKfcL7uCHolh6HeAOezgVoDLXj76YzGXzf8x
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -4012,7 +4012,11 @@ CREATE FUNCTION public.home_darf_lesen(p_kind uuid) RETURNS boolean
     AS $$
   select coalesce(public.get_my_role(), '') = 'admin'
       or (coalesce(public.get_my_role(), '') = 'coach' and public.akte_aktiv(p_kind))
-      or coalesce(public.get_my_student_id() = p_kind, false);
+      or coalesce(public.get_my_student_id() = p_kind, false)
+      -- Session-Tablet: das Platz-Konto, an dem das Kind gerade in einer aktiven Session sitzt.
+      or exists (select 1 from public.session_tablets st
+                   join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+                  where st.geraet_id = auth.uid() and st.student_id = p_kind and st.geloest_am is null);
 $$;
 
 
@@ -31069,5 +31073,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Ud8R9sJUEDUq7WlNQIidQ9vhFSYUJNUxxuXrIPqkFDrJmEK6RCGBBaa2m1bkeMS
+\unrestrict BKL2GAxKD9PMtObh6mVez9XY4PzzKfcL7uCHolh6HeAOezgVoDLXj76YzGXzf8x
 
