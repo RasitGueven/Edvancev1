@@ -18646,7 +18646,7 @@ begin
   if v_r.id is null then
     raise exception 'studio_render_melden: Auftrag fehlt' using errcode = 'P0002';
   end if;
-  if v_r.angelegt_von <> auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
+  if v_r.angelegt_von is distinct from auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'studio_render_melden: nur wer den Auftrag angelegt hat' using errcode = '42501';
   end if;
   if not ((v_r.status = 'wartet' and p_status in ('laeuft', 'fehler')) or (v_r.status = 'laeuft' and p_status in ('fertig', 'fehler'))) then
@@ -18778,7 +18778,7 @@ begin
     if v_seq.id is null then
       raise exception 'studio: Sequenz % fehlt', p_sequenz_id using errcode = 'P0002';
     end if;
-    if v_seq.autor_id <> auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
+    if v_seq.autor_id is distinct from auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
       raise exception 'studio: nur der Autor der Sequenz oder ein Admin' using errcode = '42501';
     end if;
     update public.studio_sequenz set skill_key = v_skill, titel = p_skript ->> 'titel', welten = v_welten,
