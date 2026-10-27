@@ -25,6 +25,7 @@ import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { StellschraubenPage } from '@/pages/admin/stellschrauben/StellschraubenPage'
+import { KlassenarbeitenPage } from '@/pages/admin/klassenarbeiten/KlassenarbeitenPage'
 import { LsaReportsPage } from '@/pages/admin/lsaReports/LsaReportsPage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { ReportPage } from '@/pages/admin/ReportPage'
@@ -335,6 +336,14 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
                 <LsaReportsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/klassenarbeiten"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <KlassenarbeitenPage />
               </ProtectedRoute>
             }
           />

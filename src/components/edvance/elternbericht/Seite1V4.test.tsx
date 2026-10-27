@@ -18,9 +18,25 @@ describe('Seite 1 mit Fahrplan', () => {
       if (s.signal) expect(spalte.querySelector('.eb-fp-signal')).toHaveTextContent(de.v4.signal[s.signal])
       else expect(spalte.querySelector('.eb-fp-signal')).toBeNull()
     })
+    // L5: Folge unbekannt — das nächste Thema im Unterricht, danach „danach“; keine „nächste Arbeit“.
     expect(spalten[0]).toHaveTextContent('geschrieben')
+    expect(spalten[1]).toHaveTextContent('als Nächstes im Unterricht')
+    expect(spalten[2]).toHaveTextContent('danach')
+    expect(b.seite(1).textContent).not.toMatch(/nächste Arbeit|voraussichtlich/)
+  })
+
+  it('batuEigen (L5, Folge bekannt): Ziffern der Arbeiten, Themen der Arbeit, „nächste Arbeit“', () => {
+    const b = bogenV4('batuEigen')
+    const spalten = within(b.seite(1)).getAllByTestId('eb-fp-station')
     expect(spalten[1]).toHaveTextContent('nächste Arbeit')
-    expect(spalten[2]).toHaveTextContent('voraussichtlich')
+    expect(spalten[2].querySelector('.eb-fp-titel')).toHaveTextContent('Kreise, Prismen und Zylinder · Potenzen und Potenzgesetze')
+    const ziffern = [...b.seite(1).querySelectorAll('.eb-fp-nr')].map((n) => n.textContent)
+    expect(ziffern).toEqual(['2', '3', '4'])
+    expect(b.seite(1).querySelector('[data-testid="eb-fahrplan"] h2')).toHaveTextContent('Ilkays Klassenarbeiten in diesem Schuljahr')
+    expect(within(b.seite(1)).getByTestId('eb-fp-quelle')).toHaveTextContent('Zuordnung laut Ihren Angaben.')
+    expect(within(bogenV4('batuSchule').seite(1)).getByTestId('eb-fp-quelle')).toHaveTextContent(
+      'Zuordnung nach Angaben aus der Klasse, ohne Gewähr.',
+    )
   })
 
   it('der Kasten „Wir beginnen mit …“ entfällt, der Fahrplan steht darunter', () => {
@@ -30,7 +46,7 @@ describe('Seite 1 mit Fahrplan', () => {
     expect(s1.getByTestId('eb-blick').compareDocumentPosition(s1.getByTestId('eb-fahrplan'))).toBe(
       Node.DOCUMENT_POSITION_FOLLOWING,
     )
-    expect(s1.getByTestId('eb-fahrplan').querySelector('h2')).toHaveTextContent('Ilkays Klassenarbeiten in diesem Schuljahr')
+    expect(s1.getByTestId('eb-fahrplan').querySelector('h2')).toHaveTextContent('Was in Mathe dieses Schuljahr noch kommt')
   })
 
   for (const fall of MIT_FAHRPLAN) {
@@ -47,13 +63,19 @@ describe('Seite 1 mit Fahrplan', () => {
       const satz = within(b.seite(1)).queryByTestId('eb-fp-satz')
       const art = b.bericht.fahrplan!.satz
       if (art === null) expect(satz).toBeNull()
-      else expect(satz!.textContent).toBe(art === 'fehlt' ? de.v4.s1.satzFehlt : de.v4.s1.satzErfuellt)
+      else {
+        const bekannt = b.bericht.fahrplan!.folge !== 'unbekannt'
+        const soll = art === 'fehlt'
+          ? (bekannt ? de.v4.s1.satzFehlt : de.v4.s1.satzFehltThema)
+          : (bekannt ? de.v4.s1.satzErfuellt : de.v4.s1.satzErfuelltThema)
+        expect(satz!.textContent).toBe(soll)
+      }
     })
   }
 
   it('allesErfuellt: der Satz „sitzen die geprüften Voraussetzungen“', () => {
     const b = bogenV4('allesErfuellt')
-    expect(within(b.seite(1)).getByTestId('eb-fp-satz').textContent).toBe(de.v4.s1.satzErfuellt)
+    expect(within(b.seite(1)).getByTestId('eb-fp-satz').textContent).toBe(de.v4.s1.satzErfuelltThema)
   })
 
   it('der Sorgfalt-Satz steht im Anliegen-Kasten unter „Was die Analyse dazu zeigt“, nicht mehr bei „Auf einen Blick“', () => {

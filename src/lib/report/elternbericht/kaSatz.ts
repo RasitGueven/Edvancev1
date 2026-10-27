@@ -7,6 +7,7 @@
 //   steht  Arbeit steht an oder Stand unbekannt
 //   offen  geschrieben, Note offen: sicher {X}, noch unsicher {Y}; dann der Abgleich, sobald die Note da ist
 //   note   geschrieben, Note bekannt: „dazu passt“ {Y}; {Y} wird bei Klassenarbeit {k} wieder gebraucht
+//          (L5: ohne bekannte Arbeit bei „{Thema}“, nie mit einer Nummer, die nicht feststeht)
 // {X}/{Y}: höchstens zwei Bereiche (direkt geprüft) aus dem Themenraum. Ohne {Y} entfällt der Satzteil mit {Y}, ohne
 // kommende Arbeit, die {Y} braucht, der letzte Satz. Keine erwartete Note, keine Ursache.
 
@@ -27,8 +28,8 @@ export type KaSatz = {
   unsicher: string[]
   /** {n}: gemeldete Note, nur im Fall note. */
   note: number | null
-  /** {k}: erste kommende Klassenarbeit, die einen der {Y} braucht; null ohne. */
-  k: number | null
+  /** {k}: erste kommende Station, die einen der {Y} braucht; null ohne. ka = Nummer der Arbeit, null = unbekannt. */
+  k: { ka: number | null; thema: string } | null
 }
 
 /** Ein Satz: Schlüssel unter v4.s3.ka und seine Werte (Listen schon verbunden). */
@@ -43,21 +44,25 @@ export function kaSatz(
   if (!thema) return null
   const sicher = (bericht.thema?.sicher ?? []).slice(0, JE_PLATZHALTER)
   const unsicher = (bericht.thema?.uebung ?? []).slice(0, JE_PLATZHALTER)
+  // L5: Gilt die Arbeit des aktuellen Themas nach ihrem Datum als geschrieben, folgt der Satz dem Fahrplan.
+  if (bericht.fahrplan?.stationen[0]?.stand === 'geschrieben') status = 'geschrieben'
   if (status !== 'geschrieben') return { fall: 'steht', thema, sicher: [], unsicher: [], note: null, k: null }
   const mitNote = note !== null && note >= 1 && note <= 6
   return { fall: mitNote ? 'note' : 'offen', thema, sicher, unsicher, note: mitNote ? note : null, k: kommendeArbeit(bericht, unsicher) }
 }
 
-/** Die kleinste Nummer einer kommenden Station, deren Signal einen der Bereiche als fehlend führt. */
-function kommendeArbeit(bericht: Elternbericht, bereiche: string[]): number | null {
+/** Die erste kommende Station, deren Signal einen der Bereiche als fehlend führt (bei einer Arbeit: eines ihrer Themen). */
+function kommendeArbeit(bericht: Elternbericht, bereiche: string[]): KaSatz['k'] {
   if (bereiche.length === 0) return null
   const themen = new Set(
     (bericht.signale ?? []).filter((s) => s.fehlt.some((b) => bereiche.includes(b.label))).map((s) => s.themaKey),
   )
-  const nummern = (bericht.fahrplan?.stationen ?? [])
-    .filter((s) => s.nummer > 1 && themen.has(s.themaKey))
-    .map((s) => s.nummer)
-  return nummern.length > 0 ? Math.min(...nummern) : null
+  const s = (bericht.fahrplan?.stationen ?? [])
+    .filter((x) => x.nummer > 1)
+    .sort((a, b) => a.nummer - b.nummer)
+    .map((x) => ({ x, thema: x.themen.find((t) => themen.has(t.themaKey)) }))
+    .find((y) => y.thema !== undefined)
+  return s?.thema ? { ka: s.x.ka, thema: s.thema.titel } : null
 }
 
 /**
@@ -85,7 +90,8 @@ export function kaTeile(satz: KaSatz, sprache: string, zitat: (label: string) =>
   const teile: KaTeil[] = [{ key: 'note', values: { thema, n: satz.note ?? '' } }]
   if (satz.unsicher.length > 0) {
     teile.push({ key: 'dazu', values: { y, count: satz.unsicher.length } })
-    if (satz.k !== null) teile.push({ key: 'wieder', values: { y, k: satz.k, count: satz.unsicher.length } })
+    if (satz.k && satz.k.ka !== null) teile.push({ key: 'wieder', values: { y, k: satz.k.ka, count: satz.unsicher.length } })
+    else if (satz.k) teile.push({ key: 'wiederThema', values: { y, thema: satz.k.thema, count: satz.unsicher.length } })
   }
   return teile
 }

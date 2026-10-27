@@ -422,7 +422,9 @@
       "vorThema": "{{was}} sicher anwenden, bevor das Thema „{{titel}}“ beginnt",
       "klassenarbeit": "{{was}} für die Klassenarbeit sicher anwenden",
       "allgemein": "{{was}} sicher anwenden",
-      "sorgfalt": "Rechenwege sorgfältig zu Ende führen und Ergebnisse selbst kontrollieren"
+      "sorgfalt": "Rechenwege sorgfältig zu Ende führen und Ergebnisse selbst kontrollieren",
+      "kickerVorschlag": "Unser Vorschlag: Ziele für die nächsten 6 Monate",
+      "kickerBestaetigt": "Ziele für die nächsten 6 Monate · im Gespräch vereinbart"
     },
     "fazit": {
       "luecken": "Die Lücken liegen vor allem im Stoff von {{stufe}}, besonders bei {{felder}}.",
@@ -520,16 +522,27 @@
       "weitere_one": "+{{count}} weiteres Thema bis zum Schuljahresende",
       "weitere_other": "+{{count}} weitere Themen bis zum Schuljahresende",
       "note": "Note {{note}}",
-      "klasse": "Klasse {{klasse}}"
+      "klasse": "Klasse {{klasse}}",
+      "steht": "steht an",
+      "unterricht": "als Nächstes im Unterricht",
+      "danach": "danach"
     },
     "quelle": {
       "schule": "Die Reihenfolge stammt aus dem Schulplan des {{schule}}. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.",
       "klp": "Die Reihenfolge folgt dem Kernlehrplan NRW. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.",
-      "schuleGenitiv": "Die Reihenfolge stammt aus dem Schulplan {{schule}}. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest."
+      "schuleGenitiv": "Die Reihenfolge stammt aus dem Schulplan {{schule}}. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.",
+      "schuleThema": "Die Reihenfolge stammt aus dem Schulplan des {{schule}}. Welche Themen in welche Klassenarbeit kommen, legt die Lehrkraft fest.",
+      "klpThema": "Die Reihenfolge folgt dem Kernlehrplan NRW. Welche Themen in welche Klassenarbeit kommen, legt die Lehrkraft fest.",
+      "schuleGenitivThema": "Die Reihenfolge stammt aus dem Schulplan {{schule}}. Welche Themen in welche Klassenarbeit kommen, legt die Lehrkraft fest.",
+      "schuleOhneNameThema": "Die Reihenfolge stammt aus dem Schulplan der Schule. Welche Themen in welche Klassenarbeit kommen, legt die Lehrkraft fest.",
+      "zusatzSchule": "Zuordnung nach Angaben aus der Klasse, ohne Gewähr.",
+      "zusatzEigen": "Zuordnung laut Ihren Angaben."
     },
     "leiste": {
       "label": "Klassenarbeiten",
-      "aria": "Klassenarbeit {{n}}: {{thema}}, {{stand}}"
+      "aria": "Klassenarbeit {{n}}: {{thema}}, {{stand}}",
+      "labelThema": "Themen",
+      "ariaThema": "{{thema}}, {{stand}}"
     },
     "s1": {
       "fahrplanKicker": "{{wessen}} Klassenarbeiten in diesem Schuljahr",
@@ -537,14 +550,19 @@
       "sorgfalt": "{{name}} findet meist den richtigen Weg. Fehler entstehen eher durch fehlende Sorgfalt.",
       "sorgfaltOhneName": "Ihr Kind findet meist den richtigen Weg. Fehler entstehen eher durch fehlende Sorgfalt.",
       "satzFehlt": "Vieles sitzt schon. Für die kommenden Arbeiten fehlen aber noch einige Voraussetzungen, und genau dort setzen wir an. Welche das sind, steht auf Seite 3.",
-      "satzErfuellt": "Für die kommenden Arbeiten sitzen die geprüften Voraussetzungen. Wir festigen sie und schauen auf den Stoff, der danach kommt."
+      "satzErfuellt": "Für die kommenden Arbeiten sitzen die geprüften Voraussetzungen. Wir festigen sie und schauen auf den Stoff, der danach kommt.",
+      "fahrplanKickerThema": "Was in Mathe dieses Schuljahr noch kommt",
+      "satzFehltThema": "Vieles sitzt schon. Für die kommenden Themen fehlen aber noch einige Voraussetzungen, und genau dort setzen wir an. Welche das sind, steht auf Seite 3.",
+      "satzErfuelltThema": "Für die kommenden Themen sitzen die geprüften Voraussetzungen. Wir festigen sie und schauen auf den Stoff, der danach kommt."
     },
     "s2": {
       "wichtig": "Wichtig für",
       "naechste": "nächste Arbeit",
       "spaeter": "wird in späteren Schuljahren wichtig",
       "legendeNummer": "Nummer der Klassenarbeit",
-      "intro": "Ausgehend vom aktuellen Thema hat das System auch Stoff aus Klasse 5 bis 8 geprüft. Dort entstehen Lücken oft, bevor sie in den Noten sichtbar werden. Bei jedem Themenfeld steht, für welche Klassenarbeit es wichtig ist."
+      "intro": "Ausgehend vom aktuellen Thema hat das System auch Stoff aus Klasse 5 bis 8 geprüft. Dort entstehen Lücken oft, bevor sie in den Noten sichtbar werden. Bei jedem Themenfeld steht, für welche Klassenarbeit es wichtig ist.",
+      "unterricht": "als Nächstes im Unterricht",
+      "introThema": "Ausgehend vom aktuellen Thema hat das System auch Stoff aus Klasse 5 bis 8 geprüft. Dort entstehen Lücken oft, bevor sie in den Noten sichtbar werden. Bei jedem Themenfeld steht, für welches kommende Thema es wichtig ist."
     },
     "s3": {
       "kicker": "Einordnung nach Klassenarbeiten",
@@ -565,18 +583,24 @@
         "dazu_other": "Dazu passt, was die Analyse zeigt: {{y}} waren noch unsicher.",
         "wieder_one": "{{y}} wird bei Klassenarbeit {{k}} wieder gebraucht.",
         "wieder_other": "{{y}} werden bei Klassenarbeit {{k}} wieder gebraucht.",
-        "bereich": "„{{label}}“"
+        "bereich": "„{{label}}“",
+        "wiederThema_one": "{{y}} wird bei „{{thema}}“ wieder gebraucht.",
+        "wiederThema_other": "{{y}} werden bei „{{thema}}“ wieder gebraucht."
       },
       "rest": {
         "geschrieben": "Diese Übersicht beginnt mit Klassenarbeit {{n}}. Für jede kommende Arbeit steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
-        "steht": "Für die Arbeiten danach steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen."
+        "steht": "Für die Arbeiten danach steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
+        "geschriebenThema": "Diese Übersicht beginnt nach der Arbeit zu „{{thema}}“. Für jedes kommende Thema steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen.",
+        "stehtThema": "Für die Themen danach steht hier, welche Voraussetzungen sitzen und welche wir vorher festigen."
       },
       "blockTitel": "Klassenarbeit {{n}} · {{thema}}",
       "sitzt": "Sitzt schon",
       "fehlt": "Fehlt noch",
       "weitereStaerken": "Weitere Stärken",
       "spaeter": "Wird später wichtig",
-      "spaeterIntro": "Diese Bereiche kommen in späteren Themen und Schuljahren dran. Wir nehmen sie dazu, sobald sie anstehen."
+      "spaeterIntro": "Diese Bereiche kommen in späteren Themen und Schuljahren dran. Wir nehmen sie dazu, sobald sie anstehen.",
+      "kickerThema": "Einordnung nach den nächsten Themen",
+      "titelThema": "Was für die nächsten Themen schon sitzt und was noch fehlt."
     },
     "s4": {
       "kicker": "Lernpfad",
@@ -604,7 +628,15 @@
       "schritt": "Schritt {{n}}",
       "uebt": "Das üben wir",
       "spaeterText": "So baut {{name}} schon jetzt für die nächsten Schuljahre vor.",
-      "spaeterTextOhneName": "So baut Ihr Kind schon jetzt für die nächsten Schuljahre vor."
+      "spaeterTextOhneName": "So baut Ihr Kind schon jetzt für die nächsten Schuljahre vor.",
+      "titelThema": "Die Reihenfolge folgt den nächsten Themen im Unterricht.",
+      "introThema": {
+        "geschrieben": "Die Arbeit zu „{{thema}}“ ist geschrieben. Deshalb beginnen wir mit den Voraussetzungen für das nächste Thema und arbeiten uns dann zu den folgenden vor.",
+        "bevorstehend": "Die Arbeit zu „{{thema}}“ steht noch an. Deshalb bereiten wir zuerst darauf vor und nehmen danach die Voraussetzungen für die folgenden Themen.",
+        "unbekannt": "Wir beginnen mit dem aktuellen Thema und nehmen danach die Voraussetzungen für die folgenden Themen."
+      },
+      "voraussetzungThema": "Voraussetzung für „{{thema}}“",
+      "voraussetzungThemaZwei": "Voraussetzung für „{{thema}}“ und „{{thema2}}“"
     },
     "s5": {
       "fazit": {
@@ -613,18 +645,24 @@
         "fahrplan_one": "Sie werden in der nächsten Klassenarbeit wieder gebraucht.",
         "fahrplan_other": "Sie werden in den nächsten {{count}} Klassenarbeiten wieder gebraucht.",
         "sorgfalt": "Die Fehler deuten eher auf fehlende Sorgfalt als auf fehlendes Verständnis.",
-        "start": "Wir beginnen mit den Voraussetzungen für „{{thema}}“."
+        "start": "Wir beginnen mit den Voraussetzungen für „{{thema}}“.",
+        "fahrplanThema_one": "Sie werden im nächsten Thema wieder gebraucht.",
+        "fahrplanThema_other": "Sie werden in den nächsten {{count}} Themen wieder gebraucht."
       },
       "ziele": {
-        "vorbereitet": "{{name}} geht gut vorbereitet in die Arbeit zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
-        "vorbereitetOhneName": "Ihr Kind geht gut vorbereitet in die Arbeit zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetThema": "{{name}} geht gut vorbereitet in das Thema „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetKa": "{{name}} geht gut vorbereitet in Klassenarbeit {{n}} zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetThemaOhneName": "Ihr Kind geht gut vorbereitet in das Thema „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
+        "vorbereitetKaOhneName": "Ihr Kind geht gut vorbereitet in Klassenarbeit {{n}} zu „{{thema}}“, weil die Grundlagen dafür vorher sitzen.",
         "spaeterEins": "Wenn in der Schule „{{a}}“ drankommt, fängt {{name}} nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "spaeterEinsOhneName": "Wenn in der Schule „{{a}}“ drankommt, fängt Ihr Kind nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "spaeterZwei": "Wenn in der Schule „{{a}}“ und „{{b}}“ drankommen, fängt {{name}} nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "spaeterZweiOhneName": "Wenn in der Schule „{{a}}“ und „{{b}}“ drankommen, fängt Ihr Kind nicht bei null an, sondern baut auf sicherem Stoff auf.",
         "sorgfalt": "{{name}} kontrolliert die eigenen Rechnungen selbst und verliert weniger Punkte durch Flüchtigkeitsfehler.",
         "sorgfaltOhneName": "Ihr Kind kontrolliert die eigenen Rechnungen selbst und verliert weniger Punkte durch Flüchtigkeitsfehler.",
-        "weitere": "Auch die übrigen Lücken schließen wir nach und nach, damit spätere Themen auf festen Grundlagen aufbauen."
+        "weitere": "Auch die übrigen Lücken schließen wir nach und nach, damit spätere Themen auf festen Grundlagen aufbauen.",
+        "aufbauen": "{{name}} baut auf dem auf, was schon sicher ist, und geht den neuen Stoff Schritt für Schritt mit.",
+        "aufbauenOhneName": "Ihr Kind baut auf dem auf, was schon sicher ist, und geht den neuen Stoff Schritt für Schritt mit."
       },
       "keineNoten": "Wir versprechen keine Noten. Uns geht es darum, zu verstehen, woran es hakt, und {{name}} Schritt für Schritt voranzubringen.",
       "keineNotenOhneName": "Wir versprechen keine Noten. Uns geht es darum, zu verstehen, woran es hakt, und Ihr Kind Schritt für Schritt voranzubringen.",

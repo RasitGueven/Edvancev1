@@ -1,4 +1,5 @@
 import {
+  BookOpenCheck,
   CalendarClock,
   ClipboardCheck,
   FileText,
@@ -82,6 +83,14 @@ export const ADMIN_NAV: NavKonfiguration = {
           nameKey: 'nav.lsaReports',
           kurzKey: 'nav.kurz.lsaReports',
           icon: ClipboardCheck,
+        },
+        // L5: abgeleitete Mathearbeiten je Schule und Klasse (bestätigen, korrigieren).
+        {
+          id: 'klassenarbeiten',
+          route: '/admin/klassenarbeiten',
+          nameKey: 'nav.klassenarbeiten',
+          kurzKey: 'nav.kurz.klassenarbeiten',
+          icon: BookOpenCheck,
         },
       ],
     },

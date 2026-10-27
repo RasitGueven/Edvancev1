@@ -52,7 +52,10 @@ export function fazitSaetzeV4(
         : feldText
           ? t('s1.blick.luecken', { felder: feldText })
           : null
-  const fehlen = fahrplan.stationen.filter((s) => s.nummer > 1 && s.signal === 'fehlt').length
+  const fehlend = fahrplan.stationen.filter((s) => s.nummer > 1 && s.signal === 'fehlt')
+  // L5: „Klassenarbeiten“ zählt nur Arbeiten mit Nummer; sonst (oder ohne solche) die Themen.
+  const arbeiten = fehlend.filter((s) => s.ka !== null).length
+  const fehlen = arbeiten > 0 ? arbeiten : fehlend.length
   const ziel = fahrplan.stationen.find((s) => s.nummer === lernpfad[0]?.ziele[0])
 
   return [
@@ -62,7 +65,9 @@ export function fazitSaetzeV4(
         : t('ursache.grundlagen.basisSitzt')
       : null,
     lueckenSatz,
-    lueckenSatz && fehlen > 0 ? t('v4.s5.fazit.fahrplan', { count: fehlen }) : null,
+    lueckenSatz && fehlen > 0
+      ? t(arbeiten > 0 ? 'v4.s5.fazit.fahrplan' : 'v4.s5.fazit.fahrplanThema', { count: fehlen })
+      : null,
     sorgfalt ? t('v4.s5.fazit.sorgfalt') : null,
     ziel ? t('v4.s5.fazit.start', { thema: ziel.titel }) : startV3,
   ].filter((s): s is string => Boolean(s))

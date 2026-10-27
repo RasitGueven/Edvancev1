@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { baueListe } from '@/components/edvance/elternbericht/liste'
+import { satzKey } from '@/components/edvance/elternbericht/fahrplanText'
 import { anliegenSaetze } from '@/components/edvance/elternbericht/seite1Saetze'
 
 import { FahrplanBahn } from './FahrplanBahn'
@@ -41,6 +42,7 @@ function Ueberblick({ p, satz, sessionId, v4 }: StationProps & { v4: Praesentati
         .slice(0, ANLIEGEN_SAETZE)
         .join(' ')
     : null
+  const fpSatz = satzKey(fahrplan)
   const leit = muster?.sorgfalt ? t(name ? 'v4.s1.lead' : 'v4.s1.leadOhneName', { name }) : anliegen
 
   return (
@@ -62,12 +64,16 @@ function Ueberblick({ p, satz, sessionId, v4 }: StationProps & { v4: Praesentati
 
       <section className="tp-fp tp-reveal" data-testid="tp-fahrplan" data-tp-pflicht="">
         <h2 className="tp-fp-kicker">
-          {p.wessen ? t('v4.s1.fahrplanKicker', { wessen: p.wessen }) : t('v4.s1.fahrplanKickerOhneName')}
+          {fahrplan.folge === 'unbekannt'
+            ? t('v4.s1.fahrplanKickerThema')
+            : p.wessen
+              ? t('v4.s1.fahrplanKicker', { wessen: p.wessen })
+              : t('v4.s1.fahrplanKickerOhneName')}
         </h2>
         <FahrplanBahn fahrplan={fahrplan} />
-        {fahrplan.satz && (
+        {fpSatz && (
           <p className="tp-fp-satz" data-testid="tp-fp-satz">
-            {tb(fahrplan.satz === 'fehlt' ? 'v4.s1.satzFehlt' : 'v4.s1.satzErfuellt')}
+            {tb(fpSatz)}
           </p>
         )}
       </section>

@@ -3715,6 +3715,264 @@ $$;
 
 
 --
+-- Name: ka_aus_checkin(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_aus_checkin() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_lead uuid;
+begin
+  if new.klassenarbeit_datum is null or new.klassenarbeit_thema_key is null then
+    return new;
+  end if;
+  if tg_op = 'UPDATE'
+     and old.klassenarbeit_datum is not distinct from new.klassenarbeit_datum
+     and old.klassenarbeit_thema_key is not distinct from new.klassenarbeit_thema_key then
+    return new;
+  end if;
+  v_lead := public.session_lead_von_kind(new.student_id);
+  if v_lead is null then
+    return new;
+  end if;
+  insert into public.lead_klassenarbeiten as k (lead_id, schuljahr, datum, thema_keys, status, quelle)
+  values (v_lead, public.ka_schuljahr(new.klassenarbeit_datum), new.klassenarbeit_datum,
+          array[new.klassenarbeit_thema_key], 'bevorstehend', 'checkin')
+  on conflict (lead_id, fach, datum) do update
+     set thema_keys = case when excluded.thema_keys[1] = any (k.thema_keys) then k.thema_keys
+                           else k.thema_keys || excluded.thema_keys end;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: ka_erstgespraech_speichern(uuid, integer, text, date, text[], integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_erstgespraech_speichern(p_lead_id uuid, p_anzahl integer, p_status text, p_datum date, p_thema_keys text[], p_note integer) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_jahr text := public.ka_schuljahr(coalesce(p_datum, (now() at time zone 'Europe/Berlin')::date));
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'ka_erstgespraech_speichern: nur Admin' using errcode = '42501';
+  end if;
+  if p_status is not null and p_status not in ('bevorstehend', 'geschrieben') then
+    raise exception 'ka_erstgespraech_speichern: unbekannter Stand %', p_status using errcode = '22023';
+  end if;
+  update public.leads set ka_anzahl_schuljahr = p_anzahl where id = p_lead_id;
+  if not found then
+    raise exception 'ka_erstgespraech_speichern: Lead fehlt' using errcode = 'P0002';
+  end if;
+  delete from public.lead_klassenarbeiten
+   where lead_id = p_lead_id and fach = 'mathematik' and schuljahr = v_jahr and quelle = 'erstgespraech';
+  if p_status is null or coalesce(cardinality(p_thema_keys), 0) = 0 then
+    return;
+  end if;
+  insert into public.lead_klassenarbeiten as k (lead_id, schuljahr, datum, thema_keys, status, note, quelle)
+  values (p_lead_id, v_jahr, case when p_status = 'bevorstehend' then p_datum end, p_thema_keys, p_status,
+          case when p_status = 'geschrieben' then p_note end, 'erstgespraech')
+  on conflict (lead_id, fach, datum) do update
+     set thema_keys = k.thema_keys || array(select x from unnest(excluded.thema_keys) x where x <> all (k.thema_keys));
+end;
+$$;
+
+
+--
+-- Name: ka_folge_lead(uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_folge_lead(p_lead_id uuid, p_schuljahr text, p_fach text DEFAULT 'mathematik'::text) RETURNS TABLE(nr integer, thema_keys text[], datum date, status text, note smallint, herkunft text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_schule uuid;
+  v_klasse int;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'ka_folge_lead: nur Admin' using errcode = '42501';
+  end if;
+  select l.schule_id, l.class_level into v_schule, v_klasse from public.leads l where l.id = p_lead_id;
+  return query
+  with eigene as (
+    select k.id, k.nr, k.thema_keys, k.datum, k.status, k.note
+      from public.lead_klassenarbeiten k
+     where k.lead_id = p_lead_id and k.schuljahr = p_schuljahr and k.fach = p_fach
+  ), gueltig as (
+    -- Gültige Arbeiten der Schule mit Nummer, soweit keine eigene Arbeit mit Nummer sie abdeckt.
+    select s.nr, s.thema_keys, s.datum
+      from public.ka_folge_schule_roh(v_schule, v_klasse, p_schuljahr, p_fach) s
+     where v_schule is not null and v_klasse is not null and s.gueltig and s.nr is not null
+       and not exists (select 1 from eigene e
+                        where e.nr is not null and (e.nr = s.nr or e.thema_keys && s.thema_keys))
+  ), kandidat as (
+    select distinct on (e.id) e.id, e.datum, g.nr
+      from eigene e join gueltig g on e.nr is null and e.thema_keys && g.thema_keys
+     order by e.id, g.nr
+  ), treffer as (
+    select distinct on (c.nr) c.id, c.nr from kandidat c order by c.nr, c.datum nulls last, c.id
+  )
+  select coalesce(e.nr, t.nr), e.thema_keys, coalesce(e.datum, g.datum), e.status, e.note,
+         case when t.nr is null then 'eigen' else 'schule' end
+    from eigene e
+    left join treffer t on t.id = e.id
+    left join gueltig g on g.nr = t.nr
+  union all
+  select g.nr, g.thema_keys, g.datum, null::text, null::smallint, 'schule'::text
+    from gueltig g
+   where not exists (select 1 from treffer t where t.nr = g.nr)
+   order by 1 nulls last, 3 nulls last;
+end;
+$$;
+
+
+--
+-- Name: ka_folge_schule(uuid, integer, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_folge_schule(p_schule_id uuid, p_klasse integer, p_schuljahr text, p_fach text DEFAULT 'mathematik'::text) RETURNS TABLE(nr integer, thema_keys text[], datum date, kinder integer, bestaetigt boolean, gueltig boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'ka_folge_schule: nur Admin' using errcode = '42501';
+  end if;
+  return query select * from public.ka_folge_schule_roh(p_schule_id, p_klasse, p_schuljahr, p_fach);
+end;
+$$;
+
+
+--
+-- Name: ka_folge_schule_roh(uuid, integer, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_folge_schule_roh(p_schule_id uuid, p_klasse integer, p_schuljahr text, p_fach text) RETURNS TABLE(nr integer, thema_keys text[], datum date, kinder integer, bestaetigt boolean, gueltig boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with angaben as (
+    -- Schlüssel einer Arbeit: Nummer, sonst Datum. Zeilen ohne beides tragen nichts bei.
+    select k.lead_id, k.nr, k.datum,
+           coalesce('n' || k.nr::text, 'd' || k.datum::text) as schluessel,
+           (select array_agg(distinct x order by x) from unnest(k.thema_keys) x) as themen
+      from public.lead_klassenarbeiten k
+      join public.leads l on l.id = k.lead_id
+     where l.schule_id = p_schule_id and l.class_level = p_klasse
+       and k.schuljahr = p_schuljahr and k.fach = p_fach
+       and (k.nr is not null or k.datum is not null)
+  ), varianten as (
+    select a.schluessel, min(a.nr) as nr, a.themen, count(distinct a.lead_id)::int as kinder
+      from angaben a group by a.schluessel, a.themen
+  ), rangiert as (
+    select v.*, row_number() over w as rang, coalesce(lead(v.kinder) over w, 0) as zweite
+      from varianten v
+    window w as (partition by v.schluessel order by v.kinder desc, v.themen)
+  ), abgeleitet as (
+    select r.schluessel, r.nr, r.themen, r.kinder, (r.kinder >= 2 and r.kinder > r.zweite) as einig,
+           (select a.datum from angaben a
+             where a.schluessel = r.schluessel and a.themen = r.themen and a.datum is not null
+             group by a.datum having count(distinct a.lead_id) >= 2
+             order by count(distinct a.lead_id) desc, a.datum limit 1) as datum
+      from rangiert r where r.rang = 1
+  ), bestaetigt as (
+    select s.nr, (select array_agg(distinct x order by x) from unnest(s.thema_keys) x) as themen, s.datum
+      from public.schul_klassenarbeiten s
+     where s.schule_id = p_schule_id and s.klasse = p_klasse and s.schuljahr = p_schuljahr and s.fach = p_fach
+       and s.bestaetigt
+  ), offen as (
+    -- Abgeleitete Arbeiten, die keine Bestätigung abdeckt (gleiche Nummer bzw. gleiche Themen ohne Nummer).
+    select a.* from abgeleitet a
+     where not exists (select 1 from bestaetigt b where b.nr = a.nr or (a.nr is null and b.themen = a.themen))
+  )
+  select b.nr, b.themen, b.datum,
+         coalesce((select v.kinder from varianten v where v.schluessel = 'n' || b.nr::text and v.themen = b.themen), 0),
+         true, true
+    from bestaetigt b
+  union all
+  select o.nr, o.themen, o.datum, o.kinder, false, o.einig
+    from offen o
+   order by 1 nulls last, 3 nulls last
+$$;
+
+
+--
+-- Name: ka_folge_uebersicht(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_folge_uebersicht(p_schuljahr text, p_fach text DEFAULT 'mathematik'::text) RETURNS TABLE(schule_id uuid, schulname text, klasse integer, kinder integer, bestaetigte integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'ka_folge_uebersicht: nur Admin' using errcode = '42501';
+  end if;
+  return query
+  with gruppen as (
+    select l.schule_id, l.class_level as klasse, count(distinct k.lead_id)::int as kinder
+      from public.lead_klassenarbeiten k join public.leads l on l.id = k.lead_id
+     where k.schuljahr = p_schuljahr and k.fach = p_fach and l.schule_id is not null and l.class_level is not null
+     group by 1, 2
+  ), bestaetigt as (
+    select s.schule_id, s.klasse, count(*)::int as bestaetigte
+      from public.schul_klassenarbeiten s
+     where s.schuljahr = p_schuljahr and s.fach = p_fach and s.bestaetigt
+     group by 1, 2
+  )
+  select coalesce(g.schule_id, b.schule_id), sch.name, coalesce(g.klasse, b.klasse),
+         coalesce(g.kinder, 0), coalesce(b.bestaetigte, 0)
+    from gruppen g
+    full join bestaetigt b on b.schule_id = g.schule_id and b.klasse = g.klasse
+    join public.schulen sch on sch.id = coalesce(g.schule_id, b.schule_id)
+   order by 2, 3;
+end;
+$$;
+
+
+--
+-- Name: ka_schuljahr(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_schuljahr(p_datum date) RETURNS text
+    LANGUAGE sql IMMUTABLE PARALLEL SAFE
+    SET search_path TO 'pg_catalog'
+    AS $$
+  select case when extract(month from p_datum) >= 8
+    then extract(year from p_datum)::int::text || '/' || lpad(((extract(year from p_datum)::int + 1) % 100)::text, 2, '0')
+    else (extract(year from p_datum)::int - 1)::text || '/' || lpad((extract(year from p_datum)::int % 100)::text, 2, '0')
+  end
+$$;
+
+
+--
+-- Name: ka_themen_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ka_themen_pruefen() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if exists (select 1 from unnest(new.thema_keys) k group by k having count(*) > 1) then
+    raise exception '%: Thema doppelt in thema_keys', tg_table_name using errcode = '23514';
+  end if;
+  if exists (select 1 from unnest(new.thema_keys) k where not exists (select 1 from public.themen t where t.thema_key = k)) then
+    raise exception '%: unbekanntes Thema in thema_keys', tg_table_name using errcode = '23503';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: kinder_buchbar(date, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -20777,6 +21035,33 @@ CREATE TABLE public.lead_assessments (
 
 
 --
+-- Name: lead_klassenarbeiten; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lead_klassenarbeiten (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    lead_id uuid NOT NULL,
+    fach text DEFAULT 'mathematik'::text NOT NULL,
+    schuljahr text NOT NULL,
+    nr integer,
+    datum date,
+    thema_keys text[] NOT NULL,
+    status text DEFAULT 'bevorstehend'::text NOT NULL,
+    note smallint,
+    quelle text NOT NULL,
+    erfasst_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lead_klassenarbeiten_datum_im_schuljahr CHECK (((datum IS NULL) OR (public.ka_schuljahr(datum) = schuljahr))),
+    CONSTRAINT lead_klassenarbeiten_note_check CHECK (((note >= 1) AND (note <= 6))),
+    CONSTRAINT lead_klassenarbeiten_note_nur_geschrieben CHECK (((note IS NULL) OR (status = 'geschrieben'::text))),
+    CONSTRAINT lead_klassenarbeiten_nr_check CHECK (((nr IS NULL) OR (nr >= 1))),
+    CONSTRAINT lead_klassenarbeiten_quelle_check CHECK ((quelle = ANY (ARRAY['erstgespraech'::text, 'checkin'::text, 'admin'::text]))),
+    CONSTRAINT lead_klassenarbeiten_schuljahr_check CHECK ((schuljahr ~ '^[0-9]{4}/[0-9]{2}$'::text)),
+    CONSTRAINT lead_klassenarbeiten_status_check CHECK ((status = ANY (ARRAY['bevorstehend'::text, 'geschrieben'::text]))),
+    CONSTRAINT lead_klassenarbeiten_thema_keys_check CHECK (((cardinality(thema_keys) >= 1) AND (array_position(thema_keys, NULL::text) IS NULL)))
+);
+
+
+--
 -- Name: lead_mail_versand; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -20859,10 +21144,12 @@ CREATE TABLE public.leads (
     ist_test boolean DEFAULT false NOT NULL,
     klassenarbeit_status text,
     letzte_klassenarbeit_note smallint,
+    ka_anzahl_schuljahr smallint,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
+    CONSTRAINT leads_ka_anzahl_schuljahr_check CHECK (((ka_anzahl_schuljahr >= 1) AND (ka_anzahl_schuljahr <= 8))),
     CONSTRAINT leads_klassenarbeit_status_check CHECK ((klassenarbeit_status = ANY (ARRAY['bevorstehend'::text, 'geschrieben'::text]))),
     CONSTRAINT leads_letzte_klassenarbeit_note_check CHECK (((letzte_klassenarbeit_note >= 1) AND (letzte_klassenarbeit_note <= 6))),
     CONSTRAINT leads_rejection_note_check CHECK (((rejection_reason IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(rejection_note), ''::text) IS NOT NULL))),
@@ -21307,6 +21594,29 @@ CREATE VIEW public.schuelerakten WITH (security_invoker='true') AS
     ruhend_seit,
     letzte_session
    FROM public.akte_basis() akte_basis(student_id, name, klasse, schule_id, schule, akte_seit, zustand, ruhend_seit, letzte_session);
+
+
+--
+-- Name: schul_klassenarbeiten; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schul_klassenarbeiten (
+    schule_id uuid NOT NULL,
+    fach text DEFAULT 'mathematik'::text NOT NULL,
+    klasse integer NOT NULL,
+    schuljahr text NOT NULL,
+    nr integer NOT NULL,
+    thema_keys text[] NOT NULL,
+    datum date,
+    bestaetigt boolean DEFAULT true NOT NULL,
+    bestaetigt_von uuid,
+    bestaetigt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT schul_klassenarbeiten_datum_im_schuljahr CHECK (((datum IS NULL) OR (public.ka_schuljahr(datum) = schuljahr))),
+    CONSTRAINT schul_klassenarbeiten_klasse_check CHECK (((klasse >= 5) AND (klasse <= 13))),
+    CONSTRAINT schul_klassenarbeiten_nr_check CHECK ((nr >= 1)),
+    CONSTRAINT schul_klassenarbeiten_schuljahr_check CHECK ((schuljahr ~ '^[0-9]{4}/[0-9]{2}$'::text)),
+    CONSTRAINT schul_klassenarbeiten_thema_keys_check CHECK (((cardinality(thema_keys) >= 1) AND (array_position(thema_keys, NULL::text) IS NULL)))
+);
 
 
 --
@@ -22864,6 +23174,22 @@ ALTER TABLE ONLY public.lead_assessments
 
 
 --
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_ein_datum; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_klassenarbeiten
+    ADD CONSTRAINT lead_klassenarbeiten_ein_datum UNIQUE (lead_id, fach, datum);
+
+
+--
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_klassenarbeiten
+    ADD CONSTRAINT lead_klassenarbeiten_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: lead_mail_versand lead_mail_versand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -23173,6 +23499,14 @@ ALTER TABLE ONLY public.schicht_abweichungen
 
 ALTER TABLE ONLY public.schueler_notizen
     ADD CONSTRAINT schueler_notizen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schul_klassenarbeiten schul_klassenarbeiten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schul_klassenarbeiten
+    ADD CONSTRAINT schul_klassenarbeiten_pkey PRIMARY KEY (schule_id, fach, klasse, schuljahr, nr);
 
 
 --
@@ -23994,6 +24328,20 @@ CREATE INDEX lead_assessments_lead_idx ON public.lead_assessments USING btree (l
 
 
 --
+-- Name: lead_klassenarbeiten_ein_erstgespraech; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX lead_klassenarbeiten_ein_erstgespraech ON public.lead_klassenarbeiten USING btree (lead_id, fach, schuljahr) WHERE (quelle = 'erstgespraech'::text);
+
+
+--
+-- Name: lead_klassenarbeiten_eine_nr; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX lead_klassenarbeiten_eine_nr ON public.lead_klassenarbeiten USING btree (lead_id, fach, schuljahr, nr) WHERE (nr IS NOT NULL);
+
+
+--
 -- Name: lead_mail_versand_lead_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24799,6 +25147,13 @@ CREATE TRIGGER erklaer_schritt_freigabe_sperre BEFORE INSERT OR DELETE OR UPDATE
 
 
 --
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_themen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lead_klassenarbeiten_themen BEFORE INSERT OR UPDATE OF thema_keys ON public.lead_klassenarbeiten FOR EACH ROW EXECUTE FUNCTION public.ka_themen_pruefen();
+
+
+--
 -- Name: leads leads_ist_test_schuetzen_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -24841,6 +25196,13 @@ CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notiz
 
 
 --
+-- Name: schul_klassenarbeiten schul_klassenarbeiten_themen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER schul_klassenarbeiten_themen BEFORE INSERT OR UPDATE OF thema_keys ON public.schul_klassenarbeiten FOR EACH ROW EXECUTE FUNCTION public.ka_themen_pruefen();
+
+
+--
 -- Name: session_antworten session_antworten_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -24852,6 +25214,13 @@ CREATE TRIGGER session_antworten_nur_anhaengen BEFORE DELETE OR UPDATE ON public
 --
 
 CREATE TRIGGER session_ausgegeben_nur_anhaengen BEFORE DELETE OR UPDATE ON public.session_ausgegeben FOR EACH ROW EXECUTE FUNCTION public.session_nur_anhaengen();
+
+
+--
+-- Name: session_checkin session_checkin_klassenarbeit; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_checkin_klassenarbeit AFTER INSERT OR UPDATE OF klassenarbeit_datum, klassenarbeit_thema_key ON public.session_checkin FOR EACH ROW EXECUTE FUNCTION public.ka_aus_checkin();
 
 
 --
@@ -25396,6 +25765,14 @@ ALTER TABLE ONLY public.lead_assessments
 
 
 --
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_lead_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_klassenarbeiten
+    ADD CONSTRAINT lead_klassenarbeiten_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
+
+
+--
 -- Name: lead_mail_versand lead_mail_versand_erfolgt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25865,6 +26242,22 @@ ALTER TABLE ONLY public.schueler_notizen
 
 ALTER TABLE ONLY public.schueler_notizen
     ADD CONSTRAINT schueler_notizen_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: schul_klassenarbeiten schul_klassenarbeiten_bestaetigt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schul_klassenarbeiten
+    ADD CONSTRAINT schul_klassenarbeiten_bestaetigt_von_fkey FOREIGN KEY (bestaetigt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: schul_klassenarbeiten schul_klassenarbeiten_schule_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schul_klassenarbeiten
+    ADD CONSTRAINT schul_klassenarbeiten_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE CASCADE;
 
 
 --
@@ -27484,6 +27877,19 @@ CREATE POLICY lead_assessments_coach_admin_all ON public.lead_assessments USING 
 
 
 --
+-- Name: lead_klassenarbeiten; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lead_klassenarbeiten ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_admin_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lead_klassenarbeiten_admin_all ON public.lead_klassenarbeiten USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
 -- Name: lead_mail_versand; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -28027,6 +28433,19 @@ CREATE POLICY schueler_notizen_admin_select ON public.schueler_notizen FOR SELEC
 --
 
 CREATE POLICY schueler_notizen_coach_select ON public.schueler_notizen FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.akte_aktiv(student_id) AND (ausgeblendet_am IS NULL) AND (entfernt_am IS NULL)));
+
+
+--
+-- Name: schul_klassenarbeiten; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.schul_klassenarbeiten ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: schul_klassenarbeiten schul_klassenarbeiten_admin_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schul_klassenarbeiten_admin_all ON public.schul_klassenarbeiten USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
 
 
 --

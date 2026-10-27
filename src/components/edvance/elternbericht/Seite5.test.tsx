@@ -198,17 +198,24 @@ describe('Seite 5 — Ziele', () => {
     zieleBestaetigt: true,
   })
 
-  it('ohne Bestätigung keine Ziele, auch nicht das Zielbild des Coachs', () => {
-    expect(liste(FAELLE.ilkay)).toBeUndefined()
-    expect(liste({ ...FAELLE.ilkay, notes: { ...NOTIZEN, zieleBestaetigt: false } })).toBeUndefined()
-    expect(liste({ ...FAELLE.ilkay, notes: null })).toBeUndefined()
+  it('L5 Teil D: ohne Bestätigung der Systemvorschlag („Unser Vorschlag“), nie das Zielbild des Coachs', () => {
+    for (const notes of [FAELLE.ilkay.notes, { ...NOTIZEN, zieleBestaetigt: false }, null]) {
+      const z = liste({ ...FAELLE.ilkay, notes })
+      expect(z!.length).toBeGreaterThan(0)
+      expect(z).not.toContain(NOTIZEN.zielbild)
+    }
+    expect(seite5(FAELLE.ilkay).getByTestId('eb-ziele-kicker')).toHaveTextContent('Unser Vorschlag: Ziele für die nächsten 6 Monate')
     expect(seite5(FAELLE.ilkay).el).not.toHaveTextContent(NOTIZEN.zielbild)
+    expect(seite5(FAELLE.ilkay).getByTestId('eb-keine-noten')).toHaveTextContent('Wir versprechen keine Noten')
   })
 
-  it('bestätigt: das Zielbild des Coachs, Überschrift „Ziele für die nächsten 6 Monate“', () => {
+  it('bestätigt: Systemziele und das Zielbild des Coachs als letztes, Kicker „im Gespräch vereinbart“', () => {
     const fall = { ...FAELLE.ilkay, notes: bestaetigt(NOTIZEN.zielbild) }
-    expect(seite5(fall).getByTestId('eb-ziele').querySelector('.eb-kicker')).toHaveTextContent('Ziele für die nächsten 6 Monate')
-    expect(liste(fall)).toEqual([NOTIZEN.zielbild])
+    expect(seite5(fall).getByTestId('eb-ziele-kicker')).toHaveTextContent('Ziele für die nächsten 6 Monate · im Gespräch vereinbart')
+    const z = liste(fall)!
+    expect(z[z.length - 1]).toBe(NOTIZEN.zielbild)
+    expect(z.length).toBeGreaterThan(1)
+    expect(z.length).toBeLessThanOrEqual(5)
   })
 
   it('bestätigt ohne Zielbild: der Systemvorschlag, Anzahl nach Paket (2, 3, 4)', () => {
@@ -236,8 +243,10 @@ describe('Seite 5 — Ziele', () => {
     expect(z).toContain('Flächen und Figuren sicher anwenden, bevor das Thema „Kreise, Prismen und Zylinder“ beginnt')
   })
 
-  it('bestätigt, aber nichts zu tun (alles sicher) und ohne Zielbild: der Abschnitt entfällt', () => {
-    expect(liste({ ...FAELLE.allesSicher, notes: bestaetigt('') })).toBeUndefined()
+  it('bestätigt, aber nichts zu tun (alles sicher) und ohne Zielbild: „baut auf dem auf, was schon sicher ist“', () => {
+    const z = liste({ ...FAELLE.allesSicher, notes: bestaetigt('') })!
+    expect(z).toHaveLength(1)
+    expect(z[0]).toContain('baut auf dem auf, was schon sicher ist')
   })
 
   it('Ziele aus dem Erstgespräch erscheinen auf Seite 5 nicht mehr', () => {

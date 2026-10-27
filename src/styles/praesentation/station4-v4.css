@@ -245,3 +245,71 @@
 .tp .tp-s4v-layout .tp-s4-seite-linksOben .tp-s4-label {
   max-width: 27cqw;
 }
+
+/* L5 Teil D: Schalter „im Gespräch bestätigt“ (nur Admin), dezent unten rechts in Station 04. */
+.tp .tp-bestaetigung {
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+.tp .tp-bestaetigung-schalter {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--color-eb-linie);
+  border-radius: 50px;
+  background: var(--color-eb-papier);
+  color: var(--color-eb-leise);
+  font-size: 11px;
+}
+.tp .tp-bestaetigung-schalter:disabled {
+  opacity: .5;
+}
+.tp .tp-bestaetigung-schalter i {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+.tp .tp-bestaetigung-an {
+  border-color: var(--color-eb-gold);
+  color: var(--color-eb-navy);
+}
+.tp .tp-bestaetigung-an i {
+  border-color: var(--color-eb-gold);
+  background: var(--color-eb-gold);
+}
+
+/* L5 Teil D: ohne Förderpunkte die Ziele als ruhige Liste unter dem Satz. */
+.tp .tp-s4-ziele {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+  margin-top: 16px;
+}
+.tp .tp-s4-ziele h3 {
+  color: var(--color-eb-leise);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.tp .tp-s4-ziele ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 18px;
+  color: var(--color-eb-text);
+  font-size: 15px;
+  line-height: 1.45;
+  list-style: disc;
+}
+.tp .tp-s4-ziele p {
+  color: var(--color-eb-leise);
+  font-size: 13px;
+}

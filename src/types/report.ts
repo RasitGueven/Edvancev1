@@ -288,6 +288,20 @@ export type ReportErstgespraech = {
    * Arbeit sinnvoll. Eigene Abfrage; fehlt die Spalte, null.
    */
   letzteNote?: number | null
+  /** L5: Mathearbeiten dieses Schuljahrs aus ka_folge_lead (eigene Angaben und gültiger Schulwert); fehlt = keine. */
+  klassenarbeiten?: ReportKlassenarbeit[]
+}
+
+/** L5: eine Mathearbeit für den Bericht (ka_folge_lead). Stand und Note nur bei eigenen Angaben. */
+export type ReportKlassenarbeit = {
+  /** Nummer im Schuljahr; null = unbekannt. */
+  nr: number | null
+  themaKeys: string[]
+  /** ISO-Datum; null = unbekannt. */
+  datum: string | null
+  status: KlassenarbeitStatus | null
+  note: number | null
+  herkunft: 'eigen' | 'schule'
 }
 
 /**

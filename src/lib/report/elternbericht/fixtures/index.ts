@@ -71,6 +71,9 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   batuBevorstehend: mitNotizen(v4.batuBevorstehend, NOTIZEN_ZIELE),
   batuOhneStatus: mitNotizen(v4.batuOhneStatus, NOTIZEN_ZIELE),
   batuMitNote: mitNotizen(v4.batuMitNote, NOTIZEN_ZIELE),
+  // L5: Folge der Klassenarbeiten bekannt (nur Testdaten): eigene Angaben bzw. Schulwert
+  batuEigen: mitNotizen(v4.batuEigen, NOTIZEN_ZIELE),
+  batuSchule: mitNotizen(v4.batuSchule, NOTIZEN_ZIELE),
   fahrplanKlp: mitNotizen(fp.fahrplanKlp, NOTIZEN_ZIELE),
   fahrplanHalbjahr: mitNotizen(fp.fahrplanHalbjahr, NOTIZEN_ZIELE),
   fahrplanLang: mitNotizen(fp.fahrplanLang, NOTIZEN_ZIELE),

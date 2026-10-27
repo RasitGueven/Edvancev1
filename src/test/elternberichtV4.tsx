@@ -18,6 +18,8 @@ export const MIT_FAHRPLAN = [
   'fahrplanLang',
   'fahrplanAuffuellen',
   'allesErfuellt',
+  'batuEigen',
+  'batuSchule',
 ] as const
 
 /** Ziele im Gespräch bestätigt, ohne Zielbild des Coachs. */
@@ -32,6 +34,7 @@ export function berichtV4(data: ReportData): Elternbericht {
     lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
     klassenarbeit: data.erstgespraech?.klassenarbeit ?? null,
     note: data.erstgespraech?.letzteNote ?? null,
+    arbeiten: data.erstgespraech?.klassenarbeiten,
   })!
 }
 

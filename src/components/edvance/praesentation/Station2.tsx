@@ -56,8 +56,15 @@ export function Station2({ p, anzeige, v4 }: StationProps): JSX.Element {
         {v4?.minuten != null && (
           <p className="tp-desc tp-reveal" data-testid="tp-s2-desc">
             {p.name
-              ? t('v4.s2.desc', { name: p.name, minuten: v4.minuten, aufgaben: v4.aufgaben })
-              : t('v4.s2.descOhneName', { minuten: v4.minuten, aufgaben: v4.aufgaben })}
+              ? t(v4.fahrplan.folge === 'unbekannt' ? 'v4.s2.descThema' : 'v4.s2.desc', {
+                  name: p.name,
+                  minuten: v4.minuten,
+                  aufgaben: v4.aufgaben,
+                })
+              : t(v4.fahrplan.folge === 'unbekannt' ? 'v4.s2.descThemaOhneName' : 'v4.s2.descOhneName', {
+                  minuten: v4.minuten,
+                  aufgaben: v4.aufgaben,
+                })}
           </p>
         )}
       </div>

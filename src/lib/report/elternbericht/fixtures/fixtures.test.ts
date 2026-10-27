@@ -89,6 +89,9 @@ describe('Fixtures des Eltern-Berichts', () => {
           'batuBevorstehend',
           'batuOhneStatus',
           'batuMitNote',
+          // L5: dieselbe Analyse mit bekannter Folge der Klassenarbeiten.
+          'batuEigen',
+          'batuSchule',
           'fahrplanKlp',
           'fahrplanHalbjahr',
           'fahrplanLang',

@@ -20,7 +20,11 @@ export const EMPTY_NOTES: ReportNotes = {
   paket: null,
 }
 
-export type NotesResult = SupabaseResult<ReportNotes> & { unavailable: boolean }
+/**
+ * `bestaetigung`: Es gibt die Spalten paket_bestaetigt und ziele_bestaetigt; nur dann zeigt die Ansicht die Schalter
+ * „im Gespräch bestätigt“ und saveReportNotes schreibt sie mit (L5 Teil D, Entscheidung 14).
+ */
+export type NotesResult = SupabaseResult<ReportNotes> & { unavailable: boolean; bestaetigung?: boolean }
 
 function asPaket(value: unknown): ReportPaket | null {
   return REPORT_PAKETE.includes(value as ReportPaket)
@@ -34,17 +38,17 @@ function asPaket(value: unknown): ReportPaket | null {
  * (20261024…_bericht_v3_ziele) noch nicht eingespielt sind — fehlt eine, gilt
  * „nicht bestätigt“ und der Bericht zeigt den Vorschlag bzw. keine Ziele.
  */
-async function loadBestaetigt(sessionId: string, spalte: 'paket_bestaetigt' | 'ziele_bestaetigt'): Promise<boolean> {
+async function loadBestaetigt(sessionId: string, spalte: 'paket_bestaetigt' | 'ziele_bestaetigt'): Promise<boolean | null> {
   try {
     const { data, error } = await supabase
       .from('lsa_report_notes')
       .select(spalte)
       .eq('session_id', sessionId)
       .maybeSingle()
-    if (error) return false
+    if (error) return null
     return (data as Record<string, unknown> | null)?.[spalte] === true
   } catch {
-    return false
+    return null
   }
 }
 
@@ -62,16 +66,21 @@ export async function getReportNotes(sessionId: string): Promise<NotesResult> {
       }
       return { data: null, error: error.message, unavailable: false }
     }
+    const [paketBestaetigt, zieleBestaetigt] = await Promise.all([
+      loadBestaetigt(sessionId, 'paket_bestaetigt'),
+      loadBestaetigt(sessionId, 'ziele_bestaetigt'),
+    ])
     return {
       data: {
         zielbild: (data?.zielbild as string | null) ?? '',
         empfehlung: (data?.empfehlung as string | null) ?? '',
         paket: asPaket(data?.paket),
-        paketBestaetigt: await loadBestaetigt(sessionId, 'paket_bestaetigt'),
-        zieleBestaetigt: await loadBestaetigt(sessionId, 'ziele_bestaetigt'),
+        paketBestaetigt: paketBestaetigt === true,
+        zieleBestaetigt: zieleBestaetigt === true,
       },
       error: null,
       unavailable: false,
+      bestaetigung: paketBestaetigt !== null && zieleBestaetigt !== null,
     }
   } catch (err) {
     const message =
@@ -80,9 +89,11 @@ export async function getReportNotes(sessionId: string): Promise<NotesResult> {
   }
 }
 
+/** @param bestaetigung true, wenn die Spalten paket_bestaetigt/ziele_bestaetigt da sind (getReportNotes). */
 export async function saveReportNotes(
   sessionId: string,
   notes: ReportNotes,
+  bestaetigung = false,
 ): Promise<NotesResult> {
   try {
     const { error } = await supabase.from('lsa_report_notes').upsert(
@@ -91,6 +102,9 @@ export async function saveReportNotes(
         zielbild: notes.zielbild.trim() || null,
         empfehlung: notes.empfehlung.trim() || null,
         paket: notes.paket,
+        ...(bestaetigung
+          ? { paket_bestaetigt: notes.paketBestaetigt === true, ziele_bestaetigt: notes.zieleBestaetigt === true }
+          : {}),
         updated_at: new Date().toISOString(),
       },
       { onConflict: 'session_id' },

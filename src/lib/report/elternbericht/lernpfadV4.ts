@@ -49,7 +49,7 @@ export function gruppiereSchwerpunkte({
 }): EbLernpfadPunkt[] {
   const kommende = (fahrplan?.stationen ?? []).filter((s) => s.nummer > 1)
   // Steht die Arbeit zum aktuellen Thema noch an, bereitet eine Lücke in diesem Thema genau sie vor.
-  const ansteht = fahrplan?.stationen[0]?.stand === 'naechste'
+  const ansteht = fahrplan?.stationen[0]?.stand === 'naechste' || fahrplan?.stationen[0]?.stand === 'steht'
   const fehltJeThema = new Map(signale.map((s) => [s.themaKey, new Set(s.fehlt.map((b) => b.label))]))
   const zieleVon = (s: EbSchwerpunkt): number[] => [
     ...(ansteht && s.feld === null ? [1] : []),

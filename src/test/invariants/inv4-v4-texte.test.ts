@@ -41,6 +41,7 @@ const VERBOTEN: [string, RegExp][] = [
 const NOTE_ERLAUBT = [
   'v4.stand.note',
   'v4.s2.intro',
+  'v4.s2.introThema',
   'v4.s5.keineNoten',
   'v4.s5.keineNotenOhneName',
   // LSA-L4 Teil D: die gemeldete Note und der Abgleich, sobald sie bekannt ist (keine erwartete Note).

@@ -28,8 +28,10 @@ export type PraesentationV4 = {
   /** Bearbeitungszeit in Minuten (ReportData.dauerMinuten); null ohne Zeiten. */
   minuten: number | null
   muster: Fehlermuster | null
-  /** Ziele in Elternsprache; leer, solange sie im Gespräch nicht bestätigt sind. */
+  /** Ziele in Elternsprache (Systemvorschlag), immer gesetzt (L5 Teil D). */
   ziele: ZielSchluessel[]
+  /** L5 Teil D: Ziele im Gespräch bestätigt (Kicker der Ziele in Station 04). */
+  zieleBestaetigt: boolean
   /** LSA-L4: Stand der Klassenarbeit beim LSA-Start und die gemeldete Note (Satz in Station 03). */
   klassenarbeit: KlassenarbeitStatus | null
   note: number | null
@@ -49,6 +51,7 @@ export function baueV4(data: ReportData, notes: ReportNotes | null): Praesentati
     lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
     klassenarbeit: data.erstgespraech?.klassenarbeit ?? null,
     note: data.erstgespraech?.letzteNote ?? null,
+    arbeiten: data.erstgespraech?.klassenarbeiten,
   })
   if (!bericht?.fahrplan) return null
   const muster = fehlermusterAus(data.fehlbilder)
@@ -61,9 +64,9 @@ export function baueV4(data: ReportData, notes: ReportNotes | null): Praesentati
     muster,
     klassenarbeit: data.erstgespraech?.klassenarbeit ?? null,
     note: data.erstgespraech?.letzteNote ?? null,
-    ziele: notes?.zieleBestaetigt
-      ? zieleV4({ fahrplan: bericht.fahrplan, muster, name, spaeterLuecken: spaeterLuecken(bericht) })
-      : [],
+    zieleBestaetigt: notes?.zieleBestaetigt === true,
+    // L5 Teil D (Entscheidung 13): die Systemziele immer, auch ohne Bestätigung.
+    ziele: zieleV4({ fahrplan: bericht.fahrplan, muster, name, spaeterLuecken: spaeterLuecken(bericht) }),
   }
 }
 

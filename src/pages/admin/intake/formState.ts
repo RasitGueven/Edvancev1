@@ -40,6 +40,10 @@ export type IntakeFormState = {
   naechste_arbeit_datum: string
   /** leads.letzte_klassenarbeit_note, nur bei 'geschrieben'. */
   letzte_note: number | null
+  // L5: Zahl der Mathearbeiten im Schuljahr (leads.ka_anzahl_schuljahr) und die Themen der nächsten bzw. der
+  // geschriebenen Arbeit (lead_klassenarbeiten, quelle 'erstgespraech'). 'weissNicht' wird als null gespeichert.
+  ka_anzahl: number | 'weissNicht' | null
+  ka_themen: string[]
   // Eltern-Einschaetzung (Gespraechskontext, nie Auswertungs-Input)
   parent_weak_topics: string[]
   parent_note: string
@@ -66,6 +70,8 @@ export const EMPTY_INTAKE: IntakeFormState = {
   klassenarbeit: null,
   naechste_arbeit_datum: '',
   letzte_note: null,
+  ka_anzahl: null,
+  ka_themen: [],
   parent_weak_topics: [],
   parent_note: '',
   notes: '',
@@ -92,6 +98,8 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
     klassenarbeit: lead.klassenarbeit_status ?? null,
     naechste_arbeit_datum: lead.next_exam_date ?? '',
     letzte_note: lead.letzte_klassenarbeit_note ?? null,
+    ka_anzahl: lead.ka_anzahl_schuljahr ?? null,
+    ka_themen: [],
     parent_weak_topics: [],
     parent_note: '',
     notes: lead.notes ?? '',
@@ -157,5 +165,23 @@ export function klassenarbeitAusForm(form: IntakeFormState): {
     status,
     datum: status === 'bevorstehend' ? nullIfEmpty(form.naechste_arbeit_datum) : null,
     note: status === 'geschrieben' ? form.letzte_note : null,
+  }
+}
+
+/** L5: Anzahl und Themen der Arbeit aus dem Formular für saveKaErstgespraech. */
+export function kaAusForm(form: IntakeFormState): {
+  anzahl: number | null
+  status: 'bevorstehend' | 'geschrieben' | null
+  datum: string | null
+  themaKeys: string[]
+  note: number | null
+} {
+  const { status, datum, note } = klassenarbeitAusForm(form)
+  return {
+    anzahl: typeof form.ka_anzahl === 'number' ? form.ka_anzahl : null,
+    status,
+    datum,
+    themaKeys: status ? form.ka_themen : [],
+    note,
   }
 }

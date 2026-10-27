@@ -9,6 +9,7 @@
 // Sitzung als „bevorstehend“, sonst bleibt der Stand unbekannt.
 
 import { supabase } from '@/lib/supabase/client'
+import { loadKlassenarbeiten } from '@/lib/supabase/lsaReportKlassenarbeiten'
 import type {
   KlassenarbeitStatus,
   LeadGradeTrend,
@@ -68,7 +69,7 @@ export async function loadErstgespraech(
 ): Promise<ReportErstgespraech | null> {
   if (!leadId) return null
   try {
-    const [{ data, error }, status, letzteNote] = await Promise.all([
+    const [{ data, error }, status, letzteNote, klassenarbeiten] = await Promise.all([
       supabase
         .from('leads')
         .select('last_grade, grade_trend, struggling_since, goal, next_exam_date')
@@ -76,6 +77,7 @@ export async function loadErstgespraech(
         .maybeSingle(),
       loadKlassenarbeitStatus(leadId),
       loadLetzteNote(leadId),
+      loadKlassenarbeiten(leadId, analysedAt),
     ])
     if (error || !data) {
       if (error) console.warn('report: erstgespraech lookup failed', error.message)
@@ -93,6 +95,7 @@ export async function loadErstgespraech(
       klassenarbeit: status ?? ausDatum,
       klassenarbeitDatum: datum,
       letzteNote,
+      klassenarbeiten,
     }
   } catch (e) {
     console.warn('report: erstgespraech lookup failed', e)

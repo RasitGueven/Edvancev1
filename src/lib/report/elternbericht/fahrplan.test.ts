@@ -28,20 +28,22 @@ describe('Station 1 nach Stand der Klassenarbeit', () => {
     expect(s).toMatchObject({ nummer: 1, stand: 'geschrieben', signal: null, schuljahr: 'dieses' })
   })
 
-  it('bevorstehend: Station 1 ist die nächste Arbeit, alle kommenden nur voraussichtlich', () => {
+  it('bevorstehend (Folge unbekannt, L5): Station 1 steht an, dann „als Nächstes im Unterricht“ und „danach“', () => {
     const f = fp('batuBevorstehend')
-    expect(f.stationen[0].stand).toBe('naechste')
-    expect(kommende(f).every((s) => s.stand === 'voraussichtlich')).toBe(true)
+    expect(f.stationen[0].stand).toBe('steht')
+    expect(kommende(f).map((s) => s.stand)).toEqual(['unterricht', 'danach', 'danach', 'danach'])
   })
 
   it('ohne Angabe: aktuell', () => {
     expect(fp('batuOhneStatus').stationen[0].stand).toBe('aktuell')
   })
 
-  it('„nächste“ wandert: bei geschrieben/unbekannt auf Station 2, bei bevorstehend auf Station 1', () => {
-    for (const [name, erwartet] of [['batuV4', 2], ['batuOhneStatus', 2], ['batuBevorstehend', 1]] as const) {
-      const nummern = fp(name).stationen.filter((s) => s.stand === 'naechste').map((s) => s.nummer)
-      expect(nummern, name).toEqual([erwartet])
+  it('Folge unbekannt (L5): keine „nächste Arbeit“, keine Nummer einer Klassenarbeit', () => {
+    for (const name of ['batuV4', 'batuOhneStatus', 'batuBevorstehend', 'batuMitNote']) {
+      const f = fp(name)
+      expect(f.folge, name).toBe('unbekannt')
+      expect(f.stationen.filter((s) => s.stand === 'naechste' || s.stand === 'voraussichtlich'), name).toEqual([])
+      expect(f.stationen.every((s) => s.ka === null), name).toBe(true)
     }
   })
 })

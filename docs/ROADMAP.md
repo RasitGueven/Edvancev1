@@ -10,6 +10,12 @@
   nötigen Aufgaben ab; Karte „Batus Freigabeliste“ auf `/admin` mit offenem Stand und Freigabe-Reihe.
   Migration `20261025210952` am 25.10. eingespielt. Dazu die erste `term_ausklammern`-Aufgabe ohne MC
   (`20261025213530`, Mehrteiler mit drei Zahlenfeldern, eingespielt).
+- **L5 Klassenarbeiten statt Themen-Nummern + Ziele immer** (Retro `2026-10-27-l5-ka-folge.md`, Bauauftrag
+  `docs/report/Bauauftrag-L5.md`): Mathearbeiten je Kind (`lead_klassenarbeiten`, aus Erstgespräch und Check-in),
+  Schulwert je Klasse ab zwei Kindern oder Bestätigung (`/admin/klassenarbeiten`); Bericht v4 und Präsentation ohne
+  Nummern, solange die Folge unbekannt ist, sonst mit echten Nummern; Ziele für 6 Monate immer, Schalter „im
+  Gespräch bestätigt“. Migrationen `20261027081403`, `20261027092031` am 27.10. eingespielt. **Offen:**
+  `docs/report/l5-offen.md`.
 - **LSA-L4 Nachtrag zu L3** (Retro `2026-10-26-lsa-l4-nachtrag.md`, PR #326 und Berichtstexte): mitbelegte
   Bericht-Voraussetzungen werden direkt nachgeprüft (Batu 11/17 → 16/17), ohne Thema kein kommender Stoff, frische
   Prod-Fixture; Satz zur Klassenarbeit nach Stand der Sitzung auf Seite 3 und in Station 03, Admin-Hinweise.

@@ -13,6 +13,7 @@ const mock = vi.hoisted(() => ({
   /** Antwort je ausgewählter Spalte (Schlüssel = select-String). */
   je: new Map<string, unknown>(),
   gewaehlt: [] as string[],
+  upserts: [] as Record<string, unknown>[],
 }))
 
 vi.mock('@/lib/supabase/client', () => {
@@ -34,12 +35,16 @@ vi.mock('@/lib/supabase/client', () => {
           mock.gewaehlt.push(spalte)
           return baue(spalte)
         },
+        upsert: (zeile: Record<string, unknown>) => {
+          mock.upserts.push(zeile)
+          return Promise.resolve({ error: null })
+        },
       }),
     },
   }
 })
 
-const { getReportNotes } = await import('@/lib/supabase/reportNotes')
+const { getReportNotes, saveReportNotes } = await import('@/lib/supabase/reportNotes')
 
 const BASIS = 'zielbild, empfehlung, paket'
 const ok = (data: unknown): Antwort => ({ data, error: null })
@@ -48,6 +53,7 @@ const fehlt = (spalte: string): Antwort => ({ data: null, error: { code: '42703'
 beforeEach(() => {
   mock.je = new Map()
   mock.gewaehlt = []
+  mock.upserts = []
 })
 
 describe('getReportNotes — Bestätigungen des Coachs', () => {
@@ -121,5 +127,29 @@ describe('getReportNotes — Bestätigungen des Coachs', () => {
     mock.je.set(BASIS, { data: null, error: { code: '500', message: 'kaputt' } })
     const r = await getReportNotes('s1')
     expect(r).toEqual({ data: null, error: 'kaputt', unavailable: false })
+  })
+})
+
+describe('L5 Teil D — Schalter „im Gespräch bestätigt“', () => {
+  it('beide Spalten da: bestaetigung true (Schalter sichtbar)', async () => {
+    mock.je.set(BASIS, ok({ zielbild: '', empfehlung: '', paket: null }))
+    mock.je.set('paket_bestaetigt', ok(null))
+    mock.je.set('ziele_bestaetigt', ok(null))
+    expect((await getReportNotes('s1')).bestaetigung).toBe(true)
+  })
+
+  it('eine Spalte fehlt: bestaetigung false (Schalter ausgeblendet)', async () => {
+    mock.je.set(BASIS, ok({ zielbild: '', empfehlung: '', paket: null }))
+    mock.je.set('ziele_bestaetigt', fehlt('ziele_bestaetigt'))
+    expect((await getReportNotes('s1')).bestaetigung).toBe(false)
+  })
+
+  it('saveReportNotes schreibt ziele_bestaetigt und paket_bestaetigt nur mit, wenn die Spalten da sind', async () => {
+    const notes = { zielbild: ' Z ', empfehlung: '', paket: 'standard' as const, zieleBestaetigt: true, paketBestaetigt: false }
+    await saveReportNotes('s1', notes, true)
+    expect(mock.upserts[0]).toMatchObject({ zielbild: 'Z', paket: 'standard', ziele_bestaetigt: true, paket_bestaetigt: false })
+    await saveReportNotes('s1', notes)
+    expect(mock.upserts[1]).not.toHaveProperty('ziele_bestaetigt')
+    expect(mock.upserts[1]).not.toHaveProperty('paket_bestaetigt')
   })
 })

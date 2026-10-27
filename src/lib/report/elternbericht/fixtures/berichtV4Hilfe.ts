@@ -24,6 +24,7 @@ export const berichtVon = (d: ReportData): BerichtV4 | null =>
     lernweg: quelleVon(d),
     klassenarbeit: d.erstgespraech?.klassenarbeit ?? null,
     note: d.erstgespraech?.letzteNote ?? null,
+    arbeiten: d.erstgespraech?.klassenarbeiten,
   }) as BerichtV4 | null
 
 export const bericht = (name: string): BerichtV4 => {

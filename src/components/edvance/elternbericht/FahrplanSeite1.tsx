@@ -3,7 +3,18 @@ import { useTranslation } from 'react-i18next'
 import type { EbFahrplan } from '@/types'
 
 import { schuleGenitiv } from './berichtSaetze'
-import { signalText, standZeile, stationAria, tonVon, trennerText, trennerVor } from './fahrplanText'
+import {
+  folgeBekannt,
+  quelleZeile,
+  satzKey,
+  signalText,
+  standZeile,
+  stationAria,
+  themenZeile,
+  tonVon,
+  trennerText,
+  trennerVor,
+} from './fahrplanText'
 
 // Die Bahn: ein SVG in pt, 1 Einheit = 1 pt, so breit wie der Innenraum des
 // Kastens (507 − Rand − Innenabstand). Die Punkte sitzen über gleich breiten
@@ -35,6 +46,10 @@ function bahn(xs: readonly number[], ys: readonly number[]): string {
  * Kasten mit der Bahn der Klassenarbeiten, darunter je Spalte Titel und Stand
  * mit Signal, der Satz nach fahrplan.satz im mint Kasten und die Quelle.
  * Keine einzelnen Voraussetzungen: die stehen nur auf Seite 3.
+ *
+ * L5: Ist die Folge der Arbeiten unbekannt, tragen die Kreise keine Ziffern: Das aktuelle Thema zeigt den Stand
+ * (Haken bei geschrieben, Ring bei steht an), die kommenden nur das Signal. Die Überschrift nennt dann keine
+ * Klassenarbeiten.
  */
 export function FahrplanSeite1({
   fahrplan,
@@ -43,23 +58,24 @@ export function FahrplanSeite1({
   fahrplan: EbFahrplan
   wessen: string | null
 }): JSX.Element {
-  const { t } = useTranslation('elternbericht')
+  const { t, i18n } = useTranslation('elternbericht')
+  const bekannt = folgeBekannt(fahrplan)
+  const satz = satzKey(fahrplan)
   const n = fahrplan.stationen.length
   const spalte = BREITE / n
   const xs = fahrplan.stationen.map((_, i) => (i + 0.5) * spalte)
   const ys = fahrplan.stationen.map((_, i) => LAGE_Y[i % LAGE_Y.length])
 
-  const quelle =
-    fahrplan.quelle === 'klp'
-      ? t('v4.quelle.klp')
-      : fahrplan.schulname
-        ? t('v4.quelle.schuleGenitiv', { schule: schuleGenitiv(t, fahrplan.schulname) })
-        : t('s3.v2.hinweis', { quelle: t('s3.v2.quelleSchuleOhneName') })
+  const quelle = quelleZeile(t, fahrplan, (name) => schuleGenitiv(t, name))
 
   return (
     <section className="eb-fp" data-testid="eb-fahrplan">
       <h2 className="eb-kicker">
-        {wessen ? t('v4.s1.fahrplanKicker', { wessen }) : t('v4.s1.fahrplanKickerOhneName')}
+        {!bekannt
+          ? t('v4.s1.fahrplanKickerThema')
+          : wessen
+            ? t('v4.s1.fahrplanKicker', { wessen })
+            : t('v4.s1.fahrplanKickerOhneName')}
       </h2>
 
       <div className="eb-fp-raster">
@@ -77,15 +93,23 @@ export function FahrplanSeite1({
                     </text>
                   </g>
                 )}
-                <g className={`eb-fp-punkt eb-ton-${tonVon(s)}`} transform={`translate(${xs[i]} ${ys[i]})`}>
+                <g
+                  className={`eb-fp-punkt eb-ton-${tonVon(s)}`}
+                  transform={`translate(${xs[i]} ${ys[i]})`}
+                  data-testid="eb-fp-punkt"
+                >
                   <circle r={RADIUS} />
                   {s.stand === 'geschrieben' ? (
                     <path className="eb-fp-haken" d="M-3.6 0.4 L-1.1 3 L3.7 -2.8" />
-                  ) : (
+                  ) : s.ka !== null ? (
                     <text className="eb-fp-nr" y="3">
-                      {s.nummer}
+                      {s.ka}
                     </text>
-                  )}
+                  ) : s.stand === 'steht' ? (
+                    <circle className="eb-fp-ring" r={RADIUS - 4} />
+                  ) : s.signal ? (
+                    <circle className="eb-fp-kern" r={3.2} />
+                  ) : null}
                 </g>
               </g>
             )
@@ -104,10 +128,10 @@ export function FahrplanSeite1({
                   {signal && `, ${signal}`}
                 </span>
                 <b className="eb-fp-titel" aria-hidden="true">
-                  {s.titel}
+                  {s.ka !== null ? themenZeile(t, s) : s.titel}
                 </b>
                 <span className="eb-fp-stand" aria-hidden="true">
-                  {standZeile(t, s)}
+                  {standZeile(t, s, i18n.language)}
                 </span>
                 {signal && (
                   <span className="eb-fp-signal" aria-hidden="true">
@@ -126,9 +150,9 @@ export function FahrplanSeite1({
         </p>
       )}
 
-      {fahrplan.satz && (
+      {satz && (
         <p className="eb-fp-satz" data-testid="eb-fp-satz">
-          {t(fahrplan.satz === 'fehlt' ? 'v4.s1.satzFehlt' : 'v4.s1.satzErfuellt')}
+          {t(satz)}
         </p>
       )}
 

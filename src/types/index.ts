@@ -221,6 +221,7 @@ export type {
   ReportPaket,
   ReportNotes,
   ReportErstgespraech,
+  ReportKlassenarbeit,
   KlassenarbeitStatus,
   KaAbweichung,
   KaStand,

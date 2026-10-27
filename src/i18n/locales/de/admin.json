@@ -265,7 +265,11 @@
         "note": "Note der zuletzt geschriebenen Arbeit",
         "noteHilfe": "Nur eintragen, wenn die Familie sie nennen möchte.",
         "fehltHinweis": "Stand der letzten Klassenarbeit fehlt – die Analyse startet mit dem aktuellen Thema.",
-        "fehltLink": "Zum Stand der Klassenarbeit"
+        "fehltLink": "Zum Stand der Klassenarbeit",
+        "anzahl": "Wie viele Mathearbeiten schreibt ihr dieses Schuljahr?",
+        "themenNaechste": "Was kommt in der nächsten Arbeit dran?",
+        "themenGeschrieben": "Was kam in dieser Arbeit dran?",
+        "termineHilfe": "Die Termine stehen oft im Klassenarbeitsplan oder in WebUntis."
       }
     },
     "optionen": {
@@ -328,9 +332,11 @@
       "elternReports": "Reports",
       "lsaReports": "LSA",
       "itemPflege": "Inhalte",
-      "stellschrauben": "Werte"
+      "stellschrauben": "Werte",
+      "klassenarbeiten": "Arbeiten"
     },
-    "stellschrauben": "Stellschrauben"
+    "stellschrauben": "Stellschrauben",
+    "klassenarbeiten": "Klassenarbeiten"
   },
   "coaches": {
     "rubrik": "Team",
@@ -544,5 +550,38 @@
       "nurAdmin": "Eine neue LSA gibt nur die Verwaltung frei.",
       "ohneLead": "Zu dieser LSA gibt es keinen Lead, über den sich eine neue LSA freigeben ließe."
     }
+  },
+  "klassenarbeiten": {
+    "titel": "Klassenarbeiten je Klasse",
+    "satz": "Mathearbeiten im Schuljahr {{schuljahr}}, abgeleitet aus Erstgespräch und Check-ins. Ein Wert gilt ab zwei übereinstimmenden Kindern oder mit Bestätigung. Für ein einzelnes Kind gehen seine eigenen Angaben vor.",
+    "spalte": {
+      "schule": "Schule",
+      "klasse": "Klasse",
+      "kinder": "Kinder mit Angaben",
+      "bestaetigt": "Bestätigt"
+    },
+    "leer": "Noch keine Angaben zu Klassenarbeiten",
+    "leerText": "Sobald im Erstgespräch oder im Check-in Themen und Termine einer Mathearbeit erfasst sind, erscheint die Klasse hier.",
+    "waehlen": "Klasse wählen",
+    "waehlenText": "Links eine Schule und Klasse antippen, um die abgeleiteten Arbeiten zu sehen.",
+    "keineFolge": "Noch keine Arbeit ableitbar",
+    "keineFolgeText": "Für diese Klasse gibt es Angaben, aber noch keine Arbeit mit Nummer oder Datum.",
+    "arbeit": "Klassenarbeit {{n}}",
+    "ohneNummer": "Arbeit ohne Nummer",
+    "bestaetigt": "bestätigt",
+    "gueltig": "übereinstimmend",
+    "offen": "noch offen",
+    "kinder_one": "{{count}} Kind stimmt überein",
+    "kinder_other": "{{count}} Kinder stimmen überein",
+    "nummer": "Nummer im Schuljahr",
+    "datum": "Datum (optional)",
+    "bestaetigen": "Bestätigen",
+    "korrigieren": "Korrigieren",
+    "speichern": "Korrektur bestätigen",
+    "nummerFehlt": "Ohne Nummer nicht bestätigbar – bitte über „Korrigieren“ eine Nummer eintragen.",
+    "korrekturFehlt": "Nummer (1–8) und mindestens ein Thema sind nötig.",
+    "gespeichert": "Klassenarbeit bestätigt.",
+    "speicherFehler": "Speichern fehlgeschlagen.",
+    "ladeFehler": "Klassenarbeiten konnten nicht geladen werden."
   }
 }

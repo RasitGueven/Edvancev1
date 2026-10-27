@@ -6,12 +6,13 @@ import { duenneLueckenweg } from '@/lib/report/elternbericht/lueckenweg'
 import type { EbFahrplan, EbKommtThema, EbStation, Elternbericht, KlassenarbeitStatus } from '@/types'
 
 import { schuleGenitiv } from './berichtSaetze'
-import { signalText, standZeile, tonVon } from './fahrplanText'
+import { folgeBekannt, signalText, standZeile, tonVon } from './fahrplanText'
 import type { SeitenProps } from './seitenProps'
 import { useAusduennen } from './useAusduennen'
 
 /**
- * Seite 3 des Eltern-Berichts (Bericht v4, Layout B): ein Block je Klassenarbeit.
+ * Seite 3 des Eltern-Berichts (Bericht v4, Layout B): ein Block je kommendem Thema (L5: mit Nummer der
+ * Klassenarbeit nur, wenn die Folge bekannt ist).
  *
  * Über den Blöcken ein Satz, der auf die Angaben der Familie eingeht (hellblauer
  * Kasten mit Haken). Je kommender Arbeit mit Signal ein Block mit allen
@@ -20,7 +21,7 @@ import { useAusduennen } from './useAusduennen'
  * wichtig“. Läuft die Seite über, dünnt sie aus wie in v3 (useAusduennen).
  */
 export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
-  const { t } = useTranslation('elternbericht')
+  const { t, i18n } = useTranslation('elternbericht')
   const voll = bericht.lueckenwegV4 ?? null
   const fahrplan = bericht.fahrplan ?? null
   const a = useAusduennen(voll)
@@ -28,7 +29,9 @@ export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
   if (!lw || !fahrplan) return null
 
   const stationVon = (k: EbKommtThema): EbStation | undefined =>
-    fahrplan.stationen.find((s) => s.nummer > 1 && s.titel === k.titel)
+    fahrplan.stationen.find((s) => s.nummer > 1 && s.themen.some((x) => x.titel === k.titel))
+  // L5: ohne bekannte Folge Themen statt Arbeiten, keine Nummern.
+  const thema = folgeBekannt(fahrplan) ? '' : 'Thema'
   const quelle =
     lw.quelle === 'klp'
       ? t('s3.v2.quelleKlp')
@@ -41,8 +44,8 @@ export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
 
   return (
     <div className="eb-s3 eb-s3v4" ref={a.ref} data-stufe={a.stufe || undefined} data-layout="B" data-v4 data-testid="eb-s3">
-      <p className="eb-kicker eb-s3-kicker">{t('v4.s3.kicker')}</p>
-      <h1 className="eb-titel eb-s3-titel">{t('v4.s3.titel')}</h1>
+      <p className="eb-kicker eb-s3-kicker">{t(`v4.s3.kicker${thema}`)}</p>
+      <h1 className="eb-titel eb-s3-titel">{t(`v4.s3.titel${thema}`)}</h1>
 
       <Einstieg
         bericht={bericht}
@@ -59,11 +62,11 @@ export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
             <section key={k.titel} className="eb-s3v4-block" data-testid="eb-s3-block">
               <header className="eb-s3v4-kopf">
                 <span className={`eb-s3v4-nr eb-ton-${ton}`} aria-hidden="true">
-                  {s?.nummer}
+                  {s?.ka}
                 </span>
                 <div className="eb-s3v4-titel">
-                  <h2>{s ? t('v4.s3.blockTitel', { n: s.nummer, thema: k.titel }) : k.titel}</h2>
-                  {s && <p>{standZeile(t, s)}</p>}
+                  <h2>{s && s.ka !== null ? t('v4.s3.blockTitel', { n: s.ka, thema: k.titel }) : k.titel}</h2>
+                  {s && <p>{standZeile(t, s, i18n.language)}</p>}
                 </div>
                 {s && (
                   <span className={`eb-s3v4-chip eb-ton-${ton}`} data-testid="eb-s3-signal">
@@ -131,7 +134,9 @@ function Einstieg({
   const { t, i18n } = useTranslation('elternbericht')
   const satz = kaSatz(bericht, status, note)
   const aktuell = fahrplan.stationen[0]
-  const n = fahrplan.stationen[1]?.nummer ?? aktuell.nummer + 1
+  const n = fahrplan.stationen[1]?.ka ?? null
+  // L5: Eine Nummer nur, wenn die Folge bekannt ist; sonst nennt der Satz das aktuelle Thema.
+  const rest = folgeBekannt(fahrplan) && n !== null ? '' : 'Thema'
   return (
     <div className="eb-s3v4-einstieg" data-testid="eb-s3-einstieg" data-ka={satz?.fall}>
       <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -145,7 +150,10 @@ function Einstieg({
               <Trans t={t} i18nKey={`v4.s3.ka.${teil.key}`} values={teil.values} components={{ b: <b /> }} />{' '}
             </Fragment>
           ))}
-        {t(status === 'geschrieben' ? 'v4.s3.rest.geschrieben' : 'v4.s3.rest.steht', { n })}
+        {t(status === 'geschrieben' ? `v4.s3.rest.geschrieben${rest}` : `v4.s3.rest.steht${rest}`, {
+          n,
+          thema: aktuell.titel,
+        })}
       </p>
     </div>
   )

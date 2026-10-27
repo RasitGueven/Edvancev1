@@ -4,7 +4,8 @@
 
 import type { EbFahrplan, EbThemaSignal, ThemenfeldKey } from '@/types'
 
-export type WichtigMarke = { nummer: number; titel: string; naechste: boolean }
+/** nummer = Position im Fahrplan (Schlüssel); ka = Nummer der Klassenarbeit, null ohne bekannte Folge (L5). */
+export type WichtigMarke = { nummer: number; ka: number | null; titel: string; naechste: boolean; unterricht: boolean }
 
 /** Höchstens so viele Marken je Zeile. */
 export const MARKEN_MAX = 2
@@ -21,7 +22,13 @@ export function wichtigFuer(
   const betrifft = (themaKey: string): boolean =>
     signale.some((s) => s.themaKey === themaKey && [...s.sitzt, ...s.fehlt].some((b) => b.feld === feld))
   return fahrplan.stationen
-    .filter((s) => s.nummer > 1 && betrifft(s.themaKey))
+    .filter((s) => s.nummer > 1 && s.themen.some((x) => betrifft(x.themaKey)))
     .slice(0, MARKEN_MAX)
-    .map((s) => ({ nummer: s.nummer, titel: s.titel, naechste: s.stand === 'naechste' }))
+    .map((s) => ({
+      nummer: s.nummer,
+      ka: s.ka,
+      titel: s.ka !== null ? (s.themen.find((x) => betrifft(x.themaKey))?.titel ?? s.titel) : s.titel,
+      naechste: s.stand === 'naechste',
+      unterricht: s.stand === 'unterricht',
+    }))
 }

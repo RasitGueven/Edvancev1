@@ -78,12 +78,22 @@ describe('Station 01 · Überblick (V4)', () => {
     expect(stationen).toHaveLength(v4.fahrplan.stationen.length)
     expect(screen.getAllByTestId('tp-fp-punkt')).toHaveLength(v4.fahrplan.stationen.length)
     expect(stationen[0]).toHaveTextContent('geschrieben')
-    expect(stationen[1]).toHaveTextContent('nächste Arbeit')
+    // L5: Folge unbekannt — keine Ziffern, Überschrift ohne „Klassenarbeiten“.
+    expect(stationen[1]).toHaveTextContent('als Nächstes im Unterricht')
     expect(stationen[1]).toHaveTextContent('Voraussetzungen fehlen noch')
-    expect(screen.getByTestId('tp-fp-satz')).toHaveTextContent('Vieles sitzt schon.')
+    for (const p of screen.getAllByTestId('tp-fp-punkt')) expect(p.textContent).toBe('')
+    expect(screen.getByTestId('tp-fahrplan').querySelector('h2')).toHaveTextContent('Was in Mathe dieses Schuljahr noch kommt')
+    expect(screen.getByTestId('tp-fp-satz')).toHaveTextContent('Vieles sitzt schon. Für die kommenden Themen')
     // Eckdaten stehen in Station 02.
     expect(screen.queryByTestId('tp-s2-eckdaten')).toBeNull()
     expect(screen.queryByText('Aufgaben bearbeitet')).toBeNull()
+  })
+
+  it('batuEigen: Ziffern der Arbeiten, „nächste Arbeit“, Überschrift mit „Klassenarbeiten“', () => {
+    zeigeV4(Station1V4, 'batuEigen')
+    expect(screen.getAllByTestId('tp-fp-punkt').map((p) => p.textContent)).toEqual(['', '2', '3', '4', ''])
+    expect(screen.getAllByTestId('tp-fp-station')[1]).toHaveTextContent('nächste Arbeit')
+    expect(screen.getByTestId('tp-fahrplan').querySelector('h2')).toHaveTextContent('Klassenarbeiten in diesem Schuljahr')
   })
 
   it('batuV4: Leitsatz mit dem Sorgfalt-Satz, ohne einzelne Voraussetzungen', () => {
@@ -150,7 +160,7 @@ describe('Station 02 · Lernstand (V4)', () => {
   })
 
   it('im Detail die Spalte „Wichtig für“ mit Nummer und Titel, nächste Arbeit hervorgehoben', () => {
-    zeigeV4(Station2, 'batuV4')
+    zeigeV4(Station2, 'batuEigen')
     const knoepfe = [...document.querySelectorAll<HTMLElement>('[data-tp-zeile] [aria-expanded]')]
     let gefunden = 0
     for (const k of knoepfe) {
@@ -165,6 +175,15 @@ describe('Station 02 · Lernstand (V4)', () => {
     expect(document.querySelector('.tp-s2-marke-naechste')).toHaveTextContent('nächste Arbeit')
     // Bereiche ohne Thema: „wird in späteren Schuljahren wichtig“
     expect(document.body.textContent).toContain('wird in späteren Schuljahren wichtig')
+  })
+
+  it('L5, Folge unbekannt: „Wichtig für“ ohne Nummer, das nächste Thema hervorgehoben', () => {
+    zeigeV4(Station2, 'batuV4')
+    for (const k of [...document.querySelectorAll<HTMLElement>('[data-tp-zeile] [aria-expanded]')]) fireEvent.click(k)
+    const marken = [...document.querySelectorAll('.tp-s2-marke')]
+    expect(marken.length).toBeGreaterThan(0)
+    for (const m of marken) expect(m.querySelector('b')).toBeNull()
+    expect(document.querySelector('.tp-s2-marke-naechste')).toHaveTextContent('als Nächstes im Unterricht')
   })
 
   it('ohne Fahrplan: Station 02 bleibt wie vor V4 (keine Eckdaten, Balken statt Kästchen)', () => {
@@ -182,7 +201,12 @@ describe('Station 03 · Klassenarbeiten', () => {
     expect(karten).toHaveLength(v4.fahrplan.stationen.length)
     expect(within(karten[0]).getByTestId('tp-ka-chip')).toHaveTextContent('geschrieben')
     expect(karten[0].className).toContain('tp-ka-geschrieben')
-    expect(within(karten[1]).getByTestId('tp-ka-chip')).toHaveTextContent('nächste Arbeit')
+    // L5: Folge unbekannt — Kopfzeile „als Nächstes im Unterricht“, Unterzeile „Thema im Schulplan“.
+    expect(within(karten[1]).getByTestId('tp-ka-chip')).toHaveTextContent('als Nächstes im Unterricht')
+    expect(within(karten[2]).getByTestId('tp-ka-chip')).toHaveTextContent('danach')
+    expect(karten[1].querySelector('small')).toHaveTextContent('Thema im Schulplan')
+    expect(karten[0].querySelector('small')).toHaveTextContent('Klassenarbeit zu Reelle Zahlen')
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Was das für die nächsten Themen heißt.')
     expect(karten[1]).toHaveTextContent('Voraussetzungen fehlen noch')
     expect(within(karten[1]).getByTestId('tp-ka-sitzt')).toBeInTheDocument()
     expect(within(karten[1]).getByTestId('tp-ka-fehlt')).toBeInTheDocument()
@@ -201,6 +225,16 @@ describe('Station 03 · Klassenarbeiten', () => {
     expect(within(karten[1]).queryByTestId('tp-ka-stand')).toBeNull()
     expect(screen.getByTestId('tp-ka-quelle')).toHaveTextContent('Schulplan des Friedrich-Wilhelm-Gymnasiums')
     expect(screen.getByTestId('tp-ka-satz')).toHaveTextContent('Vieles sitzt schon.')
+  })
+
+  it('batuEigen: Karten mit „Klassenarbeit n“, Datum, Themen der Arbeit und Zusatz zur Zuordnung', () => {
+    zeigeV4(StationKlassenarbeiten, 'batuEigen')
+    const karten = screen.getAllByTestId('tp-ka-karte')
+    expect(karten[1].querySelector('small')).toHaveTextContent('Klassenarbeit 2')
+    expect(karten[1].querySelector('small')).toHaveTextContent('26.11.')
+    expect(karten[2].querySelector('b')).toHaveTextContent('Kreise, Prismen und Zylinder · Potenzen und Potenzgesetze')
+    expect(within(karten[1]).getByTestId('tp-ka-chip')).toHaveTextContent('nächste Arbeit')
+    expect(screen.getByTestId('tp-ka-quelle')).toHaveTextContent('Zuordnung laut Ihren Angaben.')
   })
 
   it('fahrplanLang: fünf Karten und „+n weitere“', () => {
