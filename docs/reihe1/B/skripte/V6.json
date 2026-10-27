@@ -1,0 +1,239 @@
+{
+  "skill_key": "gleichung_quadr_faktor",
+  "titel": "Das Nullprodukt",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Das Nullprodukt",
+        "untertitel": "Wann ist ein Produkt null?"
+      },
+      "text": {
+        "skelett": "Ein Produkt entsteht, wenn man Zahlen malnimmt. Wann kommt dabei null heraus?"
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Ein Faktor muss null sein",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "3 \\cdot 0 = 0",
+          "0 \\cdot 7 = 0",
+          "u \\cdot v = 0 \\;\\Rightarrow\\; u = 0 \\;\\text{oder}\\; v = 0"
+        ],
+        "hervorheben": [
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Drei mal null ist null, null mal sieben ist null. Ein Produkt ist genau dann null, wenn mindestens ein Faktor null ist."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Jeden Faktor null setzen",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(x - 3)(x + 5) = 0",
+          "x - 3 = 0 \\;\\text{oder}\\; x + 5 = 0",
+          "x = 3 \\;\\text{oder}\\; x = -5"
+        ]
+      },
+      "text": {
+        "skelett": "Bei x minus drei mal x plus fünf setzen wir jede Klammer einzeln null. Das ergibt drei und minus fünf."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "x ausklammern",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 - 4x = 0",
+          "x \\cdot (x - 4) = 0"
+        ]
+      },
+      "text": {
+        "skelett": "Bei x hoch zwei minus vier x fehlt die Zahl ohne x. Dann klammern wir x aus."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Ein Faktor ist x selbst",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x \\cdot (x - 4) = 0",
+          "x = 0 \\;\\text{oder}\\; x - 4 = 0",
+          "x = 0 \\;\\text{oder}\\; x = 4"
+        ],
+        "hervorheben": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "Jetzt stehen zwei Faktoren da, und einer davon ist x selbst. Also ist null eine Lösung, die andere ist vier."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Nicht durch x teilen",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 - 4x = 0",
+          "x - 4 = 0",
+          "x = 4"
+        ],
+        "durchstreichen": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "Teilt man durch x, geht die Lösung null verloren, denn x könnte ja null sein. Deshalb klammern wir aus und teilen nicht."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Merksatz",
+      "kernidee": "k2",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Klammere x aus und setze jeden Faktor null. x = 0 ist dann immer eine der Lösungen.",
+        "formel": "x \\cdot (x - c) = 0"
+      },
+      "text": {
+        "skelett": "Merk dir: ausklammern, jeden Faktor null setzen, die Null nicht vergessen."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k2",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Wie heißen beide Lösungen?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b3",
+      "frage": {
+        "skelett": "Löse (x − 2)(x + 7) = 0."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 2 oder x = −7",
+          "richtig": true,
+          "rueckmeldung": "Genau. x − 2 = 0 oder x + 7 = 0."
+        },
+        {
+          "antwort": "x = −2 oder x = 7",
+          "fehlbild": "qf_nullprodukt_vorzeichen",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Setz die Klammern null: x − 2 = 0 heißt x = 2."
+        },
+        {
+          "antwort": "x = 2",
+          "fehlbild": "qf_nur_eine_loesung",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Auch die zweite Klammer kann null werden."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Löse (x − 4)(x + 1) = 0."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 4 oder x = −1",
+              "richtig": true,
+              "rueckmeldung": "Genau. x − 4 = 0 oder x + 1 = 0."
+            },
+            {
+              "antwort": "x = −4 oder x = 1",
+              "fehlbild": "qf_nullprodukt_vorzeichen",
+              "ruecksprung": "b3",
+              "rueckmeldung": "Setz die Klammern null: x − 4 = 0 heißt x = 4."
+            },
+            {
+              "antwort": "x = 4",
+              "fehlbild": "qf_nur_eine_loesung",
+              "ruecksprung": "b3",
+              "rueckmeldung": "Auch die zweite Klammer kann null werden."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b6",
+      "frage": {
+        "skelett": "Löse x² − 6x = 0."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 0 oder x = 6",
+          "richtig": true,
+          "rueckmeldung": "Genau. x · (x − 6) = 0."
+        },
+        {
+          "antwort": "x = 6",
+          "fehlbild": "qf_null_vergessen",
+          "ruecksprung": "b5",
+          "rueckmeldung": "Der Faktor x selbst kann auch null sein: x = 0. Nicht durch x teilen."
+        },
+        {
+          "antwort": "x = 0 oder x = −6",
+          "fehlbild": "qf_nullprodukt_vorzeichen",
+          "ruecksprung": "b5",
+          "rueckmeldung": "Aus x − 6 = 0 folgt x = 6."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Löse x² − 9x = 0."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 0 oder x = 9",
+              "richtig": true,
+              "rueckmeldung": "Genau. x · (x − 9) = 0."
+            },
+            {
+              "antwort": "x = 9",
+              "fehlbild": "qf_null_vergessen",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Der Faktor x selbst kann auch null sein: x = 0. Nicht durch x teilen."
+            },
+            {
+              "antwort": "x = 0 oder x = −9",
+              "fehlbild": "qf_nullprodukt_vorzeichen",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Aus x − 9 = 0 folgt x = 9."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
