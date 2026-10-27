@@ -1166,6 +1166,32 @@ zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung 
     p_entscheidung: uebernehmen | nicht_heute (ASCII wie die übrigen Zustände); nur Coach der Session und Admin
 ```
 
+### Übung zuhause, Offen-Regeln, Zeig's mir (D2, eingespielt als 20261027134914)
+
+```text
+home_uebung_melden(p_skill, p_anzahl 1–20, p_dauer_sek 0–7200) → void
+    nur das Kind selbst, laufender Vertrag; bucht 10 XP (Stellschraube home_uebung_xp über quest_einstellung_zahl);
+    höchstens 40 je Tag; speichert nie Antworten oder Richtigkeit
+home_uebung_kurz(p_kind, p_seit default null) → (skill_key, quests, aufgaben, dauer_sek, zuletzt)
+    Kind selbst, Coach mit aktiver Akte, Admin; p_seit null = seit der letzten abgeschlossenen Session vor Ort
+    (coaching_sessions.beendet_am, Anwesenheit present, ohne Testlauf); sortiert nach quests absteigend
+home_pfad(p_kind) → (xp_total, level, wochen_mit_uebung, serie_wochen, quests_diese_woche, praesenz_wochen)
+kompetenz_offen(p_kind) → (skill_key, zustand, grund)   stable, schreibt nie; für ALLE skills eine Zeile
+    zustand sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (Befund aus lernpfad.stand_system)
+    grund   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
+    „gemeistert“ liest der Themenbaum getrennt aus lernpfad.stand_coach (nur Coach-Bestätigung)
+kompetenz_offen_merken(p_kind) → integer    schreibt neu Offenes fest (Regel 6); App ruft es beim Öffnen des Baums
+zeigs_mir_offen(p_kind, p_session)          Coach der Session oder Admin; legt beim ersten Abruf den einen Vorschlag an
+    (Skill mit ≥ 2 Quests seit der letzten Session bis Sessionbeginn, lernpfad nicht sicher; der meistgeübte); leer,
+    wenn keiner passt. C liest entscheidung = 'uebernehmen' für die Kernarbeit.
+eddie_frage_merken(p_text 1–280) → uuid     das Kind; höchstens zehn offene
+coach_fragen_offen(p_kind) → (id, text, am) Coach mit aktiver Akte, Admin
+coach_frage_erledigt(p_frage) → void        Coach mit aktiver Akte, Admin
+```
+
+Zählweise „n× geübt“ für C (Begrüßung vor Ort): `home_uebung_kurz(p_kind)` → `quests` je Skill.
+
+
 ### Anmeldung mit Zugangscode und Geräte (D1)
 
 Edge Function `geraet_anmelden` (POST, ohne Nutzer-JWT):
