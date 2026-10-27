@@ -18522,7 +18522,7 @@ begin
     if v_seq.id is null then
       raise exception 'studio: Sequenz % fehlt', p_sequenz_id using errcode = 'P0002';
     end if;
-    if v_seq.autor_id <> auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
+    if v_seq.autor_id is distinct from auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
       raise exception 'studio: nur der Autor der Sequenz oder ein Admin' using errcode = '42501';
     end if;
     update public.studio_sequenz set skill_key = v_skill, titel = p_skript ->> 'titel', welten = v_welten,
