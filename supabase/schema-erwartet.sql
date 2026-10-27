@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict cvu3vVZaljATAegIH6n0sfXtxd9KYtTs1Wybm6rOS7XyuvXydYfA0FkhtG16duA
+\restrict TMWmNdzi4Wbf45VxPMweR4SWaEab5nI1UGXcswle1uExzcj4bVn1jTXD4dFPbNu
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -3425,6 +3425,24 @@ $$;
 
 
 --
+-- Name: geraet_abmelden_selbst(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geraet_abmelden_selbst() RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_session uuid := public.geraet_jwt_session();
+begin
+  update public.kind_geraete set abgemeldet_am = now(), abmelde_grund = 'selbst'
+   where v_session is not null and auth_session_id = v_session and abgemeldet_am is null;
+  perform public.geraet_auth_session_loeschen(case when found then v_session end);
+end;
+$$;
+
+
+--
 -- Name: geraet_auth_session_loeschen(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3454,7 +3472,7 @@ declare
   c_fenster    constant interval := interval '15 minutes';
   c_versuche   constant integer  := 5;
   c_geraete    constant integer  := 3;
-  c_bremse     constant integer  := 200;                 -- Fehlversuche systemweit je Fenster
+  c_bremse     constant integer  := 2000;                -- Fehlversuche systemweit je Fenster (31^8 Codes: kein Treffer)
   c_offen_max  constant interval := interval '2 minutes'; -- so lange darf eine Zeile ohne Session offen sein
   v_code       text := public.zugangscode_normalisieren(p_code);
   v_sperre_bis timestamptz;
@@ -3537,6 +3555,14 @@ begin
    where g.student_id = v_vertrag.student_id and g.abgemeldet_am is null and g.auth_session_id is null
      and g.angemeldet_am < now() - c_offen_max;
 
+  -- Zeilen, deren Auth-Session es nicht mehr gibt (abgelaufen, gelöscht, App neu installiert), geben ihren Platz frei.
+  if to_regclass('auth.sessions') is not null then
+    execute 'update public.kind_geraete g set abgemeldet_am = now(), abmelde_grund = ''verwaist''
+              where g.student_id = $1 and g.abgemeldet_am is null and g.auth_session_id is not null
+                and not exists (select 1 from auth.sessions s where s.id = g.auth_session_id)'
+      using v_vertrag.student_id;
+  end if;
+
   -- Dieselbe Installation zählt nicht mit: Sie ersetzt ihr altes Gerät (in geraet_session_setzen).
   select count(*) into v_aktiv from public.kind_geraete g
    where g.student_id = v_vertrag.student_id and g.abgemeldet_am is null
@@ -3565,15 +3591,12 @@ $_$;
 --
 
 CREATE FUNCTION public.geraet_jwt_session() RETURNS uuid
-    LANGUAGE plpgsql STABLE
+    LANGUAGE sql STABLE
     SET search_path TO 'public', 'pg_temp'
-    AS $$
-begin
-  return nullif(auth.jwt() ->> 'session_id', '')::uuid;
-exception when invalid_text_representation then
-  return null;
-end;
-$$;
+    AS $_$
+  select case when s ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then s::uuid end
+    from (select auth.jwt() ->> 'session_id' as s) j;
+$_$;
 
 
 --
@@ -3680,7 +3703,13 @@ CREATE FUNCTION public.get_my_student_id() RETURNS uuid
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public'
     AS $$
-  select id from students where profile_id = auth.uid() and not public.geraet_abgemeldet() limit 1;
+  select s.id from students s
+   where s.profile_id = auth.uid()
+     -- An die Schülerzeile gebunden: Für Coaches, Admins und Platz-Konten (keine Schülerzeile) entfällt die Prüfung.
+     and not exists (select 1 from kind_geraete g
+                      where g.student_id = s.id and g.auth_session_id = public.geraet_jwt_session()
+                        and g.abgemeldet_am is not null)
+   limit 1;
 $$;
 
 
@@ -6649,7 +6678,7 @@ CREATE FUNCTION public.lsa_may_act_for(p_student_id uuid) RETURNS boolean
       or (coalesce(public.get_my_role(), '') = 'coach' and public.akte_aktiv(p_student_id))
       -- coalesce: ohne Profil/Schuelerzeile ist der Vergleich NULL, und ein
       -- "if not lsa_may_act_for(…)" liesse NULL durch.
-      -- Reihe 1 · D1c: das Kind nur vor Ort, nie über eine Gerätesitzung zuhause.
+      -- Reihe 1 · D1c: das Kind nicht über eine Gerätesitzung zuhause.
       or coalesce(public.get_my_student_id() = p_student_id and not public.geraet_session(), false)
 $$;
 
@@ -21380,7 +21409,7 @@ CREATE TABLE public.kind_geraete (
     abgemeldet_am timestamp with time zone,
     abgemeldet_von uuid,
     abmelde_grund text,
-    CONSTRAINT kind_geraete_abmelde_grund_check CHECK ((abmelde_grund = ANY (ARRAY['admin'::text, 'neu_angemeldet'::text, 'abbruch'::text]))),
+    CONSTRAINT kind_geraete_abmelde_grund_check CHECK ((abmelde_grund = ANY (ARRAY['admin'::text, 'neu_angemeldet'::text, 'abbruch'::text, 'verwaist'::text, 'selbst'::text]))),
     CONSTRAINT kind_geraete_abmeldung_vollstaendig CHECK (((abgemeldet_am IS NULL) = (abmelde_grund IS NULL))),
     CONSTRAINT kind_geraete_installation_hash_check CHECK ((installation_hash ~ '^[0-9a-f]{64}$'::text)),
     CONSTRAINT kind_geraete_name_check CHECK (((char_length(btrim(name)) >= 1) AND (char_length(btrim(name)) <= 60))),
@@ -29175,14 +29204,14 @@ CREATE POLICY screening_tests_select_own ON public.screening_tests FOR SELECT US
 -- Name: screening_tests screening_tests_student_insert; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY screening_tests_student_insert ON public.screening_tests FOR INSERT WITH CHECK ((student_id = public.get_my_student_id()));
+CREATE POLICY screening_tests_student_insert ON public.screening_tests FOR INSERT WITH CHECK (((student_id = public.get_my_student_id()) AND (NOT public.geraet_session())));
 
 
 --
 -- Name: screening_tests screening_tests_student_update; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY screening_tests_student_update ON public.screening_tests FOR UPDATE USING ((student_id = public.get_my_student_id())) WITH CHECK ((student_id = public.get_my_student_id()));
+CREATE POLICY screening_tests_student_update ON public.screening_tests FOR UPDATE USING (((student_id = public.get_my_student_id()) AND (NOT public.geraet_session()))) WITH CHECK (((student_id = public.get_my_student_id()) AND (NOT public.geraet_session())));
 
 
 --
@@ -30122,5 +30151,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict cvu3vVZaljATAegIH6n0sfXtxd9KYtTs1Wybm6rOS7XyuvXydYfA0FkhtG16duA
+\unrestrict TMWmNdzi4Wbf45VxPMweR4SWaEab5nI1UGXcswle1uExzcj4bVn1jTXD4dFPbNu
 

@@ -19,7 +19,8 @@
 --
 -- Abmelden löscht die Auth-Session; der Refresh scheitert sofort, die App prüft geraet_status beim Start und bei
 -- der Rückkehr. Ein schon ausgestellter Access-Token gilt bis zu seinem Ablauf weiter, solange D1c (Freigabe
--- Rasit) nicht eingespielt ist. Rollback: supabase/rollback/20261027130748_reihe1_d1_geraete.sql.
+-- Rasit) nicht eingespielt ist. Geschwister auf demselben Tablet (gleiche Installation) lösen einander ab: Die
+-- Anmeldung des einen meldet das andere Kind auf diesem Gerät ab (gewollt, eine Installation = ein Gerät). Rollback: supabase/rollback/20261027130748_reihe1_d1_geraete.sql.
 
 create table public.kind_geraete (
   id                uuid primary key default gen_random_uuid(),
@@ -33,7 +34,7 @@ create table public.kind_geraete (
   zuletzt_gesehen   timestamptz not null default now(),
   abgemeldet_am     timestamptz,
   abgemeldet_von    uuid references public.profiles(id) on delete set null,
-  abmelde_grund     text check (abmelde_grund in ('admin', 'neu_angemeldet', 'abbruch')),
+  abmelde_grund     text check (abmelde_grund in ('admin', 'neu_angemeldet', 'abbruch', 'verwaist', 'selbst')),
   constraint kind_geraete_abmeldung_vollstaendig check ((abgemeldet_am is null) = (abmelde_grund is null))
 );
 
@@ -130,7 +131,7 @@ declare
   c_fenster    constant interval := interval '15 minutes';
   c_versuche   constant integer  := 5;
   c_geraete    constant integer  := 3;
-  c_bremse     constant integer  := 200;                 -- Fehlversuche systemweit je Fenster
+  c_bremse     constant integer  := 2000;                -- Fehlversuche systemweit je Fenster (31^8 Codes: kein Treffer)
   c_offen_max  constant interval := interval '2 minutes'; -- so lange darf eine Zeile ohne Session offen sein
   v_code       text := public.zugangscode_normalisieren(p_code);
   v_sperre_bis timestamptz;
@@ -213,6 +214,14 @@ begin
    where g.student_id = v_vertrag.student_id and g.abgemeldet_am is null and g.auth_session_id is null
      and g.angemeldet_am < now() - c_offen_max;
 
+  -- Zeilen, deren Auth-Session es nicht mehr gibt (abgelaufen, gelöscht, App neu installiert), geben ihren Platz frei.
+  if to_regclass('auth.sessions') is not null then
+    execute 'update public.kind_geraete g set abgemeldet_am = now(), abmelde_grund = ''verwaist''
+              where g.student_id = $1 and g.abgemeldet_am is null and g.auth_session_id is not null
+                and not exists (select 1 from auth.sessions s where s.id = g.auth_session_id)'
+      using v_vertrag.student_id;
+  end if;
+
   -- Dieselbe Installation zählt nicht mit: Sie ersetzt ihr altes Gerät (in geraet_session_setzen).
   select count(*) into v_aktiv from public.kind_geraete g
    where g.student_id = v_vertrag.student_id and g.abgemeldet_am is null
@@ -274,18 +283,15 @@ $$;
 comment on function public.geraet_session_setzen(uuid, uuid) is
   'Nur service_role: trägt die Auth-Session am frisch eingelösten Gerät ein; null heißt Abbruch. reihe1 fertig';
 
--- Session-ID des Aufrufers aus dem JWT, sonst null.
+-- Session-ID des Aufrufers aus dem JWT, sonst null. Reines SQL ohne Exception-Block (läuft in get_my_student_id, D1c).
 create function public.geraet_jwt_session()
 returns uuid
-language plpgsql
+language sql
 stable
 set search_path = public, pg_temp
 as $$
-begin
-  return nullif(auth.jwt() ->> 'session_id', '')::uuid;
-exception when invalid_text_representation then
-  return null;
-end;
+  select case when s ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then s::uuid end
+    from (select auth.jwt() ->> 'session_id' as s) j;
 $$;
 
 comment on function public.geraet_jwt_session() is 'Intern: session_id aus dem JWT des Aufrufers oder null.';
@@ -356,6 +362,25 @@ $$;
 
 comment on function public.geraet_status() is
   'Das Kind selbst: aktiv | abgemeldet | kein_vertrag | ohne_geraet (Passwort-Session). Merkt zuletzt_gesehen. reihe1 fertig';
+
+-- Das Kind meldet das eigene Gerät ab (Abmelden in der App); danach löscht die App die Session lokal.
+create function public.geraet_abmelden_selbst()
+returns void
+language plpgsql
+volatile
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_session uuid := public.geraet_jwt_session();
+begin
+  update public.kind_geraete set abgemeldet_am = now(), abmelde_grund = 'selbst'
+   where v_session is not null and auth_session_id = v_session and abgemeldet_am is null;
+  perform public.geraet_auth_session_loeschen(case when found then v_session end);
+end;
+$$;
+
+comment on function public.geraet_abmelden_selbst() is 'Das Kind: meldet das eigene Gerät ab und löscht dessen Auth-Session. reihe1 fertig';
 
 create function public.kind_geraete_liste(p_student uuid)
 returns table (id uuid, name text, plattform text, angemeldet_am timestamptz, zuletzt_gesehen timestamptz,
@@ -443,6 +468,7 @@ revoke all on function public.geraet_jwt_session() from public, anon;
 revoke all on function public.geraet_abgemeldet() from public, anon;
 revoke all on function public.geraet_session() from public, anon;
 revoke all on function public.geraet_status() from public, anon;
+revoke all on function public.geraet_abmelden_selbst() from public, anon;
 revoke all on function public.kind_geraete_liste(uuid) from public, anon;
 revoke all on function public.kind_geraet_abmelden(uuid) from public, anon;
 revoke all on function public.zugangscode_freischalten(uuid) from public, anon;
@@ -455,6 +481,7 @@ grant execute on function public.geraet_jwt_session() to authenticated;
 grant execute on function public.geraet_abgemeldet() to authenticated;
 grant execute on function public.geraet_session() to authenticated;
 grant execute on function public.geraet_status() to authenticated;
+grant execute on function public.geraet_abmelden_selbst() to authenticated;
 grant execute on function public.kind_geraete_liste(uuid) to authenticated;
 grant execute on function public.kind_geraet_abmelden(uuid) to authenticated;
 grant execute on function public.zugangscode_freischalten(uuid) to authenticated;

@@ -11,7 +11,7 @@
 // Lauf:  npx deno@2 test supabase/functions/geraet_anmelden/
 
 import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
-import { anmelden, sessionIdAusToken, type Dienste, type Einloesung } from './anmelden.ts'
+import { anmelden, ipFuerSperre, sessionIdAusToken, type Dienste, type Einloesung } from './anmelden.ts'
 
 const SESSION = '3f6b1c1e-1111-4a2b-9c3d-000000000001'
 const b64 = (o: unknown) => btoa(JSON.stringify(o)).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_')
@@ -97,4 +97,11 @@ Deno.test('sessionIdAusToken', () => {
   assertEquals(sessionIdAusToken(TOKEN), SESSION)
   assertEquals(sessionIdAusToken('kaputt'), null)
   assertEquals(sessionIdAusToken(`${b64({})}.${b64({ session_id: 'nein' })}.x`), null)
+})
+
+Deno.test('ipFuerSperre: IPv6 auf /64, IPv4 unverändert', () => {
+  assertEquals(ipFuerSperre('1.2.3.4'), '1.2.3.4')
+  assertEquals(ipFuerSperre('2001:db8:aa:bb:1:2:3:4'), '2001:db8:aa:bb::/64')
+  assertEquals(ipFuerSperre('2001:0db8:00aa::1'), '2001:db8:aa:0::/64')
+  assertEquals(ipFuerSperre('2001:db8:aa:bb::9'), ipFuerSperre('2001:db8:aa:bb:ffff::1'))
 })

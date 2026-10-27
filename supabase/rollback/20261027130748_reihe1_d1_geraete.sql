@@ -6,6 +6,11 @@
 -- Edge Function ist gelöscht: npx supabase functions delete geraet_anmelden --project-ref ztcppihxqcphlqaguhma
 do $$
 begin
+  -- Guard: Solange D1c gilt, hängen get_my_student_id() und alle Kind-Richtlinien an geraet_jwt_session — ein
+  -- Drop hier ließe sie bei jedem Aufruf scheitern.
+  if pg_get_functiondef('public.get_my_student_id()'::regprocedure) like '%geraet_%' then
+    raise exception 'Rollback D1 abgebrochen: zuerst D1c zurückrollen (20261027132229)';
+  end if;
   if to_regclass('auth.sessions') is not null then
     delete from auth.sessions s using public.kind_geraete g where g.auth_session_id = s.id;
   end if;
@@ -13,6 +18,7 @@ end $$;
 drop function if exists public.zugangscode_freischalten(uuid);
 drop function if exists public.kind_geraet_abmelden(uuid);
 drop function if exists public.kind_geraete_liste(uuid);
+drop function if exists public.geraet_abmelden_selbst();
 drop function if exists public.geraet_status();
 drop function if exists public.geraet_session();
 drop function if exists public.geraet_abgemeldet();

@@ -1,4 +1,4 @@
--- Rollback zu reihe1_d1c_home_sitzung: beide Grundfunktionen in der Fassung vor D1c (Prod, 27.10.2026),
+-- Rollback zu reihe1_d1c_home_sitzung: Grundfunktionen und Richtlinien in der Fassung vor D1c (Prod, 27.10.2026),
 -- danach den Eintrag in supabase_migrations.schema_migrations löschen.
 create or replace function public.get_my_student_id()
 returns uuid
@@ -23,5 +23,11 @@ as $function$
       -- "if not lsa_may_act_for(…)" liesse NULL durch.
       or coalesce(public.get_my_student_id() = p_student_id, false)
 $function$;
+
+alter policy screening_tests_student_insert on public.screening_tests
+  with check (student_id = get_my_student_id());
+alter policy screening_tests_student_update on public.screening_tests
+  using (student_id = get_my_student_id())
+  with check (student_id = get_my_student_id());
 
 delete from supabase_migrations.schema_migrations where version = '20261027132229';

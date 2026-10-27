@@ -12,6 +12,7 @@
 --   7) Rechte: einlösen nur service_role (nicht authenticated, nicht anon); Admin-Funktionen nur Admin;
 --      ein Kind sieht nie Geräte, auch nicht die eigenen, und nie das Protokoll
 --   8) Freischalten nur, wenn dieser Vertrag läuft; neuer Code über vertrag_zugangscode_neu macht den alten ungültig
+--   9) tote Auth-Session gibt den Platz frei; das Kind meldet sich selbst ab; systemweite Bremse
 --
 -- now() ist in der Testtransaktion konstant; die Zeitfälle verschieben deshalb die Zeitstempel der Zeilen.
 -- ============================================================================
@@ -254,6 +255,29 @@ select throws_ok(format('select zugangscode_freischalten(%L)', :'v3'), '55000', 
 select throws_ok(format('select zugangscode_freischalten(%L)', :'v4alt'), '55000', null,
                  '8 Altvertrag: kein Freischalten, auch wenn ein Folgevertrag läuft');
 reset role;
+
+-- ── 9) tote Session, Selbst-Abmelden, Bremse ───────────────────────────────
+-- Die Session des neuen iPhones verschwindet in auth (abgelaufen/gelöscht): beim nächsten Einlösen wird die Zeile frei.
+delete from auth.sessions where id = :'sess1b';
+select is((select ergebnis from geraet_einloesen('EDV-K7M2-QX9A', 'Tablet neu', 'android', pg_temp.h('inst-13'), pg_temp.h('ip-13'))),
+          'ok', '9 Einlösen nach toter Session');
+select is((select abmelde_grund from kind_geraete where auth_session_id = :'sess1b'), 'verwaist',
+          '9 die Zeile mit toter Session ist als verwaist abgemeldet');
+select id as g13 from kind_geraete where installation_hash = pg_temp.h('inst-13') \gset
+insert into auth.sessions (id, user_id) values ('aaaaaaaa-0000-4000-8000-000000000013', :'k1');
+select geraet_session_setzen(:'g13', 'aaaaaaaa-0000-4000-8000-000000000013');
+select pg_temp.als(:'k1', 'aaaaaaaa-0000-4000-8000-000000000013');
+select lives_ok('select geraet_abmelden_selbst()', '9 das Kind meldet das eigene Gerät ab');
+select is(geraet_status(), 'abgemeldet', '9 danach abgemeldet');
+reset role;
+select is((select abmelde_grund from kind_geraete where id = :'g13'), 'selbst', '9 Grund selbst');
+select is((select count(*)::int from auth.sessions where id = 'aaaaaaaa-0000-4000-8000-000000000013'), 0, '9 Session gelöscht');
+insert into zugangscode_versuche (installation_hash, ip_hash, ergebnis)
+select pg_temp.h('flut-' || n), pg_temp.h('flutip-' || n), 'falsch' from generate_series(1, 2000) n;
+select is((select ergebnis from geraet_einloesen('EDV-K7M2-QX9A', 'x', 'ios', pg_temp.h('inst-14'), pg_temp.h('ip-14'))),
+          'gesperrt', '9 2000 Fehlversuche systemweit: Bremse, auch für einen richtigen Code');
+select ok((select warte_sek <= 60 from geraet_einloesen('EDV-K7M2-QX9A', 'x', 'ios', pg_temp.h('inst-14'), pg_temp.h('ip-14'))),
+          '9 die Bremse dauert höchstens eine Minute');
 
 select * from finish();
 rollback;

@@ -50,6 +50,16 @@ export function sessionIdAusToken(token: string): string | null {
   }
 }
 
+/** IPv6 auf das /64 kürzen (ein Anschluss hat ein ganzes /64), IPv4 unverändert. */
+export function ipFuerSperre(ip: string): string {
+  if (!ip.includes(':')) return ip
+  const [kopf, rest = ''] = ip.toLowerCase().split('::')
+  const vorn = kopf ? kopf.split(':') : []
+  const hinten = rest ? rest.split(':') : []
+  const voll = ip.includes('::') ? [...vorn, ...Array(Math.max(0, 8 - vorn.length - hinten.length)).fill('0'), ...hinten] : vorn
+  return voll.slice(0, 4).map((t) => t.replace(/^0+(?=.)/, '')).join(':') + '::/64'
+}
+
 export async function anmelden(
   body: Record<string, unknown>,
   ip: string | null,
@@ -70,7 +80,7 @@ export async function anmelden(
     p_name: name,
     p_plattform: plattform,
     p_installation_hash: await d.hmac('geraet:' + installation),
-    p_ip_hash: await d.hmac('ip:' + ip),
+    p_ip_hash: await d.hmac('ip:' + ipFuerSperre(ip)),
   })
   if (e.ergebnis !== 'ok') return { status: 200, body: { ergebnis: e.ergebnis, warte_sek: e.warte_sek } }
   if (!e.email || !e.geraet_id) return { status: 500, body: { ergebnis: 'fehler' } }
