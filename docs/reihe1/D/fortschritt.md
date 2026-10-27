@@ -16,3 +16,4 @@
 | 2026-10-27 | D2 Coach | Kachel „Zuhause geübt“ (eigene Komponente, 4 Tests); Einbau wartet auf C0b (#332) | – |
 | 2026-10-27 | D1 App | PR geöffnet, Ansichtstests 72 bestanden / 19 übersprungen | https://github.com/RasitGueven/edvance-app/pull/52 |
 | 2026-10-27 | D4 Backend | themenbaum_themen; Zweitprüfung ohne blockierend, 3 sollte behoben; eingespielt (t); Batu: Reelle Zahlen zuerst, aktuell, FWG-Reihenfolge | – |
+| 2026-10-27 | D4b | Session-Tablet liest den Themenbaum seines Kindes (für den Ausschnitt in C); Zweitprüfung ohne blockierend, Tests ergänzt; eingespielt (t\|1) | – |

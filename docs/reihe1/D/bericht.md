@@ -25,6 +25,7 @@ selbst einspielen“), jeweils nach der Zweitprüfung durch einen frischen Subag
 | 20261027134914 | reihe1_d2_home_uebung | 11\|4\|6 |
 | 20261027140343 | reihe1_d2b_lsa_befund | t\|t\|4 |
 | 20261027141641 | reihe1_d4_themenbaum | t |
+| 20261027160142 | reihe1_d4b_tablet_lesen | t\|1 |
 
 Nicht eingespielt (kein Migrationsschritt): **Edge Function `geraet_anmelden`** →
 `bash ~/einspielen/D-1b-edge-function.sh` (setzt das Secret `GERAET_PEPPER` und deployt). Ohne sie endet jede
@@ -65,7 +66,7 @@ Anmeldung mit Code in „Das hat gerade nicht geklappt“. Dashboard: `~/einspie
 5. Das Kind sieht LSA-Befunde im Baum, bevor der Coach sie bespricht (Anforderung §2 sagt ja; bitte bestätigen).
 6. **Schulplan:** Plan-Themen früherer Jahrgänge erscheinen nur einmal, an ihrer Stelle im Plan.
 7. **Themenliste:** Sie scrollt bei langen Schulplänen (Anforderung: nichts scrollt). Der Baum skaliert ohne Scrollen.
-8. **ThemenbaumAusschnitt im Check-out:** Am Platz-Konto liefert `kompetenz_offen` 42501, die Komponente zeigt dann
+8. ~~ThemenbaumAusschnitt im Check-out~~: erledigt mit D4b (`20261027160142`, eingespielt). Für C: bei 42501 (Session abgeschlossen) blendet sich der Ausschnitt still aus.
    nichts. Für C muss `home_darf_lesen` das Tablet der laufenden Session zulassen.
 9. **Avatar:** AV1 fehlt auf origin/dev. Bis dahin ist `src/components/avatar/Figur.tsx` ein Platzhalter mit
    Schnittstelle `{ avatarId, size, pose }`.
