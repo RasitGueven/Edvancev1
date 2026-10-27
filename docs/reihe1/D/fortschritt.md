@@ -9,4 +9,9 @@
 | 2026-10-27 | D1 Zweitprüfung 1 | 2 blockierend (Sperre umgehbar, verwaiste Zeilen), 6 sollte → Korrekturrunde 1: IP-Pflicht, Lock je IP, Bremse, Abbruch nach 2 Min., Gültigkeit je Vertrag, HMAC, Löschfrist; D1c (Auth-Änderung, Freigabe Rasit) | – |
 | 2026-10-27 | D1 App | Code eingeben, Weiche web/nativ, Gerätewache; 361 Unit-Tests, home-code Ansichtstests 3/3 | – |
 | 2026-10-27 | D1 Zweitprüfung 2 | 1 blockierend (Passwortwechsel über Gerätesitzung → Sitzung ohne Gerätezeile) bleibt als Entscheidung Rasit offen, Rest behoben: tote Sessions, Selbst-Abmelden, Bremse 2000, IPv6 /64, Rollback-Guard, get_my_student_id an Schülerzeile gebunden (3 µs statt 2 µs für Nicht-Kinder), screening_tests ohne Gerätesitzung; volle pgTAP-Suite grün | – |
+| 2026-10-27 | D1 PR | https://github.com/RasitGueven/Edvancev1/pull/339 | – |
 | 2026-10-27 | D1 eingespielt | Anweisung Rasit „alle Migrationen selbst einspielen“: 20261027130748 (Prüfabfrage 12\|t) und 20261027132229 (t\|t\|t), Lesetest in Prod (Kind erkannt, Admin unverändert). Edge Function noch nicht deployt (kein Migrationsschritt, ~/einspielen/D-1b-edge-function.sh). schema-erwartet aus dem Neuaufbau, weil Prod schon A/B/C-Migrationen trägt | – |
+| 2026-10-27 | D2 Backend | Migration 20261027134914; Zweitprüfung 2 blockierend (KA-Status, Regel 6) + 6 sollte behoben; eingespielt, Prüfabfrage 11\|4\|6 | – |
+| 2026-10-27 | D2b | LSA als Befundquelle (Batu in Prod vorher 0 sicher); Zweitprüfung 1 blockierend (Regel 6 bei LSA-Herabstufung) behoben; eingespielt t\|t\|4; Batu jetzt 25 sicher · 8 noch nicht sicher · 50 offen · 47 gesperrt | – |
+| 2026-10-27 | D2 Coach | Kachel „Zuhause geübt“ (eigene Komponente, 4 Tests); Einbau wartet auf C0b (#332) | – |
+| 2026-10-27 | D1 App | PR geöffnet, Ansichtstests 72 bestanden / 19 übersprungen | https://github.com/RasitGueven/edvance-app/pull/52 |
