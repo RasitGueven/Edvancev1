@@ -1,6 +1,6 @@
 # Bauauftrag D · Home light · Bericht
 
-Stand 27.10.2026 · Orchestrator-Lauf in einer Sitzung · Einspielen: auf Anweisung Rasit selbst („alle Migrationen
+Stand 27.10.2026 (Abschluss des Laufs) · Orchestrator-Lauf in einer Sitzung · Einspielen: auf Anweisung Rasit selbst („alle Migrationen
 selbst einspielen“), jeweils nach der Zweitprüfung durch einen frischen Subagenten.
 
 ## PRs in Merge-Reihenfolge
@@ -14,7 +14,11 @@ selbst einspielen“), jeweils nach der Zweitprüfung durch einen frischen Subag
 | 344 | Edvancev1 | D2 Übung zuhause, Offen-Regeln, Zeig's mir, D2b LSA-Befunde | 339 | offen, eingespielt |
 | 345 | Edvancev1 | D2 Coach-Kachel „Zuhause geübt“ | 344 (+ C0b #332 für den Einbau) | offen |
 | 348 | Edvancev1 | D4 Themenliste (Backend) | 344 | offen, eingespielt |
-| (D3–D7) | edvance-app | D3 Start, D4 Themenbaum, D5 Ich und Eddie, D6 Geräte, D7 Store | 52 | siehe unten |
+| 57 | edvance-app | D3 Start (Quest wartet auf A), D4 Themenbaum, ThemenbaumAusschnitt | 52, 344, 348 | offen |
+| 353 | Edvancev1 | D4b Session-Tablet liest den Themenbaum seines Kindes | 348 | offen, eingespielt |
+| 58 | edvance-app | D5 Ich und Eddie ohne Sprachmodell | 57 | offen |
+| 59 | edvance-app | D6 Geräte (iPhone, Android, iPad hoch/quer) | 58 | offen |
+| 60 | edvance-app | D7 Store (app.json, eas.json, Icons, Splash, Privacy Manifest, Store-Texte) | 59 | offen |
 
 ## Migrationen (alle in Prod, per dbread geprüft)
 
@@ -43,7 +47,7 @@ Anmeldung mit Code in „Das hat gerade nicht geklappt“. Dashboard: `~/einspie
 | 6 | Coach-Check-in „3× geübt“, Zeig's mir, höchstens einer je Kind und Session | pgTAP grün; Kachel-Tests grün; Einbau wartet auf C0b |
 | 7 | Profil trennt Pfad und Kompetenz, kein „gemeistert“ ohne Coach | Ansichtstest grün |
 | 8 | Eddie ohne Sprachmodell, nur Freigegebenes, Frage an den Coach | Ansichtstest grün; Frage landet in `coach_fragen` (pgTAP) |
-| 9 | Kiosk-Web-App unverändert | volle Ansichtstest-Suite je PR grün |
+| 9 | Kiosk-Web-App unverändert | volle Ansichtstest-Suite grün (D1: 72/19, D3+D4: 80/19, D5–D7: 97/19 + 2 Eddie-Fälle nach Fix grün) |
 | 10 | iOS- und Android-Build | **Haltepunkt:** `eas whoami` → „Not logged in“; alles vorbereitet (`docs/reihe1/D/store/rasit.md`) |
 
 ## Entscheidungen im Lauf
