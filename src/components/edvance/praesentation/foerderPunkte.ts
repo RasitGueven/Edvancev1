@@ -107,7 +107,8 @@ function lernpfadPunkt(l: EbLernpfadPunkt, i: number, v4: PraesentationV4, texte
     sitzt,
     angehen: l.teile,
     rest: l.rest,
-    ziel: zielFuer(v4, art, texte),
+    // L5 Teil D: Passt kein Ziel zum ersten Punkt, trägt er das erste Systemziel (Ziele erscheinen immer).
+    ziel: zielFuer(v4, art, texte) ?? (i === 0 && v4.ziele[0] ? texte.tb(v4.ziele[0].schluessel, v4.ziele[0].werte) : null),
   }
 }
 

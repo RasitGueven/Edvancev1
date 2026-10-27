@@ -283,3 +283,33 @@
   border-color: var(--color-eb-gold);
   background: var(--color-eb-gold);
 }
+
+/* L5 Teil D: ohne Förderpunkte die Ziele als ruhige Liste unter dem Satz. */
+.tp .tp-s4-ziele {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+  margin-top: 16px;
+}
+.tp .tp-s4-ziele h3 {
+  color: var(--color-eb-leise);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.tp .tp-s4-ziele ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 18px;
+  color: var(--color-eb-text);
+  font-size: 15px;
+  line-height: 1.45;
+  list-style: disc;
+}
+.tp .tp-s4-ziele p {
+  color: var(--color-eb-leise);
+  font-size: 13px;
+}

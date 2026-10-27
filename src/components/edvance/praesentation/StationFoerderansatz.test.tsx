@@ -1,13 +1,13 @@
 // V4-3: Station 04 Förderansatz — Punkte in Lernpfad-Reihenfolge von links
 // unten nach rechts oben, Gruppenpunkt, Sorgfalt-Punkt, fester Kasten, zurück/
 // weiter und Pfeiltasten, Ziel-Zeile nur bei bestätigten Zielen.
-import { cleanup, fireEvent, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 import '@/i18n'
 
 import { StationFoerderansatz } from './StationFoerderansatz'
 import { lagen } from './foerderPunkte'
-import { zeigeV4 } from './testV4'
+import { datenV4, zeigeV4 } from './testV4'
 
 afterEach(cleanup)
 
@@ -167,5 +167,18 @@ describe('Station 04 · Empfehlung und Hinweis', () => {
     const n = screen.queryAllByRole('tab').length
     expect(n).toBeLessThanOrEqual(5)
     if (n === 0) expect(screen.queryByTestId('tp-s4v-kasten')).toBeNull()
+  })
+})
+
+describe('Station 04 · L5 Teil D', () => {
+  it('ohne Förderpunkte die Ziele als Liste mit Kicker und „keine Noten“', () => {
+    const { props, v4 } = datenV4('batuV4', { zieleBestaetigt: false })
+    const leer = { ...v4, muster: null, bericht: { ...v4.bericht, lernpfad: [] } }
+    render(<StationFoerderansatz {...props} v4={leer} />)
+    const ziele = screen.getByTestId('tp-s4-ziele')
+    expect(ziele).toHaveTextContent('Unser Vorschlag: Ziele für die nächsten 6 Monate')
+    expect(ziele.querySelectorAll('li').length).toBe(v4.ziele.length)
+    expect(ziele).toHaveTextContent('Wir versprechen keine Noten')
+    expect(screen.queryAllByRole('tab')).toHaveLength(0)
   })
 })
