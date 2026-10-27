@@ -35,5 +35,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | Skript | Stand | Prüfabfrage |
 |---|---|---|
 | `~/einspielen/A-1-pool_trennung.sh` | eingespielt 27.10.2026 (Orchestrator) | `0 \| 1186` ✓ |
+| `~/einspielen/A-4-motor_pilot.sh` | eingespielt 27.10.2026 (Orchestrator) | `NP-2 zur_pruefung 83 \| WZ-1 zur_pruefung 26` ✓ |
+| `~/einspielen/A-3b-vorschau.sh` | eingespielt 27.10.2026 (Orchestrator) | `true` ✓ |
 | `~/einspielen/A-3-formate.sh` | eingespielt 27.10.2026 (Orchestrator) | `2 \| 1 \| 1 \| 1` ✓ |
 | `~/einspielen/A-2-datenmodell.sh` | eingespielt 27.10.2026 (Orchestrator) | `15 \| 39 \| 6` ✓; Prod-Abzug enthält alle A-Objekte des Branches (Abweichung nur `get_my_student_id`, von Auftrag D geändert) |
