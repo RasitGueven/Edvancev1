@@ -22,6 +22,12 @@ afterEach(cleanup)
 /** „Klassenarbeit 2“, „Klassenarbeit 2 und 3“, auch ohne Leerzeichen. */
 const NUMMER = /Klassenarbeit\s*\d/
 
+/** Vorgelesene und Tooltip-Texte (aria-label, title) gehören dazu. */
+const attribute = (el: Element): string =>
+  [...el.querySelectorAll('[aria-label], [title]')]
+    .map((x) => `${x.getAttribute('aria-label') ?? ''} ${x.getAttribute('title') ?? ''}`)
+    .join(' ')
+
 const folge = (name: string, faelle: typeof FAELLE): string | null => {
   const d = faelle[name].data
   if (d.erzaehlung.kompetenzen.length === 0) return null
@@ -48,6 +54,7 @@ describe('INV-4 · L5 · keine Nummer ohne bekannte Folge', () => {
     const b = bogenV4(name)
     const text = b.container.textContent ?? ''
     expect(text).not.toMatch(NUMMER)
+    expect(attribute(b.container)).not.toMatch(NUMMER)
     const fp = b.seite(1).querySelector('[data-testid="eb-fahrplan"]')!
     expect(fp.querySelectorAll('.eb-fp-nr')).toHaveLength(0)
     // Ziffern nur im Trenner („Klasse 10“), nie in einem Kreis.
@@ -76,6 +83,7 @@ describe('INV-4 · L5 · keine Nummer ohne bekannte Folge', () => {
         expect(r.container.textContent, `${name}`).not.toMatch(NUMMER)
       }
       expect(r.container.textContent, name).not.toMatch(NUMMER)
+      expect(attribute(r.container), name).not.toMatch(NUMMER)
       if (Station === Station1V4) {
         for (const p of r.container.querySelectorAll('[data-testid="tp-fp-punkt"]')) expect(p.textContent).toBe('')
         expect(r.container.querySelector('[data-testid="tp-fahrplan"] h2')!.textContent).not.toMatch(/Klassenarbeiten/)

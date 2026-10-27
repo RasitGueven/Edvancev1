@@ -175,7 +175,8 @@ function mitFolge(
         schuljahr: 'dieses',
         stand: geschrieben ? 'geschrieben' : 'naechste',
         signal: null,
-        note: geschrieben ? (a.note ?? e.note ?? null) : null,
+        // Die Note aus dem Erstgespräch gehört zur gemeldet geschriebenen Arbeit, nicht zu einer, die nur nach Datum vorbei ist.
+        note: geschrieben ? (a.note ?? (status === 'geschrieben' ? (e.note ?? null) : null)) : null,
       }
     : {
         ...themaStation(jetzt, 1, status === 'geschrieben' ? 'geschrieben' : status === 'bevorstehend' ? 'steht' : 'aktuell', 'dieses', null),
@@ -199,7 +200,8 @@ function mitFolge(
       datum: x.datum,
       halbjahr: halbjahrVon.get(kopf.themaKey) ?? null,
       schuljahr: 'dieses',
-      stand: stationen.length === 1 && erste.stand !== 'naechste' ? 'naechste' : 'voraussichtlich',
+      // „nächste Arbeit“ nur einmal: nicht, wenn die Arbeit des aktuellen Themas ansteht (mit oder ohne Nummer).
+      stand: stationen.length === 1 && erste.stand !== 'naechste' && erste.stand !== 'steht' ? 'naechste' : 'voraussichtlich',
       signal: schlechtestes(x.themen.map((t) => signalVon(e.signale, t.themaKey))),
       note: null,
     })

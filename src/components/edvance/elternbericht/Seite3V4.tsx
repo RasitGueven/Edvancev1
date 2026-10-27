@@ -134,7 +134,7 @@ function Einstieg({
   const { t, i18n } = useTranslation('elternbericht')
   const satz = kaSatz(bericht, status, note)
   const aktuell = fahrplan.stationen[0]
-  const n = fahrplan.stationen[1]?.ka ?? (aktuell.ka !== null ? aktuell.ka + 1 : null)
+  const n = fahrplan.stationen[1]?.ka ?? null
   // L5: Eine Nummer nur, wenn die Folge bekannt ist; sonst nennt der Satz das aktuelle Thema.
   const rest = folgeBekannt(fahrplan) && n !== null ? '' : 'Thema'
   return (

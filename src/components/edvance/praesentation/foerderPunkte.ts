@@ -78,7 +78,9 @@ function lernpfadPunkt(l: EbLernpfadPunkt, i: number, v4: PraesentationV4, texte
   // L5: Nummer der Klassenarbeit nur bei bekannter Folge, sonst das Thema.
   const pille = voraussetzungText(tb, v4.fahrplan, l.ziele) ?? ohneZiel
   const ziel = n === undefined ? undefined : station(n)
-  const zeile = !ziel ? ohneZiel : ziel.ka !== null ? tp('v4.s3.karte', { n: ziel.ka }) : ziel.titel
+  // Die Zeile unter dem Kurvenpunkt bleibt kurz: ohne bekannte Arbeit der Stand der Station („als Nächstes im
+  // Unterricht“), das Thema steht in der Pille im Kasten.
+  const zeile = !ziel ? ohneZiel : ziel.ka !== null ? tp('v4.s3.karte', { n: ziel.ka }) : tb(`v4.stand.${ziel.stand}`)
 
   let sitzt: string[]
   if (l.art === 'gruppe' && n !== undefined) {

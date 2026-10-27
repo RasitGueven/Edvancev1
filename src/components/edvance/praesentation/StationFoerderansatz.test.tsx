@@ -87,8 +87,8 @@ describe('Station 04 · fester Kasten', () => {
     zeigeV4(StationFoerderansatz, 'batuV4')
     const namen = punkte().map((p) => p.textContent ?? '')
     for (const n of namen) expect(n).not.toMatch(/Klassenarbeit \d/)
-    expect(namen[0]).toContain('Quadratische Funktionen')
-    expect(kasten()).toHaveTextContent('Voraussetzung für „')
+    expect(namen[0]).toContain('als Nächstes im Unterricht')
+    expect(kasten()).toHaveTextContent('Voraussetzung für „Quadratische Funktionen“')
     expect(kasten().textContent).not.toMatch(/Klassenarbeit \d/)
   })
 

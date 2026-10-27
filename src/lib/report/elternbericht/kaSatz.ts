@@ -44,6 +44,8 @@ export function kaSatz(
   if (!thema) return null
   const sicher = (bericht.thema?.sicher ?? []).slice(0, JE_PLATZHALTER)
   const unsicher = (bericht.thema?.uebung ?? []).slice(0, JE_PLATZHALTER)
+  // L5: Gilt die Arbeit des aktuellen Themas nach ihrem Datum als geschrieben, folgt der Satz dem Fahrplan.
+  if (bericht.fahrplan?.stationen[0]?.stand === 'geschrieben') status = 'geschrieben'
   if (status !== 'geschrieben') return { fall: 'steht', thema, sicher: [], unsicher: [], note: null, k: null }
   const mitNote = note !== null && note >= 1 && note <= 6
   return { fall: mitNote ? 'note' : 'offen', thema, sicher, unsicher, note: mitNote ? note : null, k: kommendeArbeit(bericht, unsicher) }

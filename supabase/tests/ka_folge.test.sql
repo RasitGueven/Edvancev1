@@ -11,7 +11,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(32);
+select plan(33);
 
 -- a) Nichts vorbelegt (Entscheidung 5)
 select is((select count(*)::int from lead_klassenarbeiten), 0, 'a1 keine Arbeit eines Kindes vorbelegt');
@@ -163,6 +163,13 @@ select results_eq(
   format($$select nr, thema_keys, herkunft from ka_folge_lead(%L, '2026/27') where nr is not null$$, :'l2'),
   $$values (2, array['kf_b', 'kf_c'], 'schule'), (3, array['kf_d'], 'eigen')$$,
   'f2 gemeinsames Thema mit eigener Arbeit: die Arbeit der Schule entfällt');
+-- Kind 1 hat nur eine Arbeit ohne Nummer (Check-in/Erstgespräch: 12.11., kf_a + kf_b + kf_c). Sie trifft Arbeit 2
+-- der Schule (kf_b + kf_c): Nummer aus der Klasse, Themen, Datum und Stand bleiben die eigenen.
+select results_eq(
+  format($$select nr, thema_keys, datum, status, herkunft from ka_folge_lead(%L, '2026/27')$$, :'l1'),
+  $$values (2, array['kf_a', 'kf_b', 'kf_c'], '2026-11-12'::date, 'bevorstehend', 'schule'),
+           (4, array['kf_d'], null::date, null::text, 'schule')$$,
+  'f3 eigene Arbeit ohne Nummer übernimmt die Nummer der Klasse, eigenes Datum und eigener Stand gehen vor');
 reset role;
 
 select * from finish();

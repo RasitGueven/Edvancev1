@@ -104,4 +104,19 @@ describe('Folge bekannt (Entscheidung 10)', () => {
     const f = baueFahrplan({ ...EINGABE, arbeiten: [ka(1, ['zahl_unbekannt_vorher'], { status: 'geschrieben' })] })!
     expect(f.folge).toBe('unbekannt')
   })
+
+  it('Zweitprüfung: aktuelle Arbeit ohne Nummer steht an → keine zweite „nächste Arbeit“', () => {
+    const f = baueFahrplan({ ...EINGABE, klassenarbeitStatus: 'bevorstehend', arbeiten: [ka(3, ['kreis', 'potenzen'])] })!
+    expect(f.stationen[0]).toMatchObject({ ka: null, stand: 'steht' })
+    expect(f.stationen.filter((s) => s.stand === 'naechste')).toEqual([])
+  })
+
+  it('Zweitprüfung: Note aus dem Erstgespräch nur bei gemeldet geschriebener Arbeit', () => {
+    const vorbei = ka(1, ['reelle_zahlen'], { datum: '2026-10-20' })
+    expect(baueFahrplan({ ...EINGABE, note: 4, arbeiten: [vorbei] })!.stationen[0]).toMatchObject({ stand: 'geschrieben', note: null })
+    expect(
+      baueFahrplan({ ...EINGABE, klassenarbeitStatus: 'geschrieben', note: 4, arbeiten: [vorbei] })!.stationen[0],
+    ).toMatchObject({ stand: 'geschrieben', note: 4 })
+  })
 })
+
