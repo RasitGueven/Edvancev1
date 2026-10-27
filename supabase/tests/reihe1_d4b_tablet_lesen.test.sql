@@ -56,12 +56,34 @@ set local role authenticated;
 select ok((select count(*) from kompetenz_offen(:'s1')) > 0, '1 Tablet liest kompetenz_offen seines Kindes');
 select lives_ok(format('select * from home_uebung_kurz(%L)', :'s1'), '1 Tablet liest home_uebung_kurz seines Kindes');
 select throws_ok(format('select * from kompetenz_offen(%L)', :'s2'), '42501', null, '2 nie ein anderes Kind');
+select lives_ok(format('select * from themenbaum_themen(%L)', :'s1'), '1 Tablet liest themenbaum_themen');
+select lives_ok(format('select * from home_pfad(%L)', :'s1'), '1 Tablet liest home_pfad');
+select lives_ok(format('select kompetenz_offen_merken(%L)', :'s1'), '1 Tablet darf Offenes festschreiben (abgeleitet)');
 select throws_ok($$select home_uebung_melden('zz', 1, 60)$$, '42501', null, '3 das Tablet meldet keine Übung');
 reset role;
-update session_tablets set geloest_am = now() where id = :'zuw';
+-- Kind als abwesend markiert, Tablet noch zugewiesen: kein Zugriff.
+update session_students set attendance = 'unexcused' where session_id = :'sess' and student_id = :'s1';
 select pg_temp.als(:'tablet');
 set local role authenticated;
-select throws_ok(format('select * from kompetenz_offen(%L)', :'s1'), '42501', null, '2 nach gelöster Zuweisung nichts mehr');
+select throws_ok(format('select * from kompetenz_offen(%L)', :'s1'), '42501', null, '2 abwesend markiert: nichts mehr');
+reset role;
+update session_students set attendance = 'present' where session_id = :'sess' and student_id = :'s1';
+-- Neuzuweisung: dasselbe Tablet bekommt Kind 2, Kind 1 nicht mehr.
+update session_tablets set geloest_am = now() where id = :'zuw';
+insert into session_tablets (session_id, student_id, tablet_nr, geraet_id, zugewiesen_von)
+values (:'sess', :'s2', 5, :'tablet', :'coach') returning id as zuw2 \gset
+select pg_temp.als(:'tablet');
+set local role authenticated;
+select throws_ok(format('select * from kompetenz_offen(%L)', :'s1'), '42501', null, '2 nach gelöster Zuweisung nichts mehr vom alten Kind');
+select ok((select count(*) from kompetenz_offen(:'s2')) > 0, '2 Neuzuweisung: das neue Kind');
+reset role;
+-- Session beendet, Zuweisung bleibt offen: nichts mehr.
+select set_config('edvance.session_rpc', '1', true);
+update coaching_sessions set status = 'done', beendet_am = now() where id = :'sess';
+select set_config('edvance.session_rpc', '', true);
+select pg_temp.als(:'tablet');
+set local role authenticated;
+select throws_ok(format('select * from kompetenz_offen(%L)', :'s2'), '42501', null, '2 nach beendeter Session nichts mehr');
 reset role;
 
 select * from finish();

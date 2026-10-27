@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict BKL2GAxKD9PMtObh6mVez9XY4PzzKfcL7uCHolh6HeAOezgVoDLXj76YzGXzf8x
+\restrict dsjYTUPArlspVjkkmsVhuneTlHcgyXVSD7F492lqrIfDRiTfufSugzuwi6tzxyw
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -4016,6 +4016,8 @@ CREATE FUNCTION public.home_darf_lesen(p_kind uuid) RETURNS boolean
       -- Session-Tablet: das Platz-Konto, an dem das Kind gerade in einer aktiven Session sitzt.
       or exists (select 1 from public.session_tablets st
                    join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+                   join public.session_students ss on ss.session_id = st.session_id and ss.student_id = st.student_id
+                                                  and ss.attendance in ('planned', 'present')
                   where st.geraet_id = auth.uid() and st.student_id = p_kind and st.geloest_am is null);
 $$;
 
@@ -31073,5 +31075,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict BKL2GAxKD9PMtObh6mVez9XY4PzzKfcL7uCHolh6HeAOezgVoDLXj76YzGXzf8x
+\unrestrict dsjYTUPArlspVjkkmsVhuneTlHcgyXVSD7F492lqrIfDRiTfufSugzuwi6tzxyw
 
