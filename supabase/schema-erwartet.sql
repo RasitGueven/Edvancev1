@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict a6tcuUhWXdhCypnFeLRuRYphjE0mmdG3giqcChiQw0bDdhI9pSwZzlbgfOYtRUy
+\restrict Lc6CwCAzylUcHhaOABhRpkdaRyJJKhy8QiREfUFVvRC34Touh8MNS5ORGUIReMR
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -4738,12 +4738,14 @@ begin
   -- Befund vor Ort: lernpfad (Session, Coach; gemeistert gilt als sicher) vor der jüngsten LSA. Testlauf-LSAs zählen
   -- nur bei Testkindern (students.ist_test), wie die Testläufe selbst.
   lp_befund as (
-    select lp.skill_key, case when lp.stand_coach = 'gemeistert' then 'sicher' else lp.stand_system end as stand_system
+    select lp.skill_key, case when lp.stand_coach = 'gemeistert' then 'sicher' else lp.stand_system end as stand_system,
+           lp.quelle, lp.stand_coach, lp.lsa_session_id
       from public.lernpfad lp
      where lp.student_id = p_kind and (lp.stand_system in ('sicher', 'noch_nicht_sicher') or lp.stand_coach = 'gemeistert')
   ),
+  -- nicht_angesetzt und ungeprueft sind kein Befund (anders als lernpfad_aus_lsa, offener Punkt im Bericht).
   lsa_befund as (
-    select distinct on (u.skill_key) u.skill_key,
+    select distinct on (u.skill_key) u.skill_key, u.session_id,
            case when u.zustand = 'traegt' then 'sicher' else 'noch_nicht_sicher' end as stand_system
       from public.lsa_skill_urteil u
       join public.lsa_sessions ls on ls.id = u.session_id
@@ -4754,10 +4756,17 @@ begin
        and u.zustand in ('traegt', 'traegt_teilweise', 'traegt_nicht')
      order by u.skill_key, ls.completed_at desc nulls last, u.aktualisiert desc
   ),
+  -- Vorrang nach Aktualität wie in lernpfad_aus_lsa: Eine reine LSA-Zeile im Lernpfad (quelle lsa, ohne Coach)
+  -- weicht einer jüngeren, noch nicht übernommenen LSA; Session- und Coach-Befunde gehen immer vor.
   befund as (
-    select * from lp_befund
+    select p.skill_key, p.stand_system from lp_befund p
+     where not (p.quelle = 'lsa' and p.stand_coach is null
+                and exists (select 1 from lsa_befund l where l.skill_key = p.skill_key
+                             and l.session_id is distinct from p.lsa_session_id))
     union all
-    select l.* from lsa_befund l where not exists (select 1 from lp_befund p where p.skill_key = l.skill_key)
+    select l.skill_key, l.stand_system from lsa_befund l
+     where not exists (select 1 from lp_befund p where p.skill_key = l.skill_key
+                        and not (p.quelle = 'lsa' and p.stand_coach is null and l.session_id is distinct from p.lsa_session_id))
   ),
   voraus as (
     select s.skill_key,
@@ -4805,13 +4814,22 @@ CREATE FUNCTION public.kompetenz_offen_trigger() RETURNS trigger
 declare
   v_zeile record := case when tg_op = 'DELETE' then old else new end;
   v_kind  uuid;
+  v_kind2 uuid;
 begin
   if tg_table_name = 'lernpfad' then
     v_kind := v_zeile.student_id;
+  elsif tg_table_name = 'lsa_sessions' then
+    v_kind := v_zeile.student_id; v_kind2 := v_zeile.uebernommen_zu_student_id;
+  elsif tg_table_name = 'lsa_skill_urteil' then
+    select ls.student_id, ls.uebernommen_zu_student_id into v_kind, v_kind2
+      from public.lsa_sessions ls where ls.id = v_zeile.session_id;
   else
     select l.converted_student_id into v_kind from public.leads l where l.id = v_zeile.lead_id;
   end if;
   perform public.kompetenz_offen_merken_intern(v_kind);
+  if v_kind2 is distinct from v_kind then
+    perform public.kompetenz_offen_merken_intern(v_kind2);
+  end if;
   return v_zeile;
 end;
 $$;
@@ -21340,6 +21358,7 @@ CREATE FUNCTION public.zeigs_mir_offen(p_kind uuid, p_session uuid) RETURNS TABL
 #variable_conflict use_column
 declare
   v_beginn timestamptz;
+  v_sicher text[];
 begin
   if not public.zeigs_mir_darf(p_kind, p_session) then
     raise exception 'zeigs_mir_offen: nur Coach der Session oder Admin' using errcode = '42501';
@@ -21349,6 +21368,8 @@ begin
                   where cs.id = p_session and cs.beendet_am is null and not coalesce(cs.testlauf, false)) then
     select coalesce(cs.gestartet_am, cs.scheduled_at, now()) into v_beginn
       from public.coaching_sessions cs where cs.id = p_session;
+    select coalesce(array_agg(o.skill_key), '{}') into v_sicher
+      from public.kompetenz_offen_roh(p_kind) o where o.zustand = 'sicher';
     -- Entscheidung 5: Skill mit mindestens zwei Quests seit der letzten Session, noch nicht sicher; der meistgeübte.
     insert into public.zeigs_mir (student_id, session_id, skill_key, quests)
     select p_kind, p_session, h.skill_key, count(*)::integer
@@ -21356,8 +21377,7 @@ begin
      where h.student_id = p_kind
        and h.am > coalesce(public.home_letzte_session(p_kind, v_beginn), '-infinity'::timestamptz)
        and h.am <= v_beginn
-       and not exists (select 1 from public.kompetenz_offen_roh(p_kind) o
-                        where o.skill_key = h.skill_key and o.zustand = 'sicher')
+       and h.skill_key <> all (v_sicher)
      group by h.skill_key
     having count(*) >= 2
      order by count(*) desc, max(h.am) desc
@@ -26317,7 +26337,7 @@ CREATE TRIGGER lernpfad_kompetenz_offen_nachher AFTER INSERT OR UPDATE ON public
 -- Name: lernpfad lernpfad_kompetenz_offen_vorher; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER lernpfad_kompetenz_offen_vorher BEFORE DELETE OR UPDATE ON public.lernpfad FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+CREATE TRIGGER lernpfad_kompetenz_offen_vorher BEFORE INSERT OR DELETE OR UPDATE ON public.lernpfad FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
 
 
 --
@@ -26335,10 +26355,38 @@ CREATE TRIGGER lsa_session_platz_release_trg AFTER UPDATE OF status ON public.ls
 
 
 --
+-- Name: lsa_sessions lsa_sessions_kompetenz_offen_nachher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_sessions_kompetenz_offen_nachher AFTER UPDATE OF status, uebernommen_zu_student_id ON public.lsa_sessions FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: lsa_sessions lsa_sessions_kompetenz_offen_vorher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_sessions_kompetenz_offen_vorher BEFORE UPDATE OF status, uebernommen_zu_student_id ON public.lsa_sessions FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
 -- Name: lsa_sessions lsa_sessions_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER lsa_sessions_testlauf_trg BEFORE INSERT OR UPDATE OF testlauf, student_id ON public.lsa_sessions FOR EACH ROW EXECUTE FUNCTION public.lsa_sessions_testlauf_pruefen();
+
+
+--
+-- Name: lsa_skill_urteil lsa_skill_urteil_kompetenz_offen_nachher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_skill_urteil_kompetenz_offen_nachher AFTER INSERT OR UPDATE ON public.lsa_skill_urteil FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: lsa_skill_urteil lsa_skill_urteil_kompetenz_offen_vorher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_skill_urteil_kompetenz_offen_vorher BEFORE INSERT OR DELETE OR UPDATE ON public.lsa_skill_urteil FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
 
 
 --
@@ -30949,5 +30997,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict a6tcuUhWXdhCypnFeLRuRYphjE0mmdG3giqcChiQw0bDdhI9pSwZzlbgfOYtRUy
+\unrestrict Lc6CwCAzylUcHhaOABhRpkdaRyJJKhy8QiREfUFVvRC34Touh8MNS5ORGUIReMR
 

@@ -342,6 +342,24 @@ values (:'s3', 'Mathematik', 9, '{}', 'completed', now(), true) returning id as 
 insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl) values (:'lsa3', 'z_d', 'traegt', true, false, 2);
 select is((select zustand from kompetenz_offen_roh(:'s3') where skill_key = 'z_d'), 'sicher', '9 Testlauf zählt beim Testkind');
 
+-- Jüngere LSA schlägt eine reine LSA-Zeile im Lernpfad; Kind über uebernommen_zu_student_id; nicht_angesetzt ist kein Befund.
+insert into lernpfad (student_id, skill_key, stand_system, quelle, lsa_session_id) values (:'s2', 'z_a', 'sicher', 'lsa', :'lsa2');
+insert into lsa_sessions (student_id, subject, grade, item_ids, status, completed_at)
+values (:'s3', 'Mathematik', 9, '{}', 'completed', now()) returning id as lsa4 \gset
+update lsa_sessions set uebernommen_zu_student_id = :'s2' where id = :'lsa4';
+insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+values (:'lsa4', 'z_a', 'traegt_nicht', true, false, 2), (:'lsa4', 'z_b', 'nicht_angesetzt', false, true, 0);
+select is((select zustand from kompetenz_offen_roh(:'s2') where skill_key = 'z_a'), 'noch_nicht_sicher',
+          '9 die jüngere LSA (übernommen auf das Kind) schlägt die ältere LSA-Zeile im Lernpfad');
+select isnt((select zustand from kompetenz_offen_roh(:'s2') where skill_key = 'z_b'), 'noch_nicht_sicher',
+            '9 nicht_angesetzt ist kein Befund');
+-- Regel 6 bei Herabstufung über die LSA: z_e war offen (z_d sicher per LSA), dann trägt z_d in einer neuen LSA nicht.
+select is((select zustand from kompetenz_offen_roh(:'s2') where skill_key = 'z_e'), 'nicht_angeschaut', '9 Grundlage: z_e offen');
+insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+values (:'lsa4', 'z_d', 'traegt_nicht', true, false, 2);
+select is((select zustand || '/' || grund from kompetenz_offen_roh(:'s2') where skill_key = 'z_e'), 'nicht_angeschaut/voraussetzungen',
+          '9 Regel 6: nach Herabstufung per LSA bleibt z_e offen');
+
 -- ── 8) Append-only ──────────────────────────────────────────────────────────
 alter table home_uebung enable trigger home_uebung_append_only;
 select throws_ok($$update home_uebung set aufgaben = 1$$, '42501', null, '8 home_uebung: kein Update');

@@ -114,4 +114,31 @@ begin
 end;
 $$;
 
+drop trigger if exists lsa_skill_urteil_kompetenz_offen_vorher on public.lsa_skill_urteil;
+drop trigger if exists lsa_skill_urteil_kompetenz_offen_nachher on public.lsa_skill_urteil;
+drop trigger if exists lsa_sessions_kompetenz_offen_vorher on public.lsa_sessions;
+drop trigger if exists lsa_sessions_kompetenz_offen_nachher on public.lsa_sessions;
+drop trigger if exists lernpfad_kompetenz_offen_vorher on public.lernpfad;
+create trigger lernpfad_kompetenz_offen_vorher before update or delete on public.lernpfad
+  for each row execute function public.kompetenz_offen_trigger();
+create or replace function public.kompetenz_offen_trigger()
+returns trigger
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_zeile record := case when tg_op = 'DELETE' then old else new end;
+  v_kind  uuid;
+begin
+  if tg_table_name = 'lernpfad' then
+    v_kind := v_zeile.student_id;
+  else
+    select l.converted_student_id into v_kind from public.leads l where l.id = v_zeile.lead_id;
+  end if;
+  perform public.kompetenz_offen_merken_intern(v_kind);
+  return v_zeile;
+end;
+$$;
+
 delete from supabase_migrations.schema_migrations where version = '20261027140343';
