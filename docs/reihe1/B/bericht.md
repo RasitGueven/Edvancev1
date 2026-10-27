@@ -17,7 +17,7 @@ Stand 27.10.2026. Protokoll: `fortschritt.md`. Abnahme: `abnahme/abnahme-faelle.
 | 9 | edvance-app | #56 | B6 App: `ErklaerVideo`, Video im E2a-Ablauf, Mediathek-Abfragen, Ansichtstests | – |
 | 10 | Edvancev1 | #354 | B7 Bausteine Parabel und Flächenmodell | – |
 | 11 | Edvancev1 | #355 | B8 Skripte V1–V8 | – |
-| 12 | Edvancev1 | B9 | Abnahme, Ansichten, Checkliste, Bericht; zwei Layout-Korrekturen im Studio | – |
+| 12 | Edvancev1 | #356 | Abnahme, Ansichten, Checkliste, Bericht; zwei Layout-Korrekturen im Studio | – |
 
 Alle Migrationen sind in Prod (Anweisung Rasit: der Agent spielt selbst ein; je Migration Zweitprüfung durch einen
 frischen Subagenten, Prüfung per dbread). Einspiel-Skripte: `~/einspielen/B-*.sh`.
