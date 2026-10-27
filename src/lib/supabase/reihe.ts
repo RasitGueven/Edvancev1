@@ -26,7 +26,7 @@ export const reiheVerschieben = (reiheId: string, skillKey: string, zielDatum: s
 export const reiheBestaetigen = (reiheId: string): Promise<RpcResult<ReiheCoach>> =>
   sessionRpc('reihe_coach_aendern', { p_reihe_id: reiheId, p_aktion: 'bestaetigen' }, 'Could not confirm plan')
 
-export type GpSkill = { skill_key: string; label: string; sicher: boolean; offen: boolean }
+export type GpSkill = { skill_key: string; label: string; sicher: boolean | null; offen: boolean }
 
 /** C4: Generalprobe-Ergebnis je Skill (Coach der Session oder Admin). */
 export const gpErgebnisLesen = async (sessionId: string, studentId: string): Promise<RpcResult<GpSkill[]>> => {
