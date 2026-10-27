@@ -1,6 +1,8 @@
 import type { ComponentType } from 'react'
 
 import { Endkarte } from './Endkarte'
+import { Flaechenmodell } from './Flaechenmodell'
+import { Koordinatensystem } from './Koordinatensystem'
 import { Merksatz } from './Merksatz'
 import { Raster } from './Raster'
 import { TermZeile } from './TermZeile'
@@ -14,4 +16,6 @@ export const BAUSTEIN_KOMPONENTEN: Record<string, ComponentType<BausteinProps>> 
   term_zeile: TermZeile,
   merksatz: Merksatz,
   endkarte: Endkarte,
+  koordinatensystem: Koordinatensystem,
+  flaechenmodell: Flaechenmodell,
 }
