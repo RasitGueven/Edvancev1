@@ -2616,3 +2616,11 @@ on conflict (id) do nothing;
 -- vorhanden. Erzeugt wird in der Vercel Function api/studio/stimme.ts (ELEVENLABS_API_KEY nur dort; ohne
 -- Schluessel stumme WAV mit stimme 'platzhalter'), eingetragen per studio_audio_eintragen (Autor/Admin).
 -- Bucket 'studio' privat: lesen studio_darf_sehen(), schreiben studio_hat_rolle('autor').
+
+-- ============================================================================
+-- Studio · Rendern (Reihe 1, Bauauftrag B4): studio_render (Migration 20261027134813_studio_render.sql)
+-- ============================================================================
+-- Je Welt ein Auftrag (wartet → laeuft → fertig | fehler; je Welt hoechstens einer offen, > 60 Min gilt als
+-- abgebrochen). Fingerabdruck = sha256(Renderer-Fassung, Skelett-Inhalt, Welt-Inhalt, Audio der Welt). Aktuell =
+-- letzter fertiger Render hat den aktuellen Fingerabdruck (studio_render_stand). Melden nur der Anleger oder Admin;
+-- fertig nur mit Dateien unter render/<seq>/<welt>/<fp>/<auftrag>/ im Bucket und unveraendertem Inhalt.

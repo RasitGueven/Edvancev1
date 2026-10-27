@@ -12,3 +12,4 @@
 | 2026-10-27 | B2 eingespielt | 20261027132413 studio_stimme in Prod; dbread: studio_stimme_bedarf, Bucket studio (privat, 200 MB, 7 MIME), 2 Storage-Policies | #337 |
 | 2026-10-27 | Abhängigkeit | A2: alle acht qf_-Fehlbilder in Prod; D: kompetenz_offen fehlt noch | – |
 | 2026-10-27 | B3 | Remotion 4.0.539, Bausteine Titelkarte/Raster/Term-Zeile/Merksatz/Endkarte, Welten als Token-Skin, MathJax wie E1.4, Vorschau mit Kapiteln; Standbilder aller vier Welten in docs/reihe1/B/abnahme/b3 | (folgt) |
+| 2026-10-27 | B4 | studio_render (Status, Fingerabdruck, „Render veraltet“, ein Lauf je Welt), Route api/studio/render.ts (Vercel Sandbox), npm run studio:render (lokal); Abgleich MP4 ↔ Vorschau frame-genau; pgTAP studio_b4 15/15; Zweitprüfung eingearbeitet; eingespielt (dbread: 3 Funktionen, Index studio_render_ein_lauf) | (folgt) |

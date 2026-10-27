@@ -9,6 +9,7 @@ import type { StudioSequenz } from '@/types/studio'
 
 import { SequenzAnsicht } from './SequenzAnsicht'
 import { SkriptEinfuegen } from './SkriptEinfuegen'
+import { RenderPanel } from './RenderPanel'
 import { StimmePanel } from './StimmePanel'
 import { StudioVorschau } from './StudioVorschau'
 
@@ -98,6 +99,7 @@ export function StudioPage(): JSX.Element {
               zusatz={{
                 oben: <StudioVorschau sequenzId={aktuell.id} skript={aktuell.skript} stand={aktuell.geaendertAm} />,
                 skript: <StimmePanel sequenzId={aktuell.id} stand={aktuell.geaendertAm} />,
+                freigabe: <RenderPanel sequenzId={aktuell.id} stand={aktuell.geaendertAm} />,
               }}
             />
           ) : (

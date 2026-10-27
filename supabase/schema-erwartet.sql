@@ -18312,6 +18312,147 @@ $$;
 
 
 --
+-- Name: studio_render_anlegen(uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_render_anlegen(p_sequenz_id uuid, p_welt text, p_ort text DEFAULT 'server'::text) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  if not public.studio_hat_rolle('autor') then
+    raise exception 'studio: nur Autor oder Admin' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.studio_welt w where w.sequenz_id = p_sequenz_id and w.welt = p_welt and not w.gesperrt) then
+    raise exception 'studio_render_anlegen: Welt % fehlt oder ist gesperrt', p_welt using errcode = '22023';
+  end if;
+  -- Abgebrochene Aufträge (Sandbox-Timeout, abgelaufenes Token) räumen.
+  update public.studio_render set status = 'fehler', fehler = 'zeitueberschreitung'
+   where sequenz_id = p_sequenz_id and welt = p_welt and status in ('wartet', 'laeuft')
+     and angelegt_am < clock_timestamp() - interval '60 minutes';
+  if exists (select 1 from public.studio_render r where r.sequenz_id = p_sequenz_id and r.welt = p_welt
+               and r.status in ('wartet', 'laeuft')) then
+    raise exception 'studio_render_anlegen: für % läuft schon ein Render', p_welt using errcode = '23505';
+  end if;
+  insert into public.studio_render (sequenz_id, welt, fingerabdruck, ort, angelegt_von)
+  values (p_sequenz_id, p_welt, public.studio_render_fingerabdruck(p_sequenz_id, p_welt), p_ort, auth.uid())
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: studio_render_fassung(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_render_fassung() RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select 'r1:1920x1080:30:h264-veryfast' $$;
+
+
+--
+-- Name: studio_render_fingerabdruck(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_render_fingerabdruck(p_sequenz_id uuid, p_welt text) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select encode(sha256(convert_to(concat_ws(E'\n',
+           public.studio_render_fassung(),
+           public.studio_inhalt_hash(p_sequenz_id, 'skelett'),
+           case when p_welt = 'skelett' then '' else public.studio_inhalt_hash(p_sequenz_id, p_welt) end,
+           (select string_agg(b.beat_key || '=' || b.fingerabdruck || ':' || b.vorhanden, ',' order by b.beat_key)
+              from public.studio_stimme_bedarf(p_sequenz_id) b where b.welt = p_welt)), 'UTF8')), 'hex')
+$$;
+
+
+--
+-- Name: studio_render_melden(uuid, text, jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_render_melden(p_id uuid, p_status text, p_ergebnis jsonb DEFAULT '{}'::jsonb, p_fehler text DEFAULT NULL::text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_r public.studio_render;
+  v_basis text;
+begin
+  if not public.studio_hat_rolle('autor') then
+    raise exception 'studio: nur Autor oder Admin' using errcode = '42501';
+  end if;
+  select * into v_r from public.studio_render where id = p_id for update;
+  if v_r.id is null then
+    raise exception 'studio_render_melden: Auftrag fehlt' using errcode = 'P0002';
+  end if;
+  if v_r.angelegt_von <> auth.uid() and coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'studio_render_melden: nur wer den Auftrag angelegt hat' using errcode = '42501';
+  end if;
+  if not ((v_r.status = 'wartet' and p_status in ('laeuft', 'fehler')) or (v_r.status = 'laeuft' and p_status in ('fertig', 'fehler'))) then
+    raise exception 'studio_render_melden: % → % nicht erlaubt', v_r.status, p_status using errcode = '22023';
+  end if;
+  -- Inhalt geändert, seit der Auftrag angelegt wurde: dieser Render gilt nicht.
+  if p_status in ('laeuft', 'fertig') and public.studio_render_fingerabdruck(v_r.sequenz_id, v_r.welt) <> v_r.fingerabdruck then
+    update public.studio_render set status = 'fehler', fehler = 'inhalt_geaendert' where id = p_id;
+    return;
+  end if;
+  v_basis := 'render/' || v_r.sequenz_id || '/' || v_r.welt || '/' || v_r.fingerabdruck || '/' || v_r.id || '/';
+  if p_status = 'fertig' and not coalesce(p_ergebnis ->> 'mp4' like v_basis || '%' and p_ergebnis ->> 'untertitel' like v_basis || '%'
+                                  and p_ergebnis ->> 'poster' like v_basis || '%'
+                                  and jsonb_typeof(p_ergebnis -> 'kapitel') = 'array'
+                                  and jsonb_typeof(p_ergebnis -> 'dauer_ms') = 'number'
+                                  and (p_ergebnis ->> 'dauer_ms')::numeric >= 1, false) then
+    raise exception 'studio_render_melden: Ergebnis unvollständig oder falscher Pfad' using errcode = '22023';
+  end if;
+  if p_status = 'fertig' and (select count(*) from storage.objects o where o.bucket_id = 'studio'
+                               and o.name in (p_ergebnis ->> 'mp4', p_ergebnis ->> 'untertitel', p_ergebnis ->> 'poster')) <> 3 then
+    raise exception 'studio_render_melden: Dateien fehlen im Bucket' using errcode = '22023';
+  end if;
+  update public.studio_render
+     set status = p_status,
+         mp4 = p_ergebnis ->> 'mp4', kapitel = p_ergebnis -> 'kapitel', untertitel = p_ergebnis ->> 'untertitel',
+         poster = p_ergebnis ->> 'poster', dauer_ms = round((p_ergebnis ->> 'dauer_ms')::numeric)::int,
+         fehler = left(p_fehler, 500),
+         fertig_am = case when p_status = 'fertig' then clock_timestamp() end
+   where id = p_id;
+end;
+$$;
+
+
+--
+-- Name: studio_render_stand(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_render_stand(p_sequenz_id uuid) RETURNS TABLE(welt text, fingerabdruck text, letzter_id uuid, letzter_status text, letzter_fehler text, fertig_id uuid, fertig_am timestamp with time zone, aktuell boolean, stimme_vollstaendig boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select w.welt, fp.wert, l.id,
+         case when l.status in ('wartet', 'laeuft') and l.angelegt_am < clock_timestamp() - interval '60 minutes'
+              then 'fehler' else l.status end,
+         case when l.status in ('wartet', 'laeuft') and l.angelegt_am < clock_timestamp() - interval '60 minutes'
+              then 'zeitueberschreitung' else l.fehler end,
+         f.id, f.fertig_am,
+         coalesce(f.fingerabdruck = fp.wert, false),
+         not exists (select 1 from public.studio_stimme_bedarf(p_sequenz_id) b
+                      where b.welt = w.welt and (not b.vorhanden or b.platzhalter))
+    from public.studio_welt w
+    cross join lateral (select public.studio_render_fingerabdruck(p_sequenz_id, w.welt) as wert) fp
+    left join lateral (select r.* from public.studio_render r where r.sequenz_id = w.sequenz_id and r.welt = w.welt
+                        order by r.angelegt_am desc limit 1) l on true
+    left join lateral (select r.* from public.studio_render r where r.sequenz_id = w.sequenz_id and r.welt = w.welt
+                          and r.status = 'fertig' order by r.fertig_am desc limit 1) f on true
+   where w.sequenz_id = p_sequenz_id and public.studio_darf_sehen()
+   order by w.welt = 'skelett' desc, w.welt
+$$;
+
+
+--
 -- Name: studio_rolle_setzen(uuid, text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -22913,6 +23054,35 @@ CREATE TABLE public.studio_minicheck_aufgabe (
 
 
 --
+-- Name: studio_render; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_render (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    sequenz_id uuid NOT NULL,
+    welt text NOT NULL,
+    fingerabdruck text NOT NULL,
+    status text DEFAULT 'wartet'::text NOT NULL,
+    ort text DEFAULT 'server'::text NOT NULL,
+    mp4 text,
+    kapitel jsonb,
+    untertitel text,
+    poster text,
+    dauer_ms integer,
+    fehler text,
+    angelegt_von uuid NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    fertig_am timestamp with time zone,
+    CONSTRAINT studio_render_check CHECK (((status <> 'fertig'::text) OR ((mp4 IS NOT NULL) AND (kapitel IS NOT NULL) AND (untertitel IS NOT NULL) AND (poster IS NOT NULL) AND (dauer_ms IS NOT NULL) AND (fertig_am IS NOT NULL)))),
+    CONSTRAINT studio_render_dauer_ms_check CHECK (((dauer_ms IS NULL) OR (dauer_ms > 0))),
+    CONSTRAINT studio_render_fingerabdruck_check CHECK ((fingerabdruck ~ '^[0-9a-f]{64}$'::text)),
+    CONSTRAINT studio_render_ort_check CHECK ((ort = ANY (ARRAY['server'::text, 'lokal'::text]))),
+    CONSTRAINT studio_render_status_check CHECK ((status = ANY (ARRAY['wartet'::text, 'laeuft'::text, 'fertig'::text, 'fehler'::text]))),
+    CONSTRAINT studio_render_welt_check CHECK ((welt = ANY (ARRAY['skelett'::text, 'fussball'::text, 'gaming'::text, 'musik'::text])))
+);
+
+
+--
 -- Name: studio_rolle; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -24586,6 +24756,14 @@ ALTER TABLE ONLY public.studio_minicheck
 
 
 --
+-- Name: studio_render studio_render_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_render
+    ADD CONSTRAINT studio_render_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: studio_rolle studio_rolle_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25683,6 +25861,20 @@ CREATE INDEX studio_bereich_kernidee_idx ON public.studio_bereich USING btree (k
 --
 
 CREATE INDEX studio_minicheck_aufgabe_task_idx ON public.studio_minicheck_aufgabe USING btree (task_id);
+
+
+--
+-- Name: studio_render_ein_lauf; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX studio_render_ein_lauf ON public.studio_render USING btree (sequenz_id, welt) WHERE (status = ANY (ARRAY['wartet'::text, 'laeuft'::text]));
+
+
+--
+-- Name: studio_render_sequenz_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX studio_render_sequenz_idx ON public.studio_render USING btree (sequenz_id, welt, angelegt_am DESC);
 
 
 --
@@ -27998,6 +28190,22 @@ ALTER TABLE ONLY public.studio_minicheck
 
 
 --
+-- Name: studio_render studio_render_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_render
+    ADD CONSTRAINT studio_render_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: studio_render studio_render_sequenz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_render
+    ADD CONSTRAINT studio_render_sequenz_id_fkey FOREIGN KEY (sequenz_id) REFERENCES public.studio_sequenz(id) ON DELETE CASCADE;
+
+
+--
 -- Name: studio_rolle studio_rolle_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -30216,6 +30424,19 @@ CREATE POLICY studio_minicheck_aufgabe_lesen ON public.studio_minicheck_aufgabe 
 --
 
 CREATE POLICY studio_minicheck_lesen ON public.studio_minicheck FOR SELECT TO authenticated USING (public.studio_darf_sehen());
+
+
+--
+-- Name: studio_render; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_render ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_render studio_render_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_render_lesen ON public.studio_render FOR SELECT TO authenticated USING (public.studio_darf_sehen());
 
 
 --
