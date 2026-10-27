@@ -22,6 +22,7 @@ import type { ConsentState } from './ConsentBlock'
 import type { ThemenStatus } from './ThemenAuswahl'
 import { FreigabeOhneThema } from './FreigabeOhneThema'
 import { KlassenarbeitHinweis } from './KlassenarbeitHinweis'
+import { useKaFolge } from './useKaFolge'
 import {
   EMPTY_INTAKE,
   intakeFromLead,
@@ -88,6 +89,8 @@ export function LeadIntakeForm({
   }, [])
 
   const patch = (next: Partial<IntakeFormState>): void => setForm((f) => ({ ...f, ...next }))
+  // L5: Mathearbeiten (Anzahl, Themen) — eigener Lese- und Schreibweg, ohne Migration ausgeblendet.
+  const kaFolge = useKaFolge(leadId, patch)
 
   // Bei genau einem Fach ist die Wahl eindeutig, sonst entscheidet der Block
   // am Ende von Schritt 2.
@@ -101,8 +104,9 @@ export function LeadIntakeForm({
   // das übrige Erstgespräch nicht blockiert.
   const speichereKlassenarbeit = async (id: string): Promise<boolean> => {
     const { error: err } = await saveLeadKlassenarbeit(id, klassenarbeitAusForm(form), klassenarbeitSpalten)
-    if (err) setError(err)
-    return !err
+    const kaErr = err ? null : await kaFolge.speichern(id, form)
+    if (err ?? kaErr) setError(err ?? kaErr)
+    return !(err ?? kaErr)
   }
 
   const persistLead = async (
@@ -299,6 +303,7 @@ export function LeadIntakeForm({
           consentByLabel={consent.by === user?.id ? (user?.email ?? null) : null}
           consentDisabled={leadId === null}
           klassenarbeitSpalten={klassenarbeitSpalten}
+          kaFolge={kaFolge.verfuegbar ? { aktuellesThema: themenStatus.aktuell } : null}
         />
       )}
 

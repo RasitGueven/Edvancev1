@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import type { KlassenarbeitSpalten } from '@/lib/supabase/leads'
 
 import { GRADES } from './intakeConstants'
+import { KaFolgeFelder } from './KaFolgeFelder'
 import { KLASSENARBEIT_ANKER } from './KlassenarbeitHinweis'
 import { OptionChips } from './OptionChips'
 import type { IntakeFormState } from './formState'
@@ -16,15 +17,20 @@ const STAENDE = ['bevorstehend', 'geschrieben', 'weissNicht'] as const
  * das Datum der nächsten Arbeit (optional), bei „schon geschrieben“ die Note der
  * letzten Arbeit (optional, 1–6). Keine Pflichtfelder. Fehlt eine Spalte in der
  * DB, bleibt ihr Feld ausgeblendet.
+ *
+ * L5: dazu Anzahl und Themen der Arbeit (KaFolgeFelder), wenn `kaFolge` gesetzt ist. Beim Umschalten auf „schon
+ * geschrieben“ ist das aktuelle Thema vorausgewählt, solange noch keins gewählt ist.
  */
 export function KlassenarbeitFelder({
   form,
   patch,
   spalten,
+  kaFolge = null,
 }: {
   form: IntakeFormState
   patch: (next: Partial<IntakeFormState>) => void
   spalten: KlassenarbeitSpalten
+  kaFolge?: { aktuellesThema: string | null } | null
 }): JSX.Element | null {
   const { t } = useTranslation('admin')
   if (!spalten.status) return null
@@ -38,7 +44,12 @@ export function KlassenarbeitFelder({
       <OptionChips
         options={STAENDE.map((v) => ({ value: v, label: t(`${k}.${v}`) }))}
         selected={form.klassenarbeit ? [form.klassenarbeit] : []}
-        onToggle={(v) => patch({ klassenarbeit: form.klassenarbeit === v ? null : v })}
+        onToggle={(v) => {
+          const neu = form.klassenarbeit === v ? null : v
+          const vorauswahl =
+            neu === 'geschrieben' && form.ka_themen.length === 0 ? (kaFolge?.aktuellesThema ?? null) : null
+          patch({ klassenarbeit: neu, ...(vorauswahl ? { ka_themen: [vorauswahl] } : {}) })
+        }}
       />
       <p className="text-xs text-[var(--color-text-tertiary)]">{t(`${k}.hilfe`)}</p>
 
@@ -66,6 +77,8 @@ export function KlassenarbeitFelder({
           <p className="text-xs text-[var(--color-text-tertiary)]">{t(`${k}.noteHilfe`)}</p>
         </div>
       )}
+
+      {kaFolge && <KaFolgeFelder form={form} patch={patch} />}
     </div>
   )
 }

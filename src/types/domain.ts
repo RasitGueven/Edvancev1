@@ -78,6 +78,8 @@ export type Lead = {
   // (fehlen sie, liefert select('*') sie nicht).
   klassenarbeit_status?: 'bevorstehend' | 'geschrieben' | null
   letzte_klassenarbeit_note?: number | null
+  /** L5: Zahl der Mathearbeiten in diesem Schuljahr (1–8); null = unbekannt. */
+  ka_anzahl_schuljahr?: number | null
   // Altes Themencluster (skill_clusters). Seit der Themenauswahl ueber
   // lead_themen wird die Spalte nicht mehr beschrieben, aber noch angezeigt.
   current_topic_cluster_id: string | null

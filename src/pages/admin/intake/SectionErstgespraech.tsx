@@ -34,6 +34,8 @@ type SectionErstgespraechProps = {
   consentDisabled: boolean
   /** Bericht v4: welche Klassenarbeits-Spalten es gibt. */
   klassenarbeitSpalten: KlassenarbeitSpalten
+  /** L5: Felder zu den Mathearbeiten; null = ausgeblendet (Migration fehlt). */
+  kaFolge: { aktuellesThema: string | null } | null
 }
 
 const FieldLabel = ({ children }: { children: string }): JSX.Element => (
@@ -57,6 +59,7 @@ export function SectionErstgespraech({
   consentByLabel,
   consentDisabled,
   klassenarbeitSpalten,
+  kaFolge,
 }: SectionErstgespraechProps): JSX.Element {
   const { t } = useTranslation('admin')
   const toggleTried = (value: string): void => {
@@ -140,7 +143,7 @@ export function SectionErstgespraech({
         onStatus={onThemenStatus}
       />
 
-      <KlassenarbeitFelder form={form} patch={patch} spalten={klassenarbeitSpalten} />
+      <KlassenarbeitFelder form={form} patch={patch} spalten={klassenarbeitSpalten} kaFolge={kaFolge} />
 
       <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
         <FieldLabel>{t('intake.erstgespraech.parentWeak')}</FieldLabel>
