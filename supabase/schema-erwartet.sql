@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict hgcb4AvydDiZ73RCF4LlJYN6XwERfx35AIZtkmzlzpasvNSlXnckKF5a7bUWXkK
+\restrict a6tcuUhWXdhCypnFeLRuRYphjE0mmdG3giqcChiQw0bDdhI9pSwZzlbgfOYtRUy
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -4735,11 +4735,29 @@ begin
     union
     select k.voraussetzt_skill_key from public.skill_kante k join grundlage g on g.skill_key = k.skill_key
   ),
-  -- Befund vor Ort; vom Coach gemeistert gilt als sicher.
-  befund as (
+  -- Befund vor Ort: lernpfad (Session, Coach; gemeistert gilt als sicher) vor der jüngsten LSA. Testlauf-LSAs zählen
+  -- nur bei Testkindern (students.ist_test), wie die Testläufe selbst.
+  lp_befund as (
     select lp.skill_key, case when lp.stand_coach = 'gemeistert' then 'sicher' else lp.stand_system end as stand_system
       from public.lernpfad lp
      where lp.student_id = p_kind and (lp.stand_system in ('sicher', 'noch_nicht_sicher') or lp.stand_coach = 'gemeistert')
+  ),
+  lsa_befund as (
+    select distinct on (u.skill_key) u.skill_key,
+           case when u.zustand = 'traegt' then 'sicher' else 'noch_nicht_sicher' end as stand_system
+      from public.lsa_skill_urteil u
+      join public.lsa_sessions ls on ls.id = u.session_id
+     where (ls.student_id = p_kind or ls.uebernommen_zu_student_id = p_kind)
+       and ls.status = 'completed'
+       and (not coalesce(ls.testlauf, false)
+            or exists (select 1 from public.students st where st.id = p_kind and st.ist_test))
+       and u.zustand in ('traegt', 'traegt_teilweise', 'traegt_nicht')
+     order by u.skill_key, ls.completed_at desc nulls last, u.aktualisiert desc
+  ),
+  befund as (
+    select * from lp_befund
+    union all
+    select l.* from lsa_befund l where not exists (select 1 from lp_befund p where p.skill_key = l.skill_key)
   ),
   voraus as (
     select s.skill_key,
@@ -21338,8 +21356,8 @@ begin
      where h.student_id = p_kind
        and h.am > coalesce(public.home_letzte_session(p_kind, v_beginn), '-infinity'::timestamptz)
        and h.am <= v_beginn
-       and not exists (select 1 from public.lernpfad lp
-                        where lp.student_id = p_kind and lp.skill_key = h.skill_key and lp.stand_system = 'sicher')
+       and not exists (select 1 from public.kompetenz_offen_roh(p_kind) o
+                        where o.skill_key = h.skill_key and o.zustand = 'sicher')
      group by h.skill_key
     having count(*) >= 2
      order by count(*) desc, max(h.am) desc
@@ -30931,5 +30949,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict hgcb4AvydDiZ73RCF4LlJYN6XwERfx35AIZtkmzlzpasvNSlXnckKF5a7bUWXkK
+\unrestrict a6tcuUhWXdhCypnFeLRuRYphjE0mmdG3giqcChiQw0bDdhI9pSwZzlbgfOYtRUy
 

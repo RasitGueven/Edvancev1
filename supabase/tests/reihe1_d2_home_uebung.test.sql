@@ -325,6 +325,23 @@ select lives_ok(format('select coach_frage_erledigt(%L)', :'frage'), '7 erledigt
 select is((select count(*)::int from coach_fragen_offen(:'s1')), 0, '7 danach keine offene Frage');
 reset role;
 
+-- ── 9) Befund aus der LSA (D2b) ─────────────────────────────────────────────
+insert into lsa_sessions (student_id, subject, grade, item_ids, status, completed_at)
+values (:'s2', 'Mathematik', 9, '{}', 'completed', now() - interval '1 day') returning id as lsa2 \gset
+insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+values (:'lsa2', 'z_d', 'traegt', true, false, 2), (:'lsa2', 'z_g', 'traegt_nicht', true, false, 2);
+select results_eq(format($$select skill_key, zustand, grund from kompetenz_offen_roh(%L) where skill_key in ('z_d', 'z_e', 'z_g') order by 1$$, :'s2'),
+  $$values ('z_d'::text, 'sicher'::text, 'befund'::text), ('z_e', 'nicht_angeschaut', 'voraussetzungen'), ('z_g', 'noch_nicht_sicher', 'befund')$$,
+  '9 LSA-Urteile sind Befunde: traegt sicher, traegt_nicht noch nicht sicher');
+insert into lernpfad (student_id, skill_key, stand_system, quelle) values (:'s2', 'z_g', 'sicher', 'session');
+select is((select zustand from kompetenz_offen_roh(:'s2') where skill_key = 'z_g'), 'sicher', '9 lernpfad (Session) geht vor der LSA');
+-- Testlauf-LSA (gibt es nur bei Testkonten): zählt beim Testkind.
+update students set ist_test = true where id = :'s3';
+insert into lsa_sessions (student_id, subject, grade, item_ids, status, completed_at, testlauf)
+values (:'s3', 'Mathematik', 9, '{}', 'completed', now(), true) returning id as lsa3 \gset
+insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl) values (:'lsa3', 'z_d', 'traegt', true, false, 2);
+select is((select zustand from kompetenz_offen_roh(:'s3') where skill_key = 'z_d'), 'sicher', '9 Testlauf zählt beim Testkind');
+
 -- ── 8) Append-only ──────────────────────────────────────────────────────────
 alter table home_uebung enable trigger home_uebung_append_only;
 select throws_ok($$update home_uebung set aufgaben = 1$$, '42501', null, '8 home_uebung: kein Update');
