@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 4rWeO3g9ivHBLWp0XFEvaNIwPbytmx3i2ChGjlSKh46CIzkRCoNUCfyeVT9WdVJ
+\restrict hgcb4AvydDiZ73RCF4LlJYN6XwERfx35AIZtkmzlzpasvNSlXnckKF5a7bUWXkK
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -4084,6 +4084,19 @@ $$;
 
 
 --
+-- Name: home_uebung_append_only(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.home_uebung_append_only() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+begin
+  raise exception 'home_uebung ist append-only' using errcode = '42501';
+end;
+$$;
+
+
+--
 -- Name: home_uebung_kurz(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4118,9 +4131,10 @@ CREATE FUNCTION public.home_uebung_melden(p_skill text, p_anzahl integer, p_daue
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_kind uuid := public.get_my_student_id();
-  v_id   uuid;
-  v_xp   integer;
+  v_kind  uuid := public.get_my_student_id();
+  v_id    uuid;
+  v_xp    integer;
+  v_heute integer;
 begin
   if v_kind is null then
     raise exception 'home_uebung_melden: nur das Kind selbst' using errcode = '42501';
@@ -4134,10 +4148,23 @@ begin
   if p_anzahl is null or p_anzahl not between 1 and 20 or p_dauer_sek is null or p_dauer_sek not between 0 and 7200 then
     raise exception 'home_uebung_melden: Anzahl 1–20, Dauer 0–7200 s' using errcode = '22023';
   end if;
-  -- Missbrauchsbremse: höchstens 40 Quests je Tag (Berlin).
-  if (select count(*) from public.home_uebung h
-       where h.student_id = v_kind
-         and (h.am at time zone 'Europe/Berlin')::date = (now() at time zone 'Europe/Berlin')::date) >= 40 then
+  if p_dauer_sek < p_anzahl * 5 then
+    raise exception 'home_uebung_melden: zu kurz für % Aufgaben', p_anzahl using errcode = '22023';
+  end if;
+  if exists (select 1 from public.kompetenz_offen_roh(v_kind) o where o.skill_key = p_skill and o.zustand = 'gesperrt') then
+    raise exception 'home_uebung_melden: Skill ist noch gesperrt' using errcode = '22023';
+  end if;
+
+  -- Meldungen eines Kindes nacheinander; ein Wiederholungsversuch derselben Quest (gleicher Skill, < 60 s) bucht nichts.
+  perform pg_advisory_xact_lock(hashtext('home_uebung:' || v_kind::text));
+  if exists (select 1 from public.home_uebung h
+              where h.student_id = v_kind and h.skill_key = p_skill and h.am > now() - interval '60 seconds') then
+    return;
+  end if;
+  select count(*) into v_heute from public.home_uebung h
+   where h.student_id = v_kind
+     and (h.am at time zone 'Europe/Berlin')::date = (now() at time zone 'Europe/Berlin')::date;
+  if v_heute >= 40 then
     raise exception 'home_uebung_melden: Tagesgrenze erreicht' using errcode = '54000';
   end if;
 
@@ -4145,9 +4172,10 @@ begin
   values (v_kind, p_skill, p_anzahl, p_dauer_sek)
   returning id into v_id;
 
-  -- XP fürs Üben (Stellschraube home_uebung_xp, Start 10), getrennt von jeder Kompetenz.
+  -- XP fürs Üben (Stellschraube home_uebung_xp, Start 10), getrennt von jeder Kompetenz; XP nur für die ersten
+  -- zehn Quests eines Tages (höchstens 100 XP), geübt werden darf weiter.
   v_xp := least(greatest(public.quest_einstellung_zahl('home_uebung_xp', 10)::integer, 0), 1000);
-  if v_xp > 0 then
+  if v_xp > 0 and v_heute < 10 then
     perform public.xp_buchen_intern(v_kind, v_xp, 'home_uebung', 'home_uebung:' || v_id::text, null);
   end if;
 end;
@@ -4623,13 +4651,67 @@ CREATE FUNCTION public.kompetenz_offen(p_kind uuid) RETURNS TABLE(skill_key text
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-#variable_conflict use_column
-declare
-  v_klasse integer;
 begin
   if not public.home_darf_lesen(p_kind) then
     raise exception 'kompetenz_offen: kein Zugriff' using errcode = '42501';
   end if;
+  return query select * from public.kompetenz_offen_roh(p_kind);
+end;
+$$;
+
+
+--
+-- Name: kompetenz_offen_merken(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kompetenz_offen_merken(p_kind uuid) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.home_darf_lesen(p_kind) then
+    raise exception 'kompetenz_offen_merken: kein Zugriff' using errcode = '42501';
+  end if;
+  return public.kompetenz_offen_merken_intern(p_kind);
+end;
+$$;
+
+
+--
+-- Name: kompetenz_offen_merken_intern(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kompetenz_offen_merken_intern(p_kind uuid) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n integer;
+begin
+  if p_kind is null then
+    return 0;
+  end if;
+  insert into public.schueler_kompetenz_offen (student_id, skill_key, grund)
+  select p_kind, o.skill_key, o.grund from public.kompetenz_offen_roh(p_kind) o where o.grund is not null
+  on conflict (student_id, skill_key) do nothing;
+  get diagnostics v_n = row_count;
+  return v_n;
+end;
+$$;
+
+
+--
+-- Name: kompetenz_offen_roh(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kompetenz_offen_roh(p_kind uuid) RETURNS TABLE(skill_key text, zustand text, grund text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_klasse integer;
+begin
   select s.class_level into v_klasse from public.students s where s.id = p_kind;
 
   return query
@@ -4643,7 +4725,7 @@ begin
     select t.thema_key from public.lead_themen t where t.lead_id in (select id from leads_kind) and t.status = 'aktuell'
     union
     select unnest(k.thema_keys) from public.lead_klassenarbeiten k
-     where k.lead_id in (select id from leads_kind) and k.status = 'planned'
+     where k.lead_id in (select id from leads_kind) and k.status = 'bevorstehend'
        and (k.datum is null or k.datum >= (now() at time zone 'Europe/Berlin')::date)
   ),
   aktuell as (select distinct st.skill_key from public.skill_thema st where st.thema_key in (select thema_key from aktuelle_themen)),
@@ -4653,9 +4735,11 @@ begin
     union
     select k.voraussetzt_skill_key from public.skill_kante k join grundlage g on g.skill_key = k.skill_key
   ),
+  -- Befund vor Ort; vom Coach gemeistert gilt als sicher.
   befund as (
-    select lp.skill_key, lp.stand_system from public.lernpfad lp
-     where lp.student_id = p_kind and lp.stand_system in ('sicher', 'noch_nicht_sicher')
+    select lp.skill_key, case when lp.stand_coach = 'gemeistert' then 'sicher' else lp.stand_system end as stand_system
+      from public.lernpfad lp
+     where lp.student_id = p_kind and (lp.stand_system in ('sicher', 'noch_nicht_sicher') or lp.stand_coach = 'gemeistert')
   ),
   voraus as (
     select s.skill_key,
@@ -4693,24 +4777,24 @@ $$;
 
 
 --
--- Name: kompetenz_offen_merken(uuid); Type: FUNCTION; Schema: public; Owner: -
+-- Name: kompetenz_offen_trigger(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.kompetenz_offen_merken(p_kind uuid) RETURNS integer
+CREATE FUNCTION public.kompetenz_offen_trigger() RETURNS trigger
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_n integer;
+  v_zeile record := case when tg_op = 'DELETE' then old else new end;
+  v_kind  uuid;
 begin
-  if not public.home_darf_lesen(p_kind) then
-    raise exception 'kompetenz_offen_merken: kein Zugriff' using errcode = '42501';
+  if tg_table_name = 'lernpfad' then
+    v_kind := v_zeile.student_id;
+  else
+    select l.converted_student_id into v_kind from public.leads l where l.id = v_zeile.lead_id;
   end if;
-  insert into public.schueler_kompetenz_offen (student_id, skill_key, grund)
-  select p_kind, o.skill_key, o.grund from public.kompetenz_offen(p_kind) o where o.grund is not null
-  on conflict (student_id, skill_key) do nothing;
-  get diagnostics v_n = row_count;
-  return v_n;
+  perform public.kompetenz_offen_merken_intern(v_kind);
+  return v_zeile;
 end;
 $$;
 
@@ -21211,6 +21295,9 @@ begin
   if not public.zeigs_mir_darf(p_kind, p_session) then
     raise exception 'zeigs_mir_entscheiden: nur Coach der Session oder Admin' using errcode = '42501';
   end if;
+  if exists (select 1 from public.coaching_sessions cs where cs.id = p_session and cs.beendet_am is not null) then
+    raise exception 'zeigs_mir_entscheiden: Session ist beendet' using errcode = '55000';
+  end if;
   if p_entscheidung is null or p_entscheidung not in ('uebernehmen', 'nicht_heute') then
     raise exception 'zeigs_mir_entscheiden: uebernehmen oder nicht_heute' using errcode = '22023';
   end if;
@@ -21239,7 +21326,9 @@ begin
   if not public.zeigs_mir_darf(p_kind, p_session) then
     raise exception 'zeigs_mir_offen: nur Coach der Session oder Admin' using errcode = '42501';
   end if;
-  if not exists (select 1 from public.zeigs_mir z where z.student_id = p_kind and z.session_id = p_session) then
+  if not exists (select 1 from public.zeigs_mir z where z.student_id = p_kind and z.session_id = p_session)
+     and exists (select 1 from public.coaching_sessions cs
+                  where cs.id = p_session and cs.beendet_am is null and not coalesce(cs.testlauf, false)) then
     select coalesce(cs.gestartet_am, cs.scheduled_at, now()) into v_beginn
       from public.coaching_sessions cs where cs.id = p_session;
     -- Entscheidung 5: Skill mit mindestens zwei Quests seit der letzten Session, noch nicht sicher; der meistgeübte.
@@ -21261,6 +21350,19 @@ begin
     select z.skill_key, z.vorschlag_am, z.entscheidung, z.entschieden_von
       from public.zeigs_mir z where z.student_id = p_kind and z.session_id = p_session;
 end;
+$$;
+
+
+--
+-- Name: zeigs_mir_uebernommen(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.zeigs_mir_uebernommen(p_kind uuid, p_session uuid) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select z.skill_key from public.zeigs_mir z
+   where z.student_id = p_kind and z.session_id = p_session and z.entscheidung = 'uebernehmen';
 $$;
 
 
@@ -26131,10 +26233,45 @@ CREATE TRIGGER erklaer_schritt_freigabe_sperre BEFORE INSERT OR DELETE OR UPDATE
 
 
 --
+-- Name: home_uebung home_uebung_append_only; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER home_uebung_append_only BEFORE DELETE OR UPDATE ON public.home_uebung FOR EACH ROW EXECUTE FUNCTION public.home_uebung_append_only();
+
+
+--
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_kompetenz_offen_nachher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lead_klassenarbeiten_kompetenz_offen_nachher AFTER INSERT OR UPDATE ON public.lead_klassenarbeiten FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: lead_klassenarbeiten lead_klassenarbeiten_kompetenz_offen_vorher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lead_klassenarbeiten_kompetenz_offen_vorher BEFORE DELETE OR UPDATE ON public.lead_klassenarbeiten FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
 -- Name: lead_klassenarbeiten lead_klassenarbeiten_themen; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER lead_klassenarbeiten_themen BEFORE INSERT OR UPDATE OF thema_keys ON public.lead_klassenarbeiten FOR EACH ROW EXECUTE FUNCTION public.ka_themen_pruefen();
+
+
+--
+-- Name: lead_themen lead_themen_kompetenz_offen_nachher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lead_themen_kompetenz_offen_nachher AFTER INSERT OR UPDATE ON public.lead_themen FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: lead_themen lead_themen_kompetenz_offen_vorher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lead_themen_kompetenz_offen_vorher BEFORE DELETE OR UPDATE ON public.lead_themen FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
 
 
 --
@@ -26149,6 +26286,20 @@ CREATE TRIGGER leads_ist_test_schuetzen_trg BEFORE UPDATE OF ist_test ON public.
 --
 
 CREATE TRIGGER leads_status_zeitstempel_trg BEFORE UPDATE ON public.leads FOR EACH ROW EXECUTE FUNCTION public.leads_status_zeitstempel();
+
+
+--
+-- Name: lernpfad lernpfad_kompetenz_offen_nachher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lernpfad_kompetenz_offen_nachher AFTER INSERT OR UPDATE ON public.lernpfad FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: lernpfad lernpfad_kompetenz_offen_vorher; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lernpfad_kompetenz_offen_vorher BEFORE DELETE OR UPDATE ON public.lernpfad FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
 
 
 --
@@ -30780,5 +30931,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 4rWeO3g9ivHBLWp0XFEvaNIwPbytmx3i2ChGjlSKh46CIzkRCoNUCfyeVT9WdVJ
+\unrestrict hgcb4AvydDiZ73RCF4LlJYN6XwERfx35AIZtkmzlzpasvNSlXnckKF5a7bUWXkK
 

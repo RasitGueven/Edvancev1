@@ -20,14 +20,16 @@ select no_plan();
 \set fremd 'dddddddd-d200-4000-8000-000000000003'
 \set k1    'dddddddd-d200-4000-8000-000000000004'
 \set k2    'dddddddd-d200-4000-8000-000000000005'
+\set k3    'dddddddd-d200-4000-8000-000000000006'
 
 insert into auth.users (id, email, instance_id, aud, role)
 select u, 'd2-' || n || '@test.local', '00000000-0000-0000-0000-000000000000'::uuid, 'authenticated', 'authenticated'
-  from (values (:'admin'::uuid, 'admin'), (:'coach', 'coach'), (:'fremd', 'fremd'), (:'k1', 'k1'), (:'k2', 'k2')) v(u, n);
+  from (values (:'admin'::uuid, 'admin'), (:'coach', 'coach'), (:'fremd', 'fremd'), (:'k1', 'k1'), (:'k2', 'k2'), (:'k3', 'k3')) v(u, n);
 insert into profiles (id, email, role, full_name) values
   (:'admin', 'd2-admin@test.local', 'admin', 'ZZ Admin'), (:'coach', 'd2-coach@test.local', 'coach', 'ZZ Coach'),
   (:'fremd', 'd2-fremd@test.local', 'coach', 'ZZ Fremd'),
-  (:'k1', 'd2-k1@test.local', 'student', 'Batu Test'), (:'k2', 'd2-k2@test.local', 'student', 'Mira Test');
+  (:'k1', 'd2-k1@test.local', 'student', 'Batu Test'), (:'k2', 'd2-k2@test.local', 'student', 'Mira Test'),
+  (:'k3', 'd2-k3@test.local', 'student', 'Elif Test');
 
 create or replace function pg_temp.als(uid uuid) returns void language plpgsql as $$
 begin
@@ -35,7 +37,7 @@ begin
   perform set_config('request.jwt.claim.sub', uid::text, true);
   perform set_config('request.jwt.claim.role', 'authenticated', true);
 end $$;
-create or replace function pg_temp.kind(p_profil uuid) returns uuid language plpgsql as $$
+create or replace function pg_temp.kind(p_profil uuid, p_ende date default current_date + 300) returns uuid language plpgsql as $$
 declare v_lead uuid; v_st uuid;
 begin
   insert into leads (full_name, first_name, status, class_level) values ('ZZ Kind', 'ZZ', 'vertrag', 9) returning id into v_lead;
@@ -44,8 +46,10 @@ begin
   insert into vertraege (lead_id, status, vertrag_status, abgeschlossen_at, abgeschlossen_am, abschluss_weg, student_id,
                          vertragsbeginn, vertrag_ende, widerruf_bis, tier_id, laufzeit_monate, einheiten, fach, klasse,
                          kind_vorname, kind_nachname)
-  select v_lead, 'abgeschlossen', 'aktiv', now(), date_trunc('month', current_date)::date - 30, 'vor_ort', v_st,
-         date_trunc('month', current_date)::date, current_date + 300, date_trunc('month', current_date)::date + 13,
+  select v_lead, 'abgeschlossen', case when p_ende < current_date then 'ausgelaufen' else 'aktiv' end, now(),
+         date_trunc('month', current_date)::date - 30, 'vor_ort', v_st,
+         date_trunc('month', current_date)::date - case when p_ende < current_date then 365 else 0 end, p_ende,
+         date_trunc('month', current_date)::date + 13,
          t.id, 12, tl.einheiten, 'Mathematik', 9, 'ZZ', 'Kind'
     from tiers t join tier_laufzeiten tl on tl.tier_id = t.id and tl.laufzeit_monate = 12 where t.name = 'Basic';
   return v_st;
@@ -61,6 +65,23 @@ end $$;
 
 select pg_temp.kind(:'k1') as s1 \gset
 select pg_temp.kind(:'k2') as s2 \gset
+select pg_temp.kind(:'k3', current_date - 30) as s3 \gset
+-- now() steht in der Testtransaktion still: Meldungen werden nach jedem Aufruf zwei Minuten zurückgeschoben, damit die
+-- 60-Sekunden-Sperre gegen Wiederholungen sie nicht verschluckt. Dafür ist die Append-only-Sperre hier aus (Test 1 prüft sie).
+alter table home_uebung disable trigger home_uebung_append_only;
+create or replace function pg_temp.melden(p_kind_uid uuid, p_skill text, p_anzahl int, p_dauer int) returns void language plpgsql as $$
+begin
+  perform pg_temp.als(p_kind_uid);
+  perform home_uebung_melden(p_skill, p_anzahl, p_dauer);
+  update home_uebung set am = am - interval '2 minutes' where am > now() - interval '1 minute';
+end $$;
+-- Inhalt (nicht nur Zeilenzahl) der Tabellen, an denen Befund, Stufe und Plan hängen.
+create or replace function pg_temp.inhalt() returns text language sql as $$
+  select md5(coalesce((select string_agg(row_to_json(l)::text, '|' order by l.id) from lernpfad l), '')
+          || coalesce((select string_agg(row_to_json(b)::text, '|' order by b.id) from lernpfad_belege b), '')
+          || coalesce((select string_agg(row_to_json(u)::text, '|' order by u.session_id, u.skill_key) from lsa_skill_urteil u), '')
+          || coalesce((select string_agg(row_to_json(q)::text, '|' order by q.id) from quests q), ''))
+$$;
 
 -- Kleiner Katalog: z_a (Kl. 7) → z_b (Kl. 9, Thema z_thema) → z_c (Kl. 10); z_d (Kl. 10, ohne Voraussetzung);
 -- z_e (Kl. 10) braucht z_d; z_f (Kl. 10) braucht z_g (Kl. 10, ohne Voraussetzung, sicher).
@@ -75,6 +96,17 @@ insert into skill_thema (skill_key, thema_key) values ('z_b', 'z_thema');
 insert into lead_themen (lead_id, fach, thema_key, status, quelle)
 select l.id, 'Mathematik', 'z_thema', 'aktuell', 'gespraech' from leads l where l.converted_student_id = :'s1';
 insert into lernpfad (student_id, skill_key, stand_system, quelle) values (:'s1', 'z_g', 'sicher', 'lsa'), (:'s1', 'z_b', 'noch_nicht_sicher', 'lsa');
+-- z_h (Kl. 10, braucht z_c) gehört nur zum Thema einer bevorstehenden Klassenarbeit; z_i (Kl. 10) zu einer geschriebenen.
+insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe) values
+  ('z_h', 'ZZ H', 'Mathematik', 10, 4), ('z_i', 'ZZ I', 'Mathematik', 10, 4);
+insert into skill_kante (skill_key, voraussetzt_skill_key) values ('z_h', 'z_c'), ('z_i', 'z_c');
+insert into themen (thema_key, fach, klasse, label, stufe, sort) select 'z_ka', 'Mathematik', 9, 'ZZ KA', stufe, 9998 from themen limit 1;
+insert into themen (thema_key, fach, klasse, label, stufe, sort) select 'z_alt', 'Mathematik', 9, 'ZZ alt', stufe, 9997 from themen limit 1;
+insert into skill_thema (skill_key, thema_key) values ('z_h', 'z_ka'), ('z_i', 'z_alt');
+insert into lead_klassenarbeiten (lead_id, fach, schuljahr, nr, datum, thema_keys, status, quelle)
+select l.id, 'mathematik', '2026/27', 1, current_date + 10, array['z_ka'], 'bevorstehend', 'admin' from leads l where l.converted_student_id = :'s1';
+insert into lead_klassenarbeiten (lead_id, fach, schuljahr, nr, datum, thema_keys, status, quelle)
+select l.id, 'mathematik', '2026/27', 2, current_date - 10, array['z_alt'], 'geschrieben', 'admin' from leads l where l.converted_student_id = :'s1';
 
 -- ── 1) Melden ───────────────────────────────────────────────────────────────
 select is((select count(*)::int from information_schema.columns
@@ -90,6 +122,22 @@ select throws_ok($$select home_uebung_melden('z_b', 5, 300)$$, '42501', null, '1
 select pg_temp.als(:'k1');
 select throws_ok($$select home_uebung_melden('gibt_es_nicht', 5, 300)$$, '22023', null, '1 unbekannter Skill');
 select throws_ok($$select home_uebung_melden('z_b', 0, 300)$$, '22023', null, '1 Anzahl mindestens 1');
+select throws_ok($$select home_uebung_melden('z_b', 5, 10)$$, '22023', null, '1 fünf Aufgaben in zehn Sekunden: zu kurz');
+select throws_ok($$select home_uebung_melden('z_e', 5, 300)$$, '22023', null, '1 gesperrter Skill: keine Quest');
+reset role;
+select pg_temp.als(:'k3');
+select throws_ok($$select home_uebung_melden('z_d', 5, 300)$$, '42501', null, '1 ohne laufenden Vertrag keine Meldung');
+reset role;
+set local role authenticated;
+select pg_temp.als(:'k1');
+select is((select count(*)::int from home_uebung), 0, '1 das Kind liest home_uebung nicht direkt');
+select throws_ok($$insert into home_uebung (student_id, skill_key, aufgaben, dauer_sek) values (gen_random_uuid(), 'z_b', 1, 60)$$,
+                 '42501', null, '1 das Kind schreibt nicht direkt');
+select throws_ok(format('select home_darf_lesen(%L)', :'s1'), '42501', null, '1 interne Hilfe nicht aufrufbar');
+reset role;
+set local role anon;
+select throws_ok($$select home_uebung_melden('z_b', 5, 300)$$, '42501', null, '1 anon: gesperrt');
+reset role;
 
 -- ── 2) Nichts ändert sich ───────────────────────────────────────────────────
 reset role;
@@ -107,9 +155,10 @@ select is((select count(*)::int from pg_temp.zeilen() z join vorher v using (t) 
           '2 eine Wertung über aufgabe_werten ändert keine Tabelle');
 drop table vorher;
 create temp table vorher as select * from pg_temp.zeilen();
-select pg_temp.als(:'k1');
-select home_uebung_melden('z_b', 5, 300);
+select pg_temp.inhalt() as inhalt_vorher \gset
+select pg_temp.melden(:'k1', 'z_b', 5, 300);
 reset role;
+select is(pg_temp.inhalt(), :'inhalt_vorher', '2 Inhalt von lernpfad, Belegen, LSA-Urteilen und Quests unverändert');
 select is((select string_agg(z.t, ',' order by z.t) from pg_temp.zeilen() z join vorher v using (t) where z.n <> v.n),
           'home_uebung,student_progress,xp_events',
           '2 melden ändert nur home_uebung und die XP (xp_events, student_progress): kein Befund, keine Stufe, kein Plan');
@@ -126,18 +175,35 @@ returning id as alt \gset
 insert into session_students (session_id, student_id, attendance) values (:'alt', :'s1', 'present');
 select set_config('edvance.session_rpc', '', true);
 update home_uebung set am = now() - interval '2 days' where student_id = :'s1';
-select pg_temp.als(:'k1');
+select pg_temp.melden(:'k1', 'z_b', 5, 300);
+select pg_temp.melden(:'k1', 'z_b', 4, 200);
+select pg_temp.melden(:'k1', 'z_a', 5, 250);
+-- Wiederholung derselben Quest innerhalb von 60 s bucht nichts.
 select home_uebung_melden('z_b', 5, 300);
-select home_uebung_melden('z_b', 4, 200);
-select home_uebung_melden('z_a', 5, 250);
+select home_uebung_melden('z_b', 5, 300);
 select results_eq($$select skill_key, quests, aufgaben, dauer_sek from home_uebung_kurz((select get_my_student_id()))$$,
-                  $$values ('z_b'::text, 2, 9, 500), ('z_a'::text, 1, 5, 250)$$, '3 seit der letzten Session: z_b 2×, z_a 1×');
-select is((select quests from home_uebung_kurz(get_my_student_id(), '-infinity') where skill_key = 'z_b'), 3,
+                  $$values ('z_b'::text, 3, 14, 800), ('z_a'::text, 1, 5, 250)$$,
+                  '3 seit der letzten Session: z_b 3×, z_a 1× (die doppelte Meldung zählt einmal)');
+select is((select quests from home_uebung_kurz(get_my_student_id(), '-infinity') where skill_key = 'z_b'), 4,
           '3 mit p_seit: auch die ältere Meldung');
 select throws_ok(format('select * from home_uebung_kurz(%L)', :'s2'), '42501', null, '3 ein Kind liest nie die Übung eines anderen');
 reset role;
 select pg_temp.als(:'admin');
 select is((select count(*)::int from home_uebung_kurz(:'s1')), 2, '3 Admin liest');
+reset role;
+select akte_aktiv(:'s1') as akte \gset
+select pg_temp.als(:'coach');
+select is((select count(*)::int > 0 from home_uebung_kurz(:'s1')), :'akte'::boolean, '3 Coach liest genau bei aktiver Akte');
+reset role;
+-- Fehlte das Kind in der letzten Session (unexcused), zählt sie nicht als Grenze.
+select set_config('edvance.session_rpc', '1', true);
+insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am, beendet_am)
+values (:'coach', 'ZZ Raum', now() - interval '3 hours', 'done', now() - interval '3 hours', now() - interval '150 minutes')
+returning id as weg \gset
+select set_config('edvance.session_rpc', '', true);
+insert into session_students (session_id, student_id, attendance) values (:'weg', :'s1', 'unexcused');
+select pg_temp.als(:'k1');
+select is((select sum(quests)::int from home_uebung_kurz(get_my_student_id())), 4, '3 eine verpasste Session setzt die Zählung nicht zurück');
 reset role;
 
 -- ── 4) Zeig's mir ───────────────────────────────────────────────────────────
@@ -148,9 +214,11 @@ select pg_temp.als(:'fremd');
 select throws_ok(format('select * from zeigs_mir_offen(%L, %L)', :'s1', :'heute'), '42501', null, '4 fremder Coach: kein Zugriff');
 select pg_temp.als(:'k1');
 select throws_ok(format('select * from zeigs_mir_offen(%L, %L)', :'s1', :'heute'), '42501', null, '4 das Kind: kein Zugriff');
+select throws_ok(format($$select zeigs_mir_entscheiden(%L, %L, 'z_b', 'uebernehmen')$$, :'s1', :'heute'), '42501', null,
+                 '4 das Kind entscheidet nicht');
 select pg_temp.als(:'coach');
 select results_eq(format('select skill_key from zeigs_mir_offen(%L, %L)', :'s1', :'heute'), $$values ('z_b'::text)$$,
-                  '4 Vorschlag: z_b (2× geübt, noch nicht sicher)');
+                  '4 Vorschlag: z_b (3× geübt, noch nicht sicher; z_a nur 1×)');
 select is((select count(*)::int from zeigs_mir_offen(:'s2', :'heute')), 0, '4 ohne Übung kein Vorschlag');
 select is((select count(*)::int from zeigs_mir_offen(:'s1', :'heute')), 1, '4 zweiter Abruf: derselbe eine Vorschlag');
 select throws_ok(format($$select zeigs_mir_entscheiden(%L, %L, 'z_a', 'uebernehmen')$$, :'s1', :'heute'), '55000', null,
@@ -161,6 +229,25 @@ select lives_ok(format($$select zeigs_mir_entscheiden(%L, %L, 'z_b', 'uebernehme
 select results_eq(format('select entscheidung, entschieden_von from zeigs_mir_offen(%L, %L)', :'s1', :'heute'),
                   format($$values ('uebernehmen'::text, %L::uuid)$$, :'coach'), '4 gespeichert mit Coach');
 select lives_ok(format($$select zeigs_mir_entscheiden(%L, %L, 'z_b', 'nicht_heute')$$, :'s1', :'heute'), '4 änderbar: nicht heute');
+reset role;
+select pg_temp.als(:'fremd');
+select throws_ok(format($$select zeigs_mir_entscheiden(%L, %L, 'z_b', 'uebernehmen')$$, :'s1', :'heute'), '42501', null,
+                 '4 fremder Coach entscheidet nicht');
+reset role;
+select is(zeigs_mir_uebernommen(:'s1', :'heute'), null::text, '4 für C: nicht übernommen (nicht heute)');
+select pg_temp.als(:'coach');
+select zeigs_mir_entscheiden(:'s1', :'heute', 'z_b', 'uebernehmen');
+reset role;
+select is(zeigs_mir_uebernommen(:'s1', :'heute'), 'z_b', '4 für C: übernommen z_b');
+set local role authenticated;
+select throws_ok(format('select zeigs_mir_uebernommen(%L, %L)', :'s1', :'heute'), '42501', null, '4 die Hilfe für C ist intern');
+reset role;
+select set_config('edvance.session_rpc', '1', true);
+update coaching_sessions set beendet_am = now(), status = 'done' where id = :'heute';
+select set_config('edvance.session_rpc', '', true);
+select pg_temp.als(:'coach');
+select throws_ok(format($$select zeigs_mir_entscheiden(%L, %L, 'z_b', 'nicht_heute')$$, :'s1', :'heute'), '55000', null,
+                 '4 nach Session-Ende nicht mehr änderbar');
 reset role;
 select is((select count(*)::int from zeigs_mir where student_id = :'s1' and session_id = :'heute'), 1,
           '4 höchstens ein Vorschlag je Kind und Session');
@@ -179,14 +266,23 @@ create temp table offen as select * from kompetenz_offen(get_my_student_id()) wh
 select results_eq($$select skill_key, zustand, grund from offen order by skill_key$$,
   $$values ('z_a'::text, 'nicht_angeschaut'::text, 'grundlage'::text),   -- Regel 3 (und 5)
            ('z_b', 'noch_nicht_sicher', 'befund'),                         -- Regel 4 vor Regel 2
-           ('z_c', 'gesperrt', null),                                      -- Kl. 10, Voraussetzung nicht sicher
+           ('z_c', 'nicht_angeschaut', 'grundlage'),                       -- Voraussetzung des KA-Stoffs (Regel 3)
            ('z_d', 'nicht_angeschaut', 'start'),                           -- ohne Voraussetzung
            ('z_e', 'gesperrt', null),                                      -- Voraussetzung ohne Befund
            ('z_f', 'nicht_angeschaut', 'voraussetzungen'),                 -- Regel 1
-           ('z_g', 'sicher', 'befund')$$,
+           ('z_g', 'sicher', 'befund'),
+           ('z_h', 'nicht_angeschaut', 'aktuell'),                         -- Thema einer bevorstehenden KA (Regel 2)
+           ('z_i', 'gesperrt', null)$$,                                    -- KA schon geschrieben: kein aktueller Stoff
   '5 Zustände und Gründe nach Anforderung Themenbaum §3');
-select is(kompetenz_offen_merken(get_my_student_id()) > 0, true, '5 merken schreibt Offenes fest');
+select lives_ok($$select kompetenz_offen_merken(get_my_student_id())$$, '5 merken von Hand geht auch');
 reset role;
+-- Regel 6 über die Trigger, ohne merken: z_e2 (Kl. 10) wird offen, weil z_d sicher wird; dann fällt z_d wieder.
+insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe) values ('z_e2', 'ZZ E2', 'Mathematik', 10, 2);
+insert into skill_kante (skill_key, voraussetzt_skill_key) values ('z_e2', 'z_d');
+insert into lernpfad (student_id, skill_key, stand_system, quelle) values (:'s1', 'z_d', 'sicher', 'session');
+update lernpfad set stand_system = 'noch_nicht_sicher' where student_id = :'s1' and skill_key = 'z_d';
+select is((select zustand || '/' || grund from kompetenz_offen_roh(:'s1') where skill_key = 'z_e2'),
+          'nicht_angeschaut/voraussetzungen', '5 Regel 6 über Trigger: offen bleibt offen, ohne dass jemand merken aufruft');
 -- Regel 6: Fällt z_g auf „noch nicht sicher“, bleibt z_f offen.
 update lernpfad set stand_system = 'noch_nicht_sicher' where student_id = :'s1' and skill_key = 'z_g';
 select pg_temp.als(:'k1');
@@ -194,7 +290,7 @@ select is((select zustand || '/' || grund from kompetenz_offen(get_my_student_id
           'nicht_angeschaut/voraussetzungen', '5 Regel 6: einmal offen bleibt offen');
 -- Übung zuhause ändert keinen Zustand (Abnahme 6).
 create temp table vor_uebung as select * from kompetenz_offen(get_my_student_id());
-select home_uebung_melden('z_c', 5, 300);
+select pg_temp.melden(:'k1', 'z_f', 5, 300);
 select is((select count(*)::int from kompetenz_offen(get_my_student_id()) k join vor_uebung v using (skill_key)
             where k.zustand is distinct from v.zustand), 0, '5 eine Home-Quest ändert keinen Zustand');
 select throws_ok(format('select * from kompetenz_offen(%L)', :'s2'), '42501', null, '5 fremdes Kind: kein Zugriff');
@@ -205,7 +301,7 @@ select pg_temp.als(:'k1');
 select results_eq($$select wochen_mit_uebung, serie_wochen, quests_diese_woche from home_pfad(get_my_student_id())$$,
                   $$values (case when date_trunc('week', now() - interval '2 days') = date_trunc('week', now()) then 1 else 2 end,
                             case when date_trunc('week', now() - interval '2 days') = date_trunc('week', now()) then 1 else 2 end,
-                            case when date_trunc('week', now() - interval '2 days') = date_trunc('week', now()) then 5 else 4 end)$$,
+                            case when date_trunc('week', now() - interval '2 days') = date_trunc('week', now()) then 6 else 5 end)$$,
                   '6 Wochen mit Übung, Serie, Quests diese Woche');
 reset role;
 
@@ -215,12 +311,24 @@ select eddie_frage_merken('Warum ist 1 keine Primzahl?') as frage \gset
 select throws_ok($$select eddie_frage_merken('   ')$$, '22023', null, '7 leere Frage geht nicht');
 select throws_ok(format('select * from coach_fragen_offen(%L)', :'s1'), '42501', null, '7 das Kind liest die Liste nicht');
 reset role;
+select pg_temp.als(:'fremd');
+select throws_ok(format('select coach_frage_erledigt(%L)', :'frage'), '42501', null, '7 fremder Coach erledigt nichts')
+ where not akte_aktiv(:'s1');
+reset role;
+select pg_temp.als(:'k2');
+select throws_ok(format('select * from home_pfad(%L)', :'s1'), '42501', null, '7 fremdes Kind: kein Pfad');
+reset role;
 select pg_temp.als(:'admin');
 select results_eq(format('select text from coach_fragen_offen(%L)', :'s1'), $$values ('Warum ist 1 keine Primzahl?'::text)$$,
                   '7 Admin sieht die Frage');
 select lives_ok(format('select coach_frage_erledigt(%L)', :'frage'), '7 erledigt');
 select is((select count(*)::int from coach_fragen_offen(:'s1')), 0, '7 danach keine offene Frage');
 reset role;
+
+-- ── 8) Append-only ──────────────────────────────────────────────────────────
+alter table home_uebung enable trigger home_uebung_append_only;
+select throws_ok($$update home_uebung set aufgaben = 1$$, '42501', null, '8 home_uebung: kein Update');
+select throws_ok($$delete from home_uebung$$, '42501', null, '8 home_uebung: kein Delete');
 
 select * from finish();
 rollback;

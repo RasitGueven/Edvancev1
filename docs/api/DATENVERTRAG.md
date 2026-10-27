@@ -1170,8 +1170,10 @@ zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung 
 
 ```text
 home_uebung_melden(p_skill, p_anzahl 1–20, p_dauer_sek 0–7200) → void
-    nur das Kind selbst, laufender Vertrag; bucht 10 XP (Stellschraube home_uebung_xp über quest_einstellung_zahl);
-    höchstens 40 je Tag; speichert nie Antworten oder Richtigkeit
+    nur das Kind selbst, laufender Vertrag, Skill nicht gesperrt, mindestens 5 s je Aufgabe; dieselbe Quest
+    (gleicher Skill) innerhalb von 60 s zählt einmal (Wiederholungsversuch ohne Fehler); höchstens 40 je Tag;
+    10 XP je Quest (Stellschraube home_uebung_xp), XP nur für die ersten zehn Quests eines Tages;
+    speichert nie Antworten oder Richtigkeit; home_uebung ist append-only
 home_uebung_kurz(p_kind, p_seit default null) → (skill_key, quests, aufgaben, dauer_sek, zuletzt)
     Kind selbst, Coach mit aktiver Akte, Admin; p_seit null = seit der letzten abgeschlossenen Session vor Ort
     (coaching_sessions.beendet_am, Anwesenheit present, ohne Testlauf); sortiert nach quests absteigend
@@ -1180,10 +1182,12 @@ kompetenz_offen(p_kind) → (skill_key, zustand, grund)   stable, schreibt nie; 
     zustand sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (Befund aus lernpfad.stand_system)
     grund   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
     „gemeistert“ liest der Themenbaum getrennt aus lernpfad.stand_coach (nur Coach-Bestätigung)
-kompetenz_offen_merken(p_kind) → integer    schreibt neu Offenes fest (Regel 6); App ruft es beim Öffnen des Baums
+kompetenz_offen_merken(p_kind) → integer    schreibt neu Offenes fest (Regel 6). Dasselbe tun Trigger vor und nach
+    jeder Änderung an lernpfad, lead_themen und lead_klassenarbeiten; der Aufruf ist nur noch eine Absicherung
 zeigs_mir_offen(p_kind, p_session)          Coach der Session oder Admin; legt beim ersten Abruf den einen Vorschlag an
     (Skill mit ≥ 2 Quests seit der letzten Session bis Sessionbeginn, lernpfad nicht sicher; der meistgeübte); leer,
-    wenn keiner passt. C liest entscheidung = 'uebernehmen' für die Kernarbeit.
+    wenn keiner passt; nicht für beendete Sessions und Testläufe. Entscheiden geht bis Session-Ende.
+zeigs_mir_uebernommen(p_kind, p_session) → text   für C aus plpgsql (ohne Grant): übernommener Skill oder null
 eddie_frage_merken(p_text 1–280) → uuid     das Kind; höchstens zehn offene
 coach_fragen_offen(p_kind) → (id, text, am) Coach mit aktiver Akte, Admin
 coach_frage_erledigt(p_frage) → void        Coach mit aktiver Akte, Admin

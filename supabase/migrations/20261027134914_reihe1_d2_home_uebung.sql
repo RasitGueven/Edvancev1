@@ -10,7 +10,9 @@
 --                            abgeschlossenen Session vor Ort (home_letzte_session)
 --   home_pfad                Pfad des Kindes: XP, Level, Wochen mit Übung, Serie, Quests diese Woche
 --   kompetenz_offen          Offen-Regeln 1–6 der Anforderung Themenbaum §3 (stable, schreibt nicht)
---   kompetenz_offen_merken   schreibt neu Offenes nach schueler_kompetenz_offen (Regel 6: einmal offen bleibt offen)
+--   kompetenz_offen_merken   schreibt neu Offenes nach schueler_kompetenz_offen (Regel 6: einmal offen bleibt offen);
+--                            dasselbe tun Trigger vor und nach jeder Änderung an lernpfad, lead_themen, lead_klassenarbeiten
+--   zeigs_mir_uebernommen    intern für C: übernommener Skill oder null (nur lesen)
 --   zeigs_mir                höchstens ein Vorschlag je Kind und Session (unique)
 --   zeigs_mir_offen          Coach der Session, Admin: legt den Vorschlag beim ersten Abruf an
 --   zeigs_mir_entscheiden    Coach der Session, Admin: uebernehmen | nicht_heute
@@ -30,6 +32,17 @@ create table public.home_uebung (
   am         timestamptz not null default now()
 );
 create index home_uebung_kind_am_idx on public.home_uebung (student_id, am desc);
+
+create function public.home_uebung_append_only()
+returns trigger
+language plpgsql
+as $$
+begin
+  raise exception 'home_uebung ist append-only' using errcode = '42501';
+end;
+$$;
+create trigger home_uebung_append_only before update or delete on public.home_uebung
+  for each row execute function public.home_uebung_append_only();
 comment on table public.home_uebung is
   'Reihe 1 · D2: eine Zeile je erledigter Home-Quest. Nur „dass geübt wurde“ (FernUSG): keine Antworten, keine Richtigkeit. Append-only.';
 
@@ -130,9 +143,10 @@ security definer
 set search_path = public, pg_temp
 as $$
 declare
-  v_kind uuid := public.get_my_student_id();
-  v_id   uuid;
-  v_xp   integer;
+  v_kind  uuid := public.get_my_student_id();
+  v_id    uuid;
+  v_xp    integer;
+  v_heute integer;
 begin
   if v_kind is null then
     raise exception 'home_uebung_melden: nur das Kind selbst' using errcode = '42501';
@@ -146,10 +160,23 @@ begin
   if p_anzahl is null or p_anzahl not between 1 and 20 or p_dauer_sek is null or p_dauer_sek not between 0 and 7200 then
     raise exception 'home_uebung_melden: Anzahl 1–20, Dauer 0–7200 s' using errcode = '22023';
   end if;
-  -- Missbrauchsbremse: höchstens 40 Quests je Tag (Berlin).
-  if (select count(*) from public.home_uebung h
-       where h.student_id = v_kind
-         and (h.am at time zone 'Europe/Berlin')::date = (now() at time zone 'Europe/Berlin')::date) >= 40 then
+  if p_dauer_sek < p_anzahl * 5 then
+    raise exception 'home_uebung_melden: zu kurz für % Aufgaben', p_anzahl using errcode = '22023';
+  end if;
+  if exists (select 1 from public.kompetenz_offen_roh(v_kind) o where o.skill_key = p_skill and o.zustand = 'gesperrt') then
+    raise exception 'home_uebung_melden: Skill ist noch gesperrt' using errcode = '22023';
+  end if;
+
+  -- Meldungen eines Kindes nacheinander; ein Wiederholungsversuch derselben Quest (gleicher Skill, < 60 s) bucht nichts.
+  perform pg_advisory_xact_lock(hashtext('home_uebung:' || v_kind::text));
+  if exists (select 1 from public.home_uebung h
+              where h.student_id = v_kind and h.skill_key = p_skill and h.am > now() - interval '60 seconds') then
+    return;
+  end if;
+  select count(*) into v_heute from public.home_uebung h
+   where h.student_id = v_kind
+     and (h.am at time zone 'Europe/Berlin')::date = (now() at time zone 'Europe/Berlin')::date;
+  if v_heute >= 40 then
     raise exception 'home_uebung_melden: Tagesgrenze erreicht' using errcode = '54000';
   end if;
 
@@ -157,9 +184,10 @@ begin
   values (v_kind, p_skill, p_anzahl, p_dauer_sek)
   returning id into v_id;
 
-  -- XP fürs Üben (Stellschraube home_uebung_xp, Start 10), getrennt von jeder Kompetenz.
+  -- XP fürs Üben (Stellschraube home_uebung_xp, Start 10), getrennt von jeder Kompetenz; XP nur für die ersten
+  -- zehn Quests eines Tages (höchstens 100 XP), geübt werden darf weiter.
   v_xp := least(greatest(public.quest_einstellung_zahl('home_uebung_xp', 10)::integer, 0), 1000);
-  if v_xp > 0 then
+  if v_xp > 0 and v_heute < 10 then
     perform public.xp_buchen_intern(v_kind, v_xp, 'home_uebung', 'home_uebung:' || v_id::text, null);
   end if;
 end;
@@ -233,7 +261,7 @@ comment on function public.home_pfad(uuid) is
   'Pfad des Kindes (nur Verhalten): XP, Level, Wochen mit Übung, Serie in Wochen, Quests diese Woche, Präsenz-Wochen. reihe1 fertig';
 
 -- ── Offen-Regeln ────────────────────────────────────────────────────────────
-create function public.kompetenz_offen(p_kind uuid)
+create function public.kompetenz_offen_roh(p_kind uuid)
 returns table (skill_key text, zustand text, grund text)
 language plpgsql
 stable
@@ -244,9 +272,6 @@ as $$
 declare
   v_klasse integer;
 begin
-  if not public.home_darf_lesen(p_kind) then
-    raise exception 'kompetenz_offen: kein Zugriff' using errcode = '42501';
-  end if;
   select s.class_level into v_klasse from public.students s where s.id = p_kind;
 
   return query
@@ -260,7 +285,7 @@ begin
     select t.thema_key from public.lead_themen t where t.lead_id in (select id from leads_kind) and t.status = 'aktuell'
     union
     select unnest(k.thema_keys) from public.lead_klassenarbeiten k
-     where k.lead_id in (select id from leads_kind) and k.status = 'planned'
+     where k.lead_id in (select id from leads_kind) and k.status = 'bevorstehend'
        and (k.datum is null or k.datum >= (now() at time zone 'Europe/Berlin')::date)
   ),
   aktuell as (select distinct st.skill_key from public.skill_thema st where st.thema_key in (select thema_key from aktuelle_themen)),
@@ -270,9 +295,11 @@ begin
     union
     select k.voraussetzt_skill_key from public.skill_kante k join grundlage g on g.skill_key = k.skill_key
   ),
+  -- Befund vor Ort; vom Coach gemeistert gilt als sicher.
   befund as (
-    select lp.skill_key, lp.stand_system from public.lernpfad lp
-     where lp.student_id = p_kind and lp.stand_system in ('sicher', 'noch_nicht_sicher')
+    select lp.skill_key, case when lp.stand_coach = 'gemeistert' then 'sicher' else lp.stand_system end as stand_system
+      from public.lernpfad lp
+     where lp.student_id = p_kind and (lp.stand_system in ('sicher', 'noch_nicht_sicher') or lp.stand_coach = 'gemeistert')
   ),
   voraus as (
     select s.skill_key,
@@ -307,12 +334,30 @@ begin
    order by s.skill_key;
 end;
 $$;
+comment on function public.kompetenz_offen_roh(uuid) is 'Intern: Offen-Regeln ohne Rechteprüfung (Trigger, kompetenz_offen).';
+
+create function public.kompetenz_offen(p_kind uuid)
+returns table (skill_key text, zustand text, grund text)
+language plpgsql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+begin
+  if not public.home_darf_lesen(p_kind) then
+    raise exception 'kompetenz_offen: kein Zugriff' using errcode = '42501';
+  end if;
+  return query select * from public.kompetenz_offen_roh(p_kind);
+end;
+$$;
 comment on function public.kompetenz_offen(uuid) is
   'Offen-Regeln des Themenbaums (Anforderung Themenbaum §3): zustand sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt; '
   'grund befund | aktuell | grundlage | voraussetzungen | frueher | start | null. Befunde nur aus lernpfad (LSA, Session); '
   'Übung zuhause ändert nichts. Kind, Coach, Admin. reihe1 fertig';
 
-create function public.kompetenz_offen_merken(p_kind uuid)
+-- Regel 6 serverseitig: schreibt neu Offenes fest. Läuft aus Triggern auf lernpfad, lead_themen und
+-- lead_klassenarbeiten — VOR einer Änderung (damit nichts, was offen war, verloren geht) und danach.
+create function public.kompetenz_offen_merken_intern(p_kind uuid)
 returns integer
 language plpgsql
 volatile
@@ -322,18 +367,68 @@ as $$
 declare
   v_n integer;
 begin
-  if not public.home_darf_lesen(p_kind) then
-    raise exception 'kompetenz_offen_merken: kein Zugriff' using errcode = '42501';
+  if p_kind is null then
+    return 0;
   end if;
   insert into public.schueler_kompetenz_offen (student_id, skill_key, grund)
-  select p_kind, o.skill_key, o.grund from public.kompetenz_offen(p_kind) o where o.grund is not null
+  select p_kind, o.skill_key, o.grund from public.kompetenz_offen_roh(p_kind) o where o.grund is not null
   on conflict (student_id, skill_key) do nothing;
   get diagnostics v_n = row_count;
   return v_n;
 end;
 $$;
+comment on function public.kompetenz_offen_merken_intern(uuid) is 'Intern: Regel 6 fortschreiben (Trigger).';
+
+create function public.kompetenz_offen_merken(p_kind uuid)
+returns integer
+language plpgsql
+volatile
+security definer
+set search_path = public, pg_temp
+as $$
+begin
+  if not public.home_darf_lesen(p_kind) then
+    raise exception 'kompetenz_offen_merken: kein Zugriff' using errcode = '42501';
+  end if;
+  return public.kompetenz_offen_merken_intern(p_kind);
+end;
+$$;
 comment on function public.kompetenz_offen_merken(uuid) is
-  'Schreibt neu Offenes fest (Regel 6), Rückgabe: Anzahl neuer Zeilen. Kind, Coach, Admin. reihe1 fertig';
+  'Schreibt neu Offenes fest (Regel 6), Rückgabe: Anzahl neuer Zeilen. Kind, Coach, Admin. Die Trigger tun das ohnehin. reihe1 fertig';
+
+create function public.kompetenz_offen_trigger()
+returns trigger
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_zeile record := case when tg_op = 'DELETE' then old else new end;
+  v_kind  uuid;
+begin
+  if tg_table_name = 'lernpfad' then
+    v_kind := v_zeile.student_id;
+  else
+    select l.converted_student_id into v_kind from public.leads l where l.id = v_zeile.lead_id;
+  end if;
+  perform public.kompetenz_offen_merken_intern(v_kind);
+  return v_zeile;
+end;
+$$;
+comment on function public.kompetenz_offen_trigger() is 'Intern: Regel 6 vor und nach jeder Änderung an Befunden und aktuellem Stoff.';
+
+create trigger lernpfad_kompetenz_offen_vorher before update or delete on public.lernpfad
+  for each row execute function public.kompetenz_offen_trigger();
+create trigger lernpfad_kompetenz_offen_nachher after insert or update on public.lernpfad
+  for each row execute function public.kompetenz_offen_trigger();
+create trigger lead_themen_kompetenz_offen_vorher before update or delete on public.lead_themen
+  for each row execute function public.kompetenz_offen_trigger();
+create trigger lead_themen_kompetenz_offen_nachher after insert or update on public.lead_themen
+  for each row execute function public.kompetenz_offen_trigger();
+create trigger lead_klassenarbeiten_kompetenz_offen_vorher before update or delete on public.lead_klassenarbeiten
+  for each row execute function public.kompetenz_offen_trigger();
+create trigger lead_klassenarbeiten_kompetenz_offen_nachher after insert or update on public.lead_klassenarbeiten
+  for each row execute function public.kompetenz_offen_trigger();
 
 -- ── Zeig's mir ──────────────────────────────────────────────────────────────
 create function public.zeigs_mir_darf(p_kind uuid, p_session uuid)
@@ -365,7 +460,9 @@ begin
   if not public.zeigs_mir_darf(p_kind, p_session) then
     raise exception 'zeigs_mir_offen: nur Coach der Session oder Admin' using errcode = '42501';
   end if;
-  if not exists (select 1 from public.zeigs_mir z where z.student_id = p_kind and z.session_id = p_session) then
+  if not exists (select 1 from public.zeigs_mir z where z.student_id = p_kind and z.session_id = p_session)
+     and exists (select 1 from public.coaching_sessions cs
+                  where cs.id = p_session and cs.beendet_am is null and not coalesce(cs.testlauf, false)) then
     select coalesce(cs.gestartet_am, cs.scheduled_at, now()) into v_beginn
       from public.coaching_sessions cs where cs.id = p_session;
     -- Entscheidung 5: Skill mit mindestens zwei Quests seit der letzten Session, noch nicht sicher; der meistgeübte.
@@ -402,6 +499,9 @@ begin
   if not public.zeigs_mir_darf(p_kind, p_session) then
     raise exception 'zeigs_mir_entscheiden: nur Coach der Session oder Admin' using errcode = '42501';
   end if;
+  if exists (select 1 from public.coaching_sessions cs where cs.id = p_session and cs.beendet_am is not null) then
+    raise exception 'zeigs_mir_entscheiden: Session ist beendet' using errcode = '55000';
+  end if;
   if p_entscheidung is null or p_entscheidung not in ('uebernehmen', 'nicht_heute') then
     raise exception 'zeigs_mir_entscheiden: uebernehmen oder nicht_heute' using errcode = '22023';
   end if;
@@ -415,6 +515,20 @@ end;
 $$;
 comment on function public.zeigs_mir_entscheiden(uuid, uuid, text, text) is
   'Coach der Session, Admin: übernimmt den Vorschlag oder „nicht heute“ (änderbar bis Session-Ende). reihe1 fertig';
+
+-- Für C (session_naechster_schritt, Tablet-Kontext): nur lesen, legt nichts an, keine Rechteprüfung, kein Grant.
+create function public.zeigs_mir_uebernommen(p_kind uuid, p_session uuid)
+returns text
+language sql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+  select z.skill_key from public.zeigs_mir z
+   where z.student_id = p_kind and z.session_id = p_session and z.entscheidung = 'uebernehmen';
+$$;
+comment on function public.zeigs_mir_uebernommen(uuid, uuid) is
+  'Intern für C (aus plpgsql): Skill, den der Coach für „Zeig''s mir“ übernommen hat, sonst null. Ohne Grant. reihe1 fertig';
 
 -- ── Fragen an den Coach ─────────────────────────────────────────────────────
 create function public.eddie_frage_merken(p_text text)
@@ -490,6 +604,9 @@ revoke all on function public.home_darf_lesen(uuid), public.home_letzte_session(
   public.coach_fragen_offen(uuid), public.coach_frage_erledigt(uuid) from public, anon;
 revoke all on function public.home_darf_lesen(uuid), public.zeigs_mir_darf(uuid, uuid),
   public.home_letzte_session(uuid, timestamptz) from authenticated;
+revoke all on function public.kompetenz_offen_roh(uuid), public.kompetenz_offen_merken_intern(uuid),
+  public.kompetenz_offen_trigger(), public.zeigs_mir_uebernommen(uuid, uuid), public.home_uebung_append_only()
+  from public, anon, authenticated;
 grant execute on function public.home_uebung_melden(text, integer, integer),
   public.home_uebung_kurz(uuid, timestamptz), public.home_pfad(uuid), public.kompetenz_offen(uuid),
   public.kompetenz_offen_merken(uuid), public.zeigs_mir_offen(uuid, uuid), public.zeigs_mir_entscheiden(uuid, uuid, text, text),
