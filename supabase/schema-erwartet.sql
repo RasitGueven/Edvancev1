@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict Lc6CwCAzylUcHhaOABhRpkdaRyJJKhy8QiREfUFVvRC34Touh8MNS5ORGUIReMR
+\restrict Ud8R9sJUEDUq7WlNQIidQ9vhFSYUJNUxxuXrIPqkFDrJmEK6RCGBBaa2m1bkeMS
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -19959,6 +19959,78 @@ $$;
 
 
 --
+-- Name: themenbaum_themen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.themenbaum_themen(p_kind uuid) RETURNS TABLE(thema_key text, label text, gruppe integer, reihenfolge integer, plan_von integer, plan_bis integer, aktuell boolean, behandelt boolean, skill_keys text[])
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_klasse integer;
+  v_schule uuid;
+  v_dj     integer;
+  v_plan   boolean;
+begin
+  if not public.home_darf_lesen(p_kind) then
+    raise exception 'themenbaum_themen: kein Zugriff' using errcode = '42501';
+  end if;
+  select s.class_level, s.schule_id into v_klasse, v_schule from public.students s where s.id = p_kind;
+  -- Doppeljahrgang nach Kernlehrplan G9: 5/6, 7/8, 9/10 (Startklasse 5, 7, 9).
+  v_dj := case when v_klasse is null then 9 else greatest(5, least(9, v_klasse - ((v_klasse - 5) % 2))) end;
+  v_plan := v_schule is not null and exists (
+    select 1 from public.schul_themenplan p where p.schule_id = v_schule and p.fach = 'mathematik' and p.klasse in (v_dj, v_dj + 1));
+
+  return query
+  with leads_kind as (
+    select l.id from public.leads l where l.converted_student_id = p_kind
+    union select s.lead_id from public.students s where s.id = p_kind and s.lead_id is not null
+  ),
+  stand as (
+    select t.thema_key, bool_or(t.status = 'aktuell') as aktuell, bool_or(t.status = 'behandelt') as behandelt
+      from public.lead_themen t where t.lead_id in (select id from leads_kind) group by t.thema_key
+  ),
+  ka as (
+    select distinct unnest(k.thema_keys) as thema_key from public.lead_klassenarbeiten k
+     where k.lead_id in (select id from leads_kind) and k.status = 'bevorstehend'
+       and (k.datum is null or k.datum >= (now() at time zone 'Europe/Berlin')::date)
+  ),
+  plan as (
+    select p.thema_key, min(p.klasse * 1000 + p.position) as pos, min(p.klasse) as von, max(p.klasse) as bis
+      from public.schul_themenplan p
+     where v_plan and p.schule_id = v_schule and p.fach = 'mathematik' and p.klasse in (v_dj, v_dj + 1)
+     group by p.thema_key
+  ),
+  themen_kind as (
+    select t.thema_key, t.label, t.klasse as gruppe, t.sort,
+           pl.pos, pl.von, pl.bis
+      from public.themen t
+      left join plan pl on pl.thema_key = t.thema_key
+     where t.fach = 'mathematik'
+  )
+  select tk.thema_key, tk.label, coalesce(case when tk.pos is not null then v_dj end, tk.gruppe),
+         (row_number() over (order by
+            -- Blöcke: 0 eigener Doppeljahrgang, 1 was noch kommt (nur ohne Schulplan), 2 früher (nächstliegend zuerst)
+            case when tk.pos is not null or tk.gruppe = v_dj then 0
+                 when tk.gruppe > v_dj then case when v_plan then 3 else 1 end
+                 else 2 end,
+            case when tk.pos is not null or tk.gruppe = v_dj then 0
+                 when tk.gruppe < v_dj then -tk.gruppe else tk.gruppe end,
+            -- Im Plan nicht zugeordnete Themen des eigenen Doppeljahrgangs am Ende des Blocks (Plan unvollständig).
+            coalesce(tk.pos, 999999), tk.sort, tk.thema_key))::integer,
+         tk.von, tk.bis,
+         coalesce(st.aktuell, false) or exists (select 1 from ka where ka.thema_key = tk.thema_key),
+         coalesce(st.behandelt, false),
+         coalesce((select array_agg(x.skill_key order by x.skill_key) from public.skill_thema x where x.thema_key = tk.thema_key), '{}')
+    from themen_kind tk
+    left join stand st on st.thema_key = tk.thema_key
+   order by 4;
+end;
+$$;
+
+
+--
 -- Name: vertraege_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -30997,5 +31069,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Lc6CwCAzylUcHhaOABhRpkdaRyJJKhy8QiREfUFVvRC34Touh8MNS5ORGUIReMR
+\unrestrict Ud8R9sJUEDUq7WlNQIidQ9vhFSYUJNUxxuXrIPqkFDrJmEK6RCGBBaa2m1bkeMS
 

@@ -1195,6 +1195,17 @@ coach_frage_erledigt(p_frage) → void        Coach mit aktiver Akte, Admin
 
 Zählweise „n× geübt“ für C (Begrüßung vor Ort): `home_uebung_kurz(p_kind)` → `quests` je Skill.
 
+### Themenliste (D4, 20261027141641)
+
+```text
+themenbaum_themen(p_kind) → (thema_key, label, gruppe int 5|7|9, reihenfolge int, plan_von int, plan_bis int,
+                             aktuell bool, behandelt bool, skill_keys text[])
+    Kind selbst, Coach mit aktiver Akte, Admin. Reihenfolge, die das Kind sieht: mit Schulplan der Doppeljahrgang in der
+    Reihenfolge der Schule (nicht eingeplante Themen am Ende), dann frühere Doppeljahrgänge (nächster zuerst), dann
+    spätere; ohne Schulplan eigener, dann spätere, dann frühere. plan_von/plan_bis nur für Plan-Themen (App zeigt
+    „Kl. 10“ bzw. „9–10“, wenn es nicht die eigene Klasse ist). Keine Quellenangabe.
+```
+
 
 ### Anmeldung mit Zugangscode und Geräte (D1)
 
