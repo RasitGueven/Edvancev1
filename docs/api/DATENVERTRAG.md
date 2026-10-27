@@ -1127,3 +1127,43 @@ Die Wochengrenze (`SL004`) prüft `kinder_buchbar` bewusst nicht; sie gilt nur f
 Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbraucht nichts, `keine_einheit` entfällt).
 Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
 Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
+
+## Reihe 1 · D Home light (Bauauftrag D)
+
+Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
+Fertige Funktionen tragen `comment on function … is 'reihe1 fertig'`.
+
+### App-Komponente `ThemenbaumAusschnitt` (edvance-app)
+
+`src/components/themenbaum/ThemenbaumAusschnitt.tsx`, für den Check-out vor Ort (C):
+
+```ts
+type ThemenbaumAusschnittProps = {
+  kindId: string;                 // students.id
+  skillKeys: readonly string[];   // skill_key der Kompetenzen der Stunde
+};
+```
+
+Ohne Daten zeigt sie nichts. Die Daten holt sie selbst (`kompetenz_offen`, `home_uebung_kurz`).
+
+### Routen (edvance-app)
+
+Home-Bildschirme liegen unter `app/(student)/home/` (eigene Gruppe). Session-Routen bleiben bei C.
+
+### Datenbank-Funktionen (Signaturen, Stand D0)
+
+```text
+kompetenz_offen(p_kind uuid) → table(skill_key text, zustand text, grund text)
+    zustand: sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (gemeistert nur über lernpfad.stand_coach)
+    grund:   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
+home_uebung_melden(p_skill text, p_anzahl int, p_dauer_sek int) → void       nur das Kind selbst
+home_uebung_kurz(p_kind uuid, p_seit timestamptz default null)
+    → table(skill_key text, quests int, aufgaben int, dauer_sek int, zuletzt timestamptz)
+    p_seit null: seit der letzten abgeschlossenen Session vor Ort (coaching_sessions.beendet_am)
+zeigs_mir_offen(p_kind uuid, p_session uuid)
+    → table(skill_key text, vorschlag_am timestamptz, entscheidung text, entschieden_von uuid)
+zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung text) → void
+    p_entscheidung: übernehmen | nicht_heute; nur Coach der Session und Admin
+```
+
+Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
