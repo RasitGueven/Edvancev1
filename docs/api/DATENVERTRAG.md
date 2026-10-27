@@ -1163,7 +1163,7 @@ home_uebung_kurz(p_kind uuid, p_seit timestamptz default null)
 zeigs_mir_offen(p_kind uuid, p_session uuid)
     → table(skill_key text, vorschlag_am timestamptz, entscheidung text, entschieden_von uuid)
 zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung text) → void
-    p_entscheidung: übernehmen | nicht_heute; nur Coach der Session und Admin
+    p_entscheidung: uebernehmen | nicht_heute (ASCII wie die übrigen Zustände); nur Coach der Session und Admin
 ```
 
 Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
