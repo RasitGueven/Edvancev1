@@ -204,6 +204,20 @@
 .tp .tp-fp-punkt-naechste { border-color: var(--color-eb-gold); color: var(--color-eb-gold-text); }
 .tp .tp-fp-punkt-aktuell { border-color: var(--color-eb-navy-hell); color: var(--color-eb-navy); }
 
+/* L5: ohne bekannte Folge keine Ziffer — Ring beim anstehenden Thema, Kern in Signalfarbe bei den kommenden. */
+.tp .tp-fp-ring {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+.tp .tp-fp-kern {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
 /* Trenner: dünne Linie zwischen zwei Spalten, die Beschriftung darauf. */
 .tp .tp-fp-trenner {
   position: absolute;

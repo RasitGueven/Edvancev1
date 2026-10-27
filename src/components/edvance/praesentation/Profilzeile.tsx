@@ -200,9 +200,13 @@ function WichtigFuer({ wichtig }: { wichtig: EbStation[] | 'spaeter' }): JSX.Ele
       ) : (
         <ul className="tp-s2-marken">
           {wichtig.map((s) => (
-            <li key={s.nummer} className={s.stand === 'naechste' ? 'tp-s2-marke tp-s2-marke-naechste' : 'tp-s2-marke'}>
-              <b>{s.nummer}</b> {s.titel}
+            <li
+              key={s.nummer}
+              className={s.stand === 'naechste' || s.stand === 'unterricht' ? 'tp-s2-marke tp-s2-marke-naechste' : 'tp-s2-marke'}
+            >
+              {s.ka !== null && <b>{s.ka}</b>} {s.titel}
               {s.stand === 'naechste' && <em>{tb('v4.s2.naechste')}</em>}
+              {s.stand === 'unterricht' && <em>{tb('v4.s2.unterricht')}</em>}
             </li>
           ))}
         </ul>

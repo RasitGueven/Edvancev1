@@ -163,6 +163,16 @@
   text-anchor: middle;
   fill: var(--ton-text);
 }
+/* L5: ohne bekannte Folge keine Ziffer — Ring beim anstehenden Thema, Kern in Signalfarbe bei den kommenden. */
+.eb-fp-punkt .eb-fp-ring {
+  fill: none;
+  stroke: var(--ton);
+  stroke-width: 1.2;
+}
+.eb-fp-punkt .eb-fp-kern {
+  fill: var(--ton);
+  stroke: none;
+}
 .eb-fp-haken {
   fill: none;
   stroke: var(--color-eb-weiss);

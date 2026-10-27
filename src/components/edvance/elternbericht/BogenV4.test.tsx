@@ -108,7 +108,7 @@ describe('Fahrplan auf Seite 1: Trenner, Note, Quelle', () => {
 
   it('batuV4: Schulplan als Quelle, fahrplanKlp: Kernlehrplan', () => {
     expect(within(bogenV4('batuV4').seite(1)).getByTestId('eb-fp-quelle').textContent).toContain(
-      'Die Reihenfolge stammt aus dem Schulplan des Friedrich-Wilhelm-Gymnasiums. Wann genau eine Arbeit geschrieben wird, legt die Lehrkraft fest.',
+      'Die Reihenfolge stammt aus dem Schulplan des Friedrich-Wilhelm-Gymnasiums. Welche Themen in welche Klassenarbeit kommen, legt die Lehrkraft fest.',
     )
     expect(within(bogenV4('fahrplanKlp').seite(1)).getByTestId('eb-fp-quelle').textContent).toContain(
       'Die Reihenfolge folgt dem Kernlehrplan NRW.',
@@ -153,11 +153,14 @@ describe('Preise auf Seite 5: nur mit ?preise=an (Schalter in der Ansicht)', () 
 })
 
 describe('Rufname bleibt', () => {
-  for (const fall of ['batuV4', 'batuMitNote', 'fahrplanLang']) {
+  // L5: Mit unbekannter Folge nennt die Überschrift des Fahrplans keinen Namen; der Name steht in den Ansatz-Kästen.
+  for (const fall of ['batuV4', 'batuMitNote', 'fahrplanLang', 'batuEigen', 'batuSchule']) {
     it(`${fall}: der Bogen behält den Rufnamen (Fuß und Texte)`, () => {
       const b = bogenV4(fall)
       expect(b.container.querySelector('.eb-bogen')).not.toHaveAttribute('data-ohne-name')
-      expect(b.seite(1).querySelector('[data-testid="eb-fahrplan"] h2')!.textContent).toContain('Ilkays')
+      const kopf = b.seite(1).querySelector('[data-testid="eb-fahrplan"] h2')!.textContent
+      if (b.bericht.fahrplan!.folge === 'unbekannt') expect(kopf).toBe('Was in Mathe dieses Schuljahr noch kommt')
+      else expect(kopf).toContain('Ilkays')
     })
   }
 })

@@ -18,7 +18,7 @@ const b = bericht('batuV4')
 const data = FAELLE.batuV4.data
 
 describe('Anhang B · batuV4', () => {
-  it('Station 1 geschrieben; danach Quadratische Funktionen (nächste), Kreise, Pythagoras mit fehlt', () => {
+  it('Station 1 geschrieben; danach Quadratische Funktionen (als Nächstes im Unterricht), Kreise, Pythagoras mit fehlt', () => {
     const [s1, ...rest] = b.fahrplan!.stationen
     expect(s1).toMatchObject({ titel: 'Reelle Zahlen', stand: 'geschrieben' })
     const mitFehlt = rest.filter((s) => s.signal === 'fehlt')
@@ -27,7 +27,8 @@ describe('Anhang B · batuV4', () => {
       'Kreise, Prismen und Zylinder',
       'Der Satz des Pythagoras und Berechnungen in Körpern',
     ])
-    expect(rest[0]).toMatchObject({ titel: 'Quadratische Funktionen', stand: 'naechste' })
+    // L5: Folge unbekannt — keine „nächste Arbeit“, sondern das nächste Thema im Unterricht.
+    expect(rest[0]).toMatchObject({ titel: 'Quadratische Funktionen', stand: 'unterricht', ka: null })
     expect(rest.filter((s) => s.signal === 'ohne').map((s) => s.titel)).toEqual(['Potenzen und Potenzgesetze'])
   })
 

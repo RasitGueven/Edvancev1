@@ -5,15 +5,24 @@ import type { Elternbericht } from '@/types'
 import { kaSatz, kaTeile } from './kaSatz'
 
 /** Nur die Felder, die kaSatz liest. */
-function bericht(sicher: string[], uebung: string[], fehltBei: Record<string, string[]> = {}): Elternbericht {
+function bericht(
+  sicher: string[],
+  uebung: string[],
+  fehltBei: Record<string, string[]> = {},
+  bekannt = true,
+): Elternbericht {
+  const st = (nummer: number, themaKey: string, titel: string) => ({
+    nummer,
+    ka: bekannt ? nummer : null,
+    themaKey,
+    titel,
+    themen: [{ themaKey, titel }],
+  })
   return {
     thema: { titel: 'Reelle Zahlen', uebung, sicher },
     fahrplan: {
-      stationen: [
-        { nummer: 1, themaKey: 'reelle_zahlen', titel: 'Reelle Zahlen' },
-        { nummer: 2, themaKey: 'quadr', titel: 'Quadratische Funktionen' },
-        { nummer: 3, themaKey: 'kreis', titel: 'Kreis' },
-      ],
+      folge: bekannt ? 'eigen' : 'unbekannt',
+      stationen: [st(1, 'reelle_zahlen', 'Reelle Zahlen'), st(2, 'quadr', 'Quadratische Funktionen'), st(3, 'kreis', 'Kreis')],
     },
     signale: Object.entries(fehltBei).map(([themaKey, labels]) => ({
       themaKey,
@@ -48,8 +57,16 @@ describe('kaSatz (LSA-L4 Teil D)', () => {
 
   it('Note bekannt: k ist die erste kommende Arbeit, die {Y} braucht', () => {
     const s = kaSatz(bericht(['A'], ['D'], { kreis: ['D'], quadr: ['X'] }), 'geschrieben', 4)!
-    expect(s).toMatchObject({ fall: 'note', note: 4, k: 3 })
+    expect(s).toMatchObject({ fall: 'note', note: 4, k: { ka: 3, thema: 'Kreis' } })
     expect(kaTeile(s, 'de').map((t) => t.key)).toEqual(['note', 'dazu', 'wieder'])
+  })
+
+  it('L5: Folge unbekannt — das Thema statt einer Nummer („wird bei „Kreis“ wieder gebraucht“)', () => {
+    const s = kaSatz(bericht(['A'], ['D'], { kreis: ['D'] }, false), 'geschrieben', 4)!
+    expect(s.k).toEqual({ ka: null, thema: 'Kreis' })
+    const teile = kaTeile(s, 'de')
+    expect(teile.map((t) => t.key)).toEqual(['note', 'dazu', 'wiederThema'])
+    expect(teile[2].values).not.toHaveProperty('k')
   })
 
   it('Note bekannt ohne kommende Arbeit, die {Y} braucht: letzter Satz entfällt', () => {

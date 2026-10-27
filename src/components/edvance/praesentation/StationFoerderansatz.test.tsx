@@ -47,7 +47,7 @@ describe('Station 04 · Punkte auf der Kurve', () => {
   })
 
   it('Gruppenpunkt „Grundlagen für …“, Zeile „Klassenarbeit n“, Sorgfalt als letzter, blauer Punkt', () => {
-    zeigeV4(StationFoerderansatz, 'batuV4')
+    zeigeV4(StationFoerderansatz, 'batuEigen')
     const namen = punkte().map((p) => p.textContent ?? '')
     expect(namen.some((n) => n.startsWith('Grundlagen für „'))).toBe(true)
     expect(namen[0]).toMatch(/Klassenarbeit \d/)
@@ -83,8 +83,17 @@ describe('Station 04 · fester Kasten', () => {
     expect(new Set(titel).size).toBe(5)
   })
 
-  it('zeigt Kicker „Förderfokus n von m“, Pille, Begründung und die zwei Spalten', () => {
+  it('L5, Folge unbekannt (batuV4): Zeile und Pille nennen das Thema, keine Nummer', () => {
     zeigeV4(StationFoerderansatz, 'batuV4')
+    const namen = punkte().map((p) => p.textContent ?? '')
+    for (const n of namen) expect(n).not.toMatch(/Klassenarbeit \d/)
+    expect(namen[0]).toContain('Quadratische Funktionen')
+    expect(kasten()).toHaveTextContent('Voraussetzung für „')
+    expect(kasten().textContent).not.toMatch(/Klassenarbeit \d/)
+  })
+
+  it('zeigt Kicker „Förderfokus n von m“, Pille, Begründung und die zwei Spalten', () => {
+    zeigeV4(StationFoerderansatz, 'batuEigen')
     expect(kasten()).toHaveTextContent('Förderfokus 1 von 4')
     expect(kasten()).toHaveTextContent('Voraussetzung für Klassenarbeit')
     expect(within(kasten()).getByTestId('tp-s4v-sitzt')).toHaveTextContent('Sitzt schon')

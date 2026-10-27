@@ -5070,5 +5070,227 @@
   ],
   "quelle": "klp",
   "schulname": null
+ },
+ "batuEigen": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "batuSchule": {
+  "themen": [
+   {
+    "titel": "Quadratische Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Der Satz des Pythagoras und Berechnungen in Körpern"
+      ]
+     },
+     {
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Kreise, Prismen und Zylinder"
+      ]
+     },
+     {
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "auch": []
+     },
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Kreise, Prismen und Zylinder",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": []
+     }
+    ]
+   },
+   {
+    "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    "halbjahr": null,
+    "sitzt": [],
+    "fehlt": [
+     {
+      "label": "Teilweise die Wurzel ziehen",
+      "auch": []
+     }
+    ]
+   }
+  ],
+  "weitereStaerken": [
+   "Längen umrechnen",
+   "Einsetzungsverfahren",
+   "Satz des Thales (Winkel berechnen)",
+   "Terme für Flächeninhalte",
+   "Rationale und irrationale Zahlen",
+   "Wurzelgesetze für Produkt und Quotient",
+   "Wurzeln abschätzen und Näherungswerte"
+  ],
+  "weitere": [
+   {
+    "feld": "terme",
+    "thema": null,
+    "labels": [
+     "Additionsverfahren",
+     "Gleichungssysteme grafisch lösen (Schnittpunkt)"
+    ]
+   },
+   {
+    "feld": "geometrie",
+    "thema": null,
+    "labels": [
+     "Flächeninhalt des Trapezes",
+     "Flächeninhalt von Drachen und Raute"
+    ]
+   },
+   {
+    "feld": "zufall",
+    "thema": null,
+    "labels": [
+     "Mehrstufige Zufallsexperimente: Summenregel"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Friedrich-Wilhelm-Gymnasium"
  }
 }

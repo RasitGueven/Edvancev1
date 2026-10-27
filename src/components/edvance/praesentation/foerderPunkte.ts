@@ -6,6 +6,7 @@ import type { TFunction } from 'i18next'
 
 import { grundText } from '@/components/edvance/elternbericht/berichtSaetze'
 import { baueListe } from '@/components/edvance/elternbericht/liste'
+import { voraussetzungText } from '@/components/edvance/elternbericht/fahrplanText'
 import { VIEWBOX, kurvenPunkte, punktBei } from '@/lib/report/praesentation/kurve'
 import type { EbLernpfadPunkt, TpSeite } from '@/types'
 
@@ -64,7 +65,7 @@ function lernpfadPunkt(l: EbLernpfadPunkt, i: number, v4: PraesentationV4, texte
   const { bericht } = v4
   const station = (nr: number) => v4.fahrplan.stationen.find((s) => s.nummer === nr)
   const erste = kommende(v4.fahrplan).find((s) => s.signal === 'fehlt')
-  const [n, m] = l.ziele
+  const [n] = l.ziele
 
   const titel =
     l.art === 'feld' && l.titelFeld
@@ -74,9 +75,10 @@ function lernpfadPunkt(l: EbLernpfadPunkt, i: number, v4: PraesentationV4, texte
         : lueckeImThema(l, v4, texte) ?? (l.titelThema ?? '')
   // Ohne kommende Station: eine Lücke im aktuellen Thema („Vorhandene Lücke“) oder Stoff, der später wichtig wird.
   const ohneZiel = tb(l.art === 'luecke' ? 's4.chip.luecke' : 'v4.s3.spaeter')
-  const pille =
-    n === undefined ? ohneZiel : m === undefined ? tb('v4.s4.voraussetzung', { n }) : tb('v4.s4.voraussetzungZwei', { n, m })
-  const zeile = n === undefined ? ohneZiel : tp('v4.s3.karte', { n })
+  // L5: Nummer der Klassenarbeit nur bei bekannter Folge, sonst das Thema.
+  const pille = voraussetzungText(tb, v4.fahrplan, l.ziele) ?? ohneZiel
+  const ziel = n === undefined ? undefined : station(n)
+  const zeile = !ziel ? ohneZiel : ziel.ka !== null ? tp('v4.s3.karte', { n: ziel.ka }) : ziel.titel
 
   let sitzt: string[]
   if (l.art === 'gruppe' && n !== undefined) {

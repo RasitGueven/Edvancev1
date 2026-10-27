@@ -11,6 +11,9 @@ import { wichtigFuer } from './wichtigFuer'
 
 const station = (nummer: number, titel: string, stand: EbStation['stand'] = 'voraussichtlich'): EbStation => ({
   nummer,
+  ka: nummer,
+  themen: [{ themaKey: `t${nummer}`, titel }],
+  datum: null,
   themaKey: `t${nummer}`,
   titel,
   halbjahr: null,
@@ -23,6 +26,7 @@ const fahrplan = (stationen: EbStation[]): EbFahrplan => ({
   stationen,
   weitere: 0,
   halbjahrTrenner: false,
+  folge: 'eigen',
   klassenTrenner: null,
   quelle: 'klp',
   schulname: null,
@@ -40,10 +44,12 @@ describe('wichtigFuer', () => {
 
   it('die kommenden Stationen, die das Feld betreffen, höchstens zwei in Plan-Reihenfolge', () => {
     expect(wichtigFuer('terme', f, signale)).toEqual([
-      { nummer: 2, titel: 'B', naechste: true },
-      { nummer: 3, titel: 'C', naechste: false },
+      { nummer: 2, ka: 2, titel: 'B', naechste: true, unterricht: false },
+      { nummer: 3, ka: 3, titel: 'C', naechste: false, unterricht: false },
     ])
-    expect(wichtigFuer('geometrie', f, signale)).toEqual([{ nummer: 4, titel: 'D', naechste: false }])
+    expect(wichtigFuer('geometrie', f, signale)).toEqual([
+      { nummer: 4, ka: 4, titel: 'D', naechste: false, unterricht: false },
+    ])
   })
 
   it('ein Feld ohne Thema bekommt keine Marke', () => {
@@ -57,8 +63,23 @@ describe('wichtigFuer', () => {
 })
 
 describe('Seite 2 mit Fahrplan', () => {
-  it('batuV4: je Zeile „Wichtig für“ mit Nummer und Titel, die nächste Arbeit navy mit Zusatz', () => {
+  it('batuV4 (L5, Folge unbekannt): „Wichtig für“ ohne Nummer, das nächste Thema navy mit Zusatz', () => {
     const b = bogenV4('batuV4')
+    const s2 = within(b.seite(2))
+    const marken = s2.getAllByTestId('eb-marke')
+    expect(marken.length).toBeGreaterThan(0)
+    for (const m of marken) expect(m.querySelector('b'), m.textContent ?? '').toBeNull()
+    const naechste = marken.filter((m) => m.classList.contains('eb-s2-marke-naechste'))
+    expect(naechste.length).toBeGreaterThan(0)
+    for (const m of naechste) {
+      expect(m.textContent).toContain('Quadratische Funktionen')
+      expect(m.textContent).toContain(de.v4.s2.unterricht)
+    }
+    expect(s2.queryByTestId('eb-legende-nummer')).toBeNull()
+  })
+
+  it('batuEigen: je Zeile „Wichtig für“ mit Nummer und Titel, die nächste Arbeit navy mit Zusatz', () => {
+    const b = bogenV4('batuEigen')
     const s2 = within(b.seite(2))
     const zeilen = s2.getAllByTestId('eb-profil-zeile')
     const mit = zeilen.filter((z) => z.querySelector('[data-testid="eb-wichtig"]'))
@@ -99,8 +120,8 @@ describe('Seite 2 mit Fahrplan', () => {
     }
   })
 
-  it('die Legende nennt die Nummer der Klassenarbeit', () => {
-    const b = bogenV4('batuV4')
+  it('die Legende nennt die Nummer der Klassenarbeit (nur bei bekannter Folge)', () => {
+    const b = bogenV4('batuEigen')
     expect(within(b.seite(2)).getByTestId('eb-legende-nummer')).toHaveTextContent(de.v4.s2.legendeNummer)
   })
 

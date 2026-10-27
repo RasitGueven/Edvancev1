@@ -30,6 +30,7 @@ import type {
   KatalogSkill,
   KlassenarbeitStatus,
   ReportErzaehlung,
+  ReportKlassenarbeit,
   SucheSkill,
 } from '@/types'
 
@@ -59,6 +60,8 @@ export type ElternberichtEingabe = {
   klassenarbeit?: KlassenarbeitStatus | null
   /** Bericht v4: Note der zuletzt geschriebenen Arbeit (leads.letzte_klassenarbeit_note). */
   note?: number | null
+  /** L5: Mathearbeiten dieses Schuljahrs (ReportErstgespraech.klassenarbeiten); ohne gilt die Folge als unbekannt. */
+  arbeiten?: readonly ReportKlassenarbeit[]
 }
 
 export function baueElternbericht({
@@ -68,6 +71,7 @@ export function baueElternbericht({
   lernweg,
   klassenarbeit = null,
   note = null,
+  arbeiten = [],
 }: ElternberichtEingabe): Elternbericht | null {
   if (kompetenzen.length === 0) return null
   const { alle, bereiche, vorgriff } = gezaehlteBereiche(kompetenzen, lernweg)
@@ -77,7 +81,7 @@ export function baueElternbericht({
   const { zaehlung, profil } = zahlen
   const thema = themaKontext(kompetenzen, lernweg)
   const mitGrund = schwerpunkteMitGrund(bereiche, thema, klassenarbeit)
-  const v4 = lernweg ? baueV4(lernweg, bereiche, thema, klassenarbeit, note, mitGrund) : null
+  const v4 = lernweg ? baueV4(lernweg, bereiche, thema, { klassenarbeit, note, arbeiten }, mitGrund) : null
   return {
     zaehlung,
     profil,
@@ -145,8 +149,7 @@ function baueV4(
   quelle: LernwegQuelle,
   bereiche: readonly EbBereich[],
   thema: ThemaKontext | null,
-  klassenarbeit: KlassenarbeitStatus | null,
-  note: number | null,
+  ka: { klassenarbeit: KlassenarbeitStatus | null; note: number | null; arbeiten: readonly ReportKlassenarbeit[] },
   mitGrund: ReturnType<typeof schwerpunkteMitGrund>,
 ) {
   const e = quelle.erzaehlung
@@ -155,9 +158,10 @@ function baueV4(
     plan: e.plan,
     themaKey: e.raum?.themaKey ?? null,
     datum: quelle.datum,
-    klassenarbeitStatus: klassenarbeit,
+    klassenarbeitStatus: ka.klassenarbeit,
     signale: je,
-    note,
+    note: ka.note,
+    arbeiten: ka.arbeiten,
   })
   const signale = [...je].map(([themaKey, s]) => ({ themaKey, sitzt: s.sitzt, fehlt: s.fehlt }))
   const lueckenwegV4 = fahrplan
@@ -167,9 +171,12 @@ function baueV4(
           kanten: e.kanten,
           heimatThemen: e.heimatThemen,
           plan: e.plan,
+          // L5: Eine Arbeit kann mehrere Themen haben; Seite 3 zeigt einen Block je Thema.
           kommt: fahrplan.stationen
             .filter((s) => s.nummer > 1)
-            .map((s) => ({ position: s.nummer, themaKey: s.themaKey, titel: s.titel, halbjahr: s.halbjahr })),
+            .flatMap((s) =>
+              s.themen.map((x) => ({ position: s.nummer, themaKey: x.themaKey, titel: x.titel, halbjahr: s.halbjahr })),
+            ),
           raum: thema?.raum ?? new Set(),
           thema: thema?.thema ?? null,
         },

@@ -247,16 +247,35 @@ export type EbAnliegen = {
 
 /* ─── Bericht v4: Klassenarbeiten als roter Faden ───────────────────────────── */
 
-/** Stand einer Station im Fahrplan (Bauauftrag V4, Entscheidung 1). */
-export type EbFahrtStand = 'geschrieben' | 'naechste' | 'aktuell' | 'voraussichtlich'
+/**
+ * Stand einer Station im Fahrplan (Bauauftrag V4, Entscheidung 1). L5: Ohne bekannte Folge der Klassenarbeiten
+ * heißt die aktuelle Station 'steht' (Arbeit steht an), die kommenden 'unterricht' (erste) und 'danach'.
+ */
+export type EbFahrtStand =
+  | 'geschrieben'
+  | 'naechste'
+  | 'aktuell'
+  | 'voraussichtlich'
+  | 'steht'
+  | 'unterricht'
+  | 'danach'
+
+/** L5: Woher die Folge der Klassenarbeiten stammt; 'unbekannt' = Stationen sind Plan-Themen ohne Nummer. */
+export type EbFolge = 'unbekannt' | 'eigen' | 'schule'
 
 /** Signal einer kommenden Station (Entscheidung 2). */
 export type EbSignal = 'fehlt' | 'erfuellt' | 'ohne'
 
-/** Eine Klassenarbeit im Fahrplan: das aktuelle Thema (Nummer 1) oder ein kommendes. */
+/** Eine Station im Fahrplan: das aktuelle Thema bzw. dessen Arbeit (Position 1) oder eine kommende. */
 export type EbStation = {
-  /** 1 = aktuelles Thema, dann in Plan-Reihenfolge. */
+  /** Position im Fahrplan: 1 = aktuelles Thema, dann in Plan-Reihenfolge. Nie als Klassenarbeits-Nummer zeigen. */
   nummer: number
+  /** L5: Nummer der Klassenarbeit im Schuljahr; null, wenn die Station ein Thema ohne bekannte Arbeit ist. */
+  ka: number | null
+  /** L5: die Themen der Station (bei einer Arbeit 1–3, sonst das eine Thema), in Plan-Reihenfolge. */
+  themen: { themaKey: string; titel: string }[]
+  /** L5: Datum der Arbeit (ISO), wenn bekannt. */
+  datum: string | null
   themaKey: string
   titel: string
   halbjahr: 1 | 2 | null
@@ -280,6 +299,8 @@ export type EbFahrplan = {
   schulname: string | null
   /** Satz unter dem Fahrplan (Entscheidung 3). */
   satz: 'fehlt' | 'erfuellt' | null
+  /** L5: Folge der Klassenarbeiten bekannt (eigene Angaben bzw. Schulwert) oder nicht. */
+  folge: EbFolge
 }
 
 /** Welche geprüften Bereiche ein Thema betreffen (Entscheidung 2), serialisierbar. */

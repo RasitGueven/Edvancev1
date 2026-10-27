@@ -20,8 +20,8 @@ describe('Seite 4 mit Fahrplan', () => {
     })
   }
 
-  it('batuV4: ein Punkt je Eintrag aus bericht.lernpfad, Marke mit Nummer und Kurztitel', () => {
-    const b = bogenV4('batuV4')
+  it('batuEigen: ein Punkt je Eintrag aus bericht.lernpfad, Marke mit Nummer und Kurztitel', () => {
+    const b = bogenV4('batuEigen')
     const f = b.bericht.fahrplan!
     const lernpfad = b.bericht.lernpfad!
     const s4 = within(b.seite(4))
@@ -32,7 +32,7 @@ describe('Seite 4 mit Fahrplan', () => {
       const marke = el.querySelector('.eb-s4v4-marke')!
       if (p.ziele.length > 0) {
         const station = f.stationen.find((s) => s.nummer === p.ziele[0])!
-        expect(marke.querySelector('b')).toHaveTextContent(String(station.nummer))
+        expect(marke.querySelector('b')).toHaveTextContent(String(station.ka))
         expect(marke).toHaveTextContent(station.titel)
         expect(marke).toHaveTextContent(de.v4.s4.fuer)
       }
@@ -40,8 +40,19 @@ describe('Seite 4 mit Fahrplan', () => {
     })
   })
 
-  it('batuV4: „Voraussetzung für Klassenarbeit n“, bei zwei Zielen „n und m“, Gruppe „Grundlagen für …“', () => {
+  it('batuV4 (L5, Folge unbekannt): Marke ohne Nummer, „Voraussetzung für „Thema““', () => {
     const b = bogenV4('batuV4')
+    const s4 = b.seite(4)
+    expect(s4.querySelector('[data-testid="eb-lernpfad-punkt"] .eb-s4v4-marke b')).toBeNull()
+    const zeilen = [...s4.querySelectorAll('.eb-s4v4-zeile')].map((z) => z.textContent)
+    expect(zeilen.some((z) => /Voraussetzung für „[^“]+“ und „[^“]+“/.test(z!))).toBe(true)
+    expect(zeilen.some((z) => /Voraussetzung für „[^“]+“$/.test(z!))).toBe(true)
+    expect(s4.textContent).not.toMatch(/Klassenarbeit \d/)
+    expect(within(s4).getByText(de.v4.s4.titelThema)).toBeInTheDocument()
+  })
+
+  it('batuEigen: „Voraussetzung für Klassenarbeit n“, bei zwei Zielen „n und m“, Gruppe „Grundlagen für …“', () => {
+    const b = bogenV4('batuEigen')
     const s4 = b.seite(4)
     const zeilen = [...s4.querySelectorAll('.eb-s4v4-zeile')].map((z) => z.textContent)
     expect(zeilen.some((z) => /Voraussetzung für Klassenarbeit \d+ und \d+/.test(z!))).toBe(true)
@@ -85,12 +96,13 @@ describe('Seite 4 mit Fahrplan', () => {
   it('das Intro richtet sich nach dem Stand der Klassenarbeit', () => {
     const thema = (fall: string): string => bogenV4(fall).bericht.fahrplan!.stationen[0].titel
     expect(within(bogenV4('batuV4').seite(4)).getByTestId('eb-s4-intro').textContent).toBe(
-      `Die Arbeit zu „${thema('batuV4')}“ ist geschrieben. Deshalb beginnen wir mit den Voraussetzungen für die nächste Arbeit und arbeiten uns dann zu den folgenden vor.`,
+      `Die Arbeit zu „${thema('batuV4')}“ ist geschrieben. Deshalb beginnen wir mit den Voraussetzungen für das nächste Thema und arbeiten uns dann zu den folgenden vor.`,
     )
     expect(within(bogenV4('batuBevorstehend').seite(4)).getByTestId('eb-s4-intro').textContent).toContain('steht noch an')
     expect(within(bogenV4('batuOhneStatus').seite(4)).getByTestId('eb-s4-intro').textContent).toBe(
-      'Wir beginnen mit dem aktuellen Thema und nehmen danach die Voraussetzungen für die folgenden Arbeiten.',
+      'Wir beginnen mit dem aktuellen Thema und nehmen danach die Voraussetzungen für die folgenden Themen.',
     )
+    expect(within(bogenV4('batuEigen').seite(4)).getByTestId('eb-s4-intro').textContent).toContain('für die nächste Arbeit')
   })
 
   it('„Unser Ansatz“ und „Was dazu gehört“ nebeneinander, die Coach-Fußnote bleibt', () => {

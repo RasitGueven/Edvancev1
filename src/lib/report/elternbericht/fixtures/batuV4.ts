@@ -10,7 +10,7 @@ import { HEIMAT, KANTEN } from '@/lib/report/elternbericht/fixtures/graph'
 import { ILKAY_ROH } from '@/lib/report/elternbericht/fixtures/ilkay'
 import { FWG_NAME, FWG_PLAN } from '@/lib/report/elternbericht/fixtures/plaene'
 import { schulPlan } from '@/lib/report/elternbericht/plan'
-import type { KlassenarbeitStatus, ReportData, ReportFehlbild, SucheSkill } from '@/types'
+import type { KlassenarbeitStatus, ReportData, ReportFehlbild, ReportKlassenarbeit, SucheSkill } from '@/types'
 
 /** Die 23 direkten Urteile (lsa_skill_urteil, belegt_direkt). */
 export const URTEILE: readonly SucheSkill[] = [
@@ -146,6 +146,7 @@ export function batuMit(
   klassenarbeit: KlassenarbeitStatus | null,
   letzteNote: number | null = null,
   id = '441',
+  klassenarbeiten: ReportKlassenarbeit[] = [],
 ): ReportData {
   const data = datenAus({
     ...ILKAY_ROH,
@@ -179,6 +180,7 @@ export function batuMit(
       klassenarbeit,
       klassenarbeitDatum: null,
       letzteNote,
+      klassenarbeiten,
     },
   }
 }
@@ -187,3 +189,38 @@ export const batuV4 = batuMit('geschrieben')
 export const batuBevorstehend = batuMit('bevorstehend', null, '443')
 export const batuOhneStatus = batuMit(null, null, '444')
 export const batuMitNote = batuMit('geschrieben', 4, '445')
+
+/**
+ * L5 (Bauauftrag L5, Schritt 1): dieselbe Analyse mit bekannter Folge. NUR TESTDATEN — die Zuordnung ist erfunden
+ * und gilt für keine echte Schule (auch nicht das FWG): Arbeit 1 = Reelle Zahlen (geschrieben), 2 = Quadratische
+ * Funktionen, 3 = Kreise + Potenzen, 4 = Pythagoras + Daten.
+ */
+const ka = (
+  nr: number,
+  themaKeys: string[],
+  herkunft: ReportKlassenarbeit['herkunft'],
+  datum: string | null = null,
+): ReportKlassenarbeit => ({
+  nr,
+  themaKeys,
+  datum,
+  status: nr === 1 && herkunft === 'eigen' ? 'geschrieben' : null,
+  note: null,
+  herkunft,
+})
+
+/** Eigene Angaben: vier Arbeiten mit Nummer. */
+export const batuEigen = batuMit('geschrieben', null, '451', [
+  ka(1, ['reelle_zahlen'], 'eigen', '2026-10-01'),
+  ka(2, ['quadratische_funktionen'], 'eigen', '2026-11-26'),
+  ka(3, ['kreis', 'potenzen'], 'eigen'),
+  ka(4, ['pythagoras', 'bedingte_wahrscheinlichkeit'], 'eigen'),
+])
+
+/** Schulwert (zwei Kinder derselben Klasse stimmen überein), keine eigenen Angaben mit Nummer. */
+export const batuSchule = batuMit('geschrieben', null, '452', [
+  ka(1, ['reelle_zahlen'], 'schule'),
+  ka(2, ['quadratische_funktionen'], 'schule'),
+  ka(3, ['kreis', 'potenzen'], 'schule'),
+  ka(4, ['pythagoras', 'bedingte_wahrscheinlichkeit'], 'schule'),
+])

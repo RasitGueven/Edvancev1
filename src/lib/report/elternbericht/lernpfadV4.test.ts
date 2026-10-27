@@ -18,6 +18,9 @@ const sp = (uebung: string[], teil: Partial<EbSchwerpunkt> = {}): EbSchwerpunkt 
 })
 const station = (nummer: number, themaKey: string, titel: string): EbStation => ({
   nummer,
+  ka: nummer,
+  themen: [{ themaKey: themaKey, titel }],
+  datum: null,
   themaKey,
   titel,
   halbjahr: null,
@@ -30,6 +33,7 @@ const FAHRPLAN: EbFahrplan = {
   stationen: [station(1, 't0', 'Start'), station(2, 't2', 'Zwei'), station(3, 't3', 'Drei'), station(4, 't4', 'Vier')],
   weitere: 0,
   halbjahrTrenner: false,
+  folge: 'eigen',
   klassenTrenner: null,
   quelle: 'schule',
   schulname: null,

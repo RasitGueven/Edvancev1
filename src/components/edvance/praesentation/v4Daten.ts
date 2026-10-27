@@ -49,6 +49,7 @@ export function baueV4(data: ReportData, notes: ReportNotes | null): Praesentati
     lernweg: { erzaehlung: data.erzaehlung, datum: data.analysedAt },
     klassenarbeit: data.erstgespraech?.klassenarbeit ?? null,
     note: data.erstgespraech?.letzteNote ?? null,
+    arbeiten: data.erstgespraech?.klassenarbeiten,
   })
   if (!bericht?.fahrplan) return null
   const muster = fehlermusterAus(data.fehlbilder)

@@ -44,6 +44,8 @@ export function Seite4({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
   if (fahrplan) {
     const lernpfad = bericht.lernpfad ?? []
     const status = data.erstgespraech?.klassenarbeit ?? null
+    // L5: ohne bekannte Folge sprechen Titel und Einleitung von Themen, nicht von Arbeiten.
+    const thema = fahrplan.folge === 'unbekannt' ? 'Thema' : ''
     return (
       <div
         className="eb-s4 eb-s4-v4"
@@ -52,11 +54,11 @@ export function Seite4({ data, bericht, satz, name, wessen }: SeitenProps): JSX.
         data-stufe={stufe.wert || undefined}
       >
         <p className="eb-kicker eb-s4-kicker">{t('v4.s4.kicker')}</p>
-        <h1 className="eb-titel eb-s4-titel">{lernpfad.length === 0 ? t('s4.titelKeiner') : t('v4.s4.titel')}</h1>
+        <h1 className="eb-titel eb-s4-titel">{lernpfad.length === 0 ? t('s4.titelKeiner') : t(`v4.s4.titel${thema}`)}</h1>
         {lernpfad.length === 0 && keine && <p className="eb-s4-keine">{keine}</p>}
         {lernpfad.length > 0 && (
           <p className="eb-s4-hinweis" data-testid="eb-s4-intro">
-            {t(`v4.s4.intro.${status ?? 'unbekannt'}`, { thema: fahrplan.stationen[0].titel })}
+            {t(`v4.s4.intro${thema}.${status ?? 'unbekannt'}`, { thema: fahrplan.stationen[0].titel })}
           </p>
         )}
         {lernpfad.length > 0 && (

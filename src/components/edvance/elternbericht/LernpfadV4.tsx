@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next'
 import type { EbFahrplan, EbGrund, EbLernpfadPunkt, EbSchwerpunkt } from '@/types'
 
 import { grundText } from './berichtSaetze'
+import { voraussetzungText } from './fahrplanText'
 import type { Liste } from './liste'
 
 /**
  * Der Lernpfad nach Klassenarbeiten (Bauauftrag V4, V4-2 Entscheidung 5): je
- * Punkt links eine Marke mit der Nummer der Klassenarbeit, rechts eine Karte mit
+ * Punkt links eine Marke mit der Nummer der Klassenarbeit (L5: nur bei bekannter Arbeit, sonst nur das Thema),
+ * rechts eine Karte mit
  * „Schritt n · Voraussetzung für Klassenarbeit n“, Titel, Begründung („weil …“,
  * aus den Daten) und dem Kasten „Das üben wir“. Zuletzt, grau, die Themen
  * späterer Schuljahre. Nie „bis Klassenarbeit …“: das klänge wie eine Zusage.
@@ -62,11 +64,9 @@ export function LernpfadV4({
                 ? liste(themaSchwerpunkt.uebung)
                 : (p.titelThema ?? '')
         const voraus =
-          p.ziele.length >= 2
-            ? t('v4.s4.voraussetzungZwei', { n: p.ziele[0], m: p.ziele[1] })
-            : p.ziele.length === 1
-              ? t('v4.s4.voraussetzung', { n: p.ziele[0] })
-              : p.art === 'luecke'
+          p.ziele.length >= 1
+            ? voraussetzungText(t, fahrplan, p.ziele)
+            : p.art === 'luecke'
                 ? t(luecke ? 's4.chip.luecke' : 's4.chip.thema')
                 : null
         const zeile = [t('v4.s4.schritt', { n: i + 1 }), voraus].filter(Boolean).join(t('s2.profil.trenner'))
@@ -76,7 +76,7 @@ export function LernpfadV4({
               {station ? (
                 <>
                   <small>{t('v4.s4.fuer')}</small>
-                  <b>{station.nummer}</b>
+                  {station.ka !== null && <b>{station.ka}</b>}
                   <span>{station.titel}</span>
                 </>
               ) : (

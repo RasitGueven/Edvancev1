@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Check } from 'lucide-react'
 
+import { datumKurz, themenZeile } from '@/components/edvance/elternbericht/fahrplanText'
 import type { EbFahrplan, EbStation } from '@/types'
 
 /** Höhe der Welle je Station (Einheiten der viewBox, 0 … 40), wie im Dummy. */
@@ -26,7 +27,15 @@ function pfad(n: number): string {
 function punktKlasse(s: EbStation): string {
   if (s.stand === 'geschrieben') return 'tp-fp-punkt-geschrieben'
   if (s.signal) return `tp-fp-punkt-${s.signal}`
-  return s.stand === 'naechste' ? 'tp-fp-punkt-naechste' : 'tp-fp-punkt-aktuell'
+  return s.stand === 'naechste' || s.stand === 'steht' ? 'tp-fp-punkt-naechste' : 'tp-fp-punkt-aktuell'
+}
+
+/** L5: Inhalt eines Punkts — Haken, Nummer der Arbeit, Ring (Arbeit steht an) oder nichts (nur das Signal). */
+function punktInhalt(s: EbStation): JSX.Element | number | null {
+  if (s.stand === 'geschrieben') return <Check strokeWidth={3} />
+  if (s.ka !== null) return s.ka
+  if (s.stand === 'steht') return <i className="tp-fp-ring" />
+  return s.signal ? <i className="tp-fp-kern" /> : null
 }
 
 function standKlasse(s: EbStation): string {
@@ -37,11 +46,12 @@ function standKlasse(s: EbStation): string {
 /**
  * Der Fahrplan der Klassenarbeiten (V4): eine geschwungene Linie mit einem Punkt
  * je Station, darunter Titel, Stand und Signal. Keine einzelnen Voraussetzungen.
+ * L5: Ziffern nur bei bekannter Folge (echte Nummer der Arbeit).
  * Die Punkte erscheinen nacheinander (--i im CSS, Zeiten in rahmen.css). Trenner
  * (Halbjahreszeugnis, nächste Klasse) stehen als dünne Linie zwischen zwei Spalten.
  */
 export function FahrplanBahn({ fahrplan }: { fahrplan: EbFahrplan }): JSX.Element {
-  const { t } = useTranslation('elternbericht')
+  const { t, i18n } = useTranslation('elternbericht')
   const n = fahrplan.stationen.length
   const trenner = fahrplan.stationen.flatMap((s, i) => {
     if (i === 0) return []
@@ -68,7 +78,7 @@ export function FahrplanBahn({ fahrplan }: { fahrplan: EbFahrplan }): JSX.Elemen
             data-testid="tp-fp-punkt"
             style={{ '--i': i, '--spalte': i, '--hoehe': welle(i) } as CSSProperties}
           >
-            {s.stand === 'geschrieben' ? <Check strokeWidth={3} /> : s.nummer}
+            {punktInhalt(s)}
           </span>
         ))}
         {trenner.map((tr) => (
@@ -81,10 +91,11 @@ export function FahrplanBahn({ fahrplan }: { fahrplan: EbFahrplan }): JSX.Elemen
       <ol className="tp-fp-spalten">
         {fahrplan.stationen.map((s) => (
           <li key={s.nummer} className="tp-fp-spalte" data-testid="tp-fp-station">
-            <b>{s.titel}</b>
+            <b>{s.ka !== null ? themenZeile(t, s) : s.titel}</b>
             <small className={standKlasse(s)}>
               {[
                 t(`v4.stand.${s.stand}`),
+                s.ka !== null ? datumKurz(i18n.language, s.datum) : null,
                 s.halbjahr ? t('v4.stand.halbjahr', { halbjahr: s.halbjahr }) : null,
                 s.note !== null ? t('v4.stand.note', { note: s.note }) : null,
                 s.signal ? t(`v4.signal.${s.signal}`) : null,

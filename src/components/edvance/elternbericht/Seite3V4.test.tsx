@@ -9,7 +9,7 @@ import { bogenV4, MIT_FAHRPLAN } from '@/test/elternberichtV4'
 const bloecke = (el: HTMLElement): HTMLElement[] => within(el).queryAllByTestId('eb-s3-block')
 
 describe('Seite 3 mit Fahrplan', () => {
-  it('batuV4: ein Block je kommender Arbeit mit Signal, mit Nummer, Titel, Stand und Signal-Chip', () => {
+  it('batuV4 (L5, Folge unbekannt): ein Block je kommendem Thema mit Signal, Titel = Thema, keine Nummer', () => {
     const b = bogenV4('batuV4')
     const f = b.bericht.fahrplan!
     const mitSignal = f.stationen.filter((s) => s.signal === 'fehlt' || s.signal === 'erfuellt')
@@ -17,12 +17,24 @@ describe('Seite 3 mit Fahrplan', () => {
     expect(bl).toHaveLength(mitSignal.length)
     bl.forEach((block, i) => {
       const s = mitSignal[i]
-      expect(block.querySelector('h2')!.textContent).toBe(`Klassenarbeit ${s.nummer} · ${s.titel}`)
-      expect(block.querySelector('.eb-s3v4-nr')).toHaveTextContent(String(s.nummer))
+      expect(block.querySelector('h2')!.textContent).toBe(s.titel)
+      expect(block.querySelector('.eb-s3v4-nr')!.textContent).toBe('')
       expect(block.querySelector('[data-testid="eb-s3-signal"]')).toHaveTextContent(de.v4.signal[s.signal!])
     })
-    expect(bl[0]).toHaveTextContent('nächste Arbeit')
-    expect(bl[1]).toHaveTextContent('voraussichtlich')
+    expect(bl[0]).toHaveTextContent('als Nächstes im Unterricht')
+    expect(bl[1]).toHaveTextContent('danach')
+    expect(within(b.seite(3)).getByText(de.v4.s3.titelThema)).toBeInTheDocument()
+  })
+
+  it('batuEigen (Folge bekannt): ein Block je Thema einer Arbeit, „Klassenarbeit n · Thema“', () => {
+    const b = bogenV4('batuEigen')
+    const titel = bloecke(b.seite(3)).map((bl) => bl.querySelector('h2')!.textContent)
+    expect(titel).toContain('Klassenarbeit 3 · Kreise, Prismen und Zylinder')
+    // Potenzen hat keinen geprüften Bereich: kein Block, die Arbeit 3 trägt trotzdem das Signal von Kreise.
+    expect(titel).not.toContain('Klassenarbeit 3 · Potenzen und Potenzgesetze')
+    expect(titel).toContain('Klassenarbeit 4 · Der Satz des Pythagoras und Berechnungen in Körpern')
+    expect(bloecke(b.seite(3))[0]).toHaveTextContent('nächste Arbeit')
+    expect(within(b.seite(3)).getByTestId('eb-s3-einstieg').textContent).toContain('Diese Übersicht beginnt mit Klassenarbeit 2.')
   })
 
   it('batuV4: Sitzt schon / Fehlt noch aus bericht.lueckenwegV4, ohne „betrifft auch“, Pfeil und „Kommt noch“', () => {
@@ -64,7 +76,8 @@ describe('Seite 3 mit Fahrplan', () => {
     expect(e).toHaveAttribute('data-ka', 'offen')
     expect(e.textContent).toMatch(/^Die Analyse zeigt für Reelle Zahlen( und Wurzeln)?: sicher war(en)? .+, noch unsicher .+\./)
     expect(e.textContent).toContain('Sobald Sie die Note kennen, gleichen wir das gemeinsam ab.')
-    expect(e.textContent).toContain('Diese Übersicht beginnt mit Klassenarbeit 2.')
+    expect(e.textContent).toContain('Diese Übersicht beginnt nach der Arbeit zu „Reelle Zahlen“.')
+    expect(e.textContent).not.toMatch(/Klassenarbeit \d/)
     expect(e.textContent).not.toMatch(/Deshalb/)
     expect(e.querySelector('b')).toHaveTextContent('Reelle Zahlen')
   })
@@ -73,7 +86,9 @@ describe('Seite 3 mit Fahrplan', () => {
     const e = within(bogenV4('batuMitNote').seite(3)).getByTestId('eb-s3-einstieg')
     expect(e).toHaveAttribute('data-ka', 'note')
     expect(e.textContent).toMatch(/ist mit Note 4 zurückgekommen\. Dazu passt, was die Analyse zeigt: .+ (war|waren) noch unsicher\./)
-    expect(e.textContent).toMatch(/(wird|werden) bei Klassenarbeit \d+ wieder gebraucht\./)
+    // L5: Folge unbekannt — das Thema, keine Nummer
+    expect(e.textContent).toMatch(/(wird|werden) bei „[^“]+“ wieder gebraucht\./)
+    expect(e.textContent).not.toMatch(/Klassenarbeit \d/)
     expect(e.textContent).not.toMatch(/\bweil\b|tr(ä|ae)gt/)
   })
 
@@ -82,7 +97,7 @@ describe('Seite 3 mit Fahrplan', () => {
       const e = within(bogenV4(fall).seite(3)).getByTestId('eb-s3-einstieg')
       expect(e, fall).toHaveAttribute('data-ka', 'steht')
       expect(e.textContent, fall).toMatch(/^Die Arbeit zu Reelle Zahlen( und Wurzeln)? steht noch an\. Darauf bereiten wir zuerst vor\./)
-      expect(e.textContent, fall).toContain('Für die Arbeiten danach steht hier')
+      expect(e.textContent, fall).toContain('Für die Themen danach steht hier')
     }
   })
 

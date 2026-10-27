@@ -16,7 +16,10 @@ describe('Seite 5 mit Fahrplan', () => {
     const fazit = within(b.seite(5)).getByTestId('eb-s5-fazit').textContent!
     expect(fazit).toContain('Ilkays Grundlagen aus Klasse 5/6 sitzen weitgehend.')
     expect(fazit).toContain('Die Lücken stammen vor allem aus Klasse 7/8, besonders bei Termen und Gleichungen sowie bei der Geometrie.')
-    expect(fazit).toContain('Sie werden in den nächsten 3 Klassenarbeiten wieder gebraucht.')
+    expect(fazit).toContain('Sie werden in den nächsten 3 Themen wieder gebraucht.')
+    expect(within(bogenV4('batuEigen').seite(5)).getByTestId('eb-s5-fazit').textContent).toContain(
+      'Sie werden in den nächsten 3 Klassenarbeiten wieder gebraucht.',
+    )
     expect(fazit).toContain(de.v4.s5.fazit.sorgfalt)
     expect(fazit).toContain('Wir beginnen mit den Voraussetzungen für „Quadratische Funktionen“.')
     expect(within(b.seite(5)).getByTestId('eb-s5-fazit')).toHaveClass('eb-s5-fazit-v4')

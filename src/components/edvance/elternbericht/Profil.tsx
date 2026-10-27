@@ -152,11 +152,15 @@ export function Profil({
                       {marken.map((m) => (
                         <span
                           key={m.nummer}
-                          className={m.naechste ? 'eb-s2-marke eb-s2-marke-naechste' : 'eb-s2-marke'}
+                          className={m.naechste || m.unterricht ? 'eb-s2-marke eb-s2-marke-naechste' : 'eb-s2-marke'}
                           data-testid="eb-marke"
                         >
-                          <b>{m.nummer}</b>
-                          {m.naechste ? `${m.titel}${t('s2.profil.trenner')}${t('v4.s2.naechste')}` : m.titel}
+                          {m.ka !== null && <b>{m.ka}</b>}
+                          {m.naechste
+                            ? `${m.titel}${t('s2.profil.trenner')}${t('v4.s2.naechste')}`
+                            : m.unterricht
+                              ? `${m.titel}${t('s2.profil.trenner')}${t('v4.s2.unterricht')}`
+                              : m.titel}
                         </span>
                       ))}
                     </>
@@ -179,7 +183,7 @@ export function Profil({
         <text x="75.9" y="6.1">
           {t('s2.profil.legende.uebung')}
         </text>
-        {v4 && (
+        {v4 && klassenarbeiten?.fahrplan.folge !== 'unbekannt' && (
           <g data-testid="eb-legende-nummer">
             <rect
               className="eb-s2-segment-nummer"

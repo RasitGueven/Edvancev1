@@ -183,14 +183,17 @@
         "sicher": "sicher",
         "uebung": "Übungsbedarf",
         "zeile": "{{fach}} · Klasse {{klasse}} · {{schule}} · rund {{minuten}} Minuten"
-      }
+      },
+      "fahrplanKickerThema": "Was in Mathe dieses Schuljahr noch kommt"
     },
     "s2": {
       "titel": "{{wessen}} Kompetenzprofil.",
       "titelOhneName": "Das Kompetenzprofil.",
       "desc": "In rund {{minuten}} Minuten hat {{name}} {{aufgaben}} Aufgaben bearbeitet. Jedes Kästchen ist ein geprüfter Bereich. Antippen zeigt, was dahintersteckt und für welche Klassenarbeit es wichtig ist.",
       "descOhneName": "In rund {{minuten}} Minuten wurden {{aufgaben}} Aufgaben bearbeitet. Jedes Kästchen ist ein geprüfter Bereich. Antippen zeigt, was dahintersteckt und für welche Klassenarbeit es wichtig ist.",
-      "wichtig": "Wichtig für"
+      "wichtig": "Wichtig für",
+      "descThema": "In rund {{minuten}} Minuten hat {{name}} {{aufgaben}} Aufgaben bearbeitet. Jedes Kästchen ist ein geprüfter Bereich. Antippen zeigt, was dahintersteckt und für welches kommende Thema es wichtig ist.",
+      "descThemaOhneName": "In rund {{minuten}} Minuten wurden {{aufgaben}} Aufgaben bearbeitet. Jedes Kästchen ist ein geprüfter Bereich. Antippen zeigt, was dahintersteckt und für welches kommende Thema es wichtig ist."
     },
     "s3": {
       "kicker": "Klassenarbeiten",
@@ -212,8 +215,13 @@
         "dazu_other": "Dazu passt, was die Analyse zeigt: {{y}} waren noch unsicher.",
         "wieder_one": "{{y}} wird bei Klassenarbeit {{k}} wieder gebraucht.",
         "wieder_other": "{{y}} werden bei Klassenarbeit {{k}} wieder gebraucht.",
-        "bereich": "„{{label}}“"
-      }
+        "bereich": "„{{label}}“",
+        "wiederThema_one": "{{y}} wird bei „{{thema}}“ wieder gebraucht.",
+        "wiederThema_other": "{{y}} werden bei „{{thema}}“ wieder gebraucht."
+      },
+      "titelThema": "Was das für die nächsten Themen heißt.",
+      "karteThema": "Thema im Schulplan",
+      "karteZu": "Klassenarbeit zu {{thema}}"
     },
     "s4": {
       "titel": "Daran würden wir zuerst arbeiten.",
@@ -231,7 +239,8 @@
         "zeile": "in jeder Session",
         "text": "{{name}} versteht viel. Wir üben, die eigene Rechnung zu kontrollieren.",
         "textOhneName": "Ihr Kind versteht viel. Wir üben, die eigene Rechnung zu kontrollieren."
-      }
+      },
+      "descThema": "In der Reihenfolge der nächsten Themen. Einen Punkt antippen, um zu sehen, was wir dort angehen."
     }
   }
 }

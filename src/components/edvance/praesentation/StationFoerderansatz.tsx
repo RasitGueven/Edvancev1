@@ -49,7 +49,7 @@ export function StationFoerderansatz({ p, v4 }: StationProps): JSX.Element | nul
       <h2 className="tp-titel tp-reveal" data-tp-pflicht="">
         {n > 0 ? tp('v4.s4.titel') : tb('s4.titelKeiner')}
       </h2>
-      <p className="tp-desc tp-reveal">{n > 0 ? tp('v4.s4.desc') : tb('s1.blick.ansatzKeiner')}</p>
+      <p className="tp-desc tp-reveal">{n > 0 ? tp(v4?.fahrplan.folge === 'unbekannt' ? 'v4.s4.descThema' : 'v4.s4.desc') : tb('s1.blick.ansatzKeiner')}</p>
       {aktiv && (
         // Die Pfeiltasten gelten, solange der Fokus in Kurve oder Kasten liegt.
         <div className="tp-s4-layout tp-s4v-layout tp-reveal" onKeyDown={taste}>
