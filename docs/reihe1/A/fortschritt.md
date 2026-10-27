@@ -12,6 +12,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | 2026-10-27 | A0b | Schnittstellen-PR edvance-app: `src/components/aufgaben/formate/` (AufgabeFormatProps, 6 Platzhalter, `AufgabeFormat`), `Loesungsbeispiel.tsx`; Props im DATENVERTRAG §13.1. **Bitte zuerst mergen, C und D warten darauf.** | (PR folgt) |
 | 2026-10-27 | A1 | Migration `20261027130250_reihe1_a1_pool_trennung`: 1184 → lsa, Default weg, CHECK nie beide/nie leer, Guard, `pruef_board.pool`. pgTAP `reihe1_a1_pool` 16/16, Suite 74 grün / 8 bekannt rot. Zweitprüfung: `zweitpruefung-a1.md`. Pool in Lena-Board und Item-Pflege. Einspielen: `~/einspielen/A-1-pool_trennung.sh` (wartet auf Rasit). | (PR folgt) |
 | 2026-10-27 | A2 | Vier Migrationen: Schema (bauformen, Versionen, Prüfungen, Bewährung, Meldungen, gesehen, tasks-Spalten), 39 `qf_`-Schlüssel, A-Funktionen §9, Prüfung/Freigabe/Bewährung. pgTAP `reihe1_a2_funktionen` 43/43 (Abnahme 6–10 ohne Board), Suite 75 grün / 8 bekannt rot. Zweitprüfung `zweitpruefung-a2.md` (18 Befunde, alle abgearbeitet). Einspielen: `~/einspielen/A-2-datenmodell.sh` (setzt A-1 voraus). | (PR folgt) |
+| 2026-10-27 | Einspielen | Anweisung Rasit: „alle Migrationen selbst einspielen“ — ab jetzt EINSPIELEN = orchestrator (nach grüner Zweitprüfung, Prüfung per dbread, bei Fehler Rollback + STOPP der Phase). | – |
 
 ## Abweichungen
 
@@ -25,3 +26,8 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 - **Types in Edvancev1** sind handgeschrieben (kein Generator); „Types neu generieren“ betrifft nur edvance-app (`supabase gen types`, Datei per Hook gesperrt).
 
 ## Einspielen (wartend / erledigt)
+
+| Skript | Stand | Prüfabfrage |
+|---|---|---|
+| `~/einspielen/A-1-pool_trennung.sh` | eingespielt 27.10.2026 (Orchestrator) | `0 \| 1186` ✓ |
+| `~/einspielen/A-2-datenmodell.sh` | eingespielt 27.10.2026 (Orchestrator) | `15 \| 39 \| 6` ✓; Prod-Abzug enthält alle A-Objekte des Branches (Abweichung nur `get_my_student_id`, von Auftrag D geändert) |
