@@ -40,6 +40,8 @@ import { PruefenUebersichtPage } from '@/pages/coach/pruefen/PruefenUebersichtPa
 import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
 import { ErklaerDetailPage } from '@/pages/coach/pruefen/erklaer/ErklaerDetailPage'
 import { ErklaerListePage } from '@/pages/coach/pruefen/erklaer/ErklaerListePage'
+import { BauformListePage } from '@/pages/coach/pruefen/bauformen/BauformListePage'
+import { BauformDetailPage } from '@/pages/coach/pruefen/bauformen/BauformDetailPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayerStillgelegt } from '@/pages/student/TaskPlayerStillgelegt'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
@@ -135,6 +137,23 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
                 <PruefansichtPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Bauformen pruefen (Sessionreihe 1, A5): Lena prueft je Bauform, Admins geben die Reihe frei. */}
+          <Route
+            path="/coach/pruefen/bauformen"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <BauformListePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/pruefen/bauformen/:bauformId"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+                <BauformDetailPage />
               </ProtectedRoute>
             }
           />

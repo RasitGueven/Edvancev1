@@ -108,6 +108,8 @@ export type LiveAufgabeDetail = {
   letzteEingabe: { eingabe: string; ergebnis: AntwortErgebnis; nachHinweis: number | null } | null
   /** Minuten ohne Eingabe, wenn das ein Signal ist. */
   ohneEingabeMin: number | null
+  /** Reihe 1 A5: fuer „Aufgabe stimmt nicht“ (aufgabe_melden). */
+  taskId?: string
 }
 
 export type VersuchKopf = { art: 'versuch' | 'runde' | 'aufgabe' | 'warmup'; nr: number }

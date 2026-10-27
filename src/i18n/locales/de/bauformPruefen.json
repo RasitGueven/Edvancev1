@@ -1,0 +1,113 @@
+{
+  "liste": {
+    "titel": "Bauformen prüfen",
+    "satz": "Jede Bauform einmal prüfen: Steckbrief, Beispiele, Fehlbilder, Hinweise, Lösungsbeispiel. Erzeugte Aufgaben übernehmen deine Prüfung.",
+    "zurueck": "Zum Lena-Board",
+    "leer": "Gerade wartet keine Bauform.",
+    "leerSatz": "Neue Bauformen erscheinen hier, sobald Prüfmaschine und Blindlöser grün sind.",
+    "gruen": "{{count}} Aufgaben",
+    "version": "Version {{version}}",
+    "freigeben": "Reihe freigeben",
+    "freigegeben": "{{count}} Bauformen freigegeben.",
+    "freigebenHinweis": "Gibt alle Bauformen „zur Freigabe“ der Reihe frei; ihre geprüften Aufgaben werden ziehbar.",
+    "reiter": {
+      "bauformen": "Bauformen",
+      "auffaellig": "Auffällig",
+      "prueffragen": "Prüffragen"
+    },
+    "oeffnen": "Bauformen öffnen"
+  },
+  "status": {
+    "entwurf": "Entwurf",
+    "zur_pruefung": "Zu prüfen",
+    "rueckfrage": "Rückfrage",
+    "beanstandet": "Passt nicht",
+    "zur_freigabe": "Zur Freigabe",
+    "freigegeben": "Freigegeben",
+    "pausiert": "Pausiert"
+  },
+  "detail": {
+    "zurueck": "Zur Liste",
+    "steckbrief": "Steckbrief",
+    "text": "Aufgabentext",
+    "stufen": "Stufen",
+    "stufe": "Stufe {{stufe}}",
+    "rollen": "Rollen",
+    "zeit": "Zeit: {{minuten}} Min.",
+    "kannEntfallen": "Kann in der Reihenplanung entfallen.",
+    "beispiele": "Beispiele wie auf dem Tablet",
+    "andere": "Andere Beispiele",
+    "rolle": "Rolle {{rolle}}",
+    "loesung": "Lösung",
+    "loesungsweg": "Lösungsweg",
+    "hinweise": "Hinweise",
+    "hinweis": "Tipp {{stufe}}",
+    "fehlbilder": "Fehlbilder und Rückmeldungen",
+    "giltFuer": "gilt für Stufe {{stufen}}",
+    "warum": "Lösungsbeispiel: Warum-Bausteine",
+    "richtig": "passt",
+    "befund": "Befund",
+    "pruefmaschine": "Prüfmaschine: {{gruen}} grün, {{rot}} verworfen",
+    "blindBestanden": "Blindlöser: {{geloest}} gelöst, keine Abweichung",
+    "blindAbweichend": "Blindlöser: {{anzahl}} von {{geloest}} abweichend",
+    "instanzen": "{{count}} Aufgaben in dieser Version",
+    "verlauf": "Bisherige Entscheidungen",
+    "keineBeispiele": "Keine Beispiele in dieser Version."
+  },
+  "entscheidung": {
+    "titel": "Deine Entscheidung",
+    "passt": "Passt",
+    "unsicher": "Unsicher",
+    "passt_nicht": "Passt nicht",
+    "tasten": "Tasten 1 / 2 / 3",
+    "notiz": "Notiz",
+    "notizPlatzhalter": "Was ist unklar? (bei „Unsicher“ Pflicht)",
+    "gruende": "Gründe (bei „Passt nicht“ mindestens einer)",
+    "grund": {
+      "rechnung": "Rechnung falsch",
+      "text": "Text unklar",
+      "fehlbild": "Fehlbild oder Rückmeldung passt nicht",
+      "hinweis": "Hinweis verrät die Lösung",
+      "stufe": "Stufe passt nicht",
+      "figur": "Figur falsch"
+    },
+    "gespeichert": "Gespeichert: {{status}}",
+    "fehler": "Konnte nicht speichern: {{message}}",
+    "geaendert": "Die Bauform hat sich geändert. Lade neu."
+  },
+  "auffaellig": {
+    "leer": "Nichts auffällig.",
+    "leerSatz": "Gemeldete und von der Bewährung markierte Aufgaben erscheinen hier.",
+    "bearbeitungen": "{{richtig}} von {{bearbeitungen}} richtig",
+    "unbekannt": "Häufigste falsche Antwort ohne Fehlbild: {{antwort}}",
+    "meldung": "Meldung: {{grund}}",
+    "grund": {
+      "gemeldet": "gemeldet",
+      "unbekannte_antwort": "Verdacht auf falsche Lösung"
+    },
+    "reaktivieren": "Aufgabe wieder aktivieren",
+    "ueberarbeiten": "Bauform zur Überarbeitung",
+    "bauformReaktivieren": "Bauform wieder aktivieren",
+    "grundPlatzhalter": "Kurzer Grund",
+    "erledigt": "Erledigt."
+  },
+  "prueffragen": {
+    "leer": "Keine Prüffragen.",
+    "leerSatz": "Prüffragen für das Gespräch zu „gemeistert“ erscheinen hier.",
+    "erwartung": "Erwartung",
+    "kriterium": "Kriterium",
+    "passt": "Passt",
+    "passtNicht": "Passt nicht",
+    "notizPlatzhalter": "Was soll anders sein?",
+    "geprueftVon": "geprüft von {{name}}"
+  },
+  "melden": {
+    "knopf": "Aufgabe stimmt nicht",
+    "titel": "Was stimmt nicht?",
+    "platzhalter": "z. B. Lösung falsch, Text unklar",
+    "senden": "Melden",
+    "abbrechen": "Abbrechen",
+    "gemeldet": "Gemeldet. Die Aufgabe kommt nicht mehr dran.",
+    "fehler": "Melden hat nicht geklappt."
+  }
+}

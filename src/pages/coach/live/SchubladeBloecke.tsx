@@ -12,6 +12,7 @@ import type { CoachLiveKind, LiveAufgabeDetail, LiveErklaersequenz, ZielZeile } 
 import { Block, Feldname, Pille } from './bausteine'
 import { useLive } from './LiveKontext'
 import { ThemaWahl } from './ThemaWahl'
+import { AufgabeMelden } from '@/components/edvance/pruefen/bauform/AufgabeMelden'
 import { useLiveTexte } from './useLiveTexte'
 
 const ZIEL_PUNKT: Record<ZielZeile['stand'], string> = {
@@ -147,6 +148,7 @@ export function AufgabeBlock({ aufgabe }: { aufgabe: LiveAufgabeDetail }): JSX.E
         <Feldname>{tx.t('schublade.letzteEingabe')}</Feldname>
         <span className="text-[var(--color-text-primary)]">{letzte}</span>
       </p>
+      {aufgabe.taskId && <AufgabeMelden taskId={aufgabe.taskId} />}
     </Block>
   )
 }
