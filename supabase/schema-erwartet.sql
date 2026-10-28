@@ -4021,7 +4021,13 @@ CREATE FUNCTION public.home_darf_lesen(p_kind uuid) RETURNS boolean
     AS $$
   select coalesce(public.get_my_role(), '') = 'admin'
       or (coalesce(public.get_my_role(), '') = 'coach' and public.akte_aktiv(p_kind))
-      or coalesce(public.get_my_student_id() = p_kind, false);
+      or coalesce(public.get_my_student_id() = p_kind, false)
+      -- Session-Tablet: das Platz-Konto, an dem das Kind gerade in einer aktiven Session sitzt.
+      or exists (select 1 from public.session_tablets st
+                   join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+                   join public.session_students ss on ss.session_id = st.session_id and ss.student_id = st.student_id
+                                                  and ss.attendance in ('planned', 'present')
+                  where st.geraet_id = auth.uid() and st.student_id = p_kind and st.geloest_am is null);
 $$;
 
 

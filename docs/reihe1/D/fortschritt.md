@@ -16,3 +16,9 @@
 | 2026-10-27 | D2 Coach | Kachel „Zuhause geübt“ (eigene Komponente, 4 Tests); Einbau wartet auf C0b (#332) | – |
 | 2026-10-27 | D1 App | PR geöffnet, Ansichtstests 72 bestanden / 19 übersprungen | https://github.com/RasitGueven/edvance-app/pull/52 |
 | 2026-10-27 | D4 Backend | themenbaum_themen; Zweitprüfung ohne blockierend, 3 sollte behoben; eingespielt (t); Batu: Reelle Zahlen zuerst, aktuell, FWG-Reihenfolge | – |
+| 2026-10-27 | D4b | Session-Tablet liest den Themenbaum seines Kindes (für den Ausschnitt in C); Zweitprüfung ohne blockierend, Tests ergänzt; eingespielt (t\|1) | – |
+| 2026-10-27 | D3/D4 App | Start, Themenbaum, Ausschnitt; Ansichtstests 80/19 | https://github.com/RasitGueven/edvance-app/pull/57 |
+| 2026-10-27 | D5 | Ich und Eddie; Eddie-Eingabe am Handy korrigiert | https://github.com/RasitGueven/edvance-app/pull/58 |
+| 2026-10-27 | D6 | Gerätetests 4 Geräte × 4 Bildschirme grün; kein nativer Lauf (kein Emulator, kein eas login) | https://github.com/RasitGueven/edvance-app/pull/59 |
+| 2026-10-27 | D7 | Store-Vorbereitung; Haltepunkt eas whoami „Not logged in“ → docs/reihe1/D/store/rasit.md | https://github.com/RasitGueven/edvance-app/pull/60 |
+| 2026-10-27 | D8 | Abnahme automatisiert soweit möglich, Rest in live-checkliste.md; Bericht abgeschlossen. STOPP | – |
