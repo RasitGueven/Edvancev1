@@ -1167,3 +1167,40 @@ type ErklaerVideoProps = {
 | `mediathek_angesehen(p_kind uuid, p_sequenz uuid)` | `void` | speichert höchstens „angesehen“ |
 | `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
 | `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
+
+## 13. Sessionreihe 1 · Aufgaben aus Bauformen (Bauauftrag A)
+
+Konzept: `docs/reihe1/Konzept-Sessionreihe-1-und-Bauformen.md` §3–§9. Diese Abschnitte wachsen mit den Phasen A1–A6;
+die Funktionen stehen hier, sobald sie in einer Migration liegen.
+
+### 13.1 App-Komponenten (edvance-app, PR A0b)
+
+Ort `src/components/aufgaben/formate/`, eine Komponente je Format, gemeinsame Props `AufgabeFormatProps<F>`
+(`typen.ts`), Auswahl nach `payload.format` über `AufgabeFormat` (`index.tsx`).
+
+| Prop | Typ | Bedeutung |
+|---|---|---|
+| `payload` | `FormatPayload[F]` | Kindersicht aus `aufgabe_payload(p_task)`, ohne Lösung |
+| `antwort` | `FormatAntwort[F] \| null` | aktuelle Eingabe; `null` = leer |
+| `onAntwort` | `(antwort) => void` | meldet jede Änderung; Abschicken macht der Aufrufer |
+| `rueckmeldung` | `{ richtig: boolean; text: string \| null } \| null` | aus `aufgabe_werten`; `text` = Fehlbild-Satz oder feste Rückmeldung |
+| `hinweise` | `{ stufe: number; text: string }[]` | schon abgerufene Hinweisstufen |
+| `nurLesen` | `boolean` | Prüf-Vorschau oder abgeschickt: keine Eingabe |
+
+**Payload und Antwort je Format** (JSON, so liefert `aufgabe_payload` und so erwartet `aufgabe_werten`):
+
+| Format | Payload | Antwort |
+|---|---|---|
+| `feldmaske` | `{format, schablone: [{text} \| {feld, typ: zahl\|bruch\|vorzeichen, leer_heisst_eins?}]}` | `{felder: {<feld>: "<wert>"}}`, Vorzeichen `"+"`/`"−"`, leer = fehlt oder `""` |
+| `loesungsmenge` | `{format, element: zahl\|bruch, max_felder: 1–3, variable}` | `{werte: ["3","−3"]}` oder `{keine_loesung: true}` |
+| `graph_auswahl` | `{format, optionen: [{id, bild, alt}]}` (2–4, `alt` ohne Ziffern) | `{gewaehlt: "<id>"}` |
+| `fehler_finden` | `{format, zeilen: [{nr, text}], warum: [{id, text}]}` | `{zeile: <nr>, warum: "<id>"}` |
+| `bausteine` | `{format, bausteine: [{id, text}], anzahl: 1\|2}` | `{gewaehlt: ["<id>", …]}` |
+| `schritte_ordnen` | `{format, schritte: [{id, text}]}` (gemischt) | `{reihenfolge: ["<id>", …]}` |
+
+**Lösungsbeispiel** `src/components/aufgaben/Loesungsbeispiel.tsx`, Props `LoesungsbeispielProps`:
+`aufgabe: string`, `schritte: {text}[]` (der Reihe nach aufgedeckt), `warum: {bei_schritt, frage, bausteine[3], richtig} | null`,
+`onWarum?(bausteinId)` (Selbsterklärung, kein Beleg), `onFertig()` („Jetzt du“), `nurLesen` (Prüf-Vorschau: alles offen).
+Der Inhalt kommt aus `aufgabe_payload` einer Instanz der Rolle `beispiel` (Feld `loesungsbeispiel`, A2/A3).
+
+Bis A3 zeigen alle Komponenten einen Platzhalter „Format kommt bald“; die Props ändern sich dabei nicht.
