@@ -15,3 +15,4 @@
 | 2026-10-27 | D2b | LSA als Befundquelle (Batu in Prod vorher 0 sicher); Zweitprüfung 1 blockierend (Regel 6 bei LSA-Herabstufung) behoben; eingespielt t\|t\|4; Batu jetzt 25 sicher · 8 noch nicht sicher · 50 offen · 47 gesperrt | – |
 | 2026-10-27 | D2 Coach | Kachel „Zuhause geübt“ (eigene Komponente, 4 Tests); Einbau wartet auf C0b (#332) | – |
 | 2026-10-27 | D1 App | PR geöffnet, Ansichtstests 72 bestanden / 19 übersprungen | https://github.com/RasitGueven/edvance-app/pull/52 |
+| 2026-10-27 | D4 Backend | themenbaum_themen; Zweitprüfung ohne blockierend, 3 sollte behoben; eingespielt (t); Batu: Reelle Zahlen zuerst, aktuell, FWG-Reihenfolge | – |
