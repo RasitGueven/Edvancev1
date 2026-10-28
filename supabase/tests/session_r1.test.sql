@@ -119,7 +119,7 @@ select t, s.correct_answers, s.solution, s.hints, s.acceptance
 select set_config('edvance.hinweis_status', '', true);
 
 -- ── 1) Stellschrauben ──────────────────────────────────────────────────────
-select is((select count(*)::int from session_einstellungen), 30, '1 alle 30 Stellschrauben mit Startwert (A2b: session_xp_je_aufgabe, SL1: slots_planbilanz_toleranz)');
+select is((select count(*)::int from session_einstellungen), 48, '1 alle 48 Stellschrauben mit Startwert (A2b: session_xp_je_aufgabe, SL1: slots_planbilanz_toleranz, Reihe 1 C1: sieben reihe_*, C2: elf)');
 select pg_temp.act_as(:'coach_a');
 select throws_ok($$select einstellung_setzen('quest_xp', '60', 'Test')$$, '42501', null, '1 Coach darf nicht setzen');
 select pg_temp.act_as(:'admin');
