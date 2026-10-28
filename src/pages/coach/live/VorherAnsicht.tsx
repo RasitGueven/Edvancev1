@@ -8,6 +8,7 @@ import type { BlickPunkt, BriefingTag, CoachLiveKind } from '@/types/coachLive'
 import { Abschnitt, Pille, type PillenTon } from './bausteine'
 import { useLive } from './LiveKontext'
 import { useLiveTexte, type LiveTexte } from './useLiveTexte'
+import { ReiheKarte } from './reihe/ReiheKarte'
 
 const TAG_TON: Record<BriefingTag['art'], PillenTon> = {
   mastery: 'navy', signale: 'warn', themaAlt: 'warn', klassenarbeit: 'warn', ersteNachLsa: 'navy',
@@ -63,6 +64,7 @@ function Briefing({ kind }: { kind: CoachLiveKind }): JSX.Element {
           )}
           {zeile('quests', b.quests ? tx.t('vorher.quests', b.quests) : tx.t('vorher.keineQuests'))}
         </dl>
+        <ReiheKarte studentId={kind.id} kompakt />
       </div>
     </li>
   )

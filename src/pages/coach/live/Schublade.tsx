@@ -8,6 +8,7 @@ import { AufgabeBlock, HeuteBlock, HinweiseBlock, InfoBlock, SequenzBlock, Versu
 import { useLiveTexte } from './useLiveTexte'
 import { useLive } from './LiveKontext'
 import { AufgabeEinbau } from './einbau/AufgabeEinbau'
+import { ReiheKarte } from './reihe/ReiheKarte'
 
 /**
  * Schublade je Kind (Warm-up und Kernarbeit): rechts im Querformat, von unten im
@@ -78,6 +79,7 @@ export function Schublade({ kind, onSchliessen }: { kind: CoachLiveKind; onSchli
           {kind.hinweise.length > 0 && <HinweiseBlock kind={kind} />}
           {(kind.aufgabe || kind.erklaersequenz) && <Interventionsleiter kind={kind} />}
           {kind.heute.length > 0 && <HeuteBlock kind={kind} />}
+          <ReiheKarte studentId={kind.id} />
         </div>
       </aside>
     </>
