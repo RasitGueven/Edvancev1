@@ -1168,6 +1168,46 @@ type ErklaerVideoProps = {
 | `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
 | `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
 
+## Reihe 1 · D Home light (Bauauftrag D)
+
+Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
+Fertige Funktionen tragen `comment on function … is 'reihe1 fertig'`.
+
+### App-Komponente `ThemenbaumAusschnitt` (edvance-app)
+
+`src/components/themenbaum/ThemenbaumAusschnitt.tsx`, für den Check-out vor Ort (C):
+
+```ts
+type ThemenbaumAusschnittProps = {
+  kindId: string;                 // students.id
+  skillKeys: readonly string[];   // skill_key der Kompetenzen der Stunde
+};
+```
+
+Ohne Daten zeigt sie nichts. Die Daten holt sie selbst (`kompetenz_offen`, `home_uebung_kurz`).
+
+### Routen (edvance-app)
+
+Home-Bildschirme liegen unter `app/(student)/home/` (eigene Gruppe). Session-Routen bleiben bei C.
+
+### Datenbank-Funktionen (Signaturen, Stand D0)
+
+```text
+kompetenz_offen(p_kind uuid) → table(skill_key text, zustand text, grund text)
+    zustand: sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (gemeistert nur über lernpfad.stand_coach)
+    grund:   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
+home_uebung_melden(p_skill text, p_anzahl int, p_dauer_sek int) → void       nur das Kind selbst
+home_uebung_kurz(p_kind uuid, p_seit timestamptz default null)
+    → table(skill_key text, quests int, aufgaben int, dauer_sek int, zuletzt timestamptz)
+    p_seit null: seit der letzten abgeschlossenen Session vor Ort (coaching_sessions.beendet_am)
+zeigs_mir_offen(p_kind uuid, p_session uuid)
+    → table(skill_key text, vorschlag_am timestamptz, entscheidung text, entschieden_von uuid)
+zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung text) → void
+    p_entscheidung: uebernehmen | nicht_heute (ASCII wie die übrigen Zustände); nur Coach der Session und Admin
+```
+
+Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
+
 ## 13. Sessionreihe 1 · Aufgaben aus Bauformen (Bauauftrag A)
 
 Konzept: `docs/reihe1/Konzept-Sessionreihe-1-und-Bauformen.md` §3–§9. Diese Abschnitte wachsen mit den Phasen A1–A6;
