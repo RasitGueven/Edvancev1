@@ -17087,9 +17087,13 @@ begin
         return;
       end if;
     end loop;
-    return;
+    -- aufgabe_ziehen kennt keinen Testlauf (Konzept §9). Im Testlauf weiter zum bisherigen Pool, der Entwürfe
+    -- zeigt; in echten Sessions bleibt es beim A-Weg (§3.1: Beispiel nur als Instanz der Rolle beispiel).
+    if not coalesce(p_testlauf, false) then
+      return;
+    end if;
   end if;
-  -- Ohne Auftrag A: bisheriger Session-Pool, nur für Rollen, die es dort schon gibt.
+  -- Ohne Auftrag A oder im Testlauf ohne Treffer: bisheriger Session-Pool, nur für Rollen, die es dort schon gibt.
   if p_rolle in ('warmup', 'uebung', 'recap', 'beispiel') then
     select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_skill_key, coalesce(p_stufe, 2),
                                                         p_testlauf, p_rolle = 'beispiel');
