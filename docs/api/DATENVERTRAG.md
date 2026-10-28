@@ -1128,6 +1128,46 @@ Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbrau
 Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
 Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
 
+## R1-B · Erklärvideos aus dem Studio (Reihe 1, Bauauftrag B)
+
+Besitzer: Auftrag B (Konzept Sessionreihe 1 §9). Andere Aufträge nutzen nur, was hier steht.
+Abbildung Video ↔ Kernidee ↔ Beat-Bereich: `docs/reihe1/B/ist-analyse.md` §1.
+
+### R1-B.1 App-Komponente `ErklaerVideo` (edvance-app)
+
+`src/components/video/ErklaerVideo.tsx`, Props in `src/components/video/typen.ts`. Auftrag C setzt sie in der
+Session ein (`modus = 'session'`), Auftrag D zuhause in der Mediathek (`modus = 'zuhause'`).
+
+```ts
+type VideoKapitel   = { beat: string; start: number /* s */; titel: string /* Sprungmarke ≤ 40 */ };
+type VideoQuelle    = { sequenzId: string; welt: string; mp4Url: string; untertitelUrl: string | null; posterUrl: string | null };
+type BeatBereich    = { vonBeat: string; bisBeat: string };            // beide eingeschlossen
+type MiniCheckAnker = { nachBeat: string; taskId: string };            // nur session
+type Ruecksprung    = { beat: string; rueckmeldung: string; schluessel: string };
+
+type ErklaerVideoProps = {
+  video: VideoQuelle | null;            // null → ruhiger Hinweis, kein Fehler
+  kapitel: VideoKapitel[];
+  bereich: BeatBereich | null;          // null → ganzes Video
+  miniChecks: MiniCheckAnker[];         // zuhause immer []
+  modus: 'session' | 'zuhause';
+  miniCheck?: ReactNode;                // Check-Ebene, vom Aufrufer gerendert (z. B. LsaAufgabe)
+  ruecksprung?: Ruecksprung | null;     // nach aktion = ruecksprung
+  onMiniCheck?: (anker: MiniCheckAnker) => void;
+  onBereichEnde?: () => void;
+  onAngesehen?: () => void;             // zuhause → mediathek_angesehen
+};
+```
+
+### R1-B.2 Datenbank-Funktionen (Signaturen folgen mit B6)
+
+| Funktion | Ergebnis | Regel |
+|---|---|---|
+| `mediathek_kind(p_kind uuid)` | `(skill_key, kernidee_key, sequenz_id, titel, welt, mp4_url, kapitel jsonb)` | nur Freigegebenes, nur offene Kompetenzen (`kompetenz_offen` von D) |
+| `mediathek_angesehen(p_kind uuid, p_sequenz uuid)` | `void` | speichert höchstens „angesehen“ |
+| `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
+| `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
+
 ## Reihe 1 · D Home light (Bauauftrag D)
 
 Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
