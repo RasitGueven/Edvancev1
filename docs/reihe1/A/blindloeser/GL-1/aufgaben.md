@@ -4,11 +4,11 @@ Antwortform: Gib die Zahl an (Bruch mit „/“ ist erlaubt).
 
 ## Aufgabe 1
 
-Löse 2x − 6 = −11. Gib x an.
+Löse 2x − 6 = −11. Gib x als gekürzten Bruch an.
 
 ## Aufgabe 2
 
-Löse 4x + 13 = 39. Gib x an.
+Löse 4x + 13 = 39. Gib x als gekürzten Bruch an.
 
 ## Aufgabe 3
 
@@ -28,7 +28,7 @@ Löse 8x − 11 = 21. Gib x an.
 
 ## Aufgabe 7
 
-Löse 5x + 4 = −5. Gib x an.
+Löse 5x + 4 = −5. Gib x als gekürzten Bruch an.
 
 ## Aufgabe 8
 
@@ -40,4 +40,4 @@ Löse 8x − 14 = 2. Gib x an.
 
 ## Aufgabe 10
 
-Löse 9x + 15 = 3. Gib x an.
+Löse 9x + 15 = 3. Gib x als gekürzten Bruch an.

@@ -11,7 +11,7 @@
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(8);
+select plan(10);
 
 select cmp_ok((select count(*)::int from bauformen), '>=', 2, '0 es gibt Bauformen');
 select is((select count(*)::int from tasks t where t.bauform_id is not null
@@ -40,17 +40,21 @@ select t.id, null, to_jsonb(array[s.acceptance ->> 'canonical']), 'richtig', nul
   from tasks t join task_solutions s on s.task_id = t.id
  where t.bauform_id is not null and t.input_type = 'MC'
 union all
-select t.id, p.key::int, jsonb_build_object('text', p.value ->> 'canonical'), 'richtig', null
+select t.id, p.key::int,
+       case when (select x ->> 'kind' from jsonb_array_elements(t.parts) x where x ->> 'nr' = p.key) = 'mc'
+            then to_jsonb(array[p.value ->> 'canonical']) else jsonb_build_object('text', p.value ->> 'canonical') end,
+       'richtig', null
   from tasks t join task_solutions s on s.task_id = t.id, jsonb_each(s.acceptance) p
  where t.bauform_id is not null and t.input_type = 'MULTI_PART'
-   and (select x ->> 'kind' from jsonb_array_elements(t.parts) x where x ->> 'nr' = p.key) = 'short_input'
 union all
 select t.id, null, case when t.input_type = 'MC' then to_jsonb(array[k.key]) else jsonb_build_object('text', k.key) end,
        'falsch', k.value #>> '{}'
   from tasks t join task_solutions s on s.task_id = t.id, jsonb_each(coalesce(s.acceptance -> 'known_errors', '{}')) k
  where t.bauform_id is not null and t.input_type in ('NUMERIC', 'MC')
 union all
-select t.id, p.key::int, jsonb_build_object('text', k.key), 'falsch', k.value #>> '{}'
+select t.id, p.key::int,
+       case when (select x ->> 'kind' from jsonb_array_elements(t.parts) x where x ->> 'nr' = p.key) = 'mc'
+            then to_jsonb(array[k.key]) else jsonb_build_object('text', k.key) end, 'falsch', k.value #>> '{}'
   from tasks t join task_solutions s on s.task_id = t.id, jsonb_each(s.acceptance) p,
        jsonb_each(coalesce(p.value -> 'known_errors', '{}')) k
  where t.bauform_id is not null and t.input_type = 'MULTI_PART';
@@ -67,6 +71,16 @@ select is((select count(*)::int from tasks t where t.input_type = 'GRAPH_AUSWAHL
             and (select count(*) from task_figur_optionen f where f.task_id = t.id)
                 <> jsonb_array_length(t.question_payload -> 'optionen')), 0,
           '4 Graph-Auswahl: je Option eine Figur');
+
+-- 5) aufgabe_ziehbar: eine Instanz mit Figur erst, wenn die Figur hochgeladen ist (…_reihe1_a6_fehlbilder_figuren)
+select t.id as fig, t.bauform_id as fig_bf from tasks t join task_figures f on f.task_id = t.id
+ where t.bauform_id is not null and t.input_type <> 'GRAPH_AUSWAHL' order by t.id limit 1 \gset
+update bauformen set status = 'freigegeben' where id = :'fig_bf';
+update tasks set status = 'ready' where id = :'fig';
+update task_figures set svg_hash = null where task_id = :'fig';
+select ok(not aufgabe_ziehbar(:'fig'), '5 Instanz mit nicht hochgeladener Figur ist nicht ziehbar');
+update task_figures set svg_hash = 'zz-hochgeladen' where task_id = :'fig';
+select ok(aufgabe_ziehbar(:'fig'), '5 nach dem Hochladen ist sie ziehbar');
 
 select * from finish();
 rollback;

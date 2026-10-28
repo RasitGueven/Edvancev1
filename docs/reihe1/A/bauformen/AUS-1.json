@@ -47,7 +47,7 @@
   ],
   "hinweise": [
    "Was steckt in beiden Summanden?",
-   "Such den größten Teiler beider Zahlen und denk an x.",
+   "{strategie}",
    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
   ],
   "loesungsweg": [
@@ -60,7 +60,7 @@
   "figur": null,
   "zeit_sek": 60,
   "kann_entfallen": false,
-  "generator_hash": "82cce7bbb8c7"
+  "generator_hash": "523455c55546"
  },
  "pruefprotokoll": {
   "gruen": 71,
@@ -145,7 +145,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -243,7 +243,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -341,7 +341,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -431,7 +431,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -536,7 +536,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -634,7 +634,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -732,7 +732,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -822,7 +822,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -920,7 +920,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1018,7 +1018,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1123,7 +1123,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1213,7 +1213,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1311,7 +1311,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1409,7 +1409,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1499,7 +1499,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1589,7 +1589,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1687,7 +1687,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1792,7 +1792,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1882,7 +1882,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -1980,7 +1980,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2070,7 +2070,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2160,7 +2160,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2265,7 +2265,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2363,7 +2363,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Beide Summanden enthalten x. Klammere x aus.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2483,7 +2483,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2604,7 +2604,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2716,7 +2716,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2828,7 +2828,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -2940,7 +2940,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3061,7 +3061,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3182,7 +3182,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3294,7 +3294,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3406,7 +3406,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3527,7 +3527,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3648,7 +3648,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3760,7 +3760,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3872,7 +3872,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -3993,7 +3993,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4105,7 +4105,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4234,7 +4234,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4363,7 +4363,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4475,7 +4475,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4596,7 +4596,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4708,7 +4708,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4830,7 +4830,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -4951,7 +4951,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -5072,7 +5072,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [
@@ -5184,7 +5184,7 @@
    ],
    "hinweise": [
     "Was steckt in beiden Summanden?",
-    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Such den größten Teiler beider Zahlen.",
     "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
    ],
    "loesungsweg": [

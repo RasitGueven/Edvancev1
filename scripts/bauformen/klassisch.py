@@ -43,13 +43,31 @@ def _mit_minus(w: str) -> list[str]:
     return [w] + ([w.replace('-', '−')] if '-' in w else [])
 
 
+def _dezimal(w: str) -> list[str]:
+    """Ein Bruch mit endlicher Dezimalzahl auch als Dezimalzahl (Komma und Punkt), z. B. 81/2 → 40,5."""
+    from fractions import Fraction
+    try:
+        x = Fraction(w.replace('−', '-'))
+    except (ValueError, ZeroDivisionError):
+        return []
+    d = x.denominator
+    while d % 2 == 0:
+        d //= 2
+    while d % 5 == 0:
+        d //= 5
+    if x.denominator == 1 or d != 1:
+        return []
+    t = f'{float(x):.6f}'.rstrip('0').rstrip('.')
+    return [t.replace('.', ','), t]
+
+
 def _regel(werte: list[str], fehler: dict[str, str]) -> dict:
     alle = list(dict.fromkeys(v for w in werte for v in _mit_minus(w)))
     r: dict = {'canonical': alle[0]}
     if len(alle) > 1:
         r['equivalents'] = alle[1:]
     if fehler:
-        r['known_errors'] = {v: k for w, k in fehler.items() for v in _mit_minus(w)}
+        r['known_errors'] = {v: k for w, k in fehler.items() for d in [w, *_dezimal(w)] for v in _mit_minus(d)}
     return r
 
 
@@ -69,7 +87,8 @@ def db_loesung(fmt: str, loesung: dict, fehlbilder: list[dict]) -> tuple[object,
     return teile, acc
 
 
-def eingaben(fmt: str, loesung: dict, fehlbilder: list[dict], schreibweisen: list[dict]) -> list[dict]:
+def eingaben(fmt: str, loesung: dict, fehlbilder: list[dict], schreibweisen: list[dict],
+             teile: list[dict] | None = None) -> list[dict]:
     """Probefaelle fuer Pruefung 4: {teil, eingabe, richtig, key}. Jede zulaessige Schreibweise trifft, jedes Fehlbild
     bekommt seinen Schluessel."""
     faelle = []
@@ -81,10 +100,14 @@ def eingaben(fmt: str, loesung: dict, fehlbilder: list[dict], schreibweisen: lis
         faelle.append({'teil': None, 'eingabe': [loesung['option']], 'richtig': True, 'key': None})
         faelle += [{'teil': None, 'eingabe': [f['option']], 'richtig': False, 'key': f['key']} for f in fehlbilder]
     else:
+        mc = {str(t['nr']) for t in teile or [] if t.get('kind') == 'mc'}
+
+        def ein(nr: str, w: str):
+            return [w] if nr in mc else {'text': w}
         for nr, werte in loesung['teile'].items():
             for w in werte + [s['wert'] for s in schreibweisen if str(s['teil']) == nr]:
-                faelle.append({'teil': int(nr), 'eingabe': {'text': w}, 'richtig': True, 'key': None})
-        faelle += [{'teil': int(f['teil']), 'eingabe': {'text': f['wert']}, 'richtig': False, 'key': f['key']}
+                faelle.append({'teil': int(nr), 'eingabe': ein(nr, w), 'richtig': True, 'key': None})
+        faelle += [{'teil': int(f['teil']), 'eingabe': ein(str(f['teil']), f['wert']), 'richtig': False, 'key': f['key']}
                    for f in fehlbilder]
     return faelle
 

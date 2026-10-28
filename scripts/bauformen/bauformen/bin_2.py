@@ -22,9 +22,9 @@ class BIN2(Bauform):
         {'key': 'qf_binom_vorzeichen', 'regel': '(x − d)² statt (x + d)²', 'gilt_fuer_stufen': [1, 2, 3],
          'rueckmeldung': 'Prüf das Vorzeichen in der Klammer. Es hat dasselbe Vorzeichen wie das Glied mit x.'},
         {'key': 'qf_binom_b_statt_halb', 'regel': '(x + 2d)²', 'gilt_fuer_stufen': [1, 2, 3],
-         'rueckmeldung': 'Das Glied mit x ist 2 · d · x. In die Klammer kommt nur die Hälfte der Zahl vor x.'},
+         'rueckmeldung': 'In die Klammer kommt nur die Hälfte der Zahl vor x.'},
         {'key': 'qf_binom_c_statt_wurzel', 'regel': '(x + d²)²', 'gilt_fuer_stufen': [1, 2, 3],
-         'rueckmeldung': 'Die Zahl am Ende ist d². In die Klammer kommt die Wurzel daraus.'},
+         'rueckmeldung': 'Die Zahl am Ende ist das Quadrat der Zahl in der Klammer. In die Klammer kommt die Wurzel daraus.'},
     ]
     hinweis_vorlagen = ['Welche binomische Formel hat drei Glieder wie {trinom}?',
                         'Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?',

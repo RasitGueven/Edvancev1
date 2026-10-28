@@ -14,7 +14,7 @@ class BIN1(Bauform):
     skill = 'term_binom_quadrat'
     format = 'feldmaske'
     rollen = ('warmup', 'uebung', 'home')
-    stufen = {1: '(x + d)², d von 1 bis 12', 2: '(x − d)², d von 1 bis 12', 3: '(k·x − d)², k von 2 bis 5, d von 1 bis 9'}
+    stufen = {1: '(x + d)², d von 1 bis 15', 2: '(x − d)², d von 1 bis 15', 3: '(k·x − d)², k von 2 bis 5, d von 1 bis 9'}
     text = 'Multipliziere {term} aus.'
     fehlbild_steckbrief = [
         {'key': 'qf_binom_mittelglied_fehlt', 'regel': 'k²x² + d² (2·k·d·x fehlt)', 'gilt_fuer_stufen': [1, 2, 3],
@@ -22,7 +22,7 @@ class BIN1(Bauform):
         {'key': 'qf_binom_mittelglied_einfach', 'regel': 'Mittelglied k·d·x statt 2·k·d·x', 'gilt_fuer_stufen': [1, 2, 3],
          'rueckmeldung': 'Das mittlere Glied kommt zweimal vor. Denk an die 2 in der binomischen Formel.'},
         {'key': 'qf_binom_vorzeichen', 'regel': 'Vorzeichen des Mittelglieds falsch', 'gilt_fuer_stufen': [1, 2, 3],
-         'rueckmeldung': 'Prüf das Vorzeichen des mittleren Glieds. Es hat dasselbe Vorzeichen wie d in der Klammer.'},
+         'rueckmeldung': 'Prüf das Vorzeichen des mittleren Glieds. Es hat dasselbe Vorzeichen wie die Zahl in der Klammer.'},
         {'key': 'qf_binom_quadrat_differenz', 'regel': 'k²x² − d²', 'gilt_fuer_stufen': [2, 3],
          'rueckmeldung': '(x − d)² ist nicht x² − d². Schreib das Quadrat als Produkt zweier Klammern.'},
         {'key': 'qf_binom_k_nicht_quadriert', 'regel': 'k·x² statt k²·x²', 'gilt_fuer_stufen': [3],
@@ -36,9 +36,9 @@ class BIN1(Bauform):
 
     def parameter(self, stufe: int, rng: random.Random) -> dict:
         if stufe == 1:
-            return {'k': 1, 'd': rng.randint(1, 12)}
+            return {'k': 1, 'd': rng.randint(1, 15)}
         if stufe == 2:
-            return {'k': 1, 'd': -rng.randint(1, 12)}
+            return {'k': 1, 'd': -rng.randint(1, 15)}
         return {'k': rng.randint(2, 5), 'd': -rng.randint(1, 9)}
 
     def erzeugen(self, params: dict, rolle: str, stufe: int) -> Instanz:
@@ -74,7 +74,7 @@ class BIN1(Bauform):
 
     def angenehm(self, inst: Instanz) -> str | None:
         k, d = inst.params['k'], inst.params['d']
-        ok = {1: k == 1 and 1 <= d <= 12, 2: k == 1 and -12 <= d <= -1, 3: 2 <= k <= 5 and -9 <= d <= -1}[inst.stufe]
+        ok = {1: k == 1 and 1 <= d <= 15, 2: k == 1 and -15 <= d <= -1, 3: 2 <= k <= 5 and -9 <= d <= -1}[inst.stufe]
         return None if ok else f'passt nicht zu Stufe {inst.stufe}'
 
 

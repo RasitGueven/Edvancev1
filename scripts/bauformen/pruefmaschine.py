@@ -177,7 +177,7 @@ def wertung_klassisch(bf: Bauform, instanzen: list[Instanz]) -> dict[int, str | 
     faelle = []
     for i, inst in enumerate(instanzen):
         ca, acc = db_loesung(bf.format, inst.loesung, inst.fehlbilder)
-        for f in eingaben(bf.format, inst.loesung, inst.fehlbilder, inst.schreibweisen):
+        for f in eingaben(bf.format, inst.loesung, inst.fehlbilder, inst.schreibweisen, inst.teile):
             faelle.append({'i': i, 'input_type': inst.input_type, 'parts': inst.teile, 'ca': ca, 'acc': acc, **f})
     daten = json.dumps(faelle, ensure_ascii=False).replace("'", "''")
     ergebnis: dict[int, str | None] = {i: None for i in range(len(instanzen))}

@@ -33,7 +33,7 @@ class AUS1(Bauform):
          'rueckmeldung': 'Teil jeden Summanden durch den Faktor, nicht nur den ersten.'},
     ]
     hinweis_vorlagen = ['Was steckt in beiden Summanden?',
-                        'Such den größten Teiler beider Zahlen und denk an x.',
+                        '{strategie}',
                         'Teil jeden Summanden durch den Faktor. Was bleibt übrig?']
     loesungsweg_vorlage = ['{term}', '= {faktor} · {erst} {vz} {faktor} · {zweit}', '= {ergebnis}']
     zeit_sek = 60
@@ -65,7 +65,9 @@ class AUS1(Bauform):
             faktor, erst, zweit = f'{k}x', summe([(m, 'x')]), str(abs(n))
         ergebnis = (f'{"" if stufe == 1 else k}x · ({summe([(m, "x"), (n, "")])})' if stufe != 2
                     else f'{k} · ({summe([(m, "x"), (n, "")])})')
-        w = {'term': term, 'faktor': faktor, 'erst': erst, 'vz': '+' if n > 0 else '−', 'zweit': zweit,
+        w = {'strategie': 'Beide Summanden enthalten x. Klammere x aus.' if stufe == 1 else
+             'Such den größten Teiler beider Zahlen' + (' und denk an x.' if stufe == 3 else '.'),
+             'term': term, 'faktor': faktor, 'erst': erst, 'vz': '+' if n > 0 else '−', 'zweit': zweit,
              'ergebnis': ergebnis}
         schab = self._schablone(stufe)
         mit_k = {} if stufe == 1 else {'k': k}

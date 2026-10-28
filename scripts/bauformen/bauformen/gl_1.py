@@ -25,7 +25,7 @@ class GL1(Bauform):
     rollen = ('warmup', 'uebung', 'home')
     stufen = {1: 'a von 2 bis 9, Lösung von 1 bis 12', 2: 'a von 2 bis 9, Lösung von −12 bis −1',
               3: 'a von 2 bis 9, Lösung ein gekürzter Bruch'}
-    text = 'Löse {gleichung}. Gib x an.'
+    text = 'Löse {gleichung}. Gib x an.'  # Stufe 3: „Gib x als gekürzten Bruch an.“
     fehlbild_steckbrief = [
         {'key': 'qf_gegenoperation_vorzeichen', 'regel': '(c + b) / a', 'gilt_fuer_stufen': [1, 2, 3],
          'rueckmeldung': 'Beim Umstellen kehrt sich die Rechenart um: aus + b wird − b.'},
@@ -68,7 +68,7 @@ class GL1(Bauform):
         gleichung = f'{summe([(a, "x"), (b, "")])} = {zahl(c)}'
         w = {'gleichung': gleichung, 'gegen': f'− {b}' if b > 0 else f'+ {-b}', 'a': a, 'rechts': zahl(c - b),
              'x': zahl(x)}
-        frage = ersetze(self.text, w)
+        frage = ersetze(self.text, w).replace('Gib x an.', 'Gib x als gekürzten Bruch an.' if stufe == 3 else 'Gib x an.')
         richtig = [zahl_antwort(x)] + _dezimal(x)
         fb = [{'key': f['key'], 'wert': zahl_antwort(f['wert'])} for f in self._fehler(params)]
         return Instanz(self.key, rolle, stufe, params, frage, 'NUMERIC', zahl_payload(frage), {'werte': richtig}, fb,

@@ -4,50 +4,50 @@ Antwortform: Gib die Zahl je Feld an, z. B. „Feld 1: …, Vorzeichen: −, Fel
 
 ## Aufgabe 1
 
-Multipliziere (5x − 6)² aus.
+Multipliziere (2x − 1)² aus.
 Schablone:  [ ] x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 2
 
-Multipliziere (3x − 2)² aus.
+Multipliziere (3x − 7)² aus.
 Schablone:  [ ] x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 3
 
-Multipliziere (x + 2)² aus.
+Multipliziere (x + 9)² aus.
 Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 4
 
-Multipliziere (x − 7)² aus.
+Multipliziere (x + 2)² aus.
 Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 5
 
-Multipliziere (x + 12)² aus.
+Multipliziere (x + 10)² aus.
 Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 6
 
-Multipliziere (5x − 3)² aus.
-Schablone:  [ ] x²  [±]  [ ] x  [±]  [ ] 
+Multipliziere (x − 14)² aus.
+Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 7
 
-Multipliziere (4x − 5)² aus.
-Schablone:  [ ] x²  [±]  [ ] x  [±]  [ ] 
+Multipliziere (x − 13)² aus.
+Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 8
 
-Multipliziere (5x − 2)² aus.
-Schablone:  [ ] x²  [±]  [ ] x  [±]  [ ] 
+Multipliziere (x − 11)² aus.
+Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 9
 
-Multipliziere (5x − 5)² aus.
-Schablone:  [ ] x²  [±]  [ ] x  [±]  [ ] 
+Multipliziere (x − 6)² aus.
+Schablone: x²  [±]  [ ] x  [±]  [ ] 
 
 ## Aufgabe 10
 
-Multipliziere (x − 6)² aus.
+Multipliziere (x − 2)² aus.
 Schablone: x²  [±]  [ ] x  [±]  [ ] 

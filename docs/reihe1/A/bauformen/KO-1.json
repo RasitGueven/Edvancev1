@@ -39,7 +39,7 @@
   "hinweise": [
    "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
    "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-   "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+   "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
   ],
   "loesungsweg": [
    "Waagerecht vom Ursprung: {x} (x-Koordinate)",
@@ -54,7 +54,7 @@
   },
   "zeit_sek": 45,
   "kann_entfallen": false,
-  "generator_hash": "6a8554ed02f6"
+  "generator_hash": "8d27dd746d3f"
  },
  "pruefprotokoll": {
   "gruen": 64,
@@ -140,7 +140,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 2 (x-Koordinate)",
@@ -250,7 +250,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -360,7 +360,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -470,7 +470,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -580,7 +580,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -690,7 +690,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 2 (x-Koordinate)",
@@ -800,7 +800,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -910,7 +910,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 2 (x-Koordinate)",
@@ -1020,7 +1020,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -1130,7 +1130,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -1240,7 +1240,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -1350,7 +1350,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -1460,7 +1460,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -1570,7 +1570,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -1680,7 +1680,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -1790,7 +1790,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 2 (x-Koordinate)",
@@ -1900,7 +1900,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -2010,7 +2010,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -2120,7 +2120,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -2230,7 +2230,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -2347,7 +2347,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −1 (x-Koordinate)",
@@ -2473,7 +2473,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -2599,7 +2599,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -2725,7 +2725,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -2851,7 +2851,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -2977,7 +2977,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 2 (x-Koordinate)",
@@ -3103,7 +3103,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",
@@ -3229,7 +3229,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -3355,7 +3355,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 1 (x-Koordinate)",
@@ -3481,7 +3481,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -3607,7 +3607,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −5 (x-Koordinate)",
@@ -3733,7 +3733,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −3 (x-Koordinate)",
@@ -3859,7 +3859,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -3985,7 +3985,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −5 (x-Koordinate)",
@@ -4111,7 +4111,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",
@@ -4237,7 +4237,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −2 (x-Koordinate)",
@@ -4363,7 +4363,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 3 (x-Koordinate)",
@@ -4489,7 +4489,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 2 (x-Koordinate)",
@@ -4615,7 +4615,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -4741,7 +4741,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 4 (x-Koordinate)",
@@ -4867,7 +4867,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: 5 (x-Koordinate)",
@@ -4993,7 +4993,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",
@@ -5119,7 +5119,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −1 (x-Koordinate)",
@@ -5245,7 +5245,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −2 (x-Koordinate)",
@@ -5371,7 +5371,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −1 (x-Koordinate)",
@@ -5497,7 +5497,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −5 (x-Koordinate)",
@@ -5623,7 +5623,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −1 (x-Koordinate)",
@@ -5749,7 +5749,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −1 (x-Koordinate)",
@@ -5875,7 +5875,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −5 (x-Koordinate)",
@@ -6001,7 +6001,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −5 (x-Koordinate)",
@@ -6127,7 +6127,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −2 (x-Koordinate)",
@@ -6253,7 +6253,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",
@@ -6379,7 +6379,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −2 (x-Koordinate)",
@@ -6505,7 +6505,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",
@@ -6631,7 +6631,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −3 (x-Koordinate)",
@@ -6757,7 +6757,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −3 (x-Koordinate)",
@@ -6883,7 +6883,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −3 (x-Koordinate)",
@@ -7009,7 +7009,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −2 (x-Koordinate)",
@@ -7135,7 +7135,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −3 (x-Koordinate)",
@@ -7261,7 +7261,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −2 (x-Koordinate)",
@@ -7387,7 +7387,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −5 (x-Koordinate)",
@@ -7513,7 +7513,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −1 (x-Koordinate)",
@@ -7639,7 +7639,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",
@@ -7765,7 +7765,7 @@
    "hinweise": [
     "Wo liegt der Ursprung, also der Punkt (0 | 0)?",
     "Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.",
-    "Dann zählst du senkrecht bis P. Nach unten wird es negativ."
+    "Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ."
    ],
    "loesungsweg": [
     "Waagerecht vom Ursprung: −4 (x-Koordinate)",

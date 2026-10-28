@@ -34,7 +34,7 @@
      2,
      3
     ],
-    "rueckmeldung": "Das Glied mit x ist 2 · d · x. In die Klammer kommt nur die Hälfte der Zahl vor x."
+    "rueckmeldung": "In die Klammer kommt nur die Hälfte der Zahl vor x."
    },
    {
     "key": "qf_binom_c_statt_wurzel",
@@ -44,7 +44,7 @@
      2,
      3
     ],
-    "rueckmeldung": "Die Zahl am Ende ist d². In die Klammer kommt die Wurzel daraus."
+    "rueckmeldung": "Die Zahl am Ende ist das Quadrat der Zahl in der Klammer. In die Klammer kommt die Wurzel daraus."
    }
   ],
   "hinweise": [
@@ -62,7 +62,7 @@
   "figur": null,
   "zeit_sek": 60,
   "kann_entfallen": false,
-  "generator_hash": "c747638a59a2"
+  "generator_hash": "858fa0fe37b5"
  },
  "pruefprotokoll": {
   "gruen": 44,

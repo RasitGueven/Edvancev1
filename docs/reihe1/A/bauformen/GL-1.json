@@ -63,7 +63,7 @@
   "figur": null,
   "zeit_sek": 60,
   "kann_entfallen": false,
-  "generator_hash": "116d39848489"
+  "generator_hash": "9108f429a205"
  },
  "pruefprotokoll": {
   "gruen": 72,
@@ -3556,11 +3556,11 @@
     "b": 9,
     "c": -2
    },
-   "frage": "Löse 4x + 9 = −2. Gib x an.",
+   "frage": "Löse 4x + 9 = −2. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 4x + 9 = −2. Gib x an."
+    "prompt": "Löse 4x + 9 = −2. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -3630,11 +3630,11 @@
     "b": -6,
     "c": -11
    },
-   "frage": "Löse 2x − 6 = −11. Gib x an.",
+   "frage": "Löse 2x − 6 = −11. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 2x − 6 = −11. Gib x an."
+    "prompt": "Löse 2x − 6 = −11. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -3704,11 +3704,11 @@
     "b": 4,
     "c": -5
    },
-   "frage": "Löse 5x + 4 = −5. Gib x an.",
+   "frage": "Löse 5x + 4 = −5. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 5x + 4 = −5. Gib x an."
+    "prompt": "Löse 5x + 4 = −5. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -3778,11 +3778,11 @@
     "b": 13,
     "c": 10
    },
-   "frage": "Löse 9x + 13 = 10. Gib x an.",
+   "frage": "Löse 9x + 13 = 10. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 9x + 13 = 10. Gib x an."
+    "prompt": "Löse 9x + 13 = 10. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -3850,11 +3850,11 @@
     "b": 2,
     "c": 12
    },
-   "frage": "Löse 3x + 2 = 12. Gib x an.",
+   "frage": "Löse 3x + 2 = 12. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 3x + 2 = 12. Gib x an."
+    "prompt": "Löse 3x + 2 = 12. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -3922,11 +3922,11 @@
     "b": -6,
     "c": 16
    },
-   "frage": "Löse 6x − 6 = 16. Gib x an.",
+   "frage": "Löse 6x − 6 = 16. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 6x − 6 = 16. Gib x an."
+    "prompt": "Löse 6x − 6 = 16. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -3994,11 +3994,11 @@
     "b": -10,
     "c": -6
    },
-   "frage": "Löse 5x − 10 = −6. Gib x an.",
+   "frage": "Löse 5x − 10 = −6. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 5x − 10 = −6. Gib x an."
+    "prompt": "Löse 5x − 10 = −6. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4068,11 +4068,11 @@
     "b": 9,
     "c": 8
    },
-   "frage": "Löse 4x + 9 = 8. Gib x an.",
+   "frage": "Löse 4x + 9 = 8. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 4x + 9 = 8. Gib x an."
+    "prompt": "Löse 4x + 9 = 8. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4142,11 +4142,11 @@
     "b": -4,
     "c": -19
    },
-   "frage": "Löse 4x − 4 = −19. Gib x an.",
+   "frage": "Löse 4x − 4 = −19. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 4x − 4 = −19. Gib x an."
+    "prompt": "Löse 4x − 4 = −19. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4216,11 +4216,11 @@
     "b": 10,
     "c": 9
    },
-   "frage": "Löse 5x + 10 = 9. Gib x an.",
+   "frage": "Löse 5x + 10 = 9. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 5x + 10 = 9. Gib x an."
+    "prompt": "Löse 5x + 10 = 9. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4290,11 +4290,11 @@
     "b": 2,
     "c": 25
    },
-   "frage": "Löse 7x + 2 = 25. Gib x an.",
+   "frage": "Löse 7x + 2 = 25. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 7x + 2 = 25. Gib x an."
+    "prompt": "Löse 7x + 2 = 25. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4362,11 +4362,11 @@
     "b": 2,
     "c": -23
    },
-   "frage": "Löse 2x + 2 = −23. Gib x an.",
+   "frage": "Löse 2x + 2 = −23. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 2x + 2 = −23. Gib x an."
+    "prompt": "Löse 2x + 2 = −23. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4436,11 +4436,11 @@
     "b": 10,
     "c": -2
    },
-   "frage": "Löse 5x + 10 = −2. Gib x an.",
+   "frage": "Löse 5x + 10 = −2. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 5x + 10 = −2. Gib x an."
+    "prompt": "Löse 5x + 10 = −2. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4510,11 +4510,11 @@
     "b": -8,
     "c": 10
    },
-   "frage": "Löse 7x − 8 = 10. Gib x an.",
+   "frage": "Löse 7x − 8 = 10. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 7x − 8 = 10. Gib x an."
+    "prompt": "Löse 7x − 8 = 10. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4582,11 +4582,11 @@
     "b": -9,
     "c": 10
    },
-   "frage": "Löse 9x − 9 = 10. Gib x an.",
+   "frage": "Löse 9x − 9 = 10. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 9x − 9 = 10. Gib x an."
+    "prompt": "Löse 9x − 9 = 10. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4654,11 +4654,11 @@
     "b": 10,
     "c": 38
    },
-   "frage": "Löse 8x + 10 = 38. Gib x an.",
+   "frage": "Löse 8x + 10 = 38. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 8x + 10 = 38. Gib x an."
+    "prompt": "Löse 8x + 10 = 38. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4728,11 +4728,11 @@
     "b": 3,
     "c": 15
    },
-   "frage": "Löse 9x + 3 = 15. Gib x an.",
+   "frage": "Löse 9x + 3 = 15. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 9x + 3 = 15. Gib x an."
+    "prompt": "Löse 9x + 3 = 15. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4800,11 +4800,11 @@
     "b": -14,
     "c": -18
    },
-   "frage": "Löse 3x − 14 = −18. Gib x an.",
+   "frage": "Löse 3x − 14 = −18. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 3x − 14 = −18. Gib x an."
+    "prompt": "Löse 3x − 14 = −18. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4872,11 +4872,11 @@
     "b": -5,
     "c": 2
    },
-   "frage": "Löse 6x − 5 = 2. Gib x an.",
+   "frage": "Löse 6x − 5 = 2. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 6x − 5 = 2. Gib x an."
+    "prompt": "Löse 6x − 5 = 2. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -4944,11 +4944,11 @@
     "b": 15,
     "c": 3
    },
-   "frage": "Löse 9x + 15 = 3. Gib x an.",
+   "frage": "Löse 9x + 15 = 3. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 9x + 15 = 3. Gib x an."
+    "prompt": "Löse 9x + 15 = 3. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -5016,11 +5016,11 @@
     "b": 13,
     "c": 39
    },
-   "frage": "Löse 4x + 13 = 39. Gib x an.",
+   "frage": "Löse 4x + 13 = 39. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 4x + 13 = 39. Gib x an."
+    "prompt": "Löse 4x + 13 = 39. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -5090,11 +5090,11 @@
     "b": -4,
     "c": -10
    },
-   "frage": "Löse 7x − 4 = −10. Gib x an.",
+   "frage": "Löse 7x − 4 = −10. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 7x − 4 = −10. Gib x an."
+    "prompt": "Löse 7x − 4 = −10. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -5162,11 +5162,11 @@
     "b": -1,
     "c": 25
    },
-   "frage": "Löse 7x − 1 = 25. Gib x an.",
+   "frage": "Löse 7x − 1 = 25. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 7x − 1 = 25. Gib x an."
+    "prompt": "Löse 7x − 1 = 25. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [
@@ -5234,11 +5234,11 @@
     "b": 10,
     "c": 39
    },
-   "frage": "Löse 8x + 10 = 39. Gib x an.",
+   "frage": "Löse 8x + 10 = 39. Gib x als gekürzten Bruch an.",
    "input_type": "NUMERIC",
    "payload": {
     "kind": "short_input",
-    "prompt": "Löse 8x + 10 = 39. Gib x an."
+    "prompt": "Löse 8x + 10 = 39. Gib x als gekürzten Bruch an."
    },
    "loesung": {
     "werte": [

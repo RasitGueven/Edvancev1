@@ -11,8 +11,8 @@
  "steckbrief": {
   "text": "Multipliziere {term} aus.",
   "stufen": {
-   "1": "(x + d)², d von 1 bis 12",
-   "2": "(x − d)², d von 1 bis 12",
+   "1": "(x + d)², d von 1 bis 15",
+   "2": "(x − d)², d von 1 bis 15",
    "3": "(k·x − d)², k von 2 bis 5, d von 1 bis 9"
   },
   "fehlbilder": [
@@ -44,7 +44,7 @@
      2,
      3
     ],
-    "rueckmeldung": "Prüf das Vorzeichen des mittleren Glieds. Es hat dasselbe Vorzeichen wie d in der Klammer."
+    "rueckmeldung": "Prüf das Vorzeichen des mittleren Glieds. Es hat dasselbe Vorzeichen wie die Zahl in der Klammer."
    },
    {
     "key": "qf_binom_quadrat_differenz",
@@ -79,14 +79,14 @@
   "figur": null,
   "zeit_sek": 60,
   "kann_entfallen": false,
-  "generator_hash": "644f7a117b86"
+  "generator_hash": "cc6f9d66cf5f"
  },
  "pruefprotokoll": {
-  "gruen": 41,
-  "rot": 7,
-  "rot_anteil": 0.146,
+  "gruen": 46,
+  "rot": 8,
+  "rot_anteil": 0.148,
   "gruende": {
-   "7": 7
+   "7": 8
   },
   "verdacht": null
  },
@@ -96,19 +96,328 @@
   "anteil": 0.0,
   "bestanden": true,
   "antworten": {
-   "1": "Feld 1: 25, Vorzeichen: −, Feld 2: 60, Vorzeichen: +, Feld 3: 36",
-   "2": "Feld 1: 9, Vorzeichen: −, Feld 2: 12, Vorzeichen: +, Feld 3: 4",
-   "3": "Vorzeichen: +, Feld 1: 4, Vorzeichen: +, Feld 2: 4",
-   "4": "Vorzeichen: −, Feld 1: 14, Vorzeichen: +, Feld 2: 49",
-   "5": "Vorzeichen: +, Feld 1: 24, Vorzeichen: +, Feld 2: 144",
-   "6": "Feld 1: 25, Vorzeichen: −, Feld 2: 30, Vorzeichen: +, Feld 3: 9",
-   "7": "Feld 1: 16, Vorzeichen: −, Feld 2: 40, Vorzeichen: +, Feld 3: 25",
-   "8": "Feld 1: 25, Vorzeichen: −, Feld 2: 20, Vorzeichen: +, Feld 3: 4",
-   "9": "Feld 1: 25, Vorzeichen: −, Feld 2: 50, Vorzeichen: +, Feld 3: 25",
-   "10": "Vorzeichen: −, Feld 1: 12, Vorzeichen: +, Feld 2: 36"
+   "1": "Feld 1: 4, Vorzeichen: −, Feld 2: 4, Vorzeichen: +, Feld 3: 1",
+   "2": "Feld 1: 9, Vorzeichen: −, Feld 2: 42, Vorzeichen: +, Feld 3: 49",
+   "3": "Vorzeichen: +, Feld 1: 18, Vorzeichen: +, Feld 2: 81",
+   "4": "Vorzeichen: +, Feld 1: 4, Vorzeichen: +, Feld 2: 4",
+   "5": "Vorzeichen: +, Feld 1: 20, Vorzeichen: +, Feld 2: 100",
+   "6": "Vorzeichen: −, Feld 1: 28, Vorzeichen: +, Feld 2: 196",
+   "7": "Vorzeichen: −, Feld 1: 26, Vorzeichen: +, Feld 2: 169",
+   "8": "Vorzeichen: −, Feld 1: 22, Vorzeichen: +, Feld 2: 121",
+   "9": "Vorzeichen: −, Feld 1: 12, Vorzeichen: +, Feld 2: 36",
+   "10": "Vorzeichen: −, Feld 1: 4, Vorzeichen: +, Feld 2: 4"
   }
  },
  "instanzen": [
+  {
+   "bauform": "BIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "d": 13
+   },
+   "frage": "Multipliziere (x + 13)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "26",
+     "c": "169"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "169"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "13",
+      "c": "169"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-26",
+      "c": "169"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x + 13)²?",
+    "Schreib das Quadrat als Produkt: (x + 13)² = (x + 13) · (x + 13).",
+    "Das mittlere Glied ist 2 · x · 13. Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x + 13)²",
+    "= x² + 2 · x · 13 + 169",
+    "= x² + 26x + 169"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "d": 14
+   },
+   "frage": "Multipliziere (x + 14)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "28",
+     "c": "196"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "196"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "14",
+      "c": "196"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-28",
+      "c": "196"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x + 14)²?",
+    "Schreib das Quadrat als Produkt: (x + 14)² = (x + 14) · (x + 14).",
+    "Das mittlere Glied ist 2 · x · 14. Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x + 14)²",
+    "= x² + 2 · x · 14 + 196",
+    "= x² + 28x + 196"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "d": 15
+   },
+   "frage": "Multipliziere (x + 15)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "30",
+     "c": "225"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "225"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "15",
+      "c": "225"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-30",
+      "c": "225"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x + 15)²?",
+    "Schreib das Quadrat als Produkt: (x + 15)² = (x + 15) · (x + 15).",
+    "Das mittlere Glied ist 2 · x · 15. Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x + 15)²",
+    "= x² + 2 · x · 15 + 225",
+    "= x² + 30x + 225"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
   {
    "bauform": "BIN-1",
    "rolle": "warmup",
@@ -1354,9 +1663,9 @@
    "stufe": 2,
    "params": {
     "k": 1,
-    "d": -7
+    "d": -1
    },
-   "frage": "Multipliziere (x − 7)² aus.",
+   "frage": "Multipliziere (x − 1)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -1387,8 +1696,8 @@
    },
    "loesung": {
     "werte": {
-     "b": "-14",
-     "c": "49"
+     "b": "-2",
+     "c": "1"
     }
    },
    "fehlbilder": [
@@ -1396,48 +1705,48 @@
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
       "b": "0",
-      "c": "49"
+      "c": "1"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "b": "-7",
-      "c": "49"
+      "b": "-1",
+      "c": "1"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "b": "14",
-      "c": "49"
+      "b": "2",
+      "c": "1"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
       "b": "0",
-      "c": "-49"
+      "c": "-1"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (x − 7)²?",
-    "Schreib das Quadrat als Produkt: (x − 7)² = (x − 7) · (x − 7).",
-    "Das mittlere Glied ist 2 · x · (−7). Was ergibt das?"
+    "Welche binomische Formel passt zu (x − 1)²?",
+    "Schreib das Quadrat als Produkt: (x − 1)² = (x − 1) · (x − 1).",
+    "Das mittlere Glied ist 2 · x · (−1). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(x − 7)²",
-    "= x² − 2 · x · 7 + 49",
-    "= x² − 14x + 49"
+    "(x − 1)²",
+    "= x² − 2 · x · 1 + 1",
+    "= x² − 2x + 1"
    ],
    "schreibweisen": [
     {
      "felder": {
       "vb": "+",
-      "b": "-14",
+      "b": "-2",
       "vc": "+",
-      "c": "49"
+      "c": "1"
      }
     }
    ],
@@ -1593,364 +1902,6 @@
    "stufe": 2,
    "params": {
     "k": 1,
-    "d": -8
-   },
-   "frage": "Multipliziere (x − 8)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "b": "-16",
-     "c": "64"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "b": "0",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "b": "-8",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "b": "16",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "b": "0",
-      "c": "-64"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (x − 8)²?",
-    "Schreib das Quadrat als Produkt: (x − 8)² = (x − 8) · (x − 8).",
-    "Das mittlere Glied ist 2 · x · (−8). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(x − 8)²",
-    "= x² − 2 · x · 8 + 64",
-    "= x² − 16x + 64"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "vb": "+",
-      "b": "-16",
-      "vc": "+",
-      "c": "64"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "warmup",
-   "stufe": 2,
-   "params": {
-    "k": 1,
-    "d": -2
-   },
-   "frage": "Multipliziere (x − 2)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "b": "-4",
-     "c": "4"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "b": "0",
-      "c": "4"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "b": "-2",
-      "c": "4"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "b": "4",
-      "c": "4"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "b": "0",
-      "c": "-4"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (x − 2)²?",
-    "Schreib das Quadrat als Produkt: (x − 2)² = (x − 2) · (x − 2).",
-    "Das mittlere Glied ist 2 · x · (−2). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(x − 2)²",
-    "= x² − 2 · x · 2 + 4",
-    "= x² − 4x + 4"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "vb": "+",
-      "b": "-4",
-      "vc": "+",
-      "c": "4"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "uebung",
-   "stufe": 2,
-   "params": {
-    "k": 1,
-    "d": -4
-   },
-   "frage": "Multipliziere (x − 4)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "b": "-8",
-     "c": "16"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "b": "0",
-      "c": "16"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "b": "-4",
-      "c": "16"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "b": "8",
-      "c": "16"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "b": "0",
-      "c": "-16"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (x − 4)²?",
-    "Schreib das Quadrat als Produkt: (x − 4)² = (x − 4) · (x − 4).",
-    "Das mittlere Glied ist 2 · x · (−4). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(x − 4)²",
-    "= x² − 2 · x · 4 + 16",
-    "= x² − 8x + 16"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "vb": "+",
-      "b": "-8",
-      "vc": "+",
-      "c": "16"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": false,
-     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "home",
-   "stufe": 2,
-   "params": {
-    "k": 1,
     "d": -9
    },
    "frage": "Multipliziere (x − 9)² aus.",
@@ -2070,6 +2021,125 @@
    "stufe": 2,
    "params": {
     "k": 1,
+    "d": -7
+   },
+   "frage": "Multipliziere (x − 7)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-14",
+     "c": "49"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "49"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-7",
+      "c": "49"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "14",
+      "c": "49"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-49"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 7)²?",
+    "Schreib das Quadrat als Produkt: (x − 7)² = (x − 7) · (x − 7).",
+    "Das mittlere Glied ist 2 · x · (−7). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 7)²",
+    "= x² − 2 · x · 7 + 49",
+    "= x² − 14x + 49"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-14",
+      "vc": "+",
+      "c": "49"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 1,
     "d": -10
    },
    "frage": "Multipliziere (x − 10)² aus.",
@@ -2185,7 +2255,365 @@
   },
   {
    "bauform": "BIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 1,
+    "d": -4
+   },
+   "frage": "Multipliziere (x − 4)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-8",
+     "c": "16"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "16"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-4",
+      "c": "16"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "8",
+      "c": "16"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 4)²?",
+    "Schreib das Quadrat als Produkt: (x − 4)² = (x − 4) · (x − 4).",
+    "Das mittlere Glied ist 2 · x · (−4). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 4)²",
+    "= x² − 2 · x · 4 + 16",
+    "= x² − 8x + 16"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-8",
+      "vc": "+",
+      "c": "16"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 1,
+    "d": -8
+   },
+   "frage": "Multipliziere (x − 8)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-16",
+     "c": "64"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "64"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-8",
+      "c": "64"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "16",
+      "c": "64"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-64"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 8)²?",
+    "Schreib das Quadrat als Produkt: (x − 8)² = (x − 8) · (x − 8).",
+    "Das mittlere Glied ist 2 · x · (−8). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 8)²",
+    "= x² − 2 · x · 8 + 64",
+    "= x² − 16x + 64"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-16",
+      "vc": "+",
+      "c": "64"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
    "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 1,
+    "d": -2
+   },
+   "frage": "Multipliziere (x − 2)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-4",
+     "c": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-2",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "4",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 2)²?",
+    "Schreib das Quadrat als Produkt: (x − 2)² = (x − 2) · (x − 2).",
+    "Das mittlere Glied ist 2 · x · (−2). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 2)²",
+    "= x² − 2 · x · 2 + 4",
+    "= x² − 4x + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-4",
+      "vc": "+",
+      "c": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "home",
    "stufe": 2,
    "params": {
     "k": 1,
@@ -2273,125 +2701,6 @@
       "b": "-22",
       "vc": "+",
       "c": "121"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "home",
-   "stufe": 2,
-   "params": {
-    "k": 1,
-    "d": -12
-   },
-   "frage": "Multipliziere (x − 12)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "b": "-24",
-     "c": "144"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "b": "0",
-      "c": "144"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "b": "-12",
-      "c": "144"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "b": "24",
-      "c": "144"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "b": "0",
-      "c": "-144"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (x − 12)²?",
-    "Schreib das Quadrat als Produkt: (x − 12)² = (x − 12) · (x − 12).",
-    "Das mittlere Glied ist 2 · x · (−12). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(x − 12)²",
-    "= x² − 2 · x · 12 + 144",
-    "= x² − 24x + 144"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "vb": "+",
-      "b": "-24",
-      "vc": "+",
-      "c": "144"
      }
     }
    ],
@@ -2547,9 +2856,9 @@
    "stufe": 2,
    "params": {
     "k": 1,
-    "d": -1
+    "d": -13
    },
-   "frage": "Multipliziere (x − 1)² aus.",
+   "frage": "Multipliziere (x − 13)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -2580,8 +2889,8 @@
    },
    "loesung": {
     "werte": {
-     "b": "-2",
-     "c": "1"
+     "b": "-26",
+     "c": "169"
     }
    },
    "fehlbilder": [
@@ -2589,48 +2898,48 @@
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
       "b": "0",
-      "c": "1"
+      "c": "169"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "b": "-1",
-      "c": "1"
+      "b": "-13",
+      "c": "169"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "b": "2",
-      "c": "1"
+      "b": "26",
+      "c": "169"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
       "b": "0",
-      "c": "-1"
+      "c": "-169"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (x − 1)²?",
-    "Schreib das Quadrat als Produkt: (x − 1)² = (x − 1) · (x − 1).",
-    "Das mittlere Glied ist 2 · x · (−1). Was ergibt das?"
+    "Welche binomische Formel passt zu (x − 13)²?",
+    "Schreib das Quadrat als Produkt: (x − 13)² = (x − 13) · (x − 13).",
+    "Das mittlere Glied ist 2 · x · (−13). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(x − 1)²",
-    "= x² − 2 · x · 1 + 1",
-    "= x² − 2x + 1"
+    "(x − 13)²",
+    "= x² − 2 · x · 13 + 169",
+    "= x² − 26x + 169"
    ],
    "schreibweisen": [
     {
      "felder": {
       "vb": "+",
-      "b": "-2",
+      "b": "-26",
       "vc": "+",
-      "c": "1"
+      "c": "169"
      }
     }
    ],
@@ -2782,12 +3091,369 @@
   {
    "bauform": "BIN-1",
    "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 1,
+    "d": -12
+   },
+   "frage": "Multipliziere (x − 12)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-24",
+     "c": "144"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "144"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-12",
+      "c": "144"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "24",
+      "c": "144"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-144"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 12)²?",
+    "Schreib das Quadrat als Produkt: (x − 12)² = (x − 12) · (x − 12).",
+    "Das mittlere Glied ist 2 · x · (−12). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 12)²",
+    "= x² − 2 · x · 12 + 144",
+    "= x² − 24x + 144"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-24",
+      "vc": "+",
+      "c": "144"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 1,
+    "d": -14
+   },
+   "frage": "Multipliziere (x − 14)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-28",
+     "c": "196"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "196"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-14",
+      "c": "196"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "28",
+      "c": "196"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-196"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 14)²?",
+    "Schreib das Quadrat als Produkt: (x − 14)² = (x − 14) · (x − 14).",
+    "Das mittlere Glied ist 2 · x · (−14). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 14)²",
+    "= x² − 2 · x · 14 + 196",
+    "= x² − 28x + 196"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-28",
+      "vc": "+",
+      "c": "196"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 1,
+    "d": -15
+   },
+   "frage": "Multipliziere (x − 15)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-30",
+     "c": "225"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "225"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "b": "-15",
+      "c": "225"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "30",
+      "c": "225"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "b": "0",
+      "c": "-225"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (x − 15)²?",
+    "Schreib das Quadrat als Produkt: (x − 15)² = (x − 15) · (x − 15).",
+    "Das mittlere Glied ist 2 · x · (−15). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(x − 15)²",
+    "= x² − 2 · x · 15 + 225",
+    "= x² − 30x + 225"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-30",
+      "vc": "+",
+      "c": "225"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "warmup",
    "stufe": 3,
    "params": {
-    "k": 5,
-    "d": -2
+    "k": 3,
+    "d": -6
    },
-   "frage": "Multipliziere (5x − 2)² aus.",
+   "frage": "Multipliziere (3x − 6)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -2822,8 +3488,145 @@
    },
    "loesung": {
     "werte": {
-     "a": "25",
-     "b": "-20",
+     "a": "9",
+     "b": "-36",
+     "c": "36"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "9",
+      "b": "0",
+      "c": "36"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "9",
+      "b": "-18",
+      "c": "36"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "9",
+      "b": "36",
+      "c": "36"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "9",
+      "b": "0",
+      "c": "-36"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "3",
+      "b": "-36",
+      "c": "36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (3x − 6)²?",
+    "Schreib das Quadrat als Produkt: (3x − 6)² = (3x − 6) · (3x − 6).",
+    "Das mittlere Glied ist 2 · 3x · (−6). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(3x − 6)²",
+    "= 9x² − 2 · 3x · 6 + 36",
+    "= 9x² − 36x + 36"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "9",
+      "vb": "+",
+      "b": "-36",
+      "vc": "+",
+      "c": "36"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 3,
+    "d": -2
+   },
+   "frage": "Multipliziere (3x − 2)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "9",
+     "b": "-12",
      "c": "4"
     }
    },
@@ -2831,7 +3634,7 @@
     {
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
-      "a": "25",
+      "a": "9",
       "b": "0",
       "c": "4"
      }
@@ -2839,23 +3642,23 @@
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "a": "25",
-      "b": "-10",
+      "a": "9",
+      "b": "-6",
       "c": "4"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "a": "25",
-      "b": "20",
+      "a": "9",
+      "b": "12",
       "c": "4"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
-      "a": "25",
+      "a": "9",
       "b": "0",
       "c": "-4"
      }
@@ -2863,28 +3666,28 @@
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
-      "a": "5",
-      "b": "-20",
+      "a": "3",
+      "b": "-12",
       "c": "4"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (5x − 2)²?",
-    "Schreib das Quadrat als Produkt: (5x − 2)² = (5x − 2) · (5x − 2).",
-    "Das mittlere Glied ist 2 · 5x · (−2). Was ergibt das?"
+    "Welche binomische Formel passt zu (3x − 2)²?",
+    "Schreib das Quadrat als Produkt: (3x − 2)² = (3x − 2) · (3x − 2).",
+    "Das mittlere Glied ist 2 · 3x · (−2). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(5x − 2)²",
-    "= 25x² − 2 · 5x · 2 + 4",
-    "= 25x² − 20x + 4"
+    "(3x − 2)²",
+    "= 9x² − 2 · 3x · 2 + 4",
+    "= 9x² − 12x + 4"
    ],
    "schreibweisen": [
     {
      "felder": {
-      "a": "25",
+      "a": "9",
       "vb": "+",
-      "b": "-20",
+      "b": "-12",
       "vc": "+",
       "c": "4"
      }
@@ -2918,7 +3721,144 @@
   },
   {
    "bauform": "BIN-1",
-   "rolle": "uebung",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 3,
+    "d": -3
+   },
+   "frage": "Multipliziere (3x − 3)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "9",
+     "b": "-18",
+     "c": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "9",
+      "b": "0",
+      "c": "9"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "9",
+      "b": "-9",
+      "c": "9"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "9",
+      "b": "18",
+      "c": "9"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "9",
+      "b": "0",
+      "c": "-9"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "3",
+      "b": "-18",
+      "c": "9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (3x − 3)²?",
+    "Schreib das Quadrat als Produkt: (3x − 3)² = (3x − 3) · (3x − 3).",
+    "Das mittlere Glied ist 2 · 3x · (−3). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(3x − 3)²",
+    "= 9x² − 2 · 3x · 3 + 9",
+    "= 9x² − 18x + 9"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "9",
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "warmup",
    "stufe": 3,
    "params": {
     "k": 4,
@@ -3055,13 +3995,150 @@
   },
   {
    "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 2,
+    "d": -8
+   },
+   "frage": "Multipliziere (2x − 8)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "b": "-32",
+     "c": "64"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "4",
+      "b": "0",
+      "c": "64"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "4",
+      "b": "-16",
+      "c": "64"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "4",
+      "b": "32",
+      "c": "64"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "4",
+      "b": "0",
+      "c": "-64"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "2",
+      "b": "-32",
+      "c": "64"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (2x − 8)²?",
+    "Schreib das Quadrat als Produkt: (2x − 8)² = (2x − 8) · (2x − 8).",
+    "Das mittlere Glied ist 2 · 2x · (−8). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(2x − 8)²",
+    "= 4x² − 2 · 2x · 8 + 64",
+    "= 4x² − 32x + 64"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vb": "+",
+      "b": "-32",
+      "vc": "+",
+      "c": "64"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
    "rolle": "home",
    "stufe": 3,
    "params": {
     "k": 5,
-    "d": -5
+    "d": -1
    },
-   "frage": "Multipliziere (5x − 5)² aus.",
+   "frage": "Multipliziere (5x − 1)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -3097,8 +4174,8 @@
    "loesung": {
     "werte": {
      "a": "25",
-     "b": "-50",
-     "c": "25"
+     "b": "-10",
+     "c": "1"
     }
    },
    "fehlbilder": [
@@ -3107,23 +4184,23 @@
      "werte": {
       "a": "25",
       "b": "0",
-      "c": "25"
+      "c": "1"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
       "a": "25",
-      "b": "-25",
-      "c": "25"
+      "b": "-5",
+      "c": "1"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
       "a": "25",
-      "b": "50",
-      "c": "25"
+      "b": "10",
+      "c": "1"
      }
     },
     {
@@ -3131,36 +4208,36 @@
      "werte": {
       "a": "25",
       "b": "0",
-      "c": "-25"
+      "c": "-1"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
       "a": "5",
-      "b": "-50",
-      "c": "25"
+      "b": "-10",
+      "c": "1"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (5x − 5)²?",
-    "Schreib das Quadrat als Produkt: (5x − 5)² = (5x − 5) · (5x − 5).",
-    "Das mittlere Glied ist 2 · 5x · (−5). Was ergibt das?"
+    "Welche binomische Formel passt zu (5x − 1)²?",
+    "Schreib das Quadrat als Produkt: (5x − 1)² = (5x − 1) · (5x − 1).",
+    "Das mittlere Glied ist 2 · 5x · (−1). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(5x − 5)²",
-    "= 25x² − 2 · 5x · 5 + 25",
-    "= 25x² − 50x + 25"
+    "(5x − 1)²",
+    "= 25x² − 2 · 5x · 1 + 1",
+    "= 25x² − 10x + 1"
    ],
    "schreibweisen": [
     {
      "felder": {
       "a": "25",
       "vb": "+",
-      "b": "-50",
+      "b": "-10",
       "vc": "+",
-      "c": "25"
+      "c": "1"
      }
     }
    ],
@@ -3195,10 +4272,10 @@
    "rolle": "warmup",
    "stufe": 3,
    "params": {
-    "k": 5,
-    "d": -9
+    "k": 4,
+    "d": -6
    },
-   "frage": "Multipliziere (5x − 9)² aus.",
+   "frage": "Multipliziere (4x − 6)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -3233,71 +4310,71 @@
    },
    "loesung": {
     "werte": {
-     "a": "25",
-     "b": "-90",
-     "c": "81"
+     "a": "16",
+     "b": "-48",
+     "c": "36"
     }
    },
    "fehlbilder": [
     {
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
-      "a": "25",
+      "a": "16",
       "b": "0",
-      "c": "81"
+      "c": "36"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "a": "25",
-      "b": "-45",
-      "c": "81"
+      "a": "16",
+      "b": "-24",
+      "c": "36"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "a": "25",
-      "b": "90",
-      "c": "81"
+      "a": "16",
+      "b": "48",
+      "c": "36"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
-      "a": "25",
+      "a": "16",
       "b": "0",
-      "c": "-81"
+      "c": "-36"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
-      "a": "5",
-      "b": "-90",
-      "c": "81"
+      "a": "4",
+      "b": "-48",
+      "c": "36"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (5x − 9)²?",
-    "Schreib das Quadrat als Produkt: (5x − 9)² = (5x − 9) · (5x − 9).",
-    "Das mittlere Glied ist 2 · 5x · (−9). Was ergibt das?"
+    "Welche binomische Formel passt zu (4x − 6)²?",
+    "Schreib das Quadrat als Produkt: (4x − 6)² = (4x − 6) · (4x − 6).",
+    "Das mittlere Glied ist 2 · 4x · (−6). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(5x − 9)²",
-    "= 25x² − 2 · 5x · 9 + 81",
-    "= 25x² − 90x + 81"
+    "(4x − 6)²",
+    "= 16x² − 2 · 4x · 6 + 36",
+    "= 16x² − 48x + 36"
    ],
    "schreibweisen": [
     {
      "felder": {
-      "a": "25",
+      "a": "16",
       "vb": "+",
-      "b": "-90",
+      "b": "-48",
       "vc": "+",
-      "c": "81"
+      "c": "36"
      }
     }
    ],
@@ -3332,10 +4409,10 @@
    "rolle": "uebung",
    "stufe": 3,
    "params": {
-    "k": 5,
-    "d": -3
+    "k": 4,
+    "d": -8
    },
-   "frage": "Multipliziere (5x − 3)² aus.",
+   "frage": "Multipliziere (4x − 8)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -3370,71 +4447,71 @@
    },
    "loesung": {
     "werte": {
-     "a": "25",
-     "b": "-30",
-     "c": "9"
+     "a": "16",
+     "b": "-64",
+     "c": "64"
     }
    },
    "fehlbilder": [
     {
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
-      "a": "25",
+      "a": "16",
       "b": "0",
-      "c": "9"
+      "c": "64"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "a": "25",
-      "b": "-15",
-      "c": "9"
+      "a": "16",
+      "b": "-32",
+      "c": "64"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "a": "25",
-      "b": "30",
-      "c": "9"
+      "a": "16",
+      "b": "64",
+      "c": "64"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
-      "a": "25",
+      "a": "16",
       "b": "0",
-      "c": "-9"
+      "c": "-64"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
-      "a": "5",
-      "b": "-30",
-      "c": "9"
+      "a": "4",
+      "b": "-64",
+      "c": "64"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (5x − 3)²?",
-    "Schreib das Quadrat als Produkt: (5x − 3)² = (5x − 3) · (5x − 3).",
-    "Das mittlere Glied ist 2 · 5x · (−3). Was ergibt das?"
+    "Welche binomische Formel passt zu (4x − 8)²?",
+    "Schreib das Quadrat als Produkt: (4x − 8)² = (4x − 8) · (4x − 8).",
+    "Das mittlere Glied ist 2 · 4x · (−8). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(5x − 3)²",
-    "= 25x² − 2 · 5x · 3 + 9",
-    "= 25x² − 30x + 9"
+    "(4x − 8)²",
+    "= 16x² − 2 · 4x · 8 + 64",
+    "= 16x² − 64x + 64"
    ],
    "schreibweisen": [
     {
      "felder": {
-      "a": "25",
+      "a": "16",
       "vb": "+",
-      "b": "-30",
+      "b": "-64",
       "vc": "+",
-      "c": "9"
+      "c": "64"
      }
     }
    ],
@@ -3608,9 +4685,9 @@
    "stufe": 3,
    "params": {
     "k": 3,
-    "d": -3
+    "d": -5
    },
-   "frage": "Multipliziere (3x − 3)² aus.",
+   "frage": "Multipliziere (3x − 5)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -3646,8 +4723,8 @@
    "loesung": {
     "werte": {
      "a": "9",
-     "b": "-18",
-     "c": "9"
+     "b": "-30",
+     "c": "25"
     }
    },
    "fehlbilder": [
@@ -3656,23 +4733,23 @@
      "werte": {
       "a": "9",
       "b": "0",
-      "c": "9"
+      "c": "25"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
       "a": "9",
-      "b": "-9",
-      "c": "9"
+      "b": "-15",
+      "c": "25"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
       "a": "9",
-      "b": "18",
-      "c": "9"
+      "b": "30",
+      "c": "25"
      }
     },
     {
@@ -3680,36 +4757,36 @@
      "werte": {
       "a": "9",
       "b": "0",
-      "c": "-9"
+      "c": "-25"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
       "a": "3",
-      "b": "-18",
-      "c": "9"
+      "b": "-30",
+      "c": "25"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (3x − 3)²?",
-    "Schreib das Quadrat als Produkt: (3x − 3)² = (3x − 3) · (3x − 3).",
-    "Das mittlere Glied ist 2 · 3x · (−3). Was ergibt das?"
+    "Welche binomische Formel passt zu (3x − 5)²?",
+    "Schreib das Quadrat als Produkt: (3x − 5)² = (3x − 5) · (3x − 5).",
+    "Das mittlere Glied ist 2 · 3x · (−5). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(3x − 3)²",
-    "= 9x² − 2 · 3x · 3 + 9",
-    "= 9x² − 18x + 9"
+    "(3x − 5)²",
+    "= 9x² − 2 · 3x · 5 + 25",
+    "= 9x² − 30x + 25"
    ],
    "schreibweisen": [
     {
      "felder": {
       "a": "9",
       "vb": "+",
-      "b": "-18",
+      "b": "-30",
       "vc": "+",
-      "c": "9"
+      "c": "25"
      }
     }
    ],
@@ -3742,6 +4819,554 @@
   {
    "bauform": "BIN-1",
    "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 4,
+    "d": -4
+   },
+   "frage": "Multipliziere (4x − 4)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "16",
+     "b": "-32",
+     "c": "16"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "16",
+      "b": "0",
+      "c": "16"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "16",
+      "b": "-16",
+      "c": "16"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "16",
+      "b": "32",
+      "c": "16"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "16",
+      "b": "0",
+      "c": "-16"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "4",
+      "b": "-32",
+      "c": "16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (4x − 4)²?",
+    "Schreib das Quadrat als Produkt: (4x − 4)² = (4x − 4) · (4x − 4).",
+    "Das mittlere Glied ist 2 · 4x · (−4). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(4x − 4)²",
+    "= 16x² − 2 · 4x · 4 + 16",
+    "= 16x² − 32x + 16"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "16",
+      "vb": "+",
+      "b": "-32",
+      "vc": "+",
+      "c": "16"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 2,
+    "d": -1
+   },
+   "frage": "Multipliziere (2x − 1)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "b": "-4",
+     "c": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "4",
+      "b": "0",
+      "c": "1"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "4",
+      "b": "-2",
+      "c": "1"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "4",
+      "b": "4",
+      "c": "1"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "4",
+      "b": "0",
+      "c": "-1"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "2",
+      "b": "-4",
+      "c": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (2x − 1)²?",
+    "Schreib das Quadrat als Produkt: (2x − 1)² = (2x − 1) · (2x − 1).",
+    "Das mittlere Glied ist 2 · 2x · (−1). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(2x − 1)²",
+    "= 4x² − 2 · 2x · 1 + 1",
+    "= 4x² − 4x + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vb": "+",
+      "b": "-4",
+      "vc": "+",
+      "c": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 4,
+    "d": -2
+   },
+   "frage": "Multipliziere (4x − 2)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "16",
+     "b": "-16",
+     "c": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "16",
+      "b": "0",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "16",
+      "b": "-8",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "16",
+      "b": "16",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "16",
+      "b": "0",
+      "c": "-4"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "4",
+      "b": "-16",
+      "c": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (4x − 2)²?",
+    "Schreib das Quadrat als Produkt: (4x − 2)² = (4x − 2) · (4x − 2).",
+    "Das mittlere Glied ist 2 · 4x · (−2). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(4x − 2)²",
+    "= 16x² − 2 · 4x · 2 + 4",
+    "= 16x² − 16x + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "16",
+      "vb": "+",
+      "b": "-16",
+      "vc": "+",
+      "c": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 5,
+    "d": -2
+   },
+   "frage": "Multipliziere (5x − 2)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "25",
+     "b": "-20",
+     "c": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "25",
+      "b": "0",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "25",
+      "b": "-10",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "25",
+      "b": "20",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "25",
+      "b": "0",
+      "c": "-4"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "5",
+      "b": "-20",
+      "c": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (5x − 2)²?",
+    "Schreib das Quadrat als Produkt: (5x − 2)² = (5x − 2) · (5x − 2).",
+    "Das mittlere Glied ist 2 · 5x · (−2). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(5x − 2)²",
+    "= 25x² − 2 · 5x · 2 + 4",
+    "= 25x² − 20x + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "25",
+      "vb": "+",
+      "b": "-20",
+      "vc": "+",
+      "c": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "home",
    "stufe": 3,
    "params": {
     "k": 3,
@@ -3878,150 +5503,13 @@
   },
   {
    "bauform": "BIN-1",
-   "rolle": "home",
-   "stufe": 3,
-   "params": {
-    "k": 2,
-    "d": -9
-   },
-   "frage": "Multipliziere (2x − 9)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "4",
-     "b": "-36",
-     "c": "81"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "4",
-      "b": "0",
-      "c": "81"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "4",
-      "b": "-18",
-      "c": "81"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "4",
-      "b": "36",
-      "c": "81"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "4",
-      "b": "0",
-      "c": "-81"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "2",
-      "b": "-36",
-      "c": "81"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (2x − 9)²?",
-    "Schreib das Quadrat als Produkt: (2x − 9)² = (2x − 9) · (2x − 9).",
-    "Das mittlere Glied ist 2 · 2x · (−9). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(2x − 9)²",
-    "= 4x² − 2 · 2x · 9 + 81",
-    "= 4x² − 36x + 81"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "4",
-      "vb": "+",
-      "b": "-36",
-      "vc": "+",
-      "c": "81"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
    "rolle": "warmup",
    "stufe": 3,
    "params": {
-    "k": 5,
+    "k": 3,
     "d": -4
    },
-   "frage": "Multipliziere (5x − 4)² aus.",
+   "frage": "Multipliziere (3x − 4)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -4056,8 +5544,8 @@
    },
    "loesung": {
     "werte": {
-     "a": "25",
-     "b": "-40",
+     "a": "9",
+     "b": "-24",
      "c": "16"
     }
    },
@@ -4065,7 +5553,7 @@
     {
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
-      "a": "25",
+      "a": "9",
       "b": "0",
       "c": "16"
      }
@@ -4073,23 +5561,23 @@
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "a": "25",
-      "b": "-20",
+      "a": "9",
+      "b": "-12",
       "c": "16"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "a": "25",
-      "b": "40",
+      "a": "9",
+      "b": "24",
       "c": "16"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
-      "a": "25",
+      "a": "9",
       "b": "0",
       "c": "-16"
      }
@@ -4097,28 +5585,28 @@
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
-      "a": "5",
-      "b": "-40",
+      "a": "3",
+      "b": "-24",
       "c": "16"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (5x − 4)²?",
-    "Schreib das Quadrat als Produkt: (5x − 4)² = (5x − 4) · (5x − 4).",
-    "Das mittlere Glied ist 2 · 5x · (−4). Was ergibt das?"
+    "Welche binomische Formel passt zu (3x − 4)²?",
+    "Schreib das Quadrat als Produkt: (3x − 4)² = (3x − 4) · (3x − 4).",
+    "Das mittlere Glied ist 2 · 3x · (−4). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(5x − 4)²",
-    "= 25x² − 2 · 5x · 4 + 16",
-    "= 25x² − 40x + 16"
+    "(3x − 4)²",
+    "= 9x² − 2 · 3x · 4 + 16",
+    "= 9x² − 24x + 16"
    ],
    "schreibweisen": [
     {
      "felder": {
-      "a": "25",
+      "a": "9",
       "vb": "+",
-      "b": "-40",
+      "b": "-24",
       "vc": "+",
       "c": "16"
      }
@@ -4145,829 +5633,8 @@
      "ok": true
     },
     "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "uebung",
-   "stufe": 3,
-   "params": {
-    "k": 3,
-    "d": -8
-   },
-   "frage": "Multipliziere (3x − 8)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "9",
-     "b": "-48",
-     "c": "64"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "9",
-      "b": "0",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "9",
-      "b": "-24",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "9",
-      "b": "48",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "9",
-      "b": "0",
-      "c": "-64"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "3",
-      "b": "-48",
-      "c": "64"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (3x − 8)²?",
-    "Schreib das Quadrat als Produkt: (3x − 8)² = (3x − 8) · (3x − 8).",
-    "Das mittlere Glied ist 2 · 3x · (−8). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(3x − 8)²",
-    "= 9x² − 2 · 3x · 8 + 64",
-    "= 9x² − 48x + 64"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "9",
-      "vb": "+",
-      "b": "-48",
-      "vc": "+",
-      "c": "64"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "home",
-   "stufe": 3,
-   "params": {
-    "k": 3,
-    "d": -5
-   },
-   "frage": "Multipliziere (3x − 5)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "9",
-     "b": "-30",
-     "c": "25"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "9",
-      "b": "0",
-      "c": "25"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "9",
-      "b": "-15",
-      "c": "25"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "9",
-      "b": "30",
-      "c": "25"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "9",
-      "b": "0",
-      "c": "-25"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "3",
-      "b": "-30",
-      "c": "25"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (3x − 5)²?",
-    "Schreib das Quadrat als Produkt: (3x − 5)² = (3x − 5) · (3x − 5).",
-    "Das mittlere Glied ist 2 · 3x · (−5). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(3x − 5)²",
-    "= 9x² − 2 · 3x · 5 + 25",
-    "= 9x² − 30x + 25"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "9",
-      "vb": "+",
-      "b": "-30",
-      "vc": "+",
-      "c": "25"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "warmup",
-   "stufe": 3,
-   "params": {
-    "k": 4,
-    "d": -1
-   },
-   "frage": "Multipliziere (4x − 1)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "16",
-     "b": "-8",
-     "c": "1"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "1"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "16",
-      "b": "-4",
-      "c": "1"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "16",
-      "b": "8",
-      "c": "1"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "-1"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "4",
-      "b": "-8",
-      "c": "1"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (4x − 1)²?",
-    "Schreib das Quadrat als Produkt: (4x − 1)² = (4x − 1) · (4x − 1).",
-    "Das mittlere Glied ist 2 · 4x · (−1). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(4x − 1)²",
-    "= 16x² − 2 · 4x · 1 + 1",
-    "= 16x² − 8x + 1"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "16",
-      "vb": "+",
-      "b": "-8",
-      "vc": "+",
-      "c": "1"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "uebung",
-   "stufe": 3,
-   "params": {
-    "k": 4,
-    "d": -9
-   },
-   "frage": "Multipliziere (4x − 9)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "16",
-     "b": "-72",
-     "c": "81"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "81"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "16",
-      "b": "-36",
-      "c": "81"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "16",
-      "b": "72",
-      "c": "81"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "-81"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "4",
-      "b": "-72",
-      "c": "81"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (4x − 9)²?",
-    "Schreib das Quadrat als Produkt: (4x − 9)² = (4x − 9) · (4x − 9).",
-    "Das mittlere Glied ist 2 · 4x · (−9). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(4x − 9)²",
-    "= 16x² − 2 · 4x · 9 + 81",
-    "= 16x² − 72x + 81"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "16",
-      "vb": "+",
-      "b": "-72",
-      "vc": "+",
-      "c": "81"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "home",
-   "stufe": 3,
-   "params": {
-    "k": 4,
-    "d": -6
-   },
-   "frage": "Multipliziere (4x − 6)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "16",
-     "b": "-48",
-     "c": "36"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "36"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "16",
-      "b": "-24",
-      "c": "36"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "16",
-      "b": "48",
-      "c": "36"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "-36"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "4",
-      "b": "-48",
-      "c": "36"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (4x − 6)²?",
-    "Schreib das Quadrat als Produkt: (4x − 6)² = (4x − 6) · (4x − 6).",
-    "Das mittlere Glied ist 2 · 4x · (−6). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(4x − 6)²",
-    "= 16x² − 2 · 4x · 6 + 36",
-    "= 16x² − 48x + 36"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "16",
-      "vb": "+",
-      "b": "-48",
-      "vc": "+",
-      "c": "36"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "warmup",
-   "stufe": 3,
-   "params": {
-    "k": 4,
-    "d": -8
-   },
-   "frage": "Multipliziere (4x − 8)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "16",
-     "b": "-64",
-     "c": "64"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "16",
-      "b": "-32",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "16",
-      "b": "64",
-      "c": "64"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "16",
-      "b": "0",
-      "c": "-64"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "4",
-      "b": "-64",
-      "c": "64"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (4x − 8)²?",
-    "Schreib das Quadrat als Produkt: (4x − 8)² = (4x − 8) · (4x − 8).",
-    "Das mittlere Glied ist 2 · 4x · (−8). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(4x − 8)²",
-    "= 16x² − 2 · 4x · 8 + 64",
-    "= 16x² − 64x + 64"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "16",
-      "vb": "+",
-      "b": "-64",
-      "vc": "+",
-      "c": "64"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
     }
    },
    "teile": null
@@ -4978,9 +5645,9 @@
    "stufe": 3,
    "params": {
     "k": 2,
-    "d": -1
+    "d": -2
    },
-   "frage": "Multipliziere (2x − 1)² aus.",
+   "frage": "Multipliziere (2x − 2)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -5016,8 +5683,8 @@
    "loesung": {
     "werte": {
      "a": "4",
-     "b": "-4",
-     "c": "1"
+     "b": "-8",
+     "c": "4"
     }
    },
    "fehlbilder": [
@@ -5026,23 +5693,23 @@
      "werte": {
       "a": "4",
       "b": "0",
-      "c": "1"
+      "c": "4"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
       "a": "4",
-      "b": "-2",
-      "c": "1"
+      "b": "-4",
+      "c": "4"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
       "a": "4",
-      "b": "4",
-      "c": "1"
+      "b": "8",
+      "c": "4"
      }
     },
     {
@@ -5050,36 +5717,36 @@
      "werte": {
       "a": "4",
       "b": "0",
-      "c": "-1"
+      "c": "-4"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
       "a": "2",
-      "b": "-4",
-      "c": "1"
+      "b": "-8",
+      "c": "4"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (2x − 1)²?",
-    "Schreib das Quadrat als Produkt: (2x − 1)² = (2x − 1) · (2x − 1).",
-    "Das mittlere Glied ist 2 · 2x · (−1). Was ergibt das?"
+    "Welche binomische Formel passt zu (2x − 2)²?",
+    "Schreib das Quadrat als Produkt: (2x − 2)² = (2x − 2) · (2x − 2).",
+    "Das mittlere Glied ist 2 · 2x · (−2). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(2x − 1)²",
-    "= 4x² − 2 · 2x · 1 + 1",
-    "= 4x² − 4x + 1"
+    "(2x − 2)²",
+    "= 4x² − 2 · 2x · 2 + 4",
+    "= 4x² − 8x + 4"
    ],
    "schreibweisen": [
     {
      "felder": {
       "a": "4",
       "vb": "+",
-      "b": "-4",
+      "b": "-8",
       "vc": "+",
-      "c": "1"
+      "c": "4"
      }
     }
    ],
@@ -5251,421 +5918,10 @@
    "rolle": "warmup",
    "stufe": 3,
    "params": {
-    "k": 2,
-    "d": -5
-   },
-   "frage": "Multipliziere (2x − 5)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "4",
-     "b": "-20",
-     "c": "25"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "4",
-      "b": "0",
-      "c": "25"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "4",
-      "b": "-10",
-      "c": "25"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "4",
-      "b": "20",
-      "c": "25"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "4",
-      "b": "0",
-      "c": "-25"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "2",
-      "b": "-20",
-      "c": "25"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (2x − 5)²?",
-    "Schreib das Quadrat als Produkt: (2x − 5)² = (2x − 5) · (2x − 5).",
-    "Das mittlere Glied ist 2 · 2x · (−5). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(2x − 5)²",
-    "= 4x² − 2 · 2x · 5 + 25",
-    "= 4x² − 20x + 25"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "4",
-      "vb": "+",
-      "b": "-20",
-      "vc": "+",
-      "c": "25"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "uebung",
-   "stufe": 3,
-   "params": {
-    "k": 2,
-    "d": -4
-   },
-   "frage": "Multipliziere (2x − 4)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "4",
-     "b": "-16",
-     "c": "16"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "4",
-      "b": "0",
-      "c": "16"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "4",
-      "b": "-8",
-      "c": "16"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "4",
-      "b": "16",
-      "c": "16"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "4",
-      "b": "0",
-      "c": "-16"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "2",
-      "b": "-16",
-      "c": "16"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (2x − 4)²?",
-    "Schreib das Quadrat als Produkt: (2x − 4)² = (2x − 4) · (2x − 4).",
-    "Das mittlere Glied ist 2 · 2x · (−4). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(2x − 4)²",
-    "= 4x² − 2 · 2x · 4 + 16",
-    "= 4x² − 16x + 16"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "4",
-      "vb": "+",
-      "b": "-16",
-      "vc": "+",
-      "c": "16"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "home",
-   "stufe": 3,
-   "params": {
-    "k": 3,
-    "d": -2
-   },
-   "frage": "Multipliziere (3x − 2)² aus.",
-   "input_type": "FELDMASKE",
-   "payload": {
-    "format": "feldmaske",
-    "schablone": [
-     {
-      "feld": "a",
-      "typ": "zahl"
-     },
-     {
-      "text": "x² "
-     },
-     {
-      "feld": "vb",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "b",
-      "typ": "zahl"
-     },
-     {
-      "text": "x "
-     },
-     {
-      "feld": "vc",
-      "typ": "vorzeichen"
-     },
-     {
-      "feld": "c",
-      "typ": "zahl"
-     }
-    ]
-   },
-   "loesung": {
-    "werte": {
-     "a": "9",
-     "b": "-12",
-     "c": "4"
-    }
-   },
-   "fehlbilder": [
-    {
-     "key": "qf_binom_mittelglied_fehlt",
-     "werte": {
-      "a": "9",
-      "b": "0",
-      "c": "4"
-     }
-    },
-    {
-     "key": "qf_binom_mittelglied_einfach",
-     "werte": {
-      "a": "9",
-      "b": "-6",
-      "c": "4"
-     }
-    },
-    {
-     "key": "qf_binom_vorzeichen",
-     "werte": {
-      "a": "9",
-      "b": "12",
-      "c": "4"
-     }
-    },
-    {
-     "key": "qf_binom_quadrat_differenz",
-     "werte": {
-      "a": "9",
-      "b": "0",
-      "c": "-4"
-     }
-    },
-    {
-     "key": "qf_binom_k_nicht_quadriert",
-     "werte": {
-      "a": "3",
-      "b": "-12",
-      "c": "4"
-     }
-    }
-   ],
-   "hinweise": [
-    "Welche binomische Formel passt zu (3x − 2)²?",
-    "Schreib das Quadrat als Produkt: (3x − 2)² = (3x − 2) · (3x − 2).",
-    "Das mittlere Glied ist 2 · 3x · (−2). Was ergibt das?"
-   ],
-   "loesungsweg": [
-    "(3x − 2)²",
-    "= 9x² − 2 · 3x · 2 + 4",
-    "= 9x² − 12x + 4"
-   ],
-   "schreibweisen": [
-    {
-     "felder": {
-      "a": "9",
-      "vb": "+",
-      "b": "-12",
-      "vc": "+",
-      "c": "4"
-     }
-    }
-   ],
-   "figur": null,
-   "pruefmaschine": {
-    "1": {
-     "ok": true
-    },
-    "2": {
-     "ok": true
-    },
-    "3": {
-     "ok": true
-    },
-    "4": {
-     "ok": true
-    },
-    "5": {
-     "ok": true
-    },
-    "6": {
-     "ok": true
-    },
-    "7": {
-     "ok": true
-    }
-   },
-   "teile": null
-  },
-  {
-   "bauform": "BIN-1",
-   "rolle": "warmup",
-   "stufe": 3,
-   "params": {
     "k": 4,
-    "d": -7
+    "d": -9
    },
-   "frage": "Multipliziere (4x − 7)² aus.",
+   "frage": "Multipliziere (4x − 9)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -5701,8 +5957,8 @@
    "loesung": {
     "werte": {
      "a": "16",
-     "b": "-56",
-     "c": "49"
+     "b": "-72",
+     "c": "81"
     }
    },
    "fehlbilder": [
@@ -5711,23 +5967,23 @@
      "werte": {
       "a": "16",
       "b": "0",
-      "c": "49"
+      "c": "81"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
       "a": "16",
-      "b": "-28",
-      "c": "49"
+      "b": "-36",
+      "c": "81"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
       "a": "16",
-      "b": "56",
-      "c": "49"
+      "b": "72",
+      "c": "81"
      }
     },
     {
@@ -5735,34 +5991,171 @@
      "werte": {
       "a": "16",
       "b": "0",
-      "c": "-49"
+      "c": "-81"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
       "a": "4",
-      "b": "-56",
-      "c": "49"
+      "b": "-72",
+      "c": "81"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (4x − 7)²?",
-    "Schreib das Quadrat als Produkt: (4x − 7)² = (4x − 7) · (4x − 7).",
-    "Das mittlere Glied ist 2 · 4x · (−7). Was ergibt das?"
+    "Welche binomische Formel passt zu (4x − 9)²?",
+    "Schreib das Quadrat als Produkt: (4x − 9)² = (4x − 9) · (4x − 9).",
+    "Das mittlere Glied ist 2 · 4x · (−9). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(4x − 7)²",
-    "= 16x² − 2 · 4x · 7 + 49",
-    "= 16x² − 56x + 49"
+    "(4x − 9)²",
+    "= 16x² − 2 · 4x · 9 + 81",
+    "= 16x² − 72x + 81"
    ],
    "schreibweisen": [
     {
      "felder": {
       "a": "16",
       "vb": "+",
-      "b": "-56",
+      "b": "-72",
+      "vc": "+",
+      "c": "81"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 5,
+    "d": -7
+   },
+   "frage": "Multipliziere (5x − 7)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "25",
+     "b": "-70",
+     "c": "49"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "25",
+      "b": "0",
+      "c": "49"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "25",
+      "b": "-35",
+      "c": "49"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "25",
+      "b": "70",
+      "c": "49"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "25",
+      "b": "0",
+      "c": "-49"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "5",
+      "b": "-70",
+      "c": "49"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (5x − 7)²?",
+    "Schreib das Quadrat als Produkt: (5x − 7)² = (5x − 7) · (5x − 7).",
+    "Das mittlere Glied ist 2 · 5x · (−7). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(5x − 7)²",
+    "= 25x² − 2 · 5x · 7 + 49",
+    "= 25x² − 70x + 49"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "25",
+      "vb": "+",
+      "b": "-70",
       "vc": "+",
       "c": "49"
      }
@@ -5796,7 +6189,7 @@
   },
   {
    "bauform": "BIN-1",
-   "rolle": "uebung",
+   "rolle": "home",
    "stufe": 3,
    "params": {
     "k": 2,
@@ -5933,13 +6326,13 @@
   },
   {
    "bauform": "BIN-1",
-   "rolle": "home",
+   "rolle": "warmup",
    "stufe": 3,
    "params": {
-    "k": 5,
-    "d": -8
+    "k": 2,
+    "d": -4
    },
-   "frage": "Multipliziere (5x − 8)² aus.",
+   "frage": "Multipliziere (2x − 4)² aus.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -5974,71 +6367,345 @@
    },
    "loesung": {
     "werte": {
-     "a": "25",
-     "b": "-80",
-     "c": "64"
+     "a": "4",
+     "b": "-16",
+     "c": "16"
     }
    },
    "fehlbilder": [
     {
      "key": "qf_binom_mittelglied_fehlt",
      "werte": {
-      "a": "25",
+      "a": "4",
       "b": "0",
-      "c": "64"
+      "c": "16"
      }
     },
     {
      "key": "qf_binom_mittelglied_einfach",
      "werte": {
-      "a": "25",
-      "b": "-40",
-      "c": "64"
+      "a": "4",
+      "b": "-8",
+      "c": "16"
      }
     },
     {
      "key": "qf_binom_vorzeichen",
      "werte": {
-      "a": "25",
-      "b": "80",
-      "c": "64"
+      "a": "4",
+      "b": "16",
+      "c": "16"
      }
     },
     {
      "key": "qf_binom_quadrat_differenz",
      "werte": {
-      "a": "25",
+      "a": "4",
       "b": "0",
-      "c": "-64"
+      "c": "-16"
      }
     },
     {
      "key": "qf_binom_k_nicht_quadriert",
      "werte": {
-      "a": "5",
-      "b": "-80",
-      "c": "64"
+      "a": "2",
+      "b": "-16",
+      "c": "16"
      }
     }
    ],
    "hinweise": [
-    "Welche binomische Formel passt zu (5x − 8)²?",
-    "Schreib das Quadrat als Produkt: (5x − 8)² = (5x − 8) · (5x − 8).",
-    "Das mittlere Glied ist 2 · 5x · (−8). Was ergibt das?"
+    "Welche binomische Formel passt zu (2x − 4)²?",
+    "Schreib das Quadrat als Produkt: (2x − 4)² = (2x − 4) · (2x − 4).",
+    "Das mittlere Glied ist 2 · 2x · (−4). Was ergibt das?"
    ],
    "loesungsweg": [
-    "(5x − 8)²",
-    "= 25x² − 2 · 5x · 8 + 64",
-    "= 25x² − 80x + 64"
+    "(2x − 4)²",
+    "= 4x² − 2 · 2x · 4 + 16",
+    "= 4x² − 16x + 16"
    ],
    "schreibweisen": [
     {
      "felder": {
-      "a": "25",
+      "a": "4",
       "vb": "+",
-      "b": "-80",
+      "b": "-16",
       "vc": "+",
-      "c": "64"
+      "c": "16"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 3,
+    "d": -9
+   },
+   "frage": "Multipliziere (3x − 9)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "9",
+     "b": "-54",
+     "c": "81"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "9",
+      "b": "0",
+      "c": "81"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "9",
+      "b": "-27",
+      "c": "81"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "9",
+      "b": "54",
+      "c": "81"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "9",
+      "b": "0",
+      "c": "-81"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "3",
+      "b": "-54",
+      "c": "81"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (3x − 9)²?",
+    "Schreib das Quadrat als Produkt: (3x − 9)² = (3x − 9) · (3x − 9).",
+    "Das mittlere Glied ist 2 · 3x · (−9). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(3x − 9)²",
+    "= 9x² − 2 · 3x · 9 + 81",
+    "= 9x² − 54x + 81"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "9",
+      "vb": "+",
+      "b": "-54",
+      "vc": "+",
+      "c": "81"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 2,
+    "d": -9
+   },
+   "frage": "Multipliziere (2x − 9)² aus.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "b": "-36",
+     "c": "81"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "4",
+      "b": "0",
+      "c": "81"
+     }
+    },
+    {
+     "key": "qf_binom_mittelglied_einfach",
+     "werte": {
+      "a": "4",
+      "b": "-18",
+      "c": "81"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "4",
+      "b": "36",
+      "c": "81"
+     }
+    },
+    {
+     "key": "qf_binom_quadrat_differenz",
+     "werte": {
+      "a": "4",
+      "b": "0",
+      "c": "-81"
+     }
+    },
+    {
+     "key": "qf_binom_k_nicht_quadriert",
+     "werte": {
+      "a": "2",
+      "b": "-36",
+      "c": "81"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel passt zu (2x − 9)²?",
+    "Schreib das Quadrat als Produkt: (2x − 9)² = (2x − 9) · (2x − 9).",
+    "Das mittlere Glied ist 2 · 2x · (−9). Was ergibt das?"
+   ],
+   "loesungsweg": [
+    "(2x − 9)²",
+    "= 4x² − 2 · 2x · 9 + 81",
+    "= 4x² − 36x + 81"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vb": "+",
+      "b": "-36",
+      "vc": "+",
+      "c": "81"
      }
     }
    ],

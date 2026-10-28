@@ -26,7 +26,7 @@ class KO1(Bauform):
     ]
     hinweis_vorlagen = ['Wo liegt der Ursprung, also der Punkt (0 | 0)?',
                         'Geh vom Ursprung zuerst waagerecht bis unter oder über P. Zähl die Kästchen.',
-                        'Dann zählst du senkrecht bis P. Nach unten wird es negativ.']
+                        'Dann zählst du senkrecht bis P. Links vom Ursprung ist x negativ, unten ist y negativ.']
     loesungsweg_vorlage = ['Waagerecht vom Ursprung: {x} (x-Koordinate)', 'Senkrecht bis P: {y} (y-Koordinate)',
                            'P({x} | {y})']
     zeit_sek = 45
