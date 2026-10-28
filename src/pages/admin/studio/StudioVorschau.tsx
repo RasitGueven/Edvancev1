@@ -46,7 +46,7 @@ export function StudioVorschau({ sequenzId, skript, stand }: { sequenzId: string
 
   return (
     <EdvanceCard>
-      <div className="flex flex-col gap-4" data-testid="studio-vorschau">
+      <div className="flex min-w-0 flex-col gap-4" data-testid="studio-vorschau">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h3 className="text-base font-semibold">{t('vorschau.titel')}</h3>
           <label className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
@@ -69,7 +69,8 @@ export function StudioVorschau({ sequenzId, skript, stand }: { sequenzId: string
               compositionWidth={BREITE}
               compositionHeight={HOEHE}
               controls
-              className="aspect-video w-full overflow-hidden rounded-[var(--radius-lg)]"
+              initialFrame={Math.min(plan.frames - 1, FPS)}
+              className="aspect-video !h-auto !w-full overflow-hidden rounded-[var(--radius-lg)]"
             />
             {stumm && <p className="text-xs text-[var(--color-text-muted)]">{t('vorschau.stumm')}</p>}
             <div className="flex flex-col gap-2">
