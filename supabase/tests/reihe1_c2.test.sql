@@ -22,22 +22,22 @@ select plan(38);
 -- ── Attrappen der Aufträge A und D ─────────────────────────────────────────
 create table pg_temp.gezeigt (kind uuid, task uuid, session uuid);
 create table pg_temp.zeigs (kind uuid, skill_key text, entscheidung text);
-create function public.aufgabe_ziehen(p_kind uuid, p_skill text, p_rolle text, p_stufe int default null,
+create or replace function public.aufgabe_ziehen(p_kind uuid, p_skill text, p_rolle text, p_stufe int default null,
                                       p_ausschluss uuid[] default '{}') returns uuid language sql as $$
   select t.id from tasks t where t.skill_key = p_skill and t.source_ref like 'c2r-' || p_rolle || '-%'
      and (p_stufe is null or t.difficulty = p_stufe) and not (t.id = any (p_ausschluss))
    order by t.source_ref limit 1
 $$;
-create function public.aufgabe_zwilling(p_kind uuid, p_task uuid, p_rolle text default null) returns uuid language sql as $$
+create or replace function public.aufgabe_zwilling(p_kind uuid, p_task uuid, p_rolle text default null) returns uuid language sql as $$
   select t.id from tasks t, tasks o where o.id = p_task and t.skill_key = o.skill_key and t.difficulty = o.difficulty
      and t.id <> o.id and split_part(t.source_ref, '-', 2) = split_part(o.source_ref, '-', 2)
    order by t.source_ref desc limit 1
 $$;
-create function public.aufgabe_meta(p_task uuid)
+create or replace function public.aufgabe_meta(p_task uuid)
 returns table (skill_key text, kernidee_key text, bauform_key text, rolle text, stufe int) language sql as $$
   select t.skill_key, 'K1', 'ZZ', split_part(t.source_ref, '-', 2), t.difficulty from tasks t where t.id = p_task
 $$;
-create function public.aufgabe_gezeigt(p_kind uuid, p_task uuid, p_session uuid) returns void language sql as $$
+create or replace function public.aufgabe_gezeigt(p_kind uuid, p_task uuid, p_session uuid) returns void language sql as $$
   insert into pg_temp.gezeigt values (p_kind, p_task, p_session)
 $$;
 create or replace function public.zeigs_mir_offen(p_kind uuid, p_session uuid)
