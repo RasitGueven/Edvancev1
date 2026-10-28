@@ -1,0 +1,302 @@
+{
+  "skill_key": "gleichung_quadr_formel",
+  "titel": "Woher die p-q-Formel kommt",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Die p-q-Formel",
+        "untertitel": "Woher sie kommt"
+      },
+      "text": {
+        "skelett": "Die p-q-Formel löst quadratische Gleichungen in Normalform, sofern sie Lösungen haben. Aber woher kommt sie?"
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Normalform: vor x² steht 1",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "2x^2 + 8x - 10 = 0",
+          "x^2 + 4x - 5 = 0",
+          "p = 4,\\; q = -5"
+        ],
+        "hervorheben": [
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Zuerst muss vor x hoch zwei eine Eins stehen. Wir teilen also durch zwei. Dann lesen wir mit Vorzeichen ab: p ist vier, q ist minus fünf."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Allgemein umstellen",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 + px + q = 0",
+          "x^2 + px = -q"
+        ]
+      },
+      "text": {
+        "skelett": "Allgemein steht da x hoch zwei plus p x plus q gleich null. Wir bringen q auf die rechte Seite."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Die Ergänzung",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 + px + \\left(\\tfrac{p}{2}\\right)^2 = \\left(\\tfrac{p}{2}\\right)^2 - q",
+          "\\left(x + \\tfrac{p}{2}\\right)^2 = \\left(\\tfrac{p}{2}\\right)^2 - q"
+        ],
+        "hervorheben": [
+          0
+        ]
+      },
+      "text": {
+        "skelett": "Jetzt ergänzen wir wie beim Flächenmodell: die Hälfte von p, zum Quadrat, auf beiden Seiten. Links steht dann ein volles Quadrat."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Wurzel ziehen: die Formel",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x + \\tfrac{p}{2} = \\pm\\sqrt{\\left(\\tfrac{p}{2}\\right)^2 - q}",
+          "x_{1,2} = -\\tfrac{p}{2} \\pm \\sqrt{\\left(\\tfrac{p}{2}\\right)^2 - q}"
+        ],
+        "hervorheben": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "Wir ziehen die Wurzel, mit Plus und Minus, und bringen p halbe nach rechts. Das ist die p-q-Formel."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Einsetzen am Beispiel",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 + 4x - 5 = 0",
+          "x_{1,2} = -2 \\pm \\sqrt{4 - (-5)}",
+          "x_{1,2} = -2 \\pm \\sqrt{9} = -2 \\pm 3",
+          "x_1 = 1,\\; x_2 = -5"
+        ]
+      },
+      "text": {
+        "skelett": "Mit p gleich vier und q gleich minus fünf: Unter der Wurzel steht vier minus minus fünf, also neun. Das gibt minus zwei plus minus drei, also eins und minus fünf."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Was unter der Wurzel steht",
+      "kernidee": "gleichung_quadr_anzahl:k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "D = \\left(\\tfrac{p}{2}\\right)^2 - q",
+          "D > 0:\\ \\text{zwei}",
+          "D = 0:\\ \\text{eine}",
+          "D < 0:\\ \\text{keine}"
+        ]
+      },
+      "text": {
+        "skelett": "Der Ausdruck unter der Wurzel entscheidet. Ist er positiv, gibt es zwei Lösungen, ist er null, eine, ist er negativ, keine."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Merksatz",
+      "kernidee": "gleichung_quadr_anzahl:k1",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Normalform herstellen, p und q mit Vorzeichen ablesen, einsetzen. Unter der Wurzel steht (p/2)² − q.",
+        "formel": "x_{1,2} = -\\tfrac{p}{2} \\pm \\sqrt{\\left(\\tfrac{p}{2}\\right)^2 - q}"
+      },
+      "text": {
+        "skelett": "Merk dir: Normalform, ablesen, einsetzen. Unter der Wurzel steht p halbe zum Quadrat minus q."
+      }
+    },
+    {
+      "id": "b9",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "gleichung_quadr_anzahl:k1",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Wie viele Lösungen hat die Gleichung?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b2",
+      "frage": {
+        "skelett": "Lies p und q ab: 3x² − 12x + 9 = 0."
+      },
+      "optionen": [
+        {
+          "antwort": "p = −4, q = 3",
+          "richtig": true,
+          "rueckmeldung": "Genau. Durch 3 geteilt: x² − 4x + 3 = 0."
+        },
+        {
+          "antwort": "p = −12, q = 9",
+          "fehlbild": "qf_durch_a_vergessen",
+          "ruecksprung": "b2",
+          "rueckmeldung": "Erst durch 3 teilen, damit vor x² eine 1 steht."
+        },
+        {
+          "antwort": "p = 4, q = 3",
+          "fehlbild": "qf_p_vorzeichen",
+          "ruecksprung": "b2",
+          "rueckmeldung": "p ist die Zahl vor x mit ihrem Vorzeichen: −4."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Lies p und q ab: 2x² + 10x − 6 = 0."
+          },
+          "optionen": [
+            {
+              "antwort": "p = 5, q = −3",
+              "richtig": true,
+              "rueckmeldung": "Genau. Durch 2 geteilt: x² + 5x − 3 = 0."
+            },
+            {
+              "antwort": "p = 10, q = −6",
+              "fehlbild": "qf_durch_a_vergessen",
+              "ruecksprung": "b2",
+              "rueckmeldung": "Erst durch 2 teilen, damit vor x² eine 1 steht."
+            },
+            {
+              "antwort": "p = −5, q = −3",
+              "fehlbild": "qf_p_vorzeichen",
+              "ruecksprung": "b2",
+              "rueckmeldung": "p ist die Zahl vor x mit ihrem Vorzeichen: +5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b6",
+      "frage": {
+        "skelett": "Löse x² + 6x + 5 = 0 mit der p-q-Formel."
+      },
+      "optionen": [
+        {
+          "antwort": "x = −1 oder x = −5",
+          "richtig": true,
+          "rueckmeldung": "Genau. −3 ± √(9 − 5) = −3 ± 2."
+        },
+        {
+          "antwort": "keine Lösung",
+          "fehlbild": "qf_halbes_p_nicht_quadriert",
+          "ruecksprung": "b4",
+          "rueckmeldung": "Unter der Wurzel steht (p/2)² = 9, nicht p/2 = 3."
+        },
+        {
+          "antwort": "x = 5 oder x = 1",
+          "fehlbild": "qf_p_vorzeichen",
+          "ruecksprung": "b5",
+          "rueckmeldung": "Vorne steht −p/2 = −3."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Löse x² + 8x + 12 = 0 mit der p-q-Formel."
+          },
+          "optionen": [
+            {
+              "antwort": "x = −2 oder x = −6",
+              "richtig": true,
+              "rueckmeldung": "Genau. −4 ± √(16 − 12) = −4 ± 2."
+            },
+            {
+              "antwort": "keine Lösung",
+              "fehlbild": "qf_halbes_p_nicht_quadriert",
+              "ruecksprung": "b4",
+              "rueckmeldung": "Unter der Wurzel steht (p/2)² = 16, nicht p/2 = 4."
+            },
+            {
+              "antwort": "x = 6 oder x = 2",
+              "fehlbild": "qf_p_vorzeichen",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Vorne steht −p/2 = −4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b8",
+      "frage": {
+        "skelett": "Wie viele Lösungen hat x² + 2x + 5 = 0?"
+      },
+      "optionen": [
+        {
+          "antwort": "keine Lösung",
+          "richtig": true,
+          "rueckmeldung": "Genau. 1 − 5 = −4 ist negativ."
+        },
+        {
+          "antwort": "zwei Lösungen",
+          "fehlbild": "qf_q_vorzeichen",
+          "ruecksprung": "b7",
+          "rueckmeldung": "(p/2)² − q = 1 − 5 = −4. Das ist negativ."
+        },
+        {
+          "antwort": "eine Lösung",
+          "rueckmeldung": "Eine Lösung gibt es nur, wenn unter der Wurzel genau 0 steht."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Wie viele Lösungen hat x² − 4x + 7 = 0?"
+          },
+          "optionen": [
+            {
+              "antwort": "keine Lösung",
+              "richtig": true,
+              "rueckmeldung": "Genau. 4 − 7 = −3 ist negativ."
+            },
+            {
+              "antwort": "zwei Lösungen",
+              "fehlbild": "qf_q_vorzeichen",
+              "ruecksprung": "b7",
+              "rueckmeldung": "(p/2)² − q = 4 − 7 = −3. Das ist negativ."
+            },
+            {
+              "antwort": "eine Lösung",
+              "rueckmeldung": "Eine Lösung gibt es nur, wenn unter der Wurzel genau 0 steht."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
