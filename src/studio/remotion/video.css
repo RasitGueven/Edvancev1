@@ -1,9 +1,9 @@
 /* Erklärvideo (Remotion, Reihe 1 · B3). Farben nur über die Welt-Variablen aus tokens.css
    (--color-studio-<welt>-*). Bewegte Werte setzen die Bausteine inline (berechnet je Frame). */
-.studio-welt-skelett  { --s-grund: var(--color-studio-skelett-grund);  --s-tief: var(--color-studio-skelett-tief);  --s-zelle: var(--color-studio-skelett-zelle);  --s-zelle2: var(--color-studio-skelett-zelle2);  --s-linie: var(--color-studio-skelett-linie);  --s-akzent: var(--color-studio-skelett-akzent);  --s-tinte: var(--color-studio-skelett-tinte);  --s-leise: var(--color-studio-skelett-leise); }
-.studio-welt-fussball { --s-grund: var(--color-studio-fussball-grund); --s-tief: var(--color-studio-fussball-tief); --s-zelle: var(--color-studio-fussball-zelle); --s-zelle2: var(--color-studio-fussball-zelle2); --s-linie: var(--color-studio-fussball-linie); --s-akzent: var(--color-studio-fussball-akzent); --s-tinte: var(--color-studio-fussball-tinte); --s-leise: var(--color-studio-fussball-leise); }
-.studio-welt-gaming   { --s-grund: var(--color-studio-gaming-grund);   --s-tief: var(--color-studio-gaming-tief);   --s-zelle: var(--color-studio-gaming-zelle);   --s-zelle2: var(--color-studio-gaming-zelle2);   --s-linie: var(--color-studio-gaming-linie);   --s-akzent: var(--color-studio-gaming-akzent);   --s-tinte: var(--color-studio-gaming-tinte);   --s-leise: var(--color-studio-gaming-leise); }
-.studio-welt-musik    { --s-grund: var(--color-studio-musik-grund);    --s-tief: var(--color-studio-musik-tief);    --s-zelle: var(--color-studio-musik-zelle);    --s-zelle2: var(--color-studio-musik-zelle2);    --s-linie: var(--color-studio-musik-linie);    --s-akzent: var(--color-studio-musik-akzent);    --s-tinte: var(--color-studio-musik-tinte);    --s-leise: var(--color-studio-musik-leise); }
+.studio-welt-skelett  { --s-grund: var(--color-studio-skelett-grund);  --s-tief: var(--color-studio-skelett-tief);  --s-zelle: var(--color-studio-skelett-zelle);  --s-zelle2: var(--color-studio-skelett-zelle2);  --s-linie: var(--color-studio-skelett-linie);  --s-akzent: var(--color-studio-skelett-akzent);  --s-tinte: var(--color-studio-skelett-tinte);  --s-leise: var(--color-studio-skelett-leise); --s-auf-zelle: var(--color-studio-skelett-tief); }
+.studio-welt-fussball { --s-grund: var(--color-studio-fussball-grund); --s-tief: var(--color-studio-fussball-tief); --s-zelle: var(--color-studio-fussball-zelle); --s-zelle2: var(--color-studio-fussball-zelle2); --s-linie: var(--color-studio-fussball-linie); --s-akzent: var(--color-studio-fussball-akzent); --s-tinte: var(--color-studio-fussball-tinte); --s-leise: var(--color-studio-fussball-leise); --s-auf-zelle: var(--color-studio-fussball-tief); }
+.studio-welt-gaming   { --s-grund: var(--color-studio-gaming-grund);   --s-tief: var(--color-studio-gaming-tief);   --s-zelle: var(--color-studio-gaming-zelle);   --s-zelle2: var(--color-studio-gaming-zelle2);   --s-linie: var(--color-studio-gaming-linie);   --s-akzent: var(--color-studio-gaming-akzent);   --s-tinte: var(--color-studio-gaming-tinte);   --s-leise: var(--color-studio-gaming-leise); --s-auf-zelle: var(--color-studio-gaming-tief); }
+.studio-welt-musik    { --s-grund: var(--color-studio-musik-grund);    --s-tief: var(--color-studio-musik-tief);    --s-zelle: var(--color-studio-musik-zelle);    --s-zelle2: var(--color-studio-musik-zelle2);    --s-linie: var(--color-studio-musik-linie);    --s-akzent: var(--color-studio-musik-akzent);    --s-tinte: var(--color-studio-musik-tinte);    --s-leise: var(--color-studio-musik-leise); --s-auf-zelle: var(--color-studio-musik-tinte); }
 
 .sv-buehne { position: absolute; inset: 0; background: var(--s-grund); color: var(--s-tinte);
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; }
@@ -30,3 +30,26 @@
 .sv-end-links { background: var(--s-tief); display: flex; align-items: center; justify-content: center; }
 .sv-end-rechts { display: flex; flex-direction: column; justify-content: center; gap: 32px; padding: 96px; }
 .sv-option { font-size: 48px; border-radius: 16px; border: 3px solid var(--s-leise); padding: 20px 32px; }
+
+/* B7 · Koordinatensystem und Flächenmodell (SVG). */
+.sv-ks { overflow: visible; }
+.sv-ks-raster { stroke: var(--s-leise); stroke-width: 1; opacity: 0.35; }
+.sv-ks-achse { stroke: var(--s-tinte); stroke-width: 3; }
+.sv-ks-zahl { fill: var(--s-leise); font-size: 26px; }
+.sv-ks-normal { fill: none; stroke: var(--s-leise); stroke-width: 4; stroke-dasharray: 14 12; }
+.sv-ks-parabel { fill: none; stroke: var(--s-akzent); stroke-width: 7; stroke-linecap: round; }
+.sv-ks-gerade { stroke: var(--s-zelle); stroke-width: 5; }
+.sv-ks-punkt { fill: var(--s-akzent); stroke: var(--s-grund); stroke-width: 4; }
+.sv-ks-punkt-leer { fill: var(--s-grund); stroke: var(--s-akzent); stroke-width: 5; }
+.sv-ks-text { fill: var(--s-tinte); font-size: 32px; font-weight: 600; }
+.sv-tabelle { display: grid; grid-template-columns: auto auto; gap: 4px; font-size: 40px; }
+.sv-tabelle-kopf { color: var(--s-leise); font-weight: 600; text-align: center; }
+.sv-tabelle-zelle { color: var(--s-tinte); text-align: center; padding: 8px 18px; border-radius: 8px; background: var(--s-tief); }
+.sv-fm-quadrat { fill: var(--s-zelle); }
+.sv-fm-streifen { fill: var(--s-zelle2); }
+.sv-fm-ecke { fill: var(--s-akzent); }
+.sv-fm-ecke-leer { fill: none; stroke: var(--s-akzent); stroke-width: 4; stroke-dasharray: 12 10; }
+.sv-fm-rand { fill: none; stroke: var(--s-grund); stroke-width: 6; }
+.sv-fm-text { fill: var(--s-auf-zelle); font-size: 44px; font-weight: 700; }
+.sv-fm-mass { fill: var(--s-tinte); font-size: 40px; font-weight: 600; }
+.sv-fm-auf-akzent { fill: var(--s-tief); }
