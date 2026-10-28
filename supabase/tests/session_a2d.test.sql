@@ -129,6 +129,7 @@ select is(:'e2'::jsonb ->> 'hinweise_erlaubt', 'true', 'E2 Aufgabe der Kernarbei
 
 -- ── F) Genau zwei Aufgaben: Beispiel, dann Aufgabe ─────────────────────────
 update tasks set einsatz = '{lsa}' where source_ref like 'a2-zz_a2_k1-%' and source_ref not in ('a2-zz_a2_k1-1', 'a2-zz_a2_k1-2');
+select pg_temp.als_beispiel('a2-zz_a2_k1-1');  -- Reihe 1 §3.1: eine der beiden ist die beispiel-Instanz
 select pg_temp.kind_mit('ZZ Ece A2d', 'zz_a2_quad', '{zz_a2_k2}') as k_f \gset
 select pg_temp.neue_session(array[:'k_f']::uuid[], 1) as s_f \gset
 select pg_temp.checkin(:'s_f', 1);

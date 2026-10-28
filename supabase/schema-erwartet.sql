@@ -619,6 +619,26 @@ $$;
 
 
 --
+-- Name: aufgabe_aufrufer(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_aufrufer(p_kind uuid) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case
+    when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin'
+         or (coalesce(public.get_my_role(), '') = 'coach' and coalesce(public.lsa_may_act_for(p_kind), false)) then 'voll'
+    when exists (select 1 from public.session_tablets st
+                   join public.coaching_sessions cs on cs.id = st.session_id
+                  where st.student_id = p_kind and st.geraet_id = auth.uid() and st.geloest_am is null
+                    and cs.status = 'active') then 'tablet'
+    when coalesce(public.get_my_student_id() = p_kind, false) then 'kind'
+  end
+$$;
+
+
+--
 -- Name: aufgabe_ausgeben(uuid, uuid, uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -649,6 +669,401 @@ begin
   return v_id;
 end;
 $$;
+
+
+--
+-- Name: aufgabe_gesehen_von(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_gesehen_von(p_kind uuid) RETURNS TABLE(task_id uuid, als_beispiel boolean, zuletzt timestamp with time zone)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select x.task_id, bool_or(x.beispiel), max(x.zeit)
+    from (select g.task_id, coalesce(t.rolle = 'beispiel', false) as beispiel, g.am as zeit
+            from public.aufgabe_gesehen g join public.tasks t on t.id = g.task_id where g.student_id = p_kind
+          union all
+          select a.task_id, false, a.zeit from public.session_ausgegeben a where a.student_id = p_kind
+          union all
+          select s.task_id, s.art = 'beispiel', s.zeit from public.session_schritte s
+           where s.student_id = p_kind and s.task_id is not null) x
+   group by x.task_id
+$$;
+
+
+--
+-- Name: aufgabe_gezeigt(uuid, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_gezeigt(p_kind uuid, p_task uuid, p_session uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  -- Nur Session vor Ort (FernUSG: zuhause wird nichts je Aufgabe gespeichert): Coach, Admin, System oder das Tablet,
+  -- nie das Kind selbst. Die Session ist aktiv, das Kind steht in ihr.
+  if coalesce(public.aufgabe_aufrufer(p_kind), 'kind') not in ('voll', 'tablet') then
+    raise exception 'aufgabe_gezeigt: kein Recht fuer dieses Kind' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.session_students ss join public.coaching_sessions cs on cs.id = ss.session_id
+                  where ss.session_id = p_session and ss.student_id = p_kind and cs.status = 'active') then
+    raise exception 'aufgabe_gezeigt: das Kind ist nicht in dieser laufenden Session' using errcode = 'P0001';
+  end if;
+  if coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session), false) then
+    return;  -- Testlaeufe merken nichts (Entscheidung 27)
+  end if;
+  insert into public.aufgabe_gesehen (student_id, task_id, session_id)
+  values (p_kind, p_task, p_session)
+  on conflict do nothing;
+end $$;
+
+
+--
+-- Name: aufgabe_lesbar(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_lesbar(p_task uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with t as (select x.id, x.rolle, x.bauform_id from public.tasks x where x.id = p_task),
+       meine_tablets as (select st.session_id, st.student_id from public.session_tablets st
+                           join public.coaching_sessions cs on cs.id = st.session_id
+                          where st.geraet_id = auth.uid() and st.geloest_am is null and cs.status = 'active')
+  select public.ist_systemaufruf()
+      or coalesce(public.get_my_role(), '') in ('admin', 'coach')
+      or public.darf_pruefen()
+      or exists (select 1 from meine_tablets m join public.session_ausgegeben a
+                   on a.session_id = m.session_id and a.student_id = m.student_id where a.task_id = p_task)
+      or (exists (select 1 from meine_tablets)
+          and exists (select 1 from t where t.rolle is distinct from 'home'
+                        and (public.aufgabe_ziehbar(t.id)
+                             or (t.bauform_id is null and public.session_im_pool(t.id, false)))))
+      or (public.get_my_student_id() is not null
+          and exists (select 1 from t where t.rolle = 'home' and public.aufgabe_ziehbar(t.id)))
+$$;
+
+
+--
+-- Name: aufgabe_melden(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_melden(p_task uuid, p_grund text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_bauform uuid;
+begin
+  if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') in ('coach', 'admin')) then
+    raise exception 'aufgabe_melden: nur Coach oder Admin' using errcode = '42501';
+  end if;
+  if coalesce(btrim(p_grund), '') = '' then
+    raise exception 'aufgabe_melden: Grund fehlt' using errcode = '22023';
+  end if;
+  select bauform_id into v_bauform from public.tasks where id = p_task;
+  if not found then
+    raise exception 'aufgabe_melden: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  insert into public.aufgabe_meldungen (task_id, grund, von) values (p_task, btrim(p_grund), auth.uid());
+  insert into public.aufgabe_bewaehrung (task_id, status, grund) values (p_task, 'pausiert', 'gemeldet')
+  on conflict (task_id) do update set status = 'pausiert', grund = 'gemeldet', geaendert_am = now();
+  if v_bauform is not null then
+    -- Sperre gegen zwei gleichzeitige Meldungen (beide zaehlten sonst nur 1). Gezaehlt werden gemeldete Instanzen
+    -- der aktuellen Version seit der letzten Freigabe.
+    perform 1 from public.bauformen where id = v_bauform for update;
+    if (select count(distinct m.task_id)
+          from public.aufgabe_meldungen m
+          join public.tasks t on t.id = m.task_id
+          join public.bauformen b on b.id = t.bauform_id
+         where t.bauform_id = v_bauform and t.bauform_version = b.version
+           and m.am >= coalesce(b.freigegeben_am, '-infinity')) >= 2 then
+      update public.bauformen set status = 'pausiert' where id = v_bauform and status <> 'pausiert';
+    end if;
+  end if;
+end $$;
+
+
+--
+-- Name: aufgabe_meta(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_meta(p_task uuid) RETURNS TABLE(skill_key text, kernidee_key text, bauform_key text, rolle text, stufe integer)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select t.skill_key, coalesce(t.kernidee_key, b.kernidee_key), b.schluessel, t.rolle,
+         coalesce(t.stufe::int, t.difficulty)
+    from public.tasks t left join public.bauformen b on b.id = t.bauform_id
+   where t.id = p_task and public.aufgabe_lesbar(p_task)
+$$;
+
+
+--
+-- Name: aufgabe_payload(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_payload(p_task uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks;
+  b public.bauformen;
+  v jsonb;
+  v_loesung text;
+begin
+  if not public.aufgabe_lesbar(p_task) then
+    raise exception 'aufgabe_payload: Aufgabe nicht freigegeben' using errcode = '42501';
+  end if;
+  select * into t from public.tasks where id = p_task;
+  if not found then
+    raise exception 'aufgabe_payload: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  select * into b from public.bauformen where id = t.bauform_id;
+
+  if jsonb_typeof(t.question_payload) = 'object' and t.question_payload ? 'format' then
+    -- Neue Formate (A3): question_payload IST die Kindersicht (CHECK tasks_question_payload_no_solution).
+    v := jsonb_build_object('task_id', t.id, 'kind', 'format', 'prompt', coalesce(t.question, ''),
+                            'assets', public.lsa_task_assets(t.id), 'format', t.question_payload ->> 'format',
+                            'payload', t.question_payload);
+  else
+    v := public.lsa_question_payload(p_task) - 'themenfeld';
+  end if;
+
+  v := v || jsonb_strip_nulls(jsonb_build_object('rolle', t.rolle, 'stufe', t.stufe, 'bauform_key', b.schluessel));
+  if t.rolle = 'beispiel' then
+    select s.solution into v_loesung from public.task_solutions s where s.task_id = t.id;
+    v := v || jsonb_build_object('loesungsbeispiel', jsonb_build_object(
+      'aufgabe', coalesce(t.question, ''),
+      'schritte', coalesce((select jsonb_agg(jsonb_build_object('text', btrim(z)) order by n)
+                              from unnest(string_to_array(coalesce(v_loesung, ''), E'\n')) with ordinality u(z, n)
+                             where btrim(z) <> ''), '[]'::jsonb),
+      'warum', b.steckbrief -> 'warum'));
+  end if;
+  return v;
+end $$;
+
+
+--
+-- Name: aufgabe_reaktivieren(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_reaktivieren(p_task uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.darf_pruefen() then
+    raise exception 'aufgabe_reaktivieren: kein Pruefrecht' using errcode = '42501';
+  end if;
+  -- Die Zaehler beginnen neu; die Antworten selbst bleiben in session_antworten.
+  insert into public.aufgabe_bewaehrung (task_id) values (p_task)
+  on conflict (task_id) do update set bearbeitungen = 0, richtig = 0, fehlbild_zaehler = '{}', unbekannt = '{}',
+                                      haeufigste_unbekannte = null, status = 'in_bewaehrung', grund = null,
+                                      geaendert_am = now();
+end $$;
+
+
+--
+-- Name: aufgabe_recht(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_recht(p_kind uuid, p_rolle text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case public.aufgabe_aufrufer(p_kind)
+           when 'voll' then true
+           when 'tablet' then p_rolle is distinct from 'home'
+           when 'kind' then p_rolle = 'home'
+           else false end
+$$;
+
+
+--
+-- Name: aufgabe_rueckmeldung(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_rueckmeldung(p_task uuid, p_slug text) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(
+    (select f ->> 'rueckmeldung'
+       from public.tasks t join public.bauformen b on b.id = t.bauform_id,
+            jsonb_array_elements(case when jsonb_typeof(b.steckbrief -> 'fehlbilder') = 'array'
+                                      then b.steckbrief -> 'fehlbilder' else '[]'::jsonb end) f
+      where t.id = p_task and f ->> 'key' = p_slug limit 1),
+    -- Ohne Bauform wie bisher in antwort_abgeben der freigegebene Klartext; Instanzen nur ihr Steckbrief-Satz
+    -- (der Klartext ist fuer Coach und Lena geschrieben, Befund 18).
+    (select fl.klartext from public.fehlbild_labels fl
+      where fl.slug = p_slug and fl.freigegeben_am is not null
+        and exists (select 1 from public.tasks t where t.id = p_task and t.bauform_id is null)))
+$$;
+
+
+--
+-- Name: aufgabe_werten(uuid, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_werten(p_task uuid, p_antwort jsonb) RETURNS TABLE(richtig boolean, fehlbild_key text, rueckmeldung text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  t public.tasks;
+  r record;
+begin
+  if not public.aufgabe_lesbar(p_task) then
+    raise exception 'aufgabe_werten: Aufgabe nicht freigegeben' using errcode = '42501';
+  end if;
+  select * into t from public.tasks where id = p_task;
+  if not found then
+    raise exception 'aufgabe_werten: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if jsonb_typeof(t.question_payload) = 'object' and t.question_payload ? 'format' then
+    -- late binding: format_werten kommt mit A3
+    begin
+      execute 'select * from public.format_werten($1, $2)' into r using p_task, p_antwort;
+    exception when undefined_function then
+      raise exception 'aufgabe_werten: dieses Format ist noch nicht wertbar' using errcode = 'P0001',
+        hint = 'format_noch_nicht_wertbar';
+    end;
+    richtig := r.richtig; fehlbild_key := r.fehlbild_key; rueckmeldung := r.rueckmeldung;
+  else
+    select * into r from public.session_bewerten(
+      p_task,
+      case when jsonb_typeof(p_antwort -> 'teil') = 'number' then (p_antwort ->> 'teil')::numeric::int end,
+      case when p_antwort ? 'eingabe' then p_antwort -> 'eingabe' else p_antwort end);
+    richtig := r.ergebnis = 'richtig';
+    fehlbild_key := nullif(r.fehlbild_slug, '__known__');
+    rueckmeldung := case when fehlbild_key is not null then public.aufgabe_rueckmeldung(p_task, fehlbild_key) end;
+  end if;
+  return next;
+end $_$;
+
+
+--
+-- Name: aufgabe_ziehbar(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_ziehbar(p_task uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.tasks t
+      join public.bauformen b on b.id = t.bauform_id
+     where t.id = p_task
+       and b.status = 'freigegeben' and t.bauform_version = b.version
+       and t.status = 'ready' and coalesce(t.is_active, false) and 'session' = any (t.einsatz)
+       and public.instanz_gruen(t.pruefmaschine)
+       and not exists (select 1 from public.aufgabe_bewaehrung w
+                        where w.task_id = t.id and w.status in ('pausiert', 'auffaellig')))
+$$;
+
+
+--
+-- Name: aufgabe_ziehen(uuid, text, text, integer, uuid[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_ziehen(p_kind uuid, p_skill text, p_rolle text, p_stufe integer DEFAULT NULL::integer, p_ausschluss uuid[] DEFAULT '{}'::uuid[]) RETURNS uuid
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  if p_rolle is null or p_rolle not in ('warmup', 'uebung', 'transfer', 'recap', 'beispiel', 'home', 'generalprobe') then
+    raise exception 'aufgabe_ziehen: unbekannte Rolle %', p_rolle using errcode = '22023';
+  end if;
+  if not public.aufgabe_recht(p_kind, p_rolle) then
+    raise exception 'aufgabe_ziehen: kein Recht fuer dieses Kind und diese Rolle' using errcode = '42501';
+  end if;
+
+  with gesehen as (select * from public.aufgabe_gesehen_von(p_kind))
+  select t.id into v_id
+    from public.tasks t
+    left join gesehen g on g.task_id = t.id
+   where t.skill_key = p_skill
+     and t.rolle = p_rolle
+     and t.id <> all (coalesce(p_ausschluss, '{}'))
+     and (p_rolle <> 'home' or t.stufe <= 3)
+     and public.aufgabe_ziehbar(t.id)
+     and not coalesce(g.als_beispiel, false)
+     and (p_rolle not in ('generalprobe', 'beispiel') or g.task_id is null)
+   -- Stufe vor "ungesehen" (Befund 11): gleich, dann darunter, dann darueber; ohne p_stufe die leichteste.
+   order by case when p_stufe is null then t.stufe
+                 when t.stufe = p_stufe then 0
+                 when t.stufe < p_stufe then p_stufe - t.stufe
+                 else 10 + t.stufe - p_stufe end,
+            (g.task_id is not null),
+            g.zuletzt nulls first,
+            md5(p_kind::text || t.id::text)
+   limit 1;
+
+  -- Rueckfall nur fuer Uebung und Warm-up: freigegebene Session-Aufgaben ohne Bauform, Stufe aus difficulty.
+  if v_id is null and p_rolle in ('uebung', 'warmup') then
+    with gesehen as (select * from public.aufgabe_gesehen_von(p_kind))
+    select t.id into v_id
+      from public.tasks t
+      left join gesehen g on g.task_id = t.id
+     where t.skill_key = p_skill
+       and t.bauform_id is null
+       and t.id <> all (coalesce(p_ausschluss, '{}'))
+       and public.session_im_pool(t.id, false)
+       and not exists (select 1 from public.aufgabe_bewaehrung w
+                        where w.task_id = t.id and w.status in ('pausiert', 'auffaellig'))
+       and not coalesce(g.als_beispiel, false)
+     order by case when p_stufe is null then coalesce(t.difficulty, 1)
+                   when coalesce(t.difficulty, 1) = p_stufe then 0
+                   when coalesce(t.difficulty, 1) < p_stufe then p_stufe - coalesce(t.difficulty, 1)
+                   else 10 + coalesce(t.difficulty, 1) - p_stufe end,
+              (g.task_id is not null),
+              g.zuletzt nulls first,
+              md5(p_kind::text || t.id::text)
+     limit 1;
+  end if;
+  return v_id;
+end $$;
+
+
+--
+-- Name: aufgabe_zwilling(uuid, uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_zwilling(p_kind uuid, p_task uuid, p_rolle text DEFAULT NULL::text) RETURNS uuid
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks;
+  v_id uuid;
+begin
+  select * into t from public.tasks where id = p_task;
+  if not public.aufgabe_recht(p_kind, coalesce(p_rolle, t.rolle)) then
+    raise exception 'aufgabe_zwilling: kein Recht fuer dieses Kind und diese Rolle' using errcode = '42501';
+  end if;
+  if t.bauform_id is null then
+    return null;
+  end if;
+  with gesehen as (select * from public.aufgabe_gesehen_von(p_kind))
+  select z.id into v_id
+    from public.tasks z
+    left join gesehen g on g.task_id = z.id
+   where z.bauform_id = t.bauform_id
+     and z.rolle = coalesce(p_rolle, t.rolle)
+     and z.stufe = t.stufe
+     and z.id <> t.id
+     and public.aufgabe_ziehbar(z.id)
+     and not coalesce(g.als_beispiel, false)
+     and (coalesce(p_rolle, t.rolle) not in ('generalprobe', 'beispiel') or g.task_id is null)
+   order by (g.task_id is not null), g.zuletzt nulls first, md5(p_kind::text || z.id::text)
+   limit 1;
+  return v_id;
+end $$;
 
 
 --
@@ -693,6 +1108,221 @@ $$;
 
 
 --
+-- Name: bauform_freigeben(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_freigeben(p_reihe text DEFAULT NULL::text, p_thema_key text DEFAULT NULL::text) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b record;
+  t record;
+  n int := 0;
+begin
+  perform public.pruef_nur_admin('bauform_freigeben');
+  if (p_reihe is null) = (p_thema_key is null) then
+    raise exception 'bauform_freigeben: genau eins von Reihe oder Thema' using errcode = '22023';
+  end if;
+  for b in
+    select x.* from public.bauformen x
+     where x.status = 'zur_freigabe'
+       and (x.reihe = p_reihe
+            or exists (select 1 from public.skill_thema st where st.skill_key = x.skill_key and st.thema_key = p_thema_key))
+     for update
+  loop
+    update public.bauformen set status = 'freigegeben', freigegeben_am = now(), freigegeben_von = auth.uid()
+     where id = b.id;
+    for t in
+      select k.id from public.tasks k
+       where k.bauform_id = b.id and k.bauform_version = b.version and k.status in ('draft', 'review')
+         and public.instanz_gruen(k.pruefmaschine)
+    loop
+      update public.tasks set status = 'ready', is_active = true, reviewed_by = auth.uid(), reviewed_at = now()
+       where id = t.id;
+      perform public.pruef_hinweise_setzen(t.id, 'geprueft');
+      insert into public.aufgabe_bewaehrung (task_id) values (t.id) on conflict do nothing;
+      insert into public.task_admin_protokoll (task_id, aktion, aenderungen, grund, sammel, von)
+      values (t.id, 'freigeben', '[]'::jsonb, format('Bauform %s v%s', b.schluessel, b.version), true, auth.uid());
+    end loop;
+    n := n + 1;
+  end loop;
+  return n;
+end $$;
+
+
+--
+-- Name: bauform_pruefen(uuid, integer, text, text[], text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_pruefen(p_bauform uuid, p_version integer, p_entscheidung text, p_gruende text[] DEFAULT '{}'::text[], p_notiz text DEFAULT NULL::text, p_dauer_sek integer DEFAULT NULL::integer) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b public.bauformen;
+  v_neu text;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_pruefen: kein Pruefrecht' using errcode = '42501';
+  end if;
+  select * into b from public.bauformen where id = p_bauform for update;
+  if not found then
+    raise exception 'bauform_pruefen: Bauform nicht gefunden' using errcode = 'P0002';
+  end if;
+  if b.version is distinct from p_version then
+    raise exception 'bauform_pruefen: die Bauform hat sich geaendert (Version %)', b.version using errcode = 'ED409';
+  end if;
+  if b.status not in ('zur_pruefung', 'rueckfrage') then
+    raise exception 'bauform_pruefen: Bauform steht nicht zur Pruefung (%)', b.status using errcode = 'P0001';
+  end if;
+  if b.verdacht is not null then
+    raise exception 'bauform_pruefen: Bauform ist verdaechtig (%)', b.verdacht using errcode = 'P0001';
+  end if;
+  -- Konzept §6: ohne gruene Pruefmaschine und bestandenen Blindloeser der aktuellen Version sieht Lena sie nicht.
+  if b.pruefprotokoll ->> 'lauf_am' is null or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
+     or coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
+    raise exception 'bauform_pruefen: Pruefmaschine oder Blindloeser fehlen fuer Version %', b.version
+      using errcode = 'P0001', hint = 'pruefung_fehlt';
+  end if;
+  case p_entscheidung
+    when 'passt' then v_neu := 'zur_freigabe';
+    when 'unsicher' then
+      if coalesce(btrim(p_notiz), '') = '' then
+        raise exception 'bauform_pruefen: unsicher braucht eine Notiz' using errcode = '22023';
+      end if;
+      v_neu := 'rueckfrage';
+    when 'passt_nicht' then
+      if cardinality(coalesce(p_gruende, '{}')) = 0 then
+        raise exception 'bauform_pruefen: passt nicht braucht einen Grund' using errcode = '22023';
+      end if;
+      v_neu := 'beanstandet';
+    else
+      raise exception 'bauform_pruefen: Entscheidung passt, unsicher oder passt_nicht' using errcode = '22023';
+  end case;
+  insert into public.bauform_pruefungen (bauform_id, version, entscheidung, gruende, notiz, dauer_sek, geprueft_von)
+  values (b.id, b.version, p_entscheidung, coalesce(p_gruende, '{}'), nullif(btrim(p_notiz), ''), p_dauer_sek, auth.uid());
+  update public.bauformen set status = v_neu where id = b.id;
+  return jsonb_build_object('status', v_neu, 'version', b.version);
+end $$;
+
+
+--
+-- Name: bauform_reaktivieren(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_reaktivieren(p_bauform uuid, p_grund text) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b public.bauformen;
+  v_neu text;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_reaktivieren: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if coalesce(btrim(p_grund), '') = '' then
+    raise exception 'bauform_reaktivieren: Grund fehlt' using errcode = '22023';
+  end if;
+  select * into b from public.bauformen where id = p_bauform for update;
+  if b.status is distinct from 'pausiert' then
+    raise exception 'bauform_reaktivieren: Bauform ist nicht pausiert' using errcode = 'P0001';
+  end if;
+  v_neu := case when b.freigegeben_am is not null then 'freigegeben' else 'zur_pruefung' end;
+  insert into public.bauform_pruefungen (bauform_id, version, entscheidung, notiz, geprueft_von)
+  values (b.id, b.version, 'reaktiviert', btrim(p_grund), auth.uid());
+  update public.bauformen set status = v_neu,
+         freigegeben_am = case when v_neu = 'freigegeben' then now() else freigegeben_am end
+   where id = b.id;
+  return v_neu;
+end $$;
+
+
+--
+-- Name: bauform_stufen_vorschlag(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_stufen_vorschlag(p_bauform uuid) RETURNS TABLE(stufe integer, bearbeitungen integer, quote numeric, band_min numeric, band_max numeric, vorschlag text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_stufen_vorschlag: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  with je as (
+    select t.stufe::int s, sum(w.bearbeitungen)::int n, sum(w.richtig)::int r
+      from public.tasks t join public.aufgabe_bewaehrung w on w.task_id = t.id
+      join public.bauformen b on b.id = t.bauform_id
+     where t.bauform_id = p_bauform and t.bauform_version = b.version
+     group by t.stufe
+  ), band as (
+    select s, public.reihe1_wert('bewaehrung_band_' || w || '_min') lo,
+           case when s = 1 then 1 else public.reihe1_wert('bewaehrung_band_' || w || '_max') end hi
+      from (values (1, 'eins'), (2, 'zwei'), (3, 'drei'), (4, 'vier'), (5, 'fuenf')) v(s, w)
+  )
+  select je.s, je.n, round(je.r::numeric / nullif(je.n, 0), 2), band.lo, band.hi,
+         case when je.n < coalesce(public.reihe1_wert('bewaehrung_bearbeitungen'), 10) then null
+              when je.r::numeric / je.n < band.lo then 'leichter'
+              when je.r::numeric / je.n > band.hi then 'schwerer' end
+    from je join band on band.s = je.s
+   order by je.s;
+end $$;
+
+
+--
+-- Name: bauform_versionswechsel(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_versionswechsel() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  new.geaendert_am := now();
+  if (new.steckbrief, new.format, new.rollen, new.skill_key, new.kernidee_key)
+     is distinct from (old.steckbrief, old.format, old.rollen, old.skill_key, old.kernidee_key) then
+    insert into public.bauform_versionen (bauform_id, version, steckbrief, status)
+    values (old.id, old.version, old.steckbrief, old.status);
+    new.version := old.version + 1;
+    new.pruefprotokoll := '{}'::jsonb;
+    new.blindloeser := null;
+    new.verdacht := null;
+    new.freigegeben_am := null;
+    new.freigegeben_von := null;
+    if old.status <> 'entwurf' then
+      new.status := 'zur_pruefung';
+    end if;
+  end if;
+  return new;
+end $$;
+
+
+--
+-- Name: bauform_zur_ueberarbeitung(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_zur_ueberarbeitung(p_bauform uuid, p_grund text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_zur_ueberarbeitung: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if coalesce(btrim(p_grund), '') = '' then
+    raise exception 'bauform_zur_ueberarbeitung: Grund fehlt' using errcode = '22023';
+  end if;
+  insert into public.bauform_pruefungen (bauform_id, version, entscheidung, gruende, notiz, geprueft_von)
+  select id, version, 'passt_nicht', array['ueberarbeitung'], btrim(p_grund), auth.uid()
+    from public.bauformen where id = p_bauform;
+  update public.bauformen set status = 'beanstandet' where id = p_bauform;
+end $$;
+
+
+--
 -- Name: betriebstag(date); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -726,6 +1356,65 @@ CREATE FUNCTION public.betriebstage(p_von date, p_bis date) RETURNS integer
              and extract(isodow from h.datum) between 1 and 5
              and not exists (select 1 from public.ferien_nrw f where h.datum between f.von and f.bis));
 $$;
+
+
+--
+-- Name: bewaehrung_nach_antwort(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bewaehrung_nach_antwort() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  w public.aufgabe_bewaehrung;
+  v_antwort text;
+  v_top text;
+  v_top_n int;
+begin
+  if not exists (select 1 from public.tasks t where t.id = new.task_id and t.bauform_id is not null)
+     or coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = new.session_id), false)
+     or coalesce(new.teil, 1) <> 1 or new.versuch_nr <> 1 then
+    return new;
+  end if;
+  -- Die Bewaehrung darf nie eine Antwort verhindern: jeder Fehler hier wird nur gemeldet (Befund 1).
+  begin
+  insert into public.aufgabe_bewaehrung (task_id) values (new.task_id) on conflict do nothing;
+  select * into w from public.aufgabe_bewaehrung where task_id = new.task_id for update;
+  w.bearbeitungen := w.bearbeitungen + 1;
+  if new.ergebnis = 'richtig' then
+    w.richtig := w.richtig + 1;
+  elsif new.fehlbild_slug is not null and new.fehlbild_slug <> '__known__' then
+    w.fehlbild_zaehler := jsonb_set(w.fehlbild_zaehler, array[new.fehlbild_slug],
+                                    to_jsonb(coalesce((w.fehlbild_zaehler ->> new.fehlbild_slug)::int, 0) + 1));
+  elsif new.ergebnis = 'falsch' and new.fehlbild_slug is null then
+    -- Nur eine falsche Antwort ohne jedes Fehlbild ist "unbekannt"; teilweise und bekannte Fehler nicht (Befund 7).
+    v_antwort := coalesce(public.lsa_normalize_answer(new.eingabe ->> 'text'), new.eingabe::text, '∅');
+    w.unbekannt := jsonb_set(w.unbekannt, array[v_antwort],
+                             to_jsonb(coalesce((w.unbekannt ->> v_antwort)::int, 0) + 1));
+  end if;
+  select e.key, (e.value #>> '{}')::int into v_top, v_top_n
+    from jsonb_each(w.unbekannt) e order by (e.value #>> '{}')::int desc, e.key limit 1;
+  w.haeufigste_unbekannte := v_top;
+  if w.status in ('in_bewaehrung', 'bewaehrt')
+     and w.bearbeitungen >= coalesce(public.reihe1_wert('bewaehrung_bearbeitungen'), 10) then
+    if coalesce(v_top_n, 0)::numeric / w.bearbeitungen >= coalesce(public.reihe1_wert('bewaehrung_unbekannt_anteil'), 0.30) then
+      w.status := 'auffaellig';
+      w.grund := 'unbekannte_antwort';
+    elsif w.status = 'in_bewaehrung' then
+      w.status := 'bewaehrt';
+    end if;
+  end if;
+  update public.aufgabe_bewaehrung
+     set bearbeitungen = w.bearbeitungen, richtig = w.richtig, fehlbild_zaehler = w.fehlbild_zaehler,
+         unbekannt = w.unbekannt, haeufigste_unbekannte = w.haeufigste_unbekannte, status = w.status,
+         grund = w.grund, geaendert_am = now()
+   where task_id = new.task_id;
+  exception when others then
+    raise warning 'bewaehrung_nach_antwort: % (Antwort % bleibt gespeichert)', sqlerrm, new.id;
+  end;
+  return new;
+end $$;
 
 
 --
@@ -4267,6 +4956,18 @@ begin
     perform public.xp_buchen_intern(v_kind, v_xp, 'home_uebung', 'home_uebung:' || v_id::text, null);
   end if;
 end;
+$$;
+
+
+--
+-- Name: instanz_gruen(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.instanz_gruen(p_pruefmaschine jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select jsonb_typeof(p_pruefmaschine) = 'object' and p_pruefmaschine <> '{}'::jsonb
+     and not exists (select 1 from jsonb_each(p_pruefmaschine) e where coalesce((e.value ->> 'ok')::boolean, false) = false)
 $$;
 
 
@@ -10940,7 +11641,15 @@ CREATE TABLE public.tasks (
     pruef_pilot boolean DEFAULT false NOT NULL,
     einsatz text[] NOT NULL,
     bruch boolean,
+    bauform_id uuid,
+    bauform_version integer,
+    params jsonb,
+    stufe smallint,
+    rolle text,
+    kernidee_key text,
+    pruefmaschine jsonb,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
+    CONSTRAINT tasks_bauform_instanz CHECK (((bauform_id IS NULL) OR ((bauform_version IS NOT NULL) AND (stufe IS NOT NULL) AND (rolle IS NOT NULL) AND (einsatz = ARRAY['session'::text])))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
     CONSTRAINT tasks_content_type_check CHECK ((content_type = ANY (ARRAY['exercise'::text, 'exercise_group'::text, 'article'::text, 'video'::text, 'course'::text]))),
@@ -10959,8 +11668,10 @@ CASE
 END),
     CONSTRAINT tasks_question_payload_no_solution CHECK (((question_payload IS NULL) OR (NOT (question_payload ?| ARRAY['correct'::text, 'accepted'::text, 'pairs'::text, 'blanks'::text, 'expected'::text])))),
     CONSTRAINT tasks_question_table_check CHECK (((question_payload IS NULL) OR (NOT (question_payload ? 'table'::text)) OR public.lsa_table_valid((question_payload -> 'table'::text)))),
+    CONSTRAINT tasks_rolle_check CHECK ((rolle = ANY (ARRAY['warmup'::text, 'uebung'::text, 'transfer'::text, 'recap'::text, 'beispiel'::text, 'home'::text, 'generalprobe'::text]))),
     CONSTRAINT tasks_sondierrang_check CHECK (((sondierrang IS NULL) OR (sondierrang >= 1))),
     CONSTRAINT tasks_status_check CHECK ((status = ANY (ARRAY['draft'::text, 'review'::text, 'ready'::text, 'beanstandet'::text, 'rueckfrage'::text]))),
+    CONSTRAINT tasks_stufe_check CHECK (((stufe >= 1) AND (stufe <= 5))),
     CONSTRAINT tasks_vorbefuellt_check CHECK (public.vorbefuellt_valid(vorbefuellt))
 );
 
@@ -13234,6 +13945,30 @@ begin
   perform public.session_coach_pruefen(p_session_id, 'raum_signale');
   return query select * from public.session_signale_intern(p_session_id);
 end;
+$$;
+
+
+--
+-- Name: reihe1_nur_anhaengen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe1_nur_anhaengen() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+begin
+  raise exception '%: nur anhaengen', tg_table_name using errcode = '42501';
+end $$;
+
+
+--
+-- Name: reihe1_wert(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe1_wert(p_schluessel text) RETURNS numeric
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select (wert #>> '{}')::numeric from public.session_einstellungen where schluessel = p_schluessel
 $$;
 
 
@@ -17314,6 +18049,19 @@ begin
   perform public.session_ereignis(p_session_id, p_student_id, 'signal',
                                   coalesce(p_payload, '{}'::jsonb) || jsonb_build_object('art', p_art));
 end;
+$$;
+
+
+--
+-- Name: skill_kann_entfallen(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.skill_kann_entfallen(p_skill text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(bool_and(coalesce(b.steckbrief ->> 'kann_entfallen', '') = 'true'), false)
+    from public.bauformen b where b.skill_key = p_skill and b.status <> 'entwurf'
 $$;
 
 
@@ -24344,6 +25092,50 @@ CREATE TABLE public.audit_log (
 
 
 --
+-- Name: aufgabe_bewaehrung; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.aufgabe_bewaehrung (
+    task_id uuid NOT NULL,
+    bearbeitungen integer DEFAULT 0 NOT NULL,
+    richtig integer DEFAULT 0 NOT NULL,
+    fehlbild_zaehler jsonb DEFAULT '{}'::jsonb NOT NULL,
+    unbekannt jsonb DEFAULT '{}'::jsonb NOT NULL,
+    haeufigste_unbekannte text,
+    status text DEFAULT 'in_bewaehrung'::text NOT NULL,
+    grund text,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT aufgabe_bewaehrung_status_check CHECK ((status = ANY (ARRAY['in_bewaehrung'::text, 'bewaehrt'::text, 'auffaellig'::text, 'pausiert'::text])))
+);
+
+
+--
+-- Name: aufgabe_gesehen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.aufgabe_gesehen (
+    student_id uuid NOT NULL,
+    task_id uuid NOT NULL,
+    session_id uuid NOT NULL,
+    am timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: aufgabe_meldungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.aufgabe_meldungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    task_id uuid NOT NULL,
+    grund text NOT NULL,
+    von uuid,
+    am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT aufgabe_meldungen_grund_check CHECK ((btrim(grund) <> ''::text))
+);
+
+
+--
 -- Name: auth_mail_versand; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -24371,6 +25163,72 @@ CREATE TABLE public.badge_catalog (
     klasse integer,
     trigger text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: bauform_pruefungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauform_pruefungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    bauform_id uuid NOT NULL,
+    version integer NOT NULL,
+    entscheidung text NOT NULL,
+    gruende text[] DEFAULT '{}'::text[] NOT NULL,
+    notiz text,
+    dauer_sek integer,
+    geprueft_von uuid,
+    geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bauform_pruefungen_dauer_sek_check CHECK (((dauer_sek IS NULL) OR (dauer_sek >= 0))),
+    CONSTRAINT bauform_pruefungen_entscheidung_check CHECK ((entscheidung = ANY (ARRAY['passt'::text, 'unsicher'::text, 'passt_nicht'::text, 'zurueckgenommen'::text, 'reaktiviert'::text])))
+);
+
+
+--
+-- Name: bauform_versionen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauform_versionen (
+    bauform_id uuid NOT NULL,
+    version integer NOT NULL,
+    steckbrief jsonb NOT NULL,
+    status text NOT NULL,
+    abgeloest_am timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: bauformen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauformen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    schluessel text NOT NULL,
+    reihe text DEFAULT 'quadratische_funktionen_gleichungen'::text NOT NULL,
+    skill_key text NOT NULL,
+    kernidee_key text,
+    format text NOT NULL,
+    rollen text[] NOT NULL,
+    steckbrief jsonb DEFAULT '{}'::jsonb NOT NULL,
+    generator_pfad text,
+    version integer DEFAULT 1 NOT NULL,
+    status text DEFAULT 'entwurf'::text NOT NULL,
+    pruefprotokoll jsonb DEFAULT '{}'::jsonb NOT NULL,
+    blindloeser jsonb,
+    verdacht text,
+    freigegeben_am timestamp with time zone,
+    freigegeben_von uuid,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bauformen_format_check CHECK ((format = ANY (ARRAY['mc'::text, 'zahl'::text, 'bruch'::text, 'mehrteiler'::text, 'tabelle'::text, 'feldmaske'::text, 'loesungsmenge'::text, 'graph_auswahl'::text, 'fehler_finden'::text, 'bausteine'::text, 'schritte_ordnen'::text]))),
+    CONSTRAINT bauformen_kernidee_key_check CHECK ((kernidee_key ~ '^[a-z][a-z0-9_]*:K[1-9]$'::text)),
+    CONSTRAINT bauformen_reihe_check CHECK ((reihe ~ '^[a-z][a-z0-9_]*$'::text)),
+    CONSTRAINT bauformen_rollen_check CHECK (((cardinality(rollen) >= 1) AND (rollen <@ ARRAY['warmup'::text, 'uebung'::text, 'transfer'::text, 'recap'::text, 'beispiel'::text, 'home'::text, 'generalprobe'::text]))),
+    CONSTRAINT bauformen_schluessel_check CHECK ((schluessel ~ '^[A-Z]{2,3}-[0-9]{1,2}$'::text)),
+    CONSTRAINT bauformen_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'zur_pruefung'::text, 'rueckfrage'::text, 'beanstandet'::text, 'zur_freigabe'::text, 'freigegeben'::text, 'pausiert'::text]))),
+    CONSTRAINT bauformen_steckbrief_check CHECK ((jsonb_typeof(steckbrief) = 'object'::text)),
+    CONSTRAINT bauformen_version_check CHECK ((version >= 1))
 );
 
 
@@ -25742,6 +26600,8 @@ CREATE TABLE public.skill_pruefung (
     quelle text NOT NULL,
     angelegt timestamp with time zone DEFAULT now() NOT NULL,
     aktualisiert timestamp with time zone DEFAULT now() NOT NULL,
+    geprueft_von uuid,
+    geprueft_am timestamp with time zone,
     CONSTRAINT skill_pruefung_quelle_check CHECK ((quelle = ANY (ARRAY['ki'::text, 'mensch'::text]))),
     CONSTRAINT skill_pruefung_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'geprueft'::text, 'freigegeben'::text])))
 );
@@ -26995,6 +27855,30 @@ ALTER TABLE ONLY public.audit_log
 
 
 --
+-- Name: aufgabe_bewaehrung aufgabe_bewaehrung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_bewaehrung
+    ADD CONSTRAINT aufgabe_bewaehrung_pkey PRIMARY KEY (task_id);
+
+
+--
+-- Name: aufgabe_gesehen aufgabe_gesehen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_gesehen
+    ADD CONSTRAINT aufgabe_gesehen_pkey PRIMARY KEY (student_id, task_id, session_id);
+
+
+--
+-- Name: aufgabe_meldungen aufgabe_meldungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_meldungen
+    ADD CONSTRAINT aufgabe_meldungen_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: auth_mail_versand auth_mail_versand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -27008,6 +27892,38 @@ ALTER TABLE ONLY public.auth_mail_versand
 
 ALTER TABLE ONLY public.badge_catalog
     ADD CONSTRAINT badge_catalog_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bauform_pruefungen bauform_pruefungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_pruefungen
+    ADD CONSTRAINT bauform_pruefungen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bauform_versionen bauform_versionen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_versionen
+    ADD CONSTRAINT bauform_versionen_pkey PRIMARY KEY (bauform_id, version);
+
+
+--
+-- Name: bauformen bauformen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauformen
+    ADD CONSTRAINT bauformen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bauformen bauformen_schluessel_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauformen
+    ADD CONSTRAINT bauformen_schluessel_key UNIQUE (schluessel);
 
 
 --
@@ -28433,10 +29349,38 @@ CREATE INDEX audit_log_objekt_idx ON public.audit_log USING btree (objekt_typ, o
 
 
 --
+-- Name: aufgabe_gesehen_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX aufgabe_gesehen_task_idx ON public.aufgabe_gesehen USING btree (task_id);
+
+
+--
+-- Name: aufgabe_meldungen_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX aufgabe_meldungen_task_idx ON public.aufgabe_meldungen USING btree (task_id);
+
+
+--
 -- Name: auth_mail_versand_zeit_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX auth_mail_versand_zeit_idx ON public.auth_mail_versand USING btree (erfolgt_at DESC);
+
+
+--
+-- Name: bauform_pruefungen_bauform_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX bauform_pruefungen_bauform_idx ON public.bauform_pruefungen USING btree (bauform_id, geprueft_am DESC);
+
+
+--
+-- Name: bauformen_skill_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX bauformen_skill_idx ON public.bauformen USING btree (skill_key);
 
 
 --
@@ -29315,6 +30259,13 @@ CREATE INDEX task_reviews_task_idx ON public.task_reviews USING btree (task_id);
 
 
 --
+-- Name: tasks_bauform_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tasks_bauform_idx ON public.tasks USING btree (bauform_id, rolle, stufe) WHERE (bauform_id IS NOT NULL);
+
+
+--
 -- Name: tasks_competency_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -29340,6 +30291,13 @@ CREATE INDEX tasks_diagnostic_idx ON public.tasks USING btree (is_diagnostic) WH
 --
 
 CREATE INDEX tasks_has_assets_idx ON public.tasks USING btree (((jsonb_array_length(assets) > 0))) WHERE (jsonb_array_length(assets) > 0);
+
+
+--
+-- Name: tasks_instanz_ziehen_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tasks_instanz_ziehen_idx ON public.tasks USING btree (skill_key, rolle, stufe) WHERE (bauform_id IS NOT NULL);
 
 
 --
@@ -29480,6 +30438,34 @@ CREATE INDEX zugangscode_versuche_installation_idx ON public.zugangscode_versuch
 --
 
 CREATE INDEX zugangscode_versuche_ip_idx ON public.zugangscode_versuche USING btree (ip_hash, am DESC);
+
+
+--
+-- Name: aufgabe_meldungen aufgabe_meldungen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER aufgabe_meldungen_nur_anhaengen BEFORE DELETE OR UPDATE ON public.aufgabe_meldungen FOR EACH ROW EXECUTE FUNCTION public.reihe1_nur_anhaengen();
+
+
+--
+-- Name: bauform_pruefungen bauform_pruefungen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauform_pruefungen_nur_anhaengen BEFORE DELETE OR UPDATE ON public.bauform_pruefungen FOR EACH ROW EXECUTE FUNCTION public.reihe1_nur_anhaengen();
+
+
+--
+-- Name: bauform_versionen bauform_versionen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauform_versionen_nur_anhaengen BEFORE DELETE OR UPDATE ON public.bauform_versionen FOR EACH ROW EXECUTE FUNCTION public.reihe1_nur_anhaengen();
+
+
+--
+-- Name: bauformen bauformen_versionswechsel; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauformen_versionswechsel BEFORE UPDATE ON public.bauformen FOR EACH ROW EXECUTE FUNCTION public.bauform_versionswechsel();
 
 
 --
@@ -29711,6 +30697,13 @@ CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notiz
 --
 
 CREATE TRIGGER schul_klassenarbeiten_themen BEFORE INSERT OR UPDATE OF thema_keys ON public.schul_klassenarbeiten FOR EACH ROW EXECUTE FUNCTION public.ka_themen_pruefen();
+
+
+--
+-- Name: session_antworten session_antworten_bewaehrung; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_antworten_bewaehrung AFTER INSERT ON public.session_antworten FOR EACH ROW EXECUTE FUNCTION public.bewaehrung_nach_antwort();
 
 
 --
@@ -29951,6 +30944,94 @@ ALTER TABLE ONLY public.akte_wortliste
 
 ALTER TABLE ONLY public.audit_log
     ADD CONSTRAINT audit_log_actor_fkey FOREIGN KEY (actor) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: aufgabe_bewaehrung aufgabe_bewaehrung_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_bewaehrung
+    ADD CONSTRAINT aufgabe_bewaehrung_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: aufgabe_gesehen aufgabe_gesehen_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_gesehen
+    ADD CONSTRAINT aufgabe_gesehen_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE CASCADE;
+
+
+--
+-- Name: aufgabe_gesehen aufgabe_gesehen_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_gesehen
+    ADD CONSTRAINT aufgabe_gesehen_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: aufgabe_gesehen aufgabe_gesehen_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_gesehen
+    ADD CONSTRAINT aufgabe_gesehen_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: aufgabe_meldungen aufgabe_meldungen_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_meldungen
+    ADD CONSTRAINT aufgabe_meldungen_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: aufgabe_meldungen aufgabe_meldungen_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.aufgabe_meldungen
+    ADD CONSTRAINT aufgabe_meldungen_von_fkey FOREIGN KEY (von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: bauform_pruefungen bauform_pruefungen_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_pruefungen
+    ADD CONSTRAINT bauform_pruefungen_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: bauform_pruefungen bauform_pruefungen_geprueft_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_pruefungen
+    ADD CONSTRAINT bauform_pruefungen_geprueft_von_fkey FOREIGN KEY (geprueft_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: bauform_versionen bauform_versionen_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_versionen
+    ADD CONSTRAINT bauform_versionen_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: bauformen bauformen_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauformen
+    ADD CONSTRAINT bauformen_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: bauformen bauformen_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauformen
+    ADD CONSTRAINT bauformen_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON UPDATE CASCADE;
 
 
 --
@@ -31458,6 +32539,14 @@ ALTER TABLE ONLY public.skill_kante
 
 
 --
+-- Name: skill_pruefung skill_pruefung_geprueft_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_pruefung
+    ADD CONSTRAINT skill_pruefung_geprueft_von_fkey FOREIGN KEY (geprueft_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
 -- Name: skill_pruefung skill_pruefung_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -32154,6 +33243,14 @@ ALTER TABLE ONLY public.task_solutions
 
 
 --
+-- Name: tasks tasks_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: tasks tasks_cluster_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -32456,6 +33553,45 @@ CREATE POLICY audit_log_admin_read ON public.audit_log FOR SELECT USING ((public
 
 
 --
+-- Name: aufgabe_bewaehrung; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.aufgabe_bewaehrung ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: aufgabe_bewaehrung aufgabe_bewaehrung_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY aufgabe_bewaehrung_pruefer_lesen ON public.aufgabe_bewaehrung FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: aufgabe_gesehen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.aufgabe_gesehen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: aufgabe_gesehen aufgabe_gesehen_admin_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY aufgabe_gesehen_admin_lesen ON public.aufgabe_gesehen FOR SELECT TO authenticated USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: aufgabe_meldungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.aufgabe_meldungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: aufgabe_meldungen aufgabe_meldungen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY aufgabe_meldungen_lesen ON public.aufgabe_meldungen FOR SELECT TO authenticated USING ((public.darf_pruefen() OR (COALESCE(public.get_my_role(), ''::text) = 'coach'::text)));
+
+
+--
 -- Name: auth_mail_versand; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -32514,6 +33650,45 @@ CREATE POLICY badge_catalog_admin_write ON public.badge_catalog USING ((public.g
 --
 
 CREATE POLICY badge_catalog_read_all ON public.badge_catalog FOR SELECT USING (true);
+
+
+--
+-- Name: bauform_pruefungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.bauform_pruefungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: bauform_pruefungen bauform_pruefungen_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY bauform_pruefungen_pruefer_lesen ON public.bauform_pruefungen FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: bauform_versionen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.bauform_versionen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: bauform_versionen bauform_versionen_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY bauform_versionen_pruefer_lesen ON public.bauform_versionen FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: bauformen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.bauformen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: bauformen bauformen_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY bauformen_pruefer_lesen ON public.bauformen FOR SELECT TO authenticated USING (public.darf_pruefen());
 
 
 --

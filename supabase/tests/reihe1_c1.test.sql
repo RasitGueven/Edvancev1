@@ -99,7 +99,10 @@ select ok((select bool_or((a ->> 'gueltig')::boolean) from jsonb_array_elements(
 select reihe_anlegen(:'batu', array['quadratische_funktionen', 'quadratische_gleichungen'], '2027-02-23', 1, '2027-01-18') as k6 \gset
 select is(jsonb_array_length(:'k6'::jsonb #> '{plan,sessions}'), 6, 'b1 sechs Sessions');
 select ok(not (:'k6'::jsonb #>> '{plan,warnung,passt}')::boolean, 'b2 passt nicht: Warnung für den Coach');
-select is(:'k6'::jsonb #>> '{plan,warnung,entfallen,0,skill_key}', 'fkt_quadr_extrem', 'b3 zuerst fällt Extremwerte weg');
+-- Mit A2 fragt reihe_kann_entfallen_pruefen skill_kann_entfallen (Bauformen) statt der Rückfall-Liste; solange
+-- keine Bauform kann_entfallen trägt, entfällt zuerst der Transfer. Geprüft wird die erste entfallene Kernidee.
+select is((select e ->> 'skill_key' from jsonb_array_elements(:'k6'::jsonb #> '{plan,warnung,entfallen}') with ordinality x(e, o)
+            where e ->> 'art' = 'kernidee' order by o limit 1), 'fkt_quadr_extrem', 'b3 zuerst fällt Extremwerte weg');
 select ok((select bool_and((s ->> 'minuten')::numeric <= 39.6) from jsonb_array_elements(:'k6'::jsonb #> '{plan,sessions}') s), 'b4 auch gekürzt höchstens 36 + 10 %');
 
 -- c) ohne Datum: rollierend vier Sessions
