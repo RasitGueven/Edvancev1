@@ -1,0 +1,661 @@
+{
+ "schluessel": "EX-3",
+ "skill": "fkt_quadr_extrem",
+ "kernidee": "fkt_quadr_extrem:K1",
+ "format": "mehrteiler",
+ "rollen": [
+  "transfer"
+ ],
+ "steckbrief": {
+  "text": "{kontext}",
+  "stufen": {
+   "4": "G(x) = −a·x² + bx − c mit a ∈ {1, 2}, ganzzahliger Scheitel"
+  },
+  "fehlbilder": [],
+  "hinweise": [
+   "Der größte Gewinn liegt am Scheitel.",
+   "Bring G(x) in die Scheitelpunktform.",
+   "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 240,
+  "kann_entfallen": true,
+  "generator_hash": "a976898c984d"
+ },
+ "pruefprotokoll": {
+  "gruen": 8,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 8,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "1: 55; 2: 842",
+   "2": "1: 59; 2: 239",
+   "3": "1: 22; 2: 129",
+   "4": "1: 34; 2: 142",
+   "5": "1: 13; 2: 198",
+   "6": "1: 42; 2: 395",
+   "7": "1: 21; 2: 209",
+   "8": "1: 31; 2: 553"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 34,
+    "e": 142
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 136x − 2170 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "34"
+     ],
+     "2": [
+      "142"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −2x² + 136x − 2170",
+    "= −2(x − 34)² + 142",
+    "Scheitel S(34 | 142)",
+    "Bei 34 Stück ist der Gewinn am größten: 142 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 22,
+    "e": 129
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 88x − 839 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "22"
+     ],
+     "2": [
+      "129"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −2x² + 88x − 839",
+    "= −2(x − 22)² + 129",
+    "Scheitel S(22 | 129)",
+    "Bei 22 Stück ist der Gewinn am größten: 129 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 21,
+    "e": 209
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 84x − 673 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "21"
+     ],
+     "2": [
+      "209"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −2x² + 84x − 673",
+    "= −2(x − 21)² + 209",
+    "Scheitel S(21 | 209)",
+    "Bei 21 Stück ist der Gewinn am größten: 209 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "d": 59,
+    "e": 239
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −x² + 118x − 3242 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "59"
+     ],
+     "2": [
+      "239"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −x² + 118x − 3242",
+    "= −(x − 59)² + 239",
+    "Scheitel S(59 | 239)",
+    "Bei 59 Stück ist der Gewinn am größten: 239 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 42,
+    "e": 395
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 168x − 3133 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "42"
+     ],
+     "2": [
+      "395"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −2x² + 168x − 3133",
+    "= −2(x − 42)² + 395",
+    "Scheitel S(42 | 395)",
+    "Bei 42 Stück ist der Gewinn am größten: 395 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 13,
+    "e": 198
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 52x − 140 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "13"
+     ],
+     "2": [
+      "198"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −2x² + 52x − 140",
+    "= −2(x − 13)² + 198",
+    "Scheitel S(13 | 198)",
+    "Bei 13 Stück ist der Gewinn am größten: 198 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 31,
+    "e": 553
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 124x − 1369 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "31"
+     ],
+     "2": [
+      "553"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −2x² + 124x − 1369",
+    "= −2(x − 31)² + 553",
+    "Scheitel S(31 | 553)",
+    "Bei 31 Stück ist der Gewinn am größten: 553 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "d": 55,
+    "e": 842
+   },
+   "frage": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −x² + 110x − 2183 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "55"
+     ],
+     "2": [
+      "842"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Der größte Gewinn liegt am Scheitel.",
+    "Bring G(x) in die Scheitelpunktform.",
+    "Die Stückzahl ist die erste Koordinate des Scheitels, der Gewinn die zweite."
+   ],
+   "loesungsweg": [
+    "G(x) = −x² + 110x − 2183",
+    "= −(x − 55)² + 842",
+    "Scheitel S(55 | 842)",
+    "Bei 55 Stück ist der Gewinn am größten: 842 Euro."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Stückzahl"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größter Gewinn in Euro"
+    }
+   ]
+  }
+ ]
+}

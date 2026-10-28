@@ -1,0 +1,1910 @@
+{
+ "schluessel": "PAR-2",
+ "skill": "fkt_quadr_parabel",
+ "kernidee": "fkt_quadr_parabel:K2",
+ "format": "graph_auswahl",
+ "rollen": [
+  "uebung",
+  "recap",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Welcher Graph gehört zu f(x) = {term}?",
+  "stufen": {
+   "1": "a ∈ {3/2, 2, 5/2, 3, 4}",
+   "2": "a ∈ {1/2, 1/3, 1/4, 2/3, 3/4}",
+   "3": "a ∈ {−1/3, −1/2, −2, −3, −4}"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_streckfaktor_umgekehrt",
+    "regel": "Graph zu 1/a (gestaucht statt gestreckt)",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Ist der Betrag von a größer als 1, wird die Parabel schmaler. Ist er kleiner als 1, wird sie breiter."
+   },
+   {
+    "key": "qf_oeffnung_vertauscht",
+    "regel": "Graph zu −a",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Das Vorzeichen von a entscheidet: positiv nach oben geöffnet, negativ nach unten."
+   }
+  ],
+  "hinweise": [
+   "Schau zuerst auf das Vorzeichen von a.",
+   "Ist a positiv, ist die Parabel nach oben geöffnet.",
+   "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 45,
+  "kann_entfallen": false,
+  "generator_hash": "031f5849db3b"
+ },
+ "pruefprotokoll": {
+  "gruen": 15,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "C",
+   "2": "C",
+   "3": "A",
+   "4": "A",
+   "5": "C",
+   "6": "C",
+   "7": "A",
+   "8": "B",
+   "9": "A",
+   "10": "B"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PAR-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": "5/2"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 5/2 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 5/2",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 2.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.4,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -2.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "recap",
+   "stufe": 1,
+   "params": {
+    "a": "4"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 4x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 4",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -4,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 4,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.25,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": "3"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 3x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 3",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 3,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -3,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": "2"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 2x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 2",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 2,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -2,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "recap",
+   "stufe": 1,
+   "params": {
+    "a": "3/2"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 3/2 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 3/2",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 1.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -1.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.6666666666666666,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1/4"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 1/4 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 1/4",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.25,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.25,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 4,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": "1/3"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 1/3 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 1/3",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 3,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "3/4"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 3/4 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 3/4",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.75,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.75,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 1.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "2/3"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 2/3 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 2/3",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.6666666666666666,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 1.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.6666666666666666,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": "1/2"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = 1/2 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = 1/2",
+    "a ist positiv: nach oben geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 2,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-4"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = −4x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = −4",
+    "a ist negativ: nach unten geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.25,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 4,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -4,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": "-3"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = −3x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = −3",
+    "a ist negativ: nach unten geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -3,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 3,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-1/3"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = −1/3 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = −1/3",
+    "a ist negativ: nach unten geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -3,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.3333333333333333,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-2"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = −2x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = −2",
+    "a ist negativ: nach unten geöffnet.",
+    "Der Betrag von a ist größer als 1: schmaler als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 2,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -2,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": "-1/2"
+   },
+   "frage": "Welcher Graph gehört zu f(x) = −1/2 · x²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Schau zuerst auf das Vorzeichen von a.",
+    "Ist a positiv, ist die Parabel nach oben geöffnet.",
+    "Vergleiche mit der Normalparabel: Ist der Betrag von a größer als 1, wird sie schmaler."
+   ],
+   "loesungsweg": [
+    "a = −1/2",
+    "a ist negativ: nach unten geöffnet.",
+    "Der Betrag von a ist kleiner als 1: breiter als die Normalparabel."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -0.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach unten geöffnet, schmaler als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": -2,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, breiter als die Normalparabel, Scheitel im Ursprung",
+     "params": {
+      "a": 0.5,
+      "d": 0,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

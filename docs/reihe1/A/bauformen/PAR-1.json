@@ -1,0 +1,10898 @@
+{
+ "schluessel": "PAR-1",
+ "skill": "fkt_quadr_parabel",
+ "kernidee": "fkt_quadr_parabel:K1",
+ "format": "tabelle",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "beispiel",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Fülle die Wertetabelle für f(x) = {term} aus.",
+  "stufen": {
+   "1": "a = 1, vier x-Werte von −3 bis 3, mindestens zwei negativ",
+   "2": "a = 2 oder 3",
+   "3": "a = −1, −2 oder −3",
+   "4": "a = 1/2 oder 1/4, gerade x-Werte von −6 bis 6"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_quadrat_negativ",
+    "regel": "(−x)² als negativ gerechnet",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Minus mal Minus ergibt Plus. (−2)² ist 4, nicht −4."
+   },
+   {
+    "key": "qf_ax_statt_ax2",
+    "regel": "a·x statt a·x²",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Hast du x quadriert? f(x) = a · x · x."
+   },
+   {
+    "key": "qf_ax_quadriert",
+    "regel": "(a·x)² statt a·x²",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Nur x wird quadriert, die Zahl davor nicht. Erst x², dann mal a."
+   }
+  ],
+  "hinweise": [
+   "Setz jeden x-Wert für x ein.",
+   "Rechne zuerst x², dann mal {a}.",
+   "Für x = {x0}: f({x0}) = {a} · {x0k}²."
+  ],
+  "loesungsweg": [],
+  "warum": {
+   "bei_schritt": 0,
+   "frage": "Warum haben f(−2) und f(2) denselben Wert?",
+   "bausteine": [
+    {
+     "id": "a",
+     "text": "(−2)² und 2² sind beide 4."
+    },
+    {
+     "id": "b",
+     "text": "Weil man das Minus beim Einsetzen weglässt."
+    },
+    {
+     "id": "c",
+     "text": "Weil a positiv ist."
+    }
+   ],
+   "richtig": "a"
+  },
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 90,
+  "kann_entfallen": false,
+  "generator_hash": "2925303ba6c2"
+ },
+ "pruefprotokoll": {
+  "gruen": 76,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "1: 9; 2: 1; 3: 1; 4: 4",
+   "2": "1: 18; 2: 2; 3: 8; 4: 18",
+   "3": "1: 18; 2: 8; 3: 2; 4: 8",
+   "4": "1: 9; 2: 4; 3: 1; 4: 4",
+   "5": "1: 18; 2: 2; 3: 2; 4: 8",
+   "6": "1: 9; 2: 4; 3: 4; 4: 9",
+   "7": "1: −18; 2: −8; 3: −2; 4: −2",
+   "8": "1: −18; 2: −2; 3: −8; 4: −18",
+   "9": "1: −27; 2: −12; 3: −3; 4: −12",
+   "10": "1: 18; 2: 8; 3: 2; 4: 2"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−1) = (−1)² = 1",
+    "f(1) = 1² = 1",
+    "f(2) = 2² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -2,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −2: f(−2) = 1 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = (−2)² = 4",
+    "f(−1) = (−1)² = 1",
+    "f(1) = 1² = 1",
+    "f(2) = 2² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−2) = (−2)² = 4",
+    "f(−1) = (−1)² = 1",
+    "f(2) = 2² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -2,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −2: f(−2) = 1 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = (−2)² = 4",
+    "f(−1) = (−1)² = 1",
+    "f(1) = 1² = 1",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -2,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "4"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −2: f(−2) = 1 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = (−2)² = 4",
+    "f(−1) = (−1)² = 1",
+    "f(2) = 2² = 4",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -2,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−2) = (−2)² = 4",
+    "f(1) = 1² = 1",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−1) = (−1)² = 1",
+    "f(1) = 1² = 1",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -2,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "4"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−2) = (−2)² = 4",
+    "f(2) = 2² = 4",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "4"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−1) = (−1)² = 1",
+    "f(2) = 2² = 4",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -2,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−2) = (−2)² = 4",
+    "f(1) = 1² = 1",
+    "f(2) = 2² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−2) = (−2)² = 4",
+    "f(−1) = (−1)² = 1",
+    "f(3) = 3² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": "1",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     1
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "1"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-1"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1.",
+    "Für x = −3: f(−3) = 1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² = 9",
+    "f(−2) = (−2)² = 4",
+    "f(−1) = (−1)² = 1",
+    "f(1) = 1² = 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "12"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−2) = 3 · (−2)² = 12",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(2) = 3 · 2² = 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "8"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(2) = 2 · 2² = 8",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -2,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12"
+     ],
+     "2": [
+      "3"
+     ],
+     "3": [
+      "12"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −2: f(−2) = 3 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = 3 · (−2)² = 12",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(2) = 3 · 2² = 12",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -2,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "12"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−2) = 3 · (−2)² = 12",
+    "f(1) = 3 · 1² = 3",
+    "f(2) = 3 · 2² = 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "3"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(1) = 3 · 1² = 3",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -2,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −2: f(−2) = 2 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = 2 · (−2)² = 8",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(1) = 2 · 1² = 2",
+    "f(2) = 2 · 2² = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -2,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12"
+     ],
+     "2": [
+      "3"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −2: f(−2) = 3 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = 3 · (−2)² = 12",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(1) = 3 · 1² = 3",
+    "f(2) = 3 · 2² = 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     1
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "12"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "3"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−2) = 3 · (−2)² = 12",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(1) = 3 · 1² = 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(1) = 2 · 1² = 2",
+    "f(2) = 2 · 2² = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "3"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(1) = 3 · 1² = 3",
+    "f(2) = 3 · 2² = 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -2,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −2: f(−2) = 2 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = 2 · (−2)² = 8",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(1) = 2 · 1² = 2",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -2,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "8"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−2) = 2 · (−2)² = 8",
+    "f(2) = 2 · 2² = 8",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "12"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−2) = 3 · (−2)² = 12",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -2,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−2) = 2 · (−2)² = 8",
+    "f(1) = 2 · 1² = 2",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     1
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "2"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−2) = 2 · (−2)² = 8",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(1) = 2 · 1² = 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -2,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "12"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−2) = 3 · (−2)² = 12",
+    "f(1) = 3 · 1² = 3",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−2) = 2 · (−2)² = 8",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -2,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−2) = 2 · (−2)² = 8",
+    "f(1) = 2 · 1² = 2",
+    "f(2) = 2 · 2² = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -2,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "12"
+     ],
+     "3": [
+      "12"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−2) = 3 · (−2)² = 12",
+    "f(2) = 3 · 2² = 12",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -3,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "27"
+     ],
+     "2": [
+      "3"
+     ],
+     "3": [
+      "12"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −3: f(−3) = 3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² = 27",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(2) = 3 · 2² = 12",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(1) = 2 · 1² = 2",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -2,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "8"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −2: f(−2) = 2 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = 2 · (−2)² = 8",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(2) = 2 · 2² = 8",
+    "f(3) = 2 · 3² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": "3",
+    "xs": [
+     -2,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12"
+     ],
+     "2": [
+      "3"
+     ],
+     "3": [
+      "3"
+     ],
+     "4": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 3.",
+    "Für x = −2: f(−2) = 3 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = 3 · (−2)² = 12",
+    "f(−1) = 3 · (−1)² = 3",
+    "f(1) = 3 · 1² = 3",
+    "f(3) = 3 · 3² = 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": "2",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 2.",
+    "Für x = −3: f(−3) = 2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² = 18",
+    "f(−2) = 2 · (−2)² = 8",
+    "f(−1) = 2 · (−1)² = 2",
+    "f(2) = 2 · 2² = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-18"
+     ],
+     "2": [
+      "-8"
+     ],
+     "3": [
+      "-2"
+     ],
+     "4": [
+      "-8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −3: f(−3) = −2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −2 · (−3)² = −18",
+    "f(−2) = −2 · (−2)² = −8",
+    "f(−1) = −2 · (−1)² = −2",
+    "f(2) = −2 · 2² = −8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -2,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-4"
+     ],
+     "2": [
+      "-1"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −2: f(−2) = −1 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = −(−2)² = −4",
+    "f(−1) = −(−1)² = −1",
+    "f(1) = −1² = −1",
+    "f(2) = −2² = −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-4"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−2) = −(−2)² = −4",
+    "f(−1) = −(−1)² = −1",
+    "f(3) = −3² = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -3,
+     -2,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-18"
+     ],
+     "2": [
+      "-8"
+     ],
+     "3": [
+      "-8"
+     ],
+     "4": [
+      "-18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −3: f(−3) = −2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −2 · (−3)² = −18",
+    "f(−2) = −2 · (−2)² = −8",
+    "f(2) = −2 · 2² = −8",
+    "f(3) = −2 · 3² = −18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -2,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-8"
+     ],
+     "2": [
+      "-2"
+     ],
+     "3": [
+      "-8"
+     ],
+     "4": [
+      "-18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −2: f(−2) = −2 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = −2 · (−2)² = −8",
+    "f(−1) = −2 · (−1)² = −2",
+    "f(2) = −2 · 2² = −8",
+    "f(3) = −2 · 3² = −18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -2,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-4"
+     ],
+     "2": [
+      "-1"
+     ],
+     "3": [
+      "-4"
+     ],
+     "4": [
+      "-9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −2: f(−2) = −1 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = −(−2)² = −4",
+    "f(−1) = −(−1)² = −1",
+    "f(2) = −2² = −4",
+    "f(3) = −3² = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -2,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "-3"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −2: f(−2) = −3 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = −3 · (−2)² = −12",
+    "f(−1) = −3 · (−1)² = −3",
+    "f(1) = −3 · 1² = −3",
+    "f(3) = −3 · 3² = −27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -2,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-8"
+     ],
+     "2": [
+      "-2"
+     ],
+     "3": [
+      "-2"
+     ],
+     "4": [
+      "-8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −2: f(−2) = −2 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = −2 · (−2)² = −8",
+    "f(−1) = −2 · (−1)² = −2",
+    "f(1) = −2 · 1² = −2",
+    "f(2) = −2 · 2² = −8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-27"
+     ],
+     "2": [
+      "-12"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −3: f(−3) = −3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² = −27",
+    "f(−2) = −3 · (−2)² = −12",
+    "f(−1) = −3 · (−1)² = −3",
+    "f(3) = −3 · 3² = −27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -3,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-27"
+     ],
+     "2": [
+      "-3"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −3: f(−3) = −3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² = −27",
+    "f(−1) = −3 · (−1)² = −3",
+    "f(1) = −3 · 1² = −3",
+    "f(2) = −3 · 2² = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -3,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-18"
+     ],
+     "2": [
+      "-2"
+     ],
+     "3": [
+      "-2"
+     ],
+     "4": [
+      "-8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −3: f(−3) = −2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −2 · (−3)² = −18",
+    "f(−1) = −2 · (−1)² = −2",
+    "f(1) = −2 · 1² = −2",
+    "f(2) = −2 · 2² = −8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-4"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−2) = −(−2)² = −4",
+    "f(−1) = −(−1)² = −1",
+    "f(2) = −2² = −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -3,
+     -2,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-27"
+     ],
+     "2": [
+      "-12"
+     ],
+     "3": [
+      "-12"
+     ],
+     "4": [
+      "-27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −3: f(−3) = −3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² = −27",
+    "f(−2) = −3 · (−2)² = −12",
+    "f(2) = −3 · 2² = −12",
+    "f(3) = −3 · 3² = −27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-1"
+     ],
+     "3": [
+      "-4"
+     ],
+     "4": [
+      "-9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−1) = −(−1)² = −1",
+    "f(2) = −2² = −4",
+    "f(3) = −3² = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -2,
+     -1,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "-3"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −2: f(−2) = −3 · (−2)²."
+   ],
+   "loesungsweg": [
+    "f(−2) = −3 · (−2)² = −12",
+    "f(−1) = −3 · (−1)² = −3",
+    "f(1) = −3 · 1² = −3",
+    "f(2) = −3 · 2² = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -2,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-4"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−2) = −(−2)² = −4",
+    "f(1) = −1² = −1",
+    "f(3) = −3² = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -3,
+     -2,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-27"
+     ],
+     "2": [
+      "-12"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −3: f(−3) = −3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² = −27",
+    "f(−2) = −3 · (−2)² = −12",
+    "f(1) = −3 · 1² = −3",
+    "f(2) = −3 · 2² = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-27"
+     ],
+     "2": [
+      "-12"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −3: f(−3) = −3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² = −27",
+    "f(−2) = −3 · (−2)² = −12",
+    "f(−1) = −3 · (−1)² = −3",
+    "f(2) = −3 · 2² = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     1
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-18"
+     ],
+     "2": [
+      "-8"
+     ],
+     "3": [
+      "-2"
+     ],
+     "4": [
+      "-2"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −3: f(−3) = −2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −2 · (−3)² = −18",
+    "f(−2) = −2 · (−2)² = −8",
+    "f(−1) = −2 · (−1)² = −2",
+    "f(1) = −2 · 1² = −2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -2,
+     1,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-4"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−2) = −(−2)² = −4",
+    "f(1) = −1² = −1",
+    "f(2) = −2² = −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -2,
+     -1,
+     1
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-4"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-1"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−2) = −(−2)² = −4",
+    "f(−1) = −(−1)² = −1",
+    "f(1) = −1² = −1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": "-3",
+    "xs": [
+     -3,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −3x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-27"
+     ],
+     "2": [
+      "-3"
+     ],
+     "3": [
+      "-3"
+     ],
+     "4": [
+      "-27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "27"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "81"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "81"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −3.",
+    "Für x = −3: f(−3) = −3 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² = −27",
+    "f(−1) = −3 · (−1)² = −3",
+    "f(1) = −3 · 1² = −3",
+    "f(3) = −3 · 3² = −27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-2",
+    "xs": [
+     -3,
+     -1,
+     2,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −2x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-18"
+     ],
+     "2": [
+      "-2"
+     ],
+     "3": [
+      "-8"
+     ],
+     "4": [
+      "-18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −2.",
+    "Für x = −3: f(−3) = −2 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −2 · (−3)² = −18",
+    "f(−1) = −2 · (−1)² = −2",
+    "f(2) = −2 · 2² = −8",
+    "f(3) = −2 · 3² = −18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "xs": [
+     -3,
+     -1,
+     1,
+     3
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = −x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "-1"
+     ],
+     "3": [
+      "-1"
+     ],
+     "4": [
+      "-9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal −1.",
+    "Für x = −3: f(−3) = −1 · (−3)²."
+   ],
+   "loesungsweg": [
+    "f(−3) = −(−3)² = −9",
+    "f(−1) = −(−1)² = −1",
+    "f(1) = −1² = −1",
+    "f(3) = −3² = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−3) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−1) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(1) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(3) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -6,
+     -4,
+     2,
+     4
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −6: f(−6) = 1/2 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/2 · (−6)² = 18",
+    "f(−4) = 1/2 · (−4)² = 8",
+    "f(2) = 1/2 · 2² = 2",
+    "f(4) = 1/2 · 4² = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -2,
+     2,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9/4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(2) = 1/4 · 2² = 1",
+    "f(6) = 1/4 · 6² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -2,
+     4,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "4"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9/4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(4) = 1/4 · 4² = 4",
+    "f(6) = 1/4 · 6² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -2,
+     2,
+     4
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(2) = 1/4 · 2² = 1",
+    "f(4) = 1/4 · 4² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -6,
+     -4,
+     -2,
+     4
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −6: f(−6) = 1/2 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/2 · (−6)² = 18",
+    "f(−4) = 1/2 · (−4)² = 8",
+    "f(−2) = 1/2 · (−2)² = 2",
+    "f(4) = 1/2 · 4² = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -4,
+     -2,
+     4,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "8"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −4: f(−4) = 1/2 · (−4)²."
+   ],
+   "loesungsweg": [
+    "f(−4) = 1/2 · (−4)² = 8",
+    "f(−2) = 1/2 · (−2)² = 2",
+    "f(4) = 1/2 · 4² = 8",
+    "f(6) = 1/2 · 6² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -6,
+     -4,
+     -2,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "2"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −6: f(−6) = 1/2 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/2 · (−6)² = 18",
+    "f(−4) = 1/2 · (−4)² = 8",
+    "f(−2) = 1/2 · (−2)² = 2",
+    "f(2) = 1/2 · 2² = 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -6,
+     -4,
+     2,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "8"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −6: f(−6) = 1/2 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/2 · (−6)² = 18",
+    "f(−4) = 1/2 · (−4)² = 8",
+    "f(2) = 1/2 · 2² = 2",
+    "f(6) = 1/2 · 6² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -4,
+     -2,
+     2,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4"
+     ],
+     "2": [
+      "1"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "1"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9/4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −4: f(−4) = 1/4 · (−4)²."
+   ],
+   "loesungsweg": [
+    "f(−4) = 1/4 · (−4)² = 4",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(2) = 1/4 · 2² = 1",
+    "f(6) = 1/4 · 6² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -4,
+     -2,
+     2
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "1"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "1/4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−4) = 1/4 · (−4)² = 4",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(2) = 1/4 · 2² = 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -6,
+     -2,
+     2,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −6: f(−6) = 1/2 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/2 · (−6)² = 18",
+    "f(−2) = 1/2 · (−2)² = 2",
+    "f(2) = 1/2 · 2² = 2",
+    "f(6) = 1/2 · 6² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -4,
+     -2,
+     4
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−4) = 1/4 · (−4)² = 4",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(4) = 1/4 · 4² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -4,
+     2,
+     4
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−4) = 1/4 · (−4)² = 4",
+    "f(2) = 1/4 · 2² = 1",
+    "f(4) = 1/4 · 4² = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -4,
+     4,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "4"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9/4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−4) = 1/4 · (−4)² = 4",
+    "f(4) = 1/4 · 4² = 4",
+    "f(6) = 1/4 · 6² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(4) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": "1/4",
+    "xs": [
+     -6,
+     -4,
+     -2,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/4 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "4"
+     ],
+     "3": [
+      "1"
+     ],
+     "4": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "9/4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 3,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 3,
+     "wert": "1/4"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3/2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9/4"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/4.",
+    "Für x = −6: f(−6) = 1/4 · (−6)²."
+   ],
+   "loesungsweg": [
+    "f(−6) = 1/4 · (−6)² = 9",
+    "f(−4) = 1/4 · (−4)² = 4",
+    "f(−2) = 1/4 · (−2)² = 1",
+    "f(6) = 1/4 · 6² = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−6) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  },
+  {
+   "bauform": "PAR-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "xs": [
+     -4,
+     -2,
+     2,
+     6
+    ]
+   },
+   "frage": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "2"
+     ],
+     "3": [
+      "2"
+     ],
+     "4": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 1,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 2,
+     "wert": "-1"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 2,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 3,
+     "wert": "1"
+    },
+    {
+     "key": "qf_ax_statt_ax2",
+     "teil": 4,
+     "wert": "3"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "teil": 4,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Setz jeden x-Wert für x ein.",
+    "Rechne zuerst x², dann mal 1/2.",
+    "Für x = −4: f(−4) = 1/2 · (−4)²."
+   ],
+   "loesungsweg": [
+    "f(−4) = 1/2 · (−4)² = 8",
+    "f(−2) = 1/2 · (−2)² = 2",
+    "f(2) = 1/2 · 2² = 2",
+    "f(6) = 1/2 · 6² = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−4) ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(−2) ="
+    },
+    {
+     "nr": 3,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(2) ="
+    },
+    {
+     "nr": 4,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "f(6) ="
+    }
+   ]
+  }
+ ]
+}

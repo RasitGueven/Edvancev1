@@ -1,0 +1,2636 @@
+{
+ "schluessel": "PAR-5",
+ "skill": "fkt_quadr_parabel",
+ "kernidee": "fkt_quadr_parabel:K2",
+ "format": "mc",
+ "rollen": [
+  "recap",
+  "transfer"
+ ],
+ "steckbrief": {
+  "text": "Gegeben sind f(x) = {f} und g(x) = {g}. Welche Aussage stimmt?",
+  "stufen": {
+   "2": "f und g beide nach oben geöffnet, verschiedene Beträge von a",
+   "3": "eines der beiden a negativ"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_streckfaktor_umgekehrt",
+    "regel": "„größeres a heißt weiter“",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Je größer der Betrag von a, desto schneller steigen die Werte: Die Parabel wird schmaler."
+   },
+   {
+    "key": "qf_oeffnung_vertauscht",
+    "regel": "Öffnung falsch zugeordnet",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Nur ein negatives a öffnet die Parabel nach unten."
+   }
+  ],
+  "hinweise": [
+   "Vergleiche die Beträge der Zahlen vor x².",
+   "Größerer Betrag heißt: schmalere Parabel.",
+   "Das Vorzeichen von a entscheidet über die Öffnung."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 45,
+  "kann_entfallen": false,
+  "generator_hash": "5f71e0528a65"
+ },
+ "pruefprotokoll": {
+  "gruen": 32,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "D",
+   "2": "A",
+   "3": "D",
+   "4": "C",
+   "5": "D",
+   "6": "D",
+   "7": "C",
+   "8": "B",
+   "9": "B",
+   "10": "B"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "2",
+    "g": "1/2"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = 1/2 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| > |1/2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "4",
+    "g": "3"
+   },
+   "frage": "Gegeben sind f(x) = 4x² und g(x) = 3x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|4| > |3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "4",
+    "g": "1/3"
+   },
+   "frage": "Gegeben sind f(x) = 4x² und g(x) = 1/3 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|4| > |1/3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "1/2",
+    "g": "1/4"
+   },
+   "frage": "Gegeben sind f(x) = 1/2 · x² und g(x) = 1/4 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/2| > |1/4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "3",
+    "g": "2"
+   },
+   "frage": "Gegeben sind f(x) = 3x² und g(x) = 2x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|3| > |2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "2",
+    "g": "1/4"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = 1/4 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind gleich breit."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| > |1/4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "1/2",
+    "g": "1/3"
+   },
+   "frage": "Gegeben sind f(x) = 1/2 · x² und g(x) = 1/3 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/2| > |1/3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "1/4",
+    "g": "4"
+   },
+   "frage": "Gegeben sind f(x) = 1/4 · x² und g(x) = 4x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/4| < |4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "3",
+    "g": "1/4"
+   },
+   "frage": "Gegeben sind f(x) = 3x² und g(x) = 1/4 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|3| > |1/4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "1/3",
+    "g": "3"
+   },
+   "frage": "Gegeben sind f(x) = 1/3 · x² und g(x) = 3x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/3| < |3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "1/2",
+    "g": "3"
+   },
+   "frage": "Gegeben sind f(x) = 1/2 · x² und g(x) = 3x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/2| < |3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "1/2",
+    "g": "2"
+   },
+   "frage": "Gegeben sind f(x) = 1/2 · x² und g(x) = 2x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/2| < |2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "1/3",
+    "g": "4"
+   },
+   "frage": "Gegeben sind f(x) = 1/3 · x² und g(x) = 4x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/3| < |4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "2",
+    "g": "1/3"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = 1/3 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| > |1/3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "f": "2",
+    "g": "4"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = 4x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind gleich breit."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| < |4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "f": "4",
+    "g": "1/2"
+   },
+   "frage": "Gegeben sind f(x) = 4x² und g(x) = 1/2 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|4| > |1/2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "2",
+    "g": "-1/4"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = −1/4 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| > |−1/4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "-1/2",
+    "g": "3"
+   },
+   "frage": "Gegeben sind f(x) = −1/2 · x² und g(x) = 3x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind gleich breit."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|−1/2| < |3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "2",
+    "g": "-3"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = −3x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| < |−3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "-3",
+    "g": "4"
+   },
+   "frage": "Gegeben sind f(x) = −3x² und g(x) = 4x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|−3| < |4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "-1/4",
+    "g": "4"
+   },
+   "frage": "Gegeben sind f(x) = −1/4 · x² und g(x) = 4x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|−1/4| < |4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "-4",
+    "g": "2"
+   },
+   "frage": "Gegeben sind f(x) = −4x² und g(x) = 2x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|−4| > |2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "3",
+    "g": "-1/4"
+   },
+   "frage": "Gegeben sind f(x) = 3x² und g(x) = −1/4 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind gleich breit."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|3| > |−1/4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "2",
+    "g": "-1/3"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = −1/3 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "c"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| > |−1/3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "1/4",
+    "g": "-2"
+   },
+   "frage": "Gegeben sind f(x) = 1/4 · x² und g(x) = −2x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/4| < |−2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "2",
+    "g": "-1/2"
+   },
+   "frage": "Gegeben sind f(x) = 2x² und g(x) = −1/2 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind gleich breit."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|2| > |−1/2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "1/2",
+    "g": "-3"
+   },
+   "frage": "Gegeben sind f(x) = 1/2 · x² und g(x) = −3x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/2| < |−3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "1/2",
+    "g": "-2"
+   },
+   "frage": "Gegeben sind f(x) = 1/2 · x² und g(x) = −2x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "d",
+      "label": "Beide Graphen sind gleich breit."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|1/2| < |−2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "3",
+    "g": "-1/2"
+   },
+   "frage": "Gegeben sind f(x) = 3x² und g(x) = −1/2 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "a"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|3| > |−1/2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "-1/4",
+    "g": "1/2"
+   },
+   "frage": "Gegeben sind f(x) = −1/4 · x² und g(x) = 1/2 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "b",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist nach unten geöffnet."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "c"
+    },
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|−1/4| < |1/2|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "f": "3",
+    "g": "-4"
+   },
+   "frage": "Gegeben sind f(x) = 3x² und g(x) = −4x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "label": "Der Graph von g ist schmaler als der Graph von f."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von g ist breiter als der Graph von f."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|3| < |−4|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist g schmaler als f."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "f": "3",
+    "g": "-1/3"
+   },
+   "frage": "Gegeben sind f(x) = 3x² und g(x) = −1/3 · x². Welche Aussage stimmt?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Graph von f ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "label": "Der Graph von f ist schmaler als der Graph von g."
+     },
+     {
+      "id": "c",
+      "label": "Beide Graphen sind gleich breit."
+     },
+     {
+      "id": "d",
+      "label": "Der Graph von f ist breiter als der Graph von g."
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_streckfaktor_umgekehrt",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Vergleiche die Beträge der Zahlen vor x².",
+    "Größerer Betrag heißt: schmalere Parabel.",
+    "Das Vorzeichen von a entscheidet über die Öffnung."
+   ],
+   "loesungsweg": [
+    "|3| > |−1/3|",
+    "Größerer Betrag von a: schmalere Parabel. Also ist f schmaler als g."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

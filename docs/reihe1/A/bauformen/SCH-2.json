@@ -1,0 +1,11117 @@
+{
+ "schluessel": "SCH-2",
+ "skill": "fkt_quadr_scheitel",
+ "kernidee": "fkt_quadr_scheitel:K2",
+ "format": "feldmaske",
+ "rollen": [
+  "uebung",
+  "transfer",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+  "stufen": {
+   "2": "a = 1, Scheitel ganzzahlig von −4 bis 4",
+   "3": "a = −1",
+   "4": "a = 2 oder a = 1/2"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_verschiebung_vorzeichen",
+    "regel": "Vorzeichen von d in der Klammer falsch",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Liegt der Scheitel rechts vom Ursprung, steht in der Klammer ein Minus: (x − d)."
+   },
+   {
+    "key": "qf_streckfaktor_vergessen",
+    "regel": "a weggelassen",
+    "gilt_fuer_stufen": [
+     3,
+     4
+    ],
+    "rueckmeldung": "Die Parabel ist nicht die verschobene Normalparabel. Prüf Öffnung und Form: Welche Zahl steht vor der Klammer?"
+   },
+   {
+    "key": "qf_d_e_vertauscht",
+    "regel": "d und e vertauscht",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Die x-Koordinate des Scheitels gehört in die Klammer, die y-Koordinate nach hinten."
+   }
+  ],
+  "hinweise": [
+   "Lies zuerst den Scheitel ab.",
+   "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+   "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": {
+   "generator": "parabel",
+   "params": "a, d, e wie die Lösung; Gitter; Scheitel markiert"
+  },
+  "zeit_sek": 120,
+  "kann_entfallen": false,
+  "generator_hash": "c488cd04c33a"
+ },
+ "pruefprotokoll": {
+  "gruen": 84,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Feld 1: 2, Vorzeichen: +, Feld 2: 4, Vorzeichen: +",
+   "2": "Feld 1: 2, Vorzeichen: +, Feld 2: 1, Vorzeichen: +",
+   "3": "Feld 1: -1, Feld 2: 1, Vorzeichen: +, Feld 3: 4, Vorzeichen: −",
+   "4": "Feld 1: -1, Feld 2: 2, Vorzeichen: −, Feld 3: 3, Vorzeichen: +",
+   "5": "Feld 1: 1/2, Feld 2: 1, Vorzeichen: +, Feld 3: 3, Vorzeichen: −",
+   "6": "Feld 1: 2, Feld 2: 4, Vorzeichen: +, Feld 3: 1, Vorzeichen: +",
+   "7": "Feld 1: -1, Feld 2: 1, Vorzeichen: −, Feld 3: 3, Vorzeichen: +",
+   "8": "Feld 1: 3, Vorzeichen: +, Feld 2: 2, Vorzeichen: −",
+   "9": "Feld 1: 3, Vorzeichen: −, Feld 2: 1, Vorzeichen: +",
+   "10": "Feld 1: -1, Feld 2: 2, Vorzeichen: −, Feld 3: 4, Vorzeichen: +"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 3,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "1",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −1)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 3)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 3,
+     "e": -1,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -3,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -2,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-4",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | 4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 2)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -2,
+     "e": 4,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 12,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -1,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "2",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | −2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 1)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -1,
+     "e": -2,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -4,
+     "y_max": 6,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 3,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | 2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 3)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 3,
+     "e": 2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -3,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-4",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | 4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 3)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -3,
+     "e": 4,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 12,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -1,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-3",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | 3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 1)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -1,
+     "e": 3,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -2,
+     "y_max": 11,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 2,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-1",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 1)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 2)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 2,
+     "e": 1,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -2,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 2,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "4",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | −4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 2)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "−",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 2,
+     "e": -4,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -6,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -4,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-3",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | 3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 4)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -4,
+     "e": 3,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 11,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 3,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 3)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 3,
+     "e": -2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -4,
+     "y_max": 6,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 4,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | −3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 4)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 4,
+     "e": -3,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 2,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "3",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | −3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 2)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 2,
+     "e": -3,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 1,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "3",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | −3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 1)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 1,
+     "e": -3,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 1,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-4",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | 4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 1)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 1,
+     "e": 4,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -2,
+     "y_max": 12,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 3,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-1",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | 1)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 3)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 3,
+     "e": 1,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -2,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -4,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "2",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | −2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 4)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -4,
+     "e": -2,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -4,
+     "y_max": 6,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -2,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-1",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | 1)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 2)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -2,
+     "e": 1,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -1,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-4",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | 4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 1)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -1,
+     "e": 4,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -2,
+     "y_max": 12,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -2,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "4",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | −4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 2)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -2,
+     "e": -4,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -6,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 2,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-3",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 2)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 2,
+     "e": 3,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -2,
+     "y_max": 11,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -4,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "3",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | −3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 4)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -4,
+     "e": -3,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 4,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | 2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 4)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 4,
+     "e": 2,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 4,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "1",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | −1)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 4)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 4,
+     "e": -1,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -3,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 3,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "4",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 3)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 3,
+     "e": -4,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -6,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -3,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "2",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | −2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 3)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "3",
+      "ve": "+",
+      "e": "-2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -3,
+     "e": -2,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -4,
+     "y_max": 6,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 2,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-4",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 4)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 2)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 2,
+     "e": 4,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -2,
+     "y_max": 12,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": -4,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-2",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | 2)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x + 4)² + 2"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": -4,
+     "e": 2,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": "1",
+    "d": 1,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "d": "-3",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | 3)",
+    "Vom Scheitel eins nach rechts: + 1, also a = 1",
+    "f(x) = (x − 1)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 1,
+     "d": 1,
+     "e": 3,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -2,
+     "y_max": 11,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -2,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "2",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | −1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 2)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -2,
+     "e": -1,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -7,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 2,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-2",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 2)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 2,
+     "e": 3,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -3,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 4,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-4",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | 3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 4)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 4,
+     "e": 3,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -3,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -2,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "2",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | 1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 2)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -2,
+     "e": 1,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -4,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "4",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | −2)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 4)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -4,
+     "e": -2,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -8,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 3,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-3",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | 2)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 3)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 3,
+     "e": 2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -4,
+     "y_max": 6,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 4,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-4",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | −2)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 4)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 4,
+     "e": -2,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -8,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -1,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "1",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | −4)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 1)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -1,
+     "e": -4,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -10,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 2,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-2",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-2",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | −3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 2)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-2",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 2,
+     "e": -3,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -9,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -3,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "3",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | −1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 3)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "3",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -3,
+     "e": -1,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -7,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -3,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "3",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | 1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 3)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -3,
+     "e": 1,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -2,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "2",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | −3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 2)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -2,
+     "e": -3,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -9,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 1,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-1",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-1",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | −2)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 1)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 1,
+     "e": -2,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -8,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 3,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-3",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −2)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 3)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 3,
+     "e": -2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -8,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -2,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "2",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | 3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 2)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -2,
+     "e": 3,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -3,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 4,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-4",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | 2)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 4)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 4,
+     "e": 2,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -4,
+     "y_max": 6,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -4,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "4",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | −1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 4)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -4,
+     "e": -1,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -7,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -1,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | 4)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 1)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -1,
+     "e": 4,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -2,
+     "y_max": 8,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 2,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 4)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 2)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 2,
+     "e": 4,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -2,
+     "y_max": 8,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 2,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-2",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 2)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 2,
+     "e": 1,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 1,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-1",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | −4)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 1)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 1,
+     "e": -4,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -10,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -4,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "4",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | 1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 4)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -4,
+     "e": 1,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 3,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-3",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 3)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 3,
+     "e": -1,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -7,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 4,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-4",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | 1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 4)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 4,
+     "e": 1,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 1,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-1",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | 3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 1)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 1,
+     "e": 3,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -3,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 3,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-3",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | 1)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 3)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 3,
+     "e": 1,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -5,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": 4,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-4",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | −3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x − 4)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": 4,
+     "e": -3,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -9,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": "-1",
+    "d": -1,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "1",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | −3)",
+    "Vom Scheitel eins nach rechts: − 1, also a = −1",
+    "f(x) = −(x + 1)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": -1,
+     "d": -1,
+     "e": -3,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -9,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -1,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "1",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-1",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | 2)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 1)² + 2"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -1,
+     "e": 2,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -2,
+     "y_max": 14,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 3,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-3",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "3",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "4",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 3)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 3,
+     "e": -4,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -6,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 3,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-3",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "3",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-4",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | 4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 3)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 3,
+     "e": 4,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": 4,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-4",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | −2)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x − 4)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": 4,
+     "e": -2,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -4,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -3,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "3",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-3",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "3",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | −4)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 3)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "3",
+      "ve": "+",
+      "e": "-4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -3,
+     "e": -4,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -6,
+     "y_max": 8,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 3,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-3",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "3",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | 2)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 3)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 3,
+     "e": 2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -2,
+     "y_max": 8,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -1,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "1",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "3",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | −3)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 1)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -1,
+     "e": -3,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -5,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -4,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "4",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-1",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | 1)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 4)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -4,
+     "e": 1,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 7,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 3,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-3",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −2)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 3)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 3,
+     "e": -2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -4,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -2,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "2",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-3",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | 3)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 2)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -2,
+     "e": 3,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 15,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -3,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "3",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "3",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "1",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | −1)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 3)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "3",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -3,
+     "e": -1,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -3,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 4,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-4",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | 3)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 4)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 4,
+     "e": 3,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -2,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -1,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "1",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-3",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | 3)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 1)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -1,
+     "e": 3,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -2,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -3,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "3",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-3",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "3",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-4",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−3 | 4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 3)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -3,
+     "e": 4,
+     "x_min": -7,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": 4,
+    "e": 2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-4",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-4",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(4 | 2)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x − 4)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": 4,
+     "e": 2,
+     "x_min": -2,
+     "x_max": 8,
+     "y_min": -2,
+     "y_max": 14,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -2,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "2",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-2",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "4",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | −4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 2)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -2,
+     "e": -4,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -6,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": 2,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-2",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-1",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 1)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x − 2)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": 2,
+     "e": 1,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -2,
+     "y_max": 13,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -2,
+    "e": -1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "2",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "1",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | −1)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 2)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -2,
+     "e": -1,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -3,
+     "y_max": 5,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -4,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "4",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-4",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "3",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | −3)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 4)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -4,
+     "e": -3,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -5,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": 3,
+    "e": -2
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-3",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-3",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(3 | −2)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x − 3)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": 3,
+     "e": -2,
+     "x_min": -2,
+     "x_max": 7,
+     "y_min": -4,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": -1,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "-1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-4",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | 4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x + 1)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": -1,
+     "e": 4,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -4,
+    "e": 1
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "4",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-1",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | 1)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 4)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -4,
+     "e": 1,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 13,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -2,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-4",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−2 | 4)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 2)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -2,
+     "e": 4,
+     "x_min": -6,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 16,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -4,
+    "e": 3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "4",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "-3",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−4 | 3)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 4)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -4,
+     "e": 3,
+     "x_min": -8,
+     "x_max": 2,
+     "y_min": -2,
+     "y_max": 15,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": -1,
+    "e": -3
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "1",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "1",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "3",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(−1 | −3)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x + 1)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": -1,
+     "e": -3,
+     "x_min": -5,
+     "x_max": 3,
+     "y_min": -5,
+     "y_max": 9,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 1,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-1",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "4",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | −4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 1)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 1,
+     "e": -4,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -6,
+     "y_max": 4,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "1/2",
+    "d": 2,
+    "e": 4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1/2",
+     "d": "-2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "1/2",
+      "d": "2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-2",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "1/2",
+      "d": "-4",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(2 | 4)",
+    "Vom Scheitel eins nach rechts: + 1/2, also a = 1/2",
+    "f(x) = 1/2(x − 2)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1/2",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 0.5,
+     "d": 2,
+     "e": 4,
+     "x_min": -2,
+     "x_max": 6,
+     "y_min": -2,
+     "y_max": 10,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "SCH-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": "2",
+    "d": 1,
+    "e": -4
+   },
+   "frage": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "f(x) = "
+     },
+     {
+      "feld": "a",
+      "typ": "bruch"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-1",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_streckfaktor_vergessen",
+     "werte": {
+      "a": "1",
+      "d": "-1",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Lies zuerst den Scheitel ab.",
+    "Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.",
+    "Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4."
+   ],
+   "loesungsweg": [
+    "Scheitel ablesen: S(1 | −4)",
+    "Vom Scheitel eins nach rechts: + 2, also a = 2",
+    "f(x) = 2(x − 1)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": {
+    "generator": "parabel",
+    "alt": "Koordinatensystem mit Gitter und einer Parabel, ihr Scheitel ist markiert",
+    "params": {
+     "a": 2,
+     "d": 1,
+     "e": -4,
+     "x_min": -3,
+     "x_max": 5,
+     "y_min": -6,
+     "y_max": 8,
+     "gitter": true,
+     "scheitel": true
+    }
+   },
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}
