@@ -4,7 +4,8 @@
 -- aufgabe_ziehen hat laut Konzept §9 keinen Testlauf-Parameter und zieht nur ziehbare Instanzen; Testlauf-Entwürfe
 -- fielen damit heraus, die Session lief in pool_leer/warten (pgTAP session_a2d, session_f1, session_f2_phasen in
 -- Kombination A2 + C2). Jetzt: Liefert der A-Weg nichts und läuft ein Testlauf, fällt die Funktion für
--- warmup/uebung/recap/beispiel auf session_aufgabe_waehlen(…, p_testlauf, …) zurück. Echte Sessions unverändert.
+-- warmup/uebung/recap/beispiel auf session_aufgabe_waehlen(…, true, …) zurück, angenommen nur Aufgaben ohne Bauform
+-- oder Instanzen genau dieser Rolle (Zweitprüfung P1, §3.1). Echte Sessions und der Weg ohne A unverändert.
 -- Signatur, Rechte und Rückgabe unverändert. LSA-Auswahl (lsa_start, platz_next, lsa_im_pool) nicht berührt.
 -- Rollback: supabase/rollback/20261028125114_reihe1_fix_session_ziehen_testlauf.sql.
 
@@ -46,8 +47,20 @@ begin
     if not coalesce(p_testlauf, false) then
       return;
     end if;
+    -- Testlauf: nur Aufgaben ohne Bauform oder Instanzen genau dieser Rolle (§3.1, z. B. nie home vor Ort).
+    if p_rolle in ('warmup', 'uebung', 'recap', 'beispiel') then
+      select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_skill_key, coalesce(p_stufe, 2),
+                                                          true, p_rolle = 'beispiel');
+      if w.task_id is not null and not (w.task_id = any (v_aus))
+         and exists (select 1 from public.tasks t
+                      where t.id = w.task_id and (t.bauform_id is null or t.rolle = p_rolle)) then
+        task_id := w.task_id;
+        difficulty := w.difficulty;
+      end if;
+    end if;
+    return;
   end if;
-  -- Ohne Auftrag A oder im Testlauf ohne Treffer: bisheriger Session-Pool, nur für Rollen, die es dort schon gibt.
+  -- Ohne Auftrag A: bisheriger Session-Pool, nur für Rollen, die es dort schon gibt.
   if p_rolle in ('warmup', 'uebung', 'recap', 'beispiel') then
     select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_skill_key, coalesce(p_stufe, 2),
                                                         p_testlauf, p_rolle = 'beispiel');
