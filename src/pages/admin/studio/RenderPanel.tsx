@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { EdvanceBadge, EdvanceCard, LoadingPulse } from '@/components/edvance'
@@ -11,16 +11,22 @@ const POLL_MS = 15000
  * Render je Welt (Anforderung Studio §7, Abweichung §11): Status des letzten Auftrags, „Render veraltet“,
  * Knopf für den Server-Render. Läuft ein Auftrag, wird der Stand alle 15 s neu gelesen.
  */
-export function RenderPanel({ sequenzId, stand, onStand }: { sequenzId: string; stand: string; onStand?: (s: RenderStand[]) => void }): JSX.Element {
+export function RenderPanel({ sequenzId, stand, onFertig }: { sequenzId: string; stand: string; onFertig?: () => void }): JSX.Element {
   const { t } = useTranslation('studio')
   const [welten, setWelten] = useState<RenderStand[] | null>(null)
   const [meldung, setMeldung] = useState<string | null>(null)
+  const aktuellVorher = useRef<Set<string> | null>(null)
+  const fertigRef = useRef(onFertig)
+  fertigRef.current = onFertig
 
   const lade = useCallback(async () => {
     const r = await ladeRenderStand(sequenzId)
     setWelten(r.data ?? [])
-    if (r.data) onStand?.(r.data)
-  }, [sequenzId, onStand])
+    // Ist eine Welt neu aktuell gerendert, kann sie freigabefähig geworden sein.
+    const jetzt = new Set((r.data ?? []).filter((w) => w.aktuell).map((w) => w.welt))
+    if (aktuellVorher.current && [...jetzt].some((w) => !aktuellVorher.current?.has(w))) fertigRef.current?.()
+    aktuellVorher.current = jetzt
+  }, [sequenzId])
   useEffect(() => {
     void lade()
   }, [lade, stand])

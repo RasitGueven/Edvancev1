@@ -13,3 +13,4 @@
 | 2026-10-27 | Abhängigkeit | A2: alle acht qf_-Fehlbilder in Prod; D: kompetenz_offen fehlt noch | – |
 | 2026-10-27 | B3 | Remotion 4.0.539, Bausteine Titelkarte/Raster/Term-Zeile/Merksatz/Endkarte, Welten als Token-Skin, MathJax wie E1.4, Vorschau mit Kapiteln; Standbilder aller vier Welten in docs/reihe1/B/abnahme/b3 | (folgt) |
 | 2026-10-27 | B4 | studio_render (Status, Fingerabdruck, „Render veraltet“, ein Lauf je Welt), Route api/studio/render.ts (Vercel Sandbox), npm run studio:render (lokal); Abgleich MP4 ↔ Vorschau frame-genau; pgTAP studio_b4 15/15; Zweitprüfung eingearbeitet; eingespielt (dbread: 3 Funktionen, Index studio_render_ein_lauf) | (folgt) |
+| 2026-10-27 | B5 | Freigabe: Protokoll mit Fingerabdruck, Prüfer ≠ Autor/Bearbeiter, Vier-Augen, studio_ausgabe (Kinder sehen die alte Fassung bis zur neuen Freigabe), Reiter Freigabe; pgTAP studio_b5 25/25; Zweitprüfung eingearbeitet; eingespielt (dbread: 3 Funktionen, 2 Trigger) | (folgt) |

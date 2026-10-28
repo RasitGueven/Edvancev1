@@ -10,3 +10,6 @@ Stand 27.10.2026 · Auftrag B (Studio)
    `docs/reihe1/B/` melden oder eine Funktion zum Anlegen anbieten; B stellt dann um.
 2. **Fehlbild-Schlüssel.** B braucht die acht `qf_*`-Schlüssel aus Konzept §8 in `fehlbild_labels`. Der Import
    lehnt Schlüssel außerhalb des Katalogs ab.
+3. **Freigabe der Check-Aufgaben (B5).** `studio_veroeffentlichen` setzt mit der fachlichen Freigabe einer Sequenz deren
+   Mini-Check-Aufgaben von `draft` auf `ready` (nur `draft`; `beanstandet`/`rueckfrage` bleiben). Bietet A dafür eine
+   Funktion an (z. B. „Aufgabe freigeben“ mit Prüfer), stellt B auf diese um.
