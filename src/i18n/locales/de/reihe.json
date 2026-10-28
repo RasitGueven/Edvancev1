@@ -38,6 +38,16 @@
     "keineAenderung": "Der Plan bleibt wie vorher.",
     "verschoben": "{{kernidee}}: {{von}} → {{nach}}",
     "neu": "{{kernidee}}: neu am {{nach}}",
-    "fertig": "{{kernidee}}: sitzt, nicht mehr geplant"
+    "fertig": "{{kernidee}}: sitzt, nicht mehr geplant",
+    "abschnitt": "Reihenplan nach der Session"
+  },
+  "kachel": {
+    "generalprobe": "Generalprobe · Session {{nr}} von {{gesamt}}"
+  },
+  "gp": {
+    "titel": "Generalprobe",
+    "sicher": "sicher",
+    "ueben": "noch üben",
+    "offen": "läuft"
   }
 }

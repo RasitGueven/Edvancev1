@@ -9,6 +9,7 @@ import { useLiveTexte } from './useLiveTexte'
 import { useLive } from './LiveKontext'
 import { AufgabeEinbau } from './einbau/AufgabeEinbau'
 import { ReiheKarte } from './reihe/ReiheKarte'
+import { GpErgebnisBlock } from './reihe/GpErgebnisBlock'
 
 /**
  * Schublade je Kind (Warm-up und Kernarbeit): rechts im Querformat, von unten im
@@ -79,6 +80,7 @@ export function Schublade({ kind, onSchliessen }: { kind: CoachLiveKind; onSchli
           {kind.hinweise.length > 0 && <HinweiseBlock kind={kind} />}
           {(kind.aufgabe || kind.erklaersequenz) && <Interventionsleiter kind={kind} />}
           {kind.heute.length > 0 && <HeuteBlock kind={kind} />}
+          <GpErgebnisBlock sessionId={sessionId} kindId={kind.id} />
           <ReiheKarte studentId={kind.id} />
         </div>
       </aside>

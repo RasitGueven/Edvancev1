@@ -14643,6 +14643,32 @@ $$;
 
 
 --
+-- Name: session_gp_ergebnis(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_gp_ergebnis(p_session_id uuid, p_student_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_fertig boolean := exists (select 1 from public.session_schritte s where s.session_id = p_session_id
+                               and s.student_id = p_student_id and s.art = 'gp_ergebnis');
+begin
+  perform public.session_coach_pruefen(p_session_id, 'session_gp_ergebnis');
+  return coalesce((
+    -- Zweitprüfung C4-3: „sicher / noch üben“ erst, wenn das Tablet das Ergebnis zeigt (gp_ergebnis), vorher null.
+    select jsonb_agg(jsonb_build_object('skill_key', x.skill_key, 'label', public.session_label(x.skill_key),
+                                        'sicher', case when v_fertig then x.sicher end, 'offen', not v_fertig) order by x.erst)
+      from (select s.skill_key, min(s.id) as erst,
+                   bool_and(coalesce((public.session_aufgabe_stand(p_session_id, p_student_id, s.task_id)).erfolg, false)) as sicher
+              from public.session_schritte s
+             where s.session_id = p_session_id and s.student_id = p_student_id and s.art = 'generalprobe'
+             group by s.skill_key) x), '[]'::jsonb);
+end;
+$$;
+
+
+--
 -- Name: session_gp_waehlen(uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
