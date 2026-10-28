@@ -88,6 +88,7 @@ class Instanz:
     schreibweisen: list[dict] = field(default_factory=list)  # weitere richtige Antworten (Pruefung 4)
     figur: dict | None = None        # {"generator", "params", "alt"} bzw. Optionsfiguren
     pruefmaschine: dict = field(default_factory=dict)
+    teile: list[dict] | None = None  # Mehrteiler/Tabelle: tasks.parts [{nr, kind: short_input|mc, prompt, options?}]
 
     @property
     def schluessel(self) -> str:

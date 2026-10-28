@@ -20,6 +20,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from .basis import Bauform, Instanz
+from .klassisch import WERTUNG_SQL, db_loesung, ist_klassisch
 from .pruefmaschine import dbread_json
 
 WURZEL = Path(__file__).resolve().parents[2]
@@ -35,6 +36,11 @@ ANTWORTFORM = {
     'fehler_finden': 'Gib die Zeilennummer und den Buchstaben der Begründung an.',
     'bausteine': 'Gib den Buchstaben (oder die zwei Buchstaben) an.',
     'schritte_ordnen': 'Gib die Reihenfolge der Schritt-Buchstaben an, z. B. „B, A, C“.',
+    'zahl': 'Gib die Zahl an (Bruch mit „/“ ist erlaubt).',
+    'bruch': 'Gib die Zahl an (Bruch mit „/“ ist erlaubt).',
+    'mc': 'Gib den Buchstaben der Option an.',
+    'mehrteiler': 'Gib je Teil die Antwort an, z. B. „1: 4; 2: −3“ (bei Auswahl den Buchstaben).',
+    'tabelle': 'Gib je Feld die Zahl an, z. B. „1: 4; 2: −3“.',
 }
 
 
@@ -69,6 +75,12 @@ def _kindertext(inst: dict, fmt: str) -> str:
     elif fmt in ('bausteine', 'schritte_ordnen'):
         liste = p['bausteine'] if fmt == 'bausteine' else p['schritte']
         zeilen += [f'{buchstaben[i]}: {b["text"]}' for i, b in enumerate(liste)]
+    elif fmt == 'mc':
+        zeilen += [f'{buchstaben[i]}: {o["label"]}' for i, o in enumerate(p['options'])]
+    elif fmt in ('mehrteiler', 'tabelle'):
+        for t in inst['teile']:
+            zeilen.append(f'Teil {t["nr"]}: {t["prompt"]}' + (f' [{t["unit"]}]' if t.get('unit') else ''))
+            zeilen += [f'  {buchstaben[i]}: {o["label"]}' for i, o in enumerate(t.get('options', []))]
     return '\n'.join(zeilen)
 
 
@@ -105,7 +117,51 @@ def _antwort_json(fmt: str, roh: str, inst: dict) -> dict:
         nr = int(''.join(ch for ch in t if ch.isdigit()))
         b = [c for c in t.upper() if c in buchstaben][-1]
         return {'zeile': nr, 'warum': inst['payload']['warum'][buchstaben.index(b)]['id']}
+    if fmt in ('zahl', 'bruch'):
+        return {'teil': None, 'eingabe': {'text': t}}
+    if fmt == 'mc':
+        return {'teil': None, 'eingabe': [inst['payload']['options'][buchstaben.index(t[0].upper())]['id']]}
     raise ValueError(f'{fmt}: Antwort des Blindlösers nicht lesbar')
+
+
+def _teil_antworten(roh: str, inst: dict) -> list[dict]:
+    """„1: 4; 2: B“ → je Teil eine Eingabe (Buchstabe bei Auswahl-Teilen)."""
+    aus = []
+    for stueck in roh.replace('\n', ';').split(';'):
+        if ':' not in stueck:
+            continue
+        nr, wert = stueck.split(':', 1)
+        nr, wert = int(''.join(c for c in nr if c.isdigit()) or 0), wert.strip()
+        t = next((t for t in inst['teile'] if t['nr'] == nr), None)
+        if t is None:
+            continue
+        if t['kind'] == 'mc':
+            aus.append({'teil': nr, 'eingabe': [t['options']['ABCDEFGH'.index(wert[0].upper())]['id']]})
+        else:
+            aus.append({'teil': nr, 'eingabe': {'text': wert}})
+    return aus
+
+
+def _blind_klassisch(bf: Bauform, auswahl: list[dict], antworten: dict[str, str]) -> list[int]:
+    """Abweichende Aufgaben (Nummern): eine Aufgabe stimmt, wenn jeder Teil voll richtig ist."""
+    faelle, abweichend = [], set()
+    for n, inst in enumerate(auswahl, 1):
+        ca, acc = db_loesung(bf.format, inst['loesung'], inst['fehlbilder'])
+        roh = antworten.get(str(n), '')
+        try:
+            liste = _teil_antworten(roh, inst) if bf.format in ('mehrteiler', 'tabelle') else [_antwort_json(bf.format, roh, inst)]
+        except (ValueError, IndexError):
+            liste = []
+        noetig = {t['nr'] for t in inst['teile']} if inst.get('teile') else {None}
+        if {f['teil'] for f in liste} != noetig:
+            abweichend.add(n)
+        faelle += [{'i': n, 'input_type': inst['input_type'], 'parts': inst.get('teile'), 'ca': ca, 'acc': acc,
+                    'richtig': True, 'key': None, **f} for f in liste]
+    daten = json.dumps(faelle, ensure_ascii=False).replace("'", "''")
+    # WERTUNG_SQL liefert nur Faelle, die von der Erwartung „richtig“ abweichen (ein Fehlbild-Treffer ist auch eine
+    # Abweichung, weil der Schluessel nicht null ist).
+    abweichend |= {z['i'] for z in dbread_json(WERTUNG_SQL.replace('{daten}', daten)) if not z['ist_richtig']}
+    return sorted(abweichend)
 
 
 def blind_auswerten(bf: Bauform, antworten: dict[str, str]) -> dict:
@@ -113,6 +169,8 @@ def blind_auswerten(bf: Bauform, antworten: dict[str, str]) -> dict:
     daten = json.loads((VORSCHAU / f'{bf.key}.json').read_text())
     gruen = [i for i in daten['instanzen'] if all(p['ok'] for p in i['pruefmaschine'].values())]
     auswahl = [gruen[k] for k in json.loads((BLIND / bf.key / 'auswahl.json').read_text())]
+    if ist_klassisch(bf.format):
+        return _befund(bf, daten, auswahl, _blind_klassisch(bf, auswahl, antworten), antworten)
     faelle = []
     for n, inst in enumerate(auswahl, 1):
         try:
@@ -126,7 +184,10 @@ def blind_auswerten(bf: Bauform, antworten: dict[str, str]) -> dict:
 select jsonb_build_object('n', (x->>'n')::int, 'richtig', r.richtig)::text
   from jsonb_array_elements('{daten_sql}'::jsonb) x,
        public.format_werten_daten(x->>'fmt', x->'payload', x->'loesung', x->'loesung'->'fehlbilder', x->'antwort') r;""")
-    abweichend = sorted(z['n'] for z in ergebnis if not z['richtig'])
+    return _befund(bf, daten, auswahl, sorted(z['n'] for z in ergebnis if not z['richtig']), antworten)
+
+
+def _befund(bf: Bauform, daten: dict, auswahl: list[dict], abweichend: list[int], antworten: dict[str, str]) -> dict:
     anteil = round(len(abweichend) / len(auswahl), 3) if auswahl else 1.0
     befund = {'geloest': len(auswahl), 'abweichend': abweichend, 'anteil': anteil,
               'bestanden': anteil <= BLIND_GRENZE and len(auswahl) > 0,
@@ -160,7 +221,10 @@ def migration(bf: Bauform) -> Path:
                                                                                 sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:10], 'input_type': i['input_type'], 'frage': i['frage'],
             'payload': i['payload'], 'params': i['params'], 'stufe': i['stufe'], 'rolle': i['rolle'],
             'pm': i['pruefmaschine'], 'afb': 'III' if i['rolle'] == 'transfer' else ('I' if i['stufe'] <= 2 else 'II'),
-            'correct': [{**i['loesung'], 'fehlbilder': i['fehlbilder']}],
+            'correct': (db_loesung(bf.format, i['loesung'], i['fehlbilder'])[0] if ist_klassisch(bf.format)
+                        else [{**i['loesung'], 'fehlbilder': i['fehlbilder']}]),
+            'acceptance': db_loesung(bf.format, i['loesung'], i['fehlbilder'])[1] if ist_klassisch(bf.format) else None,
+            'parts': i.get('teile'),
             'solution': '\n'.join(i['loesungsweg']),
             'hints': [{'level': k + 1, 'text': h, 'status': 'entwurf'} for k, h in enumerate(i['hinweise'])],
         })
@@ -196,20 +260,20 @@ do $$ begin perform set_config('edvance.hinweis_status', 'setzen', true); end $$
 with b as (select id, version from public.bauformen where schluessel = {_text(bf.key)}),
      v as (select * from jsonb_to_recordset({_sql(zeilen)})
              as v(suffix text, input_type text, frage text, payload jsonb, params jsonb, stufe int, rolle text,
-                  pm jsonb, afb text, correct jsonb, solution text, hints jsonb)),
+                  pm jsonb, afb text, correct jsonb, acceptance jsonb, parts jsonb, solution text, hints jsonb)),
      neu as (
-  insert into public.tasks (content_type, input_type, status, is_active, title, question, question_payload, skill_key,
+  insert into public.tasks (content_type, input_type, status, is_active, title, question, question_payload, parts, skill_key,
                             difficulty, afb, class_level, est_duration_sec, source, source_ref, einsatz, bauform_id,
                             bauform_version, params, stufe, rolle, kernidee_key, pruefmaschine)
   select 'exercise', v.input_type, 'draft', true, {_text(bf.key)} || ' · ' || v.rolle || ' · S' || v.stufe, v.frage,
-         v.payload, {_text(bf.skill)}, v.stufe, v.afb, 9, {bf.zeit_sek}, 'bauform',
+         v.payload, v.parts, {_text(bf.skill)}, v.stufe, v.afb, 9, {bf.zeit_sek}, 'bauform',
          {_text(bf.key)} || '-v' || b.version || '-' || v.suffix, '{{session}}', b.id, b.version, v.params, v.stufe,
          v.rolle, {_text(bf.kernidee)}, v.pm
     from b, v
   on conflict (source, source_ref) do nothing
   returning id, source_ref)
-insert into public.task_solutions (task_id, correct_answers, solution, hints)
-select neu.id, v.correct, v.solution, v.hints
+insert into public.task_solutions (task_id, correct_answers, acceptance, solution, hints)
+select neu.id, v.correct, v.acceptance, v.solution, v.hints
   from neu join b on true join v on neu.source_ref = {_text(bf.key)} || '-v' || b.version || '-' || v.suffix;
 do $$ begin perform set_config('edvance.hinweis_status', '', true); perform set_config('edvance.bauform_export', '', true); end $$;
 """
