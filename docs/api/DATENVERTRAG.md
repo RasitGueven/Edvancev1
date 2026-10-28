@@ -1128,6 +1128,18 @@ Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbrau
 Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
 Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
 
+## 13. Reihe 1 · Einbaupunkte der Coach-Sicht (Auftrag C, C0b)
+
+Zwei leere Einbaupunkte in `src/pages/coach/live/einbau/`. Ohne Beitrag rendern sie nichts. Ein anderer
+Auftrag haengt seine Komponente mit einer Zeile in das Beitragsfeld ein, sonst aendert er die Datei nicht.
+
+| Einbaupunkt | Ort | Props | Beitragsfeld | Fuer |
+|---|---|---|---|---|
+| `CheckinEinbau` | Check-in je Kind (`CheckinZeile`, vor dem Fall-Block) | `{ kindId, sessionId }` | `CHECKIN_BEITRAEGE` | D: Kachel „Zuhause geübt“ |
+| `AufgabeEinbau` | Kind-Detail an der Aufgabe (`Schublade`, hinter `AufgabeBlock`) | `{ kindId, sessionId, taskId }` | `AUFGABE_BEITRAEGE` | A: Melde-Knopf |
+
+`taskId` kommt aus `LiveAufgabeDetail.taskId` (`coach_kind_detail.aufgabe_detail.task_id`); bei Mini-Checks der Erklaersequenz fehlt er, dann gibt es keinen Einbaupunkt.
+
 ## R1-B · Erklärvideos aus dem Studio (Reihe 1, Bauauftrag B)
 
 Besitzer: Auftrag B (Konzept Sessionreihe 1 §9). Andere Aufträge nutzen nur, was hier steht.
