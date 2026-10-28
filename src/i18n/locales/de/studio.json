@@ -163,5 +163,24 @@
     "stumm": "Ohne Stimme: stumme Vorschau mit geschätzter Dauer.",
     "ladeFehler": "Die Vorschau ließ sich nicht laden.",
     "springe": "Zu {{beat}} springen: {{titel}}"
+  },
+  "render": {
+    "titel": "Rendern und ausspielen",
+    "satz": "Je Welt ein MP4 mit Kapiteln, Untertiteln und Vorschaubild. Ein Render ist veraltet, sobald sich Text, Baustein oder Stimme geändert haben.",
+    "knopf": "Rendern",
+    "status": {
+      "wartet": "wartet",
+      "laeuft": "läuft",
+      "fertig": "fertig",
+      "fehler": "Fehler",
+      "keiner": "noch nicht gerendert"
+    },
+    "aktuell": "Render aktuell",
+    "veraltet": "Render veraltet",
+    "stimmeFehlt": "Stimme unvollständig oder Platzhalter",
+    "gesperrtTooltip": "Läuft schon oder Welt ist aktuell gerendert.",
+    "gestartet": "Render für {{welt}} gestartet.",
+    "fehler": "Render ließ sich nicht starten: {{grund}}",
+    "lokal": "Ausfall? Lokal: npm run studio:render -- {{id}}"
   }
 }

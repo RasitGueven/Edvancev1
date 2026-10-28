@@ -186,3 +186,53 @@ export async function ladeVorschauAudio(sequenzId: string, welt: string): Promis
     return { data: null, error: fehler(e) }
   }
 }
+
+/** Render-Stand je Welt (studio_render_stand). */
+export type RenderStand = {
+  welt: string
+  letzterStatus: 'wartet' | 'laeuft' | 'fertig' | 'fehler' | null
+  letzterFehler: string | null
+  fertigId: string | null
+  fertigAm: string | null
+  aktuell: boolean
+  stimmeVollstaendig: boolean
+}
+
+export async function ladeRenderStand(sequenzId: string): Promise<StudioErgebnis<RenderStand[]>> {
+  try {
+    const { data, error } = await rpc<
+      { welt: string; letzter_status: RenderStand['letzterStatus']; letzter_fehler: string | null; fertig_id: string | null;
+        fertig_am: string | null; aktuell: boolean; stimme_vollstaendig: boolean }[]
+    >('studio_render_stand', { p_sequenz_id: sequenzId })
+    if (error) return { data: null, error: fehler(error) }
+    return {
+      data: (data ?? []).map((r) => ({
+        welt: r.welt, letzterStatus: r.letzter_status, letzterFehler: r.letzter_fehler, fertigId: r.fertig_id,
+        fertigAm: r.fertig_am, aktuell: r.aktuell, stimmeVollstaendig: r.stimme_vollstaendig,
+      })),
+      error: null,
+    }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
+
+/** Server-Render einer Welt starten (Vercel Function api/studio/render → Vercel Sandbox). Frischt die Anmeldung
+ * vorher auf: die Sandbox meldet mit diesem Token und braucht es bis zu 60 Minuten. */
+export async function starteRender(sequenzId: string, welt: string): Promise<StudioErgebnis<string>> {
+  try {
+    const { data: s } = await supabase.auth.refreshSession()
+    const token = s.session?.access_token
+    if (!token) return { data: null, error: { code: '401', message: 'ohne_anmeldung', hint: null } }
+    const res = await fetch('/api/studio/render', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      body: JSON.stringify({ sequenzId, welt }),
+    })
+    const body = (await res.json().catch(() => ({}))) as { auftrag?: string; fehler?: string }
+    if (!res.ok || !body.auftrag) return { data: null, error: { code: String(res.status), message: body.fehler ?? String(res.status), hint: null } }
+    return { data: body.auftrag, error: null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
