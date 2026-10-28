@@ -21,6 +21,7 @@ import deErklaerPruefen from './locales/de/erklaerPruefen.json'
 import deKonto from './locales/de/konto.json'
 import deElternbericht from './locales/de/elternbericht.json'
 import dePraesentation from './locales/de/praesentation.json'
+import deStudio from './locales/de/studio.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -46,6 +47,7 @@ void i18n.use(initReactI18next).init({
       konto: deKonto,
       elternbericht: deElternbericht,
       praesentation: dePraesentation,
+      studio: deStudio,
     },
   },
   lng: 'de',
@@ -73,6 +75,7 @@ void i18n.use(initReactI18next).init({
     'konto',
     'elternbericht',
     'praesentation',
+    'studio',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,

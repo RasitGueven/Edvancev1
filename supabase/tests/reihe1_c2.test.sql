@@ -40,7 +40,7 @@ $$;
 create function public.aufgabe_gezeigt(p_kind uuid, p_task uuid, p_session uuid) returns void language sql as $$
   insert into pg_temp.gezeigt values (p_kind, p_task, p_session)
 $$;
-create function public.zeigs_mir_offen(p_kind uuid, p_session uuid)
+create or replace function public.zeigs_mir_offen(p_kind uuid, p_session uuid)
 returns table (skill_key text, vorschlag_am timestamptz, entscheidung text, entschieden_von uuid) language sql as $$
   select z.skill_key, now(), z.entscheidung, null::uuid from pg_temp.zeigs z where z.kind = p_kind
 $$;

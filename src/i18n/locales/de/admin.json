@@ -316,6 +316,7 @@
     "elternReports": "Eltern-Reports",
     "lsaReports": "LSA-Reports",
     "itemPflege": "Item-Pflege",
+    "studio": "Studio",
     "gruppe": {
       "vertrieb": "Vertrieb",
       "betrieb": "Betrieb",
@@ -332,6 +333,7 @@
       "elternReports": "Reports",
       "lsaReports": "LSA",
       "itemPflege": "Inhalte",
+      "studio": "Studio",
       "stellschrauben": "Werte",
       "klassenarbeiten": "Arbeiten"
     },
