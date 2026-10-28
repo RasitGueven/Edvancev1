@@ -55,8 +55,9 @@ select is((select count(*) from erklaer_check c join erklaer_kernidee k on k.id 
              join tasks t on t.id = c.task_id
             where k.skill_key like 'fkt_linear_%' and t.source is distinct from 'edvance_erklaer_k8_linfkt'), 0::bigint,
           '2 jeder Check ist eine neue Aufgabe dieser Charge (keine umgewidmete)');
-select is((select count(*) from tasks where source = 'edvance_k8_linfkt' and einsatz <> '{lsa,session}'::text[]), 0::bigint,
-          '2 die Aufgaben der Charge k8-linfkt behalten ihren Einsatz');
+-- Reihe 1 A1 (20261027130250): der Bestand gehört seitdem nur noch zur LSA.
+select is((select count(*) from tasks where source = 'edvance_k8_linfkt' and einsatz <> '{lsa}'::text[]), 0::bigint,
+          '2 die Aufgaben der Charge k8-linfkt behalten ihren Einsatz (seit Reihe 1 A1: lsa)');
 select is((select count(*) from erklaer_schritt s join erklaer_kernidee k on k.id = s.kernidee_id
             where k.skill_key like 'fkt_linear_%' and cardinality(s.formeln) > 0), 0::bigint,
           '2 formeln leer bis tools/formeln-svg.mjs');
@@ -199,8 +200,11 @@ select is((select count(*) from session_schritte x join tasks t on t.id = x.task
 -- Gegenprobe: Es liegt am Einsatz. Mit Einsatz session wäre derselbe Check im Testlauf im Pool.
 -- Seit LSA-Erlebnis L1 braucht der LSA-Pool ein eindeutiges Eingabeformat; die Lösungen dieses Checks mischen
 -- Bruch und Dezimal („3/2“, „1,5“), deshalb hier zusätzlich die Bruch-Angabe.
-update tasks set einsatz = '{lsa,session}', bruch = false where id = :'c2';
-select ok(session_im_pool(:'c2', true) and lsa_im_pool(:'c2', true), '4 Gegenprobe: mit Einsatz lsa,session im Testlauf-Pool');
+-- Seit Reihe 1 A1 nie beide Pools zugleich: erst session, dann lsa.
+update tasks set einsatz = '{session}', bruch = false where id = :'c2';
+select session_im_pool(:'c2', true) as gp_session \gset
+update tasks set einsatz = '{lsa}' where id = :'c2';
+select ok(:'gp_session'::boolean and lsa_im_pool(:'c2', true), '4 Gegenprobe: mit Einsatz session bzw. lsa im Testlauf-Pool');
 update tasks set einsatz = '{check}', bruch = null where id = :'c2';
 select ok(not session_im_pool(:'c2', true), '4 Gegenprobe zurückgesetzt');
 

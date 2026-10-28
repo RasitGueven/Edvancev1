@@ -66,13 +66,13 @@ begin
   select array_agg(id order by nr) into v_t
     from (select gen_random_uuid() as id, nr from generate_series(1, 6) as nr) x;
 
-  insert into public.tasks (id, content_type, skill_key, question)
-  values (v_t[1], 'exercise', 'AF2_BRUCH',  'AF2 Probe 1'),
-         (v_t[2], 'exercise', 'AF2_BRUCH',  'AF2 Probe 2'),
-         (v_t[3], 'exercise', 'AF2_BRUCH',  'AF2 Probe 3'),
-         (v_t[4], 'exercise', 'AF2_BRUCH',  'AF2 Probe 4'),
-         (v_t[5], 'exercise', 'AF2_GLEICH', 'AF2 Probe 5'),
-         (v_t[6], 'exercise', 'AF2_GLEICH', 'AF2 Probe 6');
+  insert into public.tasks (id, content_type, skill_key, question, einsatz)
+  values (v_t[1], 'exercise', 'AF2_BRUCH',  'AF2 Probe 1', '{lsa}'),
+         (v_t[2], 'exercise', 'AF2_BRUCH',  'AF2 Probe 2', '{lsa}'),
+         (v_t[3], 'exercise', 'AF2_BRUCH',  'AF2 Probe 3', '{lsa}'),
+         (v_t[4], 'exercise', 'AF2_BRUCH',  'AF2 Probe 4', '{lsa}'),
+         (v_t[5], 'exercise', 'AF2_GLEICH', 'AF2 Probe 5', '{lsa}'),
+         (v_t[6], 'exercise', 'AF2_GLEICH', 'AF2 Probe 6', '{lsa}');
 
   -- Registry: vier von fuenf Slugs bekommen einen Klartext. 'af2_unbekannt'
   -- fehlt ABSICHTLICH — das ist Fall 6.

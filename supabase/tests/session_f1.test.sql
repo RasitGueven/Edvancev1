@@ -121,7 +121,10 @@ select is(pg_temp.schritt(:'s5', 1) ->> 'skill_key', 'zz_a2_v1', 'E3 (4) gleiche
 
 -- ── 6) B4 Platzhalter-Sequenz ─────────────────────────────────────────────
 -- Im Neuaufbau haben die Bestandsaufgaben keinen Cluster (offene-punkte-a2d 1 b): fuer den Test setzen.
-update tasks set cluster_id = (select id from skill_clusters where name = 'ZZ A2 Cluster')
+-- Seit Reihe 1 A1 gehoert der Bestand nur zur LSA; fuer diesen Fall spielen die Aufgaben Session-Aufgaben
+-- (der Platzhalter-Check bleibt {check}).
+update tasks set cluster_id = (select id from skill_clusters where name = 'ZZ A2 Cluster'),
+       einsatz = case when 'check' = any (einsatz) then einsatz else '{session}' end
  where skill_key = 'gleichung_quadr_faktor';
 -- Wie Batu: Wurzel ziehen sicher, Thema Quadratische Gleichungen; spaet (Minute 20), damit es gleich in die Kernarbeit geht.
 select pg_temp.kind_mit('ZZ Batu F1', 'quadratische_gleichungen', '{zahl_wurzel_quadrat}', '{}', true) as k_b \gset

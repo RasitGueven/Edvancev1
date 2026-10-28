@@ -39,9 +39,9 @@ grant execute on function pg_temp.fehler(text) to authenticated;
 --   X draft, wird nach der Ausgabe von Hand ausgeschlossen (pruef_ausschluss 'hand')
 insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe) values ('zz_t3_s', 'ZZ T3 Skill', 8, 1);
 insert into skill_thema (skill_key, thema_key) values ('zz_t3_s', 'zz_a2_terme');
-select pg_temp.aufgaben('zz_t3_s', 1, 'draft', '{lsa,session}', 't3-d'),
-       pg_temp.aufgaben('zz_t3_s', 1, 'ready', '{lsa,session}', 't3-r'),
-       pg_temp.aufgaben('zz_t3_s', 1, 'draft', '{lsa,session}', 't3-x');
+select pg_temp.aufgaben('zz_t3_s', 1, 'draft', '{session}', 't3-d'),
+       pg_temp.aufgaben('zz_t3_s', 1, 'ready', '{session}', 't3-r'),
+       pg_temp.aufgaben('zz_t3_s', 1, 'draft', '{session}', 't3-x');
 select (select id from tasks where source_ref = 't3-d-1') as d,
        (select id from tasks where source_ref = 't3-r-1') as r,
        (select id from tasks where source_ref = 't3-x-1') as x \gset
