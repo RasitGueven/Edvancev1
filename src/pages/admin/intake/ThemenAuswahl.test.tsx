@@ -217,7 +217,7 @@ describe('LSA-Freigabe ohne aktuelles Thema', () => {
   it('Deutsch (kein Katalog): keine Bestaetigung', async () => {
     oeffnen(mitEinwilligung({ subjects: ['Deutsch'] }))
     expect(await screen.findByText('Noch kein Themenkatalog')).toBeInTheDocument()
-    const knopf = screen.getByRole('button', { name: 'Für die LSA freigeben' })
+    const knopf = await screen.findByRole('button', { name: 'Für die LSA freigeben' })
     expect(knopf).toBeEnabled()
     expect(screen.queryByText(HINWEIS)).not.toBeInTheDocument()
   })

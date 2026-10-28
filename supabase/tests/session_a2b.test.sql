@@ -158,6 +158,8 @@ select pg_temp.act_as(:'coach_a');
 select throws_ok(format($$select pruefung_aufs_tablet(%L, %L, 'zz_a2_v1')$$, :'s_vorbei', :'k_ida'), '42501', null,
                  '2 ausserhalb der Zeitbindung -> Fehler');
 
+select pg_temp.als_beispiel('a2-zz_a2_n1-1');  -- Reihe 1 §3.1: Beispiel = Instanz der Rolle beispiel
+
 -- ── R) Regeln und 7)/8) XP und Abschluss ──────────────────────────────────
 -- Jonas: neuer Skill mit Erklaersequenz (Check, Beispiel), dann Kernarbeit, dann Check-out.
 select pg_temp.stell('session_xp_je_aufgabe', '10');

@@ -38,6 +38,32 @@ create or replace function pg_temp.als_system() returns void language plpgsql as
 begin
   perform set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
 end $$;
+-- Reihe 1 (Konzept §3.1): Ein Lösungsbeispiel ist eine Instanz der Rolle beispiel. Macht eine Testaufgabe zur
+-- ziehbaren beispiel-Instanz einer freigegebenen Test-Bauform ihres Skills.
+create or replace function pg_temp.als_beispiel(p_ref text) returns uuid language plpgsql as $$
+declare
+  v_alt   text := current_setting('request.jwt.claims', true);
+  v_task  uuid;
+  v_skill text;
+  v_bf    uuid;
+  v_ver   int;
+begin
+  perform pg_temp.als_system();
+  select id, skill_key into v_task, v_skill from tasks where source = 'test' and source_ref = p_ref;
+  select id into v_bf from bauformen where skill_key = v_skill and schluessel like 'ZB-%';
+  if v_bf is null then
+    insert into bauformen (schluessel, skill_key, format, rollen, steckbrief, status)
+    values ('ZB-' || (select count(*) + 1 from bauformen where schluessel like 'ZB-%'), v_skill, 'zahl', '{beispiel}', '{}',
+            'zur_pruefung')
+    returning id into v_bf;
+  end if;
+  select version into v_ver from bauformen where id = v_bf;
+  update bauformen set status = 'freigegeben' where id = v_bf;
+  update tasks set bauform_id = v_bf, bauform_version = v_ver, rolle = 'beispiel', stufe = difficulty,
+                   pruefmaschine = '{"1": {"ok": true}}' where id = v_task;
+  perform set_config('request.jwt.claims', coalesce(v_alt, ''), true);
+  return v_task;
+end $$;
 create or replace function pg_temp.tablet(i int) returns uuid language sql as $$
   select ('a2a2a2a2-0002-4000-8000-00000000000' || i)::uuid
 $$;
