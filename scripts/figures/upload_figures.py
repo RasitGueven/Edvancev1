@@ -58,7 +58,7 @@ THEMES = ("dunkel", "hell")
 # Positivliste — muss mit dem CHECK task_figures_generator_check uebereinstimmen.
 # "rechteck" ist der TypeScript-Generator rechteck.ts; figures/rechteck.py ruft ihn
 # ueber tsx auf und braucht deshalb node_modules (npm ci).
-GENERATOREN = ("koordinatensystem", "winkel", "thales", "rechtecke", "rechteck")
+GENERATOREN = ("koordinatensystem", "winkel", "thales", "rechtecke", "rechteck", "parabel")
 
 
 def _lade_generator(name: str):
@@ -104,9 +104,12 @@ def _connect():
 
 
 def lade_offene(conn) -> list[dict]:
+    """task_figures (eine Figur je Aufgabe) und task_figur_optionen (je Option einer Graph-Auswahl, Reihe 1 A3)."""
     with conn.cursor() as cur:
         cur.execute(
-            "select task_id, generator, params, alt_text, svg_hash from task_figures"
+            "select task_id, generator, params, alt_text, svg_hash, null::text from task_figures"
+            " union all"
+            " select task_id, generator, params, alt_text, svg_hash, option_id from task_figur_optionen"
         )
         return [
             {
@@ -115,17 +118,30 @@ def lade_offene(conn) -> list[dict]:
                 "params": r[2],
                 "alt_text": r[3],
                 "svg_hash": r[4],
+                "option_id": r[5],
             }
             for r in cur.fetchall()
         ]
 
 
-def stempel(conn, task_id: str, svg_hash: str) -> None:
+def dateiname(z: dict, theme: str) -> str:
+    """generiert/<task_id>/<generator>-<theme>.svg bzw. .../option-<id>-<theme>.svg (Kindersicht format_kindersicht)."""
+    stamm = f"option-{z['option_id']}" if z.get("option_id") else z["generator"]
+    return f"generiert/{z['task_id']}/{stamm}-{theme}.svg"
+
+
+def stempel(conn, task_id: str, svg_hash: str, option_id: str | None = None) -> None:
     with conn.cursor() as cur:
-        cur.execute(
-            "update task_figures set svg_hash=%s, erzeugt_am=now() where task_id=%s",
-            (svg_hash, task_id),
-        )
+        if option_id:
+            cur.execute(
+                "update task_figur_optionen set svg_hash=%s, erzeugt_am=now() where task_id=%s and option_id=%s",
+                (svg_hash, task_id, option_id),
+            )
+        else:
+            cur.execute(
+                "update task_figures set svg_hash=%s, erzeugt_am=now() where task_id=%s",
+                (svg_hash, task_id),
+            )
     conn.commit()
 
 
@@ -190,7 +206,7 @@ def main() -> None:
             continue
 
         for theme, svg in svgs.items():
-            pfad = f"generiert/{z['task_id']}/{z['generator']}-{theme}.svg"
+            pfad = dateiname(z, theme)
             if args.dry_run:
                 print(f"  [dry-run] wuerde laden: {pfad} ({len(svg)} B)")
             else:
@@ -199,7 +215,7 @@ def main() -> None:
         if args.dry_run:
             print(f"  [dry-run] wuerde svg_hash setzen: {z['task_id']} -> {h[:12]}")
         else:
-            stempel(conn, z["task_id"], h)
+            stempel(conn, z["task_id"], h, z.get("option_id"))
         geladen += 1
 
     print(f"\ngeladen={geladen} uebersprungen={uebersprungen} fehler={fehler}"

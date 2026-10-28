@@ -1,3 +1,5 @@
+import type { FormatKey, FormatLoesungsbeispiel, FormatPayload } from './aufgabenformate'
+
 // Der Payload, wie das Kind ihn bekommt — und wie die Vorschau ihn rendert.
 //
 // Diese Typen beschreiben KEINE Formularstruktur und keinen DB-Zeilenschnitt: sie
@@ -38,3 +40,8 @@ export type PreviewPayload =
   | (PreviewBase & { kind: 'multi_part'; stem: string; parts: PreviewPart[] })
   | (PreviewBase & { kind: 'mc'; prompt: string; options: PreviewOption[] })
   | (PreviewBase & { kind: 'short_input'; prompt: string; unit?: string })
+  /** Reihe 1 A3: neue Formate (aufgabe_payload); Bauform-Instanzen tragen Rolle, Stufe und ggf. ein Lösungsbeispiel. */
+  | (PreviewBase & { kind: 'format'; prompt: string; format: FormatKey; payload: FormatPayload } & PreviewInstanz)
+
+/** Felder einer Bauform-Instanz (aufgabe_payload), bei allen Zweigen moeglich. */
+export type PreviewInstanz = { rolle?: string; stufe?: number; bauform_key?: string; loesungsbeispiel?: FormatLoesungsbeispiel }

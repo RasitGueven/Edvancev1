@@ -33,6 +33,7 @@
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
+import { FormatAnsicht, LoesungsbeispielAnsicht } from '@/components/edvance/aufgaben/FormatAnsicht'
 import type { PreviewAsset, PreviewOption, PreviewPart, PreviewPayload, PreviewTable } from '@/types'
 
 /** Aufgabentext wie `Buehne` auf dem Tablet: reiner Text, Umbrueche und Leerzeichen bleiben. */
@@ -171,7 +172,14 @@ export function PreviewStage({ payload }: { payload: PreviewPayload }): JSX.Elem
             Teilaufgaben tun es. Bei flachen Items steht die Eingabe hier. */}
         {payload.kind === 'mc' && <McOptions options={payload.options} />}
         {payload.kind === 'short_input' && <ShortInput unit={payload.unit} />}
+        {payload.kind === 'format' && <FormatAnsicht payload={payload.payload} />}
       </EdvanceCard>
+
+      {'loesungsbeispiel' in payload && payload.loesungsbeispiel && (
+        <EdvanceCard className="flex flex-col gap-3">
+          <LoesungsbeispielAnsicht beispiel={payload.loesungsbeispiel} />
+        </EdvanceCard>
+      )}
 
       {multi && payload.parts.map((part) => <Part key={part.nr} part={part} />)}
 

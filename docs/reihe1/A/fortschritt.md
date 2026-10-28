@@ -13,6 +13,8 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | 2026-10-27 | A1 | Migration `20261027130250_reihe1_a1_pool_trennung`: 1184 → lsa, Default weg, CHECK nie beide/nie leer, Guard, `pruef_board.pool`. pgTAP `reihe1_a1_pool` 16/16, Suite 74 grün / 8 bekannt rot. Zweitprüfung: `zweitpruefung-a1.md`. Pool in Lena-Board und Item-Pflege. Einspielen: `~/einspielen/A-1-pool_trennung.sh` (wartet auf Rasit). | (PR folgt) |
 | 2026-10-27 | A2 | Vier Migrationen: Schema (bauformen, Versionen, Prüfungen, Bewährung, Meldungen, gesehen, tasks-Spalten), 39 `qf_`-Schlüssel, A-Funktionen §9, Prüfung/Freigabe/Bewährung. pgTAP `reihe1_a2_funktionen` 43/43 (Abnahme 6–10 ohne Board), Suite 75 grün / 8 bekannt rot. Zweitprüfung `zweitpruefung-a2.md` (18 Befunde, alle abgearbeitet). Einspielen: `~/einspielen/A-2-datenmodell.sh` (setzt A-1 voraus). | (PR folgt) |
 | 2026-10-27 | Einspielen | Anweisung Rasit: „alle Migrationen selbst einspielen“ — ab jetzt EINSPIELEN = orchestrator (nach grüner Zweitprüfung, Prüfung per dbread, bei Fehler Rollback + STOPP der Phase). | – |
+| 2026-10-27 | A3 Backend | Zwei Migrationen: sechs Formate (input_type, CHECKs), reine Wertung `format_werten_daten`, `session_bewerten` für neue Formate, Generator `parabel` + `pruefe_parabel` (18 pytest), Optionsfiguren, Kindersicht. pgTAP `reihe1_a3_formate` 44/44, Suite 76 grün / 8 bekannt rot. Zweitprüfung `zweitpruefung-a3.md` (16 Befunde abgearbeitet). | (PR folgt) |
+| 2026-10-27 | A3 Vorschau + Player | Migration `20261027141615_reihe1_a3_vorschau` (Lenas Vorschau = Tablet-Payload für Formate und Instanzen), Web-`FormatAnsicht` in `PreviewStage`. Player edvance-app: sechs Formate + Lösungsbeispiel, Vorschau `/aufgaben/vorschau`, Ansichtstests 56/56 (4 Größen × 7 × leer/beantwortet), Fotos `abnahme/formate/`. Web-Gate grün (3120 Tests). | #342 |
 
 ## Abweichungen
 
@@ -23,6 +25,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 - **Pool ändern in der Oberfläche:** Item-Pflege und Lena-Board zeigen den Pool; ein Bearbeiten-Feld für Admins gibt es nicht (Bestand ist ganz lsa, Instanzen setzen session über die Migration). Ändern geht für Admins über die Datenbank; der Guard sperrt alle anderen.
 - **Rollback ohne Entfernen von Tabellen:** Guard-Hook und Leitplanke sperren das. Der Rollback des A2-Schemas legt das Modell still (Trigger, Policies, Rechte weg) und lässt die leeren Tabellen und Spalten stehen.
 - **Offen (Auth/RLS, braucht Rasit):** `read_tasks_by_role` lässt angemeldete Rollen `ready`-Zeilen aus `tasks` direkt lesen, also auch `params`/`pruefmaschine` freigegebener Instanzen. Vorschlag in `zweitpruefung-a2.md`.
+- **Types edvance-app (offen, braucht Rasit):** `src/types/database.ts` neu erzeugen geht nur über die Windows-CLI (`cmd.exe /c "supabase gen types typescript --project-id ztcppihxqcphlqaguhma --schema public"`). Das Schreiben in die gesperrte Datei hat die Rechteprüfung abgelehnt. Die Ausgabe vom 27.10. liegt im Scratchpad (`database.ts`). Die A-Komponenten nutzen eigene Typen (`formate/typen.ts`), typecheck ist grün.
 - **Types in Edvancev1** sind handgeschrieben (kein Generator); „Types neu generieren“ betrifft nur edvance-app (`supabase gen types`, Datei per Hook gesperrt).
 
 ## Einspielen (wartend / erledigt)
@@ -30,4 +33,5 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | Skript | Stand | Prüfabfrage |
 |---|---|---|
 | `~/einspielen/A-1-pool_trennung.sh` | eingespielt 27.10.2026 (Orchestrator) | `0 \| 1186` ✓ |
+| `~/einspielen/A-3-formate.sh` | eingespielt 27.10.2026 (Orchestrator) | `2 \| 1 \| 1 \| 1` ✓ |
 | `~/einspielen/A-2-datenmodell.sh` | eingespielt 27.10.2026 (Orchestrator) | `15 \| 39 \| 6` ✓; Prod-Abzug enthält alle A-Objekte des Branches (Abweichung nur `get_my_student_id`, von Auftrag D geändert) |

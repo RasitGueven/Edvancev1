@@ -205,7 +205,9 @@ export type {
   PreviewPart,
   PreviewPayload,
   PreviewTable,
+  PreviewInstanz,
 } from './preview'
+export type { FormatKey, FormatBaustein, FormatSchablonenTeil, FormatPayload, FormatLoesungsbeispiel } from './aufgabenformate'
 
 export type {
   LsaSessionState,

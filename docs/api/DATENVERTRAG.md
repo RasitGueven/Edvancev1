@@ -1459,3 +1459,24 @@ Ziehbar heißt zusätzlich: Prüfmaschine der Instanz grün (`instanz_gruen`).
 
 Bewährung: Trigger nach jeder Session-Antwort einer Instanz (nicht im Testlauf; nur erster Versuch, bei Mehrteilern Teil 1; unbekannt = falsch ohne Fehlbild; ein Fehler im Trigger verhindert nie die Antwort). Stellschrauben in `session_einstellungen`:
 `bewaehrung_bearbeitungen` (10), `bewaehrung_unbekannt_anteil` (0,30), `bewaehrung_band_<eins…fuenf>_min/_max`.
+
+### 13.6 Formate: Speicherung und Wertung (A3, Migrationen `20261027134831_reihe1_a3_formate_wertung`, `…134927_reihe1_a3_formate_figuren`)
+
+- `tasks.input_type` neu: `FELDMASKE`, `LOESUNGSMENGE`, `GRAPH_AUSWAHL`, `FEHLER_FINDEN`, `BAUSTEINE`, `SCHRITTE_ORDNEN`;
+  dann ist `question_payload` die Kindersicht aus §13.1 mit `format = lower(input_type)` (CHECK `tasks_format_passt`).
+- Lösung: `task_solutions.correct_answers = [ {…, "fehlbilder": [{"key": "qf_…", …}]} ]`:
+
+| Format | Lösung | Fehlbild-Eintrag |
+|---|---|---|
+| feldmaske | `{"werte": {"<zahlfeld>": "<Wert mit Vorzeichen>"}}` | `{"key", "werte": {…}}` |
+| loesungsmenge | `{"menge": ["3","−3"]}` oder `{"keine_loesung": true}` | `{"key", "menge": […]}` oder `{"key", "keine_loesung": true}` |
+| graph_auswahl | `{"option": "<id>"}` | `{"key", "option": "<id>"}` |
+| fehler_finden | `{"zeile": n, "warum": "<id>"}` | `{"key", "zeile"?, "warum"?}` |
+| bausteine | `{"gewaehlt": ["<id>", …]}` | `{"key", "gewaehlt": […]}` |
+| schritte_ordnen | `{"reihenfolgen": [["<id>", …], …]}` | `{"key", "reihenfolge": […]}` |
+
+- Diese Schlüssel dürfen nie in `question_payload` stehen (CHECK `tasks_question_payload_no_solution`).
+- `format_werten_daten(p_format, p_payload, p_loesung, p_fehlbilder, p_antwort) → (richtig, fehlbild_key, teilmenge)`: rein, ohne Aufgabe aufrufbar (Prüfmaschine). Zahlen exakt als gekürzter Bruch (`format_bruch`).
+- `aufgabe_werten` liefert bei einer Teilmenge der Lösungsmenge `rueckmeldung = 'Eine Lösung fehlt noch.'`, `fehlbild_key = null`; `session_bewerten`/`antwort_abgeben` speichern dafür `fehlbild_slug = 'qf_loesung_fehlt'`.
+- Graph-Auswahl: je Option eine Figur in `task_figur_optionen (task_id, option_id, generator 'parabel', params, alt_text ohne Ziffern, svg_hash)`; `aufgabe_payload` setzt `optionen[].bild`/`bild_hell`; ziehbar erst, wenn jede Option ihr Bild hat.
+- Generator `parabel` (`scripts/figures/parabel.py`): `a, d, e, x_min…y_max`, optional `punkte`, `gerade_c`, `nullstellen`, `scheitel`, `label`; geprüft von `pruefe_parabel.py` (Scheitel, Nullstellen, Achsen, dazu alle Prüfungen des Koordinatensystems).
