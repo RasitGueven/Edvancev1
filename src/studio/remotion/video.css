@@ -1,0 +1,32 @@
+/* Erklärvideo (Remotion, Reihe 1 · B3). Farben nur über die Welt-Variablen aus tokens.css
+   (--color-studio-<welt>-*). Bewegte Werte setzen die Bausteine inline (berechnet je Frame). */
+.studio-welt-skelett  { --s-grund: var(--color-studio-skelett-grund);  --s-tief: var(--color-studio-skelett-tief);  --s-zelle: var(--color-studio-skelett-zelle);  --s-zelle2: var(--color-studio-skelett-zelle2);  --s-linie: var(--color-studio-skelett-linie);  --s-akzent: var(--color-studio-skelett-akzent);  --s-tinte: var(--color-studio-skelett-tinte);  --s-leise: var(--color-studio-skelett-leise); }
+.studio-welt-fussball { --s-grund: var(--color-studio-fussball-grund); --s-tief: var(--color-studio-fussball-tief); --s-zelle: var(--color-studio-fussball-zelle); --s-zelle2: var(--color-studio-fussball-zelle2); --s-linie: var(--color-studio-fussball-linie); --s-akzent: var(--color-studio-fussball-akzent); --s-tinte: var(--color-studio-fussball-tinte); --s-leise: var(--color-studio-fussball-leise); }
+.studio-welt-gaming   { --s-grund: var(--color-studio-gaming-grund);   --s-tief: var(--color-studio-gaming-tief);   --s-zelle: var(--color-studio-gaming-zelle);   --s-zelle2: var(--color-studio-gaming-zelle2);   --s-linie: var(--color-studio-gaming-linie);   --s-akzent: var(--color-studio-gaming-akzent);   --s-tinte: var(--color-studio-gaming-tinte);   --s-leise: var(--color-studio-gaming-leise); }
+.studio-welt-musik    { --s-grund: var(--color-studio-musik-grund);    --s-tief: var(--color-studio-musik-tief);    --s-zelle: var(--color-studio-musik-zelle);    --s-zelle2: var(--color-studio-musik-zelle2);    --s-linie: var(--color-studio-musik-linie);    --s-akzent: var(--color-studio-musik-akzent);    --s-tinte: var(--color-studio-musik-tinte);    --s-leise: var(--color-studio-musik-leise); }
+
+.sv-buehne { position: absolute; inset: 0; background: var(--s-grund); color: var(--s-tinte);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; }
+.sv-mitte { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; text-align: center; }
+.sv-titel { font-size: 112px; font-weight: 700; line-height: 1.05; }
+.sv-unter { font-size: 52px; color: var(--s-leise); }
+.sv-text { font-size: 64px; line-height: 1.25; max-width: 1400px; }
+.sv-leise { color: var(--s-leise); }
+.sv-akzent { color: var(--s-akzent); }
+.sv-formel { font-size: 96px; color: var(--s-tinte); }
+.sv-formel-gross { font-size: 120px; }
+.sv-formel svg { overflow: visible; }
+.sv-raster { display: grid; gap: 6px; }
+.sv-zelle { border-radius: 8px; background: var(--s-zelle); }
+.sv-zelle-b { background: var(--s-zelle2); }
+.sv-zelle-hi { background: var(--s-akzent); }
+.sv-zahl { font-size: 44px; font-weight: 700; color: var(--s-tief); text-align: center; }
+.sv-beschriftung { font-size: 56px; font-weight: 600; color: var(--s-akzent); }
+.sv-zeile { display: flex; align-items: center; gap: 48px; }
+.sv-strich { text-decoration: line-through; text-decoration-color: var(--s-akzent); }
+.sv-pfeil { font-size: 72px; color: var(--s-akzent); }
+.sv-karte { border-radius: 24px; border: 3px solid var(--s-akzent); padding: 56px 72px; background: var(--s-tief); }
+.sv-end { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.sv-end-links { background: var(--s-tief); display: flex; align-items: center; justify-content: center; }
+.sv-end-rechts { display: flex; flex-direction: column; justify-content: center; gap: 32px; padding: 96px; }
+.sv-option { font-size: 48px; border-radius: 16px; border: 3px solid var(--s-leise); padding: 20px 32px; }

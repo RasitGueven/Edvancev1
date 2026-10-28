@@ -1,0 +1,52 @@
+[
+  {
+    "beat": "b1",
+    "start": 0,
+    "titel": "Worum es geht"
+  },
+  {
+    "beat": "b2",
+    "start": 5.967,
+    "titel": "Ein Quadrat aus Kästchen"
+  },
+  {
+    "beat": "b3",
+    "start": 12.133,
+    "titel": "Die Fläche ist 49"
+  },
+  {
+    "beat": "b4",
+    "start": 15.9,
+    "titel": "Die Frage nach der Seite"
+  },
+  {
+    "beat": "b5",
+    "start": 20.9,
+    "titel": "Seite zählen"
+  },
+  {
+    "beat": "b6",
+    "start": 25.633,
+    "titel": "Die Seite ist 7 lang"
+  },
+  {
+    "beat": "b7",
+    "start": 32,
+    "titel": "Das meint die Wurzel"
+  },
+  {
+    "beat": "b8",
+    "start": 37.267,
+    "titel": "Quadrieren und Wurzel heben sich auf"
+  },
+  {
+    "beat": "b9",
+    "start": 45.133,
+    "titel": "Warum die Wurzel nie negativ ist"
+  },
+  {
+    "beat": "b10",
+    "start": 53.833,
+    "titel": "Weiter zur Aufgabe"
+  }
+]

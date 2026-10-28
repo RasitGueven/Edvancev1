@@ -1,0 +1,14 @@
+# Bauauftrag C · Fortschritt
+
+| Datum | Phase | Ergebnis | PR |
+|---|---|---|---|
+| 2026-10-27 | Schritt 0 | Worktrees ../Edvancev1-C (feat/rasit-reihe1-c0) und ../edvance-app-C (feat/rasit-reihe1-c3-app) ab origin/dev, Unterlagen nach docs/reihe1 entpackt, .env kopiert (ignoriert), npm ci | – |
+| 2026-10-27 | C0 | Ist-Analyse: Rahmen R1/A2/E1/E2a/C1 gebaut, Halte-Befund trifft nicht zu; es fehlen Reihe, Abruf, Transfer, Recap, Generalprobe, Zeig's mir | https://github.com/RasitGueven/Edvancev1/pull/330 |
+| 2026-10-27 | C0b | Einbaupunkte CheckinEinbau/AufgabeEinbau | https://github.com/RasitGueven/Edvancev1/pull/332 |
+| 2026-10-27 | C1 | Reihe, Planversionen, Coach-Änderungen getrennt, reihenplan_kind ('reihe1 fertig'), Karte „Reihe“, KA-Datum im Check-in; pgTAP reihe1_c1 44/44, alle pgTAP grün lokal; Zweitprüfung eingearbeitet; Einspiel-Skript ~/einspielen/C-1-reihe.sh | (PR folgt) |
+| 2026-10-27 | C1 eingespielt | Anweisung Rasit: alle Migrationen selbst einspielen. ~/einspielen/C-1-reihe.sh ausgeführt; dbread: 19|1|7|reihe1 fertig|t, History 20261027130023, 20261027130145; Prod-Abzug committet | https://github.com/RasitGueven/Edvancev1/pull/335 |
+| 2026-10-27 | C2 | Warm-up mit Abruf (1→2→4), Rollen über aufgabe_ziehen, Zwilling, Transfer ab Stufe 3, Recap ohne Beleg, Generalprobe mit sicher/noch üben, Zeig's mir, keine Termin-Wahl; pgTAP reihe1_c2 38/38, alle pgTAP grün; Zweitprüfung eingearbeitet; eingespielt (11|t|t|t|0, History 20261027133007, 20261027133413) | https://github.com/RasitGueven/Edvancev1/pull/341 |
+| 2026-10-27 | C3 | Session-Bildschirme (Recap, Generalprobe, Ergebnis, Check-out ohne Termin, leerer Pool), Typen generiert, Ansichtstests 3 Größen, 30 Fotos | https://github.com/RasitGueven/edvance-app/pull/53 |
+| 2026-10-27 | C4 | Kachel „Session n von N“, Generalprobe im Kind-Detail (session_gp_ergebnis), neuer Plan im Danach; Zweitprüfung eingearbeitet; eingespielt (History 20261027135304) | https://github.com/RasitGueven/Edvancev1/pull/347 |
+| 2026-10-27 | C5 | Durchlauf mit 130 echten Antworten (Wegwerf-DB), Playwright 3/3, 47 Fotos, Fix GpErgebnis | https://github.com/RasitGueven/edvance-app/pull/54 |
+| 2026-10-27 | C6 | Abnahme 12 Fälle (11 erfüllt, Zeig's mir in Prod blockiert durch D-Rechte → an-D.md), Bericht, Live-Checkliste | (PR folgt) |

@@ -45,8 +45,8 @@ begin
 
   -- Ein MULTI_PART-Item wie die P5-Aufgaben: Teil 1 mc, Teil 2 short_input.
   insert into public.tasks (id, content_type, skill_key, question, input_type,
-                            est_duration_sec, parts)
-  values (v_multi, 'exercise', 'AF6_PROBE', 'AF6 Multi-Part-Probe', 'MULTI_PART', 180,
+                            est_duration_sec, einsatz, parts)
+  values (v_multi, 'exercise', 'AF6_PROBE', 'AF6 Multi-Part-Probe', 'MULTI_PART', 180, '{lsa}',
     '[{"nr":1,"kind":"mc","prompt":"Welche?","afb":"II",
        "options":[{"id":"a","label":"A"},{"id":"b","label":"B"}]},
       {"nr":2,"kind":"short_input","prompt":"Wie viele?","afb":"II"}]'::jsonb);
@@ -56,8 +56,8 @@ begin
       "2":{"canonical":"7","known_errors":{"9":"af6_kurz"}}}'::jsonb);
 
   -- Ein flaches NUMERIC-Item als Kontrollgruppe: es darf sich NICHT aendern.
-  insert into public.tasks (id, content_type, skill_key, question, input_type)
-  values (v_flach, 'exercise', 'AF6_PROBE', 'AF6 flache Probe', 'NUMERIC');
+  insert into public.tasks (id, content_type, skill_key, question, input_type, einsatz)
+  values (v_flach, 'exercise', 'AF6_PROBE', 'AF6 flache Probe', 'NUMERIC', '{lsa}');
   insert into public.task_solutions (task_id, correct_answers, acceptance)
   values (v_flach, '["7"]'::jsonb,
           '{"canonical":"7","known_errors":{"9":"af6_flach"}}'::jsonb);

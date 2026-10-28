@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import type { CoachLiveKind, KachelStatus } from '@/types/coachLive'
 import { Abschnitt, Pille, Platz, Punkte, Sequenzbalken } from './bausteine'
 import { useLive } from './LiveKontext'
+import { ReiheKachelZeile } from './reihe/ReiheKachelZeile'
 import { useLiveTexte } from './useLiveTexte'
 
 /** Statusfarbe nur aus Zustaenden: neutral laeuft, Bernstein haengt/Entscheidung, Navy Kandidat, Gruen erst nach Bestaetigung. */
@@ -68,6 +69,7 @@ function KindKachel({ kind, gewaehlt }: { kind: CoachLiveKind; gewaehlt: boolean
           {tx.phaseZeile(kind)}
         </span>
       )}
+      <ReiheKachelZeile studentId={kind.id} />
       <span className="px-4 text-sm font-medium leading-snug text-[var(--color-text-primary)]">{zeile}</span>
       <span className="flex items-center gap-2 px-4 pt-0.5 text-xs text-[var(--color-text-secondary)]">
         {kind.sequenzBalken ? <Sequenzbalken staende={kind.sequenzBalken} /> : <Punkte folge={kind.ergebnisfolge} />}

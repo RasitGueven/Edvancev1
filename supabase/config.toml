@@ -450,6 +450,11 @@ verify_jwt = false
 # generate_parent_report: verifiziert selbst (Service-Role ODER Admin/Coach-JWT).
 [functions.generate_parent_report]
 verify_jwt = false
+
+# geraet_anmelden (Reihe 1 · D1): ohne Nutzer-JWT aufgerufen (Geraet noch nicht angemeldet); prueft den
+# Zugangscode selbst ueber geraet_einloesen (Sperre, Vertrag, Geraete).
+[functions.geraet_anmelden]
+verify_jwt = false
 # Directory under `supabase/` where declarative files are written.
 # declarative_schema_path = "./database"
 # JSON string passed through to pg-delta SQL formatting.

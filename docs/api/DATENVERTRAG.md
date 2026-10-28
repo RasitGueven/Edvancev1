@@ -1128,6 +1128,217 @@ Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbrau
 Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
 Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
 
+## 13. Reihe 1 · Einbaupunkte der Coach-Sicht (Auftrag C, C0b)
+
+Zwei leere Einbaupunkte in `src/pages/coach/live/einbau/`. Ohne Beitrag rendern sie nichts. Ein anderer
+Auftrag haengt seine Komponente mit einer Zeile in das Beitragsfeld ein, sonst aendert er die Datei nicht.
+
+| Einbaupunkt | Ort | Props | Beitragsfeld | Fuer |
+|---|---|---|---|---|
+| `CheckinEinbau` | Check-in je Kind (`CheckinZeile`, vor dem Fall-Block) | `{ kindId, sessionId }` | `CHECKIN_BEITRAEGE` | D: Kachel „Zuhause geübt“ |
+| `AufgabeEinbau` | Kind-Detail an der Aufgabe (`Schublade`, hinter `AufgabeBlock`) | `{ kindId, sessionId, taskId }` | `AUFGABE_BEITRAEGE` | A: Melde-Knopf |
+
+`taskId` kommt aus `LiveAufgabeDetail.taskId` (`coach_kind_detail.aufgabe_detail.task_id`); bei Mini-Checks der Erklaersequenz fehlt er, dann gibt es keinen Einbaupunkt.
+
+## 14. Reihe 1 · Reihenplanung (Auftrag C, C1)
+
+Migrationen `20261027130023_reihe1_c1_reihe_schema`, `20261027130145_reihe1_c1_reihe_planung`. Tabellen nur lesbar
+(RLS: Admin, Coach mit laufendem Vertrag), geschrieben wird nur über die Funktionen.
+
+#### `reihenplan_kind(p_kind uuid) → table(session_nr int, datum date, kernideen text[], skills text[], art text)` — 'reihe1 fertig'
+- Für Auftrag D (Home: empfohlene Quest) und C (Session). Kind selbst (`students.profile_id = auth.uid()`), Coach mit laufendem Vertrag, Admin; sonst 42501.
+- Wirksamer Plan der aktiven Reihe ab heute (Systemvorschlag + gültige Coach-Änderungen). Ohne aktive Reihe: keine Zeile.
+- `kernideen`: `'<skill_key>.<kernidee_key>'`, z. B. `fkt_quadr_parabel.K1` (Katalog `reihe_kernideen`, Konzept §2.1).
+- `art`: `normal | generalprobe`. `session_nr` zählt abgeschlossene Sessions der Reihe mit.
+
+#### `reihe_coach_lesen(p_student_id) → jsonb | null`
+`{ reihe_id, thema_keys, ka_datum, takt, start, plan, system, vorher, sessions_gesamt, labels, kernideen }`.
+`plan` = wirksamer Plan ab heute: `{ modus: klassenarbeit|rollierend, sessions_bisher, sessions: [{ nr, datum, art, kernideen: [{skill_key, kernidee_key, stand: neu|gesehen, minuten, coach}], skills, transfer, minuten }], warnung: { passt, sessions, entfallen: [{art: kernidee, skill_key, kernidee_key} | {art: transfer}], gesehen_knapp }, version, bestaetigt, aenderungen }`.
+`system` = ungefilterter Systemvorschlag derselben Version, `vorher` = Vorversion (für „Danach“).
+
+#### `reihe_ka_setzen(p_session_id, p_student_id, p_ka_datum date | null, p_thema_keys text[] = null) → reihe_coach_lesen`
+Coach der Session oder Admin. Legt die Reihe an (Themen aus Parameter, Check-in oder aktuellem Schulthema; sonst 22023 hint `kein_thema`) oder setzt das Datum und plant neu.
+
+#### `reihe_coach_aendern(p_reihe_id, p_aktion 'verschieben'|'bestaetigen', p_skill_key = null, p_ziel_datum = null, p_grund = null) → reihe_coach_lesen`
+Coach (laufender Vertrag) oder Admin. Eigene Zeile in `reihe_coach_aenderungen`; der Systemvorschlag bleibt unverändert. Verschieben bleibt über Neuplanungen gültig, solange der Zieltermin kommt und der Skill noch im Plan steht.
+
+#### `reihe_anlegen(p_student_id, p_thema_keys, p_ka_datum = null, p_takt = 1, p_start = null) → reihe_coach_lesen`
+Coach (laufender Vertrag) oder Admin; beendet eine aktive Reihe desselben Fachs.
+
+Neu geplant wird beim Abschluss einer Session (Trigger auf `coaching_sessions.status → done`, nicht im Testlauf): Ist-Zeile in `reihe_ist`, neue Version mit Anlass `session`.
+
+## 15. Reihe 1 · Phasen und Auswahl am Tablet (Auftrag C, C2)
+
+`session_naechster_schritt` (Tablet) liefert zusätzlich:
+
+| Feld | Typ | Bedeutung |
+|---|---|---|
+| `art` | `… \| 'recap' \| 'generalprobe' \| 'gp_ergebnis'` | neu: Recap (Check-out, mit Aufgabe), Generalprobe (Kernarbeit, mit Aufgabe), Ergebnis der Generalprobe |
+| `rolle` | `'warmup' \| 'uebung' \| 'transfer' \| 'recap' \| 'beispiel' \| 'generalprobe' \| null` | Rolle, mit der die Aufgabe gezogen wurde |
+| `hinweise_max` | `number \| null` | höchste erlaubte Hinweisstufe; `0` = kein Hinweis-Knopf (Warm-up, Recap, Generalprobe, „Zeig's mir“), `1` im Transfer |
+| `hinweise_erlaubt` | `boolean` | wie bisher, jetzt auch `false` bei `hinweise_max = 0` |
+| `rueckmeldung` | `boolean` | `false` in der Generalprobe: keine Rückmeldung bis zum Ende; `antwort_abgeben` liefert dort kein `ergebnis` |
+| `gp_ergebnis` | `{ skill_key, label, sicher }[]` | nur bei `art = 'gp_ergebnis'`: „sicher / noch üben“ je Skill |
+| `aufgabe` | Payload | für Bauform-Instanzen aus `aufgabe_payload` (Auftrag A), sonst `lsa_question_payload` |
+
+- `termin` kommt nicht mehr (Entscheidung 27.10.: keine Quest-Tage).
+- `session_gp_waehlen(p_session_id, p_skill_key text | null) → { ok }` (Tablet, eigener Platz): „noch üben“ zu einem Skill der Generalprobe, `null` = weiter.
+- `antwort_abgeben.fehlbild_klartext`: bei Bauform-Instanzen der Rückmeldesatz aus `aufgabe_werten`.
+- Neues Verhalten (Warm-up mit Abruf, Recap, Generalprobe, Ziel aus dem Reihenplan) gilt für Kinder mit aktiver Reihe; ohne Reihe läuft die Session wie bisher (ohne Termin-Wahl).
+
+## R1-B · Erklärvideos aus dem Studio (Reihe 1, Bauauftrag B)
+
+Besitzer: Auftrag B (Konzept Sessionreihe 1 §9). Andere Aufträge nutzen nur, was hier steht.
+Abbildung Video ↔ Kernidee ↔ Beat-Bereich: `docs/reihe1/B/ist-analyse.md` §1.
+
+### R1-B.1 App-Komponente `ErklaerVideo` (edvance-app)
+
+`src/components/video/ErklaerVideo.tsx`, Props in `src/components/video/typen.ts`. Auftrag C setzt sie in der
+Session ein (`modus = 'session'`), Auftrag D zuhause in der Mediathek (`modus = 'zuhause'`).
+
+```ts
+type VideoKapitel   = { beat: string; start: number /* s */; titel: string /* Sprungmarke ≤ 40 */ };
+type VideoQuelle    = { sequenzId: string; welt: string; mp4Url: string; untertitelUrl: string | null; posterUrl: string | null };
+type BeatBereich    = { vonBeat: string; bisBeat: string };            // beide eingeschlossen
+type MiniCheckAnker = { nachBeat: string; taskId: string };            // nur session
+type Ruecksprung    = { beat: string; rueckmeldung: string; schluessel: string };
+
+type ErklaerVideoProps = {
+  video: VideoQuelle | null;            // null → ruhiger Hinweis, kein Fehler
+  kapitel: VideoKapitel[];
+  bereich: BeatBereich | null;          // null → ganzes Video
+  miniChecks: MiniCheckAnker[];         // zuhause immer []
+  modus: 'session' | 'zuhause';
+  miniCheck?: ReactNode;                // Check-Ebene, vom Aufrufer gerendert (z. B. LsaAufgabe)
+  ruecksprung?: Ruecksprung | null;     // nach aktion = ruecksprung
+  onMiniCheck?: (anker: MiniCheckAnker) => void;
+  onBereichEnde?: () => void;
+  onAngesehen?: () => void;             // zuhause → mediathek_angesehen
+};
+```
+
+### R1-B.2 Datenbank-Funktionen (Signaturen folgen mit B6)
+
+| Funktion | Ergebnis | Regel |
+|---|---|---|
+| `mediathek_kind(p_kind uuid)` | `(skill_key, kernidee_key, sequenz_id, titel, welt, mp4_url, kapitel jsonb)` | nur Freigegebenes, nur offene Kompetenzen (`kompetenz_offen` von D) |
+| `mediathek_angesehen(p_kind uuid, p_sequenz uuid)` | `void` | speichert höchstens „angesehen“ |
+| `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
+| `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
+
+## Reihe 1 · D Home light (Bauauftrag D)
+
+Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
+Fertige Funktionen tragen `comment on function … is 'reihe1 fertig'`.
+
+### App-Komponente `ThemenbaumAusschnitt` (edvance-app)
+
+`src/components/themenbaum/ThemenbaumAusschnitt.tsx`, für den Check-out vor Ort (C):
+
+```ts
+type ThemenbaumAusschnittProps = {
+  kindId: string;                 // students.id
+  skillKeys: readonly string[];   // skill_key der Kompetenzen der Stunde
+};
+```
+
+Ohne Daten zeigt sie nichts. Die Daten holt sie selbst (`kompetenz_offen`, `home_uebung_kurz`).
+
+### Routen (edvance-app)
+
+Home-Bildschirme liegen unter `app/(student)/home/` (eigene Gruppe). Session-Routen bleiben bei C.
+
+### Datenbank-Funktionen (Signaturen, Stand D0)
+
+```text
+kompetenz_offen(p_kind uuid) → table(skill_key text, zustand text, grund text)
+    zustand: sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (gemeistert nur über lernpfad.stand_coach)
+    grund:   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
+home_uebung_melden(p_skill text, p_anzahl int, p_dauer_sek int) → void       nur das Kind selbst
+home_uebung_kurz(p_kind uuid, p_seit timestamptz default null)
+    → table(skill_key text, quests int, aufgaben int, dauer_sek int, zuletzt timestamptz)
+    p_seit null: seit der letzten abgeschlossenen Session vor Ort (coaching_sessions.beendet_am)
+zeigs_mir_offen(p_kind uuid, p_session uuid)
+    → table(skill_key text, vorschlag_am timestamptz, entscheidung text, entschieden_von uuid)
+zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung text) → void
+    p_entscheidung: uebernehmen | nicht_heute (ASCII wie die übrigen Zustände); nur Coach der Session und Admin
+```
+
+### Übung zuhause, Offen-Regeln, Zeig's mir (D2, eingespielt als 20261027134914)
+
+```text
+home_uebung_melden(p_skill, p_anzahl 1–20, p_dauer_sek 0–7200) → void
+    nur das Kind selbst, laufender Vertrag, Skill nicht gesperrt, mindestens 5 s je Aufgabe; dieselbe Quest
+    (gleicher Skill) innerhalb von 60 s zählt einmal (Wiederholungsversuch ohne Fehler); höchstens 40 je Tag;
+    10 XP je Quest (Stellschraube home_uebung_xp), XP nur für die ersten zehn Quests eines Tages;
+    speichert nie Antworten oder Richtigkeit; home_uebung ist append-only
+home_uebung_kurz(p_kind, p_seit default null) → (skill_key, quests, aufgaben, dauer_sek, zuletzt)
+    Kind selbst, Coach mit aktiver Akte, Admin; p_seit null = seit der letzten abgeschlossenen Session vor Ort
+    (coaching_sessions.beendet_am, Anwesenheit present, ohne Testlauf); sortiert nach quests absteigend
+home_pfad(p_kind) → (xp_total, level, wochen_mit_uebung, serie_wochen, quests_diese_woche, praesenz_wochen)
+kompetenz_offen(p_kind) → (skill_key, zustand, grund)   stable, schreibt nie; für ALLE skills eine Zeile
+    zustand sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (Befund aus lernpfad.stand_system)
+    grund   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
+    „gemeistert“ liest der Themenbaum getrennt aus lernpfad.stand_coach (nur Coach-Bestätigung)
+kompetenz_offen_merken(p_kind) → integer    schreibt neu Offenes fest (Regel 6). Dasselbe tun Trigger vor und nach
+    jeder Änderung an lernpfad, lead_themen und lead_klassenarbeiten; der Aufruf ist nur noch eine Absicherung
+zeigs_mir_offen(p_kind, p_session)          Coach der Session oder Admin; legt beim ersten Abruf den einen Vorschlag an
+    (Skill mit ≥ 2 Quests seit der letzten Session bis Sessionbeginn, lernpfad nicht sicher; der meistgeübte); leer,
+    wenn keiner passt; nicht für beendete Sessions und Testläufe. Entscheiden geht bis Session-Ende.
+zeigs_mir_uebernommen(p_kind, p_session) → text   für C aus plpgsql (ohne Grant): übernommener Skill oder null
+eddie_frage_merken(p_text 1–280) → uuid     das Kind; höchstens zehn offene
+coach_fragen_offen(p_kind) → (id, text, am) Coach mit aktiver Akte, Admin
+coach_frage_erledigt(p_frage) → void        Coach mit aktiver Akte, Admin
+```
+
+Zählweise „n× geübt“ für C (Begrüßung vor Ort): `home_uebung_kurz(p_kind)` → `quests` je Skill.
+
+### Themenliste (D4, 20261027141641)
+
+```text
+themenbaum_themen(p_kind) → (thema_key, label, gruppe int 5|7|9, reihenfolge int, plan_von int, plan_bis int,
+                             aktuell bool, behandelt bool, skill_keys text[])
+    Kind selbst, Coach mit aktiver Akte, Admin. Reihenfolge, die das Kind sieht: mit Schulplan der Doppeljahrgang in der
+    Reihenfolge der Schule (nicht eingeplante Themen am Ende), dann frühere Doppeljahrgänge (nächster zuerst), dann
+    spätere; ohne Schulplan eigener, dann spätere, dann frühere. plan_von/plan_bis nur für Plan-Themen (App zeigt
+    „Kl. 10“ bzw. „9–10“, wenn es nicht die eigene Klasse ist). Keine Quellenangabe.
+```
+
+
+### Anmeldung mit Zugangscode und Geräte (D1)
+
+Edge Function `geraet_anmelden` (POST, ohne Nutzer-JWT):
+
+```text
+Rumpf   { code: string, name: string, plattform: 'ios'|'android'|'web', installation: string (16–128 Zeichen, zufällig je Installation) }
+200     { ergebnis: 'ok', access_token, refresh_token, expires_at }        → App: supabase.auth.setSession(...)
+200     { ergebnis: 'falsch' | 'kein_vertrag' | 'zu_viele_geraete' | 'gesperrt', warte_sek: number | null }
+400     { ergebnis: 'eingabe' }      500 { ergebnis: 'fehler' }
+```
+
+Das Gerät ist danach mit dem eigenen Konto des Kindes angemeldet (`get_my_student_id()` gilt unverändert).
+
+```text
+geraet_status() → text          das Kind selbst: aktiv | abgemeldet | kein_vertrag | ohne_geraet (Passwort-Session)
+geraet_abgemeldet() → boolean    intern für Home-Funktionen: Session gehört einem abgemeldeten Gerät
+geraet_session() → boolean       intern: Aufrufer ist über ein Gerät zuhause angemeldet
+kind_geraete_liste(p_student uuid) → table(id, name, plattform, angemeldet_am, zuletzt_gesehen, abgemeldet_am, abmelde_grund)   Admin
+kind_geraet_abmelden(p_geraet uuid) → void          Admin; löscht die Auth-Session des Geräts
+vertrag_zugangscode_neu(p_vertrag_id uuid) → text   Bestand, Admin; der alte Code ist sofort ungültig
+zugangscode_freischalten(p_vertrag uuid) → void     Admin; nur bei laufendem Vertrag
+geraet_einloesen(...), geraet_session_setzen(...)   nur service_role (Edge Function)
+```
+
+Grenzen: höchstens drei aktive Geräte je Kind; 5 Fehlversuche je Installation oder IP in 15 Minuten sperren 15 Minuten,
+200 Fehlversuche systemweit je 15 Minuten bremsen alle für eine Minute; gültig ist nur der Code eines Vertrags mit
+`vertraege_aktuell.zugangscode_gueltig`. Das Protokoll `zugangscode_versuche` speichert keinen Code, Installation und IP
+nur als HMAC (Secret `GERAET_PEPPER`), Löschfrist 30 Tage.
+
+D1c (nur mit Freigabe Rasit): `get_my_student_id()` ist für die Session eines abgemeldeten Geräts null;
+`lsa_may_act_for()` lässt das Kind nur vor Ort für sich handeln, nicht über eine Gerätesitzung.
+
+Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
+
 ## 13. Sessionreihe 1 · Aufgaben aus Bauformen (Bauauftrag A)
 
 Konzept: `docs/reihe1/Konzept-Sessionreihe-1-und-Bauformen.md` §3–§9. Diese Abschnitte wachsen mit den Phasen A1–A6;
