@@ -6,7 +6,6 @@
 -- PostgreSQL database dump
 --
 
-\restrict Lc6CwCAzylUcHhaOABhRpkdaRyJJKhy8QiREfUFVvRC34Touh8MNS5ORGUIReMR
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -13099,6 +13098,689 @@ $$;
 
 
 --
+-- Name: reihen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reihen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    fach text DEFAULT 'mathematik'::text NOT NULL,
+    thema_keys text[] NOT NULL,
+    ka_datum date,
+    takt smallint DEFAULT 1 NOT NULL,
+    start date NOT NULL,
+    status text DEFAULT 'aktiv'::text NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    angelegt_von uuid,
+    CONSTRAINT reihen_ka_nach_start CHECK (((ka_datum IS NULL) OR (ka_datum > start))),
+    CONSTRAINT reihen_status_check CHECK ((status = ANY (ARRAY['aktiv'::text, 'beendet'::text]))),
+    CONSTRAINT reihen_takt_check CHECK (((takt >= 1) AND (takt <= 3))),
+    CONSTRAINT reihen_thema_keys_check CHECK (((cardinality(thema_keys) >= 1) AND (array_position(thema_keys, NULL::text) IS NULL)))
+);
+
+
+--
+-- Name: reihe_aktiv(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_aktiv(p_student_id uuid, p_fach text DEFAULT 'mathematik'::text) RETURNS public.reihen
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select * from public.reihen r where r.student_id = p_student_id and r.fach = p_fach and r.status = 'aktiv'
+$$;
+
+
+--
+-- Name: reihe_anlegen(uuid, text[], date, integer, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_anlegen(p_student_id uuid, p_thema_keys text[], p_ka_datum date DEFAULT NULL::date, p_takt integer DEFAULT 1, p_start date DEFAULT NULL::date) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  if coalesce(public.get_my_role(), '') not in ('coach', 'admin') or not public.lernpfad_darf_lesen(p_student_id) then
+    raise exception 'reihe_anlegen: nur Coach mit laufendem Vertrag oder Admin' using errcode = '42501';
+  end if;
+  if exists (select 1 from unnest(p_thema_keys) t where not exists (select 1 from public.themen th where th.thema_key = t)) then
+    raise exception 'reihe_anlegen: unbekanntes Thema' using errcode = '22023';
+  end if;
+  update public.reihen set status = 'beendet' where student_id = p_student_id and fach = 'mathematik' and status = 'aktiv';
+  insert into public.reihen (student_id, thema_keys, ka_datum, takt, start, angelegt_von)
+  values (p_student_id, p_thema_keys, p_ka_datum, p_takt, coalesce(p_start, public.reihe_heute()), auth.uid())
+  returning id into v_id;
+  perform public.reihe_planen(v_id, 'start', 'Reihe angelegt');
+  return public.reihe_coach_lesen(p_student_id);
+end;
+$$;
+
+
+--
+-- Name: reihe_coach_aendern(uuid, text, text, date, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_coach_aendern(p_reihe_id uuid, p_aktion text, p_skill_key text DEFAULT NULL::text, p_ziel_datum date DEFAULT NULL::date, p_grund text DEFAULT NULL::text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  r      public.reihen;
+  v_w    jsonb;
+begin
+  select * into r from public.reihen where id = p_reihe_id and status = 'aktiv';
+  if not found then
+    raise exception 'reihe_coach_aendern: keine aktive Reihe' using errcode = 'P0002';
+  end if;
+  if coalesce(public.get_my_role(), '') not in ('coach', 'admin') or not public.lernpfad_darf_lesen(r.student_id) then
+    raise exception 'reihe_coach_aendern: nur Coach mit laufendem Vertrag oder Admin' using errcode = '42501';
+  end if;
+  if p_aktion not in ('verschieben', 'bestaetigen') then
+    raise exception 'reihe_coach_aendern: unbekannte Aktion %', p_aktion using errcode = '22023';
+  end if;
+  v_w := public.reihe_plan_wirksam(p_reihe_id);
+  if p_aktion = 'verschieben' and not exists (
+       select 1 from jsonb_array_elements(v_w -> 'sessions') s
+        where (s ->> 'datum')::date = p_ziel_datum and s ->> 'art' = 'normal') then
+    raise exception 'reihe_coach_aendern: kein normaler Termin der Reihe am %', p_ziel_datum using errcode = '22023';
+  end if;
+  if p_aktion = 'verschieben' and not exists (
+       select 1 from jsonb_array_elements(v_w -> 'sessions') s, jsonb_array_elements(s -> 'kernideen') e
+        where e ->> 'skill_key' = p_skill_key) then
+    raise exception 'reihe_coach_aendern: Skill % ist nicht im Plan', p_skill_key using errcode = '22023';
+  end if;
+  insert into public.reihe_coach_aenderungen (reihe_id, aktion, skill_key, ziel_datum, version_id, grund, von)
+  values (p_reihe_id, p_aktion, p_skill_key, p_ziel_datum, (v_w ->> 'version_id')::uuid, nullif(btrim(p_grund), ''), auth.uid());
+  return public.reihe_coach_lesen(r.student_id);
+end;
+$$;
+
+
+--
+-- Name: reihe_coach_lesen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_coach_lesen(p_student_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  r      public.reihen;
+  v_w    jsonb;
+  v_vor  public.reihe_plan_versionen;
+begin
+  if not public.lernpfad_darf_lesen(p_student_id) then
+    raise exception 'reihe_coach_lesen: kein Zugriff' using errcode = '42501';
+  end if;
+  r := public.reihe_aktiv(p_student_id);
+  if r.id is null then return null; end if;
+  v_w := public.reihe_plan_wirksam(r.id);
+  select * into v_vor from public.reihe_plan_versionen x where x.reihe_id = r.id and x.version = (v_w ->> 'version')::int - 1;
+  return jsonb_build_object(
+    'reihe_id', r.id, 'thema_keys', to_jsonb(r.thema_keys), 'ka_datum', r.ka_datum, 'takt', r.takt, 'start', r.start,
+    'plan', v_w,
+    'system', (select x.plan from public.reihe_plan_versionen x where x.id = (v_w ->> 'version_id')::uuid),
+    'vorher', v_vor.plan,
+    'sessions_gesamt', (v_w ->> 'sessions_bisher')::int + jsonb_array_length(v_w -> 'sessions'),
+    'labels', (select jsonb_object_agg(s.skill_key, public.session_label(s.skill_key)) from public.reihe_skills(r.thema_keys) s),
+    'kernideen', (select jsonb_object_agg(ki.skill_key || '.' || ki.kernidee_key, ki.titel) from public.reihe_kernideen ki
+                   where ki.skill_key in (select s.skill_key from public.reihe_skills(r.thema_keys) s)));
+end;
+$$;
+
+
+--
+-- Name: reihe_heute(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_heute() RETURNS date
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select (now() at time zone 'Europe/Berlin')::date
+$$;
+
+
+--
+-- Name: reihe_ka_setzen(uuid, uuid, date, text[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_ka_setzen(p_session_id uuid, p_student_id uuid, p_ka_datum date, p_thema_keys text[] DEFAULT NULL::text[]) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  s        public.coaching_sessions := public.session_coach_pruefen(p_session_id, 'reihe_ka_setzen');
+  r        public.reihen;
+  v_themen text[];
+  v_tag    date;
+begin
+  if not exists (select 1 from public.session_students where session_id = p_session_id and student_id = p_student_id) then
+    raise exception 'reihe_ka_setzen: Kind ist in dieser Session nicht gebucht' using errcode = 'P0002';
+  end if;
+  v_tag := (s.scheduled_at at time zone 'Europe/Berlin')::date;
+  if p_ka_datum is not null and p_ka_datum <= v_tag then
+    raise exception 'reihe_ka_setzen: Klassenarbeit muss nach der Session liegen' using errcode = '22023';
+  end if;
+  r := public.reihe_aktiv(p_student_id);
+  v_themen := coalesce(p_thema_keys, r.thema_keys,
+    (select array[coalesce(c.ziel_thema_key, c.klassenarbeit_thema_key)] from public.session_checkin c
+      where c.session_id = p_session_id and c.student_id = p_student_id
+        and coalesce(c.ziel_thema_key, c.klassenarbeit_thema_key) is not null),
+    (select array[public.session_schulthema(p_student_id)] where public.session_schulthema(p_student_id) is not null));
+  if v_themen is null then
+    raise exception 'reihe_ka_setzen: kein Thema für die Reihe' using errcode = '22023', hint = 'kein_thema';
+  end if;
+  if exists (select 1 from unnest(v_themen) t where not exists (select 1 from public.themen th where th.thema_key = t)) then
+    raise exception 'reihe_ka_setzen: unbekanntes Thema' using errcode = '22023';
+  end if;
+  if r.id is null then
+    insert into public.reihen (student_id, thema_keys, ka_datum, start, angelegt_von)
+    values (p_student_id, v_themen, p_ka_datum, v_tag, auth.uid()) returning * into r;
+    perform public.reihe_planen(r.id, 'start', 'Reihe im Check-in angelegt', p_session_id);
+  else
+    update public.reihen set ka_datum = p_ka_datum, thema_keys = v_themen, start = least(start, v_tag) where id = r.id;
+    perform public.reihe_planen(r.id, 'daten', 'Klassenarbeitsdatum im Check-in gesetzt', p_session_id);
+  end if;
+  return public.reihe_coach_lesen(p_student_id);
+end;
+$$;
+
+
+--
+-- Name: reihe_kann_entfallen_pruefen(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_kann_entfallen_pruefen(p_skill_key text) RETURNS boolean
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  v boolean;
+begin
+  if to_regprocedure('public.skill_kann_entfallen(text)') is not null then
+    execute 'select public.skill_kann_entfallen($1)' into v using p_skill_key;
+    return coalesce(v, false);
+  end if;
+  return exists (select 1 from public.reihe_kann_entfallen k where k.skill_key = p_skill_key);
+end;
+$_$;
+
+
+--
+-- Name: reihe_kernidee_stand(uuid, uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_kernidee_stand(p_reihe_id uuid, p_student_id uuid, p_skill_key text, p_kernidee text) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case
+    when l.stand_system in ('sicher', 'kandidat') or l.stand_coach = 'gemeistert' then 'sicher'
+    when l.skill_key is null and exists (select 1 from public.lernpfad_lsa_urteile(p_student_id) u
+                                          where u.skill_key = p_skill_key and u.zustand = 'traegt') then 'sicher'
+    when exists (select 1 from public.lernpfad_belege b where b.student_id = p_student_id and b.skill_key = p_skill_key)
+      or exists (select 1 from public.reihe_ist i join public.reihen r on r.id = i.reihe_id
+                  cross join lateral jsonb_array_elements(i.kernideen) e
+                  where r.student_id = p_student_id and e ->> 'skill_key' = p_skill_key and e ->> 'kernidee_key' = p_kernidee)
+      then 'gesehen'
+    else 'neu'
+  end
+    from (select 1) d
+    left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = p_skill_key
+$$;
+
+
+--
+-- Name: reihe_nach_session(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_nach_session() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  k      record;
+  v_tag  date := (new.scheduled_at at time zone 'Europe/Berlin')::date;
+  v_w    jsonb;
+begin
+  for k in
+    select r.id as reihe_id from public.session_students ss
+      join public.reihen r on r.student_id = ss.student_id and r.status = 'aktiv'
+     where ss.session_id = new.id and ss.attendance = 'present'
+  loop
+    begin
+      -- Zweitprüfung 4: die nächste geplante Session, auch wenn sie an einem anderen Tag stattfand.
+      v_w := public.reihe_plan_wirksam(k.reihe_id, '1900-01-01');
+      insert into public.reihe_ist (reihe_id, session_id, datum, kernideen)
+      values (k.reihe_id, new.id, v_tag,
+              coalesce((select s -> 'kernideen' from jsonb_array_elements(v_w -> 'sessions') s
+                         where s ->> 'art' = 'normal' order by (s ->> 'datum')::date limit 1), '[]'))
+      on conflict do nothing;
+      perform public.reihe_planen(k.reihe_id, 'session', 'Neu geplant nach der Session vom ' || to_char(v_tag, 'DD.MM.YYYY'), new.id);
+    exception when others then
+      raise warning 'reihe_nach_session: Reihe % nicht neu geplant: %', k.reihe_id, sqlerrm;
+    end;
+  end loop;
+  return null;
+end;
+$$;
+
+
+--
+-- Name: reihe_nur_anhaengen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_nur_anhaengen() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  raise exception '%: nur anhängen', tg_table_name using errcode = '55000';
+end;
+$$;
+
+
+--
+-- Name: reihe_plan_rechnen(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_plan_rechnen(p_reihe_id uuid, p_heute date DEFAULT NULL::date) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  r          public.reihen;
+  v_heute    date := coalesce(p_heute, public.reihe_heute());
+  v_cap      numeric := public.reihe_wert('reihe_kapazitaet_min') * (1 + public.reihe_wert('reihe_spielraum'));
+  v_neu      numeric := public.reihe_wert('reihe_min_neu');
+  v_ges      numeric := public.reihe_wert('reihe_min_gesehen');
+  v_knapp    numeric := public.reihe_wert('reihe_min_gesehen_knapp');
+  v_trans    numeric := public.reihe_wert('reihe_transfer_min');
+  v_roll     int := public.reihe_wert('reihe_rollierend_sessions')::int;
+  v_bisher   int;
+  v_erledigt date[];
+  v_termine  date[];
+  v_items    jsonb := '[]';
+  v_weg      jsonb := '[]';
+  v_kosten   numeric[];
+  v_idx      int[];
+  v_n        int;
+  v_sess     jsonb := '[]';
+  v_teil     jsonb;
+  v_skills   jsonb;
+  v_schritt  int := 0;
+  k          record;
+  i          int;
+  v_ka       boolean;
+  v_knapp_an boolean := false;
+begin
+  select * into r from public.reihen where id = p_reihe_id;
+  if not found then
+    raise exception 'reihe_plan_rechnen: Reihe nicht gefunden' using errcode = 'P0002';
+  end if;
+  v_ka := r.ka_datum is not null;
+
+  select coalesce(array_agg(distinct (cs.scheduled_at at time zone 'Europe/Berlin')::date), '{}')
+    into v_erledigt
+    from public.coaching_sessions cs join public.session_students ss on ss.session_id = cs.id
+   where ss.student_id = r.student_id and ss.attendance = 'present' and cs.status = 'done'
+     and not coalesce(cs.testlauf, false) and (cs.scheduled_at at time zone 'Europe/Berlin')::date >= r.start;
+  v_bisher := cardinality(v_erledigt);
+
+  select coalesce(array_agg(t order by t), '{}') into v_termine
+    from public.reihe_termine(r.student_id, r.start, r.takt, greatest(v_heute, r.start), r.ka_datum,
+                              case when v_ka then 1000 else v_roll + cardinality(v_erledigt) end) t
+   where not (t = any (v_erledigt));
+  if not v_ka then v_termine := v_termine[1:v_roll]; end if;
+  v_n := cardinality(v_termine);
+
+  for k in
+    select ki.skill_key, ki.kernidee_key, ki.nr, ki.titel,
+           public.reihe_kernidee_stand(r.id, r.student_id, ki.skill_key, ki.kernidee_key) as stand
+      from public.reihe_kernideen ki
+     where ki.skill_key in (select s.skill_key from public.reihe_skills(r.thema_keys) s)
+     order by ki.nr
+  loop
+    continue when k.stand = 'sicher';
+    v_items := v_items || jsonb_build_object('art', 'kernidee', 'skill_key', k.skill_key, 'kernidee_key', k.kernidee_key,
+      'stand', k.stand, 'minuten', case k.stand when 'neu' then v_neu else v_ges end);
+  end loop;
+
+  if v_ka then
+    if v_trans > 0 then
+      v_items := v_items || jsonb_build_object('art', 'transfer', 'minuten', v_trans);
+    end if;
+    -- Kürzen nach Regel 5, bis es in die Sessions vor der Generalprobe passt.
+    loop
+      select coalesce(array_agg((e ->> 'minuten')::numeric order by o), '{}') into v_kosten
+        from jsonb_array_elements(v_items) with ordinality x(e, o);
+      v_idx := public.reihe_verteilen(v_kosten, v_n - 1, v_cap);
+      exit when v_idx is not null or jsonb_array_length(v_items) = 0;
+      v_schritt := v_schritt + 1;
+      if v_schritt = 1 then
+        select coalesce(jsonb_agg(e order by o) filter (where e ->> 'art' = 'kernidee'
+                 and public.reihe_kann_entfallen_pruefen(e ->> 'skill_key')), '[]'),
+               coalesce(jsonb_agg(e order by o) filter (where not (e ->> 'art' = 'kernidee'
+                 and public.reihe_kann_entfallen_pruefen(e ->> 'skill_key'))), '[]')
+          into v_teil, v_items
+          from jsonb_array_elements(v_items) with ordinality x(e, o);
+        v_weg := v_weg || v_teil;
+      elsif v_schritt = 2 then
+        select coalesce(jsonb_agg(e order by o) filter (where e ->> 'art' = 'transfer'), '[]'),
+               coalesce(jsonb_agg(e order by o) filter (where e ->> 'art' <> 'transfer'), '[]')
+          into v_teil, v_items
+          from jsonb_array_elements(v_items) with ordinality x(e, o);
+        v_weg := v_weg || v_teil;
+      elsif v_schritt = 3 then
+        v_knapp_an := true;
+        select coalesce(jsonb_agg(case when e ->> 'stand' = 'gesehen'
+                                       then e || jsonb_build_object('minuten', v_knapp) else e end order by o), '[]')
+          into v_items
+          from jsonb_array_elements(v_items) with ordinality x(e, o);
+      else
+        v_weg := v_weg || jsonb_build_array(v_items -> (jsonb_array_length(v_items) - 1));
+        v_items := v_items - (jsonb_array_length(v_items) - 1);
+      end if;
+    end loop;
+    v_idx := coalesce(v_idx, '{}');
+  else
+    -- Rollierend: vorwärts auffüllen, was nicht mehr hineinpasst, kommt bei der nächsten Planung.
+    v_idx := '{}';
+    declare
+      v_k int := 1;
+      v_s numeric := 0;
+      c   numeric;
+    begin
+      for i in 0 .. jsonb_array_length(v_items) - 1 loop
+        c := (v_items -> i ->> 'minuten')::numeric;
+        if v_s + c > v_cap then v_k := v_k + 1; v_s := 0; end if;
+        exit when v_k > v_n;
+        v_idx := v_idx || v_k;
+        v_s := v_s + c;
+      end loop;
+    end;
+  end if;
+
+  for i in 1 .. (case when v_ka then v_n - 1 else v_n end) loop
+    select coalesce(jsonb_agg(v_items -> (o - 1) order by o) filter (where v_idx[o] = i), '[]') into v_teil
+      from generate_series(1, coalesce(cardinality(v_idx), 0)) o;
+    select coalesce(jsonb_agg(distinct e ->> 'skill_key'), '[]') into v_skills
+      from jsonb_array_elements(v_teil) e where e ->> 'art' = 'kernidee';
+    v_sess := v_sess || jsonb_build_object(
+      'nr', v_bisher + i, 'datum', v_termine[i], 'art', 'normal',
+      'kernideen', coalesce((select jsonb_agg(e - 'art' order by o) from jsonb_array_elements(v_teil) with ordinality x(e, o)
+                              where e ->> 'art' = 'kernidee'), '[]'),
+      'skills', (select coalesce(jsonb_agg(s order by (select min(ki.nr) from public.reihe_kernideen ki where ki.skill_key = s)), '[]')
+                   from jsonb_array_elements_text(v_skills) s),
+      'transfer', exists (select 1 from jsonb_array_elements(v_teil) e where e ->> 'art' = 'transfer'),
+      'minuten', coalesce((select sum((e ->> 'minuten')::numeric) from jsonb_array_elements(v_teil) e), 0));
+  end loop;
+  if v_ka and v_n >= 1 then
+    v_sess := v_sess || jsonb_build_object(
+      'nr', v_bisher + v_n, 'datum', v_termine[v_n], 'art', 'generalprobe', 'kernideen', '[]'::jsonb,
+      'skills', (select coalesce(jsonb_agg(s.skill_key order by s.nr), '[]') from public.reihe_skills(r.thema_keys) s
+                  where not (public.reihe_kann_entfallen_pruefen(s.skill_key)
+                             and exists (select 1 from jsonb_array_elements(v_weg) w where w ->> 'skill_key' = s.skill_key))),
+      'transfer', true, 'minuten', 0);
+  end if;
+
+  return jsonb_build_object(
+    'modus', case when v_ka then 'klassenarbeit' else 'rollierend' end,
+    'heute', v_heute, 'ka_datum', r.ka_datum, 'sessions_bisher', v_bisher,
+    'sessions', v_sess,
+    'warnung', jsonb_build_object('passt', jsonb_array_length(v_weg) = 0 and (not v_ka or v_n >= 1),
+                                  'sessions', v_n, 'entfallen', v_weg, 'gesehen_knapp', v_knapp_an),
+    'stellschrauben', jsonb_build_object('kapazitaet', public.reihe_wert('reihe_kapazitaet_min'),
+      'spielraum', public.reihe_wert('reihe_spielraum'), 'neu', v_neu, 'gesehen', v_ges, 'gesehen_knapp', v_knapp,
+      'transfer', v_trans, 'rollierend', v_roll));
+end;
+$$;
+
+
+--
+-- Name: reihe_plan_wirksam(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_plan_wirksam(p_reihe_id uuid, p_heute date DEFAULT NULL::date) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_heute date := coalesce(p_heute, public.reihe_heute());
+  v       public.reihe_plan_versionen;
+  v_plan  jsonb;
+  v_sess  jsonb;
+  v_ae    jsonb := '[]';
+  a       record;
+  v_ziel  int;
+  v_mit   jsonb;
+  v_ok    boolean;
+begin
+  select * into v from public.reihe_plan_versionen x where x.reihe_id = p_reihe_id order by x.version desc limit 1;
+  if not found then return null; end if;
+  v_plan := v.plan;
+  v_sess := coalesce((select jsonb_agg(s || jsonb_build_object('kernideen',
+              coalesce((select jsonb_agg(e || '{"coach": false}'::jsonb) from jsonb_array_elements(s -> 'kernideen') e), '[]'))
+              order by o)
+             from jsonb_array_elements(v_plan -> 'sessions') with ordinality x(s, o)
+            where (s ->> 'datum')::date >= v_heute), '[]');
+
+  for a in select * from public.reihe_coach_aenderungen c where c.reihe_id = p_reihe_id order by c.am, c.id loop
+    v_ok := false;
+    if a.aktion = 'verschieben' and a.ziel_datum >= v_heute then
+      select o - 1 into v_ziel from jsonb_array_elements(v_sess) with ordinality x(s, o)
+       where (s ->> 'datum')::date = a.ziel_datum and s ->> 'art' = 'normal';
+      select coalesce(jsonb_agg(e || '{"coach": true}'::jsonb order by (e ->> 'kernidee_key')), '[]') into v_mit
+        from jsonb_array_elements(v_sess) s, jsonb_array_elements(s -> 'kernideen') e
+       where e ->> 'skill_key' = a.skill_key;
+      if v_ziel is not null and jsonb_array_length(v_mit) > 0 then
+        v_ok := true;
+        select jsonb_agg(case when o - 1 = v_ziel
+                 then s || jsonb_build_object('kernideen', coalesce((select jsonb_agg(e) from jsonb_array_elements(s -> 'kernideen') e
+                                                                     where e ->> 'skill_key' <> a.skill_key), '[]') || v_mit)
+                 else s || jsonb_build_object('kernideen', coalesce((select jsonb_agg(e) from jsonb_array_elements(s -> 'kernideen') e
+                                                                     where e ->> 'skill_key' <> a.skill_key), '[]')) end
+                 order by o)
+          into v_sess from jsonb_array_elements(v_sess) with ordinality x(s, o);
+      end if;
+    elsif a.aktion = 'bestaetigen' then
+      v_ok := a.version_id = v.id;
+    end if;
+    v_ae := v_ae || jsonb_build_object('id', a.id, 'aktion', a.aktion, 'skill_key', a.skill_key, 'ziel_datum', a.ziel_datum,
+                                       'grund', a.grund, 'am', a.am, 'gueltig', v_ok);
+  end loop;
+
+  -- Skills und Minuten je Session nach den Änderungen neu ablesen (Generalprobe behält ihre Skills).
+  select coalesce(jsonb_agg(case when s ->> 'art' = 'generalprobe' then s else s || jsonb_build_object(
+           'skills', coalesce((select jsonb_agg(sk order by (select min(ki.nr) from public.reihe_kernideen ki where ki.skill_key = sk))
+                                 from (select distinct e ->> 'skill_key' as sk from jsonb_array_elements(s -> 'kernideen') e) d), '[]'),
+           'minuten', coalesce((select sum((e ->> 'minuten')::numeric) from jsonb_array_elements(s -> 'kernideen') e), 0)
+                      + case when (s ->> 'transfer')::boolean then (v_plan #>> '{stellschrauben,transfer}')::numeric else 0 end)
+           end order by o), '[]')
+    into v_sess from jsonb_array_elements(v_sess) with ordinality x(s, o);
+
+  return v_plan || jsonb_build_object('sessions', v_sess, 'version', v.version, 'version_id', v.id,
+    'erstellt_am', v.erstellt_am, 'anlass', v.anlass, 'grund', v.grund, 'aenderungen', v_ae,
+    'bestaetigt', exists (select 1 from jsonb_array_elements(v_ae) e where e ->> 'aktion' = 'bestaetigen' and (e ->> 'gueltig')::boolean));
+end;
+$$;
+
+
+--
+-- Name: reihe_planen(uuid, text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_planen(p_reihe_id uuid, p_anlass text, p_grund text, p_session_id uuid DEFAULT NULL::uuid) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  perform pg_advisory_xact_lock(hashtext('reihe_planen:' || p_reihe_id::text));
+  insert into public.reihe_plan_versionen (reihe_id, version, anlass, grund, session_id, plan, erstellt_von)
+  values (p_reihe_id,
+          coalesce((select max(v.version) from public.reihe_plan_versionen v where v.reihe_id = p_reihe_id), 0) + 1,
+          p_anlass, p_grund, p_session_id, public.reihe_plan_rechnen(p_reihe_id), auth.uid())
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: reihe_skills(text[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_skills(p_thema_keys text[]) RETURNS TABLE(skill_key text, nr integer)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with recursive h(sk) as (
+    select st.skill_key from public.skill_thema st where st.thema_key = any (p_thema_keys)
+    union
+    select k.voraussetzt_skill_key from public.skill_kante k join h on k.skill_key = h.sk
+  )
+  select k.skill_key, min(k.nr) from public.reihe_kernideen k where k.skill_key in (select sk from h)
+   group by k.skill_key order by 2
+$$;
+
+
+--
+-- Name: reihe_termine(uuid, date, integer, date, date, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_termine(p_student_id uuid, p_start date, p_takt integer, p_von date, p_bis date, p_max integer) RETURNS SETOF date
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_tage   int[];
+  v_letzt  date;
+  v_n      int := 0;
+  d        date;
+begin
+  -- Feste Termine: geplante Slot-Termine und gebuchte, noch nicht abgeschlossene Sessions (auch in den Ferien).
+  for d in
+    select x.datum from (
+      select kt.datum from public.kind_termine kt where kt.student_id = p_student_id and kt.zustand = 'planned'
+      union
+      select (cs.scheduled_at at time zone 'Europe/Berlin')::date from public.coaching_sessions cs
+        join public.session_students ss on ss.session_id = cs.id
+       where ss.student_id = p_student_id and cs.status in ('upcoming', 'active')) x
+     where x.datum >= p_von and (p_bis is null or x.datum < p_bis)
+     order by 1
+  loop
+    exit when v_n >= p_max;
+    v_n := v_n + 1;
+    v_letzt := d;
+    return next d;
+  end loop;
+
+  select array_agg(x.wt order by x.wt) into v_tage from (
+    select distinct s.wochentag::int as wt from public.stammplaetze s
+     where s.student_id = p_student_id and s.beendet_am is null
+       and coalesce(s.gueltig_bis, 'infinity'::date) >= p_von) x;
+  v_tage := (coalesce(v_tage, array[extract(isodow from p_start)::int]))[1:greatest(p_takt, 1)];
+
+  d := greatest(p_von, coalesce(v_letzt + 1, p_von));
+  while v_n < p_max and (p_bis is null or d < p_bis) and d < p_von + 730 loop
+    if extract(isodow from d)::int = any (v_tage) and public.slots_anlass(d) is null then
+      v_n := v_n + 1;
+      return next d;
+    end if;
+    d := d + 1;
+  end loop;
+end;
+$$;
+
+
+--
+-- Name: reihe_verteilen(numeric[], integer, numeric); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_verteilen(p_kosten numeric[], p_n integer, p_cap numeric) RETURNS integer[]
+    LANGUAGE plpgsql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_t    numeric := coalesce((select sum(x) from unnest(p_kosten) x), 0);
+  v_l    numeric;
+  v_cum  numeric := 0;
+  v_idx  int[] := '{}';
+  v_sum  numeric[];
+  v_k    int := 1;
+  v_s    numeric := 0;
+  i      int;
+begin
+  if coalesce(cardinality(p_kosten), 0) = 0 then return '{}'; end if;
+  if p_n < 1 or v_t > p_n * p_cap then return null; end if;
+  -- Zweitprüfung 1: L mindestens der teuerste Posten, sonst blieben vorne Sessions leer.
+  v_l := greatest(v_t / p_n, (select max(x) from unnest(p_kosten) x));
+  v_sum := array_fill(0::numeric, array[p_n]);
+  for i in 1 .. cardinality(p_kosten) loop
+    v_cum := v_cum + p_kosten[i];
+    v_idx := v_idx || least(p_n, floor((v_cum - 0.000001) / v_l)::int + 1);
+    v_sum[v_idx[i]] := v_sum[v_idx[i]] + p_kosten[i];
+  end loop;
+  if (select max(x) from unnest(v_sum) x) <= p_cap then return v_idx; end if;
+  -- Rückfall: vorwärts auffüllen.
+  v_idx := '{}';
+  for i in 1 .. cardinality(p_kosten) loop
+    if p_kosten[i] > p_cap then return null; end if;
+    if v_s + p_kosten[i] > p_cap then v_k := v_k + 1; v_s := 0; end if;
+    if v_k > p_n then return null; end if;
+    v_idx := v_idx || v_k;
+    v_s := v_s + p_kosten[i];
+  end loop;
+  return v_idx;
+end;
+$$;
+
+
+--
+-- Name: reihe_wert(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihe_wert(p_schluessel text) RETURNS numeric
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.session_wert_zahl(null, p_schluessel)
+$$;
+
+
+--
+-- Name: reihenplan_kind(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.reihenplan_kind(p_kind uuid) RETURNS TABLE(session_nr integer, datum date, kernideen text[], skills text[], art text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  r public.reihen;
+begin
+  if not (public.lernpfad_darf_lesen(p_kind) or public.get_my_student_id() is not distinct from p_kind and p_kind is not null) then
+    raise exception 'reihenplan_kind: kein Zugriff' using errcode = '42501';
+  end if;
+  r := public.reihe_aktiv(p_kind);
+  if r.id is null then return; end if;
+  return query
+    select (s ->> 'nr')::int, (s ->> 'datum')::date,
+           coalesce(array(select (e ->> 'skill_key') || '.' || (e ->> 'kernidee_key') from jsonb_array_elements(s -> 'kernideen') e), '{}'),
+           coalesce(array(select jsonb_array_elements_text(s -> 'skills')), '{}'),
+           s ->> 'art'
+      from jsonb_array_elements(public.reihe_plan_wirksam(r.id) -> 'sessions') s
+     order by 1;
+end;
+$$;
+
+
+--
 -- Name: satz_vorschlaege(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -22783,6 +23465,83 @@ CREATE TABLE public.raeume (
 
 
 --
+-- Name: reihe_coach_aenderungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reihe_coach_aenderungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    reihe_id uuid NOT NULL,
+    aktion text NOT NULL,
+    skill_key text,
+    ziel_datum date,
+    version_id uuid NOT NULL,
+    grund text,
+    von uuid,
+    am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    CONSTRAINT reihe_coach_aenderungen_aktion_check CHECK ((aktion = ANY (ARRAY['verschieben'::text, 'bestaetigen'::text]))),
+    CONSTRAINT reihe_coach_verschieben CHECK (((aktion <> 'verschieben'::text) OR ((skill_key IS NOT NULL) AND (ziel_datum IS NOT NULL))))
+);
+
+
+--
+-- Name: reihe_ist; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reihe_ist (
+    reihe_id uuid NOT NULL,
+    session_id uuid NOT NULL,
+    datum date NOT NULL,
+    kernideen jsonb DEFAULT '[]'::jsonb NOT NULL,
+    am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    CONSTRAINT reihe_ist_kernideen_check CHECK ((jsonb_typeof(kernideen) = 'array'::text))
+);
+
+
+--
+-- Name: reihe_kann_entfallen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reihe_kann_entfallen (
+    skill_key text NOT NULL
+);
+
+
+--
+-- Name: reihe_kernideen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reihe_kernideen (
+    skill_key text NOT NULL,
+    kernidee_key text NOT NULL,
+    nr integer NOT NULL,
+    titel text NOT NULL,
+    CONSTRAINT reihe_kernideen_kernidee_key_check CHECK ((kernidee_key ~ '^K[1-9]$'::text)),
+    CONSTRAINT reihe_kernideen_nr_check CHECK ((nr >= 1)),
+    CONSTRAINT reihe_kernideen_titel_check CHECK ((btrim(titel) <> ''::text))
+);
+
+
+--
+-- Name: reihe_plan_versionen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reihe_plan_versionen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    reihe_id uuid NOT NULL,
+    version integer NOT NULL,
+    anlass text NOT NULL,
+    grund text NOT NULL,
+    session_id uuid,
+    plan jsonb NOT NULL,
+    erstellt_am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    erstellt_von uuid,
+    CONSTRAINT reihe_plan_versionen_anlass_check CHECK ((anlass = ANY (ARRAY['start'::text, 'session'::text, 'coach'::text, 'daten'::text]))),
+    CONSTRAINT reihe_plan_versionen_plan_check CHECK ((jsonb_typeof((plan -> 'sessions'::text)) = 'array'::text)),
+    CONSTRAINT reihe_plan_versionen_version_check CHECK ((version >= 1))
+);
+
+
+--
 -- Name: report_anlass_zuordnung; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -24966,6 +25725,70 @@ ALTER TABLE ONLY public.raeume
 
 
 --
+-- Name: reihe_coach_aenderungen reihe_coach_aenderungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_coach_aenderungen
+    ADD CONSTRAINT reihe_coach_aenderungen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reihe_ist reihe_ist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_ist
+    ADD CONSTRAINT reihe_ist_pkey PRIMARY KEY (reihe_id, session_id);
+
+
+--
+-- Name: reihe_kann_entfallen reihe_kann_entfallen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_kann_entfallen
+    ADD CONSTRAINT reihe_kann_entfallen_pkey PRIMARY KEY (skill_key);
+
+
+--
+-- Name: reihe_kernideen reihe_kernideen_nr_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_kernideen
+    ADD CONSTRAINT reihe_kernideen_nr_key UNIQUE (nr);
+
+
+--
+-- Name: reihe_kernideen reihe_kernideen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_kernideen
+    ADD CONSTRAINT reihe_kernideen_pkey PRIMARY KEY (skill_key, kernidee_key);
+
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_plan_versionen
+    ADD CONSTRAINT reihe_plan_versionen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_reihe_id_version_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_plan_versionen
+    ADD CONSTRAINT reihe_plan_versionen_reihe_id_version_key UNIQUE (reihe_id, version);
+
+
+--
+-- Name: reihen reihen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihen
+    ADD CONSTRAINT reihen_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: report_anlass_zuordnung report_anlass_zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -26185,6 +27008,13 @@ CREATE INDEX quests_termin_idx ON public.quests USING btree (termin) WHERE (stat
 
 
 --
+-- Name: reihen_eine_aktive; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX reihen_eine_aktive ON public.reihen USING btree (student_id, fach) WHERE (status = 'aktiv'::text);
+
+
+--
 -- Name: schueler_notizen_student_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -26808,6 +27638,13 @@ CREATE TRIGGER coaching_sessions_loeschschutz_trg BEFORE DELETE ON public.coachi
 
 
 --
+-- Name: coaching_sessions coaching_sessions_reihe_neu_planen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER coaching_sessions_reihe_neu_planen AFTER UPDATE OF status ON public.coaching_sessions FOR EACH ROW WHEN (((new.status = 'done'::text) AND (old.status IS DISTINCT FROM 'done'::text) AND (NOT COALESCE(new.testlauf, false)))) EXECUTE FUNCTION public.reihe_nach_session();
+
+
+--
 -- Name: coaching_sessions coaching_sessions_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -26980,6 +27817,27 @@ CREATE TRIGGER lsa_skill_urteil_kompetenz_offen_nachher AFTER INSERT OR UPDATE O
 --
 
 CREATE TRIGGER lsa_skill_urteil_kompetenz_offen_vorher BEFORE INSERT OR DELETE OR UPDATE ON public.lsa_skill_urteil FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: reihe_coach_aenderungen reihe_coach_aenderungen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER reihe_coach_aenderungen_nur_anhaengen BEFORE UPDATE ON public.reihe_coach_aenderungen FOR EACH ROW EXECUTE FUNCTION public.reihe_nur_anhaengen();
+
+
+--
+-- Name: reihe_ist reihe_ist_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER reihe_ist_nur_anhaengen BEFORE UPDATE ON public.reihe_ist FOR EACH ROW EXECUTE FUNCTION public.reihe_nur_anhaengen();
+
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER reihe_plan_versionen_nur_anhaengen BEFORE UPDATE ON public.reihe_plan_versionen FOR EACH ROW EXECUTE FUNCTION public.reihe_nur_anhaengen();
 
 
 --
@@ -28020,6 +28878,102 @@ ALTER TABLE ONLY public.quests
 
 ALTER TABLE ONLY public.raeume
     ADD CONSTRAINT raeume_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: reihe_coach_aenderungen reihe_coach_aenderungen_reihe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_coach_aenderungen
+    ADD CONSTRAINT reihe_coach_aenderungen_reihe_id_fkey FOREIGN KEY (reihe_id) REFERENCES public.reihen(id) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_coach_aenderungen reihe_coach_aenderungen_version_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_coach_aenderungen
+    ADD CONSTRAINT reihe_coach_aenderungen_version_id_fkey FOREIGN KEY (version_id) REFERENCES public.reihe_plan_versionen(id) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_coach_aenderungen reihe_coach_aenderungen_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_coach_aenderungen
+    ADD CONSTRAINT reihe_coach_aenderungen_von_fkey FOREIGN KEY (von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: reihe_ist reihe_ist_reihe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_ist
+    ADD CONSTRAINT reihe_ist_reihe_id_fkey FOREIGN KEY (reihe_id) REFERENCES public.reihen(id) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_ist reihe_ist_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_ist
+    ADD CONSTRAINT reihe_ist_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_kann_entfallen reihe_kann_entfallen_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_kann_entfallen
+    ADD CONSTRAINT reihe_kann_entfallen_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_kernideen reihe_kernideen_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_kernideen
+    ADD CONSTRAINT reihe_kernideen_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_erstellt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_plan_versionen
+    ADD CONSTRAINT reihe_plan_versionen_erstellt_von_fkey FOREIGN KEY (erstellt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_reihe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_plan_versionen
+    ADD CONSTRAINT reihe_plan_versionen_reihe_id_fkey FOREIGN KEY (reihe_id) REFERENCES public.reihen(id) ON DELETE CASCADE;
+
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihe_plan_versionen
+    ADD CONSTRAINT reihe_plan_versionen_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE SET NULL;
+
+
+--
+-- Name: reihen reihen_angelegt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihen
+    ADD CONSTRAINT reihen_angelegt_von_fkey FOREIGN KEY (angelegt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: reihen reihen_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reihen
+    ADD CONSTRAINT reihen_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -30442,6 +31396,90 @@ CREATE POLICY read_tasks_by_role ON public.tasks FOR SELECT USING (((public.get_
 
 
 --
+-- Name: reihe_coach_aenderungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reihe_coach_aenderungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: reihe_coach_aenderungen reihe_coach_aenderungen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY reihe_coach_aenderungen_lesen ON public.reihe_coach_aenderungen FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
+   FROM public.reihen r
+  WHERE ((r.id = reihe_coach_aenderungen.reihe_id) AND public.lernpfad_darf_lesen(r.student_id)))));
+
+
+--
+-- Name: reihe_ist; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reihe_ist ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: reihe_ist reihe_ist_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY reihe_ist_lesen ON public.reihe_ist FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
+   FROM public.reihen r
+  WHERE ((r.id = reihe_ist.reihe_id) AND public.lernpfad_darf_lesen(r.student_id)))));
+
+
+--
+-- Name: reihe_kann_entfallen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reihe_kann_entfallen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: reihe_kann_entfallen reihe_kann_entfallen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY reihe_kann_entfallen_lesen ON public.reihe_kann_entfallen FOR SELECT TO authenticated USING (true);
+
+
+--
+-- Name: reihe_kernideen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reihe_kernideen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: reihe_kernideen reihe_kernideen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY reihe_kernideen_lesen ON public.reihe_kernideen FOR SELECT TO authenticated USING (true);
+
+
+--
+-- Name: reihe_plan_versionen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reihe_plan_versionen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: reihe_plan_versionen reihe_plan_versionen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY reihe_plan_versionen_lesen ON public.reihe_plan_versionen FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
+   FROM public.reihen r
+  WHERE ((r.id = reihe_plan_versionen.reihe_id) AND public.lernpfad_darf_lesen(r.student_id)))));
+
+
+--
+-- Name: reihen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reihen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: reihen reihen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY reihen_lesen ON public.reihen FOR SELECT TO authenticated USING (public.lernpfad_darf_lesen(student_id));
+
+
+--
 -- Name: report_anlass_zuordnung; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -31827,5 +32865,4 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Lc6CwCAzylUcHhaOABhRpkdaRyJJKhy8QiREfUFVvRC34Touh8MNS5ORGUIReMR
 

@@ -1140,6 +1140,33 @@ Auftrag haengt seine Komponente mit einer Zeile in das Beitragsfeld ein, sonst a
 
 `taskId` kommt aus `LiveAufgabeDetail.taskId` (`coach_kind_detail.aufgabe_detail.task_id`); bei Mini-Checks der Erklaersequenz fehlt er, dann gibt es keinen Einbaupunkt.
 
+## 14. Reihe 1 · Reihenplanung (Auftrag C, C1)
+
+Migrationen `20261027130023_reihe1_c1_reihe_schema`, `20261027130145_reihe1_c1_reihe_planung`. Tabellen nur lesbar
+(RLS: Admin, Coach mit laufendem Vertrag), geschrieben wird nur über die Funktionen.
+
+#### `reihenplan_kind(p_kind uuid) → table(session_nr int, datum date, kernideen text[], skills text[], art text)` — 'reihe1 fertig'
+- Für Auftrag D (Home: empfohlene Quest) und C (Session). Kind selbst (`students.profile_id = auth.uid()`), Coach mit laufendem Vertrag, Admin; sonst 42501.
+- Wirksamer Plan der aktiven Reihe ab heute (Systemvorschlag + gültige Coach-Änderungen). Ohne aktive Reihe: keine Zeile.
+- `kernideen`: `'<skill_key>.<kernidee_key>'`, z. B. `fkt_quadr_parabel.K1` (Katalog `reihe_kernideen`, Konzept §2.1).
+- `art`: `normal | generalprobe`. `session_nr` zählt abgeschlossene Sessions der Reihe mit.
+
+#### `reihe_coach_lesen(p_student_id) → jsonb | null`
+`{ reihe_id, thema_keys, ka_datum, takt, start, plan, system, vorher, sessions_gesamt, labels, kernideen }`.
+`plan` = wirksamer Plan ab heute: `{ modus: klassenarbeit|rollierend, sessions_bisher, sessions: [{ nr, datum, art, kernideen: [{skill_key, kernidee_key, stand: neu|gesehen, minuten, coach}], skills, transfer, minuten }], warnung: { passt, sessions, entfallen: [{art: kernidee, skill_key, kernidee_key} | {art: transfer}], gesehen_knapp }, version, bestaetigt, aenderungen }`.
+`system` = ungefilterter Systemvorschlag derselben Version, `vorher` = Vorversion (für „Danach“).
+
+#### `reihe_ka_setzen(p_session_id, p_student_id, p_ka_datum date | null, p_thema_keys text[] = null) → reihe_coach_lesen`
+Coach der Session oder Admin. Legt die Reihe an (Themen aus Parameter, Check-in oder aktuellem Schulthema; sonst 22023 hint `kein_thema`) oder setzt das Datum und plant neu.
+
+#### `reihe_coach_aendern(p_reihe_id, p_aktion 'verschieben'|'bestaetigen', p_skill_key = null, p_ziel_datum = null, p_grund = null) → reihe_coach_lesen`
+Coach (laufender Vertrag) oder Admin. Eigene Zeile in `reihe_coach_aenderungen`; der Systemvorschlag bleibt unverändert. Verschieben bleibt über Neuplanungen gültig, solange der Zieltermin kommt und der Skill noch im Plan steht.
+
+#### `reihe_anlegen(p_student_id, p_thema_keys, p_ka_datum = null, p_takt = 1, p_start = null) → reihe_coach_lesen`
+Coach (laufender Vertrag) oder Admin; beendet eine aktive Reihe desselben Fachs.
+
+Neu geplant wird beim Abschluss einer Session (Trigger auf `coaching_sessions.status → done`, nicht im Testlauf): Ist-Zeile in `reihe_ist`, neue Version mit Anlass `session`.
+
 ## R1-B · Erklärvideos aus dem Studio (Reihe 1, Bauauftrag B)
 
 Besitzer: Auftrag B (Konzept Sessionreihe 1 §9). Andere Aufträge nutzen nur, was hier steht.
