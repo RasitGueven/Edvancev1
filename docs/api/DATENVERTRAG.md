@@ -1167,3 +1167,112 @@ type ErklaerVideoProps = {
 | `mediathek_angesehen(p_kind uuid, p_sequenz uuid)` | `void` | speichert höchstens „angesehen“ |
 | `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
 | `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
+
+## Reihe 1 · D Home light (Bauauftrag D)
+
+Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
+Fertige Funktionen tragen `comment on function … is 'reihe1 fertig'`.
+
+### App-Komponente `ThemenbaumAusschnitt` (edvance-app)
+
+`src/components/themenbaum/ThemenbaumAusschnitt.tsx`, für den Check-out vor Ort (C):
+
+```ts
+type ThemenbaumAusschnittProps = {
+  kindId: string;                 // students.id
+  skillKeys: readonly string[];   // skill_key der Kompetenzen der Stunde
+};
+```
+
+Ohne Daten zeigt sie nichts. Die Daten holt sie selbst (`kompetenz_offen`, `home_uebung_kurz`).
+
+### Routen (edvance-app)
+
+Home-Bildschirme liegen unter `app/(student)/home/` (eigene Gruppe). Session-Routen bleiben bei C.
+
+### Datenbank-Funktionen (Signaturen, Stand D0)
+
+```text
+kompetenz_offen(p_kind uuid) → table(skill_key text, zustand text, grund text)
+    zustand: sicher | noch_nicht_sicher | nicht_angeschaut | gesperrt (gemeistert nur über lernpfad.stand_coach)
+    grund:   befund | aktuell | grundlage | voraussetzungen | frueher | start | null (gesperrt)
+home_uebung_melden(p_skill text, p_anzahl int, p_dauer_sek int) → void       nur das Kind selbst
+home_uebung_kurz(p_kind uuid, p_seit timestamptz default null)
+    → table(skill_key text, quests int, aufgaben int, dauer_sek int, zuletzt timestamptz)
+    p_seit null: seit der letzten abgeschlossenen Session vor Ort (coaching_sessions.beendet_am)
+zeigs_mir_offen(p_kind uuid, p_session uuid)
+    → table(skill_key text, vorschlag_am timestamptz, entscheidung text, entschieden_von uuid)
+zeigs_mir_entscheiden(p_kind uuid, p_session uuid, p_skill text, p_entscheidung text) → void
+    p_entscheidung: uebernehmen | nicht_heute (ASCII wie die übrigen Zustände); nur Coach der Session und Admin
+```
+
+### Anmeldung mit Zugangscode und Geräte (D1)
+
+Edge Function `geraet_anmelden` (POST, ohne Nutzer-JWT):
+
+```text
+Rumpf   { code: string, name: string, plattform: 'ios'|'android'|'web', installation: string (16–128 Zeichen, zufällig je Installation) }
+200     { ergebnis: 'ok', access_token, refresh_token, expires_at }        → App: supabase.auth.setSession(...)
+200     { ergebnis: 'falsch' | 'kein_vertrag' | 'zu_viele_geraete' | 'gesperrt', warte_sek: number | null }
+400     { ergebnis: 'eingabe' }      500 { ergebnis: 'fehler' }
+```
+
+Das Gerät ist danach mit dem eigenen Konto des Kindes angemeldet (`get_my_student_id()` gilt unverändert).
+
+```text
+geraet_status() → text          das Kind selbst: aktiv | abgemeldet | kein_vertrag | ohne_geraet (Passwort-Session)
+geraet_abgemeldet() → boolean    intern für Home-Funktionen: Session gehört einem abgemeldeten Gerät
+geraet_session() → boolean       intern: Aufrufer ist über ein Gerät zuhause angemeldet
+kind_geraete_liste(p_student uuid) → table(id, name, plattform, angemeldet_am, zuletzt_gesehen, abgemeldet_am, abmelde_grund)   Admin
+kind_geraet_abmelden(p_geraet uuid) → void          Admin; löscht die Auth-Session des Geräts
+vertrag_zugangscode_neu(p_vertrag_id uuid) → text   Bestand, Admin; der alte Code ist sofort ungültig
+zugangscode_freischalten(p_vertrag uuid) → void     Admin; nur bei laufendem Vertrag
+geraet_einloesen(...), geraet_session_setzen(...)   nur service_role (Edge Function)
+```
+
+Grenzen: höchstens drei aktive Geräte je Kind; 5 Fehlversuche je Installation oder IP in 15 Minuten sperren 15 Minuten,
+200 Fehlversuche systemweit je 15 Minuten bremsen alle für eine Minute; gültig ist nur der Code eines Vertrags mit
+`vertraege_aktuell.zugangscode_gueltig`. Das Protokoll `zugangscode_versuche` speichert keinen Code, Installation und IP
+nur als HMAC (Secret `GERAET_PEPPER`), Löschfrist 30 Tage.
+
+D1c (nur mit Freigabe Rasit): `get_my_student_id()` ist für die Session eines abgemeldeten Geräts null;
+`lsa_may_act_for()` lässt das Kind nur vor Ort für sich handeln, nicht über eine Gerätesitzung.
+
+Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
+
+## 13. Sessionreihe 1 · Aufgaben aus Bauformen (Bauauftrag A)
+
+Konzept: `docs/reihe1/Konzept-Sessionreihe-1-und-Bauformen.md` §3–§9. Diese Abschnitte wachsen mit den Phasen A1–A6;
+die Funktionen stehen hier, sobald sie in einer Migration liegen.
+
+### 13.1 App-Komponenten (edvance-app, PR A0b)
+
+Ort `src/components/aufgaben/formate/`, eine Komponente je Format, gemeinsame Props `AufgabeFormatProps<F>`
+(`typen.ts`), Auswahl nach `payload.format` über `AufgabeFormat` (`index.tsx`).
+
+| Prop | Typ | Bedeutung |
+|---|---|---|
+| `payload` | `FormatPayload[F]` | Kindersicht aus `aufgabe_payload(p_task)`, ohne Lösung |
+| `antwort` | `FormatAntwort[F] \| null` | aktuelle Eingabe; `null` = leer |
+| `onAntwort` | `(antwort) => void` | meldet jede Änderung; Abschicken macht der Aufrufer |
+| `rueckmeldung` | `{ richtig: boolean; text: string \| null } \| null` | aus `aufgabe_werten`; `text` = Fehlbild-Satz oder feste Rückmeldung |
+| `hinweise` | `{ stufe: number; text: string }[]` | schon abgerufene Hinweisstufen |
+| `nurLesen` | `boolean` | Prüf-Vorschau oder abgeschickt: keine Eingabe |
+
+**Payload und Antwort je Format** (JSON, so liefert `aufgabe_payload` und so erwartet `aufgabe_werten`):
+
+| Format | Payload | Antwort |
+|---|---|---|
+| `feldmaske` | `{format, schablone: [{text} \| {feld, typ: zahl\|bruch\|vorzeichen, leer_heisst_eins?}]}` | `{felder: {<feld>: "<wert>"}}`, Vorzeichen `"+"`/`"−"`, leer = fehlt oder `""` |
+| `loesungsmenge` | `{format, element: zahl\|bruch, max_felder: 1–3, variable}` | `{werte: ["3","−3"]}` oder `{keine_loesung: true}` |
+| `graph_auswahl` | `{format, optionen: [{id, bild, alt}]}` (2–4, `alt` ohne Ziffern) | `{gewaehlt: "<id>"}` |
+| `fehler_finden` | `{format, zeilen: [{nr, text}], warum: [{id, text}]}` | `{zeile: <nr>, warum: "<id>"}` |
+| `bausteine` | `{format, bausteine: [{id, text}], anzahl: 1\|2}` | `{gewaehlt: ["<id>", …]}` |
+| `schritte_ordnen` | `{format, schritte: [{id, text}]}` (gemischt) | `{reihenfolge: ["<id>", …]}` |
+
+**Lösungsbeispiel** `src/components/aufgaben/Loesungsbeispiel.tsx`, Props `LoesungsbeispielProps`:
+`aufgabe: string`, `schritte: {text}[]` (der Reihe nach aufgedeckt), `warum: {bei_schritt, frage, bausteine[3], richtig} | null`,
+`onWarum?(bausteinId)` (Selbsterklärung, kein Beleg), `onFertig()` („Jetzt du“), `nurLesen` (Prüf-Vorschau: alles offen).
+Der Inhalt kommt aus `aufgabe_payload` einer Instanz der Rolle `beispiel` (Feld `loesungsbeispiel`, A2/A3).
+
+Bis A3 zeigen alle Komponenten einen Platzhalter „Format kommt bald“; die Props ändern sich dabei nicht.
