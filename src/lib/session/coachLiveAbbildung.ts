@@ -142,7 +142,6 @@ function aufgabeAus(k: KindRaum, d: KindDetail, c: Kontext): LiveAufgabeDetail |
       ? { eingabe: letzte.eingabe, ergebnis: letzte.ergebnis, nachHinweis: letzte.hinweisstufe > 0 ? letzte.hinweisstufe : null }
       : null,
     ohneEingabeMin: null,
-    taskId: a.task_id,
   }
 }
 
