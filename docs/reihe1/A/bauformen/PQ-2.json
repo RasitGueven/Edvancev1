@@ -1,0 +1,10606 @@
+{
+ "schluessel": "PQ-2",
+ "skill": "gleichung_quadr_formel",
+ "kernidee": "gleichung_quadr_formel:K2",
+ "format": "loesungsmenge",
+ "rollen": [
+  "uebung",
+  "beispiel",
+  "home",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Löse mit der p-q-Formel: {gleichung}.",
+  "stufen": {
+   "1": "x² + px + q = 0, p und q positiv, zwei ganzzahlige Lösungen",
+   "2": "p oder q negativ, zwei ganzzahlige Lösungen",
+   "3": "a·x² + b·x + c = 0 mit a von 2 bis 3, erst durch a teilen",
+   "4": "nicht in Normalform: x² + b·x = c, erst umstellen"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_p_vorzeichen",
+    "regel": "p/2 statt −p/2",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Vor p/2 steht in der Formel ein Minus. Setz −p/2 ein."
+   },
+   {
+    "key": "qf_halbes_p_nicht_quadriert",
+    "regel": "p/2 statt (p/2)² unter der Wurzel",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Unter der Wurzel steht (p/2)². Hast du quadriert?"
+   },
+   {
+    "key": "qf_gegenoperation_vorzeichen",
+    "regel": "c beim Umstellen ohne Vorzeichenwechsel",
+    "gilt_fuer_stufen": [
+     4
+    ],
+    "rueckmeldung": "Bring alles auf eine Seite. Aus = c wird − c auf der linken Seite."
+   },
+   {
+    "key": "qf_q_vorzeichen",
+    "regel": "+ q statt − q unter der Wurzel",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Unter der Wurzel wird q abgezogen. Achte auf das Vorzeichen von q."
+   },
+   {
+    "key": "qf_durch_a_vergessen",
+    "regel": "b und c ohne Teilen durch a eingesetzt",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Die Formel gilt nur, wenn vor x² eine 1 steht. Teil zuerst durch die Zahl vor x²."
+   },
+   {
+    "key": "qf_nur_eine_loesung",
+    "regel": "nur −p/2 + √D",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Das ± in der Formel heißt: einmal plus, einmal minus. Es gibt zwei Lösungen."
+   }
+  ],
+  "hinweise": [
+   "Steht die Gleichung schon in der Form x² + px + q = 0?",
+   "Lies p und q ab. Achte auf die Vorzeichen.",
+   "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = {p} und q = {q}."
+  ],
+  "loesungsweg": [],
+  "warum": {
+   "bei_schritt": 1,
+   "frage": "Warum muss vor x² eine 1 stehen?",
+   "bausteine": [
+    {
+     "id": "a",
+     "text": "Die p-q-Formel gilt nur für x² + px + q = 0."
+    },
+    {
+     "id": "b",
+     "text": "Weil die Wurzel sonst negativ wird."
+    },
+    {
+     "id": "c",
+     "text": "Weil p immer positiv sein muss."
+    }
+   ],
+   "richtig": "a"
+  },
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 150,
+  "kann_entfallen": false,
+  "generator_hash": "8cb30fa6539e"
+ },
+ "pruefprotokoll": {
+  "gruen": 120,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "−3; −12",
+   "2": "5; 11",
+   "3": "−3; −4",
+   "4": "4; −1",
+   "5": "6; 10",
+   "6": "8; −5",
+   "7": "2; −5",
+   "8": "4; −10",
+   "9": "−4; −7",
+   "10": "−2; −4"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 16,
+    "q": 48
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 16x + 48 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 16 und q = 48."
+   ],
+   "loesungsweg": [
+    "x² + 16x + 48 = 0",
+    "p = 16, q = 48",
+    "x₁,₂ = −8 ± √((−8)² − 48)",
+    "x₁,₂ = −8 ± √16",
+    "x₁,₂ = −8 ± 4",
+    "x = −12 oder x = −4",
+    "L = {−12; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 14,
+    "q": 33
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 14x + 33 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 14 und q = 33."
+   ],
+   "loesungsweg": [
+    "x² + 14x + 33 = 0",
+    "p = 14, q = 33",
+    "x₁,₂ = −7 ± √((−7)² − 33)",
+    "x₁,₂ = −7 ± √16",
+    "x₁,₂ = −7 ± 4",
+    "x = −11 oder x = −3",
+    "L = {−11; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": 15
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 8x + 15 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 8 und q = 15."
+   ],
+   "loesungsweg": [
+    "x² + 8x + 15 = 0",
+    "p = 8, q = 15",
+    "x₁,₂ = −4 ± √((−4)² − 15)",
+    "x₁,₂ = −4 ± √1",
+    "x₁,₂ = −4 ± 1",
+    "x = −5 oder x = −3",
+    "L = {−5; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": 8
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 9x + 8 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 9 und q = 8."
+   ],
+   "loesungsweg": [
+    "x² + 9x + 8 = 0",
+    "p = 9, q = 8",
+    "x₁,₂ = −9/2 ± √((−9/2)² − 8)",
+    "x₁,₂ = −9/2 ± √49/4",
+    "x₁,₂ = −9/2 ± 7/2",
+    "x = −8 oder x = −1",
+    "L = {−8; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 20,
+    "q": 96
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 20x + 96 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "-8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "8",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-24",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 20 und q = 96."
+   ],
+   "loesungsweg": [
+    "x² + 20x + 96 = 0",
+    "p = 20, q = 96",
+    "x₁,₂ = −10 ± √((−10)² − 96)",
+    "x₁,₂ = −10 ± √4",
+    "x₁,₂ = −10 ± 2",
+    "x = −12 oder x = −8",
+    "L = {−12; −8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-8",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 14,
+    "q": 24
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 14x + 24 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 14 und q = 24."
+   ],
+   "loesungsweg": [
+    "x² + 14x + 24 = 0",
+    "p = 14, q = 24",
+    "x₁,₂ = −7 ± √((−7)² − 24)",
+    "x₁,₂ = −7 ± √25",
+    "x₁,₂ = −7 ± 5",
+    "x = −12 oder x = −2",
+    "L = {−12; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 24
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 10x + 24 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-12",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 24."
+   ],
+   "loesungsweg": [
+    "x² + 10x + 24 = 0",
+    "p = 10, q = 24",
+    "x₁,₂ = −5 ± √((−5)² − 24)",
+    "x₁,₂ = −5 ± √1",
+    "x₁,₂ = −5 ± 1",
+    "x = −6 oder x = −4",
+    "L = {−6; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 12,
+    "q": 11
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 12x + 11 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 12 und q = 11."
+   ],
+   "loesungsweg": [
+    "x² + 12x + 11 = 0",
+    "p = 12, q = 11",
+    "x₁,₂ = −6 ± √((−6)² − 11)",
+    "x₁,₂ = −6 ± √25",
+    "x₁,₂ = −6 ± 5",
+    "x = −11 oder x = −1",
+    "L = {−11; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": 6
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 5x + 6 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-6",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 5 und q = 6."
+   ],
+   "loesungsweg": [
+    "x² + 5x + 6 = 0",
+    "p = 5, q = 6",
+    "x₁,₂ = −5/2 ± √((−5/2)² − 6)",
+    "x₁,₂ = −5/2 ± √1/4",
+    "x₁,₂ = −5/2 ± 1/2",
+    "x = −3 oder x = −2",
+    "L = {−3; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": 6
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 7x + 6 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 7 und q = 6."
+   ],
+   "loesungsweg": [
+    "x² + 7x + 6 = 0",
+    "p = 7, q = 6",
+    "x₁,₂ = −7/2 ± √((−7/2)² − 6)",
+    "x₁,₂ = −7/2 ± √25/4",
+    "x₁,₂ = −7/2 ± 5/2",
+    "x = −6 oder x = −1",
+    "L = {−6; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 16
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 10x + 16 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 16."
+   ],
+   "loesungsweg": [
+    "x² + 10x + 16 = 0",
+    "p = 10, q = 16",
+    "x₁,₂ = −5 ± √((−5)² − 16)",
+    "x₁,₂ = −5 ± √9",
+    "x₁,₂ = −5 ± 3",
+    "x = −8 oder x = −2",
+    "L = {−8; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 18
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 11x + 18 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 11 und q = 18."
+   ],
+   "loesungsweg": [
+    "x² + 11x + 18 = 0",
+    "p = 11, q = 18",
+    "x₁,₂ = −11/2 ± √((−11/2)² − 18)",
+    "x₁,₂ = −11/2 ± √49/4",
+    "x₁,₂ = −11/2 ± 7/2",
+    "x = −9 oder x = −2",
+    "L = {−9; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 4,
+    "q": 3
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 4x + 3 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 4 und q = 3."
+   ],
+   "loesungsweg": [
+    "x² + 4x + 3 = 0",
+    "p = 4, q = 3",
+    "x₁,₂ = −2 ± √((−2)² − 3)",
+    "x₁,₂ = −2 ± √1",
+    "x₁,₂ = −2 ± 1",
+    "x = −3 oder x = −1",
+    "L = {−3; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": 2
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 3x + 2 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 3 und q = 2."
+   ],
+   "loesungsweg": [
+    "x² + 3x + 2 = 0",
+    "p = 3, q = 2",
+    "x₁,₂ = −3/2 ± √((−3/2)² − 2)",
+    "x₁,₂ = −3/2 ± √1/4",
+    "x₁,₂ = −3/2 ± 1/2",
+    "x = −2 oder x = −1",
+    "L = {−2; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 12,
+    "q": 27
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 12x + 27 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 12 und q = 27."
+   ],
+   "loesungsweg": [
+    "x² + 12x + 27 = 0",
+    "p = 12, q = 27",
+    "x₁,₂ = −6 ± √((−6)² − 27)",
+    "x₁,₂ = −6 ± √9",
+    "x₁,₂ = −6 ± 3",
+    "x = −9 oder x = −3",
+    "L = {−9; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 16,
+    "q": 60
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 16x + 60 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "6",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 16 und q = 60."
+   ],
+   "loesungsweg": [
+    "x² + 16x + 60 = 0",
+    "p = 16, q = 60",
+    "x₁,₂ = −8 ± √((−8)² − 60)",
+    "x₁,₂ = −8 ± √4",
+    "x₁,₂ = −8 ± 2",
+    "x = −10 oder x = −6",
+    "L = {−10; −6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-6",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 21
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 10x + 21 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 21."
+   ],
+   "loesungsweg": [
+    "x² + 10x + 21 = 0",
+    "p = 10, q = 21",
+    "x₁,₂ = −5 ± √((−5)² − 21)",
+    "x₁,₂ = −5 ± √4",
+    "x₁,₂ = −5 ± 2",
+    "x = −7 oder x = −3",
+    "L = {−7; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 13,
+    "q": 36
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 13x + 36 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 36."
+   ],
+   "loesungsweg": [
+    "x² + 13x + 36 = 0",
+    "p = 13, q = 36",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 36)",
+    "x₁,₂ = −13/2 ± √25/4",
+    "x₁,₂ = −13/2 ± 5/2",
+    "x = −9 oder x = −4",
+    "L = {−9; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 28
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 11x + 28 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 11 und q = 28."
+   ],
+   "loesungsweg": [
+    "x² + 11x + 28 = 0",
+    "p = 11, q = 28",
+    "x₁,₂ = −11/2 ± √((−11/2)² − 28)",
+    "x₁,₂ = −11/2 ± √9/4",
+    "x₁,₂ = −11/2 ± 3/2",
+    "x = −7 oder x = −4",
+    "L = {−7; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 15,
+    "q": 44
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 15x + 44 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 15 und q = 44."
+   ],
+   "loesungsweg": [
+    "x² + 15x + 44 = 0",
+    "p = 15, q = 44",
+    "x₁,₂ = −15/2 ± √((−15/2)² − 44)",
+    "x₁,₂ = −15/2 ± √49/4",
+    "x₁,₂ = −15/2 ± 7/2",
+    "x = −11 oder x = −4",
+    "L = {−11; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 14,
+    "q": 40
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 14x + 40 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 14 und q = 40."
+   ],
+   "loesungsweg": [
+    "x² + 14x + 40 = 0",
+    "p = 14, q = 40",
+    "x₁,₂ = −7 ± √((−7)² − 40)",
+    "x₁,₂ = −7 ± √9",
+    "x₁,₂ = −7 ± 3",
+    "x = −10 oder x = −4",
+    "L = {−10; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": 12
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 7x + 12 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 7 und q = 12."
+   ],
+   "loesungsweg": [
+    "x² + 7x + 12 = 0",
+    "p = 7, q = 12",
+    "x₁,₂ = −7/2 ± √((−7/2)² − 12)",
+    "x₁,₂ = −7/2 ± √1/4",
+    "x₁,₂ = −7/2 ± 1/2",
+    "x = −4 oder x = −3",
+    "L = {−4; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 24
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 11x + 24 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 11 und q = 24."
+   ],
+   "loesungsweg": [
+    "x² + 11x + 24 = 0",
+    "p = 11, q = 24",
+    "x₁,₂ = −11/2 ± √((−11/2)² − 24)",
+    "x₁,₂ = −11/2 ± √25/4",
+    "x₁,₂ = −11/2 ± 5/2",
+    "x = −8 oder x = −3",
+    "L = {−8; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 15,
+    "q": 54
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 15x + 54 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "6",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-18",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 15 und q = 54."
+   ],
+   "loesungsweg": [
+    "x² + 15x + 54 = 0",
+    "p = 15, q = 54",
+    "x₁,₂ = −15/2 ± √((−15/2)² − 54)",
+    "x₁,₂ = −15/2 ± √9/4",
+    "x₁,₂ = −15/2 ± 3/2",
+    "x = −9 oder x = −6",
+    "L = {−9; −6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-6",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": 4
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 5x + 4 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 5 und q = 4."
+   ],
+   "loesungsweg": [
+    "x² + 5x + 4 = 0",
+    "p = 5, q = 4",
+    "x₁,₂ = −5/2 ± √((−5/2)² − 4)",
+    "x₁,₂ = −5/2 ± √9/4",
+    "x₁,₂ = −5/2 ± 3/2",
+    "x = −4 oder x = −1",
+    "L = {−4; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 12,
+    "q": 35
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 12x + 35 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "5",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 12 und q = 35."
+   ],
+   "loesungsweg": [
+    "x² + 12x + 35 = 0",
+    "p = 12, q = 35",
+    "x₁,₂ = −6 ± √((−6)² − 35)",
+    "x₁,₂ = −6 ± √1",
+    "x₁,₂ = −6 ± 1",
+    "x = −7 oder x = −5",
+    "L = {−7; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 15,
+    "q": 36
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 15x + 36 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 15 und q = 36."
+   ],
+   "loesungsweg": [
+    "x² + 15x + 36 = 0",
+    "p = 15, q = 36",
+    "x₁,₂ = −15/2 ± √((−15/2)² − 36)",
+    "x₁,₂ = −15/2 ± √81/4",
+    "x₁,₂ = −15/2 ± 9/2",
+    "x = −12 oder x = −3",
+    "L = {−12; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 13,
+    "q": 30
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 13x + 30 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-15",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 30."
+   ],
+   "loesungsweg": [
+    "x² + 13x + 30 = 0",
+    "p = 13, q = 30",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 30)",
+    "x₁,₂ = −13/2 ± √49/4",
+    "x₁,₂ = −13/2 ± 7/2",
+    "x = −10 oder x = −3",
+    "L = {−10; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 9
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 10x + 9 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 9."
+   ],
+   "loesungsweg": [
+    "x² + 10x + 9 = 0",
+    "p = 10, q = 9",
+    "x₁,₂ = −5 ± √((−5)² − 9)",
+    "x₁,₂ = −5 ± √16",
+    "x₁,₂ = −5 ± 4",
+    "x = −9 oder x = −1",
+    "L = {−9; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 13,
+    "q": 40
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 13x + 40 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "5",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 40."
+   ],
+   "loesungsweg": [
+    "x² + 13x + 40 = 0",
+    "p = 13, q = 40",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 40)",
+    "x₁,₂ = −13/2 ± √9/4",
+    "x₁,₂ = −13/2 ± 3/2",
+    "x = −8 oder x = −5",
+    "L = {−8; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": 14
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 9x + 14 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 9 und q = 14."
+   ],
+   "loesungsweg": [
+    "x² + 9x + 14 = 0",
+    "p = 9, q = 14",
+    "x₁,₂ = −9/2 ± √((−9/2)² − 14)",
+    "x₁,₂ = −9/2 ± √25/4",
+    "x₁,₂ = −9/2 ± 5/2",
+    "x = −7 oder x = −2",
+    "L = {−7; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 30
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 11x + 30 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "5",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 11 und q = 30."
+   ],
+   "loesungsweg": [
+    "x² + 11x + 30 = 0",
+    "p = 11, q = 30",
+    "x₁,₂ = −11/2 ± √((−11/2)² − 30)",
+    "x₁,₂ = −11/2 ± √1/4",
+    "x₁,₂ = −11/2 ± 1/2",
+    "x = −6 oder x = −5",
+    "L = {−6; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 13,
+    "q": 42
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 13x + 42 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "6",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 42."
+   ],
+   "loesungsweg": [
+    "x² + 13x + 42 = 0",
+    "p = 13, q = 42",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 42)",
+    "x₁,₂ = −13/2 ± √1/4",
+    "x₁,₂ = −13/2 ± 1/2",
+    "x = −7 oder x = −6",
+    "L = {−7; −6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-6",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 15,
+    "q": 56
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 15x + 56 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "7",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 15 und q = 56."
+   ],
+   "loesungsweg": [
+    "x² + 15x + 56 = 0",
+    "p = 15, q = 56",
+    "x₁,₂ = −15/2 ± √((−15/2)² − 56)",
+    "x₁,₂ = −15/2 ± √1/4",
+    "x₁,₂ = −15/2 ± 1/2",
+    "x = −8 oder x = −7",
+    "L = {−8; −7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-7",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 14,
+    "q": 48
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 14x + 48 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "6",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 14 und q = 48."
+   ],
+   "loesungsweg": [
+    "x² + 14x + 48 = 0",
+    "p = 14, q = 48",
+    "x₁,₂ = −7 ± √((−7)² − 48)",
+    "x₁,₂ = −7 ± √1",
+    "x₁,₂ = −7 ± 1",
+    "x = −8 oder x = −6",
+    "L = {−8; −6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-6",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 6,
+    "q": 8
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 6x + 8 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 6 und q = 8."
+   ],
+   "loesungsweg": [
+    "x² + 6x + 8 = 0",
+    "p = 6, q = 8",
+    "x₁,₂ = −3 ± √((−3)² − 8)",
+    "x₁,₂ = −3 ± √1",
+    "x₁,₂ = −3 ± 1",
+    "x = −4 oder x = −2",
+    "L = {−4; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -20,
+    "q": 96
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 20x + 96 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "8",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "-8"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-4",
+      "24"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −20 und q = 96."
+   ],
+   "loesungsweg": [
+    "x² − 20x + 96 = 0",
+    "p = −20, q = 96",
+    "x₁,₂ = 10 ± √(10² − 96)",
+    "x₁,₂ = 10 ± √4",
+    "x₁,₂ = 10 ± 2",
+    "x = 8 oder x = 12",
+    "L = {8; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": -54
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 3x − 54 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-9",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −3 und q = −54."
+   ],
+   "loesungsweg": [
+    "x² − 3x − 54 = 0",
+    "p = −3, q = −54",
+    "x₁,₂ = 3/2 ± √((3/2)² − (−54))",
+    "x₁,₂ = 3/2 ± √225/4",
+    "x₁,₂ = 3/2 ± 15/2",
+    "x = −6 oder x = 9",
+    "L = {−6; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -17,
+    "q": 60
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 17x + 60 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-3",
+      "20"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −17 und q = 60."
+   ],
+   "loesungsweg": [
+    "x² − 17x + 60 = 0",
+    "p = −17, q = 60",
+    "x₁,₂ = 17/2 ± √((17/2)² − 60)",
+    "x₁,₂ = 17/2 ± √49/4",
+    "x₁,₂ = 17/2 ± 7/2",
+    "x = 5 oder x = 12",
+    "L = {5; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -14,
+    "q": 40
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 14x + 40 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-10",
+      "-4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −14 und q = 40."
+   ],
+   "loesungsweg": [
+    "x² − 14x + 40 = 0",
+    "p = −14, q = 40",
+    "x₁,₂ = 7 ± √(7² − 40)",
+    "x₁,₂ = 7 ± √9",
+    "x₁,₂ = 7 ± 3",
+    "x = 4 oder x = 10",
+    "L = {4; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -9,
+    "q": -36
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 9x − 36 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −9 und q = −36."
+   ],
+   "loesungsweg": [
+    "x² − 9x − 36 = 0",
+    "p = −9, q = −36",
+    "x₁,₂ = 9/2 ± √((9/2)² − (−36))",
+    "x₁,₂ = 9/2 ± √225/4",
+    "x₁,₂ = 9/2 ± 15/2",
+    "x = −3 oder x = 12",
+    "L = {−3; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -11,
+    "q": -12
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 11x − 12 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −11 und q = −12."
+   ],
+   "loesungsweg": [
+    "x² − 11x − 12 = 0",
+    "p = −11, q = −12",
+    "x₁,₂ = 11/2 ± √((11/2)² − (−12))",
+    "x₁,₂ = 11/2 ± √169/4",
+    "x₁,₂ = 11/2 ± 13/2",
+    "x = −1 oder x = 12",
+    "L = {−1; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": -36
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 5x − 36 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-9",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −5 und q = −36."
+   ],
+   "loesungsweg": [
+    "x² − 5x − 36 = 0",
+    "p = −5, q = −36",
+    "x₁,₂ = 5/2 ± √((5/2)² − (−36))",
+    "x₁,₂ = 5/2 ± √169/4",
+    "x₁,₂ = 5/2 ± 13/2",
+    "x = −4 oder x = 9",
+    "L = {−4; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": -20
+   },
+   "frage": "Löse mit der p-q-Formel: x² + x − 20 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 1 und q = −20."
+   ],
+   "loesungsweg": [
+    "x² + x − 20 = 0",
+    "p = 1, q = −20",
+    "x₁,₂ = −1/2 ± √((−1/2)² − (−20))",
+    "x₁,₂ = −1/2 ± √81/4",
+    "x₁,₂ = −1/2 ± 9/2",
+    "x = −5 oder x = 4",
+    "L = {−5; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": -4
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 3x − 4 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −3 und q = −4."
+   ],
+   "loesungsweg": [
+    "x² − 3x − 4 = 0",
+    "p = −3, q = −4",
+    "x₁,₂ = 3/2 ± √((3/2)² − (−4))",
+    "x₁,₂ = 3/2 ± √25/4",
+    "x₁,₂ = 3/2 ± 5/2",
+    "x = −1 oder x = 4",
+    "L = {−1; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": -6
+   },
+   "frage": "Löse mit der p-q-Formel: x² + x − 6 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-2",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 1 und q = −6."
+   ],
+   "loesungsweg": [
+    "x² + x − 6 = 0",
+    "p = 1, q = −6",
+    "x₁,₂ = −1/2 ± √((−1/2)² − (−6))",
+    "x₁,₂ = −1/2 ± √25/4",
+    "x₁,₂ = −1/2 ± 5/2",
+    "x = −3 oder x = 2",
+    "L = {−3; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -11,
+    "q": 28
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 11x + 28 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-7",
+      "-4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −11 und q = 28."
+   ],
+   "loesungsweg": [
+    "x² − 11x + 28 = 0",
+    "p = −11, q = 28",
+    "x₁,₂ = 11/2 ± √((11/2)² − 28)",
+    "x₁,₂ = 11/2 ± √9/4",
+    "x₁,₂ = 11/2 ± 3/2",
+    "x = 4 oder x = 7",
+    "L = {4; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": -48
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 8x − 48 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −8 und q = −48."
+   ],
+   "loesungsweg": [
+    "x² − 8x − 48 = 0",
+    "p = −8, q = −48",
+    "x₁,₂ = 4 ± √(4² − (−48))",
+    "x₁,₂ = 4 ± √64",
+    "x₁,₂ = 4 ± 8",
+    "x = −4 oder x = 12",
+    "L = {−4; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -12,
+    "q": 20
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 12x + 20 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-10",
+      "-2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −12 und q = 20."
+   ],
+   "loesungsweg": [
+    "x² − 12x + 20 = 0",
+    "p = −12, q = 20",
+    "x₁,₂ = 6 ± √(6² − 20)",
+    "x₁,₂ = 6 ± √16",
+    "x₁,₂ = 6 ± 4",
+    "x = 2 oder x = 10",
+    "L = {2; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": -24
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 5x − 24 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −5 und q = −24."
+   ],
+   "loesungsweg": [
+    "x² − 5x − 24 = 0",
+    "p = −5, q = −24",
+    "x₁,₂ = 5/2 ± √((5/2)² − (−24))",
+    "x₁,₂ = 5/2 ± √121/4",
+    "x₁,₂ = 5/2 ± 11/2",
+    "x = −3 oder x = 8",
+    "L = {−3; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": -2
+   },
+   "frage": "Löse mit der p-q-Formel: x² − x − 2 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-2",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −1 und q = −2."
+   ],
+   "loesungsweg": [
+    "x² − x − 2 = 0",
+    "p = −1, q = −2",
+    "x₁,₂ = 1/2 ± √((1/2)² − (−2))",
+    "x₁,₂ = 1/2 ± √9/4",
+    "x₁,₂ = 1/2 ± 3/2",
+    "x = −1 oder x = 2",
+    "L = {−1; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -10,
+    "q": 24
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 10x + 24 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-6",
+      "-4"
+     ]
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "menge": [
+      "-2",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −10 und q = 24."
+   ],
+   "loesungsweg": [
+    "x² − 10x + 24 = 0",
+    "p = −10, q = 24",
+    "x₁,₂ = 5 ± √(5² − 24)",
+    "x₁,₂ = 5 ± √1",
+    "x₁,₂ = 5 ± 1",
+    "x = 4 oder x = 6",
+    "L = {4; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": -3
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 2x − 3 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-1",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 2 und q = −3."
+   ],
+   "loesungsweg": [
+    "x² + 2x − 3 = 0",
+    "p = 2, q = −3",
+    "x₁,₂ = −1 ± √((−1)² − (−3))",
+    "x₁,₂ = −1 ± √4",
+    "x₁,₂ = −1 ± 2",
+    "x = −3 oder x = 1",
+    "L = {−3; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -14,
+    "q": 33
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 14x + 33 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "-3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −14 und q = 33."
+   ],
+   "loesungsweg": [
+    "x² − 14x + 33 = 0",
+    "p = −14, q = 33",
+    "x₁,₂ = 7 ± √(7² − 33)",
+    "x₁,₂ = 7 ± √16",
+    "x₁,₂ = 7 ± 4",
+    "x = 3 oder x = 11",
+    "L = {3; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": -48
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 2x − 48 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −2 und q = −48."
+   ],
+   "loesungsweg": [
+    "x² − 2x − 48 = 0",
+    "p = −2, q = −48",
+    "x₁,₂ = 1 ± √(1² − (−48))",
+    "x₁,₂ = 1 ± √49",
+    "x₁,₂ = 1 ± 7",
+    "x = −6 oder x = 8",
+    "L = {−6; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": -10
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 3x − 10 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-2",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 3 und q = −10."
+   ],
+   "loesungsweg": [
+    "x² + 3x − 10 = 0",
+    "p = 3, q = −10",
+    "x₁,₂ = −3/2 ± √((−3/2)² − (−10))",
+    "x₁,₂ = −3/2 ± √49/4",
+    "x₁,₂ = −3/2 ± 7/2",
+    "x = −5 oder x = 2",
+    "L = {−5; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -11,
+    "q": 10
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 11x + 10 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-10",
+      "-1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −11 und q = 10."
+   ],
+   "loesungsweg": [
+    "x² − 11x + 10 = 0",
+    "p = −11, q = 10",
+    "x₁,₂ = 11/2 ± √((11/2)² − 10)",
+    "x₁,₂ = 11/2 ± √81/4",
+    "x₁,₂ = 11/2 ± 9/2",
+    "x = 1 oder x = 10",
+    "L = {1; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -6,
+    "q": -7
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 6x − 7 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-7",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "menge": [
+      "1",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −6 und q = −7."
+   ],
+   "loesungsweg": [
+    "x² − 6x − 7 = 0",
+    "p = −6, q = −7",
+    "x₁,₂ = 3 ± √(3² − (−7))",
+    "x₁,₂ = 3 ± √16",
+    "x₁,₂ = 3 ± 4",
+    "x = −1 oder x = 7",
+    "L = {−1; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": -18
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 7x − 18 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-2",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 7 und q = −18."
+   ],
+   "loesungsweg": [
+    "x² + 7x − 18 = 0",
+    "p = 7, q = −18",
+    "x₁,₂ = −7/2 ± √((−7/2)² − (−18))",
+    "x₁,₂ = −7/2 ± √121/4",
+    "x₁,₂ = −7/2 ± 11/2",
+    "x = −9 oder x = 2",
+    "L = {−9; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -13,
+    "q": 22
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 13x + 22 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "-2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −13 und q = 22."
+   ],
+   "loesungsweg": [
+    "x² − 13x + 22 = 0",
+    "p = −13, q = 22",
+    "x₁,₂ = 13/2 ± √((13/2)² − 22)",
+    "x₁,₂ = 13/2 ± √81/4",
+    "x₁,₂ = 13/2 ± 9/2",
+    "x = 2 oder x = 11",
+    "L = {2; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": -9
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 8x − 9 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-1",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 8 und q = −9."
+   ],
+   "loesungsweg": [
+    "x² + 8x − 9 = 0",
+    "p = 8, q = −9",
+    "x₁,₂ = −4 ± √((−4)² − (−9))",
+    "x₁,₂ = −4 ± √25",
+    "x₁,₂ = −4 ± 5",
+    "x = −9 oder x = 1",
+    "L = {−9; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -16,
+    "q": 55
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 16x + 55 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −16 und q = 55."
+   ],
+   "loesungsweg": [
+    "x² − 16x + 55 = 0",
+    "p = −16, q = 55",
+    "x₁,₂ = 8 ± √(8² − 55)",
+    "x₁,₂ = 8 ± √9",
+    "x₁,₂ = 8 ± 3",
+    "x = 5 oder x = 11",
+    "L = {5; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -14,
+    "q": 48
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 14x + 48 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "6",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "-6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −14 und q = 48."
+   ],
+   "loesungsweg": [
+    "x² − 14x + 48 = 0",
+    "p = −14, q = 48",
+    "x₁,₂ = 7 ± √(7² − 48)",
+    "x₁,₂ = 7 ± √1",
+    "x₁,₂ = 7 ± 1",
+    "x = 6 oder x = 8",
+    "L = {6; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -9,
+    "q": 18
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 9x + 18 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-6",
+      "-3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −9 und q = 18."
+   ],
+   "loesungsweg": [
+    "x² − 9x + 18 = 0",
+    "p = −9, q = 18",
+    "x₁,₂ = 9/2 ± √((9/2)² − 18)",
+    "x₁,₂ = 9/2 ± √9/4",
+    "x₁,₂ = 9/2 ± 3/2",
+    "x = 3 oder x = 6",
+    "L = {3; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -6,
+    "q": -16
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 6x − 16 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −6 und q = −16."
+   ],
+   "loesungsweg": [
+    "x² − 6x − 16 = 0",
+    "p = −6, q = −16",
+    "x₁,₂ = 3 ± √(3² − (−16))",
+    "x₁,₂ = 3 ± √25",
+    "x₁,₂ = 3 ± 5",
+    "x = −2 oder x = 8",
+    "L = {−2; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -16,
+    "q": 60
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 16x + 60 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "6",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-10",
+      "-6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −16 und q = 60."
+   ],
+   "loesungsweg": [
+    "x² − 16x + 60 = 0",
+    "p = −16, q = 60",
+    "x₁,₂ = 8 ± √(8² − 60)",
+    "x₁,₂ = 8 ± √4",
+    "x₁,₂ = 8 ± 2",
+    "x = 6 oder x = 10",
+    "L = {6; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -13,
+    "q": 40
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 13x + 40 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −13 und q = 40."
+   ],
+   "loesungsweg": [
+    "x² − 13x + 40 = 0",
+    "p = −13, q = 40",
+    "x₁,₂ = 13/2 ± √((13/2)² − 40)",
+    "x₁,₂ = 13/2 ± √9/4",
+    "x₁,₂ = 13/2 ± 3/2",
+    "x = 5 oder x = 8",
+    "L = {5; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 4,
+    "q": -5
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 4x − 5 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-1",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 4 und q = −5."
+   ],
+   "loesungsweg": [
+    "x² + 4x − 5 = 0",
+    "p = 4, q = −5",
+    "x₁,₂ = −2 ± √((−2)² − (−5))",
+    "x₁,₂ = −2 ± √9",
+    "x₁,₂ = −2 ± 3",
+    "x = −5 oder x = 1",
+    "L = {−5; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": -24
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 2x − 24 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 2 und q = −24."
+   ],
+   "loesungsweg": [
+    "x² + 2x − 24 = 0",
+    "p = 2, q = −24",
+    "x₁,₂ = −1 ± √((−1)² − (−24))",
+    "x₁,₂ = −1 ± √25",
+    "x₁,₂ = −1 ± 5",
+    "x = −6 oder x = 4",
+    "L = {−6; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": -10
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 9x − 10 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-1",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 9 und q = −10."
+   ],
+   "loesungsweg": [
+    "x² + 9x − 10 = 0",
+    "p = 9, q = −10",
+    "x₁,₂ = −9/2 ± √((−9/2)² − (−10))",
+    "x₁,₂ = −9/2 ± √121/4",
+    "x₁,₂ = −9/2 ± 11/2",
+    "x = −10 oder x = 1",
+    "L = {−10; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": -30
+   },
+   "frage": "Löse mit der p-q-Formel: x² − x − 30 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-6",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −1 und q = −30."
+   ],
+   "loesungsweg": [
+    "x² − x − 30 = 0",
+    "p = −1, q = −30",
+    "x₁,₂ = 1/2 ± √((1/2)² − (−30))",
+    "x₁,₂ = 1/2 ± √121/4",
+    "x₁,₂ = 1/2 ± 11/2",
+    "x = −5 oder x = 6",
+    "L = {−5; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": -18
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 3x − 18 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-6",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −3 und q = −18."
+   ],
+   "loesungsweg": [
+    "x² − 3x − 18 = 0",
+    "p = −3, q = −18",
+    "x₁,₂ = 3/2 ± √((3/2)² − (−18))",
+    "x₁,₂ = 3/2 ± √81/4",
+    "x₁,₂ = 3/2 ± 9/2",
+    "x = −3 oder x = 6",
+    "L = {−3; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -13,
+    "q": 40
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² − 26x + 80 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −13 und q = 40."
+   ],
+   "loesungsweg": [
+    "2x² − 26x + 80 = 0",
+    "x² − 13x + 40 = 0   (durch 2 geteilt)",
+    "p = −13, q = 40",
+    "x₁,₂ = 13/2 ± √((13/2)² − 40)",
+    "x₁,₂ = 13/2 ± √9/4",
+    "x₁,₂ = 13/2 ± 3/2",
+    "x = 5 oder x = 8",
+    "L = {5; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 12,
+    "q": 20
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 36x + 60 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 12 und q = 20."
+   ],
+   "loesungsweg": [
+    "3x² + 36x + 60 = 0",
+    "x² + 12x + 20 = 0   (durch 3 geteilt)",
+    "p = 12, q = 20",
+    "x₁,₂ = −6 ± √((−6)² − 20)",
+    "x₁,₂ = −6 ± √16",
+    "x₁,₂ = −6 ± 4",
+    "x = −10 oder x = −2",
+    "L = {−10; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 6,
+    "q": 5
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 18x + 15 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 6 und q = 5."
+   ],
+   "loesungsweg": [
+    "3x² + 18x + 15 = 0",
+    "x² + 6x + 5 = 0   (durch 3 geteilt)",
+    "p = 6, q = 5",
+    "x₁,₂ = −3 ± √((−3)² − 5)",
+    "x₁,₂ = −3 ± √4",
+    "x₁,₂ = −3 ± 2",
+    "x = −5 oder x = −1",
+    "L = {−5; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 10,
+    "q": 16
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² + 20x + 32 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 16."
+   ],
+   "loesungsweg": [
+    "2x² + 20x + 32 = 0",
+    "x² + 10x + 16 = 0   (durch 2 geteilt)",
+    "p = 10, q = 16",
+    "x₁,₂ = −5 ± √((−5)² − 16)",
+    "x₁,₂ = −5 ± √9",
+    "x₁,₂ = −5 ± 3",
+    "x = −8 oder x = −2",
+    "L = {−8; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -16,
+    "q": 55
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² − 32x + 110 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −16 und q = 55."
+   ],
+   "loesungsweg": [
+    "2x² − 32x + 110 = 0",
+    "x² − 16x + 55 = 0   (durch 2 geteilt)",
+    "p = −16, q = 55",
+    "x₁,₂ = 8 ± √(8² − 55)",
+    "x₁,₂ = 8 ± √9",
+    "x₁,₂ = 8 ± 3",
+    "x = 5 oder x = 11",
+    "L = {5; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -12,
+    "q": 35
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 36x + 105 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-7",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −12 und q = 35."
+   ],
+   "loesungsweg": [
+    "3x² − 36x + 105 = 0",
+    "x² − 12x + 35 = 0   (durch 3 geteilt)",
+    "p = −12, q = 35",
+    "x₁,₂ = 6 ± √(6² − 35)",
+    "x₁,₂ = 6 ± √1",
+    "x₁,₂ = 6 ± 1",
+    "x = 5 oder x = 7",
+    "L = {5; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -6,
+    "q": -55
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 18x − 165 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −6 und q = −55."
+   ],
+   "loesungsweg": [
+    "3x² − 18x − 165 = 0",
+    "x² − 6x − 55 = 0   (durch 3 geteilt)",
+    "p = −6, q = −55",
+    "x₁,₂ = 3 ± √(3² − (−55))",
+    "x₁,₂ = 3 ± √64",
+    "x₁,₂ = 3 ± 8",
+    "x = −5 oder x = 11",
+    "L = {−5; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 7,
+    "q": -44
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² + 14x − 88 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 7 und q = −44."
+   ],
+   "loesungsweg": [
+    "2x² + 14x − 88 = 0",
+    "x² + 7x − 44 = 0   (durch 2 geteilt)",
+    "p = 7, q = −44",
+    "x₁,₂ = −7/2 ± √((−7/2)² − (−44))",
+    "x₁,₂ = −7/2 ± √225/4",
+    "x₁,₂ = −7/2 ± 15/2",
+    "x = −11 oder x = 4",
+    "L = {−11; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 6,
+    "q": -40
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² + 12x − 80 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 6 und q = −40."
+   ],
+   "loesungsweg": [
+    "2x² + 12x − 80 = 0",
+    "x² + 6x − 40 = 0   (durch 2 geteilt)",
+    "p = 6, q = −40",
+    "x₁,₂ = −3 ± √((−3)² − (−40))",
+    "x₁,₂ = −3 ± √49",
+    "x₁,₂ = −3 ± 7",
+    "x = −10 oder x = 4",
+    "L = {−10; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 13,
+    "q": 22
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² + 26x + 44 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 22."
+   ],
+   "loesungsweg": [
+    "2x² + 26x + 44 = 0",
+    "x² + 13x + 22 = 0   (durch 2 geteilt)",
+    "p = 13, q = 22",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 22)",
+    "x₁,₂ = −13/2 ± √81/4",
+    "x₁,₂ = −13/2 ± 9/2",
+    "x = −11 oder x = −2",
+    "L = {−11; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 13,
+    "q": 40
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² + 26x + 80 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "5",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 40."
+   ],
+   "loesungsweg": [
+    "2x² + 26x + 80 = 0",
+    "x² + 13x + 40 = 0   (durch 2 geteilt)",
+    "p = 13, q = 40",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 40)",
+    "x₁,₂ = −13/2 ± √9/4",
+    "x₁,₂ = −13/2 ± 3/2",
+    "x = −8 oder x = −5",
+    "L = {−8; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -8,
+    "q": -33
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 24x − 99 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −8 und q = −33."
+   ],
+   "loesungsweg": [
+    "3x² − 24x − 99 = 0",
+    "x² − 8x − 33 = 0   (durch 3 geteilt)",
+    "p = −8, q = −33",
+    "x₁,₂ = 4 ± √(4² − (−33))",
+    "x₁,₂ = 4 ± √49",
+    "x₁,₂ = 4 ± 7",
+    "x = −3 oder x = 11",
+    "L = {−3; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 1,
+    "q": -2
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² + 2x − 4 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-1",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 1 und q = −2."
+   ],
+   "loesungsweg": [
+    "2x² + 2x − 4 = 0",
+    "x² + x − 2 = 0   (durch 2 geteilt)",
+    "p = 1, q = −2",
+    "x₁,₂ = −1/2 ± √((−1/2)² − (−2))",
+    "x₁,₂ = −1/2 ± √9/4",
+    "x₁,₂ = −1/2 ± 3/2",
+    "x = −2 oder x = 1",
+    "L = {−2; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -8,
+    "q": -33
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² − 16x − 66 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-11",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −8 und q = −33."
+   ],
+   "loesungsweg": [
+    "2x² − 16x − 66 = 0",
+    "x² − 8x − 33 = 0   (durch 2 geteilt)",
+    "p = −8, q = −33",
+    "x₁,₂ = 4 ± √(4² − (−33))",
+    "x₁,₂ = 4 ± √49",
+    "x₁,₂ = 4 ± 7",
+    "x = −3 oder x = 11",
+    "L = {−3; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -6,
+    "q": -7
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 18x − 21 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-7",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "menge": [
+      "1",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −6 und q = −7."
+   ],
+   "loesungsweg": [
+    "3x² − 18x − 21 = 0",
+    "x² − 6x − 7 = 0   (durch 3 geteilt)",
+    "p = −6, q = −7",
+    "x₁,₂ = 3 ± √(3² − (−7))",
+    "x₁,₂ = 3 ± √16",
+    "x₁,₂ = 3 ± 4",
+    "x = −1 oder x = 7",
+    "L = {−1; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -14,
+    "q": 45
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 42x + 135 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-9",
+      "-5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −14 und q = 45."
+   ],
+   "loesungsweg": [
+    "3x² − 42x + 135 = 0",
+    "x² − 14x + 45 = 0   (durch 3 geteilt)",
+    "p = −14, q = 45",
+    "x₁,₂ = 7 ± √(7² − 45)",
+    "x₁,₂ = 7 ± √4",
+    "x₁,₂ = 7 ± 2",
+    "x = 5 oder x = 9",
+    "L = {5; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -3,
+    "q": -40
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 9x − 120 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −3 und q = −40."
+   ],
+   "loesungsweg": [
+    "3x² − 9x − 120 = 0",
+    "x² − 3x − 40 = 0   (durch 3 geteilt)",
+    "p = −3, q = −40",
+    "x₁,₂ = 3/2 ± √((3/2)² − (−40))",
+    "x₁,₂ = 3/2 ± √169/4",
+    "x₁,₂ = 3/2 ± 13/2",
+    "x = −5 oder x = 8",
+    "L = {−5; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 14,
+    "q": 33
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 42x + 99 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 14 und q = 33."
+   ],
+   "loesungsweg": [
+    "3x² + 42x + 99 = 0",
+    "x² + 14x + 33 = 0   (durch 3 geteilt)",
+    "p = 14, q = 33",
+    "x₁,₂ = −7 ± √((−7)² − 33)",
+    "x₁,₂ = −7 ± √16",
+    "x₁,₂ = −7 ± 4",
+    "x = −11 oder x = −3",
+    "L = {−11; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 9,
+    "q": 20
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 27x + 60 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "5"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 9 und q = 20."
+   ],
+   "loesungsweg": [
+    "3x² + 27x + 60 = 0",
+    "x² + 9x + 20 = 0   (durch 3 geteilt)",
+    "p = 9, q = 20",
+    "x₁,₂ = −9/2 ± √((−9/2)² − 20)",
+    "x₁,₂ = −9/2 ± √1/4",
+    "x₁,₂ = −9/2 ± 1/2",
+    "x = −5 oder x = −4",
+    "L = {−5; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -13,
+    "q": 12
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 39x + 36 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "-1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −13 und q = 12."
+   ],
+   "loesungsweg": [
+    "3x² − 39x + 36 = 0",
+    "x² − 13x + 12 = 0   (durch 3 geteilt)",
+    "p = −13, q = 12",
+    "x₁,₂ = 13/2 ± √((13/2)² − 12)",
+    "x₁,₂ = 13/2 ± √121/4",
+    "x₁,₂ = 13/2 ± 11/2",
+    "x = 1 oder x = 12",
+    "L = {1; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -7,
+    "q": -18
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² − 14x − 36 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-9",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −7 und q = −18."
+   ],
+   "loesungsweg": [
+    "2x² − 14x − 36 = 0",
+    "x² − 7x − 18 = 0   (durch 2 geteilt)",
+    "p = −7, q = −18",
+    "x₁,₂ = 7/2 ± √((7/2)² − (−18))",
+    "x₁,₂ = 7/2 ± √121/4",
+    "x₁,₂ = 7/2 ± 11/2",
+    "x = −2 oder x = 9",
+    "L = {−2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -4,
+    "q": -5
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 12x − 15 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-5",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −4 und q = −5."
+   ],
+   "loesungsweg": [
+    "3x² − 12x − 15 = 0",
+    "x² − 4x − 5 = 0   (durch 3 geteilt)",
+    "p = −4, q = −5",
+    "x₁,₂ = 2 ± √(2² − (−5))",
+    "x₁,₂ = 2 ± √9",
+    "x₁,₂ = 2 ± 3",
+    "x = −1 oder x = 5",
+    "L = {−1; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -4,
+    "q": -32
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 12x − 96 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −4 und q = −32."
+   ],
+   "loesungsweg": [
+    "3x² − 12x − 96 = 0",
+    "x² − 4x − 32 = 0   (durch 3 geteilt)",
+    "p = −4, q = −32",
+    "x₁,₂ = 2 ± √(2² − (−32))",
+    "x₁,₂ = 2 ± √36",
+    "x₁,₂ = 2 ± 6",
+    "x = −4 oder x = 8",
+    "L = {−4; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -10,
+    "q": 21
+   },
+   "frage": "Löse mit der p-q-Formel: 2x² − 20x + 42 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-7",
+      "-3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −10 und q = 21."
+   ],
+   "loesungsweg": [
+    "2x² − 20x + 42 = 0",
+    "x² − 10x + 21 = 0   (durch 2 geteilt)",
+    "p = −10, q = 21",
+    "x₁,₂ = 5 ± √(5² − 21)",
+    "x₁,₂ = 5 ± √4",
+    "x₁,₂ = 5 ± 2",
+    "x = 3 oder x = 7",
+    "L = {3; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 4,
+    "q": -32
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 12x − 96 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "8"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 4 und q = −32."
+   ],
+   "loesungsweg": [
+    "3x² + 12x − 96 = 0",
+    "x² + 4x − 32 = 0   (durch 3 geteilt)",
+    "p = 4, q = −32",
+    "x₁,₂ = −2 ± √((−2)² − (−32))",
+    "x₁,₂ = −2 ± √36",
+    "x₁,₂ = −2 ± 6",
+    "x = −8 oder x = 4",
+    "L = {−8; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 6,
+    "q": -40
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 18x − 120 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 6 und q = −40."
+   ],
+   "loesungsweg": [
+    "3x² + 18x − 120 = 0",
+    "x² + 6x − 40 = 0   (durch 3 geteilt)",
+    "p = 6, q = −40",
+    "x₁,₂ = −3 ± √((−3)² − (−40))",
+    "x₁,₂ = −3 ± √49",
+    "x₁,₂ = −3 ± 7",
+    "x = −10 oder x = 4",
+    "L = {−10; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -11,
+    "q": 28
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² − 33x + 84 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-7",
+      "-4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −11 und q = 28."
+   ],
+   "loesungsweg": [
+    "3x² − 33x + 84 = 0",
+    "x² − 11x + 28 = 0   (durch 3 geteilt)",
+    "p = −11, q = 28",
+    "x₁,₂ = 11/2 ± √((11/2)² − 28)",
+    "x₁,₂ = 11/2 ± √9/4",
+    "x₁,₂ = 11/2 ± 3/2",
+    "x = 4 oder x = 7",
+    "L = {4; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 1,
+    "q": -42
+   },
+   "frage": "Löse mit der p-q-Formel: 3x² + 3x − 126 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-6",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 1 und q = −42."
+   ],
+   "loesungsweg": [
+    "3x² + 3x − 126 = 0",
+    "x² + x − 42 = 0   (durch 3 geteilt)",
+    "p = 1, q = −42",
+    "x₁,₂ = −1/2 ± √((−1/2)² − (−42))",
+    "x₁,₂ = −1/2 ± √169/4",
+    "x₁,₂ = −1/2 ± 13/2",
+    "x = −7 oder x = 6",
+    "L = {−7; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": -36
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 5x = 36.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 5 und q = −36."
+   ],
+   "loesungsweg": [
+    "x² + 5x = 36",
+    "x² + 5x − 36 = 0   (auf beiden Seiten − 36)",
+    "p = 5, q = −36",
+    "x₁,₂ = −5/2 ± √((−5/2)² − (−36))",
+    "x₁,₂ = −5/2 ± √169/4",
+    "x₁,₂ = −5/2 ± 13/2",
+    "x = −9 oder x = 4",
+    "L = {−9; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -10,
+    "q": 24
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 10x = −24.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-6",
+      "-4"
+     ]
+    },
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "menge": [
+      "-2",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −10 und q = 24."
+   ],
+   "loesungsweg": [
+    "x² − 10x = −24",
+    "x² − 10x + 24 = 0   (auf beiden Seiten + 24)",
+    "p = −10, q = 24",
+    "x₁,₂ = 5 ± √(5² − 24)",
+    "x₁,₂ = 5 ± √1",
+    "x₁,₂ = 5 ± 1",
+    "x = 4 oder x = 6",
+    "L = {4; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": -30
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 7x = 30.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-10",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −7 und q = −30."
+   ],
+   "loesungsweg": [
+    "x² − 7x = 30",
+    "x² − 7x − 30 = 0   (auf beiden Seiten − 30)",
+    "p = −7, q = −30",
+    "x₁,₂ = 7/2 ± √((7/2)² − (−30))",
+    "x₁,₂ = 7/2 ± √169/4",
+    "x₁,₂ = 7/2 ± 13/2",
+    "x = −3 oder x = 10",
+    "L = {−3; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": -48
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 2x = 48.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −2 und q = −48."
+   ],
+   "loesungsweg": [
+    "x² − 2x = 48",
+    "x² − 2x − 48 = 0   (auf beiden Seiten − 48)",
+    "p = −2, q = −48",
+    "x₁,₂ = 1 ± √(1² − (−48))",
+    "x₁,₂ = 1 ± √49",
+    "x₁,₂ = 1 ± 7",
+    "x = −6 oder x = 8",
+    "L = {−6; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": 4
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 5x = −4.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "1",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 5 und q = 4."
+   ],
+   "loesungsweg": [
+    "x² + 5x = −4",
+    "x² + 5x + 4 = 0   (auf beiden Seiten + 4)",
+    "p = 5, q = 4",
+    "x₁,₂ = −5/2 ± √((−5/2)² − 4)",
+    "x₁,₂ = −5/2 ± √9/4",
+    "x₁,₂ = −5/2 ± 3/2",
+    "x = −4 oder x = −1",
+    "L = {−4; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 24
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 10x = −24.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "6"
+     ]
+    },
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "menge": [
+      "-12",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 24."
+   ],
+   "loesungsweg": [
+    "x² + 10x = −24",
+    "x² + 10x + 24 = 0   (auf beiden Seiten + 24)",
+    "p = 10, q = 24",
+    "x₁,₂ = −5 ± √((−5)² − 24)",
+    "x₁,₂ = −5 ± √1",
+    "x₁,₂ = −5 ± 1",
+    "x = −6 oder x = −4",
+    "L = {−6; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 4,
+    "q": -45
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 4x = 45.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-5",
+      "9"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 4 und q = −45."
+   ],
+   "loesungsweg": [
+    "x² + 4x = 45",
+    "x² + 4x − 45 = 0   (auf beiden Seiten − 45)",
+    "p = 4, q = −45",
+    "x₁,₂ = −2 ± √((−2)² − (−45))",
+    "x₁,₂ = −2 ± √49",
+    "x₁,₂ = −2 ± 7",
+    "x = −9 oder x = 5",
+    "L = {−9; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": -60
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 7x = 60.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-5",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 7 und q = −60."
+   ],
+   "loesungsweg": [
+    "x² + 7x = 60",
+    "x² + 7x − 60 = 0   (auf beiden Seiten − 60)",
+    "p = 7, q = −60",
+    "x₁,₂ = −7/2 ± √((−7/2)² − (−60))",
+    "x₁,₂ = −7/2 ± √289/4",
+    "x₁,₂ = −7/2 ± 17/2",
+    "x = −12 oder x = 5",
+    "L = {−12; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 20,
+    "q": 96
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 20x = −96.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "-8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "8",
+      "12"
+     ]
+    },
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "menge": [
+      "-24",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 20 und q = 96."
+   ],
+   "loesungsweg": [
+    "x² + 20x = −96",
+    "x² + 20x + 96 = 0   (auf beiden Seiten + 96)",
+    "p = 20, q = 96",
+    "x₁,₂ = −10 ± √((−10)² − 96)",
+    "x₁,₂ = −10 ± √4",
+    "x₁,₂ = −10 ± 2",
+    "x = −12 oder x = −8",
+    "L = {−12; −8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-8",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 6,
+    "q": -7
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 6x = 7.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-1",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 6 und q = −7."
+   ],
+   "loesungsweg": [
+    "x² + 6x = 7",
+    "x² + 6x − 7 = 0   (auf beiden Seiten − 7)",
+    "p = 6, q = −7",
+    "x₁,₂ = −3 ± √((−3)² − (−7))",
+    "x₁,₂ = −3 ± √16",
+    "x₁,₂ = −3 ± 4",
+    "x = −7 oder x = 1",
+    "L = {−7; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 28
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 11x = −28.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "4",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 11 und q = 28."
+   ],
+   "loesungsweg": [
+    "x² + 11x = −28",
+    "x² + 11x + 28 = 0   (auf beiden Seiten + 28)",
+    "p = 11, q = 28",
+    "x₁,₂ = −11/2 ± √((−11/2)² − 28)",
+    "x₁,₂ = −11/2 ± √9/4",
+    "x₁,₂ = −11/2 ± 3/2",
+    "x = −7 oder x = −4",
+    "L = {−7; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 21
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 10x = −21.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "3",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 10 und q = 21."
+   ],
+   "loesungsweg": [
+    "x² + 10x = −21",
+    "x² + 10x + 21 = 0   (auf beiden Seiten + 21)",
+    "p = 10, q = 21",
+    "x₁,₂ = −5 ± √((−5)² − 21)",
+    "x₁,₂ = −5 ± √4",
+    "x₁,₂ = −5 ± 2",
+    "x = −7 oder x = −3",
+    "L = {−7; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -6,
+    "q": 8
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 6x = −8.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "-2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −6 und q = 8."
+   ],
+   "loesungsweg": [
+    "x² − 6x = −8",
+    "x² − 6x + 8 = 0   (auf beiden Seiten + 8)",
+    "p = −6, q = 8",
+    "x₁,₂ = 3 ± √(3² − 8)",
+    "x₁,₂ = 3 ± √1",
+    "x₁,₂ = 3 ± 1",
+    "x = 2 oder x = 4",
+    "L = {2; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": 12
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 7x = −12.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-4",
+      "-3"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −7 und q = 12."
+   ],
+   "loesungsweg": [
+    "x² − 7x = −12",
+    "x² − 7x + 12 = 0   (auf beiden Seiten + 12)",
+    "p = −7, q = 12",
+    "x₁,₂ = 7/2 ± √((7/2)² − 12)",
+    "x₁,₂ = 7/2 ± √1/4",
+    "x₁,₂ = 7/2 ± 1/2",
+    "x = 3 oder x = 4",
+    "L = {3; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": -18
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 7x = 18.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-9",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −7 und q = −18."
+   ],
+   "loesungsweg": [
+    "x² − 7x = 18",
+    "x² − 7x − 18 = 0   (auf beiden Seiten − 18)",
+    "p = −7, q = −18",
+    "x₁,₂ = 7/2 ± √((7/2)² − (−18))",
+    "x₁,₂ = 7/2 ± √121/4",
+    "x₁,₂ = 7/2 ± 11/2",
+    "x = −2 oder x = 9",
+    "L = {−2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 16,
+    "q": 60
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 16x = −60.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "6",
+      "10"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 16 und q = 60."
+   ],
+   "loesungsweg": [
+    "x² + 16x = −60",
+    "x² + 16x + 60 = 0   (auf beiden Seiten + 60)",
+    "p = 16, q = 60",
+    "x₁,₂ = −8 ± √((−8)² − 60)",
+    "x₁,₂ = −8 ± √4",
+    "x₁,₂ = −8 ± 2",
+    "x = −10 oder x = −6",
+    "L = {−10; −6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-6",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -20,
+    "q": 96
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 20x = −96.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "8",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-12",
+      "-8"
+     ]
+    },
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "menge": [
+      "-4",
+      "24"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −20 und q = 96."
+   ],
+   "loesungsweg": [
+    "x² − 20x = −96",
+    "x² − 20x + 96 = 0   (auf beiden Seiten + 96)",
+    "p = −20, q = 96",
+    "x₁,₂ = 10 ± √(10² − 96)",
+    "x₁,₂ = 10 ± √4",
+    "x₁,₂ = 10 ± 2",
+    "x = 8 oder x = 12",
+    "L = {8; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": -2
+   },
+   "frage": "Löse mit der p-q-Formel: x² − x = 2.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-2",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −1 und q = −2."
+   ],
+   "loesungsweg": [
+    "x² − x = 2",
+    "x² − x − 2 = 0   (auf beiden Seiten − 2)",
+    "p = −1, q = −2",
+    "x₁,₂ = 1/2 ± √((1/2)² − (−2))",
+    "x₁,₂ = 1/2 ± √9/4",
+    "x₁,₂ = 1/2 ± 3/2",
+    "x = −1 oder x = 2",
+    "L = {−1; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 13,
+    "q": 22
+   },
+   "frage": "Löse mit der p-q-Formel: x² + 13x = −22.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "2",
+      "11"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = 13 und q = 22."
+   ],
+   "loesungsweg": [
+    "x² + 13x = −22",
+    "x² + 13x + 22 = 0   (auf beiden Seiten + 22)",
+    "p = 13, q = 22",
+    "x₁,₂ = −13/2 ± √((−13/2)² − 22)",
+    "x₁,₂ = −13/2 ± √81/4",
+    "x₁,₂ = −13/2 ± 9/2",
+    "x = −11 oder x = −2",
+    "L = {−11; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -9,
+    "q": 8
+   },
+   "frage": "Löse mit der p-q-Formel: x² − 9x = −8.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "menge": [
+      "-8",
+      "-1"
+     ]
+    },
+    {
+     "key": "qf_nur_eine_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Steht die Gleichung schon in der Form x² + px + q = 0?",
+    "Lies p und q ab. Achte auf die Vorzeichen.",
+    "Setz ein: x = −p/2 ± √((p/2)² − q) mit p = −9 und q = 8."
+   ],
+   "loesungsweg": [
+    "x² − 9x = −8",
+    "x² − 9x + 8 = 0   (auf beiden Seiten + 8)",
+    "p = −9, q = 8",
+    "x₁,₂ = 9/2 ± √((9/2)² − 8)",
+    "x₁,₂ = 9/2 ± √49/4",
+    "x₁,₂ = 9/2 ± 7/2",
+    "x = 1 oder x = 8",
+    "L = {1; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

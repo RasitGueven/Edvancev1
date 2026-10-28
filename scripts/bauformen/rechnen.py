@@ -61,3 +61,22 @@ def bruch(text: str) -> Fraction:
     """Antwort-Text → Fraction (wie format_bruch in der DB, fuer Vergleiche in Python)."""
     t = text.strip().replace('−', '-').replace(',', '.').lstrip('+')
     return Fraction(t)
+
+
+def zeilen_menge(zeile: str):
+    """Loesungsmenge einer Zeile eines Loesungswegs (sympy-Menge, reell), fuer Fehler finden und Schritte ordnen:
+    'L = {a; b}', 'L = { }', 'x = a oder x = b', jede Gleichung 'A = B' und 'A = B oder C = D'."""
+    t = zeile.strip().rstrip('.')
+    if t.startswith('L ='):
+        innen = t.split('{', 1)[1].rsplit('}', 1)[0].strip()
+        return sympy.FiniteSet(*[ausdruck(w) for w in innen.split(';') if w.strip()]) if innen else sympy.S.EmptySet
+    menge = sympy.S.EmptySet
+    for teil in re.split(r'\s+oder\s+', t):
+        links, rechts = teil.split('=', 1)
+        links = re.sub(r'^x[₁₂,]+\s*$', 'x', links.strip())
+        if '±' in rechts:
+            a, b = rechts.split('±', 1)
+            menge = menge | sympy.FiniteSet(ausdruck(a) + ausdruck(b), ausdruck(a) - ausdruck(b))
+            continue
+        menge = menge | sympy.solveset(sympy.Eq(ausdruck(links), ausdruck(rechts)), X, domain=sympy.S.Reals)
+    return menge

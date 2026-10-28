@@ -1,0 +1,7659 @@
+{
+ "schluessel": "PQ-1",
+ "skill": "gleichung_quadr_formel",
+ "kernidee": "gleichung_quadr_formel:K1",
+ "format": "mehrteiler",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Bring {gleichung} in die Form x² + px + q = 0. Gib p und q an.",
+  "stufen": {
+   "1": "x² + px + q = 0, p und q positiv",
+   "2": "p oder q negativ",
+   "3": "a·x² + b·x + c = 0, a von 2 bis 5",
+   "4": "x² + b·x = c oder x² = b·x + c: erst umstellen"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_p_vorzeichen",
+    "regel": "p ohne Vorzeichen abgelesen",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "p ist die Zahl vor x, zusammen mit dem Rechenzeichen davor. Prüf das Vorzeichen."
+   },
+   {
+    "key": "qf_q_vorzeichen",
+    "regel": "q ohne Vorzeichen abgelesen",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "q ist die Zahl ohne x mit ihrem Vorzeichen."
+   },
+   {
+    "key": "qf_durch_a_vergessen",
+    "regel": "b und c statt b/a und c/a",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Vor x² muss eine 1 stehen. Teil zuerst alle Glieder durch die Zahl vor x²."
+   },
+   {
+    "key": "qf_gegenoperation_vorzeichen",
+    "regel": "beim Umstellen Vorzeichen nicht gewechselt",
+    "gilt_fuer_stufen": [
+     4
+    ],
+    "rueckmeldung": "Wenn du ein Glied auf die andere Seite bringst, wechselt sein Vorzeichen."
+   }
+  ],
+  "hinweise": [
+   "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+   "{schritt}",
+   "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 90,
+  "kann_entfallen": false,
+  "generator_hash": "c7ec4888b9a2"
+ },
+ "pruefprotokoll": {
+  "gruen": 88,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "1: -12; 2: -8",
+   "2": "1: -8; 2: -24",
+   "3": "1: 6; 2: 5",
+   "4": "1: 10; 2: -20",
+   "5": "1: 2; 2: -13",
+   "6": "1: -2; 2: 15",
+   "7": "1: 12; 2: 22",
+   "8": "1: -9; 2: 7",
+   "9": "1: 7; 2: -16",
+   "10": "1: 8; 2: -22"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 1,
+    "form": "null"
+   },
+   "frage": "Bring x² + 10x + 1 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10",
+      "+10"
+     ],
+     "2": [
+      "1",
+      "+1"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 10x + 1 = 0",
+    "p = 10, q = 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": 7,
+    "form": "null"
+   },
+   "frage": "Bring x² + 3x + 7 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "7",
+      "+7"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x + 7 = 0",
+    "p = 3, q = 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": 12,
+    "form": "null"
+   },
+   "frage": "Bring x² + 9x + 12 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9",
+      "+9"
+     ],
+     "2": [
+      "12",
+      "+12"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 9x + 12 = 0",
+    "p = 9, q = 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 6,
+    "q": 5,
+    "form": "null"
+   },
+   "frage": "Bring x² + 6x + 5 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "6",
+      "+6"
+     ],
+     "2": [
+      "5",
+      "+5"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 6x + 5 = 0",
+    "p = 6, q = 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 11,
+    "form": "null"
+   },
+   "frage": "Bring x² + x + 11 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "11",
+      "+11"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x + 11 = 0",
+    "p = 1, q = 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 6,
+    "form": "null"
+   },
+   "frage": "Bring x² + x + 6 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "6",
+      "+6"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x + 6 = 0",
+    "p = 1, q = 6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 16,
+    "form": "null"
+   },
+   "frage": "Bring x² + x + 16 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "16",
+      "+16"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x + 16 = 0",
+    "p = 1, q = 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 5,
+    "form": "null"
+   },
+   "frage": "Bring x² + 11x + 5 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "11",
+      "+11"
+     ],
+     "2": [
+      "5",
+      "+5"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 11x + 5 = 0",
+    "p = 11, q = 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": 11,
+    "form": "null"
+   },
+   "frage": "Bring x² + 5x + 11 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5",
+      "+5"
+     ],
+     "2": [
+      "11",
+      "+11"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 5x + 11 = 0",
+    "p = 5, q = 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": 18,
+    "form": "null"
+   },
+   "frage": "Bring x² + 10x + 18 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10",
+      "+10"
+     ],
+     "2": [
+      "18",
+      "+18"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 10x + 18 = 0",
+    "p = 10, q = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": 15,
+    "form": "null"
+   },
+   "frage": "Bring x² + 7x + 15 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7",
+      "+7"
+     ],
+     "2": [
+      "15",
+      "+15"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 7x + 15 = 0",
+    "p = 7, q = 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": 19,
+    "form": "null"
+   },
+   "frage": "Bring x² + 11x + 19 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "11",
+      "+11"
+     ],
+     "2": [
+      "19",
+      "+19"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 11x + 19 = 0",
+    "p = 11, q = 19"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 15,
+    "form": "null"
+   },
+   "frage": "Bring x² + x + 15 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "15",
+      "+15"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x + 15 = 0",
+    "p = 1, q = 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 12,
+    "form": "null"
+   },
+   "frage": "Bring x² + x + 12 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "12",
+      "+12"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x + 12 = 0",
+    "p = 1, q = 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 4,
+    "q": 6,
+    "form": "null"
+   },
+   "frage": "Bring x² + 4x + 6 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4",
+      "+4"
+     ],
+     "2": [
+      "6",
+      "+6"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 4x + 6 = 0",
+    "p = 4, q = 6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": 18,
+    "form": "null"
+   },
+   "frage": "Bring x² + 3x + 18 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "18",
+      "+18"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x + 18 = 0",
+    "p = 3, q = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": 30,
+    "form": "null"
+   },
+   "frage": "Bring x² + 2x + 30 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2",
+      "+2"
+     ],
+     "2": [
+      "30",
+      "+30"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 2x + 30 = 0",
+    "p = 2, q = 30"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 12,
+    "q": 22,
+    "form": "null"
+   },
+   "frage": "Bring x² + 12x + 22 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12",
+      "+12"
+     ],
+     "2": [
+      "22",
+      "+22"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 12x + 22 = 0",
+    "p = 12, q = 22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 28,
+    "form": "null"
+   },
+   "frage": "Bring x² + x + 28 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "28",
+      "+28"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x + 28 = 0",
+    "p = 1, q = 28"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": 21,
+    "form": "null"
+   },
+   "frage": "Bring x² + 3x + 21 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "21",
+      "+21"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x + 21 = 0",
+    "p = 3, q = 21"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": 20,
+    "form": "null"
+   },
+   "frage": "Bring x² + 8x + 20 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8",
+      "+8"
+     ],
+     "2": [
+      "20",
+      "+20"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 8x + 20 = 0",
+    "p = 8, q = 20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": 4,
+    "form": "null"
+   },
+   "frage": "Bring x² + 8x + 4 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8",
+      "+8"
+     ],
+     "2": [
+      "4",
+      "+4"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 8x + 4 = 0",
+    "p = 8, q = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": 17,
+    "form": "null"
+   },
+   "frage": "Bring x² + 2x + 17 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2",
+      "+2"
+     ],
+     "2": [
+      "17",
+      "+17"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 2x + 17 = 0",
+    "p = 2, q = 17"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 12,
+    "q": 15,
+    "form": "null"
+   },
+   "frage": "Bring x² + 12x + 15 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12",
+      "+12"
+     ],
+     "2": [
+      "15",
+      "+15"
+     ]
+    }
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 12x + 15 = 0",
+    "p = 12, q = 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": -12,
+    "form": "null"
+   },
+   "frage": "Bring x² + 10x − 12 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10",
+      "+10"
+     ],
+     "2": [
+      "-12"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-10"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "12"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 10x − 12 = 0",
+    "p = 10, q = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": 17,
+    "form": "null"
+   },
+   "frage": "Bring x² − 3x + 17 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-3"
+     ],
+     "2": [
+      "17",
+      "+17"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-17"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 3x + 17 = 0",
+    "p = −3, q = 17"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": -24,
+    "form": "null"
+   },
+   "frage": "Bring x² − 8x − 24 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-8"
+     ],
+     "2": [
+      "-24"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "24"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 8x − 24 = 0",
+    "p = −8, q = −24"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": 28,
+    "form": "null"
+   },
+   "frage": "Bring x² − 8x + 28 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-8"
+     ],
+     "2": [
+      "28",
+      "+28"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-28"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 8x + 28 = 0",
+    "p = −8, q = 28"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": -20,
+    "form": "null"
+   },
+   "frage": "Bring x² + 10x − 20 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10",
+      "+10"
+     ],
+     "2": [
+      "-20"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-10"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "20"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 10x − 20 = 0",
+    "p = 10, q = −20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": -5,
+    "form": "null"
+   },
+   "frage": "Bring x² + 8x − 5 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8",
+      "+8"
+     ],
+     "2": [
+      "-5"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "5"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 8x − 5 = 0",
+    "p = 8, q = −5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": 23,
+    "form": "null"
+   },
+   "frage": "Bring x² − 2x + 23 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "23",
+      "+23"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-23"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 2x + 23 = 0",
+    "p = −2, q = 23"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": -2,
+    "form": "null"
+   },
+   "frage": "Bring x² + 5x − 2 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5",
+      "+5"
+     ],
+     "2": [
+      "-2"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-5"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 5x − 2 = 0",
+    "p = 5, q = −2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": 4,
+    "form": "null"
+   },
+   "frage": "Bring x² − 7x + 4 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-7"
+     ],
+     "2": [
+      "4",
+      "+4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-4"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 7x + 4 = 0",
+    "p = −7, q = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": -20,
+    "form": "null"
+   },
+   "frage": "Bring x² + 3x − 20 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "-20"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "20"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x − 20 = 0",
+    "p = 3, q = −20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": -16,
+    "form": "null"
+   },
+   "frage": "Bring x² + 7x − 16 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7",
+      "+7"
+     ],
+     "2": [
+      "-16"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 7x − 16 = 0",
+    "p = 7, q = −16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": 21,
+    "form": "null"
+   },
+   "frage": "Bring x² − 2x + 21 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "21",
+      "+21"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-21"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 2x + 21 = 0",
+    "p = −2, q = 21"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": 10,
+    "form": "null"
+   },
+   "frage": "Bring x² − 2x + 10 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "10",
+      "+10"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 2x + 10 = 0",
+    "p = −2, q = 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": -22,
+    "form": "null"
+   },
+   "frage": "Bring x² − 2x − 22 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "-22"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "22"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 2x − 22 = 0",
+    "p = −2, q = −22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": -23,
+    "form": "null"
+   },
+   "frage": "Bring x² − 7x − 23 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-7"
+     ],
+     "2": [
+      "-23"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "23"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 7x − 23 = 0",
+    "p = −7, q = −23"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -12,
+    "q": 6,
+    "form": "null"
+   },
+   "frage": "Bring x² − 12x + 6 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "6",
+      "+6"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "12"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-6"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 12x + 6 = 0",
+    "p = −12, q = 6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -12,
+    "q": -8,
+    "form": "null"
+   },
+   "frage": "Bring x² − 12x − 8 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "-8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "12"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 12x − 8 = 0",
+    "p = −12, q = −8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": -26,
+    "form": "null"
+   },
+   "frage": "Bring x² − 8x − 26 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-8"
+     ],
+     "2": [
+      "-26"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "26"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 8x − 26 = 0",
+    "p = −8, q = −26"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -12,
+    "q": -22,
+    "form": "null"
+   },
+   "frage": "Bring x² − 12x − 22 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "-22"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "12"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "22"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 12x − 22 = 0",
+    "p = −12, q = −22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -4,
+    "q": 15,
+    "form": "null"
+   },
+   "frage": "Bring x² − 4x + 15 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-4"
+     ],
+     "2": [
+      "15",
+      "+15"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-15"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 4x + 15 = 0",
+    "p = −4, q = 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": -13,
+    "form": "null"
+   },
+   "frage": "Bring x² + 3x − 13 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "-13"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "13"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x − 13 = 0",
+    "p = 3, q = −13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": -15,
+    "form": "null"
+   },
+   "frage": "Bring x² + 3x − 15 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "-15"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "15"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x − 15 = 0",
+    "p = 3, q = −15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -12,
+    "q": 29,
+    "form": "null"
+   },
+   "frage": "Bring x² − 12x + 29 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "29",
+      "+29"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "12"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-29"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 12x + 29 = 0",
+    "p = −12, q = 29"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -9,
+    "q": 7,
+    "form": "null"
+   },
+   "frage": "Bring x² − 9x + 7 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "7",
+      "+7"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-7"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Die Gleichung steht schon in der richtigen Form.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 9x + 7 = 0",
+    "p = −9, q = 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "p": -8,
+    "q": 19,
+    "form": "null"
+   },
+   "frage": "Bring 4x² − 32x + 76 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-8"
+     ],
+     "2": [
+      "19",
+      "+19"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-19"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-32"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 4.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "4x² − 32x + 76 = 0",
+    "x² − 8x + 19 = 0",
+    "p = −8, q = 19"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -9,
+    "q": 2,
+    "form": "null"
+   },
+   "frage": "Bring 3x² − 27x + 6 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "2",
+      "+2"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-27"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² − 27x + 6 = 0",
+    "x² − 9x + 2 = 0",
+    "p = −9, q = 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": 5,
+    "q": -15,
+    "form": "null"
+   },
+   "frage": "Bring 2x² + 10x − 30 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5",
+      "+5"
+     ],
+     "2": [
+      "-15"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-5"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "15"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 2.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "2x² + 10x − 30 = 0",
+    "x² + 5x − 15 = 0",
+    "p = 5, q = −15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "p": -7,
+    "q": -26,
+    "form": "null"
+   },
+   "frage": "Bring 4x² − 28x − 104 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-7"
+     ],
+     "2": [
+      "-26"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "26"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-28"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 4.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "4x² − 28x − 104 = 0",
+    "x² − 7x − 26 = 0",
+    "p = −7, q = −26"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "p": -2,
+    "q": 19,
+    "form": "null"
+   },
+   "frage": "Bring 5x² − 10x + 95 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "19",
+      "+19"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-19"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 5.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "5x² − 10x + 95 = 0",
+    "x² − 2x + 19 = 0",
+    "p = −2, q = 19"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 11,
+    "q": -18,
+    "form": "null"
+   },
+   "frage": "Bring 3x² + 33x − 54 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "11",
+      "+11"
+     ],
+     "2": [
+      "-18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-11"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "18"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "33"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² + 33x − 54 = 0",
+    "x² + 11x − 18 = 0",
+    "p = 11, q = −18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "p": 8,
+    "q": -26,
+    "form": "null"
+   },
+   "frage": "Bring 5x² + 40x − 130 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8",
+      "+8"
+     ],
+     "2": [
+      "-26"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "26"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "40"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 5.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "5x² + 40x − 130 = 0",
+    "x² + 8x − 26 = 0",
+    "p = 8, q = −26"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -3,
+    "q": 25,
+    "form": "null"
+   },
+   "frage": "Bring 3x² − 9x + 75 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-3"
+     ],
+     "2": [
+      "25",
+      "+25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-25"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-9"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² − 9x + 75 = 0",
+    "x² − 3x + 25 = 0",
+    "p = −3, q = 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -7,
+    "q": 8,
+    "form": "null"
+   },
+   "frage": "Bring 2x² − 14x + 16 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-7"
+     ],
+     "2": [
+      "8",
+      "+8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-14"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 2.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "2x² − 14x + 16 = 0",
+    "x² − 7x + 8 = 0",
+    "p = −7, q = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -3,
+    "q": -19,
+    "form": "null"
+   },
+   "frage": "Bring 2x² − 6x − 38 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-3"
+     ],
+     "2": [
+      "-19"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "19"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-6"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 2.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "2x² − 6x − 38 = 0",
+    "x² − 3x − 19 = 0",
+    "p = −3, q = −19"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "p": -4,
+    "q": -3,
+    "form": "null"
+   },
+   "frage": "Bring 4x² − 16x − 12 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-4"
+     ],
+     "2": [
+      "-3"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "4"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-16"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 4.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "4x² − 16x − 12 = 0",
+    "x² − 4x − 3 = 0",
+    "p = −4, q = −3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 6,
+    "q": -15,
+    "form": "null"
+   },
+   "frage": "Bring 3x² + 18x − 45 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "6",
+      "+6"
+     ],
+     "2": [
+      "-15"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "15"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² + 18x − 45 = 0",
+    "x² + 6x − 15 = 0",
+    "p = 6, q = −15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -6,
+    "q": 5,
+    "form": "null"
+   },
+   "frage": "Bring 2x² − 12x + 10 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-6"
+     ],
+     "2": [
+      "5",
+      "+5"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-12"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 2.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "2x² − 12x + 10 = 0",
+    "x² − 6x + 5 = 0",
+    "p = −6, q = 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "p": -1,
+    "q": -23,
+    "form": "null"
+   },
+   "frage": "Bring 4x² − 4x − 92 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-1"
+     ],
+     "2": [
+      "-23"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "1"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "23"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-4"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 4.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "4x² − 4x − 92 = 0",
+    "x² − x − 23 = 0",
+    "p = −1, q = −23"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -9,
+    "q": 7,
+    "form": "null"
+   },
+   "frage": "Bring 3x² − 27x + 21 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "7",
+      "+7"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "9"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-27"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² − 27x + 21 = 0",
+    "x² − 9x + 7 = 0",
+    "p = −9, q = 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -3,
+    "q": 20,
+    "form": "null"
+   },
+   "frage": "Bring 2x² − 6x + 40 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-3"
+     ],
+     "2": [
+      "20",
+      "+20"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-20"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-6"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 2.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "2x² − 6x + 40 = 0",
+    "x² − 3x + 20 = 0",
+    "p = −3, q = 20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 6,
+    "q": -29,
+    "form": "null"
+   },
+   "frage": "Bring 3x² + 18x − 87 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "6",
+      "+6"
+     ],
+     "2": [
+      "-29"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "29"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² + 18x − 87 = 0",
+    "x² + 6x − 29 = 0",
+    "p = 6, q = −29"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": 6,
+    "q": -30,
+    "form": "null"
+   },
+   "frage": "Bring 3x² + 18x − 90 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "6",
+      "+6"
+     ],
+     "2": [
+      "-30"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "30"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² + 18x − 90 = 0",
+    "x² + 6x − 30 = 0",
+    "p = 6, q = −30"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "p": 9,
+    "q": -25,
+    "form": "null"
+   },
+   "frage": "Bring 5x² + 45x − 125 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9",
+      "+9"
+     ],
+     "2": [
+      "-25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "25"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "45"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 5.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "5x² + 45x − 125 = 0",
+    "x² + 9x − 25 = 0",
+    "p = 9, q = −25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "p": 2,
+    "q": -20,
+    "form": "null"
+   },
+   "frage": "Bring 5x² + 10x − 100 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2",
+      "+2"
+     ],
+     "2": [
+      "-20"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "20"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 5.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "5x² + 10x − 100 = 0",
+    "x² + 2x − 20 = 0",
+    "p = 2, q = −20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "p": -2,
+    "q": 15,
+    "form": "null"
+   },
+   "frage": "Bring 2x² − 4x + 30 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "15",
+      "+15"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-15"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-4"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 2.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "2x² − 4x + 30 = 0",
+    "x² − 2x + 15 = 0",
+    "p = −2, q = 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "p": -6,
+    "q": -23,
+    "form": "null"
+   },
+   "frage": "Bring 3x² − 18x − 69 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-6"
+     ],
+     "2": [
+      "-23"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "23"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "-18"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 3.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "3x² − 18x − 69 = 0",
+    "x² − 6x − 23 = 0",
+    "p = −6, q = −23"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "p": 10,
+    "q": -3,
+    "form": "null"
+   },
+   "frage": "Bring 4x² + 40x − 12 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10",
+      "+10"
+     ],
+     "2": [
+      "-3"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-10"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "40"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 4.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "4x² + 40x − 12 = 0",
+    "x² + 10x − 3 = 0",
+    "p = 10, q = −3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "p": 7,
+    "q": -9,
+    "form": "null"
+   },
+   "frage": "Bring 5x² + 35x − 45 = 0 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7",
+      "+7"
+     ],
+     "2": [
+      "-9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "9"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "teil": 1,
+     "wert": "35"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Teil jedes Glied durch 5.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "5x² + 35x − 45 = 0",
+    "x² + 7x − 9 = 0",
+    "p = 7, q = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -9,
+    "q": 2,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² − 9x = −2 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-9"
+     ],
+     "2": [
+      "2",
+      "+2"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring −2 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 9x = −2",
+    "x² − 9x + 2 = 0",
+    "p = −9, q = 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": 19,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = 2x − 19 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "19",
+      "+19"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-19"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = 2x − 19",
+    "x² − 2x + 19 = 0",
+    "p = −2, q = 19"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": -22,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = −8x + 22 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8",
+      "+8"
+     ],
+     "2": [
+      "-22"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "-8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "22"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = −8x + 22",
+    "x² + 8x − 22 = 0",
+    "p = 8, q = −22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": -5,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² + x = 5 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1",
+      "+1"
+     ],
+     "2": [
+      "-5"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "5"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-1"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 5 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + x = 5",
+    "x² + x − 5 = 0",
+    "p = 1, q = −5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -12,
+    "q": -22,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² − 12x = 22 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-12"
+     ],
+     "2": [
+      "-22"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "22"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "12"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 22 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 12x = 22",
+    "x² − 12x − 22 = 0",
+    "p = −12, q = −22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": 29,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = 2x − 29 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-2"
+     ],
+     "2": [
+      "29",
+      "+29"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-29"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = 2x − 29",
+    "x² − 2x + 29 = 0",
+    "p = −2, q = 29"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": -10,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² + 3x = 10 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3",
+      "+3"
+     ],
+     "2": [
+      "-10"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "10"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-3"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 10 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 3x = 10",
+    "x² + 3x − 10 = 0",
+    "p = 3, q = −10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": -21,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = 7x + 21 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-7"
+     ],
+     "2": [
+      "-21"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "21"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = 7x + 21",
+    "x² − 7x − 21 = 0",
+    "p = −7, q = −21"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": -23,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² + 5x = 23 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5",
+      "+5"
+     ],
+     "2": [
+      "-23"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "23"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-5"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 23 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 5x = 23",
+    "x² + 5x − 23 = 0",
+    "p = 5, q = −23"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": -13,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² + 2x = 13 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2",
+      "+2"
+     ],
+     "2": [
+      "-13"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "13"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-2"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 13 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 2x = 13",
+    "x² + 2x − 13 = 0",
+    "p = 2, q = −13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -10,
+    "q": -11,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² − 10x = 11 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-10"
+     ],
+     "2": [
+      "-11"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "11"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 11 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² − 10x = 11",
+    "x² − 10x − 11 = 0",
+    "p = −10, q = −11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -11,
+    "q": 30,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = 11x − 30 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-11"
+     ],
+     "2": [
+      "30",
+      "+30"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "11"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-30"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = 11x − 30",
+    "x² − 11x + 30 = 0",
+    "p = −11, q = 30"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": -10,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = −9x + 10 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9",
+      "+9"
+     ],
+     "2": [
+      "-10"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "-9"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = −9x + 10",
+    "x² + 9x − 10 = 0",
+    "p = 9, q = −10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": 24,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = 5x − 24 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "-5"
+     ],
+     "2": [
+      "24",
+      "+24"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "5"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "-24"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = 5x − 24",
+    "x² − 5x + 24 = 0",
+    "p = −5, q = 24"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "warmup",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 10,
+    "q": -25,
+    "form": "rechts_c"
+   },
+   "frage": "Bring x² + 10x = 25 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10",
+      "+10"
+     ],
+     "2": [
+      "-25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "25"
+    },
+    {
+     "key": "qf_p_vorzeichen",
+     "teil": 1,
+     "wert": "-10"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring 25 auf die linke Seite.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² + 10x = 25",
+    "x² + 10x − 25 = 0",
+    "p = 10, q = −25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  },
+  {
+   "bauform": "PQ-1",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 1,
+    "p": 11,
+    "q": -14,
+    "form": "rechts_bc"
+   },
+   "frage": "Bring x² = −11x + 14 in die Form x² + px + q = 0. Gib p und q an.",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "11",
+      "+11"
+     ],
+     "2": [
+      "-14"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 1,
+     "wert": "-11"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "teil": 2,
+     "wert": "14"
+    }
+   ],
+   "hinweise": [
+    "In der Normalform steht vor x² eine 1 und rechts eine 0.",
+    "Bring alles auf die linke Seite, sodass rechts 0 steht.",
+    "p ist die Zahl vor x, q die Zahl ohne x, jeweils mit Vorzeichen."
+   ],
+   "loesungsweg": [
+    "x² = −11x + 14",
+    "x² + 11x − 14 = 0",
+    "p = 11, q = −14"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "p ="
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "q ="
+    }
+   ]
+  }
+ ]
+}

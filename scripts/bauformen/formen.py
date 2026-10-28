@@ -48,9 +48,9 @@ def vz(x: Fraction | int) -> str:
 
 
 def klammer(x: Fraction | int) -> str:
-    """Zahl zum Einsetzen: negative in Klammern."""
+    """Zahl zum Einsetzen: negative Zahlen und Brüche in Klammern."""
     x = Fraction(x)
-    return f'({zahl(x)})' if x < 0 else zahl(x)
+    return f'({zahl(x)})' if x < 0 or x.denominator != 1 else zahl(x)
 
 
 def andere_eingabe(schablone: list[dict], loesung: dict) -> dict | None:
@@ -122,3 +122,109 @@ def wurzel(x: Fraction) -> Fraction | None:
         return None
     n, d = isqrt(x.numerator), isqrt(x.denominator)
     return Fraction(n, d) if n * n == x.numerator and d * d == x.denominator else None
+
+
+def nullstellen_aus_text(frage: str) -> list[Fraction]:
+    """Reelle Nullstellen des Terms hinter „f(x) = “ (sympy), aufsteigend; ValueError, wenn eine irrational ist."""
+    import re
+    import sympy
+
+    from .rechnen import X, ausdruck
+    term = re.search(r'f\(x\) = (.+?)\.?$', frage).group(1)
+    menge_ = sympy.solveset(ausdruck(term), X, domain=sympy.S.Reals)
+    aus = []
+    for w in menge_:
+        if not w.is_rational:
+            raise ValueError('irrationale Nullstelle')
+        aus.append(Fraction(int(w.p), int(w.q)))
+    return sorted(aus)
+
+
+# ── Graph-Auswahl (Generator parabel) ─────────────────────────────────────────
+
+def _zahl_json(x: Fraction | int) -> int | float:
+    x = Fraction(x)
+    return int(x) if x.denominator == 1 else float(x)
+
+
+def parabel_alt(a: Fraction, d: Fraction, e: Fraction) -> str:
+    """Alternativtext ohne Ziffern: Öffnung, Form, Lage des Scheitels."""
+    a, d, e = Fraction(a), Fraction(d), Fraction(e)
+    oeffnung = 'nach oben geöffnet' if a > 0 else 'nach unten geöffnet'
+    form = 'wie die Normalparabel' if abs(a) == 1 else 'schmaler als die Normalparabel' if abs(a) > 1 else \
+        'breiter als die Normalparabel'
+    if d == 0 and e == 0:
+        lage = 'Scheitel im Ursprung'
+    else:
+        teile = ([] if d == 0 else ['rechts' if d > 0 else 'links']) + ([] if e == 0 else ['oben' if e > 0 else 'unten'])
+        lage = 'Scheitel ' + ' '.join(teile).replace('rechts oben', 'rechts oberhalb').replace('links oben', 'links oberhalb') \
+            .replace('rechts unten', 'rechts unterhalb').replace('links unten', 'links unterhalb') + ' vom Ursprung'
+        lage = lage.replace('Scheitel oben vom', 'Scheitel über dem').replace('Scheitel unten vom', 'Scheitel unter dem') \
+            .replace('Scheitel rechts vom', 'Scheitel rechts vom').replace('Scheitel links vom', 'Scheitel links vom')
+    return f'Parabel {oeffnung}, {form}, {lage}'
+
+
+def graph_optionen(key: str, varianten: list[tuple[str, Fraction, Fraction, Fraction]], fenster: dict
+                   ) -> tuple[dict, list[dict], str, list[dict]]:
+    """varianten: [(rolle, a, d, e)], rolle 'r' = richtig, sonst Fehlbild-Schlüssel. Gemischt nach einem festen Seed.
+    Liefert (payload, figuren, richtige_id, fehlbilder)."""
+    import random
+    v = list(varianten)
+    random.Random(f'{key}-{varianten}').shuffle(v)
+    ids = 'abcd'
+    figuren, optionen, fb, richtig = [], [], [], ''
+    for i, (rolle, a, d, e) in enumerate(v):
+        alt = parabel_alt(a, d, e)
+        optionen.append({'id': ids[i], 'alt': alt})
+        figuren.append({'option': ids[i], 'generator': 'parabel', 'alt': alt,
+                        'params': {'a': _zahl_json(a), 'd': _zahl_json(d), 'e': _zahl_json(e), **fenster, 'gitter': True}})
+        if rolle == 'r':
+            richtig = ids[i]
+        else:
+            fb.append({'key': rolle, 'option': ids[i]})
+    return {'format': 'graph_auswahl', 'optionen': optionen}, figuren, richtig, fb
+
+
+def graph_pruefen(inst, a: Fraction, d: Fraction, e: Fraction) -> dict:
+    """Prüfung 1 (Konzept §5): aus den Figur-Parametern jeder Option die Funktion; genau eine passt zu (a, d, e),
+    jede andere ist die Option genau eines Fehlbilds."""
+    def bruch_(x) -> Fraction:
+        return Fraction(x).limit_denominator(100)
+    passend = [f['option'] for f in inst.figur
+               if (bruch_(f['params']['a']), bruch_(f['params']['d']), bruch_(f['params']['e'])) == (a, d, e)]
+    if len(passend) != 1:
+        raise ValueError(f'nicht genau eine passende Option: {passend}')
+    andere = {f['option'] for f in inst.figur} - set(passend)
+    if andere != {f['option'] for f in inst.fehlbilder} or len({f['option'] for f in inst.fehlbilder}) != len(inst.fehlbilder):
+        raise ValueError('nicht jede andere Option gehört zu genau einem Fehlbild')
+    if len({(f['params']['a'], f['params']['d'], f['params']['e']) for f in inst.figur}) != len(inst.figur):
+        raise ValueError('zwei Optionen zeigen dieselbe Parabel')
+    return {'option': passend[0]}
+
+
+def fenster_fuer(punkte: list[tuple[Fraction, Fraction]], rand: int = 3) -> dict:
+    xs = [int(p[0]) for p in punkte]
+    ys = [int(p[1]) for p in punkte]
+    return {'x_min': min(xs + [0]) - rand, 'x_max': max(xs + [0]) + rand, 'y_min': min(ys + [0]) - rand,
+            'y_max': max(ys + [0]) + rand + 2}
+
+
+def bausteine_payload(key: str, texte: list[tuple[str, str]], anzahl: int = 1) -> tuple[dict, dict[str, str]]:
+    """texte: [(rolle, text)] → gemischte Bausteine mit ids a–e; liefert (payload, rolle → id)."""
+    import random
+    t = list(texte)
+    random.Random(f'{key}-{texte}').shuffle(t)
+    ids = 'abcde'
+    return ({'format': 'bausteine', 'bausteine': [{'id': ids[i], 'text': x} for i, (_, x) in enumerate(t)], 'anzahl': anzahl},
+            {r: ids[i] for i, (r, _) in enumerate(t)})
+
+
+def scheitel_von(text: str) -> tuple[Fraction, Fraction]:
+    """Scheitel des Terms (sympy, aus dem angezeigten Text)."""
+    import sympy
+
+    from .rechnen import X, ausdruck
+    f = ausdruck(text)
+    xs = sympy.solve(sympy.diff(f, X), X)[0]
+    ys = f.subs(X, xs)
+    return Fraction(int(sympy.Rational(xs).p), int(sympy.Rational(xs).q)), Fraction(int(sympy.Rational(ys).p), int(sympy.Rational(ys).q))

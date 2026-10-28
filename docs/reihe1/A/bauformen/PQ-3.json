@@ -1,0 +1,3100 @@
+{
+ "schluessel": "PQ-3",
+ "skill": "gleichung_quadr_formel",
+ "kernidee": "gleichung_quadr_formel:K2",
+ "format": "fehler_finden",
+ "rollen": [
+  "transfer",
+  "recap"
+ ],
+ "steckbrief": {
+  "text": "{name} löst {gleichung} mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+  "stufen": {
+   "3": "Fehler beim Einsetzen: −p/2 mit falschem Vorzeichen oder q mit falschem Vorzeichen",
+   "4": "Fehler unter der Wurzel: p/2 nicht quadriert, oder die Wurzel falsch gezogen"
+  },
+  "fehlbilder": [],
+  "hinweise": [
+   "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+   "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+   "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 150,
+  "kann_entfallen": false,
+  "generator_hash": "9a7f3da9ddc7"
+ },
+ "pruefprotokoll": {
+  "gruen": 31,
+  "rot": 1,
+  "rot_anteil": 0.031,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Zeile 2, A",
+   "2": "Zeile 2, B",
+   "3": "Zeile 2, B",
+   "4": "Zeile 2, A",
+   "5": "Zeile 2, A",
+   "6": "Zeile 2, B",
+   "7": "Zeile 4, D",
+   "8": "Zeile 2, A",
+   "9": "Zeile 4, D",
+   "10": "Zeile 2, A"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -6,
+    "q": 5,
+    "art": "q",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² − 6x + 5 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 6x + 5 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 3 ± √(3² + 5)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 3 ± √14"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "b"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = 3 ± √(3² + 5)",
+    "Unter der Wurzel wird q abgezogen, nicht addiert.",
+    "Richtig: x₁,₂ = 3 ± √(3² − 5)",
+    "L = {1; 5}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": -24,
+    "art": "p",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 2x − 24 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 2x − 24 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −1 ± √((−1)² − (−24))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −1 ± √25"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −1 ± 5"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−6; 4}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −1 ± √((−1)² − (−24))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 1 ± √(1² − (−24))",
+    "L = {−4; 6}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 12,
+    "q": 27,
+    "art": "q",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² + 12x + 27 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 12x + 27 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −6 ± √((−6)² + 27)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −6 ± √63"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "b"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −6 ± √((−6)² + 27)",
+    "Unter der Wurzel wird q abgezogen, nicht addiert.",
+    "Richtig: x₁,₂ = −6 ± √((−6)² − 27)",
+    "L = {−9; −3}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 6,
+    "q": -7,
+    "art": "q",
+    "name": "Mia"
+   },
+   "frage": "Mia löst x² + 6x − 7 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 6x − 7 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −3 ± √((−3)² + (−7))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −3 ± √2"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "b"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −3 ± √((−3)² + (−7))",
+    "Unter der Wurzel wird q abgezogen, nicht addiert.",
+    "Richtig: x₁,₂ = −3 ± √((−3)² − (−7))",
+    "L = {−7; 1}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": -8,
+    "art": "p",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² − 2x − 8 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 2x − 8 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −1 ± √((−1)² − (−8))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −1 ± √9"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −1 ± 3"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−4; 2}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −1 ± √((−1)² − (−8))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 1 ± √(1² − (−8))",
+    "L = {−2; 4}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -12,
+    "q": 27,
+    "art": "p",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² − 12x + 27 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 12x + 27 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −6 ± √((−6)² − 27)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −6 ± √9"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −6 ± 3"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−9; −3}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −6 ± √((−6)² − 27)",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 6 ± √(6² − 27)",
+    "L = {3; 9}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 4,
+    "q": -96,
+    "art": "p",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² + 4x − 96 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 4x − 96 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 2 ± √(2² − (−96))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 2 ± √100"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 2 ± 10"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−8; 12}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = 2 ± √(2² − (−96))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = −2 ± √((−2)² − (−96))",
+    "L = {−12; 8}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -14,
+    "q": 33,
+    "art": "p",
+    "name": "Mia"
+   },
+   "frage": "Mia löst x² − 14x + 33 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 14x + 33 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −7 ± √((−7)² − 33)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −7 ± √16"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −7 ± 4"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−11; −3}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −7 ± √((−7)² − 33)",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 7 ± √(7² − 33)",
+    "L = {3; 11}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 2,
+    "q": -8,
+    "art": "p",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² + 2x − 8 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 2x − 8 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 1 ± √(1² − (−8))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 1 ± √9"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 1 ± 3"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−2; 4}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = 1 ± √(1² − (−8))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = −1 ± √((−1)² − (−8))",
+    "L = {−4; 2}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -10,
+    "q": -24,
+    "art": "q",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² − 10x − 24 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 10x − 24 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 5 ± √(5² + (−24))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 5 ± √1"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 5 ± 1"
+     },
+     {
+      "nr": 5,
+      "text": "L = {4; 6}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "b"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = 5 ± √(5² + (−24))",
+    "Unter der Wurzel wird q abgezogen, nicht addiert.",
+    "Richtig: x₁,₂ = 5 ± √(5² − (−24))",
+    "L = {−2; 12}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 20,
+    "q": 96,
+    "art": "q",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² + 20x + 96 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 20x + 96 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −10 ± √((−10)² + 96)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −10 ± √196"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −10 ± 14"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−24; 4}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "b"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −10 ± √((−10)² + 96)",
+    "Unter der Wurzel wird q abgezogen, nicht addiert.",
+    "Richtig: x₁,₂ = −10 ± √((−10)² − 96)",
+    "L = {−12; −8}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -4,
+    "q": -21,
+    "art": "p",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 4x − 21 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 4x − 21 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −2 ± √((−2)² − (−21))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −2 ± √25"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −2 ± 5"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−7; 3}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −2 ± √((−2)² − (−21))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 2 ± √(2² − (−21))",
+    "L = {−3; 7}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": -3,
+    "art": "p",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² − 2x − 3 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 2x − 3 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −1 ± √((−1)² − (−3))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −1 ± √4"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −1 ± 2"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−3; 1}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −1 ± √((−1)² − (−3))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 1 ± √(1² − (−3))",
+    "L = {−1; 3}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 16,
+    "q": 63,
+    "art": "q",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² + 16x + 63 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 16x + 63 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −8 ± √((−8)² + 63)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −8 ± √127"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "b"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −8 ± √((−8)² + 63)",
+    "Unter der Wurzel wird q abgezogen, nicht addiert.",
+    "Richtig: x₁,₂ = −8 ± √((−8)² − 63)",
+    "L = {−9; −7}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 12,
+    "q": 35,
+    "art": "p",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² + 12x + 35 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 12x + 35 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 6 ± √(6² − 35)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 6 ± √1"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 6 ± 1"
+     },
+     {
+      "nr": 5,
+      "text": "L = {5; 7}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = 6 ± √(6² − 35)",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = −6 ± √((−6)² − 35)",
+    "L = {−7; −5}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -8,
+    "q": -33,
+    "art": "p",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 8x − 33 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 8x − 33 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −4 ± √((−4)² − (−33))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −4 ± √49"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −4 ± 7"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−11; 3}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 2,
+    "warum": "a"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 2: x₁,₂ = −4 ± √((−4)² − (−33))",
+    "Vor p/2 gehört ein Minus: Es heißt −p/2.",
+    "Richtig: x₁,₂ = 4 ± √(4² − (−33))",
+    "L = {−3; 11}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": 2,
+    "q": -99,
+    "art": "quadrat",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² + 2x − 99 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 2x − 99 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −1 ± √((−1)² − (−99))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −1 ± √98"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = −1 ± √98",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = −1 ± √100",
+    "L = {−11; 9}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": 4,
+    "q": -96,
+    "art": "quadrat",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² + 4x − 96 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 4x − 96 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −2 ± √((−2)² − (−96))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −2 ± √94"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = −2 ± √94",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = −2 ± √100",
+    "L = {−12; 8}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -18,
+    "q": 72,
+    "art": "wurzel",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 18x + 72 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 18x + 72 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 9 ± √(9² − 72)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 9 ± √9"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 9 ± 4"
+     },
+     {
+      "nr": 5,
+      "text": "L = {5; 13}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = 9 ± 4",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = 9 ± 3",
+    "L = {6; 12}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": -8,
+    "q": -48,
+    "art": "wurzel",
+    "name": "Mia"
+   },
+   "frage": "Mia löst x² − 8x − 48 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 8x − 48 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 4 ± √(4² − (−48))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 4 ± √64"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 4 ± 9"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−5; 13}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = 4 ± 9",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = 4 ± 8",
+    "L = {−4; 12}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -4,
+    "q": -12,
+    "art": "quadrat",
+    "name": "Mia"
+   },
+   "frage": "Mia löst x² − 4x − 12 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 4x − 12 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 2 ± √(2² − (−12))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 2 ± √14"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = 2 ± √14",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = 2 ± √16",
+    "L = {−2; 6}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": 16,
+    "q": 48,
+    "art": "wurzel",
+    "name": "Mia"
+   },
+   "frage": "Mia löst x² + 16x + 48 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 16x + 48 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −8 ± √((−8)² − 48)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −8 ± √16"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −8 ± 5"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−13; −3}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = −8 ± 5",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = −8 ± 4",
+    "L = {−12; −4}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -4,
+    "q": -77,
+    "art": "quadrat",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 4x − 77 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 4x − 77 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 2 ± √(2² − (−77))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 2 ± √79"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = 2 ± √79",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = 2 ± √81",
+    "L = {−7; 11}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": -4,
+    "q": -32,
+    "art": "quadrat",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² − 4x − 32 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 4x − 32 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 2 ± √(2² − (−32))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 2 ± √34"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = 2 ± √34",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = 2 ± √36",
+    "L = {−4; 8}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -18,
+    "q": 77,
+    "art": "wurzel",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² − 18x + 77 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 18x + 77 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 9 ± √(9² − 77)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 9 ± √4"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 9 ± 3"
+     },
+     {
+      "nr": 5,
+      "text": "L = {6; 12}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = 9 ± 3",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = 9 ± 2",
+    "L = {7; 11}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": -8,
+    "q": -33,
+    "art": "quadrat",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 8x − 33 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 8x − 33 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 4 ± √(4² − (−33))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 4 ± √37"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = 4 ± √37",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = 4 ± √49",
+    "L = {−3; 11}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -2,
+    "q": -63,
+    "art": "wurzel",
+    "name": "Mia"
+   },
+   "frage": "Mia löst x² − 2x − 63 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 2x − 63 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 1 ± √(1² − (−63))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 1 ± √64"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 1 ± 9"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−8; 10}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = 1 ± 9",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = 1 ± 8",
+    "L = {−7; 9}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": 8,
+    "q": 12,
+    "art": "wurzel",
+    "name": "Emma"
+   },
+   "frage": "Emma löst x² + 8x + 12 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 8x + 12 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −4 ± √((−4)² − 12)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −4 ± √4"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −4 ± 3"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−7; −1}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = −4 ± 3",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = −4 ± 2",
+    "L = {−6; −2}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -12,
+    "q": 27,
+    "art": "wurzel",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² − 12x + 27 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² − 12x + 27 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = 6 ± √(6² − 27)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = 6 ± √9"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = 6 ± 4"
+     },
+     {
+      "nr": 5,
+      "text": "L = {2; 10}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = 6 ± 4",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = 6 ± 3",
+    "L = {3; 9}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": 2,
+    "q": -120,
+    "art": "quadrat",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² + 2x − 120 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 2x − 120 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −1 ± √((−1)² − (−120))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −1 ± √119"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = −1 ± √119",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = −1 ± √121",
+    "L = {−12; 10}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": 14,
+    "q": 24,
+    "art": "wurzel",
+    "name": "Ella"
+   },
+   "frage": "Ella löst x² + 14x + 24 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 14x + 24 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −7 ± √((−7)² − 24)"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −7 ± √25"
+     },
+     {
+      "nr": 4,
+      "text": "x₁,₂ = −7 ± 6"
+     },
+     {
+      "nr": 5,
+      "text": "L = {−13; −1}"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 4,
+    "warum": "d"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 4: x₁,₂ = −7 ± 6",
+    "Die Wurzel ist falsch gezogen.",
+    "Richtig: x₁,₂ = −7 ± 5",
+    "L = {−12; −2}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-3",
+   "rolle": "recap",
+   "stufe": 4,
+   "params": {
+    "p": 4,
+    "q": -77,
+    "art": "quadrat",
+    "name": "Lea"
+   },
+   "frage": "Lea löst x² + 4x − 77 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?",
+   "input_type": "FEHLER_FINDEN",
+   "payload": {
+    "format": "fehler_finden",
+    "zeilen": [
+     {
+      "nr": 1,
+      "text": "x² + 4x − 77 = 0"
+     },
+     {
+      "nr": 2,
+      "text": "x₁,₂ = −2 ± √((−2)² − (−77))"
+     },
+     {
+      "nr": 3,
+      "text": "x₁,₂ = −2 ± √75"
+     }
+    ],
+    "warum": [
+     {
+      "id": "a",
+      "text": "Vor p/2 gehört ein Minus: Es heißt −p/2."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel wird q abgezogen, nicht addiert."
+     },
+     {
+      "id": "c",
+      "text": "p/2 muss unter der Wurzel quadriert werden."
+     },
+     {
+      "id": "d",
+      "text": "Die Wurzel ist falsch gezogen."
+     }
+    ]
+   },
+   "loesung": {
+    "zeile": 3,
+    "warum": "c"
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Rechne Zeile für Zeile nach. Wo ändert sich etwas, das nicht stimmt?",
+    "Schreib die Formel daneben: x = −p/2 ± √((p/2)² − q). Vergleiche jedes Zeichen.",
+    "Prüf besonders die Zeile, in der p und q eingesetzt werden, und die Zeile danach."
+   ],
+   "loesungsweg": [
+    "Zeile 3: x₁,₂ = −2 ± √75",
+    "p/2 muss unter der Wurzel quadriert werden.",
+    "Richtig: x₁,₂ = −2 ± √81",
+    "L = {−11; 7}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

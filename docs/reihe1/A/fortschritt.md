@@ -18,6 +18,9 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | 2026-10-27 | A4 | Bauform-Motor `scripts/bauformen/` (Basis, sympy-Nachrechnen, Prüfmaschine 7 Prüfungen mit Wertung gegen Prod, Export, CLI `tools/bauform.sh`), 13 Negativkontrollen grün. Trigger-Migration `20261027142701_reihe1_a4_versionswechsel` (pgTAP `reihe1_a4_motor` 6/6). Pilot WZ-1 (26 grün) und NP-2 (83 grün), Blindlöser je 10/10. Zweitprüfung `zweitpruefung-a4.md` (11 Befunde). Suite 77 grün / 8 bekannt rot. | (PR folgt) |
 | 2026-10-27 | A5 (Zwischenstand) | Migration `20261027143548_reihe1_a5_board` (Liste, Detail mit 6 Beispielen, Auffällig, Prüffragen), pgTAP `reihe1_a5_board` 16/16 (Abnahme 6 und 7). Web: Bauform-Liste mit Reitern, Prüfansicht (Tasten 1/2/3), Melde-Knopf im Coach-Live-Kind-Detail; Tests grün. **Offen:** Zweitprüfung, Einspielen, Ansichtsfotos, PR fertigstellen. Danach A6, A7. | Draft |
 | 2026-10-28 | A5 | Branch per `git merge origin/dev` aktualisiert (kein Rebase). Merge-Bericht `docs/reihe1/merge/bericht.md` gibt es nicht; die Session-Auswahl-Tests (session_a2/a2b/a2d, session_f1/f2, reihe1_d2) sind nach #358 grün, Auftragspunkt 4 entfällt. Zweitprüfung `zweitpruefung-a5.md` (kein P1, 10 Befunde abgearbeitet/begründet), pgTAP `reihe1_a5_board` 21/21, Suite 91 grün / 8 bekannt rot, Web-Gate grün (3224). Melde-Knopf jetzt über den Einbaupunkt von C (`AufgabeEinbau`), keine Änderung mehr an `SchubladeBloecke`. Eingespielt (Orchestrator): `~/einspielen/A-5-board.sh`, Prüfabfrage `5` ✓. Fotos `abnahme/board/` (7). | [#352](https://github.com/RasitGueven/Edvancev1/pull/352) |
+| 2026-10-28 | RLS Instanzen | Policy `read_tasks_by_role`: außer Coach/Admin nur `ready` ohne `bauform_id`; Kinder lesen `params`/`pruefmaschine` nicht mehr direkt. pgTAP `reihe1_a_rls_instanzen` 13/13 (Kind, Tablet, Eltern, Coach), LSA-Tests vorher und nachher grün. Zweitprüfung `zweitpruefung-rls-instanzen.md`. Eingespielt (Orchestrator), Prüfabfrage `t` ✓, gemergt. | [#360](https://github.com/RasitGueven/Edvancev1/pull/360) |
+| 2026-10-28 | VERA8 entfernen | Anweisung Rasit: die 66 LSA-Antworten sind Testdaten. Sicherung `~/backups/vera8-2026-10-28.sql` und `~/backups/vera8-figuren/` (nicht im Repo). Migration löscht 66 Antworten → 243 Lösungen → 299 Aufgaben, Wächter gegen fremde Verweise. Eingespielt (Orchestrator), Prüfabfrage `0` ✓, gemergt. Reste im Repo: `vera8-entfernen.md`. 13 der 299 waren `ready` (Klasse 8, ohne Skill) und fehlen jetzt im LSA-Bestand; die adaptive LSA zieht nach Skill, Batu (Kl. 9) ist nicht betroffen. | [#361](https://github.com/RasitGueven/Edvancev1/pull/361) |
+| 2026-10-28 | A6 Voraussetzungen | Motor um Zahl/MC/Mehrteiler/Tabelle erweitert, sieben Bauformen (BIN-1, BIN-2, AUS-1, EIN-1, QW-1, KO-1, GL-1), 8 Fehlbild-Schlüssel, `aufgabe_ziehbar` verlangt hochgeladene Figuren. Blindlöser 7 × 10/10. pgTAP `reihe1_a6_bauformen` 10/10. Zweitprüfung `zweitpruefung-a6-voraussetzungen.md`. Eingespielt (Orchestrator), alle sieben `zur_pruefung` ✓, gemergt. | [#362](https://github.com/RasitGueven/Edvancev1/pull/362) |
 
 ## Abweichungen
 
@@ -36,6 +39,9 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 
 | Skript | Stand | Prüfabfrage |
 |---|---|---|
+| `~/einspielen/A-6v-voraussetzungen.sh` | eingespielt 28.10.2026 (Orchestrator) | sieben Bauformen `zur_pruefung` ✓ |
+| `~/einspielen/A-vera8-entfernen.sh` | eingespielt 28.10.2026 (Orchestrator) | `0` ✓ |
+| `~/einspielen/A-rls-instanzen.sh` | eingespielt 28.10.2026 (Orchestrator) | `t` ✓ |
 | `~/einspielen/A-5-board.sh` | eingespielt 28.10.2026 (Orchestrator) | `5` ✓; Prod-Abzug = Branch (bis auf Server-Version) |
 | `~/einspielen/A-1-pool_trennung.sh` | eingespielt 27.10.2026 (Orchestrator) | `0 \| 1186` ✓ |
 | `~/einspielen/A-4-motor_pilot.sh` | eingespielt 27.10.2026 (Orchestrator) | `NP-2 zur_pruefung 83 \| WZ-1 zur_pruefung 26` ✓ |

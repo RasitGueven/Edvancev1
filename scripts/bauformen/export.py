@@ -261,6 +261,12 @@ def migration(bf: Bauform) -> Path:
             'hints': [{'level': k + 1, 'text': h, 'status': 'entwurf'} for k, h in enumerate(i['hinweise'])],
         })
     version = subprocess.run(['date', '-u', '+%Y%m%d%H%M%S'], capture_output=True, text=True, check=True).stdout.strip()
+    # Zwei Bauformen in derselben Sekunde bekämen dieselbe Version (schema_migrations.version ist eindeutig):
+    # dann warten, bis die Sekunde vorbei ist.
+    import time
+    while list((WURZEL / 'supabase' / 'migrations').glob(f'{version}_*.sql')):
+        time.sleep(1)
+        version = subprocess.run(['date', '-u', '+%Y%m%d%H%M%S'], capture_output=True, text=True, check=True).stdout.strip()
     pfad = WURZEL / 'supabase' / 'migrations' / f'{version}_reihe1_bauform_{schluessel_datei(bf.key)}.sql'
     proto_db = {**proto, 'lauf_am': version}
     status = 'entwurf' if verdacht else 'zur_pruefung'
