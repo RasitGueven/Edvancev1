@@ -25,7 +25,9 @@
     "import:lambacher": "tsx --env-file=.env scripts/import/lambacher.ts",
     "generate:assets": "tsx --env-file=.env scripts/generate-assets.ts",
     "assets:upload": "tsx --env-file=.env scripts/upload-task-assets.ts",
-    "sim:screening": "tsx scripts/screening-sim.ts"
+    "sim:screening": "tsx scripts/screening-sim.ts",
+    "studio:render": "tsx --env-file-if-exists=.env tools/studio-render.ts",
+    "studio:stills": "tsx tools/studio-stills.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -33,6 +35,7 @@
     "@remotion/player": "4.0.539",
     "@supabase/supabase-js": "^2.45.4",
     "@types/katex": "^0.16.8",
+    "@vercel/sandbox": "3.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "i18next": "^26.2.0",
