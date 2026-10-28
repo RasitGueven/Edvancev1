@@ -6,6 +6,10 @@ import { Interventionsleiter, PfadEntscheidung } from './Eingreifen'
 import { MasteryPruefung } from './MasteryPruefung'
 import { AufgabeBlock, HeuteBlock, HinweiseBlock, InfoBlock, SequenzBlock, VersucheBlock, WartetBlock, ZielBlock } from './SchubladeBloecke'
 import { useLiveTexte } from './useLiveTexte'
+import { useLive } from './LiveKontext'
+import { AufgabeEinbau } from './einbau/AufgabeEinbau'
+import { ReiheKarte } from './reihe/ReiheKarte'
+import { GpErgebnisBlock } from './reihe/GpErgebnisBlock'
 
 /**
  * Schublade je Kind (Warm-up und Kernarbeit): rechts im Querformat, von unten im
@@ -13,6 +17,7 @@ import { useLiveTexte } from './useLiveTexte'
  */
 export function Schublade({ kind, onSchliessen }: { kind: CoachLiveKind; onSchliessen: () => void }): JSX.Element {
   const tx = useLiveTexte()
+  const { sessionId } = useLive()
 
   useEffect(() => {
     const taste = (e: KeyboardEvent): void => {
@@ -69,11 +74,14 @@ export function Schublade({ kind, onSchliessen }: { kind: CoachLiveKind; onSchli
           <ZielBlock kind={kind} />
           {kind.erklaersequenz && <SequenzBlock kind={kind} seq={kind.erklaersequenz} />}
           {kind.aufgabe && <AufgabeBlock aufgabe={kind.aufgabe} />}
+          {kind.aufgabe?.taskId && <AufgabeEinbau kindId={kind.id} sessionId={sessionId} taskId={kind.aufgabe.taskId} />}
           {grundText && <p className="text-xs text-[var(--color-text-tertiary)]">{grundText}</p>}
           {kind.versuche.length > 0 && <VersucheBlock kind={kind} />}
           {kind.hinweise.length > 0 && <HinweiseBlock kind={kind} />}
           {(kind.aufgabe || kind.erklaersequenz) && <Interventionsleiter kind={kind} />}
           {kind.heute.length > 0 && <HeuteBlock kind={kind} />}
+          <GpErgebnisBlock sessionId={sessionId} kindId={kind.id} />
+          <ReiheKarte studentId={kind.id} />
         </div>
       </aside>
     </>
