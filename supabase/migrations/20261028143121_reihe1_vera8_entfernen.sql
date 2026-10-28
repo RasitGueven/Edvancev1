@@ -11,7 +11,8 @@
 -- Nicht geloescht: die 10 LSA-Sitzungen (alle completed/aborted), deren item_ids nur VERA8-Aufgaben nennen; die IDs
 -- bleiben als Verweis ohne Ziel stehen (uuid[] ohne FK).
 --
--- Neuaufbau (CI): die Prefill-Migrationen legen VERA8 an, diese Migration entfernt es wieder; ohne LSA-Antworten.
+-- Neuaufbau (CI): dort gibt es kein VERA8 (die Prefill-Migrationen aendern nur, VERA8 kam per Import nach Prod);
+-- die Migration aendert dann nichts. Den Prod-Weg belegt pgTAP reihe1_a_vera8 mit angelegten VERA8-Zeilen.
 --
 -- Pruefabfrage: select count(*) from tasks where source = 'VERA8_IQB';   vorher 299   nachher 0
 do $$
@@ -23,6 +24,8 @@ declare
     '2b796028-b35c-4fe1-8bb3-14606e992050']::uuid[];
   r record;
   n bigint;
+  v_antw bigint;
+  v_loes bigint;
 begin
   -- Waechter: ausser task_solutions und den Antworten der neun Testsitzungen darf nichts auf VERA8 zeigen.
   if exists (select 1 from public.lsa_responses where task_id = any (v_ids) and session_id <> all (v_sitzungen)) then
@@ -38,7 +41,17 @@ begin
     end if;
   end loop;
 
+  select count(*) into v_antw from public.lsa_responses where task_id = any (v_ids);
+  select count(*) into v_loes from public.task_solutions where task_id = any (v_ids);
+
   delete from public.lsa_responses where task_id = any (v_ids) and session_id = any (v_sitzungen);
+  get diagnostics n = row_count;
+  if n <> v_antw then raise exception 'VERA8 entfernen: % statt % LSA-Antworten', n, v_antw; end if;
   delete from public.task_solutions where task_id = any (v_ids);
+  get diagnostics n = row_count;
+  if n <> v_loes then raise exception 'VERA8 entfernen: % statt % Loesungen', n, v_loes; end if;
   delete from public.tasks where id = any (v_ids);
+  get diagnostics n = row_count;
+  if n <> coalesce(cardinality(v_ids), 0) then raise exception 'VERA8 entfernen: % statt % Aufgaben', n, cardinality(v_ids); end if;
+  raise notice 'VERA8 entfernt: % Aufgaben, % Loesungen, % LSA-Antworten', n, v_loes, v_antw;
 end $$;

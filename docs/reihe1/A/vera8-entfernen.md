@@ -11,7 +11,7 @@ Ein Wächter in der Migration bricht ab, wenn andere Antworten oder andere Tabel
 - `~/backups/vera8-figuren/`: Kopie von `~/Edvancev1/data/vera8_assets` und `vera8_assets_cropped` (207 MB, lokal,
   gitignored). In Storage und `task_figures` gibt es keine VERA8-Bilder.
 
-**Nicht gelöscht:** 10 LSA-Sitzungen (9 completed, 1 aborted), deren `item_ids` nur VERA8-Aufgaben nennen. Die IDs
+**Nicht gelöscht:** 10 LSA-Sitzungen (9 completed, 1 aborted), deren `item_ids` nur VERA8-Aufgaben nennen (als Kommentar in der Sicherung). Die neun mit Antworten bleiben `completed` mit `result_summary` aus den gelöschten Antworten. Die IDs
 bleiben als Verweis ohne Ziel (uuid[] ohne FK). Löschen nur auf Rasits Wort.
 
 **Reste im Repo** (`git grep -i -c 'vera8|vera_8|VERA 8'`, ohne `docs/reihe1/A/`; Treffer je Datei). Nicht entfernt:
