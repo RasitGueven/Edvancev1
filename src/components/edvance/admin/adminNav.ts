@@ -1,6 +1,7 @@
 import {
   BookOpenCheck,
   CalendarClock,
+  Clapperboard,
   ClipboardCheck,
   FileText,
   FolderOpen,
@@ -113,6 +114,8 @@ export const ADMIN_NAV: NavKonfiguration = {
           icon: PenLine,
           zaehler: 'itemPflege',
         },
+        // Reihe 1, Bauauftrag B: Erklärvideos.
+        { id: 'studio', route: '/admin/studio', nameKey: 'nav.studio', kurzKey: 'nav.kurz.studio', icon: Clapperboard },
       ],
     },
   ],

@@ -1128,6 +1128,104 @@ Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbrau
 Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
 Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
 
+## 13. Reihe 1 · Einbaupunkte der Coach-Sicht (Auftrag C, C0b)
+
+Zwei leere Einbaupunkte in `src/pages/coach/live/einbau/`. Ohne Beitrag rendern sie nichts. Ein anderer
+Auftrag haengt seine Komponente mit einer Zeile in das Beitragsfeld ein, sonst aendert er die Datei nicht.
+
+| Einbaupunkt | Ort | Props | Beitragsfeld | Fuer |
+|---|---|---|---|---|
+| `CheckinEinbau` | Check-in je Kind (`CheckinZeile`, vor dem Fall-Block) | `{ kindId, sessionId }` | `CHECKIN_BEITRAEGE` | D: Kachel „Zuhause geübt“ |
+| `AufgabeEinbau` | Kind-Detail an der Aufgabe (`Schublade`, hinter `AufgabeBlock`) | `{ kindId, sessionId, taskId }` | `AUFGABE_BEITRAEGE` | A: Melde-Knopf |
+
+`taskId` kommt aus `LiveAufgabeDetail.taskId` (`coach_kind_detail.aufgabe_detail.task_id`); bei Mini-Checks der Erklaersequenz fehlt er, dann gibt es keinen Einbaupunkt.
+
+## 14. Reihe 1 · Reihenplanung (Auftrag C, C1)
+
+Migrationen `20261027130023_reihe1_c1_reihe_schema`, `20261027130145_reihe1_c1_reihe_planung`. Tabellen nur lesbar
+(RLS: Admin, Coach mit laufendem Vertrag), geschrieben wird nur über die Funktionen.
+
+#### `reihenplan_kind(p_kind uuid) → table(session_nr int, datum date, kernideen text[], skills text[], art text)` — 'reihe1 fertig'
+- Für Auftrag D (Home: empfohlene Quest) und C (Session). Kind selbst (`students.profile_id = auth.uid()`), Coach mit laufendem Vertrag, Admin; sonst 42501.
+- Wirksamer Plan der aktiven Reihe ab heute (Systemvorschlag + gültige Coach-Änderungen). Ohne aktive Reihe: keine Zeile.
+- `kernideen`: `'<skill_key>.<kernidee_key>'`, z. B. `fkt_quadr_parabel.K1` (Katalog `reihe_kernideen`, Konzept §2.1).
+- `art`: `normal | generalprobe`. `session_nr` zählt abgeschlossene Sessions der Reihe mit.
+
+#### `reihe_coach_lesen(p_student_id) → jsonb | null`
+`{ reihe_id, thema_keys, ka_datum, takt, start, plan, system, vorher, sessions_gesamt, labels, kernideen }`.
+`plan` = wirksamer Plan ab heute: `{ modus: klassenarbeit|rollierend, sessions_bisher, sessions: [{ nr, datum, art, kernideen: [{skill_key, kernidee_key, stand: neu|gesehen, minuten, coach}], skills, transfer, minuten }], warnung: { passt, sessions, entfallen: [{art: kernidee, skill_key, kernidee_key} | {art: transfer}], gesehen_knapp }, version, bestaetigt, aenderungen }`.
+`system` = ungefilterter Systemvorschlag derselben Version, `vorher` = Vorversion (für „Danach“).
+
+#### `reihe_ka_setzen(p_session_id, p_student_id, p_ka_datum date | null, p_thema_keys text[] = null) → reihe_coach_lesen`
+Coach der Session oder Admin. Legt die Reihe an (Themen aus Parameter, Check-in oder aktuellem Schulthema; sonst 22023 hint `kein_thema`) oder setzt das Datum und plant neu.
+
+#### `reihe_coach_aendern(p_reihe_id, p_aktion 'verschieben'|'bestaetigen', p_skill_key = null, p_ziel_datum = null, p_grund = null) → reihe_coach_lesen`
+Coach (laufender Vertrag) oder Admin. Eigene Zeile in `reihe_coach_aenderungen`; der Systemvorschlag bleibt unverändert. Verschieben bleibt über Neuplanungen gültig, solange der Zieltermin kommt und der Skill noch im Plan steht.
+
+#### `reihe_anlegen(p_student_id, p_thema_keys, p_ka_datum = null, p_takt = 1, p_start = null) → reihe_coach_lesen`
+Coach (laufender Vertrag) oder Admin; beendet eine aktive Reihe desselben Fachs.
+
+Neu geplant wird beim Abschluss einer Session (Trigger auf `coaching_sessions.status → done`, nicht im Testlauf): Ist-Zeile in `reihe_ist`, neue Version mit Anlass `session`.
+
+## 15. Reihe 1 · Phasen und Auswahl am Tablet (Auftrag C, C2)
+
+`session_naechster_schritt` (Tablet) liefert zusätzlich:
+
+| Feld | Typ | Bedeutung |
+|---|---|---|
+| `art` | `… \| 'recap' \| 'generalprobe' \| 'gp_ergebnis'` | neu: Recap (Check-out, mit Aufgabe), Generalprobe (Kernarbeit, mit Aufgabe), Ergebnis der Generalprobe |
+| `rolle` | `'warmup' \| 'uebung' \| 'transfer' \| 'recap' \| 'beispiel' \| 'generalprobe' \| null` | Rolle, mit der die Aufgabe gezogen wurde |
+| `hinweise_max` | `number \| null` | höchste erlaubte Hinweisstufe; `0` = kein Hinweis-Knopf (Warm-up, Recap, Generalprobe, „Zeig's mir“), `1` im Transfer |
+| `hinweise_erlaubt` | `boolean` | wie bisher, jetzt auch `false` bei `hinweise_max = 0` |
+| `rueckmeldung` | `boolean` | `false` in der Generalprobe: keine Rückmeldung bis zum Ende; `antwort_abgeben` liefert dort kein `ergebnis` |
+| `gp_ergebnis` | `{ skill_key, label, sicher }[]` | nur bei `art = 'gp_ergebnis'`: „sicher / noch üben“ je Skill |
+| `aufgabe` | Payload | für Bauform-Instanzen aus `aufgabe_payload` (Auftrag A), sonst `lsa_question_payload` |
+
+- `termin` kommt nicht mehr (Entscheidung 27.10.: keine Quest-Tage).
+- `session_gp_waehlen(p_session_id, p_skill_key text | null) → { ok }` (Tablet, eigener Platz): „noch üben“ zu einem Skill der Generalprobe, `null` = weiter.
+- `antwort_abgeben.fehlbild_klartext`: bei Bauform-Instanzen der Rückmeldesatz aus `aufgabe_werten`.
+- Neues Verhalten (Warm-up mit Abruf, Recap, Generalprobe, Ziel aus dem Reihenplan) gilt für Kinder mit aktiver Reihe; ohne Reihe läuft die Session wie bisher (ohne Termin-Wahl).
+
+## R1-B · Erklärvideos aus dem Studio (Reihe 1, Bauauftrag B)
+
+Besitzer: Auftrag B (Konzept Sessionreihe 1 §9). Andere Aufträge nutzen nur, was hier steht.
+Abbildung Video ↔ Kernidee ↔ Beat-Bereich: `docs/reihe1/B/ist-analyse.md` §1.
+
+### R1-B.1 App-Komponente `ErklaerVideo` (edvance-app)
+
+`src/components/video/ErklaerVideo.tsx`, Props in `src/components/video/typen.ts`. Auftrag C setzt sie in der
+Session ein (`modus = 'session'`), Auftrag D zuhause in der Mediathek (`modus = 'zuhause'`).
+
+```ts
+type VideoKapitel   = { beat: string; start: number /* s */; titel: string /* Sprungmarke ≤ 40 */ };
+type VideoQuelle    = { sequenzId: string; welt: string; mp4Url: string; untertitelUrl: string | null; posterUrl: string | null };
+type BeatBereich    = { vonBeat: string; bisBeat: string };            // beide eingeschlossen
+type MiniCheckAnker = { nachBeat: string; taskId: string };            // nur session
+type Ruecksprung    = { beat: string; rueckmeldung: string; schluessel: string };
+
+type ErklaerVideoProps = {
+  video: VideoQuelle | null;            // null → ruhiger Hinweis, kein Fehler
+  kapitel: VideoKapitel[];
+  bereich: BeatBereich | null;          // null → ganzes Video
+  miniChecks: MiniCheckAnker[];         // zuhause immer []
+  modus: 'session' | 'zuhause';
+  miniCheck?: ReactNode;                // Check-Ebene, vom Aufrufer gerendert (z. B. LsaAufgabe)
+  ruecksprung?: Ruecksprung | null;     // nach aktion = ruecksprung
+  onMiniCheck?: (anker: MiniCheckAnker) => void;
+  onBereichEnde?: () => void;
+  onAngesehen?: () => void;             // zuhause → mediathek_angesehen
+};
+```
+
+### R1-B.2 Datenbank-Funktionen (Signaturen folgen mit B6)
+
+| Funktion | Ergebnis | Regel |
+|---|---|---|
+| `mediathek_kind(p_kind uuid)` | `(skill_key, kernidee_key, sequenz_id, titel, welt, mp4_url, kapitel jsonb)` | nur Freigegebenes, nur offene Kompetenzen (`kompetenz_offen` von D) |
+| `mediathek_angesehen(p_kind uuid, p_sequenz uuid)` | `void` | speichert höchstens „angesehen“ |
+| `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
+| `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
+
 ## Reihe 1 · D Home light (Bauauftrag D)
 
 Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
@@ -1238,3 +1336,42 @@ nur als HMAC (Secret `GERAET_PEPPER`), Löschfrist 30 Tage.
 
 D1c (nur mit Freigabe Rasit): `get_my_student_id()` ist für die Session eines abgemeldeten Geräts null;
 `lsa_may_act_for()` lässt das Kind nur vor Ort für sich handeln, nicht über eine Gerätesitzung.
+
+Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
+
+## 13. Sessionreihe 1 · Aufgaben aus Bauformen (Bauauftrag A)
+
+Konzept: `docs/reihe1/Konzept-Sessionreihe-1-und-Bauformen.md` §3–§9. Diese Abschnitte wachsen mit den Phasen A1–A6;
+die Funktionen stehen hier, sobald sie in einer Migration liegen.
+
+### 13.1 App-Komponenten (edvance-app, PR A0b)
+
+Ort `src/components/aufgaben/formate/`, eine Komponente je Format, gemeinsame Props `AufgabeFormatProps<F>`
+(`typen.ts`), Auswahl nach `payload.format` über `AufgabeFormat` (`index.tsx`).
+
+| Prop | Typ | Bedeutung |
+|---|---|---|
+| `payload` | `FormatPayload[F]` | Kindersicht aus `aufgabe_payload(p_task)`, ohne Lösung |
+| `antwort` | `FormatAntwort[F] \| null` | aktuelle Eingabe; `null` = leer |
+| `onAntwort` | `(antwort) => void` | meldet jede Änderung; Abschicken macht der Aufrufer |
+| `rueckmeldung` | `{ richtig: boolean; text: string \| null } \| null` | aus `aufgabe_werten`; `text` = Fehlbild-Satz oder feste Rückmeldung |
+| `hinweise` | `{ stufe: number; text: string }[]` | schon abgerufene Hinweisstufen |
+| `nurLesen` | `boolean` | Prüf-Vorschau oder abgeschickt: keine Eingabe |
+
+**Payload und Antwort je Format** (JSON, so liefert `aufgabe_payload` und so erwartet `aufgabe_werten`):
+
+| Format | Payload | Antwort |
+|---|---|---|
+| `feldmaske` | `{format, schablone: [{text} \| {feld, typ: zahl\|bruch\|vorzeichen, leer_heisst_eins?}]}` | `{felder: {<feld>: "<wert>"}}`, Vorzeichen `"+"`/`"−"`, leer = fehlt oder `""` |
+| `loesungsmenge` | `{format, element: zahl\|bruch, max_felder: 1–3, variable}` | `{werte: ["3","−3"]}` oder `{keine_loesung: true}` |
+| `graph_auswahl` | `{format, optionen: [{id, bild, alt}]}` (2–4, `alt` ohne Ziffern) | `{gewaehlt: "<id>"}` |
+| `fehler_finden` | `{format, zeilen: [{nr, text}], warum: [{id, text}]}` | `{zeile: <nr>, warum: "<id>"}` |
+| `bausteine` | `{format, bausteine: [{id, text}], anzahl: 1\|2}` | `{gewaehlt: ["<id>", …]}` |
+| `schritte_ordnen` | `{format, schritte: [{id, text}]}` (gemischt) | `{reihenfolge: ["<id>", …]}` |
+
+**Lösungsbeispiel** `src/components/aufgaben/Loesungsbeispiel.tsx`, Props `LoesungsbeispielProps`:
+`aufgabe: string`, `schritte: {text}[]` (der Reihe nach aufgedeckt), `warum: {bei_schritt, frage, bausteine[3], richtig} | null`,
+`onWarum?(bausteinId)` (Selbsterklärung, kein Beleg), `onFertig()` („Jetzt du“), `nurLesen` (Prüf-Vorschau: alles offen).
+Der Inhalt kommt aus `aufgabe_payload` einer Instanz der Rolle `beispiel` (Feld `loesungsbeispiel`, A2/A3).
+
+Bis A3 zeigen alle Komponenten einen Platzhalter „Format kommt bald“; die Props ändern sich dabei nicht.

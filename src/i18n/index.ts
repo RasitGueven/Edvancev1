@@ -16,10 +16,12 @@ import deAkte from './locales/de/akte.json'
 import dePruefen from './locales/de/pruefen.json'
 import dePruefenAdmin from './locales/de/pruefenAdmin.json'
 import deCoachLive from './locales/de/coachLive.json'
+import deReihe from './locales/de/reihe.json'
 import deErklaerPruefen from './locales/de/erklaerPruefen.json'
 import deKonto from './locales/de/konto.json'
 import deElternbericht from './locales/de/elternbericht.json'
 import dePraesentation from './locales/de/praesentation.json'
+import deStudio from './locales/de/studio.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -40,10 +42,12 @@ void i18n.use(initReactI18next).init({
       pruefen: dePruefen,
       pruefenAdmin: dePruefenAdmin,
       coachLive: deCoachLive,
+      reihe: deReihe,
       erklaerPruefen: deErklaerPruefen,
       konto: deKonto,
       elternbericht: deElternbericht,
       praesentation: dePraesentation,
+      studio: deStudio,
     },
   },
   lng: 'de',
@@ -66,10 +70,12 @@ void i18n.use(initReactI18next).init({
     'pruefen',
     'pruefenAdmin',
     'coachLive',
+    'reihe',
     'erklaerPruefen',
     'konto',
     'elternbericht',
     'praesentation',
+    'studio',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,
