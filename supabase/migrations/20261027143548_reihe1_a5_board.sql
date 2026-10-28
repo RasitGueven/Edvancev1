@@ -62,6 +62,8 @@ begin
            md5(p_seed::text || t.id::text) as zufall
       from public.tasks t
      where t.bauform_id = b.id and t.bauform_version = b.version and public.instanz_gruen(t.pruefmaschine)
+       -- nur Instanzen mit Loesungszeile, sonst faellt nach dem limit ein Beispiel still weg (Zweitpruefung A5, 1)
+       and exists (select 1 from public.task_solutions s where s.task_id = t.id)
   ), wahl as (
     select k.* from kand k order by (k.je_stufe > 1), k.zufall limit 6
   )

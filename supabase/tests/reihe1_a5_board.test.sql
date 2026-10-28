@@ -10,7 +10,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(16);
+select plan(21);
 
 \set lena  '2c600000-0000-4000-8000-0000000000b5'
 \set admin '2c600000-0000-4000-8000-0000000000a5'
@@ -61,6 +61,7 @@ select ok((select bauform_id = :'np2'::uuid and stufe = 3 and status = 'ready' f
 select pg_temp.act_as(:'coach');
 select aufgabe_melden(:'gezogen', 'ZZ Loesung stimmt nicht');
 select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
+select ok(not aufgabe_ziehbar(:'gezogen'), '7 die gemeldete Instanz ist nicht mehr ziehbar');
 select ok(aufgabe_ziehen(:'kind', 'gleichung_quadr_faktor', 'uebung', 3) is distinct from :'gezogen'::uuid,
           '7 die gemeldete Instanz wird nicht mehr gezogen');
 select pg_temp.act_as(:'coach');
@@ -69,7 +70,7 @@ select aufgabe_melden(aufgabe_zwilling(:'kind', :'gezogen'), 'ZZ auch falsch')
 select is((select status from bauformen where id = :'np2'), 'pausiert', '7 nach der zweiten Meldung ist die Bauform pausiert');
 select pg_temp.act_as(:'lena');
 select is((select count(*)::int from bauform_auffaellig() where bauform_id = :'np2'), 2, '7 beide stehen unter „Auffaellig“');
-select ok((select meldungen -> 0 ->> 'grund' = 'ZZ Loesung stimmt nicht' from bauform_auffaellig() where task_id = :'gezogen'),
+select ok((select meldungen @> '[{"grund": "ZZ Loesung stimmt nicht"}]' from bauform_auffaellig() where task_id = :'gezogen'),
           '7 mit dem Grund der Meldung');
 
 -- ── Coach-Pruefgespraeche ───────────────────────────────────────────────────
@@ -82,6 +83,16 @@ select throws_ok(format('select skill_pruefung_entscheiden(%L, %L)', :'sp', 'pas
                  'P passt nicht braucht eine Notiz');
 select is(skill_pruefung_entscheiden(:'sp', 'passt'), 'geprueft', 'P passt setzt geprueft');
 select is((select geprueft_von from skill_pruefung_liste() where id = :'sp'), 'R1A5 Lena', 'P mit Lenas Namen');
+select is(skill_pruefung_entscheiden(:'sp', 'passt_nicht', 'ZZ Kontext unklar'), 'entwurf', 'P passt nicht setzt zurueck auf entwurf');
+select is((select pruef_notiz from skill_pruefung_liste() where id = :'sp'), 'ZZ Kontext unklar', 'P die Notiz steht in pruef_notiz');
+reset role;
+update skill_pruefung set status = 'freigegeben' where id = :'sp';
+select pg_temp.act_as(:'lena');
+select throws_ok(format('select skill_pruefung_entscheiden(%L, %L)', :'sp', 'passt'), 'P0002', null,
+                 'P eine freigegebene Frage aendert Lena nicht mehr');
+select pg_temp.act_as(:'coach');
+select throws_ok(format('select skill_pruefung_entscheiden(%L, %L)', :'sp', 'passt'), '42501', null,
+                 'P ein Coach ohne Pruefrecht entscheidet nicht');
 
 select * from finish();
 rollback;

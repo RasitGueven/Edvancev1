@@ -1489,3 +1489,17 @@ seit `20261027142701_reihe1_a4_versionswechsel` bleiben mitgelieferte Prüfproto
 grüne Instanzen als `tasks` (`source = 'bauform'`, `source_ref = <KEY>-v<version>-<rolle>-s<stufe>-<n>`, `draft`,
 `{session}`), `task_solutions` (Lösung mit Fehlbildern, Lösungsweg zeilenweise, drei Hinweise `entwurf`). Zweimal
 einspielen ändert nichts. Vorschau je Bauform: `docs/reihe1/A/bauformen/<KEY>.json`.
+
+### 13.8 Lena-Board für Bauformen (A5, Migration `20261027143548_reihe1_a5_board`; Kommentar `reihe1 fertig`)
+
+Alle nur mit `darf_pruefen()` (Admin oder Coach mit Prüfrecht), sonst 42501. Security definer, `authenticated`.
+
+| Funktion | Rückgabe |
+|---|---|
+| `bauform_pruef_liste()` | Zeilen `bauform_id, schluessel, skill_key, skill_label, reihe, format, rollen, version, status, gruen, letzte_entscheidung, letzte_notiz, geprueft_am`. Nur Bauformen ohne `verdacht` und mit Prüfmaschinen-Lauf (Konzept §6). |
+| `bauform_pruef_detail(p_bauform uuid, p_seed int default 0)` | jsonb: Steckbrief, `pruefprotokoll`, `blindloeser` (ohne Antworten), `verdacht`, `fehlbild_texte`, `instanzen`, `pruefungen` und `beispiele`: bis zu sechs grüne Instanzen der aktuellen Version mit Lösungszeile, zuerst je Stufe eine. Je Beispiel `task_id, stufe, rolle, payload` (= `aufgabe_payload`), `loesung` (= `correct_answers -> 0`, je Format Objekt oder Wert), `known_errors`, `loesungsweg`, `hinweise`. Ein anderer `p_seed` zieht andere Beispiele. |
+| `bauform_auffaellig()` | Instanzen mit Bewährung `auffaellig`/`pausiert`: `task_id, bauform_id, schluessel, bauform_status, frage, stufe, rolle, status, grund, bearbeitungen, richtig, haeufigste_unbekannte, unbekannt, fehlbild_zaehler, meldungen` (`[{grund, am, von}]`). Bauform-Spalten sind null bei Aufgaben ohne Bauform. |
+| `skill_pruefung_liste()` | Coach-Prüffragen: `id, skill_key, skill_label, frage, erwartung, kriterium, status, geprueft_von` (Name), `geprueft_am, pruef_notiz`. |
+| `skill_pruefung_entscheiden(p_id uuid, p_entscheidung text, p_notiz text default null)` | `passt` → `geprueft`; `passt_nicht` (Notiz Pflicht, 22023) → `entwurf` mit `pruef_notiz`. Freigegebene Fragen: P0002. Die letzte Entscheidung gilt; frei gibt weiter ein Admin. |
+
+Schreiben der Bauform-Entscheidung: `bauform_pruefen`, `bauform_freigeben`, `aufgabe_reaktivieren`, `bauform_zur_ueberarbeitung` (§13.5).
