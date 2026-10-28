@@ -69,6 +69,9 @@ export function ItemRow({ row, auswahl, onOeffnen }: Props): JSX.Element {
           <StatusBadge status={task.status} label={t(`status.${task.status}`)} />
           {task.input_type && <EdvanceBadge variant="muted">{task.input_type}</EdvanceBadge>}
           {task.afb && <EdvanceBadge variant="primary">AFB {task.afb}</EdvanceBadge>}
+          {(task.einsatz ?? []).map((e) => (
+            <EdvanceBadge key={e} variant="muted">{t(`pool.${e}`, { defaultValue: e })}</EdvanceBadge>
+          ))}
         </div>
       </div>
 

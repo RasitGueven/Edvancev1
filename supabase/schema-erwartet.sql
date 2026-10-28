@@ -10817,7 +10817,7 @@ CREATE TABLE public.tasks (
     vorbefuellt_am timestamp with time zone,
     pruef_version bigint DEFAULT 1 NOT NULL,
     pruef_pilot boolean DEFAULT false NOT NULL,
-    einsatz text[] DEFAULT '{lsa,session}'::text[] NOT NULL,
+    einsatz text[] NOT NULL,
     bruch boolean,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
@@ -10826,6 +10826,8 @@ CREATE TABLE public.tasks (
     CONSTRAINT tasks_curriculum_grade_check CHECK (((curriculum_grade IS NULL) OR ((curriculum_grade >= 5) AND (curriculum_grade <= 13)))),
     CONSTRAINT tasks_difficulty_check CHECK (((difficulty >= 1) AND (difficulty <= 5))),
     CONSTRAINT tasks_einsatz_check CHECK ((einsatz <@ ARRAY['lsa'::text, 'session'::text, 'check'::text, 'quest'::text])),
+    CONSTRAINT tasks_einsatz_ein_pool CHECK ((NOT (einsatz @> ARRAY['lsa'::text, 'session'::text]))),
+    CONSTRAINT tasks_einsatz_nicht_leer CHECK ((cardinality(einsatz) >= 1)),
     CONSTRAINT tasks_einsatz_quest_allein CHECK ((NOT (('quest'::text = ANY (einsatz)) AND (einsatz && ARRAY['lsa'::text, 'session'::text])))),
     CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
     CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
@@ -11075,7 +11077,7 @@ $$;
 -- Name: pruef_board(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_board() RETURNS TABLE(task_id uuid, stufe text, thema_key text, thema_label text, thema_sort integer, skill_key text, skill_label text, kurztitel text, reihenfolge bigint, lena_status text, geaendert boolean, letzte_dauer_sek integer, anlaesse text[], hat_hinweise boolean)
+CREATE FUNCTION public.pruef_board() RETURNS TABLE(task_id uuid, stufe text, thema_key text, thema_label text, thema_sort integer, skill_key text, skill_label text, kurztitel text, reihenfolge bigint, lena_status text, geaendert boolean, letzte_dauer_sek integer, anlaesse text[], hat_hinweise boolean, pool text)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -11103,7 +11105,8 @@ begin
          coalesce((select array_agg(ps.anlass order by ps.anlass) from public.pruef_soll ps
                     where ps.aktiv and ps.skill_key = b.sk_jetzt and ps.einsatz = any (b.einsatz)), '{}'::text[]),
          coalesce((select jsonb_array_length(ts.hints) > 0
-                     from public.task_solutions ts where ts.task_id = b.id), false)
+                     from public.task_solutions ts where ts.task_id = b.id), false),
+         case when 'lsa' = any (b.einsatz) then 'lsa' when 'session' = any (b.einsatz) then 'session' end
     from b
     join public.skills s on s.skill_key = b.sk
     join public.skill_thema st on st.skill_key = b.sk
@@ -21385,6 +21388,7 @@ begin
     end if;
     -- Herkunft und Steuerung des Bestands pflegt der Pruefer nicht: sie
     -- entscheiden, woher eine Aufgabe kommt und ob/wie die LSA sie zieht.
+    -- Reihe 1 A1: auch der Einsatz (Pool lsa | session).
     if new.id is distinct from old.id
        or new.source        is distinct from old.source
        or new.source_ref    is distinct from old.source_ref
@@ -21394,7 +21398,8 @@ begin
        or new.is_diagnostic is distinct from old.is_diagnostic
        or new.is_tutorial   is distinct from old.is_tutorial
        or new.skill_key     is distinct from old.skill_key
-       or new.sondierrang   is distinct from old.sondierrang then
+       or new.sondierrang   is distinct from old.sondierrang
+       or new.einsatz       is distinct from old.einsatz then
       raise exception 'Freigabe: Herkunfts- und Steuerfelder aendert nur admin'
         using errcode = '42501';
     end if;
