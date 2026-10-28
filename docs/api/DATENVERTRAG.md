@@ -1128,6 +1128,58 @@ Sind alle Kinder Testkonten, entsteht die Session mit `testlauf = true` (verbrau
 Nach dem Anlegen ruft die Funktion für echte Kinder `termine_planen(student_id)`: Planbilanz und künftige
 Stammplatz-Termine sehen das verbrauchte Budget, ein Stammplatz-Termin ohne Budget fällt weg.
 
+## 13. Reihe 1 · Einbaupunkte der Coach-Sicht (Auftrag C, C0b)
+
+Zwei leere Einbaupunkte in `src/pages/coach/live/einbau/`. Ohne Beitrag rendern sie nichts. Ein anderer
+Auftrag haengt seine Komponente mit einer Zeile in das Beitragsfeld ein, sonst aendert er die Datei nicht.
+
+| Einbaupunkt | Ort | Props | Beitragsfeld | Fuer |
+|---|---|---|---|---|
+| `CheckinEinbau` | Check-in je Kind (`CheckinZeile`, vor dem Fall-Block) | `{ kindId, sessionId }` | `CHECKIN_BEITRAEGE` | D: Kachel „Zuhause geübt“ |
+| `AufgabeEinbau` | Kind-Detail an der Aufgabe (`Schublade`, hinter `AufgabeBlock`) | `{ kindId, sessionId, taskId }` | `AUFGABE_BEITRAEGE` | A: Melde-Knopf |
+
+`taskId` kommt aus `LiveAufgabeDetail.taskId` (`coach_kind_detail.aufgabe_detail.task_id`); bei Mini-Checks der Erklaersequenz fehlt er, dann gibt es keinen Einbaupunkt.
+
+## R1-B · Erklärvideos aus dem Studio (Reihe 1, Bauauftrag B)
+
+Besitzer: Auftrag B (Konzept Sessionreihe 1 §9). Andere Aufträge nutzen nur, was hier steht.
+Abbildung Video ↔ Kernidee ↔ Beat-Bereich: `docs/reihe1/B/ist-analyse.md` §1.
+
+### R1-B.1 App-Komponente `ErklaerVideo` (edvance-app)
+
+`src/components/video/ErklaerVideo.tsx`, Props in `src/components/video/typen.ts`. Auftrag C setzt sie in der
+Session ein (`modus = 'session'`), Auftrag D zuhause in der Mediathek (`modus = 'zuhause'`).
+
+```ts
+type VideoKapitel   = { beat: string; start: number /* s */; titel: string /* Sprungmarke ≤ 40 */ };
+type VideoQuelle    = { sequenzId: string; welt: string; mp4Url: string; untertitelUrl: string | null; posterUrl: string | null };
+type BeatBereich    = { vonBeat: string; bisBeat: string };            // beide eingeschlossen
+type MiniCheckAnker = { nachBeat: string; taskId: string };            // nur session
+type Ruecksprung    = { beat: string; rueckmeldung: string; schluessel: string };
+
+type ErklaerVideoProps = {
+  video: VideoQuelle | null;            // null → ruhiger Hinweis, kein Fehler
+  kapitel: VideoKapitel[];
+  bereich: BeatBereich | null;          // null → ganzes Video
+  miniChecks: MiniCheckAnker[];         // zuhause immer []
+  modus: 'session' | 'zuhause';
+  miniCheck?: ReactNode;                // Check-Ebene, vom Aufrufer gerendert (z. B. LsaAufgabe)
+  ruecksprung?: Ruecksprung | null;     // nach aktion = ruecksprung
+  onMiniCheck?: (anker: MiniCheckAnker) => void;
+  onBereichEnde?: () => void;
+  onAngesehen?: () => void;             // zuhause → mediathek_angesehen
+};
+```
+
+### R1-B.2 Datenbank-Funktionen (Signaturen folgen mit B6)
+
+| Funktion | Ergebnis | Regel |
+|---|---|---|
+| `mediathek_kind(p_kind uuid)` | `(skill_key, kernidee_key, sequenz_id, titel, welt, mp4_url, kapitel jsonb)` | nur Freigegebenes, nur offene Kompetenzen (`kompetenz_offen` von D) |
+| `mediathek_angesehen(p_kind uuid, p_sequenz uuid)` | `void` | speichert höchstens „angesehen“ |
+| `eddie_index(p_kind uuid)` | `(skill_key, sequenz_id, beat_key, titel)` | nur Freigegebenes, nie Entwurf |
+| `erklaer_start` / `erklaer_check_abgeben` | wie §8.2, dazu `video` und `aktion = 'ruecksprung'` | Details in B6 |
+
 ## Reihe 1 · D Home light (Bauauftrag D)
 
 Besitzer: Auftrag D. Bedeutung nach Konzept Sessionreihe 1 §9; hier steht die endgültige Form.
@@ -1227,3 +1279,42 @@ nur als HMAC (Secret `GERAET_PEPPER`), Löschfrist 30 Tage.
 
 D1c (nur mit Freigabe Rasit): `get_my_student_id()` ist für die Session eines abgemeldeten Geräts null;
 `lsa_may_act_for()` lässt das Kind nur vor Ort für sich handeln, nicht über eine Gerätesitzung.
+
+Die Anmeldung mit Code und die Geräte folgen mit D1 in diesem Abschnitt.
+
+## 13. Sessionreihe 1 · Aufgaben aus Bauformen (Bauauftrag A)
+
+Konzept: `docs/reihe1/Konzept-Sessionreihe-1-und-Bauformen.md` §3–§9. Diese Abschnitte wachsen mit den Phasen A1–A6;
+die Funktionen stehen hier, sobald sie in einer Migration liegen.
+
+### 13.1 App-Komponenten (edvance-app, PR A0b)
+
+Ort `src/components/aufgaben/formate/`, eine Komponente je Format, gemeinsame Props `AufgabeFormatProps<F>`
+(`typen.ts`), Auswahl nach `payload.format` über `AufgabeFormat` (`index.tsx`).
+
+| Prop | Typ | Bedeutung |
+|---|---|---|
+| `payload` | `FormatPayload[F]` | Kindersicht aus `aufgabe_payload(p_task)`, ohne Lösung |
+| `antwort` | `FormatAntwort[F] \| null` | aktuelle Eingabe; `null` = leer |
+| `onAntwort` | `(antwort) => void` | meldet jede Änderung; Abschicken macht der Aufrufer |
+| `rueckmeldung` | `{ richtig: boolean; text: string \| null } \| null` | aus `aufgabe_werten`; `text` = Fehlbild-Satz oder feste Rückmeldung |
+| `hinweise` | `{ stufe: number; text: string }[]` | schon abgerufene Hinweisstufen |
+| `nurLesen` | `boolean` | Prüf-Vorschau oder abgeschickt: keine Eingabe |
+
+**Payload und Antwort je Format** (JSON, so liefert `aufgabe_payload` und so erwartet `aufgabe_werten`):
+
+| Format | Payload | Antwort |
+|---|---|---|
+| `feldmaske` | `{format, schablone: [{text} \| {feld, typ: zahl\|bruch\|vorzeichen, leer_heisst_eins?}]}` | `{felder: {<feld>: "<wert>"}}`, Vorzeichen `"+"`/`"−"`, leer = fehlt oder `""` |
+| `loesungsmenge` | `{format, element: zahl\|bruch, max_felder: 1–3, variable}` | `{werte: ["3","−3"]}` oder `{keine_loesung: true}` |
+| `graph_auswahl` | `{format, optionen: [{id, bild, alt}]}` (2–4, `alt` ohne Ziffern) | `{gewaehlt: "<id>"}` |
+| `fehler_finden` | `{format, zeilen: [{nr, text}], warum: [{id, text}]}` | `{zeile: <nr>, warum: "<id>"}` |
+| `bausteine` | `{format, bausteine: [{id, text}], anzahl: 1\|2}` | `{gewaehlt: ["<id>", …]}` |
+| `schritte_ordnen` | `{format, schritte: [{id, text}]}` (gemischt) | `{reihenfolge: ["<id>", …]}` |
+
+**Lösungsbeispiel** `src/components/aufgaben/Loesungsbeispiel.tsx`, Props `LoesungsbeispielProps`:
+`aufgabe: string`, `schritte: {text}[]` (der Reihe nach aufgedeckt), `warum: {bei_schritt, frage, bausteine[3], richtig} | null`,
+`onWarum?(bausteinId)` (Selbsterklärung, kein Beleg), `onFertig()` („Jetzt du“), `nurLesen` (Prüf-Vorschau: alles offen).
+Der Inhalt kommt aus `aufgabe_payload` einer Instanz der Rolle `beispiel` (Feld `loesungsbeispiel`, A2/A3).
+
+Bis A3 zeigen alle Komponenten einen Platzhalter „Format kommt bald“; die Props ändern sich dabei nicht.
