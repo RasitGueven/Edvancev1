@@ -1,0 +1,1014 @@
+<title>Edvance Schüler-App</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Schibsted+Grotesk:wght@400;500;600;700&family=Space+Grotesk:wght@400&display=swap">
+<style>
+/* Layout: dunkle Prüfhülle (Steuerleiste oben, Gerät mittig skaliert, Hinweise rechts bzw. darunter).
+   Im Gerät die Welt der Schüler-App: heller Blauverlauf, Lichtkugel Eddie, cremefarbene Arbeitsfläche.
+   Bewusst nur dunkel: die Hülle soll das Gerät rahmen, nicht konkurrieren. Farben aus Brand Foundation und Design-System-Skill. */
+:root{
+  color-scheme:dark;
+  /* Hülle */
+  --h-bg:#0B1019; --h-panel:#121A26; --h-line:#243145; --h-fg:#DCE3EE; --h-fg2:#98A4B8; --h-acc:#F3C76E;
+  /* Welt */
+  --sky-top:#4B6894; --sky-mid:#2F4874; --sky-low:#1C2C4C; --sky-deep:#111C33;
+  --navy:#102038; --cream:#F8F5EE; --cream-lo:#F1EBDD; --paper:#FFFFFF; --rule:#E5DDCC;
+  --ink:#102038; --ink-2:#3B4760; --ink-3:#69728A;
+  --gold:#DA9721; --gold-hi:#F3C76E; --gold-text:#7C4F06; --xp:#D4A843; --xp-hi:#E8D5A3;
+  --on:#F8F5EE; --on-2:rgba(248,245,238,.76); --on-3:rgba(248,245,238,.5);
+  --glass:rgba(255,255,255,.10); --glass-2:rgba(255,255,255,.16); --glass-line:rgba(255,255,255,.22);
+  --ok:#27AE60; --ok-bg:#EDFAF3; --ok-ink:#1E7A45; --no:#E88080; --no-bg:#FDF0F0; --no-ink:#9A3535;
+  --sicher:#3AAF6A; --unsicher:#F39C12; --offen:#D4D4D0; --mastery:#2A8A4A;
+  --streak:#E8A020; --home:#7EEEFF;
+  --sh-card:0 30px 80px rgba(3,8,22,.42),0 8px 24px rgba(3,8,22,.22);
+  --f-display:"Literata","Iowan Old Style",Georgia,serif;
+  --f-ui:"Schibsted Grotesk",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-mark:"Space Grotesk","Schibsted Grotesk",sans-serif;
+  --e-out:cubic-bezier(.16,1,.3,1); --e-bounce:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--h-bg);color:var(--h-fg);font-family:var(--f-ui);font-size:14px;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--h-acc);outline-offset:2px}
+
+/* ---------- Hülle ---------- */
+.wrap{display:flex;flex-direction:column;min-height:100%;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 20px;gap:12px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand b{font-family:var(--f-mark);font-weight:400;font-size:19px;letter-spacing:.04em;color:var(--h-fg)}
+.brand span{font-size:12.5px;color:var(--h-fg2)}
+.seg{display:inline-flex;border:1px solid var(--h-line);border-radius:10px;overflow:hidden;background:var(--h-panel)}
+.seg button{border:0;background:none;padding:7px 12px;font-size:13px;color:var(--h-fg2);min-height:34px;border-left:1px solid var(--h-line)}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed="true"]{background:#24324A;color:var(--h-fg);font-weight:600}
+.seg button:disabled{opacity:.4;cursor:not-allowed}
+.nav{display:inline-flex;gap:6px}
+.nb{border:1px solid var(--h-line);background:var(--h-panel);border-radius:10px;min-height:34px;padding:0 12px;font-size:13px;color:var(--h-fg)}
+.nb:hover{border-color:#3A4C68}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--h-line);background:transparent;border-radius:999px;padding:5px 11px;font-size:12.5px;color:var(--h-fg2);white-space:nowrap}
+.chip[aria-current="true"]{background:var(--h-acc);border-color:var(--h-acc);color:#2A1B02;font-weight:600}
+.chip .n{font-variant-numeric:tabular-nums;opacity:.7;margin-right:5px}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;flex:1;min-height:0}
+.stage{min-width:0;display:flex;align-items:flex-start;justify-content:center}
+.scaler{position:relative;flex:none}
+.frame{position:absolute;left:0;top:0;transform-origin:0 0;padding:12px;border-radius:44px;background:linear-gradient(160deg,#2A303B,#11151C 55%,#1C212A);box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1.5px rgba(255,255,255,.07)}
+.frame.phone{border-radius:58px}
+.notes{min-width:0;background:var(--h-panel);border:1px solid var(--h-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;align-self:start}
+.notes h2{margin:0;font-family:var(--f-display);font-weight:500;font-size:20px;line-height:1.25;color:var(--h-fg)}
+.notes .ey{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--h-acc)}
+.notes p,.notes li{margin:0;font-size:13.5px;line-height:1.55;color:var(--h-fg2)}
+.notes ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.notes b{color:var(--h-fg);font-weight:600}
+.notes .rule{border-top:1px solid var(--h-line);padding-top:10px;font-size:12.5px;color:var(--h-fg2)}
+.notes code{font-size:12px;background:#1B2636;border-radius:4px;padding:0 4px;color:var(--h-fg)}
+.wrap.nohints .notes{display:none}
+.wrap.nohints .main{grid-template-columns:minmax(0,1fr)}
+@media (max-width:980px){.main{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- Gerät ---------- */
+#device{position:relative;overflow:hidden;border-radius:32px;color:var(--on);user-select:none;-webkit-user-select:none}
+.phone #device{border-radius:46px}
+.world{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 36%,var(--sky-low) 72%,var(--sky-deep) 100%)}
+.fog{position:absolute;border-radius:50%;pointer-events:none}
+.fog.f1{width:95%;height:75%;left:-25%;top:-18%;background:radial-gradient(closest-side,rgba(170,198,240,.22),rgba(170,198,240,0))}
+.fog.f2{width:85%;height:65%;right:-28%;top:14%;background:radial-gradient(closest-side,rgba(132,160,214,.2),rgba(132,160,214,0))}
+.fog.f3{width:130%;height:58%;left:-15%;bottom:-30%;background:radial-gradient(closest-side,rgba(246,196,110,.18),rgba(246,196,110,0))}
+.stars{position:absolute;inset:0;pointer-events:none}
+.scr{position:absolute;inset:0;animation:fadeIn 420ms var(--e-out)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+[data-in]{animation:rise 620ms var(--e-out) both;animation-delay:calc(var(--d,0) * 1ms)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.t-hero{font-family:var(--f-display);font-weight:600;font-size:64px;line-height:1.05;margin:0;letter-spacing:-.015em}
+.t-lg{font-family:var(--f-display);font-weight:600;font-size:32px;line-height:1.2;margin:0;text-wrap:balance}
+.t-md{font-family:var(--f-display);font-weight:500;font-size:22px;line-height:1.3;margin:0;text-wrap:balance}
+.t-sub{font-size:17px;line-height:1.5;color:var(--on-2);margin:0;text-wrap:balance}
+.ey{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--on-3)}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px}
+
+/* Licht (Eddie) */
+.lux{position:absolute;inset:0;pointer-events:none}
+.lx-in{position:absolute;inset:0;animation:luxB 6s ease-in-out infinite}
+.lx-in>span{position:absolute;border-radius:50%}
+.lx-aura{inset:-95%;background:radial-gradient(closest-side,rgba(246,170,64,.24),rgba(236,154,50,.09) 38%,rgba(226,144,42,.02) 74%,rgba(226,144,42,0))}
+.lx-glow{inset:-36%;background:radial-gradient(closest-side,rgba(255,220,154,.5),rgba(252,202,120,.3) 64%,rgba(240,172,74,0))}
+.lx-body{inset:0;background:radial-gradient(circle closest-side,#FFFBF1 0%,#FEE9BA 27%,#F7CD83 51%,#ECB35B 72%,#E1A045 88%,rgba(218,151,33,0) 100%)}
+.lx-core{left:16%;top:16%;width:68%;height:68%;background:radial-gradient(closest-side,#FFF 0%,rgba(255,252,238,.72) 40%,rgba(255,242,210,0))}
+@keyframes luxB{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.orb{position:relative;display:inline-block;border-radius:50%}
+.eddie{position:absolute;left:30px;bottom:24px;width:66px;height:66px;border:0;background:none;padding:0;display:grid;place-items:center;z-index:20}
+.eddie .orb{width:44px;height:44px;animation:float 6.4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.ed-pill{position:absolute;left:104px;bottom:30px;display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;background:rgba(14,26,48,.66);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 0 0 .5px var(--glass-line);z-index:20}
+.pillbtn{min-height:44px;padding:0 18px;border:0;border-radius:999px;background:var(--cream);color:var(--ink);font-weight:600;font-size:15px}
+.pillbtn.ghost{background:transparent;color:var(--on);box-shadow:inset 0 0 0 1px var(--glass-line)}
+
+/* Buttons in der Welt */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 28px;border:0;border-radius:999px;font-weight:600;font-size:17px;transition:transform 120ms var(--e-out)}
+.btn:active{transform:scale(.965)}
+.btn-p{background:var(--cream);color:var(--ink);box-shadow:0 8px 24px rgba(4,10,24,.32)}
+.btn-g{background:transparent;color:var(--on);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.btn-dark{background:var(--navy);color:var(--cream)}
+.btn[disabled]{opacity:.45;cursor:default}
+.next{position:absolute;right:30px;bottom:30px;z-index:20}
+
+/* Vor Ort: Kopf mit Phasen */
+.otop{position:absolute;left:30px;right:30px;top:22px;display:flex;align-items:center;gap:16px;z-index:10}
+.who{display:flex;align-items:center;gap:10px;min-width:0}
+.who .av{width:38px;height:38px;border-radius:50%;background:var(--glass-2);box-shadow:inset 0 0 0 1px var(--glass-line);display:grid;place-items:center;flex:none;overflow:hidden}
+.who b{font-weight:600;font-size:15px;display:block}
+.who small{font-size:12.5px;color:var(--on-3);display:block}
+.phases{margin-left:auto;display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(14,26,48,.4);box-shadow:inset 0 0 0 .5px var(--glass-line)}
+.ph{font-size:12.5px;padding:6px 11px;border-radius:999px;color:var(--on-3);white-space:nowrap}
+.phases .ph{display:block;flex:none;white-space:nowrap}
+.ph.done{color:var(--on-2)}
+.ph.done::before{content:"✓ ";color:var(--gold-hi)}
+.ph.now{background:var(--cream);color:var(--ink);font-weight:600}
+
+/* Arbeitsfläche */
+.card{position:absolute;left:50%;top:84px;transform:translateX(-50%);width:1000px;height:600px;background:var(--cream);color:var(--ink);border-radius:28px;box-shadow:var(--sh-card);padding:34px 42px;display:flex;flex-direction:column;gap:18px}
+.card .ey{color:var(--ink-3)}
+.prompt{font-family:var(--f-display);font-weight:500;font-size:28px;line-height:1.3;margin:0;color:var(--ink);text-wrap:balance}
+.math{font-family:var(--f-display);font-weight:600;font-size:40px;color:var(--ink);margin:0}
+.sub{font-size:16px;color:var(--ink-2);margin:0;line-height:1.5}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.opt{min-height:66px;border-radius:16px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);font-family:var(--f-display);font-weight:600;font-size:24px;display:flex;align-items:center;gap:14px;padding:0 20px;text-align:left;transition:border-color 160ms,background 160ms}
+.opt i{font-style:normal;font-family:var(--f-ui);font-size:13px;font-weight:700;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--cream-lo);color:var(--ink-3);flex:none}
+.opt:hover{border-color:#C7B995}
+.opt.sel{border-color:var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right i{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--no);background:var(--no-bg)}
+.opt.wrong i{background:var(--no);color:#fff}
+.fb{border-radius:14px;padding:12px 16px;font-size:16px;line-height:1.5}
+.fb.ok{background:var(--ok-bg);color:var(--ok-ink)}
+.fb.no{background:var(--no-bg);color:var(--no-ink)}
+.fb small{display:block;font-size:13.5px;opacity:.85;margin-top:3px}
+.hintbox{border-radius:14px;padding:12px 16px;background:#FFF6E2;color:var(--gold-text);font-size:15.5px;line-height:1.5;display:flex;gap:12px;align-items:flex-start}
+.hintbox .orb{width:22px;height:22px;flex:none;margin-top:2px}
+.hintbox b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.spacer{flex:1}
+
+/* Video */
+.vidwrap{display:grid;grid-template-columns:1fr;gap:16px;flex:1;min-height:0;align-content:start}
+.vidwrap:not(.shrunk) .vid{max-width:660px;width:100%;margin:0 auto}
+.vidwrap.shrunk{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+.vid{min-width:0;display:flex;flex-direction:column;gap:10px}
+.screen{position:relative;border-radius:16px;overflow:hidden;background:#17263F;aspect-ratio:16/9;max-width:100%}
+.screen svg{display:block;width:100%;height:100%}
+.flash{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--gold-hi);color:#2A1B02;font-size:13px;font-weight:600;border-radius:999px;padding:5px 13px;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.subt{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);max-width:88%;background:rgba(10,16,28,.72);color:#fff;font-size:15px;line-height:1.4;padding:6px 12px;border-radius:8px;text-align:center}
+.ctl{display:flex;align-items:center;gap:10px}
+.play{width:44px;height:44px;border-radius:50%;border:0;background:var(--navy);color:var(--cream);display:grid;place-items:center;flex:none}
+.ctl .time{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.ctl .sp{flex:1}
+.tog{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--ink-2)}
+.tog[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--cream)}
+.chap{display:flex;gap:3px}
+.cp{position:relative;flex:1;height:30px;border:0;border-radius:6px;background:var(--cream-lo);padding:0;overflow:hidden;min-width:0}
+.cp .fill{position:absolute;inset:0 auto 0 0;background:#D9CDB2}
+.cp.on{background:#E9DFC9}
+.cp .lb{position:relative;font-size:11.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;padding:0 4px}
+.beatname{font-size:14px;color:var(--ink-2);min-height:20px}
+.beatname b{color:var(--ink)}
+.check{min-width:0;display:flex;flex-direction:column;gap:14px;animation:rise 500ms var(--e-out)}
+.check .opts{grid-template-columns:1fr 1fr}
+.check .opt{min-height:60px;font-size:22px}
+
+/* Beispiel */
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--rule);animation:rise 450ms var(--e-out)}
+.step .k{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--cream-lo);font-size:13px;font-weight:700;color:var(--ink-3);flex:none}
+.step .f{font-family:var(--f-display);font-weight:600;font-size:24px}
+.step .w{margin-left:auto;font-size:14px;color:var(--ink-3)}
+.step.why{border-color:var(--gold);background:#FFFBF0}
+.bricks{display:flex;flex-wrap:wrap;gap:10px}
+.brick{border:1.5px solid var(--rule);background:var(--paper);border-radius:12px;padding:10px 14px;font-size:15.5px;text-align:left;color:var(--ink);max-width:100%}
+.brick.right{border-color:var(--ok);background:var(--ok-bg);color:var(--ok-ink)}
+.brick.wrong{border-color:var(--no);background:var(--no-bg);color:var(--no-ink)}
+
+/* Eingabe a√b */
+.rootin{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:600;font-size:44px;color:var(--ink)}
+.fld{min-width:84px;height:72px;border-radius:14px;border:2px solid var(--rule);background:var(--paper);font-family:var(--f-display);font-size:38px;font-weight:600;color:var(--ink);display:grid;place-items:center;padding:0 12px}
+.fld.act{border-color:var(--ink);box-shadow:0 0 0 4px rgba(16,32,56,.08)}
+.fld.ph{color:#C9BFA8}
+.rad{display:flex;align-items:center}
+.rad span{border-top:3px solid var(--ink);padding-top:4px;margin-left:-2px}
+.pad{display:grid;grid-template-columns:repeat(4,64px);gap:8px}
+.pad button{height:56px;border-radius:12px;border:1px solid var(--rule);background:var(--paper);font-size:22px;font-weight:600;color:var(--ink)}
+.pad button.w{font-size:14px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:start}
+
+/* Fehler finden */
+.lines{display:flex;flex-direction:column;gap:8px}
+.line{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;border:1.5px solid var(--rule);background:var(--paper);text-align:left;color:var(--ink)}
+.line .n{font-size:13px;color:var(--ink-3);width:54px;flex:none}
+.line .f{font-family:var(--f-display);font-weight:600;font-size:24px}
+.line.sel{border-color:var(--no);background:var(--no-bg)}
+.line.okl{border-color:var(--ok);background:var(--ok-bg)}
+
+/* Recap */
+.stmts{display:flex;flex-direction:column;gap:12px}
+.stmt{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:16px;background:var(--paper);border:1px solid var(--rule)}
+.stmt .f{font-family:var(--f-display);font-weight:600;font-size:22px;flex:1}
+.wf{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden}
+.wf button{border:0;background:none;padding:8px 16px;font-size:14.5px;color:var(--ink-2)}
+.wf button[aria-pressed="true"]{background:var(--navy);color:var(--cream);font-weight:600}
+.stmt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.stmt.no{border-color:var(--no);background:var(--no-bg)}
+
+/* Check-out */
+.co{position:absolute;inset:0;display:grid;align-items:start;grid-template-columns:1.1fr 1fr;gap:22px;padding:84px 40px 100px}
+.glasscard{background:var(--glass);border-radius:22px;box-shadow:inset 0 0 0 .5px var(--glass-line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:22px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.xpbar{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.xpbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--xp),var(--xp-hi));width:var(--w,40%);transition:width 800ms var(--e-bounce)}
+.xprow{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--on-2)}
+.xprow b{font-family:var(--f-display);font-size:26px;color:var(--xp);font-weight:600}
+.sk{display:flex;align-items:center;gap:12px;font-size:15.5px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.dot.s{background:var(--sicher)}.dot.u{background:var(--unsicher)}.dot.o{background:transparent;box-shadow:inset 0 0 0 2px var(--offen)}
+.sk>span:not(.dot){flex:1}
+.sk small{font-size:13px;color:var(--on-3)}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.day{width:52px;height:52px;border-radius:14px;border:0;background:var(--glass-2);color:var(--on);font-weight:600;box-shadow:inset 0 0 0 .5px var(--glass-line)}
+.day[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
+.day:disabled{opacity:.35;cursor:default}
+.coachline{display:flex;gap:12px;align-items:flex-start;font-family:var(--f-display);font-size:19px;line-height:1.4}
+.coachline .av{width:40px;height:40px;border-radius:50%;background:var(--cream);color:var(--ink);font-family:var(--f-ui);font-weight:700;font-size:14px;display:grid;place-items:center;flex:none}
+
+/* ---------- Zuhause ---------- */
+.home{position:absolute;inset:0;display:flex;flex-direction:column}
+.tablet .home{flex-direction:row}
+.hcontent{flex:1;min-height:0;overflow:auto;padding:58px 20px 110px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.hcontent::-webkit-scrollbar{display:none}
+.tablet .hcontent{padding:36px 40px 40px}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:88px;padding:8px 14px 24px;display:flex;justify-content:space-around;background:rgba(14,24,44,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 .5px 0 var(--glass-line);z-index:15}
+.tablet .tabs{position:relative;width:96px;height:auto;flex:none;flex-direction:column;justify-content:flex-start;gap:8px;padding:30px 10px;box-shadow:inset -.5px 0 0 var(--glass-line)}
+.tab{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--on-3);font-size:11.5px;font-weight:500;min-width:62px;padding:4px 6px;border-radius:12px}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-current="page"]{color:var(--on)}
+.tab[aria-current="page"] svg{stroke:var(--gold-hi)}
+.tablet .tab{padding:10px 6px}
+.heddie{position:absolute;right:18px;bottom:100px;width:62px;height:62px;border:0;background:none;padding:0;display:grid;place-items:center;z-index:16}
+.heddie .orb{width:40px;height:40px;animation:float 6.4s ease-in-out infinite}
+.tablet .heddie{right:auto;left:16px;bottom:26px}
+.hhead{display:flex;align-items:center;gap:12px}
+.hhead .av{width:46px;height:46px;border-radius:50%;background:var(--glass-2);box-shadow:inset 0 0 0 1px var(--glass-line);overflow:hidden;flex:none}
+.hhead b{font-family:var(--f-display);font-weight:600;font-size:24px;display:block}
+.hhead small{font-size:13px;color:var(--on-3)}
+.hcard{background:var(--glass);border-radius:20px;box-shadow:inset 0 0 0 .5px var(--glass-line);padding:16px 18px;display:flex;flex-direction:column;gap:10px;text-align:left;border:0;color:var(--on)}
+button.hcard:active{transform:scale(.985)}
+.hcard.light{background:var(--cream);color:var(--ink);box-shadow:var(--sh-card)}
+.hcard.light .ey{color:var(--ink-3)}
+.hcard h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:21px;line-height:1.25}
+.hcard p{margin:0;font-size:14.5px;line-height:1.45;color:var(--on-2)}
+.hcard.light p{color:var(--ink-2)}
+.row{display:flex;align-items:center;gap:10px}
+.row .sp{flex:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tablet .hcols{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+.hcols{display:flex;flex-direction:column;gap:14px}
+.hstack{display:flex;flex-direction:column;gap:14px;min-width:0}
+.stat b{font-family:var(--f-display);font-size:26px;font-weight:600;display:block;line-height:1.1}
+.stat small{font-size:12.5px;color:var(--on-3)}
+.flame{color:var(--streak)}.homec{color:var(--home)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--glass-2);color:var(--on-2)}
+.pill.gold{background:rgba(212,168,67,.18);color:var(--xp-hi)}
+.weeks{display:flex;gap:5px}
+.weeks i{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12)}
+.weeks i.on{background:var(--streak)}
+.qbody{display:flex;flex-direction:column;gap:14px;color:var(--ink)}
+.prog{display:flex;gap:6px}
+.prog i{flex:1;height:5px;border-radius:999px;background:rgba(255,255,255,.18)}
+.prog i.on{background:var(--gold-hi)}
+.xpfloat{font-family:var(--f-display);font-weight:600;font-size:22px;color:var(--xp);animation:xpf 1200ms var(--e-out) both}
+@keyframes xpf{0%{opacity:0;transform:translateY(10px)}30%{opacity:1}100%{opacity:1;transform:translateY(-6px)}}
+
+/* Themenbaum */
+.tree{position:relative;background:rgba(10,18,34,.35);border-radius:20px;box-shadow:inset 0 0 0 .5px var(--glass-line);padding:12px}
+.tree svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--on-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--cream);color:var(--ink);border-radius:26px 26px 0 0;padding:20px 22px 110px;box-shadow:0 -20px 50px rgba(3,8,22,.4);z-index:18;animation:up 380ms var(--e-out);display:flex;flex-direction:column;gap:10px}
+.tablet .sheet{left:auto;top:24px;bottom:24px;right:24px;width:380px;border-radius:24px;padding:24px}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:22px}
+.sheet p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.sheet .x{position:absolute;right:14px;top:12px;width:40px;height:40px;border-radius:50%;border:0;background:var(--cream-lo);font-size:20px;color:var(--ink-2)}
+.sheet .btn{min-height:48px;font-size:15.5px}
+.state{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+
+/* Videos */
+.vlist{display:flex;flex-direction:column;gap:10px}
+.vitem{display:flex;align-items:center;gap:12px;padding:10px;border-radius:16px;background:var(--glass);box-shadow:inset 0 0 0 .5px var(--glass-line);border:0;text-align:left;color:var(--on)}
+.thumb{width:92px;aspect-ratio:16/9;border-radius:10px;flex:none;background:linear-gradient(135deg,#2A6B40,#17263F);position:relative;max-width:100%}
+.thumb::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-40%,-50%);border-left:12px solid rgba(255,255,255,.9);border-top:8px solid transparent;border-bottom:8px solid transparent}
+.vitem b{display:block;font-size:15px;font-weight:600}
+.vitem small{font-size:12.5px;color:var(--on-3)}
+.vitem.lock{opacity:.5}
+.ai{font-size:11.5px;color:var(--on-3)}
+
+/* Eddie-Chat */
+.chat{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:86%;padding:10px 14px;border-radius:18px;font-size:15px;line-height:1.45}
+.msg.me{align-self:flex-end;background:var(--cream);color:var(--ink);border-bottom-right-radius:6px}
+.msg.ed{align-self:flex-start;background:var(--glass-2);box-shadow:inset 0 0 0 .5px var(--glass-line);border-bottom-left-radius:6px}
+.link{display:flex;align-items:center;gap:10px;margin-top:8px;padding:8px;border-radius:12px;background:rgba(10,18,34,.4);border:0;width:100%;text-align:left;color:var(--on)}
+.link .thumb{width:64px}
+.link b{font-size:13.5px;display:block}
+.link small{font-size:12px;color:var(--on-3)}
+.sugg{display:flex;flex-wrap:wrap;gap:8px}
+.sg{border:0;border-radius:999px;padding:8px 14px;background:var(--glass-2);box-shadow:inset 0 0 0 .5px var(--glass-line);font-size:13.5px;color:var(--on)}
+.cin{display:flex;gap:8px}
+.cin input{flex:1;min-width:0;min-height:46px;border-radius:999px;border:0;padding:0 16px;background:rgba(255,255,255,.12);color:var(--on);font:inherit;font-size:15px;box-shadow:inset 0 0 0 .5px var(--glass-line)}
+.cin input::placeholder{color:var(--on-3)}
+
+/* Profil */
+.badges{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.badge{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;color:var(--on-2);text-align:center}
+.badge .b{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:20px}
+.b.bronze{background:radial-gradient(circle at 35% 30%,#C99872,#A0714A);color:#2A3A5A}
+.b.silhouette{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.2);color:var(--on-3)}
+.b.shield{border-radius:14px 14px 50% 50%}
+
+/* Code */
+.codef{display:flex;gap:8px;justify-content:center}
+.codef input{width:42px;height:56px;border-radius:12px;border:0;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 .5px var(--glass-line);color:var(--on);font:inherit;font-size:24px;font-weight:600;text-align:center;text-transform:uppercase}
+.toast{position:absolute;left:50%;top:22px;transform:translateX(-50%);background:var(--cream);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14.5px;font-weight:500;box-shadow:0 12px 30px rgba(3,8,22,.35);z-index:40;white-space:nowrap;animation:rise 380ms var(--e-out)}
+
+
+
+.practice{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:14px;background:rgba(126,238,255,.10);box-shadow:inset 0 0 0 1px rgba(126,238,255,.35);font-size:14.5px;color:var(--on-2)}
+.practice b{display:block;color:var(--on);font-size:15px}
+.pmark{flex:none;min-width:34px;height:26px;padding:0 8px;border-radius:999px;background:#0F2A3A;color:var(--home);box-shadow:inset 0 0 0 1.5px var(--home);font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+.pmark.big{min-width:46px;height:34px;font-size:16px}
+.dot.h{background:transparent;box-shadow:inset 0 0 0 2px var(--home)}
+.spur{background:#E9FBFE;border-radius:10px;padding:8px 10px;color:#0F4A57!important}
+.cs{position:absolute;inset:0;background:#F7F7F5;color:#1A1A18;display:grid;grid-template-columns:260px 1fr;font-family:var(--f-ui)}
+.cs-side{background:#334D7A;color:#F7F5EE;padding:28px 16px;display:flex;flex-direction:column;gap:8px}
+.cs-ey{font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.cs-kid{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:2px}
+.cs-kid.on{background:rgba(255,255,255,.18)}
+.cs-kid b{font-size:16px}.cs-kid small{font-size:12.5px;opacity:.75}
+.cs-home{font-size:12.5px;color:#7EEEFF;font-weight:600}
+.cs-main{padding:28px 32px;display:flex;flex-direction:column;gap:14px;overflow:auto}
+.cs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.cs-head h3{margin:2px 0 0;font-family:var(--f-display);font-weight:600;font-size:26px;color:#1A1A18}
+.cs-head .cs-ey,.cs-card .cs-ey{color:#888884;opacity:1}
+.cs-pill{font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;background:#EEF2F8;color:#334D7A}
+.cs-card{background:#fff;border:1px solid #E8E8E5;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 3px rgba(51,77,122,.06)}
+.cs-card p{margin:0;font-size:15px;line-height:1.5;color:#4A4A47}
+.cs-row{display:grid;grid-template-columns:220px 1fr 170px;gap:14px;align-items:center;font-size:14.5px}
+.cs-bar{height:10px;border-radius:999px;background:#EFEFED;overflow:hidden}
+.cs-bar i{display:block;height:100%;background:#334D7A;border-radius:999px}
+.cs-note{font-size:13.5px!important;color:#888884!important}
+.cs-sug{border-color:#D4A843;background:#FFFCF4}
+.cs-acts{display:flex;gap:10px;align-items:center}
+.cs-btn{min-height:44px;padding:0 18px;border-radius:10px;border:1px solid #334D7A;background:#334D7A;color:#fff;font-weight:600;font-size:15px}
+.cs-btn.ghost{background:#fff;color:#334D7A}
+.cs-ok{color:#2A8A4A;font-weight:600;font-size:14.5px}.cs-no{color:#888884;font-size:14.5px}
+/* Soft-Launch-Zuhause */
+.hhead .av svg,.who .av svg,.nicon svg{width:100%;height:100%;display:block}
+.who .av,.hhead .av{background:rgba(255,255,255,.14)}
+.lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:90px 14px 0;background:linear-gradient(180deg,rgba(10,16,30,.25),rgba(10,16,30,.55))}
+.tablet .lock{padding-top:120px}
+.lk-time{margin:0;font-family:var(--f-ui);font-weight:600;font-size:76px;line-height:1;letter-spacing:-.02em}
+.lk-date{margin:6px 0 34px;font-size:17px;color:var(--on-2)}
+.notif{width:100%;max-width:400px;display:flex;align-items:flex-start;gap:12px;text-align:left;border:0;border-radius:22px;padding:12px 14px;background:rgba(240,244,250,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#14182A;animation:rise 600ms var(--e-out) 400ms both}
+.nicon{width:38px;height:38px;border-radius:10px;overflow:hidden;background:#2F4874;flex:none}
+.ntext{flex:1;display:flex;flex-direction:column;gap:2px;font-size:14.5px;line-height:1.35}
+.ntext b{font-size:14px}
+.notif small{font-size:12.5px;color:#5A6070}
+.done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding-top:4px}
+.doneav{width:170px;height:300px}
+.doneav svg,.meav svg{width:100%;height:100%;display:block}
+.hcard.me{align-items:stretch}
+.meav{height:340px;align-self:center;width:180px}
+.lkic{width:40px;height:40px;border-radius:10px;background:rgba(243,199,110,.18);color:var(--gold-hi);display:grid;place-items:center;font-size:16px;flex:none}
+.av .fig,.av .head,.av .eyes,.av .armL,.av .armR,.av .shadow,.av .thumb{transform-box:view-box}
+.av .fig{transform-origin:150px 570px;animation:breathe 3.2s ease-in-out infinite}
+@keyframes breathe{50%{transform:scaleY(1.012)}}
+.av .eyes{transform-origin:150px 109px;animation:blink 4.6s infinite}
+@keyframes blink{0%,91%,97%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+.p-winken .armR{transform-origin:206px 192px;animation:wave 1s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(13deg)}}
+.p-jubeln .fig{animation:jump 1.1s cubic-bezier(.3,.7,.4,1) infinite}
+@keyframes jump{0%,100%{transform:translateY(0) scaleY(1)}12%{transform:translateY(0) scaleY(.965)}45%{transform:translateY(-24px) scaleY(1.01)}80%{transform:translateY(0)}}
+.p-jubeln .armL{transform-origin:100px 192px;animation:pumpL .55s ease-in-out infinite alternate}
+.p-jubeln .armR{transform-origin:200px 192px;animation:pumpR .55s ease-in-out infinite alternate}
+@keyframes pumpL{to{transform:rotate(-8deg)}}
+@keyframes pumpR{to{transform:rotate(8deg)}}
+.p-daumen .thumb{transform-origin:182px 238px;animation:pop 2s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes pop{0%,55%,100%{transform:scale(1)}65%{transform:scale(1.14) rotate(-6deg)}80%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap" id="wrap">
+  <header class="bar">
+    <div class="brand"><b>edvance</b><span>Schüler-App · Klick-Dummy · Zuhause im Umfang Soft Launch · Stand 27.10.2026</span></div>
+    <div class="seg" role="group" aria-label="Kontext"><button type="button" id="c-ort" aria-pressed="true">Vor Ort</button><button type="button" id="c-home" aria-pressed="false">Zuhause</button><button type="button" id="c-coach" aria-pressed="false">Coach</button></div>
+    <div class="seg" role="group" aria-label="Gerät"><button type="button" id="d-tab" aria-pressed="true">iPad</button><button type="button" id="d-phone" aria-pressed="false">Handy</button></div>
+    <div class="nav"><button type="button" class="nb" id="prev" aria-label="Vorheriger Screen">← Zurück</button><button type="button" class="nb" id="nxt" aria-label="Nächster Screen">Weiter →</button></div>
+    <div class="seg" role="group" aria-label="Hinweise"><button type="button" id="hints" aria-pressed="true">Hinweise</button></div>
+  </header>
+  <nav class="chips" id="chips" aria-label="Screens"></nav>
+  <div class="main">
+    <div class="stage" id="stage"><div class="scaler" id="scaler"><div class="frame" id="frame"><div id="device"></div></div></div></div>
+    <aside class="notes" id="notes" aria-live="polite"></aside>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ================= Bausteine ================= */
+const ORB = '<span class="lux"><span class="lx-in"><span class="lx-aura"></span><span class="lx-glow"></span><span class="lx-body"></span><span class="lx-core"></span></span></span>';
+const orb = (cls="") => `<span class="orb ${cls}">${ORB}</span>`;
+/* Edvance-Avatar, Entwurf 2 · ganze Figur, Cel-Shading mit Kontur · viewBox 0 0 300 600 */
+const OL="#151823";
+function fig(c){
+  const sk=c.skin[0],skd=c.skin[1],hc=c.hair[0],hcd=c.hair[1];
+  const o=(d,f,extra="")=>`<path d="${d}" fill="${f}" stroke="${OL}" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
+  const sh=(d,f)=>`<path d="${d}" fill="${f}"/>`;
+  const ln=(d,w=3.2,col=OL)=>`<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  let s=`<ellipse class="shadow" cx="150" cy="572" rx="92" ry="12" fill="rgba(0,0,0,.28)"/><g class="fig">`;
+  /* Haare hinten */
+  if(c.hairStyle==="zopf")s+=o("M182 70 C214 80 222 128 206 176 C200 150 196 120 186 100 Z",hc);
+  if(c.hairStyle==="kopftuch")s+=o("M96 96 C92 30 208 30 204 96 C206 150 196 186 150 196 C104 186 94 150 96 96 Z",hc)+sh("M176 50 C200 66 206 110 200 150 C196 176 180 190 160 194 C186 170 196 120 176 50 Z",hcd);
+  /* Beine und Hose */
+  const P=c.pants;
+  if(P.type==="cargo"){
+    s+=o("M104 330 L198 330 L208 522 L160 522 L152 392 L148 392 L140 522 L92 522 Z",P.col);
+    s+=sh("M176 340 L198 330 L208 522 L184 522 Z",P.dark);
+    s+=o("M100 404 h28 v40 h-30 z",P.col)+o("M172 404 h28 l2 40 h-30 z",P.col)+sh("M172 404 h28 l2 40 h-10 z",P.dark);
+    s+=ln("M100 500 q22 6 40 0",2.4)+ln("M160 500 q22 6 40 0",2.4);
+  }else if(P.type==="jogger"){
+    s+=o("M106 330 L196 330 L202 506 L162 512 L152 392 L148 392 L138 512 L98 506 Z",P.col);
+    s+=sh("M178 338 L196 330 L202 506 L186 510 Z",P.dark);
+    s+=sh("M110 340 L116 340 L112 504 L106 504 Z",P.stripe)+sh("M186 340 L192 340 L196 504 L190 504 Z",P.stripe);
+    s+=o("M98 498 h42 v14 h-42 z",P.dark)+o("M162 498 h42 v14 h-42 z",P.dark);
+  }else{ /* weit */
+    s+=o("M102 330 L198 330 L214 524 L162 524 L152 390 L148 390 L138 524 L86 524 Z",P.col);
+    s+=sh("M178 336 L198 330 L214 524 L190 524 Z",P.dark);
+    s+=ln("M120 360 L112 520",2,"rgba(255,255,255,.25)")+ln("M182 360 L190 520",2,"rgba(255,255,255,.25)");
+  }
+  /* Schuhe */
+  const S=c.shoe;
+  const shoe=(x,flip)=>{const m=flip?`transform="translate(${2*x} 0) scale(-1 1)"`:"";
+    return `<g ${m}>`+o(`M${x-56} 536 C${x-58} 520 ${x-46} 512 ${x-30} 512 L${x-8} 512 C${x-2} 512 ${x+4} 520 ${x+4} 530 L${x+6} 548 L${x-58} 548 Z`,S.top)
+      +sh(`M${x-56} 540 L${x+6} 540 L${x+6} 548 L${x-58} 548 Z`,S.sole)
+      +o(`M${x-60} 548 L${x+8} 548 L${x+8} 560 C${x+8} 564 ${x+4} 566 ${x} 566 L${x-56} 566 C${x-62} 566 ${x-64} 556 ${x-60} 548 Z`,S.sole)
+      +sh(`M${x-36} 520 C${x-28} 530 ${x-14} 532 ${x-2} 528`,"none")+ln(`M${x-38} 522 C${x-30} 532 ${x-16} 534 ${x-4} 530`,4,S.accent)
+      +ln(`M${x-26} 512 L${x-20} 522 M${x-18} 512 L${x-12} 520`,2.2)+`</g>`};
+  s+=shoe(142,false)+shoe(158,true);
+  /* Oberkörper */
+  const T=c.top;
+  /* Arme je Pose */
+  const SL=T.sleeve||T.col,SD=T.sleeveD||T.dark;
+  const MI=d=>d.replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g,(m,x,y)=>`${+(300-x).toFixed(1)} ${y}`);
+  const ARM={
+    hang:{s:"M94 184 C72 198 62 246 64 306 L92 310 C94 262 100 228 112 208 Z",d:"M64 306 L92 310 L92 294 L66 290 Z",h:"M66 306 C60 314 64 330 76 332 C88 334 94 322 92 310 Z"},
+    up:{s:"M100 192 C78 170 58 128 52 72 L82 66 C86 116 100 152 122 184 Z",d:"M52 72 L82 66 L84 80 L55 86 Z",h:"M48 74 C40 62 46 44 62 42 C78 40 86 54 82 68 Z"},
+    wave:{s:"M100 190 L62 222 C50 230 40 222 42 208 L46 142 L70 142 L66 196 L90 176 Z",d:"M46 142 L70 142 L69 156 L46 156 Z",h:"M44 144 C40 126 46 112 58 112 C70 112 76 126 70 144 Z",f:"M50 116 L47 102 M57 113 L57 98 M64 116 L67 103 M44 132 L36 124"}
+  };
+  const POSES={stehen:["hang","pocket"],jubeln:["up","up"],winken:["hang","wave"],daumen:["hang","thumb"],sieger:["up","hang"]};
+  const [PL,PR]=POSES[c.pose||"stehen"];
+  const arm=(k,right)=>{const a=ARM[k],f=right?MI:(d=>d);return o(f(a.s),SL)+sh(f(a.d),SD)+o(f(a.h),sk)+(a.f?ln(f(a.f),3):"")};
+  s+=`<g class="armL">`+arm(PL,false)+`</g>`;
+  if(PR==="pocket")s+=o("M206 184 C228 198 236 240 228 280 L202 286 C204 254 202 226 190 208 Z",SL)+sh("M216 196 C230 214 234 246 228 280 L216 282 C220 250 220 222 208 200 Z",SD);
+  else if(PR!=="thumb")s+=`<g class="armR">`+arm(PR,true)+`</g>`;
+  /* Rumpf */
+  s+=o("M94 182 C112 166 188 166 206 182 L222 306 C224 324 210 338 192 340 L108 340 C90 338 76 324 78 306 Z",T.col);
+  s+=sh("M178 172 C196 176 206 182 206 182 L222 306 C224 324 210 338 192 340 L176 340 C196 320 198 230 178 172 Z",T.dark);
+  if(T.type==="hoodie"){
+    s+=o("M118 274 h64 l10 38 h-84 z",T.col)+sh("M170 274 h12 l10 38 h-14 z",T.dark);
+    s+=ln("M140 196 L138 232 M160 196 L162 232",2.6)+`<circle cx="138" cy="234" r="3" fill="${T.accent}"/><circle cx="162" cy="234" r="3" fill="${T.accent}"/>`;
+    s+=o("M112 170 C120 196 180 196 188 170 C176 160 124 160 112 170 Z",T.dark);
+    if(T.logo)s+=`<text x="150" y="258" text-anchor="middle" font-family="Space Grotesk,Arial,sans-serif" font-size="17" letter-spacing="1" fill="${T.accent}">${T.logo}</text>`;
+  }else if(T.type==="track"){
+    s+=sh("M98 196 L110 196 L96 330 L86 326 Z",T.accent)+sh("M190 196 L202 196 L214 326 L204 330 Z",T.accent);
+    s+=ln("M150 172 L150 338",3)+o("M136 168 h28 v16 c0 4 -28 4 -28 0 z",T.dark);
+    s+=ln("M140 300 h-14 M160 300 h14",2.4);
+  }else if(T.type==="bomber"){
+    s+=o("M80 318 C84 332 98 340 108 340 L192 340 C204 340 218 332 220 318 L218 306 L82 306 Z",T.dark);
+    s+=ln("M150 176 L150 338",3)+o("M124 170 C134 182 166 182 176 170 C166 164 134 164 124 170 Z",T.accent);
+    s+=o("M166 216 h22 v8 h-22 z",T.accent);
+  }else if(T.type==="tech"){
+    s+=o("M150 176 L118 206 L124 300 L150 316 Z",T.dark)+ln("M150 176 L150 336",3);
+    s+=ln("M100 210 L136 228 L138 290",3,T.accent)+ln("M200 210 L164 228 L162 290",3,T.accent)+`<circle cx="138" cy="292" r="4" fill="${T.accent}"/><circle cx="162" cy="292" r="4" fill="${T.accent}"/>`;
+    s+=o("M120 168 C128 188 172 188 180 168 L176 158 C166 154 134 154 124 158 Z",T.dark);
+  }
+  if(T.type==="varsity"){
+    s+=ln("M120 170 C130 186 170 186 180 170",7,T.accent)+ln("M120 170 C130 186 170 186 180 170",2.4)+ln("M150 182 L150 336",3);
+    s+=sh("M80 312 L220 312 L221 322 L79 322 Z",T.accent)+`<text x="118" y="250" font-family="Literata,Georgia,serif" font-weight="600" font-size="34" fill="${T.accent}" stroke="${OL}" stroke-width="1.5">E</text>`;
+  }
+  /* rechte Hand */
+  if(PR==="pocket")s+=o("M204 284 C210 278 228 278 228 288 C228 298 214 300 204 296 Z",sk);
+  if(PR==="thumb")s+=`<g class="armR thumb">`+o("M206 186 C228 200 236 240 226 262 L204 256 C212 236 208 214 196 204 Z",SL)+o("M228 258 C220 274 196 268 178 250 L190 234 C204 246 214 250 220 242 Z",SL)+sh("M226 250 C222 262 210 266 200 260 C212 258 220 252 226 250 Z",SD)+o("M170 228 L168 210 C168 203 178 203 179 210 L182 226 Z",sk)+o("M168 250 C160 242 164 226 176 224 C188 222 196 234 192 246 C188 254 176 256 168 250 Z",sk)+`</g>`;
+  /* Hals */
+  s+=o("M136 150 h28 v24 c-8 6 -20 6 -28 0 z",sk)+sh("M152 152 h12 v20 c-4 3 -8 4 -12 4 z",skd);
+  s+=`<g class="head">`;
+  /* Kopftuch vorne */
+  if(c.hairStyle==="kopftuch")s+=o("M98 112 C98 168 122 196 150 198 C178 196 202 168 202 112 L214 184 C200 212 100 212 86 184 Z",hc)+sh("M184 140 C200 150 208 170 214 184 C206 196 190 204 170 206 C190 188 196 164 184 140 Z",hcd);
+  /* Kopf */
+  if(c.hairStyle!=="kopftuch"){s+=o("M96 108 C88 106 86 124 98 128 Z",sk)+o("M204 108 C212 106 214 124 202 128 Z",sk)}
+  s+=o("M102 74 C102 36 198 36 198 74 L198 112 C198 142 176 160 150 160 C124 160 102 142 102 112 Z",sk);
+  s+=sh("M182 56 C196 70 198 92 198 112 C198 138 182 156 162 160 C184 144 192 118 182 56 Z",skd);
+  /* Gesicht */
+  const eye=(x,fl)=>{const sc=`M${x-13} 110 C${x-6} ${fl?99:99} ${x+6} 99 ${x+13} 108 C${x+6} 117 ${x-6} 118 ${x-13} 110 Z`;
+    return sh(sc,"#FFFFFF")+`<circle cx="${x+(fl?-1:1)}" cy="109" r="7" fill="${c.eye}"/><circle cx="${x+(fl?-1:1)}" cy="109" r="3.4" fill="#0E0F14"/><circle cx="${x+(fl?-3:3)}" cy="106" r="2" fill="#fff"/>`+ln(`M${x-15} 109 C${x-7} 97 ${x+7} 97 ${x+15} 106`,4.2)};
+  const happy=x=>ln(`M${x-13} 112 C${x-6} 100 ${x+6} 100 ${x+13} 112`,4.6);
+  const ex=c.eyes||"normal";
+  s+=`<g class="eyes">`+(ex==="happy"?happy(129):eye(129,false))+(ex==="happy"||ex==="wink"?happy(171):eye(171,true))+`</g>`;
+  const bc=c.hairStyle==="kopftuch"?"#2A1E1A":hc;
+  s+=`<path d="M114 92 C122 85 134 85 142 88 L141 93 C133 91 123 92 115 96 Z" fill="${bc}" stroke="${OL}" stroke-width="1.5"/><path d="M186 92 C178 85 166 85 158 88 L159 93 C167 91 177 92 185 96 Z" fill="${bc}" stroke="${OL}" stroke-width="1.5"/>`;
+  s+=ln("M150 114 C146 124 146 128 152 130",2.6,skd);
+  if(c.mouth==="smirk")s+=ln("M136 141 C146 145 156 144 166 137",3.4)+ln("M166 137 l3 -2",3);
+  else if(c.mouth==="open")s+=o("M132 134 C138 156 162 156 168 134 Z","#5A2730")+sh("M136 136 h28 c-1 4 -2 6 -3 7 h-22 c-1 -1 -2 -3 -3 -7 z","#FFFFFF")+sh("M142 150 C146 144 156 144 160 150 C154 154 148 154 142 150 Z","#E07A78")+ln("M132 134 C138 156 162 156 168 134 Z",3.2);
+  else s+=o("M134 138 C142 150 160 150 168 138 Z","#FFFFFF")+ln("M134 138 C142 150 160 150 168 138",3.2);
+  /* Haare vorne */
+  const H={
+    fade:o("M100 92 C94 40 118 20 152 20 C188 20 208 42 200 92 C196 72 192 62 186 56 C170 62 130 62 114 56 C108 64 102 74 100 92 Z",hc)+sh("M168 24 C190 30 204 50 200 92 C196 72 192 62 186 56 C180 46 176 34 168 24 Z",hcd)+ln("M124 34 l8 12 M146 28 l6 14 M168 30 l2 14",2.4,hcd),
+    locken:[[110,62,16],[124,42,18],[148,32,19],[172,38,18],[190,56,16],[198,80,12],[102,84,11],[136,52,12],[162,52,12]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${hc}" stroke="${OL}" stroke-width="3"/>`).join("")+[[136,52,12],[162,52,12],[148,40,10]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${hc}"/>`).join(""),
+    zopf:o("M100 96 C92 40 120 22 152 22 C186 22 208 42 200 96 C194 74 184 62 170 56 C150 70 120 70 108 64 C104 72 102 82 100 96 Z",hc)+sh("M170 26 C192 34 206 56 200 96 C194 74 184 62 170 56 Z",hcd),
+    kopftuch:o("M100 84 C104 46 124 34 150 34 C176 34 196 46 200 84 C188 62 170 54 150 54 C130 54 112 62 100 84 Z",hc)+sh("M150 34 C176 34 196 46 200 84 C192 66 180 58 168 56 C166 46 160 38 150 34 Z",hcd)
+  };
+  s+=H[c.hairStyle]||"";
+  if(c.cap){s+=o("M98 78 C98 34 202 34 202 78 C176 70 124 70 98 78 Z",c.cap[0])+sh("M168 40 C190 48 202 62 202 78 C192 75 182 73 172 72 Z",c.cap[1])+o("M180 76 C200 70 226 74 236 84 C222 88 200 86 184 84 Z",c.cap[1])+`<circle cx="150" cy="38" r="4" fill="${c.cap[1]}" stroke="${OL}" stroke-width="2"/>`}
+  if(c.beanie)s+=o("M98 84 C96 30 204 30 202 84 Z",c.beanie[0])+sh("M170 36 C192 46 204 64 202 84 L186 84 C186 64 180 48 170 36 Z",c.beanie[1])+o("M94 74 h112 v16 h-112 z",c.beanie[1])+`<circle cx="150" cy="30" r="10" fill="${c.beanie[0]}" stroke="${OL}" stroke-width="3"/>`;
+  if(c.glasses)s+=`<g fill="rgba(255,255,255,.12)" stroke="${OL}" stroke-width="4"><rect x="111" y="97" width="36" height="24" rx="8"/><rect x="153" y="97" width="36" height="24" rx="8"/></g>`+ln("M147 104 h6",4);
+  if(c.headphones)s+=ln("M98 100 C92 20 208 20 202 100",9)+o("M88 92 h18 v34 h-18 z",c.headphones)+o("M194 92 h18 v34 h-18 z",c.headphones);
+  if(c.chain)s+=ln("M130 176 C136 206 164 206 170 176",3,"#D9B45A")+`<circle cx="150" cy="200" r="5" fill="#D9B45A" stroke="${OL}" stroke-width="2"/>`;
+  return `<svg class="av p-${c.pose||"stehen"}" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">${s}</g></g></svg>`;
+}
+
+const SIX=[
+ {id:"street",cfg:{skin:["#C98F64","#AE764D"],hair:["#1E1716","#0E0B0B"],hairStyle:"fade",eye:"#5A3A22",eyes:"normal",mouth:"smile",top:{type:"hoodie",col:"#2B3448",dark:"#1D2433",accent:"#F3C76E",logo:"EDV"},pants:{type:"cargo",col:"#6E7458",dark:"#575C45"},shoe:{top:"#F4F1EA",sole:"#E2DCCF",accent:"#DA9721"},chain:true}},
+ {id:"track",cfg:{skin:["#F1CDB2","#DDAD8F"],hair:["#8A4A2A","#6C3620"],hairStyle:"zopf",eye:"#3F6B4A",eyes:"normal",mouth:"smile",top:{type:"track",col:"#4567C6",dark:"#3451A6",accent:"#F8F5EE"},pants:{type:"jogger",col:"#1E2433",dark:"#141824",stripe:"#F8F5EE"},shoe:{top:"#1E2433",sole:"#F4F1EA",accent:"#E05A47"},headphones:"#E05A47"}},
+ {id:"locken",cfg:{skin:["#7A4E33","#633D27"],hair:["#16120F","#090706"],hairStyle:"locken",eye:"#2E1E14",eyes:"normal",mouth:"smirk",top:{type:"bomber",col:"#2E3546",dark:"#1E2433",accent:"#DA9721"},pants:{type:"cargo",col:"#3A4256",dark:"#2A3040"},shoe:{top:"#F4F1EA",sole:"#E2DCCF",accent:"#2E3546"}}},
+ {id:"kopftuch",cfg:{skin:["#D9A77E","#C28E66"],hair:["#6B2E3B","#52222D"],hairStyle:"kopftuch",eye:"#4A2E1E",eyes:"normal",mouth:"smile",top:{type:"bomber",col:"#3C5A3F",dark:"#2C432F",accent:"#DA9721"},pants:{type:"weit",col:"#4F6E9A",dark:"#3E5880"},shoe:{top:"#F4F1EA",sole:"#F4F1EA",accent:"#3C5A3F"},glasses:true}},
+ {id:"varsity",cfg:{skin:["#F6D5BE","#E3B79B"],hair:["#C9A15E","#A9823F"],hairStyle:"fade",eye:"#3C5A86",eyes:"normal",mouth:"smile",top:{type:"varsity",col:"#7A2E3A",dark:"#5E222C",accent:"#F2E6CC",sleeve:"#F2E6CC",sleeveD:"#D9CBAE"},pants:{type:"weit",col:"#1E2433",dark:"#141824"},shoe:{top:"#7A2E3A",sole:"#F4F1EA",accent:"#F2E6CC"},beanie:["#DA9721","#B87C14"]}},
+ {id:"locken2",cfg:{skin:["#F4D3BC","#E2B49A"],hair:["#4A2C1C","#341E12"],hairStyle:"locken",eye:"#3A2616",eyes:"normal",mouth:"smile",top:{type:"hoodie",col:"#4567C6",dark:"#3451A6",accent:"#F8F5EE"},pants:{type:"jogger",col:"#2B3448",dark:"#1D2433",stripe:"#4567C6"},shoe:{top:"#F4F1EA",sole:"#4567C6",accent:"#4567C6"}}}
+];
+
+const AV_BATU=SIX.find(x=>x.id==="locken").cfg;
+const bust=c=>fig(c).replace('viewBox="0 0 300 600"','viewBox="84 16 132 132"');
+const AVATAR=bust(AV_BATU);
+const ICON = {
+  start:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  baum:'<circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="13" r="2.2"/><circle cx="18" cy="13" r="2.2"/><circle cx="12" cy="20" r="2.2"/><path d="M11 7 7 11M13 7l4 4M7.5 15l3.4 3.4M16.5 15l-3.4 3.4"/>',
+  videos:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+  ich:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>',
+  play:'<path d="M7 4 20 12 7 20z" fill="currentColor" stroke="none"/>',
+  pause:'<path d="M7 4h4v16H7zM13 4h4v16h-4z" fill="currentColor" stroke="none"/>'
+};
+const ic = (n,s=18) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" aria-hidden="true">${ICON[n]}</svg>`;
+const KID = {name:"Batu", klasse:9, thema:"Reelle Zahlen und Wurzeln", skill:"Teilweise die Wurzel ziehen", welt:"fussball"};
+
+/* ================= Erklärvideo (Beats) ================= */
+const BEATS = [
+  {id:"b1",t:"Worum es geht",tx:"Wie viel ist die Wurzel aus zweiundsiebzig? Ganz genau, ohne Taschenrechner."},
+  {id:"b2",t:"Keine Quadratzahl",tx:"Zweiundsiebzig ist keine Quadratzahl. Die Wurzel liegt zwischen acht und neun."},
+  {id:"b3",t:"Quadratzahl finden",tx:"Leg zweiundsiebzig Kunstrasenplatten zu zwei quadratischen Feldern: zweimal sechsunddreißig."},
+  {id:"b4",t:"Wurzel aus 36",tx:"Ein Feld aus sechsunddreißig Platten hat die Seitenlänge sechs."},
+  {id:"b5",t:"Produktregel",tx:"Die Wurzel aus einem Produkt ist das Produkt der Wurzeln."},
+  {id:"b6",t:"Ergebnis",tx:"Also ist die Wurzel aus zweiundsiebzig gleich sechs mal Wurzel zwei."},
+  {id:"b7",t:"Merksatz",tx:"Größte Quadratzahl suchen, Wurzel daraus ziehen, der Rest bleibt unter der Wurzel."}
+];
+const BEAT_S = 4.2;
+const CHECKS = [
+  {q:"√12 = ?",opts:[
+    {a:"2√3",ok:true,fb:"Genau. 12 = 4 · 3, und die Wurzel aus 4 ist 2."},
+    {a:"4√3",fb:"Du hast die 4 herausgeholt, aber nicht ihre Wurzel gezogen.",beat:3},
+    {a:"2 + √3",fb:"Aus einem Produkt wird kein Plus. Die Wurzeln werden malgenommen.",beat:4},
+    {a:"6",fb:"6 ist die Hälfte von 12. Gesucht ist eine Quadratzahl, die in 12 steckt.",beat:1}]},
+  {q:"√20 = ?",opts:[
+    {a:"2√5",ok:true,fb:"Genau. 20 = 4 · 5, und die Wurzel aus 4 ist 2."},
+    {a:"4√5",fb:"Du hast die 4 herausgeholt, aber nicht ihre Wurzel gezogen.",beat:3},
+    {a:"2 + √5",fb:"Aus einem Produkt wird kein Plus.",beat:4},
+    {a:"10",fb:"10 ist die Hälfte von 20.",beat:1}]}
+];
+const P = {beat:0,t:0,playing:false,sub:true,flash:"",flashT:0,mode:"ort",shrunk:false,check:0,pick:null,after:null,last:0};
+
+function beatSVG(k,p){
+  const g="#2A6B40",g2="#3E9A5B",g3="#4CAF6A",ink="#FFFFFF",hi="#F0DFAE",soft="rgba(255,255,255,.7)";
+  const T=(s,x,y,fs,c,a="middle",f="Literata",w=600)=>`<text x="${x}" y="${y}" font-family="${f},Georgia,serif" font-size="${fs}" font-weight="${w}" fill="${c}" text-anchor="${a}">${s}</text>`;
+  let s=`<rect width="640" height="360" fill="${g}"/><rect width="640" height="360" fill="url(#vg)"/><defs><linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A6B40"/><stop offset="1" stop-color="#174A2A"/></linearGradient></defs>`;
+  const a=P.playing?Math.min(1,p*2.5):1;
+  const field=(x,y,n,cs,lab,hl)=>{let r=`<rect x="${x-6}" y="${y-6}" width="${n*cs+12}" height="${n*cs+12}" fill="none" stroke="#fff" stroke-width="2" rx="2"/>`;
+    for(let i=0;i<n*n;i++){const rr=Math.floor(i/n),cc=i%n;r+=`<rect x="${x+cc*cs+1}" y="${y+rr*cs+1}" width="${cs-2}" height="${cs-2}" rx="2" fill="${hl&&rr===n-1?hi:(rr%2?g2:g3)}"/>`}
+    if(lab)r+=T(lab,x+n*cs/2,y+n*cs+34,22,hi);return r};
+  if(k===0){s+=`<g opacity="${a}">${T("√72",320,170,72,ink)}${T("Teilweise die Wurzel ziehen",320,214,18,soft,"middle","Schibsted Grotesk",500)}</g>`}
+  if(k===1){s+=`<g opacity="${a}">${T("8² = 64",200,150,34,soft)}${T("√72",320,190,56,hi)}${T("9² = 81",440,150,34,soft)}${T("liegt zwischen 8 und 9",320,240,18,soft,"middle","Schibsted Grotesk",500)}</g>`}
+  if(k===2){const shown=Math.max(1,Math.ceil(p*72));let r="";let c=0;
+    [[110,70],[350,70]].forEach(([x,y])=>{r+=`<rect x="${x-6}" y="${y-6}" width="${6*30+12}" height="${6*30+12}" fill="none" stroke="#fff" stroke-width="2"/>`;for(let i=0;i<36;i++){if(c++>=shown)break;const rr=Math.floor(i/6),cc=i%6;r+=`<rect x="${x+cc*30+1}" y="${y+rr*30+1}" width="28" height="28" rx="2" fill="${rr%2?g2:g3}"/>`}});
+    s+=r+T("72 = 36 · 2",320,320,26,hi)}
+  if(k===3){s+=field(210,60,6,32,"Seite: 6",true)+`<g opacity="${a}">${T("√36 = 6",470,170,40,hi)}</g>`}
+  if(k===4){s+=`<g opacity="${a}">${T("√(36 · 2)",320,140,44,ink)}${T("= √36 · √2",320,210,44,hi)}</g>`}
+  if(k===5){s+=`<g opacity="${a}">${T("√72 = 6 · √2",320,160,46,ink)}${T("= 6√2",320,232,58,hi)}</g>`}
+  if(k===6){s+=`<g opacity="${a}"><rect x="90" y="96" width="460" height="168" rx="16" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)"/>${T("Merksatz",320,138,16,soft,"middle","Schibsted Grotesk",600)}${T("Größte Quadratzahl suchen,",320,182,26,ink)}${T("Wurzel ziehen, Rest bleibt drin.",320,222,26,hi)}</g>`}
+  return s;
+}
+function vidHTML(){
+  return `<div class="vid">
+    <div class="screen"><svg id="vsvg" viewBox="0 0 640 360" role="img" aria-label="Erklärvideo"></svg><div class="flash" id="vflash" hidden></div><div class="subt" id="vsub"></div></div>
+    <div class="ctl"><button type="button" class="play" id="vplay" aria-label="Abspielen">${ic("play")}</button><span class="time" id="vtime"></span><span class="sp"></span>
+      <span class="beatname" id="vbn"></span><button type="button" class="tog" id="vsubt" aria-pressed="${P.sub}">Untertitel</button></div>
+    <div class="chap" id="vchap">${BEATS.map((b,i)=>`<button type="button" class="cp" data-b="${i}" aria-label="Springe zu ${b.id}: ${b.t}"><span class="fill"></span><span class="lb">${b.t}</span></button>`).join("")}</div>
+  </div>`;
+}
+function vidMount(){
+  const el=id=>document.getElementById(id);
+  if(!el("vsvg"))return;
+  el("vplay").onclick=()=>{if(!P.playing&&P.beat===BEATS.length-1&&P.t>=1){P.beat=0;P.t=0}P.playing=!P.playing;P.last=performance.now();vidDraw()};
+  el("vsubt").onclick=e=>{P.sub=!P.sub;e.currentTarget.setAttribute("aria-pressed",P.sub);vidDraw()};
+  document.querySelectorAll("#vchap .cp").forEach(b=>b.onclick=()=>{P.beat=+b.dataset.b;P.t=0;P.playing=true;P.last=performance.now();vidDraw()});
+  vidDraw();
+}
+function vidDraw(){
+  const svg=document.getElementById("vsvg");if(!svg)return;
+  svg.innerHTML=beatSVG(P.beat,P.t);
+  const sub=document.getElementById("vsub");sub.textContent=BEATS[P.beat].tx;sub.hidden=!P.sub;
+  const total=BEATS.length*BEAT_S,now=P.beat*BEAT_S+P.t*BEAT_S,f=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
+  document.getElementById("vtime").textContent=`${f(now)} / ${f(total)}`;
+  document.getElementById("vbn").innerHTML=`<b>${BEATS[P.beat].id}</b> · ${BEATS[P.beat].t}`;
+  document.getElementById("vplay").innerHTML=ic(P.playing?"pause":"play");
+  document.querySelectorAll("#vchap .cp").forEach((c,i)=>{c.classList.toggle("on",i===P.beat);c.querySelector(".fill").style.width=(i<P.beat?100:i===P.beat?P.t*100:0)+"%"});
+  const fl=document.getElementById("vflash");fl.hidden=!P.flash;fl.textContent=P.flash;
+}
+function vidLoop(now){
+  const dt=Math.min(.1,(now-P.last)/1000);P.last=now;
+  if(P.playing&&document.getElementById("vsvg")){
+    P.t+=dt/BEAT_S;
+    if(P.t>=1){if(P.beat<BEATS.length-1){P.beat++;P.t=0}else{P.t=1;P.playing=false;if(P.mode==="ort")openCheck()}}
+    vidDraw();
+  }
+  if(P.flashT>0){P.flashT-=dt;if(P.flashT<=0){P.flash="";vidDraw()}}
+  requestAnimationFrame(vidLoop);
+}
+function openCheck(){P.shrunk=true;P.pick=null;render()}
+
+/* ================= Hilfen für Vor Ort ================= */
+const PHASES=["Warm-up","Erklärung","Geführt","Üben","Transfer","Recap"];
+function otop(cur){
+  return `<div class="otop"><div class="who"><span class="av">${AVATAR}</span><span><b>${KID.name}</b><small>Schulthema · ${KID.thema}</small></span></div>
+  ${cur!=null?`<div class="phases" aria-label="Ablauf der Session">${PHASES.map((p,i)=>`<span class="ph ${i<cur?"done":i===cur?"now":""}">${p}</span>`).join("")}</div>`:""}</div>`;
+}
+function eddie(open){
+  return `<button type="button" class="eddie" id="eddie" aria-label="Eddie fragen" aria-expanded="${!!open}">${orb()}</button>
+  ${open?`<div class="ed-pill"><button type="button" class="pillbtn" id="hintbtn">${O.hint<3?"Tipp bekommen":"Coach rufen"}</button><button type="button" class="pillbtn ghost" id="idk">Ich weiß es nicht</button></div>`:""}`;
+}
+const nextBtn=(lbl="Weiter",dis=false)=>`<button type="button" class="btn btn-p next" id="onext"${dis?" disabled":""}>${lbl}</button>`;
+const O={warm:null,hint:0,edOpen:false,a:"",b:"",fld:"a",uebFb:null,stepN:1,why:null,line:null,brick:null,rec:{},recDone:false,days:new Set(["Do"]),toast:"",xp:false};
+function hints(){
+  const H=["Welche Quadratzahl steckt in 50?","Probier 25: 50 = 25 · 2.","Die Wurzel aus 25 ist 5. Was bleibt unter der Wurzel?"];
+  return O.hint?`<div class="hintbox">${orb()}<div><b>Tipp ${O.hint} von 3</b>${H.slice(0,O.hint).map((h,i)=>`<div${i<O.hint-1?' style="opacity:.6"':""}>${h}</div>`).join("")}</div></div>`:"";
+}
+
+/* ================= Screens ================= */
+const SCREENS=[
+/* ---------- Vor Ort ---------- */
+{id:"o-warten",ctx:"ort",name:"Warten",render:()=>`
+  <div class="center"><span class="orb" style="width:18px;height:18px">${ORB}</span>
+  <p class="t-md" data-in style="--d:100;font-size:34px">Gleich geht es los.</p>
+  <p class="t-sub" data-in style="--d:260">Dein Coach meldet dich an diesem Tablet an.</p>
+  <button type="button" class="btn btn-g" data-in style="--d:600;margin-top:20px" data-go="1">Simulieren: Coach weist Batu zu</button></div>`,
+ note:{t:"Vor Ort startet ohne Login",p:["Das Kind meldet sich vor Ort nie an. Der Coach weist den Platz zu, das Tablet kennt danach das Kind.","Gleicher Screen wie in der LSA (Prototyp V1.3.2)."],r:"Entscheidung 09/2026: Zuordnung über die Platzvergabe des Coaches."}},
+{id:"o-hallo",ctx:"ort",name:"Begrüßung",render:()=>`
+  ${otop(null)}
+  <div class="center" style="gap:18px"><h1 class="t-hero" data-in style="--d:100">Hi ${KID.name}!</h1>
+  <p class="t-sub" data-in style="--d:300">Heute geht es um dein Schulthema.</p>
+  <div class="glasscard" data-in style="--d:520;width:600px;text-align:left">
+    <span class="ey">Ziel für heute</span><p class="t-md" style="font-size:26px">${KID.skill}</p>
+    <div class="practice"><span class="pmark">3×</span><span><b>Zuhause geübt: Primfaktoren</b>Dein Coach hat es gesehen. Heute kannst du zeigen, was du kannst.</span></div>
+    <div class="row" style="gap:16px;font-size:14px;color:var(--on-2)"><span class="flame">● 3 Wochen in Folge da</span><span>Nächste Arbeit: in 9 Tagen</span></div></div>
+  <button type="button" class="btn btn-p" data-in style="--d:800" data-go="1">Los geht’s</button></div>
+  ${eddie(false)}`,
+ note:{t:"Begrüßung: Ziel und was zuhause geübt wurde",p:["Das Ziel kommt aus dem Check-in, der Coach hat den Fall „Schulthema“ bestätigt.","Der Coach hat gesehen, dass Batu zuhause Primfaktoren geübt hat, und „Zeig's mir“ übernommen. Die Session prüft das Thema selbst. Erst hier entsteht ein Befund.","So merkt das Kind: Üben zuhause wird gesehen und lohnt sich, ohne dass es selbst etwas am Lernpfad ändert."],r:"FernUSG: zuhause nur „erledigt“; Entscheidung über die Session trifft der Coach vor Ort (System schlägt vor, Coach entscheidet)."}},
+{id:"o-warmup",ctx:"ort",name:"Warm-up",render:()=>{
+  const opts=["4","9","36","72"],right=2;
+  return `${otop(0)}<section class="card"><span class="ey">Warm-up · Aufgabe 2 von 3</span>
+   <p class="prompt">Welche ist die größte Quadratzahl, die 72 teilt?</p>
+   <div class="opts">${opts.map((o,i)=>`<button type="button" class="opt ${O.warm===i?(i===right?"right":"wrong"):""}" data-warm="${i}"><i>${"ABCD"[i]}</i>${o}</button>`).join("")}</div>
+   ${O.warm!=null?(O.warm===right?`<div class="fb ok">Genau. 72 = 36 · 2, und 36 = 6 · 6.</div>`:`<div class="fb no">${O.warm===3?"72 ist keine Quadratzahl.":"Das ist eine Quadratzahl, die 72 teilt. Gibt es eine größere?"}<small>Versuch es noch einmal.</small></div>`):""}
+   <div class="spacer"></div></section>${eddie(O.edOpen)}${nextBtn("Weiter",O.warm!==right)}`},
+ note:{t:"Warm-up: Abruf, was sitzen müsste",p:["3–4 kurze Aufgaben aus Voraussetzungen des Ziels, eine Stufe leichter.","Falsche Antwort: Rückmeldung zum Denkfehler, zweiter Versuch. Zwei Fehlversuche auf derselben Voraussetzung → Signal an den Coach „eine Stufe tiefer?“."],r:"Konzept Session §3, A2 E."}},
+{id:"o-video",ctx:"ort",name:"Erklärvideo",render:()=>{
+  const c=CHECKS[P.check];
+  return `${otop(1)}<section class="card"><span class="ey">Erklärung · ${KID.skill} · Welt Fußball</span>
+  <div class="vidwrap ${P.shrunk?"shrunk":""}">${vidHTML()}
+  ${P.shrunk?`<div class="check"><span class="ey">Kurz geprüft</span><p class="math" style="font-size:34px">${c.q}</p>
+    <div class="opts">${c.opts.map((o,i)=>`<button type="button" class="opt ${P.pick===i?(o.ok?"right":"wrong"):""}" data-mc="${i}"><i>${"ABCD"[i]}</i>${o.a}</button>`).join("")}</div>
+    ${P.pick!=null?`<div class="fb ${c.opts[P.pick].ok?"ok":"no"}">${c.opts[P.pick].fb}${c.opts[P.pick].ok?"":`<small>Gleich springt das Video zu ${BEATS[c.opts[P.pick].beat].id} · ${BEATS[c.opts[P.pick].beat].t}.</small>`}</div>`:""}
+  </div>`:""}</div></section>
+  ${eddie(false)}${nextBtn(P.shrunk&&P.pick!=null&&c.opts[P.pick].ok?"Weiter":"Zum Mini-Check",false)}`},
+ after:()=>vidMount(),
+ note:{t:"Erklärvideo mit Mini-Check und Rücksprung",p:["Spiel das Video ab oder tippe auf ein Kapitel. Am Ende schrumpft das Video nach links, rechts erscheint der Mini-Check (Variante B vom 06.10.).","Falsche Antwort: Rückmeldung zum Denkfehler, dann springt das Video auf den passenden Beat und spielt weiter. Danach kommt dieselbe Frage mit anderen Zahlen (√20).","In der App ist das ein MP4 mit kapitel.json aus dem Studio, kein Remotion Player."],r:"Anforderung Studio §9, E1 erklaer_check_abgeben mit neuer Antwortart ruecksprung. Kopfhörer je Platz."}},
+{id:"o-beispiel",ctx:"ort",name:"Lösungsbeispiel",render:()=>{
+  const S=[["√72","Die Aufgabe"],["= √(36 · 2)","Größte Quadratzahl, die drinsteckt"],["= √36 · √2","Produktregel"],["= 6√2","Wurzel aus 36 ziehen"]];
+  const B=[["Weil 36 die größte Quadratzahl in 72 ist. Mit 4 müsste man weiter vereinfachen.",true],["Weil 36 die Hälfte von 72 ist.",false],["Weil man immer durch 36 teilt.",false]];
+  return `${otop(2)}<section class="card"><span class="ey">Geführt · Lösungsbeispiel</span>
+  <div class="cols" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="steps">${S.slice(0,O.stepN).map((s,i)=>`<div class="step ${i===1&&O.stepN>=2?"why":""}"><span class="k">${i+1}</span><span class="f">${s[0]}</span><span class="w">${s[1]}</span></div>`).join("")}
+   ${O.stepN<4?`<button type="button" class="btn btn-dark" id="reveal" style="align-self:flex-start">Nächsten Schritt aufdecken</button>`:""}</div>
+   <div class="qbody">${O.stepN>=2?`<span class="ey">Warum ist Schritt 2 richtig?</span><div class="bricks" style="flex-direction:column">${B.map((b,i)=>`<button type="button" class="brick ${O.why===i?(b[1]?"right":"wrong"):""}" data-why="${i}">${b[0]}</button>`).join("")}</div>
+   ${O.why!=null?`<div class="fb ${B[O.why][1]?"ok":"no"}">${B[O.why][1]?"Genau. Jetzt kommt eine ähnliche Aufgabe.":"Schau noch mal auf Schritt 2: Welche Zahl steckt als Quadrat drin?"}</div>`:""}`:`<p class="sub">Deck Schritt für Schritt auf. Bei einem Schritt fragt dich die App, warum er stimmt.</p>`}</div></div>
+  <div class="spacer"></div></section>${eddie(false)}${nextBtn("Ähnliche Aufgabe",!(O.why===0))}`},
+ note:{t:"Geführt: Lösungsbeispiel mit Selbsterklärung",p:["Schritte aufdecken, bei einem Schritt „Warum?“ mit drei Begründungsbausteinen.","Ein gezeigtes Beispiel bekommt das Kind nie als Aufgabe. Danach folgt eine ähnliche Aufgabe mit Hinweisstufen."],r:"Konzept Session §3, A2 F. Neues Format: Begründungsbausteine."}},
+{id:"o-ueben",ctx:"ort",name:"Üben",render:()=>`
+  ${otop(3)}<section class="card"><span class="ey">Üben · Schwierigkeit 2</span>
+  <p class="prompt">Zieh die Wurzel teilweise.</p>
+  <div class="cols"><div class="qbody" style="gap:18px">
+   <div class="rootin"><span>√50 =</span><button type="button" class="fld ${O.fld==="a"?"act":""} ${O.a?"":"ph"}" data-fld="a" aria-label="Zahl vor der Wurzel">${O.a||"a"}</button><span class="rad">√<span><button type="button" class="fld ${O.fld==="b"?"act":""} ${O.b?"":"ph"}" data-fld="b" aria-label="Zahl unter der Wurzel">${O.b||"b"}</button></span></span></div>
+   ${O.uebFb?`<div class="fb ${O.uebFb[0]}">${O.uebFb[1]}</div>`:""}${hints()}</div>
+   <div class="pad">${["7","8","9","⌫","4","5","6","Feld","1","2","3","Prüfen","0"].map(k=>`<button type="button" data-key="${k}" class="${k.length>1?"w":""}"${k==="Prüfen"?' style="grid-column:span 2;background:var(--navy);color:var(--cream)"':""}>${k}</button>`).join("")}</div></div>
+  <div class="spacer"></div></section>${eddie(O.edOpen)}${nextBtn("Weiter",!(O.uebFb&&O.uebFb[0]==="ok"))}`,
+ note:{t:"Üben mit Hinweisstufen",p:["Eingabe a√b als zwei Felder. Probier 25 und 2, 1 und 50 oder 5 und 2: Jede falsche Antwort bekommt die Rückmeldung ihres Fehlbilds.","Tippe auf Eddie: Tipp 1 ist eine Frage, Tipp 2 eine Strategie, Tipp 3 der erste Schritt, nie die Lösung. Nach Tipp 3 bekommt der Coach ein Signal.","Mit Tipp gelöst zählt nicht als Beleg. Die Schwierigkeit regelt sich über die Zielquote."],r:"A2 G und H. Format a√b: neu, oder als Mehrteiler mit zwei Zahlfeldern."}},
+{id:"o-transfer",ctx:"ort",name:"Transfer",render:()=>{
+  const L=[["Zeile 1","√75 = √(25 · 3)"],["Zeile 2","= √25 + √3"],["Zeile 3","= 5 + √3"]];
+  const B=[["Aus √(25 · 3) wird √25 · √3, also ein Mal statt Plus.",true],["Man darf die Wurzel nur aus der größeren Zahl ziehen.",false],["Die 3 hätte man auch quadrieren müssen.",false]];
+  return `${otop(4)}<section class="card"><span class="ey">Transfer · Fehler finden</span>
+  <p class="prompt">Ben hat √75 vereinfacht. In welcher Zeile steckt der Fehler?</p>
+  <div class="cols" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="lines">${L.map((l,i)=>`<button type="button" class="line ${O.line===i?(i===1?"okl":"sel"):""}" data-line="${i}"><span class="n">${l[0]}</span><span class="f">${l[1]}</span></button>`).join("")}
+   ${O.line!=null&&O.line!==1?`<div class="fb no">Diese Zeile stimmt. Schau dir an, was aus dem Mal wird.</div>`:""}</div>
+   <div class="qbody">${O.line===1?`<span class="ey">Was ist dort falsch?</span><div class="bricks" style="flex-direction:column">${B.map((b,i)=>`<button type="button" class="brick ${O.brick===i?(b[1]?"right":"wrong"):""}" data-brick="${i}">${b[0]}</button>`).join("")}</div>
+   ${O.brick===0?`<div class="fb ok">Richtig. Ben hätte 5√3 herausbekommen.</div>`:O.brick!=null?`<div class="fb no">Das ist es nicht. Was passiert mit dem Mal in Zeile 2?</div>`:""}`:`<p class="sub">Tippe die Zeile an, in der Ben sich verrechnet hat.</p>`}</div></div>
+  <div class="spacer"></div></section>${eddie(false)}${nextBtn("Weiter",O.brick!==0)}`},
+ note:{t:"Transfer (AFB 3), automatisch auswertbar",p:["Neues Format „Fehler finden“: Zeile antippen, dann den passenden Begründungsbaustein wählen.","Kein Freitext, kein Sprachmodell. Zählt als Transferbeleg für „gemeistert“-Kandidaten."],r:"Konzept Session §6. Fehlbild „Produkt zu Summe“ aus dem LSA-Katalog."}},
+{id:"o-recap",ctx:"ort",name:"Recap",render:()=>{
+  const S=[["√(a · b) = √a · √b",true],["√(a + b) = √a + √b",false],["√72 = 6√2",true]];
+  return `${otop(5)}<section class="card"><span class="ey">Recap · Stimmt das?</span><p class="prompt">Drei Aussagen zum Schluss. Für a, b ≥ 0.</p>
+  <div class="stmts">${S.map((s,i)=>{const v=O.rec[i];const cls=O.recDone&&v!=null?(v===s[1]?"ok":"no"):"";
+    return `<div class="stmt ${cls}"><span class="f">${s[0]}</span><div class="wf" role="group" aria-label="Aussage ${i+1}"><button type="button" data-rec="${i}:1" aria-pressed="${v===true}">stimmt</button><button type="button" data-rec="${i}:0" aria-pressed="${v===false}">stimmt nicht</button></div></div>`}).join("")}</div>
+  ${O.recDone?`<div class="fb ${[0,1,2].every(i=>O.rec[i]===S[i][1])?"ok":"no"}">${[0,1,2].every(i=>O.rec[i]===S[i][1])?"Alles richtig. Gegenbeispiel zur zweiten: √(9 + 16) = 5, aber √9 + √16 = 7.":"Fast. Probier bei der zweiten: √(9 + 16) und √9 + √16."}</div>`:`<button type="button" class="btn btn-dark" id="recchk" style="align-self:flex-start"${Object.keys(O.rec).length<3?" disabled":""}>Prüfen</button>`}
+  <div class="spacer"></div></section>${eddie(false)}${nextBtn("Zum Abschluss",!O.recDone)}`},
+ note:{t:"Recap: Verständnis absichern",p:["2–3 Verständnisfragen zu den Skills der Stunde, ohne Hinweise.","Zählt nicht als Beleg. Der Coach sieht das Ergebnis neben dem Rest der Stunde."],r:"Konzept Session §3."}},
+{id:"o-checkout",ctx:"ort",name:"Check-out",render:()=>`
+  ${otop(6)}<div class="co">
+   <div class="glasscard"><span class="ey">Heute geschafft</span>
+    <div class="xprow"><span>Pfad · Level 4</span><b>+120 XP</b></div><div class="xpbar"><i style="--w:${O.xp?"72%":"48%"}"></i></div>
+    <div class="sk"><span class="dot s"></span><span>Teilweise die Wurzel ziehen</span><small>sicher</small></div>
+    <div class="sk"><span class="dot s"></span><span>Primfaktorzerlegung</span><small>sicher · nach 3× üben zuhause</small></div>
+    <div class="sk"><span class="dot s"></span><span>Quadratzahlen erkennen</span><small>sicher</small></div>
+    <div class="sk"><span class="dot o"></span><span>Wurzeln addieren</span><small>kommt als Nächstes</small></div>
+    <div class="coachline" style="margin-top:6px"><span class="av">LE</span><span>„Dein Üben zuhause hat sich gelohnt, Batu. Die Primfaktoren sitzen jetzt.“</span></div></div>
+   <div class="glasscard"><span class="ey">Zuhause weiterüben</span><p class="t-md">Quests sind jederzeit offen.</p>
+    <p class="t-sub" style="font-size:15px">Empfohlen bis zur nächsten Session:</p>
+    <div class="sk"><span class="dot o"></span><span>Wurzeln addieren</span><small>neu</small></div>
+    <div class="sk"><span class="dot s"></span><span>Teilweise die Wurzel ziehen</span><small>festigen</small></div>
+    <p class="t-sub" style="font-size:14.5px">Was du übst, sieht dein Coach beim nächsten Mal.</p>
+    <button type="button" class="btn btn-p" data-go="0" style="margin-top:8px">Fertig · Tablet zurückgeben</button></div>
+  </div>${eddie(false)}`,
+ after:()=>setTimeout(()=>{O.xp=true;const i=document.querySelector(".xpbar i");if(i)i.style.setProperty("--w","72%")},250),
+ note:{t:"Check-out: Ergebnis vor Ort, Empfehlung für zuhause",p:["Primfaktoren sind jetzt „sicher“, weil Batu sie in der Session gezeigt hat. Daneben steht, dass er vorher dreimal zuhause geübt hat. So wird der Zusammenhang sichtbar, ohne dass zuhause etwas bewertet wurde.","Keine Quest-Tage mehr: Quests sind immer offen. Das System empfiehlt Themen, verpflichtet aber zu nichts.","„gemeistert“ gibt es nur nach Bestätigung durch den Coach."],r:"Entscheidung Rasit 27.10.: keine Quest-Tage, Üben jederzeit; Mastery nur vor Ort."}},
+
+/* ---------- Zuhause (Soft Launch: Home light + Themenbaum) ---------- */
+{id:"h-push",ctx:"home",name:"Erinnerung",render:()=>`
+  <div class="lock"><p class="lk-time">16:05</p><p class="lk-date">Donnerstag, 22. April</p>
+   <button type="button" class="notif" data-go="1"><span class="nicon">${bust(AV_BATU)}</span><span class="ntext"><b>edvance</b><span>Batu, deine Klassenarbeit ist in 5 Tagen. Lust auf 10 Minuten Primfaktoren?</span></span><small>jetzt</small></button></div>`,
+ note:{t:"Erinnerung: selten und mit Anlass",p:["Keine festen Quest-Tage. Eine Erinnerung kommt nur mit Anlass: eine Arbeit steht an, oder seit einigen Tagen wurde nicht geübt.","Höchstens zwei pro Woche, nie nach 20 Uhr. Das Kind kann sie unter „Ich“ ausschalten oder die Uhrzeit ändern.","Echte Push-Erinnerungen sind der Grund für App Store und Play Store (Entscheidung 27.10.)."],r:"Q1: Benachrichtigung über die App, Endpunkt im Backend vorhanden. Keine Werbung."}},
+{id:"h-code",ctx:"home",name:"Anmelden",render:()=>`
+  <div class="center" style="gap:16px;padding:40px 24px"><span class="orb" style="width:56px;height:56px">${ORB}</span>
+   <p class="t-lg" data-in style="--d:100">Willkommen bei edvance</p>
+   <p class="t-sub" data-in style="--d:250;font-size:15.5px">Gib deinen Zugangscode ein. Er steht in der Mail an deine Eltern.</p>
+   <div class="codef" data-in style="--d:400">${[0,1,2,3,4,5].map(i=>`<input id="code${i}" maxlength="1" aria-label="Zeichen ${i+1}" value="${"K7M2QX"[i]}">`).join("")}</div>
+   <button type="button" class="btn btn-p" data-in style="--d:600" data-go="1">Anmelden</button>
+   <p class="ai" data-in style="--d:700">Einmal pro Gerät. Danach bleibst du angemeldet.</p></div>`,
+ note:{t:"Anmeldung mit Zugangscode",p:["Der Code entsteht beim Vertragsabschluss und geht mit der Bestätigung an die Eltern-Mail. Einmal pro Gerät, danach bleibt das Kind angemeldet.","Geht ein Handy verloren, meldet ein Admin das Gerät ab und erzeugt bei Bedarf einen neuen Code."],r:"Entscheidung Rasit 06.10.: Code nur für Admins sichtbar und maskiert. Einwilligung der Eltern zur App-Nutzung im Vertrag (unter 16, Jan klärt)."}},
+{id:"h-start",ctx:"home",tab:"start",name:"Start",render:()=>`
+  <div class="hhead"><span class="av">${bust(AV_BATU)}</span><span><b>Hi ${KID.name}</b><small>Donnerstag · nächste Session Dienstag</small></span></div>
+  <div class="hcols"><div class="hstack">
+  <button type="button" class="hcard light" data-goid="h-quest"><span class="ey">Empfohlen für dich</span><h3>Primfaktoren zerlegen</h3><p>Gehört zu deinem Thema und war in der Session noch nicht sicher. 5 Aufgaben · etwa 10 Minuten</p><div class="row"><span class="pill gold" style="background:#FFF3D3;color:#7C4F06">+50 XP</span><span class="sp"></span><span class="btn btn-dark" style="min-height:40px;padding:0 18px;font-size:15px">Starten</span></div></button>
+  <span class="ey">Oder such dir selbst etwas aus</span>
+  <div class="sugg">${["Wurzeln teilweise ziehen","Quadratzahlen","Potenzen"].map(t=>`<button type="button" class="sg" data-goid="h-quest">${t}</button>`).join("")}<button type="button" class="sg" data-goid="h-baum">Alle im Themenbaum</button></div></div>
+  <div class="hstack">
+  <div class="hcard"><span class="ey">Diese Woche geübt</span><div class="row" style="gap:12px"><span class="pmark big">3</span><span style="font-size:14.5px;color:var(--on-2)">Quests seit Dienstag. Dein Coach sieht in der nächsten Session, was du geübt hast.</span></div></div>
+  <div class="grid2"><div class="hcard stat"><b class="homec">2</b><small>Wochen mit Übung</small></div><div class="hcard stat"><b class="flame">3</b><small>Wochen in Folge da</small></div><div class="hcard stat"><b>Lv 4</b><small>Pfad · 1.240 XP</small></div><div class="hcard stat"><b>9</b><small>Tage bis zur Arbeit</small></div></div></div></div>`,
+ note:{t:"Start: jederzeit üben",p:["Keine Quest-Tage. Oben eine Empfehlung mit Begründung, darunter freie Wahl aus offenen Kompetenzen.","„Diese Woche geübt“ zeigt die Menge, nicht das Ergebnis, und sagt dem Kind, dass der Coach es sieht.","Home-Streak zählt Wochen mit mindestens einer Quest, nicht Tage. Das erzeugt weniger Druck."],r:"Entscheidung Rasit 27.10.; XP und Streaks rechnet der Server."}},
+{id:"h-quest",ctx:"home",tab:"start",name:"Home Quest",render:()=>{
+  const opts=["2 · 3 · 3","2 · 9","3 · 6","2 · 3 · 6"],right=0;
+  return `<div class="row"><span class="ey">Home Quest · Primfaktoren · 2 von 5</span><span class="sp"></span><span class="pill gold">+10 XP</span></div>
+  <div class="prog"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="hcard light"><span class="ey">Zerlege in Primfaktoren</span><p class="math" style="font-size:38px">18 = ?</p>
+   <div class="opts" style="grid-template-columns:1fr 1fr">${opts.map((o,i)=>`<button type="button" class="opt ${O.q===i?(i===right?"right":"wrong"):""}" data-q="${i}"><i>${"ABCD"[i]}</i>${o}</button>`).join("")}</div>
+   ${O.q!=null?(O.q===right?`<div class="fb ok">Richtig. 2, 3 und 3 sind Primzahlen, und 2 · 3 · 3 = 18.</div><span class="xpfloat">+10 XP</span>`:`<div class="fb no">${O.q===1?"9 ist keine Primzahl. Die lässt sich noch zerlegen.":O.q===2?"6 ist keine Primzahl.":"Rechne nach: 2 · 3 · 6 ist 36."}<small>Probier es noch einmal.</small></div>`):""}
+  </div>
+  <p class="ai">Übung für dich. Dein Coach sieht, dass du geübt hast. Zeigen, dass es sitzt, kannst du in der Session.</p>
+  <button type="button" class="btn btn-p" data-go="1"${O.q===right?"":" disabled"}>Weiter</button>`},
+ note:{t:"Home Quest: Rückmeldung ja, Befund nein",p:["Sofort richtig/falsch mit Rückmeldung zum Denkfehler, XP je erledigter Aufgabe.","Gespeichert wird: Kompetenz, Zahl der erledigten Aufgaben, Zeit. Nicht gespeichert: richtig oder falsch. Daraus entsteht kein Befund und keine Änderung am Lernpfad (FernUSG).","Eigener Aufgabenpool, keine LSA- und keine Session-Aufgaben."],r:"overview: Home Quests ohne Messung des Lernerfolgs; Konzept Session §5."}},
+{id:"h-fertig",ctx:"home",tab:"start",name:"Quest geschafft",render:()=>`
+  <div class="done"><div class="doneav">${fig(Object.assign({},AV_BATU,{pose:"jubeln",eyes:"happy",mouth:"open"}))}</div>
+   <p class="ey" data-in>Home Quest geschafft</p><p class="t-hero" data-in style="--d:150;font-size:52px;color:var(--xp)">+50 XP</p>
+   <div class="hcard" data-in style="--d:400;width:100%;max-width:420px"><div class="row" style="gap:12px"><span class="pmark big">3×</span><span style="font-size:14.5px;color:var(--on-2);text-align:left">Primfaktoren diese Woche geübt. Im Themenbaum siehst du deine Übung, und dein Coach sieht sie am Dienstag.</span></div>
+    <div class="xprow"><span>Pfad · Level 4</span><span>1.290 / 1.500</span></div><div class="xpbar"><i style="--w:86%"></i></div></div>
+   <button type="button" class="btn btn-g" data-in style="--d:600" data-goid="h-baum">Zum Themenbaum</button></div>`,
+ note:{t:"Jubeln und die Spur im Baum",p:["Batus Avatar jubelt. Darunter steht, was das Üben bewirkt: Es wird im Baum sichtbar und der Coach sieht es.","XP folgen dem Verhalten, nicht dem Ergebnis."],r:"Entscheidung Rasit 27.10.: Übung zuhause sichtbar machen, ohne Mastery."}},
+{id:"h-baum",ctx:"home",tab:"baum",name:"Themenbaum",render:()=>treeScreen(),
+ note:{t:"Themenbaum: Befunde aus der Session, Übung von zuhause",p:["Farbe und Zustand kommen nur aus der Session. Ein türkiser Ring und „3×“ zeigen, wie oft zuhause geübt wurde. Das ändert weder Zustand noch Level.","Tippe Primfaktoren an: Das Blatt nennt die Übung und dass der Coach sie sieht.","„gemeistert“ vergibt nur der Coach vor Ort. Erklärvideos sind im Soft Launch noch nicht dabei."],r:"Anforderung Themenbaum (21.10.), offene Frage 6 dort."}},
+{id:"h-eddie",ctx:"home",tab:"start",name:"Eddie",render:()=>`
+  <div class="row"><span class="orb" style="width:34px;height:34px">${ORB}</span><p class="t-md">Eddie</p></div>
+  <div class="chat">${O.chat.map(m=>m.me?`<div class="msg me">${m.t}</div>`:`<div class="msg ed">${m.t}${m.link?`<button type="button" class="link" data-goid="${m.link.go}"><span class="lkic">${m.link.ic}</span><span><b>${m.link.b}</b><small>${m.link.s}</small></span></button>`:""}</div>`).join("")}</div>
+  <div class="sugg">${["Was soll ich heute üben?","Wo stehe ich bei Wurzeln?","Frage für meinen Coach"].map(s=>`<button type="button" class="sg" data-ask="${s}">${s}</button>`).join("")}</div>
+  <div class="cin"><input id="askin" placeholder="Thema suchen, z. B. Primfaktoren" aria-label="Thema suchen"><button type="button" class="btn btn-p" id="askbtn" style="min-height:46px;padding:0 18px">Suchen</button></div>`,
+ note:{t:"Eddie im Soft Launch: ohne Sprachmodell",p:["Eddie antwortet mit festen Bausteinen und verlinkt auf Quest, Baum oder Session. Die Suche findet Themen und Kompetenzen nach Namen.","„Frage für meinen Coach“ merkt eine Frage vor; der Coach sieht sie beim nächsten Check-in.","Der echte Eddie mit Sprachmodell kommt erst nach der Rechtsklärung (Anbieter, keine Speicherung, Art. 50 AI Act, Schutz Minderjähriger)."],r:"Empfehlung 27.10.; overview: Retention-Opt-out vor dem ersten echten Dialog."}},
+{id:"h-profil",ctx:"home",tab:"ich",name:"Ich",render:()=>`
+  <div class="hcols"><div class="hcard me">
+   <div class="meav">${fig(Object.assign({},AV_BATU,{pose:O.mePose||"stehen"}))}</div>
+   <div class="row" style="justify-content:center;gap:6px">${[["stehen","Lässig"],["winken","Winken"],["daumen","Daumen"]].map(([p,l])=>`<button type="button" class="sg" data-pose="${p}" style="${(O.mePose||"stehen")===p?"background:var(--cream);color:var(--ink)":""}">${l}</button>`).join("")}</div>
+   <p class="ai" style="text-align:center">Figur ändern geht in der nächsten Session am Tablet. Skins kommen nach dem Soft Launch.</p></div>
+  <div class="hstack"><div class="hcard"><span class="ey">Pfad · was du tust</span>
+   <div class="xprow"><span>Level 4</span><span>1.290 / 1.500 XP</span></div><div class="xpbar"><i style="--w:86%"></i></div>
+   <div class="row"><span class="flame" style="font-weight:600">Präsenz</span><span class="sp"></span><div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+   <div class="row"><span class="homec" style="font-weight:600">Home-Streak</span><span class="sp"></span><span>5</span></div></div>
+  <div class="hcard"><span class="ey">Kompetenz · was du kannst</span>
+   <div class="badges"><div class="badge"><span class="b bronze">1</span>Erste Session</div><div class="badge"><span class="b bronze">√</span>Wurzel-Start</div><div class="badge"><span class="b silhouette">???</span>Kl. 9</div><div class="badge"><span class="b silhouette shield">???</span>Klasse 9</div></div>
+   <p>Abzeichen für „gemeistert“ vergibt dein Coach vor Ort.</p></div></div></div>`,
+ note:{t:"Ich: Figur, Pfad, Kompetenz",p:["Batus Figur groß, Posen zum Ausprobieren. Im Soft Launch noch ohne Spind und Skins; die Figur wählt das Kind in der LSA (AV1).","Links Fleiß (XP, Level, Streaks), rechts Können (Abzeichen), strikt getrennt."],r:"Badge-System auf zwei Achsen; Avatar = das Kind selbst."}},
+{id:"c-checkin",ctx:"coach",name:"Check-in",render:()=>`
+  <div class="cs"><div class="cs-side"><span class="cs-ey">Raum 2 · Di 17:00</span>
+   ${[["Batu","Kl. 9 · Schulthema","3 Quests zuhause",true],["Mira","Kl. 8 · Klassenarbeit","1 Quest zuhause"],["Elif","Kl. 9 · Lernfahrt","nicht geübt"],["Noah","Kl. 10 · Schulthema","5 Quests zuhause"]].map(([n,f,h,on])=>`<div class="cs-kid${on?" on":""}"><b>${n}</b><small>${f}</small><span class="cs-home">${h}</span></div>`).join("")}</div>
+  <div class="cs-main"><div class="cs-head"><div><span class="cs-ey">Check-in</span><h3>Batu · Klasse 9</h3></div><span class="cs-pill">Fall: Schulthema · Reelle Zahlen und Wurzeln</span></div>
+   <div class="cs-card"><span class="cs-ey">Zuhause seit der letzten Session</span>
+    <div class="cs-row"><span>Primfaktoren</span><span class="cs-bar"><i style="width:90%"></i></span><span>3 Quests · 15 Aufgaben</span></div>
+    <div class="cs-row"><span>Teilweise die Wurzel ziehen</span><span class="cs-bar"><i style="width:30%"></i></span><span>1 Quest · 5 Aufgaben</span></div>
+    <p class="cs-note">34 Minuten insgesamt. Zuhause wird nur gespeichert, dass geübt wurde, nicht ob richtig. Ob es sitzt, zeigt die Session.</p></div>
+   <div class="cs-card cs-sug"><span class="cs-ey">Vorschlag des Systems</span><p><b>„Zeig's mir“: Primfaktoren heute kurz prüfen.</b> Etwa 5 Minuten nach dem Warm-up, 3 Aufgaben aus dem Session-Pool. Batu war dort zuletzt noch nicht sicher und hat seitdem geübt.</p>
+    <div class="cs-acts">${O.coachTake==null?`<button type="button" class="cs-btn" data-take="1">Übernehmen</button><button type="button" class="cs-btn ghost" data-take="0">Nicht heute</button>`:O.coachTake?`<span class="cs-ok">✓ Übernommen. Batu sieht bei der Begrüßung „Heute kannst du zeigen, was du kannst“.</span>`:`<span class="cs-no">Nicht heute. Der Vorschlag kommt beim nächsten Mal wieder.</span>`}</div></div>
+   <div class="cs-card"><span class="cs-ey">Frage von Batu (über Eddie gemerkt)</span><p>„Warum ist 1 keine Primzahl?“</p></div></div></div>`,
+ note:{t:"Coach sieht, dass zuhause geübt wurde",p:["Im Check-in sieht der Coach je Kind Menge und Themen der Übung zuhause, ohne Ergebnis.","Das System schlägt „Zeig's mir“ vor, der Coach entscheidet. Erst die Aufgaben in der Session erzeugen einen Befund.","Auch Fragen, die das Kind zuhause bei Eddie gemerkt hat, landen hier."],r:"FernUSG: Home Quests ohne Einfluss auf den Lernpfad; Entscheidung vor Ort. Coach-Sicht flach wie das Eltern-Design."}},
+];
+/* Themenbaum */
+const NODES=[
+  {id:"pyth",x:300,y:40,l:"Satz des Pythagoras",s:"lock"},
+  {id:"bed",x:120,y:140,l:"Wurzel-Begriff",s:"s"},{id:"teil",x:300,y:140,l:"Teilweise ziehen",s:"s"},{id:"add",x:480,y:140,l:"Wurzeln addieren",s:"o"},
+  {id:"quad",x:120,y:250,l:"Quadratzahlen",s:"s"},{id:"prim",x:300,y:250,l:"Primfaktoren",s:"u"},{id:"pot",x:480,y:250,l:"Potenzen",s:"s"},
+  {id:"teiler",x:300,y:350,l:"Teiler",s:"s"}
+];
+const EDGES=[["bed","pyth"],["teil","pyth"],["quad","bed"],["quad","teil"],["prim","teil"],["teil","add"],["pot","bed"],["teiler","prim"]];
+const GOLD=new Set(["prim","teil","teiler>prim","prim>teil"]);
+const PRACT={prim:3,teil:1};
+function treeScreen(){
+  const N=Object.fromEntries(NODES.map(n=>[n.id,n]));
+  const col={s:"#3AAF6A",u:"#F39C12",o:"#D4D4D0",lock:"#5A6478"};
+  let svg=`<svg viewBox="0 0 600 400" role="img" aria-label="Themenbaum Reelle Zahlen und Wurzeln">`;
+  EDGES.forEach(([a,b])=>{const g=GOLD.has(a+">"+b);svg+=`<line x1="${N[a].x}" y1="${N[a].y}" x2="${N[b].x}" y2="${N[b].y}" stroke="${g?"#F3C76E":"rgba(255,255,255,.22)"}" stroke-width="${g?3:1.5}"/>`});
+  NODES.forEach(n=>{const c=col[n.s],pr=PRACT[n.id];svg+=`<g class="tn" data-node="${n.id}" style="cursor:pointer" tabindex="0" role="button" aria-label="${n.l}${pr?", "+pr+" mal zuhause geübt":""}">
+    ${pr?`<circle cx="${n.x}" cy="${n.y}" r="27" fill="none" stroke="#7EEEFF" stroke-width="2" stroke-dasharray="${Math.min(pr,4)*12} 200" transform="rotate(-90 ${n.x} ${n.y})" opacity=".9"/>`:""}
+    <circle cx="${n.x}" cy="${n.y}" r="20" fill="${n.s==="o"||n.s==="lock"?"#1C2C4C":c}" stroke="${c}" stroke-width="2.5" ${n.s==="o"?'stroke-dasharray="4 4"':""}/>
+    ${n.s==="s"?`<path d="M${n.x-7} ${n.y} l5 5 l9 -10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>`:n.s==="lock"?`<rect x="${n.x-6}" y="${n.y-2}" width="12" height="9" rx="2" fill="#98A4B8"/><path d="M${n.x-4} ${n.y-2} v-3 a4 4 0 0 1 8 0 v3" stroke="#98A4B8" stroke-width="2" fill="none"/>`:n.s==="u"?`<text x="${n.x}" y="${n.y+6}" text-anchor="middle" font-size="18" font-weight="700" fill="#fff" font-family="Schibsted Grotesk">!</text>`:""}
+    ${pr?`<rect x="${n.x+16}" y="${n.y-34}" width="30" height="20" rx="10" fill="#0F2A3A" stroke="#7EEEFF" stroke-width="1.5"/><text x="${n.x+31}" y="${n.y-20}" text-anchor="middle" font-size="12" font-weight="700" fill="#7EEEFF" font-family="Schibsted Grotesk">${pr}×</text>`:""}
+    <text x="${n.x}" y="${n.y+42}" text-anchor="middle" font-size="14" fill="${n.s==="lock"?"rgba(248,245,238,.5)":"#F8F5EE"}" font-family="Schibsted Grotesk,sans-serif" font-weight="500">${n.l}</text></g>`});
+  svg+=`</svg>`;
+  const sel=O.node&&N[O.node],pr=sel&&PRACT[sel.id];
+  const txt={s:"sicher",u:"noch nicht sicher",o:"noch nicht angeschaut",lock:"gesperrt"};
+  return `<div class="row"><p class="t-lg" style="font-size:26px">Reelle Zahlen und Wurzeln</p></div>
+  <div class="row"><span class="pill">aktuell · Schulthema</span><span class="pill gold">Lv 2 · 2 von 3 sicher</span></div>
+  <button type="button" class="hcard" data-node="prim" style="padding:12px 16px"><span class="ey" style="color:var(--gold-hi)">Damit dein Thema sitzt, fang hier an</span><p style="color:var(--on)">Primfaktoren · noch nicht sicher · 3× geübt</p></button>
+  <div class="tree">${svg}</div>
+  <div class="legend"><span><span class="dot s"></span>sicher</span><span><span class="dot u"></span>noch nicht sicher</span><span><span class="dot o"></span>noch nicht angeschaut</span><span><span class="dot h"></span>zuhause geübt</span></div>
+  ${sel?`<div class="sheet" role="dialog" aria-label="${sel.l}"><button type="button" class="x" id="xsheet" aria-label="Schließen">×</button><h3>${sel.l}</h3>
+   <span class="state" style="color:${sel.s==="s"?"#1E7A45":sel.s==="u"?"#9A5A00":"#69728A"}">● ${txt[sel.s]}</span>
+   ${pr?`<p class="spur"><b>${pr}× zuhause geübt</b>, zuletzt heute. Dein Coach sieht das. Zeigen, dass es sitzt, kannst du in der Session.</p>`:""}
+   ${sel.s==="lock"?`<p>Öffnet sich, wenn Wurzel-Begriff und Teilweise ziehen sitzen und das Thema in der Schule drankommt.</p>`:`<p>${sel.s==="u"?"In der Session war das noch unsicher.":sel.s==="s"?"In der Session sicher gelöst.":"Dazu gibt es noch keinen Befund."}</p>
+   <button type="button" class="btn" disabled style="background:var(--cream-lo);color:var(--ink-3)">Erklärvideo · kommt bald</button><button type="button" class="btn btn-dark" data-goid="h-quest">Als Home Quest üben</button>`}</div>`:""}`;
+}
+
+/* ================= Zustand und Rendern ================= */
+const ST={ctx:"ort",dev:"phone",i:{ort:0,home:0,coach:0},hints:true};
+O.q=null;O.node=null;O.vOpen=false;O.chat=[{t:"Hi Batu! Ich helfe dir, dich zurechtzufinden. Tippe eine Frage an oder such ein Thema."}];O.coachQ=false;O.coachTake=null;O.mePose="stehen";
+const list=()=>SCREENS.filter(s=>s.ctx===ST.ctx);
+const cur=()=>list()[ST.i[ST.ctx]];
+const DIM={tablet:[1180,820],phone:[390,844]};
+
+function render(){
+  const s=cur(),dev=ST.ctx==="home"?ST.dev:"tablet";
+  const d=document.getElementById("device"),fr=document.getElementById("frame");
+  const [w,h]=DIM[dev];d.style.width=w+"px";d.style.height=h+"px";fr.className="frame "+dev;d.className=dev;
+  let inner;
+  if(s.ctx==="home"&&s.tab){
+    const T=[["start","Start","h-start"],["baum","Themenbaum","h-baum"],["ich","Ich","h-profil"]];
+    inner=`<div class="home">${dev==="tablet"?tabs(T,s):""}<div class="hcontent">${s.render()}</div>${dev==="phone"?tabs(T,s):""}
+      ${s.id!=="h-eddie"?`<button type="button" class="heddie" data-goid="h-eddie" aria-label="Eddie fragen">${orb()}</button>`:""}</div>`;
+  } else inner=s.render();
+  d.innerHTML=`<div class="world"><span class="fog f1"></span><span class="fog f2"></span><span class="fog f3"></span><canvas class="stars" id="stars"></canvas></div><div class="scr">${inner}</div>${O.toast?`<div class="toast">${O.toast}</div>`:""}`;
+  stars();
+  if(s.after)s.after();
+  wire();
+  chips();notes();fit();
+  document.getElementById("c-ort").setAttribute("aria-pressed",ST.ctx==="ort");
+  document.getElementById("c-home").setAttribute("aria-pressed",ST.ctx==="home");
+  document.getElementById("d-tab").setAttribute("aria-pressed",dev==="tablet");
+  document.getElementById("d-phone").setAttribute("aria-pressed",dev==="phone");
+  document.getElementById("d-phone").disabled=ST.ctx!=="home";
+  document.getElementById("c-coach").setAttribute("aria-pressed",ST.ctx==="coach");
+}
+function tabs(T,s){return `<nav class="tabs" aria-label="Hauptmenü">${T.map(([k,l,go])=>`<button type="button" class="tab" data-goid="${go}"${s.tab===k?' aria-current="page"':""}>${ic(k,24)}${l}</button>`).join("")}</nav>`}
+function stars(){
+  const c=document.getElementById("stars");if(!c)return;const r=c.getBoundingClientRect();const k=2;
+  c.width=c.offsetWidth*k;c.height=c.offsetHeight*k;const x=c.getContext("2d");let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  for(let i=0;i<90;i++){const px=rnd()*c.width,py=rnd()*c.height*.7,rad=(rnd()*1.2+.3)*k;x.fillStyle=`rgba(255,248,230,${.15+rnd()*.5})`;x.beginPath();x.arc(px,py,rad,0,6.3);x.fill()}
+}
+function go(delta){const n=list().length;ST.i[ST.ctx]=(ST.i[ST.ctx]+delta+n)%n;reset();render()}
+function goId(id){const s=SCREENS.find(x=>x.id===id);ST.ctx=s.ctx;ST.i[s.ctx]=list().indexOf(s);reset();render()}
+function reset(){
+  P.playing=false;P.flash="";
+  const id=cur().id;
+  if(id==="o-video"){P.beat=0;P.t=0;P.shrunk=false;P.pick=null;P.check=0;P.mode="ort"}
+  if(id==="h-videos"){O.vOpen=false}
+  if(id==="h-baum")O.node=null;
+  if(id==="h-quest")O.q=null;
+  if(id==="o-ueben"){O.hint=0;O.edOpen=false;O.a="";O.b="";O.fld="a";O.uebFb=null;O.toast=""}
+  if(id==="o-warmup"){O.warm=null;O.edOpen=false}
+  if(id==="o-beispiel"){O.stepN=1;O.why=null}
+  if(id==="o-transfer"){O.line=null;O.brick=null}
+  if(id==="o-recap"){O.rec={};O.recDone=false}
+  if(id==="o-checkout")O.xp=false;
+}
+function wire(){
+  const d=document.getElementById("device"),$=s=>d.querySelector(s),$$=s=>d.querySelectorAll(s);
+  $$("[data-go]").forEach(b=>b.onclick=()=>{const v=+b.dataset.go;if(v===0){ST.i[ST.ctx]=0;reset();render()}else go(1)});
+  $$("[data-goid]").forEach(b=>b.onclick=()=>goId(b.dataset.goid));
+  const nx=$("#onext");if(nx)nx.onclick=()=>{
+    if(cur().id==="o-video"&&!(P.shrunk&&P.pick!=null&&CHECKS[P.check].opts[P.pick].ok)){P.playing=false;openCheck();return}
+    go(1)};
+  const ed=$("#eddie");if(ed)ed.onclick=()=>{O.edOpen=!O.edOpen;render()};
+  const hb=$("#hintbtn");if(hb)hb.onclick=()=>{if(cur().id!=="o-ueben"){O.edOpen=false;O.toast="Tipp: Geh die Quadratzahlen durch: 4, 9, 16, 25, 36 …";render();setTimeout(()=>{O.toast="";render()},3200);return}if(O.hint<3){O.hint++;if(O.hint===3){O.toast="Dein Coach weiß Bescheid und kommt gleich zu dir.";setTimeout(()=>{O.toast="";if(cur().id==="o-ueben")render()},3200)}}else{O.toast="Dein Coach kommt gleich zu dir."}O.edOpen=false;render()};
+  const idk=$("#idk");if(idk)idk.onclick=()=>{O.edOpen=false;O.toast="Kein Problem. Dein Coach schaut gleich mit dir drauf.";render();setTimeout(()=>{O.toast="";render()},3000)};
+  $$("[data-warm]").forEach(b=>b.onclick=()=>{O.warm=+b.dataset.warm;render()});
+  $$("[data-mc]").forEach(b=>b.onclick=()=>{
+    if(P.pick!=null&&CHECKS[P.check].opts[P.pick].ok)return;
+    P.pick=+b.dataset.mc;const o=CHECKS[P.check].opts[P.pick];render();
+    if(!o.ok)setTimeout(()=>{if(cur().id!=="o-video")return;P.shrunk=false;P.beat=o.beat;P.t=0;P.playing=true;P.last=performance.now();P.flash=`Zurück zu ${BEATS[o.beat].id} · ${BEATS[o.beat].t}`;P.flashT=2.6;P.check=Math.min(1,P.check+1);P.pick=null;render()},1900)});
+  const rv=$("#reveal");if(rv)rv.onclick=()=>{O.stepN++;render()};
+  $$("[data-why]").forEach(b=>b.onclick=()=>{O.why=+b.dataset.why;render()});
+  $$("[data-fld]").forEach(b=>b.onclick=()=>{O.fld=b.dataset.fld;render()});
+  $$("[data-key]").forEach(b=>b.onclick=()=>{const k=b.dataset.key;
+    if(k==="⌫")O[O.fld]=O[O.fld].slice(0,-1);
+    else if(k==="Feld")O.fld=O.fld==="a"?"b":"a";
+    else if(k==="Prüfen"){const a=+O.a,bb=+O.b;
+      if(!O.a||!O.b)O.uebFb=["no","Füll beide Felder aus: die Zahl vor und die Zahl unter der Wurzel."];
+      else if(a===5&&bb===2)O.uebFb=["ok",O.hint?"Richtig, 5√2. Mit Tipp gelöst, das üben wir gleich noch einmal.":"Richtig, 5√2. 50 = 25 · 2, und die Wurzel aus 25 ist 5."];
+      else if(a===25)O.uebFb=["no","Du hast die 25 herausgeholt, aber nicht ihre Wurzel gezogen."];
+      else if(a*a*bb===50)O.uebFb=["no","Stimmt im Wert, aber unter der Wurzel steckt noch eine Quadratzahl."];
+      else if(a*bb===50)O.uebFb=["no","Das wäre 50 als Produkt. Vor der Wurzel steht die Wurzel der Quadratzahl."];
+      else O.uebFb=["no","Noch nicht. Welche Quadratzahl steckt in 50?"];}
+    else if(O[O.fld].length<3){O[O.fld]+=k}
+    render()});
+  $$("[data-line]").forEach(b=>b.onclick=()=>{O.line=+b.dataset.line;O.brick=null;render()});
+  $$("[data-brick]").forEach(b=>b.onclick=()=>{O.brick=+b.dataset.brick;render()});
+  $$("[data-rec]").forEach(b=>b.onclick=()=>{const [i,v]=b.dataset.rec.split(":");O.rec[i]=v==="1";O.recDone=false;render()});
+  const rc=$("#recchk");if(rc)rc.onclick=()=>{O.recDone=true;render()};
+  $$("[data-day]").forEach(b=>b.onclick=()=>{const v=b.dataset.day;if(O.days.has(v))O.days.delete(v);else if(O.days.size<2)O.days.add(v);render()});
+  $$("[data-q]").forEach(b=>b.onclick=()=>{if(O.q===0)return;O.q=+b.dataset.q;render()});
+  $$("[data-node]").forEach(b=>{const f=()=>{O.node=b.dataset.node;render()};b.onclick=f;b.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();f()}}});
+  const xs=$("#xsheet");if(xs)xs.onclick=()=>{O.node=null;render()};
+  $$("[data-vopen]").forEach(b=>b.onclick=()=>{O.vOpen=true;P.beat=0;P.t=0;P.playing=false;render()});
+  const vc=$("#vclose");if(vc)vc.onclick=()=>{O.vOpen=false;P.playing=false;render()};
+  const ask=t=>{if(!t)return;O.chat.push({me:true,t});
+    let r;
+    if(O.coachQ){r={t:"Gemerkt. Dein Coach sieht deine Frage am Dienstag beim Check-in."};O.coachQ=false}
+    else if(t==="Frage für meinen Coach"){r={t:"Schreib deine Frage unten hinein. Ich merke sie für die Session am Dienstag vor."};O.coachQ=true}
+    else if(t==="Was soll ich heute üben?")r={t:"Am meisten bringt dir gerade Primfaktoren. Die waren in der Session noch nicht sicher und kommen in deiner Arbeit dran.",link:{go:"h-quest",ic:"▶",b:"Home Quest starten",s:"Primfaktoren · 5 Aufgaben · +50 XP"}};
+    else if(/prim/i.test(t))r={t:"Primfaktoren gehören zu deinem Thema. In der Session waren sie noch nicht sicher.",link:{go:"h-baum",ic:"◆",b:"Themenbaum · Primfaktoren",s:"noch nicht sicher"}};
+    else if(/wurzel|stehe/i.test(t))r={t:"Teilweise Wurzel ziehen sitzt. Bei den Primfaktoren bist du noch nicht sicher, dort fängst du am besten an.",link:{go:"h-baum",ic:"◆",b:"Themenbaum · Reelle Zahlen und Wurzeln",s:"Lv 2 · 2 von 3 sicher"}};
+    else r={t:"Dazu finde ich kein Thema. Soll ich die Frage für deinen Coach merken? Tippe auf „Frage für meinen Coach“."};
+    O.chat.push(r);render()};
+  $$("[data-ask]").forEach(b=>b.onclick=()=>ask(b.dataset.ask));
+  $$("[data-take]").forEach(b=>b.onclick=()=>{O.coachTake=b.dataset.take==="1";render()});
+  $$("[data-pose]").forEach(b=>b.onclick=()=>{O.mePose=b.dataset.pose;render()});
+  const ab=$("#askbtn");if(ab)ab.onclick=()=>ask($("#askin").value.trim());
+  const ai=$("#askin");if(ai)ai.onkeydown=e=>{if(e.key==="Enter")ask(ai.value.trim())};
+}
+function chips(){
+  const c=document.getElementById("chips");
+  c.innerHTML=list().map((s,i)=>`<button type="button" class="chip" data-i="${i}" aria-current="${i===ST.i[ST.ctx]}"><span class="n">${i+1}</span>${s.name}</button>`).join("");
+  c.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{ST.i[ST.ctx]=+b.dataset.i;reset();render()});
+  const a=c.querySelector('[aria-current="true"]');if(a)a.scrollIntoView({block:"nearest",inline:"nearest"});
+}
+function notes(){
+  const s=cur(),n=s.note;
+  document.getElementById("notes").innerHTML=`<span class="ey">${s.ctx==="ort"?"Vor Ort · iPad":s.ctx==="coach"?"Coach · iPad":"Zuhause · Handy und Tablet"} · ${ST.i[ST.ctx]+1} von ${list().length}</span><h2>${n.t}</h2><ul>${n.p.map(p=>`<li>${p}</li>`).join("")}</ul><p class="rule">${n.r}</p>`;
+}
+function fit(){
+  const dev=ST.ctx==="home"?ST.dev:"tablet",[w,h]=DIM[dev];const fw=w+24,fh=h+24;
+  const st=document.getElementById("stage");const aw=st.clientWidth;
+  const top=st.getBoundingClientRect().top+window.scrollY;
+  const narrow=window.innerWidth<=980;
+  const ah=narrow?window.innerHeight*.78:Math.max(320,window.innerHeight-top-20);
+  const k=Math.min(aw/fw,ah/fh,1);
+  const sc=document.getElementById("scaler");sc.style.width=fw*k+"px";sc.style.height=fh*k+"px";
+  document.getElementById("frame").style.transform=`scale(${k})`;
+}
+document.getElementById("c-ort").onclick=()=>{ST.ctx="ort";reset();render()};
+document.getElementById("c-home").onclick=()=>{ST.ctx="home";reset();render()};
+document.getElementById("c-coach").onclick=()=>{ST.ctx="coach";reset();render()};
+document.getElementById("d-tab").onclick=()=>{ST.dev="tablet";render()};
+document.getElementById("d-phone").onclick=()=>{if(ST.ctx==="home"){ST.dev="phone";render()}};
+document.getElementById("prev").onclick=()=>go(-1);
+document.getElementById("nxt").onclick=()=>go(1);
+document.getElementById("hints").onclick=e=>{ST.hints=!ST.hints;e.currentTarget.setAttribute("aria-pressed",ST.hints);document.getElementById("wrap").classList.toggle("nohints",!ST.hints);fit()};
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+window.addEventListener("resize",fit);
+render();
+requestAnimationFrame(t=>{P.last=t;requestAnimationFrame(vidLoop)});
+</script>

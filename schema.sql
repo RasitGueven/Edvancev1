@@ -2592,3 +2592,16 @@ on conflict (id) do nothing;
 -- batu_lsa 3/1, batu_session 7/0); ohne Argument wie bisher Hoechstwerte ueber alle aktiven Anlaesse.
 -- Beide drop + create (Rueckgabetyp bzw. Parameter geaendert); execute nur fuer authenticated, wie vorher.
 -- Frontend: Bereich "Fuer die LSA" = 'batu_lsa' in anlaesse, "Fuer die Session" = 'batu_session'.
+
+-- ============================================================================
+-- Studio (Reihe 1, Bauauftrag B1): studio_rolle, studio_sequenz, studio_welt, studio_beat, studio_beat_text,
+-- studio_bereich, studio_minicheck, studio_minicheck_aufgabe, studio_ruecksprung
+-- (Migration 20261027130817_studio_modell.sql; Abbildung docs/reihe1/B/ist-analyse.md §1)
+-- ============================================================================
+-- Ein Video = studio_sequenz; Beats je Kernidee (erklaer_kernidee skill_key+nr), Beat-Bereich je Kernidee in
+-- studio_bereich (unique kernidee_id: eine Kernidee hat hoechstens ein Video). Texte je Welt in studio_beat_text
+-- (fehlt eine Welt, gilt das Skelett). Mini-Checks werden MC-Check-Aufgaben (tasks.source 'edvance_studio',
+-- einsatz {check}, known_errors aus den Optionen), nr 0 = Hauptfrage, 1.. = Zwillinge; Ruecksprung je Fehlbild.
+-- Versionen: studio_sequenz.version (Skelett) und studio_welt.version steigen nur bei geaendertem Inhalt
+-- (studio_inhalt_hash). Schreiben nur ueber studio_skript_speichern (Autor oder Admin, nur eigene Sequenz).
+-- Lesen per RLS nur fuer Studio-Beteiligte (studio_darf_sehen); Kinder lesen nie direkt.
