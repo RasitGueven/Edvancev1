@@ -35,7 +35,8 @@ create temp table e3_aufgaben as
    where t.skill_key in ('gleichung_quadr_faktor', 'gleichung_quadr_wurzel', 'gleichung_quadr_formel',
                          'gleichung_quadr_anzahl', 'gleichung_einschrittig', 'gleichung_zweischrittig',
                          'term_ausklammern', 'vorzeichen_add_sub')
-     and 'session' = any (t.einsatz);
+     -- Reihe 1 A1 (20261027130250): der Bestand ist seitdem nur LSA; die Hinweise bleiben dieselben.
+     and t.einsatz && array['lsa', 'session'];
 select (select id from tasks where source_ref = 'quadrgl-faktor-03') as f3,
        (select id from tasks where source_ref = 'quadrgl-faktor-01') as f1 \gset
 

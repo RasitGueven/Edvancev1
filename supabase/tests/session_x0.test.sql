@@ -134,7 +134,7 @@ insert into skill_clusters (subject_id, name, class_level_min, class_level_max)
 values (:'x0_fach', 'X0 Cluster', 5, 13) returning id as x0_cluster \gset
 
 create function pg_temp.aufgabe(p_ref text, p_skill text, p_status text, p_loesung boolean default true,
-                                p_tutorial boolean default false, p_einsatz text[] default '{lsa,session}')
+                                p_tutorial boolean default false, p_einsatz text[] default '{lsa}')
 returns uuid language plpgsql as $$
 declare v uuid;
 begin

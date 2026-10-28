@@ -43,11 +43,11 @@ begin
   select array_agg(id order by nr) into v_t
     from (select gen_random_uuid() as id, nr from generate_series(1, 4) as nr) x;
 
-  insert into public.tasks (id, content_type, skill_key, question)
-  values (v_t[1], 'exercise', 'AF3_PROBE', 'AF3 Probe 1'),
-         (v_t[2], 'exercise', 'AF3_PROBE', 'AF3 Probe 2'),
-         (v_t[3], 'exercise', 'AF3_PROBE', 'AF3 Probe 3'),
-         (v_t[4], 'exercise', 'AF3_PROBE', 'AF3 Probe 4');
+  insert into public.tasks (id, content_type, skill_key, question, einsatz)
+  values (v_t[1], 'exercise', 'AF3_PROBE', 'AF3 Probe 1', '{lsa}'),
+         (v_t[2], 'exercise', 'AF3_PROBE', 'AF3 Probe 2', '{lsa}'),
+         (v_t[3], 'exercise', 'AF3_PROBE', 'AF3 Probe 3', '{lsa}'),
+         (v_t[4], 'exercise', 'AF3_PROBE', 'AF3 Probe 4', '{lsa}');
 
   -- Zwei Labels mit IDENTISCHEM Klartext-Aufbau, nur die Abnahme trennt sie.
   -- Genau eine Variable — sonst belegt ein gruener Lauf nicht, dass es die

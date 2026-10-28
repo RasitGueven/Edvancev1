@@ -6,6 +6,8 @@ import { abschlussMoeglich, akteZahlen, kinderOhneTablet } from '@/lib/session/c
 import { cn } from '@/lib/utils'
 import { Abschnitt, Pille } from './bausteine'
 import { useLive } from './LiveKontext'
+import { useTranslation } from 'react-i18next'
+import { ReiheDanach } from './reihe/ReiheDanach'
 import { useLiveTexte } from './useLiveTexte'
 
 type Punkt = { icon: LucideIcon; warn: boolean; titel: string; text: string; aktion?: JSX.Element }
@@ -35,6 +37,7 @@ function Zeile({ p }: { p: Punkt }): JSX.Element {
 export function DanachAnsicht(): JSX.Element {
   const { raum, sessionId, ausfuehren, zeigeZeitpunkt } = useLive()
   const tx = useLiveTexte()
+  const { t: tR } = useTranslation('reihe')
   const kinder = raum.kinder
   const ohneTablet = kinderOhneTablet(kinder)
   const anwesend = kinder.filter((k) => k.tablet !== null)
@@ -124,6 +127,11 @@ export function DanachAnsicht(): JSX.Element {
     <div className="grid items-start gap-6 @min-[900px]:grid-cols-[minmax(0,1fr)_360px]">
       <div className="flex min-w-0 flex-col gap-6">
         {ohneTablet.length > 0 && ohneTabletAbschnitt}
+        {fertig && anwesend.length > 0 && (
+          <Abschnitt titel={tR('danach.abschnitt')}>
+            {anwesend.map((k) => <ReiheDanach key={k.id} studentId={k.id} name={k.vorname} />)}
+          </Abschnitt>
+        )}
         <Abschnitt titel={tx.t('danach.vorAbschluss')} zusatz={tx.t('danach.punkte', { count: punkte.length })}>
           <EdvanceCard className="p-0 hover:shadow-xs">
             <ul className="divide-y divide-[var(--color-bg-subtle)]">

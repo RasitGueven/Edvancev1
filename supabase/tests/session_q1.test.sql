@@ -70,7 +70,7 @@ insert into skill_thema (skill_key, thema_key) values ('zz_q1_ka', 'zz_q1_thema'
 
 insert into tasks (content_type, input_type, status, is_active, question, skill_key, est_duration_sec, source, source_ref, einsatz)
 select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skill, x.dauer, 'test', x.ref,
-       case x.ref when 'q1-neu-lsa' then '{lsa,session}'::text[]
+       case x.ref when 'q1-neu-lsa' then '{lsa}'::text[]
                   else '{quest}'::text[] end
   from (values
     ('q1-neu-1', 'zz_q1_neu', 180, 'ready', true), ('q1-neu-2', 'zz_q1_neu', 180, 'ready', true),

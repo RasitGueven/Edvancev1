@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { PruefBoardZeile, PruefSollZeile } from '@/types'
-import { auchIn, bereichDerAufgabe, bereichsBoard, leseBereich, ohneBereich, sollDesBereichs } from './bereich'
+import { bereichDerAufgabe, bereichsBoard, leseBereich, ohneBereich, sollDesBereichs } from './bereich'
 
 const z = (id: string, anlaesse: string[]): PruefBoardZeile => ({
   task_id: id, stufe: 'erste', thema_key: 'a', thema_label: 'A', thema_sort: 1, skill_key: 's', skill_label: 'S',
@@ -18,13 +18,6 @@ describe('Bereiche im Lena-Board', () => {
 
   it('zaehlt Aufgaben ohne passenden Anlass', () => {
     expect(ohneBereich(board)).toBe(2)
-  })
-
-  it('kennzeichnet nur Aufgaben mit beiden Anlaessen', () => {
-    expect(auchIn(board[2], 'lsa')).toBe('session')
-    expect(auchIn(board[2], 'session')).toBe('lsa')
-    expect(auchIn(board[0], 'lsa')).toBeNull()
-    expect(auchIn(board[1], 'lsa')).toBeNull()
   })
 
   it('liest ?bereich= und leitet sonst aus der Aufgabe ab (LSA vor Session, ohne Anlass LSA)', () => {

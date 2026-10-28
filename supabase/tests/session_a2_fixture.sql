@@ -85,7 +85,7 @@ insert into skill_clusters (name, class_level_min, class_level_max) values ('ZZ 
 -- p_n Aufgaben je Skill, Schwierigkeit reihum 1..5, ready, Einsatz lsa+session, mit Loesungsweg
 -- und einem gepruefen Hinweis Stufe 1.
 create or replace function pg_temp.aufgaben(p_skill text, p_n int, p_status text default 'ready',
-                                            p_einsatz text[] default '{lsa,session}', p_ref text default null)
+                                            p_einsatz text[] default '{session}', p_ref text default null)
 returns void language plpgsql as $$
 begin
   insert into tasks (cluster_id, content_type, input_type, status, question, question_payload, afb, competency_content,
