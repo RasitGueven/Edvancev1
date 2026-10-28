@@ -1480,3 +1480,12 @@ Bewährung: Trigger nach jeder Session-Antwort einer Instanz (nicht im Testlauf;
 - `aufgabe_werten` liefert bei einer Teilmenge der Lösungsmenge `rueckmeldung = 'Eine Lösung fehlt noch.'`, `fehlbild_key = null`; `session_bewerten`/`antwort_abgeben` speichern dafür `fehlbild_slug = 'qf_loesung_fehlt'`.
 - Graph-Auswahl: je Option eine Figur in `task_figur_optionen (task_id, option_id, generator 'parabel', params, alt_text ohne Ziffern, svg_hash)`; `aufgabe_payload` setzt `optionen[].bild`/`bild_hell`; ziehbar erst, wenn jede Option ihr Bild hat.
 - Generator `parabel` (`scripts/figures/parabel.py`): `a, d, e, x_min…y_max`, optional `punkte`, `gerade_c`, `nullstellen`, `scheitel`, `label`; geprüft von `pruefe_parabel.py` (Scheitel, Nullstellen, Achsen, dazu alle Prüfungen des Koordinatensystems).
+
+### 13.7 Bauform-Motor (A4)
+
+`scripts/bauformen/` (README dort) erzeugt Instanzen je Rolle und Stufe, prüft sie (sieben Prüfungen, Konzept §5) und
+schreibt je Bauform eine Datenmigration `…_reihe1_bauform_<key>.sql`: Upsert auf `bauformen` (Version per Trigger;
+seit `20261027142701_reihe1_a4_versionswechsel` bleiben mitgelieferte Prüfprotokolle, Blindlöser und Status erhalten),
+grüne Instanzen als `tasks` (`source = 'bauform'`, `source_ref = <KEY>-v<version>-<rolle>-s<stufe>-<n>`, `draft`,
+`{session}`), `task_solutions` (Lösung mit Fehlbildern, Lösungsweg zeilenweise, drei Hinweise `entwurf`). Zweimal
+einspielen ändert nichts. Vorschau je Bauform: `docs/reihe1/A/bauformen/<KEY>.json`.

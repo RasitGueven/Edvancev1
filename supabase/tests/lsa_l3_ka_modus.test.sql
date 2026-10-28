@@ -38,6 +38,8 @@ update tasks set skill_key = null where skill_key is not null;
 delete from thema_einstieg;
 delete from skill_kante;
 delete from erklaer_kernidee;
+-- Reihe 1: Bauformen haengen per FK an skills; fuer die Isolation nur in dieser Transaktion loesen.
+alter table bauformen drop constraint bauformen_skill_key_fkey;
 delete from skills;
 
 insert into skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe)

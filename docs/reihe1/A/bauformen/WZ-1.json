@@ -1,0 +1,2308 @@
+{
+ "schluessel": "WZ-1",
+ "skill": "gleichung_quadr_wurzel",
+ "kernidee": "gleichung_quadr_wurzel:K1",
+ "format": "loesungsmenge",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "beispiel",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Löse x² = {c}.",
+  "stufen": {
+   "1": "c ist eine Quadratzahl von 9 bis 400, zwei ganzzahlige Lösungen",
+   "2": "c = 0 (eine Lösung) oder c negativ (keine Lösung)"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_nur_positive_loesung",
+    "regel": "nur +√c",
+    "gilt_fuer_stufen": [
+     1
+    ],
+    "rueckmeldung": "Auch eine negative Zahl ins Quadrat ergibt eine positive Zahl."
+   },
+   {
+    "key": "qf_wurzel_als_haelfte",
+    "regel": "±c/2",
+    "gilt_fuer_stufen": [
+     1
+    ],
+    "rueckmeldung": "Die Wurzel ist nicht die Hälfte. Welche Zahl mal sich selbst ergibt c?"
+   },
+   {
+    "key": "qf_wurzel_aus_negativ",
+    "regel": "±√|c| bei c < 0",
+    "gilt_fuer_stufen": [
+     2
+    ],
+    "rueckmeldung": "Ein Quadrat ist nie negativ. Prüf, ob es überhaupt eine Zahl geben kann."
+   }
+  ],
+  "hinweise": [
+   "Welche Zahl ergibt mit sich selbst malgenommen {c}?",
+   "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+   "Schreib die Gleichung als x = √{c} oder x = −√{c}, wenn das geht."
+  ],
+  "loesungsweg": [
+   "x² = {c}",
+   "x = √{c} oder x = −√{c}",
+   "x = {w} oder x = −{w}",
+   "L = {{−{w}; {w}}}"
+  ],
+  "warum": {
+   "bei_schritt": 1,
+   "frage": "Warum gibt es zwei Lösungen?",
+   "bausteine": [
+    {
+     "id": "a",
+     "text": "Auch eine negative Zahl ins Quadrat ist positiv."
+    },
+    {
+     "id": "b",
+     "text": "Weil man die Wurzel immer zweimal zieht."
+    },
+    {
+     "id": "c",
+     "text": "Weil c eine ungerade Zahl ist."
+    }
+   ],
+   "richtig": "a"
+  },
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "82a0488a435e"
+ },
+ "pruefprotokoll": {
+  "gruen": 26,
+  "rot": 2,
+  "rot_anteil": 0.071,
+  "gruende": {
+   "7": 2
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "keine Lösung",
+   "2": "keine Lösung",
+   "3": "13; −13",
+   "4": "18; −18",
+   "5": "keine Lösung",
+   "6": "20; −20",
+   "7": "15; −15",
+   "8": "19; −19",
+   "9": "keine Lösung",
+   "10": "12; −12"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "c": 144
+   },
+   "frage": "Löse x² = 144.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-72",
+      "72"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 144?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √144 oder x = −√144, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 144",
+    "x = √144 oder x = −√144",
+    "x = 12 oder x = −12",
+    "L = {{−12; 12}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    },
+    {
+     "werte": [
+      "+12",
+      "-12",
+      "12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "c": 64
+   },
+   "frage": "Löse x² = 64.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "8"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-32",
+      "32"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 64?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √64 oder x = −√64, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 64",
+    "x = √64 oder x = −√64",
+    "x = 8 oder x = −8",
+    "L = {{−8; 8}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-8"
+     ]
+    },
+    {
+     "werte": [
+      "+8",
+      "-8",
+      "8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "c": 49
+   },
+   "frage": "Löse x² = 49.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-49/2",
+      "49/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 49?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √49 oder x = −√49, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 49",
+    "x = √49 oder x = −√49",
+    "x = 7 oder x = −7",
+    "L = {{−7; 7}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    },
+    {
+     "werte": [
+      "+7",
+      "-7",
+      "7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "c": 81
+   },
+   "frage": "Löse x² = 81.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "9"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-81/2",
+      "81/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 81?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √81 oder x = −√81, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 81",
+    "x = √81 oder x = −√81",
+    "x = 9 oder x = −9",
+    "L = {{−9; 9}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-9"
+     ]
+    },
+    {
+     "werte": [
+      "+9",
+      "-9",
+      "9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "c": 9
+   },
+   "frage": "Löse x² = 9.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-9/2",
+      "9/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 9?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √9 oder x = −√9, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 9",
+    "x = √9 oder x = −√9",
+    "x = 3 oder x = −3",
+    "L = {{−3; 3}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    },
+    {
+     "werte": [
+      "+3",
+      "-3",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "c": 256
+   },
+   "frage": "Löse x² = 256.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-16",
+     "16"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "16"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-128",
+      "128"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 256?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √256 oder x = −√256, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 256",
+    "x = √256 oder x = −√256",
+    "x = 16 oder x = −16",
+    "L = {{−16; 16}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "16",
+      "-16"
+     ]
+    },
+    {
+     "werte": [
+      "+16",
+      "-16",
+      "16"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "c": 25
+   },
+   "frage": "Löse x² = 25.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-25/2",
+      "25/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 25?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √25 oder x = −√25, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 25",
+    "x = √25 oder x = −√25",
+    "x = 5 oder x = −5",
+    "L = {{−5; 5}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    },
+    {
+     "werte": [
+      "+5",
+      "-5",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "c": 225
+   },
+   "frage": "Löse x² = 225.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-15",
+     "15"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "15"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-225/2",
+      "225/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 225?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √225 oder x = −√225, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 225",
+    "x = √225 oder x = −√225",
+    "x = 15 oder x = −15",
+    "L = {{−15; 15}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "15",
+      "-15"
+     ]
+    },
+    {
+     "werte": [
+      "+15",
+      "-15",
+      "15"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "c": 324
+   },
+   "frage": "Löse x² = 324.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-18",
+     "18"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "18"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-162",
+      "162"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 324?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √324 oder x = −√324, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 324",
+    "x = √324 oder x = −√324",
+    "x = 18 oder x = −18",
+    "L = {{−18; 18}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "18",
+      "-18"
+     ]
+    },
+    {
+     "werte": [
+      "+18",
+      "-18",
+      "18"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "c": 289
+   },
+   "frage": "Löse x² = 289.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-17",
+     "17"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "17"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-289/2",
+      "289/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 289?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √289 oder x = −√289, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 289",
+    "x = √289 oder x = −√289",
+    "x = 17 oder x = −17",
+    "L = {{−17; 17}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "17",
+      "-17"
+     ]
+    },
+    {
+     "werte": [
+      "+17",
+      "-17",
+      "17"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "c": 169
+   },
+   "frage": "Löse x² = 169.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-13",
+     "13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "13"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-169/2",
+      "169/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 169?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √169 oder x = −√169, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 169",
+    "x = √169 oder x = −√169",
+    "x = 13 oder x = −13",
+    "L = {{−13; 13}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "13",
+      "-13"
+     ]
+    },
+    {
+     "werte": [
+      "+13",
+      "-13",
+      "13"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "c": 100
+   },
+   "frage": "Löse x² = 100.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "10"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-50",
+      "50"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 100?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √100 oder x = −√100, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 100",
+    "x = √100 oder x = −√100",
+    "x = 10 oder x = −10",
+    "L = {{−10; 10}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "-10"
+     ]
+    },
+    {
+     "werte": [
+      "+10",
+      "-10",
+      "10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "c": 361
+   },
+   "frage": "Löse x² = 361.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-19",
+     "19"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "19"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-361/2",
+      "361/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 361?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √361 oder x = −√361, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 361",
+    "x = √361 oder x = −√361",
+    "x = 19 oder x = −19",
+    "L = {{−19; 19}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "19",
+      "-19"
+     ]
+    },
+    {
+     "werte": [
+      "+19",
+      "-19",
+      "19"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "c": 400
+   },
+   "frage": "Löse x² = 400.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-20",
+     "20"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "20"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-200",
+      "200"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 400?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √400 oder x = −√400, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 400",
+    "x = √400 oder x = −√400",
+    "x = 20 oder x = −20",
+    "L = {{−20; 20}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "20",
+      "-20"
+     ]
+    },
+    {
+     "werte": [
+      "+20",
+      "-20",
+      "20"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "c": 36
+   },
+   "frage": "Löse x² = 36.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "6"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-18",
+      "18"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 36?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √36 oder x = −√36, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 36",
+    "x = √36 oder x = −√36",
+    "x = 6 oder x = −6",
+    "L = {{−6; 6}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-6"
+     ]
+    },
+    {
+     "werte": [
+      "+6",
+      "-6",
+      "6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "c": 16
+   },
+   "frage": "Löse x² = 16.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-8",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 16?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √16 oder x = −√16, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 16",
+    "x = √16 oder x = −√16",
+    "x = 4 oder x = −4",
+    "L = {{−4; 4}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    },
+    {
+     "werte": [
+      "+4",
+      "-4",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "c": 121
+   },
+   "frage": "Löse x² = 121.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "11"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-121/2",
+      "121/2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 121?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √121 oder x = −√121, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 121",
+    "x = √121 oder x = −√121",
+    "x = 11 oder x = −11",
+    "L = {{−11; 11}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-11"
+     ]
+    },
+    {
+     "werte": [
+      "+11",
+      "-11",
+      "11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "c": 196
+   },
+   "frage": "Löse x² = 196.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-14",
+     "14"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "14"
+     ]
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "menge": [
+      "-98",
+      "98"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 196?",
+    "Denk auch an negative Zahlen. Wie viele Zahlen können es sein?",
+    "Schreib die Gleichung als x = √196 oder x = −√196, wenn das geht."
+   ],
+   "loesungsweg": [
+    "x² = 196",
+    "x = √196 oder x = −√196",
+    "x = 14 oder x = −14",
+    "L = {{−14; 14}}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "14",
+      "-14"
+     ]
+    },
+    {
+     "werte": [
+      "+14",
+      "-14",
+      "14"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "c": -25
+   },
+   "frage": "Löse x² = −25.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-5",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −25?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −25 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −25",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "c": -36
+   },
+   "frage": "Löse x² = −36.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-6",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −36?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −36 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −36",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "c": -4
+   },
+   "frage": "Löse x² = −4.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-2",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −4?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −4 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −4",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "c": -81
+   },
+   "frage": "Löse x² = −81.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-9",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −81?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −81 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −81",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "c": -100
+   },
+   "frage": "Löse x² = −100.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-10",
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −100?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −100 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −100",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "c": -9
+   },
+   "frage": "Löse x² = −9.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-3",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −9?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −9 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −9",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "c": -64
+   },
+   "frage": "Löse x² = −64.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-8",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −64?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −64 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −64",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "c": -16
+   },
+   "frage": "Löse x² = −16.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-4",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −16?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −16 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −16",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "c": 0
+   },
+   "frage": "Löse x² = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0"
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen 0?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt 0 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = 0",
+    "Nur 0 · 0 ergibt 0.",
+    "L = {0}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "0",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   }
+  },
+  {
+   "bauform": "WZ-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "c": -49
+   },
+   "frage": "Löse x² = −49.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "keine_loesung": true
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_aus_negativ",
+     "menge": [
+      "-7",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ergibt mit sich selbst malgenommen −49?",
+    "Was kommt heraus, wenn man eine Zahl mit sich selbst malnimmt: positiv, negativ oder null?",
+    "Prüf zuerst, ob x² überhaupt −49 sein kann."
+   ],
+   "loesungsweg": [
+    "x² = −49",
+    "Ein Quadrat ist nie negativ.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   }
+  }
+ ]
+}

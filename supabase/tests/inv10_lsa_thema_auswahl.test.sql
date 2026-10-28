@@ -48,6 +48,8 @@ delete from thema_einstieg;
 delete from skill_kante;
 -- Erklaersequenzen haengen per FK an skills (seit E2b mit echten Daten fuer fkt_linear_*).
 delete from erklaer_kernidee;
+-- Reihe 1: Bauformen haengen per FK an skills; fuer die Isolation nur in dieser Transaktion loesen.
+alter table bauformen drop constraint bauformen_skill_key_fkey;
 delete from skills;
 
 -- --- Graph -------------------------------------------------------------------
