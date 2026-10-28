@@ -35062,7 +35062,7 @@ CREATE POLICY raeume_admin_read ON public.raeume FOR SELECT USING ((COALESCE(pub
 -- Name: tasks read_tasks_by_role; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY read_tasks_by_role ON public.tasks FOR SELECT USING (((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])) OR ((public.get_my_role() IS NOT NULL) AND (status = 'ready'::text))));
+CREATE POLICY read_tasks_by_role ON public.tasks FOR SELECT USING (((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])) OR ((public.get_my_role() IS NOT NULL) AND (status = 'ready'::text) AND (bauform_id IS NULL))));
 
 
 --
