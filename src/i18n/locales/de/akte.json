@@ -163,5 +163,31 @@
   },
   "fehler": {
     "laden": "Die Akte konnte nicht geladen werden."
+  },
+  "geraete": {
+    "titel": "Geräte und Zugangscode",
+    "leerTitel": "Noch kein Gerät angemeldet",
+    "leer": "Das Kind meldet sich zuhause einmal je Gerät mit dem Zugangscode an.",
+    "plattform": {
+      "ios": "iPhone/iPad",
+      "android": "Android",
+      "web": "Browser"
+    },
+    "seit": "angemeldet seit {{seit}} · zuletzt gesehen {{zuletzt}}",
+    "grenze": "{{anzahl}} von 3 Geräten angemeldet.",
+    "frueher": "Früher angemeldet: {{liste}}",
+    "abmelden": "Gerät abmelden",
+    "abmeldenFrage": "Dieses Gerät abmelden? Das Kind muss dort den Code neu eingeben.",
+    "abmeldenJa": "Ja, abmelden",
+    "abbrechen": "Abbrechen",
+    "code": "Zugangscode",
+    "erzeugt": "Erzeugt am {{datum}}",
+    "gesperrt": "Gesperrt seit {{datum}}",
+    "freischalten": "Code freischalten",
+    "neu": "Neuen Code erzeugen",
+    "neuFrage": "Der alte Code wird sofort ungültig. Angemeldete Geräte bleiben angemeldet.",
+    "neuJa": "Neuen Code erzeugen",
+    "fehlerLaden": "Geräte oder Zugangscode ließen sich nicht laden.",
+    "fehlerAktion": "Das hat nicht geklappt. Bitte die Seite neu laden und noch einmal versuchen."
   }
 }

@@ -24,6 +24,7 @@ import type {
   WortlisteEintrag,
 } from '@/types'
 import { FortschrittKachel } from './FortschrittKachel'
+import { GeraeteKachel } from './GeraeteKachel'
 import type { BoardHinweis } from './BoardPage'
 import { EinheitenKachel } from './EinheitenKachel'
 import { NotizenKachel } from './NotizenKachel'
@@ -170,6 +171,8 @@ export function AktePage(): JSX.Element {
         <StammdatenKachel akte={akte} faecher={daten.faecher} istAdmin={istAdmin} onGespeichert={laden} />
         <ReportsKachel reports={daten.reports} />
         <FortschrittKachel faecher={daten.fortschritt} />
+        {/* Reihe 1 · D1: Geräte der Home-App und Zugangscode (nur Admin). */}
+        {istAdmin && <GeraeteKachel studentId={studentId} />}
       </div>
     </>
   )

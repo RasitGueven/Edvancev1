@@ -1,0 +1,212 @@
+{
+  "skill_key": "zahl_wurzel_quadrat",
+  "titel": "Was die Wurzel bedeutet",
+  "welten": [
+    "skelett",
+    "fussball",
+    "gaming",
+    "musik"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Quadratwurzeln",
+        "untertitel": "Was die Wurzel bedeutet"
+      },
+      "text": {
+        "skelett": "Quadratwurzeln. Klingt kompliziert, ist aber nur eine Frage, rückwärts gestellt."
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Ein Quadrat aus Kästchen",
+      "kernidee": "k1",
+      "baustein": "raster",
+      "params": {
+        "zeilen": 7,
+        "spalten": 7,
+        "aufbauen": true
+      },
+      "text": {
+        "skelett": "Stell dir ein Quadrat aus neunundvierzig kleinen Kästchen vor.",
+        "fussball": "Stell dir ein quadratisches Trainingsfeld aus neunundvierzig Kunstrasenplatten vor.",
+        "gaming": "Stell dir eine quadratische Baufläche aus neunundvierzig Blöcken vor.",
+        "musik": "Stell dir eine quadratische Bühne aus neunundvierzig Bodenplatten vor."
+      },
+      "bild": {
+        "fussball": {
+          "einheit": "Platten"
+        },
+        "gaming": {
+          "einheit": "Blöcke"
+        },
+        "musik": {
+          "einheit": "Platten"
+        }
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Die Fläche ist 49",
+      "kernidee": "k1",
+      "baustein": "raster",
+      "params": {
+        "zeilen": 7,
+        "spalten": 7,
+        "beschriftung": "Fläche 49"
+      },
+      "text": {
+        "skelett": "Seine Fläche ist also neunundvierzig.",
+        "fussball": "Das Feld ist also neunundvierzig Platten groß.",
+        "gaming": "Deine Baufläche hat also neunundvierzig Blöcke.",
+        "musik": "Die Bühne hat also neunundvierzig Platten."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Die Frage nach der Seite",
+      "kernidee": "k1",
+      "baustein": "raster",
+      "params": {
+        "zeilen": 7,
+        "spalten": 7,
+        "seite_markieren": "unten",
+        "seite_beschriftung": "?"
+      },
+      "text": {
+        "skelett": "Die spannende Frage ist: Wie viele Kästchen lang ist eine Seite?",
+        "fussball": "Der Platzwart fragt: Wie viele Platten lang ist eine Seitenlinie?",
+        "gaming": "Für die Mauer musst du wissen: Wie viele Blöcke lang ist eine Seite?",
+        "musik": "Für die Lichtschiene fragt die Technik: Wie viele Platten lang ist eine Kante?"
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Seite zählen",
+      "kernidee": "k1",
+      "baustein": "raster",
+      "params": {
+        "zeilen": 7,
+        "spalten": 7,
+        "zaehlen": "untere_reihe"
+      },
+      "text": {
+        "skelett": "Zählen wir nach: eins, zwei, drei, vier, fünf, sechs, sieben."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Die Seite ist 7 lang",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "7 \\cdot 7 = 49"
+        ]
+      },
+      "text": {
+        "skelett": "Die Seite ist sieben lang, denn sieben mal sieben ergibt neunundvierzig.",
+        "fussball": "Die Seitenlinie ist sieben Platten lang, denn sieben mal sieben ergibt neunundvierzig.",
+        "gaming": "Die Seite ist sieben Blöcke lang, denn sieben mal sieben ergibt neunundvierzig.",
+        "musik": "Die Kante ist sieben Platten lang, denn sieben mal sieben ergibt neunundvierzig."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Das meint die Wurzel",
+      "kernidee": "k1",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Die Wurzel fragt: Welche Zahl mal sich selbst ergibt die Zahl darunter?",
+        "formel": "\\sqrt{49} = 7"
+      },
+      "text": {
+        "skelett": "Genau das meint die Wurzel: Die Wurzel aus neunundvierzig ist sieben."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Quadrieren und Wurzel heben sich auf",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "3^2 = 9",
+          "\\sqrt{9} = 3"
+        ],
+        "umkehrpfeil": true
+      },
+      "text": {
+        "skelett": "Quadrieren und Wurzelziehen heben sich auf. Drei hoch zwei ist neun, und die Wurzel aus neun ist wieder drei."
+      }
+    },
+    {
+      "id": "b9",
+      "titel": "Warum die Wurzel nie negativ ist",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(-7) \\cdot (-7) = 49",
+          "\\sqrt{49} = 7"
+        ]
+      },
+      "text": {
+        "skelett": "Minus sieben mal minus sieben ergibt auch neunundvierzig. Die Wurzel meint aber immer das Ergebnis, das nicht negativ ist."
+      }
+    },
+    {
+      "id": "b10",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k2",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Bereit, das eben Gehörte einzusetzen?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b7",
+      "frage": {
+        "skelett": "Ein Quadrat hat eine Fläche von 64 Kästchen. Wie viele Kästchen lang ist eine Seite?",
+        "fussball": "Ein quadratisches Trainingsfeld hat 64 Platten. Wie viele Platten lang ist eine Seitenlinie?",
+        "gaming": "Deine quadratische Baufläche hat 64 Blöcke. Wie viele Blöcke lang ist eine Seite?",
+        "musik": "Eine quadratische Bühne hat 64 Platten. Wie viele Platten lang ist eine Kante?"
+      },
+      "optionen": [
+        {
+          "antwort": "8",
+          "richtig": true,
+          "rueckmeldung": "Genau. 8 · 8 = 64, also ist die Wurzel aus 64 gleich 8."
+        },
+        {
+          "antwort": "32",
+          "fehlbild": "haelfte_statt_wurzel",
+          "ruecksprung": "b5",
+          "rueckmeldung": "32 ist die Hälfte von 64. Die Seite findest du, wenn du zählst, wie viele nebeneinander liegen."
+        },
+        {
+          "antwort": "16",
+          "fehlbild": "flaeche_mit_umfang_verwechselt",
+          "ruecksprung": "b3",
+          "rueckmeldung": "16 wäre richtig, wenn 64 der Umfang wäre. Hier ist 64 die Fläche, also alle zusammen."
+        },
+        {
+          "antwort": "4096",
+          "fehlbild": "quadriert_statt_wurzel",
+          "ruecksprung": "b8",
+          "rueckmeldung": "Du hast 64 mit sich selbst malgenommen. Die Wurzel geht genau den umgekehrten Weg."
+        }
+      ]
+    }
+  ],
+  "_hinweis": "Beispiel für die Abnahme von B1. Bausteine und Parameter sind ein Vorschlag; B0/B1 legen die endgültigen Parameter fest und passen diese Datei an. Fehlbild-Schlüssel im Test gegen einen Test-Katalog prüfen."
+}
