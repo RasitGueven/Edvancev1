@@ -146,10 +146,22 @@ select to_regprocedure('public.aufgabe_werten(uuid,jsonb)') is null as attrappe 
   -- A ist noch nicht auf dev: Attrappe nur in dieser Transaktion (Konzept §9).
   create function public.aufgabe_werten(p_task uuid, p_antwort jsonb)
   returns table (richtig boolean, fehlbild_key text, rueckmeldung text) language sql stable as $f$ select true, null::text, null::text $f$;
+  select gen_random_uuid() as werte_task \gset
+\else
+  -- Mit A wertet das Kind zuhause nur ziehbare Instanzen der Rolle home (Konzept §3.1, §9): eine anlegen.
+  select set_config('request.jwt.claims', '{"role":"service_role"}', true);
+  insert into bauformen (schluessel, skill_key, format, rollen, steckbrief, status)
+  values ('ZH-1', 'z_b', 'zahl', '{home}', '{}', 'zur_pruefung') returning id as hb, version as hb_v \gset
+  update bauformen set status = 'freigegeben' where id = :'hb';
+  insert into tasks (content_type, input_type, status, is_active, question, skill_key, est_duration_sec, source, source_ref,
+                     einsatz, bauform_id, bauform_version, stufe, rolle, pruefmaschine)
+  values ('exercise', 'NUMERIC', 'ready', true, 'ZZ D2 home', 'z_b', 60, 'test', 'd2-home-1', '{session}', :'hb', :'hb_v', 1,
+          'home', '{"1": {"ok": true}}')
+  returning id as werte_task \gset
 \endif
 create temp table vorher as select * from pg_temp.zeilen();
 select pg_temp.als(:'k1');
-select count(*) from aufgabe_werten(gen_random_uuid(), '{"eingabe":{"text":"2·3·3"}}'::jsonb);
+select count(*) from aufgabe_werten(:'werte_task', '{"eingabe":{"text":"2·3·3"}}'::jsonb);
 reset role;
 select is((select count(*)::int from pg_temp.zeilen() z join vorher v using (t) where z.n <> v.n), 0,
           '2 eine Wertung über aufgabe_werten ändert keine Tabelle');
