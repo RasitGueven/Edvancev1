@@ -32,8 +32,8 @@ insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe) values (
 insert into themen (thema_key, fach, klasse, stufe, label, sort) values ('zz_a2_entwurf', 'mathematik', 8, 'erste', 'ZZ Entwurf', 9205);
 insert into thema_einstieg (thema_key, skill_key) values ('zz_a2_entwurf', 'zz_a2_d1');
 insert into skill_thema (skill_key, thema_key) values ('zz_a2_d1', 'zz_a2_entwurf');
-select pg_temp.aufgaben('zz_a2_d1', 3, 'draft', '{lsa,session}', 'a2-draft');
-select pg_temp.aufgaben('zz_a2_d1', 1, 'draft', '{lsa,session}', 'a2-hand');
+select pg_temp.aufgaben('zz_a2_d1', 3, 'draft', '{session}', 'a2-draft');
+select pg_temp.aufgaben('zz_a2_d1', 1, 'draft', '{session}', 'a2-hand');
 select pg_temp.aufgaben('zz_a2_d1', 1, 'ready', '{lsa}', 'a2-nurlsa');
 insert into task_pruef_ausschluss (task_id, grund) select id, 'A2-Test' from tasks where source_ref = 'a2-hand-1';
 select (select id from tasks where source_ref = 'a2-draft-1') as t_draft, (select id from tasks where source_ref = 'a2-hand-1') as t_hand,

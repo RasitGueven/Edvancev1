@@ -510,5 +510,11 @@
   "editor": {
     "zurueckPruefen": "Zurück zur Prüfansicht",
     "gespeichert": "Gespeichert."
+  },
+  "pool": {
+    "lsa": "Pool LSA",
+    "session": "Pool Session",
+    "check": "Mini-Check",
+    "quest": "Quest"
   }
 }

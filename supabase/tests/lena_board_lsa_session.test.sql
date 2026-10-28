@@ -6,6 +6,8 @@
 -- Lauf: npx supabase test db
 -- ============================================================================
 begin;
+-- Reihe 1 A1: einsatz hat keinen Default mehr; die Aufgaben dieses Tests gehören zum Pool {lsa} (nur in dieser Transaktion).
+alter table public.tasks alter column einsatz set default '{lsa}';
 create extension if not exists pgtap with schema extensions;
 
 select plan(18);
@@ -63,7 +65,7 @@ select pg_temp.aufgabe('ls-leer', '[]') as leer \gset
 select is((select pg_get_function_result('public.pruef_board()'::regprocedure)),
   'TABLE(task_id uuid, stufe text, thema_key text, thema_label text, thema_sort integer, skill_key text, '
   'skill_label text, kurztitel text, reihenfolge bigint, lena_status text, geaendert boolean, '
-  'letzte_dauer_sek integer, anlaesse text[], hat_hinweise boolean)',
+  'letzte_dauer_sek integer, anlaesse text[], hat_hinweise boolean, pool text)',
   '1: pruef_board liefert die alten Spalten plus anlaesse, hat_hinweise');
 select is((select count(*)::int from pg_proc p join pg_namespace n on n.oid = p.pronamespace
             where n.nspname = 'public' and p.proname = 'pruef_board_soll'), 1, '1: genau eine pruef_board_soll');

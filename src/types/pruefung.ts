@@ -39,6 +39,8 @@ export type PruefBoardZeile = {
   anlaesse: string[]
   /** task_solutions.hints hat mindestens einen Eintrag. */
   hat_hinweise: boolean
+  /** Pool der Aufgabe aus tasks.einsatz (Reihe 1 A1): lsa oder session, null bei check/quest. */
+  pool?: 'lsa' | 'session' | null
 }
 
 /**
