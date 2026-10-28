@@ -38,22 +38,32 @@ def teil(nr: int, prompt: str, optionen: list[tuple[str, str]] | None = None, ei
     return t
 
 
+def _mit_minus(w: str) -> list[str]:
+    """Ein Wert in beiden Minus-Schreibweisen (ASCII und typografisch), lsa_is_correct normalisiert sie nicht."""
+    return [w] + ([w.replace('-', '−')] if '-' in w else [])
+
+
 def _regel(werte: list[str], fehler: dict[str, str]) -> dict:
-    r: dict = {'canonical': werte[0]}
-    if len(werte) > 1:
-        r['equivalents'] = werte[1:]
+    alle = list(dict.fromkeys(v for w in werte for v in _mit_minus(w)))
+    r: dict = {'canonical': alle[0]}
+    if len(alle) > 1:
+        r['equivalents'] = alle[1:]
     if fehler:
-        r['known_errors'] = fehler
+        r['known_errors'] = {v: k for w, k in fehler.items() for v in _mit_minus(w)}
     return r
+
+
+def _liste(werte: list[str]) -> list[str]:
+    return list(dict.fromkeys(v for w in werte for v in _mit_minus(w)))
 
 
 def db_loesung(fmt: str, loesung: dict, fehlbilder: list[dict]) -> tuple[object, dict]:
     """(correct_answers, acceptance) einer klassischen Instanz."""
     if fmt in ('zahl', 'bruch'):
-        return loesung['werte'], _regel(loesung['werte'], {f['wert']: f['key'] for f in fehlbilder})
+        return _liste(loesung['werte']), _regel(loesung['werte'], {f['wert']: f['key'] for f in fehlbilder})
     if fmt == 'mc':
         return [loesung['option']], _regel([loesung['option']], {f['option']: f['key'] for f in fehlbilder})
-    teile = loesung['teile']
+    teile = {nr: _liste(w) for nr, w in loesung['teile'].items()}
     acc = {nr: _regel(w, {f['wert']: f['key'] for f in fehlbilder if str(f['teil']) == nr}) for nr, w in teile.items()
            if w}
     return teile, acc

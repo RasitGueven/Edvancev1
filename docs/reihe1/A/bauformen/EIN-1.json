@@ -1,0 +1,5031 @@
+{
+ "schluessel": "EIN-1",
+ "skill": "term_einsetzen",
+ "kernidee": null,
+ "format": "zahl",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Berechne f({x0}) für f(x) = {term}.",
+  "stufen": {
+   "1": "f(x) = x² + b·x + c, x von 1 bis 6 (ohne 2)",
+   "2": "a = 1, x von −1 bis −6 (ohne −2)",
+   "3": "a ∈ {−3, −2, 2, 3}, x von −1 bis −5 (ohne −2)"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_quadrat_als_verdopplung",
+    "regel": "x² als 2·x gerechnet",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "x² heißt x mal x, nicht 2 mal x."
+   },
+   {
+    "key": "qf_einsetzen_vorzeichen",
+    "regel": "−x² statt (−x)²",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Setz negative Zahlen in Klammern ein: (−3)² = 9."
+   },
+   {
+    "key": "qf_ax_quadriert",
+    "regel": "(a·x)² statt a·x²",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Nur x wird quadriert, die Zahl davor nicht. Erst quadrieren, dann malnehmen."
+   }
+  ],
+  "hinweise": [
+   "Ersetze jedes x durch {xk}.",
+   "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+   "Schreib es auf: f({x0}) = {eingesetzt}."
+  ],
+  "loesungsweg": [
+   "f({x0}) = {eingesetzt}",
+   "= {zwischen}",
+   "= {ergebnis}"
+  ],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "f52d1b0457d3"
+ },
+ "pruefprotokoll": {
+  "gruen": 71,
+  "rot": 1,
+  "rot_anteil": 0.014,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "-25",
+   "2": "18",
+   "3": "27",
+   "4": "13",
+   "5": "2",
+   "6": "74",
+   "7": "11",
+   "8": "-17",
+   "9": "-12",
+   "10": "-3"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -7,
+    "c": -4,
+    "x": 5
+   },
+   "frage": "Berechne f(5) für f(x) = x² − 7x − 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(5) für f(x) = x² − 7x − 4."
+   },
+   "loesung": {
+    "werte": [
+     "-14"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-29"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 5.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(5) = 5² + (−7) · 5 + (−4)."
+   ],
+   "loesungsweg": [
+    "f(5) = 5² + (−7) · 5 + (−4)",
+    "= 25 + (−35) + (−4)",
+    "= −14"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -6,
+    "c": 5,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² − 6x + 5.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² − 6x + 5."
+   },
+   "loesung": {
+    "werte": [
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + (−6) · 1 + 5."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + (−6) · 1 + 5",
+    "= 1 + (−6) + 5",
+    "= 0"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -1,
+    "c": -1,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² − x − 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² − x − 1."
+   },
+   "loesung": {
+    "werte": [
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "0"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + (−1) · 1 + (−1)."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + (−1) · 1 + (−1)",
+    "= 1 + (−1) + (−1)",
+    "= −1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 6,
+    "c": 2,
+    "x": 6
+   },
+   "frage": "Berechne f(6) für f(x) = x² + 6x + 2.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(6) für f(x) = x² + 6x + 2."
+   },
+   "loesung": {
+    "werte": [
+     "74",
+     "+74"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "50"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 6.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(6) = 6² + 6 · 6 + 2."
+   ],
+   "loesungsweg": [
+    "f(6) = 6² + 6 · 6 + 2",
+    "= 36 + 36 + 2",
+    "= 74"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 9,
+    "c": -7,
+    "x": 3
+   },
+   "frage": "Berechne f(3) für f(x) = x² + 9x − 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(3) für f(x) = x² + 9x − 7."
+   },
+   "loesung": {
+    "werte": [
+     "29",
+     "+29"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "26"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 3.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(3) = 3² + 9 · 3 + (−7)."
+   ],
+   "loesungsweg": [
+    "f(3) = 3² + 9 · 3 + (−7)",
+    "= 9 + 27 + (−7)",
+    "= 29"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 3,
+    "c": 4,
+    "x": 5
+   },
+   "frage": "Berechne f(5) für f(x) = x² + 3x + 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(5) für f(x) = x² + 3x + 4."
+   },
+   "loesung": {
+    "werte": [
+     "44",
+     "+44"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "29"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 5.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(5) = 5² + 3 · 5 + 4."
+   ],
+   "loesungsweg": [
+    "f(5) = 5² + 3 · 5 + 4",
+    "= 25 + 15 + 4",
+    "= 44"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -6,
+    "c": -3,
+    "x": 4
+   },
+   "frage": "Berechne f(4) für f(x) = x² − 6x − 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(4) für f(x) = x² − 6x − 3."
+   },
+   "loesung": {
+    "werte": [
+     "-11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-19"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 4.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(4) = 4² + (−6) · 4 + (−3)."
+   ],
+   "loesungsweg": [
+    "f(4) = 4² + (−6) · 4 + (−3)",
+    "= 16 + (−24) + (−3)",
+    "= −11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -7,
+    "c": 3,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² − 7x + 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² − 7x + 3."
+   },
+   "loesung": {
+    "werte": [
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-2"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + (−7) · 1 + 3."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + (−7) · 1 + 3",
+    "= 1 + (−7) + 3",
+    "= −3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -5,
+    "c": -3,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² − 5x − 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² − 5x − 3."
+   },
+   "loesung": {
+    "werte": [
+     "-7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-6"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + (−5) · 1 + (−3)."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + (−5) · 1 + (−3)",
+    "= 1 + (−5) + (−3)",
+    "= −7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -3,
+    "c": 2,
+    "x": 3
+   },
+   "frage": "Berechne f(3) für f(x) = x² − 3x + 2.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(3) für f(x) = x² − 3x + 2."
+   },
+   "loesung": {
+    "werte": [
+     "2",
+     "+2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-1"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 3.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(3) = 3² + (−3) · 3 + 2."
+   ],
+   "loesungsweg": [
+    "f(3) = 3² + (−3) · 3 + 2",
+    "= 9 + (−9) + 2",
+    "= 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 2,
+    "c": -4,
+    "x": 5
+   },
+   "frage": "Berechne f(5) für f(x) = x² + 2x − 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(5) für f(x) = x² + 2x − 4."
+   },
+   "loesung": {
+    "werte": [
+     "31",
+     "+31"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 5.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(5) = 5² + 2 · 5 + (−4)."
+   ],
+   "loesungsweg": [
+    "f(5) = 5² + 2 · 5 + (−4)",
+    "= 25 + 10 + (−4)",
+    "= 31"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -9,
+    "c": 0,
+    "x": 5
+   },
+   "frage": "Berechne f(5) für f(x) = x² − 9x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(5) für f(x) = x² − 9x."
+   },
+   "loesung": {
+    "werte": [
+     "-20"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-35"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 5.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(5) = 5² + (−9) · 5."
+   ],
+   "loesungsweg": [
+    "f(5) = 5² + (−9) · 5",
+    "= 25 + (−45)",
+    "= −20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -4,
+    "c": 7,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² − 4x + 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² − 4x + 7."
+   },
+   "loesung": {
+    "werte": [
+     "4",
+     "+4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "5"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + (−4) · 1 + 7."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + (−4) · 1 + 7",
+    "= 1 + (−4) + 7",
+    "= 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -8,
+    "c": 6,
+    "x": 5
+   },
+   "frage": "Berechne f(5) für f(x) = x² − 8x + 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(5) für f(x) = x² − 8x + 6."
+   },
+   "loesung": {
+    "werte": [
+     "-9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-24"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 5.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(5) = 5² + (−8) · 5 + 6."
+   ],
+   "loesungsweg": [
+    "f(5) = 5² + (−8) · 5 + 6",
+    "= 25 + (−40) + 6",
+    "= −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 3,
+    "c": 0,
+    "x": 6
+   },
+   "frage": "Berechne f(6) für f(x) = x² + 3x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(6) für f(x) = x² + 3x."
+   },
+   "loesung": {
+    "werte": [
+     "54",
+     "+54"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "30"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 6.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(6) = 6² + 3 · 6."
+   ],
+   "loesungsweg": [
+    "f(6) = 6² + 3 · 6",
+    "= 36 + 18",
+    "= 54"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 2,
+    "c": -7,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² + 2x − 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² + 2x − 7."
+   },
+   "loesung": {
+    "werte": [
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-3"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + 2 · 1 + (−7)."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + 2 · 1 + (−7)",
+    "= 1 + 2 + (−7)",
+    "= −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -7,
+    "c": 4,
+    "x": 5
+   },
+   "frage": "Berechne f(5) für f(x) = x² − 7x + 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(5) für f(x) = x² − 7x + 4."
+   },
+   "loesung": {
+    "werte": [
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-21"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 5.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(5) = 5² + (−7) · 5 + 4."
+   ],
+   "loesungsweg": [
+    "f(5) = 5² + (−7) · 5 + 4",
+    "= 25 + (−35) + 4",
+    "= −6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -8,
+    "c": 7,
+    "x": 6
+   },
+   "frage": "Berechne f(6) für f(x) = x² − 8x + 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(6) für f(x) = x² − 8x + 7."
+   },
+   "loesung": {
+    "werte": [
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-29"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 6.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(6) = 6² + (−8) · 6 + 7."
+   ],
+   "loesungsweg": [
+    "f(6) = 6² + (−8) · 6 + 7",
+    "= 36 + (−48) + 7",
+    "= −5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 2,
+    "c": 0,
+    "x": 4
+   },
+   "frage": "Berechne f(4) für f(x) = x² + 2x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(4) für f(x) = x² + 2x."
+   },
+   "loesung": {
+    "werte": [
+     "24",
+     "+24"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 4.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(4) = 4² + 2 · 4."
+   ],
+   "loesungsweg": [
+    "f(4) = 4² + 2 · 4",
+    "= 16 + 8",
+    "= 24"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 0,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² + x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² + x."
+   },
+   "loesung": {
+    "werte": [
+     "2",
+     "+2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + 1."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + 1",
+    "= 1 + 1",
+    "= 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": 9,
+    "c": 3,
+    "x": 3
+   },
+   "frage": "Berechne f(3) für f(x) = x² + 9x + 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(3) für f(x) = x² + 9x + 3."
+   },
+   "loesung": {
+    "werte": [
+     "39",
+     "+39"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "36"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 3.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(3) = 3² + 9 · 3 + 3."
+   ],
+   "loesungsweg": [
+    "f(3) = 3² + 9 · 3 + 3",
+    "= 9 + 27 + 3",
+    "= 39"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -3,
+    "c": 8,
+    "x": 6
+   },
+   "frage": "Berechne f(6) für f(x) = x² − 3x + 8.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(6) für f(x) = x² − 3x + 8."
+   },
+   "loesung": {
+    "werte": [
+     "26",
+     "+26"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 6.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(6) = 6² + (−3) · 6 + 8."
+   ],
+   "loesungsweg": [
+    "f(6) = 6² + (−3) · 6 + 8",
+    "= 36 + (−18) + 8",
+    "= 26"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -6,
+    "c": 3,
+    "x": 6
+   },
+   "frage": "Berechne f(6) für f(x) = x² − 6x + 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(6) für f(x) = x² − 6x + 3."
+   },
+   "loesung": {
+    "werte": [
+     "3",
+     "+3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-21"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 6.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(6) = 6² + (−6) · 6 + 3."
+   ],
+   "loesungsweg": [
+    "f(6) = 6² + (−6) · 6 + 3",
+    "= 36 + (−36) + 3",
+    "= 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "b": -5,
+    "c": 5,
+    "x": 1
+   },
+   "frage": "Berechne f(1) für f(x) = x² − 5x + 5.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(1) für f(x) = x² − 5x + 5."
+   },
+   "loesung": {
+    "werte": [
+     "1",
+     "+1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch 1.",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(1) = 1² + (−5) · 1 + 5."
+   ],
+   "loesungsweg": [
+    "f(1) = 1² + (−5) · 1 + 5",
+    "= 1 + (−5) + 5",
+    "= 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 7,
+    "c": -5,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = x² + 7x − 5.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = x² + 7x − 5."
+   },
+   "loesung": {
+    "werte": [
+     "-17"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-32"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-35"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = (−3)² + 7 · (−3) + (−5)."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² + 7 · (−3) + (−5)",
+    "= 9 + (−21) + (−5)",
+    "= −17"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -5,
+    "c": 1,
+    "x": -6
+   },
+   "frage": "Berechne f(−6) für f(x) = x² − 5x + 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−6) für f(x) = x² − 5x + 1."
+   },
+   "loesung": {
+    "werte": [
+     "67",
+     "+67"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "19"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-5"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−6).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−6) = (−6)² + (−5) · (−6) + 1."
+   ],
+   "loesungsweg": [
+    "f(−6) = (−6)² + (−5) · (−6) + 1",
+    "= 36 + 30 + 1",
+    "= 67"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -8,
+    "c": 4,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = x² − 8x + 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = x² − 8x + 4."
+   },
+   "loesung": {
+    "werte": [
+     "69",
+     "+69"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "34"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "19"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = (−5)² + (−8) · (−5) + 4."
+   ],
+   "loesungsweg": [
+    "f(−5) = (−5)² + (−8) · (−5) + 4",
+    "= 25 + 40 + 4",
+    "= 69"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -5,
+    "c": -6,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² − 5x − 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² − 5x − 6."
+   },
+   "loesung": {
+    "werte": [
+     "30",
+     "+30"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "6"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-2"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + (−5) · (−4) + (−6)."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + (−5) · (−4) + (−6)",
+    "= 16 + 20 + (−6)",
+    "= 30"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -3,
+    "c": 9,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = x² − 3x + 9.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = x² − 3x + 9."
+   },
+   "loesung": {
+    "werte": [
+     "13",
+     "+13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "10"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "11"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = (−1)² + (−3) · (−1) + 9."
+   ],
+   "loesungsweg": [
+    "f(−1) = (−1)² + (−3) · (−1) + 9",
+    "= 1 + 3 + 9",
+    "= 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -3,
+    "c": -7,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² − 3x − 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² − 3x − 7."
+   },
+   "loesung": {
+    "werte": [
+     "21",
+     "+21"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-11"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + (−3) · (−4) + (−7)."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + (−3) · (−4) + (−7)",
+    "= 16 + 12 + (−7)",
+    "= 21"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -8,
+    "c": -7,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = x² − 8x − 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = x² − 8x − 7."
+   },
+   "loesung": {
+    "werte": [
+     "2",
+     "+2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-1"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "0"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = (−1)² + (−8) · (−1) + (−7)."
+   ],
+   "loesungsweg": [
+    "f(−1) = (−1)² + (−8) · (−1) + (−7)",
+    "= 1 + 8 + (−7)",
+    "= 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 8,
+    "c": -7,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² + 8x − 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² + 8x − 7."
+   },
+   "loesung": {
+    "werte": [
+     "-23"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-47"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-55"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + 8 · (−4) + (−7)."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + 8 · (−4) + (−7)",
+    "= 16 + (−32) + (−7)",
+    "= −23"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 3,
+    "c": -1,
+    "x": -6
+   },
+   "frage": "Berechne f(−6) für f(x) = x² + 3x − 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−6) für f(x) = x² + 3x − 1."
+   },
+   "loesung": {
+    "werte": [
+     "17",
+     "+17"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-31"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-55"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−6).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−6) = (−6)² + 3 · (−6) + (−1)."
+   ],
+   "loesungsweg": [
+    "f(−6) = (−6)² + 3 · (−6) + (−1)",
+    "= 36 + (−18) + (−1)",
+    "= 17"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -1,
+    "c": 0,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² − x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² − x."
+   },
+   "loesung": {
+    "werte": [
+     "20",
+     "+20"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-4"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-12"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + (−1) · (−4)."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + (−1) · (−4)",
+    "= 16 + 4",
+    "= 20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 9,
+    "c": -9,
+    "x": -6
+   },
+   "frage": "Berechne f(−6) für f(x) = x² + 9x − 9.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−6) für f(x) = x² + 9x − 9."
+   },
+   "loesung": {
+    "werte": [
+     "-27"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-75"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-99"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−6).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−6) = (−6)² + 9 · (−6) + (−9)."
+   ],
+   "loesungsweg": [
+    "f(−6) = (−6)² + 9 · (−6) + (−9)",
+    "= 36 + (−54) + (−9)",
+    "= −27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -9,
+    "c": 3,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = x² − 9x + 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = x² − 9x + 3."
+   },
+   "loesung": {
+    "werte": [
+     "73",
+     "+73"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "38"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "23"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = (−5)² + (−9) · (−5) + 3."
+   ],
+   "loesungsweg": [
+    "f(−5) = (−5)² + (−9) · (−5) + 3",
+    "= 25 + 45 + 3",
+    "= 73"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -3,
+    "c": 7,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = x² − 3x + 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = x² − 3x + 7."
+   },
+   "loesung": {
+    "werte": [
+     "11",
+     "+11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "8"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = (−1)² + (−3) · (−1) + 7."
+   ],
+   "loesungsweg": [
+    "f(−1) = (−1)² + (−3) · (−1) + 7",
+    "= 1 + 3 + 7",
+    "= 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 8,
+    "c": 1,
+    "x": -6
+   },
+   "frage": "Berechne f(−6) für f(x) = x² + 8x + 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−6) für f(x) = x² + 8x + 1."
+   },
+   "loesung": {
+    "werte": [
+     "-11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-59"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-83"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−6).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−6) = (−6)² + 8 · (−6) + 1."
+   ],
+   "loesungsweg": [
+    "f(−6) = (−6)² + 8 · (−6) + 1",
+    "= 36 + (−48) + 1",
+    "= −11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 4,
+    "c": 4,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² + 4x + 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² + 4x + 4."
+   },
+   "loesung": {
+    "werte": [
+     "4",
+     "+4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-20"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-28"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + 4 · (−4) + 4."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + 4 · (−4) + 4",
+    "= 16 + (−16) + 4",
+    "= 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 9,
+    "c": -4,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² + 9x − 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² + 9x − 4."
+   },
+   "loesung": {
+    "werte": [
+     "-24"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-48"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-56"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + 9 · (−4) + (−4)."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + 9 · (−4) + (−4)",
+    "= 16 + (−36) + (−4)",
+    "= −24"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 2,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = x² + x + 2.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = x² + x + 2."
+   },
+   "loesung": {
+    "werte": [
+     "8",
+     "+8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-7"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-10"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = (−3)² + (−3) + 2."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² + (−3) + 2",
+    "= 9 + (−3) + 2",
+    "= 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -2,
+    "c": 7,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = x² − 2x + 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = x² − 2x + 7."
+   },
+   "loesung": {
+    "werte": [
+     "10",
+     "+10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "7"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = (−1)² + (−2) · (−1) + 7."
+   ],
+   "loesungsweg": [
+    "f(−1) = (−1)² + (−2) · (−1) + 7",
+    "= 1 + 2 + 7",
+    "= 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -2,
+    "c": 6,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² − 2x + 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² − 2x + 6."
+   },
+   "loesung": {
+    "werte": [
+     "30",
+     "+30"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "6"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-2"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + (−2) · (−4) + 6."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + (−2) · (−4) + 6",
+    "= 16 + 8 + 6",
+    "= 30"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 9,
+    "c": -3,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = x² + 9x − 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = x² + 9x − 3."
+   },
+   "loesung": {
+    "werte": [
+     "-21"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-36"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-39"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = (−3)² + 9 · (−3) + (−3)."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² + 9 · (−3) + (−3)",
+    "= 9 + (−27) + (−3)",
+    "= −21"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 3,
+    "c": 3,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = x² + 3x + 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = x² + 3x + 3."
+   },
+   "loesung": {
+    "werte": [
+     "3",
+     "+3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-12"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-15"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = (−3)² + 3 · (−3) + 3."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² + 3 · (−3) + 3",
+    "= 9 + (−9) + 3",
+    "= 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -2,
+    "c": 8,
+    "x": -6
+   },
+   "frage": "Berechne f(−6) für f(x) = x² − 2x + 8.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−6) für f(x) = x² − 2x + 8."
+   },
+   "loesung": {
+    "werte": [
+     "56",
+     "+56"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "8"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-16"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−6).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−6) = (−6)² + (−2) · (−6) + 8."
+   ],
+   "loesungsweg": [
+    "f(−6) = (−6)² + (−2) · (−6) + 8",
+    "= 36 + 12 + 8",
+    "= 56"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 7,
+    "c": -1,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = x² + 7x − 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = x² + 7x − 1."
+   },
+   "loesung": {
+    "werte": [
+     "-13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-28"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-31"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = (−3)² + 7 · (−3) + (−1)."
+   ],
+   "loesungsweg": [
+    "f(−3) = (−3)² + 7 · (−3) + (−1)",
+    "= 9 + (−21) + (−1)",
+    "= −13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 2,
+    "c": 0,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = x² + 2x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = x² + 2x."
+   },
+   "loesung": {
+    "werte": [
+     "8",
+     "+8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-16"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-24"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = (−4)² + 2 · (−4)."
+   ],
+   "loesungsweg": [
+    "f(−4) = (−4)² + 2 · (−4)",
+    "= 16 + (−8)",
+    "= 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 8,
+    "c": -8,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = 3x² + 8x − 8.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = 3x² + 8x − 8."
+   },
+   "loesung": {
+    "werte": [
+     "27",
+     "+27"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-78"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-123"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "177"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = 3 · (−5)² + 8 · (−5) + (−8)."
+   ],
+   "loesungsweg": [
+    "f(−5) = 3 · (−5)² + 8 · (−5) + (−8)",
+    "= 75 + (−40) + (−8)",
+    "= 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "b": 7,
+    "c": -4,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = −2x² + 7x − 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = −2x² + 7x − 4."
+   },
+   "loesung": {
+    "werte": [
+     "-89"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-19"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "11"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "61"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = −2 · (−5)² + 7 · (−5) + (−4)."
+   ],
+   "loesungsweg": [
+    "f(−5) = −2 · (−5)² + 7 · (−5) + (−4)",
+    "= (−50) + (−35) + (−4)",
+    "= −89"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": 8,
+    "c": -1,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = −3x² + 8x − 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = −3x² + 8x − 1."
+   },
+   "loesung": {
+    "werte": [
+     "-12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-6"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "0"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = −3 · (−1)² + 8 · (−1) + (−1)."
+   ],
+   "loesungsweg": [
+    "f(−1) = −3 · (−1)² + 8 · (−1) + (−1)",
+    "= (−3) + (−8) + (−1)",
+    "= −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -6,
+    "c": 6,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = 3x² − 6x + 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = 3x² − 6x + 6."
+   },
+   "loesung": {
+    "werte": [
+     "78",
+     "+78"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "6"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-18"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "174"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = 3 · (−4)² + (−6) · (−4) + 6."
+   ],
+   "loesungsweg": [
+    "f(−4) = 3 · (−4)² + (−6) · (−4) + 6",
+    "= 48 + 24 + 6",
+    "= 78"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "b": -6,
+    "c": -5,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = −2x² − 6x − 5.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = −2x² − 6x − 5."
+   },
+   "loesung": {
+    "werte": [
+     "-25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "45"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "75"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "125"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = −2 · (−5)² + (−6) · (−5) + (−5)."
+   ],
+   "loesungsweg": [
+    "f(−5) = −2 · (−5)² + (−6) · (−5) + (−5)",
+    "= (−50) + 30 + (−5)",
+    "= −25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": 4,
+    "c": -1,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = 2x² + 4x − 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = 2x² + 4x − 1."
+   },
+   "loesung": {
+    "werte": [
+     "29",
+     "+29"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-41"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-71"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "79"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = 2 · (−5)² + 4 · (−5) + (−1)."
+   ],
+   "loesungsweg": [
+    "f(−5) = 2 · (−5)² + 4 · (−5) + (−1)",
+    "= 50 + (−20) + (−1)",
+    "= 29"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -7,
+    "c": 8,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = 3x² − 7x + 8.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = 3x² − 7x + 8."
+   },
+   "loesung": {
+    "werte": [
+     "18",
+     "+18"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "9"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "12"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "24"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = 3 · (−1)² + (−7) · (−1) + 8."
+   ],
+   "loesungsweg": [
+    "f(−1) = 3 · (−1)² + (−7) · (−1) + 8",
+    "= 3 + 7 + 8",
+    "= 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 7,
+    "c": -6,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = 3x² + 7x − 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = 3x² + 7x − 6."
+   },
+   "loesung": {
+    "werte": [
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-45"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-54"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "54"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = 3 · (−3)² + 7 · (−3) + (−6)."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² + 7 · (−3) + (−6)",
+    "= 27 + (−21) + (−6)",
+    "= 0"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 5,
+    "c": -6,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = 3x² + 5x − 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = 3x² + 5x − 6."
+   },
+   "loesung": {
+    "werte": [
+     "22",
+     "+22"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-50"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-74"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "118"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = 3 · (−4)² + 5 · (−4) + (−6)."
+   ],
+   "loesungsweg": [
+    "f(−4) = 3 · (−4)² + 5 · (−4) + (−6)",
+    "= 48 + (−20) + (−6)",
+    "= 22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": 2,
+    "c": -5,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = −3x² + 2x − 5.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = −3x² + 2x − 5."
+   },
+   "loesung": {
+    "werte": [
+     "-38"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "7"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "16"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "70"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = −3 · (−3)² + 2 · (−3) + (−5)."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² + 2 · (−3) + (−5)",
+    "= (−27) + (−6) + (−5)",
+    "= −38"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": 5,
+    "c": -3,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = −3x² + 5x − 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = −3x² + 5x − 3."
+   },
+   "loesung": {
+    "werte": [
+     "-71"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "1"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "25"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "121"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = −3 · (−4)² + 5 · (−4) + (−3)."
+   ],
+   "loesungsweg": [
+    "f(−4) = −3 · (−4)² + 5 · (−4) + (−3)",
+    "= (−48) + (−20) + (−3)",
+    "= −71"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": -8,
+    "c": 8,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = −3x² − 8x + 8.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = −3x² − 8x + 8."
+   },
+   "loesung": {
+    "werte": [
+     "13",
+     "+13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "22"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "19"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "25"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = −3 · (−1)² + (−8) · (−1) + 8."
+   ],
+   "loesungsweg": [
+    "f(−1) = −3 · (−1)² + (−8) · (−1) + 8",
+    "= (−3) + 8 + 8",
+    "= 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -9,
+    "c": -4,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = 2x² − 9x − 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = 2x² − 9x − 4."
+   },
+   "loesung": {
+    "werte": [
+     "41",
+     "+41"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "11"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "5"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "59"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = 2 · (−3)² + (−9) · (−3) + (−4)."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² + (−9) · (−3) + (−4)",
+    "= 18 + 27 + (−4)",
+    "= 41"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": 3,
+    "c": -3,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = −3x² + 3x − 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = −3x² + 3x − 3."
+   },
+   "loesung": {
+    "werte": [
+     "-93"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "12"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "57"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "207"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = −3 · (−5)² + 3 · (−5) + (−3)."
+   ],
+   "loesungsweg": [
+    "f(−5) = −3 · (−5)² + 3 · (−5) + (−3)",
+    "= (−75) + (−15) + (−3)",
+    "= −93"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": 5,
+    "c": 3,
+    "x": -5
+   },
+   "frage": "Berechne f(−5) für f(x) = −3x² + 5x + 3.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−5) für f(x) = −3x² + 5x + 3."
+   },
+   "loesung": {
+    "werte": [
+     "-97"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "8"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "53"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "203"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−5).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−5) = −3 · (−5)² + 5 · (−5) + 3."
+   ],
+   "loesungsweg": [
+    "f(−5) = −3 · (−5)² + 5 · (−5) + 3",
+    "= (−75) + (−25) + 3",
+    "= −97"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 9,
+    "c": -1,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = 3x² + 9x − 1.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = 3x² + 9x − 1."
+   },
+   "loesung": {
+    "werte": [
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-46"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-55"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "53"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = 3 · (−3)² + 9 · (−3) + (−1)."
+   ],
+   "loesungsweg": [
+    "f(−3) = 3 · (−3)² + 9 · (−3) + (−1)",
+    "= 27 + (−27) + (−1)",
+    "= −1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -3,
+    "c": 0,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = 2x² − 3x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = 2x² − 3x."
+   },
+   "loesung": {
+    "werte": [
+     "27",
+     "+27"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "45"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = 2 · (−3)² + (−3) · (−3)."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² + (−3) · (−3)",
+    "= 18 + 9",
+    "= 27"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -3,
+    "b": -2,
+    "c": 8,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = −3x² − 2x + 8.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = −3x² − 2x + 8."
+   },
+   "loesung": {
+    "werte": [
+     "-13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "32"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "41"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "95"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = −3 · (−3)² + (−2) · (−3) + 8."
+   ],
+   "loesungsweg": [
+    "f(−3) = −3 · (−3)² + (−2) · (−3) + 8",
+    "= (−27) + 6 + 8",
+    "= −13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -9,
+    "c": 7,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = 2x² − 9x + 7.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = 2x² − 9x + 7."
+   },
+   "loesung": {
+    "werte": [
+     "75",
+     "+75"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "27"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "11"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "107"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = 2 · (−4)² + (−9) · (−4) + 7."
+   ],
+   "loesungsweg": [
+    "f(−4) = 2 · (−4)² + (−9) · (−4) + 7",
+    "= 32 + 36 + 7",
+    "= 75"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "b": 1,
+    "c": -9,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = −2x² + x − 9.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = −2x² + x − 9."
+   },
+   "loesung": {
+    "werte": [
+     "-45"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "3"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "19"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "51"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = −2 · (−4)² + (−4) + (−9)."
+   ],
+   "loesungsweg": [
+    "f(−4) = −2 · (−4)² + (−4) + (−9)",
+    "= (−32) + (−4) + (−9)",
+    "= −45"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "b": -3,
+    "c": 6,
+    "x": -4
+   },
+   "frage": "Berechne f(−4) für f(x) = −2x² − 3x + 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−4) für f(x) = −2x² − 3x + 6."
+   },
+   "loesung": {
+    "werte": [
+     "-14"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "34"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "50"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "82"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−4).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−4) = −2 · (−4)² + (−3) · (−4) + 6."
+   ],
+   "loesungsweg": [
+    "f(−4) = −2 · (−4)² + (−3) · (−4) + 6",
+    "= (−32) + 12 + 6",
+    "= −14"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -1,
+    "c": -4,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = 2x² − x − 4.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = 2x² − x − 4."
+   },
+   "loesung": {
+    "werte": [
+     "17",
+     "+17"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-13"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "-19"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "35"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = 2 · (−3)² + (−1) · (−3) + (−4)."
+   ],
+   "loesungsweg": [
+    "f(−3) = 2 · (−3)² + (−1) · (−3) + (−4)",
+    "= 18 + 3 + (−4)",
+    "= 17"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "b": -4,
+    "c": 0,
+    "x": -3
+   },
+   "frage": "Berechne f(−3) für f(x) = −2x² − 4x.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−3) für f(x) = −2x² − 4x."
+   },
+   "loesung": {
+    "werte": [
+     "-6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "24"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "30"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "48"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−3).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−3) = −2 · (−3)² + (−4) · (−3)."
+   ],
+   "loesungsweg": [
+    "f(−3) = −2 · (−3)² + (−4) · (−3)",
+    "= (−18) + 12",
+    "= −6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "EIN-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -5,
+    "c": 6,
+    "x": -1
+   },
+   "frage": "Berechne f(−1) für f(x) = 2x² − 5x + 6.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne f(−1) für f(x) = 2x² − 5x + 6."
+   },
+   "loesung": {
+    "werte": [
+     "13",
+     "+13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "7"
+    },
+    {
+     "key": "qf_einsetzen_vorzeichen",
+     "wert": "9"
+    },
+    {
+     "key": "qf_ax_quadriert",
+     "wert": "15"
+    }
+   ],
+   "hinweise": [
+    "Ersetze jedes x durch (−1).",
+    "Rechne zuerst das Quadrat, dann die Produkte, dann die Summe.",
+    "Schreib es auf: f(−1) = 2 · (−1)² + (−5) · (−1) + 6."
+   ],
+   "loesungsweg": [
+    "f(−1) = 2 · (−1)² + (−5) · (−1) + 6",
+    "= 2 + 5 + 6",
+    "= 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

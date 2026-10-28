@@ -1,0 +1,4399 @@
+{
+ "schluessel": "BIN-2",
+ "skill": "term_binom_quadrat",
+ "kernidee": null,
+ "format": "feldmaske",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Schreib {trinom} als Quadrat.",
+  "stufen": {
+   "1": "x² + 2dx + d², d von 3 bis 15",
+   "2": "x² − 2dx + d², d von 3 bis 15",
+   "3": "d von 16 bis 25, beide Vorzeichen"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_binom_vorzeichen",
+    "regel": "(x − d)² statt (x + d)²",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Prüf das Vorzeichen in der Klammer. Es hat dasselbe Vorzeichen wie das Glied mit x."
+   },
+   {
+    "key": "qf_binom_b_statt_halb",
+    "regel": "(x + 2d)²",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Das Glied mit x ist 2 · d · x. In die Klammer kommt nur die Hälfte der Zahl vor x."
+   },
+   {
+    "key": "qf_binom_c_statt_wurzel",
+    "regel": "(x + d²)²",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Die Zahl am Ende ist d². In die Klammer kommt die Wurzel daraus."
+   }
+  ],
+  "hinweise": [
+   "Welche binomische Formel hat drei Glieder wie {trinom}?",
+   "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+   "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+  ],
+  "loesungsweg": [
+   "{trinom}",
+   "= x² {vz} 2 · {betrag} · x + {betrag}²",
+   "= {quadrat}"
+  ],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "c747638a59a2"
+ },
+ "pruefprotokoll": {
+  "gruen": 44,
+  "rot": 2,
+  "rot_anteil": 0.043,
+  "gruende": {
+   "7": 2
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Vorzeichen: +, Feld 1: 15",
+   "2": "Vorzeichen: +, Feld 1: 23",
+   "3": "Vorzeichen: −, Feld 1: 16",
+   "4": "Vorzeichen: +, Feld 1: 14",
+   "5": "Vorzeichen: −, Feld 1: 3",
+   "6": "Vorzeichen: +, Feld 1: 17",
+   "7": "Vorzeichen: +, Feld 1: 9",
+   "8": "Vorzeichen: −, Feld 1: 18",
+   "9": "Vorzeichen: +, Feld 1: 22",
+   "10": "Vorzeichen: +, Feld 1: 21"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "d": 6
+   },
+   "frage": "Schreib x² + 12x + 36 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-6"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "12"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 12x + 36?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 12x + 36",
+    "= x² + 2 · 6 · x + 6²",
+    "= (x + 6)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 9
+   },
+   "frage": "Schreib x² + 18x + 81 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-9"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "18"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "81"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 18x + 81?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 18x + 81",
+    "= x² + 2 · 9 · x + 9²",
+    "= (x + 9)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 3
+   },
+   "frage": "Schreib x² + 6x + 9 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-3"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "6"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 6x + 9?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 6x + 9",
+    "= x² + 2 · 3 · x + 3²",
+    "= (x + 3)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "d": 13
+   },
+   "frage": "Schreib x² + 26x + 169 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-13"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "26"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "169"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 26x + 169?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 26x + 169",
+    "= x² + 2 · 13 · x + 13²",
+    "= (x + 13)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 11
+   },
+   "frage": "Schreib x² + 22x + 121 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-11"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "22"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "121"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 22x + 121?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 22x + 121",
+    "= x² + 2 · 11 · x + 11²",
+    "= (x + 11)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 8
+   },
+   "frage": "Schreib x² + 16x + 64 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-8"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "16"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "64"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 16x + 64?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 16x + 64",
+    "= x² + 2 · 8 · x + 8²",
+    "= (x + 8)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "d": 7
+   },
+   "frage": "Schreib x² + 14x + 49 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-7"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "14"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "49"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 14x + 49?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 14x + 49",
+    "= x² + 2 · 7 · x + 7²",
+    "= (x + 7)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 4
+   },
+   "frage": "Schreib x² + 8x + 16 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-4"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "8"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 8x + 16?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 8x + 16",
+    "= x² + 2 · 4 · x + 4²",
+    "= (x + 4)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 10
+   },
+   "frage": "Schreib x² + 20x + 100 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-10"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "20"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "100"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 20x + 100?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 20x + 100",
+    "= x² + 2 · 10 · x + 10²",
+    "= (x + 10)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "d": 15
+   },
+   "frage": "Schreib x² + 30x + 225 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-15"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "30"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "225"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 30x + 225?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 30x + 225",
+    "= x² + 2 · 15 · x + 15²",
+    "= (x + 15)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 5
+   },
+   "frage": "Schreib x² + 10x + 25 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-5"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "10"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "25"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 10x + 25?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 10x + 25",
+    "= x² + 2 · 5 · x + 5²",
+    "= (x + 5)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 12
+   },
+   "frage": "Schreib x² + 24x + 144 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-12"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "24"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "144"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 24x + 144?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 24x + 144",
+    "= x² + 2 · 12 · x + 12²",
+    "= (x + 12)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "d": 14
+   },
+   "frage": "Schreib x² + 28x + 196 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-14"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "28"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "196"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 28x + 196?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 28x + 196",
+    "= x² + 2 · 14 · x + 14²",
+    "= (x + 14)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "d": -8
+   },
+   "frage": "Schreib x² − 16x + 64 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "8"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-16"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-64"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 16x + 64?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 16x + 64",
+    "= x² − 2 · 8 · x + 8²",
+    "= (x − 8)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": -9
+   },
+   "frage": "Schreib x² − 18x + 81 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "9"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-18"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-81"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 18x + 81?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 18x + 81",
+    "= x² − 2 · 9 · x + 9²",
+    "= (x − 9)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": -3
+   },
+   "frage": "Schreib x² − 6x + 9 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "3"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-6"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 6x + 9?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 6x + 9",
+    "= x² − 2 · 3 · x + 3²",
+    "= (x − 3)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "d": -7
+   },
+   "frage": "Schreib x² − 14x + 49 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "7"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-14"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-49"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 14x + 49?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 14x + 49",
+    "= x² − 2 · 7 · x + 7²",
+    "= (x − 7)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": -14
+   },
+   "frage": "Schreib x² − 28x + 196 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "14"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-28"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-196"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 28x + 196?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 28x + 196",
+    "= x² − 2 · 14 · x + 14²",
+    "= (x − 14)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": -5
+   },
+   "frage": "Schreib x² − 10x + 25 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "5"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-10"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-25"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 10x + 25?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 10x + 25",
+    "= x² − 2 · 5 · x + 5²",
+    "= (x − 5)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "d": -4
+   },
+   "frage": "Schreib x² − 8x + 16 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "4"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-8"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 8x + 16?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 8x + 16",
+    "= x² − 2 · 4 · x + 4²",
+    "= (x − 4)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": -15
+   },
+   "frage": "Schreib x² − 30x + 225 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "15"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-30"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-225"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 30x + 225?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 30x + 225",
+    "= x² − 2 · 15 · x + 15²",
+    "= (x − 15)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": -12
+   },
+   "frage": "Schreib x² − 24x + 144 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "12"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-24"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-144"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 24x + 144?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 24x + 144",
+    "= x² − 2 · 12 · x + 12²",
+    "= (x − 12)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-12"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "d": -10
+   },
+   "frage": "Schreib x² − 20x + 100 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "10"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-20"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-100"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 20x + 100?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 20x + 100",
+    "= x² − 2 · 10 · x + 10²",
+    "= (x − 10)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": -6
+   },
+   "frage": "Schreib x² − 12x + 36 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "6"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-12"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 12x + 36?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 12x + 36",
+    "= x² − 2 · 6 · x + 6²",
+    "= (x − 6)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": -13
+   },
+   "frage": "Schreib x² − 26x + 169 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "13"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-26"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-169"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 26x + 169?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 26x + 169",
+    "= x² − 2 · 13 · x + 13²",
+    "= (x − 13)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "d": -11
+   },
+   "frage": "Schreib x² − 22x + 121 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "11"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-22"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-121"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 22x + 121?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 22x + 121",
+    "= x² − 2 · 11 · x + 11²",
+    "= (x − 11)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": -25
+   },
+   "frage": "Schreib x² − 50x + 625 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-25"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "25"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-50"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-625"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 50x + 625?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 50x + 625",
+    "= x² − 2 · 25 · x + 25²",
+    "= (x − 25)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-25"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -22
+   },
+   "frage": "Schreib x² − 44x + 484 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-22"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "22"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-44"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-484"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 44x + 484?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 44x + 484",
+    "= x² − 2 · 22 · x + 22²",
+    "= (x − 22)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-22"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 24
+   },
+   "frage": "Schreib x² + 48x + 576 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "24"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-24"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "48"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "576"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 48x + 576?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 48x + 576",
+    "= x² + 2 · 24 · x + 24²",
+    "= (x + 24)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": 17
+   },
+   "frage": "Schreib x² + 34x + 289 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "17"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-17"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "34"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "289"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 34x + 289?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 34x + 289",
+    "= x² + 2 · 17 · x + 17²",
+    "= (x + 17)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -23
+   },
+   "frage": "Schreib x² − 46x + 529 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-23"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "23"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-46"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-529"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 46x + 529?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 46x + 529",
+    "= x² − 2 · 23 · x + 23²",
+    "= (x − 23)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-23"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 19
+   },
+   "frage": "Schreib x² + 38x + 361 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "19"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-19"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "38"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "361"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 38x + 361?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 38x + 361",
+    "= x² + 2 · 19 · x + 19²",
+    "= (x + 19)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": -24
+   },
+   "frage": "Schreib x² − 48x + 576 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-24"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "24"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-48"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-576"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 48x + 576?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 48x + 576",
+    "= x² − 2 · 24 · x + 24²",
+    "= (x − 24)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-24"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 21
+   },
+   "frage": "Schreib x² + 42x + 441 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "21"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-21"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "42"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "441"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 42x + 441?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 42x + 441",
+    "= x² + 2 · 21 · x + 21²",
+    "= (x + 21)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 22
+   },
+   "frage": "Schreib x² + 44x + 484 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "22"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-22"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "44"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "484"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 44x + 484?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 44x + 484",
+    "= x² + 2 · 22 · x + 22²",
+    "= (x + 22)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": -20
+   },
+   "frage": "Schreib x² − 40x + 400 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-20"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "20"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-40"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-400"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 40x + 400?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 40x + 400",
+    "= x² − 2 · 20 · x + 20²",
+    "= (x − 20)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-20"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 20
+   },
+   "frage": "Schreib x² + 40x + 400 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "20"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-20"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "40"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "400"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 40x + 400?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 40x + 400",
+    "= x² + 2 · 20 · x + 20²",
+    "= (x + 20)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -21
+   },
+   "frage": "Schreib x² − 42x + 441 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-21"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "21"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-42"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-441"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 42x + 441?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 42x + 441",
+    "= x² − 2 · 21 · x + 21²",
+    "= (x − 21)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-21"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": -18
+   },
+   "frage": "Schreib x² − 36x + 324 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-18"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "18"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-36"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-324"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 36x + 324?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 36x + 324",
+    "= x² − 2 · 18 · x + 18²",
+    "= (x − 18)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-18"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 23
+   },
+   "frage": "Schreib x² + 46x + 529 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "23"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-23"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "46"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "529"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 46x + 529?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 46x + 529",
+    "= x² + 2 · 23 · x + 23²",
+    "= (x + 23)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -19
+   },
+   "frage": "Schreib x² − 38x + 361 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-19"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "19"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-38"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-361"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 38x + 361?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 38x + 361",
+    "= x² − 2 · 19 · x + 19²",
+    "= (x − 19)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-19"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": -16
+   },
+   "frage": "Schreib x² − 32x + 256 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-16"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "16"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-32"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-256"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 32x + 256?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 32x + 256",
+    "= x² − 2 · 16 · x + 16²",
+    "= (x − 16)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-16"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 16
+   },
+   "frage": "Schreib x² + 32x + 256 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "16"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-16"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "32"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "256"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 32x + 256?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 32x + 256",
+    "= x² + 2 · 16 · x + 16²",
+    "= (x + 16)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -17
+   },
+   "frage": "Schreib x² − 34x + 289 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-17"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "17"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "-34"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "-289"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² − 34x + 289?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² − 34x + 289",
+    "= x² − 2 · 17 · x + 17²",
+    "= (x − 17)²"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-17"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "d": 25
+   },
+   "frage": "Schreib x² + 50x + 625 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "25"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-25"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "50"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "625"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 50x + 625?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 50x + 625",
+    "= x² + 2 · 25 · x + 25²",
+    "= (x + 25)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "BIN-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 18
+   },
+   "frage": "Schreib x² + 36x + 324 als Quadrat.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")²"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "18"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "d": "-18"
+     }
+    },
+    {
+     "key": "qf_binom_b_statt_halb",
+     "werte": {
+      "d": "36"
+     }
+    },
+    {
+     "key": "qf_binom_c_statt_wurzel",
+     "werte": {
+      "d": "324"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche binomische Formel hat drei Glieder wie x² + 36x + 324?",
+    "Die Zahl am Ende ist ein Quadrat. Von welcher Zahl?",
+    "Vergleiche mit x² + 2 · d · x + d². Was ist d?"
+   ],
+   "loesungsweg": [
+    "x² + 36x + 324",
+    "= x² + 2 · 18 · x + 18²",
+    "= (x + 18)²"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

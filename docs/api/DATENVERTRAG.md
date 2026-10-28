@@ -1503,3 +1503,11 @@ Alle nur mit `darf_pruefen()` (Admin oder Coach mit Prüfrecht), sonst 42501. Se
 | `skill_pruefung_entscheiden(p_id uuid, p_entscheidung text, p_notiz text default null)` | `passt` → `geprueft`; `passt_nicht` (Notiz Pflicht, 22023) → `entwurf` mit `pruef_notiz`. Freigegebene Fragen: P0002. Die letzte Entscheidung gilt; frei gibt weiter ein Admin. |
 
 Schreiben der Bauform-Entscheidung: `bauform_pruefen`, `bauform_freigeben`, `aufgabe_reaktivieren`, `bauform_zur_ueberarbeitung` (§13.5).
+
+**Seit A6** auch die bisherigen Formate (Konzept §7, `scripts/bauformen/klassisch.py`), gespeichert wie jede Aufgabe
+dieser Typen: Zahl/Bruch als `NUMERIC` (`question_payload {kind: short_input, prompt}`, `correct_answers` = Liste der
+zulässigen Schreibweisen, `acceptance {canonical, equivalents, known_errors: {Wert: qf_…}}`), MC als `MC`
+(`question_payload {input_type: MC, options}`), Mehrteiler und Tabelle als `MULTI_PART` (`tasks.parts`,
+`correct_answers {"<nr>": […]}`, `acceptance {"<nr>": {…}}`). Gewertet über `session_bewerten` wie bisher. Figuren:
+`task_figures` (eine je Aufgabe) bzw. `task_figur_optionen` (Graph-Auswahl); seit `…_reihe1_a6_fehlbilder_figuren` ist
+eine Instanz mit Figur erst ziehbar, wenn die Figur hochgeladen ist (`svg_hash`).

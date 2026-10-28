@@ -94,8 +94,25 @@ def blindaufgaben(bf: Bauform) -> Path:
     text = [f'# Blindlöser {bf.key}', '', f'Antwortform: {ANTWORTFORM[bf.format]}', '']
     for n, inst in enumerate(auswahl, 1):
         text += [f'## Aufgabe {n}', '', _kindertext(inst, bf.format), '']
+        text += [f'Bild: {b}' for b in _bilder(ordner, n, inst)] + ([''] if inst.get('figur') else [])
     (ordner / 'aufgaben.md').write_text('\n'.join(text))
     return ordner / 'aufgaben.md'
+
+
+def _bilder(ordner: Path, n: int, inst: dict) -> list[str]:
+    """Figuren der Aufgabe als SVG (Thema hell) neben aufgaben.md; tools/bauform-bilder.mjs macht PNGs daraus."""
+    import importlib
+    import sys
+    if not inst.get('figur'):
+        return []
+    sys.path.insert(0, str(WURZEL / 'scripts'))
+    aus = []
+    for f in inst['figur'] if isinstance(inst['figur'], list) else [inst['figur']]:
+        gen = importlib.import_module(f'figures.{f["generator"]}')
+        name = f'aufgabe-{n}' + (f'-option-{f["option"]}' if 'option' in f else '')
+        (ordner / f'{name}.svg').write_text(gen.zeichne(f['params'], 'hell'))
+        aus.append(f'{name}.png' + (f' (Option {f["option"]})' if 'option' in f else ''))
+    return aus
 
 
 def _antwort_json(fmt: str, roh: str, inst: dict) -> dict:
@@ -106,6 +123,19 @@ def _antwort_json(fmt: str, roh: str, inst: dict) -> dict:
             return {'keine_loesung': True}
         return {'werte': [w.strip() for w in t.replace(',', ';').split(';') if w.strip()] if ';' in t or ',' in t
                 else [t]}
+    if fmt == 'feldmaske':
+        import re
+        token = re.findall(r'(Vorzeichen|Feld\s*\d+)\s*:\s*([^,;\n]*)', t)
+        vz = [w.strip() for k, w in token if k.startswith('Vorzeichen')]
+        zahlen = [w.strip() for k, w in token if k.startswith('Feld')]
+        felder: dict[str, str] = {}
+        for teil in inst['payload']['schablone']:
+            if 'feld' not in teil:
+                continue
+            quelle = vz if teil['typ'] == 'vorzeichen' else zahlen
+            felder[teil['feld']] = (quelle.pop(0) if quelle else '').replace('-', '−') if teil['typ'] == 'vorzeichen' \
+                else (quelle.pop(0) if quelle else '')
+        return {'felder': felder}
     buchstaben = 'ABCDEFGH'
     if fmt == 'graph_auswahl':
         return {'gewaehlt': inst['payload']['optionen'][buchstaben.index(t[0].upper())]['id']}
@@ -225,6 +255,8 @@ def migration(bf: Bauform) -> Path:
                         else [{**i['loesung'], 'fehlbilder': i['fehlbilder']}]),
             'acceptance': db_loesung(bf.format, i['loesung'], i['fehlbilder'])[1] if ist_klassisch(bf.format) else None,
             'parts': i.get('teile'),
+            'figur': i['figur'] if isinstance(i.get('figur'), dict) else None,
+            'optionen': i['figur'] if isinstance(i.get('figur'), list) else None,
             'solution': '\n'.join(i['loesungsweg']),
             'hints': [{'level': k + 1, 'text': h, 'status': 'entwurf'} for k, h in enumerate(i['hinweise'])],
         })
@@ -260,21 +292,36 @@ do $$ begin perform set_config('edvance.hinweis_status', 'setzen', true); end $$
 with b as (select id, version from public.bauformen where schluessel = {_text(bf.key)}),
      v as (select * from jsonb_to_recordset({_sql(zeilen)})
              as v(suffix text, input_type text, frage text, payload jsonb, params jsonb, stufe int, rolle text,
-                  pm jsonb, afb text, correct jsonb, acceptance jsonb, parts jsonb, solution text, hints jsonb)),
+                  pm jsonb, afb text, correct jsonb, acceptance jsonb, parts jsonb, figur jsonb, optionen jsonb,
+                  solution text, hints jsonb)),
      neu as (
   insert into public.tasks (content_type, input_type, status, is_active, title, question, question_payload, parts, skill_key,
                             difficulty, afb, class_level, est_duration_sec, source, source_ref, einsatz, bauform_id,
                             bauform_version, params, stufe, rolle, kernidee_key, pruefmaschine)
   select 'exercise', v.input_type, 'draft', true, {_text(bf.key)} || ' · ' || v.rolle || ' · S' || v.stufe, v.frage,
-         v.payload, v.parts, {_text(bf.skill)}, v.stufe, v.afb, 9, {bf.zeit_sek}, 'bauform',
+         v.payload, coalesce(v.parts, '[]'::jsonb), {_text(bf.skill)}, v.stufe, v.afb, 9, {bf.zeit_sek}, 'bauform',
          {_text(bf.key)} || '-v' || b.version || '-' || v.suffix, '{{session}}', b.id, b.version, v.params, v.stufe,
          v.rolle, {_text(bf.kernidee)}, v.pm
     from b, v
   on conflict (source, source_ref) do nothing
-  returning id, source_ref)
-insert into public.task_solutions (task_id, correct_answers, acceptance, solution, hints)
-select neu.id, v.correct, v.acceptance, v.solution, v.hints
-  from neu join b on true join v on neu.source_ref = {_text(bf.key)} || '-v' || b.version || '-' || v.suffix;
+  returning id, source_ref),
+     loes as (
+  insert into public.task_solutions (task_id, correct_answers, acceptance, solution, hints)
+  select neu.id, v.correct, v.acceptance, v.solution, v.hints
+    from neu join b on true join v on neu.source_ref = {_text(bf.key)} || '-v' || b.version || '-' || v.suffix
+  returning task_id),
+     fig as (
+  -- Eine Figur je Aufgabe (task_figures) bzw. je Option einer Graph-Auswahl (task_figur_optionen); hochgeladen
+  -- werden sie von scripts/figures/upload_figures.py (Rasit).
+  insert into public.task_figures (task_id, generator, params, alt_text)
+  select neu.id, v.figur ->> 'generator', v.figur -> 'params', v.figur ->> 'alt'
+    from neu join b on true join v on neu.source_ref = {_text(bf.key)} || '-v' || b.version || '-' || v.suffix
+   where v.figur is not null
+  returning task_id)
+insert into public.task_figur_optionen (task_id, option_id, generator, params, alt_text)
+select neu.id, o ->> 'option', o ->> 'generator', o -> 'params', o ->> 'alt'
+  from neu join b on true join v on neu.source_ref = {_text(bf.key)} || '-v' || b.version || '-' || v.suffix,
+       jsonb_array_elements(coalesce(v.optionen, '[]')) o;
 do $$ begin perform set_config('edvance.hinweis_status', '', true); perform set_config('edvance.bauform_export', '', true); end $$;
 """
     pfad.write_text(sql)

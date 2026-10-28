@@ -247,7 +247,7 @@ def pruefen(bf: Bauform, instanzen: list[Instanz], mit_db: bool = True) -> dict:
         p7 = None
         if inst.schluessel in gesehen:
             p7 = 'Dublette in der Bauform'
-        elif zahlenfolge(inst.frage) in lsa:
+        elif zahlenfolge(inst.frage) and zahlenfolge(inst.frage) in lsa:
             p7 = 'gleiche Zahlen wie eine LSA-Aufgabe des Skills'
         gesehen.add(inst.schluessel)
         befunde = {'1': p1, '2': bf.angenehm(inst), '3': pruefe_fehlbilder(bf, inst), '4': wertung[i],

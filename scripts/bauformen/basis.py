@@ -92,8 +92,10 @@ class Instanz:
 
     @property
     def schluessel(self) -> str:
-        """Fuer Dubletten (Pruefung 7): Format und angezeigte Zahlen."""
-        return f'{self.input_type}|{self.frage}'
+        """Fuer Dubletten (Pruefung 7): alles, was das Kind sieht (Text, Bedienelemente, Figur, Teile)."""
+        import json
+        return f'{self.input_type}|{self.frage}|' + json.dumps([self.figur, self.teile, self.payload], sort_keys=True,
+                                                              ensure_ascii=False)
 
 
 class Bauform:

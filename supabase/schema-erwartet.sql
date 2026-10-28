@@ -968,7 +968,9 @@ CREATE FUNCTION public.aufgabe_ziehbar(p_task uuid) RETURNS boolean
                 and not exists (select 1 from jsonb_array_elements(coalesce(t.question_payload -> 'optionen', '[]')) o
                                  where not exists (select 1 from public.task_figur_optionen f
                                                     where f.task_id = t.id and f.option_id = o ->> 'id'
-                                                      and f.svg_hash is not null)))))
+                                                      and f.svg_hash is not null))))
+       -- A6: eine Aufgabe mit Figur erst, wenn die Figur hochgeladen ist.
+       and not exists (select 1 from public.task_figures f where f.task_id = t.id and f.svg_hash is null))
 $$;
 
 

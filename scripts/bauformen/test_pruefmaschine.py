@@ -116,3 +116,27 @@ def test_wertung_echte_datenbank_alle_schreibweisen():
     i = instanz(NP2, stufe=4, a=2, b=3)  # Lösung {−3/2; 0}, Schreibweise „−1,5“
     assert any('-1,5' in str(s) for s in i.schreibweisen)
     assert rot(NP2, copy.deepcopy(i), mit_db=True) == {}
+
+
+# ── Klassische Formate (A6): Zahl, Mehrteiler ────────────────────────────────
+
+def test_zahl_fehlbild_gleich_richtig():
+    from bauformen.bauformen.gl_1 import BAUFORM as GL1
+    i = GL1.erzeugen({'a': 3, 'b': 5, 'c': 20}, 'uebung', 1)
+    i.fehlbilder[0] = {**i.fehlbilder[0], 'wert': i.loesung['werte'][0]}
+    assert '3' in rot(GL1, i)
+
+
+@pytest.mark.skipif(not MIT_DB, reason='dbread fehlt')
+def test_zahl_wertung_echte_datenbank_fehlbild_trifft_richtig():
+    from bauformen.bauformen.gl_1 import BAUFORM as GL1
+    i = GL1.erzeugen({'a': 3, 'b': 5, 'c': 20}, 'uebung', 1)  # x = 5
+    i.fehlbilder[0] = {**i.fehlbilder[0], 'wert': '5,0'}  # die echte Wertung nimmt „5,0“ als richtig
+    assert '4' in rot(GL1, i, mit_db=True)
+
+
+def test_zahl_falsche_loesung_nachgerechnet():
+    from bauformen.bauformen.gl_1 import BAUFORM as GL1
+    i = GL1.erzeugen({'a': 3, 'b': 5, 'c': 20}, 'uebung', 1)
+    i.loesung = {'werte': ['6']}
+    assert '1' in rot(GL1, i)

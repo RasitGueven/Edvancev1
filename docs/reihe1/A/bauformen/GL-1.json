@@ -1,0 +1,5303 @@
+{
+ "schluessel": "GL-1",
+ "skill": "gleichung_zweischrittig",
+ "kernidee": null,
+ "format": "zahl",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Löse {gleichung}. Gib x an.",
+  "stufen": {
+   "1": "a von 2 bis 9, Lösung von 1 bis 12",
+   "2": "a von 2 bis 9, Lösung von −12 bis −1",
+   "3": "a von 2 bis 9, Lösung ein gekürzter Bruch"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_gegenoperation_vorzeichen",
+    "regel": "(c + b) / a",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Beim Umstellen kehrt sich die Rechenart um: aus + b wird − b."
+   },
+   {
+    "key": "qf_durch_a_vergessen",
+    "regel": "c − b",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Da steht noch eine Zahl vor x. Teil auch durch sie."
+   },
+   {
+    "key": "qf_umstellen_reihenfolge",
+    "regel": "c / a − b",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Bring zuerst die Zahl ohne x auf die andere Seite. Teil erst danach."
+   }
+  ],
+  "hinweise": [
+   "Was muss weg, damit x allein steht?",
+   "Rechne zuerst auf beiden Seiten {gegen}.",
+   "Danach steht {a}x = … da. Wodurch teilst du?"
+  ],
+  "loesungsweg": [
+   "{gleichung}",
+   "{a}x = {rechts}",
+   "x = {rechts} : {a}",
+   "x = {x}"
+  ],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "116d39848489"
+ },
+ "pruefprotokoll": {
+  "gruen": 72,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "-5/2",
+   "2": "13/2",
+   "3": "-3",
+   "4": "3",
+   "5": "-2",
+   "6": "4",
+   "7": "-9/5",
+   "8": "-5",
+   "9": "2",
+   "10": "-4/3"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": -13,
+    "c": 23
+   },
+   "frage": "Löse 4x − 13 = 23. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 13 = 23. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "5/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "36"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "75/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 13.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 13 = 23",
+    "4x = 36",
+    "x = 36 : 4",
+    "x = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": 2,
+    "c": 14
+   },
+   "frage": "Löse 4x + 2 = 14. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 2 = 14. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "12"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "3/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 2.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 2 = 14",
+    "4x = 12",
+    "x = 12 : 4",
+    "x = 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 6,
+    "b": -9,
+    "c": 57
+   },
+   "frage": "Löse 6x − 9 = 57. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 9 = 57. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "8"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "66"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "37/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 9.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 9 = 57",
+    "6x = 66",
+    "x = 66 : 6",
+    "x = 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": -4,
+    "c": 32
+   },
+   "frage": "Löse 4x − 4 = 32. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 4 = 32. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "36"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "12"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 4.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 4 = 32",
+    "4x = 36",
+    "x = 36 : 4",
+    "x = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": 2,
+    "c": 42
+   },
+   "frage": "Löse 4x + 2 = 42. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 2 = 42. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "11"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "40"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "17/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 2.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 2 = 42",
+    "4x = 40",
+    "x = 40 : 4",
+    "x = 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 5,
+    "b": 6,
+    "c": 11
+   },
+   "frage": "Löse 5x + 6 = 11. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x + 6 = 11. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "17/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "5"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-19/5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 6.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x + 6 = 11",
+    "5x = 5",
+    "x = 5 : 5",
+    "x = 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": -9,
+    "c": 27
+   },
+   "frage": "Löse 4x − 9 = 27. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 9 = 27. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "9/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "36"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "63/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 9.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 9 = 27",
+    "4x = 36",
+    "x = 36 : 4",
+    "x = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 3,
+    "b": -1,
+    "c": 5
+   },
+   "frage": "Löse 3x − 1 = 5. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 3x − 1 = 5. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "4/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "6"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "8/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 1.",
+    "Danach steht 3x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "3x − 1 = 5",
+    "3x = 6",
+    "x = 6 : 3",
+    "x = 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 5,
+    "b": -3,
+    "c": 47
+   },
+   "frage": "Löse 5x − 3 = 47. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x − 3 = 47. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "44/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "50"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "62/5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 3.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x − 3 = 47",
+    "5x = 50",
+    "x = 50 : 5",
+    "x = 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 6,
+    "b": 4,
+    "c": 64
+   },
+   "frage": "Löse 6x + 4 = 64. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x + 4 = 64. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "34/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "60"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "20/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 4.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x + 4 = 64",
+    "6x = 60",
+    "x = 60 : 6",
+    "x = 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 8,
+    "b": -11,
+    "c": 21
+   },
+   "frage": "Löse 8x − 11 = 21. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x − 11 = 21. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "5/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "32"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "109/8"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 11.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x − 11 = 21",
+    "8x = 32",
+    "x = 32 : 8",
+    "x = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 8,
+    "b": -14,
+    "c": 2
+   },
+   "frage": "Löse 8x − 14 = 2. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x − 14 = 2. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "16"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "57/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 14.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x − 14 = 2",
+    "8x = 16",
+    "x = 16 : 8",
+    "x = 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": 11,
+    "c": 31
+   },
+   "frage": "Löse 4x + 11 = 31. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 11 = 31. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "21/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "20"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-13/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 11.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 11 = 31",
+    "4x = 20",
+    "x = 20 : 4",
+    "x = 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 5,
+    "b": 9,
+    "c": 54
+   },
+   "frage": "Löse 5x + 9 = 54. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x + 9 = 54. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "63/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "45"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "9/5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 9.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x + 9 = 54",
+    "5x = 45",
+    "x = 45 : 5",
+    "x = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 4,
+    "b": -8,
+    "c": 12
+   },
+   "frage": "Löse 4x − 8 = 12. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 8 = 12. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "1"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "20"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "11"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 8.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 8 = 12",
+    "4x = 20",
+    "x = 20 : 4",
+    "x = 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 2,
+    "b": -5,
+    "c": 7
+   },
+   "frage": "Löse 2x − 5 = 7. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 2x − 5 = 7. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "1"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "12"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "17/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 5.",
+    "Danach steht 2x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "2x − 5 = 7",
+    "2x = 12",
+    "x = 12 : 2",
+    "x = 6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 8,
+    "b": -15,
+    "c": 9
+   },
+   "frage": "Löse 8x − 15 = 9. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x − 15 = 9. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-3/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "24"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "129/8"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 15.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x − 15 = 9",
+    "8x = 24",
+    "x = 24 : 8",
+    "x = 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 7,
+    "b": 1,
+    "c": 43
+   },
+   "frage": "Löse 7x + 1 = 43. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x + 1 = 43. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "44/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "42"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "36/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 1.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x + 1 = 43",
+    "7x = 42",
+    "x = 42 : 7",
+    "x = 6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 8,
+    "b": 9,
+    "c": 41
+   },
+   "frage": "Löse 8x + 9 = 41. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x + 9 = 41. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "25/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "32"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-31/8"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 9.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x + 9 = 41",
+    "8x = 32",
+    "x = 32 : 8",
+    "x = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 9,
+    "b": 14,
+    "c": 104
+   },
+   "frage": "Löse 9x + 14 = 104. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x + 14 = 104. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "118/9"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "90"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-22/9"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 14.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x + 14 = 104",
+    "9x = 90",
+    "x = 90 : 9",
+    "x = 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 7,
+    "b": -11,
+    "c": 10
+   },
+   "frage": "Löse 7x − 11 = 10. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 11 = 10. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-1/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "21"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "87/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 11.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 11 = 10",
+    "7x = 21",
+    "x = 21 : 7",
+    "x = 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 3,
+    "b": 9,
+    "c": 33
+   },
+   "frage": "Löse 3x + 9 = 33. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 3x + 9 = 33. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "14"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "24"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 9.",
+    "Danach steht 3x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "3x + 9 = 33",
+    "3x = 24",
+    "x = 24 : 3",
+    "x = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 3,
+    "b": 10,
+    "c": 22
+   },
+   "frage": "Löse 3x + 10 = 22. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 3x + 10 = 22. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "32/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "12"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-8/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 10.",
+    "Danach steht 3x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "3x + 10 = 22",
+    "3x = 12",
+    "x = 12 : 3",
+    "x = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 6,
+    "b": -1,
+    "c": 41
+   },
+   "frage": "Löse 6x − 1 = 41. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 1 = 41. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "20/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "42"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "47/6"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 1.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 1 = 41",
+    "6x = 42",
+    "x = 42 : 6",
+    "x = 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 9,
+    "b": -12,
+    "c": -30
+   },
+   "frage": "Löse 9x − 12 = −30. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x − 12 = −30. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-14/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-18"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "26/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 12.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x − 12 = −30",
+    "9x = −18",
+    "x = −18 : 9",
+    "x = −2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "b": -10,
+    "c": -26
+   },
+   "frage": "Löse 4x − 10 = −26. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 10 = −26. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-9"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-16"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 10.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 10 = −26",
+    "4x = −16",
+    "x = −16 : 4",
+    "x = −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 8,
+    "b": 14,
+    "c": -42
+   },
+   "frage": "Löse 8x + 14 = −42. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x + 14 = −42. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-7/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-56"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-77/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 14.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x + 14 = −42",
+    "8x = −56",
+    "x = −56 : 8",
+    "x = −7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "b": 12,
+    "c": -24
+   },
+   "frage": "Löse 4x + 12 = −24. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 12 = −24. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-36"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-18"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 12.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 12 = −24",
+    "4x = −36",
+    "x = −36 : 4",
+    "x = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "b": -5,
+    "c": -21
+   },
+   "frage": "Löse 4x − 5 = −21. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 5 = −21. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-13/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-16"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-1/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 5.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 5 = −21",
+    "4x = −16",
+    "x = −16 : 4",
+    "x = −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 8,
+    "b": -2,
+    "c": -74
+   },
+   "frage": "Löse 8x − 2 = −74. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x − 2 = −74. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-19/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-72"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-29/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 2.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x − 2 = −74",
+    "8x = −72",
+    "x = −72 : 8",
+    "x = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 7,
+    "b": -10,
+    "c": -31
+   },
+   "frage": "Löse 7x − 10 = −31. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 10 = −31. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-41/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-21"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "39/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 10.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 10 = −31",
+    "7x = −21",
+    "x = −21 : 7",
+    "x = −3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": 5,
+    "c": -1
+   },
+   "frage": "Löse 6x + 5 = −1. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x + 5 = −1. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "2/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-6"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-31/6"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 5.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x + 5 = −1",
+    "6x = −6",
+    "x = −6 : 6",
+    "x = −1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 9,
+    "b": 15,
+    "c": -12
+   },
+   "frage": "Löse 9x + 15 = −12. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x + 15 = −12. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "1/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-27"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-49/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 15.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x + 15 = −12",
+    "9x = −27",
+    "x = −27 : 9",
+    "x = −3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 7,
+    "b": -5,
+    "c": -12
+   },
+   "frage": "Löse 7x − 5 = −12. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 5 = −12. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-17/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-7"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "23/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 5.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 5 = −12",
+    "7x = −7",
+    "x = −7 : 7",
+    "x = −1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "b": 9,
+    "c": -1
+   },
+   "frage": "Löse 2x + 9 = −1. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 2x + 9 = −1. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-10"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-19/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 9.",
+    "Danach steht 2x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "2x + 9 = −1",
+    "2x = −10",
+    "x = −10 : 2",
+    "x = −5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "b": 12,
+    "c": -24
+   },
+   "frage": "Löse 3x + 12 = −24. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 3x + 12 = −24. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-36"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-20"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 12.",
+    "Danach steht 3x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "3x + 12 = −24",
+    "3x = −36",
+    "x = −36 : 3",
+    "x = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 8,
+    "b": 8,
+    "c": -8
+   },
+   "frage": "Löse 8x + 8 = −8. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x + 8 = −8. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "0"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-16"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-9"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 8.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x + 8 = −8",
+    "8x = −16",
+    "x = −16 : 8",
+    "x = −2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": -7,
+    "c": -79
+   },
+   "frage": "Löse 6x − 7 = −79. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 7 = −79. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-43/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-72"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-37/6"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 7.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 7 = −79",
+    "6x = −72",
+    "x = −72 : 6",
+    "x = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 7,
+    "b": -13,
+    "c": -27
+   },
+   "frage": "Löse 7x − 13 = −27. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 13 = −27. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-40/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-14"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "64/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 13.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 13 = −27",
+    "7x = −14",
+    "x = −14 : 7",
+    "x = −2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": -15,
+    "c": -87
+   },
+   "frage": "Löse 6x − 15 = −87. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 15 = −87. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-17"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-72"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 15.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 15 = −87",
+    "6x = −72",
+    "x = −72 : 6",
+    "x = −12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": 13,
+    "c": -35
+   },
+   "frage": "Löse 6x + 13 = −35. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x + 13 = −35. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-11/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-48"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-113/6"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 13.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x + 13 = −35",
+    "6x = −48",
+    "x = −48 : 6",
+    "x = −8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": 3,
+    "c": -21
+   },
+   "frage": "Löse 6x + 3 = −21. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x + 3 = −21. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-24"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-13/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 3.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x + 3 = −21",
+    "6x = −24",
+    "x = −24 : 6",
+    "x = −4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "b": -8,
+    "c": -16
+   },
+   "frage": "Löse 4x − 8 = −16. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 8 = −16. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-6"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-8"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 8.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 8 = −16",
+    "4x = −8",
+    "x = −8 : 4",
+    "x = −2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "b": -12,
+    "c": -22
+   },
+   "frage": "Löse 2x − 12 = −22. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 2x − 12 = −22. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-17"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-10"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 12.",
+    "Danach steht 2x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "2x − 12 = −22",
+    "2x = −10",
+    "x = −10 : 2",
+    "x = −5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 8,
+    "b": -15,
+    "c": -39
+   },
+   "frage": "Löse 8x − 15 = −39. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x − 15 = −39. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-27/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-24"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "81/8"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 15.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x − 15 = −39",
+    "8x = −24",
+    "x = −24 : 8",
+    "x = −3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": -6,
+    "c": -54
+   },
+   "frage": "Löse 6x − 6 = −54. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 6 = −54. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-10"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-48"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 6.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 6 = −54",
+    "6x = −48",
+    "x = −48 : 6",
+    "x = −8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "b": 13,
+    "c": 3
+   },
+   "frage": "Löse 2x + 13 = 3. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 2x + 13 = 3. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "8"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-10"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-23/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 13.",
+    "Danach steht 2x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "2x + 13 = 3",
+    "2x = −10",
+    "x = −10 : 2",
+    "x = −5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 6,
+    "b": -15,
+    "c": -69
+   },
+   "frage": "Löse 6x − 15 = −69. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 15 = −69. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-14"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-54"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 15.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 15 = −69",
+    "6x = −54",
+    "x = −54 : 6",
+    "x = −9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": 9,
+    "c": -2
+   },
+   "frage": "Löse 4x + 9 = −2. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 9 = −2. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-11/4",
+     "-2.75",
+     "-2,75"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "7/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-11"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-19/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 9.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 9 = −2",
+    "4x = −11",
+    "x = −11 : 4",
+    "x = −11/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -6,
+    "c": -11
+   },
+   "frage": "Löse 2x − 6 = −11. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 2x − 6 = −11. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-5/2",
+     "-2.5",
+     "-2,5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-17/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-5"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 6.",
+    "Danach steht 2x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "2x − 6 = −11",
+    "2x = −5",
+    "x = −5 : 2",
+    "x = −5/2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": 4,
+    "c": -5
+   },
+   "frage": "Löse 5x + 4 = −5. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x + 4 = −5. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-9/5",
+     "-1.8",
+     "-1,8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-1/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-9"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 4.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x + 4 = −5",
+    "5x = −9",
+    "x = −9 : 5",
+    "x = −9/5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 9,
+    "b": 13,
+    "c": 10
+   },
+   "frage": "Löse 9x + 13 = 10. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x + 13 = 10. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-1/3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "23/9"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-107/9"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 13.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x + 13 = 10",
+    "9x = −3",
+    "x = −3 : 9",
+    "x = −1/3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 2,
+    "c": 12
+   },
+   "frage": "Löse 3x + 2 = 12. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 3x + 2 = 12. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "10/3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "14/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "10"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 2.",
+    "Danach steht 3x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "3x + 2 = 12",
+    "3x = 10",
+    "x = 10 : 3",
+    "x = 10/3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 6,
+    "b": -6,
+    "c": 16
+   },
+   "frage": "Löse 6x − 6 = 16. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 6 = 16. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "11/3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "5/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "22"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "26/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 6.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 6 = 16",
+    "6x = 22",
+    "x = 22 : 6",
+    "x = 11/3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": -10,
+    "c": -6
+   },
+   "frage": "Löse 5x − 10 = −6. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x − 10 = −6. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "4/5",
+     "0.8",
+     "0,8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-16/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "4"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "44/5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 10.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x − 10 = −6",
+    "5x = 4",
+    "x = 4 : 5",
+    "x = 4/5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": 9,
+    "c": 8
+   },
+   "frage": "Löse 4x + 9 = 8. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 9 = 8. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-1/4",
+     "-0.25",
+     "-0,25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "17/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-1"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 9.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 9 = 8",
+    "4x = −1",
+    "x = −1 : 4",
+    "x = −1/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": -4,
+    "c": -19
+   },
+   "frage": "Löse 4x − 4 = −19. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x − 4 = −19. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-15/4",
+     "-3.75",
+     "-3,75"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-23/4"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-15"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-3/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 4.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x − 4 = −19",
+    "4x = −15",
+    "x = −15 : 4",
+    "x = −15/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": 10,
+    "c": 9
+   },
+   "frage": "Löse 5x + 10 = 9. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x + 10 = 9. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-1/5",
+     "-0.2",
+     "-0,2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "19/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-1"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-41/5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 10.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x + 10 = 9",
+    "5x = −1",
+    "x = −1 : 5",
+    "x = −1/5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 7,
+    "b": 2,
+    "c": 25
+   },
+   "frage": "Löse 7x + 2 = 25. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x + 2 = 25. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "23/7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "27/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "23"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "11/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 2.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x + 2 = 25",
+    "7x = 23",
+    "x = 23 : 7",
+    "x = 23/7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": 2,
+    "c": -23
+   },
+   "frage": "Löse 2x + 2 = −23. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 2x + 2 = −23. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-25/2",
+     "-12.5",
+     "-12,5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-21/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-25"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-27/2"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 2.",
+    "Danach steht 2x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "2x + 2 = −23",
+    "2x = −25",
+    "x = −25 : 2",
+    "x = −25/2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": 10,
+    "c": -2
+   },
+   "frage": "Löse 5x + 10 = −2. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 5x + 10 = −2. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-12/5",
+     "-2.4",
+     "-2,4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "8/5"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-12"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-52/5"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 10.",
+    "Danach steht 5x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "5x + 10 = −2",
+    "5x = −12",
+    "x = −12 : 5",
+    "x = −12/5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 7,
+    "b": -8,
+    "c": 10
+   },
+   "frage": "Löse 7x − 8 = 10. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 8 = 10. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "18/7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "2/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "18"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "66/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 8.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 8 = 10",
+    "7x = 18",
+    "x = 18 : 7",
+    "x = 18/7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 9,
+    "b": -9,
+    "c": 10
+   },
+   "frage": "Löse 9x − 9 = 10. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x − 9 = 10. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "19/9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "1/9"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "19"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "91/9"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 9.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x − 9 = 10",
+    "9x = 19",
+    "x = 19 : 9",
+    "x = 19/9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 8,
+    "b": 10,
+    "c": 38
+   },
+   "frage": "Löse 8x + 10 = 38. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x + 10 = 38. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "7/2",
+     "3.5",
+     "3,5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "6"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "28"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-21/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 10.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x + 10 = 38",
+    "8x = 28",
+    "x = 28 : 8",
+    "x = 7/2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 9,
+    "b": 3,
+    "c": 15
+   },
+   "frage": "Löse 9x + 3 = 15. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x + 3 = 15. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "4/3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "12"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-4/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 3.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x + 3 = 15",
+    "9x = 12",
+    "x = 12 : 9",
+    "x = 4/3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -14,
+    "c": -18
+   },
+   "frage": "Löse 3x − 14 = −18. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 3x − 14 = −18. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-4/3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-32/3"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-4"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 14.",
+    "Danach steht 3x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "3x − 14 = −18",
+    "3x = −4",
+    "x = −4 : 3",
+    "x = −4/3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 6,
+    "b": -5,
+    "c": 2
+   },
+   "frage": "Löse 6x − 5 = 2. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 6x − 5 = 2. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "7/6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-1/2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "7"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "16/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 5.",
+    "Danach steht 6x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "6x − 5 = 2",
+    "6x = 7",
+    "x = 7 : 6",
+    "x = 7/6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 9,
+    "b": 15,
+    "c": 3
+   },
+   "frage": "Löse 9x + 15 = 3. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 9x + 15 = 3. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-4/3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-12"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-44/3"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 15.",
+    "Danach steht 9x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "9x + 15 = 3",
+    "9x = −12",
+    "x = −12 : 9",
+    "x = −4/3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": 13,
+    "c": 39
+   },
+   "frage": "Löse 4x + 13 = 39. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 4x + 13 = 39. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "13/2",
+     "6.5",
+     "6,5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "13"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "26"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-13/4"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 13.",
+    "Danach steht 4x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "4x + 13 = 39",
+    "4x = 26",
+    "x = 26 : 4",
+    "x = 13/2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 7,
+    "b": -4,
+    "c": -10
+   },
+   "frage": "Löse 7x − 4 = −10. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 4 = −10. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "-6/7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "-2"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "-6"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "18/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 4.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 4 = −10",
+    "7x = −6",
+    "x = −6 : 7",
+    "x = −6/7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 7,
+    "b": -1,
+    "c": 25
+   },
+   "frage": "Löse 7x − 1 = 25. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 7x − 1 = 25. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "26/7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "24/7"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "26"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "32/7"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten + 1.",
+    "Danach steht 7x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "7x − 1 = 25",
+    "7x = 26",
+    "x = 26 : 7",
+    "x = 26/7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "GL-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 8,
+    "b": 10,
+    "c": 39
+   },
+   "frage": "Löse 8x + 10 = 39. Gib x an.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Löse 8x + 10 = 39. Gib x an."
+   },
+   "loesung": {
+    "werte": [
+     "29/8",
+     "3.625",
+     "3,625"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "wert": "49/8"
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "wert": "29"
+    },
+    {
+     "key": "qf_umstellen_reihenfolge",
+     "wert": "-41/8"
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x allein steht?",
+    "Rechne zuerst auf beiden Seiten − 10.",
+    "Danach steht 8x = … da. Wodurch teilst du?"
+   ],
+   "loesungsweg": [
+    "8x + 10 = 39",
+    "8x = 29",
+    "x = 29 : 8",
+    "x = 29/8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

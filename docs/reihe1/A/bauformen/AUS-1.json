@@ -1,0 +1,8088 @@
+{
+ "schluessel": "AUS-1",
+ "skill": "term_ausklammern",
+ "kernidee": null,
+ "format": "feldmaske",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Klammere den größten gemeinsamen Faktor aus: {term}.",
+  "stufen": {
+   "1": "a·x² + b·x: x ausklammern",
+   "2": "k·m·x + k·n: die Zahl k ausklammern (k zusammengesetzt)",
+   "3": "k·m·x² + k·n·x: k·x ausklammern"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_ausklammern_vorzeichen",
+    "regel": "Vorzeichen in der Klammer falsch",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Prüf das Vorzeichen in der Klammer. Multipliziere zur Probe wieder aus."
+   },
+   {
+    "key": "qf_ausklammern_unvollstaendig",
+    "regel": "nur ein Teiler von k ausgeklammert",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Da geht noch mehr. Schau, ob die Zahlen in der Klammer noch einen gemeinsamen Teiler haben."
+   },
+   {
+    "key": "qf_ausklammern_nicht_geteilt",
+    "regel": "zweiter Summand nicht geteilt",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Teil jeden Summanden durch den Faktor, nicht nur den ersten."
+   }
+  ],
+  "hinweise": [
+   "Was steckt in beiden Summanden?",
+   "Such den größten Teiler beider Zahlen und denk an x.",
+   "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+  ],
+  "loesungsweg": [
+   "{term}",
+   "= {faktor} · {erst} {vz} {faktor} · {zweit}",
+   "= {ergebnis}"
+  ],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "82cce7bbb8c7"
+ },
+ "pruefprotokoll": {
+  "gruen": 71,
+  "rot": 1,
+  "rot_anteil": 0.014,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Feld 1: 10, Feld 2: 5, Vorzeichen: +, Feld 3: 1",
+   "2": "Feld 1: 8, Feld 2: 2, Vorzeichen: −, Feld 3: 9",
+   "3": "Feld 1: 12, Feld 2: 3, Vorzeichen: +, Feld 3: 2",
+   "4": "Feld 1: 8, Feld 2: 3, Vorzeichen: +, Feld 3: 5",
+   "5": "Feld 1: 4, Vorzeichen: −, Feld 2: 9",
+   "6": "Feld 1: 8, Feld 2: 6, Vorzeichen: −, Feld 3: 7",
+   "7": "Feld 1: 10, Feld 2: 4, Vorzeichen: +, Feld 3: 1",
+   "8": "Feld 1: 8, Feld 2: 3, Vorzeichen: −, Feld 3: 2",
+   "9": "Feld 1: 8, Feld 2: 6, Vorzeichen: +, Feld 3: 1",
+   "10": "Feld 1: 12, Feld 2: 4, Vorzeichen: +, Feld 3: 3"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": 8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² + 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² + 8x",
+    "= x · x + x · 8",
+    "= x · (x + 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "",
+      "vb": "+",
+      "b": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² + x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² + x",
+    "= x · x + x · 1",
+    "= x · (x + 1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "",
+      "vb": "+",
+      "b": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 2,
+    "n": 3
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 2x² + 3x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "2x² + 3x",
+    "= x · 2x + x · 3",
+    "= x · (2x + 3)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": -3
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² − 3x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² − 3x",
+    "= x · x − x · 3",
+    "= x · (x − 3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1",
+      "vb": "+",
+      "b": "-3"
+     }
+    },
+    {
+     "felder": {
+      "a": "",
+      "vb": "−",
+      "b": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 4,
+    "n": -9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 4x² − 9x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "b": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "4",
+      "b": "9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "4x² − 9x",
+    "= x · 4x − x · 9",
+    "= x · (4x − 9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vb": "+",
+      "b": "-9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 2,
+    "n": -1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 2x² − x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "2x² − x",
+    "= x · 2x − x · 1",
+    "= x · (2x − 1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vb": "+",
+      "b": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 3,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 3x² + 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "3x² + 7x",
+    "= x · 3x + x · 7",
+    "= x · (3x + 7)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 4,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 4x² − 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "4",
+      "b": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "4x² − 7x",
+    "= x · 4x − x · 7",
+    "= x · (4x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 3,
+    "n": -4
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 3x² − 4x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "3x² − 4x",
+    "= x · 3x − x · 4",
+    "= x · (3x − 4)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": -5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² − 5x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² − 5x",
+    "= x · x − x · 5",
+    "= x · (x − 5)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1",
+      "vb": "+",
+      "b": "-5"
+     }
+    },
+    {
+     "felder": {
+      "a": "",
+      "vb": "−",
+      "b": "5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 5,
+    "n": 8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 5x² + 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "b": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "5",
+      "b": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "5x² + 8x",
+    "= x · 5x + x · 8",
+    "= x · (5x + 8)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 5,
+    "n": -3
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 5x² − 3x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "b": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "5",
+      "b": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "5x² − 3x",
+    "= x · 5x − x · 3",
+    "= x · (5x − 3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vb": "+",
+      "b": "-3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 5,
+    "n": -8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 5x² − 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "b": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "5",
+      "b": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "5x² − 8x",
+    "= x · 5x − x · 8",
+    "= x · (5x − 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vb": "+",
+      "b": "-8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 6,
+    "n": 5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 6x² + 5x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "6",
+     "b": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "6",
+      "b": "-5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "6x² + 5x",
+    "= x · 6x + x · 5",
+    "= x · (6x + 5)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 3,
+    "n": 8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 3x² + 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "3x² + 8x",
+    "= x · 3x + x · 8",
+    "= x · (3x + 8)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 3,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 3x² − 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "3x² − 7x",
+    "= x · 3x − x · 7",
+    "= x · (3x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": -1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² − x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² − x",
+    "= x · x − x · 1",
+    "= x · (x − 1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1",
+      "vb": "+",
+      "b": "-1"
+     }
+    },
+    {
+     "felder": {
+      "a": "",
+      "vb": "−",
+      "b": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 5,
+    "n": 6
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 5x² + 6x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "b": "6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "5",
+      "b": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "5x² + 6x",
+    "= x · 5x + x · 6",
+    "= x · (5x + 6)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 2,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 2x² − 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "2x² − 7x",
+    "= x · 2x − x · 7",
+    "= x · (2x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 4,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 4x² + 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "4",
+      "b": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "4x² + 7x",
+    "= x · 4x + x · 7",
+    "= x · (4x + 7)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 6,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 6x² + 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "6",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "6",
+      "b": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "6x² + 7x",
+    "= x · 6x + x · 7",
+    "= x · (6x + 7)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": -6
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² − 6x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² − 6x",
+    "= x · x − x · 6",
+    "= x · (x − 6)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "1",
+      "vb": "+",
+      "b": "-6"
+     }
+    },
+    {
+     "felder": {
+      "a": "",
+      "vb": "−",
+      "b": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 5,
+    "n": -2
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 5x² − 2x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "b": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "5",
+      "b": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "5x² − 2x",
+    "= x · 5x − x · 2",
+    "= x · (5x − 2)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vb": "+",
+      "b": "-2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "k": 1,
+    "m": 1,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: x² + 7x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "1",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "a": "1",
+      "b": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "x² + 7x",
+    "= x · x + x · 7",
+    "= x · (x + 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "",
+      "vb": "+",
+      "b": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 6,
+    "m": 3,
+    "n": -5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 18x − 30.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "6",
+     "a": "3",
+     "b": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "6",
+      "a": "3",
+      "b": "5"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "6",
+      "b": "-10"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "6",
+      "a": "3",
+      "b": "-30"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "18x − 30",
+    "= 6 · 3x − 6 · 5",
+    "= 6 · (3x − 5)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "6",
+      "a": "3",
+      "vb": "+",
+      "b": "-5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 10,
+    "m": 3,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 30x + 10.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "3",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "3",
+      "b": "-1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "6",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "3",
+      "b": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "30x + 10",
+    "= 10 · 3x + 10 · 1",
+    "= 10 · (3x + 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 5,
+    "n": 4
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 40x + 32.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "5",
+     "b": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "5",
+      "b": "-4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "10",
+      "b": "8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "5",
+      "b": "32"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "40x + 32",
+    "= 8 · 5x + 8 · 4",
+    "= 8 · (5x + 4)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 6,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 48x + 8.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "6",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "-1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "12",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "48x + 8",
+    "= 8 · 6x + 8 · 1",
+    "= 8 · (6x + 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 6,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 48x − 56.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "6",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "12",
+      "b": "-14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "-56"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "48x − 56",
+    "= 8 · 6x − 8 · 7",
+    "= 8 · (6x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "6",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 5,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 40x − 56.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "5",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "5",
+      "b": "7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "10",
+      "b": "-14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "5",
+      "b": "-56"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "40x − 56",
+    "= 8 · 5x − 8 · 7",
+    "= 8 · (5x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "5",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 10,
+    "m": 4,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 40x + 10.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "4",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "4",
+      "b": "-1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "8",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "4",
+      "b": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "40x + 10",
+    "= 10 · 4x + 10 · 1",
+    "= 10 · (4x + 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 9,
+    "m": 6,
+    "n": 5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 54x + 45.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "6",
+     "b": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "6",
+      "b": "-5"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "18",
+      "b": "15"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "6",
+      "b": "45"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "54x + 45",
+    "= 9 · 6x + 9 · 5",
+    "= 9 · (6x + 5)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 5,
+    "n": -4
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 40x − 32.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "5",
+     "b": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "5",
+      "b": "4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "10",
+      "b": "-8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "5",
+      "b": "-32"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "40x − 32",
+    "= 8 · 5x − 8 · 4",
+    "= 8 · (5x − 4)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "5",
+      "vb": "+",
+      "b": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 6,
+    "n": -1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 48x − 8.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "6",
+     "b": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "12",
+      "b": "-2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "48x − 8",
+    "= 8 · 6x − 8 · 1",
+    "= 8 · (6x − 1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "6",
+      "vb": "+",
+      "b": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 2,
+    "n": 9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 16x + 72.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "2",
+     "b": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "2",
+      "b": "-9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "4",
+      "b": "18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "2",
+      "b": "72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "16x + 72",
+    "= 8 · 2x + 8 · 9",
+    "= 8 · (2x + 9)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 12,
+    "m": 4,
+    "n": 3
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 48x + 36.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "4",
+     "b": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "4",
+      "b": "-3"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "8",
+      "b": "6"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "4",
+      "b": "36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "48x + 36",
+    "= 12 · 4x + 12 · 3",
+    "= 12 · (4x + 3)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 12,
+    "m": 5,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 60x − 84.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "5",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "10",
+      "b": "-14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "-84"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "60x − 84",
+    "= 12 · 5x − 12 · 7",
+    "= 12 · (5x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "5",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 10,
+    "m": 2,
+    "n": 9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 20x + 90.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "2",
+     "b": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "2",
+      "b": "-9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "4",
+      "b": "18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "2",
+      "b": "90"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "20x + 90",
+    "= 10 · 2x + 10 · 9",
+    "= 10 · (2x + 9)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 4,
+    "m": 1,
+    "n": -9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 4x − 36.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "4",
+     "a": "1",
+     "b": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "4",
+      "a": "1",
+      "b": "9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "2",
+      "a": "2",
+      "b": "-18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "4",
+      "a": "1",
+      "b": "-36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "4x − 36",
+    "= 4 · x − 4 · 9",
+    "= 4 · (x − 9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "4",
+      "a": "1",
+      "vb": "+",
+      "b": "-9"
+     }
+    },
+    {
+     "felder": {
+      "k": "4",
+      "a": "",
+      "vb": "−",
+      "b": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 9,
+    "m": 1,
+    "n": -6
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 9x − 54.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "1",
+     "b": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "1",
+      "b": "6"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "3",
+      "b": "-18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "1",
+      "b": "-54"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "9x − 54",
+    "= 9 · x − 9 · 6",
+    "= 9 · (x − 6)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "9",
+      "a": "1",
+      "vb": "+",
+      "b": "-6"
+     }
+    },
+    {
+     "felder": {
+      "k": "9",
+      "a": "",
+      "vb": "−",
+      "b": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 10,
+    "m": 5,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 50x + 10.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "5",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "5",
+      "b": "-1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "10",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "5",
+      "b": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "50x + 10",
+    "= 10 · 5x + 10 · 1",
+    "= 10 · (5x + 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 8,
+    "m": 4,
+    "n": -9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 32x − 72.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "4",
+     "b": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "4",
+      "b": "9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "8",
+      "b": "-18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "4",
+      "b": "-72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "32x − 72",
+    "= 8 · 4x − 8 · 9",
+    "= 8 · (4x − 9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "4",
+      "vb": "+",
+      "b": "-9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 6,
+    "m": 5,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 30x + 42.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "6",
+     "a": "5",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "6",
+      "a": "5",
+      "b": "-7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "10",
+      "b": "14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "6",
+      "a": "5",
+      "b": "42"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "30x + 42",
+    "= 6 · 5x + 6 · 7",
+    "= 6 · (5x + 7)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 6,
+    "m": 3,
+    "n": -4
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 18x − 24.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "6",
+     "a": "3",
+     "b": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "6",
+      "a": "3",
+      "b": "4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "6",
+      "b": "-8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "6",
+      "a": "3",
+      "b": "-24"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "18x − 24",
+    "= 6 · 3x − 6 · 4",
+    "= 6 · (3x − 4)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "6",
+      "a": "3",
+      "vb": "+",
+      "b": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 12,
+    "m": 3,
+    "n": -1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 36x − 12.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "3",
+     "b": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "3",
+      "b": "1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "6",
+      "b": "-2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "3",
+      "b": "-12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "36x − 12",
+    "= 12 · 3x − 12 · 1",
+    "= 12 · (3x − 1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "3",
+      "vb": "+",
+      "b": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "k": 10,
+    "m": 1,
+    "n": 8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 10x + 80.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "1",
+     "b": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "1",
+      "b": "-8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "2",
+      "b": "16"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "1",
+      "b": "80"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "10x + 80",
+    "= 10 · x + 10 · 8",
+    "= 10 · (x + 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "10",
+      "a": "",
+      "vb": "+",
+      "b": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "k": 12,
+    "m": 3,
+    "n": 2
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 36x + 24.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "3",
+     "b": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "3",
+      "b": "-2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "6",
+      "b": "4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "3",
+      "b": "24"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "36x + 24",
+    "= 12 · 3x + 12 · 2",
+    "= 12 · (3x + 2)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "k": 12,
+    "m": 1,
+    "n": -3
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 12x − 36.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": " · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "1",
+     "b": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "1",
+      "b": "3"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "2",
+      "b": "-6"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "1",
+      "b": "-36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "12x − 36",
+    "= 12 · x − 12 · 3",
+    "= 12 · (x − 3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "1",
+      "vb": "+",
+      "b": "-3"
+     }
+    },
+    {
+     "felder": {
+      "k": "12",
+      "a": "",
+      "vb": "−",
+      "b": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 9,
+    "m": 3,
+    "n": -8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 27x² − 72x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "3",
+     "b": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "3",
+      "b": "8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "9",
+      "b": "-24"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "3",
+      "b": "-72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "27x² − 72x",
+    "= 9x · 3x − 9x · 8",
+    "= 9x · (3x − 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "9",
+      "a": "3",
+      "vb": "+",
+      "b": "-8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 12,
+    "m": 1,
+    "n": -9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 12x² − 108x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "1",
+     "b": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "1",
+      "b": "9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "2",
+      "b": "-18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "1",
+      "b": "-108"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "12x² − 108x",
+    "= 12x · x − 12x · 9",
+    "= 12x · (x − 9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "1",
+      "vb": "+",
+      "b": "-9"
+     }
+    },
+    {
+     "felder": {
+      "k": "12",
+      "a": "",
+      "vb": "−",
+      "b": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 6,
+    "m": 6,
+    "n": -1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 36x² − 6x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "6",
+     "a": "6",
+     "b": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "6",
+      "a": "6",
+      "b": "1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "12",
+      "b": "-2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "6",
+      "a": "6",
+      "b": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "36x² − 6x",
+    "= 6x · 6x − 6x · 1",
+    "= 6x · (6x − 1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "6",
+      "a": "6",
+      "vb": "+",
+      "b": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 4,
+    "m": 5,
+    "n": -6
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 20x² − 24x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "4",
+     "a": "5",
+     "b": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "4",
+      "a": "5",
+      "b": "6"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "2",
+      "a": "10",
+      "b": "-12"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "4",
+      "a": "5",
+      "b": "-24"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "20x² − 24x",
+    "= 4x · 5x − 4x · 6",
+    "= 4x · (5x − 6)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "4",
+      "a": "5",
+      "vb": "+",
+      "b": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 3,
+    "n": -2
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 24x² − 16x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "3",
+     "b": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "3",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "6",
+      "b": "-4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "3",
+      "b": "-16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "24x² − 16x",
+    "= 8x · 3x − 8x · 2",
+    "= 8x · (3x − 2)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "3",
+      "vb": "+",
+      "b": "-2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 10,
+    "m": 3,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 30x² + 10x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "3",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "3",
+      "b": "-1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "6",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "3",
+      "b": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "30x² + 10x",
+    "= 10x · 3x + 10x · 1",
+    "= 10x · (3x + 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 2,
+    "n": -9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 16x² − 72x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "2",
+     "b": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "2",
+      "b": "9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "4",
+      "b": "-18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "2",
+      "b": "-72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "16x² − 72x",
+    "= 8x · 2x − 8x · 9",
+    "= 8x · (2x − 9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "2",
+      "vb": "+",
+      "b": "-9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 6,
+    "n": 1
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 48x² + 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "6",
+     "b": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "-1"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "12",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "6",
+      "b": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "48x² + 8x",
+    "= 8x · 6x + 8x · 1",
+    "= 8x · (6x + 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 12,
+    "m": 5,
+    "n": -4
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 60x² − 48x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "5",
+     "b": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "10",
+      "b": "-8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "-48"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "60x² − 48x",
+    "= 12x · 5x − 12x · 4",
+    "= 12x · (5x − 4)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "5",
+      "vb": "+",
+      "b": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 2,
+    "n": 9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 16x² + 72x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "2",
+     "b": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "2",
+      "b": "-9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "4",
+      "b": "18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "2",
+      "b": "72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "16x² + 72x",
+    "= 8x · 2x + 8x · 9",
+    "= 8x · (2x + 9)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 1,
+    "n": 9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 8x² + 72x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "1",
+     "b": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "1",
+      "b": "-9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "2",
+      "b": "18"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "1",
+      "b": "72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "8x² + 72x",
+    "= 8x · x + 8x · 9",
+    "= 8x · (x + 9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "",
+      "vb": "+",
+      "b": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 3,
+    "n": 5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 24x² + 40x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "3",
+     "b": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "3",
+      "b": "-5"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "6",
+      "b": "10"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "3",
+      "b": "40"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "24x² + 40x",
+    "= 8x · 3x + 8x · 5",
+    "= 8x · (3x + 5)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 12,
+    "m": 5,
+    "n": -8
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 60x² − 96x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "5",
+     "b": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "8"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "10",
+      "b": "-16"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "-96"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "60x² − 96x",
+    "= 12x · 5x − 12x · 8",
+    "= 12x · (5x − 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "5",
+      "vb": "+",
+      "b": "-8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 9,
+    "m": 5,
+    "n": 9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 45x² + 81x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "5",
+     "b": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "5",
+      "b": "-9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "15",
+      "b": "27"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "5",
+      "b": "81"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "45x² + 81x",
+    "= 9x · 5x + 9x · 9",
+    "= 9x · (5x + 9)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 9,
+    "m": 1,
+    "n": -5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 9x² − 45x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "1",
+     "b": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "1",
+      "b": "5"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "3",
+      "b": "-15"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "1",
+      "b": "-45"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "9x² − 45x",
+    "= 9x · x − 9x · 5",
+    "= 9x · (x − 5)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "9",
+      "a": "1",
+      "vb": "+",
+      "b": "-5"
+     }
+    },
+    {
+     "felder": {
+      "k": "9",
+      "a": "",
+      "vb": "−",
+      "b": "5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 4,
+    "m": 3,
+    "n": 2
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 12x² + 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "4",
+     "a": "3",
+     "b": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "4",
+      "a": "3",
+      "b": "-2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "2",
+      "a": "6",
+      "b": "4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "4",
+      "a": "3",
+      "b": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "12x² + 8x",
+    "= 4x · 3x + 4x · 2",
+    "= 4x · (3x + 2)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 4,
+    "m": 3,
+    "n": -2
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 12x² − 8x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "4",
+     "a": "3",
+     "b": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "4",
+      "a": "3",
+      "b": "2"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "2",
+      "a": "6",
+      "b": "-4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "4",
+      "a": "3",
+      "b": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "12x² − 8x",
+    "= 4x · 3x − 4x · 2",
+    "= 4x · (3x − 2)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "4",
+      "a": "3",
+      "vb": "+",
+      "b": "-2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 1,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 8x² + 56x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "1",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "1",
+      "b": "-7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "2",
+      "b": "14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "1",
+      "b": "56"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "8x² + 56x",
+    "= 8x · x + 8x · 7",
+    "= 8x · (x + 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "",
+      "vb": "+",
+      "b": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 8,
+    "m": 3,
+    "n": -5
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 24x² − 40x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "8",
+     "a": "3",
+     "b": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "8",
+      "a": "3",
+      "b": "5"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "4",
+      "a": "6",
+      "b": "-10"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "8",
+      "a": "3",
+      "b": "-40"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "24x² − 40x",
+    "= 8x · 3x − 8x · 5",
+    "= 8x · (3x − 5)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "8",
+      "a": "3",
+      "vb": "+",
+      "b": "-5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 10,
+    "m": 6,
+    "n": -7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 60x² − 70x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "10",
+     "a": "6",
+     "b": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "10",
+      "a": "6",
+      "b": "7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "5",
+      "a": "12",
+      "b": "-14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "10",
+      "a": "6",
+      "b": "-70"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "60x² − 70x",
+    "= 10x · 6x − 10x · 7",
+    "= 10x · (6x − 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "10",
+      "a": "6",
+      "vb": "+",
+      "b": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 9,
+    "m": 3,
+    "n": -4
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 27x² − 36x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "3",
+     "b": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "3",
+      "b": "4"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "9",
+      "b": "-12"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "3",
+      "b": "-36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "27x² − 36x",
+    "= 9x · 3x − 9x · 4",
+    "= 9x · (3x − 4)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "9",
+      "a": "3",
+      "vb": "+",
+      "b": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "k": 12,
+    "m": 5,
+    "n": -6
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 60x² − 72x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "5",
+     "b": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "6"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "10",
+      "b": "-12"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "5",
+      "b": "-72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "60x² − 72x",
+    "= 12x · 5x − 12x · 6",
+    "= 12x · (5x − 6)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "k": "12",
+      "a": "5",
+      "vb": "+",
+      "b": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "k": 9,
+    "m": 2,
+    "n": 9
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 18x² + 81x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "9",
+     "a": "2",
+     "b": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "9",
+      "a": "2",
+      "b": "-9"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "3",
+      "a": "6",
+      "b": "27"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "9",
+      "a": "2",
+      "b": "81"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "18x² + 81x",
+    "= 9x · 2x + 9x · 9",
+    "= 9x · (2x + 9)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "AUS-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "k": 12,
+    "m": 3,
+    "n": 7
+   },
+   "frage": "Klammere den größten gemeinsamen Faktor aus: 36x² + 84x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "k",
+      "typ": "zahl"
+     },
+     {
+      "text": "x · ("
+     },
+     {
+      "feld": "a",
+      "typ": "zahl",
+      "leer_heisst_eins": true
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "k": "12",
+     "a": "3",
+     "b": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_vorzeichen",
+     "werte": {
+      "k": "12",
+      "a": "3",
+      "b": "-7"
+     }
+    },
+    {
+     "key": "qf_ausklammern_unvollstaendig",
+     "werte": {
+      "k": "6",
+      "a": "6",
+      "b": "14"
+     }
+    },
+    {
+     "key": "qf_ausklammern_nicht_geteilt",
+     "werte": {
+      "k": "12",
+      "a": "3",
+      "b": "84"
+     }
+    }
+   ],
+   "hinweise": [
+    "Was steckt in beiden Summanden?",
+    "Such den größten Teiler beider Zahlen und denk an x.",
+    "Teil jeden Summanden durch den Faktor. Was bleibt übrig?"
+   ],
+   "loesungsweg": [
+    "36x² + 84x",
+    "= 12x · 3x + 12x · 7",
+    "= 12x · (3x + 7)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}
