@@ -24,7 +24,7 @@
   "figur": null,
   "zeit_sek": 120,
   "kann_entfallen": false,
-  "generator_hash": "b064c7df2241"
+  "generator_hash": "742408a99fe3"
  },
  "pruefprotokoll": {
   "gruen": 16,
@@ -39,16 +39,16 @@
   "anteil": 0.0,
   "bestanden": true,
   "antworten": {
-   "1": "Zeile 3, A",
-   "2": "Zeile 3, A",
-   "3": "Zeile 2, A",
-   "4": "Zeile 3, A",
-   "5": "Zeile 3, A",
-   "6": "Zeile 2, A",
-   "7": "Zeile 2, A",
-   "8": "Zeile 3, A",
+   "1": "Zeile 3, C",
+   "2": "Zeile 3, B",
+   "3": "Zeile 2, C",
+   "4": "Zeile 3, C",
+   "5": "Zeile 3, C",
+   "6": "Zeile 2, B",
+   "7": "Zeile 2, B",
+   "8": "Zeile 3, C",
    "9": "Zeile 3, A",
-   "10": "Zeile 2, A"
+   "10": "Zeile 2, B"
   }
  },
  "instanzen": [
@@ -87,11 +87,11 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
@@ -101,7 +101,7 @@
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -178,7 +178,7 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
@@ -186,13 +186,13 @@
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -269,21 +269,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -360,21 +360,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
-     },
-     {
-      "id": "b",
       "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
-      "id": "c",
+      "id": "b",
       "text": "x² geteilt durch x ergibt nicht x."
+     },
+     {
+      "id": "c",
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -447,21 +447,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      }
     ]
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -538,21 +538,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
-     },
-     {
-      "id": "b",
       "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
-      "id": "c",
+      "id": "b",
       "text": "x² geteilt durch x ergibt nicht x."
+     },
+     {
+      "id": "c",
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -629,21 +629,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
-     },
-     {
-      "id": "b",
       "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
-      "id": "c",
+      "id": "b",
       "text": "x² geteilt durch x ergibt nicht x."
+     },
+     {
+      "id": "c",
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -720,7 +720,7 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
@@ -728,13 +728,13 @@
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -811,21 +811,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -902,21 +902,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      }
     ]
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -997,11 +997,11 @@
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      }
     ]
    },
@@ -1084,7 +1084,7 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
@@ -1092,13 +1092,13 @@
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -1175,7 +1175,7 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "x² geteilt durch x ergibt nicht x."
      },
      {
       "id": "b",
@@ -1183,13 +1183,13 @@
      },
      {
       "id": "c",
-      "text": "x² geteilt durch x ergibt nicht x."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -1262,11 +1262,11 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
@@ -1276,7 +1276,7 @@
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -1353,21 +1353,21 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
-     },
-     {
-      "id": "b",
       "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
-      "id": "c",
+      "id": "b",
       "text": "x² geteilt durch x ergibt nicht x."
+     },
+     {
+      "id": "c",
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      }
     ]
    },
    "loesung": {
     "zeile": 3,
-    "warum": "a"
+    "warum": "c"
    },
    "fehlbilder": [],
    "hinweise": [
@@ -1444,11 +1444,11 @@
     "warum": [
      {
       "id": "a",
-      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
+      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
      },
      {
       "id": "b",
-      "text": "Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst."
+      "text": "Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren."
      },
      {
       "id": "c",
@@ -1458,7 +1458,7 @@
    },
    "loesung": {
     "zeile": 2,
-    "warum": "a"
+    "warum": "b"
    },
    "fehlbilder": [],
    "hinweise": [

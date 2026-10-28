@@ -25,7 +25,7 @@
      3,
      4
     ],
-    "rueckmeldung": "p ist die Zahl vor x mit ihrem Vorzeichen. Steht dort ein Minus, ist p negativ."
+    "rueckmeldung": "p ist die Zahl vor x, zusammen mit dem Rechenzeichen davor. Prüf das Vorzeichen."
    },
    {
     "key": "qf_q_vorzeichen",
@@ -65,7 +65,7 @@
   "figur": null,
   "zeit_sek": 90,
   "kann_entfallen": false,
-  "generator_hash": "e8f9eefe9421"
+  "generator_hash": "c7ec4888b9a2"
  },
  "pruefprotokoll": {
   "gruen": 88,
@@ -6276,14 +6276,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "-2"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "9"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "-2"
     }
    ],
    "hinweise": [
@@ -6364,7 +6364,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "2"
     },
@@ -6452,7 +6452,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "-8"
     },
@@ -6540,14 +6540,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "5"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "-1"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "5"
     }
    ],
    "hinweise": [
@@ -6627,14 +6627,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "22"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "12"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "22"
     }
    ],
    "hinweise": [
@@ -6715,7 +6715,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "2"
     },
@@ -6803,14 +6803,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "10"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "-3"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "10"
     }
    ],
    "hinweise": [
@@ -6890,7 +6890,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "7"
     },
@@ -6978,14 +6978,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "23"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "-5"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "23"
     }
    ],
    "hinweise": [
@@ -7066,14 +7066,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "13"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "-2"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "13"
     }
    ],
    "hinweise": [
@@ -7153,14 +7153,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "11"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "10"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "11"
     }
    ],
    "hinweise": [
@@ -7241,7 +7241,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "11"
     },
@@ -7329,7 +7329,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "-9"
     },
@@ -7417,7 +7417,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "5"
     },
@@ -7505,14 +7505,14 @@
    },
    "fehlbilder": [
     {
+     "key": "qf_gegenoperation_vorzeichen",
+     "teil": 2,
+     "wert": "25"
+    },
+    {
      "key": "qf_p_vorzeichen",
      "teil": 1,
      "wert": "-10"
-    },
-    {
-     "key": "qf_q_vorzeichen",
-     "teil": 2,
-     "wert": "25"
     }
    ],
    "hinweise": [
@@ -7593,7 +7593,7 @@
    },
    "fehlbilder": [
     {
-     "key": "qf_p_vorzeichen",
+     "key": "qf_gegenoperation_vorzeichen",
      "teil": 1,
      "wert": "-11"
     },

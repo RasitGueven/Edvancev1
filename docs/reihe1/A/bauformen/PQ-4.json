@@ -14,9 +14,9 @@
   },
   "fehlbilder": [],
   "hinweise": [
-   "Womit fängt man an, wenn vor x² keine 1 steht?",
-   "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-   "Am Ende steht immer die Lösungsmenge."
+   "Welcher Schritt braucht noch keine Formel?",
+   "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+   "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
   ],
   "loesungsweg": [],
   "warum": null,
@@ -24,7 +24,7 @@
   "figur": null,
   "zeit_sek": 90,
   "kann_entfallen": false,
-  "generator_hash": "012acc3f19f7"
+  "generator_hash": "8d3894c83c81"
  },
  "pruefprotokoll": {
   "gruen": 15,
@@ -98,9 +98,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² + 2x − 15 = 0",
@@ -179,9 +179,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 2 teilen: x² − 14x + 45 = 0",
@@ -260,9 +260,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² + 2x − 3 = 0",
@@ -341,9 +341,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 4 teilen: x² + 14x + 48 = 0",
@@ -422,9 +422,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 2 teilen: x² + 6x − 7 = 0",
@@ -503,9 +503,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 2 teilen: x² − 4x − 12 = 0",
@@ -584,9 +584,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 4 teilen: x² − 14x + 48 = 0",
@@ -665,9 +665,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² − 8x + 7 = 0",
@@ -746,9 +746,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 2 teilen: x² + 6x + 8 = 0",
@@ -827,9 +827,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² + 12x + 27 = 0",
@@ -908,9 +908,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² + 6x + 5 = 0",
@@ -989,9 +989,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² − 12x + 32 = 0",
@@ -1070,9 +1070,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 4 teilen: x² − 8x + 15 = 0",
@@ -1151,9 +1151,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 2 teilen: x² + 2x − 3 = 0",
@@ -1233,9 +1233,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 3 teilen: x² − 6x + 8 = 0",
@@ -1314,9 +1314,9 @@
    },
    "fehlbilder": [],
    "hinweise": [
-    "Womit fängt man an, wenn vor x² keine 1 steht?",
-    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
-    "Am Ende steht immer die Lösungsmenge."
+    "Welcher Schritt braucht noch keine Formel?",
+    "In welchem Schritt tauchen p und q zum ersten Mal auf?",
+    "Vergleiche zwei Schritte: Welcher ist näher an der Lösung?"
    ],
    "loesungsweg": [
     "1. Durch 2 teilen: x² − 2x − 8 = 0",

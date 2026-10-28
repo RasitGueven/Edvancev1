@@ -19,9 +19,8 @@ class PQ4(Bauform):
     stufen = {2: 'a·x² + b·x + c = 0 mit a von 2 bis 4, vier Schritte bis zur Lösungsmenge'}
     text = 'Bring die Schritte zum Lösen von {gleichung} in die richtige Reihenfolge.'
     fehlbild_steckbrief = []
-    hinweis_vorlagen = ['Womit fängt man an, wenn vor x² keine 1 steht?',
-                        'Die Formel braucht die Normalform. Danach setzt man p und q ein.',
-                        'Am Ende steht immer die Lösungsmenge.']
+    hinweis_vorlagen = ['Welcher Schritt braucht noch keine Formel?', 'In welchem Schritt tauchen p und q zum ersten Mal auf?',
+                        'Vergleiche zwei Schritte: Welcher ist näher an der Lösung?']
     zeit_sek = 90
 
     def parameter(self, stufe: int, rng: random.Random) -> dict:

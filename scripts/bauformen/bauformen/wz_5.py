@@ -33,7 +33,7 @@ class WZ5(Bauform):
         {'key': 'qf_quadriert_statt_wurzel', 'regel': '±c²', 'gilt_fuer_stufen': [4],
          'rueckmeldung': 'Um x² rückgängig zu machen, zieht man die Wurzel, man quadriert nicht noch einmal.'},
     ]
-    hinweis_vorlagen = ['Ist {c} eine Quadratzahl?', 'Wenn nicht, bleibt die Wurzel als Zahl stehen: √{c}.',
+    hinweis_vorlagen = ['Ist {c} eine Quadratzahl?', 'Wenn nicht, bleibt die Wurzel als Zahl stehen.',
                         'Denk daran: Auch eine negative Zahl ins Quadrat ist positiv.']
     zeit_sek = 45
 

@@ -24,7 +24,7 @@ class NP4(Bauform):
         {'key': 'qf_nullprodukt_vorzeichen', 'regel': '{0; −b/a}', 'gilt_fuer_stufen': [4],
          'rueckmeldung': 'Prüf das Vorzeichen: Für welches x wird die Klammer wirklich null?'},
     ]
-    hinweis_vorlagen = ['Darf man hier durch x teilen? Was wäre, wenn x = 0 ist?',
+    hinweis_vorlagen = ['Was passiert mit den Lösungen, wenn man durch x teilt?',
                         'Bring alles auf eine Seite, sodass rechts 0 steht.',
                         'Klammere x aus: x · (…) = 0.']
     loesungsweg_vorlage = ['{gleichung}', '{links} = 0', 'x · ({klammer}) = 0', 'x = 0 oder {klammer} = 0',

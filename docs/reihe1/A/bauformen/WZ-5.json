@@ -39,7 +39,7 @@
   ],
   "hinweise": [
    "Ist {c} eine Quadratzahl?",
-   "Wenn nicht, bleibt die Wurzel als Zahl stehen: √{c}.",
+   "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
   ],
   "loesungsweg": [],
@@ -48,7 +48,7 @@
   "figur": null,
   "zeit_sek": 45,
   "kann_entfallen": false,
-  "generator_hash": "d5abf4553f0b"
+  "generator_hash": "4f122df713d3"
  },
  "pruefprotokoll": {
   "gruen": 8,
@@ -123,7 +123,7 @@
    ],
    "hinweise": [
     "Ist 3 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √3.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -207,7 +207,7 @@
    ],
    "hinweise": [
     "Ist 42 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √42.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -291,7 +291,7 @@
    ],
    "hinweise": [
     "Ist 56 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √56.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -375,7 +375,7 @@
    ],
    "hinweise": [
     "Ist 13 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √13.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -459,7 +459,7 @@
    ],
    "hinweise": [
     "Ist 2 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √2.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -543,7 +543,7 @@
    ],
    "hinweise": [
     "Ist 45 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √45.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -627,7 +627,7 @@
    ],
    "hinweise": [
     "Ist 59 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √59.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [
@@ -711,7 +711,7 @@
    ],
    "hinweise": [
     "Ist 50 eine Quadratzahl?",
-    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √50.",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen.",
     "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
    ],
    "loesungsweg": [

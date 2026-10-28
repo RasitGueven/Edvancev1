@@ -21,7 +21,7 @@ class WZ4(Bauform):
     ]
     hinweis_vorlagen = ['Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?',
                         'Denk an positive und negative Zahlen und an die 0.',
-                        'Kann ein Quadrat überhaupt negativ sein?']
+                        'Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?']
     zeit_sek = 60
 
     def parameter(self, stufe: int, rng: random.Random) -> dict:
@@ -31,7 +31,7 @@ class WZ4(Bauform):
         c = params['c']
         texte = [('r', 'Jede Zahl ins Quadrat ist 0 oder positiv. −{c} kann also kein Quadrat sein.'),
                  ('f', 'Die Lösung ist x = −√{c}, also gibt es doch eine Lösung.'),
-                 ('n1', 'Weil {c} keine Quadratzahl ist.'),
+                 ('n1', 'Weil man aus {c} keine Wurzel ziehen kann.' if int(c ** 0.5) ** 2 == c else 'Weil {c} keine Quadratzahl ist.'),
                  ('n2', 'Weil man aus einer Gleichung mit x² nie die Wurzel ziehen darf.')]
         rng = random.Random(f'wz4-{c}')
         rng.shuffle(texte)

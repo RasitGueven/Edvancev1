@@ -33,12 +33,14 @@ class PQ2(Bauform):
          'rueckmeldung': 'Vor p/2 steht in der Formel ein Minus. Setz −p/2 ein.'},
         {'key': 'qf_halbes_p_nicht_quadriert', 'regel': 'p/2 statt (p/2)² unter der Wurzel', 'gilt_fuer_stufen': [1, 2, 3, 4],
          'rueckmeldung': 'Unter der Wurzel steht (p/2)². Hast du quadriert?'},
+        {'key': 'qf_gegenoperation_vorzeichen', 'regel': 'c beim Umstellen ohne Vorzeichenwechsel', 'gilt_fuer_stufen': [4],
+         'rueckmeldung': 'Bring alles auf eine Seite. Aus = c wird − c auf der linken Seite.'},
         {'key': 'qf_q_vorzeichen', 'regel': '+ q statt − q unter der Wurzel', 'gilt_fuer_stufen': [1, 2, 3, 4],
          'rueckmeldung': 'Unter der Wurzel wird q abgezogen. Achte auf das Vorzeichen von q.'},
         {'key': 'qf_durch_a_vergessen', 'regel': 'b und c ohne Teilen durch a eingesetzt', 'gilt_fuer_stufen': [3],
          'rueckmeldung': 'Die Formel gilt nur, wenn vor x² eine 1 steht. Teil zuerst durch die Zahl vor x².'},
-        {'key': 'qf_gegenoperation_vorzeichen', 'regel': 'c beim Umstellen ohne Vorzeichenwechsel', 'gilt_fuer_stufen': [4],
-         'rueckmeldung': 'Bring alles auf eine Seite. Aus = c wird − c auf der linken Seite.'},
+        {'key': 'qf_nur_eine_loesung', 'regel': 'nur −p/2 + √D', 'gilt_fuer_stufen': [1, 2, 3, 4],
+         'rueckmeldung': 'Das ± in der Formel heißt: einmal plus, einmal minus. Es gibt zwei Lösungen.'},
     ]
     hinweis_vorlagen = ['Steht die Gleichung schon in der Form x² + px + q = 0?',
                         'Lies p und q ab. Achte auf die Vorzeichen.',
@@ -51,7 +53,17 @@ class PQ2(Bauform):
     zeit_sek = 150
     anzahl = {'generalprobe': 12}
 
+    # m, s, t mit s² + t² = 2m²: dann sind (p/2)² − q = s² und (p/2)² + q = t² beide Quadratzahlen, und auch das
+    # Fehlbild „q mit falschem Vorzeichen“ ist eingebbar (Zweitprüfung A6 G, Befund 3).
+    DREIER = [(5, 1, 7), (10, 2, 14), (13, 7, 17), (17, 7, 23)]
+
     def parameter(self, stufe: int, rng: random.Random) -> dict:
+        if stufe != 3 and rng.random() < 0.35:
+            m, s, _ = rng.choice(self.DREIER[:2])
+            m = -m if stufe == 1 or rng.random() < 0.5 else m
+            p, q = -2 * m, m * m - s * s
+            if stufe != 1 or (p > 0 and q > 0):
+                return {'a': 1, 'p': p, 'q': q}
         while True:
             r1, r2 = rng.randint(-12, 12), rng.randint(-12, 12)
             if r1 == r2 or 0 in (r1, r2):
@@ -79,7 +91,7 @@ class PQ2(Bauform):
         regeln = {'qf_p_vorzeichen': _pq(-p, q), 'qf_halbes_p_nicht_quadriert': (
                       None if wurzel(p / 2 - q) is None else sorted({m + wurzel(p / 2 - q), m - wurzel(p / 2 - q)})),
                   'qf_q_vorzeichen': _pq(p, -q), 'qf_durch_a_vergessen': _pq(a * p, a * q),
-                  'qf_gegenoperation_vorzeichen': _pq(p, -q)}
+                  'qf_gegenoperation_vorzeichen': _pq(p, -q), 'qf_nur_eine_loesung': [richtig[1]]}
         werte = {'gleichung': gl, 'p': zahl(p), 'q': zahl(q)}
         weg = [gl]
         if stufe == 3:

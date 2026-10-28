@@ -10,9 +10,9 @@ Zeile 2: x² = 4x
 Zeile 3: x = 4
 Zeile 4: L = {4}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+A: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+B: x² geteilt durch x ergibt nicht x.
+C: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 
 ## Aufgabe 2
 
@@ -22,9 +22,9 @@ Zeile 2: x² = 8x
 Zeile 3: x = 8
 Zeile 4: L = {8}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+A: x² geteilt durch x ergibt nicht x.
+B: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
+C: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
 
 ## Aufgabe 3
 
@@ -34,9 +34,9 @@ Zeile 2: 2x = −9
 Zeile 3: x = −9/2
 Zeile 4: L = {−9/2}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+A: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+B: x² geteilt durch x ergibt nicht x.
+C: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 
 ## Aufgabe 4
 
@@ -46,9 +46,9 @@ Zeile 2: 2x² = −5x
 Zeile 3: 2x = −5
 Zeile 4: L = {−5/2}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+A: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+B: x² geteilt durch x ergibt nicht x.
+C: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 
 ## Aufgabe 5
 
@@ -58,9 +58,9 @@ Zeile 2: 2x² = 11x
 Zeile 3: 2x = 11
 Zeile 4: L = {11/2}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
+A: x² geteilt durch x ergibt nicht x.
 B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+C: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 
 ## Aufgabe 6
 
@@ -70,9 +70,9 @@ Zeile 2: 2x = −2
 Zeile 3: x = −1
 Zeile 4: L = {−1}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+A: x² geteilt durch x ergibt nicht x.
+B: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
+C: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
 
 ## Aufgabe 7
 
@@ -82,8 +82,8 @@ Zeile 2: 3x = −10
 Zeile 3: x = −10/3
 Zeile 4: L = {−10/3}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+A: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+B: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 C: x² geteilt durch x ergibt nicht x.
 
 ## Aufgabe 8
@@ -94,9 +94,9 @@ Zeile 2: 4x² = −7x
 Zeile 3: 4x = −7
 Zeile 4: L = {−7/4}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+A: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+B: x² geteilt durch x ergibt nicht x.
+C: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 
 ## Aufgabe 9
 
@@ -107,8 +107,8 @@ Zeile 3: 2x = 12
 Zeile 4: L = {6}
 Begründungen:
 A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
-C: x² geteilt durch x ergibt nicht x.
+B: x² geteilt durch x ergibt nicht x.
+C: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
 
 ## Aufgabe 10
 
@@ -118,6 +118,6 @@ Zeile 2: 2x = −3
 Zeile 3: x = −3/2
 Zeile 4: L = {−3/2}
 Begründungen:
-A: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
-B: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+A: Die Zahl hätte mit umgekehrtem Vorzeichen auf die andere Seite gemusst.
+B: Man darf nicht durch x teilen, x könnte 0 sein. So geht die Lösung x = 0 verloren.
 C: x² geteilt durch x ergibt nicht x.

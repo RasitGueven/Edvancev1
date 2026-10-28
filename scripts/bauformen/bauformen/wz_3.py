@@ -26,7 +26,7 @@ class WZ3(Bauform):
         {'key': 'qf_verschiebung_vorzeichen', 'regel': '−d ± √c', 'gilt_fuer_stufen': [3, 4],
          'rueckmeldung': 'Prüf das Vorzeichen von d: Für welches x wird die Klammer null?'},
         {'key': 'qf_wurzel_aus_negativ', 'regel': 'd ± √|c| bei c < 0', 'gilt_fuer_stufen': [4],
-         'rueckmeldung': 'Ein Quadrat ist nie negativ. Kann die Klammer im Quadrat eine negative Zahl sein?'},
+         'rueckmeldung': 'Ein Quadrat ist nie negativ. Hat die Gleichung dann überhaupt eine Lösung?'},
     ]
     hinweis_vorlagen = ['Was steht in der Klammer, bevor quadriert wird?',
                         'Zieh auf beiden Seiten die Wurzel. Die Klammer ist dann √c oder −√c.',
@@ -64,7 +64,17 @@ class WZ3(Bauform):
         schreib = [{'werte': list(reversed(menge(richtig)['menge']))}] if len(richtig) > 1 else []
         return Instanz(self.key, rolle, stufe, params, ersetze(self.text, werte), 'LOESUNGSMENGE', mengen_payload(richtig or [0]),
                        menge(richtig), mengen_fehlbilder(self, stufe, richtig, regeln),
-                       [ersetze(h, werte) for h in self.hinweis_vorlagen], weg, schreib)
+                       self._hinweise(c, werte), weg, schreib)
+
+    def _hinweise(self, c: int, werte: dict) -> list[str]:
+        """Hinweise je Fall (Zweitprüfung A6 Gleichungen, Befund 1): bei c ≤ 0 keine Wurzel aus c."""
+        if c < 0:
+            return ['Was steht in der Klammer, bevor quadriert wird?', 'Kann ein Quadrat eine negative Zahl ergeben?',
+                    'Prüf, ob es überhaupt eine Zahl für die Klammer geben kann.']
+        if c == 0:
+            return ['Was steht in der Klammer, bevor quadriert wird?', 'Welche Zahl ergibt quadriert 0?',
+                    f'Dann muss die Klammer selbst 0 sein: {werte["klammer"]} = 0.']
+        return [ersetze(h, werte) for h in self.hinweis_vorlagen]
 
     def loesen_unabhaengig(self, inst: Instanz) -> dict:
         return menge(loesungsmenge(*gleichung_aus_frage(inst.frage)))

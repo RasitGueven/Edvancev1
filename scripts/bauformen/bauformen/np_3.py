@@ -50,13 +50,18 @@ class NP3(Bauform):
                       f'L = {menge_text([x2])}']
             fehler = 3
         frage = f'{params["name"]} hat {gl} gelöst. In welcher Zeile steckt der Fehler, und warum?'
+        # Begründungen gemischt (Zweitprüfung A6 G, Befund 4): sonst ist die richtige immer die erste.
+        texte = [w['text'] for w in WARUM]
+        random.Random(f'np3-{a}-{b}-{params["form"]}').shuffle(texte)
+        warum = [{'id': 'abc'[i], 'text': t} for i, t in enumerate(texte)]
+        richtig_id = warum[texte.index(WARUM[0]['text'])]['id']
         payload = {'format': 'fehler_finden', 'zeilen': [{'nr': i + 1, 'text': z} for i, z in enumerate(zeilen)],
-                   'warum': WARUM}
+                   'warum': warum}
         richtig = sorted([Fraction(0), x2])
         weg = [f'Zeile {fehler}: {zeilen[fehler - 1]} — hier wurde durch x geteilt.',
                'Dabei geht die Lösung x = 0 verloren.', f'Richtig: {summe([(a, "x²"), (-b, "x")])} = 0',
                f'x · ({summe([(a, "x"), (-b, "")])}) = 0', f'L = {menge_text(richtig)}']
-        return Instanz(self.key, rolle, stufe, params, frage, 'FEHLER_FINDEN', payload, {'zeile': fehler, 'warum': 'a'}, [],
+        return Instanz(self.key, rolle, stufe, params, frage, 'FEHLER_FINDEN', payload, {'zeile': fehler, 'warum': richtig_id}, [],
                        list(self.hinweis_vorlagen), weg)
 
     def loesen_unabhaengig(self, inst: Instanz) -> dict:

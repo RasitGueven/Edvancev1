@@ -25,7 +25,7 @@
   "hinweise": [
    "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
    "Denk an positive und negative Zahlen und an die 0.",
-   "Kann ein Quadrat überhaupt negativ sein?"
+   "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
   ],
   "loesungsweg": [],
   "warum": null,
@@ -33,7 +33,7 @@
   "figur": null,
   "zeit_sek": 60,
   "kann_entfallen": false,
-  "generator_hash": "1f2f48df5d1e"
+  "generator_hash": "e7a495064729"
  },
  "pruefprotokoll": {
   "gruen": 16,
@@ -108,7 +108,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −14",
@@ -190,7 +190,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −18",
@@ -272,7 +272,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −7",
@@ -354,7 +354,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −11",
@@ -436,7 +436,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −17",
@@ -518,7 +518,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −5",
@@ -600,7 +600,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −24",
@@ -682,7 +682,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −6",
@@ -735,7 +735,7 @@
      },
      {
       "id": "b",
-      "text": "Weil 1 keine Quadratzahl ist."
+      "text": "Weil man aus 1 keine Wurzel ziehen kann."
      },
      {
       "id": "c",
@@ -764,7 +764,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −1",
@@ -846,7 +846,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −28",
@@ -903,7 +903,7 @@
      },
      {
       "id": "c",
-      "text": "Weil 16 keine Quadratzahl ist."
+      "text": "Weil man aus 16 keine Wurzel ziehen kann."
      },
      {
       "id": "d",
@@ -928,7 +928,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −16",
@@ -1010,7 +1010,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −23",
@@ -1092,7 +1092,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −20",
@@ -1174,7 +1174,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −10",
@@ -1223,7 +1223,7 @@
     "bausteine": [
      {
       "id": "a",
-      "text": "Weil 4 keine Quadratzahl ist."
+      "text": "Weil man aus 4 keine Wurzel ziehen kann."
      },
      {
       "id": "b",
@@ -1256,7 +1256,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −4",
@@ -1338,7 +1338,7 @@
    "hinweise": [
     "Probier ein paar Zahlen aus: Was kommt heraus, wenn du sie quadrierst?",
     "Denk an positive und negative Zahlen und an die 0.",
-    "Kann ein Quadrat überhaupt negativ sein?"
+    "Welche Zahlen kommen als Ergebnis von x² überhaupt heraus?"
    ],
    "loesungsweg": [
     "x² = −2",

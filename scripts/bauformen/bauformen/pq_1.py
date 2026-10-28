@@ -24,7 +24,7 @@ class PQ1(Bauform):
     text = 'Bring {gleichung} in die Form x² + px + q = 0. Gib p und q an.'
     fehlbild_steckbrief = [
         {'key': 'qf_p_vorzeichen', 'regel': 'p ohne Vorzeichen abgelesen', 'gilt_fuer_stufen': [2, 3, 4],
-         'rueckmeldung': 'p ist die Zahl vor x mit ihrem Vorzeichen. Steht dort ein Minus, ist p negativ.'},
+         'rueckmeldung': 'p ist die Zahl vor x, zusammen mit dem Rechenzeichen davor. Prüf das Vorzeichen.'},
         {'key': 'qf_q_vorzeichen', 'regel': 'q ohne Vorzeichen abgelesen', 'gilt_fuer_stufen': [2, 3, 4],
          'rueckmeldung': 'q ist die Zahl ohne x mit ihrem Vorzeichen.'},
         {'key': 'qf_durch_a_vergessen', 'regel': 'b und c statt b/a und c/a', 'gilt_fuer_stufen': [3],
@@ -64,13 +64,13 @@ class PQ1(Bauform):
         loes = {'teile': {'1': [zahl_antwort(p)] + ([f'+{p}'] if p > 0 else []),
                           '2': [zahl_antwort(q)] + ([f'+{q}'] if q > 0 else [])}}
         kand = []
+        if stufe == 4:  # Zweitprüfung A6 G, Befund 2: das Umstell-Fehlbild zuerst, sonst verdrängt es die Ablesefehler
+            kand += [('qf_gegenoperation_vorzeichen', 2, -q)] if form == 'rechts_c' else \
+                    [('qf_gegenoperation_vorzeichen', 1, -p)]
         if stufe >= 2:
             kand += [('qf_p_vorzeichen', 1, -p), ('qf_q_vorzeichen', 2, -q)]
         if stufe == 3:
             kand += [('qf_durch_a_vergessen', 1, a * p)]
-        if stufe == 4:
-            kand += [('qf_gegenoperation_vorzeichen', 2, -q)] if form == 'rechts_c' else \
-                    [('qf_gegenoperation_vorzeichen', 1, -p)]
         fb, gesehen = [], {(1, p), (2, q)}
         for key, t, w in kand:
             if (t, w) in gesehen or any(f['key'] == key for f in fb):

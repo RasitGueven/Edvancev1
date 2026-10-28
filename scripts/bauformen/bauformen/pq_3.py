@@ -39,10 +39,11 @@ class PQ3(Bauform):
     zeit_sek = 150
 
     def parameter(self, stufe: int, rng: random.Random) -> dict:
+        # Erst die Fehlerart (gleich oft), dann passende Zahlen (Zweitprüfung A6 G, Befund 4).
+        art = rng.choice(['p', 'q']) if stufe == 3 else rng.choice(['quadrat', 'wurzel'])
         while True:
-            r1, r2 = rng.randint(-9, 9), rng.randint(-9, 9)
+            r1, r2 = rng.randint(-12, 12), rng.randint(-12, 12)
             if r1 != r2 and 0 not in (r1, r2) and (r1 + r2) % 2 == 0 and r1 + r2 != 0:
-                art = rng.choice(['p', 'q']) if stufe == 3 else rng.choice(['quadrat', 'wurzel'])
                 p, q = -(r1 + r2), r1 * r2
                 m = Fraction(-p, 2)
                 # Der Fehler muss weiterrechenbar sein: Ausdruck unter der Wurzel ≥ 0 und anders als richtig (sonst ist

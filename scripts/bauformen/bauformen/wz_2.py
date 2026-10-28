@@ -36,6 +36,12 @@ class WZ2(Bauform):
     def parameter(self, stufe: int, rng: random.Random) -> dict:
         a = 1 if stufe == 2 else rng.randint(2, 5)
         w = rng.randint(1, 12 if stufe == 2 else 8)
+        if rng.random() < 0.35:
+            # Auch (c + b)/a eine Quadratzahl: dann ist das Fehlbild „Vorzeichen beim Umstellen“ eingebbar.
+            v = rng.randint(1, 12)
+            b = a * (v * v - w * w)
+            if b % 2 == 0 and b != 0 and abs(b // 2) <= 60:
+                return {'a': a, 'b': b // 2, 'c': a * w * w + b // 2}
         b = rng.choice([-1, 1]) * rng.randint(1, 30)
         return {'a': a, 'b': b, 'c': a * w * w + b}
 
@@ -45,7 +51,7 @@ class WZ2(Bauform):
         w = wurzel(r)
         richtig = [w, -w]
         gl = f'{summe([(a, "x²"), (b, "")])} = {zahl(c)}'
-        werte = {'gleichung': gl, 'b_text': zahl(b) if b < 0 else f'+ {b}', 'teilen': f' und teil durch {a}' if a != 1 else '',
+        werte = {'gleichung': gl, 'b_text': f'die {zahl(b)}' if b < 0 else f'die +{b}', 'teilen': f' und teil durch {a}' if a != 1 else '',
                  'r': zahl(r), 'ax2': summe([(a, 'x²')]), 'cb': zahl(c - b), 'w': zahl(w), 'menge': menge_text(richtig)}
         r_plus = Fraction(c + b, a)
         regeln = {'qf_nur_positive_loesung': [w],
