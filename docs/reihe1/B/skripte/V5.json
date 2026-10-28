@@ -1,0 +1,335 @@
+{
+  "skill_key": "gleichung_quadr_wurzel",
+  "titel": "x² = c hat zwei Lösungen",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "x² = c",
+        "untertitel": "Zwei, eine oder keine Lösung"
+      },
+      "text": {
+        "skelett": "Wie viele Lösungen hat x hoch zwei gleich neun? Viele sagen sofort: drei. Schauen wir genau hin."
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Die Gerade schneidet zweimal",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -5,
+          5
+        ],
+        "y_bereich": [
+          -6,
+          12
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "schnitt_markieren": true,
+        "gerade_y": 9,
+        "gleichung": "x^2 = 9"
+      },
+      "text": {
+        "skelett": "Wir zeichnen die Normalparabel und die Gerade y gleich neun. Sie schneiden sich zweimal."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Auch (−3)² = 9",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "3^2 = 9",
+          "(-3)^2 = 9",
+          "x = 3 \\;\\text{oder}\\; x = -3"
+        ],
+        "hervorheben": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "Drei mal drei ist neun. Aber auch minus drei mal minus drei ist neun. Es gibt also zwei Lösungen: drei und minus drei."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Null: genau eine Lösung",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -5,
+          5
+        ],
+        "y_bereich": [
+          -6,
+          12
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "schnitt_markieren": true,
+        "gerade_y": 0,
+        "gleichung": "x^2 = 0"
+      },
+      "text": {
+        "skelett": "Bei x hoch zwei gleich null berührt die Gerade nur den Scheitel. Es gibt genau eine Lösung: null."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Negativ: keine Lösung",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -5,
+          5
+        ],
+        "y_bereich": [
+          -6,
+          12
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "schnitt_markieren": true,
+        "gerade_y": -4,
+        "gleichung": "x^2 = -4"
+      },
+      "text": {
+        "skelett": "Bei minus vier liegt die Gerade unter der Parabel. Kein Quadrat ist negativ, also gibt es keine Lösung."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Erst umstellen, dann Wurzel",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "2x^2 - 8 = 42",
+          "2x^2 = 50",
+          "x^2 = 25",
+          "x = 5 \\;\\text{oder}\\; x = -5"
+        ]
+      },
+      "text": {
+        "skelett": "Steht mehr da, stellen wir zuerst um: plus acht, dann durch zwei. Erst bei x hoch zwei gleich fünfundzwanzig ziehen wir die Wurzel."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Mit Klammer",
+      "kernidee": "k3",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(x - 1)^2 = 16",
+          "x - 1 = 4 \\;\\text{oder}\\; x - 1 = -4",
+          "x = 5 \\;\\text{oder}\\; x = -3"
+        ]
+      },
+      "text": {
+        "skelett": "Steht eine Klammer zum Quadrat da, gilt dasselbe. Die Klammer ist vier oder minus vier. Also ist x fünf oder minus drei."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Merksatz",
+      "kernidee": "k3",
+      "baustein": "merksatz",
+      "params": {
+        "text": "x² = c hat zwei Lösungen, wenn c positiv ist, eine bei c = 0 und keine, wenn c negativ ist.",
+        "formel": "x^2 = c > 0 \\;\\Rightarrow\\; x = \\pm\\sqrt{c}"
+      },
+      "text": {
+        "skelett": "Merk dir: Steht rechts eine positive Zahl, gibt es immer zwei Lösungen, eine mit Plus und eine mit Minus."
+      }
+    },
+    {
+      "id": "b9",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k3",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Wie viele Lösungen hat die Gleichung?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b5",
+      "frage": {
+        "skelett": "Löse x² = 49."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 7 oder x = −7",
+          "richtig": true,
+          "rueckmeldung": "Genau. 7² = 49 und (−7)² = 49."
+        },
+        {
+          "antwort": "x = 7",
+          "fehlbild": "qf_nur_positive_loesung",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Auch (−7)² = 49. Es gibt zwei Lösungen."
+        },
+        {
+          "antwort": "x = 24,5",
+          "fehlbild": "qf_wurzel_als_haelfte",
+          "ruecksprung": "b3",
+          "rueckmeldung": "24,5 ist die Hälfte von 49. Gesucht ist die Zahl, die mit sich selbst 49 ergibt."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Löse x² = 64."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 8 oder x = −8",
+              "richtig": true,
+              "rueckmeldung": "Genau. 8² = 64 und (−8)² = 64."
+            },
+            {
+              "antwort": "x = 8",
+              "fehlbild": "qf_nur_positive_loesung",
+              "ruecksprung": "b3",
+              "rueckmeldung": "Auch (−8)² = 64. Es gibt zwei Lösungen."
+            },
+            {
+              "antwort": "x = 32",
+              "fehlbild": "qf_wurzel_als_haelfte",
+              "ruecksprung": "b3",
+              "rueckmeldung": "32 ist die Hälfte von 64. Gesucht ist die Zahl, die mit sich selbst 64 ergibt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b6",
+      "frage": {
+        "skelett": "Löse 3x² − 12 = 0."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 2 oder x = −2",
+          "richtig": true,
+          "rueckmeldung": "Genau. 3x² = 12, x² = 4."
+        },
+        {
+          "antwort": "x = 2",
+          "fehlbild": "qf_nur_positive_loesung",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Auch (−2)² = 4. Es gibt zwei Lösungen."
+        },
+        {
+          "antwort": "keine Lösung",
+          "fehlbild": "qf_gegenoperation_vorzeichen",
+          "ruecksprung": "b6",
+          "rueckmeldung": "Die −12 kommt mit + 12 auf die andere Seite: 3x² = 12."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Löse 2x² − 18 = 0."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 3 oder x = −3",
+              "richtig": true,
+              "rueckmeldung": "Genau. 2x² = 18, x² = 9."
+            },
+            {
+              "antwort": "x = 3",
+              "fehlbild": "qf_nur_positive_loesung",
+              "ruecksprung": "b3",
+              "rueckmeldung": "Auch (−3)² = 9. Es gibt zwei Lösungen."
+            },
+            {
+              "antwort": "keine Lösung",
+              "fehlbild": "qf_gegenoperation_vorzeichen",
+              "ruecksprung": "b6",
+              "rueckmeldung": "Die −18 kommt mit + 18 auf die andere Seite: 2x² = 18."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b7",
+      "frage": {
+        "skelett": "Löse (x − 2)² = 9."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 5 oder x = −1",
+          "richtig": true,
+          "rueckmeldung": "Genau. x − 2 = 3 oder x − 2 = −3."
+        },
+        {
+          "antwort": "x = 5",
+          "fehlbild": "qf_nur_positive_loesung",
+          "ruecksprung": "b7",
+          "rueckmeldung": "Die Klammer kann auch −3 sein. Dann ist x = −1."
+        },
+        {
+          "antwort": "x = 1 oder x = −5",
+          "fehlbild": "qf_gegenoperation_vorzeichen",
+          "ruecksprung": "b7",
+          "rueckmeldung": "Aus x − 2 = 3 folgt x = 5: Die 2 kommt mit Plus auf die andere Seite."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Löse (x − 1)² = 25."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 6 oder x = −4",
+              "richtig": true,
+              "rueckmeldung": "Genau. x − 1 = 5 oder x − 1 = −5."
+            },
+            {
+              "antwort": "x = 6",
+              "fehlbild": "qf_nur_positive_loesung",
+              "ruecksprung": "b7",
+              "rueckmeldung": "Die Klammer kann auch −5 sein. Dann ist x = −4."
+            },
+            {
+              "antwort": "x = 4 oder x = −6",
+              "fehlbild": "qf_gegenoperation_vorzeichen",
+              "ruecksprung": "b7",
+              "rueckmeldung": "Aus x − 1 = 5 folgt x = 6: Die 1 kommt mit Plus auf die andere Seite."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

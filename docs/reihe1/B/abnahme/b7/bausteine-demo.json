@@ -1,0 +1,26 @@
+{
+  "skill_key": "fkt_quadr_parabel",
+  "titel": "Bausteine B7 · Abnahme",
+  "welten": ["skelett", "fussball", "gaming", "musik"],
+  "beats": [
+    { "id": "b1", "titel": "Normalparabel mit Wertetabelle", "kernidee": "k1", "baustein": "koordinatensystem",
+      "params": { "x_bereich": [-4, 4], "y_bereich": [-1, 9], "parabel": [1, 0, 0], "scheitel_markieren": true, "wertetabelle": [-3, -2, -1, 0, 1, 2, 3], "gleichung": "y = x^2" },
+      "text": { "skelett": "Das ist die Normalparabel." } },
+    { "id": "b2", "titel": "Strecken und spiegeln", "kernidee": "k1", "baustein": "koordinatensystem",
+      "params": { "x_bereich": [-4, 4], "y_bereich": [-6, 6], "parabel": [1, 0, 0], "parabel_ziel": [-0.5, 0, 0], "normalparabel": true },
+      "text": { "skelett": "Ein negativer Faktor spiegelt sie nach unten." } },
+    { "id": "b3", "titel": "Verschieben, Scheitel, Nullstellen", "kernidee": "k1", "baustein": "koordinatensystem",
+      "params": { "x_bereich": [-3, 6], "y_bereich": [-5, 6], "parabel": [1, 0, 0], "parabel_ziel": [1, 2, -4], "normalparabel": true, "scheitel_markieren": true, "nullstellen_markieren": true },
+      "text": { "skelett": "Verschoben um zwei nach rechts und vier nach unten." } },
+    { "id": "b4", "titel": "x hoch zwei gleich neun", "kernidee": "k1", "baustein": "koordinatensystem",
+      "params": { "x_bereich": [-5, 5], "y_bereich": [-1, 12], "parabel": [1, 0, 0], "gerade_y": 9, "schnitt_markieren": true, "gleichung": "x^2 = 9" },
+      "text": { "skelett": "Die Gerade schneidet die Parabel zweimal: bei minus drei und bei drei." } },
+    { "id": "b5", "titel": "Quadrat und Streifen", "kernidee": "k1", "baustein": "flaechenmodell",
+      "params": { "b": 6, "zeigen": "streifen", "gleichung": "x^2 + 6x" },
+      "text": { "skelett": "Sechs x teilen wir in zwei Streifen zu je drei x." } },
+    { "id": "b6", "titel": "Die fehlende Ecke", "kernidee": "k1", "baustein": "flaechenmodell",
+      "params": { "b": 6, "zeigen": "ecke", "gleichung": "x^2 + 6x + 9 = (x + 3)^2" },
+      "text": { "skelett": "Es fehlt die Ecke: drei mal drei, also neun." } }
+  ],
+  "minichecks": []
+}

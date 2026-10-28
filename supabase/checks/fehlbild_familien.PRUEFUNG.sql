@@ -46,8 +46,8 @@ begin
   select array_agg(id order by nr) into v_t
     from (select gen_random_uuid() as id, nr from generate_series(1, 6) as nr) x;
 
-  insert into public.tasks (id, content_type, skill_key, question)
-  select v_t[i], 'exercise', 'AF4_PROBE', 'AF4 Probe ' || i
+  insert into public.tasks (id, content_type, skill_key, question, einsatz)
+  select v_t[i], 'exercise', 'AF4_PROBE', 'AF4 Probe ' || i, '{lsa}'
     from generate_series(1, 6) as i;
 
   -- Zwei Familien mit IDENTISCH aufgebautem Elterntext, nur die Abnahme trennt

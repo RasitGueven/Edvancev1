@@ -141,6 +141,8 @@ select is((select anlass || ':' || skill_key from lernpfad_protokoll where sessi
           'warmup:zz_a2_v1', '4 pfad_tiefer(anlass = warmup) auf die Voraussetzung');
 select is(pg_temp.schritt(:'s4', 1) ->> 'skill_key', 'zz_a2_v1', '4 Kernarbeit beginnt eine Stufe tiefer');
 
+select pg_temp.als_beispiel('a2-zz_a2_n1-1'), pg_temp.als_beispiel('a2-zz_a2_s1-1');  -- Reihe 1 §3.1: Beispiel = Instanz der Rolle beispiel
+
 -- ── 5) Neuer Skill, 6) Beispiel, 11) Check bucht nicht ────────────────────
 select pg_temp.neue_session(array[:'k_jonas', :'k_ole']::uuid[], 20) as s5 \gset
 select pg_temp.checkin(:'s5', 1), pg_temp.checkin(:'s5', 2);
@@ -410,6 +412,7 @@ insert into themen (thema_key, fach, klasse, stufe, label, sort) values ('zz_a2_
 insert into thema_einstieg (thema_key, skill_key) values ('zz_a2_n2t', 'zz_a2_n2');
 insert into skill_thema (skill_key, thema_key) values ('zz_a2_n2', 'zz_a2_n2t');
 select pg_temp.aufgaben('zz_a2_n2', 5);
+select pg_temp.als_beispiel('a2-zz_a2_n2-1');  -- Reihe 1 §3.1
 select pg_temp.aufgaben('zz_a2_n2', 1, 'draft', '{check}', 'a2-check2');
 select pg_temp.act_as(:'admin');
 select erklaer_kernidee_speichern(null, 'zz_a2_n2', 1, 'ZZ Achsenabschnitt ablesen', 'ki') as kern_n2 \gset

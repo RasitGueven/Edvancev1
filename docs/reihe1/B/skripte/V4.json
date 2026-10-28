@@ -1,0 +1,301 @@
+{
+  "skill_key": "fkt_quadr_normalform",
+  "titel": "Quadratische Ergänzung",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Quadratische Ergänzung",
+        "untertitel": "Von der Normalform zur Scheitelpunktform"
+      },
+      "text": {
+        "skelett": "Wie wird aus x hoch zwei plus sechs x plus fünf eine Scheitelpunktform? Zuerst gehen wir den Rückweg."
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Der Rückweg: ausmultiplizieren",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(x + 3)^2 - 4",
+          "= x^2 + 6x + 9 - 4",
+          "= x^2 + 6x + 5"
+        ]
+      },
+      "text": {
+        "skelett": "Mit der binomischen Formel wird die Klammer x plus drei zum Quadrat zu x hoch zwei plus sechs x plus neun. Minus vier ergibt plus fünf."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Sechs x als zwei Streifen",
+      "kernidee": "k2",
+      "baustein": "flaechenmodell",
+      "params": {
+        "b": 6,
+        "zeigen": "streifen",
+        "gleichung": "x^2 + 6x"
+      },
+      "text": {
+        "skelett": "Jetzt vorwärts. Wir legen x hoch zwei als Quadrat und teilen sechs x in zwei Streifen zu je drei x."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Die fehlende Ecke",
+      "kernidee": "k2",
+      "baustein": "flaechenmodell",
+      "params": {
+        "b": 6,
+        "zeigen": "ecke",
+        "gleichung": "x^2 + 6x + 9 = (x + 3)^2"
+      },
+      "text": {
+        "skelett": "Zum vollen Quadrat fehlt nur die Ecke: drei mal drei, also neun."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Was wir dazugeben, ziehen wir ab",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 + 6x + 5",
+          "= x^2 + 6x + 9 - 9 + 5",
+          "= (x + 3)^2 - 4"
+        ],
+        "hervorheben": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "Wir geben neun dazu und ziehen neun sofort wieder ab. So bleibt der Term gleich, und vorne steht ein volles Quadrat."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Merksatz",
+      "kernidee": "k2",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Halbiere die Zahl vor x, quadriere sie, gib sie dazu und zieh sie gleich wieder ab.",
+        "formel": "x^2 + bx = (x + \\tfrac{b}{2})^2 - (\\tfrac{b}{2})^2"
+      },
+      "text": {
+        "skelett": "Merk dir: halbieren, quadrieren, dazugeben, wieder abziehen."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Mit a: erst ausklammern",
+      "kernidee": "k3",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "2x^2 + 8x + 3",
+          "= 2\\,(x^2 + 4x) + 3",
+          "= 2\\,(x^2 + 4x + 4 - 4) + 3"
+        ]
+      },
+      "text": {
+        "skelett": "Steht vor x hoch zwei eine Zwei, klammern wir sie aus den ersten beiden Teilen aus. Ergänzt wird dann in der Klammer."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Auflösen: mal a",
+      "kernidee": "k3",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "= 2\\,(x^2 + 4x + 4 - 4) + 3",
+          "= 2\\,((x + 2)^2 - 4) + 3",
+          "= 2\\,(x + 2)^2 - 8 + 3",
+          "= 2\\,(x + 2)^2 - 5"
+        ],
+        "hervorheben": [
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Beim Auflösen der äußeren Klammer wird die abgezogene Vier mit zwei malgenommen. Aus minus vier wird minus acht."
+      }
+    },
+    {
+      "id": "b9",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k3",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Bring den Term in Scheitelpunktform."
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b2",
+      "frage": {
+        "skelett": "Multipliziere aus: (x + 2)² − 1"
+      },
+      "optionen": [
+        {
+          "antwort": "x² + 4x + 3",
+          "richtig": true,
+          "rueckmeldung": "Genau. x² + 4x + 4 − 1."
+        },
+        {
+          "antwort": "x² + 3",
+          "fehlbild": "qf_binom_mittelglied_fehlt",
+          "ruecksprung": "b2",
+          "rueckmeldung": "Bei dir fehlt das Mittelglied 2 · 2 · x = 4x."
+        },
+        {
+          "antwort": "x² − 4x + 3",
+          "fehlbild": "qf_binom_vorzeichen",
+          "ruecksprung": "b2",
+          "rueckmeldung": "Bei x + 2 ist das Mittelglied positiv: +4x."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Multipliziere aus: (x + 5)² − 2"
+          },
+          "optionen": [
+            {
+              "antwort": "x² + 10x + 23",
+              "richtig": true,
+              "rueckmeldung": "Genau. x² + 10x + 25 − 2."
+            },
+            {
+              "antwort": "x² + 23",
+              "fehlbild": "qf_binom_mittelglied_fehlt",
+              "ruecksprung": "b2",
+              "rueckmeldung": "Bei dir fehlt das Mittelglied 2 · 5 · x = 10x."
+            },
+            {
+              "antwort": "x² − 10x + 23",
+              "fehlbild": "qf_binom_vorzeichen",
+              "ruecksprung": "b2",
+              "rueckmeldung": "Bei x + 5 ist das Mittelglied positiv: +10x."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b6",
+      "frage": {
+        "skelett": "Bring x² + 8x + 10 in die Scheitelpunktform."
+      },
+      "optionen": [
+        {
+          "antwort": "(x + 4)² − 6",
+          "richtig": true,
+          "rueckmeldung": "Genau. x² + 8x + 16 − 16 + 10 = (x + 4)² − 6."
+        },
+        {
+          "antwort": "(x + 4)² + 10",
+          "fehlbild": "qf_ergaenzung_nicht_abgezogen",
+          "ruecksprung": "b5",
+          "rueckmeldung": "Die 16 hast du dazugegeben. Du musst sie auch wieder abziehen."
+        },
+        {
+          "antwort": "(x + 8)² − 54",
+          "fehlbild": "qf_ergaenzung_b_statt_halb",
+          "ruecksprung": "b3",
+          "rueckmeldung": "In die Klammer kommt die Hälfte von 8, also 4."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Bring x² + 6x + 2 in die Scheitelpunktform."
+          },
+          "optionen": [
+            {
+              "antwort": "(x + 3)² − 7",
+              "richtig": true,
+              "rueckmeldung": "Genau. x² + 6x + 9 − 9 + 2 = (x + 3)² − 7."
+            },
+            {
+              "antwort": "(x + 3)² + 2",
+              "fehlbild": "qf_ergaenzung_nicht_abgezogen",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Die 9 hast du dazugegeben. Du musst sie auch wieder abziehen."
+            },
+            {
+              "antwort": "(x + 6)² − 34",
+              "fehlbild": "qf_ergaenzung_b_statt_halb",
+              "ruecksprung": "b3",
+              "rueckmeldung": "In die Klammer kommt die Hälfte von 6, also 3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b8",
+      "frage": {
+        "skelett": "Bring 3x² + 6x + 1 in die Scheitelpunktform."
+      },
+      "optionen": [
+        {
+          "antwort": "3(x + 1)² − 2",
+          "richtig": true,
+          "rueckmeldung": "Genau. 3 · ((x + 1)² − 1) + 1."
+        },
+        {
+          "antwort": "3(x + 1)²",
+          "fehlbild": "qf_ergaenzung_ohne_a",
+          "ruecksprung": "b8",
+          "rueckmeldung": "Die abgezogene 1 steht in der Klammer mit dem Faktor 3: −3, nicht −1."
+        },
+        {
+          "antwort": "3(x + 1)² + 1",
+          "fehlbild": "qf_ergaenzung_nicht_abgezogen",
+          "ruecksprung": "b5",
+          "rueckmeldung": "Die Ergänzung musst du auch wieder abziehen."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Bring 2x² + 12x + 5 in die Scheitelpunktform."
+          },
+          "optionen": [
+            {
+              "antwort": "2(x + 3)² − 13",
+              "richtig": true,
+              "rueckmeldung": "Genau. 2 · ((x + 3)² − 9) + 5."
+            },
+            {
+              "antwort": "2(x + 3)² − 4",
+              "fehlbild": "qf_ergaenzung_ohne_a",
+              "ruecksprung": "b8",
+              "rueckmeldung": "Die abgezogene 9 steht in der Klammer mit dem Faktor 2: −18, nicht −9."
+            },
+            {
+              "antwort": "2(x + 3)² + 5",
+              "fehlbild": "qf_ergaenzung_nicht_abgezogen",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Die Ergänzung musst du auch wieder abziehen."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
