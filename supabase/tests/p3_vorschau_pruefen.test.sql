@@ -2,7 +2,7 @@
 -- P3 Vorschau prüfen (Migration 20261022080744): pruef_soll.einsatz, Anlässe je Aufgabe nach tasks.einsatz,
 -- Zählung je Anlass, lsa_vorschau-Zeilen, alte Stufe 3 (seit P4 wieder aktiv).
 -- Fixtures am Knoten gleichung_zweischrittig (batu_session + lsa_vorschau): je eine Aufgabe nur LSA, nur Session,
--- beide. Die übrigen Aufgaben des Knotens verlieren in dieser Transaktion ihr Pilot-Flag. Am Ende rollback.
+-- je eine MC-Aufgabe nur LSA und nur Session (seit Reihe 1 A1 gibt es keine Aufgabe in beiden Pools). Die übrigen Aufgaben des Knotens verlieren in dieser Transaktion ihr Pilot-Flag. Am Ende rollback.
 --
 -- Lauf: npx supabase test db
 -- ============================================================================
@@ -46,7 +46,8 @@ end $$;
 
 select pg_temp.aufgabe('p3-lsa', '{lsa}', 'NUMERIC') as nur_lsa \gset
 select pg_temp.aufgabe('p3-session', '{session}', 'NUMERIC') as nur_session \gset
-select pg_temp.aufgabe('p3-beide', '{lsa,session}', 'MC') as beide \gset
+select pg_temp.aufgabe('p3-lsa-mc', '{lsa}', 'MC') as lsa_mc \gset
+select pg_temp.aufgabe('p3-session-mc', '{session}', 'MC') as session_mc \gset
 
 -- ============================================================================
 -- 1 · Daten der Migration
@@ -88,7 +89,8 @@ set local role authenticated;
 select pg_temp.act_as(:'lena_uid');
 select is(pg_temp.an(:'nur_lsa'), '{lsa_vorschau}'::text[], '2: nur LSA → nur lsa_vorschau');
 select is(pg_temp.an(:'nur_session'), '{batu_session}'::text[], '2: nur Session → nur batu_session');
-select is(pg_temp.an(:'beide'), '{batu_session,lsa_vorschau}'::text[], '2: beide → beide Anlässe');
+select is(pg_temp.an(:'lsa_mc') || pg_temp.an(:'session_mc'), '{lsa_vorschau,batu_session}'::text[],
+          '2: MC je Pool → nur der Anlass ihres Pools (Reihe 1 A1: keine Aufgabe in beiden)');
 
 -- ============================================================================
 -- 3 · Zählung je Reiter: LSA nur Aufgaben mit 'lsa', Session nur Session-Aufgaben
@@ -97,8 +99,8 @@ create function pg_temp.zahl(p_anlass text) returns text language sql as $$
   select k.im_board || '/' || k.gezaehlt || '/' || k.gezaehlt_ohne_mc || ' rest ' || k.rest || ' ' || k.reicht
     from public.pruef_board_soll(p_anlass) k where k.skill_key = 'gleichung_zweischrittig' $$;
 
-select is(pg_temp.zahl('lsa_vorschau'), '2/2/1 rest 0 true', '3: LSA zählt nur-LSA und beide (eine ohne MC)');
-select is(pg_temp.zahl('batu_session'), '2/2/1 rest 4 false', '3: Session zählt nur-Session und beide, Soll 6');
+select is(pg_temp.zahl('lsa_vorschau'), '2/2/1 rest 0 true', '3: LSA zählt nur die LSA-Aufgaben (eine ohne MC)');
+select is(pg_temp.zahl('batu_session'), '2/2/1 rest 4 false', '3: Session zählt nur die Session-Aufgaben, Soll 6');
 select is(pg_temp.zahl('batu_lsa'), null, '3: kein batu_lsa-Soll am Knoten');
 reset role;
 

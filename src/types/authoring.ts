@@ -121,6 +121,8 @@ export type AuthoringTask = {
   source_ref: string | null
   is_active: boolean
   created_at: string
+  /** Einsatz und Pool (Reihe 1 A1): genau einer von lsa | session, sonst check bzw. quest. Aendert nur ein Admin. */
+  einsatz?: string[]
 
   // --- Erst nach docs/schema/A01-authoring.proposal.sql vorhanden ---
   /** STOFFANKER: welcher Jahrgangsstoff wird geprueft. undefined = Spalte fehlt. */

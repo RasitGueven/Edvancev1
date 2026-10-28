@@ -17,6 +17,8 @@
 -- Plan Schule ZM2: Kl. 9: 1 zm_leer, 2 zm_u1, 3 zm_u2, 4 zm_u3.
 -- ============================================================================
 begin;
+-- Reihe 1 A1: einsatz hat keinen Default mehr; die Aufgaben dieses Tests gehören zum Pool {lsa} (nur in dieser Transaktion).
+alter table public.tasks alter column einsatz set default '{lsa}';
 create extension if not exists pgtap with schema extensions;
 
 select plan(12);

@@ -25,11 +25,6 @@ export function sollDesBereichs(jeAnlass: PruefSollZeile[][]): PruefSollZeile[] 
 export const bereichsBoard = (board: PruefBoardZeile[], b: Bereich): PruefBoardZeile[] =>
   board.filter((z) => imBereich(z, b))
 
-/** Der jeweils andere Bereich, wenn die Aufgabe auch dort steht ("auch Session" / "auch LSA"). */
-export function auchIn(z: PruefBoardZeile, b: Bereich): Bereich | null {
-  const anderer: Bereich = b === 'lsa' ? 'session' : 'lsa'
-  return imBereich(z, b) && imBereich(z, anderer) ? anderer : null
-}
 
 /** ?bereich= aus der URL; alles andere zaehlt als nicht gesetzt. */
 export function leseBereich(params: URLSearchParams): Bereich | null {
