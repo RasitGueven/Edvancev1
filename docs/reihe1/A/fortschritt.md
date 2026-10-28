@@ -22,6 +22,8 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | 2026-10-28 | VERA8 entfernen | Anweisung Rasit: die 66 LSA-Antworten sind Testdaten. Sicherung `~/backups/vera8-2026-10-28.sql` und `~/backups/vera8-figuren/` (nicht im Repo). Migration löscht 66 Antworten → 243 Lösungen → 299 Aufgaben, Wächter gegen fremde Verweise. Eingespielt (Orchestrator), Prüfabfrage `0` ✓, gemergt. Reste im Repo: `vera8-entfernen.md`. 13 der 299 waren `ready` (Klasse 8, ohne Skill) und fehlen jetzt im LSA-Bestand; die adaptive LSA zieht nach Skill, Batu (Kl. 9) ist nicht betroffen. | [#361](https://github.com/RasitGueven/Edvancev1/pull/361) |
 | 2026-10-28 | A6 Voraussetzungen | Motor um Zahl/MC/Mehrteiler/Tabelle erweitert, sieben Bauformen (BIN-1, BIN-2, AUS-1, EIN-1, QW-1, KO-1, GL-1), 8 Fehlbild-Schlüssel, `aufgabe_ziehbar` verlangt hochgeladene Figuren. Blindlöser 7 × 10/10. pgTAP `reihe1_a6_bauformen` 10/10. Zweitprüfung `zweitpruefung-a6-voraussetzungen.md`. Eingespielt (Orchestrator), alle sieben `zur_pruefung` ✓, gemergt. | [#362](https://github.com/RasitGueven/Edvancev1/pull/362) |
 | 2026-10-28 | A6 Gleichungen | Vierzehn Bauformen (WZ-2…5, NP-1/3/4, PQ-1…4, DI-1…3), zwei Fehlbild-Schlüssel, sieben Coach-Prüffragen. Blindlöser 14 × bestanden. Zweitprüfung `zweitpruefung-a6-gleichungen.md` (P1 WZ-3-Hinweise behoben, neu erzeugt). Zwei Migrationen mit gleicher Version entdeckt und umnummeriert; der Export verhindert das jetzt. Eingespielt (Orchestrator), alle vierzehn `zur_pruefung` ✓, gemergt. | [#363](https://github.com/RasitGueven/Edvancev1/pull/363) |
+| 2026-10-28 | A6 Funktionen | Vierundzwanzig Bauformen (PAR-1…5, SCH-1…4, NF-1…6, NS-1…5, EX-0…3), ein Fehlbild-Schlüssel, acht Coach-Prüffragen. Blindlöser 24 × bestanden (Graph-Aufgaben mit Bildern). Zweitprüfung `zweitpruefung-a6-funktionen.md` (kein P1, P2 behoben, neu erzeugt). Eingespielt (Orchestrator): 47 Bauformen `zur_pruefung`, 15 Prüffragen ✓, gemergt. | [#364](https://github.com/RasitGueven/Edvancev1/pull/364) |
+| 2026-10-28 | A7 | Abnahme 1–11 ✓ (pgTAP in der Wegwerf-DB, Prod per dbread: 0 Doppel-Pool, 47/47 im Board, 0 Instanzen nicht grün), 12 teilweise (Vorschau-Fotos nur Lösungsmenge, Rest live). `bericht.md`, `live-checkliste.md`. STOPP. | A7-PR |
 
 ## Abweichungen
 
@@ -40,6 +42,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 
 | Skript | Stand | Prüfabfrage |
 |---|---|---|
+| `~/einspielen/A-6f-funktionen.sh` | eingespielt 28.10.2026 (Orchestrator) | 47 Bauformen `zur_pruefung`, 15 Prüffragen ✓ |
 | `~/einspielen/A-6g-gleichungen.sh` | eingespielt 28.10.2026 (Orchestrator) | vierzehn Bauformen `zur_pruefung`, 7 Prüffragen ✓ |
 | `~/einspielen/A-6v-voraussetzungen.sh` | eingespielt 28.10.2026 (Orchestrator) | sieben Bauformen `zur_pruefung` ✓ |
 | `~/einspielen/A-vera8-entfernen.sh` | eingespielt 28.10.2026 (Orchestrator) | `0` ✓ |
