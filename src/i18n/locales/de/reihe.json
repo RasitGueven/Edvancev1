@@ -1,0 +1,43 @@
+{
+  "karte": {
+    "titel": "Reihe",
+    "sessionVon": "Session {{nr}} von {{gesamt}}",
+    "bisArbeit_one": "Noch {{count}} Session bis zur Arbeit am {{datum}}",
+    "bisArbeit_other": "Noch {{count}} Sessions bis zur Arbeit am {{datum}}",
+    "rollierend": "Ohne Klassenarbeit: Plan für die nächsten {{count}} Sessions",
+    "heute": "Heute",
+    "naechste": "Nächste Session am {{datum}}",
+    "generalprobe": "Generalprobe",
+    "transfer": "Transfer gemischt",
+    "keineSkills": "Nur Abruf und Übung",
+    "warnung": "Die Reihe passt nicht in {{count}} Sessions: {{liste}} fällt weg.",
+    "transferBlock": "der eigene Transferblock",
+    "bestaetigen": "Plan bestätigen",
+    "bestaetigt": "Plan bestätigt",
+    "verschieben": "Skill verschieben",
+    "verschiebenSkill": "Skill",
+    "verschiebenZiel": "auf die Session am",
+    "verschiebenOk": "Verschieben",
+    "abbrechen": "Abbrechen",
+    "coach": "vom Coach verschoben",
+    "fehler": "Der Reihenplan konnte nicht geladen werden.",
+    "speichernFehler": "Die Änderung wurde nicht gespeichert.",
+    "leerTitel": "Noch keine Reihe",
+    "leerText": "Trag im Check-in das Datum der Klassenarbeit ein, dann plant das System die Reihe rückwärts."
+  },
+  "ka": {
+    "feld": "Klassenarbeit am",
+    "kindSagt": "Das Kind sagt: {{datum}}",
+    "bestaetigen": "Datum bestätigen",
+    "gespeichert": "Datum in der Reihe: {{datum}}",
+    "fehler": "Das Datum wurde nicht gespeichert.",
+    "keinThema": "Erst ein Thema wählen, dann das Datum."
+  },
+  "danach": {
+    "titel": "Neuer Reihenplan",
+    "keineAenderung": "Der Plan bleibt wie vorher.",
+    "verschoben": "{{kernidee}}: {{von}} → {{nach}}",
+    "neu": "{{kernidee}}: neu am {{nach}}",
+    "fertig": "{{kernidee}}: sitzt, nicht mehr geplant"
+  }
+}
