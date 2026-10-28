@@ -1,0 +1,2706 @@
+{
+ "schluessel": "QW-1",
+ "skill": "zahl_wurzel_quadrat",
+ "kernidee": null,
+ "format": "zahl",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Berechne {aufgabe}.",
+  "stufen": {
+   "1": "n², n von 3 bis 12",
+   "2": "√m, m Quadratzahl von 9 bis 225",
+   "3": "(−n)², n von 3 bis 20"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_quadrat_als_verdopplung",
+    "regel": "n² als 2·n",
+    "gilt_fuer_stufen": [
+     1,
+     3
+    ],
+    "rueckmeldung": "Quadrieren heißt: die Zahl mit sich selbst malnehmen, nicht mit 2."
+   },
+   {
+    "key": "qf_wurzel_als_haelfte",
+    "regel": "√m als m/2",
+    "gilt_fuer_stufen": [
+     2
+    ],
+    "rueckmeldung": "Die Wurzel ist nicht die Hälfte. Welche Zahl mal sich selbst ergibt die Zahl?"
+   },
+   {
+    "key": "qf_quadrat_negativ",
+    "regel": "(−n)² = −n²",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Minus mal Minus ergibt Plus. Ein Quadrat ist nie negativ."
+   }
+  ],
+  "hinweise": [
+   "{frage_hinweis}",
+   "{strategie}",
+   "{schritt}"
+  ],
+  "loesungsweg": [
+   "{aufgabe}",
+   "= {rechnung}",
+   "= {ergebnis}"
+  ],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 30,
+  "kann_entfallen": false,
+  "generator_hash": "278078fe6672"
+ },
+ "pruefprotokoll": {
+  "gruen": 40,
+  "rot": 1,
+  "rot_anteil": 0.024,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "100",
+   "2": "400",
+   "3": "36",
+   "4": "7",
+   "5": "16",
+   "6": "121",
+   "7": "81",
+   "8": "169",
+   "9": "9",
+   "10": "6"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "n": 6
+   },
+   "frage": "Berechne 6².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 6²."
+   },
+   "loesung": {
+    "werte": [
+     "36",
+     "+36"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "12"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 6 · 6."
+   ],
+   "loesungsweg": [
+    "6²",
+    "= 6 · 6",
+    "= 36"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "n": 12
+   },
+   "frage": "Berechne 12².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 12²."
+   },
+   "loesung": {
+    "werte": [
+     "144",
+     "+144"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "24"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 12 · 12."
+   ],
+   "loesungsweg": [
+    "12²",
+    "= 12 · 12",
+    "= 144"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "n": 8
+   },
+   "frage": "Berechne 8².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 8²."
+   },
+   "loesung": {
+    "werte": [
+     "64",
+     "+64"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 8 · 8."
+   ],
+   "loesungsweg": [
+    "8²",
+    "= 8 · 8",
+    "= 64"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "n": 9
+   },
+   "frage": "Berechne 9².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 9²."
+   },
+   "loesung": {
+    "werte": [
+     "81",
+     "+81"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 9 · 9."
+   ],
+   "loesungsweg": [
+    "9²",
+    "= 9 · 9",
+    "= 81"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "n": 10
+   },
+   "frage": "Berechne 10².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 10²."
+   },
+   "loesung": {
+    "werte": [
+     "100",
+     "+100"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "20"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 10 · 10."
+   ],
+   "loesungsweg": [
+    "10²",
+    "= 10 · 10",
+    "= 100"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "n": 7
+   },
+   "frage": "Berechne 7².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 7²."
+   },
+   "loesung": {
+    "werte": [
+     "49",
+     "+49"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "14"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 7 · 7."
+   ],
+   "loesungsweg": [
+    "7²",
+    "= 7 · 7",
+    "= 49"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "n": 5
+   },
+   "frage": "Berechne 5².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 5²."
+   },
+   "loesung": {
+    "werte": [
+     "25",
+     "+25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 5 · 5."
+   ],
+   "loesungsweg": [
+    "5²",
+    "= 5 · 5",
+    "= 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "n": 11
+   },
+   "frage": "Berechne 11².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 11²."
+   },
+   "loesung": {
+    "werte": [
+     "121",
+     "+121"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "22"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 11 · 11."
+   ],
+   "loesungsweg": [
+    "11²",
+    "= 11 · 11",
+    "= 121"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "n": 3
+   },
+   "frage": "Berechne 3².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 3²."
+   },
+   "loesung": {
+    "werte": [
+     "9",
+     "+9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "6"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 3 · 3."
+   ],
+   "loesungsweg": [
+    "3²",
+    "= 3 · 3",
+    "= 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "n": 4
+   },
+   "frage": "Berechne 4².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 4²."
+   },
+   "loesung": {
+    "werte": [
+     "16",
+     "+16"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 oben?",
+    "Nimm die Zahl mit sich selbst mal.",
+    "Rechne 4 · 4."
+   ],
+   "loesungsweg": [
+    "4²",
+    "= 4 · 4",
+    "= 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "n": 9
+   },
+   "frage": "Berechne √81.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √81."
+   },
+   "loesung": {
+    "werte": [
+     "9",
+     "+9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "81/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√81",
+    "= √(9 · 9)",
+    "= 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "n": 10
+   },
+   "frage": "Berechne √100.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √100."
+   },
+   "loesung": {
+    "werte": [
+     "10",
+     "+10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "50"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√100",
+    "= √(10 · 10)",
+    "= 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "n": 4
+   },
+   "frage": "Berechne √16.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √16."
+   },
+   "loesung": {
+    "werte": [
+     "4",
+     "+4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√16",
+    "= √(4 · 4)",
+    "= 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "n": 7
+   },
+   "frage": "Berechne √49.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √49."
+   },
+   "loesung": {
+    "werte": [
+     "7",
+     "+7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "49/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√49",
+    "= √(7 · 7)",
+    "= 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "n": 15
+   },
+   "frage": "Berechne √225.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √225."
+   },
+   "loesung": {
+    "werte": [
+     "15",
+     "+15"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "225/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√225",
+    "= √(15 · 15)",
+    "= 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "n": 12
+   },
+   "frage": "Berechne √144.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √144."
+   },
+   "loesung": {
+    "werte": [
+     "12",
+     "+12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "72"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√144",
+    "= √(12 · 12)",
+    "= 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "n": 5
+   },
+   "frage": "Berechne √25.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √25."
+   },
+   "loesung": {
+    "werte": [
+     "5",
+     "+5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "25/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√25",
+    "= √(5 · 5)",
+    "= 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "n": 13
+   },
+   "frage": "Berechne √169.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √169."
+   },
+   "loesung": {
+    "werte": [
+     "13",
+     "+13"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "169/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√169",
+    "= √(13 · 13)",
+    "= 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "n": 3
+   },
+   "frage": "Berechne √9.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √9."
+   },
+   "loesung": {
+    "werte": [
+     "3",
+     "+3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "9/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√9",
+    "= √(3 · 3)",
+    "= 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "n": 14
+   },
+   "frage": "Berechne √196.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √196."
+   },
+   "loesung": {
+    "werte": [
+     "14",
+     "+14"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "98"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√196",
+    "= √(14 · 14)",
+    "= 14"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "n": 11
+   },
+   "frage": "Berechne √121.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √121."
+   },
+   "loesung": {
+    "werte": [
+     "11",
+     "+11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "121/2"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√121",
+    "= √(11 · 11)",
+    "= 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "n": 8
+   },
+   "frage": "Berechne √64.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √64."
+   },
+   "loesung": {
+    "werte": [
+     "8",
+     "+8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "32"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√64",
+    "= √(8 · 8)",
+    "= 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "n": 6
+   },
+   "frage": "Berechne √36.",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √36."
+   },
+   "loesung": {
+    "werte": [
+     "6",
+     "+6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl mal sich selbst ergibt die Zahl unter der Wurzel?",
+    "Denk an die Quadratzahlen.",
+    "Probier Zahlen aus und rechne sie mal sich selbst."
+   ],
+   "loesungsweg": [
+    "√36",
+    "= √(6 · 6)",
+    "= 6"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "n": 18
+   },
+   "frage": "Berechne (−18)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−18)²."
+   },
+   "loesung": {
+    "werte": [
+     "324",
+     "+324"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-36"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-324"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−18) · (−18). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−18)²",
+    "= (−18) · (−18)",
+    "= 324"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "n": 10
+   },
+   "frage": "Berechne (−10)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−10)²."
+   },
+   "loesung": {
+    "werte": [
+     "100",
+     "+100"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-20"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-100"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−10) · (−10). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−10)²",
+    "= (−10) · (−10)",
+    "= 100"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "n": 14
+   },
+   "frage": "Berechne (−14)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−14)²."
+   },
+   "loesung": {
+    "werte": [
+     "196",
+     "+196"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-28"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-196"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−14) · (−14). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−14)²",
+    "= (−14) · (−14)",
+    "= 196"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "n": 7
+   },
+   "frage": "Berechne (−7)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−7)²."
+   },
+   "loesung": {
+    "werte": [
+     "49",
+     "+49"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-14"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-49"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−7) · (−7). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−7)²",
+    "= (−7) · (−7)",
+    "= 49"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "n": 16
+   },
+   "frage": "Berechne (−16)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−16)²."
+   },
+   "loesung": {
+    "werte": [
+     "256",
+     "+256"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-32"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-256"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−16) · (−16). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−16)²",
+    "= (−16) · (−16)",
+    "= 256"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "n": 4
+   },
+   "frage": "Berechne (−4)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−4)²."
+   },
+   "loesung": {
+    "werte": [
+     "16",
+     "+16"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-8"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-16"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−4) · (−4). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−4)²",
+    "= (−4) · (−4)",
+    "= 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "n": 17
+   },
+   "frage": "Berechne (−17)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−17)²."
+   },
+   "loesung": {
+    "werte": [
+     "289",
+     "+289"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-34"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-289"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−17) · (−17). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−17)²",
+    "= (−17) · (−17)",
+    "= 289"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "n": 20
+   },
+   "frage": "Berechne (−20)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−20)²."
+   },
+   "loesung": {
+    "werte": [
+     "400",
+     "+400"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-40"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-400"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−20) · (−20). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−20)²",
+    "= (−20) · (−20)",
+    "= 400"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "n": 11
+   },
+   "frage": "Berechne (−11)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−11)²."
+   },
+   "loesung": {
+    "werte": [
+     "121",
+     "+121"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-22"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-121"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−11) · (−11). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−11)²",
+    "= (−11) · (−11)",
+    "= 121"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "n": 8
+   },
+   "frage": "Berechne (−8)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−8)²."
+   },
+   "loesung": {
+    "werte": [
+     "64",
+     "+64"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-16"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-64"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−8) · (−8). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−8)²",
+    "= (−8) · (−8)",
+    "= 64"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "n": 3
+   },
+   "frage": "Berechne (−3)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−3)²."
+   },
+   "loesung": {
+    "werte": [
+     "9",
+     "+9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-6"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-9"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−3) · (−3). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−3)²",
+    "= (−3) · (−3)",
+    "= 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "n": 12
+   },
+   "frage": "Berechne (−12)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−12)²."
+   },
+   "loesung": {
+    "werte": [
+     "144",
+     "+144"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-24"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-144"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−12) · (−12). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−12)²",
+    "= (−12) · (−12)",
+    "= 144"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "n": 19
+   },
+   "frage": "Berechne (−19)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−19)²."
+   },
+   "loesung": {
+    "werte": [
+     "361",
+     "+361"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-38"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-361"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−19) · (−19). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−19)²",
+    "= (−19) · (−19)",
+    "= 361"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "n": 15
+   },
+   "frage": "Berechne (−15)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−15)²."
+   },
+   "loesung": {
+    "werte": [
+     "225",
+     "+225"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-30"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-225"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−15) · (−15). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−15)²",
+    "= (−15) · (−15)",
+    "= 225"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "n": 5
+   },
+   "frage": "Berechne (−5)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−5)²."
+   },
+   "loesung": {
+    "werte": [
+     "25",
+     "+25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-10"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-25"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−5) · (−5). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−5)²",
+    "= (−5) · (−5)",
+    "= 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "n": 6
+   },
+   "frage": "Berechne (−6)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−6)²."
+   },
+   "loesung": {
+    "werte": [
+     "36",
+     "+36"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-12"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-36"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−6) · (−6). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−6)²",
+    "= (−6) · (−6)",
+    "= 36"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "n": 13
+   },
+   "frage": "Berechne (−13)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−13)²."
+   },
+   "loesung": {
+    "werte": [
+     "169",
+     "+169"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-26"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-169"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−13) · (−13). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−13)²",
+    "= (−13) · (−13)",
+    "= 169"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "QW-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "n": 9
+   },
+   "frage": "Berechne (−9)².",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (−9)²."
+   },
+   "loesung": {
+    "werte": [
+     "81",
+     "+81"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadrat_als_verdopplung",
+     "wert": "-18"
+    },
+    {
+     "key": "qf_quadrat_negativ",
+     "wert": "-81"
+    }
+   ],
+   "hinweise": [
+    "Was bedeutet die kleine 2 hinter der Klammer?",
+    "Die ganze Klammer wird mit sich selbst malgenommen.",
+    "Rechne (−9) · (−9). Welches Vorzeichen hat das Ergebnis?"
+   ],
+   "loesungsweg": [
+    "(−9)²",
+    "= (−9) · (−9)",
+    "= 81"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

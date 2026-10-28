@@ -7,6 +7,8 @@ Generator, Prüfmaschine und Export der Bauformen. Konzept: `docs/reihe1/Konzept
 | `basis.py` | `Bauform` (Steckbrief, Stufen, Rollen, Fehlbilder mit `gilt_fuer_stufen`), `Instanz`, Zahlen- und Summenschreibweise |
 | `rechnen.py` | unabhängiges Nachrechnen mit sympy aus dem angezeigten Text |
 | `pruefmaschine.py` | die sieben Prüfungen; Prüfung 4 gegen die echte Wertung (`format_werten_daten`, Prod, lesend per `~/bin/dbread`) |
+| `klassisch.py` | Zahl/Bruch (NUMERIC), MC, Mehrteiler/Tabelle (MULTI_PART): Speicherung und Prüfung 4 über denselben Weg wie `session_bewerten` |
+| `formen.py` | gemeinsame Bausteine: Feldmasken-Kurzschrift, Lösungsmengen, Werte mit Vorzeichen |
 | `export.py` | JSON-Vorschau, Kindertexte für den Blindlöser, Auswertung, Datenmigration und Rollback |
 | `bauformen/<key>.py` | je Bauform eine Klasse, `BAUFORM = …` |
 | `test_pruefmaschine.py` | Negativkontrollen (falsche Lösung, kollidierende Fehlbilder, „+ −“, „1x²“, leerer Platzhalter, ASCII-Minus, Dublette, LSA-Zwilling, falsche Stufe, Wertung) |

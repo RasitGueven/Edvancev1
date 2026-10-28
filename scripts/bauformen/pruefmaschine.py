@@ -21,6 +21,7 @@ import tempfile
 from fractions import Fraction
 
 from .basis import Bauform, Instanz
+from .klassisch import WERTUNG_SQL, db_loesung, eingaben, ist_klassisch
 from .rechnen import bruch
 
 DBREAD = os.path.expanduser('~/bin/dbread')
@@ -58,8 +59,21 @@ def antwort_aus(fmt: str, payload: dict, wert: dict) -> dict:
     raise ValueError(f'Format {fmt} hat noch keine Antwort-Bildung')
 
 
+def _zahl_bedeutung(w: str) -> str:
+    try:
+        return repr(bruch(w))
+    except (ValueError, ZeroDivisionError):
+        return w.strip().lower()
+
+
 def bedeutung(fmt: str, wert: dict) -> str:
     """Vergleichbare Bedeutung einer Antwort/Loesung (Pruefung 3): Mengen als Bruchmengen, sonst JSON."""
+    if fmt in ('zahl', 'bruch'):
+        return _zahl_bedeutung(wert['werte'][0] if 'werte' in wert else wert['wert'])
+    if fmt == 'mc':
+        return wert['option']
+    if fmt in ('mehrteiler', 'tabelle'):
+        return repr(sorted((nr, _zahl_bedeutung(w[0])) for nr, w in wert['teile'].items() if w))
     if fmt == 'loesungsmenge':
         if wert.get('keine_loesung'):
             return 'leer'
@@ -83,6 +97,8 @@ SCHREIBFEHLER = [
 
 def texte(inst: Instanz) -> list[str]:
     t = [inst.frage, *inst.hinweise, *inst.loesungsweg]
+    for teil in inst.teile or []:
+        t += [teil['prompt'], *[o['label'] for o in teil.get('options', [])]]
     t += [s for s in re.findall(r'"([^"]*)"', json.dumps(inst.payload, ensure_ascii=False)) if not re.fullmatch(r'[a-z_]+', s)]
     return t
 
@@ -96,6 +112,16 @@ def pruefe_schreibweise(inst: Instanz) -> str | None:
 
 
 def pruefe_fehlbilder(bf: Bauform, inst: Instanz) -> str | None:
+    if bf.format in ('mehrteiler', 'tabelle'):
+        gesehen = {(nr, _zahl_bedeutung(w[0])): 'richtig' for nr, w in inst.loesung['teile'].items() if w}
+        for f in inst.fehlbilder:
+            b = (str(f['teil']), _zahl_bedeutung(f['wert']))
+            if b in gesehen:
+                return f'{f["key"]} ergibt in Teil {f["teil"]} dieselbe Antwort wie {gesehen[b]}'
+            gesehen[b] = f['key']
+        erlaubt = {f['key'] for f in bf.fehlbilder_fuer(inst.stufe)}
+        fremd = [f['key'] for f in inst.fehlbilder if f['key'] not in erlaubt]
+        return f'Fehlbild ausserhalb seiner Stufen: {fremd}' if fremd else None
     richtig = bedeutung(bf.format, inst.loesung)
     gesehen = {richtig: 'richtig'}
     for f in inst.fehlbilder:
@@ -147,8 +173,27 @@ def dbread_json(sql: str) -> list[dict]:
     return [json.loads(z) for z in out.splitlines() if z.startswith('{')]
 
 
+def wertung_klassisch(bf: Bauform, instanzen: list[Instanz]) -> dict[int, str | None]:
+    faelle = []
+    for i, inst in enumerate(instanzen):
+        ca, acc = db_loesung(bf.format, inst.loesung, inst.fehlbilder)
+        for f in eingaben(bf.format, inst.loesung, inst.fehlbilder, inst.schreibweisen, inst.teile):
+            faelle.append({'i': i, 'input_type': inst.input_type, 'parts': inst.teile, 'ca': ca, 'acc': acc, **f})
+    daten = json.dumps(faelle, ensure_ascii=False).replace("'", "''")
+    ergebnis: dict[int, str | None] = {i: None for i in range(len(instanzen))}
+    for z in dbread_json(WERTUNG_SQL.replace('{daten}', daten)):
+        if ergebnis[z['i']] is None:
+            teil = f' (Teil {z["teil"]})' if z.get('teil') else ''
+            ergebnis[z['i']] = (f'Antwort {json.dumps(z["antwort"], ensure_ascii=False)}{teil}: erwartet '
+                                f'{"richtig" if z["soll_richtig"] else z["soll_key"]}, Wertung sagt '
+                                f'{"richtig" if z["ist_richtig"] else (z["ist_key"] or "falsch ohne Fehlbild")}')
+    return ergebnis
+
+
 def wertung_pruefen(bf: Bauform, instanzen: list[Instanz]) -> dict[int, str | None]:
     """Je Instanz None (alles trifft wie erwartet) oder der erste Widerspruch."""
+    if ist_klassisch(bf.format):
+        return wertung_klassisch(bf, instanzen)
     faelle = []
     for i, inst in enumerate(instanzen):
         loes = {**inst.loesung, 'fehlbilder': inst.fehlbilder}
@@ -202,7 +247,7 @@ def pruefen(bf: Bauform, instanzen: list[Instanz], mit_db: bool = True) -> dict:
         p7 = None
         if inst.schluessel in gesehen:
             p7 = 'Dublette in der Bauform'
-        elif zahlenfolge(inst.frage) in lsa:
+        elif zahlenfolge(inst.frage) and zahlenfolge(inst.frage) in lsa:
             p7 = 'gleiche Zahlen wie eine LSA-Aufgabe des Skills'
         gesehen.add(inst.schluessel)
         befunde = {'1': p1, '2': bf.angenehm(inst), '3': pruefe_fehlbilder(bf, inst), '4': wertung[i],
