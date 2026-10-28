@@ -16,6 +16,8 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 | 2026-10-27 | A3 Backend | Zwei Migrationen: sechs Formate (input_type, CHECKs), reine Wertung `format_werten_daten`, `session_bewerten` für neue Formate, Generator `parabel` + `pruefe_parabel` (18 pytest), Optionsfiguren, Kindersicht. pgTAP `reihe1_a3_formate` 44/44, Suite 76 grün / 8 bekannt rot. Zweitprüfung `zweitpruefung-a3.md` (16 Befunde abgearbeitet). | (PR folgt) |
 | 2026-10-27 | A3 Vorschau + Player | Migration `20261027141615_reihe1_a3_vorschau` (Lenas Vorschau = Tablet-Payload für Formate und Instanzen), Web-`FormatAnsicht` in `PreviewStage`. Player edvance-app: sechs Formate + Lösungsbeispiel, Vorschau `/aufgaben/vorschau`, Ansichtstests 56/56 (4 Größen × 7 × leer/beantwortet), Fotos `abnahme/formate/`. Web-Gate grün (3120 Tests). | #342 |
 | 2026-10-27 | A4 | Bauform-Motor `scripts/bauformen/` (Basis, sympy-Nachrechnen, Prüfmaschine 7 Prüfungen mit Wertung gegen Prod, Export, CLI `tools/bauform.sh`), 13 Negativkontrollen grün. Trigger-Migration `20261027142701_reihe1_a4_versionswechsel` (pgTAP `reihe1_a4_motor` 6/6). Pilot WZ-1 (26 grün) und NP-2 (83 grün), Blindlöser je 10/10. Zweitprüfung `zweitpruefung-a4.md` (11 Befunde). Suite 77 grün / 8 bekannt rot. | (PR folgt) |
+| 2026-10-27 | A5 (Zwischenstand) | Migration `20261027143548_reihe1_a5_board` (Liste, Detail mit 6 Beispielen, Auffällig, Prüffragen), pgTAP `reihe1_a5_board` 16/16 (Abnahme 6 und 7). Web: Bauform-Liste mit Reitern, Prüfansicht (Tasten 1/2/3), Melde-Knopf im Coach-Live-Kind-Detail; Tests grün. **Offen:** Zweitprüfung, Einspielen, Ansichtsfotos, PR fertigstellen. Danach A6, A7. | Draft |
+| 2026-10-28 | A5 | Branch per `git merge origin/dev` aktualisiert (kein Rebase). Merge-Bericht `docs/reihe1/merge/bericht.md` gibt es nicht; die Session-Auswahl-Tests (session_a2/a2b/a2d, session_f1/f2, reihe1_d2) sind nach #358 grün, Auftragspunkt 4 entfällt. Zweitprüfung `zweitpruefung-a5.md` (kein P1, 10 Befunde abgearbeitet/begründet), pgTAP `reihe1_a5_board` 21/21, Suite 91 grün / 8 bekannt rot, Web-Gate grün (3224). Melde-Knopf jetzt über den Einbaupunkt von C (`AufgabeEinbau`), keine Änderung mehr an `SchubladeBloecke`. Eingespielt (Orchestrator): `~/einspielen/A-5-board.sh`, Prüfabfrage `5` ✓. Fotos `abnahme/board/` (7). | [#352](https://github.com/RasitGueven/Edvancev1/pull/352) |
 
 ## Abweichungen
 
@@ -34,6 +36,7 @@ Protokoll für Rasit. Eine Zeile je Schritt: Datum · Phase · Ergebnis · PR.
 
 | Skript | Stand | Prüfabfrage |
 |---|---|---|
+| `~/einspielen/A-5-board.sh` | eingespielt 28.10.2026 (Orchestrator) | `5` ✓; Prod-Abzug = Branch (bis auf Server-Version) |
 | `~/einspielen/A-1-pool_trennung.sh` | eingespielt 27.10.2026 (Orchestrator) | `0 \| 1186` ✓ |
 | `~/einspielen/A-4-motor_pilot.sh` | eingespielt 27.10.2026 (Orchestrator) | `NP-2 zur_pruefung 83 \| WZ-1 zur_pruefung 26` ✓ |
 | `~/einspielen/A-3b-vorschau.sh` | eingespielt 27.10.2026 (Orchestrator) | `true` ✓ |

@@ -1,12 +1,17 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { AUFGABE_BEITRAEGE, AufgabeEinbau } from './AufgabeEinbau'
 import { CHECKIN_BEITRAEGE, CheckinEinbau } from './CheckinEinbau'
+
+// Reihe 1 A5 haengt den Melde-Knopf fest ein; die Tests pruefen den Einbaupunkt ohne ihn.
+const FEST = [...AUFGABE_BEITRAEGE]
+beforeEach(() => { AUFGABE_BEITRAEGE.length = 0 })
 
 afterEach(() => {
   cleanup()
   CHECKIN_BEITRAEGE.length = 0
   AUFGABE_BEITRAEGE.length = 0
+  AUFGABE_BEITRAEGE.push(...FEST)
 })
 
 describe('Einbaupunkte C0b', () => {
