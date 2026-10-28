@@ -4,6 +4,8 @@
  * hier fehlt, ist unbekannt; ein Parameter, der hier fehlt, ist ungültig.
  */
 
+import { BAUSTEINE_REIHE1 } from './bausteineReihe1'
+
 export type ParamArt =
   | { art: 'text'; max?: number }
   | { art: 'zahl'; ganz?: boolean; min?: number; max?: number }
@@ -25,7 +27,7 @@ export type BausteinSpec = {
 
 const WELT_BILD = ['einheit', 'gegenstand'] as const
 
-export const BAUSTEINE: Record<string, BausteinSpec> = {
+const STARTBAUSTEINE: Record<string, BausteinSpec> = {
   titelkarte: {
     params: { titel: { art: 'text', max: 60, pflicht: true }, untertitel: { art: 'text', max: 80 } },
     bild: [],
@@ -62,7 +64,10 @@ export const BAUSTEINE: Record<string, BausteinSpec> = {
   },
 }
 
-/** Ergänzt die Bibliothek um weitere Bausteine (B7), ohne die Startbausteine anzufassen. */
+/** Bibliothek = Startbausteine (B3) + Bausteine der Reihe 1 (B7). */
+export const BAUSTEINE: Record<string, BausteinSpec> = { ...STARTBAUSTEINE, ...BAUSTEINE_REIHE1 }
+
+/** Ergänzt die Bibliothek um weitere Bausteine, ohne die vorhandenen anzufassen. */
 export function bausteineMit(weitere: Record<string, BausteinSpec>): Record<string, BausteinSpec> {
   return { ...BAUSTEINE, ...weitere }
 }

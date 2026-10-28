@@ -1,0 +1,300 @@
+{
+  "skill_key": "fkt_quadr_parabel",
+  "titel": "Verschieben und Scheitelpunktform",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k3",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Verschieben",
+        "untertitel": "Die Scheitelpunktform"
+      },
+      "text": {
+        "skelett": "Jetzt verschieben wir die Parabel nach rechts, nach links, nach oben und nach unten."
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Nach oben: plus e",
+      "kernidee": "k3",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -3,
+          6
+        ],
+        "y_bereich": [
+          -5,
+          7
+        ],
+        "normalparabel": true,
+        "scheitel_markieren": true,
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "parabel_ziel": [
+          1,
+          0,
+          3
+        ],
+        "gleichung": "y = x^2 + 3"
+      },
+      "text": {
+        "skelett": "Steht hinten plus drei, liegt jeder Punkt drei höher. Die Parabel wandert drei nach oben."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Nach rechts: x minus d",
+      "kernidee": "k3",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -3,
+          6
+        ],
+        "y_bereich": [
+          -5,
+          7
+        ],
+        "normalparabel": true,
+        "scheitel_markieren": true,
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "parabel_ziel": [
+          1,
+          2,
+          0
+        ],
+        "gleichung": "y = (x - 2)^2"
+      },
+      "text": {
+        "skelett": "Steht in der Klammer x minus zwei, wandert die Parabel zwei nach rechts. Das überrascht viele."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Wo wird die Klammer null?",
+      "kernidee": "k3",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(x - 2)^2",
+          "x - 2 = 0",
+          "x = 2"
+        ],
+        "hervorheben": [
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Der Trick: Frag dich, wo die Klammer null wird. Zwei minus zwei ist null. Genau bei x gleich zwei liegt jetzt der Scheitel."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Beides zusammen",
+      "kernidee": "k3",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -3,
+          6
+        ],
+        "y_bereich": [
+          -5,
+          7
+        ],
+        "normalparabel": true,
+        "scheitel_markieren": true,
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "parabel_ziel": [
+          1,
+          2,
+          -4
+        ],
+        "gleichung": "y = (x - 2)^2 - 4"
+      },
+      "text": {
+        "skelett": "Beides geht gleichzeitig: zwei nach rechts und vier nach unten."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Die Scheitelpunktform",
+      "kernidee": "fkt_quadr_scheitel:k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "y = (x - d)^2 + e",
+          "S(d \\mid e)"
+        ]
+      },
+      "text": {
+        "skelett": "Allgemein heißt das Scheitelpunktform. Den Scheitel liest du direkt ab: d aus der Klammer, e von hinten."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Plus in der Klammer heißt links",
+      "kernidee": "fkt_quadr_scheitel:k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "y = (x + 1)^2 - 3",
+          "x + 1 = 0 \\;\\Rightarrow\\; x = -1",
+          "S(-1 \\mid -3)"
+        ],
+        "hervorheben": [
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Bei x plus eins wird die Klammer bei minus eins null. Der Scheitel hat also den x-Wert minus eins und den y-Wert minus drei."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Merksatz",
+      "kernidee": "fkt_quadr_scheitel:k1",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Ohne Streckfaktor (a = 1): Der Scheitel liegt dort, wo die Klammer null wird. Das Vorzeichen kehrt sich um.",
+        "formel": "y = (x - d)^2 + e"
+      },
+      "text": {
+        "skelett": "Merk dir: Das Vorzeichen in der Klammer kehrt sich um, das hinten bleibt, wie es ist."
+      }
+    },
+    {
+      "id": "b9",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "fkt_quadr_scheitel:k1",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Wo liegt der Scheitel?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b5",
+      "frage": {
+        "skelett": "Die Normalparabel wird verschoben zu y = (x − 3)². Wohin?"
+      },
+      "optionen": [
+        {
+          "antwort": "3 nach rechts",
+          "richtig": true,
+          "rueckmeldung": "Genau. Die Klammer wird bei x = 3 null."
+        },
+        {
+          "antwort": "3 nach links",
+          "fehlbild": "qf_verschiebung_vorzeichen",
+          "ruecksprung": "b4",
+          "rueckmeldung": "Minus in der Klammer heißt rechts: Die Klammer wird bei x = 3 null."
+        },
+        {
+          "antwort": "3 nach oben",
+          "fehlbild": "qf_d_e_vertauscht",
+          "ruecksprung": "b2",
+          "rueckmeldung": "Nach oben verschiebt nur die Zahl hinten. Die Klammer verschiebt nach rechts oder links."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Die Normalparabel wird verschoben zu y = (x − 5)². Wohin?"
+          },
+          "optionen": [
+            {
+              "antwort": "5 nach rechts",
+              "richtig": true,
+              "rueckmeldung": "Genau. Die Klammer wird bei x = 5 null."
+            },
+            {
+              "antwort": "5 nach links",
+              "fehlbild": "qf_verschiebung_vorzeichen",
+              "ruecksprung": "b4",
+              "rueckmeldung": "Minus in der Klammer heißt rechts: Die Klammer wird bei x = 5 null."
+            },
+            {
+              "antwort": "5 nach oben",
+              "fehlbild": "qf_d_e_vertauscht",
+              "ruecksprung": "b2",
+              "rueckmeldung": "Nach oben verschiebt nur die Zahl hinten. Die Klammer verschiebt nach rechts oder links."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b8",
+      "frage": {
+        "skelett": "Gib den Scheitel von y = (x + 4)² − 1 an."
+      },
+      "optionen": [
+        {
+          "antwort": "S(−4 | −1)",
+          "richtig": true,
+          "rueckmeldung": "Genau. Die Klammer wird bei x = −4 null, hinten steht −1."
+        },
+        {
+          "antwort": "S(4 | −1)",
+          "fehlbild": "qf_verschiebung_vorzeichen",
+          "ruecksprung": "b7",
+          "rueckmeldung": "Plus in der Klammer heißt: Die Klammer wird bei x = −4 null."
+        },
+        {
+          "antwort": "S(−1 | −4)",
+          "fehlbild": "qf_scheitel_koordinaten_vertauscht",
+          "ruecksprung": "b6",
+          "rueckmeldung": "Zuerst kommt der x-Wert aus der Klammer, dann der y-Wert von hinten."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Gib den Scheitel von y = (x + 2)² − 5 an."
+          },
+          "optionen": [
+            {
+              "antwort": "S(−2 | −5)",
+              "richtig": true,
+              "rueckmeldung": "Genau. Die Klammer wird bei x = −2 null, hinten steht −5."
+            },
+            {
+              "antwort": "S(2 | −5)",
+              "fehlbild": "qf_verschiebung_vorzeichen",
+              "ruecksprung": "b7",
+              "rueckmeldung": "Plus in der Klammer heißt: Die Klammer wird bei x = −2 null."
+            },
+            {
+              "antwort": "S(−5 | −2)",
+              "fehlbild": "qf_scheitel_koordinaten_vertauscht",
+              "ruecksprung": "b6",
+              "rueckmeldung": "Zuerst kommt der x-Wert aus der Klammer, dann der y-Wert von hinten."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

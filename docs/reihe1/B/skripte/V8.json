@@ -1,0 +1,253 @@
+{
+  "skill_key": "fkt_quadr_nullstellen",
+  "titel": "Nullstellen sind Schnittpunkte",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Nullstellen",
+        "untertitel": "Wo die Parabel die x-Achse schneidet"
+      },
+      "text": {
+        "skelett": "Wo schneidet eine Parabel die x-Achse? Diese Stellen heißen Nullstellen."
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Schnitt mit der x-Achse",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          6
+        ],
+        "y_bereich": [
+          -5,
+          6
+        ],
+        "parabel": [
+          1,
+          1,
+          -4
+        ],
+        "nullstellen_markieren": true
+      },
+      "text": {
+        "skelett": "Auf der x-Achse ist der y-Wert null. Die Nullstellen sind die x-Werte, an denen die Parabel die Achse trifft."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "f(x) = 0",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "f(x) = (x - 1)^2 - 4",
+          "f(x) = 0",
+          "(x - 1)^2 - 4 = 0"
+        ],
+        "hervorheben": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "F von x ist einfach der y-Wert. Rechnerisch setzen wir ihn gleich null und lösen die Gleichung."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Lösen wie gelernt",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(x - 1)^2 = 4",
+          "x - 1 = 2 \\;\\text{oder}\\; x - 1 = -2",
+          "x = 3 \\;\\text{oder}\\; x = -1"
+        ]
+      },
+      "text": {
+        "skelett": "Hier hilft das Wurzelziehen: Die Klammer ist zwei oder minus zwei. Die Nullstellen sind drei und minus eins."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Hier ist der Scheitel keine Nullstelle",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          6
+        ],
+        "y_bereich": [
+          -5,
+          6
+        ],
+        "parabel": [
+          1,
+          1,
+          -4
+        ],
+        "nullstellen_markieren": true,
+        "scheitel_markieren": true
+      },
+      "text": {
+        "skelett": "Vorsicht: Der Scheitel hat den x-Wert eins und den y-Wert minus vier. Er ist der tiefste Punkt, hier aber keine Nullstelle."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Den passenden Weg wählen",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "x^2 - 5x = 0 \\;\\rightarrow\\; x\\,(x - 5) = 0",
+          "(x - 2)^2 - 9 = 0 \\;\\rightarrow\\; \\text{Wurzel ziehen}",
+          "x^2 + 3x - 4 = 0 \\;\\rightarrow\\; p\\text{-}q\\text{-Formel}"
+        ]
+      },
+      "text": {
+        "skelett": "Welcher Weg passt? Fehlt die Zahl ohne x, klammerst du aus. Steht eine Klammer zum Quadrat da, ziehst du die Wurzel. Sonst hilft die p-q-Formel."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Merksatz",
+      "kernidee": "k2",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Nullstellen: f(x) = 0 setzen und lösen. Das Ergebnis sind x-Werte. Scheitel und Nullstelle sind verschiedene Dinge.",
+        "formel": "f(x) = 0"
+      },
+      "text": {
+        "skelett": "Merk dir: Nullstellen findest du mit f von x gleich null. Das Ergebnis sind x-Werte."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k2",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Wo liegen die Nullstellen?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b5",
+      "frage": {
+        "skelett": "Gib die Nullstellen von f(x) = (x − 2)² − 9 an."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 5 und x = −1",
+          "richtig": true,
+          "rueckmeldung": "Genau. (x − 2)² = 9, also x − 2 = 3 oder −3."
+        },
+        {
+          "antwort": "S(2 | −9)",
+          "fehlbild": "qf_scheitel_statt_nullstelle",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Das ist der Scheitel. Nullstellen sind die x-Werte mit f(x) = 0."
+        },
+        {
+          "antwort": "x = 5",
+          "fehlbild": "qf_nur_positive_loesung",
+          "ruecksprung": "b4",
+          "rueckmeldung": "x − 2 kann auch −3 sein. Dann ist x = −1."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Gib die Nullstellen von f(x) = (x + 1)² − 4 an."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 1 und x = −3",
+              "richtig": true,
+              "rueckmeldung": "Genau. (x + 1)² = 4, also x + 1 = 2 oder −2."
+            },
+            {
+              "antwort": "S(−1 | −4)",
+              "fehlbild": "qf_scheitel_statt_nullstelle",
+              "ruecksprung": "b3",
+              "rueckmeldung": "Das ist der Scheitel. Nullstellen sind die x-Werte mit f(x) = 0."
+            },
+            {
+              "antwort": "x = 1",
+              "fehlbild": "qf_nur_positive_loesung",
+              "ruecksprung": "b4",
+              "rueckmeldung": "x + 1 kann auch −2 sein. Dann ist x = −3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b6",
+      "frage": {
+        "skelett": "Bestimme die Nullstellen von f(x) = x² − 3x."
+      },
+      "optionen": [
+        {
+          "antwort": "x = 0 und x = 3",
+          "richtig": true,
+          "rueckmeldung": "Genau. x · (x − 3) = 0."
+        },
+        {
+          "antwort": "x = 3",
+          "fehlbild": "qf_null_vergessen",
+          "ruecksprung": "b6",
+          "rueckmeldung": "Der Faktor x kann auch null sein: x = 0."
+        },
+        {
+          "antwort": "x = 0 und x = −3",
+          "fehlbild": "qf_nullprodukt_vorzeichen",
+          "ruecksprung": "b6",
+          "rueckmeldung": "Aus x − 3 = 0 folgt x = 3."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Bestimme die Nullstellen von f(x) = x² − 7x."
+          },
+          "optionen": [
+            {
+              "antwort": "x = 0 und x = 7",
+              "richtig": true,
+              "rueckmeldung": "Genau. x · (x − 7) = 0."
+            },
+            {
+              "antwort": "x = 7",
+              "fehlbild": "qf_null_vergessen",
+              "ruecksprung": "b6",
+              "rueckmeldung": "Der Faktor x kann auch null sein: x = 0."
+            },
+            {
+              "antwort": "x = 0 und x = −7",
+              "fehlbild": "qf_nullprodukt_vorzeichen",
+              "ruecksprung": "b6",
+              "rueckmeldung": "Aus x − 7 = 0 folgt x = 7."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

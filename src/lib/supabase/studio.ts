@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabase/client'
 import type { PruefErgebnis, Skript } from '@/studio/skript/typen'
-import type { StudioErgebnis, StudioSequenz, StudioStatus, StudioWeltStand } from '@/types/studio'
+import type { StudioErgebnis, StudioFreigabeStand, StudioSequenz, StudioStatus, StudioWeltStand } from '@/types/studio'
 
 /**
  * Studio (Reihe 1, Bauauftrag B1): Sequenzen lesen (RLS: nur Studio-Beteiligte) und ein geprüftes Skript
@@ -236,3 +236,38 @@ export async function starteRender(sequenzId: string, welt: string): Promise<Stu
     return { data: null, error: fehler(e) }
   }
 }
+
+export async function ladeFreigabeStand(sequenzId: string): Promise<StudioErgebnis<StudioFreigabeStand>> {
+  try {
+    const { data, error } = await rpc<StudioFreigabeStand>('studio_freigabe_stand', { p_sequenz_id: sequenzId })
+    return error ? { data: null, error: fehler(error) } : { data, error: null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
+
+async function rufeStudio<T>(fn: string, args: Record<string, unknown>): Promise<StudioErgebnis<T>> {
+  try {
+    const { data, error } = await rpc<T>(fn, args)
+    return error ? { data: null, error: fehler(error) } : { data, error: null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
+
+export const reicheSequenzEin = (sequenzId: string) => rufeStudio<null>('studio_einreichen', { p_sequenz_id: sequenzId })
+export const zieheSequenzZurueck = (sequenzId: string) => rufeStudio<null>('studio_zurueckziehen', { p_sequenz_id: sequenzId })
+export const pruefeAusgabe = (sequenzId: string) => rufeStudio<string[]>('studio_ausgabe_pruefen', { p_sequenz_id: sequenzId })
+
+/** Prüfung eintragen. „passt nicht“ braucht Beat und Kommentar. Gibt die neu ausgegebenen Welten zurück. */
+export const pruefeSequenz = (
+  sequenzId: string,
+  art: 'verstaendlich' | 'fachlich' | 'variante',
+  welt: string,
+  ergebnis: 'passt' | 'passt_nicht',
+  beatKey?: string,
+  kommentar?: string,
+) =>
+  rufeStudio<string[]>('studio_pruefen', {
+    p_sequenz_id: sequenzId, p_art: art, p_welt: welt, p_ergebnis: ergebnis, p_beat_key: beatKey ?? null, p_kommentar: kommentar ?? null,
+  })

@@ -25,3 +25,31 @@ export type StudioWeltStand = {
 }
 
 export type StudioErgebnis<T> = { data: T | null; error: { code: string | null; message: string; hint: string | null } | null }
+
+/** Stand des Reiters Freigabe (studio_freigabe_stand). */
+export type StudioPruefung = {
+  art: 'verstaendlich' | 'fachlich' | 'variante'
+  welt: string
+  person: string
+  ergebnis: 'passt' | 'passt_nicht'
+  beat_key: string | null
+  kommentar: string | null
+  at: string
+  aktuell: boolean
+}
+export type StudioFreigabeWelt = {
+  welt: string
+  gueltig: { verstaendlich?: boolean; fachlich?: boolean; variante?: boolean }
+  fehlt: string[]
+  ausgabe: { freigegeben_am: string; version_skelett: number; version_welt: number; zurueckgezogen: boolean } | null
+}
+export type StudioFreigabeStand = {
+  autor: string | null
+  autor_id: string
+  geschrieben_am: string
+  status: StudioStatus
+  ich_bin_autor: boolean
+  darf: { verstaendlich: boolean; fachlich: boolean; einreichen: boolean; zurueckziehen: boolean }
+  pruefungen: StudioPruefung[]
+  welten: StudioFreigabeWelt[]
+}

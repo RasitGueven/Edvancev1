@@ -1217,7 +1217,26 @@ type ErklaerVideoProps = {
 };
 ```
 
-### R1-B.2 Datenbank-Funktionen (Signaturen folgen mit B6)
+### R1-B.2 Datenbank-Funktionen (B6, eingespielt)
+
+```text
+erklaer_start / erklaer_check_abgeben (§8.2, Signaturen unverändert), zusätzlich:
+  video: null | { sequenz_id, welt, mp4, untertitel, poster,      -- Pfade im privaten Bucket `studio`; die App signiert sie
+                  kapitel: [{ beat, start, titel }],               -- Sekunden, aus kapitel.json
+                  bereich: { von, bis },                           -- Beat-Bereich der Kernidee
+                  minichecks: [{ nach_beat, task_id }] }           -- Anker des offenen Checks
+  aktion 'ruecksprung' (nur erklaer_check_abgeben): Paket wie 'variante' (neuer Check = dieselbe Frage mit anderen Zahlen)
+                  plus ruecksprung: { beat, rueckmeldung, fehlbild }
+  Eine Kernidee mit freigegebenem Video ist auslieferbar, auch ohne Karten-Variante (variante null, schritte []).
+  Welt des Kindes aus studio_kind_welt, sonst Skelett; die Frage (`check.aufgabe.prompt`) kommt in dieser Welt.
+mediathek_kind(p_kind uuid) → table(skill_key, kernidee_key, sequenz_id, titel, welt, mp4_url, kapitel jsonb,
+                                    untertitel_url, poster_url, von_beat, bis_beat)
+    *_url sind Pfade im Bucket `studio` (die App signiert sie mit createSignedUrl); nur freigegebene Videos der offenen
+    Kompetenzen (kompetenz_offen ≠ gesperrt), keine Mini-Checks. Zugriff wie kompetenz_offen.
+mediathek_angesehen(p_kind uuid, p_sequenz uuid) → void      nur das Kind selbst; speichert höchstens „angesehen“
+eddie_index(p_kind uuid) → table(skill_key, sequenz_id, beat_key, titel)   Sprungmarken freigegebener Sequenzen, nie Entwurf
+studio_welt_setzen(p_kind uuid, p_welt text) → void          das Kind selbst, sein Coach, Admin (skelett | fussball | gaming | musik)
+```
 
 | Funktion | Ergebnis | Regel |
 |---|---|---|

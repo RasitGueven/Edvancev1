@@ -2090,6 +2090,30 @@ $$;
 
 
 --
+-- Name: eddie_index(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.eddie_index(p_kind uuid) RETURNS TABLE(skill_key text, sequenz_id uuid, beat_key text, titel text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  -- Zugriff wie die Mediathek: kompetenz_offen (Auftrag D) wirft 42501 für fremde Kinder. Eddie kennt alle freigegebenen
+  -- Sequenzen (Sprungmarken aus der Ausgabe); nach einer Änderung bleibt die freigegebene Fassung, ein nie
+  -- freigegebener Entwurf erscheint nie.
+  perform 1 from public.kompetenz_offen(p_kind) limit 1;
+  return query
+  select s.skill_key, a.sequenz_id, k ->> 'beat', k ->> 'titel'
+    from public.studio_ausgabe a
+    join public.studio_sequenz s on s.id = a.sequenz_id
+    cross join lateral jsonb_array_elements(a.inhalt -> 'kapitel') k
+   where a.welt = 'skelett' and a.zurueckgezogen_am is null
+   order by s.skill_key, a.sequenz_id, (k ->> 'start')::numeric;
+end;
+$$;
+
+
+--
 -- Name: eingriff_notieren(uuid, uuid, integer, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -2581,6 +2605,9 @@ declare
   v_gezeigt  text[];
   v_wahl     text;
   v_tl       boolean;
+  v_ausgabe  public.studio_ausgabe;
+  v_sprung   jsonb;
+  v_antwort  jsonb;
 begin
   -- A2c: ohne Kind das Kind des Tablets (42501 ohne Platz).
   if p_student_id is null then
@@ -2598,7 +2625,12 @@ begin
     raise exception 'erklaer_check_abgeben: nicht der offene Check' using errcode = 'P0001';
   end if;
   select * into v_k from public.erklaer_kernidee where id = v_letzt.kernidee_id;
-  if not public.erklaer_status_ok(v_k.status, v_tl) or not (p_check_task_id = any (public.erklaer_checks(v_k.id, v_tl))) then
+  v_ausgabe := public.studio_ausgabe_fuer(v_k.id, p_student_id);
+  if v_ausgabe.sequenz_id is not null and not (p_check_task_id = any (public.studio_video_aufgaben(v_ausgabe, v_k.id))) then
+    v_ausgabe := null;  -- der offene Check gehört nicht (mehr) zum Video: Kartenweg
+  end if;
+  if v_ausgabe.sequenz_id is null
+     and (not public.erklaer_status_ok(v_k.status, v_tl) or not (p_check_task_id = any (public.erklaer_checks(v_k.id, v_tl)))) then
     raise exception 'erklaer_check_abgeben: Check inzwischen nicht mehr freigegeben' using errcode = 'P0002';
   end if;
 
@@ -2635,6 +2667,16 @@ begin
     return jsonb_build_object('aktion', 'signal');
   end if;
 
+  -- B6: Video mit Rücksprung zum erkannten Fehlbild → Beat, Rückmeldung, dieselbe Frage mit anderen Zahlen.
+  if v_ausgabe.sequenz_id is not null and v_fb is not null then
+    v_sprung := public.studio_video_check(v_ausgabe, v_k.id) -> 'ruecksprung' -> v_fb;
+    if v_sprung is not null then
+      v_antwort := public.erklaer_zeigen(p_session_id, p_student_id, v_k, v_letzt.variante, v_letzt.runde + 1, 'ruecksprung', v_tl);
+      return v_antwort || jsonb_build_object('ruecksprung',
+        jsonb_build_object('beat', v_sprung ->> 'beat', 'rueckmeldung', v_sprung ->> 'rueckmeldung', 'fehlbild', v_fb));
+    end if;
+  end if;
+
   -- Sonst eine andere Variante: passend zum Fehlbild, sonst die naechste ungezeigte.
   v_var := public.erklaer_varianten(v_k.id, v_tl);
   select coalesce(array_agg(distinct variante), '{}') into v_gezeigt
@@ -2644,11 +2686,11 @@ begin
 
   select s.variante into v_wahl from public.erklaer_schritt s
    where s.kernidee_id = v_k.id and s.art = 'erklaerung' and public.erklaer_status_ok(s.status, v_tl)
-     and s.variante <> v_letzt.variante and v_fb is not null and v_fb = any (s.fehlbild_slugs)
+     and s.variante is distinct from v_letzt.variante and v_fb is not null and v_fb = any (s.fehlbild_slugs)
    order by (s.variante = any (v_gezeigt)), s.variante limit 1;
   if v_wahl is null then
     select v into v_wahl from unnest(v_var) v
-     where v <> v_letzt.variante
+     where v is distinct from v_letzt.variante
      order by (v = any (v_gezeigt)), (v < v_letzt.variante), v limit 1;
   end if;
 
@@ -3156,9 +3198,11 @@ CREATE FUNCTION public.erklaer_naechste_kernidee(p_skill_key text, p_nach_nr int
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select k.* from public.erklaer_kernidee k
-   where k.skill_key = p_skill_key and k.nr > p_nach_nr and public.erklaer_status_ok(k.status, p_testlauf)
-     and cardinality(public.erklaer_varianten(k.id, p_testlauf)) > 0
-     and cardinality(public.erklaer_checks(k.id, p_testlauf)) > 0
+   where k.skill_key = p_skill_key and k.nr > p_nach_nr
+     and ((public.erklaer_status_ok(k.status, p_testlauf)
+           and cardinality(public.erklaer_varianten(k.id, p_testlauf)) > 0
+           and cardinality(public.erklaer_checks(k.id, p_testlauf)) > 0)
+          or public.studio_kernidee_hat_video(k.id))
    order by k.nr limit 1
 $$;
 
@@ -3662,6 +3706,7 @@ declare
   v_letzt public.erklaer_fortschritt;
   v_k     public.erklaer_kernidee;
   v_tl    boolean;
+  v_video boolean;
 begin
   -- A2c: ohne Kind das Kind des Tablets (42501 ohne Platz).
   if p_student_id is null then
@@ -3684,21 +3729,33 @@ begin
     elsif v_letzt.ergebnis = 'richtig' then
       return jsonb_build_object('aktion', 'weiter', 'uebergang', 'ueben');
     end if;
+    v_video := v_letzt.check_task_id = any (public.studio_video_aufgaben(public.studio_ausgabe_fuer(v_k.id, p_student_id), v_k.id));
     -- Inzwischen nicht mehr freigegeben (Kernidee, Variante oder Check): nicht ausliefern.
-    if not public.erklaer_status_ok(v_k.status, v_tl)
+    if not v_video and (not public.erklaer_status_ok(v_k.status, v_tl)
        or not (v_letzt.variante = any (public.erklaer_varianten(v_k.id, v_tl)))
-       or not (v_letzt.check_task_id = any (public.erklaer_checks(v_k.id, v_tl))) then
+       or not (v_letzt.check_task_id = any (public.erklaer_checks(v_k.id, v_tl)))) then
+      -- B6: Ist die Kernidee weiter auslieferbar (z. B. Video zurückgezogen, Karten da), neue Runde statt Stillstand.
+      if (public.erklaer_naechste_kernidee(p_skill_key, v_k.nr - 1, v_tl)).id = v_k.id then
+        return public.erklaer_zeigen(p_session_id, p_student_id, v_k, (public.erklaer_varianten(v_k.id, v_tl))[1],
+                                     v_letzt.runde + 1, 'start', v_tl);
+      end if;
       raise exception 'erklaer_start: Erklaerung inzwischen nicht mehr freigegeben' using errcode = 'P0002';
     end if;
     return jsonb_build_object(
       'aktion', 'start',
       'kernidee', jsonb_build_object('nr', v_k.nr, 'titel', v_k.titel,
                     'von', (select count(*) from public.erklaer_kernidee k
-                             where k.skill_key = p_skill_key and public.erklaer_status_ok(k.status, v_tl))),
+                             where k.skill_key = p_skill_key
+                               and (public.erklaer_status_ok(k.status, v_tl) or public.studio_kernidee_hat_video(k.id)))),
       'variante', v_letzt.variante, 'runde', v_letzt.runde,
-      'schritte', public.erklaer_schritte_json(v_k.id, v_letzt.variante, v_tl),
+      'schritte', case when v_letzt.variante is null then '[]'::jsonb
+                       else public.erklaer_schritte_json(v_k.id, v_letzt.variante, v_tl) end,
       'check', jsonb_build_object('task_id', v_letzt.check_task_id,
-                                  'aufgabe', public.lsa_question_payload(v_letzt.check_task_id)));
+                                  'aufgabe', case when v_video then public.studio_check_payload(
+                                               public.studio_ausgabe_fuer(v_k.id, p_student_id), v_k.id, v_letzt.check_task_id)
+                                             else public.lsa_question_payload(v_letzt.check_task_id) end),
+      'video', case when v_video then public.studio_video_json(public.studio_ausgabe_fuer(v_k.id, p_student_id), v_k.id,
+                                                               v_letzt.check_task_id) end);
   end if;
 
   v_k := public.erklaer_naechste_kernidee(p_skill_key, 0, v_tl);
@@ -3844,10 +3901,21 @@ CREATE FUNCTION public.erklaer_zeigen(p_session_id uuid, p_student_id uuid, p_ke
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_checks uuid[] := public.erklaer_checks(p_kernidee.id, p_testlauf);
-  v_check  uuid;
+  v_checks  uuid[];
+  v_check   uuid;
+  v_video   public.studio_ausgabe := public.studio_ausgabe_fuer(p_kernidee.id, p_student_id);
+  v_aufgabe jsonb;
 begin
-  if cardinality(v_checks) = 0 or p_variante is null then
+  if v_video.sequenz_id is not null then
+    -- Video: Fassungen des Mini-Checks reihum (Runde 1 Hauptfrage, danach andere Zahlen).
+    v_checks := public.studio_video_aufgaben(v_video, p_kernidee.id);
+  end if;
+  if cardinality(coalesce(v_checks, '{}')) = 0 then
+    -- Ohne auslieferbaren Video-Check: Kartenweg wie bisher (auch das Video fällt dann weg).
+    v_video := null;
+    v_checks := public.erklaer_checks(p_kernidee.id, p_testlauf);
+  end if;
+  if cardinality(v_checks) = 0 or (p_variante is null and v_video.sequenz_id is null) then
     raise exception 'erklaer: Kernidee % hat keine freigegebene Variante oder Check-Aufgabe', p_kernidee.nr
       using errcode = 'P0002';
   end if;
@@ -3856,17 +3924,22 @@ begin
     (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis)
   values (p_session_id, p_student_id, p_kernidee.id, p_runde, p_variante, v_check, 'gezeigt');
 
+  v_aufgabe := case when v_video.sequenz_id is not null then public.studio_check_payload(v_video, p_kernidee.id, v_check)
+                    else public.lsa_question_payload(v_check) end;
+
   return jsonb_build_object(
     'aktion',   p_aktion,
     'kernidee', jsonb_build_object(
                   'nr', p_kernidee.nr, 'titel', p_kernidee.titel,
                   'von', (select count(*) from public.erklaer_kernidee k
-                           where k.skill_key = p_kernidee.skill_key and public.erklaer_status_ok(k.status, p_testlauf))),
+                           where k.skill_key = p_kernidee.skill_key
+                             and (public.erklaer_status_ok(k.status, p_testlauf) or public.studio_kernidee_hat_video(k.id)))),
     'variante', p_variante,
     'runde',    p_runde,
-    'schritte', public.erklaer_schritte_json(p_kernidee.id, p_variante, p_testlauf),
-    'check',    jsonb_build_object('task_id', v_check,
-                                   'aufgabe', public.lsa_question_payload(v_check)));
+    'schritte', case when p_variante is null then '[]'::jsonb
+                     else public.erklaer_schritte_json(p_kernidee.id, p_variante, p_testlauf) end,
+    'check',    jsonb_build_object('task_id', v_check, 'aufgabe', v_aufgabe),
+    'video',    case when v_video.sequenz_id is not null then public.studio_video_json(v_video, p_kernidee.id, v_check) end);
 end;
 $$;
 
@@ -10185,6 +10258,54 @@ begin
      where l.student_id = p_student_id
        and public.lernpfad_pruefung_faellig(l.student_id, l.skill_key)
      order by l.stand_system_seit, l.skill_key;
+end;
+$$;
+
+
+--
+-- Name: mediathek_angesehen(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mediathek_angesehen(p_kind uuid, p_sequenz uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if p_kind is null or public.get_my_student_id() is distinct from p_kind then
+    raise exception 'mediathek_angesehen: nur das Kind selbst' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.studio_ausgabe a where a.sequenz_id = p_sequenz and a.zurueckgezogen_am is null) then
+    raise exception 'mediathek_angesehen: Video nicht freigegeben' using errcode = 'P0002';
+  end if;
+  insert into public.studio_angesehen (student_id, sequenz_id) values (p_kind, p_sequenz)
+  on conflict (student_id, sequenz_id) do update set zuletzt_am = now();
+end;
+$$;
+
+
+--
+-- Name: mediathek_kind(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mediathek_kind(p_kind uuid) RETURNS TABLE(skill_key text, kernidee_key text, sequenz_id uuid, titel text, welt text, mp4_url text, kapitel jsonb, untertitel_url text, poster_url text, von_beat text, bis_beat text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  return query
+  -- „Offen“ = nicht gesperrt (Anforderung Themenbaum §3; auch „sicher“ ist offen).
+  with offen as (select o.skill_key from public.kompetenz_offen(p_kind) o where coalesce(o.zustand, 'gesperrt') <> 'gesperrt'),
+  bereiche as (select (b ->> 'kernidee_id')::uuid as kernidee_id, b ->> 'von' as von, b ->> 'bis' as bis
+                 from public.studio_ausgabe s cross join lateral jsonb_array_elements(s.inhalt -> 'bereiche') b
+                where s.welt = 'skelett' and s.zurueckgezogen_am is null)
+  select k.skill_key, k.skill_key || ':k' || k.nr, a.sequenz_id, k.titel, a.welt, a.inhalt ->> 'mp4', a.inhalt -> 'kapitel',
+         a.inhalt ->> 'untertitel', a.inhalt ->> 'poster', b.von, b.bis
+    from bereiche b
+    join public.erklaer_kernidee k on k.id = b.kernidee_id
+    join offen o on o.skill_key = k.skill_key
+    cross join lateral (select * from public.studio_ausgabe_fuer(b.kernidee_id, p_kind)) a
+   where a.sequenz_id is not null
+   order by k.skill_key, k.nr;
 end;
 $$;
 
@@ -17701,6 +17822,22 @@ begin
         return;
       end if;
     end loop;
+    -- aufgabe_ziehen kennt keinen Testlauf (Konzept §9). Im Testlauf weiter zum bisherigen Pool, der Entwürfe
+    -- zeigt; in echten Sessions bleibt es beim A-Weg (§3.1: Beispiel nur als Instanz der Rolle beispiel).
+    if not coalesce(p_testlauf, false) then
+      return;
+    end if;
+    -- Testlauf: nur Aufgaben ohne Bauform oder Instanzen genau dieser Rolle (§3.1, z. B. nie home vor Ort).
+    if p_rolle in ('warmup', 'uebung', 'recap', 'beispiel') then
+      select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_skill_key, coalesce(p_stufe, 2),
+                                                          true, p_rolle = 'beispiel');
+      if w.task_id is not null and not (w.task_id = any (v_aus))
+         and exists (select 1 from public.tasks t
+                      where t.id = w.task_id and (t.bauform_id is null or t.rolle = p_rolle)) then
+        task_id := w.task_id;
+        difficulty := w.difficulty;
+      end if;
+    end if;
     return;
   end if;
   -- Ohne Auftrag A: bisheriger Session-Pool, nur für Rollen, die es dort schon gibt.
@@ -21038,6 +21175,158 @@ CREATE FUNCTION public.studio_audio_fassung() RETURNS text
 
 
 --
+-- Name: studio_ausgabe_fehlt(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_ausgabe_fehlt(p_sequenz_id uuid, p_welt text) RETURNS text[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select array_remove(array[
+    case when not public.studio_freigabe_gueltig(p_sequenz_id, 'verstaendlich', 'skelett') then 'verstaendlich' end,
+    case when not public.studio_freigabe_gueltig(p_sequenz_id, 'fachlich', 'skelett') then 'fachlich' end,
+    case when p_welt <> 'skelett' and not public.studio_freigabe_gueltig(p_sequenz_id, 'variante', p_welt) then 'variante' end,
+    case when coalesce((select w.gesperrt from public.studio_welt w where w.sequenz_id = p_sequenz_id and w.welt = p_welt), true)
+         then 'welt_gesperrt' end,
+    case when exists (select 1 from public.studio_stimme_bedarf(p_sequenz_id) b
+                       where b.welt = p_welt and (not b.vorhanden or b.platzhalter)) then 'stimme' end,
+    case when not coalesce((select s.aktuell from public.studio_render_stand(p_sequenz_id) s where s.welt = p_welt), false)
+         then 'render' end
+  ], null)
+$$;
+
+
+--
+-- Name: studio_ausgabe; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_ausgabe (
+    sequenz_id uuid NOT NULL,
+    welt text NOT NULL,
+    render_id uuid NOT NULL,
+    version_skelett bigint NOT NULL,
+    version_welt bigint NOT NULL,
+    inhalt jsonb NOT NULL,
+    freigegeben_am timestamp with time zone DEFAULT now() NOT NULL,
+    zurueckgezogen_am timestamp with time zone,
+    CONSTRAINT studio_ausgabe_welt_check CHECK ((welt = ANY (ARRAY['skelett'::text, 'fussball'::text, 'gaming'::text, 'musik'::text])))
+);
+
+
+--
+-- Name: studio_ausgabe_fuer(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_ausgabe_fuer(p_kernidee_id uuid, p_kind uuid) RETURNS public.studio_ausgabe
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select a.* from public.studio_ausgabe s
+    join public.studio_ausgabe a on a.sequenz_id = s.sequenz_id and a.zurueckgezogen_am is null
+   where s.welt = 'skelett' and s.zurueckgezogen_am is null
+     and exists (select 1 from jsonb_array_elements(s.inhalt -> 'bereiche') b where b ->> 'kernidee_id' = p_kernidee_id::text)
+     and (a.welt = 'skelett' or (a.welt = (select kw.welt from public.studio_kind_welt kw where kw.student_id = p_kind)
+                                  and a.version_skelett = s.version_skelett))
+   order by a.welt = 'skelett' limit 1
+$$;
+
+
+--
+-- Name: studio_render; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_render (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    sequenz_id uuid NOT NULL,
+    welt text NOT NULL,
+    fingerabdruck text NOT NULL,
+    status text DEFAULT 'wartet'::text NOT NULL,
+    ort text DEFAULT 'server'::text NOT NULL,
+    mp4 text,
+    kapitel jsonb,
+    untertitel text,
+    poster text,
+    dauer_ms integer,
+    fehler text,
+    angelegt_von uuid NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    fertig_am timestamp with time zone,
+    CONSTRAINT studio_render_check CHECK (((status <> 'fertig'::text) OR ((mp4 IS NOT NULL) AND (kapitel IS NOT NULL) AND (untertitel IS NOT NULL) AND (poster IS NOT NULL) AND (dauer_ms IS NOT NULL) AND (fertig_am IS NOT NULL)))),
+    CONSTRAINT studio_render_dauer_ms_check CHECK (((dauer_ms IS NULL) OR (dauer_ms > 0))),
+    CONSTRAINT studio_render_fingerabdruck_check CHECK ((fingerabdruck ~ '^[0-9a-f]{64}$'::text)),
+    CONSTRAINT studio_render_ort_check CHECK ((ort = ANY (ARRAY['server'::text, 'lokal'::text]))),
+    CONSTRAINT studio_render_status_check CHECK ((status = ANY (ARRAY['wartet'::text, 'laeuft'::text, 'fertig'::text, 'fehler'::text]))),
+    CONSTRAINT studio_render_welt_check CHECK ((welt = ANY (ARRAY['skelett'::text, 'fussball'::text, 'gaming'::text, 'musik'::text])))
+);
+
+
+--
+-- Name: studio_ausgabe_inhalt(uuid, text, public.studio_render); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_ausgabe_inhalt(p_sequenz_id uuid, p_welt text, p_render public.studio_render) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+    'titel', s.titel, 'skill_key', s.skill_key, 'welt', p_welt,
+    'mp4', p_render.mp4, 'untertitel', p_render.untertitel, 'poster', p_render.poster, 'kapitel', p_render.kapitel,
+    'dauer_ms', p_render.dauer_ms,
+    'bereiche', (select coalesce(jsonb_agg(jsonb_build_object('kernidee_id', r.kernidee_id, 'skill_key', k.skill_key,
+                                   'nr', k.nr, 'von', r.von_beat, 'bis', r.bis_beat) order by k.skill_key, k.nr), '[]')
+                   from public.studio_bereich r join public.erklaer_kernidee k on k.id = r.kernidee_id
+                  where r.sequenz_id = p_sequenz_id),
+    'minichecks', (select coalesce(jsonb_agg(jsonb_build_object(
+                      'nach_beat', nb.beat_key, 'kernidee_id', m.kernidee_id,
+                      'aufgaben', (select jsonb_agg(jsonb_build_object('nr', a.nr, 'task_id', a.task_id,
+                                                      'frage', coalesce(a.frage ->> p_welt, a.frage ->> 'skelett'),
+                                                      'optionen', a.optionen) order by a.nr)
+                                     from public.studio_minicheck_aufgabe a where a.minicheck_id = m.id),
+                      'ruecksprung', (select coalesce(jsonb_object_agg(r.fehlbild_key,
+                                         jsonb_build_object('beat', rb.beat_key, 'rueckmeldung', r.rueckmeldung)), '{}')
+                                        from public.studio_ruecksprung r join public.studio_beat rb on rb.id = r.beat_id
+                                       where r.minicheck_id = m.id)) order by m.pos), '[]')
+                     from public.studio_minicheck m join public.studio_beat nb on nb.id = m.nach_beat_id
+                    where m.sequenz_id = p_sequenz_id))
+    from public.studio_sequenz s where s.id = p_sequenz_id
+$$;
+
+
+--
+-- Name: studio_ausgabe_pruefen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_ausgabe_pruefen(p_sequenz_id uuid) RETURNS text[]
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.studio_darf_sehen() then
+    raise exception 'studio: kein Zugriff' using errcode = '42501';
+  end if;
+  return public.studio_veroeffentlichen(p_sequenz_id);
+end;
+$$;
+
+
+--
+-- Name: studio_bearbeiter_merken(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_bearbeiter_merken() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if auth.uid() is not null and auth.uid() <> new.autor_id then
+    insert into public.studio_bearbeiter (sequenz_id, person_id) values (new.id, auth.uid()) on conflict do nothing;
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: studio_check_aufgabe(uuid, text, text, text, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -21089,6 +21378,22 @@ $$;
 
 
 --
+-- Name: studio_check_payload(public.studio_ausgabe, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_check_payload(p_ausgabe public.studio_ausgabe, p_kernidee_id uuid, p_task uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when f.frage is null then p.payload else jsonb_set(p.payload, '{prompt}', to_jsonb(f.frage)) end
+    from (select public.lsa_question_payload(p_task) as payload) p
+    left join lateral (select a ->> 'frage' as frage
+                         from jsonb_array_elements(coalesce(public.studio_video_check(p_ausgabe, p_kernidee_id) -> 'aufgaben', '[]')) a
+                        where (a ->> 'task_id')::uuid = p_task) f on true
+$$;
+
+
+--
 -- Name: studio_darf_sehen(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -21099,6 +21404,42 @@ CREATE FUNCTION public.studio_darf_sehen() RETURNS boolean
   select coalesce(public.get_my_role() = 'admin', false)
       or public.darf_pruefen()
       or exists (select 1 from public.studio_rolle r where r.person_id = auth.uid())
+$$;
+
+
+--
+-- Name: studio_datei_freigegeben(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_datei_freigegeben(p_name text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.studio_ausgabe a
+                  where a.zurueckgezogen_am is null
+                    and p_name in (a.inhalt ->> 'mp4', a.inhalt ->> 'untertitel', a.inhalt ->> 'poster'))
+$$;
+
+
+--
+-- Name: studio_einreichen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_einreichen(p_sequenz_id uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not exists (select 1 from public.studio_sequenz s where s.id = p_sequenz_id
+                  and (s.autor_id = auth.uid() or coalesce(public.get_my_role(), '') = 'admin')) then
+    raise exception 'studio_einreichen: nur der Autor oder ein Admin' using errcode = '42501';
+  end if;
+  update public.studio_sequenz set status = 'in_pruefung'
+   where id = p_sequenz_id and status in ('entwurf', 'vertont', 'gerendert');
+  if not found then
+    raise exception 'studio_einreichen: Sequenz ist schon in Prüfung oder freigegeben' using errcode = '22023';
+  end if;
+end;
 $$;
 
 
@@ -21143,6 +21484,88 @@ CREATE FUNCTION public.studio_fingerabdruck(p_stimme text, p_modell text, p_satz
 
 
 --
+-- Name: studio_freigabe_gueltig(uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_freigabe_gueltig(p_sequenz_id uuid, p_art text, p_welt text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select f.ergebnis = 'passt' and f.version = public.studio_version(p_sequenz_id, p_welt)
+                          and f.fingerabdruck = public.studio_render_fingerabdruck(p_sequenz_id, p_welt)
+                     from public.studio_freigabe f
+                    where f.sequenz_id = p_sequenz_id and f.art = p_art and f.welt = p_welt
+                    order by f.id desc limit 1), false)
+$$;
+
+
+--
+-- Name: studio_freigabe_regeln(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_freigabe_regeln() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1 then
+    return old;  -- Sequenz wird gelöscht (Kaskade)
+  end if;
+  if tg_op <> 'INSERT' then
+    raise exception 'studio_freigabe ist append-only' using errcode = '42501';
+  end if;
+  if exists (select 1 from public.studio_sequenz s where s.id = new.sequenz_id and s.autor_id = new.person_id)
+     or exists (select 1 from public.studio_bearbeiter b where b.sequenz_id = new.sequenz_id and b.person_id = new.person_id) then
+    raise exception 'studio: der Autor prüft seine eigene Sequenz nicht' using errcode = '42501', hint = 'pruefer_ist_autor';
+  end if;
+  if new.art in ('verstaendlich', 'fachlich') and new.ergebnis = 'passt' and exists (
+       select 1 from public.studio_freigabe f
+        where f.sequenz_id = new.sequenz_id and f.art <> new.art and f.art in ('verstaendlich', 'fachlich')
+          and f.person_id = new.person_id and f.ergebnis = 'passt' and f.fingerabdruck = new.fingerabdruck) then
+    raise exception 'studio: verständlich und fachlich prüfen zwei verschiedene Personen' using errcode = '42501',
+      hint = 'vier_augen';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: studio_freigabe_stand(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_freigabe_stand(p_sequenz_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+    'autor', (select p.full_name from public.profiles p where p.id = s.autor_id),
+    'autor_id', s.autor_id, 'geschrieben_am', s.angelegt_am, 'status', s.status,
+    'ich_bin_autor', s.autor_id = auth.uid(),
+    'darf', jsonb_build_object('verstaendlich', public.studio_hat_rolle('gruender') and s.autor_id <> auth.uid(),
+                               'fachlich', public.studio_hat_rolle('fachlich') and s.autor_id <> auth.uid(),
+                               'einreichen', s.autor_id = auth.uid() or coalesce(public.get_my_role(), '') = 'admin',
+                               'zurueckziehen', coalesce(public.get_my_role(), '') = 'admin'),
+    'pruefungen', (select coalesce(jsonb_agg(jsonb_build_object('art', f.art, 'welt', f.welt, 'person', p.full_name,
+                     'ergebnis', f.ergebnis, 'beat_key', f.beat_key, 'kommentar', f.kommentar, 'at', f.at,
+                     'aktuell', f.version = public.studio_version(s.id, f.welt)) order by f.id desc), '[]')
+                     from public.studio_freigabe f join public.profiles p on p.id = f.person_id where f.sequenz_id = s.id),
+    'welten', (select jsonb_agg(jsonb_build_object('welt', w.welt,
+                 'gueltig', case when w.welt = 'skelett'
+                                 then jsonb_build_object('verstaendlich', public.studio_freigabe_gueltig(s.id, 'verstaendlich', 'skelett'),
+                                                         'fachlich', public.studio_freigabe_gueltig(s.id, 'fachlich', 'skelett'))
+                                 else jsonb_build_object('variante', public.studio_freigabe_gueltig(s.id, 'variante', w.welt)) end,
+                 'fehlt', to_jsonb(public.studio_ausgabe_fehlt(s.id, w.welt)),
+                 'ausgabe', (select jsonb_build_object('freigegeben_am', a.freigegeben_am, 'version_skelett', a.version_skelett,
+                                                        'version_welt', a.version_welt, 'zurueckgezogen', a.zurueckgezogen_am is not null)
+                               from public.studio_ausgabe a where a.sequenz_id = s.id and a.welt = w.welt))
+                 order by w.welt = 'skelett' desc, w.welt)
+                 from public.studio_welt w where w.sequenz_id = s.id))
+    from public.studio_sequenz s where s.id = p_sequenz_id and public.studio_darf_sehen()
+$$;
+
+
+--
 -- Name: studio_hat_rolle(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -21150,9 +21573,8 @@ CREATE FUNCTION public.studio_hat_rolle(p_rolle text) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select coalesce(public.get_my_role() = 'admin', false)
+  select (p_rolle = 'autor' and coalesce(public.get_my_role() = 'admin', false))
       or exists (select 1 from public.studio_rolle r where r.person_id = auth.uid() and r.rolle = p_rolle)
-      or (p_rolle = 'fachlich' and public.darf_pruefen())
 $$;
 
 
@@ -21189,6 +21611,56 @@ CREATE FUNCTION public.studio_inhalt_hash(p_sequenz_id uuid, p_welt text) RETURN
                      from public.studio_minicheck m join public.studio_minicheck_aufgabe a on a.minicheck_id = m.id
                     where m.sequenz_id = p_sequenz_id and a.frage ? p_welt))
     end::text, ''))
+$$;
+
+
+--
+-- Name: studio_kernidee_hat_video(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_kernidee_hat_video(p_kernidee_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.studio_ausgabe a
+                  where a.welt = 'skelett' and a.zurueckgezogen_am is null
+                    and cardinality(public.studio_video_aufgaben(a, p_kernidee_id)) > 0)
+$$;
+
+
+--
+-- Name: studio_pruefen(uuid, text, text, text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_pruefen(p_sequenz_id uuid, p_art text, p_welt text, p_ergebnis text, p_beat_key text DEFAULT NULL::text, p_kommentar text DEFAULT NULL::text) RETURNS text[]
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_s public.studio_sequenz;
+begin
+  if not public.studio_hat_rolle(case when p_art = 'verstaendlich' then 'gruender' else 'fachlich' end) then
+    raise exception 'studio_pruefen: keine Prüfrolle für %', p_art using errcode = '42501';
+  end if;
+  select * into v_s from public.studio_sequenz where id = p_sequenz_id for update;
+  -- Varianten-Texte lassen sich auch prüfen, während das Skelett beim Autor liegt (Anforderung §8.4).
+  if v_s.status not in ('in_pruefung', 'freigegeben') and p_art <> 'variante' then
+    raise exception 'studio_pruefen: Sequenz ist nicht eingereicht' using errcode = '22023';
+  end if;
+  if p_beat_key is not null and not exists (select 1 from public.studio_beat b where b.sequenz_id = p_sequenz_id
+                                              and b.beat_key = p_beat_key) then
+    raise exception 'studio_pruefen: Beat % fehlt', p_beat_key using errcode = '22023';
+  end if;
+  insert into public.studio_freigabe (sequenz_id, art, welt, person_id, ergebnis, beat_key, kommentar, version, fingerabdruck)
+  select p_sequenz_id, p_art, x.welt, auth.uid(), p_ergebnis, p_beat_key, p_kommentar,
+         public.studio_version(p_sequenz_id, x.welt), public.studio_render_fingerabdruck(p_sequenz_id, x.welt)
+    from (select case when p_art = 'variante' then p_welt else 'skelett' end as welt) x;
+  -- Zurück an den Autor, auch aus „freigegeben“. Die bisherige Ausgabe bleibt, bis neu freigegeben oder zurückgezogen ist.
+  if p_ergebnis = 'passt_nicht' and p_art in ('verstaendlich', 'fachlich') then
+    update public.studio_sequenz set status = 'entwurf' where id = p_sequenz_id and status in ('in_pruefung', 'freigegeben');
+  end if;
+  return public.studio_veroeffentlichen(p_sequenz_id);
+end;
 $$;
 
 
@@ -21600,6 +22072,140 @@ $$;
 
 
 --
+-- Name: studio_veroeffentlichen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_veroeffentlichen(p_sequenz_id uuid) RETURNS text[]
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  w      record;
+  v_r    public.studio_render;
+  v_neu  text[] := '{}';
+  v_status text;
+begin
+  -- Gegen gleichzeitiges Speichern: der Stand der Sequenz bleibt während der Ausgabe fest.
+  select status into v_status from public.studio_sequenz where id = p_sequenz_id for update;
+  -- Entfernte Welten verschwinden aus der Ausgabe.
+  update public.studio_ausgabe a set zurueckgezogen_am = now()
+   where a.sequenz_id = p_sequenz_id and a.zurueckgezogen_am is null
+     and not exists (select 1 from public.studio_welt sw where sw.sequenz_id = p_sequenz_id and sw.welt = a.welt);
+  if v_status not in ('in_pruefung', 'freigegeben') then
+    return v_neu;
+  end if;
+  for w in select sw.welt from public.studio_welt sw where sw.sequenz_id = p_sequenz_id
+            order by sw.welt = 'skelett' desc, sw.welt loop
+    continue when cardinality(public.studio_ausgabe_fehlt(p_sequenz_id, w.welt)) > 0;
+    continue when w.welt <> 'skelett' and not exists (select 1 from public.studio_ausgabe a where a.sequenz_id = p_sequenz_id
+                     and a.welt = 'skelett' and a.zurueckgezogen_am is null
+                     and a.version_skelett = public.studio_version(p_sequenz_id, 'skelett'));
+    select r.* into v_r from public.studio_render r
+     where r.sequenz_id = p_sequenz_id and r.welt = w.welt and r.status = 'fertig'
+     order by r.fertig_am desc limit 1;
+    continue when exists (select 1 from public.studio_ausgabe a where a.sequenz_id = p_sequenz_id and a.welt = w.welt
+                            and a.render_id = v_r.id and a.zurueckgezogen_am is null);
+    insert into public.studio_ausgabe as a (sequenz_id, welt, render_id, version_skelett, version_welt, inhalt)
+    values (p_sequenz_id, w.welt, v_r.id, public.studio_version(p_sequenz_id, 'skelett'),
+            public.studio_version(p_sequenz_id, w.welt), public.studio_ausgabe_inhalt(p_sequenz_id, w.welt, v_r))
+    on conflict (sequenz_id, welt) do update
+      set render_id = excluded.render_id, version_skelett = excluded.version_skelett,
+          version_welt = excluded.version_welt, inhalt = excluded.inhalt, freigegeben_am = now(), zurueckgezogen_am = null;
+    v_neu := v_neu || w.welt;
+    if w.welt = 'skelett' then
+      update public.studio_sequenz set status = 'freigegeben' where id = p_sequenz_id;
+      -- Die fachliche Freigabe deckt die Mini-Checks ab (Anforderung §8): ihre Aufgaben werden 'ready'.
+      update public.tasks t set status = 'ready', reviewed_at = now()
+        from public.studio_minicheck_aufgabe a join public.studio_minicheck m on m.id = a.minicheck_id
+       where m.sequenz_id = p_sequenz_id and t.id = a.task_id and t.status = 'draft';
+    end if;
+  end loop;
+  return v_neu;
+end;
+$$;
+
+
+--
+-- Name: studio_version(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_version(p_sequenz_id uuid, p_welt text) RETURNS bigint
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when p_welt = 'skelett' then (select version from public.studio_sequenz where id = p_sequenz_id)
+              else (select version from public.studio_welt where sequenz_id = p_sequenz_id and welt = p_welt) end
+$$;
+
+
+--
+-- Name: studio_video_aufgaben(public.studio_ausgabe, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_video_aufgaben(p_ausgabe public.studio_ausgabe, p_kernidee_id uuid) RETURNS uuid[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(array_agg(t.id order by (a ->> 'nr')::int), '{}')
+    from jsonb_array_elements(coalesce(public.studio_video_check(p_ausgabe, p_kernidee_id) -> 'aufgaben', '[]')) a
+    join public.tasks t on t.id = (a ->> 'task_id')::uuid
+   where coalesce(t.is_active, true) and t.status = 'ready' and 'check' = any (t.einsatz)
+$$;
+
+
+--
+-- Name: studio_video_check(public.studio_ausgabe, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_video_check(p_ausgabe public.studio_ausgabe, p_kernidee_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select m from jsonb_array_elements(p_ausgabe.inhalt -> 'minichecks') m
+   where m ->> 'kernidee_id' = p_kernidee_id::text limit 1
+$$;
+
+
+--
+-- Name: studio_video_json(public.studio_ausgabe, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_video_json(p_ausgabe public.studio_ausgabe, p_kernidee_id uuid, p_check_task uuid) RETURNS jsonb
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+    'sequenz_id', p_ausgabe.sequenz_id, 'welt', p_ausgabe.welt,
+    'mp4', p_ausgabe.inhalt ->> 'mp4', 'untertitel', p_ausgabe.inhalt ->> 'untertitel', 'poster', p_ausgabe.inhalt ->> 'poster',
+    'kapitel', p_ausgabe.inhalt -> 'kapitel',
+    'bereich', (select jsonb_build_object('von', b ->> 'von', 'bis', b ->> 'bis')
+                  from jsonb_array_elements(p_ausgabe.inhalt -> 'bereiche') b where b ->> 'kernidee_id' = p_kernidee_id::text),
+    'minichecks', coalesce((select jsonb_agg(jsonb_build_object('nach_beat', m ->> 'nach_beat', 'task_id', p_check_task))
+                              from (select public.studio_video_check(p_ausgabe, p_kernidee_id) m) x where m is not null), '[]'))
+$$;
+
+
+--
+-- Name: studio_welt_setzen(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_welt_setzen(p_kind uuid, p_welt text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not coalesce(public.get_my_student_id() = p_kind or coalesce(public.get_my_role(), '') = 'admin'
+                  or exists (select 1 from public.coaching_sessions cs join public.session_students ss on ss.session_id = cs.id
+                              where cs.coach_id = auth.uid() and ss.student_id = p_kind), false) then
+    raise exception 'studio_welt_setzen: kein Zugriff' using errcode = '42501';
+  end if;
+  insert into public.studio_kind_welt (student_id, welt) values (p_kind, p_welt)
+  on conflict (student_id) do update set welt = excluded.welt, geaendert_am = now();
+end;
+$$;
+
+
+--
 -- Name: studio_wert(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -21607,6 +22213,26 @@ CREATE FUNCTION public.studio_wert(p_schluessel text) RETURNS jsonb
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$ select wert from public.studio_einstellung where schluessel = p_schluessel $$;
+
+
+--
+-- Name: studio_zurueckziehen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_zurueckziehen(p_sequenz_id uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'studio_zurueckziehen: nur Admin' using errcode = '42501';
+  end if;
+  update public.studio_ausgabe set zurueckgezogen_am = now() where sequenz_id = p_sequenz_id and zurueckgezogen_am is null;
+  -- Versionen erhöhen: alle bisherigen Freigaben fallen, eine neue Ausgabe braucht eine neue Prüfung.
+  update public.studio_sequenz set status = 'entwurf', version = version + 1 where id = p_sequenz_id;
+  update public.studio_welt set version = version + 1 where sequenz_id = p_sequenz_id;
+end;
+$$;
 
 
 --
@@ -26299,6 +26925,18 @@ CREATE TABLE public.students (
 
 
 --
+-- Name: studio_angesehen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_angesehen (
+    student_id uuid NOT NULL,
+    sequenz_id uuid NOT NULL,
+    erstmals_am timestamp with time zone DEFAULT now() NOT NULL,
+    zuletzt_am timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: studio_audio; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -26313,6 +26951,16 @@ CREATE TABLE public.studio_audio (
     angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT studio_audio_dauer_ms_check CHECK ((dauer_ms > 0)),
     CONSTRAINT studio_audio_fingerabdruck_check CHECK ((fingerabdruck ~ '^[0-9a-f]{64}$'::text))
+);
+
+
+--
+-- Name: studio_bearbeiter; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_bearbeiter (
+    sequenz_id uuid NOT NULL,
+    person_id uuid NOT NULL
 );
 
 
@@ -26377,6 +27025,56 @@ CREATE TABLE public.studio_einstellung (
 
 
 --
+-- Name: studio_freigabe; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_freigabe (
+    id bigint NOT NULL,
+    sequenz_id uuid NOT NULL,
+    art text NOT NULL,
+    welt text DEFAULT 'skelett'::text NOT NULL,
+    person_id uuid NOT NULL,
+    ergebnis text NOT NULL,
+    beat_key text,
+    kommentar text,
+    version bigint NOT NULL,
+    fingerabdruck text NOT NULL,
+    at timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    CONSTRAINT studio_freigabe_art_check CHECK ((art = ANY (ARRAY['verstaendlich'::text, 'fachlich'::text, 'variante'::text]))),
+    CONSTRAINT studio_freigabe_check CHECK (((art = 'variante'::text) = (welt <> 'skelett'::text))),
+    CONSTRAINT studio_freigabe_check1 CHECK (((ergebnis = 'passt'::text) OR ((beat_key IS NOT NULL) AND (btrim(COALESCE(kommentar, ''::text)) <> ''::text)))),
+    CONSTRAINT studio_freigabe_ergebnis_check CHECK ((ergebnis = ANY (ARRAY['passt'::text, 'passt_nicht'::text]))),
+    CONSTRAINT studio_freigabe_welt_check CHECK ((welt = ANY (ARRAY['skelett'::text, 'fussball'::text, 'gaming'::text, 'musik'::text])))
+);
+
+
+--
+-- Name: studio_freigabe_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_freigabe ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.studio_freigabe_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: studio_kind_welt; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_kind_welt (
+    student_id uuid NOT NULL,
+    welt text NOT NULL,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT studio_kind_welt_welt_check CHECK ((welt = ANY (ARRAY['skelett'::text, 'fussball'::text, 'gaming'::text, 'musik'::text])))
+);
+
+
+--
 -- Name: studio_minicheck; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -26407,35 +27105,6 @@ CREATE TABLE public.studio_minicheck_aufgabe (
     CONSTRAINT studio_minicheck_aufgabe_frage_check CHECK (((jsonb_typeof(frage) = 'object'::text) AND (frage ? 'skelett'::text))),
     CONSTRAINT studio_minicheck_aufgabe_nr_check CHECK ((nr >= 0)),
     CONSTRAINT studio_minicheck_aufgabe_optionen_check CHECK ((jsonb_typeof(optionen) = 'array'::text))
-);
-
-
---
--- Name: studio_render; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.studio_render (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    sequenz_id uuid NOT NULL,
-    welt text NOT NULL,
-    fingerabdruck text NOT NULL,
-    status text DEFAULT 'wartet'::text NOT NULL,
-    ort text DEFAULT 'server'::text NOT NULL,
-    mp4 text,
-    kapitel jsonb,
-    untertitel text,
-    poster text,
-    dauer_ms integer,
-    fehler text,
-    angelegt_von uuid NOT NULL,
-    angelegt_am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
-    fertig_am timestamp with time zone,
-    CONSTRAINT studio_render_check CHECK (((status <> 'fertig'::text) OR ((mp4 IS NOT NULL) AND (kapitel IS NOT NULL) AND (untertitel IS NOT NULL) AND (poster IS NOT NULL) AND (dauer_ms IS NOT NULL) AND (fertig_am IS NOT NULL)))),
-    CONSTRAINT studio_render_dauer_ms_check CHECK (((dauer_ms IS NULL) OR (dauer_ms > 0))),
-    CONSTRAINT studio_render_fingerabdruck_check CHECK ((fingerabdruck ~ '^[0-9a-f]{64}$'::text)),
-    CONSTRAINT studio_render_ort_check CHECK ((ort = ANY (ARRAY['server'::text, 'lokal'::text]))),
-    CONSTRAINT studio_render_status_check CHECK ((status = ANY (ARRAY['wartet'::text, 'laeuft'::text, 'fertig'::text, 'fehler'::text]))),
-    CONSTRAINT studio_render_welt_check CHECK ((welt = ANY (ARRAY['skelett'::text, 'fussball'::text, 'gaming'::text, 'musik'::text])))
 );
 
 
@@ -28226,11 +28895,35 @@ ALTER TABLE ONLY public.students
 
 
 --
+-- Name: studio_angesehen studio_angesehen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_angesehen
+    ADD CONSTRAINT studio_angesehen_pkey PRIMARY KEY (student_id, sequenz_id);
+
+
+--
 -- Name: studio_audio studio_audio_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.studio_audio
     ADD CONSTRAINT studio_audio_pkey PRIMARY KEY (fingerabdruck);
+
+
+--
+-- Name: studio_ausgabe studio_ausgabe_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_ausgabe
+    ADD CONSTRAINT studio_ausgabe_pkey PRIMARY KEY (sequenz_id, welt);
+
+
+--
+-- Name: studio_bearbeiter studio_bearbeiter_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_bearbeiter
+    ADD CONSTRAINT studio_bearbeiter_pkey PRIMARY KEY (sequenz_id, person_id);
 
 
 --
@@ -28287,6 +28980,22 @@ ALTER TABLE ONLY public.studio_bereich
 
 ALTER TABLE ONLY public.studio_einstellung
     ADD CONSTRAINT studio_einstellung_pkey PRIMARY KEY (schluessel);
+
+
+--
+-- Name: studio_freigabe studio_freigabe_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_freigabe
+    ADD CONSTRAINT studio_freigabe_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: studio_kind_welt studio_kind_welt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_kind_welt
+    ADD CONSTRAINT studio_kind_welt_pkey PRIMARY KEY (student_id);
 
 
 --
@@ -29501,6 +30210,13 @@ CREATE INDEX studio_bereich_kernidee_idx ON public.studio_bereich USING btree (k
 
 
 --
+-- Name: studio_freigabe_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX studio_freigabe_idx ON public.studio_freigabe USING btree (sequenz_id, art, welt, id DESC);
+
+
+--
 -- Name: studio_minicheck_aufgabe_task_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -30079,6 +30795,20 @@ CREATE TRIGGER students_ist_test_erben_trg BEFORE INSERT ON public.students FOR 
 --
 
 CREATE TRIGGER students_ist_test_schuetzen_trg BEFORE UPDATE OF ist_test ON public.students FOR EACH ROW EXECUTE FUNCTION public.ist_test_schuetzen();
+
+
+--
+-- Name: studio_sequenz studio_bearbeiter_merken; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER studio_bearbeiter_merken AFTER UPDATE OF skript ON public.studio_sequenz FOR EACH ROW EXECUTE FUNCTION public.studio_bearbeiter_merken();
+
+
+--
+-- Name: studio_freigabe studio_freigabe_regeln; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER studio_freigabe_regeln BEFORE INSERT OR DELETE OR UPDATE ON public.studio_freigabe FOR EACH ROW EXECUTE FUNCTION public.studio_freigabe_regeln();
 
 
 --
@@ -32201,6 +32931,54 @@ ALTER TABLE ONLY public.students
 
 
 --
+-- Name: studio_angesehen studio_angesehen_sequenz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_angesehen
+    ADD CONSTRAINT studio_angesehen_sequenz_id_fkey FOREIGN KEY (sequenz_id) REFERENCES public.studio_sequenz(id) ON DELETE CASCADE;
+
+
+--
+-- Name: studio_angesehen studio_angesehen_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_angesehen
+    ADD CONSTRAINT studio_angesehen_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: studio_ausgabe studio_ausgabe_render_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_ausgabe
+    ADD CONSTRAINT studio_ausgabe_render_id_fkey FOREIGN KEY (render_id) REFERENCES public.studio_render(id);
+
+
+--
+-- Name: studio_ausgabe studio_ausgabe_sequenz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_ausgabe
+    ADD CONSTRAINT studio_ausgabe_sequenz_id_fkey FOREIGN KEY (sequenz_id) REFERENCES public.studio_sequenz(id) ON DELETE CASCADE;
+
+
+--
+-- Name: studio_bearbeiter studio_bearbeiter_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_bearbeiter
+    ADD CONSTRAINT studio_bearbeiter_person_id_fkey FOREIGN KEY (person_id) REFERENCES public.profiles(id);
+
+
+--
+-- Name: studio_bearbeiter studio_bearbeiter_sequenz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_bearbeiter
+    ADD CONSTRAINT studio_bearbeiter_sequenz_id_fkey FOREIGN KEY (sequenz_id) REFERENCES public.studio_sequenz(id) ON DELETE CASCADE;
+
+
+--
 -- Name: studio_beat studio_beat_kernidee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -32238,6 +33016,30 @@ ALTER TABLE ONLY public.studio_bereich
 
 ALTER TABLE ONLY public.studio_bereich
     ADD CONSTRAINT studio_bereich_sequenz_id_fkey FOREIGN KEY (sequenz_id) REFERENCES public.studio_sequenz(id) ON DELETE CASCADE;
+
+
+--
+-- Name: studio_freigabe studio_freigabe_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_freigabe
+    ADD CONSTRAINT studio_freigabe_person_id_fkey FOREIGN KEY (person_id) REFERENCES public.profiles(id);
+
+
+--
+-- Name: studio_freigabe studio_freigabe_sequenz_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_freigabe
+    ADD CONSTRAINT studio_freigabe_sequenz_id_fkey FOREIGN KEY (sequenz_id) REFERENCES public.studio_sequenz(id) ON DELETE CASCADE;
+
+
+--
+-- Name: studio_kind_welt studio_kind_welt_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_kind_welt
+    ADD CONSTRAINT studio_kind_welt_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -34681,6 +35483,19 @@ CREATE POLICY students_select_own ON public.students FOR SELECT USING ((profile_
 
 
 --
+-- Name: studio_angesehen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_angesehen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_angesehen studio_angesehen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_angesehen_lesen ON public.studio_angesehen FOR SELECT TO authenticated USING (((student_id = public.get_my_student_id()) OR COALESCE((public.get_my_role() = 'admin'::text), false)));
+
+
+--
 -- Name: studio_audio; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -34692,6 +35507,25 @@ ALTER TABLE public.studio_audio ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY studio_audio_lesen ON public.studio_audio FOR SELECT TO authenticated USING (public.studio_darf_sehen());
 
+
+--
+-- Name: studio_ausgabe; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_ausgabe ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_ausgabe studio_ausgabe_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_ausgabe_lesen ON public.studio_ausgabe FOR SELECT TO authenticated USING (public.studio_darf_sehen());
+
+
+--
+-- Name: studio_bearbeiter; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_bearbeiter ENABLE ROW LEVEL SECURITY;
 
 --
 -- Name: studio_beat; Type: ROW SECURITY; Schema: public; Owner: -
@@ -34743,6 +35577,32 @@ ALTER TABLE public.studio_einstellung ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY studio_einstellung_lesen ON public.studio_einstellung FOR SELECT TO authenticated USING (public.studio_darf_sehen());
+
+
+--
+-- Name: studio_freigabe; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_freigabe ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_freigabe studio_freigabe_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_freigabe_lesen ON public.studio_freigabe FOR SELECT TO authenticated USING (public.studio_darf_sehen());
+
+
+--
+-- Name: studio_kind_welt; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_kind_welt ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_kind_welt studio_kind_welt_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_kind_welt_lesen ON public.studio_kind_welt FOR SELECT TO authenticated USING (((student_id = public.get_my_student_id()) OR COALESCE((public.get_my_role() = 'admin'::text), false)));
 
 
 --

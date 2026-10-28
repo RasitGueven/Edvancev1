@@ -1,0 +1,317 @@
+{
+  "skill_key": "fkt_quadr_parabel",
+  "titel": "Die Normalparabel",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k1",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Die Normalparabel",
+        "untertitel": "y = x² Schritt für Schritt"
+      },
+      "text": {
+        "skelett": "Heute geht es um die wichtigste Kurve dieser Reihe: die Normalparabel."
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "x hoch zwei ausrechnen",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "0^2 = 0",
+          "1^2 = 1",
+          "2^2 = 4",
+          "3^2 = 9"
+        ]
+      },
+      "text": {
+        "skelett": "Wir rechnen für ein paar x-Werte x hoch zwei aus. Null, eins, vier, neun."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "Ein Quadrat ist nie negativ",
+      "kernidee": "k1",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "(-1)^2 = 1",
+          "(-2)^2 = 4",
+          "(-3)^2 = 9"
+        ],
+        "hervorheben": [
+          1
+        ]
+      },
+      "text": {
+        "skelett": "Und für negative x? Minus zwei mal minus zwei ergibt plus vier. Ein Quadrat ist nie negativ."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Punkte eintragen",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          10
+        ],
+        "punkte": [
+          [
+            -3,
+            9
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            9
+          ]
+        ]
+      },
+      "text": {
+        "skelett": "Wir tragen die Punkte ein. Zu jedem x gehört ein Punkt, sein y-Wert ist das Quadrat."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Die Kurve durch alle Punkte",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          10
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "wertetabelle": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "gleichung": "y = x^2"
+      },
+      "text": {
+        "skelett": "Verbinden wir die Punkte, entsteht eine gebogene Kurve. Das ist die Normalparabel."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Der Scheitel im Ursprung",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          10
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "scheitel_markieren": true
+      },
+      "text": {
+        "skelett": "Ihr tiefster Punkt heißt Scheitel. Bei der Normalparabel liegt er im Ursprung."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Symmetrisch zur y-Achse",
+      "kernidee": "k1",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          10
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "gerade_y": 4,
+        "schnitt_markieren": true
+      },
+      "text": {
+        "skelett": "Links und rechts sieht sie gleich aus. Zwei und minus zwei haben beide den y-Wert vier. Die Parabel ist symmetrisch zur y-Achse."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Merksatz",
+      "kernidee": "k1",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Die Normalparabel ist symmetrisch zur y-Achse, nach oben geöffnet, ihr Scheitel liegt im Ursprung.",
+        "formel": "y = x^2"
+      },
+      "text": {
+        "skelett": "Merk dir: Ein Quadrat ist nie negativ. Deshalb ist die Normalparabel nach oben geöffnet."
+      }
+    },
+    {
+      "id": "b9",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k1",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Welcher Punkt liegt auf der Normalparabel?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b3",
+      "frage": {
+        "skelett": "Berechne (−4)²."
+      },
+      "optionen": [
+        {
+          "antwort": "16",
+          "richtig": true,
+          "rueckmeldung": "Genau. (−4) · (−4) = 16."
+        },
+        {
+          "antwort": "−16",
+          "fehlbild": "qf_quadrat_negativ",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Minus mal minus ergibt plus. (−4)² = 16."
+        },
+        {
+          "antwort": "−8",
+          "rueckmeldung": "Hoch zwei heißt mit sich selbst malnehmen, nicht mal zwei."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Berechne (−5)²."
+          },
+          "optionen": [
+            {
+              "antwort": "25",
+              "richtig": true,
+              "rueckmeldung": "Genau. (−5) · (−5) = 25."
+            },
+            {
+              "antwort": "−25",
+              "fehlbild": "qf_quadrat_negativ",
+              "ruecksprung": "b3",
+              "rueckmeldung": "Minus mal minus ergibt plus. (−5)² = 25."
+            },
+            {
+              "antwort": "−10",
+              "rueckmeldung": "Hoch zwei heißt mit sich selbst malnehmen, nicht mal zwei."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b7",
+      "frage": {
+        "skelett": "P(3 | 9) liegt auf der Normalparabel. Welcher Punkt liegt auch darauf?"
+      },
+      "optionen": [
+        {
+          "antwort": "(−3 | 9)",
+          "richtig": true,
+          "rueckmeldung": "Genau. (−3)² = 9, die Parabel ist symmetrisch."
+        },
+        {
+          "antwort": "(−3 | −9)",
+          "fehlbild": "qf_quadrat_negativ",
+          "ruecksprung": "b3",
+          "rueckmeldung": "(−3)² ist plus 9, nicht minus 9."
+        },
+        {
+          "antwort": "(9 | 3)",
+          "fehlbild": "qf_scheitel_koordinaten_vertauscht",
+          "ruecksprung": "b4",
+          "rueckmeldung": "Erst kommt x, dann y. Der y-Wert ist das Quadrat von x."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "P(4 | 16) liegt auf der Normalparabel. Welcher Punkt liegt auch darauf?"
+          },
+          "optionen": [
+            {
+              "antwort": "(−4 | 16)",
+              "richtig": true,
+              "rueckmeldung": "Genau. (−4)² = 16, die Parabel ist symmetrisch."
+            },
+            {
+              "antwort": "(−4 | −16)",
+              "fehlbild": "qf_quadrat_negativ",
+              "ruecksprung": "b3",
+              "rueckmeldung": "(−4)² ist plus 16, nicht minus 16."
+            },
+            {
+              "antwort": "(16 | 4)",
+              "fehlbild": "qf_scheitel_koordinaten_vertauscht",
+              "ruecksprung": "b4",
+              "rueckmeldung": "Erst kommt x, dann y. Der y-Wert ist das Quadrat von x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

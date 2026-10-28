@@ -1,0 +1,294 @@
+{
+  "skill_key": "fkt_quadr_parabel",
+  "titel": "Strecken, stauchen, spiegeln",
+  "welten": [
+    "skelett"
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "titel": "Worum es geht",
+      "kernidee": "k2",
+      "baustein": "titelkarte",
+      "params": {
+        "titel": "Strecken, stauchen, spiegeln",
+        "untertitel": "y = a · x²"
+      },
+      "text": {
+        "skelett": "Was passiert mit der Parabel, wenn vor dem x hoch zwei eine Zahl steht?"
+      }
+    },
+    {
+      "id": "b2",
+      "titel": "Der Maßstab",
+      "kernidee": "k2",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          9
+        ],
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "wertetabelle": [
+          -2,
+          -1,
+          0,
+          1,
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Unser Maßstab ist die Normalparabel. Bei x gleich eins ist der y-Wert eins."
+      }
+    },
+    {
+      "id": "b3",
+      "titel": "a = 2 im Vergleich",
+      "kernidee": "k2",
+      "baustein": "term_zeile",
+      "params": {
+        "terme": [
+          "y = 2x^2",
+          "x = 1:\\; y = 2 \\cdot 1^2 = 2"
+        ]
+      },
+      "text": {
+        "skelett": "Jetzt steht eine Zwei davor. Die Zahl davor nennen wir a. Bei x gleich eins wird der y-Wert doppelt so groß: zwei statt eins."
+      }
+    },
+    {
+      "id": "b4",
+      "titel": "Gestreckt: enger",
+      "kernidee": "k2",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          9
+        ],
+        "normalparabel": true,
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "parabel_ziel": [
+          2,
+          0,
+          0
+        ],
+        "wertetabelle": [
+          -2,
+          -1,
+          0,
+          1,
+          2
+        ]
+      },
+      "text": {
+        "skelett": "Alle y-Werte verdoppeln sich. Die Parabel steigt schneller und wird enger. Man sagt: gestreckt."
+      }
+    },
+    {
+      "id": "b5",
+      "titel": "Gestaucht: weiter",
+      "kernidee": "k2",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -1,
+          9
+        ],
+        "normalparabel": true,
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "parabel_ziel": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "text": {
+        "skelett": "Steht ein Halb davor, halbieren sich alle y-Werte. Die Parabel wird weiter. Man sagt: gestaucht."
+      }
+    },
+    {
+      "id": "b6",
+      "titel": "Negativ: nach unten geöffnet",
+      "kernidee": "k2",
+      "baustein": "koordinatensystem",
+      "params": {
+        "x_bereich": [
+          -4,
+          4
+        ],
+        "y_bereich": [
+          -9,
+          9
+        ],
+        "normalparabel": true,
+        "parabel": [
+          1,
+          0,
+          0
+        ],
+        "parabel_ziel": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "text": {
+        "skelett": "Ist a negativ, wechseln alle y-Werte das Vorzeichen. Die Parabel ist nach unten geöffnet, der Scheitel ist jetzt der höchste Punkt."
+      }
+    },
+    {
+      "id": "b7",
+      "titel": "Merksatz",
+      "kernidee": "k2",
+      "baustein": "merksatz",
+      "params": {
+        "text": "Betrag von a größer als 1: enger. Kleiner als 1: weiter. a negativ: nach unten geöffnet.",
+        "formel": "y = a \\cdot x^2"
+      },
+      "text": {
+        "skelett": "Merk dir: Der Betrag von a entscheidet über eng oder weit, das Vorzeichen über oben oder unten."
+      }
+    },
+    {
+      "id": "b8",
+      "titel": "Weiter zur Aufgabe",
+      "kernidee": "k2",
+      "baustein": "endkarte",
+      "params": {
+        "frage": "Welche Parabel ist am engsten?"
+      },
+      "text": {
+        "skelett": "Jetzt bist du dran."
+      }
+    }
+  ],
+  "minichecks": [
+    {
+      "nach_beat": "b5",
+      "frage": {
+        "skelett": "Welche Parabel ist enger als die Normalparabel?"
+      },
+      "optionen": [
+        {
+          "antwort": "y = 3x²",
+          "richtig": true,
+          "rueckmeldung": "Genau. Mit a = 3 werden alle y-Werte dreimal so groß."
+        },
+        {
+          "antwort": "y = 0,3x²",
+          "fehlbild": "qf_streckfaktor_umgekehrt",
+          "ruecksprung": "b5",
+          "rueckmeldung": "Ein a zwischen 0 und 1 macht die Parabel weiter, nicht enger."
+        },
+        {
+          "antwort": "y = x² + 3",
+          "fehlbild": "qf_oeffnung_aus_e",
+          "ruecksprung": "b4",
+          "rueckmeldung": "Die Zahl hinten verschiebt nur nach oben. Die Form bestimmt a."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Welche Parabel ist enger als die Normalparabel?"
+          },
+          "optionen": [
+            {
+              "antwort": "y = 4x²",
+              "richtig": true,
+              "rueckmeldung": "Genau. Mit a = 4 werden alle y-Werte viermal so groß."
+            },
+            {
+              "antwort": "y = 0,4x²",
+              "fehlbild": "qf_streckfaktor_umgekehrt",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Ein a zwischen 0 und 1 macht die Parabel weiter, nicht enger."
+            },
+            {
+              "antwort": "y = x² + 4",
+              "fehlbild": "qf_oeffnung_aus_e",
+              "ruecksprung": "b4",
+              "rueckmeldung": "Die Zahl hinten verschiebt nur nach oben. Die Form bestimmt a."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nach_beat": "b6",
+      "frage": {
+        "skelett": "Wie sieht y = −2x² im Vergleich zur Normalparabel aus?"
+      },
+      "optionen": [
+        {
+          "antwort": "nach unten, enger",
+          "richtig": true,
+          "rueckmeldung": "Genau. Minus heißt unten, 2 heißt enger."
+        },
+        {
+          "antwort": "nach oben, enger",
+          "fehlbild": "qf_oeffnung_vertauscht",
+          "ruecksprung": "b6",
+          "rueckmeldung": "a ist negativ, das spiegelt die Parabel nach unten."
+        },
+        {
+          "antwort": "nach unten, weiter",
+          "fehlbild": "qf_streckfaktor_umgekehrt",
+          "ruecksprung": "b3",
+          "rueckmeldung": "Der Betrag 2 ist größer als 1, das macht sie enger."
+        }
+      ],
+      "zwillinge": [
+        {
+          "frage": {
+            "skelett": "Wie sieht y = −0,5x² im Vergleich zur Normalparabel aus?"
+          },
+          "optionen": [
+            {
+              "antwort": "nach unten, weiter",
+              "richtig": true,
+              "rueckmeldung": "Genau. Minus heißt unten, 0,5 heißt weiter."
+            },
+            {
+              "antwort": "nach oben, weiter",
+              "fehlbild": "qf_oeffnung_vertauscht",
+              "ruecksprung": "b6",
+              "rueckmeldung": "a ist negativ, das spiegelt die Parabel nach unten."
+            },
+            {
+              "antwort": "nach unten, enger",
+              "fehlbild": "qf_streckfaktor_umgekehrt",
+              "ruecksprung": "b5",
+              "rueckmeldung": "Der Betrag 0,5 ist kleiner als 1, das macht sie weiter."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
