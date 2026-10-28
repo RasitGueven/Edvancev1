@@ -1,0 +1,1956 @@
+{
+ "schluessel": "DI-3",
+ "skill": "gleichung_quadr_anzahl",
+ "kernidee": "gleichung_quadr_anzahl:K1",
+ "format": "zahl",
+ "rollen": [
+  "transfer",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Für welche Zahl q hat {gleichung} genau eine Lösung?",
+  "stufen": {
+   "4": "x² + px + q = 0, p gerade von −16 bis 16",
+   "5": "p ungerade von −15 bis 15, q ein Bruch"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_halbes_p_nicht_quadriert",
+    "regel": "q = p/2",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "Unter der Wurzel steht (p/2)² − q. Der Ausdruck soll 0 sein. Hast du p/2 quadriert?"
+   },
+   {
+    "key": "qf_q_vorzeichen",
+    "regel": "q = −(p/2)²",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "Setz (p/2)² − q = 0. Welches Vorzeichen hat q dann?"
+   }
+  ],
+  "hinweise": [
+   "Wann hat eine quadratische Gleichung genau eine Lösung?",
+   "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+   "Setz p = {p} ein und stell nach q um."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 120,
+  "kann_entfallen": false,
+  "generator_hash": "2eff4e3119a9"
+ },
+ "pruefprotokoll": {
+  "gruen": 26,
+  "rot": 2,
+  "rot_anteil": 0.071,
+  "gruende": {
+   "7": 2
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "4",
+   "2": "49/4",
+   "3": "64",
+   "4": "81/4",
+   "5": "16",
+   "6": "225/4",
+   "7": "25/4",
+   "8": "169/4",
+   "9": "169/4",
+   "10": "49"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": 12
+   },
+   "frage": "Für welche Zahl q hat x² + 12x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 12x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "36"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-36"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 12 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "6² − q = 0",
+    "q = 6²",
+    "q = 36"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": 14
+   },
+   "frage": "Für welche Zahl q hat x² + 14x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 14x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "49"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-49"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 14 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "7² − q = 0",
+    "q = 7²",
+    "q = 49"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -14
+   },
+   "frage": "Für welche Zahl q hat x² − 14x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 14x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "49"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-7"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-49"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −14 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−7)² − q = 0",
+    "q = (−7)²",
+    "q = 49"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": -16
+   },
+   "frage": "Für welche Zahl q hat x² − 16x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 16x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "64"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-64"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −16 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−8)² − q = 0",
+    "q = (−8)²",
+    "q = 64"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": 4
+   },
+   "frage": "Für welche Zahl q hat x² + 4x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 4x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 4 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "2² − q = 0",
+    "q = 2²",
+    "q = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": 16
+   },
+   "frage": "Für welche Zahl q hat x² + 16x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 16x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "64"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "8"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-64"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 16 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "8² − q = 0",
+    "q = 8²",
+    "q = 64"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": 6
+   },
+   "frage": "Für welche Zahl q hat x² + 6x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 6x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-9"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 6 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "3² − q = 0",
+    "q = 3²",
+    "q = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": 10
+   },
+   "frage": "Für welche Zahl q hat x² + 10x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 10x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "5"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-25"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 10 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "5² − q = 0",
+    "q = 5²",
+    "q = 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -10
+   },
+   "frage": "Für welche Zahl q hat x² − 10x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 10x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-5"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-25"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −10 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−5)² − q = 0",
+    "q = (−5)²",
+    "q = 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": 8
+   },
+   "frage": "Für welche Zahl q hat x² + 8x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 8x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "16"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "4"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-16"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 8 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "4² − q = 0",
+    "q = 4²",
+    "q = 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -6
+   },
+   "frage": "Für welche Zahl q hat x² − 6x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 6x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-3"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-9"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −6 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−3)² − q = 0",
+    "q = (−3)²",
+    "q = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": -8
+   },
+   "frage": "Für welche Zahl q hat x² − 8x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 8x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "16"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-4"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-16"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −8 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−4)² − q = 0",
+    "q = (−4)²",
+    "q = 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "p": -4
+   },
+   "frage": "Für welche Zahl q hat x² − 4x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 4x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −4 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−2)² − q = 0",
+    "q = (−2)²",
+    "q = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "p": -12
+   },
+   "frage": "Für welche Zahl q hat x² − 12x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 12x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "36"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-6"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-36"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −12 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−6)² − q = 0",
+    "q = (−6)²",
+    "q = 36"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": -15
+   },
+   "frage": "Für welche Zahl q hat x² − 15x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 15x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "225/4",
+     "56,25",
+     "56.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-15/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-225/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −15 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−15/2)² − q = 0",
+    "q = (−15/2)²",
+    "q = 225/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": 15
+   },
+   "frage": "Für welche Zahl q hat x² + 15x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 15x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "225/4",
+     "56,25",
+     "56.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "15/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-225/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 15 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(15/2)² − q = 0",
+    "q = (15/2)²",
+    "q = 225/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": 9
+   },
+   "frage": "Für welche Zahl q hat x² + 9x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 9x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "81/4",
+     "20,25",
+     "20.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "9/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-81/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 9 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(9/2)² − q = 0",
+    "q = (9/2)²",
+    "q = 81/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": 13
+   },
+   "frage": "Für welche Zahl q hat x² + 13x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 13x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "169/4",
+     "42,25",
+     "42.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "13/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-169/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 13 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(13/2)² − q = 0",
+    "q = (13/2)²",
+    "q = 169/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": -3
+   },
+   "frage": "Für welche Zahl q hat x² − 3x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 3x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "9/4",
+     "2,25",
+     "2.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-3/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-9/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −3 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−3/2)² − q = 0",
+    "q = (−3/2)²",
+    "q = 9/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": -5
+   },
+   "frage": "Für welche Zahl q hat x² − 5x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 5x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "25/4",
+     "6,25",
+     "6.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-5/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-25/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −5 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−5/2)² − q = 0",
+    "q = (−5/2)²",
+    "q = 25/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": -11
+   },
+   "frage": "Für welche Zahl q hat x² − 11x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 11x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "121/4",
+     "30,25",
+     "30.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-11/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-121/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −11 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−11/2)² − q = 0",
+    "q = (−11/2)²",
+    "q = 121/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": -9
+   },
+   "frage": "Für welche Zahl q hat x² − 9x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 9x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "81/4",
+     "20,25",
+     "20.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-9/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-81/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −9 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−9/2)² − q = 0",
+    "q = (−9/2)²",
+    "q = 81/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": 3
+   },
+   "frage": "Für welche Zahl q hat x² + 3x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 3x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "9/4",
+     "2,25",
+     "2.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "3/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-9/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 3 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(3/2)² − q = 0",
+    "q = (3/2)²",
+    "q = 9/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": -7
+   },
+   "frage": "Für welche Zahl q hat x² − 7x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 7x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "49/4",
+     "12,25",
+     "12.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-7/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-49/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −7 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−7/2)² − q = 0",
+    "q = (−7/2)²",
+    "q = 49/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": -13
+   },
+   "frage": "Für welche Zahl q hat x² − 13x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² − 13x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "169/4",
+     "42,25",
+     "42.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "-13/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-169/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = −13 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(−13/2)² − q = 0",
+    "q = (−13/2)²",
+    "q = 169/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": 11
+   },
+   "frage": "Für welche Zahl q hat x² + 11x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 11x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "121/4",
+     "30,25",
+     "30.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "11/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-121/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 11 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(11/2)² − q = 0",
+    "q = (11/2)²",
+    "q = 121/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "p": 7
+   },
+   "frage": "Für welche Zahl q hat x² + 7x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 7x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "49/4",
+     "12,25",
+     "12.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "7/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-49/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 7 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(7/2)² − q = 0",
+    "q = (7/2)²",
+    "q = 49/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "p": 5
+   },
+   "frage": "Für welche Zahl q hat x² + 5x + q = 0 genau eine Lösung?",
+   "input_type": "NUMERIC",
+   "payload": {
+    "kind": "short_input",
+    "prompt": "Für welche Zahl q hat x² + 5x + q = 0 genau eine Lösung?"
+   },
+   "loesung": {
+    "werte": [
+     "25/4",
+     "6,25",
+     "6.25"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_halbes_p_nicht_quadriert",
+     "wert": "5/2"
+    },
+    {
+     "key": "qf_q_vorzeichen",
+     "wert": "-25/4"
+    }
+   ],
+   "hinweise": [
+    "Wann hat eine quadratische Gleichung genau eine Lösung?",
+    "Der Ausdruck unter der Wurzel muss 0 sein: (p/2)² − q = 0.",
+    "Setz p = 5 ein und stell nach q um."
+   ],
+   "loesungsweg": [
+    "Genau eine Lösung heißt: (p/2)² − q = 0.",
+    "(5/2)² − q = 0",
+    "q = (5/2)²",
+    "q = 25/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

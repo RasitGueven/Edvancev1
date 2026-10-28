@@ -1,0 +1,750 @@
+{
+ "schluessel": "WZ-5",
+ "skill": "gleichung_quadr_wurzel",
+ "kernidee": "gleichung_quadr_wurzel:K1",
+ "format": "mc",
+ "rollen": [
+  "uebung"
+ ],
+ "steckbrief": {
+  "text": "Welche Lösungen hat x² = {c}?",
+  "stufen": {
+   "4": "x² = c, c keine Quadratzahl von 2 bis 60"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_nur_positive_loesung",
+    "regel": "nur √c",
+    "gilt_fuer_stufen": [
+     4
+    ],
+    "rueckmeldung": "Auch −√c ins Quadrat ergibt c. Gibt es eine zweite Lösung?"
+   },
+   {
+    "key": "qf_wurzel_als_haelfte",
+    "regel": "±c/2",
+    "gilt_fuer_stufen": [
+     4
+    ],
+    "rueckmeldung": "Die Wurzel ist nicht die Hälfte. Prüf: Ergibt (c/2)² wirklich c?"
+   },
+   {
+    "key": "qf_quadriert_statt_wurzel",
+    "regel": "±c²",
+    "gilt_fuer_stufen": [
+     4
+    ],
+    "rueckmeldung": "Um x² rückgängig zu machen, zieht man die Wurzel, man quadriert nicht noch einmal."
+   }
+  ],
+  "hinweise": [
+   "Ist {c} eine Quadratzahl?",
+   "Wenn nicht, bleibt die Wurzel als Zahl stehen: √{c}.",
+   "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 45,
+  "kann_entfallen": false,
+  "generator_hash": "d5abf4553f0b"
+ },
+ "pruefprotokoll": {
+  "gruen": 8,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 8,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "C",
+   "2": "B",
+   "3": "A",
+   "4": "A",
+   "5": "D",
+   "6": "C",
+   "7": "C",
+   "8": "C"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 3
+   },
+   "frage": "Welche Lösungen hat x² = 3?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = √3"
+     },
+     {
+      "id": "b",
+      "label": "x = 9 oder x = −9"
+     },
+     {
+      "id": "c",
+      "label": "x = √3 oder x = −√3"
+     },
+     {
+      "id": "d",
+      "label": "x = 1,5 oder x = −1,5"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "a"
+    },
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "b"
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 3 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √3.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 3",
+    "3 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √3 oder x = −√3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 42
+   },
+   "frage": "Welche Lösungen hat x² = 42?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = √42 oder x = −√42"
+     },
+     {
+      "id": "b",
+      "label": "x = √42"
+     },
+     {
+      "id": "c",
+      "label": "x = 21 oder x = −21"
+     },
+     {
+      "id": "d",
+      "label": "x = 1764 oder x = −1764"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "b"
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "c"
+    },
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 42 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √42.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 42",
+    "42 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √42 oder x = −√42"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 56
+   },
+   "frage": "Welche Lösungen hat x² = 56?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = 28 oder x = −28"
+     },
+     {
+      "id": "b",
+      "label": "x = √56"
+     },
+     {
+      "id": "c",
+      "label": "x = 3136 oder x = −3136"
+     },
+     {
+      "id": "d",
+      "label": "x = √56 oder x = −√56"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "d"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "a"
+    },
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "b"
+    },
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Ist 56 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √56.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 56",
+    "56 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √56 oder x = −√56"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 13
+   },
+   "frage": "Welche Lösungen hat x² = 13?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = 169 oder x = −169"
+     },
+     {
+      "id": "b",
+      "label": "x = 6,5 oder x = −6,5"
+     },
+     {
+      "id": "c",
+      "label": "x = √13 oder x = −√13"
+     },
+     {
+      "id": "d",
+      "label": "x = √13"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "a"
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "b"
+    },
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 13 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √13.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 13",
+    "13 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √13 oder x = −√13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 2
+   },
+   "frage": "Welche Lösungen hat x² = 2?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = 4 oder x = −4"
+     },
+     {
+      "id": "b",
+      "label": "x = √2"
+     },
+     {
+      "id": "c",
+      "label": "x = √2 oder x = −√2"
+     },
+     {
+      "id": "d",
+      "label": "x = 1 oder x = −1"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "a"
+    },
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "b"
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 2 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √2.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 2",
+    "2 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √2 oder x = −√2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 45
+   },
+   "frage": "Welche Lösungen hat x² = 45?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = 22,5 oder x = −22,5"
+     },
+     {
+      "id": "b",
+      "label": "x = 2025 oder x = −2025"
+     },
+     {
+      "id": "c",
+      "label": "x = √45 oder x = −√45"
+     },
+     {
+      "id": "d",
+      "label": "x = √45"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "a"
+    },
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "b"
+    },
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 45 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √45.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 45",
+    "45 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √45 oder x = −√45"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 59
+   },
+   "frage": "Welche Lösungen hat x² = 59?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = √59 oder x = −√59"
+     },
+     {
+      "id": "b",
+      "label": "x = 3481 oder x = −3481"
+     },
+     {
+      "id": "c",
+      "label": "x = √59"
+     },
+     {
+      "id": "d",
+      "label": "x = 29,5 oder x = −29,5"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "b"
+    },
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "c"
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 59 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √59.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 59",
+    "59 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √59 oder x = −√59"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-5",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "c": 50
+   },
+   "frage": "Welche Lösungen hat x² = 50?",
+   "input_type": "MC",
+   "payload": {
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x = 2500 oder x = −2500"
+     },
+     {
+      "id": "b",
+      "label": "x = √50 oder x = −√50"
+     },
+     {
+      "id": "c",
+      "label": "x = √50"
+     },
+     {
+      "id": "d",
+      "label": "x = 25 oder x = −25"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_quadriert_statt_wurzel",
+     "option": "a"
+    },
+    {
+     "key": "qf_nur_positive_loesung",
+     "option": "c"
+    },
+    {
+     "key": "qf_wurzel_als_haelfte",
+     "option": "d"
+    }
+   ],
+   "hinweise": [
+    "Ist 50 eine Quadratzahl?",
+    "Wenn nicht, bleibt die Wurzel als Zahl stehen: √50.",
+    "Denk daran: Auch eine negative Zahl ins Quadrat ist positiv."
+   ],
+   "loesungsweg": [
+    "x² = 50",
+    "50 ist keine Quadratzahl, die Wurzel bleibt stehen.",
+    "x = √50 oder x = −√50"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

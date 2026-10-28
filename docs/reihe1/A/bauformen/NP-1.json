@@ -1,0 +1,4960 @@
+{
+ "schluessel": "NP-1",
+ "skill": "gleichung_quadr_faktor",
+ "kernidee": "gleichung_quadr_faktor:K1",
+ "format": "loesungsmenge",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "beispiel",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Löse {gleichung}.",
+  "stufen": {
+   "1": "(x − p)(x − q) = 0, p und q von 1 bis 12, verschieden",
+   "2": "p und q mit gemischten Vorzeichen"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_nullprodukt_vorzeichen",
+    "regel": "{−p; −q}",
+    "gilt_fuer_stufen": [
+     1,
+     2
+    ],
+    "rueckmeldung": "Prüf das Vorzeichen: Für welches x wird die Klammer wirklich null?"
+   }
+  ],
+  "hinweise": [
+   "Wann ist ein Produkt gleich null?",
+   "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+   "Setz jede Klammer einzeln gleich null: {k1} = 0 oder {k2} = 0."
+  ],
+  "loesungsweg": [
+   "{gleichung}",
+   "{k1} = 0 oder {k2} = 0",
+   "x = {p} oder x = {q}",
+   "L = {menge}"
+  ],
+  "warum": {
+   "bei_schritt": 1,
+   "frage": "Warum darf man jede Klammer einzeln null setzen?",
+   "bausteine": [
+    {
+     "id": "a",
+     "text": "Ein Produkt ist nur dann 0, wenn ein Faktor 0 ist."
+    },
+    {
+     "id": "b",
+     "text": "Weil man Klammern immer weglassen darf."
+    },
+    {
+     "id": "c",
+     "text": "Weil beide Klammern gleich groß sind."
+    }
+   ],
+   "richtig": "a"
+  },
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "91b067048339"
+ },
+ "pruefprotokoll": {
+  "gruen": 62,
+  "rot": 2,
+  "rot_anteil": 0.031,
+  "gruende": {
+   "7": 2
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "12; 2",
+   "2": "9; 1",
+   "3": "10; 6",
+   "4": "−2; 6",
+   "5": "−6; 8",
+   "6": "10; 11",
+   "7": "2; 5",
+   "8": "2; 11",
+   "9": "5; 6",
+   "10": "−9; 12"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 7,
+    "q": 2
+   },
+   "frage": "Löse (x − 7)(x − 2) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-7",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 7 = 0 oder x − 2 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 7)(x − 2) = 0",
+    "x − 7 = 0 oder x − 2 = 0",
+    "x = 7 oder x = 2",
+    "L = {2; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 5,
+    "q": 6
+   },
+   "frage": "Löse (x − 5)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 5 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 5)(x − 6) = 0",
+    "x − 5 = 0 oder x − 6 = 0",
+    "x = 5 oder x = 6",
+    "L = {5; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 9,
+    "q": 1
+   },
+   "frage": "Löse (x − 9)(x − 1) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 9 = 0 oder x − 1 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 9)(x − 1) = 0",
+    "x − 9 = 0 oder x − 1 = 0",
+    "x = 9 oder x = 1",
+    "L = {1; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 10,
+    "q": 11
+   },
+   "frage": "Löse (x − 10)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "10",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "-10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 10 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 10)(x − 11) = 0",
+    "x − 10 = 0 oder x − 11 = 0",
+    "x = 10 oder x = 11",
+    "L = {10; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 8,
+    "q": 7
+   },
+   "frage": "Löse (x − 8)(x − 7) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "7",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "-7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 8 = 0 oder x − 7 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 8)(x − 7) = 0",
+    "x − 8 = 0 oder x − 7 = 0",
+    "x = 8 oder x = 7",
+    "L = {7; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 7,
+    "q": 5
+   },
+   "frage": "Löse (x − 7)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-7",
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 7 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 7)(x − 5) = 0",
+    "x − 7 = 0 oder x − 5 = 0",
+    "x = 7 oder x = 5",
+    "L = {5; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 12,
+    "q": 11
+   },
+   "frage": "Löse (x − 12)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "11",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-12",
+      "-11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 12 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 12)(x − 11) = 0",
+    "x − 12 = 0 oder x − 11 = 0",
+    "x = 12 oder x = 11",
+    "L = {11; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 5,
+    "q": 3
+   },
+   "frage": "Löse (x − 5)(x − 3) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 5 = 0 oder x − 3 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 5)(x − 3) = 0",
+    "x − 5 = 0 oder x − 3 = 0",
+    "x = 5 oder x = 3",
+    "L = {3; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 7,
+    "q": 10
+   },
+   "frage": "Löse (x − 7)(x − 10) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "7",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "-7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 7 = 0 oder x − 10 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 7)(x − 10) = 0",
+    "x − 7 = 0 oder x − 10 = 0",
+    "x = 7 oder x = 10",
+    "L = {7; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 12,
+    "q": 2
+   },
+   "frage": "Löse (x − 12)(x − 2) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-12",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 12 = 0 oder x − 2 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 12)(x − 2) = 0",
+    "x − 12 = 0 oder x − 2 = 0",
+    "x = 12 oder x = 2",
+    "L = {2; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 10,
+    "q": 4
+   },
+   "frage": "Löse (x − 10)(x − 4) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 10 = 0 oder x − 4 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 10)(x − 4) = 0",
+    "x − 10 = 0 oder x − 4 = 0",
+    "x = 10 oder x = 4",
+    "L = {4; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 7,
+    "q": 8
+   },
+   "frage": "Löse (x − 7)(x − 8) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "7",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "-7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 7 = 0 oder x − 8 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 7)(x − 8) = 0",
+    "x − 7 = 0 oder x − 8 = 0",
+    "x = 7 oder x = 8",
+    "L = {7; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 1,
+    "q": 5
+   },
+   "frage": "Löse (x − 1)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 1 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 1)(x − 5) = 0",
+    "x − 1 = 0 oder x − 5 = 0",
+    "x = 1 oder x = 5",
+    "L = {1; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 3,
+    "q": 5
+   },
+   "frage": "Löse (x − 3)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 3 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 3)(x − 5) = 0",
+    "x − 3 = 0 oder x − 5 = 0",
+    "x = 3 oder x = 5",
+    "L = {3; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 1,
+    "q": 4
+   },
+   "frage": "Löse (x − 1)(x − 4) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 1 = 0 oder x − 4 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 1)(x − 4) = 0",
+    "x − 1 = 0 oder x − 4 = 0",
+    "x = 1 oder x = 4",
+    "L = {1; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 10,
+    "q": 2
+   },
+   "frage": "Löse (x − 10)(x − 2) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 10 = 0 oder x − 2 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 10)(x − 2) = 0",
+    "x − 10 = 0 oder x − 2 = 0",
+    "x = 10 oder x = 2",
+    "L = {2; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 5,
+    "q": 2
+   },
+   "frage": "Löse (x − 5)(x − 2) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 5 = 0 oder x − 2 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 5)(x − 2) = 0",
+    "x − 5 = 0 oder x − 2 = 0",
+    "x = 5 oder x = 2",
+    "L = {2; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 2,
+    "q": 3
+   },
+   "frage": "Löse (x − 2)(x − 3) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-3",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 2 = 0 oder x − 3 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 2)(x − 3) = 0",
+    "x − 2 = 0 oder x − 3 = 0",
+    "x = 2 oder x = 3",
+    "L = {2; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 4,
+    "q": 3
+   },
+   "frage": "Löse (x − 4)(x − 3) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 4 = 0 oder x − 3 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 4)(x − 3) = 0",
+    "x − 4 = 0 oder x − 3 = 0",
+    "x = 4 oder x = 3",
+    "L = {3; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 11,
+    "q": 4
+   },
+   "frage": "Löse (x − 11)(x − 4) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 11 = 0 oder x − 4 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 11)(x − 4) = 0",
+    "x − 11 = 0 oder x − 4 = 0",
+    "x = 11 oder x = 4",
+    "L = {4; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 4,
+    "q": 11
+   },
+   "frage": "Löse (x − 4)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 4 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 4)(x − 11) = 0",
+    "x − 4 = 0 oder x − 11 = 0",
+    "x = 4 oder x = 11",
+    "L = {4; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 3,
+    "q": 8
+   },
+   "frage": "Löse (x − 3)(x − 8) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 3 = 0 oder x − 8 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 3)(x − 8) = 0",
+    "x − 3 = 0 oder x − 8 = 0",
+    "x = 3 oder x = 8",
+    "L = {3; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 2,
+    "q": 11
+   },
+   "frage": "Löse (x − 2)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 2 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 2)(x − 11) = 0",
+    "x − 2 = 0 oder x − 11 = 0",
+    "x = 2 oder x = 11",
+    "L = {2; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 9,
+    "q": 8
+   },
+   "frage": "Löse (x − 9)(x − 8) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "8",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 9 = 0 oder x − 8 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 9)(x − 8) = 0",
+    "x − 9 = 0 oder x − 8 = 0",
+    "x = 9 oder x = 8",
+    "L = {8; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 6,
+    "q": 5
+   },
+   "frage": "Löse (x − 6)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "5",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 6 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 6)(x − 5) = 0",
+    "x − 6 = 0 oder x − 5 = 0",
+    "x = 6 oder x = 5",
+    "L = {5; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 2,
+    "q": 9
+   },
+   "frage": "Löse (x − 2)(x − 9) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 2 = 0 oder x − 9 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 2)(x − 9) = 0",
+    "x − 2 = 0 oder x − 9 = 0",
+    "x = 2 oder x = 9",
+    "L = {2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 2,
+    "q": 5
+   },
+   "frage": "Löse (x − 2)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 2 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 2)(x − 5) = 0",
+    "x − 2 = 0 oder x − 5 = 0",
+    "x = 2 oder x = 5",
+    "L = {2; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 1,
+    "q": 10
+   },
+   "frage": "Löse (x − 1)(x − 10) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 1 = 0 oder x − 10 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 1)(x − 10) = 0",
+    "x − 1 = 0 oder x − 10 = 0",
+    "x = 1 oder x = 10",
+    "L = {1; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "p": 10,
+    "q": 6
+   },
+   "frage": "Löse (x − 10)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "6",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 10 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 10)(x − 6) = 0",
+    "x − 10 = 0 oder x − 6 = 0",
+    "x = 10 oder x = 6",
+    "L = {6; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "p": 4,
+    "q": 6
+   },
+   "frage": "Löse (x − 4)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "4",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 4 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 4)(x − 6) = 0",
+    "x − 4 = 0 oder x − 6 = 0",
+    "x = 4 oder x = 6",
+    "L = {4; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "p": 11,
+    "q": 6
+   },
+   "frage": "Löse (x − 11)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "6",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "-6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 11 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 11)(x − 6) = 0",
+    "x − 11 = 0 oder x − 6 = 0",
+    "x = 11 oder x = 6",
+    "L = {6; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "p": 2,
+    "q": 6
+   },
+   "frage": "Löse (x − 2)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x − 2 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x − 2)(x − 6) = 0",
+    "x − 2 = 0 oder x − 6 = 0",
+    "x = 2 oder x = 6",
+    "L = {2; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -12,
+    "q": 2
+   },
+   "frage": "Löse (x + 12)(x − 2) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-2",
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 12 = 0 oder x − 2 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 12)(x − 2) = 0",
+    "x + 12 = 0 oder x − 2 = 0",
+    "x = −12 oder x = 2",
+    "L = {−12; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -4,
+    "q": 1
+   },
+   "frage": "Löse (x + 4)(x − 1) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-1",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 4 = 0 oder x − 1 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 4)(x − 1) = 0",
+    "x + 4 = 0 oder x − 1 = 0",
+    "x = −4 oder x = 1",
+    "L = {−4; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -2,
+    "q": 12
+   },
+   "frage": "Löse (x + 2)(x − 12) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-12",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 2 = 0 oder x − 12 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 2)(x − 12) = 0",
+    "x + 2 = 0 oder x − 12 = 0",
+    "x = −2 oder x = 12",
+    "L = {−2; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -6,
+    "q": 2
+   },
+   "frage": "Löse (x + 6)(x − 2) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-2",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 6 = 0 oder x − 2 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 6)(x − 2) = 0",
+    "x + 6 = 0 oder x − 2 = 0",
+    "x = −6 oder x = 2",
+    "L = {−6; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -9,
+    "q": 7
+   },
+   "frage": "Löse (x + 9)(x − 7) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-7",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 9 = 0 oder x − 7 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 9)(x − 7) = 0",
+    "x + 9 = 0 oder x − 7 = 0",
+    "x = −9 oder x = 7",
+    "L = {−9; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -12,
+    "q": 8
+   },
+   "frage": "Löse (x + 12)(x − 8) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 12 = 0 oder x − 8 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 12)(x − 8) = 0",
+    "x + 12 = 0 oder x − 8 = 0",
+    "x = −12 oder x = 8",
+    "L = {−12; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -7,
+    "q": 12
+   },
+   "frage": "Löse (x + 7)(x − 12) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-12",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 7 = 0 oder x − 12 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 7)(x − 12) = 0",
+    "x + 7 = 0 oder x − 12 = 0",
+    "x = −7 oder x = 12",
+    "L = {−7; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -8,
+    "q": 11
+   },
+   "frage": "Löse (x + 8)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 8 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 8)(x − 11) = 0",
+    "x + 8 = 0 oder x − 11 = 0",
+    "x = −8 oder x = 11",
+    "L = {−8; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -7,
+    "q": 4
+   },
+   "frage": "Löse (x + 7)(x − 4) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 7 = 0 oder x − 4 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 7)(x − 4) = 0",
+    "x + 7 = 0 oder x − 4 = 0",
+    "x = −7 oder x = 4",
+    "L = {−7; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -2,
+    "q": 9
+   },
+   "frage": "Löse (x + 2)(x − 9) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 2 = 0 oder x − 9 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 2)(x − 9) = 0",
+    "x + 2 = 0 oder x − 9 = 0",
+    "x = −2 oder x = 9",
+    "L = {−2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -5,
+    "q": 11
+   },
+   "frage": "Löse (x + 5)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 5 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 5)(x − 11) = 0",
+    "x + 5 = 0 oder x − 11 = 0",
+    "x = −5 oder x = 11",
+    "L = {−5; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -3,
+    "q": 11
+   },
+   "frage": "Löse (x + 3)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 3 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 3)(x − 11) = 0",
+    "x + 3 = 0 oder x − 11 = 0",
+    "x = −3 oder x = 11",
+    "L = {−3; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -7,
+    "q": 11
+   },
+   "frage": "Löse (x + 7)(x − 11) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "11"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-11",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 7 = 0 oder x − 11 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 7)(x − 11) = 0",
+    "x + 7 = 0 oder x − 11 = 0",
+    "x = −7 oder x = 11",
+    "L = {−7; 11}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "11",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -4,
+    "q": 9
+   },
+   "frage": "Löse (x + 4)(x − 9) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 4 = 0 oder x − 9 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 4)(x − 9) = 0",
+    "x + 4 = 0 oder x − 9 = 0",
+    "x = −4 oder x = 9",
+    "L = {−4; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -11,
+    "q": 10
+   },
+   "frage": "Löse (x + 11)(x − 10) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 11 = 0 oder x − 10 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 11)(x − 10) = 0",
+    "x + 11 = 0 oder x − 10 = 0",
+    "x = −11 oder x = 10",
+    "L = {−11; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -11,
+    "q": 1
+   },
+   "frage": "Löse (x + 11)(x − 1) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-1",
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 11 = 0 oder x − 1 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 11)(x − 1) = 0",
+    "x + 11 = 0 oder x − 1 = 0",
+    "x = −11 oder x = 1",
+    "L = {−11; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -6,
+    "q": 5
+   },
+   "frage": "Löse (x + 6)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 6 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 6)(x − 5) = 0",
+    "x + 6 = 0 oder x − 5 = 0",
+    "x = −6 oder x = 5",
+    "L = {−6; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -10,
+    "q": 9
+   },
+   "frage": "Löse (x + 10)(x − 9) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 10 = 0 oder x − 9 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 10)(x − 9) = 0",
+    "x + 10 = 0 oder x − 9 = 0",
+    "x = −10 oder x = 9",
+    "L = {−10; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -4,
+    "q": 8
+   },
+   "frage": "Löse (x + 4)(x − 8) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 4 = 0 oder x − 8 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 4)(x − 8) = 0",
+    "x + 4 = 0 oder x − 8 = 0",
+    "x = −4 oder x = 8",
+    "L = {−4; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -6,
+    "q": 8
+   },
+   "frage": "Löse (x + 6)(x − 8) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 6 = 0 oder x − 8 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 6)(x − 8) = 0",
+    "x + 6 = 0 oder x − 8 = 0",
+    "x = −6 oder x = 8",
+    "L = {−6; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -3,
+    "q": 5
+   },
+   "frage": "Löse (x + 3)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 3 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 3)(x − 5) = 0",
+    "x + 3 = 0 oder x − 5 = 0",
+    "x = −3 oder x = 5",
+    "L = {−3; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -2,
+    "q": 6
+   },
+   "frage": "Löse (x + 2)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 2 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 2)(x − 6) = 0",
+    "x + 2 = 0 oder x − 6 = 0",
+    "x = −2 oder x = 6",
+    "L = {−2; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -12,
+    "q": 5
+   },
+   "frage": "Löse (x + 12)(x − 5) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 12 = 0 oder x − 5 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 12)(x − 5) = 0",
+    "x + 12 = 0 oder x − 5 = 0",
+    "x = −12 oder x = 5",
+    "L = {−12; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -2,
+    "q": 1
+   },
+   "frage": "Löse (x + 2)(x − 1) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-1",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 2 = 0 oder x − 1 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 2)(x − 1) = 0",
+    "x + 2 = 0 oder x − 1 = 0",
+    "x = −2 oder x = 1",
+    "L = {−2; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -12,
+    "q": 9
+   },
+   "frage": "Löse (x + 12)(x − 9) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 12 = 0 oder x − 9 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 12)(x − 9) = 0",
+    "x + 12 = 0 oder x − 9 = 0",
+    "x = −12 oder x = 9",
+    "L = {−12; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -5,
+    "q": 10
+   },
+   "frage": "Löse (x + 5)(x − 10) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 5 = 0 oder x − 10 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 5)(x − 10) = 0",
+    "x + 5 = 0 oder x − 10 = 0",
+    "x = −5 oder x = 10",
+    "L = {−5; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -11,
+    "q": 3
+   },
+   "frage": "Löse (x + 11)(x − 3) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-11",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-3",
+      "11"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 11 = 0 oder x − 3 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 11)(x − 3) = 0",
+    "x + 11 = 0 oder x − 3 = 0",
+    "x = −11 oder x = 3",
+    "L = {−11; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-11"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -1,
+    "q": 7
+   },
+   "frage": "Löse (x + 1)(x − 7) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-7",
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 1 = 0 oder x − 7 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 1)(x − 7) = 0",
+    "x + 1 = 0 oder x − 7 = 0",
+    "x = −1 oder x = 7",
+    "L = {−1; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "p": -8,
+    "q": 10
+   },
+   "frage": "Löse (x + 8)(x − 10) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-10",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 8 = 0 oder x − 10 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 8)(x − 10) = 0",
+    "x + 8 = 0 oder x − 10 = 0",
+    "x = −8 oder x = 10",
+    "L = {−8; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "p": -4,
+    "q": 6
+   },
+   "frage": "Löse (x + 4)(x − 6) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 4 = 0 oder x − 6 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 4)(x − 6) = 0",
+    "x + 4 = 0 oder x − 6 = 0",
+    "x = −4 oder x = 6",
+    "L = {−4; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "p": -8,
+    "q": 12
+   },
+   "frage": "Löse (x + 8)(x − 12) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-12",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 8 = 0 oder x − 12 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 8)(x − 12) = 0",
+    "x + 8 = 0 oder x − 12 = 0",
+    "x = −8 oder x = 12",
+    "L = {−8; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NP-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "p": -9,
+    "q": 12
+   },
+   "frage": "Löse (x + 9)(x − 12) = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-12",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wann ist ein Produkt gleich null?",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jede Klammer einzeln gleich null: x + 9 = 0 oder x − 12 = 0."
+   ],
+   "loesungsweg": [
+    "(x + 9)(x − 12) = 0",
+    "x + 9 = 0 oder x − 12 = 0",
+    "x = −9 oder x = 12",
+    "L = {−9; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

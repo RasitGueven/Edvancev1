@@ -1,0 +1,1409 @@
+{
+ "schluessel": "DI-2",
+ "skill": "gleichung_quadr_anzahl",
+ "kernidee": "gleichung_quadr_anzahl:K1",
+ "format": "bausteine",
+ "rollen": [
+  "recap",
+  "transfer"
+ ],
+ "steckbrief": {
+  "text": "Warum hat {gleichung} keine Lösung? Wähle die passende Begründung.",
+  "stufen": {
+   "3": "x² + px + q = 0 mit (p/2)² − q < 0; eine richtige Begründung mit der Rechnung, drei falsche"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_q_vorzeichen",
+    "regel": "Begründung mit (p/2)² + q",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Unter der Wurzel wird q abgezogen. Rechne (p/2)² − q noch einmal."
+   }
+  ],
+  "hinweise": [
+   "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+   "Rechne (p/2)² − q aus.",
+   "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 90,
+  "kann_entfallen": false,
+  "generator_hash": "03e69eb48d4b"
+ },
+ "pruefprotokoll": {
+  "gruen": 16,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "A",
+   "2": "B",
+   "3": "D",
+   "4": "D",
+   "5": "B",
+   "6": "C",
+   "7": "A",
+   "8": "D",
+   "9": "C",
+   "10": "A"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 4,
+    "q": 43
+   },
+   "frage": "Warum hat x² + 4x + 43 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Unter der Wurzel steht 2² − 43 = −39. Das ist negativ."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht 2² + 43 = 47. Das ist positiv."
+     },
+     {
+      "id": "c",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "d",
+      "text": "Weil p eine gerade Zahl ist."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 4x + 43 = 0",
+    "p = 4, q = 43",
+    "(p/2)² − q = 2² − 43 = −39",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": 22
+   },
+   "frage": "Warum hat x² − 2x + 22 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht (−1)² + 22 = 23. Das ist positiv."
+     },
+     {
+      "id": "c",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht (−1)² − 22 = −21. Das ist negativ."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 2x + 22 = 0",
+    "p = −2, q = 22",
+    "(p/2)² − q = (−1)² − 22 = −21",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 10,
+    "q": 48
+   },
+   "frage": "Warum hat x² + 10x + 48 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht 5² + 48 = 73. Das ist positiv."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht 5² − 48 = −23. Das ist negativ."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 10x + 48 = 0",
+    "p = 10, q = 48",
+    "(p/2)² − q = 5² − 48 = −23",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": 49
+   },
+   "frage": "Warum hat x² − 2x + 49 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht (−1)² + 49 = 50. Das ist positiv."
+     },
+     {
+      "id": "c",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht (−1)² − 49 = −48. Das ist negativ."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 2x + 49 = 0",
+    "p = −2, q = 49",
+    "(p/2)² − q = (−1)² − 49 = −48",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 4,
+    "q": 13
+   },
+   "frage": "Warum hat x² + 4x + 13 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Unter der Wurzel steht 2² − 13 = −9. Das ist negativ."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht 2² + 13 = 17. Das ist positiv."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 4x + 13 = 0",
+    "p = 4, q = 13",
+    "(p/2)² − q = 2² − 13 = −9",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": 46
+   },
+   "frage": "Warum hat x² − 2x + 46 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Unter der Wurzel steht (−1)² − 46 = −45. Das ist negativ."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht (−1)² + 46 = 47. Das ist positiv."
+     },
+     {
+      "id": "d",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 2x + 46 = 0",
+    "p = −2, q = 46",
+    "(p/2)² − q = (−1)² − 46 = −45",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 4,
+    "q": 33
+   },
+   "frage": "Warum hat x² + 4x + 33 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht 2² + 33 = 37. Das ist positiv."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht 2² − 33 = −29. Das ist negativ."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 4x + 33 = 0",
+    "p = 4, q = 33",
+    "(p/2)² − q = 2² − 33 = −29",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 10,
+    "q": 27
+   },
+   "frage": "Warum hat x² + 10x + 27 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht 5² − 27 = −2. Das ist negativ."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht 5² + 27 = 52. Das ist positiv."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 10x + 27 = 0",
+    "p = 10, q = 27",
+    "(p/2)² − q = 5² − 27 = −2",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": 4,
+    "q": 15
+   },
+   "frage": "Warum hat x² + 4x + 15 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Unter der Wurzel steht 2² − 15 = −11. Das ist negativ."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht 2² + 15 = 19. Das ist positiv."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 4x + 15 = 0",
+    "p = 4, q = 15",
+    "(p/2)² − q = 2² − 15 = −11",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -4,
+    "q": 45
+   },
+   "frage": "Warum hat x² − 4x + 45 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht (−2)² + 45 = 49. Das ist positiv."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht (−2)² − 45 = −41. Das ist negativ."
+     },
+     {
+      "id": "d",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 4x + 45 = 0",
+    "p = −4, q = 45",
+    "(p/2)² − q = (−2)² − 45 = −41",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -4,
+    "q": 38
+   },
+   "frage": "Warum hat x² − 4x + 38 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "b",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht (−2)² + 38 = 42. Das ist positiv."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht (−2)² − 38 = −34. Das ist negativ."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 4x + 38 = 0",
+    "p = −4, q = 38",
+    "(p/2)² − q = (−2)² − 38 = −34",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -6,
+    "q": 41
+   },
+   "frage": "Warum hat x² − 6x + 41 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht (−3)² − 41 = −32. Das ist negativ."
+     },
+     {
+      "id": "c",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht (−3)² + 41 = 50. Das ist positiv."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 6x + 41 = 0",
+    "p = −6, q = 41",
+    "(p/2)² − q = (−3)² − 41 = −32",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -10,
+    "q": 48
+   },
+   "frage": "Warum hat x² − 10x + 48 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht (−5)² + 48 = 73. Das ist positiv."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht (−5)² − 48 = −23. Das ist negativ."
+     },
+     {
+      "id": "d",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 10x + 48 = 0",
+    "p = −10, q = 48",
+    "(p/2)² − q = (−5)² − 48 = −23",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": -2,
+    "q": 23
+   },
+   "frage": "Warum hat x² − 2x + 23 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Unter der Wurzel steht (−1)² + 23 = 24. Das ist positiv."
+     },
+     {
+      "id": "b",
+      "text": "Unter der Wurzel steht (−1)² − 23 = −22. Das ist negativ."
+     },
+     {
+      "id": "c",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "d",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "a"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 2x + 23 = 0",
+    "p = −2, q = 23",
+    "(p/2)² − q = (−1)² − 23 = −22",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "p": -6,
+    "q": 40
+   },
+   "frage": "Warum hat x² − 6x + 40 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "b",
+      "text": "Weil p eine gerade Zahl ist."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht (−3)² + 40 = 49. Das ist positiv."
+     },
+     {
+      "id": "d",
+      "text": "Unter der Wurzel steht (−3)² − 40 = −31. Das ist negativ."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² − 6x + 40 = 0",
+    "p = −6, q = 40",
+    "(p/2)² − q = (−3)² − 40 = −31",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "DI-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "p": 6,
+    "q": 28
+   },
+   "frage": "Warum hat x² + 6x + 28 = 0 keine Lösung? Wähle die passende Begründung.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Unter der Wurzel steht 3² + 28 = 37. Das ist positiv."
+     },
+     {
+      "id": "b",
+      "text": "Weil q positiv ist, hat die Gleichung nie eine Lösung."
+     },
+     {
+      "id": "c",
+      "text": "Unter der Wurzel steht 3² − 28 = −19. Das ist negativ."
+     },
+     {
+      "id": "d",
+      "text": "Weil p eine gerade Zahl ist."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_q_vorzeichen",
+     "gewaehlt": [
+      "a"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Welcher Teil der p-q-Formel entscheidet über die Anzahl der Lösungen?",
+    "Rechne (p/2)² − q aus.",
+    "Kann man aus dem Ergebnis eine Wurzel ziehen?"
+   ],
+   "loesungsweg": [
+    "x² + 6x + 28 = 0",
+    "p = 6, q = 28",
+    "(p/2)² − q = 3² − 28 = −19",
+    "Aus einer negativen Zahl kann man keine Wurzel ziehen.",
+    "L = { }"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

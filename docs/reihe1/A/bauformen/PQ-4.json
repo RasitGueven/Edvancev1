@@ -1,0 +1,1355 @@
+{
+ "schluessel": "PQ-4",
+ "skill": "gleichung_quadr_formel",
+ "kernidee": "gleichung_quadr_formel:K1",
+ "format": "schritte_ordnen",
+ "rollen": [
+  "uebung",
+  "recap"
+ ],
+ "steckbrief": {
+  "text": "Bring die Schritte zum Lösen von {gleichung} in die richtige Reihenfolge.",
+  "stufen": {
+   "2": "a·x² + b·x + c = 0 mit a von 2 bis 4, vier Schritte bis zur Lösungsmenge"
+  },
+  "fehlbilder": [],
+  "hinweise": [
+   "Womit fängt man an, wenn vor x² keine 1 steht?",
+   "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+   "Am Ende steht immer die Lösungsmenge."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 90,
+  "kann_entfallen": false,
+  "generator_hash": "012acc3f19f7"
+ },
+ "pruefprotokoll": {
+  "gruen": 15,
+  "rot": 1,
+  "rot_anteil": 0.062,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "D, C, B, A",
+   "2": "C, A, B, D",
+   "3": "B, C, A, D",
+   "4": "A, D, C, B",
+   "5": "A, C, B, D",
+   "6": "C, D, B, A",
+   "7": "C, A, B, D",
+   "8": "D, B, C, A",
+   "9": "B, D, A, C",
+   "10": "A, C, D, B"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 2,
+    "q": -15
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² + 6x − 45 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "L = {−5; 3}"
+     },
+     {
+      "id": "b",
+      "text": "x₁,₂ = −1 ± 4"
+     },
+     {
+      "id": "c",
+      "text": "x² + 2x − 15 = 0"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = −1 ± √((−1)² − (−15))"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "c",
+      "d",
+      "b",
+      "a"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² + 2x − 15 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −1 ± √((−1)² − (−15))",
+    "3. Wurzel ziehen: x₁,₂ = −1 ± 4",
+    "4. Lösungsmenge: L = {−5; 3}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -14,
+    "q": 45
+   },
+   "frage": "Bring die Schritte zum Lösen von 2x² − 28x + 90 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x² − 14x + 45 = 0"
+     },
+     {
+      "id": "b",
+      "text": "L = {5; 9}"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = 7 ± √(7² − 45)"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = 7 ± 2"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "a",
+      "c",
+      "d",
+      "b"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 2 teilen: x² − 14x + 45 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 7 ± √(7² − 45)",
+    "3. Wurzel ziehen: x₁,₂ = 7 ± 2",
+    "4. Lösungsmenge: L = {5; 9}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 2,
+    "q": -3
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² + 6x − 9 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x² + 2x − 3 = 0"
+     },
+     {
+      "id": "b",
+      "text": "x₁,₂ = −1 ± 2"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = −1 ± √((−1)² − (−3))"
+     },
+     {
+      "id": "d",
+      "text": "L = {−3; 1}"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "a",
+      "c",
+      "b",
+      "d"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² + 2x − 3 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −1 ± √((−1)² − (−3))",
+    "3. Wurzel ziehen: x₁,₂ = −1 ± 2",
+    "4. Lösungsmenge: L = {−3; 1}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "p": 14,
+    "q": 48
+   },
+   "frage": "Bring die Schritte zum Lösen von 4x² + 56x + 192 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "L = {−8; −6}"
+     },
+     {
+      "id": "b",
+      "text": "x₁,₂ = −7 ± √((−7)² − 48)"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = −7 ± 1"
+     },
+     {
+      "id": "d",
+      "text": "x² + 14x + 48 = 0"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "d",
+      "b",
+      "c",
+      "a"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 4 teilen: x² + 14x + 48 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −7 ± √((−7)² − 48)",
+    "3. Wurzel ziehen: x₁,₂ = −7 ± 1",
+    "4. Lösungsmenge: L = {−8; −6}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 6,
+    "q": -7
+   },
+   "frage": "Bring die Schritte zum Lösen von 2x² + 12x − 14 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "L = {−7; 1}"
+     },
+     {
+      "id": "b",
+      "text": "x₁,₂ = −3 ± 4"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = −3 ± √((−3)² − (−7))"
+     },
+     {
+      "id": "d",
+      "text": "x² + 6x − 7 = 0"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "d",
+      "c",
+      "b",
+      "a"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 2 teilen: x² + 6x − 7 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −3 ± √((−3)² − (−7))",
+    "3. Wurzel ziehen: x₁,₂ = −3 ± 4",
+    "4. Lösungsmenge: L = {−7; 1}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -4,
+    "q": -12
+   },
+   "frage": "Bring die Schritte zum Lösen von 2x² − 8x − 24 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = 2 ± √(2² − (−12))"
+     },
+     {
+      "id": "b",
+      "text": "x₁,₂ = 2 ± 4"
+     },
+     {
+      "id": "c",
+      "text": "x² − 4x − 12 = 0"
+     },
+     {
+      "id": "d",
+      "text": "L = {−2; 6}"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "c",
+      "a",
+      "b",
+      "d"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 2 teilen: x² − 4x − 12 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 2 ± √(2² − (−12))",
+    "3. Wurzel ziehen: x₁,₂ = 2 ± 4",
+    "4. Lösungsmenge: L = {−2; 6}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "p": -14,
+    "q": 48
+   },
+   "frage": "Bring die Schritte zum Lösen von 4x² − 56x + 192 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = 7 ± √(7² − 48)"
+     },
+     {
+      "id": "b",
+      "text": "x² − 14x + 48 = 0"
+     },
+     {
+      "id": "c",
+      "text": "L = {6; 8}"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = 7 ± 1"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "b",
+      "a",
+      "d",
+      "c"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 4 teilen: x² − 14x + 48 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 7 ± √(7² − 48)",
+    "3. Wurzel ziehen: x₁,₂ = 7 ± 1",
+    "4. Lösungsmenge: L = {6; 8}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": -8,
+    "q": 7
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² − 24x + 21 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = 4 ± √(4² − 7)"
+     },
+     {
+      "id": "b",
+      "text": "x₁,₂ = 4 ± 3"
+     },
+     {
+      "id": "c",
+      "text": "x² − 8x + 7 = 0"
+     },
+     {
+      "id": "d",
+      "text": "L = {1; 7}"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "c",
+      "a",
+      "b",
+      "d"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² − 8x + 7 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 4 ± √(4² − 7)",
+    "3. Wurzel ziehen: x₁,₂ = 4 ± 3",
+    "4. Lösungsmenge: L = {1; 7}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 6,
+    "q": 8
+   },
+   "frage": "Bring die Schritte zum Lösen von 2x² + 12x + 16 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = −3 ± 1"
+     },
+     {
+      "id": "b",
+      "text": "x² + 6x + 8 = 0"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = −3 ± √((−3)² − 8)"
+     },
+     {
+      "id": "d",
+      "text": "L = {−4; −2}"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "b",
+      "c",
+      "a",
+      "d"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 2 teilen: x² + 6x + 8 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −3 ± √((−3)² − 8)",
+    "3. Wurzel ziehen: x₁,₂ = −3 ± 1",
+    "4. Lösungsmenge: L = {−4; −2}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 12,
+    "q": 27
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² + 36x + 81 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = −6 ± √((−6)² − 27)"
+     },
+     {
+      "id": "b",
+      "text": "x² + 12x + 27 = 0"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = −6 ± 3"
+     },
+     {
+      "id": "d",
+      "text": "L = {−9; −3}"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "b",
+      "a",
+      "c",
+      "d"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² + 12x + 27 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −6 ± √((−6)² − 27)",
+    "3. Wurzel ziehen: x₁,₂ = −6 ± 3",
+    "4. Lösungsmenge: L = {−9; −3}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 6,
+    "q": 5
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² + 18x + 15 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = −3 ± 2"
+     },
+     {
+      "id": "b",
+      "text": "x² + 6x + 5 = 0"
+     },
+     {
+      "id": "c",
+      "text": "L = {−5; −1}"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = −3 ± √((−3)² − 5)"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "b",
+      "d",
+      "a",
+      "c"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² + 6x + 5 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −3 ± √((−3)² − 5)",
+    "3. Wurzel ziehen: x₁,₂ = −3 ± 2",
+    "4. Lösungsmenge: L = {−5; −1}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": -12,
+    "q": 32
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² − 36x + 96 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = 6 ± √(6² − 32)"
+     },
+     {
+      "id": "b",
+      "text": "L = {4; 8}"
+     },
+     {
+      "id": "c",
+      "text": "x² − 12x + 32 = 0"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = 6 ± 2"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "c",
+      "a",
+      "d",
+      "b"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² − 12x + 32 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 6 ± √(6² − 32)",
+    "3. Wurzel ziehen: x₁,₂ = 6 ± 2",
+    "4. Lösungsmenge: L = {4; 8}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 4,
+    "p": -8,
+    "q": 15
+   },
+   "frage": "Bring die Schritte zum Lösen von 4x² − 32x + 60 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = 4 ± √(4² − 15)"
+     },
+     {
+      "id": "b",
+      "text": "L = {3; 5}"
+     },
+     {
+      "id": "c",
+      "text": "x² − 8x + 15 = 0"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = 4 ± 1"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "c",
+      "a",
+      "d",
+      "b"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 4 teilen: x² − 8x + 15 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 4 ± √(4² − 15)",
+    "3. Wurzel ziehen: x₁,₂ = 4 ± 1",
+    "4. Lösungsmenge: L = {3; 5}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 2,
+    "q": -3
+   },
+   "frage": "Bring die Schritte zum Lösen von 2x² + 4x − 6 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = −1 ± 2"
+     },
+     {
+      "id": "b",
+      "text": "x² + 2x − 3 = 0"
+     },
+     {
+      "id": "c",
+      "text": "L = {−3; 1}"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = −1 ± √((−1)² − (−3))"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "b",
+      "d",
+      "a",
+      "c"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 2 teilen: x² + 2x − 3 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = −1 ± √((−1)² − (−3))",
+    "3. Wurzel ziehen: x₁,₂ = −1 ± 2",
+    "4. Lösungsmenge: L = {−3; 1}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": -6,
+    "q": 8
+   },
+   "frage": "Bring die Schritte zum Lösen von 3x² − 18x + 24 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x² − 6x + 8 = 0"
+     },
+     {
+      "id": "b",
+      "text": "L = {2; 4}"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = 3 ± 1"
+     },
+     {
+      "id": "d",
+      "text": "x₁,₂ = 3 ± √(3² − 8)"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "a",
+      "d",
+      "c",
+      "b"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 3 teilen: x² − 6x + 8 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 3 ± √(3² − 8)",
+    "3. Wurzel ziehen: x₁,₂ = 3 ± 1",
+    "4. Lösungsmenge: L = {2; 4}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PQ-4",
+   "rolle": "recap",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -2,
+    "q": -8
+   },
+   "frage": "Bring die Schritte zum Lösen von 2x² − 4x − 16 = 0 in die richtige Reihenfolge.",
+   "input_type": "SCHRITTE_ORDNEN",
+   "payload": {
+    "format": "schritte_ordnen",
+    "schritte": [
+     {
+      "id": "a",
+      "text": "x₁,₂ = 1 ± √(1² − (−8))"
+     },
+     {
+      "id": "b",
+      "text": "x² − 2x − 8 = 0"
+     },
+     {
+      "id": "c",
+      "text": "x₁,₂ = 1 ± 3"
+     },
+     {
+      "id": "d",
+      "text": "L = {−2; 4}"
+     }
+    ]
+   },
+   "loesung": {
+    "reihenfolgen": [
+     [
+      "b",
+      "a",
+      "c",
+      "d"
+     ]
+    ]
+   },
+   "fehlbilder": [],
+   "hinweise": [
+    "Womit fängt man an, wenn vor x² keine 1 steht?",
+    "Die Formel braucht die Normalform. Danach setzt man p und q ein.",
+    "Am Ende steht immer die Lösungsmenge."
+   ],
+   "loesungsweg": [
+    "1. Durch 2 teilen: x² − 2x − 8 = 0",
+    "2. p und q in die Formel einsetzen: x₁,₂ = 1 ± √(1² − (−8))",
+    "3. Wurzel ziehen: x₁,₂ = 1 ± 3",
+    "4. Lösungsmenge: L = {−2; 4}"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

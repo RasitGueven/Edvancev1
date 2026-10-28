@@ -17,3 +17,17 @@ denselben Weg wie `session_bewerten` (`scripts/bauformen/klassisch.py`). Figuren
 | QW-1 | 10 | – | bestanden | 28.10.2026 |
 | KO-1 | 10 | – | bestanden | 28.10.2026 |
 | GL-1 | 10 | – | bestanden | 28.10.2026 |
+| WZ-2 | 10 | – | bestanden | 28.10.2026 |
+| WZ-3 | 10 | – | bestanden | 28.10.2026 |
+| WZ-4 | 10 | – | bestanden | 28.10.2026 |
+| WZ-5 | 8 | – | bestanden | 28.10.2026 |
+| NP-1 | 10 | – | bestanden | 28.10.2026 |
+| NP-3 | 10 | – | bestanden | 28.10.2026 |
+| NP-4 | 10 | – | bestanden | 28.10.2026 |
+| PQ-1 | 10 | – | bestanden | 28.10.2026 |
+| PQ-2 | 10 | – | bestanden | 28.10.2026 |
+| PQ-3 | 10 | – | bestanden | 28.10.2026 |
+| PQ-4 | 10 | – | bestanden | 28.10.2026 |
+| DI-1 | 10 | – | bestanden | 28.10.2026 |
+| DI-2 | 10 | – | bestanden | 28.10.2026 |
+| DI-3 | 10 | – | bestanden | 28.10.2026 |

@@ -1,0 +1,4424 @@
+{
+ "schluessel": "WZ-2",
+ "skill": "gleichung_quadr_wurzel",
+ "kernidee": "gleichung_quadr_wurzel:K2",
+ "format": "loesungsmenge",
+ "rollen": [
+  "uebung",
+  "home",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Löse {gleichung}.",
+  "stufen": {
+   "2": "x² + b = c, (c − b) eine Quadratzahl von 1 bis 144",
+   "3": "a·x² + b = c, a von 2 bis 5, (c − b)/a Quadratzahl"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_nur_positive_loesung",
+    "regel": "nur +√((c − b)/a)",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Auch eine negative Zahl ins Quadrat ergibt eine positive Zahl. Gibt es eine zweite Lösung?"
+   },
+   {
+    "key": "qf_gegenoperation_vorzeichen",
+    "regel": "±√((c + b)/a)",
+    "gilt_fuer_stufen": [
+     2,
+     3
+    ],
+    "rueckmeldung": "Beim Umstellen kehrt sich die Rechenart um: aus + b wird − b."
+   },
+   {
+    "key": "qf_durch_a_vergessen",
+    "regel": "±√(c − b)",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Vor x² steht noch eine Zahl. Teil durch sie, bevor du die Wurzel ziehst."
+   }
+  ],
+  "hinweise": [
+   "Was muss weg, damit x² allein steht?",
+   "Bring zuerst {b_text} auf die andere Seite{teilen}.",
+   "Wenn x² allein steht: Welche Zahlen ergeben quadriert {r}?"
+  ],
+  "loesungsweg": [
+   "{gleichung}",
+   "{ax2} = {cb}",
+   "x² = {r}",
+   "x = {w} oder x = −{w}",
+   "L = {menge}"
+  ],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 90,
+  "kann_entfallen": false,
+  "generator_hash": "73f44ce9a640"
+ },
+ "pruefprotokoll": {
+  "gruen": 56,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "5; −5",
+   "2": "5; −5",
+   "3": "7; −7",
+   "4": "6; −6",
+   "5": "2; −2",
+   "6": "12; −12",
+   "7": "9; −9",
+   "8": "3; −3",
+   "9": "5; −5",
+   "10": "4; −4"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -10,
+    "c": -6
+   },
+   "frage": "Löse x² − 10 = −6.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −10 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "x² − 10 = −6",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -19,
+    "c": -15
+   },
+   "frage": "Löse x² − 19 = −15.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −19 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "x² − 19 = −15",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -24,
+    "c": 40
+   },
+   "frage": "Löse x² − 24 = 40.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "8"
+     ]
+    },
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "menge": [
+      "-4",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −24 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 64?"
+   ],
+   "loesungsweg": [
+    "x² − 24 = 40",
+    "x² = 64",
+    "x = 8 oder x = −8",
+    "L = {−8; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 9,
+    "c": 25
+   },
+   "frage": "Löse x² + 9 = 25.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 9 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 16?"
+   ],
+   "loesungsweg": [
+    "x² + 9 = 25",
+    "x² = 16",
+    "x = 4 oder x = −4",
+    "L = {−4; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -3,
+    "c": 78
+   },
+   "frage": "Löse x² − 3 = 78.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −3 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 81?"
+   ],
+   "loesungsweg": [
+    "x² − 3 = 78",
+    "x² = 81",
+    "x = 9 oder x = −9",
+    "L = {−9; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 30,
+    "c": 174
+   },
+   "frage": "Löse x² + 30 = 174.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 30 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² + 30 = 174",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -6,
+    "c": 138
+   },
+   "frage": "Löse x² − 6 = 138.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −6 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² − 6 = 138",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 10,
+    "c": 11
+   },
+   "frage": "Löse x² + 10 = 11.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 10 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 1?"
+   ],
+   "loesungsweg": [
+    "x² + 10 = 11",
+    "x² = 1",
+    "x = 1 oder x = −1",
+    "L = {−1; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -23,
+    "c": 2
+   },
+   "frage": "Löse x² − 23 = 2.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −23 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "x² − 23 = 2",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -9,
+    "c": 0
+   },
+   "frage": "Löse x² − 9 = 0.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −9 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 9?"
+   ],
+   "loesungsweg": [
+    "x² − 9 = 0",
+    "x² = 9",
+    "x = 3 oder x = −3",
+    "L = {−3; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 17,
+    "c": 161
+   },
+   "frage": "Löse x² + 17 = 161.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 17 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² + 17 = 161",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 17
+   },
+   "frage": "Löse x² + 1 = 17.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 1 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 16?"
+   ],
+   "loesungsweg": [
+    "x² + 1 = 17",
+    "x² = 16",
+    "x = 4 oder x = −4",
+    "L = {−4; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 8,
+    "c": 33
+   },
+   "frage": "Löse x² + 8 = 33.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 8 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "x² + 8 = 33",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 16,
+    "c": 160
+   },
+   "frage": "Löse x² + 16 = 160.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 16 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² + 16 = 160",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -12,
+    "c": -3
+   },
+   "frage": "Löse x² − 12 = −3.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −12 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 9?"
+   ],
+   "loesungsweg": [
+    "x² − 12 = −3",
+    "x² = 9",
+    "x = 3 oder x = −3",
+    "L = {−3; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -6,
+    "c": 43
+   },
+   "frage": "Löse x² − 6 = 43.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −6 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 49?"
+   ],
+   "loesungsweg": [
+    "x² − 6 = 43",
+    "x² = 49",
+    "x = 7 oder x = −7",
+    "L = {−7; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 6,
+    "c": 7
+   },
+   "frage": "Löse x² + 6 = 7.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 6 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 1?"
+   ],
+   "loesungsweg": [
+    "x² + 6 = 7",
+    "x² = 1",
+    "x = 1 oder x = −1",
+    "L = {−1; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 29,
+    "c": 78
+   },
+   "frage": "Löse x² + 29 = 78.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 29 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 49?"
+   ],
+   "loesungsweg": [
+    "x² + 29 = 78",
+    "x² = 49",
+    "x = 7 oder x = −7",
+    "L = {−7; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 2,
+    "c": 146
+   },
+   "frage": "Löse x² + 2 = 146.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 2 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² + 2 = 146",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 30,
+    "c": 66
+   },
+   "frage": "Löse x² + 30 = 66.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 30 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 36?"
+   ],
+   "loesungsweg": [
+    "x² + 30 = 66",
+    "x² = 36",
+    "x = 6 oder x = −6",
+    "L = {−6; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 18,
+    "c": 54
+   },
+   "frage": "Löse x² + 18 = 54.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 18 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 36?"
+   ],
+   "loesungsweg": [
+    "x² + 18 = 54",
+    "x² = 36",
+    "x = 6 oder x = −6",
+    "L = {−6; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 27,
+    "c": 31
+   },
+   "frage": "Löse x² + 27 = 31.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 27 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "x² + 27 = 31",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 28,
+    "c": 37
+   },
+   "frage": "Löse x² + 28 = 37.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 28 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 9?"
+   ],
+   "loesungsweg": [
+    "x² + 28 = 37",
+    "x² = 9",
+    "x = 3 oder x = −3",
+    "L = {−3; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -26,
+    "c": 10
+   },
+   "frage": "Löse x² − 26 = 10.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −26 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 36?"
+   ],
+   "loesungsweg": [
+    "x² − 26 = 10",
+    "x² = 36",
+    "x = 6 oder x = −6",
+    "L = {−6; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -30,
+    "c": 114
+   },
+   "frage": "Löse x² − 30 = 114.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −30 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² − 30 = 114",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": -24,
+    "c": 76
+   },
+   "frage": "Löse x² − 24 = 76.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-10",
+     "10"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −24 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 100?"
+   ],
+   "loesungsweg": [
+    "x² − 24 = 76",
+    "x² = 100",
+    "x = 10 oder x = −10",
+    "L = {−10; 10}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "10",
+      "-10"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 15,
+    "c": 159
+   },
+   "frage": "Löse x² + 15 = 159.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-12",
+     "12"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "12"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 15 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 144?"
+   ],
+   "loesungsweg": [
+    "x² + 15 = 159",
+    "x² = 144",
+    "x = 12 oder x = −12",
+    "L = {−12; 12}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "12",
+      "-12"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "b": 4,
+    "c": 29
+   },
+   "frage": "Löse x² + 4 = 29.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 4 auf die andere Seite.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "x² + 4 = 29",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -5,
+    "c": 93
+   },
+   "frage": "Löse 2x² − 5 = 93.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −5 auf die andere Seite und teil durch 2.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 49?"
+   ],
+   "loesungsweg": [
+    "2x² − 5 = 93",
+    "2x² = 98",
+    "x² = 49",
+    "x = 7 oder x = −7",
+    "L = {−7; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": 28,
+    "c": 348
+   },
+   "frage": "Löse 5x² + 28 = 348.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 28 auf die andere Seite und teil durch 5.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 64?"
+   ],
+   "loesungsweg": [
+    "5x² + 28 = 348",
+    "5x² = 320",
+    "x² = 64",
+    "x = 8 oder x = −8",
+    "L = {−8; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -14,
+    "c": 61
+   },
+   "frage": "Löse 3x² − 14 = 61.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −14 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "3x² − 14 = 61",
+    "3x² = 75",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -19,
+    "c": 173
+   },
+   "frage": "Löse 3x² − 19 = 173.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −19 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 64?"
+   ],
+   "loesungsweg": [
+    "3x² − 19 = 173",
+    "3x² = 192",
+    "x² = 64",
+    "x = 8 oder x = −8",
+    "L = {−8; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -3,
+    "c": 105
+   },
+   "frage": "Löse 3x² − 3 = 105.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −3 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 36?"
+   ],
+   "loesungsweg": [
+    "3x² − 3 = 105",
+    "3x² = 108",
+    "x² = 36",
+    "x = 6 oder x = −6",
+    "L = {−6; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": 3,
+    "c": 128
+   },
+   "frage": "Löse 5x² + 3 = 128.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 3 auf die andere Seite und teil durch 5.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "5x² + 3 = 128",
+    "5x² = 125",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -26,
+    "c": -23
+   },
+   "frage": "Löse 3x² − 26 = −23.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −26 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 1?"
+   ],
+   "loesungsweg": [
+    "3x² − 26 = −23",
+    "3x² = 3",
+    "x² = 1",
+    "x = 1 oder x = −1",
+    "L = {−1; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": 20,
+    "c": 36
+   },
+   "frage": "Löse 4x² + 20 = 36.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "menge": [
+      "-4",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 20 auf die andere Seite und teil durch 4.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "4x² + 20 = 36",
+    "4x² = 16",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": 26,
+    "c": 271
+   },
+   "frage": "Löse 5x² + 26 = 271.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 26 auf die andere Seite und teil durch 5.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 49?"
+   ],
+   "loesungsweg": [
+    "5x² + 26 = 271",
+    "5x² = 245",
+    "x² = 49",
+    "x = 7 oder x = −7",
+    "L = {−7; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 10,
+    "c": 37
+   },
+   "frage": "Löse 3x² + 10 = 37.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 10 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 9?"
+   ],
+   "loesungsweg": [
+    "3x² + 10 = 37",
+    "3x² = 27",
+    "x² = 9",
+    "x = 3 oder x = −3",
+    "L = {−3; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 11,
+    "c": 59
+   },
+   "frage": "Löse 3x² + 11 = 59.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 11 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 16?"
+   ],
+   "loesungsweg": [
+    "3x² + 11 = 59",
+    "3x² = 48",
+    "x² = 16",
+    "x = 4 oder x = −4",
+    "L = {−4; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -2,
+    "c": 25
+   },
+   "frage": "Löse 3x² − 2 = 25.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −2 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 9?"
+   ],
+   "loesungsweg": [
+    "3x² − 2 = 25",
+    "3x² = 27",
+    "x² = 9",
+    "x = 3 oder x = −3",
+    "L = {−3; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -4,
+    "c": -1
+   },
+   "frage": "Löse 3x² − 4 = −1.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −4 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 1?"
+   ],
+   "loesungsweg": [
+    "3x² − 4 = −1",
+    "3x² = 3",
+    "x² = 1",
+    "x = 1 oder x = −1",
+    "L = {−1; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": -9,
+    "c": 7
+   },
+   "frage": "Löse 4x² − 9 = 7.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "menge": [
+      "-4",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −9 auf die andere Seite und teil durch 4.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "4x² − 9 = 7",
+    "4x² = 16",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 7,
+    "c": 34
+   },
+   "frage": "Löse 3x² + 7 = 34.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 7 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 9?"
+   ],
+   "loesungsweg": [
+    "3x² + 7 = 34",
+    "3x² = 27",
+    "x² = 9",
+    "x = 3 oder x = −3",
+    "L = {−3; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": -30,
+    "c": 18
+   },
+   "frage": "Löse 3x² − 30 = 18.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −30 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 16?"
+   ],
+   "loesungsweg": [
+    "3x² − 30 = 18",
+    "3x² = 48",
+    "x² = 16",
+    "x = 4 oder x = −4",
+    "L = {−4; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": -18,
+    "c": 62
+   },
+   "frage": "Löse 5x² − 18 = 62.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −18 auf die andere Seite und teil durch 5.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 16?"
+   ],
+   "loesungsweg": [
+    "5x² − 18 = 62",
+    "5x² = 80",
+    "x² = 16",
+    "x = 4 oder x = −4",
+    "L = {−4; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": 16,
+    "c": 24
+   },
+   "frage": "Löse 2x² + 16 = 24.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 16 auf die andere Seite und teil durch 2.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "2x² + 16 = 24",
+    "2x² = 8",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": 25,
+    "c": 153
+   },
+   "frage": "Löse 2x² + 25 = 153.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 25 auf die andere Seite und teil durch 2.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 64?"
+   ],
+   "loesungsweg": [
+    "2x² + 25 = 153",
+    "2x² = 128",
+    "x² = 64",
+    "x = 8 oder x = −8",
+    "L = {−8; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": 4,
+    "c": 200
+   },
+   "frage": "Löse 4x² + 4 = 200.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "menge": [
+      "-14",
+      "14"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 4 auf die andere Seite und teil durch 4.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 49?"
+   ],
+   "loesungsweg": [
+    "4x² + 4 = 200",
+    "4x² = 196",
+    "x² = 49",
+    "x = 7 oder x = −7",
+    "L = {−7; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": -10,
+    "c": 10
+   },
+   "frage": "Löse 5x² − 10 = 10.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −10 auf die andere Seite und teil durch 5.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "5x² − 10 = 10",
+    "5x² = 20",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": -15,
+    "c": 1
+   },
+   "frage": "Löse 4x² − 15 = 1.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "2"
+     ]
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "menge": [
+      "-4",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −15 auf die andere Seite und teil durch 4.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 4?"
+   ],
+   "loesungsweg": [
+    "4x² − 15 = 1",
+    "4x² = 16",
+    "x² = 4",
+    "x = 2 oder x = −2",
+    "L = {−2; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -25,
+    "c": 25
+   },
+   "frage": "Löse 2x² − 25 = 25.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −25 auf die andere Seite und teil durch 2.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "2x² − 25 = 25",
+    "2x² = 50",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 5,
+    "b": -13,
+    "c": 112
+   },
+   "frage": "Löse 5x² − 13 = 112.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −13 auf die andere Seite und teil durch 5.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "5x² − 13 = 112",
+    "5x² = 125",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": -15,
+    "c": 17
+   },
+   "frage": "Löse 2x² − 15 = 17.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "4"
+     ]
+    },
+    {
+     "key": "qf_gegenoperation_vorzeichen",
+     "menge": [
+      "-1",
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst −15 auf die andere Seite und teil durch 2.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 16?"
+   ],
+   "loesungsweg": [
+    "2x² − 15 = 17",
+    "2x² = 32",
+    "x² = 16",
+    "x = 4 oder x = −4",
+    "L = {−4; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 4,
+    "b": 7,
+    "c": 107
+   },
+   "frage": "Löse 4x² + 7 = 107.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "5"
+     ]
+    },
+    {
+     "key": "qf_durch_a_vergessen",
+     "menge": [
+      "-10",
+      "10"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 7 auf die andere Seite und teil durch 4.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 25?"
+   ],
+   "loesungsweg": [
+    "4x² + 7 = 107",
+    "4x² = 100",
+    "x² = 25",
+    "x = 5 oder x = −5",
+    "L = {−5; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "b": 30,
+    "c": 158
+   },
+   "frage": "Löse 2x² + 30 = 158.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 30 auf die andere Seite und teil durch 2.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 64?"
+   ],
+   "loesungsweg": [
+    "2x² + 30 = 158",
+    "2x² = 128",
+    "x² = 64",
+    "x = 8 oder x = −8",
+    "L = {−8; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "WZ-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "b": 23,
+    "c": 170
+   },
+   "frage": "Löse 3x² + 23 = 170.",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nur_positive_loesung",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Was muss weg, damit x² allein steht?",
+    "Bring zuerst + 23 auf die andere Seite und teil durch 3.",
+    "Wenn x² allein steht: Welche Zahlen ergeben quadriert 49?"
+   ],
+   "loesungsweg": [
+    "3x² + 23 = 170",
+    "3x² = 147",
+    "x² = 49",
+    "x = 7 oder x = −7",
+    "L = {−7; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}
