@@ -185,7 +185,7 @@ select is(pg_temp.versuch(format('select session_pruefung_frage_sitzung(%L, %L)'
 
 -- ── 3) Auswahl: dieselbe Menge wie die bisherige Inline-Regel ─────────────────
 -- Aufgaben in jedem Status, je mit und ohne Ausschluss (hand), Einsatz session/lsa/check.
-select pg_temp.aufgaben('zz_a2_s2', 2, st, '{lsa,session,check}', 'a2-t4-' || st)
+select pg_temp.aufgaben('zz_a2_s2', 2, st, '{session,check}', 'a2-t4-' || st)
   from unnest(array['ready', 'draft', 'review', 'rueckfrage', 'beanstandet']) st;
 insert into task_pruef_ausschluss (task_id, grund)
 select id, 'ZZ T4' from tasks where source_ref like 'a2-t4-%-1';

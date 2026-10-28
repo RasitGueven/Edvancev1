@@ -22,8 +22,10 @@ insert into themen (thema_key, fach, klasse, stufe, label, sort) values
 insert into thema_einstieg (thema_key, skill_key) values
   ('zz_f1_entwurf', 'zz_f1_e1'), ('zz_f1_entwurf', 'zz_f1_e2'), ('zz_f1_gemischt', 'zz_f1_e3');
 insert into skill_thema (skill_key, thema_key) values ('zz_f1_e1', 'zz_f1_entwurf'), ('zz_f1_e3', 'zz_f1_gemischt');
-select pg_temp.aufgaben('zz_f1_e1', 6, 'draft'), pg_temp.aufgaben('zz_f1_e2', 6, 'draft'),
-       pg_temp.aufgaben('zz_f1_e3', 1, 'ready'), pg_temp.aufgaben('zz_f1_e3', 5, 'draft', '{lsa,session}', 'f1-e3-entwurf');
+select pg_temp.aufgaben('zz_f1_e1', 6, 'draft', '{lsa}'), pg_temp.aufgaben('zz_f1_e2', 6, 'draft', '{lsa}'),
+       pg_temp.aufgaben('zz_f1_e3', 1, 'ready', '{lsa}'), pg_temp.aufgaben('zz_f1_e3', 5, 'draft', '{lsa}', 'f1-e3-entwurf'),
+       -- Reihe 1 A1: der Session-Entwurf fuer P5 ist eine eigene Aufgabe (nie beide Pools).
+       pg_temp.aufgaben('zz_f1_e1', 1, 'draft', '{session}', 'f1-e1-session');
 -- LSA-L2 (20261025144025): eindeutige Texte, sonst waere jede weitere Aufgabe ein Fast-Duplikat (lsa_text_schluessel)
 -- der ersten — die Fixture nutzt ueberall denselben Aufgabentext.
 update tasks set question = question || ' ' || translate(md5(id::text), '0123456789', 'ghijklmnop')
@@ -91,7 +93,7 @@ select is((select t.skill_key || '/' || t.status from tasks t where t.id = pg_te
           'P4 Testlauf zieht wie bisher Entwuerfe ohne pruef_ausschluss');
 
 -- P5 Session-Pool unveraendert
-select is(public.session_im_pool((select id from tasks where skill_key = 'zz_f1_e1' limit 1), false), false,
+select is(public.session_im_pool((select id from tasks where source_ref = 'f1-e1-session-1'), false), false,
           'P5 session_im_pool ohne Testlauf: kein Entwurf, auch nicht fuer Testkonten');
 
 select * from finish();
