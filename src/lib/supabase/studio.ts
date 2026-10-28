@@ -98,3 +98,63 @@ export async function speichereStudioSkript(
     return { data: null, error: fehler(e) }
   }
 }
+
+/** Audio-Bedarf je Beat und Welt (studio_stimme_bedarf). */
+export type StimmeBedarf = { beatKey: string; welt: string; fingerabdruck: string; vorhanden: boolean; platzhalter: boolean }
+
+export async function ladeStimmeBedarf(sequenzId: string): Promise<StudioErgebnis<StimmeBedarf[]>> {
+  try {
+    const { data, error } = await rpc<{ beat_key: string; welt: string; fingerabdruck: string; vorhanden: boolean; platzhalter: boolean }[]>(
+      'studio_stimme_bedarf',
+      { p_sequenz_id: sequenzId },
+    )
+    if (error) return { data: null, error: fehler(error) }
+    return {
+      data: (data ?? []).map((r) => ({ beatKey: r.beat_key, welt: r.welt, fingerabdruck: r.fingerabdruck, vorhanden: r.vorhanden, platzhalter: r.platzhalter })),
+      error: null,
+    }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
+
+export type StimmeLauf = { erzeugt: number; offen: number; platzhalter: boolean; fehler: string[] }
+
+/** Ein Durchgang „Fehlende erzeugen“ über die Server-Route (Vercel Function api/studio/stimme). */
+export async function erzeugeFehlendeStimmen(sequenzId: string): Promise<StudioErgebnis<StimmeLauf>> {
+  try {
+    const { data: s } = await supabase.auth.getSession()
+    const token = s.session?.access_token
+    if (!token) return { data: null, error: { code: '401', message: 'ohne_anmeldung', hint: null } }
+    const res = await fetch('/api/studio/stimme', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      body: JSON.stringify({ sequenzId }),
+    })
+    const body = (await res.json().catch(() => ({}))) as Partial<StimmeLauf> & { fehler?: unknown }
+    if (!res.ok) return { data: null, error: { code: String(res.status), message: String(body.fehler ?? res.status), hint: null } }
+    return { data: body as StimmeLauf, error: null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
+
+/** Stimme, Modell oder Wörterbuch setzen (nur Admin). */
+export async function setzeStudioEinstellung(schluessel: 'stimme_id' | 'modell' | 'aussprache', wert: unknown): Promise<StudioErgebnis<null>> {
+  try {
+    const { error } = await rpc<null>('studio_einstellung_setzen', { p_schluessel: schluessel, p_wert: wert })
+    return { data: null, error: error ? fehler(error) : null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}
+
+export async function ladeStudioEinstellungen(): Promise<StudioErgebnis<Record<string, unknown>>> {
+  try {
+    const { data, error } = await supabase.from('studio_einstellung').select('schluessel, wert')
+    if (error) return { data: null, error: fehler(error) }
+    return { data: Object.fromEntries(((data ?? []) as { schluessel: string; wert: unknown }[]).map((r) => [r.schluessel, r.wert])), error: null }
+  } catch (e) {
+    return { data: null, error: fehler(e) }
+  }
+}

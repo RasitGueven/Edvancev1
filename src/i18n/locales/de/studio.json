@@ -138,5 +138,21 @@
   "freigabe": {
     "folgt": "Freigabe folgt",
     "folgtText": "Prüfung und Freigabe kommen mit Paket S5."
+  },
+  "stimme": {
+    "titel": "Stimme",
+    "stand": "{{vorhanden}} von {{gesamt}} Sätzen vertont",
+    "platzhalter": "Davon {{anzahl}} als stummer Platzhalter (ohne ElevenLabs-Schlüssel). Mit Schlüssel und Stimme werden sie beim nächsten Erzeugen ersetzt.",
+    "erzeugen": "Fehlende erzeugen",
+    "laeuft": "Erzeuge … noch {{offen}} offen",
+    "fertig": "Alle Sätze vertont.",
+    "fehler": "Stimme ließ sich nicht erzeugen: {{grund}}",
+    "fehlerSaetze": "Nicht vertont: {{liste}}",
+    "keinBedarf": "Kein Satz offen.",
+    "gesperrtTooltip": "Alle Sätze sind schon vertont.",
+    "einstellung": "Stimmen-ID (ElevenLabs)",
+    "einstellungSpeichern": "Stimme speichern",
+    "einstellungGespeichert": "Stimme gespeichert.",
+    "kiHinweis": "Stimme KI-erzeugt"
   }
 }

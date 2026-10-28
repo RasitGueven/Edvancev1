@@ -19568,6 +19568,35 @@ $$;
 
 
 --
+-- Name: studio_audio_eintragen(text, text, text, text, integer, jsonb, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_audio_eintragen(p_fingerabdruck text, p_pfad text, p_stimme text, p_modell text, p_dauer_ms integer, p_zeitstempel jsonb, p_platzhalter boolean) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.studio_hat_rolle('autor') then
+    raise exception 'studio: nur Autor oder Admin' using errcode = '42501';
+  end if;
+  insert into public.studio_audio (fingerabdruck, pfad, stimme, modell, dauer_ms, zeitstempel, platzhalter)
+  values (p_fingerabdruck, p_pfad, p_stimme, p_modell, p_dauer_ms, coalesce(p_zeitstempel, '{}'), p_platzhalter)
+  on conflict (fingerabdruck) do nothing;
+end;
+$$;
+
+
+--
+-- Name: studio_audio_fassung(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_audio_fassung() RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select 'v1:mp3_44100_128:de' $$;
+
+
+--
 -- Name: studio_check_aufgabe(uuid, text, text, text, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -19630,6 +19659,46 @@ CREATE FUNCTION public.studio_darf_sehen() RETURNS boolean
       or public.darf_pruefen()
       or exists (select 1 from public.studio_rolle r where r.person_id = auth.uid())
 $$;
+
+
+--
+-- Name: studio_einstellung_setzen(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_einstellung_setzen(p_schluessel text, p_wert jsonb) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'studio_einstellung_setzen: nur Admin' using errcode = '42501';
+  end if;
+  if (p_schluessel = 'stimme_id' and not (jsonb_typeof(p_wert) = 'null'
+        or (jsonb_typeof(p_wert) = 'string' and btrim(p_wert #>> '{}') <> '')))
+     or (p_schluessel = 'modell' and not (jsonb_typeof(p_wert) = 'string' and btrim(p_wert #>> '{}') <> ''))
+     or (p_schluessel = 'aussprache' and not (jsonb_typeof(p_wert) = 'array' and not exists (
+          select 1 from jsonb_array_elements(p_wert) e
+           where jsonb_typeof(e) <> 'object' or coalesce(jsonb_typeof(e -> 'wort'), '') <> 'string'
+              or coalesce(jsonb_typeof(e -> 'sprich'), '') <> 'string' or btrim(e ->> 'wort') = ''))) then
+    raise exception 'studio_einstellung_setzen: ungültiger Wert für %', p_schluessel using errcode = '22023';
+  end if;
+  update public.studio_einstellung set wert = p_wert, geaendert_am = now() where schluessel = p_schluessel;
+  if not found then
+    raise exception 'studio_einstellung_setzen: unbekannt %', p_schluessel using errcode = '22023';
+  end if;
+end;
+$$;
+
+
+--
+-- Name: studio_fingerabdruck(text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_fingerabdruck(p_stimme text, p_modell text, p_satz text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select encode(sha256(convert_to(p_stimme || E'\n' || p_modell || E'\n' || public.studio_audio_fassung() || E'\n' || p_satz,
+                                     'UTF8')), 'hex') $$;
 
 
 --
@@ -19887,6 +19956,75 @@ begin
   return v_seq.id;
 end;
 $_$;
+
+
+--
+-- Name: studio_sprechfassung(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_sprechfassung(p_satz text) RETURNS text
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  e jsonb;
+  v text := p_satz;
+begin
+  -- Ganze Wörter ohne Rücksicht auf Groß/Klein; Grenzen sind Nicht-Wortzeichen, damit auch „x²“ oder „z.B.“
+  -- greifen. Wort und Ersatz werden für die Regex maskiert. Ungültige Einträge werden übersprungen.
+  for e in select * from jsonb_array_elements(coalesce(public.studio_wert('aussprache'), '[]')) loop
+    continue when jsonb_typeof(e) <> 'object' or btrim(coalesce(e ->> 'wort', '')) = '' or e ->> 'sprich' is null;
+    v := regexp_replace(v,
+           '(^|[^[:alnum:]_])' || regexp_replace(e ->> 'wort', '([.*+?^${}()|\[\]\\])', '\\\1', 'g')
+             || '(?=$|[^[:alnum:]_])',
+           '\1' || replace(e ->> 'sprich', '\', '\\'), 'gi');
+  end loop;
+  return v;
+end;
+$_$;
+
+
+--
+-- Name: studio_stimme_bedarf(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_stimme_bedarf(p_sequenz_id uuid, p_stimme text DEFAULT NULL::text) RETURNS TABLE(beat_key text, welt text, satz text, davor text, danach text, fingerabdruck text, vorhanden boolean, platzhalter boolean, stimme text, modell text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with param as (
+    select coalesce(p_stimme, (select sq.stimme_id from public.studio_sequenz sq where sq.id = p_sequenz_id),
+                    public.studio_wert('stimme_id') #>> '{}', 'platzhalter') as stimme,
+           public.studio_wert('modell') #>> '{}' as modell
+  ), saetze as (
+    select b.pos, b.beat_key, w.welt,
+           public.studio_sprechfassung(coalesce(t.sprechtext, s.sprechtext)) as satz
+      from public.studio_beat b
+      join public.studio_welt w on w.sequenz_id = b.sequenz_id
+      join public.studio_beat_text s on s.beat_id = b.id and s.welt = 'skelett'
+      left join public.studio_beat_text t on t.beat_id = b.id and t.welt = w.welt
+     where b.sequenz_id = p_sequenz_id and not w.gesperrt and public.studio_darf_sehen()
+  ), mit_fp as (
+    select x.*, lag(x.satz) over (partition by x.welt order by x.pos) as davor,
+           lead(x.satz) over (partition by x.welt order by x.pos) as danach,
+           public.studio_fingerabdruck(p.stimme, p.modell, x.satz) as fp, p.stimme, p.modell
+      from saetze x cross join param p
+  )
+  select m.beat_key, m.welt, m.satz, m.davor, m.danach, m.fp, a.fingerabdruck is not null, coalesce(a.platzhalter, false),
+         m.stimme, m.modell
+    from mit_fp m left join public.studio_audio a on a.fingerabdruck = m.fp
+   order by m.welt = 'skelett' desc, m.welt, m.pos
+$$;
+
+
+--
+-- Name: studio_wert(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.studio_wert(p_schluessel text) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select wert from public.studio_einstellung where schluessel = p_schluessel $$;
 
 
 --
@@ -24393,6 +24531,24 @@ CREATE TABLE public.students (
 
 
 --
+-- Name: studio_audio; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_audio (
+    fingerabdruck text NOT NULL,
+    pfad text NOT NULL,
+    stimme text NOT NULL,
+    modell text NOT NULL,
+    dauer_ms integer NOT NULL,
+    zeitstempel jsonb DEFAULT '{}'::jsonb NOT NULL,
+    platzhalter boolean DEFAULT false NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT studio_audio_dauer_ms_check CHECK ((dauer_ms > 0)),
+    CONSTRAINT studio_audio_fingerabdruck_check CHECK ((fingerabdruck ~ '^[0-9a-f]{64}$'::text))
+);
+
+
+--
 -- Name: studio_beat; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -24437,6 +24593,18 @@ CREATE TABLE public.studio_bereich (
     kernidee_id uuid NOT NULL,
     von_beat text NOT NULL,
     bis_beat text NOT NULL
+);
+
+
+--
+-- Name: studio_einstellung; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.studio_einstellung (
+    schluessel text NOT NULL,
+    wert jsonb NOT NULL,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT studio_einstellung_schluessel_check CHECK ((schluessel = ANY (ARRAY['stimme_id'::text, 'modell'::text, 'aussprache'::text])))
 );
 
 
@@ -26205,6 +26373,14 @@ ALTER TABLE ONLY public.students
 
 
 --
+-- Name: studio_audio studio_audio_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_audio
+    ADD CONSTRAINT studio_audio_pkey PRIMARY KEY (fingerabdruck);
+
+
+--
 -- Name: studio_beat studio_beat_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -26250,6 +26426,14 @@ ALTER TABLE ONLY public.studio_bereich
 
 ALTER TABLE ONLY public.studio_bereich
     ADD CONSTRAINT studio_bereich_pkey PRIMARY KEY (sequenz_id, kernidee_id);
+
+
+--
+-- Name: studio_einstellung studio_einstellung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.studio_einstellung
+    ADD CONSTRAINT studio_einstellung_pkey PRIMARY KEY (schluessel);
 
 
 --
@@ -32347,6 +32531,19 @@ CREATE POLICY students_select_own ON public.students FOR SELECT USING ((profile_
 
 
 --
+-- Name: studio_audio; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_audio ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_audio studio_audio_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_audio_lesen ON public.studio_audio FOR SELECT TO authenticated USING (public.studio_darf_sehen());
+
+
+--
 -- Name: studio_beat; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -32383,6 +32580,19 @@ ALTER TABLE public.studio_bereich ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY studio_bereich_lesen ON public.studio_bereich FOR SELECT TO authenticated USING (public.studio_darf_sehen());
+
+
+--
+-- Name: studio_einstellung; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.studio_einstellung ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: studio_einstellung studio_einstellung_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY studio_einstellung_lesen ON public.studio_einstellung FOR SELECT TO authenticated USING (public.studio_darf_sehen());
 
 
 --
