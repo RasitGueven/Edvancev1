@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { ErklaerEinstieg } from '@/components/edvance/pruefen/erklaer/ErklaerEinstieg'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { BauformEinstieg } from '@/components/edvance/pruefen/bauform/BauformEinstieg'
 import { EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { Abschluss, AlsNaechstes, BereichsUmschalter, Themenliste } from '@/components/edvance/pruefen/Uebersicht'
 import { useAuth } from '@/hooks/useAuth'
@@ -124,6 +125,7 @@ export function PruefenUebersichtPage(): JSX.Element {
           <>
             <PageHeader titel={t('kopf.titel')} satz={t('kopf.text')} />
             <ErklaerEinstieg />
+            <BauformEinstieg />
             {alle && alle.length > 0 && (
               <BereichsUmschalter aktiv={bereich} onWahl={waehle} bereiche={BEREICHE.map((b) => {
                 const st = stand(bereichsBoard(alle, b))
