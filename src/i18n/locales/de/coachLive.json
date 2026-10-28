@@ -525,5 +525,23 @@
       "kein_ziel": "{{name}} wartet: Es gibt kein Thema und keine Lücke im Lernpfad. Wähle ein Thema.",
       "pool_leer": "{{name}} wartet: Zu diesem Ziel gibt es keine passende Aufgabe mehr. Wähle ein anderes Thema."
     }
+  },
+  "zuhause": {
+    "titel": "Zuhause seit der letzten Session",
+    "nicht": "Seit der letzten Session nicht zuhause geübt.",
+    "menge_one": "1 Quest · {{aufgaben}} Aufgaben",
+    "menge_other": "{{count}} Quests · {{aufgaben}} Aufgaben",
+    "hinweis_one": "1 Minute insgesamt. Zuhause wird nur gespeichert, dass geübt wurde, nicht ob richtig. Ob es sitzt, zeigt die Session.",
+    "hinweis_other": "{{count}} Minuten insgesamt. Zuhause wird nur gespeichert, dass geübt wurde, nicht ob richtig. Ob es sitzt, zeigt die Session.",
+    "vorschlagTitel": "Vorschlag des Systems",
+    "vorschlag": "„Zeig's mir“: {{skill}} heute kurz prüfen. Zuhause mindestens zweimal geübt und in der Session noch nicht sicher.",
+    "uebernehmen": "Übernehmen",
+    "nichtHeute": "Nicht heute",
+    "uebernommen": "Übernommen. Die Kernarbeit beginnt mit einer Aufgabe dazu.",
+    "nichtHeuteGesetzt": "Nicht heute. Der Vorschlag kommt beim nächsten Mal wieder.",
+    "frageTitel": "Frage über Eddie gemerkt",
+    "frage": "„{{text}}“",
+    "besprochen": "Besprochen",
+    "fehler": "Übung zuhause ließ sich gerade nicht laden."
   }
 }
