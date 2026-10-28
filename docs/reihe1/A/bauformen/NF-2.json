@@ -1,0 +1,9310 @@
+{
+ "schluessel": "NF-2",
+ "skill": "fkt_quadr_normalform",
+ "kernidee": "fkt_quadr_normalform:K2",
+ "format": "feldmaske",
+ "rollen": [
+  "uebung",
+  "beispiel",
+  "home",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Schreib f(x) = {term} in der Scheitelpunktform.",
+  "stufen": {
+   "2": "f(x) = x² + bx + c, b gerade, e = c − (b/2)² ≥ 0",
+   "3": "b gerade, e beliebig",
+   "4": "b ungerade: d und e sind Brüche"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_ergaenzung_nicht_abgezogen",
+    "regel": "e = c",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Was du in der Klammer dazugibst, musst du hinten wieder abziehen."
+   },
+   {
+    "key": "qf_ergaenzung_b_statt_halb",
+    "regel": "(x + b)² + c − b²",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "In die Klammer kommt die Hälfte der Zahl vor x."
+   },
+   {
+    "key": "qf_verschiebung_vorzeichen",
+    "regel": "(x − b/2)²",
+    "gilt_fuer_stufen": [
+     2,
+     3,
+     4
+    ],
+    "rueckmeldung": "Das Vorzeichen in der Klammer ist dasselbe wie das Vorzeichen vor x."
+   }
+  ],
+  "hinweise": [
+   "Welche Zahl ist die Hälfte von {b}?",
+   "Ergänze zu einem Quadrat: Gib ({h})² dazu und zieh es wieder ab.",
+   "Schreib x² {b_glied} + {hq} als Quadrat einer Klammer."
+  ],
+  "loesungsweg": [],
+  "warum": {
+   "bei_schritt": 1,
+   "frage": "Warum zieht man ({h})² wieder ab?",
+   "bausteine": [
+    {
+     "id": "a",
+     "text": "Damit sich der Wert der Funktion nicht ändert: + und − dieselbe Zahl ist 0."
+    },
+    {
+     "id": "b",
+     "text": "Weil man in der Klammer nur positive Zahlen haben darf."
+    },
+    {
+     "id": "c",
+     "text": "Weil die Parabel sonst nach unten geöffnet wäre."
+    }
+   ],
+   "richtig": "a"
+  },
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 150,
+  "kann_entfallen": false,
+  "generator_hash": "37bb9733595a"
+ },
+ "pruefprotokoll": {
+  "gruen": 84,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Vorzeichen: −, Feld 1: 6, Vorzeichen: −, Feld 2: 49",
+   "2": "Vorzeichen: +, Feld 1: 4, Vorzeichen: +, Feld 2: 10",
+   "3": "Vorzeichen: −, Feld 1: 2, Vorzeichen: +, Feld 2: 26",
+   "4": "Vorzeichen: +, Feld 1: 2, Vorzeichen: +, Feld 2: 16",
+   "5": "Vorzeichen: +, Feld 1: 3/2, Vorzeichen: −, Feld 2: 13/4",
+   "6": "Vorzeichen: +, Feld 1: 3, Vorzeichen: +, Feld 2: 9",
+   "7": "Vorzeichen: −, Feld 1: 4, Vorzeichen: −, Feld 2: 27",
+   "8": "Vorzeichen: −, Feld 1: 2, Vorzeichen: +, Feld 2: 6",
+   "9": "Vorzeichen: +, Feld 1: 5, Vorzeichen: +, Feld 2: 2",
+   "10": "Vorzeichen: −, Feld 1: 1, Vorzeichen: +, Feld 2: 17"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 22
+   },
+   "frage": "Schreib f(x) = x² − 2x + 22 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "21"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "22"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "18"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "21"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 22",
+    "= x² − 2x + (−1)² − (−1)² + 22",
+    "= (x − 1)² + 21"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "21"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": -6,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² − 6x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-3",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-6",
+      "e": "-16"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −6?",
+    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Schreib x² − 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 6x + 20",
+    "= x² − 6x + (−3)² − (−3)² + 20",
+    "= (x − 3)² + 11"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": -4,
+    "c": 10
+   },
+   "frage": "Schreib f(x) = x² − 4x + 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-2",
+      "e": "10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-4",
+      "e": "-6"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −4?",
+    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 10",
+    "= x² − 4x + (−2)² − (−2)² + 10",
+    "= (x − 2)² + 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 6,
+    "c": 23
+   },
+   "frage": "Schreib f(x) = x² + 6x + 23 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "23"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-13"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 23",
+    "= x² + 6x + (3)² − (3)² + 23",
+    "= (x + 3)² + 14"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": -4,
+    "c": 21
+   },
+   "frage": "Schreib f(x) = x² − 4x + 21 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "17"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-2",
+      "e": "21"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-4",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "17"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −4?",
+    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 21",
+    "= x² − 4x + (−2)² − (−2)² + 21",
+    "= (x − 2)² + 17"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "17"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": 8,
+    "c": 29
+   },
+   "frage": "Schreib f(x) = x² + 8x + 29 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "4",
+      "e": "29"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "8",
+      "e": "-35"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 8?",
+    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Schreib x² + 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 8x + 29",
+    "= x² + 8x + (4)² − (4)² + 29",
+    "= (x + 4)² + 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 7
+   },
+   "frage": "Schreib f(x) = x² − 2x + 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 7",
+    "= x² − 2x + (−1)² − (−1)² + 7",
+    "= (x − 1)² + 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 18
+   },
+   "frage": "Schreib f(x) = x² − 2x + 18 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "17"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "18"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "14"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "17"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 18",
+    "= x² − 2x + (−1)² − (−1)² + 18",
+    "= (x − 1)² + 17"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "17"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": -4,
+    "c": 8
+   },
+   "frage": "Schreib f(x) = x² − 4x + 8 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-2",
+      "e": "8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-4",
+      "e": "-8"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −4?",
+    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 8",
+    "= x² − 4x + (−2)² − (−2)² + 8",
+    "= (x − 2)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": -8,
+    "c": 24
+   },
+   "frage": "Schreib f(x) = x² − 8x + 24 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-4",
+      "e": "24"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-8",
+      "e": "-40"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −8?",
+    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Schreib x² − 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 8x + 24",
+    "= x² − 8x + (−4)² − (−4)² + 24",
+    "= (x − 4)² + 8"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": 2,
+    "c": 21
+   },
+   "frage": "Schreib f(x) = x² + 2x + 21 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "20"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "1",
+      "e": "21"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "2",
+      "e": "17"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "20"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 2?",
+    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Schreib x² + 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2x + 21",
+    "= x² + 2x + (1)² − (1)² + 21",
+    "= (x + 1)² + 20"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 8,
+    "c": 26
+   },
+   "frage": "Schreib f(x) = x² + 8x + 26 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "4",
+      "e": "26"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "8",
+      "e": "-38"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 8?",
+    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Schreib x² + 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 8x + 26",
+    "= x² + 8x + (4)² − (4)² + 26",
+    "= (x + 4)² + 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": 4,
+    "c": 29
+   },
+   "frage": "Schreib f(x) = x² + 4x + 29 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "25"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "29"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "13"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "25"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x + 29",
+    "= x² + 4x + (2)² − (2)² + 29",
+    "= (x + 2)² + 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 3
+   },
+   "frage": "Schreib f(x) = x² − 2x + 3 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 3",
+    "= x² − 2x + (−1)² − (−1)² + 3",
+    "= (x − 1)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": 4,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² + 4x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "16"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x + 20",
+    "= x² + 4x + (2)² − (2)² + 20",
+    "= (x + 2)² + 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": -6,
+    "c": 10
+   },
+   "frage": "Schreib f(x) = x² − 6x + 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-3",
+      "e": "10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-6",
+      "e": "-26"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −6?",
+    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Schreib x² − 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 6x + 10",
+    "= x² − 6x + (−3)² − (−3)² + 10",
+    "= (x − 3)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": 4,
+    "c": 25
+   },
+   "frage": "Schreib f(x) = x² + 4x + 25 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "21"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "25"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "9"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "21"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x + 25",
+    "= x² + 4x + (2)² − (2)² + 25",
+    "= (x + 2)² + 21"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": 2,
+    "c": 18
+   },
+   "frage": "Schreib f(x) = x² + 2x + 18 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "17"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "1",
+      "e": "18"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "2",
+      "e": "14"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "17"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 2?",
+    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Schreib x² + 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2x + 18",
+    "= x² + 2x + (1)² − (1)² + 18",
+    "= (x + 1)² + 17"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": -10,
+    "c": 30
+   },
+   "frage": "Schreib f(x) = x² − 10x + 30 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-5",
+     "e": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-5",
+      "e": "30"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-10",
+      "e": "-70"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "5",
+      "e": "5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −10?",
+    "Ergänze zu einem Quadrat: Gib (−5)² dazu und zieh es wieder ab.",
+    "Schreib x² − 10x + 25 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 10x + 30",
+    "= x² − 10x + (−5)² − (−5)² + 30",
+    "= (x − 5)² + 5"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-5",
+      "ve": "+",
+      "e": "5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 4,
+    "c": 23
+   },
+   "frage": "Schreib f(x) = x² + 4x + 23 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "19"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "23"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "7"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "19"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x + 23",
+    "= x² + 4x + (2)² − (2)² + 23",
+    "= (x + 2)² + 19"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": 10,
+    "c": 27
+   },
+   "frage": "Schreib f(x) = x² + 10x + 27 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "5",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "5",
+      "e": "27"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "10",
+      "e": "-73"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-5",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 10?",
+    "Ergänze zu einem Quadrat: Gib (5)² dazu und zieh es wieder ab.",
+    "Schreib x² + 10x + 25 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 10x + 27",
+    "= x² + 10x + (5)² − (5)² + 27",
+    "= (x + 5)² + 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": -8,
+    "c": 28
+   },
+   "frage": "Schreib f(x) = x² − 8x + 28 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-4",
+      "e": "28"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-8",
+      "e": "-36"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −8?",
+    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Schreib x² − 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 8x + 28",
+    "= x² − 8x + (−4)² − (−4)² + 28",
+    "= (x − 4)² + 12"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "12"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": -4,
+    "c": 29
+   },
+   "frage": "Schreib f(x) = x² − 4x + 29 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "25"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-2",
+      "e": "29"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-4",
+      "e": "13"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "25"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −4?",
+    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 29",
+    "= x² − 4x + (−2)² − (−2)² + 29",
+    "= (x − 2)² + 25"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "25"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² − 2x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "19"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "16"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "19"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 20",
+    "= x² − 2x + (−1)² − (−1)² + 20",
+    "= (x − 1)² + 19"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "19"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": 6,
+    "c": 19
+   },
+   "frage": "Schreib f(x) = x² + 6x + 19 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "19"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-17"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 19",
+    "= x² + 6x + (3)² − (3)² + 19",
+    "= (x + 3)² + 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": 8,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² + 8x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "4",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "8",
+      "e": "-44"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 8?",
+    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Schreib x² + 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 8x + 20",
+    "= x² + 8x + (4)² − (4)² + 20",
+    "= (x + 4)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": 6,
+    "c": 10
+   },
+   "frage": "Schreib f(x) = x² + 6x + 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-26"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 10",
+    "= x² + 6x + (3)² − (3)² + 10",
+    "= (x + 3)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 2,
+    "c": 27
+   },
+   "frage": "Schreib f(x) = x² + 2x + 27 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "26"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "1",
+      "e": "27"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "2",
+      "e": "23"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "26"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 2?",
+    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Schreib x² + 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2x + 27",
+    "= x² + 2x + (1)² − (1)² + 27",
+    "= (x + 1)² + 26"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 5
+   },
+   "frage": "Schreib f(x) = x² − 2x + 5 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 5",
+    "= x² − 2x + (−1)² − (−1)² + 5",
+    "= (x − 1)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "b": -4,
+    "c": 30
+   },
+   "frage": "Schreib f(x) = x² − 4x + 30 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "26"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-2",
+      "e": "30"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-4",
+      "e": "14"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "26"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −4?",
+    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 30",
+    "= x² − 4x + (−2)² − (−2)² + 30",
+    "= (x − 2)² + 26"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "26"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "b": 6,
+    "c": 18
+   },
+   "frage": "Schreib f(x) = x² + 6x + 18 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "18"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-18"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 18",
+    "= x² + 6x + (3)² − (3)² + 18",
+    "= (x + 3)² + 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 4,
+    "c": 19
+   },
+   "frage": "Schreib f(x) = x² + 4x + 19 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "19"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x + 19",
+    "= x² + 4x + (2)² − (2)² + 19",
+    "= (x + 2)² + 15"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": -2,
+    "c": 30
+   },
+   "frage": "Schreib f(x) = x² − 2x + 30 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "29"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "30"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "26"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "29"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 30",
+    "= x² − 2x + (−1)² − (−1)² + 30",
+    "= (x − 1)² + 29"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "29"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 4,
+    "c": 8
+   },
+   "frage": "Schreib f(x) = x² + 4x + 8 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "-8"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x + 8",
+    "= x² + 4x + (2)² − (2)² + 8",
+    "= (x + 2)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": 6,
+    "c": 27
+   },
+   "frage": "Schreib f(x) = x² + 6x + 27 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "18"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "27"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-9"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "18"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 27",
+    "= x² + 6x + (3)² − (3)² + 27",
+    "= (x + 3)² + 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "b": -4,
+    "c": 7
+   },
+   "frage": "Schreib f(x) = x² − 4x + 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-2",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-2",
+      "e": "7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-4",
+      "e": "-9"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "2",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −4?",
+    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 7",
+    "= x² − 4x + (−2)² − (−2)² + 7",
+    "= (x − 2)² + 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": -12,
+    "c": -2
+   },
+   "frage": "Schreib f(x) = x² − 12x − 2 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-6",
+     "e": "-38"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-6",
+      "e": "-2"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-12",
+      "e": "-146"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "6",
+      "e": "-38"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −12?",
+    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Schreib x² − 12x + 36 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 12x − 2",
+    "= x² − 12x + (−6)² − (−6)² − 2",
+    "= (x − 6)² − 38"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "38"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": 8,
+    "c": -16
+   },
+   "frage": "Schreib f(x) = x² + 8x − 16 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "-32"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "4",
+      "e": "-16"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "8",
+      "e": "-80"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "-32"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 8?",
+    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Schreib x² + 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 8x − 16",
+    "= x² + 8x + (4)² − (4)² − 16",
+    "= (x + 4)² − 32"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-32"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 10,
+    "c": -13
+   },
+   "frage": "Schreib f(x) = x² + 10x − 13 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "5",
+     "e": "-38"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "5",
+      "e": "-13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "10",
+      "e": "-113"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-5",
+      "e": "-38"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 10?",
+    "Ergänze zu einem Quadrat: Gib (5)² dazu und zieh es wieder ab.",
+    "Schreib x² + 10x + 25 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 10x − 13",
+    "= x² + 10x + (5)² − (5)² − 13",
+    "= (x + 5)² − 38"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "5",
+      "ve": "+",
+      "e": "-38"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": 4,
+    "c": -11
+   },
+   "frage": "Schreib f(x) = x² + 4x − 11 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "-11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "-27"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "-15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x − 11",
+    "= x² + 4x + (2)² − (2)² − 11",
+    "= (x + 2)² − 15"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": -2,
+    "c": -13
+   },
+   "frage": "Schreib f(x) = x² − 2x − 13 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1",
+     "e": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1",
+      "e": "-13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-2",
+      "e": "-17"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1",
+      "e": "-14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −2?",
+    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Schreib x² − 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x − 13",
+    "= x² − 2x + (−1)² − (−1)² − 13",
+    "= (x − 1)² − 14"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 16,
+    "c": 27
+   },
+   "frage": "Schreib f(x) = x² + 16x + 27 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "8",
+     "e": "-37"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "8",
+      "e": "27"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "16",
+      "e": "-229"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-8",
+      "e": "-37"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 16?",
+    "Ergänze zu einem Quadrat: Gib (8)² dazu und zieh es wieder ab.",
+    "Schreib x² + 16x + 64 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 16x + 27",
+    "= x² + 16x + (8)² − (8)² + 27",
+    "= (x + 8)² − 37"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "8",
+      "ve": "+",
+      "e": "-37"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": 8,
+    "c": 12
+   },
+   "frage": "Schreib f(x) = x² + 8x + 12 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "4",
+      "e": "12"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "8",
+      "e": "-52"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 8?",
+    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Schreib x² + 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 8x + 12",
+    "= x² + 8x + (4)² − (4)² + 12",
+    "= (x + 4)² − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": 2,
+    "c": 5
+   },
+   "frage": "Schreib f(x) = x² + 2x + 5 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "1",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 2?",
+    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Schreib x² + 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2x + 5",
+    "= x² + 2x + (1)² − (1)² + 5",
+    "= (x + 1)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": -12,
+    "c": -13
+   },
+   "frage": "Schreib f(x) = x² − 12x − 13 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-6",
+     "e": "-49"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-6",
+      "e": "-13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-12",
+      "e": "-157"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "6",
+      "e": "-49"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −12?",
+    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Schreib x² − 12x + 36 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 12x − 13",
+    "= x² − 12x + (−6)² − (−6)² − 13",
+    "= (x − 6)² − 49"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "49"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": 2,
+    "c": -10
+   },
+   "frage": "Schreib f(x) = x² + 2x − 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "1",
+     "e": "-11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "1",
+      "e": "-10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "2",
+      "e": "-14"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-1",
+      "e": "-11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 2?",
+    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Schreib x² + 2x + 1 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2x − 10",
+    "= x² + 2x + (1)² − (1)² − 10",
+    "= (x + 1)² − 11"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": -10,
+    "c": -13
+   },
+   "frage": "Schreib f(x) = x² − 10x − 13 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-5",
+     "e": "-38"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-5",
+      "e": "-13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-10",
+      "e": "-113"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "5",
+      "e": "-38"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −10?",
+    "Ergänze zu einem Quadrat: Gib (−5)² dazu und zieh es wieder ab.",
+    "Schreib x² − 10x + 25 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 10x − 13",
+    "= x² − 10x + (−5)² − (−5)² − 13",
+    "= (x − 5)² − 38"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-5",
+      "ve": "−",
+      "e": "38"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": -8,
+    "c": 17
+   },
+   "frage": "Schreib f(x) = x² − 8x + 17 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-4",
+      "e": "17"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-8",
+      "e": "-47"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −8?",
+    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Schreib x² − 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 8x + 17",
+    "= x² − 8x + (−4)² − (−4)² + 17",
+    "= (x − 4)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": -6,
+    "c": -11
+   },
+   "frage": "Schreib f(x) = x² − 6x − 11 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "-20"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-3",
+      "e": "-11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-6",
+      "e": "-47"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "-20"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −6?",
+    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Schreib x² − 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 6x − 11",
+    "= x² − 6x + (−3)² − (−3)² − 11",
+    "= (x − 3)² − 20"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "20"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": 14,
+    "c": -20
+   },
+   "frage": "Schreib f(x) = x² + 14x − 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "7",
+     "e": "-69"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "7",
+      "e": "-20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "14",
+      "e": "-216"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-7",
+      "e": "-69"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 14?",
+    "Ergänze zu einem Quadrat: Gib (7)² dazu und zieh es wieder ab.",
+    "Schreib x² + 14x + 49 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 14x − 20",
+    "= x² + 14x + (7)² − (7)² − 20",
+    "= (x + 7)² − 69"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "7",
+      "ve": "+",
+      "e": "-69"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 12,
+    "c": -19
+   },
+   "frage": "Schreib f(x) = x² + 12x − 19 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "6",
+     "e": "-55"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "6",
+      "e": "-19"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "12",
+      "e": "-163"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-6",
+      "e": "-55"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 12?",
+    "Ergänze zu einem Quadrat: Gib (6)² dazu und zieh es wieder ab.",
+    "Schreib x² + 12x + 36 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 12x − 19",
+    "= x² + 12x + (6)² − (6)² − 19",
+    "= (x + 6)² − 55"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-55"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": 12,
+    "c": 0
+   },
+   "frage": "Schreib f(x) = x² + 12x in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "6",
+     "e": "-36"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "6",
+      "e": "0"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "12",
+      "e": "-144"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-6",
+      "e": "-36"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 12?",
+    "Ergänze zu einem Quadrat: Gib (6)² dazu und zieh es wieder ab.",
+    "Schreib x² + 12x + 36 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 12x",
+    "= x² + 12x + (6)² − (6)² + 0",
+    "= (x + 6)² − 36"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-36"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": -10,
+    "c": 15
+   },
+   "frage": "Schreib f(x) = x² − 10x + 15 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-5",
+     "e": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-5",
+      "e": "15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-10",
+      "e": "-85"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "5",
+      "e": "-10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −10?",
+    "Ergänze zu einem Quadrat: Gib (−5)² dazu und zieh es wieder ab.",
+    "Schreib x² − 10x + 25 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 10x + 15",
+    "= x² − 10x + (−5)² − (−5)² + 15",
+    "= (x − 5)² − 10"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-5",
+      "ve": "−",
+      "e": "10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": -8,
+    "c": -11
+   },
+   "frage": "Schreib f(x) = x² − 8x − 11 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "-27"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-4",
+      "e": "-11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-8",
+      "e": "-75"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "-27"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −8?",
+    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Schreib x² − 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 8x − 11",
+    "= x² − 8x + (−4)² − (−4)² − 11",
+    "= (x − 4)² − 27"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "27"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": -12,
+    "c": 2
+   },
+   "frage": "Schreib f(x) = x² − 12x + 2 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-6",
+     "e": "-34"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-6",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-12",
+      "e": "-142"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "6",
+      "e": "-34"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −12?",
+    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Schreib x² − 12x + 36 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 12x + 2",
+    "= x² − 12x + (−6)² − (−6)² + 2",
+    "= (x − 6)² − 34"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "34"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": -12,
+    "c": 22
+   },
+   "frage": "Schreib f(x) = x² − 12x + 22 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-6",
+     "e": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-6",
+      "e": "22"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-12",
+      "e": "-122"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "6",
+      "e": "-14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −12?",
+    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Schreib x² − 12x + 36 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 12x + 22",
+    "= x² − 12x + (−6)² − (−6)² + 22",
+    "= (x − 6)² − 14"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 8,
+    "c": 17
+   },
+   "frage": "Schreib f(x) = x² + 8x + 17 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "4",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "4",
+      "e": "17"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "8",
+      "e": "-47"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-4",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 8?",
+    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Schreib x² + 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 8x + 17",
+    "= x² + 8x + (4)² − (4)² + 17",
+    "= (x + 4)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "b": -8,
+    "c": -10
+   },
+   "frage": "Schreib f(x) = x² − 8x − 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "-26"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-4",
+      "e": "-10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-8",
+      "e": "-74"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "-26"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −8?",
+    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Schreib x² − 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 8x − 10",
+    "= x² − 8x + (−4)² − (−4)² − 10",
+    "= (x − 4)² − 26"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "26"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "b": 14,
+    "c": 11
+   },
+   "frage": "Schreib f(x) = x² + 14x + 11 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "7",
+     "e": "-38"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "7",
+      "e": "11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "14",
+      "e": "-185"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-7",
+      "e": "-38"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 14?",
+    "Ergänze zu einem Quadrat: Gib (7)² dazu und zieh es wieder ab.",
+    "Schreib x² + 14x + 49 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 14x + 11",
+    "= x² + 14x + (7)² − (7)² + 11",
+    "= (x + 7)² − 38"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "7",
+      "ve": "+",
+      "e": "-38"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 4,
+    "c": -12
+   },
+   "frage": "Schreib f(x) = x² + 4x − 12 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "2",
+     "e": "-16"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "2",
+      "e": "-12"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "4",
+      "e": "-28"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-2",
+      "e": "-16"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 4?",
+    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 4x + 4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4x − 12",
+    "= x² + 4x + (2)² − (2)² − 12",
+    "= (x + 2)² − 16"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-16"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 6,
+    "c": 13
+   },
+   "frage": "Schreib f(x) = x² + 6x + 13 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-23"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 13",
+    "= x² + 6x + (3)² − (3)² + 13",
+    "= (x + 3)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": -6,
+    "c": 27
+   },
+   "frage": "Schreib f(x) = x² − 6x + 27 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3",
+     "e": "18"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-3",
+      "e": "27"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-6",
+      "e": "-9"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3",
+      "e": "18"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −6?",
+    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Schreib x² − 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 6x + 27",
+    "= x² − 6x + (−3)² − (−3)² + 27",
+    "= (x − 3)² + 18"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "18"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 6,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² + 6x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3",
+     "e": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "6",
+      "e": "-16"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3",
+      "e": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 6?",
+    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Schreib x² + 6x + 9 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x + 20",
+    "= x² + 6x + (3)² − (3)² + 20",
+    "= (x + 3)² + 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": -8,
+    "c": 7
+   },
+   "frage": "Schreib f(x) = x² − 8x + 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-4",
+     "e": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-4",
+      "e": "7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-8",
+      "e": "-57"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "4",
+      "e": "-9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −8?",
+    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Schreib x² − 8x + 16 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 8x + 7",
+    "= x² − 8x + (−4)² − (−4)² + 7",
+    "= (x − 4)² − 9"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": -13,
+    "c": -7
+   },
+   "frage": "Schreib f(x) = x² − 13x − 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-13/2",
+     "e": "-197/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-13/2",
+      "e": "-7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-13",
+      "e": "-176"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "13/2",
+      "e": "-197/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −13?",
+    "Ergänze zu einem Quadrat: Gib (−13/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 13x + 169/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 13x − 7",
+    "= x² − 13x + (−13/2)² − (−13/2)² − 7",
+    "= (x − 13/2)² − 197/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-13/2",
+      "ve": "−",
+      "e": "197/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 7,
+    "c": 22
+   },
+   "frage": "Schreib f(x) = x² + 7x + 22 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "7/2",
+     "e": "39/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "7/2",
+      "e": "22"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "7",
+      "e": "-27"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-7/2",
+      "e": "39/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 7?",
+    "Ergänze zu einem Quadrat: Gib (7/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 7x + 49/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 7x + 22",
+    "= x² + 7x + (7/2)² − (7/2)² + 22",
+    "= (x + 7/2)² + 39/4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": -5,
+    "c": -7
+   },
+   "frage": "Schreib f(x) = x² − 5x − 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-5/2",
+     "e": "-53/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-5/2",
+      "e": "-7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-5",
+      "e": "-32"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "5/2",
+      "e": "-53/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −5?",
+    "Ergänze zu einem Quadrat: Gib (−5/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 5x + 25/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 5x − 7",
+    "= x² − 5x + (−5/2)² − (−5/2)² − 7",
+    "= (x − 5/2)² − 53/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-5/2",
+      "ve": "−",
+      "e": "53/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 9,
+    "c": -15
+   },
+   "frage": "Schreib f(x) = x² + 9x − 15 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "9/2",
+     "e": "-141/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "9/2",
+      "e": "-15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "9",
+      "e": "-96"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-9/2",
+      "e": "-141/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 9?",
+    "Ergänze zu einem Quadrat: Gib (9/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 9x + 81/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 9x − 15",
+    "= x² + 9x + (9/2)² − (9/2)² − 15",
+    "= (x + 9/2)² − 141/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "9/2",
+      "ve": "+",
+      "e": "-141/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": 11,
+    "c": 16
+   },
+   "frage": "Schreib f(x) = x² + 11x + 16 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "11/2",
+     "e": "-57/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "11/2",
+      "e": "16"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "11",
+      "e": "-105"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-11/2",
+      "e": "-57/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 11?",
+    "Ergänze zu einem Quadrat: Gib (11/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 11x + 121/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 11x + 16",
+    "= x² + 11x + (11/2)² − (11/2)² + 16",
+    "= (x + 11/2)² − 57/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "11/2",
+      "ve": "+",
+      "e": "-57/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 11,
+    "c": 1
+   },
+   "frage": "Schreib f(x) = x² + 11x + 1 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "11/2",
+     "e": "-117/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "11/2",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "11",
+      "e": "-120"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-11/2",
+      "e": "-117/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 11?",
+    "Ergänze zu einem Quadrat: Gib (11/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 11x + 121/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 11x + 1",
+    "= x² + 11x + (11/2)² − (11/2)² + 1",
+    "= (x + 11/2)² − 117/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "11/2",
+      "ve": "+",
+      "e": "-117/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": -9,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² − 9x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-9/2",
+     "e": "-1/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-9/2",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-9",
+      "e": "-61"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "9/2",
+      "e": "-1/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −9?",
+    "Ergänze zu einem Quadrat: Gib (−9/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 9x + 81/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 9x + 20",
+    "= x² − 9x + (−9/2)² − (−9/2)² + 20",
+    "= (x − 9/2)² − 1/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-9/2",
+      "ve": "−",
+      "e": "1/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": -5,
+    "c": 28
+   },
+   "frage": "Schreib f(x) = x² − 5x + 28 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-5/2",
+     "e": "87/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-5/2",
+      "e": "28"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-5",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "5/2",
+      "e": "87/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −5?",
+    "Ergänze zu einem Quadrat: Gib (−5/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 5x + 25/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 5x + 28",
+    "= x² − 5x + (−5/2)² − (−5/2)² + 28",
+    "= (x − 5/2)² + 87/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-5/2",
+      "ve": "+",
+      "e": "87/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": -1,
+    "c": 3
+   },
+   "frage": "Schreib f(x) = x² − x + 3 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1/2",
+     "e": "11/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1/2",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-1",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1/2",
+      "e": "11/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −1?",
+    "Ergänze zu einem Quadrat: Gib (−1/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − x + 1/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − x + 3",
+    "= x² − x + (−1/2)² − (−1/2)² + 3",
+    "= (x − 1/2)² + 11/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1/2",
+      "ve": "+",
+      "e": "11/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 3,
+    "c": -1
+   },
+   "frage": "Schreib f(x) = x² + 3x − 1 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "3/2",
+     "e": "-13/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "3/2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "3",
+      "e": "-10"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-3/2",
+      "e": "-13/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 3?",
+    "Ergänze zu einem Quadrat: Gib (3/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 3x + 9/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 3x − 1",
+    "= x² + 3x + (3/2)² − (3/2)² − 1",
+    "= (x + 3/2)² − 13/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "3/2",
+      "ve": "+",
+      "e": "-13/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": 13,
+    "c": -9
+   },
+   "frage": "Schreib f(x) = x² + 13x − 9 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "13/2",
+     "e": "-205/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "13/2",
+      "e": "-9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "13",
+      "e": "-178"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-13/2",
+      "e": "-205/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 13?",
+    "Ergänze zu einem Quadrat: Gib (13/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 13x + 169/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 13x − 9",
+    "= x² + 13x + (13/2)² − (13/2)² − 9",
+    "= (x + 13/2)² − 205/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "13/2",
+      "ve": "+",
+      "e": "-205/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 13,
+    "c": 10
+   },
+   "frage": "Schreib f(x) = x² + 13x + 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "13/2",
+     "e": "-129/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "13/2",
+      "e": "10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "13",
+      "e": "-159"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-13/2",
+      "e": "-129/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 13?",
+    "Ergänze zu einem Quadrat: Gib (13/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 13x + 169/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 13x + 10",
+    "= x² + 13x + (13/2)² − (13/2)² + 10",
+    "= (x + 13/2)² − 129/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "13/2",
+      "ve": "+",
+      "e": "-129/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": 11,
+    "c": 6
+   },
+   "frage": "Schreib f(x) = x² + 11x + 6 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "11/2",
+     "e": "-97/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "11/2",
+      "e": "6"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "11",
+      "e": "-115"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-11/2",
+      "e": "-97/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 11?",
+    "Ergänze zu einem Quadrat: Gib (11/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 11x + 121/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 11x + 6",
+    "= x² + 11x + (11/2)² − (11/2)² + 6",
+    "= (x + 11/2)² − 97/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "11/2",
+      "ve": "+",
+      "e": "-97/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": -9,
+    "c": 15
+   },
+   "frage": "Schreib f(x) = x² − 9x + 15 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-9/2",
+     "e": "-21/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-9/2",
+      "e": "15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-9",
+      "e": "-66"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "9/2",
+      "e": "-21/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −9?",
+    "Ergänze zu einem Quadrat: Gib (−9/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 9x + 81/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 9x + 15",
+    "= x² − 9x + (−9/2)² − (−9/2)² + 15",
+    "= (x − 9/2)² − 21/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-9/2",
+      "ve": "−",
+      "e": "21/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "b": -3,
+    "c": 16
+   },
+   "frage": "Schreib f(x) = x² − 3x + 16 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3/2",
+     "e": "55/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-3/2",
+      "e": "16"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-3",
+      "e": "7"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3/2",
+      "e": "55/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −3?",
+    "Ergänze zu einem Quadrat: Gib (−3/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 3x + 9/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 3x + 16",
+    "= x² − 3x + (−3/2)² − (−3/2)² + 16",
+    "= (x − 3/2)² + 55/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3/2",
+      "ve": "+",
+      "e": "55/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": -1,
+    "c": 27
+   },
+   "frage": "Schreib f(x) = x² − x + 27 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-1/2",
+     "e": "107/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-1/2",
+      "e": "27"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-1",
+      "e": "26"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "1/2",
+      "e": "107/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −1?",
+    "Ergänze zu einem Quadrat: Gib (−1/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − x + 1/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − x + 27",
+    "= x² − x + (−1/2)² − (−1/2)² + 27",
+    "= (x − 1/2)² + 107/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-1/2",
+      "ve": "+",
+      "e": "107/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": -3,
+    "c": 20
+   },
+   "frage": "Schreib f(x) = x² − 3x + 20 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-3/2",
+     "e": "71/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-3/2",
+      "e": "20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-3",
+      "e": "11"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "3/2",
+      "e": "71/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −3?",
+    "Ergänze zu einem Quadrat: Gib (−3/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 3x + 9/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 3x + 20",
+    "= x² − 3x + (−3/2)² − (−3/2)² + 20",
+    "= (x − 3/2)² + 71/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-3/2",
+      "ve": "+",
+      "e": "71/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 7,
+    "c": -9
+   },
+   "frage": "Schreib f(x) = x² + 7x − 9 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "7/2",
+     "e": "-85/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "7/2",
+      "e": "-9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "7",
+      "e": "-58"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "-7/2",
+      "e": "-85/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von 7?",
+    "Ergänze zu einem Quadrat: Gib (7/2)² dazu und zieh es wieder ab.",
+    "Schreib x² + 7x + 49/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 7x − 9",
+    "= x² + 7x + (7/2)² − (7/2)² − 9",
+    "= (x + 7/2)² − 85/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "7/2",
+      "ve": "+",
+      "e": "-85/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": -13,
+    "c": -9
+   },
+   "frage": "Schreib f(x) = x² − 13x − 9 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-13/2",
+     "e": "-205/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-13/2",
+      "e": "-9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-13",
+      "e": "-178"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "13/2",
+      "e": "-205/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −13?",
+    "Ergänze zu einem Quadrat: Gib (−13/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 13x + 169/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 13x − 9",
+    "= x² − 13x + (−13/2)² − (−13/2)² − 9",
+    "= (x − 13/2)² − 205/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-13/2",
+      "ve": "−",
+      "e": "205/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": -9,
+    "c": 9
+   },
+   "frage": "Schreib f(x) = x² − 9x + 9 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "bruch"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "bruch"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "d": "-9/2",
+     "e": "-45/4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "d": "-9/2",
+      "e": "9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "d": "-9",
+      "e": "-72"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "d": "9/2",
+      "e": "-45/4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Welche Zahl ist die Hälfte von −9?",
+    "Ergänze zu einem Quadrat: Gib (−9/2)² dazu und zieh es wieder ab.",
+    "Schreib x² − 9x + 81/4 als Quadrat einer Klammer."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 9x + 9",
+    "= x² − 9x + (−9/2)² − (−9/2)² + 9",
+    "= (x − 9/2)² − 45/4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vd": "+",
+      "d": "-9/2",
+      "ve": "−",
+      "e": "45/4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

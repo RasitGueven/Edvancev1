@@ -1,0 +1,6853 @@
+{
+ "schluessel": "NF-3",
+ "skill": "fkt_quadr_normalform",
+ "kernidee": "fkt_quadr_normalform:K3",
+ "format": "feldmaske",
+ "rollen": [
+  "uebung",
+  "transfer",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Schreib f(x) = {term} in der Scheitelpunktform.",
+  "stufen": {
+   "4": "f(x) = a·x² + b·x + c mit a ∈ {2, 3}, Scheitel ganzzahlig",
+   "5": "a ∈ {−2, −1, 4, 5}, Scheitel ganzzahlig"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_ausklammern_a_verloren",
+    "regel": "a(x + b/2)² …: b nicht durch a geteilt",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "Klammere a zuerst aus. In der Klammer steht dann x² + (b/a)x."
+   },
+   {
+    "key": "qf_ergaenzung_ohne_a",
+    "regel": "e = c − (b/(2a))²",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "Die Ergänzung steht in der Klammer mit a davor. Beim Herausziehen musst du sie mit a malnehmen."
+   },
+   {
+    "key": "qf_verschiebung_vorzeichen",
+    "regel": "Vorzeichen in der Klammer falsch",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "Das Vorzeichen in der Klammer ist dasselbe wie das Vorzeichen vor x nach dem Ausklammern."
+   }
+  ],
+  "hinweise": [
+   "Klammere zuerst die Zahl vor x² aus: f(x) = {a}(x² {bx_text}) {c_text}.",
+   "Ergänze in der Klammer zu einem Quadrat.",
+   "Was du in der Klammer dazugibst, zählt außen {a}-mal."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 180,
+  "kann_entfallen": false,
+  "generator_hash": "184de52a3355"
+ },
+ "pruefprotokoll": {
+  "gruen": 55,
+  "rot": 1,
+  "rot_anteil": 0.018,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Feld 1: 2, Vorzeichen: +, Feld 2: 2, Vorzeichen: +, Feld 3: 13",
+   "2": "Feld 1: 3, Vorzeichen: +, Feld 2: 6, Vorzeichen: −, Feld 3: 5",
+   "3": "Feld 1: 4, Vorzeichen: −, Feld 2: 1, Vorzeichen: +, Feld 3: 13",
+   "4": "Feld 1: 3, Vorzeichen: +, Feld 2: 3, Vorzeichen: +, Feld 3: 4",
+   "5": "Feld 1: 2, Vorzeichen: −, Feld 2: 2, Vorzeichen: −, Feld 3: 15",
+   "6": "Feld 1: −2, Vorzeichen: −, Feld 2: 3, Vorzeichen: +, Feld 3: 13",
+   "7": "Feld 1: 3, Vorzeichen: +, Feld 2: 1, Vorzeichen: +, Feld 3: 2",
+   "8": "Feld 1: 2, Vorzeichen: +, Feld 2: 2, Vorzeichen: +, Feld 3: 7",
+   "9": "Feld 1: 3, Vorzeichen: +, Feld 2: 1, Vorzeichen: −, Feld 3: 10",
+   "10": "Feld 1: 3, Vorzeichen: +, Feld 2: 1, Vorzeichen: +, Feld 3: 1"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -1,
+    "e": 1
+   },
+   "frage": "Schreib f(x) = 3x² + 6x + 4 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "1",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "-5"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "1",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-1",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 2x) + 4.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 6x + 4",
+    "= 3(x² + 2x) + 4",
+    "= 3(x² + 2x + 1 − 1) + 4",
+    "= 3(x + 1)² − 3 + 4",
+    "= 3(x + 1)² + 1"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 6,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = 3x² − 36x + 105 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-6",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-18",
+      "e": "-219"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-6",
+      "e": "69"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "6",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 12x) + 105.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 36x + 105",
+    "= 3(x² − 12x) + 105",
+    "= 3(x² − 12x + 36 − 36) + 105",
+    "= 3(x − 6)² − 108 + 105",
+    "= 3(x − 6)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -1,
+    "e": 2
+   },
+   "frage": "Schreib f(x) = 3x² + 6x + 5 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "1",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "-4"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "1",
+      "e": "4"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-1",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 2x) + 5.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 6x + 5",
+    "= 3(x² + 2x) + 5",
+    "= 3(x² + 2x + 1 − 1) + 5",
+    "= 3(x + 1)² − 3 + 5",
+    "= 3(x + 1)² + 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 2,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = 3x² − 12x + 6 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-2",
+     "e": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-6",
+      "e": "-30"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-2",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "2",
+      "e": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 4x) + 6.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 12x + 6",
+    "= 3(x² − 4x) + 6",
+    "= 3(x² − 4x + 4 − 4) + 6",
+    "= 3(x − 2)² − 12 + 6",
+    "= 3(x − 2)² − 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-2",
+      "ve": "−",
+      "e": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -3,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = 2x² + 12x + 21 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "3",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "6",
+      "e": "-15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "3",
+      "e": "12"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-3",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² + 6x) + 21.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 12x + 21",
+    "= 2(x² + 6x) + 21",
+    "= 2(x² + 6x + 9 − 9) + 21",
+    "= 2(x + 3)² − 18 + 21",
+    "= 2(x + 3)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 2,
+    "e": -15
+   },
+   "frage": "Schreib f(x) = 3x² − 12x − 3 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-2",
+     "e": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-6",
+      "e": "-39"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-2",
+      "e": "-7"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "2",
+      "e": "-15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 4x) − 3.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 12x − 3",
+    "= 3(x² − 4x) − 3",
+    "= 3(x² − 4x + 4 − 4) − 3",
+    "= 3(x − 2)² − 12 − 3",
+    "= 3(x − 2)² − 15"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-2",
+      "ve": "−",
+      "e": "15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -1,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = 3x² + 6x + 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "1",
+     "e": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "1",
+      "e": "9"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-1",
+      "e": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 2x) + 10.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 6x + 10",
+    "= 3(x² + 2x) + 10",
+    "= 3(x² + 2x + 1 − 1) + 10",
+    "= 3(x + 1)² − 3 + 10",
+    "= 3(x + 1)² + 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -6,
+    "e": -5
+   },
+   "frage": "Schreib f(x) = 3x² + 36x + 103 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "6",
+     "e": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "18",
+      "e": "-221"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "6",
+      "e": "67"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-6",
+      "e": "-5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 12x) + 103.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 36x + 103",
+    "= 3(x² + 12x) + 103",
+    "= 3(x² + 12x + 36 − 36) + 103",
+    "= 3(x + 6)² − 108 + 103",
+    "= 3(x + 6)² − 5"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 5,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = 3x² − 30x + 79 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-5",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-15",
+      "e": "-146"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-5",
+      "e": "54"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "5",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 10x) + 79.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 30x + 79",
+    "= 3(x² − 10x) + 79",
+    "= 3(x² − 10x + 25 − 25) + 79",
+    "= 3(x − 5)² − 75 + 79",
+    "= 3(x − 5)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-5",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -1,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = 3x² + 6x + 6 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "1",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "-3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "1",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-1",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 2x) + 6.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 6x + 6",
+    "= 3(x² + 2x) + 6",
+    "= 3(x² + 2x + 1 − 1) + 6",
+    "= 3(x + 1)² − 3 + 6",
+    "= 3(x + 1)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 2,
+    "e": -15
+   },
+   "frage": "Schreib f(x) = 2x² − 8x − 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-2",
+     "e": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "-4",
+      "e": "-23"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "-11"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "-15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² − 4x) − 7.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 8x − 7",
+    "= 2(x² − 4x) − 7",
+    "= 2(x² − 4x + 4 − 4) − 7",
+    "= 2(x − 2)² − 8 − 7",
+    "= 2(x − 2)² − 15"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-2",
+      "ve": "−",
+      "e": "15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 6,
+    "e": 6
+   },
+   "frage": "Schreib f(x) = 2x² − 24x + 78 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-6",
+     "e": "6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "-12",
+      "e": "-66"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "-6",
+      "e": "42"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "6",
+      "e": "6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² − 12x) + 78.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 24x + 78",
+    "= 2(x² − 12x) + 78",
+    "= 2(x² − 12x + 36 − 36) + 78",
+    "= 2(x − 6)² − 72 + 78",
+    "= 2(x − 6)² + 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-6",
+      "ve": "+",
+      "e": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -1,
+    "e": -10
+   },
+   "frage": "Schreib f(x) = 3x² + 6x − 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "1",
+     "e": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "-16"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "1",
+      "e": "-8"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-1",
+      "e": "-10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 2x) − 7.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 6x − 7",
+    "= 3(x² + 2x) − 7",
+    "= 3(x² + 2x + 1 − 1) − 7",
+    "= 3(x + 1)² − 3 − 7",
+    "= 3(x + 1)² − 10"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -2,
+    "e": 13
+   },
+   "frage": "Schreib f(x) = 2x² + 8x + 21 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "2",
+     "e": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "17"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² + 4x) + 21.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 8x + 21",
+    "= 2(x² + 4x) + 21",
+    "= 2(x² + 4x + 4 − 4) + 21",
+    "= 2(x + 2)² − 8 + 21",
+    "= 2(x + 2)² + 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 3,
+    "e": -15
+   },
+   "frage": "Schreib f(x) = 3x² − 18x + 12 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-3",
+     "e": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-9",
+      "e": "-69"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-3",
+      "e": "3"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "-15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 6x) + 12.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 18x + 12",
+    "= 3(x² − 6x) + 12",
+    "= 3(x² − 6x + 9 − 9) + 12",
+    "= 3(x − 3)² − 27 + 12",
+    "= 3(x − 3)² − 15"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -3,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = 3x² + 18x + 31 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "3",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "9",
+      "e": "-50"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "22"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 6x) + 31.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 18x + 31",
+    "= 3(x² + 6x) + 31",
+    "= 3(x² + 6x + 9 − 9) + 31",
+    "= 3(x + 3)² − 27 + 31",
+    "= 3(x + 3)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -6,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = 2x² + 24x + 66 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "6",
+     "e": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "12",
+      "e": "-78"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "6",
+      "e": "30"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-6",
+      "e": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² + 12x) + 66.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 24x + 66",
+    "= 2(x² + 12x) + 66",
+    "= 2(x² + 12x + 36 − 36) + 66",
+    "= 2(x + 6)² − 72 + 66",
+    "= 2(x + 6)² − 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -6,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = 3x² + 36x + 105 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "6",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "18",
+      "e": "-219"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "6",
+      "e": "69"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-6",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 12x) + 105.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 36x + 105",
+    "= 3(x² + 12x) + 105",
+    "= 3(x² + 12x + 36 − 36) + 105",
+    "= 3(x + 6)² − 108 + 105",
+    "= 3(x + 6)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -4,
+    "e": 5
+   },
+   "frage": "Schreib f(x) = 3x² + 24x + 53 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "4",
+     "e": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "12",
+      "e": "-91"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "4",
+      "e": "37"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-4",
+      "e": "5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 8x) + 53.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 24x + 53",
+    "= 3(x² + 8x) + 53",
+    "= 3(x² + 8x + 16 − 16) + 53",
+    "= 3(x + 4)² − 48 + 53",
+    "= 3(x + 4)² + 5"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 3,
+    "e": -8
+   },
+   "frage": "Schreib f(x) = 2x² − 12x + 10 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-3",
+     "e": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "-6",
+      "e": "-26"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "-3",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "3",
+      "e": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² − 6x) + 10.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 12x + 10",
+    "= 2(x² − 6x) + 10",
+    "= 2(x² − 6x + 9 − 9) + 10",
+    "= 2(x − 3)² − 18 + 10",
+    "= 2(x − 3)² − 8"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -4,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = 2x² + 16x + 40 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "4",
+     "e": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "8",
+      "e": "-24"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "24"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-4",
+      "e": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² + 8x) + 40.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 16x + 40",
+    "= 2(x² + 8x) + 40",
+    "= 2(x² + 8x + 16 − 16) + 40",
+    "= 2(x + 4)² − 32 + 40",
+    "= 2(x + 4)² + 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -1,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = 2x² + 4x + 6 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "1",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "1",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-1",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² + 2x) + 6.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 4x + 6",
+    "= 2(x² + 2x) + 6",
+    "= 2(x² + 2x + 1 − 1) + 6",
+    "= 2(x + 1)² − 2 + 6",
+    "= 2(x + 1)² + 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 6,
+    "e": -5
+   },
+   "frage": "Schreib f(x) = 2x² − 24x + 67 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "-6",
+     "e": "-5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "-12",
+      "e": "-77"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "-6",
+      "e": "31"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "6",
+      "e": "-5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² − 12x) + 67.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 24x + 67",
+    "= 2(x² − 12x) + 67",
+    "= 2(x² − 12x + 36 − 36) + 67",
+    "= 2(x − 6)² − 72 + 67",
+    "= 2(x − 6)² − 5"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": -1,
+    "e": 11
+   },
+   "frage": "Schreib f(x) = 3x² + 6x + 14 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "1",
+     "e": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "3",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "1",
+      "e": "13"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "-1",
+      "e": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² + 2x) + 14.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² + 6x + 14",
+    "= 3(x² + 2x) + 14",
+    "= 3(x² + 2x + 1 − 1) + 14",
+    "= 3(x + 1)² − 3 + 14",
+    "= 3(x + 1)² + 11"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 4,
+    "e": 5
+   },
+   "frage": "Schreib f(x) = 3x² − 24x + 53 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-4",
+     "e": "5"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-12",
+      "e": "-91"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-4",
+      "e": "37"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "4",
+      "e": "5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 8x) + 53.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 24x + 53",
+    "= 3(x² − 8x) + 53",
+    "= 3(x² − 8x + 16 − 16) + 53",
+    "= 3(x − 4)² − 48 + 53",
+    "= 3(x − 4)² + 5"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "5"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 2,
+    "e": 2
+   },
+   "frage": "Schreib f(x) = 3x² − 12x + 14 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-2",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-6",
+      "e": "-22"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-2",
+      "e": "10"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "2",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 4x) + 14.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 12x + 14",
+    "= 3(x² − 4x) + 14",
+    "= 3(x² − 4x + 4 − 4) + 14",
+    "= 3(x − 2)² − 12 + 14",
+    "= 3(x − 2)² + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -2,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = 2x² + 8x + 15 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "d": "2",
+     "e": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "2",
+      "d": "4",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "2",
+      "d": "2",
+      "e": "11"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "2",
+      "d": "-2",
+      "e": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 2(x² + 4x) + 15.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 8x + 15",
+    "= 2(x² + 4x) + 15",
+    "= 2(x² + 4x + 4 − 4) + 15",
+    "= 2(x + 2)² − 8 + 15",
+    "= 2(x + 2)² + 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 3,
+    "d": 4,
+    "e": -9
+   },
+   "frage": "Schreib f(x) = 3x² − 24x + 39 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "d": "-4",
+     "e": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "3",
+      "d": "-12",
+      "e": "-105"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "3",
+      "d": "-4",
+      "e": "23"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "3",
+      "d": "4",
+      "e": "-9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 3(x² − 8x) + 39.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 3-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 3x² − 24x + 39",
+    "= 3(x² − 8x) + 39",
+    "= 3(x² − 8x + 16 − 16) + 39",
+    "= 3(x − 4)² − 48 + 39",
+    "= 3(x − 4)² − 9"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vd": "+",
+      "d": "-4",
+      "ve": "−",
+      "e": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": -3,
+    "e": -1
+   },
+   "frage": "Schreib f(x) = 5x² + 30x + 44 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "3",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "15",
+      "e": "-181"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "3",
+      "e": "35"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "-3",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² + 6x) + 44.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² + 30x + 44",
+    "= 5(x² + 6x) + 44",
+    "= 5(x² + 6x + 9 − 9) + 44",
+    "= 5(x + 3)² − 45 + 44",
+    "= 5(x + 3)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vd": "+",
+      "d": "3",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": 1,
+    "e": -2
+   },
+   "frage": "Schreib f(x) = 5x² − 10x + 3 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "-1",
+     "e": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "-5",
+      "e": "-22"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "-1",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "1",
+      "e": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² − 2x) + 3.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² − 10x + 3",
+    "= 5(x² − 2x) + 3",
+    "= 5(x² − 2x + 1 − 1) + 3",
+    "= 5(x − 1)² − 5 + 3",
+    "= 5(x − 1)² − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vd": "+",
+      "d": "-1",
+      "ve": "−",
+      "e": "2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": 1,
+    "e": 1
+   },
+   "frage": "Schreib f(x) = −x² + 2x in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-1",
+     "e": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² − 2x) + 0.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 2x",
+    "= −(x² − 2x) + 0",
+    "= −(x² − 2x + 1 − 1) + 0",
+    "= −(x − 1)² + 1 + 0",
+    "= −(x − 1)² + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": 4,
+    "d": 6,
+    "e": -7
+   },
+   "frage": "Schreib f(x) = 4x² − 48x + 137 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "d": "-6",
+     "e": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "4",
+      "d": "-24",
+      "e": "-439"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "4",
+      "d": "-6",
+      "e": "101"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "4",
+      "d": "6",
+      "e": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 4(x² − 12x) + 137.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 4-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 4x² − 48x + 137",
+    "= 4(x² − 12x) + 137",
+    "= 4(x² − 12x + 36 − 36) + 137",
+    "= 4(x − 6)² − 144 + 137",
+    "= 4(x − 6)² − 7"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": 4,
+    "d": 3,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = 4x² − 24x + 33 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "d": "-3",
+     "e": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "4",
+      "d": "-12",
+      "e": "-111"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "4",
+      "d": "-3",
+      "e": "24"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "4",
+      "d": "3",
+      "e": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 4(x² − 6x) + 33.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 4-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 4x² − 24x + 33",
+    "= 4(x² − 6x) + 33",
+    "= 4(x² − 6x + 9 − 9) + 33",
+    "= 4(x − 3)² − 36 + 33",
+    "= 4(x − 3)² − 3"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": -6,
+    "e": -1
+   },
+   "frage": "Schreib f(x) = −x² − 12x − 37 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "6",
+     "e": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "-6",
+      "e": "-73"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "6",
+      "e": "-73"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-6",
+      "e": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² + 12x) − 37.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 12x − 37",
+    "= −(x² + 12x) − 37",
+    "= −(x² + 12x + 36 − 36) − 37",
+    "= −(x + 6)² + 36 − 37",
+    "= −(x + 6)² − 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": -5,
+    "e": -10
+   },
+   "frage": "Schreib f(x) = 5x² + 50x + 115 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "5",
+     "e": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "25",
+      "e": "-510"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "5",
+      "e": "90"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "-5",
+      "e": "-10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² + 10x) + 115.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² + 50x + 115",
+    "= 5(x² + 10x) + 115",
+    "= 5(x² + 10x + 25 − 25) + 115",
+    "= 5(x + 5)² − 125 + 115",
+    "= 5(x + 5)² − 10"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vd": "+",
+      "d": "5",
+      "ve": "+",
+      "e": "-10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": -4,
+    "e": 12
+   },
+   "frage": "Schreib f(x) = −x² − 8x − 4 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "4",
+     "e": "12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "-20"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "-20"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² + 8x) − 4.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 8x − 4",
+    "= −(x² + 8x) − 4",
+    "= −(x² + 8x + 16 − 16) − 4",
+    "= −(x + 4)² + 16 − 4",
+    "= −(x + 4)² + 12"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": 6,
+    "e": -12
+   },
+   "frage": "Schreib f(x) = −x² + 12x − 48 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-6",
+     "e": "-12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "6",
+      "e": "-84"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "-6",
+      "e": "-84"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "6",
+      "e": "-12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² − 12x) − 48.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 12x − 48",
+    "= −(x² − 12x) − 48",
+    "= −(x² − 12x + 36 − 36) − 48",
+    "= −(x − 6)² + 36 − 48",
+    "= −(x − 6)² − 12"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-6",
+      "ve": "−",
+      "e": "12"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": 5,
+    "e": -9
+   },
+   "frage": "Schreib f(x) = 5x² − 50x + 116 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "-5",
+     "e": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "-25",
+      "e": "-509"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "-5",
+      "e": "91"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "5",
+      "e": "-9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² − 10x) + 116.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² − 50x + 116",
+    "= 5(x² − 10x) + 116",
+    "= 5(x² − 10x + 25 − 25) + 116",
+    "= 5(x − 5)² − 125 + 116",
+    "= 5(x − 5)² − 9"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vd": "+",
+      "d": "-5",
+      "ve": "−",
+      "e": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": -2,
+    "e": -14
+   },
+   "frage": "Schreib f(x) = 5x² + 20x + 6 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "2",
+     "e": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "10",
+      "e": "-94"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "2",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "-2",
+      "e": "-14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² + 4x) + 6.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² + 20x + 6",
+    "= 5(x² + 4x) + 6",
+    "= 5(x² + 4x + 4 − 4) + 6",
+    "= 5(x + 2)² − 20 + 6",
+    "= 5(x + 2)² − 14"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vd": "+",
+      "d": "2",
+      "ve": "+",
+      "e": "-14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": 3,
+    "e": -7
+   },
+   "frage": "Schreib f(x) = −x² + 6x − 16 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "-3",
+     "e": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-25"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "-25"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² − 6x) − 16.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 6x − 16",
+    "= −(x² − 6x) − 16",
+    "= −(x² − 6x + 9 − 9) − 16",
+    "= −(x − 3)² + 9 − 16",
+    "= −(x − 3)² − 7"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": 4,
+    "d": 3,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = 4x² − 24x + 40 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "d": "-3",
+     "e": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "4",
+      "d": "-12",
+      "e": "-104"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "4",
+      "d": "-3",
+      "e": "31"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "4",
+      "d": "3",
+      "e": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 4(x² − 6x) + 40.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 4-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 4x² − 24x + 40",
+    "= 4(x² − 6x) + 40",
+    "= 4(x² − 6x + 9 − 9) + 40",
+    "= 4(x − 3)² − 36 + 40",
+    "= 4(x − 3)² + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": -3,
+    "e": 2
+   },
+   "frage": "Schreib f(x) = −x² − 6x − 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "3",
+     "e": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "-16"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "3",
+      "e": "-16"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-3",
+      "e": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² + 6x) − 7.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 6x − 7",
+    "= −(x² + 6x) − 7",
+    "= −(x² + 6x + 9 − 9) − 7",
+    "= −(x + 3)² + 9 − 7",
+    "= −(x + 3)² + 2"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": -2,
+    "e": 13
+   },
+   "frage": "Schreib f(x) = −x² − 4x + 9 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "2",
+     "e": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "2",
+      "e": "5"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-2",
+      "e": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² + 4x) + 9.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 4x + 9",
+    "= −(x² + 4x) + 9",
+    "= −(x² + 4x + 4 − 4) + 9",
+    "= −(x + 2)² + 4 + 9",
+    "= −(x + 2)² + 13"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": 2,
+    "e": 14
+   },
+   "frage": "Schreib f(x) = −2x² + 8x + 6 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "-2",
+     "e": "14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "4",
+      "e": "-10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "-2",
+      "e": "2"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "2",
+      "e": "14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² − 4x) + 6.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² + 8x + 6",
+    "= −2(x² − 4x) + 6",
+    "= −2(x² − 4x + 4 − 4) + 6",
+    "= −2(x − 2)² + 8 + 6",
+    "= −2(x − 2)² + 14"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": -6,
+    "e": 14
+   },
+   "frage": "Schreib f(x) = 5x² + 60x + 194 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "6",
+     "e": "14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "30",
+      "e": "-706"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "6",
+      "e": "158"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "-6",
+      "e": "14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² + 12x) + 194.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² + 60x + 194",
+    "= 5(x² + 12x) + 194",
+    "= 5(x² + 12x + 36 − 36) + 194",
+    "= 5(x + 6)² − 180 + 194",
+    "= 5(x + 6)² + 14"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": -1,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = −x² − 2x − 7 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "1",
+     "e": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "1",
+      "e": "-8"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-1",
+      "e": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² + 2x) − 7.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 2x − 7",
+    "= −(x² + 2x) − 7",
+    "= −(x² + 2x + 1 − 1) − 7",
+    "= −(x + 1)² + 1 − 7",
+    "= −(x + 1)² − 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vd": "+",
+      "d": "1",
+      "ve": "+",
+      "e": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": 6,
+    "e": 10
+   },
+   "frage": "Schreib f(x) = −2x² + 24x − 62 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "-6",
+     "e": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "12",
+      "e": "-206"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "-6",
+      "e": "-98"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "6",
+      "e": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² − 12x) − 62.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² + 24x − 62",
+    "= −2(x² − 12x) − 62",
+    "= −2(x² − 12x + 36 − 36) − 62",
+    "= −2(x − 6)² + 72 − 62",
+    "= −2(x − 6)² + 10"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vd": "+",
+      "d": "-6",
+      "ve": "+",
+      "e": "10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": 3,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = −2x² + 12x − 24 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "-3",
+     "e": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "6",
+      "e": "-60"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "-3",
+      "e": "-33"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "3",
+      "e": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² − 6x) − 24.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² + 12x − 24",
+    "= −2(x² − 6x) − 24",
+    "= −2(x² − 6x + 9 − 9) − 24",
+    "= −2(x − 3)² + 18 − 24",
+    "= −2(x − 3)² − 6"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "−",
+      "e": "6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": 3,
+    "e": 13
+   },
+   "frage": "Schreib f(x) = −2x² + 12x − 5 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "-3",
+     "e": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "6",
+      "e": "-41"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "-3",
+      "e": "-14"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "3",
+      "e": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² − 6x) − 5.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² + 12x − 5",
+    "= −2(x² − 6x) − 5",
+    "= −2(x² − 6x + 9 − 9) − 5",
+    "= −2(x − 3)² + 18 − 5",
+    "= −2(x − 3)² + 13"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vd": "+",
+      "d": "-3",
+      "ve": "+",
+      "e": "13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "uebung",
+   "stufe": 5,
+   "params": {
+    "a": 4,
+    "d": 1,
+    "e": 13
+   },
+   "frage": "Schreib f(x) = 4x² − 8x + 17 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "d": "-1",
+     "e": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "4",
+      "d": "-4",
+      "e": "1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "4",
+      "d": "-1",
+      "e": "16"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "4",
+      "d": "1",
+      "e": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 4(x² − 2x) + 17.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 4-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 4x² − 8x + 17",
+    "= 4(x² − 2x) + 17",
+    "= 4(x² − 2x + 1 − 1) + 17",
+    "= 4(x − 1)² − 4 + 17",
+    "= 4(x − 1)² + 13"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vd": "+",
+      "d": "-1",
+      "ve": "+",
+      "e": "13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": 2,
+    "e": 11
+   },
+   "frage": "Schreib f(x) = −2x² + 8x + 3 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "-2",
+     "e": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "4",
+      "e": "-13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "-2",
+      "e": "-1"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "2",
+      "e": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² − 4x) + 3.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² + 8x + 3",
+    "= −2(x² − 4x) + 3",
+    "= −2(x² − 4x + 4 − 4) + 3",
+    "= −2(x − 2)² + 8 + 3",
+    "= −2(x − 2)² + 11"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vd": "+",
+      "d": "-2",
+      "ve": "+",
+      "e": "11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": -4,
+    "e": -13
+   },
+   "frage": "Schreib f(x) = −2x² − 16x − 45 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "4",
+     "e": "-13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "-8",
+      "e": "-109"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "4",
+      "e": "-61"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "-4",
+      "e": "-13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² + 8x) − 45.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² − 16x − 45",
+    "= −2(x² + 8x) − 45",
+    "= −2(x² + 8x + 16 − 16) − 45",
+    "= −2(x + 4)² + 32 − 45",
+    "= −2(x + 4)² − 13"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vd": "+",
+      "d": "4",
+      "ve": "+",
+      "e": "-13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": 5,
+    "d": 4,
+    "e": 11
+   },
+   "frage": "Schreib f(x) = 5x² − 40x + 91 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "5",
+     "d": "-4",
+     "e": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "5",
+      "d": "-20",
+      "e": "-309"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "5",
+      "d": "-4",
+      "e": "75"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "5",
+      "d": "4",
+      "e": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 5(x² − 8x) + 91.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 5-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 5x² − 40x + 91",
+    "= 5(x² − 8x) + 91",
+    "= 5(x² − 8x + 16 − 16) + 91",
+    "= 5(x − 4)² − 80 + 91",
+    "= 5(x − 4)² + 11"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "5",
+      "vd": "+",
+      "d": "-4",
+      "ve": "+",
+      "e": "11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -2,
+    "d": -3,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = −2x² − 12x − 15 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "d": "3",
+     "e": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-2",
+      "d": "-6",
+      "e": "-51"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-2",
+      "d": "3",
+      "e": "-24"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "d": "-3",
+      "e": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −2(x² + 6x) − 15.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −2-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −2x² − 12x − 15",
+    "= −2(x² + 6x) − 15",
+    "= −2(x² + 6x + 9 − 9) − 15",
+    "= −2(x + 3)² + 18 − 15",
+    "= −2(x + 3)² + 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": 4,
+    "d": -6,
+    "e": -14
+   },
+   "frage": "Schreib f(x) = 4x² + 48x + 130 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "4",
+     "d": "6",
+     "e": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "4",
+      "d": "24",
+      "e": "-446"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "4",
+      "d": "6",
+      "e": "94"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "4",
+      "d": "-6",
+      "e": "-14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = 4(x² + 12x) + 130.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen 4-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = 4x² + 48x + 130",
+    "= 4(x² + 12x) + 130",
+    "= 4(x² + 12x + 36 − 36) + 130",
+    "= 4(x + 6)² − 144 + 130",
+    "= 4(x + 6)² − 14"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "4",
+      "vd": "+",
+      "d": "6",
+      "ve": "+",
+      "e": "-14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-3",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "a": -1,
+    "d": -4,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = −x² − 8x − 9 in der Scheitelpunktform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "(x "
+     },
+     {
+      "feld": "vd",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "d",
+      "typ": "zahl"
+     },
+     {
+      "text": ")² "
+     },
+     {
+      "feld": "ve",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "e",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "d": "4",
+     "e": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ausklammern_a_verloren",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "-25"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "werte": {
+      "a": "-1",
+      "d": "4",
+      "e": "-25"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "d": "-4",
+      "e": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Klammere zuerst die Zahl vor x² aus: f(x) = −1(x² + 8x) − 9.",
+    "Ergänze in der Klammer zu einem Quadrat.",
+    "Was du in der Klammer dazugibst, zählt außen −1-mal."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 8x − 9",
+    "= −(x² + 8x) − 9",
+    "= −(x² + 8x + 16 − 16) − 9",
+    "= −(x + 4)² + 16 − 9",
+    "= −(x + 4)² + 7"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

@@ -228,3 +228,32 @@ def scheitel_von(text: str) -> tuple[Fraction, Fraction]:
     xs = sympy.solve(sympy.diff(f, X), X)[0]
     ys = f.subs(X, xs)
     return Fraction(int(sympy.Rational(xs).p), int(sympy.Rational(xs).q)), Fraction(int(sympy.Rational(ys).p), int(sympy.Rational(ys).q))
+
+
+def scheitel_aus_kontext(frage: str, name: str, var: str) -> tuple[Fraction, Fraction, int]:
+    """Scheitel (Stelle, Wert) und Vorzeichen von a der Funktion `name(var) = …` im Text (sympy)."""
+    import re
+    import sympy
+
+    from .rechnen import X, ausdruck
+    term = re.search(rf'{name}\({var}\) = (.+?) \(', frage).group(1)
+    f = ausdruck(term.replace(var, 'x')) if var != 'x' else ausdruck(term)
+    xs = sympy.solve(sympy.diff(f, X), X)[0]
+    ys = f.subs(X, xs)
+    a = sympy.Poly(f, X).LC()
+    r = lambda v: Fraction(int(sympy.Rational(v).p), int(sympy.Rational(v).q))  # noqa: E731
+    return r(xs), r(ys), (1 if a > 0 else -1)
+
+
+def dezimal_oder_bruch(x: Fraction) -> list[str]:
+    """Antwortschreibweisen: gekürzter Bruch, bei endlicher Dezimalzahl auch mit Komma und Punkt."""
+    x = Fraction(x)
+    aus = [zahl_antwort(x)]
+    d = x.denominator
+    for p in (2, 5):
+        while d % p == 0:
+            d //= p
+    if x.denominator != 1 and d == 1:
+        t = f'{float(x):.6f}'.rstrip('0').rstrip('.')
+        aus += [t.replace('.', ','), t]
+    return aus

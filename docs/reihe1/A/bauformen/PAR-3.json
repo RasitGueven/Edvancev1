@@ -1,0 +1,5984 @@
+{
+ "schluessel": "PAR-3",
+ "skill": "fkt_quadr_parabel",
+ "kernidee": "fkt_quadr_parabel:K3",
+ "format": "graph_auswahl",
+ "rollen": [
+  "uebung",
+  "home",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Welcher Graph gehört zu f(x) = {term}?",
+  "stufen": {
+   "1": "f(x) = x² + e, e von −5 bis 5",
+   "2": "f(x) = (x − d)², d von −5 bis 5",
+   "3": "f(x) = (x − d)² + e, beide ungleich 0"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_verschiebung_vorzeichen",
+    "regel": "in die falsche Richtung verschoben",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Für welches x wird die Klammer null? Dort liegt der Scheitel. Ein + e hinten schiebt nach oben."
+   },
+   {
+    "key": "qf_d_e_vertauscht",
+    "regel": "Verschiebung nach rechts und nach oben vertauscht",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Die Zahl in der Klammer verschiebt nach rechts oder links, die Zahl hinten nach oben oder unten."
+   }
+  ],
+  "hinweise": [
+   "Wo liegt der Scheitel dieser Parabel?",
+   "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+   "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 45,
+  "kann_entfallen": false,
+  "generator_hash": "27610414a5eb"
+ },
+ "pruefprotokoll": {
+  "gruen": 48,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "C",
+   "2": "A",
+   "3": "A",
+   "4": "C",
+   "5": "C",
+   "6": "A",
+   "7": "A",
+   "8": "A",
+   "9": "B",
+   "10": "B"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": -3
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² − 3?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 3",
+    "Scheitel S(0 | −3)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -3,
+      "x_min": -6,
+      "x_max": 3,
+      "y_min": -6,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 0,
+      "x_min": -6,
+      "x_max": 3,
+      "y_min": -6,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 3,
+      "x_min": -6,
+      "x_max": 3,
+      "y_min": -6,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": 1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² + 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 1",
+    "Scheitel S(0 | 1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -1,
+      "x_min": -3,
+      "x_max": 4,
+      "y_min": -4,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": 0,
+      "x_min": -3,
+      "x_max": 4,
+      "y_min": -4,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 1,
+      "x_min": -3,
+      "x_max": 4,
+      "y_min": -4,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": -1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² − 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 1",
+    "Scheitel S(0 | −1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 1,
+      "x_min": -4,
+      "x_max": 3,
+      "y_min": -4,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 3,
+      "y_min": -4,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -1,
+      "x_min": -4,
+      "x_max": 3,
+      "y_min": -4,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": 5
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² + 5?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 5",
+    "Scheitel S(0 | 5)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": 0,
+      "x_min": -3,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 5,
+      "x_min": -3,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -5,
+      "x_min": -3,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 10,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": -4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² − 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4",
+    "Scheitel S(0 | −4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 4,
+      "x_min": -7,
+      "x_max": 3,
+      "y_min": -7,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": 0,
+      "x_min": -7,
+      "x_max": 3,
+      "y_min": -7,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 3,
+      "y_min": -7,
+      "y_max": 9,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": 4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² + 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 4",
+    "Scheitel S(0 | 4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -4,
+      "x_min": -3,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": 0,
+      "x_min": -3,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 4,
+      "x_min": -3,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 9,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": 2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² + 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2",
+    "Scheitel S(0 | 2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 2,
+      "x_min": -3,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -2,
+      "x_min": -3,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": 0,
+      "x_min": -3,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": -5
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² − 5?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 5",
+    "Scheitel S(0 | −5)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 3,
+      "y_min": -8,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 5,
+      "x_min": -8,
+      "x_max": 3,
+      "y_min": -8,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 0,
+      "x_min": -8,
+      "x_max": 3,
+      "y_min": -8,
+      "y_max": 10,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": -2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² − 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2",
+    "Scheitel S(0 | −2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 2,
+      "x_min": -5,
+      "x_max": 3,
+      "y_min": -5,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 0,
+      "x_min": -5,
+      "x_max": 3,
+      "y_min": -5,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 3,
+      "y_min": -5,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "d": 0,
+    "e": 3
+   },
+   "frage": "Welcher Graph gehört zu f(x) = x² + 3?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 3",
+    "Scheitel S(0 | 3)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": 0,
+      "x_min": -3,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 3,
+      "x_min": -3,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -3,
+      "x_min": -3,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": -2,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 2)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 2)²",
+    "Scheitel S(−2 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": 0,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 0,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": 2,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 2)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)²",
+    "Scheitel S(2 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 2,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -3,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": 0,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -3,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 0,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -3,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "d": -3,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 3)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 3)²",
+    "Scheitel S(−3 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -3,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": 0,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 0,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": -4,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 4)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 4)²",
+    "Scheitel S(−4 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": 0,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": 0,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": 3,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 3)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)²",
+    "Scheitel S(3 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 0,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -3,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 3,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -3,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": 0,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -3,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "d": 1,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 1)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 1)²",
+    "Scheitel S(1 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -3,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 1,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -3,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -3,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": 4,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 4)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)²",
+    "Scheitel S(4 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 4,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -3,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": 0,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -3,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": 0,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -3,
+      "y_max": 9,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "d": -1,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 1)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)²",
+    "Scheitel S(−1 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -4,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -1,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -4,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": 0,
+      "x_min": -4,
+      "x_max": 4,
+      "y_min": -4,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 2,
+   "params": {
+    "d": -5,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 5)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)²",
+    "Scheitel S(−5 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel unter dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": 0,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 0,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "d": 5,
+    "e": 0
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 5)²?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 5)²",
+    "Scheitel S(5 | 0)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel über dem Ursprung",
+     "params": {
+      "a": 1,
+      "d": 0,
+      "e": 5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -3,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": 0,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -3,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 0,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -3,
+      "y_max": 10,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -5,
+    "e": -4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 5)² − 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² − 4",
+    "Scheitel S(−5 | −4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -4,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": -4,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 3,
+    "e": 2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 3)² + 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² + 2",
+    "Scheitel S(3 | 2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": 3,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -3,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 2,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -3,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": 2,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -3,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": -4,
+    "e": -5
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 4)² − 5?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 4)² − 5",
+    "Scheitel S(−4 | −5)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 7,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 7,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -4,
+      "x_min": -8,
+      "x_max": 7,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -3,
+    "e": 2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 3)² + 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 3)² + 2",
+    "Scheitel S(−3 | 2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 2,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": -3,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": 2,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -1,
+    "e": -4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 1)² − 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² − 4",
+    "Scheitel S(−1 | −4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 4,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": -1,
+      "x_min": -7,
+      "x_max": 4,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 4,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": 2,
+    "e": 4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 2)² + 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)² + 4",
+    "Scheitel S(2 | 4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 4,
+      "x_min": -5,
+      "x_max": 7,
+      "y_min": -3,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": 2,
+      "x_min": -5,
+      "x_max": 7,
+      "y_min": -3,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": 4,
+      "x_min": -5,
+      "x_max": 7,
+      "y_min": -3,
+      "y_max": 9,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -5,
+    "e": 2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 5)² + 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² + 2",
+    "Scheitel S(−5 | 2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": 2,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 2,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 5,
+    "e": -4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 5)² − 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 5)² − 4",
+    "Scheitel S(5 | −4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": -4,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -7,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": 5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -7,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -4,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -7,
+      "y_max": 10,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": 2,
+    "e": -5
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 2)² − 5?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)² − 5",
+    "Scheitel S(2 | −5)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 2,
+      "x_min": -8,
+      "x_max": 5,
+      "y_min": -8,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 5,
+      "y_min": -8,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 5,
+      "y_min": -8,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 3,
+    "e": -4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 3)² − 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² − 4",
+    "Scheitel S(3 | −4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 6,
+      "y_min": -7,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": 3,
+      "x_min": -7,
+      "x_max": 6,
+      "y_min": -7,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 6,
+      "y_min": -7,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -5,
+    "e": -3
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 5)² − 3?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² − 3",
+    "Scheitel S(−5 | −3)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": -3,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -3,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": -1,
+    "e": 3
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 1)² + 3?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² + 3",
+    "Scheitel S(−1 | 3)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": -1,
+      "x_min": -4,
+      "x_max": 6,
+      "y_min": -4,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": 3,
+      "x_min": -4,
+      "x_max": 6,
+      "y_min": -4,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": 3,
+      "x_min": -4,
+      "x_max": 6,
+      "y_min": -4,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 5,
+    "e": -2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 5)² − 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 5)² − 2",
+    "Scheitel S(5 | −2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": -2,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -5,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -5,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -2,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -5,
+      "y_max": 10,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -3,
+    "e": 1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 3)² + 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 3)² + 1",
+    "Scheitel S(−3 | 1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 1,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": 1,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": -3,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -6,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": 2,
+    "e": -1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 2)² − 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)² − 1",
+    "Scheitel S(2 | −1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": -1,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -4,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": 2,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -4,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": -1,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -4,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": 1,
+    "e": -2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 1)² − 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 1)² − 2",
+    "Scheitel S(1 | −2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 4,
+      "y_min": -5,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 1,
+      "x_min": -5,
+      "x_max": 4,
+      "y_min": -5,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 4,
+      "y_min": -5,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 3,
+    "e": -2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 3)² − 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² − 2",
+    "Scheitel S(3 | −2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": 3,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -5,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": -2,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -5,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": -2,
+      "x_min": -6,
+      "x_max": 6,
+      "y_min": -5,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": -5,
+    "e": -2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 5)² − 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² − 2",
+    "Scheitel S(−5 | −2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -2,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": -2,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -5,
+    "e": -1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 5)² − 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² − 1",
+    "Scheitel S(−5 | −1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": -1,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": -1,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -8,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": -1,
+    "e": -2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 1)² − 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² − 2",
+    "Scheitel S(−1 | −2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 4,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": -1,
+      "x_min": -5,
+      "x_max": 4,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 4,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": 4,
+    "e": -5
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 4)² − 5?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)² − 5",
+    "Scheitel S(4 | −5)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 4,
+      "x_min": -8,
+      "x_max": 7,
+      "y_min": -8,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 7,
+      "y_min": -8,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 7,
+      "y_min": -8,
+      "y_max": 9,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "d": -4,
+    "e": 3
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 4)² + 3?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 4)² + 3",
+    "Scheitel S(−4 | 3)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": 3,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": 3,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 8,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -7,
+      "y_max": 8,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "d": 1,
+    "e": -5
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 1)² − 5?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 1)² − 5",
+    "Scheitel S(1 | −5)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 4,
+      "y_min": -8,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 1,
+      "x_min": -8,
+      "x_max": 4,
+      "y_min": -8,
+      "y_max": 6,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": -5,
+      "x_min": -8,
+      "x_max": 4,
+      "y_min": -8,
+      "y_max": 6,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": -1,
+    "e": 2
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 1)² + 2?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² + 2",
+    "Scheitel S(−1 | 2)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": 2,
+      "x_min": -4,
+      "x_max": 5,
+      "y_min": -4,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": -1,
+      "x_min": -4,
+      "x_max": 5,
+      "y_min": -4,
+      "y_max": 7,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": 2,
+      "x_min": -4,
+      "x_max": 5,
+      "y_min": -4,
+      "y_max": 7,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": -2,
+    "e": -1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 2)² − 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "c"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "b"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 2)² − 1",
+    "Scheitel S(−2 | −1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -1,
+      "e": -2,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 2,
+      "e": -1,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -2,
+      "e": -1,
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": 4,
+    "e": -3
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 4)² − 3?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "a"
+    },
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)² − 3",
+    "Scheitel S(4 | −3)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": -3,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -6,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 4,
+      "e": -3,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -6,
+      "y_max": 9,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": 4,
+      "x_min": -7,
+      "x_max": 7,
+      "y_min": -6,
+      "y_max": 9,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": 5,
+    "e": 1
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x − 5)² + 1?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "a"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "b"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 5)² + 1",
+    "Scheitel S(5 | 1)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 5,
+      "e": 1,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -3,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 1,
+      "e": 5,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -3,
+      "y_max": 10,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -5,
+      "e": 1,
+      "x_min": -8,
+      "x_max": 8,
+      "y_min": -3,
+      "y_max": 10,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "PAR-3",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "d": -3,
+    "e": -4
+   },
+   "frage": "Welcher Graph gehört zu f(x) = (x + 3)² − 4?",
+   "input_type": "GRAPH_AUSWAHL",
+   "payload": {
+    "format": "graph_auswahl",
+    "optionen": [
+     {
+      "id": "a",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "b",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+     },
+     {
+      "id": "c",
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung"
+     }
+    ]
+   },
+   "loesung": {
+    "option": "b"
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_d_e_vertauscht",
+     "option": "a"
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "option": "c"
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel dieser Parabel?",
+    "Aus f(x) = (x − d)² + e liest du S(d | e) ab.",
+    "Such den Graphen, dessen Scheitel an dieser Stelle liegt."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 3)² − 4",
+    "Scheitel S(−3 | −4)",
+    "Der richtige Graph hat seinen Scheitel an dieser Stelle und ist nach oben geöffnet."
+   ],
+   "schreibweisen": [],
+   "figur": [
+    {
+     "option": "a",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -4,
+      "e": -3,
+      "x_min": -7,
+      "x_max": 6,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "b",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": -3,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 6,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    },
+    {
+     "option": "c",
+     "generator": "parabel",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel rechts unterhalb vom Ursprung",
+     "params": {
+      "a": 1,
+      "d": 3,
+      "e": -4,
+      "x_min": -7,
+      "x_max": 6,
+      "y_min": -7,
+      "y_max": 5,
+      "gitter": true
+     }
+    }
+   ],
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

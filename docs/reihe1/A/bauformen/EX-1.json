@@ -1,0 +1,3302 @@
+{
+ "schluessel": "EX-1",
+ "skill": "fkt_quadr_extrem",
+ "kernidee": "fkt_quadr_extrem:K1",
+ "format": "mehrteiler",
+ "rollen": [
+  "transfer",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "{kontext}",
+  "stufen": {
+   "4": "Zaun ringsum: A(x) = x · (L/2 − x), größte Fläche beim Quadrat",
+   "5": "an der Hauswand: A(x) = x · (L − 2x)"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_umfang_statt_flaeche",
+    "regel": "in Teil 2 die Zaunlänge statt der Fläche",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "Gefragt ist die Fläche, nicht die Länge des Zauns. Fläche heißt Länge mal Breite."
+   },
+   {
+    "key": "qf_stelle_statt_wert",
+    "regel": "in Teil 2 x statt der Fläche",
+    "gilt_fuer_stufen": [
+     4,
+     5
+    ],
+    "rueckmeldung": "x ist die Seitenlänge. Gefragt ist der größte Wert der Fläche A(x)."
+   }
+  ],
+  "hinweise": [
+   "Gib die Fläche als Term in x an: Länge mal Breite.",
+   "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+   "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 300,
+  "kann_entfallen": true,
+  "generator_hash": "626f4bcdce2a"
+ },
+ "pruefprotokoll": {
+  "gruen": 34,
+  "rot": 4,
+  "rot_anteil": 0.105,
+  "gruende": {
+   "7": 4
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "1: 13; 2: 169",
+   "2": "1: 17; 2: 578",
+   "3": "1: 6; 2: 36",
+   "4": "1: 12; 2: 288",
+   "5": "1: 4; 2: 32",
+   "6": "1: 9; 2: 162",
+   "7": "1: 2; 2: 8",
+   "8": "1: 20; 2: 800",
+   "9": "1: 8; 2: 64",
+   "10": "1: 18; 2: 324"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 32
+   },
+   "frage": "Mit 32 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "64"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "32"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (16 − x) m lang.",
+    "A(x) = x · (16 − x)",
+    "Nullstellen 0 und 16, Scheitel in der Mitte: x = 8",
+    "A = 8 · 8 = 64"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 68
+   },
+   "frage": "Mit 68 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "17"
+     ],
+     "2": [
+      "289"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "68"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "17"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (34 − x) m lang.",
+    "A(x) = x · (34 − x)",
+    "Nullstellen 0 und 34, Scheitel in der Mitte: x = 17",
+    "A = 17 · 17 = 289"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 72
+   },
+   "frage": "Mit 72 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "324"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "72"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (36 − x) m lang.",
+    "A(x) = x · (36 − x)",
+    "Nullstellen 0 und 36, Scheitel in der Mitte: x = 18",
+    "A = 18 · 18 = 324"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 56
+   },
+   "frage": "Mit 56 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "14"
+     ],
+     "2": [
+      "196"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "56"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "14"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (28 − x) m lang.",
+    "A(x) = x · (28 − x)",
+    "Nullstellen 0 und 28, Scheitel in der Mitte: x = 14",
+    "A = 14 · 14 = 196"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 48
+   },
+   "frage": "Mit 48 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12"
+     ],
+     "2": [
+      "144"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "48"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "12"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (24 − x) m lang.",
+    "A(x) = x · (24 − x)",
+    "Nullstellen 0 und 24, Scheitel in der Mitte: x = 12",
+    "A = 12 · 12 = 144"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 36
+   },
+   "frage": "Mit 36 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "81"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (18 − x) m lang.",
+    "A(x) = x · (18 − x)",
+    "Nullstellen 0 und 18, Scheitel in der Mitte: x = 9",
+    "A = 9 · 9 = 81"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 28
+   },
+   "frage": "Mit 28 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7"
+     ],
+     "2": [
+      "49"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "28"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (14 − x) m lang.",
+    "A(x) = x · (14 − x)",
+    "Nullstellen 0 und 14, Scheitel in der Mitte: x = 7",
+    "A = 7 · 7 = 49"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 12
+   },
+   "frage": "Mit 12 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "12"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (6 − x) m lang.",
+    "A(x) = x · (6 − x)",
+    "Nullstellen 0 und 6, Scheitel in der Mitte: x = 3",
+    "A = 3 · 3 = 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 60
+   },
+   "frage": "Mit 60 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "15"
+     ],
+     "2": [
+      "225"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "60"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "15"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (30 − x) m lang.",
+    "A(x) = x · (30 − x)",
+    "Nullstellen 0 und 30, Scheitel in der Mitte: x = 15",
+    "A = 15 · 15 = 225"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 20
+   },
+   "frage": "Mit 20 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5"
+     ],
+     "2": [
+      "25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "20"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (10 − x) m lang.",
+    "A(x) = x · (10 − x)",
+    "Nullstellen 0 und 10, Scheitel in der Mitte: x = 5",
+    "A = 5 · 5 = 25"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 64
+   },
+   "frage": "Mit 64 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "16"
+     ],
+     "2": [
+      "256"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "64"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (32 − x) m lang.",
+    "A(x) = x · (32 − x)",
+    "Nullstellen 0 und 32, Scheitel in der Mitte: x = 16",
+    "A = 16 · 16 = 256"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 80
+   },
+   "frage": "Mit 80 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "20"
+     ],
+     "2": [
+      "400"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "80"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "20"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (40 − x) m lang.",
+    "A(x) = x · (40 − x)",
+    "Nullstellen 0 und 40, Scheitel in der Mitte: x = 20",
+    "A = 20 · 20 = 400"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 52
+   },
+   "frage": "Mit 52 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "13"
+     ],
+     "2": [
+      "169"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "52"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "13"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (26 − x) m lang.",
+    "A(x) = x · (26 − x)",
+    "Nullstellen 0 und 26, Scheitel in der Mitte: x = 13",
+    "A = 13 · 13 = 169"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 16
+   },
+   "frage": "Mit 16 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4"
+     ],
+     "2": [
+      "16"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (8 − x) m lang.",
+    "A(x) = x · (8 − x)",
+    "Nullstellen 0 und 8, Scheitel in der Mitte: x = 4",
+    "A = 4 · 4 = 16"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "L": 44
+   },
+   "frage": "Mit 44 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "11"
+     ],
+     "2": [
+      "121"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "44"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "11"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (22 − x) m lang.",
+    "A(x) = x · (22 − x)",
+    "Nullstellen 0 und 22, Scheitel in der Mitte: x = 11",
+    "A = 11 · 11 = 121"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 24
+   },
+   "frage": "Mit 24 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "6"
+     ],
+     "2": [
+      "36"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "24"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "6"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (12 − x) m lang.",
+    "A(x) = x · (12 − x)",
+    "Nullstellen 0 und 12, Scheitel in der Mitte: x = 6",
+    "A = 6 · 6 = 36"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 40
+   },
+   "frage": "Mit 40 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10"
+     ],
+     "2": [
+      "100"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "40"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (20 − x) m lang.",
+    "A(x) = x · (20 − x)",
+    "Nullstellen 0 und 20, Scheitel in der Mitte: x = 10",
+    "A = 10 · 10 = 100"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 8
+   },
+   "frage": "Mit 8 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "4"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "8"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (4 − x) m lang.",
+    "A(x) = x · (4 − x)",
+    "Nullstellen 0 und 4, Scheitel in der Mitte: x = 2",
+    "A = 2 · 2 = 4"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "L": 76
+   },
+   "frage": "Mit 76 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "19"
+     ],
+     "2": [
+      "361"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "76"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "19"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die andere Seite ist (38 − x) m lang.",
+    "A(x) = x · (38 − x)",
+    "Nullstellen 0 und 38, Scheitel in der Mitte: x = 19",
+    "A = 19 · 19 = 361"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 56
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 56 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "14"
+     ],
+     "2": [
+      "392"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "56"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "14"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (56 − 2x) m lang.",
+    "A(x) = x · (56 − 2x)",
+    "Nullstellen 0 und 28, Scheitel in der Mitte: x = 14",
+    "A = 14 · 28 = 392"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 68
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 68 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "17"
+     ],
+     "2": [
+      "578"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "68"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "17"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (68 − 2x) m lang.",
+    "A(x) = x · (68 − 2x)",
+    "Nullstellen 0 und 34, Scheitel in der Mitte: x = 17",
+    "A = 17 · 34 = 578"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 72
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 72 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "18"
+     ],
+     "2": [
+      "648"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "72"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "18"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (72 − 2x) m lang.",
+    "A(x) = x · (72 − 2x)",
+    "Nullstellen 0 und 36, Scheitel in der Mitte: x = 18",
+    "A = 18 · 36 = 648"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 20
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 20 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5"
+     ],
+     "2": [
+      "50"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "20"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (20 − 2x) m lang.",
+    "A(x) = x · (20 − 2x)",
+    "Nullstellen 0 und 10, Scheitel in der Mitte: x = 5",
+    "A = 5 · 10 = 50"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 12
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 12 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "18"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "12"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (12 − 2x) m lang.",
+    "A(x) = x · (12 − 2x)",
+    "Nullstellen 0 und 6, Scheitel in der Mitte: x = 3",
+    "A = 3 · 6 = 18"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 76
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 76 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "19"
+     ],
+     "2": [
+      "722"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "76"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "19"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (76 − 2x) m lang.",
+    "A(x) = x · (76 − 2x)",
+    "Nullstellen 0 und 38, Scheitel in der Mitte: x = 19",
+    "A = 19 · 38 = 722"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 40
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 40 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "10"
+     ],
+     "2": [
+      "200"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "40"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "10"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (40 − 2x) m lang.",
+    "A(x) = x · (40 − 2x)",
+    "Nullstellen 0 und 20, Scheitel in der Mitte: x = 10",
+    "A = 10 · 20 = 200"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 48
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 48 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "12"
+     ],
+     "2": [
+      "288"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "48"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "12"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (48 − 2x) m lang.",
+    "A(x) = x · (48 − 2x)",
+    "Nullstellen 0 und 24, Scheitel in der Mitte: x = 12",
+    "A = 12 · 24 = 288"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 52
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 52 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "13"
+     ],
+     "2": [
+      "338"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "52"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "13"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (52 − 2x) m lang.",
+    "A(x) = x · (52 − 2x)",
+    "Nullstellen 0 und 26, Scheitel in der Mitte: x = 13",
+    "A = 13 · 26 = 338"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 80
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 80 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "20"
+     ],
+     "2": [
+      "800"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "80"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "20"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (80 − 2x) m lang.",
+    "A(x) = x · (80 − 2x)",
+    "Nullstellen 0 und 40, Scheitel in der Mitte: x = 20",
+    "A = 20 · 40 = 800"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 60
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 60 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "15"
+     ],
+     "2": [
+      "450"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "60"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "15"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (60 − 2x) m lang.",
+    "A(x) = x · (60 − 2x)",
+    "Nullstellen 0 und 30, Scheitel in der Mitte: x = 15",
+    "A = 15 · 30 = 450"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 64
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 64 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "16"
+     ],
+     "2": [
+      "512"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "64"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "16"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (64 − 2x) m lang.",
+    "A(x) = x · (64 − 2x)",
+    "Nullstellen 0 und 32, Scheitel in der Mitte: x = 16",
+    "A = 16 · 32 = 512"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 32
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 32 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "8"
+     ],
+     "2": [
+      "128"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "32"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "8"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (32 − 2x) m lang.",
+    "A(x) = x · (32 − 2x)",
+    "Nullstellen 0 und 16, Scheitel in der Mitte: x = 8",
+    "A = 8 · 16 = 128"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 36
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 36 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "9"
+     ],
+     "2": [
+      "162"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "36"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "9"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (36 − 2x) m lang.",
+    "A(x) = x · (36 − 2x)",
+    "Nullstellen 0 und 18, Scheitel in der Mitte: x = 9",
+    "A = 9 · 18 = 162"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "transfer",
+   "stufe": 5,
+   "params": {
+    "L": 8
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 8 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "8"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (8 − 2x) m lang.",
+    "A(x) = x · (8 − 2x)",
+    "Nullstellen 0 und 4, Scheitel in der Mitte: x = 2",
+    "A = 2 · 4 = 8"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 24
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 24 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "6"
+     ],
+     "2": [
+      "72"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "24"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "6"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (24 − 2x) m lang.",
+    "A(x) = x · (24 − 2x)",
+    "Nullstellen 0 und 12, Scheitel in der Mitte: x = 6",
+    "A = 6 · 12 = 72"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 44
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 44 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "11"
+     ],
+     "2": [
+      "242"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "44"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "11"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (44 − 2x) m lang.",
+    "A(x) = x · (44 − 2x)",
+    "Nullstellen 0 und 22, Scheitel in der Mitte: x = 11",
+    "A = 11 · 22 = 242"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 16
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 16 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "4"
+     ],
+     "2": [
+      "32"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "16"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "4"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (16 − 2x) m lang.",
+    "A(x) = x · (16 − 2x)",
+    "Nullstellen 0 und 8, Scheitel in der Mitte: x = 4",
+    "A = 4 · 8 = 32"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-1",
+   "rolle": "generalprobe",
+   "stufe": 5,
+   "params": {
+    "L": 28
+   },
+   "frage": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 28 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7"
+     ],
+     "2": [
+      "98"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_umfang_statt_flaeche",
+     "teil": 2,
+     "wert": "28"
+    },
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7"
+    }
+   ],
+   "hinweise": [
+    "Gib die Fläche als Term in x an: Länge mal Breite.",
+    "A(x) ist eine quadratische Funktion. Wo liegt ihr Scheitel?",
+    "Die Nullstellen von A(x) helfen: Der Scheitel liegt genau in der Mitte."
+   ],
+   "loesungsweg": [
+    "Die Seite gegenüber der Wand ist (28 − 2x) m lang.",
+    "A(x) = x · (28 − 2x)",
+    "Nullstellen 0 und 14, Scheitel in der Mitte: x = 7",
+    "A = 7 · 14 = 98"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "x in Metern"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Fläche in Quadratmetern"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,3387 @@
+{
+ "schluessel": "EX-2",
+ "skill": "fkt_quadr_extrem",
+ "kernidee": "fkt_quadr_extrem:K1",
+ "format": "mehrteiler",
+ "rollen": [
+  "transfer",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "{kontext}",
+  "stufen": {
+   "3": "h(t) = −5t² + bt + c mit b = 10, 20, 30",
+   "4": "b = 5, 15, 25, 35: der Scheitel liegt bei einer halben Sekunde"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_stelle_statt_wert",
+    "regel": "in Teil 2 t statt h",
+    "gilt_fuer_stufen": [
+     3,
+     4
+    ],
+    "rueckmeldung": "Gefragt ist die Höhe, also der Wert h am Scheitel, nicht die Zeit."
+   }
+  ],
+  "hinweise": [
+   "Die größte Höhe liegt am Scheitel der Parabel.",
+   "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+   "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 240,
+  "kann_entfallen": true,
+  "generator_hash": "eba4b67d4f45"
+ },
+ "pruefprotokoll": {
+  "gruen": 40,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "1: 1,5; 2: 14,25",
+   "2": "1: 2; 2: 24",
+   "3": "1: 2,5; 2: 34,25",
+   "4": "1: 1; 2: 9",
+   "5": "1: 3,5; 2: 70,25",
+   "6": "1: 1; 2: 20",
+   "7": "1: 0,5; 2: 13,25",
+   "8": "1: 3; 2: 52",
+   "9": "1: 0,5; 2: 5,25",
+   "10": "1: 2,5; 2: 49,25"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 10,
+    "c": 4
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 4 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1"
+     ],
+     "2": [
+      "9"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 10t + 4",
+    "= −5(t² − 2t) + 4",
+    "= −5(t − 1)² + 9",
+    "Scheitel S(1 | 9): nach 1 s, 9 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 14
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 14 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "59"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 14",
+    "= −5(t² − 6t) + 14",
+    "= −5(t − 3)² + 59",
+    "Scheitel S(3 | 59): nach 3 s, 59 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 19
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 19 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "64"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 19",
+    "= −5(t² − 6t) + 19",
+    "= −5(t − 3)² + 64",
+    "Scheitel S(3 | 64): nach 3 s, 64 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 10,
+    "c": 14
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 14 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1"
+     ],
+     "2": [
+      "19"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 10t + 14",
+    "= −5(t² − 2t) + 14",
+    "= −5(t − 1)² + 19",
+    "Scheitel S(1 | 19): nach 1 s, 19 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 7
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 7 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "52"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 7",
+    "= −5(t² − 6t) + 7",
+    "= −5(t − 3)² + 52",
+    "Scheitel S(3 | 52): nach 3 s, 52 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 9
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 9 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "54"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 9",
+    "= −5(t² − 6t) + 9",
+    "= −5(t − 3)² + 54",
+    "Scheitel S(3 | 54): nach 3 s, 54 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 8
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 8 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "28"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 8",
+    "= −5(t² − 4t) + 8",
+    "= −5(t − 2)² + 28",
+    "Scheitel S(2 | 28): nach 2 s, 28 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 12
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 12 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "32"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 12",
+    "= −5(t² − 4t) + 12",
+    "= −5(t − 2)² + 32",
+    "Scheitel S(2 | 32): nach 2 s, 32 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 8
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 8 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "53"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 8",
+    "= −5(t² − 6t) + 8",
+    "= −5(t − 3)² + 53",
+    "Scheitel S(3 | 53): nach 3 s, 53 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 19
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 19 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "39"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 19",
+    "= −5(t² − 4t) + 19",
+    "= −5(t − 2)² + 39",
+    "Scheitel S(2 | 39): nach 2 s, 39 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 10,
+    "c": 15
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 15 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1"
+     ],
+     "2": [
+      "20"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 10t + 15",
+    "= −5(t² − 2t) + 15",
+    "= −5(t − 1)² + 20",
+    "Scheitel S(1 | 20): nach 1 s, 20 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 17
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 17 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "62"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 17",
+    "= −5(t² − 6t) + 17",
+    "= −5(t − 3)² + 62",
+    "Scheitel S(3 | 62): nach 3 s, 62 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 10,
+    "c": 18
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 18 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1"
+     ],
+     "2": [
+      "23"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 10t + 18",
+    "= −5(t² − 2t) + 18",
+    "= −5(t − 1)² + 23",
+    "Scheitel S(1 | 23): nach 1 s, 23 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 4
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 4 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "24"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 4",
+    "= −5(t² − 4t) + 4",
+    "= −5(t − 2)² + 24",
+    "Scheitel S(2 | 24): nach 2 s, 24 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 7
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 7 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "27"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 7",
+    "= −5(t² − 4t) + 7",
+    "= −5(t − 2)² + 27",
+    "Scheitel S(2 | 27): nach 2 s, 27 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 13
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 13 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "33"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 13",
+    "= −5(t² − 4t) + 13",
+    "= −5(t − 2)² + 33",
+    "Scheitel S(2 | 33): nach 2 s, 33 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 5
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 5 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 5",
+    "= −5(t² − 4t) + 5",
+    "= −5(t − 2)² + 25",
+    "Scheitel S(2 | 25): nach 2 s, 25 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 20,
+    "c": 6
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 6 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "2"
+     ],
+     "2": [
+      "26"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 20t + 6",
+    "= −5(t² − 4t) + 6",
+    "= −5(t − 2)² + 26",
+    "Scheitel S(2 | 26): nach 2 s, 26 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 30,
+    "c": 4
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 30t + 4 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3"
+     ],
+     "2": [
+      "49"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 30t + 4",
+    "= −5(t² − 6t) + 4",
+    "= −5(t − 3)² + 49",
+    "Scheitel S(3 | 49): nach 3 s, 49 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "b": 10,
+    "c": 5
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 5 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1"
+     ],
+     "2": [
+      "10"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 10t + 5",
+    "= −5(t² − 2t) + 5",
+    "= −5(t − 1)² + 10",
+    "Scheitel S(1 | 10): nach 1 s, 10 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 25,
+    "c": 2
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 2 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5/2",
+      "2,5",
+      "2.5"
+     ],
+     "2": [
+      "133/4",
+      "33,25",
+      "33.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 25t + 2",
+    "= −5(t² − 5t) + 2",
+    "= −5(t − 5/2)² + 133/4",
+    "Scheitel S(5/2 | 133/4): nach 5/2 s, 133/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 15,
+    "c": 15
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 15t + 15 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3/2",
+      "1,5",
+      "1.5"
+     ],
+     "2": [
+      "105/4",
+      "26,25",
+      "26.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 15t + 15",
+    "= −5(t² − 3t) + 15",
+    "= −5(t − 3/2)² + 105/4",
+    "Scheitel S(3/2 | 105/4): nach 3/2 s, 105/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 35,
+    "c": 13
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 35t + 13 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7/2",
+      "3,5",
+      "3.5"
+     ],
+     "2": [
+      "297/4",
+      "74,25",
+      "74.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 35t + 13",
+    "= −5(t² − 7t) + 13",
+    "= −5(t − 7/2)² + 297/4",
+    "Scheitel S(7/2 | 297/4): nach 7/2 s, 297/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 5,
+    "c": 6
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 5t + 6 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1/2",
+      "0,5",
+      "0.5"
+     ],
+     "2": [
+      "29/4",
+      "7,25",
+      "7.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 5t + 6",
+    "= −5(t² − 1t) + 6",
+    "= −5(t − 1/2)² + 29/4",
+    "Scheitel S(1/2 | 29/4): nach 1/2 s, 29/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 5,
+    "c": 4
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 5t + 4 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1/2",
+      "0,5",
+      "0.5"
+     ],
+     "2": [
+      "21/4",
+      "5,25",
+      "5.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 5t + 4",
+    "= −5(t² − 1t) + 4",
+    "= −5(t − 1/2)² + 21/4",
+    "Scheitel S(1/2 | 21/4): nach 1/2 s, 21/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 5,
+    "c": 19
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 5t + 19 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1/2",
+      "0,5",
+      "0.5"
+     ],
+     "2": [
+      "81/4",
+      "20,25",
+      "20.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 5t + 19",
+    "= −5(t² − 1t) + 19",
+    "= −5(t − 1/2)² + 81/4",
+    "Scheitel S(1/2 | 81/4): nach 1/2 s, 81/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 25,
+    "c": 17
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 17 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5/2",
+      "2,5",
+      "2.5"
+     ],
+     "2": [
+      "193/4",
+      "48,25",
+      "48.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 25t + 17",
+    "= −5(t² − 5t) + 17",
+    "= −5(t − 5/2)² + 193/4",
+    "Scheitel S(5/2 | 193/4): nach 5/2 s, 193/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 25,
+    "c": 16
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 16 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5/2",
+      "2,5",
+      "2.5"
+     ],
+     "2": [
+      "189/4",
+      "47,25",
+      "47.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 25t + 16",
+    "= −5(t² − 5t) + 16",
+    "= −5(t − 5/2)² + 189/4",
+    "Scheitel S(5/2 | 189/4): nach 5/2 s, 189/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 25,
+    "c": 18
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 18 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5/2",
+      "2,5",
+      "2.5"
+     ],
+     "2": [
+      "197/4",
+      "49,25",
+      "49.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 25t + 18",
+    "= −5(t² − 5t) + 18",
+    "= −5(t − 5/2)² + 197/4",
+    "Scheitel S(5/2 | 197/4): nach 5/2 s, 197/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 15,
+    "c": 9
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 15t + 9 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3/2",
+      "1,5",
+      "1.5"
+     ],
+     "2": [
+      "81/4",
+      "20,25",
+      "20.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 15t + 9",
+    "= −5(t² − 3t) + 9",
+    "= −5(t − 3/2)² + 81/4",
+    "Scheitel S(3/2 | 81/4): nach 3/2 s, 81/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 35,
+    "c": 2
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 35t + 2 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7/2",
+      "3,5",
+      "3.5"
+     ],
+     "2": [
+      "253/4",
+      "63,25",
+      "63.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 35t + 2",
+    "= −5(t² − 7t) + 2",
+    "= −5(t − 7/2)² + 253/4",
+    "Scheitel S(7/2 | 253/4): nach 7/2 s, 253/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 35,
+    "c": 17
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 35t + 17 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7/2",
+      "3,5",
+      "3.5"
+     ],
+     "2": [
+      "313/4",
+      "78,25",
+      "78.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 35t + 17",
+    "= −5(t² − 7t) + 17",
+    "= −5(t − 7/2)² + 313/4",
+    "Scheitel S(7/2 | 313/4): nach 7/2 s, 313/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 35,
+    "c": 3
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 35t + 3 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7/2",
+      "3,5",
+      "3.5"
+     ],
+     "2": [
+      "257/4",
+      "64,25",
+      "64.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 35t + 3",
+    "= −5(t² − 7t) + 3",
+    "= −5(t − 7/2)² + 257/4",
+    "Scheitel S(7/2 | 257/4): nach 7/2 s, 257/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 35,
+    "c": 9
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 35t + 9 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "7/2",
+      "3,5",
+      "3.5"
+     ],
+     "2": [
+      "281/4",
+      "70,25",
+      "70.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "7/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 35t + 9",
+    "= −5(t² − 7t) + 9",
+    "= −5(t − 7/2)² + 281/4",
+    "Scheitel S(7/2 | 281/4): nach 7/2 s, 281/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "transfer",
+   "stufe": 4,
+   "params": {
+    "b": 15,
+    "c": 3
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 15t + 3 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3/2",
+      "1,5",
+      "1.5"
+     ],
+     "2": [
+      "57/4",
+      "14,25",
+      "14.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 15t + 3",
+    "= −5(t² − 3t) + 3",
+    "= −5(t − 3/2)² + 57/4",
+    "Scheitel S(3/2 | 57/4): nach 3/2 s, 57/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 15,
+    "c": 11
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 15t + 11 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "3/2",
+      "1,5",
+      "1.5"
+     ],
+     "2": [
+      "89/4",
+      "22,25",
+      "22.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "3/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 15t + 11",
+    "= −5(t² − 3t) + 11",
+    "= −5(t − 3/2)² + 89/4",
+    "Scheitel S(3/2 | 89/4): nach 3/2 s, 89/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 25,
+    "c": 3
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 3 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5/2",
+      "2,5",
+      "2.5"
+     ],
+     "2": [
+      "137/4",
+      "34,25",
+      "34.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 25t + 3",
+    "= −5(t² − 5t) + 3",
+    "= −5(t − 5/2)² + 137/4",
+    "Scheitel S(5/2 | 137/4): nach 5/2 s, 137/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 5,
+    "c": 12
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 5t + 12 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1/2",
+      "0,5",
+      "0.5"
+     ],
+     "2": [
+      "53/4",
+      "13,25",
+      "13.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 5t + 12",
+    "= −5(t² − 1t) + 12",
+    "= −5(t − 1/2)² + 53/4",
+    "Scheitel S(1/2 | 53/4): nach 1/2 s, 53/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 25,
+    "c": 9
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 9 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "5/2",
+      "2,5",
+      "2.5"
+     ],
+     "2": [
+      "161/4",
+      "40,25",
+      "40.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "5/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 25t + 9",
+    "= −5(t² − 5t) + 9",
+    "= −5(t − 5/2)² + 161/4",
+    "Scheitel S(5/2 | 161/4): nach 5/2 s, 161/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  },
+  {
+   "bauform": "EX-2",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "b": 5,
+    "c": 10
+   },
+   "frage": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 5t + 10 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+   "input_type": "MULTI_PART",
+   "payload": null,
+   "loesung": {
+    "teile": {
+     "1": [
+      "1/2",
+      "0,5",
+      "0.5"
+     ],
+     "2": [
+      "45/4",
+      "11,25",
+      "11.25"
+     ]
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_stelle_statt_wert",
+     "teil": 2,
+     "wert": "1/2"
+    }
+   ],
+   "hinweise": [
+    "Die größte Höhe liegt am Scheitel der Parabel.",
+    "Bring h(t) in die Scheitelpunktform oder nutze die Symmetrie.",
+    "Die Zeit ist die erste Koordinate des Scheitels, die Höhe die zweite."
+   ],
+   "loesungsweg": [
+    "h(t) = −5t² + 5t + 10",
+    "= −5(t² − 1t) + 10",
+    "= −5(t − 1/2)² + 45/4",
+    "Scheitel S(1/2 | 45/4): nach 1/2 s, 45/4 m hoch"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": [
+    {
+     "nr": 1,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "Zeitpunkt in Sekunden"
+    },
+    {
+     "nr": 2,
+     "afb": null,
+     "kind": "short_input",
+     "unit": null,
+     "prompt": "größte Höhe in Metern"
+    }
+   ]
+  }
+ ]
+}

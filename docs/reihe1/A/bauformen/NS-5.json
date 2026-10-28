@@ -1,0 +1,1500 @@
+{
+ "schluessel": "NS-5",
+ "skill": "fkt_quadr_nullstellen",
+ "kernidee": "fkt_quadr_nullstellen:K2",
+ "format": "bausteine",
+ "rollen": [
+  "recap",
+  "transfer"
+ ],
+ "steckbrief": {
+  "text": "Wie viele Nullstellen hat f(x) = {term}? Wähle die richtige Begründung, ohne zu rechnen.",
+  "stufen": {
+   "3": "f(x) = a(x − d)² + e mit e ≠ 0; Öffnung und Lage des Scheitels entscheiden"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_scheitel_statt_nullstelle",
+    "regel": "„Der Scheitel ist die Nullstelle“",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Eine Nullstelle liegt auf der x-Achse. Liegt der Scheitel dort?"
+   },
+   {
+    "key": "qf_oeffnung_aus_e",
+    "regel": "Öffnung aus e gelesen",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Die Öffnung hängt von der Zahl vor der Klammer ab, nicht von der Zahl hinten."
+   }
+  ],
+  "hinweise": [
+   "Wo liegt der Scheitel: über oder unter der x-Achse?",
+   "Ist die Parabel nach oben oder nach unten geöffnet?",
+   "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "4afd80dc9e62"
+ },
+ "pruefprotokoll": {
+  "gruen": 15,
+  "rot": 1,
+  "rot_anteil": 0.062,
+  "gruende": {
+   "7": 1
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "C",
+   "2": "D",
+   "3": "B",
+   "4": "A",
+   "5": "C",
+   "6": "C",
+   "7": "B",
+   "8": "A",
+   "9": "A",
+   "10": "B"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": -3
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = (x + 1)² − 3? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Eine: Der Scheitel S(−1 | −3) ist die Nullstelle."
+     },
+     {
+      "id": "d",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "d"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−1 | −3) liegt unter der x-Achse.",
+    "a = 1: nach oben geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -2,
+    "e": 8
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x + 2)² + 8? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Der Scheitel liegt über der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Keine: Der Scheitel liegt über der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−2 | 8) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "b"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−2 | 8) liegt über der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -4,
+    "e": 2
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x + 4)² + 2? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Eine: Der Scheitel S(−4 | 2) ist die Nullstelle."
+     },
+     {
+      "id": "b",
+      "text": "Keine: Der Scheitel liegt über der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Der Scheitel liegt über der x-Achse, und die Parabel ist nach unten geöffnet."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "d"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "a"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−4 | 2) liegt über der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -1,
+    "e": -8
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = −2(x + 1)² − 8? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−1 | −8) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "b"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−1 | −8) liegt unter der x-Achse.",
+    "a = −2: nach unten geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -3,
+    "e": 2
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = −2(x + 3)² + 2? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Eine: Der Scheitel S(−3 | 2) ist die Nullstelle."
+     },
+     {
+      "id": "b",
+      "text": "Keine: Der Scheitel liegt über der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Der Scheitel liegt über der x-Achse, und die Parabel ist nach unten geöffnet."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "b"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "a"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−3 | 2) liegt über der x-Achse.",
+    "a = −2: nach unten geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -1,
+    "e": -4
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x + 1)² − 4? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Eine: Der Scheitel S(−1 | −4) ist die Nullstelle."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "c"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "a"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−1 | −4) liegt unter der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -4,
+    "e": -8
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x + 4)² − 8? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "b",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−4 | −8) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "b"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−4 | −8) liegt unter der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -2,
+    "e": -6
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x + 2)² − 6? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "c",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−2 | −6) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "c"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−2 | −6) liegt unter der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": -1,
+    "d": -3,
+    "e": -6
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = −(x + 3)² − 6? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Eine: Der Scheitel S(−3 | −6) ist die Nullstelle."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "c"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−3 | −6) liegt unter der x-Achse.",
+    "a = −1: nach unten geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": -1,
+    "d": -2,
+    "e": -7
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = −(x + 2)² − 7? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Eine: Der Scheitel S(−2 | −7) ist die Nullstelle."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "a"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "c"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "b"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−2 | −7) liegt unter der x-Achse.",
+    "a = −1: nach unten geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -5,
+    "e": 4
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x + 5)² + 4? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Der Scheitel liegt über der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "c",
+      "text": "Keine: Der Scheitel liegt über der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−5 | 4) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "a"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−5 | 4) liegt über der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": 1,
+    "e": 7
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = 2(x − 1)² + 7? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Der Scheitel liegt über der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Keine: Der Scheitel liegt über der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Eine: Der Scheitel S(1 | 7) ist die Nullstelle."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "a"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "c"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(1 | 7) liegt über der x-Achse.",
+    "a = 2: nach oben geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": -5
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = (x + 1)² − 5? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−1 | −5) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "a"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−1 | −5) liegt unter der x-Achse.",
+    "a = 1: nach oben geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -3,
+    "e": -1
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = −2(x + 3)² − 1? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "b",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−3 | −1) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "c"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "b"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−3 | −1) liegt unter der x-Achse.",
+    "a = −2: nach unten geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "recap",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -2,
+    "e": -1
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = −2(x + 2)² − 1? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     },
+     {
+      "id": "b",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "d",
+      "text": "Eine: Der Scheitel S(−2 | −1) ist die Nullstelle."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "b"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "a"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "d"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(−2 | −1) liegt unter der x-Achse.",
+    "a = −2: nach unten geöffnet.",
+    "Die Parabel entfernt sich von der x-Achse: keine Nullstelle."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-5",
+   "rolle": "transfer",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 5,
+    "e": -2
+   },
+   "frage": "Wie viele Nullstellen hat f(x) = (x − 5)² − 2? Wähle die richtige Begründung, ohne zu rechnen.",
+   "input_type": "BAUSTEINE",
+   "payload": {
+    "format": "bausteine",
+    "bausteine": [
+     {
+      "id": "a",
+      "text": "Eine: Der Scheitel S(5 | −2) ist die Nullstelle."
+     },
+     {
+      "id": "b",
+      "text": "Keine: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach unten geöffnet."
+     },
+     {
+      "id": "c",
+      "text": "Zwei: Jede Parabel schneidet die x-Achse zweimal."
+     },
+     {
+      "id": "d",
+      "text": "Zwei: Der Scheitel liegt unter der x-Achse, und die Parabel ist nach oben geöffnet."
+     }
+    ],
+    "anzahl": 1
+   },
+   "loesung": {
+    "gewaehlt": [
+     "d"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_oeffnung_aus_e",
+     "gewaehlt": [
+      "b"
+     ]
+    },
+    {
+     "key": "qf_scheitel_statt_nullstelle",
+     "gewaehlt": [
+      "a"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Wo liegt der Scheitel: über oder unter der x-Achse?",
+    "Ist die Parabel nach oben oder nach unten geöffnet?",
+    "Kann die Parabel von ihrem Scheitel aus die x-Achse erreichen?"
+   ],
+   "loesungsweg": [
+    "Scheitel S(5 | −2) liegt unter der x-Achse.",
+    "a = 1: nach oben geöffnet.",
+    "Die Parabel läuft auf die x-Achse zu: zwei Nullstellen."
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

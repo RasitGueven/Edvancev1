@@ -1,0 +1,5158 @@
+{
+ "schluessel": "NS-3",
+ "skill": "fkt_quadr_nullstellen",
+ "kernidee": "fkt_quadr_nullstellen:K1",
+ "format": "loesungsmenge",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "beispiel",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Bestimme die Nullstellen von f(x) = {term}.",
+  "stufen": {
+   "1": "f(x) = (x − p)(x − q), p und q von −9 bis 9",
+   "2": "f(x) = a(x − p)(x − q) mit a ∈ {−2, 2, 3} oder f(x) = x(x − p)"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_nullprodukt_vorzeichen",
+    "regel": "{−p; −q}",
+    "gilt_fuer_stufen": [
+     1,
+     2
+    ],
+    "rueckmeldung": "Für welches x wird die Klammer null? Aus (x − 3) wird x = 3."
+   },
+   {
+    "key": "qf_null_vergessen",
+    "regel": "bei x(x − p) nur p",
+    "gilt_fuer_stufen": [
+     2
+    ],
+    "rueckmeldung": "Auch der Faktor x allein kann null werden."
+   }
+  ],
+  "hinweise": [
+   "Nullstellen heißt: f(x) = 0.",
+   "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+   "Setz jeden Faktor mit x einzeln gleich null."
+  ],
+  "loesungsweg": [],
+  "warum": {
+   "bei_schritt": 1,
+   "frage": "Warum spielt die Zahl vor den Klammern keine Rolle?",
+   "bausteine": [
+    {
+     "id": "a",
+     "text": "Eine Zahl ungleich 0 macht das Produkt nicht zu 0. Nur die Klammern können 0 werden."
+    },
+    {
+     "id": "b",
+     "text": "Weil man die Zahl einfach weglassen darf."
+    },
+    {
+     "id": "c",
+     "text": "Weil die Zahl immer 1 ist."
+    }
+   ],
+   "richtig": "a"
+  },
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 60,
+  "kann_entfallen": false,
+  "generator_hash": "f95253d1fa49"
+ },
+ "pruefprotokoll": {
+  "gruen": 61,
+  "rot": 3,
+  "rot_anteil": 0.047,
+  "gruende": {
+   "7": 3
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "−3; 6",
+   "2": "1; −4",
+   "3": "1; 9",
+   "4": "−6; 3",
+   "5": "−8; 6",
+   "6": "0; 8",
+   "7": "8; 1",
+   "8": "6; 2",
+   "9": "−7; −3",
+   "10": "0; 2"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": -4,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 5)(x + 4).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "4",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 5)(x + 4) = 0",
+    "x = −5 oder x = −4",
+    "L = {−5; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": -4,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 2)(x + 4).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "2",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 2)(x + 4) = 0",
+    "x = −4 oder x = −2",
+    "L = {−4; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": -3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 9)(x + 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 9)(x + 3) = 0",
+    "x = −3 oder x = 9",
+    "L = {−3; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 8)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 8)(x − 6) = 0",
+    "x = −8 oder x = 6",
+    "L = {−8; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": -9,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 5)(x + 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "5",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 5)(x + 9) = 0",
+    "x = −9 oder x = −5",
+    "L = {−9; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": 2,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 3)(x − 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-2",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 3)(x − 2) = 0",
+    "x = −3 oder x = 2",
+    "L = {−3; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": -8,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 2)(x + 8).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-2",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 2)(x + 8) = 0",
+    "x = −8 oder x = 2",
+    "L = {−8; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": 3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 8)(x − 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-3",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 8)(x − 3) = 0",
+    "x = −8 oder x = 3",
+    "L = {−8; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": 8,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 7)(x − 8).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 7)(x − 8) = 0",
+    "x = −7 oder x = 8",
+    "L = {−7; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": 5,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 1)(x − 5).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 1)(x − 5) = 0",
+    "x = −1 oder x = 5",
+    "L = {−1; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 1,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 1)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 1)(x − 6) = 0",
+    "x = 1 oder x = 6",
+    "L = {1; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": 5,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 3)(x − 5).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 3)(x − 5) = 0",
+    "x = −3 oder x = 5",
+    "L = {−3; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": 2,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 9)(x − 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 9)(x − 2) = 0",
+    "x = 2 oder x = 9",
+    "L = {2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": 1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 5)(x − 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 5)(x − 1) = 0",
+    "x = 1 oder x = 5",
+    "L = {1; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": -1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 7)(x + 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "1",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 7)(x + 1) = 0",
+    "x = −7 oder x = −1",
+    "L = {−7; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": 4,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 1)(x − 4).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 1)(x − 4) = 0",
+    "x = −1 oder x = 4",
+    "L = {−1; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -4,
+    "q": -3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 4)(x + 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "3",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 4)(x + 3) = 0",
+    "x = −4 oder x = −3",
+    "L = {−4; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": -6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 9)(x + 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 9)(x + 6) = 0",
+    "x = −6 oder x = 9",
+    "L = {−6; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -9,
+    "q": -3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 9)(x + 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "3",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 9)(x + 3) = 0",
+    "x = −9 oder x = −3",
+    "L = {−9; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": -8,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 9)(x + 8).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 9)(x + 8) = 0",
+    "x = −8 oder x = 9",
+    "L = {−8; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -6,
+    "q": 3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 6)(x − 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-3",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 6)(x − 3) = 0",
+    "x = −6 oder x = 3",
+    "L = {−6; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 5)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 5)(x − 6) = 0",
+    "x = −5 oder x = 6",
+    "L = {−5; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": -3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 7)(x + 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "3",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 7)(x + 3) = 0",
+    "x = −7 oder x = −3",
+    "L = {−7; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -8,
+    "q": 1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 8)(x − 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-1",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 8)(x − 1) = 0",
+    "x = −8 oder x = 1",
+    "L = {−8; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -4,
+    "q": -1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 4)(x + 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "1",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 4)(x + 1) = 0",
+    "x = −4 oder x = −1",
+    "L = {−4; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 3)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 3)(x − 6) = 0",
+    "x = 3 oder x = 6",
+    "L = {3; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 3,
+    "q": -7,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 3)(x + 7).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-3",
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 3)(x + 7) = 0",
+    "x = −7 oder x = 3",
+    "L = {−7; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": -9,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 1)(x + 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "1",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 1)(x + 9) = 0",
+    "x = −9 oder x = −1",
+    "L = {−9; −1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-1",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -5,
+    "q": 1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 5)(x − 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-1",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 5)(x − 1) = 0",
+    "x = −5 oder x = 1",
+    "L = {−5; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": 6,
+    "q": 2,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x − 6)(x − 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x − 6)(x − 2) = 0",
+    "x = 2 oder x = 6",
+    "L = {2; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -4,
+    "q": -2,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 4)(x + 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "-2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "2",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 4)(x + 2) = 0",
+    "x = −4 oder x = −2",
+    "L = {−4; −2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-2",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "p": -4,
+    "q": -5,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = (x + 4)(x + 5).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "-4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "4",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "(x + 4)(x + 5) = 0",
+    "x = −5 oder x = −4",
+    "L = {−5; −4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-4",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 2,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x − 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-2",
+      "0"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x − 2) = 0",
+    "x = 0 oder x = 2",
+    "L = {0; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 9,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x − 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "0"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x − 9) = 0",
+    "x = 0 oder x = 9",
+    "L = {0; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 8,
+    "q": -9,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x − 8)(x + 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x − 8)(x + 9) = 0",
+    "x = −9 oder x = 8",
+    "L = {−9; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 6,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "0"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x − 6) = 0",
+    "x = 0 oder x = 6",
+    "L = {0; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -3,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x + 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "0",
+      "3"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x + 3) = 0",
+    "x = −3 oder x = 0",
+    "L = {−3; 0}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "0",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": -5,
+    "q": -6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x + 5)(x + 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "5",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x + 5)(x + 6) = 0",
+    "x = −6 oder x = −5",
+    "L = {−6; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -3,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x + 3)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-3",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x + 3)(x − 6) = 0",
+    "x = −3 oder x = 6",
+    "L = {−3; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 4,
+    "q": -2,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x − 4)(x + 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x − 4)(x + 2) = 0",
+    "x = −2 oder x = 4",
+    "L = {−2; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 3,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x − 3)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x − 3)(x − 6) = 0",
+    "x = 3 oder x = 6",
+    "L = {3; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 2,
+    "q": 9,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x − 2)(x − 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x − 2)(x − 9) = 0",
+    "x = 2 oder x = 9",
+    "L = {2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -1,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x + 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "0",
+      "1"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x + 1) = 0",
+    "x = −1 oder x = 0",
+    "L = {−1; 0}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "0",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 5,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x − 5).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "0"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x − 5) = 0",
+    "x = 0 oder x = 5",
+    "L = {0; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": -2,
+    "p": 1,
+    "q": 4,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = −2(x − 1)(x − 4).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "−2(x − 1)(x − 4) = 0",
+    "x = 1 oder x = 4",
+    "L = {1; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 8,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x − 8).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "0"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x − 8) = 0",
+    "x = 0 oder x = 8",
+    "L = {0; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -7,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x + 7).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-7",
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "0",
+      "7"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "-7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x + 7) = 0",
+    "x = −7 oder x = 0",
+    "L = {−7; 0}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "0",
+      "-7"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 1,
+    "q": -4,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x − 1)(x + 4).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "1"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-1",
+      "4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x − 1)(x + 4) = 0",
+    "x = −4 oder x = 1",
+    "L = {−4; 1}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "1",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -5,
+    "q": -8,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x + 5)(x + 8).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "5",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x + 5)(x + 8) = 0",
+    "x = −8 oder x = −5",
+    "L = {−8; −5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-5",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": -8,
+    "q": -3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x + 8)(x + 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "-3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "3",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x + 8)(x + 3) = 0",
+    "x = −8 oder x = −3",
+    "L = {−8; −3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-3",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 8,
+    "q": 3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x − 8)(x − 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "3",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "-3"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x − 8)(x − 3) = 0",
+    "x = 3 oder x = 8",
+    "L = {3; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "3"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -2,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x + 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "0",
+      "2"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x + 2) = 0",
+    "x = −2 oder x = 0",
+    "L = {−2; 0}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "0",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 4,
+    "q": -1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x − 4)(x + 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "4"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-4",
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x − 4)(x + 1) = 0",
+    "x = −1 oder x = 4",
+    "L = {−1; 4}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "4",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": 7,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x − 7).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "0",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-7",
+      "0"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "7"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x − 7) = 0",
+    "x = 0 oder x = 7",
+    "L = {0; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "0"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 1,
+    "q": 9,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x − 1)(x − 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x − 1)(x − 9) = 0",
+    "x = 1 oder x = 9",
+    "L = {1; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": -2,
+    "p": -6,
+    "q": 2,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = −2(x + 6)(x − 2).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-6",
+     "2"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-2",
+      "6"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "−2(x + 6)(x − 2) = 0",
+    "x = −6 oder x = 2",
+    "L = {−6; 2}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "2",
+      "-6"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "p": -4,
+    "q": 0,
+    "form": "x"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = x(x + 4).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-4",
+     "0"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "0",
+      "4"
+     ]
+    },
+    {
+     "key": "qf_null_vergessen",
+     "menge": [
+      "-4"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "x(x + 4) = 0",
+    "x = −4 oder x = 0",
+    "L = {−4; 0}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "0",
+      "-4"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -8,
+    "q": 6,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x + 8)(x − 6).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-8",
+     "6"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-6",
+      "8"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x + 8)(x − 6) = 0",
+    "x = −8 oder x = 6",
+    "L = {−8; 6}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "6",
+      "-8"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": -2,
+    "p": -1,
+    "q": 5,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = −2(x + 1)(x − 5).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-1",
+     "5"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-5",
+      "1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "−2(x + 1)(x − 5) = 0",
+    "x = −1 oder x = 5",
+    "L = {−1; 5}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "5",
+      "-1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": -5,
+    "q": 7,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x + 5)(x − 7).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-5",
+     "7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-7",
+      "5"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x + 5)(x − 7) = 0",
+    "x = −5 oder x = 7",
+    "L = {−5; 7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "7",
+      "-5"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": -2,
+    "p": -9,
+    "q": -7,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = −2(x + 9)(x + 7).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-9",
+     "-7"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "7",
+      "9"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "−2(x + 9)(x + 7) = 0",
+    "x = −9 oder x = −7",
+    "L = {−9; −7}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "-7",
+      "-9"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 2,
+    "p": 8,
+    "q": 1,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 2(x − 8)(x − 1).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "1",
+     "8"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-8",
+      "-1"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "2(x − 8)(x − 1) = 0",
+    "x = 1 oder x = 8",
+    "L = {1; 8}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "8",
+      "1"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "beispiel",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": -2,
+    "q": 3,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x + 2)(x − 3).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "-2",
+     "3"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-3",
+      "2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x + 2)(x − 3) = 0",
+    "x = −2 oder x = 3",
+    "L = {−2; 3}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "3",
+      "-2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NS-3",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 3,
+    "p": 2,
+    "q": 9,
+    "form": "pq"
+   },
+   "frage": "Bestimme die Nullstellen von f(x) = 3(x − 2)(x − 9).",
+   "input_type": "LOESUNGSMENGE",
+   "payload": {
+    "format": "loesungsmenge",
+    "element": "zahl",
+    "max_felder": 3,
+    "variable": "x"
+   },
+   "loesung": {
+    "menge": [
+     "2",
+     "9"
+    ]
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_nullprodukt_vorzeichen",
+     "menge": [
+      "-9",
+      "-2"
+     ]
+    }
+   ],
+   "hinweise": [
+    "Nullstellen heißt: f(x) = 0.",
+    "Ein Produkt ist 0, wenn ein Faktor 0 ist.",
+    "Setz jeden Faktor mit x einzeln gleich null."
+   ],
+   "loesungsweg": [
+    "f(x) = 0",
+    "3(x − 2)(x − 9) = 0",
+    "x = 2 oder x = 9",
+    "L = {2; 9}"
+   ],
+   "schreibweisen": [
+    {
+     "werte": [
+      "9",
+      "2"
+     ]
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

@@ -1,0 +1,7990 @@
+{
+ "schluessel": "NF-1",
+ "skill": "fkt_quadr_normalform",
+ "kernidee": "fkt_quadr_normalform:K1",
+ "format": "feldmaske",
+ "rollen": [
+  "warmup",
+  "uebung",
+  "home"
+ ],
+ "steckbrief": {
+  "text": "Schreib f(x) = {term} in der Normalform.",
+  "stufen": {
+   "1": "f(x) = (x − d)² + e, d und e von 1 bis 9",
+   "2": "d und e mit beliebigem Vorzeichen",
+   "3": "f(x) = a(x − d)² + e mit a ∈ {−2, −1, 2, 3}"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_binom_mittelglied_fehlt",
+    "regel": "x² + d² + e (2dx fehlt)",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Beim Quadrat einer Klammer gibt es ein mittleres Glied. Multipliziere die Klammer mit sich selbst."
+   },
+   {
+    "key": "qf_binom_vorzeichen",
+    "regel": "Vorzeichen des Glieds mit x falsch",
+    "gilt_fuer_stufen": [
+     1,
+     2,
+     3
+    ],
+    "rueckmeldung": "Prüf das Vorzeichen des Glieds mit x. Es hat dasselbe Vorzeichen wie die Zahl in der Klammer."
+   },
+   {
+    "key": "qf_faktor_nicht_verteilt",
+    "regel": "a nur mit x² multipliziert",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Die Zahl vor der Klammer gilt für jedes Glied der ausmultiplizierten Klammer."
+   }
+  ],
+  "hinweise": [
+   "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+   "Danach {a_schritt}fasse die Zahlen zusammen.",
+   "Für die Klammer gilt: {klammer}² = {binom}."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 90,
+  "kann_entfallen": false,
+  "generator_hash": "9daaa63520d3"
+ },
+ "pruefprotokoll": {
+  "gruen": 68,
+  "rot": 4,
+  "rot_anteil": 0.056,
+  "gruende": {
+   "7": 4
+  },
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Feld 1: 2, Vorzeichen: +, Feld 2: 28, Vorzeichen: +, Feld 3: 102",
+   "2": "Vorzeichen: −, Feld 1: 12, Vorzeichen: +, Feld 2: 45",
+   "3": "Vorzeichen: −, Feld 1: 14, Vorzeichen: +, Feld 2: 44",
+   "4": "Vorzeichen: −, Feld 1: 8, Vorzeichen: +, Feld 2: 22",
+   "5": "Vorzeichen: +, Feld 1: 2, Vorzeichen: −, Feld 2: 7",
+   "6": "Vorzeichen: −, Feld 1: 6, Vorzeichen: +, Feld 2: 15",
+   "7": "Vorzeichen: −, Feld 1: 4, Vorzeichen: +, Feld 2: 11",
+   "8": "Vorzeichen: −, Feld 1: 6, Vorzeichen: +, Feld 2: 18",
+   "9": "Vorzeichen: −, Feld 1: 2, Vorzeichen: +, Feld 2: 4",
+   "10": "Vorzeichen: +, Feld 1: 2, Vorzeichen: +, Feld 2: 9"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 4,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = (x − 4)² + 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-8",
+     "c": "20"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "20"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "8",
+      "c": "20"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 4)² = x² − 8x + 16."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)² + 4",
+    "= x² − 8x + 16 + 4",
+    "= x² − 8x + 20"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-8",
+      "vc": "+",
+      "c": "20"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 4,
+    "e": 6
+   },
+   "frage": "Schreib f(x) = (x − 4)² + 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-8",
+     "c": "22"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "22"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "8",
+      "c": "22"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 4)² = x² − 8x + 16."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)² + 6",
+    "= x² − 8x + 16 + 6",
+    "= x² − 8x + 22"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-8",
+      "vc": "+",
+      "c": "22"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 4,
+    "e": 9
+   },
+   "frage": "Schreib f(x) = (x − 4)² + 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-8",
+     "c": "25"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "25"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "8",
+      "c": "25"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 4)² = x² − 8x + 16."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)² + 9",
+    "= x² − 8x + 16 + 9",
+    "= x² − 8x + 25"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-8",
+      "vc": "+",
+      "c": "25"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 9,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = (x − 9)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-18",
+     "c": "89"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "89"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "18",
+      "c": "89"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 9)² + 8",
+    "= x² − 18x + 81 + 8",
+    "= x² − 18x + 89"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "89"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 2,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = (x − 2)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-4",
+     "c": "12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "12"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "4",
+      "c": "12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 2)² = x² − 4x + 4."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)² + 8",
+    "= x² − 4x + 4 + 8",
+    "= x² − 4x + 12"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-4",
+      "vc": "+",
+      "c": "12"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 7,
+    "e": 2
+   },
+   "frage": "Schreib f(x) = (x − 7)² + 2 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-14",
+     "c": "51"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "51"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "14",
+      "c": "51"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 7)² + 2",
+    "= x² − 14x + 49 + 2",
+    "= x² − 14x + 51"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-14",
+      "vc": "+",
+      "c": "51"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": 9
+   },
+   "frage": "Schreib f(x) = (x − 3)² + 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-6",
+     "c": "18"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "18"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "6",
+      "c": "18"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 3)² = x² − 6x + 9."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² + 9",
+    "= x² − 6x + 9 + 9",
+    "= x² − 6x + 18"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "18"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": 5
+   },
+   "frage": "Schreib f(x) = (x − 6)² + 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-12",
+     "c": "41"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "41"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "12",
+      "c": "41"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 6)² + 5",
+    "= x² − 12x + 36 + 5",
+    "= x² − 12x + 41"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "41"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = (x − 3)² + 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-6",
+     "c": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "13"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "6",
+      "c": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 3)² = x² − 6x + 9."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² + 4",
+    "= x² − 6x + 9 + 4",
+    "= x² − 6x + 13"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = (x − 3)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-6",
+     "c": "17"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "17"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "6",
+      "c": "17"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 3)² = x² − 6x + 9."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² + 8",
+    "= x² − 6x + 9 + 8",
+    "= x² − 6x + 17"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "17"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 2,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = (x − 2)² + 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-4",
+     "c": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "7"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "4",
+      "c": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 2)² = x² − 4x + 4."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)² + 3",
+    "= x² − 4x + 4 + 3",
+    "= x² − 4x + 7"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-4",
+      "vc": "+",
+      "c": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 9,
+    "e": 6
+   },
+   "frage": "Schreib f(x) = (x − 9)² + 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-18",
+     "c": "87"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "87"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "18",
+      "c": "87"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 9)² + 6",
+    "= x² − 18x + 81 + 6",
+    "= x² − 18x + 87"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "87"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 7,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = (x − 7)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-14",
+     "c": "57"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "57"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "14",
+      "c": "57"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 7)² + 8",
+    "= x² − 14x + 49 + 8",
+    "= x² − 14x + 57"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-14",
+      "vc": "+",
+      "c": "57"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": 9
+   },
+   "frage": "Schreib f(x) = (x − 6)² + 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-12",
+     "c": "45"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "45"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "12",
+      "c": "45"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 6)² + 9",
+    "= x² − 12x + 36 + 9",
+    "= x² − 12x + 45"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "45"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 8,
+    "e": 2
+   },
+   "frage": "Schreib f(x) = (x − 8)² + 2 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-16",
+     "c": "66"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "66"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "16",
+      "c": "66"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 8)² = x² − 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 8)² + 2",
+    "= x² − 16x + 64 + 2",
+    "= x² − 16x + 66"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-16",
+      "vc": "+",
+      "c": "66"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 8,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = (x − 8)² + 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-16",
+     "c": "67"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "67"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "16",
+      "c": "67"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 8)² = x² − 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 8)² + 3",
+    "= x² − 16x + 64 + 3",
+    "= x² − 16x + 67"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-16",
+      "vc": "+",
+      "c": "67"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 8,
+    "e": 5
+   },
+   "frage": "Schreib f(x) = (x − 8)² + 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-16",
+     "c": "69"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "69"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "16",
+      "c": "69"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 8)² = x² − 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 8)² + 5",
+    "= x² − 16x + 64 + 5",
+    "= x² − 16x + 69"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-16",
+      "vc": "+",
+      "c": "69"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 2,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = (x − 2)² + 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-4",
+     "c": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "11"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "4",
+      "c": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 2)² = x² − 4x + 4."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 2)² + 7",
+    "= x² − 4x + 4 + 7",
+    "= x² − 4x + 11"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-4",
+      "vc": "+",
+      "c": "11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = (x − 6)² + 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-12",
+     "c": "43"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "43"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "12",
+      "c": "43"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 6)² + 7",
+    "= x² − 12x + 36 + 7",
+    "= x² − 12x + 43"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "43"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 1,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = (x − 1)² + 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-2",
+     "c": "4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "4"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "2",
+      "c": "4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 1)² = x² − 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 1)² + 3",
+    "= x² − 2x + 1 + 3",
+    "= x² − 2x + 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-2",
+      "vc": "+",
+      "c": "4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 5,
+    "e": 9
+   },
+   "frage": "Schreib f(x) = (x − 5)² + 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-10",
+     "c": "34"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "34"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "10",
+      "c": "34"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 5)² = x² − 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 5)² + 9",
+    "= x² − 10x + 25 + 9",
+    "= x² − 10x + 34"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-10",
+      "vc": "+",
+      "c": "34"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 9,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = (x − 9)² + 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-18",
+     "c": "88"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "88"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "18",
+      "c": "88"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 9)² + 7",
+    "= x² − 18x + 81 + 7",
+    "= x² − 18x + 88"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "88"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": 1
+   },
+   "frage": "Schreib f(x) = (x − 6)² + 1 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-12",
+     "c": "37"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "37"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "12",
+      "c": "37"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 6)² + 1",
+    "= x² − 12x + 36 + 1",
+    "= x² − 12x + 37"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "37"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 1,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = (x − 6)² + 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-12",
+     "c": "39"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "39"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "12",
+      "c": "39"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 6)² + 3",
+    "= x² − 12x + 36 + 3",
+    "= x² − 12x + 39"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "39"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": 2
+   },
+   "frage": "Schreib f(x) = (x + 1)² + 2 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "2",
+     "c": "3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "3"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-2",
+      "c": "3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² + 2",
+    "= x² + 2x + 1 + 2",
+    "= x² + 2x + 3"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": -5
+   },
+   "frage": "Schreib f(x) = (x + 1)² − 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "2",
+     "c": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "-4"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-2",
+      "c": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² − 5",
+    "= x² + 2x + 1 − 5",
+    "= x² + 2x − 4"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "2",
+      "vc": "+",
+      "c": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -4,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = (x + 4)² − 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "8",
+     "c": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "10"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-8",
+      "c": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 4)² = x² + 8x + 16."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 4)² − 6",
+    "= x² + 8x + 16 − 6",
+    "= x² + 8x + 10"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 1,
+    "e": 1
+   },
+   "frage": "Schreib f(x) = (x − 1)² + 1 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-2",
+     "c": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "2"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "2",
+      "c": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 1)² = x² − 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 1)² + 1",
+    "= x² − 2x + 1 + 1",
+    "= x² − 2x + 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-2",
+      "vc": "+",
+      "c": "2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 4,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = (x − 4)² − 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-8",
+     "c": "13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "13"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "8",
+      "c": "13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 4)² = x² − 8x + 16."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 4)² − 3",
+    "= x² − 8x + 16 − 3",
+    "= x² − 8x + 13"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-8",
+      "vc": "+",
+      "c": "13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 7,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = (x − 7)² − 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-14",
+     "c": "46"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "46"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "14",
+      "c": "46"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 7)² − 3",
+    "= x² − 14x + 49 − 3",
+    "= x² − 14x + 46"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-14",
+      "vc": "+",
+      "c": "46"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": 6
+   },
+   "frage": "Schreib f(x) = (x − 3)² + 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-6",
+     "c": "15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "15"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "6",
+      "c": "15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 3)² = x² − 6x + 9."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² + 6",
+    "= x² − 6x + 9 + 6",
+    "= x² − 6x + 15"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -8,
+    "e": -8
+   },
+   "frage": "Schreib f(x) = (x + 8)² − 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "16",
+     "c": "56"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "56"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-16",
+      "c": "56"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 8)² = x² + 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 8)² − 8",
+    "= x² + 16x + 64 − 8",
+    "= x² + 16x + 56"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": -1
+   },
+   "frage": "Schreib f(x) = (x − 3)² − 1 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-6",
+     "c": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "8"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "6",
+      "c": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 3)² = x² − 6x + 9."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 3)² − 1",
+    "= x² − 6x + 9 − 1",
+    "= x² − 6x + 8"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": -8
+   },
+   "frage": "Schreib f(x) = (x + 1)² − 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "2",
+     "c": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "-7"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-2",
+      "c": "-7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² − 8",
+    "= x² + 2x + 1 − 8",
+    "= x² + 2x − 7"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "2",
+      "vc": "+",
+      "c": "-7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 5,
+    "e": -5
+   },
+   "frage": "Schreib f(x) = (x − 5)² − 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-10",
+     "c": "20"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "20"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "10",
+      "c": "20"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 5)² = x² − 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 5)² − 5",
+    "= x² − 10x + 25 − 5",
+    "= x² − 10x + 20"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-10",
+      "vc": "+",
+      "c": "20"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -8,
+    "e": -9
+   },
+   "frage": "Schreib f(x) = (x + 8)² − 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "16",
+     "c": "55"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "55"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-16",
+      "c": "55"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 8)² = x² + 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 8)² − 9",
+    "= x² + 16x + 64 − 9",
+    "= x² + 16x + 55"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -5,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = (x + 5)² − 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "10",
+     "c": "22"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "22"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-10",
+      "c": "22"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 5)² = x² + 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² − 3",
+    "= x² + 10x + 25 − 3",
+    "= x² + 10x + 22"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 9,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = (x − 9)² + 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-18",
+     "c": "84"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "84"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "18",
+      "c": "84"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 9)² + 3",
+    "= x² − 18x + 81 + 3",
+    "= x² − 18x + 84"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "84"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -5,
+    "e": 6
+   },
+   "frage": "Schreib f(x) = (x + 5)² + 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "10",
+     "c": "31"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "31"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-10",
+      "c": "31"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 5)² = x² + 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 5)² + 6",
+    "= x² + 10x + 25 + 6",
+    "= x² + 10x + 31"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -6,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = (x + 6)² − 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "12",
+     "c": "30"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "30"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-12",
+      "c": "30"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 6)² = x² + 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 6)² − 6",
+    "= x² + 12x + 36 − 6",
+    "= x² + 12x + 30"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 7,
+    "e": -5
+   },
+   "frage": "Schreib f(x) = (x − 7)² − 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-14",
+     "c": "44"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "44"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "14",
+      "c": "44"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 7)² − 5",
+    "= x² − 14x + 49 − 5",
+    "= x² − 14x + 44"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-14",
+      "vc": "+",
+      "c": "44"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -6,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = (x + 6)² + 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "12",
+     "c": "40"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "40"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-12",
+      "c": "40"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 6)² = x² + 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 6)² + 4",
+    "= x² + 12x + 36 + 4",
+    "= x² + 12x + 40"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = (x + 1)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "2",
+     "c": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "9"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-2",
+      "c": "9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² + 8",
+    "= x² + 2x + 1 + 8",
+    "= x² + 2x + 9"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = (x + 1)² − 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "2",
+     "c": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "-2"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-2",
+      "c": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 1)² − 3",
+    "= x² + 2x + 1 − 3",
+    "= x² + 2x − 2"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "2",
+      "vc": "+",
+      "c": "-2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 9,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = (x − 9)² + 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-18",
+     "c": "85"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "85"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "18",
+      "c": "85"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 9)² + 4",
+    "= x² − 18x + 81 + 4",
+    "= x² − 18x + 85"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "85"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": 6
+   },
+   "frage": "Schreib f(x) = (x − 6)² + 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-12",
+     "c": "42"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "42"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "12",
+      "c": "42"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 6)² + 6",
+    "= x² − 12x + 36 + 6",
+    "= x² − 12x + 42"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "42"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": -6,
+    "e": -4
+   },
+   "frage": "Schreib f(x) = (x + 6)² − 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "12",
+     "c": "32"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "32"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "-12",
+      "c": "32"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 6)² = x² + 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = (x + 6)² − 4",
+    "= x² + 12x + 36 − 4",
+    "= x² + 12x + 32"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 2,
+   "params": {
+    "a": 1,
+    "d": 9,
+    "e": -5
+   },
+   "frage": "Schreib f(x) = (x − 9)² − 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "b": "-18",
+     "c": "76"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "b": "0",
+      "c": "76"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "b": "18",
+      "c": "76"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = (x − 9)² − 5",
+    "= x² − 18x + 81 − 5",
+    "= x² − 18x + 76"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vb": "+",
+      "b": "-18",
+      "vc": "+",
+      "c": "76"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 5,
+    "e": 5
+   },
+   "frage": "Schreib f(x) = 3(x − 5)² + 5 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-30",
+     "c": "80"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "80"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "30",
+      "c": "80"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-10",
+      "c": "30"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 5)² = x² − 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 5)² + 5",
+    "= 3(x² − 10x + 25) + 5",
+    "= 3x² − 30x + 80"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-30",
+      "vc": "+",
+      "c": "80"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 9,
+    "e": -4
+   },
+   "frage": "Schreib f(x) = 3(x − 9)² − 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-54",
+     "c": "239"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "239"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "54",
+      "c": "239"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-18",
+      "c": "77"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 9)² − 4",
+    "= 3(x² − 18x + 81) − 4",
+    "= 3x² − 54x + 239"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-54",
+      "vc": "+",
+      "c": "239"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -8,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = 2(x + 8)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "32",
+     "c": "136"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "2",
+      "b": "0",
+      "c": "136"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "-32",
+      "c": "136"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "2",
+      "b": "16",
+      "c": "72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 8)² = x² + 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = 2(x + 8)² + 8",
+    "= 2(x² + 16x + 64) + 8",
+    "= 2x² + 32x + 136"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": -1,
+    "d": -1,
+    "e": 9
+   },
+   "frage": "Schreib f(x) = −(x + 1)² + 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "b": "-2",
+     "c": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-1",
+      "b": "0",
+      "c": "8"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "b": "2",
+      "c": "8"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-1",
+      "b": "2",
+      "c": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −1 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = −(x + 1)² + 9",
+    "= −(x² + 2x + 1) + 9",
+    "= −x² − 2x + 8"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vb": "+",
+      "b": "-2",
+      "vc": "+",
+      "c": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": 7,
+    "e": 9
+   },
+   "frage": "Schreib f(x) = −2(x − 7)² + 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "28",
+     "c": "-89"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-89"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "-28",
+      "c": "-89"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "-14",
+      "c": "58"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x − 7)² + 9",
+    "= −2(x² − 14x + 49) + 9",
+    "= −2x² + 28x − 89"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "28",
+      "vc": "+",
+      "c": "-89"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 7,
+    "e": -7
+   },
+   "frage": "Schreib f(x) = 3(x − 7)² − 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-42",
+     "c": "140"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "140"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "42",
+      "c": "140"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-14",
+      "c": "42"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 7)² − 7",
+    "= 3(x² − 14x + 49) − 7",
+    "= 3x² − 42x + 140"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-42",
+      "vc": "+",
+      "c": "140"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -7,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = 2(x + 7)² + 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "28",
+     "c": "102"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "2",
+      "b": "0",
+      "c": "102"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "-28",
+      "c": "102"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "2",
+      "b": "14",
+      "c": "53"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 7)² = x² + 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = 2(x + 7)² + 4",
+    "= 2(x² + 14x + 49) + 4",
+    "= 2x² + 28x + 102"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -1,
+    "e": -6
+   },
+   "frage": "Schreib f(x) = −2(x + 1)² − 6 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "-4",
+     "c": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-8"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "4",
+      "c": "-8"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "2",
+      "c": "-5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 1)² = x² + 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x + 1)² − 6",
+    "= −2(x² + 2x + 1) − 6",
+    "= −2x² − 4x − 8"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "-4",
+      "vc": "−",
+      "c": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -1,
+    "d": 5,
+    "e": -2
+   },
+   "frage": "Schreib f(x) = −(x − 5)² − 2 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "b": "10",
+     "c": "-27"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-1",
+      "b": "0",
+      "c": "-27"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "b": "-10",
+      "c": "-27"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-1",
+      "b": "-10",
+      "c": "23"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −1 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 5)² = x² − 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = −(x − 5)² − 2",
+    "= −(x² − 10x + 25) − 2",
+    "= −x² + 10x − 27"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vb": "+",
+      "b": "10",
+      "vc": "+",
+      "c": "-27"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -5,
+    "e": 4
+   },
+   "frage": "Schreib f(x) = −2(x + 5)² + 4 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "-20",
+     "c": "-46"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-46"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "20",
+      "c": "-46"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "10",
+      "c": "29"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 5)² = x² + 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x + 5)² + 4",
+    "= −2(x² + 10x + 25) + 4",
+    "= −2x² − 20x − 46"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "-20",
+      "vc": "−",
+      "c": "46"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 6,
+    "e": 8
+   },
+   "frage": "Schreib f(x) = 3(x − 6)² + 8 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-36",
+     "c": "116"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "116"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "36",
+      "c": "116"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-12",
+      "c": "44"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 6)² + 8",
+    "= 3(x² − 12x + 36) + 8",
+    "= 3x² − 36x + 116"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-36",
+      "vc": "+",
+      "c": "116"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": -2,
+    "e": 1
+   },
+   "frage": "Schreib f(x) = −2(x + 2)² + 1 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "-8",
+     "c": "-7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-7"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "8",
+      "c": "-7"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "4",
+      "c": "5"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 2)² = x² + 4x + 4."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x + 2)² + 1",
+    "= −2(x² + 4x + 4) + 1",
+    "= −2x² − 8x − 7"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "-8",
+      "vc": "−",
+      "c": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 1,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = 3(x − 1)² + 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-6",
+     "c": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "10"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "6",
+      "c": "10"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-2",
+      "c": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 1)² = x² − 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 1)² + 7",
+    "= 3(x² − 2x + 1) + 7",
+    "= 3x² − 6x + 10"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -1,
+    "d": 9,
+    "e": -9
+   },
+   "frage": "Schreib f(x) = −(x − 9)² − 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "b": "18",
+     "c": "-90"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-1",
+      "b": "0",
+      "c": "-90"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "b": "-18",
+      "c": "-90"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-1",
+      "b": "-18",
+      "c": "72"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −1 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 9)² = x² − 18x + 81."
+   ],
+   "loesungsweg": [
+    "f(x) = −(x − 9)² − 9",
+    "= −(x² − 18x + 81) − 9",
+    "= −x² + 18x − 90"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vb": "+",
+      "b": "18",
+      "vc": "+",
+      "c": "-90"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 6,
+    "e": -7
+   },
+   "frage": "Schreib f(x) = 3(x − 6)² − 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-36",
+     "c": "101"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "101"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "36",
+      "c": "101"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-12",
+      "c": "29"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 6)² = x² − 12x + 36."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 6)² − 7",
+    "= 3(x² − 12x + 36) − 7",
+    "= 3x² − 36x + 101"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-36",
+      "vc": "+",
+      "c": "101"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": -8,
+    "e": 3
+   },
+   "frage": "Schreib f(x) = 2(x + 8)² + 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "32",
+     "c": "131"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "2",
+      "b": "0",
+      "c": "131"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "-32",
+      "c": "131"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "2",
+      "b": "16",
+      "c": "67"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x + 8)² = x² + 16x + 64."
+   ],
+   "loesungsweg": [
+    "f(x) = 2(x + 8)² + 3",
+    "= 2(x² + 16x + 64) + 3",
+    "= 2x² + 32x + 131"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": false,
+     "grund": "gleiche Zahlen wie eine LSA-Aufgabe des Skills"
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 1,
+    "e": -2
+   },
+   "frage": "Schreib f(x) = 3(x − 1)² − 2 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-6",
+     "c": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "1"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "6",
+      "c": "1"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-2",
+      "c": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 1)² = x² − 2x + 1."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 1)² − 2",
+    "= 3(x² − 2x + 1) − 2",
+    "= 3x² − 6x + 1"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-6",
+      "vc": "+",
+      "c": "1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": 3,
+    "e": 1
+   },
+   "frage": "Schreib f(x) = 2(x − 3)² + 1 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "-12",
+     "c": "19"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "2",
+      "b": "0",
+      "c": "19"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "12",
+      "c": "19"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "2",
+      "b": "-6",
+      "c": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 3)² = x² − 6x + 9."
+   ],
+   "loesungsweg": [
+    "f(x) = 2(x − 3)² + 1",
+    "= 2(x² − 6x + 9) + 1",
+    "= 2x² − 12x + 19"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vb": "+",
+      "b": "-12",
+      "vc": "+",
+      "c": "19"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 2,
+    "d": 5,
+    "e": -7
+   },
+   "frage": "Schreib f(x) = 2(x − 5)² − 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "2",
+     "b": "-20",
+     "c": "43"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "2",
+      "b": "0",
+      "c": "43"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "2",
+      "b": "20",
+      "c": "43"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "2",
+      "b": "-10",
+      "c": "18"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 5)² = x² − 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = 2(x − 5)² − 7",
+    "= 2(x² − 10x + 25) − 7",
+    "= 2x² − 20x + 43"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "2",
+      "vb": "+",
+      "b": "-20",
+      "vc": "+",
+      "c": "43"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": 2,
+    "e": -2
+   },
+   "frage": "Schreib f(x) = −2(x − 2)² − 2 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "8",
+     "c": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-10"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "-8",
+      "c": "-10"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "-4",
+      "c": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 2)² = x² − 4x + 4."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x − 2)² − 2",
+    "= −2(x² − 4x + 4) − 2",
+    "= −2x² + 8x − 10"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "8",
+      "vc": "+",
+      "c": "-10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": 7,
+    "e": -7
+   },
+   "frage": "Schreib f(x) = −2(x − 7)² − 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "28",
+     "c": "-105"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-105"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "-28",
+      "c": "-105"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "-14",
+      "c": "42"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x − 7)² − 7",
+    "= −2(x² − 14x + 49) − 7",
+    "= −2x² + 28x − 105"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "28",
+      "vc": "+",
+      "c": "-105"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "warmup",
+   "stufe": 3,
+   "params": {
+    "a": 3,
+    "d": 5,
+    "e": -3
+   },
+   "frage": "Schreib f(x) = 3(x − 5)² − 3 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "3",
+     "b": "-30",
+     "c": "72"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "3",
+      "b": "0",
+      "c": "72"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "3",
+      "b": "30",
+      "c": "72"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "3",
+      "b": "-10",
+      "c": "22"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit 3 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 5)² = x² − 10x + 25."
+   ],
+   "loesungsweg": [
+    "f(x) = 3(x − 5)² − 3",
+    "= 3(x² − 10x + 25) − 3",
+    "= 3x² − 30x + 72"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "3",
+      "vb": "+",
+      "b": "-30",
+      "vc": "+",
+      "c": "72"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": -1,
+    "d": 7,
+    "e": -9
+   },
+   "frage": "Schreib f(x) = −(x − 7)² − 9 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-1",
+     "b": "14",
+     "c": "-58"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-1",
+      "b": "0",
+      "c": "-58"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-1",
+      "b": "-14",
+      "c": "-58"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-1",
+      "b": "-14",
+      "c": "40"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −1 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 7)² = x² − 14x + 49."
+   ],
+   "loesungsweg": [
+    "f(x) = −(x − 7)² − 9",
+    "= −(x² − 14x + 49) − 9",
+    "= −x² + 14x − 58"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-1",
+      "vb": "+",
+      "b": "14",
+      "vc": "+",
+      "c": "-58"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-1",
+   "rolle": "home",
+   "stufe": 3,
+   "params": {
+    "a": -2,
+    "d": 4,
+    "e": 7
+   },
+   "frage": "Schreib f(x) = −2(x − 4)² + 7 in der Normalform.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "feld": "a",
+      "typ": "zahl"
+     },
+     {
+      "text": "x² "
+     },
+     {
+      "feld": "vb",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "b",
+      "typ": "zahl"
+     },
+     {
+      "text": "x "
+     },
+     {
+      "feld": "vc",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "c",
+      "typ": "zahl"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "a": "-2",
+     "b": "16",
+     "c": "-25"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_binom_mittelglied_fehlt",
+     "werte": {
+      "a": "-2",
+      "b": "0",
+      "c": "-25"
+     }
+    },
+    {
+     "key": "qf_binom_vorzeichen",
+     "werte": {
+      "a": "-2",
+      "b": "-16",
+      "c": "-25"
+     }
+    },
+    {
+     "key": "qf_faktor_nicht_verteilt",
+     "werte": {
+      "a": "-2",
+      "b": "-8",
+      "c": "23"
+     }
+    }
+   ],
+   "hinweise": [
+    "Multipliziere zuerst das Quadrat aus: (x − d)² = x² − 2dx + d².",
+    "Danach multiplizierst du jedes Glied mit −2 und fasse die Zahlen zusammen.",
+    "Für die Klammer gilt: (x − 4)² = x² − 8x + 16."
+   ],
+   "loesungsweg": [
+    "f(x) = −2(x − 4)² + 7",
+    "= −2(x² − 8x + 16) + 7",
+    "= −2x² + 16x − 25"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "a": "-2",
+      "vb": "+",
+      "b": "16",
+      "vc": "+",
+      "c": "-25"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}

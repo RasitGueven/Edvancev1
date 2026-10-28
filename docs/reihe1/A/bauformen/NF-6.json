@@ -1,0 +1,4644 @@
+{
+ "schluessel": "NF-6",
+ "skill": "fkt_quadr_normalform",
+ "kernidee": "fkt_quadr_normalform:K2",
+ "format": "feldmaske",
+ "rollen": [
+  "uebung",
+  "generalprobe"
+ ],
+ "steckbrief": {
+  "text": "Bestimme den Scheitelpunkt von f(x) = {term}.",
+  "stufen": {
+   "3": "f(x) = x² + bx + c, b gerade, Scheitel ganzzahlig",
+   "4": "f(x) = a·x² + bx + c mit a ∈ {−1, 2}"
+  },
+  "fehlbilder": [
+   {
+    "key": "qf_ergaenzung_nicht_abgezogen",
+    "regel": "y = c",
+    "gilt_fuer_stufen": [
+     3,
+     4
+    ],
+    "rueckmeldung": "Bei der Ergänzung ziehst du die Zahl wieder ab. Prüf die y-Koordinate mit f(x) am Scheitel."
+   },
+   {
+    "key": "qf_verschiebung_vorzeichen",
+    "regel": "x mit falschem Vorzeichen",
+    "gilt_fuer_stufen": [
+     3,
+     4
+    ],
+    "rueckmeldung": "Aus (x + 3)² liest du x = −3 ab. Für welches x wird die Klammer null?"
+   },
+   {
+    "key": "qf_ergaenzung_b_statt_halb",
+    "regel": "x = −b",
+    "gilt_fuer_stufen": [
+     3,
+     4
+    ],
+    "rueckmeldung": "In die Klammer kommt die Hälfte der Zahl vor x."
+   }
+  ],
+  "hinweise": [
+   "Bring f(x) zuerst in die Scheitelpunktform.",
+   "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+   "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+  ],
+  "loesungsweg": [],
+  "warum": null,
+  "kontext": null,
+  "figur": null,
+  "zeit_sek": 150,
+  "kann_entfallen": false,
+  "generator_hash": "4aab64608368"
+ },
+ "pruefprotokoll": {
+  "gruen": 40,
+  "rot": 0,
+  "rot_anteil": 0.0,
+  "gruende": {},
+  "verdacht": null
+ },
+ "blindloeser": {
+  "geloest": 10,
+  "abweichend": [],
+  "anteil": 0.0,
+  "bestanden": true,
+  "antworten": {
+   "1": "Vorzeichen: +, Feld 1: 5, Vorzeichen: −, Feld 2: 13",
+   "2": "Vorzeichen: −, Feld 1: 6, Vorzeichen: +, Feld 2: 14",
+   "3": "Vorzeichen: −, Feld 1: 8, Vorzeichen: −, Feld 2: 9",
+   "4": "Vorzeichen: +, Feld 1: 1, Vorzeichen: +, Feld 2: 14",
+   "5": "Vorzeichen: +, Feld 1: 2, Vorzeichen: +, Feld 2: 7",
+   "6": "Vorzeichen: +, Feld 1: 1, Vorzeichen: −, Feld 2: 6",
+   "7": "Vorzeichen: −, Feld 1: 1, Vorzeichen: −, Feld 2: 14",
+   "8": "Vorzeichen: −, Feld 1: 4, Vorzeichen: +, Feld 2: 8",
+   "9": "Vorzeichen: +, Feld 1: 6, Vorzeichen: −, Feld 2: 4",
+   "10": "Vorzeichen: −, Feld 1: 3, Vorzeichen: −, Feld 2: 9"
+  }
+ },
+ "instanzen": [
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 8,
+    "e": -2
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 16x + 62.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "8",
+     "y": "-2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "8",
+      "y": "62"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-8",
+      "y": "-2"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "16",
+      "y": "-2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 16x + 62",
+    "= (x − 8)² − 2",
+    "S(8 | −2)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "8",
+      "vy": "+",
+      "y": "-2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 8,
+    "e": -10
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 16x + 54.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "8",
+     "y": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "8",
+      "y": "54"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-8",
+      "y": "-10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "16",
+      "y": "-10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 16x + 54",
+    "= (x − 8)² − 10",
+    "S(8 | −10)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "8",
+      "vy": "+",
+      "y": "-10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 1,
+    "e": -8
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 2x − 7.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "1",
+     "y": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "1",
+      "y": "-7"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-1",
+      "y": "-8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "2",
+      "y": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x − 7",
+    "= (x − 1)² − 8",
+    "S(1 | −8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "1",
+      "vy": "+",
+      "y": "-8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": -6
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 6x + 3.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "3"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "-6"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 6x + 3",
+    "= (x − 3)² − 6",
+    "S(3 | −6)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "3",
+      "vy": "+",
+      "y": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 1,
+    "e": 14
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 2x + 15.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "1",
+     "y": "14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "1",
+      "y": "15"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-1",
+      "y": "14"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "2",
+      "y": "14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 15",
+    "= (x − 1)² + 14",
+    "S(1 | 14)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": -1
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 12x + 35.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "6",
+     "y": "-1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "6",
+      "y": "35"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-6",
+      "y": "-1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "12",
+      "y": "-1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 12x + 35",
+    "= (x − 6)² − 1",
+    "S(6 | −1)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "6",
+      "vy": "+",
+      "y": "-1"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -5,
+    "e": 11
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 10x + 36.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-5",
+     "y": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-5",
+      "y": "36"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "5",
+      "y": "11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-10",
+      "y": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 10x + 36",
+    "= (x + 5)² + 11",
+    "S(−5 | 11)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-5",
+      "vy": "+",
+      "y": "11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 3,
+    "e": 9
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 6x + 18.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "18"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 6x + 18",
+    "= (x − 3)² + 9",
+    "S(3 | 9)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -8,
+    "e": -9
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 16x + 55.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-8",
+     "y": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-8",
+      "y": "55"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "8",
+      "y": "-9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-16",
+      "y": "-9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 16x + 55",
+    "= (x + 8)² − 9",
+    "S(−8 | −9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-8",
+      "vy": "−",
+      "y": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 7,
+    "e": -3
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 14x + 46.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "7",
+     "y": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "7",
+      "y": "46"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-7",
+      "y": "-3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "14",
+      "y": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 14x + 46",
+    "= (x − 7)² − 3",
+    "S(7 | −3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "7",
+      "vy": "+",
+      "y": "-3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -1,
+    "e": -14
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 2x − 13.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-1",
+     "y": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-1",
+      "y": "-13"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "1",
+      "y": "-14"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-2",
+      "y": "-14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 2x − 13",
+    "= (x + 1)² − 14",
+    "S(−1 | −14)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-1",
+      "vy": "−",
+      "y": "14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -5,
+    "e": 10
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 10x + 35.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-5",
+     "y": "10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-5",
+      "y": "35"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "5",
+      "y": "10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-10",
+      "y": "10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 10x + 35",
+    "= (x + 5)² + 10",
+    "S(−5 | 10)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-5",
+      "vy": "+",
+      "y": "10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 5,
+    "e": 12
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 10x + 37.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "5",
+     "y": "12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "5",
+      "y": "37"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-5",
+      "y": "12"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "10",
+      "y": "12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 10x + 37",
+    "= (x − 5)² + 12",
+    "S(5 | 12)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -3,
+    "e": -9
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 6x.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-3",
+     "y": "-9"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-3",
+      "y": "0"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "3",
+      "y": "-9"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-6",
+      "y": "-9"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x",
+    "= (x + 3)² − 9",
+    "S(−3 | −9)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-3",
+      "vy": "−",
+      "y": "9"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 2,
+    "e": 15
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 4x + 19.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "2",
+     "y": "15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "2",
+      "y": "19"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-2",
+      "y": "15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "4",
+      "y": "15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 4x + 19",
+    "= (x − 2)² + 15",
+    "S(2 | 15)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -6,
+    "e": 8
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 12x + 44.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-6",
+     "y": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-6",
+      "y": "44"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "6",
+      "y": "8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-12",
+      "y": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 12x + 44",
+    "= (x + 6)² + 8",
+    "S(−6 | 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-6",
+      "vy": "+",
+      "y": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 1,
+    "e": 12
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 2x + 13.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "1",
+     "y": "12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "1",
+      "y": "13"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-1",
+      "y": "12"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "2",
+      "y": "12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 2x + 13",
+    "= (x − 1)² + 12",
+    "S(1 | 12)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": 6,
+    "e": -4
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² − 12x + 32.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "6",
+     "y": "-4"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "6",
+      "y": "32"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-6",
+      "y": "-4"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "12",
+      "y": "-4"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² − 12x + 32",
+    "= (x − 6)² − 4",
+    "S(6 | −4)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "6",
+      "vy": "+",
+      "y": "-4"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -3,
+    "e": -15
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 6x − 6.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-3",
+     "y": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-3",
+      "y": "-6"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "3",
+      "y": "-15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-6",
+      "y": "-15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 6x − 6",
+    "= (x + 3)² − 15",
+    "S(−3 | −15)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-3",
+      "vy": "−",
+      "y": "15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 3,
+   "params": {
+    "a": 1,
+    "d": -7,
+    "e": 2
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = x² + 14x + 51.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-7",
+     "y": "2"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-7",
+      "y": "51"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "7",
+      "y": "2"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-14",
+      "y": "2"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = x² + 14x + 51",
+    "= (x + 7)² + 2",
+    "S(−7 | 2)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-7",
+      "vy": "+",
+      "y": "2"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 3,
+    "e": -11
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 12x + 7.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "-11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "7"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "-11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "-11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 12x + 7",
+    "= 2(x − 3)² − 11",
+    "S(3 | −11)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "3",
+      "vy": "+",
+      "y": "-11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 4,
+    "e": -11
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 16x + 21.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "4",
+     "y": "-11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "4",
+      "y": "21"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-4",
+      "y": "-11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "8",
+      "y": "-11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 16x + 21",
+    "= 2(x − 4)² − 11",
+    "S(4 | −11)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "4",
+      "vy": "+",
+      "y": "-11"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -5,
+    "e": 7
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² + 20x + 57.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-5",
+     "y": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-5",
+      "y": "57"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "5",
+      "y": "7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-10",
+      "y": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 20x + 57",
+    "= 2(x + 5)² + 7",
+    "S(−5 | 7)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-5",
+      "vy": "+",
+      "y": "7"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": -8,
+    "e": -3
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² − 16x − 67.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-8",
+     "y": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-8",
+      "y": "-67"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "8",
+      "y": "-3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-16",
+      "y": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 16x − 67",
+    "= −(x + 8)² − 3",
+    "S(−8 | −3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-8",
+      "vy": "−",
+      "y": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -4,
+    "e": -3
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² + 16x + 29.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-4",
+     "y": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-4",
+      "y": "29"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "4",
+      "y": "-3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-8",
+      "y": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 16x + 29",
+    "= 2(x + 4)² − 3",
+    "S(−4 | −3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-4",
+      "vy": "−",
+      "y": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": 6,
+    "e": -12
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² + 12x − 48.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "6",
+     "y": "-12"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "6",
+      "y": "-48"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-6",
+      "y": "-12"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "12",
+      "y": "-12"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 12x − 48",
+    "= −(x − 6)² − 12",
+    "S(6 | −12)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "6",
+      "vy": "+",
+      "y": "-12"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -8,
+    "e": 15
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² + 32x + 143.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-8",
+     "y": "15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-8",
+      "y": "143"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "8",
+      "y": "15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-16",
+      "y": "15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 32x + 143",
+    "= 2(x + 8)² + 15",
+    "S(−8 | 15)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-8",
+      "vy": "+",
+      "y": "15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": -6,
+    "e": -3
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² + 24x + 69.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-6",
+     "y": "-3"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-6",
+      "y": "69"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "6",
+      "y": "-3"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-12",
+      "y": "-3"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² + 24x + 69",
+    "= 2(x + 6)² − 3",
+    "S(−6 | −3)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-6",
+      "vy": "−",
+      "y": "3"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": 5,
+    "e": -13
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² + 10x − 38.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "5",
+     "y": "-13"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "5",
+      "y": "-38"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-5",
+      "y": "-13"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "10",
+      "y": "-13"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 10x − 38",
+    "= −(x − 5)² − 13",
+    "S(5 | −13)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "5",
+      "vy": "+",
+      "y": "-13"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 3,
+    "e": -14
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 12x + 4.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "-14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "4"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "-14"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "-14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 12x + 4",
+    "= 2(x − 3)² − 14",
+    "S(3 | −14)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "3",
+      "vy": "+",
+      "y": "-14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": -6,
+    "e": 14
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² − 12x − 22.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-6",
+     "y": "14"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-6",
+      "y": "-22"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "6",
+      "y": "14"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-12",
+      "y": "14"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 12x − 22",
+    "= −(x + 6)² + 14",
+    "S(−6 | 14)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-6",
+      "vy": "+",
+      "y": "14"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 2,
+    "e": 7
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 8x + 15.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "2",
+     "y": "7"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "2",
+      "y": "15"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-2",
+      "y": "7"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "4",
+      "y": "7"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 8x + 15",
+    "= 2(x − 2)² + 7",
+    "S(2 | 7)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 3,
+    "e": 8
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 12x + 26.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "26"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 12x + 26",
+    "= 2(x − 3)² + 8",
+    "S(3 | 8)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 7,
+    "e": -15
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 28x + 83.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "7",
+     "y": "-15"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "7",
+      "y": "83"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-7",
+      "y": "-15"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "14",
+      "y": "-15"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 28x + 83",
+    "= 2(x − 7)² − 15",
+    "S(7 | −15)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "7",
+      "vy": "+",
+      "y": "-15"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "uebung",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": 3,
+    "e": 1
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² + 6x − 8.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "1"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "-8"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "1"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "1"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 6x − 8",
+    "= −(x − 3)² + 1",
+    "S(3 | 1)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": -5,
+    "e": -10
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² − 10x − 35.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-5",
+     "y": "-10"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-5",
+      "y": "-35"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "5",
+      "y": "-10"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-10",
+      "y": "-10"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 10x − 35",
+    "= −(x + 5)² − 10",
+    "S(−5 | −10)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-5",
+      "vy": "−",
+      "y": "10"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": -4,
+    "e": 8
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² − 8x − 8.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "-4",
+     "y": "8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "-4",
+      "y": "-8"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "4",
+      "y": "8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "-8",
+      "y": "8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² − 8x − 8",
+    "= −(x + 4)² + 8",
+    "S(−4 | 8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "-4",
+      "vy": "+",
+      "y": "8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 7,
+    "e": -8
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 28x + 90.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "7",
+     "y": "-8"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "7",
+      "y": "90"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-7",
+      "y": "-8"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "14",
+      "y": "-8"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 28x + 90",
+    "= 2(x − 7)² − 8",
+    "S(7 | −8)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "7",
+      "vy": "+",
+      "y": "-8"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": 2,
+    "d": 1,
+    "e": -6
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = 2x² − 4x − 4.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "1",
+     "y": "-6"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "1",
+      "y": "-4"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-1",
+      "y": "-6"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "2",
+      "y": "-6"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = 2x² − 4x − 4",
+    "= 2(x − 1)² − 6",
+    "S(1 | −6)"
+   ],
+   "schreibweisen": [
+    {
+     "felder": {
+      "vx": "+",
+      "x": "1",
+      "vy": "+",
+      "y": "-6"
+     }
+    }
+   ],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  },
+  {
+   "bauform": "NF-6",
+   "rolle": "generalprobe",
+   "stufe": 4,
+   "params": {
+    "a": -1,
+    "d": 3,
+    "e": 11
+   },
+   "frage": "Bestimme den Scheitelpunkt von f(x) = −x² + 6x + 2.",
+   "input_type": "FELDMASKE",
+   "payload": {
+    "format": "feldmaske",
+    "schablone": [
+     {
+      "text": "S("
+     },
+     {
+      "feld": "vx",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "x",
+      "typ": "zahl"
+     },
+     {
+      "text": " | "
+     },
+     {
+      "feld": "vy",
+      "typ": "vorzeichen"
+     },
+     {
+      "feld": "y",
+      "typ": "zahl"
+     },
+     {
+      "text": ")"
+     }
+    ]
+   },
+   "loesung": {
+    "werte": {
+     "x": "3",
+     "y": "11"
+    }
+   },
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "werte": {
+      "x": "3",
+      "y": "2"
+     }
+    },
+    {
+     "key": "qf_verschiebung_vorzeichen",
+     "werte": {
+      "x": "-3",
+      "y": "11"
+     }
+    },
+    {
+     "key": "qf_ergaenzung_b_statt_halb",
+     "werte": {
+      "x": "6",
+      "y": "11"
+     }
+    }
+   ],
+   "hinweise": [
+    "Bring f(x) zuerst in die Scheitelpunktform.",
+    "Ergänze quadratisch mit der Hälfte der Zahl vor x.",
+    "Aus f(x) = a(x − d)² + e liest du S(d | e) ab."
+   ],
+   "loesungsweg": [
+    "f(x) = −x² + 6x + 2",
+    "= −(x − 3)² + 11",
+    "S(3 | 11)"
+   ],
+   "schreibweisen": [],
+   "figur": null,
+   "pruefmaschine": {
+    "1": {
+     "ok": true
+    },
+    "2": {
+     "ok": true
+    },
+    "3": {
+     "ok": true
+    },
+    "4": {
+     "ok": true
+    },
+    "5": {
+     "ok": true
+    },
+    "6": {
+     "ok": true
+    },
+    "7": {
+     "ok": true
+    }
+   },
+   "teile": null
+  }
+ ]
+}
