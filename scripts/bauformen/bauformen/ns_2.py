@@ -28,8 +28,6 @@ class NS2(Bauform):
          'rueckmeldung': 'Vor p/2 steht in der Formel ein Minus. Setz −p/2 ein.'},
         {'key': 'qf_q_vorzeichen', 'regel': '+ q unter der Wurzel', 'gilt_fuer_stufen': [3, 4],
          'rueckmeldung': 'Unter der Wurzel wird q abgezogen. Achte auf das Vorzeichen von q.'},
-        {'key': 'qf_durch_a_vergessen', 'regel': 'ohne Teilen durch a', 'gilt_fuer_stufen': [4],
-         'rueckmeldung': 'Die p-q-Formel gilt nur mit einer 1 vor x². Teil zuerst durch die Zahl vor x².'},
     ]
     hinweis_vorlagen = ['Nullstellen heißt: Setz f(x) = 0.', 'Bring die Gleichung in die Form x² + px + q = 0.',
                         'Löse mit der p-q-Formel: x = −p/2 ± √((p/2)² − q).']

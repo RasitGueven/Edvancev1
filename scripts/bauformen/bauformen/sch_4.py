@@ -21,7 +21,7 @@ class SCH4(Bauform):
     format = 'fehler_finden'
     rollen = ('transfer', 'recap')
     stufen = {3: 'f(x) = a(x − d)² + e; ein Fehler beim Ablesen (Vorzeichen von d, Vorzeichen von e oder a als Koordinate)'}
-    text = '{name} liest den Scheitel von f(x) = {term} ab. In welcher Zeile steckt der Fehler, und warum?'
+    text = '{name} liest den Scheitel von f(x) = {term} ab. In welcher Zeile steckt der erste Fehler, und warum?'
     fehlbild_steckbrief = []
     hinweis_vorlagen = ['Prüf jede Zeile einzeln.', 'Für welches x wird die Klammer null?',
                         'Welche Zahl steht hinten, und welches Vorzeichen hat sie?']
@@ -30,7 +30,9 @@ class SCH4(Bauform):
     def parameter(self, stufe: int, rng: random.Random) -> dict:
         while True:
             d, e, a = rng.randint(-7, 7), rng.randint(-9, 9), rng.choice([-3, -2, 2, 3, 1])
-            art = rng.choice(['d', 'e'] + (['a'] if a != 1 else []))
+            art = rng.choice(['d', 'e', 'a'])
+            if art == 'a' and a == 1:
+                continue
             if d and e and abs(d) != abs(e) and abs(a) != abs(d):
                 return {'a': a, 'd': d, 'e': e, 'art': art, 'name': NAMEN[(d * 3 + e * 7 + a) % 8]}
 
@@ -44,11 +46,16 @@ class SCH4(Bauform):
                   f'Die Zahl hinten ist {zahl(y_ab)}.', f'S({zahl(x_ab)} | {zahl(y_ab)})']
         fehler = 2 if art == 'e' else 1
         frage = self.text.format(name=params['name'], term=term)
-        payload = {'format': 'fehler_finden', 'zeilen': [{'nr': i + 1, 'text': z} for i, z in enumerate(zeilen)], 'warum': WARUM}
+        # Begründungen gemischt (Zweitprüfung A6 F, Befund 7)
+        texte = [w['text'] for w in WARUM]
+        random.Random(f'sch4-{a}-{d}-{e}-{art}').shuffle(texte)
+        warum = [{'id': 'abc'[i], 'text': t} for i, t in enumerate(texte)]
+        richtig_id = warum[texte.index(WARUM[{'d': 0, 'e': 1, 'a': 2}[art]]['text'])]['id']
+        payload = {'format': 'fehler_finden', 'zeilen': [{'nr': i + 1, 'text': z} for i, z in enumerate(zeilen)], 'warum': warum}
         weg = [f'Zeile {fehler}: {zeilen[fehler - 1]}', WARUM[{'d': 0, 'e': 1, 'a': 2}[art]]['text'],
                f'Richtig: S({zahl(d)} | {zahl(e)})']
         return Instanz(self.key, rolle, stufe, params, frage, 'FEHLER_FINDEN', payload,
-                       {'zeile': fehler, 'warum': {'d': 'a', 'e': 'b', 'a': 'c'}[art]}, [], list(self.hinweis_vorlagen), weg)
+                       {'zeile': fehler, 'warum': richtig_id}, [], list(self.hinweis_vorlagen), weg)
 
     def loesen_unabhaengig(self, inst: Instanz) -> dict:
         """Die erste Zeile, deren Zahl nicht zum nachgerechneten Scheitel passt, ist die falsche."""

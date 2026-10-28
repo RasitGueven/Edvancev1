@@ -32,14 +32,6 @@
      4
     ],
     "rueckmeldung": "Unter der Wurzel wird q abgezogen. Achte auf das Vorzeichen von q."
-   },
-   {
-    "key": "qf_durch_a_vergessen",
-    "regel": "ohne Teilen durch a",
-    "gilt_fuer_stufen": [
-     4
-    ],
-    "rueckmeldung": "Die p-q-Formel gilt nur mit einer 1 vor x². Teil zuerst durch die Zahl vor x²."
    }
   ],
   "hinweise": [
@@ -71,7 +63,7 @@
   "figur": null,
   "zeit_sek": 150,
   "kann_entfallen": false,
-  "generator_hash": "202bd00d1cc1"
+  "generator_hash": "6068595f7b60"
  },
  "pruefprotokoll": {
   "gruen": 48,

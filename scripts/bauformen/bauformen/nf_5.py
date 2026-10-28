@@ -25,7 +25,12 @@ class NF5(Bauform):
     rollen = ('transfer',)
     stufen = {3: 'f(x) = x² + bx + c; Fehler: Ergänzung nur addiert', 4: 'f(x) = a·x² + bx + c mit a ∈ {2, 3}; Fehler: Ergänzung nicht mit a multipliziert'}
     text = '{name} bringt f(x) = {term} in die Scheitelpunktform. In welcher Zeile steckt der Fehler, und warum?'
-    fehlbild_steckbrief = []
+    fehlbild_steckbrief = [
+        {'key': 'qf_ergaenzung_nicht_abgezogen', 'regel': 'richtige Zeile, falsche Begründung (a = 1)', 'gilt_fuer_stufen': [3],
+         'rueckmeldung': 'Die Zeile stimmt. Schau, was mit der Ergänzung passiert: Wird sie auch wieder abgezogen?'},
+        {'key': 'qf_ergaenzung_ohne_a', 'regel': 'richtige Zeile, falsche Begründung (a ≠ 1)', 'gilt_fuer_stufen': [4],
+         'rueckmeldung': 'Die Zeile stimmt. Schau, mit welcher Zahl die abgezogene Ergänzung außen malgenommen wird.'},
+    ]
     hinweis_vorlagen = ['Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?',
                         'Rechne zur Probe eine Zeile wieder aus.', 'Achte darauf, was dazugegeben und was abgezogen wird.']
     zeit_sek = 150
@@ -55,8 +60,9 @@ class NF5(Bauform):
         weg = [f'Zeile {fehler}: {zeilen[fehler - 1]}', next(w['text'] for w in WARUM if w['id'] == warum),
                f'Richtig: f(x) = {"" if a == 1 else a}{q} {"+" if e > 0 else "−"} {abs(e)}']
         frage = self.text.format(name=params['name'], term=term)
+        fb = [{'key': 'qf_ergaenzung_nicht_abgezogen' if a == 1 else 'qf_ergaenzung_ohne_a', 'zeile': fehler}]
         return Instanz(self.key, rolle, stufe, params, frage, 'FEHLER_FINDEN', payload, {'zeile': fehler, 'warum': warum},
-                       [], list(self.hinweis_vorlagen), weg)
+                       fb, list(self.hinweis_vorlagen), weg)
 
     def loesen_unabhaengig(self, inst: Instanz) -> dict:
         """Jede Term-Zeile gegen die vorige (gleicher Term?); die Scheitel-Zeile gegen den Scheitel davor."""

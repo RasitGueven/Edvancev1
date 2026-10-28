@@ -44,7 +44,7 @@
   "figur": null,
   "zeit_sek": 60,
   "kann_entfallen": false,
-  "generator_hash": "17673730fb85"
+  "generator_hash": "7c0911779d24"
  },
  "pruefprotokoll": {
   "gruen": 32,
@@ -1737,7 +1737,7 @@
     "d": 3,
     "e": -7
    },
-   "frage": "Hat f(x) = 1/2(x − 3)² − 7 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = 1/2 · (x − 3)² − 7 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -1789,7 +1789,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = 1/2(x − 3)² − 7",
+    "f(x) = 1/2 · (x − 3)² − 7",
     "a = 1/2 ist positiv: nach oben geöffnet, also ein Tiefpunkt.",
     "Der Scheitel ist S(3 | −7)."
    ],
@@ -1829,7 +1829,7 @@
     "d": -5,
     "e": 4
    },
-   "frage": "Hat f(x) = −1/2(x + 5)² + 4 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = −1/2 · (x + 5)² + 4 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -1881,7 +1881,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = −1/2(x + 5)² + 4",
+    "f(x) = −1/2 · (x + 5)² + 4",
     "a = −1/2 ist negativ: nach unten geöffnet, also ein Hochpunkt.",
     "Der Scheitel ist S(−5 | 4)."
    ],
@@ -1921,7 +1921,7 @@
     "d": 4,
     "e": 9
    },
-   "frage": "Hat f(x) = −1/2(x − 4)² + 9 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = −1/2 · (x − 4)² + 9 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -1973,7 +1973,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = −1/2(x − 4)² + 9",
+    "f(x) = −1/2 · (x − 4)² + 9",
     "a = −1/2 ist negativ: nach unten geöffnet, also ein Hochpunkt.",
     "Der Scheitel ist S(4 | 9)."
    ],
@@ -2105,7 +2105,7 @@
     "d": -1,
     "e": 4
    },
-   "frage": "Hat f(x) = −1/2(x + 1)² + 4 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = −1/2 · (x + 1)² + 4 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -2157,7 +2157,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = −1/2(x + 1)² + 4",
+    "f(x) = −1/2 · (x + 1)² + 4",
     "a = −1/2 ist negativ: nach unten geöffnet, also ein Hochpunkt.",
     "Der Scheitel ist S(−1 | 4)."
    ],
@@ -2289,7 +2289,7 @@
     "d": -6,
     "e": 1
    },
-   "frage": "Hat f(x) = −1/2(x + 6)² + 1 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = −1/2 · (x + 6)² + 1 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -2341,7 +2341,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = −1/2(x + 6)² + 1",
+    "f(x) = −1/2 · (x + 6)² + 1",
     "a = −1/2 ist negativ: nach unten geöffnet, also ein Hochpunkt.",
     "Der Scheitel ist S(−6 | 1)."
    ],
@@ -2381,7 +2381,7 @@
     "d": -5,
     "e": -1
    },
-   "frage": "Hat f(x) = 1/2(x + 5)² − 1 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = 1/2 · (x + 5)² − 1 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -2433,7 +2433,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = 1/2(x + 5)² − 1",
+    "f(x) = 1/2 · (x + 5)² − 1",
     "a = 1/2 ist positiv: nach oben geöffnet, also ein Tiefpunkt.",
     "Der Scheitel ist S(−5 | −1)."
    ],
@@ -2473,7 +2473,7 @@
     "d": -4,
     "e": 8
    },
-   "frage": "Hat f(x) = −1/2(x + 4)² + 8 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = −1/2 · (x + 4)² + 8 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -2525,7 +2525,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = −1/2(x + 4)² + 8",
+    "f(x) = −1/2 · (x + 4)² + 8",
     "a = −1/2 ist negativ: nach unten geöffnet, also ein Hochpunkt.",
     "Der Scheitel ist S(−4 | 8)."
    ],
@@ -2749,7 +2749,7 @@
     "d": -1,
     "e": 5
    },
-   "frage": "Hat f(x) = −1/2(x + 1)² + 5 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = −1/2 · (x + 1)² + 5 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -2801,7 +2801,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = −1/2(x + 1)² + 5",
+    "f(x) = −1/2 · (x + 1)² + 5",
     "a = −1/2 ist negativ: nach unten geöffnet, also ein Hochpunkt.",
     "Der Scheitel ist S(−1 | 5)."
    ],
@@ -2933,7 +2933,7 @@
     "d": 5,
     "e": -7
    },
-   "frage": "Hat f(x) = 1/2(x − 5)² − 7 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
+   "frage": "Hat f(x) = 1/2 · (x − 5)² − 7 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.",
    "input_type": "BAUSTEINE",
    "payload": {
     "format": "bausteine",
@@ -2985,7 +2985,7 @@
     "Den Punkt liest du aus der Scheitelpunktform ab: S(d | e)."
    ],
    "loesungsweg": [
-    "f(x) = 1/2(x − 5)² − 7",
+    "f(x) = 1/2 · (x − 5)² − 7",
     "a = 1/2 ist positiv: nach oben geöffnet, also ein Tiefpunkt.",
     "Der Scheitel ist S(5 | −7)."
    ],

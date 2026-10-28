@@ -342,11 +342,11 @@
      },
      {
       "id": "b",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "c",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links"
      }
     ]
    },
@@ -393,7 +393,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": 1,
       "d": -3,
@@ -408,7 +408,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": 1,
       "d": -4,
@@ -1332,11 +1332,11 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "b",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
@@ -1372,7 +1372,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": 1,
       "d": -4,
@@ -1387,7 +1387,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": 1,
       "d": -5,
@@ -1584,11 +1584,11 @@
      },
      {
       "id": "b",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts"
      }
     ]
    },
@@ -1635,7 +1635,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": 1,
       "d": -5,
@@ -1650,7 +1650,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": 1,
       "d": -3,
@@ -1704,7 +1704,7 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "b",
@@ -1712,7 +1712,7 @@
      },
      {
       "id": "c",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts"
      }
     ]
    },
@@ -1744,7 +1744,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": 1,
       "d": -3,
@@ -1774,7 +1774,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": 1,
       "d": -2,
@@ -1956,11 +1956,11 @@
      },
      {
       "id": "b",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter rechts"
      }
     ]
    },
@@ -2007,7 +2007,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": -1,
       "d": -4,
@@ -2022,7 +2022,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": -1,
       "d": -1,
@@ -2080,11 +2080,11 @@
      },
      {
       "id": "b",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts"
      }
     ]
    },
@@ -2131,7 +2131,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": 1,
       "d": -5,
@@ -2146,7 +2146,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": 1,
       "d": -3,
@@ -2200,7 +2200,7 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "b",
@@ -2208,7 +2208,7 @@
      },
      {
       "id": "c",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter rechts"
      }
     ]
    },
@@ -2240,7 +2240,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": -1,
       "d": 2,
@@ -2270,7 +2270,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": -1,
       "d": 3,
@@ -2572,7 +2572,7 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "b",
@@ -2580,7 +2580,7 @@
      },
      {
       "id": "c",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter links"
      }
     ]
    },
@@ -2612,7 +2612,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": -1,
       "d": -2,
@@ -2642,7 +2642,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": -1,
       "d": -5,
@@ -2696,11 +2696,11 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "b",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
@@ -2736,7 +2736,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": -1,
       "d": -1,
@@ -2751,7 +2751,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": -1,
       "d": -3,
@@ -2944,11 +2944,11 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "b",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
@@ -2984,7 +2984,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": -1,
       "d": 4,
@@ -2999,7 +2999,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": -1,
       "d": 3,
@@ -3072,11 +3072,11 @@
      },
      {
       "id": "b",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "c",
-      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung"
+      "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links"
      }
     ]
    },
@@ -3123,7 +3123,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": 1,
       "d": -3,
@@ -3138,7 +3138,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung",
+     "alt": "Parabel nach oben geöffnet, wie die Normalparabel, Scheitel links unterhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": 1,
       "d": -4,
@@ -3317,11 +3317,11 @@
     "optionen": [
      {
       "id": "a",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter rechts"
      },
      {
       "id": "b",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter links"
      },
      {
       "id": "c",
@@ -3357,7 +3357,7 @@
     {
      "option": "a",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter rechts",
      "params": {
       "a": -1,
       "d": 2,
@@ -3372,7 +3372,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel rechts oberhalb vom Ursprung, Scheitel weiter links",
      "params": {
       "a": -1,
       "d": 1,
@@ -3693,11 +3693,11 @@
      },
      {
       "id": "b",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel tiefer"
      },
      {
       "id": "c",
-      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung"
+      "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel höher"
      }
     ]
    },
@@ -3744,7 +3744,7 @@
     {
      "option": "b",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel tiefer",
      "params": {
       "a": -1,
       "d": -1,
@@ -3759,7 +3759,7 @@
     {
      "option": "c",
      "generator": "parabel",
-     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung",
+     "alt": "Parabel nach unten geöffnet, wie die Normalparabel, Scheitel links oberhalb vom Ursprung, Scheitel höher",
      "params": {
       "a": -1,
       "d": -1,

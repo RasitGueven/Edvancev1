@@ -42,7 +42,7 @@ class SCH3(Bauform):
 
     def erzeugen(self, params: dict, rolle: str, stufe: int) -> Instanz:
         a, d, e = Fraction(params['a']), params['d'], params['e']
-        vor = '' if a == 1 else '−' if a == -1 else zahl(a)
+        vor = '' if a == 1 else '−' if a == -1 else (f'{zahl(a)} · ' if a.denominator != 1 else zahl(a))
         term = f'{vor}({summe([(1, "x"), (-d, "")])})² {"+" if e > 0 else "−"} {abs(e)}'
         art = 'Hochpunkt' if a < 0 else 'Tiefpunkt'
         andere = 'Tiefpunkt' if a < 0 else 'Hochpunkt'

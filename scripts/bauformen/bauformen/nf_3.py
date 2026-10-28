@@ -30,8 +30,8 @@ class NF3(Bauform):
         {'key': 'qf_verschiebung_vorzeichen', 'regel': 'Vorzeichen in der Klammer falsch', 'gilt_fuer_stufen': [4, 5],
          'rueckmeldung': 'Das Vorzeichen in der Klammer ist dasselbe wie das Vorzeichen vor x nach dem Ausklammern.'},
     ]
-    hinweis_vorlagen = ['Klammere zuerst die Zahl vor x² aus: f(x) = {a}(x² {bx_text}) {c_text}.',
-                        'Ergänze in der Klammer zu einem Quadrat.', 'Was du in der Klammer dazugibst, zählt außen {a}-mal.']
+    hinweis_vorlagen = ['Klammere zuerst die Zahl vor x² aus: f(x) = {a}(x² {bx_text}){c_text}.',
+                        'Ergänze in der Klammer zu einem Quadrat.', 'Was du in der Klammer abziehst, nimmst du außen mal {a_zahl}.']
     zeit_sek = 180
     anzahl = {'generalprobe': 12}
 
@@ -62,8 +62,8 @@ class NF3(Bauform):
                f'= {va}({innen} + {zahl(d * d)} − {zahl(d * d)}) {"+" if c >= 0 else "−"} {abs(c)}',
                f'= {va}({summe([(1, "x"), (-d, "")])})² {"−" if a * d * d >= 0 else "+"} {abs(a * d * d)} {"+" if c >= 0 else "−"} {abs(c)}',
                f'= {va}({summe([(1, "x"), (-d, "")])})² {"+" if e > 0 else "−"} {abs(e)}']
-        hw = {'a': zahl(a), 'bx_text': summe([(Fraction(b, a), 'x')]).join(['+ ', '']) if b * a > 0 else summe([(Fraction(b, a), 'x')]).replace('−', '− '),
-              'c_text': f'+ {c}' if c >= 0 else f'− {-c}'}
+        hw = {'a': '−' if a == -1 else zahl(a), 'a_zahl': zahl(a), 'bx_text': summe([(Fraction(b, a), 'x')]).join(['+ ', '']) if b * a > 0 else summe([(Fraction(b, a), 'x')]).replace('−', '− '),
+              'c_text': '' if c == 0 else (f' + {c}' if c > 0 else f' − {-c}')}
         anders = andere_eingabe(schab, loes)
         return Instanz(self.key, rolle, stufe, params, self.text.format(term=term), 'FELDMASKE', feldmaske(schab), loes, fb,
                        [h.format(**hw) for h in self.hinweis_vorlagen], weg, [anders] if anders else [])

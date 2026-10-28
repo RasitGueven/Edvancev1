@@ -173,8 +173,23 @@ def graph_optionen(key: str, varianten: list[tuple[str, Fraction, Fraction, Frac
     random.Random(f'{key}-{varianten}').shuffle(v)
     ids = 'abcd'
     figuren, optionen, fb, richtig = [], [], [], ''
+    alts = [parabel_alt(a, d, e) for _, a, d, e in v]
+    # Gleiche Alternativtexte (Zweitprüfung A6 F, Befund 3): innerhalb der Gruppe nach Lage unterscheiden, ohne Ziffern.
+    for alt in set(alts):
+        gruppe = [i for i, x in enumerate(alts) if x == alt]
+        if len(gruppe) < 2:
+            continue
+        nach_x = sorted(gruppe, key=lambda i: (Fraction(v[i][2]), Fraction(v[i][3])))
+        for rang, i in enumerate(nach_x):
+            if len({Fraction(v[j][2]) for j in gruppe}) == len(gruppe):
+                zusatz = 'Scheitel weiter links' if rang == 0 else 'Scheitel weiter rechts' if rang == len(gruppe) - 1 else 'Scheitel in der Mitte'
+            else:
+                nach_y = sorted(gruppe, key=lambda j: Fraction(v[j][3]))
+                r = nach_y.index(i)
+                zusatz = 'Scheitel tiefer' if r == 0 else 'Scheitel höher' if r == len(gruppe) - 1 else 'Scheitel in der Mitte'
+            alts[i] = f'{alt}, {zusatz}'
     for i, (rolle, a, d, e) in enumerate(v):
-        alt = parabel_alt(a, d, e)
+        alt = alts[i]
         optionen.append({'id': ids[i], 'alt': alt})
         figuren.append({'option': ids[i], 'generator': 'parabel', 'alt': alt,
                         'params': {'a': _zahl_json(a), 'd': _zahl_json(d), 'e': _zahl_json(e), **fenster, 'gitter': True}})

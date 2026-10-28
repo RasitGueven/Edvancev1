@@ -79,7 +79,7 @@
   "figur": null,
   "zeit_sek": 45,
   "kann_entfallen": false,
-  "generator_hash": "a6060eb29344"
+  "generator_hash": "8a6356eb2328"
  },
  "pruefprotokoll": {
   "gruen": 151,
@@ -14281,7 +14281,7 @@
     "d": 9,
     "e": 7
    },
-   "frage": "Gib den Scheitelpunkt von f(x) = 1/2(x − 9)² + 7 an.",
+   "frage": "Gib den Scheitelpunkt von f(x) = 1/2 · (x − 9)² + 7 an.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -14348,7 +14348,7 @@
     "Die y-Koordinate ist die Zahl, die hinten addiert wird."
    ],
    "loesungsweg": [
-    "f(x) = 1/2(x − 9)² + 7",
+    "f(x) = 1/2 · (x − 9)² + 7",
     "Die Klammer wird null für x = 9.",
     "Dann ist f(9) = 7.",
     "S(9 | 7)"
@@ -15291,7 +15291,7 @@
     "d": -6,
     "e": 5
    },
-   "frage": "Gib den Scheitelpunkt von f(x) = 1/2(x + 6)² + 5 an.",
+   "frage": "Gib den Scheitelpunkt von f(x) = 1/2 · (x + 6)² + 5 an.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -15358,7 +15358,7 @@
     "Die y-Koordinate ist die Zahl, die hinten addiert wird."
    ],
    "loesungsweg": [
-    "f(x) = 1/2(x + 6)² + 5",
+    "f(x) = 1/2 · (x + 6)² + 5",
     "Die Klammer wird null für x = −6.",
     "Dann ist f(−6) = 5.",
     "S(−6 | 5)"
@@ -16461,7 +16461,7 @@
     "d": 7,
     "e": 1
    },
-   "frage": "Gib den Scheitelpunkt von f(x) = 1/2(x − 7)² + 1 an.",
+   "frage": "Gib den Scheitelpunkt von f(x) = 1/2 · (x − 7)² + 1 an.",
    "input_type": "FELDMASKE",
    "payload": {
     "format": "feldmaske",
@@ -16528,7 +16528,7 @@
     "Die y-Koordinate ist die Zahl, die hinten addiert wird."
    ],
    "loesungsweg": [
-    "f(x) = 1/2(x − 7)² + 1",
+    "f(x) = 1/2 · (x − 7)² + 1",
     "Die Klammer wird null für x = 7.",
     "Dann ist f(7) = 1.",
     "S(7 | 1)"

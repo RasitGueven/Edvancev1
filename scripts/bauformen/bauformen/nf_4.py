@@ -22,7 +22,7 @@ class NF4(Bauform):
     text = 'Bring die Schritte der quadratischen Ergänzung für f(x) = {term} in die richtige Reihenfolge.'
     fehlbild_steckbrief = []
     hinweis_vorlagen = ['Was ist der erste Schritt der quadratischen Ergänzung?',
-                        'Zuerst ergänzt man und zieht wieder ab, dann schreibt man das Quadrat.',
+                        'Der erste Schritt sieht noch fast aus wie die Aufgabe.',
                         'Am Ende liest man den Scheitel ab.']
     zeit_sek = 90
 

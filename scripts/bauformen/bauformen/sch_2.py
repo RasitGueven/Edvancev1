@@ -28,7 +28,7 @@ class SCH2(Bauform):
          'rueckmeldung': 'Die x-Koordinate des Scheitels gehört in die Klammer, die y-Koordinate nach hinten.'},
     ]
     hinweis_vorlagen = ['Lies zuerst den Scheitel ab.', 'Setz den Scheitel S(d | e) in f(x) = a(x − d)² + e ein.',
-                        'Für a: Geh vom Scheitel eins nach rechts. Um wie viel geht es nach oben oder unten?']
+                        'Für a: Geh vom Scheitel zwei nach rechts. Um wie viel geht es nach oben oder unten? Teil das durch 4.']
     zeit_sek = 120
     anzahl = {'generalprobe': 12}
 

@@ -50,7 +50,7 @@
   ],
   "hinweise": [
    "Welche Zahl ist die Hälfte von {b}?",
-   "Ergänze zu einem Quadrat: Gib ({h})² dazu und zieh es wieder ab.",
+   "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
    "Schreib x² {b_glied} + {hq} als Quadrat einer Klammer."
   ],
   "loesungsweg": [],
@@ -77,7 +77,7 @@
   "figur": null,
   "zeit_sek": 150,
   "kann_entfallen": false,
-  "generator_hash": "37bb9733595a"
+  "generator_hash": "489beb589597"
  },
  "pruefprotokoll": {
   "gruen": 84,
@@ -173,7 +173,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -285,7 +285,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −6?",
-    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -397,7 +397,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −4?",
-    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -509,7 +509,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -612,7 +612,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −4?",
-    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -724,7 +724,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 8?",
-    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -827,7 +827,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -939,7 +939,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1051,7 +1051,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −4?",
-    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1163,7 +1163,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −8?",
-    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1275,7 +1275,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 2?",
-    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1378,7 +1378,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 8?",
-    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1481,7 +1481,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1584,7 +1584,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1696,7 +1696,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1799,7 +1799,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −6?",
-    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -1911,7 +1911,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2014,7 +2014,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 2?",
-    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2117,7 +2117,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −10?",
-    "Ergänze zu einem Quadrat: Gib (−5)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 10x + 25 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2229,7 +2229,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2332,7 +2332,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 10?",
-    "Ergänze zu einem Quadrat: Gib (5)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 10x + 25 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2435,7 +2435,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −8?",
-    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2547,7 +2547,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −4?",
-    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2659,7 +2659,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2771,7 +2771,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2874,7 +2874,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 8?",
-    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -2977,7 +2977,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3080,7 +3080,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 2?",
-    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3183,7 +3183,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3295,7 +3295,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −4?",
-    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3407,7 +3407,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3510,7 +3510,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3613,7 +3613,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3725,7 +3725,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3828,7 +3828,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -3931,7 +3931,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −4?",
-    "Ergänze zu einem Quadrat: Gib (−2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4043,7 +4043,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −12?",
-    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 12x + 36 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4155,7 +4155,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 8?",
-    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4267,7 +4267,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 10?",
-    "Ergänze zu einem Quadrat: Gib (5)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 10x + 25 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4379,7 +4379,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4491,7 +4491,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −2?",
-    "Ergänze zu einem Quadrat: Gib (−1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4603,7 +4603,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 16?",
-    "Ergänze zu einem Quadrat: Gib (8)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 16x + 64 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4715,7 +4715,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 8?",
-    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4827,7 +4827,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 2?",
-    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -4930,7 +4930,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −12?",
-    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 12x + 36 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5042,7 +5042,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 2?",
-    "Ergänze zu einem Quadrat: Gib (1)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 2x + 1 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5154,7 +5154,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −10?",
-    "Ergänze zu einem Quadrat: Gib (−5)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 10x + 25 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5266,7 +5266,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −8?",
-    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5378,7 +5378,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −6?",
-    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5490,7 +5490,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 14?",
-    "Ergänze zu einem Quadrat: Gib (7)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 14x + 49 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5602,7 +5602,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 12?",
-    "Ergänze zu einem Quadrat: Gib (6)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 12x + 36 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5714,7 +5714,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 12?",
-    "Ergänze zu einem Quadrat: Gib (6)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 12x + 36 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5826,7 +5826,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −10?",
-    "Ergänze zu einem Quadrat: Gib (−5)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 10x + 25 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -5938,7 +5938,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −8?",
-    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6050,7 +6050,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −12?",
-    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 12x + 36 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6162,7 +6162,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −12?",
-    "Ergänze zu einem Quadrat: Gib (−6)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 12x + 36 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6274,7 +6274,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 8?",
-    "Ergänze zu einem Quadrat: Gib (4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6377,7 +6377,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −8?",
-    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6489,7 +6489,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 14?",
-    "Ergänze zu einem Quadrat: Gib (7)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 14x + 49 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6601,7 +6601,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 4?",
-    "Ergänze zu einem Quadrat: Gib (2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 4x + 4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6713,7 +6713,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6816,7 +6816,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −6?",
-    "Ergänze zu einem Quadrat: Gib (−3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -6928,7 +6928,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 6?",
-    "Ergänze zu einem Quadrat: Gib (3)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 6x + 9 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7031,7 +7031,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −8?",
-    "Ergänze zu einem Quadrat: Gib (−4)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 8x + 16 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7143,7 +7143,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −13?",
-    "Ergänze zu einem Quadrat: Gib (−13/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 13x + 169/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7255,7 +7255,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 7?",
-    "Ergänze zu einem Quadrat: Gib (7/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 7x + 49/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7358,7 +7358,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −5?",
-    "Ergänze zu einem Quadrat: Gib (−5/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 5x + 25/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7470,7 +7470,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 9?",
-    "Ergänze zu einem Quadrat: Gib (9/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 9x + 81/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7582,7 +7582,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 11?",
-    "Ergänze zu einem Quadrat: Gib (11/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 11x + 121/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7694,7 +7694,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 11?",
-    "Ergänze zu einem Quadrat: Gib (11/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 11x + 121/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7806,7 +7806,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −9?",
-    "Ergänze zu einem Quadrat: Gib (−9/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 9x + 81/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -7918,7 +7918,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −5?",
-    "Ergänze zu einem Quadrat: Gib (−5/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 5x + 25/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8030,7 +8030,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −1?",
-    "Ergänze zu einem Quadrat: Gib (−1/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − x + 1/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8142,7 +8142,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 3?",
-    "Ergänze zu einem Quadrat: Gib (3/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 3x + 9/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8254,7 +8254,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 13?",
-    "Ergänze zu einem Quadrat: Gib (13/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 13x + 169/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8366,7 +8366,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 13?",
-    "Ergänze zu einem Quadrat: Gib (13/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 13x + 169/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8478,7 +8478,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 11?",
-    "Ergänze zu einem Quadrat: Gib (11/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 11x + 121/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8590,7 +8590,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −9?",
-    "Ergänze zu einem Quadrat: Gib (−9/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 9x + 81/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8702,7 +8702,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −3?",
-    "Ergänze zu einem Quadrat: Gib (−3/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 3x + 9/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8814,7 +8814,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −1?",
-    "Ergänze zu einem Quadrat: Gib (−1/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − x + 1/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -8926,7 +8926,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −3?",
-    "Ergänze zu einem Quadrat: Gib (−3/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 3x + 9/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -9038,7 +9038,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von 7?",
-    "Ergänze zu einem Quadrat: Gib (7/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² + 7x + 49/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -9150,7 +9150,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −13?",
-    "Ergänze zu einem Quadrat: Gib (−13/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 13x + 169/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [
@@ -9262,7 +9262,7 @@
    ],
    "hinweise": [
     "Welche Zahl ist die Hälfte von −9?",
-    "Ergänze zu einem Quadrat: Gib (−9/2)² dazu und zieh es wieder ab.",
+    "Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.",
     "Schreib x² − 9x + 81/4 als Quadrat einer Klammer."
    ],
    "loesungsweg": [

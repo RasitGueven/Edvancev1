@@ -68,7 +68,7 @@ D: Er liegt bei S(−5 | 9).
 
 ## Aufgabe 9
 
-Hat f(x) = 1/2(x − 3)² − 7 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.
+Hat f(x) = 1/2 · (x − 3)² − 7 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine.
 A: Es ist ein Tiefpunkt.
 B: Er liegt bei S(−3 | −7).
 C: Es ist ein Hochpunkt.

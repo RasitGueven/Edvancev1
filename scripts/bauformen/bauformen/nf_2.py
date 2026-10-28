@@ -31,7 +31,8 @@ class NF2(Bauform):
         {'key': 'qf_verschiebung_vorzeichen', 'regel': '(x − b/2)²', 'gilt_fuer_stufen': [2, 3, 4],
          'rueckmeldung': 'Das Vorzeichen in der Klammer ist dasselbe wie das Vorzeichen vor x.'},
     ]
-    hinweis_vorlagen = ['Welche Zahl ist die Hälfte von {b}?', 'Ergänze zu einem Quadrat: Gib ({h})² dazu und zieh es wieder ab.',
+    hinweis_vorlagen = ['Welche Zahl ist die Hälfte von {b}?',
+                        'Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.',
                         'Schreib x² {b_glied} + {hq} als Quadrat einer Klammer.']
     warum = {'bei_schritt': 1, 'frage': 'Warum zieht man ({h})² wieder ab?',
              'bausteine': [{'id': 'a', 'text': 'Damit sich der Wert der Funktion nicht ändert: + und − dieselbe Zahl ist 0.'},

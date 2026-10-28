@@ -12,7 +12,24 @@
    "3": "f(x) = x² + bx + c; Fehler: Ergänzung nur addiert",
    "4": "f(x) = a·x² + bx + c mit a ∈ {2, 3}; Fehler: Ergänzung nicht mit a multipliziert"
   },
-  "fehlbilder": [],
+  "fehlbilder": [
+   {
+    "key": "qf_ergaenzung_nicht_abgezogen",
+    "regel": "richtige Zeile, falsche Begründung (a = 1)",
+    "gilt_fuer_stufen": [
+     3
+    ],
+    "rueckmeldung": "Die Zeile stimmt. Schau, was mit der Ergänzung passiert: Wird sie auch wieder abgezogen?"
+   },
+   {
+    "key": "qf_ergaenzung_ohne_a",
+    "regel": "richtige Zeile, falsche Begründung (a ≠ 1)",
+    "gilt_fuer_stufen": [
+     4
+    ],
+    "rueckmeldung": "Die Zeile stimmt. Schau, mit welcher Zahl die abgezogene Ergänzung außen malgenommen wird."
+   }
+  ],
   "hinweise": [
    "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
    "Rechne zur Probe eine Zeile wieder aus.",
@@ -24,7 +41,7 @@
   "figur": null,
   "zeit_sek": 150,
   "kann_entfallen": false,
-  "generator_hash": "145a462636ab"
+  "generator_hash": "2ec25ab6869b"
  },
  "pruefprotokoll": {
   "gruen": 16,
@@ -103,7 +120,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -192,7 +214,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -281,7 +308,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -370,7 +402,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -459,7 +496,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -548,7 +590,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -637,7 +684,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -726,7 +778,12 @@
     "zeile": 2,
     "warum": "a"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_nicht_abgezogen",
+     "zeile": 2
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -815,7 +872,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -904,7 +966,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -993,7 +1060,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -1082,7 +1154,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -1171,7 +1248,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -1260,7 +1342,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -1349,7 +1436,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",
@@ -1438,7 +1530,12 @@
     "zeile": 4,
     "warum": "c"
    },
-   "fehlbilder": [],
+   "fehlbilder": [
+    {
+     "key": "qf_ergaenzung_ohne_a",
+     "zeile": 4
+    }
+   ],
    "hinweise": [
     "Prüf jede Zeile: Ist der Term noch derselbe wie in der Zeile davor?",
     "Rechne zur Probe eine Zeile wieder aus.",

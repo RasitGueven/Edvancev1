@@ -57,7 +57,7 @@ class SCH1(Bauform):
     def erzeugen(self, params: dict, rolle: str, stufe: int) -> Instanz:
         from fractions import Fraction
         a, d, e = Fraction(params['a']), params['d'], params['e']
-        vor = '' if a == 1 else ('−' if a == -1 else f'{zahl(a)}')
+        vor = '' if a == 1 else '−' if a == -1 else (f'{zahl(a)} · ' if a.denominator != 1 else zahl(a))
         term = f'{vor}({summe([(1, "x"), (-d, "")])})² {"+" if e > 0 else "−"} {abs(e)}'
         schab = fm('S(', '±x', ' | ', '±y', ')')
         loes = werte(x=d, y=e)
