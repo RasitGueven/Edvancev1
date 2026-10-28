@@ -1,0 +1,48 @@
+-- Rollback zu 20261028125114: session_ziehen wie in 20261027133007_reihe1_c2_bausteine.sql.
+
+create or replace function public.session_ziehen(p_session_id uuid, p_student_id uuid, p_skill_key text, p_rolle text,
+                                      p_stufe int, p_testlauf boolean, p_nur_ungesehen boolean default false,
+                                      out task_id uuid, out difficulty int)
+returns record
+language plpgsql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_aus  uuid[] := public.session_ausschluss(p_session_id, p_student_id, p_nur_ungesehen);
+  v_s    int;
+  w      record;
+begin
+  if to_regprocedure('public.aufgabe_ziehen(uuid,text,text,integer,uuid[])') is not null then
+    for v_s in
+      select x from (select p_stufe as x, 0 as o where p_stufe is not null
+                     union all select g, 1 + p_stufe - g from generate_series(1, coalesce(p_stufe, 1) - 1) g
+                     union all select g, 10 + g from generate_series(coalesce(p_stufe, 5) + 1, 5) g
+                     union all select null::int, 99 where p_stufe is null) s order by o
+    loop
+      begin
+        execute 'select public.aufgabe_ziehen($1, $2, $3, $4, $5)' into task_id
+          using p_student_id, p_skill_key, p_rolle, v_s, v_aus;
+      exception when insufficient_privilege then
+        -- Zweitprüfung C2-3: z. B. Coach-Vorschau ohne Akte; dann nichts ziehen statt abbrechen.
+        task_id := null; return;
+      end;
+      if task_id is not null then
+        difficulty := public.session_stufe(task_id);
+        return;
+      end if;
+    end loop;
+    return;
+  end if;
+  -- Ohne Auftrag A: bisheriger Session-Pool, nur für Rollen, die es dort schon gibt.
+  if p_rolle in ('warmup', 'uebung', 'recap', 'beispiel') then
+    select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_skill_key, coalesce(p_stufe, 2),
+                                                        p_testlauf, p_rolle = 'beispiel');
+    if w.task_id is not null and not (w.task_id = any (v_aus)) then
+      task_id := w.task_id;
+      difficulty := w.difficulty;
+    end if;
+  end if;
+end;
+$$;

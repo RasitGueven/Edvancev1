@@ -1,0 +1,20 @@
+# Bauauftrag B · Fortschritt
+
+| Datum | Phase | Ergebnis | PR |
+|---|---|---|---|
+| 2026-10-27 | Schritt 0 | Worktrees `Edvancev1-B` (feat/rasit-reihe1-b0) und `edvance-app-B` (feat/rasit-reihe1-b6-app) ab origin/dev, npm ci, Unterlagen nach docs/reihe1. `ELEVENLABS_API_KEY` fehlt → Platzhalter-Stimme. studio-dummy: `Downloads/Edvance Studio.html` | – |
+| 2026-10-27 | B0 | Ist-Analyse: E1 und E2a vorhanden; kein Next.js (Vercel Functions unter api/); Ashkan ohne Konto; alle qf_-Fehlbilder fehlen in Prod; Prod-Ref ztcppihxqcphlqaguhma | #329 |
+| 2026-10-27 | B0b | ErklaerVideo-Platzhalter + Props (edvance-app), Props im DATENVERTRAG R1-B | edvance-app#50, #329 |
+| 2026-10-27 | B1 | Datenmodell studio_*, studio_skript_speichern, Importprüfung (21 Tests), /admin/studio; pgTAP studio_b1 28/28; Zweitprüfung eingearbeitet; Einspielen: ~/einspielen/B-1-studio_modell.sh (wartet) | (folgt) |
+| 2026-10-27 | B2 | Stimme: studio_audio, Fingerabdruck, studio_stimme_bedarf, Route api/studio/stimme.ts (ElevenLabs bzw. Platzhalter), Panel „Fehlende erzeugen“; pgTAP studio_b2 15/15; Zweitprüfung eingearbeitet; Einspielen: ~/einspielen/B-2-studio_stimme.sh (wartet auf B1) | (folgt) |
+| 2026-10-27 | Anweisung | Rasit: alle Migrationen selbst einspielen (EINSPIELEN = orchestrator ab jetzt) | – |
+| 2026-10-27 | B1 eingespielt | 20261027130817 studio_modell in Prod; dbread: 9 studio_*-Tabellen. Prod-Schema-Abzug nicht übernommen (Prod trägt schon Migrationen von A, C, D) | #336 |
+| 2026-10-27 | B2 eingespielt | 20261027132413 studio_stimme in Prod; dbread: studio_stimme_bedarf, Bucket studio (privat, 200 MB, 7 MIME), 2 Storage-Policies | #337 |
+| 2026-10-27 | Abhängigkeit | A2: alle acht qf_-Fehlbilder in Prod; D: kompetenz_offen fehlt noch | – |
+| 2026-10-27 | B3 | Remotion 4.0.539, Bausteine Titelkarte/Raster/Term-Zeile/Merksatz/Endkarte, Welten als Token-Skin, MathJax wie E1.4, Vorschau mit Kapiteln; Standbilder aller vier Welten in docs/reihe1/B/abnahme/b3 | (folgt) |
+| 2026-10-27 | B4 | studio_render (Status, Fingerabdruck, „Render veraltet“, ein Lauf je Welt), Route api/studio/render.ts (Vercel Sandbox), npm run studio:render (lokal); Abgleich MP4 ↔ Vorschau frame-genau; pgTAP studio_b4 15/15; Zweitprüfung eingearbeitet; eingespielt (dbread: 3 Funktionen, Index studio_render_ein_lauf) | (folgt) |
+| 2026-10-27 | B5 | Freigabe: Protokoll mit Fingerabdruck, Prüfer ≠ Autor/Bearbeiter, Vier-Augen, studio_ausgabe (Kinder sehen die alte Fassung bis zur neuen Freigabe), Reiter Freigabe; pgTAP studio_b5 25/25; Zweitprüfung eingearbeitet; eingespielt (dbread: 3 Funktionen, 2 Trigger) | (folgt) |
+| 2026-10-27 | B6 Backend | Video in erklaer_start/zeigen, Antwortart ruecksprung, Mediathek, Eddie-Index, Welt des Kindes; pgTAP studio_b6 26/26, alle 86 Dateien grün; Zweitprüfung eingearbeitet; eingespielt (dbread: 5 Funktionen „reihe1 fertig“) | (folgt) |
+| 2026-10-27 | B7 | Bausteine koordinatensystem (Parabel animiert, Scheitel, Nullstellen, Gerade y = c, Wertetabelle) und flaechenmodell (quadratische Ergänzung); Parameter-Tests, Stolperdraht-Hash nachgezogen (vorhandene Bausteine unverändert); Standbilder in vier Welten docs/reihe1/B/abnahme/b7; Abnahme durch Ashkan in der Live-Checkliste | (folgt) |
+| 2026-10-27 | B8 | Skripte V1–V8 (Skelett, 8–9 Beats, 2–3 Mini-Checks mit Rücksprung und Zwilling), Importprüfung als Test (40/40), gegen den echten Katalog in Prod geprüft (23 Schlüssel vorhanden), fachliche Prüfung durch frischen Subagenten eingearbeitet (docs/reihe1/B/skripte/pruefung.md) | (folgt) |
+| 2026-10-27 | B9 | Abnahme aller zehn Fälle (abnahme/abnahme-faelle.md), Studio-Ansichten 1440×900 und 1180×820, ErklaerVideo in vier Größen (edvance-app #56, 12/12), Live-Checkliste, Bericht; Studio: Player-Breite und doppelte Ausgabe-Zeile korrigiert | #356, edvance-app #56 |

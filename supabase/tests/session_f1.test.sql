@@ -139,9 +139,10 @@ select ok(:'e1'::jsonb -> 'kernidee' ->> 'titel' like 'Platzhalter:%', '6 die Ke
 select is(:'e1'::jsonb -> 'check' ->> 'task_id', 'a368a0d0-25fd-4cc9-a873-541afbb9e864', '6 mit dem Platzhalter-Check');
 
 -- Ausserhalb eines Testlaufs: eine Aufgabe ready, damit der Pool nicht leer ist; die Sequenz (Entwurf) kommt nicht.
+-- Ohne Bauform: Instanzen (seit A4 auch für gleichung_quadr_faktor) zieht die Session nur freigegeben (Konzept §9).
 update tasks set status = 'ready'
  where id = (select id from tasks where skill_key = 'gleichung_quadr_faktor' and source <> 'edvance_f1_platzhalter'
-              and 'session' = any (einsatz) order by source_ref limit 1);
+              and 'session' = any (einsatz) and bauform_id is null order by source_ref limit 1);
 select pg_temp.kind_mit('ZZ Echt Batu F1', 'quadratische_gleichungen', '{zahl_wurzel_quadrat}') as k_eb \gset
 select pg_temp.neue_session(array[:'k_eb']::uuid[], 20) as s7 \gset
 select pg_temp.checkin(:'s7', 1);

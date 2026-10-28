@@ -99,6 +99,8 @@ export type AufgabenKopf =
   | { art: 'check'; kernidee: number; runde: number }
 
 export type LiveAufgabeDetail = {
+  /** Reihe 1 C0b: fuer den Einbaupunkt an der Aufgabe (Melde-Knopf von A). */
+  taskId?: string
   kopf: AufgabenKopf
   skill: string
   /** Was das Kind sieht. */

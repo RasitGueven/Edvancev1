@@ -239,5 +239,40 @@
     --color-tp-ueber-neutral-grund: #FBF9F7;
     --color-tp-ueber-neutral-rand:  #D8CDC5;
     --color-tp-ueber-neutral-text:  #7C6E66;
+    /* ── STUDIO · WELTEN DER ERKLÄRVIDEOS ──────────────────────
+       Skins der Remotion-Bausteine (Reihe 1, Bauauftrag B3), Werte aus dem
+       Studio-Dummy (21.10.). Nur für src/studio/remotion/**. Matt, flach. */
+    --color-studio-skelett-grund:  #263A5B;
+    --color-studio-skelett-tief:   #17263F;
+    --color-studio-skelett-zelle:  rgba(247, 245, 238, 0.88);
+    --color-studio-skelett-zelle2: rgba(247, 245, 238, 0.80);
+    --color-studio-skelett-linie:  #263A5B;
+    --color-studio-skelett-akzent: #D4A843;
+    --color-studio-skelett-tinte:  #F7F5EE;
+    --color-studio-skelett-leise:  rgba(247, 245, 238, 0.6);
+    --color-studio-fussball-grund:  #2A6B40;
+    --color-studio-fussball-tief:   #1A4A2C;
+    --color-studio-fussball-zelle:  #4CAF6A;
+    --color-studio-fussball-zelle2: #3E9A5B;
+    --color-studio-fussball-linie:  #2A6B40;
+    --color-studio-fussball-akzent: #F0DFAE;
+    --color-studio-fussball-tinte:  #FFFFFF;
+    --color-studio-fussball-leise:  rgba(255, 255, 255, 0.7);
+    --color-studio-gaming-grund:  #2A3150;
+    --color-studio-gaming-tief:   #151A2C;
+    --color-studio-gaming-zelle:  #79A84B;
+    --color-studio-gaming-zelle2: #6A9640;
+    --color-studio-gaming-linie:  #3E5A26;
+    --color-studio-gaming-akzent: #F0C24A;
+    --color-studio-gaming-tinte:  #F7F5EE;
+    --color-studio-gaming-leise:  rgba(247, 245, 238, 0.6);
+    --color-studio-musik-grund:  #33284A;
+    --color-studio-musik-tief:   #151020;
+    --color-studio-musik-zelle:  #5A4A72;
+    --color-studio-musik-zelle2: #4E4066;
+    --color-studio-musik-linie:  #2A2040;
+    --color-studio-musik-akzent: #E8D5A3;
+    --color-studio-musik-tinte:  #F7F5EE;
+    --color-studio-musik-leise:  rgba(247, 245, 238, 0.6);
   }
 }

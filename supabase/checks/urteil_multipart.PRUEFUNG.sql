@@ -46,8 +46,8 @@ begin
 
   -- MULTI_PART wie die P5-Items: Teil 1 mc, Teil 2 short_input.
   insert into public.tasks (id, content_type, skill_key, question, input_type,
-                            status, est_duration_sec, parts)
-  values (v_multi, 'exercise', 'AF7_MULTI', 'AF7 Multi-Part', 'MULTI_PART', 'ready', 180,
+                            status, est_duration_sec, einsatz, parts)
+  values (v_multi, 'exercise', 'AF7_MULTI', 'AF7 Multi-Part', 'MULTI_PART', 'ready', 180, '{lsa}',
     '[{"nr":1,"kind":"mc","prompt":"Welche?","afb":"II",
        "options":[{"id":"a","label":"A"},{"id":"b","label":"B"}]},
       {"nr":2,"kind":"short_input","prompt":"Wie viele?","afb":"II"}]'::jsonb);
@@ -55,8 +55,8 @@ begin
   values (v_multi, '{"1":["a"],"2":["7"]}'::jsonb);
 
   -- Flaches NUMERIC-Item als Kontrollgruppe.
-  insert into public.tasks (id, content_type, skill_key, question, input_type, status)
-  values (v_flach, 'exercise', 'AF7_FLACH', 'AF7 flach', 'NUMERIC', 'ready');
+  insert into public.tasks (id, content_type, skill_key, question, input_type, status, einsatz)
+  values (v_flach, 'exercise', 'AF7_FLACH', 'AF7 flach', 'NUMERIC', 'ready', '{lsa}');
   insert into public.task_solutions (task_id, correct_answers)
   values (v_flach, '["7"]'::jsonb);
 
