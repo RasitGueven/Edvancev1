@@ -10,6 +10,7 @@ import { Feldname, Pille, Platz } from './bausteine'
 import { useLive } from './LiveKontext'
 import { ThemaWahl } from './ThemaWahl'
 import { useLiveTexte } from './useLiveTexte'
+import { CheckinEinbau } from './einbau/CheckinEinbau'
 
 const FAELLE: SessionFall[] = ['klassenarbeit', 'schulthema', 'lernpfad']
 
@@ -98,6 +99,7 @@ export function CheckinZeile({ kind, katalog }: { kind: CoachLiveKind; katalog: 
           />
         </div>
       )}
+      <CheckinEinbau kindId={kind.id} sessionId={sessionId} />
       <div className="col-span-full flex flex-col gap-2 @min-[1000px]:col-start-2">
         <Feldname>{geaendert ? tx.t('checkin.fallGeaendert') : tx.t('checkin.fall')}</Feldname>
         <div className="flex flex-wrap items-center gap-2">
