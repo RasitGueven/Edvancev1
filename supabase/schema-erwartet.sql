@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict AvPq5TRvy2e1xq9nU7bcBsNpkdtQizaySHUGCNFBhJ9azF8xOIIPwBJAr25kleq
+\restrict es33gKPg1jnzWczpoya8V7DXtHRscMm7HMXl87YTXMJQr14l7GGOQFK4YyhsIxi
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1156,6 +1156,11 @@ begin
   if p_schluessel is null and (p_reihe is null) = (p_thema_key is null) then
     raise exception 'bauform_freigeben: genau eins von Reihe oder Thema' using errcode = '22023';
   end if;
+  if p_schluessel is not null and (cardinality(p_schluessel) = 0
+      or exists (select 1 from unnest(p_schluessel) k where k is null
+                   or not exists (select 1 from public.bauformen x where x.schluessel = k))) then
+    raise exception 'bauform_freigeben: Muster-Schluessel leer oder unbekannt' using errcode = '22023';
+  end if;
   for b in
     select x.* from public.bauformen x
      where x.status = 'zur_freigabe'
@@ -1204,7 +1209,7 @@ begin
     join public.students s on s.id = r.student_id
     left join public.profiles p on p.id = s.profile_id
     left join public.leads l on l.id = s.lead_id
-   where r.status = 'aktiv'
+   where r.status = 'aktiv' and r.fach = 'mathematik'
    order by 2, s.id;
 end;
 $$;
@@ -1227,6 +1232,8 @@ declare
   v_kosten numeric[];
   v_idx    int[];
   v_sess   jsonb := '[]';
+  v_teil   jsonb;
+  v_schritt int := 0;
   i        int;
 begin
   select coalesce(jsonb_agg(jsonb_build_object('skill_key', k.skill_key, 'kernidee_key', k.kernidee_key,
@@ -1236,24 +1243,30 @@ begin
     v_items := v_items || jsonb_build_object('minuten', v_trans);
   end if;
 
-  for versuch in 1 .. 2 loop
+  -- Kürzen nach Regel 5 wie reihe_plan_rechnen, bis es in die Sessions vor der Generalprobe passt.
+  loop
     select coalesce(array_agg((e ->> 'minuten')::numeric order by o), '{}') into v_kosten
       from jsonb_array_elements(v_items) with ordinality x(e, o);
     v_idx := public.reihe_verteilen(v_kosten, v_n - 1, v_cap);
-    exit when v_idx is not null;
-    -- Regel 5 wie reihe_plan_rechnen: entfallbare Kernideen und Transferblock zuerst.
-    select coalesce(jsonb_agg(e order by o), '[]') into v_items
-      from jsonb_array_elements(v_items) with ordinality x(e, o)
-     where e ? 'skill_key' and not public.reihe_kann_entfallen_pruefen(e ->> 'skill_key');
+    exit when v_idx is not null or jsonb_array_length(v_items) = 0;
+    v_schritt := v_schritt + 1;
+    if v_schritt = 1 then
+      select coalesce(jsonb_agg(e order by o) filter (where not (e ? 'skill_key'
+               and public.reihe_kann_entfallen_pruefen(e ->> 'skill_key'))), '[]')
+        into v_items from jsonb_array_elements(v_items) with ordinality x(e, o);
+    elsif v_schritt = 2 then
+      select coalesce(jsonb_agg(e order by o) filter (where e ? 'skill_key'), '[]')
+        into v_items from jsonb_array_elements(v_items) with ordinality x(e, o);
+    else
+      v_items := v_items - (jsonb_array_length(v_items) - 1);
+    end if;
   end loop;
-  if v_idx is null then
-    return '[]';
-  end if;
+  v_idx := coalesce(v_idx, '{}');
 
   for i in 1 .. v_n - 1 loop
     v_sess := v_sess || jsonb_build_object('nr', i, 'kernideen',
       coalesce((select jsonb_agg((v_items -> (o - 1)) - 'minuten' order by o)
-                  from generate_series(1, cardinality(v_idx)) o
+                  from generate_series(1, coalesce(cardinality(v_idx), 0)) o
                  where v_idx[o] = i and (v_items -> (o - 1)) ? 'skill_key'), '[]'));
   end loop;
   return v_sess;
@@ -36782,5 +36795,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict AvPq5TRvy2e1xq9nU7bcBsNpkdtQizaySHUGCNFBhJ9azF8xOIIPwBJAr25kleq
+\unrestrict es33gKPg1jnzWczpoya8V7DXtHRscMm7HMXl87YTXMJQr14l7GGOQFK4YyhsIxi
 
