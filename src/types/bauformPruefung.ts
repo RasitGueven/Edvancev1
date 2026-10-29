@@ -96,3 +96,15 @@ export type PrueffrageZeile = {
   geprueft_am: string | null
   pruef_notiz: string | null
 }
+
+/** Zeile aus bauform_pruef_plan (M1): Muster mit Session des Standard- oder Kinderplans. */
+export type BauformPlanZeile = BauformListenZeile & {
+  session_nr: number | null
+  session_titel: string | null
+  kernidee_key: string | null
+  kernidee_titel: string | null
+  ist_voraussetzung: boolean
+}
+
+/** Zeile aus bauform_plan_kinder (M1): Kind mit aktiver Reihe fuer den Plan-Umschalter. */
+export type PlanKind = { student_id: string; name: string; ist_test: boolean; reihe_id: string }

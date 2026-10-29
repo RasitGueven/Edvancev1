@@ -4,6 +4,8 @@ import type {
   BauformDetail,
   BauformEntscheidung,
   BauformListenZeile,
+  BauformPlanZeile,
+  PlanKind,
   PrueffrageZeile,
 } from '@/types/bauformPruefung'
 
@@ -58,8 +60,15 @@ export const bauformPruefen = (
     p_dauer_sek: dauerSek,
   })
 
-export const bauformFreigeben = (reihe: string): Promise<BauformResult<number>> =>
-  rufe('bauform_freigeben', { p_reihe: reihe })
+/** Muster nach Sessions (M1): ohne Kind der Standardplan, mit Kind dessen wirksamer Plan. */
+export const getBauformPlan = (studentId?: string | null): Promise<BauformResult<BauformPlanZeile[]>> =>
+  rufe('bauform_pruef_plan', studentId ? { p_student_id: studentId } : undefined)
+
+export const getPlanKinder = (): Promise<BauformResult<PlanKind[]>> => rufe('bauform_plan_kinder')
+
+/** Gibt die Reihe frei; mit schluessel nur diese Muster (M1, „Session n freigeben“). */
+export const bauformFreigeben = (reihe: string, schluessel?: string[]): Promise<BauformResult<number>> =>
+  rufe('bauform_freigeben', schluessel ? { p_reihe: reihe, p_schluessel: schluessel } : { p_reihe: reihe })
 
 export const getAuffaellig = (): Promise<BauformResult<AuffaelligZeile[]>> => rufe('bauform_auffaellig')
 

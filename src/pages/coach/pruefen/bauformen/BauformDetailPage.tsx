@@ -1,6 +1,7 @@
 // /coach/pruefen/bauformen/:bauformId: Lena prueft eine Bauform als Ganzes (Konzept §6): Steckbrief, sechs Beispiele wie
 // auf dem Tablet (je Stufe mindestens eines), „Andere Beispiele“, Fehlbilder mit Rueckmeldungen, Hinweise,
 // Loesungsbeispiel, Befund von Pruefmaschine und Blindloeser; Entscheidung passt | unsicher | passt nicht (Tasten 1/2/3).
+// M1: oben „gebraucht in Session n“ aus dem Standardplan (bauform_pruef_plan).
 import { useCallback, useEffect, useRef, useState, type JSX } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -10,8 +11,8 @@ import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { BauformBeispiel } from '@/components/edvance/pruefen/bauform/BauformBeispiel'
 import { BauformEntscheidung } from '@/components/edvance/pruefen/bauform/BauformEntscheidung'
 import { BauformSteckbrief } from '@/components/edvance/pruefen/bauform/BauformSteckbrief'
-import { bauformPruefen, getBauformDetail } from '@/lib/supabase/bauformPruefung'
-import type { BauformDetail, BauformEntscheidung as Entscheidung } from '@/types/bauformPruefung'
+import { bauformPruefen, getBauformDetail, getBauformPlan } from '@/lib/supabase/bauformPruefung'
+import type { BauformDetail, BauformEntscheidung as Entscheidung, BauformPlanZeile } from '@/types/bauformPruefung'
 
 export function BauformDetailPage(): JSX.Element {
   const { t } = useTranslation('bauformPruefen')
@@ -21,6 +22,7 @@ export function BauformDetailPage(): JSX.Element {
   const [fehler, setFehler] = useState<string | null>(null)
   const [meldung, setMeldung] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
+  const [plan, setPlan] = useState<BauformPlanZeile | null>(null)
   const start = useRef(Date.now())
 
   useEffect(() => {
@@ -29,6 +31,11 @@ export function BauformDetailPage(): JSX.Element {
       setFehler(r.error?.message ?? null)
     })
   }, [bauformId, seed])
+
+  // Ohne Plan fehlt nur die Zeile „gebraucht in Session n“.
+  useEffect(() => {
+    void getBauformPlan().then((r) => setPlan(r.data?.find((z) => z.bauform_id === bauformId) ?? null))
+  }, [bauformId])
 
   const entscheide = useCallback(async (e: Entscheidung, gruende: string[], notiz: string | null): Promise<void> => {
     if (!detail || busy) return
@@ -51,6 +58,12 @@ export function BauformDetailPage(): JSX.Element {
       <PageHeader titel={`${detail.schluessel} · ${detail.skill_label}`} satz={detail.steckbrief.text ?? ''}
         zurueckZu="/coach/pruefen/bauformen" zurueckLabel={t('detail.zurueck')}
         aktionen={<EdvanceBadge variant={offen ? 'warning' : 'muted'}>{t(`status.${detail.status}`)} · {t('liste.version', { version: detail.version })}</EdvanceBadge>} />
+      {plan && (
+        <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+          {plan.session_nr != null ? t('plan.gebrauchtIn', { nr: plan.session_nr }) : t('plan.gebrauchtVoraussetzung')}
+          {plan.kernidee_titel ? ` · ${plan.kernidee_titel}` : ''}
+        </p>
+      )}
       {meldung && <p role="status" className="text-sm text-[var(--color-text-secondary)]">{meldung}</p>}
       <BauformSteckbrief detail={detail} />
       <section className="flex flex-col gap-4">

@@ -16,6 +16,12 @@ vi.mock('@/lib/supabase/pruefung', () => ({
   getAufgabenTypen: vi.fn().mockResolvedValue({ data: {}, error: null }),
   getMeineDauer: vi.fn(),
 }))
+vi.mock('@/lib/supabase/bauformPruefung', () => ({
+  getBauformListe: vi.fn(async () => ({
+    data: [{ status: 'zur_freigabe' }, { status: 'freigegeben' }, { status: 'zur_pruefung' }, { status: 'rueckfrage' }],
+    error: null,
+  })),
+}))
 vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { id: 'lena', email: 'lena@edvance.de' }, role: 'coach', signOut: vi.fn() }),
 }))
@@ -66,6 +72,13 @@ describe('PruefenUebersichtPage · Bereiche', () => {
     vi.clearAllMocks()
     vi.mocked(getPruefBoard).mockResolvedValue({ data: board, error: null })
     vi.mocked(getPruefSoll).mockResolvedValue({ data: [], error: null })
+  })
+
+  it('Kachel Session-Muster mit „x von n geprüft“ und Link ins Muster-Board', async () => {
+    zeige()
+    expect(await screen.findByText('2 von 4 geprüft')).toBeInTheDocument()
+    expect(screen.getByText('Session-Muster prüfen')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Muster öffnen' })).toHaveAttribute('href', '/coach/pruefen/bauformen')
   })
 
   it('Umschalter mit offen / gesamt; LSA ist Standard', async () => {

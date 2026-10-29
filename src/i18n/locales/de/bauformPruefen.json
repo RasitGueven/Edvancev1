@@ -1,6 +1,6 @@
 {
   "liste": {
-    "titel": "Bauformen prüfen",
+    "titel": "Session-Muster prüfen",
     "satz": "Jede Bauform einmal prüfen: Steckbrief, Beispiele, Fehlbilder, Hinweise, Lösungsbeispiel. Erzeugte Aufgaben übernehmen deine Prüfung.",
     "zurueck": "Zum Lena-Board",
     "leer": "Gerade wartet keine Bauform.",
@@ -15,7 +15,7 @@
       "auffaellig": "Auffällig",
       "prueffragen": "Prüffragen"
     },
-    "oeffnen": "Bauformen öffnen"
+    "oeffnen": "Muster öffnen"
   },
   "status": {
     "entwurf": "Entwurf",
@@ -109,5 +109,37 @@
     "abbrechen": "Abbrechen",
     "gemeldet": "Gemeldet. Die Aufgabe kommt nicht mehr dran.",
     "fehler": "Melden hat nicht geklappt."
+  },
+  "plan": {
+    "kopf": "{{geprueft}} von {{total}} geprüft · {{frei}} freigegeben",
+    "session": "Session {{nr}} · {{titel}}",
+    "voraussetzungen": "Voraussetzungen",
+    "ohneSession": "Nicht im Plan",
+    "voraussetzung": "Voraussetzung: {{skill}}",
+    "fortschritt": "{{geprueft}} von {{total}} geprüft",
+    "freigeben": "Session {{nr}} freigeben",
+    "gesperrtLeer": "Noch kein Muster dieser Session steht zur Freigabe.",
+    "gesperrtRueckfrage": "Erst die Rückfragen dieser Session klären.",
+    "bestaetigen_one": "{{count}} Muster der Session {{nr}} freigeben ({{liste}})? Ihre geprüften Aufgaben werden ziehbar.",
+    "bestaetigen_other": "{{count}} Muster der Session {{nr}} freigeben ({{liste}})? Ihre geprüften Aufgaben werden ziehbar.",
+    "jaFreigeben_one": "{{count}} Muster freigeben",
+    "jaFreigeben_other": "{{count}} Muster freigeben",
+    "abbrechen": "Abbrechen",
+    "umschalter": "Plan",
+    "standard": "Standard",
+    "testkind": "{{name}} (Test)",
+    "filter": {
+      "label": "Status",
+      "alle": "Alle {{count}}",
+      "zur_pruefung": "Zu prüfen {{count}}",
+      "rueckfrage": "Rückfrage {{count}}",
+      "zur_freigabe": "Zur Freigabe {{count}}",
+      "freigegeben": "Freigegeben {{count}}"
+    },
+    "keineImFilter": "Kein Muster in diesem Filter",
+    "keineImFilterSatz": "Wähle einen anderen Status oder „Alle“.",
+    "einstieg": "{{geprueft}} von {{total}} geprüft",
+    "gebrauchtIn": "gebraucht in Session {{nr}}",
+    "gebrauchtVoraussetzung": "Voraussetzung, keiner Session zugeordnet"
   }
 }
