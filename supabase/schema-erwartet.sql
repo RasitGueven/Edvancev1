@@ -1,11 +1,8 @@
--- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
--- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
-
 --
 -- PostgreSQL database dump
 --
 
+\restrict rD6F3kGuzjg1o5ZKwjL4zICGkyzSafaHCGjB6WfhvGbatE5Twe0ntO5wXkrgxmd
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1143,10 +1140,10 @@ end $$;
 
 
 --
--- Name: bauform_freigeben(text, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: bauform_freigeben(text, text, text[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.bauform_freigeben(p_reihe text DEFAULT NULL::text, p_thema_key text DEFAULT NULL::text) RETURNS integer
+CREATE FUNCTION public.bauform_freigeben(p_reihe text DEFAULT NULL::text, p_thema_key text DEFAULT NULL::text, p_schluessel text[] DEFAULT NULL::text[]) RETURNS integer
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -1156,13 +1153,15 @@ declare
   n int := 0;
 begin
   perform public.pruef_nur_admin('bauform_freigeben');
-  if (p_reihe is null) = (p_thema_key is null) then
+  if p_schluessel is null and (p_reihe is null) = (p_thema_key is null) then
     raise exception 'bauform_freigeben: genau eins von Reihe oder Thema' using errcode = '22023';
   end if;
   for b in
     select x.* from public.bauformen x
      where x.status = 'zur_freigabe'
-       and (x.reihe = p_reihe
+       and (p_schluessel is null or x.schluessel = any (p_schluessel))
+       and (p_reihe is null or x.reihe = p_reihe)
+       and (p_thema_key is null
             or exists (select 1 from public.skill_thema st where st.skill_key = x.skill_key and st.thema_key = p_thema_key))
      for update
   loop
@@ -1184,6 +1183,57 @@ begin
   end loop;
   return n;
 end $$;
+
+
+--
+-- Name: bauform_plan_standard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_plan_standard() RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n      int := coalesce(public.reihe_wert('reihe_standard_sessions'), 8)::int;
+  v_cap    numeric := public.reihe_wert('reihe_kapazitaet_min') * (1 + public.reihe_wert('reihe_spielraum'));
+  v_neu    numeric := public.reihe_wert('reihe_min_neu');
+  v_trans  numeric := public.reihe_wert('reihe_transfer_min');
+  v_items  jsonb;
+  v_kosten numeric[];
+  v_idx    int[];
+  v_sess   jsonb := '[]';
+  i        int;
+begin
+  select coalesce(jsonb_agg(jsonb_build_object('skill_key', k.skill_key, 'kernidee_key', k.kernidee_key,
+                                               'minuten', v_neu) order by k.nr), '[]')
+    into v_items from public.reihe_kernideen k;
+  if v_trans > 0 then
+    v_items := v_items || jsonb_build_object('minuten', v_trans);
+  end if;
+
+  for versuch in 1 .. 2 loop
+    select coalesce(array_agg((e ->> 'minuten')::numeric order by o), '{}') into v_kosten
+      from jsonb_array_elements(v_items) with ordinality x(e, o);
+    v_idx := public.reihe_verteilen(v_kosten, v_n - 1, v_cap);
+    exit when v_idx is not null;
+    -- Regel 5 wie reihe_plan_rechnen: entfallbare Kernideen und Transferblock zuerst.
+    select coalesce(jsonb_agg(e order by o), '[]') into v_items
+      from jsonb_array_elements(v_items) with ordinality x(e, o)
+     where e ? 'skill_key' and not public.reihe_kann_entfallen_pruefen(e ->> 'skill_key');
+  end loop;
+  if v_idx is null then
+    return '[]';
+  end if;
+
+  for i in 1 .. v_n - 1 loop
+    v_sess := v_sess || jsonb_build_object('nr', i, 'kernideen',
+      coalesce((select jsonb_agg((v_items -> (o - 1)) - 'minuten' order by o)
+                  from generate_series(1, cardinality(v_idx)) o
+                 where v_idx[o] = i and (v_items -> (o - 1)) ? 'skill_key'), '[]'));
+  end loop;
+  return v_sess;
+end;
+$$;
 
 
 --
@@ -1270,6 +1320,66 @@ begin
    order by case b.status when 'zur_pruefung' then 0 when 'rueckfrage' then 1 when 'zur_freigabe' then 2
                           when 'pausiert' then 3 when 'beanstandet' then 4 else 5 end, b.schluessel;
 end $$;
+
+
+--
+-- Name: bauform_pruef_plan(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_pruef_plan(p_student_id uuid DEFAULT NULL::uuid) RETURNS TABLE(bauform_id uuid, schluessel text, skill_key text, skill_label text, reihe text, format text, rollen text[], version integer, status text, gruen integer, letzte_entscheidung text, letzte_notiz text, geprueft_am timestamp with time zone, session_nr integer, session_titel text, kernidee_key text, kernidee_titel text, ist_voraussetzung boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_reihe public.reihen;
+  v_sess  jsonb;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_pruef_plan: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if p_student_id is null then
+    v_sess := public.bauform_plan_standard();
+  else
+    select * into v_reihe from public.reihe_aktiv(p_student_id);
+    if v_reihe.id is null then
+      raise exception 'bauform_pruef_plan: keine aktive Reihe' using errcode = 'P0002';
+    end if;
+    select coalesce(jsonb_agg(s order by o) filter (where s ->> 'art' = 'normal'), '[]') into v_sess
+      from jsonb_array_elements(public.reihe_plan_wirksam(v_reihe.id) -> 'sessions') with ordinality x(s, o);
+  end if;
+
+  return query
+  with ki as (
+    select (s ->> 'nr')::int as nr, e ->> 'skill_key' as sk, e ->> 'kernidee_key' as kk
+      from jsonb_array_elements(v_sess) s, jsonb_array_elements(s -> 'kernideen') e
+  ), titel as (
+    select x.nr, string_agg(sk.label, ' · ' order by x.ab) as t
+      from (select ki.nr, ki.sk, min(rk.nr) as ab
+              from ki join public.reihe_kernideen rk on rk.skill_key = ki.sk and rk.kernidee_key = ki.kk
+             group by ki.nr, ki.sk) x
+      join public.skills sk on sk.skill_key = x.sk
+     group by x.nr
+  ), zuordnung as (
+    select b.id,
+           case when b.kernidee_key is not null then
+                  (select min(ki.nr) from ki where ki.sk || ':' || ki.kk = b.kernidee_key)
+                else
+                  (select min(ki.nr) from ki join public.skill_kante k on k.skill_key = ki.sk
+                    where k.voraussetzt_skill_key = b.skill_key)
+           end as nr
+      from public.bauformen b
+  )
+  select l.bauform_id, l.schluessel, l.skill_key, l.skill_label, l.reihe, l.format, l.rollen, l.version, l.status,
+         l.gruen, l.letzte_entscheidung, l.letzte_notiz, l.geprueft_am,
+         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null
+    from public.bauform_pruef_liste() l
+    join public.bauformen b on b.id = l.bauform_id
+    join zuordnung z on z.id = b.id
+    left join titel ti on ti.nr = z.nr
+    left join public.reihe_kernideen rk on rk.skill_key || ':' || rk.kernidee_key = b.kernidee_key
+   order by z.nr nulls last, b.kernidee_key is not null, b.schluessel;
+end;
+$$;
 
 
 --
@@ -36647,4 +36757,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
+\unrestrict rD6F3kGuzjg1o5ZKwjL4zICGkyzSafaHCGjB6WfhvGbatE5Twe0ntO5wXkrgxmd
 
