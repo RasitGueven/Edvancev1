@@ -126,6 +126,10 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **M1 · Muster-Ansicht nach Sessions** (Bericht `docs/reihe1/M1/bericht.md`, Retro `2026-10-29-m1-muster-sessions.md`):
+  Admin-Liste ohne Muster-Instanzen und seitenweise (#366), `bauform_pruef_plan`/`bauform_plan_kinder` und
+  `bauform_freigeben(p_schluessel)` (#367), Muster-Board nach Sessions mit Plan-Umschalter, Fortschritt und
+  „Session n freigeben“ (#368). Lena prüft zuerst Session 1 und 2.
 - **Slots S1 · Sofort-Session und Buchbarkeit mit Grund** (Retro `2026-10-15-slots-s1-sofort-session.md`, Branch
   `feat/rasit-slots-s1-sofort`): Admin legt jederzeit eine Einzel-Session ab jetzt an (`sofort_session_anlegen`, Leitung
   Coach oder Admin, Raum aus der Raumliste, nur Testkinder → Testlauf, Einheit über `slots_einzelbuchungen`,
