@@ -13,7 +13,10 @@
 --    direkt braucht; ohne Treffer session_nr null. Im Kinderplan ebenfalls null: Kernideen, die das Kind schon sicher
 --    kann, die gekürzt wurden oder deren Session vorbei ist (reihe_plan_wirksam zeigt nur Sessions ab heute).
 -- 4. bauform_freigeben(p_reihe, p_thema_key, p_schluessel): mit p_schluessel nur diese Muster (Status
---    zur_freigabe), sonst wie bisher. Ein leeres Array oder ein unbekannter Schlüssel ist ein Fehler (22023). Ersetzt die Fassung mit zwei Parametern; Aufrufe mit p_reihe oder
+--    zur_freigabe), sonst wie bisher. Ein leeres Array oder ein unbekannter Schlüssel ist ein Fehler (22023).
+--    p_reihe und p_thema_key filtern daneben weiter; passen sie nicht, gibt die Funktion 0 zurück, ohne Fehler.
+--    Der Standardplan nimmt alle reihe_kernideen (heute nur Reihe 1); kommt eine zweite Reihe dazu, muss er nach
+--    reihe_skills der Themen filtern wie reihe_plan_rechnen. Ersetzt die Fassung mit zwei Parametern; Aufrufe mit p_reihe oder
 --    p_thema_key bleiben gültig (Defaults). Aufrufer laut pg_proc: keine (nur das Frontend).
 --
 -- Rollback: supabase/rollback/20261029083054_m1_bauform_pruef_plan.sql.
@@ -40,7 +43,6 @@ declare
   v_kosten numeric[];
   v_idx    int[];
   v_sess   jsonb := '[]';
-  v_teil   jsonb;
   v_schritt int := 0;
   i        int;
 begin

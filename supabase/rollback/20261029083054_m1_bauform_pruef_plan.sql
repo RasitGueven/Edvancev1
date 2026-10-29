@@ -3,7 +3,9 @@
 -- supabase_migrations.schema_migrations loeschen. Freigaben, die über p_schluessel liefen, bleiben bestehen.
 drop function if exists public.bauform_pruef_plan(uuid);
 drop function if exists public.bauform_plan_standard();
-delete from public.session_einstellungen where schluessel = 'reihe_standard_sessions';
+-- Wurde die Stellschraube schon einmal geändert, bleibt sie stehen (Protokoll verweist darauf, wie Rollback A2).
+delete from public.session_einstellungen e where e.schluessel = 'reihe_standard_sessions'
+   and not exists (select 1 from public.session_einstellungen_protokoll p where p.schluessel = e.schluessel);
 drop function if exists public.bauform_freigeben(text, text, text[]);
 
 CREATE OR REPLACE FUNCTION public.bauform_freigeben(p_reihe text DEFAULT NULL::text, p_thema_key text DEFAULT NULL::text)
