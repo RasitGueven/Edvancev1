@@ -39,15 +39,23 @@ begin
      and acceptance -> 'known_errors' ? '-18';
   get diagnostics v_n = row_count; raise notice 'rollback ffc76634: %', v_n;
 
-  -- 3. 6274f6a5: die 24 neuen Schlüssel und die beiden angehängten typical_errors entfernen
+  -- 3. 6274f6a5: die 24 neuen Schlüssel und typical_errors wie vorher
   update public.task_solutions
      set acceptance = jsonb_set(acceptance, '{known_errors}', (acceptance -> 'known_errors') - array(
            select vz || v || einheit from unnest(array['30', '60', '65', '156']) v,
                   unnest(array['', '+']) vz, unnest(array['', ' cm²', 'cm²']) einheit)),
-         typical_errors = typical_errors - 4 - 3,
+         typical_errors = '[{"error": "Nicht halbiert: 24 · 10 = 240.",
+                             "fehlbild": "halbieren_vergessen",
+                             "socratic_question": "Füllt die Raute das Rechteck aus den beiden Diagonalen ganz aus?"},
+                            {"error": "Die Seite als Höhe genommen: 13 · 13 = 169, als wäre die Raute ein Quadrat.",
+                             "fehlbild": "falsche_hoehe",
+                             "socratic_question": "Steht bei einer Raute eine Seite senkrecht auf der anderen?"},
+                            {"error": "Den Umfang berechnet: 4 · 13 = 52.",
+                             "fehlbild": "umfang_statt_flaeche",
+                             "socratic_question": "Ist nach der Randlänge oder nach der Fläche gefragt?"}]'::jsonb,
          updated_at = now()
    where task_id = '6274f6a5-65e5-40f4-be09-36fa8931c424'
      and acceptance -> 'known_errors' ? '60'
-     and jsonb_array_length(typical_errors) = 5;
+     and jsonb_array_length(typical_errors) = 4;
   get diagnostics v_n = row_count; raise notice 'rollback 6274f6a5: %', v_n;
 end $r$;

@@ -108,6 +108,10 @@ begin
    where s.task_id = any(c_ab)
      and not exists (select 1 from public.fehlbild_labels l where l.slug = te ->> 'fehlbild');
   if v_n > 0 then raise exception 'P4 % typical_errors mit unbekanntem Fehlbild', v_n; end if;
+  select count(*) into v_n from (
+    select s.task_id, te ->> 'fehlbild' from public.task_solutions s, jsonb_array_elements(s.typical_errors) te
+     where s.task_id = any(c_ab) group by 1, 2 having count(*) > 1) d;
+  if v_n > 0 then raise exception 'P4 % Fehlbild(er) doppelt in typical_errors', v_n; end if;
   if (select count(*) from public.tasks where id = any(c_ab || c_c)) <> 6 then raise exception 'P4 Aufgabe fehlt'; end if;
   raise notice 'P4 ok: Gate null, einsatz {lsa}, alle Fehlbilder bekannt';
 

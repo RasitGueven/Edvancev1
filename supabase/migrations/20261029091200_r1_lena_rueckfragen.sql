@@ -98,7 +98,7 @@ begin
      set typical_errors = '[{"error": "Beim Auflösen nach b addiert statt subtrahiert: 1 + 3 = 4.",
                              "fehlbild": "addiert_statt_subtrahiert",
                              "socratic_question": "Was musst du auf beiden Seiten tun, damit die 3 neben dem b verschwindet?"},
-                            {"error": "Mit dem Kehrwert der Steigung gerechnet (x- und y-Werte im Steigungsdreieck vertauscht): m = 1/3, b = 2/3, mit B eingesetzt b = 6.",
+                            {"error": "Mit dem Kehrwert der Steigung gerechnet (x- und y-Werte im Steigungsdreieck vertauscht): m = 1/3, b = 2/3, mit B eingesetzt b = 6. Auch wer danach beim Einsetzen x und y vertauscht, landet bei b = 2/3.",
                              "fehlbild": "steigung_kehrwert",
                              "socratic_question": "Um wie viel geht es nach oben, wenn du einen Schritt nach rechts gehst?"},
                             {"error": "Beim Einsetzen von B x und y vertauscht: 3 = 3 · 7 + b, also b = -18.",
@@ -115,18 +115,31 @@ begin
   get diagnostics v_n = row_count;
   raise notice 'r1: typical_errors ffc76634, % Zeile(n)', v_n;
 
-  -- 6274f6a5: zwei Einträge angehängt.
+  -- 6274f6a5: falsche_hoehe-Eintrag um 65/156 erweitert (ein Eintrag je Fehlbild, Zweitprüfung), teilflaeche_vergessen neu.
   update public.task_solutions
-     set typical_errors = typical_errors || '[{"error": "Nur ein Dreieck der Raute berechnet: 24 · 5 : 2 = 60 (oder ein Viertel: 12 · 5 : 2 = 30).",
-                                               "fehlbild": "teilflaeche_vergessen",
-                                               "socratic_question": "Aus wie vielen solchen Dreiecken besteht die Raute?"},
-                                              {"error": "Die Dreiecksformel mit der Seite als Grundseite: 13 · 10 : 2 = 65 oder 13 · 24 : 2 = 156.",
-                                               "fehlbild": "falsche_hoehe",
-                                               "socratic_question": "Steht die Diagonale senkrecht auf der Seite, die du als Grundseite nimmst?"}]'::jsonb,
+     set typical_errors = '[{"error": "Nicht halbiert: 24 · 10 = 240.",
+                             "fehlbild": "halbieren_vergessen",
+                             "socratic_question": "Füllt die Raute das Rechteck aus den beiden Diagonalen ganz aus?"},
+                            {"error": "Die Seite als Höhe genommen: 13 · 13 = 169, als wäre die Raute ein Quadrat. Ebenso mit der Dreiecksformel und der Seite als Grundseite: 13 · 10 : 2 = 65 oder 13 · 24 : 2 = 156.",
+                             "fehlbild": "falsche_hoehe",
+                             "socratic_question": "Steht bei einer Raute eine Seite senkrecht auf der anderen?"},
+                            {"error": "Den Umfang berechnet: 4 · 13 = 52.",
+                             "fehlbild": "umfang_statt_flaeche",
+                             "socratic_question": "Ist nach der Randlänge oder nach der Fläche gefragt?"},
+                            {"error": "Nur ein Dreieck der Raute berechnet: 24 · 5 : 2 = 60 (oder ein Viertel: 12 · 5 : 2 = 30).",
+                             "fehlbild": "teilflaeche_vergessen",
+                             "socratic_question": "Aus wie vielen solchen Dreiecken besteht die Raute?"}]'::jsonb,
          updated_at = now()
    where task_id = '6274f6a5-65e5-40f4-be09-36fa8931c424'
-     and jsonb_array_length(typical_errors) = 3
-     and not typical_errors @> '[{"fehlbild": "teilflaeche_vergessen"}]';
+     and typical_errors = '[{"error": "Nicht halbiert: 24 · 10 = 240.",
+                             "fehlbild": "halbieren_vergessen",
+                             "socratic_question": "Füllt die Raute das Rechteck aus den beiden Diagonalen ganz aus?"},
+                            {"error": "Die Seite als Höhe genommen: 13 · 13 = 169, als wäre die Raute ein Quadrat.",
+                             "fehlbild": "falsche_hoehe",
+                             "socratic_question": "Steht bei einer Raute eine Seite senkrecht auf der anderen?"},
+                            {"error": "Den Umfang berechnet: 4 · 13 = 52.",
+                             "fehlbild": "umfang_statt_flaeche",
+                             "socratic_question": "Ist nach der Randlänge oder nach der Fläche gefragt?"}]'::jsonb;
   get diagnostics v_n = row_count;
   raise notice 'r1: typical_errors 6274f6a5, % Zeile(n)', v_n;
 end $r1$;
