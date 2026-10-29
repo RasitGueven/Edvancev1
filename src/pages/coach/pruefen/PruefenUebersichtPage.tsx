@@ -21,6 +21,8 @@ import { ersteNoetigeImThema, knotenOhneAufgabe, naechsteNoetige, restImThema } 
 import { naechsteOffene, positionImThema, stand, stufenMitAufgaben } from '@/lib/pruefung/reihenfolge'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getMeineDauer, getPruefBoard } from '@/lib/supabase/pruefung'
+import { getBauformListe } from '@/lib/supabase/bauformPruefung'
+import { musterStand, type MusterStand } from '@/lib/pruefung/bauformStand'
 import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/types'
 import { leseUebersprungen } from './uebersprungen'
 import { BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
@@ -36,6 +38,7 @@ export function PruefenUebersichtPage(): JSX.Element {
   const [sollJe, setSollJe] = useState<Record<Bereich, PruefSollZeile[]>>({ lsa: [], session: [] })
   const [mc, setMc] = useState<Set<string> | null>(null)
   const [fehler, setFehler] = useState<PruefFehlerInfo | null>(null)
+  const [muster, setMuster] = useState<MusterStand | null>(null)
   const [schnitt, setSchnitt] = useState<number | null>(null)
   const [reiter, setReiter] = useState<Stufe | null>(null)
   const [offen, setOffen] = useState<Set<string>>(() => new Set(params.get('thema') ? [params.get('thema') as string] : []))
@@ -52,6 +55,8 @@ export function PruefenUebersichtPage(): JSX.Element {
     })
     // Sollzahlen sind Zusatz: fehlen sie, bleibt das Board wie vor P2. Ein Bereich zeigt sie erst, wenn alle
     // seine Anlaesse geantwortet haben, sonst stimmten "noch X zu pruefen" und "X von Y noetig" nicht.
+    // Stand der Session-Muster (M1); ohne ihn zeigt die Kachel nur den Link.
+    void getBauformListe().then((r) => setMuster(r.data ? musterStand(r.data) : null))
     for (const b of BEREICHE) {
       void ladeSoll(b).then((s) => s && setSollJe((x) => ({ ...x, [b]: s })))
     }
@@ -125,7 +130,7 @@ export function PruefenUebersichtPage(): JSX.Element {
           <>
             <PageHeader titel={t('kopf.titel')} satz={t('kopf.text')} />
             <ErklaerEinstieg />
-            <BauformEinstieg />
+            <BauformEinstieg stand={muster} />
             {alle && alle.length > 0 && (
               <BereichsUmschalter aktiv={bereich} onWahl={waehle} bereiche={BEREICHE.map((b) => {
                 const st = stand(bereichsBoard(alle, b))

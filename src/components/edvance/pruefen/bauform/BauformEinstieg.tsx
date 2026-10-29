@@ -1,12 +1,14 @@
-// Einstieg „Bauformen“ auf der Uebersicht „Aufgaben pruefen“ (Sessionreihe 1, A5): Lena prueft dort je Bauform.
+// Kachel „Session-Muster“ auf der Uebersicht „Aufgaben pruefen“ (Sessionreihe 1, A5; Stand „x von 47 geprueft“ seit M1):
+// Lena prueft dort je Muster (Bauform).
 import type { JSX } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Shapes } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import { EdvanceCard } from '@/components/edvance/EdvanceCard'
+import type { MusterStand } from '@/lib/pruefung/bauformStand'
 
-export function BauformEinstieg(): JSX.Element {
+export function BauformEinstieg({ stand }: { stand: MusterStand | null }): JSX.Element {
   const { t } = useTranslation('bauformPruefen')
   return (
     <EdvanceCard className="flex flex-wrap items-center gap-4 p-4">
@@ -14,6 +16,11 @@ export function BauformEinstieg(): JSX.Element {
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="text-base font-semibold text-[var(--color-text-primary)]">{t('liste.titel')}</span>
         <span className="text-sm text-[var(--color-text-secondary)]">{t('liste.satz')}</span>
+        {stand && (
+          <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+            {t('plan.einstieg', { geprueft: stand.geprueft, total: stand.total })}
+          </span>
+        )}
       </div>
       <Link to="/coach/pruefen/bauformen" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
         {t('liste.oeffnen')}

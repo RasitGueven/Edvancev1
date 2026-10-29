@@ -21,6 +21,10 @@ const detail = (seed: number): BauformDetail => ({
 vi.mock('@/lib/supabase/bauformPruefung', () => ({
   getBauformDetail: vi.fn(async (_id: string, seed: number) => ({ data: detail(seed), error: null })),
   bauformPruefen: vi.fn(async () => ({ data: { status: 'zur_freigabe', version: 1 }, error: null })),
+  getBauformPlan: vi.fn(async () => ({
+    data: [{ bauform_id: 'b1', session_nr: 5, kernidee_titel: 'x ausklammern' }, { bauform_id: 'b2', session_nr: 1 }],
+    error: null,
+  })),
 }))
 import { bauformPruefen, getBauformDetail } from '@/lib/supabase/bauformPruefung'
 import { BauformDetailPage } from './BauformDetailPage'
@@ -39,6 +43,7 @@ describe('BauformDetailPage', () => {
     expect(screen.getByText('„Ein Faktor ist x selbst.“')).toBeInTheDocument()
     expect(screen.getByText('L = {0; 6}')).toBeInTheDocument()
     expect(screen.getByText('Blindlöser: 10 gelöst, keine Abweichung')).toBeInTheDocument()
+    expect(await screen.findByText('gebraucht in Session 5 · x ausklammern')).toBeInTheDocument()
   })
   it('„Andere Beispiele“ lädt mit neuem Seed', async () => {
     zeige()
