@@ -20,6 +20,7 @@ import {
   columnsFor,
   ohneFehlendeSpalten,
 } from '@/lib/supabase/taskAuthoringSpalten'
+import { alleSeiten } from '@/lib/supabase/seitenweise'
 import type {
   AuthoringSchema,
   AuthoringTask,
@@ -78,19 +79,27 @@ export function resetAuthoringSchemaCache(): void {
 // ── tasks lesen ─────────────────────────────────────────────────────────────
 
 /**
- * Alle Items der Pflege. Bewusst ohne Server-Filter: 185 Zeilen sind eine
- * Handvoll KB, und die Flags (offene Pflichtfelder) lassen sich ohnehin nur im
- * Client rechnen — ein serverseitiger Statusfilter wuerde die Flag-Zaehler der
- * ausgeblendeten Items verschweigen. Gefiltert wird in der Liste.
+ * Alle Items der Pflege. Ohne Statusfilter: die Flags (offene Pflichtfelder)
+ * lassen sich nur im Client rechnen — ein serverseitiger Statusfilter wuerde die
+ * Flag-Zaehler der ausgeblendeten Items verschweigen. Gefiltert wird in der Liste.
+ *
+ * Nur Einzelaufgaben: Instanzen einer Bauform (bauform_id gesetzt, Reihe 1)
+ * pflegt das Muster-Board (/coach/pruefen/bauformen). Seitenweise, weil
+ * PostgREST hoechstens 1000 Zeilen je Abfrage liefert (M1).
  */
 export async function listAuthoringTasks(): Promise<SupabaseResult<AuthoringTask[]>> {
   try {
     const schema = await probeAuthoringSchema()
-    const { data, error } = await supabase
-      .from('tasks')
-      .select(columnsFor(schema))
-      .eq('content_type', 'exercise')
-      .order('created_at', { ascending: false })
+    const { data, error } = await alleSeiten<AuthoringTask>((von, bis) =>
+      supabase
+        .from('tasks')
+        .select(columnsFor(schema))
+        .eq('content_type', 'exercise')
+        .is('bauform_id', null)
+        .order('created_at', { ascending: false })
+        .order('id', { ascending: true })
+        .range(von, bis) as unknown as PromiseLike<{ data: AuthoringTask[] | null; error: { message: string } | null }>,
+    )
     if (error) return { data: null, error: error.message }
     return { data: (data ?? []) as unknown as AuthoringTask[], error: null }
   } catch (err) {

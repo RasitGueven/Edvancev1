@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
+import { alleSeiten } from '@/lib/supabase/seitenweise'
 import type {
   Fehlbild,
   PruefAdminZeile,
@@ -195,9 +196,22 @@ export function pruefRueckfrageKlaeren(
   })
 }
 
-/** Lenas Ergebnis je Aufgabe (nur admin). */
-export function getPruefAdminListe(): Promise<PruefResult<PruefAdminZeile[]>> {
-  return rufe<PruefAdminZeile[]>('pruef_admin_liste')
+type RpcSeite<T> = {
+  order: (spalte: string) => { range: (von: number, bis: number) => PromiseLike<{ data: T[] | null; error: RpcFehler | null }> }
+}
+const rpcSeite = supabase.rpc.bind(supabase) as unknown as <T>(fn: string) => RpcSeite<T>
+
+/** Lenas Ergebnis je Aufgabe (nur admin). Seitenweise, weil PostgREST hoechstens 1000 Zeilen je Abfrage liefert (M1). */
+export async function getPruefAdminListe(): Promise<PruefResult<PruefAdminZeile[]>> {
+  try {
+    const { data, error } = await alleSeiten<PruefAdminZeile>((von, bis) =>
+      rpcSeite<PruefAdminZeile>('pruef_admin_liste').order('task_id').range(von, bis),
+    )
+    if (error) return { data: null, error: alsFehler(error) }
+    return { data: data ?? [], error: null }
+  } catch (err) {
+    return { data: null, error: alsFehler(err) }
+  }
 }
 
 export async function getPruefEinstellungen(): Promise<PruefResult<PruefEinstellungen>> {
