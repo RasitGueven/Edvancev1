@@ -67,3 +67,5 @@ Web-Gate je Phase: typecheck, lint, Tests grün (Phase 3: 3244 Tests).
 4. **Muster ohne Session im Kinderplan** (sichere Kernideen, vergangene Sessions) erscheinen unter „Nicht im Plan“.
 5. **Standardplan** nimmt alle `reihe_kernideen` (heute nur Reihe 1); bei einer zweiten Reihe nach Themen filtern.
 6. Der globale Knopf „Reihe freigeben“ bleibt zusätzlich zu „Session n freigeben“ (jetzt als Outline-Knopf).
+7. **E2b-Migrationen `20261010132749_erklaer_k8_linfkt_checks` und `20261010132750_erklaer_k8_linfkt`:** bewusst nicht
+   in Prod, Entscheidung Rasit 29.10., einspielen erst mit einer Reihe zu linearen Funktionen (vorher Wegwerf-DB).
