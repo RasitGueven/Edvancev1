@@ -4,14 +4,16 @@
 -- 2. bauform_plan_standard(): Standardplan ohne Kind. Kernideen in der Reihenfolge reihe_kernideen.nr, jede als
 --    „neu“ (reihe_min_neu), dazu der Transferblock, verteilt wie reihe_plan_rechnen im Modus Klassenarbeit:
 --    reihe_verteilen über n − 1 Sessions (die letzte ist die Generalprobe), Kapazität reihe_kapazitaet_min mal
---    (1 + reihe_spielraum). Passt es nicht, fallen wie dort zuerst die Kernideen weg, deren Skill entfallen kann,
---    dann der Transferblock. Liefert die normalen Sessions als [{nr, kernideen: [{skill_key, kernidee_key}]}].
+--    (1 + reihe_spielraum). Passt es nicht, kürzt es wie dort Regel 5: erst die Kernideen, deren Skill entfallen kann,
+--    dann der Transferblock, danach je Schritt der letzte Posten (Schritt „gesehen knapp“ entfällt, alles ist neu).
+--    Liefert die normalen Sessions als [{nr, kernideen: [{skill_key, kernidee_key}]}].
 -- 3. bauform_pruef_plan(p_student_id): Zeilen von bauform_pruef_liste plus Session, Kernidee und
 --    ist_voraussetzung. Mit Kind: wirksamer Plan der aktiven Reihe (reihe_plan_wirksam). Muster mit Kernidee:
 --    Session der Kernidee. Voraussetzungs-Muster: erste Session, deren Kernidee-Skill den Skill laut skill_kante
---    direkt braucht; ohne Treffer session_nr null.
+--    direkt braucht; ohne Treffer session_nr null. Im Kinderplan ebenfalls null: Kernideen, die das Kind schon sicher
+--    kann, die gekürzt wurden oder deren Session vorbei ist (reihe_plan_wirksam zeigt nur Sessions ab heute).
 -- 4. bauform_freigeben(p_reihe, p_thema_key, p_schluessel): mit p_schluessel nur diese Muster (Status
---    zur_freigabe), sonst wie bisher. Ersetzt die Fassung mit zwei Parametern; Aufrufe mit p_reihe oder
+--    zur_freigabe), sonst wie bisher. Ein leeres Array oder ein unbekannter Schlüssel ist ein Fehler (22023). Ersetzt die Fassung mit zwei Parametern; Aufrufe mit p_reihe oder
 --    p_thema_key bleiben gültig (Defaults). Aufrufer laut pg_proc: keine (nur das Frontend).
 --
 -- Rollback: supabase/rollback/20261029083054_m1_bauform_pruef_plan.sql.
@@ -38,6 +40,8 @@ declare
   v_kosten numeric[];
   v_idx    int[];
   v_sess   jsonb := '[]';
+  v_teil   jsonb;
+  v_schritt int := 0;
   i        int;
 begin
   select coalesce(jsonb_agg(jsonb_build_object('skill_key', k.skill_key, 'kernidee_key', k.kernidee_key,
@@ -47,24 +51,30 @@ begin
     v_items := v_items || jsonb_build_object('minuten', v_trans);
   end if;
 
-  for versuch in 1 .. 2 loop
+  -- Kürzen nach Regel 5 wie reihe_plan_rechnen, bis es in die Sessions vor der Generalprobe passt.
+  loop
     select coalesce(array_agg((e ->> 'minuten')::numeric order by o), '{}') into v_kosten
       from jsonb_array_elements(v_items) with ordinality x(e, o);
     v_idx := public.reihe_verteilen(v_kosten, v_n - 1, v_cap);
-    exit when v_idx is not null;
-    -- Regel 5 wie reihe_plan_rechnen: entfallbare Kernideen und Transferblock zuerst.
-    select coalesce(jsonb_agg(e order by o), '[]') into v_items
-      from jsonb_array_elements(v_items) with ordinality x(e, o)
-     where e ? 'skill_key' and not public.reihe_kann_entfallen_pruefen(e ->> 'skill_key');
+    exit when v_idx is not null or jsonb_array_length(v_items) = 0;
+    v_schritt := v_schritt + 1;
+    if v_schritt = 1 then
+      select coalesce(jsonb_agg(e order by o) filter (where not (e ? 'skill_key'
+               and public.reihe_kann_entfallen_pruefen(e ->> 'skill_key'))), '[]')
+        into v_items from jsonb_array_elements(v_items) with ordinality x(e, o);
+    elsif v_schritt = 2 then
+      select coalesce(jsonb_agg(e order by o) filter (where e ? 'skill_key'), '[]')
+        into v_items from jsonb_array_elements(v_items) with ordinality x(e, o);
+    else
+      v_items := v_items - (jsonb_array_length(v_items) - 1);
+    end if;
   end loop;
-  if v_idx is null then
-    return '[]';
-  end if;
+  v_idx := coalesce(v_idx, '{}');
 
   for i in 1 .. v_n - 1 loop
     v_sess := v_sess || jsonb_build_object('nr', i, 'kernideen',
       coalesce((select jsonb_agg((v_items -> (o - 1)) - 'minuten' order by o)
-                  from generate_series(1, cardinality(v_idx)) o
+                  from generate_series(1, coalesce(cardinality(v_idx), 0)) o
                  where v_idx[o] = i and (v_items -> (o - 1)) ? 'skill_key'), '[]'));
   end loop;
   return v_sess;
@@ -157,6 +167,11 @@ begin
   perform public.pruef_nur_admin('bauform_freigeben');
   if p_schluessel is null and (p_reihe is null) = (p_thema_key is null) then
     raise exception 'bauform_freigeben: genau eins von Reihe oder Thema' using errcode = '22023';
+  end if;
+  if p_schluessel is not null and (cardinality(p_schluessel) = 0
+      or exists (select 1 from unnest(p_schluessel) k where k is null
+                   or not exists (select 1 from public.bauformen x where x.schluessel = k))) then
+    raise exception 'bauform_freigeben: Muster-Schluessel leer oder unbekannt' using errcode = '22023';
   end if;
   for b in
     select x.* from public.bauformen x

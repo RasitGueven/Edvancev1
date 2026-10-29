@@ -1,6 +1,6 @@
 -- M1 Phase 2 · Kinder für den Plan-Umschalter der Muster-Prüfung (/coach/pruefen/bauformen)
 --
--- bauform_plan_kinder(): Kinder mit aktiver Reihe (reihen.status = 'aktiv'), mit Namen und Reihe, nur mit Prüfrecht
+-- bauform_plan_kinder(): Kinder mit aktiver Mathe-Reihe (wie reihe_aktiv, das bauform_pruef_plan nutzt), mit Namen und Reihe, nur mit Prüfrecht
 -- (darf_pruefen, wie bauform_pruef_plan). reihen selbst lesen nur Admin und Coaches mit Vertrag (lernpfad_darf_lesen);
 -- Lena braucht nur Name und ID, um bauform_pruef_plan(p_student_id) aufzurufen. Testkinder (students.ist_test)
 -- bleiben drin, damit der Umschalter vor dem ersten echten Kind prüfbar ist; das Flag geht mit.
@@ -25,7 +25,7 @@ begin
     join public.students s on s.id = r.student_id
     left join public.profiles p on p.id = s.profile_id
     left join public.leads l on l.id = s.lead_id
-   where r.status = 'aktiv'
+   where r.status = 'aktiv' and r.fach = 'mathematik'
    order by 2, s.id;
 end;
 $$;
