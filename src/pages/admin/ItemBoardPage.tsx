@@ -40,6 +40,9 @@ import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringTask, Fehlbild, PruefAdminZeile } from '@/types'
 import { getFehlbilder, getPruefAdminListe } from '@/lib/supabase/pruefung'
 import { PruefEinstellungenKarte } from '@/components/edvance/authoring/board/PruefEinstellungenKarte'
+import { MusterKachel } from '@/components/edvance/authoring/board/MusterKachel'
+import { getBauformListe } from '@/lib/supabase/bauformPruefung'
+import { musterStand, type MusterStand } from '@/lib/pruefung/bauformStand'
 
 const BASIS = '/admin/authoring'
 
@@ -60,17 +63,19 @@ export function ItemBoardPage(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [reloadKey, setReloadKey] = useState(0)
+  const [muster, setMuster] = useState<MusterStand | null>(null)
 
   useEffect(() => {
     let alive = true
     void (async () => {
-      const [taskRes, clusterRes, themaRes, reviewRes, lenaRes, fehlbildRes] = await Promise.all([
+      const [taskRes, clusterRes, themaRes, reviewRes, lenaRes, fehlbildRes, musterRes] = await Promise.all([
         listAuthoringTasks(),
         listClustersWithSubject(),
         listSkillThemen(),
         listLetzteBeanstandungen(),
         getPruefAdminListe(),
         getFehlbilder(),
+        getBauformListe(),
       ])
       if (!alive) return
       if (taskRes.error || !taskRes.data) {
@@ -88,6 +93,8 @@ export function ItemBoardPage(): JSX.Element {
       // Lenas Ergebnis (Lena-Board). Ohne es bleibt das Board bedienbar.
       setLena(new Map((lenaRes.data ?? []).map((z) => [z.task_id, z])))
       setFehlbilder(fehlbildRes.data ?? [])
+      // Ohne Muster-Liste (kein Pruefrecht, Fehler) zeigt die Kachel nur den Link.
+      setMuster(musterRes.data ? musterStand(musterRes.data) : null)
       setLoading(false)
     })()
     return () => {
@@ -95,8 +102,10 @@ export function ItemBoardPage(): JSX.Element {
     }
   }, [reloadKey, t])
 
-  const inBereich = useMemo(() => (bereich === 'lsa' ? tasks : []), [bereich, tasks])
-  const aktive = useMemo(() => aktiveKlassen(tasks), [tasks])
+  // Bereich Lernstandsanalyse: nur der LSA-Pool (tasks.einsatz, Reihe 1 A1), nicht jede Einzelaufgabe.
+  const lsaTasks = useMemo(() => tasks.filter((task) => task.einsatz?.includes('lsa')), [tasks])
+  const inBereich = useMemo(() => (bereich === 'lsa' ? lsaTasks : []), [bereich, lsaTasks])
+  const aktive = useMemo(() => aktiveKlassen(inBereich), [inBereich])
   const inKlasseListe = useMemo(
     () => (klasse == null ? [] : inBereich.filter((task) => inKlasse(task, klasse, aktive))),
     [inBereich, klasse, aktive],
@@ -182,8 +191,8 @@ export function ItemBoardPage(): JSX.Element {
 
       {!error && !loading && !bereich && (
         <div className="grid gap-4 sm:grid-cols-2">
-          <BoardKachel titel={t('board.bereich.lsa')} stand={standVon(tasks)} onOpen={() => gehe({ bereich: 'lsa' })} />
-          <BoardKachel titel={t('board.bereich.sessions')} stand={standVon([])} onOpen={() => undefined} />
+          <BoardKachel titel={t('board.bereich.lsa')} stand={standVon(lsaTasks)} onOpen={() => gehe({ bereich: 'lsa' })} />
+          <MusterKachel titel={t('board.bereich.sessions')} stand={muster} />
         </div>
       )}
 

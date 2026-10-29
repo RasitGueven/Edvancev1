@@ -27,6 +27,9 @@ vi.mock('@/lib/supabase/pruefungAdmin', () => ({
   setzePilot: vi.fn(),
   pruefSammel: vi.fn(),
 }))
+vi.mock('@/lib/supabase/bauformPruefung', () => ({
+  getBauformListe: vi.fn(),
+}))
 vi.mock('@/lib/supabase/themen', () => ({
   listSkillThemen: vi.fn(),
 }))
@@ -37,6 +40,8 @@ vi.mock('@/hooks/useAuth', () => ({
 import { listAuthoringTasks, listClustersWithSubject } from '@/lib/supabase/taskAuthoring'
 import { listLetzteBeanstandungen } from '@/lib/supabase/freigabe'
 import { listSkillThemen } from '@/lib/supabase/themen'
+import { getBauformListe } from '@/lib/supabase/bauformPruefung'
+import type { BauformListenZeile } from '@/types/bauformPruefung'
 import { ItemBoardPage } from './ItemBoardPage'
 
 const task = (id: string, over: Partial<AuthoringTask>): AuthoringTask =>
@@ -48,10 +53,17 @@ const task = (id: string, over: Partial<AuthoringTask>): AuthoringTask =>
     cluster_id: 'c1',
     class_level: 8,
     skill_key: 'prozent_grundwert',
+    einsatz: ['lsa'],
     ...over,
   }) as AuthoringTask
 
+const bauform = (status: BauformListenZeile['status']): BauformListenZeile => ({ status }) as BauformListenZeile
+
 function setup(url: string, extra: AuthoringTask[] = []): void {
+  vi.mocked(getBauformListe).mockResolvedValue({
+    data: [bauform('zur_freigabe'), bauform('freigegeben'), bauform('zur_pruefung')],
+    error: null,
+  })
   vi.mocked(listAuthoringTasks).mockResolvedValue({
     data: [
       task('Offene Aufgabe', {}),
@@ -90,10 +102,27 @@ function setup(url: string, extra: AuthoringTask[] = []): void {
 describe('ItemBoardPage', () => {
   beforeEach(() => vi.clearAllMocks())
 
-  it('zeigt die Bereiche, Sessions ist leer und gesperrt', async () => {
+  it('zeigt die Bereiche, Sessions fuehrt ins Muster-Board', async () => {
     setup('/admin/authoring')
     expect(await screen.findByText('4 Aufgaben · 1 geprüft')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Sessions/ })).toBeDisabled()
+    const sessions = screen.getByRole('link', { name: /Sessions/ })
+    expect(sessions).toHaveAttribute('href', '/coach/pruefen/bauformen')
+    expect(sessions).toHaveTextContent('Session-Muster prüfen')
+    expect(sessions).toHaveTextContent('2 von 3 geprüft')
+  })
+
+  it('Lernstandsanalyse zaehlt nur Aufgaben mit lsa in einsatz', async () => {
+    setup('/admin/authoring', [
+      task('Sessionaufgabe', { einsatz: ['session'], status: 'ready' }),
+      task('Ohne Pool', { einsatz: undefined }),
+    ])
+    expect(await screen.findByText('4 Aufgaben · 1 geprüft')).toBeInTheDocument()
+  })
+
+  it('Klasse 9 bleibt gesperrt, wenn dort nur Nicht-LSA-Aufgaben liegen', async () => {
+    setup('/admin/authoring?bereich=lsa', [task('Session Kl. 9', { class_level: 9, einsatz: ['session'] })])
+    expect(await screen.findByRole('button', { name: /Klasse 8/ })).toBeEnabled()
+    expect(screen.getByRole('button', { name: /Klasse 9/ })).toBeDisabled()
   })
 
   it('sperrt Klasse 9 und 10, solange es keine Aufgabe mit class_level 9 gibt', async () => {
