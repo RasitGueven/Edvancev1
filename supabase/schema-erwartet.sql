@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict rD6F3kGuzjg1o5ZKwjL4zICGkyzSafaHCGjB6WfhvGbatE5Twe0ntO5wXkrgxmd
+\restrict AvPq5TRvy2e1xq9nU7bcBsNpkdtQizaySHUGCNFBhJ9azF8xOIIPwBJAr25kleq
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1183,6 +1183,31 @@ begin
   end loop;
   return n;
 end $$;
+
+
+--
+-- Name: bauform_plan_kinder(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_plan_kinder() RETURNS TABLE(student_id uuid, name text, ist_test boolean, reihe_id uuid)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_plan_kinder: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  select s.id, coalesce(nullif(btrim(p.full_name), ''), nullif(btrim(l.full_name), ''), s.id::text),
+         coalesce(s.ist_test, false), r.id
+    from public.reihen r
+    join public.students s on s.id = r.student_id
+    left join public.profiles p on p.id = s.profile_id
+    left join public.leads l on l.id = s.lead_id
+   where r.status = 'aktiv'
+   order by 2, s.id;
+end;
+$$;
 
 
 --
@@ -36757,5 +36782,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict rD6F3kGuzjg1o5ZKwjL4zICGkyzSafaHCGjB6WfhvGbatE5Twe0ntO5wXkrgxmd
+\unrestrict AvPq5TRvy2e1xq9nU7bcBsNpkdtQizaySHUGCNFBhJ9azF8xOIIPwBJAr25kleq
 

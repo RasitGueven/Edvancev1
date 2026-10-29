@@ -5,12 +5,13 @@
 --   b) Testkind mit aktiver Reihe: Zuordnung folgt dessen wirksamem Plan (Coach verschiebt scheitel in Session 3).
 --   c) bauform_freigeben mit p_schluessel gibt genau diese Muster frei; alte Signatur bleibt aufrufbar.
 --   d) ohne Prüfrecht 42501, Kind ohne Reihe P0002.
+--   e) bauform_plan_kinder (Migration 20261029083510): nur Kinder mit aktiver Reihe, nur mit Prüfrecht.
 -- Am Ende rollback.
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(22);
+select plan(25);
 
 \set lena  'dddd0001-0000-4000-8000-0000000000b1'
 \set admin 'dddd0001-0000-4000-8000-0000000000a1'
@@ -55,11 +56,16 @@ select is((select session_titel || ' | ' || kernidee_titel from bauform_pruef_pl
 -- ── b) Testkind mit aktiver Reihe ──────────────────────────────────────────
 select pg_temp.act_as(:'admin');
 select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
-insert into students (class_level, ist_test) values (9, true) returning id as kind \gset
+insert into auth.users (id, email, instance_id, aud, role) values
+  ('dddd0001-0000-4000-8000-0000000000d1', 'm1-kind@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
+insert into profiles (id, email, role, full_name) values ('dddd0001-0000-4000-8000-0000000000d1', 'm1-kind@test.local', 'student', 'M1 Kind');
+insert into students (profile_id, class_level, ist_test) values ('dddd0001-0000-4000-8000-0000000000d1', 9, true) returning id as kind \gset
 insert into students (class_level, ist_test) values (9, true) returning id as ohne \gset
 select pg_temp.act_as(:'admin');
 select reihe_anlegen(:'kind', array['quadratische_funktionen', 'quadratische_gleichungen'], '2027-03-02', 1, '2027-01-11') ->> 'reihe_id' as rid \gset
 select pg_temp.act_as(:'lena');
+select is((select string_agg(name, ',') from bauform_plan_kinder() where student_id in (:'kind', :'ohne')), 'M1 Kind',
+          'e1 bauform_plan_kinder: nur das Kind mit aktiver Reihe, mit Namen');
 select is(pg_temp.sess(:'kind', 2), pg_temp.sess(null, 2), 'b1 ohne Änderung gleicht der Plan des Kindes dem Standard');
 select pg_temp.act_as(:'admin');
 select reihe_coach_aendern(:'rid', 'verschieben', 'fkt_quadr_scheitel', '2027-01-25', 'erst Normalform') is not null as ok_ \gset
@@ -92,6 +98,9 @@ select pg_temp.act_as(:'coach');
 select throws_ok('select * from bauform_pruef_plan()', '42501', null, 'd1 Coach ohne Prüfrecht sieht den Plan nicht');
 select pg_temp.act_as(:'lena');
 select throws_ok($$select bauform_freigeben(null, null, array['PAR-5'])$$, '42501', null, 'd2 Lena gibt nicht frei');
+select ok(exists (select 1 from bauform_plan_kinder() where student_id = :'kind' and ist_test), 'e2 Lena sieht das Testkind im Umschalter');
+select pg_temp.act_as(:'coach');
+select throws_ok('select * from bauform_plan_kinder()', '42501', null, 'e3 Coach ohne Prüfrecht sieht keine Kinder');
 
 select * from finish();
 rollback;
