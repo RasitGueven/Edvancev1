@@ -15,3 +15,16 @@ Stand 29.10.2026. Frischer Agent, Wegwerf-DB (PG 18.6, alle Migrationen), nur Le
 | 7 | Hinweis | Rechte, Namen, Aufrufer in Ordnung (`bauform_freigeben` hat außer sich selbst keine Aufrufer in `pg_proc`). | – |
 
 Nach den Korrekturen: Neuaufbau aus 412 Migrationen, Suite 95 grün, 8 rot = `bekannt-rot.txt`; `m1_bauform_pruef_plan` 31/31.
+
+## Nachprüfung (zweiter frischer Agent): grün
+
+- Kürzung gleich `reihe_plan_rechnen`: Brute-Force über n = 3…16 (KA-Datum je n so gewählt, dass das Kind genau n Termine hat),
+  Kapazität {20, 28, 36, 45}, Spielraum {0; 0,1; 0,25}, Transfer {0, 6, 12, 20}, neu {4, 8, 12, 16, 20}:
+  **3360 von 3360 gleich**, 152 verschiedene Pläne, nie leer; Extremwerte fällt in 1658 Fällen weg.
+- `p_schluessel`: `array[null]`, `array['PAR-1', null]`, `array['par-1']` → 22023; doppelte Schlüssel geben nicht doppelt frei.
+- Rollback beider Migrationen und erneutes Einspielen fehlerfrei; Rechte wie erwartet; PG 16 nicht ausführbar,
+  keine Sprachmittel ab PG 17 gefunden (CI `neuaufbau` läuft auf 16).
+- **sollte** – Rollback scheiterte, wenn die Stellschraube schon protokolliert geändert wurde (FK). Behoben wie Rollback A2
+  (`and not exists … session_einstellungen_protokoll`), lokal mit Protokollzeile geprüft.
+- Hinweise: `p_reihe`/`p_thema_key` neben `p_schluessel` filtern still (0 statt Fehler); Standardplan nimmt alle
+  `reihe_kernideen` (heute nur Reihe 1). Beides im Kopf der Migration dokumentiert.

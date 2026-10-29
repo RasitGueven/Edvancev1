@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict es33gKPg1jnzWczpoya8V7DXtHRscMm7HMXl87YTXMJQr14l7GGOQFK4YyhsIxi
+\restrict TcD97eEdqyFuSi9M5g54NqdZJMuhwvrgBOcyHYMgpsLeoOmdaEB6tviiBYXiH1G
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1232,7 +1232,6 @@ declare
   v_kosten numeric[];
   v_idx    int[];
   v_sess   jsonb := '[]';
-  v_teil   jsonb;
   v_schritt int := 0;
   i        int;
 begin
@@ -36795,5 +36794,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict es33gKPg1jnzWczpoya8V7DXtHRscMm7HMXl87YTXMJQr14l7GGOQFK4YyhsIxi
+\unrestrict TcD97eEdqyFuSi9M5g54NqdZJMuhwvrgBOcyHYMgpsLeoOmdaEB6tviiBYXiH1G
 
