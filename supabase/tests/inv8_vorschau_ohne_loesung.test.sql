@@ -238,7 +238,7 @@ select is(
     :'t_flat',
     '{"question":"Berechne 25 % von 80 m.","unit":"cm"}'::jsonb
   ) - 'task_id',
-  '{"kind":"short_input","prompt":"Berechne 25 % von 80 m.","unit":"cm","assets":[],"themenfeld":"weitere"}'::jsonb,
+  '{"kind":"short_input","prompt":"Berechne 25 % von 80 m.","unit":"cm","assets":[],"themenfeld":"weitere","taschenrechner":false}'::jsonb,
   'Entwurf: die Vorschau zeigt den ungespeicherten Stamm und die ungespeicherte Einheit'
 );
 
@@ -258,7 +258,7 @@ select is(
       "question_payload":{"input_type":"MC",
         "options":[{"id":"a","label":"16 m"},{"id":"b","label":"20 m"}]}}'::jsonb
   ) - 'task_id',
-  '{"kind":"mc","prompt":"Berechne 20 % von 80 m.","assets":[],"themenfeld":"weitere",
+  '{"kind":"mc","prompt":"Berechne 20 % von 80 m.","assets":[],"themenfeld":"weitere","taschenrechner":false,
     "options":[{"id":"a","label":"16 m"},{"id":"b","label":"20 m"}]}'::jsonb,
   'Entwurf: ein Typwechsel auf MC liefert die MC-Optionen — der Builder folgt dem Entwurf'
 );

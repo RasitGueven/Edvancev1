@@ -21,6 +21,7 @@ vi.mock('@/lib/supabase/pruefung', () => ({
   pruefSpeichern: vi.fn(),
   pruefEntscheiden: vi.fn(),
   pruefRueckgaengig: vi.fn(),
+  pruefTaschenrechnerSetzen: vi.fn(),
   pruefWertungTesten: vi.fn(),
 }))
 vi.mock('@/lib/supabase/taskPreview', () => ({
@@ -33,6 +34,7 @@ vi.mock('@/hooks/useAuth', () => ({
 
 import {
   getFehlbilder, getPruefAufgabe, getPruefBoard, getPruefEinstellungen, getPruefSoll, pruefEntscheiden, pruefSpeichern,
+  pruefTaschenrechnerSetzen,
 } from '@/lib/supabase/pruefung'
 import { PruefansichtPage } from './PruefansichtPage'
 
@@ -63,7 +65,7 @@ const sicht = {
 const aufgabe: PruefAufgabe = {
   task_id: 't1',
   kopf: { kurztitel: 'Umfang · Radius 3,6 m', stufe: 'zweite', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', hilfsmittel: 'Taschenrechner, Stift und Zettel' },
-  aufgabe: { input_type: 'NUMERIC', unit: 'm', status: 'draft', lena_status: 'offen', pruef_version: 3, ausschluss: null, pilot: false, team_beanstandet: false, parts: [], optionen: [], bild_vorhanden: false },
+  aufgabe: { input_type: 'NUMERIC', unit: 'm', status: 'draft', lena_status: 'offen', taschenrechner: false, pruef_version: 3, ausschluss: null, pilot: false, team_beanstandet: false, parts: [], optionen: [], bild_vorhanden: false },
   ...sicht,
   loesungsweg: 'U = 2 · π · 3,6 m ≈ 22,62 m',
   fertigkeit: { key: 'geo_kreis_umfang', label: 'Umfang des Kreises', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', stufe: 'zweite', voraussetzungen: ['Werte in Terme einsetzen'] },
@@ -178,6 +180,27 @@ describe('PruefansichtPage', () => {
     expect(screen.queryByRole('button', { name: /Antwort 22,62 löschen/ })).toBeNull()
     fireEvent.keyDown(window, { key: '3' })
     expect(pruefEntscheiden).not.toHaveBeenCalled()
+  })
+
+  it('Schalter setzt das Feld mit der aktuellen Version und nennt den Rechner im Kopf', async () => {
+    vi.mocked(pruefTaschenrechnerSetzen).mockResolvedValue({
+      data: { pruef_version: 4, taschenrechner: true, hilfsmittel: 'Taschenrechner, Stift und Zettel' }, error: null,
+    })
+    zeige()
+    fireEvent.click(await screen.findByRole('switch', { name: /Taschenrechner erlaubt/ }))
+    await waitFor(() => expect(pruefTaschenrechnerSetzen).toHaveBeenCalledWith('t1', 3, true))
+    expect(await screen.findByText(/Erlaubt: Taschenrechner, Stift und Zettel/)).toBeTruthy()
+    expect((screen.getByRole('switch', { name: /Taschenrechner erlaubt/ }) as HTMLInputElement).checked).toBe(true)
+  })
+
+  it('freigegebene Aufgabe: fuer Lena gesperrt, mit Begruendung', async () => {
+    vi.mocked(getPruefAufgabe).mockResolvedValue({
+      data: { ...aufgabe, aufgabe: { ...aufgabe.aufgabe, status: 'ready', lena_status: 'freigegeben' } }, error: null,
+    })
+    zeige()
+    const schalter = await screen.findByRole('switch', { name: /Taschenrechner erlaubt/ }) as HTMLInputElement
+    expect(schalter.disabled).toBe(true)
+    expect(screen.getByText(/Freigegebene Aufgaben ändert nur ein Admin/)).toBeTruthy()
   })
 })
 

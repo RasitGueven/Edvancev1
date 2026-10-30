@@ -4,7 +4,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ausgangAus, bearbeitungAus, zuEntwurf, type Bearbeitung } from '@/lib/pruefung/entwurf'
-import { getPruefAufgabe, pruefSpeichern } from '@/lib/supabase/pruefung'
+import { getPruefAufgabe, pruefSpeichern, pruefTaschenrechnerSetzen } from '@/lib/supabase/pruefung'
 import type { PruefAufgabe, PruefAuffaelligkeit, PruefFehlerInfo } from '@/types'
 
 const ENTPRELLEN_MS = 600
@@ -24,6 +24,9 @@ export type Sitzung = {
   /** Wartet, bis alles gespeichert ist. false = Speichern ging schief (Konflikt oder Fehler). */
   sichern: () => Promise<boolean>
   neuLaden: () => void
+  /** Sichert erst die offene Bearbeitung, dann gilt die Version weiter (ED409 wie beim Speichern). */
+  taschenrechnerSetzen: (wert: boolean) => Promise<void>
+  taschenrechnerArbeitet: boolean
   setVersion: (v: number) => void
   /** Die zuletzt bekannte Version (auch direkt nach sichern(), vor dem naechsten Render). */
   versionJetzt: () => number
@@ -41,6 +44,7 @@ export function usePruefSitzung(taskId: string | undefined): Sitzung {
   const [konflikt, setKonflikt] = useState(false)
   const [fehler, setFehler] = useState<PruefFehlerInfo | null>(null)
   const [version, setVersionState] = useState(0)
+  const [taschenrechnerArbeitet, setTaschenrechnerArbeitet] = useState(false)
 
   const versionRef = useRef(0)
   const offen = useRef<Bearbeitung | null>(null)
@@ -129,13 +133,33 @@ export function usePruefSitzung(taskId: string | undefined): Sitzung {
     timer.current = setTimeout(() => void sichern(), ENTPRELLEN_MS)
   }, [sichern])
 
+  const taschenrechnerSetzen = useCallback(async (wert: boolean): Promise<void> => {
+    if (!taskId || !(await sichern())) return
+    setTaschenrechnerArbeitet(true)
+    const res = await pruefTaschenrechnerSetzen(taskId, versionRef.current, wert)
+    setTaschenrechnerArbeitet(false)
+    if (res.error || !res.data) {
+      if (res.error?.code === 'ED409') setKonflikt(true)
+      setFehler(res.error)
+      return
+    }
+    const { pruef_version, taschenrechner, hilfsmittel } = res.data
+    setFehler(null)
+    setVersion(pruef_version)
+    setAufgabe((a) => a && {
+      ...a,
+      kopf: { ...a.kopf, hilfsmittel },
+      aufgabe: { ...a.aufgabe, taschenrechner, pruef_version },
+    })
+  }, [taskId, sichern, setVersion])
+
   useEffect(() => () => {
     if (timer.current) clearTimeout(timer.current)
   }, [])
 
   return {
     aufgabe, laedt, ladeFehler, b, ausgang, version, auffaelligkeiten, speichert, konflikt, fehler,
-    aendern, sichern, setVersion,
+    aendern, sichern, setVersion, taschenrechnerSetzen, taschenrechnerArbeitet,
     versionJetzt: () => versionRef.current,
     neuLaden: () => setLadeZaehler((n) => n + 1),
     dauerSek: () => Math.max(1, Math.round((Date.now() - start.current) / 1000)),
