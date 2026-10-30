@@ -12,7 +12,7 @@
  */
 import { createClient } from '@supabase/supabase-js'
 
-import { elevenVertonen, platzhalterVertonen, type Vertonung } from '../../src/studio/stimme/anbieter'
+import { elevenVertonen, platzhalterVertonen, type Vertonung } from '../../src/studio/stimme/anbieter.js'
 
 const MAX_JE_AUFRUF = 8
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
