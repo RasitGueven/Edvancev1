@@ -178,6 +178,8 @@ export type PruefAufgabe = {
     unit: string | null
     status: string
     lena_status: LenaStatus
+    /** Hilfsmittel: das Kind bekommt bei dieser Aufgabe den Rechner der App. */
+    taschenrechner: boolean
     pruef_version: number
     ausschluss: string | null
     pilot: boolean
@@ -246,6 +248,9 @@ export type PruefWertung = {
 export type PruefFehlerInfo = { code: string | null; hint: string | null; message: string }
 
 export type PruefResult<T> = { data: T | null; error: PruefFehlerInfo | null }
+
+/** pruef_taschenrechner_setzen: neue Version und der Text hinter „Erlaubt:“ im Kopf. */
+export type PruefTaschenrechnerAntwort = { pruef_version: number; taschenrechner: boolean; hilfsmittel: string }
 
 export type PruefEinstellungen = { hilfsmittel: string; nur_pilot: boolean; grund_pflicht: boolean }
 

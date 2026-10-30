@@ -110,6 +110,7 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 ### tasks
 - **Zweck:** Lern-/Aufgabeninhalte (manuell oder importiert). *(Dies ist „aufgaben".)*
 - **Spalten:** `id` (PK), `microskill_id` (FK→`microskills` SET NULL), `cluster_id` (FK→`skill_clusters` SET NULL), `content_type` (CHECK `exercise|exercise_group|article|video|course`), `title`, `question`, `solution`, `hint`, `common_errors`, `coach_note`, `difficulty` (CHECK 1–5), `estimated_minutes` (default 3), `class_level` (CHECK 5–13), `is_active`, `created_at`, `cognitive_type`, `input_type` (CHECK `MC|FREE_INPUT|STEPS|MATCHING|DRAW`), `is_diagnostic`, `curriculum_ref`, `question_payload` (jsonb), `typical_errors` (text[]), `source` (not null default `unbekannt`), `source_ref`, `assets` (jsonb default `[]`), `competency_id` (FK→`process_competencies` SET NULL, nullable, **Achse B**, Migr. 039).
+- **Hilfsmittel:** `taschenrechner` (boolean, not null, default false): das Kind bekommt bei dieser Aufgabe den Rechner der App. Gepflegt über `pruef_taschenrechner_setzen`; global gilt `pruef_einstellungen.hilfsmittel`.
 - **Constraints/Indexes:** `tasks_source_ref_unique` UNIQUE (`source`,`source_ref`) (Migr. 008); Indizes für Diagnostic-Pickup, `source`, `assets`, `competency_id`.
 - **Endzustand-Hinweis:** **keine** `serlo_*`-Spalten (von Migr. 006 entfernt).
 - **RLS:** Lesen für alle authentifizierten User; Schreiben **nur Admin**.

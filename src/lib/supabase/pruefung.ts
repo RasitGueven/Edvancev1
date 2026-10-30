@@ -14,6 +14,7 @@ import type {
   PruefRueckfrageAktion,
   PruefSollZeile,
   PruefSpeichernAntwort,
+  PruefTaschenrechnerAntwort,
   PruefWertung,
 } from '@/types'
 
@@ -235,4 +236,13 @@ export async function setPruefEinstellungen(werte: PruefEinstellungen): Promise<
   } catch (err) {
     return { data: null, error: alsFehler(err) }
   }
+}
+
+/** Schaltet den Rechner der App fuer eine Aufgabe; Lena nur vor der Freigabe, Admin auch danach. */
+export function pruefTaschenrechnerSetzen(
+  taskId: string, version: number, wert: boolean,
+): Promise<PruefResult<PruefTaschenrechnerAntwort>> {
+  return rufe<PruefTaschenrechnerAntwort>('pruef_taschenrechner_setzen', {
+    p_task_id: taskId, p_version: version, p_wert: wert,
+  })
 }
