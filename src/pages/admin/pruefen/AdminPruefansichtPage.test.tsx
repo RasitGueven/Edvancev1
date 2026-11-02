@@ -89,7 +89,7 @@ const loesung: TaskSolution = {
 const aufgabe = (status: string, lena: PruefAufgabe['aufgabe']['lena_status'], team = false): PruefAufgabe => ({
   task_id: 't1',
   kopf: { kurztitel: 'Umfang · Radius 3,6 m', stufe: 'zweite', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', hilfsmittel: 'Taschenrechner' },
-  aufgabe: { input_type: 'NUMERIC', unit: 'm', status, lena_status: lena, pruef_version: 3, ausschluss: null, pilot: true,
+  aufgabe: { input_type: 'NUMERIC', unit: 'm', status, lena_status: lena, taschenrechner: false, pruef_version: 3, ausschluss: null, pilot: true,
     team_beanstandet: team, parts: [], optionen: [], bild_vorhanden: false },
   werte: [{ teil: null, werte: [{ wert: '22,62', schreibweisen: ['22,62'] }] }], mc: null,
   regel: { art: 'wert', mitte: null, toleranz: null, einheit_pflicht: false, einheit: 'm', einheit_am_feld: true },

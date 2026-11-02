@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict TcD97eEdqyFuSi9M5g54NqdZJMuhwvrgBOcyHYMgpsLeoOmdaEB6tviiBYXiH1G
+\restrict KMfqDLg5LTLQsPBdab9O3EvgSayANkHipKfmos3LnE3n06eN2f6nQESO8jIOt6z
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -8853,6 +8853,7 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
         'task_id',    t.id,
         'kind',       'multi_part',
         'themenfeld', public.lsa_themenfeld(t.skill_key),
+        'taschenrechner', t.taschenrechner,
         'stem',       coalesce(t.question, ''),
         'assets',     public.lsa_task_assets(t.id),
         'table',      public.lsa_public_table(t.question_payload -> 'table'),
@@ -8862,6 +8863,7 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
         'task_id',    t.id,
         'kind',       'mc',
         'themenfeld', public.lsa_themenfeld(t.skill_key),
+        'taschenrechner', t.taschenrechner,
         'prompt',     coalesce(t.question, ''),
         'assets',     public.lsa_task_assets(t.id),
         'table',      public.lsa_public_table(t.question_payload -> 'table'),
@@ -8883,6 +8885,7 @@ CREATE FUNCTION public.lsa_question_payload(p_task_id uuid) RETURNS jsonb
         'task_id',    t.id,
         'kind',       'short_input',
         'themenfeld', public.lsa_themenfeld(t.skill_key),
+        'taschenrechner', t.taschenrechner,
         'prompt',     coalesce(t.question, ''),
         'assets',     public.lsa_task_assets(t.id),
         'table',      public.lsa_public_table(t.question_payload -> 'table'),
@@ -12217,6 +12220,7 @@ CREATE TABLE public.tasks (
     rolle text,
     kernidee_key text,
     pruefmaschine jsonb,
+    taschenrechner boolean DEFAULT false NOT NULL,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
     CONSTRAINT tasks_bauform_instanz CHECK (((bauform_id IS NULL) OR ((bauform_version IS NOT NULL) AND (stufe IS NOT NULL) AND (rolle IS NOT NULL) AND (einsatz = ARRAY['session'::text])))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
@@ -12383,11 +12387,11 @@ begin
     'task_id', t.id,
     'kopf', jsonb_build_object('kurztitel', public.pruef_kurztitel(t.title), 'stufe', th.stufe,
               'thema_key', th.thema_key, 'thema_label', th.label,
-              'hilfsmittel', (select e.hilfsmittel from public.pruef_einstellungen e limit 1)),
+              'hilfsmittel', public.pruef_hilfsmittel(t.taschenrechner)),
     'aufgabe', jsonb_build_object(
       'input_type', t.input_type, 'unit', t.unit, 'status', t.status,
       'lena_status', public.pruef_lena_status(t.status), 'pruef_version', t.pruef_version,
-      'ausschluss', ausschluss, 'pilot', t.pruef_pilot,
+      'ausschluss', ausschluss, 'pilot', t.pruef_pilot, 'taschenrechner', t.taschenrechner,
       'team_beanstandet', public.pruef_team_beanstandet(p_task_id),
       'parts', coalesce((select jsonb_agg(jsonb_build_object('nr', (p ->> 'nr')::int, 'kind', p ->> 'kind',
                  'prompt', p ->> 'prompt', 'unit', p ->> 'unit',
@@ -13020,6 +13024,19 @@ begin
   end loop;
   return g;
 end $$;
+
+
+--
+-- Name: pruef_hilfsmittel(boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_hilfsmittel(p_taschenrechner boolean) RETURNS text
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when p_taschenrechner then 'Taschenrechner, ' else '' end || e.hilfsmittel
+    from public.pruef_einstellungen e limit 1
+$$;
 
 
 --
@@ -13778,6 +13795,39 @@ begin
   end if;
   if public.get_my_role() is distinct from 'admin' then perform public.pruef_lena_sperren(t); end if;
   return t;
+end $$;
+
+
+--
+-- Name: pruef_taschenrechner_setzen(uuid, bigint, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_taschenrechner_setzen(p_task_id uuid, p_version bigint, p_wert boolean) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks;
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    t := public.pruef_sperren(p_task_id, p_version);
+  else
+    select * into t from public.tasks where id = p_task_id for update;
+    if not found then
+      raise exception 'pruefen: Aufgabe nicht gefunden' using errcode = 'P0002';
+    end if;
+    if t.pruef_version is distinct from p_version then
+      raise exception 'pruefen: Die Aufgabe wurde inzwischen geaendert. Bitte neu laden.'
+        using errcode = 'ED409', hint = 'version';
+    end if;
+    if public.pruef_ausschluss(p_task_id) in ('vera8', 'inaktiv', 'typ') then
+      perform public.pruef_fehler('ausgeschlossen');
+    end if;
+  end if;
+
+  update public.tasks set taschenrechner = p_wert where id = p_task_id
+  returning * into t;
+  return jsonb_build_object('pruef_version', t.pruef_version, 'taschenrechner', t.taschenrechner,
+                            'hilfsmittel', public.pruef_hilfsmittel(t.taschenrechner));
 end $$;
 
 
@@ -26547,7 +26597,7 @@ CREATE TABLE public.profiles (
 
 CREATE TABLE public.pruef_einstellungen (
     id boolean DEFAULT true NOT NULL,
-    hilfsmittel text DEFAULT 'Taschenrechner, Stift und Zettel'::text NOT NULL,
+    hilfsmittel text DEFAULT 'Stift und Zettel'::text NOT NULL,
     nur_pilot boolean DEFAULT false NOT NULL,
     grund_pflicht boolean DEFAULT false NOT NULL,
     CONSTRAINT pruef_einstellungen_id_check CHECK (id)
@@ -36794,5 +36844,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict TcD97eEdqyFuSi9M5g54NqdZJMuhwvrgBOcyHYMgpsLeoOmdaEB6tviiBYXiH1G
+\unrestrict KMfqDLg5LTLQsPBdab9O3EvgSayANkHipKfmos3LnE3n06eN2f6nQESO8jIOt6z
 

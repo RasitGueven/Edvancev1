@@ -13,6 +13,7 @@ import { RichtigeAntwort } from '@/components/edvance/pruefen/RichtigeAntwort'
 import { AntwortTesten, Loesungsweg, RegelBlock } from '@/components/edvance/pruefen/RegelUndTesten'
 import { TypischeFehler } from '@/components/edvance/pruefen/TypischeFehler'
 import { AenderungenBox, Einordnung } from '@/components/edvance/pruefen/Einordnung'
+import { TaschenrechnerSchalter } from '@/components/edvance/pruefen/TaschenrechnerSchalter'
 import { Auffaelligkeiten, EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
 import { formatBerlinDateTime } from '@/lib/datetime'
 import { adminFehler, uebersetze } from '@/lib/pruefung/adminTexte'
@@ -192,6 +193,8 @@ export function AdminPruefansichtPage(): JSX.Element {
                   <Einordnung aufgabe={a} b={s.b} ausgang={s.ausgang} fertigkeitGeaendert={felder.has('fertigkeit')}
                     afbGeaendert={felder.has('afb')} lesend={lesend} onChange={s.aendern} onZurueck={zuruecksetzen}
                     kopfAktion={link('einordnung')} />
+                  <TaschenrechnerSchalter an={a.aufgabe.taschenrechner} gesperrt={s.konflikt || NUR_EDITOR.includes(ausschluss ?? '')}
+                    arbeitet={s.taschenrechnerArbeitet} onSetzen={(wert) => void s.taschenrechnerSetzen(wert)} />
                   <AenderungenBox aenderungen={aenderungen} namen={namen} mc={a.aufgabe.input_type === 'MC'}
                     grund="" grundPflicht={false} onGrund={() => undefined}
                     herkunft={(e) => herkunftVon(e, lenaAenderungen)} kopfAktion={link('antwort')} />

@@ -216,6 +216,11 @@
     "abbrechen": "Abbrechen",
     "hinzufuegen": "Hinzufügen"
   },
+  "taschenrechner": {
+    "titel": "Taschenrechner erlaubt",
+    "hilfe": "Das Kind bekommt bei dieser Aufgabe den Rechner der App. Nicht einschalten, wenn die Aufgabe eine Methode prüft, zum Beispiel binomische Formeln oder Wurzelgesetze.",
+    "gesperrt": "Bei dieser Aufgabe kannst du das nicht ändern. Freigegebene Aufgaben ändert nur ein Admin."
+  },
   "einordnung": {
     "titel": "Einordnung",
     "fertigkeit": "Fertigkeit",

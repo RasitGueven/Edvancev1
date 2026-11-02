@@ -37,6 +37,7 @@ type Table = { headers: string[]; rows: string[][] }
 type InputHint = 'number' | 'fraction' | 'term'
 
 // LSA-A1 — siehe „Themenfeld“ unten. Immer gesetzt; ältere DBs ohne LSA-A1 liefern den Schlüssel nicht.
+// `taschenrechner` steht in allen drei Formen als boolean: true gibt den Rechner der App frei (tasks.taschenrechner).
 type Themenfeld = 'brueche' | 'prozent' | 'terme' | 'geometrie' | 'groessen' | 'zahlen'
                 | 'funktionen' | 'zufall' | 'weitere'
 
@@ -47,11 +48,11 @@ type Part =
       options: { id: string; label: string }[] }
 
 type QuestionPayload =
-  | { kind: 'mc'; task_id: string; themenfeld: Themenfeld; prompt: string; assets: Asset[];
+  | { kind: 'mc'; task_id: string; themenfeld: Themenfeld; taschenrechner: boolean; prompt: string; assets: Asset[];
       table?: Table; options: { id: string; label: string }[] }
-  | { kind: 'short_input'; task_id: string; themenfeld: Themenfeld; prompt: string; assets: Asset[];
+  | { kind: 'short_input'; task_id: string; themenfeld: Themenfeld; taschenrechner: boolean; prompt: string; assets: Asset[];
       table?: Table; unit?: string; input_hint?: InputHint }
-  | { kind: 'multi_part'; task_id: string; themenfeld: Themenfeld; stem: string; assets: Asset[];
+  | { kind: 'multi_part'; task_id: string; themenfeld: Themenfeld; taschenrechner: boolean; stem: string; assets: Asset[];
       table?: Table; parts: Part[] }   // P02 — siehe §6
 // Spätere Typen sind in der Struktur vorgesehen, aber NICHT implementiert: cloze
 ```
@@ -108,11 +109,21 @@ Inhaltsbereich → Feld.
   Vitest (`themenfeld-fixture.test.ts`) hält sie aktuell, pgTAP (`lsa_themenfeld.test.sql`) prüft
   `lsa_themenfeld` dagegen.
 
+### Taschenrechner und `calculator_opened`
+
+`taschenrechner` kommt aus `tasks.taschenrechner` und ist kein Lösungsfeld. Bei LSA-Aufgaben mit Rechner legt die App
+`calculator_opened: true|false` in die Abgabe (nie in der Session: `bewaehrung_nach_antwort` zählt dort Antworten ohne
+`text` über das ganze JSON, ein Zusatzschlüssel würde sie aufspalten): bei einfachen Aufgaben neben `text`, `selected` oder `dont_know`, bei
+Mehrteilern in jedes Teilobjekt (`{"1":{"text":"7","calculator_opened":true}}`), weil `lsa_submit` dort nur
+`p_response -> nr` speichert. Bei `{dont_know:true}` für einen ganzen Mehrteiler gibt es keine Teilantwort, das Flag
+wird dort nicht gespeichert. Fehlt das Feld, gab es bei der Aufgabe keinen Rechner. Abgabeart, Wertung und
+Fehlbild-Erkennung lesen es nicht (`supabase/tests/lsa_taschenrechner.test.sql`).
+
 ### Die Sicherheitsregel
 
 **Die Lösung landet niemals im `question_payload`.**
 
-- Ans Frontend geht: `prompt`, `assets`, `table`, `options` (nur `id` + `label`), `unit`, `input_hint`, `themenfeld`
+- Ans Frontend geht: `prompt`, `assets`, `table`, `options` (nur `id` + `label`), `unit`, `input_hint`, `themenfeld`, `taschenrechner`
 - Server-only bleibt: `correct_answers`, `solution`, `hints`, `coach_hints`, `typical_errors`
 
 Durchgesetzt wird das nicht durch Filtern, sondern durch **Bauen aus einer

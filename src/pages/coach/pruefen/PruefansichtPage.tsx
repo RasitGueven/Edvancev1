@@ -19,6 +19,7 @@ import { AntwortTesten, Loesungsweg, RegelBlock } from '@/components/edvance/pru
 import { TypischeFehler } from '@/components/edvance/pruefen/TypischeFehler'
 import { KinderHinweise } from '@/components/edvance/pruefen/KinderHinweise'
 import { AenderungenBox, Einordnung } from '@/components/edvance/pruefen/Einordnung'
+import { TaschenrechnerSchalter } from '@/components/edvance/pruefen/TaschenrechnerSchalter'
 import {
   Auffaelligkeiten, EntscheidungsMeldung, Entscheidungsleiste, type Panel,
 } from '@/components/edvance/pruefen/Entscheidungsleiste'
@@ -89,6 +90,8 @@ export function PruefansichtPage(): JSX.Element {
   const a = s.aufgabe
   const team = !!a?.aufgabe.team_beanstandet
   const lesend = !a || a.aufgabe.status === 'ready' || team || NICHT_IM_BOARD.includes(a.aufgabe.ausschluss ?? '') || s.konflikt
+  // Der Rechner ist kein Teil der Antwort: Ein Admin darf ihn auch bei freigegebenen Aufgaben schalten.
+  const rechnerGesperrt = role === 'admin' ? s.konflikt || NICHT_IM_BOARD.includes(a?.aufgabe.ausschluss ?? '') : lesend
   const felder = useMemo(() => (s.b && s.ausgang ? geaenderteFelder(s.ausgang, s.b) : new Set<Feld>()), [s.b, s.ausgang])
   const aenderungen = useMemo(() => (s.b && s.ausgang ? lokaleAenderungen(s.ausgang, s.b) : []), [s.b, s.ausgang])
   const sperre = a && s.b ? sperrgrund(a.aufgabe.input_type, s.b) : null
@@ -276,6 +279,8 @@ export function PruefansichtPage(): JSX.Element {
                 )}
                 <Einordnung aufgabe={a} b={s.b} ausgang={s.ausgang} fertigkeitGeaendert={felder.has('fertigkeit')}
                   afbGeaendert={felder.has('afb')} lesend={lesend} onChange={s.aendern} onZurueck={zuruecksetzen} />
+                <TaschenrechnerSchalter an={a.aufgabe.taschenrechner} gesperrt={rechnerGesperrt} arbeitet={s.taschenrechnerArbeitet}
+                  onSetzen={(wert) => void s.taschenrechnerSetzen(wert)} />
                 <AenderungenBox aenderungen={aenderungen} namen={namen} mc={a.aufgabe.input_type === 'MC'}
                   grund={grund} grundPflicht={grundPflicht} onGrund={setGrund} />
                 <p className="text-xs text-[var(--color-text-tertiary)]" aria-live="polite">

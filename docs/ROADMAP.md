@@ -341,6 +341,9 @@
     ohne Neuvermessen je Render, Sichtbarkeit je Bild über Klassen, Kästen vor Linie, Inseln als Ganzes,
     240 px/s. Kein DDL.
   - Ziel: Test-LSA am Sa 31.10.; iPad-Abnahme Do 29.10.
+  - **LSA-Taschenrechner** (Branch `feat/lsa-taschenrechner` hier und in `edvance-app`, Retro
+    `2026-10-30-lsa-taschenrechner.md`): `tasks.taschenrechner`, Rechner der App statt eigenem, global nur noch
+    „Stift und Zettel“. Die Test-LSA ist auf Di/Mi verschoben.
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
     aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,

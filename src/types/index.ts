@@ -296,6 +296,7 @@ export type {
   PruefFehlerInfo,
   PruefResult,
   PruefEinstellungen,
+  PruefTaschenrechnerAntwort,
   PruefRueckfrageAktion,
   PruefAdminZeile,
   PruefSollZeile,
