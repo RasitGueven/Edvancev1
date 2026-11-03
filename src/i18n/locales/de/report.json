@@ -64,6 +64,7 @@
     "anhangEntsteht": "Anhang: {{datei}} (PDF entsteht …)",
     "pdfLaeuft": "Das PDF entsteht noch.",
     "zuGross": "Das PDF ist auch in der kleinsten zulässigen Auflösung noch {{groesse}} groß (höchstens 2,5 MB). Es wurde nichts verschickt.",
+    "ohneSchrift": "Die Schriften des Berichts ließen sich nicht laden. Ohne sie bräche der Text anders um, deshalb wurde kein PDF erzeugt. Bitte die Verbindung prüfen und noch einmal öffnen.",
     "pdfFehler": "Das PDF konnte nicht erzeugt werden. Bitte die Seite neu laden und noch einmal versuchen.",
     "uploadFehler": "Das PDF konnte nicht abgelegt werden: {{fehler}}",
     "zuletzt": "Zuletzt versendet am {{date}} an {{email}}.",

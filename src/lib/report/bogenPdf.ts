@@ -40,6 +40,14 @@ export class PdfZuGross extends Error {
   }
 }
 
+/** Die Schriften des Bogens ließen sich nicht einbetten; mit Ersatzschrift bräche der Text anders um. */
+export class PdfOhneSchrift extends Error {
+  constructor() {
+    super('Report fonts could not be embedded')
+    this.name = 'PdfOhneSchrift'
+  }
+}
+
 export class PdfOhneSeiten extends Error {
   constructor() {
     super('No .eb-seite found')
@@ -68,12 +76,15 @@ async function schriftCss(): Promise<string | undefined> {
     .split(/(?=\/\*\s*[\w-]+\s*\*\/)/)
     .filter((block) => /^\/\*\s*latin(-ext)?\s*\*\//.test(block.trim()))
     .join('\n')
-  if (css === '') return undefined
+  if (links.length === 0) return undefined
+  // Ohne die Schriften kein PDF: lieber eine klare Meldung als ein Bericht mit anderen Umbrüchen.
+  if (!/font-family:\s*'Literata'/.test(css) || !/font-family:\s*'Schibsted Grotesk'/.test(css)) throw new PdfOhneSchrift()
   // Als data-URL: Das Bild entsteht aus einem SVG, und ein SVG als Bild lädt
   // nichts von außen nach. modern-screenshot bettet die Adressen aus cssText
   // nicht selbst ein.
   const adressen = [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map((m) => m[1]))]
   const daten = await Promise.all(adressen.map(alsDatenUrl))
+  if (daten.some((d) => !d.startsWith('data:'))) throw new PdfOhneSchrift()
   return adressen.reduce((text, adresse, i) => text.replaceAll(adresse, daten[i]), css)
 }
 

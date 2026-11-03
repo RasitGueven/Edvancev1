@@ -62,7 +62,7 @@ comment on column public.lead_mail_versand.lsa_session_id is
 comment on column public.lead_mail_versand.anhang_pfad is
   'Anlass lsa_report: das PDF im Bucket lsa_reports, genau die Datei, die angehängt war.';
 comment on column public.lead_mail_versand.anhang_sha256 is
-  'SHA-256 (hex) des angehängten PDFs. Leer, wenn die Datei nicht geladen werden konnte.';
+  'Anlass lsa_report: SHA-256 (hex) des angehängten PDFs, auch bei gescheitertem Versand.';
 
 create index lead_mail_versand_lsa_session_idx
   on public.lead_mail_versand (lsa_session_id, erfolgt_at desc)

@@ -71,7 +71,12 @@ export function LsaReportMailModal({ open, onClose, sessionId, an, mail, erzeuge
         if (!active) return
         const zuGross = e instanceof Error && e.name === 'PdfZuGross'
         const bytes = zuGross ? (e as Error & { bytes: number }).bytes : 0
-        setPdfFehler(zuGross ? t('mailDialog.zuGross', { groesse: megabyte(bytes, i18n.language) }) : t('mailDialog.pdfFehler'))
+        const ohneSchrift = e instanceof Error && e.name === 'PdfOhneSchrift'
+        setPdfFehler(
+          zuGross
+            ? t('mailDialog.zuGross', { groesse: megabyte(bytes, i18n.language) })
+            : t(ohneSchrift ? 'mailDialog.ohneSchrift' : 'mailDialog.pdfFehler'),
+        )
       })
     return () => {
       active = false

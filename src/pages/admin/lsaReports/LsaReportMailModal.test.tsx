@@ -83,6 +83,13 @@ describe('LsaReportMailModal', () => {
     expect(vi.mocked(lsaReportSenden).mock.calls.map((c) => c[1])).toEqual([PFAD, PFAD])
   })
 
+  it('Schriften nicht ladbar: Meldung, Senden gesperrt, nichts hochgeladen', async () => {
+    oeffne(() => Promise.reject(Object.assign(new Error('fonts'), { name: 'PdfOhneSchrift' })))
+    expect(await screen.findByText(/Die Schriften des Berichts ließen sich nicht laden\./)).toBeInTheDocument()
+    expect(senden()).toBeDisabled()
+    expect(lsaReportHochladen).not.toHaveBeenCalled()
+  })
+
   it('PDF zu groß: Meldung, Senden gesperrt, nichts hochgeladen', async () => {
     const zuGross = Object.assign(new Error('PDF too large'), { name: 'PdfZuGross', bytes: 2_900_000 })
     oeffne(() => Promise.reject(zuGross))

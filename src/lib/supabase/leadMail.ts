@@ -26,7 +26,7 @@ export async function terminBestaetigungSenden(
   }
 }
 
-/** Alle Versandversuche eines Leads, neueste zuerst. */
+/** Alle Terminbestaetigungen eines Leads, neueste zuerst. */
 export async function listLeadMailVersand(
   leadId: string,
 ): Promise<SupabaseResult<LeadMailVersand[]>> {
@@ -35,6 +35,8 @@ export async function listLeadMailVersand(
       .from('lead_mail_versand')
       .select('id, anlass, empfaenger, ort, termin_at, fehler, erfolgt_at')
       .eq('lead_id', leadId)
+      // Seit LR-2 stehen dort auch LSA-Reports; der Termin-Dialog kennt nur seine eigenen Mails.
+      .eq('anlass', 'terminbestaetigung')
       .order('erfolgt_at', { ascending: false })
     if (error) return { data: null, error: error.message }
     return { data: (data ?? []) as LeadMailVersand[], error: null }
