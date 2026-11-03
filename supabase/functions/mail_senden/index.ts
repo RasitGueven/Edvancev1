@@ -2,9 +2,11 @@
 //
 // Der Versand an Eltern ueber hello@edvanceacademy.de. Drei Anlaesse zum
 // Vertrag: die Bestaetigung nach dem Abschluss, die Unterlagen zum
-// Ausdrucken (Weg B) und ein neu erzeugter Zugangscode. Ein Anlass zum Lead:
+// Ausdrucken (Weg B) und ein neu erzeugter Zugangscode. Zwei Anlaesse zum Lead:
 // die Terminbestaetigung des Erstgespraechs (termin.ts, mit lead_id statt
-// vertrag_id).
+// vertrag_id) und der Eltern-Bericht der LSA als PDF (lsa_report.ts, mit
+// lsa_session_id und dem Pfad im Bucket lsa_reports; Lead und Adresse ermittelt
+// die Funktion selbst).
 //
 // Jeder Versuch wird protokolliert — auch der gescheiterte. Ein Protokoll,
 // das nur die geglueckten Versuche kennt, beantwortet die eine Frage nicht,
@@ -22,7 +24,9 @@ import {
   buendelPfade,
   type Umschlagstueck,
 } from '../_shared/vertrag_pdf_erzeugen.ts'
+import { lsaReport } from './lsa_report.ts'
 import { terminBestaetigung } from './termin.ts'
+import { nurAdmin } from './zugang.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -30,7 +34,7 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
-type Anlass = 'bestaetigung' | 'unterlagen' | 'zugangscode' | 'terminbestaetigung'
+type Anlass = 'bestaetigung' | 'unterlagen' | 'zugangscode' | 'terminbestaetigung' | 'lsa_report'
 
 // Ein Literal, keine Verkettung: supabase-js leitet die Zeilentypen aus dem
 // Text dieser Zeichenkette ab und kann ein zusammengesetztes nicht lesen.
@@ -84,6 +88,8 @@ Deno.serve(async (req: Request) => {
     anlass?: Anlass
     empfaenger?: string
     ort?: string
+    lsa_session_id?: string
+    pfad?: string
   }
   try {
     body = await req.json()
@@ -93,11 +99,13 @@ Deno.serve(async (req: Request) => {
   const anlass = body.anlass
   if (anlass === 'terminbestaetigung') {
     if (!body.lead_id) return json(400, { error: 'lead_id erforderlich' })
+  } else if (anlass === 'lsa_report') {
+    if (!body.lsa_session_id || !body.pfad) return json(400, { error: 'lsa_session_id und pfad erforderlich' })
   } else if (!body.vertrag_id) {
     return json(400, { error: 'vertrag_id erforderlich' })
   } else if (anlass !== 'bestaetigung' && anlass !== 'unterlagen' && anlass !== 'zugangscode') {
     return json(400, {
-      error: 'anlass muss bestaetigung, unterlagen, zugangscode oder terminbestaetigung sein',
+      error: 'anlass muss bestaetigung, unterlagen, zugangscode, terminbestaetigung oder lsa_report sein',
     })
   }
 
@@ -115,17 +123,15 @@ Deno.serve(async (req: Request) => {
     global: { headers: { Authorization: authHeader } },
     auth: { autoRefreshToken: false, persistSession: false },
   })
-  const { data: userData, error: userErr } = await caller.auth.getUser()
-  if (userErr || !userData.user) return json(401, { error: 'Nicht authentifiziert' })
-  const { data: prof } = await admin
-    .from('profiles')
-    .select('role')
-    .eq('id', userData.user.id)
-    .maybeSingle()
-  if (prof?.role !== 'admin') return json(403, { error: 'Nur Admin darf versenden' })
+  const abgelehnt = await nurAdmin(admin, caller)
+  if (abgelehnt) return json(abgelehnt.status, { error: abgelehnt.error })
 
   if (anlass === 'terminbestaetigung') {
     const r = await terminBestaetigung(admin, caller, body.lead_id as string, body.ort)
+    return json(r.status, r.payload)
+  }
+  if (anlass === 'lsa_report') {
+    const r = await lsaReport(admin, caller, body.lsa_session_id, body.pfad)
     return json(r.status, r.payload)
   }
   const vertragId = body.vertrag_id as string
