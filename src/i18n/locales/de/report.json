@@ -47,8 +47,31 @@
   "actions": {
     "print": "Drucken",
     "email": "Per E-Mail senden",
-    "emailTooltip": "kommt mit dem Eltern-Zugang",
-    "druckTitel": "Edvance LSA-Report {{name}} {{datum}}"
+    "emailGesperrt": {
+      "rolle": "Nur ein Admin kann den Bericht verschicken.",
+      "laedt": "Bericht und Pakete laden noch.",
+      "nichtAuswertbar": "Diese LSA ist nicht auswertbar, es gibt keinen Bericht zu verschicken.",
+      "keineMail": "Am Lead ist keine Eltern-Mail hinterlegt.",
+      "ungespeichert": "Der Ausblick hat ungespeicherte Änderungen. Bitte erst speichern."
+    }
+  },
+  "mailDialog": {
+    "title": "Bericht per E-Mail senden",
+    "description": "Der Bericht geht als PDF aus hello@ an die Eltern. Das PDF zeigt genau den Bogen, den „Drucken“ zeigt.",
+    "an": "An: {{email}}",
+    "vorschau": "Vorschau der Mail",
+    "anhang": "Anhang: {{datei}} ({{groesse}})",
+    "anhangEntsteht": "Anhang: {{datei}} (PDF entsteht …)",
+    "pdfLaeuft": "Das PDF entsteht noch.",
+    "zuGross": "Das PDF ist auch in der kleinsten zulässigen Auflösung noch {{groesse}} groß (höchstens 2,5 MB). Es wurde nichts verschickt.",
+    "pdfFehler": "Das PDF konnte nicht erzeugt werden. Bitte die Seite neu laden und noch einmal versuchen.",
+    "uploadFehler": "Das PDF konnte nicht abgelegt werden: {{fehler}}",
+    "zuletzt": "Zuletzt versendet am {{date}} an {{email}}.",
+    "letzterFehler": "Der letzte Versuch am {{date}} ist gescheitert: {{fehler}}",
+    "senden": "Senden",
+    "erneutSenden": "Erneut senden",
+    "erneutVersuchen": "Erneut versuchen",
+    "gesendet": "Gesendet an {{email}}."
   },
   "skillbefunde": {
     "title": "Was wir uns genauer ansehen",

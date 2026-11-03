@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { Printer, Mail, Presentation } from 'lucide-react'
+import { Printer, Presentation } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { LoadingPulse } from '@/components/edvance'
 import { ElternberichtBogen } from '@/components/edvance/elternbericht/Bogen'
@@ -21,6 +21,7 @@ import type { ReportData, ReportNotes, TierPlan } from '@/types'
 import { durchklickGrund } from './lsaReports/durchklickGrund'
 import { NichtAuswertbarBalken } from './lsaReports/NichtAuswertbarBalken'
 import { KaAbweichungHinweis } from './lsaReports/KaAbweichungHinweis'
+import { LsaReportMailKnopf } from './lsaReports/LsaReportMailKnopf'
 import { bogenBereit, druckDatum, druckeMitTitel } from './reportDruck'
 import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
@@ -59,6 +60,7 @@ export function ReportPage(): JSX.Element {
   const { t, i18n } = useTranslation('report')
   const { t: tp } = useTranslation('praesentation')
   const { t: ta } = useTranslation('admin')
+  const { t: tv } = useTranslation('vertraege')
   const { role } = useAuth()
   const [suche, setSuche] = useSearchParams()
   const praesentation = suche.get('ansicht') === 'praesentation'
@@ -79,6 +81,7 @@ export function ReportPage(): JSX.Element {
   const [notes, setNotes] = useState<ReportNotes>(EMPTY_NOTES)
   // Was der Bogen zeigt: beim Laden sofort, Eingaben im Ausblick entprellt.
   const [bogenNotes, setBogenNotes] = useState<ReportNotes>(EMPTY_NOTES)
+  const [gespeichert, setGespeichert] = useState<ReportNotes>(EMPTY_NOTES) // LR-2: Stand in der DB, sperrt die Mail
   const [notesUnavailable, setNotesUnavailable] = useState(false)
   // L5 Teil D: Spalten für „im Gespräch bestätigt“ vorhanden (sonst keine Schalter).
   const [bestaetigung, setBestaetigung] = useState(false)
@@ -92,7 +95,6 @@ export function ReportPage(): JSX.Element {
   useEffect(() => {
     if (!sessionId) return
     let cancelled = false
-
     void (async () => {
       setLoading(true)
       const [report, storedNotes] = await Promise.all([
@@ -107,6 +109,7 @@ export function ReportPage(): JSX.Element {
       if (storedNotes.data) {
         setNotes(storedNotes.data)
         setBogenNotes(storedNotes.data)
+        setGespeichert(storedNotes.data)
       }
       setNotesUnavailable(storedNotes.unavailable)
       setBestaetigung(storedNotes.bestaetigung === true)
@@ -210,6 +213,7 @@ export function ReportPage(): JSX.Element {
     else {
       setNotesUnavailable(result.unavailable)
       setSaved(true)
+      setGespeichert(notes)
     }
   }, [sessionId, notes, bestaetigung])
 
@@ -221,6 +225,7 @@ export function ReportPage(): JSX.Element {
     setBogenNotes(next)
     void saveReportNotes(sessionId, next, true).then((r) => {
       if (r.error) setError(r.error)
+      else setGespeichert(next)
     })
   }, [sessionId, notes])
 
@@ -232,14 +237,14 @@ export function ReportPage(): JSX.Element {
     (danach?: () => void) =>
       druckeMitTitel(
         data
-          ? t('actions.druckTitel', {
-              name,
+          ? tv('mail.lsaReportDatei', {
+              kind: name,
               datum: data.analysedAt ? druckDatum(data.analysedAt, i18n.language) : '',
             }).trim()
           : document.title,
         danach,
       ),
-    [data, name, t, i18n.language],
+    [data, name, tv, i18n.language],
   )
 
   const pdf = suche.get('aktion') === 'pdf'
@@ -287,13 +292,12 @@ export function ReportPage(): JSX.Element {
         <Printer className="mr-2 h-4 w-4" />
         {t('actions.print')}
       </Button>
-      {/* Es gibt im Projekt keine Mail-Infrastruktur (kein Resend/
-          SMTP, keine sendende Edge Function). Der Knopf bleibt
-          deshalb bewusst deaktiviert statt zu scheitern. */}
-      <Button type="button" variant="secondary" disabled title={t('actions.emailTooltip')}>
-        <Mail className="mr-2 h-4 w-4" />
-        {t('actions.email')}
-      </Button>
+      <LsaReportMailKnopf
+        data={data}
+        admin={role === 'admin'}
+        laedt={!bereitZumDruck}
+        ungespeichert={notes !== bogenNotes || JSON.stringify(notes) !== JSON.stringify(gespeichert)}
+      />
     </>
   )
 

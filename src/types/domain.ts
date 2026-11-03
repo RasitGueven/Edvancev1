@@ -125,19 +125,23 @@ export type LeadInput = {
   consent_dsgvo_document_version?: string | null
 }
 
-// Mails an Eltern eines Leads (Migrationen 20261004001351, 20261004003339), je
-// Versuch eine Zeile. fehler null = zugestellt; termin_at und ort = Termin und
-// Ort, wie sie in der Mail standen.
-export type LeadMailAnlass = 'terminbestaetigung'
+// Mails an Eltern eines Leads (Migrationen 20261004001351, 20261004003339,
+// 20261103090129), je Versuch eine Zeile. fehler null = zugestellt; termin_at und
+// ort = Termin und Ort, wie sie in der Mail standen (nur Terminbestaetigung).
+// lsa_report (LR-2): Sitzung, Pfad im Bucket lsa_reports und SHA-256 des PDFs.
+export type LeadMailAnlass = 'terminbestaetigung' | 'lsa_report'
 
 export type LeadMailVersand = {
   id: string
   anlass: LeadMailAnlass
   empfaenger: string
-  ort: string
+  ort: string | null
   termin_at: string | null
   fehler: string | null
   erfolgt_at: string
+  lsa_session_id?: string | null
+  anhang_pfad?: string | null
+  anhang_sha256?: string | null
 }
 
 export type Student = {

@@ -63,6 +63,10 @@ export const MAIL: Record<string, string> = {
   terminBetreff: "Ihr Erstgespräch bei Edvance am {{datum}}",
   terminText: "Guten Tag,\n\nhiermit bestätigen wir den Termin für das Erstgespräch mit {{kind}}:\n\nTermin: {{datum}}, {{uhrzeit}} Uhr\nOrt: {{ort}}\nDauer: {{dauer}}\n\nZu Beginn sprechen wir mit Ihnen und {{kind}} über die Schule und darüber, was gerade schwerfällt. Danach bearbeitet {{kind}} etwa 20 Minuten lang Aufgaben am Tablet, während wir mit Ihnen weitersprechen; anschließend besprechen wir gemeinsam, was wir gesehen haben.\n\nBitte bringen Sie mit: das Mathe-Heft (Schulheft), das Hausaufgabenheft und – falls vorhanden – die letzte Klassenarbeit.\n\nFalls der Termin nicht passt oder Sie Fragen haben, antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
   terminDauer: "etwa 60 Minuten – Gespräch und eine 20-minütige Lernstandsanalyse am Tablet",
+  lsaReportBetreff: "Lernstandsanalyse von {{kind}} – Ihr Bericht",
+  lsaReportText: "Guten Tag,\n\nvielen Dank für Ihren Besuch bei Edvance. Anbei finden Sie den Bericht zur Lernstandsanalyse von {{kind}} vom {{datum}}. Er fasst zusammen, was wir gemeinsam besprochen haben: was {{kind}} schon sicher kann, wo es noch hakt und wo wir ansetzen würden.\n\nWenn Sie Fragen haben oder etwas nachbesprechen möchten, antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+  lsaReportTestPraefix: "[Test] ",
+  lsaReportDatei: "Edvance LSA-Report {{kind}} {{datum}}",
   anhangZeile: "- {{name}}",
 }
 
