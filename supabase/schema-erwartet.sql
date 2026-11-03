@@ -1,10 +1,13 @@
+-- schema-erwartet.sql
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
+
 --
 -- PostgreSQL database dump
 --
 
-\restrict KMfqDLg5LTLQsPBdab9O3EvgSayANkHipKfmos3LnE3n06eN2f6nQESO8jIOt6z
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -6346,10 +6349,10 @@ $$;
 
 
 --
--- Name: lead_mail_protokollieren(uuid, text, text, text, timestamp with time zone, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lead_mail_protokollieren(uuid, text, text, text, timestamp with time zone, text, uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lead_mail_protokollieren(p_lead_id uuid, p_anlass text, p_empfaenger text, p_ort text, p_termin_at timestamp with time zone DEFAULT NULL::timestamp with time zone, p_fehler text DEFAULT NULL::text) RETURNS uuid
+CREATE FUNCTION public.lead_mail_protokollieren(p_lead_id uuid, p_anlass text, p_empfaenger text, p_ort text DEFAULT NULL::text, p_termin_at timestamp with time zone DEFAULT NULL::timestamp with time zone, p_fehler text DEFAULT NULL::text, p_lsa_session_id uuid DEFAULT NULL::uuid, p_anhang_pfad text DEFAULT NULL::text, p_anhang_sha256 text DEFAULT NULL::text) RETURNS uuid
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -6364,10 +6367,12 @@ begin
   end if;
 
   insert into public.lead_mail_versand
-    (lead_id, anlass, empfaenger, ort, termin_at, fehler, erfolgt_von)
+    (lead_id, anlass, empfaenger, ort, termin_at, fehler, erfolgt_von,
+     lsa_session_id, anhang_pfad, anhang_sha256)
   values
     (p_lead_id, p_anlass, p_empfaenger, btrim(p_ort), p_termin_at,
-     nullif(btrim(coalesce(p_fehler, '')), ''), auth.uid())
+     nullif(btrim(coalesce(p_fehler, '')), ''), auth.uid(),
+     p_lsa_session_id, p_anhang_pfad, p_anhang_sha256)
   returning id into v_id;
 
   return v_id;
@@ -26264,9 +26269,15 @@ CREATE TABLE public.lead_mail_versand (
     fehler text,
     erfolgt_at timestamp with time zone DEFAULT now() NOT NULL,
     erfolgt_von uuid,
-    ort text NOT NULL,
-    CONSTRAINT lead_mail_versand_anlass_check CHECK ((anlass = 'terminbestaetigung'::text)),
-    CONSTRAINT lead_mail_versand_ort_check CHECK (((btrim(ort) <> ''::text) AND (char_length(ort) <= 300)))
+    ort text,
+    lsa_session_id uuid,
+    anhang_pfad text,
+    anhang_sha256 text,
+    CONSTRAINT lead_mail_versand_anhang_sha256_check CHECK ((anhang_sha256 ~ '^[0-9a-f]{64}$'::text)),
+    CONSTRAINT lead_mail_versand_anlass_check CHECK ((anlass = ANY (ARRAY['terminbestaetigung'::text, 'lsa_report'::text]))),
+    CONSTRAINT lead_mail_versand_lsa_report_pfad CHECK (((anlass <> 'lsa_report'::text) OR (anhang_pfad IS NOT NULL))),
+    CONSTRAINT lead_mail_versand_ort_check CHECK (((btrim(ort) <> ''::text) AND (char_length(ort) <= 300))),
+    CONSTRAINT lead_mail_versand_ort_pflicht CHECK (((anlass <> 'terminbestaetigung'::text) OR (ort IS NOT NULL)))
 );
 
 
@@ -30354,6 +30365,13 @@ CREATE INDEX lead_mail_versand_lead_idx ON public.lead_mail_versand USING btree 
 
 
 --
+-- Name: lead_mail_versand_lsa_session_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lead_mail_versand_lsa_session_idx ON public.lead_mail_versand USING btree (lsa_session_id, erfolgt_at DESC) WHERE (lsa_session_id IS NOT NULL);
+
+
+--
 -- Name: lead_themen_ein_aktuelles; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -32173,6 +32191,14 @@ ALTER TABLE ONLY public.lead_mail_versand
 
 ALTER TABLE ONLY public.lead_mail_versand
     ADD CONSTRAINT lead_mail_versand_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lead_mail_versand lead_mail_versand_lsa_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_mail_versand
+    ADD CONSTRAINT lead_mail_versand_lsa_session_id_fkey FOREIGN KEY (lsa_session_id) REFERENCES public.lsa_sessions(id) ON DELETE SET NULL;
 
 
 --
@@ -36844,5 +36870,4 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict KMfqDLg5LTLQsPBdab9O3EvgSayANkHipKfmos3LnE3n06eN2f6nQESO8jIOt6z
 

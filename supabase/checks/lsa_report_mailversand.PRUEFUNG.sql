@@ -170,8 +170,14 @@ begin
    where bucket_id = 'lsa_reports' and name = v_pfad;
   get diagnostics v_n = row_count;
   assert v_n = 0, 'Admin kann eine versendete Fassung umbenennen';
-  delete from storage.objects where bucket_id = 'lsa_reports' and name = v_pfad;
-  get diagnostics v_n = row_count;
+  -- In Prod lehnt storage.protect_delete() jedes direkte DELETE ab; sonst greift RLS (0 Zeilen).
+  begin
+    delete from storage.objects where bucket_id = 'lsa_reports' and name = v_pfad;
+    get diagnostics v_n = row_count;
+  exception when others then
+    assert sqlerrm like 'Direct deletion from storage tables is not allowed%', 'unerwarteter Fehler: ' || sqlerrm;
+    v_n := 0;
+  end;
   assert v_n = 0, 'Admin kann eine versendete Fassung loeschen';
 
   perform set_config('request.jwt.claims',
