@@ -6,7 +6,7 @@
 .tp-leiste {
   position: absolute;
   z-index: 35;
-  left: clamp(20px, 3.4vw, 54px);
+  left: clamp(20px, calc(3.4vw / var(--tp-zoom, 1)), 54px);
   top: 50%;
   transform: translateY(-50%);
   width: 135px;

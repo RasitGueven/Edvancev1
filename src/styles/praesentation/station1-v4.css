@@ -14,23 +14,23 @@
   min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
-  gap: clamp(24px, 4.5vw, 64px);
+  gap: clamp(24px, calc(4.5vw / var(--tp-zoom, 1)), 64px);
   align-items: center;
 }
 
 .tp .tp-s1v h1.tp-titel {
   max-width: 640px;
   margin: 14px 0 0;
-  font-size: clamp(32px, 3.7vw, 54px);
+  font-size: clamp(32px, calc(3.7vw / var(--tp-zoom, 1)), 54px);
   line-height: 1.05;
 }
 
 .tp .tp-s1v h1.tp-s1-lang {
-  font-size: clamp(30px, 3.3vw, 48px);
+  font-size: clamp(30px, calc(3.3vw / var(--tp-zoom, 1)), 48px);
 }
 
 .tp .tp-s1v h1.tp-s1-sehr-lang {
-  font-size: clamp(26px, 2.8vw, 40px);
+  font-size: clamp(26px, calc(2.8vw / var(--tp-zoom, 1)), 40px);
 }
 
 .tp .tp-s1v-lead {
@@ -38,7 +38,7 @@
   max-width: 580px;
   margin-top: 12px;
   color: var(--color-eb-text);
-  font-size: clamp(15px, 1.35vw, 19px);
+  font-size: clamp(15px, calc(1.35vw / var(--tp-zoom, 1)), 19px);
   line-height: 1.5;
 }
 
@@ -76,7 +76,7 @@
 .tp .tp-s1v-ebene-kopf b {
   color: var(--color-eb-navy);
   font-family: var(--font-eb-titel);
-  font-size: clamp(16px, 1.5vw, 20px);
+  font-size: clamp(16px, calc(1.5vw / var(--tp-zoom, 1)), 20px);
   font-weight: 500;
   letter-spacing: -.03em;
 }
@@ -261,7 +261,7 @@
 .tp .tp-fp-spalte b {
   display: block;
   color: var(--color-eb-tinte);
-  font-size: clamp(11px, 1.15vw, 13.5px);
+  font-size: clamp(11px, calc(1.15vw / var(--tp-zoom, 1)), 13.5px);
   font-weight: 600;
   line-height: 1.25;
 }

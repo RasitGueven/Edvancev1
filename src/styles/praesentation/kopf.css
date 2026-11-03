@@ -10,7 +10,7 @@
   right: 0;
   left: 0;
   height: 68px;
-  padding: 0 clamp(18px, 3vw, 50px);
+  padding: 0 clamp(18px, calc(3vw / var(--tp-zoom, 1)), 50px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -87,7 +87,8 @@
   white-space: nowrap;
 }
 
-.tp-schliessen {
+.tp-schliessen,
+.tp-vollbild {
   width: 44px;
   height: 44px;
   display: grid;
@@ -101,6 +102,12 @@
 .tp-schliessen svg {
   width: 20px;
   height: 20px;
+}
+
+/* TP-L1: nur auf großen Bildschirmen (Bühne vergrößert), solange kein Vollbild läuft. */
+.tp-vollbild svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* ─── Logo ────────────────────────────────────────────────────────────────── */

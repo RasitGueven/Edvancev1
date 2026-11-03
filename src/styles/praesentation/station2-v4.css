@@ -4,7 +4,7 @@
    Zeiten über die Variablen in rahmen.css; Wiederbesuch und prefers-reduced-motion still. */
 
 .tp .tp-s2-v4 .tp-titel {
-  font-size: clamp(32px, 3.9vw, 56px);
+  font-size: clamp(32px, calc(3.9vw / var(--tp-zoom, 1)), 56px);
 }
 
 .tp .tp-s2-v4 .tp-s2-kopf {
@@ -34,7 +34,7 @@
 .tp .tp-s2v-eck strong {
   color: var(--color-eb-tinte);
   font-family: var(--font-eb-titel);
-  font-size: clamp(26px, 2.6vw, 36px);
+  font-size: clamp(26px, calc(2.6vw / var(--tp-zoom, 1)), 36px);
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -.04em;

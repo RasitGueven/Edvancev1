@@ -7,6 +7,7 @@ import { Eckdaten } from './Eckdaten'
 import { Kicker } from './Kicker'
 import { Profilzeile } from './Profilzeile'
 import type { StationProps } from './stationProps'
+import { inBuehnenPx } from './useBuehnenZoom'
 import { nachKlassenstufe } from './v4Profil'
 
 /** So lange öffnet sich ein Detail (station2.css), danach wird die Zeile geholt. */
@@ -164,8 +165,11 @@ function holeInSicht(liste: HTMLElement | null, index: number, ruhig: boolean): 
   if (!liste || !zeile) return
   const l = liste.getBoundingClientRect()
   const r = zeile.getBoundingClientRect()
+  // Rechtecke sind Bildschirm-px, scrollBy und der Rand von 10 px Bühnen-px (TP-L1, Zoom).
+  const oben = inBuehnenPx(r.top - l.top, liste)
+  const unten = inBuehnenPx(r.bottom - l.bottom, liste)
   let delta = 0
-  if (r.top < l.top) delta = r.top - l.top
-  else if (r.bottom > l.bottom - 10) delta = Math.min(r.bottom - l.bottom + 10, r.top - l.top)
+  if (oben < 0) delta = oben
+  else if (unten > -10) delta = Math.min(unten + 10, oben)
   if (delta !== 0) liste.scrollBy?.({ top: delta, behavior: ruhig ? 'auto' : 'smooth' })
 }

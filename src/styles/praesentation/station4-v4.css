@@ -6,7 +6,7 @@
 
 .tp .tp-s4v .tp-titel {
   margin: 14px 0 8px;
-  font-size: clamp(32px, 3.9vw, 56px);
+  font-size: clamp(32px, calc(3.9vw / var(--tp-zoom, 1)), 56px);
 }
 
 .tp .tp-s4v-layout {
@@ -107,7 +107,7 @@
   margin: 0;
   color: var(--color-eb-navy);
   font-family: var(--font-eb-titel);
-  font-size: clamp(22px, 2.3vw, 30px);
+  font-size: clamp(22px, calc(2.3vw / var(--tp-zoom, 1)), 30px);
   font-weight: 500;
   line-height: 1.12;
   letter-spacing: -.04em;
@@ -243,7 +243,7 @@
 /* Lange Titel brechen früher um, damit die Beschriftung links oben vom Punkt
    nicht in den absteigenden Ast der Kurve ragt. */
 .tp .tp-s4v-layout .tp-s4-seite-linksOben .tp-s4-label {
-  max-width: 27cqw;
+  max-width: calc(27cqw / var(--tp-cq, 1));
 }
 
 /* L5 Teil D: Schalter „im Gespräch bestätigt“ (nur Admin), dezent unten rechts in Station 04. */

@@ -9,7 +9,7 @@
   --tp-verzoegerung: 1020ms;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
-  gap: clamp(24px, 4vw, 62px);
+  gap: clamp(24px, calc(4vw / var(--tp-zoom, 1)), 62px);
   align-items: center;
   margin-top: 23px;
 }

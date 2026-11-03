@@ -11,7 +11,7 @@
 
 .tp .tp-s2 .tp-titel {
   margin: 8px 0 0;
-  font-size: clamp(41px, 4.65vw, 70px);
+  font-size: clamp(41px, calc(4.65vw / var(--tp-zoom, 1)), 70px);
   line-height: 1.06;
 }
 
@@ -54,7 +54,7 @@
   color: var(--color-eb-tinte);
   font-family: var(--font-eb-titel);
   font-weight: 500;
-  font-size: clamp(47px, 5.3vw, 67px);
+  font-size: clamp(47px, calc(5.3vw / var(--tp-zoom, 1)), 67px);
   line-height: 1.03;
   letter-spacing: -.045em;
 }
@@ -121,7 +121,7 @@
   }
 
   .tp .tp-s2-zahl strong {
-    font-size: clamp(42px, 5.8vw, 58px);
+    font-size: clamp(42px, calc(5.8vw / var(--tp-zoom, 1)), 58px);
   }
 
   .tp .tp-s2-erklaer {
@@ -134,7 +134,7 @@
 
 @media (max-width: 800px) {
   .tp .tp-s2 .tp-titel {
-    font-size: clamp(40px, 6vw, 55px);
+    font-size: clamp(40px, calc(6vw / var(--tp-zoom, 1)), 55px);
   }
 
   .tp .tp-s2-zahl {
@@ -143,7 +143,7 @@
   }
 
   .tp .tp-s2-zahl strong {
-    font-size: clamp(39px, 6.2vw, 57px);
+    font-size: clamp(39px, calc(6.2vw / var(--tp-zoom, 1)), 57px);
   }
 }
 
@@ -162,7 +162,7 @@
   }
 
   .tp .tp-s2-zahl strong {
-    font-size: clamp(31px, 4vw, 48px);
+    font-size: clamp(31px, calc(4vw / var(--tp-zoom, 1)), 48px);
   }
 
   .tp .tp-s2-erklaer {

@@ -11,13 +11,13 @@
   --tp-s3-zeit-zeile: 800ms;
   --tp-s3-takt: 300ms;
   justify-content: flex-start;
-  padding-top: max(70px, 7.5vh);
+  padding-top: max(70px, calc(7.5vh / var(--tp-zoom, 1)));
   padding-bottom: 14px;
 }
 
 .tp .tp-s3 .tp-titel {
   margin: 10px 0 6px;
-  font-size: clamp(26px, 3.2vw, 38px);
+  font-size: clamp(26px, calc(3.2vw / var(--tp-zoom, 1)), 38px);
   line-height: 1.16;
 }
 

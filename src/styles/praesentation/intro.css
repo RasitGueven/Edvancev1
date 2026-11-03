@@ -7,8 +7,8 @@
   position: absolute;
   left: 50%;
   top: 38%;
-  width: min(63vw, 550px);
-  height: min(63vw, 550px);
+  width: min(calc(63vw / var(--tp-zoom, 1)), 550px);
+  height: min(calc(63vw / var(--tp-zoom, 1)), 550px);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, color-mix(in srgb, var(--color-eb-weiss) 68%, transparent), transparent 68%);
@@ -52,7 +52,7 @@
   color: var(--color-eb-tinte);
   font-family: var(--font-eb-titel);
   font-weight: 500;
-  font-size: clamp(70px, 10vw, 118px);
+  font-size: clamp(70px, calc(10vw / var(--tp-zoom, 1)), 118px);
   line-height: 1.1;
   letter-spacing: -.042em;
   animation: tp-intro-auf .8s .85s var(--tp-ease-intro) both;
