@@ -22,6 +22,7 @@ import { durchklickGrund } from './lsaReports/durchklickGrund'
 import { NichtAuswertbarBalken } from './lsaReports/NichtAuswertbarBalken'
 import { KaAbweichungHinweis } from './lsaReports/KaAbweichungHinweis'
 import { LsaReportMailKnopf } from './lsaReports/LsaReportMailKnopf'
+import { usePraesentationAnsicht } from './praesentationAnsicht'
 import { bogenBereit, druckDatum, druckeMitTitel } from './reportDruck'
 import { TestlaufBanner } from './testmodus/TestlaufBanner'
 
@@ -177,17 +178,7 @@ export function ReportPage(): JSX.Element {
     bogenNotes.paketBestaetigt,
   ])
 
-  const setzeAnsicht = useCallback(
-    (an: boolean) =>
-      setSuche((alt) => {
-        const neu = new URLSearchParams(alt)
-        if (an) neu.set('ansicht', 'praesentation')
-        else neu.delete('ansicht')
-        return neu
-      }),
-    [setSuche],
-  )
-  const schliessePraesentation = useCallback(() => setzeAnsicht(false), [setzeAnsicht])
+  const { oeffne: oeffnePraesentation, schliesse: schliessePraesentation } = usePraesentationAnsicht(setSuche)
 
   // Nicht auswertbar: keine Präsentation, ein solcher Aufruf landet auf dem Bogen.
   const nichtAuswertbar = data?.auswertbar === false
@@ -283,7 +274,7 @@ export function ReportPage(): JSX.Element {
           </Button>
         </span>
       ) : (
-        <Button type="button" variant="secondary" onClick={() => setzeAnsicht(true)}>
+        <Button type="button" variant="secondary" onClick={oeffnePraesentation}>
           <Presentation className="mr-2 h-4 w-4" />
           {tp('einstieg.knopf')}
         </Button>

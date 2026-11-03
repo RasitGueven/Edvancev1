@@ -14,7 +14,7 @@
   min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
-  gap: clamp(28px, 5vw, 80px);
+  gap: clamp(28px, calc(5vw / var(--tp-zoom, 1)), 80px);
   align-items: center;
   align-content: center;
 }
@@ -27,11 +27,11 @@
 
 /* Längere Kopfsätze kleiner, damit sie in höchstens vier Zeilen stehen. */
 .tp .tp-s1 h1.tp-s1-lang {
-  font-size: clamp(38px, 4.2vw, 64px);
+  font-size: clamp(38px, calc(4.2vw / var(--tp-zoom, 1)), 64px);
 }
 
 .tp .tp-s1 h1.tp-s1-sehr-lang {
-  font-size: clamp(32px, 3.4vw, 52px);
+  font-size: clamp(32px, calc(3.4vw / var(--tp-zoom, 1)), 52px);
   line-height: 1.08;
 }
 
@@ -41,7 +41,7 @@
   max-width: 640px;
   margin-top: 27px;
   color: var(--color-eb-text);
-  font-size: clamp(17px, 1.65vw, 23px);
+  font-size: clamp(17px, calc(1.65vw / var(--tp-zoom, 1)), 23px);
   line-height: 1.54;
 }
 
@@ -177,15 +177,15 @@
   }
 
   .tp .tp-s1 h1.tp-titel {
-    font-size: clamp(44px, 7.4vw, 80px);
+    font-size: clamp(44px, calc(7.4vw / var(--tp-zoom, 1)), 80px);
   }
 
   .tp .tp-s1 h1.tp-s1-lang {
-    font-size: clamp(38px, 6.4vw, 64px);
+    font-size: clamp(38px, calc(6.4vw / var(--tp-zoom, 1)), 64px);
   }
 
   .tp .tp-s1 h1.tp-s1-sehr-lang {
-    font-size: clamp(32px, 5.2vw, 52px);
+    font-size: clamp(32px, calc(5.2vw / var(--tp-zoom, 1)), 52px);
   }
 
   .tp .tp-s1-bild {

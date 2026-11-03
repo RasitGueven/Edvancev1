@@ -6,7 +6,9 @@
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
 
-/** Maus: ab hier ist es Ziehen; ab hier rastet die nächste Zone ein. */
+import { zoomVon } from './useBuehnenZoom'
+
+/** Maus: ab hier ist es Ziehen; ab hier rastet die nächste Zone ein (Bühnen-px). */
 const ZIEHEN_AB = 5
 const WECHSEL_AB = 60
 
@@ -42,7 +44,7 @@ export function useLernwegBedienung({
   const [zone, setZone] = useState(0)
   const [zieht, setZieht] = useState(false)
   const raf = useRef<number | null>(null)
-  const zug = useRef<{ x: number; links: number; start: number; bewegt: boolean; dx: number } | null>(null)
+  const zug = useRef<{ x: number; f: number; links: number; start: number; bewegt: boolean; dx: number } | null>(null)
   const sperre = useRef(false)
 
   const punktLinks = useCallback((): number => {
@@ -156,13 +158,14 @@ export function useLernwegBedienung({
         unterbrechen()
         const el = scrollerRef.current
         if (e.pointerType !== 'mouse' || !el) return
-        zug.current = { x: e.clientX, links: el.scrollLeft, start: punktLinks(), bewegt: false, dx: 0 }
+        // clientX ist Bildschirm-px, scrollLeft Bühnen-px: unter dem Zoom (TP-L1) durch f, damit der Inhalt dem Zeiger 1:1 folgt.
+        zug.current = { x: e.clientX, f: zoomVon(el), links: el.scrollLeft, start: punktLinks(), bewegt: false, dx: 0 }
       },
       onPointerMove: (e) => {
         const z = zug.current
         const el = scrollerRef.current
         if (!z || !el) return
-        const dx = e.clientX - z.x
+        const dx = (e.clientX - z.x) / z.f
         if (!z.bewegt && Math.abs(dx) > ZIEHEN_AB) {
           z.bewegt = true
           // Erst beim Ziehen fangen: ein Tippen bleibt ein Klick auf den Eintrag.

@@ -11,7 +11,9 @@
     "testdaten": "Testdaten",
     "laeuftNoch": "Analyse läuft noch",
     "station": "{{nummer}} / {{gesamt}} · {{name}}",
-    "schliessen": "Präsentation schließen"
+    "schliessen": "Präsentation schließen",
+    "vollbild": "Vollbild",
+    "vollbildTooltip": "Im Vollbild zeigen, ohne Browserleiste (Esc beendet es)"
   },
   "leiste": {
     "aria": "Stationen direkt anwählen",

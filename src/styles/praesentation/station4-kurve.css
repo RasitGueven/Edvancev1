@@ -47,7 +47,7 @@
 }
 
 .tp .tp-s4-punkt {
-  --d: clamp(24px, 7cqw, 38px);
+  --d: clamp(24px, calc(7cqw / var(--tp-cq, 1)), 38px);
   position: absolute;
   left: calc(var(--x) * 1%);
   top: calc(var(--y) * 1%);
@@ -120,8 +120,8 @@
   display: grid;
   gap: .22em;
   width: max-content;
-  max-width: 38cqw;
-  font-size: clamp(11px, 2.95cqw, 15px);
+  max-width: calc(38cqw / var(--tp-cq, 1));
+  font-size: clamp(11px, calc(2.95cqw / var(--tp-cq, 1)), 15px);
   line-height: 1.2;
   white-space: normal;
 }
@@ -143,7 +143,7 @@
 }
 
 .tp .tp-s4-seite-unten .tp-s4-label {
-  top: calc(100% + 1.5cqw);
+  top: calc(100% + calc(1.5cqw / var(--tp-cq, 1)));
   left: 50%;
   transform: translateX(-50%);
   justify-items: center;
@@ -152,7 +152,7 @@
 
 .tp .tp-s4-seite-links .tp-s4-label {
   top: 50%;
-  right: calc(100% + 2.3cqw);
+  right: calc(100% + calc(2.3cqw / var(--tp-cq, 1)));
   /* Etwas über der Mitte: links unten läuft die Kurve heran (bei schmaler Kurve, z. B. 1133 px). */
   transform: translateY(-90%);
   justify-items: end;
@@ -160,7 +160,7 @@
 }
 
 .tp .tp-s4-seite-linksOben .tp-s4-label {
-  right: calc(100% + 1.4cqw);
+  right: calc(100% + calc(1.4cqw / var(--tp-cq, 1)));
   bottom: 58%;
   justify-items: end;
   text-align: right;

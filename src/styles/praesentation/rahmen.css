@@ -57,6 +57,14 @@
   --tp-kasten-takt: 40ms;
   --tp-kasten-dauer: 500ms;
 
+  /* TP-L1: Bühne 1180 × 820, auf größeren Bildschirmen gleichmäßig größer.
+     --tp-zoom setzt useBuehnenZoom (≥ 1). vw/vh in den Stationen stehen deshalb
+     als calc(Xvw / var(--tp-zoom, 1)): vw misst den Bildschirm, nicht die
+     Bühne. Keine neuen Container-Einheiten: WebKit vergrößert cqw unter zoom
+     doppelt. Die bestehenden (Kurve in Station 04) stehen als
+     calc(Xcqw / var(--tp-cq, 1)); --tp-cq ist der Zoom nur dort, wo der Browser
+     doppelt rechnet (Klasse tp-cq-zoom, gemessen von useBuehnenZoom), sonst 1. */
+  zoom: var(--tp-zoom, 1);
   position: fixed;
   inset: 0;
   z-index: 200;
@@ -70,6 +78,23 @@
 html.tp-offen,
 html.tp-offen body {
   overflow: hidden;
+}
+
+.tp.tp-cq-zoom {
+  --tp-cq: var(--tp-zoom, 1);
+}
+
+/* Messprobe für useBuehnenZoom: rechnet der Browser cqw unter zoom doppelt? */
+.tp-cq-probe {
+  position: absolute;
+  visibility: hidden;
+  width: 100px;
+  container-type: inline-size;
+}
+
+.tp-cq-probe > i {
+  display: block;
+  width: 100cqw;
 }
 
 .tp [hidden] {
@@ -151,7 +176,7 @@ html.tp-offen body {
   min-height: 0;
   max-width: 1590px;
   margin: auto;
-  padding: 76px clamp(28px, 5.2vw, 86px) 30px max(181px, 15vw);
+  padding: 76px clamp(28px, calc(5.2vw / var(--tp-zoom, 1)), 86px) 30px max(181px, calc(15vw / var(--tp-zoom, 1)));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -185,21 +210,21 @@ html.tp-offen body {
   color: var(--color-eb-tinte);
   font-family: var(--font-eb-titel);
   font-weight: 500;
-  font-size: clamp(36px, 4.3vw, 64px);
+  font-size: clamp(36px, calc(4.3vw / var(--tp-zoom, 1)), 64px);
   line-height: 1.08;
   letter-spacing: -.042em;
 }
 
 .tp h1.tp-titel {
   margin-top: 28px;
-  font-size: clamp(44px, 5vw, 78px);
+  font-size: clamp(44px, calc(5vw / var(--tp-zoom, 1)), 78px);
   line-height: 1.04;
 }
 
 .tp-desc {
   max-width: 650px;
   color: var(--color-eb-text);
-  font-size: clamp(13px, 1.15vw, 16px);
+  font-size: clamp(13px, calc(1.15vw / var(--tp-zoom, 1)), 16px);
   line-height: 1.65;
 }
 

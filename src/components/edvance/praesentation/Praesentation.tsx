@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ComponentType } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ComponentType } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -21,6 +21,7 @@ import { Station4 } from './Station4'
 import { StationFoerderansatz } from './StationFoerderansatz'
 import { StationKlassenarbeiten } from './StationKlassenarbeiten'
 import { STATIONEN, stationsName, type StationProps } from './stationProps'
+import { imVollbild, useBuehnenZoom, vollbildBeenden, vollbildMoeglich, vollbildStarten } from './useBuehnenZoom'
 import { useStationen } from './useStationen'
 import { baueV4, type PraesentationV4 } from './v4Daten'
 
@@ -65,10 +66,20 @@ export type PraesentationProps = {
  * Inhaltsbereich der AppShell ist ein @container, darin wäre position: fixed
  * an die Inhaltsspalte gebunden. Solange die Ebene offen ist, trägt <html> die
  * Klasse tp-offen (kein Scrollen dahinter). Escape schließt.
+ *
+ * TP-L1: Auf großen Bildschirmen wird die Ebene gleichmäßig größer
+ * (useBuehnenZoom). Schließen beendet auch das Vollbild; Escape im Vollbild
+ * beendet nur das Vollbild (macht der Browser), die Präsentation bleibt offen.
  */
 export function Praesentation(props: PraesentationProps): JSX.Element {
   const { data, notes, tiers, tiersFehler, laden, onSchliessen, fahrplan = true } = props
   const { t } = useTranslation('praesentation')
+  const ebene = useRef<HTMLDivElement>(null)
+  const { faktor, vollbild, cqZoom } = useBuehnenZoom(ebene)
+  const schliessen = useCallback(() => {
+    vollbildBeenden()
+    onSchliessen()
+  }, [onSchliessen])
 
   // Beim Schließen geht der Fokus dorthin zurück, wo er vor dem Öffnen war (Knopf im Report).
   // Gemerkt beim ersten Render: Die Effekte der Bühne setzen den Fokus schon vorher um.
@@ -78,14 +89,14 @@ export function Praesentation(props: PraesentationProps): JSX.Element {
   useEffect(() => {
     document.documentElement.classList.add('tp-offen')
     const taste = (e: KeyboardEvent): void => {
-      if (e.key === 'Escape') onSchliessen()
+      if (e.key === 'Escape' && !imVollbild()) schliessen()
     }
     document.addEventListener('keydown', taste)
     return () => {
       document.documentElement.classList.remove('tp-offen')
       document.removeEventListener('keydown', taste)
     }
-  }, [onSchliessen])
+  }, [schliessen])
 
   // Einmal rechnen. Fehlen die Pakete, rechnet die Präsentation ohne sie:
   // keine Empfehlung, aber alles andere.
@@ -118,7 +129,7 @@ export function Praesentation(props: PraesentationProps): JSX.Element {
           title={t('ariaOhneName')}
           description={t(p.fehlt === 'katalog' ? 'keinKatalog' : 'leer')}
           action={
-            <button type="button" className="tp-knopf" onClick={onSchliessen}>
+            <button type="button" className="tp-knopf" onClick={schliessen}>
               {t('kopf.schliessen')}
             </button>
           }
@@ -126,12 +137,15 @@ export function Praesentation(props: PraesentationProps): JSX.Element {
       </div>
     )
   } else {
-    inhalt = <Buehne {...props} p={p} satz={satz} v4={v4} />
+    // Der Knopf nur, wo die Bühne vergrößert ist: Auf dem iPad bleibt der Kopf, wie er ist.
+    const onVollbild = faktor > 1 && vollbildMoeglich() && !vollbild ? vollbildStarten : undefined
+    inhalt = <Buehne {...props} onSchliessen={schliessen} onVollbild={onVollbild} p={p} satz={satz} v4={v4} />
   }
 
   return createPortal(
     <div
-      className="tp"
+      ref={ebene}
+      className={cqZoom ? 'tp tp-cq-zoom' : 'tp'}
       role="dialog"
       aria-modal="true"
       aria-label={name ? t('aria', { name }) : t('ariaOhneName')}
@@ -152,7 +166,13 @@ function Buehne({
   v4,
   notes,
   bestaetigung,
-}: PraesentationProps & { p: PraesentationDaten; satz: Bausteinsatz; v4: PraesentationV4 | null }): JSX.Element {
+  onVollbild,
+}: PraesentationProps & {
+  p: PraesentationDaten
+  satz: Bausteinsatz
+  v4: PraesentationV4 | null
+  onVollbild?: () => void
+}): JSX.Element {
   const { t } = useTranslation('praesentation')
   const s = useStationen()
   const amIntro = s.aktuell === 0 && !s.introWeg
@@ -170,6 +190,7 @@ function Buehne({
         laeuftNoch={p.laeuftNoch}
         onLogo={() => s.springe(1)}
         onSchliessen={onSchliessen}
+        onVollbild={onVollbild}
         v4={v4 !== null}
       />
       <Leiste aktuell={s.aktuell} onSprung={s.springe} v4={v4 !== null} />
