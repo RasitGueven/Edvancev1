@@ -20,6 +20,8 @@ export const MIT_FAHRPLAN = [
   'allesErfuellt',
   'batuEigen',
   'batuSchule',
+  // V4-S: Arbeit im aktuellen Thema steht an.
+  'idaBevorstehend',
 ] as const
 
 /** Ziele im Gespräch bestätigt, ohne Zielbild des Coachs. */

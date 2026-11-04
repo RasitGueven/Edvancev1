@@ -124,7 +124,7 @@ const FEHLBILDER: ReportFehlbild[] = [
 const ABGELEITET = ['bruch_dezimal', 'bruch_kuerzen', 'dezimal_add_sub', 'dezimal_div', 'dezimal_mult', 'geo_winkel_dreieck', 'geo_winkel_neben_scheitel', 'geo_winkel_parallelen', 'geo_winkel_summe', 'gleichung_beidseitig', 'gleichung_einschrittig', 'gleichung_zweischrittig', 'potenzen', 'runden_ueberschlag', 'term_ausmultiplizieren', 'term_minusklammer', 'term_zusammenfassen', 'vorzeichen_add_sub', 'vorzeichen_mult_div', 'vorzeichen_vorrang', 'zahl_wurzel_quadrat']
 
 /** Die zwei Kanten aus der Migration 20261024143626 (Stand nach dem Einspielen). */
-const KANTEN_V4 = [
+export const KANTEN_V4 = [
   ...KANTEN,
   { skillKey: 'geo_pythagoras_anwendung', voraussetzt: 'zahl_wurzel_teilweise' },
   { skillKey: 'fkt_quadr_nullstellen', voraussetzt: 'term_binom_faktorisieren' },

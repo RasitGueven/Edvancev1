@@ -97,6 +97,8 @@ describe('Fixtures des Eltern-Berichts', () => {
           'fahrplanLang',
           'allesErfuellt',
           'ohnePlan',
+          // V4-S: Testkind Ida, abgestuft mit Thema (Ähnlichkeit, Arbeit steht an).
+          'idaBevorstehend',
         ].includes(name),
       )
     }

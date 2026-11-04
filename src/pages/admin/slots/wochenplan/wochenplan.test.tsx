@@ -95,6 +95,16 @@ async function zeige(pfad: string): Promise<void> {
 }
 const ort = (): string => screen.getByTestId('ort').textContent ?? ''
 
+// Die Daten liegen in der Woche ab 2.11.2026; das Tagespanel zeigt „planen“ nur für Tage ab heute. Ohne feste Uhr
+// kippt der Test am 4.11.2026 (Dienstag, 3.11., liegt dann in der Vergangenheit). Nur Date, die Timer bleiben echt.
+beforeEach(() => {
+  vi.useFakeTimers({ toFake: ['Date'] })
+  vi.setSystemTime(new Date('2026-11-02T08:00:00Z'))
+})
+afterEach(() => {
+  vi.useRealTimers()
+})
+
 beforeEach(() => {
   // Die Fixture lebt in KW 45 mit heute = 02.11.; ohne feste Uhr fiel „+ Einzel-Session planen“ (nur ab heute)
   // am 03.11. für den Dienstag weg. Nur Date wird gefälscht, die Timer laufen echt.

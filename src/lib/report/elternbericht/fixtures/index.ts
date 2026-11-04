@@ -10,6 +10,7 @@ import * as g from '@/lib/report/elternbericht/fixtures/grenzfaelle'
 import * as lw from '@/lib/report/elternbericht/fixtures/lernwegFaelle'
 import * as v4 from '@/lib/report/elternbericht/fixtures/batuV4'
 import * as fp from '@/lib/report/elternbericht/fixtures/fahrplanFaelle'
+import { idaBevorstehend } from '@/lib/report/elternbericht/fixtures/idaV4'
 import { ilkay } from '@/lib/report/elternbericht/fixtures/ilkay'
 import { NOTIZEN, NOTIZEN_LANG, NOTIZEN_ZIELE, TIERS } from '@/lib/report/elternbericht/fixtures/notizen'
 import * as s from '@/lib/report/elternbericht/fixtures/synthetisch'
@@ -80,6 +81,8 @@ export const FAELLE: Readonly<Record<string, ElternberichtFall>> = {
   fahrplanAuffuellen: mitNotizen(fp.fahrplanAuffuellen, NOTIZEN_ZIELE),
   allesErfuellt: mitNotizen(fp.allesErfuellt, NOTIZEN_ZIELE),
   ohnePlan: mitNotizen(fp.ohnePlan),
+  // V4-S: die anstehende Arbeit im aktuellen Thema (Testkind Ida, Schulplan Schaurtestraße)
+  idaBevorstehend: mitNotizen(idaBevorstehend, NOTIZEN_ZIELE),
 }
 
 export { ilkay, NOTIZEN, NOTIZEN_LANG, NOTIZEN_ZIELE, TIERS }

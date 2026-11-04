@@ -671,6 +671,11 @@
         "ausblenden": "Preise ausblenden",
         "proMonat": "{{preis}} im Monat"
       }
+    },
+    "anstehend": {
+      "vorbereiten": "Darauf bereiten wir zuerst vor.",
+      "imThema": "Im Thema selbst",
+      "voraus": "Voraussetzungen"
     }
   }
 }

@@ -6,6 +6,7 @@ import { duenneLueckenweg } from '@/lib/report/elternbericht/lueckenweg'
 import type { EbFahrplan, EbKommtThema, EbStation, Elternbericht, KlassenarbeitStatus } from '@/types'
 
 import { schuleGenitiv } from './berichtSaetze'
+import { Seite3Anstehend } from './Seite3Anstehend'
 import { folgeBekannt, signalText, standZeile, tonVon } from './fahrplanText'
 import type { SeitenProps } from './seitenProps'
 import { useAusduennen } from './useAusduennen'
@@ -19,14 +20,19 @@ import { useAusduennen } from './useAusduennen'
  * Bereichen, die das Thema betreffen („Sitzt schon“ / „Fehlt noch“); ein Bereich
  * kann in mehreren Blöcken stehen. Darunter „Weitere Stärken“ und „Wird später
  * wichtig“. Läuft die Seite über, dünnt sie aus wie in v3 (useAusduennen).
+ * V4-S: Steht die Arbeit zum aktuellen Thema an, ist der erste Block der für
+ * diese Arbeit (Seite3Anstehend), sofern dazu etwas geprüft wurde.
  */
 export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
   const { t, i18n } = useTranslation('elternbericht')
   const voll = bericht.lueckenwegV4 ?? null
   const fahrplan = bericht.fahrplan ?? null
   const a = useAusduennen(voll)
-  const lw = useMemo(() => (voll ? duenneLueckenweg(voll, a.stufe) : null), [voll, a.stufe])
-  if (!lw || !fahrplan) return null
+  const aktuell = fahrplan?.stationen[0]
+  const anstehend = bericht.anstehend && aktuell?.signal && aktuell.signal !== 'ohne' ? bericht.anstehend : null
+  const belegt = anstehend ? 1 : 0
+  const lw = useMemo(() => (voll ? duenneLueckenweg(voll, a.stufe, belegt) : null), [voll, a.stufe, belegt])
+  if (!lw || !fahrplan || !aktuell) return null
 
   const stationVon = (k: EbKommtThema): EbStation | undefined =>
     fahrplan.stationen.find((s) => s.nummer > 1 && s.themen.some((x) => x.titel === k.titel))
@@ -55,6 +61,7 @@ export function Seite3V4({ data, bericht }: SeitenProps): JSX.Element | null {
       />
 
       <div className="eb-s3v4-bloecke">
+        {anstehend && <Seite3Anstehend a={anstehend} s={aktuell} stufe={a.stufe} />}
         {lw.themen.map((k) => {
           const s = stationVon(k)
           const ton = s ? tonVon(s) : 'fehlt'

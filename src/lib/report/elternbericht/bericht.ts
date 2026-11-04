@@ -16,6 +16,7 @@ import {
 } from '@/lib/report/elternbericht/bereiche'
 import { bauePyramide } from '@/lib/report/elternbericht/einordnung'
 import { baueLernweg, kommtNoch } from '@/lib/report/elternbericht/lernweg'
+import { baueAnstehend, signalAnstehend } from '@/lib/report/elternbericht/anstehend'
 import { baueFahrplan } from '@/lib/report/elternbericht/fahrplan'
 import { gruppiereSchwerpunkte } from '@/lib/report/elternbericht/lernpfadV4'
 import { baueLueckenweg, signaleJeThema } from '@/lib/report/elternbericht/lueckenweg'
@@ -123,6 +124,8 @@ export function baueElternbericht({
     signale: v4?.signale ?? [],
     lueckenwegV4: v4?.lueckenwegV4 ?? null,
     lernpfad: v4?.lernpfad ?? [],
+    // V4-S: nur bei 'bevorstehend'; sonst fehlt das Feld ganz (der Bericht bleibt wie vorher).
+    ...(v4?.anstehend ? { anstehend: v4.anstehend } : {}),
     lernweg: lernweg
       ? baueLernweg({
           bereiche: alle,
@@ -144,6 +147,8 @@ export function baueElternbericht({
  * Bericht v4: Fahrplan, Signale je Thema, Seite 3 mit vollständigen Blöcken je
  * Station und der Lernpfad nach Klassenarbeiten. Ohne Plan oder aktuelles Thema
  * ist der Fahrplan null; dann gibt es keine Blöcke, und der Lernpfad hat keine Ziele.
+ * V4-S: Steht die Arbeit zum aktuellen Thema an, kommt die anstehende Arbeit dazu
+ * (Signal der aktuellen Station, Block auf Seite 3, Karte in Station 03).
  */
 function baueV4(
   quelle: LernwegQuelle,
@@ -154,6 +159,8 @@ function baueV4(
 ) {
   const e = quelle.erzaehlung
   const je = signaleJeThema({ bereiche, kanten: e.kanten, heimatThemen: e.heimatThemen })
+  const anstehendZu = (themaKey: string, titel: string) =>
+    baueAnstehend({ themaKey, titel, bereiche, heimatThemen: e.heimatThemen, voraus: je.get(themaKey) })
   const fahrplan = baueFahrplan({
     plan: e.plan,
     themaKey: e.raum?.themaKey ?? null,
@@ -162,7 +169,10 @@ function baueV4(
     signale: je,
     note: ka.note,
     arbeiten: ka.arbeiten,
+    signalAktuell: (themaKey) => signalAnstehend(anstehendZu(themaKey, '')),
   })
+  const aktuell = fahrplan?.stationen[0]
+  const anstehend = aktuell && aktuell.signal !== null ? anstehendZu(aktuell.themaKey, aktuell.titel) : null
   const signale = [...je].map(([themaKey, s]) => ({ themaKey, sitzt: s.sitzt, fehlt: s.fehlt }))
   const lueckenwegV4 = fahrplan
     ? baueLueckenweg(
@@ -189,8 +199,9 @@ function baueV4(
     danach: mitGrund.danach,
     fahrplan,
     signale,
+    anstehend,
   })
-  return { fahrplan, signale, lueckenwegV4, lernpfad }
+  return { fahrplan, signale, lueckenwegV4, lernpfad, anstehend }
 }
 
 /**

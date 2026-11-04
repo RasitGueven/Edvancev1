@@ -2,7 +2,7 @@ import { Fragment, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { kaSatz, kaTeile, type KaTeil } from '@/lib/report/elternbericht/kaSatz'
-import type { EbKommtThema, EbStation, EbZuordnung } from '@/types'
+import type { EbAnstehend, EbBereich, EbKommtThema, EbStation, EbZuordnung } from '@/types'
 
 import { Kicker } from './Kicker'
 import type { StationProps } from './stationProps'
@@ -30,6 +30,43 @@ function Liste({ art, eintraege }: { art: 'sitzt' | 'fehlt'; eintraege: EbZuordn
       ))}
       {rest > 0 && <li className="tp-ka-weitere">{tb('s1.blick.weitere', { count: rest })}</li>}
     </ul>
+  )
+}
+
+/**
+ * V4-S: die anstehende Arbeit — je Gruppe eine kleine Unterzeile („Im Thema selbst“, „Voraussetzungen“), darunter
+ * eine Liste: erst was sitzt, dann was fehlt (Punkt je Stand, wie in den anderen Karten), je Stand höchstens drei,
+ * dann „+n weitere“. Eine Liste je Gruppe hält die Karte niedrig genug für das Querformat. Leere Gruppe entfällt.
+ */
+function Anstehend({ a }: { a: EbAnstehend }): JSX.Element {
+  const { t: tb } = useTranslation('elternbericht')
+  const gruppen = [
+    { key: 'imThema', g: a.imThema },
+    { key: 'voraus', g: a.voraus },
+  ].filter(({ g }) => g.sitzt.length + g.fehlt.length > 0)
+  const teil = (art: 'sitzt' | 'fehlt', liste: EbBereich[]): JSX.Element[] => {
+    const rest = liste.length - JE_LISTE
+    return [
+      ...liste.slice(0, JE_LISTE).map((b) => (
+        <li key={b.skillKey} className={`tp-ka-punkt-${art}`}>
+          {b.label}
+        </li>
+      )),
+      ...(rest > 0 ? [<li key={`${art}-rest`} className="tp-ka-weitere">{tb('s1.blick.weitere', { count: rest })}</li>] : []),
+    ]
+  }
+  return (
+    <>
+      {gruppen.map(({ key, g }) => (
+        <div key={key} className="tp-ka-gruppe" data-testid={`tp-ka-gruppe-${key}`}>
+          <span className="tp-ka-gruppe-titel">{tb(`v4.anstehend.${key}`)}</span>
+          <ul>
+            {teil('sitzt', g.sitzt)}
+            {teil('fehlt', g.fehlt)}
+          </ul>
+        </div>
+      ))}
+    </>
   )
 }
 
@@ -61,12 +98,15 @@ function Karte({
   s,
   block,
   ka,
+  anstehend,
   klasse,
 }: {
   s: EbStation
   block: EbKommtThema | undefined
   /** LSA-L4: der Satz zur Arbeit im aktuellen Thema, nur auf dessen Karte. */
   ka: KaTeil[] | null
+  /** V4-S: die anstehende Arbeit, nur auf der Karte des aktuellen Themas und nur bei 'bevorstehend'. */
+  anstehend: EbAnstehend | null
   klasse: number | null
 }): JSX.Element {
   const { t, i18n } = useTranslation('praesentation')
@@ -88,7 +128,8 @@ function Karte({
       <small>
         <Teile
           teile={[
-            bezeichnung,
+            // V4-S: statt „Klassenarbeit zu …“ und des Satzes darunter eine Zeile.
+            anstehend ? tb('v4.anstehend.vorbereiten') : bezeichnung,
             s.ka !== null ? datumKurz(i18n.language, s.datum) : null,
             s.halbjahr ? tb('v4.stand.halbjahr', { halbjahr: s.halbjahr }) : null,
             klasse !== null && s.schuljahr === 'naechstes' ? tb('v4.stand.klasse', { klasse }) : null,
@@ -102,7 +143,8 @@ function Karte({
           <Liste art="fehlt" eintraege={block.fehlt} />
         </>
       )}
-      {ka && ka.length > 0 && (
+      {anstehend && <Anstehend a={anstehend} />}
+      {!anstehend && ka && ka.length > 0 && (
         <p className="tp-ka-offen" data-testid="tp-ka-stand">
           {ka.map((teil) => t(`v4.s3.ka.${teil.key}`, teil.values)).join(' ')}
         </p>
@@ -151,6 +193,7 @@ export function StationKlassenarbeiten({ v4 }: StationProps): JSX.Element | null
             s={s}
             block={blockVon(blocks, s)}
             ka={s.nummer === 1 ? ka : null}
+            anstehend={s.nummer === 1 && s.signal !== null ? (bericht.anstehend ?? null) : null}
             klasse={fahrplan.klassenTrenner}
           />
         ))}

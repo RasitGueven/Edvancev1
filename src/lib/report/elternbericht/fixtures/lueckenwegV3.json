@@ -5292,5 +5292,129 @@
   ],
   "quelle": "schule",
   "schulname": "Friedrich-Wilhelm-Gymnasium"
+ },
+ "idaBevorstehend": {
+  "themen": [
+   {
+    "titel": "Kann man das zählen? Die Irrationalität von Zahlen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Runden und Überschlag",
+      "auch": [
+       "Eine Zahl für alles, was rund ist: π und die Kreisberechnung"
+      ]
+     },
+     {
+      "label": "Bruch in Dezimalzahl",
+      "auch": [
+       "Potenzen und Wurzeln"
+      ]
+     }
+    ],
+    "fehlt": [
+     {
+      "label": "Potenzen und Quadratzahlen",
+      "auch": [
+       "Eine Zahl für alles, was rund ist: π und die Kreisberechnung",
+       "Potenzen und Wurzeln"
+      ]
+     }
+    ]
+   },
+   {
+    "titel": "Ein historischer Moment: Der Satz des Pythagoras",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Punkte im Koordinatensystem",
+      "auch": [
+       "Von Parabelflügen und Brücken: Quadratische Zusammenhänge"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Eine Zahl für alles, was rund ist: π und die Kreisberechnung",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Fläche von Rechteck und Quadrat",
+      "auch": []
+     },
+     {
+      "label": "Umfang von Rechteck und Dreieck",
+      "auch": []
+     },
+     {
+      "label": "Dezimalzahlen dividieren",
+      "auch": []
+     },
+     {
+      "label": "Flächeneinheiten",
+      "auch": []
+     },
+     {
+      "label": "Dreisatz, proportional und antiproportional",
+      "auch": []
+     },
+     {
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "auch": [
+       "Verpackungskünstler: Oberfläche und Volumen von Prismen und Pyramiden"
+      ]
+     },
+     {
+      "label": "Werte in Terme einsetzen",
+      "auch": [
+       "Von Parabelflügen und Brücken: Quadratische Zusammenhänge",
+       "Gewinn und Verlust: Nullstellen quadratischer Funktionen"
+      ]
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Von Parabelflügen und Brücken: Quadratische Zusammenhänge",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Faktorisieren mit binomischer Formel",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   },
+   {
+    "titel": "Gewinn und Verlust: Nullstellen quadratischer Funktionen",
+    "halbjahr": null,
+    "sitzt": [
+     {
+      "label": "Einschrittige Gleichungen",
+      "auch": []
+     }
+    ],
+    "fehlt": []
+   }
+  ],
+  "weitereStaerken": [
+   "Negative Zahlen multiplizieren/dividieren",
+   "Binomische Formeln in Termumformungen",
+   "Streckfaktor und zentrische Streckung"
+  ],
+  "weitere": [
+   {
+    "feld": null,
+    "thema": "Ähnlichkeit und zentrische Streckung",
+    "labels": [
+     "Erster Strahlensatz",
+     "Flächen und Volumen bei Ähnlichkeit",
+     "Zweiter Strahlensatz"
+    ]
+   }
+  ],
+  "quelle": "schule",
+  "schulname": "Deutzer Gymnasium Schaurtestraße"
  }
 }
