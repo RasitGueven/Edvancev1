@@ -163,10 +163,11 @@ const kuerze = <T,>(liste: readonly T[], n: number): { liste: T[]; rest: number 
  *   Stufe 3: übrige Lücken und weitere Stärken nur noch als Zahl,
  *   Stufe 4: höchstens drei Themenblöcke.
  * Was wegfällt, steht als Zahl oder in einer Gruppe da, nichts verschwindet still.
+ * V4-S: `belegt` Blöcke stehen schon darüber (die anstehende Arbeit) und zählen zur Höchstzahl.
  */
-export function duenneLueckenweg(lw: EbLueckenweg, stufe: number): EbLueckenweg {
+export function duenneLueckenweg(lw: EbLueckenweg, stufe: number, belegt = 0): EbLueckenweg {
   if (stufe <= 0) return lw
-  const max = BLOECKE[Math.min(stufe, BLOECKE.length - 1)]
+  const max = Math.max(1, BLOECKE[Math.min(stufe, BLOECKE.length - 1)] - belegt)
   const ab = lw.themen.slice(max)
   const spaeterLuecken = ab.flatMap((k) => k.fehlt.map((z) => z.label))
   const n = stufe >= 3 ? 0 : 3

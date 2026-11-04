@@ -137,6 +137,21 @@
   display: none;
 }
 
+/* V4-S: Gruppen der anstehenden Arbeit („Im Thema selbst“, „Voraussetzungen“). */
+.tp .tp-ka-gruppe {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+}
+
+.tp .tp-ka-gruppe-titel {
+  color: var(--color-eb-leise);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
 .tp .tp-ka-offen {
   margin: 4px 0 0;
   color: var(--color-eb-text);

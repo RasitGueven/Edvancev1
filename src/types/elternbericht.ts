@@ -281,7 +281,7 @@ export type EbStation = {
   halbjahr: 1 | 2 | null
   schuljahr: 'dieses' | 'naechstes'
   stand: EbFahrtStand
-  /** null nur bei der aktuellen Station. */
+  /** null bei der aktuellen Station; V4-S: bei 'bevorstehend' auch dort gesetzt (EbAnstehend). */
   signal: EbSignal | null
   /** Note der zuletzt geschriebenen Arbeit, nur bei 'geschrieben'. */
   note: number | null
@@ -301,6 +301,17 @@ export type EbFahrplan = {
   satz: 'fehlt' | 'erfuellt' | null
   /** L5: Folge der Klassenarbeiten bekannt (eigene Angaben bzw. Schulwert) oder nicht. */
   folge: EbFolge
+}
+
+/**
+ * V4-S: die anstehende Arbeit im aktuellen Thema (nur bei 'bevorstehend'). a = Bereiche mit Heimat-Thema = das
+ * Thema, b = Bereiche, die das Thema voraussetzt, ohne die aus a. Je Gruppe Klasse, dann Label.
+ */
+export type EbAnstehend = {
+  themaKey: string
+  titel: string
+  imThema: { sitzt: EbBereich[]; fehlt: EbBereich[] }
+  voraus: { sitzt: EbBereich[]; fehlt: EbBereich[] }
 }
 
 /** Welche geprüften Bereiche ein Thema betreffen (Entscheidung 2), serialisierbar. */
@@ -357,6 +368,8 @@ export type Elternbericht = {
   lueckenwegV4?: EbLueckenweg | null
   /** Bericht v4, Seite 4: Lernpfad nach Klassenarbeiten. */
   lernpfad?: EbLernpfadPunkt[]
+  /** V4-S: die anstehende Arbeit im aktuellen Thema; nur bei 'bevorstehend', sonst nicht gesetzt. */
+  anstehend?: EbAnstehend
 }
 
 /* ─── Lernweg (R7-9): Seite 3 und Station 03 ──────────────────────────────── */

@@ -1,6 +1,10 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **V4-S Karte „steht an“** (Retro `2026-11-04-v4s-karte-steht-an.md`, Bauauftrag
+  `docs/report/v4/Bauauftrag-V4-S.md`): Bei `'bevorstehend'` trägt die aktuelle Station ein Signal; Station 03 und
+  Seite 3 zeigen „Im Thema selbst“ und „Voraussetzungen“ mit sitzt/fehlt; Lernpfad beginnt mit der anstehenden
+  Arbeit. Bei `'geschrieben'`/`null` unverändert (Batu-Snapshot). Testkind Ida (Schaurte-Plan). Kein Schema.
 - **LSA ohne Ausblick** (Retro `2026-10-25-lsa-ohne-ausblick.md`): Entscheidung Rasit 25.10. „Kinder sollen nichts
   in der LSA haben, was sie noch nicht hatten“. `lsa_ausblick_knoten` liefert `{}` (Schalter `lsa.ausblick` nur
   für Tests); Lenas Liste ohne Ausblick und p-q-Formel, 36 statt 48 Freigaben. Migration

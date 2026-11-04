@@ -13,6 +13,9 @@
 // Signal je kommender Station: fehlt (ein Bereich mit Übungsbedarf betrifft das Thema), erfuellt (nur sichere), ohne
 // (keiner); bei einer Arbeit das schlechteste ihrer Themen. Ohne Plan oder ohne aktuelles Thema: null — die Seiten
 // fallen dann auf v3 zurück.
+//
+// V4-S: Steht die Arbeit zum aktuellen Thema an ('bevorstehend', nicht nach Datum geschrieben), trägt auch die
+// aktuelle Station ein Signal (signalAktuell, aus anstehend.ts). Sonst bleibt es dort null.
 
 import { nummerierteArbeiten, schlechtestes, type KaArbeit } from '@/lib/report/elternbericht/kaFolge'
 import { kommtNoch } from '@/lib/report/elternbericht/lernweg'
@@ -44,7 +47,13 @@ export type FahrplanEingabe = {
   note?: number | null
   /** L5: Mathearbeiten dieses Schuljahrs (ka_folge_lead); ohne Arbeit mit Nummer gilt die Folge als unbekannt. */
   arbeiten?: readonly ReportKlassenarbeit[]
+  /** V4-S: Signal der aktuellen Station bei 'bevorstehend' (signalAnstehend); ohne bleibt sie ohne Signal. */
+  signalAktuell?: (themaKey: string) => EbSignal
 }
+
+/** V4-S: Signal der aktuellen Station — nur, wenn ihre Arbeit laut Angabe ansteht. */
+const aktuellesSignal = (e: FahrplanEingabe, themaKey: string): EbSignal | null =>
+  e.klassenarbeitStatus === 'bevorstehend' && e.signalAktuell ? e.signalAktuell(themaKey) : null
 
 type Thema = { themaKey: string; titel: string; halbjahr: 1 | 2 | null }
 
@@ -137,7 +146,7 @@ function ohneFolge(
 ): { stationen: EbStation[]; folge: EbFahrplan['folge'] } {
   const status = e.klassenarbeitStatus
   const erste = {
-    ...themaStation(jetzt, 1, status === 'geschrieben' ? 'geschrieben' : status === 'bevorstehend' ? 'steht' : 'aktuell', 'dieses', null),
+    ...themaStation(jetzt, 1, status === 'geschrieben' ? 'geschrieben' : status === 'bevorstehend' ? 'steht' : 'aktuell', 'dieses', aktuellesSignal(e, jetzt.themaKey)),
     note: status === 'geschrieben' ? (e.note ?? null) : null,
   }
   const gezeigt = dieses.slice(0, KOMMENDE_MAX)
@@ -174,12 +183,12 @@ function mitFolge(
         halbjahr: jetzt.halbjahr,
         schuljahr: 'dieses',
         stand: geschrieben ? 'geschrieben' : 'naechste',
-        signal: null,
+        signal: geschrieben ? null : aktuellesSignal(e, jetzt.themaKey),
         // Die Note aus dem Erstgespräch gehört zur gemeldet geschriebenen Arbeit, nicht zu einer, die nur nach Datum vorbei ist.
         note: geschrieben ? (a.note ?? (status === 'geschrieben' ? (e.note ?? null) : null)) : null,
       }
     : {
-        ...themaStation(jetzt, 1, status === 'geschrieben' ? 'geschrieben' : status === 'bevorstehend' ? 'steht' : 'aktuell', 'dieses', null),
+        ...themaStation(jetzt, 1, status === 'geschrieben' ? 'geschrieben' : status === 'bevorstehend' ? 'steht' : 'aktuell', 'dieses', aktuellesSignal(e, jetzt.themaKey)),
         note: status === 'geschrieben' ? (e.note ?? null) : null,
       }
 

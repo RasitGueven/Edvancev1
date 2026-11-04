@@ -81,3 +81,33 @@ export const FWG_PLAN: readonly SchulplanZeile[] = FWG_ROH.map(([klasse, positio
   titel,
   halbjahr,
 }))
+
+/**
+ * V4-S: Schulplan des Deutzer Gymnasiums Schaurtestraße, Klasse 9 und 10 (Stand Prod 04.11.2026, dbread nur lesend,
+ * dieselbe Abfrage wie oben). Ähnlichkeit steht in Klasse 9 an Position 1.
+ */
+export const SCHAURTE_NAME = 'Deutzer Gymnasium Schaurtestraße'
+
+const SCHAURTE_ROH: readonly (readonly [number, number, string | null, string, 1 | 2 | null])[] = [
+  [9, 1, 'aehnlichkeit', 'Mit Maßband und Jakobsstab unterwegs: Zentrische Streckungen', null],
+  [9, 2, 'reelle_zahlen', 'Kann man das zählen? Die Irrationalität von Zahlen', null],
+  [9, 3, 'pythagoras', 'Ein historischer Moment: Der Satz des Pythagoras', null],
+  [9, 4, 'kreis', 'Eine Zahl für alles, was rund ist: π und die Kreisberechnung', null],
+  [9, 5, 'quadratische_funktionen', 'Von Parabelflügen und Brücken: Quadratische Zusammenhänge', null],
+  [9, 6, 'quadratische_gleichungen', 'Gewinn und Verlust: Nullstellen quadratischer Funktionen', null],
+  [9, 7, 'prismen_zylinder', 'Verpackungskünstler: Oberfläche und Volumen von Prismen und Pyramiden', null],
+  [9, 8, 'potenzen', 'Potenzen und Wurzeln', null],
+  [9, 9, 'statistik_beurteilen', 'Fake-News: Wie lügt man mit Statistik?', null],
+  [10, 1, 'potenzen', 'Potenzen und Wurzeln', null],
+  [10, 2, 'trigonometrie', 'Wie wird die Welt vermessen? Einführung in Trigonometrie', null],
+  [10, 3, 'sinusfunktion', 'Riesenräder: Die Sinusfunktion', null],
+  [10, 4, 'koerper_pyramide_kegel_kugel', 'Produktdesign: Volumen und Oberfläche von Kugel, Kegel, Zylinder', null],
+  [10, 5, 'exponentialfunktionen', 'Eine neue Funktionsklasse: Exponentielle Funktionen', null],
+  [10, 6, 'exponentialfunktionen', 'Modellieren von Messreihen mit unterschiedlichen Funktionstypen', null],
+  [10, 7, 'exponentialfunktionen', 'Bakterienwachstum und radioaktiver Zerfall', null],
+  [10, 8, 'bedingte_wahrscheinlichkeit', 'Medizinische Tests: Bedingte Wahrscheinlichkeiten', null],
+]
+
+export const SCHAURTE_PLAN: readonly SchulplanZeile[] = SCHAURTE_ROH.map(
+  ([klasse, position, themaKey, titel, halbjahr]) => ({ klasse, position, themaKey, titel, halbjahr }),
+)

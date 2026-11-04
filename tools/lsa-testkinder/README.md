@@ -17,6 +17,7 @@ Kind ein Report unter `/admin/report/<sitzung>?fassung=r7`. Bauaufträge: `docs/
 | Max Hoffmann | 8 Gymnasium | FWG (Schulplan) | Lineare Funktionen | nichts falsch: jede Aufgabe kanonisch richtig, auch Vorschau, Rückblick, Zweitbeleg; im Ausblick nur Binomische Formeln sicher, Zufall und Flächen nicht |
 | Tim Schuster | 8 Gesamtschule | ohne Plan | Terme und Gleichungen | klickt sich durch: 2–4 s je Aufgabe, fast alles falsch, ohne feste Grenze: höchstens 40 Aufgaben (Deckel, LSA-V2); seine LSA ist **nicht auswertbar** |
 | Batu (Testkind) | 9 Gymnasium | FWG (Schulplan) | Reelle Zahlen und Wurzeln, Klassenarbeit geschrieben | Profil aus einem echten Testlauf: bis Klasse 6 sicher außer Flächeneinheiten; Klasse 7/8 Terme und Zufall Übung, Geometrie gemischt; Klasse 9 sicher außer teilweises Wurzelziehen |
+| Ida (Testkind) | 9 Gymnasium | Schaurtestraße (Schulplan) | Ähnlichkeit und zentrische Streckung, Klassenarbeit bevorstehend | V4-S (`v4s-kinder.sql`, nur mit `-v kinder_zusatz`): im Thema Streckfaktor sicher, beide Strahlensätze und Flächen/Volumen Übung; Voraussetzungen Einschrittige Gleichungen sicher, Potenzen Übung |
 
 Die Profile stehen als Daten in `kinder.sql` (`grund` je Klassenstufe, `ausnahmen` je Skill,
 bevorzugtes Fehlbild, Antwortdauer, optional `hoechstens` = Zahl der Aufgaben); `erzeugen.sql` bindet sie mit
@@ -96,6 +97,13 @@ psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v nur=Max -1 -f tools/lsa-testkinder/er
 Ein unbekannter Name bricht vor dem ersten Schreiben ab (`LSA-T: unbekannte Kinder in nur: …`, mit der
 Liste der bekannten). Ohne `-1` läuft jeder Block für sich; dann bleibt bei einem Fehler ein halber Stand
 stehen.
+
+### Ida (V4-S)
+
+Für die anstehende Arbeit im aktuellen Thema (`docs/report/v4/Bauauftrag-V4-S.md`). Nicht in `kinder.sql`, sondern in
+`v4s-kinder.sql`, eingebunden wie die L3-Kinder: `-v kinder_zusatz=tools/lsa-testkinder/v4s-kinder.sql -v nur=Ida`.
+Schulplan Schaurtestraße statt FWG: Im FWG-Plan steht Ähnlichkeit erst in Klasse 10, ohne Halbjahr gäbe es dann keinen
+Fahrplan. Der Bericht der Sitzung vom 04.11.2026 liegt als Fixture in `src/lib/report/elternbericht/fixtures/idaV4.ts`.
 
 ## Erneut laufen lassen
 

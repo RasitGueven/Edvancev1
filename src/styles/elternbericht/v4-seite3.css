@@ -137,6 +137,17 @@
 .eb-s3v4-nein h3 {
   color: var(--color-eb-uebung-text);
 }
+/* V4-S: Gruppen im Block der anstehenden Arbeit („Im Thema selbst“, „Voraussetzungen“). */
+.eb-s3v4-gruppe + .eb-s3v4-gruppe {
+  margin-top: 5pt;
+}
+.eb-s3v4-gruppe h4 {
+  margin-bottom: 3pt;
+  font-size: 6.6pt;
+  line-height: 8pt;
+  font-weight: 500;
+  color: var(--color-eb-leise);
+}
 .eb-s3v4-bereiche li {
   position: relative;
   padding-left: 12pt;
