@@ -2,7 +2,7 @@
 // Testkonten, Zeile „Einzel“, Panels über die URL (Zurück schließt) und die Umleitungen der alten Adressen.
 // Supabase gemockt, erfundene Daten.
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import '@/i18n'
@@ -94,6 +94,16 @@ async function zeige(pfad: string): Promise<void> {
   await act(async () => {})
 }
 const ort = (): string => screen.getByTestId('ort').textContent ?? ''
+
+// Die Daten liegen in der Woche ab 2.11.2026; das Tagespanel zeigt „planen“ nur für Tage ab heute. Ohne feste Uhr
+// kippt der Test am 4.11.2026 (Dienstag, 3.11., liegt dann in der Vergangenheit). Nur Date, die Timer bleiben echt.
+beforeEach(() => {
+  vi.useFakeTimers({ toFake: ['Date'] })
+  vi.setSystemTime(new Date('2026-11-02T08:00:00Z'))
+})
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 beforeEach(() => {
   for (const f of [...Object.values(slot), ...Object.values(sp)]) f.mockReset()
