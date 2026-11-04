@@ -2,7 +2,7 @@
 // Testkonten, Zeile „Einzel“, Panels über die URL (Zurück schließt) und die Umleitungen der alten Adressen.
 // Supabase gemockt, erfundene Daten.
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import '@/i18n'
@@ -96,6 +96,10 @@ async function zeige(pfad: string): Promise<void> {
 const ort = (): string => screen.getByTestId('ort').textContent ?? ''
 
 beforeEach(() => {
+  // Die Fixture lebt in KW 45 mit heute = 02.11.; ohne feste Uhr fiel „+ Einzel-Session planen“ (nur ab heute)
+  // am 03.11. für den Dienstag weg. Nur Date wird gefälscht, die Timer laufen echt.
+  vi.useFakeTimers({ toFake: ['Date'] })
+  vi.setSystemTime(new Date('2026-11-02T10:00:00Z'))
   for (const f of [...Object.values(slot), ...Object.values(sp)]) f.mockReset()
   slot.ladeWoche.mockResolvedValue({ data: WOCHE, error: null })
   slot.ladeCoaches.mockResolvedValue({ data: null, error: null })
@@ -104,6 +108,10 @@ beforeEach(() => {
   slot.ladeEinstellungen.mockResolvedValue({ data: { raeume: [] }, error: null })
   sp.ladeStundenplanWoche.mockResolvedValue({ data: { montag: '2026-11-02', sessions: [EINZEL] }, error: null })
   sp.ladeSessionLeitung.mockResolvedValue({ data: [], error: null })
+})
+
+afterEach(() => {
+  vi.useRealTimers()
 })
 
 describe('Wochenplan', () => {
