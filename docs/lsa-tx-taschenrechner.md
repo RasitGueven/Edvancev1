@@ -8,8 +8,15 @@ Einordnung nach den drei Regeln des Auftrags (1: verrät die Methode → nein; 2
 Hand unverhältnismäßig → ja; 3: leicht im Kopf/auf Papier → nein). Zweitmeinung: frischer Subagent, bekam nur
 Aufgabentext, Klassenstufe, Skill und die drei Regeln.
 
-**Ergebnis:** einig 21, uneinig 14. Bei Einigkeit stimmt die Markierung schon heute (alle „nein“),
-geändert wurde **keine** Aufgabe (freigegeben 0, nicht freigegeben 0); eine Rechner-Migration entfällt.
+**Ergebnis:** einig 21, uneinig 14. Bei Einigkeit stimmt die Markierung schon heute (alle „nein“).
+
+**Entscheidung Rasit (04.11.2026) zu den 14 Uneinigen:** Rechner **ja** bei 12, **nein** bei `4186f7c2` und `7f8af94f`.
+Begründung: Geprüft wird der Ansatz, nicht das Rechnen mit Dezimalzahlen; ohne Rechner würde ein Rechenfehler als
+Lücke im Strahlensatz gebucht.
+
+**Gewechselt:** 12 Aufgaben (freigegeben 0, nicht freigegeben 12), per DML-Migration
+`20261104151334_lsa_tx_taschenrechner` (eingespielt 04.11.2026, Freigabe-Status unverändert `draft`).
+Jetzt mit Rechner: 12 von 35.
 
 | ID | Kl. | Skill | Freigabe | vorher | nachher | Begründung | Zweitmeinung |
 |---|---|---|---|---|---|---|---|
@@ -26,32 +33,32 @@ geändert wurde **keine** Aufgabe (freigegeben 0, nicht freigegeben 0); eine Rec
 | `fe3a88b0` | 6 | Maßstab | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 4 · 25 000 cm = 1 km ist Kopfrechnen. | nein, Regel 3: 4 · 25 000 cm = 100 000 cm = 1 km ist Kopfrechnen. |
 | `0644e069` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 6 · 9 : 12 = 4,5 (drei Viertel von 6) geht im Kopf. | nein, Regel 3: k = 9/12 = 0,75, b′ = 4,5 cm ist Kopfrechnen. |
 | `3efc2963` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 3,5 · 4 = 14 ist Kopfrechnen. | nein, Regel 3: 3,5 · 4 = 14 cm ist Kopfrechnen. |
-| `51490b4f` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: k = 45 : 18 = 2,5 und 5 · 2,5 = 12,5 sind Divisionen mit Dezimalergebnis. | nein, Regel 3: k = 45/18 = 2,5, kürzeste Seite 12,5 cm ist leicht im Kopf zu rechnen. |
-| `75cb4657` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 7 : 2,5 = 2,8 ist eine Division durch eine Dezimalzahl mit Dezimalergebnis. | nein, Regel 3: 7 : 2,5 = 2,8 cm ist leicht von Hand zu rechnen. |
+| `51490b4f` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: k = 45 : 18 = 2,5 und 5 · 2,5 = 12,5 sind Divisionen mit Dezimalergebnis. | nein, Regel 3: k = 45/18 = 2,5, kürzeste Seite 12,5 cm ist leicht im Kopf zu rechnen. |
+| `75cb4657` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 7 : 2,5 = 2,8 ist eine Division durch eine Dezimalzahl mit Dezimalergebnis. | nein, Regel 3: 7 : 2,5 = 2,8 cm ist leicht von Hand zu rechnen. |
 | `93dbda80` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 10 : 4 = 2,5 geht im Kopf. | nein, Regel 3: k = 10/4 = 2,5 ist Kopfrechnen. |
 | `a1d203d7` | 9 | Streckfaktor und zentrische Streckung | nicht freigegeben (draft) | nein | nein | nein, Regel 3: k = 3, 13 · 3 = 39 ist Kopfrechnen. | nein, Regel 3: k = 3, Höhe 13 · 3 = 39 cm ist Kopfrechnen. |
 | `234e8b8c` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 2 · 15 : 5 = 6 geht im Kopf. | nein, Regel 3: SC = 2 · 15/5 = 6 cm ist Kopfrechnen. |
-| `421cad19` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 3 · 1 : 2,5 = 1,2 und 3 − 1,2 = 1,8 sind Dezimal-Divisionen, geprüft wird der Ansatz des Strahlensatzes. | nein, Regel 3: SB = 3/2,5 = 1,2 m, BD = 1,8 m ist in Klasse 9 leicht von Hand zu rechnen. |
+| `421cad19` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 3 · 1 : 2,5 = 1,2 und 3 − 1,2 = 1,8 sind Dezimal-Divisionen, geprüft wird der Ansatz des Strahlensatzes. | nein, Regel 3: SB = 3/2,5 = 1,2 m, BD = 1,8 m ist in Klasse 9 leicht von Hand zu rechnen. |
 | `9dc1b8dc` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | nein | nein, Regel 3: SA = 6, SB = 12 · 6 : 9 = 8, BD = 4 sind leichte ganze Zahlen. | nein, Regel 3: SA = 6, SB = 12 · 6/9 = 8, BD = 4 cm ist Kopfrechnen. |
-| `cff72027` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 300 · 600 : 240 = 750 enthält eine Division mit Dezimalfaktor 2,5 bei dreistelligen Zahlen. | nein, Regel 3: BD = 300 · 360/240 = 450 m geht mit Kürzen leicht im Kopf. |
-| `f06ce97a` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 5 · 10 : 4 = 12,5 hat ein Dezimalergebnis, geprüft wird der Strahlensatz. | nein, Regel 3: BD = 5 · 6/4 = 7,5 cm ist Kopfrechnen. |
-| `f8083d9b` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 4 · 7,5 : 3 = 10 rechnet mit der Dezimalzahl 7,5, geprüft wird der Ansatz. | nein, Regel 3: SD = 4 · 7,5/3 = 10 cm ist Kopfrechnen. |
+| `cff72027` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 300 · 600 : 240 = 750 enthält eine Division mit Dezimalfaktor 2,5 bei dreistelligen Zahlen. | nein, Regel 3: BD = 300 · 360/240 = 450 m geht mit Kürzen leicht im Kopf. |
+| `f06ce97a` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 5 · 10 : 4 = 12,5 hat ein Dezimalergebnis, geprüft wird der Strahlensatz. | nein, Regel 3: BD = 5 · 6/4 = 7,5 cm ist Kopfrechnen. |
+| `f8083d9b` | 9 | Erster Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 4 · 7,5 : 3 = 10 rechnet mit der Dezimalzahl 7,5, geprüft wird der Ansatz. | nein, Regel 3: SD = 4 · 7,5/3 = 10 cm ist Kopfrechnen. |
 | `49d26b4c` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 1,5 · 12 : 2 = 9 lässt sich leicht im Kopf rechnen (1,5 · 6). | nein, Regel 3: 1,5 · 12/2 = 9 m ist Kopfrechnen. |
-| `59b87dce` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 4 · 8 : 5 = 6,4 ist eine Division mit Dezimalergebnis. | nein, Regel 3: CD = 4 · 8/5 = 6,4 cm ist leicht von Hand zu rechnen. |
-| `59bdf7d8` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 7 · 6 : 10,5 = 4 verlangt eine Division durch eine Dezimalzahl. | nein, Regel 3: AB = 7 · 6/10,5 = 4 cm geht mit Kürzen leicht von Hand. |
+| `59b87dce` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 4 · 8 : 5 = 6,4 ist eine Division mit Dezimalergebnis. | nein, Regel 3: CD = 4 · 8/5 = 6,4 cm ist leicht von Hand zu rechnen. |
+| `59bdf7d8` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 7 · 6 : 10,5 = 4 verlangt eine Division durch eine Dezimalzahl. | nein, Regel 3: AB = 7 · 6/10,5 = 4 cm geht mit Kürzen leicht von Hand. |
 | `627d8f56` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 3 · 5 : 2 = 7,5 ist Kopfrechnen. | nein, Regel 3: CD = 3 · 5/2 = 7,5 cm ist Kopfrechnen. |
-| `9e52eb0d` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 10 · 3 : 7,5 = 4 verlangt eine Division durch eine Dezimalzahl. | nein, Regel 3: SA = 10 · 3/7,5 = 4 cm ist leicht im Kopf zu rechnen. |
-| `ae9f75b4` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 1,6 · 12,5 : 2,5 = 8 rechnet mit mehreren Dezimalzahlen. | nein, Regel 3: 1,6 · 12,5/2,5 = 1,6 · 5 = 8 m ist Kopfrechnen. |
+| `9e52eb0d` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 10 · 3 : 7,5 = 4 verlangt eine Division durch eine Dezimalzahl. | nein, Regel 3: SA = 10 · 3/7,5 = 4 cm ist leicht im Kopf zu rechnen. |
+| `ae9f75b4` | 9 | Zweiter Strahlensatz | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 1,6 · 12,5 : 2,5 = 8 rechnet mit mehreren Dezimalzahlen. | nein, Regel 3: 1,6 · 12,5/2,5 = 1,6 · 5 = 8 m ist Kopfrechnen. |
 | `1cba711e` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 5 · 2³ = 40 lässt sich leicht im Kopf rechnen. | nein, Regel 3: 5 · 2³ = 40 cm³ ist leicht im Kopf zu rechnen. |
-| `4186f7c2` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 75 : 12 = 6,25 ist eine Division mit Dezimalergebnis, geprüft wird k² = A′/A, nicht das Dividieren. | nein, Regel 1: k = √(75/12) = √6,25 = 2,5 ist die Wurzel einer Quadratzahl, der Rechner nähme den Schritt k² → k ab. |
+| `4186f7c2` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein (Entscheidung Rasit) | ja, Regel 2: 75 : 12 = 6,25 ist eine Division mit Dezimalergebnis, geprüft wird k² = A′/A, nicht das Dividieren. | nein, Regel 1: k = √(75/12) = √6,25 = 2,5 ist die Wurzel einer Quadratzahl, der Rechner nähme den Schritt k² → k ab. |
 | `6e18016e` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein | nein, Regel 3: 6 · 3² = 54 ist Kopfrechnen. | nein, Regel 3: 6 · 3² = 54 cm² ist leicht im Kopf zu rechnen. |
-| `7f8af94f` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 0,2 l · 50³ = 25 000 l verlangt ein mehrstelliges Produkt mit Dezimalzahl, geprüft wird der Faktor k³. | nein, Regel 3: 0,2 L · 50³ = 25 000 L = 25 m³ ist eine einfache Rechnung mit Zehnerpotenzen, geprüft wird Skalierung und Umrechnung. |
-| `93e695a0` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 0,4 · 2,5² = 2,5 ist Rechnen mit Dezimalzahlen, geprüft wird der Faktor k². | nein, Regel 3: 0,4 · 2,5² = 0,4 · 6,25 = 2,5 L lässt sich in Klasse 9 gut auf Papier rechnen. |
-| `e9add498` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein (uneinig, unverändert) | ja, Regel 2: 32 · 1,5³ = 108 braucht 1,5³ = 3,375, das Rechnen ist nicht das Geprüfte. | nein, Regel 3: 32 · (3/2)³ = 32 · 27/8 = 108 cm³ geht mit Kürzen leicht von Hand. |
+| `7f8af94f` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | nein (Entscheidung Rasit) | ja, Regel 2: 0,2 l · 50³ = 25 000 l verlangt ein mehrstelliges Produkt mit Dezimalzahl, geprüft wird der Faktor k³. | nein, Regel 3: 0,2 L · 50³ = 25 000 L = 25 m³ ist eine einfache Rechnung mit Zehnerpotenzen, geprüft wird Skalierung und Umrechnung. |
+| `93e695a0` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 0,4 · 2,5² = 2,5 ist Rechnen mit Dezimalzahlen, geprüft wird der Faktor k². | nein, Regel 3: 0,4 · 2,5² = 0,4 · 6,25 = 2,5 L lässt sich in Klasse 9 gut auf Papier rechnen. |
+| `e9add498` | 9 | Flächen und Volumen bei Ähnlichkeit | nicht freigegeben (draft) | nein | **ja** (Entscheidung Rasit) | ja, Regel 2: 32 · 1,5³ = 108 braucht 1,5³ = 3,375, das Rechnen ist nicht das Geprüfte. | nein, Regel 3: 32 · (3/2)³ = 32 · 27/8 = 108 cm³ geht mit Kürzen leicht von Hand. |
 
-## Liste für Rasit: uneinig (14)
+## Uneinig (14), entschieden von Rasit
 
-Ich sehe hier den Rechner (Regel 2), die Zweitmeinung nicht. Nichts geändert; Rasit entscheidet.
+Ich sah hier den Rechner (Regel 2), die Zweitmeinung nicht. Entscheidung siehe oben.
 
 | ID | Skill | Aufgabe (Kern) | ich | Zweitmeinung |
 |---|---|---|---|---|
