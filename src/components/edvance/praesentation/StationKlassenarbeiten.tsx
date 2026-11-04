@@ -33,11 +33,10 @@ function Liste({ art, eintraege }: { art: 'sitzt' | 'fehlt'; eintraege: EbZuordn
   )
 }
 
-const zuordnung = (b: EbBereich): EbZuordnung => ({ label: b.label, auch: [] })
-
 /**
  * V4-S: die anstehende Arbeit — je Gruppe eine kleine Unterzeile („Im Thema selbst“, „Voraussetzungen“), darunter
- * erst was sitzt, dann was fehlt, wie die Listen der anderen Karten. Eine leere Gruppe entfällt.
+ * eine Liste: erst was sitzt, dann was fehlt (Punkt je Stand, wie in den anderen Karten), je Stand höchstens drei,
+ * dann „+n weitere“. Eine Liste je Gruppe hält die Karte niedrig genug für das Querformat. Leere Gruppe entfällt.
  */
 function Anstehend({ a }: { a: EbAnstehend }): JSX.Element {
   const { t: tb } = useTranslation('elternbericht')
@@ -45,13 +44,26 @@ function Anstehend({ a }: { a: EbAnstehend }): JSX.Element {
     { key: 'imThema', g: a.imThema },
     { key: 'voraus', g: a.voraus },
   ].filter(({ g }) => g.sitzt.length + g.fehlt.length > 0)
+  const teil = (art: 'sitzt' | 'fehlt', liste: EbBereich[]): JSX.Element[] => {
+    const rest = liste.length - JE_LISTE
+    return [
+      ...liste.slice(0, JE_LISTE).map((b) => (
+        <li key={b.skillKey} className={`tp-ka-punkt-${art}`}>
+          {b.label}
+        </li>
+      )),
+      ...(rest > 0 ? [<li key={`${art}-rest`} className="tp-ka-weitere">{tb('s1.blick.weitere', { count: rest })}</li>] : []),
+    ]
+  }
   return (
     <>
       {gruppen.map(({ key, g }) => (
         <div key={key} className="tp-ka-gruppe" data-testid={`tp-ka-gruppe-${key}`}>
           <span className="tp-ka-gruppe-titel">{tb(`v4.anstehend.${key}`)}</span>
-          <Liste art="sitzt" eintraege={g.sitzt.map(zuordnung)} />
-          <Liste art="fehlt" eintraege={g.fehlt.map(zuordnung)} />
+          <ul>
+            {teil('sitzt', g.sitzt)}
+            {teil('fehlt', g.fehlt)}
+          </ul>
         </div>
       ))}
     </>

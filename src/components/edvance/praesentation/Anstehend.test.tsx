@@ -36,12 +36,12 @@ describe('Station 03, Karte „steht an“ (Ida)', () => {
     const vo = within(k).getByTestId('tp-ka-gruppe-voraus')
     expect(im.querySelector('.tp-ka-gruppe-titel')).toHaveTextContent(de.v4.anstehend.imThema)
     expect(vo.querySelector('.tp-ka-gruppe-titel')).toHaveTextContent(de.v4.anstehend.voraus)
-    expect(texte(im, '.tp-ka-liste-sitzt li')).toEqual(['Streckfaktor und zentrische Streckung'])
-    expect(texte(im, '.tp-ka-liste-fehlt li')).toEqual(['Erster Strahlensatz', 'Flächen und Volumen bei Ähnlichkeit', 'Zweiter Strahlensatz'])
-    expect(texte(vo, '.tp-ka-liste-sitzt li')).toEqual(['Einschrittige Gleichungen'])
-    expect(texte(vo, '.tp-ka-liste-fehlt li')).toEqual(['Potenzen und Quadratzahlen'])
+    expect(texte(im, 'li.tp-ka-punkt-sitzt')).toEqual(['Streckfaktor und zentrische Streckung'])
+    expect(texte(im, 'li.tp-ka-punkt-fehlt')).toEqual(['Erster Strahlensatz', 'Flächen und Volumen bei Ähnlichkeit', 'Zweiter Strahlensatz'])
+    expect(texte(vo, 'li.tp-ka-punkt-sitzt')).toEqual(['Einschrittige Gleichungen'])
+    expect(texte(vo, 'li.tp-ka-punkt-fehlt')).toEqual(['Potenzen und Quadratzahlen'])
     // sitzt vor fehlt in jeder Gruppe
-    for (const g of [im, vo]) expect(g.querySelector('ul')!.className).toBe('tp-ka-liste-sitzt')
+    for (const g of [im, vo]) expect(texte(g, 'li')).toEqual([...texte(g, 'li.tp-ka-punkt-sitzt'), ...texte(g, 'li.tp-ka-punkt-fehlt')])
   })
 
   it('Batu (geschrieben): Karte des aktuellen Themas wie vorher, ohne Gruppen und Signal', () => {
