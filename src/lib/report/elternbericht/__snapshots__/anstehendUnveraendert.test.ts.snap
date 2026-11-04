@@ -1,0 +1,5525 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`V4-S: unverändert ohne anstehende Arbeit > Batu, geschrieben 1`] = `
+{
+  "danach": [
+    "zufall",
+  ],
+  "fahrplan": {
+    "folge": "unbekannt",
+    "halbjahrTrenner": false,
+    "klassenTrenner": null,
+    "quelle": "schule",
+    "satz": "fehlt",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "stationen": [
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 1,
+        "schuljahr": "dieses",
+        "signal": null,
+        "stand": "geschrieben",
+        "themaKey": "reelle_zahlen",
+        "themen": [
+          {
+            "themaKey": "reelle_zahlen",
+            "titel": "Reelle Zahlen",
+          },
+        ],
+        "titel": "Reelle Zahlen",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 2,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "unterricht",
+        "themaKey": "quadratische_funktionen",
+        "themen": [
+          {
+            "themaKey": "quadratische_funktionen",
+            "titel": "Quadratische Funktionen",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 3,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "danach",
+        "themaKey": "kreis",
+        "themen": [
+          {
+            "themaKey": "kreis",
+            "titel": "Kreise, Prismen und Zylinder",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 4,
+        "schuljahr": "dieses",
+        "signal": "ohne",
+        "stand": "danach",
+        "themaKey": "potenzen",
+        "themen": [
+          {
+            "themaKey": "potenzen",
+            "titel": "Potenzen und Potenzgesetze",
+          },
+        ],
+        "titel": "Potenzen und Potenzgesetze",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 5,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "danach",
+        "themaKey": "pythagoras",
+        "themen": [
+          {
+            "themaKey": "pythagoras",
+            "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+          },
+        ],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": 1,
+  },
+  "gruende": [
+    {
+      "art": "naechstesThema",
+      "titel": "Quadratische Funktionen",
+    },
+    {
+      "art": "naechstesThema",
+      "reihe": "zuerst",
+      "stufe": "erprobung",
+      "titel": "Kreise, Prismen und Zylinder",
+    },
+    {
+      "art": "naechstesThema",
+      "reihe": "danach",
+      "stufe": "erste",
+      "titel": "Kreise, Prismen und Zylinder",
+    },
+    {
+      "art": "spaeterGebraucht",
+      "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    },
+  ],
+  "kopfFall": "gemischt",
+  "lernpfad": [
+    {
+      "art": "feld",
+      "grund": {
+        "art": "naechstesThema",
+        "titel": "Quadratische Funktionen",
+      },
+      "rest": 1,
+      "teile": [
+        "Werte in Terme einsetzen",
+        "Additionsverfahren",
+        "Binomische Formeln (Quadrat einer Summe/Differenz)",
+        "Faktorisieren mit binomischer Formel",
+      ],
+      "titelFeld": "terme",
+      "titelThema": null,
+      "ziele": [
+        2,
+        3,
+      ],
+    },
+    {
+      "art": "gruppe",
+      "grund": {
+        "art": "naechstesThema",
+        "reihe": "zuerst",
+        "stufe": "erprobung",
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      "rest": 0,
+      "teile": [
+        "Flächeneinheiten",
+        "Fläche von Dreieck und Parallelogramm",
+        "Flächeninhalt des Trapezes",
+        "Flächeninhalt von Drachen und Raute",
+      ],
+      "titelFeld": null,
+      "titelThema": "Kreise, Prismen und Zylinder",
+      "ziele": [
+        3,
+      ],
+    },
+    {
+      "art": "luecke",
+      "grund": {
+        "art": "spaeterGebraucht",
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+      "rest": 0,
+      "teile": [
+        "Teilweise die Wurzel ziehen",
+      ],
+      "titelFeld": null,
+      "titelThema": "Reelle Zahlen und Wurzeln",
+      "ziele": [
+        5,
+      ],
+    },
+    {
+      "art": "spaeter",
+      "felder": [
+        "zufall",
+      ],
+      "grund": null,
+      "rest": 0,
+      "teile": [],
+      "titelFeld": null,
+      "titelThema": null,
+      "ziele": [],
+    },
+  ],
+  "lernweg": {
+    "datum": "2026-10-24T11:07:58.091Z",
+    "klasse": 9,
+    "linien": [
+      {
+        "von": "e4",
+        "zu": "e27",
+      },
+      {
+        "von": "e4",
+        "zu": "e31",
+      },
+      {
+        "von": "e7",
+        "zu": "e29",
+      },
+      {
+        "von": "e1",
+        "zu": "e30",
+      },
+      {
+        "von": "e9",
+        "zu": "e28",
+      },
+    ],
+    "naechsteKlasse": {
+      "inseln": [
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i13",
+          "titel": "Daten und Wahrscheinlichkeit",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i14",
+          "titel": "Quadratische Funktionen und Gleichungen",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i15",
+          "titel": "Ähnlichkeit",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i16",
+          "titel": "Exponentialfunktionen",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i17",
+          "titel": "Trigonometrie",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i18",
+          "titel": "Trigonometrische Funktionen",
+          "zone": "kommt",
+        },
+      ],
+      "klasse": 10,
+    },
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "thema": "Reelle Zahlen und Wurzeln",
+    "weggelassen": {
+      "eintraege": 0,
+      "kommt": 0,
+      "linien": 8,
+      "offen": 7,
+      "zonen": 0,
+    },
+    "zonen": [
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e1",
+                "klasse": 5,
+                "label": "Fläche von Rechteck und Quadrat",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [
+                  {
+                    "basen": [
+                      "e1",
+                    ],
+                    "id": "e2",
+                    "label": "Volumen und Oberfläche des Quaders",
+                    "stand": "offen",
+                  },
+                ],
+              },
+              {
+                "id": "e3",
+                "klasse": 5,
+                "label": "Umfang von Rechteck und Dreieck",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e4",
+                "klasse": 6,
+                "label": "Punkte im Koordinatensystem",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "geometrie",
+            "id": "i1",
+            "titel": null,
+            "zone": "grundlagen",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e5",
+                "klasse": 5,
+                "label": "Längen umrechnen",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e6",
+                "klasse": 6,
+                "label": "Flächeneinheiten",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "groessen",
+            "id": "i2",
+            "titel": null,
+            "zone": "grundlagen",
+          },
+        ],
+        "key": "grundlagen",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e7",
+                "klasse": 7,
+                "label": "Dreisatz, proportional und antiproportional",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "prozent",
+            "id": "i3",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": true,
+            "eintraege": [
+              {
+                "id": "e8",
+                "klasse": 8,
+                "label": "Einsetzungsverfahren",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e9",
+                "klasse": 8,
+                "label": "Gleichungen aufstellen (Sachkontext)",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e10",
+                "klasse": 7,
+                "label": "Werte in Terme einsetzen",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+              {
+                "id": "e11",
+                "klasse": 8,
+                "label": "Additionsverfahren",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+              {
+                "id": "e12",
+                "klasse": 8,
+                "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e12",
+                    ],
+                    "id": "e13",
+                    "label": "Faktorisieren mit binomischer Formel",
+                    "stand": "uebung",
+                  },
+                ],
+              },
+              {
+                "id": "e14",
+                "klasse": 8,
+                "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "terme",
+            "id": "i4",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": true,
+            "eintraege": [
+              {
+                "id": "e15",
+                "klasse": 8,
+                "label": "Satz des Thales (Winkel berechnen)",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e16",
+                "klasse": 7,
+                "label": "Fläche von Dreieck und Parallelogramm",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e16",
+                    ],
+                    "id": "e17",
+                    "label": "Terme für Flächeninhalte",
+                    "stand": "sicher",
+                  },
+                ],
+              },
+              {
+                "id": "e18",
+                "klasse": 8,
+                "label": "Flächeninhalt des Trapezes",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e18",
+                    ],
+                    "id": "e19",
+                    "label": "Seite oder Höhe aus dem Flächeninhalt",
+                    "stand": "offen",
+                  },
+                ],
+              },
+              {
+                "id": "e20",
+                "klasse": 8,
+                "label": "Flächeninhalt von Drachen und Raute",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e18",
+                      "e20",
+                    ],
+                    "id": "e21",
+                    "label": "Zusammengesetzte Vielecke",
+                    "stand": "offen",
+                  },
+                ],
+              },
+            ],
+            "feld": "geometrie",
+            "id": "i5",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e22",
+                "klasse": 8,
+                "label": "Mehrstufige Zufallsexperimente: Summenregel",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "zufall",
+            "id": "i6",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+        ],
+        "key": "weiterfuehrend",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e23",
+                "klasse": 9,
+                "label": "Rationale und irrationale Zahlen",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e24",
+                "klasse": 9,
+                "label": "Wurzelgesetze für Produkt und Quotient",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [
+                  {
+                    "basen": [
+                      "e24",
+                    ],
+                    "id": "e25",
+                    "label": "Teilweise die Wurzel ziehen",
+                    "stand": "uebung",
+                  },
+                ],
+              },
+              {
+                "id": "e26",
+                "klasse": 9,
+                "label": "Wurzeln abschätzen und Näherungswerte",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "zahlen",
+            "id": "i7",
+            "titel": null,
+            "zone": "aktuell",
+          },
+        ],
+        "key": "aktuell",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e27",
+                "klasse": 9,
+                "label": "Normalparabel verschieben und strecken",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+              {
+                "id": "e28",
+                "klasse": 9,
+                "label": "Extremwertaufgaben mit quadratischen Funktionen",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i8",
+            "titel": "Quadratische Funktionen",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e29",
+                "klasse": 9,
+                "label": "Kreisbogen und Kreisausschnitt",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+              {
+                "id": "e30",
+                "klasse": 9,
+                "label": "Zusammengesetzte Figuren mit Kreisteilen",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i9",
+            "titel": "Kreise, Prismen und Zylinder",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [],
+            "feld": null,
+            "id": "i10",
+            "titel": "Potenzen und Potenzgesetze",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e31",
+                "klasse": 9,
+                "label": "Abstand zweier Punkte im Koordinatensystem",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i11",
+            "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [],
+            "feld": null,
+            "id": "i12",
+            "titel": "Daten und Wahrscheinlichkeit",
+            "zone": "kommt",
+          },
+        ],
+        "key": "kommt",
+      },
+    ],
+  },
+  "lueckenweg": {
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "themen": [
+      {
+        "fehlt": [
+          {
+            "auch": [
+              "Kreise, Prismen und Zylinder",
+            ],
+            "label": "Werte in Terme einsetzen",
+          },
+          {
+            "auch": [],
+            "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          },
+          {
+            "auch": [],
+            "label": "Faktorisieren mit binomischer Formel",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [
+              "Der Satz des Pythagoras und Berechnungen in Körpern",
+            ],
+            "label": "Punkte im Koordinatensystem",
+          },
+          {
+            "auch": [],
+            "label": "Gleichungen aufstellen (Sachkontext)",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Flächeneinheiten",
+          },
+          {
+            "auch": [],
+            "label": "Fläche von Dreieck und Parallelogramm",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Fläche von Rechteck und Quadrat",
+          },
+          {
+            "auch": [],
+            "label": "Umfang von Rechteck und Dreieck",
+          },
+          {
+            "auch": [],
+            "label": "Dreisatz, proportional und antiproportional",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Teilweise die Wurzel ziehen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": [
+      {
+        "feld": "terme",
+        "labels": [
+          "Additionsverfahren",
+          "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "geometrie",
+        "labels": [
+          "Flächeninhalt des Trapezes",
+          "Flächeninhalt von Drachen und Raute",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "zufall",
+        "labels": [
+          "Mehrstufige Zufallsexperimente: Summenregel",
+        ],
+        "thema": null,
+      },
+    ],
+    "weitereStaerken": [
+      "Längen umrechnen",
+      "Einsetzungsverfahren",
+      "Satz des Thales (Winkel berechnen)",
+      "Terme für Flächeninhalte",
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+  },
+  "lueckenwegV4": {
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "themen": [
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Werte in Terme einsetzen",
+          },
+          {
+            "auch": [],
+            "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          },
+          {
+            "auch": [],
+            "label": "Faktorisieren mit binomischer Formel",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Punkte im Koordinatensystem",
+          },
+          {
+            "auch": [],
+            "label": "Gleichungen aufstellen (Sachkontext)",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Flächeneinheiten",
+          },
+          {
+            "auch": [],
+            "label": "Fläche von Dreieck und Parallelogramm",
+          },
+          {
+            "auch": [],
+            "label": "Werte in Terme einsetzen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Fläche von Rechteck und Quadrat",
+          },
+          {
+            "auch": [],
+            "label": "Umfang von Rechteck und Dreieck",
+          },
+          {
+            "auch": [],
+            "label": "Dreisatz, proportional und antiproportional",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Teilweise die Wurzel ziehen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Punkte im Koordinatensystem",
+          },
+        ],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": [
+      {
+        "feld": "terme",
+        "labels": [
+          "Additionsverfahren",
+          "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "geometrie",
+        "labels": [
+          "Flächeninhalt des Trapezes",
+          "Flächeninhalt von Drachen und Raute",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "zufall",
+        "labels": [
+          "Mehrstufige Zufallsexperimente: Summenregel",
+        ],
+        "thema": null,
+      },
+    ],
+    "weitereStaerken": [
+      "Längen umrechnen",
+      "Einsetzungsverfahren",
+      "Satz des Thales (Winkel berechnen)",
+      "Terme für Flächeninhalte",
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+  },
+  "profil": [
+    {
+      "feld": "brueche",
+      "sicher": 0,
+      "uebung": 0,
+      "vorhanden": 8,
+    },
+    {
+      "feld": "prozent",
+      "sicher": 1,
+      "uebung": 0,
+      "vorhanden": 9,
+    },
+    {
+      "feld": "terme",
+      "sicher": 2,
+      "uebung": 5,
+      "vorhanden": 23,
+    },
+    {
+      "feld": "geometrie",
+      "sicher": 5,
+      "uebung": 3,
+      "vorhanden": 35,
+    },
+    {
+      "feld": "groessen",
+      "sicher": 1,
+      "uebung": 1,
+      "vorhanden": 6,
+    },
+    {
+      "feld": "zahlen",
+      "sicher": 3,
+      "uebung": 1,
+      "vorhanden": 14,
+    },
+    {
+      "feld": "funktionen",
+      "sicher": 0,
+      "uebung": 0,
+      "vorhanden": 10,
+    },
+    {
+      "feld": "zufall",
+      "sicher": 0,
+      "uebung": 1,
+      "vorhanden": 10,
+    },
+  ],
+  "pyramide": [
+    {
+      "ebene": "aktuell",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Rationale und irrationale Zahlen",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_irrational",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Wurzelgesetze für Produkt und Quotient",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_gesetze",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Wurzeln abschätzen und Näherungswerte",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_naeherung",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Teilweise die Wurzel ziehen",
+              "sicher": false,
+              "skillKey": "zahl_wurzel_teilweise",
+            },
+          ],
+          "feld": "zahlen",
+        },
+      ],
+      "sicher": 3,
+      "stufen": [
+        "zweite",
+      ],
+      "uebung": 1,
+    },
+    {
+      "ebene": "weiterfuehrend",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "prozent",
+              "klasse": 7,
+              "label": "Dreisatz, proportional und antiproportional",
+              "sicher": true,
+              "skillKey": "proportionalitaet",
+            },
+          ],
+          "feld": "prozent",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Einsetzungsverfahren",
+              "sicher": true,
+              "skillKey": "gleichung_lgs_einsetzen",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Gleichungen aufstellen (Sachkontext)",
+              "sicher": true,
+              "skillKey": "gleichung_modellieren",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Additionsverfahren",
+              "sicher": false,
+              "skillKey": "gleichung_lgs_addition",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+              "sicher": false,
+              "skillKey": "term_binom_quadrat",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Faktorisieren mit binomischer Formel",
+              "sicher": false,
+              "skillKey": "term_binom_faktorisieren",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+              "sicher": false,
+              "skillKey": "gleichung_lgs_grafisch",
+            },
+            {
+              "feld": "terme",
+              "klasse": 7,
+              "label": "Werte in Terme einsetzen",
+              "sicher": false,
+              "skillKey": "term_einsetzen",
+            },
+          ],
+          "feld": "terme",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Satz des Thales (Winkel berechnen)",
+              "sicher": true,
+              "skillKey": "geo_winkel_thales",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Terme für Flächeninhalte",
+              "sicher": true,
+              "skillKey": "geo_flaeche_term",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 7,
+              "label": "Fläche von Dreieck und Parallelogramm",
+              "sicher": false,
+              "skillKey": "geo_flaeche_dreieck",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Flächeninhalt des Trapezes",
+              "sicher": false,
+              "skillKey": "geo_flaeche_trapez",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Flächeninhalt von Drachen und Raute",
+              "sicher": false,
+              "skillKey": "geo_flaeche_drachen_raute",
+            },
+          ],
+          "feld": "geometrie",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "zufall",
+              "klasse": 8,
+              "label": "Mehrstufige Zufallsexperimente: Summenregel",
+              "sicher": false,
+              "skillKey": "stoch_pfad_summe",
+            },
+          ],
+          "feld": "zufall",
+        },
+      ],
+      "sicher": 5,
+      "stufen": [
+        "erste",
+      ],
+      "uebung": 9,
+    },
+    {
+      "ebene": "grundlagen",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "geometrie",
+              "klasse": 5,
+              "label": "Fläche von Rechteck und Quadrat",
+              "sicher": true,
+              "skillKey": "geo_flaeche_rechteck",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 6,
+              "label": "Punkte im Koordinatensystem",
+              "sicher": true,
+              "skillKey": "geo_koordinaten",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 5,
+              "label": "Umfang von Rechteck und Dreieck",
+              "sicher": true,
+              "skillKey": "geo_umfang",
+            },
+          ],
+          "feld": "geometrie",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "groessen",
+              "klasse": 5,
+              "label": "Längen umrechnen",
+              "sicher": true,
+              "skillKey": "groessen_laengen",
+            },
+            {
+              "feld": "groessen",
+              "klasse": 6,
+              "label": "Flächeneinheiten",
+              "sicher": false,
+              "skillKey": "groessen_flaechen",
+            },
+          ],
+          "feld": "groessen",
+        },
+      ],
+      "sicher": 4,
+      "stufen": [
+        "erprobung",
+      ],
+      "uebung": 1,
+    },
+  ],
+  "schwerpunkte": [
+    {
+      "feld": "terme",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Einsetzungsverfahren",
+        "Gleichungen aufstellen (Sachkontext)",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Werte in Terme einsetzen",
+        "Additionsverfahren",
+        "Binomische Formeln (Quadrat einer Summe/Differenz)",
+        "Faktorisieren mit binomischer Formel",
+        "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+      ],
+    },
+    {
+      "feld": "groessen",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Längen umrechnen",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Flächeneinheiten",
+      ],
+    },
+    {
+      "feld": "geometrie",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Fläche von Rechteck und Quadrat",
+        "Umfang von Rechteck und Dreieck",
+        "Punkte im Koordinatensystem",
+        "Satz des Thales (Winkel berechnen)",
+        "Terme für Flächeninhalte",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Fläche von Dreieck und Parallelogramm",
+        "Flächeninhalt des Trapezes",
+        "Flächeninhalt von Drachen und Raute",
+      ],
+    },
+    {
+      "feld": null,
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Rationale und irrationale Zahlen",
+        "Wurzelgesetze für Produkt und Quotient",
+        "Wurzeln abschätzen und Näherungswerte",
+      ],
+      "start": "Teilweise die Wurzel ziehen",
+      "thema": "Reelle Zahlen und Wurzeln",
+      "uebung": [
+        "Teilweise die Wurzel ziehen",
+      ],
+    },
+  ],
+  "sicherListe": [
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Rationale und irrationale Zahlen",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_irrational",
+    },
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Wurzelgesetze für Produkt und Quotient",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_gesetze",
+    },
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Wurzeln abschätzen und Näherungswerte",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_naeherung",
+    },
+    {
+      "feld": "prozent",
+      "klasse": 7,
+      "label": "Dreisatz, proportional und antiproportional",
+      "sicher": true,
+      "skillKey": "proportionalitaet",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Einsetzungsverfahren",
+      "sicher": true,
+      "skillKey": "gleichung_lgs_einsetzen",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "sicher": true,
+      "skillKey": "gleichung_modellieren",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 5,
+      "label": "Fläche von Rechteck und Quadrat",
+      "sicher": true,
+      "skillKey": "geo_flaeche_rechteck",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 5,
+      "label": "Umfang von Rechteck und Dreieck",
+      "sicher": true,
+      "skillKey": "geo_umfang",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 6,
+      "label": "Punkte im Koordinatensystem",
+      "sicher": true,
+      "skillKey": "geo_koordinaten",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Satz des Thales (Winkel berechnen)",
+      "sicher": true,
+      "skillKey": "geo_winkel_thales",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Terme für Flächeninhalte",
+      "sicher": true,
+      "skillKey": "geo_flaeche_term",
+    },
+    {
+      "feld": "groessen",
+      "klasse": 5,
+      "label": "Längen umrechnen",
+      "sicher": true,
+      "skillKey": "groessen_laengen",
+    },
+  ],
+  "signale": [
+    {
+      "fehlt": [
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 8,
+          "label": "Flächeninhalt des Trapezes",
+          "sicher": false,
+          "skillKey": "geo_flaeche_trapez",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 8,
+          "label": "Flächeninhalt von Drachen und Raute",
+          "sicher": false,
+          "skillKey": "geo_flaeche_drachen_raute",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+      ],
+      "themaKey": "flaechen_vielecke",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "groessen",
+          "klasse": 6,
+          "label": "Flächeneinheiten",
+          "sicher": false,
+          "skillKey": "groessen_flaechen",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Umfang von Rechteck und Dreieck",
+          "sicher": true,
+          "skillKey": "geo_umfang",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "kreis",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "groessen",
+          "klasse": 6,
+          "label": "Flächeneinheiten",
+          "sicher": false,
+          "skillKey": "groessen_flaechen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+      ],
+      "themaKey": "koerper_quader",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "ganze_zahlen_groessen",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+      ],
+      "themaKey": "flaeche_umfang",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+      ],
+      "themaKey": "natuerliche_zahlen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "lineare_funktionen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          "sicher": false,
+          "skillKey": "term_binom_quadrat",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Faktorisieren mit binomischer Formel",
+          "sicher": false,
+          "skillKey": "term_binom_faktorisieren",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Gleichungen aufstellen (Sachkontext)",
+          "sicher": true,
+          "skillKey": "gleichung_modellieren",
+        },
+      ],
+      "themaKey": "quadratische_funktionen",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+      ],
+      "themaKey": "sinusfunktion",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "zahlen",
+          "klasse": 9,
+          "label": "Teilweise die Wurzel ziehen",
+          "sicher": false,
+          "skillKey": "zahl_wurzel_teilweise",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+      ],
+      "themaKey": "pythagoras",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "zinsrechnung",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "prismen_zylinder",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "trigonometrie",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Additionsverfahren",
+          "sicher": false,
+          "skillKey": "gleichung_lgs_addition",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Einsetzungsverfahren",
+          "sicher": true,
+          "skillKey": "gleichung_lgs_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Gleichungen aufstellen (Sachkontext)",
+          "sicher": true,
+          "skillKey": "gleichung_modellieren",
+        },
+      ],
+      "themaKey": "lineare_gleichungen_lgs",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "quadratische_gleichungen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          "sicher": false,
+          "skillKey": "term_binom_quadrat",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "terme_binomische_formeln",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "zahlen",
+          "klasse": 9,
+          "label": "Wurzelgesetze für Produkt und Quotient",
+          "sicher": true,
+          "skillKey": "zahl_wurzel_gesetze",
+        },
+      ],
+      "themaKey": "reelle_zahlen",
+    },
+  ],
+  "stufen": [
+    {
+      "bis": 6,
+      "sicher": 4,
+      "stufe": "grundlagen",
+      "uebung": 1,
+      "urteil": "weitgehend",
+      "von": 5,
+    },
+    {
+      "bis": 8,
+      "sicher": 5,
+      "stufe": "weiterfuehrend",
+      "uebung": 9,
+      "urteil": "luecken",
+      "von": 7,
+    },
+    {
+      "bis": 9,
+      "sicher": 3,
+      "stufe": "aktuell",
+      "uebung": 1,
+      "urteil": "weitgehend",
+      "von": 9,
+    },
+  ],
+  "thema": {
+    "sicher": [
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+    "titel": "Reelle Zahlen und Wurzeln",
+    "uebung": [
+      "Teilweise die Wurzel ziehen",
+    ],
+  },
+  "uebungListe": [
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Teilweise die Wurzel ziehen",
+      "sicher": false,
+      "skillKey": "zahl_wurzel_teilweise",
+    },
+    {
+      "feld": "terme",
+      "klasse": 7,
+      "label": "Werte in Terme einsetzen",
+      "sicher": false,
+      "skillKey": "term_einsetzen",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Additionsverfahren",
+      "sicher": false,
+      "skillKey": "gleichung_lgs_addition",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "sicher": false,
+      "skillKey": "term_binom_quadrat",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Faktorisieren mit binomischer Formel",
+      "sicher": false,
+      "skillKey": "term_binom_faktorisieren",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+      "sicher": false,
+      "skillKey": "gleichung_lgs_grafisch",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 7,
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "sicher": false,
+      "skillKey": "geo_flaeche_dreieck",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Flächeninhalt des Trapezes",
+      "sicher": false,
+      "skillKey": "geo_flaeche_trapez",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Flächeninhalt von Drachen und Raute",
+      "sicher": false,
+      "skillKey": "geo_flaeche_drachen_raute",
+    },
+    {
+      "feld": "groessen",
+      "klasse": 6,
+      "label": "Flächeneinheiten",
+      "sicher": false,
+      "skillKey": "groessen_flaechen",
+    },
+    {
+      "feld": "zufall",
+      "klasse": 8,
+      "label": "Mehrstufige Zufallsexperimente: Summenregel",
+      "sicher": false,
+      "skillKey": "stoch_pfad_summe",
+    },
+  ],
+  "zaehlung": {
+    "bisKlasse": 9,
+    "katalog": 115,
+    "offen": 92,
+    "sicher": 12,
+    "uebung": 11,
+    "untersucht": 23,
+  },
+}
+`;
+
+exports[`V4-S: unverändert ohne anstehende Arbeit > Batu, geschrieben mit Note 1`] = `
+{
+  "danach": [
+    "zufall",
+  ],
+  "fahrplan": {
+    "folge": "unbekannt",
+    "halbjahrTrenner": false,
+    "klassenTrenner": null,
+    "quelle": "schule",
+    "satz": "fehlt",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "stationen": [
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": 4,
+        "nummer": 1,
+        "schuljahr": "dieses",
+        "signal": null,
+        "stand": "geschrieben",
+        "themaKey": "reelle_zahlen",
+        "themen": [
+          {
+            "themaKey": "reelle_zahlen",
+            "titel": "Reelle Zahlen",
+          },
+        ],
+        "titel": "Reelle Zahlen",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 2,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "unterricht",
+        "themaKey": "quadratische_funktionen",
+        "themen": [
+          {
+            "themaKey": "quadratische_funktionen",
+            "titel": "Quadratische Funktionen",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 3,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "danach",
+        "themaKey": "kreis",
+        "themen": [
+          {
+            "themaKey": "kreis",
+            "titel": "Kreise, Prismen und Zylinder",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 4,
+        "schuljahr": "dieses",
+        "signal": "ohne",
+        "stand": "danach",
+        "themaKey": "potenzen",
+        "themen": [
+          {
+            "themaKey": "potenzen",
+            "titel": "Potenzen und Potenzgesetze",
+          },
+        ],
+        "titel": "Potenzen und Potenzgesetze",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 5,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "danach",
+        "themaKey": "pythagoras",
+        "themen": [
+          {
+            "themaKey": "pythagoras",
+            "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+          },
+        ],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": 1,
+  },
+  "gruende": [
+    {
+      "art": "naechstesThema",
+      "titel": "Quadratische Funktionen",
+    },
+    {
+      "art": "naechstesThema",
+      "reihe": "zuerst",
+      "stufe": "erprobung",
+      "titel": "Kreise, Prismen und Zylinder",
+    },
+    {
+      "art": "naechstesThema",
+      "reihe": "danach",
+      "stufe": "erste",
+      "titel": "Kreise, Prismen und Zylinder",
+    },
+    {
+      "art": "spaeterGebraucht",
+      "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+    },
+  ],
+  "kopfFall": "gemischt",
+  "lernpfad": [
+    {
+      "art": "feld",
+      "grund": {
+        "art": "naechstesThema",
+        "titel": "Quadratische Funktionen",
+      },
+      "rest": 1,
+      "teile": [
+        "Werte in Terme einsetzen",
+        "Additionsverfahren",
+        "Binomische Formeln (Quadrat einer Summe/Differenz)",
+        "Faktorisieren mit binomischer Formel",
+      ],
+      "titelFeld": "terme",
+      "titelThema": null,
+      "ziele": [
+        2,
+        3,
+      ],
+    },
+    {
+      "art": "gruppe",
+      "grund": {
+        "art": "naechstesThema",
+        "reihe": "zuerst",
+        "stufe": "erprobung",
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      "rest": 0,
+      "teile": [
+        "Flächeneinheiten",
+        "Fläche von Dreieck und Parallelogramm",
+        "Flächeninhalt des Trapezes",
+        "Flächeninhalt von Drachen und Raute",
+      ],
+      "titelFeld": null,
+      "titelThema": "Kreise, Prismen und Zylinder",
+      "ziele": [
+        3,
+      ],
+    },
+    {
+      "art": "luecke",
+      "grund": {
+        "art": "spaeterGebraucht",
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+      "rest": 0,
+      "teile": [
+        "Teilweise die Wurzel ziehen",
+      ],
+      "titelFeld": null,
+      "titelThema": "Reelle Zahlen und Wurzeln",
+      "ziele": [
+        5,
+      ],
+    },
+    {
+      "art": "spaeter",
+      "felder": [
+        "zufall",
+      ],
+      "grund": null,
+      "rest": 0,
+      "teile": [],
+      "titelFeld": null,
+      "titelThema": null,
+      "ziele": [],
+    },
+  ],
+  "lernweg": {
+    "datum": "2026-10-24T11:07:58.091Z",
+    "klasse": 9,
+    "linien": [
+      {
+        "von": "e4",
+        "zu": "e27",
+      },
+      {
+        "von": "e4",
+        "zu": "e31",
+      },
+      {
+        "von": "e7",
+        "zu": "e29",
+      },
+      {
+        "von": "e1",
+        "zu": "e30",
+      },
+      {
+        "von": "e9",
+        "zu": "e28",
+      },
+    ],
+    "naechsteKlasse": {
+      "inseln": [
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i13",
+          "titel": "Daten und Wahrscheinlichkeit",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i14",
+          "titel": "Quadratische Funktionen und Gleichungen",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i15",
+          "titel": "Ähnlichkeit",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i16",
+          "titel": "Exponentialfunktionen",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i17",
+          "titel": "Trigonometrie",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i18",
+          "titel": "Trigonometrische Funktionen",
+          "zone": "kommt",
+        },
+      ],
+      "klasse": 10,
+    },
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "thema": "Reelle Zahlen und Wurzeln",
+    "weggelassen": {
+      "eintraege": 0,
+      "kommt": 0,
+      "linien": 8,
+      "offen": 7,
+      "zonen": 0,
+    },
+    "zonen": [
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e1",
+                "klasse": 5,
+                "label": "Fläche von Rechteck und Quadrat",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [
+                  {
+                    "basen": [
+                      "e1",
+                    ],
+                    "id": "e2",
+                    "label": "Volumen und Oberfläche des Quaders",
+                    "stand": "offen",
+                  },
+                ],
+              },
+              {
+                "id": "e3",
+                "klasse": 5,
+                "label": "Umfang von Rechteck und Dreieck",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e4",
+                "klasse": 6,
+                "label": "Punkte im Koordinatensystem",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "geometrie",
+            "id": "i1",
+            "titel": null,
+            "zone": "grundlagen",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e5",
+                "klasse": 5,
+                "label": "Längen umrechnen",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e6",
+                "klasse": 6,
+                "label": "Flächeneinheiten",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "groessen",
+            "id": "i2",
+            "titel": null,
+            "zone": "grundlagen",
+          },
+        ],
+        "key": "grundlagen",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e7",
+                "klasse": 7,
+                "label": "Dreisatz, proportional und antiproportional",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "prozent",
+            "id": "i3",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": true,
+            "eintraege": [
+              {
+                "id": "e8",
+                "klasse": 8,
+                "label": "Einsetzungsverfahren",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e9",
+                "klasse": 8,
+                "label": "Gleichungen aufstellen (Sachkontext)",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e10",
+                "klasse": 7,
+                "label": "Werte in Terme einsetzen",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+              {
+                "id": "e11",
+                "klasse": 8,
+                "label": "Additionsverfahren",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+              {
+                "id": "e12",
+                "klasse": 8,
+                "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e12",
+                    ],
+                    "id": "e13",
+                    "label": "Faktorisieren mit binomischer Formel",
+                    "stand": "uebung",
+                  },
+                ],
+              },
+              {
+                "id": "e14",
+                "klasse": 8,
+                "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "terme",
+            "id": "i4",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": true,
+            "eintraege": [
+              {
+                "id": "e15",
+                "klasse": 8,
+                "label": "Satz des Thales (Winkel berechnen)",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e16",
+                "klasse": 7,
+                "label": "Fläche von Dreieck und Parallelogramm",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e16",
+                    ],
+                    "id": "e17",
+                    "label": "Terme für Flächeninhalte",
+                    "stand": "sicher",
+                  },
+                ],
+              },
+              {
+                "id": "e18",
+                "klasse": 8,
+                "label": "Flächeninhalt des Trapezes",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e18",
+                    ],
+                    "id": "e19",
+                    "label": "Seite oder Höhe aus dem Flächeninhalt",
+                    "stand": "offen",
+                  },
+                ],
+              },
+              {
+                "id": "e20",
+                "klasse": 8,
+                "label": "Flächeninhalt von Drachen und Raute",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e18",
+                      "e20",
+                    ],
+                    "id": "e21",
+                    "label": "Zusammengesetzte Vielecke",
+                    "stand": "offen",
+                  },
+                ],
+              },
+            ],
+            "feld": "geometrie",
+            "id": "i5",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e22",
+                "klasse": 8,
+                "label": "Mehrstufige Zufallsexperimente: Summenregel",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "zufall",
+            "id": "i6",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+        ],
+        "key": "weiterfuehrend",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e23",
+                "klasse": 9,
+                "label": "Rationale und irrationale Zahlen",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e24",
+                "klasse": 9,
+                "label": "Wurzelgesetze für Produkt und Quotient",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [
+                  {
+                    "basen": [
+                      "e24",
+                    ],
+                    "id": "e25",
+                    "label": "Teilweise die Wurzel ziehen",
+                    "stand": "uebung",
+                  },
+                ],
+              },
+              {
+                "id": "e26",
+                "klasse": 9,
+                "label": "Wurzeln abschätzen und Näherungswerte",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "zahlen",
+            "id": "i7",
+            "titel": null,
+            "zone": "aktuell",
+          },
+        ],
+        "key": "aktuell",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e27",
+                "klasse": 9,
+                "label": "Normalparabel verschieben und strecken",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+              {
+                "id": "e28",
+                "klasse": 9,
+                "label": "Extremwertaufgaben mit quadratischen Funktionen",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i8",
+            "titel": "Quadratische Funktionen",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e29",
+                "klasse": 9,
+                "label": "Kreisbogen und Kreisausschnitt",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+              {
+                "id": "e30",
+                "klasse": 9,
+                "label": "Zusammengesetzte Figuren mit Kreisteilen",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i9",
+            "titel": "Kreise, Prismen und Zylinder",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [],
+            "feld": null,
+            "id": "i10",
+            "titel": "Potenzen und Potenzgesetze",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e31",
+                "klasse": 9,
+                "label": "Abstand zweier Punkte im Koordinatensystem",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i11",
+            "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [],
+            "feld": null,
+            "id": "i12",
+            "titel": "Daten und Wahrscheinlichkeit",
+            "zone": "kommt",
+          },
+        ],
+        "key": "kommt",
+      },
+    ],
+  },
+  "lueckenweg": {
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "themen": [
+      {
+        "fehlt": [
+          {
+            "auch": [
+              "Kreise, Prismen und Zylinder",
+            ],
+            "label": "Werte in Terme einsetzen",
+          },
+          {
+            "auch": [],
+            "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          },
+          {
+            "auch": [],
+            "label": "Faktorisieren mit binomischer Formel",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [
+              "Der Satz des Pythagoras und Berechnungen in Körpern",
+            ],
+            "label": "Punkte im Koordinatensystem",
+          },
+          {
+            "auch": [],
+            "label": "Gleichungen aufstellen (Sachkontext)",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Flächeneinheiten",
+          },
+          {
+            "auch": [],
+            "label": "Fläche von Dreieck und Parallelogramm",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Fläche von Rechteck und Quadrat",
+          },
+          {
+            "auch": [],
+            "label": "Umfang von Rechteck und Dreieck",
+          },
+          {
+            "auch": [],
+            "label": "Dreisatz, proportional und antiproportional",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Teilweise die Wurzel ziehen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": [
+      {
+        "feld": "terme",
+        "labels": [
+          "Additionsverfahren",
+          "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "geometrie",
+        "labels": [
+          "Flächeninhalt des Trapezes",
+          "Flächeninhalt von Drachen und Raute",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "zufall",
+        "labels": [
+          "Mehrstufige Zufallsexperimente: Summenregel",
+        ],
+        "thema": null,
+      },
+    ],
+    "weitereStaerken": [
+      "Längen umrechnen",
+      "Einsetzungsverfahren",
+      "Satz des Thales (Winkel berechnen)",
+      "Terme für Flächeninhalte",
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+  },
+  "lueckenwegV4": {
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "themen": [
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Werte in Terme einsetzen",
+          },
+          {
+            "auch": [],
+            "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          },
+          {
+            "auch": [],
+            "label": "Faktorisieren mit binomischer Formel",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Punkte im Koordinatensystem",
+          },
+          {
+            "auch": [],
+            "label": "Gleichungen aufstellen (Sachkontext)",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Flächeneinheiten",
+          },
+          {
+            "auch": [],
+            "label": "Fläche von Dreieck und Parallelogramm",
+          },
+          {
+            "auch": [],
+            "label": "Werte in Terme einsetzen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Fläche von Rechteck und Quadrat",
+          },
+          {
+            "auch": [],
+            "label": "Umfang von Rechteck und Dreieck",
+          },
+          {
+            "auch": [],
+            "label": "Dreisatz, proportional und antiproportional",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Teilweise die Wurzel ziehen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Punkte im Koordinatensystem",
+          },
+        ],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": [
+      {
+        "feld": "terme",
+        "labels": [
+          "Additionsverfahren",
+          "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "geometrie",
+        "labels": [
+          "Flächeninhalt des Trapezes",
+          "Flächeninhalt von Drachen und Raute",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "zufall",
+        "labels": [
+          "Mehrstufige Zufallsexperimente: Summenregel",
+        ],
+        "thema": null,
+      },
+    ],
+    "weitereStaerken": [
+      "Längen umrechnen",
+      "Einsetzungsverfahren",
+      "Satz des Thales (Winkel berechnen)",
+      "Terme für Flächeninhalte",
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+  },
+  "profil": [
+    {
+      "feld": "brueche",
+      "sicher": 0,
+      "uebung": 0,
+      "vorhanden": 8,
+    },
+    {
+      "feld": "prozent",
+      "sicher": 1,
+      "uebung": 0,
+      "vorhanden": 9,
+    },
+    {
+      "feld": "terme",
+      "sicher": 2,
+      "uebung": 5,
+      "vorhanden": 23,
+    },
+    {
+      "feld": "geometrie",
+      "sicher": 5,
+      "uebung": 3,
+      "vorhanden": 35,
+    },
+    {
+      "feld": "groessen",
+      "sicher": 1,
+      "uebung": 1,
+      "vorhanden": 6,
+    },
+    {
+      "feld": "zahlen",
+      "sicher": 3,
+      "uebung": 1,
+      "vorhanden": 14,
+    },
+    {
+      "feld": "funktionen",
+      "sicher": 0,
+      "uebung": 0,
+      "vorhanden": 10,
+    },
+    {
+      "feld": "zufall",
+      "sicher": 0,
+      "uebung": 1,
+      "vorhanden": 10,
+    },
+  ],
+  "pyramide": [
+    {
+      "ebene": "aktuell",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Rationale und irrationale Zahlen",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_irrational",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Wurzelgesetze für Produkt und Quotient",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_gesetze",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Wurzeln abschätzen und Näherungswerte",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_naeherung",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Teilweise die Wurzel ziehen",
+              "sicher": false,
+              "skillKey": "zahl_wurzel_teilweise",
+            },
+          ],
+          "feld": "zahlen",
+        },
+      ],
+      "sicher": 3,
+      "stufen": [
+        "zweite",
+      ],
+      "uebung": 1,
+    },
+    {
+      "ebene": "weiterfuehrend",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "prozent",
+              "klasse": 7,
+              "label": "Dreisatz, proportional und antiproportional",
+              "sicher": true,
+              "skillKey": "proportionalitaet",
+            },
+          ],
+          "feld": "prozent",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Einsetzungsverfahren",
+              "sicher": true,
+              "skillKey": "gleichung_lgs_einsetzen",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Gleichungen aufstellen (Sachkontext)",
+              "sicher": true,
+              "skillKey": "gleichung_modellieren",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Additionsverfahren",
+              "sicher": false,
+              "skillKey": "gleichung_lgs_addition",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+              "sicher": false,
+              "skillKey": "term_binom_quadrat",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Faktorisieren mit binomischer Formel",
+              "sicher": false,
+              "skillKey": "term_binom_faktorisieren",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+              "sicher": false,
+              "skillKey": "gleichung_lgs_grafisch",
+            },
+            {
+              "feld": "terme",
+              "klasse": 7,
+              "label": "Werte in Terme einsetzen",
+              "sicher": false,
+              "skillKey": "term_einsetzen",
+            },
+          ],
+          "feld": "terme",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Satz des Thales (Winkel berechnen)",
+              "sicher": true,
+              "skillKey": "geo_winkel_thales",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Terme für Flächeninhalte",
+              "sicher": true,
+              "skillKey": "geo_flaeche_term",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 7,
+              "label": "Fläche von Dreieck und Parallelogramm",
+              "sicher": false,
+              "skillKey": "geo_flaeche_dreieck",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Flächeninhalt des Trapezes",
+              "sicher": false,
+              "skillKey": "geo_flaeche_trapez",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Flächeninhalt von Drachen und Raute",
+              "sicher": false,
+              "skillKey": "geo_flaeche_drachen_raute",
+            },
+          ],
+          "feld": "geometrie",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "zufall",
+              "klasse": 8,
+              "label": "Mehrstufige Zufallsexperimente: Summenregel",
+              "sicher": false,
+              "skillKey": "stoch_pfad_summe",
+            },
+          ],
+          "feld": "zufall",
+        },
+      ],
+      "sicher": 5,
+      "stufen": [
+        "erste",
+      ],
+      "uebung": 9,
+    },
+    {
+      "ebene": "grundlagen",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "geometrie",
+              "klasse": 5,
+              "label": "Fläche von Rechteck und Quadrat",
+              "sicher": true,
+              "skillKey": "geo_flaeche_rechteck",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 6,
+              "label": "Punkte im Koordinatensystem",
+              "sicher": true,
+              "skillKey": "geo_koordinaten",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 5,
+              "label": "Umfang von Rechteck und Dreieck",
+              "sicher": true,
+              "skillKey": "geo_umfang",
+            },
+          ],
+          "feld": "geometrie",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "groessen",
+              "klasse": 5,
+              "label": "Längen umrechnen",
+              "sicher": true,
+              "skillKey": "groessen_laengen",
+            },
+            {
+              "feld": "groessen",
+              "klasse": 6,
+              "label": "Flächeneinheiten",
+              "sicher": false,
+              "skillKey": "groessen_flaechen",
+            },
+          ],
+          "feld": "groessen",
+        },
+      ],
+      "sicher": 4,
+      "stufen": [
+        "erprobung",
+      ],
+      "uebung": 1,
+    },
+  ],
+  "schwerpunkte": [
+    {
+      "feld": "terme",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Einsetzungsverfahren",
+        "Gleichungen aufstellen (Sachkontext)",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Werte in Terme einsetzen",
+        "Additionsverfahren",
+        "Binomische Formeln (Quadrat einer Summe/Differenz)",
+        "Faktorisieren mit binomischer Formel",
+        "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+      ],
+    },
+    {
+      "feld": "groessen",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Längen umrechnen",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Flächeneinheiten",
+      ],
+    },
+    {
+      "feld": "geometrie",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Fläche von Rechteck und Quadrat",
+        "Umfang von Rechteck und Dreieck",
+        "Punkte im Koordinatensystem",
+        "Satz des Thales (Winkel berechnen)",
+        "Terme für Flächeninhalte",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Fläche von Dreieck und Parallelogramm",
+        "Flächeninhalt des Trapezes",
+        "Flächeninhalt von Drachen und Raute",
+      ],
+    },
+    {
+      "feld": null,
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Rationale und irrationale Zahlen",
+        "Wurzelgesetze für Produkt und Quotient",
+        "Wurzeln abschätzen und Näherungswerte",
+      ],
+      "start": "Teilweise die Wurzel ziehen",
+      "thema": "Reelle Zahlen und Wurzeln",
+      "uebung": [
+        "Teilweise die Wurzel ziehen",
+      ],
+    },
+  ],
+  "sicherListe": [
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Rationale und irrationale Zahlen",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_irrational",
+    },
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Wurzelgesetze für Produkt und Quotient",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_gesetze",
+    },
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Wurzeln abschätzen und Näherungswerte",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_naeherung",
+    },
+    {
+      "feld": "prozent",
+      "klasse": 7,
+      "label": "Dreisatz, proportional und antiproportional",
+      "sicher": true,
+      "skillKey": "proportionalitaet",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Einsetzungsverfahren",
+      "sicher": true,
+      "skillKey": "gleichung_lgs_einsetzen",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "sicher": true,
+      "skillKey": "gleichung_modellieren",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 5,
+      "label": "Fläche von Rechteck und Quadrat",
+      "sicher": true,
+      "skillKey": "geo_flaeche_rechteck",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 5,
+      "label": "Umfang von Rechteck und Dreieck",
+      "sicher": true,
+      "skillKey": "geo_umfang",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 6,
+      "label": "Punkte im Koordinatensystem",
+      "sicher": true,
+      "skillKey": "geo_koordinaten",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Satz des Thales (Winkel berechnen)",
+      "sicher": true,
+      "skillKey": "geo_winkel_thales",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Terme für Flächeninhalte",
+      "sicher": true,
+      "skillKey": "geo_flaeche_term",
+    },
+    {
+      "feld": "groessen",
+      "klasse": 5,
+      "label": "Längen umrechnen",
+      "sicher": true,
+      "skillKey": "groessen_laengen",
+    },
+  ],
+  "signale": [
+    {
+      "fehlt": [
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 8,
+          "label": "Flächeninhalt des Trapezes",
+          "sicher": false,
+          "skillKey": "geo_flaeche_trapez",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 8,
+          "label": "Flächeninhalt von Drachen und Raute",
+          "sicher": false,
+          "skillKey": "geo_flaeche_drachen_raute",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+      ],
+      "themaKey": "flaechen_vielecke",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "groessen",
+          "klasse": 6,
+          "label": "Flächeneinheiten",
+          "sicher": false,
+          "skillKey": "groessen_flaechen",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Umfang von Rechteck und Dreieck",
+          "sicher": true,
+          "skillKey": "geo_umfang",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "kreis",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "groessen",
+          "klasse": 6,
+          "label": "Flächeneinheiten",
+          "sicher": false,
+          "skillKey": "groessen_flaechen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+      ],
+      "themaKey": "koerper_quader",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "ganze_zahlen_groessen",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+      ],
+      "themaKey": "flaeche_umfang",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+      ],
+      "themaKey": "natuerliche_zahlen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "lineare_funktionen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          "sicher": false,
+          "skillKey": "term_binom_quadrat",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Faktorisieren mit binomischer Formel",
+          "sicher": false,
+          "skillKey": "term_binom_faktorisieren",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Gleichungen aufstellen (Sachkontext)",
+          "sicher": true,
+          "skillKey": "gleichung_modellieren",
+        },
+      ],
+      "themaKey": "quadratische_funktionen",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+      ],
+      "themaKey": "sinusfunktion",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "zahlen",
+          "klasse": 9,
+          "label": "Teilweise die Wurzel ziehen",
+          "sicher": false,
+          "skillKey": "zahl_wurzel_teilweise",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+      ],
+      "themaKey": "pythagoras",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "zinsrechnung",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "prismen_zylinder",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "trigonometrie",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Additionsverfahren",
+          "sicher": false,
+          "skillKey": "gleichung_lgs_addition",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Einsetzungsverfahren",
+          "sicher": true,
+          "skillKey": "gleichung_lgs_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Gleichungen aufstellen (Sachkontext)",
+          "sicher": true,
+          "skillKey": "gleichung_modellieren",
+        },
+      ],
+      "themaKey": "lineare_gleichungen_lgs",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "quadratische_gleichungen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          "sicher": false,
+          "skillKey": "term_binom_quadrat",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "terme_binomische_formeln",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "zahlen",
+          "klasse": 9,
+          "label": "Wurzelgesetze für Produkt und Quotient",
+          "sicher": true,
+          "skillKey": "zahl_wurzel_gesetze",
+        },
+      ],
+      "themaKey": "reelle_zahlen",
+    },
+  ],
+  "stufen": [
+    {
+      "bis": 6,
+      "sicher": 4,
+      "stufe": "grundlagen",
+      "uebung": 1,
+      "urteil": "weitgehend",
+      "von": 5,
+    },
+    {
+      "bis": 8,
+      "sicher": 5,
+      "stufe": "weiterfuehrend",
+      "uebung": 9,
+      "urteil": "luecken",
+      "von": 7,
+    },
+    {
+      "bis": 9,
+      "sicher": 3,
+      "stufe": "aktuell",
+      "uebung": 1,
+      "urteil": "weitgehend",
+      "von": 9,
+    },
+  ],
+  "thema": {
+    "sicher": [
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+    "titel": "Reelle Zahlen und Wurzeln",
+    "uebung": [
+      "Teilweise die Wurzel ziehen",
+    ],
+  },
+  "uebungListe": [
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Teilweise die Wurzel ziehen",
+      "sicher": false,
+      "skillKey": "zahl_wurzel_teilweise",
+    },
+    {
+      "feld": "terme",
+      "klasse": 7,
+      "label": "Werte in Terme einsetzen",
+      "sicher": false,
+      "skillKey": "term_einsetzen",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Additionsverfahren",
+      "sicher": false,
+      "skillKey": "gleichung_lgs_addition",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "sicher": false,
+      "skillKey": "term_binom_quadrat",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Faktorisieren mit binomischer Formel",
+      "sicher": false,
+      "skillKey": "term_binom_faktorisieren",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+      "sicher": false,
+      "skillKey": "gleichung_lgs_grafisch",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 7,
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "sicher": false,
+      "skillKey": "geo_flaeche_dreieck",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Flächeninhalt des Trapezes",
+      "sicher": false,
+      "skillKey": "geo_flaeche_trapez",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Flächeninhalt von Drachen und Raute",
+      "sicher": false,
+      "skillKey": "geo_flaeche_drachen_raute",
+    },
+    {
+      "feld": "groessen",
+      "klasse": 6,
+      "label": "Flächeneinheiten",
+      "sicher": false,
+      "skillKey": "groessen_flaechen",
+    },
+    {
+      "feld": "zufall",
+      "klasse": 8,
+      "label": "Mehrstufige Zufallsexperimente: Summenregel",
+      "sicher": false,
+      "skillKey": "stoch_pfad_summe",
+    },
+  ],
+  "zaehlung": {
+    "bisKlasse": 9,
+    "katalog": 115,
+    "offen": 92,
+    "sicher": 12,
+    "uebung": 11,
+    "untersucht": 23,
+  },
+}
+`;
+
+exports[`V4-S: unverändert ohne anstehende Arbeit > Batu, ohne Stand (null) 1`] = `
+{
+  "danach": [
+    "zufall",
+  ],
+  "fahrplan": {
+    "folge": "unbekannt",
+    "halbjahrTrenner": false,
+    "klassenTrenner": null,
+    "quelle": "schule",
+    "satz": "fehlt",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "stationen": [
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 1,
+        "schuljahr": "dieses",
+        "signal": null,
+        "stand": "aktuell",
+        "themaKey": "reelle_zahlen",
+        "themen": [
+          {
+            "themaKey": "reelle_zahlen",
+            "titel": "Reelle Zahlen",
+          },
+        ],
+        "titel": "Reelle Zahlen",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 2,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "unterricht",
+        "themaKey": "quadratische_funktionen",
+        "themen": [
+          {
+            "themaKey": "quadratische_funktionen",
+            "titel": "Quadratische Funktionen",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 3,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "danach",
+        "themaKey": "kreis",
+        "themen": [
+          {
+            "themaKey": "kreis",
+            "titel": "Kreise, Prismen und Zylinder",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 4,
+        "schuljahr": "dieses",
+        "signal": "ohne",
+        "stand": "danach",
+        "themaKey": "potenzen",
+        "themen": [
+          {
+            "themaKey": "potenzen",
+            "titel": "Potenzen und Potenzgesetze",
+          },
+        ],
+        "titel": "Potenzen und Potenzgesetze",
+      },
+      {
+        "datum": null,
+        "halbjahr": null,
+        "ka": null,
+        "note": null,
+        "nummer": 5,
+        "schuljahr": "dieses",
+        "signal": "fehlt",
+        "stand": "danach",
+        "themaKey": "pythagoras",
+        "themen": [
+          {
+            "themaKey": "pythagoras",
+            "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+          },
+        ],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": 1,
+  },
+  "gruende": [
+    {
+      "art": "thema",
+    },
+    {
+      "art": "naechstesThema",
+      "titel": "Quadratische Funktionen",
+    },
+    {
+      "art": "naechstesThema",
+      "reihe": "zuerst",
+      "stufe": "erprobung",
+      "titel": "Kreise, Prismen und Zylinder",
+    },
+    {
+      "art": "naechstesThema",
+      "reihe": "danach",
+      "stufe": "erste",
+      "titel": "Kreise, Prismen und Zylinder",
+    },
+  ],
+  "kopfFall": "gemischt",
+  "lernpfad": [
+    {
+      "art": "luecke",
+      "grund": {
+        "art": "thema",
+      },
+      "rest": 0,
+      "teile": [
+        "Teilweise die Wurzel ziehen",
+      ],
+      "titelFeld": null,
+      "titelThema": "Reelle Zahlen und Wurzeln",
+      "ziele": [
+        5,
+      ],
+    },
+    {
+      "art": "feld",
+      "grund": {
+        "art": "naechstesThema",
+        "titel": "Quadratische Funktionen",
+      },
+      "rest": 1,
+      "teile": [
+        "Werte in Terme einsetzen",
+        "Additionsverfahren",
+        "Binomische Formeln (Quadrat einer Summe/Differenz)",
+        "Faktorisieren mit binomischer Formel",
+      ],
+      "titelFeld": "terme",
+      "titelThema": null,
+      "ziele": [
+        2,
+        3,
+      ],
+    },
+    {
+      "art": "gruppe",
+      "grund": {
+        "art": "naechstesThema",
+        "reihe": "zuerst",
+        "stufe": "erprobung",
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      "rest": 0,
+      "teile": [
+        "Flächeneinheiten",
+        "Fläche von Dreieck und Parallelogramm",
+        "Flächeninhalt des Trapezes",
+        "Flächeninhalt von Drachen und Raute",
+      ],
+      "titelFeld": null,
+      "titelThema": "Kreise, Prismen und Zylinder",
+      "ziele": [
+        3,
+      ],
+    },
+    {
+      "art": "spaeter",
+      "felder": [
+        "zufall",
+      ],
+      "grund": null,
+      "rest": 0,
+      "teile": [],
+      "titelFeld": null,
+      "titelThema": null,
+      "ziele": [],
+    },
+  ],
+  "lernweg": {
+    "datum": "2026-10-24T11:07:58.091Z",
+    "klasse": 9,
+    "linien": [
+      {
+        "von": "e4",
+        "zu": "e27",
+      },
+      {
+        "von": "e4",
+        "zu": "e31",
+      },
+      {
+        "von": "e7",
+        "zu": "e29",
+      },
+      {
+        "von": "e1",
+        "zu": "e30",
+      },
+      {
+        "von": "e9",
+        "zu": "e28",
+      },
+    ],
+    "naechsteKlasse": {
+      "inseln": [
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i13",
+          "titel": "Daten und Wahrscheinlichkeit",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i14",
+          "titel": "Quadratische Funktionen und Gleichungen",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i15",
+          "titel": "Ähnlichkeit",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i16",
+          "titel": "Exponentialfunktionen",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i17",
+          "titel": "Trigonometrie",
+          "zone": "kommt",
+        },
+        {
+          "broeckelt": false,
+          "eintraege": [],
+          "feld": null,
+          "id": "i18",
+          "titel": "Trigonometrische Funktionen",
+          "zone": "kommt",
+        },
+      ],
+      "klasse": 10,
+    },
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "thema": "Reelle Zahlen und Wurzeln",
+    "weggelassen": {
+      "eintraege": 0,
+      "kommt": 0,
+      "linien": 8,
+      "offen": 7,
+      "zonen": 0,
+    },
+    "zonen": [
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e1",
+                "klasse": 5,
+                "label": "Fläche von Rechteck und Quadrat",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [
+                  {
+                    "basen": [
+                      "e1",
+                    ],
+                    "id": "e2",
+                    "label": "Volumen und Oberfläche des Quaders",
+                    "stand": "offen",
+                  },
+                ],
+              },
+              {
+                "id": "e3",
+                "klasse": 5,
+                "label": "Umfang von Rechteck und Dreieck",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e4",
+                "klasse": 6,
+                "label": "Punkte im Koordinatensystem",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "geometrie",
+            "id": "i1",
+            "titel": null,
+            "zone": "grundlagen",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e5",
+                "klasse": 5,
+                "label": "Längen umrechnen",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e6",
+                "klasse": 6,
+                "label": "Flächeneinheiten",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "groessen",
+            "id": "i2",
+            "titel": null,
+            "zone": "grundlagen",
+          },
+        ],
+        "key": "grundlagen",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e7",
+                "klasse": 7,
+                "label": "Dreisatz, proportional und antiproportional",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "prozent",
+            "id": "i3",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": true,
+            "eintraege": [
+              {
+                "id": "e8",
+                "klasse": 8,
+                "label": "Einsetzungsverfahren",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e9",
+                "klasse": 8,
+                "label": "Gleichungen aufstellen (Sachkontext)",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e10",
+                "klasse": 7,
+                "label": "Werte in Terme einsetzen",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+              {
+                "id": "e11",
+                "klasse": 8,
+                "label": "Additionsverfahren",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+              {
+                "id": "e12",
+                "klasse": 8,
+                "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e12",
+                    ],
+                    "id": "e13",
+                    "label": "Faktorisieren mit binomischer Formel",
+                    "stand": "uebung",
+                  },
+                ],
+              },
+              {
+                "id": "e14",
+                "klasse": 8,
+                "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "terme",
+            "id": "i4",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": true,
+            "eintraege": [
+              {
+                "id": "e15",
+                "klasse": 8,
+                "label": "Satz des Thales (Winkel berechnen)",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e16",
+                "klasse": 7,
+                "label": "Fläche von Dreieck und Parallelogramm",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e16",
+                    ],
+                    "id": "e17",
+                    "label": "Terme für Flächeninhalte",
+                    "stand": "sicher",
+                  },
+                ],
+              },
+              {
+                "id": "e18",
+                "klasse": 8,
+                "label": "Flächeninhalt des Trapezes",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e18",
+                    ],
+                    "id": "e19",
+                    "label": "Seite oder Höhe aus dem Flächeninhalt",
+                    "stand": "offen",
+                  },
+                ],
+              },
+              {
+                "id": "e20",
+                "klasse": 8,
+                "label": "Flächeninhalt von Drachen und Raute",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [
+                  {
+                    "basen": [
+                      "e18",
+                      "e20",
+                    ],
+                    "id": "e21",
+                    "label": "Zusammengesetzte Vielecke",
+                    "stand": "offen",
+                  },
+                ],
+              },
+            ],
+            "feld": "geometrie",
+            "id": "i5",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e22",
+                "klasse": 8,
+                "label": "Mehrstufige Zufallsexperimente: Summenregel",
+                "spaeter": false,
+                "stand": "uebung",
+                "unter": [],
+              },
+            ],
+            "feld": "zufall",
+            "id": "i6",
+            "titel": null,
+            "zone": "weiterfuehrend",
+          },
+        ],
+        "key": "weiterfuehrend",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e23",
+                "klasse": 9,
+                "label": "Rationale und irrationale Zahlen",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+              {
+                "id": "e24",
+                "klasse": 9,
+                "label": "Wurzelgesetze für Produkt und Quotient",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [
+                  {
+                    "basen": [
+                      "e24",
+                    ],
+                    "id": "e25",
+                    "label": "Teilweise die Wurzel ziehen",
+                    "stand": "uebung",
+                  },
+                ],
+              },
+              {
+                "id": "e26",
+                "klasse": 9,
+                "label": "Wurzeln abschätzen und Näherungswerte",
+                "spaeter": false,
+                "stand": "sicher",
+                "unter": [],
+              },
+            ],
+            "feld": "zahlen",
+            "id": "i7",
+            "titel": null,
+            "zone": "aktuell",
+          },
+        ],
+        "key": "aktuell",
+      },
+      {
+        "inseln": [
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e27",
+                "klasse": 9,
+                "label": "Normalparabel verschieben und strecken",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+              {
+                "id": "e28",
+                "klasse": 9,
+                "label": "Extremwertaufgaben mit quadratischen Funktionen",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i8",
+            "titel": "Quadratische Funktionen",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e29",
+                "klasse": 9,
+                "label": "Kreisbogen und Kreisausschnitt",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+              {
+                "id": "e30",
+                "klasse": 9,
+                "label": "Zusammengesetzte Figuren mit Kreisteilen",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i9",
+            "titel": "Kreise, Prismen und Zylinder",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [],
+            "feld": null,
+            "id": "i10",
+            "titel": "Potenzen und Potenzgesetze",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [
+              {
+                "id": "e31",
+                "klasse": 9,
+                "label": "Abstand zweier Punkte im Koordinatensystem",
+                "spaeter": false,
+                "stand": "offen",
+                "unter": [],
+              },
+            ],
+            "feld": null,
+            "id": "i11",
+            "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+            "zone": "kommt",
+          },
+          {
+            "broeckelt": false,
+            "eintraege": [],
+            "feld": null,
+            "id": "i12",
+            "titel": "Daten und Wahrscheinlichkeit",
+            "zone": "kommt",
+          },
+        ],
+        "key": "kommt",
+      },
+    ],
+  },
+  "lueckenweg": {
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "themen": [
+      {
+        "fehlt": [
+          {
+            "auch": [
+              "Kreise, Prismen und Zylinder",
+            ],
+            "label": "Werte in Terme einsetzen",
+          },
+          {
+            "auch": [],
+            "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          },
+          {
+            "auch": [],
+            "label": "Faktorisieren mit binomischer Formel",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [
+              "Der Satz des Pythagoras und Berechnungen in Körpern",
+            ],
+            "label": "Punkte im Koordinatensystem",
+          },
+          {
+            "auch": [],
+            "label": "Gleichungen aufstellen (Sachkontext)",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Flächeneinheiten",
+          },
+          {
+            "auch": [],
+            "label": "Fläche von Dreieck und Parallelogramm",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Fläche von Rechteck und Quadrat",
+          },
+          {
+            "auch": [],
+            "label": "Umfang von Rechteck und Dreieck",
+          },
+          {
+            "auch": [],
+            "label": "Dreisatz, proportional und antiproportional",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Teilweise die Wurzel ziehen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": [
+      {
+        "feld": "terme",
+        "labels": [
+          "Additionsverfahren",
+          "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "geometrie",
+        "labels": [
+          "Flächeninhalt des Trapezes",
+          "Flächeninhalt von Drachen und Raute",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "zufall",
+        "labels": [
+          "Mehrstufige Zufallsexperimente: Summenregel",
+        ],
+        "thema": null,
+      },
+    ],
+    "weitereStaerken": [
+      "Längen umrechnen",
+      "Einsetzungsverfahren",
+      "Satz des Thales (Winkel berechnen)",
+      "Terme für Flächeninhalte",
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+  },
+  "lueckenwegV4": {
+    "quelle": "schule",
+    "schulname": "Friedrich-Wilhelm-Gymnasium",
+    "themen": [
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Werte in Terme einsetzen",
+          },
+          {
+            "auch": [],
+            "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          },
+          {
+            "auch": [],
+            "label": "Faktorisieren mit binomischer Formel",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Punkte im Koordinatensystem",
+          },
+          {
+            "auch": [],
+            "label": "Gleichungen aufstellen (Sachkontext)",
+          },
+        ],
+        "titel": "Quadratische Funktionen",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Flächeneinheiten",
+          },
+          {
+            "auch": [],
+            "label": "Fläche von Dreieck und Parallelogramm",
+          },
+          {
+            "auch": [],
+            "label": "Werte in Terme einsetzen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Fläche von Rechteck und Quadrat",
+          },
+          {
+            "auch": [],
+            "label": "Umfang von Rechteck und Dreieck",
+          },
+          {
+            "auch": [],
+            "label": "Dreisatz, proportional und antiproportional",
+          },
+        ],
+        "titel": "Kreise, Prismen und Zylinder",
+      },
+      {
+        "fehlt": [
+          {
+            "auch": [],
+            "label": "Teilweise die Wurzel ziehen",
+          },
+        ],
+        "halbjahr": null,
+        "sitzt": [
+          {
+            "auch": [],
+            "label": "Punkte im Koordinatensystem",
+          },
+        ],
+        "titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      },
+    ],
+    "weitere": [
+      {
+        "feld": "terme",
+        "labels": [
+          "Additionsverfahren",
+          "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "geometrie",
+        "labels": [
+          "Flächeninhalt des Trapezes",
+          "Flächeninhalt von Drachen und Raute",
+        ],
+        "thema": null,
+      },
+      {
+        "feld": "zufall",
+        "labels": [
+          "Mehrstufige Zufallsexperimente: Summenregel",
+        ],
+        "thema": null,
+      },
+    ],
+    "weitereStaerken": [
+      "Längen umrechnen",
+      "Einsetzungsverfahren",
+      "Satz des Thales (Winkel berechnen)",
+      "Terme für Flächeninhalte",
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+  },
+  "profil": [
+    {
+      "feld": "brueche",
+      "sicher": 0,
+      "uebung": 0,
+      "vorhanden": 8,
+    },
+    {
+      "feld": "prozent",
+      "sicher": 1,
+      "uebung": 0,
+      "vorhanden": 9,
+    },
+    {
+      "feld": "terme",
+      "sicher": 2,
+      "uebung": 5,
+      "vorhanden": 23,
+    },
+    {
+      "feld": "geometrie",
+      "sicher": 5,
+      "uebung": 3,
+      "vorhanden": 35,
+    },
+    {
+      "feld": "groessen",
+      "sicher": 1,
+      "uebung": 1,
+      "vorhanden": 6,
+    },
+    {
+      "feld": "zahlen",
+      "sicher": 3,
+      "uebung": 1,
+      "vorhanden": 14,
+    },
+    {
+      "feld": "funktionen",
+      "sicher": 0,
+      "uebung": 0,
+      "vorhanden": 10,
+    },
+    {
+      "feld": "zufall",
+      "sicher": 0,
+      "uebung": 1,
+      "vorhanden": 10,
+    },
+  ],
+  "pyramide": [
+    {
+      "ebene": "aktuell",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Rationale und irrationale Zahlen",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_irrational",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Wurzelgesetze für Produkt und Quotient",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_gesetze",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Wurzeln abschätzen und Näherungswerte",
+              "sicher": true,
+              "skillKey": "zahl_wurzel_naeherung",
+            },
+            {
+              "feld": "zahlen",
+              "klasse": 9,
+              "label": "Teilweise die Wurzel ziehen",
+              "sicher": false,
+              "skillKey": "zahl_wurzel_teilweise",
+            },
+          ],
+          "feld": "zahlen",
+        },
+      ],
+      "sicher": 3,
+      "stufen": [
+        "zweite",
+      ],
+      "uebung": 1,
+    },
+    {
+      "ebene": "weiterfuehrend",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "prozent",
+              "klasse": 7,
+              "label": "Dreisatz, proportional und antiproportional",
+              "sicher": true,
+              "skillKey": "proportionalitaet",
+            },
+          ],
+          "feld": "prozent",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Einsetzungsverfahren",
+              "sicher": true,
+              "skillKey": "gleichung_lgs_einsetzen",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Gleichungen aufstellen (Sachkontext)",
+              "sicher": true,
+              "skillKey": "gleichung_modellieren",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Additionsverfahren",
+              "sicher": false,
+              "skillKey": "gleichung_lgs_addition",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+              "sicher": false,
+              "skillKey": "term_binom_quadrat",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Faktorisieren mit binomischer Formel",
+              "sicher": false,
+              "skillKey": "term_binom_faktorisieren",
+            },
+            {
+              "feld": "terme",
+              "klasse": 8,
+              "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+              "sicher": false,
+              "skillKey": "gleichung_lgs_grafisch",
+            },
+            {
+              "feld": "terme",
+              "klasse": 7,
+              "label": "Werte in Terme einsetzen",
+              "sicher": false,
+              "skillKey": "term_einsetzen",
+            },
+          ],
+          "feld": "terme",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Satz des Thales (Winkel berechnen)",
+              "sicher": true,
+              "skillKey": "geo_winkel_thales",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Terme für Flächeninhalte",
+              "sicher": true,
+              "skillKey": "geo_flaeche_term",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 7,
+              "label": "Fläche von Dreieck und Parallelogramm",
+              "sicher": false,
+              "skillKey": "geo_flaeche_dreieck",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Flächeninhalt des Trapezes",
+              "sicher": false,
+              "skillKey": "geo_flaeche_trapez",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 8,
+              "label": "Flächeninhalt von Drachen und Raute",
+              "sicher": false,
+              "skillKey": "geo_flaeche_drachen_raute",
+            },
+          ],
+          "feld": "geometrie",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "zufall",
+              "klasse": 8,
+              "label": "Mehrstufige Zufallsexperimente: Summenregel",
+              "sicher": false,
+              "skillKey": "stoch_pfad_summe",
+            },
+          ],
+          "feld": "zufall",
+        },
+      ],
+      "sicher": 5,
+      "stufen": [
+        "erste",
+      ],
+      "uebung": 9,
+    },
+    {
+      "ebene": "grundlagen",
+      "gruppen": [
+        {
+          "eintraege": [
+            {
+              "feld": "geometrie",
+              "klasse": 5,
+              "label": "Fläche von Rechteck und Quadrat",
+              "sicher": true,
+              "skillKey": "geo_flaeche_rechteck",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 6,
+              "label": "Punkte im Koordinatensystem",
+              "sicher": true,
+              "skillKey": "geo_koordinaten",
+            },
+            {
+              "feld": "geometrie",
+              "klasse": 5,
+              "label": "Umfang von Rechteck und Dreieck",
+              "sicher": true,
+              "skillKey": "geo_umfang",
+            },
+          ],
+          "feld": "geometrie",
+        },
+        {
+          "eintraege": [
+            {
+              "feld": "groessen",
+              "klasse": 5,
+              "label": "Längen umrechnen",
+              "sicher": true,
+              "skillKey": "groessen_laengen",
+            },
+            {
+              "feld": "groessen",
+              "klasse": 6,
+              "label": "Flächeneinheiten",
+              "sicher": false,
+              "skillKey": "groessen_flaechen",
+            },
+          ],
+          "feld": "groessen",
+        },
+      ],
+      "sicher": 4,
+      "stufen": [
+        "erprobung",
+      ],
+      "uebung": 1,
+    },
+  ],
+  "schwerpunkte": [
+    {
+      "feld": null,
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Rationale und irrationale Zahlen",
+        "Wurzelgesetze für Produkt und Quotient",
+        "Wurzeln abschätzen und Näherungswerte",
+      ],
+      "start": "Teilweise die Wurzel ziehen",
+      "thema": "Reelle Zahlen und Wurzeln",
+      "uebung": [
+        "Teilweise die Wurzel ziehen",
+      ],
+    },
+    {
+      "feld": "terme",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Einsetzungsverfahren",
+        "Gleichungen aufstellen (Sachkontext)",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Werte in Terme einsetzen",
+        "Additionsverfahren",
+        "Binomische Formeln (Quadrat einer Summe/Differenz)",
+        "Faktorisieren mit binomischer Formel",
+        "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+      ],
+    },
+    {
+      "feld": "groessen",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Längen umrechnen",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Flächeneinheiten",
+      ],
+    },
+    {
+      "feld": "geometrie",
+      "gemischt": true,
+      "naechster": null,
+      "sicher": [
+        "Fläche von Rechteck und Quadrat",
+        "Umfang von Rechteck und Dreieck",
+        "Punkte im Koordinatensystem",
+        "Satz des Thales (Winkel berechnen)",
+        "Terme für Flächeninhalte",
+      ],
+      "start": null,
+      "thema": null,
+      "uebung": [
+        "Fläche von Dreieck und Parallelogramm",
+        "Flächeninhalt des Trapezes",
+        "Flächeninhalt von Drachen und Raute",
+      ],
+    },
+  ],
+  "sicherListe": [
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Rationale und irrationale Zahlen",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_irrational",
+    },
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Wurzelgesetze für Produkt und Quotient",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_gesetze",
+    },
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Wurzeln abschätzen und Näherungswerte",
+      "sicher": true,
+      "skillKey": "zahl_wurzel_naeherung",
+    },
+    {
+      "feld": "prozent",
+      "klasse": 7,
+      "label": "Dreisatz, proportional und antiproportional",
+      "sicher": true,
+      "skillKey": "proportionalitaet",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Einsetzungsverfahren",
+      "sicher": true,
+      "skillKey": "gleichung_lgs_einsetzen",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Gleichungen aufstellen (Sachkontext)",
+      "sicher": true,
+      "skillKey": "gleichung_modellieren",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 5,
+      "label": "Fläche von Rechteck und Quadrat",
+      "sicher": true,
+      "skillKey": "geo_flaeche_rechteck",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 5,
+      "label": "Umfang von Rechteck und Dreieck",
+      "sicher": true,
+      "skillKey": "geo_umfang",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 6,
+      "label": "Punkte im Koordinatensystem",
+      "sicher": true,
+      "skillKey": "geo_koordinaten",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Satz des Thales (Winkel berechnen)",
+      "sicher": true,
+      "skillKey": "geo_winkel_thales",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Terme für Flächeninhalte",
+      "sicher": true,
+      "skillKey": "geo_flaeche_term",
+    },
+    {
+      "feld": "groessen",
+      "klasse": 5,
+      "label": "Längen umrechnen",
+      "sicher": true,
+      "skillKey": "groessen_laengen",
+    },
+  ],
+  "signale": [
+    {
+      "fehlt": [
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 8,
+          "label": "Flächeninhalt des Trapezes",
+          "sicher": false,
+          "skillKey": "geo_flaeche_trapez",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 8,
+          "label": "Flächeninhalt von Drachen und Raute",
+          "sicher": false,
+          "skillKey": "geo_flaeche_drachen_raute",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+      ],
+      "themaKey": "flaechen_vielecke",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "groessen",
+          "klasse": 6,
+          "label": "Flächeneinheiten",
+          "sicher": false,
+          "skillKey": "groessen_flaechen",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Umfang von Rechteck und Dreieck",
+          "sicher": true,
+          "skillKey": "geo_umfang",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "kreis",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "groessen",
+          "klasse": 6,
+          "label": "Flächeneinheiten",
+          "sicher": false,
+          "skillKey": "groessen_flaechen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 5,
+          "label": "Fläche von Rechteck und Quadrat",
+          "sicher": true,
+          "skillKey": "geo_flaeche_rechteck",
+        },
+      ],
+      "themaKey": "koerper_quader",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "ganze_zahlen_groessen",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+      ],
+      "themaKey": "flaeche_umfang",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "groessen",
+          "klasse": 5,
+          "label": "Längen umrechnen",
+          "sicher": true,
+          "skillKey": "groessen_laengen",
+        },
+      ],
+      "themaKey": "natuerliche_zahlen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "lineare_funktionen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          "sicher": false,
+          "skillKey": "term_binom_quadrat",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Faktorisieren mit binomischer Formel",
+          "sicher": false,
+          "skillKey": "term_binom_faktorisieren",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Gleichungen aufstellen (Sachkontext)",
+          "sicher": true,
+          "skillKey": "gleichung_modellieren",
+        },
+      ],
+      "themaKey": "quadratische_funktionen",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+      ],
+      "themaKey": "sinusfunktion",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "zahlen",
+          "klasse": 9,
+          "label": "Teilweise die Wurzel ziehen",
+          "sicher": false,
+          "skillKey": "zahl_wurzel_teilweise",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "geometrie",
+          "klasse": 6,
+          "label": "Punkte im Koordinatensystem",
+          "sicher": true,
+          "skillKey": "geo_koordinaten",
+        },
+      ],
+      "themaKey": "pythagoras",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "prozent",
+          "klasse": 7,
+          "label": "Dreisatz, proportional und antiproportional",
+          "sicher": true,
+          "skillKey": "proportionalitaet",
+        },
+      ],
+      "themaKey": "zinsrechnung",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "geometrie",
+          "klasse": 7,
+          "label": "Fläche von Dreieck und Parallelogramm",
+          "sicher": false,
+          "skillKey": "geo_flaeche_dreieck",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "prismen_zylinder",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "trigonometrie",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Additionsverfahren",
+          "sicher": false,
+          "skillKey": "gleichung_lgs_addition",
+        },
+      ],
+      "sitzt": [
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Einsetzungsverfahren",
+          "sicher": true,
+          "skillKey": "gleichung_lgs_einsetzen",
+        },
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Gleichungen aufstellen (Sachkontext)",
+          "sicher": true,
+          "skillKey": "gleichung_modellieren",
+        },
+      ],
+      "themaKey": "lineare_gleichungen_lgs",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 7,
+          "label": "Werte in Terme einsetzen",
+          "sicher": false,
+          "skillKey": "term_einsetzen",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "quadratische_gleichungen",
+    },
+    {
+      "fehlt": [
+        {
+          "feld": "terme",
+          "klasse": 8,
+          "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+          "sicher": false,
+          "skillKey": "term_binom_quadrat",
+        },
+      ],
+      "sitzt": [],
+      "themaKey": "terme_binomische_formeln",
+    },
+    {
+      "fehlt": [],
+      "sitzt": [
+        {
+          "feld": "zahlen",
+          "klasse": 9,
+          "label": "Wurzelgesetze für Produkt und Quotient",
+          "sicher": true,
+          "skillKey": "zahl_wurzel_gesetze",
+        },
+      ],
+      "themaKey": "reelle_zahlen",
+    },
+  ],
+  "stufen": [
+    {
+      "bis": 6,
+      "sicher": 4,
+      "stufe": "grundlagen",
+      "uebung": 1,
+      "urteil": "weitgehend",
+      "von": 5,
+    },
+    {
+      "bis": 8,
+      "sicher": 5,
+      "stufe": "weiterfuehrend",
+      "uebung": 9,
+      "urteil": "luecken",
+      "von": 7,
+    },
+    {
+      "bis": 9,
+      "sicher": 3,
+      "stufe": "aktuell",
+      "uebung": 1,
+      "urteil": "weitgehend",
+      "von": 9,
+    },
+  ],
+  "thema": {
+    "sicher": [
+      "Rationale und irrationale Zahlen",
+      "Wurzelgesetze für Produkt und Quotient",
+      "Wurzeln abschätzen und Näherungswerte",
+    ],
+    "titel": "Reelle Zahlen und Wurzeln",
+    "uebung": [
+      "Teilweise die Wurzel ziehen",
+    ],
+  },
+  "uebungListe": [
+    {
+      "feld": "zahlen",
+      "klasse": 9,
+      "label": "Teilweise die Wurzel ziehen",
+      "sicher": false,
+      "skillKey": "zahl_wurzel_teilweise",
+    },
+    {
+      "feld": "terme",
+      "klasse": 7,
+      "label": "Werte in Terme einsetzen",
+      "sicher": false,
+      "skillKey": "term_einsetzen",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Additionsverfahren",
+      "sicher": false,
+      "skillKey": "gleichung_lgs_addition",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Binomische Formeln (Quadrat einer Summe/Differenz)",
+      "sicher": false,
+      "skillKey": "term_binom_quadrat",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Faktorisieren mit binomischer Formel",
+      "sicher": false,
+      "skillKey": "term_binom_faktorisieren",
+    },
+    {
+      "feld": "terme",
+      "klasse": 8,
+      "label": "Gleichungssysteme grafisch lösen (Schnittpunkt)",
+      "sicher": false,
+      "skillKey": "gleichung_lgs_grafisch",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 7,
+      "label": "Fläche von Dreieck und Parallelogramm",
+      "sicher": false,
+      "skillKey": "geo_flaeche_dreieck",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Flächeninhalt des Trapezes",
+      "sicher": false,
+      "skillKey": "geo_flaeche_trapez",
+    },
+    {
+      "feld": "geometrie",
+      "klasse": 8,
+      "label": "Flächeninhalt von Drachen und Raute",
+      "sicher": false,
+      "skillKey": "geo_flaeche_drachen_raute",
+    },
+    {
+      "feld": "groessen",
+      "klasse": 6,
+      "label": "Flächeneinheiten",
+      "sicher": false,
+      "skillKey": "groessen_flaechen",
+    },
+    {
+      "feld": "zufall",
+      "klasse": 8,
+      "label": "Mehrstufige Zufallsexperimente: Summenregel",
+      "sicher": false,
+      "skillKey": "stoch_pfad_summe",
+    },
+  ],
+  "zaehlung": {
+    "bisKlasse": 9,
+    "katalog": 115,
+    "offen": 92,
+    "sicher": 12,
+    "uebung": 11,
+    "untersucht": 23,
+  },
+}
+`;
