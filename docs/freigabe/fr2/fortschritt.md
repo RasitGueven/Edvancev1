@@ -23,3 +23,6 @@
 | 09.11.2026 | F3 | CI Runde 1: `quality` rot in fremdem Test `ReportPage.pdf.test.tsx` (lokal 3× grün, Flake) → Job neu angestoßen, grün; gemergt | #382 | `3b9875ee` | – |
 | 09.11.2026 | F4.1 | Einstiege: nur 3 Themen der Pläne/KLP Kl. 8–10 ohne Einstieg (nicht 15, die übrigen 12 sind Stufe 5–7). Fachliche Zweitprüfung: 3 bestätigt, `rationale_zahlen → potenzen` strittig (offen für Rasit). Fixture: 3 neu, danach 0 Themen / 0 Pakete ohne Einstieg, Rollback geprüft | | | |
 | 09.11.2026 | F4.1 | Eingespielt per `~/einspielen/FR2-3-einstiege.sh`, Snapshot unverändert. Zählabfrage: 3 neue Einstiege, 0 Themen und 0 Pakete Kl. 8–10 ohne Einstieg | #383 | | `20261109130447` |
+| 09.11.2026 | F4.1 | PR #383 gemergt | #383 | `5ad6f9a0` | `20261109130447` |
+| 09.11.2026 | F4.2 | 7 neue Entwürfe; Blindlöser + verify-tasks 7/7 (100 %), Wertung in allen Schreibweisen (4 Varianten nachgetragen), Fixture 7/7 im Board mit neuem Text; leerer Neuaufbau + Idempotenz geprüft | | | |
+| 09.11.2026 | F4.2 | Eingespielt per `~/einspielen/FR2-4-zweite-texte.sh`, Snapshot unverändert. Zählabfrage 7/7/7/7/7; in Prod stehen alle 7 in `pruef_ziel_liste` | #384 | | `20261109130736` |
