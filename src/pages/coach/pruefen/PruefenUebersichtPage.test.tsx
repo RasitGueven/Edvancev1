@@ -2,6 +2,7 @@
 // Kennzeichnung bei beiden Anlaessen, Aufgaben ohne Anlass nur im Log, Sollzahlen je Anlass.
 // MC-Nachtrag: fehlt einem Knoten nur noch "ohne MC", zieht "Als Naechstes" die Aufgabe ohne MC.
 // Alle Supabase-Wrapper sind gemockt (CI hat keine VITE_*-Variablen).
+// FR-2 F3: ohne ?bereich= steht der Reiter "Gezielt pruefen" vorn; die LSA-Faelle oeffnen deshalb ?bereich=lsa.
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -22,6 +23,8 @@ vi.mock('@/lib/supabase/bauformPruefung', () => ({
     error: null,
   })),
 }))
+const ziel = vi.hoisted(() => ({ liste: vi.fn(), wirkung: vi.fn() }))
+vi.mock('@/lib/supabase/lsaAbdeckung', () => ({ getPruefZielListe: ziel.liste, getLsaWirkung: ziel.wirkung }))
 vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { id: 'lena', email: 'lena@edvance.de' }, role: 'coach', signOut: vi.fn() }),
 }))
@@ -56,7 +59,7 @@ function Geoeffnet(): JSX.Element {
   return <p>Geöffnet {taskId} {search}</p>
 }
 
-function zeige(pfad = '/coach/pruefen'): void {
+function zeige(pfad = '/coach/pruefen?bereich=lsa'): void {
   render(
     <MemoryRouter initialEntries={[pfad]}>
       <Routes>
@@ -66,6 +69,50 @@ function zeige(pfad = '/coach/pruefen'): void {
     </MemoryRouter>,
   )
 }
+
+beforeEach(() => {
+  ziel.liste.mockReset().mockResolvedValue({ data: [], error: null })
+  ziel.wirkung.mockReset().mockResolvedValue({ data: [], error: null })
+})
+
+describe('PruefenUebersichtPage · Gezielt prüfen (FR-2 F3)', () => {
+  beforeEach(() => {
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: board, error: null })
+    vi.mocked(getPruefSoll).mockResolvedValue({ data: [], error: null })
+  })
+  const zz = {
+    abschnitt: 'gezielt' as const, skill_key: 'dezimal_mult', skill_label: 'Dezimalzahlen multiplizieren', thema_key: 't',
+    thema_label: 'Rechnen mit Dezimalzahlen', fehlende_texte: 1, rest: 1, hebel_pakete: 476, hebel_schulen: 30,
+    fokus_treffer: 0, sort: 1, task_ids: ['l2', 'v1'], freigabe_ids: [], pilot_fehlt: [],
+  }
+
+  it('ohne ?bereich= ist „Gezielt prüfen“ der erste und gewählte Reiter; Kopf, Gruppe, Nachprüfen', async () => {
+    ziel.liste.mockResolvedValue({ data: [zz, { ...zz, abschnitt: 'nachpruefen', skill_key: 'x', sort: 1, rest: 0, task_ids: ['l1'] }], error: null })
+    ziel.wirkung.mockResolvedValue({ data: [{ schule_id: 's1', schule: 'A', klasse: 9, paket_nr: 1, thema_keys: [], ampel_vorher: 'rot', ampel_nachher: 'gelb', schule_neu: true }], error: null })
+    zeige('/coach/pruefen')
+    const tabs = await screen.findAllByRole('tab')
+    expect(tabs[0]).toHaveTextContent('Gezielt prüfen')
+    expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+    expect(await screen.findByText('Noch 1 Aufgabe · danach ist die LSA an 1 weiteren Schulen möglich')).toBeInTheDocument()
+    expect(screen.getByText(/Rechnen mit Dezimalzahlen · schaltet 30 Schulen frei/)).toBeInTheDocument()
+    expect(document.body.textContent).not.toMatch(/Textschlüssel|Pool LSA|Hülle/)
+    expect(screen.getByTestId('nachpruefen')).toHaveTextContent('Aufgabe l1')
+    expect(ziel.wirkung).toHaveBeenCalledWith('dezimal_mult', [])
+  })
+
+  it('Klick auf eine Aufgabe öffnet die Prüfansicht mit liste=gezielt', async () => {
+    ziel.liste.mockResolvedValue({ data: [zz], error: null })
+    zeige('/coach/pruefen')
+    fireEvent.click(await screen.findByTestId('ziel-v1'))
+    expect(await screen.findByText(/Geöffnet v1 \?bereich=lsa&liste=gezielt/)).toBeInTheDocument()
+  })
+
+  it('die bisherigen Reiter bleiben erreichbar', async () => {
+    zeige('/coach/pruefen')
+    fireEvent.click(await screen.findByRole('tab', { name: /Für die Session/ }))
+    expect(await screen.findByText('Nach Thema und Fertigkeit')).toBeInTheDocument()
+  })
+})
 
 describe('PruefenUebersichtPage · Bereiche', () => {
   beforeEach(() => {
@@ -81,7 +128,7 @@ describe('PruefenUebersichtPage · Bereiche', () => {
     expect(screen.getByRole('link', { name: 'Muster öffnen' })).toHaveAttribute('href', '/coach/pruefen/bauformen')
   })
 
-  it('Umschalter mit offen / gesamt; LSA ist Standard', async () => {
+  it('Umschalter mit offen / gesamt; mit ?bereich=lsa ist LSA gewählt', async () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     zeige()
     const lsa = await screen.findByRole('tab', { name: /Für die LSA/ })

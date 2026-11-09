@@ -275,7 +275,8 @@ type UmschalterProps<B extends string> = {
 /** Umschalter "Fuer die LSA" / "Fuer die Session" ueber dem Board, je mit "offen / gesamt". */
 export function BereichsUmschalter<B extends string>({ bereiche, aktiv, onWahl }: UmschalterProps<B>): JSX.Element {
   return (
-    <div role="tablist" className="grid grid-cols-2 gap-2 rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] p-1">
+    <div role="tablist" className={cn('grid gap-2 rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] p-1',
+      bereiche.length === 3 ? 'grid-cols-3' : 'grid-cols-2')}>
       {bereiche.map((b) => (
         <button key={b.key} type="button" role="tab" aria-selected={b.key === aktiv} onClick={() => onWahl(b.key)}
           className={cn('flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--radius-md)] px-4 text-sm',

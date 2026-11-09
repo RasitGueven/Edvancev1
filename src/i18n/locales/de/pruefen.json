@@ -517,5 +517,30 @@
       "weiterOhneSoll": "Weiter mit {{thema}}",
       "knopf": "Weiter"
     }
+  },
+  "gezielt": {
+    "reiter": "Gezielt prüfen",
+    "titel": "Gezielt prüfen",
+    "fehler": "Die gezielte Liste konnte nicht geladen werden. Bitte die Seite neu laden.",
+    "kopf_one": "Noch {{count}} Aufgabe · danach ist die LSA an {{schulen}} weiteren Schulen möglich",
+    "kopf_other": "Noch {{count}} Aufgaben · danach ist die LSA an {{schulen}} weiteren Schulen möglich",
+    "fertig": "Alles geprüft, was die Klassenarbeiten gerade brauchen. Danke!",
+    "fortschritt": "Fortschritt der gezielten Liste",
+    "start": "Gezielt prüfen starten",
+    "leer": "Gerade nichts zu prüfen",
+    "leerText": "Für die anstehenden Klassenarbeiten fehlt im Moment keine Aufgabe, die du prüfen kannst.",
+    "ohneThema": "Ohne Thema",
+    "schulen_one": "schaltet {{count}} Schule frei",
+    "schulen_other": "schaltet {{count}} Schulen frei",
+    "info": "Fertigkeit: {{key}}",
+    "noch_one": "Noch {{count}} Aufgabe nötig",
+    "noch_other": "Noch {{count}} Aufgaben nötig",
+    "reicht": "Reicht, sobald freigegeben",
+    "nachpruefen": "Nachprüfen",
+    "nachpruefenText": "Diese Aufgaben sind schon freigegeben, aber noch ohne dein „passt“. Schau sie dir bei Gelegenheit an; am Status ändert das nichts.",
+    "wirkung_one": "Nach der Freigabe ist {{thema}} an {{count}} Schule bereit.",
+    "wirkung_other": "Nach der Freigabe ist {{thema}} an {{count}} Schulen bereit.",
+    "wirkungSchritt_one": "Nach der Freigabe ist {{thema}} an {{count}} Schule einen Schritt weiter.",
+    "wirkungSchritt_other": "Nach der Freigabe ist {{thema}} an {{count}} Schulen einen Schritt weiter."
   }
 }
