@@ -26,6 +26,7 @@ import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { StellschraubenPage } from '@/pages/admin/stellschrauben/StellschraubenPage'
 import { KlassenarbeitenPage } from '@/pages/admin/klassenarbeiten/KlassenarbeitenPage'
+import { LsaAbdeckungPage } from '@/pages/admin/lsaAbdeckung/LsaAbdeckungPage'
 import { StudioPage } from '@/pages/admin/studio/StudioPage'
 import { LsaReportsPage } from '@/pages/admin/lsaReports/LsaReportsPage'
 import { QsPage } from '@/pages/admin/QsPage'
@@ -372,6 +373,15 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin', 'coach']}>
                 <StudioPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* FR-2: LSA-Abdeckung je Schule und Klassenarbeit — nur Admins. */}
+          <Route
+            path="/admin/lsa-abdeckung"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <LsaAbdeckungPage />
               </ProtectedRoute>
             }
           />

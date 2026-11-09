@@ -29,7 +29,7 @@ begin;
 alter table public.tasks alter column einsatz set default '{lsa}';
 create extension if not exists pgtap with schema extensions;
 
-select plan(38);
+select plan(39);
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
@@ -207,9 +207,13 @@ select is((select cardinality(task_ids) from pruef_ziel_liste() where abschnitt 
 select ok(not exists (select 1 from pruef_ziel_liste() z where z.abschnitt = 'gezielt' and
                        cardinality(z.task_ids) + cardinality(z.freigabe_ids) > z.fehlende_texte + 1),
   '7d: nie mehr als fehlende_texte + 1 je Skill');
+update pruef_einstellungen set nur_pilot = true;  -- Pilot an (Stand vor 20261109123016)
 select pg_temp.aufgabe('zf_e2', 'Text E2 eins', 'NUMERIC', 'draft', false) as e2_draft \gset
 select is((select pilot_fehlt from pruef_ziel_liste() where abschnitt = 'gezielt' and skill_key = 'zf_e2'),
           array[:'e2_draft'::uuid], '7e: Entwurf außerhalb des Pilots steht unter pilot_fehlt');
+update pruef_einstellungen set nur_pilot = false;  -- O2: aus
+select is((select pilot_fehlt from pruef_ziel_liste() where abschnitt = 'gezielt' and skill_key = 'zf_e2'),
+          '{}'::uuid[], '7f: nur_pilot aus → pilot_fehlt leer');
 
 -- ============================================================================
 -- 8) Sammelfreigabe mit Gate, Lena darf nicht
