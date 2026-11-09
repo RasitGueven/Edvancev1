@@ -6,6 +6,7 @@
 // P4: "Als Naechstes", Enter und "Pruefen" je Thema folgen dem Bedarf (naechsteNoetige, Start im aktiven Reiter).
 // MC-Nachtrag: mit den Aufgabentypen zieht der Lauf in Knoten, denen "ohne MC" fehlt, erst die Aufgaben ohne MC.
 // ?ohneSoll=1: Lauf nach "Weitere Aufgaben ohne Soll pruefen", wieder der alte Weg.
+// FR-2 F3: ohne ?bereich= der erste Reiter "Gezielt pruefen" (pruef_ziel_liste); die Reiter LSA/Session bleiben.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -27,6 +28,7 @@ import type { PruefBoardZeile, PruefFehlerInfo, PruefSollZeile, Stufe } from '@/
 import { leseUebersprungen } from './uebersprungen'
 import { BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
 import { ladeMc, ladeSoll } from './usePruefLauf'
+import { GezieltPruefen } from './GezieltPruefen'
 
 export function PruefenUebersichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
@@ -34,6 +36,7 @@ export function PruefenUebersichtPage(): JSX.Element {
   const { user } = useAuth()
   const [params, setParams] = useSearchParams()
   const bereich: Bereich = leseBereich(params) ?? 'lsa'
+  const gezielt = leseBereich(params) === null
   const [alle, setAlle] = useState<PruefBoardZeile[] | null>(null)
   const [sollJe, setSollJe] = useState<Record<Bereich, PruefSollZeile[]>>({ lsa: [], session: [] })
   const [mc, setMc] = useState<Set<string> | null>(null)
@@ -105,14 +108,14 @@ export function PruefenUebersichtPage(): JSX.Element {
     const taste = (e: KeyboardEvent): void => {
       const el = document.activeElement as HTMLElement | null
       const aufKnopf = !!el && ['BUTTON', 'A', 'INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName)
-      if (e.key === 'Enter' && !aufKnopf && !abschluss && naechsteId) {
+      if (e.key === 'Enter' && !aufKnopf && !abschluss && !gezielt && naechsteId) {
         e.preventDefault()
         navigate(`/coach/pruefen/${naechsteId}?bereich=${bereich}${ohneSoll ? '&ohneSoll=1' : ''}`)
       }
     }
     window.addEventListener('keydown', taste)
     return () => window.removeEventListener('keydown', taste)
-  }, [naechsteId, abschluss, navigate, bereich, ohneSoll])
+  }, [naechsteId, abschluss, gezielt, navigate, bereich, ohneSoll])
 
   return (
     <>
@@ -132,12 +135,16 @@ export function PruefenUebersichtPage(): JSX.Element {
             <ErklaerEinstieg />
             <BauformEinstieg stand={muster} />
             {alle && alle.length > 0 && (
-              <BereichsUmschalter aktiv={bereich} onWahl={waehle} bereiche={BEREICHE.map((b) => {
-                const st = stand(bereichsBoard(alle, b))
-                return { key: b, label: t(`bereich.${b}`), zahl: t('bereich.zahl', { offen: st.offen, gesamt: st.gesamt }) }
-              })} />
+              <BereichsUmschalter<Bereich | 'gezielt'> aktiv={gezielt ? 'gezielt' : bereich}
+                onWahl={(b) => (b === 'gezielt' ? setParams({}) : waehle(b))}
+                bereiche={[{ key: 'gezielt' as const, label: t('gezielt.reiter'), zahl: '' }, ...BEREICHE.map((b) => {
+                  const st = stand(bereichsBoard(alle, b))
+                  return { key: b, label: t(`bereich.${b}`), zahl: t('bereich.zahl', { offen: st.offen, gesamt: st.gesamt }) }
+                })]} />
             )}
-            {board.length === 0 ? (
+            {gezielt ? (
+              <GezieltPruefen board={alle ?? []} onOeffne={(id) => navigate(`/coach/pruefen/${id}?bereich=lsa&liste=gezielt`)} />
+            ) : board.length === 0 ? (
               <EmptyState icon="📋" title={t(alle?.length ? `bereich.leer.${bereich}` : 'themen.leer')}
                 description={t(alle?.length ? 'bereich.leerText' : 'themen.leerText')} />
             ) : (

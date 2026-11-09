@@ -28,6 +28,8 @@ vi.mock('@/lib/supabase/taskPreview', () => ({
   getTaskPreview: vi.fn().mockResolvedValue({ data: null, error: null }),
   PREVIEW_RPC_MISSING: 'missing',
 }))
+const ziel = vi.hoisted(() => ({ liste: vi.fn(), wirkung: vi.fn() }))
+vi.mock('@/lib/supabase/lsaAbdeckung', () => ({ getPruefZielListe: ziel.liste, getLsaWirkung: ziel.wirkung }))
 vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { id: 'lena', email: 'lena@edvance.de' }, role: 'coach', signOut: vi.fn() }),
 }))
@@ -257,5 +259,48 @@ describe('PruefansichtPage · Lauf nach Soll (P4)', () => {
     fireEvent.keyDown(window, { key: '3' })
     await waitFor(() => expect(getPruefAufgabe).toHaveBeenLastCalledWith('t1'))
     expect(screen.queryByText(/ist fertig/)).toBeNull()
+  })
+})
+
+describe('PruefansichtPage · gezielte Liste (FR-2 F3)', () => {
+  const zz = {
+    abschnitt: 'gezielt' as const, skill_key: 'geo_kreis_umfang', skill_label: 'Umfang des Kreises', thema_key: 'kreis',
+    thema_label: 'Kreis', fehlende_texte: 2, rest: 2, hebel_pakete: 40, hebel_schulen: 20, fokus_treffer: 0, sort: 1,
+    task_ids: ['t1', 't3'], freigabe_ids: [], pilot_fehlt: [],
+  }
+  beforeEach(() => {
+    vi.clearAllMocks()
+    vi.mocked(getPruefAufgabe).mockResolvedValue({ data: aufgabe, error: null })
+    // t2 steht im Board vor t3, gehört aber nicht zur Liste: der Lauf überspringt sie.
+    vi.mocked(getPruefBoard).mockResolvedValue({ data: [zeile('t1', 1), zeile('t2', 2), zeile('t3', 3)], error: null })
+    vi.mocked(getFehlbilder).mockResolvedValue({ data: [], error: null })
+    vi.mocked(getPruefEinstellungen).mockResolvedValue({ data: { hilfsmittel: 'x', nur_pilot: false, grund_pflicht: false }, error: null })
+    vi.mocked(pruefEntscheiden).mockResolvedValue({ data: { pruef_version: 4, lena_status: 'passt' }, error: null })
+    vi.mocked(getPruefSoll).mockResolvedValue({ data: [], error: null })
+    ziel.liste.mockResolvedValue({ data: [zz], error: null })
+    ziel.wirkung.mockResolvedValue({
+      data: [{ schule_id: 's1', schule: 'A', klasse: 9, paket_nr: 1, thema_keys: [], ampel_vorher: 'rot', ampel_nachher: 'gelb', schule_neu: true },
+        { schule_id: 's2', schule: 'B', klasse: 9, paket_nr: 2, thema_keys: [], ampel_vorher: 'rot', ampel_nachher: 'gruen', schule_neu: true }],
+      error: null,
+    })
+  })
+
+  it('nach „Passt“ geht es mit der nächsten Aufgabe der Liste weiter (nicht zur Übersicht) und die Wirkung erscheint', async () => {
+    zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt')
+    await screen.findByText('22,62')
+    await waitFor(() => expect(ziel.liste).toHaveBeenCalled())
+    fireEvent.keyDown(window, { key: '3' })
+    await waitFor(() => expect(getPruefAufgabe).toHaveBeenLastCalledWith('t3'))
+    expect(ziel.wirkung).toHaveBeenCalledWith('geo_kreis_umfang')
+    expect(await screen.findByText(/Nach der Freigabe ist Kreis an 2 Schulen bereit\./)).toBeTruthy()
+  })
+
+  it('ist nichts mehr offen, geht es zurück zum Reiter „Gezielt prüfen“', async () => {
+    ziel.liste.mockResolvedValue({ data: [{ ...zz, task_ids: ['t1'] }], error: null })
+    zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt')
+    await screen.findByText('22,62')
+    await waitFor(() => expect(ziel.liste).toHaveBeenCalled())
+    fireEvent.keyDown(window, { key: '3' })
+    expect(await screen.findByText(/^Übersicht\s*$/)).toBeTruthy()
   })
 })

@@ -18,3 +18,5 @@
 | 09.11.2026 | F2 | Seite LSA-Abdeckung, Migration nur_pilot aus, Bildschirmfotos 1440×900 / 1180×820 (Harness, Prod-Daten per dbread, Fokus nur zur Ansicht) | | | |
 | 09.11.2026 | F2 | CI Runde 1 rot (fr2_lsa_pakete 7e erwartete nur_pilot = true aus der CI-Grundlage) → Test setzt ihn selbst, Fall „aus“ dazu; CI grün | #381 | | |
 | 09.11.2026 | F2 | Eingespielt per `~/einspielen/FR2-2-nur-pilot-aus.sh`; Snapshot unverändert (nur Daten). Prüfabfrage: nur_pilot f, 716 LSA-Entwürfe für Lena sichtbar | #381 | | `20261109123016` |
+| 09.11.2026 | F2 | PR #381 gemergt | #381 | `1ec95e42` | `20261109123016` |
+| 09.11.2026 | F3 | Reiter „Gezielt prüfen“ (Standard), Sprung zur nächsten Aufgabe der Liste, Wirkung nach „passt“, Nachprüfen (32). Prod-Stand: 134 Aufgaben nötig, 194 vorgeschlagen, danach 31 weitere Schulen; pilot_fehlt leer. Typecheck, Lint, 3348 Tests grün; Fotos `f3-*` | | | – |

@@ -5,6 +5,7 @@
 // der Bereich der Aufgabe (LSA vor Session).
 // P4: Der Lauf folgt dem Bedarf (naechsteNoetige): erst die noch noetigen Aufgaben, Thema fuer Thema; beim Wechsel
 // des Themas ein Zwischenbild. ?ohneSoll=1 nach "Weitere Aufgaben ohne Soll pruefen": der alte Weg.
+// FR-2 F3 ?liste=gezielt: weiter mit der naechsten offenen Aufgabe der gezielten Liste; nach "passt" die Wirkung.
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -30,7 +31,9 @@ import { positionImThema, vorige } from '@/lib/pruefung/reihenfolge'
 import { sollDesThemas } from '@/lib/pruefung/soll'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getFehlbilder, getPruefBoard, getPruefEinstellungen, pruefEntscheiden, pruefRueckgaengig } from '@/lib/supabase/pruefung'
-import type { Fehlbild, LenaStatus, PasstNichtGrund, PruefBoardZeile, PruefEntscheidung, PruefSollZeile } from '@/types'
+import { bereiteSchulen, naechsteZiel, zielReihe } from '@/lib/pruefung/gezielt'
+import { getLsaWirkung, getPruefZielListe } from '@/lib/supabase/lsaAbdeckung'
+import type { Fehlbild, LenaStatus, PasstNichtGrund, PruefBoardZeile, PruefEntscheidung, PruefSollZeile, PruefZielZeile } from '@/types'
 import { leseUebersprungen, merkeUebersprungen, vergissUebersprungen } from './uebersprungen'
 import { usePruefSitzung } from './usePruefSitzung'
 import { bereichDerAufgabe, bereichsBoard, leseBereich } from './bereich'
@@ -52,6 +55,8 @@ export function PruefansichtPage(): JSX.Element {
   const bereich = leseBereich(params) ?? bereichDerAufgabe(alle.find((z) => z.task_id === taskId))
   const board = useMemo(() => bereichsBoard(alle, bereich), [alle, bereich])
   const ohneSoll = params.get('ohneSoll') === '1'
+  const gezielt = params.get('liste') === 'gezielt'
+  const [ziel, setZiel] = useState<PruefZielZeile[]>([])
   const lauf = usePruefLauf(bereich)
   const [wechsel, setWechsel] = useState<Wechsel | null>(null)
   const [mc, setMc] = useState<Set<string> | null>(null)
@@ -71,7 +76,8 @@ export function PruefansichtPage(): JSX.Element {
     })
     void getFehlbilder().then((r) => r.data && setFehlbilder(r.data))
     void getPruefEinstellungen().then((r) => setGrundPflicht(r.data?.grund_pflicht ?? false))
-  }, [])
+    if (gezielt) void getPruefZielListe().then((r) => r.data && setZiel(r.data))
+  }, [gezielt])
 
   useEffect(() => {
     setPanel(null)
@@ -108,11 +114,13 @@ export function PruefansichtPage(): JSX.Element {
 
   const geheZu = useCallback((id: string | null) => {
     const frei = ohneSoll ? '&ohneSoll=1' : ''
+    if (gezielt) return navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}&liste=gezielt` : '/coach/pruefen')
     navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}${frei}` : `/coach/pruefen?abschluss=1&bereich=${bereich}${frei}`)
-  }, [navigate, bereich, ohneSoll])
+  }, [navigate, bereich, ohneSoll, gezielt])
 
   /** Naechster Schritt im Lauf: im Thema sofort weiter, beim Themen- oder Stufenwechsel erst das Zwischenbild. */
   const weiterNach = (b: PruefBoardZeile[], id: string, skip: string[], soll = lauf.soll): void => {
+    if (gezielt) return geheZu(naechsteZiel(zielReihe(ziel), b, id, skip))
     const imBereich = bereichsBoard(b, bereich)
     const schritt = naechsteNoetige(imBereich, soll, id, skip, { stufen: bereich === 'lsa', ohneSoll, mc })
     const von = imBereich.find((z) => z.task_id === id)
@@ -175,7 +183,19 @@ export function PruefansichtPage(): JSX.Element {
         })
       },
     })
+    if (gezielt && e === 'passt') void zeigeWirkung(id)
     weiterNach(neu, taskId, leseUebersprungen(), sollNeu)
+  }
+
+  /** FR-2 F3: nach „passt“ in der gezielten Liste, was die Freigabe bewirkt (lsa_wirkung), in Lenas Worten. */
+  const zeigeWirkung = async (id: string): Promise<void> => {
+    const z = ziel.find((x) => x.abschnitt === 'gezielt' && x.task_ids.includes(id))
+    if (!z) return
+    const w = await getLsaWirkung(z.skill_key)
+    const n = w.data ? bereiteSchulen(w.data) : 0
+    const thema = z.thema_label ?? z.skill_label
+    const text = n > 0 ? t('gezielt.wirkung', { thema, count: n }) : t('gezielt.wirkungSchritt', { thema, count: z.hebel_schulen })
+    setMeldung((m) => (m ? { ...m, text: `${m.text} · ${text}` } : { text }))
   }
 
   const ueberspringen = (): void => {
