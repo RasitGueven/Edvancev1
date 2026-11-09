@@ -1,0 +1,163 @@
+{
+    "tasks": [
+        {
+            "id": "6b363dac-a30c-4a2f-8fa0-b7814353d1f2",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "Lea isst 1/4 einer Pizza, Tom isst 1/3 derselben Pizza.\nWelcher Anteil der Pizza ist zusammen gegessen? Gib den Anteil als vollständig gekürzten Bruch an.",
+            "solution": {
+                "acceptance": {
+                    "canonical": "7/12",
+                    "known_errors": {
+                        "2/7": "nenner_addiert",
+                        "2/12": "zaehler_nicht_erweitert"
+                    },
+                    "require_reduced": true
+                },
+                "correct_answers": [
+                    "7/12",
+                    "7 / 12"
+                ]
+            },
+            "skill_key": "bruch_add",
+            "input_type": "NUMERIC"
+        },
+        {
+            "id": "3b64f242-c2ab-4f18-8af4-a72dc185cf10",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "In einer Klasse mit 24 Kindern fahren 18 mit dem Fahrrad zur Schule.\nWelcher Anteil der Klasse ist das? Gib den Anteil als vollständig gekürzten Bruch an.",
+            "solution": {
+                "acceptance": {
+                    "canonical": "3/4",
+                    "known_errors": {
+                        "6/8": "teilgekuerzt",
+                        "9/12": "teilgekuerzt"
+                    },
+                    "require_reduced": true
+                },
+                "correct_answers": [
+                    "3/4",
+                    "3 / 4"
+                ]
+            },
+            "skill_key": "bruch_kuerzen",
+            "input_type": "NUMERIC"
+        },
+        {
+            "id": "fa8c52a4-161c-4bd4-9174-b98091ceb608",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "Von einer 5/6 m langen Holzleiste werden 3/5 abgesägt.\nWie viele Meter sind das? Gib das Ergebnis als vollständig gekürzten Bruch an.",
+            "solution": {
+                "acceptance": {
+                    "canonical": "1/2",
+                    "known_errors": {
+                        "3/6": "teilgekuerzt",
+                        "15/30": "teilgekuerzt",
+                        "43/30": "hauptnenner_bei_mult"
+                    },
+                    "require_reduced": true
+                },
+                "correct_answers": [
+                    "1/2",
+                    "1 / 2"
+                ]
+            },
+            "skill_key": "bruch_mult",
+            "input_type": "NUMERIC"
+        },
+        {
+            "id": "b65bad4b-a8dd-4cee-8b9e-7716f5c786c0",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "Ein Glas ist zu 2/5 mit Saft gefüllt.\nGib diesen Anteil als Dezimalzahl an.",
+            "solution": {
+                "acceptance": {
+                    "canonical": "0,4",
+                    "known_errors": {
+                        "2,5": "umgekehrt_geteilt",
+                        "0,25": "ziffern_gelesen"
+                    }
+                },
+                "correct_answers": [
+                    "0,4",
+                    "0.4",
+                    "0,40"
+                ]
+            },
+            "skill_key": "bruch_dezimal",
+            "input_type": "NUMERIC"
+        },
+        {
+            "id": "300b2a89-6f7f-4022-8a61-9a9d040fadd3",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "Denk dir eine Zahl. Nimmst du sie 5-mal und addierst 3, kommt dasselbe heraus, wie wenn du sie 2-mal nimmst und 15 addierst.\nWie heißt die Zahl?",
+            "solution": {
+                "acceptance": {
+                    "canonical": "4",
+                    "equivalents": [
+                        "+4"
+                    ],
+                    "known_errors": {
+                        "6": "falsches_vorzeichen_beim_zusammenfuehren"
+                    }
+                },
+                "correct_answers": [
+                    "4",
+                    "+4"
+                ]
+            },
+            "skill_key": "gleichung_beidseitig",
+            "input_type": "NUMERIC"
+        },
+        {
+            "id": "ab6509f0-c7c8-4c7b-b2f7-b65d12b23a8a",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "Für welche Zahl x stimmt die Gleichung?\n\n20 = 32 − 4x",
+            "solution": {
+                "acceptance": {
+                    "canonical": "3",
+                    "equivalents": [
+                        "+3"
+                    ],
+                    "known_errors": {
+                        "-3": "vorzeichen_beim_umstellen",
+                        "12": "division_vergessen"
+                    }
+                },
+                "correct_answers": [
+                    "3",
+                    "+3"
+                ]
+            },
+            "skill_key": "gleichung_neg_koeffizient",
+            "input_type": "NUMERIC"
+        },
+        {
+            "id": "dc412552-d604-4f43-b7f5-3f991a7b740e",
+            "unit": null,
+            "source": "edvance_fundament",
+            "status": "draft",
+            "question": "Vereinfache so weit wie möglich und schreibe das Ergebnis in der Form ax + b.\n\n4x - (x - 6)",
+            "solution": {
+                "acceptance": {
+                },
+                "correct_answers": [
+                    "3x+6",
+                    "6+3x"
+                ]
+            },
+            "skill_key": "term_minusklammer",
+            "input_type": "TERM"
+        }
+    ]
+}
