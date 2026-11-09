@@ -20,3 +20,6 @@
 | 09.11.2026 | F2 | Eingespielt per `~/einspielen/FR2-2-nur-pilot-aus.sh`; Snapshot unverändert (nur Daten). Prüfabfrage: nur_pilot f, 716 LSA-Entwürfe für Lena sichtbar | #381 | | `20261109123016` |
 | 09.11.2026 | F2 | PR #381 gemergt | #381 | `1ec95e42` | `20261109123016` |
 | 09.11.2026 | F3 | Reiter „Gezielt prüfen“ (Standard), Sprung zur nächsten Aufgabe der Liste, Wirkung nach „passt“, Nachprüfen (32). Prod-Stand: 134 Aufgaben nötig, 194 vorgeschlagen, danach 31 weitere Schulen; pilot_fehlt leer. Typecheck, Lint, 3348 Tests grün; Fotos `f3-*` | | | – |
+| 09.11.2026 | F3 | CI Runde 1: `quality` rot in fremdem Test `ReportPage.pdf.test.tsx` (lokal 3× grün, Flake) → Job neu angestoßen, grün; gemergt | #382 | `3b9875ee` | – |
+| 09.11.2026 | F4.1 | Einstiege: nur 3 Themen der Pläne/KLP Kl. 8–10 ohne Einstieg (nicht 15, die übrigen 12 sind Stufe 5–7). Fachliche Zweitprüfung: 3 bestätigt, `rationale_zahlen → potenzen` strittig (offen für Rasit). Fixture: 3 neu, danach 0 Themen / 0 Pakete ohne Einstieg, Rollback geprüft | | | |
+| 09.11.2026 | F4.1 | Eingespielt per `~/einspielen/FR2-3-einstiege.sh`, Snapshot unverändert. Zählabfrage: 3 neue Einstiege, 0 Themen und 0 Pakete Kl. 8–10 ohne Einstieg | #383 | | `20261109130447` |
