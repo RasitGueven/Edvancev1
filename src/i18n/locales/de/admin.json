@@ -335,10 +335,12 @@
       "itemPflege": "Inhalte",
       "studio": "Studio",
       "stellschrauben": "Werte",
-      "klassenarbeiten": "Arbeiten"
+      "klassenarbeiten": "Arbeiten",
+      "lsaAbdeckung": "Abdeckung"
     },
     "stellschrauben": "Stellschrauben",
-    "klassenarbeiten": "Klassenarbeiten"
+    "klassenarbeiten": "Klassenarbeiten",
+    "lsaAbdeckung": "LSA-Abdeckung"
   },
   "coaches": {
     "rubrik": "Team",
@@ -585,5 +587,86 @@
     "gespeichert": "Klassenarbeit bestätigt.",
     "speicherFehler": "Speichern fehlgeschlagen.",
     "ladeFehler": "Klassenarbeiten konnten nicht geladen werden."
+  },
+  "lsaAbdeckung": {
+    "titel": "LSA-Abdeckung",
+    "satz": "Für jede Klassenarbeit an jeder Schule: Ist eine LSA dafür möglich? Grün heißt alles abgedeckt, Gelb Einstieg und direkte Voraussetzungen abgedeckt, Rot es fehlen Pflicht-Skills.",
+    "filterKlasse": "Klasse",
+    "filterQuartal": "Zeitfenster",
+    "klasse": "Klasse {{klasse}}",
+    "quartal": {
+      "1": "Q1 · Sep. bis Mitte Nov.",
+      "2": "Q2 · bis Ende Jan.",
+      "3": "Q3 · Feb. bis Mitte Apr.",
+      "4": "Q4 · bis Ende Juni",
+      "alle": "ganzes Schuljahr"
+    },
+    "nurFokus": "nur Fokus-Schulen",
+    "kpi": {
+      "gruen": "Pakete grün",
+      "gelb": "Pakete gelb",
+      "rot": "Pakete rot",
+      "schulen": "Schulen mit LSA im Fenster",
+      "schulenWert": "{{bereit}} von {{alle}}"
+    },
+    "matrix": "Ampel je Schule und Klassenarbeit",
+    "spalte": {
+      "schule": "Schule",
+      "paket": "Arbeit {{nr}}"
+    },
+    "zelleAria": "{{thema}}: {{ampel}}",
+    "ampel": {
+      "gruen": "Grün · LSA vollständig",
+      "gelb": "Gelb · LSA möglich, Tiefe eingeschränkt",
+      "rot": "Rot · LSA nicht möglich"
+    },
+    "geschaetzt": "geschätzt",
+    "quelle": {
+      "geschaetzt": "geschätzt aus dem Schulplan",
+      "bestaetigt": "bestätigt"
+    },
+    "fokus": "Fokus-Schule",
+    "fokusAn": "{{schule}} als Fokus-Schule markieren",
+    "fokusAus": "Fokus für {{schule}} aufheben",
+    "fokusFehler": "Fokus konnte nicht gespeichert werden.",
+    "waehlen": "Arbeit wählen",
+    "waehlenText": "Eine Zelle der Matrix antippen, um Themen, Skills und den Prüfbedarf zu sehen.",
+    "leer": "Keine Klassenarbeiten in diesem Fenster",
+    "leerText": "Für diese Klasse und dieses Zeitfenster gibt es keine Pakete. Ein anderes Quartal oder „ganzes Schuljahr“ wählen.",
+    "ladeFehler": "Abdeckung konnte nicht geladen werden",
+    "ladeFehlerText": "Bitte die Seite neu laden. Bleibt der Fehler, fehlt vermutlich die Migration.",
+    "klasseNr": "Klasse {{klasse}}, Arbeit {{nr}}",
+    "ohneEinstieg": "Für ein Thema dieser Arbeit sind noch keine Einstiegs-Skills hinterlegt. Ohne sie startet die Thema-LSA nicht.",
+    "lenaPrueft_one": "Lena prüft dafür noch {{count}} Aufgabe",
+    "lenaPrueft_other": "Lena prüft dafür noch {{count}} Aufgaben",
+    "fehlendeTexte_one": "{{count}} Aufgabentext fehlt",
+    "fehlendeTexte_other": "{{count}} Aufgabentexte fehlen",
+    "pflicht": "Pflicht (Einstieg, direkte Voraussetzungen, Vorschau-Rand)",
+    "tiefe": "Tiefe",
+    "keineSkills": "Keine",
+    "erfuellt": "abgedeckt",
+    "fehlt": "fehlt",
+    "skillOffen_one": "fehlen {{texte}} Texte · {{count}} Aufgabe bei Lena",
+    "skillOffen_other": "fehlen {{texte}} Texte · {{count}} Aufgaben bei Lena",
+    "skillNeu_one": "fehlt {{count}} Text · keine passende Aufgabe, neue nötig",
+    "skillNeu_other": "fehlen {{count}} Texte · keine passende Aufgabe, neue nötig",
+    "freigabeSatz": "Gibt alle Aufgaben frei, die Lena für die Prüfliste mit „passt“ bewertet hat. Jede läuft durch dieselbe Prüfung wie eine Einzelfreigabe.",
+    "freigabeKnopf_one": "Alles Geprüfte freigeben ({{count}})",
+    "freigabeKnopf_other": "Alles Geprüfte freigeben ({{count}})",
+    "freigabeNichts": "Lena hat für die Prüfliste noch nichts mit „passt“ bewertet.",
+    "freigabeErgebnis_one": "{{count}} Aufgabe freigegeben, {{pakete}} Pakete jetzt grün oder gelb, an {{schulen}} Schulen",
+    "freigabeErgebnis_other": "{{count}} Aufgaben freigegeben, {{pakete}} Pakete jetzt grün oder gelb, an {{schulen}} Schulen",
+    "freigabeFehler": "Freigabe fehlgeschlagen. Nichts wurde verändert, bitte erneut versuchen.",
+    "folgeTitel": "Klassenarbeiten · {{schule}}, Klasse {{klasse}}",
+    "folgeSatz": "Bestätigte Folge im Schuljahr {{schuljahr}}. Sie ersetzt für diese Klasse die geschätzten Arbeiten aus dem Schulplan.",
+    "folgeLeer": "Noch keine bestätigte Arbeit. Die Matrix zeigt bis dahin die geschätzte Folge.",
+    "folgeNr": "Arbeit {{nr}}",
+    "folgeFeldNr": "Nummer",
+    "folgeFeldThemen": "Themen der Arbeit",
+    "folgeFeldDatum": "Datum (optional)",
+    "folgeSpeichern": "Arbeit bestätigen",
+    "folgeUngueltig": "Nummer 1–8 und mindestens ein Thema wählen.",
+    "folgeGespeichert": "Arbeit bestätigt.",
+    "folgeFehler": "Arbeit konnte nicht gespeichert werden."
   }
 }

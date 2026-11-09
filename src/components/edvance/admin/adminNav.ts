@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   FileText,
   FolderOpen,
+  Gauge,
   Inbox,
   PenLine,
   ScrollText,
@@ -113,6 +114,14 @@ export const ADMIN_NAV: NavKonfiguration = {
           kurzKey: 'nav.kurz.itemPflege',
           icon: PenLine,
           zaehler: 'itemPflege',
+        },
+        // FR-2: Ampel je Schule und Klassenarbeit, Fokus-Schulen, Sammelfreigabe.
+        {
+          id: 'lsaAbdeckung',
+          route: '/admin/lsa-abdeckung',
+          nameKey: 'nav.lsaAbdeckung',
+          kurzKey: 'nav.kurz.lsaAbdeckung',
+          icon: Gauge,
         },
         // Reihe 1, Bauauftrag B: Erklärvideos.
         { id: 'studio', route: '/admin/studio', nameKey: 'nav.studio', kurzKey: 'nav.kurz.studio', icon: Clapperboard },
