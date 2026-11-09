@@ -1,13 +1,10 @@
--- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
--- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
-
 --
 -- PostgreSQL database dump
 --
 
+\restrict 62aFpTngwZ3U59oQyJnD78dcbFHqCHH3BYsFsOth1f7uuFjaRWbT0kNiKeGILIl
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -6920,6 +6917,77 @@ $$;
 
 
 --
+-- Name: lsa_abdeckung(integer, integer, boolean, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_abdeckung(p_klasse integer DEFAULT NULL::integer, p_quartal integer DEFAULT NULL::integer, p_nur_fokus boolean DEFAULT false, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(schule_id uuid, schule text, fokus boolean, klasse integer, paket_nr integer, thema_keys text[], thema_labels text[], quelle text, datum date, quartal integer, lage numeric, ampel text, fehlende_pflicht_skills integer, fehlende_skills integer, fehlende_texte integer, hat_einstieg boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_sj text := coalesce(p_schuljahr, public.lsa_schuljahr_heute());
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_abdeckung: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  select p.schule_id, sc.name, f.schule_id is not null, p.klasse, p.paket_nr, p.thema_keys,
+         array(select coalesce(th.label, x) from unnest(p.thema_keys) with ordinality u(x, i)
+                 left join public.themen th on th.thema_key = u.x order by u.i),
+         p.quelle, p.datum, p.quartal, p.lage, st.ampel, st.fehlende_pflicht_skills, st.fehlende_skills,
+         st.fehlende_texte, st.hat_einstieg
+    from public.lsa_pakete_basis(v_sj) p
+    join public.lsa_status_roh(v_sj) st
+      on st.schule_id = p.schule_id and st.klasse = p.klasse and st.paket_nr = p.paket_nr
+    join public.schulen sc on sc.id = p.schule_id
+    left join public.schule_fokus f on f.schule_id = p.schule_id
+   where (p_klasse is null or p.klasse = p_klasse)
+     and (p_quartal is null or p.quartal = p_quartal)
+     and (not coalesce(p_nur_fokus, false) or f.schule_id is not null)
+   order by (f.schule_id is null), sc.name, p.klasse, p.paket_nr;
+end;
+$$;
+
+
+--
+-- Name: lsa_abdeckung_auffrischen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_abdeckung_auffrischen() RETURNS boolean
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  m text;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_abdeckung_auffrischen: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if exists (select 1 from public.lsa_paket_cache_stand s
+              where s.schuljahr = public.ka_schuljahr((now() at time zone 'Europe/Berlin')::date)
+                and not s.veraltet and s.fehler is null) then
+    return false;
+  end if;
+  -- Nach einem Fehler höchstens alle 10 Minuten neu versuchen (sonst rechnet jeder Seitenaufruf vergeblich).
+  if exists (select 1 from public.lsa_paket_cache_stand s
+              where s.fehler is not null and s.berechnet_am > now() - interval '10 minutes') then
+    return false;
+  end if;
+  begin
+    perform public.lsa_paket_cache_auffrischen();
+  exception when others then
+    get stacked diagnostics m = message_text;
+    raise warning 'lsa_paket_cache: Neuberechnung gescheitert (%), Funktionen rechnen live', m;
+    insert into public.lsa_paket_cache_stand (id, schuljahr, berechnet_am, fehler) values (true, '-', now(), m)
+    on conflict (id) do update set fehler = excluded.fehler, berechnet_am = excluded.berechnet_am;
+  end;
+  return true;
+end;
+$$;
+
+
+--
 -- Name: lsa_abgabeart(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8619,6 +8687,341 @@ $_$;
 
 
 --
+-- Name: lsa_paket_cache_auffrischen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_paket_cache_auffrischen() RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_sj  text := public.ka_schuljahr((now() at time zone 'Europe/Berlin')::date);
+  v_gen bigint;
+begin
+  -- Zwei gleichzeitige Neuberechnungen warten aufeinander statt an 23505 zu scheitern.
+  perform pg_advisory_xact_lock(hashtext('lsa_paket_cache'));
+  -- Stand vor der Rechnung; schreibt währenddessen jemand, ist gen danach größer und der Speicher bleibt veraltet.
+  select s.gen into v_gen from public.lsa_paket_cache_stand s;
+  delete from public.lsa_paket_cache;
+  insert into public.lsa_paket_cache (schuljahr, schule_id, klasse, paket_nr, thema_keys, quelle, datum, quartal, lage,
+                                      hat_einstieg)
+  select v_sj, p.schule_id, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal, p.lage,
+         coalesce(p.hat_einstieg, false)
+    from public.lsa_pakete_roh(v_sj) p;
+  insert into public.lsa_paket_skill_cache (schuljahr, schule_id, klasse, paket_nr, skill_key, fall, teil, pflicht)
+  select v_sj, s.schule_id, s.klasse, s.paket_nr, s.skill_key, s.fall, s.teil, s.pflicht
+    from public.lsa_paket_skills_roh(v_sj) s;
+  insert into public.lsa_paket_cache_stand (id, schuljahr, berechnet_am, fehler) values (true, v_sj, now(), null)
+  on conflict (id) do update set schuljahr = excluded.schuljahr, berechnet_am = excluded.berechnet_am, fehler = null,
+                                 veraltet = public.lsa_paket_cache_stand.gen is distinct from coalesce(v_gen, 0);
+end;
+$$;
+
+
+--
+-- Name: lsa_paket_cache_trigger(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_paket_cache_trigger() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  update public.lsa_paket_cache_stand set veraltet = true, gen = gen + 1;
+  return null;
+end;
+$$;
+
+
+--
+-- Name: lsa_paket_skills(uuid, integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_paket_skills(p_schule uuid, p_klasse integer, p_paket_nr integer, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(skill_key text, skill_label text, thema_label text, fall text, teil text, pflicht boolean, erfuellt boolean, texte_im_pool integer, fehlende_texte integer, vorschlaege integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_paket_skills: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  with ps as (
+    select s.* from public.lsa_paket_skills_basis(coalesce(p_schuljahr, public.lsa_schuljahr_heute())) s
+     where s.schule_id = p_schule and s.klasse = p_klasse and s.paket_nr = p_paket_nr),
+  b as (select r.* from public.lsa_skill_bereit_roh(null) r where r.skill_key in (select ps.skill_key from ps)),
+  z as (select z.* from public.pruef_ziel_roh() z where z.skill_key in (select ps.skill_key from ps))
+  select ps.skill_key, k.label,
+         (select th.label from public.skill_thema st join public.themen th on th.thema_key = st.thema_key
+           where st.skill_key = ps.skill_key order by th.sort nulls last, th.thema_key limit 1),
+         ps.fall, ps.teil, ps.pflicht, b.erfuellt, b.texte_im_pool,
+         greatest(b.fehlende_texte, b.fehlende_ohne_mc),
+         coalesce(least(z.rest, cardinality(z.task_ids)), 0)
+    from ps join public.skills k on k.skill_key = ps.skill_key
+    join b on b.skill_key = ps.skill_key
+    left join z on z.skill_key = ps.skill_key
+   order by ps.fall, array_position(array['einstieg', 'voraussetzung', 'rand', 'tiefe', 'rand_tiefe'], ps.teil),
+            ps.skill_key;
+end;
+$$;
+
+
+--
+-- Name: lsa_paket_skill_cache; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lsa_paket_skill_cache (
+    schuljahr text NOT NULL,
+    schule_id uuid NOT NULL,
+    klasse integer NOT NULL,
+    paket_nr integer NOT NULL,
+    skill_key text NOT NULL,
+    fall text NOT NULL,
+    teil text NOT NULL,
+    pflicht boolean NOT NULL,
+    CONSTRAINT lsa_paket_skill_cache_fall_check CHECK ((fall = ANY (ARRAY['A'::text, 'B'::text]))),
+    CONSTRAINT lsa_paket_skill_cache_teil_check CHECK ((teil = ANY (ARRAY['einstieg'::text, 'voraussetzung'::text, 'tiefe'::text, 'rand'::text, 'rand_tiefe'::text])))
+);
+
+
+--
+-- Name: lsa_paket_skills_basis(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_paket_skills_basis(p_schuljahr text) RETURNS SETOF public.lsa_paket_skill_cache
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if exists (select 1 from public.lsa_paket_cache_stand s where s.schuljahr = p_schuljahr and s.fehler is null
+                and not s.veraltet) then
+    return query select * from public.lsa_paket_skill_cache c where c.schuljahr = p_schuljahr;
+  else
+    return query select p_schuljahr, s.schule_id, s.klasse, s.paket_nr, s.skill_key, s.fall, s.teil, s.pflicht
+                   from public.lsa_paket_skills_roh(p_schuljahr) s;
+  end if;
+end;
+$$;
+
+
+--
+-- Name: lsa_paket_skills_roh(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_paket_skills_roh(p_schuljahr text) RETURNS TABLE(schule_id uuid, klasse integer, paket_nr integer, skill_key text, fall text, teil text, pflicht boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with recursive
+  pk as (select row_number() over ()::int id, p.* from public.lsa_pakete_roh(p_schuljahr) p),
+  ein as (select te.thema_key, te.skill_key from public.thema_einstieg te),
+  raum_a as (
+    select x.thema_key, x.skill_key, min(x.r) r from (
+      select e.thema_key, e.skill_key, 1 r from ein e
+      union all
+      select e.thema_key, k.voraussetzt_skill_key, 2 from ein e join public.skill_kante k on k.skill_key = e.skill_key
+      union all
+      select e.thema_key, a.skill_key, 3 from ein e cross join lateral public.lsa_abschluss(e.skill_key) a) x
+    group by 1, 2),
+  r(pk, sk, pfad) as (
+    select pk.id, k.voraussetzt_skill_key, array[k.voraussetzt_skill_key]
+      from pk cross join unnest(pk.thema_keys) u(thema_key)
+      join public.skill_thema st on st.thema_key = u.thema_key
+      join public.skill_kante k on k.skill_key = st.skill_key
+     where not exists (select 1 from public.skill_thema x
+                        where x.skill_key = k.voraussetzt_skill_key and x.thema_key = u.thema_key)
+    union
+    select r.pk, k.voraussetzt_skill_key, r.pfad || k.voraussetzt_skill_key
+      from r join pk on pk.id = r.pk
+      join public.skill_thema x on x.skill_key = r.sk and x.thema_key = any (pk.spaeter)
+      join public.skill_kante k on k.skill_key = r.sk
+     where not k.voraussetzt_skill_key = any (r.pfad)),
+  rand as (
+    select distinct r.pk, r.sk from r join pk on pk.id = r.pk
+     where not exists (select 1 from public.skill_thema x where x.skill_key = r.sk
+                        and (x.thema_key = any (pk.spaeter) or x.thema_key = any (pk.thema_keys)))),
+  rand_tief as (
+    select distinct rd.pk, a.skill_key sk from rand rd join pk on pk.id = rd.pk
+     cross join lateral public.lsa_abschluss(rd.sk) a
+     where not exists (select 1 from rand x where x.pk = rd.pk and x.sk = a.skill_key)
+       and not exists (select 1 from public.skill_thema st where st.skill_key = a.skill_key
+                        and (st.thema_key = any (pk.spaeter) or st.thema_key = any (pk.thema_keys))))
+  select pk.schule_id, pk.klasse, pk.paket_nr, a.skill_key, 'A',
+         (array['einstieg', 'voraussetzung', 'tiefe'])[min(a.r)], min(a.r) <= 2
+    from pk cross join unnest(pk.thema_keys) u(thema_key) join raum_a a on a.thema_key = u.thema_key
+   group by pk.id, pk.schule_id, pk.klasse, pk.paket_nr, a.skill_key
+  union all
+  select pk.schule_id, pk.klasse, pk.paket_nr, x.sk, 'B', x.teil, x.teil = 'rand'
+    from (select rand.pk, rand.sk, 'rand' teil from rand
+          union all select rand_tief.pk, rand_tief.sk, 'rand_tiefe' from rand_tief) x
+    join pk on pk.id = x.pk
+    join public.skills s on s.skill_key = x.sk and s.klasse_herkunft <= pk.klasse
+$$;
+
+
+--
+-- Name: lsa_paket_status(uuid, integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_paket_status(p_schule uuid, p_klasse integer, p_paket_nr integer, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(ampel text, fehlende_pflicht_skills integer, fehlende_skills integer, fehlende_texte integer, hat_einstieg boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_paket_status: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  select s.ampel, s.fehlende_pflicht_skills, s.fehlende_skills, s.fehlende_texte, s.hat_einstieg
+    from public.lsa_status_roh(coalesce(p_schuljahr, public.lsa_schuljahr_heute())) s
+   where s.schule_id = p_schule and s.klasse = p_klasse and s.paket_nr = p_paket_nr;
+end;
+$$;
+
+
+--
+-- Name: lsa_pakete(integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_pakete(p_klasse integer DEFAULT NULL::integer, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(schule_id uuid, schule text, klasse integer, paket_nr integer, thema_keys text[], quelle text, datum date, quartal integer, lage numeric)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_pakete: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  select p.schule_id, s.name, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal, p.lage
+    from public.lsa_pakete_basis(coalesce(p_schuljahr, public.lsa_schuljahr_heute())) p
+    join public.schulen s on s.id = p.schule_id
+   where p_klasse is null or p.klasse = p_klasse
+   order by s.name, p.klasse, p.paket_nr;
+end;
+$$;
+
+
+--
+-- Name: lsa_paket_cache; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lsa_paket_cache (
+    schuljahr text NOT NULL,
+    schule_id uuid NOT NULL,
+    klasse integer NOT NULL,
+    paket_nr integer NOT NULL,
+    thema_keys text[] NOT NULL,
+    quelle text NOT NULL,
+    datum date,
+    quartal integer NOT NULL,
+    lage numeric NOT NULL,
+    hat_einstieg boolean NOT NULL,
+    CONSTRAINT lsa_paket_cache_quartal_check CHECK (((quartal >= 1) AND (quartal <= 4))),
+    CONSTRAINT lsa_paket_cache_quelle_check CHECK ((quelle = ANY (ARRAY['bestaetigt'::text, 'geschaetzt'::text])))
+);
+
+
+--
+-- Name: lsa_pakete_basis(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_pakete_basis(p_schuljahr text) RETURNS SETOF public.lsa_paket_cache
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if exists (select 1 from public.lsa_paket_cache_stand s where s.schuljahr = p_schuljahr and s.fehler is null
+                and not s.veraltet) then
+    return query select * from public.lsa_paket_cache c where c.schuljahr = p_schuljahr;
+  else
+    return query select p_schuljahr, p.schule_id, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal,
+                        p.lage, coalesce(p.hat_einstieg, false)
+                   from public.lsa_pakete_roh(p_schuljahr) p;
+  end if;
+end;
+$$;
+
+
+--
+-- Name: lsa_pakete_roh(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_pakete_roh(p_schuljahr text) RETURNS TABLE(schule_id uuid, klasse integer, paket_nr integer, thema_keys text[], quelle text, datum date, quartal integer, lage numeric, hat_einstieg boolean, spaeter text[])
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with recursive
+  jahr as (select make_date(left(p_schuljahr, 4)::int, 9, 1) beginn, make_date(left(p_schuljahr, 4)::int + 1, 6, 30) ende),
+  best as (
+    select k.schule_id, k.klasse, k.nr, k.thema_keys, k.datum,
+           count(*) over w n, row_number() over (w order by k.nr) i
+      from public.schul_klassenarbeiten k
+     where k.bestaetigt and lower(k.fach) = 'mathematik' and k.schuljahr = p_schuljahr
+    window w as (partition by k.schule_id, k.klasse)),
+  plan as (
+    select p.* from public.schul_themenplan p
+     where lower(p.fach) = 'mathematik' and p.thema_key is not null
+       and not exists (select 1 from best b where b.schule_id = p.schule_id and b.klasse = p.klasse)),
+  uv as (
+    select p.schule_id, p.klasse, p.position, p.thema_key,
+           row_number() over (w order by p.position, p.thema_key)::int nr,
+           case when bool_and(p.halbjahr is not null) over w then
+                  (p.halbjahr - 1) * 0.5
+                  + 0.5 * (row_number() over (partition by p.schule_id, p.klasse, p.halbjahr order by p.position) - 0.5)
+                        / count(*) over (partition by p.schule_id, p.klasse, p.halbjahr)
+                when count(p.stunden) over w = count(*) over w then
+                  (sum(p.stunden) over (w order by p.position rows between unbounded preceding and current row)
+                   - p.stunden / 2.0)::numeric / sum(p.stunden) over w
+                else (row_number() over (w order by p.position, p.thema_key) - 0.5)::numeric / count(*) over w
+           end lage
+      from plan p
+    window w as (partition by p.schule_id, p.klasse)),
+  pk as (
+    select u.schule_id, u.klasse, u.nr, array[u.thema_key] thema_keys, 'geschaetzt'::text quelle, null::date datum,
+           u.lage::numeric lage,
+           array(select distinct p.thema_key from plan p
+                  where p.schule_id = u.schule_id and p.klasse = u.klasse and p.position >= u.position) ab_hier
+      from uv u
+    union all
+    select b.schule_id, b.klasse, b.nr, b.thema_keys, 'bestaetigt', b.datum,
+           coalesce(least(1, greatest(0, (b.datum - j.beginn)::numeric / (j.ende - j.beginn))), (b.i - 0.5) / b.n),
+           array(select distinct x from best b2 cross join unnest(b2.thema_keys) x
+                  where b2.schule_id = b.schule_id and b2.klasse = b.klasse and b2.nr >= b.nr)
+      from best b cross join jahr j)
+  select pk.schule_id, pk.klasse, pk.nr, pk.thema_keys, pk.quelle,
+         coalesce(pk.datum, j.beginn + round(pk.lage * (j.ende - j.beginn))::int),
+         1 + least(3, floor(pk.lage * 4))::int, round(pk.lage, 4),
+         (select bool_and(exists (select 1 from public.thema_einstieg te where te.thema_key = x))
+            from unnest(pk.thema_keys) x),
+         array(select distinct x from unnest(pk.ab_hier || coalesce(
+                   -- Klasse + 1 aus dem Schulplan (:9142) …
+                   nullif(array(select distinct p.thema_key from public.schul_themenplan p
+                                 where p.schule_id = pk.schule_id and lower(p.fach) = 'mathematik'
+                                   and p.klasse = pk.klasse + 1 and p.thema_key is not null), '{}'),
+                   -- … sonst Kernlehrplan der Klasse + 1 ohne das, was bis zur eigenen Klasse im Plan (bzw. im
+                   -- Kernlehrplan der Klasse) steht, wie v_fuell :9188–9207.
+                   array(select f.x from unnest(public.lsa_klp_themen('mathematik', pk.klasse + 1)) f(x)
+                          where not f.x = any (
+                                  case when exists (select 1 from public.schul_themenplan p
+                                                     where p.schule_id = pk.schule_id and lower(p.fach) = 'mathematik'
+                                                       and p.klasse = pk.klasse)
+                                       then array(select p.thema_key from public.schul_themenplan p
+                                                   where p.schule_id = pk.schule_id and lower(p.fach) = 'mathematik'
+                                                     and p.klasse <= pk.klasse and p.thema_key is not null)
+                                       else public.lsa_klp_themen('mathematik', pk.klasse) end)))) x
+                -- array_remove(v_spaeter, Thema der Sitzung) :9209 — hier die Themen der Arbeit davor.
+                where x = any (pk.thema_keys) or not x = any (coalesce((select v.thema_keys from pk v where v.schule_id = pk.schule_id
+                                               and v.klasse = pk.klasse and v.nr = pk.nr - 1), '{}')))
+    from pk cross join jahr j
+$$;
+
+
+--
 -- Name: lsa_parse_fraction(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8906,6 +9309,23 @@ $$;
 
 
 --
+-- Name: lsa_regel(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_regel(OUT texte integer, OUT ohne_mc integer, OUT fokus_quartal integer) RETURNS record
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select (e.wert #>> '{}')::numeric::int from public.session_einstellungen e
+                    where e.schluessel = 'lsa_regel_texte'), 2),
+         coalesce((select (e.wert #>> '{}')::numeric::int from public.session_einstellungen e
+                    where e.schluessel = 'lsa_regel_ohne_mc'), 1),
+         coalesce((select (e.wert #>> '{}')::numeric::int from public.session_einstellungen e
+                    where e.schluessel = 'lsa_fokus_quartal'), 3)
+$$;
+
+
+--
 -- Name: lsa_schule_von_sitzung(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8926,6 +9346,16 @@ CREATE FUNCTION public.lsa_schule_von_sitzung(p_session_id uuid) RETURNS uuid
     join students st on st.id = s.student_id
    where s.id = p_session_id
 $$;
+
+
+--
+-- Name: lsa_schuljahr_heute(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_schuljahr_heute() RETURNS text
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select public.ka_schuljahr((now() at time zone 'Europe/Berlin')::date) $$;
 
 
 --
@@ -9735,6 +10165,50 @@ $$;
 
 
 --
+-- Name: lsa_skill_bereit(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_skill_bereit(p_skill text) RETURNS TABLE(texte_im_pool integer, ohne_mc_im_pool integer, erfuellt boolean, fehlende_texte integer, fehlende_ohne_mc integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_skill_bereit: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query select r.texte_im_pool, r.ohne_mc_im_pool, r.erfuellt, r.fehlende_texte, r.fehlende_ohne_mc
+                 from public.lsa_skill_bereit_roh(p_skill) r;
+end;
+$$;
+
+
+--
+-- Name: lsa_skill_bereit_roh(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_skill_bereit_roh(p_skill text DEFAULT NULL::text) RETURNS TABLE(skill_key text, texte_im_pool integer, ohne_mc_im_pool integer, erfuellt boolean, fehlende_texte integer, fehlende_ohne_mc integer, schluessel text[])
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with pool as (
+    select t.skill_key, t.input_type, coalesce(public.lsa_text_schluessel(t.question, t.parts), t.id::text) ts
+      from public.tasks t
+     where 'lsa' = any (t.einsatz) and (p_skill is null or t.skill_key = p_skill)
+       and public.lsa_im_pool(t.id, false)),
+  je as (
+    select s.skill_key, count(distinct p.ts)::int texte, (count(p.ts) filter (where p.input_type <> 'MC'))::int ohne_mc,
+           coalesce(array_agg(distinct p.ts) filter (where p.ts is not null), '{}') schluessel
+      from public.skills s left join pool p on p.skill_key = s.skill_key
+     where p_skill is null or s.skill_key = p_skill
+     group by s.skill_key)
+  select je.skill_key, je.texte, je.ohne_mc, je.texte >= g.texte and je.ohne_mc >= g.ohne_mc,
+         greatest(g.texte - je.texte, 0), greatest(g.ohne_mc - je.ohne_mc, 0), je.schluessel
+    from je cross join public.lsa_regel() g
+$$;
+
+
+--
 -- Name: lsa_split_value_unit(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9884,6 +10358,39 @@ begin
     'item',        public.lsa_question_payload(v_items[1])
   );
 end;
+$$;
+
+
+--
+-- Name: lsa_status_roh(text, text[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_status_roh(p_schuljahr text, p_annahme text[] DEFAULT '{}'::text[]) RETURNS TABLE(schule_id uuid, klasse integer, paket_nr integer, ampel text, fehlende_pflicht_skills integer, fehlende_skills integer, fehlende_texte integer, hat_einstieg boolean, skills integer)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with b as (
+    select r.skill_key, r.erfuellt or r.skill_key = any (coalesce(p_annahme, '{}')) ok,
+           greatest(r.fehlende_texte, r.fehlende_ohne_mc) bedarf
+      from public.lsa_skill_bereit_roh(null) r),
+  ps as (
+    select s.schule_id, s.klasse, s.paket_nr, s.skill_key, bool_or(s.pflicht) pflicht
+      from public.lsa_paket_skills_basis(p_schuljahr) s group by 1, 2, 3, 4),
+  je as (
+    select p.schule_id, p.klasse, p.paket_nr, p.hat_einstieg,
+           count(ps.skill_key)::int n,
+           (count(*) filter (where ps.pflicht and not b.ok))::int fehl_pflicht,
+           (count(*) filter (where not b.ok))::int fehl,
+           coalesce(sum(b.bedarf) filter (where not b.ok), 0)::int fehl_texte
+      from public.lsa_pakete_basis(p_schuljahr) p
+      left join ps on ps.schule_id = p.schule_id and ps.klasse = p.klasse and ps.paket_nr = p.paket_nr
+      left join b on b.skill_key = ps.skill_key
+     group by 1, 2, 3, 4)
+  select je.schule_id, je.klasse, je.paket_nr,
+         case when je.hat_einstieg and je.fehl = 0 then 'gruen'
+              when je.hat_einstieg and je.fehl_pflicht = 0 then 'gelb' else 'rot' end,
+         je.fehl_pflicht, je.fehl, je.fehl_texte, je.hat_einstieg, je.n
+    from je
 $$;
 
 
@@ -10691,6 +11198,42 @@ begin
 exception
   when others then
     return false;
+end;
+$$;
+
+
+--
+-- Name: lsa_wirkung(text, text[], integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_wirkung(p_skill text, p_auch text[] DEFAULT '{}'::text[], p_quartal integer DEFAULT NULL::integer, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(schule_id uuid, schule text, klasse integer, paket_nr integer, thema_keys text[], ampel_vorher text, ampel_nachher text, schule_neu boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_sj text := coalesce(p_schuljahr, public.lsa_schuljahr_heute());
+begin
+  if not public.darf_pruefen() then
+    raise exception 'lsa_wirkung: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  with p as (select * from public.lsa_pakete_basis(v_sj) x where p_quartal is null or x.quartal = p_quartal),
+  vor as (select s.* from public.lsa_status_roh(v_sj) s join p using (schule_id, klasse, paket_nr)),
+  nach as (select s.* from public.lsa_status_roh(v_sj, array_remove(array[p_skill] || coalesce(p_auch, '{}'), null)) s
+             join p using (schule_id, klasse, paket_nr)),
+  schule_vor as (select v.schule_id, bool_or(v.ampel <> 'rot') ok from vor v group by 1),
+  schule_nach as (select n.schule_id, bool_or(n.ampel <> 'rot') ok from nach n group by 1)
+  select v.schule_id, sc.name, v.klasse, v.paket_nr, p.thema_keys, v.ampel, n.ampel,
+         not sv.ok and sn.ok
+    from vor v
+    join nach n using (schule_id, klasse, paket_nr)
+    join p using (schule_id, klasse, paket_nr)
+    join public.schulen sc on sc.id = v.schule_id
+    join schule_vor sv on sv.schule_id = v.schule_id
+    join schule_nach sn on sn.schule_id = v.schule_id
+   where v.ampel <> n.ampel
+   order by sc.name, v.klasse, v.paket_nr;
 end;
 $$;
 
@@ -13947,6 +14490,127 @@ CREATE FUNCTION public.pruef_zahl_von(p_wert text) RETURNS text
     AS $$
   select case when public.pruef_ist_zahl(p_wert) then
     (regexp_match(btrim(p_wert), '^([-+−–]?\s?[0-9]+(?:\s+[0-9]+/[0-9]+|/[0-9]+|[.,][0-9]+)?)'))[1] end
+$$;
+
+
+--
+-- Name: pruef_ziel_liste(boolean, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_ziel_liste(p_nur_fokus boolean DEFAULT false, p_quartal integer DEFAULT NULL::integer, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(abschnitt text, skill_key text, skill_label text, thema_key text, thema_label text, fehlende_texte integer, rest integer, hebel_pakete integer, hebel_schulen integer, fokus_treffer integer, sort integer, task_ids uuid[], freigabe_ids uuid[], pilot_fehlt uuid[])
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_sj text := coalesce(p_schuljahr, public.lsa_schuljahr_heute());
+  v_q  integer := coalesce(p_quartal, (select g.fokus_quartal from public.lsa_regel() g));
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruef_ziel_liste: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  with p as (
+    select x.*, f.schule_id is not null fokus from public.lsa_pakete_basis(v_sj) x
+      left join public.schule_fokus f on f.schule_id = x.schule_id
+     where (not coalesce(p_nur_fokus, false) or f.schule_id is not null)
+       and (p_quartal is null or x.quartal = p_quartal)),
+  ps as (
+    select distinct s.schule_id, s.klasse, s.paket_nr, s.skill_key, p.fokus, p.quartal
+      from public.lsa_paket_skills_basis(v_sj) s join p using (schule_id, klasse, paket_nr)),
+  hebel as (
+    select ps.skill_key, count(*)::int pakete, count(distinct ps.schule_id)::int schulen,
+           (count(*) filter (where ps.fokus and ps.quartal = v_q))::int fokus
+      from ps group by 1),
+  thema as (
+    select distinct on (st.skill_key) st.skill_key, th.thema_key, th.label
+      from public.skill_thema st join public.themen th on th.thema_key = st.thema_key
+     order by st.skill_key, th.sort nulls last, th.thema_key),
+  nach as (
+    select t.skill_key, array_agg(t.id order by t.sondierrang nulls last, t.id) ids
+      from public.tasks t
+     where 'lsa' = any (t.einsatz) and t.status = 'ready'
+       and coalesce((select p2.entscheidung from public.task_pruefungen p2 where p2.task_id = t.id
+                      order by p2.geprueft_am desc limit 1), '') <> 'passt'
+     group by t.skill_key),
+  zeilen as (
+    select 'gezielt'::text ab, z.skill_key sk, z.bedarf, z.rest r, h.pakete, h.schulen, h.fokus, z.task_ids ids,
+           z.freigabe_ids fids, z.pilot_fehlt pf
+      from public.pruef_ziel_roh() z join hebel h on h.skill_key = z.skill_key
+     where cardinality(z.task_ids) > 0 or cardinality(z.freigabe_ids) > 0
+    union all
+    select 'nachpruefen', n.skill_key, 0, 0, coalesce(h.pakete, 0), coalesce(h.schulen, 0), coalesce(h.fokus, 0),
+           n.ids, '{}'::uuid[], '{}'::uuid[]
+      from nach n left join hebel h on h.skill_key = n.skill_key)
+  select zl.ab, zl.sk, k.label, th.thema_key, th.label, zl.bedarf, zl.r, zl.pakete, zl.schulen, zl.fokus,
+         (row_number() over (partition by zl.ab order by zl.fokus desc, zl.schulen desc, zl.pakete desc, zl.sk))::int,
+         zl.ids, zl.fids, zl.pf
+    from zeilen zl
+    join public.skills k on k.skill_key = zl.sk
+    left join thema th on th.skill_key = zl.sk
+   order by zl.ab, 11;
+end;
+$$;
+
+
+--
+-- Name: pruef_ziel_roh(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_ziel_roh() RETURNS TABLE(skill_key text, bedarf integer, rest integer, task_ids uuid[], freigabe_ids uuid[], pilot_fehlt uuid[])
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with g as (select * from public.lsa_regel()),
+  fehlt as (select r.* from public.lsa_skill_bereit_roh(null) r where not r.erfuellt),
+  kand0 as materialized (
+    select t.id, t.skill_key, t.status, t.input_type <> 'MC' ohne_mc, t.sondierrang, public.pruef_im_pilot(t) pilot,
+           coalesce(public.lsa_text_schluessel(t.question, t.parts), t.id::text) ts
+      from public.tasks t
+      join fehlt f on f.skill_key = t.skill_key
+      join public.task_solutions s on s.task_id = t.id
+     where 'lsa' = any (t.einsatz) and t.status in ('draft', 'review')
+       and coalesce(t.is_active, false) and not coalesce(t.is_tutorial, false) and t.content_type = 'exercise'
+       and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
+       and public.lsa_eingabeformat_eindeutig(t.input_type, t.bruch, t.unit, t.parts, s.correct_answers)
+       and not coalesce(public.lsa_text_schluessel(t.question, t.parts), t.id::text) = any (f.schluessel)
+       -- Fehlt nur der Beleg ohne MC, bringt eine MC-Aufgabe nichts.
+       and (t.input_type <> 'MC' or f.fehlende_texte > 0)),
+  kand as materialized (
+    select k.* from kand0 k
+     where public.pruef_ausschluss(k.id) is null
+       and (k.status = 'draft' or public.pruef_freigabe_erlaubt(k.id))),
+  je_schluessel as (   -- ein Vertreter je neuem Schlüssel: Geprüftes vor Entwurf, Nicht-MC, sondierrang
+    select distinct on (k.skill_key, k.ts) k.*
+      from kand k
+     order by k.skill_key, k.ts, (k.status = 'review') desc, k.ohne_mc desc, k.pilot desc, k.sondierrang nulls last,
+              k.id),
+  geprueft as (
+    select f.skill_key, greatest(f.fehlende_texte, f.fehlende_ohne_mc) bedarf,
+           coalesce(array_agg(j.id order by j.ohne_mc desc, j.sondierrang nulls last, j.id)
+                    filter (where j.status = 'review'), '{}') ids,
+           (count(*) filter (where j.status = 'review'))::int n,
+           (count(*) filter (where j.status = 'review' and j.ohne_mc))::int n_ohne
+      from fehlt f left join je_schluessel j on j.skill_key = f.skill_key
+     group by f.skill_key, f.fehlende_texte, f.fehlende_ohne_mc),
+  rest as (
+    select gp.skill_key, gp.bedarf, gp.ids[1:gp.bedarf] freigabe_ids,
+           greatest(f.fehlende_texte - gp.n, f.fehlende_ohne_mc - gp.n_ohne, 0) rest
+      from geprueft gp join fehlt f on f.skill_key = gp.skill_key),
+  vorschlag as (
+    select r.skill_key, x.id, x.pilot, x.rn
+      from rest r
+      cross join lateral (
+        select j.id, j.pilot,
+               row_number() over (order by j.ohne_mc desc, j.pilot desc, j.sondierrang nulls last, j.id) rn
+          from je_schluessel j where j.skill_key = r.skill_key and j.status = 'draft') x
+     where r.rest > 0 and x.rn <= r.rest + 1)
+  select r.skill_key, r.bedarf, r.rest,
+         coalesce((select array_agg(v.id order by v.rn) from vorschlag v where v.skill_key = r.skill_key), '{}'),
+         coalesce(r.freigabe_ids, '{}'),
+         coalesce((select array_agg(v.id order by v.rn) from vorschlag v where v.skill_key = r.skill_key and not v.pilot),
+                  '{}')
+    from rest r
 $$;
 
 
@@ -26410,6 +27074,21 @@ CREATE TABLE public.lsa_ausgegeben (
 
 
 --
+-- Name: lsa_paket_cache_stand; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lsa_paket_cache_stand (
+    id boolean DEFAULT true NOT NULL,
+    schuljahr text NOT NULL,
+    berechnet_am timestamp with time zone DEFAULT now() NOT NULL,
+    veraltet boolean DEFAULT false NOT NULL,
+    gen bigint DEFAULT 0 NOT NULL,
+    fehler text,
+    CONSTRAINT lsa_paket_cache_stand_id_check CHECK (id)
+);
+
+
+--
 -- Name: lsa_report_notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -26931,6 +27610,17 @@ CREATE TABLE public.schul_themenplan (
     CONSTRAINT schul_themenplan_quelle_url_check CHECK ((NULLIF(btrim(quelle_url), ''::text) IS NOT NULL)),
     CONSTRAINT schul_themenplan_stunden_check CHECK (((stunden IS NULL) OR (stunden > 0))),
     CONSTRAINT schul_themenplan_uv_titel_check CHECK ((NULLIF(btrim(uv_titel), ''::text) IS NOT NULL))
+);
+
+
+--
+-- Name: schule_fokus; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schule_fokus (
+    schule_id uuid NOT NULL,
+    gesetzt_von uuid DEFAULT auth.uid(),
+    gesetzt_am timestamp with time zone DEFAULT now() NOT NULL
 );
 
 
@@ -28943,6 +29633,30 @@ ALTER TABLE ONLY public.lsa_ausgegeben
 
 
 --
+-- Name: lsa_paket_cache lsa_paket_cache_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lsa_paket_cache
+    ADD CONSTRAINT lsa_paket_cache_pkey PRIMARY KEY (schuljahr, schule_id, klasse, paket_nr);
+
+
+--
+-- Name: lsa_paket_cache_stand lsa_paket_cache_stand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lsa_paket_cache_stand
+    ADD CONSTRAINT lsa_paket_cache_stand_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lsa_paket_skill_cache lsa_paket_skill_cache_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lsa_paket_skill_cache
+    ADD CONSTRAINT lsa_paket_skill_cache_pkey PRIMARY KEY (schuljahr, schule_id, klasse, paket_nr, skill_key, fall);
+
+
+--
 -- Name: lsa_report_notes lsa_report_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -29276,6 +29990,14 @@ ALTER TABLE ONLY public.schul_klassenarbeiten
 
 ALTER TABLE ONLY public.schul_themenplan
     ADD CONSTRAINT schul_themenplan_uniq UNIQUE (schule_id, fach, klasse, "position");
+
+
+--
+-- Name: schule_fokus schule_fokus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schule_fokus
+    ADD CONSTRAINT schule_fokus_pkey PRIMARY KEY (schule_id);
 
 
 --
@@ -30428,6 +31150,13 @@ CREATE INDEX lernpfad_student_idx ON public.lernpfad USING btree (student_id);
 
 
 --
+-- Name: lsa_paket_skill_cache_skill; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lsa_paket_skill_cache_skill ON public.lsa_paket_skill_cache USING btree (skill_key);
+
+
+--
 -- Name: lsa_report_notes_session_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -31356,6 +32085,55 @@ CREATE TRIGGER lernpfad_kompetenz_offen_nachher AFTER INSERT OR UPDATE ON public
 --
 
 CREATE TRIGGER lernpfad_kompetenz_offen_vorher BEFORE INSERT OR DELETE OR UPDATE ON public.lernpfad FOR EACH ROW EXECUTE FUNCTION public.kompetenz_offen_trigger();
+
+
+--
+-- Name: schul_klassenarbeiten lsa_paket_cache_schul_klassenarbeiten; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_schul_klassenarbeiten AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.schul_klassenarbeiten FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: schul_themenplan lsa_paket_cache_schul_themenplan; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_schul_themenplan AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.schul_themenplan FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: skill_kante lsa_paket_cache_skill_kante; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_skill_kante AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skill_kante FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: skill_thema lsa_paket_cache_skill_thema; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_skill_thema AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skill_thema FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: skills lsa_paket_cache_skills; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_skills AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skills FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: thema_einstieg lsa_paket_cache_thema_einstieg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_thema_einstieg AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.thema_einstieg FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: themen lsa_paket_cache_themen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_themen AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.themen FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
 
 
 --
@@ -32378,6 +33156,14 @@ ALTER TABLE ONLY public.lsa_ausgegeben
 
 
 --
+-- Name: lsa_paket_skill_cache lsa_paket_skill_cache_schuljahr_schule_id_klasse_paket_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lsa_paket_skill_cache
+    ADD CONSTRAINT lsa_paket_skill_cache_schuljahr_schule_id_klasse_paket_nr_fkey FOREIGN KEY (schuljahr, schule_id, klasse, paket_nr) REFERENCES public.lsa_paket_cache(schuljahr, schule_id, klasse, paket_nr) ON DELETE CASCADE;
+
+
+--
 -- Name: lsa_report_notes lsa_report_notes_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -32799,6 +33585,22 @@ ALTER TABLE ONLY public.schul_themenplan
 
 ALTER TABLE ONLY public.schul_themenplan
     ADD CONSTRAINT schul_themenplan_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key);
+
+
+--
+-- Name: schule_fokus schule_fokus_gesetzt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schule_fokus
+    ADD CONSTRAINT schule_fokus_gesetzt_von_fkey FOREIGN KEY (gesetzt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: schule_fokus schule_fokus_schule_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schule_fokus
+    ADD CONSTRAINT schule_fokus_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE CASCADE;
 
 
 --
@@ -34911,6 +35713,45 @@ CREATE POLICY lsa_ausgegeben_parent_read ON public.lsa_ausgegeben FOR SELECT USI
 
 
 --
+-- Name: lsa_paket_cache; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lsa_paket_cache ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lsa_paket_cache lsa_paket_cache_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_paket_cache_lesen ON public.lsa_paket_cache FOR SELECT USING (public.darf_pruefen());
+
+
+--
+-- Name: lsa_paket_cache_stand; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lsa_paket_cache_stand ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lsa_paket_cache_stand lsa_paket_cache_stand_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_paket_cache_stand_lesen ON public.lsa_paket_cache_stand FOR SELECT USING (public.darf_pruefen());
+
+
+--
+-- Name: lsa_paket_skill_cache; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lsa_paket_skill_cache ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lsa_paket_skill_cache lsa_paket_skill_cache_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_paket_skill_cache_lesen ON public.lsa_paket_skill_cache FOR SELECT USING (public.darf_pruefen());
+
+
+--
 -- Name: lsa_report_notes; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -35477,6 +36318,33 @@ CREATE POLICY schul_themenplan_admin_write ON public.schul_themenplan USING ((pu
 --
 
 CREATE POLICY schul_themenplan_read ON public.schul_themenplan FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: schule_fokus; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.schule_fokus ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: schule_fokus schule_fokus_admin_anlegen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schule_fokus_admin_anlegen ON public.schule_fokus FOR INSERT WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: schule_fokus schule_fokus_admin_loeschen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schule_fokus_admin_loeschen ON public.schule_fokus FOR DELETE USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: schule_fokus schule_fokus_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schule_fokus_lesen ON public.schule_fokus FOR SELECT USING (public.darf_pruefen());
 
 
 --
@@ -36870,4 +37738,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
+\unrestrict 62aFpTngwZ3U59oQyJnD78dcbFHqCHH3BYsFsOth1f7uuFjaRWbT0kNiKeGILIl
 

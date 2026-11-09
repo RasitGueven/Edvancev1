@@ -395,3 +395,14 @@ export type {
   OffeneSession,
   NichtGestarteteSession,
 } from './sessionC2'
+export type {
+  LsaAmpel,
+  LsaPaketQuelle,
+  LsaPaketFall,
+  LsaPaketTeil,
+  LsaAbdeckungZeile,
+  LsaPaketSkill,
+  PruefZielAbschnitt,
+  PruefZielZeile,
+  LsaWirkungZeile,
+} from './lsaAbdeckung'
