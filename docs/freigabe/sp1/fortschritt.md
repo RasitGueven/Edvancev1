@@ -11,9 +11,8 @@
 ## Stand bei der Pause (11.11.2026)
 
 - **S0** gemergt (#393).
-- **S1** PR #394 offen, Branch `feat/rasit-sp1-s1-daten` gepusht. Zweitprüfung **Runde 2** (frischer Subagent auf
-  den korrigierten Stand) war beim Anhalten noch nicht zurück; ihr Ergebnis gehört in `zweitpruefung-s1.md`, Abschnitt
-  „Runde 2“. **Nicht eingespielt.** Einspielskript liegt bereit: `~/einspielen/SP1-1-bauform-kommentare.sh`.
+- **S1** PR #394 offen, Branch `feat/rasit-sp1-s1-daten` gepusht. Zweitprüfung **Runde 2** kam nach der Pause zurück:
+  **keine Befunde „falsch“/„bricht“**, zwei „fehlt“ und acht Hinweise (`zweitpruefung-s1.md`, Runde 2). **Nicht eingespielt.** Einspielskript liegt bereit: `~/einspielen/SP1-1-bauform-kommentare.sh`.
 - **S3** begonnen auf `feat/rasit-sp1-s3-liste-wip` (WIP, keine PR; baut auf S1 auf): Liste mit Klartext-Titel,
   Fortschritt mit Balken, Filtern (Freigegeben nur Admin), Etiketten; Vitest grün. Vorschau-Aufbau für Ansichtstests
   angelegt (`vorschau/sessionpruefung.html`, `vite.sessionpruefung.config.ts`, `playwright.sessionpruefung.config.ts`),
@@ -26,7 +25,8 @@
 
 ## Nächste Schritte
 
-1. Ergebnis Zweitprüfung Runde 2 eintragen. Ohne Befund „falsch“/„bricht“ und mit grüner CI: `~/einspielen/SP1-1-bauform-kommentare.sh`,
+1. Die „fehlt“-Punkte 1 und 8 sowie die Hinweise 3, 4, 7 aus Runde 2 in S1 nachziehen (kleine Korrekturen, Tests),
+   danach mit grüner CI: `~/einspielen/SP1-1-bauform-kommentare.sh`,
    Prüfabfrage aus dem Migrationskopf per dbread, `schema-erwartet.sql` (Prod-Abzug) committen, #394 mergen.
 2. S2: Klartext (Writer-Subagent aus `scripts/bauformen/` und `docs/reihe1/A/bauformen/*.json`, danach frischer
    Prüf-Subagent), Datenmigration für `bauformen.titel`, `bauform_stufen.beschreibung/beispiel`; Fehlbild-Kurznamen in i18n.

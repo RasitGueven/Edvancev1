@@ -17,6 +17,23 @@ Frage: „Was ist falsch, was fehlt, was bricht?“
 | 8 | fehlt | „Nicht in Zu prüfen“ hängt an der Oberfläche. | Liste filtert nach Status `zur_pruefung`; `rueckfrage` ist ein eigener Filter. |
 | 9–17 | Hinweis | ID-Suche, Ausnahme-Text, Rechte im Trigger, Kinder und `aufgabe_zeit_sek`, Notiz-Text, Lesart „je Instanz“, Drop der Lesefunktionen, Rollback, Leer-DB. | `bauform_rueckfrage_pruefung` für authenticated ausführbar (Trigger robust); `aufgabe_zeit_sek` liefert Kindern null (pgTAP); Notiz `kommentare:n` statt Text; je Instanz ein Kommentar beim Anker beispiel (Lesart festgehalten). |
 
-## Runde 2
+## Runde 2 (korrigierter Stand, Commit 64767807)
 
-Siehe unten (nach Korrektur).
+Frischer Subagent ohne Kontext. **Keine Befunde „falsch“, keine Befunde „bricht“.** Bestätigt: Direktaufruf von
+`bauform_pruefen` zu, kein Aufrufer bricht; Lena kann keine Regel umgehen; automatischer Übergang in beiden
+Reihenfolgen, ohne Selbstauslösung; andere Versionswechsel unverändert; leere DB und Prod laufen; Rechte; `plan(57)`.
+
+Offen aus Runde 2 (vor dem Einspielen abzuarbeiten oder bewusst nach `offen.md`):
+
+| # | Art | Befund |
+|---|---|---|
+| 1 | fehlt | Re-Export **ohne** Steckbrief-Änderung, aber mit Verdacht, setzt eine kommentierte Rückfrage über den Upsert auf `entwurf`; der nächste saubere Export auf `zur_pruefung` (gleiche Version). Randfall (Blindlöser kippt bei gleichem Generator). |
+| 2 | Hinweis | `bauform_zur_ueberarbeitung` / `bauform_reaktivieren` (bestehend) lösen eine kommentierte Rückfrage auf; Oberfläche bietet es Lena heute nicht an. |
+| 3 | Hinweis | Zwei Admins erledigen die letzten Kommentare gleichzeitig → kein Auto-Übergang; Abhilfe `for update` auf `bauformen` im Trigger oder manuell `bauform_rueckfrage_erledigt`. |
+| 4 | Hinweis | `bauform_rueckfrage_pruefung` für alle `authenticated` ausführbar (gibt nur eine Prüfungs-ID heraus); mit `darf_pruefen()` absichern. |
+| 5 | Hinweis | Alte Oberfläche zeigt Bauformen in Rückfrage noch mit Knöpfen → Fehler `nicht_zu_pruefen`; Prod hat 0 Prüfungen. |
+| 6 | Hinweis | Übergangs-Mapping in `bauformPruefung.ts`: ohne Notiz landet der Enum-Schlüssel als Kommentartext. |
+| 7 | Hinweis | Kopfkommentar der Migration nennt `antwortart` nicht; m1-Test schlägt nach einem Rollback fehl. |
+| 8 | fehlt | pgTAP: `senden` auf Bauform in Rückfrage → P0001; Coach ohne Prüfrecht → 42501; Überarbeitung mit Verdacht bleibt `rueckfrage`; Versionswechsel außerhalb des Exports während der Überarbeitung; `throws_ok(…, null, null)` in Z. 134 zu unscharf. |
+| 9 | Hinweis | Prüfungs-ID per Suche statt `returning` (korrekt, solange eine Prüfung je Transaktion). |
+| 10 | Hinweis | Rollback braucht auch das Frontend zurück; danach kann Lena kommentierte Rückfragen wieder direkt entscheiden. |
