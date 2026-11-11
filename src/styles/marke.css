@@ -1,0 +1,59 @@
+/* Marke „Funke“ (Bauauftrag CI-1). Nur Tokens aus tokens.css, keine Hex-Werte. */
+
+/* Login-Himmel (Teil A): Navy-Verlauf von fast schwarz oben zu Blau unten. */
+.marke-himmel {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-marke-navy) 55%, black) 0%,
+      var(--color-marke-navy) 48%,
+      color-mix(in srgb, var(--color-marke-navy) 68%, var(--color-marke-cobalt)) 100%
+    );
+  color: var(--color-marke-ivory);
+}
+
+/* Einzelne große Sterne schimmern sehr langsam; mit reduzierter Bewegung steht alles still. */
+@keyframes marke-schimmer {
+  0%, 100% { opacity: 0.95; }
+  50%      { opacity: 0.55; }
+}
+.marke-schimmer {
+  animation: marke-schimmer 9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marke-schimmer { animation: none; }
+}
+
+/* Hauptknopf: leichter Verlauf, zweistufiger Schatten, gedrückt sinkt er 2 px ein. */
+.marke-knopf {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-marke-cobalt) 88%, var(--color-marke-weiss)) 0%,
+    var(--color-marke-cobalt) 55%,
+    color-mix(in srgb, var(--color-marke-cobalt) 88%, var(--color-marke-navy)) 100%
+  );
+  color: var(--color-marke-weiss);
+  box-shadow: var(--shadow-marke-knopf);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+.marke-knopf:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-marke-knopf-gedrueckt);
+}
+
+/* Felder auf Ivory: weiß, feiner Innenschatten, Fokus in Cobalt mit Ring. */
+.marke-feld {
+  background: var(--color-marke-weiss);
+  border: 1px solid color-mix(in srgb, var(--color-marke-navy) 16%, transparent);
+  border-radius: var(--radius-feld);
+  box-shadow: var(--shadow-marke-feld);
+  color: var(--color-marke-navy);
+}
+.marke-feld::placeholder {
+  color: color-mix(in srgb, var(--color-marke-navy) 45%, transparent);
+}
+.marke-feld:focus-visible {
+  outline: none;
+  border-color: var(--color-marke-cobalt);
+  box-shadow: var(--shadow-marke-feld), 0 0 0 3px color-mix(in srgb, var(--color-marke-cobalt) 28%, transparent);
+}
