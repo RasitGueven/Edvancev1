@@ -16,7 +16,12 @@
 --      erledigt sind, die Prüfmaschine grün und der Blindlöser bestanden ist. Nur Admin oder Systemaufruf
 --      (Datenmigration des Bauform-Exports). Der Versionswechsel einer solchen Überarbeitung öffnet die Bauform
 --      nicht wieder für Lena (bauform_versionswechsel); jeder andere Versionswechsel bleibt wie bisher.
+--      Der Übergang geschieht automatisch (Trigger), sobald der letzte Kommentar erledigt ist oder eine neue
+--      Version mit grünem Protokoll und bestandenem Blindlöser eingespielt wird – in beliebiger Reihenfolge.
 --   6. Sicht bauform_kommentar_auswertung für Admins.
+--   8. bauform_pruefen bleibt unverändert, ist aber nur noch über bauform_pruefung_senden erreichbar (kein direktes
+--      Ausführungsrecht für authenticated): sonst könnte eine Rückfrage ohne Kommentare oder ein „passt“ auf eine
+--      Bauform in Überarbeitung gesetzt werden (Zweitprüfung S1, Befund 1).
 --   7. bauform_pruef_detail: p_behalten (kommentierte Beispiele bleiben bei „Andere Beispiele“ stehen), dazu
 --      Titel, Stufen und die letzte Rückfrage mit Kommentaren. bauform_pruef_plan: dazu der Titel.
 --
@@ -138,9 +143,10 @@ create function public.aufgabe_zeit_sek(p_task uuid) returns integer
   language sql stable security definer
   set search_path to 'public', 'pg_temp'
 as $$
-  select coalesce((select round(s.zeit_min * 60)::int from public.bauform_stufen s
+  -- nur Coaches, Admins und Systemaufrufe (Planung); Kinder bekommen null
+  select case when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') in ('coach', 'admin') then coalesce((select round(s.zeit_min * 60)::int from public.bauform_stufen s
                     where s.bauform_id = t.bauform_id and s.stufe = t.stufe),
-                  t.est_duration_sec, t.estimated_minutes * 60)
+                  t.est_duration_sec, t.estimated_minutes * 60) end
     from public.tasks t where t.id = p_task
 $$;
 
@@ -256,11 +262,14 @@ begin
   if not public.darf_pruefen() then
     raise exception 'bauform_pruefung_senden: kein Pruefrecht' using errcode = '42501';
   end if;
-  select * into b from public.bauformen where id = p_bauform;
+  select * into b from public.bauformen where id = p_bauform for update;
   if not found then
     raise exception 'bauform_pruefung_senden: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
-  if b.status <> 'zur_pruefung' and b.version = p_version then
+  if b.version is distinct from p_version then
+    raise exception 'bauform_pruefung_senden: die Bauform hat sich geaendert (Version %)', b.version using errcode = 'ED409';
+  end if;
+  if b.status <> 'zur_pruefung' then
     raise exception 'bauform_pruefung_senden: Bauform steht nicht zur Pruefung (%)', b.status using errcode = 'P0001',
       hint = 'nicht_zu_pruefen';
   end if;
@@ -303,7 +312,7 @@ begin
     v_erg := public.bauform_pruefen(p_bauform, p_version, 'unsicher',
                array(select distinct g from jsonb_array_elements(p_kommentare) e,
                                              jsonb_array_elements_text(coalesce(e -> 'gruende', '[]'::jsonb)) g order by g),
-               format('Rueckfrage mit %s Kommentar(en)', v_n), p_dauer);
+               format('kommentare:%s', v_n), p_dauer);
   end if;
   select x.id into v_pruefung from public.bauform_pruefungen x
    where x.bauform_id = b.id and x.version = b.version and x.geprueft_von is not distinct from auth.uid()
@@ -331,14 +340,65 @@ exception
 end $$;
 
 -- ── 5 · Rückfrage abschließen ────────────────────────────────────────────────
-create function public.bauform_rueckfrage_erledigt(p_bauform uuid, p_neue_version integer) returns text
-  language plpgsql security definer
+-- Grund, warum die Rückfrage noch nicht abgeschlossen werden kann (null = bereit). Ohne Rechteprüfung, intern.
+create function public.bauform_rueckfrage_hindernis(p_bauform uuid, p_neue_version integer) returns text
+  language plpgsql stable security definer
   set search_path to 'public', 'pg_temp'
 as $$
 declare
   b public.bauformen;
   v_pruefung uuid;
   v_rueck_version int;
+begin
+  select * into b from public.bauformen where id = p_bauform;
+  if not found then
+    return 'bauform_fehlt';
+  end if;
+  v_pruefung := public.bauform_rueckfrage_pruefung(b.id);
+  if b.status <> 'rueckfrage' or v_pruefung is null then
+    return 'keine_rueckfrage';
+  end if;
+  select version into v_rueck_version from public.bauform_pruefungen where id = v_pruefung;
+  if b.version is distinct from coalesce(p_neue_version, b.version) or b.version <= v_rueck_version then
+    return 'version';
+  end if;
+  if exists (select 1 from public.bauform_kommentare k where k.pruefung_id = v_pruefung and k.status <> 'erledigt') then
+    return 'kommentar_offen';
+  end if;
+  if b.verdacht is not null or b.pruefprotokoll ->> 'lauf_am' is null
+     or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
+     -- gruen laut Protokoll der Version: der Export schreibt die Bauform vor ihren Instanzen (export.py)
+     or coalesce((b.pruefprotokoll ->> 'gruen')::int, 0) = 0 then
+    return 'pruefmaschine';
+  end if;
+  if coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
+    return 'blindloeser';
+  end if;
+  return null;
+end $$;
+
+-- Automatisch: nach jedem erledigten Kommentar und nach jeder Änderung an Version, Protokoll oder Blindlöser einer
+-- Bauform in Rückfrage. Setzt zur_freigabe, wenn nichts mehr fehlt; sonst bleibt sie in Überarbeitung.
+create function public.bauform_rueckfrage_automatisch() returns trigger
+  language plpgsql security definer
+  set search_path to 'public', 'pg_temp'
+as $$
+declare
+  v_bauform uuid := (to_jsonb(new) ->> case when tg_table_name = 'bauform_kommentare' then 'bauform_id' else 'id' end)::uuid;
+begin
+  if public.bauform_rueckfrage_hindernis(v_bauform, null) is null then
+    update public.bauformen set status = 'zur_freigabe' where id = v_bauform and status = 'rueckfrage';
+  end if;
+  return null;
+end $$;
+
+create function public.bauform_rueckfrage_erledigt(p_bauform uuid, p_neue_version integer) returns text
+  language plpgsql security definer
+  set search_path to 'public', 'pg_temp'
+as $$
+declare
+  b public.bauformen;
+  v_grund text;
 begin
   if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
     raise exception 'bauform_rueckfrage_erledigt: nur admin' using errcode = '42501';
@@ -347,38 +407,31 @@ begin
   if not found then
     raise exception 'bauform_rueckfrage_erledigt: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
-  v_pruefung := public.bauform_rueckfrage_pruefung(b.id);
-  if b.status <> 'rueckfrage' or v_pruefung is null then
-    raise exception 'bauform_rueckfrage_erledigt: keine offene Rueckfrage mit Kommentaren (%)', b.status
-      using errcode = 'P0001', hint = 'keine_rueckfrage';
+  -- schon automatisch abgeschlossen (Trigger): kein Fehler
+  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung(b.id) is not null then
+    return 'zur_freigabe';
   end if;
-  select version into v_rueck_version from public.bauform_pruefungen where id = v_pruefung;
-  if b.version <> p_neue_version or b.version <= v_rueck_version then
-    raise exception 'bauform_rueckfrage_erledigt: neue Version fehlt (aktuell %, Rueckfrage zu %)', b.version, v_rueck_version
-      using errcode = 'P0001', hint = 'version';
-  end if;
-  if exists (select 1 from public.bauform_kommentare k where k.pruefung_id = v_pruefung and k.status <> 'erledigt') then
-    raise exception 'bauform_rueckfrage_erledigt: nicht jeder Kommentar ist mit Notiz erledigt'
-      using errcode = 'P0001', hint = 'kommentar_offen';
-  end if;
-  if b.verdacht is not null or b.pruefprotokoll ->> 'lauf_am' is null
-     or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
-     or not exists (select 1 from public.tasks t where t.bauform_id = b.id and t.bauform_version = b.version
-                      and public.instanz_gruen(t.pruefmaschine)) then
-    raise exception 'bauform_rueckfrage_erledigt: Pruefmaschine fuer Version % nicht gruen', b.version
-      using errcode = 'P0001', hint = 'pruefmaschine';
-  end if;
-  if coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
-    raise exception 'bauform_rueckfrage_erledigt: Blindloeser fuer Version % nicht bestanden', b.version
-      using errcode = 'P0001', hint = 'blindloeser';
+  v_grund := public.bauform_rueckfrage_hindernis(b.id, p_neue_version);
+  if v_grund is not null then
+    raise exception 'bauform_rueckfrage_erledigt: Rueckfrage kann nicht abgeschlossen werden (%)', v_grund
+      using errcode = 'P0001', hint = v_grund;
   end if;
   update public.bauformen set status = 'zur_freigabe' where id = b.id;
   return 'zur_freigabe';
 end $$;
 
+create trigger bauform_kommentare_rueckfrage_automatisch after update of status on public.bauform_kommentare
+  for each row when (new.status = 'erledigt' and old.status = 'offen')
+  execute function public.bauform_rueckfrage_automatisch();
+create trigger bauformen_rueckfrage_automatisch after update of version, pruefprotokoll, blindloeser, verdacht
+  on public.bauformen
+  for each row when (new.status = 'rueckfrage')
+  execute function public.bauform_rueckfrage_automatisch();
+
 -- Die eine Stelle, an der ein Versionswechsel die Bauform für Lena wieder öffnet (Ist-Analyse §4). Neu: Steht die
 -- Bauform in einer Rückfrage mit Kommentaren, bleibt sie in Überarbeitung (rueckfrage) und geht erst über
--- bauform_rueckfrage_erledigt weiter. Sonst unverändert.
+-- bauform_rueckfrage_erledigt weiter, auch wenn die neue Version einen Verdacht trägt (dann bleibt sie blockiert und
+-- in der Liste verborgen). Sonst unverändert.
 create or replace function public.bauform_versionswechsel() returns trigger
   language plpgsql
   set search_path to 'public', 'pg_temp'
@@ -508,7 +561,7 @@ create function public.bauform_pruef_plan(p_student_id uuid default null)
   returns table(bauform_id uuid, schluessel text, skill_key text, skill_label text, reihe text, format text,
                 rollen text[], version integer, status text, gruen integer, letzte_entscheidung text, letzte_notiz text,
                 geprueft_am timestamptz, session_nr integer, session_titel text, kernidee_key text, kernidee_titel text,
-                ist_voraussetzung boolean, titel text)
+                ist_voraussetzung boolean, titel text, antwortart text)
   language plpgsql stable security definer
   set search_path to 'public', 'pg_temp'
 as $$
@@ -553,7 +606,11 @@ begin
   )
   select l.bauform_id, l.schluessel, l.skill_key, l.skill_label, l.reihe, l.format, l.rollen, l.version, l.status,
          l.gruen, l.letzte_entscheidung, l.letzte_notiz, l.geprueft_am,
-         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null, b.titel
+         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null, b.titel,
+         case when b.format = 'feldmaske' and exists (
+                select 1 from public.tasks t where t.bauform_id = b.id and t.bauform_version = b.version
+                   and t.question_payload -> 'schablone' -> 0 ->> 'text' ~ '^[PS]\(') then 'punkt'
+              else b.format end
     from public.bauform_pruef_liste() l
     join public.bauformen b on b.id = l.bauform_id
     join zuordnung z on z.id = b.id
@@ -574,30 +631,26 @@ create policy bauform_zeit_aenderungen_pruefer_lesen on public.bauform_zeit_aend
   using (public.darf_pruefen());
 create policy bauform_kommentare_pruefer_lesen on public.bauform_kommentare for select to authenticated
   using (public.darf_pruefen());
--- Schreiben: Pruefer nur zu eigenen Rueckfragen (der Normalweg ist bauform_pruefung_senden).
-create policy bauform_kommentare_eigene_schreiben on public.bauform_kommentare for insert to authenticated
-  with check (public.darf_pruefen() and status = 'offen' and exists (
-    select 1 from public.bauform_pruefungen p where p.id = pruefung_id and p.geprueft_von = auth.uid()
-       and p.entscheidung = 'unsicher' and p.bauform_id = bauform_kommentare.bauform_id
-       and p.version = bauform_kommentare.version));
+-- Schreiben nur ueber bauform_pruefung_senden (security definer); kein direktes Insert-Recht (Zweitpruefung S1, 6).
 
 revoke all on public.bauform_stufen, public.bauform_zeit_aenderungen, public.bauform_kommentare,
               public.bauform_kommentar_auswertung from anon, authenticated;
 grant select on public.bauform_stufen, public.bauform_zeit_aenderungen, public.bauform_kommentare,
                 public.bauform_kommentar_auswertung to authenticated;
-grant insert on public.bauform_kommentare to authenticated;
+revoke execute on function public.bauform_pruefen(uuid, integer, text, text[], text, integer) from authenticated;
 
 do $$
 declare f text;
 begin
   foreach f in array array['bauform_zeit_aendern(uuid,integer,numeric,uuid)', 'bauform_stufen_anlegen()',
-                           'bauform_kommentar_schutz()', 'bauform_rueckfrage_pruefung(uuid)'] loop
+                           'bauform_kommentar_schutz()', 'bauform_rueckfrage_hindernis(uuid,integer)',
+                           'bauform_rueckfrage_automatisch()'] loop
     execute format('revoke all on function public.%s from public, anon, authenticated', f);
   end loop;
   foreach f in array array[
     'bauform_zeit_setzen(uuid,integer,numeric)', 'aufgabe_zeit_sek(uuid)', 'bauform_pruefung_senden(uuid,integer,jsonb,jsonb,integer)',
     'bauform_kommentar_erledigen(uuid,text)', 'bauform_rueckfrage_erledigt(uuid,integer)',
-    'bauform_pruef_detail(uuid,integer,uuid[])', 'bauform_pruef_plan(uuid)'] loop
+    'bauform_pruef_detail(uuid,integer,uuid[])', 'bauform_pruef_plan(uuid)', 'bauform_rueckfrage_pruefung(uuid)'] loop
     execute format('revoke all on function public.%s from public, anon', f);
     execute format('grant execute on function public.%s to authenticated', f);
   end loop;

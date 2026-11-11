@@ -17,3 +17,10 @@ statt Kernidee-Minuten?), ist eine Entscheidung der Gründer.
 ## O2 · Neuer Untergrund für Graph-Optionen (Nachtrag 11.11.)
 
 Aufgenommen als S4 Punkt 14 und Abnahmefall k.
+
+## O3 · Rückfrage und Pausieren (Zweitprüfung S1, Befund 7)
+
+Wird eine Bauform in Rückfrage gemeldet und pausiert (`aufgabe_melden`) oder setzt ein Export mit Verdacht sie ohne
+Versionswechsel auf `entwurf`, geht der Status `rueckfrage` verloren; der nächste saubere Export öffnet sie dann wieder
+für Lena, die Kommentare bleiben offen. Heute ohne Fall (0 Prüfungen). Die Überarbeitung nach `rueckfragen-ablauf.md`
+prüft vor dem Export den Status.

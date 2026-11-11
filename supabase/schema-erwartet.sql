@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict MMoWyygQoicN4JPfyjzIF7mMHHQBdDlj5skeDtcIwbm7RcAv1Iw1ihMTR88qenj
+\restrict 49iQiXuKlTBAdjG6WTAklK0z92UUBC7Gh6bUO21vlnbRgvAq4C7P91A6bqyEXht
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -949,9 +949,10 @@ CREATE FUNCTION public.aufgabe_zeit_sek(p_task uuid) RETURNS integer
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select coalesce((select round(s.zeit_min * 60)::int from public.bauform_stufen s
+  -- nur Coaches, Admins und Systemaufrufe (Planung); Kinder bekommen null
+  select case when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') in ('coach', 'admin') then coalesce((select round(s.zeit_min * 60)::int from public.bauform_stufen s
                     where s.bauform_id = t.bauform_id and s.stufe = t.stufe),
-                  t.est_duration_sec, t.estimated_minutes * 60)
+                  t.est_duration_sec, t.estimated_minutes * 60) end
     from public.tasks t where t.id = p_task
 $$;
 
@@ -1466,7 +1467,7 @@ end $$;
 -- Name: bauform_pruef_plan(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.bauform_pruef_plan(p_student_id uuid DEFAULT NULL::uuid) RETURNS TABLE(bauform_id uuid, schluessel text, skill_key text, skill_label text, reihe text, format text, rollen text[], version integer, status text, gruen integer, letzte_entscheidung text, letzte_notiz text, geprueft_am timestamp with time zone, session_nr integer, session_titel text, kernidee_key text, kernidee_titel text, ist_voraussetzung boolean, titel text)
+CREATE FUNCTION public.bauform_pruef_plan(p_student_id uuid DEFAULT NULL::uuid) RETURNS TABLE(bauform_id uuid, schluessel text, skill_key text, skill_label text, reihe text, format text, rollen text[], version integer, status text, gruen integer, letzte_entscheidung text, letzte_notiz text, geprueft_am timestamp with time zone, session_nr integer, session_titel text, kernidee_key text, kernidee_titel text, ist_voraussetzung boolean, titel text, antwortart text)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -1511,7 +1512,11 @@ begin
   )
   select l.bauform_id, l.schluessel, l.skill_key, l.skill_label, l.reihe, l.format, l.rollen, l.version, l.status,
          l.gruen, l.letzte_entscheidung, l.letzte_notiz, l.geprueft_am,
-         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null, b.titel
+         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null, b.titel,
+         case when b.format = 'feldmaske' and exists (
+                select 1 from public.tasks t where t.bauform_id = b.id and t.bauform_version = b.version
+                   and t.question_payload -> 'schablone' -> 0 ->> 'text' ~ '^[PS]\(') then 'punkt'
+              else b.format end
     from public.bauform_pruef_liste() l
     join public.bauformen b on b.id = l.bauform_id
     join zuordnung z on z.id = b.id
@@ -1601,11 +1606,14 @@ begin
   if not public.darf_pruefen() then
     raise exception 'bauform_pruefung_senden: kein Pruefrecht' using errcode = '42501';
   end if;
-  select * into b from public.bauformen where id = p_bauform;
+  select * into b from public.bauformen where id = p_bauform for update;
   if not found then
     raise exception 'bauform_pruefung_senden: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
-  if b.status <> 'zur_pruefung' and b.version = p_version then
+  if b.version is distinct from p_version then
+    raise exception 'bauform_pruefung_senden: die Bauform hat sich geaendert (Version %)', b.version using errcode = 'ED409';
+  end if;
+  if b.status <> 'zur_pruefung' then
     raise exception 'bauform_pruefung_senden: Bauform steht nicht zur Pruefung (%)', b.status using errcode = 'P0001',
       hint = 'nicht_zu_pruefen';
   end if;
@@ -1648,7 +1656,7 @@ begin
     v_erg := public.bauform_pruefen(p_bauform, p_version, 'unsicher',
                array(select distinct g from jsonb_array_elements(p_kommentare) e,
                                              jsonb_array_elements_text(coalesce(e -> 'gruende', '[]'::jsonb)) g order by g),
-               format('Rueckfrage mit %s Kommentar(en)', v_n), p_dauer);
+               format('kommentare:%s', v_n), p_dauer);
   end if;
   select x.id into v_pruefung from public.bauform_pruefungen x
    where x.bauform_id = b.id and x.version = b.version and x.geprueft_von is not distinct from auth.uid()
@@ -1709,6 +1717,24 @@ end $$;
 
 
 --
+-- Name: bauform_rueckfrage_automatisch(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_automatisch() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_bauform uuid := (to_jsonb(new) ->> case when tg_table_name = 'bauform_kommentare' then 'bauform_id' else 'id' end)::uuid;
+begin
+  if public.bauform_rueckfrage_hindernis(v_bauform, null) is null then
+    update public.bauformen set status = 'zur_freigabe' where id = v_bauform and status = 'rueckfrage';
+  end if;
+  return null;
+end $$;
+
+
+--
 -- Name: bauform_rueckfrage_erledigt(uuid, integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1718,8 +1744,7 @@ CREATE FUNCTION public.bauform_rueckfrage_erledigt(p_bauform uuid, p_neue_versio
     AS $$
 declare
   b public.bauformen;
-  v_pruefung uuid;
-  v_rueck_version int;
+  v_grund text;
 begin
   if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
     raise exception 'bauform_rueckfrage_erledigt: nur admin' using errcode = '42501';
@@ -1728,33 +1753,58 @@ begin
   if not found then
     raise exception 'bauform_rueckfrage_erledigt: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
-  v_pruefung := public.bauform_rueckfrage_pruefung(b.id);
-  if b.status <> 'rueckfrage' or v_pruefung is null then
-    raise exception 'bauform_rueckfrage_erledigt: keine offene Rueckfrage mit Kommentaren (%)', b.status
-      using errcode = 'P0001', hint = 'keine_rueckfrage';
+  -- schon automatisch abgeschlossen (Trigger): kein Fehler
+  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung(b.id) is not null then
+    return 'zur_freigabe';
   end if;
-  select version into v_rueck_version from public.bauform_pruefungen where id = v_pruefung;
-  if b.version <> p_neue_version or b.version <= v_rueck_version then
-    raise exception 'bauform_rueckfrage_erledigt: neue Version fehlt (aktuell %, Rueckfrage zu %)', b.version, v_rueck_version
-      using errcode = 'P0001', hint = 'version';
-  end if;
-  if exists (select 1 from public.bauform_kommentare k where k.pruefung_id = v_pruefung and k.status <> 'erledigt') then
-    raise exception 'bauform_rueckfrage_erledigt: nicht jeder Kommentar ist mit Notiz erledigt'
-      using errcode = 'P0001', hint = 'kommentar_offen';
-  end if;
-  if b.verdacht is not null or b.pruefprotokoll ->> 'lauf_am' is null
-     or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
-     or not exists (select 1 from public.tasks t where t.bauform_id = b.id and t.bauform_version = b.version
-                      and public.instanz_gruen(t.pruefmaschine)) then
-    raise exception 'bauform_rueckfrage_erledigt: Pruefmaschine fuer Version % nicht gruen', b.version
-      using errcode = 'P0001', hint = 'pruefmaschine';
-  end if;
-  if coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
-    raise exception 'bauform_rueckfrage_erledigt: Blindloeser fuer Version % nicht bestanden', b.version
-      using errcode = 'P0001', hint = 'blindloeser';
+  v_grund := public.bauform_rueckfrage_hindernis(b.id, p_neue_version);
+  if v_grund is not null then
+    raise exception 'bauform_rueckfrage_erledigt: Rueckfrage kann nicht abgeschlossen werden (%)', v_grund
+      using errcode = 'P0001', hint = v_grund;
   end if;
   update public.bauformen set status = 'zur_freigabe' where id = b.id;
   return 'zur_freigabe';
+end $$;
+
+
+--
+-- Name: bauform_rueckfrage_hindernis(uuid, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_hindernis(p_bauform uuid, p_neue_version integer) RETURNS text
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b public.bauformen;
+  v_pruefung uuid;
+  v_rueck_version int;
+begin
+  select * into b from public.bauformen where id = p_bauform;
+  if not found then
+    return 'bauform_fehlt';
+  end if;
+  v_pruefung := public.bauform_rueckfrage_pruefung(b.id);
+  if b.status <> 'rueckfrage' or v_pruefung is null then
+    return 'keine_rueckfrage';
+  end if;
+  select version into v_rueck_version from public.bauform_pruefungen where id = v_pruefung;
+  if b.version is distinct from coalesce(p_neue_version, b.version) or b.version <= v_rueck_version then
+    return 'version';
+  end if;
+  if exists (select 1 from public.bauform_kommentare k where k.pruefung_id = v_pruefung and k.status <> 'erledigt') then
+    return 'kommentar_offen';
+  end if;
+  if b.verdacht is not null or b.pruefprotokoll ->> 'lauf_am' is null
+     or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
+     -- gruen laut Protokoll der Version: der Export schreibt die Bauform vor ihren Instanzen (export.py)
+     or coalesce((b.pruefprotokoll ->> 'gruen')::int, 0) = 0 then
+    return 'pruefmaschine';
+  end if;
+  if coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
+    return 'blindloeser';
+  end if;
+  return null;
 end $$;
 
 
@@ -32402,6 +32452,13 @@ CREATE TRIGGER aufgabe_meldungen_nur_anhaengen BEFORE DELETE OR UPDATE ON public
 
 
 --
+-- Name: bauform_kommentare bauform_kommentare_rueckfrage_automatisch; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauform_kommentare_rueckfrage_automatisch AFTER UPDATE OF status ON public.bauform_kommentare FOR EACH ROW WHEN (((new.status = 'erledigt'::text) AND (old.status = 'offen'::text))) EXECUTE FUNCTION public.bauform_rueckfrage_automatisch();
+
+
+--
 -- Name: bauform_kommentare bauform_kommentare_schutz; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -32427,6 +32484,13 @@ CREATE TRIGGER bauform_versionen_nur_anhaengen BEFORE DELETE OR UPDATE ON public
 --
 
 CREATE TRIGGER bauform_zeit_aenderungen_nur_anhaengen BEFORE DELETE OR UPDATE ON public.bauform_zeit_aenderungen FOR EACH ROW EXECUTE FUNCTION public.reihe1_nur_anhaengen();
+
+
+--
+-- Name: bauformen bauformen_rueckfrage_automatisch; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauformen_rueckfrage_automatisch AFTER UPDATE OF version, pruefprotokoll, blindloeser, verdacht ON public.bauformen FOR EACH ROW WHEN ((new.status = 'rueckfrage'::text)) EXECUTE FUNCTION public.bauform_rueckfrage_automatisch();
 
 
 --
@@ -35771,15 +35835,6 @@ CREATE POLICY badge_catalog_read_all ON public.badge_catalog FOR SELECT USING (t
 ALTER TABLE public.bauform_kommentare ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: bauform_kommentare bauform_kommentare_eigene_schreiben; Type: POLICY; Schema: public; Owner: -
---
-
-CREATE POLICY bauform_kommentare_eigene_schreiben ON public.bauform_kommentare FOR INSERT TO authenticated WITH CHECK ((public.darf_pruefen() AND (status = 'offen'::text) AND (EXISTS ( SELECT 1
-   FROM public.bauform_pruefungen p
-  WHERE ((p.id = bauform_kommentare.pruefung_id) AND (p.geprueft_von = auth.uid()) AND (p.entscheidung = 'unsicher'::text) AND (p.bauform_id = bauform_kommentare.bauform_id) AND (p.version = bauform_kommentare.version))))));
-
-
---
 -- Name: bauform_kommentare bauform_kommentare_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -38337,5 +38392,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict MMoWyygQoicN4JPfyjzIF7mMHHQBdDlj5skeDtcIwbm7RcAv1Iw1ihMTR88qenj
+\unrestrict 49iQiXuKlTBAdjG6WTAklK0z92UUBC7Gh6bUO21vlnbRgvAq4C7P91A6bqyEXht
 

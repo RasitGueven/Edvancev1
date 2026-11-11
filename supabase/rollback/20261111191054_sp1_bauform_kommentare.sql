@@ -3,6 +3,9 @@
 -- ihrem Inhalt stehen (nichts löschen); ohne die Funktionen schreibt niemand mehr hinein. Den Eintrag in
 -- supabase_migrations.schema_migrations NICHT löschen (ein zweites Einspielen scheiterte an den Tabellen).
 drop view if exists public.bauform_kommentar_auswertung;
+drop trigger if exists bauform_kommentare_rueckfrage_automatisch on public.bauform_kommentare;
+drop trigger if exists bauformen_rueckfrage_automatisch on public.bauformen;
+drop function if exists public.bauform_rueckfrage_automatisch();
 drop trigger if exists bauformen_stufen_anlegen on public.bauformen;
 drop function if exists public.bauform_pruefung_senden(uuid, integer, jsonb, jsonb, integer);
 drop function if exists public.bauform_rueckfrage_erledigt(uuid, integer);
@@ -13,7 +16,7 @@ drop function if exists public.aufgabe_zeit_sek(uuid);
 drop function if exists public.bauform_stufen_anlegen();
 drop function if exists public.bauform_pruef_detail(uuid, integer, uuid[]);
 drop function if exists public.bauform_pruef_plan(uuid);
-revoke insert on public.bauform_kommentare from authenticated;
+grant execute on function public.bauform_pruefen(uuid, integer, text, text[], text, integer) to authenticated;
 
 CREATE OR REPLACE FUNCTION public.bauform_pruef_detail(p_bauform uuid, p_seed integer DEFAULT 0) RETURNS jsonb
     LANGUAGE plpgsql STABLE SECURITY DEFINER
@@ -151,6 +154,7 @@ begin
   return new;
 end $$;
 
+drop function if exists public.bauform_rueckfrage_hindernis(uuid, integer);
 drop function if exists public.bauform_rueckfrage_pruefung(uuid);
 do $$
 declare f text;

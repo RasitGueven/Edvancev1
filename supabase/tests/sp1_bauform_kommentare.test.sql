@@ -9,7 +9,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(50);
+select plan(57);
 
 \set lena  '5b100000-0000-4000-8000-0000000000b1'
 \set admin '5b100000-0000-4000-8000-0000000000a1'
@@ -54,6 +54,7 @@ select id as np2 from bauformen where schluessel = 'NP-2' \gset
 select id as gl1 from bauformen where schluessel = 'GL-1' \gset
 select id as qw1 from bauformen where schluessel = 'QW-1' \gset
 select id as aus1 from bauformen where schluessel = 'AUS-1' \gset
+select id as bin1 from bauformen where schluessel = 'BIN-1' \gset
 select t.id as ein1_s3 from tasks t where t.bauform_id = :'ein1' and t.stufe = 3 order by t.id limit 1 \gset
 select t.id as np2_t from tasks t where t.bauform_id = :'np2' order by t.id limit 1 \gset
 select t.id as ko1_t from tasks t where t.bauform_id = :'ko1' order by t.id limit 1 \gset
@@ -84,6 +85,7 @@ select throws_ok(format($q$select bauform_pruefung_senden(%L, 1, '[{"anker":"bei
                  '22023', null, 'Instanz einer anderen Bauform scheitert');
 select throws_ok(format($q$select bauform_pruefung_senden(%L, 1, '[{"anker":"stufen","text":"a"},{"anker":"stufen","text":"b"}]')$q$, :'ko1'),
                  '22023', null, 'je Anker hoechstens ein Kommentar');
+select throws_ok(format($q$select bauform_pruefung_senden(%L, 2, '[]')$q$, :'ko1'), 'ED409', null, 'veraltete Version → ED409');
 select is((select status from bauformen where id = :'ko1'), 'zur_pruefung', 'nach abgelehnten Kommentaren: Status unveraendert');
 select is((select count(*)::int from bauform_pruefungen where bauform_id = :'ko1'), 0, 'nach abgelehnten Kommentaren: keine Pruefung');
 
@@ -122,6 +124,13 @@ select throws_ok(format('select bauform_rueckfrage_erledigt(%L, 2)', :'ko1'), '4
 select throws_ok(format('select bauform_kommentar_erledigen(id, %L) from bauform_kommentare where bauform_id = %L limit 1', 'x', :'ko1'),
                  '42501', null, 'Lena markiert keinen Kommentar erledigt');
 select throws_ok($q$select bauform_freigeben('quadratische_funktionen_gleichungen')$q$, '42501', null, 'Lena gibt nicht frei');
+set local role authenticated;
+select throws_ok(format($q$select bauform_pruefen(%L, 2, 'passt')$q$, :'ko1'), '42501', null,
+                 'Lena ruft bauform_pruefen nicht direkt auf (Rueckfrage nicht umgehbar)');
+select throws_ok(format($q$insert into bauform_kommentare (pruefung_id, bauform_id, version, anker, text)
+                          select id, bauform_id, version, 'stufen', 'nachgereicht' from bauform_pruefungen where bauform_id = %L$q$, :'ko1'),
+                 '42501', null, 'Lena haengt keine Kommentare direkt an');
+reset role;
 select throws_ok(format($q$select task_status_set(%L, 'ready')$q$, :'ein1_s3'), null, null, 'Lena setzt keine Aufgabe ready');
 set local role authenticated;
 update tasks set status = 'ready' where id = :'ein1_s3';
@@ -144,7 +153,8 @@ select bauform_kommentar_erledigen(id, 'Rechnung korrigiert') from bauform_komme
 select throws_ok(format('select bauform_rueckfrage_erledigt(%L, 2)', :'ko1'), 'P0001', null, 'eine Notiz fehlt → kein Wechsel');
 select is((select status from bauformen where id = :'ko1'), 'rueckfrage', 'ohne alle Notizen bleibt die Rueckfrage');
 select bauform_kommentar_erledigen(id, 'Fehlbild ergaenzt') from bauform_kommentare where bauform_id = :'ko1' and anker = 'fehlbilder';
-select is(bauform_rueckfrage_erledigt(:'ko1', 2), 'zur_freigabe', 'alle Notizen, Pruefmaschine gruen, Blindloeser bestanden → zur Freigabe');
+select is((select status from bauformen where id = :'ko1'), 'zur_freigabe', 'letzte Notiz → automatisch zur Freigabe');
+select is(bauform_rueckfrage_erledigt(:'ko1', 2), 'zur_freigabe', 'bauform_rueckfrage_erledigt bestaetigt zur Freigabe');
 select ok((select k ->> 'erledigt_notiz' = 'Rechnung korrigiert'
              from jsonb_array_elements(bauform_pruef_detail(:'ko1') -> 'rueckfrage' -> 'kommentare') k where k ->> 'anker' = 'beispiel'),
           'Admin sieht Kommentare mit Notiz');
@@ -160,6 +170,15 @@ select bauform_kommentar_erledigen(id, 'geaendert') from bauform_kommentare wher
 select throws_ok(format('select bauform_rueckfrage_erledigt(%L, 2)', :'qw1'), 'P0001', null, 'Pruefmaschine rot → kein Wechsel (Systemaufruf)');
 select throws_ok(format('select bauform_rueckfrage_erledigt(%L, 2)', :'aus1'), 'P0001', null, 'Blindloeser durchgefallen → kein Wechsel');
 
+-- Andere Reihenfolge: erst die Notizen, dann die neue Version
+select pg_temp.act_as(:'lena');
+select bauform_pruefung_senden(:'bin1', 1, '[{"anker":"fehlbilder","gruende":["fehlbild_fehlt"]}]');
+select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
+select bauform_kommentar_erledigen(id, 'Fehlbild ergaenzt') from bauform_kommentare where bauform_id = :'bin1';
+select is((select status from bauformen where id = :'bin1'), 'rueckfrage', 'Notizen ohne neue Version: bleibt in Ueberarbeitung');
+select pg_temp.export('BIN-1');
+select is((select status from bauformen where id = :'bin1'), 'zur_freigabe', 'neue Version nach den Notizen → automatisch zur Freigabe');
+
 -- ── Gewöhnlicher Versionswechsel öffnet weiterhin ───────────────────────────
 select pg_temp.export('EIN-1');
 select is((select status from bauformen where id = :'ein1'), 'zur_pruefung', 'zur Freigabe + neue Version → wieder zu pruefen');
@@ -174,6 +193,7 @@ select ok(bauform_pruef_detail(:'np2', 7, array[:'np2_t'::uuid]) -> 'beispiele' 
 select pg_temp.act_as(:'kindp');
 set local role authenticated;
 select is((select count(*)::int from bauform_kommentare), 0, 'Kind liest keine Kommentare');
+select is(aufgabe_zeit_sek(:'ein1_s3'), null, 'Kind bekommt keine Aufgabenzeit');
 reset role;
 select pg_temp.act_as(:'admin');
 set local role authenticated;
