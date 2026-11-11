@@ -49,7 +49,7 @@ export function KennzahlenLeiste({
           } ${i === zahlen.length - 1 && zahlen.length % 2 === 1 ? spalten.letzte : ''}`
           const inhalt = (
             <>
-              <span className="truncate text-xs font-semibold text-[var(--color-text-tertiary)]">{z.label}</span>
+              <span className="text-xs font-semibold leading-snug text-[var(--color-text-tertiary)]">{z.label}</span>
               <span
                 className={`truncate text-2xl font-bold tabular-nums ${
                   z.ton === 'handeln' ? 'text-[var(--color-error-coach)]' : 'text-[var(--color-text-primary)]'
@@ -58,7 +58,7 @@ export function KennzahlenLeiste({
                 {z.wert}
               </span>
               {z.unterzeile !== undefined && (
-                <span className="truncate text-xs text-[var(--color-text-secondary)]">{z.unterzeile}</span>
+                <span className="text-xs leading-snug text-[var(--color-text-secondary)]">{z.unterzeile}</span>
               )}
             </>
           )

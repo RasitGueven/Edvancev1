@@ -1,6 +1,12 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **CI-1 Marke „Funke“ in Login und Admin** (Retro `2026-11-11-ci1-marke.md`, Bauauftrag
+  `docs/marke/Bauauftrag-CI-1.md`, Bericht `docs/marke/ci1-bericht.md`): Logo aus den SVG-Dateien, Login als
+  Nachthimmel mit Horizont, Admin-Leiste in vier Bereichen, „Heute“ mit Zeitachse, Tokens Navy/Ivory/Cobalt/Amber
+  und Plus Jakarta Sans, Home-Bildschirm-App, Testdaten in Admin-Listen ausgeblendet (Migration `20261111133355`
+  am 11.11. eingespielt). PRs #387–#391 + Bericht. **Offen:** Geräteabnahme iPad/iPhone; Schriften Druckbogen R7,
+  Präsentation und Aufgaben-Figuren (eigener Auftrag); Teil C in `edvance-app`.
 - **V4-S Karte „steht an“** (Retro `2026-11-04-v4s-karte-steht-an.md`, Bauauftrag
   `docs/report/v4/Bauauftrag-V4-S.md`): Bei `'bevorstehend'` trägt die aktuelle Station ein Signal; Station 03 und
   Seite 3 zeigen „Im Thema selbst“ und „Voraussetzungen“ mit sitzt/fehlt; Lernpfad beginnt mit der anstehenden

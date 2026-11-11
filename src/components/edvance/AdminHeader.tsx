@@ -6,7 +6,7 @@ import { ArrowLeft } from 'lucide-react'
  * AdminHeader — das navy „Midnight Academy"-Kopfband für die Admin-Oberfläche.
  *
  * Trägt die Schüler-Sprache in die (hellen) Verwaltungsseiten: ein ruhiges Navy-
- * Band auf dem Midnight-Gradient, Fraunces-Serif-Titel in warmem Off-White, eine
+ * Band auf dem Midnight-Gradient, Titel in Plus Jakarta Sans (CI-1) in warmem Off-White, eine
  * matte Gold-Haarlinie als Akzent (kein Glow). Darunter leben die Inhalte weiter
  * auf hellen Karten — die Coach-Regel „Navy-Header, weiße Cards".
  *

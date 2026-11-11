@@ -1,6 +1,6 @@
 // Die Zählerkacheln der Content-Gesundheit — jede Kachel ist ein Filter.
 //
-// Midnight-Sprache auf hellem Grund: Fraunces-Serif-Zahl, matte Gold-Kante am
+// Midnight-Sprache auf hellem Grund: Zahl in Plus Jakarta Sans (CI-1), matte Gold-Kante am
 // aktiven Filter, kein Glow, keine Badge-Pills. Die Zahl bleibt in Textfarbe
 // (Gold auf Weiß wäre zu kontrastarm) — die Gold-Kante trägt die Auswahl.
 
