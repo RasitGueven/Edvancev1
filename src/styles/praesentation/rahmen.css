@@ -71,7 +71,7 @@
   overflow: hidden;
   background: var(--color-eb-papier);
   color: var(--color-eb-tinte);
-  font-family: var(--font-body);
+  font-family: var(--font-eb-text);
   -webkit-font-smoothing: antialiased;
 }
 

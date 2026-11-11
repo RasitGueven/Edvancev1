@@ -1,21 +1,25 @@
 @layer base {
   :root {
     /* ── TYPOGRAFIE ───────────────────────────────────────────── */
-    /* --font-sans zeigt auf die Body-Schrift (Schibsted Grotesk). Sora ist
-       entfallen (Bauauftrag Admin-Hülle H1); --font-body bleibt die Quelle. */
-    --font-sans: var(--font-body);
-    /* Marken-Fonts: Fraunces trägt die Headlines (Serif, wertig), Schibsted
-       Grotesk den Flächentext. Als benannte Achse, damit Utilities (font-serif/
-       font-body) und Komponenten dieselbe Referenz nutzen statt loser Strings. */
-    --font-serif: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
-    --font-body:  'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+    /* Marke (CI-1): Plus Jakarta Sans ist die einzige Schrift. 800 nur die
+       Wortmarke, 700/600 Titel, 500 Bedienung, 400 Fließtext. --font-serif
+       bleibt als Name bestehen (Utilities font-serif), zeigt aber auf dieselbe
+       Schrift: keine Serife mehr in der App. */
+    --font-marke: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-sans:  var(--font-marke);
+    --font-body:  var(--font-marke);
+    --font-serif: var(--font-marke);
+    /* Ausnahme CI-1 (Entscheidung Rasit 11.11.2026): Druckbogen R7 und
+       Tablet-Präsentation behalten die Schriften des Musters E7. */
+    --font-eb-text:  'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-eb-serif: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
 
-    /* ── PRIMÄR — MIDNIGHT ACADEMY ────────────────────────────── */
-    --color-primary:                #334D7A;
-    --color-primary-hover:          #253D6A;
-    --color-primary-light:          #EEF2F8;
-    --color-navy-deep:              #14213D;
-    --color-overlay:                rgba(20, 33, 61, 0.55);
+    /* ── PRIMÄR — Marke CI-1: Cobalt ist die Hauptaktion, Navy die Basis ── */
+    --color-primary:                var(--color-marke-cobalt);
+    --color-primary-hover:          color-mix(in srgb, var(--color-marke-cobalt) 84%, var(--color-marke-navy));
+    --color-primary-light:          color-mix(in srgb, var(--color-marke-cobalt) 9%, var(--color-marke-weiss));
+    --color-navy-deep:              var(--color-marke-navy);
+    --color-overlay:                rgba(16, 32, 56, 0.55);
 
     /* ── MIDNIGHT-GRADIENT — die EINE benannte Hintergrund-Achse ─
        Ein Hintergrund nutzt EINE Referenz (var(--gradient-midnight))
@@ -32,15 +36,13 @@
        und wird NICHT durch dieses Token ersetzt. */
     --gradient-midnight: linear-gradient(
       to bottom,
-      #43608F   0%,
-      #3E5985  25%,
-      #334B73  50%,
-      #263A5B  75%,
-      #17263F 100%
+      color-mix(in srgb, var(--color-marke-navy) 82%, var(--color-marke-cobalt))   0%,
+      color-mix(in srgb, var(--color-marke-navy) 90%, var(--color-marke-cobalt))  45%,
+      var(--color-marke-navy) 100%
     );
 
     /* ── HINTERGRUND ──────────────────────────────────────────── */
-    --color-bg-app:                 #F7F7F5;
+    --color-bg-app:                 var(--color-marke-ivory);
     --color-bg-surface:             #FFFFFF;
     --color-bg-subtle:              #EFEFED;
     --color-border:                 #E8E8E5;
@@ -49,16 +51,16 @@
     --color-text-primary:           #1A1A18;
     --color-text-secondary:         #4A4A47;
     --color-text-tertiary:          #888884;
-    --color-text-link:              #334D7A;
+    --color-text-link:              var(--color-marke-cobalt);
     /* Schrift auf Navy-/Midnight-Flächen (aktiver Reiter, aktiver Schritt). */
     --color-text-inverse:           var(--color-stage-text);
     /* Schrift auf Creme-Flächen. Beleg: edvance-app/src/design/tokens.ts
        colors.onCream (Textfarbe auf Creme-Buttons). */
-    --color-on-cream:               #1A2E4A;
+    --color-on-cream:               var(--color-marke-navy);
 
     /* ── AKZENT (Streak-Aktiv-Amber & Co.) ────────────────────── */
-    --color-accent:                 #E8A020;
-    --color-accent-streak:          #E8A020;
+    --color-accent:                 var(--color-marke-amber);
+    --color-accent-streak:          var(--color-marke-amber);
     --color-accent-streak-light:    #FEF9EE;
 
     /* ── GOLD-FAMILIE ─────────────────────────────────────────── */
@@ -141,7 +143,12 @@
     /* ── BÜHNE / STAGE (dunkle Schüler-Flächen: Mock + echte Surfaces) ───────── */
     --color-stage-top:              #2E3E63;   /* Bühnen-Gradient oben */
     --color-stage-mid:              #1E2B49;   /* Bühnen-Gradient mitte */
-    --color-stage-bottom:           var(--color-navy-deep);   /* = #14213D */
+    --color-stage-bottom:           #14213D;   /* Bühnen-Gradient unten (bis CI-1 = --color-navy-deep) */
+    /* CI-1: Die Schüler-Bühne bleibt unangetastet (Entscheidung Rasit 11.11.2026).
+       Sie behält das alte Primär-Blau und Akzent-Amber, während --color-primary/
+       --color-accent auf die Marke umgestellt sind. */
+    --color-stage-primary:          #334D7A;
+    --color-stage-accent:           #E8A020;
     --color-stage-text:             #F7F5EE;   /* Warmes Off-White (Typo) */
     --color-stage-overlay:          #102038;   /* Sticky-Header-Overlay (tiefes Navy) */
     --color-stage-glow-horizon:     #D6762A;   /* Horizont-Glow (warm) */
@@ -165,6 +172,9 @@
     --color-marke-cobalt:   #4567C6;
     --color-marke-amber:    #DA9721;
     --color-marke-weiss:    #FFFFFF;
+    /* Zwischenton (CI-1 Schritt 0): Amber als Schrift auf Ivory/Weiß. Reines Amber
+       erreicht dort nur ~2,3:1; 60 % Amber + 40 % Navy erreicht 4,7:1 (WCAG AA). */
+    --color-marke-amber-text: color-mix(in srgb, var(--color-marke-amber) 60%, var(--color-marke-navy));
     --shadow-marke-karte:     inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 3px rgba(16,32,56,0.10), 0 12px 32px rgba(16,32,56,0.10);
     --shadow-marke-schwebend: inset 0 1px 0 rgba(255,255,255,0.95), 0 2px 6px rgba(4,10,24,0.35), 0 32px 80px rgba(4,10,24,0.55);
     --shadow-marke-feld:      inset 0 1px 2px rgba(16,32,56,0.08);
@@ -175,10 +185,10 @@
     --radius-feld:          14px;
 
     /* ── SCHATTEN (blau getönt, Lichtquelle oben links) ───────── */
-    --shadow-xs: 0 1px 3px rgba(51,77,122,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 12px rgba(51,77,122,0.10), 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-lg: 0 8px 24px rgba(51,77,122,0.15), 0 4px 8px rgba(0,0,0,0.06);
-    --shadow-xl: 0 8px 32px rgba(51,77,122,0.35), 0 2px 8px rgba(0,0,0,0.15);
+    --shadow-xs: 0 1px 3px rgba(16,32,56,0.07), 0 1px 2px rgba(16,32,56,0.05);
+    --shadow-md: 0 1px 3px rgba(16,32,56,0.08), 0 8px 20px rgba(16,32,56,0.08);
+    --shadow-lg: 0 2px 6px rgba(16,32,56,0.10), 0 16px 36px rgba(16,32,56,0.12);
+    --shadow-xl: 0 4px 10px rgba(16,32,56,0.20), 0 24px 56px rgba(16,32,56,0.28);
 
     /* ── RUNDUNGEN ────────────────────────────────────────────── */
     --radius-sm: 6px;

@@ -110,8 +110,9 @@ describe('8 Stellschrauben-Seite', () => {
     zeige()
     expect(screen.getByText('Kein Zugriff')).toBeTruthy()
     expect(m.list).not.toHaveBeenCalled()
-    const routen = (nav: { gruppen: { eintraege: { route?: string }[] }[] }): (string | undefined)[] =>
-      nav.gruppen.flatMap((g) => g.eintraege.map((e) => e.route))
+    type Nav = { gruppen: { eintraege: { route?: string }[] }[]; fuss?: { route?: string }[] }
+    const routen = (nav: Nav): (string | undefined)[] =>
+      [...nav.gruppen.flatMap((g) => g.eintraege), ...(nav.fuss ?? [])].map((e) => e.route)
     expect(routen(ADMIN_NAV)).toContain('/admin/stellschrauben')
     expect(routen(coachNav(true))).not.toContain('/admin/stellschrauben')
   })

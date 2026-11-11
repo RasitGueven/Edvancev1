@@ -139,7 +139,7 @@ function setup(): void {
   )
 }
 
-const karte = (titel: string): HTMLElement => screen.getByRole('heading', { name: titel, level: 3 }).closest('div.flex.flex-col.p-4') as HTMLElement
+const karte = (titel: string): HTMLElement => screen.getByRole('heading', { name: titel, level: 3 }).closest('div.flex.flex-col.p-4, section') as HTMLElement
 
 describe('HeutePage', () => {
   it('Gruß mit Vornamen aus profiles und Summe offener Punkte', async () => {

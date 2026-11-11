@@ -27,7 +27,7 @@
   width: max-content;
   margin-inline: auto;
   padding-block: 4px 12px;
-  font-family: var(--font-body);
+  font-family: var(--font-eb-text);
   font-weight: 400;
   color: var(--color-eb-text);
   /* Das Muster ist ohne Unterschneidung gesetzt; mit ihr brechen Zeilen anders. */

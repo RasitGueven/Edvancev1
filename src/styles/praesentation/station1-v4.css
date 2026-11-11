@@ -139,7 +139,7 @@
 .tp .tp-fp-kicker {
   margin: 0;
   color: var(--color-eb-navy);
-  font-family: var(--font-body);
+  font-family: var(--font-eb-text);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .16em;

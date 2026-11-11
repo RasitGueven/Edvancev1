@@ -5,7 +5,7 @@ const STORAGE_KEY = 'edvance:theme'
 const DEFAULT_THEME: Theme = 'edvance'
 
 export const THEME_PREVIEW: Record<Theme, ThemeColors> = {
-  edvance: { primary: '#2D6A9F', light: '#98C0D8', dark: '#1B2A3E' },
+  edvance: { primary: '#4567C6', light: '#F8F5EE', dark: '#102038' },
   ocean: { primary: '#0E7490', light: '#67E8F9', dark: '#164E63' },
   forest: { primary: '#166534', light: '#86EFAC', dark: '#14532D' },
   sunset: { primary: '#C2410C', light: '#FDBA74', dark: '#7C2D12' },

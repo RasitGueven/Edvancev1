@@ -54,7 +54,7 @@
 .tp .tp-s2-profil-kopf h3 {
   margin: 0;
   color: var(--color-eb-navy);
-  font-family: var(--font-body);
+  font-family: var(--font-eb-text);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0;

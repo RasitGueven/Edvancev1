@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { EdvanceBadge, EdvanceCard, EmptyState } from '@/components/edvance'
+import { EdvanceBadge, EmptyState } from '@/components/edvance'
 import { PlatzPunkte } from '@/components/edvance/PlatzPunkte'
 import type { LsaSessionListItem } from '@/types'
 import type { SlotsTag } from '@/types/slotplan'
 import { AbsagenHeute } from './AbsagenHeute'
 import { BetriebAktionKnopf } from './BetriebAktionKnopf'
-import { betriebAktion, betriebKinder, betriebZeilen } from './betriebModel'
+import { betriebAktion, betriebKinder, betriebZeilen, laeuftJetzt } from './betriebModel'
 import { berlinZeit } from './ListenVertrieb'
 
 type Eintrag = {
   key: string; zeit: string; sortier: number; titel: string; marke?: JSX.Element; unterzeile: string; rechts: JSX.Element
-  aktion?: JSX.Element
+  aktion?: (aufDunkel: boolean) => JSX.Element
+  /** Läuft gerade: das Hauptelement der Seite, dunkle Navy-Karte mit Amber-Punkt (CI-1). */
+  laeuft?: boolean
 }
 
 type Props = {
@@ -34,6 +36,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
   const lang = i18n.language
   const zeilen = betriebZeilen(tag)
   const kinder = betriebKinder(zeilen)
+  const jetzt = Date.now()
 
   const eintraege: Eintrag[] = [
     ...zeilen.map((z): Eintrag =>
@@ -45,7 +48,8 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
             titel: z.t.raum_name,
             unterzeile: z.t.art === 'faellt_aus' ? t('heute.betrieb.faelltAus') : (z.t.coach_name ?? t('heute.betrieb.ohneCoach')),
             rechts: <PlatzPunkte raeume={[z.t.belegt]} mitZahl />,
-            aktion: tag ? <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} /> : undefined,
+            aktion: tag ? (dunkel: boolean) => <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} aufDunkel={dunkel} /> : undefined,
+            laeuft: tag ? laeuftJetzt(z, tag.datum, jetzt) : false,
           }
         : {
             key: z.key,
@@ -60,7 +64,8 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
             ),
             unterzeile: z.s.coach_name ?? t('heute.betrieb.ohneCoach'),
             rechts: <PlatzPunkte raeume={[z.s.kinder]} mitZahl />,
-            aktion: tag ? <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} /> : undefined,
+            aktion: tag ? (dunkel: boolean) => <BetriebAktionKnopf aktion={betriebAktion(z, tag.datum)} aufDunkel={dunkel} /> : undefined,
+            laeuft: tag ? laeuftJetzt(z, tag.datum, jetzt) : false,
           },
     ),
     ...lsa.map((l) => {
@@ -83,7 +88,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
   ].sort((a, b) => a.sortier - b.sortier)
 
   return (
-    <EdvanceCard className="flex flex-col gap-2 p-4">
+    <section className="flex flex-col gap-2">
       <h3 className="font-serif text-2xl font-semibold">
         {[t('heute.betrieb.sessions', { count: zeilen.length }), t('heute.betrieb.kinder', { count: kinder })].join(' · ')}
       </h3>
@@ -96,23 +101,42 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
       {eintraege.length === 0 ? (
         <EmptyState icon="🌤️" title={t('heute.betrieb.leerTitel')} description={t('heute.betrieb.leerText')} />
       ) : (
-        <ol className="flex flex-col">
+        <ol className="flex flex-col gap-2">
           {eintraege.map((e) => (
-            <li
-              key={e.key}
-              className="grid min-h-[56px] grid-cols-[3.25rem_minmax(0,1fr)_auto] items-center gap-2 border-t border-[var(--color-border)] py-2"
-            >
-              <time className="text-sm font-semibold tabular-nums">{e.zeit}</time>
-              <div className="flex min-w-0 flex-col">
-                <span className="truncate text-sm font-semibold">{e.titel}</span>
-                <span className="flex min-w-0 flex-wrap items-center gap-2">
-                  <span className="truncate text-xs text-[var(--color-text-tertiary)]">{e.unterzeile}</span>
-                  {e.marke}
-                </span>
-              </div>
-              <div className="flex flex-wrap items-center justify-end gap-2">
-                {e.rechts}
-                {e.aktion}
+            <li key={e.key} className="grid grid-cols-[3.25rem_minmax(0,1fr)] items-start gap-2">
+              <time className={`pt-4 text-sm font-semibold tabular-nums ${e.laeuft ? 'text-[var(--color-marke-amber-text)]' : ''}`}>
+                {e.zeit}
+              </time>
+              <div
+                className={`flex min-h-[56px] flex-wrap items-center gap-2 rounded-[var(--radius-xl)] p-4 ${
+                  e.laeuft
+                    ? 'marke-karte-dunkel text-[var(--color-marke-ivory)]'
+                    : 'bg-[var(--color-bg-surface)] shadow-[var(--shadow-marke-karte)]'
+                }`}
+              >
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="flex items-center gap-2">
+                    {e.laeuft && <span aria-hidden="true" className="marke-lichtpunkt h-2.5 w-2.5 shrink-0 rounded-[var(--radius-full)]" />}
+                    <span className="truncate text-sm font-semibold">{e.titel}</span>
+                  </span>
+                  <span className="flex min-w-0 flex-wrap items-center gap-2">
+                    {e.laeuft && (
+                      <span className="text-xs font-semibold text-[var(--color-marke-amber)]">{t('heute.betrieb.laeuft')}</span>
+                    )}
+                    <span
+                      className={`truncate text-xs ${
+                        e.laeuft ? 'text-[color-mix(in_srgb,var(--color-marke-ivory)_76%,transparent)]' : 'text-[var(--color-text-tertiary)]'
+                      }`}
+                    >
+                      {e.unterzeile}
+                    </span>
+                    {e.marke}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center justify-end gap-2">
+                  {e.rechts}
+                  {e.aktion?.(Boolean(e.laeuft))}
+                </div>
               </div>
             </li>
           ))}
@@ -130,6 +154,6 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </Link>
       </div>
-    </EdvanceCard>
+    </section>
   )
 }

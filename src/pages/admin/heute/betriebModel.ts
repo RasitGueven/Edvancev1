@@ -62,3 +62,15 @@ export function betriebAktion(z: BetriebZeile, datum: string): BetriebAktion {
   if (z.t.coach_id && z.t.art !== 'faellt_aus') return { art: 'oeffnen', datum, zeit_id: z.t.zeit_id, raum_id: z.t.raum_id }
   return { art: 'ohneCoach', ziel: `/admin/slots/termin/${datum}/${z.t.zeit_id}` }
 }
+
+/**
+ * Läuft die Zeile gerade (CI-1, Hauptelement auf „Heute“)? Raum-Termin: jetzt zwischen Beginn und
+ * Ende des Tages, nicht ausgefallen, mit Kindern. Session ohne Raum: Status „active“.
+ */
+export function laeuftJetzt(z: BetriebZeile, datum: string, jetzt: number): boolean {
+  if (z.art === 'ohneRaum') return z.s.status === 'active'
+  if (z.t.art === 'faellt_aus' || z.t.belegt === 0) return false
+  const von = Date.parse(berlinLocalToIso(datum, z.t.beginn))
+  const bis = Date.parse(berlinLocalToIso(datum, z.t.ende))
+  return jetzt >= von && jetzt < bis
+}

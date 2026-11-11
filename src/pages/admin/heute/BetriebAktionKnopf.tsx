@@ -11,7 +11,7 @@ import type { BetriebAktion } from './betriebModel'
  * schreibt den Raum-Termin fest und führt in die Live-Sicht; ein Fehler steht als übersetzter Satz
  * (Namespace slots) unter dem Knopf, nie der Rohtext.
  */
-export function BetriebAktionKnopf({ aktion }: { aktion: BetriebAktion }): JSX.Element {
+export function BetriebAktionKnopf({ aktion, aufDunkel = false }: { aktion: BetriebAktion; aufDunkel?: boolean }): JSX.Element {
   const { t } = useTranslation('admin')
   const { t: tSlots } = useTranslation('slots')
   const navigate = useNavigate()
@@ -20,7 +20,11 @@ export function BetriebAktionKnopf({ aktion }: { aktion: BetriebAktion }): JSX.E
 
   if (aktion.art === 'live') {
     return (
-      <Button asChild variant="outline" className="min-h-[44px]">
+      <Button
+        asChild
+        variant="outline"
+        className={`min-h-[44px] ${aufDunkel ? 'border-[var(--color-marke-ivory)] text-[var(--color-marke-ivory)] hover:bg-[color-mix(in_srgb,var(--color-marke-ivory)_12%,transparent)]' : ''}`}
+      >
         <Link to={aktion.ziel}>{t('heute.betrieb.aktion.live')}</Link>
       </Button>
     )

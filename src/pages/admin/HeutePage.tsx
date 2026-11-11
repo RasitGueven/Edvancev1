@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { LoadingPulse } from '@/components/edvance'
+import { EdvanceCard, LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { useProfilName } from '@/components/edvance/shell/useProfilName'
 import { Button } from '@/components/ui/button'
@@ -175,6 +175,7 @@ export function HeutePage(): JSX.Element {
     <>
       <PageHeader
         rubrik={datum}
+        rubrikAkzent
         titel={vor ? t('heute.grussName', { gruss, name: vor }) : gruss}
         satz={loading ? undefined : t('heute.offen', { count: offen })}
         aktionen={
@@ -192,36 +193,42 @@ export function HeutePage(): JSX.Element {
         <>
           <KennzahlenLeiste zahlen={zahlen} label={t('heute.kpi.label')} />
 
-          <div className="grid grid-cols-1 items-start gap-6 @heute-spalte:grid-cols-[minmax(0,1fr)_var(--container-heute-betrieb)]">
-            <section className="@container flex min-w-0 flex-col gap-2" aria-labelledby="heute-listen">
-              <h2 id="heute-listen" className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                {t('heute.zuErledigen')}
-              </h2>
-              <div className="grid grid-cols-1 gap-4 @heute-listen:grid-cols-2">
-                <NeueLeadsListe leads={listen.neu} onTermin={setTerminLead} />
-                <ErstgespraecheListe leads={listen.gespraeche} />
-                <LsaListe
-                  leads={listen.lsa}
-                  platzByLead={daten.platzByLead}
-                  reportByLead={daten.reportByLead}
-                  canStartContract={role === 'admin'}
-                  busyLeadId={busyLeadId}
-                  onStartContract={(lead) => void startContract(lead)}
-                />
-                <VertraegeListe antraege={listen.antraege} auslaufend={listen.auslaufend} verzug={listen.verzug} />
-                <RueckstandListe schueler={listen.rueckstand} />
-                <InhalteListe gruppen={listen.freigabe} rueckfragen={listen.rueckfragen} anzahl={daten.aufgaben.length} />
-                <FreigabelisteListe />
-              </div>
-            </section>
-
-            <aside className="flex min-w-0 flex-col gap-2" aria-labelledby="heute-betrieb">
+          {/* CI-1: links die Zeitachse des Tages (laufende Session als Hauptelement),
+              rechts eine Karte „Zu erledigen“ mit den Listen als Zeilen. */}
+          <div className="grid grid-cols-1 items-start gap-6 @heute-spalte:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+            <section className="flex min-w-0 flex-col gap-2" aria-labelledby="heute-betrieb">
               <h2 id="heute-betrieb" className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
                 {t('heute.betrieb.titel')}
               </h2>
               <HeuteImBetrieb tag={daten.tag} lsa={daten.lsaHeute} tagFehler={daten.tagFehler} />
-              <OffeneSessionsListe />
-            </aside>
+              <EdvanceCard className="mt-2 overflow-hidden p-0">
+                <OffeneSessionsListe />
+              </EdvanceCard>
+            </section>
+
+            <section className="flex min-w-0 flex-col gap-2" aria-labelledby="heute-listen">
+              <h2 id="heute-listen" className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+                {t('heute.zuErledigen')}
+              </h2>
+              <EdvanceCard className="overflow-hidden p-0">
+                <div className="flex flex-col divide-y divide-[var(--color-border)]">
+                  <NeueLeadsListe leads={listen.neu} onTermin={setTerminLead} />
+                  <ErstgespraecheListe leads={listen.gespraeche} />
+                  <LsaListe
+                    leads={listen.lsa}
+                    platzByLead={daten.platzByLead}
+                    reportByLead={daten.reportByLead}
+                    canStartContract={role === 'admin'}
+                    busyLeadId={busyLeadId}
+                    onStartContract={(lead) => void startContract(lead)}
+                  />
+                  <VertraegeListe antraege={listen.antraege} auslaufend={listen.auslaufend} verzug={listen.verzug} />
+                  <RueckstandListe schueler={listen.rueckstand} />
+                  <InhalteListe gruppen={listen.freigabe} rueckfragen={listen.rueckfragen} anzahl={daten.aufgaben.length} />
+                  <FreigabelisteListe />
+                </div>
+              </EdvanceCard>
+            </section>
           </div>
         </>
       )}

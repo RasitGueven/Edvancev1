@@ -41,7 +41,7 @@ export function KennzahlenLeiste({
 }): JSX.Element {
   const spalten = SPALTEN[breite]
   return (
-    <EdvanceCard className="overflow-hidden p-0">
+    <EdvanceCard className="overflow-hidden p-0 shadow-[var(--shadow-marke-karte)]">
       <nav aria-label={label} className={`grid grid-cols-2 gap-px bg-[var(--color-border)] ${spalten.raster}`}>
         {zahlen.map((z, i) => {
           const klasse = `flex min-h-[44px] min-w-0 flex-col bg-[var(--color-bg-surface)] px-4 py-4 ${
@@ -51,7 +51,7 @@ export function KennzahlenLeiste({
             <>
               <span className="truncate text-xs font-semibold text-[var(--color-text-tertiary)]">{z.label}</span>
               <span
-                className={`truncate font-serif text-2xl font-semibold tabular-nums ${
+                className={`truncate text-2xl font-bold tabular-nums ${
                   z.ton === 'handeln' ? 'text-[var(--color-error-coach)]' : 'text-[var(--color-text-primary)]'
                 }`}
               >

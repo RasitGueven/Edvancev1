@@ -198,14 +198,14 @@
     background:
       radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.10) 0%, transparent 55%),
       radial-gradient(ellipse at 85% 80%, color-mix(in srgb, var(--color-stage-hero-depth-a) 25%, transparent) 0%, transparent 50%),
-      linear-gradient(145deg, var(--color-stage-hero-top) 0%, var(--color-primary) 40%, var(--color-stage-header-bottom) 100%);
+      linear-gradient(145deg, var(--color-stage-hero-top) 0%, var(--color-stage-primary) 40%, var(--color-stage-header-bottom) 100%);
     color: var(--color-bg-surface);
   }
   .student-hero {
     background:
       radial-gradient(ellipse at 10% 15%, rgba(255, 255, 255, 0.10) 0%, transparent 50%),
       radial-gradient(ellipse at 90% 85%, color-mix(in srgb, var(--color-stage-hero-depth-b) 30%, transparent) 0%, transparent 50%),
-      linear-gradient(135deg, var(--color-stage-hero-top) 0%, var(--color-primary) 45%, var(--color-stage-hero-bottom) 100%);
+      linear-gradient(135deg, var(--color-stage-hero-top) 0%, var(--color-stage-primary) 45%, var(--color-stage-hero-bottom) 100%);
     color: var(--color-bg-surface);
     position: relative;
     isolation: isolate;
@@ -354,6 +354,21 @@ html,
 body,
 #root {
   height: 100%;
+}
+
+/* CI-1: kein weißer Rand beim Über-Scrollen (iPad Safari, Home-Bildschirm-App).
+   html trägt den Seitengrund, das Gummiband ist aus; der Login hat Navy. */
+html {
+  background-color: var(--color-bg-app);
+  overscroll-behavior: none;
+}
+body {
+  overscroll-behavior: none;
+}
+html:has(.marke-himmel),
+html:has(.marke-himmel) body {
+  background-color: var(--color-marke-navy);
+  background-image: none;
 }
 
 body {

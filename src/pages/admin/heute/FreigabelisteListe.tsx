@@ -14,7 +14,7 @@ import { ANLASS_BATU, freigabeStand, type FreigabeStand } from './freigabelisteM
  * Teil, den Lena noch prüfen muss. Was Lena mit „passt“ geprüft hat, gibt der Admin als Reihe frei (Enter je
  * Aufgabe). Lenas eigener Lauf fragt die nötigen Aufgaben über pruef_board_soll nacheinander ab. Die Liste lädt selbst.
  */
-export function FreigabelisteListe(): JSX.Element {
+export function FreigabelisteListe(): JSX.Element | null {
   const { t } = useTranslation('admin')
   const { t: ta } = useTranslation('pruefenAdmin')
   const navigate = useNavigate()
@@ -44,6 +44,8 @@ export function FreigabelisteListe(): JSX.Element {
     rechts: <EdvanceBadge variant="muted">{t('heute.listen.freigabeliste.fehlt', { count: b.fehlt })}</EdvanceBadge>,
   }))
   const wartend = stand?.wartend ?? []
+  // CI-1: eigene Zeile nur, solange die Liste Einträge hat.
+  if (stand && !fehler && stand.fehlt === 0 && wartend.length === 0) return null
 
   return (
     <ArbeitsListe

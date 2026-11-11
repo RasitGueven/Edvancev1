@@ -40,7 +40,7 @@ export function Login(): JSX.Element {
       <LoginSterne />
       <LoginHorizont className="absolute inset-x-0 bottom-0 h-[42vh] min-h-[240px] w-full" />
 
-      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-6xl flex-col items-center gap-6 px-6 pb-6 pt-8 md:landscape:flex-row md:landscape:items-stretch md:landscape:justify-between md:landscape:gap-16 md:landscape:px-12 md:landscape:py-12">
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-6xl flex-col items-center gap-6 px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(2rem,env(safe-area-inset-top))] md:landscape:flex-row md:landscape:items-stretch md:landscape:justify-between md:landscape:gap-16 md:landscape:px-12 md:landscape:py-12">
         <aside className="contents md:landscape:flex md:landscape:max-w-md md:landscape:flex-col md:landscape:justify-between">
           <MarkenLogo grund="dunkel" className="order-1 h-9 md:h-11" />
           <div className="order-4 flex flex-col items-center gap-2 text-center md:landscape:items-start md:landscape:text-left">

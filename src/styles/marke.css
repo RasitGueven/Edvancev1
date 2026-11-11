@@ -57,3 +57,30 @@
   border-color: var(--color-marke-cobalt);
   box-shadow: var(--shadow-marke-feld), 0 0 0 3px color-mix(in srgb, var(--color-marke-cobalt) 28%, transparent);
 }
+
+/* Admin- und Coach-Leiste (Teil B): Navy, oben eine Spur heller, unten ein
+   schwacher Amber-Schein von der Lichtquelle des Horizont-Motivs. */
+.marke-leiste {
+  background:
+    radial-gradient(ellipse 120% 40% at 30% 100%, color-mix(in srgb, var(--color-marke-amber) 10%, transparent) 0%, transparent 70%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-marke-navy) 90%, var(--color-marke-cobalt)) 0%,
+      var(--color-marke-navy) 60%
+    );
+}
+
+/* Laufende Session auf „Heute“ (Teil B): das Hauptelement — dunkle Navy-Karte,
+   schwacher Amber-Schein von links oben, zweistufiger Schatten. */
+.marke-karte-dunkel {
+  background:
+    radial-gradient(ellipse 70% 120% at 0% 0%, color-mix(in srgb, var(--color-marke-amber) 16%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-marke-navy) 88%, var(--color-marke-cobalt)) 0%, var(--color-marke-navy) 100%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-marke-ivory) 14%, transparent), var(--shadow-lg);
+}
+
+/* Amber-Lichtpunkt mit Schein (Logo-Funke). */
+.marke-lichtpunkt {
+  background: var(--color-marke-amber);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-marke-amber) 22%, transparent), 0 0 12px color-mix(in srgb, var(--color-marke-amber) 55%, transparent);
+}

@@ -18,15 +18,15 @@
     --session-text-56: color-mix(in srgb, var(--color-stage-text) 56%, transparent);
     --session-text-42: color-mix(in srgb, var(--color-stage-text) 42%, transparent);
     /* Blau-getönte Shadows (aus --color-primary) */
-    --session-sh-md: 0 4px 12px color-mix(in srgb, var(--color-primary) 18%, transparent);
-    --session-sh-lg: 0 10px 30px color-mix(in srgb, var(--color-primary) 30%, transparent);
+    --session-sh-md: 0 4px 12px color-mix(in srgb, var(--color-stage-primary) 18%, transparent);
+    --session-sh-lg: 0 10px 30px color-mix(in srgb, var(--color-stage-primary) 30%, transparent);
 
     position: relative;
     isolation: isolate;
     color: var(--session-text);
     background:
       /* Top-Glow — warmes Licht von oben (aus --color-accent) */
-      radial-gradient(125% 75% at 50% -12%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 46%),
+      radial-gradient(125% 75% at 50% -12%, color-mix(in srgb, var(--color-stage-accent) 18%, transparent), transparent 46%),
       /* Horizont-Glow — füllt die Unterkante, kein Void */
       radial-gradient(110% 60% at 50% 116%, color-mix(in srgb, var(--color-stage-glow-horizon) 12%, transparent), transparent 52%),
       /* Basis-Gradient (Brand-Navy) */
@@ -71,7 +71,7 @@
 
     color: var(--session-text);
     background:
-      radial-gradient(125% 75% at 50% -12%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 46%),
+      radial-gradient(125% 75% at 50% -12%, color-mix(in srgb, var(--color-stage-accent) 16%, transparent), transparent 46%),
       linear-gradient(168deg, var(--color-stage-top) 0%, var(--color-stage-mid) 60%, var(--color-stage-bottom) 100%);
   }
 
@@ -102,21 +102,21 @@
   /* Primär-CTA-Karte (nur Hub/Navigation): angehoben, Gold-Kante + Glow. */
   .session-stage .glass-card.session-cta {
     background:
-      radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 55%),
+      radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--color-stage-accent) 10%, transparent), transparent 55%),
       linear-gradient(135deg, color-mix(in srgb, var(--color-stage-cta-top) 55%, transparent), color-mix(in srgb, var(--color-stage-cta-bottom) 42%, transparent));
     border: 1px solid color-mix(in srgb, var(--color-stage-gold-edge) 30%, transparent);
     border-top-color: color-mix(in srgb, var(--color-stage-warm-highlight) 34%, transparent);
-    box-shadow: var(--session-sh-lg), 0 0 44px color-mix(in srgb, var(--color-accent) 10%, transparent);
+    box-shadow: var(--session-sh-lg), 0 0 44px color-mix(in srgb, var(--color-stage-accent) 10%, transparent);
   }
   .session-stage .glass-card.session-cta:hover {
-    box-shadow: var(--session-sh-lg), 0 0 60px color-mix(in srgb, var(--color-accent) 16%, transparent);
+    box-shadow: var(--session-sh-lg), 0 0 60px color-mix(in srgb, var(--color-stage-accent) 16%, transparent);
     transform: translateY(-3px);
   }
 
   /* Gold-getöntes Icon-Tile — nur am primären CTA, nur auf der dunklen Bühne. */
   .session-stage .session-icon-tile {
     background: color-mix(in srgb, var(--color-stage-gold-edge) 20%, transparent);
-    color: var(--color-accent);
+    color: var(--color-stage-accent);
     box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-stage-gold-edge) 45%, transparent);
   }
 
