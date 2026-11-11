@@ -4,7 +4,8 @@ Dieses Dokument ist das zentrale Steuerungsgehirn für alle Claude Code Sessions
 
 ## 1. Plattform & Mission
 
-- Produkt: Edvance – hybride Lernakademie für Schüler:innen Klasse 5–13
+- Produkt: Edvance – hybride Lernakademie. Extern kommuniziert: Klasse 8–10, Mathe/Deutsch/Englisch
+  (Klasse 5–13 ist Langfrist-Vision und erscheint nie in Texten oder Screens)
 - Modell: Präsenz-Kleingruppen max. 5, individueller Tablet-Lernpfad, Coach-Begleitung
 - Standort: Köln – Pre-Launch Phase
 - Team: Rasit (Entwicklung, Reporting), Ashkan (Leads), Tolunay (Verträge, Planung)
@@ -117,6 +118,29 @@ Lies vor jeder Aufgabe die relevanten Dateien in docs/:
   ```
 
 ## 11. Design Rules – Nicht verhandelbar
+
+### Marke (Brand Foundation v1.2, abgenommen 11.11.2026)
+
+Gilt vor allen älteren Farb- und Schriftangaben in dieser Datei und in `docs/DESIGN_SYSTEM.md`.
+Umgesetzt wird sie mit Bauauftrag CI-1 (`docs/marke/Bauauftrag-CI-1.md`); bis dahin tragen die
+Tokens noch alte Werte. Neue Arbeit führt keine alten Markenwerte (z. B. `#2D6A9F`) und keine
+Serifenschrift mehr ein.
+
+- **Farben:** Midnight Navy `#102038`, Warm Ivory `#F8F5EE`, Radiant Cobalt `#4567C6` (Hauptaktion,
+  genau eine je Ansicht; Fokus), Amber `#DA9721` (Akzent, Lichtpunkt). Nur über Tokens in
+  `src/styles/tokens.css`.
+- **Schrift:** Plus Jakarta Sans. 800 nur Wortmarke, 700/600 Titel, 500 Bedienung, 400 Fließtext,
+  Ziffern gleich breit (`tabular-nums`) bei Kennzahlen, Zeiten und Eingaben. Keine Literata, keine
+  Schibsted Grotesk.
+- **Logo „Funke“:** Wortmarke „edvance“ plus Zeichen (Schale mit Lichtpunkt) links. Einzige Quellen
+  sind die SVG-Dateien in `docs/marke/logo/` — **nie nachzeichnen oder abwandeln.** `auf-hell` (Navy,
+  Punkt Amber), `auf-dunkel` (Ivory, Punkt Amber), `auf-cobalt` (Weiß), `einfarbig` (`currentColor`);
+  klein (Favicon, App-Icon, schmale Leiste) nur das Zeichen.
+- **Tiefe statt Baukasten:** eine Lichtquelle (Amber-Punkt), Schatten zweistufig und weich, je Ansicht
+  ein Hauptelement, Kennzahlen als eine Leiste statt Kachelreihe. Horizont-Motiv (aus der Logo-Schale)
+  nur im Login und unten in der Admin-Leiste.
+- **Testdaten:** `leads.ist_test` und `students.ist_test` sind in Admin-Listen standardmäßig
+  ausgeblendet und nur über den Schalter „Testdaten anzeigen“ sichtbar (CI-1 Teil D).
 
 ### Brand Personality
 Edvance ist warm, intelligent und ermutigend.
