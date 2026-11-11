@@ -114,7 +114,7 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
                     : 'bg-[var(--color-bg-surface)] shadow-[var(--shadow-marke-karte)]'
                 }`}
               >
-                <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex min-w-[9rem] flex-1 flex-col">
                   <span className="flex items-center gap-2">
                     {e.laeuft && <span aria-hidden="true" className="marke-lichtpunkt h-2.5 w-2.5 shrink-0 rounded-[var(--radius-full)]" />}
                     <span className="truncate text-sm font-semibold">{e.titel}</span>

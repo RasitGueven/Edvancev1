@@ -361,6 +361,8 @@ body,
 html {
   background-color: var(--color-bg-app);
   overscroll-behavior: none;
+  /* Checkboxen, Radios, Regler in der Markenfarbe statt Browser-Blau. */
+  accent-color: var(--color-primary);
 }
 body {
   overscroll-behavior: none;

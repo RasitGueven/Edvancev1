@@ -55,7 +55,7 @@ export function Login(): JSX.Element {
 
         <section className="order-2 w-full max-w-[420px] shrink-0 self-center rounded-[var(--radius-flaeche)] bg-[var(--color-marke-ivory)] p-6 text-[var(--color-marke-navy)] shadow-[var(--shadow-marke-schwebend)] md:p-8">
           <div className="mb-6 flex flex-col gap-2">
-            <h1 className="text-2xl font-bold tracking-tight">{t('login.titel')}</h1>
+            <h1 className="text-2xl font-bold">{t('login.titel')}</h1>
             <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--color-marke-navy)_72%,transparent)]">
               {t('login.satz')}
             </p>

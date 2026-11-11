@@ -50,7 +50,9 @@
     /* ── TEXT ─────────────────────────────────────────────────── */
     --color-text-primary:           #1A1A18;
     --color-text-secondary:         #4A4A47;
-    --color-text-tertiary:          #888884;
+    /* CI-1 Abnahme 10: #888884 erreichte auf Ivory nur 3,3:1. Navy-Zwischenton
+       (65 % Navy, 35 % Ivory = #616B78): 5,0:1 auf Ivory, 5,4:1 auf Weiß (WCAG AA). */
+    --color-text-tertiary:          color-mix(in srgb, var(--color-marke-navy) 65%, var(--color-marke-ivory));
     --color-text-link:              var(--color-marke-cobalt);
     /* Schrift auf Navy-/Midnight-Flächen (aktiver Reiter, aktiver Schritt). */
     --color-text-inverse:           var(--color-stage-text);

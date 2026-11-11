@@ -44,7 +44,7 @@ export function PageHeader({ rubrik, rubrikAkzent = false, titel, satz, aktionen
               {rubrik}
             </p>
           )}
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-[var(--color-text-primary)]">{titel}</h1>
+          <h1 className="text-3xl font-bold leading-tight text-[var(--color-text-primary)]">{titel}</h1>
           {satz && <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{satz}</p>}
         </div>
         {aktionen && <div className="flex flex-wrap items-center gap-2">{aktionen}</div>}
