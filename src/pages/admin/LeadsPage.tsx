@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { TestdatenSchalter, useTestdatenSchalter } from '@/components/edvance/admin/TestdatenSchalter'
 import { Button } from '@/components/ui/button'
 import { useAuthContext } from '@/context/AuthContext'
 import { listReportSessionsByLead } from '@/lib/supabase/leadLsa'
@@ -49,6 +50,8 @@ export function LeadsPage(): JSX.Element {
   const [busyLeadId, setBusyLeadId] = useState<string | null>(null)
   const [filters, setFilters] = useState<LeadFilters>(EMPTY_FILTERS)
   const [showDone, setShowDone] = useState(false)
+  // CI-1 Teil D: Testleads sind standardmäßig ausgeblendet, in allen Spalten.
+  const [zeigeTest, setZeigeTest] = useTestdatenSchalter('leads')
 
   const load = (): void => {
     setLoading(true)
@@ -166,6 +169,8 @@ export function LeadsPage(): JSX.Element {
   }
 
   const columns = showDone ? [...BOARD_COLUMNS, DONE_COLUMN] : BOARD_COLUMNS
+  const testAnzahl = leads.filter((l) => l.ist_test === true).length
+  const boardLeads = zeigeTest ? leads : leads.filter((l) => l.ist_test !== true)
 
   return (
     <>
@@ -174,16 +179,19 @@ export function LeadsPage(): JSX.Element {
         titel={t('page.title')}
         satz={t('page.description')}
         aktionen={
-          <Button
-            type="button"
-            onClick={() => {
-              setEditingLead(null)
-              setEditingStep(0)
-              setShowForm((v) => !v)
-            }}
-          >
-            <Plus aria-hidden="true" className="h-4 w-4" /> {showForm ? tc('close') : t('page.newLead')}
-          </Button>
+          <>
+            <TestdatenSchalter anzahl={testAnzahl} an={zeigeTest} onChange={setZeigeTest} />
+            <Button
+              type="button"
+              onClick={() => {
+                setEditingLead(null)
+                setEditingStep(0)
+                setShowForm((v) => !v)
+              }}
+            >
+              <Plus aria-hidden="true" className="h-4 w-4" /> {showForm ? tc('close') : t('page.newLead')}
+            </Button>
+          </>
         }
       />
 
@@ -219,7 +227,7 @@ export function LeadsPage(): JSX.Element {
           />
           <LeadBoard
             columns={columns}
-            leads={leads}
+            leads={boardLeads}
             filters={filters}
             platzByLead={platzByLead}
             reportByLead={reportByLead}

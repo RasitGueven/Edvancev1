@@ -10,6 +10,10 @@ import { MemoryRouter } from 'react-router-dom'
 import '@/i18n'
 import type { VertragAktuell } from '@/types'
 
+vi.mock('@/lib/supabase/testMarkierung', async (orig) => ({
+  ...(await orig<typeof import('@/lib/supabase/testMarkierung')>()),
+  ladeTestMarkierung: vi.fn(() => Promise.resolve({ data: { leads: new Set(), schueler: new Set() }, error: null })),
+}))
 vi.mock('@/lib/supabase/vertraegeMenue', () => ({
   listVertraegeAktuell: vi.fn(),
   vertragVerlaengerungSetzen: vi.fn(() => Promise.resolve({ data: true, error: null })),
@@ -132,5 +136,27 @@ describe('keine Verlaengerung', () => {
     await waitFor(() =>
       expect(vertragVerlaengerungSetzen).toHaveBeenCalledWith('a', 'keine_verlaengerung', 'Umzug', null),
     )
+  })
+})
+
+describe('Testdaten (CI-1 Teil D)', () => {
+  it('blendet Verträge von Testleads aus; der Schalter holt sie zurück', async () => {
+    const { ladeTestMarkierung } = await import('@/lib/supabase/testMarkierung')
+    vi.mocked(ladeTestMarkierung).mockResolvedValue({ data: { leads: new Set(['lt']), schueler: new Set() }, error: null })
+    vi.mocked(listVertraegeAktuell).mockResolvedValue({
+      data: [
+        v({ id: 'echt', lead_id: 'le', kind_vorname: 'ZZ_Echt' }),
+        v({ id: 'test', lead_id: 'lt', kind_vorname: 'ZZ_Test' }),
+      ],
+      error: null,
+    })
+    window.localStorage.removeItem('edvance.testdaten.vertraege')
+    zeige()
+    expect(await screen.findByText(/ZZ_Echt/)).toBeTruthy()
+    expect(screen.queryByText(/ZZ_Test/)).toBeNull()
+    fireEvent.click(screen.getByRole('switch', { name: 'Testdaten anzeigen (1)' }))
+    expect(await screen.findByText(/ZZ_Test/)).toBeTruthy()
+    expect(window.localStorage.getItem('edvance.testdaten.vertraege')).toBe('1')
+    window.localStorage.removeItem('edvance.testdaten.vertraege')
   })
 })

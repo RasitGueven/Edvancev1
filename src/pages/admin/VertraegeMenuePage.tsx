@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { TestdatenSchalter, useTestdatenSchalter } from '@/components/edvance/admin/TestdatenSchalter'
+import { KEINE_TESTMARKIERUNG, istTestVertrag, ladeTestMarkierung, type TestMarkierung } from '@/lib/supabase/testMarkierung'
 import { berlinToday } from '@/lib/datetime'
 import { listTiers } from '@/lib/supabase/subscriptions'
 import { listVertraege, vertragAblehnen } from '@/lib/supabase/vertraege'
@@ -49,8 +51,11 @@ export function VertraegeMenuePage(): JSX.Element {
   const { t } = useTranslation('vertraege')
   const navigate = useNavigate()
   const [reiter, setReiter] = useState<ReiterKey>('uebersicht')
-  const [vertraege, setVertraege] = useState<VertragAktuell[]>([])
-  const [antraege, setAntraege] = useState<VertragMitLead[]>([])
+  const [alleVertraege, setVertraege] = useState<VertragAktuell[]>([])
+  const [alleAntraege, setAntraege] = useState<VertragMitLead[]>([])
+  // CI-1 Teil D: Verträge von Testleads/-kindern sind standardmäßig ausgeblendet.
+  const [markierung, setMarkierung] = useState<TestMarkierung>(KEINE_TESTMARKIERUNG)
+  const [zeigeTest, setZeigeTest] = useTestdatenSchalter('vertraege')
   const [tiers, setTiers] = useState<TierPlan[]>([])
   const [filter, setFilter] = useState<UebersichtFilter>(LEERER_FILTER)
   const [zeigeAbgelehnte, setZeigeAbgelehnte] = useState(false)
@@ -61,18 +66,23 @@ export function VertraegeMenuePage(): JSX.Element {
   const [ablehnen, setAblehnen] = useState<VertragMitLead | null>(null)
 
   const laden = (): void => {
-    void Promise.all([listVertraegeAktuell(), listVertraege(), listTiers()]).then(
-      ([v, a, ti]) => {
+    void Promise.all([listVertraegeAktuell(), listVertraege(), listTiers(), ladeTestMarkierung()]).then(
+      ([v, a, ti, m]) => {
         setVertraege(v.data ?? [])
         setAntraege((a.data ?? []).filter((x) => ANTRAG_STATUS.includes(x.status)))
         setTiers(ti.data ?? [])
-        setError(v.error ?? a.error ?? ti.error)
+        if (m.data) setMarkierung(m.data)
+        setError(v.error ?? a.error ?? ti.error ?? m.error)
         setLoading(false)
       },
     )
   }
 
   useEffect(laden, [])
+
+  const testAnzahl = alleVertraege.filter((v) => istTestVertrag(v, markierung)).length
+  const vertraege = zeigeTest ? alleVertraege : alleVertraege.filter((v) => !istTestVertrag(v, markierung))
+  const antraege = zeigeTest ? alleAntraege : alleAntraege.filter((v) => !istTestVertrag(v, markierung))
 
   const run = async (
     id: string,
@@ -151,7 +161,12 @@ export function VertraegeMenuePage(): JSX.Element {
 
   return (
     <>
-      <PageHeader rubrik={t('page.eyebrow')} titel={t('page.title')} satz={t('menue.beschreibung')} />
+      <PageHeader
+        rubrik={t('page.eyebrow')}
+        titel={t('page.title')}
+        satz={t('menue.beschreibung')}
+        aktionen={<TestdatenSchalter anzahl={testAnzahl} an={zeigeTest} onChange={setZeigeTest} />}
+      />
 
       <Reiterleiste reiter={reiterListe} aktiv={reiter} onWechsel={setReiter} />
 

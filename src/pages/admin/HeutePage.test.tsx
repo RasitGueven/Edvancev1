@@ -111,6 +111,10 @@ vi.mock('@/lib/supabase/vertraege', () => ({
   listVertraege: vi.fn(() => Promise.resolve({ data: [], error: null })),
   vertragStarten: vi.fn(() => Promise.resolve({ data: 'v1', error: null })),
 }))
+vi.mock('@/lib/supabase/testMarkierung', async (orig) => ({
+  ...(await orig<typeof import('@/lib/supabase/testMarkierung')>()),
+  ladeTestMarkierung: vi.fn(() => Promise.resolve({ data: { leads: new Set(), schueler: new Set() }, error: null })),
+}))
 vi.mock('@/lib/supabase/vertraegeMenue', () => ({
   listVertraegeAktuell: vi.fn(() => Promise.resolve({ data: [], error: null })),
 }))

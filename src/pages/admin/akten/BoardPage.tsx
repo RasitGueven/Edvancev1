@@ -8,6 +8,8 @@ import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { useAuth } from '@/hooks/useAuth'
 import { SELECT_MD } from '@/lib/formStyles'
 import { listBoardSchueler } from '@/lib/supabase/akte'
+import { KEINE_TESTMARKIERUNG, ladeTestMarkierung, type TestMarkierung } from '@/lib/supabase/testMarkierung'
+import { TestdatenSchalter, useTestdatenSchalter } from '@/components/edvance/admin/TestdatenSchalter'
 import { baueSpalten, type BoardSortierung, type ZustandFilter } from '@/lib/akte/board'
 import type { BoardSchueler } from '@/types'
 import { BoardSpalte } from './BoardSpalte'
@@ -34,6 +36,9 @@ export function BoardPage(): JSX.Element {
   const [sucheSpalte, setSucheSpalte] = useState<Record<string, string>>({})
   const [sortierung, setSortierung] = useState<BoardSortierung>('nachname')
   const [zustand, setZustand] = useState<ZustandFilter>('aktiv')
+  // CI-1 Teil D: Testkinder sind in der Admin-Sicht standardmäßig ausgeblendet; Coaches unverändert.
+  const [markierung, setMarkierung] = useState<TestMarkierung>(KEINE_TESTMARKIERUNG)
+  const [zeigeTest, setZeigeTest] = useTestdatenSchalter('akten')
 
   useEffect(() => {
     void listBoardSchueler().then(({ data, error: e }) => {
@@ -43,9 +48,23 @@ export function BoardPage(): JSX.Element {
     })
   }, [])
 
+  useEffect(() => {
+    if (!istAdmin) return
+    void ladeTestMarkierung().then(({ data, error: e }) => {
+      if (data) setMarkierung(data)
+      if (e) setError(e)
+    })
+  }, [istAdmin])
+
+  const testAnzahl = istAdmin ? liste.filter((s) => markierung.schueler.has(s.student_id)).length : 0
+  const sichtbar = useMemo(
+    () => (istAdmin && !zeigeTest ? liste.filter((s) => !markierung.schueler.has(s.student_id)) : liste),
+    [liste, istAdmin, zeigeTest, markierung],
+  )
+
   const { spalten, trefferGesamt } = useMemo(
-    () => baueSpalten(liste, { zustand: istAdmin ? zustand : 'aktiv', sucheGlobal, sucheSpalte, sortierung }),
-    [liste, istAdmin, zustand, sucheGlobal, sucheSpalte, sortierung],
+    () => baueSpalten(sichtbar, { zustand: istAdmin ? zustand : 'aktiv', sucheGlobal, sucheSpalte, sortierung }),
+    [sichtbar, istAdmin, zustand, sucheGlobal, sucheSpalte, sortierung],
   )
 
   const inhalt = (
@@ -123,7 +142,12 @@ export function BoardPage(): JSX.Element {
 
   return (
     <>
-      <PageHeader rubrik={t('board.eyebrow')} titel={t('board.titel')} satz={t('board.beschreibung')} />
+      <PageHeader
+        rubrik={t('board.eyebrow')}
+        titel={t('board.titel')}
+        satz={t('board.beschreibung')}
+        aktionen={istAdmin ? <TestdatenSchalter anzahl={testAnzahl} an={zeigeTest} onChange={setZeigeTest} /> : undefined}
+      />
       {inhalt}
     </>
   )

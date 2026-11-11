@@ -668,5 +668,8 @@
     "folgeUngueltig": "Nummer 1–8 und mindestens ein Thema wählen.",
     "folgeGespeichert": "Arbeit bestätigt.",
     "folgeFehler": "Arbeit konnte nicht gespeichert werden."
+  },
+  "testdaten": {
+    "anzeigen": "Testdaten anzeigen ({{count}})"
   }
 }

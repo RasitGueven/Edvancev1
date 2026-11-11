@@ -11,6 +11,7 @@ import { listSkillThemen } from '@/lib/supabase/themen'
 import { listVertraege } from '@/lib/supabase/vertraege'
 import { listVertraegeAktuell } from '@/lib/supabase/vertraegeMenue'
 import { ladeTag } from '@/lib/supabase/slotplan'
+import { istTestVertrag, ladeTestMarkierung } from '@/lib/supabase/testMarkierung'
 import { slotsFehlerSchluessel } from '@/lib/slots/fehler'
 import type { SlotsTag } from '@/types/slotplan'
 import type {
@@ -67,7 +68,7 @@ export function useHeuteDaten(): { daten: HeuteDaten; loading: boolean; error: s
   const laden = useCallback((): (() => void) => {
     let aktiv = true
     void (async () => {
-      const [stats, leads, platz, vertraege, antraege, schueler, aufgaben, skillThemen, tag, lsaHeute] =
+      const [stats, leads, platz, vertraege, antraege, schueler, aufgaben, skillThemen, tag, lsaHeute, markierung] =
         await Promise.all([
           getAdminStats(),
           listLeads(),
@@ -79,18 +80,22 @@ export function useHeuteDaten(): { daten: HeuteDaten; loading: boolean; error: s
           listSkillThemen(),
           ladeTag(berlinToday()),
           listTodaysLsaSessions(),
+          ladeTestMarkierung(),
         ])
-      const fertig = (leads.data ?? []).filter((l) => l.status === 'lsa_fertig').map((l) => l.id)
+      // CI-1 Teil D: Testdaten stehen in keiner Liste auf „Heute“ (Leads, Verträge, Schüler).
+      const m = markierung.data
+      const echteLeads = (leads.data ?? []).filter((l) => l.ist_test !== true)
+      const fertig = echteLeads.filter((l) => l.status === 'lsa_fertig').map((l) => l.id)
       const reports = await listReportSessionsByLead(fertig)
       if (!aktiv) return
       setDaten({
         stats: stats.data,
-        leads: leads.data ?? [],
+        leads: echteLeads,
         platzByLead: platz.data ?? {},
         reportByLead: reports.data ?? {},
-        vertraege: vertraege.data ?? [],
-        antraege: antraege.data ?? [],
-        schueler: schueler.data ?? [],
+        vertraege: (vertraege.data ?? []).filter((v) => !m || !istTestVertrag(v, m)),
+        antraege: (antraege.data ?? []).filter((v) => !m || !istTestVertrag(v, m)),
+        schueler: (schueler.data ?? []).filter((s) => !m || !m.schueler.has(s.student_id)),
         aufgaben: aufgaben.data ?? [],
         skillThemen: skillThemen.data ?? [],
         tag: tag.data,
@@ -99,7 +104,7 @@ export function useHeuteDaten(): { daten: HeuteDaten; loading: boolean; error: s
       })
       setError(
         stats.error ?? leads.error ?? platz.error ?? vertraege.error ?? antraege.error ?? schueler.error ??
-          aufgaben.error ?? skillThemen.error ?? lsaHeute.error ?? reports.error,
+          aufgaben.error ?? skillThemen.error ?? lsaHeute.error ?? reports.error ?? markierung.error,
       )
       setLoading(false)
     })()

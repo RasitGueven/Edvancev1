@@ -88,7 +88,12 @@ describe('LsaReportsPage', () => {
       ],
       error: null,
     })
+    window.localStorage.removeItem('edvance.testdaten.lsaReports')
     seite()
+    // CI-1 Teil D: Testkinder erst mit dem Schalter.
+    expect(await screen.findByText('ZZ_echt')).toBeInTheDocument()
+    expect(screen.queryByText('ZZ_konto')).toBeNull()
+    fireEvent.click(screen.getByRole('switch', { name: 'Testdaten anzeigen (2)' }))
     const reihe = async (id: string) => (await screen.findByText(`ZZ_${id}`)).closest('tr')!
     expect(within(await reihe('lauf')).getByText('Testlauf')).toBeInTheDocument()
     expect(within(await reihe('lauf')).queryByText('Testkonto')).toBeNull()
