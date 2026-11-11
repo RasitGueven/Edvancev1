@@ -13,8 +13,9 @@
 | 3b | #391 | Testdaten ausblenden, Datenmigration (Teil D) |
 | 5 | dieser PR | Bericht, Abnahmefotos, Korrekturen aus der Abnahme |
 
-Jeder PR enthält die Commits der vorigen; nach dem Merge eines PR zeigt der nächste nur noch seinen eigenen Teil.
-Den Merge habe ich nicht selbst gemacht: Die Freigabeprüfung der Sitzung hat `gh pr merge` abgelehnt.
+Gemergt am 11.11.2026 per Squash in dieser Reihenfolge; vor jedem Merge wurde `dev` in den nächsten Branch
+eingemischt. Dabei fiel in #390 ein Test auf, der an der Uhrzeit hing (eine laufende Session schrieb „Läuft
+gerade · Coach“ in ein Element); das Label steht jetzt in einem eigenen Element.
 
 ## 1. Ansichten (Abnahmefotos in `docs/marke/ci1-fotos/`)
 
@@ -150,7 +151,6 @@ Navy-Zwischenton (65 % Navy, 35 % Ivory).
 
 ## Offene Punkte
 
-1. Merge der PRs #387–#391 und dieses PR durch Rasit (meine Merges wurden blockiert).
-2. Geräteabnahme iPad/iPhone (Punkte 5 und 6).
-3. Kind B: Markierung bleibt `true`, bis Rasit anders entscheidet.
-4. Eigene Aufträge: Schriften im Druckbogen R7/Präsentation und in den Aufgaben-Figuren.
+1. Geräteabnahme iPad/iPhone (Punkte 5 und 6).
+2. Kind B: Markierung bleibt `true`, bis Rasit anders entscheidet.
+3. Eigene Aufträge: Schriften im Druckbogen R7/Präsentation und in den Aufgaben-Figuren.
