@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { LogOut, PanelLeftClose, PanelLeftOpen, UserRound } from 'lucide-react'
-import { EdvanceLogo, EdvanceSymbol } from '@/components/brand/EdvanceLogo'
+import { MarkenLogo } from '@/components/brand/MarkenLogo'
 import { AvatarInitials } from '@/components/edvance/AvatarInitials'
 import { useAuth } from '@/hooks/useAuth'
 import { LEISTEN_TON } from './leistenTon'
@@ -53,10 +53,10 @@ export function ShellSidebar({
     >
       <div className={`flex min-h-[44px] items-center ${schmal ? 'justify-center' : 'justify-between gap-2 px-2'}`}>
         {schmal ? (
-          <EdvanceSymbol size={32} color={ton.logo} accentColor={ton.logoAkzent} />
+          <MarkenLogo fassung="zeichen" grund={ton.logoGrund} className="h-8" />
         ) : (
           <>
-            <EdvanceLogo size={20} color={ton.logo} accentColor={ton.logoAkzent} />
+            <MarkenLogo fassung="wortmarke" grund={ton.logoGrund} className="h-6" />
             <span className={`text-xs font-semibold uppercase tracking-widest ${ton.gruppe}`}>{t(konfig.rolleKey)}</span>
           </>
         )}

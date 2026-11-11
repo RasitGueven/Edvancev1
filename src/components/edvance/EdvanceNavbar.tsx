@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { EdvanceLogo } from '@/components/brand/EdvanceLogo'
+import { MarkenLogo } from '@/components/brand/MarkenLogo'
 import { useAuth } from '@/hooks/useAuth'
 import { cn } from '@/lib/utils'
 
@@ -21,7 +21,7 @@ export function EdvanceNavbar({ subtitle, sticky = false }: EdvanceNavbarProps):
     >
       <div className="flex items-center gap-3">
         <div>
-          <EdvanceLogo size={20} />
+          <MarkenLogo />
           <p className="mt-0.5 text-xs text-[var(--color-text-tertiary)] leading-tight">
             {subtitle}
           </p>

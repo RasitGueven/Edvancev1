@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Menu } from 'lucide-react'
-import { EdvanceLogo } from '@/components/brand/EdvanceLogo'
+import { MarkenLogo } from '@/components/brand/MarkenLogo'
 import type { LeistenTon, NavKonfiguration, Zaehlerwerte } from './navTypes'
 import { ShellContext } from './shellContext'
 import { ShellSidebar } from './ShellSidebar'
@@ -63,7 +63,7 @@ export function AppShell({ konfig, zaehler, ton = 'navy', children }: Props): JS
             >
               <Menu aria-hidden="true" className="h-6 w-6" />
             </button>
-            <EdvanceLogo size={18} accentColor="var(--color-gold-altgold)" />
+            <MarkenLogo className="h-6" />
           </header>
         ) : (
           <ShellSidebar

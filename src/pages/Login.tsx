@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { EdvanceCard } from '@/components/edvance'
-import { EdvanceSymbol } from '@/components/brand/EdvanceLogo'
+import { MarkenLogo } from '@/components/brand/MarkenLogo'
 import { ROLLEN_START as ROLE_ROUTES } from '@/pages/auth/AuthRahmen'
 
 /* Verstreute Sterne: [x, y, r, opacity] im 1440×900-Raster. */
@@ -126,8 +126,8 @@ export function Login(): JSX.Element {
         {/* Marken-Block: goldene Kachel mit kalligrafischem Haken, Wortmarke, Zeile */}
         <aside className="flex flex-col items-center gap-4 text-center md:max-w-md md:items-start md:gap-6 md:text-left">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-[var(--color-gold-altgold)] to-[var(--color-gold-champagner)] md:h-20 md:w-20">
-            <EdvanceSymbol size={38} filled color="var(--color-primary)" className="md:hidden" />
-            <EdvanceSymbol size={48} filled color="var(--color-primary)" className="hidden md:block" />
+            <MarkenLogo fassung="zeichen" className="h-10 md:hidden" />
+            <MarkenLogo fassung="zeichen" className="hidden h-12 md:block" />
           </div>
           <h1 className="font-serif text-4xl font-semibold text-[var(--color-bg-app)] md:text-5xl">
             Edvance

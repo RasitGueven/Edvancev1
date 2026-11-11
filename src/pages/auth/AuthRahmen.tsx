@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { EdvanceCard } from '@/components/edvance'
-import { EdvanceLogo } from '@/components/brand/EdvanceLogo'
+import { MarkenLogo } from '@/components/brand/MarkenLogo'
 import type { UserRole } from '@/types'
 
 /** Startseite je Rolle — dieselbe Weiche wie nach dem Login. */
@@ -26,7 +26,7 @@ export function AuthRahmen({ titel, satz, children }: Props): JSX.Element {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[var(--color-bg-app)] px-4 py-12">
       <EdvanceCard className="flex w-full max-w-[440px] flex-col gap-6 p-6 md:p-8">
-        <EdvanceLogo size={20} />
+        <MarkenLogo className="h-7 self-start" />
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{titel}</h1>
           {satz && <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{satz}</p>}
