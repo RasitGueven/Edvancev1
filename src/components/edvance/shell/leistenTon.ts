@@ -1,3 +1,4 @@
+import type { LogoGrund } from '@/components/brand/MarkenLogo'
 import type { LeistenTon } from './navTypes'
 
 /**
@@ -16,11 +17,8 @@ export type TonKlassen = {
   pille: string
   punkt: string
   linie: string
-  logo: string
-  logoAkzent: string
+  logoGrund: LogoGrund
 }
-
-const CREME = 'var(--color-stage-text)'
 
 export const LEISTEN_TON: Record<LeistenTon, TonKlassen> = {
   navy: {
@@ -34,8 +32,7 @@ export const LEISTEN_TON: Record<LeistenTon, TonKlassen> = {
     pille: 'bg-[var(--color-gold-altgold)] text-[var(--color-on-cream)]',
     punkt: 'bg-[var(--color-gold-altgold)]',
     linie: 'border-[color-mix(in_srgb,var(--color-stage-text)_14%,transparent)]',
-    logo: CREME,
-    logoAkzent: 'var(--color-gold-altgold)',
+    logoGrund: 'dunkel',
   },
   hell: {
     flaeche: 'border-r border-[var(--color-border)] bg-[var(--color-bg-surface)]',
@@ -48,7 +45,6 @@ export const LEISTEN_TON: Record<LeistenTon, TonKlassen> = {
     pille: 'bg-[var(--color-primary)] text-[var(--color-stage-text)]',
     punkt: 'bg-[var(--color-primary)]',
     linie: 'border-[var(--color-border)]',
-    logo: 'var(--color-primary)',
-    logoAkzent: 'var(--color-gold-altgold)',
+    logoGrund: 'hell',
   },
 }

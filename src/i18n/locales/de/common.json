@@ -47,5 +47,8 @@
     "naechste": "Nächste Woche",
     "dieseWoche": "Diese Woche",
     "kwSpanne": "KW {{kw}} · {{spanne}}"
+  },
+  "marke": {
+    "name": "edvance"
   }
 }
