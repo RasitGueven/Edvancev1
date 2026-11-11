@@ -104,6 +104,10 @@ export type BauformPlanZeile = BauformListenZeile & {
   kernidee_key: string | null
   kernidee_titel: string | null
   ist_voraussetzung: boolean
+  /** SP-1: Klartext-Titel (null → Kernidee bzw. Skill). */
+  titel?: string | null
+  /** SP-1: Art der Antwort (Format, bei Feldmasken mit Punkt 'punkt'). */
+  antwortart?: string | null
 }
 
 /** Zeile aus bauform_plan_kinder (M1): Kind mit aktiver Reihe fuer den Plan-Umschalter. */

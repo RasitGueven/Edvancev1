@@ -1,7 +1,7 @@
 // M1: Gruppierung der Muster nach Session, Fortschritt je Session, Bedingung fuer „Session n freigeben“.
 import { describe, expect, it } from 'vitest'
 import type { BauformPlanZeile } from '@/types/bauformPruefung'
-import { freigebbar, nachSessions, passtZuFilter } from './bauformPlan'
+import { bauformTitel, filterFuer, freigebbar, nachSessions, naechsteZuPruefen, passtZuFilter, pruefFortschritt } from './bauformPlan'
 
 const z = (schluessel: string, session_nr: number | null, over: Partial<BauformPlanZeile> = {}): BauformPlanZeile =>
   ({
@@ -49,4 +49,26 @@ it('passtZuFilter', () => {
   expect(passtZuFilter('rueckfrage', 'alle')).toBe(true)
   expect(passtZuFilter('rueckfrage', 'rueckfrage')).toBe(true)
   expect(passtZuFilter('zur_pruefung', 'freigegeben')).toBe(false)
+})
+
+describe('SP-1 Liste', () => {
+  it('bauformTitel: eigener Titel, sonst Kernidee, Voraussetzung mit Skill', () => {
+    expect(bauformTitel(z('A-1', 1, { titel: 'Werte einsetzen' }))).toBe('Werte einsetzen')
+    expect(bauformTitel(z('A-1', 1, { kernidee_titel: 'K' }))).toBe('K')
+    expect(bauformTitel(z('A-1', 1, { kernidee_titel: 'K', ist_voraussetzung: true }))).toBe('Skill')
+  })
+  it('pruefFortschritt: geprueft = nicht mehr zu pruefen, Aufgaben zur Freigabe summiert', () => {
+    expect(pruefFortschritt([z('A-1', 1), z('A-2', 1, { status: 'rueckfrage' }), z('A-3', 1, { status: 'zur_freigabe', gruen: 5 })]))
+      .toEqual({ total: 3, geprueft: 2, aufgabenZurFreigabe: 5 })
+  })
+  it('naechsteZuPruefen: in Listenreihenfolge nach der aktuellen, sonst von vorn, sonst null', () => {
+    const l = [z('A-1', 1), z('A-2', 1, { status: 'zur_freigabe' }), z('B-1', 2), z('C-1', 3)]
+    expect(naechsteZuPruefen(l, 'A-1')?.schluessel).toBe('B-1')
+    expect(naechsteZuPruefen(l, 'C-1')?.schluessel).toBe('A-1')
+    expect(naechsteZuPruefen([z('A-1', 1)], 'A-1')).toBeNull()
+  })
+  it('filterFuer: Freigegeben nur fuer Admins', () => {
+    expect(filterFuer(false)).not.toContain('freigegeben')
+    expect(filterFuer(true)).toContain('freigegeben')
+  })
 })
