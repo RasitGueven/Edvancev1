@@ -3,7 +3,7 @@ import type { LeistenTon } from './navTypes'
 
 /**
  * Farben der Leiste je Ton (Bauauftrag Admin-Hülle, Entscheidungen 2 und 3).
- * Navy = Midnight-Verlauf mit Creme-Schrift, Gold-Akzent. Hell = weiß mit
+ * Navy = Markenleiste (CI-1) mit Ivory-Schrift, Amber-Akzent, aktiv Cobalt. Hell = weiß mit
  * Navy-Schrift. Ausschließlich Tokens.
  */
 export type TonKlassen = {
@@ -22,16 +22,17 @@ export type TonKlassen = {
 
 export const LEISTEN_TON: Record<LeistenTon, TonKlassen> = {
   navy: {
-    flaeche: 'bg-[image:var(--gradient-midnight)]',
-    text: 'text-[var(--color-stage-text)]',
-    gedimmt: 'text-[color-mix(in_srgb,var(--color-stage-text)_72%,transparent)]',
-    gruppe: 'text-[color-mix(in_srgb,var(--color-stage-text)_56%,transparent)]',
-    aktiv: 'bg-[color-mix(in_srgb,var(--color-stage-text)_14%,transparent)] text-[var(--color-stage-text)]',
-    hover: 'hover:bg-[color-mix(in_srgb,var(--color-stage-text)_8%,transparent)]',
-    symbolAktiv: 'text-[var(--color-gold-altgold)]',
-    pille: 'bg-[var(--color-gold-altgold)] text-[var(--color-on-cream)]',
-    punkt: 'bg-[var(--color-gold-altgold)]',
-    linie: 'border-[color-mix(in_srgb,var(--color-stage-text)_14%,transparent)]',
+    flaeche: 'marke-leiste',
+    text: 'text-[var(--color-marke-ivory)]',
+    gedimmt: 'text-[color-mix(in_srgb,var(--color-marke-ivory)_76%,transparent)]',
+    gruppe: 'text-[color-mix(in_srgb,var(--color-marke-ivory)_60%,transparent)]',
+    // CI-1: aktiver Bereich in Cobalt mit etwa 35 % Deckkraft.
+    aktiv: 'bg-[color-mix(in_srgb,var(--color-marke-cobalt)_35%,transparent)] text-[var(--color-marke-ivory)]',
+    hover: 'hover:bg-[color-mix(in_srgb,var(--color-marke-ivory)_8%,transparent)]',
+    symbolAktiv: 'text-[var(--color-marke-amber)]',
+    pille: 'bg-[var(--color-marke-amber)] text-[var(--color-marke-navy)] tabular-nums',
+    punkt: 'bg-[var(--color-marke-amber)]',
+    linie: 'border-[color-mix(in_srgb,var(--color-marke-ivory)_14%,transparent)]',
     logoGrund: 'dunkel',
   },
   hell: {
@@ -42,7 +43,7 @@ export const LEISTEN_TON: Record<LeistenTon, TonKlassen> = {
     aktiv: 'bg-[var(--color-primary-light)] text-[var(--color-primary)]',
     hover: 'hover:bg-[var(--color-bg-app)]',
     symbolAktiv: 'text-[var(--color-primary)]',
-    pille: 'bg-[var(--color-primary)] text-[var(--color-stage-text)]',
+    pille: 'bg-[var(--color-primary)] text-[var(--color-marke-weiss)] tabular-nums',
     punkt: 'bg-[var(--color-primary)]',
     linie: 'border-[var(--color-border)]',
     logoGrund: 'hell',

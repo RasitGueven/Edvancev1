@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2, type LucideIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { EdvanceCard } from '@/components/edvance'
 import { MAX_ZEILEN } from './heuteModel'
 
 /** Eine Zeile einer Arbeitsliste: Titel, Unterzeile, rechts Pille/Knopf. */
@@ -38,9 +37,10 @@ export function OkZeile({ text }: { text: string }): JSX.Element {
 }
 
 /**
- * Eine Arbeitsliste der Startseite: Symbol, Titel, Unterzeile, Zahl in
- * Fraunces, höchstens drei Zeilen, „und n weitere“, Fußlink in den Bereich.
- * Eine leere Liste bleibt stehen und zeigt grün „nichts offen“.
+ * Eine Arbeitsliste der Startseite als Zeile der Karte „Zu erledigen“ (CI-1):
+ * Symbol, Titel, Unterzeile, Zähler und genau eine Aktion (in den Bereich).
+ * Darunter höchstens drei Einträge, „und n weitere“. Eine leere Liste bleibt
+ * stehen, blass mit Haken und „nichts offen“ (Entscheidung 7).
  */
 export function ArbeitsListe({
   icon: Icon,
@@ -59,8 +59,8 @@ export function ArbeitsListe({
   const weitere = Math.max(0, zeilen.length - sichtbar.length)
 
   return (
-    <EdvanceCard className="flex flex-col p-4">
-      <header className="flex items-start gap-4 pb-2">
+    <div className={`flex flex-col p-4 ${leer ? 'opacity-60' : ''}`}>
+      <header className="flex items-center gap-4">
         <span
           className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] ${
             leer
@@ -72,20 +72,28 @@ export function ArbeitsListe({
         </span>
         <div className="flex min-w-0 flex-1 flex-col">
           <h3 className="text-base font-semibold">{titel}</h3>
-          <p className="text-xs text-[var(--color-text-tertiary)]">{unterzeile}</p>
+          <p className="truncate text-xs text-[var(--color-text-tertiary)]">{unterzeile}</p>
         </div>
         <span
-          className={`font-serif text-2xl font-semibold tabular-nums ${
-            leer ? 'text-[var(--color-success)]' : 'text-[var(--color-text-primary)]'
+          className={`min-w-[2.5rem] rounded-[var(--radius-md)] px-2 py-1 text-center text-base font-bold tabular-nums ${
+            leer ? 'text-[var(--color-success)]' : 'bg-[var(--color-bg-subtle)] text-[var(--color-text-primary)]'
           }`}
         >
           {anzahl}
         </span>
+        <Link
+          to={fussZiel}
+          aria-label={fussLabel}
+          title={fussLabel}
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-feld)] text-[var(--color-text-link)] hover:bg-[var(--color-primary-light)]"
+        >
+          <ArrowRight aria-hidden="true" className="h-5 w-5" />
+        </Link>
       </header>
 
-      <ul className="flex flex-col">
+      <ul className="flex flex-col pl-[3.25rem]">
         {sichtbar.map((z) => (
-          <li key={z.key} className="flex min-h-[54px] items-center gap-2 border-t border-[var(--color-border)] py-2">
+          <li key={z.key} className="flex min-h-[54px] items-center gap-2 border-t border-[var(--color-border)] py-2 first:mt-2">
             <div className="flex min-w-0 flex-1 flex-col">
               <span className="truncate text-sm font-semibold">{z.titel}</span>
               {z.unterzeile && (
@@ -100,18 +108,8 @@ export function ArbeitsListe({
       </ul>
 
       {weitere > 0 && (
-        <p className="pt-2 text-xs text-[var(--color-text-tertiary)]">{t('heute.weitere', { count: weitere })}</p>
+        <p className="pl-[3.25rem] pt-2 text-xs text-[var(--color-text-tertiary)]">{t('heute.weitere', { count: weitere })}</p>
       )}
-
-      <div className="mt-auto flex justify-end border-t border-[var(--color-border)] pt-1">
-        <Link
-          to={fussZiel}
-          className="inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-[var(--color-text-link)] hover:underline"
-        >
-          {fussLabel}
-          <ArrowRight aria-hidden="true" className="h-4 w-4" />
-        </Link>
-      </div>
-    </EdvanceCard>
+    </div>
   )
 }

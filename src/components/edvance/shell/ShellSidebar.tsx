@@ -5,7 +5,16 @@ import { MarkenLogo } from '@/components/brand/MarkenLogo'
 import { AvatarInitials } from '@/components/edvance/AvatarInitials'
 import { useAuth } from '@/hooks/useAuth'
 import { LEISTEN_TON } from './leistenTon'
-import { istAktiv, type LeistenTon, type NavKonfiguration, type Zaehlerwerte } from './navTypes'
+import { LeistenHorizont } from './LeistenHorizont'
+import {
+  bereichAlsEintrag,
+  bereichZaehler,
+  istAktiv,
+  type LeistenTon,
+  type NavEintrag,
+  type NavKonfiguration,
+  type Zaehlerwerte,
+} from './navTypes'
 import { ShellNavEintrag } from './ShellNavEintrag'
 import { useProfilName } from './useProfilName'
 
@@ -46,10 +55,22 @@ export function ShellSidebar({
     schmal ? 'flex-col justify-center gap-1 px-1 py-2' : 'gap-3 px-3'
   }`
 
+  const eintrag = (e: NavEintrag, wert: number | undefined): JSX.Element => (
+    <ShellNavEintrag
+      key={e.id}
+      eintrag={e}
+      namespace={konfig.namespace}
+      ton={ton}
+      schmal={schmal}
+      aktiv={istAktiv(e, pathname)}
+      wert={wert}
+    />
+  )
+
   return (
     <nav
       aria-label={tc('shell.navigation')}
-      className={`print-hide flex h-full min-h-0 flex-col gap-4 ${schmal ? 'px-2' : 'px-4'} py-4 ${ton.flaeche} ${ton.text}`}
+      className={`print-hide relative flex h-full min-h-0 flex-col gap-4 overflow-hidden ${schmal ? 'px-2' : 'px-4'} pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] ${ton.flaeche} ${ton.text}`}
     >
       <div className={`flex min-h-[44px] items-center ${schmal ? 'justify-center' : 'justify-between gap-2 px-2'}`}>
         {schmal ? (
@@ -66,29 +87,22 @@ export function ShellSidebar({
         {konfig.gruppen.map((gruppe, i) => (
           <div
             key={gruppe.id}
-            className={`flex flex-col gap-1 ${schmal && i > 0 ? `border-t pt-2 ${ton.linie}` : ''}`}
+            className={`flex flex-col gap-1 ${schmal && i > 0 && !gruppe.icon ? `border-t pt-2 ${ton.linie}` : ''}`}
           >
             {!schmal && gruppe.titelKey && (
               <p className={`px-3 pt-2 text-xs font-semibold uppercase tracking-widest ${ton.gruppe}`}>
                 {t(gruppe.titelKey)}
               </p>
             )}
-            {gruppe.eintraege.map((eintrag) => (
-              <ShellNavEintrag
-                key={eintrag.id}
-                eintrag={eintrag}
-                namespace={konfig.namespace}
-                ton={ton}
-                schmal={schmal}
-                aktiv={istAktiv(eintrag, pathname)}
-                wert={eintrag.zaehler ? zaehler[eintrag.zaehler] : undefined}
-              />
-            ))}
+            {schmal && gruppe.icon && gruppe.titelKey
+              ? eintrag(bereichAlsEintrag({ ...gruppe, icon: gruppe.icon, titelKey: gruppe.titelKey }), bereichZaehler(gruppe, zaehler))
+              : gruppe.eintraege.map((e) => eintrag(e, e.zaehler ? zaehler[e.zaehler] : undefined))}
           </div>
         ))}
       </div>
 
-      <div className={`flex flex-col gap-2 border-t pt-4 ${ton.linie}`}>
+      <div className={`relative z-10 flex flex-col gap-2 border-t pt-4 ${ton.linie}`}>
+        {konfig.fuss?.map((e) => eintrag(e, e.zaehler ? zaehler[e.zaehler] : undefined))}
         {(onMenue || onSchliessen) && (
           <button type="button" onClick={onMenue ?? onSchliessen} aria-expanded={Boolean(onSchliessen)} className={fussKnopf}>
             {onSchliessen ? <PanelLeftClose aria-hidden="true" className="h-5 w-5" /> : <PanelLeftOpen aria-hidden="true" className="h-5 w-5" />}
@@ -97,7 +111,11 @@ export function ShellSidebar({
             </span>
           </button>
         )}
-        {!schmal && (
+        {schmal ? (
+          <div className="flex justify-center py-1" title={name}>
+            <AvatarInitials name={name || '?'} size="sm" />
+          </div>
+        ) : (
           <div className="flex items-center gap-3 px-2">
             <AvatarInitials name={name || '?'} size="sm" />
             <div className="flex min-w-0 flex-col">
@@ -115,6 +133,7 @@ export function ShellSidebar({
           <span className={schmal ? 'text-[11px] leading-tight' : ''}>{tc('shell.abmelden')}</span>
         </button>
       </div>
+      {konfig.horizont && tonName === 'navy' && <LeistenHorizont />}
     </nav>
   )
 }

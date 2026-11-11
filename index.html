@@ -2,16 +2,25 @@
 <html lang="de" data-design="v2">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Home-Bildschirm-App (CI-1 Teil B): ohne Browserleiste auf iPhone und iPad. -->
+    <meta name="theme-color" content="#102038" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Edvance" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Edvance</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Markenschrift (CI-1): Plus Jakarta Sans, Ziffern per tabular-nums gleich breit. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <!-- Marken-Fonts: Fraunces (Serif · Headlines) + Schibsted Grotesk (Body). -->
+    <!-- Nur Druckbogen R7 und Tablet-Präsentation (Ausnahme CI-1, Muster E7): Fraunces, Schibsted Grotesk, Literata. -->
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Schibsted+Grotesk:wght@400;500;600;700&family=Literata:opsz,wght@7..72,600&display=swap"
       rel="stylesheet"

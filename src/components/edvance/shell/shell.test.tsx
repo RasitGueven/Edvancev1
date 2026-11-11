@@ -99,10 +99,29 @@ describe('ShellSidebar', () => {
     expect(screen.getByText('Eltern-Reports').closest('[aria-disabled="true"]')).toBeTruthy()
   })
 
-  it('schmale Spalte: Kurzname, Zähler im Namen der Ansage', () => {
-    zeige('/admin', 'schmal')
-    expect(screen.getByRole('link', { name: 'Leads · 3 offen' })).toBeTruthy()
-    expect(screen.getAllByText('Slots').length).toBeGreaterThan(0)
+  it('schmale Spalte: ein Eintrag je Bereich (CI-1), Zähler summiert in der Ansage', () => {
+    zeige('/admin/vertraege/v1/detail', 'schmal')
+    const kinder = screen.getByRole('link', { name: 'Kinder · 3 offen' })
+    expect(kinder.getAttribute('href')).toBe('/admin/leads')
+    expect(kinder.getAttribute('aria-current')).toBe('page')
+    expect(screen.getByRole('link', { name: 'Inhalte · 12 offen' }).getAttribute('href')).toBe('/admin/authoring')
+    expect(screen.getByRole('link', { name: 'Planung' }).getAttribute('href')).toBe('/admin/slots')
+    expect(screen.getByRole('link', { name: 'Heute' }).getAttribute('aria-current')).toBeNull()
+    expect(screen.queryByRole('link', { name: /^Leads/ })).toBeNull()
+  })
+
+  it('volle Leiste: Bereiche Kinder, Inhalte, Planung; Stellschrauben im Fuß (CI-1)', () => {
+    zeige('/admin')
+    for (const titel of ['Kinder', 'Inhalte', 'Planung']) expect(screen.getByText(titel)).toBeTruthy()
+    expect(screen.getByRole('link', { name: /Stellschrauben/ }).getAttribute('href')).toBe('/admin/stellschrauben')
+  })
+
+  it('jede Admin-Route von vorher bleibt erreichbar (CI-1 Abnahme 4)', () => {
+    const routen = [...ADMIN_NAV.gruppen.flatMap((g) => g.eintraege), ...(ADMIN_NAV.fuss ?? [])].map((e) => e.route)
+    for (const r of ['/admin', '/admin/leads', '/admin/akten', '/admin/vertraege', '/admin/lsa-reports', '/admin/authoring',
+      '/admin/lsa-abdeckung', '/admin/klassenarbeiten', '/admin/studio', '/admin/slots', '/admin/coaches', '/admin/stellschrauben']) {
+      expect(routen).toContain(r)
+    }
   })
 })
 

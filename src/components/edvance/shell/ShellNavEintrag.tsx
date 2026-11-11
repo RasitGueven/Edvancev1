@@ -75,7 +75,7 @@ export function ShellNavEintrag({ eintrag, namespace, ton, schmal, aktiv, wert }
       aria-current={aktiv ? 'page' : undefined}
       aria-label={label}
       title={schmal ? name : undefined}
-      className={`${basis} ${aktiv ? ton.aktiv : `${ton.gedimmt} ${ton.hover}`} focus-visible:outline-2 focus-visible:outline-[var(--color-gold-altgold)]`}
+      className={`${basis} ${aktiv ? ton.aktiv : `${ton.gedimmt} ${ton.hover}`} focus-visible:outline-2 focus-visible:outline-[var(--color-marke-amber)]`}
     >
       {inhalt}
     </Link>

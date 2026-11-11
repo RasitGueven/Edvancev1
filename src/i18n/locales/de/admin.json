@@ -139,7 +139,8 @@
         "leer": "Noch keine Kinder"
       },
       "schnell": "schnell",
-      "schnellTitel": "Antwortet gerade sehr schnell oder ist schon nicht mehr auswertbar"
+      "schnellTitel": "Antwortet gerade sehr schnell oder ist schon nicht mehr auswertbar",
+      "laeuft": "Läuft gerade"
     },
     "offeneSessions": {
       "titel": "Offen geblieben",
@@ -318,10 +319,9 @@
     "itemPflege": "Item-Pflege",
     "studio": "Studio",
     "gruppe": {
-      "vertrieb": "Vertrieb",
-      "betrieb": "Betrieb",
-      "verwaltung": "Verwaltung",
-      "inhalte": "Inhalte"
+      "kinder": "Kinder",
+      "inhalte": "Inhalte",
+      "planung": "Planung"
     },
     "kurz": {
       "heute": "Heute",
