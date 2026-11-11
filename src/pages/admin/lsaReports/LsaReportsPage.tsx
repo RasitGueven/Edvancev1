@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceTable, type Spalte } from '@/components/edvance/EdvanceTable'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { TestdatenSchalter, useTestdatenSchalter } from '@/components/edvance/admin/TestdatenSchalter'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { listLsaReports } from '@/lib/supabase/lsaReportListe'
@@ -24,6 +25,8 @@ export function LsaReportsPage(): JSX.Element {
   const [liste, setListe] = useState<LsaReportListItem[] | null>(null)
   const [fehler, setFehler] = useState<string | null>(null)
   const [suche, setSuche] = useState('')
+  // CI-1 Teil D: Reports von Testkindern sind standardmäßig ausgeblendet.
+  const [zeigeTest, setZeigeTest] = useTestdatenSchalter('lsaReports')
 
   useEffect(() => {
     let abgebrochen = false
@@ -50,8 +53,9 @@ export function LsaReportsPage(): JSX.Element {
 
   const name = (z: LsaReportListItem): string => z.first_name ?? t('lsaReports.ohneName')
   const begriff = suche.trim().toLocaleLowerCase(i18n.language)
+  const testAnzahl = (liste ?? []).filter((z) => z.ist_test).length
   const treffer = (liste ?? []).filter(
-    (z) => !begriff || (z.first_name ?? '').toLocaleLowerCase(i18n.language).includes(begriff),
+    (z) => (zeigeTest || !z.ist_test) && (!begriff || (z.first_name ?? '').toLocaleLowerCase(i18n.language).includes(begriff)),
   )
 
   const spalten: Spalte<LsaReportListItem>[] = [
@@ -139,7 +143,11 @@ export function LsaReportsPage(): JSX.Element {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader titel={t('lsaReports.titel')} satz={t('lsaReports.satz')} />
+      <PageHeader
+        titel={t('lsaReports.titel')}
+        satz={t('lsaReports.satz')}
+        aktionen={<TestdatenSchalter anzahl={testAnzahl} an={zeigeTest} onChange={setZeigeTest} />}
+      />
       {fehler && (
         <p className="rounded-[var(--radius-md)] bg-[var(--color-error-gap-light)] p-3 text-sm text-[var(--color-error-gap)]">
           {t('lsaReports.ladeFehler', { fehler })}
