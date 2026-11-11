@@ -120,12 +120,15 @@ export function HeuteImBetrieb({ tag, lsa, tagFehler = null }: Props): JSX.Eleme
                     <span className="truncate text-sm font-semibold">{e.titel}</span>
                   </span>
                   <span className="flex min-w-0 flex-wrap items-center gap-2">
+                    {e.laeuft && (
+                      <span className="text-xs font-semibold text-[var(--color-marke-amber)]">{t('heute.betrieb.laeuft')}</span>
+                    )}
                     <span
                       className={`truncate text-xs ${
                         e.laeuft ? 'text-[color-mix(in_srgb,var(--color-marke-ivory)_76%,transparent)]' : 'text-[var(--color-text-tertiary)]'
                       }`}
                     >
-                      {e.laeuft ? [t('heute.betrieb.laeuft'), e.unterzeile].join(' · ') : e.unterzeile}
+                      {e.unterzeile}
                     </span>
                     {e.marke}
                   </span>
