@@ -1,0 +1,132 @@
+skill_key|herk|label|thema|kompetenzen|teil|msa|n_voraus
+dezimal_add_sub|5|Dezimalzahlen addieren/subtrahieren|rechnen_brueche_dezimalzahlen|B6-4|1|t|0
+geo_flaeche_rechteck|5|Fläche von Rechteck und Quadrat|flaeche_umfang|B6-5|1|t|1
+geo_umfang|5|Umfang von Rechteck und Dreieck|flaeche_umfang|G8-1,B6-5|1|t|2
+groessen_laengen|5|Längen umrechnen|natuerliche_zahlen|B6-1|1|t|1
+groessen_massen|5|Massen umrechnen|natuerliche_zahlen|B6-1|1|t|1
+groessen_zeit|5|Zeitspannen umrechnen|natuerliche_zahlen|B6-1|1|t|1
+runden_ueberschlag|5|Runden und Überschlag|natuerliche_zahlen|B6-2|1|t|1
+bruch_add|6|Brüche addieren|rechnen_brueche_dezimalzahlen|B6-3|1|t|1
+bruch_dezimal|6|Bruch in Dezimalzahl|rechnen_brueche_dezimalzahlen|B6-3|1|t|2
+bruch_div|6|Brüche dividieren|rechnen_brueche_dezimalzahlen|A8-2|1|t|1
+bruch_kuerzen|6|Brüche kürzen|brueche|B6-3|1|t|0
+bruch_mult|6|Brüche multiplizieren|rechnen_brueche_dezimalzahlen|A8-2|1|t|1
+dezimal_div|6|Dezimalzahlen dividieren|rechnen_brueche_dezimalzahlen|B6-4|1|t|1
+dezimal_mult|6|Dezimalzahlen multiplizieren|rechnen_brueche_dezimalzahlen|B6-4|1|t|1
+geo_koordinaten|6|Punkte im Koordinatensystem|geometrische_grundbegriffe|B6-5|1|t|1
+geo_massstab|6|Maßstab|ganze_zahlen_groessen|G10-3|2|t|2
+geo_volumen_quader|6|Volumen und Oberfläche des Quaders|koerper_quader|G8-2|1|t|1
+groessen_flaechen|6|Flächeneinheiten|flaeche_umfang|B6-1|1|t|2
+groessen_gemischt|6|Gemischte Schreibweise|natuerliche_zahlen|B6-1|1|t|2
+groessen_volumen|6|Volumeneinheiten|koerper_quader|G8-2,B6-1|1|t|1
+geo_flaeche_dreieck|7|Fläche von Dreieck und Parallelogramm|flaechen_vielecke|G8-1|1|t|2
+geo_winkel_summe|7|Winkelsummen im Dreieck und Viereck|winkel_dreiecke|G8-3|1|t|1
+gleichung_beidseitig|7|Beidseitige Gleichungen|terme_gleichungen|A8-4|1|t|2
+gleichung_einschrittig|7|Einschrittige Gleichungen|terme_gleichungen|A8-4|1|t|2
+gleichung_neg_koeffizient|7|Gleichungen mit negativem Koeffizienten|terme_gleichungen|A8-4|1|t|2
+gleichung_zweischrittig|7|Zweischrittige Gleichungen|terme_gleichungen|A8-4|1|t|1
+potenzen|7|Potenzen und Quadratzahlen|rationale_zahlen|A10-1|12|t|2
+proportionalitaet|7|Dreisatz, proportional und antiproportional|zuordnungen|F8-1|1|t|1
+prozent_grundwert|7|Grundwert berechnen|zinsrechnung|F8-2|12|t|2
+prozent_prozentsatz|7|Prozentsatz berechnen|zinsrechnung|F8-2|12|t|2
+prozent_prozentwert|7|Prozentwert berechnen|zinsrechnung|F8-2|12|t|2
+prozent_veraenderung|7|Prozentuale Veränderung|zinsrechnung|F8-2|12|t|2
+prozent_zins_jahreszins|7|Jahreszinsen berechnen|zinsrechnung|F8-2|12|t|1
+prozent_zins_rueckrechnung|7|Kapital oder Zinssatz aus den Zinsen|zinsrechnung|F8-2|12|t|3
+prozent_zins_teilzins|7|Zinsen für Monate und Tage|zinsrechnung|F8-2|12|t|4
+prozent_zins_zinseszins|7|Zinseszins und Wachstumsfaktor|zinsrechnung|F10-3|12|t|3
+term_ausklammern|7|Ausklammern|terme_gleichungen|A8-3|1|t|1
+term_ausmultiplizieren|7|Ausmultiplizieren|terme_gleichungen|A8-3|1|t|2
+term_einsetzen|7|Werte in Terme einsetzen|terme_gleichungen|A8-3|1|t|2
+term_minusklammer|7|Minusklammer auflösen|terme_gleichungen|A8-3|1|t|1
+term_zusammenfassen|7|Terme zusammenfassen|terme_gleichungen|A8-3|1|t|1
+vorzeichen_add_sub|7|Negative Zahlen addieren/subtrahieren|rationale_zahlen|A8-2|1|t|0
+vorzeichen_mult_div|7|Negative Zahlen multiplizieren/dividieren|rationale_zahlen|A8-2|1|t|1
+vorzeichen_vorrang|7|Vorrangregeln mit Vorzeichen|rationale_zahlen|A8-2|1|t|1
+fkt_linear_gleichung|8|Funktionsgleichung y = mx + b aufstellen|lineare_funktionen|F10-1,F8-1|12|t|2
+fkt_linear_graph|8|Graph einer linearen Funktion|lineare_funktionen|F10-1,F8-1|12|t|2
+fkt_linear_nullstelle|8|Nullstelle einer linearen Funktion|lineare_funktionen|F10-3|12|t|2
+fkt_linear_steigung|8|Steigung einer linearen Funktion|lineare_funktionen|F10-2|12|t|4
+fkt_linear_yabschnitt|8|y-Achsenabschnitt einer linearen Funktion|lineare_funktionen|F10-2|12|t|2
+geo_flaeche_drachen_raute|8|Flächeninhalt von Drachen und Raute|flaechen_vielecke|G8-1|1|t|1
+geo_flaeche_rueck|8|Seite oder Höhe aus dem Flächeninhalt|flaechen_vielecke|G8-1|1|t|2
+geo_flaeche_term|8|Terme für Flächeninhalte|flaechen_vielecke|G8-1|1|t|3
+geo_flaeche_trapez|8|Flächeninhalt des Trapezes|flaechen_vielecke|G8-1|1|t|1
+geo_flaeche_zusammengesetzt|8|Zusammengesetzte Vielecke|flaechen_vielecke|G8-1|1|t|2
+geo_winkel_dreieck|8|Winkel in Dreiecken (Basiswinkel, Außenwinkel, Winkelsätze kombiniert)|winkel_dreiecke|G8-3|1|t|2
+geo_winkel_neben_scheitel|8|Neben- und Scheitelwinkel|winkel_dreiecke|G8-3|1|t|1
+geo_winkel_parallelen|8|Stufen- und Wechselwinkel an Parallelen|winkel_dreiecke|G8-3|1|t|1
+geo_winkel_thales|8|Satz des Thales (Winkel berechnen)|thales_konstruktionen|G10-5|12|t|1
+gleichung_lgs_addition|8|Additionsverfahren|lineare_gleichungen_lgs|A10-4|12|t|3
+gleichung_lgs_einsetzen|8|Einsetzungsverfahren|lineare_gleichungen_lgs|A10-4|12|t|3
+gleichung_lgs_gleichsetzen|8|Gleichsetzungsverfahren|lineare_gleichungen_lgs|A10-4|12|t|3
+gleichung_lgs_grafisch|8|LGS grafisch lösen (Schnittpunkt)|lineare_gleichungen_lgs|A10-4|12|t|1
+gleichung_lgs_sachaufgabe|8|LGS aus Sachsituationen aufstellen und lösen|lineare_gleichungen_lgs|A10-7|2|t|3
+gleichung_modellieren|8|Gleichungen aufstellen (Sachkontext)|terme_gleichungen|A8-5|12|t|3
+stoch_gegenereignis|8|Gegenereignis|zufallsexperimente|S8-2|1|t|2
+stoch_kenngroessen|8|Median, Quartile und Spannweite|daten_streumasse|S8-1|1|t|2
+stoch_laplace|8|Laplace-Wahrscheinlichkeit|zufallsexperimente|S8-2|1|t|1
+stoch_pfad_produkt|8|Mehrstufige Zufallsexperimente: Produktregel|zufallsexperimente|S10-1|12|t|2
+stoch_pfad_summe|8|Mehrstufige Zufallsexperimente: Summenregel|zufallsexperimente|S10-1|12|t|2
+term_binom_faktorisieren|8|Faktorisieren mit binomischer Formel|terme_binomische_formeln|A8-3|1|t|3
+term_binom_gemischt|8|Binomische Formeln in Termumformungen|terme_binomische_formeln|A8-3|1|t|3
+term_binom_quadrat|8|Binomische Formeln (Quadrat einer Summe/Differenz)|terme_binomische_formeln|A8-3|1|t|2
+term_binom_quadratdifferenz|8|Binomische Formel (Differenz von Quadraten)|terme_binomische_formeln|A8-3|1|t|2
+fkt_quadr_extrem|9|Extremwertaufgaben mit quadratischen Funktionen|quadratische_funktionen|A10-8|2|t|2
+fkt_quadr_normalform|9|Von der Normalform zur Scheitelpunktform|quadratische_funktionen|F10-2|12|t|2
+fkt_quadr_nullstellen|9|Nullstellen quadratischer Funktionen|quadratische_funktionen|F10-3|12|t|3
+fkt_quadr_parabel|9|Normalparabel verschieben und strecken|quadratische_funktionen|F10-1,F10-2|12|t|2
+fkt_quadr_scheitel|9|Scheitelpunkt aus der Scheitelpunktform|quadratische_funktionen|F10-2|12|t|1
+geo_aehnlich_flaeche|9|Flächen und Volumen bei Ähnlichkeit|aehnlichkeit|G10-5|12|t|2
+geo_aehnlich_strahlen_abschnitt|9|Erster Strahlensatz|aehnlichkeit|G10-5|12|t|2
+geo_aehnlich_strahlen_parallel|9|Zweiter Strahlensatz|aehnlichkeit|G10-5|12|t|1
+geo_aehnlich_streckfaktor|9|Streckfaktor und zentrische Streckung|aehnlichkeit|G10-3,G10-5|12|t|1
+geo_koerper_kegel|9|Volumen und Oberfläche des Kegels|koerper_pyramide_kegel_kugel|G10-1,G10-4|12|t|3
+geo_koerper_kugel|9|Volumen und Oberfläche der Kugel|koerper_pyramide_kegel_kugel|G10-1,G10-4|12|t|1
+geo_koerper_prisma|9|Volumen und Oberfläche des Prismas|prismen_zylinder|G8-2|1|t|2
+geo_koerper_pyramide|9|Volumen und Oberfläche der Pyramide|koerper_pyramide_kegel_kugel|G10-1,G10-4|12|t|1
+geo_koerper_zylinder|9|Volumen und Oberfläche des Zylinders|prismen_zylinder|G10-1,G10-4|12|t|3
+geo_kreis_flaeche|9|Flächeninhalt des Kreises|kreis|G10-4|12|t|4
+geo_kreis_rueck|9|Radius und Durchmesser aus dem Umfang|kreis|G10-4|12|t|2
+geo_kreis_sektor|9|Kreisbogen und Kreisausschnitt|kreis|G10-4|12|t|3
+geo_kreis_umfang|9|Umfang des Kreises|kreis|G10-4|12|t|3
+geo_kreis_zusammen|9|Zusammengesetzte Figuren mit Kreisteilen|kreis|G10-4|12|t|4
+geo_pythagoras_abstand|9|Abstand zweier Punkte im Koordinatensystem|pythagoras|G10-5|12|t|2
+geo_pythagoras_anwendung|9|Pythagoras in Figuren und Körpern|pythagoras|G10-5|12|t|2
+geo_pythagoras_hypotenuse|9|Hypotenuse mit dem Satz des Pythagoras|pythagoras|G10-5|12|t|1
+geo_pythagoras_kathete|9|Kathete mit dem Satz des Pythagoras|pythagoras|G10-5|12|t|1
+geo_pythagoras_umkehrung|9|Rechtwinklig? Umkehrung des Satzes|pythagoras|G10-5|12|t|1
+gleichung_quadr_anzahl|9|Anzahl der Lösungen (Diskriminante)|quadratische_gleichungen|A10-5|12|t|1
+gleichung_quadr_faktor|9|Quadratische Gleichungen durch Ausklammern (Nullprodukt)|quadratische_gleichungen|A10-5|12|t|2
+gleichung_quadr_formel|9|Lösungsformel (p-q- bzw. abc-Formel)|quadratische_gleichungen|A10-5|12|t|2
+gleichung_quadr_wurzel|9|Quadratische Gleichungen durch Wurzelziehen|quadratische_gleichungen|A10-5|12|t|2
+stoch_bedingt_irrefuehrend|9|Irreführende Aussagen und Darstellungen erkennen|statistik_beurteilen|S10-2|2|t|2
+zahl_potenz_gesetze|9|Potenzgesetze|potenzen|A10-1|12|t|1
+zahl_potenz_negativ|9|Negative Hochzahlen und Hochzahl null|potenzen|A10-1|12|t|2
+zahl_potenz_rechnen|9|Rechnen in wissenschaftlicher Schreibweise|potenzen|A10-1|12|t|1
+zahl_potenz_zehner|9|Zehnerpotenzen und wissenschaftliche Schreibweise|potenzen|A10-1|12|t|1
+zahl_wurzel_gesetze|9|Wurzelgesetze für Produkt und Quotient|reelle_zahlen|A10-3|1|t|1
+zahl_wurzel_irrational|9|Rationale und irrationale Zahlen|reelle_zahlen|A10-2|2|t|2
+zahl_wurzel_naeherung|9|Wurzeln abschätzen und Näherungswerte|reelle_zahlen|A10-3|1|t|2
+zahl_wurzel_quadrat|9|Quadratwurzel als Umkehrung des Quadrierens|reelle_zahlen|A10-3|1|t|1
+zahl_wurzel_teilweise|9|Teilweise die Wurzel ziehen|reelle_zahlen|A10-3|1|t|1
+fkt_exp_anwendung|10|Exponentielle Modelle: Zeitpunkte berechnen|exponentialfunktionen|A10-8|2|t|2
+fkt_exp_gleichung|10|Exponentialgleichungen bˣ = c lösen (Probieren, Logarithmus)|exponentialfunktionen|A10-6|2|t|2
+fkt_exp_halbwert|10|Verdopplungszeit und Halbwertszeit|exponentialfunktionen|F10-3|12|t|1
+fkt_exp_term|10|Exponentialfunktion f(x) = a·bˣ aufstellen und auswerten|exponentialfunktionen|F10-1|12|t|2
+fkt_exp_wachstum|10|Lineares und exponentielles Wachstum, Wachstumsfaktor|exponentialfunktionen|F10-4|2|t|2
+fkt_sinus_graph|10|Graph der Sinusfunktion|sinusfunktion|F10-1|12|t|2
+fkt_sinus_periodisch|10|Periodische Vorgänge mit Sinusfunktionen beschreiben|sinusfunktion|F10-5|2|t|1
+geo_trigo_anwendung|10|Trigonometrie in Sachsituationen (Steigung, Höhe, Entfernung)|trigonometrie|G10-6|2|t|3
+geo_trigo_seite|10|Seiten im rechtwinkligen Dreieck berechnen|trigonometrie|G10-6|2|t|2
+geo_trigo_verhaeltnis|10|Sinus, Kosinus und Tangens als Seitenverhältnisse|trigonometrie|G10-6|2|t|2
+geo_trigo_winkel|10|Winkel im rechtwinkligen Dreieck berechnen|trigonometrie|G10-6|2|t|1
+stoch_bedingt_umkehr|9|Bedingte Wahrscheinlichkeiten umkehren (Testsituationen)|bedingte_wahrscheinlichkeit|GYM-1|-|f|2
+stoch_bedingt_unabhaengig|9|Stochastische Unabhängigkeit prüfen|bedingte_wahrscheinlichkeit|GYM-1|-|f|1
+stoch_bedingt_vierfeld|9|Vierfeldertafel ergänzen|bedingte_wahrscheinlichkeit|GYM-1|-|f|1
+stoch_bedingt_wkeit|9|Bedingte Wahrscheinlichkeit aus der Vierfeldertafel|bedingte_wahrscheinlichkeit|GYM-1|-|f|1
+fkt_sinus_bogenmass|10|Bogenmaß und Gradmaß|sinusfunktion|GYM-3|-|f|1
+fkt_sinus_einheitskreis|10|Sinus und Kosinus am Einheitskreis|sinusfunktion|GYM-3|-|f|2
+fkt_sinus_parameter|10|Amplitude und Periode bei a·sin(b·x)|sinusfunktion|GYM-3|-|f|1
+geo_trigo_kosinussatz|10|Kosinussatz im allgemeinen Dreieck|trigonometrie|GYM-2|-|f|2
+(130 rows)

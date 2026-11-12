@@ -1,0 +1,31 @@
+ n |   status   |     grund     | count 
+---+------------+---------------+-------
+ 2 | draft      | gleicher_text |   133
+ 2 | ready      | gleicher_text |    49
+ 2 | draft      | notwendig     |   273
+ 2 | ready      | notwendig     |    98
+ 2 | rueckfrage | status        |     2
+ 2 | draft      | ueber_soll    |   286
+ 2 | ready      | ueber_soll    |    19
+ 2 | draft      | ungueltig     |    32
+ 2 | ready      | ungueltig     |     2
+ 3 | draft      | gleicher_text |   133
+ 3 | ready      | gleicher_text |    49
+ 3 | draft      | notwendig     |   370
+ 3 | ready      | notwendig     |   106
+ 3 | rueckfrage | status        |     2
+ 3 | draft      | ueber_soll    |   189
+ 3 | ready      | ueber_soll    |    11
+ 3 | draft      | ungueltig     |    32
+ 3 | ready      | ungueltig     |     2
+ 4 | draft      | gleicher_text |   133
+ 4 | ready      | gleicher_text |    49
+ 4 | draft      | notwendig     |   453
+ 4 | ready      | notwendig     |   112
+ 4 | rueckfrage | status        |     2
+ 4 | draft      | ueber_soll    |   106
+ 4 | ready      | ueber_soll    |     5
+ 4 | draft      | ungueltig     |    32
+ 4 | ready      | ungueltig     |     2
+(27 rows)
+

@@ -1,0 +1,19 @@
+        skill_key        | kompetenzen | msa | bauformen |          schluessel           |    status    
+-------------------------+-------------+-----+-----------+-------------------------------+--------------
+ zahl_wurzel_quadrat     | A10-3       | t   |         1 | QW-1                          | zur_pruefung
+ gleichung_quadr_anzahl  | A10-5       | t   |         3 | DI-1,DI-2,DI-3                | zur_pruefung
+ gleichung_quadr_faktor  | A10-5       | t   |         4 | NP-1,NP-2,NP-3,NP-4           | zur_pruefung
+ gleichung_quadr_formel  | A10-5       | t   |         4 | PQ-1,PQ-2,PQ-3,PQ-4           | zur_pruefung
+ gleichung_quadr_wurzel  | A10-5       | t   |         5 | WZ-1,WZ-2,WZ-3,WZ-4,WZ-5      | zur_pruefung
+ fkt_quadr_extrem        | A10-8       | t   |         4 | EX-0,EX-1,EX-2,EX-3           | zur_pruefung
+ term_ausklammern        | A8-3        | t   |         1 | AUS-1                         | zur_pruefung
+ term_binom_quadrat      | A8-3        | t   |         2 | BIN-1,BIN-2                   | zur_pruefung
+ term_einsetzen          | A8-3        | t   |         1 | EIN-1                         | zur_pruefung
+ gleichung_zweischrittig | A8-4        | t   |         1 | GL-1                          | zur_pruefung
+ geo_koordinaten         | B6-5        | t   |         1 | KO-1                          | zur_pruefung
+ fkt_quadr_parabel       | F10-1,F10-2 | t   |         5 | PAR-1,PAR-2,PAR-3,PAR-4,PAR-5 | zur_pruefung
+ fkt_quadr_normalform    | F10-2       | t   |         6 | NF-1,NF-2,NF-3,NF-4,NF-5,NF-6 | zur_pruefung
+ fkt_quadr_scheitel      | F10-2       | t   |         4 | SCH-1,SCH-2,SCH-3,SCH-4       | zur_pruefung
+ fkt_quadr_nullstellen   | F10-3       | t   |         5 | NS-1,NS-2,NS-3,NS-4,NS-5      | zur_pruefung
+(15 rows)
+

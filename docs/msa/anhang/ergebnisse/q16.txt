@@ -1,0 +1,8 @@
+  entscheidung   | entscheidungen | mit_aenderung | aufgaben | mit_grund |                   felder                   
+-----------------+----------------+---------------+----------+-----------+--------------------------------------------
+ passt           |            140 |            33 |       31 |        28 | anforderungsbereich:33, typischer_fehler:6
+ unsicher        |             30 |             5 |        5 |         6 | anforderungsbereich:5
+ zurueckgenommen |              4 |             0 |        0 |         0 | 
+                 |            174 |            38 |       36 |        34 | anforderungsbereich:38, typischer_fehler:6
+(4 rows)
+

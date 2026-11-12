@@ -1,0 +1,2816 @@
+[
+ {
+  "id": "6b363dac-a30c-4a2f-8fa0-b7814353d1f2",
+  "skill": "bruch_add",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c81ae9db-193f-4154-9db9-d6062f21a587",
+  "skill": "bruch_add",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3768ecdc-2c2e-4076-b6ff-556906e5cbfe",
+  "skill": "bruch_dezimal",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6ef85b4a-1f14-49b4-acf6-05aa01567e4f",
+  "skill": "bruch_dezimal",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "80105584-06dd-4fc9-b481-ec047c7cb343",
+  "skill": "bruch_dezimal",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "de2aabbf-8988-47d4-9f51-c4e80232b374",
+  "skill": "bruch_dezimal",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Den Bruch 1/2 als Dezimalzahl zu schreiben liegt deutlich unter Bsp. Ari-10 (7/20 als Prozent/Dezimalzahl)."
+ },
+ {
+  "id": "b65bad4b-a8dd-4cee-8b9e-7716f5c786c0",
+  "skill": "bruch_dezimal",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6e2e4f8f-3442-4cf9-90da-2623554106f0",
+  "skill": "bruch_div",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1244b84c-781d-47cb-8c73-eaa5543b1ce0",
+  "skill": "bruch_kuerzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9a6bf378-2cd4-4ca5-afeb-bb856d5853f8",
+  "skill": "bruch_kuerzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9a70682a-428d-4b75-8567-e5d9f7cb607e",
+  "skill": "bruch_kuerzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3b64f242-c2ab-4f18-8af4-a72dc185cf10",
+  "skill": "bruch_kuerzen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "590b9c87-620f-4d53-90fc-fe6d40d16cba",
+  "skill": "bruch_mult",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fa8c52a4-161c-4bd4-9174-b98091ceb608",
+  "skill": "bruch_mult",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "024143bf-840e-4ad5-aefe-b18c223aefcf",
+  "skill": "dezimal_add_sub",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "172db197-48cf-4afd-9e59-a57c8bc29b55",
+  "skill": "dezimal_add_sub",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Addition von 0,5 + 0,25 bzw. 0,6 + 0,4 liegt deutlich unter Bsp. Ari-20 (0,2 · 0,3)."
+ },
+ {
+  "id": "be8ce7e4-d8f2-4b45-b6b1-447b102cf500",
+  "skill": "dezimal_add_sub",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Addition von 0,5 + 0,25 bzw. 0,6 + 0,4 liegt deutlich unter Bsp. Ari-20 (0,2 · 0,3)."
+ },
+ {
+  "id": "20321d30-58db-4218-96b3-d035bca32573",
+  "skill": "dezimal_add_sub",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5699500a-7b14-4f91-9039-6226dc176587",
+  "skill": "dezimal_add_sub",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "400b8905-8ad7-4fd8-8a15-7fb6d0e37b14",
+  "skill": "dezimal_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6b531762-47e8-4b29-aeee-ce70b560486a",
+  "skill": "dezimal_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "bdf4d10a-9cf2-4ed5-a59b-54fec4b3851f",
+  "skill": "dezimal_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1debff4f-af14-4dec-89a8-4344d6966fb0",
+  "skill": "dezimal_div",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "730dae3f-afb6-49c8-baa9-53a5169a6a90",
+  "skill": "dezimal_div",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0cbaacfd-cf96-40a7-a896-c198e67531fa",
+  "skill": "dezimal_mult",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3038721a-abdd-4030-b683-33b3e8d3efb9",
+  "skill": "dezimal_mult",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3d066cef-b5e1-45db-b560-dd86d1c5b38c",
+  "skill": "dezimal_mult",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "21f1c9f4-2ef0-445d-937b-73c7c5d0d606",
+  "skill": "dezimal_mult",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "98441ffc-3708-44cc-b8fc-d626f2819561",
+  "skill": "dezimal_mult",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0054a031-7aae-4035-a3e5-1e3c698c35d6",
+  "skill": "fkt_exp_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Aufgabe verlangt wiederholtes Potenzieren bzw. Probieren mit Dezimalfaktoren, das ohne Taschenrechner (rechner=false) nicht vernünftig geht und in Teil 1 nicht vorkommt."
+ },
+ {
+  "id": "167c44e0-d197-4696-951a-a17b5f8337c4",
+  "skill": "fkt_exp_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Aufgabe verlangt wiederholtes Potenzieren bzw. Probieren mit Dezimalfaktoren, das ohne Taschenrechner (rechner=false) nicht vernünftig geht und in Teil 1 nicht vorkommt."
+ },
+ {
+  "id": "380b85ad-3967-4fad-b370-e113276310a6",
+  "skill": "fkt_exp_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Aufgabe verlangt wiederholtes Potenzieren bzw. Probieren mit Dezimalfaktoren, das ohne Taschenrechner (rechner=false) nicht vernünftig geht und in Teil 1 nicht vorkommt."
+ },
+ {
+  "id": "282318bf-0748-4764-8f2f-ac39dfd14d22",
+  "skill": "fkt_exp_gleichung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3f87ce05-a113-439a-8b18-18160b63ca52",
+  "skill": "fkt_exp_gleichung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Exponentialgleichung b^x = c ist nur über den Logarithmus oder Taschenrechner-Probieren lösbar, der Logarithmus gehört nicht zum MSA (Formelsammlung S. 6)."
+ },
+ {
+  "id": "970789a3-e052-48e9-b5c8-7509083a901c",
+  "skill": "fkt_exp_gleichung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Exponentialgleichung b^x = c ist nur über den Logarithmus oder Taschenrechner-Probieren lösbar, der Logarithmus gehört nicht zum MSA (Formelsammlung S. 6)."
+ },
+ {
+  "id": "01afa83d-dfd8-44a6-b6e4-b75c28c273a0",
+  "skill": "fkt_exp_halbwert",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "500 · 2^(10/3) erfordert einen nicht ganzzahligen Exponenten und Taschenrechner, bei rechner=false ohne Hilfsmittel nicht zu rechnen."
+ },
+ {
+  "id": "10179c4f-fa4f-439c-81e5-c5d0957ac2e7",
+  "skill": "fkt_exp_halbwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3e496b46-156d-45cc-9b77-596261829fb8",
+  "skill": "fkt_exp_halbwert",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Aufgabe verlangt wiederholtes Potenzieren bzw. Probieren mit Dezimalfaktoren, das ohne Taschenrechner (rechner=false) nicht vernünftig geht und in Teil 1 nicht vorkommt."
+ },
+ {
+  "id": "0a568e4e-b3e1-408c-89e1-ba380e9845a3",
+  "skill": "fkt_exp_term",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0b9ee008-01c1-4a82-8b69-cfe266a23af1",
+  "skill": "fkt_exp_term",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a30145c7-5bc0-4f21-80ee-5237c1df2756",
+  "skill": "fkt_exp_term",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "36b07433-c75c-4ea5-8f7d-62ac59599228",
+  "skill": "fkt_exp_wachstum",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3f468bf7-9fb7-4dab-a316-c5af7d852acd",
+  "skill": "fkt_exp_wachstum",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f7e14298-714a-44b5-b2c8-6b93442256b5",
+  "skill": "fkt_exp_wachstum",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Aufgabe verlangt wiederholtes Potenzieren bzw. Probieren mit Dezimalfaktoren, das ohne Taschenrechner (rechner=false) nicht vernünftig geht und in Teil 1 nicht vorkommt."
+ },
+ {
+  "id": "55d52e3e-cdd5-4e3c-9929-fb82aac16d33",
+  "skill": "fkt_linear_gleichung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "b0f1b654-75da-4811-b7b4-065712b6e347",
+  "skill": "fkt_linear_gleichung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ffc76634-86ca-4c53-b816-d18d7f868443",
+  "skill": "fkt_linear_gleichung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "24a633b2-ca0b-4909-9907-26bb0e6c163b",
+  "skill": "fkt_linear_graph",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "45928556-74be-4aa8-837f-97fa04a4dce3",
+  "skill": "fkt_linear_graph",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6c2393f4-f1d5-490e-adeb-c7b1c8fa611a",
+  "skill": "fkt_linear_graph",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "429c8aa1-d937-4231-a778-9a27cde1138c",
+  "skill": "fkt_linear_nullstelle",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4edaa568-3b92-4a89-9105-3551d758e17e",
+  "skill": "fkt_linear_nullstelle",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7e4040f5-19d5-474f-90d8-633835b9fdde",
+  "skill": "fkt_linear_nullstelle",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7cd1b9af-433f-459f-90a6-cf241c245739",
+  "skill": "fkt_linear_steigung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a0451e78-948c-4ef6-90ce-50a16fed9f39",
+  "skill": "fkt_linear_steigung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1c170c59-3c96-4767-b731-6d954e127025",
+  "skill": "fkt_linear_yabschnitt",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e4611c3d-02b9-4a0b-8e42-795f8a15a925",
+  "skill": "fkt_linear_yabschnitt",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1be8b1ae-0f25-45cf-a65a-19ddabc06c6c",
+  "skill": "fkt_quadr_extrem",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f1e39983-43c3-4048-a8fd-8efa86af128a",
+  "skill": "fkt_quadr_extrem",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f38cec97-0b1e-400c-9708-fcf18e52b371",
+  "skill": "fkt_quadr_extrem",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "45076244-62bd-4ca6-83a7-52308dfcbc8f",
+  "skill": "fkt_quadr_normalform",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "97e9d281-b7ad-4eee-8a25-f500ae6c2f02",
+  "skill": "fkt_quadr_normalform",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "cd17cea3-1055-4a70-a247-dab0845293c7",
+  "skill": "fkt_quadr_normalform",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2fbd2563-648f-4990-9cff-429936af589d",
+  "skill": "fkt_quadr_nullstellen",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Lösung der quadratischen Gleichung mit Wurzel aus 184 und Rundung auf zwei Stellen verlangt einen Taschenrechner (rechner=false)."
+ },
+ {
+  "id": "344b91f6-06af-4aec-93ae-52be49c38a2f",
+  "skill": "fkt_quadr_nullstellen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9d10386c-d849-4387-85e1-2cd4e9c64bb4",
+  "skill": "fkt_quadr_nullstellen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0336c9f9-a802-4e69-b7aa-ee6373e590c2",
+  "skill": "fkt_quadr_parabel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "191789f5-7435-4ba3-a6f5-a94155f2b954",
+  "skill": "fkt_quadr_parabel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "787e947c-ce58-403a-8057-a15a82b50f94",
+  "skill": "fkt_quadr_parabel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0d7af296-4ca7-4db4-8c2e-d0f922d9150c",
+  "skill": "fkt_quadr_scheitel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1d8a70aa-9010-4259-9278-5cbc6425d3c0",
+  "skill": "fkt_quadr_scheitel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f70e9312-b530-4b4b-9c7a-087ef87fbba9",
+  "skill": "fkt_quadr_scheitel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2c93e7d0-82d4-4abb-8493-cc03f04ad49b",
+  "skill": "fkt_sinus_graph",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Sinusfunktion im Bogenmaß geht über den MSA hinaus, die Formelsammlung S. 6 kennt die Sinusfunktion nur im Gradmaß (Periode 360°)."
+ },
+ {
+  "id": "50da3bb2-6650-498a-804f-05863e2da59b",
+  "skill": "fkt_sinus_graph",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Sinusfunktion im Bogenmaß geht über den MSA hinaus, die Formelsammlung S. 6 kennt die Sinusfunktion nur im Gradmaß (Periode 360°)."
+ },
+ {
+  "id": "516304d3-5cb1-4223-8afd-69958fe1890a",
+  "skill": "fkt_sinus_graph",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Sinusfunktion im Bogenmaß geht über den MSA hinaus, die Formelsammlung S. 6 kennt die Sinusfunktion nur im Gradmaß (Periode 360°)."
+ },
+ {
+  "id": "0e776143-4575-4bd0-9237-df42d9b71283",
+  "skill": "fkt_sinus_periodisch",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Sinusfunktion im Bogenmaß geht über den MSA hinaus, die Formelsammlung S. 6 kennt die Sinusfunktion nur im Gradmaß (Periode 360°)."
+ },
+ {
+  "id": "2d925ba5-b5d2-4d1d-b8d6-8477b072fa17",
+  "skill": "fkt_sinus_periodisch",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Sinusfunktion im Bogenmaß geht über den MSA hinaus, die Formelsammlung S. 6 kennt die Sinusfunktion nur im Gradmaß (Periode 360°)."
+ },
+ {
+  "id": "413a5fa5-cf54-4e4d-a9bb-44d1abba7215",
+  "skill": "fkt_sinus_periodisch",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Sinusfunktion im Bogenmaß geht über den MSA hinaus, die Formelsammlung S. 6 kennt die Sinusfunktion nur im Gradmaß (Periode 360°)."
+ },
+ {
+  "id": "1cba711e-7175-49db-b76a-8c3304b5bc64",
+  "skill": "geo_aehnlich_flaeche",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4186f7c2-c0bf-4563-a14c-bc04d0817ee6",
+  "skill": "geo_aehnlich_flaeche",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "93e695a0-efbe-490f-b931-299545068f26",
+  "skill": "geo_aehnlich_flaeche",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "234e8b8c-ce4d-47bb-8501-86744037c41d",
+  "skill": "geo_aehnlich_strahlen_abschnitt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "421cad19-9629-4f75-8e01-c63e86692329",
+  "skill": "geo_aehnlich_strahlen_abschnitt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f8083d9b-72c9-4a72-a0c0-0adb8787bfce",
+  "skill": "geo_aehnlich_strahlen_abschnitt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "49d26b4c-2b05-4699-b637-3f0a13ba1bc7",
+  "skill": "geo_aehnlich_strahlen_parallel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "59b87dce-2116-4855-9e94-54dff17ff05a",
+  "skill": "geo_aehnlich_strahlen_parallel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "627d8f56-d275-4994-bff9-f2185622d598",
+  "skill": "geo_aehnlich_strahlen_parallel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0644e069-c106-4cb4-8faa-bbad5edddb70",
+  "skill": "geo_aehnlich_streckfaktor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3efc2963-83cd-4bb7-b3ac-3f37534f4fd4",
+  "skill": "geo_aehnlich_streckfaktor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a1d203d7-0d30-42ae-8c54-d3e7dc04a7d6",
+  "skill": "geo_aehnlich_streckfaktor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6274f6a5-65e5-40f4-be09-36fa8931c424",
+  "skill": "geo_flaeche_drachen_raute",
+  "art": "freigegeben",
+  "urteil": "zu_schwer",
+  "grund": "Flächeninhalt über die Diagonalen e·f/2 steht weder in der Formelsammlung MSA S. 1 noch im Kernlehrplan (nur Dreieck, Parallelogramm, Trapez), Drachenviereck kommt dort nicht vor."
+ },
+ {
+  "id": "c1440c89-6139-41c2-9aac-6f65cf638e2f",
+  "skill": "geo_flaeche_drachen_raute",
+  "art": "freigegeben",
+  "urteil": "zu_schwer",
+  "grund": "Flächeninhalt über die Diagonalen e·f/2 steht weder in der Formelsammlung MSA S. 1 noch im Kernlehrplan (nur Dreieck, Parallelogramm, Trapez), Drachenviereck kommt dort nicht vor."
+ },
+ {
+  "id": "ef5c0139-1f43-4f58-9395-11b5e84364d0",
+  "skill": "geo_flaeche_drachen_raute",
+  "art": "freigegeben",
+  "urteil": "zu_schwer",
+  "grund": "Flächeninhalt über die Diagonalen e·f/2 steht weder in der Formelsammlung MSA S. 1 noch im Kernlehrplan (nur Dreieck, Parallelogramm, Trapez), Drachenviereck kommt dort nicht vor."
+ },
+ {
+  "id": "d602bc49-3ee0-48fb-8cd3-467b2ae0abc2",
+  "skill": "geo_flaeche_dreieck",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ecb3d12b-a21e-4031-b562-a1596deeb815",
+  "skill": "geo_flaeche_dreieck",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "008adff9-e38e-4620-a6aa-97862f85367d",
+  "skill": "geo_flaeche_rechteck",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Rechteck-/Quadratfläche mit zwei kleinen ganzen Zahlen liegt deutlich unter dem Niveau von Bsp. Geo-14/15 (Quader, Würfel) und sagt für eine MSA-Diagnose nichts aus."
+ },
+ {
+  "id": "af8ccf14-4373-4bb9-b892-c650265dd0cd",
+  "skill": "geo_flaeche_rechteck",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Rechteck-/Quadratfläche mit zwei kleinen ganzen Zahlen liegt deutlich unter dem Niveau von Bsp. Geo-14/15 (Quader, Würfel) und sagt für eine MSA-Diagnose nichts aus."
+ },
+ {
+  "id": "27c84f21-51c3-4fb3-a654-331c8c312f00",
+  "skill": "geo_flaeche_rueck",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "380c4ca9-3efc-45e9-8c4c-87b751e2f414",
+  "skill": "geo_flaeche_rueck",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c2d4c950-beab-4c0b-b4be-cee13fcbffbe",
+  "skill": "geo_flaeche_rueck",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "214345b8-69d2-43d4-8c1b-1e8e7c428e1d",
+  "skill": "geo_flaeche_term",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "770f72e9-c73c-45fc-9803-e3b20846de70",
+  "skill": "geo_flaeche_term",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5c219db6-804b-4819-b671-9cb512ab1b0b",
+  "skill": "geo_flaeche_trapez",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ffcbb7db-a7ab-4718-8e19-351a74a056c0",
+  "skill": "geo_flaeche_trapez",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "00682950-b934-4ded-9d9b-c8e68ed4313d",
+  "skill": "geo_flaeche_zusammengesetzt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1155ecca-ce4c-41bb-bf6c-b6fe51ee455d",
+  "skill": "geo_flaeche_zusammengesetzt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4320eb31-3cbb-4733-ab23-e15fcb60d849",
+  "skill": "geo_flaeche_zusammengesetzt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "285e2d3e-44af-431b-a520-485795c8bb8d",
+  "skill": "geo_koerper_kegel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "8a2febbd-299f-437a-abed-bde7fa31fa87",
+  "skill": "geo_koerper_kegel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d8f2e2e3-5cc2-4bd6-bf37-e752b0132bea",
+  "skill": "geo_koerper_kegel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "360647d6-fac1-40b9-a886-e1a5fdbe843c",
+  "skill": "geo_koerper_kugel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "62b5810c-b021-4032-b17a-e072ffa3182b",
+  "skill": "geo_koerper_kugel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "ec4153b3-7ecd-404b-a2a4-8f111e3f4186",
+  "skill": "geo_koerper_kugel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "807dd2a7-18a0-4ff1-93e4-d2d26052cd12",
+  "skill": "geo_koerper_prisma",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9de789c5-cdc1-45c4-b38f-d809926410f5",
+  "skill": "geo_koerper_prisma",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "edeb2812-e0a3-415b-b097-e57181b53d6d",
+  "skill": "geo_koerper_prisma",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0d01fa82-d4fb-4fc4-ba47-62d7175763ee",
+  "skill": "geo_koerper_pyramide",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5beb71a7-cbef-4392-bcca-446b1bc97354",
+  "skill": "geo_koerper_pyramide",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5cad7848-0d28-4198-93a0-6232e6f988b1",
+  "skill": "geo_koerper_pyramide",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "267a9ef3-4ac7-4b54-ba99-f84b90ae1521",
+  "skill": "geo_koerper_zylinder",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2fd67e4c-9093-4e51-bd98-46e7d76e3a9f",
+  "skill": "geo_koerper_zylinder",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d0b4dbc3-1278-4a60-bcbe-98ebc0060ad2",
+  "skill": "geo_koerper_zylinder",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "650eed2a-79e5-4a6f-9ed2-a51053fe75c8",
+  "skill": "geo_koordinaten",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Ablesen eines Punktes im 1. Quadranten liegt deutlich unter Bsp. Geo-3 (Spiegelung mit Koordinaten)."
+ },
+ {
+  "id": "a1fa4311-c631-47ba-a4a7-15e12149db4c",
+  "skill": "geo_koordinaten",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d8195933-ba82-4768-ac40-064da27497a6",
+  "skill": "geo_koordinaten",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1338a319-aa9f-4b2e-8deb-d1b21393a798",
+  "skill": "geo_kreis_flaeche",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9ef4de2a-1a55-49a3-ac80-2a03594006b8",
+  "skill": "geo_kreis_flaeche",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e0cfc702-9b40-450e-b530-1b6bb53976a8",
+  "skill": "geo_kreis_flaeche",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "23fcb661-3095-4ad3-9cfd-d6048893a0c7",
+  "skill": "geo_kreis_rueck",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "b450d36c-e3bf-4cbf-ab4f-3c874a8cbf63",
+  "skill": "geo_kreis_rueck",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "cbc04c90-4544-45ca-b0a1-f7d0c2bfd50d",
+  "skill": "geo_kreis_rueck",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "1f4b915d-49dd-441f-a09b-69264ad8ff94",
+  "skill": "geo_kreis_sektor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "910071fc-b31d-41bf-85f7-bb70d2c01f1c",
+  "skill": "geo_kreis_sektor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "dce69732-829b-4a5b-8ce8-186093c118a6",
+  "skill": "geo_kreis_sektor",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Mehrstelliges Rechnen mit π bzw. Division durch π und Rundung auf Stellen ist bei rechner=false nicht vernünftig machbar (Teil-1-Aufgaben lassen π nur exakt stehen)."
+ },
+ {
+  "id": "2ffd9c4c-46cf-4a66-a843-f5df51941807",
+  "skill": "geo_kreis_umfang",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "8e3e60dc-01bc-4a59-ae8e-65c20321deea",
+  "skill": "geo_kreis_umfang",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "eabc5d92-2564-456e-9296-c60d17809021",
+  "skill": "geo_kreis_umfang",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7",
+  "skill": "geo_massstab",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ceb26573-de3f-488a-9956-6a8cf7eb81cf",
+  "skill": "geo_massstab",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fe3a88b0-7d72-4896-929c-b7f0c379cfa3",
+  "skill": "geo_massstab",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "16d86280-3377-44a8-b009-07801586c50c",
+  "skill": "geo_pythagoras_abstand",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "719b3012-468a-48c0-8105-66f02c75fb0f",
+  "skill": "geo_pythagoras_abstand",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "79cd7e85-5477-4cf6-b8ef-9b5899215087",
+  "skill": "geo_pythagoras_abstand",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "208e0467-be77-4c56-9135-c9c93554aefd",
+  "skill": "geo_pythagoras_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "58c917d7-182f-4591-be02-374e86a79e41",
+  "skill": "geo_pythagoras_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "a21f48d2-f097-495a-91ed-093327524d91",
+  "skill": "geo_pythagoras_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "5875fe3f-394d-4a2b-8977-bf825b5f9518",
+  "skill": "geo_pythagoras_hypotenuse",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "75194d46-60d2-4d4a-b988-db2b3c5c1a65",
+  "skill": "geo_pythagoras_hypotenuse",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "ee07674f-0846-4f38-a0c7-247fd351b729",
+  "skill": "geo_pythagoras_hypotenuse",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "215a71de-a9ba-4d97-a94a-929c62c88601",
+  "skill": "geo_pythagoras_kathete",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "379ce518-9974-42dc-9e4b-df29741ba395",
+  "skill": "geo_pythagoras_kathete",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "add6cee8-f9f3-494f-a321-cfaed9f5ac35",
+  "skill": "geo_pythagoras_kathete",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "070f3609-9adf-4c66-adaf-daabe4ae276c",
+  "skill": "geo_pythagoras_umkehrung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1a311c06-45ab-49c7-a4bf-413242d50c6a",
+  "skill": "geo_pythagoras_umkehrung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Die Wurzel ist keine glatte Zahl (bzw. nur mit Taschenrechner bestimmbar), bei rechner=false sind in Teil 1 nur Pythagoras-Zahlentripel wie in Bsp. Geo-9 vorgesehen."
+ },
+ {
+  "id": "8ea1d77f-e430-4e8d-8fbd-8258f50c9133",
+  "skill": "geo_pythagoras_umkehrung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "17b68c02-51e8-4484-b955-5ee77729c024",
+  "skill": "geo_trigo_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "32f15d20-ea8e-4ff0-9d43-d10daa9500bc",
+  "skill": "geo_trigo_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "52d18200-7696-4bed-bba7-352cbb35436c",
+  "skill": "geo_trigo_anwendung",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "13d6dc4d-737e-4fd3-a67d-fb401ff5e223",
+  "skill": "geo_trigo_seite",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "33bdde50-6f8d-4d2e-a80c-62601488e4a2",
+  "skill": "geo_trigo_seite",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "6778b0b4-e325-4ce4-b2a9-c083b57a5987",
+  "skill": "geo_trigo_seite",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "1b979a6a-de0f-434e-96c3-c5859a536a36",
+  "skill": "geo_trigo_verhaeltnis",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3ba007ed-a9f6-44fd-9800-07b92ffdbb65",
+  "skill": "geo_trigo_verhaeltnis",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3ba41acb-6f44-46cf-bfb8-006789699045",
+  "skill": "geo_trigo_verhaeltnis",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "7a00ab4b-d497-46fc-87c4-8e706fc3aaff",
+  "skill": "geo_trigo_winkel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "a8e2cd6c-586b-46d4-a25e-55aa33f9e02d",
+  "skill": "geo_trigo_winkel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "ccd00ca0-8589-4826-9f85-ed97dbb37116",
+  "skill": "geo_trigo_winkel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_schwer",
+  "grund": "Rechner-Konflikt: Trigonometrische Werte (sin, cos, tan bzw. Umkehrung) sind laut Formelsammlung S. 1 zwar MSA-Stoff, aber bei rechner=false nicht bestimmbar."
+ },
+ {
+  "id": "485f81e3-48fb-47c7-b333-964baa6ad10c",
+  "skill": "geo_umfang",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e09a9496-8650-4a39-b2be-e54e512b8cab",
+  "skill": "geo_umfang",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Umfang eines Dreiecks durch bloßes Addieren dreier Seiten liegt deutlich unter dem Niveau der Beispiele aus Teil 1."
+ },
+ {
+  "id": "6a448f69-d164-4cf6-82ca-461a8bae980f",
+  "skill": "geo_volumen_quader",
+  "art": "vorgeschlagen",
+  "urteil": "zu_leicht",
+  "grund": "Volumen eines Quaders aus drei kleinen ganzen Zahlen liegt deutlich unter Bsp. Geo-14a (25·20·70 cm)."
+ },
+ {
+  "id": "7d305269-159f-40cc-9965-c343c2bb4c15",
+  "skill": "geo_volumen_quader",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4",
+  "skill": "geo_volumen_quader",
+  "art": "vorgeschlagen",
+  "urteil": "zu_leicht",
+  "grund": "Volumen eines Quaders aus drei kleinen ganzen Zahlen liegt deutlich unter Bsp. Geo-14a (25·20·70 cm)."
+ },
+ {
+  "id": "e26cdb23-39dd-4547-b72f-0d73ef7a247c",
+  "skill": "geo_winkel_dreieck",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1a1092b8-1ddd-4b8a-9560-7647b94f4307",
+  "skill": "geo_winkel_dreieck",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fee2cf1f-4ecc-4f68-ab73-03fdcee03528",
+  "skill": "geo_winkel_dreieck",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7849cb37-1c84-425f-956a-44213a721a9f",
+  "skill": "geo_winkel_neben_scheitel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a2f85a2b-0c8c-4eae-a78c-5a97f39d2fbd",
+  "skill": "geo_winkel_neben_scheitel",
+  "art": "vorgeschlagen",
+  "urteil": "zu_leicht",
+  "grund": "Direktes Ablesen von Neben- bzw. Wechselwinkel ohne weiteren Schluss liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "e04364d3-e946-4be1-8aca-0b3b1c52353d",
+  "skill": "geo_winkel_neben_scheitel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "83a2860a-f361-447a-a164-c3d71a545095",
+  "skill": "geo_winkel_parallelen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c648786e-49ab-4451-bd09-85f9c82c4d1d",
+  "skill": "geo_winkel_parallelen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "facf174b-aad5-41c4-9f42-916eaafd9e20",
+  "skill": "geo_winkel_parallelen",
+  "art": "vorgeschlagen",
+  "urteil": "zu_leicht",
+  "grund": "Direktes Ablesen von Neben- bzw. Wechselwinkel ohne weiteren Schluss liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "60d58ee6-d2cd-40f3-985d-fe0a1ed8ec4e",
+  "skill": "geo_winkel_summe",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c3e86490-5d41-4f55-9aa8-b170123409b8",
+  "skill": "geo_winkel_summe",
+  "art": "vorgeschlagen",
+  "urteil": "zu_leicht",
+  "grund": "Dritten Dreieckswinkel aus zwei Winkeln zu bestimmen ist deutlich elementarer als Bsp. Geo-4."
+ },
+ {
+  "id": "11aebc7c-d30e-4577-89d5-52efed7d379f",
+  "skill": "geo_winkel_thales",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "22e90366-5528-4685-993e-42e88f3623f6",
+  "skill": "geo_winkel_thales",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9ca300e1-76b9-4bb9-96cf-44cfda31824b",
+  "skill": "geo_winkel_thales",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "00096607-230e-4fd3-b236-42673e5ea268",
+  "skill": "gleichung_beidseitig",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Die Gleichung ist nach einem Umformungsschritt gelöst und liegt deutlich unter Bsp. Ari-31 und Teil-1-Aufgabe 6 (12x − 5 = 3x + 13)."
+ },
+ {
+  "id": "19ba5f42-6cd4-4191-afe0-fd8a09c4ac35",
+  "skill": "gleichung_beidseitig",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e647e2ec-7e4c-404d-96cd-b6f402b6a981",
+  "skill": "gleichung_beidseitig",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f76034e5-792c-47bb-81b2-1d5ecd205499",
+  "skill": "gleichung_beidseitig",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Die Gleichung ist nach einem Umformungsschritt gelöst und liegt deutlich unter Bsp. Ari-31 und Teil-1-Aufgabe 6 (12x − 5 = 3x + 13)."
+ },
+ {
+  "id": "300b2a89-6f7f-4022-8a61-9a9d040fadd3",
+  "skill": "gleichung_beidseitig",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "152bcdcd-897b-452b-9a8f-402375540a3f",
+  "skill": "gleichung_einschrittig",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Einschrittige Gleichung liegt deutlich unter Bsp. Ari-31a (18x − 3 = 0)."
+ },
+ {
+  "id": "4f6f7cdd-3415-4185-8eae-95083d061b71",
+  "skill": "gleichung_einschrittig",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Einschrittige Gleichung liegt deutlich unter Bsp. Ari-31a (18x − 3 = 0)."
+ },
+ {
+  "id": "ca914e37-5069-4fe6-bbec-d3965feca69a",
+  "skill": "gleichung_lgs_addition",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ffd185a0-239d-4e19-8600-87934606fffc",
+  "skill": "gleichung_lgs_addition",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "158c874c-248c-40ed-b8b5-af3eb627517a",
+  "skill": "gleichung_lgs_einsetzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9",
+  "skill": "gleichung_lgs_einsetzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fd5eeb1f-97c2-49a8-ba75-d620da074fc2",
+  "skill": "gleichung_lgs_einsetzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0a8987a7-5605-43d6-b24b-16436d3d8096",
+  "skill": "gleichung_lgs_gleichsetzen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2d1d05f3-9234-4580-ac86-76776714e9c1",
+  "skill": "gleichung_lgs_gleichsetzen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5b073ffe-951e-4339-bceb-fefd24b204e4",
+  "skill": "gleichung_lgs_gleichsetzen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4888b388-56c9-4c9a-8388-46367317b245",
+  "skill": "gleichung_lgs_grafisch",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6bc7dd64-72ef-461c-b6cc-661ef4f08c78",
+  "skill": "gleichung_lgs_grafisch",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "17e1d7e8-12f6-478e-a4c3-cb2ebc905145",
+  "skill": "gleichung_lgs_sachaufgabe",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "67e26196-727d-4fc1-bcf5-0ba79078adeb",
+  "skill": "gleichung_lgs_sachaufgabe",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4f0b933d-3ead-4042-adb9-a1369ba28f39",
+  "skill": "gleichung_modellieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d393d7c6-e5ff-43bb-b049-e8ba63aa1cdf",
+  "skill": "gleichung_modellieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d986ca37-4dc0-43c6-a148-153aa8605838",
+  "skill": "gleichung_modellieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4a0fe6b6-7b4f-436f-9788-8579b3a218f8",
+  "skill": "gleichung_neg_koeffizient",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ab6509f0-c7c8-4c7b-b2f7-b65d12b23a8a",
+  "skill": "gleichung_neg_koeffizient",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0c3d2396-131a-4cba-bd07-4597d92500cf",
+  "skill": "gleichung_quadr_anzahl",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "56540a88-7b9e-4935-8702-26f9415e9d14",
+  "skill": "gleichung_quadr_anzahl",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "95077a87-7e8a-4463-83b0-dbbf6facc879",
+  "skill": "gleichung_quadr_anzahl",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1c4a31af-20bc-4348-b8d9-cd83b273ff38",
+  "skill": "gleichung_quadr_faktor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9879542e-bb69-41c6-a77f-3916a26ffad1",
+  "skill": "gleichung_quadr_faktor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c3be2e88-1087-479f-bf95-9dbd732efa56",
+  "skill": "gleichung_quadr_faktor",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee",
+  "skill": "gleichung_quadr_formel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1f2a206f-1f63-4866-b446-c8305de6b725",
+  "skill": "gleichung_quadr_formel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "43f39bc1-e7b4-48e6-8b77-ff8e41e77142",
+  "skill": "gleichung_quadr_formel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+  "skill": "gleichung_quadr_wurzel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4d1a2438-3610-4dc9-b5be-8d35cb5199bd",
+  "skill": "gleichung_quadr_wurzel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "504bbd98-9c80-4124-a66a-9dc7b6651bb9",
+  "skill": "gleichung_quadr_wurzel",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7976c81f-9b0b-46d8-a0d1-b5b6cc3bc992",
+  "skill": "gleichung_zweischrittig",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9d15a93e-961b-4569-be8b-c4482dc98301",
+  "skill": "gleichung_zweischrittig",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "b01451c0-53e5-4da7-9591-280448264835",
+  "skill": "gleichung_zweischrittig",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e8348c89-67cb-4650-be91-235e69321776",
+  "skill": "gleichung_zweischrittig",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "b7b814a6-d2c9-4988-855c-3d51b5148da0",
+  "skill": "groessen_flaechen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f531dcee-04cf-4e14-ad5e-9032f72f0668",
+  "skill": "groessen_flaechen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "20cdce1e-0e9d-478d-820e-b77ff90c94bc",
+  "skill": "groessen_gemischt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2196f87e-bf03-43b2-8e63-ae07e60bcbc3",
+  "skill": "groessen_gemischt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2a55970e-6a27-496b-8229-35813122e30b",
+  "skill": "groessen_gemischt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "62bbb1fe-9401-4ac2-8b24-e5a603f77e22",
+  "skill": "groessen_laengen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "b9e84b84-77df-42d9-b34e-f6ccc283e930",
+  "skill": "groessen_laengen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "12904575-e6a5-4a4d-b985-235eb77288ad",
+  "skill": "groessen_massen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4e34f73b-5593-4807-91a4-b9c5d3fada5d",
+  "skill": "groessen_massen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5d6a704a-cc38-4144-adee-ad396d532457",
+  "skill": "groessen_massen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "042aa45d-c36b-4eb8-886e-64289a975104",
+  "skill": "groessen_volumen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "34d5e69b-f8c9-4837-8dc8-84c73400141d",
+  "skill": "groessen_volumen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d36af517-b33f-4633-8a86-57cacc015bfd",
+  "skill": "groessen_volumen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "35abc6db-9fee-48d6-bac2-592a5c7f0816",
+  "skill": "groessen_zeit",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "479eff6c-ba9e-4071-8aa4-e434e2185f7d",
+  "skill": "groessen_zeit",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "b1ede380-80c7-44df-9263-dad843ee33d5",
+  "skill": "groessen_zeit",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "01f22500-c86d-47d0-bb1d-a5f420e2de9d",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Quadrat- bzw. Kubikzahl einer kleinen natürlichen Zahl liegt deutlich unter Bsp. Ari-1 ((−10)², 10⁻³)."
+ },
+ {
+  "id": "25539057-46a0-473c-ab73-40d1b81edd55",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Quadrat- bzw. Kubikzahl einer kleinen natürlichen Zahl liegt deutlich unter Bsp. Ari-1 ((−10)², 10⁻³)."
+ },
+ {
+  "id": "59c982b3-47db-4d90-b0ba-5de9ff4a8cbd",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5c73a51d-2fb0-40c5-97c9-945ea1ad4494",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "72d61822-e5ed-49c3-8f9d-643cf94196bc",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Quadrat- bzw. Kubikzahl einer kleinen natürlichen Zahl liegt deutlich unter Bsp. Ari-1 ((−10)², 10⁻³)."
+ },
+ {
+  "id": "744b2ea7-ab5e-4e8f-95d2-3e029684eb9e",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "796659c3-7b6f-4ccb-a7b1-144eab486c5c",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "83839a0b-e05e-4ef5-a18b-4afde56e3752",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Quadrat- bzw. Kubikzahl einer kleinen natürlichen Zahl liegt deutlich unter Bsp. Ari-1 ((−10)², 10⁻³)."
+ },
+ {
+  "id": "855d22d3-4995-4497-a69a-6b89bcb097e5",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "89ad1d12-b903-4411-a066-76e8b68ddcac",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9ee7cbb7-5f40-4aeb-8983-ace78557d557",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Quadrat- bzw. Kubikzahl einer kleinen natürlichen Zahl liegt deutlich unter Bsp. Ari-1 ((−10)², 10⁻³)."
+ },
+ {
+  "id": "a3343b39-bedb-491f-a214-6b6817ce2768",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "aef364ee-8c7f-49af-9e55-c2c65b7e36db",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "bbc88883-d27f-4fee-ad1a-42d664d6f47d",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "db07cb07-f719-4c8b-9e23-614902c6a7a4",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Quadrat- bzw. Kubikzahl einer kleinen natürlichen Zahl liegt deutlich unter Bsp. Ari-1 ((−10)², 10⁻³)."
+ },
+ {
+  "id": "e1aeb6a9-507a-471c-92c8-98ae592162a3",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e5da9c79-e34a-42f9-bc85-0e135ff90987",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e7c7b1c6-85c0-4592-8996-d9310332ce17",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fd7c0327-2903-4199-a275-be6c4b46cd1e",
+  "skill": "potenzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "82215b1c-332b-4ca4-b167-090460b594bd",
+  "skill": "proportionalitaet",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Verdoppeln bzw. Verdreifachen bei proportionaler Zuordnung liegt deutlich unter Bsp. Fkt-2 (4 Karten 52 € → 7 Karten)."
+ },
+ {
+  "id": "9372380c-8cf0-47a1-9fb5-330d44b6a975",
+  "skill": "proportionalitaet",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Verdoppeln bzw. Verdreifachen bei proportionaler Zuordnung liegt deutlich unter Bsp. Fkt-2 (4 Karten 52 € → 7 Karten)."
+ },
+ {
+  "id": "592eefb1-d883-42ea-aa28-c08ef7602ec9",
+  "skill": "prozent_grundwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7875948d-3789-43cb-8e1a-861de7167ece",
+  "skill": "prozent_grundwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7eba6b75-1852-4713-8f6b-bf0e626fa52b",
+  "skill": "prozent_grundwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "14b1c4a3-8b95-495b-ad2f-066fd43e0a20",
+  "skill": "prozent_prozentsatz",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "846c8ff7-9816-4ac7-b75a-3e51954270db",
+  "skill": "prozent_prozentsatz",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "961a8057-3c77-46c9-b58c-47fa9434cc73",
+  "skill": "prozent_prozentsatz",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0452250a-be42-434d-8f7f-ea5c3705f745",
+  "skill": "prozent_prozentwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4d9e1f4d-8f87-4bbe-a6b4-cdbd459bfc1f",
+  "skill": "prozent_prozentwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "8337d39e-ff22-4393-94e5-35f0c835cd45",
+  "skill": "prozent_prozentwert",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2155cd07-b21f-46d1-a1d9-bb78345641d8",
+  "skill": "prozent_veraenderung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "25da44e4-8960-4836-929f-cdfbaab61c14",
+  "skill": "prozent_veraenderung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "be903a02-c572-4378-96cf-b264ee161494",
+  "skill": "prozent_veraenderung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0e82ae91-8c55-4c75-ad2c-ef8ffb5649ad",
+  "skill": "prozent_zins_jahreszins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ea141d44-521e-4250-a4bd-d9aa8e159238",
+  "skill": "prozent_zins_jahreszins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f899a57b-8fec-459b-849c-d8ffaa51ee5e",
+  "skill": "prozent_zins_jahreszins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2d5e6e81-1f81-462c-8b70-db43a7454bb4",
+  "skill": "prozent_zins_rueckrechnung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "53f6be59-aaa0-450d-af10-6c9570a39ca9",
+  "skill": "prozent_zins_rueckrechnung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e059539e-120d-428b-ba3d-c11ae9c4a83d",
+  "skill": "prozent_zins_rueckrechnung",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2503c8e9-2f40-494e-865c-687d7256a771",
+  "skill": "prozent_zins_teilzins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "663cac41-81da-41a8-9092-b63e0101e769",
+  "skill": "prozent_zins_teilzins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "745351dc-794d-4939-9c33-fea2492bd8ff",
+  "skill": "prozent_zins_teilzins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3b7c2619-ae14-4c9c-b67b-89589310033f",
+  "skill": "prozent_zins_zinseszins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d9e29439-32a2-43b7-a35a-a0d166637802",
+  "skill": "prozent_zins_zinseszins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f07265aa-116a-4d92-9312-6cae6d7cba2d",
+  "skill": "prozent_zins_zinseszins",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0cd53103-432c-41a2-9f48-383c1f7580cd",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "17eff311-f4f0-4a7a-8239-a5b29bb07721",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1c31db89-a9f6-40ed-b885-abfeb33683e0",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "20c27486-b734-48c4-91f9-976e3256d4ec",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Reines Runden ohne Sonderfall (keine 5 an der Rundungsstelle) liegt deutlich unter Bsp. Ari-22/23 (Überschlag)."
+ },
+ {
+  "id": "4ff59e5f-dab3-4ef4-80bd-ad7e96e11080",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Reines Runden ohne Sonderfall (keine 5 an der Rundungsstelle) liegt deutlich unter Bsp. Ari-22/23 (Überschlag)."
+ },
+ {
+  "id": "6f816c36-cce9-4b22-81e5-add0473dad02",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Reines Runden ohne Sonderfall (keine 5 an der Rundungsstelle) liegt deutlich unter Bsp. Ari-22/23 (Überschlag)."
+ },
+ {
+  "id": "963d2134-f512-49d2-b3b6-61fb8cb3b8ab",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a982bbce-ca98-4db5-ae2a-f46fbc666440",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Reines Runden ohne Sonderfall (keine 5 an der Rundungsstelle) liegt deutlich unter Bsp. Ari-22/23 (Überschlag)."
+ },
+ {
+  "id": "ad9cec47-c4b5-450b-b6b4-227335c639a2",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Reines Runden ohne Sonderfall (keine 5 an der Rundungsstelle) liegt deutlich unter Bsp. Ari-22/23 (Überschlag)."
+ },
+ {
+  "id": "d9d683a3-1d2d-4b72-81f6-16eaee5640e0",
+  "skill": "runden_ueberschlag",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0f94090d-dced-46dd-ab0d-ff9152c75529",
+  "skill": "stoch_bedingt_irrefuehrend",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2708a240-7d4b-42bb-a028-d106ebe60765",
+  "skill": "stoch_bedingt_irrefuehrend",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "982be3c3-2d1f-4d59-817a-b7bd45ade1d6",
+  "skill": "stoch_bedingt_irrefuehrend",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a45f865a-4684-4125-86cb-8df459348238",
+  "skill": "stoch_gegenereignis",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "eaf9ec0c-d93b-4d7a-b5da-f586538e84ad",
+  "skill": "stoch_gegenereignis",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f7a7bba2-dadd-4d81-8beb-91fca75ac78f",
+  "skill": "stoch_gegenereignis",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4615926e-2f06-4780-9b12-d153117c045e",
+  "skill": "stoch_kenngroessen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "68137794-b1f9-4c37-8a4a-cca2281bafcd",
+  "skill": "stoch_kenngroessen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f91e5425-b56b-434f-9ae1-814649f9aba3",
+  "skill": "stoch_kenngroessen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "743dc783-c0c1-4b97-957c-e8dfff38e3b6",
+  "skill": "stoch_laplace",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "df9fd43a-6a01-41a5-b08a-193c0afabb55",
+  "skill": "stoch_laplace",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fdd119e8-2192-4691-bda5-d6a5a03317d4",
+  "skill": "stoch_laplace",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3c2b1997-3c6d-4b1b-b074-60cf1280946d",
+  "skill": "stoch_pfad_produkt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "71295abb-8ccc-418c-bff3-b70585fd60aa",
+  "skill": "stoch_pfad_produkt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "aab137cc-edfd-411f-ba49-af6a353a97e5",
+  "skill": "stoch_pfad_produkt",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "64091830-731d-4ab2-b1f6-2166bb8539e6",
+  "skill": "stoch_pfad_summe",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "939baa76-0207-496c-a768-4df2988f7f12",
+  "skill": "stoch_pfad_summe",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2d6edc4b-15e0-4090-b9af-1711ece32395",
+  "skill": "stoch_pfad_summe",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "8b6561e6-1e6c-4c56-a35f-6ccc22f77807",
+  "skill": "stoch_pfad_summe",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "04a1a844-559d-4bb6-8c0c-c2a93bc18dee",
+  "skill": "term_ausklammern",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4baeeda9-3985-4a80-8fd0-ecf8bbcfd6af",
+  "skill": "term_ausklammern",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "10a764bc-9657-4a5a-b11d-64b2a0014b05",
+  "skill": "term_ausmultiplizieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1527a939-6199-4d8c-9163-6f34b0cd0e13",
+  "skill": "term_ausmultiplizieren",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Ausmultiplizieren eines positiven Faktors mit positivem Summanden liegt deutlich unter Bsp. Ari-28 (4(2 − x) + 3x)."
+ },
+ {
+  "id": "2d1dc092-65db-4bba-971c-33b54e364231",
+  "skill": "term_ausmultiplizieren",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Ausmultiplizieren eines positiven Faktors mit positivem Summanden liegt deutlich unter Bsp. Ari-28 (4(2 − x) + 3x)."
+ },
+ {
+  "id": "696f6d98-556e-4393-8d87-122d04b79bce",
+  "skill": "term_ausmultiplizieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "88ca2551-82bf-4ca3-b971-32cd4292a146",
+  "skill": "term_binom_faktorisieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e4a18d51-9545-4f17-b1aa-10dc72c35cd3",
+  "skill": "term_binom_faktorisieren",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "79c7a940-7a41-4b6b-b4ff-ce464425c758",
+  "skill": "term_binom_gemischt",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "8c4a2d71-0e9b-4f36-b5a8-6d1f3e7c9a24",
+  "skill": "term_binom_gemischt",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c31fdbb1-9a48-4cd8-9b0c-35393af84330",
+  "skill": "term_binom_gemischt",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3b1e6f0a-5c2d-4e8b-9f71-2a6d0c4b8e13",
+  "skill": "term_binom_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9a598424-963b-4981-91ad-9a81cead51f4",
+  "skill": "term_binom_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ae6fa0b8-283c-4570-b9d2-6271c17e3384",
+  "skill": "term_binom_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "de60d4ff-c473-4358-b050-85a54dd903a1",
+  "skill": "term_binom_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa",
+  "skill": "term_binom_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "293413f8-8e31-4f0b-b64e-7ac2a183606e",
+  "skill": "term_binom_quadratdifferenz",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7e027634-1c45-4c70-8357-198dad0f1797",
+  "skill": "term_binom_quadratdifferenz",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca",
+  "skill": "term_einsetzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd",
+  "skill": "term_einsetzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "dea9fea4-6976-4632-a33d-547693f1fbc9",
+  "skill": "term_einsetzen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "04cc98ff-2c04-4bd4-9db9-3947a1e8fbd3",
+  "skill": "term_minusklammer",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "dc412552-d604-4f43-b7f5-3f991a7b740e",
+  "skill": "term_minusklammer",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "b779c26b-6e2d-453c-9349-2fb9ac6d4398",
+  "skill": "term_zusammenfassen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "c83b34e8-e6e7-4142-83ff-fae510201c5c",
+  "skill": "term_zusammenfassen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "df219b8c-887d-43c2-b544-ca2df4f32e66",
+  "skill": "term_zusammenfassen",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "16d690c9-05de-4dfb-8ef8-6b03bd162bfe",
+  "skill": "term_zusammenfassen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "17674b19-fe14-42ca-98db-6598fa8c5a3a",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "27f51c08-6a47-4ceb-b189-f5f07cbcf1cf",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3b44eada-3589-4bdb-a33b-2fb2ca0a1726",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "3e6fb055-111e-4888-9177-d2b17dd0fc54",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Ganzzahl-Addition bzw. -Subtraktion einstelliger Zahlen liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "738de19f-d3c9-43a0-b5ce-af6e30752c75",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Ganzzahl-Addition bzw. -Subtraktion einstelliger Zahlen liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "c92aa7e8-1e2d-4c80-a1fc-0fe4fedd86b0",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "e96cd37d-0254-4051-bf2d-71a6f7fa2aaf",
+  "skill": "vorzeichen_add_sub",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Ganzzahl-Addition bzw. -Subtraktion einstelliger Zahlen liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "0438a9f9-bdb4-4f29-ab59-adc7946ade36",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Einmaliges Multiplizieren/Dividieren kleiner Zahlen mit einem Minuszeichen liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "2e8ce53f-1357-48b2-8d76-0633ae836980",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "38aa9504-bb48-4b1c-98e7-85d38de70108",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Einmaliges Multiplizieren/Dividieren kleiner Zahlen mit einem Minuszeichen liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "751f9c63-c295-4b9e-8202-6244c6fd8f05",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "7db70449-d6fa-47dd-9423-1e8c75ce8c8f",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ba0701ff-bac1-4ae6-a6f4-b5f610a35ee7",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "zu_leicht",
+  "grund": "Einmaliges Multiplizieren/Dividieren kleiner Zahlen mit einem Minuszeichen liegt deutlich unter dem Niveau der Teil-1-Beispiele."
+ },
+ {
+  "id": "e58cb290-db86-40df-b60b-03aee393107b",
+  "skill": "vorzeichen_mult_div",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "573dd0b7-5fd2-4b4e-9263-3630affba5da",
+  "skill": "vorzeichen_vorrang",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "864f0b02-71a8-4203-988d-9b6fbf6dd074",
+  "skill": "vorzeichen_vorrang",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a394b2eb-df58-4b57-9c79-ae8ff0c62b24",
+  "skill": "vorzeichen_vorrang",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "039682a2-4201-4933-92cc-da1031fee485",
+  "skill": "zahl_potenz_gesetze",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1d743a81-124c-42c5-9235-163c2c4c5309",
+  "skill": "zahl_potenz_gesetze",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9daaeffc-8019-4a0e-a150-7f77026abc8e",
+  "skill": "zahl_potenz_gesetze",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "2c76b7c8-5c80-43e6-95c9-0f06a7d8161e",
+  "skill": "zahl_potenz_negativ",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d4c57c1c-bfb2-455c-bc85-7149ca24c1cb",
+  "skill": "zahl_potenz_negativ",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "f05fb05f-c11b-4b9f-9a79-b03e0aeec898",
+  "skill": "zahl_potenz_negativ",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0a6f5de1-82ab-4f20-8f71-3fab440b2e95",
+  "skill": "zahl_potenz_rechnen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a35d5827-c2d4-48a9-87b8-6c69c1078abe",
+  "skill": "zahl_potenz_rechnen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "d7f1416b-ee9c-408c-8dd3-7e2bfc623a27",
+  "skill": "zahl_potenz_rechnen",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0723e9b4-0faf-4150-95b0-1065cb950a04",
+  "skill": "zahl_potenz_zehner",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396",
+  "skill": "zahl_potenz_zehner",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "efac8563-dcac-4e79-9092-21d534c29667",
+  "skill": "zahl_potenz_zehner",
+  "art": "vorgeschlagen",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3",
+  "skill": "zahl_wurzel_gesetze",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "760fc0ad-d0c6-4a09-889b-c116a2f0ff78",
+  "skill": "zahl_wurzel_gesetze",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "88c99e21-a70e-42e5-b426-07e29b93d3fe",
+  "skill": "zahl_wurzel_gesetze",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "926f4f6e-7eca-43f5-92c2-855eff8167b4",
+  "skill": "zahl_wurzel_gesetze",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "a0a8c04b-145b-4010-8c46-b5c7520d54bb",
+  "skill": "zahl_wurzel_gesetze",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ce24db36-6dac-4b3f-8395-e815549a7689",
+  "skill": "zahl_wurzel_gesetze",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0b7e781c-60ae-4a93-afb8-2ee2b400b15a",
+  "skill": "zahl_wurzel_irrational",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "54382934-12e4-4819-8dc4-5f4f5650471f",
+  "skill": "zahl_wurzel_irrational",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "834de179-1fbd-4491-9d86-fd572310f3dd",
+  "skill": "zahl_wurzel_irrational",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9935f4bb-1222-4ead-bf3c-6b8cfd134395",
+  "skill": "zahl_wurzel_irrational",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ae8478c7-f104-407a-a75a-087d71e20757",
+  "skill": "zahl_wurzel_irrational",
+  "art": "freigegeben",
+  "urteil": "zu_schwer",
+  "grund": "Periodische Dezimalzahl als Bruch umzuwandeln steht weder im Kernlehrplan noch in der Formelsammlung MSA und ist gymnasiale Zusatzfachsprache."
+ },
+ {
+  "id": "d851f251-cbe5-4804-b74d-2458c7a855af",
+  "skill": "zahl_wurzel_irrational",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0b9229a0-db38-4fc4-8b64-1213b5198f50",
+  "skill": "zahl_wurzel_naeherung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "6585552b-bb6b-4345-98cb-d427378cdfed",
+  "skill": "zahl_wurzel_naeherung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "81015f65-8ac0-4ef3-abb8-9a7b87c44940",
+  "skill": "zahl_wurzel_naeherung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd",
+  "skill": "zahl_wurzel_naeherung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "cd35f4b2-62da-4f01-9215-bc9504f8e67a",
+  "skill": "zahl_wurzel_naeherung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "fde9c9a1-f05a-42ff-ab98-d94ee6894d07",
+  "skill": "zahl_wurzel_naeherung",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "16d6e3b7-86f0-4661-b750-70bf5764e3ba",
+  "skill": "zahl_wurzel_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "4b3b14a9-0603-40d7-90b1-60f3517f7348",
+  "skill": "zahl_wurzel_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "55239bfc-349a-4285-b29e-2b1c105e6033",
+  "skill": "zahl_wurzel_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "5f9d6c06-c962-4b38-9096-4a1ab9c97292",
+  "skill": "zahl_wurzel_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "99b7829c-3536-4278-a84e-3dbeea10637c",
+  "skill": "zahl_wurzel_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "afc3b977-389b-4e8d-a157-9952b087c8e2",
+  "skill": "zahl_wurzel_quadrat",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "0bcc83c8-42f0-4956-b1d0-00446cb6e5e2",
+  "skill": "zahl_wurzel_teilweise",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "1dece473-758d-4108-9969-02b495dbf4ed",
+  "skill": "zahl_wurzel_teilweise",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "21427340-fc85-41c4-abea-99ad0121b83c",
+  "skill": "zahl_wurzel_teilweise",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ad08897e-a44b-43fb-a779-96b889c069db",
+  "skill": "zahl_wurzel_teilweise",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "df6b2bcd-8643-46b2-9553-db75854b597d",
+  "skill": "zahl_wurzel_teilweise",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ },
+ {
+  "id": "ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0",
+  "skill": "zahl_wurzel_teilweise",
+  "art": "freigegeben",
+  "urteil": "passt",
+  "grund": ""
+ }
+]

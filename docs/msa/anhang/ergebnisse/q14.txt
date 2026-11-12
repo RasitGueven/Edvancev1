@@ -1,0 +1,7 @@
+ schulform | schulen | mit_plan | plan_kl8_10_voll | mit_ka_folge | holweide_kerpen 
+-----------+---------+----------+------------------+--------------+-----------------
+ (leer)    |       1 |        0 |                0 |            0 |               0
+ Gymnasium |      43 |       32 |               25 |            0 |               0
+           |      44 |       32 |               25 |            0 |               0
+(3 rows)
+

@@ -1,0 +1,5 @@
+ entscheidungen | mit_dauer | median_sek | mittel_sek | aufgaben | passt | passt_quote | letzte_pruefung 
+----------------+-----------+------------+------------+----------+-------+-------------+-----------------
+            174 |       170 |       35.5 |      144.9 |      163 |   135 |        82.8 | 2026-10-28
+(1 row)
+
