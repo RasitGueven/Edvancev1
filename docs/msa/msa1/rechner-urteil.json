@@ -1,0 +1,182 @@
+[
+ {
+  "id": "0054a031-7aae-4035-a3e5-1e3c698c35d6",
+  "skill": "fkt_exp_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "Um 0,5^(n/6) < 0,1 zu entscheiden, muss man 2^(10/3) ≈ 10,08 gegen 10 prüfen, also mit einem gebrochenen Exponenten rechnen, den nur Logarithmus oder Wertetabelle liefert."
+ },
+ {
+  "id": "167c44e0-d197-4696-951a-a17b5f8337c4",
+  "skill": "fkt_exp_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "Es müsste 0,85 etwa neunmal hintereinander mit sich multipliziert werden (0,85^8 ≈ 0,272 und 0,85^9 ≈ 0,232), was mit Stift und Zettel weit über drei Minuten dauert."
+ },
+ {
+  "id": "380b85ad-3967-4fad-b370-e113276310a6",
+  "skill": "fkt_exp_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "Man müsste 1,05^8 ≈ 1,4775 und 1,05^9 ≈ 1,5513 durch neun aufeinanderfolgende Multiplikationen mit 1,05 bestimmen, was zu aufwendig ist."
+ },
+ {
+  "id": "3e496b46-156d-45cc-9b77-596261829fb8",
+  "skill": "fkt_exp_halbwert",
+  "urteil": "rechner_noetig",
+  "begruendung": "Man müsste 1,12^6 ≈ 1,974 und 1,12^7 ≈ 2,211 durch sieben Multiplikationen mit 1,12 ermitteln, wobei 6 Jahre nur knapp unter 2 liegen."
+ },
+ {
+  "id": "f7e14298-714a-44b5-b2c8-6b93442256b5",
+  "skill": "fkt_exp_wachstum",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Zweimaliges Quadrieren von 1,06 (1,1236 und dann 1,2625) und Malnehmen mit 500 ergibt 631,24 und ist in unter drei Minuten schriftlich machbar, wenn auch rechenintensiv."
+ },
+ {
+  "id": "2fbd2563-648f-4990-9cff-429936af589d",
+  "skill": "fkt_quadr_nullstellen",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Nach der Lösungsformel genügt es zu wissen, dass √184 zwischen 13,55 und 13,65 liegt (13,55² ≈ 183,6), damit t = (12 + √184)/10 auf 2,56 rundet."
+ },
+ {
+  "id": "285e2d3e-44af-431b-a520-485795c8bb8d",
+  "skill": "geo_koerper_kegel",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Mit s = 10 cm (Pythagoras 6-8-10) und π ≈ 3,14 ist O = π·8·18 = 144·3,14 = 452,16 eine einzige glatte Multiplikation."
+ },
+ {
+  "id": "62b5810c-b021-4032-b17a-e072ffa3182b",
+  "skill": "geo_koerper_kugel",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Mit r = 2 dm und π ≈ 3,14 ist V = 4/3·3,14·8 ≈ 33,5 eine kurze Rechnung mit kleinen Zahlen."
+ },
+ {
+  "id": "ec4153b3-7ecd-404b-a2a4-8f111e3f4186",
+  "skill": "geo_koerper_kugel",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Mit π ≈ 3,14 ergibt sich V = 90π + 18π = 108·3,14 = 339,12 als eine einzige Multiplikation."
+ },
+ {
+  "id": "23fcb661-3095-4ad3-9cfd-d6048893a0c7",
+  "skill": "geo_kreis_rueck",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Der Radius r = 20 : 3,14 ≈ 6,37 ist eine einzelne schriftliche Division."
+ },
+ {
+  "id": "b450d36c-e3bf-4cbf-ab4f-3c874a8cbf63",
+  "skill": "geo_kreis_rueck",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Der Durchmesser d = 200 : 3,14 ≈ 63,69 ist eine einzelne schriftliche Division."
+ },
+ {
+  "id": "cbc04c90-4544-45ca-b0a1-f7d0c2bfd50d",
+  "skill": "geo_kreis_rueck",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Aus dem Umfang 480 cm folgt d = 480 : 3,14 ≈ 152,9 und damit aufgerundet 153 durch eine einzelne Division mit grober Rundung."
+ },
+ {
+  "id": "dce69732-829b-4a5b-8ce8-186093c118a6",
+  "skill": "geo_kreis_sektor",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Mit r = 13 cm ist A = 169·3,14 : 12 = 530,66 : 12 ≈ 44,22 eine Multiplikation und eine Division."
+ },
+ {
+  "id": "16d86280-3377-44a8-b009-07801586c50c",
+  "skill": "geo_pythagoras_abstand",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Die Abstandsrechnung führt auf eine Wurzel wie √85 und nur eine Stelle nach dem Komma ist gefragt, die sich durch Eingrenzen (9,2² = 84,64; 9,3² = 86,49) schnell ergibt; die Abbildung fehlt in den Daten."
+ },
+ {
+  "id": "208e0467-be77-4c56-9135-c9c93554aefd",
+  "skill": "geo_pythagoras_anwendung",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Die Höhe ist √(25 − 1,96) = √23,04 = 4,8 und damit eine glatte Quadratzahl-Rechnung (4,8² = 23,04)."
+ },
+ {
+  "id": "58c917d7-182f-4591-be02-374e86a79e41",
+  "skill": "geo_pythagoras_anwendung",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "h = √27 liegt wegen 5,2² = 27,04 knapp unter 5,2 und rundet auf 5,20, was sich mit einer einzigen Quadrierung prüfen lässt."
+ },
+ {
+  "id": "a21f48d2-f097-495a-91ed-093327524d91",
+  "skill": "geo_pythagoras_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "A = 16·√3 verlangt √3 auf mindestens vier Stellen (1,7321), um 27,71 statt 27,72 zu sichern, was ohne Taschenrechner nicht in angemessener Zeit ermittelbar ist."
+ },
+ {
+  "id": "75194d46-60d2-4d4a-b988-db2b3c5c1a65",
+  "skill": "geo_pythagoras_hypotenuse",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "√74 liegt nahe bei 8,6 (8,6² = 73,96) und lässt sich mit einem Newton-Schritt oder Eingrenzen auf 8,60 festlegen."
+ },
+ {
+  "id": "379ce518-9974-42dc-9e4b-df29741ba395",
+  "skill": "geo_pythagoras_kathete",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "√51 lässt sich durch Eingrenzen (7,14² ≈ 50,98 und 7,145² ≈ 51,05) auf 7,14 festlegen, was in wenigen Minuten machbar ist."
+ },
+ {
+  "id": "1a311c06-45ab-49c7-a4bf-413242d50c6a",
+  "skill": "geo_pythagoras_umkehrung",
+  "urteil": "ohne_zumutbar",
+  "begruendung": "Mit c = √(6,25 + 16) = √22,25 genügt die Eingrenzung 4,715² ≈ 22,23 < 22,25 < 4,725², um 4,72 − 4,5 ≈ 0,22 zu erhalten."
+ },
+ {
+  "id": "17b68c02-51e8-4484-b955-5ee77729c024",
+  "skill": "geo_trigo_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "x = 25 / tan 9° verlangt den Tangens eines krummen Winkels, der nur mit Taschenrechner oder Wertetabelle bestimmbar ist."
+ },
+ {
+  "id": "32f15d20-ea8e-4ff0-9d43-d10daa9500bc",
+  "skill": "geo_trigo_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "Die Höhe 500·8/√10064 verlangt √10064 ≈ 100,32 auf fünf Stellen und eine anschließende Division ohne gerundete Zwischenergebnisse, was zu aufwendig ist."
+ },
+ {
+  "id": "52d18200-7696-4bed-bba7-352cbb35436c",
+  "skill": "geo_trigo_anwendung",
+  "urteil": "rechner_noetig",
+  "begruendung": "Die Steigung 100·tan 8° ≈ 14,1 braucht den Tangens eines krummen Winkels, der nur mit Taschenrechner oder Tabelle bestimmbar ist."
+ },
+ {
+  "id": "13d6dc4d-737e-4fd3-a67d-fb401ff5e223",
+  "skill": "geo_trigo_seite",
+  "urteil": "rechner_noetig",
+  "begruendung": "c = 4,5 / sin 28° benötigt den Sinus von 28°, der ohne Taschenrechner nicht bestimmbar ist."
+ },
+ {
+  "id": "33bdde50-6f8d-4d2e-a80c-62601488e4a2",
+  "skill": "geo_trigo_seite",
+  "urteil": "rechner_noetig",
+  "begruendung": "b = 8,4·sin 52° benötigt den Sinus von 52°, der ohne Taschenrechner nicht bestimmbar ist."
+ },
+ {
+  "id": "6778b0b4-e325-4ce4-b2a9-c083b57a5987",
+  "skill": "geo_trigo_seite",
+  "urteil": "rechner_noetig",
+  "begruendung": "A = ½·(12·sin 38°)·(12·cos 38°) benötigt Sinus und Cosinus von 38° auf vier Stellen genau, was nur mit Taschenrechner geht."
+ },
+ {
+  "id": "3ba41acb-6f44-46cf-bfb8-006789699045",
+  "skill": "geo_trigo_verhaeltnis",
+  "urteil": "rechner_noetig",
+  "begruendung": "Die Aufgabe verlangt ausdrücklich sin 35° auf vier Nachkommastellen mit dem Taschenrechner."
+ },
+ {
+  "id": "7a00ab4b-d497-46fc-87c4-8e706fc3aaff",
+  "skill": "geo_trigo_winkel",
+  "urteil": "rechner_noetig",
+  "begruendung": "Der Winkel folgt aus arcsin(2,4/5,2) ≈ 27,5° und braucht die Umkehrfunktion des Sinus, die nur mit Taschenrechner oder Tabelle bestimmbar ist."
+ },
+ {
+  "id": "a8e2cd6c-586b-46d4-a25e-55aa33f9e02d",
+  "skill": "geo_trigo_winkel",
+  "urteil": "rechner_noetig",
+  "begruendung": "Mit b = 9 cm ist α = arctan(6/9) ≈ 33,7°, wofür die Umkehrfunktion des Tangens nötig ist."
+ },
+ {
+  "id": "ccd00ca0-8589-4826-9f85-ed97dbb37116",
+  "skill": "geo_trigo_winkel",
+  "urteil": "rechner_noetig",
+  "begruendung": "Mit sin α = 3/5 muss arcsin 0,6 ≈ 36,9° bestimmt werden, was ohne Taschenrechner oder Tabelle nicht auf eine Nachkommastelle möglich ist."
+ }
+]
