@@ -23,7 +23,7 @@ Mögliche Auflösungen (Entscheidung der Gründer):
 
 Der Schritt „pgTAP bereitstellen“ in `.github/workflows/schema.yml:106` scheitert:
 `postgresql-16-pgtap 1.3.4-1.pgdg13+2 Depends postgresql-16 (> 16.16)`. Der Dienst-Container `postgres:16` ist älter.
-Das betrifft jede PR, auch reine Doku (#404, eine Wiederholung ebenfalls rot), und hat mit MSA-1 nichts zu tun.
+Das betrifft jede PR, auch reine Doku (#404, eine Wiederholung ebenfalls rot), und hat mit MSA-1 nichts zu tun. Seit ca. 15:50 UTC scheitert derselbe Schritt anders: `could not load library "/usr/lib/postgresql/16/lib/plpgsql.so": undefined symbol` (die pgtap-Installation zieht ein neueres postgresql-16 in den laufenden Container).
 Die Abhilfe liegt unter `.github/` (pgtap-Version festnageln oder `image: postgres:16` auf eine Version ≥ 16.17 heben)
 und ist für diesen Auftrag gesperrt. Laut „Einspielen und Mergen“ ist ohne grüne CI weder Merge noch Einspielen
 erlaubt. **Haltepunkt, STOPP.**
