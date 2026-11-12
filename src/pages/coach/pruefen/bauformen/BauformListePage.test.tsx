@@ -18,7 +18,8 @@ const z = (schluessel: string, session_nr: number | null, status: BauformPlanZei
   }) as BauformPlanZeile
 
 const standard = [
-  z('PAR-1', 1, 'zur_freigabe'), z('PAR-2', 1, 'freigegeben'), z('KO-1', 1, 'zur_pruefung', true),
+  z('PAR-1', 1, 'zur_freigabe'), z('PAR-2', 1, 'freigegeben'),
+  { ...z('KO-1', 1, 'zur_pruefung', true), titel: 'Werte einsetzen', format: 'feldmaske', antwortart: 'punkt' },
   z('SCH-1', 2, 'zur_freigabe'), z('SCH-2', 2, 'rueckfrage'),
   z('BIN-9', null, 'zur_pruefung', true),
 ]
@@ -51,14 +52,16 @@ describe('BauformListePage nach Sessions', () => {
     const ueberschriften = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)
     expect(ueberschriften).toEqual(['Session 1 · Thema 1', 'Session 2 · Thema 2', 'Voraussetzungen'])
     const s1 = within(abschnitt(/Session 1/)).getAllByRole('button').map((b) => b.textContent ?? '')
-    expect(s1.filter((t) => /^(KO|PAR)/.test(t)).map((t) => t.slice(0, 5))).toEqual(['KO-1V', 'PAR-1', 'PAR-2'])
+    expect(s1.filter((t) => /(KO|PAR)-\d/.test(t)).map((t) => t.match(/(KO|PAR)-\d/)?.[0])).toEqual(['KO-1', 'PAR-1', 'PAR-2'])
   })
 
   it('zeigt Kopfzeile und Fortschritt je Session', async () => {
     zeige()
-    expect(await screen.findByText('3 von 6 geprüft · 1 freigegeben')).toBeInTheDocument()
+    expect(await screen.findByText('4 von 6 Bauformen geprüft')).toBeInTheDocument()
+    expect(screen.getByText('16 Aufgaben stehen zur Freigabe')).toBeInTheDocument()
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '4')
     expect(within(abschnitt(/Session 1/)).getByText('2 von 3 geprüft')).toBeInTheDocument()
-    expect(within(abschnitt(/Session 2/)).getByText('1 von 2 geprüft')).toBeInTheDocument()
+    expect(within(abschnitt(/Session 2/)).getByText('2 von 2 geprüft')).toBeInTheDocument()
   })
 
   it('Filter wirkt innerhalb der Gruppen', async () => {
@@ -82,11 +85,26 @@ describe('BauformListePage nach Sessions', () => {
     await waitFor(() => expect(bauformFreigeben).toHaveBeenCalledWith('quadratische_funktionen_gleichungen', ['PAR-1']))
   })
 
-  it('kein Freigabe-Knopf fuer Lena', async () => {
+  it('kein Freigabe-Knopf und kein Filter „Freigegeben“ fuer Lena', async () => {
     rolle.role = 'coach'
     zeige()
     await screen.findByRole('heading', { name: 'Session 1 · Thema 1' })
     expect(screen.queryByRole('button', { name: /freigeben/ })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /^Freigegeben/ })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Zu prüfen 2' })).toBeInTheDocument()
+  })
+
+  it('Karte: Klartext-Titel, Voraussetzung, Antwort, Kuerzel als Etikett, Anzahl; kein Schluessel im Text', async () => {
+    rolle.role = 'coach'
+    const { container } = zeige()
+    const karte = (await screen.findByText('Werte einsetzen')).closest('button') as HTMLElement
+    expect(within(karte).getByText('Voraussetzung')).toBeInTheDocument()
+    expect(within(karte).getByText('Antwort: Punkt eintragen')).toBeInTheDocument()
+    expect(within(karte).getByText('KO-1')).toBeInTheDocument()
+    expect(within(karte).getByText('8 Aufgaben')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Session-Aufgaben prüfen')
+    expect(screen.getByText(/Thema: Quadratische Funktionen und Gleichungen · Klasse 9/)).toBeInTheDocument()
+    expect(container.textContent).not.toMatch(/qf_|graph_auswahl|warmup|\{/)
   })
 
   it('Plan-Umschalter laedt den Plan des Kindes', async () => {
