@@ -536,5 +536,67 @@
     "feld": "Feld {{nr}}",
     "vorzeichen": "Vorzeichen (+/−)",
     "instanz": "{{bauform}} · Rolle {{rolle}} · Stufe {{stufe}}"
+  },
+  "archiv": {
+    "titel": "Archiv",
+    "erklaerung": "Archivierte Aufgaben fehlen im LSA-Pool, in Lenas Board, in der Item-Pflege und in allen Zählern. Gelöscht ist nichts: Antworten, Prüfprotokoll und Lösung bleiben. Wiederherstellen holt eine Aufgabe mit ihrem bisherigen Status zurück.",
+    "link": "Archiv",
+    "linkMitZahl_one": "Archiv ({{count}})",
+    "linkMitZahl_other": "Archiv ({{count}})",
+    "fehler": "Archiv konnte nicht geladen werden",
+    "leerTitel": "Das Archiv ist leer",
+    "leerText": "Archivierte Aufgaben erscheinen hier und lassen sich zurückholen.",
+    "anzahl_one": "{{count}} Aufgabe",
+    "anzahl_other": "{{count}} Aufgaben",
+    "filter": {
+      "skill": "Skill",
+      "grund": "Grund",
+      "alle": "Alle"
+    },
+    "spalte": {
+      "auswahl": "Auswahl",
+      "aufgabe": "Aufgabe",
+      "skill": "Skill",
+      "status": "Status",
+      "grund": "Grund",
+      "am": "Archiviert am",
+      "von": "von",
+      "aktion": "Aktion"
+    },
+    "status": {
+      "draft": "Entwurf",
+      "review": "zur Freigabe",
+      "ready": "freigegeben",
+      "rueckfrage": "Rückfrage",
+      "beanstandet": "beanstandet"
+    },
+    "grund": {
+      "nicht_notwendig": "nicht notwendig",
+      "sonstiges": "sonstiges"
+    },
+    "system": "System",
+    "ohneSkill": "ohne Skill",
+    "vorschau": "Vorschau",
+    "oeffnen": "Aufgabe öffnen",
+    "aktion": {
+      "wiederherstellen": "Wiederherstellen",
+      "auswaehlen": "Auswählen: {{text}}",
+      "auswahlWiederherstellen_one": "Auswahl wiederherstellen ({{count}})",
+      "auswahlWiederherstellen_other": "Auswahl wiederherstellen ({{count}})",
+      "keineAuswahl": "Erst Aufgaben in der Tabelle auswählen"
+    },
+    "rueckfrage": {
+      "titel": "Wiederherstellen bestätigen",
+      "text_one": "{{count}} Aufgabe wiederherstellen? Sie kommt mit ihrem bisherigen Status zurück in Pool, Board und Item-Pflege.",
+      "text_other": "{{count}} Aufgaben wiederherstellen? Sie kommen mit ihrem bisherigen Status zurück in Pool, Board und Item-Pflege.",
+      "ja": "Ja, wiederherstellen",
+      "nein": "Abbrechen"
+    },
+    "wiederhergestellt_one": "{{count}} Aufgabe wiederhergestellt",
+    "wiederhergestellt_other": "{{count}} Aufgaben wiederhergestellt",
+    "hinweis": {
+      "text": "Diese Aufgabe ist archiviert (am {{am}}, Grund: {{grund}}). Sie erscheint in keiner Liste und wird in keiner LSA gezogen.",
+      "link": "Zum Archiv, dort wiederherstellen"
+    }
   }
 }

@@ -88,6 +88,7 @@ export async function listAufgabenFuerAdmin(): Promise<SupabaseResult<AufgabeFue
       .select('id, skill_key, status')
       .eq('content_type', 'exercise')
       .in('status', [...STATUS_FUER_ADMIN])
+      .is('archiviert_am', null)
     if (error) return { data: null, error: error.message }
     return { data: (data ?? []) as AufgabeFuerAdmin[], error: null }
   } catch (err) {
@@ -104,6 +105,7 @@ export async function countAufgabenFuerAdmin(): Promise<SupabaseResult<number>> 
       .select('id', { count: 'exact', head: true })
       .eq('content_type', 'exercise')
       .in('status', [...STATUS_FUER_ADMIN])
+      .is('archiviert_am', null)
     return error ? { data: null, error: error.message } : { data: count ?? 0, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Prüfzähler konnte nicht geladen werden'

@@ -83,6 +83,8 @@ export function resetAuthoringSchemaCache(): void {
  * lassen sich nur im Client rechnen — ein serverseitiger Statusfilter wuerde die
  * Flag-Zaehler der ausgeblendeten Items verschweigen. Gefiltert wird in der Liste.
  *
+ * Ohne archivierte Aufgaben (MSA-1): die stehen nur unter /admin/authoring/archiv.
+ *
  * Nur Einzelaufgaben: Instanzen einer Bauform (bauform_id gesetzt, Reihe 1)
  * pflegt das Muster-Board (/coach/pruefen/bauformen). Seitenweise, weil
  * PostgREST hoechstens 1000 Zeilen je Abfrage liefert (M1).
@@ -96,6 +98,7 @@ export async function listAuthoringTasks(): Promise<SupabaseResult<AuthoringTask
         .select(columnsFor(schema))
         .eq('content_type', 'exercise')
         .is('bauform_id', null)
+        .is('archiviert_am', null)
         .order('created_at', { ascending: false })
         .order('id', { ascending: true })
         .range(von, bis) as unknown as PromiseLike<{ data: AuthoringTask[] | null; error: { message: string } | null }>,
@@ -370,7 +373,7 @@ export async function getReviewerNames(
 export async function countTasksInReview(): Promise<SupabaseResult<number>> {
   try {
     const { count, error } = await supabase.from('tasks').select('id', { count: 'exact', head: true })
-      .eq('content_type', 'exercise').eq('status', 'review')
+      .eq('content_type', 'exercise').eq('status', 'review').is('archiviert_am', null)
     return error ? { data: null, error: error.message } : { data: count ?? 0, error: null }
   } catch (err) {
     return { data: null, error: toMessage(err, 'Pruefzaehler konnte nicht geladen werden') }
