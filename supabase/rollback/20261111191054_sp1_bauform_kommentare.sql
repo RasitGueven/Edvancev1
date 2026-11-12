@@ -156,6 +156,7 @@ end $$;
 
 drop function if exists public.bauform_rueckfrage_hindernis(uuid, integer);
 drop function if exists public.bauform_rueckfrage_pruefung(uuid);
+drop function if exists public.bauform_rueckfrage_pruefung_intern(uuid);
 do $$
 declare f text;
 begin

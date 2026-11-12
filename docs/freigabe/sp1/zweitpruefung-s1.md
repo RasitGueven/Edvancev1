@@ -50,3 +50,11 @@ Offen aus Runde 2 (vor dem Einspielen abzuarbeiten oder bewusst nach `offen.md`)
   Überarbeitung mit Verdacht bleibt Rückfrage; Export ohne Versionswechsel; Versionswechsel außerhalb des Exports;
   `task_status_set` → 42501. 65/65 grün.
 - 2, 5, 6, 9, 10: Hinweise, bewusst gelassen (Oberfläche bietet die Wege Lena nicht an; S4 ersetzt die Entscheidung).
+
+## Runde 3 (nur der Diff der Behebung Runde 2)
+
+Frischer Subagent. **Keine Befunde „falsch“, keine Befunde „bricht“.** Behoben: Hinweis 1 (Trigger-Logik hing vom
+Aufrufer ab → `bauform_rueckfrage_pruefung_intern` ohne Rechteprüfung für Trigger und `hindernis`, geprüfte Hülle für
+Aufrufer); fehlt 4 und 5 (pgTAP: Re-Export ohne Versionswechsel entfernt den Verdacht → zur Freigabe; echter Upsert-Weg
+wie `export.py`); Hinweis 6 (Kopfkommentar). Hinweise 2 (nur READ COMMITTED, Standard bei PostgREST) und 3 (Markierung
+auf leer statt Vorwert, keine Verschachtelung) bewusst gelassen. pgTAP 67/67.

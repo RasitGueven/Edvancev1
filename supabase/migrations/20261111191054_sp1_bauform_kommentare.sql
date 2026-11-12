@@ -15,7 +15,9 @@
 --   5. bauform_rueckfrage_erledigt: setzt die überarbeitete Version auf zur_freigabe, wenn alle Kommentare
 --      erledigt sind, die Prüfmaschine grün und der Blindlöser bestanden ist. Nur Admin oder Systemaufruf
 --      (Datenmigration des Bauform-Exports). Der Versionswechsel einer solchen Überarbeitung öffnet die Bauform
---      nicht wieder für Lena (bauform_versionswechsel); jeder andere Versionswechsel bleibt wie bisher.
+--      nicht wieder für Lena (bauform_versionswechsel); ein Export ohne Versionswechsel löst sie ebenfalls nicht auf.
+--      Der eigene Abschluss setzt dafür transaktionslokal edvance.rueckfrage_abschluss. Jeder andere Versionswechsel
+--      bleibt wie bisher.
 --      Der Übergang geschieht automatisch (Trigger), sobald der letzte Kommentar erledigt ist oder eine neue
 --      Version mit grünem Protokoll und bestandenem Blindlöser eingespielt wird – in beliebiger Reihenfolge.
 --   6. Sicht bauform_kommentar_auswertung für Admins.
@@ -229,8 +231,9 @@ begin
   end if;
 end $$;
 
--- Letzte Prüfung einer Bauform, wenn sie eine Rückfrage mit Kommentaren ist.
-create function public.bauform_rueckfrage_pruefung(p_bauform uuid) returns uuid
+-- Letzte Prüfung einer Bauform, wenn sie eine Rückfrage mit Kommentaren ist. Intern (Trigger, hindernis): ohne
+-- Rechteprüfung, damit die Trigger-Logik nicht davon abhängt, wer schreibt (Zweitprüfung S1 R3/1).
+create function public.bauform_rueckfrage_pruefung_intern(p_bauform uuid) returns uuid
   language sql stable security definer
   set search_path to 'public', 'pg_temp'
 as $$
@@ -239,7 +242,15 @@ as $$
            where x.bauform_id = p_bauform order by x.geprueft_am desc, x.id limit 1) p
    where p.entscheidung = 'unsicher'
      and exists (select 1 from public.bauform_kommentare k where k.pruefung_id = p.id)
-     and (public.darf_pruefen() or public.ist_systemaufruf())
+$$;
+
+-- Geprüfte Hülle für Aufrufer: nur mit Prüfrecht oder als Systemaufruf.
+create function public.bauform_rueckfrage_pruefung(p_bauform uuid) returns uuid
+  language sql stable security definer
+  set search_path to 'public', 'pg_temp'
+as $$
+  select public.bauform_rueckfrage_pruefung_intern(p_bauform)
+   where public.darf_pruefen() or public.ist_systemaufruf()
 $$;
 
 -- ── 4 · Lenas Entscheidung in einem Aufruf ───────────────────────────────────
@@ -357,7 +368,7 @@ begin
   if not found then
     return 'bauform_fehlt';
   end if;
-  v_pruefung := public.bauform_rueckfrage_pruefung(b.id);
+  v_pruefung := public.bauform_rueckfrage_pruefung_intern(b.id);
   if b.status <> 'rueckfrage' or v_pruefung is null then
     return 'keine_rueckfrage';
   end if;
@@ -415,7 +426,7 @@ begin
     raise exception 'bauform_rueckfrage_erledigt: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
   -- schon automatisch abgeschlossen (Trigger): kein Fehler
-  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung(b.id) is not null then
+  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung_intern(b.id) is not null then
     return 'zur_freigabe';
   end if;
   v_grund := public.bauform_rueckfrage_hindernis(b.id, p_neue_version);
@@ -451,7 +462,7 @@ begin
   new.geaendert_am := now();
   if (new.steckbrief, new.format, new.rollen, new.skill_key, new.kernidee_key)
      is distinct from (old.steckbrief, old.format, old.rollen, old.skill_key, old.kernidee_key) then
-    v_ueberarbeitung := old.status = 'rueckfrage' and public.bauform_rueckfrage_pruefung(old.id) is not null;
+    v_ueberarbeitung := old.status = 'rueckfrage' and public.bauform_rueckfrage_pruefung_intern(old.id) is not null;
     insert into public.bauform_versionen (bauform_id, version, steckbrief, status)
     values (old.id, old.version, old.steckbrief, old.status);
     new.version := old.version + 1;
@@ -473,7 +484,7 @@ begin
   elsif old.status = 'rueckfrage' and new.status <> 'rueckfrage'
         and coalesce(current_setting('edvance.bauform_export', true), '') = '1'
         and coalesce(current_setting('edvance.rueckfrage_abschluss', true), '') <> '1'
-        and public.bauform_rueckfrage_pruefung(old.id) is not null then
+        and public.bauform_rueckfrage_pruefung_intern(old.id) is not null then
     -- Export ohne Steckbrief-Aenderung (z. B. mit Verdacht) loest eine kommentierte Rueckfrage nicht auf
     -- (Zweitpruefung R2/1); sie bleibt in Ueberarbeitung.
     new.status := 'rueckfrage';
@@ -660,7 +671,7 @@ declare f text;
 begin
   foreach f in array array['bauform_zeit_aendern(uuid,integer,numeric,uuid)', 'bauform_stufen_anlegen()',
                            'bauform_kommentar_schutz()', 'bauform_rueckfrage_hindernis(uuid,integer)',
-                           'bauform_rueckfrage_automatisch()'] loop
+                           'bauform_rueckfrage_automatisch()', 'bauform_rueckfrage_pruefung_intern(uuid)'] loop
     execute format('revoke all on function public.%s from public, anon, authenticated', f);
   end loop;
   foreach f in array array['bauform_kommentar_gruende(text)', 'bauform_zeit_vorbelegung(jsonb)'] loop

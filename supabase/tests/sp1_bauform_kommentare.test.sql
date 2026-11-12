@@ -9,7 +9,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(65);
+select plan(67);
 
 \set lena  '5b100000-0000-4000-8000-0000000000b1'
 \set admin '5b100000-0000-4000-8000-0000000000a1'
@@ -28,6 +28,24 @@ insert into profiles (id, email, role, full_name, darf_pruefen) values
 create function pg_temp.act_as(uid uuid) returns void language plpgsql as $$
 begin
   perform set_config('request.jwt.claims', json_build_object('sub', uid, 'role', 'authenticated')::text, true);
+end $$;
+-- Upsert wie in scripts/bauformen/export.py, gleicher Steckbrief (kein Versionswechsel), mit Verdacht nach Wahl.
+create function pg_temp.upsert_gleich(p_key text, p_verdacht text) returns void language plpgsql as $$
+begin
+  perform set_config('edvance.bauform_export', '1', true);
+  insert into bauformen (schluessel, skill_key, kernidee_key, format, rollen, steckbrief, generator_pfad, status,
+                         pruefprotokoll, blindloeser, verdacht)
+  select schluessel, skill_key, kernidee_key, format, rollen, steckbrief, generator_pfad,
+         case when p_verdacht is null then 'zur_pruefung' else 'entwurf' end, pruefprotokoll, blindloeser, p_verdacht
+    from bauformen where schluessel = p_key
+  on conflict (schluessel) do update
+     set skill_key = excluded.skill_key, kernidee_key = excluded.kernidee_key, format = excluded.format,
+         rollen = excluded.rollen, steckbrief = excluded.steckbrief, generator_pfad = excluded.generator_pfad,
+         pruefprotokoll = excluded.pruefprotokoll, blindloeser = excluded.blindloeser, verdacht = excluded.verdacht,
+         status = case when excluded.verdacht is not null then 'entwurf'
+                       when bauformen.status = 'entwurf' then 'zur_pruefung'
+                       else bauformen.status end;
+  perform set_config('edvance.bauform_export', '', true);
 end $$;
 -- Neue Version wie aus dem Export (tools/bauform.sh): Steckbrief geaendert, Protokoll und Blindloeser neu.
 create function pg_temp.export(p_key text, p_rot numeric default 0, p_blind boolean default true,
@@ -196,11 +214,14 @@ select bauform_pruefung_senden(:'wz1', 1, '[{"anker":"grundgeruest","gruende":["
 select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
 select pg_temp.export('DI-1', 0, true, 'Blindloeser: 20% abweichend');
 select is((select status from bauformen where id = :'di1'), 'rueckfrage', 'Ueberarbeitung mit Verdacht bleibt Rueckfrage');
-select set_config('edvance.bauform_export', '1', true);
-update bauformen set verdacht = 'x', status = case when 'x' is not null then 'entwurf' else status end where id = :'wz1';
-select set_config('edvance.bauform_export', '', true);
+select bauform_kommentar_erledigen(id, 'Text geaendert') from bauform_kommentare where bauform_id = :'di1';
+select is((select status from bauformen where id = :'di1'), 'rueckfrage', 'Notiz bei Verdacht: kein Wechsel');
+select pg_temp.upsert_gleich('DI-1', null);
+select is((select (status, version)::text from bauformen where id = :'di1'), '(zur_freigabe,2)',
+          'Re-Export ohne Versionswechsel entfernt den Verdacht → automatisch zur Freigabe');
+select pg_temp.upsert_gleich('WZ-1', 'x');
 select is((select (status, version)::text from bauformen where id = :'wz1'), '(rueckfrage,1)',
-          'Export ohne Versionswechsel loest die Rueckfrage nicht auf');
+          'Export ohne Versionswechsel (Upsert mit Verdacht) loest die Rueckfrage nicht auf');
 update bauformen set steckbrief = steckbrief || '{"generator_hash":"hand"}' where id = :'wz1';
 select is((select (status, version)::text from bauformen where id = :'wz1'), '(rueckfrage,2)',
           'Versionswechsel ausserhalb des Exports: bleibt Rueckfrage');

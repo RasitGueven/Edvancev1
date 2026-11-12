@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict oNjrO3qBDbaHt0mkH5vJ82xmed699bTgoKjfPZFRL5blV6RTSszznqv4c0UnbqR
+\restrict eAscq8eCTa68YQjQ4PTd4Edd2oaqPwfk9eo7HH84cB1qYZz4A6MB47stZL4Vgvn
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1758,7 +1758,7 @@ begin
     raise exception 'bauform_rueckfrage_erledigt: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
   -- schon automatisch abgeschlossen (Trigger): kein Fehler
-  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung(b.id) is not null then
+  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung_intern(b.id) is not null then
     return 'zur_freigabe';
   end if;
   v_grund := public.bauform_rueckfrage_hindernis(b.id, p_neue_version);
@@ -1790,7 +1790,7 @@ begin
   if not found then
     return 'bauform_fehlt';
   end if;
-  v_pruefung := public.bauform_rueckfrage_pruefung(b.id);
+  v_pruefung := public.bauform_rueckfrage_pruefung_intern(b.id);
   if b.status <> 'rueckfrage' or v_pruefung is null then
     return 'keine_rueckfrage';
   end if;
@@ -1822,12 +1822,24 @@ CREATE FUNCTION public.bauform_rueckfrage_pruefung(p_bauform uuid) RETURNS uuid
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
+  select public.bauform_rueckfrage_pruefung_intern(p_bauform)
+   where public.darf_pruefen() or public.ist_systemaufruf()
+$$;
+
+
+--
+-- Name: bauform_rueckfrage_pruefung_intern(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_pruefung_intern(p_bauform uuid) RETURNS uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
   select p.id
     from (select x.id, x.entscheidung from public.bauform_pruefungen x
            where x.bauform_id = p_bauform order by x.geprueft_am desc, x.id limit 1) p
    where p.entscheidung = 'unsicher'
      and exists (select 1 from public.bauform_kommentare k where k.pruefung_id = p.id)
-     and (public.darf_pruefen() or public.ist_systemaufruf())
 $$;
 
 
@@ -1898,7 +1910,7 @@ begin
   new.geaendert_am := now();
   if (new.steckbrief, new.format, new.rollen, new.skill_key, new.kernidee_key)
      is distinct from (old.steckbrief, old.format, old.rollen, old.skill_key, old.kernidee_key) then
-    v_ueberarbeitung := old.status = 'rueckfrage' and public.bauform_rueckfrage_pruefung(old.id) is not null;
+    v_ueberarbeitung := old.status = 'rueckfrage' and public.bauform_rueckfrage_pruefung_intern(old.id) is not null;
     insert into public.bauform_versionen (bauform_id, version, steckbrief, status)
     values (old.id, old.version, old.steckbrief, old.status);
     new.version := old.version + 1;
@@ -1920,7 +1932,7 @@ begin
   elsif old.status = 'rueckfrage' and new.status <> 'rueckfrage'
         and coalesce(current_setting('edvance.bauform_export', true), '') = '1'
         and coalesce(current_setting('edvance.rueckfrage_abschluss', true), '') <> '1'
-        and public.bauform_rueckfrage_pruefung(old.id) is not null then
+        and public.bauform_rueckfrage_pruefung_intern(old.id) is not null then
     -- Export ohne Steckbrief-Aenderung (z. B. mit Verdacht) loest eine kommentierte Rueckfrage nicht auf
     -- (Zweitpruefung R2/1); sie bleibt in Ueberarbeitung.
     new.status := 'rueckfrage';
@@ -38406,5 +38418,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict oNjrO3qBDbaHt0mkH5vJ82xmed699bTgoKjfPZFRL5blV6RTSszznqv4c0UnbqR
+\unrestrict eAscq8eCTa68YQjQ4PTd4Edd2oaqPwfk9eo7HH84cB1qYZz4A6MB47stZL4Vgvn
 
