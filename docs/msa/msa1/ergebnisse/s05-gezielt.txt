@@ -1,0 +1,7 @@
+                   teil                   | skills | regel | reserve | gesamt | nur_freigabe 
+------------------------------------------+--------+-------+---------+--------+--------------
+ in der Liste (Skill in einem Paket)      |     74 |   139 |      65 |    204 |            0
+ nicht in der Liste (kein Paket, nur MSA) |     20 |    40 |      19 |     59 |            0
+                                          |     94 |   179 |      84 |    263 |            0
+(3 rows)
+
