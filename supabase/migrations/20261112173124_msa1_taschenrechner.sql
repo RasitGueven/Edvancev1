@@ -1,7 +1,8 @@
 -- MSA-1 M4.1 · Rechner-Kennzeichen für 15 LSA-Aufgaben (Datenmigration). Liste und Urteile: docs/msa/msa1/rechner.md.
 -- Ein frischer Subagent hat bestätigt, dass diese Aufgaben ohne Taschenrechner nicht zumutbar sind. Gesetzt wird nur
 -- tasks.taschenrechner = true (Feld des eingebauten LSA-Rechners, 20261030091351_lsa_taschenrechner); Status, Lösungen
--- und Pool bleiben unverändert. Im CI-Neuaufbau (nicht der Prod-Bestand) ohne Wirkung.
+-- und Pool bleiben unverändert. Die 15 Aufgaben entstehen auch im CI-Neuaufbau (Inhalts-Migrationen), dort wirkt die
+-- Migration genauso. Fehlt ein Teil (anderer Bestand), tut sie nichts; sind alle da, aber nicht alle passend: Abbruch.
 -- Prüfabfrage: select count(*) from tasks where id in (…) and taschenrechner;   vorher 0, nachher 15
 -- Rollback: supabase/rollback/20261112173124_msa1_taschenrechner.sql
 do $$
