@@ -13204,7 +13204,7 @@ CREATE TABLE public.tasks (
     archiviert_grund text,
     archiviert_von uuid,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
-    CONSTRAINT tasks_archiv_grund_check CHECK (((archiviert_grund IS NULL) OR (archiviert_grund = ANY (ARRAY['nicht_notwendig'::text, 'zu_schwer'::text, 'sonstiges'::text])))),
+    CONSTRAINT tasks_archiv_grund_check CHECK (((archiviert_grund IS NULL) OR (archiviert_grund = ANY (ARRAY['nicht_notwendig'::text, 'sonstiges'::text])))),
     CONSTRAINT tasks_archiv_inaktiv_check CHECK (((archiviert_am IS NULL) OR (is_active IS FALSE))),
     CONSTRAINT tasks_archiv_vollstaendig_check CHECK (((archiviert_am IS NULL) = (archiviert_grund IS NULL))),
     CONSTRAINT tasks_bauform_instanz CHECK (((bauform_id IS NULL) OR ((bauform_version IS NOT NULL) AND (stufe IS NOT NULL) AND (rolle IS NOT NULL) AND (einsatz = ARRAY['session'::text])))),
@@ -24258,7 +24258,7 @@ begin
   if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
     raise exception 'task_archivieren: nur admin' using errcode = '42501';
   end if;
-  if p_grund is null or p_grund not in ('nicht_notwendig', 'zu_schwer', 'sonstiges') then
+  if p_grund is null or p_grund not in ('nicht_notwendig', 'sonstiges') then
     raise exception 'task_archivieren: unbekannter Grund %', p_grund using errcode = '22023';
   end if;
   if coalesce(cardinality(p_ids), 0) = 0 then

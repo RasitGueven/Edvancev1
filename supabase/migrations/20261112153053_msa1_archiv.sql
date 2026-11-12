@@ -23,7 +23,7 @@ alter table public.tasks
 
 alter table public.tasks
   add constraint tasks_archiv_grund_check
-    check (archiviert_grund is null or archiviert_grund in ('nicht_notwendig', 'zu_schwer', 'sonstiges')),
+    check (archiviert_grund is null or archiviert_grund in ('nicht_notwendig', 'sonstiges')),
   add constraint tasks_archiv_vollstaendig_check
     check ((archiviert_am is null) = (archiviert_grund is null)),
   -- Eine archivierte Aufgabe ist nie aktiv: Pool und Board schließen sie damit ohne weitere Änderung aus.
@@ -60,7 +60,7 @@ begin
   if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
     raise exception 'task_archivieren: nur admin' using errcode = '42501';
   end if;
-  if p_grund is null or p_grund not in ('nicht_notwendig', 'zu_schwer', 'sonstiges') then
+  if p_grund is null or p_grund not in ('nicht_notwendig', 'sonstiges') then
     raise exception 'task_archivieren: unbekannter Grund %', p_grund using errcode = '22023';
   end if;
   if coalesce(cardinality(p_ids), 0) = 0 then
