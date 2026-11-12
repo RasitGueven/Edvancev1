@@ -79,6 +79,35 @@ def test_leerer_platzhalter():
     assert '5' in rot(NP2, i)
 
 
+def test_platzhalter_im_warum_verwirft_die_bauform():
+    # SP-1b B2: NF-2 zeigte dem Kind „Warum zieht man ({h})² wieder ab?“ (steckbrief.warum → loesungsbeispiel.warum).
+    from bauformen.bauformen.nf_2 import BAUFORM as NF2
+    bf = copy.copy(NF2)
+    bf.warum = {**NF2.warum, 'frage': 'Warum zieht man ({h})² wieder ab?'}
+    inst = [bf.erzeugen({'b': 6, 'c': 20}, 'uebung', 2), bf.erzeugen({'b': -4, 'c': 9}, 'uebung', 2)]
+    proto = pruefen(bf, inst, mit_db=False)
+    assert all('Platzhalter' in i.pruefmaschine['5'].get('grund', '') for i in inst)
+    assert proto['gruen'] == 0 and proto['verdacht']
+
+
+def test_platzhalter_in_warum_baustein_und_rueckmeldung():
+    from bauformen.bauformen.nf_2 import BAUFORM as NF2
+    from bauformen.pruefmaschine import pruefe_platzhalter_bauform
+    bf = copy.copy(NF2)
+    bf.warum = {**NF2.warum, 'frage': 'Warum?', 'bausteine': [{'id': 'a', 'text': 'Weil {hq} dazukam.'}]}
+    assert 'warum.bausteine' in pruefe_platzhalter_bauform(bf)
+    bf = copy.copy(NF2)
+    bf.warum = None
+    bf.fehlbild_steckbrief = [{**NF2.fehlbild_steckbrief[0], 'rueckmeldung': 'Zieh {hq} ab.'}]
+    assert 'Rückmeldung' in pruefe_platzhalter_bauform(bf)
+
+
+def test_mengenklammer_ist_kein_platzhalter():
+    i = instanz(NP2)
+    i.loesungsweg[-1] = 'L = {0; 18}'
+    assert '5' not in rot(NP2, i)
+
+
 def test_ascii_minus():
     i = instanz(NP2)
     i.loesungsweg[-1] = 'L = {-5; 0}'
