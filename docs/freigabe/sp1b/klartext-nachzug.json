@@ -1,0 +1,91 @@
+{
+  "bauformen": {
+    "EIN-1": {
+      "stufen": {
+        "1": {
+          "beschreibung": "x ist 1, 3, 4, 5 oder 6 (nie 2). Vor x² steht keine Zahl.",
+          "beispiel": "Berechne f(5) für f(x) = x² − 7x − 4.",
+          "quelle": "vorgabe"
+        },
+        "2": {
+          "beschreibung": "x ist −1, −3, −4, −5 oder −6 (nie −2). Vor x² steht keine Zahl.",
+          "beispiel": "Berechne f(−3) für f(x) = x² + 7x − 5.",
+          "quelle": "vorgabe"
+        },
+        "3": {
+          "beschreibung": "x ist −1, −3, −4 oder −5 (nie −2). Vor x² steht eine Zahl: −3, −2, 2 oder 3.",
+          "beispiel": "Berechne f(−5) für f(x) = −2x² + 7x − 4.",
+          "quelle": "vorgabe"
+        }
+      }
+    },
+    "KO-1": {
+      "stufen": {
+        "1": {
+          "beschreibung": "Beide Koordinaten positiv (1 bis 5) und verschieden.",
+          "beispiel": "Lies die Koordinaten des Punktes P ab. (Figur: Koordinatensystem mit Gitter, Punkt P(2 | 3).)",
+          "quelle": "entwurf_bestaetigt"
+        },
+        "2": {
+          "beschreibung": "Genau eine Koordinate ist negativ (Beträge 1 bis 5, verschieden, nie 0).",
+          "beispiel": "Lies die Koordinaten des Punktes P ab. (Figur: Koordinatensystem mit Gitter, Punkt P(3 | −5).)",
+          "quelle": "vorgabe"
+        },
+        "3": {
+          "beschreibung": "Beide Koordinaten negativ (−1 bis −5), ihre Beträge verschieden.",
+          "beispiel": "Lies die Koordinaten des Punktes P ab. (Figur: Koordinatensystem mit Gitter, Punkt P(−1 | −3).)",
+          "quelle": "entwurf_bestaetigt"
+        }
+      }
+    },
+    "EX-2": {
+      "stufen": {
+        "3": {
+          "beschreibung": "Wurf vom Turm: Vor t² steht −5, vor t steht 10, 20 oder 30, die Starthöhe ist 1 bis 20 m. Der höchste Punkt liegt bei einer ganzen Sekunde.",
+          "beispiel": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 4 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+          "quelle": "vorgabe"
+        },
+        "4": {
+          "beschreibung": "Wie Stufe 3, aber die Zahl vor t ist 5, 15, 25 oder 35: der höchste Punkt liegt bei einer halben Sekunde.",
+          "beispiel": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 2 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?",
+          "quelle": "entwurf_bestaetigt"
+        }
+      }
+    },
+    "NP-4": {
+      "stufen": {
+        "4": {
+          "beschreibung": "x² mit einer Zahl davor (1 bis 4) ist gleich einem Vielfachen von x (−15 bis 15, nie 0). Die zweite Lösung ist ganzzahlig oder ein Bruch, höchstens 12 vom Nullpunkt entfernt.",
+          "beispiel": "Löse 3x² = 4x.",
+          "quelle": "vorgabe"
+        }
+      }
+    },
+    "NS-4": {
+      "stufen": {
+        "2": {
+          "beschreibung": "Zwei ganzzahlige Nullstellen zwischen −5 und 5 (nie 0, nie Gegenzahlen), ihr Abstand ist gerade; der Scheitel hat ganze Koordinaten. Nach oben geöffnet wie die Normalparabel, drei Parabeln zur Auswahl.",
+          "beispiel": "Welche Parabel hat die Nullstellen x = −4 und x = 2? (Drei Parabeln zur Auswahl.)",
+          "quelle": "vorgabe"
+        },
+        "3": {
+          "beschreibung": "Zwei ganzzahlige Nullstellen zwischen −5 und 5 (nie 0, nie Gegenzahlen), ihr Abstand ist gerade; der Scheitel hat ganze Koordinaten. Nach oben oder nach unten geöffnet wie die Normalparabel, der Aufgabentext sagt, wie; drei Parabeln zur Auswahl.",
+          "beispiel": "Welche Parabel hat die Nullstellen x = −4 und x = 2 und ist nach unten geöffnet? (Drei Parabeln zur Auswahl.)",
+          "quelle": "vorgabe"
+        }
+      }
+    },
+    "NS-5": {
+      "stufen": {
+        "3": {
+          "beschreibung": "Scheitelpunktform, vor der Klammer −2, −1, 1 oder 2; der Scheitel liegt nie auf einer Achse, die Antwort ist also keine oder zwei Nullstellen. Ohne Rechnen aus Öffnung und Lage des Scheitels entscheiden; eine richtige Begründung, drei falsche.",
+          "beispiel": "Wie viele Nullstellen hat f(x) = (x + 1)² − 3? Wähle die richtige Begründung, ohne zu rechnen.",
+          "quelle": "vorgabe"
+        }
+      }
+    }
+  },
+  "titel": {
+    "SCH-3": "Hoch- oder Tiefpunkt und seine Lage bestimmen"
+  }
+}
