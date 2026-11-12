@@ -64,7 +64,28 @@ export type BauformDetail = {
   instanzen: number
   beispiele: BauformBeispiel[]
   pruefungen: { version: number; entscheidung: string; gruende: string[]; notiz: string | null; am: string }[]
+  /** SP-1: Klartext-Titel, Stufen mit Klartext und Zeit, letzte Rückfrage mit Kommentaren, Zeitänderungen. */
+  titel?: string | null
+  stufen?: BauformStufe[]
+  rueckfrage?: BauformRueckfrage | null
+  zeit_aenderungen?: { stufe: number; alt: number; neu: number; am: string }[]
 }
+
+export type BauformStufe = { stufe: number; beschreibung: string | null; beispiel: string | null; zeit_min: number }
+
+export type BauformRueckfrageKommentar = {
+  id: string
+  anker: 'grundgeruest' | 'stufen' | 'fehlbilder' | 'beispiel'
+  task_id: string | null
+  gruende: string[]
+  text: string | null
+  frage: string | null
+  status: 'offen' | 'erledigt'
+  erledigt_notiz: string | null
+  erledigt_am: string | null
+}
+
+export type BauformRueckfrage = { pruefung_id: string; version: number; am: string; kommentare: BauformRueckfrageKommentar[] }
 
 export type AuffaelligZeile = {
   task_id: string

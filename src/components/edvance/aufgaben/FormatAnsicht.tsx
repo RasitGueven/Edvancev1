@@ -72,14 +72,16 @@ export function FormatAnsicht({ payload }: { payload: FormatPayload }): JSX.Elem
       )
     case 'graph_auswahl':
       return (
-        <div className="grid grid-cols-2 gap-3">
+        // Untergrund wie im Player (edvance-app GraphAuswahl: dunkle Bühne, Kachel glassSubtle): die Figuren sind für
+        // dunklen Grund gezeichnet, auf Weiß verschwinden Achsen, Gitter und Zahlen (SP-1 S4.14).
+        <div className="grid grid-cols-2 gap-3 rounded-[var(--radius-lg)] bg-[var(--color-stage-mid)] p-3">
           {payload.optionen.map((o, i) => (
-            <div key={o.id} className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] p-2">
-              <span className="text-xs font-bold text-[var(--color-primary)]">{ANKER[i]}</span>
+            <div key={o.id} data-testid="graph-option" className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-stage-text)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-stage-text)_8%,transparent)] p-2">
+              <span className="text-xs font-bold text-[var(--color-stage-text)]">{ANKER[i]}</span>
               {o.bild ? (
                 <img src={o.bild} alt={o.alt} className="block h-auto w-full rounded-[var(--radius-md)]" />
               ) : (
-                <Hinweis>{t('formate.graphOhneBild', { alt: o.alt })}</Hinweis>
+                <p className="text-xs text-[var(--color-stage-text)]">{t('formate.graphOhneBild', { alt: o.alt })}</p>
               )}
             </div>
           ))}
