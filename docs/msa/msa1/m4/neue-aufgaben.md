@@ -32,6 +32,13 @@ Schreibweisen (Komma, Punkt, mit und ohne Einheit) stehen in `correct_answers`.
      „7 / 12“ verhält sich genauso.
    - `6/21` wertet `lsa_grade` als „teilweise“ (nicht gekürzt, `require_reduced`).
 3. **Blindlöser und verify-tasks:** siehe unten.
+4. **Zweitprüfung** durch einen frischen Subagenten: Die Mathematik aller Lösungen und Fehlbilder stimmt, es bricht nichts.
+   Danach behoben:
+   - `brueche-dividieren-08` hat Zahleingabe (`bruch = false`), die Fehlbilder stehen deshalb als Dezimalzahl
+     (0,09375 bzw. 0,17) statt als Bruch, der sich nicht eintippen ließe.
+   - Ergänzt: „21/6“ (ungekürzt gestürzt) bei -09 und „314“ (nur das Loch) bei `kreis-zusammen-03`.
+   - Hinweise, bewusst so wie bei den Geschwistern: Kompetenz und Cluster vom Geschwister, `sondierrang` 3 wie bei
+     FR-2, `taschenrechner` false.
 
 **Blindlöser:** Ein frischer Subagent hat die fünf Aufgaben ohne Lösung gelöst, mit Export über
 `tools/blind-loeser/exportiere.mjs`. Seine Antworten stehen in `neue-aufgaben-blind.json`, er hat überall mit

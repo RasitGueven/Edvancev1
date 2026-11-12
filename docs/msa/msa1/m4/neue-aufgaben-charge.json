@@ -12,10 +12,18 @@
     "acceptance": {
      "canonical": "6",
      "known_errors": {
-      "3/32": "nicht_gestuerzt",
-      "3 / 32": "nicht_gestuerzt",
-      "1/6": "falschen_gestuerzt",
-      "1 / 6": "falschen_gestuerzt"
+      "0,09375": "nicht_gestuerzt",
+      "0.09375": "nicht_gestuerzt",
+      "0,094": "nicht_gestuerzt",
+      "0.094": "nicht_gestuerzt",
+      "0,09": "nicht_gestuerzt",
+      "0.09": "nicht_gestuerzt",
+      "0,17": "falschen_gestuerzt",
+      "0.17": "falschen_gestuerzt",
+      "0,167": "falschen_gestuerzt",
+      "0.167": "falschen_gestuerzt",
+      "0,1667": "falschen_gestuerzt",
+      "0.1667": "falschen_gestuerzt"
      }
     },
     "correct_answers": [
@@ -41,7 +49,9 @@
       "6/21": "teilgekuerzt",
       "6 / 21": "teilgekuerzt",
       "7/2": "falschen_gestuerzt",
-      "7 / 2": "falschen_gestuerzt"
+      "7 / 2": "falschen_gestuerzt",
+      "21/6": "falschen_gestuerzt",
+      "21 / 6": "falschen_gestuerzt"
      }
     },
     "correct_answers": [
@@ -206,7 +216,10 @@
       "7850cm²": "teilflaeche_vergessen",
       "2400": "pi_vergessen",
       "2400 cm²": "pi_vergessen",
-      "2400cm²": "pi_vergessen"
+      "2400cm²": "pi_vergessen",
+      "314": "teilflaeche_vergessen",
+      "314 cm²": "teilflaeche_vergessen",
+      "314cm²": "teilflaeche_vergessen"
      }
     },
     "correct_answers": [

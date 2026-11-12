@@ -33,10 +33,18 @@ declare
   "acceptance": {
    "canonical": "6",
    "known_errors": {
-    "3/32": "nicht_gestuerzt",
-    "3 / 32": "nicht_gestuerzt",
-    "1/6": "falschen_gestuerzt",
-    "1 / 6": "falschen_gestuerzt"
+    "0,09375": "nicht_gestuerzt",
+    "0.09375": "nicht_gestuerzt",
+    "0,094": "nicht_gestuerzt",
+    "0.094": "nicht_gestuerzt",
+    "0,09": "nicht_gestuerzt",
+    "0.09": "nicht_gestuerzt",
+    "0,17": "falschen_gestuerzt",
+    "0.17": "falschen_gestuerzt",
+    "0,167": "falschen_gestuerzt",
+    "0.167": "falschen_gestuerzt",
+    "0,1667": "falschen_gestuerzt",
+    "0.1667": "falschen_gestuerzt"
    }
   },
   "solution": "3/4 : 1/8 = 3/4 · 8/1 = 24/4 = 6. Es werden 6 Gläser voll."
@@ -68,7 +76,9 @@ declare
     "6/21": "teilgekuerzt",
     "6 / 21": "teilgekuerzt",
     "7/2": "falschen_gestuerzt",
-    "7 / 2": "falschen_gestuerzt"
+    "7 / 2": "falschen_gestuerzt",
+    "21/6": "falschen_gestuerzt",
+    "21 / 6": "falschen_gestuerzt"
    }
   },
   "solution": "Durch 3 teilen heißt mit 1/3 malnehmen: 6/7 · 1/3 = 6/21 = 2/7."
@@ -252,7 +262,10 @@ declare
     "7850cm²": "teilflaeche_vergessen",
     "2400": "pi_vergessen",
     "2400 cm²": "pi_vergessen",
-    "2400cm²": "pi_vergessen"
+    "2400cm²": "pi_vergessen",
+    "314": "teilflaeche_vergessen",
+    "314 cm²": "teilflaeche_vergessen",
+    "314cm²": "teilflaeche_vergessen"
    }
   },
   "solution": "Große Kreisfläche: π · 50² ≈ 7853,98 cm². Loch: π · 10² ≈ 314,16 cm². Differenz: π · 2400 ≈ 7540 cm² (mit π ≈ 3,14: 7536 cm²)."
