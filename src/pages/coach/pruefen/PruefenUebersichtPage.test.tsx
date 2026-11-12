@@ -124,7 +124,7 @@ describe('PruefenUebersichtPage · Bereiche', () => {
   it('Kachel Session-Muster mit „x von n geprüft“ und Link ins Muster-Board', async () => {
     zeige()
     expect(await screen.findByText('2 von 4 geprüft')).toBeInTheDocument()
-    expect(screen.getByText('Session-Muster prüfen')).toBeInTheDocument()
+    expect(screen.getByText('Session-Aufgaben prüfen')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Muster öffnen' })).toHaveAttribute('href', '/coach/pruefen/bauformen')
   })
 

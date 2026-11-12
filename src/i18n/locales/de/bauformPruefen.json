@@ -1,6 +1,6 @@
 {
   "liste": {
-    "titel": "Session-Muster prüfen",
+    "titel": "Session-Aufgaben prüfen",
     "satz": "Jede Bauform einmal prüfen: Steckbrief, Beispiele, Fehlbilder, Hinweise, Lösungsbeispiel. Erzeugte Aufgaben übernehmen deine Prüfung.",
     "zurueck": "Zum Lena-Board",
     "leer": "Gerade wartet keine Bauform.",
@@ -15,7 +15,8 @@
       "auffaellig": "Auffällig",
       "prueffragen": "Prüffragen"
     },
-    "oeffnen": "Muster öffnen"
+    "oeffnen": "Muster öffnen",
+    "reiheSatz": "Thema: {{thema}} · Klasse {{klasse}}. Du prüfst jede Bauform einmal an sechs Beispielen. Alle Aufgaben dahinter übernehmen deine Prüfung."
   },
   "status": {
     "entwurf": "Entwurf",
@@ -348,5 +349,23 @@
     "bausteine": "Begründung wählen",
     "schritte_ordnen": "Schritte ordnen",
     "sonst": "siehe Beispiele"
+  },
+  "reihe": {
+    "quadratische_funktionen_gleichungen": {
+      "thema": "Quadratische Funktionen und Gleichungen",
+      "klasse": "9"
+    }
+  },
+  "fortschritt": {
+    "geprueft": "{{geprueft}} von {{total}} Bauformen geprüft",
+    "zurFreigabe_one": "{{count}} Aufgabe steht zur Freigabe",
+    "zurFreigabe_other": "{{count}} Aufgaben stehen zur Freigabe",
+    "keineZurFreigabe": "Noch keine Aufgaben zur Freigabe"
+  },
+  "karte": {
+    "voraussetzung": "Voraussetzung",
+    "antwort": "Antwort: {{art}}",
+    "aufgaben_one": "{{count}} Aufgabe",
+    "aufgaben_other": "{{count}} Aufgaben"
   }
 }
