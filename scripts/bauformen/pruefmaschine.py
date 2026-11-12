@@ -4,7 +4,8 @@ Pruefmaschine der Bauformen (Konzept §5). Prueft jede Instanz; eine Instanz mit
 eine Bauform mit mehr als 30 % roten Instanzen ist selbst fehlerhaft (verdacht) und geht nicht ins Board.
 
   1 unabhaengig nachgerechnet (sympy aus dem angezeigten Text)       5 Schreibweise (kein „+ −3x“, „1x²“, „0x“,
-  2 angenehme Zahlen je Stufe (Regeln der Bauform)                      leerer Platzhalter, ASCII-Minus)
+  2 angenehme Zahlen je Stufe (Regeln der Bauform)                      leerer Platzhalter, ASCII-Minus); Platzhalter
+                                                                        auch in Rueckmeldungen und „Warum?“ (Steckbrief)
   3 Fehlbilder durchgespielt (jede Fehlbild-Antwort anders als die    6 Figur nachgemessen (pruefe_-Module)
     richtige und als alle anderen)                                    7 keine Dubletten (untereinander, gegen LSA)
   4 Wertung getestet — gegen die ECHTE Wertung in der Datenbank (format_werten_daten per dbread, lesend): jede
@@ -85,11 +86,15 @@ def bedeutung(fmt: str, wert: dict) -> str:
 
 # ── Pruefungen je Instanz ────────────────────────────────────────────────────
 
+# Platzhalter = geschweifte Klammer um einen Bezeichner aus Buchstaben und Unterstrich („{h}“, „{b_glied}“).
+# Mengenklammern wie „L = {0; 18}“ oder „{−3}“ sind keiner.
+PLATZHALTER = re.compile(r'\{[A-Za-z_]+\}')
+
 SCHREIBFEHLER = [
     (re.compile(r'\+\s*[−-]'), '„+ −“'),
     (re.compile(r'(?<![\d,./])1x'), '„1x“'),
     (re.compile(r'(?<![\d,./])0x'), '„0x“'),
-    (re.compile(r'\{[A-Za-z_]\w*\}'), 'leerer Platzhalter'),
+    (PLATZHALTER, 'leerer Platzhalter'),
     (re.compile(r'(?:^|[\s(={;|\[])-\s?\d'), 'ASCII-Minus statt −'),
     (re.compile(r'[−-]\s*[−-]'), 'doppeltes Minus'),
 ]
@@ -108,6 +113,32 @@ def pruefe_schreibweise(inst: Instanz) -> str | None:
         for muster, name in SCHREIBFEHLER:
             if muster.search(text):
                 return f'{name} in „{text}“'
+    return None
+
+
+def kindtexte_bauform(bf: Bauform) -> list[tuple[str, str]]:
+    """Texte aus dem Steckbrief, die ein Kind unveraendert sieht (Ort, Text): Rueckmeldungen der Fehlbilder und das
+    „Warum?“ des Loesungsbeispiels (aufgabe_payload gibt steckbrief.warum als loesungsbeispiel.warum aus)."""
+    t = [(f'Fehlbild {f["key"]}: Rückmeldung', f.get('rueckmeldung') or '') for f in bf.fehlbild_steckbrief]
+    if bf.warum:
+        t.append(('warum.frage', bf.warum.get('frage') or ''))
+        t += [(f'warum.bausteine[{b.get("id")}]', b.get('text') or '') for b in bf.warum.get('bausteine', [])]
+    return t
+
+
+def platzhalter_treffer(bf: Bauform, instanzen: list[Instanz]) -> list[str]:
+    """Alle nicht ersetzten Platzhalter in Kindtexten (Steckbrief und jede Instanz), fuer die Liste in C1."""
+    treffer = [f'{bf.key} · {ort}: „{text}“' for ort, text in kindtexte_bauform(bf) if PLATZHALTER.search(text)]
+    for n, inst in enumerate(instanzen):
+        treffer += [f'{bf.key} · Instanz {n} ({inst.rolle}, S{inst.stufe}): „{text}“'
+                    for text in texte(inst) if PLATZHALTER.search(text)]
+    return treffer
+
+
+def pruefe_platzhalter_bauform(bf: Bauform) -> str | None:
+    for ort, text in kindtexte_bauform(bf):
+        if PLATZHALTER.search(text):
+            return f'leerer Platzhalter im Steckbrief ({ort}) in „{text}“'
     return None
 
 
@@ -237,6 +268,8 @@ def pruefen(bf: Bauform, instanzen: list[Instanz], mit_db: bool = True) -> dict:
     lsa = lsa_zahlenfolgen(bf.skill) if mit_db else set()
     gesehen: set[str] = set()
     gruende: dict[str, int] = {}
+    # Ein Platzhalter im Steckbrief steht in jeder Instanz vor dem Kind: alle Instanzen rot, die Bauform verdaechtig.
+    steckbrief_p5 = pruefe_platzhalter_bauform(bf)
     for i, inst in enumerate(instanzen):
         try:
             unabhaengig = bf.loesen_unabhaengig(inst)
@@ -251,7 +284,7 @@ def pruefen(bf: Bauform, instanzen: list[Instanz], mit_db: bool = True) -> dict:
             p7 = 'gleiche Zahlen wie eine LSA-Aufgabe des Skills'
         gesehen.add(inst.schluessel)
         befunde = {'1': p1, '2': bf.angenehm(inst), '3': pruefe_fehlbilder(bf, inst), '4': wertung[i],
-                   '5': pruefe_schreibweise(inst), '6': pruefe_figur(inst), '7': p7}
+                   '5': pruefe_schreibweise(inst) or steckbrief_p5, '6': pruefe_figur(inst), '7': p7}
         inst.pruefmaschine = {k: ({'ok': True} if v is None else {'ok': False, 'grund': v}) for k, v in befunde.items()}
         for k, v in befunde.items():
             if v is not None:

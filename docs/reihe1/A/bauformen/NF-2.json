@@ -56,11 +56,11 @@
   "loesungsweg": [],
   "warum": {
    "bei_schritt": 1,
-   "frage": "Warum zieht man ({h})² wieder ab?",
+   "frage": "Warum zieht man das Quadrat der halben Zahl wieder ab?",
    "bausteine": [
     {
      "id": "a",
-     "text": "Damit sich der Wert der Funktion nicht ändert: + und − dieselbe Zahl ist 0."
+     "text": "Damit sich der Wert der Funktion nicht ändert: Was man dazugibt und wieder abzieht, hebt sich auf."
     },
     {
      "id": "b",
@@ -77,7 +77,7 @@
   "figur": null,
   "zeit_sek": 150,
   "kann_entfallen": false,
-  "generator_hash": "489beb589597"
+  "generator_hash": "4f20176a4569"
  },
  "pruefprotokoll": {
   "gruen": 84,

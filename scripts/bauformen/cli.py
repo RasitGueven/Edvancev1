@@ -7,6 +7,7 @@ tools/bauform.sh — erzeugt, prueft und exportiert Bauformen (Sessionreihe 1, A
   bauform.sh <KEY> --blind <datei>     Antworten des Blindloesers ({"1": "…", …}) auswerten, dann Migration schreiben
   bauform.sh --skill <skill>           alle Bauformen eines Skills (Schritt 1)
   bauform.sh --alle                    alle Bauformen (Schritt 1)
+  bauform.sh --alle --platzhalter      nur pruefen, nichts schreiben: alle nicht ersetzten Platzhalter in Kindtexten
 
 Den Blindloeser startet der Orchestrator als frischen Subagenten (das Skript kann keinen starten).
 """
@@ -24,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from bauformen import bauformen as paket  # noqa: E402
 from bauformen.export import blind_auswerten, blindaufgaben, migration, vorschau  # noqa: E402
-from bauformen.pruefmaschine import gruene, pruefen  # noqa: E402
+from bauformen.pruefmaschine import gruene, platzhalter_treffer, pruefen  # noqa: E402
 
 
 def alle():
@@ -51,6 +52,7 @@ def main() -> int:
     ap.add_argument('--skill')
     ap.add_argument('--alle', action='store_true')
     ap.add_argument('--blind')
+    ap.add_argument('--platzhalter', action='store_true')
     a = ap.parse_args()
     formen = {bf.key: bf for bf in alle()}
     if a.blind:
@@ -63,6 +65,11 @@ def main() -> int:
     auswahl = [formen[a.key]] if a.key else [b for b in formen.values() if a.alle or b.skill == a.skill]
     if not auswahl:
         print('keine Bauform gewählt'); return 2
+    if a.platzhalter:
+        treffer = [t for bf in auswahl for t in platzhalter_treffer(bf, bf.alle_instanzen())]
+        print('\n'.join(treffer) or 'keine Platzhalter')
+        print(f'{len(auswahl)} Bauformen, {len(treffer)} Treffer')
+        return 1 if treffer else 0
     for bf in auswahl:
         schritt1(bf)
     return 0

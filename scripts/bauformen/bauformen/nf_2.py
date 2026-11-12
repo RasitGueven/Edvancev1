@@ -34,8 +34,8 @@ class NF2(Bauform):
     hinweis_vorlagen = ['Welche Zahl ist die Hälfte von {b}?',
                         'Ergänze zu einem Quadrat: Gib die Hälfte der Zahl vor x im Quadrat dazu und zieh sie wieder ab.',
                         'Schreib x² {b_glied} + {hq} als Quadrat einer Klammer.']
-    warum = {'bei_schritt': 1, 'frage': 'Warum zieht man ({h})² wieder ab?',
-             'bausteine': [{'id': 'a', 'text': 'Damit sich der Wert der Funktion nicht ändert: + und − dieselbe Zahl ist 0.'},
+    warum = {'bei_schritt': 1, 'frage': 'Warum zieht man das Quadrat der halben Zahl wieder ab?',
+             'bausteine': [{'id': 'a', 'text': 'Damit sich der Wert der Funktion nicht ändert: Was man dazugibt und wieder abzieht, hebt sich auf.'},
                            {'id': 'b', 'text': 'Weil man in der Klammer nur positive Zahlen haben darf.'},
                            {'id': 'c', 'text': 'Weil die Parabel sonst nach unten geöffnet wäre.'}],
              'richtig': 'a'}
