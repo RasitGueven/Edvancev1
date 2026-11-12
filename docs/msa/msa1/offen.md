@@ -41,3 +41,10 @@ erlaubt. **Haltepunkt, STOPP.**
   Versionskonflikt (`pruef_sperren`), es geht aber nichts verloren.
 - Für M2: Die Datenmigration muss in der CI `request.jwt.claims` auf service_role setzen und ihre ids vorher auf
   „existiert und aktiv“ filtern (im Neuaufbau gibt es die Prod-ids nicht).
+
+## O4 · Figurengenerator Kreis / zusammengesetzte Figur (M4.2)
+
+`geo_kreis_zusammen` hat jetzt 3 Aufgaben, alle ohne Figur (die Fläche ist in Worten beschrieben). Für Aufgaben mit
+Zeichnung, etwa Kreisausschnitte in Vielecken oder Halbkreise an Dreiecken, fehlt ein Generator für Kreise und
+zusammengesetzte Figuren (`scripts/figures/` kennt koordinatensystem, parabel, rechteck(e), thales, winkel). Derselbe
+Bedarf steht im Bericht MSA-0 §4b.

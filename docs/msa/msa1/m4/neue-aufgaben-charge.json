@@ -1,0 +1,236 @@
+{
+ "tasks": [
+  {
+   "id": "29bff5a9-52d3-4bfa-b54a-01a7aaff3ad9",
+   "unit": null,
+   "source": "edvance_fundament",
+   "question": "Eine Flasche enthält 3/4 Liter Saft. Der Saft wird in Gläser gefüllt, in jedes Glas passt 1/8 Liter.\nWie viele Gläser werden voll? Gib die Anzahl an.",
+   "skill_key": "bruch_div",
+   "input_type": "NUMERIC",
+   "status": "draft",
+   "solution": {
+    "acceptance": {
+     "canonical": "6",
+     "known_errors": {
+      "0,09375": "nicht_gestuerzt",
+      "0.09375": "nicht_gestuerzt",
+      "0,094": "nicht_gestuerzt",
+      "0.094": "nicht_gestuerzt",
+      "0,09": "nicht_gestuerzt",
+      "0.09": "nicht_gestuerzt",
+      "0,17": "falschen_gestuerzt",
+      "0.17": "falschen_gestuerzt",
+      "0,167": "falschen_gestuerzt",
+      "0.167": "falschen_gestuerzt",
+      "0,1667": "falschen_gestuerzt",
+      "0.1667": "falschen_gestuerzt"
+     }
+    },
+    "correct_answers": [
+     "6"
+    ]
+   }
+  },
+  {
+   "id": "22636f3b-361e-43b2-aed0-550efdca0007",
+   "unit": null,
+   "source": "edvance_fundament",
+   "question": "Teile den Bruch durch die ganze Zahl. Gib das Ergebnis als vollständig gekürzten Bruch an.\n6/7 : 3 = ?",
+   "skill_key": "bruch_div",
+   "input_type": "NUMERIC",
+   "status": "draft",
+   "solution": {
+    "acceptance": {
+     "canonical": "2/7",
+     "require_reduced": true,
+     "known_errors": {
+      "18/7": "nicht_gestuerzt",
+      "18 / 7": "nicht_gestuerzt",
+      "6/21": "teilgekuerzt",
+      "6 / 21": "teilgekuerzt",
+      "7/2": "falschen_gestuerzt",
+      "7 / 2": "falschen_gestuerzt",
+      "21/6": "falschen_gestuerzt",
+      "21 / 6": "falschen_gestuerzt"
+     }
+    },
+    "correct_answers": [
+     "2/7",
+     "2 / 7"
+    ]
+   }
+  },
+  {
+   "id": "df326675-cb54-4d4d-acad-ab6e4754cf96",
+   "unit": "cm²",
+   "source": "edvance_k9_kreis",
+   "question": "Eine Fläche besteht aus einem Quadrat mit der Seitenlänge 6 cm. An eine Seite des Quadrats ist außen ein Halbkreis angesetzt, diese Seite ist sein Durchmesser.\nWie groß ist die gesamte Fläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "skill_key": "geo_kreis_zusammen",
+   "input_type": "NUMERIC",
+   "status": "draft",
+   "solution": {
+    "acceptance": {
+     "canonical": "50,14",
+     "equivalents": [
+      "50.14",
+      "50,14 cm²",
+      "50,14cm²",
+      "50,13",
+      "50.13",
+      "50,13 cm²",
+      "50,13cm²"
+     ],
+     "known_errors": {
+      "36": "teilflaeche_vergessen",
+      "36 cm²": "teilflaeche_vergessen",
+      "36cm²": "teilflaeche_vergessen",
+      "36,00": "teilflaeche_vergessen",
+      "36.00": "teilflaeche_vergessen",
+      "36,00 cm²": "teilflaeche_vergessen",
+      "36,00cm²": "teilflaeche_vergessen",
+      "14,14": "teilflaeche_vergessen",
+      "14.14": "teilflaeche_vergessen",
+      "14,14 cm²": "teilflaeche_vergessen",
+      "14,14cm²": "teilflaeche_vergessen",
+      "14,13": "teilflaeche_vergessen",
+      "14.13": "teilflaeche_vergessen",
+      "14,13 cm²": "teilflaeche_vergessen",
+      "14,13cm²": "teilflaeche_vergessen",
+      "64,27": "halbieren_vergessen",
+      "64.27": "halbieren_vergessen",
+      "64,27 cm²": "halbieren_vergessen",
+      "64,27cm²": "halbieren_vergessen",
+      "64,26": "halbieren_vergessen",
+      "64.26": "halbieren_vergessen",
+      "64,26 cm²": "halbieren_vergessen",
+      "64,26cm²": "halbieren_vergessen",
+      "92,55": "radius_durchmesser_verwechselt",
+      "92.55": "radius_durchmesser_verwechselt",
+      "92,55 cm²": "radius_durchmesser_verwechselt",
+      "92,55cm²": "radius_durchmesser_verwechselt",
+      "92,52": "radius_durchmesser_verwechselt",
+      "92.52": "radius_durchmesser_verwechselt",
+      "92,52 cm²": "radius_durchmesser_verwechselt",
+      "92,52cm²": "radius_durchmesser_verwechselt",
+      "40,5": "pi_vergessen",
+      "40.5": "pi_vergessen",
+      "40,5 cm²": "pi_vergessen",
+      "40,5cm²": "pi_vergessen",
+      "40,50": "pi_vergessen",
+      "40.50": "pi_vergessen",
+      "40,50 cm²": "pi_vergessen",
+      "40,50cm²": "pi_vergessen"
+     }
+    },
+    "correct_answers": [
+     "50,14",
+     "50.14",
+     "50,14 cm²",
+     "50,14cm²",
+     "50,13",
+     "50.13",
+     "50,13 cm²",
+     "50,13cm²"
+    ]
+   }
+  },
+  {
+   "id": "7d5cdf09-f5cd-48b9-a83e-8f19e82c92fa",
+   "unit": "cm²",
+   "source": "edvance_k9_kreis",
+   "question": "Ein Fenster besteht aus einem Rechteck, 80 cm breit und 120 cm hoch, und einem Halbkreis, der oben auf der Breite aufsitzt.\nWie groß ist die Glasfläche in cm²? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Quadratzentimeter.",
+   "skill_key": "geo_kreis_zusammen",
+   "input_type": "NUMERIC",
+   "status": "draft",
+   "solution": {
+    "acceptance": {
+     "canonical": "12113",
+     "equivalents": [
+      "12113 cm²",
+      "12113cm²",
+      "12112",
+      "12112 cm²",
+      "12112cm²"
+     ],
+     "known_errors": {
+      "9600": "teilflaeche_vergessen",
+      "9600 cm²": "teilflaeche_vergessen",
+      "9600cm²": "teilflaeche_vergessen",
+      "2513": "teilflaeche_vergessen",
+      "2513 cm²": "teilflaeche_vergessen",
+      "2513cm²": "teilflaeche_vergessen",
+      "2512": "teilflaeche_vergessen",
+      "2512 cm²": "teilflaeche_vergessen",
+      "2512cm²": "teilflaeche_vergessen",
+      "14627": "halbieren_vergessen",
+      "14627 cm²": "halbieren_vergessen",
+      "14627cm²": "halbieren_vergessen",
+      "14624": "halbieren_vergessen",
+      "14624 cm²": "halbieren_vergessen",
+      "14624cm²": "halbieren_vergessen",
+      "19653": "radius_durchmesser_verwechselt",
+      "19653 cm²": "radius_durchmesser_verwechselt",
+      "19653cm²": "radius_durchmesser_verwechselt",
+      "19648": "radius_durchmesser_verwechselt",
+      "19648 cm²": "radius_durchmesser_verwechselt",
+      "19648cm²": "radius_durchmesser_verwechselt",
+      "10400": "pi_vergessen",
+      "10400 cm²": "pi_vergessen",
+      "10400cm²": "pi_vergessen"
+     }
+    },
+    "correct_answers": [
+     "12113",
+     "12113 cm²",
+     "12113cm²",
+     "12112",
+     "12112 cm²",
+     "12112cm²"
+    ]
+   }
+  },
+  {
+   "id": "c5d73909-c63b-434e-9daa-67a06db1fb7e",
+   "unit": "cm²",
+   "source": "edvance_k9_kreis",
+   "question": "Eine runde Tischplatte hat den Radius 50 cm. In der Mitte ist ein rundes Loch mit dem Radius 10 cm für einen Sonnenschirm.\nWie groß ist die Fläche der Tischplatte ohne das Loch? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Quadratzentimeter.",
+   "skill_key": "geo_kreis_zusammen",
+   "input_type": "NUMERIC",
+   "status": "draft",
+   "solution": {
+    "acceptance": {
+     "canonical": "7540",
+     "equivalents": [
+      "7540 cm²",
+      "7540cm²",
+      "7536",
+      "7536 cm²",
+      "7536cm²"
+     ],
+     "known_errors": {
+      "7854": "teilflaeche_vergessen",
+      "7854 cm²": "teilflaeche_vergessen",
+      "7854cm²": "teilflaeche_vergessen",
+      "7850": "teilflaeche_vergessen",
+      "7850 cm²": "teilflaeche_vergessen",
+      "7850cm²": "teilflaeche_vergessen",
+      "2400": "pi_vergessen",
+      "2400 cm²": "pi_vergessen",
+      "2400cm²": "pi_vergessen",
+      "314": "teilflaeche_vergessen",
+      "314 cm²": "teilflaeche_vergessen",
+      "314cm²": "teilflaeche_vergessen"
+     }
+    },
+    "correct_answers": [
+     "7540",
+     "7540 cm²",
+     "7540cm²",
+     "7536",
+     "7536 cm²",
+     "7536cm²"
+    ]
+   }
+  }
+ ]
+}
