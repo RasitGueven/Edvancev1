@@ -78,6 +78,14 @@ describe('BauformDetailPage (SP-1)', () => {
     expect(container.textContent).not.toMatch(/qf_|graph_auswahl|warmup|\{|Blindlöser/)
   })
 
+  it('Stufe ohne Klartext zeigt die Regel aus dem Steckbrief statt einer leeren Zeile', async () => {
+    vi.mocked(getBauformDetail).mockResolvedValueOnce({ data: { ...detail(0), stufen: [
+      { stufe: 1, beschreibung: null, beispiel: null, zeit_min: 1 }, { stufe: 2, beschreibung: 'x ist negativ.', beispiel: null, zeit_min: 1 }] }, error: null })
+    zeige()
+    expect(await screen.findByText('x von 1 bis 6 (ohne 2)')).toBeInTheDocument()
+    expect(screen.getByText('x ist negativ.')).toBeInTheDocument()
+  })
+
   it('ohne Kommentar: „Passt · 71 Aufgaben zur Freigabe“, danach die nächste Bauform', async () => {
     zeige()
     fireEvent.click(await screen.findByRole('button', { name: 'Passt · 71 Aufgaben zur Freigabe' }))
