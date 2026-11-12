@@ -44,8 +44,9 @@ async function rufe<T>(fn: string, args?: Record<string, unknown>): Promise<Bauf
 
 export const getBauformListe = (): Promise<BauformResult<BauformListenZeile[]>> => rufe('bauform_pruef_liste')
 
-export const getBauformDetail = (bauformId: string, seed = 0): Promise<BauformResult<BauformDetail>> =>
-  rufe('bauform_pruef_detail', { p_bauform: bauformId, p_seed: seed })
+/** Prüfansicht; behalten: kommentierte Beispiele bleiben bei „Andere Beispiele“ stehen (SP-1). */
+export const getBauformDetail = (bauformId: string, seed = 0, behalten: string[] = []): Promise<BauformResult<BauformDetail>> =>
+  rufe('bauform_pruef_detail', { p_bauform: bauformId, p_seed: seed, p_behalten: behalten })
 
 export const bauformPruefen = (
   bauformId: string,
