@@ -1,51 +1,43 @@
 # MSA-1 · M0 Ist und Streichliste
 
 **Stand:** 12.11.2026, Prod per `dbread`, Code auf `origin/dev` @ `6aa8490f`. Die Abfragen liegen in `abfragen/`
-(`./lauf.sh s01` …). Gemeinsame Blöcke: `msa_basis.sql` (Kopie aus `docs/msa/abfragen/`) und `soll_msa1.sql`.
+(`./lauf.sh s01` …). Gemeinsame Blöcke: `msa_basis.sql` (Kopie aus `docs/msa/abfragen/`) und `soll.sql` (Kopie aus `docs/msa/abfragen/`).
 
 ## 1 · Streichliste neu gerechnet (`streichliste.csv`, S01/S02)
 
-Regel: 2 Texte, davon 1 ohne MC, plus 1 Reserve. Auswahl wie `docs/msa/abfragen/soll.sql`, mit **einer Änderung**:
-Die 13 für die MSA zu schweren Aufgaben (Bericht MSA-0 §2, `anhang/niveau-nicht-passend.csv`, Urteil `zu_schwer`
-ohne Rechner-Konflikt) sind nie notwendig. Sie werden laut Gründerentscheidung archiviert.
+**Entscheidung Rasit vom 12.11.2026 (ersetzt „die 13 zu schweren archivieren“):** Die 13 für die MSA zu schweren
+Aufgaben bleiben aktiv. Sie sind für das Gymnasium reguläre Aufgaben, und „zu schwer“ löst später das Prüfziel MSA.
+Die Auswahl folgt deshalb **genau** `docs/msa/abfragen/soll.sql` (Regel 2 Texte, davon 1 ohne MC, plus 1 Reserve), und
+archiviert wird nur die Gruppe nicht-notwendig.
 
 | Gruppe | draft | ready | rueckfrage | gesamt | Bericht MSA-0 |
 |---|---|---|---|---|---|
-| notwendig-regel | 177 | 79 | – | **256** | 257 |
-| notwendig-reserve | 96 | 17 | – | **113** | 114 |
-| nicht-notwendig | 442 | 68 | 2 | **512** | 523 |
-| zu-schwer | 9 | 4 | – | **13** | (in den 523 bzw. 371 enthalten) |
-| **zu archivieren** (nicht-notwendig + zu-schwer) | 451 | 72 | 2 | **525** | 523 (+0,4 %) |
-| **notwendig** | 273 | 96 | – | **369** | 371 (−0,5 %) |
+| notwendig-regel | 176 | 81 | – | **257** | 257 |
+| notwendig-reserve | 97 | 17 | – | **114** | 114 |
+| **notwendig** | 273 | 98 | – | **371** | 371 |
+| **nicht-notwendig = zu archivieren** | 451 | 70 | 2 | **523** | 523 |
 
-**Abweichungen erklärt.** Ein Vergleich der beiden Listen je `id` (S01 gegen `docs/msa/anhang/aufgabenliste.csv`)
-zeigt 26 Wechsel, und alle betreffen genau die 6 Skills der zu schweren Aufgaben: `fkt_exp_gleichung`,
-`fkt_exp_halbwert`, `fkt_sinus_graph`, `fkt_sinus_periodisch`, `geo_flaeche_drachen_raute` und
-`zahl_wurzel_irrational`.
+**Abgleich:** Ein Vergleich je `id` mit `docs/msa/anhang/aufgabenliste.csv` (Rolle Variante 2) zeigt **0
+Abweichungen** bei 894 Aufgaben. Der Bestand ist seit dem Bericht unverändert: keine neue Prüfung, keine Freigabe,
+dieselben Ampeln, derselbe Pool (S03).
 
-- 8 der 13 zu schweren Aufgaben waren im Bericht notwendig (Regel oder Reserve). Für sie rücken andere Texte desselben
-  Skills nach.
-- Sonst hat sich der Bestand seit dem Bericht nicht geändert: keine neue Prüfung, keine Freigabe, 894 LSA-Aufgaben.
+**Haltepunkt-Prüfung S02 wiederholt** (`ergebnisse/s02.txt`): **Kein Skill**, der die Regel heute erfüllt, verliert
+sie nach dem Archivieren. O1 ist damit erledigt.
 
-**Neue Lücke:** Nach dem Ausschluss hat `fkt_sinus_graph` nur noch 1 Text (vorher 2). Dazu kommen wie im Bericht
-`bruch_div` (1) und `geo_kreis_zusammen` (0). Ohne Reserve sind 17 Skills.
+**`msa-ausschluss.csv`** hält 50 Aufgaben als Vorgabe für das spätere Prüfziel MSA fest, mit id, Skill, Gruppe,
+Begründung aus `anhang/niveau-nicht-passend.csv` und Gruppe in der Streichliste. Geändert wird an ihnen nichts.
 
-### Haltepunkt absehbar: `geo_flaeche_drachen_raute`
+| Gruppe | gesamt | davon notwendig (Regel / Reserve) | davon nicht notwendig (wird archiviert) |
+|---|---|---|---|
+| zu-schwer (13) | 13 | 8 / 4 | 1 |
+| zu-leicht (37) | 37 | 16 / 5 | 16 |
 
-S02 prüft: Welcher Skill, der die Regel heute erfüllt, erfüllt sie mit dem Pool ohne die zu archivierenden Aufgaben
-nicht mehr? Ergebnis: **genau einer**.
+Die 17 Aufgaben aus `msa-ausschluss.csv`, die nicht notwendig sind, werden nur wegen der Auswahlregel archiviert,
+nicht wegen ihres Niveaus. Die 30 „Rechner-Konflikte“ aus dem Bericht stehen nicht in `msa-ausschluss.csv`; sie bekommen
+in M4 das Rechner-Kennzeichen.
 
-| Skill | heute im Pool | nach dem Archivieren |
-|---|---|---|
-| `geo_flaeche_drachen_raute` | 2 Texte, 3 ohne MC (3 ready) | 0 Texte |
-
-- Die 3 ready-Aufgaben des Skills gehören zu den 13 zu schweren (Fläche über die Diagonalen e·f/2).
-- Die 3 Entwürfe des Skills rücken in Regel und Reserve nach. Sie sind aber nicht freigegeben, und ein Subagent hat sie
-  nicht beurteilt.
-- Damit stehen zwei Gründer-Entscheidungen gegeneinander:
-  - „Auch die 13 zu schweren werden archiviert.“
-  - „Nach dem Archivieren darf kein Skill die Regel verlieren.“ (Haltepunkt)
-- M2 wird deshalb vorbereitet, aber **nicht eingespielt**. Der Befund steht in `offen.md`.
+**Lücken nach der Auswahl:** `bruch_div` (1 Text) und `geo_kreis_zusammen` (0) erreichen die Regel nicht, dafür ist
+M4 da. 14 Skills haben keine Reserve.
 
 ## 2 · Stand vorher (S03, S04; `ergebnisse/s03-vorher.txt`, `ergebnisse/s04-vorher.csv`)
 

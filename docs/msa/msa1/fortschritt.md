@@ -10,3 +10,4 @@
 | 15:43 | M1 Migration, Rollback, pgTAP 38/38, Schema-Abzug | lokal grün, Rollback byte-gleich, pgTAP-Baseline: 8 rote Suiten wie auf dev |
 | 15:43 | M1 Zweitprüfung | nichts falsch; bedingter Bruch (Bauform-Instanz) behoben, Rechte-Tests ergänzt |
 | 15:43 | CI #404 neuaufbau rot (Wiederholung ebenfalls) | pgtap-Paket nicht installierbar → offen.md O2, HALTEPUNKT, STOPP; #405 (M1) offen, nicht eingespielt |
+| 15:51 | Entscheidung Rasit zu O1: 13 zu schwere bleiben aktiv; Streichliste nach soll.sql neu | 371 notwendig / 523 archivieren, 0 Abweichungen je id zum Bericht; S02: kein Skill verliert die Regel → O1 erledigt; msa-ausschluss.csv (13 zu schwer, 37 zu leicht) |

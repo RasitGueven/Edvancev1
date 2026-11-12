@@ -1,6 +1,10 @@
 # MSA-1 · Offene Befunde
 
-## O1 · Haltepunkt `geo_flaeche_drachen_raute` (M0, 12.11.2026)
+## O1 · Haltepunkt `geo_flaeche_drachen_raute` (M0, 12.11.2026) — ERLEDIGT
+
+**Erledigt am 12.11.2026:** Rasit hat entschieden, die 13 zu schweren Aufgaben nicht zu archivieren
+(`ist.md` §1). Mit der Auswahl nach `soll.sql` verliert kein Skill die Regel (S02 wiederholt).
+Ursprünglicher Befund:
 
 Archiviert man die 13 zu schweren Aufgaben (Gründerentscheidung), verliert `geo_flaeche_drachen_raute` alle Texte im
 Pool. Heute sind es 2 Texte bei 3 ready-Aufgaben, alle drei mit der Fläche über die Diagonalen e·f/2. Der Skill erfüllt

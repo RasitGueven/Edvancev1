@@ -1,11 +1,10 @@
 -- S02 · M0.2/Haltepunkt: Gruppen je Status; Skills, die die Regel heute erfüllen (lsa_skill_bereit_roh) und sie mit dem
---       Pool ohne die zu archivierenden Aufgaben (nicht-notwendig, zu-schwer) nicht mehr erfüllen würden
--- braucht: msa_basis.sql soll_msa1.sql
+--       Pool ohne die zu archivierenden Aufgaben (nicht-notwendig) nicht mehr erfüllen würden
+-- braucht: msa_basis.sql soll.sql
 \set QUIET on
 , gruppe as (
   select l.id, l.skill_key, l.status, l.ts, l.im_pool, l.ohne_mc,
-         case when w.rolle is not null then 'notwendig-' || w.rolle when l.id in (select id from zu_schwer) then 'zu-schwer'
-              else 'nicht-notwendig' end g
+         case when w.rolle is not null then 'notwendig-' || w.rolle else 'nicht-notwendig' end g
     from lt l left join notwendig w on w.n = 2 and w.id = l.id),
 nachher as (
   select s.skill_key,
