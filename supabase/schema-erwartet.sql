@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 49iQiXuKlTBAdjG6WTAklK0z92UUBC7Gh6bUO21vlnbRgvAq4C7P91A6bqyEXht
+\restrict oNjrO3qBDbaHt0mkH5vJ82xmed699bTgoKjfPZFRL5blV6RTSszznqv4c0UnbqR
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1727,8 +1727,12 @@ CREATE FUNCTION public.bauform_rueckfrage_automatisch() RETURNS trigger
 declare
   v_bauform uuid := (to_jsonb(new) ->> case when tg_table_name = 'bauform_kommentare' then 'bauform_id' else 'id' end)::uuid;
 begin
+  -- Sperre: erledigen zwei Admins gleichzeitig die letzten Kommentare, sieht der zweite den ersten (Zweitpruefung R2/3).
+  perform 1 from public.bauformen where id = v_bauform for update;
   if public.bauform_rueckfrage_hindernis(v_bauform, null) is null then
+    perform set_config('edvance.rueckfrage_abschluss', '1', true);
     update public.bauformen set status = 'zur_freigabe' where id = v_bauform and status = 'rueckfrage';
+    perform set_config('edvance.rueckfrage_abschluss', '', true);
   end if;
   return null;
 end $$;
@@ -1762,7 +1766,9 @@ begin
     raise exception 'bauform_rueckfrage_erledigt: Rueckfrage kann nicht abgeschlossen werden (%)', v_grund
       using errcode = 'P0001', hint = v_grund;
   end if;
+  perform set_config('edvance.rueckfrage_abschluss', '1', true);
   update public.bauformen set status = 'zur_freigabe' where id = b.id;
+  perform set_config('edvance.rueckfrage_abschluss', '', true);
   return 'zur_freigabe';
 end $$;
 
@@ -1772,7 +1778,7 @@ end $$;
 --
 
 CREATE FUNCTION public.bauform_rueckfrage_hindernis(p_bauform uuid, p_neue_version integer) RETURNS text
-    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
@@ -1821,6 +1827,7 @@ CREATE FUNCTION public.bauform_rueckfrage_pruefung(p_bauform uuid) RETURNS uuid
            where x.bauform_id = p_bauform order by x.geprueft_am desc, x.id limit 1) p
    where p.entscheidung = 'unsicher'
      and exists (select 1 from public.bauform_kommentare k where k.pruefung_id = p.id)
+     and (public.darf_pruefen() or public.ist_systemaufruf())
 $$;
 
 
@@ -1910,6 +1917,13 @@ begin
     end if;
     new.freigegeben_am := null;
     new.freigegeben_von := null;
+  elsif old.status = 'rueckfrage' and new.status <> 'rueckfrage'
+        and coalesce(current_setting('edvance.bauform_export', true), '') = '1'
+        and coalesce(current_setting('edvance.rueckfrage_abschluss', true), '') <> '1'
+        and public.bauform_rueckfrage_pruefung(old.id) is not null then
+    -- Export ohne Steckbrief-Aenderung (z. B. mit Verdacht) loest eine kommentierte Rueckfrage nicht auf
+    -- (Zweitpruefung R2/1); sie bleibt in Ueberarbeitung.
+    new.status := 'rueckfrage';
   end if;
   return new;
 end $$;
@@ -38392,5 +38406,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 49iQiXuKlTBAdjG6WTAklK0z92UUBC7Gh6bUO21vlnbRgvAq4C7P91A6bqyEXht
+\unrestrict oNjrO3qBDbaHt0mkH5vJ82xmed699bTgoKjfPZFRL5blV6RTSszznqv4c0UnbqR
 

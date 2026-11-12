@@ -9,30 +9,35 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(57);
+select plan(65);
 
 \set lena  '5b100000-0000-4000-8000-0000000000b1'
 \set admin '5b100000-0000-4000-8000-0000000000a1'
 \set kindp '5b100000-0000-4000-8000-0000000000c1'
+\set coach '5b100000-0000-4000-8000-0000000000d1'
 insert into auth.users (id, email, instance_id, aud, role) values
   (:'lena', 'sp1-lena@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
   (:'admin', 'sp1-admin@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
-  (:'kindp', 'sp1-kind@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
+  (:'kindp', 'sp1-kind@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated'),
+  (:'coach', 'sp1-coach@test.local', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
 insert into profiles (id, email, role, full_name, darf_pruefen) values
   (:'lena', 'sp1-lena@test.local', 'coach', 'SP1 Lena', true),
   (:'admin', 'sp1-admin@test.local', 'admin', 'SP1 Admin', false),
-  (:'kindp', 'sp1-kind@test.local', 'student', 'SP1 Kind', false);
+  (:'kindp', 'sp1-kind@test.local', 'student', 'SP1 Kind', false),
+  (:'coach', 'sp1-coach@test.local', 'coach', 'SP1 Coach', false);
 create function pg_temp.act_as(uid uuid) returns void language plpgsql as $$
 begin
   perform set_config('request.jwt.claims', json_build_object('sub', uid, 'role', 'authenticated')::text, true);
 end $$;
 -- Neue Version wie aus dem Export (tools/bauform.sh): Steckbrief geaendert, Protokoll und Blindloeser neu.
-create function pg_temp.export(p_key text, p_rot numeric default 0, p_blind boolean default true) returns int
+create function pg_temp.export(p_key text, p_rot numeric default 0, p_blind boolean default true,
+                                p_verdacht text default null) returns int
 language plpgsql as $$
 declare v int;
 begin
   perform set_config('edvance.bauform_export', '1', true);
   update bauformen set steckbrief = steckbrief || jsonb_build_object('generator_hash', md5(random()::text)),
+         verdacht = p_verdacht,
          pruefprotokoll = jsonb_build_object('gruen', 10, 'rot', 0, 'rot_anteil', p_rot, 'lauf_am', '20261111000000'),
          blindloeser = jsonb_build_object('bestanden', p_blind)
    where schluessel = p_key returning version into v;
@@ -94,6 +99,8 @@ select bauform_pruefung_senden(:'ko1', 1,
   format('[{"anker":"beispiel","task_id":"%s","gruende":["rechnung_falsch"]},{"anker":"fehlbilder","text":"Fehlbild fehlt: x und y vertauscht"}]', :'ko1_t')::jsonb,
   '{}', 90) as r1 \gset
 select is(:'r1'::jsonb ->> 'status', 'rueckfrage', 'mit Kommentaren → Rueckfrage');
+select throws_ok(format($q$select bauform_pruefung_senden(%L, 1, '[]')$q$, :'ko1'), 'P0001', null,
+                 'Bauform in Rueckfrage: kein Passt (Kommentare offen)');
 select is((select entscheidung from bauform_pruefungen where bauform_id = :'ko1'), 'unsicher', 'Rueckfrage nutzt bauform_pruefen (unsicher)');
 select is((select count(*)::int from bauform_kommentare where pruefung_id = (:'r1'::jsonb ->> 'pruefung_id')::uuid), 2,
           'zwei Kommentare an der Pruefung');
@@ -131,7 +138,7 @@ select throws_ok(format($q$insert into bauform_kommentare (pruefung_id, bauform_
                           select id, bauform_id, version, 'stufen', 'nachgereicht' from bauform_pruefungen where bauform_id = %L$q$, :'ko1'),
                  '42501', null, 'Lena haengt keine Kommentare direkt an');
 reset role;
-select throws_ok(format($q$select task_status_set(%L, 'ready')$q$, :'ein1_s3'), null, null, 'Lena setzt keine Aufgabe ready');
+select throws_ok(format($q$select task_status_set(%L, 'ready')$q$, :'ein1_s3'), '42501', null, 'Lena setzt keine Aufgabe ready');
 set local role authenticated;
 update tasks set status = 'ready' where id = :'ein1_s3';
 reset role;
@@ -179,6 +186,25 @@ select is((select status from bauformen where id = :'bin1'), 'rueckfrage', 'Noti
 select pg_temp.export('BIN-1');
 select is((select status from bauformen where id = :'bin1'), 'zur_freigabe', 'neue Version nach den Notizen → automatisch zur Freigabe');
 
+-- Überarbeitung mit Verdacht bleibt in Rückfrage; Export ohne Versionswechsel löst sie nicht auf;
+-- Versionswechsel außerhalb des Exports bleibt in Rückfrage
+select id as di1 from bauformen where schluessel = 'DI-1' \gset
+select id as wz1 from bauformen where schluessel = 'WZ-1' \gset
+select pg_temp.act_as(:'lena');
+select bauform_pruefung_senden(:'di1', 1, '[{"anker":"grundgeruest","gruende":["text_unklar"]}]');
+select bauform_pruefung_senden(:'wz1', 1, '[{"anker":"grundgeruest","gruende":["text_unklar"]}]');
+select set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
+select pg_temp.export('DI-1', 0, true, 'Blindloeser: 20% abweichend');
+select is((select status from bauformen where id = :'di1'), 'rueckfrage', 'Ueberarbeitung mit Verdacht bleibt Rueckfrage');
+select set_config('edvance.bauform_export', '1', true);
+update bauformen set verdacht = 'x', status = case when 'x' is not null then 'entwurf' else status end where id = :'wz1';
+select set_config('edvance.bauform_export', '', true);
+select is((select (status, version)::text from bauformen where id = :'wz1'), '(rueckfrage,1)',
+          'Export ohne Versionswechsel loest die Rueckfrage nicht auf');
+update bauformen set steckbrief = steckbrief || '{"generator_hash":"hand"}' where id = :'wz1';
+select is((select (status, version)::text from bauformen where id = :'wz1'), '(rueckfrage,2)',
+          'Versionswechsel ausserhalb des Exports: bleibt Rueckfrage');
+
 -- ── Gewöhnlicher Versionswechsel öffnet weiterhin ───────────────────────────
 select pg_temp.export('EIN-1');
 select is((select status from bauformen where id = :'ein1'), 'zur_pruefung', 'zur Freigabe + neue Version → wieder zu pruefen');
@@ -188,6 +214,13 @@ select pg_temp.act_as(:'lena');
 select ok(bauform_pruef_detail(:'np2', 7, array[:'np2_t'::uuid]) -> 'beispiele' @> format('[{"task_id":"%s"}]', :'np2_t')::jsonb
           and bauform_pruef_detail(:'np2', 8, array[:'np2_t'::uuid]) -> 'beispiele' @> format('[{"task_id":"%s"}]', :'np2_t')::jsonb,
           'Andere Beispiele: behaltenes Beispiel bleibt');
+
+-- ── Coach ohne Prüfrecht ────────────────────────────────────────────────────
+select pg_temp.act_as(:'coach');
+select throws_ok(format($q$select bauform_pruefung_senden(%L, 1, '[]')$q$, :'np2'), '42501', null, 'Coach ohne Pruefrecht: senden');
+select throws_ok(format('select bauform_zeit_setzen(%L, 1, 2)', :'np2'), '42501', null, 'Coach ohne Pruefrecht: Zeit');
+select throws_ok(format('select bauform_pruef_detail(%L)', :'np2'), '42501', null, 'Coach ohne Pruefrecht: Detail');
+select is(bauform_rueckfrage_pruefung(:'ko1'), null, 'Coach ohne Pruefrecht: keine Pruefungs-ID');
 
 -- ── Kinder lesen nichts, Auswertung für Admins ──────────────────────────────
 select pg_temp.act_as(:'kindp');

@@ -23,7 +23,8 @@
 --      Ausführungsrecht für authenticated): sonst könnte eine Rückfrage ohne Kommentare oder ein „passt“ auf eine
 --      Bauform in Überarbeitung gesetzt werden (Zweitprüfung S1, Befund 1).
 --   7. bauform_pruef_detail: p_behalten (kommentierte Beispiele bleiben bei „Andere Beispiele“ stehen), dazu
---      Titel, Stufen und die letzte Rückfrage mit Kommentaren. bauform_pruef_plan: dazu der Titel.
+--      Titel, Stufen und die letzte Rückfrage mit Kommentaren. bauform_pruef_plan: dazu Titel und Antwortart
+--      (Format, bei Feldmasken mit Punkt 'punkt').
 --
 -- Unverändert: aufgabe_ziehen, aufgabe_zwilling, aufgabe_werten, aufgabe_payload, task_status_set,
 -- bauform_freigeben, bauform_pruefen. Lena setzt nie ready.
@@ -238,6 +239,7 @@ as $$
            where x.bauform_id = p_bauform order by x.geprueft_am desc, x.id limit 1) p
    where p.entscheidung = 'unsicher'
      and exists (select 1 from public.bauform_kommentare k where k.pruefung_id = p.id)
+     and (public.darf_pruefen() or public.ist_systemaufruf())
 $$;
 
 -- ── 4 · Lenas Entscheidung in einem Aufruf ───────────────────────────────────
@@ -342,7 +344,8 @@ end $$;
 -- ── 5 · Rückfrage abschließen ────────────────────────────────────────────────
 -- Grund, warum die Rückfrage noch nicht abgeschlossen werden kann (null = bereit). Ohne Rechteprüfung, intern.
 create function public.bauform_rueckfrage_hindernis(p_bauform uuid, p_neue_version integer) returns text
-  language plpgsql stable security definer
+  -- volatile: liest nach der Sperre im Trigger einen frischen Stand (gleichzeitiges Erledigen, Zweitpruefung R2/3)
+  language plpgsql volatile security definer
   set search_path to 'public', 'pg_temp'
 as $$
 declare
@@ -386,8 +389,12 @@ as $$
 declare
   v_bauform uuid := (to_jsonb(new) ->> case when tg_table_name = 'bauform_kommentare' then 'bauform_id' else 'id' end)::uuid;
 begin
+  -- Sperre: erledigen zwei Admins gleichzeitig die letzten Kommentare, sieht der zweite den ersten (Zweitpruefung R2/3).
+  perform 1 from public.bauformen where id = v_bauform for update;
   if public.bauform_rueckfrage_hindernis(v_bauform, null) is null then
+    perform set_config('edvance.rueckfrage_abschluss', '1', true);
     update public.bauformen set status = 'zur_freigabe' where id = v_bauform and status = 'rueckfrage';
+    perform set_config('edvance.rueckfrage_abschluss', '', true);
   end if;
   return null;
 end $$;
@@ -416,7 +423,9 @@ begin
     raise exception 'bauform_rueckfrage_erledigt: Rueckfrage kann nicht abgeschlossen werden (%)', v_grund
       using errcode = 'P0001', hint = v_grund;
   end if;
+  perform set_config('edvance.rueckfrage_abschluss', '1', true);
   update public.bauformen set status = 'zur_freigabe' where id = b.id;
+  perform set_config('edvance.rueckfrage_abschluss', '', true);
   return 'zur_freigabe';
 end $$;
 
@@ -461,6 +470,13 @@ begin
     end if;
     new.freigegeben_am := null;
     new.freigegeben_von := null;
+  elsif old.status = 'rueckfrage' and new.status <> 'rueckfrage'
+        and coalesce(current_setting('edvance.bauform_export', true), '') = '1'
+        and coalesce(current_setting('edvance.rueckfrage_abschluss', true), '') <> '1'
+        and public.bauform_rueckfrage_pruefung(old.id) is not null then
+    -- Export ohne Steckbrief-Aenderung (z. B. mit Verdacht) loest eine kommentierte Rueckfrage nicht auf
+    -- (Zweitpruefung R2/1); sie bleibt in Ueberarbeitung.
+    new.status := 'rueckfrage';
   end if;
   return new;
 end $$;
@@ -646,6 +662,10 @@ begin
                            'bauform_kommentar_schutz()', 'bauform_rueckfrage_hindernis(uuid,integer)',
                            'bauform_rueckfrage_automatisch()'] loop
     execute format('revoke all on function public.%s from public, anon, authenticated', f);
+  end loop;
+  foreach f in array array['bauform_kommentar_gruende(text)', 'bauform_zeit_vorbelegung(jsonb)'] loop
+    execute format('revoke all on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
   end loop;
   foreach f in array array[
     'bauform_zeit_setzen(uuid,integer,numeric)', 'aufgabe_zeit_sek(uuid)', 'bauform_pruefung_senden(uuid,integer,jsonb,jsonb,integer)',

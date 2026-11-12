@@ -37,3 +37,16 @@ Offen aus Runde 2 (vor dem Einspielen abzuarbeiten oder bewusst nach `offen.md`)
 | 8 | fehlt | pgTAP: `senden` auf Bauform in Rückfrage → P0001; Coach ohne Prüfrecht → 42501; Überarbeitung mit Verdacht bleibt `rueckfrage`; Versionswechsel außerhalb des Exports während der Überarbeitung; `throws_ok(…, null, null)` in Z. 134 zu unscharf. |
 | 9 | Hinweis | Prüfungs-ID per Suche statt `returning` (korrekt, solange eine Prüfung je Transaktion). |
 | 10 | Hinweis | Rollback braucht auch das Frontend zurück; danach kann Lena kommentierte Rückfragen wieder direkt entscheiden. |
+
+### Behebung Runde 2
+
+- 1 (fehlt): `bauform_versionswechsel` hält eine kommentierte Rückfrage auch bei Export **ohne** Versionswechsel in
+  `rueckfrage`; der eigene Abschluss (`edvance.rueckfrage_abschluss`, transaktionslokal) ist ausgenommen. pgTAP.
+- 3: Trigger sperrt die Bauform (`for update`), `bauform_rueckfrage_hindernis` ist volatile (frischer Stand).
+- 4: `bauform_rueckfrage_pruefung` liefert nur mit Prüfrecht oder als Systemaufruf; `bauform_kommentar_gruende`,
+  `bauform_zeit_vorbelegung` nicht für anon. pgTAP (Coach ohne Prüfrecht bekommt null).
+- 7: Kopfkommentar nennt `antwortart`.
+- 8 (fehlt): pgTAP ergänzt: senden auf Rückfrage → P0001; Coach ohne Prüfrecht → 42501 (senden, Zeit, Detail);
+  Überarbeitung mit Verdacht bleibt Rückfrage; Export ohne Versionswechsel; Versionswechsel außerhalb des Exports;
+  `task_status_set` → 42501. 65/65 grün.
+- 2, 5, 6, 9, 10: Hinweise, bewusst gelassen (Oberfläche bietet die Wege Lena nicht an; S4 ersetzt die Entscheidung).
