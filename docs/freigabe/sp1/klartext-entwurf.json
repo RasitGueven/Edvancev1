@@ -1,0 +1,886 @@
+{
+  "bauformen": {
+    "AUS-1": {
+      "titel": "Gemeinsamen Faktor ausklammern",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Term aus x² und x ohne gemeinsame Zahl: nur x wird ausgeklammert. Vor x² steht 1 bis 6, vor x eine Zahl von −9 bis 9.",
+          "beispiel": "Klammere den größten gemeinsamen Faktor aus: x² + 8x."
+        },
+        "2": {
+          "beschreibung": "Term mit x und einer Zahl; ausgeklammert wird eine Zahl (4, 6, 8, 9, 10 oder 12).",
+          "beispiel": "Klammere den größten gemeinsamen Faktor aus: 18x − 30."
+        },
+        "3": {
+          "beschreibung": "Term mit x² und x; ausgeklammert wird eine Zahl mal x (Zahl 4, 6, 8, 9, 10 oder 12).",
+          "beispiel": "Klammere den größten gemeinsamen Faktor aus: 27x² − 72x."
+        }
+      }
+    },
+    "BIN-1": {
+      "titel": "Quadrat einer Klammer ausmultiplizieren",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Klammer mit Plus: x plus eine Zahl von 1 bis 15, zum Quadrat.",
+          "beispiel": "Multipliziere (x + 13)² aus."
+        },
+        "2": {
+          "beschreibung": "Klammer mit Minus: x minus eine Zahl von 1 bis 15, zum Quadrat.",
+          "beispiel": "Multipliziere (x − 3)² aus."
+        },
+        "3": {
+          "beschreibung": "Vor x steht eine Zahl (2 bis 5), dahinter minus eine Zahl von 1 bis 9. Auch die Zahl vor x muss quadriert werden.",
+          "beispiel": "Multipliziere (3x − 2)² aus."
+        }
+      }
+    },
+    "BIN-2": {
+      "titel": "Term als Klammerquadrat schreiben",
+      "platzhalter": {
+        "trinom": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Plus vor dem x-Glied; in der Klammer steht eine Zahl von 3 bis 15.",
+          "beispiel": "Schreib x² + 12x + 36 als Quadrat."
+        },
+        "2": {
+          "beschreibung": "Minus vor dem x-Glied; in der Klammer steht eine Zahl von 3 bis 15.",
+          "beispiel": "Schreib x² − 16x + 64 als Quadrat."
+        },
+        "3": {
+          "beschreibung": "Große Zahlen: in der Klammer steht 16 bis 25, mit Plus oder Minus.",
+          "beispiel": "Schreib x² − 44x + 484 als Quadrat."
+        }
+      }
+    },
+    "DI-1": {
+      "titel": "Anzahl der Lösungen bestimmen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Normalform mit 1 vor x². Die Zahl vor x ist gerade (−6 bis 6), die Zahl ohne x liegt zwischen −6 und 6. Keine, eine oder zwei Lösungen kommen gleich oft vor.",
+          "beispiel": "Wie viele Lösungen hat x² + 2x + 5 = 0?"
+        },
+        "2": {
+          "beschreibung": "Normalform mit größeren Zahlen: die gerade Zahl vor x reicht bis ±20, die Zahl ohne x meist von −20 bis 20.",
+          "beispiel": "Wie viele Lösungen hat x² + 2x + 18 = 0?",
+          "hinweis": "Text: q von −20 bis 20. Code: Bei Aufgaben mit genau einer Lösung ist q = (p/2)² und kann bis 100 gehen."
+        },
+        "3": {
+          "beschreibung": "Vor x² steht 2, 3 oder 4; die ganze Gleichung ist ein Vielfaches einer Normalform mit Zahlen wie in Stufe 2.",
+          "beispiel": "Wie viele Lösungen hat 3x² − 6x + 9 = 0?"
+        },
+        "4": {
+          "beschreibung": "Die Gleichung steht nicht in Normalform: Die Zahl ohne x steht rechts vom Gleichheitszeichen. Zahlen wie in Stufe 2.",
+          "beispiel": "Wie viele Lösungen hat x² − 10x = −15?"
+        }
+      }
+    },
+    "DI-2": {
+      "titel": "Begründung wählen: Gleichung ohne Lösung",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Normalform ohne Lösung, die Zahl vor x ist gerade (bis ±12), die Zahl ohne x positiv (bis 50). Eine richtige Begründung mit der Rechnung unter der Wurzel, drei falsche.",
+          "beispiel": "Warum hat x² + 4x + 43 = 0 keine Lösung? Wähle die passende Begründung."
+        }
+      }
+    },
+    "DI-3": {
+      "titel": "Zahl für genau eine Lösung finden",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "4": {
+          "beschreibung": "Normalform, die Zahl ohne x fehlt und ist gesucht. Die Zahl vor x ist gerade (−16 bis 16), die Antwort ist eine ganze Zahl.",
+          "beispiel": "Für welche Zahl q hat x² + 12x + q = 0 genau eine Lösung?"
+        },
+        "5": {
+          "beschreibung": "Die Zahl vor x ist ungerade (−15 bis 15), die Antwort ist ein Bruch.",
+          "beispiel": "Für welche Zahl q hat x² − 15x + q = 0 genau eine Lösung?"
+        }
+      }
+    },
+    "EIN-1": {
+      "titel": "Werte in Terme einsetzen",
+      "platzhalter": {
+        "x0": "Zahl",
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "x ist positiv (1 bis 6). Vor x² steht keine Zahl.",
+          "beispiel": "Berechne f(5) für f(x) = x² − 7x − 4."
+        },
+        "2": {
+          "beschreibung": "x ist negativ (−1 bis −6). Vor x² steht keine Zahl.",
+          "beispiel": "Berechne f(−3) für f(x) = x² + 7x − 5."
+        },
+        "3": {
+          "beschreibung": "x ist negativ (−1 bis −5). Vor x² steht −3, −2, 2 oder 3.",
+          "beispiel": "Berechne f(−5) für f(x) = −2x² + 7x − 4."
+        }
+      }
+    },
+    "EX-0": {
+      "titel": "Höchsten oder tiefsten Wert im Sachkontext bestimmen",
+      "platzhalter": {
+        "kontext": "Sachsituation"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Wurf: Höhe in Scheitelpunktform, nach unten geöffnet. Scheitel nach 1 bis 5 Sekunden, Höhe 6 bis 30 m. Drei Teile: wann, wie hoch, größter oder kleinster Wert.",
+          "beispiel": "Ein Ball wird geworfen. Seine Höhe über dem Boden ist h(t) = −(t − 2)² + 10 (t in Sekunden, h in Metern). Nach wie vielen Sekunden ist der Ball am höchsten? Wie hoch ist er dann? Ist das ein größter oder ein kleinster Wert?"
+        },
+        "2": {
+          "beschreibung": "Kosten: Funktion in Scheitelpunktform, nach oben geöffnet. Tiefster Punkt bei 3 bis 12 Kisten, Kosten 5 bis 40 Euro. Drei Teile wie in Stufe 1.",
+          "beispiel": "Eine Firma stellt x Kisten am Tag her. Die Kosten je Kiste sind K(x) = (x − 5)² + 30 (in Euro). Bei wie vielen Kisten sind die Kosten je Kiste am kleinsten? Wie hoch sind sie dann? Ist das ein größter oder ein kleinster Wert?"
+        },
+        "3": {
+          "beschreibung": "Wurf oder Kosten wie in Stufe 1 und 2, aber die Funktion steht in Normalform: erst den Scheitel bestimmen.",
+          "beispiel": "Eine Firma stellt x Kisten am Tag her. Die Kosten je Kiste sind K(x) = x² − 18x + 105 (in Euro). Bei wie vielen Kisten sind die Kosten je Kiste am kleinsten? Wie hoch sind sie dann? Ist das ein größter oder ein kleinster Wert?"
+        }
+      }
+    },
+    "EX-1": {
+      "titel": "Größte Beetfläche bei fester Zaunlänge",
+      "platzhalter": {
+        "kontext": "Sachsituation"
+      },
+      "stufen": {
+        "4": {
+          "beschreibung": "Rechteckiges Beet, ringsum eingezäunt, Zaunlänge 8 bis 80 m (in Viererschritten). Gesucht sind die Seitenlänge x und die größte Fläche; die Lösung ist ein Quadrat.",
+          "beispiel": "Mit 32 m Zaun soll ein rechteckiges Beet ganz eingezäunt werden. Eine Seite ist x m lang. Wie muss man x wählen, damit die Fläche am größten ist? Gefragt: x in Metern und die größte Fläche in Quadratmetern."
+        },
+        "5": {
+          "beschreibung": "Beet an einer Hauswand, Zaun nur an drei Seiten, Zaunlänge 8 bis 80 m. Gesucht sind x und die größte Fläche.",
+          "beispiel": "Ein rechteckiges Beet liegt an einer Hauswand. Die anderen drei Seiten bekommen 56 m Zaun. Die beiden Seiten, die von der Wand weggehen, sind je x m lang. Wie muss man x wählen, damit die Fläche am größten ist? Gefragt: x in Metern und die größte Fläche in Quadratmetern."
+        }
+      }
+    },
+    "EX-2": {
+      "titel": "Größte Wurfhöhe und Zeitpunkt bestimmen",
+      "platzhalter": {
+        "kontext": "Sachsituation"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Wurf vom Turm mit h(t) = −5t² + … ; die Zahl vor t ist 10, 20 oder 30, die Starthöhe 1 bis 20 m. Der höchste Punkt liegt bei einer ganzen Sekunde.",
+          "beispiel": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 10t + 4 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?"
+        },
+        "4": {
+          "beschreibung": "Wie Stufe 3, aber die Zahl vor t ist 5, 15, 25 oder 35: der höchste Punkt liegt bei einer halben Sekunde.",
+          "beispiel": "Ein Ball wird von einem Turm nach oben geworfen. Seine Höhe ist h(t) = −5t² + 25t + 2 (t in Sekunden, h in Metern). Wann ist der Ball am höchsten, und wie hoch ist er dann?"
+        }
+      }
+    },
+    "EX-3": {
+      "titel": "Größten Gewinn eines Cafés bestimmen",
+      "platzhalter": {
+        "kontext": "Sachsituation"
+      },
+      "stufen": {
+        "4": {
+          "beschreibung": "Gewinnfunktion in Normalform, nach unten geöffnet, vor x² steht −1 oder −2. Größter Gewinn bei 10 bis 60 Stück, 100 bis 900 Euro.",
+          "beispiel": "Ein Café verkauft x Stücke Kuchen am Tag. Der Gewinn ist G(x) = −2x² + 136x − 2170 (in Euro). Bei welcher Stückzahl ist der Gewinn am größten, und wie groß ist er?"
+        }
+      }
+    },
+    "GL-1": {
+      "titel": "Lineare Gleichung in zwei Schritten lösen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Vor x steht 2 bis 9. Die Lösung ist eine positive ganze Zahl (1 bis 12).",
+          "beispiel": "Löse 4x − 13 = 23. Gib x an."
+        },
+        "2": {
+          "beschreibung": "Vor x steht 2 bis 9. Die Lösung ist eine negative ganze Zahl (−1 bis −12).",
+          "beispiel": "Löse 9x − 12 = −30. Gib x an."
+        },
+        "3": {
+          "beschreibung": "Vor x steht 2 bis 9. Die Lösung ist ein gekürzter Bruch, positiv oder negativ.",
+          "beispiel": "Löse 4x + 9 = −2. Gib x als gekürzten Bruch an."
+        }
+      }
+    },
+    "KO-1": {
+      "titel": "Punkt im Koordinatensystem ablesen",
+      "platzhalter": {},
+      "stufen": {
+        "1": {
+          "beschreibung": "Beide Koordinaten positiv (1 bis 5) und verschieden.",
+          "beispiel": "Lies die Koordinaten des Punktes P ab. (Figur: Koordinatensystem mit Gitter, Punkt P(2 | 3).)"
+        },
+        "2": {
+          "beschreibung": "Genau eine Koordinate ist negativ (Werte −5 bis 5).",
+          "beispiel": "Lies die Koordinaten des Punktes P ab. (Figur: Koordinatensystem mit Gitter, Punkt P(3 | −5).)"
+        },
+        "3": {
+          "beschreibung": "Beide Koordinaten negativ (−1 bis −5), ihre Beträge verschieden.",
+          "beispiel": "Lies die Koordinaten des Punktes P ab. (Figur: Koordinatensystem mit Gitter, Punkt P(−1 | −3).)"
+        }
+      }
+    },
+    "NF-1": {
+      "titel": "Scheitelpunktform in Normalform umwandeln",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Keine Zahl vor der Klammer. In der Klammer steht minus eine Zahl (1 bis 9), hinten plus eine Zahl (1 bis 9).",
+          "beispiel": "Schreib f(x) = (x − 4)² + 6 in der Normalform."
+        },
+        "2": {
+          "beschreibung": "Wie Stufe 1, aber Plus oder Minus in der Klammer und hinten gemischt.",
+          "beispiel": "Schreib f(x) = (x + 1)² − 5 in der Normalform."
+        },
+        "3": {
+          "beschreibung": "Vor der Klammer steht −2, −1, 2 oder 3; Vorzeichen gemischt. Die Zahl vor der Klammer muss mit allen Gliedern malgenommen werden.",
+          "beispiel": "Schreib f(x) = 3(x − 9)² − 4 in der Normalform."
+        }
+      }
+    },
+    "NF-2": {
+      "titel": "Scheitelpunktform per quadratischer Ergänzung bilden",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Keine Zahl vor x². Die Zahl vor x ist gerade (bis ±10), die Zahl hinten in der Scheitelpunktform ist positiv.",
+          "beispiel": "Schreib f(x) = x² − 6x + 20 in der Scheitelpunktform."
+        },
+        "3": {
+          "beschreibung": "Die Zahl vor x ist gerade (bis ±16); die Zahl hinten in der Scheitelpunktform kann auch negativ sein.",
+          "beispiel": "Schreib f(x) = x² − 12x − 2 in der Scheitelpunktform."
+        },
+        "4": {
+          "beschreibung": "Die Zahl vor x ist ungerade (bis ±13): Scheitelkoordinaten sind Brüche.",
+          "beispiel": "Schreib f(x) = x² + 7x + 22 in der Scheitelpunktform."
+        }
+      }
+    },
+    "NF-3": {
+      "titel": "Quadratische Ergänzung mit Zahl vor x²",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "4": {
+          "beschreibung": "Vor x² steht 2 oder 3. Der Scheitel hat ganze Koordinaten (x von −6 bis 6, y von −15 bis 15).",
+          "beispiel": "Schreib f(x) = 3x² + 6x + 4 in der Scheitelpunktform."
+        },
+        "5": {
+          "beschreibung": "Vor x² steht −2, −1, 4 oder 5. Scheitel ganzzahlig wie in Stufe 4.",
+          "beispiel": "Schreib f(x) = 5x² + 30x + 44 in der Scheitelpunktform."
+        }
+      }
+    },
+    "NF-4": {
+      "titel": "Schritte der quadratischen Ergänzung ordnen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Keine Zahl vor x², gerade Zahl vor x. Vier Schritte bis zum Scheitelpunkt; die y-Koordinate des Scheitels ist positiv.",
+          "beispiel": "Bring die Schritte der quadratischen Ergänzung für f(x) = x² − 2x + 16 in die richtige Reihenfolge."
+        },
+        "3": {
+          "beschreibung": "Wie Stufe 2, aber die y-Koordinate des Scheitels ist negativ.",
+          "beispiel": "Bring die Schritte der quadratischen Ergänzung für f(x) = x² + 8x + 13 in die richtige Reihenfolge."
+        }
+      }
+    },
+    "NF-5": {
+      "titel": "Fehler in quadratischer Ergänzung finden",
+      "platzhalter": {
+        "name": "Name",
+        "term": "Term"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Keine Zahl vor x². Im vorgerechneten Weg wurde die Ergänzung nur dazugezählt und nicht wieder abgezogen. Gesucht: falsche Zeile und Begründung.",
+          "beispiel": "Tom bringt f(x) = x² − 6x + 15 in die Scheitelpunktform. In welcher Zeile steckt der Fehler, und warum?"
+        },
+        "4": {
+          "beschreibung": "Vor x² steht 2 oder 3. Im vorgerechneten Weg wurde die abgezogene Ergänzung nicht mit dieser Zahl malgenommen.",
+          "beispiel": "Ben bringt f(x) = 3x² + 12x + 1 in die Scheitelpunktform. In welcher Zeile steckt der Fehler, und warum?"
+        }
+      }
+    },
+    "NF-6": {
+      "titel": "Scheitelpunkt aus der Normalform bestimmen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Keine Zahl vor x², gerade Zahl vor x. Der Scheitel hat ganze Koordinaten (x von −8 bis 8, y von −15 bis 15).",
+          "beispiel": "Bestimme den Scheitelpunkt von f(x) = x² − 16x + 62."
+        },
+        "4": {
+          "beschreibung": "Vor x² steht −1 oder 2. Scheitel ganzzahlig wie in Stufe 3.",
+          "beispiel": "Bestimme den Scheitelpunkt von f(x) = 2x² − 12x + 7."
+        }
+      }
+    },
+    "NP-1": {
+      "titel": "Produkt zweier Klammern gleich null lösen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "In beiden Klammern steht x minus eine Zahl; beide Lösungen positiv (1 bis 12) und verschieden.",
+          "beispiel": "Löse (x − 7)(x − 2) = 0."
+        },
+        "2": {
+          "beschreibung": "Eine Klammer mit Plus, eine mit Minus: eine Lösung negativ (−1 bis −12), eine positiv (1 bis 12).",
+          "beispiel": "Löse (x + 4)(x − 1) = 0."
+        }
+      }
+    },
+    "NP-2": {
+      "titel": "x ausklammern und Gleichung lösen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Keine Zahl vor x², minus eine Zahl vor x (2 bis 20): die zweite Lösung ist positiv.",
+          "beispiel": "Löse x² − 6x = 0."
+        },
+        "2": {
+          "beschreibung": "Keine Zahl vor x², plus eine Zahl vor x (2 bis 20): die zweite Lösung ist negativ.",
+          "beispiel": "Löse x² + 6x = 0."
+        },
+        "3": {
+          "beschreibung": "Vor x² steht 2 bis 5; die zweite Lösung ist eine ganze Zahl (±2 bis ±6).",
+          "beispiel": "Löse 4x² + 8x = 0."
+        },
+        "4": {
+          "beschreibung": "Vor x² steht 2 bis 6; die zweite Lösung ist ein gekürzter Bruch.",
+          "beispiel": "Löse 3x² − 10x = 0."
+        }
+      }
+    },
+    "NP-3": {
+      "titel": "Fehler finden: durch x geteilt",
+      "platzhalter": {
+        "name": "Name",
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Gleichung nur mit x² und x (vor x² 1 bis 4, vor x ±2 bis ±12), rechts steht das x-Glied oder null. Im vorgerechneten Weg wurde durch x geteilt, die Lösung 0 fehlt.",
+          "beispiel": "Noah hat 2x² = −3x gelöst. In welcher Zeile steckt der Fehler, und warum?"
+        }
+      }
+    },
+    "NP-4": {
+      "titel": "Erst umstellen, dann ausklammern und lösen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "4": {
+          "beschreibung": "x² mit einer Zahl davor (1 bis 4) ist gleich einem Vielfachen von x (−15 bis 15). Die zweite Lösung ist ganzzahlig oder ein Bruch.",
+          "beispiel": "Löse 3x² = 4x."
+        }
+      }
+    },
+    "NS-1": {
+      "titel": "Nullstellen aus der Scheitelpunktform bestimmen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Nach oben geöffnet, keine Zahl vor der Klammer; hinten minus eine Quadratzahl (1 bis 36).",
+          "beispiel": "Bestimme die Nullstellen von f(x) = (x − 6)² − 4."
+        },
+        "3": {
+          "beschreibung": "Nach unten geöffnet (Minus vor der Klammer); hinten plus eine Quadratzahl (1 bis 36).",
+          "beispiel": "Bestimme die Nullstellen von f(x) = −(x − 6)² + 9."
+        },
+        "4": {
+          "beschreibung": "Vor der Klammer steht −2 oder 2. Meist zwei Nullstellen, etwa jede vierte Aufgabe hat keine.",
+          "beispiel": "Bestimme die Nullstellen von f(x) = −2(x + 7)² + 32."
+        }
+      }
+    },
+    "NS-2": {
+      "titel": "Nullstellen aus der Normalform bestimmen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Keine Zahl vor x². Zwei verschiedene ganzzahlige Nullstellen von −9 bis 9.",
+          "beispiel": "Bestimme die Nullstellen von f(x) = x² − 8x + 15."
+        },
+        "4": {
+          "beschreibung": "Vor x² steht −1, 2 oder 3; Nullstellen ganzzahlig wie in Stufe 3.",
+          "beispiel": "Bestimme die Nullstellen von f(x) = 2x² − 12x − 54."
+        }
+      }
+    },
+    "NS-3": {
+      "titel": "Nullstellen aus der Produktform ablesen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Zwei Klammern, keine Zahl davor. Nullstellen von −9 bis 9, verschieden.",
+          "beispiel": "Bestimme die Nullstellen von f(x) = (x + 5)(x + 4)."
+        },
+        "2": {
+          "beschreibung": "Vor den Klammern steht −2, 2 oder 3, oder der Term hat die Form x mal Klammer (dann ist 0 eine Nullstelle).",
+          "beispiel": "Bestimme die Nullstellen von f(x) = x(x − 9)."
+        }
+      }
+    },
+    "NS-4": {
+      "titel": "Parabel zu gegebenen Nullstellen auswählen",
+      "platzhalter": {
+        "p": "Zahl",
+        "q": "Zahl",
+        "zusatz": "Öffnungsangabe"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Zwei Nullstellen zwischen −5 und 5, Parabel nach oben geöffnet wie die Normalparabel. Drei Parabeln zur Auswahl.",
+          "beispiel": "Welche Parabel hat die Nullstellen x = −4 und x = 2? (Drei Parabeln zur Auswahl.)"
+        },
+        "3": {
+          "beschreibung": "Wie Stufe 2, die Parabel kann auch nach unten geöffnet sein; der Text sagt, wie sie geöffnet ist.",
+          "beispiel": "Welche Parabel hat die Nullstellen x = −4 und x = 2 und ist nach unten geöffnet? (Drei Parabeln zur Auswahl.)"
+        }
+      }
+    },
+    "NS-5": {
+      "titel": "Anzahl der Nullstellen begründen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Scheitelpunktform, vor der Klammer −2, −1, 1 oder 2. Ohne Rechnen aus Öffnung und Lage des Scheitels entscheiden; eine richtige Begründung, drei falsche.",
+          "beispiel": "Wie viele Nullstellen hat f(x) = (x + 1)² − 3? Wähle die richtige Begründung, ohne zu rechnen."
+        }
+      }
+    },
+    "PAR-1": {
+      "titel": "Wertetabelle einer Parabel ausfüllen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Keine Zahl vor x². Vier x-Werte von −3 bis 3, mindestens zwei davon negativ.",
+          "beispiel": "Fülle die Wertetabelle für f(x) = x² aus (x = −3, −1, 1, 2)."
+        },
+        "2": {
+          "beschreibung": "Vor x² steht 2 oder 3; x-Werte wie in Stufe 1.",
+          "beispiel": "Fülle die Wertetabelle für f(x) = 3x² aus (x = −3, −2, −1, 2)."
+        },
+        "3": {
+          "beschreibung": "Vor x² steht −1, −2 oder −3; x-Werte wie in Stufe 1.",
+          "beispiel": "Fülle die Wertetabelle für f(x) = −2x² aus (x = −3, −2, −1, 2)."
+        },
+        "4": {
+          "beschreibung": "Vor x² steht 1/2 oder 1/4; vier gerade x-Werte von −6 bis 6.",
+          "beispiel": "Fülle die Wertetabelle für f(x) = 1/2 · x² aus (x = −6, −4, 2, 4)."
+        }
+      }
+    },
+    "PAR-2": {
+      "titel": "Graph zum Streckfaktor auswählen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Nach oben geöffnet und schmaler als die Normalparabel: vor x² steht 3/2, 2, 5/2, 3 oder 4.",
+          "beispiel": "Welcher Graph gehört zu f(x) = 4x²? (Drei Parabeln zur Auswahl.)"
+        },
+        "2": {
+          "beschreibung": "Nach oben geöffnet und breiter als die Normalparabel: vor x² steht 1/2, 1/3, 1/4, 2/3 oder 3/4.",
+          "beispiel": "Welcher Graph gehört zu f(x) = 1/4 · x²? (Drei Parabeln zur Auswahl.)"
+        },
+        "3": {
+          "beschreibung": "Nach unten geöffnet: vor x² steht −1/3, −1/2, −2, −3 oder −4.",
+          "beispiel": "Welcher Graph gehört zu f(x) = −4x²? (Drei Parabeln zur Auswahl.)"
+        }
+      }
+    },
+    "PAR-3": {
+      "titel": "Graph zur verschobenen Parabel auswählen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Nur nach oben oder unten verschoben (um 1 bis 5).",
+          "beispiel": "Welcher Graph gehört zu f(x) = x² − 3? (Drei Parabeln zur Auswahl.)"
+        },
+        "2": {
+          "beschreibung": "Nur nach links oder rechts verschoben (um 1 bis 5).",
+          "beispiel": "Welcher Graph gehört zu f(x) = (x + 2)²? (Drei Parabeln zur Auswahl.)"
+        },
+        "3": {
+          "beschreibung": "In beide Richtungen verschoben (je 1 bis 5, verschieden weit).",
+          "beispiel": "Welcher Graph gehört zu f(x) = (x − 3)² + 2? (Drei Parabeln zur Auswahl.)"
+        }
+      }
+    },
+    "PAR-4": {
+      "titel": "Gleichung der verschobenen Normalparabel angeben",
+      "platzhalter": {
+        "wie": "Verschiebung"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Nach rechts und nach oben verschoben, je um 1 bis 8.",
+          "beispiel": "Die Normalparabel wird um 2 nach rechts und um 7 nach oben verschoben. Gib die Gleichung der neuen Parabel an."
+        },
+        "3": {
+          "beschreibung": "Mindestens eine Verschiebung geht nach links oder nach unten (je 1 bis 8).",
+          "beispiel": "Die Normalparabel wird um 1 nach links und um 3 nach unten verschoben. Gib die Gleichung der neuen Parabel an."
+        },
+        "4": {
+          "beschreibung": "Wie Stufe 3, dazu vorher mit dem Faktor 2 oder 3 gestreckt oder mit 1/2 gestaucht.",
+          "beispiel": "Die Normalparabel wird mit dem Faktor 3 gestreckt und dann um 7 nach links und um 5 nach oben verschoben. Gib die Gleichung der neuen Parabel an."
+        }
+      }
+    },
+    "PAR-5": {
+      "titel": "Aussagen über zwei Streckfaktoren beurteilen",
+      "platzhalter": {
+        "f": "Funktion",
+        "g": "Funktion"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Zwei Parabeln ohne Verschiebung, beide nach oben geöffnet; vor x² steht 1/4, 1/3, 1/2, 2, 3 oder 4 (verschieden). Vier Aussagen, eine stimmt.",
+          "beispiel": "Gegeben sind f(x) = 2x² und g(x) = 1/2 · x². Welche Aussage stimmt?"
+        },
+        "3": {
+          "beschreibung": "Wie Stufe 2, aber eine der beiden Parabeln ist nach unten geöffnet.",
+          "beispiel": "Gegeben sind f(x) = −1/2 · x² und g(x) = 3x². Welche Aussage stimmt?"
+        }
+      }
+    },
+    "PQ-1": {
+      "titel": "Normalform herstellen, p und q ablesen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Steht schon in Normalform, beide Zahlen positiv.",
+          "beispiel": "Bring x² + 3x + 7 = 0 in die Form x² + px + q = 0. Gib p und q an."
+        },
+        "2": {
+          "beschreibung": "Normalform, mindestens eine der beiden Zahlen negativ.",
+          "beispiel": "Bring x² − 3x + 17 = 0 in die Form x² + px + q = 0. Gib p und q an."
+        },
+        "3": {
+          "beschreibung": "Vor x² steht 2 bis 5: erst durch diese Zahl teilen. Mindestens eine Zahl wird negativ.",
+          "beispiel": "Bring 3x² − 27x + 6 = 0 in die Form x² + px + q = 0. Gib p und q an."
+        },
+        "4": {
+          "beschreibung": "Nicht in Normalform: eine oder zwei Zahlen stehen rechts vom Gleichheitszeichen, erst umstellen.",
+          "beispiel": "Bring x² = 2x − 19 in die Form x² + px + q = 0. Gib p und q an."
+        }
+      }
+    },
+    "PQ-2": {
+      "titel": "Gleichung mit der p-q-Formel lösen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Normalform, beide Zahlen positiv; zwei ganzzahlige Lösungen.",
+          "beispiel": "Löse mit der p-q-Formel: x² + 14x + 33 = 0."
+        },
+        "2": {
+          "beschreibung": "Normalform, mindestens eine Zahl negativ; zwei ganzzahlige Lösungen.",
+          "beispiel": "Löse mit der p-q-Formel: x² − 3x − 54 = 0.",
+          "hinweis": "Text: p oder q negativ. parameter() kann in etwa jeder sechsten Ziehung auch p und q beide positiv liefern (Sonderzweig mit p = 10, q = 24 oder p = 20, q = 96); die Stufenprüfung verwirft diese, in den erzeugten Aufgaben kommt das nicht vor."
+        },
+        "3": {
+          "beschreibung": "Vor x² steht 2 oder 3: erst durch diese Zahl teilen. Zwei ganzzahlige Lösungen.",
+          "beispiel": "Löse mit der p-q-Formel: 2x² − 26x + 80 = 0."
+        },
+        "4": {
+          "beschreibung": "Nicht in Normalform: die Zahl ohne x steht rechts, erst umstellen.",
+          "beispiel": "Löse mit der p-q-Formel: x² + 5x = 36."
+        }
+      }
+    },
+    "PQ-3": {
+      "titel": "Fehler im Lösungsweg der p-q-Formel finden",
+      "platzhalter": {
+        "name": "Name",
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Normalform mit ganzzahligen Lösungen. Der Fehler steckt beim Einsetzen: Vorzeichen vor p/2 oder vor q falsch.",
+          "beispiel": "Emma löst x² − 6x + 5 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?"
+        },
+        "4": {
+          "beschreibung": "Der Fehler steckt unter der Wurzel: p/2 nicht quadriert oder die Wurzel falsch gezogen.",
+          "beispiel": "Emma löst x² + 2x − 99 = 0 mit der p-q-Formel. In welcher Zeile steckt der Fehler, und warum?"
+        }
+      }
+    },
+    "PQ-4": {
+      "titel": "Schritte der p-q-Formel ordnen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Vor x² steht 2 bis 4; vier Schritte bis zur Lösungsmenge (teilen, einsetzen, Wurzel ziehen, Lösungen). Zwei ganzzahlige Lösungen.",
+          "beispiel": "Bring die Schritte zum Lösen von 3x² + 6x − 45 = 0 in die richtige Reihenfolge."
+        }
+      }
+    },
+    "QW-1": {
+      "titel": "Quadratzahlen und Wurzeln berechnen",
+      "platzhalter": {
+        "aufgabe": "Rechnung"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Eine Zahl von 3 bis 12 zum Quadrat.",
+          "beispiel": "Berechne 12²."
+        },
+        "2": {
+          "beschreibung": "Wurzel aus einer Quadratzahl von 9 bis 225.",
+          "beispiel": "Berechne √81."
+        },
+        "3": {
+          "beschreibung": "Eine negative Zahl in Klammern zum Quadrat (−3 bis −20).",
+          "beispiel": "Berechne (−18)²."
+        }
+      }
+    },
+    "SCH-1": {
+      "titel": "Scheitelpunkt aus der Scheitelpunktform ablesen",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Keine Zahl vor der Klammer; in der Klammer minus, hinten plus, Zahlen 1 bis 9.",
+          "beispiel": "Gib den Scheitelpunkt von f(x) = (x − 5)² + 2 an."
+        },
+        "2": {
+          "beschreibung": "In der Klammer minus, hinten minus (Zahlen 1 bis 9).",
+          "beispiel": "Gib den Scheitelpunkt von f(x) = (x − 3)² − 4 an."
+        },
+        "3": {
+          "beschreibung": "In der Klammer plus; hinten plus oder minus.",
+          "beispiel": "Gib den Scheitelpunkt von f(x) = (x + 9)² − 8 an."
+        },
+        "4": {
+          "beschreibung": "Vor der Klammer steht −3, −2, 2, 3 oder 1/2; Vorzeichen gemischt.",
+          "beispiel": "Gib den Scheitelpunkt von f(x) = 2(x + 7)² + 6 an."
+        }
+      }
+    },
+    "SCH-2": {
+      "titel": "Parabelgleichung aus dem Graphen ablesen",
+      "platzhalter": {},
+      "stufen": {
+        "2": {
+          "beschreibung": "Normalparabel, nach oben geöffnet; Scheitel mit ganzen Koordinaten von −4 bis 4 (nicht auf einer Achse).",
+          "beispiel": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an. (Figur: Normalparabel nach oben, Scheitel S(3 | −1) markiert.)"
+        },
+        "3": {
+          "beschreibung": "Nach unten geöffnet, so breit wie die Normalparabel; Scheitel wie in Stufe 2.",
+          "beispiel": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an. (Figur: Parabel nach unten, Scheitel S(2 | 3) markiert.)"
+        },
+        "4": {
+          "beschreibung": "Gestreckt (Faktor 2) oder gestaucht (Faktor 1/2), nach oben geöffnet; Scheitel wie in Stufe 2.",
+          "beispiel": "Die Abbildung zeigt eine Parabel. Gib ihre Gleichung in der Scheitelpunktform an. (Figur: Parabel mit Faktor 2, Scheitel S(−1 | 2) markiert.)"
+        }
+      }
+    },
+    "SCH-3": {
+      "titel": "Hoch- oder Tiefpunkt bestimmen und verorten",
+      "platzhalter": {
+        "term": "Term"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Scheitelpunktform mit 1 oder −1 vor der Klammer; die Zahl hinten hat das andere Vorzeichen als die Zahl vor der Klammer. Zwei Bausteine wählen: Art und Lage.",
+          "beispiel": "Hat f(x) = −(x + 4)² + 8 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine."
+        },
+        "3": {
+          "beschreibung": "Wie Stufe 2, vor der Klammer steht −2, −1/2, 1/2 oder 2.",
+          "beispiel": "Hat f(x) = −2(x − 4)² + 8 einen Hochpunkt oder einen Tiefpunkt, und wo liegt er? Wähle zwei Bausteine."
+        }
+      }
+    },
+    "SCH-4": {
+      "titel": "Fehler beim Ablesen des Scheitels finden",
+      "platzhalter": {
+        "name": "Name",
+        "term": "Term"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "Scheitelpunktform, vor der Klammer −3, −2, 1, 2 oder 3. Im vorgerechneten Ablesen ist ein Fehler: Vorzeichen in der Klammer, Vorzeichen hinten oder die Zahl vor der Klammer als Koordinate.",
+          "beispiel": "Finn liest den Scheitel von f(x) = 2(x + 6)² + 1 ab. In welcher Zeile steckt der erste Fehler, und warum?"
+        }
+      }
+    },
+    "WZ-1": {
+      "titel": "x² gleich Zahl durch Wurzelziehen lösen",
+      "platzhalter": {
+        "c": "Zahl"
+      },
+      "stufen": {
+        "1": {
+          "beschreibung": "Rechts steht eine Quadratzahl von 9 bis 400: zwei ganzzahlige Lösungen.",
+          "beispiel": "Löse x² = 144."
+        },
+        "2": {
+          "beschreibung": "Rechts steht 0 (eine Lösung) oder eine negative Quadratzahl von −4 bis −100 (keine Lösung).",
+          "beispiel": "Löse x² = −25."
+        }
+      }
+    },
+    "WZ-2": {
+      "titel": "Erst umstellen, dann Wurzel ziehen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "Keine Zahl vor x²; nach dem Umstellen steht rechts eine Quadratzahl von 1 bis 144.",
+          "beispiel": "Löse x² − 24 = 40."
+        },
+        "3": {
+          "beschreibung": "Vor x² steht 2 bis 5; nach Umstellen und Teilen steht rechts eine Quadratzahl von 1 bis 64.",
+          "beispiel": "Löse 4x² − 7 = 29."
+        }
+      }
+    },
+    "WZ-3": {
+      "titel": "Quadrierte Klammer gleich Zahl lösen",
+      "platzhalter": {
+        "gleichung": "Gleichung"
+      },
+      "stufen": {
+        "3": {
+          "beschreibung": "In der Klammer steht x minus eine Zahl (1 bis 9); rechts eine Quadratzahl von 1 bis 81.",
+          "beispiel": "Löse (x − 6)² = 81."
+        },
+        "4": {
+          "beschreibung": "In der Klammer Plus oder Minus; rechts eine Quadratzahl (bis 100), 0 oder eine negative Zahl (dann keine Lösung).",
+          "beispiel": "Löse (x + 7)² = 0."
+        }
+      }
+    },
+    "WZ-4": {
+      "titel": "Begründen, warum x² nicht negativ wird",
+      "platzhalter": {
+        "c": "Zahl"
+      },
+      "stufen": {
+        "2": {
+          "beschreibung": "x² gleich einer negativen Zahl (−1 bis −30). Eine richtige Begründung, drei falsche.",
+          "beispiel": "Warum hat x² = −14 keine Lösung? Wähle die passende Begründung."
+        }
+      }
+    },
+    "WZ-5": {
+      "titel": "Lösungen mit Wurzel angeben",
+      "platzhalter": {
+        "c": "Zahl"
+      },
+      "stufen": {
+        "4": {
+          "beschreibung": "x² gleich einer Zahl von 2 bis 60, die keine Quadratzahl ist: Lösungen mit Wurzel. Auswahl aus mehreren Antworten.",
+          "beispiel": "Welche Lösungen hat x² = 42?"
+        }
+      }
+    }
+  },
+  "fehlbilder": {
+    "qf_a_als_koordinate": "Vorfaktor als Koordinate",
+    "qf_a_uebersehen": "Vorfaktor übersehen",
+    "qf_ausklammern_a_verloren": "Beim Ausklammern nicht geteilt",
+    "qf_ausklammern_nicht_geteilt": "Zweites Glied nicht geteilt",
+    "qf_ausklammern_unvollstaendig": "Nicht vollständig ausgeklammert",
+    "qf_ausklammern_vorzeichen": "Vorzeichen beim Ausklammern falsch",
+    "qf_ax_quadriert": "Zahl vor x² mitquadriert",
+    "qf_ax_statt_ax2": "Quadrat vergessen",
+    "qf_binom_b_statt_halb": "Mittelzahl nicht halbiert",
+    "qf_binom_c_statt_wurzel": "Keine Wurzel aus letzter Zahl",
+    "qf_binom_k_nicht_quadriert": "Zahl vor x nicht quadriert",
+    "qf_binom_mittelglied_einfach": "Mittelglied nicht verdoppelt",
+    "qf_binom_mittelglied_fehlt": "Mittelglied vergessen",
+    "qf_binom_quadrat_differenz": "Mit dritter binomischer Formel verwechselt",
+    "qf_binom_vorzeichen": "Vorzeichen im Mittelglied falsch",
+    "qf_d_e_vertauscht": "Verschiebungen vertauscht",
+    "qf_diskriminante_ohne_p": "(p/2)² in Diskriminante vergessen",
+    "qf_durch_a_vergessen": "Teilen durch Vorfaktor vergessen",
+    "qf_durch_x_geteilt": "Durch x geteilt",
+    "qf_e_vorzeichen": "Vorzeichen beim Rüberbringen falsch",
+    "qf_einsetzen_vorzeichen": "Negative Zahl ohne Klammer",
+    "qf_ergaenzung_b_statt_halb": "Ergänzung ohne Halbieren",
+    "qf_ergaenzung_nicht_abgezogen": "Ergänzung nicht abgezogen",
+    "qf_ergaenzung_ohne_a": "Ergänzung ohne Vorfaktor",
+    "qf_faktor_nicht_verteilt": "Vorfaktor nicht ausmultipliziert",
+    "qf_gegenoperation_vorzeichen": "Falsche Gegenoperation beim Umstellen",
+    "qf_halbes_p_nicht_quadriert": "p/2 nicht quadriert",
+    "qf_hoch_tief_verwechselt": "Hoch- und Tiefpunkt verwechselt",
+    "qf_koordinate_vorzeichen": "Minus der Koordinate vergessen",
+    "qf_null_vergessen": "Lösung x = 0 vergessen",
+    "qf_nullprodukt_vorzeichen": "Nullstellen mit falschem Vorzeichen",
+    "qf_nur_eine_loesung": "Nur eine Lösung angegeben",
+    "qf_nur_positive_loesung": "Negative Lösung vergessen",
+    "qf_oeffnung_aus_e": "Öffnung am Absolutglied abgelesen",
+    "qf_oeffnung_vertauscht": "Öffnungsrichtung verwechselt",
+    "qf_p_vorzeichen": "Vorzeichen von p falsch",
+    "qf_q_vorzeichen": "Vorzeichen von q falsch",
+    "qf_quadrat_als_verdopplung": "Quadrat als Verdopplung",
+    "qf_quadrat_negativ": "Quadrat einer negativen Zahl negativ",
+    "qf_quadriert_statt_wurzel": "Quadriert statt Wurzel gezogen",
+    "qf_scheitel_koordinaten_vertauscht": "x und y vertauscht",
+    "qf_scheitel_statt_nullstelle": "Scheitel mit Nullstelle verwechselt",
+    "qf_stelle_statt_wert": "Stelle statt Wert angegeben",
+    "qf_streckfaktor_umgekehrt": "Streckung und Stauchung verwechselt",
+    "qf_streckfaktor_vergessen": "Streckfaktor vergessen",
+    "qf_umfang_statt_flaeche": "Zaunlänge statt Fläche",
+    "qf_umstellen_reihenfolge": "Falsche Reihenfolge beim Umstellen",
+    "qf_verschiebung_vorzeichen": "Verschiebung mit falschem Vorzeichen",
+    "qf_wurzel_als_haelfte": "Wurzel als Hälfte",
+    "qf_wurzel_aus_negativ": "Wurzel aus negativer Zahl"
+  }
+}
