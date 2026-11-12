@@ -1,0 +1,14 @@
+  art   |          schluessel          |          wert          
+--------+------------------------------+------------------------
+ bricht | geo_flaeche_drachen_raute    | 2→0 Texte, 3→0 ohne MC
+ gruppe | nicht-notwendig / draft      | 442
+ gruppe | nicht-notwendig / ready      | 68
+ gruppe | nicht-notwendig / rueckfrage | 2
+ gruppe | notwendig-regel / draft      | 177
+ gruppe | notwendig-regel / ready      | 79
+ gruppe | notwendig-reserve / draft    | 96
+ gruppe | notwendig-reserve / ready    | 17
+ gruppe | zu-schwer / draft            | 9
+ gruppe | zu-schwer / ready            | 4
+(10 rows)
+
