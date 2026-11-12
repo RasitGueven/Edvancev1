@@ -13,7 +13,7 @@ select set_config('request.jwt.claims', json_build_object('sub', :'admin', 'role
 select (jsonb_build_object(
   'plan', (select jsonb_agg(to_jsonb(p)) from bauform_pruef_plan() p),
   'detail', (select jsonb_object_agg(b.id, jsonb_build_object('s0', bauform_pruef_detail(b.id, 0), 's1', bauform_pruef_detail(b.id, 1)))
-               from bauformen b where b.schluessel in ('EIN-1', 'KO-1', 'PAR-2', 'PAR-3', 'NP-2')))::text);
+               from bauformen b where b.schluessel in ('EIN-1', 'KO-1', 'PAR-2', 'PAR-3', 'NP-2', 'NS-4', 'NF-5')))::text);
 rollback;
 SQL
 sed -i -e '/^BEGIN$/d' -e '/^ROLLBACK$/d' src/pages/coach/pruefen/bauformen/vorschau/fixtures.json

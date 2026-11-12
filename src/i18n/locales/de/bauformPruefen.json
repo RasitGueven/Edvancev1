@@ -158,6 +158,7 @@
     "qf_binom_mittelglied_einfach": "Mittelglied nicht verdoppelt",
     "qf_binom_mittelglied_fehlt": "Mittelglied vergessen",
     "qf_binom_quadrat_differenz": "Mit dritter binomischer Formel verwechselt",
+    "qf_binom_vorzeichen": "Vorzeichen bei der binomischen Formel falsch",
     "qf_d_e_vertauscht": "Verschiebungen vertauscht",
     "qf_diskriminante_ohne_p": "(p/2)² in Diskriminante vergessen",
     "qf_durch_a_vergessen": "Teilen durch Vorfaktor vergessen",
@@ -165,14 +166,18 @@
     "qf_e_vorzeichen": "Vorzeichen beim Rüberbringen falsch",
     "qf_einsetzen_vorzeichen": "Negative Zahl ohne Klammer",
     "qf_ergaenzung_b_statt_halb": "Ergänzung ohne Halbieren",
+    "qf_ergaenzung_nicht_abgezogen": "Ergänzung nicht abgezogen",
+    "qf_ergaenzung_ohne_a": "Ergänzung ohne Vorfaktor",
     "qf_faktor_nicht_verteilt": "Vorfaktor nicht ausmultipliziert",
     "qf_gegenoperation_vorzeichen": "Falsche Gegenoperation beim Umstellen",
     "qf_halbes_p_nicht_quadriert": "p/2 nicht quadriert",
     "qf_hoch_tief_verwechselt": "Hoch- und Tiefpunkt verwechselt",
     "qf_koordinate_vorzeichen": "Minus der Koordinate vergessen",
     "qf_null_vergessen": "Lösung x = 0 vergessen",
+    "qf_nullprodukt_vorzeichen": "Nullstellen oder Lösungen mit falschem Vorzeichen",
     "qf_nur_eine_loesung": "Nur eine Lösung angegeben",
     "qf_nur_positive_loesung": "Negative Lösung vergessen",
+    "qf_oeffnung_aus_e": "Öffnung am Vorzeichen der Zahl hinten abgelesen",
     "qf_oeffnung_vertauscht": "Öffnungsrichtung verwechselt",
     "qf_p_vorzeichen": "Vorzeichen von p falsch",
     "qf_q_vorzeichen": "Vorzeichen von q falsch",
@@ -333,6 +338,9 @@
     },
     "WZ-5": {
       "c": "Zahl"
+    },
+    "PAR-4": {
+      "wie": "Veränderung"
     }
   },
   "antwortart": {
@@ -455,7 +463,11 @@
     "adminErledigt": "erledigt: {{notiz}}",
     "adminZeit": "Zeit geändert: Stufe {{stufe}} von {{alt}} auf {{neu}} Min",
     "entwurf": "Entwurf gespeichert",
-    "min": "Min"
+    "min": "Min",
+    "richtig": "richtig",
+    "optionGross": "Option {{anker}} groß ansehen",
+    "optionDialog": "Option {{anker}}",
+    "schliessen": "Schließen"
   },
   "rolle": {
     "warmup": "Warm-up",
@@ -465,5 +477,11 @@
     "beispiel": "Lösungsbeispiel",
     "home": "Zuhause",
     "generalprobe": "Generalprobe"
+  },
+  "fehlbildName": {
+    "NF-5": {
+      "qf_ergaenzung_nicht_abgezogen": "Fehlerzeile richtig, Begründung falsch",
+      "qf_ergaenzung_ohne_a": "Fehlerzeile richtig, Begründung falsch"
+    }
   }
 }

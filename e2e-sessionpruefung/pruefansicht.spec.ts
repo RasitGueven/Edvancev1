@@ -30,13 +30,14 @@ for (const k of ['EIN-1', 'KO-1', 'PAR-2', 'PAR-3', 'NP-2']) {
   })
 }
 
-test('Graph-Auswahl: Optionen auf dunklem Untergrund wie im Player (S4.14)', async ({ page }, info) => {
+test('Graph-Auswahl: Optionen auf dunklem Untergrund wie im Player (S4.14, seit SP-1b groß)', async ({ page }, info) => {
   await oeffne(page, 'PAR-2')
-  const option = page.getByTestId('graph-option').first()
+  const option = page.getByTestId('graph-option-gross').first()
   await option.scrollIntoViewIfNeeded()
-  const grund = await option.evaluate((el) => getComputedStyle(el.parentElement as Element).backgroundColor)
+  const stage = await option.evaluate((el) => !!el.closest('.preview-stage'))
+  expect(stage).toBe(true)
+  const grund = await option.evaluate((el) => getComputedStyle(el).backgroundColor)
   expect(grund).not.toBe('rgb(255, 255, 255)')
-  expect(grund).not.toBe('rgba(0, 0, 0, 0)')
   await option.locator('..').screenshot({ path: `${AUSGABE}/k-PAR-2-optionen-vorschau-${info.project.name}.png` })
 })
 

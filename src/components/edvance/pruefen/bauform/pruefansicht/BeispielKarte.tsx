@@ -7,6 +7,8 @@ import { PreviewStage } from '@/components/edvance/authoring/PreviewStage'
 import { fehlerAntworten } from '@/lib/pruefung/bauformKommentar'
 import type { BauformBeispiel, BauformDetail } from '@/types/bauformPruefung'
 import { Abschnitt, AnkerKarte, Etikett, KommentarKnopf, wertText } from './Bausteine'
+import { fehlbildName } from './fehlbildName'
+import { graphOptionen, GraphOptionenGross } from './GraphOptionenGross'
 
 const ANKER = 'ABCDEFGH'
 
@@ -28,6 +30,9 @@ type Props = {
 export function BeispielKarte({ nr, beispiel: b, detail, zeit, markiert, onKommentar }: Props): JSX.Element {
   const { t, i18n } = useTranslation('bauformPruefen')
   const ids = optionIds(b)
+  // Figur in den Optionen: volle Breite, Optionen groß (SP-1b N3); sonst Vorschau wie im Player daneben.
+  const graph = graphOptionen(b.payload)
+  const richtigeOption = typeof b.loesung?.option === 'string' ? b.loesung.option : null
   const text = (antwort: Record<string, unknown> | string | null): string => {
     if (typeof antwort === 'string' && ids.includes(antwort)) return t('ansicht.option', { anker: ANKER[ids.indexOf(antwort)] })
     if (antwort && typeof antwort === 'object' && typeof antwort.option === 'string') {
@@ -52,9 +57,13 @@ export function BeispielKarte({ nr, beispiel: b, detail, zeit, markiert, onKomme
         </span>
         <KommentarKnopf aktiv={markiert} onClick={onKommentar} ort={t('ansicht.ort.beispiel', { nr })} />
       </div>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <PreviewStage payload={b.payload} />
-        <dl className="flex flex-col gap-4 text-sm">
+      <div className={graph ? 'flex flex-col gap-4' : 'grid gap-4 lg:grid-cols-2'}>
+        {graph ? (
+          <GraphOptionenGross prompt={graph.prompt} optionen={graph.optionen} richtig={richtigeOption} />
+        ) : (
+          <PreviewStage payload={b.payload} />
+        )}
+        <dl className={graph ? 'grid gap-4 text-sm lg:grid-cols-2' : 'flex flex-col gap-4 text-sm'}>
           <div className="flex flex-col gap-2">
             <dt><Abschnitt>{t('ansicht.loesung')}</Abschnitt></dt>
             <dd className="text-base font-semibold tabular-nums text-[var(--color-text-primary)]">{text(stripFehlbilder(b.loesung))}</dd>
@@ -96,7 +105,7 @@ export function BeispielKarte({ nr, beispiel: b, detail, zeit, markiert, onKomme
                   {text(f.antwort)}
                 </span>
                 <span>
-                  <b className="text-[var(--color-text-primary)]">{t(`fehlbild.${f.key}`, { defaultValue: detail.fehlbild_texte[f.key] ?? '' })}</b>
+                  <b className="text-[var(--color-text-primary)]">{fehlbildName(t, i18n, detail.schluessel, f.key, detail.fehlbild_texte[f.key] ?? '')}</b>
                   {regel.get(f.key) && <span className="text-[var(--color-text-secondary)]"> → „{regel.get(f.key)?.rueckmeldung}“</span>}
                 </span>
               </li>

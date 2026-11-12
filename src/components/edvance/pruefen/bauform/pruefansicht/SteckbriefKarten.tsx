@@ -4,6 +4,7 @@ import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { BauformDetail, BauformStufe } from '@/types/bauformPruefung'
 import { Abschnitt, AnkerKarte, Etikett, KommentarKnopf } from './Bausteine'
+import { fehlbildName } from './fehlbildName'
 
 type Anker = { markiert: boolean; onKommentar: () => void }
 const zahl = (n: number, sprache: string): string => new Intl.NumberFormat(sprache, { maximumFractionDigits: 1 }).format(n)
@@ -47,7 +48,7 @@ export function FehlerKarte({ detail, anker }: { detail: BauformDetail; anker: A
       </div>
       <ul className="flex flex-col divide-y divide-[var(--color-border)]">
         {(detail.steckbrief.fehlbilder ?? []).map((f) => {
-          const name = i18n.exists(`bauformPruefen:fehlbild.${f.key}`) ? t(`fehlbild.${f.key}`) : null
+          const name = fehlbildName(t, i18n, detail.schluessel, f.key, null)
           const regel = detail.fehlbild_texte[f.key] ?? null
           return (
           <li key={f.key} className="flex flex-col gap-2 py-2 text-sm">
