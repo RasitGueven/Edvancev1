@@ -30,6 +30,9 @@ const BASE_COLUMNS = [
   'is_active',
   'created_at',
   'einsatz',
+  // MSA-1 M1 (20261112153053_msa1_archiv): archivierte Aufgaben zeigen im Editor einen Hinweis.
+  'archiviert_am',
+  'archiviert_grund',
 ].join(',')
 
 export const A01_COLUMNS = 'curriculum_grade,reviewed_by,reviewed_at'

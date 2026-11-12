@@ -14,6 +14,7 @@ import { HeutePage } from '@/pages/admin/HeutePage'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { ItemBoardPage } from '@/pages/admin/ItemBoardPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
+import { ArchivPage } from '@/pages/admin/archiv/ArchivPage'
 import { AdminPruefansichtPage } from '@/pages/admin/pruefen/AdminPruefansichtPage'
 import { ReiheEndePage } from '@/pages/admin/pruefen/ReiheEndePage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
@@ -417,6 +418,15 @@ export default function App(): JSX.Element {
             element={
               <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
                 <AuthoringItemsPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* MSA-1: Archiv der Aufgaben, nur über den Textlink am Fuß der Item-Pflege, nicht in der Navigation. */}
+          <Route
+            path="/admin/authoring/archiv"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <ArchivPage />
               </ProtectedRoute>
             }
           />

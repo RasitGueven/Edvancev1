@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { Eye } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { ArchivHinweis } from '@/pages/admin/archiv/ArchivHinweis'
 import { AnswerSection } from '@/components/edvance/authoring/AnswerSection'
 import { AssetsBlock } from '@/components/edvance/authoring/AssetsBlock'
 import { FlagList } from '@/components/edvance/authoring/FlagList'
@@ -234,6 +235,7 @@ export function AuthoringEditorPage(): JSX.Element {
         <EditorKopf titel={task.title} gespeichert={gespeichert && !dirty} />
 
         <SchemaBanner schema={schema} />
+        <ArchivHinweis archiviertAm={task.archiviert_am} grund={task.archiviert_grund} />
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
           <div className="flex flex-col gap-6">

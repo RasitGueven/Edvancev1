@@ -6,6 +6,7 @@ vi.mock('@/lib/supabase/client', () => {
     select: () => builder,
     eq: (c: string, v: unknown) => (aufrufe.liste.push([`eq:${c}`, [v]]), builder),
     in: (c: string, v: unknown[]) => (aufrufe.liste.push([`in:${c}`, v]), builder),
+    is: (c: string, v: unknown) => (aufrufe.liste.push([`is:${c}`, [v]]), builder),
     then: (res: (v: unknown) => unknown) => Promise.resolve({ count: 5, error: null }).then(res),
   }
   return { supabase: { from: () => builder } }
@@ -14,11 +15,12 @@ vi.mock('@/lib/supabase/client', () => {
 import { berlinTagesGrenzen, countAufgabenFuerAdmin } from './heute'
 
 describe('countAufgabenFuerAdmin', () => {
-  it('zählt Übungen im Status review und rueckfrage (Zähler „Item-Pflege“)', async () => {
+  it('zählt Übungen im Status review und rueckfrage ohne archivierte (Zähler „Item-Pflege“)', async () => {
     expect(await countAufgabenFuerAdmin()).toEqual({ data: 5, error: null })
     expect(aufrufe.liste).toEqual([
       ['eq:content_type', ['exercise']],
       ['in:status', ['review', 'rueckfrage']],
+      ['is:archiviert_am', [null]],
     ])
   })
 })

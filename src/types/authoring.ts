@@ -123,6 +123,9 @@ export type AuthoringTask = {
   created_at: string
   /** Einsatz und Pool (Reihe 1 A1): genau einer von lsa | session, sonst check bzw. quest. Aendert nur ein Admin. */
   einsatz?: string[]
+  /** MSA-1: archiviert (nicht gelöscht). Archivierte Aufgaben fehlen in allen Listen, nur im Archiv. */
+  archiviert_am?: string | null
+  archiviert_grund?: string | null
 
   // --- Erst nach docs/schema/A01-authoring.proposal.sql vorhanden ---
   /** STOFFANKER: welcher Jahrgangsstoff wird geprueft. undefined = Spalte fehlt. */

@@ -43,6 +43,7 @@ import { PruefEinstellungenKarte } from '@/components/edvance/authoring/board/Pr
 import { MusterKachel } from '@/components/edvance/authoring/board/MusterKachel'
 import { getBauformListe } from '@/lib/supabase/bauformPruefung'
 import { musterStand, type MusterStand } from '@/lib/pruefung/bauformStand'
+import { ArchivFussLink } from '@/pages/admin/archiv/ArchivFussLink'
 
 const BASIS = '/admin/authoring'
 
@@ -236,6 +237,8 @@ export function ItemBoardPage(): JSX.Element {
           onReload={() => setReloadKey((k) => k + 1)}
         />
       )}
+
+      {role === 'admin' && !bereich && <ArchivFussLink />}
     </>
   )
 }
