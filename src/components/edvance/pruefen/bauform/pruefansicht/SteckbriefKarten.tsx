@@ -77,9 +77,11 @@ type StufenProps = {
 
 export function StufenKarte({ detail, anker, zeiten, onZeit, aenderbar }: StufenProps): JSX.Element {
   const { t, i18n } = useTranslation('bauformPruefen')
+  // Ohne Klartext (noch nicht geprüft) je Stufe die Regel aus dem Steckbrief, damit keine Zeile leer bleibt (SP-1b).
+  const regel = detail.steckbrief.stufen ?? {}
   const stufen: BauformStufe[] = detail.stufen?.length
-    ? detail.stufen
-    : Object.entries(detail.steckbrief.stufen ?? {}).map(([k, v]) => ({ stufe: Number(k), beschreibung: v, beispiel: null, zeit_min: 1 }))
+    ? detail.stufen.map((s) => ({ ...s, beschreibung: s.beschreibung ?? regel[String(s.stufe)] ?? null }))
+    : Object.entries(regel).map(([k, v]) => ({ stufe: Number(k), beschreibung: v, beispiel: null, zeit_min: 1 }))
   return (
     <AnkerKarte id="anker-stufen" markiert={anker.markiert}>
       <div className="flex items-center justify-between gap-4">
