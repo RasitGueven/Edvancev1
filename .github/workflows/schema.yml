@@ -110,8 +110,10 @@ jobs:
             exit 1
           fi
           # Das offizielle postgres-Image traegt die PGDG-Quelle bereits.
+          # Nur auspacken, nicht installieren: apt install zieht bei einem neueren Paketstand postgresql-16 in den
+          # laufenden Container und bricht plpgsql (undefined symbol). pgTAP besteht nur aus SQL-Dateien.
           docker exec "$cid" bash -c \
-            'apt-get update -qq && apt-get install -y -qq postgresql-16-pgtap' >/dev/null
+            'set -e; apt-get update -qq; cd /tmp; apt-get download -qq postgresql-16-pgtap; dpkg-deb -x postgresql-16-pgtap_*.deb /; test -f /usr/share/postgresql/16/extension/pgtap.control' >/dev/null
           psql -v ON_ERROR_STOP=1 -q -c 'create schema if not exists extensions'
           psql -v ON_ERROR_STOP=1 -q -c 'create extension if not exists pgtap with schema extensions'
           echo "pgTAP $(psql -tAc "select extversion from pg_extension where extname='pgtap'")"
