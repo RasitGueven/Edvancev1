@@ -32,3 +32,4 @@
    Prüf-Subagent), Datenmigration für `bauformen.titel`, `bauform_stufen.beschreibung/beispiel`; Fehlbild-Kurznamen in i18n.
 3. S3 fertig: `fakeLib.ts` + Fixtures (dbread mit Prüfer-Claims, read-only), Ansichtstests, Fotos, PR von einem frischen
    Branch ab origin/dev.
+| 12.11.2026 | S1 | Zweitprüfung Runde 2 und 3 ohne „falsch“/„bricht“, Hinweise nachgezogen (pgTAP 67/67). **Eingespielt** `20261111191054_sp1_bauform_kommentare` (`~/einspielen/SP1-1-bauform-kommentare.sh`). Prüfabfrage dbread: `stufen 112, abweichend 0, kommentare t, senden t, erledigt t`; History-Eintrag vorhanden; `has_function_privilege(authenticated, bauform_pruefen) = f`; 47 × zur_pruefung. Prod-Abzug = lokaler Neuaufbau (nur Kopfzeilen). Types: die Bauform-Typen sind handgeschrieben (`src/types/bauformPruefung.ts`, Cast in der Lib wie bisher); `database.ts` neu zu erzeugen braucht die Windows-CLI (wie A-Bericht, offener Punkt 2). | #394 |

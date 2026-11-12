@@ -1,10 +1,13 @@
+-- schema-erwartet.sql
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
+
 --
 -- PostgreSQL database dump
 --
 
-\restrict eAscq8eCTa68YQjQ4PTd4Edd2oaqPwfk9eo7HH84cB1qYZz4A6MB47stZL4Vgvn
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -38418,5 +38421,4 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict eAscq8eCTa68YQjQ4PTd4Edd2oaqPwfk9eo7HH84cB1qYZz4A6MB47stZL4Vgvn
 
