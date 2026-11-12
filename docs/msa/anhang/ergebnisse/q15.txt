@@ -1,0 +1,15 @@
+ art  |  schulform   | ist_test | n  | holweide | kerpen | mit_schule_id 
+------+--------------+----------+----+----------+--------+---------------
+ kind | (leer)       | t        |  9 |        1 |      0 |             0
+ kind | Gesamtschule | t        |  5 |        0 |      0 |             1
+ kind | Gymnasium    | f        |  1 |        0 |      0 |             0
+ kind | Gymnasium    | t        | 28 |        0 |      0 |             2
+ kind | Realschule   | t        |  1 |        0 |      0 |             0
+ lead | (leer)       | t        |  7 |        0 |      0 |             0
+ lead | Gesamtschule | t        |  6 |        1 |      0 |             0
+ lead | Gymnasium    | f        |  1 |        0 |      0 |             1
+ lead | Gymnasium    | t        | 32 |        0 |      0 |            14
+ lead | Hauptschule  | t        |  1 |        0 |      0 |             0
+ lead | Realschule   | t        |  1 |        0 |      0 |             0
+(11 rows)
+

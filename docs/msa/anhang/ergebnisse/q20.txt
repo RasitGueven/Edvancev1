@@ -1,0 +1,5 @@
+ schulform |   quelle   | pakete | schulen 
+-----------+------------+--------+---------
+ Gymnasium | geschaetzt |    501 |      30
+(1 row)
+

@@ -1,0 +1,5 @@
+ bauformen |     status      |                                                                 formate                                                                 | skills | pruefungen | median_sek |                       figurengeneratoren                        
+-----------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------+--------+------------+------------+-----------------------------------------------------------------
+        47 | zur_pruefung:47 | feldmaske:11, loesungsmenge:10, mehrteiler:5, bausteine:4, fehler_finden:4, zahl:4, mc:3, graph_auswahl:3, schritte_ordnen:2, tabelle:1 |     15 |          0 |            | koordinatensystem, parabel, rechteck, rechtecke, thales, winkel
+(1 row)
+

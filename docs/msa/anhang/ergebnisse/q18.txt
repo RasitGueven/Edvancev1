@@ -1,0 +1,29 @@
+          thema_key           | stufe  | edvance_kl | kl7 | kl8 | kl9 | kl10 | schulen 
+------------------------------+--------+------------+-----+-----+-----+------+---------
+ rationale_zahlen             | erste  |          7 |  29 |   0 |   0 |    0 |      30
+ zuordnungen                  | erste  |          7 |  31 |   0 |   0 |    0 |      31
+ zinsrechnung                 | erste  |          7 |  31 |   2 |   0 |    0 |      31
+ terme_gleichungen            | erste  |          7 |  31 |   3 |   0 |    0 |      31
+ winkel_dreiecke              | erste  |          7 |  31 |   0 |   0 |    0 |      31
+ lineare_funktionen           | erste  |          7 |   0 |  30 |   0 |    0 |      30
+ terme_binomische_formeln     | erste  |          7 |   1 |  27 |   0 |    0 |      28
+ zufallsexperimente           | erste  |          7 |  27 |  24 |   0 |    0 |      31
+ flaechen_vielecke            | erste  |          7 |   3 |  26 |   0 |    0 |      29
+ lineare_gleichungen_lgs      | erste  |          7 |   0 |  30 |   0 |    0 |      30
+ thales_konstruktionen        | erste  |          7 |   3 |  25 |   0 |    0 |      28
+ reelle_zahlen                | zweite |          9 |   0 |   1 |  26 |    0 |      27
+ potenzen                     | zweite |          9 |   0 |   0 |  27 |    3 |      27
+ quadratische_funktionen      | zweite |          9 |   0 |   0 |  27 |    0 |      27
+ quadratische_gleichungen     | zweite |          9 |   0 |   0 |   4 |   19 |      23
+ pythagoras                   | zweite |          9 |   0 |   0 |  26 |    0 |      26
+ aehnlichkeit                 | zweite |          9 |   0 |   4 |   8 |   17 |      27
+ kreis                        | zweite |          9 |   0 |   1 |  26 |    0 |      27
+ prismen_zylinder             | zweite |          9 |   0 |   0 |   7 |    0 |       7
+ koerper_pyramide_kegel_kugel | zweite |          9 |   0 |   0 |   0 |    8 |       8
+ trigonometrie                | zweite |          9 |   0 |   0 |   0 |   25 |      25
+ exponentialfunktionen        | zweite |          9 |   0 |   0 |   0 |   25 |      25
+ sinusfunktion                | zweite |          9 |   0 |   0 |   0 |   25 |      25
+ bedingte_wahrscheinlichkeit  | zweite |          9 |   0 |   0 |  20 |   19 |      27
+ statistik_beurteilen         | zweite |          9 |   0 |   0 |   5 |    0 |       5
+(25 rows)
+

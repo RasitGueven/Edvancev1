@@ -1,0 +1,35 @@
+   status   | taschenrechner | count 
+------------+----------------+-------
+ draft      | f              |   712
+ draft      | t              |    12
+ ready      | f              |   163
+ ready      | t              |     5
+ rueckfrage | f              |     2
+(5 rows)
+
+            skill_key            | status |                                           frage                                            |                  id                  
+---------------------------------+--------+--------------------------------------------------------------------------------------------+--------------------------------------
+ geo_aehnlich_flaeche            | draft  | Zwei Quader sind zueinander ähnlich. Eine Kante des kleinen Quaders ist 4 cm lang, die ent | e9add498-a88c-46e5-8905-25a5d1ec9ce7
+ geo_aehnlich_flaeche            | draft  | Für ein Wandbild werden 0,4 Liter Farbe gebraucht. Ein zweites Wandbild hat dieselbe Form, | 93e695a0-efbe-490f-b931-299545068f26
+ geo_aehnlich_strahlen_abschnitt | draft  | Zwei gerade Straßen gehen von einer Kreuzung S aus. Zwei zueinander parallele Querstraßen  | cff72027-8549-47c3-a12c-e1ff333fa4fd
+ geo_aehnlich_strahlen_abschnitt | draft  | Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und  | f06ce97a-7c42-400e-8cb0-7b53f6f98be1
+ geo_aehnlich_strahlen_abschnitt | draft  | Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und  | f8083d9b-72c9-4a72-a0c0-0adb8787bfce
+ geo_aehnlich_strahlen_abschnitt | draft  | Zwei gerade Metallstangen sind oben im Punkt S verbunden und laufen schräg auseinander nac | 421cad19-9629-4f75-8e01-c63e86692329
+ geo_aehnlich_strahlen_parallel  | draft  | Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und  | 59bdf7d8-248a-4c9a-8f96-01aba8f098c1
+ geo_aehnlich_strahlen_parallel  | draft  | Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und  | 59b87dce-2116-4855-9e94-54dff17ff05a
+ geo_aehnlich_strahlen_parallel  | draft  | Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und  | 9e52eb0d-bf0a-4770-aec2-d9598a087c45
+ geo_aehnlich_strahlen_parallel  | draft  | Auf ebenem Boden liegen ein Punkt S, der Fußpunkt eines senkrechten, 1,6 m hohen Stabs und | ae9f75b4-3990-401b-bab1-479503f08594
+ geo_aehnlich_streckfaktor       | draft  | Ein Dreieck hat die Seitenlängen 5 cm, 6 cm und 7 cm. Es wird zentrisch gestreckt. Das Bil | 51490b4f-18e9-4a15-8ee2-7e160526f2d9
+ geo_aehnlich_streckfaktor       | draft  | Bei einer zentrischen Streckung mit dem Streckfaktor k = 2,5 entsteht eine 7 cm lange Bild | 75cb4657-94a9-4348-b6b1-807f241f4914
+ zahl_wurzel_naeherung           | ready  | Berechne √30. Runde auf zwei Stellen nach dem Komma.                                       | 0b9229a0-db38-4fc4-8b64-1213b5198f50
+ zahl_wurzel_naeherung           | ready  | Berechne √0,9. Runde auf zwei Stellen nach dem Komma.                                      | 9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd
+ zahl_wurzel_naeherung           | ready  | Berechne √10. Runde auf eine Stelle nach dem Komma.                                        | fde9c9a1-f05a-42ff-ab98-d94ee6894d07
+ zahl_wurzel_naeherung           | ready  | Ein quadratisches Beet hat einen Flächeninhalt von 11 m². Wie lang ist eine Seite des Beet | cd35f4b2-62da-4f01-9215-bc9504f8e67a
+ zahl_wurzel_naeherung           | ready  | Ein quadratischer Teppich soll einen Flächeninhalt von mindestens 6 m² haben. Wie lang mus | 81015f65-8ac0-4ef3-abb8-9a7b87c44940
+(17 rows)
+
+   hilfsmittel    | nur_pilot 
+------------------+-----------
+ Stift und Zettel | f
+(1 row)
+
