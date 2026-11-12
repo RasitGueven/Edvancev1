@@ -1,0 +1,895 @@
+id,skill,status,textschluessel,gruppe,grund
+20f70b4a-eae3-4d66-ae92-cc86bb1dee1b,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+8b02a788-236c-4851-b9d1-7908e5096499,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+bef79a9b-d52d-4285-aa03-495181276f51,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d0c1132b-4d85-4f7a-867e-22d6f36f6415,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d0ed5d1e-f9f3-479b-b3e5-643c3b014401,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ebfa32b6-b6ef-4250-baad-a6bb1404521f,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6b363dac-a30c-4a2f-8fa0-b7814353d1f2,bruch_add,draft,d820cb1d6d883580f3a2f0783163fb9f,notwendig-regel,"Entwurf, Lena muss prüfen"
+c81ae9db-193f-4154-9db9-d6062f21a587,bruch_add,draft,14b0d337c4648e4f1a8f86f7d6a029d6,notwendig-regel,"Entwurf, Lena muss prüfen"
+3768ecdc-2c2e-4076-b6ff-556906e5cbfe,bruch_dezimal,ready,7042935fa47fe5f11454bbc3f06f7cfe,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6bdc7d4e-d6a2-494e-8649-02839c5a3bda,bruch_dezimal,draft,7042935fa47fe5f11454bbc3f06f7cfe,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6ef85b4a-1f14-49b4-acf6-05aa01567e4f,bruch_dezimal,ready,7042935fa47fe5f11454bbc3f06f7cfe,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+80105584-06dd-4fc9-b481-ec047c7cb343,bruch_dezimal,ready,7042935fa47fe5f11454bbc3f06f7cfe,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+8ea44368-dbbd-45b4-86c5-729c90b93498,bruch_dezimal,draft,7042935fa47fe5f11454bbc3f06f7cfe,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b65bad4b-a8dd-4cee-8b9e-7716f5c786c0,bruch_dezimal,draft,c313d5ff8862591ec46b3d511681263f,notwendig-regel,"Entwurf, Lena muss prüfen"
+de2aabbf-8988-47d4-9f51-c4e80232b374,bruch_dezimal,ready,7042935fa47fe5f11454bbc3f06f7cfe,notwendig-regel,schon im Pool
+11b7c57a-942a-4213-b17a-4a5514588238,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+4557ba82-b9c7-4d65-b9ab-2a221139cbe7,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+486cfc40-d31b-4aa6-b38e-f75a1359042f,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+5ad7999d-7a43-41cf-8ace-f6170133db69,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+802069f8-d538-4d03-a4cb-e31af86593a6,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b1a549f0-9d26-4431-9bdc-5bc910edd4ab,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6e2e4f8f-3442-4cf9-90da-2623554106f0,bruch_div,draft,b6293593146237b8f77f1eae7f3f4211,notwendig-regel,"Entwurf, Lena muss prüfen"
+1244b84c-781d-47cb-8c73-eaa5543b1ce0,bruch_kuerzen,ready,c42c2b41bdf98efcc0fc32822b84d1cc,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+2e40939a-e791-4615-8813-79812e1faa2c,bruch_kuerzen,draft,c42c2b41bdf98efcc0fc32822b84d1cc,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+41004d1a-6ab3-4556-a1a2-778ea2450471,bruch_kuerzen,draft,c42c2b41bdf98efcc0fc32822b84d1cc,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+9a6bf378-2cd4-4ca5-afeb-bb856d5853f8,bruch_kuerzen,ready,c42c2b41bdf98efcc0fc32822b84d1cc,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b7fbaaca-e478-4aeb-b9d1-c637494234d8,bruch_kuerzen,draft,c42c2b41bdf98efcc0fc32822b84d1cc,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+bba44bae-beda-4a25-8fdc-e7a303e991c8,bruch_kuerzen,draft,c42c2b41bdf98efcc0fc32822b84d1cc,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+3b64f242-c2ab-4f18-8af4-a72dc185cf10,bruch_kuerzen,draft,b26b7334f09cad5f901969699c344c3a,notwendig-regel,"Entwurf, Lena muss prüfen"
+9a70682a-428d-4b75-8567-e5d9f7cb607e,bruch_kuerzen,ready,c42c2b41bdf98efcc0fc32822b84d1cc,notwendig-regel,schon im Pool
+1633969e-091c-4dc9-bc02-7dd93c38c71a,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6e319560-807c-4f1c-8384-3d754e1d4b43,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+a1beba16-687f-4606-95db-d8236bc043ed,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+a5a1eae1-0803-4ff0-b532-1d302b0d6d74,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ea53a571-699b-45b6-bd1e-c7bfda416187,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f7175bad-c4e5-469c-bbf4-6b8c1ca0215e,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+590b9c87-620f-4d53-90fc-fe6d40d16cba,bruch_mult,draft,af4323ae51225f5b66d54af0ec171e3b,notwendig-regel,"Entwurf, Lena muss prüfen"
+fa8c52a4-161c-4bd4-9174-b98091ceb608,bruch_mult,draft,2cb0fdea95e774be31877a89fdb7319b,notwendig-regel,"Entwurf, Lena muss prüfen"
+0cb5d1f1-8b64-4bc7-afbe-855c688a9773,dezimal_add_sub,draft,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+172db197-48cf-4afd-9e59-a57c8bc29b55,dezimal_add_sub,ready,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+2084724c-6537-4b1a-81c4-946ca9eeb974,dezimal_add_sub,draft,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+37a501b6-a8b1-4651-afcd-ee974d78e031,dezimal_add_sub,draft,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6a8e9bc1-3e90-4815-b294-149aae9de23a,dezimal_add_sub,draft,5a97f7b1f189835e0d51b5ea0ba12df6,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a07cbf96-8bca-4a36-b89b-8752db0bfd34,dezimal_add_sub,draft,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+be8ce7e4-d8f2-4b45-b6b1-447b102cf500,dezimal_add_sub,ready,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+da4f1646-c1f7-4a59-a0db-b712208565e3,dezimal_add_sub,draft,8381f280295e1db7c63d235758cc8f44,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+024143bf-840e-4ad5-aefe-b18c223aefcf,dezimal_add_sub,ready,8381f280295e1db7c63d235758cc8f44,notwendig-regel,schon im Pool
+20321d30-58db-4218-96b3-d035bca32573,dezimal_add_sub,draft,a904d1c09b4c96c458c8c7f749225f38,notwendig-regel,"Entwurf, Lena muss prüfen"
+5699500a-7b14-4f91-9039-6226dc176587,dezimal_add_sub,draft,bb72e684beb592f0dbec920e2d692e5a,notwendig-reserve,"Entwurf, Lena muss prüfen"
+400b8905-8ad7-4fd8-8a15-7fb6d0e37b14,dezimal_div,ready,eaa957186c59a6c9d481e676a0e5a3ca,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6fc6f305-160c-4c63-8371-de05eda0d520,dezimal_div,draft,eaa957186c59a6c9d481e676a0e5a3ca,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+865b6e60-271a-483b-afe2-63cdfe266e1b,dezimal_div,draft,eaa957186c59a6c9d481e676a0e5a3ca,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+91390c63-7a79-43a0-bf60-4abc0316bc52,dezimal_div,draft,eaa957186c59a6c9d481e676a0e5a3ca,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+bdf4d10a-9cf2-4ed5-a59b-54fec4b3851f,dezimal_div,ready,eaa957186c59a6c9d481e676a0e5a3ca,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+fa305352-7dcc-4e25-85dd-0cc9e201fca6,dezimal_div,draft,02592dcd0585210bbf6ea421bf3b267f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1debff4f-af14-4dec-89a8-4344d6966fb0,dezimal_div,draft,0bf495b9a5324a6edf824d0d61e68e29,notwendig-regel,"Entwurf, Lena muss prüfen"
+6b531762-47e8-4b29-aeee-ce70b560486a,dezimal_div,ready,eaa957186c59a6c9d481e676a0e5a3ca,notwendig-regel,schon im Pool
+730dae3f-afb6-49c8-baa9-53a5169a6a90,dezimal_div,draft,da456b42300acd2bd46ca25fdf3caa7d,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0cbaacfd-cf96-40a7-a896-c198e67531fa,dezimal_mult,ready,49c5e10dbccfe66fd935fb7c4278c6b2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+1983282b-8a5d-437f-a7dc-d8695f8a3496,dezimal_mult,draft,49c5e10dbccfe66fd935fb7c4278c6b2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+24310ee2-1688-4504-a72b-5e1fa7cab2dc,dezimal_mult,draft,49c5e10dbccfe66fd935fb7c4278c6b2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+3d066cef-b5e1-45db-b560-dd86d1c5b38c,dezimal_mult,ready,49c5e10dbccfe66fd935fb7c4278c6b2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d183eca3-c7af-4e26-9c7a-e8dd69937346,dezimal_mult,draft,49c5e10dbccfe66fd935fb7c4278c6b2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e8e6eeb7-115f-40a1-ade1-4d4aa67a97a3,dezimal_mult,draft,3fd46709959e28b41705eca6d21d4f86,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+21f1c9f4-2ef0-445d-937b-73c7c5d0d606,dezimal_mult,draft,37a85cf62baa08edd67d57dba1d552c3,notwendig-regel,"Entwurf, Lena muss prüfen"
+3038721a-abdd-4030-b683-33b3e8d3efb9,dezimal_mult,ready,49c5e10dbccfe66fd935fb7c4278c6b2,notwendig-regel,schon im Pool
+98441ffc-3708-44cc-b8fc-d626f2819561,dezimal_mult,draft,8f2e59aca604e503efd2da40b41a34df,notwendig-reserve,"Entwurf, Lena muss prüfen"
+7e3a4210-981c-424c-ba76-6d326165e335,fkt_exp_anwendung,draft,0cad78f04b51db69c0a25396d80e9a7b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c6e6dac0-bbb7-49ce-b424-f3ce3806c1a1,fkt_exp_anwendung,draft,f0b29c752558cccb69b38e8df1615ecb,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e53c873e-f152-495a-a550-23751c7be490,fkt_exp_anwendung,draft,2e4295894dec39877f81ccb6f92b4435,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0054a031-7aae-4035-a3e5-1e3c698c35d6,fkt_exp_anwendung,draft,5557dcba79a91ae5a33eec1927ee23bb,notwendig-regel,"Entwurf, Lena muss prüfen"
+167c44e0-d197-4696-951a-a17b5f8337c4,fkt_exp_anwendung,draft,c0d0d07b0fad0498e1bf2e7eb14927d8,notwendig-regel,"Entwurf, Lena muss prüfen"
+380b85ad-3967-4fad-b370-e113276310a6,fkt_exp_anwendung,draft,eb63b94fce2c91f3539f8d506edf0a81,notwendig-reserve,"Entwurf, Lena muss prüfen"
+356c43e5-5443-4664-83f9-e81054644920,fkt_exp_gleichung,draft,cbeb4c873b92214fbf362494e41546a8,nicht-notwendig,keine gültige Lösung oder inaktiv
+b08dd57c-00cd-4d8d-b035-0d37075d6331,fkt_exp_gleichung,draft,5feb34ab82373d51bcf112d21e14d4ef,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c145fae7-4001-4d15-9218-64948c1964af,fkt_exp_gleichung,draft,47b8827c8cb987ea0bbf8f3c9501923b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+282318bf-0748-4764-8f2f-ac39dfd14d22,fkt_exp_gleichung,draft,99b14c35101bb0c8832a9abe7d250d40,notwendig-regel,"Entwurf, Lena muss prüfen"
+3f87ce05-a113-439a-8b18-18160b63ca52,fkt_exp_gleichung,draft,04febef121d8d39fc39ba85256ca4ecd,notwendig-regel,"Entwurf, Lena muss prüfen"
+970789a3-e052-48e9-b5c8-7509083a901c,fkt_exp_gleichung,draft,dece3570dc8298c06fb681cb2fb51eed,notwendig-reserve,"Entwurf, Lena muss prüfen"
+6557a84f-4c11-4e4d-8fbe-ec66210f6027,fkt_exp_halbwert,draft,b28b348ffc508257e3ebc548bf35e792,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+67e561b4-fcbf-40c1-a24f-6180f39bb1f3,fkt_exp_halbwert,draft,3a99f7dd96a66c570de5ecea46707ef2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b034cc64-2773-4753-a08d-be9bbb6319c6,fkt_exp_halbwert,draft,b2a1c768d1e4e1c71e612a3e92675423,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+10179c4f-fa4f-439c-81e5-c5d0957ac2e7,fkt_exp_halbwert,draft,503cc7d7afe969085d2c822db6465e63,notwendig-regel,"Entwurf, Lena muss prüfen"
+3e496b46-156d-45cc-9b77-596261829fb8,fkt_exp_halbwert,draft,876963d5a1a205332a9fe6301d31dffc,notwendig-regel,"Entwurf, Lena muss prüfen"
+01afa83d-dfd8-44a6-b6e4-b75c28c273a0,fkt_exp_halbwert,draft,60039834e47782338043bdd88723ddde,notwendig-reserve,"Entwurf, Lena muss prüfen"
+785c92ab-e234-469f-bb6a-59c0c11db8fd,fkt_exp_term,draft,d66e20027cae36a8dd589917d72fa029,nicht-notwendig,keine gültige Lösung oder inaktiv
+f52ef418-8b90-4c8f-903f-975f8bd8da41,fkt_exp_term,draft,6900122f6ac0a00f142537bc90584e53,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f8140fab-2e2f-43cf-9b1f-646865613fa1,fkt_exp_term,draft,a860a0308e7da92f99177c6de72cad52,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0a568e4e-b3e1-408c-89e1-ba380e9845a3,fkt_exp_term,draft,cb7705f754e06b7cd1169916b27c9407,notwendig-regel,"Entwurf, Lena muss prüfen"
+0b9ee008-01c1-4a82-8b69-cfe266a23af1,fkt_exp_term,draft,85330bc078e4e681f03442a032017b5f,notwendig-regel,"Entwurf, Lena muss prüfen"
+a30145c7-5bc0-4f21-80ee-5237c1df2756,fkt_exp_term,draft,fe6ad9e22ce38179f2c78328628d83c3,notwendig-reserve,"Entwurf, Lena muss prüfen"
+530dd080-d2cc-4e4b-b4ad-31963a32158a,fkt_exp_wachstum,draft,23f2a5e95565c0227cc0261b9d22f849,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f91618d9-3bbf-4b57-8901-8f898829fdef,fkt_exp_wachstum,draft,0b8df0e1a38d3e303d57801653504621,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+fef2acea-a040-46f5-8ebd-73f1bb5c6383,fkt_exp_wachstum,draft,bf57255edc3c0cda655226a60943c69e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+36b07433-c75c-4ea5-8f7d-62ac59599228,fkt_exp_wachstum,draft,bbf4501b89e72987171efba5f63bc98a,notwendig-regel,"Entwurf, Lena muss prüfen"
+f7e14298-714a-44b5-b2c8-6b93442256b5,fkt_exp_wachstum,draft,bf7b9c7ba7f2270b3ff69307d9bc1afe,notwendig-regel,"Entwurf, Lena muss prüfen"
+3f468bf7-9fb7-4dab-a316-c5af7d852acd,fkt_exp_wachstum,draft,249d5ee4d7668c2157fbbd0c7d9e8106,notwendig-reserve,"Entwurf, Lena muss prüfen"
+07f970aa-ff64-4158-a713-9943054621a0,fkt_linear_gleichung,draft,e7ccb24f71aa71709ddf4138df0219b4,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1bbce78e-f996-4c03-a78a-09b47f5c7445,fkt_linear_gleichung,rueckfrage,ea8eb505cd3e0448b4f8f8264233f458,nicht-notwendig,Status rueckfrage
+a61e8be9-b55f-4c43-9971-7b74e3d55a33,fkt_linear_gleichung,rueckfrage,1c1eab0a77d4535685cac004393f1332,nicht-notwendig,Status rueckfrage
+55d52e3e-cdd5-4e3c-9929-fb82aac16d33,fkt_linear_gleichung,ready,f502b4e953e7793ad191268798e39c0f,notwendig-regel,schon im Pool
+ffc76634-86ca-4c53-b816-d18d7f868443,fkt_linear_gleichung,ready,c5180b784ad84c51d5bdff8d120f5148,notwendig-regel,schon im Pool
+b0f1b654-75da-4811-b7b4-065712b6e347,fkt_linear_gleichung,ready,bfeafd8e81b4f1bf19a40034b1273ac4,notwendig-reserve,schon im Pool
+9a48fec6-1176-4303-82e6-4150f2ffcfc0,fkt_linear_graph,draft,fb9ad22f2dfd1a842687177d3fa7d037,nicht-notwendig,keine gültige Lösung oder inaktiv
+e80dd66b-ea62-4fa2-acbd-fbfe5d8190a6,fkt_linear_graph,draft,60ff95bb89bb9e5b149356456493738e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ea0de2c5-d074-464b-a2ea-49a86dc907ab,fkt_linear_graph,draft,f30cf6cde33efebc140647f497fb68ad,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+45928556-74be-4aa8-837f-97fa04a4dce3,fkt_linear_graph,draft,0d7c609f43deeba772294fd4db454915,notwendig-regel,"Entwurf, Lena muss prüfen"
+6c2393f4-f1d5-490e-adeb-c7b1c8fa611a,fkt_linear_graph,draft,3c63c1e8d63720aaebf3ebf286c6a202,notwendig-regel,"Entwurf, Lena muss prüfen"
+24a633b2-ca0b-4909-9907-26bb0e6c163b,fkt_linear_graph,draft,695098c577d9b6909356efb7076b320d,notwendig-reserve,"Entwurf, Lena muss prüfen"
+305c5063-1e7a-4919-a8ba-b97128fc0367,fkt_linear_nullstelle,draft,7b05419742c643ef0e971054c72cfbdc,nicht-notwendig,keine gültige Lösung oder inaktiv
+c291bd8a-ee36-44f4-b195-66c4859f0217,fkt_linear_nullstelle,draft,df03aed0115f83840db9fdb5cda51582,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f95fc1f6-7ab9-4a8d-bd97-83bdf1a024bb,fkt_linear_nullstelle,draft,7119f1e09cffe71f7aee0ea30438906d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+429c8aa1-d937-4231-a778-9a27cde1138c,fkt_linear_nullstelle,draft,5f053964b9222c488bc558fb573c6d66,notwendig-regel,"Entwurf, Lena muss prüfen"
+7e4040f5-19d5-474f-90d8-633835b9fdde,fkt_linear_nullstelle,draft,df03aed0115f83840db9fdb5cda51582,notwendig-regel,"Entwurf, Lena muss prüfen"
+4edaa568-3b92-4a89-9105-3551d758e17e,fkt_linear_nullstelle,draft,98a0157f9284b0853c552fdc451fba13,notwendig-reserve,"Entwurf, Lena muss prüfen"
+9f8674f1-2917-4082-ad94-20b3af6c84c0,fkt_linear_steigung,draft,e30f6da9ff8e9b3782576edb67a3aade,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d8958025-3016-4995-8011-6ad2abe63fe5,fkt_linear_steigung,draft,b6895e84c0aec96cf033d0615e8df306,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ffc758dc-dcdb-4b66-9281-4563b18c2dc8,fkt_linear_steigung,draft,8dad9330b4530a69665da3d7d67daf5e,nicht-notwendig,keine gültige Lösung oder inaktiv
+7cd1b9af-433f-459f-90a6-cf241c245739,fkt_linear_steigung,ready,daf91c96cb3b376f30bce1591617cf50,notwendig-regel,schon im Pool
+a0451e78-948c-4ef6-90ce-50a16fed9f39,fkt_linear_steigung,ready,b6895e84c0aec96cf033d0615e8df306,notwendig-regel,schon im Pool
+438b3001-2778-4fec-be77-75354c88e454,fkt_linear_steigung,draft,5ab81e3a45abc70e1e7f9b78ca00a8a3,notwendig-reserve,"Entwurf, Lena muss prüfen"
+c2f24a82-07ce-4db6-bdcb-f667e34f2439,fkt_linear_yabschnitt,draft,9471c46c898318d72ccceaedf7581870,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+de54e58b-fac9-4341-b38e-88c5233a90d3,fkt_linear_yabschnitt,draft,322c7b8560c12d9c72e0e9d897c997ff,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+fa6fb2c7-da7b-44be-a425-f7dc8e06af6a,fkt_linear_yabschnitt,draft,a315ed1ec2a52f535b8c3c4446da5e21,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1c170c59-3c96-4767-b731-6d954e127025,fkt_linear_yabschnitt,ready,2cbcc44a8896bedf6942e02e32dd78af,notwendig-regel,schon im Pool
+e4611c3d-02b9-4a0b-8e42-795f8a15a925,fkt_linear_yabschnitt,ready,2e67321f2287da79a4d6f0313eb65ab0,notwendig-regel,schon im Pool
+871303c4-dcdb-4573-9dfb-6e3ca2085426,fkt_linear_yabschnitt,draft,8ba4c2f5c68b52d9e58c44d6d2d21e75,notwendig-reserve,"Entwurf, Lena muss prüfen"
+4a70a989-5a09-4037-af27-476e378e7120,fkt_quadr_extrem,draft,8d1275e9037004c83a9fa336183267c3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+547e47ca-bd44-479d-ae44-932644219954,fkt_quadr_extrem,draft,8f87687a1812d1b3a97ea33f0a861c25,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,fkt_quadr_extrem,draft,79c3934f93dcac423b1ac98c26db20b9,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f1e39983-43c3-4048-a8fd-8efa86af128a,fkt_quadr_extrem,draft,7d1fd9f63dae2bff787f995ce921c1be,notwendig-regel,"Entwurf, Lena muss prüfen"
+f38cec97-0b1e-400c-9708-fcf18e52b371,fkt_quadr_extrem,draft,e5f1f955f3deeffa4f001a5d95b4a7ed,notwendig-regel,"Entwurf, Lena muss prüfen"
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,fkt_quadr_extrem,draft,35f940e2921d75c945aa241b25dbd102,notwendig-reserve,"Entwurf, Lena muss prüfen"
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,fkt_quadr_normalform,draft,6cd27e7621ae728bca9fb27448ee916b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+dc585f12-7da2-4909-baeb-ceda0b4af570,fkt_quadr_normalform,draft,b1c5b416661db0bc89d9202b555d860f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,fkt_quadr_normalform,draft,8900a4e6f97dc640f2390b8b361266e2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+45076244-62bd-4ca6-83a7-52308dfcbc8f,fkt_quadr_normalform,draft,e5b206addc254313ad4fdfb0c01466a6,notwendig-regel,"Entwurf, Lena muss prüfen"
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,fkt_quadr_normalform,draft,3109309d02a9847bb2d69cb70189d409,notwendig-regel,"Entwurf, Lena muss prüfen"
+cd17cea3-1055-4a70-a247-dab0845293c7,fkt_quadr_normalform,draft,4ae324b313c1ab71734e0920e27bb35c,notwendig-reserve,"Entwurf, Lena muss prüfen"
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,fkt_quadr_nullstellen,draft,de1253d7068fe37a2e231b5ca42965bf,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+52ca5f74-4822-4752-a21c-bba0800e0418,fkt_quadr_nullstellen,draft,bb26bde0529431ae472e774cdecd91a5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cb03b892-5d43-4818-85b9-7160debaea43,fkt_quadr_nullstellen,draft,6c17736e9d6ac306d1351aaa1a330176,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2fbd2563-648f-4990-9cff-429936af589d,fkt_quadr_nullstellen,draft,66c39846f1a8f2fee25eebc5e9a24ee7,notwendig-regel,"Entwurf, Lena muss prüfen"
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,fkt_quadr_nullstellen,draft,e550bfb6ebe25fd7497e8b0cf97d03dc,notwendig-regel,"Entwurf, Lena muss prüfen"
+344b91f6-06af-4aec-93ae-52be49c38a2f,fkt_quadr_nullstellen,draft,83f0c44dd83175905e882e12a70ae23f,notwendig-reserve,"Entwurf, Lena muss prüfen"
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,fkt_quadr_parabel,draft,557dd5f8f000ff2f11d8307c3bb6a152,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,fkt_quadr_parabel,draft,d48f495f6867350aceb9ba52dd711d31,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ab03e9ba-d464-476a-9197-11b131b32469,fkt_quadr_parabel,draft,ac770521a75244e57b6f902023326db4,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+191789f5-7435-4ba3-a6f5-a94155f2b954,fkt_quadr_parabel,draft,b105227e4478bfadddef13092874f3ca,notwendig-regel,"Entwurf, Lena muss prüfen"
+787e947c-ce58-403a-8057-a15a82b50f94,fkt_quadr_parabel,draft,60d81c3bde9148667bb976552746d7d3,notwendig-regel,"Entwurf, Lena muss prüfen"
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,fkt_quadr_parabel,draft,9e4057b7bee4521fec2426193dc23d7e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+a43a1329-4880-456e-8865-1b1cd82e2862,fkt_quadr_scheitel,draft,1433ebccd35ffa7f6f103fd65dc0e860,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,fkt_quadr_scheitel,draft,a6a138d5d8ac3fd59edb5a2ff5abdd18,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f96d3513-0ae9-4316-a871-4bf72aff96c3,fkt_quadr_scheitel,draft,e68ac176b716b5116ae6b4e3cff649c2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,fkt_quadr_scheitel,draft,61a012c4c4513bd4ce699fe64d3294da,notwendig-regel,"Entwurf, Lena muss prüfen"
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,fkt_quadr_scheitel,draft,3ff9e3e9388b3ce4eb15df21d0610869,notwendig-regel,"Entwurf, Lena muss prüfen"
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,fkt_quadr_scheitel,draft,146c11e454f16c3bc127d680a932822f,notwendig-reserve,"Entwurf, Lena muss prüfen"
+718f0c9a-6a29-4ce7-b8ea-ce46d94c3f65,fkt_sinus_bogenmass,draft,bfe14e42f25378d3e64857b6b55c6797,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+80a3d680-4289-4cc6-8b87-793c602c5c1f,fkt_sinus_bogenmass,draft,d83dfb2942290c32e65281c4207e4a69,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d24bac46-6ac1-4560-bd4f-ab856150108e,fkt_sinus_bogenmass,draft,b16394a194578ad53f564b002f9a9af3,nicht-notwendig,keine gültige Lösung oder inaktiv
+4bea8500-6a8c-4719-98b7-8c68d02543b1,fkt_sinus_bogenmass,draft,77ed233cfa24aacd99be508493b50fa8,notwendig-regel,"Entwurf, Lena muss prüfen"
+b3ce89d7-2f07-4438-802b-b3653ad330da,fkt_sinus_bogenmass,draft,b148277edfa68ad9475ac7b8b0cc4b03,notwendig-regel,"Entwurf, Lena muss prüfen"
+0caf97f5-5562-4905-9329-0e884f7e566d,fkt_sinus_bogenmass,draft,e6bc8b4e62ef12d0b2f35dbc462e58ff,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5564f507-357e-4975-98fb-80ee85d1de4a,fkt_sinus_einheitskreis,draft,31cd7f9faba2ff5da2800a3b9f006bb7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c142139e-ecfa-4583-980d-dd926f0b874d,fkt_sinus_einheitskreis,draft,d4f1a722e7f43b39aa04b4a954ed8e7e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d051d804-ac22-4995-a537-703ad36ed510,fkt_sinus_einheitskreis,draft,1f4a20777754ee9b2545080e7f78b047,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0b3bf2b5-29bc-4b79-9fa5-2e1016d65e97,fkt_sinus_einheitskreis,draft,14e119ccc2ce4d1cc123c1b5ea2d5e19,notwendig-regel,"Entwurf, Lena muss prüfen"
+82cb7f14-5213-4aea-a297-c480c557463c,fkt_sinus_einheitskreis,draft,3778785f0ba960507e2650d11197b38f,notwendig-regel,"Entwurf, Lena muss prüfen"
+5511e07a-0da1-4f7b-8da7-38ad45dc41ea,fkt_sinus_einheitskreis,draft,0e0736460bbf143f49f076f45a328ef5,notwendig-reserve,"Entwurf, Lena muss prüfen"
+3b59c4a1-2216-48a5-9462-64c03187acd9,fkt_sinus_graph,draft,f5497580336d1b52c840290d0fc8c082,nicht-notwendig,keine gültige Lösung oder inaktiv
+957ef3a2-42ec-4e74-97d7-b75be722fc12,fkt_sinus_graph,draft,eeecfd8f3ebc0528569179143632c07f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b0fd871b-5f23-478b-b8c2-3b34a8e3aa02,fkt_sinus_graph,draft,a1474862d4ee2ccb14f481fd26969940,nicht-notwendig,keine gültige Lösung oder inaktiv
+2c93e7d0-82d4-4abb-8493-cc03f04ad49b,fkt_sinus_graph,draft,fe24ee4513bc001aa363aae1dcf8801a,notwendig-regel,"Entwurf, Lena muss prüfen"
+516304d3-5cb1-4223-8afd-69958fe1890a,fkt_sinus_graph,draft,8ebfb1eaa8f11044692a01b2a1b44694,notwendig-regel,"Entwurf, Lena muss prüfen"
+50da3bb2-6650-498a-804f-05863e2da59b,fkt_sinus_graph,draft,3ba79020eb3567c9771f69c4c14418aa,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5d143147-03ad-46b0-a2d2-6308111eac90,fkt_sinus_parameter,draft,460963adbb4b028c387b38f1022f1b70,nicht-notwendig,keine gültige Lösung oder inaktiv
+9958d2ae-a87d-41b5-a7b7-f9e453c879d1,fkt_sinus_parameter,draft,7ad5de0f6bce6210e821b84f53be4d10,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ee9a28cd-1129-405c-9b83-d8972ddf4681,fkt_sinus_parameter,draft,1674769bef5c55fc1a016574bba3b4e5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6e99f959-15b4-4f00-9631-5d39754d4982,fkt_sinus_parameter,draft,f5306aac5f6abfd8890a5a974d69ae25,notwendig-regel,"Entwurf, Lena muss prüfen"
+742d6386-43fd-4a38-9f29-f9c31e828916,fkt_sinus_parameter,draft,04f8d1e0966d55e37b038d644199852c,notwendig-regel,"Entwurf, Lena muss prüfen"
+095a8d5c-4a0b-4fd3-97a0-01996b207163,fkt_sinus_parameter,draft,f1f5901ce9e2669a97ef7be0521223a0,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0fa3adaa-2c0f-4a5f-95a6-d809a1a67d49,fkt_sinus_periodisch,draft,0269384bfed85fc4804e6e04bca4546b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+21de966d-ff18-47b4-a99f-76331cb4b55b,fkt_sinus_periodisch,draft,95158f38ff3ce763fd8264b7d3f9d2bf,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6b3e8dcf-463e-47c5-9596-4416e1a50bcb,fkt_sinus_periodisch,draft,eb546bec0567b7dc04a4c1ddabfa1944,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2d925ba5-b5d2-4d1d-b8d6-8477b072fa17,fkt_sinus_periodisch,draft,75ba74bd009f4fb8ffa6813a99091346,notwendig-regel,"Entwurf, Lena muss prüfen"
+413a5fa5-cf54-4e4d-a9bb-44d1abba7215,fkt_sinus_periodisch,draft,49c8210ce5be6f0d6f0e4da1752a5a94,notwendig-regel,"Entwurf, Lena muss prüfen"
+0e776143-4575-4bd0-9237-df42d9b71283,fkt_sinus_periodisch,draft,30b5c973e30c1dc14aebaeac7620312b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+6e18016e-5c62-4ba8-a1ed-a924506930e7,geo_aehnlich_flaeche,draft,d841e4ed2b1eff52e3970f4cb45a6259,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7f8af94f-4ac8-40e9-851e-7e36a48335cd,geo_aehnlich_flaeche,draft,1b981d02b3ea6cec08cf438c23edb02e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e9add498-a88c-46e5-8905-25a5d1ec9ce7,geo_aehnlich_flaeche,draft,b5eda08aa915b8c51942411c426235d3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4186f7c2-c0bf-4563-a14c-bc04d0817ee6,geo_aehnlich_flaeche,draft,ddc4823d8014f61872a126f91dab1e0c,notwendig-regel,"Entwurf, Lena muss prüfen"
+93e695a0-efbe-490f-b931-299545068f26,geo_aehnlich_flaeche,draft,46b79653d0cd19b86e0b71240df53aeb,notwendig-regel,"Entwurf, Lena muss prüfen"
+1cba711e-7175-49db-b76a-8c3304b5bc64,geo_aehnlich_flaeche,draft,239901b56f3eea4d5d2e03ebbb7dbde9,notwendig-reserve,"Entwurf, Lena muss prüfen"
+9dc1b8dc-5c53-43dc-a32f-e5dcd77fb5cb,geo_aehnlich_strahlen_abschnitt,draft,884ba12883d3a54c84bf8895143a097d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cff72027-8549-47c3-a12c-e1ff333fa4fd,geo_aehnlich_strahlen_abschnitt,draft,97a6a33b394cb6db07331ffc40f9ba56,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f06ce97a-7c42-400e-8cb0-7b53f6f98be1,geo_aehnlich_strahlen_abschnitt,draft,54c8aaa0ff3796739321fb66bc756153,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+421cad19-9629-4f75-8e01-c63e86692329,geo_aehnlich_strahlen_abschnitt,draft,47efbdcd1a1fc7d2a52f5838256c1416,notwendig-regel,"Entwurf, Lena muss prüfen"
+f8083d9b-72c9-4a72-a0c0-0adb8787bfce,geo_aehnlich_strahlen_abschnitt,draft,fdaba732d2e31c87b0c18cf316d5ba09,notwendig-regel,"Entwurf, Lena muss prüfen"
+234e8b8c-ce4d-47bb-8501-86744037c41d,geo_aehnlich_strahlen_abschnitt,draft,91a64e6f99e1c608b98859790bde9108,notwendig-reserve,"Entwurf, Lena muss prüfen"
+59bdf7d8-248a-4c9a-8f96-01aba8f098c1,geo_aehnlich_strahlen_parallel,draft,769f9ecb9643d886129a5c480be34d75,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9e52eb0d-bf0a-4770-aec2-d9598a087c45,geo_aehnlich_strahlen_parallel,draft,a5463d8a103481c761f8bd4474ff4ee3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ae9f75b4-3990-401b-bab1-479503f08594,geo_aehnlich_strahlen_parallel,draft,fda5aa66c24ab6c542f08b4a2daadd43,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+59b87dce-2116-4855-9e94-54dff17ff05a,geo_aehnlich_strahlen_parallel,draft,70dc6a4c8ceb71a24b90d03dc57a3921,notwendig-regel,"Entwurf, Lena muss prüfen"
+627d8f56-d275-4994-bff9-f2185622d598,geo_aehnlich_strahlen_parallel,draft,1c5e427060b669625ae2b76426b125ba,notwendig-regel,"Entwurf, Lena muss prüfen"
+49d26b4c-2b05-4699-b637-3f0a13ba1bc7,geo_aehnlich_strahlen_parallel,draft,1f8997407f3e775f455321baab384b80,notwendig-reserve,"Entwurf, Lena muss prüfen"
+51490b4f-18e9-4a15-8ee2-7e160526f2d9,geo_aehnlich_streckfaktor,draft,cc53cf7aeeb6e7f034a809566b049df1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+75cb4657-94a9-4348-b6b1-807f241f4914,geo_aehnlich_streckfaktor,draft,d5f6f716ad4906b5a51f5632b96032ec,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+93dbda80-cd5e-4a40-b0f5-98953e8fb588,geo_aehnlich_streckfaktor,draft,080adaf00b89e278382860581612bb58,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+3efc2963-83cd-4bb7-b3ac-3f37534f4fd4,geo_aehnlich_streckfaktor,draft,1cb9b32e492a7701ea221491ca643c55,notwendig-regel,"Entwurf, Lena muss prüfen"
+a1d203d7-0d30-42ae-8c54-d3e7dc04a7d6,geo_aehnlich_streckfaktor,draft,5dd8a8298ce1a9ebbb67f646cdf5c9f6,notwendig-regel,"Entwurf, Lena muss prüfen"
+0644e069-c106-4cb4-8faa-bbad5edddb70,geo_aehnlich_streckfaktor,draft,a567975eb96bd2cfce871e8e823e9e3b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+7cfb5d9f-a6d9-48d5-85e1-d470eee978c7,geo_flaeche_drachen_raute,draft,ee578ae82f30c1ab10c5207fc610603b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c1440c89-6139-41c2-9aac-6f65cf638e2f,geo_flaeche_drachen_raute,ready,59e1b8cac4d505819026e3423b9ee40e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f8054c53-9d2a-4d33-88b4-c3086fa96bfd,geo_flaeche_drachen_raute,draft,87a5f9025585365562c52312fb56a2f7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6274f6a5-65e5-40f4-be09-36fa8931c424,geo_flaeche_drachen_raute,ready,15caf9cf83a72a0ffd93832f846babf6,notwendig-regel,schon im Pool
+ef5c0139-1f43-4f58-9395-11b5e84364d0,geo_flaeche_drachen_raute,ready,59e1b8cac4d505819026e3423b9ee40e,notwendig-regel,schon im Pool
+0802547a-2b81-4d03-8c5c-941705076285,geo_flaeche_drachen_raute,draft,7fa8569da05e5d9302ee2e84de78cf12,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0f2e8a7c-bcc2-4c87-97a5-ab296e99b1a0,geo_flaeche_dreieck,draft,036180bacb612e49d2fe86b38be2577b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+2eac789c-3507-4009-b9a6-2f0b3c4d6ecd,geo_flaeche_dreieck,draft,6b00ae1b363ac5f0798d4010296f3cec,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+3353fd9e-5476-4fd6-aee0-1b9c945a9296,geo_flaeche_dreieck,draft,6b00ae1b363ac5f0798d4010296f3cec,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ae1f52ec-ecf8-458e-8037-0a05e8596709,geo_flaeche_dreieck,draft,036180bacb612e49d2fe86b38be2577b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+dbe2ed81-b0e9-470a-8f9a-80966a4eaf63,geo_flaeche_dreieck,draft,31b3a8d96a650eea73fd6148f797c27b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ea14696a-c3ae-40e4-938a-051a13fdbbd4,geo_flaeche_dreieck,draft,036180bacb612e49d2fe86b38be2577b,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d602bc49-3ee0-48fb-8cd3-467b2ae0abc2,geo_flaeche_dreieck,ready,6b00ae1b363ac5f0798d4010296f3cec,notwendig-regel,schon im Pool
+ecb3d12b-a21e-4031-b562-a1596deeb815,geo_flaeche_dreieck,ready,036180bacb612e49d2fe86b38be2577b,notwendig-regel,schon im Pool
+0f3fe7d3-cdcf-4514-84a9-b08e5826234a,geo_flaeche_dreieck,draft,31b3a8d96a650eea73fd6148f797c27b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+328a709e-c63c-4c8a-affb-34232cf914d4,geo_flaeche_rechteck,draft,c60a9fb395008484708ed5d6060c1f13,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b5fd9606-4af2-48ac-9159-c82409c8e3b6,geo_flaeche_rechteck,draft,40ee6662d8120fd3be5986297ed4bf20,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c0b58dda-edeb-40a7-aa06-f0bf15a7e8f8,geo_flaeche_rechteck,draft,40ee6662d8120fd3be5986297ed4bf20,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d3179ffe-1a4e-4129-af5a-dde76baab3c5,geo_flaeche_rechteck,draft,c60a9fb395008484708ed5d6060c1f13,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+008adff9-e38e-4620-a6aa-97862f85367d,geo_flaeche_rechteck,ready,c60a9fb395008484708ed5d6060c1f13,notwendig-regel,schon im Pool
+af8ccf14-4373-4bb9-b892-c650265dd0cd,geo_flaeche_rechteck,ready,40ee6662d8120fd3be5986297ed4bf20,notwendig-regel,schon im Pool
+2fd82f3b-10ca-42b2-91f2-ab53c1eda527,geo_flaeche_rueck,draft,613f5690e1e06a56fa0ba3eb0a5a2b8c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bcd7aec3-3c43-4d3c-807b-7fe6a2641e70,geo_flaeche_rueck,draft,0f3d272f7938ea7e8dd59559d172fba4,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+fc23183f-db11-441d-ac0d-83baa0000aa0,geo_flaeche_rueck,draft,f4454653dc7c2caab4a75c78da4d3571,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+380c4ca9-3efc-45e9-8c4c-87b751e2f414,geo_flaeche_rueck,draft,87fb7a5282e619616cecbc2c106a7041,notwendig-regel,"Entwurf, Lena muss prüfen"
+c2d4c950-beab-4c0b-b4be-cee13fcbffbe,geo_flaeche_rueck,draft,2463fbc22552620982860a6b99b05631,notwendig-regel,"Entwurf, Lena muss prüfen"
+27c84f21-51c3-4fb3-a654-331c8c312f00,geo_flaeche_rueck,draft,26a4f9fab4d10b30cd9d144c4f10c83e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+10f112ad-b1cc-4690-8925-773ef92d20e3,geo_flaeche_term,draft,70afca90f6920d8ee4bd98af82074c93,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+11390e1a-2fc1-4cf1-93da-890ac936b56a,geo_flaeche_term,draft,1f758e758d87f15c4e980581927c0589,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+46192474-3c40-4cec-a9de-742684e86e01,geo_flaeche_term,draft,09b877cb89b46ad8c28eeae712401947,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+214345b8-69d2-43d4-8c1b-1e8e7c428e1d,geo_flaeche_term,ready,fd1181bcc0a6e0a87b6ed2fd46c5faa4,notwendig-regel,schon im Pool
+770f72e9-c73c-45fc-9803-e3b20846de70,geo_flaeche_term,ready,f6248351fa73ee1d56b0dc2912989a27,notwendig-regel,schon im Pool
+1f27364f-e37a-4203-8097-4c3331ea9940,geo_flaeche_term,draft,194d3425a8f7f34d22a02994584f35f1,notwendig-reserve,"Entwurf, Lena muss prüfen"
+4bfe5d6e-3f3b-4a91-964c-6eb3f4157273,geo_flaeche_trapez,draft,1bb2099f9ee83746621a6240f8fd421c,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f1ecd67e-e9b9-4aed-9604-cf9dbf8826f5,geo_flaeche_trapez,draft,1bb2099f9ee83746621a6240f8fd421c,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+fd558d3f-2e73-450f-a8e7-7c989eb1b314,geo_flaeche_trapez,draft,f4b331b71c1663193c2632066f82bd91,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5c219db6-804b-4819-b671-9cb512ab1b0b,geo_flaeche_trapez,ready,6ce91dd340e349dac3a165b57cb13dc1,notwendig-regel,schon im Pool
+ffcbb7db-a7ab-4718-8e19-351a74a056c0,geo_flaeche_trapez,ready,1bb2099f9ee83746621a6240f8fd421c,notwendig-regel,schon im Pool
+94fcae6b-947a-4db7-ab54-b4f13cc48c9b,geo_flaeche_trapez,draft,18649f6419783e4c3975a715726b68ab,notwendig-reserve,"Entwurf, Lena muss prüfen"
+4379159d-98dc-49fd-a6da-8e9cbc916c71,geo_flaeche_zusammengesetzt,draft,9730cdd0e76f60eedda5487578cf41b8,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7502a1e1-ab78-4418-83f6-fd0d045ccc86,geo_flaeche_zusammengesetzt,draft,f4c1660136aaf1b97a0b05592627f9ba,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7585618a-0557-49ed-89be-997629dfaf03,geo_flaeche_zusammengesetzt,draft,0333f1d58ee75d22ab2be4642f6cbef3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1155ecca-ce4c-41bb-bf6c-b6fe51ee455d,geo_flaeche_zusammengesetzt,draft,0ebfeb55451b32dcc0d4d53de7c5949a,notwendig-regel,"Entwurf, Lena muss prüfen"
+4320eb31-3cbb-4733-ab23-e15fcb60d849,geo_flaeche_zusammengesetzt,draft,ad41f27e97fa1d835f472b108341792c,notwendig-regel,"Entwurf, Lena muss prüfen"
+00682950-b934-4ded-9d9b-c8e68ed4313d,geo_flaeche_zusammengesetzt,draft,665c6236cf50022efed275f848173f95,notwendig-reserve,"Entwurf, Lena muss prüfen"
+9373d252-76e6-4ef7-be85-4b2c095cd55b,geo_koerper_kegel,draft,813539df327ade566abd003f3e4dc366,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cd5d283c-6279-456d-8368-b7dbf8715e0f,geo_koerper_kegel,draft,4a4d84f14af5942a820d5cb24417b5d5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e92deeb5-bccf-4343-b226-d7b2e0beb277,geo_koerper_kegel,draft,4f3896206829c84498ea3c05875c6854,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+285e2d3e-44af-431b-a520-485795c8bb8d,geo_koerper_kegel,draft,20824be88bb74adbee314be49dcb712e,notwendig-regel,"Entwurf, Lena muss prüfen"
+d8f2e2e3-5cc2-4bd6-bf37-e752b0132bea,geo_koerper_kegel,draft,e076fcd3c328b2589b6dfbcfd49842e6,notwendig-regel,"Entwurf, Lena muss prüfen"
+8a2febbd-299f-437a-abed-bde7fa31fa87,geo_koerper_kegel,draft,82480665b3f1243922df5000370a8ed5,notwendig-reserve,"Entwurf, Lena muss prüfen"
+8c265caf-ebcd-4622-afbd-482483867036,geo_koerper_kugel,draft,dc622afb7ed84febf99026da8f7426ed,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9cee13c3-67ba-418d-ab9d-819a5f8c3a46,geo_koerper_kugel,draft,64abf591ae7946b130c4e2e3ac94fc9b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d885cc27-a9b5-4390-ba21-3561d1b8a86f,geo_koerper_kugel,draft,7794d974c01ae7d1c7c2f6b5f943fbbc,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+62b5810c-b021-4032-b17a-e072ffa3182b,geo_koerper_kugel,draft,8336733502ba7c7caf15afc92c9472e5,notwendig-regel,"Entwurf, Lena muss prüfen"
+ec4153b3-7ecd-404b-a2a4-8f111e3f4186,geo_koerper_kugel,draft,1d6808149a24ca08e7025302b09c9c0d,notwendig-regel,"Entwurf, Lena muss prüfen"
+360647d6-fac1-40b9-a886-e1a5fdbe843c,geo_koerper_kugel,draft,743237694a7395cef5048dec8aedc8a7,notwendig-reserve,"Entwurf, Lena muss prüfen"
+ca18a102-4cf1-45fe-8461-82d860a7288c,geo_koerper_prisma,draft,7d89c9d3feae0cd001449a42f9593ed9,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e8aa50eb-5f6b-4296-a408-05257f00fe34,geo_koerper_prisma,draft,8ca1db795e002c211652e73407741f14,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e958eb79-345a-4079-867b-46ecb652b478,geo_koerper_prisma,draft,4a63156ee0e581f7c36d217bd022e42d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9de789c5-cdc1-45c4-b38f-d809926410f5,geo_koerper_prisma,draft,0c885a78d15132f730fc676948415549,notwendig-regel,"Entwurf, Lena muss prüfen"
+edeb2812-e0a3-415b-b097-e57181b53d6d,geo_koerper_prisma,draft,d11b3969fd9756b609bc077227d44a67,notwendig-regel,"Entwurf, Lena muss prüfen"
+807dd2a7-18a0-4ff1-93e4-d2d26052cd12,geo_koerper_prisma,draft,004b91631dd5947a1590116240a6bfdc,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0f084da1-12ff-4672-9d00-dc5f65503c1a,geo_koerper_pyramide,draft,7aa884c55964ecf0c5dd05b0860afc23,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7fc20c4b-923f-4225-8df0-b20680379b53,geo_koerper_pyramide,draft,7fa7df07fb67d37e741f4aaaaad4060b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b844a22a-3ad5-40aa-88df-8d6b10531307,geo_koerper_pyramide,draft,186ebe73f0ec24b86dd11400f15df275,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5beb71a7-cbef-4392-bcca-446b1bc97354,geo_koerper_pyramide,draft,108020b5fe7f44ce72c2667dd4a91825,notwendig-regel,"Entwurf, Lena muss prüfen"
+5cad7848-0d28-4198-93a0-6232e6f988b1,geo_koerper_pyramide,draft,a7cd1e170e51aec917066d8fd63df566,notwendig-regel,"Entwurf, Lena muss prüfen"
+0d01fa82-d4fb-4fc4-ba47-62d7175763ee,geo_koerper_pyramide,draft,f57a33187f1385a0a2109b4716c6d189,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5dd22acb-5345-4c8e-97d6-8f5cf323627a,geo_koerper_zylinder,draft,844ebd5b7446a3c67736d5b3a9f7b9f3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a64cbccb-268c-4d5d-97b6-f925daf460e4,geo_koerper_zylinder,draft,567d64e224538c322d4d7c27f0eaa36d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bdee1a03-5e67-4293-a8b5-794de2e25331,geo_koerper_zylinder,draft,2911eb9b20f7c865df815ac78eec1ac1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+267a9ef3-4ac7-4b54-ba99-f84b90ae1521,geo_koerper_zylinder,draft,ba495238674fae1ddf25c2061d45ffa7,notwendig-regel,"Entwurf, Lena muss prüfen"
+d0b4dbc3-1278-4a60-bcbe-98ebc0060ad2,geo_koerper_zylinder,draft,0b629085896c8f0505feeb66525f22b8,notwendig-regel,"Entwurf, Lena muss prüfen"
+2fd67e4c-9093-4e51-bd98-46e7d76e3a9f,geo_koerper_zylinder,draft,386e8b84281fffde68698b8dcc1178e3,notwendig-reserve,"Entwurf, Lena muss prüfen"
+769c9fdb-c72a-46bd-9899-58c8773705d2,geo_koordinaten,draft,4fdce537611ec353d9cbd4985e315bae,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,geo_koordinaten,draft,ffbdfc2e166840ff41a932240206d2a0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e0daa32b-4d16-49ae-82b4-ece970facc2f,geo_koordinaten,draft,11c9a2e207b65a4e608038fb70727438,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,geo_koordinaten,ready,2fe7a303a4dd52102bd7982b20d1a130,notwendig-regel,schon im Pool
+a1fa4311-c631-47ba-a4a7-15e12149db4c,geo_koordinaten,ready,f9565cba97b21286cde71f98d748fbe2,notwendig-regel,schon im Pool
+d8195933-ba82-4768-ac40-064da27497a6,geo_koordinaten,ready,31733cb62722e4024575570b02850fc0,notwendig-reserve,schon im Pool
+6f8c3f6a-68ad-4be5-9e1e-9a85259d2ecd,geo_kreis_flaeche,draft,dfec1ade61a1f020686cdee97306561b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7223ee1a-3043-487e-850c-e9da8501d935,geo_kreis_flaeche,draft,4e1912e4f3ebc24a74a249662678a8b4,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8e606b89-1825-4147-9f71-871d36199218,geo_kreis_flaeche,draft,e0da4597ac8228153581f2ca5cd937c3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9ef4de2a-1a55-49a3-ac80-2a03594006b8,geo_kreis_flaeche,draft,55e1f38a353a6d41c35344852264dd5e,notwendig-regel,"Entwurf, Lena muss prüfen"
+e0cfc702-9b40-450e-b530-1b6bb53976a8,geo_kreis_flaeche,draft,04f23f06beda51433157096dd0180c9c,notwendig-regel,"Entwurf, Lena muss prüfen"
+1338a319-aa9f-4b2e-8deb-d1b21393a798,geo_kreis_flaeche,draft,151ad2e8ca9293c71d5a48172b21172b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+8815c3c7-740c-4037-ae21-1c8a931dfa42,geo_kreis_rueck,draft,b688cccdb0eb7b33327bf0556f4a78a2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9794ca24-edb8-4285-b09c-ca20ca1d44da,geo_kreis_rueck,draft,369db4b9984f397a4c2956b06415bfe3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d54793cf-fe41-46a5-bc1b-8aa7fd73e44b,geo_kreis_rueck,draft,740cc4512004e9fb9132c6e0a7942733,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b450d36c-e3bf-4cbf-ab4f-3c874a8cbf63,geo_kreis_rueck,draft,a21cf7040175e51926b421468cdcee5e,notwendig-regel,"Entwurf, Lena muss prüfen"
+cbc04c90-4544-45ca-b0a1-f7d0c2bfd50d,geo_kreis_rueck,draft,0b0af65f0d0bd2013d8159a0ce2319cd,notwendig-regel,"Entwurf, Lena muss prüfen"
+23fcb661-3095-4ad3-9cfd-d6048893a0c7,geo_kreis_rueck,draft,bfe8ad5c8a7c4e06767cf71ebc87978e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+a7b29e3e-5330-41fe-ae91-a44403e93157,geo_kreis_sektor,draft,863e789d6b423401b607399288a2c73b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d6136873-fa24-4c78-841f-1d9408da6053,geo_kreis_sektor,draft,be5ec2662e7132ad71d13ce91f617a03,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+eb59f15c-4906-4497-abf7-340b7430bd8a,geo_kreis_sektor,draft,794c153ca697d60d6df4920eea721a3f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+910071fc-b31d-41bf-85f7-bb70d2c01f1c,geo_kreis_sektor,draft,be5ec2662e7132ad71d13ce91f617a03,notwendig-regel,"Entwurf, Lena muss prüfen"
+dce69732-829b-4a5b-8ce8-186093c118a6,geo_kreis_sektor,draft,ea563345fa782cfa523c60861236aeea,notwendig-regel,"Entwurf, Lena muss prüfen"
+1f4b915d-49dd-441f-a09b-69264ad8ff94,geo_kreis_sektor,draft,b01b667ff7d960291e933719e9a22769,notwendig-reserve,"Entwurf, Lena muss prüfen"
+322960fb-0bfb-4396-b59b-75fd21a23652,geo_kreis_umfang,draft,5502b1feacd3354fa8c4a1246911decf,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7723a47c-0524-45d7-89f7-42d2e0e85d00,geo_kreis_umfang,draft,65fb1c138c2c1826302e172134f9e668,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e8a7a4ff-bdbc-49a5-afd8-709da6edc93a,geo_kreis_umfang,draft,9bee0f7d15c1cc86de62b660c1907118,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8e3e60dc-01bc-4a59-ae8e-65c20321deea,geo_kreis_umfang,draft,9e489ace562f5a89fca78e9a0d0bd95f,notwendig-regel,"Entwurf, Lena muss prüfen"
+eabc5d92-2564-456e-9296-c60d17809021,geo_kreis_umfang,draft,ea16cefffa71c3d43e17216125406172,notwendig-regel,"Entwurf, Lena muss prüfen"
+2ffd9c4c-46cf-4a66-a843-f5df51941807,geo_kreis_umfang,draft,890ce3cf4e3bbb1ac20179f511e26e15,notwendig-reserve,"Entwurf, Lena muss prüfen"
+76f0bf82-458f-4903-a1ac-71f74c44e1e5,geo_massstab,draft,94bc8f38a045d8f1b7ba8bd23b8386eb,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+79257c4c-7c60-428f-9bb9-f21615cab7d9,geo_massstab,draft,507ec4045f9b8cdb2e8bb73a8affae9f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8e1dd449-25bb-4fc1-9d60-d38609216ba5,geo_massstab,draft,e905289bca594b73c76daffc0b56ea68,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+9586d826-4d52-43c8-a928-779aeb8f28b4,geo_massstab,draft,38184a7204bf1f996a01109f54c121f1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+a56f36e2-b63f-4ab2-aa91-cd7231c27d5a,geo_massstab,draft,38184a7204bf1f996a01109f54c121f1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c00d62f2-f6b2-4a30-bb10-0e672fadddfd,geo_massstab,draft,38184a7204bf1f996a01109f54c121f1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+dc8b74f5-412a-4d56-9a08-76585e16c696,geo_massstab,draft,1767022a65de5366b179d9cbc26f48a6,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e8f2d67d-f108-4a67-931a-3895b95f0ec1,geo_massstab,draft,3cc65e4f639e022f110e70a45f909a6f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ceb26573-de3f-488a-9956-6a8cf7eb81cf,geo_massstab,draft,38184a7204bf1f996a01109f54c121f1,notwendig-regel,"Entwurf, Lena muss prüfen"
+fe3a88b0-7d72-4896-929c-b7f0c379cfa3,geo_massstab,draft,e905289bca594b73c76daffc0b56ea68,notwendig-regel,"Entwurf, Lena muss prüfen"
+1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7,geo_massstab,draft,94bc8f38a045d8f1b7ba8bd23b8386eb,notwendig-reserve,"Entwurf, Lena muss prüfen"
+b64244f5-d5d9-44f3-b0f9-cc51c25bef4c,geo_pythagoras_abstand,draft,6dd183359ac8d116109d50cb6a0e33bf,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d60ffe34-b219-4cfb-9eb6-727185238880,geo_pythagoras_abstand,draft,121a03d9bab1bdc2e35a0a170bb2e8b0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+dacb0349-eb7f-428d-8c25-85a9dc562474,geo_pythagoras_abstand,draft,b08b960e9f14817c3cf7c1b95c28dfa1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+719b3012-468a-48c0-8105-66f02c75fb0f,geo_pythagoras_abstand,draft,ea59bb0bd6af07ff6979566179c8f8dc,notwendig-regel,"Entwurf, Lena muss prüfen"
+79cd7e85-5477-4cf6-b8ef-9b5899215087,geo_pythagoras_abstand,draft,6487528b89d2d8a420155da4c15e6b4a,notwendig-regel,"Entwurf, Lena muss prüfen"
+16d86280-3377-44a8-b009-07801586c50c,geo_pythagoras_abstand,draft,a718b39fc6fcf5cc14c416e14635def3,notwendig-reserve,"Entwurf, Lena muss prüfen"
+21d8e109-03dd-4958-ab1f-4a9a2ba88a81,geo_pythagoras_anwendung,draft,bacd05650f0941f2e7ee9132d2e7f7cc,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+437b6af2-c70c-4dc8-9f6b-9e155757405a,geo_pythagoras_anwendung,draft,46fa72aa2a045a1a07a174ce262c789c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+dc3376fa-bda3-4f10-9656-a9d234fca69f,geo_pythagoras_anwendung,draft,78e48d93ebdec50682417b961a814f46,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+58c917d7-182f-4591-be02-374e86a79e41,geo_pythagoras_anwendung,draft,2daa8fd77b96570a3d1fb4ed20981763,notwendig-regel,"Entwurf, Lena muss prüfen"
+a21f48d2-f097-495a-91ed-093327524d91,geo_pythagoras_anwendung,draft,dc0aff2381fc1edd870e584f0d402b98,notwendig-regel,"Entwurf, Lena muss prüfen"
+208e0467-be77-4c56-9135-c9c93554aefd,geo_pythagoras_anwendung,draft,ab81f21a485fdcef2f8ba8a80836ea0a,notwendig-reserve,"Entwurf, Lena muss prüfen"
+4a99bc6f-8dfe-4657-8d4f-11456d874baa,geo_pythagoras_hypotenuse,draft,e0a2f68f811ff0f845faa05fc7dee47e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b7eab8c9-653e-4b7f-b806-6fa49c8193e5,geo_pythagoras_hypotenuse,draft,dcb0144cc00e5da50da1b9bae9e0982c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e63c2e2e-396f-46f6-91d1-c34595a88dbc,geo_pythagoras_hypotenuse,draft,bf92d7dacfbc49cddcda3e7b450f50d9,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5875fe3f-394d-4a2b-8977-bf825b5f9518,geo_pythagoras_hypotenuse,draft,371c99a3dda47e84ee797d8ab62c9bbb,notwendig-regel,"Entwurf, Lena muss prüfen"
+ee07674f-0846-4f38-a0c7-247fd351b729,geo_pythagoras_hypotenuse,draft,e0a2f68f811ff0f845faa05fc7dee47e,notwendig-regel,"Entwurf, Lena muss prüfen"
+75194d46-60d2-4d4a-b988-db2b3c5c1a65,geo_pythagoras_hypotenuse,draft,e5e45805e6349a674f4166084aa2d23c,notwendig-reserve,"Entwurf, Lena muss prüfen"
+238657cc-aaf5-46a0-a9d6-da57c60556c0,geo_pythagoras_kathete,draft,c6186c5f11ffd81a9fbb9117290099d7,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+4939a58d-47b1-4dc0-9ec9-e4e34a07c87e,geo_pythagoras_kathete,draft,4179fbf9783c01a58d3f7bd99b681a04,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d0420f33-ea7e-47ff-9556-520c72a5dc4c,geo_pythagoras_kathete,draft,f74f45947b05082694c299348e500abf,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+215a71de-a9ba-4d97-a94a-929c62c88601,geo_pythagoras_kathete,draft,ef3e8a6ef1b6806aee51f9ad868023d6,notwendig-regel,"Entwurf, Lena muss prüfen"
+add6cee8-f9f3-494f-a321-cfaed9f5ac35,geo_pythagoras_kathete,draft,c6186c5f11ffd81a9fbb9117290099d7,notwendig-regel,"Entwurf, Lena muss prüfen"
+379ce518-9974-42dc-9e4b-df29741ba395,geo_pythagoras_kathete,draft,1e30fc986d843c8714d6191b0e3ac614,notwendig-reserve,"Entwurf, Lena muss prüfen"
+235952a2-3970-41ff-839c-51869e6f4878,geo_pythagoras_umkehrung,draft,f558bcc8a272a676b3cdda12db10a3a8,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+52d53fbc-2b53-48ec-a0b7-77f99826aa4d,geo_pythagoras_umkehrung,draft,ad2bc1fcbbf989b27d97d8d0be81638f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+893d7877-d9bd-4fa0-88b7-eb36f6bbadad,geo_pythagoras_umkehrung,draft,df4f0c4cf92a5ad75dc4527ea560c229,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1a311c06-45ab-49c7-a4bf-413242d50c6a,geo_pythagoras_umkehrung,draft,9b3322d1d03ba1e50b907221de7ee727,notwendig-regel,"Entwurf, Lena muss prüfen"
+8ea1d77f-e430-4e8d-8fbd-8258f50c9133,geo_pythagoras_umkehrung,draft,8d126d2ba5bcd6f5a8273ac4b6811d34,notwendig-regel,"Entwurf, Lena muss prüfen"
+070f3609-9adf-4c66-adaf-daabe4ae276c,geo_pythagoras_umkehrung,draft,b7a20d031f8df08e72a0a4f9c7b70b93,notwendig-reserve,"Entwurf, Lena muss prüfen"
+725e786e-b402-4264-a990-ad5db129fa6a,geo_trigo_anwendung,draft,adeb939cb50d183ccf597e52904d7276,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b35bdec8-b1e3-415c-b9eb-7de20660cfdb,geo_trigo_anwendung,draft,9ca979435fe7126158a94fade27dc19e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f9f98b88-0b52-4ade-8354-f7bb0894db0f,geo_trigo_anwendung,draft,ca2cc05da203b96caf43a05411429813,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+17b68c02-51e8-4484-b955-5ee77729c024,geo_trigo_anwendung,draft,cabed1962f95508f30732d84611189f3,notwendig-regel,"Entwurf, Lena muss prüfen"
+32f15d20-ea8e-4ff0-9d43-d10daa9500bc,geo_trigo_anwendung,draft,38345f6be7490d31436b19206a734a7e,notwendig-regel,"Entwurf, Lena muss prüfen"
+52d18200-7696-4bed-bba7-352cbb35436c,geo_trigo_anwendung,draft,c4b795b5532d9e7750dfe964ddc574f6,notwendig-reserve,"Entwurf, Lena muss prüfen"
+516c5bcd-87cf-4efb-8d02-2117ab4b6e94,geo_trigo_kosinussatz,draft,da125ec4f8d359683973533dd41107d8,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+77d9bfd8-a0f1-4714-90d6-1667633d6f67,geo_trigo_kosinussatz,draft,333e915e816ce97a799c370f1d4b067d,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+79463f55-7678-49a4-8f1a-226cbe5e4e85,geo_trigo_kosinussatz,draft,e60b585061462208ff16bdd8b0bfe878,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c75c2c98-1bae-4ea9-92fa-f4353fdcddb2,geo_trigo_kosinussatz,draft,fa211028da2de908a8ba463e36c64f57,notwendig-regel,"Entwurf, Lena muss prüfen"
+d2eeb8e8-ab12-47a0-be00-874e25cf172f,geo_trigo_kosinussatz,draft,016aebb27bcc8eadcda80835b625f311,notwendig-regel,"Entwurf, Lena muss prüfen"
+0fe09783-e4c8-41cc-b7f5-5dfcaaed760a,geo_trigo_kosinussatz,draft,333e915e816ce97a799c370f1d4b067d,notwendig-reserve,"Entwurf, Lena muss prüfen"
+35cf2123-394c-461b-a303-5073c5cfb2d4,geo_trigo_seite,draft,3acb562489e74ff69a3208b5570a932d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+881bdddb-0984-422c-bf46-c2a8446155fe,geo_trigo_seite,draft,4ec2efbcb8e22c63472d6704ab54e0f7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+fc481b89-f335-4f1a-924e-3dc94fb5768d,geo_trigo_seite,draft,832824023ecd124d5e849323d2978c38,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+13d6dc4d-737e-4fd3-a67d-fb401ff5e223,geo_trigo_seite,draft,fb743ffec21e457d465b19129699a644,notwendig-regel,"Entwurf, Lena muss prüfen"
+6778b0b4-e325-4ce4-b2a9-c083b57a5987,geo_trigo_seite,draft,07ccf35d9150c4ed89e9700b32050eb7,notwendig-regel,"Entwurf, Lena muss prüfen"
+33bdde50-6f8d-4d2e-a80c-62601488e4a2,geo_trigo_seite,draft,9cb0a1d7beea4142009f6ff25d2830ae,notwendig-reserve,"Entwurf, Lena muss prüfen"
+8d008461-ba47-4c47-9cfa-e485a413611d,geo_trigo_verhaeltnis,draft,8658439022615ec0be4146219530c35a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+be954f3b-2fd0-4e36-b508-662e15d93cdc,geo_trigo_verhaeltnis,draft,05b10edcae79279ce3d34f71fe400833,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d2fd3cef-0e18-4a8c-9ae2-1c8dc92c4b86,geo_trigo_verhaeltnis,draft,326152b81827b53fac1084e1278edfc0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1b979a6a-de0f-434e-96c3-c5859a536a36,geo_trigo_verhaeltnis,draft,31b29246b50bfc6d0a39782ee6975a1d,notwendig-regel,"Entwurf, Lena muss prüfen"
+3ba007ed-a9f6-44fd-9800-07b92ffdbb65,geo_trigo_verhaeltnis,draft,47d4727f9dc7cf482912ebdb59513575,notwendig-regel,"Entwurf, Lena muss prüfen"
+3ba41acb-6f44-46cf-bfb8-006789699045,geo_trigo_verhaeltnis,draft,15570861082ed929543a7a001e9d2093,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0c5d8ee8-fed2-4022-9d27-23860d1d7cc7,geo_trigo_winkel,draft,21f075fed41bef555cd1de4daf67c992,nicht-notwendig,keine gültige Lösung oder inaktiv
+b986435e-8d79-45e5-b7fe-69fb72db8bcb,geo_trigo_winkel,draft,e1d73002d3d195bf1a4252ff8b7361f0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ef367809-6ed4-4541-ab31-b1f5e19c643f,geo_trigo_winkel,draft,ebdc6c29e05d51c1795279969696e386,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a8e2cd6c-586b-46d4-a25e-55aa33f9e02d,geo_trigo_winkel,draft,2d81e7bc9143cf7b7181c56cd2d7c340,notwendig-regel,"Entwurf, Lena muss prüfen"
+ccd00ca0-8589-4826-9f85-ed97dbb37116,geo_trigo_winkel,draft,e608bfc5fa161c8663cdf5c94a620e1c,notwendig-regel,"Entwurf, Lena muss prüfen"
+7a00ab4b-d497-46fc-87c4-8e706fc3aaff,geo_trigo_winkel,draft,01bb2f726b6994e2e0e217166238eb2a,notwendig-reserve,"Entwurf, Lena muss prüfen"
+c5aa4ecb-aa7c-4c1a-95e6-669eda5df155,geo_umfang,draft,dec78d3bdedbe9dee0c1fa5b24b3c1ff,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ccee3da3-3c8a-425f-8590-0b19929230ca,geo_umfang,draft,0c52da3ead1216add61bb6d4cf212a6e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d1c1e22a-f43b-4148-8923-e81a71ec1967,geo_umfang,draft,0c52da3ead1216add61bb6d4cf212a6e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ee468f45-02c1-4670-8ed2-9e344c3508f7,geo_umfang,draft,dec78d3bdedbe9dee0c1fa5b24b3c1ff,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+485f81e3-48fb-47c7-b333-964baa6ad10c,geo_umfang,ready,dec78d3bdedbe9dee0c1fa5b24b3c1ff,notwendig-regel,schon im Pool
+e09a9496-8650-4a39-b2be-e54e512b8cab,geo_umfang,ready,0c52da3ead1216add61bb6d4cf212a6e,notwendig-regel,schon im Pool
+1e88066e-a541-4860-85b6-827754bd6dc7,geo_volumen_quader,draft,fb019e465ad3121d90f3a84eadf0aed4,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+5bfd2443-87e7-4a20-8d18-bb6072f13159,geo_volumen_quader,draft,b38758fc2c08761773f8264a5fb1c844,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+8e82be72-f8e3-480f-bdef-a4e78ddd060f,geo_volumen_quader,draft,fb019e465ad3121d90f3a84eadf0aed4,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+968f97f0-246b-40da-bf97-3c4980611ae2,geo_volumen_quader,draft,fb019e465ad3121d90f3a84eadf0aed4,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ad24157c-50a1-4a70-a874-d47dbd548af0,geo_volumen_quader,draft,b38758fc2c08761773f8264a5fb1c844,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7,geo_volumen_quader,draft,9647d0046f6b1d4cdcb3a63f72e3b52c,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6a448f69-d164-4cf6-82ca-461a8bae980f,geo_volumen_quader,draft,fb019e465ad3121d90f3a84eadf0aed4,notwendig-regel,"Entwurf, Lena muss prüfen"
+7d305269-159f-40cc-9965-c343c2bb4c15,geo_volumen_quader,draft,b38758fc2c08761773f8264a5fb1c844,notwendig-regel,"Entwurf, Lena muss prüfen"
+7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4,geo_volumen_quader,draft,9647d0046f6b1d4cdcb3a63f72e3b52c,notwendig-reserve,"Entwurf, Lena muss prüfen"
+875bb8b8-fd63-4cc6-989d-c0c41029dd5d,geo_winkel_dreieck,draft,7ffe8295623cb27f63244473b30c32e3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+90281ee4-13f9-4108-939c-5220439e4c71,geo_winkel_dreieck,draft,e0231b4ff90831899f237f2ba18b62c1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b86dc520-f0cc-4ef1-b931-56c66ca4729f,geo_winkel_dreieck,draft,0d259cfb0331f2578cc54e0924021097,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e26cdb23-39dd-4547-b72f-0d73ef7a247c,geo_winkel_dreieck,ready,5e29f21bda18dbb1ef171a27e4a92b64,notwendig-regel,schon im Pool
+fee2cf1f-4ecc-4f68-ab73-03fdcee03528,geo_winkel_dreieck,draft,974fed6c201dbd35ba86977b07c56f72,notwendig-regel,"Entwurf, Lena muss prüfen"
+1a1092b8-1ddd-4b8a-9560-7647b94f4307,geo_winkel_dreieck,draft,ccb814a92020fa30e51c418b28de1595,notwendig-reserve,"Entwurf, Lena muss prüfen"
+9e26a451-8496-4a05-9f4d-752d05fcddf9,geo_winkel_neben_scheitel,draft,bbb058a8cb6475f8feaeb3cc14632d71,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c0b1c3c5-0c12-4815-bce5-377fca8504c4,geo_winkel_neben_scheitel,draft,3da512d38310fcc9bb4f0d767c3f2b33,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f0c5bda4-158b-4117-9239-7261065e16bb,geo_winkel_neben_scheitel,draft,8160d2c866f2ca24dd7b4811027d8030,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a2f85a2b-0c8c-4eae-a78c-5a97f39d2fbd,geo_winkel_neben_scheitel,draft,1afdd85de048f57324286f75d9018b87,notwendig-regel,"Entwurf, Lena muss prüfen"
+e04364d3-e946-4be1-8aca-0b3b1c52353d,geo_winkel_neben_scheitel,draft,37e26580197acb0947fd57b8445a42c8,notwendig-regel,"Entwurf, Lena muss prüfen"
+7849cb37-1c84-425f-956a-44213a721a9f,geo_winkel_neben_scheitel,draft,66279b254531f676cd5c1e6f2b663a8b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+dce9301f-2897-4941-b2e7-87d6d6995ccb,geo_winkel_parallelen,draft,3d4ab34711fae11b754b11c0c291f67c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e1fa2b31-a4fb-44ca-848b-188d7d7ca0dd,geo_winkel_parallelen,draft,93c85a9785b9b46e7c9d78d0cdbdc58c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f9f4e093-605a-4c0a-87da-172d58b74ae0,geo_winkel_parallelen,draft,2ff667be874f2f23700ff01190766363,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c648786e-49ab-4451-bd09-85f9c82c4d1d,geo_winkel_parallelen,draft,1d78bb4b05f5e7a06125559536dcae34,notwendig-regel,"Entwurf, Lena muss prüfen"
+facf174b-aad5-41c4-9f42-916eaafd9e20,geo_winkel_parallelen,draft,24f9c7665a0141e467aff9fbf378e96c,notwendig-regel,"Entwurf, Lena muss prüfen"
+83a2860a-f361-447a-a164-c3d71a545095,geo_winkel_parallelen,draft,cfb7d399098436e8453f8b73ebfe4cbb,notwendig-reserve,"Entwurf, Lena muss prüfen"
+23670c80-f619-422a-aacd-01ccffae7ae1,geo_winkel_summe,draft,460f9381ff44ef6ddfca081601776469,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6f15f819-81d3-4b78-b65b-354f320cae78,geo_winkel_summe,draft,460f9381ff44ef6ddfca081601776469,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6f281fa1-d461-49b6-8718-6025312381bd,geo_winkel_summe,draft,08f19ecd69c7f55c11fdf5c4d973e511,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e4ffc8d0-71d3-46e0-899c-75c1174c16b5,geo_winkel_summe,draft,08f19ecd69c7f55c11fdf5c4d973e511,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+60d58ee6-d2cd-40f3-985d-fe0a1ed8ec4e,geo_winkel_summe,draft,460f9381ff44ef6ddfca081601776469,notwendig-regel,"Entwurf, Lena muss prüfen"
+c3e86490-5d41-4f55-9aa8-b170123409b8,geo_winkel_summe,draft,08f19ecd69c7f55c11fdf5c4d973e511,notwendig-regel,"Entwurf, Lena muss prüfen"
+3e087e16-bd3e-4489-b3d9-6c6759c4ce74,geo_winkel_thales,draft,d498bf6ba43be13e56392a8304ba374f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9e7c1e4b-d317-44cf-8865-071c653ef2cf,geo_winkel_thales,draft,28536ae3de0788f83ee929a8f31473bc,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9f171c32-9786-4617-b2e4-161c88071ea5,geo_winkel_thales,draft,02a8dfa4e334d3807cb510ea36ce15ed,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+11aebc7c-d30e-4577-89d5-52efed7d379f,geo_winkel_thales,draft,f91d19befa7370639553251cfb9c1413,notwendig-regel,"Entwurf, Lena muss prüfen"
+9ca300e1-76b9-4bb9-96cf-44cfda31824b,geo_winkel_thales,draft,a7b2fac114a45e37cf96de599e49a30d,notwendig-regel,"Entwurf, Lena muss prüfen"
+22e90366-5528-4685-993e-42e88f3623f6,geo_winkel_thales,draft,390c7e844407446c6841cd159954301e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+00096607-230e-4fd3-b236-42673e5ea268,gleichung_beidseitig,ready,21c8127e1f6def8ef7c9e0d9e8793da5,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+19ba5f42-6cd4-4191-afe0-fd8a09c4ac35,gleichung_beidseitig,ready,21c8127e1f6def8ef7c9e0d9e8793da5,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+7c396707-259c-4509-9798-737dac230203,gleichung_beidseitig,draft,21c8127e1f6def8ef7c9e0d9e8793da5,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b5389f3a-d638-43e2-b314-84219e882b25,gleichung_beidseitig,draft,21c8127e1f6def8ef7c9e0d9e8793da5,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c1d9ad94-8bfb-4ec7-ad6c-dc201173edb8,gleichung_beidseitig,draft,21c8127e1f6def8ef7c9e0d9e8793da5,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f76034e5-792c-47bb-81b2-1d5ecd205499,gleichung_beidseitig,ready,21c8127e1f6def8ef7c9e0d9e8793da5,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+300b2a89-6f7f-4022-8a61-9a9d040fadd3,gleichung_beidseitig,draft,646527edcffe875d276f9338170ac089,notwendig-regel,"Entwurf, Lena muss prüfen"
+e647e2ec-7e4c-404d-96cd-b6f402b6a981,gleichung_beidseitig,ready,21c8127e1f6def8ef7c9e0d9e8793da5,notwendig-regel,schon im Pool
+6fc6928a-6ae3-4c32-9c2e-b9a20451b97c,gleichung_einschrittig,draft,6e3e42b2f00c2e7d4fefaa705cd17be9,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d19c8070-85d9-44cc-b4cc-eac3e06010d0,gleichung_einschrittig,draft,029b4fdf76a1c2fdd21db52e39d9d525,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+fbd28765-b198-4ff6-bdbe-de9ccc5202de,gleichung_einschrittig,draft,676754aa4efb9f1aaf2f7afc88084bc8,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+152bcdcd-897b-452b-9a8f-402375540a3f,gleichung_einschrittig,ready,676754aa4efb9f1aaf2f7afc88084bc8,notwendig-regel,schon im Pool
+4f6f7cdd-3415-4185-8eae-95083d061b71,gleichung_einschrittig,ready,6e3e42b2f00c2e7d4fefaa705cd17be9,notwendig-regel,schon im Pool
+bfd877b9-cd3e-490c-82ad-0274b4f85a8b,gleichung_einschrittig,draft,029b4fdf76a1c2fdd21db52e39d9d525,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,gleichung_lgs_addition,draft,e859d4379e651c75e84582ea663d33cd,nicht-notwendig,keine gültige Lösung oder inaktiv
+8a6667f5-f069-4df5-8411-c4533e44b757,gleichung_lgs_addition,draft,242df5fbd75dd949e399d85573edf7c4,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b0a46ab7-8546-455a-af17-41d97b6da549,gleichung_lgs_addition,draft,efe7d25dc4d28d0ca991a4e7361d394b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ca914e37-5069-4fe6-bbec-d3965feca69a,gleichung_lgs_addition,ready,556f206a565e26a21e77a8acf0fce894,notwendig-regel,schon im Pool
+ffd185a0-239d-4e19-8600-87934606fffc,gleichung_lgs_addition,ready,f920c4206bedac5e5c7562e66ec9fb81,notwendig-regel,schon im Pool
+04167489-16b6-4f8e-bd85-5aff2f8433a9,gleichung_lgs_addition,draft,48186e9098c23e5acdcbd9f943a2c8d3,notwendig-reserve,"Entwurf, Lena muss prüfen"
+686a3356-9cec-46b5-9625-24e8b3159661,gleichung_lgs_einsetzen,draft,ed60c0708af1d9155c355153f44b7593,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,gleichung_lgs_einsetzen,draft,cc46986048a5fa9bde2ea5e77d91efce,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,gleichung_lgs_einsetzen,draft,de2e11ececd90cd4a0e0255998c75eb0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+158c874c-248c-40ed-b8b5-af3eb627517a,gleichung_lgs_einsetzen,ready,f19b00df929f31f90d71e8025b1b6d6e,notwendig-regel,schon im Pool
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,gleichung_lgs_einsetzen,ready,da9dc66abe561e8bb8aa04fba0bb4aeb,notwendig-regel,schon im Pool
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,gleichung_lgs_einsetzen,ready,bbc80c26df9fc78deb797873b8b11be2,notwendig-reserve,schon im Pool
+341951eb-c62b-414a-aedf-c86e61d27bf5,gleichung_lgs_gleichsetzen,draft,1a52b3feb5a9338a4f777f65b5d27a46,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,gleichung_lgs_gleichsetzen,draft,7c1fd2c44085cda6338a2ab3edcf1f2f,nicht-notwendig,keine gültige Lösung oder inaktiv
+f028a616-4848-4839-86c5-b8520f6a0e15,gleichung_lgs_gleichsetzen,draft,2ccc747105211bd6e0e6b356f5e2d587,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0a8987a7-5605-43d6-b24b-16436d3d8096,gleichung_lgs_gleichsetzen,draft,840b9e89e22fc31abfe7e674525e5086,notwendig-regel,"Entwurf, Lena muss prüfen"
+5b073ffe-951e-4339-bceb-fefd24b204e4,gleichung_lgs_gleichsetzen,draft,c40814f68ca86a6808392b8b6f15eb9a,notwendig-regel,"Entwurf, Lena muss prüfen"
+2d1d05f3-9234-4580-ac86-76776714e9c1,gleichung_lgs_gleichsetzen,draft,8130b0425fa4f531860b9ba71ee83338,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0315634a-9c1d-4961-b214-07617add2874,gleichung_lgs_grafisch,draft,7dbf0e9a03391b3f76430bf2135afe42,nicht-notwendig,keine gültige Lösung oder inaktiv
+49e51e4e-c935-489b-af30-a41f8d0a932f,gleichung_lgs_grafisch,draft,750fa2beca2d7d759438532b9750e534,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,gleichung_lgs_grafisch,draft,93e9eabffb5f10b7ae77381a4f919919,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4888b388-56c9-4c9a-8388-46367317b245,gleichung_lgs_grafisch,ready,8a2893c165ac37e2313e837e2cc1f6fc,notwendig-regel,schon im Pool
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,gleichung_lgs_grafisch,ready,0e2407a88fdb9483ff4d259837b12b9c,notwendig-regel,schon im Pool
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,gleichung_lgs_grafisch,draft,c6ae2612c75a1ba4c687fc5ed2eb107c,notwendig-reserve,"Entwurf, Lena muss prüfen"
+614b148f-4f0a-48ed-8796-a060b35a63b8,gleichung_lgs_sachaufgabe,draft,1258a41a05265e15f780f99c3af532bb,nicht-notwendig,keine gültige Lösung oder inaktiv
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,gleichung_lgs_sachaufgabe,draft,840a9da2b2aae753cc05193bd3d50e57,nicht-notwendig,keine gültige Lösung oder inaktiv
+f2cff506-af02-4ea8-93b5-91957cab930e,gleichung_lgs_sachaufgabe,draft,e523819b4c0885e4bc92308b7c2b5589,nicht-notwendig,keine gültige Lösung oder inaktiv
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,gleichung_lgs_sachaufgabe,draft,6cf0a1d94a3aaf6b0c20a53f437b073b,nicht-notwendig,keine gültige Lösung oder inaktiv
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,gleichung_lgs_sachaufgabe,draft,0938d8512c9e761203de5d5604160006,notwendig-regel,"Entwurf, Lena muss prüfen"
+67e26196-727d-4fc1-bcf5-0ba79078adeb,gleichung_lgs_sachaufgabe,draft,0b112be989711a4a5f68c5c2b7c92709,notwendig-regel,"Entwurf, Lena muss prüfen"
+3775b325-b868-4738-b545-8ee1ed4671a4,gleichung_modellieren,draft,cf5d46032c152a275bcc0b518fc59e0a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5f6f3ebc-f4ab-431e-9325-fe598ecde8f0,gleichung_modellieren,draft,28da0a9aa17d3a0a6fea7b6fce003582,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8b7a7afe-d497-40a5-8745-16b70556708e,gleichung_modellieren,draft,11b41de61cf2ec22c19f6c4b5721f650,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8caf2645-511e-440c-ae28-9fb24a5c3e83,gleichung_modellieren,draft,6b3f531ae38dedc54d427570ac7e34c1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+c1b51d7e-09e7-41a0-b4ea-455ff519438f,gleichung_modellieren,draft,cf629e82bfe46c018841b1f5ae407c9a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ea3b5d8f-132f-4dc7-9ae9-0571d93a419d,gleichung_modellieren,draft,bf7491ab28f9e73e0065870bd7f91b22,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f810d920-ee91-406b-8bbc-1012c5c68712,gleichung_modellieren,draft,edb6f48a77bc7c7d41e0cad1d1afc1e1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4f0b933d-3ead-4042-adb9-a1369ba28f39,gleichung_modellieren,ready,060098418d2fb0d24a5afcc043ab2165,notwendig-regel,schon im Pool
+d986ca37-4dc0-43c6-a148-153aa8605838,gleichung_modellieren,ready,984c70f5b413f8845e87d4c4f42e2bf6,notwendig-regel,schon im Pool
+d393d7c6-e5ff-43bb-b049-e8ba63aa1cdf,gleichung_modellieren,ready,a241774fff9c6b6669b58df4b3b664df,notwendig-reserve,schon im Pool
+063da90f-1c42-40a5-85b5-a7742ca258d5,gleichung_neg_koeffizient,draft,07f878b079fef31337428315b8d77616,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+73e1a4c8-9497-4fc8-807e-5a78996c592d,gleichung_neg_koeffizient,draft,07f878b079fef31337428315b8d77616,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b11655f3-ac29-4030-9e82-49d5371d2f04,gleichung_neg_koeffizient,draft,07f878b079fef31337428315b8d77616,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ee5b282d-3533-46df-b54a-6ce4ebb522b4,gleichung_neg_koeffizient,draft,07f878b079fef31337428315b8d77616,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+4a0fe6b6-7b4f-436f-9788-8579b3a218f8,gleichung_neg_koeffizient,draft,07f878b079fef31337428315b8d77616,notwendig-regel,"Entwurf, Lena muss prüfen"
+ab6509f0-c7c8-4c7b-b2f7-b65d12b23a8a,gleichung_neg_koeffizient,draft,b986812c37039e139e459a4c3aed2a71,notwendig-regel,"Entwurf, Lena muss prüfen"
+9f9ab204-2b5e-49d7-aaab-28ddc96ea8b5,gleichung_quadr_anzahl,draft,8c50c7711b6be9d2df138263600f98be,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a549083d-c72d-44d6-9aba-a138ad6d2dc0,gleichung_quadr_anzahl,draft,62ce566391192186b82c359668298291,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ef911123-949d-4ea9-a61d-beef95cc8dc0,gleichung_quadr_anzahl,draft,73c3f7914df6407a8484a12e7d0dd293,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0c3d2396-131a-4cba-bd07-4597d92500cf,gleichung_quadr_anzahl,draft,cc03b7d9417f6d40b6a2c870bae3defa,notwendig-regel,"Entwurf, Lena muss prüfen"
+56540a88-7b9e-4935-8702-26f9415e9d14,gleichung_quadr_anzahl,draft,0a2fbf6096c3c4f43f9ca3b74ae22047,notwendig-regel,"Entwurf, Lena muss prüfen"
+95077a87-7e8a-4463-83b0-dbbf6facc879,gleichung_quadr_anzahl,draft,c98fe4922b3d5fe7777aece11f9a7524,notwendig-reserve,"Entwurf, Lena muss prüfen"
+90635757-ba7c-4bde-bd7c-04bd79bf8c35,gleichung_quadr_faktor,draft,eb28a7484a308eff1a9c1401c7fcbf68,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b47ef7d3-1933-416f-8fe8-edcbc8fe8929,gleichung_quadr_faktor,draft,6fdeeb4d3e4c50b57fd1cbf85d5c051c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d7d81e80-6776-4308-a690-29675f7882d4,gleichung_quadr_faktor,draft,9701aa1277b246d94330e3b330d02255,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9879542e-bb69-41c6-a77f-3916a26ffad1,gleichung_quadr_faktor,draft,366a8187e333f6baef6cd67939cf2b41,notwendig-regel,"Entwurf, Lena muss prüfen"
+c3be2e88-1087-479f-bf95-9dbd732efa56,gleichung_quadr_faktor,draft,9c672dec525d6885487a2abdb5289411,notwendig-regel,"Entwurf, Lena muss prüfen"
+1c4a31af-20bc-4348-b8d9-cd83b273ff38,gleichung_quadr_faktor,draft,b01561acc1c77b0fd910111470c93ef5,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5b36238f-c64c-4578-bd63-55249f185c78,gleichung_quadr_formel,draft,7f2c5d03e72e8f065bd8c033b423da1e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+725448a1-10e2-4e88-beb8-fe57f6e54d06,gleichung_quadr_formel,draft,5be97a0213401c6323938ce679bf4383,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b6e77404-2577-4e03-b4ce-cb61a5f6a5f9,gleichung_quadr_formel,draft,acb9f65e48f93bd2c84183ad1f24e6cf,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee,gleichung_quadr_formel,draft,d42bce5a2f6988dac266f72822ffc6de,notwendig-regel,"Entwurf, Lena muss prüfen"
+1f2a206f-1f63-4866-b446-c8305de6b725,gleichung_quadr_formel,draft,ab1329713d055a8a98d2d3910d7b00a7,notwendig-regel,"Entwurf, Lena muss prüfen"
+43f39bc1-e7b4-48e6-8b77-ff8e41e77142,gleichung_quadr_formel,draft,c151f5ffd73da9384286f1269d94c445,notwendig-reserve,"Entwurf, Lena muss prüfen"
+9264f90a-1f7b-4170-97da-198c1acc89a3,gleichung_quadr_wurzel,draft,401d3b577d82eb95717c2d923fded003,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bc0cdfe9-2416-4d02-a623-feb820083f07,gleichung_quadr_wurzel,draft,70f01f94a24db7be2001eadc4049ec40,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cd6693f5-cc93-4628-baf9-f45436706641,gleichung_quadr_wurzel,draft,0f2e6b292e05b0f9057e8ad0d9f6e530,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+3a42b89c-7f8a-4b64-94ff-d1d4ac576c32,gleichung_quadr_wurzel,draft,27eed339388ffc9327f0bf35399503d9,notwendig-regel,"Entwurf, Lena muss prüfen"
+4d1a2438-3610-4dc9-b5be-8d35cb5199bd,gleichung_quadr_wurzel,draft,c381468155172487de768ce03b1273a4,notwendig-regel,"Entwurf, Lena muss prüfen"
+504bbd98-9c80-4124-a66a-9dc7b6651bb9,gleichung_quadr_wurzel,draft,7ee0017c684bad8fe3f4db6b275283ae,notwendig-reserve,"Entwurf, Lena muss prüfen"
+17f3e728-2249-42ba-b5bf-c2a4b344dd00,gleichung_zweischrittig,draft,1119489391e972212632f6ad287579a8,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+7976c81f-9b0b-46d8-a0d1-b5b6cc3bc992,gleichung_zweischrittig,ready,3a6fbc3348540b1c70ad97ca387098e4,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b01451c0-53e5-4da7-9591-280448264835,gleichung_zweischrittig,ready,1119489391e972212632f6ad287579a8,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ff5710af-0c0a-47e5-9a57-b2a5bb4ef82d,gleichung_zweischrittig,draft,1119489391e972212632f6ad287579a8,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+9d15a93e-961b-4569-be8b-c4482dc98301,gleichung_zweischrittig,ready,1119489391e972212632f6ad287579a8,notwendig-regel,schon im Pool
+e8348c89-67cb-4650-be91-235e69321776,gleichung_zweischrittig,ready,3a6fbc3348540b1c70ad97ca387098e4,notwendig-regel,schon im Pool
+3372f3a7-7014-4052-809c-3bb17d627361,groessen_flaechen,draft,ab4cd58140499852be195c0a0679d9e7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+341fd991-7230-4548-8413-7f5f422231bf,groessen_flaechen,draft,ab4cd58140499852be195c0a0679d9e7,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6724df5d-a2a0-49e8-bd07-f9ad6dda5fad,groessen_flaechen,draft,dce1b1122116b825f12c92605c492ed5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6a754e96-8b51-4419-ba50-7f592548cd1f,groessen_flaechen,draft,46ca1d0be5f351ace1f0e0f54e0fde63,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bb686f12-4823-4a05-bda2-d11d5fb7a395,groessen_flaechen,draft,85a37544179d9c3cede29113ef5ed4ff,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d09b4715-e18d-4588-a00e-fbadaea189e1,groessen_flaechen,draft,cb321e362a203fb823d3dbb0f224cfc7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ecfb7ed2-f8d4-4ba0-9661-669c89d946b6,groessen_flaechen,draft,6cdb9d743ef5e67f27d9093526fb7033,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f506449e-47b5-41b6-9b64-b0c1aab3ffc8,groessen_flaechen,draft,1303cbea2065e0a8d39053e02d4d3881,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b7b814a6-d2c9-4988-855c-3d51b5148da0,groessen_flaechen,ready,ef533b6027262562b90d9fb3eacabd85,notwendig-regel,schon im Pool
+f531dcee-04cf-4e14-ad5e-9032f72f0668,groessen_flaechen,ready,950981b00eed64f79d4f417ba18b7d4d,notwendig-regel,schon im Pool
+1d01107f-efa2-4cbb-ad3e-b5de5f5b0159,groessen_flaechen,draft,8964307056956249904e915cefc3f10e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+3fae8854-80f2-4b2b-a5f0-9df01c0ded47,groessen_gemischt,draft,097e4b9f49d38166d37ecc8367adebe7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+44d309ea-0568-44f9-b880-ba9bf0d21a03,groessen_gemischt,draft,195c7ccf1f2a072d812d34a2363295b5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+86ce67c0-5d2c-42ec-990a-626f5a109ba0,groessen_gemischt,draft,bf16bf347c08c3f51dd4d6ad7f8a7fd4,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9ac911aa-54cb-421d-ad25-4c324d50ba28,groessen_gemischt,draft,3c365b01079fd84c494162aa1e8c4410,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b870d86d-35d4-4bf0-ac34-6309cd6af711,groessen_gemischt,draft,ae217b1151094d108ca906806ebaaf25,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c7ff8ceb-7c9d-4c84-89a9-0428b1224aca,groessen_gemischt,draft,46ca2373eefad204e8bfa7d624332420,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c9e3f728-2591-4704-9558-d5f8dc467f93,groessen_gemischt,draft,ae217b1151094d108ca906806ebaaf25,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+dd8db039-818d-42c2-8866-2df507675c36,groessen_gemischt,draft,ae217b1151094d108ca906806ebaaf25,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+20cdce1e-0e9d-478d-820e-b77ff90c94bc,groessen_gemischt,draft,3c365b01079fd84c494162aa1e8c4410,notwendig-regel,"Entwurf, Lena muss prüfen"
+2a55970e-6a27-496b-8229-35813122e30b,groessen_gemischt,draft,ae217b1151094d108ca906806ebaaf25,notwendig-regel,"Entwurf, Lena muss prüfen"
+2196f87e-bf03-43b2-8e63-ae07e60bcbc3,groessen_gemischt,draft,46ca2373eefad204e8bfa7d624332420,notwendig-reserve,"Entwurf, Lena muss prüfen"
+4b2ebc02-223d-49e9-9206-c93a3285cc8d,groessen_laengen,draft,d2721eb170e58cb1c06210fc93158485,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+77fe027d-7083-40fb-9605-931db2e4ee83,groessen_laengen,draft,550e850d95692d0828f7a28d3967a337,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9410a6d6-fcd2-4b81-a921-d9ea140e56a2,groessen_laengen,draft,0c061a1d6bd997c0a6f8ed835b183a04,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b53a2a88-3985-41d7-8df7-11c0efd3fd01,groessen_laengen,draft,c0f5e990d43cc5eec09ebbedd72152ea,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+da3e2bba-9abb-4c4e-8905-0009123662e6,groessen_laengen,draft,0e20ab41f9af7fb2630a02d8f7bebb09,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f6eb3446-9e8c-4103-8c09-1b13da03f5b1,groessen_laengen,draft,fea8d9e413a8a5d5c069780f4e25c050,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+62bbb1fe-9401-4ac2-8b24-e5a603f77e22,groessen_laengen,ready,ae217b1151094d108ca906806ebaaf25,notwendig-regel,schon im Pool
+b9e84b84-77df-42d9-b34e-f6ccc283e930,groessen_laengen,ready,907a888b176dc155869a2827c5f827ec,notwendig-regel,schon im Pool
+0c4fe222-f558-413c-895c-0737af4f7298,groessen_laengen,draft,475aff255b6d9da1a66cd0028f0c7f9e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+4f7104db-9ef7-48e2-974d-1d3539dc0349,groessen_massen,draft,7b1a71dcfb5fad2f1e8329441ebec289,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5a5b782b-f1e9-4e90-948e-e7bfa2e396af,groessen_massen,draft,fbcfaf7450a024e0f9d031aad9a76ece,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5bfd73be-2575-46a3-a7c2-d46c6aab96d5,groessen_massen,draft,057cdd592f1ae41942bf9b58aa8a908e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9c00b75b-7dbd-41de-afff-e63d1f56b09d,groessen_massen,draft,7b1a71dcfb5fad2f1e8329441ebec289,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b15c5f86-b204-4647-b200-d4555994775d,groessen_massen,draft,5fd58a4f7813f7f841e8e469104a1ba3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4e34f73b-5593-4807-91a4-b9c5d3fada5d,groessen_massen,draft,46ca2373eefad204e8bfa7d624332420,notwendig-regel,"Entwurf, Lena muss prüfen"
+5d6a704a-cc38-4144-adee-ad396d532457,groessen_massen,draft,2bbc53962d48b8e6ae37e15d1577408e,notwendig-regel,"Entwurf, Lena muss prüfen"
+12904575-e6a5-4a4d-b985-235eb77288ad,groessen_massen,draft,e5bfa2c241173cc4dfbcf3f0230b89c7,notwendig-reserve,"Entwurf, Lena muss prüfen"
+2d4e013d-08e1-4740-8bfb-55d9d02864d2,groessen_volumen,draft,85da349eeaa109c581d0e964d9d9ed49,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2ef7ec72-8b62-4965-a0e6-c643f103774a,groessen_volumen,draft,d0a6d1b9f07bdb5cdbd97aead1f42d5e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8076eb32-d62f-4815-b950-d82ae27695a9,groessen_volumen,draft,58ebc864b238c865942a5c64a613ff35,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+82d337e5-0f66-46a4-9067-81c247950bfc,groessen_volumen,draft,7ef23fb90a2b9c04afce9a9a301e8260,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a9ff9918-5d33-4381-b0bc-f611b3cb3a30,groessen_volumen,draft,6734634357992bd3ba97fdd970a7ffe2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d040f47f-0d2e-4cb1-abfc-36eb694f518d,groessen_volumen,draft,6734634357992bd3ba97fdd970a7ffe2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+eeddc801-a5ce-457a-a2ed-411d62a6b50e,groessen_volumen,draft,29901e75e4ac443299a9999207e94b33,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+34d5e69b-f8c9-4837-8dc8-84c73400141d,groessen_volumen,draft,d21c9e2e27b626fae57e3648505e7c02,notwendig-regel,"Entwurf, Lena muss prüfen"
+d36af517-b33f-4633-8a86-57cacc015bfd,groessen_volumen,draft,6734634357992bd3ba97fdd970a7ffe2,notwendig-regel,"Entwurf, Lena muss prüfen"
+042aa45d-c36b-4eb8-886e-64289a975104,groessen_volumen,draft,350972a3aede84d3d7a79af5890a5bc9,notwendig-reserve,"Entwurf, Lena muss prüfen"
+02ab4a95-1886-4816-9913-c552564b9e5d,groessen_zeit,draft,0840e3060c7f3beb1101fd44d2692999,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+39e9e36c-7a9b-498a-9563-039d2e3fbb22,groessen_zeit,draft,0840e3060c7f3beb1101fd44d2692999,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+57246a98-fef1-4beb-b288-24a676d2eeb2,groessen_zeit,draft,0840e3060c7f3beb1101fd44d2692999,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+9f7f0cd7-128b-4a4d-9281-16c78804a1b4,groessen_zeit,draft,0840e3060c7f3beb1101fd44d2692999,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b5473c52-15bf-414d-a33e-f2ec1e3cb783,groessen_zeit,draft,0840e3060c7f3beb1101fd44d2692999,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d7ff7655-c901-4c4f-9a09-7b2cbf4042ab,groessen_zeit,draft,a1e1d53a19112858f282529925f4bbbe,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+35abc6db-9fee-48d6-bac2-592a5c7f0816,groessen_zeit,draft,e4facec0c18c9db0c0e3f83d61a8a839,notwendig-regel,"Entwurf, Lena muss prüfen"
+b1ede380-80c7-44df-9263-dad843ee33d5,groessen_zeit,draft,0840e3060c7f3beb1101fd44d2692999,notwendig-regel,"Entwurf, Lena muss prüfen"
+479eff6c-ba9e-4071-8aa4-e434e2185f7d,groessen_zeit,draft,e9ce85e0d335f75b3760e8ef7f9ec243,notwendig-reserve,"Entwurf, Lena muss prüfen"
+25539057-46a0-473c-ab73-40d1b81edd55,potenzen,ready,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+2fe1feb6-8551-4eb1-be91-f5092d383242,potenzen,draft,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+451bd34e-273d-40ac-a16d-3f13d271c5fa,potenzen,draft,24d25b99dc7e6110531d4f74160d6209,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+59c982b3-47db-4d90-b0ba-5de9ff4a8cbd,potenzen,ready,f350b1878d332493bedc8ec549b396c5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5c73a51d-2fb0-40c5-97c9-945ea1ad4494,potenzen,ready,83845e26515f173cbf1563aa8a25308a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+72d61822-e5ed-49c3-8f9d-643cf94196bc,potenzen,ready,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+744b2ea7-ab5e-4e8f-95d2-3e029684eb9e,potenzen,ready,db28d361dc4b83cc3c9802b5c2cd8115,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+796659c3-7b6f-4ccb-a7b1-144eab486c5c,potenzen,ready,9528124c347cee2cef15e640365bc6d2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+83839a0b-e05e-4ef5-a18b-4afde56e3752,potenzen,ready,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+855d22d3-4995-4497-a69a-6b89bcb097e5,potenzen,ready,99430896e5a94146d29144465db9f58a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+89ad1d12-b903-4411-a066-76e8b68ddcac,potenzen,ready,9528124c347cee2cef15e640365bc6d2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+9ee7cbb7-5f40-4aeb-8983-ace78557d557,potenzen,ready,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+bb125765-c709-4f59-afff-4b4bd090dbbf,potenzen,draft,db28d361dc4b83cc3c9802b5c2cd8115,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+bbc88883-d27f-4fee-ad1a-42d664d6f47d,potenzen,ready,f126395683f7153550469cc9e9c973f4,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c5ff0008-b3f0-4ebf-aa68-31cff48d7342,potenzen,draft,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+db07cb07-f719-4c8b-9e23-614902c6a7a4,potenzen,ready,db28d361dc4b83cc3c9802b5c2cd8115,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e04a700d-23f0-4709-bf16-a4e65bca3cd2,potenzen,draft,d77bada8be19e460c6cb1dbce1e347c1,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e1aeb6a9-507a-471c-92c8-98ae592162a3,potenzen,ready,db28d361dc4b83cc3c9802b5c2cd8115,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e5da9c79-e34a-42f9-bc85-0e135ff90987,potenzen,ready,99430896e5a94146d29144465db9f58a,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e7c7b1c6-85c0-4592-8996-d9310332ce17,potenzen,ready,9528124c347cee2cef15e640365bc6d2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+fd7c0327-2903-4199-a275-be6c4b46cd1e,potenzen,ready,db28d361dc4b83cc3c9802b5c2cd8115,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+a3343b39-bedb-491f-a214-6b6817ce2768,potenzen,ready,058bd4096d80c3ff610ab7733b2d91f5,notwendig-regel,schon im Pool
+aef364ee-8c7f-49af-9e55-c2c65b7e36db,potenzen,ready,f126395683f7153550469cc9e9c973f4,notwendig-regel,schon im Pool
+01f22500-c86d-47d0-bb1d-a5f420e2de9d,potenzen,ready,d77bada8be19e460c6cb1dbce1e347c1,notwendig-reserve,schon im Pool
+19588c29-a65a-4361-916f-a9a62fd919d0,proportionalitaet,draft,42a085837b466efa24a37b9e3e153aba,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2f39a86e-8784-4689-8e90-7c1590454ef6,proportionalitaet,draft,8eae4775bf863f2c5c35353e232900e7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2f411330-3160-4076-a650-92205dedee64,proportionalitaet,draft,dc709c933bfe6ea1dee92efce79cd931,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+3dc08da8-9f59-4612-ab87-3b41054c340a,proportionalitaet,draft,12ecfcc022d31ce8ae0bad6f7fc0ea75,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+60d6094b-eef7-43f4-be17-fbb849cf3499,proportionalitaet,draft,b890895fcf3e9c34b054ee932cb1428b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6ce2be7b-ea96-4512-a6f1-fcbbfb0d54ca,proportionalitaet,draft,91dec468f7826a48f9e5fe0fddc778b2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7c2a339c-9c6f-4c15-a725-e1c9a2d343ad,proportionalitaet,draft,3cd865e09d107f6842dd42455d0f4afd,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7d8a6029-4d8b-427f-81be-3cce4816e500,proportionalitaet,draft,03c9f2d2b5ae089f17207b1d1ead4a24,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8b4bf5c8-d813-439b-b9a4-5dd412b8b0af,proportionalitaet,draft,b4ebe25a38c7b89df0831886a4212683,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9cff9521-ae6b-4030-9a2e-02fde3274392,proportionalitaet,draft,5afce124ab43e2d3073313b1d9e7b6bd,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ae86f57c-66aa-4475-820c-9fc5b214586b,proportionalitaet,draft,48a34c1f1f7ce8972315c579bb1df9fd,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bb650a2d-6122-42ee-9fa1-3a2b1f1eda1e,proportionalitaet,draft,eb3c9b16c14d44d1d1ecdb0a2ced2df0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cb5e9767-90c9-422f-8a1f-31193a418249,proportionalitaet,draft,fd58b2326049b3d1fcf5037dab57e47f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d32c656c-18d4-4cde-842e-af2511623ed9,proportionalitaet,draft,0935fdd42d0724d9ed8be29e13bfec9a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+82215b1c-332b-4ca4-b167-090460b594bd,proportionalitaet,ready,1a8b67985ba8f230982e37198218dce6,notwendig-regel,schon im Pool
+9372380c-8cf0-47a1-9fb5-330d44b6a975,proportionalitaet,ready,d2d9b2d418ce167291b2b2c5f3b09a36,notwendig-regel,schon im Pool
+0cdf2d28-abd3-4931-8b51-81fe03044974,proportionalitaet,draft,e43bd3f4cb971135fb150229c90f394b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5bcf9b2a-6cce-4674-b070-3bd14cd3bad1,prozent_grundwert,draft,416bd92b8eb004fe0f1eb31954d78f5f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+63f8c280-f027-49a6-b4ef-9a6f73ae39e2,prozent_grundwert,draft,9b38d5aa63430e3f67e74f0bce8ae060,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+70cd6107-bde2-42b0-bb89-a7431a2e96c9,prozent_grundwert,draft,c0f69c131bdee932f4e9b2a18c8868d9,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9c2f92c5-6186-4a5e-be24-e0f957c2c9fd,prozent_grundwert,draft,af7af208a7d65453fda2796ba76c481b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a3773977-f673-47bd-b66c-301fde4443f2,prozent_grundwert,draft,59a7ae74ca87bf8e7cb16ed14e19e8aa,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a53cf275-afb4-4f69-858d-91a977051281,prozent_grundwert,draft,dcd5972ba30bd755c7755b42190a6db1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+dda4b621-05d8-4390-bf6a-078a4a7bd19b,prozent_grundwert,draft,2b57f412be2c7f33eaf5d9fb728b5f55,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f0dc76f2-9666-4122-867c-9d089b106205,prozent_grundwert,draft,416bd92b8eb004fe0f1eb31954d78f5f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+7875948d-3789-43cb-8e1a-861de7167ece,prozent_grundwert,draft,acb83b94af9a2e5388eb1b6849918471,notwendig-regel,"Entwurf, Lena muss prüfen"
+7eba6b75-1852-4713-8f6b-bf0e626fa52b,prozent_grundwert,draft,2ea8fce92736ea03046443c4ffe0f8e2,notwendig-regel,"Entwurf, Lena muss prüfen"
+592eefb1-d883-42ea-aa28-c08ef7602ec9,prozent_grundwert,draft,bfc6acc9ce23b000f2e8e105299282a9,notwendig-reserve,"Entwurf, Lena muss prüfen"
+634f65ef-3692-4166-b137-ebe669c91651,prozent_prozentsatz,draft,e1760b67b85529f42a96b72fa60f6a3f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d5ecf38c-4ee0-4357-ae8f-dad36046d83d,prozent_prozentsatz,draft,e1760b67b85529f42a96b72fa60f6a3f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d86aa9ec-4815-42dd-bc94-5e02afdb26f7,prozent_prozentsatz,draft,05159f8c050091cd6ab9058e75bd696a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+db8c6e60-1ef2-407a-9468-23e34db1a292,prozent_prozentsatz,draft,e1760b67b85529f42a96b72fa60f6a3f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f0244786-d29d-41d8-a6ac-eba0d437e87c,prozent_prozentsatz,draft,e1760b67b85529f42a96b72fa60f6a3f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+fee8aa29-db31-46e0-a21b-fe17279e7813,prozent_prozentsatz,draft,e1760b67b85529f42a96b72fa60f6a3f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+14b1c4a3-8b95-495b-ad2f-066fd43e0a20,prozent_prozentsatz,draft,8b772014d7c77c882fdadff0f92fc0c7,notwendig-regel,"Entwurf, Lena muss prüfen"
+846c8ff7-9816-4ac7-b75a-3e51954270db,prozent_prozentsatz,draft,e1760b67b85529f42a96b72fa60f6a3f,notwendig-regel,"Entwurf, Lena muss prüfen"
+961a8057-3c77-46c9-b58c-47fa9434cc73,prozent_prozentsatz,draft,46eb12b5535b9e0715ef1d2ba720a745,notwendig-reserve,"Entwurf, Lena muss prüfen"
+1550d937-c1bf-43a8-adc4-f459bd7de121,prozent_prozentwert,draft,c21324be469e46f51323376871631ade,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+39ada84b-5d50-4a9f-8f75-c1255550f2a0,prozent_prozentwert,draft,5629f8cb2faa5d5b0be88a89d42d316f,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+58e0231d-699a-42fe-9b5f-cfb5ff5023e3,prozent_prozentwert,draft,d67608a9d195aa2dfe0db0d3f8e429ed,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5b839aa6-d4a4-4869-abf5-d8a66975bc32,prozent_prozentwert,draft,9bc9db5f753f2db6ad4bf89a99448608,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+85b5f1b4-3f78-44a1-8fea-2ae323d0a7fe,prozent_prozentwert,draft,e16239e88e72b68ab01fcad1a02030ec,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8f4a0a18-5992-4bb2-8f4a-79347f41f2d7,prozent_prozentwert,draft,ef0ccdb12a0a06e1e1ae2743f378c05b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4d9e1f4d-8f87-4bbe-a6b4-cdbd459bfc1f,prozent_prozentwert,draft,c4f269269f2d64e01246b668ad133306,notwendig-regel,"Entwurf, Lena muss prüfen"
+8337d39e-ff22-4393-94e5-35f0c835cd45,prozent_prozentwert,draft,69099222d0aacf88c6da6ea1c04b2766,notwendig-regel,"Entwurf, Lena muss prüfen"
+0452250a-be42-434d-8f7f-ea5c3705f745,prozent_prozentwert,draft,02f6f488e22322cd3b93294e48a2ffd3,notwendig-reserve,"Entwurf, Lena muss prüfen"
+2652c818-1f19-4a22-8c64-759682ca6f04,prozent_veraenderung,draft,51fd1ce6515879bea7bf83495c523c37,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+508051df-7106-4ee9-aafd-eeb7e9e281cd,prozent_veraenderung,draft,00cdc93445aed76e216fc52210061562,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+68685c38-6766-4d28-9cf5-633863ad198e,prozent_veraenderung,draft,b59db6191808b82e8c95eedb3cb434f0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9d0f4694-7b71-4ec6-baa6-9a59b9df059a,prozent_veraenderung,draft,8aaa3c83ca7f7876a7e66a5bab6fed02,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b5002b22-72cc-42b7-b561-e4dcb3a9037d,prozent_veraenderung,draft,ed100f8f64eeaff8ce8a60cc5453e921,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bdf8cb8a-9dfb-4aab-8a79-2724b2a0c9b0,prozent_veraenderung,draft,272281371a47119a000510c5ce56b1f0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+dcf715b5-4a34-48c8-ba54-bbbb22617058,prozent_veraenderung,draft,20f510322f94a44a23f05b2167c48a51,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+2155cd07-b21f-46d1-a1d9-bb78345641d8,prozent_veraenderung,draft,8b6ea21c914b7690ca17ff592ad53f54,notwendig-regel,"Entwurf, Lena muss prüfen"
+be903a02-c572-4378-96cf-b264ee161494,prozent_veraenderung,draft,db2c6c42dfb6ed214a01cbf80f7394d7,notwendig-regel,"Entwurf, Lena muss prüfen"
+25da44e4-8960-4836-929f-cdfbaab61c14,prozent_veraenderung,draft,20f510322f94a44a23f05b2167c48a51,notwendig-reserve,"Entwurf, Lena muss prüfen"
+972862f3-5dfd-4c56-8509-15d15cec91dc,prozent_zins_jahreszins,draft,8ffaac5cba5922002d8b899462cc3498,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cee0061d-f262-48bc-a206-884b75fedbd4,prozent_zins_jahreszins,draft,8ffaac5cba5922002d8b899462cc3498,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e8d5acdb-b1fd-4b74-8f18-2509c300cf90,prozent_zins_jahreszins,draft,8ffaac5cba5922002d8b899462cc3498,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ea141d44-521e-4250-a4bd-d9aa8e159238,prozent_zins_jahreszins,draft,04bcbb46be0c28599e78b5f9a9d82c18,notwendig-regel,"Entwurf, Lena muss prüfen"
+f899a57b-8fec-459b-849c-d8ffaa51ee5e,prozent_zins_jahreszins,draft,ea52f53c791555cb288b4972250c11f5,notwendig-regel,"Entwurf, Lena muss prüfen"
+0e82ae91-8c55-4c75-ad2c-ef8ffb5649ad,prozent_zins_jahreszins,draft,0580ad4a89e60b7c55133108b654398f,notwendig-reserve,"Entwurf, Lena muss prüfen"
+77a9dabf-1e92-4a40-a28b-ba72bea91169,prozent_zins_rueckrechnung,draft,bf4077a284424912be30d8256f388736,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+86f705e2-6364-4749-8faf-c031e6bf7110,prozent_zins_rueckrechnung,draft,fbaf85ce58a1d95c9435e7814cd6001e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d0b5af07-3cd8-4da1-85ed-6a3e57cffc34,prozent_zins_rueckrechnung,draft,6afbd89b75699836aab74fb94d4a786f,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+53f6be59-aaa0-450d-af10-6c9570a39ca9,prozent_zins_rueckrechnung,draft,6afbd89b75699836aab74fb94d4a786f,notwendig-regel,"Entwurf, Lena muss prüfen"
+e059539e-120d-428b-ba3d-c11ae9c4a83d,prozent_zins_rueckrechnung,draft,85eed6d9496cfb2b977ca70579a94c69,notwendig-regel,"Entwurf, Lena muss prüfen"
+2d5e6e81-1f81-462c-8b70-db43a7454bb4,prozent_zins_rueckrechnung,draft,fbaf85ce58a1d95c9435e7814cd6001e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+7b761feb-7873-48c8-99cc-c2106ae5d530,prozent_zins_teilzins,draft,c0e8bd3962677876f3194c3a7a53a271,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b0e9c1c6-561a-44ca-8903-62d4c8495b63,prozent_zins_teilzins,draft,9ac2042531e1d0c3762629489a4c8af5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e9ac2c93-9310-446d-966b-c08e55253361,prozent_zins_teilzins,draft,e6221974e779ab75b475c54be90bd92c,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+2503c8e9-2f40-494e-865c-687d7256a771,prozent_zins_teilzins,draft,bba62bcd8fba81a6bde9d305860a1ec4,notwendig-regel,"Entwurf, Lena muss prüfen"
+745351dc-794d-4939-9c33-fea2492bd8ff,prozent_zins_teilzins,draft,e6221974e779ab75b475c54be90bd92c,notwendig-regel,"Entwurf, Lena muss prüfen"
+663cac41-81da-41a8-9092-b63e0101e769,prozent_zins_teilzins,draft,50006e928bb2fc0d72895f296bbad4b7,notwendig-reserve,"Entwurf, Lena muss prüfen"
+736ea5a7-cc7f-44da-b042-8b0711207a15,prozent_zins_zinseszins,draft,ba95647bf06b5f9905b46e171166528d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9031703f-4b09-41be-a1a3-6a0b55bc0603,prozent_zins_zinseszins,draft,fb0e7b6022687b532ba7154d1abc0cad,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ab2df4fc-6d03-45a3-a974-7191461d00fc,prozent_zins_zinseszins,draft,854a291a2132324b98e13197b10bf2c5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d9e29439-32a2-43b7-a35a-a0d166637802,prozent_zins_zinseszins,draft,e0015639891b7df5f8b5be8e2cf91ce8,notwendig-regel,"Entwurf, Lena muss prüfen"
+f07265aa-116a-4d92-9312-6cae6d7cba2d,prozent_zins_zinseszins,draft,dd0fc3e9cd5721303a4f93528b65dae3,notwendig-regel,"Entwurf, Lena muss prüfen"
+3b7c2619-ae14-4c9c-b67b-89589310033f,prozent_zins_zinseszins,draft,fc724c86d093696ece95e444efe78f38,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0bb7e6c8-6b8a-470d-8b5c-f735f5db239e,runden_ueberschlag,draft,63ca758cd221aa7440b6761f18d3f69b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1c31db89-a9f6-40ed-b885-abfeb33683e0,runden_ueberschlag,ready,e1c4455075c2772287899ae7933239fd,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+20c27486-b734-48c4-91f9-976e3256d4ec,runden_ueberschlag,ready,e1c4455075c2772287899ae7933239fd,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+4ff59e5f-dab3-4ef4-80bd-ad7e96e11080,runden_ueberschlag,ready,e1c4455075c2772287899ae7933239fd,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+6f816c36-cce9-4b22-81e5-add0473dad02,runden_ueberschlag,ready,bc1389c395a9988df3be2558c3055ae3,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+865abaf9-5450-49ba-aa27-679f6b6de611,runden_ueberschlag,draft,a07a3fbc90ad63c24bd4312baf868077,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+963d2134-f512-49d2-b3b6-61fb8cb3b8ab,runden_ueberschlag,ready,e1c4455075c2772287899ae7933239fd,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+a982bbce-ca98-4db5-ae2a-f46fbc666440,runden_ueberschlag,ready,e1c4455075c2772287899ae7933239fd,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c6e71bcf-f040-44ac-9b85-c701854f7910,runden_ueberschlag,draft,e8874f44ade7ede78b61abe66bad3037,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d9d683a3-1d2d-4b72-81f6-16eaee5640e0,runden_ueberschlag,ready,bc1389c395a9988df3be2558c3055ae3,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+0cd53103-432c-41a2-9f48-383c1f7580cd,runden_ueberschlag,ready,e1c4455075c2772287899ae7933239fd,notwendig-regel,schon im Pool
+17eff311-f4f0-4a7a-8239-a5b29bb07721,runden_ueberschlag,ready,bc1389c395a9988df3be2558c3055ae3,notwendig-regel,schon im Pool
+ad9cec47-c4b5-450b-b6b4-227335c639a2,runden_ueberschlag,ready,abccd78a4c401314182eac670cdb3bfe,notwendig-reserve,schon im Pool
+a1c6838a-e550-4ed2-92cf-55244acded67,stoch_bedingt_irrefuehrend,draft,5e23ac3a2f2494ced4ba17d0d61c2042,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d8be6909-8da5-4333-ac32-e6c6d1c34fa8,stoch_bedingt_irrefuehrend,draft,ee6eacab360b5cdfc9de7aa137d46f56,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f8f3a464-6dea-4783-a9de-3d5dda5fd878,stoch_bedingt_irrefuehrend,draft,c5e759236922fa414ab6494dbf496b9c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0f94090d-dced-46dd-ab0d-ff9152c75529,stoch_bedingt_irrefuehrend,draft,4bb9075c60d6180a94fd41e63c26a146,notwendig-regel,"Entwurf, Lena muss prüfen"
+2708a240-7d4b-42bb-a028-d106ebe60765,stoch_bedingt_irrefuehrend,draft,ac8b6bf17bde67b214508fc74243b0d4,notwendig-regel,"Entwurf, Lena muss prüfen"
+982be3c3-2d1f-4d59-817a-b7bd45ade1d6,stoch_bedingt_irrefuehrend,draft,b54ca068abd2927959d036273c71968d,notwendig-reserve,"Entwurf, Lena muss prüfen"
+3635d7e9-fca6-4c09-87c1-2711f3d7e6e0,stoch_bedingt_umkehr,draft,0a3320b840a44c2efbeaf03180d676b3,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6a8af2d6-7306-488b-bd73-405bd3865931,stoch_bedingt_umkehr,draft,c0e7fb18f79f768b0e8b3fdc88b5babb,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a784100b-b7e6-4cef-b62d-231262ed65e8,stoch_bedingt_umkehr,draft,1108e2092a3a81a872a21037f9877022,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5b30a658-06c2-4836-9084-91cd54095ab2,stoch_bedingt_umkehr,draft,a6d2dc3e405d0591d2fd3d9a149dace2,notwendig-regel,"Entwurf, Lena muss prüfen"
+5da9ef15-5323-4556-9565-6ec5378a8b29,stoch_bedingt_umkehr,draft,3ec43c6881276f8a80d3d18c295051ef,notwendig-regel,"Entwurf, Lena muss prüfen"
+18fe10bb-53d2-42a3-9b10-e4b04c65469d,stoch_bedingt_umkehr,draft,693303159795a191c7643b1f6d194f9a,notwendig-reserve,"Entwurf, Lena muss prüfen"
+36c037ea-2bf9-4d79-8dd6-e45bd85f7ef5,stoch_bedingt_unabhaengig,draft,24570e7563e6d103f2c84c0398b4da98,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+91fc34f7-0f5c-4fcb-bc9a-35c8e49f8d1c,stoch_bedingt_unabhaengig,draft,d9457837c6b2b92c02c1ae2544ab3ce2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b67dead9-84f6-44fe-9ab9-86ae6134f716,stoch_bedingt_unabhaengig,draft,f2429f9fe9385cb06d361c186a38dece,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+5d5efaf9-a722-422c-bb98-6eb56b710fb6,stoch_bedingt_unabhaengig,draft,935f920eb311508560133c1848b38d45,notwendig-regel,"Entwurf, Lena muss prüfen"
+91229203-0300-42ac-a9a5-e5bb1dd2e768,stoch_bedingt_unabhaengig,draft,fe86da5167c45752b3ea3b1a921b157e,notwendig-regel,"Entwurf, Lena muss prüfen"
+239036c3-5e39-4ac1-83aa-bc320583b0ce,stoch_bedingt_unabhaengig,draft,78371a502756d29615871526425059ee,notwendig-reserve,"Entwurf, Lena muss prüfen"
+28ee89d3-0cdc-4842-869e-423c2bf78f8d,stoch_bedingt_vierfeld,draft,c0eafe9bd833250a0ea8605644e1b19c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2f7128fa-73b2-4686-97b3-7a23bd286196,stoch_bedingt_vierfeld,draft,72088bfa384701d3f6400b309ea7e19a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+cd7d81d2-819a-4887-ab77-6fa061b89358,stoch_bedingt_vierfeld,draft,26514638110a4174fa499979bbb3dfc8,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+52f02da3-efb0-4667-8387-506d491e74c5,stoch_bedingt_vierfeld,draft,3243363c18ec9fa0e42971f1047366b0,notwendig-regel,"Entwurf, Lena muss prüfen"
+e61dfd20-5b7c-4f12-94f9-f38a51ab64c5,stoch_bedingt_vierfeld,draft,5f7a687a879bde7b61b54259ae6423d8,notwendig-regel,"Entwurf, Lena muss prüfen"
+1e23eb52-5227-413e-846c-db4109cc487b,stoch_bedingt_vierfeld,draft,579183453c44bd98136ae1275cb21210,notwendig-reserve,"Entwurf, Lena muss prüfen"
+15c3975c-0191-4062-9316-1000bf387b74,stoch_bedingt_wkeit,draft,aceaf3b778d5a24a433ed23b19003a5a,nicht-notwendig,keine gültige Lösung oder inaktiv
+cdb39700-560b-4daa-9d8d-dc112752dcea,stoch_bedingt_wkeit,draft,c4b66879377b7757db2810f2d94ba4e7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f1aa77f4-a66c-48a6-8981-1ec5e61cac94,stoch_bedingt_wkeit,draft,535b61ebc23130928ab9d1e23cdfe75d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+2ad35b16-c351-4f0d-9cb1-8a6f564e9015,stoch_bedingt_wkeit,draft,59f0d43d7a03bc42a946a17d0d1a91f7,notwendig-regel,"Entwurf, Lena muss prüfen"
+860f4fc6-feff-4a62-86f4-83b799940023,stoch_bedingt_wkeit,draft,63d5c236d4cdf4ecbf6bb488b6d4619c,notwendig-regel,"Entwurf, Lena muss prüfen"
+92bb0d6f-c6be-45ce-a0f1-d68021e5e95c,stoch_bedingt_wkeit,draft,d25d56db0c02276211879658c20abfea,notwendig-reserve,"Entwurf, Lena muss prüfen"
+15164236-c70e-4a67-a567-e8dbb080d7af,stoch_gegenereignis,draft,835b9ade1177e4b110f1e62a47a5939e,nicht-notwendig,keine gültige Lösung oder inaktiv
+2b7059d7-e6f1-46a6-98bf-4ba1dbe57768,stoch_gegenereignis,draft,98aeebf63a8d96929b94b2a18e013dc8,nicht-notwendig,keine gültige Lösung oder inaktiv
+d38afe88-221f-43a3-a3ec-469ea309dc42,stoch_gegenereignis,draft,a2e4b1970e0c4bd1fea15234d6b59873,nicht-notwendig,keine gültige Lösung oder inaktiv
+a45f865a-4684-4125-86cb-8df459348238,stoch_gegenereignis,draft,a1871e298fec16c46c258ccd371df341,notwendig-regel,"Entwurf, Lena muss prüfen"
+eaf9ec0c-d93b-4d7a-b5da-f586538e84ad,stoch_gegenereignis,draft,f66c64b9a7171a046347ce1875b6eb3e,notwendig-regel,"Entwurf, Lena muss prüfen"
+f7a7bba2-dadd-4d81-8beb-91fca75ac78f,stoch_gegenereignis,draft,e0c525356cbd6e138f275f61eb3608a7,notwendig-reserve,"Entwurf, Lena muss prüfen"
+a7c6d101-1eee-49ef-a446-c0af40fe25da,stoch_kenngroessen,draft,8adc7be2267d43131836eb62bf3c06db,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ae38bcca-7313-4863-95a6-8117a7b524d1,stoch_kenngroessen,draft,a403ff979a1f92f7f5cee609a2c6f389,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+de46168f-2460-44ed-a479-5e81786512c9,stoch_kenngroessen,draft,fd26fe7d782b1e8c6ab0d46e8c8fa606,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+68137794-b1f9-4c37-8a4a-cca2281bafcd,stoch_kenngroessen,draft,79f74e15b8bb40fae728ea2aa7e50d1b,notwendig-regel,"Entwurf, Lena muss prüfen"
+f91e5425-b56b-434f-9ae1-814649f9aba3,stoch_kenngroessen,draft,59ef23c4a3a5883c669bb693a8e31240,notwendig-regel,"Entwurf, Lena muss prüfen"
+4615926e-2f06-4780-9b12-d153117c045e,stoch_kenngroessen,draft,671f389eab1c183b9567b0490d81c7cf,notwendig-reserve,"Entwurf, Lena muss prüfen"
+5bcca7e7-8a84-49b8-b115-6598e4b337c6,stoch_laplace,draft,cbc3b1567206cf1863cbb125f7b2ac2e,nicht-notwendig,keine gültige Lösung oder inaktiv
+7e7ce00a-733b-404a-88fe-b41cf327f2f5,stoch_laplace,draft,88d8727459605884c009cdd31f50b080,nicht-notwendig,keine gültige Lösung oder inaktiv
+d1f84813-9f5b-43ec-8e69-f3d566cffb09,stoch_laplace,draft,e27ccaf9d8ae5989b9d10c7fcfe32fa2,nicht-notwendig,keine gültige Lösung oder inaktiv
+df9fd43a-6a01-41a5-b08a-193c0afabb55,stoch_laplace,draft,c84911e15610e1b1606341e177a1cc30,notwendig-regel,"Entwurf, Lena muss prüfen"
+fdd119e8-2192-4691-bda5-d6a5a03317d4,stoch_laplace,draft,290bb1cb7dacc7267823f4a118899294,notwendig-regel,"Entwurf, Lena muss prüfen"
+743dc783-c0c1-4b97-957c-e8dfff38e3b6,stoch_laplace,draft,314dc63b7f456653883cd44bbd223f74,notwendig-reserve,"Entwurf, Lena muss prüfen"
+8bc01e5b-acf8-4808-a6ef-ce19acb8ea77,stoch_pfad_produkt,draft,b2600dbc064447d522944074ca56ea94,nicht-notwendig,keine gültige Lösung oder inaktiv
+ddaa4ecd-1fff-4dec-ba4b-59e4069cfa9a,stoch_pfad_produkt,draft,ef5ebdd8cba0f7945e9804422c8f2ea2,nicht-notwendig,keine gültige Lösung oder inaktiv
+df337432-9db5-4a28-be26-e64132f93659,stoch_pfad_produkt,draft,1272b4d55dc92d77ce6dd757aa80ebc5,nicht-notwendig,keine gültige Lösung oder inaktiv
+3c2b1997-3c6d-4b1b-b074-60cf1280946d,stoch_pfad_produkt,draft,96cc7f52ac227d5fb800e4fc85664af4,notwendig-regel,"Entwurf, Lena muss prüfen"
+71295abb-8ccc-418c-bff3-b70585fd60aa,stoch_pfad_produkt,draft,b1cd51ba1ab466e6a60d4232fe7e131b,notwendig-regel,"Entwurf, Lena muss prüfen"
+aab137cc-edfd-411f-ba49-af6a353a97e5,stoch_pfad_produkt,draft,07aa7f55ea6f3833db6b373cb7c3c89e,notwendig-reserve,"Entwurf, Lena muss prüfen"
+3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f,stoch_pfad_summe,draft,1b0f0dec0d5794c87bcbede33cdd339c,nicht-notwendig,keine gültige Lösung oder inaktiv
+54f5e1df-adc9-4fa3-b9c1-c15301c29cbe,stoch_pfad_summe,draft,982bfd70fd7c292a73907c8f14cccbde,nicht-notwendig,keine gültige Lösung oder inaktiv
+939baa76-0207-496c-a768-4df2988f7f12,stoch_pfad_summe,ready,efe765fc8116f97586caafa4de4732e2,nicht-notwendig,keine gültige Lösung oder inaktiv
+2d6edc4b-15e0-4090-b9af-1711ece32395,stoch_pfad_summe,draft,cf6714eafaefa265bbcb1b127f0649e9,notwendig-regel,"Entwurf, Lena muss prüfen"
+64091830-731d-4ab2-b1f6-2166bb8539e6,stoch_pfad_summe,ready,77df1e92539c287158b22533e2c4748c,notwendig-regel,schon im Pool
+8b6561e6-1e6c-4c56-a35f-6ccc22f77807,stoch_pfad_summe,draft,9ce9f7be6eb020f630491c09bc53415b,notwendig-reserve,"Entwurf, Lena muss prüfen"
+02b24419-d7e8-40b8-8b74-ef3b4e806b3f,term_ausklammern,draft,ba0679d56ab692d111d3610272a0f57d,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+65841bd8-ee27-454f-b2a4-ea6f1bb0db33,term_ausklammern,draft,ba0679d56ab692d111d3610272a0f57d,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+81f97d0e-1e95-4bbd-bc6a-d05149786c58,term_ausklammern,draft,ba0679d56ab692d111d3610272a0f57d,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+b15b6be0-1b87-477d-bd88-23b095501581,term_ausklammern,draft,ba0679d56ab692d111d3610272a0f57d,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ea237a07-681d-4680-bcd0-d94316c899e9,term_ausklammern,draft,ba0679d56ab692d111d3610272a0f57d,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+04a1a844-559d-4bb6-8c0c-c2a93bc18dee,term_ausklammern,ready,c7e389f64b8ffe91f71dd844b41f06af,notwendig-regel,schon im Pool
+4baeeda9-3985-4a80-8fd0-ecf8bbcfd6af,term_ausklammern,ready,ba0679d56ab692d111d3610272a0f57d,notwendig-regel,schon im Pool
+2d1dc092-65db-4bba-971c-33b54e364231,term_ausmultiplizieren,ready,2e82ec765e0b39bef0a1bfc24c2a4694,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+963a3998-7c6e-4dc6-b60b-6ba59219861f,term_ausmultiplizieren,draft,54f27972bb9f56a1b4aa978778213f10,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+9ec2143c-8a73-4689-a7f3-81bf9533b4c5,term_ausmultiplizieren,draft,11abc104953b6da286ad9279b394c07e,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b9158074-053e-4391-a07e-16019a7dd9df,term_ausmultiplizieren,draft,2e82ec765e0b39bef0a1bfc24c2a4694,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+10a764bc-9657-4a5a-b11d-64b2a0014b05,term_ausmultiplizieren,ready,54f27972bb9f56a1b4aa978778213f10,notwendig-regel,schon im Pool
+1527a939-6199-4d8c-9163-6f34b0cd0e13,term_ausmultiplizieren,ready,2e82ec765e0b39bef0a1bfc24c2a4694,notwendig-regel,schon im Pool
+696f6d98-556e-4393-8d87-122d04b79bce,term_ausmultiplizieren,ready,8e6e0cbcc845f8ed9a2fffaf0b0fc94c,notwendig-reserve,schon im Pool
+9be9bb9c-a5b5-482e-bd76-51599553d61b,term_binom_faktorisieren,draft,8849344fae4d2e04cf7264b25c4befd1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9d904128-a0ae-449c-b7de-e1c57c8238c5,term_binom_faktorisieren,draft,49c667ced7a4224e47fba7ce481728fe,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b2bc0cfc-d927-4a29-aca4-4686606d9466,term_binom_faktorisieren,draft,427c211636f737486c1501ea0b93cf44,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+88ca2551-82bf-4ca3-b971-32cd4292a146,term_binom_faktorisieren,ready,459df45793157e8f4099bcc28963b109,notwendig-regel,schon im Pool
+e4a18d51-9545-4f17-b1aa-10dc72c35cd3,term_binom_faktorisieren,ready,efb55d4f72e16dc1662f7b30d1475154,notwendig-regel,schon im Pool
+18dbb731-98be-4b90-a8c2-5773114de6c6,term_binom_faktorisieren,draft,66f98ae549cada5e04946ef91a8748d2,notwendig-reserve,"Entwurf, Lena muss prüfen"
+1c519bed-37b4-4322-9668-849b4756efcf,term_binom_gemischt,draft,0e3e11e7aa15b7db57069b7541fffab8,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261,term_binom_gemischt,draft,08612b74f6e8052b63509dd8396246f6,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+dd4db5a2-2e96-4a93-b1c0-fca052b144ca,term_binom_gemischt,draft,d0d43c3fb9fc1cc008d8bd9cc0eeb0bb,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+f8364853-03fa-4d7e-807c-b0a20dbe09e3,term_binom_gemischt,draft,6c8a17cf4f3be135bbb1ca769e120330,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+8c4a2d71-0e9b-4f36-b5a8-6d1f3e7c9a24,term_binom_gemischt,ready,c2636c68e59bf1c57ac90a795f02efdf,notwendig-regel,schon im Pool
+c31fdbb1-9a48-4cd8-9b0c-35393af84330,term_binom_gemischt,ready,9fbf50fe2f5d6a244f5d149295ece5e1,notwendig-regel,schon im Pool
+79c7a940-7a41-4b6b-b4ff-ce464425c758,term_binom_gemischt,ready,0cf5319316e8552278a9ba86779f55c5,notwendig-reserve,schon im Pool
+513d03bd-0d8d-4f0a-9e99-ea63b38b8587,term_binom_quadrat,draft,9fe970ac1cbb28f69ba9278056fa2b07,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ae6fa0b8-283c-4570-b9d2-6271c17e3384,term_binom_quadrat,ready,f64545603cd064ad4a7ea6c61cc2fdc9,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+de60d4ff-c473-4358-b050-85a54dd903a1,term_binom_quadrat,ready,f9a97f82043033999f3416f48804b581,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ebd05f6f-2ab0-41ad-bac3-16c075fc2592,term_binom_quadrat,draft,a16846a2f5da1aa028da54d900a04ad0,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+3b1e6f0a-5c2d-4e8b-9f71-2a6d0c4b8e13,term_binom_quadrat,ready,c41fa84b824bf015d3d76c9250b74817,notwendig-regel,schon im Pool
+9a598424-963b-4981-91ad-9a81cead51f4,term_binom_quadrat,ready,9cda9ebe8174e891da1274c9ecaf6c5d,notwendig-regel,schon im Pool
+f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa,term_binom_quadrat,ready,427c211636f737486c1501ea0b93cf44,notwendig-reserve,schon im Pool
+94492e5a-3627-4f45-b628-41d06114a7a4,term_binom_quadratdifferenz,draft,494f3efa8f2df3359392749f427544b7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d47b8793-7e82-4036-9173-d446c554b907,term_binom_quadratdifferenz,draft,116903b5637c90ea51212c920edbf854,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+eb3f28da-155b-49fc-aa17-1abfd882a373,term_binom_quadratdifferenz,draft,a85541fcb14b8fa204d54be37fb6b444,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+293413f8-8e31-4f0b-b64e-7ac2a183606e,term_binom_quadratdifferenz,ready,58a968fe38728df5f9e5a7d0b9e887d3,notwendig-regel,schon im Pool
+7e027634-1c45-4c70-8357-198dad0f1797,term_binom_quadratdifferenz,ready,28863a7fa43e43142c8af187c49b815d,notwendig-regel,schon im Pool
+113aea0a-276a-4042-b634-805ef1e11db2,term_binom_quadratdifferenz,draft,fb61d3806104150f35111c07b5dbc928,notwendig-reserve,"Entwurf, Lena muss prüfen"
+16352abe-36f9-482c-972d-a7b10493919d,term_einsetzen,draft,c860ba3f8a0dc34e7912099257d223b1,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,term_einsetzen,draft,23e3540364403b34e6ad3ff905566b92,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,term_einsetzen,draft,d3eb262e89cfe992b729e2dbe2ebbaf2,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,term_einsetzen,ready,aed962d9ec5ebadd78124d1ee14b3e5b,notwendig-regel,schon im Pool
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,term_einsetzen,ready,d528544b46bc3634636c49ba0a3f1a61,notwendig-regel,schon im Pool
+dea9fea4-6976-4632-a33d-547693f1fbc9,term_einsetzen,ready,a0a262052d351418fcaaa3e456f696a5,notwendig-reserve,schon im Pool
+002d2a5f-f263-47d9-8cc5-875497f66c52,term_minusklammer,draft,ac3f4dfe3dd70f00ba4ad66a86c11e70,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+24910ca9-5d75-4b73-9b8b-bb29455a4af7,term_minusklammer,draft,ac3f4dfe3dd70f00ba4ad66a86c11e70,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+7ace1dad-1d99-444b-ad88-cd8d5fd0efb2,term_minusklammer,draft,ac3f4dfe3dd70f00ba4ad66a86c11e70,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ba6f456d-2525-4989-8da7-937501699018,term_minusklammer,draft,ac3f4dfe3dd70f00ba4ad66a86c11e70,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ceb50165-aa94-4fdd-93d1-23c6bf6e8cb9,term_minusklammer,draft,ac3f4dfe3dd70f00ba4ad66a86c11e70,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+04cc98ff-2c04-4bd4-9db9-3947a1e8fbd3,term_minusklammer,draft,ac3f4dfe3dd70f00ba4ad66a86c11e70,notwendig-regel,"Entwurf, Lena muss prüfen"
+dc412552-d604-4f43-b7f5-3f991a7b740e,term_minusklammer,draft,01dd3b40e14280e71cf7672e45aba798,notwendig-regel,"Entwurf, Lena muss prüfen"
+b779c26b-6e2d-453c-9349-2fb9ac6d4398,term_zusammenfassen,ready,eb3e808b382fe0eb375b1ed91fd53ba6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c83b34e8-e6e7-4142-83ff-fae510201c5c,term_zusammenfassen,ready,eb3e808b382fe0eb375b1ed91fd53ba6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+e786e64e-4bcb-4f75-beb1-4bd4dcf8b45f,term_zusammenfassen,draft,eb3e808b382fe0eb375b1ed91fd53ba6,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+efa9c59a-450e-4034-95b7-b510d682aeec,term_zusammenfassen,draft,64f580d41c692906dc73031e90462c79,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f7e04b84-f85d-481b-8e03-7a8080540861,term_zusammenfassen,draft,64f580d41c692906dc73031e90462c79,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+16d690c9-05de-4dfb-8ef8-6b03bd162bfe,term_zusammenfassen,draft,64f580d41c692906dc73031e90462c79,notwendig-regel,"Entwurf, Lena muss prüfen"
+df219b8c-887d-43c2-b544-ca2df4f32e66,term_zusammenfassen,ready,eb3e808b382fe0eb375b1ed91fd53ba6,notwendig-regel,schon im Pool
+27f51c08-6a47-4ceb-b189-f5f07cbcf1cf,vorzeichen_add_sub,ready,12124acdcdda77a5c1da25ac9b436735,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+3b44eada-3589-4bdb-a33b-2fb2ca0a1726,vorzeichen_add_sub,ready,60113378902e058fec307cd8b3f0b21e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+738de19f-d3c9-43a0-b5ce-af6e30752c75,vorzeichen_add_sub,ready,2699d00cd3f3348edc99dabce40e1400,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+c92aa7e8-1e2d-4c80-a1fc-0fe4fedd86b0,vorzeichen_add_sub,ready,60113378902e058fec307cd8b3f0b21e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+17674b19-fe14-42ca-98db-6598fa8c5a3a,vorzeichen_add_sub,ready,60113378902e058fec307cd8b3f0b21e,notwendig-regel,schon im Pool
+e96cd37d-0254-4051-bf2d-71a6f7fa2aaf,vorzeichen_add_sub,ready,12124acdcdda77a5c1da25ac9b436735,notwendig-regel,schon im Pool
+3e6fb055-111e-4888-9177-d2b17dd0fc54,vorzeichen_add_sub,ready,2699d00cd3f3348edc99dabce40e1400,notwendig-reserve,schon im Pool
+751f9c63-c295-4b9e-8202-6244c6fd8f05,vorzeichen_mult_div,ready,97f4d940fb7f800e2e59febe1e559b27,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+7db70449-d6fa-47dd-9423-1e8c75ce8c8f,vorzeichen_mult_div,ready,3aab08d2cd0bc0fc96445c2529ba9c62,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+ba0701ff-bac1-4ae6-a6f4-b5f610a35ee7,vorzeichen_mult_div,ready,19a2f3d3c1ec69e2995fa2676d68eea8,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+e58cb290-db86-40df-b60b-03aee393107b,vorzeichen_mult_div,ready,366374bb0999fe290543b2fc0cc320e9,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+0438a9f9-bdb4-4f29-ab59-adc7946ade36,vorzeichen_mult_div,ready,713bd6c227fdbf036c7dc9072b9aea00,notwendig-regel,schon im Pool
+2e8ce53f-1357-48b2-8d76-0633ae836980,vorzeichen_mult_div,ready,366374bb0999fe290543b2fc0cc320e9,notwendig-regel,schon im Pool
+38aa9504-bb48-4b1c-98e7-85d38de70108,vorzeichen_mult_div,ready,e410b54013ef55674959e6c954df98d8,notwendig-reserve,schon im Pool
+662f52ec-6049-4506-b1c9-034da4478f24,vorzeichen_vorrang,draft,ce010e2279989ac9c08471fb12ed8e94,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+864f0b02-71a8-4203-988d-9b6fbf6dd074,vorzeichen_vorrang,ready,5a94c87a1100a9d096213e198af86ac7,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+90b93e1f-091c-4bbb-a6a7-5d48c9d5b6c1,vorzeichen_vorrang,draft,ce010e2279989ac9c08471fb12ed8e94,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+d79fa8b6-c6b4-425c-ae78-724e5b38af81,vorzeichen_vorrang,draft,5a94c87a1100a9d096213e198af86ac7,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f66a50d0-7de9-4cad-89c5-a92028eecf1d,vorzeichen_vorrang,draft,ce0612f5d6b25da0df98c500f1a17671,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+f88c5566-b6cc-44f0-b0e0-b72997787cf9,vorzeichen_vorrang,draft,97cf8244e2e3e7affb2927a02bd1852d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+573dd0b7-5fd2-4b4e-9263-3630affba5da,vorzeichen_vorrang,ready,ce010e2279989ac9c08471fb12ed8e94,notwendig-regel,schon im Pool
+a394b2eb-df58-4b57-9c79-ae8ff0c62b24,vorzeichen_vorrang,ready,5a94c87a1100a9d096213e198af86ac7,notwendig-regel,schon im Pool
+d3b9898c-d659-4be4-80f2-b28b06c6966f,vorzeichen_vorrang,draft,ce0612f5d6b25da0df98c500f1a17671,notwendig-reserve,"Entwurf, Lena muss prüfen"
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,zahl_potenz_gesetze,draft,aadd259299dc27044d99ec2469e56c7c,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+361f1762-0b48-473e-9883-815ab81f90fc,zahl_potenz_gesetze,draft,aa20e9a15eb8b60c0dc7b4e3d8db9917,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,zahl_potenz_gesetze,draft,e704cb81c91fef78d88e965a1dc21d3a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1d743a81-124c-42c5-9235-163c2c4c5309,zahl_potenz_gesetze,draft,8083be48b17e22372da4a1751b0f4354,notwendig-regel,"Entwurf, Lena muss prüfen"
+9daaeffc-8019-4a0e-a150-7f77026abc8e,zahl_potenz_gesetze,draft,2b91934fe15457ad920b2ebee439b4fa,notwendig-regel,"Entwurf, Lena muss prüfen"
+039682a2-4201-4933-92cc-da1031fee485,zahl_potenz_gesetze,draft,afe6f448dc10711d24f5767317ccd4c6,notwendig-reserve,"Entwurf, Lena muss prüfen"
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,zahl_potenz_negativ,draft,93c15c9251d937b135004beb89de64f0,nicht-notwendig,keine gültige Lösung oder inaktiv
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,zahl_potenz_negativ,draft,91d5db96c30caabe6d1ee81e077ec987,nicht-notwendig,keine gültige Lösung oder inaktiv
+46f1792e-a330-4665-ba1b-90f442e0db25,zahl_potenz_negativ,draft,ffbbf1b750a27a7cda29d50ed5b5d075,nicht-notwendig,keine gültige Lösung oder inaktiv
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,zahl_potenz_negativ,draft,a81205c9eda383a51fc4f08dbebc2231,notwendig-regel,"Entwurf, Lena muss prüfen"
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,zahl_potenz_negativ,draft,e72a4234d0347f71a7dd1be941a2803f,notwendig-regel,"Entwurf, Lena muss prüfen"
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,zahl_potenz_negativ,draft,128f1d9a9bda388bddafcda3de4c5aa2,notwendig-reserve,"Entwurf, Lena muss prüfen"
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,zahl_potenz_rechnen,draft,0e2a846a662329ac1241b2edade48bbe,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,zahl_potenz_rechnen,draft,ca86f198cd838709dbab8f1903ff0d08,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,zahl_potenz_rechnen,draft,447a9fc54cd10fce96252ae928644452,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,zahl_potenz_rechnen,draft,7bf3ad7f6df7c5b1f63da3c19736f4c9,notwendig-regel,"Entwurf, Lena muss prüfen"
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,zahl_potenz_rechnen,draft,62e48214b436d6bb47111e0b1a11b582,notwendig-regel,"Entwurf, Lena muss prüfen"
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,zahl_potenz_rechnen,draft,10e498b0c7919b916b8a85957a2a9b05,notwendig-reserve,"Entwurf, Lena muss prüfen"
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,zahl_potenz_zehner,draft,483a5530bf63c73a22a67bcfe9d93e94,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,zahl_potenz_zehner,draft,1e75fafd14f1b09412cd95172a1c243b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,zahl_potenz_zehner,draft,ec7f1c85d05d4af89b4118221d11186b,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,zahl_potenz_zehner,draft,cd9d2ab4f7e656c2247416807a4d0fd2,notwendig-regel,"Entwurf, Lena muss prüfen"
+efac8563-dcac-4e79-9092-21d534c29667,zahl_potenz_zehner,draft,bff5aa20a299dc8dfe8d9f9e2cc75470,notwendig-regel,"Entwurf, Lena muss prüfen"
+0723e9b4-0faf-4150-95b0-1065cb950a04,zahl_potenz_zehner,draft,5e8ac05d5086ce148e7aeed32f6f1a19,notwendig-reserve,"Entwurf, Lena muss prüfen"
+88c99e21-a70e-42e5-b426-07e29b93d3fe,zahl_wurzel_gesetze,ready,319372fd5a6ac68f6c3e643aa927a950,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+926f4f6e-7eca-43f5-92c2-855eff8167b4,zahl_wurzel_gesetze,ready,05893977aa927b0662aeffdc659e961e,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,zahl_wurzel_gesetze,ready,1a691d8854f1b3b5efb977f6bd37c1fb,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,zahl_wurzel_gesetze,ready,43745528d561a925416df46d2ed7503c,notwendig-regel,schon im Pool
+ce24db36-6dac-4b3f-8395-e815549a7689,zahl_wurzel_gesetze,ready,05893977aa927b0662aeffdc659e961e,notwendig-regel,schon im Pool
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,zahl_wurzel_gesetze,ready,311062dc313d027893b63694576d0bdc,notwendig-reserve,schon im Pool
+834de179-1fbd-4491-9d86-fd572310f3dd,zahl_wurzel_irrational,ready,b42b03defab99b914db93144d39f5960,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,zahl_wurzel_irrational,ready,29e555d2ae2e6bb9aa137919132d173a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+d851f251-cbe5-4804-b74d-2458c7a855af,zahl_wurzel_irrational,ready,4610c52beb28fd79381b0edb19cc68f7,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,zahl_wurzel_irrational,ready,8da99ef38c44f4ff20f75f9702fd3862,notwendig-regel,schon im Pool
+ae8478c7-f104-407a-a75a-087d71e20757,zahl_wurzel_irrational,ready,415720e0f84684194b50ec4c3c5cf19b,notwendig-regel,schon im Pool
+54382934-12e4-4819-8dc4-5f4f5650471f,zahl_wurzel_irrational,ready,697b9d4850dc0853cefcddb79b6c1e54,notwendig-reserve,schon im Pool
+6585552b-bb6b-4345-98cb-d427378cdfed,zahl_wurzel_naeherung,ready,48fa532f8527fe18548a67772e7b5b0d,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,zahl_wurzel_naeherung,ready,25bd2565f6dc4bc26bcebbf2e92cc076,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,zahl_wurzel_naeherung,ready,f41c98cc317998d8e4a0b1311f4f1c3a,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,zahl_wurzel_naeherung,ready,38e787a3dffd5a64325fb8261f4591c1,notwendig-regel,schon im Pool
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,zahl_wurzel_naeherung,ready,e8f6d7f4014f2956e85cbb5ea0a71705,notwendig-regel,schon im Pool
+0b9229a0-db38-4fc4-8b64-1213b5198f50,zahl_wurzel_naeherung,ready,25bd2565f6dc4bc26bcebbf2e92cc076,notwendig-reserve,schon im Pool
+55239bfc-349a-4285-b29e-2b1c105e6033,zahl_wurzel_quadrat,ready,5af762504bb45add4424cff5dd4b74b2,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,zahl_wurzel_quadrat,ready,de73a632ba8dec61564ae93771a79f90,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+afc3b977-389b-4e8d-a157-9952b087c8e2,zahl_wurzel_quadrat,ready,c7e63012f1b53bc1e6db485423c6659d,nicht-notwendig,keine gültige Lösung oder inaktiv
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,zahl_wurzel_quadrat,ready,5af762504bb45add4424cff5dd4b74b2,notwendig-regel,schon im Pool
+99b7829c-3536-4278-a84e-3dbeea10637c,zahl_wurzel_quadrat,ready,0ab4afc24684654c5bd7f5c500ba065e,notwendig-regel,schon im Pool
+4b3b14a9-0603-40d7-90b1-60f3517f7348,zahl_wurzel_quadrat,ready,274ad23c379c22a1bb1adb63d3538164,notwendig-reserve,schon im Pool
+21427340-fc85-41c4-abea-99ad0121b83c,zahl_wurzel_teilweise,ready,a14fb5898b4a14c801687fea89495c31,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+ad08897e-a44b-43fb-a779-96b889c069db,zahl_wurzel_teilweise,ready,a14fb5898b4a14c801687fea89495c31,nicht-notwendig,gleicher Text wie eine bessere Aufgabe
+df6b2bcd-8643-46b2-9553-db75854b597d,zahl_wurzel_teilweise,ready,15358be9c091f0d7f60661478df175b5,nicht-notwendig,über Soll (mehr Texte als Regel + Reserve)
+1dece473-758d-4108-9969-02b495dbf4ed,zahl_wurzel_teilweise,ready,64c3db8be3e1b7c17e39c28a5e505ac9,notwendig-regel,schon im Pool
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,zahl_wurzel_teilweise,ready,f51330970bf8ebefbbb36b3fdd70ee62,notwendig-regel,schon im Pool
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,zahl_wurzel_teilweise,ready,a14fb5898b4a14c801687fea89495c31,notwendig-reserve,schon im Pool
