@@ -1,0 +1,11 @@
+  art   |          schluessel          | wert 
+--------+------------------------------+------
+ gruppe | nicht-notwendig / draft      | 451
+ gruppe | nicht-notwendig / ready      | 70
+ gruppe | nicht-notwendig / rueckfrage | 2
+ gruppe | notwendig-regel / draft      | 176
+ gruppe | notwendig-regel / ready      | 81
+ gruppe | notwendig-reserve / draft    | 97
+ gruppe | notwendig-reserve / ready    | 17
+(7 rows)
+
