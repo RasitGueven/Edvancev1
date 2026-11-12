@@ -12973,7 +12973,8 @@ begin
                               (count(*) filter (where coalesce(x ->> 'status', 'entwurf') <> 'geprueft'))::int offen
                          from public.task_solutions s,
                               jsonb_array_elements(case when jsonb_typeof(s.hints) = 'array' then s.hints else '[]' end) x
-                        where s.task_id = t.id) hz on true;
+                        where s.task_id = t.id) hz on true
+   where t.archiviert_am is null;   -- MSA-1 M1: archivierte Aufgaben nur ueber task_archiv
 end;
 $$;
 
@@ -13199,7 +13200,13 @@ CREATE TABLE public.tasks (
     kernidee_key text,
     pruefmaschine jsonb,
     taschenrechner boolean DEFAULT false NOT NULL,
+    archiviert_am timestamp with time zone,
+    archiviert_grund text,
+    archiviert_von uuid,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
+    CONSTRAINT tasks_archiv_grund_check CHECK (((archiviert_grund IS NULL) OR (archiviert_grund = ANY (ARRAY['nicht_notwendig'::text, 'sonstiges'::text])))),
+    CONSTRAINT tasks_archiv_inaktiv_check CHECK (((archiviert_am IS NULL) OR (is_active IS FALSE))),
+    CONSTRAINT tasks_archiv_vollstaendig_check CHECK (((archiviert_am IS NULL) = (archiviert_grund IS NULL))),
     CONSTRAINT tasks_bauform_instanz CHECK (((bauform_id IS NULL) OR ((bauform_version IS NOT NULL) AND (stufe IS NOT NULL) AND (rolle IS NOT NULL) AND (einsatz = ARRAY['session'::text])))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
@@ -14960,6 +14967,7 @@ begin
     select t.skill_key, array_agg(t.id order by t.sondierrang nulls last, t.id) ids
       from public.tasks t
      where 'lsa' = any (t.einsatz) and t.status = 'ready'
+       and t.archiviert_am is null   -- MSA-1 M1: archivierte Aufgaben nicht nachpruefen
        and coalesce((select p2.entscheidung from public.task_pruefungen p2 where p2.task_id = t.id
                       order by p2.geprueft_am desc limit 1), '') <> 'passt'
      group by t.skill_key),
@@ -24211,6 +24219,84 @@ $$;
 
 
 --
+-- Name: task_archiv(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.task_archiv(p_skill text DEFAULT NULL::text) RETURNS TABLE(id uuid, kurztext text, skill_key text, skill_label text, status text, input_type text, einsatz text[], grund text, archiviert_am timestamp with time zone, archiviert_von text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    raise exception 'task_archiv: nur admin' using errcode = '42501';
+  end if;
+  return query
+  select t.id, coalesce(nullif(btrim(t.title), ''), left(regexp_replace(coalesce(t.question, ''), '\s+', ' ', 'g'), 120)),
+         t.skill_key, s.label, t.status, t.input_type, t.einsatz, t.archiviert_grund, t.archiviert_am, p.full_name
+    from public.tasks t
+    left join public.skills s on s.skill_key = t.skill_key
+    left join public.profiles p on p.id = t.archiviert_von
+   where t.archiviert_am is not null and (p_skill is null or t.skill_key = p_skill)
+   order by t.archiviert_am desc, t.skill_key, t.id;
+end $$;
+
+
+--
+-- Name: task_archivieren(uuid[], text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.task_archivieren(p_ids uuid[], p_grund text) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_von uuid := auth.uid();
+  v_fehlt uuid[];
+  v_inaktiv uuid[];
+  n integer;
+begin
+  if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
+    raise exception 'task_archivieren: nur admin' using errcode = '42501';
+  end if;
+  if p_grund is null or p_grund not in ('nicht_notwendig', 'sonstiges') then
+    raise exception 'task_archivieren: unbekannter Grund %', p_grund using errcode = '22023';
+  end if;
+  if coalesce(cardinality(p_ids), 0) = 0 then
+    return 0;
+  end if;
+  select array_agg(x) into v_fehlt
+    from unnest(p_ids) x where not exists (select 1 from public.tasks t where t.id = x);
+  if v_fehlt is not null then
+    raise exception 'task_archivieren: % Aufgaben nicht gefunden', cardinality(v_fehlt) using errcode = 'P0002';
+  end if;
+  select array_agg(t.id) into v_inaktiv
+    from public.tasks t where t.id = any (p_ids) and t.archiviert_am is null and not coalesce(t.is_active, false);
+  if v_inaktiv is not null then
+    raise exception 'task_archivieren: % Aufgaben sind aus anderem Grund inaktiv', cardinality(v_inaktiv)
+      using errcode = '22023';
+  end if;
+  -- Bauform-Instanzen nie: bauform_freigeben setzt ihre Instanzen aktiv und brach sonst am CHECK (Zweitprüfung M1).
+  if exists (select 1 from public.tasks t where t.id = any (p_ids) and t.bauform_id is not null) then
+    raise exception 'task_archivieren: Bauform-Instanzen werden über die Bauform-Version gesteuert, nicht archiviert'
+      using errcode = '22023';
+  end if;
+
+  with u as (
+    update public.tasks t
+       set is_active = false, archiviert_am = now(), archiviert_grund = p_grund, archiviert_von = v_von
+     where t.id = any (p_ids) and t.archiviert_am is null and coalesce(t.is_active, false)
+    returning t.id)
+  insert into public.task_admin_protokoll (task_id, aktion, aenderungen, grund, sammel, von)
+  select u.id, 'archivieren',
+         jsonb_build_array(jsonb_build_object('feld', 'is_active', 'teil', null, 'vorher', true, 'nachher', false)),
+         p_grund, cardinality(p_ids) > 1, v_von
+    from u;
+  get diagnostics n = row_count;
+  return n;
+end $$;
+
+
+--
 -- Name: task_preview_payload(uuid, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -24509,6 +24595,39 @@ begin
   end if;
 
   return jsonb_build_object('ok', true, 'task_id', p_task_id, 'status', p_status);
+end $$;
+
+
+--
+-- Name: task_wiederherstellen(uuid[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.task_wiederherstellen(p_ids uuid[]) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_von uuid := auth.uid();
+  n integer;
+begin
+  if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
+    raise exception 'task_wiederherstellen: nur admin' using errcode = '42501';
+  end if;
+  if coalesce(cardinality(p_ids), 0) = 0 then
+    return 0;
+  end if;
+  with u as (
+    update public.tasks t
+       set is_active = true, archiviert_am = null, archiviert_grund = null, archiviert_von = null
+     where t.id = any (p_ids) and t.archiviert_am is not null
+    returning t.id)
+  insert into public.task_admin_protokoll (task_id, aktion, aenderungen, grund, sammel, von)
+  select u.id, 'wiederherstellen',
+         jsonb_build_array(jsonb_build_object('feld', 'is_active', 'teil', null, 'vorher', false, 'nachher', true)),
+         null, cardinality(p_ids) > 1, v_von
+    from u;
+  get diagnostics n = row_count;
+  return n;
 end $$;
 
 
@@ -29112,7 +29231,7 @@ CREATE TABLE public.task_admin_protokoll (
     von uuid,
     am timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT task_admin_protokoll_aenderungen_check CHECK ((jsonb_typeof(aenderungen) = 'array'::text)),
-    CONSTRAINT task_admin_protokoll_aktion_check CHECK ((aktion = ANY (ARRAY['freigeben'::text, 'an_lena'::text, 'zurueckweisen'::text, 'freigabe_zurueck'::text, 'ausschliessen'::text, 'aufnehmen'::text, 'pilot_an'::text, 'pilot_aus'::text, 'fertigkeit'::text, 'afb'::text, 'rueckfrage_freigeben'::text, 'rueckfrage_an_lena'::text, 'rueckfrage_zurueckweisen'::text, 'hinweise_bestaetigen'::text])))
+    CONSTRAINT task_admin_protokoll_aktion_check CHECK ((aktion = ANY (ARRAY['freigeben'::text, 'an_lena'::text, 'zurueckweisen'::text, 'freigabe_zurueck'::text, 'ausschliessen'::text, 'aufnehmen'::text, 'pilot_an'::text, 'pilot_aus'::text, 'fertigkeit'::text, 'afb'::text, 'rueckfrage_freigeben'::text, 'rueckfrage_an_lena'::text, 'rueckfrage_zurueckweisen'::text, 'hinweise_bestaetigen'::text, 'archivieren'::text, 'wiederherstellen'::text])))
 );
 
 
@@ -32292,6 +32411,13 @@ CREATE INDEX task_reviews_task_idx ON public.task_reviews USING btree (task_id);
 
 
 --
+-- Name: tasks_archiviert_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tasks_archiviert_idx ON public.tasks USING btree (archiviert_am) WHERE (archiviert_am IS NOT NULL);
+
+
+--
 -- Name: tasks_bauform_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -35445,6 +35571,14 @@ ALTER TABLE ONLY public.task_reviews
 
 ALTER TABLE ONLY public.task_solutions
     ADD CONSTRAINT task_solutions_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: tasks tasks_archiviert_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_archiviert_von_fkey FOREIGN KEY (archiviert_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
 
 
 --
