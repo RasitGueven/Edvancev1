@@ -141,5 +141,212 @@
     "einstieg": "{{geprueft}} von {{total}} geprüft",
     "gebrauchtIn": "gebraucht in Session {{nr}}",
     "gebrauchtVoraussetzung": "Voraussetzung, keiner Session zugeordnet"
+  },
+  "fehlbild": {
+    "qf_a_als_koordinate": "Vorfaktor als Koordinate",
+    "qf_a_uebersehen": "Vorfaktor übersehen",
+    "qf_ausklammern_a_verloren": "Beim Ausklammern nicht geteilt",
+    "qf_ausklammern_nicht_geteilt": "Zweites Glied nicht geteilt",
+    "qf_ausklammern_unvollstaendig": "Nicht vollständig ausgeklammert",
+    "qf_ausklammern_vorzeichen": "Vorzeichen beim Ausklammern falsch",
+    "qf_ax_quadriert": "Zahl vor x² mitquadriert",
+    "qf_ax_statt_ax2": "Quadrat vergessen",
+    "qf_binom_b_statt_halb": "Mittelzahl nicht halbiert",
+    "qf_binom_c_statt_wurzel": "Keine Wurzel aus letzter Zahl",
+    "qf_binom_k_nicht_quadriert": "Zahl vor x nicht quadriert",
+    "qf_binom_mittelglied_einfach": "Mittelglied nicht verdoppelt",
+    "qf_binom_mittelglied_fehlt": "Mittelglied vergessen",
+    "qf_binom_quadrat_differenz": "Mit dritter binomischer Formel verwechselt",
+    "qf_d_e_vertauscht": "Verschiebungen vertauscht",
+    "qf_diskriminante_ohne_p": "(p/2)² in Diskriminante vergessen",
+    "qf_durch_a_vergessen": "Teilen durch Vorfaktor vergessen",
+    "qf_durch_x_geteilt": "Durch x geteilt",
+    "qf_e_vorzeichen": "Vorzeichen beim Rüberbringen falsch",
+    "qf_einsetzen_vorzeichen": "Negative Zahl ohne Klammer",
+    "qf_ergaenzung_b_statt_halb": "Ergänzung ohne Halbieren",
+    "qf_faktor_nicht_verteilt": "Vorfaktor nicht ausmultipliziert",
+    "qf_gegenoperation_vorzeichen": "Falsche Gegenoperation beim Umstellen",
+    "qf_halbes_p_nicht_quadriert": "p/2 nicht quadriert",
+    "qf_hoch_tief_verwechselt": "Hoch- und Tiefpunkt verwechselt",
+    "qf_koordinate_vorzeichen": "Minus der Koordinate vergessen",
+    "qf_null_vergessen": "Lösung x = 0 vergessen",
+    "qf_nur_eine_loesung": "Nur eine Lösung angegeben",
+    "qf_nur_positive_loesung": "Negative Lösung vergessen",
+    "qf_oeffnung_vertauscht": "Öffnungsrichtung verwechselt",
+    "qf_p_vorzeichen": "Vorzeichen von p falsch",
+    "qf_q_vorzeichen": "Vorzeichen von q falsch",
+    "qf_quadrat_als_verdopplung": "Quadrat als Verdopplung",
+    "qf_quadrat_negativ": "Quadrat einer negativen Zahl negativ",
+    "qf_quadriert_statt_wurzel": "Quadriert statt Wurzel gezogen",
+    "qf_scheitel_koordinaten_vertauscht": "x und y vertauscht",
+    "qf_scheitel_statt_nullstelle": "Scheitel mit Nullstelle verwechselt",
+    "qf_stelle_statt_wert": "Stelle statt Wert angegeben",
+    "qf_streckfaktor_umgekehrt": "Streckung und Stauchung verwechselt",
+    "qf_streckfaktor_vergessen": "Streckfaktor vergessen",
+    "qf_umfang_statt_flaeche": "Zaunlänge statt Fläche",
+    "qf_umstellen_reihenfolge": "Falsche Reihenfolge beim Umstellen",
+    "qf_verschiebung_vorzeichen": "Verschiebung mit falschem Vorzeichen",
+    "qf_wurzel_als_haelfte": "Wurzel als Hälfte",
+    "qf_wurzel_aus_negativ": "Wurzel aus negativer Zahl"
+  },
+  "platzhalter": {
+    "_": {
+      "wort": "Wert"
+    },
+    "AUS-1": {
+      "term": "Term"
+    },
+    "BIN-1": {
+      "term": "Term"
+    },
+    "BIN-2": {
+      "trinom": "Term"
+    },
+    "DI-1": {
+      "gleichung": "Gleichung"
+    },
+    "DI-2": {
+      "gleichung": "Gleichung"
+    },
+    "DI-3": {
+      "gleichung": "Gleichung"
+    },
+    "EIN-1": {
+      "x0": "Zahl",
+      "term": "Term"
+    },
+    "EX-0": {
+      "kontext": "Sachsituation"
+    },
+    "EX-1": {
+      "kontext": "Sachsituation"
+    },
+    "EX-2": {
+      "kontext": "Sachsituation"
+    },
+    "EX-3": {
+      "kontext": "Sachsituation"
+    },
+    "GL-1": {
+      "gleichung": "Gleichung"
+    },
+    "NF-1": {
+      "term": "Term"
+    },
+    "NF-2": {
+      "term": "Term"
+    },
+    "NF-3": {
+      "term": "Term"
+    },
+    "NF-4": {
+      "term": "Term"
+    },
+    "NF-5": {
+      "name": "Name",
+      "term": "Term"
+    },
+    "NF-6": {
+      "term": "Term"
+    },
+    "NP-1": {
+      "gleichung": "Gleichung"
+    },
+    "NP-2": {
+      "term": "Term"
+    },
+    "NP-3": {
+      "name": "Name",
+      "gleichung": "Gleichung"
+    },
+    "NP-4": {
+      "gleichung": "Gleichung"
+    },
+    "NS-1": {
+      "term": "Term"
+    },
+    "NS-2": {
+      "term": "Term"
+    },
+    "NS-3": {
+      "term": "Term"
+    },
+    "NS-4": {
+      "p": "Zahl",
+      "q": "Zahl",
+      "zusatz": "Öffnungsangabe"
+    },
+    "NS-5": {
+      "term": "Term"
+    },
+    "PAR-1": {
+      "term": "Term"
+    },
+    "PAR-2": {
+      "term": "Term"
+    },
+    "PAR-3": {
+      "term": "Term"
+    },
+    "PAR-5": {
+      "f": "Funktion",
+      "g": "Funktion"
+    },
+    "PQ-1": {
+      "gleichung": "Gleichung"
+    },
+    "PQ-2": {
+      "gleichung": "Gleichung"
+    },
+    "PQ-3": {
+      "name": "Name",
+      "gleichung": "Gleichung"
+    },
+    "PQ-4": {
+      "gleichung": "Gleichung"
+    },
+    "QW-1": {
+      "aufgabe": "Rechnung"
+    },
+    "SCH-1": {
+      "term": "Term"
+    },
+    "SCH-3": {
+      "term": "Term"
+    },
+    "SCH-4": {
+      "name": "Name",
+      "term": "Term"
+    },
+    "WZ-1": {
+      "c": "Zahl"
+    },
+    "WZ-2": {
+      "gleichung": "Gleichung"
+    },
+    "WZ-3": {
+      "gleichung": "Gleichung"
+    },
+    "WZ-4": {
+      "c": "Zahl"
+    },
+    "WZ-5": {
+      "c": "Zahl"
+    }
+  },
+  "antwortart": {
+    "zahl": "eine Zahl",
+    "bruch": "ein Bruch",
+    "punkt": "Punkt eintragen",
+    "feldmaske": "Felder ausfüllen",
+    "loesungsmenge": "alle Lösungen",
+    "mc": "Auswahl",
+    "graph_auswahl": "Graph auswählen",
+    "mehrteiler": "mehrere Teile",
+    "tabelle": "Tabelle ausfüllen",
+    "fehler_finden": "Fehler finden",
+    "bausteine": "Begründung wählen",
+    "schritte_ordnen": "Schritte ordnen",
+    "sonst": "siehe Beispiele"
   }
 }
