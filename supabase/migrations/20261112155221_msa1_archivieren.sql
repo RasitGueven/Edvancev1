@@ -211,7 +211,10 @@ begin
   -- Nicht der Prod-Bestand (CI-Neuaufbau: dort legen Inhalts-Migrationen nur einen Teil der ids an): nichts tun.
   -- In Prod sichert das Einspielskript vorher per dbread ab, dass alle 523 vorhanden, aktiv und nicht archiviert sind,
   -- und prüft danach genau 523 archivierte.
-  if v_da <> 523 or v_aktiv <> 523 then
+  if v_da = 523 and v_aktiv <> 523 then
+    raise exception 'MSA-1 M2: alle 523 ids vorhanden, aber nur % aktiv und nicht archiviert — Prod-Stand geändert, STOPP', v_aktiv;
+  end if;
+  if v_da <> 523 then
     raise notice 'MSA-1 M2: % von 523 ids vorhanden, davon % aktiv und nicht archiviert — nicht der Prod-Bestand, nichts zu tun',
       v_da, v_aktiv;
     return;

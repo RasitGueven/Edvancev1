@@ -183,6 +183,8 @@ declare
   n integer;
 begin
   perform set_config('request.jwt.claims', json_build_object('role', 'service_role')::text, true);
+  -- Nur, was diese Migration archiviert hat (Grund nicht_notwendig); später aus anderem Grund Archiviertes bleibt.
+  v_ids := array(select id from public.tasks where id = any (v_ids) and archiviert_grund = 'nicht_notwendig');
   n := public.task_wiederherstellen(v_ids);
   raise notice 'Rollback MSA-1 M2: % wiederhergestellt', n;
   if exists (select 1 from public.tasks where id = any (v_ids) and archiviert_am is not null) then
