@@ -55,7 +55,7 @@ select is((select count(*)::int from bauform_pruef_plan() where session_nr is nu
 select is((select max(session_nr) from bauform_pruef_plan()), 7, 'a7 sieben Sessions mit Kernarbeit, die achte ist die Generalprobe');
 select is((select array_agg(schluessel order by o) from bauform_pruef_plan() with ordinality x(bauform_id, schluessel, skill_key,
              skill_label, reihe, format, rollen, version, status, gruen, letzte_entscheidung, letzte_notiz, geprueft_am,
-             session_nr, session_titel, kernidee_key, kernidee_titel, ist_voraussetzung, o) where session_nr = 1),
+             session_nr, session_titel, kernidee_key, kernidee_titel, ist_voraussetzung, titel, antwortart, o) where session_nr = 1),
           array['EIN-1', 'KO-1', 'PAR-1', 'PAR-2', 'PAR-5'], 'a8 innerhalb der Session Voraussetzungen zuerst');
 select is((select session_titel || ' | ' || kernidee_titel from bauform_pruef_plan() where schluessel = 'PAR-1'),
           'Normalparabel verschieben und strecken | Normalparabel: Wertetabelle, Symmetrie, Scheitel im Ursprung',

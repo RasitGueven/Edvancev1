@@ -55,9 +55,11 @@ export const bauformPruefen = (
   notiz: string | null,
   dauerSek: number | null,
 ): Promise<BauformResult<{ status: string; version: number }>> =>
-  rufe('bauform_pruefen', {
-    p_bauform: bauformId, p_version: version, p_entscheidung: entscheidung, p_gruende: gruende, p_notiz: notiz,
-    p_dauer_sek: dauerSek,
+  // SP-1: bauform_pruefen ist nur noch ueber bauform_pruefung_senden erreichbar. Bis zur neuen Pruefansicht (S4) wird
+  // eine Entscheidung ungleich passt als Rueckfrage mit einem Kommentar am Grundgeruest gesendet.
+  rufe('bauform_pruefung_senden', {
+    p_bauform: bauformId, p_version: version, p_dauer: dauerSek,
+    p_kommentare: entscheidung === 'passt' ? [] : [{ anker: 'grundgeruest', gruende: [], text: [notiz, ...gruende].filter(Boolean).join(' · ') || entscheidung }],
   })
 
 /** Muster nach Sessions (M1): ohne Kind der Standardplan, mit Kind dessen wirksamer Plan. */
@@ -65,6 +67,18 @@ export const getBauformPlan = (studentId?: string | null): Promise<BauformResult
   rufe('bauform_pruef_plan', studentId ? { p_student_id: studentId } : undefined)
 
 export const getPlanKinder = (): Promise<BauformResult<PlanKind[]>> => rufe('bauform_plan_kinder')
+
+export type BauformKommentarEingabe = { anker: 'grundgeruest' | 'stufen' | 'fehlbilder' | 'beispiel'; task_id?: string; gruende: string[]; text: string | null }
+
+/** SP-1: Lenas Entscheidung in einem Aufruf. Ohne Kommentar „Passt“, mit Kommentaren Rueckfrage; Zeiten je Stufe. */
+export const bauformPruefungSenden = (
+  bauformId: string,
+  version: number,
+  kommentare: BauformKommentarEingabe[],
+  zeiten: Record<string, number>,
+  dauerSek: number | null,
+): Promise<BauformResult<{ status: string; version: number; pruefung_id: string; kommentare: number }>> =>
+  rufe('bauform_pruefung_senden', { p_bauform: bauformId, p_version: version, p_kommentare: kommentare, p_zeiten: zeiten, p_dauer: dauerSek })
 
 /** Gibt die Reihe frei; mit schluessel nur diese Muster (M1, „Session n freigeben“). */
 export const bauformFreigeben = (reihe: string, schluessel?: string[]): Promise<BauformResult<number>> =>

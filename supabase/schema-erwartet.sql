@@ -945,6 +945,22 @@ end $_$;
 
 
 --
+-- Name: aufgabe_zeit_sek(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.aufgabe_zeit_sek(p_task uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  -- nur Coaches, Admins und Systemaufrufe (Planung); Kinder bekommen null
+  select case when public.ist_systemaufruf() or coalesce(public.get_my_role(), '') in ('coach', 'admin') then coalesce((select round(s.zeit_min * 60)::int from public.bauform_stufen s
+                    where s.bauform_id = t.bauform_id and s.stufe = t.stufe),
+                  t.est_duration_sec, t.estimated_minutes * 60) end
+    from public.tasks t where t.id = p_task
+$$;
+
+
+--
 -- Name: aufgabe_ziehbar(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1194,6 +1210,70 @@ end $$;
 
 
 --
+-- Name: bauform_kommentar_erledigen(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_kommentar_erledigen(p_kommentar uuid, p_notiz text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
+    raise exception 'bauform_kommentar_erledigen: nur admin' using errcode = '42501';
+  end if;
+  if coalesce(btrim(p_notiz), '') = '' then
+    raise exception 'bauform_kommentar_erledigen: Notiz fehlt' using errcode = '22023', hint = 'notiz_fehlt';
+  end if;
+  update public.bauform_kommentare
+     set status = 'erledigt', erledigt_notiz = btrim(p_notiz), erledigt_am = now(), erledigt_von = auth.uid()
+   where id = p_kommentar and status = 'offen';
+  if not found then
+    raise exception 'bauform_kommentar_erledigen: Kommentar fehlt oder ist erledigt' using errcode = 'P0002';
+  end if;
+end $$;
+
+
+--
+-- Name: bauform_kommentar_gruende(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_kommentar_gruende(p_anker text) RETURNS text[]
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case p_anker
+    when 'beispiel' then array['rechnung_falsch', 'text_unklar', 'hinweis_verraet_loesung', 'rueckmeldung_passt_nicht',
+                               'loesungsweg_unklar']
+    when 'grundgeruest' then array['text_unklar', 'nicht_altersgerecht']
+    when 'stufen' then array['stufe_passt_nicht', 'zahlen_anders_waehlen']
+    when 'fehlbilder' then array['fehlbild_fehlt', 'fehlbild_unrealistisch', 'rueckmeldung_passt_nicht']
+  end
+$$;
+
+
+--
+-- Name: bauform_kommentar_schutz(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_kommentar_schutz() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if tg_op = 'DELETE' then
+    raise exception 'bauform_kommentare: nur anhaengen' using errcode = '42501';
+  end if;
+  if (new.pruefung_id, new.bauform_id, new.version, new.anker, new.task_id, new.gruende, new.text, new.angelegt_am)
+     is distinct from
+     (old.pruefung_id, old.bauform_id, old.version, old.anker, old.task_id, old.gruende, old.text, old.angelegt_am)
+     or old.status = 'erledigt' then
+    raise exception 'bauform_kommentare: nur offen → erledigt' using errcode = '42501';
+  end if;
+  return new;
+end $$;
+
+
+--
 -- Name: bauform_plan_kinder(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1277,16 +1357,17 @@ $$;
 
 
 --
--- Name: bauform_pruef_detail(uuid, integer); Type: FUNCTION; Schema: public; Owner: -
+-- Name: bauform_pruef_detail(uuid, integer, uuid[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.bauform_pruef_detail(p_bauform uuid, p_seed integer DEFAULT 0) RETURNS jsonb
+CREATE FUNCTION public.bauform_pruef_detail(p_bauform uuid, p_seed integer DEFAULT 0, p_behalten uuid[] DEFAULT '{}'::uuid[]) RETURNS jsonb
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   b public.bauformen;
   v_beispiele jsonb;
+  v_rueck uuid;
 begin
   if not public.darf_pruefen() then
     raise exception 'bauform_pruef_detail: kein Pruefrecht' using errcode = '42501';
@@ -1295,17 +1376,21 @@ begin
   if not found then
     raise exception 'bauform_pruef_detail: Bauform nicht gefunden' using errcode = 'P0002';
   end if;
-  -- Sechs Beispiele: zuerst je Stufe eines, dann auffuellen; die Reihenfolge streut ueber p_seed.
+  -- Sechs Beispiele: behaltene zuerst (kommentiert, SP-1), dann je noch fehlender Stufe eines, dann auffuellen;
+  -- die Reihenfolge streut ueber p_seed.
   with kand as (
-    select t.id, t.stufe, t.rolle,
-           row_number() over (partition by t.stufe order by md5(p_seed::text || t.id::text)) as je_stufe,
+    select t.id, t.stufe, t.rolle, t.id = any (coalesce(p_behalten, '{}')) as behalten,
            md5(p_seed::text || t.id::text) as zufall
       from public.tasks t
      where t.bauform_id = b.id and t.bauform_version = b.version and public.instanz_gruen(t.pruefmaschine)
        -- nur Instanzen mit Loesungszeile, sonst faellt nach dem limit ein Beispiel still weg (Zweitpruefung A5, 1)
        and exists (select 1 from public.task_solutions s where s.task_id = t.id)
+  ), rang as (
+    select k.*, row_number() over (partition by k.stufe, k.behalten order by k.zufall) as je_stufe,
+           exists (select 1 from kand x where x.behalten and x.stufe = k.stufe) as stufe_da
+      from kand k
   ), wahl as (
-    select k.* from kand k order by (k.je_stufe > 1), k.zufall limit 6
+    select r.* from rang r order by r.behalten desc, (r.je_stufe = 1 and not r.stufe_da) desc, r.zufall limit 6
   )
   select coalesce(jsonb_agg(jsonb_build_object(
            'task_id', w.id, 'stufe', w.stufe, 'rolle', w.rolle,
@@ -1317,8 +1402,12 @@ begin
          order by w.stufe, w.zufall), '[]'::jsonb)
     into v_beispiele
     from wahl w join public.task_solutions s on s.task_id = w.id;
+  v_rueck := (select x.id from public.bauform_pruefungen x
+               where x.bauform_id = b.id and x.entscheidung = 'unsicher'
+                 and exists (select 1 from public.bauform_kommentare k where k.pruefung_id = x.id)
+               order by x.geprueft_am desc limit 1);
   return jsonb_build_object(
-    'bauform_id', b.id, 'schluessel', b.schluessel, 'skill_key', b.skill_key,
+    'bauform_id', b.id, 'schluessel', b.schluessel, 'skill_key', b.skill_key, 'titel', b.titel,
     'skill_label', (select label from public.skills where skill_key = b.skill_key),
     'kernidee_key', b.kernidee_key, 'format', b.format, 'rollen', b.rollen, 'version', b.version, 'status', b.status,
     'steckbrief', b.steckbrief, 'pruefprotokoll', b.pruefprotokoll, 'blindloeser', b.blindloeser - 'antworten',
@@ -1328,7 +1417,22 @@ begin
                           case when jsonb_typeof(b.steckbrief -> 'fehlbilder') = 'array' then b.steckbrief -> 'fehlbilder'
                                else '[]'::jsonb end) f)),
     'instanzen', (select count(*) from public.tasks t where t.bauform_id = b.id and t.bauform_version = b.version),
+    'stufen', (select coalesce(jsonb_agg(jsonb_build_object('stufe', s.stufe, 'beschreibung', s.beschreibung,
+                 'beispiel', s.beispiel, 'zeit_min', s.zeit_min) order by s.stufe), '[]'::jsonb)
+                 from public.bauform_stufen s where s.bauform_id = b.id),
     'beispiele', v_beispiele,
+    'rueckfrage', case when v_rueck is null then null else jsonb_build_object(
+       'pruefung_id', v_rueck,
+       'version', (select version from public.bauform_pruefungen where id = v_rueck),
+       'am', (select geprueft_am from public.bauform_pruefungen where id = v_rueck),
+       'kommentare', (select coalesce(jsonb_agg(jsonb_build_object(
+           'id', k.id, 'anker', k.anker, 'task_id', k.task_id, 'gruende', k.gruende, 'text', k.text,
+           'frage', (select t.question from public.tasks t where t.id = k.task_id),
+           'status', k.status, 'erledigt_notiz', k.erledigt_notiz, 'erledigt_am', k.erledigt_am) order by k.angelegt_am),
+           '[]'::jsonb) from public.bauform_kommentare k where k.pruefung_id = v_rueck)) end,
+    'zeit_aenderungen', (select coalesce(jsonb_agg(jsonb_build_object('stufe', z.stufe, 'alt', z.alt_min, 'neu', z.neu_min,
+                           'am', z.geaendert_am) order by z.geaendert_am desc), '[]'::jsonb)
+                           from public.bauform_zeit_aenderungen z where z.bauform_id = b.id),
     'pruefungen', (select coalesce(jsonb_agg(jsonb_build_object('version', p.version, 'entscheidung', p.entscheidung,
                      'gruende', p.gruende, 'notiz', p.notiz, 'am', p.geprueft_am) order by p.geprueft_am desc), '[]'::jsonb)
                      from public.bauform_pruefungen p where p.bauform_id = b.id));
@@ -1366,7 +1470,7 @@ end $$;
 -- Name: bauform_pruef_plan(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.bauform_pruef_plan(p_student_id uuid DEFAULT NULL::uuid) RETURNS TABLE(bauform_id uuid, schluessel text, skill_key text, skill_label text, reihe text, format text, rollen text[], version integer, status text, gruen integer, letzte_entscheidung text, letzte_notiz text, geprueft_am timestamp with time zone, session_nr integer, session_titel text, kernidee_key text, kernidee_titel text, ist_voraussetzung boolean)
+CREATE FUNCTION public.bauform_pruef_plan(p_student_id uuid DEFAULT NULL::uuid) RETURNS TABLE(bauform_id uuid, schluessel text, skill_key text, skill_label text, reihe text, format text, rollen text[], version integer, status text, gruen integer, letzte_entscheidung text, letzte_notiz text, geprueft_am timestamp with time zone, session_nr integer, session_titel text, kernidee_key text, kernidee_titel text, ist_voraussetzung boolean, titel text, antwortart text)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -1411,7 +1515,11 @@ begin
   )
   select l.bauform_id, l.schluessel, l.skill_key, l.skill_label, l.reihe, l.format, l.rollen, l.version, l.status,
          l.gruen, l.letzte_entscheidung, l.letzte_notiz, l.geprueft_am,
-         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null
+         z.nr, ti.t, b.kernidee_key, rk.titel, b.kernidee_key is null, b.titel,
+         case when b.format = 'feldmaske' and exists (
+                select 1 from public.tasks t where t.bauform_id = b.id and t.bauform_version = b.version
+                   and t.question_payload -> 'schablone' -> 0 ->> 'text' ~ '^[PS]\(') then 'punkt'
+              else b.format end
     from public.bauform_pruef_liste() l
     join public.bauformen b on b.id = l.bauform_id
     join zuordnung z on z.id = b.id
@@ -1479,6 +1587,107 @@ end $$;
 
 
 --
+-- Name: bauform_pruefung_senden(uuid, integer, jsonb, jsonb, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_pruefung_senden(p_bauform uuid, p_version integer, p_kommentare jsonb DEFAULT '[]'::jsonb, p_zeiten jsonb DEFAULT '{}'::jsonb, p_dauer integer DEFAULT NULL::integer) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  b public.bauformen;
+  k jsonb;
+  v_anker text;
+  v_task uuid;
+  v_gruende text[];
+  v_text text;
+  v_n int;
+  v_erg jsonb;
+  v_pruefung uuid;
+  z record;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'bauform_pruefung_senden: kein Pruefrecht' using errcode = '42501';
+  end if;
+  select * into b from public.bauformen where id = p_bauform for update;
+  if not found then
+    raise exception 'bauform_pruefung_senden: Bauform nicht gefunden' using errcode = 'P0002';
+  end if;
+  if b.version is distinct from p_version then
+    raise exception 'bauform_pruefung_senden: die Bauform hat sich geaendert (Version %)', b.version using errcode = 'ED409';
+  end if;
+  if b.status <> 'zur_pruefung' then
+    raise exception 'bauform_pruefung_senden: Bauform steht nicht zur Pruefung (%)', b.status using errcode = 'P0001',
+      hint = 'nicht_zu_pruefen';
+  end if;
+  if jsonb_typeof(coalesce(p_kommentare, '[]'::jsonb)) <> 'array' or jsonb_typeof(coalesce(p_zeiten, '{}'::jsonb)) <> 'object' then
+    raise exception 'bauform_pruefung_senden: Kommentare als Liste, Zeiten als Objekt' using errcode = '22023';
+  end if;
+  v_n := jsonb_array_length(coalesce(p_kommentare, '[]'::jsonb));
+
+  -- Kommentare vorher prüfen, damit eine Rückfrage nie ohne ihre Kommentare gespeichert wird.
+  for k in select * from jsonb_array_elements(coalesce(p_kommentare, '[]'::jsonb)) loop
+    v_anker := k ->> 'anker';
+    v_gruende := coalesce(array(select jsonb_array_elements_text(coalesce(k -> 'gruende', '[]'::jsonb))), '{}');
+    v_text := nullif(btrim(coalesce(k ->> 'text', '')), '');
+    if public.bauform_kommentar_gruende(v_anker) is null then
+      raise exception 'bauform_pruefung_senden: Anker % unbekannt', v_anker using errcode = '22023', hint = 'anker';
+    end if;
+    if not v_gruende <@ public.bauform_kommentar_gruende(v_anker) then
+      raise exception 'bauform_pruefung_senden: Grund passt nicht zum Anker %', v_anker using errcode = '22023',
+        hint = 'grund';
+    end if;
+    if cardinality(v_gruende) = 0 and v_text is null then
+      raise exception 'bauform_pruefung_senden: Kommentar ohne Grund und ohne Text' using errcode = '22023',
+        hint = 'kommentar_leer';
+    end if;
+    if (v_anker = 'beispiel') <> (k ->> 'task_id' is not null) then
+      raise exception 'bauform_pruefung_senden: Instanz nur und immer beim Anker beispiel' using errcode = '22023',
+        hint = 'instanz';
+    end if;
+    if v_anker = 'beispiel' and not exists (select 1 from public.tasks t where t.id = (k ->> 'task_id')::uuid
+                                              and t.bauform_id = b.id and t.bauform_version = b.version) then
+      raise exception 'bauform_pruefung_senden: Instanz gehoert nicht zur aktuellen Version' using errcode = '22023',
+        hint = 'instanz';
+    end if;
+  end loop;
+
+  -- Bestehende Entscheidungsfunktion: Version, Status, Verdacht, Pruefmaschine und Blindloeser prueft sie.
+  if v_n = 0 then
+    v_erg := public.bauform_pruefen(p_bauform, p_version, 'passt', '{}', null, p_dauer);
+  else
+    v_erg := public.bauform_pruefen(p_bauform, p_version, 'unsicher',
+               array(select distinct g from jsonb_array_elements(p_kommentare) e,
+                                             jsonb_array_elements_text(coalesce(e -> 'gruende', '[]'::jsonb)) g order by g),
+               format('kommentare:%s', v_n), p_dauer);
+  end if;
+  select x.id into v_pruefung from public.bauform_pruefungen x
+   where x.bauform_id = b.id and x.version = b.version and x.geprueft_von is not distinct from auth.uid()
+   order by x.geprueft_am desc, x.id limit 1;
+
+  for k in select * from jsonb_array_elements(coalesce(p_kommentare, '[]'::jsonb)) loop
+    insert into public.bauform_kommentare (pruefung_id, bauform_id, version, anker, task_id, gruende, text)
+    values (v_pruefung, b.id, b.version, k ->> 'anker', (k ->> 'task_id')::uuid,
+            coalesce(array(select jsonb_array_elements_text(coalesce(k -> 'gruende', '[]'::jsonb))), '{}'),
+            nullif(btrim(coalesce(k ->> 'text', '')), ''));
+  end loop;
+
+  for z in select key, value from jsonb_each(coalesce(p_zeiten, '{}'::jsonb)) loop
+    if z.key !~ '^[1-5]$' or jsonb_typeof(z.value) <> 'number' then
+      raise exception 'bauform_pruefung_senden: Zeiten als {"Stufe": Minuten}' using errcode = '22023', hint = 'zeit_bereich';
+    end if;
+    perform public.bauform_zeit_aendern(b.id, z.key::int, (z.value #>> '{}')::numeric, v_pruefung);
+  end loop;
+
+  return v_erg || jsonb_build_object('pruefung_id', v_pruefung, 'kommentare', v_n);
+exception
+  when unique_violation then
+    raise exception 'bauform_pruefung_senden: je Anker hoechstens ein Kommentar' using errcode = '22023',
+      hint = 'anker_doppelt';
+end $_$;
+
+
+--
 -- Name: bauform_reaktivieren(uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1508,6 +1717,153 @@ begin
    where id = b.id;
   return v_neu;
 end $$;
+
+
+--
+-- Name: bauform_rueckfrage_automatisch(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_automatisch() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_bauform uuid := (to_jsonb(new) ->> case when tg_table_name = 'bauform_kommentare' then 'bauform_id' else 'id' end)::uuid;
+begin
+  -- Sperre: erledigen zwei Admins gleichzeitig die letzten Kommentare, sieht der zweite den ersten (Zweitpruefung R2/3).
+  perform 1 from public.bauformen where id = v_bauform for update;
+  if public.bauform_rueckfrage_hindernis(v_bauform, null) is null then
+    perform set_config('edvance.rueckfrage_abschluss', '1', true);
+    update public.bauformen set status = 'zur_freigabe' where id = v_bauform and status = 'rueckfrage';
+    perform set_config('edvance.rueckfrage_abschluss', '', true);
+  end if;
+  return null;
+end $$;
+
+
+--
+-- Name: bauform_rueckfrage_erledigt(uuid, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_erledigt(p_bauform uuid, p_neue_version integer) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b public.bauformen;
+  v_grund text;
+begin
+  if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
+    raise exception 'bauform_rueckfrage_erledigt: nur admin' using errcode = '42501';
+  end if;
+  select * into b from public.bauformen where id = p_bauform for update;
+  if not found then
+    raise exception 'bauform_rueckfrage_erledigt: Bauform nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- schon automatisch abgeschlossen (Trigger): kein Fehler
+  if b.status = 'zur_freigabe' and b.version = p_neue_version and public.bauform_rueckfrage_pruefung_intern(b.id) is not null then
+    return 'zur_freigabe';
+  end if;
+  v_grund := public.bauform_rueckfrage_hindernis(b.id, p_neue_version);
+  if v_grund is not null then
+    raise exception 'bauform_rueckfrage_erledigt: Rueckfrage kann nicht abgeschlossen werden (%)', v_grund
+      using errcode = 'P0001', hint = v_grund;
+  end if;
+  perform set_config('edvance.rueckfrage_abschluss', '1', true);
+  update public.bauformen set status = 'zur_freigabe' where id = b.id;
+  perform set_config('edvance.rueckfrage_abschluss', '', true);
+  return 'zur_freigabe';
+end $$;
+
+
+--
+-- Name: bauform_rueckfrage_hindernis(uuid, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_hindernis(p_bauform uuid, p_neue_version integer) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  b public.bauformen;
+  v_pruefung uuid;
+  v_rueck_version int;
+begin
+  select * into b from public.bauformen where id = p_bauform;
+  if not found then
+    return 'bauform_fehlt';
+  end if;
+  v_pruefung := public.bauform_rueckfrage_pruefung_intern(b.id);
+  if b.status <> 'rueckfrage' or v_pruefung is null then
+    return 'keine_rueckfrage';
+  end if;
+  select version into v_rueck_version from public.bauform_pruefungen where id = v_pruefung;
+  if b.version is distinct from coalesce(p_neue_version, b.version) or b.version <= v_rueck_version then
+    return 'version';
+  end if;
+  if exists (select 1 from public.bauform_kommentare k where k.pruefung_id = v_pruefung and k.status <> 'erledigt') then
+    return 'kommentar_offen';
+  end if;
+  if b.verdacht is not null or b.pruefprotokoll ->> 'lauf_am' is null
+     or coalesce((b.pruefprotokoll ->> 'rot_anteil')::numeric, 1) > 0.30
+     -- gruen laut Protokoll der Version: der Export schreibt die Bauform vor ihren Instanzen (export.py)
+     or coalesce((b.pruefprotokoll ->> 'gruen')::int, 0) = 0 then
+    return 'pruefmaschine';
+  end if;
+  if coalesce(b.blindloeser ->> 'bestanden', '') <> 'true' then
+    return 'blindloeser';
+  end if;
+  return null;
+end $$;
+
+
+--
+-- Name: bauform_rueckfrage_pruefung(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_pruefung(p_bauform uuid) RETURNS uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.bauform_rueckfrage_pruefung_intern(p_bauform)
+   where public.darf_pruefen() or public.ist_systemaufruf()
+$$;
+
+
+--
+-- Name: bauform_rueckfrage_pruefung_intern(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_rueckfrage_pruefung_intern(p_bauform uuid) RETURNS uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select p.id
+    from (select x.id, x.entscheidung from public.bauform_pruefungen x
+           where x.bauform_id = p_bauform order by x.geprueft_am desc, x.id limit 1) p
+   where p.entscheidung = 'unsicher'
+     and exists (select 1 from public.bauform_kommentare k where k.pruefung_id = p.id)
+$$;
+
+
+--
+-- Name: bauform_stufen_anlegen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_stufen_anlegen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+begin
+  if jsonb_typeof(new.steckbrief -> 'stufen') = 'object' then
+    insert into public.bauform_stufen (bauform_id, stufe, zeit_min)
+    select new.id, k::smallint, public.bauform_zeit_vorbelegung(new.steckbrief)
+      from jsonb_object_keys(new.steckbrief -> 'stufen') k
+     where k ~ '^[1-5]$'
+    on conflict (bauform_id, stufe) do nothing;
+  end if;
+  return null;
+end $_$;
 
 
 --
@@ -1551,10 +1907,13 @@ CREATE FUNCTION public.bauform_versionswechsel() RETURNS trigger
     LANGUAGE plpgsql
     SET search_path TO 'public', 'pg_temp'
     AS $$
+declare
+  v_ueberarbeitung boolean;
 begin
   new.geaendert_am := now();
   if (new.steckbrief, new.format, new.rollen, new.skill_key, new.kernidee_key)
      is distinct from (old.steckbrief, old.format, old.rollen, old.skill_key, old.kernidee_key) then
+    v_ueberarbeitung := old.status = 'rueckfrage' and public.bauform_rueckfrage_pruefung_intern(old.id) is not null;
     insert into public.bauform_versionen (bauform_id, version, steckbrief, status)
     values (old.id, old.version, old.steckbrief, old.status);
     new.version := old.version + 1;
@@ -1568,11 +1927,79 @@ begin
     elsif new.status in ('zur_freigabe', 'freigegeben', 'pausiert', 'beanstandet', 'rueckfrage') then
       new.status := case when new.verdacht is null then 'zur_pruefung' else 'entwurf' end;
     end if;
+    if v_ueberarbeitung then
+      new.status := 'rueckfrage';
+    end if;
     new.freigegeben_am := null;
     new.freigegeben_von := null;
+  elsif old.status = 'rueckfrage' and new.status <> 'rueckfrage'
+        and coalesce(current_setting('edvance.bauform_export', true), '') = '1'
+        and coalesce(current_setting('edvance.rueckfrage_abschluss', true), '') <> '1'
+        and public.bauform_rueckfrage_pruefung_intern(old.id) is not null then
+    -- Export ohne Steckbrief-Aenderung (z. B. mit Verdacht) loest eine kommentierte Rueckfrage nicht auf
+    -- (Zweitpruefung R2/1); sie bleibt in Ueberarbeitung.
+    new.status := 'rueckfrage';
   end if;
   return new;
 end $$;
+
+
+--
+-- Name: bauform_zeit_aendern(uuid, integer, numeric, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_zeit_aendern(p_bauform uuid, p_stufe integer, p_min numeric, p_pruefung uuid) RETURNS numeric
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_alt numeric;
+begin
+  if p_min is null or p_min < 0.5 or p_min > 10 or p_min * 2 <> trunc(p_min * 2) then
+    raise exception 'bauform_zeit_setzen: Zeit 0,5 bis 10 Minuten in Schritten von 0,5' using errcode = '22023',
+      hint = 'zeit_bereich';
+  end if;
+  select zeit_min into v_alt from public.bauform_stufen where bauform_id = p_bauform and stufe = p_stufe for update;
+  if not found then
+    raise exception 'bauform_zeit_setzen: Stufe % der Bauform fehlt', p_stufe using errcode = 'P0002';
+  end if;
+  if v_alt = p_min then
+    return v_alt;
+  end if;
+  update public.bauform_stufen set zeit_min = p_min, geaendert_am = now()
+   where bauform_id = p_bauform and stufe = p_stufe;
+  insert into public.bauform_zeit_aenderungen (bauform_id, stufe, version, alt_min, neu_min, pruefung_id, geaendert_von)
+  select p_bauform, p_stufe, b.version, v_alt, p_min, p_pruefung, auth.uid() from public.bauformen b where b.id = p_bauform;
+  return p_min;
+end $$;
+
+
+--
+-- Name: bauform_zeit_setzen(uuid, integer, numeric); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_zeit_setzen(p_bauform uuid, p_stufe integer, p_min numeric) RETURNS numeric
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (public.darf_pruefen() or public.ist_systemaufruf()) then
+    raise exception 'bauform_zeit_setzen: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return public.bauform_zeit_aendern(p_bauform, p_stufe, p_min, null);
+end $$;
+
+
+--
+-- Name: bauform_zeit_vorbelegung(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bauform_zeit_vorbelegung(p_steckbrief jsonb) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select greatest(0.5, least(10, round(coalesce((p_steckbrief ->> 'zeit_sek')::numeric, 90) / 30) / 2))
+$$;
 
 
 --
@@ -26537,34 +26964,29 @@ CREATE TABLE public.badge_catalog (
 
 
 --
--- Name: bauform_pruefungen; Type: TABLE; Schema: public; Owner: -
+-- Name: bauform_kommentare; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.bauform_pruefungen (
+CREATE TABLE public.bauform_kommentare (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
+    pruefung_id uuid NOT NULL,
     bauform_id uuid NOT NULL,
     version integer NOT NULL,
-    entscheidung text NOT NULL,
+    anker text NOT NULL,
+    task_id uuid,
     gruende text[] DEFAULT '{}'::text[] NOT NULL,
-    notiz text,
-    dauer_sek integer,
-    geprueft_von uuid,
-    geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT bauform_pruefungen_dauer_sek_check CHECK (((dauer_sek IS NULL) OR (dauer_sek >= 0))),
-    CONSTRAINT bauform_pruefungen_entscheidung_check CHECK ((entscheidung = ANY (ARRAY['passt'::text, 'unsicher'::text, 'passt_nicht'::text, 'zurueckgenommen'::text, 'reaktiviert'::text])))
-);
-
-
---
--- Name: bauform_versionen; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.bauform_versionen (
-    bauform_id uuid NOT NULL,
-    version integer NOT NULL,
-    steckbrief jsonb NOT NULL,
-    status text NOT NULL,
-    abgeloest_am timestamp with time zone DEFAULT now() NOT NULL
+    text text,
+    status text DEFAULT 'offen'::text NOT NULL,
+    erledigt_notiz text,
+    erledigt_am timestamp with time zone,
+    erledigt_von uuid,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bauform_kommentare_anker_check CHECK ((anker = ANY (ARRAY['grundgeruest'::text, 'stufen'::text, 'fehlbilder'::text, 'beispiel'::text]))),
+    CONSTRAINT bauform_kommentare_erledigt_check CHECK ((((status = 'offen'::text) AND (erledigt_notiz IS NULL) AND (erledigt_am IS NULL)) OR ((status = 'erledigt'::text) AND (COALESCE(btrim(erledigt_notiz), ''::text) <> ''::text) AND (erledigt_am IS NOT NULL)))),
+    CONSTRAINT bauform_kommentare_gruende_check CHECK ((gruende <@ public.bauform_kommentar_gruende(anker))),
+    CONSTRAINT bauform_kommentare_inhalt_check CHECK (((cardinality(gruende) > 0) OR (COALESCE(btrim(text), ''::text) <> ''::text))),
+    CONSTRAINT bauform_kommentare_instanz_check CHECK (((anker = 'beispiel'::text) = (task_id IS NOT NULL))),
+    CONSTRAINT bauform_kommentare_status_check CHECK ((status = ANY (ARRAY['offen'::text, 'erledigt'::text])))
 );
 
 
@@ -26591,6 +27013,7 @@ CREATE TABLE public.bauformen (
     freigegeben_von uuid,
     angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
     geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    titel text,
     CONSTRAINT bauformen_format_check CHECK ((format = ANY (ARRAY['mc'::text, 'zahl'::text, 'bruch'::text, 'mehrteiler'::text, 'tabelle'::text, 'feldmaske'::text, 'loesungsmenge'::text, 'graph_auswahl'::text, 'fehler_finden'::text, 'bausteine'::text, 'schritte_ordnen'::text]))),
     CONSTRAINT bauformen_kernidee_key_check CHECK ((kernidee_key ~ '^[a-z][a-z0-9_]*:K[1-9]$'::text)),
     CONSTRAINT bauformen_reihe_check CHECK ((reihe ~ '^[a-z][a-z0-9_]*$'::text)),
@@ -26598,7 +27021,97 @@ CREATE TABLE public.bauformen (
     CONSTRAINT bauformen_schluessel_check CHECK ((schluessel ~ '^[A-Z]{2,3}-[0-9]{1,2}$'::text)),
     CONSTRAINT bauformen_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'zur_pruefung'::text, 'rueckfrage'::text, 'beanstandet'::text, 'zur_freigabe'::text, 'freigegeben'::text, 'pausiert'::text]))),
     CONSTRAINT bauformen_steckbrief_check CHECK ((jsonb_typeof(steckbrief) = 'object'::text)),
+    CONSTRAINT bauformen_titel_check CHECK (((titel IS NULL) OR ((btrim(titel) <> ''::text) AND (titel !~ '[{}]'::text)))),
     CONSTRAINT bauformen_version_check CHECK ((version >= 1))
+);
+
+
+--
+-- Name: bauform_kommentar_auswertung; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.bauform_kommentar_auswertung WITH (security_invoker='true') AS
+ SELECT g.grund,
+    k.anker,
+    b.schluessel AS bauform,
+    b.skill_key,
+    (count(*))::integer AS anzahl,
+    (array_agg(k.text ORDER BY k.angelegt_am DESC) FILTER (WHERE (k.text IS NOT NULL)))[1:5] AS letzte_texte
+   FROM ((public.bauform_kommentare k
+     JOIN public.bauformen b ON ((b.id = k.bauform_id)))
+     CROSS JOIN LATERAL unnest(
+        CASE
+            WHEN (cardinality(k.gruende) = 0) THEN ARRAY[NULL::text]
+            ELSE k.gruende
+        END) g(grund))
+  WHERE (COALESCE(public.get_my_role(), ''::text) = 'admin'::text)
+  GROUP BY g.grund, k.anker, b.schluessel, b.skill_key;
+
+
+--
+-- Name: bauform_pruefungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauform_pruefungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    bauform_id uuid NOT NULL,
+    version integer NOT NULL,
+    entscheidung text NOT NULL,
+    gruende text[] DEFAULT '{}'::text[] NOT NULL,
+    notiz text,
+    dauer_sek integer,
+    geprueft_von uuid,
+    geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bauform_pruefungen_dauer_sek_check CHECK (((dauer_sek IS NULL) OR (dauer_sek >= 0))),
+    CONSTRAINT bauform_pruefungen_entscheidung_check CHECK ((entscheidung = ANY (ARRAY['passt'::text, 'unsicher'::text, 'passt_nicht'::text, 'zurueckgenommen'::text, 'reaktiviert'::text])))
+);
+
+
+--
+-- Name: bauform_stufen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauform_stufen (
+    bauform_id uuid NOT NULL,
+    stufe smallint NOT NULL,
+    beschreibung text,
+    beispiel text,
+    zeit_min numeric(3,1) NOT NULL,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bauform_stufen_beispiel_check CHECK (((beispiel IS NULL) OR ((btrim(beispiel) <> ''::text) AND (beispiel !~ '[{}]'::text)))),
+    CONSTRAINT bauform_stufen_beschreibung_check CHECK (((beschreibung IS NULL) OR ((btrim(beschreibung) <> ''::text) AND (beschreibung !~ '[{}]'::text)))),
+    CONSTRAINT bauform_stufen_stufe_check CHECK (((stufe >= 1) AND (stufe <= 5))),
+    CONSTRAINT bauform_stufen_zeit_min_check CHECK ((((zeit_min >= 0.5) AND (zeit_min <= (10)::numeric)) AND ((zeit_min * (2)::numeric) = trunc((zeit_min * (2)::numeric)))))
+);
+
+
+--
+-- Name: bauform_versionen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauform_versionen (
+    bauform_id uuid NOT NULL,
+    version integer NOT NULL,
+    steckbrief jsonb NOT NULL,
+    status text NOT NULL,
+    abgeloest_am timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: bauform_zeit_aenderungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bauform_zeit_aenderungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    bauform_id uuid NOT NULL,
+    stufe smallint NOT NULL,
+    version integer NOT NULL,
+    alt_min numeric(3,1) NOT NULL,
+    neu_min numeric(3,1) NOT NULL,
+    pruefung_id uuid,
+    geaendert_von uuid,
+    geaendert_am timestamp with time zone DEFAULT now() NOT NULL
 );
 
 
@@ -29316,6 +29829,14 @@ ALTER TABLE ONLY public.badge_catalog
 
 
 --
+-- Name: bauform_kommentare bauform_kommentare_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_kommentare
+    ADD CONSTRAINT bauform_kommentare_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: bauform_pruefungen bauform_pruefungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -29324,11 +29845,27 @@ ALTER TABLE ONLY public.bauform_pruefungen
 
 
 --
+-- Name: bauform_stufen bauform_stufen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_stufen
+    ADD CONSTRAINT bauform_stufen_pkey PRIMARY KEY (bauform_id, stufe);
+
+
+--
 -- Name: bauform_versionen bauform_versionen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bauform_versionen
     ADD CONSTRAINT bauform_versionen_pkey PRIMARY KEY (bauform_id, version);
+
+
+--
+-- Name: bauform_zeit_aenderungen bauform_zeit_aenderungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_zeit_aenderungen
+    ADD CONSTRAINT bauform_zeit_aenderungen_pkey PRIMARY KEY (id);
 
 
 --
@@ -30831,10 +31368,31 @@ CREATE INDEX auth_mail_versand_zeit_idx ON public.auth_mail_versand USING btree 
 
 
 --
+-- Name: bauform_kommentare_bauform_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX bauform_kommentare_bauform_idx ON public.bauform_kommentare USING btree (bauform_id, status);
+
+
+--
+-- Name: bauform_kommentare_je_anker; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX bauform_kommentare_je_anker ON public.bauform_kommentare USING btree (pruefung_id, anker, COALESCE(task_id, '00000000-0000-0000-0000-000000000000'::uuid));
+
+
+--
 -- Name: bauform_pruefungen_bauform_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX bauform_pruefungen_bauform_idx ON public.bauform_pruefungen USING btree (bauform_id, geprueft_am DESC);
+
+
+--
+-- Name: bauform_zeit_aenderungen_bauform_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX bauform_zeit_aenderungen_bauform_idx ON public.bauform_zeit_aenderungen USING btree (bauform_id, stufe);
 
 
 --
@@ -31923,6 +32481,20 @@ CREATE TRIGGER aufgabe_meldungen_nur_anhaengen BEFORE DELETE OR UPDATE ON public
 
 
 --
+-- Name: bauform_kommentare bauform_kommentare_rueckfrage_automatisch; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauform_kommentare_rueckfrage_automatisch AFTER UPDATE OF status ON public.bauform_kommentare FOR EACH ROW WHEN (((new.status = 'erledigt'::text) AND (old.status = 'offen'::text))) EXECUTE FUNCTION public.bauform_rueckfrage_automatisch();
+
+
+--
+-- Name: bauform_kommentare bauform_kommentare_schutz; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauform_kommentare_schutz BEFORE DELETE OR UPDATE ON public.bauform_kommentare FOR EACH ROW EXECUTE FUNCTION public.bauform_kommentar_schutz();
+
+
+--
 -- Name: bauform_pruefungen bauform_pruefungen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -31934,6 +32506,27 @@ CREATE TRIGGER bauform_pruefungen_nur_anhaengen BEFORE DELETE OR UPDATE ON publi
 --
 
 CREATE TRIGGER bauform_versionen_nur_anhaengen BEFORE DELETE OR UPDATE ON public.bauform_versionen FOR EACH ROW EXECUTE FUNCTION public.reihe1_nur_anhaengen();
+
+
+--
+-- Name: bauform_zeit_aenderungen bauform_zeit_aenderungen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauform_zeit_aenderungen_nur_anhaengen BEFORE DELETE OR UPDATE ON public.bauform_zeit_aenderungen FOR EACH ROW EXECUTE FUNCTION public.reihe1_nur_anhaengen();
+
+
+--
+-- Name: bauformen bauformen_rueckfrage_automatisch; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauformen_rueckfrage_automatisch AFTER UPDATE OF version, pruefprotokoll, blindloeser, verdacht ON public.bauformen FOR EACH ROW WHEN ((new.status = 'rueckfrage'::text)) EXECUTE FUNCTION public.bauform_rueckfrage_automatisch();
+
+
+--
+-- Name: bauformen bauformen_stufen_anlegen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bauformen_stufen_anlegen AFTER INSERT OR UPDATE OF steckbrief ON public.bauformen FOR EACH ROW EXECUTE FUNCTION public.bauform_stufen_anlegen();
 
 
 --
@@ -32519,6 +33112,30 @@ ALTER TABLE ONLY public.aufgabe_meldungen
 
 
 --
+-- Name: bauform_kommentare bauform_kommentare_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_kommentare
+    ADD CONSTRAINT bauform_kommentare_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id);
+
+
+--
+-- Name: bauform_kommentare bauform_kommentare_pruefung_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_kommentare
+    ADD CONSTRAINT bauform_kommentare_pruefung_id_fkey FOREIGN KEY (pruefung_id) REFERENCES public.bauform_pruefungen(id);
+
+
+--
+-- Name: bauform_kommentare bauform_kommentare_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_kommentare
+    ADD CONSTRAINT bauform_kommentare_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id);
+
+
+--
 -- Name: bauform_pruefungen bauform_pruefungen_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -32535,11 +33152,35 @@ ALTER TABLE ONLY public.bauform_pruefungen
 
 
 --
+-- Name: bauform_stufen bauform_stufen_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_stufen
+    ADD CONSTRAINT bauform_stufen_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id);
+
+
+--
 -- Name: bauform_versionen bauform_versionen_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bauform_versionen
     ADD CONSTRAINT bauform_versionen_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: bauform_zeit_aenderungen bauform_zeit_aenderungen_bauform_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_zeit_aenderungen
+    ADD CONSTRAINT bauform_zeit_aenderungen_bauform_id_fkey FOREIGN KEY (bauform_id) REFERENCES public.bauformen(id);
+
+
+--
+-- Name: bauform_zeit_aenderungen bauform_zeit_aenderungen_pruefung_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bauform_zeit_aenderungen
+    ADD CONSTRAINT bauform_zeit_aenderungen_pruefung_id_fkey FOREIGN KEY (pruefung_id) REFERENCES public.bauform_pruefungen(id);
 
 
 --
@@ -35217,6 +35858,19 @@ CREATE POLICY badge_catalog_read_all ON public.badge_catalog FOR SELECT USING (t
 
 
 --
+-- Name: bauform_kommentare; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.bauform_kommentare ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: bauform_kommentare bauform_kommentare_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY bauform_kommentare_pruefer_lesen ON public.bauform_kommentare FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
 -- Name: bauform_pruefungen; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -35230,6 +35884,19 @@ CREATE POLICY bauform_pruefungen_pruefer_lesen ON public.bauform_pruefungen FOR 
 
 
 --
+-- Name: bauform_stufen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.bauform_stufen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: bauform_stufen bauform_stufen_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY bauform_stufen_pruefer_lesen ON public.bauform_stufen FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
 -- Name: bauform_versionen; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -35240,6 +35907,19 @@ ALTER TABLE public.bauform_versionen ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY bauform_versionen_pruefer_lesen ON public.bauform_versionen FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: bauform_zeit_aenderungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.bauform_zeit_aenderungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: bauform_zeit_aenderungen bauform_zeit_aenderungen_pruefer_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY bauform_zeit_aenderungen_pruefer_lesen ON public.bauform_zeit_aenderungen FOR SELECT TO authenticated USING (public.darf_pruefen());
 
 
 --
