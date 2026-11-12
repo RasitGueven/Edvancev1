@@ -1,0 +1,19 @@
+                                  schluessel                                   |       wert       
+-------------------------------------------------------------------------------+------------------
+ ampel Kl. 10 rot                                                              | 149
+ ampel Kl. 8 rot                                                               | 176
+ ampel Kl. 9 rot                                                               | 176
+ lsa_im_pool                                                                   | 98
+ lsa_responses / task_pruefungen / task_solutions                              | 925 / 175 / 3417
+ LSA-Aufgaben aktiv                                                            | 376
+ LSA-Aufgaben archiviert                                                       | 523
+ LSA-Aufgaben inaktiv                                                          | 523
+ pruef_ziel_liste gezielt Aufgaben (nachgebaut: pruef_ziel_roh ⋈ Paket-Skills) | 204
+ pruef_ziel_liste nachpruefen Aufgaben (nachgebaut)                            | 19
+ pruef_ziel_roh Freigabe-ids                                                   | 0
+ pruef_ziel_roh Skills                                                         | 94
+ pruef_ziel_roh Vorschläge (task_ids)                                          | 263
+ Skills Regel erfüllt                                                          | 36
+ tasks gesamt                                                                  | 3417
+(15 rows)
+

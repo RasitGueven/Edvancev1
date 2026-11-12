@@ -16,3 +16,10 @@
 | 16:08 | M2 Zweitprüfung | nichts falsch; Abbruch bei geändertem Prod-Stand ergänzt, Rollback nur Grund nicht_notwendig |
 | 16:08 | M3 Archiv-Ansicht, Admin-Listen gefiltert, Ansichtstests 8/8, Vitest 3380/3380 | #407, Fotos abnahme/ |
 | 16:08 | CI neuaufbau weiter rot (pgTAP-Container: plpgsql.so undefined symbol) | HALTEPUNKT O2: nichts eingespielt, nichts gemergt; M4/M5 offen |
+| 17:49 | CI-Fix #408 (einmalige Freigabe), gemergt nach grüner CI | 65e9445f |
+| 17:49 | #404 gemergt (session_a2-Wackler einmal wiederholt) | 539937d4 |
+| 17:49 | M1 eingespielt (MSA1-1-archiv.sh), Prod-Abzug = Neuaufbau, #405 gemergt | c79026d9 |
+| 17:49 | M2 Vorprüfung: 523/523 aktiv, S02 grün, Streichliste = Migration; Sicherung erneuert; eingespielt; 523 archiviert, Status unverändert, Regel 36 gehalten; #406 gemergt | 5ae28ee6 |
+| 17:49 | #407 gemergt; Rauchtest Daten: Item-Pflege 0 archivierte/371 LSA, Archiv 523 | 498d272f |
+| 17:49 | M4.1 Subagent: 15 Rechner nötig; M4.2 5 neue Texte, Blindlöser 5/5, Wertung ok; Zweitprüfung behoben; eingespielt; #410/#409 gemergt | 78d41f70 / 4e4306e7 |
+| 17:49 | M5 Abnahme: 0 gelöscht, Vorher/Nachher, gezielt 179/84 (erklärt), geschützte Funktionen byte-gleich | bericht.md |

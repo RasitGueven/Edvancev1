@@ -1,6 +1,12 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **MSA-1 LSA-Bestand bereinigt** (Retro `2026-11-12-msa1-lsa-bestand.md`, Bericht `docs/msa/msa1/bericht.md`):
+  - Archiv für Aufgaben (Admin, Link am Fuß der Item-Pflege); 523 nicht notwendige LSA-Aufgaben archiviert
+  - Regel 2 Texte + 1 Reserve; die 13 für die MSA zu schweren bleiben aktiv
+  - 5 neue Texte, Rechner-Kennzeichen für 15 Aufgaben, CI-pgTAP repariert
+  - PRs #404–#410
+  - **Offen:** Prüfziel MSA (`msa-ausschluss.csv`, Skills ohne Paket in „Gezielt prüfen“), Kreis-Generator
 - **CI-1 Marke „Funke“ in Login und Admin** (Retro `2026-11-11-ci1-marke.md`, Bauauftrag
   `docs/marke/Bauauftrag-CI-1.md`, Bericht `docs/marke/ci1-bericht.md`): Logo aus den SVG-Dateien, Login als
   Nachthimmel mit Horizont, Admin-Leiste in vier Bereichen, „Heute“ mit Zeitachse, Tokens Navy/Ivory/Cobalt/Amber
