@@ -13,3 +13,13 @@
 | 08:55 | U1 | Zweitprüfung (frischer Subagent): kein „bricht“; behoben: Themenraum direkt wie raum_a (falsch), Entwurf-Bauformen (falsch), fehlende Trigger (fehlt); dazu Sequenz statt Zeilensperre, echte WHERE, Grants-Tests | ok |
 | 08:55 | U1 | pgTAP 54/54, Suite grün bis auf 8 bekannte, Prod-Fixture md5 gleich, PR #416 | nicht eingespielt (O4) |
 | 08:55 | – | STOPP: Merge und Einspielen gesperrt bis CI grün (O4); U2–U5 nicht begonnen | HALTEPUNKT |
+| 10:54 | O4 | Wiederaufnahme nach WSL-Neustart: Worktrees sauber, Prod ohne IU-1-Migration. CI-PR #417 (pg_attver, einmalige Freigabe) grün, pgTAP gleich dem letzten grünen dev-Lauf (99 ok, 8 bekannt rot), gemergt `a38fdfda` | ok |
+| 10:54 | U0 | #412 mit origin/dev gemischt (Rebase bräuchte Force-Push), CI grün, gemergt `939682d4` | ok |
+| 10:54 | U1 | Zweite Zweitprüfung des Fix-Commits (frischer Subagent): kein „falsch“, kein „bricht“; typecheck ok, Vitest 3380/3380; CI #416 grün | ok |
+| 10:54 | U1 | Eingespielt: `~/einspielen/IU1-1-inhalte.sh` (20261113082550), `~/einspielen/IU1-2-pruefziel-msa.sh` (20261113082906, NOTICE 122/122 Skills, 50/50 Aufgaben); Prod-Abzug = Neuaufbau bis auf Kopfzeilen | ok |
+| 10:54 | U1 | Prüfabfrage `abfragen/q_u1_pruefung.sql` → `ergebnisse/u1-pruefung.txt`: 19 Funktionen, 14 Trigger, 1 Ziel, 122 Skills, 13/37 Ausschluss, FR-2-Speicher mit WHERE (O1) | ok |
+| 10:54 | U1 | Regression: `pruef_ziel_liste()` md5 `fb85…4b49`, 91 Zeilen, 223 ids, rest 139 = U0 | ok |
+| 10:54 | U1 | MSA 35/9/78, 165 fehlende Texte (Bericht MSA-1 36/9/77, 163: −1 bereit/+2 Texte durch 2 zu schwere Pool-Aufgaben `geo_flaeche_drachen_raute`); Lena MSA: 85 Skills, rest 161, 231 Vorschläge (vorher nicht in der Liste: 20 Skills); Themen: Lena prüft 137 (Liste ohne Ziel: rest 139, Rest = Fall-B-Skills) | ok |
+| 10:54 | U1 | Laufzeit live (Speicher noch nie gerechnet): LSA 1,4 s + MSA 1,0 s, Reihen 0,4 s + ohne Reihe 1,4 s; mit Speicher (Prod-Fixture) ≈ 10 ms / ≈ 90 ms. Erster Seitenaufruf frischt auf | ok |
+| 10:54 | U1 | O1: Funktionskörper mit WHERE bestätigt; Lauf unter safeupdate nur über den Quelltext belegt (lokaler Test mit gebautem safeupdate.so von der Rechteprüfung abgelehnt), pgTAP 9a/9b ohne safeupdate grün. Klassenarbeit bestätigen (Wegwerf-DB, ohne safeupdate): Insert in `schul_klassenarbeiten` geht durch, Speicher wird veraltet, Neuberechnung frisch mit 1 bestätigtem Paket | ok |
+| 10:54 | U1 | Types: keine generierten DB-Types im Repo (`client.ts` ohne Database-Typ), nichts zu tun | ok |

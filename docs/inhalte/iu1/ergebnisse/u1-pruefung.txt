@@ -1,0 +1,52 @@
+    version     |       name        
+----------------+-------------------
+ 20261113082550 | iu1_inhalte
+ 20261113082906 | iu1_pruefziel_msa
+(2 rows)
+
+ funktionen | trigger | ziele | skills | ausschluss 
+------------+---------+-------+--------+------------
+         19 |      14 |     1 |    122 | 13/37
+(1 row)
+
+ delete_mit_where | update_mit_where 
+------------------+------------------
+ t                | t
+(1 row)
+
+      bereich       | komp_bereit | komp_teil | komp_offen | fehlende_texte | aufgaben_frei | aufgaben_zu_pruefen | aufgaben_fehlen | zu_leicht |   ampel    
+--------------------+-------------+-----------+------------+----------------+---------------+---------------------+-----------------+-----------+------------
+                    |          35 |         9 |         78 |            165 |            95 |                 159 |               6 |        16 | noch_nicht
+ arithmetik_algebra |          25 |         7 |         21 |             49 |            71 |                  48 |               1 |        10 | noch_nicht
+ funktionen         |           4 |         0 |         19 |             38 |             9 |                  34 |               4 |         2 | noch_nicht
+ geometrie          |           6 |         1 |         33 |             67 |            14 |                  66 |               1 |         4 | noch_nicht
+ stochastik         |           0 |         1 |          5 |             11 |             1 |                  11 |               0 |         0 | noch_nicht
+(5 rows)
+
+     ampel      | count 
+----------------+-------
+ eingeschraenkt |     1
+ noch_nicht     |    21
+(2 rows)
+
+ alle_zu_pruefen_themen 
+------------------------
+                    137
+(1 row)
+
+  abschnitt  | skills | rest | ids 
+-------------+--------+------+-----
+ gezielt     |     85 |  161 | 231
+ nachpruefen |     16 |    0 |  17
+(2 rows)
+
+                reihe                | sessions | bf_offen | bf_zu_pruefen | vid_gesamt | vid_fehlt |    ampel     | schulen 
+-------------------------------------+----------+----------+---------------+------------+-----------+--------------+---------
+ quadratische_funktionen_gleichungen |        7 |       47 |            47 |          9 |         9 | nicht_bereit |      27
+(1 row)
+
+ themen_ohne_reihe 
+-------------------
+                20
+(1 row)
+

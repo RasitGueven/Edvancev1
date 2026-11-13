@@ -1,10 +1,13 @@
+-- schema-erwartet.sql
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
+
 --
 -- PostgreSQL database dump
 --
 
-\restrict pKRRVkOxbYcJq5g8uir9NnlYE0gAGkQEHiKdnDMMHgXHcWNuT7biQwy1aWkOYn5
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -5956,6 +5959,502 @@ $$;
 
 
 --
+-- Name: inhalte_admin_pruefen(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_admin_pruefen(p_name text) RETURNS void
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception '%: nur Admins', p_name using errcode = '42501';
+  end if;
+end;
+$$;
+
+
+--
+-- Name: inhalte_auffrischen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_auffrischen() RETURNS boolean
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  m text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'inhalte_auffrischen: nur Admins' using errcode = '42501';
+  end if;
+  perform public.lsa_abdeckung_auffrischen();
+  if public.inhalte_cache_frisch() then
+    return false;
+  end if;
+  if exists (select 1 from public.inhalte_cache_stand s
+              where s.fehler is not null and s.berechnet_am > now() - interval '10 minutes') then
+    return false;
+  end if;
+  begin
+    perform public.inhalte_cache_neu();
+  exception when others then
+    get stacked diagnostics m = message_text;
+    raise warning 'inhalte_skill_cache: Neuberechnung gescheitert (%), Funktionen rechnen live', m;
+    update public.inhalte_cache_stand set fehler = m, berechnet_am = now() where id;
+  end;
+  return true;
+end;
+$$;
+
+
+--
+-- Name: inhalte_cache_frisch(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_cache_frisch() RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.inhalte_cache_stand s, public.inhalte_cache_gen g
+                  where s.fehler is null and s.gen = g.last_value and g.is_called
+                    and s.berechnet_am > now() - interval '15 minutes')
+$$;
+
+
+--
+-- Name: inhalte_cache_neu(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_cache_neu() RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_gen bigint;
+begin
+  perform pg_advisory_xact_lock(hashtext('inhalte_skill_cache'));
+  v_gen := nextval('public.inhalte_cache_gen');
+  delete from public.inhalte_skill_cache where pruefziel is not null;
+  insert into public.inhalte_skill_cache
+  select '', r.* from public.inhalte_skill_stand_roh(null) r;
+  insert into public.inhalte_skill_cache
+  select z.key, r.* from public.pruefziele z cross join lateral public.inhalte_skill_stand_roh(z.key) r;
+  update public.inhalte_cache_stand set berechnet_am = now(), fehler = null, gen = v_gen where id;
+end;
+$$;
+
+
+--
+-- Name: inhalte_cache_trigger(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_cache_trigger() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  perform nextval('public.inhalte_cache_gen');
+  return null;
+end;
+$$;
+
+
+--
+-- Name: inhalte_lsa_pruefziel(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_lsa_pruefziel(p_key text) RETURNS TABLE(bereich text, titel text, komp_bereit integer, komp_teil integer, komp_offen integer, fehlende_texte integer, aufgaben_frei integer, aufgaben_zur_freigabe integer, aufgaben_zu_pruefen integer, aufgaben_fehlen integer, zu_leicht integer, ampel text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_titel text;
+begin
+  perform public.inhalte_admin_pruefen('inhalte_lsa_pruefziel');
+  select z.titel into v_titel from public.pruefziele z where z.key = p_key;
+  if v_titel is null then
+    raise exception 'inhalte_lsa_pruefziel: Prüfziel % unbekannt', p_key using errcode = 'P0002';
+  end if;
+  return query
+  with g as (select * from public.lsa_regel()),
+  x as (
+    select ps.bereich, s.*
+      from public.pruefziel_skills ps join public.inhalte_skill_stand(p_key) s on s.skill_key = ps.skill_key
+     where ps.pruefziel = p_key)
+  select x.bereich, v_titel,
+         (count(*) filter (where x.erfuellt))::int, (count(*) filter (where not x.erfuellt and x.texte > 0))::int,
+         (count(*) filter (where x.texte = 0))::int,
+         coalesce(sum(case when x.erfuellt then 0 else (select g.texte from g) - x.texte end), 0)::int,
+         coalesce(sum(x.frei), 0)::int, coalesce(sum(x.zur_freigabe), 0)::int, coalesce(sum(x.zu_pruefen), 0)::int,
+         coalesce(sum(x.fehlen), 0)::int, coalesce(sum(x.zu_leicht), 0)::int,
+         case when bool_and(x.erfuellt) then 'vollstaendig' else 'noch_nicht' end
+    from x
+   group by grouping sets ((x.bereich), ())
+   order by x.bereich nulls first;
+end;
+$$;
+
+
+--
+-- Name: inhalte_lsa_thema(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_lsa_thema(p_thema_key text) RETURNS TABLE(skill_key text, label text, teil text, rolle text, texte integer, erfuellt boolean, zu_pruefen integer, fehlen integer, offene_task_ids uuid[])
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  perform public.inhalte_admin_pruefen('inhalte_lsa_thema');
+  return query
+  select r.skill_key, coalesce(k.label, r.skill_key), case when r.pflicht then 'pflicht' else 'tiefe' end, r.teil,
+         s.texte, s.erfuellt, s.zu_pruefen, s.fehlen, s.offene_task_ids
+    from public.inhalte_thema_raum(public.lsa_schuljahr_heute()) r
+    join public.inhalte_skill_stand(null) s on s.skill_key = r.skill_key
+    left join public.skills k on k.skill_key = r.skill_key
+   where r.thema_key = p_thema_key
+   order by not r.pflicht, array_position(array['einstieg', 'voraussetzung', 'tiefe'], r.teil), s.erfuellt desc,
+            s.texte desc, k.label, r.skill_key;
+end;
+$$;
+
+
+--
+-- Name: inhalte_lsa_themen(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_lsa_themen(p_klasse integer DEFAULT NULL::integer) RETURNS TABLE(thema_key text, titel text, klasse integer, quartal integer, von date, bis date, komp_bereit integer, komp_teil integer, komp_offen integer, pflicht_bereit integer, pflicht_gesamt integer, hat_einstieg boolean, aufgaben_frei integer, aufgaben_zur_freigabe integer, aufgaben_zu_pruefen integer, aufgaben_fehlen integer, ampel text, schulen integer, schulen_bestaetigt integer, alle_zu_pruefen integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_sj text := public.lsa_schuljahr_heute();
+begin
+  perform public.inhalte_admin_pruefen('inhalte_lsa_themen');
+  return query
+  with th as (select * from public.inhalte_themen_basis(v_sj, p_klasse)),
+  raum as (select r.* from public.inhalte_thema_raum(v_sj) r where r.thema_key in (select th.thema_key from th)),
+  st as (select * from public.inhalte_skill_stand(null)),
+  je as (
+    select r.thema_key,
+           count(*) filter (where s.erfuellt) bereit,
+           count(*) filter (where not s.erfuellt and s.texte > 0) teil,
+           count(*) filter (where s.texte = 0) offen,
+           count(*) filter (where r.pflicht and s.erfuellt) pfl_bereit,
+           count(*) filter (where r.pflicht) pfl,
+           sum(s.frei) frei, sum(s.zur_freigabe) zur, sum(s.zu_pruefen) zu, sum(s.fehlen) fehlen
+      from raum r join st s on s.skill_key = r.skill_key group by 1),
+  alle as (select coalesce(sum(s.zu_pruefen), 0)::int n from st s
+            where s.skill_key in (select r.skill_key from raum r))
+  select th.thema_key, coalesce(t.label, th.thema_key), th.klasse, th.quartal, th.von, th.bis,
+         coalesce(je.bereit, 0)::int, coalesce(je.teil, 0)::int, coalesce(je.offen, 0)::int,
+         coalesce(je.pfl_bereit, 0)::int, coalesce(je.pfl, 0)::int, e.hat,
+         coalesce(je.frei, 0)::int, coalesce(je.zur, 0)::int, coalesce(je.zu, 0)::int, coalesce(je.fehlen, 0)::int,
+         case when e.hat and je.bereit > 0 and je.teil + je.offen = 0 then 'vollstaendig'
+              when e.hat and je.pfl > 0 and je.pfl_bereit = je.pfl then 'eingeschraenkt'
+              else 'noch_nicht' end,
+         th.schulen, th.schulen_bestaetigt, (select n from alle)
+    from th
+    left join public.themen t on t.thema_key = th.thema_key
+    left join je on je.thema_key = th.thema_key
+    cross join lateral (select exists (select 1 from public.thema_einstieg x where x.thema_key = th.thema_key) hat) e
+   order by th.quartal, th.schulen desc, th.thema_key;
+end;
+$$;
+
+
+--
+-- Name: inhalte_reihe_themen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_reihe_themen() RETURNS TABLE(reihe text, thema_key text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select distinct b.reihe, st.thema_key
+    from public.bauformen b join public.skill_thema st on st.skill_key = b.skill_key
+   where b.kernidee_key is not null
+$$;
+
+
+--
+-- Name: inhalte_reihe_videos(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_reihe_videos() RETURNS TABLE(reihe text, skill_key text, status text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select distinct on (b.reihe, b.skill_key) b.reihe, b.skill_key,
+         case when exists (select 1 from public.studio_sequenz q where q.skill_key = b.skill_key and q.status = 'freigegeben')
+                then 'freigegeben'
+              when exists (select 1 from public.studio_sequenz q where q.skill_key = b.skill_key and q.status = 'in_pruefung')
+                then 'in_pruefung'
+              else 'fehlt' end
+    from public.bauformen b where b.kernidee_key is not null
+   order by b.reihe, b.skill_key
+$$;
+
+
+--
+-- Name: inhalte_session_reihe(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_session_reihe(p_reihe text) RETURNS TABLE(nr integer, titel text, bauformen integer, geprueft integer, freigegeben integer, rueckfrage integer, zu_pruefen integer, zur_freigabe integer, video_status text, naechster_schritt text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  perform public.inhalte_admin_pruefen('inhalte_session_reihe');
+  return query
+  with pl as (select l.bauform_id, l.session_nr, l.session_titel from public.bauform_pruef_plan(null) l
+               where l.reihe = p_reihe),
+  b as (
+    select pl.session_nr nr, pl.session_titel, b.status, b.kernidee_key
+      from public.bauformen b left join pl on pl.bauform_id = b.id where b.reihe = p_reihe),
+  vid as (select v.skill_key, v.status from public.inhalte_reihe_videos() v where v.reihe = p_reihe),
+  je as (
+    select b.nr, max(b.session_titel) titel, count(*)::int n,
+           (count(*) filter (where b.status in ('zur_freigabe', 'freigegeben')))::int gepr,
+           (count(*) filter (where b.status = 'freigegeben'))::int frei,
+           (count(*) filter (where b.status in ('rueckfrage', 'beanstandet')))::int rueck,
+           (count(*) filter (where b.status = 'zur_pruefung'))::int zu,
+           (count(*) filter (where b.status = 'zur_freigabe'))::int zur,
+           (count(*) filter (where b.status in ('entwurf', 'pausiert')))::int entw,
+           (select case when count(*) = 0 then null
+                        when bool_and(v.status = 'freigegeben') then 'freigegeben'
+                        when bool_or(v.status = 'fehlt') then 'fehlt' else 'in_pruefung' end
+              from vid v where v.skill_key in (select split_part(x.kernidee_key, ':', 1) from b x
+                                               where x.nr is not distinct from b.nr and x.kernidee_key is not null)) video
+      from b group by b.nr)
+  select je.nr, je.titel, je.n, je.gepr, je.frei, je.rueck, je.zu, je.zur, je.video,
+         case when je.zu > 0 then 'lena_prueft'
+              when je.rueck > 0 then 'rueckfrage'
+              when je.entw > 0 then 'entwurf'
+              when je.zur > 0 then 'admin_gibt_frei'
+              when coalesce(je.video, 'freigegeben') <> 'freigegeben' then 'video'
+              else 'fertig' end
+    from je
+   order by je.nr nulls last;
+end;
+$$;
+
+
+--
+-- Name: inhalte_session_reihen(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_session_reihen(p_klasse integer DEFAULT NULL::integer) RETURNS TABLE(reihe text, titel text, thema_keys text[], klasse integer, sessions integer, quartal integer, von date, bis date, bf_freigegeben integer, bf_zur_freigabe integer, bf_rueckfrage integer, bf_offen integer, bf_zu_pruefen integer, vid_freigegeben integer, vid_in_pruefung integer, vid_fehlt integer, vid_gesamt integer, ampel text, schulen integer, schulen_bestaetigt integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_sj text := public.lsa_schuljahr_heute();
+begin
+  perform public.inhalte_admin_pruefen('inhalte_session_reihen');
+  return query
+  with rt as (select * from public.inhalte_reihe_themen()),
+  pt as (
+    select rt.reihe, p.*
+      from rt join (select x.*, u.thema_key from public.lsa_pakete_basis(v_sj) x
+                     cross join unnest(x.thema_keys) u(thema_key) where x.klasse between 8 and 10) p
+        on p.thema_key = rt.thema_key),
+  kl as (
+    select distinct on (y.reihe) y.reihe, y.klasse
+      from (select reihe, klasse, count(distinct schule_id) n from pt group by 1, 2) y
+     order by y.reihe, y.n desc, y.klasse),
+  q as (
+    select distinct on (y.reihe) y.reihe, y.quartal, y.von, y.bis
+      from (select reihe, quartal, count(*) n, min(datum) von, max(datum) bis from pt group by 1, 2) y
+     order by y.reihe, y.n desc, y.quartal),
+  sch as (
+    select reihe, count(distinct schule_id)::int n,
+           (count(distinct schule_id) filter (where quelle = 'bestaetigt'))::int best
+      from pt group by 1),
+  bf as (
+    select b.reihe,
+           (count(*) filter (where b.status = 'freigegeben'))::int frei,
+           (count(*) filter (where b.status = 'zur_freigabe'))::int zur,
+           (count(*) filter (where b.status in ('rueckfrage', 'beanstandet')))::int rueck,
+           (count(*) filter (where b.status in ('entwurf', 'zur_pruefung', 'pausiert')))::int offen,
+           (count(*) filter (where b.status = 'zur_pruefung'))::int zu_pruefen
+      from public.bauformen b group by 1),
+  plan as (select distinct l.reihe, l.session_nr from public.bauform_pruef_plan(null) l where l.session_nr is not null),
+  vid as (
+    select v.reihe, (count(*) filter (where v.status = 'freigegeben'))::int frei,
+           (count(*) filter (where v.status = 'in_pruefung'))::int pruef,
+           (count(*) filter (where v.status = 'fehlt'))::int fehlt, count(*)::int n
+      from public.inhalte_reihe_videos() v group by 1)
+  select bf.reihe,
+         (select string_agg(coalesce(t.label, x.thema_key), ' · ' order by t.sort nulls last, x.thema_key)
+            from rt x left join public.themen t on t.thema_key = x.thema_key where x.reihe = bf.reihe),
+         (select array_agg(x.thema_key order by x.thema_key) from rt x where x.reihe = bf.reihe),
+         kl.klasse, (select count(*)::int from plan where plan.reihe = bf.reihe), q.quartal, q.von, q.bis,
+         bf.frei, bf.zur, bf.rueck, bf.offen, bf.zu_pruefen,
+         coalesce(vid.frei, 0), coalesce(vid.pruef, 0), coalesce(vid.fehlt, 0), coalesce(vid.n, 0),
+         case when bf.zur + bf.rueck + bf.offen = 0 and coalesce(vid.frei, 0) = coalesce(vid.n, 0) then 'bereit'
+              when bf.frei + bf.zur > 0 then 'in_arbeit'
+              else 'nicht_bereit' end,
+         coalesce(sch.n, 0), coalesce(sch.best, 0)
+    from bf
+    left join kl on kl.reihe = bf.reihe
+    left join q on q.reihe = bf.reihe
+    left join sch on sch.reihe = bf.reihe
+    left join vid on vid.reihe = bf.reihe
+   where p_klasse is null or kl.klasse = p_klasse
+   order by q.quartal nulls last, bf.reihe;
+end;
+$$;
+
+
+--
+-- Name: inhalte_skill_stand(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_skill_stand(p_pruefziel text DEFAULT NULL::text) RETURNS TABLE(skill_key text, texte integer, erfuellt boolean, frei integer, zur_freigabe integer, zu_pruefen integer, fehlen integer, zu_leicht integer, offene_task_ids uuid[])
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if public.inhalte_cache_frisch() then
+    return query select c.skill_key, c.texte, c.erfuellt, c.frei, c.zur_freigabe, c.zu_pruefen, c.fehlen, c.zu_leicht,
+                        c.offene_task_ids
+                   from public.inhalte_skill_cache c where c.pruefziel = coalesce(p_pruefziel, '');
+  else
+    return query select * from public.inhalte_skill_stand_roh(p_pruefziel);
+  end if;
+end;
+$$;
+
+
+--
+-- Name: inhalte_skill_stand_roh(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_skill_stand_roh(p_pruefziel text DEFAULT NULL::text) RETURNS TABLE(skill_key text, texte integer, erfuellt boolean, frei integer, zur_freigabe integer, zu_pruefen integer, fehlen integer, zu_leicht integer, offene_task_ids uuid[])
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with ohne as (select public.pruefziel_ohne(p_pruefziel) ids),
+  g as (select * from public.lsa_regel()),
+  b as (select r.* from public.lsa_skill_bereit_roh(null, (select ids from ohne)) r),
+  z as (select r.* from public.pruef_ziel_roh((select ids from ohne)) r),
+  pool as (
+    select t.skill_key, count(*)::int n,
+           (count(*) filter (where exists (select 1 from public.pruefziel_ausschluss a
+                                            where a.pruefziel = p_pruefziel and a.task_id = t.id
+                                              and a.grund = 'zu_leicht')))::int leicht
+      from public.tasks t cross join ohne o
+     where 'lsa' = any (t.einsatz) and not t.id = any (o.ids)
+       and public.lsa_im_pool(t.id, false)
+     group by t.skill_key)
+  select b.skill_key,
+         greatest(g.texte - greatest(b.fehlende_texte, b.fehlende_ohne_mc), 0)::int,
+         b.erfuellt,
+         coalesce(pool.n, 0),
+         coalesce(cardinality(z.freigabe_ids), 0),
+         coalesce(least(z.rest, cardinality(z.task_ids)), 0),
+         coalesce(z.rest - least(z.rest, cardinality(z.task_ids)), 0),
+         coalesce(pool.leicht, 0),
+         coalesce(z.task_ids, '{}')
+    from b cross join g
+    left join z on z.skill_key = b.skill_key
+    left join pool on pool.skill_key = b.skill_key
+$$;
+
+
+--
+-- Name: inhalte_thema_raum(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_thema_raum(p_schuljahr text) RETURNS TABLE(thema_key text, skill_key text, teil text, pflicht boolean)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select x.thema_key, x.skill_key, (array['einstieg', 'voraussetzung', 'tiefe'])[min(x.r)], min(x.r) <= 2
+    from (select e.thema_key, e.skill_key, 1 r from public.thema_einstieg e
+          union all
+          select e.thema_key, k.voraussetzt_skill_key, 2
+            from public.thema_einstieg e join public.skill_kante k on k.skill_key = e.skill_key
+          union all
+          select e.thema_key, a.skill_key, 3
+            from public.thema_einstieg e cross join lateral public.lsa_abschluss(e.skill_key) a) x
+   group by x.thema_key, x.skill_key
+$$;
+
+
+--
+-- Name: inhalte_themen_basis(text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_themen_basis(p_schuljahr text, p_klasse integer DEFAULT NULL::integer) RETURNS TABLE(thema_key text, klasse integer, quartal integer, von date, bis date, schulen integer, schulen_bestaetigt integer)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with pt as (
+    select p.*, u.thema_key
+      from public.lsa_pakete_basis(p_schuljahr) p cross join unnest(p.thema_keys) u(thema_key)
+     where p.klasse between 8 and 10 and (p_klasse is null or p.klasse = p_klasse)),
+  kl as (
+    select distinct on (pt.thema_key) pt.thema_key, pt.klasse
+      from (select thema_key, klasse, count(distinct schule_id) n from pt group by 1, 2) pt
+     order by pt.thema_key, pt.n desc, pt.klasse),
+  q as (   -- Zeitfenster aus den Paketen der Klasse des Themas; Schulen über alle Klassen der Auswahl
+    select distinct on (x.thema_key) x.thema_key, x.quartal, x.von, x.bis
+      from (select pt.thema_key, pt.quartal, count(*) n, min(pt.datum) von, max(pt.datum) bis
+              from pt join kl on kl.thema_key = pt.thema_key and kl.klasse = pt.klasse group by 1, 2) x
+     order by x.thema_key, x.n desc, x.quartal),
+  sch as (
+    select thema_key, count(distinct schule_id)::int schulen,
+           (count(distinct schule_id) filter (where quelle = 'bestaetigt'))::int best
+      from pt group by 1)
+  select kl.thema_key, kl.klasse, q.quartal, q.von, q.bis, sch.schulen, sch.best
+    from kl join q using (thema_key) join sch using (thema_key)
+$$;
+
+
+--
+-- Name: inhalte_themen_ohne_reihe(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_themen_ohne_reihe(p_klasse integer DEFAULT NULL::integer) RETURNS TABLE(thema_key text, titel text, klasse integer, quartal integer, von date, bis date, schulen integer, schulen_bestaetigt integer, bauformen integer, lsa_frei integer, vorarbeit text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_sj text := public.lsa_schuljahr_heute();
+begin
+  perform public.inhalte_admin_pruefen('inhalte_themen_ohne_reihe');
+  return query
+  with th as (select * from public.inhalte_themen_basis(v_sj, p_klasse)
+               where thema_key not in (select x.thema_key from public.inhalte_reihe_themen() x)),
+  raum as (select r.* from public.inhalte_thema_raum(v_sj) r where r.thema_key in (select th.thema_key from th)),
+  st as (select * from public.inhalte_skill_stand(null)),
+  je as (
+    select r.thema_key,
+           (select count(*)::int from public.bauformen b where b.skill_key in
+              (select r2.skill_key from raum r2 where r2.thema_key = r.thema_key)) bf,
+           coalesce(sum(s.frei), 0)::int frei
+      from raum r left join st s on s.skill_key = r.skill_key group by 1)
+  select th.thema_key, coalesce(t.label, th.thema_key), th.klasse, th.quartal, th.von, th.bis, th.schulen,
+         th.schulen_bestaetigt, coalesce(je.bf, 0), coalesce(je.frei, 0),
+         case when coalesce(je.bf, 0) > 0 then 'bauformen' when coalesce(je.frei, 0) > 0 then 'lsa' else 'keine' end
+    from th
+    left join public.themen t on t.thema_key = th.thema_key
+    left join je on je.thema_key = th.thema_key
+   order by th.quartal, th.schulen desc, th.thema_key;
+end;
+$$;
+
+
+--
 -- Name: instanz_gruen(jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9218,7 +9717,8 @@ begin
   perform pg_advisory_xact_lock(hashtext('lsa_paket_cache'));
   -- Stand vor der Rechnung; schreibt währenddessen jemand, ist gen danach größer und der Speicher bleibt veraltet.
   select s.gen into v_gen from public.lsa_paket_cache_stand s;
-  delete from public.lsa_paket_cache;
+  -- IU-1: mit WHERE, sonst bricht safeupdate (Rolle authenticator) den Aufruf aus der App ab.
+  delete from public.lsa_paket_cache where schuljahr is not null;
   insert into public.lsa_paket_cache (schuljahr, schule_id, klasse, paket_nr, thema_keys, quelle, datum, quartal, lage,
                                       hat_einstieg)
   select v_sj, p.schule_id, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal, p.lage,
@@ -9243,7 +9743,8 @@ CREATE FUNCTION public.lsa_paket_cache_trigger() RETURNS trigger
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  update public.lsa_paket_cache_stand set veraltet = true, gen = gen + 1;
+  -- IU-1: mit WHERE, sonst scheitert unter safeupdate jeder Schreibzugriff der App auf die Plan-Tabellen.
+  update public.lsa_paket_cache_stand set veraltet = true, gen = gen + 1 where id;
   return null;
 end;
 $$;
@@ -10700,10 +11201,10 @@ $$;
 
 
 --
--- Name: lsa_skill_bereit_roh(text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lsa_skill_bereit_roh(text, uuid[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lsa_skill_bereit_roh(p_skill text DEFAULT NULL::text) RETURNS TABLE(skill_key text, texte_im_pool integer, ohne_mc_im_pool integer, erfuellt boolean, fehlende_texte integer, fehlende_ohne_mc integer, schluessel text[])
+CREATE FUNCTION public.lsa_skill_bereit_roh(p_skill text DEFAULT NULL::text, p_ohne uuid[] DEFAULT '{}'::uuid[]) RETURNS TABLE(skill_key text, texte_im_pool integer, ohne_mc_im_pool integer, erfuellt boolean, fehlende_texte integer, fehlende_ohne_mc integer, schluessel text[])
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -10711,6 +11212,7 @@ CREATE FUNCTION public.lsa_skill_bereit_roh(p_skill text DEFAULT NULL::text) RET
     select t.skill_key, t.input_type, coalesce(public.lsa_text_schluessel(t.question, t.parts), t.id::text) ts
       from public.tasks t
      where 'lsa' = any (t.einsatz) and (p_skill is null or t.skill_key = p_skill)
+       and not t.id = any (coalesce(p_ohne, '{}'))
        and public.lsa_im_pool(t.id, false)),
   je as (
     select s.skill_key, count(distinct p.ts)::int texte, (count(p.ts) filter (where p.input_type <> 'MC'))::int ohne_mc,
@@ -15017,20 +15519,27 @@ $$;
 
 
 --
--- Name: pruef_ziel_liste(boolean, integer, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: pruef_ziel_liste(boolean, integer, text, text, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_ziel_liste(p_nur_fokus boolean DEFAULT false, p_quartal integer DEFAULT NULL::integer, p_schuljahr text DEFAULT NULL::text) RETURNS TABLE(abschnitt text, skill_key text, skill_label text, thema_key text, thema_label text, fehlende_texte integer, rest integer, hebel_pakete integer, hebel_schulen integer, fokus_treffer integer, sort integer, task_ids uuid[], freigabe_ids uuid[], pilot_fehlt uuid[])
+CREATE FUNCTION public.pruef_ziel_liste(p_nur_fokus boolean DEFAULT false, p_quartal integer DEFAULT NULL::integer, p_schuljahr text DEFAULT NULL::text, p_pruefziel text DEFAULT NULL::text, p_skill text DEFAULT NULL::text) RETURNS TABLE(abschnitt text, skill_key text, skill_label text, thema_key text, thema_label text, fehlende_texte integer, rest integer, hebel_pakete integer, hebel_schulen integer, fokus_treffer integer, sort integer, task_ids uuid[], freigabe_ids uuid[], pilot_fehlt uuid[])
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
 #variable_conflict use_column
 declare
-  v_sj text := coalesce(p_schuljahr, public.lsa_schuljahr_heute());
-  v_q  integer := coalesce(p_quartal, (select g.fokus_quartal from public.lsa_regel() g));
+  v_sj   text := coalesce(p_schuljahr, public.lsa_schuljahr_heute());
+  v_q    integer := coalesce(p_quartal, (select g.fokus_quartal from public.lsa_regel() g));
+  v_ohne uuid[] := '{}';
 begin
   if not public.darf_pruefen() then
     raise exception 'pruef_ziel_liste: kein Pruefrecht' using errcode = '42501';
+  end if;
+  if p_pruefziel is not null then
+    if not exists (select 1 from public.pruefziele z where z.key = p_pruefziel) then
+      raise exception 'pruef_ziel_liste: Prüfziel % unbekannt', p_pruefziel using errcode = 'P0002';
+    end if;
+    v_ohne := public.pruefziel_ohne(p_pruefziel);
   end if;
   return query
   with p as (
@@ -15045,6 +15554,7 @@ begin
     select ps.skill_key, count(*)::int pakete, count(distinct ps.schule_id)::int schulen,
            (count(*) filter (where ps.fokus and ps.quartal = v_q))::int fokus
       from ps group by 1),
+  ziel as (select zs.skill_key from public.pruefziel_skills zs where zs.pruefziel = p_pruefziel),
   thema as (
     select distinct on (st.skill_key) st.skill_key, th.thema_key, th.label
       from public.skill_thema st join public.themen th on th.thema_key = st.thema_key
@@ -15054,39 +15564,49 @@ begin
       from public.tasks t
      where 'lsa' = any (t.einsatz) and t.status = 'ready'
        and t.archiviert_am is null   -- MSA-1 M1: archivierte Aufgaben nicht nachpruefen
+       and not t.id = any (v_ohne)
        and coalesce((select p2.entscheidung from public.task_pruefungen p2 where p2.task_id = t.id
                       order by p2.geprueft_am desc limit 1), '') <> 'passt'
      group by t.skill_key),
   zeilen as (
-    select 'gezielt'::text ab, z.skill_key sk, z.bedarf, z.rest r, h.pakete, h.schulen, h.fokus, z.task_ids ids,
-           z.freigabe_ids fids, z.pilot_fehlt pf
-      from public.pruef_ziel_roh() z join hebel h on h.skill_key = z.skill_key
-     where cardinality(z.task_ids) > 0 or cardinality(z.freigabe_ids) > 0
+    select 'gezielt'::text ab, z.skill_key sk, z.bedarf, z.rest r, coalesce(h.pakete, 0) pakete,
+           coalesce(h.schulen, 0) schulen, coalesce(h.fokus, 0) fokus, z.task_ids ids, z.freigabe_ids fids,
+           z.pilot_fehlt pf
+      from public.pruef_ziel_roh(v_ohne) z left join hebel h on h.skill_key = z.skill_key
+     where (cardinality(z.task_ids) > 0 or cardinality(z.freigabe_ids) > 0)
+       and case when p_pruefziel is null then h.skill_key is not null
+                else z.skill_key in (select ziel.skill_key from ziel) end
     union all
     select 'nachpruefen', n.skill_key, 0, 0, coalesce(h.pakete, 0), coalesce(h.schulen, 0), coalesce(h.fokus, 0),
            n.ids, '{}'::uuid[], '{}'::uuid[]
-      from nach n left join hebel h on h.skill_key = n.skill_key)
-  select zl.ab, zl.sk, k.label, th.thema_key, th.label, zl.bedarf, zl.r, zl.pakete, zl.schulen, zl.fokus,
-         (row_number() over (partition by zl.ab order by zl.fokus desc, zl.schulen desc, zl.pakete desc, zl.sk))::int,
-         zl.ids, zl.fids, zl.pf
-    from zeilen zl
-    join public.skills k on k.skill_key = zl.sk
-    left join thema th on th.skill_key = zl.sk
-   order by zl.ab, 11;
+      from nach n left join hebel h on h.skill_key = n.skill_key
+     where p_pruefziel is null or n.skill_key in (select ziel.skill_key from ziel)),
+  sortiert as (
+    select zl.ab, zl.sk, k.label, th.thema_key, th.label tl, zl.bedarf, zl.r, zl.pakete, zl.schulen, zl.fokus,
+           (row_number() over (partition by zl.ab order by zl.fokus desc, zl.schulen desc, zl.pakete desc, zl.sk))::int
+             s, zl.ids, zl.fids, zl.pf
+      from zeilen zl
+      join public.skills k on k.skill_key = zl.sk
+      left join thema th on th.skill_key = zl.sk)
+  select so.ab, so.sk, so.label, so.thema_key, so.tl, so.bedarf, so.r, so.pakete, so.schulen, so.fokus, so.s, so.ids,
+         so.fids, so.pf
+    from sortiert so
+   where p_skill is null or so.sk = p_skill
+   order by so.ab, so.s;
 end;
 $$;
 
 
 --
--- Name: pruef_ziel_roh(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: pruef_ziel_roh(uuid[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_ziel_roh() RETURNS TABLE(skill_key text, bedarf integer, rest integer, task_ids uuid[], freigabe_ids uuid[], pilot_fehlt uuid[])
+CREATE FUNCTION public.pruef_ziel_roh(p_ohne uuid[] DEFAULT '{}'::uuid[]) RETURNS TABLE(skill_key text, bedarf integer, rest integer, task_ids uuid[], freigabe_ids uuid[], pilot_fehlt uuid[])
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
   with g as (select * from public.lsa_regel()),
-  fehlt as (select r.* from public.lsa_skill_bereit_roh(null) r where not r.erfuellt),
+  fehlt as (select r.* from public.lsa_skill_bereit_roh(null, p_ohne) r where not r.erfuellt),
   kand0 as materialized (
     select t.id, t.skill_key, t.status, t.input_type <> 'MC' ohne_mc, t.sondierrang, public.pruef_im_pilot(t) pilot,
            coalesce(public.lsa_text_schluessel(t.question, t.parts), t.id::text) ts
@@ -15094,6 +15614,7 @@ CREATE FUNCTION public.pruef_ziel_roh() RETURNS TABLE(skill_key text, bedarf int
       join fehlt f on f.skill_key = t.skill_key
       join public.task_solutions s on s.task_id = t.id
      where 'lsa' = any (t.einsatz) and t.status in ('draft', 'review')
+       and not t.id = any (coalesce(p_ohne, '{}'))
        and coalesce(t.is_active, false) and not coalesce(t.is_tutorial, false) and t.content_type = 'exercise'
        and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
        and public.lsa_eingabeformat_eindeutig(t.input_type, t.bruch, t.unit, t.parts, s.correct_answers)
@@ -15135,6 +15656,30 @@ CREATE FUNCTION public.pruef_ziel_roh() RETURNS TABLE(skill_key text, bedarf int
          coalesce((select array_agg(v.id order by v.rn) from vorschlag v where v.skill_key = r.skill_key and not v.pilot),
                   '{}')
     from rest r
+$$;
+
+
+--
+-- Name: pruef_ziel_stand(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_ziel_stand(p_pruefziel text) RETURNS TABLE(skill_key text, skill_label text, bereich text, texte integer, erfuellt boolean, zu_leicht integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruef_ziel_stand: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  select ps.skill_key, coalesce(k.label, ps.skill_key), ps.bereich, s.texte, s.erfuellt, s.zu_leicht
+    from public.pruefziel_skills ps
+    join public.inhalte_skill_stand(p_pruefziel) s on s.skill_key = ps.skill_key
+    left join public.skills k on k.skill_key = ps.skill_key
+   where ps.pruefziel = p_pruefziel
+   order by ps.bereich, k.label, ps.skill_key;
+end;
 $$;
 
 
@@ -15184,6 +15729,19 @@ begin
                                   jsonb_build_object('skill_key', pa.skill_key, 'aktion', 'ende'));
   return jsonb_build_object('skill_key', pa.skill_key, 'aktiv', false);
 end;
+$$;
+
+
+--
+-- Name: pruefziel_ohne(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruefziel_ohne(p_pruefziel text) RETURNS uuid[]
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(array_agg(a.task_id order by a.task_id), '{}')
+    from public.pruefziel_ausschluss a where a.pruefziel = p_pruefziel and a.grund = 'zu_schwer'
 $$;
 
 
@@ -27536,6 +28094,49 @@ CREATE TABLE public.home_uebung (
 
 
 --
+-- Name: inhalte_cache_gen; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.inhalte_cache_gen
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: inhalte_cache_stand; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.inhalte_cache_stand (
+    id boolean DEFAULT true NOT NULL,
+    berechnet_am timestamp with time zone,
+    gen bigint,
+    fehler text,
+    CONSTRAINT inhalte_cache_stand_id_check CHECK (id)
+);
+
+
+--
+-- Name: inhalte_skill_cache; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.inhalte_skill_cache (
+    pruefziel text NOT NULL,
+    skill_key text NOT NULL,
+    texte integer NOT NULL,
+    erfuellt boolean NOT NULL,
+    frei integer NOT NULL,
+    zur_freigabe integer NOT NULL,
+    zu_pruefen integer NOT NULL,
+    fehlen integer NOT NULL,
+    zu_leicht integer NOT NULL,
+    offene_task_ids uuid[] NOT NULL
+);
+
+
+--
 -- Name: intake_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -28056,6 +28657,43 @@ CREATE TABLE public.pruef_soll (
     CONSTRAINT pruef_soll_check CHECK (((min_ohne_mc >= 0) AND (min_ohne_mc <= soll))),
     CONSTRAINT pruef_soll_einsatz_check CHECK ((einsatz = ANY (ARRAY['lsa'::text, 'session'::text]))),
     CONSTRAINT pruef_soll_soll_check CHECK ((soll > 0))
+);
+
+
+--
+-- Name: pruefziel_ausschluss; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pruefziel_ausschluss (
+    pruefziel text NOT NULL,
+    task_id uuid NOT NULL,
+    grund text NOT NULL,
+    CONSTRAINT pruefziel_ausschluss_grund_check CHECK ((grund = ANY (ARRAY['zu_schwer'::text, 'zu_leicht'::text])))
+);
+
+
+--
+-- Name: pruefziel_skills; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pruefziel_skills (
+    pruefziel text NOT NULL,
+    skill_key text NOT NULL,
+    bereich text NOT NULL,
+    CONSTRAINT pruefziel_skills_bereich_check CHECK ((bereich ~ '^[a-z][a-z0-9_]*$'::text))
+);
+
+
+--
+-- Name: pruefziele; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pruefziele (
+    key text NOT NULL,
+    titel text NOT NULL,
+    beschreibung text,
+    CONSTRAINT pruefziele_key_check CHECK ((key ~ '^[a-z][a-z0-9_]*$'::text)),
+    CONSTRAINT pruefziele_titel_check CHECK ((btrim(titel) <> ''::text))
 );
 
 
@@ -30276,6 +30914,22 @@ ALTER TABLE ONLY public.home_uebung
 
 
 --
+-- Name: inhalte_cache_stand inhalte_cache_stand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inhalte_cache_stand
+    ADD CONSTRAINT inhalte_cache_stand_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: inhalte_skill_cache inhalte_skill_cache_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inhalte_skill_cache
+    ADD CONSTRAINT inhalte_skill_cache_pkey PRIMARY KEY (pruefziel, skill_key);
+
+
+--
 -- Name: intake_sessions intake_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -30569,6 +31223,30 @@ ALTER TABLE ONLY public.pruef_einstellungen
 
 ALTER TABLE ONLY public.pruef_soll
     ADD CONSTRAINT pruef_soll_pkey PRIMARY KEY (anlass, skill_key);
+
+
+--
+-- Name: pruefziel_ausschluss pruefziel_ausschluss_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziel_ausschluss
+    ADD CONSTRAINT pruefziel_ausschluss_pkey PRIMARY KEY (pruefziel, task_id);
+
+
+--
+-- Name: pruefziel_skills pruefziel_skills_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziel_skills
+    ADD CONSTRAINT pruefziel_skills_pkey PRIMARY KEY (pruefziel, skill_key);
+
+
+--
+-- Name: pruefziele pruefziele_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziele
+    ADD CONSTRAINT pruefziele_pkey PRIMARY KEY (key);
 
 
 --
@@ -32055,6 +32733,13 @@ CREATE UNIQUE INDEX platz_devices_tablet_nr_key ON public.platz_devices USING bt
 
 
 --
+-- Name: pruefziel_ausschluss_task; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX pruefziel_ausschluss_task ON public.pruefziel_ausschluss USING btree (task_id);
+
+
+--
 -- Name: quests_student_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -32878,6 +33563,104 @@ CREATE TRIGGER erklaer_schritt_freigabe_sperre BEFORE INSERT OR DELETE OR UPDATE
 --
 
 CREATE TRIGGER home_uebung_append_only BEFORE DELETE OR UPDATE ON public.home_uebung FOR EACH ROW EXECUTE FUNCTION public.home_uebung_append_only();
+
+
+--
+-- Name: pruef_einstellungen inhalte_cache_pruef_einstellungen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_pruef_einstellungen AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.pruef_einstellungen FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: pruefziel_ausschluss inhalte_cache_pruefziel_ausschluss; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_pruefziel_ausschluss AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.pruefziel_ausschluss FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: pruefziel_skills inhalte_cache_pruefziel_skills; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_pruefziel_skills AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.pruefziel_skills FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: pruefziele inhalte_cache_pruefziele; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_pruefziele AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.pruefziele FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: session_einstellungen inhalte_cache_session_einstellungen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_session_einstellungen AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.session_einstellungen FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: skill_thema inhalte_cache_skill_thema; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_skill_thema AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skill_thema FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: skills inhalte_cache_skills; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_skills AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skills FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_figures inhalte_cache_task_figures; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_figures AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_figures FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_pruef_ausschluss inhalte_cache_task_pruef_ausschluss; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_pruef_ausschluss AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_pruef_ausschluss FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_pruefung_ausgang inhalte_cache_task_pruefung_ausgang; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_pruefung_ausgang AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_pruefung_ausgang FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_pruefungen inhalte_cache_task_pruefungen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_pruefungen AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_pruefungen FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_reviews inhalte_cache_task_reviews; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_reviews AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_reviews FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_solutions inhalte_cache_task_solutions; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_solutions AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_solutions FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: tasks inhalte_cache_tasks; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_tasks AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.tasks FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
 
 
 --
@@ -34254,6 +35037,38 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.pruef_soll
     ADD CONSTRAINT pruef_soll_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: pruefziel_ausschluss pruefziel_ausschluss_pruefziel_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziel_ausschluss
+    ADD CONSTRAINT pruefziel_ausschluss_pruefziel_fkey FOREIGN KEY (pruefziel) REFERENCES public.pruefziele(key) ON DELETE CASCADE;
+
+
+--
+-- Name: pruefziel_ausschluss pruefziel_ausschluss_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziel_ausschluss
+    ADD CONSTRAINT pruefziel_ausschluss_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pruefziel_skills pruefziel_skills_pruefziel_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziel_skills
+    ADD CONSTRAINT pruefziel_skills_pruefziel_fkey FOREIGN KEY (pruefziel) REFERENCES public.pruefziele(key) ON DELETE CASCADE;
+
+
+--
+-- Name: pruefziel_skills pruefziel_skills_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruefziel_skills
+    ADD CONSTRAINT pruefziel_skills_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -36483,6 +37298,32 @@ CREATE POLICY home_uebung_admin_lesen ON public.home_uebung FOR SELECT TO authen
 
 
 --
+-- Name: inhalte_cache_stand; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.inhalte_cache_stand ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: inhalte_cache_stand inhalte_cache_stand_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY inhalte_cache_stand_lesen ON public.inhalte_cache_stand FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: inhalte_skill_cache; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.inhalte_skill_cache ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: inhalte_skill_cache inhalte_skill_cache_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY inhalte_skill_cache_lesen ON public.inhalte_skill_cache FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
 -- Name: intake_sessions; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -37063,6 +37904,45 @@ CREATE POLICY pruef_soll_admin ON public.pruef_soll TO authenticated USING ((pub
 --
 
 CREATE POLICY pruef_soll_lesen ON public.pruef_soll FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: pruefziel_ausschluss; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.pruefziel_ausschluss ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: pruefziel_ausschluss pruefziel_ausschluss_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruefziel_ausschluss_lesen ON public.pruefziel_ausschluss FOR SELECT USING (public.darf_pruefen());
+
+
+--
+-- Name: pruefziel_skills; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.pruefziel_skills ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: pruefziel_skills pruefziel_skills_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruefziel_skills_lesen ON public.pruefziel_skills FOR SELECT USING (public.darf_pruefen());
+
+
+--
+-- Name: pruefziele; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.pruefziele ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: pruefziele pruefziele_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruefziele_lesen ON public.pruefziele FOR SELECT USING (public.darf_pruefen());
 
 
 --
@@ -38745,5 +39625,4 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict pKRRVkOxbYcJq5g8uir9NnlYE0gAGkQEHiKdnDMMHgXHcWNuT7biQwy1aWkOYn5
 
