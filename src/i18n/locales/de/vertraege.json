@@ -422,5 +422,8 @@
     "vorschlagUebernehmen": "Vorschlag übernehmen",
     "kennzeichen": "Pilot",
     "kennzeichenTitel": "Pilotvereinbarung — ohne Entgelt, zählt in keiner Umsatzkennzahl"
+  },
+  "kursHinweis": {
+    "text": "Am Lead steht für Mathe „{{lead}}“, in der Akte des Kindes schon „{{akte}}“. Der Abschluss übernimmt die Angabe vom Lead nicht – gilt sie, bitte in der Schülerakte als neuen Stand eintragen."
   }
 }
