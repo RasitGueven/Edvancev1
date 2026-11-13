@@ -7,7 +7,7 @@
 --
 
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -7017,6 +7017,21 @@ $$;
 
 
 --
+-- Name: klp_fassung(text, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.klp_fassung(p_schuljahr text, p_klasse integer, p_schulform text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when p_schulform is null or p_schuljahr is null or p_klasse is null then null
+              when p_schulform = 'Gymnasium' then 'g9'
+              when left(p_schuljahr, 4)::int - (p_klasse - 5) >= 2022 then '2022'
+              else '2004' end
+$$;
+
+
+--
 -- Name: kompetenz_offen(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9868,6 +9883,10 @@ CREATE FUNCTION public.lsa_paket_skills_roh(p_schuljahr text) RETURNS TABLE(schu
   select pk.schule_id, pk.klasse, pk.paket_nr, a.skill_key, 'A',
          (array['einstieg', 'voraussetzung', 'tiefe'])[min(a.r)], min(a.r) <= 2
     from pk cross join unnest(pk.thema_keys) u(thema_key) join raum_a a on a.thema_key = u.thema_key
+   where not exists (select 1 from public.skill_schulform ss join public.schulen sc on sc.schulform = ss.schulform
+                      where sc.id = pk.schule_id and ss.skill_key = a.skill_key and not ss.zulaessig
+                        and ss.kurs = any (array['alle', 'E'])
+                        and ss.klp_fassung = any (array['alle', public.klp_fassung(p_schuljahr, pk.klasse, sc.schulform)])) -- SF-1: ohne gesperrte Skills der Schulform
    group by pk.id, pk.schule_id, pk.klasse, pk.paket_nr, a.skill_key
   union all
   select pk.schule_id, pk.klasse, pk.paket_nr, x.sk, 'B', x.teil, x.teil = 'rand'
@@ -9875,6 +9894,10 @@ CREATE FUNCTION public.lsa_paket_skills_roh(p_schuljahr text) RETURNS TABLE(schu
           union all select rand_tief.pk, rand_tief.sk, 'rand_tiefe' from rand_tief) x
     join pk on pk.id = x.pk
     join public.skills s on s.skill_key = x.sk and s.klasse_herkunft <= pk.klasse
+   where not exists (select 1 from public.skill_schulform ss join public.schulen sc on sc.schulform = ss.schulform
+                      where sc.id = pk.schule_id and ss.skill_key = x.sk and not ss.zulaessig
+                        and ss.kurs = any (array['alle', 'E'])
+                        and ss.klp_fassung = any (array['alle', public.klp_fassung(p_schuljahr, pk.klasse, sc.schulform)])) -- SF-1: ohne gesperrte Skills der Schulform
 $$;
 
 
@@ -9938,7 +9961,7 @@ CREATE TABLE public.lsa_paket_cache (
     lage numeric NOT NULL,
     hat_einstieg boolean NOT NULL,
     CONSTRAINT lsa_paket_cache_quartal_check CHECK (((quartal >= 1) AND (quartal <= 4))),
-    CONSTRAINT lsa_paket_cache_quelle_check CHECK ((quelle = ANY (ARRAY['bestaetigt'::text, 'geschaetzt'::text])))
+    CONSTRAINT lsa_paket_cache_quelle_check CHECK ((quelle = ANY (ARRAY['bestaetigt'::text, 'geschaetzt'::text, 'klp'::text])))
 );
 
 
@@ -9998,6 +10021,39 @@ CREATE FUNCTION public.lsa_pakete_roh(p_schuljahr text) RETURNS TABLE(schule_id 
            end lage
       from plan p
     window w as (partition by p.schule_id, p.klasse)),
+  -- SF-1: Schulen mit Schulform, aber ohne eigenen Mathe-Plan: Themen aus klp_themenplan (Kurs E als Standard).
+  -- Fassung nach Klasse und Schuljahr: klp_fassung (ist-analyse §5). Doppeljahrgang linear über zwei Jahre,
+  -- 1 Thema = 1 Arbeit; Gymnasien (g9) je Klasse. versatz 1 = dieselbe Klasse im Folgejahr: daraus „spaeter“ für
+  -- Klasse − 1, damit die eigene Kohorte (und ihre Fassung) zählt, nicht die ältere.
+  ohne as (
+    select s.id schule_id, s.schulform from public.schulen s
+     where s.schulform is not null
+       and not exists (select 1 from public.schul_themenplan p where p.schule_id = s.id and lower(p.fach) = 'mathematik')),
+  kz as (
+    select o.schule_id, o.schulform, k.klasse, v.versatz,
+           public.klp_fassung((left(p_schuljahr, 4)::int + v.versatz)::text, k.klasse, o.schulform) fassung,
+           case when o.schulform = 'Gymnasium' then k.klasse::text when k.klasse <= 8 then '7/8' else '9/10' end dj,
+           case when o.schulform = 'Gymnasium' then null else (k.klasse + 1) % 2 end jahr
+      from ohne o cross join generate_series(7, 10) k(klasse) cross join (values (0), (1)) v(versatz)),
+  kliste as (
+    select kz.schule_id, kz.klasse, kz.versatz, kz.jahr, t.thema_key,
+           (row_number() over (partition by kz.schule_id, kz.klasse, kz.versatz order by t.position, t.thema_key) - 0.5)::numeric
+             / count(*) over (partition by kz.schule_id, kz.klasse, kz.versatz) g
+      from kz cross join lateral (
+        select distinct on (k.thema_key) k.thema_key, k.position from public.klp_themenplan k
+         where k.fach = 'mathematik' and k.schulform = kz.schulform and k.klp_fassung = kz.fassung
+           and k.doppeljahrgang = kz.dj and k.kurs = any (array['alle', 'E'])
+         order by k.thema_key, k.position) t),
+  kplan as (
+    select l.schule_id, l.klasse, l.versatz, l.thema_key, case when l.jahr is null then l.g else 2 * l.g - l.jahr end lage
+      from kliste l
+     where l.jahr is null or (l.jahr = 0 and l.g < 0.5) or (l.jahr = 1 and l.g >= 0.5)),
+  kuv as (
+    select k.schule_id, k.klasse, k.thema_key, k.lage,
+           row_number() over (partition by k.schule_id, k.klasse order by k.lage, k.thema_key)::int nr
+      from kplan k
+     where k.versatz = 0
+       and not exists (select 1 from best b where b.schule_id = k.schule_id and b.klasse = k.klasse)),
   pk as (
     select u.schule_id, u.klasse, u.nr, array[u.thema_key] thema_keys, 'geschaetzt'::text quelle, null::date datum,
            u.lage::numeric lage,
@@ -10009,17 +10065,29 @@ CREATE FUNCTION public.lsa_pakete_roh(p_schuljahr text) RETURNS TABLE(schule_id 
            coalesce(least(1, greatest(0, (b.datum - j.beginn)::numeric / (j.ende - j.beginn))), (b.i - 0.5) / b.n),
            array(select distinct x from best b2 cross join unnest(b2.thema_keys) x
                   where b2.schule_id = b.schule_id and b2.klasse = b.klasse and b2.nr >= b.nr)
-      from best b cross join jahr j)
+      from best b cross join jahr j
+    union all
+    select k.schule_id, k.klasse, k.nr, array[k.thema_key], 'klp', null::date, k.lage,
+           array(select k2.thema_key from kuv k2 where k2.schule_id = k.schule_id and k2.klasse = k.klasse and k2.nr >= k.nr)
+      from kuv k)
   select pk.schule_id, pk.klasse, pk.nr, pk.thema_keys, pk.quelle,
          coalesce(pk.datum, j.beginn + round(pk.lage * (j.ende - j.beginn))::int),
          1 + least(3, floor(pk.lage * 4))::int, round(pk.lage, 4),
-         (select bool_and(exists (select 1 from public.thema_einstieg te where te.thema_key = x))
+         -- SF-1: Ein Einstieg zählt nur, wenn ihn die Schulform verlangt (Kurs E, Fassung der Klasse).
+         (select bool_and(exists (select 1 from public.thema_einstieg te where te.thema_key = x
+                                    and not exists (select 1 from public.skill_schulform ss join public.schulen sc on sc.schulform = ss.schulform
+                                    where sc.id = pk.schule_id and ss.skill_key = te.skill_key and not ss.zulaessig
+                                      and ss.kurs = any (array['alle', 'E'])
+                                      and ss.klp_fassung = any (array['alle', public.klp_fassung(p_schuljahr, pk.klasse, sc.schulform)]))))
             from unnest(pk.thema_keys) x),
          array(select distinct x from unnest(pk.ab_hier || coalesce(
                    -- Klasse + 1 aus dem Schulplan (:9142) …
                    nullif(array(select distinct p.thema_key from public.schul_themenplan p
                                  where p.schule_id = pk.schule_id and lower(p.fach) = 'mathematik'
                                    and p.klasse = pk.klasse + 1 and p.thema_key is not null), '{}'),
+                   -- … SF-1: sonst Kernlehrplan der Schulform im Folgejahr (nur Schulen ohne eigenen Plan) …
+                   nullif(array(select distinct k.thema_key from kplan k
+                                 where k.schule_id = pk.schule_id and k.versatz = 1 and k.klasse = pk.klasse + 1), '{}'),
                    -- … sonst Kernlehrplan der Klasse + 1 ohne das, was bis zur eigenen Klasse im Plan (bzw. im
                    -- Kernlehrplan der Klasse) steht, wie v_fuell :9188–9207.
                    array(select f.x from unnest(public.lsa_klp_themen('mathematik', pk.klasse + 1)) f(x)
@@ -20568,6 +20636,24 @@ $$;
 
 
 --
+-- Name: skill_zulaessig(text, text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.skill_zulaessig(p_skill_key text, p_schulform text, p_kurs text DEFAULT NULL::text, p_klp_fassung text DEFAULT NULL::text) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  -- Invoker: Wer skill_schulform nicht lesen darf (Kinder), sieht keine Sperre und erfährt nichts.
+  -- Definer-Funktionen (LSA) lesen als Eigentümer.
+  select not exists (
+    select 1 from public.skill_schulform s
+     where s.skill_key = p_skill_key and s.schulform = p_schulform and not s.zulaessig
+       and s.kurs = any (array['alle', coalesce(p_kurs, 'E')])
+       and s.klp_fassung = any (array['alle', p_klp_fassung]))
+$$;
+
+
+--
 -- Name: slot_assign(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -28221,6 +28307,45 @@ CREATE TABLE public.kind_kurs (
 
 
 --
+-- Name: klp_themenplan; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.klp_themenplan (
+    id bigint NOT NULL,
+    fach text NOT NULL,
+    schulform text NOT NULL,
+    klp_fassung text NOT NULL,
+    doppeljahrgang text NOT NULL,
+    kurs text DEFAULT 'alle'::text NOT NULL,
+    "position" integer NOT NULL,
+    thema_key text NOT NULL,
+    nur_teil text,
+    fundstelle text NOT NULL,
+    CONSTRAINT klp_themenplan_doppeljahrgang_check CHECK ((doppeljahrgang = ANY (ARRAY['7/8'::text, '9/10'::text, '7'::text, '8'::text, '9'::text, '10'::text]))),
+    CONSTRAINT klp_themenplan_fach_check CHECK ((fach = lower(fach))),
+    CONSTRAINT klp_themenplan_g9_check CHECK (((klp_fassung = 'g9'::text) = (strpos(doppeljahrgang, '/'::text) = 0))),
+    CONSTRAINT klp_themenplan_klp_fassung_check CHECK ((klp_fassung = ANY (ARRAY['2004'::text, '2022'::text, 'g9'::text]))),
+    CONSTRAINT klp_themenplan_kurs_check CHECK ((kurs = ANY (ARRAY['E'::text, 'G'::text, 'alle'::text]))),
+    CONSTRAINT klp_themenplan_position_check CHECK (("position" > 0)),
+    CONSTRAINT klp_themenplan_schulform_check CHECK ((schulform = ANY (ARRAY['Gymnasium'::text, 'Realschule'::text, 'Gesamtschule'::text, 'Sekundarschule'::text])))
+);
+
+
+--
+-- Name: klp_themenplan_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.klp_themenplan ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.klp_themenplan_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: lead_assessments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -29389,6 +29514,23 @@ CREATE TABLE public.skill_pruefung (
     pruef_notiz text,
     CONSTRAINT skill_pruefung_quelle_check CHECK ((quelle = ANY (ARRAY['ki'::text, 'mensch'::text]))),
     CONSTRAINT skill_pruefung_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'geprueft'::text, 'freigegeben'::text])))
+);
+
+
+--
+-- Name: skill_schulform; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skill_schulform (
+    skill_key text NOT NULL,
+    schulform text NOT NULL,
+    kurs text NOT NULL,
+    klp_fassung text NOT NULL,
+    zulaessig boolean NOT NULL,
+    fundstelle text NOT NULL,
+    CONSTRAINT skill_schulform_klp_fassung_check CHECK ((klp_fassung = ANY (ARRAY['2004'::text, '2022'::text, 'g9'::text, 'alle'::text]))),
+    CONSTRAINT skill_schulform_kurs_check CHECK ((kurs = ANY (ARRAY['E'::text, 'G'::text, 'alle'::text]))),
+    CONSTRAINT skill_schulform_schulform_check CHECK ((schulform = ANY (ARRAY['Gymnasium'::text, 'Realschule'::text, 'Gesamtschule'::text, 'Sekundarschule'::text])))
 );
 
 
@@ -30970,6 +31112,22 @@ ALTER TABLE ONLY public.kind_termine
 
 
 --
+-- Name: klp_themenplan klp_themenplan_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.klp_themenplan
+    ADD CONSTRAINT klp_themenplan_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: klp_themenplan klp_themenplan_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.klp_themenplan
+    ADD CONSTRAINT klp_themenplan_uniq UNIQUE (fach, schulform, klp_fassung, doppeljahrgang, kurs, thema_key);
+
+
+--
 -- Name: lead_assessments lead_assessments_one_per_source; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -31639,6 +31797,14 @@ ALTER TABLE ONLY public.skill_kante
 
 ALTER TABLE ONLY public.skill_pruefung
     ADD CONSTRAINT skill_pruefung_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skill_schulform skill_schulform_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_schulform
+    ADD CONSTRAINT skill_schulform_pkey PRIMARY KEY (skill_key, schulform, kurs, klp_fassung);
 
 
 --
@@ -33748,6 +33914,13 @@ CREATE TRIGGER lernpfad_kompetenz_offen_vorher BEFORE INSERT OR DELETE OR UPDATE
 
 
 --
+-- Name: klp_themenplan lsa_paket_cache_klp_themenplan; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_klp_themenplan AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.klp_themenplan FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
 -- Name: schul_klassenarbeiten lsa_paket_cache_schul_klassenarbeiten; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -33762,10 +33935,24 @@ CREATE TRIGGER lsa_paket_cache_schul_themenplan AFTER INSERT OR DELETE OR UPDATE
 
 
 --
+-- Name: schulen lsa_paket_cache_schulen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_schulen AFTER INSERT OR DELETE OR UPDATE OF schulform OR TRUNCATE ON public.schulen FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
 -- Name: skill_kante lsa_paket_cache_skill_kante; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER lsa_paket_cache_skill_kante AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skill_kante FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
+
+
+--
+-- Name: skill_schulform lsa_paket_cache_skill_schulform; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_paket_cache_skill_schulform AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skill_schulform FOR EACH STATEMENT EXECUTE FUNCTION public.lsa_paket_cache_trigger();
 
 
 --
@@ -34653,6 +34840,14 @@ ALTER TABLE ONLY public.kind_termine
 
 ALTER TABLE ONLY public.kind_termine
     ADD CONSTRAINT kind_termine_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
+
+
+--
+-- Name: klp_themenplan klp_themenplan_thema_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.klp_themenplan
+    ADD CONSTRAINT klp_themenplan_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key) ON DELETE CASCADE;
 
 
 --
@@ -35853,6 +36048,14 @@ ALTER TABLE ONLY public.skill_pruefung
 
 ALTER TABLE ONLY public.skill_pruefung
     ADD CONSTRAINT skill_pruefung_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+
+--
+-- Name: skill_schulform skill_schulform_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_schulform
+    ADD CONSTRAINT skill_schulform_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
 
 
 --
@@ -37428,6 +37631,19 @@ CREATE POLICY kind_termine_admin_read ON public.kind_termine FOR SELECT USING ((
 
 
 --
+-- Name: klp_themenplan; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.klp_themenplan ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: klp_themenplan klp_themenplan_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY klp_themenplan_lesen ON public.klp_themenplan FOR SELECT TO authenticated USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
 -- Name: lead_assessments; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -38593,6 +38809,19 @@ ALTER TABLE public.skill_pruefung ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY skill_pruefung_admin_lesen ON public.skill_pruefung FOR SELECT TO authenticated USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: skill_schulform; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.skill_schulform ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: skill_schulform skill_schulform_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY skill_schulform_lesen ON public.skill_schulform FOR SELECT TO authenticated USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
 
 
 --

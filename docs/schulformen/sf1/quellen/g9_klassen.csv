@@ -1,0 +1,40 @@
+# Häufigste Klasse je Thema unter den Gymnasien mit Plan (schul_themenplan, Mathematik), dbread 13.11.2026.
+# schulen = Zahl der Gymnasien mit dem Thema in dieser Klasse; pos = mittlere Position im Schulplan; verteilung = Klasse:Schulen.
+thema_key,klasse,schulen,pos,verteilung
+natuerliche_zahlen,5,29,1.64,5:29
+symmetrie,5,18,2.17,5:18 6:6
+rechnen_natuerliche_zahlen,5,29,3.41,5:29 6:3
+geometrische_grundbegriffe,5,11,3.55,5:11
+flaeche_umfang,5,29,4.45,5:29
+koerper_quader,5,26,5.73,5:26 6:1
+teilbarkeit,5,3,7.67,5:3 6:2
+brueche,6,25,1.04,5:23 6:25
+rechnen_brueche_dezimalzahlen,6,28,3.34,6:28
+winkel,6,25,3.92,6:25
+daten_streumasse,6,28,5.79,5:6 6:28
+ganze_zahlen_groessen,6,24,6.74,5:3 6:24
+rationale_zahlen,7,29,1.52,6:3 7:29
+zuordnungen,7,31,1.94,7:31
+zinsrechnung,7,31,3.09,7:31 8:2
+terme_gleichungen,7,31,4.66,7:31 8:3
+winkel_dreiecke,7,31,4.83,7:31
+zufallsexperimente,7,27,6.22,7:27 8:24
+lineare_funktionen,8,30,2.40,8:30
+terme_binomische_formeln,8,27,2.79,7:1 8:27
+flaechen_vielecke,8,26,3.50,7:3 8:26
+lineare_gleichungen_lgs,8,30,4.73,8:30
+thales_konstruktionen,8,25,5.28,7:3 8:25
+reelle_zahlen,9,26,1.23,8:1 9:26
+quadratische_funktionen,9,27,2.56,9:27
+kreis,9,26,3.15,8:1 9:26
+pythagoras,9,26,4.31,9:26
+potenzen,9,27,4.70,9:27 10:3
+prismen_zylinder,9,7,5.57,9:7
+bedingte_wahrscheinlichkeit,9,20,6.00,9:20 10:19
+statistik_beurteilen,9,5,8.20,9:5
+quadratische_gleichungen,10,19,1.68,9:4 10:19
+koerper_pyramide_kegel_kugel,10,8,2.13,10:8
+aehnlichkeit,10,17,2.71,8:4 9:8 10:17
+exponentialfunktionen,10,25,3.83,10:25
+trigonometrie,10,25,4.25,10:25
+sinusfunktion,10,25,5.76,10:25

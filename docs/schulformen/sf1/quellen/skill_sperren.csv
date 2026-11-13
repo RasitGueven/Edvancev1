@@ -1,0 +1,32 @@
+# Skills, die eine Schulform bzw. ein Kurs nach Kernlehrplan nicht verlangt (skill_schulform, zulaessig = false).
+# schulformen: mit | getrennt. kurs: alle | G. klp_fassung: 2004 | 2022 | alle.
+# Quellen: docs/msa/quellen/ (Lehrplannavigator NRW, Abruf 12.11.2026); MSA-0 §1 (docs/msa/bestandsaufnahme.md); Seiten = PDF-Seite.
+# Unsichere Fälle stehen in docs/schulformen/sf1/offen.md.
+skill_key,schulformen,kurs,klp_fassung,fundstelle
+geo_trigo_kosinussatz,Realschule|Gesamtschule|Sekundarschule,alle,alle,"Nur KLP G9 (klp_g9 PDF-S. 34–35: „Kosinussatz“); fehlt in KLP RS/GE 2004 (S. 29–31) und RS/GESK 2022 (PDF-S. 36–40: nur rechtwinklige Dreiecke); MSA-0 §1"
+fkt_sinus_einheitskreis,Realschule|Gesamtschule|Sekundarschule,alle,alle,"Nur KLP G9 (klp_g9 PDF-S. 34: „Sinus und Kosinus am Einheitskreis“); fehlt in KLP RS/GE 2004 und RS/GESK 2022; MSA-0 §1"
+fkt_sinus_bogenmass,Realschule|Gesamtschule|Sekundarschule,alle,alle,"Nur KLP G9 (klp_g9 PDF-S. 33: „Grad- und Bogenmaß“); fehlt in KLP RS/GE 2004 und RS/GESK 2022; MSA-0 §1"
+stoch_bedingt_umkehr,Realschule|Gesamtschule|Sekundarschule,alle,2004,"KLP RS/GE 2004 (S. 31): keine bedingte Wahrscheinlichkeit; MSA-0 §1. KLP 2022 nennt bedingte Wahrscheinlichkeit und Vierfeldertafel (PDF-S. 40), aber wie der KLP G9 (PDF-S. 35) kein ausdrückliches Umkehren"
+stoch_bedingt_umkehr,Gesamtschule|Sekundarschule,G,2022,"KLP GESK 2022 PDF-S. 40: „bedingte Wahrscheinlichkeit, Vierfeldertafel“ fett = nur Erweiterungskurs (Regel PDF-S. 14)"
+stoch_bedingt_unabhaengig,Realschule|Gesamtschule|Sekundarschule,alle,alle,"Nur KLP G9 (klp_g9 PDF-S. 35: „stochastische Unabhängigkeit“); fehlt in KLP RS/GE 2004 und RS/GESK 2022; MSA-0 §1"
+stoch_bedingt_wkeit,Realschule|Gesamtschule|Sekundarschule,alle,2004,"KLP RS/GE 2004 (S. 31): nur Pfadregeln, keine bedingte Wahrscheinlichkeit; Formelsammlung MSA ohne; MSA-0 §1. KLP 2022 nennt sie (PDF-S. 40)"
+stoch_bedingt_vierfeld,Realschule|Gesamtschule|Sekundarschule,alle,2004,"KLP RS/GE 2004 (S. 31): keine Vierfeldertafel; MSA-0 §1. KLP 2022 nennt sie (PDF-S. 40)"
+fkt_sinus_parameter,Realschule|Gesamtschule|Sekundarschule,alle,2004,"KLP RS/GE 2004 (S. 30): nur „Sinusfunktion“, ohne a·sin(b·x); MSA-0 §1. KLP 2022 nennt f(x) = a·sin(b·x) (PDF-S. 38)"
+stoch_bedingt_wkeit,Gesamtschule|Sekundarschule,G,2022,"KLP GESK 2022 PDF-S. 40: „bedingte Wahrscheinlichkeit, Vierfeldertafel“ fett = nur Erweiterungskurs (Regel PDF-S. 14)"
+stoch_bedingt_vierfeld,Gesamtschule|Sekundarschule,G,2022,"KLP GESK 2022 PDF-S. 40: „Vierfeldertafel“ fett = nur Erweiterungskurs (Regel PDF-S. 14)"
+fkt_sinus_parameter,Gesamtschule|Sekundarschule,G,2022,"KLP GESK 2022 PDF-S. 39, KE (14) Sinusfunktionen a·sin(b·x) fett = nur Erweiterungskurs (Regel PDF-S. 14)"
+gleichung_quadr_formel,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 29: „lösen einfache quadratische Gleichungen (G-Kurs: rein-quadratisch)“; KLP GESK 2022 PDF-S. 37: „für G-Kurs: lösen rein quadratische Gleichungen“"
+gleichung_quadr_faktor,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 29: „(G-Kurs: rein-quadratisch)“; KLP GESK 2022 PDF-S. 37: „für G-Kurs: lösen rein quadratische Gleichungen“"
+gleichung_quadr_anzahl,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 29: „(G-Kurs: rein-quadratisch)“; KLP GESK 2022 PDF-S. 37: „für G-Kurs: lösen rein quadratische Gleichungen“"
+fkt_quadr_normalform,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 30: „quadratische (G-Kurs; nur f(x)=ax2)“; KLP GESK 2022 PDF-S. 38: Scheitelpunktform fett, KE (9) Termumformung fett = nur Erweiterungskurs"
+fkt_quadr_scheitel,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 30: „(G-Kurs; nur f(x)=ax2)“; KLP GESK 2022 PDF-S. 38: Scheitelpunktform fett = nur Erweiterungskurs"
+fkt_quadr_parabel,Gesamtschule|Sekundarschule,G,2004,"KLP GE 2004 S. 30: „quadratische (G-Kurs; nur f(x)=ax2)“ (2022 nur ohne Verschiebung entlang der x-Achse, PDF-S. 38)"
+fkt_quadr_nullstellen,Gesamtschule|Sekundarschule,G,2004,"KLP GE 2004 S. 30: „quadratische (G-Kurs; nur f(x)=ax2)“"
+fkt_quadr_extrem,Gesamtschule|Sekundarschule,G,2004,"KLP GE 2004 S. 30: „quadratische (G-Kurs; nur f(x)=ax2)“"
+fkt_exp_term,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 30: „exponentielle Funktionen (G-Kurs; Eigenschaften exponentiellen Wachstums)“; KLP GESK 2022 PDF-S. 38: „Für G-Kurs: exponentielle Wachstumsprozesse“, f(x) = a·q^x fett"
+fkt_exp_gleichung,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 29–30: b^x = c kursiv-fett, G-Kurs nur Eigenschaften exponentiellen Wachstums; KLP GESK 2022 PDF-S. 37: Exponentialgleichungen fett"
+fkt_exp_anwendung,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 30: „(G-Kurs; Eigenschaften exponentiellen Wachstums)“; KLP GESK 2022 PDF-S. 38: „Für G-Kurs: exponentielle Wachstumsprozesse“"
+term_binom_quadrat,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 24: „multiplizieren sie aus (G-Kurs: kein Produkt von Summen)“, binomische Formeln kursiv-fett; KLP GESK 2022 PDF-S. 32: binomische Formeln fett"
+term_binom_quadratdifferenz,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 24: „(G-Kurs: kein Produkt von Summen)“; KLP GESK 2022 PDF-S. 32: binomische Formeln fett"
+term_binom_gemischt,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 24: „(G-Kurs: kein Produkt von Summen)“; KLP GESK 2022 PDF-S. 32: binomische Formeln fett"
+term_binom_faktorisieren,Gesamtschule|Sekundarschule,G,alle,"KLP GE 2004 S. 24: binomische Formeln kursiv-fett; KLP GESK 2022 PDF-S. 32: binomische Formeln fett"

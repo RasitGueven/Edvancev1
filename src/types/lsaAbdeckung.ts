@@ -2,7 +2,8 @@
 // Die Formen spiegeln die Zeilen der Funktionen lsa_abdeckung, lsa_paket_skills, pruef_ziel_liste und lsa_wirkung.
 
 export type LsaAmpel = 'gruen' | 'gelb' | 'rot'
-export type LsaPaketQuelle = 'bestaetigt' | 'geschaetzt'
+// SF-1 (Migration 20261113153302): 'klp' = Paket aus dem Kernlehrplan der Schulform, Schule ohne eigenen Plan.
+export type LsaPaketQuelle = 'bestaetigt' | 'geschaetzt' | 'klp'
 export type LsaPaketFall = 'A' | 'B'
 export type LsaPaketTeil = 'einstieg' | 'voraussetzung' | 'tiefe' | 'rand' | 'rand_tiefe'
 
