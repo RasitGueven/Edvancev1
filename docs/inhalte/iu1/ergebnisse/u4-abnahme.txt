@@ -1,0 +1,36 @@
+--- b) MSA-Zeile = inhalte_lsa_pruefziel (Kopfzeile)
+ komp_bereit | komp_teil | komp_offen | fehlende_texte | aufgaben_zu_pruefen |   ampel    
+-------------+-----------+------------+----------------+---------------------+------------
+          35 |         9 |         78 |            165 |                 159 | noch_nicht
+(1 row)
+
+--- c) „In Lenas Liste“: je Kompetenz aller Themen offene_task_ids = task_ids der Liste (p_skill filtert nur diese Liste, pgTAP 5f)
+ kompetenzen | gleich | nicht_in_liste 
+-------------+--------+----------------
+          73 |     73 |              0
+(1 row)
+
+--- d) Lena sieht unter MSA die Kompetenzen ohne Paket (U0: 20 Skills, 59 Aufgaben)
+ skills_ohne_paket | aufgaben_ohne_paket | skills_gesamt 
+-------------------+---------------------+---------------
+                19 |                  56 |            85
+(1 row)
+
+--- f) Reihe 1: Zahlen aus bauformen und studio_sequenz, Sessions
+ sessions | bauformen_funktion | bauformen_tabelle | vid_gesamt | vid_freigegeben | sequenzen_freigegeben | session_zeilen 
+----------+--------------------+-------------------+------------+-----------------+-----------------------+----------------
+        7 |                 47 |                47 |          9 |               0 |                     0 |              7
+(1 row)
+
+--- g) Themen ohne Reihe enthalten kein Thema mit Kernideen-Bauform einer Reihe
+ treffer 
+---------
+       0
+(1 row)
+
+--- h) Laufzeit: Speicher frisch?
+ frisch | paket_speicher_veraltet 
+--------+-------------------------
+ f      | t
+(1 row)
+

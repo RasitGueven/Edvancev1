@@ -29,3 +29,6 @@
 | 11:33 | U2 | CI #418 grün, gemergt `3db548b1` | ok |
 | 11:33 | U3 | „Gezielt prüfen“: Umschalter „Alle \| MSA (ZP10)“ (`?ziel=`), Gruppen je Bereich, erledigte eingeklappt mit Haken und im Fortschritt, „1 von 2“, Filter `?skill=` mit „Gefiltert: … · Filter aufheben“; ohne Parameter Aufruf wie bisher | ok |
 | 11:33 | U3 | Vitest neu 3 (Seite) + 2 (Rechnung); Ansichtstests 6/6 bei 1180×820 und 1440×900 mit Prod-Daten als Lena (dbread 12:31), Fotos `abnahme/u3-*`; Befund O6 (Lauf folgt Gesamtliste) | ok |
+| 11:41 | U3 | CI #419 grün, gemergt `422d1f72` | ok |
+| 11:41 | U4 | Abnahme a–i (`abfragen/q_u4_abnahme.sql` → `ergebnisse/u4-abnahme.txt`): a, b, c (73/73), e, f (7 Sessions), g (0), i grün; d 19/56 statt 20/59 (`fkt_sinus_periodisch` nur zu schwere Entwürfe); h nur mit Speicher (O7) | ok, O7 |
+| 11:41 | U5 | Bericht, Retro, Roadmap | ok |
