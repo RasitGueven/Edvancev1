@@ -23,3 +23,6 @@
 | 10:54 | U1 | Laufzeit live (Speicher noch nie gerechnet): LSA 1,4 s + MSA 1,0 s, Reihen 0,4 s + ohne Reihe 1,4 s; mit Speicher (Prod-Fixture) ≈ 10 ms / ≈ 90 ms. Erster Seitenaufruf frischt auf | ok |
 | 10:54 | U1 | O1: Funktionskörper mit WHERE bestätigt; Lauf unter safeupdate nur über den Quelltext belegt (lokaler Test mit gebautem safeupdate.so von der Rechteprüfung abgelehnt), pgTAP 9a/9b ohne safeupdate grün. Klassenarbeit bestätigen (Wegwerf-DB, ohne safeupdate): Insert in `schul_klassenarbeiten` geht durch, Speicher wird veraltet, Neuberechnung frisch mit 1 bestätigtem Paket | ok |
 | 10:54 | U1 | Types: keine generierten DB-Types im Repo (`client.ts` ohne Database-Typ), nichts zu tun | ok |
+| 11:27 | U1 | #416 nach SF-1-Merge mit origin/dev gemischt; Prod-Abzug (IU-1 + SF-1) = lokaler Neuaufbau; CI grün; gemergt `867c8988` | ok |
+| 11:27 | U2 | Seite `/admin/inhalte` (Reiter, Filter Klasse, Details Thema/MSA/Reihe, Adresse teilbar), Navigation: „Inhalte-Übersicht“ statt „LSA-Abdeckung“ (Seite bleibt erreichbar, aktivBei) | ok |
+| 11:27 | U2 | typecheck, lint, Vitest 3402/3402 (neu: 9 Hilfsfunktionen, 8 Seite); Ansichtstests 10/10 bei 1180×820 und 1440×900 mit Prod-Zahlen (`vorschau/daten.json`, dbread 12:16), Fotos `abnahme/u2-*` | ok |

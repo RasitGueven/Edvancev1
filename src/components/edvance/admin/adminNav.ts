@@ -81,8 +81,16 @@ export const ADMIN_NAV: NavKonfiguration = {
           icon: PenLine,
           zaehler: 'itemPflege',
         },
-        // FR-2: Ampel je Schule und Klassenarbeit, Fokus-Schulen, Sammelfreigabe.
-        { id: 'lsaAbdeckung', route: '/admin/lsa-abdeckung', nameKey: 'nav.lsaAbdeckung', kurzKey: 'nav.kurz.lsaAbdeckung', icon: Gauge },
+        // IU-1: Stand der Inhalte je Thema und Session-Reihe. Die LSA-Abdeckung (FR-2) hat keinen eigenen Eintrag
+        // mehr, bleibt unter ihrer Adresse erreichbar und gehört zu diesem Punkt.
+        {
+          id: 'inhalteUebersicht',
+          route: '/admin/inhalte',
+          aktivBei: ['/admin/inhalte*', '/admin/lsa-abdeckung'],
+          nameKey: 'nav.inhalteUebersicht',
+          kurzKey: 'nav.kurz.inhalteUebersicht',
+          icon: Gauge,
+        },
         // L5: abgeleitete Mathearbeiten je Schule und Klasse (bestätigen, korrigieren).
         {
           id: 'klassenarbeiten',

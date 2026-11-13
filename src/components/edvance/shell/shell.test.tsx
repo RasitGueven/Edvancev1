@@ -117,11 +117,14 @@ describe('ShellSidebar', () => {
   })
 
   it('jede Admin-Route von vorher bleibt erreichbar (CI-1 Abnahme 4)', () => {
-    const routen = [...ADMIN_NAV.gruppen.flatMap((g) => g.eintraege), ...(ADMIN_NAV.fuss ?? [])].map((e) => e.route)
+    const eintraege = [...ADMIN_NAV.gruppen.flatMap((g) => g.eintraege), ...(ADMIN_NAV.fuss ?? [])]
+    const routen = eintraege.map((e) => e.route)
     for (const r of ['/admin', '/admin/leads', '/admin/akten', '/admin/vertraege', '/admin/lsa-reports', '/admin/authoring',
-      '/admin/lsa-abdeckung', '/admin/klassenarbeiten', '/admin/studio', '/admin/slots', '/admin/coaches', '/admin/stellschrauben']) {
+      '/admin/klassenarbeiten', '/admin/studio', '/admin/slots', '/admin/coaches', '/admin/stellschrauben', '/admin/inhalte']) {
       expect(routen).toContain(r)
     }
+    // IU-1: Die LSA-Abdeckung hat keinen eigenen Menüpunkt mehr, gehört aber zur Inhalte-Übersicht.
+    expect(eintraege.find((e) => e.id === 'inhalteUebersicht')?.aktivBei).toContain('/admin/lsa-abdeckung')
   })
 })
 

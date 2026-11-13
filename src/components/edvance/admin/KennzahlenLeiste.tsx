@@ -18,11 +18,13 @@ export type Kennzahl = {
  * Container-Breite, ab der die fünf Felder nebeneinander stehen (Tokens --container-<breite> in
  * globals.css). Die Klassen stehen ausgeschrieben, damit Tailwind sie findet.
  */
-export type KennzahlenBreite = 'heute-kpi' | 'slots-kpi'
+export type KennzahlenBreite = 'heute-kpi' | 'slots-kpi' | 'heute-kpi-4'
 
 const SPALTEN: Record<KennzahlenBreite, { raster: string; letzte: string }> = {
   'heute-kpi': { raster: '@heute-kpi:grid-cols-5', letzte: 'col-span-2 @heute-kpi:col-span-1' },
   'slots-kpi': { raster: '@slots-kpi:grid-cols-5', letzte: 'col-span-2 @slots-kpi:col-span-1' },
+  // IU-1 Inhalte-Übersicht: vier Felder, gleiche Breite wie „heute-kpi“.
+  'heute-kpi-4': { raster: '@heute-kpi:grid-cols-4', letzte: 'col-span-2 @heute-kpi:col-span-1' },
 }
 
 /**
