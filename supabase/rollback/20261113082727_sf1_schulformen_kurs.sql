@@ -1,11 +1,18 @@
 -- Rollback zu 20261113082727_sf1_schulformen_kurs. Den Eintrag in supabase_migrations.schema_migrations danach
--- von Hand entfernen. Scheitert bewusst, solange eine Zeile „Sekundarschule“ trägt oder Schulen mit Schulnummer
--- (Datenmigration 20261113…_sf1_schulen) da sind — dann zuerst deren Rollback.
+-- von Hand entfernen. Bricht ab, solange Schulen mit Schulnummer da sind (zuerst Rollback
+-- 20261113082851_sf1_schulen) oder eine Zeile „Sekundarschule“ trägt (dann scheitert der CHECK).
+do $$
+begin
+  if exists (select 1 from public.schulen where schulnummer is not null) then
+    raise exception 'Rollback abgebrochen: zuerst 20261113082851_sf1_schulen zurücknehmen';
+  end if;
+end $$;
 drop function if exists public.kind_kurs_aktuell(uuid, text);
 drop trigger if exists kind_kurs_von_lead on public.leads;
 drop function if exists public.kind_kurs_von_lead();
 drop table if exists public.kind_kurs;
 drop function if exists public.kind_kurs_nur_anhaengen();
+drop function if exists public.kind_kurs_stempel();
 
 alter table public.leads drop constraint if exists leads_abschlussziel_check;
 alter table public.leads drop constraint if exists leads_kurs_mathe_check;

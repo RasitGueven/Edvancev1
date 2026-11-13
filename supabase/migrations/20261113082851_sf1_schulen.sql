@@ -61,7 +61,7 @@ select v.schulnummer, v.name, v.ort, v.schulform, v.traeger, v.website
   ('197488', 'Offene Schule Köln', 'Köln', 'Gesamtschule', 'privat', 'http://www.offene-schule-koeln.de'),
   ('198742', 'Trude-Herr-Gesamtschule', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.thg-koeln.de/'),
   ('198912', 'igis Köln, Integrierte Gesamtschule Innenstadt', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.igis-koeln.de/'),
-  ('191942', 'Willy-Brandt-Gesamtschule', 'Kerpen', 'Gesamtschule', 'öffentlich', 'http://www.gesamtschule-kerpen.de')
+  ('191942', 'Willy-Brandt-Gesamtschule Kerpen', 'Kerpen', 'Gesamtschule', 'öffentlich', 'http://www.gesamtschule-kerpen.de')
   ) as v (schulnummer, name, ort, schulform, traeger, website)
  where not exists (select 1 from public.schulen s where s.schulnummer = v.schulnummer)
 on conflict do nothing;

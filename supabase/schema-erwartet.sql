@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 41vGnhbRIJyhkq8hJdkGWf9tClfJXV8BG8Z0j8eOCG9FXsqQ5177AOyYOvPL0R6
+\restrict hsZ5cVZ1TYoPHKWh820FVN2Peimv71hMbnMoYIOShwIJvpAtcb2EOLboyr8ubCx
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -6370,6 +6370,21 @@ begin
     return old;
   end if;
   raise exception 'kind_kurs: nur anhängen (%)', tg_op using errcode = '42501';
+end;
+$$;
+
+
+--
+-- Name: kind_kurs_stempel(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_kurs_stempel() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  new.erfasst_am := now();
+  return new;
 end;
 $$;
 
@@ -32873,6 +32888,13 @@ CREATE TRIGGER kind_kurs_nur_anhaengen BEFORE DELETE OR UPDATE ON public.kind_ku
 
 
 --
+-- Name: kind_kurs kind_kurs_stempel; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER kind_kurs_stempel BEFORE INSERT ON public.kind_kurs FOR EACH ROW EXECUTE FUNCTION public.kind_kurs_stempel();
+
+
+--
 -- Name: leads kind_kurs_von_lead; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -38723,5 +38745,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 41vGnhbRIJyhkq8hJdkGWf9tClfJXV8BG8Z0j8eOCG9FXsqQ5177AOyYOvPL0R6
+\unrestrict hsZ5cVZ1TYoPHKWh820FVN2Peimv71hMbnMoYIOShwIJvpAtcb2EOLboyr8ubCx
 

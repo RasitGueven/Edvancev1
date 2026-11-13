@@ -65,7 +65,9 @@ NAME = {
     "198742": "Trude-Herr-Gesamtschule",
     "198912": "igis Köln, Integrierte Gesamtschule Innenstadt",
     # Gesamtschule Kerpen
-    "191942": "Willy-Brandt-Gesamtschule",
+    # Ort im Namen: In Köln gibt es eine gleichnamige Schule (184937); lsa_schule_von_sitzung sucht den
+    # Freitext ohne Ort und braucht einen eindeutigen Treffer.
+    "191942": "Willy-Brandt-Gesamtschule Kerpen",
 }
 
 

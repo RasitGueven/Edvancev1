@@ -73,6 +73,19 @@ $$;
 create trigger kind_kurs_nur_anhaengen before update or delete on public.kind_kurs
   for each row execute function public.kind_kurs_nur_anhaengen();
 
+-- Erfassungszeit setzt die Datenbank, nicht der Client (sonst ließe sich der Verlauf rückdatieren).
+create function public.kind_kurs_stempel() returns trigger
+  language plpgsql
+  set search_path to 'public', 'pg_temp'
+  as $$
+begin
+  new.erfasst_am := now();
+  return new;
+end;
+$$;
+create trigger kind_kurs_stempel before insert on public.kind_kurs
+  for each row execute function public.kind_kurs_stempel();
+
 alter table public.kind_kurs enable row level security;
 create policy kind_kurs_admin_select on public.kind_kurs for select to authenticated
   using (public.get_my_role() = 'admin');
@@ -107,6 +120,7 @@ create trigger kind_kurs_von_lead after update of converted_student_id on public
   for each row execute function public.kind_kurs_von_lead();
 revoke all on function public.kind_kurs_von_lead() from public, anon, authenticated;
 revoke all on function public.kind_kurs_nur_anhaengen() from public, anon, authenticated;
+revoke all on function public.kind_kurs_stempel() from public, anon, authenticated;
 
 -- 6 · kind_kurs_aktuell -------------------------------------------------------
 -- Letzte Zeile mit ab_datum <= heute (Europe/Berlin); bei gleichem Datum die zuletzt erfasste. Ohne Zeile: der

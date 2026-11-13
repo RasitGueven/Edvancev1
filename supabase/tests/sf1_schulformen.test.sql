@@ -10,7 +10,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(38);
+select plan(39);
 
 \set admin '5f100000-0000-4000-8000-0000000000a1'
 \set coach '5f100000-0000-4000-8000-0000000000c1'
@@ -96,7 +96,7 @@ select is((select count(*)::int from schulen where schulnummer is not null and s
 select is((select count(*)::int from schulen where schulnummer is not null and schulform = 'Gesamtschule' and ort = 'Köln'),
           25, 'B Köln: 25 Gesamtschulen');
 select is((select name from schulen where ort = 'Kerpen' and schulform = 'Gesamtschule'),
-          'Willy-Brandt-Gesamtschule', 'B Kerpen: Willy-Brandt-Gesamtschule');
+          'Willy-Brandt-Gesamtschule Kerpen', 'B Kerpen: Willy-Brandt-Gesamtschule');
 select is((select schulform from schulen where schulnummer = '183726'), 'Gesamtschule', 'B IGS Holweide angelegt');
 select is((select count(*)::int from schulen where schulform = 'Gymnasium'), 43, 'B Gymnasien unverändert (43)');
 -- Datenmigration ein zweites Mal: nichts doppelt.
@@ -108,8 +108,8 @@ select is((select count(*)::int from schulen where schulnummer is not null), 46,
 -- ============================================================================
 select pg_temp.act_as(:'admin');
 set local role authenticated;
-select is(pg_temp.fehler(format($$insert into kind_kurs (student_id, fach, kurs, abschlussziel, ab_datum)
-                                  values (%L, 'mathematik', 'G', 'EESA', current_date - 100)$$, :'aktiv')),
+select is(pg_temp.fehler(format($$insert into kind_kurs (student_id, fach, kurs, abschlussziel, ab_datum, erfasst_am)
+                                  values (%L, 'mathematik', 'G', 'EESA', current_date - 100, '2020-01-01')$$, :'aktiv')),
           'ok', 'C Admin legt eine Zeile an');
 select is(pg_temp.fehler(format($$insert into kind_kurs (student_id, fach, kurs, abschlussziel, ab_datum)
                                   values (%L, 'mathematik', 'E', 'MSA', current_date - 10)$$, :'aktiv')),
@@ -122,6 +122,8 @@ select is(pg_temp.fehler(format($$insert into kind_kurs (student_id, fach) value
 select is(pg_temp.fehler(format($$insert into kind_kurs (student_id, fach, kurs, erfasst_von)
                                   values (%L, 'mathematik', 'E', %L)$$, :'aktiv', :'coach')),
           '42501', 'C erfasst_von muss der Admin selbst sein');
+select is((select count(*)::int from kind_kurs where student_id = :'aktiv' and erfasst_am < now() - interval '1 minute'),
+          0, 'C erfasst_am setzt die Datenbank');
 select is((select kurs || '/' || abschlussziel || '/' || quelle from kind_kurs_aktuell(:'aktiv', 'Mathematik')),
           'E/MSA/kind', 'C aktueller Stand: Kurswechsel, nicht der künftige');
 select is((select count(*)::int from kind_kurs where student_id = :'aktiv'), 3, 'C Verlauf: drei Zeilen');
