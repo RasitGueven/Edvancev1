@@ -54,3 +54,12 @@ MSA-Liste. Die 20 MSA-Kompetenzen ohne Paket kommen dort nicht vor. Lena muss da
 nächste MSA-Aufgabe wählen. Der Prüfablauf sollte laut Auftrag unverändert bleiben, deshalb bleibt das so. Die
 Abhilfe wäre klein: das Prüfziel in `?liste=gezielt&ziel=msa_zp10` mitgeben und im Lauf
 (`src/pages/coach/pruefen/PruefansichtPage.tsx`) an `getPruefZielListe` weiterreichen.
+
+## O7 · Laufzeit in Prod über 1 s, bis ein Admin die Seite öffnet (U4)
+
+Der Zwischenspeicher wird beim Laden der Seite gerechnet (`inhalte_auffrischen`, nur Admins). dbread liest nur und
+kann ihn nicht füllen. Bis zum ersten Seitenaufruf rechnen die Funktionen live: LSA 1,4 s, MSA 1,0 s, Reihen 0,4 s,
+Themen ohne Reihe 1,6 s. Mit Speicher (Prod-Daten in der Wegwerf-DB): LSA ≈ 10 ms, Reihen ≈ 90 ms. Jede
+Schreiboperation auf Aufgaben macht den Speicher veraltet; der nächste Seitenaufruf rechnet dann neu (≈ 1,6 s).
+Nach dem ersten Aufruf bitte per dbread prüfen: `select inhalte_cache_frisch(), (select fehler from
+lsa_paket_cache_stand)` → `t` und leer (das ist zugleich der letzte Beleg für O1 unter safeupdate).
