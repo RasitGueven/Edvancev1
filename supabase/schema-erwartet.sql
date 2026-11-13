@@ -6,9 +6,8 @@
 -- PostgreSQL database dump
 --
 
-\restrict XGYUEFQwMDXicpUajkcSIFXkhAPgXfahRpKgbj2UZGdQCZAJNbeXbFI0MVic8tS
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -39433,5 +39432,4 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict XGYUEFQwMDXicpUajkcSIFXkhAPgXfahRpKgbj2UZGdQCZAJNbeXbFI0MVic8tS
 
