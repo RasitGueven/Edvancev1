@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inhalte-Übersicht · LSA und Session-Reihen · Dummy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EF; --surface:#FFFFFF; --subtle:#EFEFED; --border:#E6E4DE;
+  --text:#1A1A18; --text2:#4A4A47; --text3:#888884;
+  --primary:#4D5FBE; --primary-hover:#3F50A8; --primary-light:#EEF1FB;
+  --navy-2:#141B38;
+  --amber:#B97A16; --amber-bg:#FDF3E2; --amber-line:#F0D9AE; --amber-fill:#E8A020;
+  --green:#2A8A4A; --green-bg:#EAF5EE; --green-fill:#3AAF6A;
+  --red:#C03030; --red-bg:#FCEBEA; --grey-fill:#C4C4C0;
+  --r-sm:6px; --r-md:10px; --r-lg:14px;
+  --sh-xs:0 1px 3px rgba(51,77,122,.06); --sh-md:0 4px 12px rgba(51,77,122,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+h1,h2,h3,p{margin:0}
+.hidden{display:none !important}
+.demo{background:var(--navy-2);color:#fff;font-size:12px;padding:6px 16px}
+.demo span{opacity:.75}
+main{max-width:1280px;margin:0 auto;padding:26px 24px 70px}
+h1{font-size:28px;font-weight:700}
+.sub{color:var(--text2);margin-top:4px;max-width:760px}
+.label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2)}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:var(--r-sm);background:var(--subtle);color:var(--text2);white-space:nowrap}
+.tag.blue{background:var(--primary-light);color:var(--primary)}
+.tag.amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.tag.green{background:var(--green-bg);color:var(--green)}
+.tag.red{background:var(--red-bg);color:var(--red)}
+.back{color:var(--primary);font-weight:500;font-size:13px;padding:0}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 18px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--sh-xs)}
+.kpi b{font-size:26px;font-weight:700;display:block;line-height:1.1}
+.kpi span{font-size:12.5px;color:var(--text2)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.filters .label{margin-right:4px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:500;color:var(--primary)}
+.chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-xs);overflow:hidden;margin-bottom:28px}
+.phead{padding:14px 18px;border-bottom:1px solid var(--subtle);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.phead h2{font-size:16px;font-weight:700}
+.phead p{font-size:12.5px;color:var(--text2)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-align:left;padding:10px 14px;border-bottom:1px solid var(--subtle);white-space:nowrap}
+td{padding:14px;border-bottom:1px solid var(--subtle);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer}
+tr.click:hover td{background:#FAFAF7}
+.rt{font-weight:600;font-size:15px}
+.rm{font-size:12.5px;color:var(--text2);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.stack{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--subtle);width:150px}
+.stack i{display:block;height:100%}
+.f-frei{background:var(--green-fill)} .f-zur{background:var(--primary)} .f-rueck{background:var(--amber-fill)} .f-offen{background:var(--grey-fill)}
+.nums{font-size:12px;color:var(--text2);margin-top:5px;white-space:nowrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+.dot.green{background:var(--green-fill)} .dot.amber{background:var(--amber-fill)} .dot.red{background:var(--red)} .dot.grey{background:var(--grey-fill)}
+.ampel{font-weight:600;white-space:nowrap}
+.next{font-size:12.5px;color:var(--text2)}
+.next b{color:var(--text);font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--text2);padding:10px 18px;border-top:1px solid var(--subtle)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.btn{border-radius:999px;padding:7px 14px;font-weight:600;font-size:12.5px;background:var(--surface);border:1px solid var(--border);color:var(--primary);white-space:nowrap}
+.btn:hover{background:var(--primary-light)}
+.btn:focus-visible,.chip:focus-visible,tr.click:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--navy-2);color:#fff;padding:10px 16px;border-radius:var(--r-md);font-size:13px;box-shadow:var(--sh-md)}
+
+.dhead{margin:10px 0 18px}
+.dhead h1{font-size:24px;margin-top:8px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--sh-xs)}
+.scard h3{font-size:15px;font-weight:600;margin:6px 0 10px}
+.line{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-top:1px solid var(--subtle)}
+.line span:first-child{color:var(--text2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;border-bottom:1px solid var(--border)}
+.tab{padding:10px 16px;font-weight:600;color:var(--text2);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--primary);border-bottom-color:var(--primary)}
+.tab:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.f-teil{background:var(--amber-fill)}
+.krow{display:grid;grid-template-columns:minmax(0,1fr) 96px 150px minmax(0,220px);gap:14px;align-items:center;padding:11px 18px;border-top:1px solid var(--subtle)}
+.krow:first-of-type{border-top:0}
+.kn{font-weight:600}
+.pips{display:flex;gap:5px;align-items:center;font-size:12px;color:var(--text2)}
+.pip{width:22px;height:8px;border-radius:99px;background:var(--subtle)}
+.pip.on{background:var(--green-fill)}
+.ghead{padding:10px 18px;background:#FAFAF7;border-top:1px solid var(--subtle);border-bottom:1px solid var(--subtle);font-size:12.5px;color:var(--text2)}
+.ghead b{color:var(--text)}
+@media (max-width:820px){.krow{grid-template-columns:1fr 1fr}}
+@media (max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo"><span>Klick-Dummy · Admin-Seite „Inhalte-Übersicht“ · alle Zahlen sind Beispielwerte</span></div>
+
+<main id="over">
+  <h1>Inhalte-Übersicht</h1>
+  <p class="sub" id="lead"></p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="lsa">Lernstandsanalyse</button>
+    <button class="tab" role="tab" data-tab="sess">Session-Reihen</button>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="filters"><span class="label">Klasse</span><span id="fk"></span></div>
+
+  <section class="panel" id="pLsa">
+    <div class="phead"><h2>Themen der Lernstandsanalyse</h2><p>Sortiert nach dem, was im Schuljahr als Nächstes dran ist. Klick auf ein Thema zeigt die Kompetenzen.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Thema</th><th>Kompetenzen</th><th>Aufgaben</th><th>LSA möglich</th><th>Wirkung</th><th>Nächster Schritt</th></tr></thead>
+      <tbody id="lrows"></tbody>
+    </table></div>
+    <div class="legend"><span><i class="f-frei"></i>bereit (2 von 2 Texten freigegeben)</span><span><i class="f-teil"></i>teilweise (1 von 2)</span><span><i class="f-offen"></i>offen</span></div>
+  </section>
+
+  <section class="panel" id="pSess1">
+    <div class="phead"><h2>Vorhandene Reihen</h2><p>Klick auf eine Reihe zeigt den Stand je Session.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Reihe</th><th>Aufgaben (Bauformen)</th><th>Erklärvideos</th><th>Einsatzbereit</th><th>Wirkung</th><th>Nächster Schritt</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <div class="legend"><span><i class="f-frei"></i>freigegeben</span><span><i class="f-zur"></i>zur Freigabe</span><span><i class="f-rueck"></i>Rückfrage</span><span><i class="f-offen"></i>offen</span></div>
+  </section>
+
+  <section class="panel" id="pSess2">
+    <div class="phead"><h2>Themen ohne Reihe</h2><p>Sortiert nach Zeitfenster, dann nach Zahl der Schulen. Oben steht, was als Nächstes gebaut werden sollte.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Thema</th><th>Klasse</th><th>Zeitfenster</th><th>Schulen</th><th>Vorarbeit</th><th></th></tr></thead>
+      <tbody id="missing"></tbody>
+    </table></div>
+  </section>
+</main>
+
+<main id="detail" class="hidden">
+  <div class="dhead">
+    <button class="back" id="back">← Zur Übersicht</button>
+    <h1 id="dTitle"></h1>
+    <p class="sub" id="dSub"></p>
+  </div>
+  <div class="sgrid" id="sgrid"></div>
+</main>
+
+<div class="toast hidden" id="toast"></div>
+
+<script>
+const REIHEN = [
+  {id:'r1', t:'Quadratische Funktionen und Gleichungen', kl:9, sess:7, fenster:'April bis Juni',
+   bf:{frei:0,zur:12,rueck:3,offen:32}, vid:{frei:3,zur:2,offen:3},
+   wirkung:'22 Schulen', wirkSub:'4 bestätigt, 18 geschätzt',
+   next:[['Lena','prüft noch 32 Bauformen'],['Admin','gibt 12 Bauformen frei'],['Ashkan','5 Videos fehlen noch']],
+   sessions:[
+     {n:1,t:'Normalparabel verschieben und strecken',bf:[5,5,0],vid:'frei'},
+     {n:2,t:'Scheitelpunkt aus der Scheitelpunktform',bf:[6,5,1],vid:'frei'},
+     {n:3,t:'Von der Scheitelpunktform zur Normalform',bf:[7,2,2],vid:'frei'},
+     {n:4,t:'Nullstellen',bf:[7,0,0],vid:'zur'},
+     {n:5,t:'Quadratische Gleichungen: Wurzelziehen und Nullprodukt',bf:[8,0,0],vid:'zur'},
+     {n:6,t:'pq-Formel und Diskriminante',bf:[8,0,0],vid:'offen'},
+     {n:7,t:'Anwendungen und Generalprobe',bf:[6,0,0],vid:'offen'}
+   ]},
+  {id:'r2', t:'MSA-Vorbereitung (ZP10)', kl:10, sess:null, sonder:true, fenster:'Januar bis Mai', plan:true,
+   wirkung:'landesweit', wirkSub:'alle Real-, Gesamt- und Sekundarschulen',
+   next:[['Gründer','ZP10-Vorgaben 2027 gegen den Bestand abgleichen'],['Agent','fehlende Bauformen schreiben']]}
+];
+const FEHLT = [
+  {t:'Potenzen und Potenzgesetze', kl:10, f:'Q2 · Nov bis Jan', fs:2, schulen:19, vor:'3 Voraussetzungs-Bauformen aus Reihe 1 passen'},
+  {t:'Reelle Zahlen und Wurzeln', kl:9, f:'Q1/Q2 · Sep bis Dez', fs:1, schulen:24, vor:'LSA-Aufgaben vorhanden, keine Bauformen'},
+  {t:'Ähnlichkeit und zentrische Streckung', kl:9, f:'Q2 · Nov bis Jan', fs:2, schulen:9, vor:'keine'},
+  {t:'Satz des Pythagoras', kl:9, f:'Q3 · Feb bis März', fs:3, schulen:21, vor:'1 Bauform (Quadratzahlen und Wurzeln) passt'},
+  {t:'Exponentialfunktionen und Wachstum', kl:10, f:'Q3 · Feb bis März', fs:3, schulen:17, vor:'keine'},
+  {t:'Trigonometrie', kl:10, f:'Q3/Q4 · März bis Mai', fs:4, schulen:20, vor:'keine'},
+  {t:'Lineare Gleichungssysteme', kl:8, f:'Q3 · Feb bis März', fs:3, schulen:18, vor:'1 Bauform (zweischrittige Gleichungen) passt'},
+  {t:'Lineare Funktionen', kl:8, f:'Q2 · Nov bis Jan', fs:2, schulen:23, vor:'1 Bauform (Punkte im Koordinatensystem) passt'},
+  {t:'Terme und binomische Formeln', kl:8, f:'Q1 · Sep bis Okt', fs:1, schulen:22, vor:'3 Bauformen (Binome, Ausklammern) passen'},
+  {t:'Körper: Zylinder, Kegel, Kugel', kl:10, f:'Q4 · April bis Juni', fs:5, schulen:16, vor:'keine'},
+  {t:'Wahrscheinlichkeit', kl:10, f:'Q4 · April bis Juni', fs:5, schulen:14, vor:'keine'}
+];
+const LSA = [
+  {id:'msa', t:'MSA-Vorbereitung (ZP10)', kl:10, sonder:true, f:'Januar bis Mai', fs:0, k:[36,9,77], pf:[36,122], auf:[98,0,163],
+   wirkung:'landesweit', wirkSub:'alle Real-, Gesamt- und Sekundarschulen',
+   next:[['Lena','prüft noch 163 Aufgaben'],['Hinweis','59 davon stehen heute nicht in ihrer Liste']],
+   felder:[['Arithmetik und Algebra',14,3,20],['Funktionen',9,3,17],['Geometrie',10,2,26],['Stochastik',3,1,14]]},
+  {id:'wurzeln', t:'Reelle Zahlen und Wurzeln', kl:9, f:'Sep bis Dez', fs:1, k:[7,1,1], pf:[5,5], auf:[15,0,3], schulen:24,
+   komp:[['Quadratzahlen bis 20²',1,2],['Quadratwurzeln ziehen',1,2],['Wurzeln abschätzen',1,2],['Rationale und irrationale Zahlen',1,2],['Teilweise die Wurzel ziehen',1,2],
+         ['Wurzelgesetze',0,2],['Rechnen mit Wurzeltermen',0,2],['Nenner rational machen',0,1],['Kubikwurzel',0,0]]},
+  {id:'aehn', t:'Ähnlichkeit und zentrische Streckung', kl:9, f:'Nov bis Jan', fs:1, k:[0,1,4], pf:[0,3], auf:[1,0,9], schulen:9},
+  {id:'linf', t:'Lineare Funktionen', kl:8, f:'Nov bis Jan', fs:1, k:[6,1,2], pf:[5,6], auf:[13,0,5], schulen:23},
+  {id:'pot', t:'Potenzen und Potenzgesetze', kl:10, f:'Nov bis Jan', fs:1, k:[1,0,7], pf:[1,5], auf:[2,0,14], schulen:19},
+  {id:'pyth', t:'Satz des Pythagoras', kl:9, f:'Feb bis März', fs:2, k:[2,1,3], pf:[2,4], auf:[5,0,7], schulen:21},
+  {id:'lgs', t:'Lineare Gleichungssysteme', kl:8, f:'Feb bis März', fs:2, k:[1,1,4], pf:[1,4], auf:[3,0,9], schulen:18},
+  {id:'exp', t:'Exponentialfunktionen und Wachstum', kl:10, f:'Feb bis März', fs:2, k:[0,0,7], pf:[0,4], auf:[0,0,14], schulen:17},
+  {id:'trig', t:'Trigonometrie', kl:10, f:'März bis Mai', fs:3, k:[0,0,9], pf:[0,5], auf:[0,0,18], schulen:20},
+  {id:'quad', t:'Quadratische Funktionen und Gleichungen', kl:9, f:'April bis Juni', fs:4, k:[6,3,5], pf:[4,7], auf:[14,0,13], schulen:22,
+   komp:[['Normalparabel und Streckung',1,2],['Scheitelpunktform ablesen',1,2],['Nullstellen bestimmen',1,1],['Quadratische Gleichungen lösen',1,0],['Binomische Formeln anwenden',1,2],['Werte in Terme einsetzen',1,2],['Zweischrittige Gleichungen',1,1],
+         ['Quadratzahlen und Wurzeln',0,2],['Punkte im Koordinatensystem',0,2],['Ausklammern',0,1],['pq-Formel',0,0],['Diskriminante',0,0],['Extremwerte',0,0],['Normalform und Scheitelpunktform umwandeln',0,0]]},
+  {id:'koerp', t:'Körper: Zylinder, Kegel, Kugel', kl:10, f:'April bis Juni', fs:4, k:[1,1,5], pf:[1,4], auf:[3,0,11], schulen:16},
+  {id:'wkt', t:'Wahrscheinlichkeit', kl:10, f:'April bis Juni', fs:4, k:[0,1,5], pf:[0,3], auf:[1,0,11], schulen:14},
+  {id:'terme', t:'Terme und binomische Formeln', kl:8, f:'Sep bis Okt', fs:5, k:[5,2,1], pf:[4,5], auf:[12,2,2], schulen:22}
+];
+let tab='lsa';
+function stack3(a,b,c){ const s=a+b+c||1; return `<div class="stack"><i class="f-frei" style="width:${a/s*100}%"></i><i class="f-teil" style="width:${b/s*100}%"></i><i class="f-offen" style="width:${c/s*100}%"></i></div>`; }
+function lAmpel(r){
+  if(r.k[1]+r.k[2]===0) return ['green','Vollständig',''];
+  if(r.pf[0]===r.pf[1] && !r.sonder) return ['amber','Eingeschränkt','Einstieg steht, Tiefe fehlt noch'];
+  return ['red','Noch nicht', r.sonder ? (r.k[1]+r.k[2])+' Kompetenzen fehlen' : (r.pf[1]-r.pf[0])+' Pflicht-Kompetenzen fehlen'];
+}
+function lNext(r){
+  if(r.next) return r.next;
+  const n=[]; if(r.auf[2]) n.push(['Lena','prüft noch '+r.auf[2]+' Aufgaben']); if(r.auf[1]) n.push(['Admin','gibt '+r.auf[1]+' Aufgaben frei']);
+  return n.length?n:[['–','nichts offen']];
+}
+function renderLsa(){
+  const R=LSA.filter(r=>klasse==='alle'||r.kl===klasse).sort((a,b)=>a.fs-b.fs||(b.schulen||0)-(a.schulen||0));
+  const c=s=>R.filter(r=>lAmpel(r)[1]===s).length, T=R.filter(r=>!r.sonder);
+  kpis.innerHTML=[[c('Vollständig'),'Themen mit vollständiger LSA'],[c('Eingeschränkt'),'Themen mit eingeschränkter LSA'],[c('Noch nicht'),'Themen noch nicht möglich'],[T.reduce((s,r)=>s+r.auf[2],0),'Aufgaben, die Lena noch prüft']]
+    .map(([n,l])=>`<div class="kpi"><b>${n}</b><span>${l}</span></div>`).join('');
+  lrows.innerHTML=R.map(r=>{ const [c2,l,why]=lAmpel(r);
+    return `<tr class="click" tabindex="0" data-l="${r.id}">
+      <td><div class="rt">${r.t}</div><div class="rm"><span class="tag blue">Klasse ${r.kl}</span>${r.sonder?'<span class="tag amber">Prüfziel</span>':''}<span>${r.f}</span></div></td>
+      <td>${stack3(...r.k)}<div class="nums">${r.k[0]} bereit · ${r.k[1]} teilweise · ${r.k[2]} offen</div></td>
+      <td><b>${r.auf[0]}</b> freigegeben<div class="next">${r.auf[1]?r.auf[1]+' zur Freigabe · ':''}${r.auf[2]} zu prüfen</div></td>
+      <td><span class="ampel"><span class="dot ${c2}"></span>${l}</span><div class="next">${why}</div></td>
+      <td><b>${r.wirkung||r.schulen+' Schulen'}</b><div class="next">${r.wirkSub||'Thema im Fenster '+r.f}</div></td>
+      <td>${lNext(r).map(([w,x])=>`<div class="next"><b>${w}:</b> ${x}</div>`).join('')}</td></tr>`; }).join('');
+}
+function kzeile(n,have){
+  const st = have===2?['green','bereit']:have===1?['amber','teilweise']:['',' offen'];
+  return `<div class="krow"><div class="kn">${n}</div>
+    <div class="pips"><span class="pip ${have>0?'on':''}"></span><span class="pip ${have>1?'on':''}"></span>${have} von 2</div>
+    <div><span class="tag ${st[0]}">${st[1].trim()}</span></div>
+    <div class="next">${have===2?'nichts offen':`<b>Lena:</b> prüft ${2-have} ${2-have===1?'Aufgabe':'Aufgaben'} <button class="btn" data-lena="${n}" style="margin-left:8px">In Lenas Liste</button>`}</div></div>`;
+}
+function openLsa(id){
+  const r=LSA.find(x=>x.id===id);
+  if(!r.komp && !r.felder){ toast('Im Dummy sind „MSA-Vorbereitung“, „Reelle Zahlen und Wurzeln“ und „Quadratische Funktionen“ ausgearbeitet.'); return; }
+  const [c2,l,why]=lAmpel(r);
+  dTitle.textContent=r.t;
+  dSub.innerHTML=`Klasse ${r.kl} · ${r.f} · ${r.wirkung||r.schulen+' Schulen'} · <span class="ampel"><span class="dot ${c2}"></span>${l}</span>${why?' ('+why+')':''}`;
+  if(r.felder){
+    sgrid.innerHTML=r.felder.map(([n,a,b,c])=>`<div class="scard"><span class="tag ${a===a+b+c?'green':a?'amber':''}">${a} von ${a+b+c} bereit</span><h3>${n}</h3>${stack3(a,b,c)}
+      <div class="line" style="margin-top:10px"><span>Kompetenzen</span><span>${a} bereit · ${b} teilweise · ${c} offen</span></div>
+      <div class="line"><span>Nächster Schritt</span><span>Lena prüft rund ${b+2*c} Aufgaben</span></div></div>`).join('');
+  } else {
+    const P=r.komp.filter(k=>k[1]), T=r.komp.filter(k=>!k[1]);
+    sgrid.innerHTML=`<section class="panel" style="grid-column:1/-1;margin:0">
+      <div class="ghead"><b>Pflicht</b> · Einstieg ins Thema und direkte Voraussetzungen · ${P.filter(k=>k[2]===2).length} von ${P.length} bereit. Erst wenn alle bereit sind, ist die LSA zu diesem Thema möglich.</div>
+      ${P.map(k=>kzeile(k[0],k[2])).join('')}
+      <div class="ghead"><b>Tiefe</b> · weitere Voraussetzungen, die die LSA beim Abstieg prüft · ${T.filter(k=>k[2]===2).length} von ${T.length} bereit. Fehlt hier etwas, ist die LSA eingeschränkt möglich.</div>
+      ${T.map(k=>kzeile(k[0],k[2])).join('')}</section>`;
+  }
+  over.classList.add('hidden'); detail.classList.remove('hidden'); window.scrollTo(0,0);
+}
+const LEAD={lsa:'Je Thema: Sind genug Aufgaben geprüft, damit die Lernstandsanalyse dazu laufen kann? Eine Kompetenz ist bereit, wenn zwei verschiedene Aufgaben freigegeben sind.',
+            sess:'Eine Reihe ist ein Thema bis zur nächsten Klassenarbeit. Hier siehst du, welche Reihen einsatzbereit sind, was noch fehlt und welche Themen noch gar keine Reihe haben.'};
+let klasse='alle';
+const sum=o=>Object.values(o).reduce((a,b)=>a+b,0);
+function stack(o){
+  const s=sum(o), w=k=>(o[k]||0)/s*100;
+  return `<div class="stack"><i class="f-frei" style="width:${w('frei')}%"></i><i class="f-zur" style="width:${w('zur')}%"></i><i class="f-rueck" style="width:${w('rueck')}%"></i><i class="f-offen" style="width:${w('offen')}%"></i></div>`;
+}
+function ampel(r){
+  if(r.plan) return ['grey','In Planung'];
+  if(r.bf.frei===sum(r.bf) && r.vid.frei===sum(r.vid)) return ['green','Bereit'];
+  if(r.bf.frei+r.bf.zur>0) return ['amber','In Arbeit'];
+  return ['red','Nicht bereit'];
+}
+function render(){
+  document.querySelectorAll('.tab').forEach(t=>{t.classList.toggle('on',t.dataset.tab===tab);t.setAttribute('aria-selected',t.dataset.tab===tab)});
+  lead.textContent=LEAD[tab];
+  pLsa.classList.toggle('hidden',tab!=='lsa'); pSess1.classList.toggle('hidden',tab!=='sess'); pSess2.classList.toggle('hidden',tab!=='sess');
+  fk.innerHTML=['alle',8,9,10].map(k=>`<button class="chip ${klasse===k?'on':''}" data-k="${k}">${k==='alle'?'Alle':'Klasse '+k}</button>`).join(' ');
+  if(tab==='lsa'){ renderLsa(); return; }
+  const R=REIHEN.filter(r=>klasse==='alle'||r.kl===klasse), M=FEHLT.filter(m=>klasse==='alle'||m.kl===klasse).sort((a,b)=>a.fs-b.fs||b.schulen-a.schulen);
+  const c=s=>R.filter(r=>ampel(r)[1]===s).length;
+  kpis.innerHTML=[[c('Bereit'),'Reihen einsatzbereit'],[c('In Arbeit')+c('Nicht bereit'),'Reihen in Arbeit'],[c('In Planung'),'Reihen in Planung'],[M.length,'Themen ohne Reihe']]
+    .map(([n,l])=>`<div class="kpi"><b>${n}</b><span>${l}</span></div>`).join('');
+  rows.innerHTML=R.map(r=>{
+    const [c2,l]=ampel(r);
+    return `<tr class="${r.plan?'':'click'}" ${r.plan?'':`tabindex="0" data-r="${r.id}"`}>
+      <td><div class="rt">${r.t}</div><div class="rm"><span class="tag blue">Klasse ${r.kl}</span>${r.sonder?'<span class="tag amber">Sonderreihe</span>':''}<span>${r.sess?r.sess+' Sessions':'Umfang offen'}</span><span>${r.fenster}</span></div></td>
+      <td>${r.plan?'<span class="next">noch nicht angelegt</span>':stack(r.bf)+`<div class="nums">${r.bf.frei} frei · ${r.bf.zur} zur Freigabe · ${r.bf.rueck} Rückfrage · ${r.bf.offen} offen</div>`}</td>
+      <td>${r.plan?'<span class="next">noch nicht angelegt</span>':stack(r.vid)+`<div class="nums">${r.vid.frei} von ${sum(r.vid)} freigegeben</div>`}</td>
+      <td><span class="ampel"><span class="dot ${c2}"></span>${l}</span></td>
+      <td><b>${r.wirkung}</b><div class="next">${r.wirkSub}</div></td>
+      <td>${r.next.map(([w,x])=>`<div class="next"><b>${w}:</b> ${x}</div>`).join('')}</td></tr>`;
+  }).join('')||'<tr><td colspan="6" class="next">Für diese Klasse gibt es noch keine Reihe.</td></tr>';
+  missing.innerHTML=M.map(m=>`<tr><td><div class="rt">${m.t}</div></td><td><span class="tag blue">Klasse ${m.kl}</span></td><td>${m.f}</td><td><b>${m.schulen}</b></td><td class="next">${m.vor}</td><td style="text-align:right"><button class="btn" data-new="${m.t}">Reihe anlegen</button></td></tr>`).join('');
+}
+const VID={frei:['green','Video freigegeben'],zur:['amber','Video in Prüfung'],offen:['grey','Video fehlt']};
+function openReihe(id){
+  const r=REIHEN.find(x=>x.id===id);
+  dTitle.textContent=r.t;
+  dSub.textContent=`Klasse ${r.kl} · ${r.sess} Sessions · ${r.fenster} · ${r.wirkung} (${r.wirkSub})`;
+  sgrid.innerHTML=r.sessions.map(s=>{
+    const [all,gepr,rueck]=s.bf, ok=gepr===all&&s.vid==='frei', [vc,vl]=VID[s.vid];
+    const o={frei:0,zur:gepr,rueck:rueck,offen:all-gepr-rueck};
+    return `<div class="scard"><span class="tag ${ok?'green':gepr?'amber':''}">Session ${s.n} · ${ok?'bereit zur Freigabe':gepr?'in Arbeit':'offen'}</span>
+      <h3>${s.t}</h3>${stack(o)}
+      <div class="line" style="margin-top:10px"><span>Bauformen</span><span>${gepr} von ${all} geprüft${rueck?' · '+rueck+' Rückfrage':''}</span></div>
+      <div class="line"><span>Erklärvideo</span><span><span class="dot ${vc}"></span>${vl}</span></div>
+      <div class="line"><span>Nächster Schritt</span><span>${ok?'Admin gibt Session frei':all-gepr?'Lena prüft '+(all-gepr-rueck)+' Bauformen':'Video freigeben'}</span></div></div>`;
+  }).join('');
+  over.classList.add('hidden'); detail.classList.remove('hidden'); window.scrollTo(0,0);
+}
+let tt;
+function toast(m){ toastEl.textContent=m; toastEl.classList.remove('hidden'); clearTimeout(tt); tt=setTimeout(()=>toastEl.classList.add('hidden'),2600); }
+const toastEl=document.getElementById('toast');
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button'), tr=e.target.closest('tr.click');
+  if(b&&b.dataset.tab){ tab=b.dataset.tab; render(); }
+  else if(b&&b.dataset.lena){ toast('Im Dummy ohne Funktion: öffnet später Lenas Liste, gefiltert auf „'+b.dataset.lena+'“.'); }
+  else if(b&&b.dataset.k){ klasse=b.dataset.k==='alle'?'alle':+b.dataset.k; render(); }
+  else if(b&&b.dataset.new){ toast('Im Dummy ohne Funktion: legt später die Reihe „'+b.dataset.new+'“ als Entwurf an.'); }
+  else if(b&&b.id==='back'){ detail.classList.add('hidden'); over.classList.remove('hidden'); }
+  else if(tr){ tr.dataset.l ? openLsa(tr.dataset.l) : openReihe(tr.dataset.r); }
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Enter'&&e.target.matches('tr.click')) (e.target.dataset.l ? openLsa(e.target.dataset.l) : openReihe(e.target.dataset.r)); });
+render();
+</script>
+</body>
+</html>
