@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { PruefZielStandZeile, PruefZielZeile } from '@/types'
-import { zielAnteil, zielBereiche } from './gezielt'
+import { leseZielFilter, pruefansichtPfad, zielAnteil, zielBereiche } from './gezielt'
 
 const zeile = (skill_key: string, sort: number, abschnitt: PruefZielZeile['abschnitt'] = 'gezielt'): PruefZielZeile => ({
   abschnitt, skill_key, skill_label: skill_key, thema_key: null, thema_label: null, fehlende_texte: 1, rest: 1,
@@ -25,5 +25,14 @@ describe('IU-1 Prüfziel in Lenas Liste', () => {
   it('Fortschritt zählt erledigte mit und kappt bei der Regel', () => {
     expect(zielAnteil([stand('a', 'x', 2), stand('b', 'x', 1), stand('c', 'x', 0), stand('d', 'x', 3)])).toBe(63)
     expect(zielAnteil([])).toBe(100)
+  })
+})
+
+describe('IU-1b Lauf mit Prüfziel', () => {
+  it('liest nur bekannte Prüfziele, hängt Ziel und Kompetenz an den Pfad', () => {
+    expect(leseZielFilter(new URLSearchParams('ziel=quatsch&skill=x'))).toEqual({ ziel: null, skill: 'x' })
+    expect(pruefansichtPfad('t1', leseZielFilter(new URLSearchParams('ziel=msa_zp10'))))
+      .toBe('/coach/pruefen/t1?bereich=lsa&liste=gezielt&ziel=msa_zp10')
+    expect(pruefansichtPfad('t1', { ziel: null, skill: null })).toBe('/coach/pruefen/t1?bereich=lsa&liste=gezielt')
   })
 })

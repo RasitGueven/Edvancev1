@@ -107,6 +107,20 @@ describe('Reiter Lernstandsanalyse', () => {
     expect(screen.getByRole('link', { name: 'Lena prüft 11 Aufgaben' })).toHaveAttribute('href', '/coach/pruefen?ziel=msa_zp10')
   })
 
+  it('IU-1b: Zeitfenster vorbei → am Ende unter „Schon geschrieben“, MSA bleibt oben', async () => {
+    m.themen.mockImplementation(() => ok([
+      thema({ thema_key: 'alt', titel: 'Alt', quartal: 1, von: '2020-09-01', bis: '2020-10-01' }),
+      thema({ thema_key: 'neu', titel: 'Neu', quartal: 3, von: '2099-03-02', bis: '2099-03-20' }),
+    ]))
+    zeige()
+    const tabelle = await screen.findByRole('table', { name: 'Themen der Lernstandsanalyse' })
+    const text = tabelle.textContent ?? ''
+    expect(text.indexOf('MSA-Vorbereitung')).toBeLessThan(text.indexOf('Neu'))
+    expect(text.indexOf('Neu')).toBeLessThan(text.indexOf('Schon geschrieben'))
+    expect(text.indexOf('Schon geschrieben')).toBeLessThan(text.indexOf('Alt'))
+    expect(within(tabelle).getByText('Q3 · März')).toBeInTheDocument()
+  })
+
   it('Fehler: Hinweis statt Tabelle', async () => {
     m.themen.mockReturnValue(Promise.resolve({ data: null, error: { code: 'x', message: 'x' } }))
     zeige()

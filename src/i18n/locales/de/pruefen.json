@@ -561,7 +561,9 @@
         "funktionen": "Funktionen",
         "geometrie": "Geometrie",
         "stochastik": "Stochastik"
-      }
+      },
+      "bereichOffen_one": "{{count}} Aufgabe offen",
+      "bereichOffen_other": "{{count}} Aufgaben offen"
     },
     "filter": {
       "gefiltert": "Gefiltert: {{kompetenz}}",

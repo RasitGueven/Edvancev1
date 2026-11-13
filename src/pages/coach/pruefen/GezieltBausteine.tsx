@@ -31,7 +31,8 @@ export function AufgabenListe({ ids, board, onOeffne }: {
   )
 }
 
-export const PRUEFZIELE = ['msa_zp10'] as const
+import { PRUEFZIELE } from '@/lib/pruefung/gezielt'
+export { PRUEFZIELE }
 
 /** „Alle | MSA (ZP10)“ oben in der Liste. */
 export function ZielUmschalter({ ziel, onWahl }: { ziel: string | null; onWahl: (ziel: string | null) => void }): JSX.Element {

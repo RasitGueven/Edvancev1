@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 
 export type Spalte<T> = {
   key: string
@@ -16,6 +16,8 @@ type EdvanceTableProps<T> = {
   onZeile?: (zeile: T) => void
   /** Zusaetzliche Klassen je Zeile, etwa fuer eine Hervorhebung. */
   zeileClass?: (zeile: T) => string
+  /** Dünne Zwischenzeile vor einer Zeile, wenn sich der Abschnitt ändert (null = kein Abschnitt). */
+  abschnitt?: (zeile: T) => string | null
   beschriftung: string
 }
 
@@ -35,6 +37,7 @@ export function EdvanceTable<T>({
   zeileKey,
   onZeile,
   zeileClass,
+  abschnitt,
   beschriftung,
 }: EdvanceTableProps<T>): JSX.Element {
   return (
@@ -57,11 +60,21 @@ export function EdvanceTable<T>({
           </tr>
         </thead>
         <tbody>
-          {zeilen.map((zeile) => {
+          {zeilen.map((zeile, i) => {
             const klick = onZeile !== undefined
+            const titel = abschnitt?.(zeile) ?? null
+            const neu = titel !== null && (i === 0 || abschnitt?.(zeilen[i - 1]) !== titel)
             return (
+              <Fragment key={zeileKey(zeile)}>
+              {neu && (
+                <tr className="border-b border-[var(--color-border)] bg-[var(--color-bg-app)]">
+                  <th scope="rowgroup" colSpan={spalten.length}
+                    className="px-4 py-1 text-left text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+                    {titel}
+                  </th>
+                </tr>
+              )}
               <tr
-                key={zeileKey(zeile)}
                 {...(klick
                   ? {
                       tabIndex: 0,
@@ -92,6 +105,7 @@ export function EdvanceTable<T>({
                   </td>
                 ))}
               </tr>
+              </Fragment>
             )
           })}
         </tbody>

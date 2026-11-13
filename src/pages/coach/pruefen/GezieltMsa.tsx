@@ -1,9 +1,10 @@
 // IU-1 U3: „Gezielt prüfen“ mit Prüfziel (MSA). Gruppiert nach den vier Bereichen; erledigte Kompetenzen stehen
 // eingeklappt mit Haken und zählen im Fortschritt mit, teilweise belegte zeigen „1 von 2“. Der Prüfablauf bleibt
 // derselbe (Klick öffnet die Prüfansicht).
-import type { JSX } from 'react'
+// IU-1b: Bereiche einklappbar, anfangs offen nur der erste mit offenen Aufgaben; der Zustand bleibt in der Sitzung.
+import { useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Check } from 'lucide-react'
+import { Check, ChevronDown } from 'lucide-react'
 import { EdvanceCard, EmptyState } from '@/components/edvance'
 import { Button } from '@/components/ui'
 import { naechsteZiel, zielAnteil, zielBereiche, zielReihe, zielStand } from '@/lib/pruefung/gezielt'
@@ -18,14 +19,42 @@ type Props = {
   onOeffne: (taskId: string) => void
   /** Auf eine Kompetenz gefiltert: die Kopfzeile verspricht dann nicht die ganze MSA-LSA. */
   gefiltert?: boolean
+  /** Schlüssel für den Klappzustand in der Sitzung (z. B. das Prüfziel). */
+  zustand: string
 }
 
-export function GezieltMsa({ liste, stand, board, onOeffne, gefiltert = false }: Props): JSX.Element {
+const SPEICHER = 'gezielt-bereiche-'
+
+function leseOffen(zustand: string): string[] | null {
+  try {
+    const roh = sessionStorage.getItem(SPEICHER + zustand)
+    return roh ? (JSON.parse(roh) as string[]) : null
+  } catch {
+    return null
+  }
+}
+
+function merkeOffen(zustand: string, offen: string[]): void {
+  try {
+    sessionStorage.setItem(SPEICHER + zustand, JSON.stringify(offen))
+  } catch {
+    // ohne Speicher gilt beim nächsten Mal wieder der Anfangszustand
+  }
+}
+
+export function GezieltMsa({ liste, stand, board, onOeffne, gefiltert = false, zustand }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const offen = zielStand(liste).offen
   const anteil = zielAnteil(stand)
   const erste = naechsteZiel(zielReihe(liste), board, null, leseUebersprungen())
   const bereiche = zielBereiche(liste, stand)
+  const [aufgeklappt, setAufgeklappt] = useState<string[]>(() =>
+    leseOffen(zustand) ?? bereiche.filter((g) => g.offen.length > 0).slice(0, 1).map((g) => g.bereich))
+  const schalte = (bereich: string): void => {
+    const neu = aufgeklappt.includes(bereich) ? aufgeklappt.filter((b) => b !== bereich) : [...aufgeklappt, bereich]
+    setAufgeklappt(neu)
+    merkeOffen(zustand, neu)
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -41,11 +70,23 @@ export function GezieltMsa({ liste, stand, board, onOeffne, gefiltert = false }:
         {erste && <Button className="self-start" onClick={() => onOeffne(erste)}>{t('gezielt.start')}</Button>}
       </EdvanceCard>
       {bereiche.length === 0 && <EmptyState icon="🎉" title={t('gezielt.leer')} description={t('gezielt.leerText')} />}
-      {bereiche.map((g) => (
+      {bereiche.map((g) => {
+        const auf = aufgeklappt.includes(g.bereich)
+        const n = g.offen.reduce((summe, o) => summe + o.zeile.rest, 0)
+        return (
         <section key={g.bereich} className="flex flex-col gap-2" data-testid={`bereich-${g.bereich}`}>
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-            {t(`gezielt.ziel.bereich.${g.bereich}`, { defaultValue: g.bereich })}
+          <h2>
+            <button type="button" aria-expanded={auf} aria-controls={`bereich-inhalt-${g.bereich}`} onClick={() => schalte(g.bereich)}
+              className="flex min-h-[44px] w-full items-center justify-between gap-2 text-left text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)]">
+              <span>{t(`gezielt.ziel.bereich.${g.bereich}`, { defaultValue: g.bereich })}</span>
+              <span className="inline-flex items-center gap-2 normal-case tracking-normal">
+                {t('gezielt.ziel.bereichOffen', { count: n })}
+                <ChevronDown aria-hidden className={`h-4 w-4 transition-transform ${auf ? 'rotate-180' : ''}`} />
+              </span>
+            </button>
           </h2>
+          {auf && (
+          <div id={`bereich-inhalt-${g.bereich}`} className="flex flex-col gap-2">
           {g.offen.map(({ zeile, texte }) => (
             <EdvanceCard key={zeile.skill_key} className="flex flex-col gap-2 p-4">
               <p className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold">
@@ -81,8 +122,11 @@ export function GezieltMsa({ liste, stand, board, onOeffne, gefiltert = false }:
               </ul>
             </details>
           )}
+          </div>
+          )}
         </section>
-      ))}
+        )
+      })}
     </div>
   )
 }

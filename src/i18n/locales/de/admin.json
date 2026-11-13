@@ -764,7 +764,8 @@
       "msaWirkungUnter": "alle Real-, Gesamt- und Sekundarschulen",
       "leer": "Für diese Klasse gibt es kein Thema im Plan.",
       "leerText": "Wähle eine andere Klasse oder „Alle“.",
-      "zurAbdeckung": "Zur LSA-Abdeckung"
+      "zurAbdeckung": "Zur LSA-Abdeckung",
+      "schonGeschrieben": "Schon geschrieben"
     },
     "zeitfenster": "Q{{q}} · {{von}} bis {{bis}}",
     "zeitfensterQ": "Q{{q}}",
@@ -912,6 +913,7 @@
       "unbekannt": "Diese Reihe gibt es nicht."
     },
     "ladeFehler": "Die Übersicht konnte nicht geladen werden",
-    "ladeFehlerText": "Bitte lade die Seite neu. Bleibt der Fehler, sag Rasit Bescheid."
+    "ladeFehlerText": "Bitte lade die Seite neu. Bleibt der Fehler, sag Rasit Bescheid.",
+    "zeitfensterEinMonat": "Q{{q}} · {{monat}}"
   }
 }

@@ -295,6 +295,35 @@ describe('PruefansichtPage · gezielte Liste (FR-2 F3)', () => {
     expect(await screen.findByText(/Nach der Freigabe ist Kreis an 2 Schulen bereit\./)).toBeTruthy()
   })
 
+  it('IU-1b: mit Prüfziel bleibt der Lauf in der MSA-Liste (Liste mit ziel geladen, nächste Aufgabe daraus)', async () => {
+    zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt&ziel=msa_zp10&skill=geo_kreis_umfang')
+    await screen.findByText('22,62')
+    await waitFor(() => expect(ziel.liste).toHaveBeenCalledWith(false, null, { ziel: 'msa_zp10', skill: 'geo_kreis_umfang' }))
+    fireEvent.keyDown(window, { key: '3' })
+    await waitFor(() => expect(getPruefAufgabe).toHaveBeenLastCalledWith('t3'))
+  })
+
+  it('IU-1b: ist in der MSA-Liste nichts mehr offen, geht es zurück zur MSA-Liste', async () => {
+    ziel.liste.mockResolvedValue({ data: [{ ...zz, task_ids: ['t1'] }], error: null })
+    zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt&ziel=msa_zp10')
+    await screen.findByText('22,62')
+    await waitFor(() => expect(ziel.liste).toHaveBeenCalled())
+    fireEvent.keyDown(window, { key: '3' })
+    expect(await screen.findByText('Übersicht ?ziel=msa_zp10')).toBeTruthy()
+  })
+
+  it('IU-1b: Pause im gezielten Lauf führt zurück in dieselbe Liste', async () => {
+    zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt&ziel=msa_zp10&skill=geo_kreis_umfang')
+    await screen.findByText('22,62')
+    fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
+    expect(await screen.findByText('Übersicht ?ziel=msa_zp10&skill=geo_kreis_umfang')).toBeTruthy()
+  })
+
+  it('IU-1b: ohne Prüfziel wird die Liste wie bisher geladen', async () => {
+    zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt')
+    await waitFor(() => expect(ziel.liste).toHaveBeenCalledWith(false, null, { ziel: null, skill: null }))
+  })
+
   it('ist nichts mehr offen, geht es zurück zum Reiter „Gezielt prüfen“', async () => {
     ziel.liste.mockResolvedValue({ data: [{ ...zz, task_ids: ['t1'] }], error: null })
     zeige('/coach/pruefen/t1?bereich=lsa&liste=gezielt')

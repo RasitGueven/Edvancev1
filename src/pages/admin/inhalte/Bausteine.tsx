@@ -83,7 +83,8 @@ export function useZeitfenster(): (quartal: number | null, von: string | null, b
   return (quartal, von, bis) => {
     if (!quartal) return ''
     const m = monate(von, bis, i18n.language)
-    return m ? t('inhalte.zeitfenster', { q: quartal, von: m.von, bis: m.bis }) : t('inhalte.zeitfensterQ', { q: quartal })
+    if (!m) return t('inhalte.zeitfensterQ', { q: quartal })
+    return m.einMonat ? t('inhalte.zeitfensterEinMonat', { q: quartal, monat: m.von }) : t('inhalte.zeitfenster', { q: quartal, von: m.von, bis: m.bis })
   }
 }
 

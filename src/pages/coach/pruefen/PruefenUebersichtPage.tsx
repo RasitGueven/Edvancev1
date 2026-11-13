@@ -29,6 +29,7 @@ import { leseUebersprungen } from './uebersprungen'
 import { BEREICHE, bereichsBoard, leseBereich, ohneBereich, type Bereich } from './bereich'
 import { ladeMc, ladeSoll } from './usePruefLauf'
 import { GezieltPruefen } from './GezieltPruefen'
+import { leseZielFilter, pruefansichtPfad } from '@/lib/pruefung/gezielt'
 
 export function PruefenUebersichtPage(): JSX.Element {
   const { t } = useTranslation('pruefen')
@@ -143,7 +144,8 @@ export function PruefenUebersichtPage(): JSX.Element {
                 })]} />
             )}
             {gezielt ? (
-              <GezieltPruefen board={alle ?? []} onOeffne={(id) => navigate(`/coach/pruefen/${id}?bereich=lsa&liste=gezielt`)} />
+              <GezieltPruefen board={alle ?? []}
+                onOeffne={(id) => navigate(pruefansichtPfad(id, leseZielFilter(params)))} />
             ) : board.length === 0 ? (
               <EmptyState icon="📋" title={t(alle?.length ? `bereich.leer.${bereich}` : 'themen.leer')}
                 description={t(alle?.length ? 'bereich.leerText' : 'themen.leerText')} />

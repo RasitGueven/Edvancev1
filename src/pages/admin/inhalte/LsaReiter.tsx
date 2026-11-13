@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceTable, type Spalte } from '@/components/edvance/EdvanceTable'
 import { KennzahlenLeiste } from '@/components/edvance/admin/KennzahlenLeiste'
-import { LSA_FREIGABE, PRUEFZIEL_MSA, lsaKennzahlen, lsaSchritte } from '@/lib/inhalte/uebersicht'
+import { LSA_FREIGABE, PRUEFZIEL_MSA, heuteIso, lsaKennzahlen, lsaReihenfolge, lsaSchritte } from '@/lib/inhalte/uebersicht'
 import { getLsaPruefziel, getLsaThemen } from '@/lib/supabase/inhalte'
 import type { InhaltePruefzielBereich, InhalteThema, ThemaAmpel } from '@/types/inhalte'
 
@@ -47,7 +47,13 @@ export function LsaReiter({ klasse, onThema, onZiel }: Props): JSX.Element {
   if (!themen) return <LoadingPulse type="list" lines={6} />
 
   const k = lsaKennzahlen(themen)
-  const zeilen: Zeile[] = [...(ziel ? [{ art: 'ziel' as const, z: ziel }] : []), ...themen.map((z) => ({ art: 'thema' as const, z }))]
+  // IU-1b: MSA oben, dann laufende und kommende Themen, am Ende „Schon geschrieben“.
+  const folge = lsaReihenfolge(themen, heuteIso())
+  const vorbei = new Set(folge.vorbei.map((x) => x.thema_key))
+  const zeilen: Zeile[] = [
+    ...(ziel ? [{ art: 'ziel' as const, z: ziel }] : []),
+    ...[...folge.laufend, ...folge.vorbei].map((z) => ({ art: 'thema' as const, z })),
+  ]
   const komp = (z: { komp_bereit: number; komp_teil: number; komp_offen: number }): JSX.Element => (
     <div className="flex flex-col gap-1">
       <Stapel label={t('inhalte.lsa.kompetenzenZahl', { bereit: z.komp_bereit, teil: z.komp_teil, offen: z.komp_offen })}
@@ -138,7 +144,8 @@ export function LsaReiter({ klasse, onThema, onZiel }: Props): JSX.Element {
           <>
             <EdvanceTable beschriftung={t('inhalte.lsa.panel')} spalten={spalten} zeilen={zeilen}
               zeileKey={(r) => (r.art === 'ziel' ? `ziel-${PRUEFZIEL_MSA}` : r.z.thema_key)}
-              onZeile={(r) => (r.art === 'ziel' ? onZiel(PRUEFZIEL_MSA) : onThema(r.z.thema_key))} />
+              onZeile={(r) => (r.art === 'ziel' ? onZiel(PRUEFZIEL_MSA) : onThema(r.z.thema_key))}
+              abschnitt={(r) => (r.art === 'thema' && vorbei.has(r.z.thema_key) ? t('inhalte.lsa.schonGeschrieben') : null)} />
             <Legende eintraege={[
               { text: t('inhalte.lsa.legende.bereit'), farbe: 'gut' },
               { text: t('inhalte.lsa.legende.teil'), farbe: 'achtung' },

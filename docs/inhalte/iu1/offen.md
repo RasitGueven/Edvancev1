@@ -46,7 +46,7 @@ Einspielen.** U1 ist fertig vorbereitet (PR, lokal grün, Zweitprüfung), aber n
 - Ohne Klassenfilter zählen die Schulen eines Themas über alle Klassen 8–10, Klasse und Zeitfenster kommen aus der
   Klasse mit den meisten Schulen.
 
-## O6 · Lauf in der Prüfansicht folgt der Gesamtliste (U3)
+## O6 · Lauf in der Prüfansicht folgt der Gesamtliste (U3) — ERLEDIGT mit IU-1b (`docs/inhalte/iu1b/bericht.md`)
 
 „Gezielt prüfen“ mit Prüfziel MSA öffnet die Prüfansicht wie bisher mit `?liste=gezielt`. Nach einer Entscheidung
 springt die Prüfansicht zur nächsten Aufgabe der **Gesamtliste** (`pruef_ziel_liste()` ohne Prüfziel), nicht der

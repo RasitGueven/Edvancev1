@@ -93,14 +93,39 @@ export function reihenSchritte(r: InhalteReihe): Schritt[] {
 }
 
 /** Monatsspanne aus zwei ISO-Daten (Europe/Berlin), z. B. „Nov. bis Jan.“; null ohne Daten. */
-export function monate(von: string | null, bis: string | null, locale: string): { von: string; bis: string } | null {
+export function monate(von: string | null, bis: string | null, locale: string): { von: string; bis: string; einMonat: boolean } | null {
   if (!von || !bis) return null
+  // IU-1b: gleicher Monat am Anfang und Ende → ein Monat, ausgeschrieben („März“ statt „Mär bis Mär“).
+  if (von.slice(0, 7) === bis.slice(0, 7)) {
+    const lang = new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'Europe/Berlin' }).format(new Date(`${von}T12:00:00Z`))
+    return { von: lang, bis: lang, einMonat: true }
+  }
   const f = new Intl.DateTimeFormat(locale, { month: 'short', timeZone: 'Europe/Berlin' })
-  return { von: f.format(new Date(`${von}T12:00:00Z`)), bis: f.format(new Date(`${bis}T12:00:00Z`)) }
+  return { von: f.format(new Date(`${von}T12:00:00Z`)), bis: f.format(new Date(`${bis}T12:00:00Z`)), einMonat: false }
 }
 
 /** Anteile für einen gestapelten Balken (Prozent, Summe 100; leer → alles 0). */
 export function anteile(werte: number[]): number[] {
   const summe = werte.reduce((a, b) => a + b, 0)
   return werte.map((w) => (summe ? (w / summe) * 100 : 0))
+}
+
+/** Heute in Europe/Berlin als ISO-Datum (YYYY-MM-DD). */
+export function heuteIso(jetzt: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit' }).format(jetzt)
+}
+
+/**
+ * IU-1b: Reihenfolge im Reiter Lernstandsanalyse. Erst laufende und kommende Themen (nach Quartal, dann Schulen),
+ * am Ende die, deren Zeitfenster vorbei ist (letztes Datum vor heute), in derselben Ordnung.
+ */
+export function lsaReihenfolge<T extends { quartal: number; schulen: number; bis: string | null }>(
+  themen: T[], heute: string,
+): { laufend: T[]; vorbei: T[] } {
+  const ordnung = (a: T, b: T): number => a.quartal - b.quartal || b.schulen - a.schulen
+  const vorbei = (t: T): boolean => t.bis !== null && t.bis < heute
+  return {
+    laufend: themen.filter((t) => !vorbei(t)).sort(ordnung),
+    vorbei: themen.filter(vorbei).sort(ordnung),
+  }
 }

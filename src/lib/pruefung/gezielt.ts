@@ -94,3 +94,28 @@ export function zielAnteil(stand: PruefZielStandZeile[], regel = 2): number {
   const ist = stand.reduce((n, s) => n + Math.min(s.texte, regel), 0)
   return Math.round((ist / (stand.length * regel)) * 100)
 }
+
+// ── IU-1b: Prüfziel und Kompetenz im Lauf der Prüfansicht ─────────────────────────────────────────────────────────
+export const PRUEFZIELE = ['msa_zp10'] as const
+
+export type ZielFilter = { ziel: string | null; skill: string | null }
+
+/** ?ziel= (nur bekannte Prüfziele) und ?skill= aus der Adresse. */
+export function leseZielFilter(params: URLSearchParams): ZielFilter {
+  const z = params.get('ziel')
+  return { ziel: (PRUEFZIELE as readonly string[]).includes(z ?? '') ? z : null, skill: params.get('skill') || null }
+}
+
+/** Anhang für die Adresse, z. B. „&ziel=msa_zp10&skill=x“; ohne Filter leer (alles wie bisher). */
+export function zielAnhang(f: ZielFilter): string {
+  const s = new URLSearchParams()
+  if (f.ziel) s.set('ziel', f.ziel)
+  if (f.skill) s.set('skill', f.skill)
+  const q = s.toString()
+  return q ? `&${q}` : ''
+}
+
+/** Prüfansicht aus „Gezielt prüfen“, mit Prüfziel und Kompetenz, damit der Lauf in derselben Liste bleibt. */
+export function pruefansichtPfad(taskId: string, f: ZielFilter): string {
+  return `/coach/pruefen/${taskId}?bereich=lsa&liste=gezielt${zielAnhang(f)}`
+}
