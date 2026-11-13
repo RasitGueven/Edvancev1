@@ -407,4 +407,5 @@ export type {
   PruefZielAbschnitt,
   PruefZielZeile,
   LsaWirkungZeile,
+  PruefZielStandZeile,
 } from './lsaAbdeckung'

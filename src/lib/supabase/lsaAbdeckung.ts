@@ -5,6 +5,7 @@ import type {
   LsaPaketSkill,
   LsaWirkungZeile,
   PruefResult,
+  PruefZielStandZeile,
   PruefZielZeile,
 } from '@/types'
 
@@ -37,9 +38,26 @@ export function getLsaPaketSkills(schuleId: string, klasse: number, paketNr: num
   return rufe<LsaPaketSkill[]>('lsa_paket_skills', { p_schule: schuleId, p_klasse: klasse, p_paket_nr: paketNr })
 }
 
-/** Gezielte Prüfliste und Nachprüfen (pruef_ziel_liste). */
-export function getPruefZielListe(nurFokus = false, quartal: number | null = null): Promise<PruefResult<PruefZielZeile[]>> {
-  return rufe<PruefZielZeile[]>('pruef_ziel_liste', { p_nur_fokus: nurFokus, p_quartal: quartal })
+/**
+ * Gezielte Prüfliste und Nachprüfen (pruef_ziel_liste). IU-1: optional Prüfziel (z. B. msa_zp10, auch Kompetenzen
+ * ohne Paket) und Kompetenz; ohne sie ruft die Seite genau wie bisher.
+ */
+export function getPruefZielListe(
+  nurFokus = false,
+  quartal: number | null = null,
+  filter: { ziel?: string | null; skill?: string | null } = {},
+): Promise<PruefResult<PruefZielZeile[]>> {
+  return rufe<PruefZielZeile[]>('pruef_ziel_liste', {
+    p_nur_fokus: nurFokus,
+    p_quartal: quartal,
+    ...(filter.ziel ? { p_pruefziel: filter.ziel } : {}),
+    ...(filter.skill ? { p_skill: filter.skill } : {}),
+  })
+}
+
+/** IU-1: Stand je Kompetenz eines Prüfziels (pruef_ziel_stand), auch erledigte Kompetenzen. */
+export function getPruefZielStand(ziel: string): Promise<PruefResult<PruefZielStandZeile[]>> {
+  return rufe<PruefZielStandZeile[]>('pruef_ziel_stand', { p_pruefziel: ziel })
 }
 
 /** Pakete, deren Ampel sich ändert, wenn skill (und auch) die Regel erfüllen (lsa_wirkung). */

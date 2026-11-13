@@ -26,3 +26,6 @@
 | 11:27 | U1 | #416 nach SF-1-Merge mit origin/dev gemischt; Prod-Abzug (IU-1 + SF-1) = lokaler Neuaufbau; CI grün; gemergt `867c8988` | ok |
 | 11:27 | U2 | Seite `/admin/inhalte` (Reiter, Filter Klasse, Details Thema/MSA/Reihe, Adresse teilbar), Navigation: „Inhalte-Übersicht“ statt „LSA-Abdeckung“ (Seite bleibt erreichbar, aktivBei) | ok |
 | 11:27 | U2 | typecheck, lint, Vitest 3402/3402 (neu: 9 Hilfsfunktionen, 8 Seite); Ansichtstests 10/10 bei 1180×820 und 1440×900 mit Prod-Zahlen (`vorschau/daten.json`, dbread 12:16), Fotos `abnahme/u2-*` | ok |
+| 11:33 | U2 | CI #418 grün, gemergt `3db548b1` | ok |
+| 11:33 | U3 | „Gezielt prüfen“: Umschalter „Alle \| MSA (ZP10)“ (`?ziel=`), Gruppen je Bereich, erledigte eingeklappt mit Haken und im Fortschritt, „1 von 2“, Filter `?skill=` mit „Gefiltert: … · Filter aufheben“; ohne Parameter Aufruf wie bisher | ok |
+| 11:33 | U3 | Vitest neu 3 (Seite) + 2 (Rechnung); Ansichtstests 6/6 bei 1180×820 und 1440×900 mit Prod-Daten als Lena (dbread 12:31), Fotos `abnahme/u3-*`; Befund O6 (Lauf folgt Gesamtliste) | ok |

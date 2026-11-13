@@ -64,6 +64,17 @@ export type PruefZielZeile = {
   pilot_fehlt: string[]
 }
 
+/** IU-1: Stand je Kompetenz eines Prüfziels (pruef_ziel_stand), für Lenas Liste mit Prüfziel. */
+export type PruefZielStandZeile = {
+  skill_key: string
+  skill_label: string
+  bereich: string
+  /** Belegte Texte nach der Regel, 0..2 (2 = erfüllt). */
+  texte: number
+  erfuellt: boolean
+  zu_leicht: number
+}
+
 /** Eine Zeile von lsa_wirkung: ein Paket, dessen Ampel sich ändert. */
 export type LsaWirkungZeile = {
   schule_id: string

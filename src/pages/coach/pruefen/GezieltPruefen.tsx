@@ -1,67 +1,104 @@
 // FR-2 F3: Reiter „Gezielt prüfen“ im Lena-Board. Nur die Aufgaben, die einer Klassenarbeit wirklich einen fehlenden
 // Beleg bringen (pruef_ziel_liste), gruppiert nach Thema, mit Wirkung. Klick öffnet die Prüfansicht mit
 // ?liste=gezielt; dort geht es nach jeder Entscheidung mit der nächsten Aufgabe dieser Liste weiter.
+// IU-1 U3: oben „Alle | MSA (ZP10)“ (?ziel=msa_zp10), Sprung aus der Inhalte-Übersicht mit ?skill= filtert auf eine
+// Kompetenz. Der Prüfablauf bleibt unverändert.
 // Keine Fachbegriffe (Pool, Textschlüssel, Hülle); der Skill-Schlüssel steht nur im Info-Hinweis.
 
-import { useEffect, useMemo, useState, type JSX } from 'react'
+import { useEffect, useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import { Info } from 'lucide-react'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { Button } from '@/components/ui'
 import { naechsteZiel, neueSchulen, zielGruppen, zielReihe, zielStand } from '@/lib/pruefung/gezielt'
-import { getLsaWirkung, getPruefZielListe } from '@/lib/supabase/lsaAbdeckung'
-import type { PruefBoardZeile, PruefZielZeile } from '@/types'
+import { getLsaWirkung, getPruefZielListe, getPruefZielStand } from '@/lib/supabase/lsaAbdeckung'
+import type { PruefBoardZeile, PruefZielStandZeile, PruefZielZeile } from '@/types'
+import { AufgabenListe, FilterHinweis, PRUEFZIELE, ZielUmschalter } from './GezieltBausteine'
+import { GezieltMsa } from './GezieltMsa'
 import { leseUebersprungen } from './uebersprungen'
 
 type Props = { board: PruefBoardZeile[]; onOeffne: (taskId: string) => void }
 
 export function GezieltPruefen({ board, onOeffne }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
+  const [params, setParams] = useSearchParams()
+  const zielRoh = params.get('ziel')
+  const ziel = (PRUEFZIELE as readonly string[]).includes(zielRoh ?? '') ? zielRoh : null
+  const skill = params.get('skill')
   const [liste, setListe] = useState<PruefZielZeile[] | null>(null)
+  const [stand, setStand] = useState<PruefZielStandZeile[] | null>(null)
   const [fehler, setFehler] = useState(false)
   const [schulen, setSchulen] = useState<number | null>(null)
 
   useEffect(() => {
-    void getPruefZielListe().then((r) => {
-      setFehler(r.error !== null)
+    let aktiv = true
+    setListe(null)
+    setStand(null)
+    void Promise.all([
+      getPruefZielListe(false, null, { ziel, skill }),
+      ziel ? getPruefZielStand(ziel) : Promise.resolve(null),
+    ]).then(([r, s]) => {
+      if (!aktiv) return
+      setFehler(r.error !== null || (s !== null && s.error !== null))
       setListe(r.data ?? [])
+      setStand(s?.data ?? null)
+      if (ziel) return
       const offen = (r.data ?? []).filter((z) => z.abschnitt === 'gezielt' && z.rest > 0).map((z) => z.skill_key)
-      if (offen.length) void getLsaWirkung(offen[0], offen.slice(1)).then((w) => setSchulen(w.data ? neueSchulen(w.data) : null))
+      if (offen.length) void getLsaWirkung(offen[0], offen.slice(1)).then((w) => aktiv && setSchulen(w.data ? neueSchulen(w.data) : null))
       else setSchulen(0)
     })
-  }, [])
+    return () => {
+      aktiv = false
+    }
+  }, [ziel, skill])
 
-  const zeile = useMemo(() => new Map(board.map((z) => [z.task_id, z])), [board])
+  const setze = (neu: { ziel?: string | null; skill?: string | null }): void => {
+    const p = new URLSearchParams()
+    const z = 'ziel' in neu ? neu.ziel : ziel
+    const s = 'skill' in neu ? neu.skill : skill
+    if (z) p.set('ziel', z)
+    if (s) p.set('skill', s)
+    setParams(p)
+  }
+
   if (fehler) return <EmptyState icon="🔒" title={t('gezielt.titel')} description={t('gezielt.fehler')} />
-  if (!liste) return <LoadingPulse type="card" />
+  if (!liste || (ziel && !stand)) return <LoadingPulse type="card" />
 
-  const stand = zielStand(liste)
-  const gesamt = stand.offen + stand.geprueft
-  const anteil = gesamt ? Math.round((stand.geprueft / gesamt) * 100) : 100
+  const kompetenz = skill
+    ? (liste.find((z) => z.skill_key === skill)?.skill_label ?? stand?.find((s) => s.skill_key === skill)?.skill_label ?? skill)
+    : null
+  const kopfzeile = (
+    <>
+      <ZielUmschalter ziel={ziel} onWahl={(z) => setze({ ziel: z, skill: null })} />
+      {kompetenz && <FilterHinweis kompetenz={kompetenz} onAufheben={() => setze({ skill: null })} />}
+    </>
+  )
+
+  if (ziel && stand) {
+    const sichtbar = skill ? stand.filter((s) => s.skill_key === skill) : stand
+    return (
+      <div className="flex flex-col gap-6">
+        {kopfzeile}
+        <GezieltMsa liste={liste} stand={sichtbar} board={board} onOeffne={onOeffne} gefiltert={Boolean(skill)} />
+      </div>
+    )
+  }
+
+  const st = zielStand(liste)
+  const gesamt = st.offen + st.geprueft
+  const anteil = gesamt ? Math.round((st.geprueft / gesamt) * 100) : 100
   const erste = naechsteZiel(zielReihe(liste), board, null, leseUebersprungen())
   const gruppen = zielGruppen(liste, 'gezielt', t('gezielt.ohneThema'))
   const nach = zielGruppen(liste, 'nachpruefen', t('gezielt.ohneThema'))
 
-  const aufgabe = (id: string): JSX.Element | null => {
-    const z = zeile.get(id)
-    if (!z) return null
-    return (
-      <li key={id}>
-        <button type="button" onClick={() => onOeffne(id)} data-testid={`ziel-${id}`}
-          className="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-[var(--radius-md)] px-2 text-left text-sm hover:bg-[var(--color-bg-subtle)]">
-          <span>{z.kurztitel}</span>
-          <span className="text-xs text-[var(--color-text-tertiary)]">{t(`status.${z.lena_status}`)}</span>
-        </button>
-      </li>
-    )
-  }
-
   return (
     <div className="flex flex-col gap-6">
+      {kopfzeile}
       <EdvanceCard className="flex flex-col gap-4">
         <p className="text-base font-semibold" data-testid="gezielt-kopf">
-          {stand.offen > 0
-            ? t('gezielt.kopf', { count: stand.offen, schulen: schulen ?? '…' })
+          {st.offen > 0
+            ? t('gezielt.kopf', { count: st.offen, schulen: schulen ?? '…' })
             : t('gezielt.fertig')}
         </p>
         <div className="h-2.5 w-full overflow-hidden rounded-full bg-[var(--color-bg-subtle)]" role="progressbar"
@@ -70,7 +107,9 @@ export function GezieltPruefen({ board, onOeffne }: Props): JSX.Element {
         </div>
         {erste && <Button className="self-start" onClick={() => onOeffne(erste)}>{t('gezielt.start')}</Button>}
       </EdvanceCard>
-      {gruppen.length === 0 && <EmptyState icon="🎉" title={t('gezielt.leer')} description={t('gezielt.leerText')} />}
+      {gruppen.length === 0 && (
+        <EmptyState icon="🎉" title={skill ? t('gezielt.filter.leer') : t('gezielt.leer')} description={t('gezielt.leerText')} />
+      )}
       {gruppen.map((g) => (
         <section key={g.thema} className="flex flex-col gap-2">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
@@ -87,7 +126,7 @@ export function GezieltPruefen({ board, onOeffne }: Props): JSX.Element {
               <p className="text-xs text-[var(--color-text-tertiary)]">
                 {z.rest > 0 ? t('gezielt.noch', { count: z.rest }) : t('gezielt.reicht')}
               </p>
-              <ul className="flex flex-col">{z.task_ids.map(aufgabe)}</ul>
+              <AufgabenListe ids={z.task_ids} board={board} onOeffne={onOeffne} />
             </EdvanceCard>
           ))}
         </section>
@@ -97,7 +136,7 @@ export function GezieltPruefen({ board, onOeffne }: Props): JSX.Element {
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">{t('gezielt.nachpruefen')}</h2>
           <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{t('gezielt.nachpruefenText')}</p>
           <EdvanceCard className="p-4">
-            <ul className="flex flex-col">{nach.flatMap((g) => g.zeilen.flatMap((z) => z.task_ids)).map(aufgabe)}</ul>
+            <AufgabenListe ids={nach.flatMap((g) => g.zeilen.flatMap((z) => z.task_ids))} board={board} onOeffne={onOeffne} />
           </EdvanceCard>
         </section>
       )}
