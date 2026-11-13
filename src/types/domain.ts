@@ -3,6 +3,9 @@
 export type Coach = { id: string; full_name: string | null }
 
 export type SchoolKind = 'Gymnasium' | 'Gesamtschule' | 'Realschule' | 'Hauptschule' | 'Sekundarschule'
+// SF-1: Mathe-Kurs (Gesamt-/Sekundarschule) und Abschlussziel, CHECKs in leads und kind_kurs.
+export type KursMathe = 'E' | 'G'
+export type Abschlussziel = 'EESA' | 'MSA' | 'MSA-Q' | 'GYM'
 
 export type LeadStatus =
   | 'new'
@@ -48,6 +51,9 @@ export type Lead = {
   // Schule aus public.schulen (Migration 20261001114732). school_name bleibt
   // daneben als Freitext; Schulen ausserhalb der Liste haben nur den Namen.
   schule_id: string | null
+  // SF-1 (Migration 20261113082727): Erfassung vor dem Vertrag, beim Abschluss nach kind_kurs übernommen.
+  kurs_mathe?: KursMathe | null
+  abschlussziel?: Abschlussziel | null
   subjects: string[]
   goal: LeadGoal | null
   known_weak_topics: string[]
@@ -105,6 +111,8 @@ export type LeadInput = {
   school_type?: SchoolKind | null
   school_name?: string | null
   schule_id?: string | null
+  kurs_mathe?: KursMathe | null
+  abschlussziel?: Abschlussziel | null
   subjects?: string[]
   goal?: LeadGoal | null
   known_weak_topics?: string[]

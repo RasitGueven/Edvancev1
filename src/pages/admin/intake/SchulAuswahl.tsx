@@ -6,18 +6,25 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { listSchulenAuswahl, type SchuleAuswahl } from '@/lib/supabase/schulen'
 import { sucheSchulen } from '@/lib/themen/suche'
+import type { SchoolKind } from '@/types'
+import { SCHOOL_TYPES } from './intakeConstants'
 
 type SchulAuswahlProps = {
   schulform: string | null
   schuleId: string | null
   schoolName: string
-  onChange: (next: { schule_id: string | null; school_name: string }) => void
+  onChange: (next: {
+    schule_id: string | null
+    school_name: string
+    school_type?: SchoolKind
+  }) => void
 }
 
 /**
- * Schule aus public.schulen, gefiltert auf die Schulform, Suche nach Name und
- * Stadtteil. Die Auswahl setzt schule_id und uebernimmt den Namen in
- * school_name. Nicht in der Liste: Freitext ohne schule_id.
+ * Schule aus public.schulen, gefiltert auf die Schulform, Suche nach Name,
+ * Stadtteil und Ort. Die Auswahl setzt schule_id, uebernimmt den Namen in
+ * school_name und (SF-1) die Schulform der Schule in school_type. Nicht in der
+ * Liste: Freitext ohne schule_id.
  */
 export function SchulAuswahl({
   schulform,
@@ -47,7 +54,19 @@ export function SchulAuswahl({
   const gewaehlt = schuleId !== null
   const treffer = gewaehlt ? [] : sucheSchulen(schulen, schoolName)
   const getippt = schoolName.trim() !== ''
-  const stadtteil = schulen.find((s) => s.id === schuleId)?.stadtteil ?? null
+  const gewaehlteSchule = schulen.find((s) => s.id === schuleId)
+  const lage = (s: SchuleAuswahl): string =>
+    [s.schulform ? t(`intake.optionen.schulform.${s.schulform}`) : null, s.stadtteil ?? s.ort]
+      .filter(Boolean)
+      .join(' · ')
+  const waehlen = (s: SchuleAuswahl): void => {
+    const form = SCHOOL_TYPES.find((f) => f === s.schulform)
+    onChange({
+      schule_id: s.id,
+      school_name: s.name,
+      ...(form ? { school_type: form } : {}),
+    })
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -57,7 +76,9 @@ export function SchulAuswahl({
           <span className="inline-flex items-center gap-2 text-sm text-[var(--color-text-primary)]">
             <School className="h-4 w-4 shrink-0" aria-hidden />
             <span className="font-semibold">{schoolName}</span>
-            {stadtteil && <span className="text-[var(--color-text-secondary)]">· {stadtteil}</span>}
+            {gewaehlteSchule && (
+              <span className="text-[var(--color-text-secondary)]">· {lage(gewaehlteSchule)}</span>
+            )}
           </span>
           <button
             type="button"
@@ -85,13 +106,11 @@ export function SchulAuswahl({
             <button
               key={s.id}
               type="button"
-              onClick={() => onChange({ schule_id: s.id, school_name: s.name })}
+              onClick={() => waehlen(s)}
               className="flex min-h-[44px] items-center justify-between gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2 text-left text-sm text-[var(--color-text-primary)] hover:border-[var(--color-primary)]"
             >
               <span className="font-medium">{s.name}</span>
-              {s.stadtteil && (
-                <span className="text-[var(--color-text-tertiary)]">{s.stadtteil}</span>
-              )}
+              <span className="text-[var(--color-text-tertiary)]">{lage(s)}</span>
             </button>
           ))}
         </div>

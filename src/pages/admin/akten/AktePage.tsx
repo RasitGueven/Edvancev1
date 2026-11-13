@@ -30,6 +30,7 @@ import { EinheitenKachel } from './EinheitenKachel'
 import { NotizenKachel } from './NotizenKachel'
 import { ReportsKachel } from './ReportsKachel'
 import { SessionsKachel } from './SessionsKachel'
+import { KursVerlaufKachel } from './KursVerlaufKachel'
 import { StammdatenKachel } from './StammdatenKachel'
 import { TestkontoAkte } from '../testmodus/TestkontoAkte'
 import { useAktePlanbilanz } from './useAktePlanbilanz'
@@ -169,6 +170,7 @@ export function AktePage(): JSX.Element {
           onGeaendert={laden}
         />
         <StammdatenKachel akte={akte} faecher={daten.faecher} istAdmin={istAdmin} onGespeichert={laden} />
+        <KursVerlaufKachel studentId={akte.student_id} schuleId={akte.schule_id} istAdmin={istAdmin} />
         <ReportsKachel reports={daten.reports} />
         <FortschrittKachel faecher={daten.fortschritt} />
         {/* Reihe 1 · D1: Geräte der Home-App und Zugangscode (nur Admin). */}

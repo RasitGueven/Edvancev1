@@ -1,6 +1,12 @@
 // Vorausgewaehlte Klick-Optionen fuer das Erstgespraech am Empfang. Alles zum
 // Anklicken — keine Textwuesten. Werte fuer die DB, Labels fuer das UI.
-import type { LeadGradeTrend, LeadStrugglingSince, SchoolKind } from '@/types'
+import type {
+  Abschlussziel,
+  KursMathe,
+  LeadGradeTrend,
+  LeadStrugglingSince,
+  SchoolKind,
+} from '@/types'
 
 export const CLASS_LEVELS: number[] = Array.from({ length: 9 }, (_, i) => i + 5) // 5–13
 
@@ -11,6 +17,11 @@ export const SCHOOL_TYPES: SchoolKind[] = [
   'Sekundarschule',
   'Hauptschule',
 ]
+
+// SF-1: Schulformen mit Kursen in Mathe (E/G) und eigenem Abschlussziel.
+export const KURS_SCHULFORMEN: SchoolKind[] = ['Gesamtschule', 'Sekundarschule']
+export const KURSE_MATHE: KursMathe[] = ['E', 'G']
+export const ABSCHLUSSZIELE: Abschlussziel[] = ['EESA', 'MSA', 'MSA-Q', 'GYM']
 
 export const SUBJECTS = ['Mathematik', 'Deutsch', 'Englisch'] as const
 
@@ -28,7 +39,13 @@ export const STRUGGLING_SINCE: LeadStrugglingSince[] = [
 ]
 
 // tried_before ist eine offene text[]-Liste (kein DB-CHECK) — Codes speichern.
-export const TRIED_BEFORE: string[] = ['nachhilfe', 'lernvideos', 'lern_app', 'elternhilfe', 'nichts']
+export const TRIED_BEFORE: string[] = [
+  'nachhilfe',
+  'lernvideos',
+  'lern_app',
+  'elternhilfe',
+  'nichts',
+]
 
 // Eltern-Einschaetzung „Wo vermuten Sie die Schwierigkeiten?" — Gespraechskontext
 // fuer den Coach, fliesst NIE in die LSA-Auswertung (A3-Invariante). Der Wert

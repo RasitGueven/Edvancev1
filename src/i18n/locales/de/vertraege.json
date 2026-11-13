@@ -210,7 +210,8 @@
     "namePlaceholder": "z. B. Gymnasium Kreuzgasse",
     "ortPlaceholder": "z. B. Köln",
     "save": "Schule anlegen",
-    "saveFailed": "Die Schule konnte nicht angelegt werden."
+    "saveFailed": "Die Schule konnte nicht angelegt werden.",
+    "suche": "Schule suchen (Name oder Ort)"
   },
   "code": {
     "title": "Zugangscode",

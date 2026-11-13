@@ -83,6 +83,15 @@ describe('sucheSchulen', () => {
     expect(sucheSchulen(SCHULEN, 'gym')).toHaveLength(3)
     expect(sucheSchulen(SCHULEN, '')).toEqual([])
   })
+
+  it('findet auch nach Ort (SF-1)', () => {
+    const mitOrt = [
+      { name: 'Willy-Brandt-Gesamtschule', stadtteil: null, ort: 'Köln' },
+      { name: 'Willy-Brandt-Gesamtschule', stadtteil: null, ort: 'Kerpen' },
+    ]
+    expect(sucheSchulen(mitOrt, 'willy kerpen').map((s) => s.ort)).toEqual(['Kerpen'])
+    expect(sucheSchulen(mitOrt, 'brandt')).toHaveLength(2)
+  })
 })
 
 describe('falten', () => {

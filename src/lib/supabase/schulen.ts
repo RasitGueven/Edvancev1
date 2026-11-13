@@ -5,13 +5,13 @@
 import { supabase } from '@/lib/supabase/client'
 import type { SupabaseResult } from '@/types'
 
-export type Schule = { id: string; name: string; ort: string | null }
+export type Schule = { id: string; name: string; ort: string | null; schulform: string | null }
 
 export async function listSchulen(): Promise<SupabaseResult<Schule[]>> {
   try {
     const { data, error } = await supabase
       .from('schulen')
-      .select('id, name, ort')
+      .select('id, name, ort, schulform')
       .order('name', { ascending: true })
     if (error) return { data: null, error: error.message }
     return { data: (data ?? []) as Schule[], error: null }
@@ -24,6 +24,7 @@ export async function listSchulen(): Promise<SupabaseResult<Schule[]>> {
 export type SchuleAuswahl = {
   id: string
   name: string
+  ort: string | null
   stadtteil: string | null
   schulform: string | null
 }
@@ -33,7 +34,7 @@ export async function listSchulenAuswahl(
   schulform: string | null,
 ): Promise<SupabaseResult<SchuleAuswahl[]>> {
   try {
-    let query = supabase.from('schulen').select('id, name, stadtteil, schulform')
+    let query = supabase.from('schulen').select('id, name, ort, stadtteil, schulform')
     if (schulform) query = query.eq('schulform', schulform)
     const { data, error } = await query.order('name', { ascending: true })
     if (error) return { data: null, error: error.message }
@@ -55,7 +56,7 @@ export async function schuleAnlegen(
     const { data, error } = await supabase
       .from('schulen')
       .insert({ name: sauber, ort: ortSauber })
-      .select('id, name, ort')
+      .select('id, name, ort, schulform')
       .single()
     if (!error) return { data: data as Schule, error: null }
 
@@ -64,7 +65,7 @@ export async function schuleAnlegen(
     if (error.code === '23505') {
       const { data: vorhanden, error: leseFehler } = await supabase
         .from('schulen')
-        .select('id, name, ort')
+        .select('id, name, ort, schulform')
         .ilike('name', sauber)
         .limit(50)
       if (leseFehler) return { data: null, error: leseFehler.message }
@@ -76,6 +77,22 @@ export async function schuleAnlegen(
     return { data: null, error: error.message }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Schule konnte nicht angelegt werden'
+    return { data: null, error: message }
+  }
+}
+
+/** SF-1: Schulform einer Schule (nur Admin, RLS); null bei unbekannter Schule oder Fehler. */
+export async function schulformVon(schuleId: string): Promise<SupabaseResult<string | null>> {
+  try {
+    const { data, error } = await supabase
+      .from('schulen')
+      .select('schulform')
+      .eq('id', schuleId)
+      .maybeSingle()
+    if (error) return { data: null, error: error.message }
+    return { data: (data?.schulform as string | null) ?? null, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Could not load school type'
     return { data: null, error: message }
   }
 }

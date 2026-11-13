@@ -44,6 +44,8 @@ export type {
 export type {
   Coach,
   SchoolKind,
+  KursMathe,
+  Abschlussziel,
   LeadStatus,
   LeadGoal,
   LeadGradeTrend,

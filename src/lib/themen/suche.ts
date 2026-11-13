@@ -59,10 +59,10 @@ export function sucheThemen(katalog: Thema[], eingabe: string, limit = MAX_VORSC
 }
 
 /**
- * Schulen zur Eingabe: jedes Suchwort ist Praefix eines Worts aus Name oder
- * Stadtteil. Leere Eingabe liefert nichts.
+ * Schulen zur Eingabe: jedes Suchwort ist Praefix eines Worts aus Name,
+ * Stadtteil oder Ort (SF-1). Leere Eingabe liefert nichts.
  */
-export function sucheSchulen<T extends { name: string; stadtteil: string | null }>(
+export function sucheSchulen<T extends { name: string; stadtteil: string | null; ort?: string | null }>(
   schulen: T[],
   eingabe: string,
   limit = MAX_VORSCHLAEGE,
@@ -71,7 +71,7 @@ export function sucheSchulen<T extends { name: string; stadtteil: string | null 
   if (such.length === 0) return []
   return schulen
     .filter((s) => {
-      const text = woerter(`${s.name} ${s.stadtteil ?? ''}`)
+      const text = woerter(`${s.name} ${s.stadtteil ?? ''} ${s.ort ?? ''}`)
       return such.every((w) => text.some((t) => t.startsWith(w)))
     })
     .slice(0, limit)
