@@ -28,6 +28,7 @@ import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { StellschraubenPage } from '@/pages/admin/stellschrauben/StellschraubenPage'
 import { KlassenarbeitenPage } from '@/pages/admin/klassenarbeiten/KlassenarbeitenPage'
 import { LsaAbdeckungPage } from '@/pages/admin/lsaAbdeckung/LsaAbdeckungPage'
+import { InhalteUebersichtPage } from '@/pages/admin/inhalte/InhalteUebersichtPage'
 import { StudioPage } from '@/pages/admin/studio/StudioPage'
 import { LsaReportsPage } from '@/pages/admin/lsaReports/LsaReportsPage'
 import { QsPage } from '@/pages/admin/QsPage'
@@ -377,7 +378,16 @@ export default function App(): JSX.Element {
               </ProtectedRoute>
             }
           />
-          {/* FR-2: LSA-Abdeckung je Schule und Klassenarbeit — nur Admins. */}
+          {/* IU-1: Inhalte-Übersicht (LSA je Thema, Session-Reihen) — nur Admins. */}
+          <Route
+            path="/admin/inhalte"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <InhalteUebersichtPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* FR-2: LSA-Abdeckung je Schule und Klassenarbeit — nur Admins (ohne eigenen Menüpunkt seit IU-1). */}
           <Route
             path="/admin/lsa-abdeckung"
             element={

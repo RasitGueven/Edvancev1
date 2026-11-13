@@ -358,11 +358,13 @@
       "studio": "Studio",
       "stellschrauben": "Werte",
       "klassenarbeiten": "Arbeiten",
-      "lsaAbdeckung": "Abdeckung"
+      "lsaAbdeckung": "Abdeckung",
+      "inhalteUebersicht": "Übersicht"
     },
     "stellschrauben": "Stellschrauben",
     "klassenarbeiten": "Klassenarbeiten",
-    "lsaAbdeckung": "LSA-Abdeckung"
+    "lsaAbdeckung": "LSA-Abdeckung",
+    "inhalteUebersicht": "Inhalte-Übersicht"
   },
   "coaches": {
     "rubrik": "Team",
@@ -693,5 +695,223 @@
   },
   "testdaten": {
     "anzeigen": "Testdaten anzeigen ({{count}})"
+  },
+  "inhalte": {
+    "titel": "Inhalte-Übersicht",
+    "satz": {
+      "lsa": "Je Thema: Sind genug Aufgaben geprüft, damit die Lernstandsanalyse dazu laufen kann? Eine Kompetenz ist bereit, wenn zwei verschiedene Aufgaben freigegeben sind.",
+      "reihen": "Eine Reihe ist ein Thema bis zur nächsten Klassenarbeit. Hier siehst du, welche Reihen einsatzbereit sind, was noch fehlt und welche Themen noch gar keine Reihe haben."
+    },
+    "reiter": {
+      "label": "Bereich",
+      "lsa": "Lernstandsanalyse",
+      "reihen": "Session-Reihen"
+    },
+    "filter": {
+      "klasse": "Klasse",
+      "alle": "Alle",
+      "klasseN": "Klasse {{klasse}}"
+    },
+    "kennzahlen": "Kennzahlen",
+    "kpi": {
+      "vollstaendig": "Themen mit vollständiger LSA",
+      "eingeschraenkt": "Themen mit eingeschränkter LSA",
+      "nochNicht": "Themen noch nicht möglich",
+      "zuPruefen": "Aufgaben, die Lena noch prüft",
+      "bereit": "Reihen einsatzbereit",
+      "inArbeit": "Reihen in Arbeit",
+      "inPlanung": "Reihen in Planung",
+      "ohneReihe": "Themen ohne Reihe"
+    },
+    "lsa": {
+      "panel": "Themen der Lernstandsanalyse",
+      "panelSatz": "Sortiert nach dem, was im Schuljahr als Nächstes dran ist. Klick auf ein Thema zeigt die Kompetenzen.",
+      "spalte": {
+        "thema": "Thema",
+        "kompetenzen": "Kompetenzen",
+        "aufgaben": "Aufgaben",
+        "moeglich": "LSA möglich",
+        "wirkung": "Wirkung",
+        "schritt": "Nächster Schritt"
+      },
+      "kompetenzenZahl": "{{bereit}} bereit · {{teil}} teilweise · {{offen}} offen",
+      "freigegeben": "freigegeben",
+      "aufgabenUnter": "{{zur}} zur Freigabe · {{zu}} zu prüfen",
+      "legende": {
+        "bereit": "bereit (2 von 2 Texten freigegeben)",
+        "teil": "teilweise (1 von 2)",
+        "offen": "offen"
+      },
+      "ampel": {
+        "vollstaendig": "Vollständig",
+        "eingeschraenkt": "Eingeschränkt",
+        "noch_nicht": "Noch nicht"
+      },
+      "warum": {
+        "eingeschraenkt": "Einstieg steht, Tiefe fehlt noch",
+        "pflichtFehlt_one": "{{count}} Pflicht-Kompetenz fehlt",
+        "pflichtFehlt_other": "{{count}} Pflicht-Kompetenzen fehlen",
+        "kompFehlt_one": "{{count}} Kompetenz fehlt",
+        "kompFehlt_other": "{{count}} Kompetenzen fehlen",
+        "ohneEinstieg": "Kein Einstieg festgelegt"
+      },
+      "schulen_one": "{{count}} Schule",
+      "schulen_other": "{{count}} Schulen",
+      "schulenUnter": "{{best}} bestätigt, {{gesch}} geschätzt",
+      "zielTag": "Prüfziel",
+      "msaFenster": "Januar bis Mai",
+      "msaWirkung": "landesweit",
+      "msaWirkungUnter": "alle Real-, Gesamt- und Sekundarschulen",
+      "leer": "Für diese Klasse gibt es kein Thema im Plan.",
+      "leerText": "Wähle eine andere Klasse oder „Alle“.",
+      "zurAbdeckung": "Zur LSA-Abdeckung"
+    },
+    "zeitfenster": "Q{{q}} · {{von}} bis {{bis}}",
+    "zeitfensterQ": "Q{{q}}",
+    "klasseTag": "Klasse {{klasse}}",
+    "schritt": {
+      "lena": "Lena",
+      "admin": "Admin",
+      "neu": "Neue Aufgaben",
+      "studio": "Studio",
+      "keiner": "–",
+      "lenaPrueft_one": "prüft noch {{count}} Aufgabe",
+      "lenaPrueft_other": "prüft noch {{count}} Aufgaben",
+      "adminGibtFrei_one": "gibt {{count}} Aufgabe frei",
+      "adminGibtFrei_other": "gibt {{count}} Aufgaben frei",
+      "aufgabenFehlen_one": "{{count}} Aufgabe fehlt noch",
+      "aufgabenFehlen_other": "{{count}} Aufgaben fehlen noch",
+      "lenaPrueftBauformen_one": "prüft noch {{count}} Bauform",
+      "lenaPrueftBauformen_other": "prüft noch {{count}} Bauformen",
+      "adminGibtBauformenFrei_one": "gibt {{count}} Bauform frei",
+      "adminGibtBauformenFrei_other": "gibt {{count}} Bauformen frei",
+      "videosFehlen_one": "{{count}} Video fehlt noch",
+      "videosFehlen_other": "{{count}} Videos fehlen noch",
+      "nichtsOffen": "nichts offen"
+    },
+    "thema": {
+      "zurueck": "Zur Übersicht",
+      "unter": "{{klasse}} · {{fenster}} · {{schulen}}",
+      "pflicht": "Pflicht",
+      "pflichtSatz": "Einstieg ins Thema und direkte Voraussetzungen · {{bereit}} von {{gesamt}} bereit. Erst wenn alle bereit sind, ist die LSA zu diesem Thema möglich.",
+      "tiefe": "Tiefe",
+      "tiefeSatz": "weitere Voraussetzungen, die die LSA beim Abstieg prüft · {{bereit}} von {{gesamt}} bereit. Fehlt hier etwas, ist die LSA eingeschränkt möglich.",
+      "nVon": "{{n}} von {{m}}",
+      "status": {
+        "bereit": "bereit",
+        "teilweise": "teilweise",
+        "offen": "offen"
+      },
+      "lenaPrueft_one": "prüft {{count}} Aufgabe",
+      "lenaPrueft_other": "prüft {{count}} Aufgaben",
+      "fehlen_one": "{{count}} Aufgabe fehlt, Lena hat dafür nichts zu prüfen",
+      "fehlen_other": "{{count}} Aufgaben fehlen, Lena hat dafür nichts zu prüfen",
+      "inLenasListe": "In Lenas Liste",
+      "inLenasListeLabel": "{{kompetenz}} in Lenas Liste öffnen",
+      "unbekannt": "Dieses Thema steht in keinem Plan der Klassen 8–10.",
+      "leer": "Für dieses Thema ist kein Einstieg festgelegt, daher gibt es noch keine Kompetenzen."
+    },
+    "ziel": {
+      "bereitVon": "{{bereit}} von {{gesamt}} bereit",
+      "kompetenzen": "Kompetenzen",
+      "zuLeicht": "Davon als zu leicht markiert",
+      "zuLeichtWert_one": "{{count}} Aufgabe",
+      "zuLeichtWert_other": "{{count}} Aufgaben",
+      "naechster": "Nächster Schritt",
+      "rundN_one": "Lena prüft {{count}} Aufgabe",
+      "rundN_other": "Lena prüft {{count}} Aufgaben",
+      "nichts": "nichts offen",
+      "bereich": {
+        "arithmetik_algebra": "Arithmetik und Algebra",
+        "funktionen": "Funktionen",
+        "geometrie": "Geometrie",
+        "stochastik": "Stochastik"
+      }
+    },
+    "reihen": {
+      "panel": "Vorhandene Reihen",
+      "panelSatz": "Klick auf eine Reihe zeigt den Stand je Session.",
+      "spalte": {
+        "reihe": "Reihe",
+        "bauformen": "Aufgaben (Bauformen)",
+        "videos": "Erklärvideos",
+        "bereit": "Einsatzbereit",
+        "wirkung": "Wirkung",
+        "schritt": "Nächster Schritt"
+      },
+      "sessions_one": "{{count}} Session",
+      "sessions_other": "{{count}} Sessions",
+      "bfZahl": "{{frei}} frei · {{zur}} zur Freigabe · {{rueck}} Rückfrage · {{offen}} offen",
+      "vidZahl": "{{frei}} von {{gesamt}} freigegeben",
+      "ampel": {
+        "bereit": "Bereit",
+        "in_arbeit": "In Arbeit",
+        "nicht_bereit": "Nicht bereit"
+      },
+      "legende": {
+        "frei": "freigegeben",
+        "zur": "zur Freigabe",
+        "rueck": "Rückfrage",
+        "offen": "offen"
+      },
+      "leer": "Für diese Klasse gibt es noch keine Reihe.",
+      "leerText": "Unten stehen die Themen, für die als Nächstes eine Reihe gebaut werden sollte."
+    },
+    "ohne": {
+      "panel": "Themen ohne Reihe",
+      "panelSatz": "Sortiert nach Zeitfenster, dann nach Zahl der Schulen. Oben steht, was als Nächstes gebaut werden sollte.",
+      "spalte": {
+        "thema": "Thema",
+        "klasse": "Klasse",
+        "fenster": "Zeitfenster",
+        "schulen": "Schulen",
+        "vorarbeit": "Vorarbeit",
+        "aktion": "Aktion"
+      },
+      "vorarbeit": {
+        "bauformen_one": "{{count}} Bauform passt",
+        "bauformen_other": "{{count}} Bauformen passen",
+        "lsa": "LSA-Aufgaben vorhanden, keine Bauformen",
+        "keine": "keine"
+      },
+      "anlegen": "Reihe anlegen",
+      "spaeter": "kommt später",
+      "leer": "Jedes Thema dieser Klasse hat eine Reihe."
+    },
+    "session": {
+      "zurueck": "Zur Übersicht",
+      "unter": "{{klasse}} · {{sessions}} · {{fenster}} · {{schulen}}",
+      "tag": "Session {{nr}} · {{stand}}",
+      "ohneNr": "Ohne Session",
+      "stand": {
+        "bereit": "bereit zur Freigabe",
+        "arbeit": "in Arbeit",
+        "offen": "offen"
+      },
+      "bauformen": "Bauformen",
+      "bauformenWert": "{{g}} von {{n}} geprüft",
+      "rueckfrage_one": " · {{count}} Rückfrage",
+      "rueckfrage_other": " · {{count}} Rückfragen",
+      "video": "Erklärvideo",
+      "videoStatus": {
+        "freigegeben": "Video freigegeben",
+        "in_pruefung": "Video in Prüfung",
+        "fehlt": "Video fehlt",
+        "keins": "kein Video nötig"
+      },
+      "naechster": "Nächster Schritt",
+      "schritt": {
+        "lena_prueft_one": "Lena prüft {{count}} Bauform",
+        "lena_prueft_other": "Lena prüft {{count}} Bauformen",
+        "rueckfrage": "Rückfrage klären",
+        "entwurf": "Bauformen noch im Entwurf",
+        "admin_gibt_frei": "Admin gibt Session frei",
+        "video": "Video freigeben",
+        "fertig": "nichts offen"
+      },
+      "unbekannt": "Diese Reihe gibt es nicht."
+    },
+    "ladeFehler": "Die Übersicht konnte nicht geladen werden",
+    "ladeFehlerText": "Bitte lade die Seite neu. Bleibt der Fehler, sag Rasit Bescheid."
   }
 }
