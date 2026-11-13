@@ -1,7 +1,7 @@
 import type { Coach } from './domain'
 import type { TierPlan } from './domain'
 
-export type SchoolType = 'Gymnasium' | 'Gesamtschule' | 'Realschule' | 'Hauptschule' | ''
+export type SchoolType = 'Gymnasium' | 'Gesamtschule' | 'Realschule' | 'Hauptschule' | 'Sekundarschule' | ''
 
 export type OnboardingFormData = {
   firstName: string

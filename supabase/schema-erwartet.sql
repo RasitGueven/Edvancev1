@@ -6822,6 +6822,95 @@ $$;
 
 
 --
+-- Name: kind_kurs_aktuell(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_kurs_aktuell(p_student_id uuid, p_fach text) RETURNS TABLE(kurs text, abschlussziel text, ab_datum date, quelle text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_rolle text := public.get_my_role();
+begin
+  if not (coalesce(v_rolle, '') = 'admin'
+          or (coalesce(v_rolle, '') = 'coach' and public.akte_aktiv(p_student_id))) then
+    raise exception 'kind_kurs_aktuell: kein Leserecht' using errcode = '42501';
+  end if;
+  return query
+  select k.kurs, k.abschlussziel, k.ab_datum, 'kind'::text
+    from public.kind_kurs k
+   where k.student_id = p_student_id and k.fach = lower(p_fach)
+     and k.ab_datum <= (now() at time zone 'Europe/Berlin')::date
+   order by k.ab_datum desc, k.erfasst_am desc, k.id
+   limit 1;
+  if not found and lower(p_fach) = 'mathematik' then
+    return query
+    select l.kurs_mathe, l.abschlussziel, null::date, 'lead'::text
+      from public.students s
+      join public.leads l on l.id = s.lead_id
+     where s.id = p_student_id
+       and (l.kurs_mathe is not null or l.abschlussziel is not null);
+  end if;
+end;
+$$;
+
+
+--
+-- Name: kind_kurs_nur_anhaengen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_kurs_nur_anhaengen() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1 then
+    return old;
+  end if;
+  raise exception 'kind_kurs: nur anhängen (%)', tg_op using errcode = '42501';
+end;
+$$;
+
+
+--
+-- Name: kind_kurs_stempel(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_kurs_stempel() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  new.erfasst_am := clock_timestamp();
+  return new;
+end;
+$$;
+
+
+--
+-- Name: kind_kurs_von_lead(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.kind_kurs_von_lead() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if new.converted_student_id is not null
+     and new.converted_student_id is distinct from old.converted_student_id
+     and (new.kurs_mathe is not null or new.abschlussziel is not null)
+     and not exists (select 1 from public.kind_kurs k
+                      where k.student_id = new.converted_student_id and k.fach = 'mathematik') then
+    insert into public.kind_kurs (student_id, fach, kurs, abschlussziel, erfasst_von)
+    values (new.converted_student_id, 'mathematik', new.kurs_mathe, new.abschlussziel, auth.uid());
+  end if;
+  return null;
+end;
+$$;
+
+
+--
 -- Name: kinder_buchbar(date, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -28112,6 +28201,26 @@ CREATE TABLE public.kind_geraete (
 
 
 --
+-- Name: kind_kurs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kind_kurs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    fach text NOT NULL,
+    kurs text,
+    abschlussziel text,
+    ab_datum date DEFAULT ((now() AT TIME ZONE 'Europe/Berlin'::text))::date NOT NULL,
+    erfasst_von uuid DEFAULT auth.uid(),
+    erfasst_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT kind_kurs_abschlussziel_check CHECK (((abschlussziel IS NULL) OR (abschlussziel = ANY (ARRAY['EESA'::text, 'MSA'::text, 'MSA-Q'::text, 'GYM'::text])))),
+    CONSTRAINT kind_kurs_fach_check CHECK ((fach = ANY (ARRAY['mathematik'::text, 'deutsch'::text, 'englisch'::text]))),
+    CONSTRAINT kind_kurs_kurs_check CHECK (((kurs IS NULL) OR (kurs = ANY (ARRAY['E'::text, 'G'::text])))),
+    CONSTRAINT kind_kurs_nicht_leer CHECK (((kurs IS NOT NULL) OR (abschlussziel IS NOT NULL)))
+);
+
+
+--
 -- Name: lead_assessments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -28243,16 +28352,20 @@ CREATE TABLE public.leads (
     klassenarbeit_status text,
     letzte_klassenarbeit_note smallint,
     ka_anzahl_schuljahr smallint,
+    kurs_mathe text,
+    abschlussziel text,
+    CONSTRAINT leads_abschlussziel_check CHECK (((abschlussziel IS NULL) OR (abschlussziel = ANY (ARRAY['EESA'::text, 'MSA'::text, 'MSA-Q'::text, 'GYM'::text])))),
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
     CONSTRAINT leads_ka_anzahl_schuljahr_check CHECK (((ka_anzahl_schuljahr >= 1) AND (ka_anzahl_schuljahr <= 8))),
     CONSTRAINT leads_klassenarbeit_status_check CHECK ((klassenarbeit_status = ANY (ARRAY['bevorstehend'::text, 'geschrieben'::text]))),
+    CONSTRAINT leads_kurs_mathe_check CHECK (((kurs_mathe IS NULL) OR (kurs_mathe = ANY (ARRAY['E'::text, 'G'::text])))),
     CONSTRAINT leads_letzte_klassenarbeit_note_check CHECK (((letzte_klassenarbeit_note >= 1) AND (letzte_klassenarbeit_note <= 6))),
     CONSTRAINT leads_rejection_note_check CHECK (((rejection_reason IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(rejection_note), ''::text) IS NOT NULL))),
     CONSTRAINT leads_rejection_reason_check CHECK (((rejection_reason IS NULL) OR (rejection_reason = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
-    CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
+    CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text, 'Sekundarschule'::text]))),
     CONSTRAINT leads_status_check CHECK ((status = ANY (ARRAY['new'::text, 'contacted'::text, 'onboarding_scheduled'::text, 'converted'::text, 'rejected'::text, 'lsa_freigegeben'::text, 'lsa_fertig'::text, 'vertrag'::text]))),
     CONSTRAINT leads_struggling_since_check CHECK (((struggling_since IS NULL) OR (struggling_since = ANY (ARRAY['dieses_halbjahr'::text, 'letztes_schuljahr'::text, 'laenger'::text]))))
 );
@@ -28908,8 +29021,10 @@ CREATE TABLE public.schulen (
     stadtteil text,
     traeger text,
     website text,
+    schulnummer text,
     CONSTRAINT schulen_name_nicht_leer CHECK ((NULLIF(btrim(name), ''::text) IS NOT NULL)),
-    CONSTRAINT schulen_schulform_check CHECK (((schulform IS NULL) OR (schulform = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text])))),
+    CONSTRAINT schulen_schulform_check CHECK (((schulform IS NULL) OR (schulform = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text, 'Sekundarschule'::text])))),
+    CONSTRAINT schulen_schulnummer_check CHECK (((schulnummer IS NULL) OR (schulnummer ~ '^[0-9]{6}$'::text))),
     CONSTRAINT schulen_traeger_check CHECK (((traeger IS NULL) OR (traeger = ANY (ARRAY['öffentlich'::text, 'privat'::text]))))
 );
 
@@ -29590,7 +29705,7 @@ CREATE TABLE public.students (
     ist_test boolean DEFAULT false NOT NULL,
     CONSTRAINT students_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT students_provisional_lead_ck CHECK ((is_provisional = (lead_id IS NOT NULL))),
-    CONSTRAINT students_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text])))
+    CONSTRAINT students_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text, 'Sekundarschule'::text])))
 );
 
 
@@ -30836,6 +30951,14 @@ ALTER TABLE ONLY public.interventions
 
 ALTER TABLE ONLY public.kind_geraete
     ADD CONSTRAINT kind_geraete_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kind_kurs kind_kurs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_kurs
+    ADD CONSTRAINT kind_kurs_pkey PRIMARY KEY (id);
 
 
 --
@@ -32365,6 +32488,13 @@ CREATE UNIQUE INDEX kind_geraete_session_uniq ON public.kind_geraete USING btree
 
 
 --
+-- Name: kind_kurs_student_fach_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX kind_kurs_student_fach_idx ON public.kind_kurs USING btree (student_id, fach, ab_datum DESC, erfasst_am DESC);
+
+
+--
 -- Name: kind_termine_ein_aktiver_je_tag; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -32649,6 +32779,13 @@ CREATE INDEX schul_themenplan_thema_idx ON public.schul_themenplan USING btree (
 --
 
 CREATE UNIQUE INDEX schulen_name_ort_uniq ON public.schulen USING btree (lower(name), COALESCE(ort, ''::text));
+
+
+--
+-- Name: schulen_schulnummer_uniq; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX schulen_schulnummer_uniq ON public.schulen USING btree (schulnummer);
 
 
 --
@@ -33524,6 +33661,27 @@ CREATE TRIGGER inhalte_cache_task_solutions AFTER INSERT OR DELETE OR UPDATE OR 
 --
 
 CREATE TRIGGER inhalte_cache_tasks AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.tasks FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: kind_kurs kind_kurs_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER kind_kurs_nur_anhaengen BEFORE DELETE OR UPDATE ON public.kind_kurs FOR EACH ROW EXECUTE FUNCTION public.kind_kurs_nur_anhaengen();
+
+
+--
+-- Name: kind_kurs kind_kurs_stempel; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER kind_kurs_stempel BEFORE INSERT ON public.kind_kurs FOR EACH ROW EXECUTE FUNCTION public.kind_kurs_stempel();
+
+
+--
+-- Name: leads kind_kurs_von_lead; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER kind_kurs_von_lead AFTER UPDATE OF converted_student_id ON public.leads FOR EACH ROW EXECUTE FUNCTION public.kind_kurs_von_lead();
 
 
 --
@@ -34415,6 +34573,14 @@ ALTER TABLE ONLY public.kind_geraete
 
 ALTER TABLE ONLY public.kind_geraete
     ADD CONSTRAINT kind_geraete_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE SET NULL;
+
+
+--
+-- Name: kind_kurs kind_kurs_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kind_kurs
+    ADD CONSTRAINT kind_kurs_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -37219,6 +37385,33 @@ ALTER TABLE public.kind_geraete ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY kind_geraete_admin_lesen ON public.kind_geraete FOR SELECT TO authenticated USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: kind_kurs; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.kind_kurs ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: kind_kurs kind_kurs_admin_insert; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY kind_kurs_admin_insert ON public.kind_kurs FOR INSERT TO authenticated WITH CHECK (((public.get_my_role() = 'admin'::text) AND (erfasst_von = auth.uid())));
+
+
+--
+-- Name: kind_kurs kind_kurs_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY kind_kurs_admin_select ON public.kind_kurs FOR SELECT TO authenticated USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: kind_kurs kind_kurs_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY kind_kurs_coach_select ON public.kind_kurs FOR SELECT TO authenticated USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --

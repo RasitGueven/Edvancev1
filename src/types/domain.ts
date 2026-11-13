@@ -2,7 +2,7 @@
 
 export type Coach = { id: string; full_name: string | null }
 
-export type SchoolKind = 'Gymnasium' | 'Gesamtschule' | 'Realschule' | 'Hauptschule'
+export type SchoolKind = 'Gymnasium' | 'Gesamtschule' | 'Realschule' | 'Hauptschule' | 'Sekundarschule'
 
 export type LeadStatus =
   | 'new'
