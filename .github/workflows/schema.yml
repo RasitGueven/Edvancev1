@@ -79,9 +79,12 @@ jobs:
             echo "Erzeugen mit: bash tools/schema-snapshot.sh"
             exit 0
           fi
+          # pg_attver: Seit Runner-Image ubuntu-26.04 20261101 bzw. postgres:16.16 schreibt pg_dump je Spalte
+          # „ALTER TABLE … ALTER COLUMN … SET (pg_attver=<zahl>)“. Die Zahl hängt an der Umgebung, nicht am Schema
+          # (IU-1 offen.md O4, 13.11.2026) — auf beiden Seiten ignorieren.
           pg_dump --schema-only --no-owner --no-acl --no-comments --schema public \
-            | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/ist.txt
-          grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' supabase/schema-erwartet.sql \
+            | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict |pg_attver' | sort > /tmp/ist.txt
+          grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict |pg_attver' supabase/schema-erwartet.sql \
             | sort > /tmp/soll.txt
           if diff -q /tmp/soll.txt /tmp/ist.txt >/dev/null; then
             echo "Schema entspricht supabase/schema-erwartet.sql"
